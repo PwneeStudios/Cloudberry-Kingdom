@@ -1,0 +1,697 @@
+CURRENT IDEA:
+
+STRONGLY consider having Hero Rush and other minigames as part of the campaign world map 
+
+
+Notes on Actual Campaign:
+Select hero at beginning (unlock more) (should be big screen, hero picture should be large)
+	Show array of games beaten (difficulty x hero type)
+Lava, chased by fireballguy, place, boss (go in a castle in lava)
+Terrace, Make, world map blobguy as a ball, world map battle, sky, boss (go in a castle on island or cloud)
+	(blocks appear sequentially arround border, you come in, blob comes through another open door !!! door, exits that door, you go through it after)
+	(when you hurt blobguy all the blobs flash and they get pushed outward)
+	(make him move more, lean over onto an arm, subzero dash left and right but first hover a lil the other way)
+	(important blobs pop in at key locations, or fly in, or fly out from inside the blobguy)
+Dungeon, continuous, spikeyguy guy
+World map: fall to bottom, zoom to top, evil laughing cosmo, zoom to bottom, neon lava, race to top
+Chase: zoomed out, cosmo on right, fixed camera speed to right, pieces pop in near middle, jump in seed
+--> HardCore level (piece explosion on death), seed at right end, one screen, different tile set (either pure gray, or starts, pieces spinning by in the background, angels too)
+	no music?
+--> hurts cosmos (animation), then repeat 2x more, camera speed increasing each time (increase bob speed too?)
+	hurt anim = show him holding seed, 
+
+
+
+
+
+
+Must have: Tetris, Progressive/Persistant, Discrete
+
+	Tetris = Hero Rush, maybe:
+		60 seconds per level
+		Jetpack, coins give fuel. Up level, or one screen level with blobs flying onto screen
+
+	Progressive/Persistant = Mastery
+		One big screen with a grid of doors (maybe 9? zoom out a bit)
+		Show hero icon next to door (could have other worlds besides heros)
+		Hero world should be slightly shorter, smoother difficulty ramp, cut off before masochistic, have boss
+
+	Discrete:
+		Focus on medium difficulty (ramp up to just below hardcore)
+		Include all gametypes, tilesets, special fills, plus mini boss and boss
+		KISS. Keep Demo#1 in mind.
+		Worlmap: use inside castle look, with tiled ground. (Non-parralax background). Vertical/Horizontal/BigBox.
+		Use angels, because I can animate them.
+		Fuck happy music. Just keep music going?
+
+
+
+Design inside castle worldmaps. Should be color coded. Keep it simple and clean.
+	Doesn't HAVE to be inside. could be exterior of castle, with one long tower. But KEEP IT CLEAN.
+	Use BIG level plaques. Reuse icons, for hero levels, groups of obstacles, dopple
+Hand pick level seeds.
+Bosses. Potentially minibosses.
+Opening cinematic.
+
+
+
+Cosmos, opening scene:
+	Pan up, with angles flying up with camera. [Gray seedworld background]
+	Cosmos at top holding random seed, angles flying up to him, and the seed shooting out bolts and fucking up the angles.
+	Pan down, all the way to the ground, where you are standing.
+	Angel dialogue (in game, or superimposed?)
+	"Stickman! Cosmos has taken control of the Random Seed!"
+	"With it he can remake the multiverse as he sees fit! We have to stop him!"
+	Angel gets pwned by bolt.
+	Game starts, vertical level to get to Cosmos, dodging bolts.
+	When you reach top the music dies?
+	Cosmos gets suckd into the seed, blocks and angels are getting sucked in, you get sucked in, THEN the music dies.
+	Seed explodes, fade to black behind explosion.
+
+	[Void background. Black backgournd, inverted white-ish dungeon pillars.]
+	Pop-pop small piece explosion, bob pops in and starts falling FAST past clouds, camera starts panning immediately to follow
+	Text bubbles pop in random places as Cosmos talks to you
+	"Welcome to my universe, hero. I have remade it in my image. I hope it is to your liking."
+	"There is no escape. Even in death."
+	"You shall be my entertainment... until I tire of you."
+	Slam into ground.
+	Cosmos flies onto screen,
+	"I have travelled the multiverse in search of the greatest beasts."
+	Hard swap to each beast as Cosmos says it (with different background)
+		"Crestfall, the blob mind."
+		"the Balrog, lord of fire."
+		"Nightshade, the infernal machine." [SpikeyGuy Guy, with one big vanilla spikey guy for head, no rotating spikes. For hands/feet too?]
+	Swap back to void.
+	"These doors will lead you to their realm. Bring me their heads."
+
+
+
+
+
+
+
+bubble castles, vertical line of them. jetpack between them, each is unique tile set, slightly harder difficulty
+	don't use stringworlds, just load levels. each castle might have a mini-world map inside to allow for some branching
+	mix it up a little with:
+		game types: regular, looooong no checkpoints, hardcore [big one screen +1 difficulty],
+			    dopple, button make [big one screen], build, hero
+		special fills: 
+		mini boss: little fire guys with bubble heads, piece explode when jump on their head
+
+	Tilesets:
+		Dungeon = spikes, guys (lots of types), conveyor, bubbles, line expando, clouds
+		Castle = Ghost (moving type too), laser, mblocks, firespinners, elevators, blobs
+		Terrace = bouncy, horizontal elevator, toponly mblock, pendulum/launched elevator, blob elevator
+		Fire = falling, lava, fireballs (gravity[with max speed], horizontal, shot from lava straight), firesnake, red gravity launched blobs
+		? = discrete blocks, square expando, raining blobs/cutethings, 
+		Remixes: green dungeon, pink dungeon, invert color, etc
+
+	3 difficulties: Training, Normal, Hardcore.
+			Normal should be for me. Start off at Normal+ difficulty, hover around Hard, do some Hard+, end on a few Hardcore
+			Hardcore should start at Hardcore, top on Hardcore+, and end on Masochistic
+			Training should start on Easy, hover around Normal, end on Hard
+
+	Intro:
+		show cute castle, then screen shakes and castle launches off ground with balrog carrying it
+		show scene with tons of princesses/berries in bubbles spinning around bouncing off screen sides
+
+
+
+
+
+
+
+
+line of castles follows pattern of worldmap, medium to abusive, 4 castles, 1 per tileset, after beatig balrog just open up line for 3 more 
+linear world map with tiny lil castles, draw it in gimp
+	Gives player a chance to continuously work on something over the long haul
+	show score above each completed castle
+	lil dots between castles. (worldmap mario 3 style, different phsx)
+	can go back and play again to increase score
+	show cumulative score in top right, show number of princesses (draw lil princess X 23)
+	'start' castle in BL, you can look at stats here, or change hat
+	each castle should be a contained game, 4 levels to save the princess or a mini game
+		BOSSES, minibosses, special levels, etc, just like campaign would be
+	allow some branching? to explore phase space of difficulty/tileset/hero
+	first castle goes from easy -> normal, then normal -> --abusive, then --abusive -> abusive, etc
+		or some other way to allow better players to get to the meat sooner?
+	level score only depends on coins and time, only have coins on one path
+
+
+	One castle per tileset. When you go in castle have a worldmap on the inside. Boss event on worldmap.
+
+
+
+
+
+
+
+
+
+
+
+
+tetris: big one screen ish levels, fixed tile set, choose obstacle after each round from 3, use icons on wood
+	show high score below diff pic
+	show high score below tileset picture
+	sixty seconds on clock, resets each level. maybe more. depends on length of level.
+	don't die on clock end just can't respawn, dont allow quicksapwn
+	CAN watch computer otherwise, and other powerups maybe
+
+
+
+
+
+
+
+
+
+
+
+
+
+big grid of castles in clouds, super zoomed out (maybe 3x3 castles fit on screen at once?)
+	biggify stickmen so you can see yourself, give them jetpacks
+	press (x) when on a castle to play that castle
+	dark out castles that aren't accessible
+	also block off castles with QM blocks
+	make it apparent that higher castles are harder
+	mini game on this map? players can fight each other? something for single player?
+
+castle theme: all spike walls
+	chasing you from left. closing in from top and bottom. chasing you from bottom (up level). closing in from sides.
+	4 walls of spikes that form a box you must stay in, box moves from left to right, or up and down
+		must use bubbles or blobs (launched?) as the block type, to prevent AI from getting stuck
+		each wall should overlap the other and should see-saw perpendicularly
+		or have two parralel walls (or 2 perp walls) that are orbiting the moving center.
+		affix camera to center of walls? (also for simple moving wall?)
+
+castle theme: all bubbles (try square bubbles that oscillate like ghosts? round bubbles should bounce like coins)
+		blocks of 2x2, 2x3, 3x2, pillars, ceilings, hollow pillars, diagonal steps, rotating, moving rows, moving 2x2s, etc
+	up level tunnel!
+	put stationary fireball in bubble
+	put nova in fireball
+
+castle theme: fucked camera (castle itself is upside outside)
+		inverted vertically. rotated 90 degrees. rotating.
+
+castle theme: fire shoes
+		standard block = vertically launched slow fireball
+		up level!
+		big one screen level, stay up as long as you can minigame. fireballs get faster and faster.
+
+castle theme: hero rush
+		on hard row of grid of castles
+
+castle theme: design
+		place level. choose level (zoom out). continuous level.
+		boss battle: place level single screen. every 3rd piece is a bubble fireball that drops and can explode killing the boss
+				boss runs around bottom holding fireball emitter that shoots up. or boss jumps around placing pieces and nova-ing.
+				or boss can fly and just flys around novaing, occasionally rushing to one corner
+
+Reuse castle themes at higher difficulties, or different tile sets
+
+Big grid of castles: get more and more zoomed out, with bob getting bigger (or same size relative to screen)
+	boss battle on this grid, jumping to and from castles.
+	castle in bubbles? pop and fall.
+Collect pieces, bring them to final castle in center of grid. opens up boss battle. second final castle at higher level?
+Dark out castles that arent available yet
+Castles should oscillate a lil like coins (move when you land on them?)
+
+Intro:
+	All black, monofont
+	'Every princess... (pause) \n  ... has her dungeon.'
+	cut to a castle, 'Help!' coming from window. zoom to another castle (different color and shape), 'Please save me!'. and another. faster and faster.
+	zoom out. balrog flies up behind castles, laughs maniacally. laughs even MORE maniacally as scene fades to black.
+	'Every hero... (pause) \n ... has a quest.'
+	still all black, tumbling stickmen come into center of screen (or fade in)
+	stickmen are in bubbles? slowly kind of bouncing around and rotating
+	while tumbling, from sides of screen lots of 'Help!' bubbles, 'Help me!', 'Please save me!'
+	some are in front of stickman, some behind. different scales?
+	pop all text before berry bubble?
+	Above all bubbles big berry bubble pops up. don't show berry.
+	'Stickman! The Kingdom needs you! All of our princesses have been kidnapped!'
+	BIG: 'ALL OF THEM!' (each new berry bubble should be placed differently)
+	'It's time to be a hero, stickman. It's time to prove your worth.'
+	text bubble pops, all help me text bubbles pop staggardly
+	pause
+	stickman bubble pops, falls a little then camera starts following, shit flying by in background very quickly,
+	slam into ground on an island (BL corner of grid)
+	slowly zoom out to show normal amount of grid. FADE in happy song.
+	load/save block on the island. have custom level door here too (but keep it locked at first)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Giant outdoor tower, grid of doors. Each level of tower is harder, with a princess at the right end.
+	Finer difficulty gradient, at least 1 between abusive and hardcore (fractional upgrade levels?)
+	two tierd levels, two doors at exit. one door leads to next level of tower.	
+		explicitly point this out to player (using giant hand pointer, 'harder' / 'normal')
+	show all princesses lined up at right edge of castle?
+		after one princess, continue to the right and its a different tileset, same difficulty
+
+
+
+1000 Princesses
+	tons of castles all up in clouds, one big ass world holding them all. some small, some big, some tall
+	each castle is small and concentrated, maybe 4 levels.
+		choose a tileset and explore it. or do a theme (doppleganger, bungee, insane up level castle with jetpack man, fireshoes all the way, mini-game, all down, handicaps, limited lives, set time, BUILD castle, special fills, metaobstacles)
+	some castles are for building
+	castles explode when beaten, super mario world style
+	travel between worlds: super zoomed out to see where you're going or what castle to choose. spaceship? jetpack?
+		then zoom in a lil, but not too much
+		ONE GIANT LEVEL WITH ALL CASTLES IN IT. Pre-make it and save, cuz it's gonna be damn expensive. maybe make it with human input.
+	LOTS of tilesets. just do variations on things
+	How to get better players to the good stuff?
+	zone off the big world with QM block demarcations. beating castles pushes back the demarcation lines.
+		beat a castle well enough and youll get promoted to a higher zone. or get access to a door that will take you to the higher zone. can always come back and explore lower zone (to get powerups, etc)
+	games on the world map: mini games and a final boss battle and maybe a chase scene
+	random doors throughout world: bonus games, shortcuts, portals to off-world mini-worlds (like star land in super mario world) with special themes
+
+	boss at last room of castle, no princess in room. beat boss and pop out on top of castle, where princess is in a bubble
+		pop the bubble and she falls down (AHHHHH)
+		then a pop up with her saying "Thank you stickman! Take this charm to help you kick some @#$%!"
+		Then screen rumbles, castle explodes, piece explosion plus smoke/dust (on a lower layer than piece explosion), then a destroyed castle left over
+
+	Make grid of castles more grid like. Harder at each level, variation on the x-axis. beat a castle to open up surrounding castles.
+	TRY AND CAPTURE ORIGINAL DEMO FEEL: a challenge is put in front of you, small and concise, and you beat it
+
+"1000 princesses is a lot of princesses to save. But someone's gotta do it. Good thing I've got my jetpack."
+"Where's the prettiest one?" "At the top of course." Super fast pan to huge omninous castle with the masochistic door, background darkens, lightning, etc
+	Hot princess: "Help! Help!"
+	"Well, that's where we're headed."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+campaign = collect pieces. make them bigger, and fewer, at the end of multi-level progressions
+	use hero rush in the game as a variant. only 10 levels or some such. left right left right. make it feel like you're going up.
+		multiple variants: handicaps, special fills, tile sets, pure obstacles or obstacle groups
+	cinematic; falling through clouds, zoom in, out, make it rapid, angels in the background. thud.
+		wake up (foggy), berry flies by on cloud, dialog "Wake up stickman!" "..ehh" (don't slide in? just appear? what does elysian do?)
+		"The boss was worried you weren't coming! / You're the best castle designer in the Kingdom! / Let's get started.
+	'Castle Design 101'
+		random pieces, including islands, full pillars (upside down while holding), show upcoming pieces on the right
+		brief tutorial, using arrow finger, etc
+		"Kingdom regulation says we all coins must be reachable. Prove they are!"
+	after a few levels go to throne room, when screen shakes pieces should fall (shaking is boss stomping)
+	piece explosion. "oh no, blah blah". 3 pieces in 3 different tile sets. camera shows each (slow pan inside each level for half a second)
+		pieces are big, and in an empty level. aura around them, or just big bubble. over lava? green lava? blue?		
+		three main doors in castle, leading to 3 branches (tile sets)
+		finish a piece and get kicked back to main tower.
+	fight blob guy 3 times. "Oh no! The boss's pet got out again!"
+	with pieces in hand do a manual reconstruction of the throne room. inside balrog shows up. throws big bag of money at you, you pick it up.
+		"You call this a good castle? you call yourself a castle designer? take your money and get out"
+		new door opens, you go in, door slams (still holding money), evil laugh, text: "You're free to leave, if you can! Hahahaha"
+		hard escape level, with shit falling. something touches your money and it falls off
+	end: automated jumping in happy green outdoors with score screen / credits
+two exit points. can make top half of level much harder.
+
+
+
+
+
+
+
+
+
+
+
+
+Training Tower:
+	"Welcome to hero training, stickman!" (use pop out dialogs, no toad?)
+		use the pointy hand a lot
+
+	When entering a mini-game door, load level, then fade in a colorful bubble dialog with the name of the game "Design 101"
+
+	Hero Mastery, "Your goal is to get to this big menacing door. If you can beat it.. well, you get some sort of prize, I guess. I'd be impressed at least."
+
+	Big tower/castle with mini-games, a progress board (showing your 'Hero Level), branching, small campaigns
+	Premise: you are training to be a hero. Prove yourself at various mini-games to level up and unlock more of the castle
+
+	colored doors which needs colored keys (for instance, beat Level 6 of Hero in a Box World to get a Red Key)
+
+	First mini game is Time Crisis: 45 seconds per level. Get enough points to level up, "Difficulty Raised!", unlocks next difficulty level
+	"You want to be good? You've got to be fast!"
+
+	Actual levels can serve as hallways (which will prevent noobs from going down some paths)
+	Especially Build levels make a lot of sense for hallways. "We have finished this part of the castle! Looks like you'll have to build it!"
+
+	Progress board at beginning of tower, showing your level, total stars, etc
+	"Once you level up enough you'll be ready to be a real hero!" Toad says this after first leveling up. Should circle progress board.
+
+	Door next to progress board to go to Custom Level, 'Danger Room'
+
+	Doors can be:   Levels, hallways, branches, etc,
+		  	Time Crisis (could have multiple Time Crisis, for different tile sets for instance)
+			Hero Rush
+			Obstacle Mastery (Hero Worlds!
+			Hero Mastery
+			Doppleganger / Bungee (maybe only as bonus games inside of Hero Mastery?)
+			Other mini-games, coingrab, kill blbos, etc
+			1 second to live. Not game over when you die? Just restart level and restart timer.
+			Other Hero Rushes: different tile sets, different heros. handicaps, etc.
+			
+	Intro: 	show blob guy holding princess. big text blurb with big princess saying "Help!". Blob guy flies off
+		swap to training tower, say "Elsewhere". Bob falls in from sky
+	Story:	Keep training. Eventually tower's rnd seed goes beserk:
+			while playing a level shit starts shaking, pieces falling background
+			come out of level to tower, still shaking with shit goin everywhere, toad "Something's wrong! The random generator is going beserk!"
+			Trash everywhere
+
+
+
+
+
+
+
+campaign:
+	simple outside castle. first door leads to a zoomed out room with elevators on either side and doors leading to levels on either side.
+				door in middle is start. door in middle top leads to next screen and opens after both levels are beaten.
+	next screen is an up level worldmap, with multiple doors. next screen is another zoomed out level?
+	keep campaign short, ~ 9 levels. include build/bungee/hero plus a bonus level or two (kill all blobs) to earn powerups
+	blob boss at end
+	cute intro? blob guy holding princess, zoomed out, waving her around. bobs come in blade style from sky. easy fight.
+		blob runs off to right. berry says "He's getting away to his castle!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD IDEAS:
+
+
+Make hardest castle possible, with a minimum set
+	Show total difficulty in TR of world map. "Total difficulty: 1,700,200"
+	Show individual difficulty of each node. Allow returns.
+	Show individual lvl difficulty in real time as your modify things in the level.
+
+1st level:
+	Start out on a wide, mid-height place outdoor block.
+	"This is Balrog's first level. Let's try it out!"
+	"Wow, this level looks pretty empty. Let's add some jumps!"
+	"Use the Joystick or bumpers to look at levels. Press (A) to choose one!"
+	Scroll levels in and out. (left to right?) Zoomed out a bit. level length of ~ 7000, all on the screen at once
+		Levels being scrolled in are of higher and higher jump difficulty.
+	"Give it a shot!"
+	"AWesome! Now we just need to kick it up a notch. How about some spikes? [spikes icon]"
+	"Use the Joystick to add or remove spikes. Press (A) to try it!" (Show difficulty in TR, plus slider bar with spikes next to it)
+	Continuous selection of spike difficulty. Then play it.
+
+Bonus upgrades:
+	Increase a level's speed. Add an extra obstacle to a level. Make level camera inverted. Use IceBlockMan hero. Raining blobs.
+	Show icon above nodes on worldmap, to show what enhancements have been added
+	Bonus levels: where you would normally get a chance to win a powerup. Here you win an upgrade powerup. Can also keep playing as long as you don't die, to get many more powerups? Maybe not.
+
+Gametypes:
+	Choose blocks (or not, and have block icons next to worldmap door), scroll through levels (each of increasing jump difficulty), select obstacle, continuous select, prove (selection of upgrades is from limited subgroup, usually 3)
+		Separate block/obstacle choice levels?
+	Build level. First scroll through levels (increasing difficulty, no preset list of obstacles, just choose from build level list), then play and prove
+	Hero level: choose hero first? (from group of 3), description as you select heros. Test hero out (open level, get to door). Choose level, increasing difficulty, preselected obstacles/blocks.
+
+Keep it short. Maybe 8 levels: 3 hero (choose levels), 1 bungee, even mix between choose/build levels, one boss, bonus levels
+	Then, for added bonus, you must beat the game in under 2 minutes! (with coins giving you time)
+
+
+Worldmap:
+	Nodes, connected with lines (user a modified laser).
+	Small stickman running with cape flowing in the wind.
+
+
+
+
+
+
+
+Intro Movie:
+	Shop music
+	Cute little castle, on grass with dancing trees. Old school Mario 1 style castle (1 or 2 stories)
+	Hardcore music
+	Balrog flys up (lands behind castle or stands in front as a default text blurb position)
+	"Hahaha! Look at my beautiful castle! No hero will ever beat it!"
+	Fade music, Balrog flies out. Potentially he first says "Here comes a foolish hero now!"
+	Hero jump in from off screen like a bunny, goes in castle. Pause. Screen shakes. Piece explosion.
+	Redraw castle titled 30 degrees into the ground, with random pieces to cover up the bottom.
+	Hero jump out from behind the rubble holding princess and hops off. (Start shop music, but more quiet)
+	Balrog flys up
+	"My beautiful castle! No! I must rebuild it! Bigger. BIGGER."
+	Fade to black.
+
+		MUSIC ALTERNATIVE: happy music while Balrog talks. Hardcore when hero enters. Kill music SUDDENLY when door slams shut (after opening first to let hero in)
+
+	'Elsewhere'
+
+	Big pink envelope floats down, lands in middle of screen, bubbles open.
+	"Dear Stickman. You are the best level designer in the Kingdom. Please come design my next castle. \Next ... Your's truly, Balrog."
+	Stickman slides onto screen with flowing cape (standard stickman dialogue)
+	"Hey Berry."
+	"Yeah Boss?"
+	"Pack your things. We got a job."
+
+	Fade in to big castle, zoomed out (not old big castle, something more cohesive that looks good seeing it all at once)
+	Balrog flys in "Welcome stickman! Do you like my castle? \Next I need you to make it as hard as possible! At least a difficulty rating of 50,000! \Next Call me when you're finished!"
+
+	First level:
+		Castle piece on left for where door opens to, but absolutely nothing to right.
+		Berry "Wow, looks like Balrog hasn't designed anything yet. Well, let's get started. I'll run some idea by you, using the blahblahblah"
+
+
+
+
+
+
+
+
+CAMPAINGS: (premade. make sure all tools used are available to user)
+	1. Balrog get's a castle. As a betatester.
+	2. Seed world. Use intro with angel music.
+	3. Blob Guy.
+
+FUCK CAMPAIGN FOCUS ON CUSTOM, 
+	Make customization for up/down/survival levels cool
+	Campaign -> Make a campaign / Play a campaign
+	Make a campaign: 'Worlds', a world is a zoomed out tile set with some more interesting stuff going on (multiple layers of pillars... and.. floating islands?)
+				String of nodes, potentially just linear. Make nodes cute. Allow player to add nodes and change network and node icon. (puff of smoke when a new node is added)
+			 also edit the boss(es) and bonus levels
+			 also edit text (what balrog/berry/princess says)?
+			 edit total lives/time on clock/time per level/powerups/powerup levels (like mushroom in mario3)
+			 edit transitions/hallways/intro pieces (like an outside piece leading to a door to a falling dungeon level)
+			 upload image for worldmap
+			 take a screenshot and upload campaign to server
+	Replace Challenges with premade campaigns
+	Alternative menu..	Career -> simple campaign editor. Freeplay -> Campaigns/Custom/Endurance/TimeCrisis, Campaigns -> Create/Play
+
+	Prevent piracy: upload high scores according to registered user name
+			play other peoples campaigns and show high scores for each
+			upload your own campaign. rate campaigns. etc
+			Campaign of the week! (Month/Year?)
+			Level of the week! Replay of the week!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**********
+Cutscenes:
+**********
+	Watch computer: come to a transition, robot Blade-falls from sky. you (above head) 'WTF'. toad "It's the new stickman 5000!". robotron "here to kick ass"
+	Boss: hallway/platform to left of boos. robotron blade-falls. robo "I'll handle this", runs into room, explosions, he comes flame flying out and off. toad "Fuck yes!"
+
+
+
+************
+Transitions:
+************
+Castle transitions
+	Terrace: couch between towers. 
+Hallways: (little play boxes, visually distinct) use before: hero, bungee, place
+	Use castle tile ground, dancing trees, balrog portraits, flowers, have some blocks to jump on and around. potentially high ceiling to test jetpack/doublejump
+	If next level is same background just pan to it (very small pan, simply passing past a wall)
+Outside castle tile set
+Terrace between castle ends (outside castle backdrop with tiled ground)
+
+
+
+
+
+
+**********
+POTENTIAL:
+**********
+Blob World:
+	Final boss:
+		up level with survival style horizontally launched blobs (add dynamically as needed?). Good for blob boss? ie upward chase with giant fblock at top to smash blob man (he swashes arm across entire bottom of screen as he goes)
+			harder = sine paths for launched blobs, etc
+		camera autopans, coins show the path. blobs are either color coded per player or can be jumped on more than once
+	Mini boss:
+		horizontal chase, ball battle
+	Bonus game:
+		kill all blobs (level title is centered and slides in from left to right) says "Bonus" while all black, level fades in, then "KILL"
+
+Hero Boss:
+	Must use all hero types
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other things to consider:
+
+
+* Initial intro scene
+	Basic idea:	Show princess/berries, game starts at castle, hardcore music, 1 or 2 levels to get bearings (keep looping hardcore music)
+			Quickly arrive at climax/boss/miniboss etc, something happens/you get your ass beat, fall down to castle, black out
+			Wake up and the new progression is slower and longer.
+			NO REPLAYS initially, until after mini-climax, to keep everything tight. (Initial levels are all no-checkpoint single piece?)
+
+	Potential prescene:
+		All black, a pink letter sways down from top to middle, then opens (expands out?)
+		First show princess all against black, and have the letter sway down from her?
+
+	...
+	Pan down to ground. "We have to get to the top of this castle!"
+	"Press (A) to open the door"
+
+	Alt1. Start in clouds from select. Music dies + start rumble. Berries launched from below, rotating/arcing. Castle shoots up through clouds and rushes past. More berries fall from above. Pan to top, pan back down, etc. When does Bob appear? First level is an up level on the outside castle, with hardcore music. Go through door and when it slams shut kill hardcore music.
+
+	Alt2. Couple of castles shoot up in background, then a big one in foreground.
+
+	Alt3. Use predrawn art. Different or same style. Comic book style, dishwasher dead samurai style, etc
+
+	Important: small climax quickly. If you start at castle, keep pace strong and build to a quick climax (such as falling into the Seed)
+		End of climax:
+			After climbing a tall tower (make sure there are some zoomed out moments to get scope), do a battle, then there is a rumble ("What's that?!" "The castle is coming down! It's too tall!") and castle explodes. Then you are launched to another land, and must work your way back (this diffuses the climax while presenting a new more gradual slope)
+			Fire explosion when castle explodes? (!)
+
+* Small events / hints
+	Castle rumbles, every 10 minutes, then every 5, etc
+
+* Immediate goal
+	"We have to get to the top of this castle!"
+	Show tied up berry at end of a level, "That Cloudberry needs our help!" (with some minions flying around laughing)
+	SCREAMING/CRYINGOUT "Do you hear those cries, stickman? There are captured berries nearby!"
+	MONSTER NOISE "Did you hear that? Probably nothing."
+	(blobguy slams down on left side of screen, while you're on right) "It's the Blobolith! Run!"
+
+* Intermediate goals
+	Consider multiple castles. Get to top of each, princess isn't there (miniboss?), move on. Get to next fairly quickly.
+
+	Bosses, protecting a big ball of hanging berries. Shows up, runs off, repeat a few times, then battle
+	More overarching intermediate goals? Such as:
+		Get to the basement/seed, Get back home, Kill self, Get out of collapsing castle, Find key/switch
+		Destroy the seed, "Balrog must be using this <Rainbow>Random Seed</> to pull new levels from other universes! As long as it exists we'll never get to the top of his castle!"
+
+* Back story hints? FF7-style
+
+First level = tutorial, go through door
+Second level = show captured berry at end
+	
+	* Abstract away special level things

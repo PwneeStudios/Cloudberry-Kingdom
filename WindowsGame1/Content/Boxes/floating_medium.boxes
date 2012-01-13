@@ -1,0 +1,13 @@
+[RepeatWidth] 1000
+[RepeatHeight] 1000
+
+[UV_Multiples] 1, 1
+[Center_TR_Shift] 0, 10
+[Center_BL_Shift] 0, -20
+
+[MiddleOnly] false
+[CenterOnly] true
+
+[Center_Texture] "brickpillar_large_top"
+
+[Color] 180, 180, 220, 255

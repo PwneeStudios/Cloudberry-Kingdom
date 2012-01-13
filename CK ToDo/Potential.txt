@@ -1,0 +1,479 @@
+FUNNIFY:
+	coinbbubble. launched with gravity, from side of screen at 45 degress. in bundles. popping sound when launched.
+		little bubbles, instead of moving coins. bubble pop mini game. simplest: #1. low ground with jetpacks or double or infinite double. #2. all elevators
+		put them in regular game too. they come in bunches, like 3 horizontal up from the bottom, get them all get bonus (plus berry pop up)
+
+	cutesy things like a berry launched tumbling when you get 25 coins
+
+	collect princess. the ugly ones. make the animation for saving them cute. (or use berrys in a bubble)
+			they're in a bubble and fly off when you hit them saying 'thaank youuu...!"
+
+	in-game powerups, bubble icons falling or launched: bubble bubble icon (get buggle shield), blob icon (get place blob)
+		FX when grabbed is popping everywhere + toad cheer? + speech of powerup?
+	Kill 3 blobs in a row and a text splat that says "SQUISH" appears, with a bigger squish sound? toad? 6 blobs = 'Massacre!'
+	in-game hero powerup? plan it in level gen so that half way through you need the power up to continue
+
+	NEED something immediate, at beginning of Time Crisis to show player to go right.
+		Short level with a bubble berry saying 'Help!' in a lil text blurb on the right side		
+
+Bonus Games!
+		Other:
+			stay on moving ice block
+			coinbubble grab. zoomed out, one screen, jetpack. no ground, constant launched bubbles from below, plus bubble coins popping up (not launched)
+				at end show coins out of total, next show coins needed. if not met then explode player, slam in a "FAILED" and retry
+			awesome zoomed out jetpack up level
+
+		Tuesday Challenge:
+			Saturday/Sunday Challenge
+			A fixed rnd seed level that changes every Tuesday. High scores online!
+		Infinite Up:
+			Start on grass, no tower backdrop? Fade to black, then stars, then moon/plantes/galaxies
+			Locked camera (moving up), moves faster as time progresses. Better control over computer (don't jump unless below target)
+			Blobs/mblocks/ghosts move faster higher up
+			Infinite (easier to do because there are no obstacles, just the first pass)
+			Extra cement blocks to fuck you up (fill semi-sparsely, aligned with where torso normally is, and removeonused)
+		Coin Grab:
+			One screen, zoomed out? Premade level. AI computer or pre-played recordings.
+			Coins appear then disappear. Coins fly in off screen.
+			Fail -> "19/20 coins. Try again?" Only need to get 90% of coins, say first "Get 12 coins!", and have the coin counter in the TR
+			Levels:
+				raining fblocks. infinite rocketman with no ground. row of fblocks. all vertical elevators (alternating)
+				hexagonal grid of blocks/fblocks
+		Blob Attack:
+			Like bubble madness, or instead you have to get from left to right.
+		Bubble madness:
+			Get 90%. Have counter in TR.
+			All bubbles start on screen, or some come on over time ('Coin Grab' style, with cool geometric patterns)
+		Infinite Down:
+			Winding down level (mod AI. It should run in one direction until it decides to fall, with every other end always open to falling)
+			Moving camera, locked. Or just one screen, zoomed out?
+		Fireshoes:
+			Treat fireballs like clouds, except you don't fall through (unless you hold down)
+			Big one screen level, try and have computer get around as much as possible, have blue 'checkpoints' to collect, and coins to guide you
+		Bonus Rush:
+			Mix Fireshoes/Coin Grab/Bubble Madness/Infinite Down
+		Meta Obstacle Rush:
+			String them together. Keep tight.
+		Or:
+			Campaign! = StringWorld with a progress bar, go through all tilesets, plus bungee/make, bonus games? refreshingly new block distributions (no pits, hug the ground)
+					Walk up to mini castle pieces, simple bosses. 3 tier castle at very end with blob guy
+					Special fill types, special levels. Like one big challenge string.
+					Generate random horizontal/vertical levels for world map hallways
+					Outside of castle courtyard level (and other all ground levels). Mostly dodging horizontal shit, or grabbing coins.
+						Can put doors here that lead to other levels (making it a hallway). Have trees and shit! Maybe move them down further and move the ground up further relative to the camera 
+
+
+More interesting algorithm:
+		SEE THE SPECIAL FILL TYPES BELOW
+
+		groups of fblock, blobs (part of normal rnd fill). vertical/diagonal lines of things (an additional fill).
+			each auto_gen should have a func to set its style to have extra shit. then we can just randomly pick 1 or 2 things from our list of autogens and set them to extra.
+
+		jetpack AI: if below TargetY + 500 and vely <= 0 then thrust
+			jetpack AI: is jump being cut short before jetpack even engages? (due to restraints on the jump difficulty)
+
+
+
+End of Level:
+	EOL checkpoint : grab on to it, then it flys away. Then all others explode.
+	Spaceship: whirlpool warp thing
+	Closing door. Then all others explode. Occasional single cheering berry? Launched up in the air "Woohoo!". Occasionally he explodes at apex.
+
+
+Up level:
+	More interesting blocks:
+		Try with no safetynets. then try dynamic safetynet: after computer lands move up all other safety nets to a minimum of .6 * MaxJumpHeight
+
+	Side ceilings
+	
+	horizontal lasers, floaters
+
+	blob/bounce level. show entire path (with coins? or gui)
+	up elevator lvl. wide elevator or narrow.
+	jetpack up level! jetpack carrying something bungeed to you!
+	'ceiling' = side walls. usually keep it open, or at least not narrow. narrow, with thick 'ceiling's. moving side walls. allow bob to jump on side of 'ceiling'.
+	starting positions
+
+	different block types?
+
+	place level?
+
+	Divided doppleganger (laser in middle, NOT inverted?)
+
+	No ground! Just launched blocks from side of screen (each launched only once per level, like survival fireballs). Fireshoes?
+
+	divided bungee levels. bouncy divide
+
+	blob tunnel (ones you dont interact with, or ones you have to interact with)
+
+	zoomed out (up style param)
+
+	Other Enviroments:
+		up inside a dungeon, up in the clouds, outside dirt pillars (with some horizontal give?), outside one big dirt pillar, outside between castle sides
+
+Down level:
+	Freezeframe hero
+
+	more interesting down levels, not just falling, but landing and finding holes (either guide AI to preset holes or always have holes on left and right as safteynet holes and let AI choose to make hole itself)
+
+	zoomed out (up style param)
+	blob level (sparse or more dense. moving or not.)
+
+	place level?
+
+Onescreens:
+	* Survival:
+		fill func: AddItem(TripleNova, AtTime, Difficulty/Density). Decrease pauses between and increase each item's density as the end approaches. 1 min game, 2 min game, 20 sec game
+		get rid of all _special flags. the LevelSeedData itself will call the time fill funcs
+
+		survival coins
+		survival bouncy (other preset levels)
+		novas
+		elevator special fill; emit a few before level starts
+
+	Hexagonal grid of thin blocks (with a full preused safety net at bottom)
+
+	zoomed out (up style param)
+	Other single screen levels: zoomed out, grab coins, kill blobs/bubbles
+	lasers make movement patterns (always on? or both) like resident evil
+		or, lasers with periods/offsets just like fireballs (longer warning period)
+	blob level (cool for big zoomed out level)
+
+	Coins (don't show ones too far in the future. only 2 or 3 ahead? color coded? pop in)
+
+	No ground! Just launched blocks from side of screen (each launched only once per level, like survival fireballs). Fireshoes?
+
+	Moving ground: 2/3/4/... mblock pillars, different synchronizations: sine, alternating
+
+	Fireball ideas:
+		Gravity, novas (2/3/8), bounce, nongravity arcs
+		Circular close in of fireballs (multiple offset layers? shifted centers?)
+		fireball tunnel fill (modes = horizontal, vertical, double, 45 degrees, etc) ceiling on off, thinner ceiling, etc
+
+	other premade survival levels (with a wide net)
+
+	(survival/regular/place?/dopple!), better for zoomed out?
+
+	Other Environments:
+		survival on floating outside island, survive outside castle (with catwalks), 
+		door starts on a single fblock. door falls with fblock. nothing on screen, just a place level survival (or up level?)
+		bouncy, conveyor, one big mblock, one big shape shifting block
+
+
+Horizontal level:
+	zoomed out
+	buttons to turn off lasers?
+
+Place level:
+	New place level idea. special tile set? neon colors, explode on touch
+		make level ONCE, then replay over and over adding more obstacles
+
+
+Tilesets:
+	Discrete Dungeon: all cement blocks, all lined up. Full grid, keep tunnel (with some strips of emptiness), can hit head on
+		Obstacles = horizontal fireballs, firespinner
+
+	Styles:
+		Terrace: tall wide pillars in midground (or with regular parralax). multiple layers (thinner if so?). sporadic or periodic.
+
+	Inversion (Looks good on Terrace/Dungeon)
+	Rotate Colors (Looks good on Terrace,..?)
+
+	finish gray tile set: use cement
+	small cements (min layer of 2,4,6). small bigger cement. medium. all use same code with some enum var
+		use for an old school castle?
+
+New heros / hero mods:
+	Ice Cube, Blaster Bot, 8bit, 4 Legs, AntiGrav box, 
+
+	Block man: double jump model with block in center, press down and block gets bigger and limbs retract
+		Jump = no gravity. JumpAgan/Down = become block and hard fall (no abort till ground)
+
+	Phaser : turn left and you disappear.
+
+	Phase (Shangstung), switches every 3 seconds, with an icon in TL to show next hero. (maybe list of smaller icons going doing the side ala Tetris)
+
+	Hanging hero. control jumping block in inverted level (just flip camera), with stickman hanging from bungee
+	Meatboy like heros? aka, fun, fast, dynamic
+	
+	Spaceship boost
+
+	'No Fall' Hero. Should have lots of stationary floaters/fireballs in this level
+	Hover
+
+	Pinball
+	press a to stop, midair. press a to resume. great for lasers! falling laser level!
+	dash (unicorn)
+	magician (faster cast time, indicator pos controlled by joystick)
+	ride/be/holdonto blob
+	transcendent
+	kamauhmahuh wave (can hold cntsly)
+	hover board.
+	* float hero
+
+	Tethered to rocket ball (has fire exhaust in TR BL TL BR corners)
+	Balloons? Transcendental man? (press B to swap!) (either he orbits you, or flesh bob just stands) "Astrel Projection", for orbitting, use a bubbled inside bob and an empty balloon/bubble oustide, bob explodes when balloon does
+
+New obstacles:
+	Favorites: conveyor, floater line, size changing, discrete, bubbles, falling blobs/pink things, onlymovewhenstandingon mblocks (fast move!), waittofall spikey guy, big stationary spikey emitting spike nova, 
+		   horizontal fireballs,
+
+	big balls of fire that just move up and down slowly. pause at end points.
+
+	LAVA!
+	lava. up and down, with moving safetynet. background = 1/4 screen width full length pillars, with space between (maybe another row behind), maybe fireballs in background (big ones?)
+
+	Fire snakes jumping in and out of lava. BIG circle orbit. from ceiling too. straight up and down.
+
+	nova return: 4 balls spit out and come back in, then rotate 45 degrees, OR rotate 45 degress while in their orbits. NO PAUSE between orbits.
+	stationary floaters (do little mini circular orbits to stand out more, but stronger than old school version)
+	floaters on predefined orbits (draw orbits in translucent blue, not a chain?)
+
+
+	line of floaters with a gap, gap may oscillate, line may be sinusoidal
+	new bouncyblock: the longer you are on it the higher you jump when you jump. after 1 second you are automatically launched, but there is a half second grace period to jump and get maximum (fixed) height
+
+	Cement block with wings. Pink cement block with wings? Or pink QM block.
+		1. Fly around in chains, like fire snake
+		1. launched like fish
+
+	short pendulum
+
+	Ghost shot: fades in at one point and moves (sinusoidally) to the left or right and fades
+
+	blue fblock: extend out and contract (into a row of 5 blocks)
+
+	binary fireball. two orbiting each other. launched with or without gravity, with or without arc. maybe not launched at all, but has a vertical orbit.
+
+	raining cute balls
+	raining bouncy blocks
+
+	raining black fblocks. stop when landed on. when pre-filling have two that spawn at same point with offset times and always use both if one is used (if possible)
+
+	bigger cute ball, sits on blocks and jumps. should pause at top of jump, then fall down (slam down?)
+	big cute with wings, get close and it flaps wings faster than novas into an explosion of little cute balls
+
+	linear array of neon fblocks, turn on one at a time, then turn off one at a time
+
+	Discrete Fire Wave (like a laser, but with discrete blobs of fire that appear and disappear to create interesting patters, either a way or alternating)
+
+	Horizontal fireballs (on come from the right, and stop once you get past the emitter)
+
+	Red/Blue elevator platforms, standing on one makes all others go up (place type A mostly at top and type B mostly at bottom, so its always balanced)
+
+	stationary spikey guys (rotating), emit spikes?
+
+	Medusa head (sinusoidal horizontal fireball with no emitter) use black spikey guy?
+
+	firesnake = fireemitters with wings?
+	line of fireballs with a gap (fire snake pieces?)
+	falling dead blobs, flying fish blobs, qm, flame thrower, wheel, hanging floaters (easier)
+
+	two orbiting falling blue emitters
+	periodic nova + rotation, colorful emitters
+	mini stone wheels in a line for conveyor
+
+	cute balls:
+		raining! flying fish style
+
+	conveyor (wheels on end, easier)
+	QM
+	colored bubbles
+	shape shift
+	launched blobs
+	spikeyguy lines (or fire walls) like lasers but limited extenent and permanent (a line with a hole through it?)
+	proximity time bombs (orange fblock with lil spikeys on it? shake when you get close, then explode into teeth)
+		proximity tracking, when near they attract toward you, explode on contact
+	dead falling blobs (upside down)
+	flame thrower (different angles)
+	hanging / inverse hanging spikey guys: drop when you pass
+	discrete mblock (try teleport style) 2 squares alternate. 4 squares in a line alternate. 4 squares, alternate TR, BR, BL, TL, or criss cross TR, BL, BR, TL. stair case, vertical, vertical left right left right
+	fire snake
+	giant fball
+	spikey guy varietys (spinner, upside down, tracking?)
+	evil skull?
+	ice bool
+	depress clouds
+
+	rainblocks, stop when stood on
+	Joker blocks (divorce form and function)
+	changing blocks (form and function change together)
+
+	fire snake (object = single segment. just change the offset for more segments). special = firewall
+
+	moving ceiling (same as regular ceiling tile, outside has too)
+	moving ground (only up/down. styles: really wide with really wide ceilings, slow up fast down, steps: drop fast, drop fast, drop fast, raise slow)
+
+New special fill types (for pieces, for whole levels):
+	block special fills (don't NEED to be hard, especially blob ones)
+		big X's, vertical single strip tunnels/keepall (different motion patterns, or no motion),
+		two horizontal strips/keepall that meet in the middle. 3 strips offset by 120 degrees. spaces between blocks. spaces are offset between different strips.
+		sparse hexagonal. grid of orbiting objects (two objects with same orbit form one point of the grid. paired orbits interlock with surrounding orbits)
+		periodic nova
+		tunnels, hexagonal sparse patterns, stage2 fills (to fill in tunnel gaps?)
+		super zoomed : hexagonal, cartesian, 
+
+
+	Fast moving hallway (for survival and normal, normal should loop). Mblock and blobs and bubbles! vertical hallway for survival? moving down or up or both.
+
+	all spikeyguy spinners. They're pivot points ARE the blocks in the level
+
+	two lasers severely restricting motion + place level
+
+	bouncey hallway (hit head, full fill)
+	rainblocks, stop when stood on
+	special fireball fills for horizontal/vertical/down levels! similar to survival
+	floater upsidedown hallway
+	vertical lines (floaters, blobs, fblocks)
+
+	moving ground, rising ground, moving cam (with chasing laser), moving ceiling (force it on terrace)
+
+	hexagonal grid of mblocks (vertical move) keepallunused
+
+	horizontal or vertical elevator level
+	trapped in a moving box [Glass Box]
+	tethered to a circular cement block
+	horizontal elevator (vertical?)
+	all big bouncy block ground, no other blocks
+	bouncy tunnel [I'm Walking On Sunshine]
+	blob tunnel [Squishy Time]
+	blob tunnel with spin spikeys!
+	spikey guy ceiling
+	movingblock tunnel
+	moving camera
+	hallway of death
+	bouncy hallway of death (horizontal bouncy line)
+	raining fblock
+
+	* obstacle: sticky block, all black with bubbly black edges. stick your head or feet to it
+	* obstacle: small fblocks, in a line (alternative type?), cool for both falling and thwomp, Association, or long lines (special fill)
+	* obstacle: QM blocks! 4 directions! 45 degree angles? circles?
+	* obstacle: green circle orbiting a block (associate together, only remove blob if block is removed, not vis a versa?)
+		green circle jumping up and down (both could either be jumponable or spikey. genfill1(associate with a block) or genfill2)
+	* obstacle: sticky ceiling block
+	* obstacle: sticky shoes block, can't jump off
+	* obstacle: 3 point tele-mblock
+	* obstacle: static elevator, turns on when you land on it. does a prescribed move, maybe FAST (keep bob on it even when moving down). dies?
+	* obstacle: turns on when you land on it. moves when you move on it. sinks or rises when you're on it. (use floating islands?)
+	* block: crushing pillars. like normal but move up and down. normally two linked together to crush you
+
+
+	blob tunnel. type 2 = strips of width 5, alternating directions
+
+
+	double circlefill: blobs/mblocks + spikey
+	circlefill for mblocks and blobs
+	wave hallways for mblocks and blobs
+	checkered ghosts. two lines of ghosts (top all in sync. bottom all in sync. .5 offset)
+	checkered for spikey (spinner too?),
+	checkered for fball!
+
+	open hallway of death! (just use safetynet? cool with things that fall slowly. plus coins!?)
+
+	safetynet only horizontal level, raining fballs or fblocks or lasers (use tile block for floor)
+		hallway of death
+		multilane of death (lots of long catwalks, all equal, with a few breaks to switch, or no breaks
+
+
+Special games:
+	Zoomed out jetpack up level
+
+	slightly zoomed in hallway of death, with black strips above and below (taper alpha at edges, and make it layer 10, so that bob falls into oblivion)
+
+	Follow the Leader (use white elevator platforms)
+	Giant jetman holding giant platform
+	Giant angel holding giant platform. Longest to live becomes angel. Or must past furthest point? Let AI take over?
+
+	One screen + jetpack + bungeed to an anchor point at the bottom. Grab falling coins? a duel type game?
+
+	DEAD WEIGHT: single player game with a dead weight computer tethered to you, don't let it die
+
+	Dopple + Place
+	Place + Invisible!
+		Don't show block above head either?
+
+	AVOID coins (lots of different styles. mix with regular coins? anti-coins are red, glowey, and subtract one coin)
+		CHALLENGE: start with X coins and get through 10 levels without hitting 0 coins.
+
+	faster levels: either the screen moves, or bob is on something moving fast, or bob is just running faster
+	
+	duels! vs comp! angels and demons! angel/demon/toad dialog box
+		duel mode: balloons (4 balloons chained out radially)
+
+	* All clouds!
+		* one screen, like title screen with clouds lining bottom
+
+	bungee
+	earthquake, upside down
+	survival
+	place
+	up/down
+	CLOSING CEILING/FLOOR, use big cement blocks?
+
+	star grab, falling rotating stars, better than moving coins?
+
+	infinite checkpoint
+	bungee, plus one player (first to jump into mini-seed) has cement blocks and is invulnerable (glowey gold or with a bubble around them)
+		explode when other players are dead
+	raing fblocks! make it difficult without other obstacles. zoom out a bit? free Cam.Y? multiplayer zoomout?
+		setup: prior seed is an fblock seed. explodes as it launches you, start rain slowly, full blown when you land (or still slow when you land, full blown 60 ticks later) vanilla landing only, nothing more
+		setup: fight fblock boss, after raining level
+			find block seed, seed dies and giant fblock is underneath, fight (every time you force him to hit a spike, he shrinks, eventually he stops stomping and you can just go jump on him and he falls, then BOSS DEFEATED)
+	big jetpack man (don't make him fat), invulnerable, holding a catwalk. regular bobs on top.
+
+	coin grab, with pink bubbles that burst and push you. leaderboard? KISS
+
+	blob ground + coin grab. stay aloft as long as you can!
+
+	duel: jetpacks + fball bungeed to you + zoom cam? (keep it zoomed out?) have to collect fuel?
+		"DUEL" say it and show it
+		2 v 2 = 2 players tethered to the SAME giant fball
+
+	REMEMBER game: 5 seconds or press A to continue, blocks disappear, multiple tries
+
+	other cool single player games: two bobs, control one at a time, moving one is invincible (inherit from normal, or survival!) ditto, but both are place bobs with toponly plats . rigid connect up dopple
+
+
+
+
+Game types:
+	choice level (button). Hide = seed coalesce and shrink current level. Show = grwo next level and explode seed. Too slow? Just do the Show animation and explode the prior level?
+	Slider bar level, "This level is in flux!"
+	Play level with past self in it
+	Hardcore level: flag to tell stringworld not to start loading next level
+
+
+Freeplay types:
+	Survival freeplay: show level # with a pause in obstacles, generate in background swap in, fallingblocks (eventually with spinners on them), blobs, launched blobs, arching fireballs, lasers
+
+	Tournaments: races, 2v2 bungee races, survive longest, get most coins, etc
+	Add Rock! (cool score screen, first to N points, select general difficulty)
+
+
+Skins/hats/accesories:
+	chess skin
+	flaming feet, hands, complete flame man (either from little balls, or more genuinely flamey looking)
+
+
+Level styles:
+	Running level. (think original random gen levels) longer, faster
+
+	Jump difficulty: two parameters, behavior difficulty and width difficulty, vary the two. eg: computer jumps only at edges and runs full, but the pillars are reasonably wide
+		Note: even easy jump level should mix in some stretches of not stupid-worthless-jumping-and-stalling
+
+	NormalBlocks: all lined up, all same width, two widths alternating on columns, ditton on rows, etc
+			old school style (contiguous), old school + space.
+			no intersection, no toponlys, all toponlys
+			square grid (change size of blocks, spaces between them, etc)
+		Problem: Easy to do styles when it's pure NormalBlocks, but how do we incorporate other obstacles?
+
+	Coin styles: full line, alternating (place at head then feet), different alternating patterns, different on/off patterns (dotted, dashed, etc)
+			stacked (2, 3, 2 with a space between)
+
+	Fireball: all point in same direction, or just two directions. Only two periods? Only 3? Only ONE? etc
+
+	Firespinner: monster spinner (with new fireball as points)
+
+
+
+

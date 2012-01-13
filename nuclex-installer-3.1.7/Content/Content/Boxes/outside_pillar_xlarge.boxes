@@ -1,0 +1,25 @@
+[RepeatWidth] 1700
+[RepeatHeight] 650
+
+[TopWidth] 40
+[BottomWidth] 5
+
+// [Center_U_Wrap] false
+[Center_V_Wrap] true
+// [Top_U_Wrap] false
+// [Bottom_U_Wrap] false
+
+[Top_BL_Shift] 0, -90
+
+[UV_Multiples] 1, 0
+
+// If true we only draw the top, the center, and the bottom. Otherwise we draw all 9 pieces
+[MiddleOnly] true
+
+// The root name and path of all the texture pieces
+[Center_Texture] "outside_pillar_xlarge"
+[Top_Texture] "outside_pillartop_xlarge"
+//[Bottom_Hide] true
+[Bottom_Texture] "outside_pillarbottom_xlarge"
+
+[Color] 255, 255, 255, 255

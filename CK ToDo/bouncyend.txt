@@ -1,0 +1,375 @@
+Form
+Xbox build
+
+
+Naive Averaging
+Init done.
+EV = 1.30740740740741
+Simulated EV = 1.30740740740741
+EV = 0.741708798745836
+Simulated EV = 0.741708798745879
+EV = 0.511762566137566
+Simulated EV = 0.511762566137566
+EV = 0.386484656084656
+Simulated EV = 0.386484656084472
+EV = 0.307829952968842
+Simulated EV = 0.307829952968893
+EV = 0.256970089623151
+Simulated EV = 0.25697008962317
+EV = 0.219788049768519
+Simulated EV = 0.219788049768519
+EV = 0.191982493957803
+Simulated EV = 0.191982493957832
+EV = 0.170355291005291
+Simulated EV = 0.170355291005201
+
+Advanced Averaging
+Init done.
+EV = 1.30740740740741
+Simulated EV = 1.30740740740741
+Simulated EV = 1.29970803826823  (perturbed)
+EV = 0.877566137566138
+Simulated EV = 0.87756613756618
+Simulated EV = 0.870362604042072  (perturbed)
+EV = 0.66075396825397
+Simulated EV = 0.660753968253968
+Simulated EV = 0.653814778767086  (perturbed)
+EV = 0.540984126984128
+Simulated EV = 0.540984126984008
+Simulated EV = 0.534093774657406  (perturbed)
+EV = 0.451931216931218
+Simulated EV = 0.451931216931232
+Simulated EV = 0.445124064284422  (perturbed)
+
+
+Complex optimized
+EV = 0.658359788359792 : 0.680476190476193 -> 0.669417989417993
+Complex naive
+EV = 0.658359788359791 : 0.680476190476193 -> 0.669417989417992
+
+
+
+
+
+!
+FirstAction shouldn't allow folds after the first round!
+Finish testing Cos vs Sin
+Commit. Proceed to below.
+
+Cos vs Sin
+EV = -0.279406568351355 : 0.127892919634768 -> -0.0757568243582935
+-0.0757568243582935
+
+
+
+
+Poker, CK, FD, SRS, FMM/Fractal, EC2, Retool
+Network (MikeB/Han, programmers, meetups)
+
+
+
+Human vs 1. Make pretty. Commit.
+Exact sim 1 vs Random, many different random, always less than 1 vs B(1). Test other than 1.
+
+
+Fine comb investigate.
+	2x5 look at as many ShowdownNodes as possible.
+	More thorough testing against random perturbations (both with old sim and new monte sim)
+	Complex betting: why EV(B(1),1) < 1?
+	Compare naive complex to optimized complex. Should be nearly the same.
+Proper Royal cards
+Save/Load
+Play against a Nash.
+
+
+Junction optimize. Benchmark (CPU and memory).
+Should never need Collision.
+Optimize memory.
+Get rid of NaN? By shrinkwrapping PocketData
+Suit reduce.
+
+
+
+
+Non-naive combine (broken for RaiseCallFoldData)
+
+
+
+
+
+
+Errands:
+Rec letter
+Tanno security
+Medina
+verizon pay
+Debit, Adam+Code
+Buy shit (sweaters, phonechargers, boots, hotpad)
+
+
+
+Energy (tracking, biding, planning, experimenting)
+Happy (stay aware, relax, enviro, no reddit, study/social instead, no home, decorate)
+Heart (eval, hit projects, network)
+
+eval ->
+	Poker. CK while evaluating. 
+Soldier/Captain
+
+
+
+
+
+-------pwnee--------------
+Fix contact form
+New video
+Business cards
+T-shirts?
+
+-------Cloudberry---------
+(A) to enter name in highscore.
+Awardment/shop menu for xbox
+Some spaceship lvls too easy (bouncy and spikes)
+Really make Cart lvl easier.
+Add alternative heros in campaign? choice is good? few more heros in Rush2 would be sweet.
+Custom hero castle. Short campaign. Big question mark on selected screen instead of castle.
+Xbox build (default arguments)
+Agressive big FBlock. Show him fall down after you on previous level.
+PC version: fix xbox controller.
+Find Dave todo list.
+Easier cart levels (widen the pillars, jump later). Easier box level?
+Cart intro level: more interesting. BIG Thwomps? Princess screams.
+Box level: more interesting, more didactive. "Build up momentum for big jumps"
+Only one tiny bob level. Add place ghost/bouncy level? Later have a '4 or less' level.
+Maniacal laugh on entering Dark Tower. Thunderstrike?
+Send to Eric.
+
+
+-------PinkyTwirl---------
+Alt+Y,H in terminal is search
+2,3,4 mildly broken
+Terminal override (both). Chrome override.
+Investigate: Press Alt and Pinky runs an xmodmap bash command to hardwire JKLI as arrow keys.
+Remap CAPS as Ctrl, and then CAPS+jk is for tabbing.
+L_Alt + R_Alt and then some letter -> focus to some application. Or maybe Alt+CAPS. Hardwired for some things (by name lookup), for others (particular bash shells) you can dynamically set it.
+
+
+-----------Food-------------
+Current schedule: Vitamin D in the early AM, eat breakfast early, dinner no later than 8.
+
+Yes:
+Roasts, liver, chicken breast, steak, sushi
+Onions, fresh almonds, crucifers, sweetpotato+butter?
+
+Probably:
+Butter/ghee
+Yogurt, cheese
+slow cooked potato/lentil/carrots/rice
+
+Experiment:
+Flax seed, green powder, green shakes
+Tuna steaks
+Lard, bone stock
+Strawberry, zuccinis, yellow squash, collards, fresh walnuts, tomato, pork tenderloin, coconut manna (other brand)
+Try small amounts of: Berries (reduced?), hard boiled eggs, lentils/pinto
+
+
+
+
+------Workout------, 2 a day, 1 set to almost failure, WARM UP, maybe hot pack first
+Curls, Pullups, Chinups, Sideups, Tricept extension, 1 legged squats (break up?), abs, military press
+face pull, arm raises, sprint, leg raises, fly, dips?, shrugs, upright facepulls, lunges, deadlifts
+
+
+
+
+
+
+
+WARNIG: Break at Hat.GetTexture, Optimize code turned off, FunRun, RemoveUnneedAssets, Viewer, BackButton exits game!, STAThread, SimpleLoad, Volume, ConsoleWriteline. On PC ESC shouldn't quit. Back shouldn't quit on XBOX.
+WEBSITE: mouse over color. brink title below and only on front page. algorithm section. use checker background. timelapse of development (show beard)
+
+Scott Thompson thompson959@hotmail.com
+Catherine Arthur c_c_arthur@yahoo.com
+Kári Sigurðsson karisigurd4@gmail.com Peacemaker
+James Stant james.stant@btinternet.com Theme
+Blind Digital blind.digital@googlemail.com
+Additional sound: http://www.freesound.org/people/blaukreuz/ http://www.freesound.org/people/dag451/
+
+
+
+Xbox project:
+	Build: GAME;NOT_PC
+	XNA GS: icon = icon/Big128.png
+
+Memory:
+	.loadby sos clr
+	.sympath
+	!name2ee c.exe WindowsGame1.ObjectData
+	!dumpclass 04be3b58
+	!gcroot 0311442c
+
+Fast load:
+	Game plays reasonably well even without everything loaded! Better this than a 25 second load!
+	When others need to get a texture, just get the eztexture, don't load it
+	If they need the width/height, then preload it by hand
+	Get rid of .boxes
+	Small pause at beginning of load
+	Parallel make the level, start it early
+	Fade to black before load is done
+	pop out loading bar? pop in too? (after 1 second of black)
+
+Level editor:
+	flowers_red_wall.smo
+	0, 0.34
+
+	Art\deco_vines
+	Art\deco_vines2
+	Art\outside_window
+
+
+
+-------Post-todo-----------
+Tegmark Wormhole
+Medina (thesis graddiv contact wilcoxon@graddiv.ucsb.edu)
+Ben and Brian!
+PinkyTwirl: M-f, M-d is incremental search forward/backward, nice keys for switching domain of search? prn mode
+Late Fees
+Children of the Deep!, meetups (paleo meetups?)
+(TrueName/MaroonedInRealTime, Quarantine/PermutationCity, The MIT Encyclopedia of the Cognitive Sciences), QED by Feynman
+Fractal\Poker\ better PinkyTwirlKeyboard?
+Ed Boyden
+Leslie Greengard (talk with Ken first?)
+
+verizon -> pay mom (use the 100 buck voucher)
+
+
+
+
+
+---------CK-todo------------
+
+
+Potential polish:
+	Running campaign time?
+	QM above head before explode into hero in a box. QM explodes? Or fadepops down before explosion.
+	Berry princess for not hardcore campaigns (only at end?) witty text?
+	Hero Rush icons, make stick out more? neon next? neon stickmen icons? Use spinner pivot texture? Shrink for Rush2 when there are more?
+
+	Alternate obstacles: upside-down floaters, or upside down plus different motion (box?), fireball head?
+				different blobs, different firespinners
+				old school pinkies?
+
+	neon stickmen? FUCKIN COOL
+
+	Negative phsxstep for first attempt on all levels. Longer on wall levels.
+
+	Change hero powerup
+	Masochistic castle: Firesnakes in background?
+
+	To Small Bob:
+	Auto-smash when you're underneath
+	Or coins, or finger pointer
+
+	mini map ghouls and ghost style on loading screen?
+	game type: gauntlet (every hero type, escalation style)
+
+	Color palette selection for bob customize (make this unlockable?)
+
+	hardcore. twice? wheelie and double jump? inverse implosion effect? or regular implosion?
+		neon black/white fblock in top left. glows when ready.
+	button level (swap out standard effect for suckin effect. change qdrawer.defaulteffect? or map basic -> suckin)
+		Save bob positions! make sure start platform is standardized. Rotate during suckin.
+	initial intro, camera pan?
+
+	wind sound in intro screensaver.
+
+	fireball pinkies?
+
+	other fun levels? hardcore! undanger zone. hold princess. darkness. special. more wall levels? continuous? button lvl? big zoomed out?
+	Bonus challenge:
+		decreases in difficulty as you fail (after credits?)
+	Upgrade choice progression. score screen with three upgrades, clouds under them, finger pointing
+	
+	Credits -> rain stops after boss, bright terrace, fade to night over time. The End.
+
+	Door indicators (door color, icon, hand pointing, etc)
+
+	Category menu, delete lil piece of cord
+
+	Princess interaction: due it via the princess, so that regular is never slowed down
+
+
+Potential:
+	x's over Stickman's eyes on score screen (on his side?)
+
+	redo fireball. dark level with light around fireballs?? (fballs from off screen)
+	bubble fireballs, bubble pops after jumping on and ball falls (place level!)
+
+	Fancy Feet: no obstacles, 60 seconds per level, lava raises afterward
+
+	blasted blobs{zoomed out, last blob flashes, jump on to EXLPODE, limited lives, GUI bubbles up in middle}
+
+	dancing berry load screen (against blue backdrop with clouds)
+
+	Hat store (buy bundles)
+
+	Torch place level. Obstacles only exist on second pass?
+
+	Right and left trigger to move ALL sliders in advanced customization
+
+XBox Do:
+	default arguments in functions
+	fix double path?
+	category menu control
+	text on edges of screen
+Minor bugs:
+	Replay squished for psychedelic man
+Unreproducible Bugs:
+	Custom level, 2 pieces -> watch computer goes to 2nd piece
+
+
+Level: Dark + Cart!
+Level: Double jump tiny wheelie. Jump difficulty, super fun!
+Level: LOOOONG
+Level: HIGH density, LOW 'general difficulty'
+Level: Up, then down
+Level: Mini-rush (use this a few times)
+Level: Hardcore, beat 3
+Level: Hardcore + Wall, beat 3 in a row
+Level: Cart/Bungee
+Level: Normal, with checkpoints (roughly 40% of levels?)
+Level: Difficulty progression string for double jump <other hero>
+Level: Oscillating lava + ceiling
+Level: Continuous difficulty full of blobs
+FALL BACK: hero towers, more concentrated
+
+Doom: Hallway of death
+Doom: Place HERO rush. Place OBJECT rush. BOTH. RANDOM object every place.
+Doom: Meta: rockwheel, lines of floaters (vertical, horizontal, diagonal, other), ditto for blobs
+Doom: 2x speed
+Doom: Spaceship, different sizes, different TYPES! ('Attempt' gravity style), or Rush where the ship gets faster and faster, flames eventually
+Doom: Super dense single obstacle, increase 'general' difficulty
+Doom: Weird heros
+Doom: Reject obstacles
+Doom: Up / Down / Survival
+Doom: Boss rush
+Doom: rotated/inverted camera
+Doom: Weird phsx: No gravity + bouncy ceiling, moon gravity
+Doom: Cart rush
+Doom: Transcendence
+Doom: bouncy level (ceiling and bottom, plus dense fill of bouncy that are used for hitting head if past ytarget)
+
+
+
+GOOD obstacles:
+	Exploding block (orange fblock, shakes when you get close, then novas. not to be jumped on)
+	Super blob, conveyor, thick firespinner, firesnake (or firesnake version of fireball), non-used fireball blocks, elevator flyblocks removed unused chance to keep unused
+	Teleport blob, flying fish blob, inverted flying fish blob, elevator blob
+
+
+link to website to buy full game?
+
+
+
+

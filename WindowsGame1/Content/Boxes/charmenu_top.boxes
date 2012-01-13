@@ -1,0 +1,24 @@
+[RepeatWidth] 2000
+[RepeatHeight] 2000
+
+[TopWidth] 0
+[BottomWidth] 0
+[LeftWidth] 0
+[RightWidth] 0
+
+[Center_U_Wrap] false
+[Top_U_Wrap] false
+[Bottom_U_Wrap] false
+[Center_V_Wrap] false
+[Top_V_Wrap] false
+[Bottom_V_Wrap] false
+
+[CenterOnly] true
+
+[UV_Multiples] 1, 1
+
+[Center_Texture] "charmenu_sides"
+
+[Color] 180, 180, 220, 255
+
+[DrawOrder] 1

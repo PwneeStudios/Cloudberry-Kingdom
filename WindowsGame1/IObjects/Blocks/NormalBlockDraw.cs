@@ -1,0 +1,101 @@
+﻿using Microsoft.Xna.Framework;
+
+namespace CloudberryKingdom.Blocks
+{
+    public class NormalBlockDraw
+    {
+        public bool Shadow = false;
+        public Vector2 ShadowOffset = Vector2.Zero;
+        public Color ShadowColor = Color.Black;
+
+        public Color Tint;
+
+        public PieceQuad MyPieces;
+        Block MyBlock;
+
+        public NormalBlockDraw() { MakeNew(); }
+
+        public void MakeNew()
+        {
+            SetTint(Color.White);
+        }
+
+        public void Clone(NormalBlockDraw DrawA)
+        {
+            SetTint(DrawA.Tint);
+        }
+
+        public void SetTint(Vector4 v) { SetTint(new Color(v)); }
+
+        public void SetTint(Color Tint)
+        {
+            this.Tint = Tint;
+
+            if (MyPieces != null)
+                MyPieces.SetColor(Tint);
+        }
+
+        public void Release()
+        {
+            MyPieces = null;
+            MyBlock = null;
+        }
+
+        public static Vector2 ModCeilingSize = new Vector2(25f, 0f);
+        public void Init(Block block) { Init(block, null); }
+        public void Init(Block block, PieceQuad Template)
+        {
+            //MyPieces.Init(Tools.TextureWad.FindByName("White"), Tools.BasicEffect);
+
+            if (Template != null)
+            {
+                if (MyPieces == null) MyPieces = new PieceQuad();
+                MyPieces.Clone(Template);
+            }
+
+            MyBlock = block;
+
+            // Grow the block a bit if it is a ceiling piece
+            Vector2 ModSize = Vector2.Zero;
+            if (MyBlock.BlockCore.CeilingDraw) ModSize = ModCeilingSize;
+
+            if (MyPieces != null)
+            {
+                MyPieces.CalcQuads(MyBlock.Box.Current.Size + ModSize);
+
+                MyPieces.BottomUp = block.BlockCore.InvertDraw;
+
+                if (MyBlock.Core.MyTileSetType.DungeonLike() && MyBlock.BlockCore.CeilingDraw)
+                    MyPieces.BottomUp = true;
+            }
+
+            // Tint
+            //if (MyBlock.Core.MyTileSetType == TileSet.DarkTerrace)
+            SetTint(MyBlock.Core.MyTileSet.Tint);
+
+            SetTint(Tint);
+        }
+
+        public void Update()
+        {
+            if (MyPieces != null)
+                MyPieces.Base.Origin = MyBlock.Box.Current.Center;
+        }
+
+        public void Draw()
+        {
+            if (MyPieces != null)
+            {
+                if (Shadow)
+                {
+                    MyPieces.Shadow = Shadow;
+                    MyPieces.ShadowColor = ShadowColor;
+                    MyPieces.ShadowOffset = ShadowOffset;
+                }
+
+                MyPieces.Draw();
+                Tools.QDrawer.Flush();
+            }
+        }
+    }
+}

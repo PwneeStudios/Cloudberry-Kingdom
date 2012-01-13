@@ -1,0 +1,20 @@
+[RepeatWidth] 10000
+[RepeatHeight] 10000
+
+[LeftWidth] 60
+[RightWidth] 60
+[TopWidth] 60
+[BottomWidth] 60
+
+[UV_Multiples] 1, 1
+
+[MiddleOnly] false
+[CenterOnly] false
+
+[TextureRoot] "startmenu"
+
+[Center_U_Wrap] false
+[Center_V_Wrap] false
+[Left_V_Wrap] false
+
+[Color] 255, 255, 255, 255

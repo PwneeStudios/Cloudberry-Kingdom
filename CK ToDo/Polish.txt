@@ -1,0 +1,142 @@
+GARBAGE:
+	enqueue anim
+	blockfill -> threat.wait(1)
+	garbage during launch pan? (from background extend?) check to see if a GC.collect is happening
+
+
+BUG:
+	not player 1 plays and can't move camera
+	bungee line isn't antialiased
+	quickjoin color select is overrid in stringworld on next level (but correct on the next-next level)
+
+
+
+PC_VERSION:
+	mouse select color
+	resolution:
+		set resolution in-game (options -> video -> list / apply / cancel)
+		fix {s} spacing for .5 rez
+	list select becomes a drop down?
+	replay menu. score screen menu.
+	don't draw mouse if it's not being used
+
+	menu mouse interact
+		charselect setstate(simple) is lerping up the pressatojoin (in quick join not-pc-version too?)
+		make slider bigger when selected
+		interact with color select
+		.5 resolution
+
+	* Two player, ASDW
+	* Get rid of other keyboard controls used for testing/debugging
+	* Change in game button images (A,B,X,Y, etc)
+	* sign in? gamer profile? let user type in name
+	* mouse control menus, ESC to bring up menu (hide mouse until it is moved)
+	* video options
+
+SMALL VISUAL:
+	* Crying cloudberry on Verify Exit
+
+	Color code names in highscore list
+	Castle tileset sucks. Replace completely? Grey-ify? More rows of pillars, save portraits for hallways?
+	Tufts of cloud when you jump on them (much less or no cloud motion?)
+
+SMALL MECHANICAL:
+	Two blocks perfectly lined up edge to edge, and the computer rus over them and makes the second one TopOnly.
+
+
+New title screen (Career/ARCADE/AWESOME(OR CHALLENGE))
+	Loading Screen
+		Fade to black when it's about to be done
+
+	Potential: up level on left side, menu on right
+
+	Loading screen with all clouds, then the clouds part, or just hard swap
+
+	Cinematic style, gametype, including logo
+	blue skies, clouds
+	pause
+	logo squishes in, SQUISH, pause, WHINNEY, pause (push clouds out of the way? flushy-like)
+	camera slowly begins to pan down, then faster, through clouds, WISPY WIND SOUND
+	stop at title screen, AHHH-AHHH..... silence, pause, LERP in menu items (stagger, SOUND), pause, HAPPY TUNE
+	selected menu items dance (oscillate in size, in-out, plus some rotation?)
+	LERP out menu items (stagger, SOUND). sound when you select something
+	LERP up title
+
+	BIG dolls in menu, maybe upper half of Balrogs body, collage style. Big and overt and happy.
+
+	loading while going up in clouds, angelic sounds. fade sound. collage on left side (big bob, berries? balrog?) slide in menu options on right. record, music
+
+
+
+New menus
+	* Things in background: flying blobs, jumping stickmen chasing after them, etc
+
+	Score screen:
+		use bumpers to swap between slides. simple slide and detailed slide and cumulative slide
+		Encapsulate (including different slides)
+			Each slide is its own class! Inherit from a parent class (Slide, DeathStats:Slide, etc)
+
+	Better stats screen (use bumpers), incorporate as part of score screen?
+		Deaths by:
+			On left: image of obstacle, at top: image of stickman jumping
+			Can scroll up and down, highlighted item is a transparent quad with rounded edges
+
+	End of game stats: line graphs vs each level (or histogram), have a graph for time to beat / attempts, others?
+			   total coins over time (broken down percentage wise per player?) same for blobs
+
+	* Verify quit: have giant crying cloudberry below menu
+
+
+
+
+High Scores
+
+Unlocks/Awardments
+	* Achievements:
+		achievement data struct (save)
+		omega man style plain (OR: statistics page. associate everything to a fancypos, have multiple pages on top of each other, slide top one out to the left to expose one below it. or have next page come in from right, instead of already being there (then you can reuse the playernames))
+		Awardment attained! "Sinner's Remorse" (simple blue box at bottom, name in different color)
+			Show picture of hat on right in the box (if a hat is associated with it)
+	* Unlocks:
+		BIG unlockables:
+			get X stars (total, tracks across all difficulties. freeplay gives stars too. use cool cumulative_star_over_door graphic for each difficulty)
+			stars unlock new game types (in freeplay) and new remixes, no store or choice, just linear progression of unlocks
+	
+			Remix! Remix#2! Rainbow Remix! (roll in new obstacles, different combinations of obstacles, new heros)
+				forget about unlocking individual heros/obstacles
+	
+		LITTLE unlockables:
+			tied to achievements
+			text beneath Awardment:
+				New skin unlocked!
+				New game mode unlocked! (could be an extended career mode, more tile sets)
+
+
+
+
+
+Little things would be nice:
+	cleanup periods. rndly select a period grouping type
+	advertise quickjoin (when? beginning of levels? after death? during launches?)
+	Quick Spawn: press any key (after small delay?)
+	public void PosFromParentOffset(), shouldn't reference FallingBlock directly
+
+	AI preset behaviors (crouch and wait, crouch and jump in place, jump crouch, sit and wait, left/right/left/right dance)
+
+	save levelseed? for PC version, save and load
+
+	draw replay bundle: put all stickmen textures into one?
+	no death by timer (or greatly extend): make anim length very long, don't keep if it wasn't a victory and if it's very long, otherwise trim and recopy
+
+	stringworld release (clean up seeds, etc, stop loading mid load?)
+
+
+Would be super nice:
+	POWER UPS:
+		Slow Mo visual effectS
+		checkpoint (just one, color differently?)
+		bubble shield (3 charges, shrinks on each one)
+	
+	* Online sharing of seeds/levels/campaigns/videos (maybe best not to use seeds but to save actual level)
+
+	* Credits

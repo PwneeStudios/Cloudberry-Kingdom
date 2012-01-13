@@ -1,0 +1,29 @@
+[RepeatWidth] 2000
+[RepeatHeight] 2000
+
+[TopWidth] 0
+[BottomWidth] 0
+[LeftWidth] 0
+[RightWidth] 0
+
+[Center_U_Wrap] false
+[Top_U_Wrap] false
+[Bottom_U_Wrap] false
+[Center_V_Wrap] false
+[Top_V_Wrap] false
+[Bottom_V_Wrap] false
+
+[Left_Hide] true
+[Right_Hide] true
+
+[UV_Multiples] 1, 1
+
+// If true we only draw the top, the center, and the bottom. Otherwise we draw all 9 pieces
+[CenterOnly] true
+
+// The root name and path of all the texture pieces
+[TextureRoot] "charmenu"
+
+[Color] 180, 180, 220, 255
+
+[DrawOrder] 1

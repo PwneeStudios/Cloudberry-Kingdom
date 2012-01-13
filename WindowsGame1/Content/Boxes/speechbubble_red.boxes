@@ -1,0 +1,32 @@
+// RepeatWidth is the width of the top, middle, and bottom textures. A smaller value means the texture will be repeated more often
+// RepeatHeight is the height of the top, left and right textures. A smaller value means the texture will be repeated more often
+[RepeatWidth] 600
+[RepeatHeight] 350
+
+// _____________________________________________________
+// |                 |      /\      |                   |
+// |      TL         |      ||      |      TR           |
+// |                 |   TopWidth   |                   |
+// ______________________________________________________
+// | <= LeftWidth    |    Center    |    RightWidth =>  |
+// ______________________________________________________
+// |                 |  BottomWidth |                   |
+// |      BL         |      ||      |      BR           |
+// |                 |      \/      |                   |
+// ______________________________________________________
+[LeftWidth] 70
+[RightWidth] 70
+[TopWidth] 70
+[BottomWidth] 70
+
+
+[MiddleOnly] false
+[TextureRoot] "speechbubble_red"
+
+
+[UV_Multiples] 1, 1
+
+[Top_U_Wrap] false
+[Bottom_U_Wrap] false
+
+[Color] 255, 255, 255, 255

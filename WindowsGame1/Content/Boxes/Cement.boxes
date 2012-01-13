@@ -1,0 +1,16 @@
+[RepeatWidth] 150
+[RepeatHeight] 150
+//[RepeatWidth] 75
+//[RepeatHeight] 75
+
+[Center_U_Wrap] true
+[Center_V_Wrap] true
+
+[UV_Multiples] 0, 0
+
+[MiddleOnly] false
+[CenterOnly] true
+
+[Center_Texture] "block_small"
+
+[Color] 255, 255, 255, 255
