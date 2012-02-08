@@ -72,7 +72,9 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
+#if WINDOWS
             slider.MyFloat.Val += Tools.DeltaScroll * .9f;// .68f;
+#endif
         }
 
         public Vector2 BarPos

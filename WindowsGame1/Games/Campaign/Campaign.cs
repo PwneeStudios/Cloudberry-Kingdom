@@ -356,7 +356,11 @@ namespace CloudberryKingdom
                 };
         }
 
-        public static void AddCampaignGUI(Level level, Action<GUI_Level> ModTitle = null)
+        public static void AddCampaignGUI(Level level)
+        {
+            AddCampaignGUI(level, null);
+        }
+        public static void AddCampaignGUI(Level level, Action<GUI_Level> ModTitle)
         {
             var title = new GUI_CampaignLevel();
             if (ModTitle != null) ModTitle(title);

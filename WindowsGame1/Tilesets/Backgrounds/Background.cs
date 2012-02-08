@@ -10,6 +10,8 @@ namespace CloudberryKingdom
         public float MyGlobalIllumination = 1f;
         public bool AllowLava = true;
 
+        public Vector2 Wind = Vector2.Zero;
+
         //public static string[] BackgroundName = { "None", "Castle", "Dungeon", "Terrace", "Space", "Seed world" };
         //public static bool[] AllowInCustomGame = { false, true    , true     , true     , false  , false };
 

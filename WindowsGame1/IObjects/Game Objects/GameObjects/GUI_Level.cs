@@ -6,7 +6,7 @@ namespace CloudberryKingdom
 {
     public class GUI_CampaignLevel : GUI_Level
     {
-        public GUI_CampaignLevel() : base(SlideIn: false) { }
+        public GUI_CampaignLevel() : base(false) { }
 
         public override void OnAdd()
         {
@@ -80,8 +80,11 @@ namespace CloudberryKingdom
         {
             LevelText.SubstituteText(ToString());
         }
-        
-        public GUI_Level(bool SlideIn = false)//true)
+
+        public GUI_Level() { DoInit(false); }
+        public GUI_Level(bool SlideIn) { DoInit(SlideIn); }
+
+        void DoInit(bool SlideIn)
         {
             DoSlideIn = SlideIn;
 

@@ -99,11 +99,6 @@ namespace CloudberryKingdom
             Call(new StatsMenu(StatGroup.Lifetime));
         }
 
-        void MenuGo_Freeplay(MenuItem item)
-        {
-            Call(new FreeplayMenu());
-        }
-
         protected PresetPos ReturnSlideOutTo = PresetPos.Top;
         protected PresetPos OnAddSlideOutTo = PresetPos.Top;
         protected bool UseAdditionalSlideOutPos = false;
@@ -226,13 +221,19 @@ namespace CloudberryKingdom
             item.Go = MenuGo_Career;
             item.AdditionalOnSelect = () =>
                     pics.Set("menupic_classic", "", new Vector2(388.8888f, -222.222f), false, Vector2.Zero);
-            
-            // Arcade
+
+            //Arcade
             item = new MenuItem(new EzText("Arcade", ItemFont));
             item.Go = menuitem => Call(new ArcadeMenu());
             AddItem(item);
-            item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero,
-                false);//, new Vector2(611.1113f, -726.1903f));
+            item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero, false);
+            
+            //item = new MenuItem(new EzText("Hero Factory", ItemFont));
+            ////item.Go = menuitem => Call(new HeroFactoryMenu());
+            //item.Go = menuitem => Call(new HeroFactoryMenu2());
+            //AddItem(item);
+            //item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero, false);
+
 
             
             // Doom

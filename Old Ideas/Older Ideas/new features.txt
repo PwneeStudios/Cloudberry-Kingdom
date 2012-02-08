@@ -1,0 +1,468 @@
+
+fuck score, just coins?
+final score (coins) on a level: (coins - deaths ) * time / par
+	lose a coin when you die. show it?
+50 coins and get a bonus level. or bonus levels get you coins. 50 coins gets you a power up pick.
+coin fountains and explosions. special golden glowey blob (not part of level? or yes?) explodes in a shower of coins. golden fblocks explodes in geyeser of coins from bottom of screen. golden fireball, only explodes if it hits a player [only multiplayer]
+special level:
+	laser from left. also have a laser on the right. stuck between them.
+	tethered to a block. get rid of block, just have it a point you're tethered to
+
+PHILOSOPHY: game should be dynamic and fun enough without a plot, and completely linear
+		stupid fun things: cool death anims, cool extra coins, hidden secrets in levels, stupid skins
+		pull out all the stops: fuck sequels, put every good idea in this one. we got time, make it good
+
+
+TODO:
+	door animation (wood on top of black arch. matched up with a bob animation)
+		this plus the shrinking black circle? or one or the other?
+	blob boss, spikey guy boss, fblock boss
+	chip tunes?
+	PAUSED when the replay is paused
+	try other death anims and death sounds
+	interactive level
+	awesome begin/end pieces to tie the levels together
+		begin piece: with a few minions and an angel carrying off the princess
+		+new ladder pieces
+		[implementation note: rather than having start blocks, choose a template (aka a ladder or start piece)
+			also, temporarily add the ladder to the end of the previous piece on the 2nd run of computer, so that the computer can run through part of the ladder successfully (always running and jumping full out)]
+	one screen computer loop [rndly generated or prerecorded, for rnd have the edges of the screen never have blocks and put the start location at the bottom so the comp can always get back there. no fblocks or blobs. try and loop at a spot where the computer is running full speed]
+		survival. awesome 4 computer video
+	string levels together
+	design a blob level [blob starts at one point, show where it needs to get to. do this 1/2/3 times, then mix the paths the users made. have each player go at the same time? maybe funner to watch each. Player 1! Design your blob path!]
+		potentiall also: design an mblock pattern, design an fblock/ghost formation, design an elevator path
+	difficulty select (maybe actual bobs shouldn't pop out of char select in career mode) (just use the sexy text of the difficulties in a quicklist)
+	new heros, hero start piece (bubbles) with multiple heros strung together (don't string together with doors, just have big screen wide ladders)
+		hero bubble: can only be popped by corresponding player. if player doesn't pop it in so much time, or walks past it, it will follow the player, faster and faster
+	button level
+	hero rush level (short levels, one hero type after another. freeplay gametype only?)
+	choice level
+		(button goes black and smokes a bit after hitting it 5 times)
+	button2 level (maybe nix this)
+	Hold A to jump higher (a non-obtrusive note that appears on the first level if any single player isn't jumping fully)
+	place level start piece, button level start piece, normal level start piece
+	bonus games: survival, some duels, coin grab (bouncy blocks?), different blob games (put these into free play mode as individual games and as a tourney mode)
+		all bouncy blocks, with coins (and a time limit?) (also bubbles?)
+	breaks in the level, new connection ladders, intro and exit pieces
+	screen saver (single screen survival, and infinite level, [see infinite level.txt])
+		[implementation note: when trying to record the computer motion, and trying to make a closed loop, loop at a point when you are running at full speed across the middle of a platform. then the code can just pick out the point where you cross over the starting point, matching the same position And speed!)
+		[implementation note: instead of infinite level, have computer die near the end of every piece. or just fade to black]
+
+
+Game Layout:
+	fuck world map. mario 1 style	
+	string levels together.
+		outside, dungeon (button)(fall in), dungeon (heros, bungee if multiplayer), outside (short, no score) to a castle, castle (choice, or special), castle (place), blob boss, camera shake -> swarm of blobs from left -> run right (easy mini level?, force camera to move right, have blob progression be slightly faster than camera) [fix camera shake, seems to fixed at one corner. can make it non-naseous?], giant bouncy block at the end -> bounces you up off screen -> intensify rumble/shake -> fire explosion everywhere, and fade to black -> bob falls into new outside world
+			at end of first level:
+				blob-stickmen and a (biggish 1.5x) devil stickmen with princess. blobs shriek, devil flys off with princess
+			in castle: very first room have a blob-stickman be standing in middle. player enters, stickman throws up his arm in surprise (awful squeaky scream) and runs (flys?) away -> stone slab slams after him -> survival (pop in [staggered] a big circle of special coins, collect them all to raise slab)
+				when the blob-stickman runs have him smashed by the falling stone, or he is trapped in the room and you kill or, or there are two and you can kill both
+				have the blob-stickmen elsewhere?
+
+		ice outside (no more fighting in background) (regular level), outside (heros), dungeon (place), dungeon (button, special, obstacle button), outside to a castle, castle, castle (survival x3, or choice type 2), giant fblock boss. rumble, etc. instead of blobs, have 'totem poles' of giant fblocks slamming down in succession, leaving no gaps on the screen, instead of bouncy block it's a spaceship-in-abubble, transform into spaceship and jet off the screen -> screen explodes in fire, fade to black of space -> quick hyper level -> then the black of dark outside world, with some land, pop back to normal bob
+			fblock-stickmen have a low, garbled shreak (ooh-ahh, ooh-ahh)
+
+		dark outside (regular level), ...,
+			spikeyguy-stickmen have a backthroat-pigeon-clicky shreak
+
+		final boss, balrog. beat him, chased by collapsing castle, at far right instead of a bouncy block there is a flying checkpoint. jump to get it, just before you touch it it flies away, you fall down and off the screen -> screen explodes in fire, fade to black
+
+			have hat room door in beginning of second level (locked if you have no hats)
+			and make levelpieces slightly longer (maybe with breaks and wider ladders, etc, and actually slightly longer pieces)
+			preload next level while current level is playing
+			if next level isn't through a door: have scorescreen float with camera, don't lock right side of screen. fade out score if you go far enough right, start music
+		note: doors in outside pillars can lead to other outside levels (other doors in outside pillars) or to a dungeon
+		note: still do a black circle closing in as a transition (other shapes: rotating square, thumbs up!, star, etc), and think better about where the two doors are relative to each other in screen coordinates. maybe start zoomed in on the second door, then zoom out to normal?
+
+button2 level:
+	two colors: tint all the blocks and screen red and blue, for the two types of obstacles
+	flying QM blocks (red and blue, they change colors with everything else)
+		hit them and the color and obstacles change
+		the computer uses this to its advantage
+	phased obstacles are just transparent?
+		!! start with this first to see how it looks
+
+
+for low jump level comp shouldn't be SO slow. try and sparse-ify the levels a bit
+	maybe slow 50% of the time, nearly full speed the other 50%
+
+
+occasionally come to a screen with 3 doors, each with a cost in coins (30, 40, 50)
+	each door leads to a bonus game. beat it to get a random power up (or the power up is shown previously above the door: insentive to pay more maybe)
+	or, 3 QM blocks inside the door. rnd power up from the one you choose
+	don't let the player do more than 1 door? would interupt the flow of the game too much
+
+
+interactive level:
+	hit a button to make a line of explosive blocks explodes (staggered)
+		or pop them out (probably more CK style like)
+	hit a button to raise a horizontal line of blobs. etc
+		instead of raise just pop them in? (staggered)
+		pop in a line of blocks, a row of blocks
+
+dynamic level ends:
+	LEVEL CLEARED should be big and then shrink as it falls in. (also moves vertically downward?)
+		falls into more of the middle of screen? then slowly rises to allow for the score screen
+
+	two QM buttons, one to watch the replay, one to end the score screen and open up the next level
+		a wall of explosive blocks is exploded
+		a bouncy block shoots in (from bottom up with a gravity arc), use the block to bounce over the wall
+		open a door
+	both QM blocks fly in after score screen finishes, or as it is finishing
+	OR:
+	just
+
+
+small flying qm blocks with wings:
+	smooshed when jumped on (QM squishes to 1/10th normal size, wings point up, then whole thing falls off screen)
+	causes:
+		coin fountains
+		tri-shot coins (from bottom of screen, with gravity arc?)
+			stagger 1, 2, 3   or all at once
+		coins to pop in
+		[ aim coins such that they hit the computer? some that don't too. so we can have sexy computer replays ]
+
+
+'Champion' door in freeplay castle. unlocks when you beat masochistic
+	door goes to a super masochistic level, with a preset seed (so we know its hard)
+	player beat it, sends in replay to server for verification
+
+
+start camera a little bit to the left
+	add entrance doors, or have players fall in
+		door should be in different locations, but close-ish to center, usually to the left
+	have a few different beginning pieces? ending pieces? (pick which one to use based on how high the computer was at end of last level piece?)
+	beginning pieces should emphasize not to go left, and should ramp up to the actualy level (a staircase, etc), can be fairly large, maybe a full screen almost
+	beginning piece for:
+			hero. bubble with hero in it. when it pops then the player that hit it pops. bubble regrows. door in bottom right to go to actual level
+			place. bubble with piece in it. can mess around. door to actual level in bottom right
+			button. one screen width leading up to gap
+
+
+ceiling styles:
+	skinny, as low as possible, then big gap
+	ceiling is pre-used (styles: reasonable. insanely deep, then open gap. one really long piece 1/3 or 1/2 down screen)
+		implementation note: remove all blocks and mblocks around entire left side of ceiling block to prevent comp getting stuck
+	moving ceiling (up and down) (in harmony, or in a sine offset, or random offset)
+	big blocks, with Y=0, pre-used. evenly spaced in a line, or just one
+		same, but alternative Y=600,Y=-600
+	lil cement blocks, with Y=0, evenly spaced, or alternating, or two rows, sine wave
+
+computer move style:
+	occasionally do:
+		balls to the wall jump, if you are high enough. full forward.
+		duck fall. if you are high enough, fall without moving forward, and duck
+		straight up (move forward slight? check to see if we aren't gaining height?)
+		up, without messing with regular horizontal motion
+
+
+IMPORTANT!: final boss is a blob man?
+			can change shape: man, ball, empty box, scatter (for destination points use different animated object for each shape. object should just be a collection of quads, and blobs are assigned to interpolated positions between them)
+		OR, world 1 boss is blob man, world 2 boss is spikey guy man, world 3 is fblock man, then boss is balrog
+			spikey guy fight: a fireball emitter on the left that is in a block on a chain which can be pushed up and down the chain. 3 qm blocks in the middle of the screen (in a vertical line? or more random? or moving?) hit your head on first one to shoot fireball emitter, then it turns red and the 2nd one turns green, etc. cycle through them. fireballs destroy spikey guys.
+				have chains on the spikey guys, going off in every direction
+				occassionally one are will scatter and do a flying pattern
+			fblock fight: have spikes and firespinners on the blocks! no ground?
+			blob guy: harder = make the blobs move to their target points faster
+				waterfall over bob and reconstruct on other side.
+				horizontal transfer, start at top, then middle, then bottom
+				split into two mini men
+				cascade to top of screen, rotated 90 degrees. ditto bottom
+
+		obstacle boss: before that boss a pure level, or related.
+				for blobs: entire screen filled with blobs (not moving), with the runs the computer ran into removed
+					random reassign, scatter, arm comes off and forms a ball punches forward and comes back, becomes a ball and bounces around, squat / jumpnjack, 5 armed pinwheel, flying formation of 5 lines, one horizontal line moving up and down, one horizontal line with every other blob offset by 200 upwards, a sine wave
+					use splines for the target locations?
+				spikey guy: chains coming off in every direction
+				fblock guy: just one big fblock? minions with fblock heads. jump on them to launch them upwards, to hit the big boss, or to land on his head
+					thwomps to the ground and to the left and right. camera shakes
+
+after winning the game (or a world?) show a score screen with total coins, average life, total deaths, rank
+	(should be on black, after fading to black from the last scene, with you running off carrying the princess)
+	plus a name:	Most Valuable (most checkpoints and completions)
+			Most tenacious (longest average life)
+			Greediest
+			Slow poke (left behind the most)
+	show total coins from everyone, and convert them to bonus stars
+
+	then credits, then appear in a black world with a castle piece and three doors, exit, star store, stats (a long level with a graphical display of stats, draw the obstacles above how many times it killed you etc)
+
+stats screen: bigger text, multiple pages. average level time completion, average time spent on a level, % air time
+
+after death:
+	start camera a little further to the left
+	have the players pop in after a quarter of a second (if multiple players, stagger the popping, randomly)
+	decrease slightly the computer's initial pause length
+
+
+
+small QM blocks. to explain the Y power up menu
+	to explain the first time you get any type of power up
+	to explain how to beat a boss (Uh, jump on it?) (Oh, snap!)[then it explodes, or shoots off the screen upwards]	
+
+
+end of level duel!
+	every 3rd level of each world?
+	door leads to a different room?
+	enter: all black except stickmen, lights fade in, There Can Be Only One!
+duels: spikey guy bungee (get the spikey guy by hitting a bubble with spikey guy in it, ditto fireball etc)
+	block with a doublesided firespinner on it
+	fireball emitter on head, B to launch? (or just hold a fireball like in a place level, throw animation?)
+	spartan laser (put rounded caps on the lasers?)
+	lay a spike
+	coin grab (regular level with shit ton of coins)
+		or, one room, filled with coins
+		or, one room, coin motion patterns: all up and down with screen wrap, side to side, both, orbiting points on and off the screen, etc
+		coins could have sub-movements too: groups of four that expand and contract, or orbit a point, etc
+	survival
+		two doors near the center. entrance and exit. entrance slams shut after you enter. exit opens if you survive
+
+	!!! tournament, string a bunch of duels together?
+
+	try: computer duel?
+
+
+
+choice level!
+	first room has 3 qm blocks, with obstacles above them (live obstacles, possibly biggified, with a x N counter next to it showing what level it would be if you selected it [no x 1 necessary])
+	hit a qm block and it goes up (binary), the others go down, and increases the level of the obstacles (only go from 0 to 3?) [doesn't changed the x N text of the obstacle]
+	circle or highlight the obstacle selected
+	door at far right, go in, dont show loading screen (only making one piece, should be quick), fade to black, fade in to piece
+	repeat, with the choices stacking
+	each piece should be pretty short, not much more than one screen width (string 5 together?)
+	voice: CHOOSE YOUR FATE?, or a text? or a note?
+
+	OR: different colored qm block that only changes the obstacles (use pure obstacles types)
+		one qm block of each type per level?
+
+choice level, type 2!
+	enter a door, go to a room with a closed door in center, don't bring in players yet
+		(door shouldn't be in center if it's not a survival type level)
+	show the players the control (Use left joystick to choose. Press A to select) [have a 3 second period where you can't press A] [have a verify screen when they press A]
+	North East South West of joystick each correspond to a different 
+		or for easy, just East and West. medium can have 3 choices, etc
+	!!!!! use second joystick too! (use triggers and shoulders to select?)
+	continuously blend between the different obstacle types
+	have the computer playing in the background? (if it's not a single screen survival, have a new computer respawn every period, or every 3rd period)
+	after selecting, the door opens and the players fade in
+
+button level! use question mark block.
+	color: blue means can hit it, yellow means it's recharging, red means it's tapped out
+	start button off in center of screen, and have players walk to it
+	!! platform button is above should be slightly more than mid way up the screen, so that no ladder is needed
+	OR
+	!! platform button is in top left of screen, slightly down. players jump ON it to cycle through levels, nothing below it
+
+race!
+	make a 2 path level, with player 2 finishing first (or just pick out the player that finished first?)
+	make balrog stickman
+
+antibungee!
+	antialias the bungee
+
+place level:
+	have initial level piece (predesigned, templates?) where you fall in or come through a door
+	in center is a token, with the piece you will be using it
+	pop it, and you will be holding that piece
+	the token should reappear over time (grow from a point, not just fade in)
+
+	other hero place levels?
+		big bob should have his right arm sticking out, with the piece either balanced at the end, or he is palming it straight out
+
+
+
+new obstacles:
+	one set per tileset. variation doesnt need to be inside individual obstacles code, could be different classes and handle the control and rainbow from outside
+
+
+normalize obstacle periods (and nix speed increases MID level piece, but keep them mid level)
+
+ramp up first piece of level
+control difficulty of style (increases throughout game?)
+.5 difficulties? (between easy and medium, etc?)
+
+mix up: use the old ideas for boss level for individual level pieces, triggered when you pass the location of a checkpoint
+		always the middle piece?
+	lowering ceiling
+	rotating camera
+	bubble powerup (computer actually uses)
+	raining falling block level (comp goes as high as can, uses a cement block if it's past the 500 from the middle of the screen)
+	laser moving from left (different color and wider)
+	hallway of death
+		occasionally double decker it
+		use the cement blocks to line it
+		invisible blocks above and below for fball emitters, or just make a free floating style for emitters
+	enclosed
+		array of cement blocks, keep ones computer uses, plus additional ones to make a continuous line above and below
+	moving platform! get on one elevator block and follow it the whole way, show the path with a chain
+	bunch of concentric rings of mblocks (all orbiting same point). take away only those computer runs into
+		ditto for blobs
+		variations: one big ring, two rings going opposite ways, going same way, dense going all same way, dense alternating
+
+
+
+jetpack recharges after 1.5 second (from point in time when fuel is not 100% full. if used sparingly should never run out)
+purely vertical jetpack world?
+
+letters from balrog should slide in, with big cloudberry in BR
+	make sliding in a bool that can be applied to multiple note style types, ditto a picture in BR
+	!! apply to the power up screen as well
+
+
+expand stats page:
+	highest star rating for each difficulty
+	number of times game completed
+	awardments
+	one cur game page, one total career page
+!! save game data
+
+new interpiece connectors (aka ladders)
+throw in some other types of breaks: dead zones with no obstacles, simple zones with no blocks but normalblocks
+					circular dead zones. checker the piece 2xN and stagger square dead zones _-_-
+					[add 1 to general difficulty if these are thrown in, to make non-dead zones harder]
+
+
+RPG style dialogue, with big portrait of person talking next to the text bubble.
+	person should be on top of blue circle, which overlaps BR of text rectangle
+	should slide in? if so, very fast, just a few frames
+	some sort of sound effect?
+	the text should come in one letter at a time? but moderately quickly, and can be shortcircuited
+
+better jump difficulty control:
+	make pillars and mblocks slightly wider, when a foot clips the side do:
+			if pillar is used -> make top only
+			otherwise	  -> move the edge back, if too skinny, lock at that width and make top only
+		once used, make skinnier on side bob landed on to match difficulty
+
+only player activating replay can control it
+	bumpers for checkpoints
+	speed button for single step if paused
+
+
+cheering cloudberries
+	die a bunch of times then get checkpoint
+one cloudberry saying "Triple kill!"
+	everyone dies within one second of each other
+whooptie cloudberry
+	blob streak. 5 or 10? percent chance
+
+tiny text for points you get for picking up coins and killing blobs
+
+
+!!!!
+!!!! other powerups!
+	!!!!TRY: other powerups: ghost (outline only stickman, or green transparent, or a line showing you the path[thicker closer to current time], or both) slowmo, infinite free checkpoint (just save the timestep, not what's dead), bubble of the void (a bubble around you, 3 charges, shrinks each time you hit an obstacles. obstacle pops out. after 3 uses bubble pops)
+			other less cool probably: free edit, remake, 
+	access them all by pushing Y, brings up a menu with icons x N. show brief name when highlighted
+	get powerups how? every 12 stars, and from bonus levels
+	!! on menu have a gold circle next to selected item, to make it more clear where you are
+note:
+	watch computer is free. ghost is a powerup.
+	call it "Summon Stickmantastic! . . . . x OO"
+
+
+flying checkpoints
+	try out different colored, smaller, flying checkpoints randomly placed with a flight pattern
+
+
+watch comp on place levels
+	checkpoints while making
+
+
+
+
+Achievement system! (Awardment system!)
+	show it when you get it
+	show all on stats page
+	save to gamer profile
+
+new fill styles:
+	flight patterns (for blobs, mblocks AND normalblocks)
+		a horizontal line of blobs! cool
+			!! NOTE !!
+				some of the more complicated blob structures should NOT be moving
+		pick three flight patterns and alternate using them to fill the level. or all random. or one type up top, one type down low. or checker pattern.
+		!! very sparse flight patterns with only 2 or 3 blocks. gives the illusion of 2 or 3 mirror images of the level, all slightly offset
+	don't make top only when side is hit, instead move side right
+		other style: remove instead of making top only
+	allow for non-pillar not-toponly blocks in castle world
+	all toponly, all medium thickness, all exactly the same size square (or width)
+	all of exactly two sizes
+	pre-used blocks: stair cases, ladders, staggered ladders, 4 point square, line of fblocks, circle, semicircle at bottom or top or middle of screen, other patterns, arch of a circle [what angle offset? if multiple archs slowly rotate them, so the n-th arch as angle 20n]
+		randomly pick 1 in 10 things to be pre-used (not blobs!)
+		randomly pick 1 in 10 things to be KeepIfNotUsed
+		geometric patterns of things to be KeepIfNotUsed (horizontal lines, vertical lines! (of stationary blobs for instance)), vertical sine wave (repeat every 1500 units), horizontal sine wave (two stacked, in phase), circle
+			multiple circles throughout entire level of various raidus (stationary or rotating around center if mblock. blobs can be stationary or rotating)
+			or just one circle.
+			regular grid (or hexagonal grid), with a good amount of spacing (better for pre-used than KeepIfNotUsed)
+			[implementation: additional to regular fill. randomly pick one obstacles like normal, then invoke the class specific subroutine for a special fill)
+			[implementation of stacking: have two different groups. pick one from one group, or one from each group (to avoid patterns that clash)]
+		erase things touching pre-used blocks
+	block fill. break up a screen into a 3x3 grid, and fill each cell with one type of obstacle
+	horizontal line. each line is one type of obstacle
+		a screen width wide, half a screen, the whole level piece, etc
+		obstacles are synchronized inside, or not, or alternating synchronized
+	diagonal line. a 45 degree line is one type of obstacle. make the line more than 1 thick? only crosses half the screen. gaps every other point. two gaps every other point.
+		KeepIfUnused?
+		half a diagonal line? a triangle that goes up half the screen then back down, etc
+		line with two types of obstacles, alternating between the two, ABAB. or AABBAABB. ABCBABCBA, ABCABC, etc
+		!! ditto for floating obstacles! like floaters. with same period they will swing out and then form a line periodically. 45 degree angle, vertical, horizontal, all look cool
+	clone. break level piece into 2/3/4 sections. only fill the first section, and clone the result onto the other three
+	dead zone
+		also make it a movement style (if you are high enough, full speed right and don't touch anything)
+	discrete period offsets: firespinners and others only come in period offsets of 90 degrees, or 45 degrees, or 180, or 360 (all locked), etc
+	top and bottom of screen are different:
+		divide up obstacles to top and bottom exclusively
+		add a KeepIfUnused divider between the two?
+	do normal fill on the sides, something geometric in the middle
+		vis a versa
+		horizontally split. regular randomness on top, geometric stuff on bottom (vertical lines that only reach half way up, etc)
+		horizontally split, switch sides (2, 3, 4, times, etc)
+		horizontally split, with middle totally random, or totally geometric, etc
+		other patterns, etc
+	Implementation:
+		have normal fill, with styles. then have a secondary fill on top that does geometric patterns, like lines, etc (try and encapsulate the creation of one obstacle inside the class)
+		ditto with obstacles. have the normal obstacle fill, then the secondary geometric one
+		only allow for so many additional fill types to stack on top of each other (the number allowed could be a style parameter itself)
+	Implementation of diversity:
+		pick obstacle (or group of obstacles)
+		pick style (line, circle, checker, random patterns)
+		pick substyle (angle [0, 45, 45 * n where n is the n-th line placed], offset [sine, zigzag, skip, etc], extent [screen height, width, half, exclude middle])
+		pick meta-geometry for placement of lines or circles [two substyles and alternate, line big space line big space etc, space filling]
+new motion period styles:
+	two period offsets (90 degrees apart). all blocks and blobs have one of these offsets
+	much more likely to have straight lines (difficulty dependent?)
+
+
+bonus levels: blobs, coins, survive, twisted system
+	blobs: kill them all [KILL THEM ALL], get all the coins [MONEY], kill the gold one [KILL (in gold)], get from point A to point B [GET THERE]
+		name of the specific game type on the black screen before the level is shown (game should be played on black screen as well?)
+	!! lasts exactly 60 seconds? or have 5 lives and can only beat 5 levels
+	
+
+	!!! first screen of bonus game should say BONUS in bold on a black screen
+		then, scrap the BONUS text and show a giant flying blob, or wavering fireball, etc
+			as well as the current level and the number of lives left. all on a black screen. old school mario style.
+
+better score screen:
+	have score board embedded in level, on some foreground top only block. have the exit door on this block as well
+	get rid of bonuses? replace with time/par and number of deaths (use colors?)
+	LEVEL CLEARED should have a bit of an animation, get bigger and 'fall' in by getting smaller, or slide in from top. should bey very fast, just a few frames
+		ditto with the STARS, which should go across the LEVEL CLEARED text
+		OR not, and the total star string is always centered. so that when a new star is added all the stars are moved
+	barely faster coin total, no total score, barely faster bonuses (only do a sound for bonuses you got, others just display with no delay)
+	AFTER coins are totalled show big stars across screen one at a time, with stomping sound for each
+	exit sign on door (neon?), move to the left a little, maybe even the middle (move up score board a little)
+	instant replay door?
+		should say "Insane Replay!" when there are a lot of attempts
+	have two pillars with exit door (and replay door) nearly centered, plus other things to jump on? (have a few templates?)
+	!! fade to black when you exit, and fade in on world map (same in other direction too?)
+
+Free Play:
+	at top say the difficulty, can scroll left and right, hitting A will actually select a level like that. otherwise moving down while make the text change to Custom. likewise, changing a slider will make text say Custom. make sure it starts off on Easy with something random picked.
+	OR:
+	have two modes, advanced, which is how it currently is, and basic, where you just select hero type and difficulty 1-6
+
+	instead of words, just have tokens/icons in bubbles with a x N multiplier. have a 2D array, to make it quicker to get where you want. then press A to increase level, or A to select then something else to control level (joystick). level indicator should be a semicircle above the obstacle, green-yellow-red in color.
+		animate the current obstacle that's selected
+		have difficulty up top, with big left arrow and right arrow so you can scroll difficiulty. and underneath say "Press A to randomize", 

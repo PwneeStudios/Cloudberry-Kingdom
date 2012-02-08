@@ -362,6 +362,7 @@ namespace CloudberryKingdom
 
         public enum PhsxType { Fixed, SideLevel_Right, SideLevel_Up, SideLevel_Down, Center, SideLevel_Up_Relaxed };
         public PhsxType MyPhsxType = PhsxType.SideLevel_Right;
+        float t;
         public void PhsxStep()
         {
             Vector2 CurPos = Data.Position;
@@ -373,7 +374,8 @@ namespace CloudberryKingdom
             }
             if (Oscillating && !DisableOscillate)
             {
-                OscillateOffset = new Vector2(0, 40 * (float)Math.Sin(.95f * Tools.t));
+                //OscillateOffset = new Vector2(0, 40 * (float)Math.Sin(.95f * Tools.t));
+                OscillateOffset = new Vector2(0, 40 * (float)Math.Sin(.95f * t)); t += Tools.dt;
                 Data.Position -= OscillateOffset;
             }
 

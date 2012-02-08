@@ -215,8 +215,21 @@ New heros / hero mods:
 	Balloons? Transcendental man? (press B to swap!) (either he orbits you, or flesh bob just stands) "Astrel Projection", for orbitting, use a bubbled inside bob and an empty balloon/bubble oustide, bob explodes when balloon does
 
 New obstacles:
+	Alternate obstacles: upside-down floaters, or upside down plus different motion (box?), fireball head?
+				different blobs, different firespinners
+				old school pinkies?
+
+	GOOD obstacles:
+		Exploding block (orange fblock, shakes when you get close, then novas. not to be jumped on)
+		Super blob, conveyor, thick firespinner, firesnake (or firesnake version of fireball), non-used fireball blocks, elevator flyblocks removed unused chance to keep unused
+		Teleport blob, flying fish blob, inverted flying fish blob, elevator blob
+
 	Favorites: conveyor, floater line, size changing, discrete, bubbles, falling blobs/pink things, onlymovewhenstandingon mblocks (fast move!), waittofall spikey guy, big stationary spikey emitting spike nova, 
 		   horizontal fireballs,
+
+	Bubbles with fireballs in them. Pop them and fireball arcs down and back up. Two for one?
+		Same, but blobs come out instead.
+	
 
 	big balls of fire that just move up and down slowly. pause at end points.
 

@@ -343,9 +343,9 @@ namespace CloudberryKingdom
             //    if (MyBob.Pos.X > MyLevel.LowestBob.Pos.X - 30)
             //        Tools.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
 
-            if (MyBob != MyLevel.LowestBob && MyLevel.LowestBob != null)
-                if (MyBob.Pos.X > MyLevel.LowestBob.Pos.X - 240)
-                    Tools.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
+            //if (MyBob != MyLevel.LowestBob && MyLevel.LowestBob != null)
+            //    if (MyBob.Pos.X > MyLevel.LowestBob.Pos.X - 240)
+            //        Tools.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
 
             FirstPhsxStep = false;
         }

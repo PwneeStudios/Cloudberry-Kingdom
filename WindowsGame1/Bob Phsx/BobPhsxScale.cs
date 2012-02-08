@@ -20,7 +20,7 @@ namespace CloudberryKingdom
             
             Name = "Phase Bob";
             Adjective = "phasing";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Phase"), Color.White, DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Phase"), Color.White, 1.1f * DefaultIconWidth);
         }
         static readonly BobPhsxScale instance = new BobPhsxScale();
         public static BobPhsxScale Instance { get { return instance; } }

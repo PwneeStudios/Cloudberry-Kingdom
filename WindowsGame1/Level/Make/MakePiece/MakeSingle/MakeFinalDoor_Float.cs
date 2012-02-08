@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Add door
-            Door door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, true, LayeredDoor:false);
+            Door door = MyLevel.PlaceDoorOnBlock_Unlayered(FinalPos, FinalBlock, true);
             Tools.MoveTo(door, FinalPos);
 
             // Terrace-To-Castle

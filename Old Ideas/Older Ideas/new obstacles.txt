@@ -1,0 +1,137 @@
+ghost, cloud, expandoblock
+mblocks, jets, conveyor
+qm, fblock, bouncy block
+ 
+
+
+
+
+New Obstacles:
+	laser:
+		pivot point (at top of screen? or anywhere? need a base) rotates to lock on. when touching for a second turn color and stop moving, half a second later expand to full laser (start green, turn purple, turn wide purple)
+
+	'flame wall', 		
+
+	circles
+	rotating circles
+
+	spin/stop/spin/stop block that launches you forward
+
+	vines
+
+	clouds
+
+	jets (use transparent clouds? or use them for a megaparticle. make stream thin and concentrated or wide and expanding? vertical lines?)
+
+	bubbles with arrows in them, including down, greatly redirects motion, but can still jump off them a little
+	qm blocks
+	qm blocks 2: lights out style!, or
+		   : red/green. hit red, and all green invert, ie, ghost green become solid, solid green become ghost. hit green for same to red
+	black/white on/off orbs: jump on or hit head, and everything connected to them switches on or off. draw the lines connecting the orb to the obstacles. fireballs pause in mid air!
+
+	different colored falling blocks fblocks:
+		white fblock for night level:
+			like mblock but moves instaneously/discretely restricted to an eulerian grid
+				moves in one direction (of 8) for 2/3/N spaces then bounces or starts at the beginning again
+				moves up-right then up-left until it reaches the top of the screen, then wraps
+				4 point circle. 8 point circle.
+			?? darken a little bit before shifting, then relighten over a small amount of time after shifted
+			?? snake. same, but with multiple blocks, each one shifted one behind in time
+		
+		giant thwomps (don't kill you, just push you)
+
+	different colored fireballs:
+		for fire world:
+			use hardcore fireball (with only a hint of direction in png)
+			gravity fireballs!
+				if emitter is high, shoot them up just a little and out and have them fall
+				if emitter is low, shoot them up and have them come back down
+			!!! GIANT fireballs
+		fire snake! (like nibbles) different periodic paths, or goes after bob, etc
+		fire snake (curvy, follows sine curves, figure 8s, circles, big 3 leaf clover)
+		tiny fireballs (emit more at once, trishot, etc, or they make patterns with themselves, like a weave)
+		free floating emitter (style, or when you pump up the fball level)
+		tracking fireball
+		emitter tracks, fball doesn't
+		emitter novas
+		fireball novas after a few seconds
+
+	different colored firespinners:
+		fireball style (emitted off the screen)
+			or from a regular fball emitter
+			or a purple firespinner that emits red firespinners (they match up perfectly, but the red one has a velocity vector)
+		rotating origin (like a jointed fspinner minus the inner fspinner)
+			draw the inner firespinner transparent and different color?
+		rotated 90 degrees ( .--- normal  .| rotated)
+		variable length
+		variable inner radius
+		modulate both inner and out radius (the same so it seems like it moves, or inverted)
+		with green lil blocks instead of fire. pushes you.
+		stationary! (but longer?)
+		tracking, to point towards the player
+		reverse every period
+		clockwork (8 angles, discrete) shake a little when it changes angles
+
+	different colored blobs:
+		styles: other paths: triangle, half a circle
+
+		different types of paths: green is easy, doesn't move, blue is medium, line paths, pink is hard, crazy?
+		red: fly toward you when you come close. Vector2 offset to store deviation from normal orbit, slowly decrease offset to converge back to basic orbit
+			increase anim speed while dashing
+		pink: fly away (straight down?) when you come close
+		!!red: screen wraps top and bottom. different oscilations: straight, sine, square wave, triangle wave, cubic
+			dash from one point to another, pause, repeat. zig zag upwards.
+			nose dive from top of screen? then fly back up
+			nose dive when they are above you, thwomp style
+		!!blue: fly from right to left, can stand on but they sink. periodically move back to start position if not on screen
+		orange: fly from right to left in 'line swarms', snake style. sine paths, etc
+
+	different colored ghosts:
+		different version:
+			inverted = can stand on when invisible, not when visible
+			can always stand on, invisible when you get close to them
+
+		mix ghosts with clouds and conveyor belts?
+
+		red spikey ghost
+		expand/contract group
+			horizontal, vertical, both
+		appear, then move a short distance (rapidly?), then disappear
+			note: make sure firespinner fades out with ghost. make 'fade' a general object core variable, that potentially any object can generate, making it easy to attach one object to another fading object
+
+
+	different colored spikey guy:
+		styles: swing upside down. dont swing left right, instead the chain pulls it up and down (for easier difficulty?)
+		thwomp style, but can only rotate at a fixed radius
+		two guys, chained together, spinning around
+			OR, just one guy, firespinner style. difficulty increases number, so could be 2 orbiting opposite each other
+		chain line: from two points, and the spikey guy goes back and forth
+			style: linear on line, bouncing at end
+				slamming, quick to one end, pause, quick back
+				wait at one end until bob is close, then slam to other side and pause before being able to slam again
+			the line can move, style:
+				both points move in the same way: horizontal, vertical, circular
+				one point is fixed, the other rotates around
+				both points rotate around the center
+		move towards bob, only if you're in range
+
+	mblocks:
+		stationary, but moves right when stepped on (style: ALL move right when ONE is stepped on) (potentially only so far, if so, show a wire that it is following. doesn't need to be horizontal?)
+		moving, but stops when stepped on (style: ALL stop when ONE is stepped on)
+		
+		very wide and very long blocks. clip the bottom of the block like normal blocks
+		width depends on mblock level, height too?
+		style: square, thin, tall, very tall (level dependent)	
+
+	spikes:
+		fire walls, aka thick stationary firespinners
+		piston, launches you
+		lil spikey guy rolling around the block its on
+		proximity timed mines (2 seconds after stepping on, or getting close)
+		flame thrower (HORIZONTAL! covers the ground around it, in both directions)
+
+	elevators:
+		snake! (better if stays local, rather than screen wrapping)
+		emitter! smaller and faster. platforms FADE after a small distance. COHERENT: imagine a firespinner of platforms, with the plats moving outward radially, but all colinear
+		pendulum
+		1/2/3/4 elevators orbiting a center point (make center point move?)

@@ -127,7 +127,11 @@ namespace CloudberryKingdom
             MyPile.Add(backdrop);
             backdrop.Pos =
                 //new Vector2(-15.87302f, 39.68255f);
+#if PC_VERSION
                 new Vector2(55.55557f, 87.30157f);
+#else
+                new Vector2(-3.968235f, 95.23785f);
+#endif
 
             backdrop.Show = false;
 
@@ -195,7 +199,7 @@ namespace CloudberryKingdom
 #endif
                 ClrSelect = new ColorSelectPanel(scale * new Vector2(300, Height), 4, m, Control);
 
-                foreach (Hat hat in CharacterSelectManager.AvailableHats)// ColorSchemeManager.HatInfo)
+                foreach (Hat hat in CharacterSelectManager.AvailableHats)
                 {
                     QuadClass quad = new QuadClass();
                     quad.SetToDefault();

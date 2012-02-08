@@ -147,11 +147,27 @@ namespace CloudberryKingdom
 
     public class EzText : IViewable
     {
-        public static string ColorToMarkup(int r, int g, int b, int shift = 0, string bit = null)
+        public static string ColorToMarkup(int r, int g, int b)
+        {
+            return ColorToMarkup(r, g, b, 0, null);
+        }
+        public static string ColorToMarkup(int r, int g, int b, int shift)
+        {
+            return ColorToMarkup(r, g, b, shift, null);
+        }
+        public static string ColorToMarkup(int r, int g, int b, int shift, string bit)
         {
             return ColorToMarkup(new Color(r, g, b), shift, bit);
         }
-        public static string ColorToMarkup(Color clr, int shift = 0, string bit = null)
+        public static string ColorToMarkup(Color clr)
+        {
+            return ColorToMarkup(clr, 0, null);
+        }
+        public static string ColorToMarkup(Color clr, int shift)
+        {
+            return ColorToMarkup(clr, shift, null);
+        }
+        public static string ColorToMarkup(Color clr, int shift, string bit)
         {
             if (bit != null)
             {
@@ -943,7 +959,8 @@ namespace CloudberryKingdom
                 Alpha = HoldAlpha;
         }
 
-        public void KillBitByBit(float SetAlpha = float.NaN)
+        public void KillBitByBit() { KillBitByBit(float.NaN); }
+        public void KillBitByBit(float SetAlpha)
         {
             if (SetAlpha != float.NaN)
                 Alpha = SetAlpha;
@@ -952,6 +969,8 @@ namespace CloudberryKingdom
             foreach (EzTextBit bit in Bits)
                 bit.clr.A = (byte)255;
         }
+
+        public float Angle = 0;
 
         public static bool ZoomWithCamera_Override = false;
         public bool ZoomWithCam = false;
@@ -996,7 +1015,7 @@ namespace CloudberryKingdom
                         0, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale*ZoomMod, SpriteEffects.None, 1);
                 else
                     Tools.spriteBatch.DrawString(font, bit.str, Scale * bit.loc*ZoomMod + Loc, textcolor,
-                        0, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale*ZoomMod, SpriteEffects.None, 1);
+                        Angle, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale*ZoomMod, SpriteEffects.None, 1);
 
                 if (BitByBit)
                 {
@@ -1020,7 +1039,7 @@ namespace CloudberryKingdom
                     if (pic.AsPaint)
                     {
                         Tools.EndSpriteBatch();
-                        Tools.StartSpriteBatch(AsPaint: true);
+                        Tools.StartSpriteBatch(true);
                     }
                     Tools.spriteBatch.Draw(pic.tex.Tex, pos, null, piccolor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
                     if (pic.AsPaint)

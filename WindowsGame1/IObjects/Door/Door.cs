@@ -413,34 +413,7 @@ namespace CloudberryKingdom
         Vector2 save;
         public void PhsxStep()
         {
-            //if (Core.GetPhsxStep() % 70 == 0)
-            //    Shake(20, 12);
             DoShake();
-
-            //step++;
-            //if (shake)
-            //{
-            //    int intensity = 12;
-            //    if (step % 2 == 0)
-            //    {
-            //        Pos = save;
-            //        Pos += new Vector2(Tools.Rnd.Next(-intensity, intensity), Tools.Rnd.Next(-intensity, intensity));
-            //    }
-            //    if (step == 20)
-            //    {
-            //        shake = false;
-            //        Pos = save;
-            //    }
-            //}
-            //else
-            //{
-            //    if (step == 50)
-            //    {
-            //        save = Pos;
-            //        shake = true;
-            //        step = 0;
-            //    }
-            //}
 
             if (ExtraPhsx != null)
                 ExtraPhsx(this);
@@ -613,6 +586,11 @@ namespace CloudberryKingdom
 
         public bool UsedOnce = false;
 
+        /// <summary>
+        /// When true the player will exit through a door automatically, without pressing anything.
+        /// </summary>
+        public static bool AutoOpen = false;
+
         public static bool AllowCompControl = false;
         public void Interact(Bob bob)
         {
@@ -640,9 +618,9 @@ namespace CloudberryKingdom
 
 #if WINDOWS
                 if (ButtonCheck.State(ControllerButtons.X, (int)bob.MyPlayerIndex).Down ||
-                    bob.CurInput.xVec.Y > .85f)
+                    (bob.CurInput.xVec.Y > .85f && bob.GetPlayerData().KeyboardUsedLast) || AutoOpen)
 #else
-                if (ButtonCheck.State(ControllerButtons.X, bob.MyPlayerIndex).Down)
+                if (ButtonCheck.State(ControllerButtons.X, bob.MyPlayerIndex).Down || AutoOpen)
 #endif
                 {
                     InteractedWith = true;

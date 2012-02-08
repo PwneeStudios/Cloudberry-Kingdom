@@ -23,7 +23,7 @@ namespace CloudberryKingdom
 
             Name = "Sumo";
             Adjective = "fatty";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Big"), Color.White, 1.1f * DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Big"), Color.White, 1.25f * DefaultIconWidth);
         }
         static readonly BobPhsxBig instance = new BobPhsxBig();
         public static BobPhsxBig Instance { get { return instance; } }

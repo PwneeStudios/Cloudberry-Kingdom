@@ -147,16 +147,19 @@ namespace CloudberryKingdom
 
             int ButtonSize = 95;
 
+            string Space = "{s34,0}";
+            float Shift = 25;
+
             // Press A to continue
             //EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + "{c188,255,176,255} to select", ItemFont, true, true);
-            EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + "{c188,255,176,255} select", ItemFont, true, true);
+            EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + Space + "{c188,255,176,255} select", ItemFont, true, true);
             ContinueText.Scale = this.FontScale;
             //ContinueText.Shadow = true;
             ContinueText.ShadowOffset = new Vector2(7.5f, 7.5f);
             ContinueText.ShadowColor = new Color(30, 30, 30);
             //ContinueText.PicShadow = true;
             ContinueText.ColorizePics = true;
-            ContinueText.Pos = new Vector2(23.09587f, -386.9842f);// new Vector2(94.52443f, -406.8254f);
+            ContinueText.Pos = new Vector2(23.09587f + Shift, -386.9842f);
 
             MyPile.Add(ContinueText);
             //ContinueText.AddBackdrop(new Vector2(.5f, .44f));
@@ -165,14 +168,14 @@ namespace CloudberryKingdom
 
             // Press Y to customize
             //EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + "{c255,255,155,255} customize", ItemFont, true, true);
-            EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + "{c255,255,155,255} custom", ItemFont, true, true);
+            EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + Space + "{c255,255,155,255} custom", ItemFont, true, true);
             CustomizeText.Scale = this.FontScale;
             //CustomizeText.Shadow = true;
             CustomizeText.ShadowOffset = new Vector2(7.5f, 7.5f);
             CustomizeText.ShadowColor = new Color(30, 30, 30);
             //CustomizeText.PicShadow = true;
             CustomizeText.ColorizePics = true;
-            CustomizeText.Pos = new Vector2(105.2387f, -611.9048f);// new Vector2(125.08f, -600f);
+            CustomizeText.Pos = new Vector2(105.2387f + Shift, -611.9048f);// new Vector2(125.08f, -600f);
 
             MyPile.Add(CustomizeText);
             //CustomizeText.AddBackdrop(new Vector2(.5f, .44f));
@@ -181,14 +184,14 @@ namespace CloudberryKingdom
 
             // Press X to randomize
             //EzText RandomText = new EzText(ButtonString.X(ButtonSize) + "{c194,210,255,255} Random", ItemFont, true, true);
-            EzText RandomText = new EzText(ButtonString.X(ButtonSize) + "{c194,210,255,255} random", ItemFont, true, true);
+            EzText RandomText = new EzText(ButtonString.X(ButtonSize) + Space + "{c194,210,255,255} random", ItemFont, true, true);
             RandomText.Scale = this.FontScale;
             //RandomText.Shadow = true;
             RandomText.ShadowOffset = new Vector2(7.5f, 7.5f);
             RandomText.ShadowColor = new Color(30, 30, 30);
             //RandomText.PicShadow = true;
             RandomText.ColorizePics = true;
-            RandomText.Pos = new Vector2(69.52449f, -835.7142f);// new Vector2(204.4452f, -800f);
+            RandomText.Pos = new Vector2(69.52449f + Shift, -835.7142f);// new Vector2(204.4452f, -800f);
 
             MyPile.Add(RandomText);
             //RandomText.AddBackdrop(new Vector2(.5f, .44f));

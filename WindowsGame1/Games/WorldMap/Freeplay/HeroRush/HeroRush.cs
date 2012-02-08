@@ -42,7 +42,11 @@ namespace CloudberryKingdom
             Difficulty = Math.Min(Difficulty, MaxTime_ByDifficulty.Length - 1);
             
             Timer.CoinTimeValue = (int)(62 * 1.75f);
-            Timer.MaxTime = 62 * (MaxTime_ByDifficulty[Difficulty] + 0) - 1;
+            
+            if (Difficulty >= MaxTime_ByDifficulty.Length)
+                Timer.MaxTime = MaxTime_ByDifficulty[MaxTime_ByDifficulty.Length - 1];
+            else
+                Timer.MaxTime = 62 * (MaxTime_ByDifficulty[Difficulty] + 0) - 1;
         }
 
         protected virtual void PreStart_Tutorial()
@@ -73,7 +77,11 @@ namespace CloudberryKingdom
             // Set timer values
             int Difficulty = (StartIndex + 1) / LevelsPerDifficulty;
             SetTimerProperties(Difficulty);
-            Timer.Time = 62 * (StartTime_ByDifficulty[Difficulty] + 0);
+
+            if (Difficulty >= StartTime_ByDifficulty.Length)
+                Timer.Time = 62 * StartTime_ByDifficulty[StartTime_ByDifficulty.Length - 1];
+            else
+                Timer.Time = 62 * StartTime_ByDifficulty[Difficulty];
 
             // Tutorial
             PreStart_Tutorial();
@@ -125,10 +133,10 @@ namespace CloudberryKingdom
 
             for (i = 0; i < StartIndex; i++)
                 MakeList.Add(() => null);
-            for (i = StartIndex; i < 100; i++)
+            for (i = StartIndex; i < StartIndex + 100; i++)
             {
                 int Index = i; // Get the level number
-                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
+                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
                 MakeList.Add(() => Make(Index, difficulty));
             }
 

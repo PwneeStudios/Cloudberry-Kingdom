@@ -183,7 +183,7 @@ namespace CloudberryKingdom
             Tools.QDrawer.Flush();
 
             //MyCollection.Draw();
-            MyCollection.Draw(0);
+            MyCollection.DrawLayer(0);
 
             Tools.QDrawer.Flush();
             Cam.SetVertexCamera();
@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             SmokeQuad2.Draw();
             Tools.QDrawer.Flush();
 
-            MyCollection.Draw(1);
+            MyCollection.DrawLayer(1);
 
             Tools.QDrawer.Flush();
             Cam.SetVertexCamera();

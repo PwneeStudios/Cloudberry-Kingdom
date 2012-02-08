@@ -146,7 +146,13 @@ namespace CloudberryKingdom.Levels
                 Comp.Immortal = true;
                 AddBob(Comp);
 
-                Comp.SetColorScheme(Tools.RandomItem<ColorScheme>(ColorSchemeManager.ComputerColorSchemes));
+                if (CloudberryKingdomGame.SimpleAiColors)
+                {
+                    int index = (new int[] { 0, 3, 5, 1 })[i];
+                    Comp.SetColorScheme(ColorSchemeManager.ComputerColorSchemes[index]);
+                }
+                else
+                    Comp.SetColorScheme(Tools.RandomItem<ColorScheme>(ColorSchemeManager.ComputerColorSchemes));
 
                 Comp.MoveData = CurPiece.MyMakeData.MoveData[i];
                 int Copy = Comp.MoveData.Copy;

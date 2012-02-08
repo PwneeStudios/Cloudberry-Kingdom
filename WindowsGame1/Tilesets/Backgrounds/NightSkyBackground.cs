@@ -118,7 +118,10 @@ namespace CloudberryKingdom
             MyLevel.MainCamera.Oscillating = true;
             MyCollection.PhsxStep();
 
-            base.Draw();            
+            base.Draw();
+
+            // Wind
+            Wind = SkyBackground.SkyWind(MyLevel.CurPhsxStep);
 
             Camera Cam = MyLevel.MainCamera;
 

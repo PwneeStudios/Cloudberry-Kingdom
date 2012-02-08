@@ -42,6 +42,9 @@ namespace CloudberryKingdom
 
     public class GameData
     {
+        public static int DataCounter = 0;
+        public int MyDataNumber = DataCounter++;
+
         public bool HasLava = false;
 
         protected void KillThread(object sender, System.EventArgs e)

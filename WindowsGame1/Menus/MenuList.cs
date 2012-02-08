@@ -28,8 +28,6 @@ namespace CloudberryKingdom
         }
         bool _ExpandOnGo = false;
 
-
-
         public MenuListExpand MyMenuListExpand;
         public Vector2 MyExpandPos = Vector2.Zero;
         public Action<MenuListExpand,MenuItem> AdditionalExpandProcessing;
@@ -69,7 +67,7 @@ namespace CloudberryKingdom
         /// </summary>
         public bool DrawArrowsWhenUnselected = false;
 
-#if PC_VERSION
+#if WINDOWS
         //Vector2 ListPadding = new Vector2(65, 0);
         Vector2 ListPadding = new Vector2(65, 0);
         Vector2 TotalPadding = Vector2.Zero;
@@ -195,7 +193,12 @@ namespace CloudberryKingdom
         }
 
         public MenuItem CurMenuItem;
-        public void SetIndex(int NewIndex)
+        public void SetSelectedItem(MenuItem item)
+        {
+            SetIndex(MyList.IndexOf(item));
+        }
+
+        public virtual void SetIndex(int NewIndex)
         {
             if (DoIndexWrapping)
             {
@@ -257,7 +260,7 @@ namespace CloudberryKingdom
             DelayCount = SelectDelay;
         }
 
-#if PC_VERSION
+#if WINDOWS
         public QuadClass GetSelectedArrow()
         {
             if (!HoldSelected) return null;
@@ -275,6 +278,11 @@ namespace CloudberryKingdom
                 return null;
         }
 #endif
+
+        /// <summary>
+        /// When true clicking on the menu list will selected the next item in the list.
+        /// </summary>
+        public bool ClickForNextItem = true;
 
         bool HoldSelected;
         public override void PhsxStep(bool Selected)
@@ -306,19 +314,19 @@ namespace CloudberryKingdom
             {
                 if (Selected)
                 {
-#if PC_VERSION
-                    if (Tools.TheGame.MouseInUse)
-                    if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
-                        !ButtonCheck.KeyboardGo())
-                    {
-                        QuadClass SelectedArrow = GetSelectedArrow();
-                        if (SelectedArrow == RightArrow_Selected)
-                            IncrementIndex(1);
-                        else if (SelectedArrow == LeftArrow_Selected)
-                            IncrementIndex(-1);
-                        else
-                            IncrementIndex(1);
-                    }
+#if WINDOWS
+                    if (Tools.TheGame.MouseInUse && ClickForNextItem)
+                        if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
+                            !ButtonCheck.KeyboardGo())
+                        {
+                            QuadClass SelectedArrow = GetSelectedArrow();
+                            if (SelectedArrow == RightArrow_Selected)
+                                IncrementIndex(1);
+                            else if (SelectedArrow == LeftArrow_Selected)
+                                IncrementIndex(-1);
+                            else
+                                IncrementIndex(1);
+                        }
 #endif
                     
                     float Sensitivity = ButtonCheck.ThresholdSensitivity;
@@ -394,7 +402,7 @@ namespace CloudberryKingdom
                         LeftArrow_Selected.Base.Origin = ItemPos - new Vector2(LeftArrow_Selected.Base.e1.X, 0) + LeftArrowOffset;
                     }
 
-#if PC_VERSION
+#if WINDOWS
                     // Highlight selected arrow
                     QuadClass arrow = null;
                     if (Tools.TheGame.MouseInUse)

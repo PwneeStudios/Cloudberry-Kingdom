@@ -4,7 +4,7 @@ namespace CloudberryKingdom
 {
     public class GUI_CampaignScore : GUI_Score
     {
-        public GUI_CampaignScore() : base(1, SlideIn:false) { }
+        public GUI_CampaignScore() : base(1, false) { }
 
         protected override int GetScore()
         {
@@ -72,7 +72,10 @@ namespace CloudberryKingdom
         }
 
         bool DoSlideIn = true;
-        public GUI_Score(int Style, bool SlideIn = false)//true)
+        public GUI_Score(int Style) { DoInit(Style, false); }
+        public GUI_Score(int Style, bool SlideIn) { DoInit(Style, SlideIn); }
+        
+        void DoInit(int Style, bool SlideIn)
         {
             DoSlideIn = SlideIn;
 

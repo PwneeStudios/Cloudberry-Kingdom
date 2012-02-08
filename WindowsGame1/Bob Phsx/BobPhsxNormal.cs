@@ -19,7 +19,7 @@ namespace CloudberryKingdom
             
             Name = "Classic";
             NameTemplate = "hero";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Classic"), Color.White, DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Stickman"), Color.White, DefaultIconWidth);
         }
         static readonly BobPhsxNormal instance = new BobPhsxNormal();
         public static BobPhsxNormal Instance { get { return instance; } }
@@ -1175,30 +1175,27 @@ namespace CloudberryKingdom
                     case ObjectType.Laser:
                         break;
 
-                        int sign = -Math.Sign(xVel);
-                        if (sign == 0) sign = Tools.RndBit();
+                        //// Big explosion
+                        //int sign = -Math.Sign(xVel);
+                        //if (sign == 0) sign = Tools.RndBit();
 
-                        Vel = new Vector2(170 * sign, 12);
-                        Acc = new Vector2(0, -1.9f);
+                        //Vel = new Vector2(170 * sign, 12);
+                        //Acc = new Vector2(0, -1.9f);
 
-                        for (int i = 0; i < 3; i++)
-                            Fireball.Explosion(Pos + Tools.RndDir(60), MyBob.Core.MyLevel, .98f * Vel, 1, 1);
-
-                        //for (int i = 0; i < 5; i++)
-                          //  MyBob.Core.MyLevel.AddPop(Pos + Tools.RndDir(60));
-                        return;
+                        //for (int i = 0; i < 3; i++)
+                        //    Fireball.Explosion(Pos + Tools.RndDir(60), MyBob.Core.MyLevel, .98f * Vel, 1, 1);
+                        //return;
 
                     case ObjectType.Fireball:
                         MyBob.FlamingCorpse = true;
 
-                        /*
-                        Vector2 Dir = Vector2.Normalize(Pos - MyBob.KillingObject.Core.Data.Position);
-                        if (float.IsNaN(Dir.X)) Dir = new Vector2(0, 1);
-                        Dir.Y = Math.Abs(Dir.Y);
-                        if (Dir.Y < .1f) Dir.Y = .1f;*/
+                        //// Throw Bob away from the fireball
+                        //Vector2 Dir = Vector2.Normalize(Pos - MyBob.KillingObject.Core.Data.Position);
+                        //if (float.IsNaN(Dir.X)) Dir = new Vector2(0, 1);
+                        //Dir.Y = Math.Abs(Dir.Y);
+                        //if (Dir.Y < .1f) Dir.Y = .1f;
 
                         Vector2 Dir = new Vector2(Math.Sign(Pos.X - MyBob.KillingObject.Core.Data.Position.X), 1);
-                        
 
                         Vel = Dir * 40;
                         Acc = new Vector2(0, -1.9f);

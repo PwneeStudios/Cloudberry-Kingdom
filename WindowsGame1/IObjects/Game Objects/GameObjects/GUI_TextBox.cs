@@ -90,10 +90,49 @@ namespace CloudberryKingdom
                     // Draw the caret every other half second
                     Caret.Show = Tools.TheGame.DrawCount / 30 % 2 == 0;
                 }
+
+                GamepadInteract();
             }
             else
                 // Don't draw the caret when we don't have focus
                 Caret.Show = false;
+        }
+
+        void GamepadInteract()
+        {
+            if (Length == 0)
+            {
+                if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) Text += 'A';
+                return;
+            }
+
+            char c = Text[Length - 1];
+            if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) { Text += c; Recenter(); }
+            if (ButtonCheck.State(ControllerButtons.B, -1).Pressed) { Backspace(); return; }
+            if (ButtonCheck.State(ControllerButtons.X, -1).Pressed) { Enter(); return; }
+
+            var dir = ButtonCheck.GetDir(-1);
+
+            if (Tools.TheGame.DrawCount % 7 == 0 && Math.Abs(dir.Y) > .5)
+            {
+                if (dir.Y > 0) Text = Text.Substring(0, Length - 1) + IncrChar(c);
+                if (dir.Y < 0) Text = Text.Substring(0, Length - 1) + DecrChar(c);
+
+                Recenter();
+            }
+        }
+
+        char IncrChar(char c)
+        {
+            var _c = (int)c + 1;
+            if (_c > (int)'z') return 'A';
+            return (char)_c;
+        }
+        char DecrChar(char c)
+        {
+            var _c = (int)c - 1;
+            if (_c < (int)'A') return 'z';
+            return (char)_c;
         }
 
         QuadClass Backdrop, SelectQuad;

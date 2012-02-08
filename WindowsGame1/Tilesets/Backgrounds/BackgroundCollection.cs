@@ -81,7 +81,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Draw(int Layer)
+        public void DrawLayer(int Layer)
         {
             if (Layer < Lists.Count)
                 Lists[Layer].Draw();
@@ -97,9 +97,8 @@ namespace CloudberryKingdom
             //Tools.EffectWad.SetCameraPosition(cameraPos);
         }
 
-        //public void Draw() { Draw(1); }
-        //public void Draw(float CamMod)
-        public void Draw(float CamMod = 1)
+        public void Draw() { Draw(1f); }
+        public void Draw(float CamMod)
         {
             foreach (BackgroundFloaterList list in Lists)
                 list.Draw(CamMod);
@@ -203,9 +202,8 @@ namespace CloudberryKingdom
                 Floater.PhsxStep();
         }
 
-        //public void Draw() { Draw(1); }
-        //public void Draw(float CamMod)
-        public void Draw(float CamMod = 1)
+        public void Draw() { Draw(1); }
+        public void Draw(float CamMod)
         {
             Tools.QDrawer.Flush();
 

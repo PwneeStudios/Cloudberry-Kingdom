@@ -1,0 +1,217 @@
+Key Things To Do:
+	music? sound fxs are good
+	hat room, achievements
+	free windows demo, tetris style
+	continuous stream style game play, and infinite mode (tetris style)
+	nice transition between worlds (see "Transitions.txt")
+	bosses, colorful change of scenery, many changes of obstacles, alternating game types (including bonus STYLE games, they could be normal levels)
+	good way to end each level, and segue into next level, and segue into a boss, and segue into the next 'world'
+	super simple plot intro, consider using not-in-game cinematics, aka moving still frames, comic book style
+	rainbow level, with different color blocks from all the tilesets
+	free play challenges, with high scores (local AND global). earn skins/hats for getting a high enough score
+Would Be Nice:
+	random multiplayer duel levels
+	internet game, sprite style (just spinners, fireballs, buffalo blobs), tetris style infinite play. generate levels on server? (just make a giant list to sample from)
+	sexy intro, titlescreen
+	cool plot	
+	battle modes
+	cool way to end level
+	save levels/replays. high score for those levels in freeplay (choose from a list of saved, with names and current high score and total attempts) TOTAL stats for that level
+
+FUN:
+	block hero (use pillar_xlarge?) press A to jump forward, no motion otherwise!
+	one screen:
+		wide outside castle piece in middle of screen. or hex mesh of toponly blocks. or topless castle piece with catwalks
+		fireballs, or lasers, or flying fspinners, or exploding red blobs
+		style: all from one direction (all 8 compass directions), or alternate every 5 seconds, or two opposing directions, or two/three random directions, or random
+		flying coins (red rotating coins)
+		add dunking
+		4 computer tethered awesome video!!! continuous difficulty, start easy
+		
+		!! kill all bubbles/blobs: open sky bordered between two topless castle pieces
+	connected mesh of obstacles: erase one and the top and bottom it is connected to become KeepIfUnused
+		connect the mesh for every other obstacle
+		only keep top, or bottom
+	other tilesets (night time, cold aka blue outside, red outside, blue or r or g dungeon, red (or g or b) castle)
+		red: with fireballs in background (more like meteors)
+		ice: with icicles in background, and white haze in foreground
+	scene transition, shrinking black circle
+	flaming man
+		(very little ground, almost all fballs. flaming man kills blobs from all sides)
+	computer waits until not onground before jumping
+	2nd run of computer goes an extra 1 seconds running right
+	cool ladders, end pieces. use ladder as start piece for next levelpiece (for where the computer starts)
+		wide topless castle pieces with catwalks to walk on
+	active obstacle list (and wait10 list, wait20 list, wait30 list, or whatever). bob code and level phsx code loops through active list
+		longer levels?
+	teleport block (show connection with a blue laser)
+	slow fall = demon wings
+	tap to fly = angel wings 
+	riding a blob OR holding onto a blob (1 or 2 hands), randomly choose between the two?
+	superparticle for emitter and flamethrower
+		!! . take emitter's emitter and render it. use that texture as the emitters single texture, and just scale it a bit when the emitter emits an fball
+			how does it look in level? if not good consider:
+				. over and under grill for fireball emitter
+		flamethrower
+		other types of fireballs
+			use fireball emitter
+		!! fire snake (curvy, follows sine curves, figure 8s, circles, big 3 leaf clover)
+	fireball bob death animation
+	bouncy block level (abstractify what you can) (use if not hitting the left side)
+	hallway of death!
+	tethered to a block
+	vertical lasers on left and right (try first: placing left laser as far right as possible. try second: that's its target, accelerate to get there with max speed = bob's max speed. try third: calculate fasted constant vel such that laser never overtakes comp)
+		ditto with lasers on top and bottom. then all 4!
+	bubble obstacle (hover, top-to-bottom, elevator, other emitter type, attracted to bob, asteroids (neg-gravity))
+	fblock = bumper (shift and make bigger when it bumps you) should stack with pinballman
+	pinballman
+	spikey guy, firespinner style.
+	elevator on a line (chain) falls off at end
+		comp stays close to elevator until it falls or for a prespecified period of time
+		use outside tile set floating island (don't show chain? just go straight right, or straight in one direction once it is stood on)
+	off angle lines. iced! rotating.
+		use floating island
+		in addition to storing ground_speed, also store ground_normal
+	bouncy 45-degree angle lines. rotating! (use green fspinners! like an elastic line, it bounces out in the middle)
+	clouds
+	mblocks: none move unless one is stood on, then all move except that one. 
+		mblock styles
+	horizontal lasers (have a laser 'center' and an angle, instead of two end points)
+		rotate, move
+		style: roughly vertical. vertical. roughly horizontal. horizontal. axis aligned. 45 degrees. exactly X degrees from AA. random
+	green fblock = expand and contract (ground speed: calculate for both ends of block, then interpolate between the two depending on bob's location)
+	conveyor (based off of square tiles)
+	spikey guy traversing a block's edge
+		blob guy traversing
+
+
+world toolbar:
+	block dialog
+		texture name (if dooddad, else grey it out)
+		skills1,2,3
+		toponly
+		layer
+		tileset
+	save/saveas/load
+	filter (like block dialog, specify strings that if matched will hide those blocks, or only show those)
+		can have multiple filters open
+
+hardcore level (do this first to test stability of making levels in background)
+	some sort of queue system for levels that need to be made. can we have more than 1 core working on this if we have a long queue?
+	struct or class for each entry in the queue containing: the levelseed data, the thread it's running on, a name?, a bool showing whether it is finished loading or not, pointer to the actual level
+		gamedata should have the queue. use same code for handling the hardcore queue as a normal level that needs to create a new level to tag on to the end?
+	ability to kill a level being made (load test this. press B to kill the first level in the queue)
+	join the loading screen while waiting if need be
+		the waiting screen should be able to accept a general delegate it checks constantly to see if the loading screen should disappear
+button level
+infinite level
+	tie the levels together:
+		first, just load the next level at the end of first. no transition.
+		glue second level onto the end of the first when the level is finished (reset curphsxstep?)
+		door
+		line of blocks to explode
+		super bounce
+
+basic game: infinite level, switching up regular, hero, place, button, survival, kill-all, joystick-choice, boss
+	opening level, balrog's castle. fight balrog. explosion. first level, fall in from sky
+	change the scenery as the game progresses, in between bosses, with interesting transition end/begin pieces
+
+ending pieces (a couple of different ones)
+cooler LevelCleared (falls in, slanted, something)
+simplified score screen (Press X for Stats [slide in]. Press Y for replay [slide in .5 s later]. Press B to save level. each on a blue transparent board)
+	use small blue fatty dialogue boxes (3 of them) to show Coins/Attempts/Time. with the text to the left, not in the bubble
+	on level stats don't show deaths by ___ if it is 0
+	histogram of how far you got on each attempt (with 4 players each attempt will have 4 rectangles all on top of each other, of different color, layered so the shortest is on bottom)
+	time line graph, showing how many bobs there were at one point in time (monotonically decreasing per piece) (with 4 players should draw 4 graphs on top of each other, with different color. color in solid below the line)
+		or, instead of time, use distance
+	graph of checkpoints snagged. or coins snagged. both monotonically increasing
+	histogram of death by different obstacles. 9 fireballs 12 spikey, etc
+don't lock camera at end, let player keep walking. walk far enough and score screen fades
+	seg into next level: just keep walking, or a door, or a bouncy block, or a big wall you explode
+preload next level
+slightly longer pieces (see how long we can get away with and still safely load next level)
+global flag for short levels (one short piece)
+new ladders: can be a bit wider. at least one should be all blobs
+	integrate ladders with computer replay
+
+bosses
+powerups
+bonus games
+
+compress replay data (only track changes in position, or every other position with linear interpolation in between)
+draw all of same player all at once, for faster draw
+increase max amount of replays
+better replay GUI
+	say PAUSE and dim screen when paused.
+	allow for skipping back and forth to different checkpoints
+
+level tiled in spikey guys (all in phase, or with no swing at all)
+	all are keepifunused
+	only make keepifunused if close to a spikey guy that was removed
+	lines, circles, a big X, zigzag or sine wave
+ditto with fireballs (emitters are off the screen). all vertical, alternate, all 45 degree angle. all emitters are in-phase, just at different heights
+!! abstract the fill function for objects. different functions: one for use DURING the 2nd phase of the computer. make these part of a class that all objects inherit from? or just continue with obj interface)
+	spikey guy has two fill functions. one for during 2nd phase, one for inbetween 1st and 2nd phase. and a flag that says which one to use (or both, or neither)
+
+
+render anim to sprite_group		
+
+synchronize periods. rather than by hand have a global (level) variable of the LCM of all periods allowed. for each period picked take the closest period that is equal to LCM / n for some n
+
+
+
+!!!! door needs to be more apparent. add an exit sign? make score screen to the left? or door is centered and score is higher?
+	total score gone
+
+
+flying checkpoints
+cheering cloudberries
+when going in door, fade in, then wait a second, then go to doors destination
+
+
+
+make princess: cape -> dress and hair
+record input (version the save files!)
+text over world "World 1", then fade
+bob-bob interaction
+
+
+
+style: if in air, keep jumping if < target_y + 200
+style: dunk, while in air, while still
+
+
+STORY IDEAS:
+	angel stickman, for intro, flaps down on black background, 'wake up, bob. wake up.
+		in a cave, all black. dripping water in back.
+		angel lands 'wake up, bob. wake up. you have a destiny. you can't hide in this cave forever.'
+		bob wakes up, angel runs off
+		walks over to door, opens it, door sound, pop out in terrace, black door in a block
+		walk around
+		'i.. have a destiny?'
+	devil stickman? bad guy you are working for?
+
+
+
+notes: Y shouldnt be fastforward, or Y shouldnt start replay. say Paused
+Achievements!
+*finish space, or space location on free play
+freeplay NEEDS suggestions, or AKA select difficulty and hit 'rnd', aka select from career mode types
+unlockable halls of the castle, with my favorite level types, TJ's, etc.
+*bigger todo about the num of stars you just earned, including note about affording a new world
+**sumo world lags. because of all the doors?
+
+
+fade to world (use timer) big font (not same as pimpmantastic) says World N /n Hero name (Stickman Bob)
+
+comp doesnt land if still has jump juice left
+
+
+
+replay: B = frame by frame. shoulders = scenes
+big numbers on world doors? hero icons
+
+
+says 'paused' when replay is paused (should have shadow? use Level Cleared font)
+
+

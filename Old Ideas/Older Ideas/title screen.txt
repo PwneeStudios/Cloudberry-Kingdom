@@ -1,0 +1,94 @@
+current favorite: idea 9, logo 2
+
+logo 1:
+	on white, with black letter box
+	fade out to title screen, or fade a blue over it
+		then scroll the camera, as if you were arriving at the title screen
+
+logo 2:
+	10x10 grid of blobs flys in on black blackground
+	pause
+	blobs start moving (move into their normal orbits)
+	4 bobs fall in and kill them then fall off the screen (when making the level, count blobs, after 100 allow no more to be used)
+	fade in pwnee (with "presents" down and right?)
+
+idea 0:
+	seperate wooden boards for each option, to the right of the screen. when selected the board gets bigger and moves out and up a little
+	also have a giant flying blob next to the selected board?
+	better on the left. closer to the top too
+		leaves plenty of room for a computer survival
+	slightler skew the options, so the top is further right than the bottom
+		with the title at the very top reaching out even further right
+	grass and pillars. or thin clouds. or a castle covering the BR triangle of the screen (and not the TL)
+
+idea 1:
+	pwnee logo is on black, then fade
+		NOTE! can use computer playing as time to load art
+	fade in a stickman on black, zoomed in. standing there for a second, then takes off running and jumping, camera follows tight
+	can't see what he's jumping on
+	fireballs and obstacles start appearing (have them pop in only if off screen)
+	stickman is just running around a 1-screen survival arena
+	slowly zoom out the camera to normal zoom
+	press A and the menu comes down on the right
+	if you select a different item on the menu, the obstacles in the arena change (with popping effect?)
+	what happens when you select something?
+		. The computer gets hit with a fireball, all the obstacles pop out
+		. The computer tries to run off the screen. if he gets hit by a fireball in the process, kill him (normal death animation, or he explodes)
+		. Scroll out (horizontall) the current level (keep the clouds) and scroll in a new 'level'. for career mode what is scrolled in is blankness
+		. Horizontally shift the camera one screen to the right
+
+idea 2:
+	same as 1, but backdrop is a castle, with doors leading to various menu options
+	when you press A all the obstacles pop out and you take control, doors open
+	anyone can join at anytime, no char select screen
+	when you go through a door you fade out, then the castle slides left and a new ones slides in from right, you fade in from door
+
+idea 3:
+	same as 2, but you just start playing on castle with no computer show off first
+
+idea 4:
+	same as 1, but as camera zooms out, slowly fade in normal title screen background
+	no menu
+	when you press A everything pops out
+	slide in simple char select bubble
+	when done selecting, pop stickman out of big stickman bubble
+	when all done selecting, slide in menu castle, as in idea 2
+	
+idea 5:
+	title screen is a castle? a tower? camera scroll quickly up and down the tower as you select up and down
+
+idea 6:
+	!!!!!!!!!!! awesome
+	like idea 1, except instead of having the wooden menu on the right, have the items in the menu embeeded circularly throughout the one-screen level
+	they are embedded as toponly platforms, and the computer can jump in front of them
+	selecting different ones still changes the obstacle set
+
+idea 7:
+	like idea 6, except have all the menu options to the right (just without the wooden panel, something lighter or non-existant) (left justify the text?)
+	only slide in the menu (slide in one item at a time, horizontall or vertically would look cool) AFTER pressing A to start
+		in this way it might be OK to even center the menu, but on the side is still probably better
+
+idea 8:
+	intro scene: close up, running, music, wide castle piece survival (ontop of the clouds), menu comes down over it
+			castle piece should cover width of screen? with some cool doors etc
+		title = sexy cloudberrykingdom from trailer, fade in over full screen of 4 bobs dodging, then fade out
+			after fading out, fade in PRESS A TO CONTINUE
+			or title is pasted on a wall behind the action
+		character select over it (pop out bob at begininng) when you select that bob pops into his respective place (have 4 computers playing, invisible)
+		once all selected PRESS A TO CONTINUE
+		for freeplay, a new castle is slid in, and the old one is slid out
+		can control obstacle type (with dpad, jstick or buttons). don't pop in, just have only those new types of obstacles created off screen
+		no woodmenu, take control of bob when you press A, slide in new castle first?
+			5 doors: new game, free play, options, controls, exit
+			when you go in a door, watch it close, then new castle slides in, bob comes out of a door
+
+idea 9:
+	as is, but menu is free floating (boards or fatty blue chat bubbles or score screen blue boxes)
+	flying blob on either side of selected item, in addition to shadow and color change
+	items come down from above like the rings in the stargate teleporter
+	music is playing from beginning, no record scratch
+
+	optional:  before menu comes down, do a slow pan across cloudberry village/kingdom, with a Press A to Start text
+			continue pan behind menu when it is brought down
+
+	OR: keep record scratch, skip PressAtoStart

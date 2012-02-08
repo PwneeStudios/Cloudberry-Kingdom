@@ -216,7 +216,7 @@ namespace CloudberryKingdom.Blocks
             //CoreData.Data.Velocity += CoreData.Data.Acceleration;
             CoreData.Data.Position = MyBox.Target.Center;
 
-            Update();
+            if (!Core.BoxesOnly) Update();
 
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
         }
@@ -224,7 +224,7 @@ namespace CloudberryKingdom.Blocks
         void Update()
         {
             MyQuad.Pos = MyBox.Target.Center;
-            //MyQuad.Center.Move(MyBox.Target.Center);
+
             MyQuad.Update();
         }
 

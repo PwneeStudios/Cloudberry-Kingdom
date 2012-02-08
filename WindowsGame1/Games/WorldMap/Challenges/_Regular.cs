@@ -292,7 +292,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 6;
+                u[Upgrade.Jump] = 5.5f;
                 u[Upgrade.Speed] = 2;
                 u[Upgrade.MovingBlock] = 1;
                 u[Upgrade.FallingBlock] = 1;
@@ -301,7 +301,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 6;
+                u[Upgrade.Jump] = 5.5f;
                 u[Upgrade.MovingBlock] = 2;
                 u[Upgrade.GhostBlock] = 2;
                 u[Upgrade.BouncyBlock] = 2;
@@ -320,7 +320,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 7;
+                u[Upgrade.Jump] = 6.5f;
                 u[Upgrade.Speed] = 2;
                 u[Upgrade.Elevator] = 4;
                 u[Upgrade.Laser] = 2;
@@ -405,7 +405,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 7;
+                u[Upgrade.Jump] = 6.5f;
                 u[Upgrade.GhostBlock] = 2;
             });
 
@@ -424,7 +424,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 6;
                 u[Upgrade.MovingBlock] = 2;
                 u[Upgrade.GhostBlock] = 2;
@@ -436,7 +436,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 9;
                 u[Upgrade.MovingBlock] = 2;
                 u[Upgrade.FallingBlock] = 2;
@@ -445,7 +445,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 4;
                 u[Upgrade.SpikeyGuy] = 6;
                 u[Upgrade.FallingBlock] = 9;
@@ -455,7 +455,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 4;
                 u[Upgrade.Laser] = 4;
                 u[Upgrade.FallingBlock] = 9;
@@ -474,7 +474,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 6;
                 u[Upgrade.Elevator] = 8;
                 u[Upgrade.Laser] = 2;
@@ -513,7 +513,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.Speed] = 4;
                 u[Upgrade.FallingBlock] = 9;
                 u[Upgrade.BouncyBlock] = 9;
@@ -549,7 +549,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 9;
+                u[Upgrade.Jump] = 8;
                 u[Upgrade.GhostBlock] = 6;
             });
 
@@ -575,7 +575,7 @@ namespace CloudberryKingdom
 
             f.Add(u =>
             {
-                u[Upgrade.Laser] = 8;
+                u[Upgrade.Laser] = 8.5f;
             });
 
             f.Add(u =>

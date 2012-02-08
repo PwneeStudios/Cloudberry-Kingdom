@@ -89,7 +89,13 @@ namespace CloudberryKingdom.Viewer
                     str = string.Format("new Vector2({0}f, {1}f)", v.X, v.Y);
                 }
 
-                Clipboard.SetText(str);
+                try
+                {
+                    Clipboard.SetText(str);
+                }
+                catch
+                {
+                }
             }
 
             public Vector2 GetVector2()

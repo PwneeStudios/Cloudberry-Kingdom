@@ -38,7 +38,6 @@ namespace CloudberryKingdom
 
         public void Write(BinaryWriter writer)
         {
-            int x = 1;
             // Version
             writer.Write(version);
 
@@ -97,6 +96,11 @@ namespace CloudberryKingdom
 
         public PlayerIndex MyPlayerIndex;
         public bool Exists, IsAlive;
+
+        /// <summary>
+        /// If true the player used a keyboard instead of a gamepad for the last movement input.
+        /// </summary>
+        public bool KeyboardUsedLast = false;
 
 #if PC_VERSION
 #else

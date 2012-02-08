@@ -82,8 +82,24 @@ namespace CloudberryKingdom
             world.ReleaseSourceWorld = true;
         }
 
-        public void LoadAsSubGame(GameData game, bool AddGUI = true, string title = null, Action<GUI_Level> ModTitle = null)
-        //public void LoadAsSubGame(GameData game, bool AddGUI, string title, Action<GUI_Level> ModTitle)
+        //public void LoadAsSubGame(GameData game, bool AddGUI = true, string title = null, Action<GUI_Level> ModTitle = null)
+        public void LoadAsSubGame(GameData game, bool AddGUI)
+        {
+            LoadAsSubGame(game, AddGUI, null, null);
+        }
+        public void LoadAsSubGame(GameData game, string title)
+        {
+            LoadAsSubGame(game, true, title, null);
+        }
+        public void LoadAsSubGame(GameData game, Action<GUI_Level> ModTitle)
+        {
+            LoadAsSubGame(game, true, null, ModTitle);
+        }
+        public void LoadAsSubGame(GameData game, string title, Action<GUI_Level> ModTitle)
+        {
+            LoadAsSubGame(game, true, title, ModTitle);
+        }
+        public void LoadAsSubGame(GameData game, bool AddGUI, string title, Action<GUI_Level> ModTitle)
         {
             if (AddGUI)
             {

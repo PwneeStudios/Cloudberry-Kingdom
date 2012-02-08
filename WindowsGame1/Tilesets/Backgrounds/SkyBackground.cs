@@ -7,7 +7,7 @@ namespace CloudberryKingdom
     public class SkyBackground : Background
     {
         public QuadClass BackgroundQuad;
-        
+
         public SkyBackground()
         {
             AllowLava = false;
@@ -91,6 +91,11 @@ namespace CloudberryKingdom
             MyCollection.SetLevel(MyLevel);
         }
 
+        public static Vector2 SkyWind(int step)
+        {
+            return 2 * Cape.SineWind(new Vector2(-1.3f, .325f), 1.15f, 3.85f, step);
+        }
+
         public bool AffectCamera = true;
         public override void Draw()
         {
@@ -99,6 +104,9 @@ namespace CloudberryKingdom
             MyCollection.PhsxStep();
 
             base.Draw();            
+
+            // Wind
+            Wind = SkyWind(MyLevel.CurPhsxStep);
 
             Camera Cam = MyLevel.MainCamera;
 

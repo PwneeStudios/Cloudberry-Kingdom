@@ -38,8 +38,9 @@ namespace CloudberryKingdom.Levels
             });
 
             DistAdd = new Param(PieceSeed);
-            //DistAdd.SetVal(u => .175f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
-            DistAdd.SetVal(u => .105f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
+            //DistAdd.SetVal(u => .105f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
+            //DistAdd.SetVal(u => .385f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
+            DistAdd.SetVal(u => Tools.DifficultyLerp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
 
             Amp = new Param(PieceSeed);
             Amp.SetVal(u =>

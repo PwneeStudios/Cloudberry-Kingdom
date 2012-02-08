@@ -284,7 +284,7 @@ namespace CloudberryKingdom
                 if (true)
                 {
                     //DifficultyMenu levelmenu = new LevelMenu(true);
-                    DifficultyMenu levelmenu = new LevelMenu(false, challenge.HighLevel.Top);
+                    DifficultyMenu levelmenu = new LevelMenu(false, challenge.HighLevel.Top, challenge.StartLevels);
                     levelmenu.ShowHighScore(challenge.HighScore.Top);
                     levelmenu.MyMenu.SelectItem(Challenge_HeroRush.PreviousMenuIndex);
 

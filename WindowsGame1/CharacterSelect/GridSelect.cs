@@ -162,7 +162,7 @@ namespace CloudberryKingdom
 
             int i;
             Vector2 pos;
-            
+
             // Draw the unselected items
             for (int Layer = 0; Layer < NumLayers; Layer++)
             for (int j = 0; j < Width; j++)
@@ -188,15 +188,18 @@ namespace CloudberryKingdom
             if (DrawSelectedLast)
             {
                 i = GetIndex();
+
                 if (i >= 0 && i < Count)
                 {
                     if (Inverted)
                     {
-                        pos = FancyPos.Pos + Spacing * new Vector2(J - Width / 2f + .5f, (Height - K) - HeightOffset - Height / 2f + .5f);
+                        pos = FancyPos.Pos + Spacing * new Vector2(J - Width / 2f + .5f, (Height - K) + HeightOffset - Height / 2f + .5f);
+                        //pos = FancyPos.Pos + Spacing * new Vector2(J - Width / 2f + .5f, (Height - K) - Height / 2f + .5f);
                         pos.Y -= Spacing.Y / 2;
                     }
                     else
                         pos = FancyPos.Pos + Spacing * new Vector2(J - Width / 2f + .5f, K - HeightOffset - Height / 2f + .5f);
+                        //pos = FancyPos.Pos + Spacing * new Vector2(J - Width / 2f + .5f, K - Height / 2f + .5f);
                     DrawItem(i, pos, true);
                 }
             }

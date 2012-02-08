@@ -514,12 +514,12 @@ namespace CloudberryKingdom
             this.Draw(true, Tools.CurCamera, false);
         }
 
-        public virtual void Draw(bool Text, Camera cam, bool Selected)
+        public bool DrawBase(bool Text, Camera cam, bool Selected)
         {
             MyCameraZoom = cam.Zoom;
 
             if (MyDrawLayer != MyMenu.CurDrawLayer || !Show)
-                return;
+                return true;
 
             if (!Selectable)
                 Selected = false;
@@ -537,6 +537,12 @@ namespace CloudberryKingdom
             }
             this.Selected = Selected;
 
+            return false;
+        }
+
+        public virtual void Draw(bool Text, Camera cam, bool Selected)
+        {
+            if (DrawBase(Text, cam, Selected)) return;
 
             SetTextSelection(Selected);
 
@@ -562,7 +568,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if PC_VERSION
+#if WINDOWS
         public virtual bool HitTest()
         {
             return HitTest(Tools.MouseGUIPos(MyCameraZoom));

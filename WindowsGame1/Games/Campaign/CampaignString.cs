@@ -113,7 +113,7 @@ namespace CloudberryKingdom
         void AddSubGame(Func<GameData> MakeGame)
         {
             string title = LevelSeedData.GetTitle();
-            Add(() => LoadAsSubGame(MakeGame(), title:title));
+            Add(() => LoadAsSubGame(MakeGame(), title));
         }
         void Add(Action act)
         {
@@ -168,14 +168,14 @@ namespace CloudberryKingdom
             //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 4000, 1, LevelGeometry.Up, TileSet.Dungeon);
             //d.PostMake += lvl => Campaign_UpExplosion.UpExplosion(lvl);
             //d.SetBackFirstAttemp(Campaign_UpExplosion.SetBack);
-            //d.SetToShowLevelTitle(show: false);
+            //d.SetToShowLevelTitle(false);
             //d.SetToStartSong(Tools.Song_TidyUp);
             //Add(d);
 
             // new down level
             //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 4500, 1, LevelGeometry.Down);
             //d.PostMake += Campaign_PrincessDown.PrincessDown;
-            //d.SetToShowLevelTitle(show: false);
+            //d.SetToShowLevelTitle(false);
             //d.MyGeometry = LevelGeometry.Down;
             //d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
             //d.SetBackground(BackgroundType.Outside);
@@ -198,7 +198,7 @@ namespace CloudberryKingdom
             //Add(d);
 
             // Test boss
-            //Add(() => LoadAsSubGame(new Campaign_BossNew(true), AddGUI: false));
+            //Add(() => LoadAsSubGame(new Campaign_BossNew(true), false));
 
             // Hardcore intro
             if (Campaign.Difficulty > 2)
@@ -265,7 +265,7 @@ namespace CloudberryKingdom
             Add(d);
 
             //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 9500, 1, LevelGeometry.Down);
-            //d.SetToShowLevelTitle(show: false);
+            //d.SetToShowLevelTitle(false);
             //d.MyGeometry = LevelGeometry.Down;
             //d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
             //d.SetBackground(BackgroundType.Outside);
@@ -274,7 +274,7 @@ namespace CloudberryKingdom
             //Add(d);
             d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 9500, 1, LevelGeometry.Down);
             d.PostMake += Campaign_PrincessDown.PrincessDown;
-            d.SetToShowLevelTitle(show: false);
+            d.SetToShowLevelTitle(false);
             d.MyGeometry = LevelGeometry.Down;
             d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
             d.SetBackground(BackgroundType.Outside);
@@ -309,14 +309,14 @@ namespace CloudberryKingdom
             d.NoMusicStart = true;
             Add(d);
             //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 7500, 1, LevelGeometry.Up, TileSet.Dungeon);
-            //d.SetToShowLevelTitle(show: false);
+            //d.SetToShowLevelTitle(false);
             //d.DelayEntrance();
             //d.SetToStartSong(Tools.Song_TidyUp);
             //Add(d);
             d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 7500, 1, LevelGeometry.Up, TileSet.Dungeon);
             d.PostMake += lvl => Campaign_UpExplosion.UpExplosion(lvl);
             d.SetBackFirstAttemp(Campaign_UpExplosion.SetBack);
-            d.SetToShowLevelTitle(show: false);
+            d.SetToShowLevelTitle(false);
             d.SetToStartSong(Tools.Song_TidyUp);
             Add(d);
 
@@ -336,7 +336,7 @@ namespace CloudberryKingdom
 
             // Spaceship
             d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxSpaceship.Instance, 9000, 2, LevelGeometry.Right);
-            d.SetToShowLevelTitle(show: false);
+            d.SetToShowLevelTitle(false);
             d.SetBackground(BackgroundType.Castle);
             d.NoMusicStart = true;
             d.PostMake += lvl => lvl.MyGame.AddGameObject(new PreSpaceship());
@@ -350,7 +350,7 @@ namespace CloudberryKingdom
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
             //d.PostMake += lvl => lvl.Move(new Vector2(0, 1000), false);
             //d.SetToShowLevelTitle();
-            d.SetToShowLevelTitle(show: false);
+            d.SetToShowLevelTitle(false);
             d.DelayEntrance();
             d.NoMusicStart = true;
             Add(d);
@@ -383,9 +383,9 @@ namespace CloudberryKingdom
                 CampaignMenu.HardcoreColor(t.LevelText);
                 t.MyPile.Pos += new Vector2(40, 0);
             };
-            Add(() => LoadAsSubGame(new Campaign_DarkTower(), title:"The Dark Tower", ModTitle:ModTitle));
+            Add(() => LoadAsSubGame(new Campaign_DarkTower(), "The Dark Tower", ModTitle));
             Add(() => Challenge_SavePrincessRush.Instance.Start(Campaign.Index));
-            Add(() => LoadAsSubGame(new Campaign_PrincessOverLava_Get(), title: "Floor " + NumFloors.ToString()));
+            Add(() => LoadAsSubGame(new Campaign_PrincessOverLava_Get(), "Floor " + NumFloors.ToString()));
 
             
             // NEW WORLD
@@ -393,7 +393,7 @@ namespace CloudberryKingdom
 
             // Rain, carrying princess with RUMBLE
             d = Campaign.HeroLevel(Campaign.Difficulty + .3f, BobPhsxNormal.Instance, 7000, 2);
-            //d.SetToShowLevelTitle(show: false);
+            //d.SetToShowLevelTitle(false);
             d.SetToShowLevelTitle();
             d.SetBackground(TileSet.Rain);
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
@@ -414,7 +414,7 @@ namespace CloudberryKingdom
             Add(d);
 
             // Boss
-            Add(() => LoadAsSubGame(new Campaign_BossNew(true), AddGUI:false));
+            Add(() => LoadAsSubGame(new Campaign_BossNew(true), false));
         }
 
         public override void SetToReturnTo(int code)

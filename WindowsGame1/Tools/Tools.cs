@@ -1534,7 +1534,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// <summary>
         /// Starts the SpriteBatch if it isn't started already. The quad drawer is flushed first.
         /// </summary>
-        public static void StartSpriteBatch(bool AsPaint = false)
+        public static void StartSpriteBatch() { StartSpriteBatch(false); }
+        public static void StartSpriteBatch(bool AsPaint)
         {
             if (!UsingSpriteBatch)
             {

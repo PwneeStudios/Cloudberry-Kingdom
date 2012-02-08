@@ -55,8 +55,9 @@ namespace CloudberryKingdom
         public static void Use(int width, int height) { Use(width, height, true); }
         public static void Use(int width, int height, bool AllowModifications)
         {
+#if WINDOWS
             var save = Tools.MousePos;
-
+#endif
             if (AllowModifications)
                 if (Tools.TheGame.graphics.IsFullScreen)
                 {
@@ -72,8 +73,10 @@ namespace CloudberryKingdom
             Tools.TheGame.graphics.PreferredBackBufferHeight = height;
             Tools.TheGame.graphics.ApplyChanges();
             Tools.TheGame.MakeInnerViewport();
-            
+           
+#if WINDOWS 
             Tools.MousePos = save;
+#endif
         }
 
         public void Use()

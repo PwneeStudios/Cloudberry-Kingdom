@@ -1,0 +1,171 @@
+DUEL modes:
+	survive longest
+		with only fblocks and goombas
+
+	survival
+		on a long platform that moves up and down
+		on a long platform that moves up when you push up, down when you push down
+		on a long platform that moves up when you push right, down when you push left
+		on a long platform that sinks when you're on it (fast if you dunk), but rapidly moves up when you are in the air
+		tethered to a medium_block, use it to bash spikey guys and fireballs
+	wind (with some forground whisphy line transparency, more transparent the weaker the wind), note: for cape, make sure it flags and waves, and enforce a length restriction on links
+		wind survival
+	
+	tethered to an fblock, press B and it sticks to where it's at, jump on it and it falls and is pulled by bungee again
+	tethered to a spikey guy! don't hit yourself or others!
+	tethered to a mblock that moves through the whole level
+
+	hallway of death: one long hallway, black above and below (use medium_blocks?), shit tons of firespinners etc. like sean connery in the Rock
+	horizontal lasers, two of them, moving up and down, impinging Bob's range of motion. have guide laser to show where they are going?
+		can be red lasers, that kill you
+		can be blue lasers, that you can stand on
+
+	fade to black. touch a 'coin' to pump the light back on a little
+	pump up difficulty. touch a 'coin' to scale back difficulty a little
+
+	left moving wall. with spikes on it, staggered like a block pyramid, oscilating as it moves forward (standing wave), moving vertical laser
+
+	one platform (elevator style) that moves through entire level. show path it follows. computer tries to stay centered and above platform, but occasionally uses other things
+		replace platform with an enclosed box
+
+	
+
+	duel, survival mode
+	duel, by pushing people around (no obstacles, just moving blocks and such. no ground)
+	duel, by jumping on peoples heads
+	duel, 2v2, bungeed teams
+	duel, split screen, survival, bungeed across the divider
+	duel, by a spikey guy bungeed to you
+
+	kill all blobs, (have coins or some marker to guide the player, two ahead, they appear as they are collected)
+			(or, circle next few blobs, getting more and more transparent in the sequence)
+		waves, galaga style. with a ground or something to stand on while you wait between waves
+		survival, all blobs, more and more
+
+	get all coins, can push people
+
+	falling block duel (fblocks explode on impact? or just push you?)
+	bungee, one motion get all coins
+	doppleganger (middle safteynet, explode on contact)
+	Green Giant (one big, invulnerable stickman, with a 'tree' that the other players stand on. all other platforms are insta death)
+	Green Spacehsip! (same, with spaceship)
+	betting (difficulty knob?)	
+	one screen, box you are tethered to in center. time variant spring, to simulate the snap back effect?
+	one screen, jetpack/triple, pick up fuel/jumps. ! before fuel appears
+		'pow' buttons that invert gravity. just invert containedraw
+	anti bungee
+	shoulder brothers, all bobs on a pole that auto moves forward
+	follow the leader (use block_medium). no prove.
+	stickman hanging from jetpack with infinite fuel (jetpack is on the 'back' of an fblock)
+
+	moving block maze
+
+	raining falling blocks
+
+	moving pillars. side by side, no gaps. ceiling as well.
+		styles: ceiling exactly in phase with ground, not in phase, only ceiling is moving, only ground is moving
+		if you get squished, blob-like explosion with the color of the player!
+		code: when marking a block as used, erase all other blocks with same x-coordinate
+
+	doppleganger (death on collision. computer uses divider saftey net.)
+		styles: bungee! (with death on collision! uh..)
+			anti-bungee, with no death on collision
+			control each separately, pressing X to switch
+				one in control is invulnerable. OR vis a versa			
+
+	turn to a medium_block when ducking (pop animation) holding forward does nothing when falling
+
+	nibbles! (train, with decent amount of space between bobs. train progresses over time OR proportional to bob's velocity. die if anyone gets hit)
+
+
+	full edit (move only) puzzle
+
+	mario 3 sliding match style game: press A to slide in half of one level, press B to slide in half of other, find correct match to get a possible level, then beat it (experiment with the way the parts slide in: up and then back down when going out, left to right, etc)
+
+	two levels. draw both, then store them in buffers. draw the 'back' one as 50% bright, maybe fuzzy too. switch levels by pressing B. do switch gradually graphically
+
+	cement shoes hero. can jump on fireballs. tons of fireballs coming from below, at rapid speed
+
+	!!! hero switch: cycle through all the heros, changing every 4/3/2 seconds, depending on difficulty setting
+		GOOD for last boss level!
+
+New Heros:
+	short tethered to a block you can jump off of
+	ninja rope
+	rocket block (can't jump. jet comes out from left or right. otherwise normal physics)
+	blob! (tap or hold A to flap and go up, otherwise fall)
+		or balrog wings (slightly different controls?)
+	pinball/pogo
+	wheel (infinite traction)
+	antigrav (no jump, just A to reverse gravity. hit head on ceiling, don't need fancy reversal!)
+	transcendence (different orbits, use all heros)
+	opposite of transcendence (orbiting shield)
+	old school (infinite accel, binary jump, no anims)
+	supersheep
+	doppleganger
+	attempt style spaceship
+	lunar lander spaceship
+	spaceship galaga style with shield or gun
+	turn into stone block
+	ice man (asteroids style momentum)
+	sprint (if we don't do powerups)
+	dash
+	float/hover
+	teleport (transparent destination stickman)
+
+
+BEST BOSS LEVELS: (random for each hero?)
+		At begining: evil stickman shows up, laughs (actual sound), then flys off, screen rumbles, start
+			on last level he will actively try to kill you (flying into you, throwing fireball (big sexy fireball from old version!))
+		At end he will be there, growls, then disappears in a puff of smoke
+	fireshoes (triple)
+	hero rush
+	nibbles, moving left wall (box)
+	turn to stone block when ducking (box, sumo, reg)
+	moving pillars (reg)
+	fblock rain, going vertical? (jetman)
+	moving left wall, falling ceiling, falling ceiling w/ rising floor (sumo)
+	fade to black, coins for light 
+	hallway of death (reg, sumo)
+	horizontal lasers, vertical lasers
+	moving box containing you (lil)
+	tethered to an mblock (jetman, sumo, lil)
+	spaceship: thrusters on! (possible for other heros too)
+
+	a boss level has two parts. one part is is just one special thing, the second part (through a door) keeps that and adds something
+		exampe:
+			moving pillars, + fade to black
+			hallway of death, + nibbles
+			fireshoes, + horizontal lasers
+			?
+		some stand on their own, such as moving box
+			
+
+
+
+BEST BONUS LEVELS:
+	doppleganger?
+	kill all blobs ("waves")
+	get all coins (with place blobs?! note -> for nonclassic hero place, don't show new blob until your jetpack power is over)
+		difficulty because: coins are moving (big paths), time limit, flying blocks from off screen moving rapidly 
+	survival (with place blobs?!)
+		only have to survive so long, but extra time afterwards is added to your score to give you free lives
+		code: have an elevator in center, and comp just abuses that, always trying to center itself
+		layouts: all up elevators, alternating, all horizontal, # shape, sine wave, 2 sine waves that don't intersect
+		or KISS!
+			just have one arena, with a few static toponly plats, very symetrical. AI just fucks around, trying to stay roughly centered
+					_   _   _   _
+					  _   _   _
+                			_   _   _   _
+
+	IMPORTANT:
+		each bonus level type cummulatively tracks what level of difficulty you are on for it
+		get a star for every level you beat, up to 5 stars?
+		3 lives. track lives across multiple games
+
+	typed font on black screen:
+		bonus, game type #27
+		level 16
+
+	icon:
+		blob, gem, fireball

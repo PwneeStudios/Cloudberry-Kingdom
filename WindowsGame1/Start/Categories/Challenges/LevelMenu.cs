@@ -28,16 +28,23 @@ namespace CloudberryKingdom
         }
 
         bool UseString;
-        public LevelMenu(bool UseString, int HighestLevel)
+        public LevelMenu(bool UseString, int HighestLevel, int[] Levels)
         {
             this.UseString = UseString;
+            this.Levels = Levels;
 
             //HeaderText = "Start level:";
             HeaderText = "Level";
             FontScale = .85f;
             if (UseString) ItemFontScaleMod = .68f / .85f;
 
-            IndexCutoff = HighestLevel / 20 + 1;
+            //IndexCutoff = HighestLevel / 20 + 1;
+            // Allow user to choose amongst any start level in the array Levels,
+            // assuming they have previously gotten to that level.
+            IndexCutoff = int.MaxValue;
+            for (int i = 0; i < Levels.Length; i++)
+                if (HighestLevel >= Levels[i]) IndexCutoff = i + 1;
+
             Initialize();
 
             MyMenu.Pos = new Vector2(176.2715f, -43.80966f);

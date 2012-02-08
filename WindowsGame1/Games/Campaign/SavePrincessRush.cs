@@ -176,7 +176,7 @@ namespace CloudberryKingdom
                 Tools.WorldMap.SkipBackgroundPhsx = true;
                 Tools.ShowLoadingScreen = false;
                 Cinematic = new Campaign_PrincessOverLava(this);
-                Campaign_String.MainString.LoadAsSubGame(Cinematic, AddGUI:false);
+                Campaign_String.MainString.LoadAsSubGame(Cinematic, false);
                 CinematicShown = true;
             }
         }

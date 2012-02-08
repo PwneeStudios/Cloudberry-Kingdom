@@ -14,6 +14,8 @@ namespace CloudberryKingdom
 
     public class Challenge
     {
+        public int[] StartLevels = { 1, 50, 100, 150 };
+
         protected virtual void ShowEndScreen()
         {
         }

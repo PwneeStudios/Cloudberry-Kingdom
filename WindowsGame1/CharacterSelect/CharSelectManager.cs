@@ -110,12 +110,13 @@ namespace CloudberryKingdom
             // Determine which hats are availabe
             AvailableHats = new Set<Hat>();
             foreach (Hat hat in ColorSchemeManager.HatInfo)
-                //if (true)
                 if (hat == Hat.None
                     ||
                     hat.AssociatedAward == null && PlayerManager.Bought(hat)
                     ||
-                    hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward))
+                    hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
+                    ||
+                    CloudberryKingdomGame.GiveAllHats)
                     AvailableHats += hat;
         }
 

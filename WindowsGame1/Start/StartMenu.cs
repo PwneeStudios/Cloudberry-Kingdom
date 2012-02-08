@@ -5,6 +5,12 @@ namespace CloudberryKingdom
 {
     public class StartMenu : StartMenuBase
     {
+        public override void Hide(PresetPos pos, int frames)
+        {
+            base.Hide(pos, frames);
+            ButtonCheck.PreLogIn = false;
+        }
+
         void MenuGo_Start(MenuItem item)
         {
 #if PC_VERSION
@@ -236,6 +242,7 @@ namespace CloudberryKingdom
 
             MyMenu.Control = -2;
 
+            MyMenu.CheckForOutsideClick = false;
             MyMenu.OnB = menu =>
                 //{ Exit(); return false; };
                 { MenuGo_ScreenSaver(null); return false; };
@@ -251,8 +258,8 @@ namespace CloudberryKingdom
             AddItem(item, 1.3f);
             ItemPos.Y -= 95;
 
-            item = new MenuItem(new EzText("Watch", ItemFont, Center, yCenter));
-            item.Go = MenuGo_ScreenSaver;
+            //item = new MenuItem(new EzText("Watch", ItemFont, Center, yCenter));
+            //item.Go = MenuGo_ScreenSaver;
             //AddItem(item);
 
 #if PC_VERSION
@@ -311,6 +318,9 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
             Count++;
+
+            if (Active)
+                ButtonCheck.PreLogIn = true;
 
             // Start music
             if (Count == 20)

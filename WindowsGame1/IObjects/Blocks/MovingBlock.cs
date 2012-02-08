@@ -179,8 +179,14 @@ namespace CloudberryKingdom.Blocks
 
         public void PhsxStep()
         {
-            Vector2 PhsxCutoff = new Vector2(1000, 1000);
-            if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(1000, 1000);
+            if (!Core.Held)
+            {
+                int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+                Core.Data.Position = CalcPosition((float)Step / Period);
+            }
+
+            Vector2 PhsxCutoff = new Vector2(500, 500);
+            if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
             {
                 Active = false;
@@ -190,11 +196,10 @@ namespace CloudberryKingdom.Blocks
             }
             Core.SkippedPhsx = false;
                         
-            //int Step = (Core.GetPhsxStep() + Offset) % Period;
-            int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+            //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
 
-            if (!Core.Held)
-                Core.Data.Position = CalcPosition((float)Step / Period);
+            //if (!Core.Held)
+            //    Core.Data.Position = CalcPosition((float)Step / Period);
 
             MyBox.Target.Center = Core.Data.Position;
 

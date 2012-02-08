@@ -71,8 +71,10 @@ namespace CloudberryKingdom
             Add(LockManager.Instance);
 
             LoadAll();
-            //PlayerManager.Player.LifetimeStats.Coins += 1000;
 
+
+
+            //PlayerManager.Player.LifetimeStats.Coins += 1000;
             //PlayerManager.Player.Awardments += 4;
             //PlayerManager.Player.Awardments += 7;
         }
@@ -173,11 +175,27 @@ namespace CloudberryKingdom
         public bool Changed = false;
         public string ContainerName, FileName;
 
+        string ActualContainerName
+        {
+            get
+            {
+#if PC_VERSION
+                return ContainerName;
+#else
+#if WINDOWS
+                return ContainerName + "_XboxVersion";
+#else
+                return ContainerName;
+#endif
+#endif
+            }
+        }
+
         public void Save()
         {
             if (Changed || AlwaysSave)
             {
-                EzStorage.Save(ContainerName, FileName, writer =>
+                EzStorage.Save(ActualContainerName, FileName, writer =>
                     {
                         Serialize(writer);
                         Changed = false;
@@ -195,7 +213,7 @@ namespace CloudberryKingdom
 
         public void Load()
         {
-            EzStorage.Load(ContainerName, FileName,
+            EzStorage.Load(ActualContainerName, FileName,
                 reader =>
                 {
                     Deserialize(reader);
@@ -330,6 +348,7 @@ namespace CloudberryKingdom
                 ContainerResult =>
                 {
                     if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
+                    //if (Fail != null) Fail(); return;
 
                     StorageContainer container = Device.EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();

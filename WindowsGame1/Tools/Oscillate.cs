@@ -101,7 +101,8 @@ namespace CloudberryKingdom
 
                 case OscillateParams.Type.GetBig:
                     Count = 0;
-                    scale = GetScale_GetBig(.3f);
+                    //scale = GetScale_GetBig(.3f);
+                    //scale = GetScale_GetBig(.835f);
                     break;
 
                 case OscillateParams.Type.GetBigSlow:

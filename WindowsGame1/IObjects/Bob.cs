@@ -1313,32 +1313,35 @@ namespace CloudberryKingdom.Bobs
 
             if (Immobile) return;
 
-            if (Tools.padState[(int)MyPlayerIndex].IsConnected)
+            GamePadState pad = Tools.padState[(int)MyPlayerIndex];
+            //pad = Tools.padState[0];
+
+            if (pad.IsConnected)
             {
-                if (Tools.padState[(int)MyPlayerIndex].Buttons.A == ButtonState.Pressed)
+                if (pad.Buttons.A == ButtonState.Pressed)
                 {
                     CurInput.A_Button = true;
                 }
                 else CurInput.A_Button = false;
 
                 CurInput.xVec.X = CurInput.xVec.Y = 0;
-                if (Math.Abs(Tools.padState[(int)MyPlayerIndex].ThumbSticks.Left.X) > .15f)
-                    CurInput.xVec.X = Tools.padState[(int)MyPlayerIndex].ThumbSticks.Left.X;
-                if (Math.Abs(Tools.padState[(int)MyPlayerIndex].ThumbSticks.Left.Y) > .15f)
-                    CurInput.xVec.Y = Tools.padState[(int)MyPlayerIndex].ThumbSticks.Left.Y;
+                if (Math.Abs(pad.ThumbSticks.Left.X) > .15f)
+                    CurInput.xVec.X = pad.ThumbSticks.Left.X;
+                if (Math.Abs(pad.ThumbSticks.Left.Y) > .15f)
+                    CurInput.xVec.Y = pad.ThumbSticks.Left.Y;
 
-                if (Tools.padState[(int)MyPlayerIndex].DPad.Right == ButtonState.Pressed)
+                if (pad.DPad.Right == ButtonState.Pressed)
                     CurInput.xVec.X = 1;
-                if (Tools.padState[(int)MyPlayerIndex].DPad.Left == ButtonState.Pressed)
+                if (pad.DPad.Left == ButtonState.Pressed)
                     CurInput.xVec.X = -1;
-                if (Tools.padState[(int)MyPlayerIndex].DPad.Up == ButtonState.Pressed)
+                if (pad.DPad.Up == ButtonState.Pressed)
                     CurInput.xVec.Y = 1;
-                if (Tools.padState[(int)MyPlayerIndex].DPad.Down == ButtonState.Pressed)
+                if (pad.DPad.Down == ButtonState.Pressed)
                     CurInput.xVec.Y = -1;
 
 
-                CurInput.B_Button = (Tools.padState[(int)MyPlayerIndex].Buttons.LeftShoulder == ButtonState.Pressed
-                            || Tools.padState[(int)MyPlayerIndex].Buttons.RightShoulder == ButtonState.Pressed);
+                CurInput.B_Button = (pad.Buttons.LeftShoulder == ButtonState.Pressed
+                            || pad.Buttons.RightShoulder == ButtonState.Pressed);
                 //PrevB_Button = (Tools.prevPadState[(int)MyPlayerIndex].Buttons.A == ButtonState.Pressed);
             }
 //#endif
@@ -1346,7 +1349,7 @@ namespace CloudberryKingdom.Bobs
 #if WINDOWS
             Vector2 KeyboardDir = Vector2.Zero;
 
-            if (MyPlayerIndex == PlayerIndex.One)
+            //if (MyPlayerIndex == PlayerIndex.One)
             {
                 CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Up);
                 CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary);
@@ -1363,7 +1366,8 @@ namespace CloudberryKingdom.Bobs
                 CurInput.B_Button |= Tools.keybState.IsKeyDownCustom(ButtonCheck.Back_Secondary);
             }
 
-            if (MyPlayerIndex == PlayerIndex.Two)
+            //if (MyPlayerIndex == PlayerIndex.Two)
+            if (false)
             {
                 CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Y);
                 KeyboardDir.X = KeyboardDir.Y = 0;
@@ -1952,7 +1956,13 @@ namespace CloudberryKingdom.Bobs
             if (!CanHaveCape) // || !ShowCape)
                 return;
 
-            MyCape.Wind = CapeWind;// Vector2.Zero;
+            MyCape.Wind = CapeWind;
+            Vector2 AdditionalWind = Vector2.Zero;
+            if (Core.MyLevel != null && Core.MyLevel.MyBackground != null)
+            {
+                AdditionalWind += Core.MyLevel.MyBackground.Wind;
+                MyCape.Wind += AdditionalWind;
+            }
             //MyCape.Wind.X -= .2f * Core.Data.Velocity.X;
 
             if (MyPhsx.Ducking && MyObjectType != BobPhsxBox.Instance)
@@ -1977,20 +1987,20 @@ namespace CloudberryKingdom.Bobs
                 float t = Core.MyLevel.GetPhsxStep() / 2.5f;
                 if (CharacterSelect2)
                     t = Tools.DrawCount / 2.5f;
-                float AmplitudeX = Math.Min(2.5f, Math.Abs(vel.X) / 20);
+                float AmplitudeX = Math.Min(2.5f, Math.Abs(vel.X - AdditionalWind.X) / 20);
                 MyCape.AnchorPoint[0].Y += 15 * (float)(Math.Cos(t) * AmplitudeX);
                 float Amp = 2;
                 if (vel.Y < 0)
                     Amp = 8;
-                float AmplitudeY = Math.Min(2.5f, Math.Abs(vel.Y) / 45);
+                float AmplitudeY = Math.Min(2.5f, Math.Abs(vel.Y - AdditionalWind.Y) / 45);
                 MyCape.AnchorPoint[0].X += Amp * (float)(Math.Sin(t) * AmplitudeY);
             }
             //MyCape.AnchorPoint[0].X += .1f * (Core.Data.Velocity).X;
             Vector2 CheatShift = Vector2.Zero;//new Vector2(.15f, .35f) * Core.Data.Velocity;
-            float l = (vel).Length();
+            float l = (vel - 2*AdditionalWind).Length();
             if (l > 15)
             {
-                CheatShift = (vel);
+                CheatShift = (vel - 1*AdditionalWind);
                 CheatShift.Normalize();
                 CheatShift = (l - 15) * CheatShift;
             }

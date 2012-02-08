@@ -264,11 +264,19 @@ namespace CloudberryKingdom.Levels
         /// <summary>
         /// Creates a door at the specified position, as well as a backdrop block.
         /// </summary>
-        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, bool LayeredDoor = true)
+        public Door PlaceDoorOnBlock_Unlayered(Vector2 pos, Block block, bool AddBackdrop)
         {
-            return PlaceDoorOnBlock(pos, block, AddBackdrop, MyTileSet, LayeredDoor);
+            return PlaceDoorOnBlock(pos, block, AddBackdrop, MyTileSet, false);
         }
-        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, TileSet BackdropTileset, bool LayeredDoor = true)
+        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop)
+        {
+            return PlaceDoorOnBlock(pos, block, AddBackdrop, MyTileSet, true);
+        }
+        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, TileSet BackdropTileset)
+        {
+            return PlaceDoorOnBlock(pos, block, AddBackdrop, BackdropTileset, true);
+        }
+        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, TileSet BackdropTileset, bool LayeredDoor)
         {
             int DesiredDoorLayer = 0, DesiredDoorLayer2 = 0;
 
@@ -855,10 +863,17 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        public static string Pre1, Pre2, Post;
+        public static int Step1, Step2;
+
         public float MaxRight, EndBuffer;
         public int LastStep;
         public bool MakeSingle(int Length, float MaxRight, float MaxLeft, int StartPhsxStep, int ReturnEarly, MakeData makeData)
         {
+            // Tracking info
+            Pre1 = Pre2 = Post = ""; Step1 = Step2 = 0;
+            Pre1 += 'A';
+
             this.MaxRight = MaxRight;
 
             PREFILL();
@@ -977,7 +992,7 @@ namespace CloudberryKingdom.Levels
             if (MakeFinalPlat != null) MakeFinalPlat.Phase1();
 
             Sleep();
-
+            Pre1 += 'B';
 
 
             // Pre Fill #1
@@ -1019,6 +1034,7 @@ namespace CloudberryKingdom.Levels
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
             }
 
+            Pre1 += 'C';
             DEBUG("Pre stage 1, about to reset");
 
             PlayMode = 2;
@@ -1037,8 +1053,9 @@ namespace CloudberryKingdom.Levels
             if (ReturnEarly == 1) return false;
             
             // Stage 1 Run through
+            Pre1 += 'D';
             Stage1(BL_Bound, TR_Bound, Length);
-
+            Pre2 += 'A';
 
             // Continue making Final Platform
             if (MakeFinalPlat != null) MakeFinalPlat.Phase2();
@@ -1056,6 +1073,7 @@ namespace CloudberryKingdom.Levels
 
             // Stage 1 Cleanup
             Stage1Cleanup(BL_Bound, TR_Bound);
+            Pre2 += 'B';
 
             CurPiece.PieceLength = LastStep - StartPhsxStep;
 
@@ -1074,7 +1092,7 @@ namespace CloudberryKingdom.Levels
 
             FinalizeBlocks();
 
-
+            Pre2 += 'C';
             DEBUG("Pre stage 2, about to reset");
 
 
@@ -1089,16 +1107,19 @@ namespace CloudberryKingdom.Levels
             if (ReturnEarly == 2) return false;
 
             DEBUG("Pre stage 2, about to run through");
+            Pre2 += 'D';
 
             // Stage 2 Run through
             Stage2();
+            Post += 'A';
 
             DEBUG("Done with stage 2 run through, about to cleanup");
             showdebug = true;
 
             // Stage 2 Cleanup
             Stage2Cleanup(BL_Bound, TR_Bound);
-            
+            Post += 'B';
+
             //Recycle.Empty();
 
             // Finish making Final Platform
@@ -1113,6 +1134,7 @@ namespace CloudberryKingdom.Levels
             int AdditionalSteps = 10;//200; // Steps to take after computer reaches end
             while (CurPhsxStep - Bobs[0].IndexOffset < Length)// CurPiece.PieceLength)
             {
+                Step1 = CurPhsxStep;
                 /*
                 // End if all bobs have arrived
                 if (!Bobs.Any(bob => bob.Core.Data.Position.X < MaxRight + EndBuffer))
@@ -1173,6 +1195,7 @@ namespace CloudberryKingdom.Levels
         {
             while (CurPhsxStep < LastStep)
             {
+                Step2 = CurPhsxStep;
                 PhsxStep(true);
             }
             //Console.WriteLine("Stage 2 finished at " + CurPhsxStep.ToString());

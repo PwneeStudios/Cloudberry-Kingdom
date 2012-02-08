@@ -55,8 +55,10 @@ namespace CloudberryKingdom
 
 
             // Resolution information
+#if WINDOWS
             writer.Write(ResolutionPreferenceSet);
             writer.Write(Tools.Fullscreen);
+
             if (ResolutionGroup.LastSetMode == null)
             {
                 writer.Write(Tools.TheGame.graphics.PreferredBackBufferWidth);
@@ -67,6 +69,7 @@ namespace CloudberryKingdom
                 writer.Write(ResolutionGroup.LastSetMode.Width);
                 writer.Write(ResolutionGroup.LastSetMode.Height);
             }
+#endif
         }
 
         protected override void Deserialize(BinaryReader reader)
@@ -95,11 +98,12 @@ namespace CloudberryKingdom
             Challenge_Construct.Instance.SetGoalMet(reader.ReadBoolean());
 
             // Resolution information
+#if WINDOWS
             ResolutionPreferenceSet = reader.ReadBoolean();
             bool Fullscreen = reader.ReadBoolean();
             int Width = reader.ReadInt32();
             int Height = reader.ReadInt32();
-
+#endif
             //if (ResolutionPreferenceSet)
             //{
             //    Tools.TheGame.ToDo.Add(() =>
@@ -113,6 +117,9 @@ namespace CloudberryKingdom
 
     public struct PlayerManager
     {
+#if PC_VERSION || WINDOWS
+        public struct RezData { public bool Custom, Fullscreen; public int Width, Height; }
+#endif
 #if PC_VERSION
         public static void SaveRezAndKeys()
         {
@@ -194,7 +201,6 @@ namespace CloudberryKingdom
             //stream.Close();
         }
 
-        public struct RezData { public bool Custom, Fullscreen; public int Width, Height; }
         public static RezData LoadRezAndKeys()
         {
             //string fullpath = Tools.TheGame.Content.RootDirectory;

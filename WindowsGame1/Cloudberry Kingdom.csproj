@@ -51,7 +51,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS GAME  PC_DEBUG XXNOT_PC PC_VERSION PC</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS GAME NOT_PC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -63,7 +63,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;GAME;NOT_PC</DefineConstants>
+    <DefineConstants>TRACE;WINDOWS GAME NOT_PC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -104,6 +104,20 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PC Debug|x86'">
+    <OutputPath>bin\x86\PC Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS GAME PC_VERSION PC PC_DEBUG</DefineConstants>
+    <Optimize>false</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
@@ -314,6 +328,7 @@
     <Compile Include="Level\ObjectGroup.cs" />
     <Compile Include="Level\Make\MakeLevel.cs" />
     <Compile Include="Level\Make\DifficultyGroups.cs" />
+    <Compile Include="Menus\MenuListAll.cs" />
     <Compile Include="Menus\MenuListExpand.cs" />
     <Compile Include="Menus\MenuScrollBar.cs" />
     <Compile Include="Menus\MenuSliderNoSlide.cs" />
@@ -346,13 +361,14 @@
     <Compile Include="Start\Categories\Challenges\ChallengeMenuItem.cs" />
     <Compile Include="Start\Categories\CampaignMenu.cs" />
     <Compile Include="Start\Categories\ArcadeMenu.cs" />
+    <Compile Include="Start\Categories\HeroFactoryMenu2.cs" />
     <Compile Include="Start\Categories\Freeplay\Custom.cs\LengthSlider.cs" />
     <Compile Include="Start\Categories\Freeplay\Custom.cs\SimpleCustomGUI.cs" />
     <Compile Include="Start\Categories\Freeplay\Custom.cs\AdvancedCustomGUI.cs" />
     <Compile Include="Start\Categories\Freeplay\Custom.cs\UpgradeSelect.cs" />
     <Compile Include="Start\Categories\Freeplay\Custom.cs\UpgradeBar.cs" />
     <Compile Include="Start\Categories\CategoryPics.cs" />
-    <Compile Include="Start\Categories\Freeplay\FreeplayMenu.cs" />
+    <Compile Include="Start\Categories\HeroFactoryMenu.cs" />
     <Compile Include="Start\SoundMenu.cs" />
     <Compile Include="Start\StartMenuBase.cs" />
     <Compile Include="Games\WorldMap\Challenges\Challenge_Base.cs" />

@@ -109,11 +109,15 @@ namespace CloudberryKingdom
 
         int GetLives()
         {
-            int Difficulty = (StartIndex + 1) / 20;// LevelsPerDifficulty;
+            int Difficulty = (StartIndex + 1) / 50;// LevelsPerDifficulty;
             return NumLives[Difficulty];
         }
 
-        protected int LevelsPerDifficulty = 15, LevelsPerTileset = 3;
+        //protected int LevelsPerDifficulty = 15;
+        protected int LevelsPerDifficulty = 18;
+        
+        protected int LevelsPerTileset = 3;
+
         protected virtual void AdditionalPreStart()
         {
             // Set lives
@@ -154,10 +158,11 @@ namespace CloudberryKingdom
 
             for (i = 0; i < StartIndex; i++)
                 MakeList.Add(() => null);
-            for (i = StartIndex; i < 100; i++)
+            for (i = StartIndex; i < StartIndex + 100; i++)
             {
                 int Index = i; // Get the level number
-                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
+                //float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
+                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.7f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
                 MakeList.Add(() => Make(Index, difficulty));
             }
 

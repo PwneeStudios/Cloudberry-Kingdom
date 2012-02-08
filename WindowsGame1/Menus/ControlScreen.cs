@@ -50,6 +50,7 @@ namespace CloudberryKingdom
 
             EzText text;
 
+#if PC_VERSION
             text = new EzText("quick spawn", Tools.Font_DylanThin42);
             text.Scale = 1.06f;
             MyPile.Add(text);
@@ -105,19 +106,7 @@ namespace CloudberryKingdom
             q = new QuadClass("SpaceKey"); q.ScaleXToMatchRatio(130);
             MyPile.Add(q);
             q.Pos = new Vector2(-793.6523f, 436.5077f);
-
-            // Secondary keys
-//#if PC_VERSION
-//            MakeQuad(ButtonCheck.Quickspawn_Secondary).Pos = new Vector2(-1404f, 706.3491f);
-//            MakeQuad(ButtonCheck.Help_Secondary).Pos = new Vector2(-1404, 468.2539f);
-//            MakeQuad(ButtonCheck.Start_Secondary).Pos = new Vector2(-1404, 246.0322f);
-//            MakeQuad(ButtonCheck.Go_Secondary).Pos = new Vector2(-1404, 23.80957f);
-//            MakeQuad(ButtonCheck.Back_Secondary).Pos = new Vector2(-1404, -230.1587f);
-//            MakeQuad(ButtonCheck.Left_Secondary).Pos = new Vector2(-1452.381f, -804);
-//            MakeQuad(ButtonCheck.Right_Secondary).Pos = new Vector2(-984.126f, -804);
-//            MakeQuad(ButtonCheck.Up_Secondary).Pos = new Vector2(-1222.222f, -804);
-//            MakeQuad(ButtonCheck.Down_Secondary).Pos = new Vector2(-1222.222f, -595.238f);
-//#endif
+#endif
         }
 
         protected override void MyPhsxStep()

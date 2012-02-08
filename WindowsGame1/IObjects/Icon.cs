@@ -96,6 +96,10 @@ namespace CloudberryKingdom
             Backdrop.ScaleYToMatchRatio(210);
         }
 
+        public virtual void SetShadow(Color color)
+        {
+        }
+
         public virtual void SetShadow(bool Shadow)
         {
         }
@@ -132,7 +136,7 @@ namespace CloudberryKingdom
             //Backdrop.Draw();
         }
 
-#if PC_VERSION
+#if WINDOWS
         public virtual bool HitTest(Vector2 pos)
         {
             return false;
@@ -186,6 +190,13 @@ namespace CloudberryKingdom
             IconQuad.Shadow = true;
             IconQuad.ShadowColor = new Color(.2f, .2f, .2f, 1f);
             IconQuad.ShadowOffset = new Vector2(12, 12);
+        }
+
+        public override void SetShadow(Color color)
+        {
+            base.SetShadow(color);
+
+            IconQuad.ShadowColor = color;
         }
 
         public override void SetShadow(bool Shadow)
@@ -255,7 +266,7 @@ namespace CloudberryKingdom
         }
 
         public Vector2 HitPadding;
-#if PC_VERSION
+#if WINDOWS
         public override bool HitTest(Vector2 pos)
         {
             return IconQuad.HitTest(pos, HitPadding) ||

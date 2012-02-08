@@ -179,7 +179,6 @@
     <Compile Include="Games\WorldMap\Challenges\_Regular.cs" />
     <Compile Include="Games\WorldMap\Challenges\_Spaceship.cs" />
     <Compile Include="Games\WorldMap\Challenges\_Survival.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\Endurance.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\CoinMod.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush2.cs" />
@@ -222,7 +221,6 @@
     <Compile Include="IObjects\Blocks\MovingPlatform.cs" />
     <Compile Include="IObjects\Blocks\NormalBlock.cs" />
     <Compile Include="IObjects\Blocks\NormalBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\OnOffBlock.cs" />
     <Compile Include="IObjects\Blocks\OutsideCastle.cs" />
     <Compile Include="IObjects\Blocks\Wall.cs" />
     <Compile Include="IObjects\Door\Door.cs" />

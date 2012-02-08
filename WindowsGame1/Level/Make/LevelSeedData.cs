@@ -59,7 +59,24 @@ namespace CloudberryKingdom
         /// <summary>
         /// The created level will show the given title
         /// </summary>
-        public void SetToShowLevelTitle(int delay = 20, string title = null, bool show = true)
+        //public void SetToShowLevelTitle(int delay = 20, string title = null, bool show = true)
+        public void SetToShowLevelTitle()
+        {
+            SetToShowLevelTitle(20, null, true);
+        }
+        public void SetToShowLevelTitle(int delay)
+        {
+            SetToShowLevelTitle(delay, null, true);
+        }
+        public void SetToShowLevelTitle(string title)
+        {
+            SetToShowLevelTitle(20, title, true);
+        }
+        public void SetToShowLevelTitle(bool show)
+        {
+            SetToShowLevelTitle(20, null, show);
+        }
+        public void SetToShowLevelTitle(int delay, string title, bool show)
         {
             if (title == null) title = GetTitle();
 

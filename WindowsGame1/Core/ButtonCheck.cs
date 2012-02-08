@@ -176,6 +176,13 @@ namespace CloudberryKingdom
         static public Vector2 GetMaxDir(int Control) { return GetMaxDir(Control == -1); }
         static public Vector2 GetMaxDir(bool MustExist)
         {
+            if (PlayerManager.Players == null ||
+                PlayerManager.Players[0] == null ||
+                PlayerManager.Players[1] == null ||
+                PlayerManager.Players[2] == null ||
+                PlayerManager.Players[3] == null)
+                return Vector2.Zero;
+
             Vector2 Dir = Vector2.Zero;
             for (int i = 0; i < 4; i++)
             {
@@ -243,7 +250,7 @@ namespace CloudberryKingdom
                                        ControllerButtons.LS, ControllerButtons.RS);
         }
 
-#if PC_VERSION
+#if WINDOWS
         /// <summary>
         /// Returns true if a keyboard go key is pressed (Enter, Z, Space)
         /// </summary>
@@ -271,11 +278,23 @@ namespace CloudberryKingdom
             return data;
         }
 
+        /// <summary>
+        /// When true it is assumed that at least one player is officially logged in.
+        /// When false a player index of -1 (any signed in player) will be interpreted as -1 (any player).
+        /// </summary>
+        public static bool PreLogIn = true;
+
         static public ButtonData State(ControllerButtons Button, PlayerIndex Index) { return GetState(Button, (int)Index, false, true); }
         static public ButtonData State(ControllerButtons Button, int iPlayerIndex) { return GetState(Button, iPlayerIndex, false, true); }
         static public ButtonData State(ControllerButtons Button, int iPlayerIndex, bool UseKeyboardMapping) { return GetState(Button, iPlayerIndex, false, UseKeyboardMapping); }
         static ButtonData GetState(ControllerButtons Button, int iPlayerIndex, bool Prev, bool UseKeyboardMapping)
         {
+            // Debug tool: Use this to set the keyboard for use by player 1/2/3/4
+            bool SingleOutPlayer = false;
+            int ThisPlayerOnly = 1;
+
+            if (PreLogIn && iPlayerIndex == -1) iPlayerIndex = -2;
+
 #if MIRROR_ALL
             iPlayerIndex = 0;
 #endif
@@ -284,6 +303,9 @@ namespace CloudberryKingdom
 #if XBOX
             if (Button == ControllerButtons.Enter) return Data;
 #endif
+
+            if (SingleOutPlayer && iPlayerIndex >= 0 && iPlayerIndex != ThisPlayerOnly) return Data;
+
             if (PreventNextInput)
             {
                 Data.Pressed = Data.Down = false;
@@ -341,9 +363,13 @@ namespace CloudberryKingdom
             Keys SecondaryKey = Keys.None;
             Keys TertiaryKey = Keys.None;
 
-            if (UseKeyboardMapping && (iPlayerIndex == 0 || PlayerManager.Get(iPlayerIndex).Exists))
+            if (
+                (SingleOutPlayer && iPlayerIndex == ThisPlayerOnly)
+                ||
+                (UseKeyboardMapping && (iPlayerIndex == 0 || PlayerManager.Get(iPlayerIndex).Exists))
+                )
             {
-#if PC_VERSION
+//#if PC_VERSION
                 if (Button == ControllerButtons.Enter) key = Keys.Enter;
 
                 if (Button == ControllerButtons.Start)
@@ -376,16 +402,16 @@ namespace CloudberryKingdom
                 if (Button == ControllerButtons.LT) key = Keys.OemComma;
                 if (Button == ControllerButtons.LS) key = Keys.A;
                 if (Button == ControllerButtons.RS) key = Keys.D;
-#else
-                if (Button == ControllerButtons.Start) key = Keys.S;
-                if (Button == ControllerButtons.Back) key = Keys.Escape;
-                if (Button == ControllerButtons.A) key = Keys.Z;
-                if (Button == ControllerButtons.B) key = Keys.X;
-                if (Button == ControllerButtons.X) key = Keys.C;
-                if (Button == ControllerButtons.Y) key = Keys.V;
-                if (Button == ControllerButtons.RT) key = Keys.OemPeriod;
-                if (Button == ControllerButtons.LT) key = Keys.OemComma;
-#endif
+//#else
+//                if (Button == ControllerButtons.Start) key = Keys.S;
+//                if (Button == ControllerButtons.Back) key = Keys.Escape;
+//                if (Button == ControllerButtons.A) key = Keys.Z;
+//                if (Button == ControllerButtons.B) key = Keys.X;
+//                if (Button == ControllerButtons.X) key = Keys.C;
+//                if (Button == ControllerButtons.Y) key = Keys.V;
+//                if (Button == ControllerButtons.RT) key = Keys.OemPeriod;
+//                if (Button == ControllerButtons.LT) key = Keys.OemComma;
+//#endif
 
                 if (Button == ControllerButtons.Start) SecondaryKey = Keys.Back;
                 //if (Button == ControllerButtons.Back) SecondaryKey = Keys.Back;
@@ -443,9 +469,13 @@ namespace CloudberryKingdom
             //#endif
 
 #if WINDOWS
-if (UseKeyboardMapping)
+if (
+    (SingleOutPlayer && iPlayerIndex == ThisPlayerOnly)
+    ||
+    (UseKeyboardMapping && iPlayerIndex == 0)
+    )
+//if (UseKeyboardMapping && iPlayerIndex == 0)
 {
-#if PC_VERSION
             if (Button == ControllerButtons.A)
             {
                 if (Prev)
@@ -476,9 +506,9 @@ if (UseKeyboardMapping)
             if (Button == ControllerButtons.A)
                 Data.Down |= keyboard.IsKeyDownCustom(Keys.Enter)
                           || keyboard.IsKeyDownCustom(Keys.Space);
-#else
-    Data.Down |= keyboard.IsKeyDownCustom(key);
-#endif
+//#else
+//    Data.Down |= keyboard.IsKeyDownCustom(key);
+//#endif
 
             if (Button == ControllerButtons.LJ)
             {
@@ -493,7 +523,14 @@ if (UseKeyboardMapping)
                 if (keyboard.IsKeyDownCustom(Down_Secondary)) KeyboardDir.Y = -1;
 
                 if (KeyboardDir.LengthSquared() > Data.Dir.LengthSquared())
+                {
+                    // Use the keyboard direction instead of the gamepad direction 
+                    // and note that the keyboard was used.
+                    if (iPlayerIndex >= 0) PlayerManager.Get(iPlayerIndex).KeyboardUsedLast = true;
                     Data.Dir = KeyboardDir;
+                }
+                else
+                    if (iPlayerIndex >= 0) PlayerManager.Get(iPlayerIndex).KeyboardUsedLast = false;
             }
 }
 #endif

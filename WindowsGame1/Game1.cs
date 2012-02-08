@@ -55,7 +55,7 @@ namespace CloudberryKingdom
         public ResolutionGroup Resolution;
         public ResolutionGroup []Resolutions = new ResolutionGroup[4];
 
-#if PC_VERSION
+#if WINDOWS
         QuadClass MousePointer, MouseBack;
         bool _DrawMouseBackIcon = false;
         public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
@@ -66,16 +66,21 @@ namespace CloudberryKingdom
         EzTextureWad TextureWad;
 
 
-
-        public bool SimpleLoad =
 #if DEBUG
-            //false;
-            true;
+        public static bool SimpleAiColors = true;
+        public static bool RecordIntro = false;
+        public static bool GiveAllHats = true;
+        public static bool SimpleLoad = RecordIntro ? false : true;
+        public static bool BuildDebug = true;
 #else
-            //true;
-            false;
+        public static bool SimpleAiColors = false;
+        public static bool RecordIntro = false;
+        public static bool GiveAllHats = true;
+        public static bool SimpleLoad = false;
+        public static bool BuildDebug = false;
 #endif
    
+
         bool LogoScreenUp;
 
         /// <summary>
@@ -152,6 +157,16 @@ namespace CloudberryKingdom
                 rez = new PlayerManager.RezData();
                 rez.Custom = false;
             }
+#elif WINDOWS
+            PlayerManager.RezData rez = new PlayerManager.RezData();
+            rez.Custom = true;
+#if DEBUG
+            rez.Fullscreen = false;
+#else
+            rez.Fullscreen = true;
+#endif
+            rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 #endif
 
             ////// Load
@@ -199,7 +214,7 @@ namespace CloudberryKingdom
             graphics.PreferredBackBufferWidth = Resolution.Backbuffer.X;
             graphics.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
 
-#if PC_VERSION
+#if PC_VERSION || WINDOWS
             if (rez.Custom)
             {
                 if (!rez.Fullscreen)
@@ -215,9 +230,6 @@ namespace CloudberryKingdom
             {
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                //graphics.PreferredBackBufferWidth = 800;
-                //graphics.PreferredBackBufferHeight = 600;
-                //graphics.IsFullScreen = true;
             }
 #endif
             graphics.ApplyChanges();
@@ -910,45 +922,43 @@ namespace CloudberryKingdom
 #if WINDOWS
             if (Tools.PrevKeyboardState == null) Tools.PrevKeyboardState = Tools.keybState;
 
-#if PC_DEBUG
-            if (Tools.keybState.IsKeyDownCustom(Keys.A))
-            {
-                Tools.CurLevel.PlayMode = 0;
-            }
+#if PC_DEBUG || (WINDOWS && DEBUG)
+            //if (Tools.keybState.IsKeyDownCustom(Keys.A))
+            //{
+            //    Tools.CurLevel.PlayMode = 0;
+            //}
 
-            // Record
-            if (SetToRecordInput ||
-                Tools.keybState.IsKeyDown(Keys.T) && !Tools.PrevKeyboardState.IsKeyDown(Keys.T))
-            {
-                SetToRecordInput = false;
-                //Awardments.GiveAward(Awardments.BeatCampaign[4]);
+            //// Start Record
+            //if (SetToRecordInput ||
+            //    Tools.keybState.IsKeyDown(Keys.T) && !Tools.PrevKeyboardState.IsKeyDown(Keys.T))
+            //{
+            //    SetToRecordInput = false;
 
-                Level lvl = Tools.CurLevel;
-                lvl.NoCameraChange = true;
-                lvl.CurPhsxStep = 0;
-                lvl.CleanRecording();
-                lvl.AllowRecording = true;
-                lvl.StartRecording();
-            }
+            //    Level lvl = Tools.CurLevel;
+            //    lvl.NoCameraChange = true;
+            //    lvl.CurPhsxStep = 0;
+            //    lvl.CleanRecording();
+            //    lvl.AllowRecording = true;
+            //    lvl.StartRecording();
+            //}
 
-            if (Tools.keybState.IsKeyDown(Keys.Y) && !Tools.PrevKeyboardState.IsKeyDown(Keys.Y))
-            {
-                Level lvl = Tools.CurLevel;
-                lvl.AddCurRecording();
-                lvl.MainReplayOnly = true;
-                lvl.WatchReplay(true);
-            }
+            //// Add recording
+            //if (Tools.keybState.IsKeyDown(Keys.Y) && !Tools.PrevKeyboardState.IsKeyDown(Keys.Y))
+            //{
+            //    Level lvl = Tools.CurLevel;
+            //    lvl.AddCurRecording();
+            //    lvl.MainReplayOnly = true;
+            //    lvl.WatchReplay(true);
+            //}
 
-            if (Tools.keybState.IsKeyDown(Keys.G) && !Tools.PrevKeyboardState.IsKeyDown(Keys.G))
-            {
-                //graphics.PreferredBackBufferWidth -= 100;
-                //graphics.ApplyChanges();
-                //graphics.ToggleFullScreen();
+            //// Save recording
+            //if (Tools.keybState.IsKeyDown(Keys.G) && !Tools.PrevKeyboardState.IsKeyDown(Keys.G))
+            //{
+            //    Level lvl = Tools.CurLevel;
+            //    lvl.CurrentRecording.Save("BeatBoss.rec", false);
+            //}
 
-                Level lvl = Tools.CurLevel;
-                lvl.CurrentRecording.Save("BeatBoss.rec", false);
-            }
-
+            //// Give award
             //if (Tools.keybState.IsKeyDown(Keys.S) && !Tools.PrevKeyboardState.IsKeyDown(Keys.S))
             //{
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
@@ -1021,8 +1031,7 @@ namespace CloudberryKingdom
             //    }
             //}
 
-#if PC_DEBUG
-//#if PC_VERSION
+#if PC_DEBUG || (WINDOWS && DEBUG)
             if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
             {
                 Tools.CurLevel.MainCamera.Zoom *= .99f;
@@ -1034,7 +1043,8 @@ namespace CloudberryKingdom
                 Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
             }
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
+            if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
+            //if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
             {
                 Tools.Editing = true;
 
@@ -1191,6 +1201,8 @@ namespace CloudberryKingdom
         StringBuilder MainString = new StringBuilder(100, 100);
         void DrawGC()
         {
+            if (Tools.ScreenshotMode) return;
+
             Tools.StartSpriteBatch();
 
 #if WINDOWS
@@ -1221,6 +1233,8 @@ namespace CloudberryKingdom
             string str = debugstring;
 #endif
 
+            str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
+
             Tools.spriteBatch.DrawString(Font1,
                     str,
                     new Vector2(0, 100),
@@ -1245,8 +1259,10 @@ namespace CloudberryKingdom
             //if (false)
             if (SimpleLoad)
             {
-                Tools.SoundVolume.Val = 0.5f;
-                Tools.MusicVolume.Val = 0.5f;// .07f;
+                Tools.SoundVolume.Val = 0;
+                Tools.MusicVolume.Val = 0;
+                //Tools.SoundVolume.Val = 0.5f;
+                //Tools.MusicVolume.Val = 0.5f;// .07f;
             }
             else
             {
@@ -1291,9 +1307,21 @@ namespace CloudberryKingdom
 
                     //MakeTestLevel(); return;
 #if DEBUG
-                    if (!SimpleLoad)
+                    if (RecordIntro)
                     {
-                        ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                        ScreenSaver Intro = new ScreenSaver(); Intro.InitToRecord(); return;
+                        //ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                    }
+                    else
+                    {
+                        if (!SimpleLoad)
+                        {
+                            ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                        }
+                        else
+                        {
+                            Tools.CurGameData = new TitleGameData(); return;
+                        }
                     }
 #else
                     // Full Game
@@ -1693,7 +1721,7 @@ namespace CloudberryKingdom
             GameData.StartLevel(data);
         }
 
-#if PC_VERSION
+#if WINDOWS
         /// <summary>
         /// Whether the mouse should be allowed to be shown, usually only when a menu is active.
         /// </summary>
@@ -1745,7 +1773,12 @@ namespace CloudberryKingdom
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Down_Secondary) ||
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary) ||
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary) ||
-                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(true).Length() > .3f))
+#if PC_VERSION
+                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+#else
+                (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+#endif
+                )
                 MouseInUse = false;
 
             if (Tools.DeltaMouse != Vector2.Zero ||
@@ -1876,9 +1909,9 @@ ObjectData.UpdateWeak();
 
 
 
-#if PC_VERSION
-            UpdateMouseUse();
-#endif
+//#if PC_VERSION
+//            UpdateMouseUse();
+//#endif
 
             Tools.DrawCount++;
 
@@ -1915,6 +1948,10 @@ ObjectData.UpdateWeak();
 
                     Tools.UpdateVibrations();
                 }
+
+#if PC_VERSION
+                UpdateMouseUse();
+#endif
 
                 // Update sounds
                 if (!LogoScreenUp)
@@ -2022,7 +2059,8 @@ ObjectData.UpdateWeak();
                 Console.WriteLine("{0}, {1}, {2}, {3}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.LifetimeStats.Coins);
             }*/
                 
-            if (ShowFPS || Tools.DebugConvenience)
+            //if (ShowFPS || Tools.DebugConvenience)
+            if (BuildDebug)
                 DrawGC();
 
             if (Tools.CurLevel != null)
@@ -2070,7 +2108,16 @@ ObjectData.UpdateWeak();
                     Tools.Screenshots++;
                     filename = "Screenshot_" + Tools.Screenshots.ToString() + ".png";
                 }
-                
+
+                int Width = Tools.Device.PresentationParameters.BackBufferWidth,
+                    Height = Tools.Device.PresentationParameters.BackBufferHeight;
+                if (bmpwriter == null ||
+                    bmpwriter.Width != Width ||
+                    bmpwriter.Height != Height)
+                {
+                    bmpwriter = new BmpWriter(Width, Height);
+                }
+
                 bmpwriter.TextureToBmp(Tools.Screenshot, filename);
 
                 //string filename = "TestSave_" + Tools.Screenshots.ToString() + ".jpg";
@@ -2226,7 +2273,7 @@ ObjectData.UpdateWeak();
         }
 
         #if WINDOWS
-        BmpWriter bmpwriter = new BmpWriter(1280, 720);
+        BmpWriter bmpwriter;
         #endif
     }
 
@@ -2239,8 +2286,14 @@ ObjectData.UpdateWeak();
         IntPtr safePtr;
         System.Drawing.Rectangle rect;
         public System.Drawing.Imaging.ImageFormat imageFormat;
+
+        public int Width, Height;
+
         public BmpWriter(int width, int height)
         {
+            this.Width = width;
+            this.Height = height;
+
             textureData = new byte[4 * width * height];
 
             bmp = new System.Drawing.Bitmap(

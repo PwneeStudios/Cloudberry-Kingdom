@@ -149,7 +149,7 @@ namespace CloudberryKingdom
 
             if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
             {
-                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + 300))
+                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Radius + 350))
                     OffScreen = false;
                 else
                 {

@@ -80,8 +80,18 @@ namespace CloudberryKingdom
 
         public void Add(QuadClass quad)
         {
-            quad.MakeFancyPos();
-            quad.FancyPos.SetCenter(FancyPos, true);
+            Add(quad, false);
+        }
+        public void Add(QuadClass quad, bool KeepFancyCenter)
+        {
+            if (KeepFancyCenter && quad.FancyPos != null && quad.FancyPos.Center != null && quad.FancyPos.Center is FancyVector2)
+                ((FancyVector2)quad.FancyPos.Center).SetCenter(FancyPos, true);
+            else
+            {
+                quad.MakeFancyPos();
+                quad.FancyPos.SetCenter(FancyPos, true);
+            }
+
             MyQuadList.Add(quad);
         }
 
