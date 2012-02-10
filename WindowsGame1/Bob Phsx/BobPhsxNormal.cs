@@ -48,7 +48,6 @@ namespace CloudberryKingdom
             }
         }
 
-        public float MaxSpeed, XAccel;
         public int BobFallDelay;
         public float XFriction, BobXDunkFriction;
 
@@ -133,8 +132,10 @@ namespace CloudberryKingdom
             ThrustSound.MaxInstances = 8;
         }
 
-        public virtual void DefaultValues()
+        public override void DefaultValues()
         {
+            Gravity = 2.95f;
+
             BobJumpAccel = (Gravity + 3.45f) / 19;
             BobInitialJumpSpeed = 6f;
             BobInitialJumpSpeedDucking = 6f;

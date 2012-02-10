@@ -66,10 +66,25 @@ namespace CloudberryKingdom.Bobs
             MaxForce = 5.15f;
         }
 
+        public bool Inactive
+        {
+            get
+            {
+                // Don't draw the bungee if we are a dead spaceship or if we explode on death and are dead
+                if ((Bob.AllExplode && !Bob.ShowCorpseAfterExplode) || j.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && (j.Dead || j.Dying || k.Dead || k.Dying))
+                    return true;
+
+                // Don't draw the bungee if one of the players isn't being drawn.
+                if (!j.Core.Show || !k.Core.Show)
+                    return true;
+
+                return false;
+            }
+        }
+
         public void Draw()
         {
-            if (j.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && (j.Dead || j.Dying || k.Dead || k.Dying))
-                return;
+            if (Inactive) return;
 
             Draw(j.Core.Data.Position, k.Core.Data.Position);
         }
@@ -81,8 +96,7 @@ namespace CloudberryKingdom.Bobs
 
         public void PhsxStep(Bob bob)
         {
-            if (j.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && (j.Dead || j.Dying || k.Dead || k.Dying))
-                return;
+            if (Inactive) return;
 
             float Length = (j.Core.Data.Position - k.Core.Data.Position).Length();
             

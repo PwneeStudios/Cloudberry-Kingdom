@@ -317,9 +317,10 @@ namespace CloudberryKingdom
 
             if (CrazyForTrailer)
             {
-                //data.MyGameFlags.IsTethered = true;
+                data.MyGameFlags.IsTethered = true;
                 data.SetBackground(Tools.ChooseOne(BackgroundType.Castle, BackgroundType.Dungeon, BackgroundType.Outside,
                                                    BackgroundType.Night, BackgroundType.Sky));
+                //data.SetBackground(BackgroundType.Night);
             }
 
             if (First)
@@ -365,30 +366,61 @@ namespace CloudberryKingdom
                     }
                     else
                     {
+
                         // Easy/Masochistic
                         piece.MyUpgrades1.Zero();
                         piece.MyUpgrades2.Zero();
 
                         if (index % 2 == 1)
                         {
-                            piece.MyUpgrades1[Upgrade.Pinky] = 9;
-                            piece.MyUpgrades1[Upgrade.Spike] = 9;
-                            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 9;
-                            piece.MyUpgrades1[Upgrade.Laser] = 9;
-                            piece.MyUpgrades1[Upgrade.SpikeyLine] = 9;
-                            piece.MyUpgrades1[Upgrade.Firesnake] = 4;
-                            piece.MyUpgrades1[Upgrade.FireSpinner] = 9;
-                            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
-                            piece.MyUpgrades1[Upgrade.GhostBlock] = 8;
-                            piece.MyUpgrades1[Upgrade.Jump] = 2;
-                            piece.MyUpgrades1[Upgrade.Speed] = 9;
-                            piece.MyUpgrades1[Upgrade.Ceiling] = 7;
+                            //piece.MyUpgrades1[Upgrade.Pinky] = 9;
+                            //piece.MyUpgrades1[Upgrade.Spike] = 9;
+                            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 9;
+                            //piece.MyUpgrades1[Upgrade.Laser] = 9;
+                            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 9;
+                            //piece.MyUpgrades1[Upgrade.Firesnake] = 4;
+                            //piece.MyUpgrades1[Upgrade.FireSpinner] = 9;
+                            //piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
+                            //piece.MyUpgrades1[Upgrade.GhostBlock] = 8;
+                            //piece.MyUpgrades1[Upgrade.Jump] = 2;
+                            //piece.MyUpgrades1[Upgrade.Speed] = 9;
+                            //piece.MyUpgrades1[Upgrade.Ceiling] = 7;
                         }
+
+                        //piece.MyUpgrades1[Upgrade.Pinky] = 9;
+                        piece.MyUpgrades1[Upgrade.Spike] = 9;
+                        //piece.MyUpgrades1[Upgrade.FireSpinner] = 9;
+                        //piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
+                        piece.MyUpgrades1[Upgrade.FlyBlob] = 9;
+                        //piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
+                        piece.MyUpgrades1[Upgrade.Fireball] = 9;
+                        piece.MyUpgrades1[Upgrade.Jump] = 1;
+                        piece.MyUpgrades1[Upgrade.Speed] = 7;
+                        piece.MyUpgrades1[Upgrade.Ceiling] = 7;
+
+                        piece.Style.FunRun = false;
+                        piece.Style.PauseType = StyleData._PauseType.Normal;
+                        piece.Style.MoveTypePeriod = StyleData._MoveTypePeriod.Normal1;
+                        piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
+                        piece.MyUpgrades1.UpgradeLevels.CopyTo(piece.MyUpgrades2.UpgradeLevels, 0);
+                        piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
+                        piece.Paths = 2; piece.LockNumOfPaths = true; LevelSeedData.NoDoublePaths = false;
 
                         piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
                         piece.MyUpgrades1.UpgradeLevels.CopyTo(piece.MyUpgrades2.UpgradeLevels, 0);
                         piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
 
+                        piece.Style.MyModParams = (level, p) =>
+                        {
+                            FireballEmitter_Parameters FParams = (FireballEmitter_Parameters)p.Style.FindParams(FireballEmitter_AutoGen.Instance);
+                            FParams.Special.BorderFill = true;
+
+                            Goomba_Parameters GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
+                            GParams.KeepUnused = Tools.RndBool(.5f) ? 0f : Tools.RndFloat(0, .06f);
+                            GParams.FillWeight = 100;
+                            GParams.Period = 115;
+                            GParams.Range = 600;
+                        };
 
                         /*
                         bool Custom = Tools.RndBool();

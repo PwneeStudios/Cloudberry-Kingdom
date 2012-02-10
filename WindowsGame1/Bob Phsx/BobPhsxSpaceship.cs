@@ -28,8 +28,6 @@ namespace CloudberryKingdom
         public static BobPhsxSpaceship Instance { get { return instance; } }
 
         // Instancable class
-        public float BobMaxSpeed, BobAccel;
-     
         int AutoMoveLength, AutoMoveType, AutoStrafeLength;
         int AutoDirLength, AutoDir;
 
@@ -39,10 +37,12 @@ namespace CloudberryKingdom
         {
         }
 
-        public void DefaultValues()
+        public override void DefaultValues()
         {
-            BobMaxSpeed = 24f;
-            BobAccel = 2.3f;
+            MaxSpeed = 24f;
+            XAccel = 2.3f;
+
+            base.DefaultValues();
         }
 
         public override void Init(Bob bob)
@@ -64,13 +64,13 @@ namespace CloudberryKingdom
 
             if (MyBob.CurInput.xVec.Length() > .2f)
             {
-                MyBob.Core.Data.Velocity += BobAccel * MyBob.CurInput.xVec;
+                MyBob.Core.Data.Velocity += XAccel * MyBob.CurInput.xVec;
 
                 float Magnitude = MyBob.Core.Data.Velocity.Length();
-                if (Magnitude > BobMaxSpeed)
+                if (Magnitude > MaxSpeed)
                 {
                     MyBob.Core.Data.Velocity.Normalize();
-                    MyBob.Core.Data.Velocity *= BobMaxSpeed;
+                    MyBob.Core.Data.Velocity *= MaxSpeed;
                 }
             }
          
@@ -168,7 +168,7 @@ namespace CloudberryKingdom
 
 
             float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.Core.Data.Position);
-            if (MyBob.Core.Data.Velocity.Y > RetardFactor * BobMaxSpeed)
+            if (MyBob.Core.Data.Velocity.Y > RetardFactor * MaxSpeed)
                 MyBob.CurInput.xVec.Y = 0;
 
             MyBob.CurInput.xVec.Y *= Math.Min(1, (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 65f) + 1.35f);
@@ -260,7 +260,7 @@ namespace CloudberryKingdom
 
       
             float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.Core.Data.Position);
-            if (!OnGround && MyBob.Core.Data.Velocity.X > RetardFactor * BobMaxSpeed)
+            if (!OnGround && MyBob.Core.Data.Velocity.X > RetardFactor * MaxSpeed)
                 MyBob.CurInput.xVec.X = 0;
 
             MyBob.CurInput.xVec.X *= Math.Min(1, (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 65f) + 1.35f);
@@ -273,7 +273,7 @@ namespace CloudberryKingdom
             if (RndMoveType == 2)
                 t = Math.Abs((MyBob.Core.MyLevel.GetPhsxStep() % 120) / 120f);
 
-            MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY - 160 + t * (200 + MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
+            MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY - 200 + t * (-90 + MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
                     //+ 200 * (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 20f);
             
             if (MyBob.Core.Data.Position.Y < MyBob.TargetPosition.Y)

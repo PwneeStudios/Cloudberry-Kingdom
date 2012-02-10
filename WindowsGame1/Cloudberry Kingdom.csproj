@@ -234,6 +234,8 @@
     </Compile>
     <Compile Include="Games\WorldMap\Challenges\_Survival.cs" />
     <Compile Include="Games\WorldMap\Freeplay\Construct.cs" />
+    <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis_Tutorial.cs" />
+    <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis.cs" />
     <Compile Include="Games\WorldMap\Freeplay\Wheelie.cs" />
     <Compile Include="Games\WorldMap\Freeplay\UpUp.cs" />
     <Compile Include="Games\WorldMap\Freeplay\Escalation_Tutorial.cs" />
@@ -248,7 +250,6 @@
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush_Tutorial.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush.cs" />
     <Compile Include="Games\WorldMap\StringWorlds\StringWorld_Timed.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\TimeCrisis.cs" />
     <Compile Include="Games\WorldMap\Challenges\_Place.cs" />
     <Compile Include="Help\HintBlurb2.cs" />
     <Compile Include="Help\HintBlurb.cs" />

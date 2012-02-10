@@ -9,6 +9,8 @@ namespace CloudberryKingdom
 {
     public class Challenge_Escalation : Challenge
     {
+        public static BobPhsx Hero = BobPhsxNormal.Instance;
+
         static int[] NumLives = { 15, 12, 10, 5, 1 };
 
         static readonly Challenge_Escalation instance = new Challenge_Escalation();
@@ -24,7 +26,8 @@ namespace CloudberryKingdom
         {
             ID = new Guid("1a8141f9-525e-4e1e-8298-0c36b6ebdec3");
             Name = "Escalation";
-            MenuPic = "menupic_escalation";
+            //MenuPic = "menupic_escalation";
+            MenuPic = "menupic_classic";
             HighScore = SaveGroup.EscalationHighScore;
             HighLevel = SaveGroup.EscalationHighLevel;
             Goal = 35;
@@ -162,7 +165,8 @@ namespace CloudberryKingdom
             {
                 int Index = i; // Get the level number
                 //float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
-                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.7f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
+                //float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.7f, 1f, 2f, 2.5f, 3f, 3.5f, 4f);
+                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
                 MakeList.Add(() => Make(Index, difficulty));
             }
 
@@ -194,12 +198,13 @@ namespace CloudberryKingdom
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 
-        static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
-            { BobPhsxNormal.Instance });
+        //static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
+        //    { BobPhsxNormal.Instance });
 
         protected virtual BobPhsx GetHero(int i)
         {
-            return HeroTypes[i % HeroTypes.Count];
+            return Hero;
+            //return HeroTypes[i % HeroTypes.Count];
         }
 
         protected virtual LevelSeedData Make(int Index, float Difficulty)

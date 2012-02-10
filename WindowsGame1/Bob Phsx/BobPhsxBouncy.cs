@@ -37,7 +37,7 @@ namespace CloudberryKingdom
             MyBob.PlayerObject.Read(24, 0);
         }
 
-        public override void  DefaultValues()
+        public override void DefaultValues()
         {
  	        base.DefaultValues();
 

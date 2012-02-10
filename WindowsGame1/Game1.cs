@@ -67,11 +67,11 @@ namespace CloudberryKingdom
 
 
 #if DEBUG
-        public static bool SimpleAiColors = true;
         public static bool RecordIntro = false;
         public static bool GiveAllHats = true;
         public static bool SimpleLoad = RecordIntro ? false : true;
-        public static bool BuildDebug = true;
+        public static bool SimpleAiColors = RecordIntro ? true : false;
+        public static bool BuildDebug = false;
 #else
         public static bool SimpleAiColors = false;
         public static bool RecordIntro = false;

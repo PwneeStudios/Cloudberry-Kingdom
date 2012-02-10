@@ -6,26 +6,48 @@ namespace CloudberryKingdom
     {
         public VerifyQuitGameMenu2(int Control) : base(Control) { }
 
+        //public static int Version = 0;
+        public static int Version = 1;
+
         QuadClass Berry;
         public override void MakeBackdrop()
         {
-            QuadClass backdrop = new QuadClass(null, true, false);
-            backdrop.TextureName = "WoodMenu_5";
-            backdrop.ScaleYToMatchRatio(1000);
-            MyPile.Add(backdrop);
-            backdrop.Pos =
-                new Vector2(99.20645f, 19.84137f);
-            backdrop.Size =
-                new Vector2(1222.22f, 1134.69f);
+            if (Version == 0)
+            {
+                QuadClass backdrop = new QuadClass(null, true, false);
+                backdrop.TextureName = "WoodMenu_5";
+                backdrop.ScaleYToMatchRatio(1000);
+                MyPile.Add(backdrop);
+                backdrop.Pos =
+                    new Vector2(99.20645f, 19.84137f);
+                backdrop.Size =
+                    new Vector2(1222.22f, 1134.69f);
 
-            Berry = new QuadClass(null, true, false);
-            Berry.TextureName = "cb_crying";
-            Berry.ScaleYToMatchRatio(1000);
-            MyPile.Add(Berry);
-            Berry.Pos =
-                new Vector2(-202.3781f, -123.0159f);
-            Berry.Size =
-                new Vector2(694.4494f, 892.3699f);
+                Berry = new QuadClass(null, true, false);
+                Berry.TextureName = "cb_crying";
+                Berry.ScaleYToMatchRatio(1000);
+                MyPile.Add(Berry);
+                Berry.Pos =
+                    new Vector2(-202.3781f, -123.0159f);
+                Berry.Size =
+                    new Vector2(694.4494f, 892.3699f);
+            }
+            else
+            {
+                QuadClass Cloudback = new QuadClass("menupic_bg_cloud", 1200, true);
+                Cloudback.Pos = new Vector2(99.20645f, 19.84137f);
+                Cloudback.Size = new Vector2(1303.173f, 1019.564f);
+                MyPile.Add(Cloudback);
+
+                Berry = new QuadClass(null, true, false);
+                Berry.TextureName = "cb_crying";
+                Berry.ScaleYToMatchRatio(1000);
+                MyPile.Add(Berry);
+                Berry.Pos =
+                    new Vector2(-107.14f, -99.20639f);
+                Berry.Size =
+                    new Vector2(519.8459f, 678.0841f);
+            }
         }
 
         protected override void SetItemProperties(MenuItem item)
@@ -61,8 +83,10 @@ namespace CloudberryKingdom
             EzText HeaderText = new EzText(Text, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
-            HeaderText.Pos =
-                new Vector2(-915.4741f, 967.5232f);
+            if (Version == 0)
+                HeaderText.Pos = new Vector2(-915.4741f, 967.5232f);
+            if (Version == 1)
+                HeaderText.Pos = new Vector2(-701.1883f, 816.7295f);
 
             // Yes
             item = new MenuItem(new EzText("Yes", ItemFont));
@@ -93,9 +117,11 @@ namespace CloudberryKingdom
         {
             MyPile.Pos = new Vector2(13.8877f, -1.984146f);
             EnsureFancy();
-            MyMenu.Pos =
-                new Vector2(-301.5887f, -83.3335f);
-                //new Vector2(67.45776f, -202.3811f);
+
+            if (Version == 0)
+                MyMenu.Pos = new Vector2(-301.5887f, -83.3335f);
+            else
+                MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
         }
     }
 

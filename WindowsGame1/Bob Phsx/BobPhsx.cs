@@ -78,25 +78,21 @@ namespace CloudberryKingdom
             return MakeCustom(spec.basetype, spec.shape, spec.move);
         }
 
-        public static BobPhsx MakeCustom(Hero_BaseType BaseType, Hero_Shape Shape, Hero_MoveMod MoveMod)
+        public static BobPhsx MakeCustom(BobPhsx BaseType, BobPhsx Shape, BobPhsx MoveMod)
         {
-            //"Fatty double jump hero in a box"
-            //"Tiny spaceship"
-            //"Oscillating  wheelie"
-
             // Make the phsx
-            BobPhsx custom = GetPhsx(BaseType).Clone();
-            GetPhsx(Shape).Set(custom);
-            GetPhsx(MoveMod).Set(custom);
+            BobPhsx custom = BaseType.Clone();
+            Shape.Set(custom);
+            MoveMod.Set(custom);
 
             // Set the name
-            if (BaseType == Hero_BaseType.Classic && Shape == Hero_Shape.Classic && MoveMod == Hero_MoveMod.Classic)
+            if (BaseType is BobPhsxNormal && Shape is BobPhsxNormal && MoveMod is BobPhsxNormal)
                 custom.Name = "Classic";
             else
             {
-                string template = GetPhsx(BaseType).NameTemplate;
-                string adjective = GetPhsx(Shape).Adjective;
-                string adjective2 = GetPhsx(MoveMod).Adjective;
+                string template = BaseType.NameTemplate;
+                string adjective = Shape.Adjective;
+                string adjective2 = MoveMod.Adjective;
 
                 if (adjective.Length > 0) adjective += " ";
                 if (adjective2.Length > 0) adjective2 += " ";
@@ -106,6 +102,15 @@ namespace CloudberryKingdom
             }
 
             return custom;
+        }
+
+        public static BobPhsx MakeCustom(Hero_BaseType BaseType, Hero_Shape Shape, Hero_MoveMod MoveMod)
+        {
+            //"Fatty double jump hero in a box"
+            //"Tiny spaceship"
+            //"Oscillating  wheelie"
+
+            return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod));
         }
 
         public virtual InteractWithBlocks MakePowerup()
@@ -163,11 +168,21 @@ namespace CloudberryKingdom
             set { MyBob.Core.Data.Acceleration = value; }
         }
 
+        public Action<BobPhsx> ModPhsxValues;
+        public virtual void DefaultValues() { }
+        protected void ApplyPhsxMod()
+        {
+            if (ModPhsxValues != null)
+                ModPhsxValues(this);
+        }
+
         public float BlobMod = 1f;
 
         public bool Ducking;
+        
+        public float MaxSpeed, XAccel;
 
-        public float Gravity = 2.95f;
+        public float Gravity;
         public float ForceDown = -1.5f;
 
         public float BobMaxFallSpeed = -29f;

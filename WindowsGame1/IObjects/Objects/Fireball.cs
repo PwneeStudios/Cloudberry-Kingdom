@@ -40,6 +40,7 @@ namespace CloudberryKingdom
                 MyQuad.Init();
                 MyQuad.MyEffect = Tools.BasicEffect;
                 MyQuad.MyTexture = Tools.TextureWad.FindByName("White");
+                MyQuad.UseGlobalIllumination = false;
             }
         }
 

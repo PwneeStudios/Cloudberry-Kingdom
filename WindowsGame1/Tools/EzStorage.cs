@@ -19,6 +19,8 @@ namespace CloudberryKingdom
         public static ScoreList HeroRushHighScore, HeroRushHighLevel;
         public static ScoreList HeroRush2HighScore, HeroRush2HighLevel;
 
+        public static ScoreList TimeCrisisHighScore, TimeCrisisHighLevel;
+
         public static CampaignList[] CampaignScores;
 
         static void InitRushScore(string name, ref ScoreList scorelist, ref ScoreList lvllist)
@@ -53,6 +55,9 @@ namespace CloudberryKingdom
 
             // Hero Rush 2 Scores
             InitRushScore("HeroRush2", ref HeroRush2HighScore, ref HeroRush2HighLevel);
+
+            // Time Crisis Scores
+            InitRushScore("TimeCrisis", ref TimeCrisisHighScore, ref TimeCrisisHighLevel);
 
 
             // Campaign Scores

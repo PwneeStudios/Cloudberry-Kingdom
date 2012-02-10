@@ -131,6 +131,15 @@ namespace CloudberryKingdom
             // Escalation
             item = AddChallenge(Challenge_Escalation.Instance, null, null);
 
+            // Hero Factory
+            item = new MenuItem(new EzText("Hero Factory", ItemFont));
+            item.Go = menuitem => Call(new HeroFactoryMenu2());
+            AddItem(item);
+            item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero, false);
+
+            // Time Crisis
+            item = AddChallenge(Challenge_TimeCrisis.Instance, null, Awardments.UnlockHeroRush2);
+
             // Hero Rush
             item = AddChallenge(Challenge_HeroRush.Instance, null, Awardments.UnlockHeroRush2);
 

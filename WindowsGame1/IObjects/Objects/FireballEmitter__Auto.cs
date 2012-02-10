@@ -49,9 +49,9 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            NumAngles = 2;
+            NumAngles = 4;// 2;
             NumPeriods = 1;
-            NumOffsets = 3;
+            NumOffsets = 16;// 3;
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -78,7 +78,8 @@ namespace CloudberryKingdom.Levels
 
             SetVal(ref BorderFillStep, u =>
             {
-                return Tools.DifficultyLerp19(400, 200, u[Upgrade.Fireball]);
+                return 125;
+                //return Tools.DifficultyLerp19(400, 200, u[Upgrade.Fireball]);
             });
 
             // General difficulty
@@ -235,7 +236,8 @@ namespace CloudberryKingdom.Levels
 
                         emitter.Core.GenData.EnforceBounds = false;
 
-                        //emitter.DrawEmitter = false;
+                        emitter.DrawEmitter = false;
+                        emitter.AlwaysOn = true;
 
                         //emitter.Core.GenData.KeepIfUnused = true;
                         //SetSurvivalParams(level, emitter, EmitPosition, AimPosition);
@@ -244,7 +246,7 @@ namespace CloudberryKingdom.Levels
 
                 if (Geometry == LevelGeometry.Right)
                 {
-                    shift = 50;
+                    shift = -250;
                     pos.Y = (i == 0 ? level.MainCamera.BL.Y + shift : level.MainCamera.TR.Y - shift);
                     for (pos.X = BL.X + Params.BorderFillStep/2; pos.X < TR.X + 400; pos.X += Params.BorderFillStep)
                         inner();

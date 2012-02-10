@@ -41,7 +41,7 @@ namespace CloudberryKingdom
             //IndexCutoff = HighestLevel / 20 + 1;
             // Allow user to choose amongst any start level in the array Levels,
             // assuming they have previously gotten to that level.
-            IndexCutoff = int.MaxValue;
+            IndexCutoff = 1;// int.MaxValue;
             for (int i = 0; i < Levels.Length; i++)
                 if (HighestLevel >= Levels[i]) IndexCutoff = i + 1;
 

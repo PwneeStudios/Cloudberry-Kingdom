@@ -11,9 +11,108 @@ namespace CloudberryKingdom
     {
         public HeroFactoryMenu2() { }
 
-        public void StartLevel()
+        MenuSlider GravitySlider, MaxSpeedSlider, AccelSlider;
+
+        public void StartGame()
         {
+            Challenge_Escalation.Hero = Hero;
+
+            // Start the game
+            MyGame.PlayGame(() =>
+            {
+                // Show title again if we're selecting from the menu
+                if (!MyGame.ExecutingPreviousLoadFunction)
+                    HeroRush_Tutorial.ShowTitle = true;
+
+                Challenge_Escalation.Instance.Start(0);
+            });
         }
+
+        public void StartTest()
+        {
+            Hide();
+
+            MakeBobPhsx();
+            
+            //CreateHeros();
+            //CreateGround();
+
+            StartGame();
+
+            Testing = true;
+        }
+
+        bool Testing = false;
+        void TestingPhsx()
+        {
+            if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
+            {
+                Testing = false;
+                Show();
+            }
+        }
+
+        void KillBobs()
+        {
+            MyGame.WaitThenDo(20, () =>
+            {
+                foreach (Bob bob in MyGame.MyLevel.Bobs)
+                    bob.Die(Bob.BobDeathType.None);
+            }, "RemoveBobs", false, true);
+        }
+
+        void MakeBobPhsx()
+        {
+            Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Jump, Size);
+            Hero.ModPhsxValues = _vals =>
+                {
+                    _vals.Gravity *= GravitySlider.Val;
+                    _vals.XAccel *= AccelSlider.Val;
+                    _vals.MaxSpeed *= MaxSpeedSlider.Val;
+                };
+        }
+
+        BobPhsx Hero;
+        void CreateHeros()
+        {
+            // Remove any previous bobs
+            MyGame.KillToDo("RemoveBobs");
+            foreach (Bob bob in MyGame.MyLevel.Bobs)
+                bob.CollectSelf();
+
+            // Make new bobs
+            MyGame.MakeBobs(MyGame.MyLevel);
+            
+            // Position bobs
+            Vector2 shift = new Vector2(-700, 0);
+            foreach (Bob bob in MyGame.MyLevel.Bobs)
+            {
+                Tools.MoveTo(bob, MyGame.CamPos + shift);
+                shift += new Vector2(100, 20);
+            }
+        }
+
+        void CreateGround()
+        {
+            NormalBlock block;
+
+            foreach (NormalBlock _block in MyGame.MyLevel.Blocks)
+                if (_block is NormalBlock)
+                    _block.CollectSelf();
+
+
+            block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
+            block.Init(MyGame.CamPos + new Vector2(-1000, -3100), new Vector2(1000, 2000));
+            block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
+            MyGame.MyLevel.AddBlock(block);
+
+            block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
+            block.Init(MyGame.CamPos + new Vector2(1150, -2950), new Vector2(1000, 2000));
+            block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
+            MyGame.MyLevel.AddBlock(block);
+        }
+
+
 
         protected override void SetHeaderProperties(EzText text)
         {
@@ -26,14 +125,24 @@ namespace CloudberryKingdom
             text.Angle = Tools.Radians(23);
         }
 
-        private MenuItem MakeListItem(BobPhsx hero)
+        void SetSuperHeader(EzText text)
+        {
+            base.SetHeaderProperties(text);
+            text.MyFloatColor = new Vector4(1, 1, 1, 1);
+            text.Scale = FontScale * 1.42f;
+            text.ShadowOffset = new Vector2(17);
+
+            CampaignMenu.HappyBlueColor(text); text.ShadowColor = Tools.GrayColor(.3f); text.Scale *= 1.25f;
+        }
+
+        private MenuItem MakeListItem(BobPhsx hero, MenuList list)
         {
             MenuItem item;
             item = new MenuItem(new EzText("    ", ItemFont, false, true));
 
             item.Icon = hero.Icon.Clone(ObjectIcon.IconScale.NearlyFull);
             item.Icon.SetScale(.805f);
-            item.Icon.FancyPos.SetCenter(HeroList.FancyPos);
+            item.Icon.FancyPos.SetCenter(list.FancyPos);
             item.Icon.SetShadow(false);
             item.Icon.SetShadow(new Color(.2f, .2f, .2f, .6f));
 
@@ -65,9 +174,11 @@ namespace CloudberryKingdom
             }
         }
 
+        BobPhsx Base, Jump, Size;
+
         MenuItem Start;
-        MenuList HeroList;
         EzText HeroText;
+        MenuList BaseList, JumpList, SizeList;
         public override void Init()
         {
             ItemShadows = false;
@@ -90,19 +201,15 @@ namespace CloudberryKingdom
 
             // Header
             EzText HeaderText = new EzText("Hero Factory!", Tools.Font_DylanThin42);
-            HeaderText.Scale = 1.05f;
-            HeaderText.OutlineColor = new Color(255, 255, 255).ToVector4();
-            HeaderText.MyFloatColor = new Color(0, 13, 44).ToVector4();
-            //CharacterSelectManager.ChooseHeroTextStyle(HeaderText);
+            SetSuperHeader(HeaderText);
             HeaderText.Pos = new Vector2(-1169.842f, 953.9683f);
             MyPile.Add(HeaderText);
 
 
             // Backdrop
-            var backdrop = new QuadClass("BigPlaque", 1295, true);
+            //var backdrop = new QuadClass("BigPlaque", 1295, true);
+            var backdrop = new QuadClass("WoodMenu_1", 1500, true);
             MyPile.Add(backdrop);
-            //backdrop.Size =
-            //    new Vector2(1230.477f, 1115.617f);
             backdrop.Pos =
                 new Vector2(0, 0);
 
@@ -130,21 +237,21 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
 
-            HeroList = MakeList();
+            BaseList = MakeList();
             foreach (Hero_BaseType _hero in Tools.GetValues<Hero_BaseType>())
             {
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = MakeListItem(hero);
-                HeroList.AddItem(item, hero);
+                item = MakeListItem(hero, BaseList);
+                BaseList.AddItem(item, hero);
             }
 
-            HeroList.OnIndexSelect = () =>
+            BaseList.OnIndexSelect = () =>
                 {
-                    BobPhsx Hero = HeroList.CurObj as BobPhsx;
+                    Base = BaseList.CurObj as BobPhsx;
                 };
-            AddItem(HeroList);
-            HeroList.Pos = new Vector2(x, y); y -= y_add;
+            AddItem(BaseList);
+            BaseList.Pos = new Vector2(x, y); y -= y_add;
 
             // Hero jump
             HeroText = new EzText("jump", ItemFont);
@@ -152,21 +259,21 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
 
-            HeroList = MakeList();
+            JumpList = MakeList();
             foreach (Hero_MoveMod _hero in Tools.GetValues<Hero_MoveMod>())
             {
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = MakeListItem(hero);
-                HeroList.AddItem(item, hero);
+                item = MakeListItem(hero, JumpList);
+                JumpList.AddItem(item, hero);
             }
 
-            HeroList.OnIndexSelect = () =>
+            JumpList.OnIndexSelect = () =>
             {
-                BobPhsx Hero = HeroList.CurObj as BobPhsx;
+                Jump = JumpList.CurObj as BobPhsx;
             };
-            AddItem(HeroList);
-            HeroList.Pos = new Vector2(x, y); y -= y_add;
+            AddItem(JumpList);
+            JumpList.Pos = new Vector2(x, y); y -= y_add;
 
             // Hero shape
             HeroText = new EzText("size", ItemFont);
@@ -174,28 +281,32 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
             
-            HeroList = MakeList();
+            SizeList = MakeList();
             foreach (Hero_Shape _hero in Tools.GetValues<Hero_Shape>())
             {
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = MakeListItem(hero);
-                HeroList.AddItem(item, hero);
+                item = MakeListItem(hero, SizeList);
+                SizeList.AddItem(item, hero);
             }
 
-            HeroList.OnIndexSelect = () =>
+            SizeList.OnIndexSelect = () =>
             {
-                BobPhsx Hero = HeroList.CurObj as BobPhsx;
+                Size = SizeList.CurObj as BobPhsx;
             };
-            AddItem(HeroList);
-            HeroList.Pos = new Vector2(x, y); y -= y_add;
+            AddItem(SizeList);
+            SizeList.Pos = new Vector2(x, y); y -= y_add;
 
             FontScale = 1f;
+
+            // Basic phsx sliders
+            MakeSliders();
 
             // Start
             Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " Test Hero", ItemFont));
             item.JiggleOnGo = false;
             AddItem(item);
+            item.Go = _item => StartTest();
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
             item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
             item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
@@ -207,13 +318,7 @@ namespace CloudberryKingdom
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = menu => { Start.Go(null); return true; };
-                //menuitem =>
-                //{
-                //    if (MyMenu.CurItem.Go != null) return false;
 
-                //    MyMenu.SelectItem(Start);
-                //    return true;
-                //};
 
             item = new MenuItem(new EzText(ButtonString.Back(90) + " Back", ItemFont));
             AddItem(item);
@@ -239,8 +344,22 @@ namespace CloudberryKingdom
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
-            HeroList.SetIndex(0);
             MyMenu.OnB = MenuReturnToCaller;
+        }
+
+        private void MakeSliders()
+        {
+            GravitySlider = new MenuSlider(new EzText("gravity", ItemFont));
+            GravitySlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            AddItem(GravitySlider);
+
+            AccelSlider = new MenuSlider(new EzText("accel", ItemFont));
+            AccelSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            AddItem(AccelSlider);
+
+            MaxSpeedSlider = new MenuSlider(new EzText("max vel", ItemFont));
+            MaxSpeedSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            AddItem(MaxSpeedSlider);
         }
 
         QuadClass Band;
@@ -267,6 +386,12 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
+            if (Testing)
+            {
+                TestingPhsx();
+                return;
+            }
+
             base.MyPhsxStep();
 
             if (MyMenu.CurItem is MenuList)

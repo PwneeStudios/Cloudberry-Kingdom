@@ -248,19 +248,19 @@ namespace CloudberryKingdom
             f.Add(u =>
             {
                 u[Upgrade.SpikeyGuy] = 2;
-                u[Upgrade.Jump] = 4;
+                u[Upgrade.Jump] = 3.5f;
             });
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 4;
+                u[Upgrade.Jump] = 3.5f;
                 u[Upgrade.Pinky] = 2;
                 u[Upgrade.Speed] = 2;
             });
 
             f.Add(u =>
             {
-                u[Upgrade.Jump] = 4;
+                u[Upgrade.Jump] = 3;
                 u[Upgrade.Cloud] = 2;
                 u[Upgrade.SpikeyGuy] = 2;
             });
@@ -275,8 +275,8 @@ namespace CloudberryKingdom
             f.Add(u =>
             {
                 u[Upgrade.FallingBlock] = 4;
-                u[Upgrade.BouncyBlock] = 2;
-                u[Upgrade.Spike] = 6;
+                u[Upgrade.BouncyBlock] = 1.8f;
+                u[Upgrade.Spike] = 5;
             });
 
             f.Add(u =>
