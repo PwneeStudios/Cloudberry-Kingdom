@@ -19,10 +19,11 @@ namespace CloudberryKingdom
             BobPhsxNormal normal = phsx as BobPhsxNormal;
             if (null != normal)
             {
-                normal.Gravity *= .56f;
+                //normal.BobJumpLength = (int)(normal.BobJumpLength * 1.2f);
+                //normal.BobJumpAccel *= 1.11f;
 
-                normal.BobJumpLength = (int)(normal.BobJumpLength * 1.2f);
-                normal.BobJumpAccel *= 1.11f;
+                normal.Gravity *= .56f;
+                normal.SetAccels();
 
                 normal.ForcedJumpDamping = .85f;
             }

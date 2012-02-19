@@ -89,6 +89,11 @@ namespace CloudberryKingdom.Levels
 
             SetFinalDoor(door, MyLevel, FinalPos);
 
+            if (FinalBlock.Core.MyTileSetType == TileSet.Island)
+            {
+                MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
+            }
+
             // Push lava down
             MyLevel.PushLava(FinalBlock.Box.Target.TR.Y - 60);
 

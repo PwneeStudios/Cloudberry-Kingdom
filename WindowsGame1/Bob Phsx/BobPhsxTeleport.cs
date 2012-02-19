@@ -31,6 +31,7 @@ namespace CloudberryKingdom
 
         public BobPhsxTeleport()
         {
+            DefaultValues();
         }
 
         public override void DefaultValues()
@@ -47,8 +48,6 @@ namespace CloudberryKingdom
         public override void Init(Bob bob)
         {
             base.Init(bob);
-
-            DefaultValues();
 
             TeleportCount = 10;
 

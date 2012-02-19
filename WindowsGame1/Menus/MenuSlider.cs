@@ -14,6 +14,27 @@ namespace CloudberryKingdom
         
         public QuadClass SliderBack, Slider, StartQuad, EndQuad;
 
+        public override void DoGrayOut()
+        {
+            base.DoGrayOut();
+
+            SliderBack.Alpha = .5f;
+            Slider.Alpha = .5f;
+        }
+
+        public override void DoDeGrayOut()
+        {
+            base.DoDeGrayOut();
+
+            SliderBack.Alpha = 1f;
+            Slider.Alpha = 1f;
+        }
+
+        public void Reset()
+        {
+            Val = MyFloat.DefaultValue;
+        }
+
         public MenuSlider(EzText Text)
         {
             Init(Text, Text.Clone());
@@ -104,6 +125,8 @@ namespace CloudberryKingdom
 
             if (MyMenu.CurDrawLayer != 0 || !Show) return;
 
+            GrayOut();
+
             // If just selected perfrom the OnSelect callback
             if (Selected != this.Selected && Selected)
             {
@@ -144,6 +167,8 @@ namespace CloudberryKingdom
                     Tools.QDrawer.DrawCircle(Start, 5, Color.Red);
                 }
             }
+
+            DeGrayOut();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             set
             {
                 MyFloat.Val = value;
-                OnSetValue();
+                if (OnSetValue != null) OnSetValue();
             }
         }
 

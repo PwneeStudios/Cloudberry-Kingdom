@@ -35,6 +35,7 @@ namespace CloudberryKingdom
 
         public BobPhsxSpaceship()
         {
+            DefaultValues();
         }
 
         public override void DefaultValues()
@@ -50,8 +51,6 @@ namespace CloudberryKingdom
             base.Init(bob);
 
             bob.DieSound = Tools.SoundWad.FindByName("Spaceship_Explode");
-
-            DefaultValues();
 
             OnGround = false;
         }

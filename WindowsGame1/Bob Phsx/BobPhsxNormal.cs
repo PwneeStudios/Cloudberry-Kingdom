@@ -122,6 +122,8 @@ namespace CloudberryKingdom
             ThrustSound.MaxInstances = 8;
             this.JetPack = false;
             this.NumJumps = 1;
+
+            DefaultValues();
         }
 
         public BobPhsxNormal(int NumJumps, bool JetPack)
@@ -130,25 +132,35 @@ namespace CloudberryKingdom
             this.NumJumps = NumJumps;
 
             ThrustSound.MaxInstances = 8;
+
+            DefaultValues();
+        }
+
+        public void SetAccels() { SetAccels(19); }
+        public void SetAccels(float JumpLength)
+        {
+            BobJumpAccel = (Gravity + 3.45f) / JumpLength;
+            BobJumpAccel2 = (Gravity + 3.42f) / JumpLength;
+            JetPackAccel = Gravity * 1.19f;
         }
 
         public override void DefaultValues()
         {
             Gravity = 2.95f;
-
-            BobJumpAccel = (Gravity + 3.45f) / 19;
+            SetAccels();
+            
             BobInitialJumpSpeed = 6f;
             BobInitialJumpSpeedDucking = 6f;
             BobJumpLength = 19;
             BobJumpLengthDucking = 17;
 
-            BobJumpAccel2 = (Gravity + 3.42f) / 19;
+            
             BobInitialJumpSpeed2 = 14f;
             BobInitialJumpSpeedDucking2 = 12f;
             BobJumpLength2 = 18;
             BobJumpLengthDucking2 = 17;
 
-            JetPackAccel = Gravity * 1.19f;
+            
 
             BobFallDelay = 5;
             BobXDunkFriction = .63f;
@@ -162,8 +174,6 @@ namespace CloudberryKingdom
         public override void Init(Bob bob)
         {
             base.Init(bob);
-
-            DefaultValues();
 
             Offset = Tools.Rnd.Next(0, 300);
 

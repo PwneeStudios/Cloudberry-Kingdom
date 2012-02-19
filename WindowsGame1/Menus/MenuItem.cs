@@ -9,6 +9,8 @@ namespace CloudberryKingdom
     public delegate void MenuItemGo(MenuItem item);
     public class MenuItem : IViewable
     {
+        public int Code = 0;
+
         public bool UnaffectedByScroll = false;
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace CloudberryKingdom
         public Vector2 Pos, SelectedPos;
         public bool CustomSelectedPos;
 
-        public Vector2 SetPos { set { Pos = SelectedPos = value; } }
+        public Vector2 SetPos { get { return Pos; } set { Pos = SelectedPos = value; } }
 
         /// <summary>
         /// Whether the item oscillates when selected.
@@ -422,6 +424,8 @@ namespace CloudberryKingdom
             if (MyMenu.CurDrawLayer != MyDrawLayer || !Show)
                 return;
 
+            GrayOut();
+
             if (PredefinedText)
             {
                 if (Selected 
@@ -475,6 +479,31 @@ namespace CloudberryKingdom
             }
             else
                 MyText.Draw(cam, false);
+
+            DeGrayOut();
+        }
+
+        public bool GrayOutOnUnselectable = false;
+        public void GrayOut()
+        {
+            if (!Selectable && GrayOutOnUnselectable) DoGrayOut();
+        }
+
+        public void DeGrayOut()
+        {
+            if (!Selectable && GrayOutOnUnselectable) DoDeGrayOut();
+        }
+
+        public virtual void DoGrayOut()
+        {
+            MyText.MyFloatColor.W = .5f;
+            if (Icon != null && Icon is PictureIcon) ((PictureIcon)Icon).IconQuad.Alpha = .5f;
+        }
+
+        public virtual void DoDeGrayOut()
+        {
+            MyText.MyFloatColor.W = 1f;
+            if (Icon != null && Icon is PictureIcon) ((PictureIcon)Icon).IconQuad.Alpha = 1f;
         }
 
         public bool Show = true;
@@ -544,6 +573,8 @@ namespace CloudberryKingdom
         {
             if (DrawBase(Text, cam, Selected)) return;
 
+            GrayOut();
+
             SetTextSelection(Selected);
 
             if (Text)
@@ -566,6 +597,8 @@ namespace CloudberryKingdom
                 if (Icon != null)
                     Icon.Draw(Selected);
             }
+
+            DeGrayOut();
         }
 
 #if WINDOWS

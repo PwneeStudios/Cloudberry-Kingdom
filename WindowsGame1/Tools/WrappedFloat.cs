@@ -41,11 +41,12 @@ namespace CloudberryKingdom
 
         public WrappedFloat() { }
 
+        public float DefaultValue;
         public WrappedFloat(float Val, float MinVal, float MaxVal)
         {
             this.MinVal = MinVal;
             this.MaxVal = MaxVal;
-            this.Val = Val;
+            DefaultValue = this.Val = Val;
         }
 
         public void Set(float val)

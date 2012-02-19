@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace CloudberryKingdom
 {
-
     public class SaveGroup
     {
         static List<SaveLoad> ThingsToSave = new List<SaveLoad>();

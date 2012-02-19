@@ -49,8 +49,9 @@ namespace CloudberryKingdom
                 Timer.MaxTime = 62 * (MaxTime_ByDifficulty[Difficulty] + 0) - 1;
         }
 
-        protected virtual void PreStart_Tutorial()
+        protected virtual void PreStart_Tutorial(bool TemporarySkip)
         {
+            HeroRush_Tutorial.TemporarySkip = TemporarySkip;
             MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new HeroRush_Tutorial(this));
         }
 
@@ -84,7 +85,7 @@ namespace CloudberryKingdom
                 Timer.Time = 62 * StartTime_ByDifficulty[Difficulty];
 
             // Tutorial
-            PreStart_Tutorial();
+            PreStart_Tutorial(StartIndex > 0);
 
             // When a new level is swapped to...
             MyStringWorld.OnSwapToLevel += levelindex =>

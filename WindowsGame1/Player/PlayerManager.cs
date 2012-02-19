@@ -78,13 +78,18 @@ namespace CloudberryKingdom
 
             ScreenSaver.WatchedIntro = reader.ReadBoolean();
             HeroRush_Tutorial.WatchedOnce = reader.ReadBoolean();
-            Campaign_Chaos.WatchedOnce = reader.ReadBoolean();
+            if (CloudberryKingdomGame.AlwaysGiveTutorials)
+                HeroRush_Tutorial.WatchedOnce = false;
+
+            Campaign_Chaos.WatchedOnce = true;//reader.ReadBoolean();
 
             Hints.QuickSpawn = reader.ReadInt32();
             Hints.YForHelp = reader.ReadInt32();
 
 #if PC_VERSION
             PlayerManager.DefaultName = reader.ReadString();
+            if (PlayerManager.DefaultName.Length < 1)
+                PlayerManager.DefaultName = "Stickman";
 
             PlayerManager.Player.Read(reader);
 #endif

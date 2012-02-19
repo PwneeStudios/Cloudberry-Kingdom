@@ -15,6 +15,12 @@ namespace CloudberryKingdom
         public static bool WatchedOnce { get { return _WatchedOnce; } set { _WatchedOnce = value; PlayerManager.SavePlayerData.Changed = true; } }
         static bool _WatchedOnce = false;
 
+        /// <summary>
+        /// When true the tutorial will skip the long version.
+        /// The bool is then set to false.
+        /// </summary>
+        public static bool TemporarySkip = false;
+
         static public bool ShowTitle = true;
 
         /// <summary>
@@ -55,12 +61,16 @@ namespace CloudberryKingdom
 
         protected void TutorialOrSkip()
         {
-            if (WatchedOnce)
+            if (WatchedOnce || TemporarySkip)
                 Ready();
             else
+            {
                 StartTutorial();
 
-            WatchedOnce = true;
+                WatchedOnce = true;
+            }
+
+            TemporarySkip = false;
         }
 
         void StartTutorial()

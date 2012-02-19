@@ -8,6 +8,29 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
+    public static class Cast
+    {
+        public static MenuB ToMenu(Action a)
+        {
+            return menu => { a(); return true; };
+        }
+
+        public static MenuB ToMenu(MenuItemGo a)
+        {
+            return menu => { a(null); return true; };
+        }
+
+        public static MenuItemGo ToItem(Action a)
+        {
+            return item => a();
+        }
+
+        public static Action ToAction(MenuItemGo a)
+        {
+            return () => a(null);
+        }
+    }
+
     public delegate bool MenuB(Menu menu);
     public class Menu : IViewable, IViewableList
     {

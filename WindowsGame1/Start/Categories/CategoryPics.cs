@@ -18,8 +18,8 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
 
             // Title
-            Text = new EzText("Campaign", Tools.Font_DylanThin42);
-            MyPile.Add(Text);
+            //Text = new EzText("Campaign", Tools.Font_DylanThin42);
+            //MyPile.Add(Text);
 
             // Cloud back
             QuadClass Cloudback = new QuadClass();
@@ -70,20 +70,19 @@ namespace CloudberryKingdom
         }
         public void Set(string name, string text, Vector2 pos, bool locked, Vector2 lockedpos, Vector2 lockedsize, float lockedangle)
         {
-            bool Substitute = true;
-            if (Text == null)
-            {
-                if (text.Length == 0) text = "  ";
-                Text = new EzText(text, Tools.Font_DylanThin42, 1500, false, false, .66f);
-                Text.Scale = .55f;
-                MyPile.Add(Text);
-                Substitute = false;
-            }
+            //bool Substitute = true;
+            //{
+            //    if (text.Length == 0) text = "  ";
+            //    Text = new EzText(text, Tools.Font_DylanThin42, 1500, false, false, .66f);
+            //    Text.Scale = .55f;
+            //    MyPile.Add(Text);
+            //    Substitute = false;
+            //}
 
             if (name == null)
             {
                 CategoryPic.Show = false;
-                Text.Show = false;
+                //Text.Show = false;
                 Locked.Shadow = false;
                 Locked.Show = false;
                 return;
@@ -97,9 +96,8 @@ namespace CloudberryKingdom
             //locked = true;
             if (locked)
             {
-                Text.Show = true;
-                //Text.Show = false;
-                Text.Pos = pos;
+                //Text.Show = true;
+                //Text.Pos = pos;
 
                 Locked.Pos = lockedpos;
                 Locked.Size = lockedsize;
@@ -108,12 +106,10 @@ namespace CloudberryKingdom
             }
             else
             {
-                Text.Show = false;
-                //Text.Show = true;
-
-                if (Substitute)
-                    Text.SubstituteText(text);
-                Text.Pos = pos;
+                //Text.Show = false;
+                //if (Substitute)
+                //    Text.SubstituteText(text);
+                //Text.Pos = pos;
 
                 Locked.Show = false;
             }

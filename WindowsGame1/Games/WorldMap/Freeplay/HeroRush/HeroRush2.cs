@@ -135,9 +135,10 @@ namespace CloudberryKingdom
             //return BobPhsx.MakeCustom(HeroList[i % NumHeros]);
             return BobPhsx.MakeCustom(HeroList[i % HeroList.Count]);
         }
-        
-        protected override void PreStart_Tutorial()
+
+        protected override void PreStart_Tutorial(bool TemporarySkip)
         {
+            HeroRush_Tutorial.TemporarySkip = TemporarySkip;
             MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new HeroRush2_Tutorial(this));
         }
     }

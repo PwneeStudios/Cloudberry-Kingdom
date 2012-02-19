@@ -44,7 +44,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// The amount to scale the selected quad by
         /// </summary>
-        public float SelectedScale = 2.3f;
+        //public float SelectedScale = 2.3f;
+        public float SelectedScale = 1.5f;
 
         public override void DrawItem(int i, Vector2 pos, bool selected, int Layer)
         {
@@ -58,6 +59,19 @@ namespace CloudberryKingdom
             }
             else
             {
+                var BL = pos + new Vector2(-100, -130);
+                var TR = pos + new Vector2(100, 130);
+                QuadClass back = new QuadClass("cloud1", 120);
+                back.Pos = pos;
+                
+                back.Size = new Vector2(150, 200);
+                back.Draw();
+                back.Size = new Vector2(150, -200);
+                back.Draw();
+
+                //Tools.QDrawer.DrawFilledBox(BL, TR, new Color(255, 255, 255, 90));
+                //Tools.QDrawer.DrawCircle(pos, 130, new Color(255, 255, 255, 255));
+
                 quad.Scale(SelectedScale);
                 quad.Draw();
                 quad.Scale(1f / SelectedScale);

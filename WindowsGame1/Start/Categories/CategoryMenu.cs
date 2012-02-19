@@ -24,6 +24,8 @@ namespace CloudberryKingdom
             base.SetItemProperties(item);
 
             item.MyText.Shadow = item.MySelectedText.Shadow = false;
+            //item.ScaleText(.9332f);
+            item.ScaleText(.9135f);
         }
 
         protected override void SetHeaderProperties(EzText text)
@@ -149,24 +151,7 @@ namespace CloudberryKingdom
 
         public CategoryMenu()
         {
-            CallDelay = 20;
-            
-            SlideLength = 27;
-#if PC_VERSION
-            DestinationScale *= 1.015f;
-            ReturnToCallerDelay = 8;
-            SlideInFrom = PresetPos.Left;
-            SlideOutTo = PresetPos.Left;
-#else
-            UseAdditionalSlideOutPos = true;
-            ReturnToCallerDelay = 37;
-            SlideInFrom = PresetPos.Left;
-            SlideOutTo = PresetPos.Left;
-#endif
-
-            ItemPos = new Vector2(-1630, 572);
-            //PosAdd = new Vector2(0, -151) * 1.2f * 1.4f;
-            PosAdd = new Vector2(0, -151) * 1.2f * 1.2f;
+            SetParams();
 
             RightPanel = new CategoryPics();
 
@@ -198,7 +183,6 @@ namespace CloudberryKingdom
 
 
             // Header
-            //string header = "Games!";
             string header = "Menu";
             MenuItem Header = new MenuItem(new EzText(header, Tools.Font_Dylan60));
             MyMenu.Add(Header);
@@ -214,13 +198,17 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-1689.523f, 520.4127f);
 
             // Campaign
-            //string campaign = "Campaign";
-            string campaign = "Classic";
+            string campaign = "Campaign";
+            //string campaign = "Classic";
             item = new MenuItem(new EzText(campaign, ItemFont));
             AddItem(item);
-            item.Go = MenuGo_Career;
+            item.Go = null;// MenuGo_Career;
             item.AdditionalOnSelect = () =>
-                    pics.Set("menupic_classic", "", new Vector2(388.8888f, -222.222f), false, Vector2.Zero);
+                    pics.Set("menupic_classic", "", new Vector2(388.8888f, -222.222f), true, new Vector2(484.1266f, 654.762f), new Vector2(685.5175f, 265.7117f), 0.349205f);
+            item.MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
+            item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
+            GrayItem(item);
+
 
             //Arcade
             item = new MenuItem(new EzText("Arcade", ItemFont));
@@ -299,10 +287,27 @@ namespace CloudberryKingdom
             item.AdditionalOnSelect = () =>
                     pics.Set("menupic_shop", "", new Vector2(388.8888f, -222.222f), false);
 
+
+
+
+            ////Arcade
+            //item = new MenuItem(new EzText("Hot Sauce", ItemFont));
+            //item.Go = menuitem => Call(new ArcadeMenu());
+            //AddItem(item);
+            //item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero, false);
+
+            //// Arcade
+            //item = new MenuItem(new EzText("Options", ItemFont));
+            //item.Go = menuitem => Call(new ArcadeMenu());
+            //AddItem(item);
+            //item.AdditionalOnSelect = () => pics.Set("menupic_arcade", "", Vector2.Zero, false);
+
+
+
             // Back button
+            //item = MakeBackButton("exit");
+            //ItemPos += PosAdd;
             item = MakeBackButton();
-            //item.AdditionalOnSelect = () => pics.Set("menupic_back", "", new Vector2(634.922f, -349.2057f), false, Vector2.Zero);
-            //item.AdditionalOnSelect = () => pics.Set("menupic_bg_cloud", "", new Vector2(634.922f, -349.2057f), false, Vector2.Zero);
             item.AdditionalOnSelect = () => pics.Set(null, "", new Vector2(634.922f, -349.2057f), false, Vector2.Zero);
 
             // Backdrop
@@ -320,6 +325,35 @@ namespace CloudberryKingdom
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 
             MyMenu.SelectItem(1);
+        }
+
+        private static void GrayItem(MenuItem item)
+        {
+            item.MyText.MyFloatColor = Tools.Gray(.535f);
+            item.MySelectedText.MyFloatColor = Tools.Gray(.55f);
+        }
+
+        private void SetParams()
+        {
+            CallDelay = 20;
+
+            SlideLength = 27;
+#if PC_VERSION
+            DestinationScale *= 1.015f;
+            ReturnToCallerDelay = 8;
+            SlideInFrom = PresetPos.Left;
+            SlideOutTo = PresetPos.Left;
+#else
+            UseAdditionalSlideOutPos = true;
+            ReturnToCallerDelay = 37;
+            SlideInFrom = PresetPos.Left;
+            SlideOutTo = PresetPos.Left;
+#endif
+
+            ItemPos = new Vector2(-1630, 572);
+            PosAdd = new Vector2(0, -151) * 1.2f * 1.2f;
+            PosAdd *= .85f;
+            FontScale *= .925f;
         }
 
         protected override void MyPhsxStep()

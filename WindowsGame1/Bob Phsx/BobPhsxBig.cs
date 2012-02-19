@@ -13,6 +13,7 @@ namespace CloudberryKingdom
             if (null != normal)
             {
                 normal.Gravity *= 1.55f;
+                normal.SetAccels();
             }
         }
 

@@ -11,10 +11,29 @@ namespace CloudberryKingdom
     {
         public HeroFactoryMenu2() { }
 
+        public override void OnAdd()
+        {
+            base.OnAdd();
+
+            MyGame.ForceTargetZoom = .001f;
+            MyGame.DoForceZoom = true;
+            MyGame.ForceLevelZoomBeforeDraw = .0007f;
+        }
+
+        protected override void ReleaseBody()
+        {
+            MyGame.ForceTargetZoom = .0007f;
+            base.ReleaseBody();
+        }
+
         MenuSlider GravitySlider, MaxSpeedSlider, AccelSlider;
 
         public void StartGame()
         {
+            Hide();
+
+            MakeBobPhsx();
+
             Challenge_Escalation.Hero = Hero;
 
             // Start the game
@@ -26,6 +45,8 @@ namespace CloudberryKingdom
 
                 Challenge_Escalation.Instance.Start(0);
             });
+
+            MyGame.OnReturnTo_OneOff += () => Show();
         }
 
         public void StartTest()
@@ -33,11 +54,11 @@ namespace CloudberryKingdom
             Hide();
 
             MakeBobPhsx();
-            
-            //CreateHeros();
-            //CreateGround();
 
-            StartGame();
+            CreateHeros();
+            
+            RemovePreviousGround();
+            CreateGround();
 
             Testing = true;
         }
@@ -46,10 +67,31 @@ namespace CloudberryKingdom
         void TestingPhsx()
         {
             if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
+                EndTest();
+        }
+
+        void EndTest()
+        {
+            Testing = false;
+            Show();
+
+            foreach (Bob bob in MyGame.MyLevel.Bobs)
             {
-                Testing = false;
-                Show();
+                //bob.CodeControl = true;
+                MyGame.MyLevel.AddPop(bob.Pos);
+                bob.CollectSelf();
             }
+
+            MyGame.AddToDo((Func<bool>)MoveBlockAndKill, "MoveOut", true, true);
+        }
+
+        bool MoveBlockAndKill()
+        {
+            if (MyGame == null || MyGame.MyLevel == null) return true;
+
+            foreach (Block block in MyGame.MyLevel.Blocks)
+                block.Move(new Vector2(0, -20));
+            return false;
         }
 
         void KillBobs()
@@ -61,18 +103,52 @@ namespace CloudberryKingdom
             }, "RemoveBobs", false, true);
         }
 
+        BobPhsx Hero;
+        BobPhsxNormal NormalHero { get { return (BobPhsxNormal)Hero; } }
+
         void MakeBobPhsx()
         {
             Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Jump, Size);
-            Hero.ModPhsxValues = _vals =>
+
+            Hero.Gravity *= GravitySlider.Val;
+            Hero.XAccel *= AccelSlider.Val;
+            Hero.MaxSpeed *= MaxSpeedSlider.Val;
+
+            if (Hero is BobPhsxNormal)
+            {
+                Hero.BobMaxFallSpeed *= MaxFallSpeedSlider.Val;
+
+                NormalHero.BobJumpLength = (int)(NormalHero.BobJumpLength * JumpLengthSlider.Val);
+                NormalHero.BobJumpLength2 = (int)(NormalHero.BobJumpLength2 * JumpLengthSlider2.Val);
+                NormalHero.SetAccels(NormalHero.BobJumpLength);
+                NormalHero.BobJumpAccel *= JumpAccelSlider.Val;
+                NormalHero.BobJumpAccel2 *= JumpAccelSlider2.Val;
+
+                NormalHero.XFriction *= FrictionSlider.Val;
+
+                if (Jump is BobPhsxJetman)
                 {
-                    _vals.Gravity *= GravitySlider.Val;
-                    _vals.XAccel *= AccelSlider.Val;
-                    _vals.MaxSpeed *= MaxSpeedSlider.Val;
-                };
+                    NormalHero.JetPackAccel *= JetPackSlider.Val;
+                    NormalHero.JetPackLength = (int)(NormalHero.JetPackLength * JetPackFuelSlider.Val);
+                }
+
+                if (Jump is BobPhsxDouble)
+                {
+                    NormalHero.NumJumps = (int)(NumJumpsSlider.Val);
+                }
+            }
+
+            if (Size is BobPhsxScale)
+            {
+                Hero.OscillateSize1 = Size1Slider.Val;
+                Hero.OscillateSize2 = Size2Slider.Val;
+                Hero.OscillateGravity1 *= Gravity1Slider.Val;
+                Hero.OscillateGravity2 *= Gravity2Slider.Val;
+                Hero.OscillatePeriod *= PhasePeriodSlider.Val;
+            }
         }
 
-        BobPhsx Hero;
+
         void CreateHeros()
         {
             // Remove any previous bobs
@@ -84,12 +160,22 @@ namespace CloudberryKingdom
             MyGame.MakeBobs(MyGame.MyLevel);
             
             // Position bobs
-            Vector2 shift = new Vector2(-700, 0);
+            Vector2 shift = new Vector2(-700, 100);
             foreach (Bob bob in MyGame.MyLevel.Bobs)
             {
                 Tools.MoveTo(bob, MyGame.CamPos + shift);
                 shift += new Vector2(100, 20);
+
+                bob.ScreenWrap = true;
             }
+        }
+
+        void RemovePreviousGround()
+        {
+            MyGame.KillToDo("MoveOut");
+
+            foreach (Block block in MyGame.MyLevel.Blocks)
+                block.CollectSelf();
         }
 
         void CreateGround()
@@ -100,14 +186,15 @@ namespace CloudberryKingdom
                 if (_block is NormalBlock)
                     _block.CollectSelf();
 
+            Vector2 shift = new Vector2(30, 430);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(-1000, -3100), new Vector2(1000, 2000));
+            block.Init(MyGame.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000));
             block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(1150, -2950), new Vector2(1000, 2000));
+            block.Init(MyGame.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000));
             block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
         }
@@ -156,6 +243,31 @@ namespace CloudberryKingdom
             return item;
         }
 
+        protected override void SetItemProperties(MenuItem item)
+        {
+            base.SetItemProperties(item);
+
+            if (item is MenuSlider || item is MenuList)
+                item.GrayOutOnUnselectable = true;
+
+            var slider = item as MenuSlider;
+            if (null != slider)
+            {
+                if (slider.Code == 23)
+                    slider.ScaleText(.485f);
+                else
+                    slider.ScaleText(.600f);
+
+                slider.FancyPos.RelVal += new Vector2(-300, 0);
+
+                if (slider.Code == 23)
+                    slider.SliderShift += new Vector2(660, 60);
+                else
+                    slider.SliderShift += new Vector2(275, 60);
+                //slider.SliderShift += new Vector2(275, 60);
+            }
+        }
+
         MenuList MakeList()
         {
             var list = new MenuList();
@@ -176,9 +288,10 @@ namespace CloudberryKingdom
 
         BobPhsx Base, Jump, Size;
 
-        MenuItem Start;
+        MenuItem Start, Back;
         EzText HeroText;
         MenuList BaseList, JumpList, SizeList;
+        EzText BaseHeader, JumpHeader, SizeHeader;
         public override void Init()
         {
             ItemShadows = false;
@@ -202,7 +315,8 @@ namespace CloudberryKingdom
             // Header
             EzText HeaderText = new EzText("Hero Factory!", Tools.Font_DylanThin42);
             SetSuperHeader(HeaderText);
-            HeaderText.Pos = new Vector2(-1169.842f, 953.9683f);
+            //HeaderText.Pos = new Vector2(-1169.842f, 953.9683f);
+            HeaderText.Pos = new Vector2(-1169.842f, 985.7144f);
             MyPile.Add(HeaderText);
 
 
@@ -228,11 +342,14 @@ namespace CloudberryKingdom
 
             // Hero lists
             float x = -585;
-            float y = 455; float y_add = 395;
+            //float y = 455;
+            //float y_add = 395;
+            float y = 447.5f;
+            float y_add = 370;
             Vector2 TextShift = new Vector2(-572, 200);
 
             // Hero base
-            HeroText = new EzText("base", ItemFont);
+            BaseHeader = HeroText = new EzText("base", ItemFont);
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
@@ -254,7 +371,7 @@ namespace CloudberryKingdom
             BaseList.Pos = new Vector2(x, y); y -= y_add;
 
             // Hero jump
-            HeroText = new EzText("jump", ItemFont);
+            JumpHeader = HeroText = new EzText("jump", ItemFont);
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
@@ -276,7 +393,7 @@ namespace CloudberryKingdom
             JumpList.Pos = new Vector2(x, y); y -= y_add;
 
             // Hero shape
-            HeroText = new EzText("size", ItemFont);
+            SizeHeader = HeroText = new EzText("size", ItemFont);
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
             HeroText.Pos = new Vector2(x, y) + TextShift;
@@ -300,58 +417,356 @@ namespace CloudberryKingdom
             FontScale = 1f;
 
             // Basic phsx sliders
-            MakeSliders();
+            MakeBasicSliders();
 
-            // Start
-            Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " Test Hero", ItemFont));
-            item.JiggleOnGo = false;
-            AddItem(item);
-            item.Go = _item => StartTest();
-            item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
-#if NOT_PC
-            item.Selectable = false;
-            item.Pos = new Vector2(721.8262f, -226.9048f);
-#endif
-            item.ScaleText(.68f);
-
-            // Select 'Start Level' when the user presses (A)
-            MyMenu.OnA = menu => { Start.Go(null); return true; };
-
-
-            item = new MenuItem(new EzText(ButtonString.Back(90) + " Back", ItemFont));
-            AddItem(item);
-            item.SelectSound = null;
-            item.Go = me => ReturnToCaller();
-            item.Pos = item.SelectedPos = new Vector2(922.9375f, -523.8096f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
-#if NOT_PC
-            item.Selectable = false;
-            item.Pos = new Vector2(958.6523f, -468.254f);
-#endif
-            item.ScaleText(.65f);
-
-            /*
-            item = new MenuItem(new EzText(ButtonString.Y(90) + " Advanced", ItemFont));
-            item.Go = menuitem => BringAdvanced();
-            AddItem(item);
-            item.Pos = item.SelectedPos = new Vector2(905f, -653.3308f);
-            item.MyText.Scale *= .9f;
-            item.MySelectedText.Scale *= .9f;
-            */
+            // Start/test/back/advanced
+            MakeOptionItems();
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
             MyMenu.OnB = MenuReturnToCaller;
         }
 
-        private void MakeSliders()
+        MenuItem A, B, X, Y;
+        private void MakeOptionItems()
         {
+            MenuItem item;
+
+            //float bigscale = .68f;
+            //float scale = .65f;
+
+            float bigscale = .52f;
+            float scale = .52f;
+
+            //Vector2 pos = new Vector2(527.7778f, -492.0635f);
+            //Vector2 add = new Vector2(0, -34);
+
+            Vector2 pos = new Vector2(527.7778f, -492.0635f);
+            Vector2 add = new Vector2(0, -60);
+
+
+            // Start
+            A = Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " test", ItemFont));
+            item.JiggleOnGo = false;
+            AddItem(item);
+            item.Go = Cast.ToItem(StartTest);
+            item.Pos = item.SelectedPos = pos; pos += add;
+            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
+            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+#if NOT_PC
+            item.Selectable = false;
+            item.Pos = pos; pos += add;
+#endif
+            item.ScaleText(bigscale);
+
+            // Select 'Start Level' when the user presses (A)
+            MyMenu.OnA = Cast.ToMenu(Start.Go);
+
+
+            // Back
+            B = Back = item = new MenuItem(new EzText(ButtonString.Back(90) + " back", ItemFont));
+            AddItem(item);
+            item.SelectSound = null;
+            item.Go = Cast.ToItem(ReturnToCaller);
+            item.Pos = item.SelectedPos = pos; pos += add;
+            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
+            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+#if NOT_PC
+            item.Selectable = false;
+            item.Pos = pos; pos += add;
+#endif
+            item.ScaleText(scale);
+
+
+
+            // Advanced
+#if NOT_PC
+            Y = item = new MenuItem(new EzText(ButtonString.Y(90) + " more", ItemFont));
+#else
+            //MenuItem Y = item = new MenuItem(new EzText("more", ItemFont));
+            Y = item = new MenuItem(new EzText(ButtonString.Y(90) + " more", ItemFont));
+#endif
+            AddItem(item);
+            item.SelectSound = null;
+            item.Go = Cast.ToItem(ToAdvanced);
+            item.Pos = item.SelectedPos = pos; pos += add;
+            item.MyText.MyFloatColor = new Color(235, 255, 80).ToVector4() * .93f;
+            item.MySelectedText.MyFloatColor = new Color(235, 255, 80).ToVector4();
+#if NOT_PC
+            item.Selectable = false;
+            item.Pos = pos; pos += add;
+            MyMenu.OnY = Cast.ToAction(Y.Go);
+#endif
+            item.ScaleText(scale);
+
+            // Play
+#if NOT_PC
+            X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
+#else
+            X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
+            //MenuItem X = item = new MenuItem(new EzText("play", ItemFont));
+#endif
+            AddItem(item);
+            item.SelectSound = null;
+            item.Go = Cast.ToItem(StartGame);
+            item.Pos = item.SelectedPos = pos; pos += add;
+            item.MyText.MyFloatColor = new Color(204, 220, 255).ToVector4() * .93f;
+            item.MySelectedText.MyFloatColor = new Color(204, 220, 255).ToVector4();
+#if NOT_PC
+            item.Selectable = false;
+            item.Pos = pos; pos += add;
+            MyMenu.OnX = Cast.ToMenu(X.Go);
+#endif
+            item.ScaleText(scale);
+
+
+
+
+            Diamond();
+
+            MakeAdvancedSliders();
+            ShowSimple();
+        }
+
+        void RightHand()
+        {
+            A.Show = A.Selectable = B.Show = B.Selectable = true;
+            X.Show = X.Selectable = Y.Show = Y.Selectable = false;
+
+            Vector2 shift = new Vector2(-106, -10);
+            A.SetPos = new Vector2(920.635f, -578.7302f) + shift;
+            B.SetPos = new Vector2(920.635f, -770.3174f) + shift;
+        }
+
+        void Diamond()
+        {
+            A.Show = A.Selectable = B.Show = B.Selectable = X.Show = X.Selectable = Y.Show = Y.Selectable = true;
+
+            Vector2 shift = new Vector2(-106, -10);
+#if PC_VERSION
+            A.SetPos = new Vector2(920, -250) + shift;
+            B.SetPos = new Vector2(920, -400) + shift;
+            Y.SetPos = new Vector2(920, -550) + shift;
+            X.SetPos = new Vector2(920, -700) + shift;
+#else
+            A.SetPos = new Vector2(718.2542f, -770.3174f) + shift;
+            Y.SetPos = new Vector2(702.3809f, -390.3174f) + shift;
+            X.SetPos = new Vector2(503.9681f, -581.746f) + shift;
+            B.SetPos = new Vector2(920.635f, -578.7302f) + shift;
+#endif
+
+        }
+
+        bool AdvancedAvailable()
+        {
+            if (Base is BobPhsxSpaceship && !(Size is BobPhsxScale))
+                return false;
+            else
+                return true;
+        }
+
+        void ToAdvanced()
+        {
+            // No advanced options for spaceship, unless there is scaling
+            if (!AdvancedAvailable()) return;
+
+            MyGame.AddToDo(() =>
+            {
+                Basic = false;
+
+                BaseHeader.Show = JumpHeader.Show = SizeHeader.Show = false;
+
+                ShowAdvanced();
+                RightHand();
+                ResetAdvancedSliders();
+
+                Back.Go = me => ToSimple();
+                MyMenu.OnB = _menu => { ToSimple(); return true; };
+
+                MyMenu.SelectItem(0);
+            });
+        }
+
+        void ToSimple()
+        {
+            MyGame.AddToDo(() =>
+            {
+                Basic = true;
+
+                BaseHeader.Show = JumpHeader.Show = SizeHeader.Show = true;
+
+                ShowSimple();
+                Diamond();
+
+                Back.Go = me => ReturnToCaller();
+                MyMenu.OnB = MenuReturnToCaller;
+
+                MyMenu.SelectItem(0);
+            });
+        }
+
+        MenuSlider MaxFallSpeedSlider, JumpLengthSlider, JumpAccelSlider, JumpLengthSlider2, JumpAccelSlider2, FrictionSlider, JetPackSlider, JetPackFuelSlider, NumJumpsSlider;
+        MenuSlider Size1Slider, Size2Slider, Gravity1Slider, Gravity2Slider, PhasePeriodSlider;
+        private void MakeAdvancedSliders()
+        {
+            ItemPos = new Vector2(-1069.841f, 600);
+
+            MaxFallSpeedSlider = new MenuSlider(new EzText("Max fall", ItemFont));
+            MaxFallSpeedSlider.MyFloat = new WrappedFloat(1f, .33f, 3f);
+            MaxFallSpeedSlider.Code = 23;
+            AddItem(MaxFallSpeedSlider);
+
+            FrictionSlider = new MenuSlider(new EzText("Friction", ItemFont));
+            FrictionSlider.MyFloat = new WrappedFloat(1f, 0f, 3f);
+            FrictionSlider.Code = 23;
+            AddItem(FrictionSlider);
+
+            JumpLengthSlider = new MenuSlider(new EzText("Jump Length", ItemFont));
+            JumpLengthSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            JumpLengthSlider.Code = 23;
+            AddItem(JumpLengthSlider);
+
+            JumpAccelSlider = new MenuSlider(new EzText("Jump Accel", ItemFont));
+            JumpAccelSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            JumpAccelSlider.Code = 23;
+            AddItem(JumpAccelSlider);
+
+            //if (Jump is BobPhsxDouble)
+            {
+                JumpLengthSlider2 = new MenuSlider(new EzText("Jump Length 2", ItemFont));
+                JumpLengthSlider2.MyFloat = new WrappedFloat(1f, .5f, 2f);
+                JumpLengthSlider2.Code = 23;
+                AddItem(JumpLengthSlider2);
+
+                JumpAccelSlider2 = new MenuSlider(new EzText("Jump Accel 2", ItemFont));
+                JumpAccelSlider2.MyFloat = new WrappedFloat(1f, .5f, 2f);
+                JumpAccelSlider2.Code = 23;
+                AddItem(JumpAccelSlider2);
+
+                NumJumpsSlider = new MenuSlider(new EzText("Num jump", ItemFont));
+                NumJumpsSlider.MyFloat = new WrappedFloat(2f, 2f, 4f);
+                if (Jump is BobPhsxDouble)
+                {
+                    NumJumpsSlider.Val = 2;
+                    NumJumpsSlider.Selectable = true;
+                }
+                else
+                {
+                    NumJumpsSlider.Val = 1;
+                    NumJumpsSlider.Selectable = true;
+                }
+                NumJumpsSlider.InitialSlideSpeed = 1;
+                NumJumpsSlider.MaxSlideSpeed = 1;
+                NumJumpsSlider.Discrete = true;
+                NumJumpsSlider.Code = 23;
+                AddItem(NumJumpsSlider);
+            }
+
+            //if (Jump is BobPhsxJetman)
+            {
+                JetPackSlider = new MenuSlider(new EzText("Jetpack str", ItemFont));
+                JetPackSlider.MyFloat = new WrappedFloat(1f, .75f, 2f);
+                JetPackSlider.Code = 23;
+                AddItem(JetPackSlider);
+
+                JetPackFuelSlider = new MenuSlider(new EzText("Jetpack fuel", ItemFont));
+                JetPackFuelSlider.MyFloat = new WrappedFloat(1f, .5f, 3f);
+                JetPackFuelSlider.Code = 23;
+                AddItem(JetPackFuelSlider);
+            }
+
+            //if (Size is BobPhsxScale)
+            {
+                Size1Slider = new MenuSlider(new EzText("Size 1", ItemFont));
+                Size1Slider.MyFloat = new WrappedFloat(.32f, .2f, 2.1f);
+                Size1Slider.Code = 23;
+                AddItem(Size1Slider);
+
+                Size2Slider = new MenuSlider(new EzText("Size 2", ItemFont));
+                Size2Slider.MyFloat = new WrappedFloat(2.08f, .2f, 2.1f);
+                Size2Slider.Code = 23;
+                AddItem(Size2Slider);
+
+                Gravity1Slider = new MenuSlider(new EzText("Gravity 1", ItemFont));
+                Gravity1Slider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+                Gravity1Slider.Code = 23;
+                AddItem(Gravity1Slider);
+
+                Gravity2Slider = new MenuSlider(new EzText("Gravity 2", ItemFont));
+                Gravity2Slider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+                Gravity2Slider.Code = 23;
+                AddItem(Gravity2Slider);
+
+                PhasePeriodSlider = new MenuSlider(new EzText("Phase period", ItemFont));
+                PhasePeriodSlider.MyFloat = new WrappedFloat(1f, .35f, 2f);
+                PhasePeriodSlider.Code = 23;
+                AddItem(PhasePeriodSlider);
+            }
+
+            // Not spaceship or scaling
             GravitySlider = new MenuSlider(new EzText("gravity", ItemFont));
             GravitySlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
+            GravitySlider.Code = 23;
             AddItem(GravitySlider);
+
+        }
+
+        void ResetItemPos(MenuItem item)
+        {
+            item.SetPos = ItemPos;
+            //ItemPos += new Vector2(0, -143);
+            ItemPos += new Vector2(0, -128.5f);
+
+            item.Show = item.Selectable = true;
+        }
+        void ResetAdvancedSliders()
+        {
+            ItemPos = new Vector2(-1069.841f, 600);
+            
+            //ResetItemPos(JumpLengthSlider);
+            //ResetItemPos(JumpAccelSlider);
+            //ResetItemPos(FrictionSlider);
+
+            MaxFallSpeedSlider.Show = JumpLengthSlider.Show = JumpAccelSlider.Show = FrictionSlider.Show = true;
+
+            if (Jump is BobPhsxDouble)
+                JumpAccelSlider2.Show = JumpLengthSlider2.Show = NumJumpsSlider.Show = true;
+
+            if (Jump is BobPhsxJetman)
+                JetPackFuelSlider.Show = JetPackSlider.Show = true;
+
+            if (Size is BobPhsxScale)
+                Size1Slider.Show = Size2Slider.Show = Gravity1Slider.Show = Gravity2Slider.Show = PhasePeriodSlider.Show = true;
+            else
+                if (Base is BobPhsxNormal)
+                    GravitySlider.Show = true;
+
+            foreach (MenuItem item in MyMenu.Items)
+                if (item.Code == 23 && item.Show)
+                    ResetItemPos(item);
+        }
+
+        void ShowAdvanced()
+        {
+            ResetButton.Show = ResetButton.Selectable = false;
+            foreach (var item in MyMenu.Items)
+                if (item is MenuSlider || item is MenuList)
+                    item.Show = item.Selectable = false;
+        }
+
+        void ShowSimple()
+        {
+            ResetButton.Show = ResetButton.Selectable = true;
+            foreach (var item in MyMenu.Items)
+                if (item is MenuSlider || item is MenuList)
+                    item.Show = item.Selectable = item.Code != 23;
+        }
+
+        MenuItem ResetButton;
+        private void MakeBasicSliders()
+        {
+            ItemPos = new Vector2(-1069.841f, -460.2539f);
+            PosAdd = new Vector2(0, -145);
 
             AccelSlider = new MenuSlider(new EzText("accel", ItemFont));
             AccelSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
@@ -360,6 +775,23 @@ namespace CloudberryKingdom
             MaxSpeedSlider = new MenuSlider(new EzText("max vel", ItemFont));
             MaxSpeedSlider.MyFloat = new WrappedFloat(1f, .5f, 2f);
             AddItem(MaxSpeedSlider);
+
+            // Reset
+            var item = ResetButton = new MenuItem(new EzText("Reset", ItemFont));
+            AddItem(item);
+            item.Go = Cast.ToItem(ResetSliders);
+            item.ScaleText(.7f);
+            item.SetPos -= new Vector2(0, -20);
+        }
+
+        void ResetSliders()
+        {
+            foreach (var item in MyMenu.Items)
+            {
+                MenuSlider slider = item as MenuSlider;
+                if (null != slider)
+                    slider.Reset();
+            }
         }
 
         QuadClass Band;
@@ -384,13 +816,45 @@ namespace CloudberryKingdom
             base.OnReturnTo();
         }
 
+        /// <summary>
+        /// Whether we are in basic editing mode.
+        /// </summary>
+        bool Basic = true;
+
         protected override void MyPhsxStep()
         {
+            if (Basic)
+            {
+                if (AdvancedAvailable())
+                    Y.Show = Y.Selectable = true;
+                else
+                    Y.Show = Y.Selectable = false;
+            }
+
             if (Testing)
             {
                 TestingPhsx();
                 return;
             }
+
+            if (Size == BobPhsxScale.Instance)
+            {
+                GravitySlider.Selectable = false;
+            }
+            else
+            {
+                GravitySlider.Selectable = true;
+            }
+
+            if (Base == BobPhsxSpaceship.Instance)
+            {
+                JumpList.Selectable = false;
+            }
+            else
+            {
+                JumpList.Selectable = true;
+            }
+
 
             base.MyPhsxStep();
 

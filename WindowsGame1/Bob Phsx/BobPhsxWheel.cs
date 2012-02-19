@@ -43,6 +43,8 @@ namespace CloudberryKingdom
         public BobPhsxWheel()
         {
             LandSound = Tools.SoundWad.FindByName("BoxHero_Land");
+
+            DefaultValues();
         }
 
         public override void DefaultValues()
@@ -64,8 +66,6 @@ namespace CloudberryKingdom
             MyBob.JumpSound = Tools.SoundWad.FindByName("BoxHero_Jump");
 
             InitializedAnim = false;
-
-            DefaultValues();
 
             OnGround = false;
             StartedJump = false;

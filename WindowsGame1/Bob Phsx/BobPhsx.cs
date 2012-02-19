@@ -80,6 +80,10 @@ namespace CloudberryKingdom
 
         public static BobPhsx MakeCustom(BobPhsx BaseType, BobPhsx Shape, BobPhsx MoveMod)
         {
+            // Error catch. Spaceship can't be rocketman or double jump
+            if (BaseType is BobPhsxSpaceship)
+                MoveMod = BobPhsxNormal.Instance;
+
             // Make the phsx
             BobPhsx custom = BaseType.Clone();
             Shape.Set(custom);
@@ -168,13 +172,7 @@ namespace CloudberryKingdom
             set { MyBob.Core.Data.Acceleration = value; }
         }
 
-        public Action<BobPhsx> ModPhsxValues;
         public virtual void DefaultValues() { }
-        protected void ApplyPhsxMod()
-        {
-            if (ModPhsxValues != null)
-                ModPhsxValues(this);
-        }
 
         public float BlobMod = 1f;
 
@@ -279,20 +277,22 @@ namespace CloudberryKingdom
         protected float ExplosionScale = 1.4f;
         protected float RunAnimSpeed = 1f;
         public float ScaledFactor = 1f;
+
+        public float OscillateSize1 = .32f, OscillateSize2 = 2.08f, OscillatePeriod = 2 * 3.14159f;
+        public float OscillateGravity1 = 2.534208f, OscillateGravity2 = 2.91155f;
         void OscillatePhsx()
         {
-            float t = MyBob.Core.GetPhsxStep() / 30f;
-            //float scale = (float)(1.42f + 1.075f * Math.Sin(t));
-            float scale = (float)(1.2f + .88f * Math.Sin(t));
+            float t = MyBob.Core.GetPhsxStep();
+            float scale = Tools.Periodic(OscillateSize1, OscillateSize2, 30 * OscillatePeriod, t, 90);
             ScaledFactor = scale;
 
             Vector2 size = Prototype.PlayerObject.ParentQuad.Size * new Vector2(1.7f, 1.4f);
             size *= scale;
             MyBob.PlayerObject.ParentQuad.Size = size;
 
-            ExplosionScale = 1.4f * ((scale - 1) * .5f + 1);
-            Gravity = 2.68f * ((scale - 1) * .08f + 1);
+            Gravity = Tools.Periodic(OscillateGravity1, OscillateGravity2, 30 * OscillatePeriod, t, 90);
             RunAnimSpeed = 1f / ((scale - 1) * .16f + 1);
+            ExplosionScale = 1.4f * ((scale - 1) * .5f + 1);
 
             Cape cape = MyBob.MyCape;
             if (cape != null)

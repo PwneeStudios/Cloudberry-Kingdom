@@ -249,9 +249,9 @@ namespace Drawing
             AllLoaded.val = true;
         }
         */
-        public static float PercentToLoad = 
-                    //1f;
-                    .2f;
+        public static float PercentToLoad =
+                    1f;
+                    //.2f;
         public void LoadAllDirect(ContentManager Content)
         {
             EzTexture Tex;

@@ -626,7 +626,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static float Periodic(float A, float B, float period, float t)
         {
-            float Normalized = .5f - .5f * (float)Math.Cos(t * 2 * Math.PI / period);
+            return Periodic(A, B, period, t, 0);
+        }
+        public static float Periodic(float A, float B, float period, float t, float PhaseDegree)
+        {
+            float Normalized = .5f - .5f * (float)Math.Cos(t * 2 * Math.PI / period + Tools.Radians(PhaseDegree));
             return A + (B - A) * Normalized;
         }
         public static Vector2 Periodic(Vector2 A, Vector2 B, float period, float t)

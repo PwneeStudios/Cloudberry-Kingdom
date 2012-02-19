@@ -239,8 +239,9 @@ namespace CloudberryKingdom
                 {
                     ClrTextFx data = (ClrTextFx)item.obj;
 
-                    //Check if color is available
-                    if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
+                    // Check if color is available
+                    if (!CloudberryKingdomGame.UnlockAll)
+                        if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
 
                     Count++;
                 }
@@ -269,8 +270,9 @@ namespace CloudberryKingdom
                 {
                     ClrTextFx data = (ClrTextFx)item.obj;
 
-                    //Check if color is available
-                    if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
+                    // Check if color is available
+                    if (!CloudberryKingdomGame.UnlockAll)
+                        if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
 
                     QuadClass quad = new QuadClass();
                     quad.SetToDefault();

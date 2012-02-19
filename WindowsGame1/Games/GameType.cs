@@ -1238,10 +1238,31 @@ namespace CloudberryKingdom
                     PrepareToDraw();
                     Tools.Device.Clear(Color.Black);
 
+                    if (ForceLevelZoomBeforeDraw > 0)
+                        Cam.Zoom = new Vector2(ForceLevelZoomBeforeDraw);
+                    CalculateForceZoom();
                     MyLevel.Draw();
                     
                     CharacterSelectManager.Draw();
                 }
+        }
+
+        /// <summary>
+        /// This is a hack.
+        /// </summary>
+        public float ForceLevelZoomBeforeDraw = 0;
+        public bool DoForceZoom = false;
+        public float ForceTargetZoom;
+
+        void CalculateForceZoom()
+        {
+            if (!DoForceZoom) return;
+
+            if (ForceLevelZoomBeforeDraw < ForceTargetZoom)
+                ForceLevelZoomBeforeDraw += .00001f * (float)Math.Pow((ForceTargetZoom - ForceLevelZoomBeforeDraw) / (.00085f - .0007f), .5f);
+
+            if (ForceLevelZoomBeforeDraw > ForceTargetZoom)
+                ForceLevelZoomBeforeDraw -= .00001f * (float)Math.Pow((ForceLevelZoomBeforeDraw - ForceTargetZoom) / (.00085f - .0007f), .5f);
         }
 
         public virtual void PreDraw()

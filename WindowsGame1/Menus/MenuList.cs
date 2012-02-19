@@ -361,7 +361,9 @@ namespace CloudberryKingdom
             CurMenuItem.PosOffset = ItemPos;
 
             CurMenuItem.MyMenu = MyMenu;
+            if (!Selectable && GrayOutOnUnselectable) CurMenuItem.DoGrayOut();
             CurMenuItem.Draw(Text, cam, Selected);
+            if (!Selectable && GrayOutOnUnselectable) CurMenuItem.DoDeGrayOut();
             if (MyMenuListExpand == null)
                 CurMenuItem.MyMenu = null;
             else

@@ -356,6 +356,11 @@ namespace CloudberryKingdom.Levels
 
             block.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
+            // Ensure bounds
+            float CurTrX = block.Box.GetTR().X;
+            if (CurTrX > TR.X + 250)
+                block.Move(new Vector2(TR.X + 250 - CurTrX, 0));
+
             if (Style.RemoveBlockOnCol)
                 block.BlockCore.GenData.RemoveIfUsed = true;
 

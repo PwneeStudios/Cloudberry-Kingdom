@@ -116,7 +116,7 @@ namespace CloudberryKingdom
                     ||
                     hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
                     ||
-                    CloudberryKingdomGame.GiveAllHats)
+                    CloudberryKingdomGame.UnlockAll)
                     AvailableHats += hat;
         }
 

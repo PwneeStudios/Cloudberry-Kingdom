@@ -35,6 +35,9 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
+            if (MyGame.MyLevel.StartDoor == null)
+                WatchedOnce = true;
+
             // Add the princess
             if (!WatchedOnce)
             {
@@ -47,7 +50,8 @@ namespace CloudberryKingdom
             else
                 PauseGame = true;
 
-            MyGame.HideBobs();
+            if (MyGame.MyLevel.StartDoor != null)
+                MyGame.HideBobs();
             MyGame.PhsxStepsToDo += 2;
             
             // Start the music
@@ -68,7 +72,7 @@ namespace CloudberryKingdom
 
         protected void TutorialOrSkip()
         {
-            if (!WatchedOnce)
+            if (!WatchedOnce && MyGame.MyLevel.StartDoor != null)
             {
                 MyGame.MyLevel.PreventReset = MyGame.MyLevel.PreventHelp = true;
 

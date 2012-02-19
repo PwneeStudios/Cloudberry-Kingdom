@@ -201,11 +201,10 @@ namespace CloudberryKingdom
             //Add(() => LoadAsSubGame(new Campaign_BossNew(true), false));
 
             // Hardcore intro
-            if (Campaign.Difficulty > 2)
-            //if (Campaign.Difficulty > 1 && !Campaign_Chaos.WatchedOnce)
-            {
-                AddSubGame(() => new Campaign_Chaos(null));
-            }
+            //if (Campaign.Difficulty > 2)
+            //{
+            //    AddSubGame(() => new Campaign_Chaos(null));
+            //}
 
 
             // World titles

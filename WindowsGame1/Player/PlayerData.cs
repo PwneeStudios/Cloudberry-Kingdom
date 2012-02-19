@@ -61,6 +61,8 @@ namespace CloudberryKingdom
 
         public void Read(BinaryReader reader)
         {
+            return;
+
             // Version
             int LoadedVersion = reader.ReadInt32();
 
@@ -81,9 +83,6 @@ namespace CloudberryKingdom
             n = reader.ReadInt32();
             for (int i = 0; i < n; i++)
                 Purchases += reader.ReadInt32();
-
-            Purchases += 3518;
-            Purchases += 3520;
 
             // Stats
             LifetimeStats.Read(reader);
