@@ -2122,14 +2122,13 @@ ObjectData.UpdateWeak();
 
                 bmpwriter.TextureToBmp(Tools.Screenshot, filename);
 
-                //string filename = "TestSave_" + Tools.Screenshots.ToString() + ".jpg";
-                //Stream stream = File.OpenWrite("TestSave_" + Tools.Screenshots.ToString() + ".jpg");
-                //Tools.Screenshot.SaveAsPng(stream, Tools.Screenshot.Width, Tools.Screenshot.Height);
-                //Tools.Screenshot.Dispose();
-                //stream.Close();
-
                 if (!Tools.CapturingVideo)
                     ChangeScreenshotMode();
+
+                Tools.StartSpriteBatch();
+                //Tools.spriteBatch.Draw(Tools.TextureWad.TextureList[0].Tex, Vector2.Zero, Color.White);
+                Tools.spriteBatch.Draw(Tools.Screenshot, Vector2.Zero, Color.White);
+                Tools.EndSpriteBatch();
             }
 #endif
         }
@@ -2307,7 +2306,8 @@ ObjectData.UpdateWeak();
 
             imageFormat = System.Drawing.Imaging.ImageFormat.Png;
         }
-        public void TextureToBmp(Texture2D texture, String filename)
+
+        public void TextureToBmp(Texture2D texture, String filename, bool DelaySave = false)
         {
             texture.GetData<byte>(textureData);
             byte blue;
@@ -2318,17 +2318,20 @@ ObjectData.UpdateWeak();
                 textureData[i + 2] = blue;
             }
 
-            bitmapData = bmp.LockBits(
-                           rect,
-                           System.Drawing.Imaging.ImageLockMode.WriteOnly,
-                           System.Drawing.Imaging.PixelFormat.Format32bppArgb
-                         );
+            //bitmapData = bmp.LockBits(
+            //               rect,
+            //               System.Drawing.Imaging.ImageLockMode.WriteOnly,
+            //               System.Drawing.Imaging.PixelFormat.Format32bppArgb
+            //             );
 
             safePtr = bitmapData.Scan0;
             System.Runtime.InteropServices.Marshal.Copy(textureData, 0, safePtr, textureData.Length);
-            bmp.UnlockBits(bitmapData);
+            //bmp.UnlockBits(bitmapData);
 
-            bmp.Save(filename, imageFormat);
+            if (DelaySave)
+                ;
+            else
+                bmp.Save(filename, imageFormat);
         }
     }
     #endif

@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Drawing;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
@@ -313,6 +315,22 @@ namespace CloudberryKingdom
             MyBob.Core.Data.Acceleration = new Vector2(0, -1.9f);
 
             Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel);
+        }
+
+        public override void BlockInteractions()
+        {
+            if (Core.MyLevel.PlayMode != 0) return;
+
+            foreach (Block block in Core.MyLevel.Blocks)
+            {
+                if (!block.Core.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
+                {
+                    if (!MyBob.Immortal)
+                        MyBob.Die(Bob.BobDeathType.Other);
+                    else
+                        block.Hit(MyBob);
+                }
+            }            
         }
     }
 }

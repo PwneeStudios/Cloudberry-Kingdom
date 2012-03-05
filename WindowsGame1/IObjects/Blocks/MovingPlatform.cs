@@ -41,8 +41,11 @@ namespace CloudberryKingdom.Blocks
         {
             if (Params.MyStyle == BlockEmitter_Parameters.Style.Separated)
             {
-                if (Core.MyLevel.CurPhsxStep - Params.LastUsedTimeStamp > 5) return true;
-                else return false;
+                // Don't let the computer use another elevator too soon after using another one.
+                if (Core.MyLevel.CurPhsxStep - Params.LastUsedTimeStamp > 5)
+                    return true;
+                else
+                    return false;
             }
             else
             {

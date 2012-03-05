@@ -5,6 +5,7 @@ using Drawing;
 using System;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
+using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
@@ -141,6 +142,7 @@ namespace CloudberryKingdom
         public ObjectClass Obj { get { return MyBob.PlayerObject; } }
 
         public Level MyLevel { get { return MyBob.Core.MyLevel; } }
+        public ObjectData Core { get { return MyBob.Core; } }
 
         public Vector2 Pos
         {
@@ -423,6 +425,25 @@ namespace CloudberryKingdom
         }
 
         public virtual void Die(Bob.BobDeathType DeathType)
+        {
+        }
+
+        public virtual void BlockInteractions()
+        {
+            foreach (Block block in MyLevel.Blocks)
+            {
+                if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
+                if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                    continue;
+
+                ColType Col = Phsx.CollisionTest(MyBob.Box, block.Box);
+
+                if (Col != ColType.NoCol)
+                    MyBob.InteractWithBlock(block.Box, block, Col);
+            }
+        }
+
+        public virtual void BlockInteractions_Stage1()
         {
         }
 
