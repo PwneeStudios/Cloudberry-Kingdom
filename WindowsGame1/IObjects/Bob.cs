@@ -2477,24 +2477,34 @@ namespace CloudberryKingdom.Bobs
 
                         if (Col != ColType.NoCol || Overlap)
                         {
+                            // EXTRACT
                             if (block.BlockCore.Ceiling)
                             {
                                 block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
                                 continue;
                             }
 
+                            // Decide if we should delete or keep the block
+                            // PUT ALL OF THIS as a default method that can be overriden?
                             bool Delete = false;
                             bool MakeTopOnly = false;
+                            // MAKE SAVENOBLOCK a countdown
                             if (SaveNoBlock) Delete = true;
                             if (BottomCol && Col == ColType.Top) Delete = true;
-                            if (Col == ColType.Top && WantsToLand == false) Delete = true;
-                            if (Col == ColType.Bottom && Core.Data.Position.Y < TargetPosition.Y) Delete = true;
-                            if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;
                             if (TopCol && Col == ColType.Bottom) Delete = true;
+                            if (Col == ColType.Top && WantsToLand == false) Delete = true;
+                            // DELETE?
+                            if (Col == ColType.Bottom && Core.Data.Position.Y < TargetPosition.Y) Delete = true;
+                            // EXTRACT
+                            if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;
+                            // SHOULD BE able to override this
                             if (Col == ColType.Bottom) Delete = true;
+                            // ???
                             if (Overlap && Col == ColType.NoCol && !block.Box.TopOnly && !(block is NormalBlock && !block.BlockCore.NonTopUsed)) Delete = true;
+                            // EXTRACT
                             if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
                             
+                            // EXTRACT
                             // Note if we use the left or right side of the block
                             if ((Col == ColType.Left || Col == ColType.Right) && Col != ColType.Top)
                             {
@@ -2504,6 +2514,7 @@ namespace CloudberryKingdom.Bobs
                                     MakeTopOnly = true;
                             }
                             
+                            // EXTRACT
                             // If we've used something besides the top of the block already,
                             // make sure we don't make the block top only
                             if (block.BlockCore.NonTopUsed || !(block is NormalBlock))
@@ -2515,7 +2526,7 @@ namespace CloudberryKingdom.Bobs
                                 }
                             }
 
-                            // If we are trying to make a block be top only that can't be, delete it
+                            // EXTRACT If we are trying to make a block be top only that can't be, delete it
                             if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
                             {
                                 if (block.Core.GenData.Used)
@@ -2524,6 +2535,7 @@ namespace CloudberryKingdom.Bobs
                                     Delete = true;
                             }
 
+                            // EXTRACT
                             if (MakeTopOnly)
                             {
                                 block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
@@ -2553,23 +2565,11 @@ namespace CloudberryKingdom.Bobs
                             if (block.Core.GenData.Used) Delete = false;
                             if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
                             if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+                            // ??? IT SEEMS LIKE we are always overlapping if we are colliding?
                             if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
                             if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
 
-                            // Shift bottom of block if necessary
-                            if (!Delete && !block.BlockCore.DeleteIfTopOnly)
-                            {
-                                float NewBottom = Math.Max(block.Box.Current.BL.Y,
-                                                           Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position));
 
-                                if (block is NormalBlock &&
-                                    (Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
-                                    !block.BlockCore.NonTopUsed)
-                                {
-                                    block.Extend(Side.Bottom, NewBottom);
-                                    ((NormalBlock)block).CheckHeight();
-                                }
-                            }
 
                             // We're done deciding if we should delete the block or not.
                             // If we should delete it, delete.
@@ -2582,6 +2582,20 @@ namespace CloudberryKingdom.Bobs
                             else
                             {
                                 Delete = false;
+
+                                // EXTRACT Shift bottom of block if necessary
+                                if (block is NormalBlock && !block.BlockCore.DeleteIfTopOnly)
+                                {
+                                    float NewBottom = Math.Max(block.Box.Current.BL.Y,
+                                                               Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position));
+
+                                    if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
+                                        !block.BlockCore.NonTopUsed)
+                                    {
+                                        block.Extend(Side.Bottom, NewBottom);
+                                        ((NormalBlock)block).CheckHeight();
+                                    }
+                                }
 
                                 if (Col != ColType.NoCol)
                                 {
@@ -2596,7 +2610,7 @@ namespace CloudberryKingdom.Bobs
                                             InteractWithBlock(block.Box, block, Col);
                                             block.StampAsUsed(CurPhsxStep);
 
-                                            // Normal blocks delete surrounding blocks when stamped as used
+                                            // EXTRACT Normal blocks delete surrounding blocks when stamped as used
                                             if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
                                                 foreach (Block nblock in Core.MyLevel.Blocks)
                                                 {
@@ -2611,7 +2625,7 @@ namespace CloudberryKingdom.Bobs
                                                         }
                                                 }
 
-                                            // Ghost blocks delete surrounding blocks when stamped as used
+                                            // EXTRACT Ghost blocks delete surrounding blocks when stamped as used
                                             if (block is GhostBlock)
                                                 foreach (Block gblock in Core.MyLevel.Blocks)
                                                 {
@@ -2628,12 +2642,13 @@ namespace CloudberryKingdom.Bobs
                                     }
                                 }
 
+                                /*
                                 Delete = false;
                                 if (block.Core.GenData.RemoveIfOverlap)
                                 {
                                     if (Phsx.BoxBoxOverlap(Box, block.Box))
                                         Delete = true;
-                                }
+                                }*/
                             }
                         }
                     }

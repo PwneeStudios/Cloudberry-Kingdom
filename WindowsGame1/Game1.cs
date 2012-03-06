@@ -233,6 +233,13 @@ namespace CloudberryKingdom
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             }
+#if DEBUG
+            if (!graphics.IsFullScreen)
+            {
+                graphics.PreferredBackBufferWidth = 1280;
+                graphics.PreferredBackBufferHeight = 720;
+            }
+#endif
 #endif
             graphics.ApplyChanges();
             Window.Title = "Cloudberry Kingdom";
