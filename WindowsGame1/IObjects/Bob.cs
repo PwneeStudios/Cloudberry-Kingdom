@@ -2397,12 +2397,13 @@ namespace CloudberryKingdom.Bobs
             Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
         }
 
-        void DeleteObj(IObject obj)
+        public void DeleteObj(IObject obj)
         {
             obj.Core.DeletedByBob = true;
             Core.Recycle.CollectObject(obj);
         }
 
+        public Ceiling_Parameters CeilingParams;
         /// <summary>
         /// Calculate all interactions between the player and every Block in the level.
         /// </summary>
@@ -2423,7 +2424,7 @@ namespace CloudberryKingdom.Bobs
                     MyPhsx.BlockInteractions();
                 else
                 {
-                    Ceiling_Parameters CeilingParams = (Ceiling_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(Ceiling_AutoGen.Instance);
+                    CeilingParams = (Ceiling_Parameters)Core.GetParams(Ceiling_AutoGen.Instance);
 
                     foreach (Block block in Core.MyLevel.Blocks)
                     {
@@ -2431,42 +2432,7 @@ namespace CloudberryKingdom.Bobs
                         if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
                             continue;
 
-                        // Ceiling block
-                        if (block.BlockCore.Ceiling)
-                        {
-                            if (Core.Data.Position.X > block.Box.Current.BL.X - 100 &&
-                                Core.Data.Position.X < block.Box.Current.TR.X + 100)
-                            {
-                                float NewBottom = block.Box.Current.BL.Y;
-
-                                // If ceiling has a left neighbor make sure we aren't too close to it
-                                if (block.BlockCore.TopLeftNeighbor != null)
-                                {
-                                    if (NewBottom > block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y - 100)
-                                        NewBottom = Math.Max(NewBottom, block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y + 120);
-                                }
-                                block.Extend(Side.Bottom, Math.Max(NewBottom, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
-                                if (block.Box.Current.Size.Y < 170 ||
-                                    block.Box.Current.BL.Y > Core.MyLevel.MainCamera.TR.Y - 75)
-                                {
-                                    DeleteObj(block);
-                                }
-                            }
-                            continue;
-                        }
-
-                        // For lava blocks...
-                        if (block is LavaBlock)
-                        {
-                            // If the computer gets close, move the lava block down
-                            if (Box.Current.TR.X > block.Box.Current.BL.X &&
-                                Box.Current.BL.X < block.Box.Current.TR.X)
-                            {
-                                Core.MyLevel.PushLava(Box.Target.BL.Y - 60, block as LavaBlock);
-                            }
-                            continue;
-                        }
-
+                        if (block.PreDecision(this)) continue;
                         if (!block.IsActive) continue;
 
                         // Collision check
@@ -2477,6 +2443,7 @@ namespace CloudberryKingdom.Bobs
 
                         if (Col != ColType.NoCol || Overlap)
                         {
+                            block.PostCollidePreDecision(this);
                             // EXTRACT
                             if (block.BlockCore.Ceiling)
                             {
@@ -2672,6 +2639,7 @@ public bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+public bool PreDecision(Bob bob) { return false; }
+//StubStubStubEnd7
     }
 }

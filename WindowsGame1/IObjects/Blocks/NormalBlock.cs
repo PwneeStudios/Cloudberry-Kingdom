@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom.Blocks
 {
     public delegate void BlockExtendCallback(NormalBlock block);
-    public class NormalBlock : Block
+    public class NormalBlock : BlockBase, Block
     {
         public void TextDraw() { }
 
@@ -519,6 +519,39 @@ namespace CloudberryKingdom.Blocks
             Box.Read(reader);
             ResetPieces();
         }
+
+        public bool PreDecision(Bob bob)
+        {
+            if (BlockCore.Ceiling)
+            {
+                if (bob.Core.Data.Position.X > Box.Current.BL.X - 100 &&
+                    bob.Core.Data.Position.X < Box.Current.TR.X + 100)
+                {
+                    float NewBottom = Box.Current.BL.Y;
+
+                    // If ceiling has a left neighbor make sure we aren't too close to it
+                    if (BlockCore.TopLeftNeighbor != null)
+                    {
+                        if (NewBottom > BlockCore.TopLeftNeighbor.Box.Current.BL.Y - 100)
+                            NewBottom = Math.Max(NewBottom, BlockCore.TopLeftNeighbor.Box.Current.BL.Y + 120);
+                    }
+                    Extend(Side.Bottom,
+                        Math.Max(NewBottom,
+                                 Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y)
+                                    + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+
+                    if (Box.Current.Size.Y < 170 ||
+                        Box.Current.BL.Y > bob.Core.MyLevel.MainCamera.TR.Y - 75)
+                    {
+                        bob.DeleteObj(this);
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
 //StubStubStubStart
 public void OnUsed() { }
 public void OnMarkedForDeletion() { }
@@ -527,6 +560,6 @@ public bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+//StubStubStubEnd7
     }
 }

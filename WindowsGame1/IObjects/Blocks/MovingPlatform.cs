@@ -7,7 +7,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Blocks
 {
-    public class MovingPlatform : Block
+    public class MovingPlatform : BlockBase, Block
     {
         public void TextDraw() { }
 
@@ -291,6 +291,7 @@ public void OnAttachedToBlock() { }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+public bool PreDecision(Bob bob) { return false; }
+//StubStubStubEnd7
     }
 }

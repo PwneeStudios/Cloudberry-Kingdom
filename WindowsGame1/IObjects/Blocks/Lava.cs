@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class LavaBlock : Block
+    public class LavaBlock : BlockBase, Block
     {
         public void TextDraw() { }
 
@@ -255,6 +255,18 @@ namespace CloudberryKingdom
             }
         }
 
+        public bool PreDecision(Bob bob)
+        {
+            // If the computer gets close, move the lava block down
+            if (bob.Box.Current.TR.X > Box.Current.BL.X &&
+                bob.Box.Current.BL.X < Box.Current.TR.X)
+            {
+                bob.Core.MyLevel.PushLava(bob.Box.Target.BL.Y - 60, this);
+            }
+
+            return true;
+        }
+
         public void Clone(IObject A)
         {
             Core.Clone(A.Core);
@@ -277,6 +289,6 @@ public bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+//StubStubStubEnd7
     }
 }

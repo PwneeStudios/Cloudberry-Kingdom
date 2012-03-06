@@ -765,6 +765,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
         }
 
 
+        public static float Max(params float[] vals)
+        {
+            float max = vals[0];
+            for (int i = 1; i < vals.Length; i++)
+                max = Math.Max(max, vals[i]);
+            return max;
+        }
+
         /// <summary>
         /// Take in two vectors and find both the max and the min.
         /// </summary>

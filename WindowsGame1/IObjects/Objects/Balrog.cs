@@ -153,7 +153,8 @@ public bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+public bool PreDecision(Bob bob) { return false; }
+//StubStubStubEnd7
     }
 
     public class Balrog : IObject
@@ -354,6 +355,7 @@ public bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
 public void Smash(Bob bob) { }
-//StubStubStubEnd6
+public bool PreDecision(Bob bob) { return false; }
+//StubStubStubEnd7
     }
 }

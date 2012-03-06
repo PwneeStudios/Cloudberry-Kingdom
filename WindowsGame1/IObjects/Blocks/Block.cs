@@ -204,6 +204,10 @@ namespace CloudberryKingdom.Blocks
         }
     }
 
+    public class BlockBase
+    {
+        public bool PostCollidePreDecision(Bob bob) { return false; }
+    }
 
     public interface Block : IObject
     {
@@ -219,9 +223,6 @@ namespace CloudberryKingdom.Blocks
         void SideHit(Bob bob);
         void Hit(Bob bob);
 
-        void Release();
-
-        void Write(BinaryWriter writer);
-        void Read(BinaryReader reader);
+        bool PreDecision(Bob bob);
     }
 }
