@@ -206,7 +206,59 @@ namespace CloudberryKingdom.Blocks
 
     public class BlockBase
     {
-        public bool PostCollidePreDecision(Bob bob) { return false; }
+        public virtual bool PostCollidePreDecision(Bob bob) { return false; }
+
+        public virtual bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            return Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap);
+        }
+
+        public static bool Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            // Decide if we should delete or keep the block
+            bool Delete = false;
+
+            // MAKE SAVENOBLOCK a countdown
+            if (bob.SaveNoBlock) Delete = true;
+            if (bob.BottomCol && Col == ColType.Top) Delete = true;
+            if (bob.TopCol && Col == ColType.Bottom) Delete = true;
+            if (Col == ColType.Top && bob.WantsToLand == false) Delete = true;
+            // SHOULD BE able to override this
+            if (Col == ColType.Bottom && bob.Core.Data.Position.Y < bob.TargetPosition.Y) Delete = true;
+            if (Col == ColType.Bottom) Delete = true;
+            // ???
+            if (Overlap && Col == ColType.NoCol && !block.Box.TopOnly && !(block is NormalBlock && !block.BlockCore.NonTopUsed)) Delete = true;
+
+
+            // Don't land on the very edge of the block
+            if (!Delete && !bob.MyPhsx.OnGround)
+            {
+                float Safety = block.BlockCore.GenData.EdgeSafety;
+                if (bob.Box.BL.X > block.Box.TR.X - Safety ||
+                    bob.Box.TR.X < block.Box.BL.X + Safety)
+                {
+                    Delete = true;
+                }
+            }
+
+            // Don't land on a block that says not to
+            bool DesiresDeletion = false;
+            if (block.Core.GenData.TemporaryNoLandZone ||
+                !block.Core.GenData.Used && !block.PermissionToUse())
+                DesiresDeletion = Delete = true;
+
+            if (block.Core.GenData.Used) Delete = false;
+            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && bob.WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+            // ??? IT SEEMS LIKE we are always overlapping if we are colliding?
+            if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
+            if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
+
+            return Delete;
+        }
+        
+        public virtual void PostKeep(Bob bob, ref ColType Col, ref bool Overlap) { }
+        public virtual void PostInteractWith(Bob bob) { }
     }
 
     public interface Block : IObject
@@ -224,5 +276,10 @@ namespace CloudberryKingdom.Blocks
         void Hit(Bob bob);
 
         bool PreDecision(Bob bob);
+
+        bool PostCollidePreDecision(Bob bob);
+        bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap);
+        void PostKeep(Bob bob, ref ColType Col, ref bool Overlap);
+        void PostInteractWith(Bob bob);
     }
 }

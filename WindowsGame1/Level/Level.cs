@@ -528,6 +528,7 @@ namespace CloudberryKingdom.Levels
 
         //public int GetPhsxStep() { return CurPhsxStep + StartPhsxStep + 1; }
         public int GetPhsxStep() { return CurPhsxStep + 1; }
+        public float GetIndependentPhsxStep() { return IndependentPhsxStep + 1; }
 
         /// <summary>
         /// The file this level was loaded from.
@@ -985,6 +986,7 @@ namespace CloudberryKingdom.Levels
             MainCamera.Update();
 
             CurPhsxStep = StartPhsxStep = CurPiece.StartPhsxStep;
+            IndependentStepSetOnce = false;
 
 
             // Save sub draw layers
@@ -2156,21 +2158,21 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public Bob LowestBob;
+
+        //public Bob LowestBob;
         public void PhsxStep(bool NotDrawing) { PhsxStep(NotDrawing, true); }
         public void PhsxStep(bool NotDrawing, bool GUIPhsx)
         {
-            LowestBob = null;
-            LowestBob = Bobs.ArgMax(bob => bob.Pos.Y);
+            //LowestBob = null;
+            //LowestBob = Bobs.ArgMax(bob => bob.Pos.Y);
+
+            if (!IndependentStepSetOnce)
+                SetIndependentStep();
 
 #if WINDOWS
             if (Tools.Editing)
             {
-                foreach (IObject obj in Objects)
-                    if (obj is Block)
-                        Blocks.Add((Block)obj);
-
-                Objects.RemoveAll(obj => obj is Block);
+                EditingPhsxStep();
             }
 #endif
             if (LevelReleased) return;
@@ -2272,12 +2274,65 @@ namespace CloudberryKingdom.Levels
                 MainCamera.PhsxStep();
             else
                 MainCamera.Update();
-            
+        
+            // Increase number of steps taken
             CurPhsxStep++;
 
+            // Increase time (may not be related to number of steps taken)
+            SetIndependentStep();
+
+            // If the player is playing record this frame
             if (!(PlayMode != 0 || Watching))
                 if (Recording) CurrentRecording.Record(this);
         }
+
+        private void SetIndependentStep()
+        {
+            float PrevIndependentPhsxStep = IndependentPhsxStep;
+            TimeType = TimeTypes.Regular;
+            switch (TimeType)
+            {
+                case TimeTypes.Regular:
+                    IndependentPhsxStep = CurPhsxStep;
+                    break;
+
+                case TimeTypes.xSync:
+                    if (Bobs.Count > 0 && Bobs[0] != null)
+                    {
+                        float New = Bobs[0].Pos.X / 10;
+
+                        if (!IndependentStepSetOnce)
+                            Prev = New;
+
+                        IndependentPhsxStep = Math.Max(New, Prev);
+                        Prev = New;
+                    }
+                    break;
+            }
+
+            IndependentDeltaT = IndependentPhsxStep - PrevIndependentPhsxStep;
+            IndependentStepSetOnce = true;
+        }
+
+        public bool IndependentStepSetOnce = false;
+        public float IndependentPhsxStep = 0, IndependentDeltaT = 0;
+        float Prev = 0;
+
+        public enum TimeTypes { Regular, xSync };
+        public TimeTypes TimeType = TimeTypes.Regular;
+
+
+        private void EditingPhsxStep()
+        {
+            foreach (IObject obj in Objects)
+                if (obj is Block)
+                    Blocks.Add((Block)obj);
+
+            Objects.RemoveAll(obj => obj is Block);
+        }
+
+
+
 
         public List<IObject> ActiveObjectList;
 

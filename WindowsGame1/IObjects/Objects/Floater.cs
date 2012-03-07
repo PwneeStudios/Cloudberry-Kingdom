@@ -106,10 +106,10 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            //int Step = (Core.MyLevel.GetPhsxStep() + Offset) % Period;
-            int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            float Step = Tools.Modulo(Core.MyLevel.IndependentPhsxStep + Offset, (float)Period);
             float t = (float)Step / (float)Period;
-
+             
             Vector2 Pos = GetPos(t);
             Angle = CorrespondingAngle;
 

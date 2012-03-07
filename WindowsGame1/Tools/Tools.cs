@@ -609,6 +609,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return M;
         }
 
+        public static float Modulo(float n, float p)
+        {
+            float M = n - (int)(n / p) * p;
+            if (M < 0) M += p;
+            return M;
+        }
+
         public static float ZigZag(float period, float t)
         {
             float p = period / 2;

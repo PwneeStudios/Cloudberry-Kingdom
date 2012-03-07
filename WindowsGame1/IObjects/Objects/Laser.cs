@@ -158,8 +158,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                //int Step = (Core.MyLevel.GetPhsxStep() + Offset) % Period;
-                int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+                //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+                float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
                 if (Step < WarnDuration)
                 {
                     MyState = LaserState.Warn;

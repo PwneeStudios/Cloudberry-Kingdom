@@ -998,7 +998,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.A, PlayerIndex).Pressed)
             {
-#if PC_VERSION
+#if PC_VERSION || DEBUG
                 SetState(SelectState.SimpleSelect);
 #else
                 if (Player.MyGamer != null)

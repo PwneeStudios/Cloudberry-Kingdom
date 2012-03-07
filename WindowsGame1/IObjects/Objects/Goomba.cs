@@ -378,8 +378,8 @@ namespace CloudberryKingdom.Goombas
             switch (MyPhsxType)
             {
                 case PhsxType.Prescribed:
-                    //int Step = (Core.GetPhsxStep() + Offset) % Period;
-                    int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+                    //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+                    float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
 
                     if (!Core.Held)
                         Core.Data.Position = CalcPosition((float)Step / Period);
@@ -438,8 +438,6 @@ namespace CloudberryKingdom.Goombas
 
             if (!Core.BoxesOnly) AnimStep();
 
-            int CurPhsxStep = Core.GetPhsxStep();
-
             bool Right, Left, Up;
             Right = Left = Up = false;
 
@@ -449,8 +447,6 @@ namespace CloudberryKingdom.Goombas
             Box.Current.Size = MyObject.Boxes[0].Size() / 2;
             Box.SetTarget(Box.Current.Center, Box.Current.Size + new Vector2(.0f, .02f));
 
-            //Box2.Current.Center = MyObject.Boxes[1].Center();
-            //Box2.Current.Size = MyObject.Boxes[1].Size() / 2;
             Box2.Current.Center = MyObject.Boxes[0].Center();
             Box2.Current.Size = MyObject.Boxes[0].Size() / 2;
             Box2.Current.Size.X -= 40;
@@ -493,7 +489,7 @@ namespace CloudberryKingdom.Goombas
 
             if (CopySource == null)
             if (MyObject.DestinationAnim() == 0 && MyObject.Loop)
-                 MyObject.PlayUpdate(MyAnimSpeed);
+                 MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
         }
 
         public void UpdateObject()

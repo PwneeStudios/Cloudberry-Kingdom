@@ -205,7 +205,7 @@ namespace CloudberryKingdom
         {
             if (Skip) return;
 
-            MyObject.PlayUpdate(1000f / 60f / 150f);
+            MyObject.PlayUpdate(1000f / 60f / 150f * Core.IndependentDeltaT);
         }
 
         public void UpdateObject()

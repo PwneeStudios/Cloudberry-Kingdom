@@ -594,6 +594,13 @@ namespace CloudberryKingdom
             return MyLevel.GetPhsxStep() + StepOffset;
         }
 
+        public float GetIndependentPhsxStep()
+        {
+            return MyLevel.GetIndependentPhsxStep() + StepOffset;
+        }
+
+        public float IndependentDeltaT { get { return MyLevel.IndependentDeltaT; } }
+
         public bool ContainsCode(string code)
         {
             return (string.Compare(EditorCode1, code) == 0 ||

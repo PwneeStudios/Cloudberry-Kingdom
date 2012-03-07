@@ -552,6 +552,119 @@ namespace CloudberryKingdom.Blocks
 
             return false;
         }
+
+        public override bool PostCollidePreDecision(Bob bob)
+        {
+            if (BlockCore.Ceiling)
+            {
+                Extend(Side.Bottom, Math.Max(Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+                return true;
+            }
+
+            return false;
+        }
+
+        public override bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            bool Delete = Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap);
+            Delete |= base.PostCollideDecision(bob, ref Col, ref Overlap);
+
+            return Delete;
+        }
+
+        new public static bool Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            bool MakeTopOnly = false;
+            bool Delete = false;
+
+            // If we interact with the block in any way besides landing on top of it, make it top only
+            if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
+            if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;
+
+            //// Note if we use the left or right side of the block
+            //if ((Col == ColType.Left || Col == ColType.Right) && Col != ColType.Top)
+            //{
+            //    if (bob.Box.Current.TR.Y < block.Box.Current.TR.Y)
+            //        MakeTopOnly = true;
+            //    else
+            //        MakeTopOnly = true;
+            //}
+
+            // If we've used something besides the top of the block already,
+            // make sure we don't make the block top only
+            if (block.BlockCore.NonTopUsed || !(block is NormalBlock))
+            {
+                if (MakeTopOnly)
+                {
+                    MakeTopOnly = false;
+                    Delete = true;
+                }
+            }
+
+            // If we are trying to make a block be top only that can't be, delete it
+            if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
+            {
+                if (block.Core.GenData.Used)
+                    MakeTopOnly = Delete = false;
+                else
+                    Delete = true;
+            }
+
+            // If we have decided to make the block top only, actually do so
+            if (MakeTopOnly)
+            {
+                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+                ((NormalBlock)block).CheckHeight();
+                if (Col != ColType.Top)
+                    Col = ColType.NoCol;
+            }
+
+            return Delete;
+        }
+
+        public override void PostInteractWith(Bob bob)
+        {
+            base.PostInteractWith(bob);
+
+            Block block = (Block)this;
+
+            // Normal blocks delete surrounding blocks when stamped as used
+            if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
+                foreach (Block nblock in Core.MyLevel.Blocks)
+                {
+                    NormalBlock Normal = nblock as NormalBlock;
+                    if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
+                        if (!Normal.Core.GenData.Used &&
+                            Math.Abs(Normal.Box.Current.TR.Y - block.Box.TR.Y) < 15 &&
+                            !(Normal.Box.Current.TR.X < block.Box.Current.BL.X - 350 || Normal.Box.Current.BL.X > block.Box.Current.TR.X + 350))
+                        {
+                            bob.DeleteObj(Normal);
+                            Normal.IsActive = false;
+                        }
+                }
+        }
+
+        public override void PostKeep(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            base.PostKeep(bob, ref Col, ref Overlap);
+
+            Block block = (NormalBlock)this;
+
+            // Shift bottom of block if necessary
+            if (block is NormalBlock && !block.BlockCore.DeleteIfTopOnly)
+            {
+                float NewBottom = Math.Max(block.Box.Current.BL.Y,
+                                           Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(Core.Data.Position));
+
+                if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
+                    !block.BlockCore.NonTopUsed)
+                {
+                    block.Extend(Side.Bottom, NewBottom);
+                    ((NormalBlock)block).CheckHeight();
+                }
+            }
+        }
+
 //StubStubStubStart
 public void OnUsed() { }
 public void OnMarkedForDeletion() { }

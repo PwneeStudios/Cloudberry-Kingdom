@@ -25,12 +25,6 @@ namespace CloudberryKingdom
 
             base.MakeNew();
 
-            //if (!Core.BoxesOnly)
-            //{
-            //    var color = new Vector4(.5f);
-            //    MyObject.SetColor(new Color(color));
-            //}
-
             Core.DrawLayer = 2;
             Core.DrawLayer2 = 6;
         }
@@ -69,8 +63,8 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            //int Step = (Core.MyLevel.GetPhsxStep() + Offset) % Period;
-            int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
             float t = (float)Step / (float)Period;
 
             Vector2 Pos = GetPos(t);

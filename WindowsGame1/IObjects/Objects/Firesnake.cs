@@ -66,7 +66,8 @@ namespace CloudberryKingdom
 
         public void PhsxStep()
         {
-            double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / (float)Period;
+            //double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / (float)Period;
+            double t = 2 * Math.PI * (Core.GetIndependentPhsxStep() + Offset) / (float)Period;
             Core.Data.Position = Tools.AngleToDir(t) * Radii + Orbit;
 
             Vector2 PhsxCutoff = new Vector2(400);

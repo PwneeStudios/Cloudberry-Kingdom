@@ -181,7 +181,8 @@ namespace CloudberryKingdom.Blocks
         {
             if (!Core.Held)
             {
-                int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+                //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
+                float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
                 Core.Data.Position = CalcPosition((float)Step / Period);
             }
 
@@ -196,11 +197,6 @@ namespace CloudberryKingdom.Blocks
             }
             Core.SkippedPhsx = false;
                         
-            //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
-
-            //if (!Core.Held)
-            //    Core.Data.Position = CalcPosition((float)Step / Period);
-
             MyBox.Target.Center = Core.Data.Position;
 
             Update();

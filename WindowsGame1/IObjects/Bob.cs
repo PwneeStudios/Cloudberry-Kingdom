@@ -2409,6 +2409,284 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         void BlockInteractions()
         {
+            OldBlockInteractions();
+        }
+
+        void OldBlockInteractions()
+        {
+            int CurPhsxStep = Core.MyLevel.CurPhsxStep;
+
+            GroundSpeed = 0;
+
+            SideHitCount--;
+            if (SideHitCount < 0) SideHitCount = 0;
+
+            MyPhsx.ResetJumpModifiers();
+
+            BottomCol = TopCol = false;
+            if (CanInteract)
+                if (Core.MyLevel.PlayMode != 2)
+                {
+                    if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Core.MyLevel.PlayMode == 0)
+                    {
+                        foreach (Block block in Core.MyLevel.Blocks)
+                        {
+                            if (!block.Core.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(Box2, block.Box))
+                            {
+                                if (!Immortal)
+                                    Die(BobDeathType.Other);
+                                else
+                                    block.Hit(this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Block block in Core.MyLevel.Blocks)
+                        {
+                            if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
+                            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                                continue;
+
+                            if (block.Core.MyTileSetType == TileSet.OutsideGrass)
+                                Tools.Write("");
+
+                            ColType Col = Phsx.CollisionTest(Box, block.Box);
+                            if (Col != ColType.NoCol)
+                            {
+                                InteractWithBlock(block.Box, block, Col);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Ceiling_Parameters CeilingParams = (Ceiling_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(Ceiling_AutoGen.Instance);
+
+                    foreach (Block block in Core.MyLevel.Blocks)
+                    {
+                        if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
+                        if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                            continue;
+
+                        if (block.BlockCore.Ceiling)// && !block.Core.GenData.Used)
+                        {
+                            if (Core.Data.Position.X > block.Box.Current.BL.X - 100 &&
+                                Core.Data.Position.X < block.Box.Current.TR.X + 100)
+                            {
+                                float NewBottom = block.Box.Current.BL.Y;
+                                // If ceiling has a left neighbor make sure we aren't too close to it
+                                if (block.BlockCore.TopLeftNeighbor != null)
+                                {
+                                    if (NewBottom > block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y - 100)
+                                        NewBottom = Math.Max(NewBottom, block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y + 120);
+                                }
+                                block.Extend(Side.Bottom, Math.Max(NewBottom, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                if (block.Box.Current.Size.Y < 170 ||
+                                    block.Box.Current.BL.Y > Core.MyLevel.MainCamera.TR.Y - 75)
+                                {
+                                    DeleteObj(block);
+                                }
+                            }
+                            continue;
+                        }
+
+                        // For lava blocks...
+                        if (block is LavaBlock)
+                        {
+                            // If the computer gets close, move the lava block down
+                            if (Box.Current.TR.X > block.Box.Current.BL.X &&
+                                Box.Current.BL.X < block.Box.Current.TR.X)
+                            {
+                                Core.MyLevel.PushLava(Box.Target.BL.Y - 60, block as LavaBlock);
+                            }
+                            continue;
+                        }
+
+                        if (!block.IsActive) continue;
+
+                        ColType Col = Phsx.CollisionTest(Box, block.Box);
+                        bool Overlap;
+                        if (!block.Box.TopOnly || block.Core.GenData.RemoveIfOverlap)
+                            Overlap = Phsx.BoxBoxOverlap(Box, block.Box);
+                        else
+                            Overlap = false;
+                        if (Col != ColType.NoCol || Overlap)
+                        {
+                            if (block.BlockCore.Ceiling)
+                            {
+                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                continue;
+                            }
+
+                            bool Delete = false;
+                            bool MakeTopOnly = false;
+                            if (SaveNoBlock) Delete = true;
+                            if (BottomCol && Col == ColType.Top) Delete = true;
+                            //if (Col == ColType.Top && Core.Data.Position.Y > TargetPosition.Y) Delete = true;
+                            if (Col == ColType.Top && WantsToLand == false) Delete = true;
+                            if (Col == ColType.Bottom && Core.Data.Position.Y < TargetPosition.Y) Delete = true;
+                            if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;// Delete = true;
+                            if (TopCol && Col == ColType.Bottom) Delete = true;
+                            //if (block is MovingBlock2 && Col == ColType.Bottom) Delete = true;
+                            if (Col == ColType.Bottom) Delete = true;
+                            //if (CurPhsxStep < 2) Delete = true;
+                            if (Overlap && Col == ColType.NoCol && !block.Box.TopOnly && !(block is NormalBlock && !block.BlockCore.NonTopUsed)) Delete = true;
+                            if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
+                            if ((Col == ColType.Left || Col == ColType.Right) && Col != ColType.Top)
+                            {
+                                if (Box.Current.TR.Y < block.Box.Current.TR.Y)
+                                    MakeTopOnly = true;
+                                else
+                                    MakeTopOnly = true;
+                                //MakeTopOnly = false;
+                                //Delete = true;
+                            }
+                            if (block.BlockCore.NonTopUsed || !(block is NormalBlock))
+                                if (MakeTopOnly)
+                                {
+                                    MakeTopOnly = false;
+                                    Delete = true;
+                                }
+
+                            // Do not allow for TopOnly blocks
+                            // NOTE: Wanted to have this uncommented, but needed to comment it
+                            // out in order for final door blocks to work right
+                            // (otherwise a block might be used and made not-toponly and block the computer)
+                            //if (MakeTopOnly) { MakeTopOnly = false; Delete = true; }
+
+                            if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
+                            {
+                                if (block.Core.GenData.Used)
+                                    MakeTopOnly = Delete = false;
+                                else
+                                    Delete = true;
+                            }
+
+                            if (MakeTopOnly)
+                            {
+                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                ((NormalBlock)block).CheckHeight();
+                                if (Col != ColType.Top)
+                                    Col = ColType.NoCol;
+                            }
+
+                            // Don't land on the very edge of the block
+                            if (!Delete && !MyPhsx.OnGround)
+                            {
+                                float Safety = block.BlockCore.GenData.EdgeSafety;
+                                if (Box.BL.X > block.Box.TR.X - Safety ||
+                                    Box.TR.X < block.Box.BL.X + Safety)
+                                {
+                                    Delete = true;
+                                }
+                            }
+
+                            // Don't land on a block that says not to
+                            bool DesiresDeletion = false;
+                            {
+                                if (block.Core.GenData.TemporaryNoLandZone ||
+                                    !block.Core.GenData.Used && !block.PermissionToUse())
+                                    DesiresDeletion = Delete = true;
+                            }
+
+
+                            if (block.Core.GenData.Used) Delete = false;
+                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+                            if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
+                            if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
+
+                            // Shift bottom of block if necessary
+                            if (!Delete && !block.BlockCore.DeleteIfTopOnly)
+                            {
+                                float NewBottom = Math.Max(block.Box.Current.BL.Y,
+                                                           Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position));
+
+                                if (block is NormalBlock &&
+                                    (Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
+                                    !block.BlockCore.NonTopUsed)
+                                {
+                                    block.Extend(Side.Bottom, NewBottom);
+                                    ((NormalBlock)block).CheckHeight();
+                                }
+
+                                // Delete the box if it was made TopOnly but TopOnly is not allowed for this block
+                                if (block.Box.TopOnly && block.BlockCore.DeleteIfTopOnly)
+                                    Delete = true;
+                            }
+
+                            // We're done deciding if we should delete the block or not.
+                            // If we should delete it, delete.
+                            if (Delete)
+                            {
+                                DeleteObj(block);
+                                block.IsActive = false;
+                            }
+                            // Otherwise keep it and interact with it
+                            else
+                            {
+                                Delete = false;
+
+                                if (Col != ColType.NoCol)
+                                {
+                                    // We changed the blocks property, so Bob may no longer be on a collision course with it. Check to see if he is before marking block as used.
+                                    if (!block.Box.TopOnly || Col == ColType.Top)
+                                    {
+                                        if (block.Core.GenData.RemoveIfUsed)
+                                            Delete = true;
+
+                                        if (!Delete)
+                                        {
+                                            InteractWithBlock(block.Box, block, Col);
+                                            block.StampAsUsed(CurPhsxStep);
+
+                                            // Normal blocks delete surrounding blocks when stamped as used
+                                            if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
+                                                foreach (Block nblock in Core.MyLevel.Blocks)
+                                                {
+                                                    NormalBlock Normal = nblock as NormalBlock;
+                                                    if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
+                                                        if (!Normal.Core.GenData.Used &&
+                                                            Math.Abs(Normal.Box.Current.TR.Y - block.Box.TR.Y) < 15 &&
+                                                            !(Normal.Box.Current.TR.X < block.Box.Current.BL.X - 350 || Normal.Box.Current.BL.X > block.Box.Current.TR.X + 350))
+                                                        {
+                                                            DeleteObj(Normal);
+                                                            Normal.IsActive = false;
+                                                        }
+                                                }
+
+                                            // Ghost blocks delete surrounding blocks when stamped as used
+                                            if (block is GhostBlock)
+                                                foreach (Block gblock in Core.MyLevel.Blocks)
+                                                {
+                                                    GhostBlock ghost = gblock as GhostBlock;
+                                                    if (null != ghost && !ghost.Core.MarkedForDeletion)
+                                                        if (!ghost.Core.GenData.Used &&
+                                                            (ghost.Core.Data.Position - block.Core.Data.Position).Length() < 200)
+                                                        {
+                                                            DeleteObj(ghost);
+                                                            ghost.IsActive = false;
+                                                        }
+                                                }
+                                        }
+                                    }
+                                }
+
+                                Delete = false;
+                                if (block.Core.GenData.RemoveIfOverlap)
+                                {
+                                    if (Phsx.BoxBoxOverlap(Box, block.Box))
+                                        Delete = true;
+                                }
+                            }
+                        }
+                    }
+                }
+        }
+
+        void NewBlockInteractions()
+        {
             int CurPhsxStep = Core.MyLevel.CurPhsxStep;
 
             GroundSpeed = 0;
@@ -2443,100 +2721,9 @@ namespace CloudberryKingdom.Bobs
 
                         if (Col != ColType.NoCol || Overlap)
                         {
-                            block.PostCollidePreDecision(this);
-                            // EXTRACT
-                            if (block.BlockCore.Ceiling)
-                            {
-                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
-                                continue;
-                            }
+                            if (block.PostCollidePreDecision(this)) continue;
 
-                            // Decide if we should delete or keep the block
-                            // PUT ALL OF THIS as a default method that can be overriden?
-                            bool Delete = false;
-                            bool MakeTopOnly = false;
-                            // MAKE SAVENOBLOCK a countdown
-                            if (SaveNoBlock) Delete = true;
-                            if (BottomCol && Col == ColType.Top) Delete = true;
-                            if (TopCol && Col == ColType.Bottom) Delete = true;
-                            if (Col == ColType.Top && WantsToLand == false) Delete = true;
-                            // DELETE?
-                            if (Col == ColType.Bottom && Core.Data.Position.Y < TargetPosition.Y) Delete = true;
-                            // EXTRACT
-                            if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;
-                            // SHOULD BE able to override this
-                            if (Col == ColType.Bottom) Delete = true;
-                            // ???
-                            if (Overlap && Col == ColType.NoCol && !block.Box.TopOnly && !(block is NormalBlock && !block.BlockCore.NonTopUsed)) Delete = true;
-                            // EXTRACT
-                            if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
-                            
-                            // EXTRACT
-                            // Note if we use the left or right side of the block
-                            if ((Col == ColType.Left || Col == ColType.Right) && Col != ColType.Top)
-                            {
-                                if (Box.Current.TR.Y < block.Box.Current.TR.Y)
-                                    MakeTopOnly = true;
-                                else
-                                    MakeTopOnly = true;
-                            }
-                            
-                            // EXTRACT
-                            // If we've used something besides the top of the block already,
-                            // make sure we don't make the block top only
-                            if (block.BlockCore.NonTopUsed || !(block is NormalBlock))
-                            {
-                                if (MakeTopOnly)
-                                {
-                                    MakeTopOnly = false;
-                                    Delete = true;
-                                }
-                            }
-
-                            // EXTRACT If we are trying to make a block be top only that can't be, delete it
-                            if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
-                            {
-                                if (block.Core.GenData.Used)
-                                    MakeTopOnly = Delete = false;
-                                else
-                                    Delete = true;
-                            }
-
-                            // EXTRACT
-                            if (MakeTopOnly)
-                            {
-                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
-                                ((NormalBlock)block).CheckHeight();
-                                if (Col != ColType.Top)
-                                    Col = ColType.NoCol;
-                            }
-
-                            // Don't land on the very edge of the block
-                            if (!Delete && !MyPhsx.OnGround)
-                            {
-                                float Safety = block.BlockCore.GenData.EdgeSafety;
-                                if (Box.BL.X > block.Box.TR.X - Safety ||
-                                    Box.TR.X < block.Box.BL.X + Safety)
-                                {
-                                    Delete = true;
-                                }
-                            }
-
-                            // Don't land on a block that says not to
-                            bool DesiresDeletion = false;
-                            if (block.Core.GenData.TemporaryNoLandZone ||
-                                !block.Core.GenData.Used && !block.PermissionToUse())
-                                DesiresDeletion = Delete = true;
-
-
-                            if (block.Core.GenData.Used) Delete = false;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-                            // ??? IT SEEMS LIKE we are always overlapping if we are colliding?
-                            if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
-
-
+                            bool Delete = block.PostCollideDecision(this, ref Col, ref Overlap);
 
                             // We're done deciding if we should delete the block or not.
                             // If we should delete it, delete.
@@ -2550,19 +2737,7 @@ namespace CloudberryKingdom.Bobs
                             {
                                 Delete = false;
 
-                                // EXTRACT Shift bottom of block if necessary
-                                if (block is NormalBlock && !block.BlockCore.DeleteIfTopOnly)
-                                {
-                                    float NewBottom = Math.Max(block.Box.Current.BL.Y,
-                                                               Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position));
-
-                                    if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
-                                        !block.BlockCore.NonTopUsed)
-                                    {
-                                        block.Extend(Side.Bottom, NewBottom);
-                                        ((NormalBlock)block).CheckHeight();
-                                    }
-                                }
+                                block.PostKeep(this, ref Col, ref Overlap);
 
                                 if (Col != ColType.NoCol)
                                 {
@@ -2577,45 +2752,10 @@ namespace CloudberryKingdom.Bobs
                                             InteractWithBlock(block.Box, block, Col);
                                             block.StampAsUsed(CurPhsxStep);
 
-                                            // EXTRACT Normal blocks delete surrounding blocks when stamped as used
-                                            if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
-                                                foreach (Block nblock in Core.MyLevel.Blocks)
-                                                {
-                                                    NormalBlock Normal = nblock as NormalBlock;
-                                                    if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
-                                                        if (!Normal.Core.GenData.Used &&
-                                                            Math.Abs(Normal.Box.Current.TR.Y - block.Box.TR.Y) < 15 &&
-                                                            !(Normal.Box.Current.TR.X < block.Box.Current.BL.X - 350 || Normal.Box.Current.BL.X > block.Box.Current.TR.X + 350))
-                                                        {
-                                                            DeleteObj(Normal);
-                                                            Normal.IsActive = false;
-                                                        }
-                                                }
-
-                                            // EXTRACT Ghost blocks delete surrounding blocks when stamped as used
-                                            if (block is GhostBlock)
-                                                foreach (Block gblock in Core.MyLevel.Blocks)
-                                                {
-                                                    GhostBlock ghost = gblock as GhostBlock;
-                                                    if (null != ghost && !ghost.Core.MarkedForDeletion)
-                                                        if (!ghost.Core.GenData.Used &&
-                                                            (ghost.Core.Data.Position - block.Core.Data.Position).Length() < 200)
-                                                        {
-                                                            DeleteObj(ghost);
-                                                            ghost.IsActive = false;
-                                                        }
-                                                }
+                                            block.PostCollidePreDecision(this);
                                         }
                                     }
                                 }
-
-                                /*
-                                Delete = false;
-                                if (block.Core.GenData.RemoveIfOverlap)
-                                {
-                                    if (Phsx.BoxBoxOverlap(Box, block.Box))
-                                        Delete = true;
-                                }*/
                             }
                         }
                     }

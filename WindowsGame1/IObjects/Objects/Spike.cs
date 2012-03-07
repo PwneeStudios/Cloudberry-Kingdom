@@ -192,8 +192,8 @@ namespace CloudberryKingdom.Spikes
             else PeakHeight = .01f;
 
             float AnimSpeed = 0;
-            //float t = (float)((Core.GetPhsxStep() + Offset) % (UpT + DownT + WaitT1 + WaitT2));
-            float t = (float)Tools.Modulo(Core.GetPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
+            //float t = (float)Tools.Modulo(Core.GetPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
+            float t = (float)Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
             if (t < UpT) MyObject.t = PeakHeight + (1 - PeakHeight) * t / (float)UpT;
             else if (t < UpT + WaitT1) MyObject.t = 1;
             else if (t < UpT + WaitT1 + DownT) MyObject.t = 1 + .9f * (t - UpT - WaitT1) / (float)DownT;

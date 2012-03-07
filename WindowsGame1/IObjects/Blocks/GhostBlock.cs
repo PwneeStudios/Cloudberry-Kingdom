@@ -160,7 +160,7 @@ namespace CloudberryKingdom
         public void AnimStep()
         {
             if (MyObject.DestinationAnim() == 0 && MyObject.Loop)
-                MyObject.PlayUpdate(MyAnimSpeed);
+                MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
         }
 
         public int Period { get { return InLength + OutLength; } }
@@ -169,10 +169,10 @@ namespace CloudberryKingdom
         /// Gets the Ghosts current step in its periodic cycle,
         /// shifting to account for its Offset
         /// </summary>
-        public int GetStep()
+        public float GetStep()
         {
-            //return (Core.MyLevel.GetPhsxStep() + Offset) % (Period);
-            return Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            //return Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            return Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
         }
 
         /// <summary>
@@ -181,7 +181,8 @@ namespace CloudberryKingdom
         /// </summary>
         public void ModOffset(int DesiredStep)
         {
-            int CurPhsxStep = Core.MyLevel.GetPhsxStep();
+            //int CurPhsxStep = Core.MyLevel.GetPhsxStep();
+            int CurPhsxStep = (int)(Core.MyLevel.GetIndependentPhsxStep() + .49f);
 
             // Make sure the desired step is positive
             DesiredStep = (DesiredStep + Period) % Period;
@@ -215,7 +216,7 @@ namespace CloudberryKingdom
 
             Core.GenData.JumpNow = Core.GenData.TemporaryNoLandZone = false;
 
-            int Step = GetStep();
+            float Step = GetStep();
             if (Step < InLength)
             {
                 Core.Active = true;
@@ -359,6 +360,26 @@ namespace CloudberryKingdom
                 }
 
                 BlockCore.Draw();
+            }
+        }
+
+        public override void PostInteractWith(Bob bob)
+        {
+            base.PostInteractWith(bob);
+
+            GhostBlock block = this as GhostBlock;
+
+            // Ghost blocks delete surrounding blocks when stamped as used
+            foreach (Block gblock in Core.MyLevel.Blocks)
+            {
+                GhostBlock ghost = gblock as GhostBlock;
+                if (null != ghost && !ghost.Core.MarkedForDeletion)
+                    if (!ghost.Core.GenData.Used &&
+                        (ghost.Core.Data.Position - block.Core.Data.Position).Length() < 200)
+                    {
+                        bob.DeleteObj(ghost);
+                        ghost.IsActive = false;
+                    }
             }
         }
 

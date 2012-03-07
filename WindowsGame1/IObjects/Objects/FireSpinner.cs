@@ -127,34 +127,29 @@ namespace CloudberryKingdom.FireSpinners
 
             if (Core.WakeUpRequirements)
             {
-                SetTarget(Core.GetPhsxStep() - 1);
+                SetTarget(Core.GetIndependentPhsxStep() - 1);
                 Core.WakeUpRequirements = false;
             }
 
-            MiniAngle = Orientation * (Core.MyLevel.CurPhsxStep + MiniAngle_Offset) * .22f;
-
-            SetTarget(Core.GetPhsxStep());
-
-            //if (!Core.BoxesOnly)
-            //{
-            //    ParticleEffects.Flame(Core.MyLevel, MyLine.Current.p1, Core.MyLevel.GetPhsxStep(), .36f, 50, true);
-            //    ParticleEffects.Flame(Core.MyLevel, MyLine.Current.p2, Core.MyLevel.GetPhsxStep(), .36f, 50, true);
-            //}
+            //MiniAngle = Orientation * (Core.MyLevel.CurPhsxStep + MiniAngle_Offset) * .22f;
+            //SetTarget(Core.GetPhsxStep());
+            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * .22f;
+            SetTarget(Core.GetIndependentPhsxStep());
         }
 
-        void SetCurrent(int Step)
+        void SetCurrent(float Step)
         {
             Vector2 p1 = Vector2.Zero, p2 = Vector2.Zero;
             GetLine(Step, ref p1, ref p2);
             MyLine.SetCurrent(p1, p2);
         }
-        void SetTarget(int Step)
+        void SetTarget(float Step)
         {
             Vector2 p1 = Vector2.Zero, p2 = Vector2.Zero;
             GetLine(Step, ref p1, ref p2);
             MyLine.SetTarget(p1, p2);
         }
-        void GetLine(int Step, ref Vector2 p1, ref Vector2 p2)
+        void GetLine(float Step, ref Vector2 p1, ref Vector2 p2)
         {
             Angle = Orientation * 2 * (float)Math.PI * (Step + Offset) / (float)Period;
             dir = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
