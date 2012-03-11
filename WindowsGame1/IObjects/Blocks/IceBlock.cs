@@ -13,8 +13,6 @@ namespace CloudberryKingdom
     {
         public void TextDraw() { }
 
-        public AABox MyBox;
-
         QuadClass Ice;
         SimpleQuad MyQuad;
         BasePoint Base, HoldBase;
@@ -24,14 +22,6 @@ namespace CloudberryKingdom
 
         public float MyAnimSpeed;
 
-        public AABox Box { get { return MyBox; } }
-
-        public bool Active;
-        public bool IsActive { get { return Core.Active; } set { Core.Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()

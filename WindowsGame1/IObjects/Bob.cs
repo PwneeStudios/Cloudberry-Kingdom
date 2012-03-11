@@ -1776,8 +1776,7 @@ namespace CloudberryKingdom.Bobs
 
             ColType OriginalColType = Col;
 
-            if (Col != ColType.NoCol && (Col == ColType.Top ||
-                Col != ColType.Bottom && Math.Max(Box.Current.BL.Y, Box.Target.BL.Y) > box.Target.TR.Y - Math.Max(-1.35 * Core.Data.Velocity.Y, 7)))
+            if (MyPhsx.IsTopCollision(Col, box, block))
             {
                 Col = ColType.Top;
 
@@ -1839,7 +1838,7 @@ namespace CloudberryKingdom.Bobs
                         TopCol = true;
                     }
 
-                    if (Col != ColType.Bottom && Core.Data.Velocity.X != 0 && !MyPhsx.OnGround && Math.Min(Box.Current.TR.Y, Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7))
+                    if (MyPhsx.IsBottomCollision(Col, box, block))
                         Col = ColType.Bottom;
 
                     NewY = box.Target.BL.Y - Box.Current.Size.Y - .01f;
@@ -1888,7 +1887,7 @@ namespace CloudberryKingdom.Bobs
                             if (block != null)
                                 block.SideHit(this);
 
-                            MyPhsx.SideHit(Col);
+                            MyPhsx.SideHit(Col, block);
 
                             Core.Data.Position.X = box.Target.BL.X - Box.Current.Size.X - .01f;
 
@@ -1907,7 +1906,7 @@ namespace CloudberryKingdom.Bobs
                             if (block != null)
                                 block.SideHit(this);
 
-                            MyPhsx.SideHit(Col);
+                            MyPhsx.SideHit(Col, block);
 
                             Core.Data.Position.X = box.Target.TR.X + Box.Current.Size.X + .01f;
 
@@ -1939,9 +1938,17 @@ namespace CloudberryKingdom.Bobs
                 Box2.Current.Size *= 1.2f;
             }
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .02f));
-            Box.Target.TR.Y += 5;
-            //Box.Current.BL.Y += 0;
+            if (MyPhsx.Gravity > 0)
+            {
+                Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .02f));
+                Box.Target.TR.Y += 5;
+            }
+            else
+            {
+                Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, -.02f));
+                Box.Target.BL.Y -= 5;
+            }
+
             Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
         }
 
@@ -2243,7 +2250,7 @@ namespace CloudberryKingdom.Bobs
                 if (Box.TR.X > Core.MyLevel.MainCamera.TR.X - 40 && Core.Data.Velocity.X > 0)
                 {
                     Core.Data.Velocity.X = 0;
-                    MyPhsx.SideHit(ColType.Right);
+                    MyPhsx.SideHit(ColType.Right, null);
                     if (Box.TR.X > Core.MyLevel.MainCamera.TR.X - 20 && Core.Data.Velocity.X > 0)
                     {
                         Move(new Vector2(Core.MyLevel.MainCamera.TR.X - 20 - Box.TR.X, 0));
@@ -2252,7 +2259,7 @@ namespace CloudberryKingdom.Bobs
                 if (Box.BL.X < Core.MyLevel.MainCamera.BL.X + 40 && Core.Data.Velocity.X < 0)
                 {
                     Core.Data.Velocity.X = 0;
-                    MyPhsx.SideHit(ColType.Left);
+                    MyPhsx.SideHit(ColType.Left, null);
                     if (Box.BL.X < Core.MyLevel.MainCamera.BL.X + 20 && Core.Data.Velocity.X < 0)
                     {
                         Move(new Vector2(Core.MyLevel.MainCamera.BL.X + 20 - Box.BL.X, 0));
@@ -2409,7 +2416,8 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         void BlockInteractions()
         {
-            OldBlockInteractions();
+            //OldBlockInteractions();
+            NewBlockInteractions();
         }
 
         void OldBlockInteractions()
@@ -2448,9 +2456,6 @@ namespace CloudberryKingdom.Bobs
                             if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
                                 continue;
 
-                            if (block.Core.MyTileSetType == TileSet.OutsideGrass)
-                                Tools.Write("");
-
                             ColType Col = Phsx.CollisionTest(Box, block.Box);
                             if (Col != ColType.NoCol)
                             {
@@ -2469,7 +2474,7 @@ namespace CloudberryKingdom.Bobs
                         if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
                             continue;
 
-                        if (block.BlockCore.Ceiling)// && !block.Core.GenData.Used)
+                        if (block.BlockCore.Ceiling)
                         {
                             if (Core.Data.Position.X > block.Box.Current.BL.X - 100 &&
                                 Core.Data.Position.X < block.Box.Current.TR.X + 100)
@@ -2518,6 +2523,8 @@ namespace CloudberryKingdom.Bobs
                                 block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
                                 continue;
                             }
+
+                            //if (Col != ColType.Top) Tools.Write("");
 
                             bool Delete = false;
                             bool MakeTopOnly = false;
@@ -2706,9 +2713,10 @@ namespace CloudberryKingdom.Bobs
 
                     foreach (Block block in Core.MyLevel.Blocks)
                     {
-                        if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
-                        if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
-                            continue;
+                        if (MyPhsx.SkipInteraction(block)) continue;
+                        //if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
+                        //if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                        //    continue;
 
                         if (block.PreDecision(this)) continue;
                         if (!block.IsActive) continue;
@@ -2723,7 +2731,8 @@ namespace CloudberryKingdom.Bobs
                         {
                             if (block.PostCollidePreDecision(this)) continue;
 
-                            bool Delete = block.PostCollideDecision(this, ref Col, ref Overlap);
+                            bool Delete = false;
+                            block.PostCollideDecision(this, ref Col, ref Overlap, ref Delete);
 
                             // We're done deciding if we should delete the block or not.
                             // If we should delete it, delete.
@@ -2749,8 +2758,13 @@ namespace CloudberryKingdom.Bobs
 
                                         if (!Delete)
                                         {
-                                            InteractWithBlock(block.Box, block, Col);
+                                            //if (Col == ColType.Bottom && !block.Core.GenData.Used)
+                                            //    Tools.Write("");
+
+                                            //if (!MyPhsx.SkipInteraction(block))
+                                                InteractWithBlock(block.Box, block, Col);
                                             block.StampAsUsed(CurPhsxStep);
+                                            MyPhsx.LastUsedStamp = CurPhsxStep;
 
                                             block.PostCollidePreDecision(this);
                                         }

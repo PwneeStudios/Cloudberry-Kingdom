@@ -177,9 +177,9 @@ namespace CloudberryKingdom
             return false;
         }
 
-        public override void SideHit(ColType side)
+        public override void SideHit(ColType side, Block block)
         {
-            base.SideHit(side);
+            base.SideHit(side, block);
 
             if (Math.Abs(AngleSpeed) > .5f * MaxAngleSpeed)
             {

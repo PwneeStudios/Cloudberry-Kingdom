@@ -47,20 +47,9 @@ namespace CloudberryKingdom
         public string MyFileName;
         public int MyAnim;
 
-        public AABox MyBox;
-        public AABox Box { get { return MyBox; } }
-
-        bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
         public HitDoodadCallback HitCallback;
 
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-
         public QuadClass MyQuad;
-
-        public ObjectData Core { get { return CoreData as BlockData; } }
 
         public void Interact(Bob bob) { }
 

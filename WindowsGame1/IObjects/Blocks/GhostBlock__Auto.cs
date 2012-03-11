@@ -118,6 +118,9 @@ namespace CloudberryKingdom.Levels
                 }
 
                 gblock = (GhostBlock)level.Recycle.GetObject(ObjectType.GhostBlock, false);
+                
+                if (level.DefaultHeroType is BobPhsxMeat)
+                    gblock.TallBox = true;
                 gblock.Init(pos + offset, size);
 
                 gblock.BlockCore.BlobsOnTop = false;

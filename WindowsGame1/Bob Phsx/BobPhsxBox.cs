@@ -106,7 +106,8 @@ namespace CloudberryKingdom
                 MyBob.PlayerObject.DequeueTransfers();
             }
 
-            if (MyBob.Core.Data.Velocity.Y > 10f && !OnGround && StartJumpAnim)
+            //if (MyBob.Core.Data.Velocity.Y > 10f && !OnGround && StartJumpAnim)
+            if (ShouldStartJumpAnim())
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
                 MyBob.PlayerObject.EnqueueAnimation(2, 0.3f, false);

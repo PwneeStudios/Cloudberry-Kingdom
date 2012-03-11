@@ -92,6 +92,14 @@ namespace CloudberryKingdom
             BobPhsxNormal.Instance.Prototype = NewBob;
             bob.Add(BobPhsxNormal.Instance, NewBob);
 
+            // Invert
+            BobPhsxInvert.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
+            bob.Add(BobPhsxInvert.Instance, NewBob);
+
+            // Meat
+            BobPhsxMeat.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
+            bob.Add(BobPhsxMeat.Instance, NewBob);
+
             // Tiny Bob
             BobPhsxSmall.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
             bob.Add(BobPhsxSmall.Instance, NewBob);

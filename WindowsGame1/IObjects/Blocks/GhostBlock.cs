@@ -14,8 +14,6 @@ namespace CloudberryKingdom
     {
         public void TextDraw() { }
 
-        public AABox MyBox;
-
         public SimpleObject MyObject;
 
         GhostBlockState State;
@@ -39,18 +37,12 @@ namespace CloudberryKingdom
         /// </summary>
         public float TimeSafety;
 
-        public AABox Box { get { return MyBox; } }
-
-        public bool Active;
-        public bool IsActive { get { return Core.Active; } set { Core.Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()
         {
+            TallBox = false;
+
             MyAnimSpeed = InfoWad.GetFloat("GhostBlock_AnimSpeed");
 
             MyBox.TopOnly = true;
@@ -114,12 +106,17 @@ namespace CloudberryKingdom
             Core.BoxesOnly = BoxesOnly;
         }
 
+        public static float TallScale = 1.45f;
+        public bool TallBox;
         public void Init(Vector2 center, Vector2 size)
         {
             Active = true;
 
             CoreData.Layer = .35f;
-            Core.DrawLayer = 7;// 8;
+            Core.DrawLayer = 7;
+
+            if (TallBox)
+                size.Y *= TallScale;
 
             MyBox = new AABox(center, size);
             MyBox.Initialize(center, size);
@@ -209,7 +206,9 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly && Active && Core.Active) AnimStep();
 
-            if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Box.TopOnly)
+            if ((Core.MyLevel.DefaultHeroType is BobPhsxSpaceship ||
+                 Core.MyLevel.DefaultHeroType is BobPhsxMeat) &&
+                Box.TopOnly)
             {
                 Box.TopOnly = false;
             }
@@ -276,7 +275,10 @@ namespace CloudberryKingdom
         {
             if (CoreData.BoxesOnly) return;
 
-            MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center;
+            if (TallBox)
+                MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center - new Vector2(0, MyBox.Current.Size.Y * (TallScale - 1) / 2);
+            else
+                MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center;
 
             MyObject.Base.e1.X = 1;
             MyObject.Base.e2.Y = 1;
@@ -284,6 +286,10 @@ namespace CloudberryKingdom
 
             Vector2 CurSize = MyObject.Boxes[0].Size() / 2;
             Vector2 Scale = MyBox.Current.Size / CurSize;
+
+            if (TallBox)
+                Scale.Y /= TallScale;
+
             MyObject.Base.e1.X = Scale.X;
             MyObject.Base.e2.Y = Scale.Y;
 

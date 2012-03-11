@@ -236,15 +236,20 @@ namespace CloudberryKingdom
                 NewLevel.MyBackground.AddSpan(NewLevel.BL + new Vector2(-4500, 0), NewLevel.TR + new Vector2(4500, 0));
         }
 
+        public static int ForcedReturnEarly = 0;
         private int SetReturnEarly(PieceSeedData Piece)
         {
+            int ReturnEarly = ForcedReturnEarly;
+
             //Tools.StepControl = true;
-            int ReturnEarly = 0;
-            if (PieceSeeds.IndexOf(Piece) == 2)
-                ReturnEarly = 0;
+
+            //if (PieceSeeds.IndexOf(Piece) == 2)
+            //    ReturnEarly = 0;
+
             //if (PieceSeeds.IndexOf(Piece) == PieceSeeds.Count - 2)
             //  ReturnEarly = 0;
-            ReturnEarly = 0;
+
+            //ReturnEarly = 0;
 
             return ReturnEarly;
         }

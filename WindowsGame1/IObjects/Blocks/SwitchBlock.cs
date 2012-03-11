@@ -10,18 +10,8 @@ namespace CloudberryKingdom.Blocks
     {
         public void TextDraw() { }
 
-        public AABox MyBox;
-        public AABox Box { get { return MyBox; } }
-
-        bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-
         QuadClass MyQuad;
 
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()

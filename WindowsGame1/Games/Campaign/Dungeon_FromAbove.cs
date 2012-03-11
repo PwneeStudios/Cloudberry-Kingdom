@@ -60,7 +60,10 @@ namespace CloudberryKingdom
             MyLevel.AddBlock(button);
 
             // Players
-            SetHeroType(BobPhsxNormal.Instance);
+            //SetHeroType(BobPhsxInvert.Instance);
+            SetHeroType(BobPhsxMeat.Instance);
+
+            //SetHeroType(BobPhsxNormal.Instance);
             //SetHeroType(BobPhsxSmall.Instance);
             
             //BobPhsx SmallerBob = BobPhsxNormal.Instance.Clone();

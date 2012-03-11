@@ -17,21 +17,10 @@ namespace CloudberryKingdom
         public Vector2 Radii;
         public int Period, Offset;
 
-
-        public AABox MyBox;
-
         public SimpleObject MyObject;
 
         public float MyAnimSpeed;
 
-        public AABox Box { get { return MyBox; } }
-
-        public bool Active;
-        public bool IsActive { get { return Core.Active; } set { Core.Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()

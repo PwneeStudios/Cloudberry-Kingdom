@@ -16,18 +16,7 @@ namespace CloudberryKingdom.Blocks
         public int Period, Offset;
         public Vector2 Displacement;
 
-        public AABox MyBox;
-
         public NormalBlockDraw MyDraw;
-
-        public AABox Box { get { return MyBox; } }
-
-        bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
 
         public void MakeNew()
         {
@@ -186,7 +175,7 @@ namespace CloudberryKingdom.Blocks
                 Core.Data.Position = CalcPosition((float)Step / Period);
             }
 
-            Vector2 PhsxCutoff = new Vector2(500, 500);
+            Vector2 PhsxCutoff = new Vector2(900);
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
             {

@@ -11,22 +11,12 @@ namespace CloudberryKingdom.Blocks
     {
         public void TextDraw() { }
 
-        public AABox MyBox;
-
         public NormalBlockDraw MyDraw;
 
         public Block HoldBlock;
 
-        public bool Active;
-
         public bool Moved;
 
-        public AABox Box { get { return MyBox; } }
-        public bool IsActive { get { return Active; } set { Active = value; } }
-    
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void BasicConstruction(bool BoxesOnly)
@@ -70,12 +60,6 @@ namespace CloudberryKingdom.Blocks
         public NormalBlock(bool BoxesOnly)
         {
             BasicConstruction(BoxesOnly);
-        }
-
-        public NormalBlock(Vector2 center, Vector2 size)
-        {
-            BasicConstruction(false);
-            Init(center, size);
         }
 
         PieceQuad GetPieceTemplate()
@@ -564,18 +548,15 @@ namespace CloudberryKingdom.Blocks
             return false;
         }
 
-        public override bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap)
+        public override void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
-            bool Delete = Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap);
-            Delete |= base.PostCollideDecision(bob, ref Col, ref Overlap);
-
-            return Delete;
+            Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap, ref Delete);
+            base.PostCollideDecision(bob, ref Col, ref Overlap, ref Delete);
         }
 
-        new public static bool Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap)
+        public static void Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
             bool MakeTopOnly = false;
-            bool Delete = false;
 
             // If we interact with the block in any way besides landing on top of it, make it top only
             if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
@@ -618,8 +599,6 @@ namespace CloudberryKingdom.Blocks
                 if (Col != ColType.Top)
                     Col = ColType.NoCol;
             }
-
-            return Delete;
         }
 
         public override void PostInteractWith(Bob bob)

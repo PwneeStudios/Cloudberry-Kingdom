@@ -20,17 +20,7 @@ namespace CloudberryKingdom.Blocks
 
         public BlockEmitter Parent;
 
-        public AABox MyBox;
         public QuadClass MyQuad;
-
-        public AABox Box { get { return MyBox; } }
-        
-        bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
 
         BlockEmitter_Parameters Params
         {

@@ -206,59 +206,198 @@ namespace CloudberryKingdom.Blocks
 
     public class BlockBase
     {
-        public virtual bool PostCollidePreDecision(Bob bob) { return false; }
+        public AABox MyBox;
+        public AABox Box { get { return MyBox; } }
 
-        public virtual bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap)
+        public bool Active;
+        public bool IsActive { get { return Active; } set { Active = value; } }
+
+        public BlockData CoreData;
+        public BlockData BlockCore { get { return CoreData; } }
+        public ObjectData Core { get { return CoreData as BlockData; } }
+
+
+        public virtual bool PostCollidePreDecision(Bob bob)
         {
-            return Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap);
+            if (this is BouncyBlock) return true;
+
+            return false;
         }
 
-        public static bool Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap)
+        public virtual bool PostCollideDecision_Bottom_Meat(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (Col == ColType.Bottom) return true;
+            return false;
+        }
+        
+        public virtual bool PostCollideDecision_Bottom_Normal(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (bob.MyPhsx.Gravity > 0)
+            {
+                //if (Col == ColType.Bottom && bob.Core.Data.Position.Y < bob.TargetPosition.Y) return true;
+                if (Col == ColType.Bottom) return true;
+                return false;
+            }
+            else
+            {
+                //if (bob.TopCol && Col == ColType.Bottom) return true;
+                //if (Col == ColType.Bottom && bob.WantsToLand != false) return true;
+                if (Col == ColType.Top) return true;
+                return false;
+            }
+        }
+        
+        public virtual bool PostCollideDecision_Bottom(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (bob.MyPhsx is BobPhsxMeat)
+                return PostCollideDecision_Bottom_Meat(bob, ref Col, ref Overlap);
+            else
+                return PostCollideDecision_Bottom_Normal(bob, ref Col, ref Overlap);
+        }
+
+
+        public virtual bool PostCollideDecision_Side_Meat(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (Col == ColType.Left || Col == ColType.Right)
+            {
+                if (Core.GetPhsxStep() < bob.MyPhsx.LastUsedStamp + 7) return true;
+
+                if (Box.BL.Y > bob.Box.TR.Y - 20) return true;
+                if (Box.TR.Y < bob.Box.BL.Y + 20) return true;
+
+                if (this is BouncyBlock) return true;
+
+                //BobPhsxMeat meat = (BobPhsxMeat)bob.MyPhsx;
+                float Safety = 860;// 650;
+                if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Left) return false;
+                if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Right) return false;
+                if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Right) return true;
+                if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Left) return true;
+
+                //return false;
+                if (bob.WantsToLand)
+                    return false;
+                else
+                    return true;
+            }
+
+            return false;
+        }
+
+        public virtual bool PostCollideDecision_Side_Normal(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (Col == ColType.Left || Col == ColType.Right) return true;
+
+            if (bob.MyPhsx.Gravity > 0)
+            {
+                if (Col != ColType.Top && Overlap) return true;
+            }
+            else
+            {
+                if (Col != ColType.Bottom && Overlap) return true;
+            }
+            
+            return false;
+        }
+
+        public virtual bool PostCollideDecision_Side(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (bob.MyPhsx is BobPhsxMeat)
+                return PostCollideDecision_Side_Meat(bob, ref Col, ref Overlap);
+            else
+                return PostCollideDecision_Side_Normal(bob, ref Col, ref Overlap);
+        }
+
+
+        public virtual bool PostCollideDecision_Land_Meat(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            BobPhsxMeat meat = (BobPhsxMeat)bob.MyPhsx;
+
+            if (meat.WantToLandOnTop && Col == ColType.Top) return false;
+
+            if (this is BouncyBlock) return false;
+
+            if (Col == ColType.Top) return true;
+
+            return false;
+        }
+        public virtual bool PostCollideDecision_Land_Normal(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (bob.MyPhsx.Gravity > 0)
+            {
+                if (Col == ColType.Top && bob.WantsToLand == false) return true;
+            }
+            else
+            {
+                if (Col == ColType.Bottom && bob.WantsToLand != false) return true;
+            }
+
+            return false;
+        }
+        public virtual bool PostCollideDecision_Land(Bob bob, ref ColType Col, ref bool Overlap)
+        {
+            if (bob.MyPhsx is BobPhsxMeat)
+                return PostCollideDecision_Land_Meat(bob, ref Col, ref Overlap);
+            else
+                return PostCollideDecision_Land_Normal(bob, ref Col, ref Overlap);
+        }
+
+
+        public virtual void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
             // Decide if we should delete or keep the block
-            bool Delete = false;
+            //bool Delete = false;
 
             // MAKE SAVENOBLOCK a countdown
             if (bob.SaveNoBlock) Delete = true;
             if (bob.BottomCol && Col == ColType.Top) Delete = true;
             if (bob.TopCol && Col == ColType.Bottom) Delete = true;
-            if (Col == ColType.Top && bob.WantsToLand == false) Delete = true;
-            // SHOULD BE able to override this
-            if (Col == ColType.Bottom && bob.Core.Data.Position.Y < bob.TargetPosition.Y) Delete = true;
-            if (Col == ColType.Bottom) Delete = true;
-            // ???
-            if (Overlap && Col == ColType.NoCol && !block.Box.TopOnly && !(block is NormalBlock && !block.BlockCore.NonTopUsed)) Delete = true;
+            
+            //if (Col == ColType.Top && bob.WantsToLand == false) Delete = true;
 
+            Delete |= PostCollideDecision_Land(bob, ref Col, ref Overlap);
+            Delete |= PostCollideDecision_Bottom(bob, ref Col, ref Overlap);
+            Delete |= PostCollideDecision_Side(bob, ref Col, ref Overlap);
+            
+            // ???
+            if (Overlap && Col == ColType.NoCol && !Box.TopOnly && !(this is NormalBlock && !BlockCore.NonTopUsed)) Delete = true;
 
             // Don't land on the very edge of the block
+            EdgeSafety(bob, ref Delete);
+
+            // Don't land on a block that says not to
+            bool DesiresDeletion = false;
+            if (Core.GenData.TemporaryNoLandZone ||
+                !Core.GenData.Used && !((Block)this).PermissionToUse())
+                DesiresDeletion = Delete = true;
+
+            if (Core.GenData.Used) Delete = false;
+            if (!DesiresDeletion && Core.GenData.AlwaysLandOn && !Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+            if (!DesiresDeletion && Core.GenData.AlwaysLandOn_Reluctantly && bob.WantsToLand_Reluctant && !Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+
+            if (Overlap && Core.GenData.RemoveIfOverlap) Delete = true;
+            if (!DesiresDeletion && Core.GenData.AlwaysUse && !Core.MarkedForDeletion) Delete = false;
+        }
+
+        private void EdgeSafety(Bob bob, ref bool Delete)
+        {
+            if (bob.MyPhsx is BobPhsxMeat) return;
+
             if (!Delete && !bob.MyPhsx.OnGround)
             {
-                float Safety = block.BlockCore.GenData.EdgeSafety;
-                if (bob.Box.BL.X > block.Box.TR.X - Safety ||
-                    bob.Box.TR.X < block.Box.BL.X + Safety)
+                float Safety = BlockCore.GenData.EdgeSafety;
+                if (bob.Box.BL.X > Box.TR.X - Safety ||
+                    bob.Box.TR.X < Box.BL.X + Safety)
                 {
                     Delete = true;
                 }
             }
-
-            // Don't land on a block that says not to
-            bool DesiresDeletion = false;
-            if (block.Core.GenData.TemporaryNoLandZone ||
-                !block.Core.GenData.Used && !block.PermissionToUse())
-                DesiresDeletion = Delete = true;
-
-            if (block.Core.GenData.Used) Delete = false;
-            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && bob.WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-            // ??? IT SEEMS LIKE we are always overlapping if we are colliding?
-            if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
-            if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
-
-            return Delete;
         }
         
         public virtual void PostKeep(Bob bob, ref ColType Col, ref bool Overlap) { }
         public virtual void PostInteractWith(Bob bob) { }
+
+        public Camera Cam { get { return Core.MyLevel.MainCamera; } }
     }
 
     public interface Block : IObject
@@ -266,6 +405,7 @@ namespace CloudberryKingdom.Blocks
         AABox Box { get; }
         bool IsActive { get; set; }
         BlockData BlockCore { get; }
+        Camera Cam { get; }
 
         void Extend(Side side, float pos);
 
@@ -278,7 +418,7 @@ namespace CloudberryKingdom.Blocks
         bool PreDecision(Bob bob);
 
         bool PostCollidePreDecision(Bob bob);
-        bool PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap);
+        void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete);
         void PostKeep(Bob bob, ref ColType Col, ref bool Overlap);
         void PostInteractWith(Bob bob);
     }

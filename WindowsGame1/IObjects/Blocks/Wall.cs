@@ -47,8 +47,6 @@ namespace CloudberryKingdom.Blocks
                 MoveBack(new Vector2(0, -90));
             }
 
-            
-
             // Spikes
             int count = 0;
             if (Horizontal)
@@ -101,24 +99,13 @@ namespace CloudberryKingdom.Blocks
             Core.MyLevel.AddObject(spike);
         }
 
-        public float Speed = 16.5f;//14;
+        public float Speed = 16.5f;
         public float Accel = .2f;
         public int InitialDelay = 60;
 
         public void TextDraw() { }
 
-        public AABox MyBox;
-
         public NormalBlockDraw MyDraw;
-
-        public AABox Box { get { return MyBox; } }
-
-        bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
 
         public void MakeNew()
         {

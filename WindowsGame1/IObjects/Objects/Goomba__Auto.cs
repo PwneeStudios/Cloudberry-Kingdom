@@ -7,7 +7,7 @@ namespace CloudberryKingdom.Levels
 {
     public class Goomba_Parameters : AutoGen_Parameters
     {
-        public Param Range, Period, KeepUnused;
+        public Param Range, Period, KeepUnused, Size;
         
         /// <summary>
         /// How far from the lowest point on the blob the computer must be
@@ -90,6 +90,9 @@ namespace CloudberryKingdom.Levels
             {
                 return Math.Max(6f, Tools.DifficultyLerp(45f, 6f, u[Upgrade.FlyBlob]));
             });
+
+            Size = new Param(PieceSeed);
+            Size = 1;
         }
     }
 

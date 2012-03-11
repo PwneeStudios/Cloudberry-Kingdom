@@ -14,8 +14,6 @@ namespace CloudberryKingdom
 
         public bool TouchedOnce, HitGround;
 
-        public AABox MyBox;
-
         public bool Thwomp;
         public Vector2 AngryAccel;
         public float AngryMaxSpeed;
@@ -30,14 +28,6 @@ namespace CloudberryKingdom
         int ResetTimer;
         public static int ResetTimerLength = 12;
 
-        public AABox Box { get { return MyBox; } }
-
-        public bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()

@@ -945,13 +945,19 @@ namespace CloudberryKingdom.Levels
                 AddBlock(lblock);
             }
 
+            // Invert phsx safety blocks
+            if (DefaultHeroType is BobPhsxInvert)
+                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000),
+                            new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
+                            new Vector2(SafetyWidth, 500), 2 * SafetyWidth + ExtraSpace, StyleData.GroundType.SafetyNet);
+
             LastSafetyBlock = Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.BL.Y + VoidHeight + 65 + Style.LowerSafetyNetOffset),
                             new Vector2(MaxRight + 500, MainCamera.BL.Y + VoidHeight + 215 + Style.LowerSafetyNetOffset),
                             new Vector2(SafetyWidth, 200 + CurMakeData.PieceSeed.ExtraBlockLength), 2*SafetyWidth+ExtraSpace, Style.MyGroundType);
 
-            Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.TR.Y + Style.UpperSafetyNetOffset),
-                            new Vector2(MaxRight, MainCamera.TR.Y + Style.UpperSafetyNetOffset + 100),
-                            new Vector2(750, 200), 1500, Style.MyTopType);
+            //Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.TR.Y + Style.UpperSafetyNetOffset),
+            //                new Vector2(MaxRight, MainCamera.TR.Y + Style.UpperSafetyNetOffset + 100),
+            //                new Vector2(750, 200), 1500, Style.MyTopType);
             Sleep();
 
 

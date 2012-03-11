@@ -11,16 +11,6 @@ namespace CloudberryKingdom
 
         PieceQuad MyPieces;
 
-        public AABox MyBox;
-
-        public bool Active;
-
-        public AABox Box { get { return MyBox; } }
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()

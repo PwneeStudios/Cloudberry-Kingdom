@@ -489,7 +489,8 @@ namespace CloudberryKingdom.Goombas
 
             if (CopySource == null)
             if (MyObject.DestinationAnim() == 0 && MyObject.Loop)
-                 MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
+                MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
+                //MyObject.PlayUpdate(MyAnimSpeed);
         }
 
         public void UpdateObject()
@@ -497,6 +498,8 @@ namespace CloudberryKingdom.Goombas
             if (MyObject != null)
             {
                 MyObject.Base.Origin = Core.Data.Position;
+                MyObject.Base.e1.X = 490f;
+                MyObject.Base.e2.Y = 490f;
 
                 if (CopySource != null)
                     MyObject.CopyUpdate(CopySource.MyObject);

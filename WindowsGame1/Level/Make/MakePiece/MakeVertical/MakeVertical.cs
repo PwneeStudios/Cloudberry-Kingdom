@@ -202,21 +202,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Vary the spacing depending on how high the hero can jump
-            float StepMultiplier = 1;
-            if (DefaultHeroType is BobPhsxJetman)
-                StepMultiplier = 3;
-            else if (DefaultHeroType is BobPhsxDouble)
-                StepMultiplier = 1.75f;
-            else if (DefaultHeroType is BobPhsxSmall)
-            {
-                Size = new Vector2(100, 50);
-                Step = new Vector2(240, 390);
-                StepMultiplier = 1.5f;
-            }
-            else if (DefaultHeroType is BobPhsxBox)
-                StepMultiplier = .7f;
-            else if (DefaultHeroType is BobPhsxBig)
-                StepMultiplier = .7f;
+            float StepMultiplier = SetStepMultiplier(ref Size, ref Step);
 
             if (NewStyle)
                 this.MyTileSet = TileSet.Dungeon;
@@ -237,21 +223,11 @@ namespace CloudberryKingdom.Levels
                     block.Init(_pos, Size);
                     block.MakeTopOnly();
 
-                    /*
-                    // No bottom row, no top row
-                    if (_pos.Y == BL_Bound.Y || _pos.Y + Step.Y >= TR_Bound.Y)
-                        block.Core.Active = block.Active = false;
-                    // No middle rows
-                    else
-                        block.Core.Active = block.Active = false;
-                    */
-
                     // Door catwalks need to be moved forward
                     if (_pos.Y == BL_Bound.Y || _pos.Y + Step.Y >= TR_Bound.Y)
                         block.BlockCore.DrawLayer = 4;
 
                     bool IsBottom = _pos.Y == BL_Bound.Y;
-                    //bool IsTop = _pos.Y + Step.Y >= TR_Bound.Y;
                     bool IsTop = ShouldBreak;
 
                     if (Geometry == LevelGeometry.Up ||
@@ -489,6 +465,32 @@ namespace CloudberryKingdom.Levels
             }
 
             return false;
+        }
+
+        private float SetStepMultiplier(ref Vector2 Size, ref Vector2 Step)
+        {
+            float StepMultiplier = 1;
+            if (DefaultHeroType is BobPhsxJetman)
+                StepMultiplier = 3;
+            else if (DefaultHeroType is BobPhsxDouble)
+                StepMultiplier = 1.75f;
+            else if (DefaultHeroType is BobPhsxSmall)
+            {
+                Size = new Vector2(100, 50);
+                Step = new Vector2(240, 390);
+                StepMultiplier = 1.5f;
+            }
+            else if (DefaultHeroType is BobPhsxBox)
+                StepMultiplier = .7f;
+            else if (DefaultHeroType is BobPhsxBig)
+                StepMultiplier = .7f;
+            else if (DefaultHeroType is BobPhsxMeat)
+            {
+                Size = new Vector2(100, 50);
+                Step = new Vector2(240, 390);
+                StepMultiplier = 1000;
+            }
+            return StepMultiplier;
         }
 
         private NormalBlock MakePillarBack(Vector2 p1, Vector2 p2)

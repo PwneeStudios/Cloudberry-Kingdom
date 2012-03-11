@@ -279,6 +279,10 @@ namespace CloudberryKingdom.Levels
 
             StyleData style = level.Style;
 
+            // Get NormalBlock parameters
+            NormalBlock_Parameters Params = (NormalBlock_Parameters)style.FindParams(NormalBlock_AutoGen.Instance);
+            if (!Params.Make) return null;
+
             NormalBlock block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
             BlockData core = block.BlockCore;
             block.Init(pos, new Vector2(50, 50));

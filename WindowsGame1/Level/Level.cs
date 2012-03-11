@@ -2290,10 +2290,13 @@ namespace CloudberryKingdom.Levels
         {
             float PrevIndependentPhsxStep = IndependentPhsxStep;
             TimeType = TimeTypes.Regular;
+            //TimeType = TimeTypes.xSync;
             switch (TimeType)
             {
                 case TimeTypes.Regular:
                     IndependentPhsxStep = CurPhsxStep;
+                    if (!IndependentStepSetOnce)
+                        PrevIndependentPhsxStep = IndependentPhsxStep - 1;
                     break;
 
                 case TimeTypes.xSync:
@@ -2306,6 +2309,9 @@ namespace CloudberryKingdom.Levels
 
                         IndependentPhsxStep = Math.Max(New, Prev);
                         Prev = New;
+
+                        if (!IndependentStepSetOnce)
+                            PrevIndependentPhsxStep = IndependentPhsxStep;
                     }
                     break;
             }

@@ -180,6 +180,8 @@
     <Compile Include="Bob Phsx\BobPhsxRandom.cs" />
     <Compile Include="Bob Phsx\BobPhsxScale.cs" />
     <Compile Include="Bob Phsx\BobPhsxRocketbox.cs" />
+    <Compile Include="Bob Phsx\BobPhsxInvert.cs" />
+    <Compile Include="Bob Phsx\BobPhsxMeat.cs" />
     <Compile Include="Challenges\ChallengeList.cs" />
     <Compile Include="Challenges\ChallengeGroup.cs" />
     <Compile Include="CharacterSelect\ArrowMenu.cs" />

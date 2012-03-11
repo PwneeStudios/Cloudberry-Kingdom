@@ -141,6 +141,8 @@ namespace CloudberryKingdom
         public Bob MyBob;
         public ObjectClass Obj { get { return MyBob.PlayerObject; } }
 
+        public Camera Cam { get { return MyBob.Core.MyLevel.MainCamera; } }
+
         public Level MyLevel { get { return MyBob.Core.MyLevel; } }
         public ObjectData Core { get { return MyBob.Core; } }
 
@@ -191,6 +193,16 @@ namespace CloudberryKingdom
         public Vector2 JumpStartPos;
         public bool ApexReached;
 
+        public bool DynamicLessThan(float val1, float val2)
+        {
+            return Gravity > 0 ? val1 < val2 : val1 > -val2;
+        }
+
+        public bool DynamicGreaterThan(float val1, float val2)
+        {
+            return Gravity > 0 ? val1 > val2 : val1 < -val2;
+        }
+
         public virtual bool Sticky
         {
             get
@@ -217,7 +229,7 @@ namespace CloudberryKingdom
         {
         }
 
-        public void Release()
+        public virtual void Release()
         {
             MyBob = null;
         }
@@ -420,7 +432,8 @@ namespace CloudberryKingdom
             }
         }
 
-        public virtual void SideHit(ColType side)
+        public int LastUsedStamp = 0;
+        public virtual void SideHit(ColType side, Block block)
         {
         }
 
@@ -428,13 +441,18 @@ namespace CloudberryKingdom
         {
         }
 
+        public bool SkipInteraction(Block block)
+        {
+            if (block.Core.MarkedForDeletion || !block.Core.Active || !block.IsActive || !block.Core.Real) return true;
+            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer) return true;
+            return false;
+        }
+
         public virtual void BlockInteractions()
         {
             foreach (Block block in MyLevel.Blocks)
             {
-                if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
-                if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
-                    continue;
+                if (SkipInteraction(block)) continue;
 
                 ColType Col = Phsx.CollisionTest(MyBob.Box, block.Box);
 
@@ -448,5 +466,17 @@ namespace CloudberryKingdom
         }
 
         public bool PlacedJump = false, NextJumpIsPlacedJump = false;
+
+        public virtual bool IsTopCollision(ColType Col, AABox box, Block block)
+        {
+            return Col != ColType.NoCol && (Col == ColType.Top ||
+                   Col != ColType.Bottom && Math.Max(MyBob.Box.Current.BL.Y, MyBob.Box.Target.BL.Y) > box.Target.TR.Y - Math.Max(-1.35 * Core.Data.Velocity.Y, 7));
+        }
+
+        public virtual bool IsBottomCollision(ColType Col, AABox box, Block block)
+        {
+            return Col == ColType.Bottom ||
+                Col != ColType.Bottom && Core.Data.Velocity.X != 0 && !OnGround && Math.Min(MyBob.Box.Current.TR.Y, MyBob.Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7);
+        }
     }
 }

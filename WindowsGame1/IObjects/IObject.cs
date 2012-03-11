@@ -14,6 +14,7 @@ namespace CloudberryKingdom
         ObjectData Core { get; }
         Vector2 Pos { get; set; }
         GameData Game { get; }
+        //Camera Cam { get; }
 
         void MakeNew();
         void PhsxStep();

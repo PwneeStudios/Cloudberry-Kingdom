@@ -272,7 +272,7 @@ namespace CloudberryKingdom
         public virtual void UpdateReadyToJump()
         {
             if (!MyBob.CurInput.A_Button &&
-                (yVel < 0 || OnGround || CurJump < NumJumps) ||
+                (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps) ||
                 (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl))
                 ReadyToJump = true;
             
@@ -384,7 +384,9 @@ namespace CloudberryKingdom
                 }
             }
 
-            if (yVel > 0 && CurJump == 1)
+            if (Gravity > 0 && yVel > 0 && CurJump == 1
+                ||
+                Gravity < 0 && yVel < 0 && CurJump == 1)
             {
                 float max = yVel + JumpAccelModifier * speed;
                 float min = MaxJumpAccelMultiple * speed;
@@ -500,7 +502,9 @@ namespace CloudberryKingdom
                 float HoldVel = yVel;
 
                 // Only apply gravity if we haven't reached terminal velocity
-                if (yVel > BobMaxFallSpeed)
+                if (yVel > BobMaxFallSpeed && Gravity > 0)
+                    yVel -= Gravity;
+                if (yVel < BobMaxFallSpeed && Gravity < 0)
                     yVel -= Gravity;
 
                 if (Math.Sign(HoldVel) != Math.Sign(yVel))
@@ -540,9 +544,6 @@ namespace CloudberryKingdom
 
             CurJump = 1;
             JetPackCount = 0;
-
-            // Note: Must be set to 0 in order to have FallingBlock sticky work correctly
-            //JumpCount = 0;
 
             if (ObjectLandedOn is Goomba)
                 FallingCount = -4;
@@ -687,83 +688,7 @@ namespace CloudberryKingdom
             Vector2 BL = MyBob.Core.MyLevel.MainCamera.BL;
             RichLevelGenData GenData = MyBob.Core.MyLevel.CurMakeData.GenData;
 
-            int Period = GenData.Get(BehaviorParam.MoveTypePeriod, Pos);
-            float InnerPeriod = GenData.Get(BehaviorParam.MoveTypeInnerPeriod, Pos);
-            float MinTargetY = MyBob.MoveData.MinTargetY;
-            float MaxTargetY = MyBob.MoveData.MaxTargetY;
-
-            float t = 0;
-            int Step = MyBob.Core.MyLevel.GetPhsxStep() + Offset;
-
-            // If this is the first phsx step choose a move type
-            if (FirstPhsxStep)
-            {
-                if (Tools.RndFloat() < .425f)
-                    RndMoveType = 10;
-                else
-                    RndMoveType = Tools.Rnd.Next(0, 5);
-
-                if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSet.Island)
-                    RndMoveType = 10;
-            }
-            RndMoveType = 10; /// DANGER DANGER 
-
-            ///////////////////////////////////////
-            // Pick target for Bob to strive for //
-            ///////////////////////////////////////
-            bool AllowTypeSwitching = true; // Whether we can switch between move types
-            switch (RndMoveType)
-            {
-                case 0: t = ((float)Math.Cos(Step / InnerPeriod) + 1) / 2; break;
-                case 1: t = ((float)Math.Sin(Step / InnerPeriod) + 1) / 2; break;
-                case 2:
-                    InnerPeriod *= 3;
-                    t = Math.Abs((Step % (int)InnerPeriod) / InnerPeriod);
-                    break;
-                case 3:
-                    InnerPeriod *= 7f / 4f;
-                    t = ((float)Math.Sin(Step / InnerPeriod) + 1) / 2;
-                    break;
-                case 4:
-                    if ((Step / 100) % 2 == 0)
-                        t = .275f;
-                    else
-                        t = .7f;
-                    break;
-                case 5:
-                    if ((Step / 100) % 2 == 0)
-                        t = .05f;
-                    else
-                        t = .3f;
-                    break;
-                case 10:
-                    // Hard up and hard down.
-                    AllowTypeSwitching = false;
-
-                    if (FirstPhsxStep) Up = Tools.RndBool();
-                    if (Up)
-                    {
-                        MyBob.TargetPosition.Y = MaxTargetY;
-                        if (MyBob.Pos.Y > MyBob.TargetPosition.Y - 200)
-                            Up = false;
-                    }
-                    else
-                    {
-                        MyBob.TargetPosition.Y = MinTargetY;
-                        if (MyBob.Pos.Y < MyBob.TargetPosition.Y + 200)
-                            Up = true;
-                    }
-                    break;
-                default:
-                    // Do nothing. This fixes TargetPost.Y and creates straight levels.
-                    break;
-            }
-            if (RndMoveType < 6)
-                MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY + t * (MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
-
-            if (AllowTypeSwitching && MyBob.Core.MyLevel.GetPhsxStep() % Period == 0)
-                RndMoveType = Tools.Rnd.Next(0, 9);
-
+            SetTarget(GenData);
 
 
             ////////////////////////
@@ -892,10 +817,8 @@ namespace CloudberryKingdom
 
 
             // Jetpack extra
-            //if ((MyBob.Core.MyLevel.GetPhsxStep() / 60) % 2 == 0)
             if (JetPack)
             {
-                //float EngageJetpackHeight = MyBob.TargetPosition.Y - 350;
                 float EngageJetpackHeight = MyBob.TargetPosition.Y + 250;
                 if (Pos.Y < EngageJetpackHeight && JumpDelayCount < 2 && CurJump > 0 ||
                     AutoFallOrJump >= 0)
@@ -964,12 +887,6 @@ namespace CloudberryKingdom
             if (!OnGround && RetardJumpLength >= 1 && JumpCount < RetardJumpLength && JumpCount > 1)
                 MyBob.CurInput.A_Button = false;
 
-            //// Decide if the computer should want to land or not
-            //if ((ReadyToThrust || CanJump) && Pos.Y > BL.Y + 600)
-            //    MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y - 500;
-            //else
-            //    MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y;
-
             // Decide if the computer should want to land or not
             if ((ReadyToThrust || CanJump) && Pos.Y > BL.Y + 900)
                 MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y - 400;
@@ -977,9 +894,7 @@ namespace CloudberryKingdom
                 MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y + 200;
 
             // Don't land near the apex of a jump
-            int ApexWait = GenData.Get(DifficultyParam.ApexWait, Pos);
-            if (!OnGround && (!ApexReached || CountSinceApex < ApexWait))
-                MyBob.WantsToLand = false;
+            PreventEarlyLandings(GenData);
             
             /*
             // Double jump extra
@@ -1003,6 +918,94 @@ namespace CloudberryKingdom
                 MyBob.CurInput.A_Button = true;
             if (MyBob.MoveData.PlacePlatforms && Pos.Y > TR.Y - 500)
                 MyBob.CurInput.A_Button = false;
+        }
+
+        protected virtual void SetTarget(RichLevelGenData GenData)
+        {
+            int Period = GenData.Get(BehaviorParam.MoveTypePeriod, Pos);
+            float InnerPeriod = GenData.Get(BehaviorParam.MoveTypeInnerPeriod, Pos);
+            float MinTargetY = MyBob.MoveData.MinTargetY;
+            float MaxTargetY = MyBob.MoveData.MaxTargetY;
+
+            float t = 0;
+            int Step = MyBob.Core.MyLevel.GetPhsxStep() + Offset;
+
+            // If this is the first phsx step choose a move type
+            if (FirstPhsxStep)
+            {
+                if (Tools.RndFloat() < .425f)
+                    RndMoveType = 10;
+                else
+                    RndMoveType = Tools.Rnd.Next(0, 5);
+
+                if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSet.Island)
+                    RndMoveType = 10;
+            }
+            RndMoveType = 10; /// DANGER DANGER 
+
+            ///////////////////////////////////////
+            // Pick target for Bob to strive for //
+            ///////////////////////////////////////
+            bool AllowTypeSwitching = true; // Whether we can switch between move types
+            switch (RndMoveType)
+            {
+                case 0: t = ((float)Math.Cos(Step / InnerPeriod) + 1) / 2; break;
+                case 1: t = ((float)Math.Sin(Step / InnerPeriod) + 1) / 2; break;
+                case 2:
+                    InnerPeriod *= 3;
+                    t = Math.Abs((Step % (int)InnerPeriod) / InnerPeriod);
+                    break;
+                case 3:
+                    InnerPeriod *= 7f / 4f;
+                    t = ((float)Math.Sin(Step / InnerPeriod) + 1) / 2;
+                    break;
+                case 4:
+                    if ((Step / 100) % 2 == 0)
+                        t = .275f;
+                    else
+                        t = .7f;
+                    break;
+                case 5:
+                    if ((Step / 100) % 2 == 0)
+                        t = .05f;
+                    else
+                        t = .3f;
+                    break;
+                case 10:
+                    // Hard up and hard down.
+                    AllowTypeSwitching = false;
+
+                    if (FirstPhsxStep) Up = Tools.RndBool();
+                    if (Up)
+                    {
+                        MyBob.TargetPosition.Y = MaxTargetY;
+                        if (MyBob.Pos.Y > MyBob.TargetPosition.Y - 200)
+                            Up = false;
+                    }
+                    else
+                    {
+                        MyBob.TargetPosition.Y = MinTargetY;
+                        if (MyBob.Pos.Y < MyBob.TargetPosition.Y + 200)
+                            Up = true;
+                    }
+                    break;
+                default:
+                    // Do nothing. This fixes TargetPost.Y and creates straight levels.
+                    break;
+            }
+            if (RndMoveType < 6)
+                MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY + t * (MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
+
+            if (AllowTypeSwitching && MyBob.Core.MyLevel.GetPhsxStep() % Period == 0)
+                RndMoveType = Tools.Rnd.Next(0, 9);
+
+        }
+
+        protected virtual void PreventEarlyLandings(RichLevelGenData GenData)
+        {
+            int ApexWait = GenData.Get(DifficultyParam.ApexWait, Pos);
+            if (!OnGround && (!ApexReached || CountSinceApex < ApexWait))
+                MyBob.WantsToLand = false;
         }
 
 
@@ -1061,23 +1064,25 @@ namespace CloudberryKingdom
             }
 
             
-            //if (!OnGround && !Jumped && MyBob.PlayerObject.DestinationAnim() != 3 && yVel < -15f && Math.Abs(xVel) < 4)
-            if (!OnGround && !Ducking && !Jumped && MyBob.PlayerObject.DestinationAnim() != 3 && yVel < -15f && Math.Abs(xVel) < 4)
+            // Falling animation
+            if (!OnGround && !Ducking && !Jumped && MyBob.PlayerObject.DestinationAnim() != 3 && Math.Abs(xVel) < 4 &&
+                DynamicLessThan(yVel, -15))
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
                 MyBob.PlayerObject.EnqueueAnimation(3, 0, true);
                 MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= .7f;
             }
 
-            if (!OnGround && !Ducking && !Jumped && MyBob.PlayerObject.DestinationAnim() != 2 && yVel < -15f)// && Math.Abs(xVel) < 4)
+            // ???
+            if (!OnGround && !Ducking && !Jumped && MyBob.PlayerObject.DestinationAnim() != 2 &&
+                DynamicLessThan(yVel, -15))
             {
-                //MyBob.PlayerObject.AnimQueue.Clear();
                 MyBob.PlayerObject.EnqueueAnimation(2, 0.3f, false);
-                //MyBob.PlayerObject.DequeueTransfers();
                 MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= .7f;
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= .45f;
             }
 
+            // Ducking animation
             if (Ducking && MyBob.PlayerObject.DestinationAnim() != 4)
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
@@ -1085,6 +1090,7 @@ namespace CloudberryKingdom
                 MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 12;
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 2.5f;
             }
+            // Reverse ducking animation
             if (!Ducking && MyBob.PlayerObject.DestinationAnim() == 4)
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
@@ -1096,9 +1102,10 @@ namespace CloudberryKingdom
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 100f;
             }
 
+            // Standing animation
             if (!Ducking)
                 if (Math.Abs(xVel) < 1f && OnGround && MyBob.PlayerObject.DestinationAnim() != 0 ||
-                    MyBob.PlayerObject.DestinationAnim() == 2 && OnGround && yVel <= 0)
+                    MyBob.PlayerObject.DestinationAnim() == 2 && OnGround && DynamicLessThan(yVel, 0))
                 {
                     {
                         int HoldDest = MyBob.PlayerObject.DestinationAnim();
@@ -1107,18 +1114,12 @@ namespace CloudberryKingdom
                         MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 20;
                         if (HoldDest == 1)
                             MyBob.PlayerObject.DequeueTransfers();
-                        /*
-                        if (MyBob.PlayerObject.anim == 1 && MyBob.PlayerObject.t > 2)
-                            MyBob.PlayerObject.PlayUpdate(2);
-                        MyBob.PlayerObject.AnimQueue.Clear();
-                        MyBob.PlayerObject.EnqueueAnimation(0, 0, true);
-                        MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 6;
-                         * */
                     }
                 }
 
+            // Running animation
             if (!Ducking)
-                if ((Math.Abs(xVel) >= 1f && OnGround )//|| Math.Abs(xVel) >= 16.25f && yVel < -3.9)
+                if ((Math.Abs(xVel) >= 1f && OnGround)
                     && (MyBob.PlayerObject.DestinationAnim() != 1 || MyBob.PlayerObject.AnimQueue.Count == 0 || !MyBob.PlayerObject.Play || !MyBob.PlayerObject.Loop))
                 {
                     {
@@ -1129,19 +1130,12 @@ namespace CloudberryKingdom
                             MyBob.PlayerObject.EnqueueAnimation(1, 2.5f, true);
                             MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 2.5f;
                         }
-                        else
-                        {/*
-                            float Speed = 1;
-                            if (MyBob.PlayerObject.DestinationAnim() == 4)
-                                Speed = 30;
-                            MyBob.PlayerObject.EnqueueAnimation(1, 1.3f, true);
-                            MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= Speed;*/
-                        }
                     }
                 }
 
+            // Jump animation
             if (!Ducking)
-                if (yVel > 10f && !OnGround && StartJumpAnim)
+                if (ShouldStartJumpAnim())
                 {
                     int anim = 2; float speed = .85f;
                     if (CurJump > 1) { anim = 29; speed = 1.2f; }
@@ -1153,8 +1147,9 @@ namespace CloudberryKingdom
 
                     StartJumpAnim = false;
                 }
+            // ???
             if (!Ducking)
-                if (yVel < -.1f && !OnGround && MyBob.PlayerObject.anim == 2 && MyBob.PlayerObject.LastAnimEntry.AnimSpeed > 0)
+                if (DynamicLessThan(yVel, -.1f) && !OnGround && MyBob.PlayerObject.anim == 2 && MyBob.PlayerObject.LastAnimEntry.AnimSpeed > 0)
                 {
                     MyBob.PlayerObject.AnimQueue.Clear();
                     MyBob.PlayerObject.EnqueueAnimation(2, .9f, false);
@@ -1169,7 +1164,16 @@ namespace CloudberryKingdom
                 // Use time invariant update
                 MyBob.PlayerObject.PlayUpdate(1000f * AnimSpeed * Tools.dt / 150f);
             else
+                // Fixed speed update
                 MyBob.PlayerObject.PlayUpdate(AnimSpeed * 17f/19f * 1000f / 60f / 150f);            
+        }
+
+        /// <summary>
+        /// Whether we should start playing the jump animation.
+        /// </summary>
+        public virtual bool ShouldStartJumpAnim()
+        {
+            return DynamicGreaterThan(yVel, 10f) && !OnGround && StartJumpAnim;
         }
 
         public override bool ReadyToPlace()

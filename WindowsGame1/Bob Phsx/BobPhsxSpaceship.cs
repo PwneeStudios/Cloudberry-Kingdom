@@ -323,7 +323,7 @@ namespace CloudberryKingdom
 
             foreach (Block block in Core.MyLevel.Blocks)
             {
-                if (!block.Core.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
+                if (!block.Core.MarkedForDeletion && block.IsActive && block.Core.Active && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
                 {
                     if (!MyBob.Immortal)
                         MyBob.Die(Bob.BobDeathType.Other);

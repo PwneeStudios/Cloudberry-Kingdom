@@ -11,18 +11,8 @@ namespace CloudberryKingdom
     {
         public void TextDraw() { }
 
-        public AABox MyBox;
-
         public QuadClass MyQuad, LeftEnd, RightEnd;
         
-        public AABox Box { get { return MyBox; } }
-
-        public bool Active;
-        public bool IsActive { get { return Active; } set { Active = value; } }
-
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
         public void Interact(Bob bob) { }
 
         public void MakeNew()
