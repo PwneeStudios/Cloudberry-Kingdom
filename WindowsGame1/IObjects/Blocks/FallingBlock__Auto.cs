@@ -103,11 +103,11 @@ namespace CloudberryKingdom.Levels
             FallingBlock fblock;
             float Width = Params.Width.GetVal(pos);
             Vector2 size = new Vector2(Width, Width);
-            Vector2 offset = new Vector2(Tools.Rnd.Next(0, 0), Tools.Rnd.Next(0, 0) - size.Y);
+            Vector2 offset = new Vector2(MyLevel.Rnd.Rnd.Next(0, 0), MyLevel.Rnd.Rnd.Next(0, 0) - size.Y);
 
             if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
             {
-                offset += new Vector2(Tools.Rnd.Next(0, 100), Tools.Rnd.Next(0, 100));
+                offset += new Vector2(MyLevel.Rnd.Rnd.Next(0, 100), MyLevel.Rnd.Rnd.Next(0, 100));
                 if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
                 if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
             }
@@ -120,7 +120,7 @@ namespace CloudberryKingdom.Levels
             fblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
             fblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
-            if (Tools.Rnd.NextDouble() < Params.AngryRatio.GetVal(pos) / 100f)
+            if (MyLevel.Rnd.Rnd.NextDouble() < Params.AngryRatio.GetVal(pos) / 100f)
             {
                 // Make angry
                 fblock.Thwomp = true;

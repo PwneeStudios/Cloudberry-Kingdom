@@ -39,6 +39,8 @@ namespace CloudberryKingdom.Levels
 
         public string Name = "";
 
+        public Rand Rnd = new Rand(0);
+
         public bool SuppressSounds = false;
 
         public bool SuppressReplayButtons = false;
