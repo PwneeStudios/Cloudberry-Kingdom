@@ -2,7 +2,7 @@ using System;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : IObject, ILevelConnector
+    public partial class Seed : ObjectBase, IObject, ILevelConnector
     {
         public DoorAction OnOpen { get; set; }
 

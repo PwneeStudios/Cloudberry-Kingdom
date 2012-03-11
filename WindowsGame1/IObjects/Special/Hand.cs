@@ -22,7 +22,7 @@ namespace CloudberryKingdom.Bobs
 {
     public enum HandState { Null, Open, Closed };
     public enum HoldingState { Null, Nothing, New, Old };
-    public class Hand : IObject
+    public class Hand : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

@@ -59,9 +59,9 @@ namespace CloudberryKingdom.Levels
 
             float FlyingBlobLevel = PieceSeed.MyUpgrades1[Upgrade.FlyBlob];
 
-            Motion = (MotionType)Tools.Choose(MotionLevel, (int)FlyingBlobLevel);
+            Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)FlyingBlobLevel);
 
-            //if (Tools.Rnd.NextDouble() < InfoWad.GetFloat("ChanceToHaveUnusedMovingBlock2"))
+            //if (MyLevel.Rnd.Rnd.NextDouble() < InfoWad.GetFloat("ChanceToHaveUnusedMovingBlock2"))
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
@@ -132,7 +132,7 @@ namespace CloudberryKingdom.Levels
                 blob.Period = 3 * blob.Period / 2;
                 blob.Offset = (int)(j * ((float)blob.Period / Num));
 
-                SetMoveType(blob, Radius, Goomba_Parameters.MotionType.Cirlces);
+                SetMoveType(blob, Radius, Goomba_Parameters.MotionType.Cirlces, level.Rnd);
 
                 blob.Displacement.X = Dir * Math.Abs(blob.Displacement.X);
 
@@ -163,13 +163,13 @@ namespace CloudberryKingdom.Levels
         }
 
 
-        void SetTunnelBlobParameter(Goomba blob, Goomba_Parameters Params)
+        void SetTunnelBlobParameter(Goomba blob, Goomba_Parameters Params, Rand Rnd)
         {
             blob.SetColor(Goomba.BlobColor.Pink);
 
             blob.Core.GenData.RemoveIfUnused = false;
 
-            SetMoveType(blob, Params.TunnelDisplacement, Params.TunnelMotionType);
+            SetMoveType(blob, Params.TunnelDisplacement, Params.TunnelMotionType, Rnd);
             blob.Displacement.X = Math.Abs(blob.Displacement.X);
             
             blob.Offset = 0;
@@ -193,7 +193,7 @@ namespace CloudberryKingdom.Levels
                 for (int j = 0; j < M; j++)
                 {
                     Goomba blob = (Goomba)CreateAt(level, BL + new Vector2(i, j) * Step);
-                    SetTunnelBlobParameter(blob, Params);
+                    SetTunnelBlobParameter(blob, Params, level.Rnd);
 
                     Params.TunnelGUIDs[i, j] = blob.Core.MyGuid;
                 }
@@ -324,7 +324,7 @@ namespace CloudberryKingdom.Levels
             level.CleanupGoombas(BL, TR);
         }
 
-        public void SetMoveType(Goomba fblob, float Displacement, Goomba_Parameters.MotionType mtype)
+        public void SetMoveType(Goomba fblob, float Displacement, Goomba_Parameters.MotionType mtype, Rand Rnd)
         {
             switch (mtype)
             {
@@ -337,10 +337,10 @@ namespace CloudberryKingdom.Levels
                     fblob.MyMoveType = Goomba.PrescribedMoveType.Line;
                     fblob.Displacement = new Vector2(Displacement, 0);
                     break;
-
+                    
                 case Goomba_Parameters.MotionType.Cross:
                     fblob.MyMoveType = Goomba.PrescribedMoveType.Line;
-                    if (Tools.Rnd.NextDouble() > .5)
+                    if (Rnd.Rnd.NextDouble() > .5)
                         fblob.Displacement = new Vector2(Displacement, .5f * Displacement);
                     else
                         fblob.Displacement = new Vector2(-Displacement, .5f * Displacement);
@@ -349,39 +349,39 @@ namespace CloudberryKingdom.Levels
                 case Goomba_Parameters.MotionType.Cirlces:
                     fblob.MyMoveType = Goomba.PrescribedMoveType.Circle;
                     fblob.Displacement = new Vector2(Displacement * .7f, Displacement * .5f);
-                    fblob.Displacement.X *= Tools.Rnd.Next(0, 2) * 2 - 1;
+                    fblob.Displacement.X *= Rnd.Rnd.Next(0, 2) * 2 - 1;
                     break;
 
                 case Goomba_Parameters.MotionType.AA:
-                    if (Tools.Rnd.NextDouble() > .5)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Vertical);
+                    if (Rnd.Rnd.NextDouble() > .5)
+                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Vertical, Rnd);
                     else
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Horizontal);
+                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Horizontal, Rnd);
                     break;
 
                 case Goomba_Parameters.MotionType.Straight:
-                    if (Tools.Rnd.NextDouble() > .5)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cross);
+                    if (Rnd.Rnd.NextDouble() > .5)
+                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cross, Rnd);
                     else
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.AA);
+                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.AA, Rnd);
                     break;
 
                 case Goomba_Parameters.MotionType.Heart:
                     fblob.MyMoveType = Goomba.PrescribedMoveType.Star;
                     fblob.Displacement = new Vector2(Displacement * .7f, Displacement * .7f);
-                    fblob.Displacement.X *= Tools.Rnd.Next(0, 2) * 2 - 1;
+                    fblob.Displacement.X *= Rnd.Rnd.Next(0, 2) * 2 - 1;
                     break;
 
                 case Goomba_Parameters.MotionType.All:
-                    double rnd = Tools.Rnd.NextDouble();
+                    double rnd = Rnd.Rnd.NextDouble();
                     if (rnd > .66666)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Straight);
+                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Straight, Rnd);
                     else
                     {
                         if (rnd > .33333)
-                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cirlces);
+                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cirlces, Rnd);
                         else
-                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Heart);
+                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Heart, Rnd);
                     }
                     break;
             }
@@ -398,7 +398,7 @@ namespace CloudberryKingdom.Levels
 
             // If the blob is too low make sure it's path is horizontal
             if (pos.Y < BL.Y + 500)
-                SetMoveType(NewBlob, Tools.SupNorm(NewBlob.Displacement) , Goomba_Parameters.MotionType.Horizontal);
+                SetMoveType(NewBlob, Tools.SupNorm(NewBlob.Displacement), Goomba_Parameters.MotionType.Horizontal, level.Rnd);
 
             level.AddObject(NewBlob);
 
@@ -431,15 +431,15 @@ namespace CloudberryKingdom.Levels
             NewBlob.Core.Data.Position = NewBlob.Core.StartData.Position = pos;
             NewBlob.Period = (int)Params.Period.GetVal(pos);
 
-            //NewBlob.Offset = Tools.Rnd.Next(0, NewBlob.Period);
+            //NewBlob.Offset = MyLevel.Rnd.Rnd.Next(0, NewBlob.Period);
             NewBlob.Offset = level.Style.GetOffset(NewBlob.Period, pos,
                                                         level.Style.FlyingBlobOffsetType);
 
             float Displacement = Params.Range.GetVal(pos);
-            SetMoveType(NewBlob, Displacement, Params.Motion);
+            SetMoveType(NewBlob, Displacement, Params.Motion, level.Rnd);
 
             // Decide if we should keep the blob even if unused
-            if (Tools.Rnd.NextDouble() < Params.KeepUnused.GetVal(pos))
+            if (level.Rnd.Rnd.NextDouble() < Params.KeepUnused.GetVal(pos))
                 NewBlob.Core.GenData.RemoveIfUnused = false;
             else
                 NewBlob.Core.GenData.RemoveIfUnused = true;

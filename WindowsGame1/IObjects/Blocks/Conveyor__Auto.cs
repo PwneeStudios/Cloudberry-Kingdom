@@ -89,7 +89,7 @@ namespace CloudberryKingdom.Levels
 
             conveyblock.BlockCore.BlobsOnTop = true;
 
-            conveyblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            conveyblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
             conveyblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
             if (level.Style.RemoveBlockOnOverlap)

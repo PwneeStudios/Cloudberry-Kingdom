@@ -48,7 +48,7 @@ namespace CloudberryKingdom
 
         void StandardInit(LevelSeedData data)
         {
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = data.Rnd.Rnd.Next();
 
             data.SetBackground(BackgroundType.Gray);
             data.DefaultHeroType = BobPhsxNormal.Instance;

@@ -284,7 +284,7 @@ namespace CloudberryKingdom
             FBlock.Pos -= FBlockOffset;
             if (FBlockShake && MyLevel.CurPhsxStep % 2 == 0)
             {
-                FBlockOffset = new Vector2(Tools.Rnd.Next(-10, 10), Tools.Rnd.Next(-10, 10));
+                FBlockOffset = new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
             }
             FBlock.Pos += FBlockOffset;
 

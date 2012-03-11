@@ -45,9 +45,9 @@ namespace CloudberryKingdom
         /// this method returns a randomly chosen value in that range.
         /// </summary>
         /// <returns></returns>
-        public float RndFloat(Vector2 Pos)
+        public float RndFloat(Vector2 Pos, Rand Rnd)
         {
-            return Tools.RndFloat(GetVal(Pos));
+            return Rnd.RndFloat(GetVal(Pos));
         }
     }
 

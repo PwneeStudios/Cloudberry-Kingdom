@@ -7,7 +7,7 @@ namespace CloudberryKingdom
     public enum TriggerCode { None, ScoreBoardTrigger };
 
     public delegate void LineTriggerEvent(LineTrigger trig);
-    public class LineTrigger : IObject
+    public class LineTrigger : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

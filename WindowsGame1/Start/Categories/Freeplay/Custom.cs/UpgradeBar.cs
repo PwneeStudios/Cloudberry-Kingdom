@@ -87,7 +87,7 @@ namespace CloudberryKingdom
             Icon = ObjectIcon.CreateIcon(upgrade);
             Icon.FancyPos.SetCenter(FancyPos, true);
 
-            //NumBars = Tools.RndInt(1, 4);
+            //NumBars = MyLevel.Rnd.RndInt(1, 4);
             NumBars = 0;
 
             Bar = new QuadClass();

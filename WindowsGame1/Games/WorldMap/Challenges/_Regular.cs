@@ -41,10 +41,10 @@ namespace CloudberryKingdom
 
         static void StandardInit(LevelSeedData data)
         {
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = data.Rnd.Rnd.Next();
 
             //data.MyBackgroundType = BackgroundType.Outside;
-            data.SetBackground(Tools.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
+            data.SetBackground(data.Rnd.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
             
             data.DefaultHeroType = BobPhsxNormal.Instance;
         }
@@ -74,8 +74,8 @@ namespace CloudberryKingdom
             // Pick upgrades            
             if (piece.MyPieceIndex == 0)
             {
-                Picks1 = Tools.Choose(tileset.JumpUpgrades, JumpComplexity);
-                Picks2 = Tools.Choose(tileset.DodgeUpgrades, DodgeComplexity);
+                Picks1 = piece.Rnd.Choose(tileset.JumpUpgrades, JumpComplexity);
+                Picks2 = piece.Rnd.Choose(tileset.DodgeUpgrades, DodgeComplexity);
 
                 //Picks1 = Tools.Choose(JumpUpgrades, JumpComplexity);
                 //Picks2 = Tools.Choose(DodgeUpgrades, DodgeComplexity);
@@ -126,7 +126,7 @@ namespace CloudberryKingdom
         {
             int Jump, Dodge, Speed, JumpComplexity, DodgeComplexity;
 
-            switch (Tools.RndInt(0, 3))
+            switch (LevelSeed.Rnd.RndInt(0, 3))
             {
                 case 0:
                     Jump = Difficulty;
@@ -149,14 +149,14 @@ namespace CloudberryKingdom
                     Dodge = (int)(1.5f * Difficulty);
                     Speed = (int)Tools.DifficultyLerp159(2, 4, 9, Difficulty);
                     JumpComplexity = 0;
-                    DodgeComplexity = Tools.RndInt(1, 3);
+                    DodgeComplexity = LevelSeed.Rnd.RndInt(1, 3);
                     break;
 
                 default:
                     Jump = Difficulty;
                     Dodge = 0;
                     Speed = (int)Tools.DifficultyLerp159(2, 4, 6, Difficulty);
-                    JumpComplexity = Tools.RndInt(1, 3);
+                    JumpComplexity = LevelSeed.Rnd.RndInt(1, 3);
                     DodgeComplexity = 0;
                     break;
             }
@@ -209,10 +209,10 @@ namespace CloudberryKingdom
 
             switch (Difficulty)
             {
-                case 0: Tools.Choose(EasyUpgrades)(piece.MyUpgrades1); break;
-                case 1: Tools.Choose(NormalUpgrades)(piece.MyUpgrades1); break;
-                case 2: Tools.Choose(AbusiveUpgrades)(piece.MyUpgrades1); break;
-                default: Tools.Choose(HardcoreUpgrades)(piece.MyUpgrades1); break;
+                case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1); break;
+                case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1); break;
+                case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1); break;
+                default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1); break;
             }
 
             piece.StandardClose();

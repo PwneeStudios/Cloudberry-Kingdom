@@ -86,7 +86,8 @@ namespace CloudberryKingdom
             MyObject.Read(0, 0);
             MyObject.Play = true;
             MyObject.Loop = true;
-            MyObject.EnqueueAnimation(0, (float)Tools.Rnd.NextDouble() * 1.5f, true);
+            //MyObject.EnqueueAnimation(0, (float)MyLevel.Rnd.Rnd.NextDouble() * 1.5f, true);
+            MyObject.EnqueueAnimation(0, (float)0, true);
             MyObject.DequeueTransfers();
             MyObject.Update();
         }

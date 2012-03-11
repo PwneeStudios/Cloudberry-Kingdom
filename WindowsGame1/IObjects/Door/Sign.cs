@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Sign : IObject
+    public class Sign : ObjectBase, IObject
     {
         public void Release()
         {

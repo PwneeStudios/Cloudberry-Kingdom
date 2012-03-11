@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
         public static BobPhsx ChooseHeroType()
         {
-            return Tools.Choose(Bob.HeroTypes);
+            return Tools.GlobalRnd.Choose(Bob.HeroTypes);
         }
 
         // Instancable class

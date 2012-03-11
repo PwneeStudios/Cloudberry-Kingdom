@@ -89,8 +89,8 @@ namespace CloudberryKingdom
                         Vector2 OldShake = ShakeOffset;
 
                         float ShakingIntensity = .3f;
-                        ShakeOffset.X = ShakingIntensity * Tools.Rnd.Next(-70, 70);
-                        ShakeOffset.Y = ShakingIntensity * Tools.Rnd.Next(-70, 70);
+                        ShakeOffset.X = ShakingIntensity * MyLevel.Rnd.Rnd.Next(-70, 70);
+                        ShakeOffset.Y = ShakingIntensity * MyLevel.Rnd.Rnd.Next(-70, 70);
 
                         foreach (Goomba blob in Blobs)
                         {
@@ -128,11 +128,11 @@ namespace CloudberryKingdom
                     {
                         blob.Target = (blob.Pos - BallPos);
                         blob.Target.Normalize();
-                        blob.Target *= 4000 * Tools.RndFloat(2.5f, 5f); ;
+                        blob.Target *= 4000 * MyLevel.Rnd.RndFloat(2.5f, 5f); ;
                         blob.Target += Pos;
 
-                        blob.MaxVel *= Tools.RndFloat(28, 68) / 2;
-                        blob.MaxAcc *= Tools.RndFloat(24, 58) / 2;
+                        blob.MaxVel *= MyLevel.Rnd.RndFloat(28, 68) / 2;
+                        blob.MaxAcc *= MyLevel.Rnd.RndFloat(24, 58) / 2;
                         blob.FinalizedParams = true;
                     }
                 }
@@ -140,7 +140,7 @@ namespace CloudberryKingdom
                 {
                     foreach (Goomba blob in Blobs)
                     {
-                        if (Tools.RndBool(.0375f))
+                        if (MyLevel.Rnd.RndBool(.0375f))
                         {
                             blob.Squish(blob.Core.Data.Velocity * .4f);
 

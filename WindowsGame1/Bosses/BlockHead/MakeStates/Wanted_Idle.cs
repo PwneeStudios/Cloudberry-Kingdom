@@ -2,7 +2,7 @@
 
 namespace CloudberryKingdom
 {
-    public partial class BlockHead : IObject
+    public partial class BlockHead
     {
         int Delay = 180;
         int Count = 0;

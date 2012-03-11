@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             MyObject.Read(0, 0);
             MyObject.Play = true;
             MyObject.Loop = true;
-            MyObject.EnqueueAnimation(0, (float)Tools.Rnd.NextDouble() * 1.85f, true);
+            MyObject.EnqueueAnimation(0, (float)MyLevel.Rnd.Rnd.NextDouble() * 1.85f, true);
             MyObject.DequeueTransfers();
             MyObject.Update();
         }
@@ -103,7 +103,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            MyObject.PlayUpdate(Tools.RndFloat(0, .75f));
+            MyObject.PlayUpdate(MyLevel.Rnd.RndFloat(0, .75f));
         }
         
         public void AnimStep()

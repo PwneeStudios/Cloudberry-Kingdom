@@ -225,16 +225,16 @@ namespace CloudberryKingdom
             if (MyLevel.Geometry == LevelGeometry.Right)
             {
                 AlwaysForward = Vector2.Max(AlwaysForward, Pos) + new Vector2(300);
-                Target = new Vector2(.5f * (Pos.X + Tools.RndFloat(-400, 3000) + AlwaysForward.X),
-                    Tools.RndFloat(Cam.BL.Y + 400, Cam.TR.Y - 300));
+                Target = new Vector2(.5f * (Pos.X + MyLevel.Rnd.RndFloat(-400, 3000) + AlwaysForward.X),
+                    MyLevel.Rnd.RndFloat(Cam.BL.Y + 400, Cam.TR.Y - 300));
             }
 
             if (MyLevel.Geometry == LevelGeometry.Up)
             {
                 AlwaysForward = Vector2.Max(AlwaysForward, Pos) + new Vector2(300);
                 Target = new Vector2(
-                    Tools.RndFloat(Cam.BL.X + 600, Cam.TR.X - 600),
-                    .5f * (Pos.Y + Tools.RndFloat(-400, 3000) + AlwaysForward.Y));
+                    MyLevel.Rnd.RndFloat(Cam.BL.X + 600, Cam.TR.X - 600),
+                    .5f * (Pos.Y + MyLevel.Rnd.RndFloat(-400, 3000) + AlwaysForward.Y));
             }
         }
 
@@ -280,7 +280,7 @@ namespace CloudberryKingdom
 
                     if (StepsOnSide == StickyWaitLength)
                     {
-                        yVelCutoff = Tools.RndFloat(-15, 12);
+                        yVelCutoff = MyLevel.Rnd.RndFloat(-15, 12);
                     }
 
                     {

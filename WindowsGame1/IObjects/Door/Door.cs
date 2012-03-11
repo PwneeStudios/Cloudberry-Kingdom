@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public delegate void DoorAction(Door door);
-    public class Door : IObject, ILevelConnector
+    public class Door : ObjectBase, IObject, ILevelConnector
     {
         public enum Types { Brick, Rock, Grass, Dark };
         public Types MyType;
@@ -399,7 +399,7 @@ namespace CloudberryKingdom
                 if (step % 2 == 0)
                 {
                     Pos = save;
-                    Pos += new Vector2(Tools.Rnd.Next(-ShakeIntensity, ShakeIntensity), Tools.Rnd.Next(-ShakeIntensity, ShakeIntensity));
+                    Pos += new Vector2(MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity), MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity));
                 }
 
                 ShakeStep--;

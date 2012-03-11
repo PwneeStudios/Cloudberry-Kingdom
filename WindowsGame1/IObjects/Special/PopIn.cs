@@ -9,7 +9,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class PopIn : IObject
+    public class PopIn : ObjectBase, IObject
     {
         /// <summary>
         /// Pop in all the Bobs of a level, using an individual PopIn object per Bob.
@@ -86,7 +86,7 @@ namespace CloudberryKingdom
 
             if (Tools.IncrementsContainsSum(Pops, Step))
             {
-                Core.MyLevel.AddPop(Core.Data.Position + Tools.RndVector2(160));
+                Core.MyLevel.AddPop(Core.Data.Position + MyLevel.Rnd.RndVector2(160));
                 Tools.SoundWad.FindByName("Pop 2").Play();
             }
 

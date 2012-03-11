@@ -22,9 +22,9 @@ namespace CloudberryKingdom.Levels
             // General difficulty
             int MinNumOffsets = 1; if (lvl > 2.5f) MinNumOffsets = 2; if (lvl > 6.5f) MinNumOffsets = 3;
             int MaxNumOffsets = 2; if (lvl > 2.5f) MaxNumOffsets = 4; if (lvl > 6.5f) MaxNumOffsets = 8;
-            NumOffsets = Tools.RndInt(MinNumOffsets, MaxNumOffsets);
+            NumOffsets = level.Rnd.RndInt(MinNumOffsets, MaxNumOffsets);
 
-            OffsetStyle = (OffsetStyles)Tools.RndEnum<OffsetStyles>();
+            OffsetStyle = (OffsetStyles)level.Rnd.RndEnum<OffsetStyles>();
 
             BobWidthLevel = new Param(PieceSeed, u => u[Upgrade.Spike]);
 
@@ -65,7 +65,7 @@ namespace CloudberryKingdom.Levels
         /// Set the period and period offset of the spike.
         /// The spike's position should already have been set.
         /// </summary>
-        public void SetPeriod(Spike spike)
+        public void SetPeriod(Spike spike, Rand Rnd)
         {
             Vector2 pos = spike.Core.Data.Position;
             int period = (int)SpikePeriod.GetVal(pos);
@@ -74,7 +74,7 @@ namespace CloudberryKingdom.Levels
 
             switch (OffsetStyle)
             {
-                case OffsetStyles.Rnd: spike.Offset = ChooseOffset(period); break;
+                case OffsetStyles.Rnd: spike.Offset = ChooseOffset(period, Rnd); break;
                 case OffsetStyles.SawTooth:
                     spike.Offset = (int)((pos.X / 700) * period) % period;
                     break;
@@ -159,11 +159,11 @@ namespace CloudberryKingdom.Levels
 
                 // Add spikes
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 110;
-                float density = Tools.RndFloat(Params.MinSpikeDensity.GetVal(block.Core.Data.Position),
+                float density = Rnd.RndFloat(Params.MinSpikeDensity.GetVal(block.Core.Data.Position),
                                                Params.MaxSpikeDensity.GetVal(block.Core.Data.Position));
                 float average = (int)(xdif * (float)density / 2000f);
                 int n = (int)average;
-                //if (average < 1) if (Tools.Rnd.NextDouble() < average) n = 1;
+                //if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;
                 if (average < 2) n = 2;
 
                 for (int i = 0; i < n; i++)
@@ -172,7 +172,7 @@ namespace CloudberryKingdom.Levels
                     {
                         Spike spike = (Spike)Recycle.GetObject(ObjectType.Spike, true);//false);
 
-                        float x = (float)Tools.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 55;
+                        float x = (float)Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 55;
                         float y;
 
                         if (block.BlockCore.BlobsOnTop)
@@ -189,8 +189,8 @@ namespace CloudberryKingdom.Levels
                         Vector2 pos = new Vector2(x, y);
                         Tools.MoveTo(spike, pos);
                         
-                        //spike.Offset = Tools.Rnd.Next(0, 200);
-                        Params.SetPeriod(spike);
+                        //spike.Offset = Rnd.Rnd.Next(0, 200);
+                        Params.SetPeriod(spike, Rnd);
 
                         spike.SetParentBlock(block);
                         AddObject(spike);
@@ -202,7 +202,7 @@ namespace CloudberryKingdom.Levels
                     float ydif = block.Box.Current.TR.Y - block.Box.Current.BL.Y - 110;
                     average = (int)(ydif * (float)density / 2000f);
                     n = (int)average;
-                    if (average < 1) if (Tools.Rnd.NextDouble() < average) n = 1;
+                    if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;
                     n = 4;
                     for (int i = 0; i < n; i++)
                     {
@@ -211,10 +211,10 @@ namespace CloudberryKingdom.Levels
                         {
                             Spike spike = (Spike)Recycle.GetObject(ObjectType.Spike, true);//false);
 
-                            float y = (float)Tools.Rnd.NextDouble() * ydif + block.Box.Target.BL.Y + 55;
+                            float y = (float)Rnd.Rnd.NextDouble() * ydif + block.Box.Target.BL.Y + 55;
                             float x;
 
-                            if (Tools.Rnd.Next(0, 2) == 0)
+                            if (Rnd.Rnd.Next(0, 2) == 0)
                             {
                                 x = block.Box.Target.TR.X + SpikeSideOffset;
                                 spike.SetDir(3);
@@ -227,8 +227,8 @@ namespace CloudberryKingdom.Levels
                             }
 
                             spike.Core.Data.Position = new Vector2(x, y);
-                            //spike.Offset = Tools.Rnd.Next(0, 200);
-                            Params.SetPeriod(spike);
+                            //spike.Offset = Rnd.Rnd.Next(0, 200);
+                            Params.SetPeriod(spike, Rnd);
 
                             spike.SetParentBlock(block);
                             AddObject(spike);

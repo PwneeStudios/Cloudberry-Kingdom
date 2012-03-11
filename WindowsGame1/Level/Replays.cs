@@ -152,7 +152,7 @@ namespace CloudberryKingdom.Levels
                     Comp.SetColorScheme(ColorSchemeManager.ComputerColorSchemes[index]);
                 }
                 else
-                    Comp.SetColorScheme(Tools.RandomItem<ColorScheme>(ColorSchemeManager.ComputerColorSchemes));
+                    Comp.SetColorScheme(Tools.GlobalRnd.RandomItem<ColorScheme>(ColorSchemeManager.ComputerColorSchemes));
 
                 Comp.MoveData = CurPiece.MyMakeData.MoveData[i];
                 int Copy = Comp.MoveData.Copy;

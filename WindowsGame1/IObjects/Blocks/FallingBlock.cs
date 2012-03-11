@@ -187,7 +187,7 @@ namespace CloudberryKingdom
                 if (Core.MyLevel.GetPhsxStep() % 2 == 0)
                     if (Life > 0)
                     {
-                        Offset = new Vector2(Tools.Rnd.Next(-10, 10), Tools.Rnd.Next(-10, 10));
+                        Offset = new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
                     }
             }
             else

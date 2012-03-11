@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Balrogs
 {
-    public class BalrogFlyupTrigger : IObject
+    public class BalrogFlyupTrigger : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()
@@ -157,7 +157,7 @@ public bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 
-    public class Balrog : IObject
+    public class Balrog : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

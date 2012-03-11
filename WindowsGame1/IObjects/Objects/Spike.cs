@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Spikes
 {
-    public class Spike : IObject
+    public class Spike : ObjectBase, IObject
     {
         static bool PeakOut = true;
 
@@ -217,7 +217,7 @@ namespace CloudberryKingdom.Spikes
                     if (MyObject.t > 1.9655f)
                     {
                         float HoldAngle = Angle;
-                        SetAngle(Angle + Tools.RndFloat(-.385f, .385f));
+                        SetAngle(Angle + MyLevel.Rnd.RndFloat(-.385f, .385f));
                         Angle = HoldAngle;
                     }
                     else

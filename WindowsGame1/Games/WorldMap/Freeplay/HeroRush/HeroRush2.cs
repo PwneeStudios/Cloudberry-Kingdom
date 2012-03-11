@@ -110,7 +110,7 @@ namespace CloudberryKingdom
         void ShuffleHeros()
         {
             // Shuffle the non-classic heros
-            HeroList = Tools.Shuffle(HeroList);
+            HeroList = Tools.GlobalRnd.Shuffle(HeroList);
 
             // The first hero is always classic
             HeroList.Insert(0, new HeroSpec(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic));

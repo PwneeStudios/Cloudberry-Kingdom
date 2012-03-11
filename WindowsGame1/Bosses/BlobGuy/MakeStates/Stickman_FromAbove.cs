@@ -5,7 +5,7 @@ using CloudberryKingdom;
 
 namespace CloudberryKingdom
 {
-    public partial class BlobGuy : IObject
+    public partial class BlobGuy
     {
         public Action OnLand, OnExplode;
         public bool Exploded;
@@ -45,10 +45,10 @@ namespace CloudberryKingdom
                 //        var laser = new Laser(true);
                 //        laser.Core.RemoveOnReset = true;
                 //        Core.MyLevel.AddObject(laser);
-                //        laser.SetLine(Tools.RndPos(Tools.CurCamera.BL + new Vector2(400), Tools.CurCamera.TR - new Vector2(500)), Tools.RndFloat(0, 360));
+                //        laser.SetLine(MyLevel.Rnd.RndPos(Tools.CurCamera.BL + new Vector2(400), Tools.CurCamera.TR - new Vector2(500)), MyLevel.Rnd.RndFloat(0, 360));
 
                 //        laser.Period = 360;
-                //        laser.Offset = Tools.Rnd.Next(laser.Period);
+                //        laser.Offset = MyLevel.Rnd.Rnd.Next(laser.Period);
                 //        laser.WarnDuration = 40;
                 //        laser.Duration = 60;
                 //    }

@@ -172,11 +172,11 @@ namespace CloudberryKingdom
 #endif
 
             ////// Load
-            ////Tools.Rnd = new Random();
-            ////int seed = Tools.Rnd.Next();
+            ////MyLevel.Rnd.Rnd = new Random();
+            ////int seed = MyLevel.Rnd.Rnd.Next();
             //////seed = 1266783283;
             ////Console.WriteLine("Seed: {0}", seed);
-            ////Tools.Rnd = new Random(seed);
+            ////MyLevel.Rnd.Rnd = new Random(seed);
 
             ////// Load saved files
             ////PlayerManager.Init();
@@ -635,11 +635,11 @@ namespace CloudberryKingdom
             QDrawer.DefaultEffect = EffectWad.FindByName("NoTexture");
             QDrawer.DefaultTexture = TextureWad.FindByName("White");
 
-            Tools.Rnd = new Random();
-            int seed = Tools.Rnd.Next();
-            //seed = 1266783283;
-            Console.WriteLine("Seed: {0}", seed);
-            Tools.Rnd = new Random(seed);
+            //MyLevel.Rnd.Rnd = new Random();
+            //int seed = MyLevel.Rnd.Rnd.Next();
+            ////seed = 1266783283;
+            //Console.WriteLine("Seed: {0}", seed);
+            //MyLevel.Rnd.Rnd = new Random(seed);
             
             Tools.EffectWad = EffectWad;
             Tools.TextureWad = TextureWad;
@@ -1316,8 +1316,8 @@ namespace CloudberryKingdom
                     //    PlayerManager.Get(i).ColorScheme = ColorSchemeManager.ColorSchemes[i];
 
 
-                    Campaign.InitCampaign(3);
-                    Tools.CurGameData = new Campaign_DungeonFromAbove(null); return;
+                    //Campaign.InitCampaign(3);
+                    //Tools.CurGameData = new Campaign_DungeonFromAbove(null); return;
 
 
                     // Trailer scenes
@@ -1333,7 +1333,7 @@ namespace CloudberryKingdom
                     //PlayerManager.Get(1).IsAlive = true;
 
 
-                    LevelSeedData.ForcedReturnEarly = 1;
+                    LevelSeedData.ForcedReturnEarly = 0;
                     MakeTestLevel(); return;
 #if DEBUG
                     if (RecordIntro)
@@ -1442,7 +1442,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = Tools.GlobalRnd.Rnd.Next();
             //data.Seed = 1;
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
@@ -1664,7 +1664,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.Seed = Tools.Rnd.Next();
+            //data.Seed = MyLevel.Rnd.Rnd.Next();
 
             data.MyBackgroundType = BackgroundType.Gray;
             data.DefaultHeroType = BobPhsxNormal.Instance;

@@ -7,9 +7,11 @@ namespace CloudberryKingdom
 {
     public class Rand
     {
+        public int MySeed;
         public Rand(int seed)
         {
-            Rnd = new Random(seed);
+            MySeed = seed;
+            Rnd = new Random(MySeed);
         }
 
         public Random Rnd;
@@ -106,14 +108,7 @@ namespace CloudberryKingdom
             return new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
         }
 
-        /// <summary>
-        /// Choose a random element from the list
-        /// </summary>
-        public T Choose<T>(this List<T> list)
-        {
-            //if (list == null || list.Count == 0) return null;
-            return list[RndInt(0, list.Count - 1)];
-        }
+
 
         public int RandomSnap(int Range, int SnapPoints)
         {
@@ -167,7 +162,7 @@ namespace CloudberryKingdom
                 for (j = 0; j < Count; j++)
                 {
                     Index = (Index + 1) % Length;
-                    while ((Taken[Index] || !Valid[Index]) && !(_AllTaken(Taken, Valid, Length)))
+                    while ((Taken[Index] || !Valid[Index]) && !(Tools._AllTaken(Taken, Valid, Length)))
                         Index = (Index + 1) % Length;
                 }
 

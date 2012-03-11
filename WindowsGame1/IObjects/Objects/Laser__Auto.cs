@@ -102,7 +102,7 @@ namespace CloudberryKingdom.Levels
             while (loc.X < TR.X && PieceSeed.GeometryType == LevelGeometry.Right ||
                    loc.Y < TR.Y && (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down))
             {
-                step = Tools.RndFloat(Params.LaserStep.GetVal(loc),
+                step = Rnd.RndFloat(Params.LaserStep.GetVal(loc),
                                       Params.LaserStep.GetVal(loc));
 
                 Vector2 CamSize = MainCamera.GetSize();
@@ -112,7 +112,7 @@ namespace CloudberryKingdom.Levels
                     Laser laser = (Laser)Recycle.GetObject(ObjectType.Laser, true);
 
                     laser.Core.Data.Position = loc;
-                    float shift = Tools.RndFloat(-800, 800);
+                    float shift = Rnd.RndFloat(-800, 800);
 
                     Vector2 p1, p2;
                     if (PieceSeed.GeometryType == LevelGeometry.Right)
@@ -128,7 +128,7 @@ namespace CloudberryKingdom.Levels
 
                     laser.SetLine(p1, p2);
                     laser.Period = (int)Params.LaserPeriod.GetVal(loc);
-                    laser.Offset = Tools.Rnd.Next(laser.Period);
+                    laser.Offset = Rnd.Rnd.Next(laser.Period);
                     laser.WarnDuration = (int)(laser.Period * .35f);
                     laser.Duration = (int)(laser.Period * .2f);
 

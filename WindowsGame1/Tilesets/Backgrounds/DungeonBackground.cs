@@ -71,9 +71,9 @@ namespace CloudberryKingdom
             while (Pos < TR.Y)
             {
                 BackgroundFloater window = new BackgroundFloater(MyLevel, BL.X - 1000, TR.X + 400);
-                window.Data.Position = new Vector2(Tools.RndFloat(-1500, 1500) * 1.5f, Pos);
+                window.Data.Position = new Vector2(MyLevel.Rnd.RndFloat(-1500, 1500) * 1.5f, Pos);
 
-                if (Tools.RndBool())
+                if (MyLevel.Rnd.RndBool())
                 {
                     window.MyQuad.TextureName = "Inside2_window1";
                     window.MyQuad.Size = new Vector2(1500, 1000);
@@ -86,7 +86,7 @@ namespace CloudberryKingdom
 
                 window.MyQuad.Quad.SetColor(new Color(85, 85, 85, 255));
 
-                Pos += Tools.RndFloat(800, 1400) * 2.15f;
+                Pos += MyLevel.Rnd.RndFloat(800, 1400) * 2.15f;
 
                 NewList.Floaters.Add(window);
             }

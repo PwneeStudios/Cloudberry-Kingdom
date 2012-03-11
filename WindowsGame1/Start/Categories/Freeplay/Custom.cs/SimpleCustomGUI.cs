@@ -78,7 +78,7 @@ namespace CloudberryKingdom
 
                     // Ceiling upgrade based on jump upgrade
                     p.MyUpgrades1[Upgrade.Ceiling] = p.MyUpgrades2[Upgrade.Ceiling]
-                        = Tools.RndFloat(0, PieceSeed.MyUpgrades1[Upgrade.Jump]);
+                        = MyLevel.Rnd.RndFloat(0, PieceSeed.MyUpgrades1[Upgrade.Jump]);
                 };
 
                 data.Initialize(custom);
@@ -279,7 +279,7 @@ namespace CloudberryKingdom
             ItemShadows = false;
 
             LevelSeed = new LevelSeedData();
-            PieceSeed = new PieceSeedData();
+            PieceSeed = new PieceSeedData(null);
 
             SlideInFrom = SlideOutTo = PresetPos.Right;
 

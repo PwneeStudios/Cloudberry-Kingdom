@@ -295,7 +295,9 @@ namespace CloudberryKingdom
                 return MyLevel.MainCamera;
             }
         }
-                
+        public Rand Rnd { get { return MyLevel.Rnd; } }        
+
+
         public Level MyLevel;
 
         public Vector2 Pos(string code)
@@ -1539,7 +1541,7 @@ namespace CloudberryKingdom
                     {
                         Tools.CurGameData.DefaultHeroType = LevelSeed.DefaultHeroType;
                     }
-                    Tools.Rnd = new Random(LevelSeed.Seed);
+                    //MyLevel.Rnd.Rnd = new Random(LevelSeed.Seed);
                 }
 
                 GameData MadeGame = null;

@@ -77,7 +77,7 @@ namespace CloudberryKingdom.Levels
                 while (pos.X <= TR.X)
                 {
                     FillFunc(pos);
-                    pos.X += Tools.RndFloat(xstep);
+                    pos.X += Rnd.RndFloat(xstep);
                 }
                 if (TR.X - (pos.X - xstep.X) > .5f * xstep.X)
                 {
@@ -453,7 +453,7 @@ namespace CloudberryKingdom.Levels
 
                     // Randomize height of start
                     block.Extend(Side.Top, block.Box.TR.Y +
-                        Tools.RndFloat(Style.InitialDoorYRange) +
+                        Rnd.RndFloat(Style.InitialDoorYRange) +
                         0);
 
                     AddBlock(block);
@@ -484,7 +484,7 @@ namespace CloudberryKingdom.Levels
                     // Shift start position
                     SpreadStartPositions(CurPiece, CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
 
-                    return block.Box.TR.X + Tools.RndFloat(100, 250);
+                    return block.Box.TR.X + Rnd.RndFloat(100, 250);
 
                 case StyleData.InitialPlatsType.Normal:
                     return MakeInitial_Normal(BL, TR, size);
@@ -671,7 +671,7 @@ namespace CloudberryKingdom.Levels
             while (Pos.X < TR.X)
             {
                 block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                block.Init(Pos + new Vector2(width, Tools.RndFloat(200, 1000)), new Vector2(Tools.RndFloat(width/2,width), 200));
+                block.Init(Pos + new Vector2(width, Rnd.RndFloat(200, 1000)), new Vector2(Rnd.RndFloat(width/2,width), 200));
                 block.Extend(Side.Bottom, BL.Y - 300);
 
                 block.Core.GenData.RemoveIfUnused = true;
@@ -687,7 +687,7 @@ namespace CloudberryKingdom.Levels
                 AddBlock(block);
 
                 Pos.Y = BL.Y;
-                Pos.X += Tools.RndFloat(step, 2 * step);
+                Pos.X += Rnd.RndFloat(step, 2 * step);
             }
 
             return Pos.X;
@@ -741,14 +741,14 @@ namespace CloudberryKingdom.Levels
                     Weights[Generators.WeightedPreFill_1_Gens.IndexOf(NormalBlock_AutoGen.Instance)] = NormalBlockTotal * ModNormalBlockWeight;
 
                     // Choose a random generator and make a new obstacle with it
-                    int choice = Tools.Choose(Weights);
+                    int choice = Rnd.Choose(Weights);
                     AutoGen chosen_gen = Generators.WeightedPreFill_1_Gens[choice];
                     IObject NewObj = chosen_gen.CreateAt(this, pos, BL_Cutoff, TR);
 
                     if (NewObj == null) return;
 
                     // Keep new object if it's unused?
-                    if (Tools.RndFloat(0, 1) < CurMakeData.PieceSeed.Style.ChanceToKeepUnused
+                    if (Rnd.RndFloat(0, 1) < CurMakeData.PieceSeed.Style.ChanceToKeepUnused
                         && pos.Y > BL.Y + 400) // Don't keep unused blocks that are too low
                     {
                         NewObj.Core.GenData.RemoveIfUnused = false;
@@ -939,7 +939,7 @@ namespace CloudberryKingdom.Levels
             {
                 VoidHeight = 40;
                 LavaBlock lblock = (LavaBlock)Recycle.GetObject(ObjectType.LavaBlock, false);
-                lblock.Init(MainCamera.BL.Y + Tools.RndFloat(300, 1400) + Style.LowerSafetyNetOffset,
+                lblock.Init(MainCamera.BL.Y + Rnd.RndFloat(300, 1400) + Style.LowerSafetyNetOffset,
                             MaxLeft - 1000, MaxRight + 1000, 5000);
                 lblock.StampAsUsed(0);
                 AddBlock(lblock);
@@ -1073,7 +1073,7 @@ namespace CloudberryKingdom.Levels
             CurPiece.Par = LastStep;
             Par += CurPiece.Par;
 
-            //Console.WriteLine("Test 4 ---> {0}", Tools.Rnd.Next());
+            //Console.WriteLine("Test 4 ---> {0}", Rnd.Rnd.Next());
 
             DEBUG("Done with stage 1 run through, about to cleanup");
 

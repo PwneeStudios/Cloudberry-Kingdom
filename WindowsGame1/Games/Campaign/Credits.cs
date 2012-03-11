@@ -234,11 +234,11 @@ namespace CloudberryKingdom
             Vector2 pos = p1;
             while (pos.X < p2.X)
             {
-                var bubble = new BerryBubble(pos + new Vector2(0, Tools.RndFloat(-200, 1500)));
+                var bubble = new BerryBubble(pos + new Vector2(0, MyLevel.Rnd.RndFloat(-200, 1500)));
                 bubble.Core.DrawLayer = 9;
                 MyLevel.AddObject(bubble);
 
-                pos.X += Tools.RndFloat(300, 600);
+                pos.X += MyLevel.Rnd.RndFloat(300, 600);
             }
         }
 
@@ -252,12 +252,12 @@ namespace CloudberryKingdom
             {
                 Coin NewCoin = (Coin)Recycle.GetObject(ObjectType.Coin, false);
 
-                Tools.MoveTo(NewCoin, pos + new Vector2(0, Tools.RndFloat(300, 1500)));
+                Tools.MoveTo(NewCoin, pos + new Vector2(0, MyLevel.Rnd.RndFloat(300, 1500)));
                 NewCoin.Core.DrawLayer = 9;
                 MyLevel.AddObject(NewCoin);
                 //NewCoin.SetType(Coin.CoinType.Red);
 
-                pos.X += Tools.RndFloat(150, 300) / 2;
+                pos.X += MyLevel.Rnd.RndFloat(150, 300) / 2;
             }
         }
 

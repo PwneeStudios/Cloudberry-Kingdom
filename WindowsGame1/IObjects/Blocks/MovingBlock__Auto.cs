@@ -27,7 +27,7 @@ namespace CloudberryKingdom.Levels
                 Aspect = AspectType.Thin;
             // otherwise randomize the aspect ratio
             else
-                Aspect = (AspectType)Tools.Choose(AspectTypeRatio);
+                Aspect = (AspectType)level.Rnd.Choose(AspectTypeRatio);
 
             // No tall blocks on vertical levels
             if (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down)
@@ -40,7 +40,7 @@ namespace CloudberryKingdom.Levels
                 return 230 - (230 - 50)/10f * u[Upgrade.MovingBlock];
             });
 
-            Motion = (MotionType)Tools.Choose(MotionLevel, (int)MovingBlockLevel);
+            Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)MovingBlockLevel);
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -101,7 +101,7 @@ namespace CloudberryKingdom.Levels
             level.CleanupMovingBlocks(BL, TR);
         }
 
-        public void SetMoveType(MovingBlock mblock, float Displacement, MovingBlock_Parameters.MotionType mtype)
+        public void SetMoveType(MovingBlock mblock, float Displacement, MovingBlock_Parameters.MotionType mtype, Rand Rnd)
         {
             switch (mtype)
             {
@@ -117,7 +117,7 @@ namespace CloudberryKingdom.Levels
 
                 case MovingBlock_Parameters.MotionType.Cross:
                     mblock.MoveType = MovingBlockMoveType.Line;
-                    if (Tools.Rnd.NextDouble() > .5)
+                    if (Rnd.Rnd.NextDouble() > .5)
                         mblock.Displacement = new Vector2(Displacement, .5f * Displacement);
                     else
                         mblock.Displacement = new Vector2(-Displacement, .5f * Displacement);
@@ -126,28 +126,28 @@ namespace CloudberryKingdom.Levels
                 case MovingBlock_Parameters.MotionType.Cirlces:
                     mblock.MoveType = MovingBlockMoveType.Circle;
                     mblock.Displacement = new Vector2(Displacement * .5f, Displacement * .5f);
-                    mblock.Displacement.X *= Tools.Rnd.Next(0, 2) * 2 - 1;
+                    mblock.Displacement.X *= Rnd.Rnd.Next(0, 2) * 2 - 1;
                     break;
 
                 case MovingBlock_Parameters.MotionType.AA:
-                    if (Tools.Rnd.NextDouble() > .5)
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Vertical);
+                    if (Rnd.Rnd.NextDouble() > .5)
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Vertical, Rnd);
                     else
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Horizontal);
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Horizontal, Rnd);
                     break;
 
                 case MovingBlock_Parameters.MotionType.Straight:
-                    if (Tools.Rnd.NextDouble() > .5)
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Cross);
+                    if (Rnd.Rnd.NextDouble() > .5)
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Cross, Rnd);
                     else
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.AA);
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.AA, Rnd);
                     break;
 
                 case MovingBlock_Parameters.MotionType.All:
-                    if (Tools.Rnd.NextDouble() > .5)
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Straight);
+                    if (Rnd.Rnd.NextDouble() > .5)
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Straight, Rnd);
                     else
-                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Cirlces);
+                        SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Cirlces, Rnd);
                     break;
             }
         }
@@ -171,11 +171,11 @@ namespace CloudberryKingdom.Levels
                 case MovingBlock_Parameters.AspectType.Tall: size.Y = pos.Y - BL.Y + 200; break;
             }
 
-            Vector2 offset = new Vector2(Tools.Rnd.Next(0, 0), Tools.Rnd.Next(0, 0) - size.Y);
+            Vector2 offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
 
             if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
             {
-                offset += new Vector2(Tools.Rnd.Next(0, 100), Tools.Rnd.Next(0, 100));
+                offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
 
                 if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
                 if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
@@ -194,13 +194,13 @@ namespace CloudberryKingdom.Levels
 
 
             float Displacement = Params.Range.GetVal(pos);
-            SetMoveType(mblock, Displacement, Params.Motion);
+            SetMoveType(mblock, Displacement, Params.Motion, level.Rnd);
 
             // If the block is too low make sure it's path is horizontal
             if (pos.Y < BL.Y + 400)
-                SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Horizontal);
+                SetMoveType(mblock, Displacement, MovingBlock_Parameters.MotionType.Horizontal, level.Rnd);
 
-            mblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            mblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
             mblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
             if (level.Style.RemoveBlockOnOverlap)

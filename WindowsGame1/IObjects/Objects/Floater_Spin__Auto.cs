@@ -112,7 +112,7 @@ namespace CloudberryKingdom.Levels
             NewFloater.PivotPoint = pos;
 
             //NewFloater.Period = (int)Params.FloaterPeriod.GetVal(pos);
-            NewFloater.Offset = Tools.Rnd.Next(0, NewFloater.Period);
+            NewFloater.Offset = level.Rnd.Rnd.Next(0, NewFloater.Period);
             NewFloater.Length = 650;
                 //(NewFloater.Core.StartData.Position - NewFloater.PivotPoint).Length();
 
@@ -120,7 +120,7 @@ namespace CloudberryKingdom.Levels
             int NumOffsets = Params.NumOffsets;
             int Period = (int)(Params.FloaterPeriod.GetVal(pos) / NumOffsets) * NumOffsets;
             NewFloater.Period = Period;
-            NewFloater.Offset = Params.ChooseOffset(Period);
+            NewFloater.Offset = Params.ChooseOffset(Period, level.Rnd);
 
             NewFloater.Core.GenData.RemoveIfUnused = false;
 
@@ -129,21 +129,21 @@ namespace CloudberryKingdom.Levels
             return NewFloater;
         }
 
-        Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR)
-        {
-            Vector2 pos = bob.Core.Data.Position + new Vector2(Tools.RndFloat(-600, 600), Tools.RndFloat(-300, 400));
-            pos.Y = Math.Min(pos.Y, TR.Y - 400);
-            pos.Y = Math.Max(pos.Y, BL.Y + 220);
-            return pos;
-            pos.X = Math.Max(BL.X + 380, Math.Min(pos.X, TR.X - 350));
-            if ((bob.MyPhsx.OnGround || bob.Core.Data.Velocity.Y < 0))
-                pos.Y = bob.Core.Data.Position.Y + 200;
-            pos.Y = Math.Max(bob.Core.MyLevel.MainCamera.BL.Y + 270, Math.Min(pos.Y, bob.Core.MyLevel.MainCamera.TR.Y - 550));
-            if (Math.Abs(bob.Core.Data.Position.Y - pos.Y) < 100)
-                pos.X += .4f * (pos.X - bob.Core.Data.Position.X);
+        //Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR)
+        //{
+        //    Vector2 pos = bob.Core.Data.Position + new Vector2(MyLevel.Rnd.RndFloat(-600, 600), MyLevel.Rnd.RndFloat(-300, 400));
+        //    pos.Y = Math.Min(pos.Y, TR.Y - 400);
+        //    pos.Y = Math.Max(pos.Y, BL.Y + 220);
+        //    return pos;
+        //    pos.X = Math.Max(BL.X + 380, Math.Min(pos.X, TR.X - 350));
+        //    if ((bob.MyPhsx.OnGround || bob.Core.Data.Velocity.Y < 0))
+        //        pos.Y = bob.Core.Data.Position.Y + 200;
+        //    pos.Y = Math.Max(bob.Core.MyLevel.MainCamera.BL.Y + 270, Math.Min(pos.Y, bob.Core.MyLevel.MainCamera.TR.Y - 550));
+        //    if (Math.Abs(bob.Core.Data.Position.Y - pos.Y) < 100)
+        //        pos.X += .4f * (pos.X - bob.Core.Data.Position.X);
 
-            return pos;
-        }
+        //    return pos;
+        //}
 
         void Circle(Level level, Vector2 Center, float Radius, int Num, int Dir)
         {
@@ -181,7 +181,7 @@ namespace CloudberryKingdom.Levels
 
             int Num = 30;
 
-            if (Tools.RndBool())
+            if (level.Rnd.RndBool())
             {                
                 for (int k = 0; k < 2; k++)
                     Circle(level, Center, 160 * 7, Num, k % 2 == 0 ? 1 : -1);
@@ -217,17 +217,17 @@ namespace CloudberryKingdom.Levels
 
                 // Add spinners
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 30;
-                float density = Tools.RndFloat(Params.Density.GetVal(block.Core.Data.Position),
+                float density = level.Rnd.RndFloat(Params.Density.GetVal(block.Core.Data.Position),
                                                Params.Density.GetVal(block.Core.Data.Position));
                 float average = (int)(xdif * density / 2000f);
                 int n = (int)average;
-                if (average < 1) if (Tools.Rnd.NextDouble() < average) n = 1;
+                if (average < 1) if (level.Rnd.Rnd.NextDouble() < average) n = 1;
 
                 for (int i = 0; i < n; i++)
                 {
                     if (xdif > 0)
                     {
-                        float x = (float)Tools.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 35;
+                        float x = (float)level.Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 35;
                         float y;
                         if (block.BlockCore.BlobsOnTop)
                         {

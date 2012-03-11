@@ -93,8 +93,8 @@ namespace CloudberryKingdom.Levels
             int InLength = (int)Params.InLength.GetVal(pos);
             int OutLength = (int)Params.OutLength.GetVal(pos);
             int Period = InLength + OutLength;
-            int Offset = Tools.Rnd.Next(Period);
-
+            int Offset = level.Rnd.Rnd.Next(Period);
+            
             GhostBlock gblock = null;
             int NumGhosts = 1; // Number of ghosts to create
             for (int i = 0; i < NumGhosts; i++)
@@ -105,13 +105,13 @@ namespace CloudberryKingdom.Levels
 
                 int Width = (int)Params.Width.GetVal(pos);
                 Vector2 size = new Vector2(Width, Width);
-                //Vector2 offset = new Vector2(Tools.Rnd.Next(-60, 0), Tools.Rnd.Next(-60, 0) - size.Y);
+                //Vector2 offset = new Vector2(MyLevel.Rnd.Rnd.Next(-60, 0), MyLevel.Rnd.Rnd.Next(-60, 0) - size.Y);
                 Vector2 offset = Vector2.Zero;
                 if (i == 1) offset = new Vector2(50, 0);
 
                 if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
                 {
-                    offset += new Vector2(Tools.Rnd.Next(0, 100), Tools.Rnd.Next(0, 100));
+                    offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
 
                     if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
                     if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
@@ -125,7 +125,7 @@ namespace CloudberryKingdom.Levels
 
                 gblock.BlockCore.BlobsOnTop = false;
 
-                gblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+                gblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
                 gblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
                 gblock.TimeSafety = Params.TimeSafety.GetVal(pos);
 
@@ -146,11 +146,11 @@ namespace CloudberryKingdom.Levels
 
                     // Ghost was just used, change its Offset so that it is Phased In at this point in time
                     /*if (Params.Masochistic)
-                        block.ModOffset(Tools.RndInt(0 - GhostBlock.LengthOfPhaseChange, block.InLength));
+                        block.ModOffset(MyLevel.Rnd.RndInt(0 - GhostBlock.LengthOfPhaseChange, block.InLength));
                     else*/
                     {
                         int max = block.InLength - GhostBlock.LengthOfPhaseChange;
-                        block.ModOffset(Tools.RndInt((int)(.25f * max), (int)(.75f * max)));
+                        block.ModOffset(level.Rnd.RndInt((int)(.25f * max), (int)(.75f * max)));
                     }
                 };
 

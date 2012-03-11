@@ -83,7 +83,7 @@ namespace CloudberryKingdom.Levels
             MyLevel.AddObject(seed);
 
             // Add random blocks after seed
-            MyLevel.RandomBlocks(new Vector2(SeedPos.X + Tools.RndFloat(600 + DistanceToSeed, 1500), MyLevel.MainCamera.BL.Y), new Vector2(SeedPos.X + 4000, MyLevel.MainCamera.TR.Y), ref MyLevel.CurMakeData);
+            MyLevel.RandomBlocks(new Vector2(SeedPos.X + MyLevel.Rnd.RndFloat(600 + DistanceToSeed, 1500), MyLevel.MainCamera.BL.Y), new Vector2(SeedPos.X + 4000, MyLevel.MainCamera.TR.Y), ref MyLevel.CurMakeData);
 
             // Add CameraZone
             CameraZone CamZone = (CameraZone)MyLevel.Recycle.GetObject(ObjectType.CameraZone, false);

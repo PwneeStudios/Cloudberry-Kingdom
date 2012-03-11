@@ -44,7 +44,7 @@ namespace CloudberryKingdom
 
         public static void StandardInit(LevelSeedData data, PlaceTypes placetype)
         {
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = Tools.GlobalRnd.Rnd.Next();
 
             data.SetBackground(BackgroundType.Castle);
             data.DefaultHeroType = BobPhsxNormal.Instance;
@@ -117,9 +117,9 @@ namespace CloudberryKingdom
             // Pick upgrades            
             if (piece.MyPieceIndex == 0)
             {
-                Picks1 = Tools.Choose(tileset.JumpUpgrades, JumpComplexity);
-                Picks2 = Tools.Choose(FreeUpgrades, DodgeComplexity);
-                Picks2.AddRange(Tools.Choose(BoundUpgrades, DodgeComplexity));
+                Picks1 = piece.Rnd.Choose(tileset.JumpUpgrades, JumpComplexity);
+                Picks2 = piece.Rnd.Choose(FreeUpgrades, DodgeComplexity);
+                Picks2.AddRange(piece.Rnd.Choose(BoundUpgrades, DodgeComplexity));
             }
 
             foreach (Upgrade upgrade in Picks1)
@@ -153,7 +153,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            StandardInit(data, Tools.Choose(PlaceGameData.EditorAllowedPlaceTypes));
+            StandardInit(data, Tools.GlobalRnd.Choose(PlaceGameData.EditorAllowedPlaceTypes));
 
             LevelSeedData.CustomDifficulty custom = StandardPieceMod(Difficulty, data);
 
@@ -166,14 +166,14 @@ namespace CloudberryKingdom
         {
             int Jump, Dodge, Speed, JumpComplexity, DodgeComplexity;
 
-            switch (Tools.RndInt(0, 3))
+            switch (LevelSeed.Rnd.RndInt(0, 3))
             {
                 default:
                     Jump = Tools.Restrict(1, 9, Difficulty - 2);
                     Dodge = Difficulty + 2;
                     Speed = (int)Tools.DifficultyLerp159(1, 3, 8, Difficulty);
                     JumpComplexity = 2;
-                    DodgeComplexity = Tools.RndInt(3, 4);
+                    DodgeComplexity = LevelSeed.Rnd.RndInt(3, 4);
                     break;
             }
 

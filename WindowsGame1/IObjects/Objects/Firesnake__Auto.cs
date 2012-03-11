@@ -128,7 +128,7 @@ namespace CloudberryKingdom.Levels
                 }
 
                 // Choose a head
-                int head = PotentialHeads.Choose();
+                int head = PotentialHeads.Choose(level.Rnd);
                 
                 // Find the end of the chain
                 int l = 0;
@@ -164,7 +164,7 @@ namespace CloudberryKingdom.Levels
             
             List<ulong> Snake = new List<ulong>(n);
 
-            Vector2 Radii = new Vector2(Params.RadiiX.RndFloat(pos), Params.RadiiY.RndFloat(pos));
+            Vector2 Radii = new Vector2(Params.RadiiX.RndFloat(pos, level.Rnd), Params.RadiiY.RndFloat(pos, level.Rnd));
 
             float periodstep = Period / n;
             for (int i = 0; i < n; i++)
@@ -190,13 +190,13 @@ namespace CloudberryKingdom.Levels
             pos.Y = level.FillBL.Y - 300;
             NewSnake.Move(pos);
 
-            NewSnake.Offset = Tools.Rnd.Next(0, NewSnake.Period);
+            NewSnake.Offset = level.Rnd.Rnd.Next(0, NewSnake.Period);
 
             // Discrete period offsets
             int NumOffsets = Params.NumOffsets;
             int Period = (int)(Params.Period.GetVal(pos) / NumOffsets) * NumOffsets;
             NewSnake.Period = Period;
-            NewSnake.Offset = Tools.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
+            NewSnake.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
             NewSnake.Core.GenData.RemoveIfUnused = false;
 
@@ -219,10 +219,10 @@ namespace CloudberryKingdom.Levels
 
             while (loc.X < TR.X)
             {
-                step = Tools.RndFloat(Params.Step.GetVal(loc),
+                step = level.Rnd.RndFloat(Params.Step.GetVal(loc),
                                       Params.Step.GetVal(loc));
 
-                float shift = Tools.RndFloat(-800, 800);
+                float shift = level.Rnd.RndFloat(-800, 800);
 
                 CreateLine(level, loc, spikey => { });
 

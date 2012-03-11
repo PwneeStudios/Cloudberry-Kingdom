@@ -70,6 +70,7 @@ namespace CloudberryKingdom
             if (Style != null) Style.Release(); Style = null;
             PieceSeed = null;
             MyGenData = null;
+            MyLevelSeed = null;
         }
 
         public void CopyFrom(PieceSeedData piece)
@@ -97,13 +98,18 @@ namespace CloudberryKingdom
             Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
         }
 
-        public PieceSeedData()
+        LevelSeedData MyLevelSeed;
+        public Rand Rnd { get { return MyLevelSeed.Rnd; } }
+
+        public PieceSeedData(LevelSeedData LevelSeed)
         {
+            MyLevelSeed = LevelSeed;
             Init(LevelGeometry.Right);
         }
 
-        public PieceSeedData(int Index, LevelGeometry Type)
+        public PieceSeedData(int Index, LevelGeometry Type, LevelSeedData LevelSeed)
         {
+            MyLevelSeed = LevelSeed;
             MyPieceIndex = Index;
             Init(Type);
         }
@@ -114,11 +120,11 @@ namespace CloudberryKingdom
 
             switch (GeometryType)
             {
-                case LevelGeometry.Right: Style = new SingleData(); break;
-                case LevelGeometry.Down: Style = new DownData(); break;
-                case LevelGeometry.Up: Style = new UpData(); break;
-                case LevelGeometry.OneScreen: Style = new OneScreenData(); break;
-                case LevelGeometry.Big: Style = new BigData(); break;
+                case LevelGeometry.Right: Style = new SingleData(Rnd); break;
+                case LevelGeometry.Down: Style = new DownData(Rnd); break;
+                case LevelGeometry.Up: Style = new UpData(Rnd); break;
+                case LevelGeometry.OneScreen: Style = new OneScreenData(Rnd); break;
+                case LevelGeometry.Big: Style = new BigData(Rnd); break;
             }
             
             MyGenData = new RichLevelGenData();

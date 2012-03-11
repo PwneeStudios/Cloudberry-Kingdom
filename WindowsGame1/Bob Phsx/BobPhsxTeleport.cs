@@ -120,29 +120,29 @@ namespace CloudberryKingdom
             MyBob.CurInput.B_Button = false;
 
             if (MyBob.Core.MyLevel.GetPhsxStep() % 60 == 0)
-                RndMoveType = Tools.Rnd.Next(0, 3);
+                RndMoveType = MyLevel.Rnd.Rnd.Next(0, 3);
 
             if (AutoDirLength == 0)
             {
                 if (AutoDir == 1) AutoDir = -1; else AutoDir = 1;
                 if (AutoDir == 1)
-                    AutoDirLength = Tools.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.Core.Data.Position);
                 else
-                    AutoDirLength = Tools.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.Core.Data.Position);
             }
 
             if (AutoMoveLength == 0)
             {
-                int rnd = Tools.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.Core.Data.Position));
+                int rnd = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.Core.Data.Position));
                 if (rnd < MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position))
                 {
                     AutoMoveType = 1;
-                    AutoMoveLength = Tools.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.Core.Data.Position);
                 }
                 else
                 {
                     AutoMoveType = 0;
-                    AutoMoveLength = Tools.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.Core.Data.Position);
                 }
             }
         

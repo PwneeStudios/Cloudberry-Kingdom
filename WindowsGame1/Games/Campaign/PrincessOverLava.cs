@@ -149,7 +149,7 @@ namespace CloudberryKingdom
         {
             // Choose side
             Block block;
-            if (Tools.RndBool())
+            if (MyLevel.Rnd.RndBool())
                 block = MyLevel.FindBlock("BlobSpawn_Left");
             else
                 block = MyLevel.FindBlock("BlobSpawn_Right");
@@ -157,7 +157,7 @@ namespace CloudberryKingdom
             // Make blob
             Goomba blob = (Goomba)Recycle.GetObject(ObjectType.FlyingBlob, false);
             block.Box.CalcBounds_Full();
-            blob.Pos = new Vector2(Tools.RndFloat(block.Box.TR.X, block.Box.BL.X), block.Pos.Y);
+            blob.Pos = new Vector2(MyLevel.Rnd.RndFloat(block.Box.TR.X, block.Box.BL.X), block.Pos.Y);
 
             blob.NeverSkip = true;
 

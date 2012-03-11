@@ -69,7 +69,7 @@ namespace CloudberryKingdom
 
             foreach (IObject coin in coins) coin.Core.MarkedForDeletion = true;
 
-            List<IObject> keep = Tools.Choose(coins, N);
+            List<IObject> keep = level.Rnd.Choose(coins, N);
 
             foreach (IObject coin in keep) coin.Core.MarkedForDeletion = false;
 

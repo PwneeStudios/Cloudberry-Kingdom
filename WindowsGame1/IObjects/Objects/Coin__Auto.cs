@@ -73,9 +73,9 @@ namespace CloudberryKingdom.Levels
             Grid = true;
 
             Regular_Period = 15;
-            Regular_Offset = Tools.RndInt(0, Regular_Period - 1);
+            Regular_Offset = level.Rnd.RndInt(0, Regular_Period - 1);
             Regular_Period2 = 2;
-            Regular_Offset2 = Tools.RndInt(0, Regular_Period2 - 1);
+            Regular_Offset2 = level.Rnd.RndInt(0, Regular_Period2 - 1);
 
             BL_Bound_Mod = new Vector2(80, -120);
             TR_Bound_Mod = new Vector2(550, 320);
@@ -136,7 +136,7 @@ namespace CloudberryKingdom.Levels
             if (Params.Red)
             {
                 if (NewOffset)
-                    offset = Tools.RandomSnap(NewCoin.Period, 3);
+                    offset = level.Rnd.RandomSnap(NewCoin.Period, 3);
                 NewCoin.Offset = offset;
 
                 NewCoin.SetType(Coin.CoinType.Red);

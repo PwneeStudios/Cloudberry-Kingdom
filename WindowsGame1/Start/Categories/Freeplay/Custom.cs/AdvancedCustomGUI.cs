@@ -115,13 +115,13 @@ namespace CloudberryKingdom
 
         void Randomize(MenuItem _item)
         {
-            if (Tools.RndFloat() < .25f)
+            if (MyLevel.Rnd.RndFloat() < .25f)
             {
                 foreach (MenuItem item in MyMenu.Items)
                 {
                     MenuSlider slider = item as MenuSlider;
                     if (null != slider)
-                        slider.MyFloat.Val = (float)Math.Pow(Tools.RndFloat(0, 9), .9f);
+                        slider.MyFloat.Val = (float)Math.Pow(MyLevel.Rnd.RndFloat(0, 9), .9f);
                 }
             }
             else
@@ -133,10 +133,10 @@ namespace CloudberryKingdom
                     {
                         float ChanceToZero = .1f;
                         if (slider.MyFloat.Val > 1) ChanceToZero = .6f;
-                        if (Tools.RndFloat() < ChanceToZero)
+                        if (MyLevel.Rnd.RndFloat() < ChanceToZero)
                             slider.MyFloat.Val = 0;
                         else
-                            slider.MyFloat.Val = (float)Math.Pow(Tools.RndFloat(0, 9), .93f);
+                            slider.MyFloat.Val = (float)Math.Pow(MyLevel.Rnd.RndFloat(0, 9), .93f);
                     }
                 }
             }

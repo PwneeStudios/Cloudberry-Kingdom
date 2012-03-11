@@ -136,10 +136,10 @@ namespace CloudberryKingdom
                 emit.Particles[i].MyColor.X *= .8f;
                 emit.Particles[i].MyColor.Y *= .8f;
                 emit.Particles[i].MyColor.Z *= .8f;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 emit.Particles[i].Data.Position = pos + 3 * Dir;
-                emit.Particles[i].Data.Velocity = vel + 13 * (Tools.RndFloat(.6f, .8f)) * dir + 1 * Dir
+                emit.Particles[i].Data.Velocity = vel + 13 * (Tools.GlobalRnd.RndFloat(.6f, .8f)) * dir + 1 * Dir
                     + new Vector2(0, (float)Math.Sin(Tools.t*23) * 5);
             }
         }
@@ -155,10 +155,10 @@ namespace CloudberryKingdom
             {
                 i = emit.GetNextSlot();
                 emit.Particles[i] = ThrustTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 emit.Particles[i].Data.Position = pos + 3 * Dir;
-                emit.Particles[i].Data.Velocity = vel + 23 * (.6f + .2f * (float)Tools.Rnd.NextDouble()) * dir + 1 * Dir;
+                emit.Particles[i].Data.Velocity = vel + 23 * (.6f + .2f * (float)Tools.GlobalRnd.Rnd.NextDouble()) * dir + 1 * Dir;
             }
         }
 
@@ -171,11 +171,11 @@ namespace CloudberryKingdom
             {
                 i = emit.GetNextSlot();
                 emit.Particles[i] = DustCloudTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 float scale = 1.25f;
                 emit.Particles[i].Data.Position = pos + 70 * Dir * scale;
-                emit.Particles[i].Data.Velocity = 10 * (float)Tools.Rnd.NextDouble() * Dir * scale;
+                emit.Particles[i].Data.Velocity = 10 * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir * scale;
                 emit.Particles[i].Size *= scale;
                 if (k % 2 == 0)
                 {
@@ -201,10 +201,10 @@ namespace CloudberryKingdom
             {
                 i = emit.GetNextSlot();
                 emit.Particles[i] = DustCloudTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
                                 
                 emit.Particles[i].Data.Position = pos + 70 * Dir;
-                emit.Particles[i].Data.Velocity = 10 * (float)Tools.Rnd.NextDouble() * Dir;
+                emit.Particles[i].Data.Velocity = 10 * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
                 if (k % 2 == 0)
                 {
                     emit.Particles[i].Data.Velocity.Y = -.5f * Math.Abs(emit.Particles[i].Data.Velocity.Y);
@@ -237,7 +237,7 @@ namespace CloudberryKingdom
             {
                 i = emit.GetNextSlot();
                 emit.Particles[i] = FlameTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 if (ModFade)
                 {
@@ -246,20 +246,20 @@ namespace CloudberryKingdom
                 }
 
                 emit.Particles[i].Data.Position = pos + 35 * Dir * intensity;
-                emit.Particles[i].Data.Velocity = .35f * 2 * intensity * (float)Tools.Rnd.NextDouble() * Dir;
+                emit.Particles[i].Data.Velocity = .35f * 2 * intensity * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
                 //emit.Particles[i].Data.Acceleration = new Vector2(-.5f, 0);
                 //emit.Particles[i].Data.Acceleration = -.25f * emit.Particles[i].Data.Velocity;
                     emit.Particles[i].Data.Acceleration = -.5f * emit.Particles[i].Data.Velocity;
                     emit.Particles[i].Life = life;
                     emit.Particles[i].AngleSpeed /= 2;
-                emit.Particles[i].Angle = Tools.RndFloat(0, 100);
+                emit.Particles[i].Angle = Tools.GlobalRnd.RndFloat(0, 100);
                 emit.Particles[i].Size *= intensity;
             }
         }
 
         static void SetRandomPiece(ParticleEmitter emit, int i)
         {
-            switch (Tools.Rnd.Next(0, 8))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 8))
             {
                 case 0:
                     emit.Particles[i].MyQuad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Touched_Texture"));
@@ -317,11 +317,11 @@ namespace CloudberryKingdom
                 i = emit.GetNextSlot();
 
                 emit.Particles[i] = CoalesceTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 emit.Particles[i].Data.Position = pos + 1500 * Dir;
                 
-                emit.Particles[i].Angle = Tools.RndFloat(0, 100);
+                emit.Particles[i].Angle = Tools.GlobalRnd.RndFloat(0, 100);
                 //emit.Particles[i].Size *= intensity;
 
                 emit.Particles[i].AttractionPoint = pos;
@@ -353,11 +353,11 @@ namespace CloudberryKingdom
                 //i = emit.GetPrevSlot();
                 
                 emit.Particles[i] = PieceExplosionTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 emit.Particles[i].Data.Position = pos + 75 * Dir * intensity;
-                emit.Particles[i].Data.Velocity = 125 * intensity * (float)Tools.Rnd.NextDouble() * Dir;
-                emit.Particles[i].Angle = Tools.RndFloat(0, 100);
+                emit.Particles[i].Data.Velocity = 125 * intensity * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
+                emit.Particles[i].Angle = Tools.GlobalRnd.RndFloat(0, 100);
                 emit.Particles[i].Size *= intensity;
 
 
@@ -427,17 +427,17 @@ namespace CloudberryKingdom
             {
                 i = emit.GetNextSlot();
                 emit.Particles[i] = PieceExplosionTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Tools.GlobalRnd.RndDir();
 
                 emit.Particles[i].MyColor *= color;
 
                 emit.Particles[i].Data.Position = pos + 75 * Dir;
-                //emit.Particles[i].Data.Velocity = 25 * intensity * (float)Tools.Rnd.NextDouble() * Dir;
-                //emit.Particles[i].Data.Velocity = 18 * intensity * (float)Tools.Rnd.NextDouble() * Dir;
-                //emit.Particles[i].Data.Velocity = 50 * intensity * (float)Tools.Rnd.NextDouble() * Dir;
-                emit.Particles[i].Data.Velocity = vel * (float)Tools.Rnd.NextDouble() * Dir;
-                    emit.Particles[i].Data.Position += Tools.RndFloat(0, 2) * emit.Particles[i].Data.Velocity;
-                emit.Particles[i].Angle = Tools.RndFloat(0, 100);
+                //emit.Particles[i].Data.Velocity = 25 * intensity * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
+                //emit.Particles[i].Data.Velocity = 18 * intensity * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
+                //emit.Particles[i].Data.Velocity = 50 * intensity * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
+                emit.Particles[i].Data.Velocity = vel * (float)Tools.GlobalRnd.Rnd.NextDouble() * Dir;
+                    emit.Particles[i].Data.Position += Tools.GlobalRnd.RndFloat(0, 2) * emit.Particles[i].Data.Velocity;
+                emit.Particles[i].Angle = Tools.GlobalRnd.RndFloat(0, 100);
                 emit.Particles[i].AngleSpeed *= angle_vel;
                 emit.Particles[i].Size *= size;
                 //emit.Particles[i].Data.Acceleration = -.15f * emit.Particles[i].Data.Velocity;

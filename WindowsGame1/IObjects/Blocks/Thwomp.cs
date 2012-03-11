@@ -175,7 +175,7 @@ namespace CloudberryKingdom
             //if (CoreData.StoodOn)
             //{
             //    if (Core.MyLevel.GetPhsxStep() % 2 == 0)
-            //        Offset = new Vector2(Tools.Rnd.Next(-10, 10), Tools.Rnd.Next(-10, 10));
+            //        Offset = new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
             //}
 
             Vibrate();
@@ -322,7 +322,7 @@ namespace CloudberryKingdom
             if (VibrateIntensity > 0)
             {
                 if (Core.MyLevel.GetPhsxStep() % 2 == 0)
-                    Offset = VibrateIntensity * new Vector2(Tools.Rnd.Next(-10, 10), Tools.Rnd.Next(-10, 10));
+                    Offset = VibrateIntensity * new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
 
                 VibrateIntensity -= .0285f;
             }

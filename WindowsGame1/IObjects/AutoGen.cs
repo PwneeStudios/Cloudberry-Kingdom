@@ -29,12 +29,12 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool IntelliSpread = true;
 
-        public int ChooseOffset(int Period)
+        public int ChooseOffset(int Period, Rand Rnd)
         {
             if (AutoGen_Parameters.IntelliSpread)
                 return Counter++ % NumOffsets * Period / NumOffsets;
             else
-                return Tools.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
+                return Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
         }
 
         public int EnforceOffset(int offset, int period)

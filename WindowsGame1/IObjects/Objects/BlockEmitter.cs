@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace CloudberryKingdom
 {
-    public class BlockEmitter : IObject
+    public class BlockEmitter : ObjectBase, IObject
     {
         public void TextDraw() { }
         public MovingPlatform.MoveType MyMoveType;

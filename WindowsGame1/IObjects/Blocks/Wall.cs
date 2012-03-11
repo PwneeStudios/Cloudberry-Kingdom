@@ -244,8 +244,8 @@ namespace CloudberryKingdom.Blocks
                 Wait = 4;
 
             if (Step % Wait == 0)
-                Offset = new Vector2(Tools.RndFloat(-CurShakeIntensity, CurShakeIntensity),
-                                     Tools.RndFloat(-CurShakeIntensity, CurShakeIntensity));
+                Offset = new Vector2(MyLevel.Rnd.RndFloat(-CurShakeIntensity, CurShakeIntensity),
+                                     MyLevel.Rnd.RndFloat(-CurShakeIntensity, CurShakeIntensity));
         }
 
         Vector2 CalcPosition(float t)

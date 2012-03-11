@@ -9,7 +9,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Firesnake : IObject
+    public partial class Firesnake : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

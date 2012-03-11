@@ -136,17 +136,17 @@ namespace CloudberryKingdom.Levels
 
                 // Add fire spinners
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 30;
-                float density = Tools.RndFloat(Params.MinFireSpinnerDensity.GetVal(block.Core.Data.Position),
+                float density = Rnd.RndFloat(Params.MinFireSpinnerDensity.GetVal(block.Core.Data.Position),
                                                   Params.MaxFireSpinnerDensity.GetVal(block.Core.Data.Position));
                 float average = (int)(xdif * density / 2000f);
                 int n = (int)average;
-                if (average < 1) if (Tools.Rnd.NextDouble() < average) n = 1;
+                if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;
 
                 for (int i = 0; i < n; i++)
                 {
                     if (xdif > 0)
                     {
-                        float x = (float)Tools.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 35;
+                        float x = (float) Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 35;
                         float y;
                         if (block.BlockCore.BlobsOnTop)
                         {
@@ -165,19 +165,19 @@ namespace CloudberryKingdom.Levels
                         spinner_1.Core.StartData.Position = spinner_1.Core.Data.Position = new Vector2(x, y);
                         
                         spinner_1.Orientation = 1;
-                        //spinner_1.Orientation = Tools.RndBit();
+                        //spinner_1.Orientation = MyLevel.Rnd.RndBit();
                         
                         spinner_1.Radius = Params.FireSpinnerLength.GetVal(block.Core.Data.Position);
                         
                         int Period = (int)Params.FireSpinnerPeriod.GetVal(block.Core.Data.Position);
 
-                        //if (Tools.RndBool()) Period -= Period / 3;
+                        //if (MyLevel.Rnd.RndBool()) Period -= Period / 3;
                         //else Period += Period / 3;
                         
                         int NumOffsets = Params.NumOffsets;
                         Period = (int)(Period / NumOffsets) * NumOffsets;
                         spinner_1.Period = Period;
-                        spinner_1.Offset = Params.ChooseOffset(Period);
+                        spinner_1.Offset = Params.ChooseOffset(Period, Rnd);
 
                         spinner_1.SetParentBlock(block);
 

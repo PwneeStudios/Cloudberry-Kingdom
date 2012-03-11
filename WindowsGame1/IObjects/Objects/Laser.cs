@@ -9,7 +9,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public enum LaserState { Off, Warn, On };
-    public class Laser : IObject, IBound
+    public class Laser : ObjectBase, IObject, IBound
     {
         public void TextDraw() { }
         public void Release()

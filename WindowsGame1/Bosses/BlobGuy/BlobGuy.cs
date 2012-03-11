@@ -368,13 +368,13 @@ namespace CloudberryKingdom
         Vector2 RandomPos_ScreenSide(Camera cam)
         {
             Vector2 pos = Vector2.Zero;
-            //if (Tools.Rnd.NextDouble() > .5f)
+            //if (MyLevel.Rnd.Rnd.NextDouble() > .5f)
             if (Math.Cos(2 * RandomOffset + Core.MyLevel.CurPhsxStep) > 0)
                 pos.X = cam.TR.X + 500;
             else
                 pos.X = cam.BL.X - 500;
             
-            //pos.Y = Tools.RndFloat(cam.BL.Y, cam.TR.Y);
+            //pos.Y = MyLevel.Rnd.RndFloat(cam.BL.Y, cam.TR.Y);
             pos.Y = (float)Math.Cos(RandomOffset + Core.MyLevel.CurPhsxStep) * cam.GetHeight() / 2 + cam.BL.Y;
             RandomOffset++;
 
@@ -395,7 +395,7 @@ namespace CloudberryKingdom
         Goomba MakeBlob(bool CopySource)
         {
             Goomba blob = (Goomba)Core.Recycle.GetObject(ObjectType.FlyingBlob, false);
-            blob.Core.Data.Position = RandomPos_ScreenSide(Core.MyLevel.MainCamera); //Core.MyLevel.MainCamera.Data.Position +2000 * Tools.RndDir();
+            blob.Core.Data.Position = RandomPos_ScreenSide(Core.MyLevel.MainCamera); //Core.MyLevel.MainCamera.Data.Position +2000 * MyLevel.Rnd.RndDir();
 
             if (CopySource)
             {
@@ -552,7 +552,7 @@ namespace CloudberryKingdom
                 Camera Cam = Core.MyLevel.MainCamera;
 
                 Vector2 dir = Tools.AngleToDir(Core.MyLevel.CurPhsxStep * .035f);
-                blob.Pos = hand + dir * 30 + Tools.RndDir(90);
+                blob.Pos = hand + dir * 30 + MyLevel.Rnd.RndDir(90);
                 blob.Core.DrawLayer--;
 
                 blob.Target = blob.Pos + dir * 3000;

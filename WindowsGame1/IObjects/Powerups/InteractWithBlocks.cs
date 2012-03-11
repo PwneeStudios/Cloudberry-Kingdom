@@ -10,7 +10,7 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public class InteractWithBlocks : IObject
+    public class InteractWithBlocks : ObjectBase, IObject
     {
         public void TextDraw() { }
 

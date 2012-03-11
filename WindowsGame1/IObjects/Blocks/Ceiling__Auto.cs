@@ -129,13 +129,13 @@ namespace CloudberryKingdom.Levels
             while (Pos.X < TR.X)
             {
                 Vector2 size = new Vector2(
-                        Params.WidthRange.RndFloat(Pos),
-                        //new Vector2(Tools.RndFloat(
+                        Params.WidthRange.RndFloat(Pos, Rnd),
+                        //new Vector2(MyLevel.Rnd.RndFloat(
                         //Params.MinWidth.GetVal(Pos),
                         //Params.MaxWidth.GetVal(Pos)),
-                        //Tools.Rnd.Next(100, 900));
-                        Params.HeightRange.RndFloat(Pos));
-                Vector2 offset = new Vector2(Tools.Rnd.Next(0, 0) + size.X, -size.Y + 85);
+                        //MyLevel.Rnd.Rnd.Next(100, 900));
+                        Params.HeightRange.RndFloat(Pos, Rnd));
+                Vector2 offset = new Vector2(Rnd.Rnd.Next(0, 0) + size.X, -size.Y + 85);
 
                 if (this.MyTileSet == TileSet.Castle)
                     size.X += 25;

@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Goombas
 {
-    public class Goomba : IObject, IBound
+    public class Goomba : ObjectBase, IObject, IBound
     {
         public enum BlobColor { Green, Pink, Blue, Grey, Gold };
         public enum PhsxType { Prescribed, ToTarget };
@@ -198,7 +198,8 @@ namespace CloudberryKingdom.Goombas
             MyObject.Read(0, 0);
             MyObject.Play = true;
             MyObject.Loop = true;
-            MyObject.EnqueueAnimation(0, (float)Tools.Rnd.NextDouble() * 1.5f, true);
+            //MyObject.EnqueueAnimation(0, (float)MyLevel.Rnd.Rnd.NextDouble() * 1.5f, true);
+            MyObject.EnqueueAnimation(0, (float)0, true);
             MyObject.DequeueTransfers();
             MyObject.Update();
         }
@@ -280,14 +281,14 @@ namespace CloudberryKingdom.Goombas
                 p[i] = BlobGooTemplate;
                 p[i].MyQuad.MyTexture = GetGooTexture(MyColor);
 
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = MyLevel.Rnd.RndDir();
                 p[i].Data.Position = Core.Data.Position + 50 * Dir;
-                p[i].Data.Velocity = 20 * (float)Tools.Rnd.NextDouble() * Dir;
+                p[i].Data.Velocity = 20 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
 
                 p[i].Data.Velocity.Y = .5f * Math.Abs(p[i].Data.Velocity.Y);
                 p[i].Data.Velocity.Y += 6;
                 p[i].Data.Velocity += vel;
-                p[i].AngleSpeed *= 2 * (float)(Tools.Rnd.NextDouble() - .5f);
+                p[i].AngleSpeed *= 2 * (float)(MyLevel.Rnd.Rnd.NextDouble() - .5f);
             }
 
             SquishSound.PlayModulated(.02f);
@@ -691,7 +692,7 @@ namespace CloudberryKingdom.Goombas
             MyObject.Play = true;
             MyObject.Loop = true;
             MyObject.AnimQueue.Clear();
-            MyObject.EnqueueAnimation(0, (float)Tools.Rnd.NextDouble() * 1.5f, true);
+            MyObject.EnqueueAnimation(0, (float)MyLevel.Rnd.Rnd.NextDouble() * 1.5f, true);
             MyObject.DequeueTransfers();
             MyObject.Update();
         }

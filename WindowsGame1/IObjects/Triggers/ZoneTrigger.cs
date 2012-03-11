@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public delegate void ZoneTriggerEvent(ZoneTrigger trig);
-    public class ZoneTrigger : IObject
+    public class ZoneTrigger : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

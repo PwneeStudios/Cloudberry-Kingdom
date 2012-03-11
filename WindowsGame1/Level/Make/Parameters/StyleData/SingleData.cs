@@ -6,7 +6,8 @@ namespace CloudberryKingdom.Levels
     {
         public Vector2 InitialDoorYRange = new Vector2(-600, 200);
 
-        public SingleData()
+        public SingleData(Rand Rnd)
+            : base(Rnd)
         {
         }
 

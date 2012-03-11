@@ -115,13 +115,13 @@ namespace CloudberryKingdom.Levels
 
             NewFloater.Move(pos);
 
-            NewFloater.Offset = Tools.Rnd.Next(0, NewFloater.Period);
+            NewFloater.Offset = level.Rnd.Rnd.Next(0, NewFloater.Period);
 
             // Discrete period offsets
             int NumOffsets = Params.NumOffsets;
             int Period = (int)(Params.LinePeriod.GetVal(pos) / NumOffsets) * NumOffsets;
             NewFloater.Period = Period;
-            NewFloater.Offset = Tools.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
+            NewFloater.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
             NewFloater.Core.GenData.RemoveIfUnused = false;
 
@@ -154,7 +154,7 @@ namespace CloudberryKingdom.Levels
 
                 while (loc.X < TR.X)
                 {
-                    step = Tools.RndFloat(Params.LineStep.GetVal(loc),
+                    step = level.Rnd.RndFloat(Params.LineStep.GetVal(loc),
                                           Params.LineStep.GetVal(loc));
 
                     CreateLine(level, loc, spikey => { });
@@ -168,7 +168,7 @@ namespace CloudberryKingdom.Levels
 
                 while (loc.Y < TR.Y)
                 {
-                    step = Tools.RndFloat(Params.LineStep.GetVal(loc),
+                    step = level.Rnd.RndFloat(Params.LineStep.GetVal(loc),
                                           Params.LineStep.GetVal(loc));
 
                     CreateLine(level, loc, spikey => { });

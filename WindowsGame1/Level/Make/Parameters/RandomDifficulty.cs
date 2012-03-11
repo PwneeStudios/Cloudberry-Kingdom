@@ -10,7 +10,7 @@ namespace CloudberryKingdom
         {
             float JumpDifficulty = data.MyUpgrades1[Upgrade.Jump];
 
-            double p = Tools.Rnd.NextDouble();
+            double p = data.Rnd.Rnd.NextDouble();
             if (p < .75f + .25f * .1f * JumpDifficulty) return 1;
             //else if (p < .9f + .1f * .1f * JumpDifficulty) return 2;
             //else return 3;
@@ -31,15 +31,15 @@ namespace CloudberryKingdom
                 upgrades.UpgradeLevels[i] = 0;
         }
 
-        static public int[] ChooseUpgrades(int Num)
-        {
-            bool[] Valid = new bool[Tools.UpgradeTypes];
-            for (int i = 0; i < Tools.UpgradeTypes; i++)
-                Valid[i] = true;
-            Valid[(int)Upgrade.Speed] = false;
-            Valid[(int)Upgrade.General] = false;
-            return Tools.RndIndex(Tools.UpgradeTypes, Num, Valid);
-        }
+        //static public int[] ChooseUpgrades(int Num)
+        //{
+        //    bool[] Valid = new bool[Tools.UpgradeTypes];
+        //    for (int i = 0; i < Tools.UpgradeTypes; i++)
+        //        Valid[i] = true;
+        //    Valid[(int)Upgrade.Speed] = false;
+        //    Valid[(int)Upgrade.General] = false;
+        //    return MyLevel.Rnd.RndIndex(Tools.UpgradeTypes, Num, Valid);
+        //}
 
 
         static public void EnforceLevelCap(Upgrades upgrades, int Cap, int LowerCap)
@@ -80,7 +80,7 @@ namespace CloudberryKingdom
             /*
             int Types;
             if (Difficulty == 0) Types = 0;
-            else Types = Tools.Rnd.Next(Math.Min(Tools.UpgradeTypes - 1, Generic.MinTypes),
+            else Types = MyLevel.Rnd.Rnd.Next(Math.Min(Tools.UpgradeTypes - 1, Generic.MinTypes),
                                         Math.Min(Tools.UpgradeTypes - 1, Generic.MaxTypes));
 
             int[] UpgradeChoices = ChooseUpgrades(Types);

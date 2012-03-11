@@ -99,9 +99,9 @@ namespace CloudberryKingdom
             // Reset the random seed
             if (Step == 0)
             {
-                Tools.Rnd = new Random(0);
+                MyLevel.Rnd.Rnd = new Random(0);
                 //Tools.Write("Rnd Test");
-                //Tools.Write(Tools.RndInt(0, 10000));
+                //Tools.Write(MyLevel.Rnd.RndInt(0, 10000));
             }
 
             Step++;

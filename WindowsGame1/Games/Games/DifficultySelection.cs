@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 
             emitter.Core.Data.Position = new Vector2(-6000, -300);
             emitter.Delay = 70;
-            emitter.Offset = Tools.Rnd.Next(emitter.Delay);
+            emitter.Offset = MyLevel.Rnd.Rnd.Next(emitter.Delay);
             emitter.FireOnScreen = true;
             emitter.DrawEmitter = true;
             double Angle = 0;
@@ -309,7 +309,7 @@ namespace CloudberryKingdom
 
             
                 data = new LevelSeedData();
-                data.Seed = Tools.Rnd.Next();
+                data.Seed = MyLevel.Rnd.Rnd.Next();
                 data.SetBackground(BackgroundType.Outside);
                 data.DefaultHeroType = BobPhsxNormal.Instance;
                 data.MyGameFlags.IsTethered = false;

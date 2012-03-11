@@ -31,7 +31,7 @@ namespace CloudberryKingdom
             switch (LavaMake)
             {
                 case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
-                case LavaMakeTypes.Random: game.HasLava = Tools.RndBool(.38f); break;
+                case LavaMakeTypes.Random: game.HasLava = Rnd.RndBool(.38f); break;
                 default: game.HasLava = false; break;
             }
             if (!NewLevel.MyBackground.AllowLava)
@@ -201,7 +201,7 @@ namespace CloudberryKingdom
                 Lowest.Extend(Side.Right, NewLevel.TR.X + 5000);
 
                 // Push down a bit
-                Lowest.Extend(Side.Top, Lowest.Box.TR.Y - Tools.RndFloat(0, 60));
+                Lowest.Extend(Side.Top, Lowest.Box.TR.Y - Rnd.RndFloat(0, 60));
                 if (Lowest.Box.TR.Y < -840) Lowest.CollectSelf();
 
                 // Remove extra lava blocks

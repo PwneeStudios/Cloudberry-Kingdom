@@ -175,7 +175,7 @@ namespace CloudberryKingdom
         {
             base.Init(bob);
 
-            Offset = Tools.Rnd.Next(0, 300);
+            Offset = int.MinValue;
 
             StartJumpAnim = false;
 
@@ -581,7 +581,7 @@ namespace CloudberryKingdom
             MyBob.CurInput.A_Button = false;
             if (JumpCountdown == 0 || JumpCount > 0)
             {
-                JumpCountdown = Tools.RndInt(0, 20);//150);
+                JumpCountdown = MyLevel.Rnd.RndInt(0, 20);//150);
 
                 MyBob.CurInput.A_Button = true;
             }
@@ -593,7 +593,7 @@ namespace CloudberryKingdom
                 if (Dir == 0) Dir = 1;
 
                 Dir *= -1;
-                TurnCountdown = Tools.RndInt(0, 135);
+                TurnCountdown = MyLevel.Rnd.RndInt(0, 135);
             }
             else
                 TurnCountdown--;
@@ -632,7 +632,7 @@ namespace CloudberryKingdom
             if (JumpCountdown == 0 ||
                 ((JumpCount > 0 || !OnGround) && JumpCountdown < 60))
             {
-                JumpCountdown = Tools.RndInt(0, 20);//150);
+                JumpCountdown = MyLevel.Rnd.RndInt(0, 20);//150);
 
                 MyBob.CurInput.A_Button = true;
             }
@@ -644,7 +644,7 @@ namespace CloudberryKingdom
                 if (Dir == 0) Dir = 1;
 
                 Dir *= -1;
-                TurnCountdown = Tools.RndInt(0, 135);
+                TurnCountdown = MyLevel.Rnd.RndInt(0, 135);
             }
             else
                 TurnCountdown--;
@@ -705,18 +705,18 @@ namespace CloudberryKingdom
             // BobEdgeJump, decide whether computer should always jump off edges
             if (BobEdgeJumpLength <= 0)
             {
-                BobEdgeJumpLength = Tools.RndInt(20, 80);
+                BobEdgeJumpLength = MyLevel.Rnd.RndInt(20, 80);
                 if (BobEdgeJump == 1) BobEdgeJump = 0; else BobEdgeJump = 1;
                 if (BobEdgeJump == 1)
                 {
                     int Duration = GenData.Get(DifficultyParam.EdgeJumpDuration, Pos);
-                    BobEdgeJumpLength = Tools.Rnd.Next(Duration, 2 * Duration);
+                    BobEdgeJumpLength = MyLevel.Rnd.Rnd.Next(Duration, 2 * Duration);
                 }
                 else
                 {
                     int Duration = GenData.Get(DifficultyParam.NoEdgeJumpDuration, Pos);
                     if (Duration > 30)
-                        BobEdgeJumpLength = Tools.Rnd.Next(Duration, 2 * Duration);
+                        BobEdgeJumpLength = MyLevel.Rnd.Rnd.Next(Duration, 2 * Duration);
                     else
                     {
                         BobEdgeJump = 1;
@@ -734,52 +734,52 @@ namespace CloudberryKingdom
             {
                 if (AutoFallOrJump == 1) AutoFallOrJump = -1; else AutoFallOrJump = 1;
                 if (AutoFallOrJump == 1)
-                    AutoFallOrJumpLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.JumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.JumpLengthBase, Pos);
+                    AutoFallOrJumpLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.JumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.JumpLengthBase, Pos);
                 else
-                    AutoFallOrJumpLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.FallLengthAdd, Pos)) + GenData.Get(BehaviorParam.FallLengthBase, Pos);
+                    AutoFallOrJumpLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.FallLengthAdd, Pos)) + GenData.Get(BehaviorParam.FallLengthBase, Pos);
             }
 
             if (AutoDirLength == 0)
             {
                 if (AutoDir == 1) AutoDir = -1; else AutoDir = 1;
                 if (AutoDir == 1)
-                    AutoDirLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.ForwardLengthAdd, Pos)) + GenData.Get(BehaviorParam.ForwardLengthBase, Pos);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.ForwardLengthAdd, Pos)) + GenData.Get(BehaviorParam.ForwardLengthBase, Pos);
                 else
-                    AutoDirLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.BackLengthAdd, Pos)) + GenData.Get(BehaviorParam.BackLengthBase, Pos);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.BackLengthAdd, Pos)) + GenData.Get(BehaviorParam.BackLengthBase, Pos);
             }
 
             if ((MyBob.Core.MyLevel.GetPhsxStep() + Offset) % 400 == 0)
             {
                 AutoMoveType = 0;
-                AutoMoveLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.SitLengthAdd, Pos)) + GenData.Get(BehaviorParam.SitLengthBase, Pos);
+                AutoMoveLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.SitLengthAdd, Pos)) + GenData.Get(BehaviorParam.SitLengthBase, Pos);
             }
             if (AutoMoveLength == 0)
             {
-                int rnd = Tools.Rnd.Next(GenData.Get(BehaviorParam.MoveWeight, Pos) + GenData.Get(BehaviorParam.SitWeight, Pos));
+                int rnd = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.MoveWeight, Pos) + GenData.Get(BehaviorParam.SitWeight, Pos));
                 //if (rnd < GenData.Get(CompTweak.MoveWeight, Pos))                
                 {
                     AutoMoveType = 1;
-                    AutoMoveLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.MoveLengthAdd, Pos)) + GenData.Get(BehaviorParam.MoveLengthBase, Pos);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.MoveLengthAdd, Pos)) + GenData.Get(BehaviorParam.MoveLengthBase, Pos);
                 }
                 //else
                 //{
                 //    AutoMoveType = 0;
-                //    AutoMoveLength = 60;// Tools.Rnd.Next(GenData.Get(CompTweak.SitLengthAdd, Pos)) + GenData.Get(CompTweak.SitLengthBase, Pos);
+                //    AutoMoveLength = 60;// MyLevel.Rnd.Rnd.Next(GenData.Get(CompTweak.SitLengthAdd, Pos)) + GenData.Get(CompTweak.SitLengthBase, Pos);
                 //}
             }
 
             if (AutoSetToJumpLength == 0)
             {
-                int rnd = Tools.Rnd.Next(GenData.Get(BehaviorParam.JumpWeight, Pos) + GenData.Get(BehaviorParam.NoJumpWeight, Pos));
+                int rnd = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.JumpWeight, Pos) + GenData.Get(BehaviorParam.NoJumpWeight, Pos));
                 if (rnd < GenData.Get(BehaviorParam.JumpWeight, Pos))
                 {
                     AutoSetToJumpType = 1;
-                    AutoSetToJumpLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.JumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.JumpLengthBase, Pos);
+                    AutoSetToJumpLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.JumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.JumpLengthBase, Pos);
                 }
                 else
                 {
                     AutoSetToJumpType = 0;
-                    AutoSetToJumpLength = Tools.Rnd.Next(GenData.Get(BehaviorParam.NoJumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.NoJumpLengthBase, Pos);
+                    AutoSetToJumpLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.NoJumpLengthAdd, Pos)) + GenData.Get(BehaviorParam.NoJumpLengthBase, Pos);
                 }
             }
 
@@ -933,10 +933,10 @@ namespace CloudberryKingdom
             // If this is the first phsx step choose a move type
             if (FirstPhsxStep)
             {
-                if (Tools.RndFloat() < .425f)
+                if (MyLevel.Rnd.RndFloat() < .425f)
                     RndMoveType = 10;
                 else
-                    RndMoveType = Tools.Rnd.Next(0, 5);
+                    RndMoveType = MyLevel.Rnd.Rnd.Next(0, 5);
 
                 if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSet.Island)
                     RndMoveType = 10;
@@ -975,7 +975,7 @@ namespace CloudberryKingdom
                     // Hard up and hard down.
                     AllowTypeSwitching = false;
 
-                    if (FirstPhsxStep) Up = Tools.RndBool();
+                    if (FirstPhsxStep) Up = MyLevel.Rnd.RndBool();
                     if (Up)
                     {
                         MyBob.TargetPosition.Y = MaxTargetY;
@@ -997,7 +997,7 @@ namespace CloudberryKingdom
                 MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY + t * (MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
 
             if (AllowTypeSwitching && MyBob.Core.MyLevel.GetPhsxStep() % Period == 0)
-                RndMoveType = Tools.Rnd.Next(0, 9);
+                RndMoveType = MyLevel.Rnd.Rnd.Next(0, 9);
 
         }
 
@@ -1011,6 +1011,10 @@ namespace CloudberryKingdom
 
         public override void GenerateInput(int CurPhsxStep)
         {
+            // Initialize the offset value if it hasn't been set yet
+            if (Offset == int.MinValue)
+                Offset = MyLevel.Rnd.Rnd.Next(0, 300);
+
             base.GenerateInput(CurPhsxStep);
 
             switch (Geometry)
@@ -1192,13 +1196,13 @@ namespace CloudberryKingdom
 
                         //// Big explosion
                         //int sign = -Math.Sign(xVel);
-                        //if (sign == 0) sign = Tools.RndBit();
+                        //if (sign == 0) sign = MyLevel.Rnd.RndBit();
 
                         //Vel = new Vector2(170 * sign, 12);
                         //Acc = new Vector2(0, -1.9f);
 
                         //for (int i = 0; i < 3; i++)
-                        //    Fireball.Explosion(Pos + Tools.RndDir(60), MyBob.Core.MyLevel, .98f * Vel, 1, 1);
+                        //    Fireball.Explosion(Pos + MyLevel.Rnd.RndDir(60), MyBob.Core.MyLevel, .98f * Vel, 1, 1);
                         //return;
 
                     case ObjectType.Fireball:

@@ -136,8 +136,11 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool FunRun = true;
 
-        public StyleData()
+        public Rand Rnd;
+        public StyleData(Rand Rnd)
         {
+            this.Rnd = Rnd;
+
             Randomize();
         }
 
@@ -147,9 +150,9 @@ namespace CloudberryKingdom.Levels
 
             float[] PauseTypeRatio = { 1f, 1f, 1f, 1f };
             PauseTypeRatio[0] += .3f * JumpLevel;
-            PauseType = (_PauseType)Tools.Rnd.Next(0, Tools.Length<_PauseType>());            
+            PauseType = (_PauseType)Rnd.Rnd.Next(0, Tools.Length<_PauseType>());            
             
-            ReverseType = (_ReverseType)Tools.Rnd.Next(0, Tools.Length<_ReverseType>());
+            ReverseType = (_ReverseType)Rnd.Rnd.Next(0, Tools.Length<_ReverseType>());
 
             CalculateKeepUnused(JumpLevel);
         }
@@ -158,10 +161,10 @@ namespace CloudberryKingdom.Levels
         {
             // Extra fill: keep unused
             float ChanceToHaveUnused = .4f - .1f * (.4f - -.2f) * JumpLevel;
-            if (Tools.RndFloat(0, 1) < ChanceToHaveUnused)
+            if (Rnd.RndFloat(0, 1) < ChanceToHaveUnused)
             {
                 float chance = .1f - .1f * (.1f - 0) * JumpLevel;
-                ChanceToKeepUnused = Tools.RndFloat(0, chance);
+                ChanceToKeepUnused = Rnd.RndFloat(0, chance);
             }
         }
 
@@ -192,30 +195,30 @@ namespace CloudberryKingdom.Levels
             
             MakeInitialPlats = true;
 
-            SparsityType = (_SparsityType)Tools.Choose(SparsityTypeRatio);
+            SparsityType = (_SparsityType)Rnd.Choose(SparsityTypeRatio);
 
-            ElevatorSwitchType = (_ElevatorSwitchType)Tools.Choose(ElevatorSwitchTypeRatio);
+            ElevatorSwitchType = (_ElevatorSwitchType)Rnd.Choose(ElevatorSwitchTypeRatio);
 
-            FlyingBlobOffsetType = (_OffsetType)Tools.Choose(OffsetTypeRatio);
-            MovingBlock2OffsetType = (_OffsetType)Tools.Choose(OffsetTypeRatio);
+            FlyingBlobOffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
+            MovingBlock2OffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
 
-            JumpType = (_JumpType)Tools.Rnd.Next(0, Tools.Length<_JumpType>());
+            JumpType = (_JumpType)Rnd.Rnd.Next(0, Tools.Length<_JumpType>());
             
 
-            MoveTypePeriod = (_MoveTypePeriod)Tools.Rnd.Next(0, Tools.Length<_MoveTypePeriod>());
-            MoveTypeInnerPeriod = (_MoveTypeInnerPeriod)Tools.Rnd.Next(0, Tools.Length<_MoveTypeInnerPeriod>());
+            MoveTypePeriod = (_MoveTypePeriod)Rnd.Rnd.Next(0, Tools.Length<_MoveTypePeriod>());
+            MoveTypeInnerPeriod = (_MoveTypeInnerPeriod)Rnd.Rnd.Next(0, Tools.Length<_MoveTypeInnerPeriod>());
 
-            FillType = (_FillType)Tools.Choose(FillTypeRatio);
+            FillType = (_FillType)Rnd.Choose(FillTypeRatio);
 
-            PauseType = (_PauseType)Tools.Rnd.Next(0, Tools.Length<_PauseType>());
+            PauseType = (_PauseType)Rnd.Rnd.Next(0, Tools.Length<_PauseType>());
 
             // Path types
-            Bob1Start = (_StartType)Tools.Rnd.Next(0, Tools.Length<_StartType>());
-            Bob2Start = (_StartType)Tools.Rnd.Next(0, Tools.Length<_StartType>());
-            Bob3Start = (_StartType)Tools.Rnd.Next(0, Tools.Length<_StartType>());
-            SinglePathType = (_SinglePathType)Tools.Choose(_SinglePathRatio);
-            DoublePathType = (_DoublePathType)Tools.Rnd.Next(0, Tools.Length<_DoublePathType>());
-            TriplePathType = (_TriplePathType)Tools.Rnd.Next(0, Tools.Length<_TriplePathType>());
+            Bob1Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
+            Bob2Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
+            Bob3Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
+            SinglePathType = (_SinglePathType)Rnd.Choose(_SinglePathRatio);
+            DoublePathType = (_DoublePathType)Rnd.Rnd.Next(0, Tools.Length<_DoublePathType>());
+            TriplePathType = (_TriplePathType)Rnd.Rnd.Next(0, Tools.Length<_TriplePathType>());
         }
 
         public float GetSparsity()
@@ -227,7 +230,7 @@ namespace CloudberryKingdom.Levels
         {
             switch (Type)
             {
-                case _OffsetType.Random: return Tools.Rnd.Next(0, Period);
+                case _OffsetType.Random: return Rnd.Rnd.Next(0, Period);
                 case _OffsetType.AllSame: return 0;
                 case _OffsetType.SpatiallyPeriodic: return ((int)(Period * (pos.X / 2000f))) % Period;
             }
@@ -294,7 +297,7 @@ namespace CloudberryKingdom.Levels
                 DoublePathType = _DoublePathType.Gap;
 
             // Make sure double paths are always well separated
-            if (Tools.RndBool())
+            if (Rnd.RndBool())
             {
                 Bob1Start = _StartType.Bottom;
                 Bob2Start = _StartType.Top;

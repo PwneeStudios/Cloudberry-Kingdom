@@ -160,8 +160,8 @@ namespace CloudberryKingdom.Levels
             FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
 
             int Period = (int)Params.Period.GetVal(pos);
-            int Offset = Params.ChooseOffset(Period); 
-                         //Tools.Rnd.Next(Period);
+            int Offset = Params.ChooseOffset(Period, level.Rnd); 
+                         //MyLevel.Rnd.Rnd.Next(Period);
 
             IceBlock iceblock = null;
 
@@ -174,7 +174,7 @@ namespace CloudberryKingdom.Levels
 
             iceblock.BlockCore.BlobsOnTop = true;
 
-            iceblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            iceblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
             iceblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
             if (level.Style.RemoveBlockOnOverlap)
@@ -228,7 +228,7 @@ namespace CloudberryKingdom.Levels
                         }
 
                         float MaxAngle = .001f * Params.FireballMaxAngle.GetVal(pos);
-                        double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles);
+                        double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles, level.Rnd);
                         if (Geometry == LevelGeometry.Right) Angle += Math.PI / 2;
                         emitter.EmitData.Velocity = Tools.AngleToDir(Angle) * Speed;
 
@@ -289,7 +289,7 @@ namespace CloudberryKingdom.Levels
 
             //emitter.Period *= 3;
             emitter.Period = 500;
-            emitter.Offset = Tools.Rnd.Next(emitter.Period);
+            emitter.Offset = level.Rnd.Rnd.Next(emitter.Period);
 
             emitter.DrawEmitter = false;
             emitter.Range = 1600;
@@ -327,35 +327,35 @@ namespace CloudberryKingdom.Levels
                 Vector2 EmitPosition, AimPosition;
                 
                 
-                EmitPosition = Tools.RndDir() * 3000 + Center;
+                EmitPosition = level.Rnd.RndDir() * 3000 + Center;
                 if (EmitPosition.X > TR.X + 500) EmitPosition.X = TR.X + 500;
                 if (EmitPosition.X < BL.X - 500) EmitPosition.X = BL.X - 500;
                 if (EmitPosition.Y > TR.Y + 500) EmitPosition.Y = TR.Y + 500;
                 if (EmitPosition.Y < BL.Y - 500) EmitPosition.Y = BL.Y - 500;
 
-                AimPosition = Center + new Vector2(Tools.RndFloat(-900, 900), 150);
+                AimPosition = Center + new Vector2(level.Rnd.RndFloat(-900, 900), 150);
                 
 
                 //switch(3)
-                switch(Tools.RndInt(0, 3))
+                switch(level.Rnd.RndInt(0, 3))
                 {
                     case 0:
-                        EmitPosition = new Vector2(Tools.RndFloat(Center.X + 1000, Center.X - 1000, 75), TR.Y + 300);
+                        EmitPosition = new Vector2(level.Rnd.RndFloat(Center.X + 1000, Center.X - 1000, 75), TR.Y + 300);
                         AimPosition = EmitPosition + new Vector2(0, -1000);
                         break;
 
                     case 1:
-                        EmitPosition = new Vector2(Tools.RndFloat(Center.X + 1000, Center.X - 1000, 75), BL.Y - 300);
+                        EmitPosition = new Vector2(level.Rnd.RndFloat(Center.X + 1000, Center.X - 1000, 75), BL.Y - 300);
                         AimPosition = EmitPosition + new Vector2(0, 1000);
                         break;
 
                     case 2:
-                        EmitPosition = new Vector2(TR.X + 300, Tools.RndFloat(Center.Y - 350, Center.Y + 350, 75));
+                        EmitPosition = new Vector2(TR.X + 300, level.Rnd.RndFloat(Center.Y - 350, Center.Y + 350, 75));
                         AimPosition = EmitPosition + new Vector2(-1000, 0);
                         break;
 
                     default:
-                        EmitPosition = new Vector2(BL.X - 300, Tools.RndFloat(Center.Y - 350, Center.Y + 350, 75));
+                        EmitPosition = new Vector2(BL.X - 300, level.Rnd.RndFloat(Center.Y - 350, Center.Y + 350, 75));
                         AimPosition = EmitPosition + new Vector2(1000, 0);
                         break;
                 }
@@ -438,13 +438,13 @@ namespace CloudberryKingdom.Levels
                     AimPosition = Center + Tangent * j * Width / WidthNum;
 
                     /*
-                    EmitPosition = Tools.RndDir() * 3000 + Center;
+                    EmitPosition = level.Rnd.RndDir() * 3000 + Center;
                     if (EmitPosition.X > TR.X) EmitPosition.X = TR.X + 200;
                     if (EmitPosition.X < BL.X) EmitPosition.X = BL.X - 200;
                     if (EmitPosition.Y > TR.Y) EmitPosition.Y = TR.Y + 200;
                     if (EmitPosition.Y < BL.Y) EmitPosition.Y = BL.Y - 200;
 
-                    AimPosition = Center + new Vector2(Tools.RndFloat(-900, 900), 150);
+                    AimPosition = Center + new Vector2(level.Rnd.RndFloat(-900, 900), 150);
                     */
 
                     FireballEmitter emitter = (FireballEmitter)CreateAt(level, EmitPosition);
@@ -485,25 +485,25 @@ namespace CloudberryKingdom.Levels
             FireballEmitter emitter = (FireballEmitter)level.Recycle.GetObject(ObjectType.FireballEmitter, true);
 
             emitter.Core.Data.Position = pos;
-            emitter.Period = (Tools.Rnd.Next(Params.NumPeriods - 1) + 1) * (int)Params.Period.GetVal(pos);
+            emitter.Period = (level.Rnd.Rnd.Next(Params.NumPeriods - 1) + 1) * (int)Params.Period.GetVal(pos);
             if (Params.NumOffsets < 0)
-                emitter.Offset = Tools.Rnd.Next(emitter.Period);
+                emitter.Offset = level.Rnd.Rnd.Next(emitter.Period);
             else
-                emitter.Offset = Tools.Rnd.Next(0, Params.NumOffsets) * emitter.Period / Params.NumOffsets;
+                emitter.Offset = level.Rnd.Rnd.Next(0, Params.NumOffsets) * emitter.Period / Params.NumOffsets;
             emitter.FireOnScreen = true;
             emitter.DrawEmitter = true;
 
             return emitter;
         }
 
-        public static double GetAngle(float MaxAngle, int NumAngles)
+        public static double GetAngle(float MaxAngle, int NumAngles, Rand Rnd)
         {
             if (NumAngles < 0)
-                return Tools.Rnd.NextDouble() * 2 * MaxAngle - MaxAngle;
+                return Rnd.Rnd.NextDouble() * 2 * MaxAngle - MaxAngle;
             else if (NumAngles == 1)
                 return 0;
             else
-                return Tools.Rnd.Next(0, NumAngles) * 2f * MaxAngle / (NumAngles - 1) - MaxAngle;
+                return Rnd.Rnd.Next(0, NumAngles) * 2f * MaxAngle / (NumAngles - 1) - MaxAngle;
         }
 
 
@@ -611,7 +611,7 @@ namespace CloudberryKingdom.Levels
 
 
 
-                density = (int)Tools.RndFloat(Params.MinFireballEmitterDensity.GetVal(pos),
+                density = (int)Rnd.RndFloat(Params.MinFireballEmitterDensity.GetVal(pos),
                                          Params.MaxFireballEmitterDensity.GetVal(pos));
 
                 // Add emitter
@@ -627,15 +627,15 @@ namespace CloudberryKingdom.Levels
                 
                 float average = (int)(Math.Max(xdif, ydif) * (float)density / (700f ));
                 int n = (int)average;
-                if (average < 1) if (Tools.Rnd.NextDouble() < average) n = 1;
+                if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;
 
                 float xspace = xdif / (float)Math.Max(1,(int)(xdif / 125));
                 float yspace = ydif / (float)Math.Max(1,(int)(ydif / 125));
 
                 for (int i = 0; i < n; i++)
                 {
-                    float x = (float)Tools.Rnd.NextDouble() * xdif + xmin;
-                    float y = (float)Tools.Rnd.NextDouble() * ydif + ymin;
+                    float x = (float)Rnd.Rnd.NextDouble() * xdif + xmin;
+                    float y = (float)Rnd.Rnd.NextDouble() * ydif + ymin;
 
                     x = (int)((x - xmin) / xspace) * xspace + xmin;
                     y = (int)((y - ymin) / yspace) * yspace + ymin;
@@ -655,14 +655,14 @@ namespace CloudberryKingdom.Levels
                     int Dir = 3;
                     int VerticalOdds = 4;
                     int HorizontalOdds = 1;
-                    if (block.BlockCore.Ceiling) Dir = Tools.Choose(HorizontalOdds, VerticalOdds, HorizontalOdds, 0);
-                    else Dir = Tools.Choose(HorizontalOdds, 0, HorizontalOdds, VerticalOdds);
+                    if (block.BlockCore.Ceiling) Dir = Rnd.Choose(HorizontalOdds, VerticalOdds, HorizontalOdds, 0);
+                    else Dir = Rnd.Choose(HorizontalOdds, 0, HorizontalOdds, VerticalOdds);
 
                     if (block.BlockCore.Ceiling) Dir = 1; else Dir = 3;
 
                     // Diagonal paths
                     float MaxAngle = .001f * Params.FireballMaxAngle.GetVal(pos);
-                    double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles);
+                    double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles, Rnd);
 
                     // Lava emitters are always vertical and invisible
                     float Speed = Params.FireballSpeed.GetVal(block.Core.Data.Position);

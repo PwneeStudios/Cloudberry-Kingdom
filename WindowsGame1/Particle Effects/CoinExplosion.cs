@@ -28,7 +28,7 @@ namespace CloudberryKingdom
 
         static void SetRandomCoin(ParticleEmitter emit, int i)
         {
-            switch (Tools.RndInt(0, 6))
+            switch (Tools.GlobalRnd.RndInt(0, 6))
             {
                 case 0: emit.Particles[i].MyQuad.TextureName = "CoinBlue"; break;
                 case 1: emit.Particles[i].MyQuad.TextureName = "CoinCyan"; break;
@@ -53,12 +53,12 @@ namespace CloudberryKingdom
 
                 emit.Particles[i] = CoinExplosionTemplate;
 
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = level.Rnd.RndDir();
 
                 emit.Particles[i].Data.Position = pos + 45 * Dir * intensity;
-                emit.Particles[i].Data.Velocity = 45 * intensity * (float)Tools.Rnd.NextDouble() * Dir
+                emit.Particles[i].Data.Velocity = 45 * intensity * (float)level.Rnd.Rnd.NextDouble() * Dir
                                                     + new Vector2(0, 13);
-                emit.Particles[i].Angle = Tools.RndFloat(0, 100);
+                emit.Particles[i].Angle = level.Rnd.RndFloat(0, 100);
                 emit.Particles[i].Size *= intensity;
 
                 //emit.Particles[i].MyQuad.TextureName = "CoinBlue";

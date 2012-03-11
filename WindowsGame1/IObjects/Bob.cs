@@ -136,7 +136,7 @@ namespace CloudberryKingdom.Bobs
         }
     }
 
-    public class Bob : IObject
+    public class Bob : ObjectBase, IObject
     {
         public float LightSourceFade = 1, LightSourceFadeVel = 0;
         public void ResetLightSourceFade()
@@ -169,7 +169,7 @@ namespace CloudberryKingdom.Bobs
             UpdateObject();
 
             PlayerObject.AnimQueue.Clear();
-            PlayerObject.EnqueueAnimation(Name, Tools.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
+            PlayerObject.EnqueueAnimation(Name, MyLevel.Rnd.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
             PlayerObject.DequeueTransfers();
 
             PlayerObject.PlayUpdate(.01f);
@@ -186,7 +186,7 @@ namespace CloudberryKingdom.Bobs
             UpdateObject();
 
             PlayerObject.AnimQueue.Clear();
-            PlayerObject.EnqueueAnimation(Name, Tools.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
+            PlayerObject.EnqueueAnimation(Name, MyLevel.Rnd.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
 
             PlayerObject.PlayUpdate(.01f);
             UpdateObject();
@@ -2048,12 +2048,12 @@ namespace CloudberryKingdom.Bobs
             if (l > 550)//425)
             {
                 Vector2 normal = new Vector2(-acc.Y, acc.X);
-                acc = acc * Math.Min(15, l) + normal * Tools.RndFloat(2.4f, 2.6f);// 2.5f;
+                acc = acc * Math.Min(15, l) + normal * MyLevel.Rnd.RndFloat(2.4f, 2.6f);// 2.5f;
             }
             else
             {
                 Core.Data.Velocity.Normalize();
-                Core.Data.Velocity *= 40;// Tools.RndFloat(35, 45);// 40;
+                Core.Data.Velocity *= 40;// MyLevel.Rnd.RndFloat(35, 45);// 40;
             }
             Core.Data.Velocity += acc;
             Core.Data.Velocity *= .9f;

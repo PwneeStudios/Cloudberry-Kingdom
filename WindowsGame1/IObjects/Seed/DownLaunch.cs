@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : IObject, ILevelConnector
+    public partial class Seed : ObjectBase, IObject, ILevelConnector
     {
         public void Start_DownLaunch()
         {
@@ -38,13 +38,13 @@ namespace CloudberryKingdom
                 bob.AffectsCamera = false;
 
                 bob.Core.Data.Velocity = new Vector2(0, -150 + 1.15f * i);
-                //Tools.RndFloat(-1.95f, 1.5f), 0);
+                //MyLevel.Rnd.RndFloat(-1.95f, 1.5f), 0);
 
                 bob.PlayerObject.xFlip = false;
 
                 // Set animation
                 bob.PlayerObject.AnimQueue.Clear();
-                bob.PlayerObject.EnqueueAnimation("Launched", Tools.RndFloat(0, 1), true, true, 1, 3.3f, false);
+                bob.PlayerObject.EnqueueAnimation("Launched", MyLevel.Rnd.RndFloat(0, 1), true, true, 1, 3.3f, false);
                 bob.PlayerObject.DequeueTransfers();
             }
         }

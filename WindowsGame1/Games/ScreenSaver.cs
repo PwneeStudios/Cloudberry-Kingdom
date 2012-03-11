@@ -130,9 +130,9 @@ namespace CloudberryKingdom
 
                     LevelSeeds.Add(Make(LevelSeeds.Count));                     // Replenish pool of level seeds
                     Tools.CurLevel.WatchComputer(false);                        // Watch the computer
-                    Tools.CurGameData.PhsxStepsToDo += 1;// Tools.RndInt(150, 190);   // Skip beginning 
+                    Tools.CurGameData.PhsxStepsToDo += 1;// MyLevel.Rnd.RndInt(150, 190);   // Skip beginning 
                     Tools.CurGameData.SuppressSoundForExtraSteps = true;
-                    //Duration = Tools.RndInt(100, 330) + Tools.CurGameData.PhsxStepsToDo;
+                    //Duration = MyLevel.Rnd.RndInt(100, 330) + Tools.CurGameData.PhsxStepsToDo;
                     Duration = 10000;
 
                     bool First = index == 0;
@@ -318,8 +318,8 @@ namespace CloudberryKingdom
             if (CrazyForTrailer)
             {
                 data.MyGameFlags.IsTethered = true;
-                data.SetBackground(Tools.ChooseOne(BackgroundType.Castle, BackgroundType.Dungeon, BackgroundType.Outside,
-                                                   BackgroundType.Night, BackgroundType.Sky));
+                data.SetBackground(Tools.GlobalRnd.ChooseOne(BackgroundType.Castle, BackgroundType.Dungeon, BackgroundType.Outside,
+                                                             BackgroundType.Night, BackgroundType.Sky));
                 //data.SetBackground(BackgroundType.Night);
             }
 
@@ -416,14 +416,14 @@ namespace CloudberryKingdom
                             FParams.Special.BorderFill = true;
 
                             Goomba_Parameters GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
-                            GParams.KeepUnused = Tools.RndBool(.5f) ? 0f : Tools.RndFloat(0, .06f);
+                            GParams.KeepUnused = MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f);
                             GParams.FillWeight = 100;
                             GParams.Period = 115;
                             GParams.Range = 600;
                         };
 
                         /*
-                        bool Custom = Tools.RndBool();
+                        bool Custom = MyLevel.Rnd.RndBool();
 
                         if (Custom)
                         {
@@ -494,7 +494,7 @@ namespace CloudberryKingdom
                             piece.Style.MyModParams = (level, p) =>
                             {
                                 Goomba_Parameters GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
-                                GParams.KeepUnused = Tools.RndBool(.5f) ? 0f : Tools.RndFloat(0, .06f);
+                                GParams.KeepUnused = MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f);
                                 GParams.FillWeight = 100;
                                 GParams.Period = 115;
                                 GParams.Range = 600;

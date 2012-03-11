@@ -2,7 +2,7 @@
 
 namespace CloudberryKingdom
 {
-    public partial class Balrog : IObject
+    public partial class Balrog
     {
         public ScenePart Make_Wanted_Idle()
         {

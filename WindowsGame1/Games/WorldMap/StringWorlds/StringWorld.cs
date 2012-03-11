@@ -98,7 +98,7 @@ namespace CloudberryKingdom
             LevelSeedData data;
 
             data = new LevelSeedData();
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = MyLevel.Rnd.Rnd.Next();
             data.SetBackground(BackgroundType.Outside);
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameFlags.IsTethered = false;

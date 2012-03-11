@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : IObject, ILevelConnector
+    public partial class Seed : ObjectBase, IObject, ILevelConnector
     {
         LevelSeedData _NextLevelSeedData;
         public LevelSeedData NextLevelSeedData { get { return _NextLevelSeedData; } set { _NextLevelSeedData = value; } }

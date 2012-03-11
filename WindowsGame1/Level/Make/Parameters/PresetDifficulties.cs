@@ -8,7 +8,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(0, 14))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 14))
             {
                 case 0:
                     u[Upgrade.Jump] = 1;
@@ -256,7 +256,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(1, 17))
+            switch (Tools.GlobalRnd.Rnd.Next(1, 17))
             {
                 case 1:
                     u[Upgrade.Jump] = 0;
@@ -538,7 +538,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(0, 25))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 25))
             {
                 case 0:
                     u[Upgrade.Jump] = 2;
@@ -975,7 +975,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(0, 25))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 25))
             {
                 case 0:
                     u[Upgrade.Jump] = 4;
@@ -1410,7 +1410,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(0, 30))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 30))
             {
                 case 0:
                     u[Upgrade.Ceiling] = 6;
@@ -1928,7 +1928,7 @@ namespace CloudberryKingdom
         {
             Upgrades u = new Upgrades();
 
-            switch (Tools.Rnd.Next(0, 0))
+            switch (Tools.GlobalRnd.Rnd.Next(0, 0))
             {
                 case 0:
                     u[Upgrade.Ceiling] = 9;

@@ -72,7 +72,7 @@ namespace CloudberryKingdom.Levels
             Cloud_Parameters Params = (Cloud_Parameters)level.Style.FindParams(Cloud_AutoGen.Instance);
 
             // Make the new cloud
-            pos += new Vector2(Tools.Rnd.Next(0, 70), Tools.Rnd.Next(0, 70));
+            pos += new Vector2(level.Rnd.Rnd.Next(0, 70), level.Rnd.Rnd.Next(0, 70));
             Cloud NewCloud = (Cloud)level.MySourceGame.Recycle.GetObject(ObjectType.Cloud, true);
             float size = Params.Size.GetVal(pos);
 
@@ -87,7 +87,7 @@ namespace CloudberryKingdom.Levels
             NewCloud.Shiftiness = Params.Shiftiness.GetVal(pos);
 
             /*
-            if (Tools.Rnd.NextDouble() < .01f * level.CurMakeData.GenData.Get(DifficultyType.HeadDanger, pos)
+            if (MyLevel.Rnd.Rnd.NextDouble() < .01f * level.CurMakeData.GenData.Get(DifficultyType.HeadDanger, pos)
                 * level.Style.KeepUnusedFlyingCloud)
                 NewCloud.Core.GenData.RemoveIfUnused = false;
             else*/

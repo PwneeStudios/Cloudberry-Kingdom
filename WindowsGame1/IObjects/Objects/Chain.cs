@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Chain : IObject
+    public partial class Chain : ObjectBase, IObject
     {
         public void TextDraw() { }
         public virtual void Release()
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
             if (VibrateIntensity > 0)
             {
                 if (Core.MyLevel.GetPhsxStep() % 2 == 0)
-                    Offset = VibrateIntensity * new Vector2(Tools.Rnd.Next(-10, 10), Tools.Rnd.Next(-10, 10));
+                    Offset = VibrateIntensity * new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
 
                 VibrateIntensity -= .0685f;
             }

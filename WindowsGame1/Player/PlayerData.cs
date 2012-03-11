@@ -237,7 +237,7 @@ namespace CloudberryKingdom
             else
             {
                 if (RandomNameIndex == -1)
-                    RandomNameIndex = Tools.RndInt(0, PlayerManager.RandomNames.Length - 1);
+                    RandomNameIndex = Tools.GlobalRnd.RndInt(0, PlayerManager.RandomNames.Length - 1);
                 return PlayerManager.RandomNames[RandomNameIndex];
             }
         }

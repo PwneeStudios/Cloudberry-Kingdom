@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.FireSpinners
 {
-    public class FireSpinner : IObject
+    public class FireSpinner : ObjectBase, IObject
     {
         /// <summary>
         /// If true then the individual flames comprising the firespinners have an offset
@@ -100,7 +100,7 @@ namespace CloudberryKingdom.FireSpinners
             Angle = 2 * (float)Math.PI * (CurPhsxStep + Offset) / (float)Period;
             MiniAngle = CurPhsxStep * .22f;
             if (RandomMiniOrientation)
-                MiniAngle_Offset = Tools.RndFloat(0, 100);
+                MiniAngle_Offset = MyLevel.Rnd.RndFloat(0, 100);
 
             dir = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
             MyLine.Target.p2 = dir * Radius + Core.Data.Position;

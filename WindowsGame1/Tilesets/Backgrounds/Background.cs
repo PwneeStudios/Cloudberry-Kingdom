@@ -16,6 +16,7 @@ namespace CloudberryKingdom
         //public static bool[] AllowInCustomGame = { false, true    , true     , true     , false  , false };
 
         public Level MyLevel;
+        public Rand Rnd { get { return MyLevel.Rnd; } }
 
         public BackgroundType MyType;
 

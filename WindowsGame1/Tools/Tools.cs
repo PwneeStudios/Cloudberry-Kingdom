@@ -188,6 +188,15 @@ namespace CloudberryKingdom
             return list[rnd.RndInt(0, list.Length - 1)];
         }
 
+        /// <summary>
+        /// Choose a random element from the list
+        /// </summary>
+        public static T Choose<T>(this List<T> list, Rand rnd)
+        {
+            //if (list == null || list.Count == 0) return null;
+            return list[rnd.RndInt(0, list.Count - 1)];
+        }
+
         public static int IndexOf<T>(this List<T> list, Predicate<T> match)
         {
             return list.IndexOf(list.Find(match));
@@ -1674,7 +1683,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
 
 
-        static bool _AllTaken(bool[] list1, bool[] list2, int Length)
+        public static bool _AllTaken(bool[] list1, bool[] list2, int Length)
         {
             for (int i = 0; i < Length; i++)
                 if (!list1[i] && list2[i])

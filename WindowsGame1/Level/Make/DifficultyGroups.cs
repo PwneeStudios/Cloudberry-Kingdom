@@ -60,10 +60,10 @@ namespace CloudberryKingdom
 
             // Up level
             if (piece.GeometryType == LevelGeometry.Up)
-                Tools.Choose(UpUpgrades)(piece.MyUpgrades1, D);
+                piece.Rnd.Choose(UpUpgrades)(piece.MyUpgrades1, D);
             // Down level
             else if (piece.GeometryType == LevelGeometry.Down)
-                Tools.Choose(DownUpgrades)(piece.MyUpgrades1, D);
+                piece.Rnd.Choose(DownUpgrades)(piece.MyUpgrades1, D);
             // Cart level
             else if (hero is BobPhsxRocketbox)
             {
@@ -72,7 +72,7 @@ namespace CloudberryKingdom
                 else
                     Difficulty -= 1.35f;
                 D = GetFunc(Difficulty);
-                Tools.Choose(CartUpgrades)(piece.MyUpgrades1, D);
+                piece.Rnd.Choose(CartUpgrades)(piece.MyUpgrades1, D);
             }
             // Generic hero level
             else
@@ -83,10 +83,10 @@ namespace CloudberryKingdom
 
                 switch ((int)Difficulty)
                 {
-                    case 0: Tools.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
-                    case 1: Tools.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
-                    case 2: Tools.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
-                    default: Tools.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
+                    case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
+                    case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
+                    case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
+                    default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
                 }
             }
 

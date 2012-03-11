@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Floater_Core : IObject, IBound
+    public class Floater_Core : ObjectBase, IObject, IBound
     {
         public void TextDraw() { }
         public void Release()

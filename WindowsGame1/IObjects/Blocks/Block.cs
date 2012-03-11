@@ -9,10 +9,10 @@ namespace CloudberryKingdom.Blocks
 {
     public class BlockData : ObjectData
     {
-        public void Decide_RemoveIfUnused(float ChanceToKeep)
+        public void Decide_RemoveIfUnused(float ChanceToKeep, Rand Rnd)
         {
-            GenData.Decide_RemoveIfUnused(ChanceToKeep);
-            if (GenData.RemoveIfUnused || Tools.RndFloat() < .75f)
+            GenData.Decide_RemoveIfUnused(ChanceToKeep, Rnd);
+            if (GenData.RemoveIfUnused || Rnd.RndFloat() < .75f)
                 BlobsOnTop = true;
             else
                 Virgin = true;
@@ -204,7 +204,7 @@ namespace CloudberryKingdom.Blocks
         }
     }
 
-    public class BlockBase
+    public class BlockBase : ObjectBase
     {
         public AABox MyBox;
         public AABox Box { get { return MyBox; } }

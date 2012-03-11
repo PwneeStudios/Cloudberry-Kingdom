@@ -62,16 +62,16 @@ namespace CloudberryKingdom
             while (Pos < TR.X)
             {
                 BackgroundFloater cloud = new BackgroundFloater(MyLevel, BL.X - 1700, TR.X + 400);
-                cloud.Data.Position = new Vector2(Pos, Tools.RndFloat(-2900, 2900));
-                cloud.MyQuad.TextureName = Tools.RandomItem(textures);
+                cloud.Data.Position = new Vector2(Pos, MyLevel.Rnd.RndFloat(-2900, 2900));
+                cloud.MyQuad.TextureName = Rnd.RandomItem(textures);
 
                 cloud.MyQuad.Quad.SetColor(Tools.Gray(.945f));
-                cloud.MyQuad.Size = new Vector2(300, 200) * Tools.RndFloat(1, 2.3f);
+                cloud.MyQuad.Size = new Vector2(300, 200) * MyLevel.Rnd.RndFloat(1, 2.3f);
                 cloud.MyQuad.ScaleYToMatchRatio();
-                cloud.Data.Velocity = new Vector2(Tools.RndFloat(-55, -40), 0) * ModCloudSpeed;
-                cloud.SpinVelocity = Tools.RndFloat(.55f, .9f) * ModSpinVel;
+                cloud.Data.Velocity = new Vector2(MyLevel.Rnd.RndFloat(-55, -40), 0) * ModCloudSpeed;
+                cloud.SpinVelocity = MyLevel.Rnd.RndFloat(.55f, .9f) * ModSpinVel;
 
-                Pos += Tools.RndFloat(800, 1400) * .2f;
+                Pos += MyLevel.Rnd.RndFloat(800, 1400) * .2f;
 
                 NewList.Floaters.Add(cloud);
             }
@@ -85,14 +85,14 @@ namespace CloudberryKingdom
             //while (Pos < TR.X)
             //{
             //    BackgroundFloater cloud = new BackgroundFloater(MyLevel, BL.Y - 1700, TR.Y + 400);
-            //    cloud.Data.Position = new Vector2(Tools.RndFloat(-1800, 1800)*2.3f, Pos);
+            //    cloud.Data.Position = new Vector2(MyLevel.Rnd.RndFloat(-1800, 1800)*2.3f, Pos);
             //    cloud.MyQuad.TextureName = Tools.RandomItem(textures);
 
-            //    cloud.MyQuad.Size = new Vector2(300, 200) * Tools.RndFloat(1, 2);
+            //    cloud.MyQuad.Size = new Vector2(300, 200) * MyLevel.Rnd.RndFloat(1, 2);
             //    cloud.Data.Velocity = new Vector2(-55, 0) * ModCloudSpeed;
-            //    cloud.SpinVelocity = Tools.RndFloat(-2, 2) * ModSpinVel;
+            //    cloud.SpinVelocity = MyLevel.Rnd.RndFloat(-2, 2) * ModSpinVel;
 
-            //    Pos += Tools.RndFloat(800, 1400) * .4f;
+            //    Pos += MyLevel.Rnd.RndFloat(800, 1400) * .4f;
 
             //    NewList.Floaters.Add(cloud);
             //}

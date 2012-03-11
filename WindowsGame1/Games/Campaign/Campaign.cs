@@ -108,10 +108,10 @@ namespace CloudberryKingdom
 
         static void StandardInit(LevelSeedData data)
         {
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = data.Rnd.Rnd.Next();
 
             data.MyGameType = NormalGameData.Factory;
-            data.SetBackground(Tools.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
+            data.SetBackground(data.Rnd.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
 
             data.DefaultHeroType = BobPhsxNormal.Instance;
 
@@ -461,7 +461,7 @@ namespace CloudberryKingdom
             // Place blobs off screen
             foreach (Goomba blob in blobs)
             {
-                Tools.MoveTo(blob, blob.Target + Tools.RndDir(0) + blobpos);
+                Tools.MoveTo(blob, blob.Target + game.Rnd.RndDir(0) + blobpos);
                 blob.Core.RemoveOnReset = true;
             }
 
@@ -547,7 +547,7 @@ namespace CloudberryKingdom
                 game.MyLevel.AddObject(blob);
             }
 
-            Blobs = Tools.Shuffle(Blobs);
+            Blobs = game.Rnd.Shuffle(Blobs);
 
             return Blobs;
         }
@@ -778,7 +778,7 @@ namespace CloudberryKingdom
         {
             // Make blob
             Goomba blob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, false);
-            blob.Pos = new Vector2(level.MainCamera.BL.X - 500, Tools.RndFloat(level.MainCamera.BL.Y, level.MainCamera.TR.Y));
+            blob.Pos = new Vector2(level.MainCamera.BL.X - 500, level.Rnd.RndFloat(level.MainCamera.BL.Y, level.MainCamera.TR.Y));
 
             blob.NeverSkip = true;
 

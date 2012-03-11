@@ -172,7 +172,7 @@ namespace CloudberryKingdom
         {
             // Make blob
             Goomba blob = (Goomba)Recycle.GetObject(ObjectType.FlyingBlob, false);
-            blob.Pos = new Vector2(Tools.RndFloat(Cam.BL.X - 200, Cam.TR.X + 500), Cam.BL.Y - 300);
+            blob.Pos = new Vector2(MyLevel.Rnd.RndFloat(Cam.BL.X - 200, Cam.TR.X + 500), Cam.BL.Y - 300);
 
             blob.NeverSkip = true;
             blob.Core.EditHoldable = false;

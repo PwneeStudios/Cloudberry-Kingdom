@@ -160,7 +160,7 @@ namespace CloudberryKingdom.Levels
             }
 
             NewFloater.Period = (int)Params.FloaterPeriod.GetVal(pos);
-            NewFloater.Offset = Tools.Rnd.Next(0, NewFloater.Period);
+            NewFloater.Offset = level.Rnd.Rnd.Next(0, NewFloater.Period);
             NewFloater.MaxAngle = (int)Params.FloaterMaxAngle.GetVal(pos);
             NewFloater.MaxAngle *= .001f;
             //NewFloater.Length = (NewFloater.Core.StartData.Position - NewFloater.PivotPoint).Length();
@@ -171,7 +171,7 @@ namespace CloudberryKingdom.Levels
             int NumOffsets = 8;
             int Period = (int)(Params.FloaterPeriod.GetVal(pos) / NumOffsets) * NumOffsets;
             NewFloater.Period = Period;
-            NewFloater.Offset = Tools.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
+            NewFloater.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
             NewFloater.Core.GenData.RemoveIfUnused = false;
 
@@ -180,9 +180,9 @@ namespace CloudberryKingdom.Levels
             return NewFloater;
         }
 
-        Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR)
+        Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR, Rand Rnd)
         {
-            Vector2 pos = bob.Core.Data.Position + new Vector2(Tools.RndFloat(-600, 600), Tools.RndFloat(-300, 400));
+            Vector2 pos = bob.Core.Data.Position + new Vector2(Rnd.RndFloat(-600, 600), Rnd.RndFloat(-300, 400));
             pos.Y = Math.Min(pos.Y, TR.Y - 400);
             pos.Y = Math.Max(pos.Y, BL.Y + 220);
             return pos;
@@ -216,7 +216,7 @@ namespace CloudberryKingdom.Levels
                 int Delay = (int)Params.FloaterPlaceDelay.GetVal(pos);
                 if (Step > 90 && Step % Delay == 0)
                 {
-                    Floater floater = (Floater)CreateAt(level, CalcPos(bob, BL, TR));
+                    Floater floater = (Floater)CreateAt(level, CalcPos(bob, BL, TR, level.Rnd));
                     Vector2 Padding = new Vector2(200, 375);
 
                     if (level.PieceSeed.GeometryType == LevelGeometry.Right)

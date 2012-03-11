@@ -40,7 +40,7 @@ namespace CloudberryKingdom
 
         public static void StandardInit(LevelSeedData data)
         {
-            data.Seed = Tools.Rnd.Next();
+            data.Seed = data.Rnd.Rnd.Next();
 
             data.SetBackground(BackgroundType.Castle);
             data.DefaultHeroType = BobPhsxSpaceship.Instance;
@@ -78,8 +78,8 @@ namespace CloudberryKingdom
             // Pick upgrades            
             if (piece.MyPieceIndex == 0)
             {
-                Picks1 = Tools.Choose(BlockUpgrades, BlockComplexity);
-                Picks2 = Tools.Choose(ObjectUpgrades, ObjectComplexity);
+                Picks1 = piece.Rnd.Choose(BlockUpgrades, BlockComplexity);
+                Picks2 = piece.Rnd.Choose(ObjectUpgrades, ObjectComplexity);
             }
 
             foreach (Upgrade upgrade in Picks1)
@@ -108,14 +108,14 @@ namespace CloudberryKingdom
         {
             int BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity;
 
-            switch (Tools.RndInt(0, 1))
+            switch (LevelSeed.Rnd.RndInt(0, 1))
             {
                 default:
                     BlockLevel = Difficulty;
                     ObjectLevel = Difficulty;
                     Speed = (int)Tools.DifficultyLerp159(2, 4, 9, Difficulty);
-                    BlockComplexity = Tools.RndInt(1, 3);
-                    ObjectComplexity = Tools.RndInt(1, 4);
+                    BlockComplexity = LevelSeed.Rnd.RndInt(1, 3);
+                    ObjectComplexity = LevelSeed.Rnd.RndInt(1, 4);
                     break;
             }
 

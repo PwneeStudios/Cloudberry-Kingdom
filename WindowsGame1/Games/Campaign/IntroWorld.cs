@@ -397,7 +397,7 @@ namespace CloudberryKingdom
                 {
                     // Set falling animation
                     bob.SetToCinematic();
-                    bob.SetAnimation("Falling", Tools.RndFloat(0, .3f), true, 3.3f);
+                    bob.SetAnimation("Falling", MyLevel.Rnd.RndFloat(0, .3f), true, 3.3f);
 
                     // Check for hitting the ground
                     bob.CinematicFunc = step =>

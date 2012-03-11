@@ -9,11 +9,19 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
+    public class ObjectBase
+    {
+        public Level MyLevel { get { return ((IObject)this).Core.MyLevel; } }
+        public Rand Rnd { get { return ((IObject)this).Core.MyLevel.Rnd; } }
+    }
+
     public interface IObject
     {
         ObjectData Core { get; }
         Vector2 Pos { get; set; }
         GameData Game { get; }
+        Level MyLevel { get; }
+        Rand Rnd { get; }
         //Camera Cam { get; }
 
         void MakeNew();
@@ -51,9 +59,9 @@ namespace CloudberryKingdom
         public bool Used, RemoveIfUnused, RemoveIfUsed, RemoveIfOverlap;
         public int UsedTimeStamp;
 
-        public void Decide_RemoveIfUnused(float ChanceToKeep)
+        public void Decide_RemoveIfUnused(float ChanceToKeep, Rand Rnd)
         {
-            if (Tools.Rnd.NextDouble() < ChanceToKeep)
+            if (Rnd.Rnd.NextDouble() < ChanceToKeep)
             {
                 RemoveIfUnused = false;
             }

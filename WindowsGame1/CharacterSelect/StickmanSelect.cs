@@ -715,11 +715,11 @@ namespace CloudberryKingdom
                     if (PlayerManager.BoughtOrFree((Buyable)item.obj))
                         list.Add(item);
 
-                //ItemIndex[i] = Tools.RndInt(0, ItemList[i].Count - 1);
-                ItemIndex[i] = ItemList[i].IndexOf(list.Choose());
+                //ItemIndex[i] = MyLevel.Rnd.RndInt(0, ItemList[i].Count - 1);
+                ItemIndex[i] = ItemList[i].IndexOf(list.Choose(Tools.GlobalRnd));
             }
 
-            Hat hat = CharacterSelectManager.AvailableHats.Choose();
+            Hat hat = CharacterSelectManager.AvailableHats.Choose(Tools.GlobalRnd);
             ItemIndex[2] = ColorSchemeManager.HatInfo.IndexOf(hat);
 
             Customize_UpdateColors();

@@ -6,7 +6,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Clouds
 {
-    public class Cloud : IObject
+    public class Cloud : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

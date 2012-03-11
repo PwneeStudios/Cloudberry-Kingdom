@@ -322,13 +322,13 @@ namespace CloudberryKingdom.Particles
                     Particles[Index].Data.Position = Position;
 
                     double a, r;
-                    a = Tools.Rnd.Next(360) / 180f * Math.PI;
-                    r = VelRange * Tools.Rnd.NextDouble() + VelBase;
+                    a = Tools.GlobalRnd.Rnd.Next(360) / 180f * Math.PI;
+                    r = VelRange * Tools.GlobalRnd.Rnd.NextDouble() + VelBase;
                     Particles[Index].Data.Velocity = new Vector2((float)(r * Math.Cos(a)), (float)(r * Math.Sin(a)));
                     Particles[Index].Data.Velocity += VelDir;
 
-                    //particle.Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.Rnd.Next(DisplacementRange);
-                    Particles[Index].Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.Rnd.Next(DisplacementRange);
+                    //particle.Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.GlobalRnd.Rnd.Next(DisplacementRange);
+                    Particles[Index].Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.GlobalRnd.Rnd.Next(DisplacementRange);
                 }
             }
         }

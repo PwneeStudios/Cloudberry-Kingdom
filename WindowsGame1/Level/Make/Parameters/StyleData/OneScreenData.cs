@@ -6,7 +6,8 @@ namespace CloudberryKingdom.Levels
     {
         public Vector2 CamShift = Vector2.Zero;
 
-        public OneScreenData()
+        public OneScreenData(Rand Rnd)
+            : base(Rnd)
         {
         }
 

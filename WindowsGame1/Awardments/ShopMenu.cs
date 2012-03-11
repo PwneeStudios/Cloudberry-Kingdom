@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Awards
             for (int i = 0; i < Cost; i += 150)
             {
                 MyGame.WaitThenDo(wait, () =>
-                    //sound.Play(Tools.RndFloat(.8f, 1f), Tools.RndFloat(-.05f, .05f), 0));
+                    //sound.Play(MyLevel.Rnd.RndFloat(.8f, 1f), MyLevel.Rnd.RndFloat(-.05f, .05f), 0));
                     sound.Play(1, 0, pitch));
                 wait += 5;
                 pitch += .05f;

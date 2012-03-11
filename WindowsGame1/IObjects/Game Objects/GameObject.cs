@@ -32,9 +32,9 @@ namespace CloudberryKingdom
 
         IEnumerator IEnumerable.GetEnumerator() { return dict.Keys.GetEnumerator(); }
 
-        public T Choose()
+        public T Choose(Rand Rnd)
         {
-            int i = Tools.RndInt(0, dict.Count - 1);
+            int i = Rnd.RndInt(0, dict.Count - 1);
             return dict.ElementAt(i).Key;
         }
 
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 
     }
 
-    public class GameObject : IObject
+    public class GameObject : ObjectBase, IObject
     {
         /// <summary>
         /// Tries to add the game object to the game object's level's game.

@@ -74,7 +74,7 @@ namespace CloudberryKingdom.Levels
                 ComputerWaitAtStartLength = new int[4];
                 Vector2 WaitRange = data.Style.ComputerWaitLengthRange;
                 for (int i = 0; i < 4; i++)
-                    ComputerWaitAtStartLength[i] = (int)Tools.RndFloat(WaitRange);
+                    ComputerWaitAtStartLength[i] = (int)data.Rnd.RndFloat(WaitRange);
                 SparsityMultiplier = 1f;
 
                 NumInitialBobs = N;

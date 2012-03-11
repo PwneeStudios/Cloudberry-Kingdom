@@ -321,15 +321,15 @@ namespace CloudberryKingdom.Levels
             {
                 case StyleData._BlockFillType.Regular:
                     size = new Vector2(
-                        Tools.Rnd.Next(
+                        level.Rnd.Rnd.Next(
                         GenData.Get(DifficultyParam.MinBoxSizeX, pos),
                         GenData.Get(DifficultyParam.MaxBoxSizeX, pos)),
-                        Tools.Rnd.Next(
+                        level.Rnd.Rnd.Next(
                         GenData.Get(DifficultyParam.MinBoxSizeY, pos),
                         GenData.Get(DifficultyParam.MaxBoxSizeY, pos)));
                     if (-2 * size.Y + pos.Y < BL.Y - 100) size.Y = (pos.Y - BL.Y + 100) / 2;
 
-                    offset = new Vector2(Tools.Rnd.Next(0, 0), Tools.Rnd.Next(0, 0) - size.Y);
+                    offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
 
                     if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
 
@@ -340,8 +340,8 @@ namespace CloudberryKingdom.Levels
                     break;
 
                 case StyleData._BlockFillType.Spaceship:
-                    size = new Vector2(100 * Tools.Rnd.Next(1, 4), 100 * Tools.Rnd.Next(1, 4));
-                    offset = new Vector2(Tools.Rnd.Next(0, 0), Tools.Rnd.Next(0, 0) - size.Y);
+                    size = new Vector2(100 * level.Rnd.Rnd.Next(1, 4), 100 * level.Rnd.Rnd.Next(1, 4));
+                    offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
                     if (pos.X > piece.End.X - 400) offset.X -= pos.X - piece.End.X + 400;
                     if (pos.X < piece.Start.X + 400) offset.X += piece.Start.X - pos.X + 400;
 
@@ -356,7 +356,7 @@ namespace CloudberryKingdom.Levels
                     break;
             }
 
-            block.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            block.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
 
             block.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 

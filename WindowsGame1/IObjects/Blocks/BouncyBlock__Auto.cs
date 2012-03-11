@@ -144,13 +144,13 @@ namespace CloudberryKingdom.Levels
             BouncyBlock bblock;
             float Width = Params.Size.GetVal(pos);
             Vector2 size = new Vector2(Width, Width);
-            Vector2 offset = new Vector2(Tools.Rnd.Next(0, 0), Tools.Rnd.Next(0, 0) - size.Y);
+            Vector2 offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
             float speed = Params.Speed.GetVal(pos);
             float SideDampening = Params.SideDampening.GetVal(pos);
 
             if (Style.BlockFillType == StyleData._BlockFillType.Spaceship)
             {
-                offset += new Vector2(Tools.Rnd.Next(0, 100), Tools.Rnd.Next(0, 100));
+                offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
                 if (pos.X > piece.End.X - 400) offset.X -= pos.X - piece.End.X + 400;
                 if (pos.X < piece.Start.X + 400) offset.X += piece.Start.X - pos.X + 400;
             }
@@ -160,7 +160,7 @@ namespace CloudberryKingdom.Levels
             bblock.SideDampening = SideDampening;
             bblock.BlockCore.BlobsOnTop = true;
 
-            bblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            bblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
             bblock.BlockCore.GenData.EdgeSafety = Params.EdgeSafety.GetVal(pos) * size.X;
 
             if (piece.Style.RemoveBlockOnOverlap)

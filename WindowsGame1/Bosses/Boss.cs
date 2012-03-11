@@ -2,7 +2,7 @@
 
 namespace CloudberryKingdom
 {
-    public class Boss
+    public class Boss : ObjectBase
     {
         public virtual void DrawTitle()
         {

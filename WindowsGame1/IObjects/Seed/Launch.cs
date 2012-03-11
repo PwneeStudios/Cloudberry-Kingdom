@@ -9,7 +9,7 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : IObject, ILevelConnector
+    public partial class Seed : ObjectBase, IObject, ILevelConnector
     {
         public NormalBlock LandingBlock = null; // Block to land on
         List<Bob> HoldBobs;
@@ -65,19 +65,19 @@ namespace CloudberryKingdom
                 bob.AffectsCamera = false;
 
                 bob.Core.Data.Velocity = new Vector2(250 + 1.15f * i, 0);
-                    //Tools.RndFloat(-1.95f, 1.5f), 0);
+                    //MyLevel.Rnd.RndFloat(-1.95f, 1.5f), 0);
 
                 bob.PlayerObject.xFlip = false;
 
                 // Calculate gravity
-                bob.Core.Data.Velocity.Y = 12f + (float)Math.Pow(-1, i) * .4f * i; //Tools.RndFloat(11, 12.75f);
+                bob.Core.Data.Velocity.Y = 12f + (float)Math.Pow(-1, i) * .4f * i; //MyLevel.Rnd.RndFloat(11, 12.75f);
                 float dif = LandingY - bob.Core.Data.Position.Y;
                 bob.Core.Data.Acceleration.Y = 2 * (dif - (PanDuration + (float)Math.Pow(-1, i)*2.0f) * bob.Core.Data.Velocity.Y) / (PanDuration * PanDuration);
-                //Tools.RndFloat(0,24)
+                //MyLevel.Rnd.RndFloat(0,24)
 
                 // Set animation
                 bob.PlayerObject.AnimQueue.Clear();
-                bob.PlayerObject.EnqueueAnimation("Launched", Tools.RndFloat(0, 1), true, true, 1, 3.3f, false);
+                bob.PlayerObject.EnqueueAnimation("Launched", MyLevel.Rnd.RndFloat(0, 1), true, true, 1, 3.3f, false);
                 bob.PlayerObject.DequeueTransfers();
             }
 
@@ -381,7 +381,7 @@ namespace CloudberryKingdom
                 foreach (Block block in Blocks)
                     if (block.Box.Current.TR.X < cam.BL.X - 100)
                     {
-                        block.Move(new Vector2(cam.GetWidth() + block.Box.Current.Size.X + Tools.RndFloat(0, 10000), 0));
+                        block.Move(new Vector2(cam.GetWidth() + block.Box.Current.Size.X + MyLevel.Rnd.RndFloat(0, 10000), 0));
 
                         // Make sure block is below lowest bob
                         if (block.Box.TR.Y > LowestY)
@@ -526,14 +526,14 @@ namespace CloudberryKingdom
             {
                 block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, false);
                 block.Core.MyTileSetType = level.MyTileSet;
-                block.Init(Pos + new Vector2(width, Tools.RndFloat(200, 1000)), new Vector2(Tools.RndFloat(width / 2, width), 200));
+                block.Init(Pos + new Vector2(width, level.Rnd.RndFloat(200, 1000)), new Vector2(level.Rnd.RndFloat(width / 2, width), 200));
                 block.Extend(Side.Bottom, BL.Y - 300);
 
                 level.AddBlock(block);
                 blocks.Add(block);
 
                 Pos.Y = BL.Y;
-                Pos.X += Tools.RndFloat(step, 2 * step);
+                Pos.X += level.Rnd.RndFloat(step, 2 * step);
             }
 
             return blocks;

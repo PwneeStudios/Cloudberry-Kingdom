@@ -57,7 +57,7 @@ namespace Drawing
         {
             if (EzSoundWad.SuppressSounds) return;
 
-            Play(1, Tools.RndFloat(-PitchModulationRange, PitchModulationRange), 0);
+            Play(1, Tools.GlobalRnd.RndFloat(-PitchModulationRange, PitchModulationRange), 0);
         }
 
         public void Play(float volume)

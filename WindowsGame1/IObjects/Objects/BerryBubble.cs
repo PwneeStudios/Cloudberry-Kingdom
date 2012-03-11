@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class BerryBubble : IObject
+    public partial class BerryBubble : ObjectBase, IObject
     {
         public void TextDraw() { }
         public virtual void Release()

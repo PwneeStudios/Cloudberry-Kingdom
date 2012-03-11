@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public delegate void TimerTriggerEvent(TimerTrigger trig);
-    public class TimerTrigger : IObject
+    public class TimerTrigger : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

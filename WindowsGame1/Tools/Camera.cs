@@ -426,8 +426,8 @@ namespace CloudberryKingdom
                     if (Tools.TheGame.DrawCount % 2 == 0)
                     {
                         Data.Position = ShakingSavePos;
-                        ShakeOffset.X = ShakingIntensity * Tools.Rnd.Next(-70, 70);
-                        ShakeOffset.Y = ShakingIntensity * Tools.Rnd.Next(-70, 70);
+                        ShakeOffset.X = ShakingIntensity * MyLevel.Rnd.Rnd.Next(-70, 70);
+                        ShakeOffset.Y = ShakingIntensity * MyLevel.Rnd.Rnd.Next(-70, 70);
                         Data.Position += ShakeOffset;
                         Update();
                     }

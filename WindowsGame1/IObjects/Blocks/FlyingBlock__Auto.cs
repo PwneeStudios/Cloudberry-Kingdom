@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Levels
             FlyingBlock_Parameters Params = (FlyingBlock_Parameters)level.Style.FindParams(FlyingBlock_AutoGen.Instance);
 
             int Period = (int)Params.Period.GetVal(pos);
-            int Offset = Tools.Rnd.Next(Period);
+            int Offset = level.Rnd.Rnd.Next(Period);
 
 
             int Width = (int)Params.Width.GetVal(pos);
@@ -91,7 +91,7 @@ namespace CloudberryKingdom.Levels
 
             flyblock.BlockCore.BlobsOnTop = true;
 
-            flyblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos));
+            flyblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
             flyblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
 
             if (level.Style.RemoveBlockOnOverlap)

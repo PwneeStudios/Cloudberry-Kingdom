@@ -13,7 +13,7 @@ namespace CloudberryKingdom
 
         void GetObjects()
         {
-            Objects = Tools.Shuffle(MyGame.MyLevel.Objects.FindAll(obj => obj.Core.ContinuousEnabled));
+            Objects = Rnd.Shuffle(MyGame.MyLevel.Objects.FindAll(obj => obj.Core.ContinuousEnabled));
         }
 
         public void EOL_DoorAction(Door door)

@@ -39,7 +39,8 @@ namespace CloudberryKingdom.Levels
 
         public string Name = "";
 
-        public Rand Rnd = new Rand(0);
+        //public Rand Rnd = new Rand(0);
+        public Rand Rnd { get { return MyLevelSeed.Rnd; } }
 
         public bool SuppressSounds = false;
 
@@ -265,7 +266,7 @@ namespace CloudberryKingdom.Levels
 
         public void ShuffleLayer(int i)
         {
-            DrawLayer[i] = Tools.Shuffle(DrawLayer[i]);
+            DrawLayer[i] = Rnd.Shuffle(DrawLayer[i]);
         }
 
         public List<Block> Blocks, AddedBlocks;
@@ -1814,7 +1815,7 @@ namespace CloudberryKingdom.Levels
                         if (obj.Core.GenData.KeepIfUnused && obj2.Core.GenData.KeepIfUnused) return;
                         else if (obj.Core.GenData.KeepIfUnused) Choice = 1;
                         else if (obj2.Core.GenData.KeepIfUnused) Choice = 0;
-                        else if (Tools.Rnd.NextDouble() > .5) Choice = 1;
+                        else if (Rnd.Rnd.NextDouble() > .5) Choice = 1;
 
                         if (Choice == 0)
                             Recycle.CollectObject(obj);

@@ -233,7 +233,7 @@ namespace Drawing
         /// </summary>
         public void Shuffle()
         {
-            PlayList = Tools.Shuffle(PlayList);
+            PlayList = Tools.GlobalRnd.Shuffle(PlayList);
         }
 
         /// <summary>

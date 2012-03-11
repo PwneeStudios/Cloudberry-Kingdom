@@ -9,7 +9,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Coins
 {
-    public class Coin : IObject
+    public class Coin : ObjectBase, IObject
     {
         public void TextDraw() { }
 
@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Coins
             {
                 i = Core.MyLevel.MainEmitter.GetNextSlot();
                 Core.MyLevel.MainEmitter.Particles[i] = DieTemplate;
-                Core.MyLevel.MainEmitter.Particles[i].Data.Position = Core.Data.Position + Tools.RndDir(35);
+                Core.MyLevel.MainEmitter.Particles[i].Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
                 Core.MyLevel.MainEmitter.Particles[i].MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
             }
 

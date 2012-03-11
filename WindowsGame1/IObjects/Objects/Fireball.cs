@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Fireball : IObject
+    public partial class Fireball : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

@@ -58,22 +58,22 @@ namespace CloudberryKingdom
             Pos = BL.Y;
             while (Pos < TR.Y)
             {
-                if (Tools.RndFloat() > .63f)
-                //if (Tools.RndBool())
+                if (MyLevel.Rnd.RndFloat() > .63f)
+                //if (MyLevel.Rnd.RndBool())
                 {
-                    Vector2 pos = new Vector2(Tools.RndFloat(-1500, 1500) * 1.5f, Pos);
+                    Vector2 pos = new Vector2(MyLevel.Rnd.RndFloat(-1500, 1500) * 1.5f, Pos);
                     RndFloater(ref BL, ref TR, NewList, ref pos);
-                    Pos += Tools.RndFloat(1400, 1550) * 2f;
+                    Pos += MyLevel.Rnd.RndFloat(1400, 1550) * 2f;
                 }
                 else
                 {
-                    Vector2 pos = new Vector2(Tools.RndFloat(-1500, -500) * 1.5f, Pos);
+                    Vector2 pos = new Vector2(MyLevel.Rnd.RndFloat(-1500, -500) * 1.5f, Pos);
                     RndFloater(ref BL, ref TR, NewList, ref pos);
-                    Pos += Tools.RndFloat(0, 450) * 2f;
+                    Pos += MyLevel.Rnd.RndFloat(0, 450) * 2f;
 
-                    pos = new Vector2(Tools.RndFloat(500, 1500) * 1.5f, Pos);
+                    pos = new Vector2(MyLevel.Rnd.RndFloat(500, 1500) * 1.5f, Pos);
                     RndFloater(ref BL, ref TR, NewList, ref pos);
-                    Pos += Tools.RndFloat(1400, 1550) * 2f;
+                    Pos += MyLevel.Rnd.RndFloat(1400, 1550) * 2f;
                 }
             }
             MyCollection.Lists.Add(NewList);
@@ -86,7 +86,7 @@ namespace CloudberryKingdom
             BackgroundFloater window = new BackgroundFloater(MyLevel, BL.X - 1000, TR.X + 400);
             window.Data.Position = pos;
 
-            if (Tools.RndFloat() > .6855f)
+            if (MyLevel.Rnd.RndFloat() > .6855f)
             {
                 window.MyQuad.TextureName = "balrog portrait";
                 window.MyQuad.Size = new Vector2(1200, 1380);
@@ -121,7 +121,7 @@ namespace CloudberryKingdom
                     if (!FoundOne && string.Compare(BalrogPortraitName, floater.MyQuad.Quad.MyTexture.Name, StringComparison.OrdinalIgnoreCase) == 0)
                     //if (!FoundOne && string.Compare(BalrogPortraitName, floater.MyQuad.Quad.MyTexture.Path, StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        int i = Tools.Rnd.Next(1, 6);
+                        int i = MyLevel.Rnd.Rnd.Next(1, 6);
                         floater.MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName("portrait" + i.ToString());
                         //FoundOne = true;
                     }

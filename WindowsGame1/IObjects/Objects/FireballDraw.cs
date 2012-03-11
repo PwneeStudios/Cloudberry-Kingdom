@@ -8,7 +8,7 @@ using CloudberryKingdom.Particles;
 
 namespace CloudberryKingdom
 {
-    public partial class Fireball : IObject
+    public partial class Fireball : ObjectBase, IObject
     {
         static Particle ExplodeTemplate, EmitterTemplate;
         static public EzSound ExplodeSound;
@@ -121,6 +121,8 @@ namespace CloudberryKingdom
 
         public static void TexturePhsx()
         {
+            Rand Rnd = Tools.GlobalRnd;
+
             // Fireball superparticle physics
             Fireball_Emitter.Phsx();
 
@@ -130,13 +132,13 @@ namespace CloudberryKingdom
             {
                 i = Flame_Emitter.GetNextSlot();
                 Flame_Emitter.Particles[i] = EmitterTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Rnd.RndDir();
                 Flame_Emitter.Particles[i].Data.Position = 20 * Dir; //+ Tools.CurLevel.MainCamera.Data.Position;
-                //Emitter2.Particles[i].Data.Velocity = 4 * (float)Tools.Rnd.NextDouble() * Dir;
-                Flame_Emitter.Particles[i].Data.Velocity = 8.5f * (float)Tools.Rnd.NextDouble() * Dir;
+                //Emitter2.Particles[i].Data.Velocity = 4 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
+                Flame_Emitter.Particles[i].Data.Velocity = 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
                 Flame_Emitter.Particles[i].Data.Acceleration = .07f * -Flame_Emitter.Particles[i].Data.Velocity;
-                Flame_Emitter.Particles[i].AngleSpeed *= 2 * (float)(Tools.Rnd.NextDouble() - .5f);
-                Flame_Emitter.Particles[i].ColorVel.W *= (float)(.3f * Tools.Rnd.NextDouble() + .7f);
+                Flame_Emitter.Particles[i].AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
+                Flame_Emitter.Particles[i].ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
             }
             Flame_Emitter.Phsx();
 
@@ -230,22 +232,24 @@ namespace CloudberryKingdom
         static public void Explosion(Vector2 pos, Level level) { Explosion(pos, level, Vector2.Zero, 1, 1); }
         static public void Explosion(Vector2 pos, Level level, Vector2 vel, float Scale, float ScaleQuad)
         {
+            Rand Rnd = Tools.GlobalRnd;
+
             int i;
             for (int k = 0; k < 20; k++)
             {
                 i = level.MainEmitter.GetNextSlot();
                 level.MainEmitter.Particles[i] = ExplodeTemplate;
-                Vector2 Dir = Tools.RndDir();
+                Vector2 Dir = Rnd.RndDir();
                 level.MainEmitter.Particles[i].Data.Position = pos + 23 * Dir * Scale;
-                //level.MainEmitter.Particles[i].Data.Velocity = 4 * (float)Tools.Rnd.NextDouble() * Dir;
-                level.MainEmitter.Particles[i].Data.Velocity = Scale * 8.5f * (float)Tools.Rnd.NextDouble() * Dir;
+                //level.MainEmitter.Particles[i].Data.Velocity = 4 * (float)Rnd.Rnd.NextDouble() * Dir;
+                level.MainEmitter.Particles[i].Data.Velocity = Scale * 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
                 level.MainEmitter.Particles[i].Data.Acceleration = .045f * -level.MainEmitter.Particles[i].Data.Velocity;
                 level.MainEmitter.Particles[i].Data.Velocity += vel;
 
                 level.MainEmitter.Particles[i].Size *= ScaleQuad;
 
-                level.MainEmitter.Particles[i].AngleSpeed *= 2 * (float)(Tools.Rnd.NextDouble() - .5f);
-                //level.MainEmitter.Particles[i].ColorVel.W *= (float)(.3f * Tools.Rnd.NextDouble() + .7f);
+                level.MainEmitter.Particles[i].AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
+                //level.MainEmitter.Particles[i].ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
             }
         }
     }

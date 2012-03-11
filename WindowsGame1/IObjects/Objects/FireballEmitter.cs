@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class FireballEmitter : IObject
+    public class FireballEmitter : ObjectBase, IObject
     {
         public void TextDraw() { }
         public void Release()

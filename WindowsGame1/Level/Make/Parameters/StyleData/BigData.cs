@@ -1,8 +1,9 @@
 ﻿namespace CloudberryKingdom.Levels
 {
-    public class BigData:StyleData
+    public class BigData : StyleData
     {
-        public BigData()
+        public BigData(Rand Rnd)
+            : base(Rnd)
         {
         }
 

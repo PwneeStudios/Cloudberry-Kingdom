@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class TextList : IObject
+    public class TextList : ObjectBase, IObject
     {
         public void TextDraw() { }
 

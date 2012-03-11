@@ -22,7 +22,7 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            MyStyle = (Style)Tools.RndEnum<Style>();
+            MyStyle = (Style)level.Rnd.RndEnum<Style>();
             //MyStyle = Style.Separated;
 
             FillWeight = new Param(PieceSeed, u => .5f * u[Upgrade.Elevator]);
@@ -131,7 +131,7 @@ namespace CloudberryKingdom.Levels
                             case StyleData._ElevatorSwitchType.AllDown: Bottom = true; break;
                             case StyleData._ElevatorSwitchType.AllUp: Bottom = false; break;
                             case StyleData._ElevatorSwitchType.Alternate: Bottom = count % 2 == 0; break;
-                            case StyleData._ElevatorSwitchType.Random: Bottom = Tools.Rnd.NextDouble() > .5; break;
+                            case StyleData._ElevatorSwitchType.Random: Bottom = level.Rnd.Rnd.NextDouble() > .5; break;
                         }
 
                         if (Bottom)
@@ -149,7 +149,7 @@ namespace CloudberryKingdom.Levels
                         bm.Range.Y = level.MainCamera.GetHeight() / 2;
                     }
 
-                    Pos.X += Params.Dist.GetVal(Pos) + Tools.RndFloat(0, Params.DistAdd.GetVal(Pos));
+                    Pos.X += Params.Dist.GetVal(Pos) + level.Rnd.RndFloat(0, Params.DistAdd.GetVal(Pos));
 
                     count++;
                 }
@@ -175,7 +175,7 @@ namespace CloudberryKingdom.Levels
                                 case StyleData._ElevatorSwitchType.AllDown: Left = true; break;
                                 case StyleData._ElevatorSwitchType.AllUp: Left = false; break;
                                 case StyleData._ElevatorSwitchType.Alternate: Left = count % 2 == 0; break;
-                                case StyleData._ElevatorSwitchType.Random: Left = Tools.Rnd.NextDouble() > .5; break;
+                                case StyleData._ElevatorSwitchType.Random: Left = level.Rnd.Rnd.NextDouble() > .5; break;
                             }
 
                             if (Left)
@@ -195,7 +195,7 @@ namespace CloudberryKingdom.Levels
                         }
                     }
 
-                    Pos.Y += Params.Dist.GetVal(Pos) + Tools.RndFloat(0, Params.DistAdd.GetVal(Pos));
+                    Pos.Y += Params.Dist.GetVal(Pos) + level.Rnd.RndFloat(0, Params.DistAdd.GetVal(Pos));
 
                     count++;
                 }
@@ -209,7 +209,7 @@ namespace CloudberryKingdom.Levels
                         0;
             //Tools.ChooseOne(SpeedAdd, 0, -SpeedAdd);
 
-            //Tools.RndFloat(-Params.SpeedAdd.GetVal(Pos),
+            //MyLevel.Rnd.RndFloat(-Params.SpeedAdd.GetVal(Pos),
             //             Params.SpeedAdd.GetVal(Pos));
 
             return Vel;
@@ -223,20 +223,20 @@ namespace CloudberryKingdom.Levels
             if (level.Geometry == LevelGeometry.Up || level.Geometry == LevelGeometry.Down)
                 bm.Delay *= 2;
 
-            //bm.Offset = Tools.Rnd.Next(1, 100);
+            //bm.Offset = level.Rnd.Rnd.Next(1, 100);
             bm.Size = new Vector2(0, 40);
             bm.Size.X = Params.Width.GetVal(Pos) +
-                        Tools.RndFloat(0, Params.WidthAdd.GetVal(Pos));
+                        level.Rnd.RndFloat(0, Params.WidthAdd.GetVal(Pos));
             bm.AlwaysOn = true;
             bm.Core.GenData.RemoveIfUnused = true;
 
             // Discrete period offsets
             int NumOffsets = 4; // Params.NumOffsets;
-            bm.Offset = Tools.Rnd.Next(0, NumOffsets) * bm.Delay / NumOffsets;
+            bm.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * bm.Delay / NumOffsets;
 
             //bm.Core.GenData.Used = true;
 
-            bm.MyMoveType = (MovingPlatform.MoveType)Tools.Rnd.Next(0, (int)Params.Types.GetVal(Pos));
+            bm.MyMoveType = (MovingPlatform.MoveType)level.Rnd.Rnd.Next(0, (int)Params.Types.GetVal(Pos));
             bm.Amp = Params.Amp.GetVal(Pos);
 
             if (level.Style.RemoveBlockOnOverlap)

@@ -215,7 +215,9 @@ namespace CloudberryKingdom
         /// <summary>
         /// The seed fed into the random number generator.
         /// </summary>
-        public int Seed;
+        public int Seed { set { Rnd = new Rand(value); } }
+        public Rand Rnd;
+
         public GameFactory MyGameType = NormalGameData.Factory;
 
         public List<PieceSeedData> PieceSeeds;
@@ -305,7 +307,7 @@ namespace CloudberryKingdom
             MyBackgroundType = BackgroundType.Dungeon;
 
             MyGameType = null;
-            Seed = Tools.Rnd.Next();
+            Seed = Tools.GlobalRnd.Rnd.Next();
 
             BaseInit();
         }
@@ -350,7 +352,7 @@ namespace CloudberryKingdom
             // Convert random tileset to an actual randomly chosen tileset
             if (MyTileSet == TileSet.Random)
             {
-                MyTileSet = new TileSet[] { TileSet.Terrace, TileSet.Dungeon, TileSet.Castle }.Choose();
+                MyTileSet = new TileSet[] { TileSet.Terrace, TileSet.Dungeon, TileSet.Castle }.Choose(MyGame.Rnd);
                 SetBackground(MyTileSet);
             }
 
@@ -437,7 +439,7 @@ namespace CloudberryKingdom
             
             for (int i = 0; i < NumPieces; i++)
             {
-                Piece = new PieceSeedData(i, MyGeometry);
+                Piece = new PieceSeedData(i, MyGeometry, this);
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades1);
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades2);
 
@@ -488,7 +490,7 @@ namespace CloudberryKingdom
 
                 if (i < NumPieces - 1)
                 {
-                    Piece = new PieceSeedData();
+                    Piece = new PieceSeedData(this);
                     Piece.Start = Pos;
                     Piece.Ladder = RndDifficulty.ChooseLadder(Difficulty);
                     Pos += Level.GetLadderSize(Piece.Ladder);
@@ -506,12 +508,13 @@ namespace CloudberryKingdom
         {
             game.MyGameFlags = MyGameFlags;
             
-            // Get a new random seed
-            if (!LockedSeed)
-                Seed = Tools.Rnd.Next();
+            //// Get a new random seed
+            //if (!LockedSeed)
+            //    Seed = game.Rnd.Rnd.Next();
 
-            // Initialize the random number generator
-            Tools.Rnd = new Random(Seed);
+
+            //// Initialize the random number generator
+            //game.Rnd.Rnd = new Random(Seed);
 
             // Create the level object
             Level NewLevel = new Level();

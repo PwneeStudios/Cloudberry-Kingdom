@@ -285,17 +285,17 @@ namespace CloudberryKingdom
             float Pos = BL.X;
             while (Pos < TR.X)
             {
-                int type = Tools.Choose(Ratios);
+                int type = level.Rnd.Choose(Ratios);
 
                 Vector2 YRange = InfoWad.GetVec(Root + "_" + type.ToString() + "_YRange");
                 Vector2 DistRange = InfoWad.GetVec(Root + "_" + type.ToString() + "_Dist");
 
-                Pos += Tools.RndFloat(DistRange.X, DistRange.Y) / 2;
+                Pos += level.Rnd.RndFloat(DistRange.X, DistRange.Y) / 2;
 
                 BackgroundFloater cloud = new BackgroundFloater(level, Root + "_" + type.ToString(), BL.X, TR.X);
-                cloud.Data.Position = new Vector2(Pos, Tools.RndFloat(YRange.X, YRange.Y));
+                cloud.Data.Position = new Vector2(Pos, level.Rnd.RndFloat(YRange.X, YRange.Y));
 
-                Pos += Tools.RndFloat(DistRange.X, DistRange.Y) / 2;
+                Pos += level.Rnd.RndFloat(DistRange.X, DistRange.Y) / 2;
 
                 Quads.Add(cloud);
             }
@@ -324,13 +324,13 @@ namespace CloudberryKingdom
 
             Vector2 Size = InfoWad.GetVec(Root + "_Size");
             Vector2 AddSize = InfoWad.GetVec(Root + "_SizeAdd");
-            MyQuad.Base.e1 = new Vector2(Size.X + Tools.RndFloat(0, AddSize.X), 0);
-            MyQuad.Base.e2 = new Vector2(0, Size.Y + Tools.RndFloat(0, AddSize.Y));
+            MyQuad.Base.e1 = new Vector2(Size.X + MyLevel.Rnd.RndFloat(0, AddSize.X), 0);
+            MyQuad.Base.e2 = new Vector2(0, Size.Y + MyLevel.Rnd.RndFloat(0, AddSize.Y));
 
             MyQuad.Quad.SetColor(InfoWad.GetColor(Root + "_Color"));
 
             Vector2 SpeedRange = InfoWad.GetVec(Root + "_SpeedRange");
-            Data.Velocity.X = Tools.RndFloat(SpeedRange.X, SpeedRange.Y);
+            Data.Velocity.X = MyLevel.Rnd.RndFloat(SpeedRange.X, SpeedRange.Y);
         }
 
         public void PhsxStep()
