@@ -29,6 +29,7 @@ namespace CloudberryKingdom
             Campaign.IsPlaying = false;
 
             LevelSeedData data = new LevelSeedData(LevelSeed);
+            data.Seed = Tools.GlobalRnd.Rnd.Next();
 
             // Debug: set hero type
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Spaceship, Hero_Shape.Small, Hero_MoveMod.Classic);

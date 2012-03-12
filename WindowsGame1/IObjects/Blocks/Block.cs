@@ -219,8 +219,6 @@ namespace CloudberryKingdom.Blocks
 
         public virtual bool PostCollidePreDecision(Bob bob)
         {
-            if (this is BouncyBlock) return true;
-
             return false;
         }
 

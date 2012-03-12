@@ -122,14 +122,14 @@ namespace CloudberryKingdom
             {
                 GUI_Panel panel;
 
-                panel = new StartMenu();
+                //panel = new StartMenu();
 
                 //panel = new AdvancedCustomGUI();
                 //panel = new SimpleCustomGUI();
 
                 //panel = new StatsMenu();
                 //panel = new AwardmentMenu();
-                //panel = new CategoryMenu();
+                panel = new CategoryMenu();
                 //panel = new CampaignMenu();
                 //panel = new ArcadeMenu();
 

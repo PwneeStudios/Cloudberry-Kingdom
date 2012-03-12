@@ -39,8 +39,20 @@ namespace CloudberryKingdom.Levels
 
         public string Name = "";
 
-        //public Rand Rnd = new Rand(0);
-        public Rand Rnd { get { return MyLevelSeed.Rnd; } }
+        Rand _PrivateRnd = null;
+        public Rand Rnd
+        {
+            get
+            {
+                if (MyLevelSeed == null)
+                {
+                    if (_PrivateRnd == null) _PrivateRnd = new Rand(0);
+                    return _PrivateRnd;
+                }
+                else
+                    return MyLevelSeed.Rnd;
+            }
+        }
 
         public bool SuppressSounds = false;
 

@@ -2766,7 +2766,8 @@ namespace CloudberryKingdom.Bobs
                                             block.StampAsUsed(CurPhsxStep);
                                             MyPhsx.LastUsedStamp = CurPhsxStep;
 
-                                            block.PostCollidePreDecision(this);
+                                            block.PostInteractWith(this);
+                                            //block.PostCollidePreDecision(this);
                                         }
                                     }
                                 }

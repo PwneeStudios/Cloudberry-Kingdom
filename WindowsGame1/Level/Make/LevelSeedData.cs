@@ -282,6 +282,8 @@ namespace CloudberryKingdom
 
         public LevelSeedData(LevelSeedData data)
         {
+            Seed = data.Seed;
+
             MyGameType = data.MyGameType;
             MyBackgroundType = data.MyBackgroundType;
             MyTileSet = data.MyTileSet;
@@ -352,7 +354,7 @@ namespace CloudberryKingdom
             // Convert random tileset to an actual randomly chosen tileset
             if (MyTileSet == TileSet.Random)
             {
-                MyTileSet = new TileSet[] { TileSet.Terrace, TileSet.Dungeon, TileSet.Castle }.Choose(MyGame.Rnd);
+                MyTileSet = new TileSet[] { TileSet.Terrace, TileSet.Dungeon, TileSet.Castle }.Choose(Rnd);
                 SetBackground(MyTileSet);
             }
 

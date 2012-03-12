@@ -1333,8 +1333,10 @@ namespace CloudberryKingdom
                     //PlayerManager.Get(1).IsAlive = true;
 
 
-                    LevelSeedData.ForcedReturnEarly = 0;
-                    MakeTestLevel(); return;
+                    //LevelSeedData.ForcedReturnEarly = 0;
+                    //MakeTestLevel(); return;
+
+
 #if DEBUG
                     if (RecordIntro)
                     {

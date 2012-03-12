@@ -118,6 +118,7 @@ namespace CloudberryKingdom
         {
             GeometryType = Type;
 
+            if (MyLevelSeed != null)
             switch (GeometryType)
             {
                 case LevelGeometry.Right: Style = new SingleData(Rnd); break;
