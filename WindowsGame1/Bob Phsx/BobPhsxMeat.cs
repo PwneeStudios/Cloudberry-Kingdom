@@ -236,6 +236,11 @@ namespace CloudberryKingdom
                     MyLevel.Rnd.RndFloat(Cam.BL.X + 600, Cam.TR.X - 600),
                     .5f * (Pos.Y + MyLevel.Rnd.RndFloat(-400, 3000) + AlwaysForward.Y));
             }
+
+            //if (MyLevel.Rnd.RndBool())
+            //    Target = new Vector2(Cam.TR.X, 100000);
+            //else
+            //    Target = new Vector2(Cam.BL.X, 100000);
         }
 
         public bool WantToLandOnTop = false;
@@ -247,9 +252,13 @@ namespace CloudberryKingdom
         {
             WantToLandOnTop = false;
 
+            if (Target.X < Pos.X - 10000)
+            {
+                yVelCutoff = 20;
+                NewTarget();
+            }
             //if (OnGround || StepsOnSide > 2)
             //{
-            //    if (Target.X < Pos.X - 2000) NewTarget();
             //    //if ((Target - Pos).Length() < 300) NewTarget();
             //    if (Math.Abs(Target.X - Pos.X) < 300) NewTarget();
             //    //if (CurPhsxStep % 60 == 0) NewTarget();
@@ -281,6 +290,7 @@ namespace CloudberryKingdom
                     if (StepsOnSide == StickyWaitLength)
                     {
                         yVelCutoff = MyLevel.Rnd.RndFloat(-15, 12);
+                        //yVelCutoff = MyLevel.Rnd.RndFloat(-25, 12);
                     }
 
                     {

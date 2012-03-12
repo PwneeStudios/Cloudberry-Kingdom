@@ -215,7 +215,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// The seed fed into the random number generator.
         /// </summary>
-        public int Seed { set { Rnd = new Rand(value); } }
+        public int Seed { get { return Rnd.MySeed; } set { Rnd = new Rand(value); } }
         public Rand Rnd;
 
         public GameFactory MyGameType = NormalGameData.Factory;

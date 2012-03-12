@@ -1443,6 +1443,7 @@ namespace CloudberryKingdom
             LevelSeedData data = new LevelSeedData();
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
+            Console.WriteLine("Seed chosen = {0}", data.Seed);
             //data.Seed = 1;
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
