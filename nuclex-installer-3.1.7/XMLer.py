@@ -35,12 +35,13 @@ def LegalID(name):
 
 Components = []
 GUID = 1000
+Text = ""
 def EncodeDir(dir_name, IndentDepth = 0):
     global GUID
     
     name = os.path.basename(dir_name)
     PrintDepth(IndentDepth)
-    print '''<Directory Id="''' + LegalID(name) + '''" Name="''' + name + '''">'''
+    Text += '''<Directory Id="%s" Name="%s">\n''' % (LegalID(name), name)
 
     # Directories first
     for file in os.listdir(dir_name):
@@ -51,11 +52,11 @@ def EncodeDir(dir_name, IndentDepth = 0):
 
     # Then files
     PrintDepth(IndentDepth + 1)
-    ComponentName = LegalID('''"''' + name + '''Component"''')
+    ComponentName = LegalID('''"%sComponent"\n''' % name)
     Components.append(ComponentName)
-    print '''<Component Id=''' + ComponentName + ''' Guid="48b6ed04-''' + str(GUID) + '''-43fa-a4e7-ec7ace50585b" DiskId="1">'''
+    Text += '''<Component Id= %s Guid="48b6ed04-%s-43fa-a4e7-ec7ace50585b" DiskId="1">\n''' % (ComponentName, GUID)
     GUID += 1
-
+    
     for file in os.listdir(dir_name):
         filepath = os.path.join(dir_name, file)
         relativepath = filepath.replace(root, '').replace('\\', '/')
@@ -63,19 +64,20 @@ def EncodeDir(dir_name, IndentDepth = 0):
 
         if os.path.isfile(filepath):
             PrintDepth(IndentDepth + 2)
-            print '''<File Id="''' + LegalID(relativepath) + '''File" Name="''' + filename + '''" Source="$(sys.SOURCEFILEDIR)/../''' + PathFromSource + relativepath + '''"/>'''
+            Text += '''<File Id="%sFile" Name="%s" Source="$(sys.SOURCEFILEDIR)/../%s"/>\n''' % (LegalID(relativepath), filename, PathFromSource + relativepath)
     PrintDepth(IndentDepth + 1)
-    print '''</Component>'''
+    Text += '''</Component>\n'''
 
     PrintDepth(IndentDepth)    
-    print '''</Directory>'''
+    Text += '''</Directory>\n'''
 
 EncodeDir(root)
+print Text
 
 print
 print
 for component in Components:
-    print '''<ComponentRef Id=''' + component + ''' />'''
+    print '''<ComponentRef Id=%s />''' % component
 
 
 

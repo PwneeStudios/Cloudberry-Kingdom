@@ -3,6 +3,7 @@ using Drawing;
 using System;
 
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -87,6 +88,14 @@ namespace CloudberryKingdom
         protected override void PreventEarlyLandings(Levels.RichLevelGenData GenData)
         {
             // Do nothing
+        }
+
+        public override void ModData(ref Level.MakeData makeData, StyleData Style)
+        {
+            base.ModData(ref makeData, Style);
+
+            var Ceiling_Params = (Ceiling_Parameters)Style.FindParams(Ceiling_AutoGen.Instance);
+            Ceiling_Params.Make = false;
         }
     }
 }

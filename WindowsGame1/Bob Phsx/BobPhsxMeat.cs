@@ -3,6 +3,7 @@ using Drawing;
 using System;
 
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -87,10 +88,15 @@ namespace CloudberryKingdom
             if (side == ColType.Left) StickySide = ColType.Right;
 
             //if (yVel < 0) yVel = 0;
+            float Factor;
             if (yVel < 0)
-                yVel *= Tools.LerpRestrict(.3f, 1f, (float)StepsOnSide / StickyDuration);
+                Factor = Tools.LerpRestrict(.3f, 1f, (float)StepsOnSide / StickyDuration);
             else
-                yVel *= .765f;
+                Factor = .765f;
+            
+            float BlockSpeed = block.Box.Target.TR.Y - block.Box.Current.TR.Y;
+            yVel = Factor * (yVel - BlockSpeed) + BlockSpeed;
+
 
             if (StepsSinceSide < 2)
                 StepsOnSide++;
@@ -118,13 +124,16 @@ namespace CloudberryKingdom
         bool CanWallJump;
         int WallJumpCount;
         int StickyGracePeriod = 5;
+        public float Max_yVel_ForWallJump = 20;
         public override void Jump()
         {
             base.Jump();
 
+            if (ExternalPreventJump) return;
+
             if (!MyBob.CurInput.A_Button) CanWallJump = true;
 
-            if (CanWallJump && (StepsSinceSide < StickyGracePeriod && yVel <= 0 || StepsSinceSide < 2) && StepsOnSide < StickyDuration && !CanJump && MyBob.CurInput.A_Button)
+            if (yVel < Max_yVel_ForWallJump && CanWallJump && (StepsSinceSide < StickyGracePeriod && yVel <= 0 || StepsSinceSide < 2) && StepsOnSide < StickyDuration && !CanJump && MyBob.CurInput.A_Button)
             {
                 StepsSinceSide = StickyGracePeriod;
 
@@ -340,6 +349,14 @@ namespace CloudberryKingdom
                     WantToLandOnTop = true;
                 //MyBob.WantsToLand = false;
             }
+
+            // Better jump control: don't use full extent of jump
+            if (StepsSinceSide >= 5)
+            {
+                int RetardJumpLength = GenData.Get(DifficultyParam.RetardJumpLength, Pos);
+                if (!OnGround && RetardJumpLength >= 1 && JumpCount < RetardJumpLength && JumpCount > 1)
+                    MyBob.CurInput.A_Button = false;
+            }
         }
 
         public override bool IsTopCollision(ColType Col, AABox box, Block block)
@@ -350,6 +367,37 @@ namespace CloudberryKingdom
         public override bool IsBottomCollision(ColType Col, AABox box, Block block)
         {
             return Col == ColType.Bottom;
+        }
+
+        public override void ModData(ref Level.MakeData makeData, StyleData Style)
+        {
+            base.ModData(ref makeData, Style);
+
+            float size = 90; bool ModSize = false;
+
+            // Don't keep anything extra
+            Style.ChanceToKeepUnused = 0;
+
+            // Square mblocks, vertical motion
+            var MParams = (MovingBlock_Parameters)Style.FindParams(MovingBlock_AutoGen.Instance);
+            MParams.Aspect = MovingBlock_Parameters.AspectType.Square;
+            MParams.Motion = MovingBlock_Parameters.MotionType.Vertical;
+            //MParams.Size = size;
+
+            var GhParams = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
+            GhParams.BoxType = GhostBlock_Parameters.BoxTypes.Long;
+            var FParams = (FallingBlock_Parameters)Style.FindParams(FallingBlock_AutoGen.Instance);
+            var BParams = (BouncyBlock_Parameters)Style.FindParams(BouncyBlock_AutoGen.Instance);
+            //var GParams = (Goomba_Parameters)Style.FindParams(Goomba_AutoGen.Instance);
+            var NParams = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
+            //NParams.Make = false;
+
+            if (ModSize)
+            {
+                BParams.Size = size;
+                GhParams.Width = size;
+                FParams.Width = size;
+            }
         }
     }
 }

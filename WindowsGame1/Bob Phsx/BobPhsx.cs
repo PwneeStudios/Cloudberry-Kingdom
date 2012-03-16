@@ -146,6 +146,8 @@ namespace CloudberryKingdom
         public Level MyLevel { get { return MyBob.Core.MyLevel; } }
         public ObjectData Core { get { return MyBob.Core; } }
 
+        public RichLevelGenData GenData { get { return MyBob.Core.MyLevel.CurMakeData.GenData; } }
+
         public Vector2 Pos
         {
             get { return MyBob.Core.Data.Position; }
@@ -477,6 +479,10 @@ namespace CloudberryKingdom
         {
             return Col == ColType.Bottom ||
                 Col != ColType.Bottom && Core.Data.Velocity.X != 0 && !OnGround && Math.Min(MyBob.Box.Current.TR.Y, MyBob.Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7);
+        }
+
+        public virtual void ModData(ref Level.MakeData makeData, StyleData Style)
+        {
         }
     }
 }

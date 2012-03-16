@@ -297,13 +297,18 @@ namespace CloudberryKingdom
             }
         }
 
+        public bool ExternalPreventJump
+        {
+            get { return DisableJumpCount > 0; }
+        }
+
         public virtual void Jump()
         {
             JumpDelayCount--;
 
             UpdateReadyToJump();
 
-            if (DisableJumpCount > 0)
+            if (ExternalPreventJump)
             {
                 DisableJumpCount--;
                 return;
@@ -686,7 +691,6 @@ namespace CloudberryKingdom
         {
             Vector2 TR = MyBob.Core.MyLevel.MainCamera.TR;
             Vector2 BL = MyBob.Core.MyLevel.MainCamera.BL;
-            RichLevelGenData GenData = MyBob.Core.MyLevel.CurMakeData.GenData;
 
             SetTarget(GenData);
 

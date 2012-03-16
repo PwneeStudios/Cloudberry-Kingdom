@@ -1559,7 +1559,7 @@ namespace CloudberryKingdom
             piece.MyUpgrades1[Upgrade.Laser] = 4;
             piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
             piece.MyUpgrades1[Upgrade.Speed] = 4;
-            piece.MyUpgrades1[Upgrade.Jump] = 10;
+            piece.MyUpgrades1[Upgrade.Jump] = 3;
             piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
             piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
             piece.MyUpgrades1[Upgrade.FlyBlob] = 7;

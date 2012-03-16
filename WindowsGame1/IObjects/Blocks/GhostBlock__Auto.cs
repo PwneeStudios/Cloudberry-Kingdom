@@ -7,9 +7,14 @@ namespace CloudberryKingdom.Levels
     {
         public Param InLength, OutLength, Width, KeepUnused, TimeSafety;
 
+        public enum BoxTypes { TopOnly, Full, Long };
+        public BoxTypes BoxType; 
+
         public override void SetParameters(PieceSeedData PieceSeed, Level level)
         {
             base.SetParameters(PieceSeed, level);
+
+            BoxType = BoxTypes.TopOnly;
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -119,8 +124,12 @@ namespace CloudberryKingdom.Levels
 
                 gblock = (GhostBlock)level.Recycle.GetObject(ObjectType.GhostBlock, false);
                 
-                if (level.DefaultHeroType is BobPhsxMeat)
+                // Box type
+                if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Long)
                     gblock.TallBox = true;
+                else
+                    gblock.TallBox = false;
+
                 gblock.Init(pos + offset, size);
 
                 gblock.BlockCore.BlobsOnTop = false;
@@ -153,6 +162,23 @@ namespace CloudberryKingdom.Levels
                         block.ModOffset(level.Rnd.RndInt((int)(.25f * max), (int)(.75f * max)));
                     }
                 };
+
+                // Box type
+                if (Params.BoxType == GhostBlock_Parameters.BoxTypes.TopOnly)
+                {
+                    gblock.Box.TopOnly = true;
+                    gblock.TallBox = false;
+                }
+                else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Full)
+                {
+                    gblock.Box.TopOnly = false;
+                    gblock.TallBox = false;
+                }
+                else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Long)
+                {
+                    gblock.Box.TopOnly = false;
+                    gblock.TallBox = true;
+                }
 
                 level.AddBlock(gblock);
             }

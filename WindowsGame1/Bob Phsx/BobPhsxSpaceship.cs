@@ -332,5 +332,30 @@ namespace CloudberryKingdom
                 }
             }            
         }
+
+        public override void ModData(ref Level.MakeData makeData, StyleData Style)
+        {
+            base.ModData(ref makeData, Style);
+
+            Style.MyInitialPlatsType = StyleData.InitialPlatsType.Spaceship;
+            Style.TopSpace = 0;
+            makeData.SparsityMultiplier = 1.5f;
+
+            Style.BlockFillType = StyleData._BlockFillType.Spaceship;
+            Style.MinBlockDist = 250;
+            Style.RemovedUnusedOverlappingBlocks = true;
+            Style.RemoveBlockOnOverlap = true;
+
+            Style.BottomSpace = 150;
+            Style.TopSpace = 0;
+
+            Style.MyGroundType = StyleData.GroundType.VirginUsed;
+            Style.MyTopType = StyleData.GroundType.InvertedUsed;
+            Style.UpperSafetyNetOffset = 300;
+            Style.LowerSafetyNetOffset = -200;
+
+            var GhParams = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
+            GhParams.BoxType = GhostBlock_Parameters.BoxTypes.Full;
+        }
     }
 }

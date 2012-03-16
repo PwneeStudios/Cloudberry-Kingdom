@@ -150,7 +150,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
-            MyBox.TopOnly = true;
+            //MyBox.TopOnly = true;
 
             Update();
         }
@@ -207,12 +207,12 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly && Active && Core.Active) AnimStep();
 
-            if ((Core.MyLevel.DefaultHeroType is BobPhsxSpaceship ||
-                 Core.MyLevel.DefaultHeroType is BobPhsxMeat) &&
-                Box.TopOnly)
-            {
-                Box.TopOnly = false;
-            }
+            //if ((Core.MyLevel.DefaultHeroType is BobPhsxSpaceship ||
+            //     Core.MyLevel.DefaultHeroType is BobPhsxMeat) &&
+            //    Box.TopOnly)
+            //{
+            //    Box.TopOnly = false;
+            //}
 
             Core.GenData.JumpNow = Core.GenData.TemporaryNoLandZone = false;
 

@@ -795,38 +795,6 @@ namespace CloudberryKingdom.Levels
         }
 
         /// <summary>
-        /// Modify the MakeData based on a hero type
-        /// </summary>
-        void ModForHero(BobPhsx HeroType, ref MakeData makeData)
-        {
-            StyleData Style = makeData.PieceSeed.Style;
-
-            //if (HeroType == BobPhsxSpaceship.Instance)
-            if (HeroType is BobPhsxSpaceship)
-            {
-                Style.MyInitialPlatsType = StyleData.InitialPlatsType.Spaceship;   
-                //makeData.InitialPlats = false;
-                Style.TopSpace = 0;
-                makeData.SparsityMultiplier = 1.5f;
-                
-                Style.BlockFillType = StyleData._BlockFillType.Spaceship;
-                Style.MinBlockDist = 250;
-                Style.RemovedUnusedOverlappingBlocks = true;
-                Style.RemoveBlockOnOverlap = true;
-                
-                Style.BottomSpace = 150;
-                Style.TopSpace = 0;
-
-                Style.MyGroundType = StyleData.GroundType.VirginUsed;
-                Style.MyTopType = StyleData.GroundType.InvertedUsed;
-                //Style.UpperSafetyNetOffset = 225;
-                //Style.LowerSafetyNetOffset = -125;
-                Style.UpperSafetyNetOffset = 300;
-                Style.LowerSafetyNetOffset = -200;
-            }
-        }
-
-        /// <summary>
         /// A BL bound for filling, offset by beginning platforms.
         /// </summary>
         public Vector2 FillBL;
@@ -885,9 +853,6 @@ namespace CloudberryKingdom.Levels
 
             // Calculate the style parameters
             Style.CalcGenParams(CurMakeData.PieceSeed, this);
-
-            // Change data depending on hero type
-            ModForHero(DefaultHeroType, ref CurMakeData);
 
             // Move camera
             MainCamera.Data.Position = CurMakeData.CamStartPos;

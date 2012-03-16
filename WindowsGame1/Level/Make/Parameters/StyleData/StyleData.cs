@@ -32,6 +32,9 @@ namespace CloudberryKingdom.Levels
 
             foreach (ModParams mod in ModParamList)
                 mod(level, SeedData);
+
+            // Change data depending on hero type
+            level.DefaultHeroType.ModData(ref level.CurMakeData, this);
         }
         public AutoGen_Parameters FindParams(AutoGen gen)
         {
@@ -376,9 +379,9 @@ namespace CloudberryKingdom.Levels
 
         public void SuppressGroundCeiling(PieceSeedData piece)
         {
-            Ceiling_Parameters Ceiling_Params = (Ceiling_Parameters)FindParams(Ceiling_AutoGen.Instance);
+            var Ceiling_Params = (Ceiling_Parameters)FindParams(Ceiling_AutoGen.Instance);
             Ceiling_Params.Make = false;
-            NormalBlock_Parameters NBlock_Params = (NormalBlock_Parameters)FindParams(NormalBlock_AutoGen.Instance);
+            var NBlock_Params = (NormalBlock_Parameters)FindParams(NormalBlock_AutoGen.Instance);
             NBlock_Params.Make = false;
         }
 
@@ -386,7 +389,7 @@ namespace CloudberryKingdom.Levels
         {
             SuppressGroundCeiling(piece);
 
-            BouncyBlock_Parameters Bounce_Params = (BouncyBlock_Parameters)FindParams(BouncyBlock_AutoGen.Instance);
+            var Bounce_Params = (BouncyBlock_Parameters)FindParams(BouncyBlock_AutoGen.Instance);
             Bounce_Params.Special.Hallway = true;
         }
     }
