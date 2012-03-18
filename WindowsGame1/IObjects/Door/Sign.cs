@@ -10,11 +10,6 @@ namespace CloudberryKingdom
 {
     public class Sign : ObjectBase
     {
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public bool SkipPhsx;
 
         public QuadClass MyQuad;
@@ -65,8 +60,6 @@ namespace CloudberryKingdom
             if (OnState && Count == OnLength) { SetState(false); Count = 0; }
         }
 
-        public override void PhsxStep2() { }
-
         bool OnScreen()
         {
             if (Core.BoxesOnly) return false;
@@ -79,8 +72,6 @@ namespace CloudberryKingdom
             return true;
         }
 
-        public override void TextDraw() { }
-        
         public override void Draw()
         {
             if (!OnScreen()) return;
@@ -102,7 +93,6 @@ namespace CloudberryKingdom
                 MyQuad.Draw();
             }
         }
-
 
         public Vector2 GetBottom()
         {
@@ -135,14 +125,6 @@ namespace CloudberryKingdom
             Core.Active = true;
         }
 
-        public override void Interact(Bob bob) { }
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-
-            Sign SignA = A as Sign;
-        }
-
         public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
@@ -155,15 +137,5 @@ namespace CloudberryKingdom
 
             MyQuad.Read(reader);
         }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

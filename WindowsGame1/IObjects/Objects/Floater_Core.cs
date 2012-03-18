@@ -10,12 +10,6 @@ namespace CloudberryKingdom
 {
     public class Floater_Core : ObjectBase, IBound
     {
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public static int DrawLayer = 8;
         public static EzTexture ChainTexture;
 
@@ -23,10 +17,8 @@ namespace CloudberryKingdom
 
         public CircleBox Circle;
 
-        public virtual void MakeNew()
+        public override void MakeNew()
         {
-            //Box.Initialize(Core.Data.Position, MyObject.Boxes[0].Size() / 2);
-
             Circle.Initialize(Core.Data.Position, MyObject.Boxes[0].Width(ref MyObject.Base) / 2);
 
             Init();
@@ -52,7 +44,6 @@ namespace CloudberryKingdom
             if (!BoxesOnly)
                 MyObject.Quads[1].Animated = false;
 
-            //Box = new AABox();
             Circle = new CircleBox();
 
             MakeNew();
@@ -152,20 +143,9 @@ namespace CloudberryKingdom
             Circle.Scale(scale);
         }
 
-        public virtual void PhsxStep()
+        public override void PhsxStep()
         {
             AnimStep();
-
-            /*
-            Box.Current.Center = MyObject.Boxes[0].Center();
-            Box.Current.Center.Y += 10;
-            Box.Current.Size = MyObject.Boxes[0].Size() / 2f;
-            Box.Current.Size.Y *= .7f;
-            Box.SetTarget(Box.Current.Center, Box.Current.Size + new Vector2(.0f, .02f));
-
-            Box.SetCurrent(Box.Current.Center, Box.Current.Size);
-             */
-
             UpdateObject();
 
             Circle.Center = MyObject.Boxes[0].Center();
@@ -173,25 +153,11 @@ namespace CloudberryKingdom
 
             if (Core.WakeUpRequirements)
             {
-                //Box.SwapToCurrent();
                 Circle.Invalidate();
 
                 Core.WakeUpRequirements = false;
             }
         }
-
-        public override void PhsxStep2()
-        {
-            if (Core.SkippedPhsx) return;
-
-            /*
-            Box.SetCurrent(Box.Current.Center, Box.Current.Size);
-            Circle.Invalidate();
-
-            UpdateObject();
-             * */
-        }
-
 
         public void AnimStep() { AnimStep(Core.SkippedPhsx); }
         public void AnimStep(bool Skip)
@@ -230,7 +196,7 @@ namespace CloudberryKingdom
             Move(shift);
         }
 
-        public virtual void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
@@ -259,20 +225,6 @@ namespace CloudberryKingdom
             {
                 bool Col = Circle.BoxOverlap(bob.Box2);
                 
-                //bool Col = false;
-                //AABox box;
-                //if (Core.MyLevel.PlayMode != 0)
-                //{
-                //    box = bob.GetBox(10);
-                //    Col = Circle.BoxOverlap(box);
-                //}
-                //if (Col && !Circle.BoxOverlap(bob.Box2))
-                //{
-                //    Tools.Write("hmm");
-                //    bool b = Circle.BoxOverlap(bob.Box2);
-                //    Tools.Write(b);
-                //}
-
                 if (Col)
                 {
                     if (Core.MyLevel.PlayMode == 0)
@@ -299,28 +251,12 @@ namespace CloudberryKingdom
             }
         }
 
-        public virtual void Clone(ObjectBase A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
             Core.WakeUpRequirements = true;
             UpdateObject();
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public virtual void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

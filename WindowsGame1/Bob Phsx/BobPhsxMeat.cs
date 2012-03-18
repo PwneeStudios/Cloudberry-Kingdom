@@ -48,7 +48,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Meat"), Color.White, 1.2f * DefaultIconWidth);
         }
         static readonly BobPhsxMeat instance = new BobPhsxMeat();
-        public static BobPhsxMeat Instance { get { return instance; } }
+        public static new BobPhsxMeat Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {

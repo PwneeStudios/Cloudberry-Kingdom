@@ -11,12 +11,23 @@ namespace CloudberryKingdom
 {
     public class ObjectBase
     {
-        public Level MyLevel { get { return Core.MyLevel; } }
-        public Rand Rnd { get { return Core.MyLevel.Rnd; } }
+        /*
+        public override void OnUsed() { }
+        public override void OnMarkedForDeletion() { }
+        public override void OnAttachedToBlock() { }
+        public override bool PermissionToUse() { return true; }
         public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
         public GameData Game { get { return Core.MyLevel.MyGame; } }
-        public GameData MyGame { get { return Core.MyLevel.MyGame; } }
+        public override void Smash(Bob bob) { }
+        public override bool PreDecision(Bob bob) { return false; }
+        */
+
+        public GameData Game { get { return Core.MyLevel.MyGame; } }
+        public Level MyLevel { get { return Core.MyLevel; } }
         public Camera Cam { get { return Core.MyLevel.MainCamera; } }
+        public Rand Rnd { get { return Core.MyLevel.Rnd; } }
+
+        public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 
         protected ObjectData CoreData;
         public ObjectData Core { get { return CoreData; } }
@@ -29,6 +40,25 @@ namespace CloudberryKingdom
         public virtual void Release()
         {
             Core.Release();
+        }
+
+        public void SetParentBlock(BlockBase block)
+        {
+            Core.SetParentBlock(block);
+            OnAttachedToBlock();
+        }
+
+        public void CollectSelf()
+        {
+            if (Core.MarkedForDeletion) return;
+
+            Core.Recycle.CollectObject(this);
+        }
+
+        public void StampAsUsed(int CurPhsxStep)
+        {
+            Core.GenData.__StampAsUsed(CurPhsxStep);
+            OnUsed();
         }
 
         public virtual void MakeNew() { }
@@ -47,38 +77,10 @@ namespace CloudberryKingdom
         public virtual void OnMarkedForDeletion() { }
         public virtual void OnAttachedToBlock() { }
         public virtual bool PermissionToUse() { return true; }
+        
         public virtual void Smash(Bob bob) { }
         public virtual bool PreDecision(Bob bob) { return false; }
     }
-
-    /*
-    public interface IObject
-    {
-        ObjectData Core { get; }
-        Vector2 Pos { get; set; }
-        GameData Game { get; }
-        Level MyLevel { get; }
-        Rand Rnd { get; }
-        //Camera Cam { get; }
-
-        void MakeNew();
-        void PhsxStep();
-        void PhsxStep2();
-        void Draw();
-        void TextDraw();
-        void Reset(bool BoxesOnly);
-        void Clone(IObject A);
-        void Read(BinaryReader reader);
-        void Write(BinaryWriter reader);
-        void Interact(Bob bob);
-        void Move(Vector2 shift);
-        void Release();
-
-        void OnUsed();
-        void OnMarkedForDeletion();
-        void OnAttachedToBlock();
-        bool PermissionToUse();
-    }*/
 
     public struct GenerationData
     {
@@ -192,28 +194,6 @@ namespace CloudberryKingdom
             JumpNow = false;
 
             EdgeSafety = 0;
-        }
-    }
-
-    public static class ObjectExtension
-    {
-        public static void SetParentBlock(this ObjectBase obj, BlockBase block)
-        {
-            obj.Core.SetParentBlock(block);
-            obj.OnAttachedToBlock();
-        }
-
-        public static void CollectSelf(this ObjectBase obj)
-        {
-            if (obj.Core.MarkedForDeletion) return;
-
-            obj.Core.Recycle.CollectObject(obj);
-        }
-
-        public static void StampAsUsed(this ObjectBase obj, int CurPhsxStep)
-        {
-            obj.Core.GenData.__StampAsUsed(CurPhsxStep);
-            obj.OnUsed();
         }
     }
 

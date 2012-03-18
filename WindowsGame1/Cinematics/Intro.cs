@@ -73,7 +73,7 @@ namespace CloudberryKingdom
             level.MyBackground.AddSpan(level.BL, level.TR);
             
             level.PhsxStep(false);
-            ((BobPhsxCinematic)Bob1.MyPhsx).Pos.RelVal = Bob1.Core.Data.Position;
+            ((BobPhsxCinematic)Bob1.MyPhsx).FancyPos.RelVal = Bob1.Core.Data.Position;
 
             return level;
         }
@@ -161,7 +161,7 @@ namespace CloudberryKingdom
                 {
                     if (Slips == 4)
                     {
-                        ((BobPhsxCinematic)Bob1.MyPhsx).Pos.LerpTo(seed.Core.Data.Position, 30);
+                        ((BobPhsxCinematic)Bob1.MyPhsx).FancyPos.LerpTo(seed.Core.Data.Position, 30);
                         Bob1.PlayerObject.EnqueueAnimation("Intro_Flail", 0, true, true, 1, 3.3f, false);
                         //FBlock.Quad.MyTexture = Tools.TextureWad.FindByName("FallingBlock3");
                         //FBlockShake = false;
@@ -169,7 +169,7 @@ namespace CloudberryKingdom
                     else if (Slips < 4)
                     {
                         //FBlock.Quad.MyTexture = Tools.TextureWad.FindByName("FallingBlock2");
-                        ((BobPhsxCinematic)Bob1.MyPhsx).Pos.LerpTo(Bob1.Core.Data.Position + new Vector2(-35, 0), 5);
+                        ((BobPhsxCinematic)Bob1.MyPhsx).FancyPos.LerpTo(Bob1.Core.Data.Position + new Vector2(-35, 0), 5);
                     }
 
                     if (Slips == 3)

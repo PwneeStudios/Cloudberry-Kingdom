@@ -8,8 +8,6 @@ namespace CloudberryKingdom.Blocks
     public delegate void ButtonCallback();
     public class ButtonBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         SimpleQuad MyQuad;
         BasePoint Base;
 
@@ -17,18 +15,6 @@ namespace CloudberryKingdom.Blocks
         public bool Correlate;
 
         public ButtonCallback HitCallback;
-
-        public override void Interact(Bob bob) { }
-
-        public override void MakeNew()
-        {
-        }
-
-        public override void Release()
-        {
-            Core.MyLevel = null;
-            MyBox = null;
-        }
         
         public ButtonBlock(ButtonBlock block)
         {
@@ -134,8 +120,7 @@ namespace CloudberryKingdom.Blocks
         }
 
         public BlockBase Clone() { return new ButtonBlock(this); }
-        public override void Hit(Bob bob) { }
-        public override void SideHit(Bob bob) { }
+
         public override void LandedOn(Bob bob)
         {
             if (HitCallback != null)
@@ -152,12 +137,6 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public override void HitHeadOn(Bob bob)
-        {
-        }
-
-        public override void Extend(Side side, float pos) { }
-
         public override void Reset(bool BoxesOnly)
         {
             BlockCore.BoxesOnly = BoxesOnly;
@@ -172,26 +151,5 @@ namespace CloudberryKingdom.Blocks
 
             Update();
         }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

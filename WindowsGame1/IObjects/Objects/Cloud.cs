@@ -8,12 +8,6 @@ namespace CloudberryKingdom.Clouds
 {
     public class Cloud : ObjectBase
     {
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         static EzSound PuffSound;
 
         public Vector2 Displacement;
@@ -21,8 +15,6 @@ namespace CloudberryKingdom.Clouds
         public Vector2 Size;// = new Vector2(240, 50);
 
         public QuadClass MyQuad;
-
-
 
         public AABox Box;
 
@@ -182,14 +174,14 @@ namespace CloudberryKingdom.Clouds
                     if (Core.GenData.Used) Delete = false;
                     if (Delete)
                     {
-                        this.CollectSelf();
+                        CollectSelf();
 
                         Core.Active = false;
                         return;
                     }
                     else
                     {
-                        this.StampAsUsed(Core.MyLevel.CurPhsxStep);
+                        StampAsUsed(Core.MyLevel.CurPhsxStep);
 
                         // Remove surrounding clouds
                         foreach (ObjectBase cloud in Core.MyLevel.Objects)
@@ -265,15 +257,5 @@ namespace CloudberryKingdom.Clouds
             Box.Read(reader);
             this.Size = Box.Current.Size;
         }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

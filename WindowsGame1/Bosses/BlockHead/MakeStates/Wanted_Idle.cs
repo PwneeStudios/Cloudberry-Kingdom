@@ -35,15 +35,15 @@ namespace CloudberryKingdom
             {
                 return;
 
-                if (MyObject.AnimQueue.Count <= 1)
-                {
-                    Count++;
-                    if (Count > Delay)
-                    {
-                        Count = 0;
-                        PlayAnims();
-                    }
-                }
+                //if (MyObject.AnimQueue.Count <= 1)
+                //{
+                //    Count++;
+                //    if (Count > Delay)
+                //    {
+                //        Count = 0;
+                //        PlayAnims();
+                //    }
+                //}
             };
 
             return State;

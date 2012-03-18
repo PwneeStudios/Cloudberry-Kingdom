@@ -11,8 +11,6 @@ namespace CloudberryKingdom
 {
     public class FlyingBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         public Vector2 Orbit;
         public Vector2 Radii;
         public int Period, Offset;
@@ -20,8 +18,6 @@ namespace CloudberryKingdom
         public SimpleObject MyObject;
 
         public float MyAnimSpeed;
-
-        public override void Interact(Bob bob) { }
 
         public override void MakeNew()
         {
@@ -39,11 +35,6 @@ namespace CloudberryKingdom
             Orbit = Vector2.Zero;
             
             //MyObject.Boxes[0].Animated = false;
-        }
-
-        public override void Release()
-        {
-            BlockCore.Release();
         }
 
         void SetAnimation()
@@ -79,12 +70,6 @@ namespace CloudberryKingdom
 
             Update();
         }
-
-        public override void Hit(Bob bob) { }
-        public override void LandedOn(Bob bob)
-        {
-        }
-        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { } 
 
         public override void Reset(bool BoxesOnly)
         {
@@ -148,7 +133,6 @@ namespace CloudberryKingdom
 
             MyBox.SwapToCurrent();
         }
-
 
         public void Update()
         {
@@ -264,21 +248,5 @@ namespace CloudberryKingdom
             Radii = BlockA.Radii;
             Orbit = BlockA.Orbit;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -13,16 +13,6 @@ namespace CloudberryKingdom
 {
     public partial class BlobGuy : Boss
     {
-        public override void TextDraw() { }
-
-        public override void Release()
-        {
-            Core.Release();
-        }
-
-        ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         ObjectClass MyObject;
 
         ScenePart Ball_Bounce, Ball_ToCenter, Ball_Up, Stickman_FromAbove, Stickman_Normal, Stickman_Leap,
@@ -41,10 +31,10 @@ namespace CloudberryKingdom
             Core.Data.Velocity = new Vector2(20, 20);
         }
 
-        public static Rand Rnd = new Rand(25);
+        public static Rand IndependentRnd = new Rand(25);
         public BlobGuy()
         {
-            Rnd = new Rand(25);
+            IndependentRnd = new Rand(25);
 
             CoreData = new ObjectData();
 
@@ -93,7 +83,6 @@ namespace CloudberryKingdom
             CurState = Stickman_Die;
             CurState.Begin();
         }
-
 
         bool IsPrincess;
         bool SnapForm = true;
@@ -647,13 +636,10 @@ namespace CloudberryKingdom
             return Closest;
         }
 
-        
-
         void AssignTargetsToClosestBlobs()
         {
             TempBlobs.Clear();
             TempBlobs.AddRange(Blobs);
-
             
             foreach (Vector2 target in MyTargets)
             {
@@ -665,7 +651,6 @@ namespace CloudberryKingdom
                     break;
             }
         }
-
 
         float AssignmentOffset = 0;
         void AssignTargetsToBlobs()
@@ -704,7 +689,6 @@ namespace CloudberryKingdom
                 }
             }
         }
-
 
         void UpdateSourceBlobs()
         {
@@ -806,15 +790,14 @@ namespace CloudberryKingdom
             CrossBlobs.RemoveAll(delegate(Goomba blob) { return blob.Core.MarkedForDeletion; });
         }
 
-        //public static Rand Rnd;
         public static void RandomBlobs(Level level, int Delay, float SpeedMod, Goomba.BlobColor Color)
         {
             _RandomBlobs(level, Delay, SpeedMod, Color, blob =>
             {
                 Camera Cam = level.MainCamera;
 
-                Vector2 pos = new Vector2(0, Rnd.RndFloat(Cam.BL.Y + 550, Cam.TR.Y));
-                if (Rnd.RndBool())
+                Vector2 pos = new Vector2(0, IndependentRnd.RndFloat(Cam.BL.Y + 550, Cam.TR.Y));
+                if (IndependentRnd.RndBool())
                     pos.X = Cam.BL.X - 300;
                 else
                     pos.X = Cam.TR.X + 300;
@@ -823,7 +806,7 @@ namespace CloudberryKingdom
                 Tools.Write("p " + level.CurPhsxStep.ToString() + " -> " + pos.X);
 
                 blob.Target = 2.2f * (Cam.Pos - blob.Pos) + blob.Pos;
-                blob.Target.Y = blob.Pos.Y + Rnd.RndFloat(-200, 420);
+                blob.Target.Y = blob.Pos.Y + IndependentRnd.RndFloat(-200, 420);
             });
         }
 
@@ -833,15 +816,15 @@ namespace CloudberryKingdom
             {
                 Camera Cam = level.MainCamera;
 
-                Vector2 pos = new Vector2(Rnd.RndFloat(Cam.BL.X + 150, Cam.TR.X - 150), 0);
-                if (Rnd.RndBool())
+                Vector2 pos = new Vector2(IndependentRnd.RndFloat(Cam.BL.X + 150, Cam.TR.X - 150), 0);
+                if (IndependentRnd.RndBool())
                     pos.Y = Cam.BL.Y - 300;
                 else
                     pos.Y = Cam.TR.Y + 300;
                 blob.Pos = pos;
 
                 blob.Target = 2.2f * (Cam.Pos - blob.Pos) + blob.Pos;
-                blob.Target.X = blob.Pos.X + Rnd.RndFloat(-200, 420);
+                blob.Target.X = blob.Pos.X + IndependentRnd.RndFloat(-200, 420);
             });
         }
 
@@ -907,14 +890,6 @@ namespace CloudberryKingdom
             AssignTargetsToBlobs();
         }
 
-        public override void PhsxStep2() { }
-        public override void Reset(bool BoxesOnly)
-        {
-
-        }
-
-        public override void Clone(ObjectBase A) { }
-        public override void Interact(Bob bob) { }
         public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;            
@@ -931,20 +906,5 @@ namespace CloudberryKingdom
                     //blob.Move(shift);
                 }
         }
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

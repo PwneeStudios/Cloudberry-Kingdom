@@ -9,11 +9,10 @@ namespace CloudberryKingdom
 {
     public class TextList : ObjectBase
     {
-        public override void TextDraw() { }
-
         public override void Release()
         {
-            Core.Release();
+            base.Release();
+
             Text = null;
         }
 
@@ -55,8 +54,6 @@ namespace CloudberryKingdom
             if (FadeOut) Alpha = Math.Max(0, Alpha - .03f);
         }
 
-        public override void PhsxStep2() { }
-
         public override void Draw()
         {
             //PhsxStep();
@@ -86,29 +83,5 @@ namespace CloudberryKingdom
         {
             Core.Data.Position += shift;
         }
-
-        public override void Reset(bool BoxesOnly) { }
-        public override void Interact(Bob bob) { }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -15,13 +15,6 @@ namespace CloudberryKingdom.Spikes
     {
         static bool PeakOut = true;
 
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            //MyObject.Release();
-            Core.Release();
-        }
-
         public SimpleObject MyObject;        
         public AABox Box;
 
@@ -235,14 +228,6 @@ namespace CloudberryKingdom.Spikes
 
         public override void Draw()
         {
-            /*
-            Vector2 BL = Box.Current.BL - new Vector2(50, 50); // MyQuad.BL();
-            if (BL.X > Core.MyLevel.MainCamera.TR.X || BL.Y > Core.MyLevel.MainCamera.TR.Y)
-                return;
-            Vector2 TR = Box.Current.BL + new Vector2(50, 50); // MyQuad.TR();
-            if (TR.X < Core.MyLevel.MainCamera.BL.X || TR.Y < Core.MyLevel.MainCamera.BL.Y)
-                return;
-            */
             if (Core.SkippedPhsx) return;
 
             if (Tools.DrawGraphics)
@@ -319,21 +304,5 @@ namespace CloudberryKingdom.Spikes
 
             Exposed = SpikeA.Exposed;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Double"), Color.White, .95f * DefaultIconWidth);
         }
         static readonly BobPhsxDouble instance = new BobPhsxDouble();
-        public static BobPhsxDouble Instance { get { return instance; } }
+        public static new BobPhsxDouble Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {

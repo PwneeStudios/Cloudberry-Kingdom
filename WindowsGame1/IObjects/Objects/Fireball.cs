@@ -10,10 +10,10 @@ namespace CloudberryKingdom
 {
     public partial class Fireball : ObjectBase
     {
-        public override void TextDraw() { }
         public override void Release()
         {
-            Core.Release();
+            base.Release();
+
             Parent = null;
         }
 
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             ExplodeSound.Play(1);
             Explosion(Core.Data.Position, Core.MyLevel, .33f * Core.Data.Velocity, 1, 1);
 
-            this.CollectSelf();
+            CollectSelf();
         }
 
         public Fireball(bool BoxesOnly)
@@ -104,7 +104,6 @@ namespace CloudberryKingdom
             Box.Initialize(data.Position, Size.X);
         }
 
-
         public override void PhsxStep()
         {
             Life -= 1;
@@ -126,11 +125,6 @@ namespace CloudberryKingdom
 
             //Box.Target.Set(Core.Data.Position, Size);
             Box.Center = Core.Data.Position;
-        }
-
-        public override void PhsxStep2()
-        {
-            //Box.SwapToCurrent();
         }
 
         float MyAlpha;
@@ -189,8 +183,6 @@ namespace CloudberryKingdom
             Box.Move(shift);
         }
 
-        public override void Reset(bool BoxesOnly) { }
-
         public override void Interact(Bob bob)
         {
             bool hold = Box.BoxOverlap(bob.Box2);
@@ -236,21 +228,5 @@ namespace CloudberryKingdom
 
             StartLife = FireballA.StartLife;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -7,11 +7,7 @@ namespace CloudberryKingdom
 {
     public class OutsideCastleBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         PieceQuad MyPieces;
-
-        public override void Interact(Bob bob) { }
 
         public override void MakeNew()
         {
@@ -29,8 +25,8 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            Core.MyLevel = null;
-            MyBox = null;
+            base.Release();
+
             MyPieces = null;
         }
 
@@ -70,7 +66,6 @@ namespace CloudberryKingdom
             Update();
         }
 
-
         public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
@@ -80,10 +75,6 @@ namespace CloudberryKingdom
 
             Update();
         }
-
-        public override void LandedOn(Bob bob) { }
-        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { }
-        public override void Hit(Bob bob) { }
 
         public override void Reset(bool BoxesOnly)
         {
@@ -110,7 +101,6 @@ namespace CloudberryKingdom
 
             MyBox.SwapToCurrent();
         }
-
 
         public void Update()
         {
@@ -180,21 +170,5 @@ namespace CloudberryKingdom
 
             Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

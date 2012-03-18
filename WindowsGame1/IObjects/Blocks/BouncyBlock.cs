@@ -11,8 +11,6 @@ namespace CloudberryKingdom
     public enum BouncyBlockState { Regular, SuperStiff };
     public class BouncyBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         public EzSound BounceSound = Tools.SoundWad.FindByName("BouncyBlock_Bounce");
 
         public QuadClass MyQuad;
@@ -21,8 +19,6 @@ namespace CloudberryKingdom
         public float speed;
 
         int TouchedCountdown = 0;
-
-        public override void Interact(Bob bob) { }
 
         public override void MakeNew()
         {
@@ -38,8 +34,8 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            BlockCore.Release();
-            Core.MyLevel = null;
+            base.Release();
+
             MyQuad = null;
             MyBox = null;
         }
@@ -112,12 +108,13 @@ namespace CloudberryKingdom
             SizeOffset = new Vector2(14, 14);
             SetState(BouncyBlockState.SuperStiff);
         }
-        public override void Hit(Bob bob) { }
+
         public override void SideHit(Bob bob)
         {            
             Offset = new Vector2(Math.Sign(bob.Core.Data.Position.X - Core.Data.Position.X), 0);
             Snap(bob);
         }
+
         public override void LandedOn(Bob bob)
         {
             bob.MyPhsx.OverrideSticky = true;
@@ -127,6 +124,7 @@ namespace CloudberryKingdom
             bob.MyPhsx.JumpLengthModifier = .85f;
             Snap(bob);
         }
+        
         public override void HitHeadOn(Bob bob)
         {
             bob.MyPhsx.KillJump();
@@ -196,7 +194,6 @@ namespace CloudberryKingdom
             MyBox.SwapToCurrent();
         }
 
-
         public void Update()
         {
             if (BlockCore.BoxesOnly) return;
@@ -237,6 +234,7 @@ namespace CloudberryKingdom
 
             Update();
         }
+
         public override void Draw()
         {
             Update();

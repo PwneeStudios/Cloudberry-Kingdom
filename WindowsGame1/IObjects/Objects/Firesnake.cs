@@ -11,12 +11,6 @@ namespace CloudberryKingdom
 {
     public partial class Firesnake : ObjectBase
     {
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public CircleBox Box;
 
         public SimpleQuad MyQuad;
@@ -58,7 +52,6 @@ namespace CloudberryKingdom
             Core.BoxesOnly = BoxesOnly;
         }
 
-
         public override void PhsxStep()
         {
             //double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / (float)Period;
@@ -77,8 +70,6 @@ namespace CloudberryKingdom
             Box.Center = Core.Data.Position;
         }
 
-        public override void PhsxStep2() { }
-        
         public override void Draw()
         {
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 150))
@@ -145,21 +136,5 @@ namespace CloudberryKingdom
             Radii = FiresnakeA.Radii;
             Orbit = FiresnakeA.Orbit;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

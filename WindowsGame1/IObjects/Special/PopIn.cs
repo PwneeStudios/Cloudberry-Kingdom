@@ -29,10 +29,10 @@ namespace CloudberryKingdom
 
         public Action<Bob> OnPopIn;
 
-        public override void TextDraw() { }
         public override void Release()
         {
-            Core.Release();
+            base.Release();
+
             MyBob = null;
             OnPopIn = null;
         }
@@ -104,46 +104,5 @@ namespace CloudberryKingdom
             }
             Step++;
         }
-
-        public override void PhsxStep2()
-        {
-        }
-
-        public override void Draw()
-        {
-        }
-
-        public override void Move(Vector2 shift)
-        {
-        }
-
-        public override void Reset(bool BoxesOnly)
-        {
-        }
-
-        public override void Interact(Bob bob)
-        {
-        }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

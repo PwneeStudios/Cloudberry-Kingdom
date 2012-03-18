@@ -36,7 +36,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Jetman"), Color.White, 1.2f * DefaultIconWidth);
         }
         static readonly BobPhsxJetman instance = new BobPhsxJetman();
-        public static BobPhsxJetman Instance { get { return instance; } }
+        public static new BobPhsxJetman Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {

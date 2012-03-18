@@ -9,15 +9,11 @@ namespace CloudberryKingdom.Blocks
     public delegate void BlockExtendCallback(NormalBlock block);
     public class NormalBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         public NormalBlockDraw MyDraw;
 
         public BlockBase HoldBlock;
 
         public bool Moved;
-
-        public override void Interact(Bob bob) { }
 
         public void BasicConstruction(bool BoxesOnly)
         {
@@ -31,8 +27,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Release()
         {
-            BlockCore.Release();
-            Core.MyLevel = null;
+            base.Release();
         
             if (MyDraw != null) MyDraw.Release();
             MyDraw = null;
@@ -111,8 +106,6 @@ namespace CloudberryKingdom.Blocks
                 default:
                     return GetPieceTemplate_Inside2();
             }
-
-            return null;
         }
 
         PieceQuad GetPieceTemplate_Castle(bool Shift)
@@ -340,11 +333,6 @@ namespace CloudberryKingdom.Blocks
 
             Update();
         }
-
-        public override void LandedOn(Bob bob) { }
-        public override void HitHeadOn(Bob bob) { }
-        public override void SideHit(Bob bob) { }
-        public override void Hit(Bob bob) { }
 
         public override void Reset(bool BoxesOnly)
         {
@@ -642,15 +630,5 @@ namespace CloudberryKingdom.Blocks
                 }
             }
         }
-
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-//StubStubStubEnd7
     }
 }

@@ -10,12 +10,6 @@ namespace CloudberryKingdom
 {
     public partial class Chain : ObjectBase
     {
-        public override void TextDraw() { }
-        public virtual void Release()
-        {
-            Core.Release();
-        }
-
         public Vector2 p1, Desired_p2;
         Vector2 _p2;
         public Vector2 p2 { get { return _p2; } set { _p2 = Desired_p2 = value; } }
@@ -94,11 +88,7 @@ namespace CloudberryKingdom
             _p2 += .2f * (Desired_p2 - p2);
         }
 
-        public override void PhsxStep2()
-        {
-        }
-
-        public virtual void Draw()
+        public override void Draw()
         {
             if (Core.MyLevel == null) return;
 
@@ -137,7 +127,7 @@ namespace CloudberryKingdom
             p2 += shift;
         }
 
-        public virtual void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
 
@@ -145,7 +135,7 @@ namespace CloudberryKingdom
             Core.Data.Velocity = Vector2.Zero;
         }
 
-        public virtual void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
         }
 
@@ -158,21 +148,5 @@ namespace CloudberryKingdom
             p1 = ChainA.p1;
             p2 = ChainA.p2;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

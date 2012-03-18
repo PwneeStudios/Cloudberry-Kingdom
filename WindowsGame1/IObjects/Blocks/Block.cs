@@ -221,15 +221,19 @@ namespace CloudberryKingdom.Blocks
             CoreData = BlockCore as ObjectData;
         }
 
+        public override void Release()
+        {
+            base.Release();
+            
+            MyBox = null;
+        }
+
         public virtual void Extend(Side side, float pos) { }
 
         public virtual void LandedOn(Bob bob) { }
         public virtual void HitHeadOn(Bob bob) { }
-        public virtual void Smash(Bob bob) { }
         public virtual void SideHit(Bob bob) { }
         public virtual void Hit(Bob bob) { }
-
-        public virtual bool PreDecision(Bob bob) { return false; }
 
         public virtual bool PostCollidePreDecision(Bob bob)
         {

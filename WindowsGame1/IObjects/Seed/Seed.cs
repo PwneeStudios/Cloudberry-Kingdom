@@ -13,12 +13,6 @@ namespace CloudberryKingdom
         LevelSeedData _NextLevelSeedData;
         public LevelSeedData NextLevelSeedData { get { return _NextLevelSeedData; } set { _NextLevelSeedData = value; } }
 
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public enum DrawType { Chaos, Cloud };
         public DrawType MyDrawType;
         public enum State { Off, On, TurningOn, TurningOff, Launch, DownLaunch };
@@ -200,8 +194,6 @@ namespace CloudberryKingdom
             SkipPhsx = false;
         }
 
-        public override void PhsxStep2() { }
-       
         public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
@@ -280,28 +272,5 @@ namespace CloudberryKingdom
                 //ParticleEffects.PieceOrb(Core.MyLevel, ParticleEffects.PieceOrbStyle.BigRnd, Core.Data.Position, Core.MyLevel.CurPhsxStep, Intensity);
             }
         }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-
-            Seed SeedA = A as Seed;
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

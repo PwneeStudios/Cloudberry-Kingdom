@@ -12,8 +12,6 @@ namespace CloudberryKingdom
     public enum GhostBlockState { PhasedIn, PhasedOut };
     public class GhostBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         public SimpleObject MyObject;
 
         GhostBlockState State;
@@ -37,8 +35,6 @@ namespace CloudberryKingdom
         /// </summary>
         public float TimeSafety;
 
-        public override void Interact(Bob bob) { }
-
         public override void MakeNew()
         {
             TallBox = false;
@@ -56,12 +52,6 @@ namespace CloudberryKingdom
             SetAnimation();
 
             MyObject.Boxes[0].Animated = false;
-        }
-
-        public override void Release()
-        {
-            BlockCore.Release();
-            Core.MyLevel = null;
         }
 
         public void SetState(GhostBlockState NewState) { SetState(NewState, false); }
@@ -127,12 +117,6 @@ namespace CloudberryKingdom
 
             Update();
         }
-
-        public override void Hit(Bob bob) { }
-        public override void LandedOn(Bob bob)
-        {
-        }
-        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { } 
 
         public override void Reset(bool BoxesOnly)
         {

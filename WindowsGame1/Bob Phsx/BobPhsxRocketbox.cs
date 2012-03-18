@@ -19,7 +19,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Cart"), Color.White, DefaultIconWidth);
         }
         static readonly BobPhsxRocketbox instance = new BobPhsxRocketbox();
-        public static BobPhsxRocketbox Instance { get { return instance; } }
+        public static new BobPhsxRocketbox Instance { get { return instance; } }
 
         // Instancable class
 

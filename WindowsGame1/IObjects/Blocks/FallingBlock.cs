@@ -10,8 +10,6 @@ namespace CloudberryKingdom
     public enum FallingBlockState { Regular, Touched, Falling, Angry };
     public class FallingBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         public bool TouchedOnce, HitGround;
 
         public bool Thwomp;
@@ -28,8 +26,6 @@ namespace CloudberryKingdom
         int ResetTimer;
         public static int ResetTimerLength = 12;
 
-        public override void Interact(Bob bob) { }
-
         public override void MakeNew()
         {
             Thwomp = false;
@@ -45,10 +41,9 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            BlockCore.Release();
-            Core.MyLevel = null;
+            base.Release();
+
             MyQuad = null;
-            MyBox = null;
         }
 
         public void SetState(FallingBlockState NewState) { SetState(NewState, false); }
@@ -108,7 +103,6 @@ namespace CloudberryKingdom
             Update();
         }
 
-        public override void Hit(Bob bob) { }
         public override void LandedOn(Bob bob)
         {
             // Don't register as a land if the Bob is moving upward.
@@ -129,7 +123,6 @@ namespace CloudberryKingdom
             if (bob.Core.Data.Velocity.Y < -10)
                 Life -= 8;
         }
-        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { } 
 
         public override void Reset(bool BoxesOnly)
         {
@@ -344,21 +337,5 @@ namespace CloudberryKingdom
 
             Thwomp = BlockA.Thwomp;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

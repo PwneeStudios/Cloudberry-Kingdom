@@ -10,10 +10,10 @@ namespace CloudberryKingdom
 {
     public class Checkpoint : ObjectBase
     {
-        public override void TextDraw() { }
         public override void Release()
         {
-            Core.Release();
+            base.Release();
+
             MyPiece = null;
         }
 
@@ -194,7 +194,6 @@ namespace CloudberryKingdom
             Update();
         }
 
-
         public void Update()
         {
             MyObject.Base.Origin -= MyObject.Boxes[0].Center() - Box.Current.Center;
@@ -212,7 +211,6 @@ namespace CloudberryKingdom
 
             MyObject.Update();
         }
-
 
         public override void Reset(bool BoxesOnly)
         {
@@ -345,21 +343,5 @@ namespace CloudberryKingdom
             Box.SetTarget(CheckpointA.Box.Target.Center, CheckpointA.Box.Target.Size);
             Box.SetCurrent(CheckpointA.Box.Current.Center, CheckpointA.Box.Current.Size);
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -12,13 +12,9 @@ namespace CloudberryKingdom
     public enum ThwompState { Waiting, Falling, Pause, Rising, Vibrate };
     public class Thwomp : BlockBase
     {
-        public override void TextDraw() { }
-
         public QuadClass MyQuad;
         ThwompState State;
         
-        public override void Interact(Bob bob) { }
-
         public override void MakeNew()
         {
             KillsOnSmash = true;
@@ -31,12 +27,10 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            OnSmash = null;
+            base.Release();
 
-            BlockCore.Release();
-            Core.MyLevel = null;
+            OnSmash = null;
             MyQuad = null;
-            MyBox = null;
         }
 
         public void SetState(ThwompState NewState) { SetState(NewState, false); }
@@ -110,11 +104,6 @@ namespace CloudberryKingdom
             SetState(ThwompState.Waiting);
         }
 
-        public override void Hit(Bob bob) { }
-        public override void LandedOn(Bob bob)
-        {
-        }
-
         public bool KillsOnSmash;
         public Action<Bob> OnSmash;
         public override void Smash(Bob bob) { if (OnSmash != null) OnSmash(bob); }
@@ -126,9 +115,6 @@ namespace CloudberryKingdom
 
             //if (OnSmash != null) OnSmash(bob);
         }
-        public override void SideHit(Bob bob)
-        {
-        } 
 
         public override void Reset(bool BoxesOnly)
         {
@@ -371,20 +357,5 @@ namespace CloudberryKingdom
 
             Init(BlockA.Box.Current.Center, BlockA.Size);
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

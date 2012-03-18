@@ -19,7 +19,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Invert"), Color.White, 1.2f * DefaultIconWidth);
         }
         static readonly BobPhsxInvert instance = new BobPhsxInvert();
-        public static BobPhsxInvert Instance { get { return instance; } }
+        public static new BobPhsxInvert Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {

@@ -11,8 +11,6 @@ namespace CloudberryKingdom.Coins
 {
     public class Coin : ObjectBase
     {
-        public override void TextDraw() { }
-
         static EzSound MySound;
 
         static Particle DieTemplate;
@@ -25,11 +23,6 @@ namespace CloudberryKingdom.Coins
         public BasePoint Base;
 
         public int MyValue, MyScoreValue;
-
-        public override void Release()
-        {
-            Core.Release();
-        }
 
         public override void MakeNew()
         {
@@ -200,7 +193,6 @@ namespace CloudberryKingdom.Coins
             Update();
         }
 
-
         public void Update()
         {
             Base.Origin = Core.Data.Position;
@@ -266,7 +258,6 @@ namespace CloudberryKingdom.Coins
             }
         }
 
-
         static Vector2 DrawGrace = new Vector2(50, 50);
         public override void Draw()
         {
@@ -302,21 +293,5 @@ namespace CloudberryKingdom.Coins
             Offset = CoinA.Offset;
             Radii = CoinA.Radii;
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

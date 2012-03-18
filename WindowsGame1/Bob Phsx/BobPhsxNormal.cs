@@ -96,7 +96,7 @@ namespace CloudberryKingdom
         protected int CurJump;
         int JumpDelay = 10;
         int JumpDelayCount;
-        static int ComputerJumpDelay = 55;
+        //static int ComputerJumpDelay = 55;
 
         public bool JetPack = false;
         public int JetPackLength = 60;

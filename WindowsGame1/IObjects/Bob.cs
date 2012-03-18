@@ -1218,9 +1218,9 @@ namespace CloudberryKingdom.Bobs
             // Check to see if we've fallen past the edge of the screen,
             // if so, officially declare the player dead.
             if (!Dead && (
-                (IsVisible() && Core.Show && Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - MyGame.DoneDyingDistance)
+                (IsVisible() && Core.Show && Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - Game.DoneDyingDistance)
                 ||
-                (!IsVisible() && DeathCount > MyGame.DoneDyingCount)))
+                (!IsVisible() && DeathCount > Game.DoneDyingCount)))
             {
                 Tools.CurGameData.BobDoneDying(Core.MyLevel, this);
                 Dead = true;

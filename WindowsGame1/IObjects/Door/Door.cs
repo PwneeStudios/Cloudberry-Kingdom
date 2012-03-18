@@ -23,7 +23,7 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            Core.Release();
+            base.Release();
 
             InteractingBob = null;
             MyBackblock = null;
@@ -414,8 +414,6 @@ namespace CloudberryKingdom
                 ExtraPhsx(this);
         }
 
-        public override void PhsxStep2() { }
-
         bool OnScreen()
         {
             if (Core.BoxesOnly) return false;
@@ -438,15 +436,6 @@ namespace CloudberryKingdom
             }
 
             return true;
-        }
-
-        public override void TextDraw()
-        {
-            if (!OnScreen()) return;
-
-            if (Tools.DrawGraphics)
-            {
-            }
         }
         
         public override void Draw()
@@ -647,8 +636,6 @@ namespace CloudberryKingdom
             }
         }
 
-
-
         public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
@@ -667,21 +654,12 @@ namespace CloudberryKingdom
 
             MyQuad.Write(writer);
         }
+
         public override void Read(BinaryReader reader)
         {
             Core.Read(reader);
 
             MyQuad.Read(reader);
         }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

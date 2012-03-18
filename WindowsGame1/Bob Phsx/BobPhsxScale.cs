@@ -23,7 +23,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Phase"), Color.White, 1.1f * DefaultIconWidth);
         }
         static readonly BobPhsxScale instance = new BobPhsxScale();
-        public static BobPhsxScale Instance { get { return instance; } }
+        public static new BobPhsxScale Instance { get { return instance; } }
 
         // Instancable class
         public BobPhsxScale()

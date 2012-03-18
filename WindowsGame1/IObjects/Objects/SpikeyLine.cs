@@ -77,7 +77,7 @@ namespace CloudberryKingdom
 
 
         bool OffScreen = false;
-        public new void Draw()
+        public override void Draw()
         {
             if (Core.SkippedPhsx) return;
 
@@ -130,3 +130,4 @@ namespace CloudberryKingdom
         }
     }
 }
+        

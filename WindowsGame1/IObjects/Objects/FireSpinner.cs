@@ -16,12 +16,6 @@ namespace CloudberryKingdom.FireSpinners
         /// </summary>
         static bool RandomMiniOrientation = true;
 
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public SimpleQuad MyQuad;
         public BasePoint Base;
         public EzTexture AnchorTexture;
@@ -290,21 +284,5 @@ namespace CloudberryKingdom.FireSpinners
 
             Init(Core.GetPhsxStep());
         }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

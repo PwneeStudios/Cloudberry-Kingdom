@@ -9,12 +9,6 @@ namespace CloudberryKingdom.Balrogs
 {
     public class BalrogFlyupTrigger : ObjectBase
     {
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public bool Safe;
 
         static int[] Duration = { 0, 30, 10, 20, 10, 3, 2, 3, 2, 3, 2, 10, 0 };
@@ -28,10 +22,6 @@ namespace CloudberryKingdom.Balrogs
         int TriggeredTimeStamp;
         int DurationIndex, Count;
         bool Triggered, DrawMark;
-
-        public override void MakeNew()
-        {
-        }
 
         public BalrogFlyupTrigger()
         {
@@ -81,7 +71,6 @@ namespace CloudberryKingdom.Balrogs
             if (col != ColType.NoCol) Trigger();
         }
 
-        public override void PhsxStep2() { }
         public override void PhsxStep()
         {
             if (Triggered)
@@ -129,37 +118,10 @@ namespace CloudberryKingdom.Balrogs
 
             Base.Origin += shift;
         }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 
     public class Balrog : ObjectBase
     {
-        public override void TextDraw() { }
-        public override void Release()
-        {
-            Core.Release();
-        }
-
         public BalrogFlyupTrigger Trigger;
 
         public bool Active;
@@ -191,7 +153,6 @@ public override bool PreDecision(Bob bob) { return false; }
 
             MakeNew();
         }
-
 
         public Balrog(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
         {
@@ -309,7 +270,6 @@ public override bool PreDecision(Bob bob) { return false; }
             MyObject.Update();
         }
 
-        public override void Reset(bool BoxesOnly) { }
         public override void Interact(Bob bob)
         {
             if (Active)
@@ -324,26 +284,5 @@ public override bool PreDecision(Bob bob) { return false; }
                 }
             }
         }
-
-        public override void Clone(ObjectBase A)
-        {
-            Core.Clone(A.Core);
-        }
-
-        public override void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

@@ -31,8 +31,6 @@ namespace CloudberryKingdom
         EzTexture HoldTexture1, HoldTexture2;
         bool Bool1;
 
-        public override void TextDraw() { }
-
         public int DelayToActive = 0;
         
         public enum Type { None, LayerZone, CameraStop, Plank, Block, DifficultyBox, Icon, SelectBox, CastlePiece, Coin, 
@@ -51,8 +49,6 @@ namespace CloudberryKingdom
 
         public QuadClass MyQuad;
 
-        public override void Interact(Bob bob) { }
-
         public override void MakeNew()
         {
             Active = true;
@@ -64,8 +60,8 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            Core.MyLevel = null;
-            MyBox = null;
+            base.Release();
+
             MyQuad = null;
         }
 
@@ -400,7 +396,6 @@ namespace CloudberryKingdom
             BlockCore.Data.Position = BlockCore.StartData.Position = Box.Target.Center;
         }
 
-        public override void SideHit(Bob bob) { }
         public override void Hit(Bob bob)
         {
             if (HitCallback != null)
@@ -414,14 +409,6 @@ namespace CloudberryKingdom
                     IsActive = Core.Active = false;
                     break;
             }
-        }
-
-        public override void LandedOn(Bob bob)
-        {
-        }
-
-        public override void HitHeadOn(Bob bob)
-        {
         }
 
         public override void Extend(Side side, float pos)
@@ -507,15 +494,5 @@ namespace CloudberryKingdom
                 Init(MyBox.Current.Center, MyBox.Current.Size, MyFileName, MyAnim, MyAnimSpeed);
             }
         }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

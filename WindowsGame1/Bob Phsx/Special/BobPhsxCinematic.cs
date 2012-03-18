@@ -8,12 +8,12 @@ namespace CloudberryKingdom
     {
         public bool OverrideAnimBehavior = true;
 
-        public FancyVector2 Pos;
+        public FancyVector2 FancyPos;
         public bool UseFancy = false;
 
         public BobPhsxCinematic()
         {
-            Pos = new FancyVector2();
+            FancyPos = new FancyVector2();
         }
 
         public override void PhsxStep2()
@@ -25,8 +25,8 @@ namespace CloudberryKingdom
         {
             if (UseFancy)
             {
-                Pos.Update();
-                MyBob.Move(Pos.AbsVal - MyBob.Core.Data.Position);
+                FancyPos.Update();
+                MyBob.Move(FancyPos.AbsVal - MyBob.Core.Data.Position);
             }
 
             MyBob.Box.Current.Size = MyBob.PlayerObject.BoxList[1].Size() / 2;

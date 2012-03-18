@@ -11,8 +11,6 @@ namespace CloudberryKingdom
 {
     public class IceBlock : BlockBase
     {
-        public override void TextDraw() { }
-
         QuadClass Ice;
         SimpleQuad MyQuad;
         BasePoint Base, HoldBase;
@@ -21,8 +19,6 @@ namespace CloudberryKingdom
         public PhsxData EmitData;
 
         public float MyAnimSpeed;
-
-        public override void Interact(Bob bob) { }
 
         public override void MakeNew()
         {
@@ -54,7 +50,8 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            BlockCore.Release();
+            base.Release();
+
             Ice = null;
         }
 
@@ -301,15 +298,6 @@ namespace CloudberryKingdom
             BlockCore.Write(writer);
         }
         public override void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public override void OnUsed() { }
-public override void OnMarkedForDeletion() { }
-public override void OnAttachedToBlock() { }
-public override bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public override void Smash(Bob bob) { }
-public override bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
+
     }
 }
