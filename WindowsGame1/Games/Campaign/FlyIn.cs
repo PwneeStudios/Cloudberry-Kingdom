@@ -18,7 +18,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
             {
-                foreach (IObject obj in MyLevel.Objects)
+                foreach (ObjectBase obj in MyLevel.Objects)
                     if (obj is PrincessBubble || obj is Goombas.Goomba)
                         obj.CollectSelf();
 
@@ -188,10 +188,10 @@ namespace CloudberryKingdom
         void BringCastle()
         {
             // Get castle
-            Block castleblock = null;
-            Block grass = null;
+            BlockBase castleblock = null;
+            BlockBase grass = null;
             ObjectGroup castle = new ObjectGroup();
-            foreach (IObject obj in MyLevel.Objects)
+            foreach (ObjectBase obj in MyLevel.Objects)
             {
                 // Don't grab camzones
                 if (obj is ZoneTrigger) continue;
@@ -199,7 +199,7 @@ namespace CloudberryKingdom
                 if (obj.Core.Show && !(obj is Bob))
                     castle.Add(obj);
             }
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 // Don't grab invisible things, unless it's icon positions
                 if (!block.Core.Show && block.Core.EditorCode3.CompareTo("icon") != 0) continue;

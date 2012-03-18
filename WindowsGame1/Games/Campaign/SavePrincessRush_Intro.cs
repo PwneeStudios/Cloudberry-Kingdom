@@ -78,7 +78,7 @@ namespace CloudberryKingdom
         {
             //SavePrincessRush.Timer.Show();
 
-            IObject end_door = MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
+            ObjectBase end_door = MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
             Vector2 endpos = end_door.Core.Data.Position;
 
             Arrow arrow = new Arrow();
@@ -135,7 +135,7 @@ namespace CloudberryKingdom
         void PointAtCoins()
         {
             List<Arrow> arrows = new List<Arrow>();
-            foreach (IObject coin in MyGame.MyLevel.GetObjectList(ObjectType.Coin))
+            foreach (ObjectBase coin in MyGame.MyLevel.GetObjectList(ObjectType.Coin))
             {
                 Vector2 coinpos = coin.Core.Data.Position;
 

@@ -340,7 +340,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Remove all game objects satisfying a restraint
         /// </summary>
-        public void RemoveAllGameObjects(Func<IObject, bool> func)
+        public void RemoveAllGameObjects(Func<ObjectBase, bool> func)
         {
             foreach (GameObject obj in MyGameObjects)
                 if (func(obj))
@@ -350,7 +350,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Remove all game objects satisfying a restraint, even if those objects request not to be removed.
         /// </summary>
-        public void SudoRemoveAllGameObjects(Func<IObject, bool> func)
+        public void SudoRemoveAllGameObjects(Func<ObjectBase, bool> func)
         {
             foreach (GameObject obj in MyGameObjects)
                 if (func(obj))
@@ -411,20 +411,20 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when a Checkpoint is grabbed. Argument is the IObject that is a Checkpoint.
         /// </summary>
-        public event Action<IObject> OnCheckpointGrab;
+        public event Action<ObjectBase> OnCheckpointGrab;
         /// <summary>
         /// Call this when a Checkpoint is grabbed to activate the Checkpoint grabbed event handler.
         /// </summary>
-        public void CheckpointGrabEvent(IObject Checkpoint) { if (OnCheckpointGrab != null) OnCheckpointGrab(Checkpoint); }
+        public void CheckpointGrabEvent(ObjectBase Checkpoint) { if (OnCheckpointGrab != null) OnCheckpointGrab(Checkpoint); }
 
         /// <summary>
         /// Event handler. Activates when a coin is grabbed. Argument is the IObject that is a coin.
         /// </summary>
-        public event Action<IObject> OnCoinGrab;
+        public event Action<ObjectBase> OnCoinGrab;
         /// <summary>
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
-        public void CoinGrabEvent(IObject coin) { if (OnCoinGrab != null) OnCoinGrab(coin); }
+        public void CoinGrabEvent(ObjectBase coin) { if (OnCoinGrab != null) OnCoinGrab(coin); }
 
         /// <summary>
         /// Event handler. Activates when all players die and the level is reset.
@@ -804,7 +804,7 @@ namespace CloudberryKingdom
 
         public virtual void RevertCheckpoints()
         {
-            foreach (IObject obj in MyLevel.Objects)
+            foreach (ObjectBase obj in MyLevel.Objects)
             {
                 Checkpoint checkpoint = obj as Checkpoint;
                 if (null != checkpoint)

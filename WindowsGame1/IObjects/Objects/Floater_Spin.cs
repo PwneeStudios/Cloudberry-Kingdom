@@ -8,7 +8,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class Floater_Spin : Floater_Core, IObject, IBound
+    public class Floater_Spin : Floater_Core, IBound
     {
         static bool Flaming = true;
 
@@ -202,7 +202,7 @@ namespace CloudberryKingdom
             base.Move(shift);            
         }
 
-        public override void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 

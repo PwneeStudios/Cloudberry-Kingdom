@@ -8,7 +8,7 @@ using CloudberryKingdom.Particles;
 
 namespace CloudberryKingdom
 {
-    public partial class Fireball : ObjectBase, IObject
+    public partial class Fireball : ObjectBase
     {
         static Particle ExplodeTemplate, EmitterTemplate;
         static public EzSound ExplodeSound;

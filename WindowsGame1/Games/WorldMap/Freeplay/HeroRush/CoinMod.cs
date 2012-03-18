@@ -65,16 +65,16 @@ namespace CloudberryKingdom
         int ModCoinNumber(Level level, int N)
         {
             // Get all coins
-            List<IObject> coins = level.GetObjectList(ObjectType.Coin);
+            List<ObjectBase> coins = level.GetObjectList(ObjectType.Coin);
 
-            foreach (IObject coin in coins) coin.Core.MarkedForDeletion = true;
+            foreach (ObjectBase coin in coins) coin.Core.MarkedForDeletion = true;
 
-            List<IObject> keep = level.Rnd.Choose(coins, N);
+            List<ObjectBase> keep = level.Rnd.Choose(coins, N);
 
-            foreach (IObject coin in keep) coin.Core.MarkedForDeletion = false;
+            foreach (ObjectBase coin in keep) coin.Core.MarkedForDeletion = false;
 
             int NumCoins = 0;
-            foreach (IObject coin in coins)
+            foreach (ObjectBase coin in coins)
             {
                 if (coin.Core.MarkedForDeletion)
                     coin.CollectSelf();

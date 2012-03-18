@@ -136,7 +136,7 @@ namespace CloudberryKingdom.Bobs
         }
     }
 
-    public class Bob : ObjectBase, IObject
+    public class Bob : ObjectBase
     {
         public float LightSourceFade = 1, LightSourceFadeVel = 0;
         public void ResetLightSourceFade()
@@ -198,8 +198,6 @@ namespace CloudberryKingdom.Bobs
         public static bool AllExplode = true;
         public static bool ShowCorpseAfterExplode = false;
 
-        public void TextDraw() { }
-
         public BobPhsx MyHeroType;
 
         public bool FadingIn;
@@ -216,7 +214,7 @@ namespace CloudberryKingdom.Bobs
         public bool Moved;
 
         public ColorScheme MyColorScheme;
-        public IObject HeldObject;
+        public ObjectBase HeldObject;
 
         public int HeldObjectIteration;
 
@@ -225,16 +223,16 @@ namespace CloudberryKingdom.Bobs
 
         public float NewY, NewVel, Xvel;
 
-        public void Release()
+        public override void Release()
         {
+            base.Release();
+
             ControlFunc = null;
             OnLand = null;
             OnApexReached = null;
             OnAnimFinish = null;
 
             AddedCoins = null;
-
-            Core.Release();
 
             MyPiece = null;
             if (MyRecord != null) MyRecord.Release(); MyRecord = null;
@@ -468,7 +466,7 @@ namespace CloudberryKingdom.Bobs
         public ObjectClass PlayerObject;
 
 
-        public Block LastCeiling = null;
+        public BlockBase LastCeiling = null;
         Vector2 LastCoinPos;
 
         List<Coin> AddedCoins;
@@ -503,10 +501,6 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public AABox RegularBox2;
 
-        public void MakeNew()
-        {
-        }
-
         public static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
             { BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
                 //});
@@ -517,7 +511,6 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public int PopModifier = 1;
 
-        //public Bob(Bob bob, bool boxesOnly)
         public Bob(BobPhsx type, bool boxesOnly)
         {
             //MyHeroType = bob.MyHeroType;
@@ -817,8 +810,8 @@ namespace CloudberryKingdom.Bobs
 
                     Vector2 pos;
                     Vector2 offset;
-                    Block NewBlock;
-                    IObject NewObj = null;
+                    BlockBase NewBlock;
+                    ObjectBase NewObj = null;
                     switch (MoveData.PlaceObject)
                     {
                         case PlaceTypes.SuperBouncyBlock:
@@ -862,7 +855,7 @@ namespace CloudberryKingdom.Bobs
                             offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
                             offset.Y -= 40;
                             MovingBlock MBlock = MakeMovingBlock2(offset);
-                            NewObj = (IObject)MBlock;
+                            NewObj = (ObjectBase)MBlock;
 
                             Core.MyLevel.AddPop(MBlock.Box.Current.Center);
 
@@ -895,13 +888,13 @@ namespace CloudberryKingdom.Bobs
                             NBlock.Extend(Side.Top, Box.Target.BL.Y - 1f);
                             NBlock.Extend(Side.Bottom, NBlock.Box.Current.BL.Y - 100);
 
-                            NewObj = (IObject)NBlock;
+                            NewObj = (ObjectBase)NBlock;
 
                             Core.MyLevel.AddPop(NBlock.Box.Current.Center, 155);
                             break;
                     }
 
-                    NewBlock = NewObj as Block;
+                    NewBlock = NewObj as BlockBase;
                     if (null != NewBlock)
                         Core.MyLevel.AddBlock(NewBlock);
 
@@ -936,7 +929,7 @@ namespace CloudberryKingdom.Bobs
             return pos;
         }
 
-        public Block MakeFallingBlock(Vector2 offset)
+        public BlockBase MakeFallingBlock(Vector2 offset)
         {
             Vector2 pos = PosToPlace();
 
@@ -951,10 +944,10 @@ namespace CloudberryKingdom.Bobs
             NewBlock.Init(pos + offset, new Vector2(75, 75), Life);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
-            return NewBlock as Block;
+            return NewBlock as BlockBase;
         }
 
-        public Block MakeSuperBouncyBlock(Vector2 offset)
+        public BlockBase MakeSuperBouncyBlock(Vector2 offset)
         {
             Vector2 pos = PosToPlace();
 
@@ -969,10 +962,10 @@ namespace CloudberryKingdom.Bobs
             NewBlock.Init(pos + offset, new Vector2(125, 125), Speed);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
-            return NewBlock as Block;
+            return NewBlock as BlockBase;
         }
 
-        public Block MakeBouncyBlock(Vector2 offset)
+        public BlockBase MakeBouncyBlock(Vector2 offset)
         {
             Vector2 pos = PosToPlace();
 
@@ -986,14 +979,14 @@ namespace CloudberryKingdom.Bobs
             NewBlock.Init(pos + offset, new Vector2(75, 75), Speed);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
-            return NewBlock as Block;
+            return NewBlock as BlockBase;
         }
 
-        public Block MakeGhostBlock(Vector2 offset)
+        public BlockBase MakeGhostBlock(Vector2 offset)
         {
             return MakeGhostBlock(offset, Math.Sign(Core.Data.Velocity.X));
         }
-        public Block MakeGhostBlock(Vector2 offset, int Dir)
+        public BlockBase MakeGhostBlock(Vector2 offset, int Dir)
         {
             Vector2 pos = Vector2.Zero;
             if (Dir == 1) pos.X = Box.Target.TR.X + 75f / 1 - .01f;
@@ -1021,7 +1014,7 @@ namespace CloudberryKingdom.Bobs
             NewBlock.Offset = Offset;
 
 
-            return NewBlock as Block;
+            return NewBlock as BlockBase;
         }
 
         public MovingBlock MakeMovingBlock2(Vector2 offset)
@@ -1114,7 +1107,7 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         int DeathCount = 0;
 
-        public IObject KillingObject = null;
+        public ObjectBase KillingObject = null;
         public enum BobDeathType                { None,   Fireball,   Firesnake,    FireSpinner,    Floater,  Pinky,    Spike,   Fall,      Lava,   Blob,   Laser,   Time,         LeftBehind,    Other,   Total };
         public static string[] BobDeathNames = { "none", "fireball", "fire snake", "fire spinner", "spikey guy", "pinky", "spike", "falling", "lava", "blob", "laser", "time limit", "left behind", "other", "Total"};
         /// <summary>
@@ -1131,11 +1124,11 @@ namespace CloudberryKingdom.Bobs
         {
             Die(DeathType, null, false, true);
         }
-        public void Die(BobDeathType DeathType, IObject KillingObject)
+        public void Die(BobDeathType DeathType, ObjectBase KillingObject)
         {
             Die(DeathType, KillingObject, false, true);
         }
-        public void Die(BobDeathType DeathType, IObject KillingObject, bool ForceDeath, bool DoAnim)
+        public void Die(BobDeathType DeathType, ObjectBase KillingObject, bool ForceDeath, bool DoAnim)
         {
             if (Dying) return;
 
@@ -1237,11 +1230,6 @@ namespace CloudberryKingdom.Bobs
             Box.SetTarget(Core.Data.Position, Box.Current.Size);
         }
 
-        public GameData MyGame
-        {
-            get { return Core.MyLevel.MyGame; }
-        }
-
         public void CheckForScreenWrap()
         {
             if (ScreenWrap)
@@ -1314,7 +1302,6 @@ namespace CloudberryKingdom.Bobs
             }
         }
         public float CameraWeight = 1, CameraWeightSpeed;
-
 
         public void GetPlayerInput()
         {
@@ -1418,14 +1405,10 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-
         void RecordInput(int Step)
         {
             MyRecord.Input[Step] = CurInput;
         }
-
-
-
 
         public void AnimStep()
         {
@@ -1601,7 +1584,7 @@ namespace CloudberryKingdom.Bobs
             return true;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             bool SkipDraw = false;
 
@@ -1693,7 +1676,7 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
 
@@ -1711,55 +1694,7 @@ namespace CloudberryKingdom.Bobs
                 MyCape.Move(shift);
         }
 
-        public void Reset(bool BoxesOnly) { }
-        public void Interact(Bob bob) { }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void InteractWithBlock(AABox box, Block block, ColType Col)
+        public void InteractWithBlock(AABox box, BlockBase block, ColType Col)
         {            
             if (block != null && !block.IsActive) return;
 
@@ -1920,9 +1855,6 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-
-
-
         void InitBoxesForCollisionDetect()
         {
             Box.Current.Size = PlayerObject.BoxList[1].Size() / 2;
@@ -1947,7 +1879,6 @@ namespace CloudberryKingdom.Bobs
 
             Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
         }
-
 
         public void UpdateCape()
         {
@@ -2071,8 +2002,7 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public bool DoObjectInteractions = true;
 
-        public void PhsxStep2() { }
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             DoLightSourceFade();
 
@@ -2366,7 +2296,7 @@ namespace CloudberryKingdom.Bobs
             Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .2f));
 
 
-            foreach (IObject obj in Core.MyLevel.ActiveObjectList)
+            foreach (ObjectBase obj in Core.MyLevel.ActiveObjectList)
             {
                 if (!obj.Core.MarkedForDeletion && obj.Core.Real && obj.Core.Active && obj.Core.Show)
                     obj.Interact(this);
@@ -2400,7 +2330,7 @@ namespace CloudberryKingdom.Bobs
             Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
         }
 
-        public void DeleteObj(IObject obj)
+        public void DeleteObj(ObjectBase obj)
         {
             obj.Core.DeletedByBob = true;
             Core.Recycle.CollectObject(obj);
@@ -2433,7 +2363,7 @@ namespace CloudberryKingdom.Bobs
                 {
                     if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Core.MyLevel.PlayMode == 0)
                     {
-                        foreach (Block block in Core.MyLevel.Blocks)
+                        foreach (BlockBase block in Core.MyLevel.Blocks)
                         {
                             if (!block.Core.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(Box2, block.Box))
                             {
@@ -2446,7 +2376,7 @@ namespace CloudberryKingdom.Bobs
                     }
                     else
                     {
-                        foreach (Block block in Core.MyLevel.Blocks)
+                        foreach (BlockBase block in Core.MyLevel.Blocks)
                         {
                             if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
                             if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
@@ -2464,7 +2394,7 @@ namespace CloudberryKingdom.Bobs
                 {
                     Ceiling_Parameters CeilingParams = (Ceiling_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(Ceiling_AutoGen.Instance);
 
-                    foreach (Block block in Core.MyLevel.Blocks)
+                    foreach (BlockBase block in Core.MyLevel.Blocks)
                     {
                         if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
                         if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
@@ -2646,7 +2576,7 @@ namespace CloudberryKingdom.Bobs
 
                                             // Normal blocks delete surrounding blocks when stamped as used
                                             if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
-                                                foreach (Block nblock in Core.MyLevel.Blocks)
+                                                foreach (BlockBase nblock in Core.MyLevel.Blocks)
                                                 {
                                                     NormalBlock Normal = nblock as NormalBlock;
                                                     if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
@@ -2661,7 +2591,7 @@ namespace CloudberryKingdom.Bobs
 
                                             // Ghost blocks delete surrounding blocks when stamped as used
                                             if (block is GhostBlock)
-                                                foreach (Block gblock in Core.MyLevel.Blocks)
+                                                foreach (BlockBase gblock in Core.MyLevel.Blocks)
                                                 {
                                                     GhostBlock ghost = gblock as GhostBlock;
                                                     if (null != ghost && !ghost.Core.MarkedForDeletion)
@@ -2707,7 +2637,7 @@ namespace CloudberryKingdom.Bobs
                 {
                     CeilingParams = (Ceiling_Parameters)Core.GetParams(Ceiling_AutoGen.Instance);
 
-                    foreach (Block block in Core.MyLevel.Blocks)
+                    foreach (BlockBase block in Core.MyLevel.Blocks)
                     {
                         if (MyPhsx.SkipInteraction(block)) continue;
                         //if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
@@ -2772,25 +2702,5 @@ namespace CloudberryKingdom.Bobs
                     }
                 }
         }
-
-        public void Clone(IObject A)
-        {
-            Core.Clone(A.Core);
-        }
-        public void Write(BinaryWriter writer)
-        {
-            Core.Write(writer);
-        }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

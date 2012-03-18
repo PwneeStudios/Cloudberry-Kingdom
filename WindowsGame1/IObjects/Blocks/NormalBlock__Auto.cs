@@ -96,7 +96,7 @@ namespace CloudberryKingdom.Levels
             Params.MyWall = null;
         }
 
-        void SetHallwayBlockProperties(Block block)
+        void SetHallwayBlockProperties(BlockBase block)
         {
             block.StampAsUsed(0);
             block.BlockCore.NonTopUsed = true;
@@ -122,8 +122,8 @@ namespace CloudberryKingdom.Levels
             Vector2 Pos = BL;
 
             float MinRadius = Params.HallwayWidth;
-            Block LeftMostBlock = Tools.ArgMax(level.Blocks.FindAll(match => match.Box.GetTR().X < -MinRadius), element => element.Core.Data.Position.X);
-            Block RightMostBlock = Tools.ArgMin(level.Blocks.FindAll(match => match.Box.GetBL().X > MinRadius), element => element.Core.Data.Position.X);
+            BlockBase LeftMostBlock = Tools.ArgMax(level.Blocks.FindAll(match => match.Box.GetTR().X < -MinRadius), element => element.Core.Data.Position.X);
+            BlockBase RightMostBlock = Tools.ArgMin(level.Blocks.FindAll(match => match.Box.GetBL().X > MinRadius), element => element.Core.Data.Position.X);
 
             Vector2 pos1 = new Vector2(0, BL.Y - 700);
             Vector2 pos2 = new Vector2(0, TR.Y + 700);
@@ -273,7 +273,7 @@ namespace CloudberryKingdom.Levels
             return block;
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             base.CreateAt(level, pos);
 
@@ -300,7 +300,7 @@ namespace CloudberryKingdom.Levels
 
             return block;
         }
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
         {
             base.CreateAt(level, pos, BL, TR);
 

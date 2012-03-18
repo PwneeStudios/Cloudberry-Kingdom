@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             return str;
         }
 
-        public void OnCoinGrab(IObject obj)
+        public void OnCoinGrab(ObjectBase obj)
         {
             Coins++;
         }

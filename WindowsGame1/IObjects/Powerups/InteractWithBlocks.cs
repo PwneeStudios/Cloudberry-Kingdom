@@ -10,9 +10,9 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public class InteractWithBlocks : ObjectBase, IObject
+    public class InteractWithBlocks : ObjectBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         protected EzSound MySound;
 
@@ -26,7 +26,7 @@ namespace CloudberryKingdom
         public float Friction = .98f;
         public float SmallFriction = .905f;
 
-        public void Release()
+        public override void Release()
         {
             Core.Release();
 
@@ -35,7 +35,7 @@ namespace CloudberryKingdom
 
         public Action OnTouched;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
 
@@ -64,7 +64,7 @@ namespace CloudberryKingdom
             Update();
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Core.Active) return;
 
@@ -89,7 +89,7 @@ namespace CloudberryKingdom
             if (MyQuad != null) MyQuad.Pos = Pos;
 
             // Interact with blocks
-            foreach (Block block in Core.MyLevel.Blocks)
+            foreach (BlockBase block in Core.MyLevel.Blocks)
                 ColWithBlock(block);
 
             if (Core.WakeUpRequirements)
@@ -99,7 +99,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
         {
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
 
@@ -125,7 +125,7 @@ namespace CloudberryKingdom
             //Update();
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
@@ -138,7 +138,7 @@ namespace CloudberryKingdom
             if (OnTouched != null) OnTouched(); OnTouched = null;
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.Active) return;
             //if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
@@ -150,7 +150,7 @@ namespace CloudberryKingdom
             }
         }
 
-        void ColWithBlock(Block block)
+        void ColWithBlock(BlockBase block)
         {
             if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) return;
 
@@ -169,7 +169,7 @@ namespace CloudberryKingdom
         }
 
         static Vector2 DrawGrace = new Vector2(50, 50);
-        public void Draw()
+        public override void Draw()
         {
             if (!Core.Active) return;
 
@@ -189,7 +189,7 @@ namespace CloudberryKingdom
             MyQuad.Draw();
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -199,20 +199,20 @@ namespace CloudberryKingdom
             Box.SetCurrent(InteractWithBlocksA.Box.Current.Center, InteractWithBlocksA.Box.Current.Size);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

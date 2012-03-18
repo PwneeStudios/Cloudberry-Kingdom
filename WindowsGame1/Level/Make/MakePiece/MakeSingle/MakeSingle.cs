@@ -43,17 +43,17 @@ namespace CloudberryKingdom.Levels
 
         public void Clone(Level A)
         {
-            foreach (Block block in A.Blocks)
+            foreach (BlockBase block in A.Blocks)
             {
-                Block DestBlock = (Block)MySourceGame.Recycle.GetObject(block.Core.MyType, false);
+                BlockBase DestBlock = (BlockBase)MySourceGame.Recycle.GetObject(block.Core.MyType, false);
                 DestBlock.Clone(block);
 
                 AddBlock(DestBlock);
             }
 
-            foreach (IObject obj in A.Objects)
+            foreach (ObjectBase obj in A.Objects)
             {
-                IObject DestObj = (IObject)MySourceGame.Recycle.GetObject(obj.Core.MyType, false);
+                ObjectBase DestObj = (ObjectBase)MySourceGame.Recycle.GetObject(obj.Core.MyType, false);
                 DestObj.Clone(obj);
 
                 AddObject(DestObj);
@@ -191,9 +191,9 @@ namespace CloudberryKingdom.Levels
             PreventReset = false;
         }
 
-        public Block LastSafetyBlock = null;
+        public BlockBase LastSafetyBlock = null;
         public const float SafetyNetHeight = 124;
-        public Block Stage1SafetyNet(Vector2 BL, Vector2 TR, Vector2 size, float xstep, StyleData.GroundType Type)
+        public BlockBase Stage1SafetyNet(Vector2 BL, Vector2 TR, Vector2 size, float xstep, StyleData.GroundType Type)
         {
             bool Virgin = false;
             bool Used = false;
@@ -229,7 +229,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Safety net
-            Block LastBlock = null;
+            BlockBase LastBlock = null;
             Fill(BL + new Vector2(0, SafetyNetHeight), new Vector2(TR.X, BL.Y + SafetyNetHeight + 1), xstep, 50,
                 pos =>
                 {
@@ -260,23 +260,23 @@ namespace CloudberryKingdom.Levels
             return LastBlock;
         }
 
-        public Block MadeBackBlock;
+        public BlockBase MadeBackBlock;
         /// <summary>
         /// Creates a door at the specified position, as well as a backdrop block.
         /// </summary>
-        public Door PlaceDoorOnBlock_Unlayered(Vector2 pos, Block block, bool AddBackdrop)
+        public Door PlaceDoorOnBlock_Unlayered(Vector2 pos, BlockBase block, bool AddBackdrop)
         {
             return PlaceDoorOnBlock(pos, block, AddBackdrop, MyTileSet, false);
         }
-        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop)
+        public Door PlaceDoorOnBlock(Vector2 pos, BlockBase block, bool AddBackdrop)
         {
             return PlaceDoorOnBlock(pos, block, AddBackdrop, MyTileSet, true);
         }
-        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, TileSet BackdropTileset)
+        public Door PlaceDoorOnBlock(Vector2 pos, BlockBase block, bool AddBackdrop, TileSet BackdropTileset)
         {
             return PlaceDoorOnBlock(pos, block, AddBackdrop, BackdropTileset, true);
         }
-        public Door PlaceDoorOnBlock(Vector2 pos, Block block, bool AddBackdrop, TileSet BackdropTileset, bool LayeredDoor)
+        public Door PlaceDoorOnBlock(Vector2 pos, BlockBase block, bool AddBackdrop, TileSet BackdropTileset, bool LayeredDoor)
         {
             int DesiredDoorLayer = 0, DesiredDoorLayer2 = 0;
 
@@ -616,7 +616,7 @@ namespace CloudberryKingdom.Levels
             }            
         }
 
-        public delegate void ModBlockCallback(Block block);
+        public delegate void ModBlockCallback(BlockBase block);
         public float VanillaFill(Vector2 BL, Vector2 TR, float width)
         {
             return VanillaFill(BL, TR, width, 200, null);
@@ -743,7 +743,7 @@ namespace CloudberryKingdom.Levels
                     // Choose a random generator and make a new obstacle with it
                     int choice = Rnd.Choose(Weights);
                     AutoGen chosen_gen = Generators.WeightedPreFill_1_Gens[choice];
-                    IObject NewObj = chosen_gen.CreateAt(this, pos, BL_Cutoff, TR);
+                    ObjectBase NewObj = chosen_gen.CreateAt(this, pos, BL_Cutoff, TR);
 
                     if (NewObj == null) return;
 
@@ -929,7 +929,7 @@ namespace CloudberryKingdom.Levels
             // Mid divider
             if (CurMakeData.MidDivider)
             {
-                Block block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this,
+                BlockBase block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this,
                     new Vector2(MaxLeft + 300, MainCamera.Data.Position.Y),
                     new Vector2(MaxRight + 600, MainCamera.Data.Position.Y));
                 /*
@@ -1147,14 +1147,14 @@ namespace CloudberryKingdom.Levels
             Sleep();
 
             // Remove unused objects
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (!obj.Core.GenData.Used && obj.Core.GenData.RemoveIfUnused)
                     Recycle.CollectObject(obj);
             CleanObjectList();
             Sleep();
             
             // Remove unused blocks
-            foreach (Block _block in Blocks)
+            foreach (BlockBase _block in Blocks)
                 if (!_block.Core.GenData.Used && _block.Core.GenData.RemoveIfUnused)
                     Recycle.CollectObject(_block);
             CleanBlockList();
@@ -1206,7 +1206,7 @@ namespace CloudberryKingdom.Levels
                 return new Vector2(180, 180);
             }, BL_Bound, TR_Bound + new Vector2(500, 0));
             Sleep();*/
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;
                 if (null != coin)
@@ -1223,16 +1223,16 @@ namespace CloudberryKingdom.Levels
 
         public void SortBlocks()
         {
-            Blocks.Sort(delegate(Block A, Block B) { return A.BlockCore.Layer.CompareTo(B.BlockCore.Layer); });
+            Blocks.Sort(delegate(BlockBase A, BlockBase B) { return A.BlockCore.Layer.CompareTo(B.BlockCore.Layer); });
         }
 
         public void OverlapCleanup()
         {
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 if (obj.Core.GenData.NoBlockOverlap)
                 {
-                    foreach (Block block in Blocks)
+                    foreach (BlockBase block in Blocks)
                     {
                         if (block.BlockCore.RemoveOverlappingObjects && block != obj.Core.ParentBlock && Phsx.PointAndAABoxCollisionTest(ref obj.Core.Data.Position, block.Box, obj.Core.GenData.OverlapWidth))
                             Recycle.CollectObject(obj);
@@ -1243,11 +1243,11 @@ namespace CloudberryKingdom.Levels
 
         public void BlockOverlapCleanup()
         {
-            foreach (Block block2 in Blocks)
+            foreach (BlockBase block2 in Blocks)
             {
                 if (!block2.Core.MarkedForDeletion)
                 {
-                    foreach (Block block in Blocks)
+                    foreach (BlockBase block in Blocks)
                     {
                         if (!block.Core.GenData.Used && !block.Core.MarkedForDeletion)
                         {

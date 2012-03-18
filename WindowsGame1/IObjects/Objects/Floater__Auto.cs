@@ -138,7 +138,7 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
             Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);

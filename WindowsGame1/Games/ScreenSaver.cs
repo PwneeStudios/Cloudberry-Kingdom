@@ -121,7 +121,7 @@ namespace CloudberryKingdom
                     if (ForTrailer)
                     {
                         Camera.DisableOscillate = true;
-                        foreach (Block block in Tools.CurLevel.Blocks)
+                        foreach (BlockBase block in Tools.CurLevel.Blocks)
                             if (block.Pos.X > Tools.CurLevel.Bobs[0].Pos.X + 200)
                                 block.CollectSelf();
                     }

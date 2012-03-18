@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public override void SideHit(ColType side, Block block)
+        public override void SideHit(ColType side, BlockBase block)
         {
             base.SideHit(side, block);
 

@@ -107,7 +107,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Every time a coin is grabbed check to see if it was the last coin on the level.
         /// </summary>
-        public void OnCoinGrab(IObject obj)
+        public void OnCoinGrab(ObjectBase obj)
         {
             if (!Eligible) return;
 

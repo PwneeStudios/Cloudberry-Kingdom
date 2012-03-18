@@ -65,7 +65,7 @@ namespace CloudberryKingdom
                         Tools.CurLevel.FinalDoor.Pos + shift, 1));
 
             // Delete the exit sign
-            foreach (IObject obj in Tools.CurLevel.Objects)
+            foreach (ObjectBase obj in Tools.CurLevel.Objects)
                 if (obj is Sign)
                     obj.Core.MarkedForDeletion = true;
         }

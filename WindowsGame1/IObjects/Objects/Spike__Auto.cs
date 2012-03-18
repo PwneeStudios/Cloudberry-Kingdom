@@ -145,7 +145,7 @@ namespace CloudberryKingdom.Levels
             float SpikeBottomOffset = InfoWad.GetFloat("Spike_BottomOffset");
             float SpikeSideOffset = InfoWad.GetFloat("Spike_SideOffset");
 
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 if (block.Core.Placed) continue;
 

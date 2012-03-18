@@ -126,7 +126,7 @@ namespace CloudberryKingdom.Levels
             float SpinnerTopOffset = InfoWad.GetFloat("Spinner_TopOffset");
             float SpinnerBottomOffset = InfoWad.GetFloat("Spinner_BottomOffset");
 
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 if (block.Core.Placed) continue;
 

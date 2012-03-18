@@ -110,12 +110,12 @@ namespace CloudberryKingdom.Levels
             Coin_Parameters Params = (Coin_Parameters)level.Style.FindParams(Coin_AutoGen.Instance);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             return CreateAt(level, pos, true);
         }
         int offset;
-        public IObject CreateAt(Level level, Vector2 pos, bool NewOffset)
+        public ObjectBase CreateAt(Level level, Vector2 pos, bool NewOffset)
         {
             // Get Coin parameters
             Coin_Parameters Params = (Coin_Parameters)level.Style.FindParams(Coin_AutoGen.Instance);
@@ -233,13 +233,13 @@ namespace CloudberryKingdom.Levels
             // No coins near final doors
             if (PieceSeed.GeometryType == LevelGeometry.Right)
             {
-                foreach (IObject obj in Objects)
+                foreach (ObjectBase obj in Objects)
                     if (obj is Coin && obj.Pos.X > TR.X + 160)
                         Recycle.CollectObject(obj);
             }
             else if (PieceSeed.GeometryType == LevelGeometry.Up)
             {
-                foreach (IObject obj in Objects)
+                foreach (ObjectBase obj in Objects)
                     if (obj is Coin && obj.Pos.Y > TR.Y - 280)
                         Recycle.CollectObject(obj);
             }

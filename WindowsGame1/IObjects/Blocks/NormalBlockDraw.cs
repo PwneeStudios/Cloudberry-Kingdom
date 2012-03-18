@@ -11,7 +11,7 @@ namespace CloudberryKingdom.Blocks
         public Color Tint;
 
         public PieceQuad MyPieces;
-        Block MyBlock;
+        BlockBase MyBlock;
 
         public NormalBlockDraw() { MakeNew(); }
 
@@ -42,8 +42,8 @@ namespace CloudberryKingdom.Blocks
         }
 
         public static Vector2 ModCeilingSize = new Vector2(25f, 0f);
-        public void Init(Block block) { Init(block, null); }
-        public void Init(Block block, PieceQuad Template)
+        public void Init(BlockBase block) { Init(block, null); }
+        public void Init(BlockBase block, PieceQuad Template)
         {
             //MyPieces.Init(Tools.TextureWad.FindByName("White"), Tools.BasicEffect);
 

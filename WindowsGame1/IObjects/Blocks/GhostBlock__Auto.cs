@@ -84,7 +84,7 @@ namespace CloudberryKingdom.Levels
             level.CleanupGhostBlocks(BL, TR);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
         {
             base.CreateAt(level, pos, BL, TR);
 

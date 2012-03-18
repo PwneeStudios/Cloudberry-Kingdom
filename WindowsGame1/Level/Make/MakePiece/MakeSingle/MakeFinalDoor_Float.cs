@@ -13,7 +13,7 @@ namespace CloudberryKingdom.Levels
         /// <summary>
         /// The block on which the final door rests on.
         /// </summary>
-        public Block FinalBlock;
+        public BlockBase FinalBlock;
 
         /// <summary>
         /// The position of the final door.

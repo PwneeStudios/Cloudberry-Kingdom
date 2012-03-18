@@ -8,7 +8,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.FireSpinners
 {
-    public class FireSpinner : ObjectBase, IObject
+    public class FireSpinner : ObjectBase
     {
         /// <summary>
         /// If true then the individual flames comprising the firespinners have an offset
@@ -16,8 +16,8 @@ namespace CloudberryKingdom.FireSpinners
         /// </summary>
         static bool RandomMiniOrientation = true;
 
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -53,7 +53,7 @@ namespace CloudberryKingdom.FireSpinners
         }
 
         static EzTexture BallTexture = null;
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
             Core.MyType = ObjectType.FireSpinner;
@@ -106,7 +106,7 @@ namespace CloudberryKingdom.FireSpinners
             MyLine.SkipEdge = true;
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             Core.PosFromParentOffset();
 
@@ -163,13 +163,13 @@ namespace CloudberryKingdom.FireSpinners
             p2 = Core.Data.Position + .7f * (dir + dir2) * Radius;
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.SkippedPhsx)
                 MyLine.SwapToCurrent();
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (Core.SkippedPhsx) return;
             
@@ -235,7 +235,7 @@ namespace CloudberryKingdom.FireSpinners
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
             MyLine.Current.p1 += shift;
@@ -244,14 +244,14 @@ namespace CloudberryKingdom.FireSpinners
             MyLine.Target.p2 += shift;
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
             
             SetColor();
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.SkippedPhsx)
             if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
@@ -271,7 +271,7 @@ namespace CloudberryKingdom.FireSpinners
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
             Core.WakeUpRequirements = true;
@@ -291,20 +291,20 @@ namespace CloudberryKingdom.FireSpinners
             Init(Core.GetPhsxStep());
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

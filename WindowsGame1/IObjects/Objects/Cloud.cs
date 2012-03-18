@@ -6,10 +6,10 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Clouds
 {
-    public class Cloud : ObjectBase, IObject
+    public class Cloud : ObjectBase
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -26,7 +26,7 @@ namespace CloudberryKingdom.Clouds
 
         public AABox Box;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
             Core.DrawLayer = 9;
@@ -76,7 +76,7 @@ namespace CloudberryKingdom.Clouds
             MakeNew();            
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Core.Active) return;
 
@@ -121,7 +121,7 @@ namespace CloudberryKingdom.Clouds
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
@@ -129,7 +129,7 @@ namespace CloudberryKingdom.Clouds
             Box.SwapToCurrent();
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Core.Held)
             {
@@ -152,7 +152,7 @@ namespace CloudberryKingdom.Clouds
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
@@ -162,7 +162,7 @@ namespace CloudberryKingdom.Clouds
             MyQuad.Base.Origin += shift;
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.Active) return;
 
@@ -192,7 +192,7 @@ namespace CloudberryKingdom.Clouds
                         this.StampAsUsed(Core.MyLevel.CurPhsxStep);
 
                         // Remove surrounding clouds
-                        foreach (IObject cloud in Core.MyLevel.Objects)
+                        foreach (ObjectBase cloud in Core.MyLevel.Objects)
                         {
                             Cloud Cloud = cloud as Cloud;
                             if (null != Cloud)
@@ -225,13 +225,13 @@ namespace CloudberryKingdom.Clouds
             }
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
             Core.WakeUpRequirements = true;
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -248,7 +248,7 @@ namespace CloudberryKingdom.Clouds
             Core.WakeUpRequirements = true;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
 
@@ -256,7 +256,7 @@ namespace CloudberryKingdom.Clouds
 
             Box.Write(writer);
         }
-        public void Read(BinaryReader reader)
+        public override void Read(BinaryReader reader)
         {
             Core.Read(reader);
 
@@ -266,14 +266,14 @@ namespace CloudberryKingdom.Clouds
             this.Size = Box.Current.Size;
         }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

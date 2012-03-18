@@ -8,13 +8,13 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : ObjectBase, IObject, ILevelConnector
+    public partial class Seed : ObjectBase, ILevelConnector
     {
         LevelSeedData _NextLevelSeedData;
         public LevelSeedData NextLevelSeedData { get { return _NextLevelSeedData; } set { _NextLevelSeedData = value; } }
 
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -35,7 +35,7 @@ namespace CloudberryKingdom
 
         public bool SkipPhsx;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
             Core.MyType = ObjectType.Seed;
@@ -107,7 +107,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             //if (!Panning && Core.MyLevel.CurPhsxStep == 60) StartPan();
             //if (Panning) PanPhsx();
@@ -200,22 +200,22 @@ namespace CloudberryKingdom
             SkipPhsx = false;
         }
 
-        public void PhsxStep2() { }
+        public override void PhsxStep2() { }
        
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
 
             Core.Data.Position = Core.StartData.Position;
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.Active) return;
             //if (Core.MyLevel.SuppressCheckpoints || Core.MyLevel.GhostCheckpoints) return;
@@ -256,7 +256,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Core.Active) return;
             //if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.GhostCheckpoints) return;
@@ -281,27 +281,27 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
             Seed SeedA = A as Seed;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

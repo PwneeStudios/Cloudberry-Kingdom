@@ -64,7 +64,7 @@ namespace CloudberryKingdom
         void KeepPlacedObjects()
         {
             // Keep placed objects
-            Action<IObject> process = _obj => _obj.Core.RemoveOnReset = false;
+            Action<ObjectBase> process = _obj => _obj.Core.RemoveOnReset = false;
 
             MyLevel.Objects.FindAll(match => match.Core.Placed).ForEach(process);
             MyLevel.Blocks.FindAll(match => match.Core.Placed).ForEach(block => process(block));
@@ -138,7 +138,7 @@ namespace CloudberryKingdom
                 State = PlaceState.Set;
 
                 // Replace door's action
-                IObject obj = MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
+                ObjectBase obj = MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
                 
                 Door door = obj as Door;
                 if (null != door)

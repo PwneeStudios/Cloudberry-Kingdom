@@ -537,7 +537,7 @@ namespace CloudberryKingdom
         {
             base.LandOnSomething(MakeReadyToJump);
 
-            if (LandSound != null && MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is Block && !PrevOnGround)
+            if (LandSound != null && MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 PlayLandSound();
 
             ReadyToJump = ReadyToJump || MakeReadyToJump;
@@ -578,7 +578,7 @@ namespace CloudberryKingdom
 
 
         // Survival variables
-        Block SafetyBlock = null;
+        BlockBase SafetyBlock = null;
         int JumpCountdown = 0, TurnCountdown = 0, Dir = 0;
 
         public void GenerateInput_Survival(int CurPhsxStep)
@@ -603,7 +603,7 @@ namespace CloudberryKingdom
             else
                 TurnCountdown--;
 
-            Block block = ObjectLandedOn as Block;
+            BlockBase block = ObjectLandedOn as BlockBase;
             if (null != block)
                 SafetyBlock = block;
 
@@ -870,7 +870,7 @@ namespace CloudberryKingdom
                 if (Pos.Y < MyBob.TargetPosition.Y - MaxDip)
                     MyBob.CurInput.A_Button = true;
             }
-            Block block = ObjectLandedOn as Block;
+            BlockBase block = ObjectLandedOn as BlockBase;
             if (null != block && (OnGround || FallingCount < BobFallDelay) && (BobEdgeJump == 1 || block.Core.GenData.EdgeJumpOnly))
             {
                 MyBob.Box.CalcBounds();

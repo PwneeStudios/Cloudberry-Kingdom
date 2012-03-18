@@ -7,7 +7,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class Floater : Floater_Core, IObject, IBound
+    public class Floater : Floater_Core, IBound
     {
         public float Angle, MaxAngle, Length;
         public int Period, Offset;
@@ -205,7 +205,7 @@ namespace CloudberryKingdom
             MyObject.Update();
         }
 
-        public override void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 

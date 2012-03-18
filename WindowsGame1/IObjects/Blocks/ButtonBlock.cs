@@ -6,9 +6,9 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom.Blocks
 {
     public delegate void ButtonCallback();
-    public class ButtonBlock : BlockBase, Block
+    public class ButtonBlock : BlockBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         SimpleQuad MyQuad;
         BasePoint Base;
@@ -18,13 +18,13 @@ namespace CloudberryKingdom.Blocks
 
         public ButtonCallback HitCallback;
 
-        public void Interact(Bob bob) { }
+        public override void Interact(Bob bob) { }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
         }
 
-        public void Release()
+        public override void Release()
         {
             Core.MyLevel = null;
             MyBox = null;
@@ -94,7 +94,7 @@ namespace CloudberryKingdom.Blocks
             Base.Origin = Box.Current.Center + new Vector2(0, 24);
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             bool HoldActive = Active;
 
@@ -106,12 +106,12 @@ namespace CloudberryKingdom.Blocks
             Box.SetTarget(BlockCore.Data.Position, Box.Current.Size);
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             Box.SwapToCurrent();
         }
 
-        public void Draw()
+        public override void Draw()
         {
             MyQuad.Update(ref Base);
             Tools.QDrawer.DrawQuad(MyQuad);
@@ -123,7 +123,7 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
             BlockCore.StartData.Position += shift;
@@ -133,10 +133,10 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public Block Clone() { return new ButtonBlock(this); }
-        public void Hit(Bob bob) { }
-        public void SideHit(Bob bob) { }
-        public void LandedOn(Bob bob)
+        public BlockBase Clone() { return new ButtonBlock(this); }
+        public override void Hit(Bob bob) { }
+        public override void SideHit(Bob bob) { }
+        public override void LandedOn(Bob bob)
         {
             if (HitCallback != null)
                 HitCallback();
@@ -152,13 +152,13 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public void HitHeadOn(Bob bob)
+        public override void HitHeadOn(Bob bob)
         {
         }
 
-        public void Extend(Side side, float pos) { }
+        public override void Extend(Side side, float pos) { }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
@@ -173,25 +173,25 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             BlockCore.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

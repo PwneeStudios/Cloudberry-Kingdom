@@ -10,9 +10,9 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public enum GhostBlockState { PhasedIn, PhasedOut };
-    public class GhostBlock : BlockBase, Block
+    public class GhostBlock : BlockBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         public SimpleObject MyObject;
 
@@ -37,9 +37,9 @@ namespace CloudberryKingdom
         /// </summary>
         public float TimeSafety;
 
-        public void Interact(Bob bob) { }
+        public override void Interact(Bob bob) { }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             TallBox = false;
 
@@ -58,7 +58,7 @@ namespace CloudberryKingdom
             MyObject.Boxes[0].Animated = false;
         }
 
-        public void Release()
+        public override void Release()
         {
             BlockCore.Release();
             Core.MyLevel = null;
@@ -128,13 +128,13 @@ namespace CloudberryKingdom
             Update();
         }
 
-        public void Hit(Bob bob) { }
-        public void LandedOn(Bob bob)
+        public override void Hit(Bob bob) { }
+        public override void LandedOn(Bob bob)
         {
         }
-        public void HitHeadOn(Bob bob) { } public void SideHit(Bob bob) { } 
+        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { } 
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
@@ -192,7 +192,7 @@ namespace CloudberryKingdom
 
         public static int LengthOfPhaseChange = 35;
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             Active = Core.Active = true;
             if (!Core.Held)
@@ -262,7 +262,7 @@ namespace CloudberryKingdom
             BlockCore.StoodOn = false;
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Active) return;
 
@@ -295,7 +295,7 @@ namespace CloudberryKingdom
             MyObject.Update();   
         }
 
-        public void Extend(Side side, float pos)
+        public override void Extend(Side side, float pos)
         {
             switch (side)
             {
@@ -321,7 +321,7 @@ namespace CloudberryKingdom
             BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
             BlockCore.StartData.Position += shift;
@@ -330,7 +330,7 @@ namespace CloudberryKingdom
 
             Update();
         }
-        public void Draw()
+        public override void Draw()
         {
             if (Active)
             {
@@ -375,7 +375,7 @@ namespace CloudberryKingdom
             GhostBlock block = this as GhostBlock;
 
             // Ghost blocks delete surrounding blocks when stamped as used
-            foreach (Block gblock in Core.MyLevel.Blocks)
+            foreach (BlockBase gblock in Core.MyLevel.Blocks)
             {
                 GhostBlock ghost = gblock as GhostBlock;
                 if (null != ghost && !ghost.Core.MarkedForDeletion)
@@ -388,7 +388,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -397,21 +397,5 @@ namespace CloudberryKingdom
             Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
             MyBox.TopOnly = BlockA.MyBox.TopOnly;
         }
-
-        public void Write(BinaryWriter writer)
-        {
-            BlockCore.Write(writer);
-        }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
-//StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
-public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
-public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
-//StubStubStubEnd7
     }
 }

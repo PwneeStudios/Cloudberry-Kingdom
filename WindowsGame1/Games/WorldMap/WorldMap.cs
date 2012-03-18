@@ -184,7 +184,7 @@ namespace CloudberryKingdom
 
         void ProcessDoors()
         {
-            foreach (IObject obj in MyLevel.Objects)
+            foreach (ObjectBase obj in MyLevel.Objects)
             {
                 Door door = obj as Door; if (null == door || door.Core.MarkedForDeletion) continue;
 
@@ -528,7 +528,7 @@ namespace CloudberryKingdom
 
         protected virtual void MakeSpawnPoint()
         {
-            Block block = MyLevel.FindBlock("SpawnPoint");
+            BlockBase block = MyLevel.FindBlock("SpawnPoint");
             if (block != null)
             {
                 SetSpawnPoint(block.Pos, new Vector2(100, 0));
@@ -536,7 +536,7 @@ namespace CloudberryKingdom
                 return;
             }
 
-            IObject obj = MyLevel.FindIObject("Enter");
+            ObjectBase obj = MyLevel.FindIObject("Enter");
             if (obj != null)
             {
                 SetSpawnPoint(obj.Pos, Vector2.Zero);
@@ -548,7 +548,7 @@ namespace CloudberryKingdom
         protected virtual void MakeLevelIcons()
         {
             EzTexture levelicon = Tools.TextureWad.FindByName("levelicon");
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 Doodad doodad = block as Doodad;
                 if (null != doodad &&

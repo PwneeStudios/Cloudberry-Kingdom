@@ -9,7 +9,7 @@ namespace CloudberryKingdom
 {
     public class ContinuousDiff : GUI_Panel
     {
-        List<IObject> Objects = new List<IObject>();
+        List<ObjectBase> Objects = new List<ObjectBase>();
 
         void GetObjects()
         {

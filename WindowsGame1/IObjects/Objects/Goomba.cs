@@ -11,14 +11,14 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Goombas
 {
-    public class Goomba : ObjectBase, IObject, IBound
+    public class Goomba : ObjectBase, IBound
     {
         public enum BlobColor { Green, Pink, Blue, Grey, Gold };
         public enum PhsxType { Prescribed, ToTarget };
         public enum PrescribedMoveType { Line, Circle, Star };
 
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
             //MyObject.Release();
@@ -113,7 +113,7 @@ namespace CloudberryKingdom.Goombas
             return null;
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             CopySource = null;
 
@@ -412,7 +412,7 @@ namespace CloudberryKingdom.Goombas
             }
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Core.Active) return;
 
@@ -464,7 +464,7 @@ namespace CloudberryKingdom.Goombas
                 this.CollectSelf();
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
@@ -505,7 +505,7 @@ namespace CloudberryKingdom.Goombas
         }
 
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Core.Held)
             {
@@ -535,7 +535,7 @@ namespace CloudberryKingdom.Goombas
             Move(shift);
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
@@ -549,7 +549,7 @@ namespace CloudberryKingdom.Goombas
             MyObject.Update();
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.Active) return;
             if (Life <= 0) return;
@@ -677,7 +677,7 @@ namespace CloudberryKingdom.Goombas
             }
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
             Life = StartLife;
@@ -692,7 +692,7 @@ namespace CloudberryKingdom.Goombas
             MyObject.Update();
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -734,20 +734,20 @@ namespace CloudberryKingdom.Goombas
             Core.DrawLayer = 9;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

@@ -7,10 +7,10 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Balrogs
 {
-    public class BalrogFlyupTrigger : ObjectBase, IObject
+    public class BalrogFlyupTrigger : ObjectBase
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Balrogs
         int DurationIndex, Count;
         bool Triggered, DrawMark;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
         }
 
@@ -55,7 +55,7 @@ namespace CloudberryKingdom.Balrogs
             FlyupStart = Position - new Vector2(0, 2200);
         }
         
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Triggered = DrawMark = false;
             Count = DurationIndex = 0;
@@ -75,14 +75,14 @@ namespace CloudberryKingdom.Balrogs
             }
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             ColType col = Phsx.CollisionTest(bob.Box, TriggerBox);
             if (col != ColType.NoCol) Trigger();
         }
 
-        public void PhsxStep2() { }
-        public void PhsxStep()
+        public override void PhsxStep2() { }
+        public override void PhsxStep()
         {
             if (Triggered)
             {
@@ -107,7 +107,7 @@ namespace CloudberryKingdom.Balrogs
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (Triggered && DrawMark)
             {
@@ -121,7 +121,7 @@ namespace CloudberryKingdom.Balrogs
                 TriggerBox.DrawT(Tools.QDrawer, Color.Blue, 20);
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
 
@@ -130,32 +130,32 @@ namespace CloudberryKingdom.Balrogs
             Base.Origin += shift;
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 
-    public class Balrog : ObjectBase, IObject
+    public class Balrog : ObjectBase
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -172,7 +172,7 @@ public bool PreDecision(Bob bob) { return false; }
  
         public AABox Box;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             MyObject.Read(0, 0);
             MyObject.Update();
@@ -241,7 +241,7 @@ public bool PreDecision(Bob bob) { return false; }
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Active) return;
 
@@ -281,7 +281,7 @@ public bool PreDecision(Bob bob) { return false; }
             Box.SwapToCurrent();
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Active) return;
 
@@ -290,7 +290,7 @@ public bool PreDecision(Bob bob) { return false; }
             Box.SetTarget(Core.Data.Position, Box.Current.Size);            
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Active) return;
 
@@ -299,7 +299,7 @@ public bool PreDecision(Bob bob) { return false; }
             UpdateObject();
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
 
@@ -309,8 +309,8 @@ public bool PreDecision(Bob bob) { return false; }
             MyObject.Update();
         }
 
-        public void Reset(bool BoxesOnly) { }
-        public void Interact(Bob bob)
+        public override void Reset(bool BoxesOnly) { }
+        public override void Interact(Bob bob)
         {
             if (Active)
             {
@@ -325,25 +325,25 @@ public bool PreDecision(Bob bob) { return false; }
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

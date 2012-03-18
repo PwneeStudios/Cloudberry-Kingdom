@@ -148,7 +148,7 @@ namespace CloudberryKingdom
         void MakeBlob()
         {
             // Choose side
-            Block block;
+            BlockBase block;
             if (MyLevel.Rnd.RndBool())
                 block = MyLevel.FindBlock("BlobSpawn_Left");
             else

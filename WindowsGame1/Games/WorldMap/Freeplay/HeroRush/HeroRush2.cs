@@ -38,7 +38,7 @@ namespace CloudberryKingdom
             Vector2 pos = Tools.CurLevel.FinalDoor.Pos;
 
             // Delete the exit sign
-            foreach (IObject obj in Tools.CurLevel.Objects)
+            foreach (ObjectBase obj in Tools.CurLevel.Objects)
                 if (obj is Sign)
                     obj.Core.MarkedForDeletion = true;
 

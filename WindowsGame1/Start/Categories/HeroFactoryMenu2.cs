@@ -89,7 +89,7 @@ namespace CloudberryKingdom
         {
             if (MyGame == null || MyGame.MyLevel == null) return true;
 
-            foreach (Block block in MyGame.MyLevel.Blocks)
+            foreach (BlockBase block in MyGame.MyLevel.Blocks)
                 block.Move(new Vector2(0, -20));
             return false;
         }
@@ -174,7 +174,7 @@ namespace CloudberryKingdom
         {
             MyGame.KillToDo("MoveOut");
 
-            foreach (Block block in MyGame.MyLevel.Blocks)
+            foreach (BlockBase block in MyGame.MyLevel.Blocks)
                 block.CollectSelf();
         }
 

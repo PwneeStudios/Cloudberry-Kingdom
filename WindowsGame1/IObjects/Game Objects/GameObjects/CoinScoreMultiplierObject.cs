@@ -46,7 +46,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Every time a coin is grabbed increase the multiplier
         /// </summary>
-        public void OnCoinGrab(IObject obj)
+        public void OnCoinGrab(ObjectBase obj)
         {
             CoinScoreMultiplier++;
         }

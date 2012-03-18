@@ -8,9 +8,9 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class BerryBubble : ObjectBase, IObject
+    public partial class BerryBubble : ObjectBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
         public virtual void Release()
         {
             Core.Release();
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
                 quad.Degrees += degrees;
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.ResetOnlyOnReset = true;
 
@@ -148,7 +148,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
         }
 
@@ -174,7 +174,7 @@ namespace CloudberryKingdom
                 Box.Draw(new Color(50, 50, 255, 220));
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
             Core.StartData.Position += shift;
@@ -223,7 +223,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -232,20 +232,20 @@ namespace CloudberryKingdom
             Initialize(BerryBubbleA.Core.Data.Position);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

@@ -20,7 +20,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
             {
-                foreach (IObject obj in MyLevel.Objects)
+                foreach (ObjectBase obj in MyLevel.Objects)
                     if (obj is PrincessBubble || obj is Goombas.Goomba)
                         obj.CollectSelf();
 
@@ -203,16 +203,16 @@ namespace CloudberryKingdom
             BringCastle_Start();
         }
 
-        Block castleblock = null;
+        BlockBase castleblock = null;
         Vector2 vel;
         List<Goomba> blobs;
         ObjectGroup castle;
         void BringCastle_Start()
         {
             // Get castle
-            Block grass = null;
+            BlockBase grass = null;
             castle = new ObjectGroup();
-            foreach (IObject obj in MyLevel.Objects)
+            foreach (ObjectBase obj in MyLevel.Objects)
             {
                 // Don't grab camzones
                 if (obj is ZoneTrigger) continue;
@@ -220,7 +220,7 @@ namespace CloudberryKingdom
                 if (obj.Core.Show && !(obj is Bob))
                     castle.Add(obj);
             }
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 // Don't grab invisible things, unless it's icon positions
                 if (!block.Core.Show && block.Core.EditorCode3.CompareTo("icon") != 0) continue;

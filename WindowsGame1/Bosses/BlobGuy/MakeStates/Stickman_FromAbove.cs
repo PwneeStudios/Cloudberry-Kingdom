@@ -114,7 +114,7 @@ namespace CloudberryKingdom
 
         private void MakeLasers()
         {
-            foreach (IObject obj in Core.MyLevel.Objects)
+            foreach (ObjectBase obj in Core.MyLevel.Objects)
                 if (obj is Laser)
                     return;
                     //obj.CollectSelf();

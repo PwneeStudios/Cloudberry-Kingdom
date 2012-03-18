@@ -11,12 +11,12 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Spikes
 {
-    public class Spike : ObjectBase, IObject
+    public class Spike : ObjectBase
     {
         static bool PeakOut = true;
 
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             //MyObject.Release();
             Core.Release();
@@ -44,7 +44,7 @@ namespace CloudberryKingdom.Spikes
             WaitT2 = (int)(40 * Period / Total);
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             MyObject.Linear = true;
 
@@ -131,7 +131,7 @@ namespace CloudberryKingdom.Spikes
             Box = new AABox(Core.Data.Position, MyObject.Boxes[0].Size() / 2);
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             Core.PosFromParentOffset();
 
@@ -165,7 +165,7 @@ namespace CloudberryKingdom.Spikes
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (Core.SkippedPhsx) return;
 
@@ -233,7 +233,7 @@ namespace CloudberryKingdom.Spikes
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             /*
             Vector2 BL = Box.Current.BL - new Vector2(50, 50); // MyQuad.BL();
@@ -253,7 +253,7 @@ namespace CloudberryKingdom.Spikes
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
 
@@ -263,12 +263,12 @@ namespace CloudberryKingdom.Spikes
             MyObject.Update();
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.SkippedPhsx && Exposed)
             {
@@ -299,7 +299,7 @@ namespace CloudberryKingdom.Spikes
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
                         
@@ -320,20 +320,20 @@ namespace CloudberryKingdom.Spikes
             Exposed = SpikeA.Exposed;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

@@ -22,10 +22,10 @@ namespace CloudberryKingdom.Bobs
 {
     public enum HandState { Null, Open, Closed };
     public enum HoldingState { Null, Nothing, New, Old };
-    public class Hand : ObjectBase, IObject
+    public class Hand : ObjectBase
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -43,14 +43,14 @@ namespace CloudberryKingdom.Bobs
 
         HandState MyHandState;
         HoldingState MyHoldingState;
-        IObject HeldObject;
+        ObjectBase HeldObject;
         Vector2 HeldObjOffset;
 
         int HeldCount = 0;
         float SelectOffset;
 
-        Block CopyBlock;
-        IObject CopyObj;
+        BlockBase CopyBlock;
+        ObjectBase CopyObj;
 
         public void SetState(HandState NewState)
         {
@@ -79,7 +79,7 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             SetState(HandState.Open);
             SetState(HoldingState.Nothing);
@@ -142,18 +142,18 @@ namespace CloudberryKingdom.Bobs
             {
                 if (HeldObject != null)
                 {
-                    Block block = HeldObject as Block;
+                    BlockBase block = HeldObject as BlockBase;
                     if (null != block)
                     {
-                        CopyBlock = (Block)HeldObject;
+                        CopyBlock = (BlockBase)HeldObject;
                         CopyObj = null;
                     }
                     else
                     {
-                        IObject Obj = HeldObject as IObject;
+                        ObjectBase Obj = HeldObject as ObjectBase;
                         if (null != Obj)
                         {
-                            CopyObj = (IObject)HeldObject;
+                            CopyObj = (ObjectBase)HeldObject;
                             CopyBlock = null;
                         }
                     }
@@ -165,7 +165,7 @@ namespace CloudberryKingdom.Bobs
             {
                 if (CopyBlock != null)
                 {
-                    Block block = (Block)Core.Recycle.GetObject(CopyBlock.Core.MyType, false);
+                    BlockBase block = (BlockBase)Core.Recycle.GetObject(CopyBlock.Core.MyType, false);
                     block.Clone(CopyBlock);
                     Core.MyLevel.AddBlock(block);
                     block.Move(Core.Data.Position - block.Core.Data.Position);
@@ -175,7 +175,7 @@ namespace CloudberryKingdom.Bobs
                 {
                     if (CopyObj != null)
                     {
-                        IObject Obj = (IObject)Core.Recycle.GetObject(CopyObj.Core.MyType, false);
+                        ObjectBase Obj = (ObjectBase)Core.Recycle.GetObject(CopyObj.Core.MyType, false);
                         Obj.Clone(CopyObj);
                         Core.MyLevel.AddObject(Obj);
                         Obj.Move(Core.Data.Position - Obj.Core.Data.Position);
@@ -426,7 +426,7 @@ namespace CloudberryKingdom.Bobs
 
                 if (MyHandState == HandState.Closed && MyHoldingState != HoldingState.Nothing)
                 {
-                    Block block = HeldObject as Block;
+                    BlockBase block = HeldObject as BlockBase;
                     if (null != block)
                     {
                         if (Tools.keybState.IsKeyDown(Keys.Down))
@@ -573,10 +573,10 @@ namespace CloudberryKingdom.Bobs
             // Clear all
             if (Tools.keybState.IsKeyDownCustom(Keys.K) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.K))
             {
-                foreach (Block block in Core.MyLevel.Blocks)
+                foreach (BlockBase block in Core.MyLevel.Blocks)
                     Core.Recycle.CollectObject(block);
 
-                foreach (IObject obj in Core.MyLevel.Objects)
+                foreach (ObjectBase obj in Core.MyLevel.Objects)
                     if (obj != this)
                         Core.Recycle.CollectObject(obj);
             }
@@ -604,9 +604,9 @@ namespace CloudberryKingdom.Bobs
                 if (MyHandState == HandState.Open)
                 {
                     // Check to see if we grab anything
-                    IObject BestFitObj = null;
+                    ObjectBase BestFitObj = null;
                     float BestFit = 0;
-                    foreach (Block block in Core.MyLevel.Blocks)
+                    foreach (BlockBase block in Core.MyLevel.Blocks)
                     {
                         if (!block.Core.EditHoldable) continue;
                         if (!Tools.CurLevel.ShowDrawLayer[block.Core.DrawLayer]) continue;
@@ -645,7 +645,7 @@ namespace CloudberryKingdom.Bobs
                         }
                     }
 
-                    foreach (IObject obj in Core.MyLevel.Objects)
+                    foreach (ObjectBase obj in Core.MyLevel.Objects)
                     {
                         if (obj.Core.DrawLayer < 0 || !Tools.CurLevel.ShowDrawLayer[obj.Core.DrawLayer]) continue;
 #if WINDOWS
@@ -685,7 +685,7 @@ namespace CloudberryKingdom.Bobs
             MyQuad.Base.Origin = Core.Data.Position;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (Tools.ScreenshotMode || Tools.CapturingVideo) return;
 
@@ -702,18 +702,18 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
 
             Box.Move(shift);
         }
 
-        public void Reset(bool BoxesOnly) { }
-        public void Interact(Bob bob) { }
+        public override void Reset(bool BoxesOnly) { }
+        public override void Interact(Bob bob) { }
 
-        public void PhsxStep2() { }
-        public void PhsxStep()
+        public override void PhsxStep2() { }
+        public override void PhsxStep()
         {
             // Enforce camera boundary
             Core.Data.Position.X = Math.Max(Core.MyLevel.MainCamera.BL.X, Core.Data.Position.X);
@@ -735,24 +735,24 @@ namespace CloudberryKingdom.Bobs
 #endif
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
         }
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

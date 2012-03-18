@@ -251,7 +251,7 @@ namespace CloudberryKingdom
 
             int count = 1;
             EzTexture levelicon = Tools.TextureWad.FindByName("levelicon");
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 Doodad doodad = block as Doodad;
                 if (null != doodad && doodad.MyQuad.Quad.MyTexture == levelicon)

@@ -7,9 +7,9 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Blocks
 {
-    public class MovingPlatform : BlockBase, Block
+    public class MovingPlatform : BlockBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         public enum MoveType { Normal, Sine };
         public MoveType MyMoveType;
@@ -27,7 +27,7 @@ namespace CloudberryKingdom.Blocks
             get { return (BlockEmitter_Parameters)Core.MyLevel.Style.FindParams(BlockEmitter_AutoGen.Instance); }
         }
 
-        public bool PermissionToUse()
+        public override bool PermissionToUse()
         {
             if (Params.MyStyle == BlockEmitter_Parameters.Style.Separated)
             {
@@ -43,7 +43,7 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
-        public void LandedOn(Bob bob)
+        public override void LandedOn(Bob bob)
         {
             if (Core.MyLevel.PlayMode == 2)
             {
@@ -53,13 +53,13 @@ namespace CloudberryKingdom.Blocks
                     Core.GenData.EdgeJumpOnly = true;
             }
         }
-        public void OnUsed()
+        public override void OnUsed()
         {
             Params.LastUsedTimeStamp = Core.MyLevel.CurPhsxStep;
             Parent.StampAsUsed(Core.MyLevel.CurPhsxStep);
         }
 
-        public void OnMarkedForDeletion()
+        public override void OnMarkedForDeletion()
         {
             if (Parent != null)
                 Parent.RemovePlatform(this);
@@ -73,7 +73,7 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             MyMoveType = MoveType.Normal;
 
@@ -93,7 +93,7 @@ namespace CloudberryKingdom.Blocks
              */
         }
 
-        public void Release()
+        public override void Release()
         {
             BlockCore.Release();
             Core.MyLevel = null;
@@ -143,7 +143,7 @@ namespace CloudberryKingdom.Blocks
         }
 
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
             BlockCore.StartData.Position += shift;
@@ -151,10 +151,10 @@ namespace CloudberryKingdom.Blocks
             Box.Move(shift);
         }
 
-        public void Hit(Bob bob) { }
-        public void HitHeadOn(Bob bob) { } public void SideHit(Bob bob) { } 
+        public override void Hit(Bob bob) { }
+        public override void HitHeadOn(Bob bob) { } public override void SideHit(Bob bob) { } 
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
@@ -167,7 +167,7 @@ namespace CloudberryKingdom.Blocks
             MyBox.SwapToCurrent();
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Active) return;
 
@@ -219,7 +219,7 @@ namespace CloudberryKingdom.Blocks
             MyQuad.Update();
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Active) return;
 
@@ -227,7 +227,7 @@ namespace CloudberryKingdom.Blocks
         }
 
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Active || (Parent != null && !Parent.Active)) return;
 
@@ -249,10 +249,10 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
-        public void Extend(Side side, float pos) { }
-        public void Interact(Bob bob) { }
+        public override void Extend(Side side, float pos) { }
+        public override void Interact(Bob bob) { }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             MovingPlatform BlockA = A as MovingPlatform;
             BlockCore.Clone(A.Core);
@@ -269,17 +269,17 @@ namespace CloudberryKingdom.Blocks
             Active = BlockA.Active;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             BlockCore.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnAttachedToBlock() { }
+public override void OnAttachedToBlock() { }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

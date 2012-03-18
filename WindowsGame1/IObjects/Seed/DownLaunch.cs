@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : ObjectBase, IObject, ILevelConnector
+    public partial class Seed : ObjectBase, ILevelConnector
     {
         public void Start_DownLaunch()
         {

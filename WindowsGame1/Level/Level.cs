@@ -165,7 +165,7 @@ namespace CloudberryKingdom.Levels
 
         public void PushLava(float y)
         {
-            Block lava = Blocks.Find(match => match is LavaBlock);
+            BlockBase lava = Blocks.Find(match => match is LavaBlock);
             if (null != lava)
                 PushLava(y, lava as LavaBlock);
         }
@@ -217,7 +217,7 @@ namespace CloudberryKingdom.Levels
 
         public int Par;
 
-        public Block FinalPlat;
+        public BlockBase FinalPlat;
         public CameraZone FinalCamZone;
         public bool LevelCleared;
 
@@ -251,7 +251,7 @@ namespace CloudberryKingdom.Levels
         public bool FreeReset;
 
         public bool ObjectsLocked;
-        public List<IObject> Objects, AddedObjects;
+        public List<ObjectBase> Objects, AddedObjects;
 
         /// <summary>
         /// Active draw layer. Used while editing a level. This is the layer a new item is placed in.
@@ -273,7 +273,7 @@ namespace CloudberryKingdom.Levels
         /// This draw layer is drawn after the Game class's post draw method.
         /// </summary>
         public static int AfterPostDrawLayer = 12;
-        List<IObject>[] DrawLayer = new List<IObject>[NumDrawLayers];
+        List<ObjectBase>[] DrawLayer = new List<ObjectBase>[NumDrawLayers];
         public ParticleEmitter[] ParticleEmitters = new ParticleEmitter[NumDrawLayers];
 
         public void ShuffleLayer(int i)
@@ -281,7 +281,7 @@ namespace CloudberryKingdom.Levels
             DrawLayer[i] = Rnd.Shuffle(DrawLayer[i]);
         }
 
-        public List<Block> Blocks, AddedBlocks;
+        public List<BlockBase> Blocks, AddedBlocks;
         public List<Bob> Bobs, HoldPlayerBobs;
         public Vector2 HoldCamPos;
 
@@ -355,10 +355,10 @@ namespace CloudberryKingdom.Levels
             PopTemplate.ColorVel = new Vector4(0, 0, 0, -.065f);
 
 
-            Blocks = new List<Block>(2000);
+            Blocks = new List<BlockBase>(2000);
 
-            Objects = new List<IObject>(2000);
-            AddedObjects = new List<IObject>(1000);
+            Objects = new List<ObjectBase>(2000);
+            AddedObjects = new List<ObjectBase>(1000);
             ObjectsLocked = false;
 
             CreateActiveObjectList();
@@ -367,7 +367,7 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < NumDrawLayers; i++)
             {
                 ShowDrawLayer[i] = true;
-                DrawLayer[i] = new List<IObject>(300);
+                DrawLayer[i] = new List<ObjectBase>(300);
                 if (!NoParticles)
                     ParticleEmitters[i] =
                         ParticleEmitter.Pool.Get();
@@ -431,12 +431,12 @@ namespace CloudberryKingdom.Levels
             MySwarmBundle = null;
             
             if (Blocks != null)
-                foreach (Block block in Blocks)
+                foreach (BlockBase block in Blocks)
                     block.Release();
             Blocks = null;
 
             if (Objects != null)
-                foreach (IObject obj in Objects)
+                foreach (ObjectBase obj in Objects)
                 {
                     obj.Core.MyLevel = null;
                     obj.Release();
@@ -474,18 +474,18 @@ namespace CloudberryKingdom.Levels
             get { return FindIObject(LevelConnector.StartOfLevelCode) as Door; }
         }
 
-        public IObject FindIObject(string Code1)
+        public ObjectBase FindIObject(string Code1)
         {
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0)
                     return obj;
 
             return null;
         }
 
-        public IObject FindIObject(string Code1, string Code2)
+        public ObjectBase FindIObject(string Code1, string Code2)
         {
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0 &&
                     string.Compare(obj.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0)
                     return obj;
@@ -493,9 +493,9 @@ namespace CloudberryKingdom.Levels
             return null;
         }
 
-        public IObject FindIObject(string Code1, string Code2, string Code3)
+        public ObjectBase FindIObject(string Code1, string Code2, string Code3)
         {
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if ((Code1.Length == 0 || string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (Code2.Length == 0 || string.Compare(obj.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (Code3.Length == 0 || string.Compare(obj.Core.EditorCode3, Code3, StringComparison.OrdinalIgnoreCase) == 0))
@@ -506,23 +506,23 @@ namespace CloudberryKingdom.Levels
 
         public void HideAll(string Code1)
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (block.Core == Code1)
                     block.Core.Show = false;
         }
 
-        public Block FindBlock(string Code1)
+        public BlockBase FindBlock(string Code1)
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0)
                     return block;
 
             return null;
         }
 
-        public Block FindBlock(string Code1, string Code2)
+        public BlockBase FindBlock(string Code1, string Code2)
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if ((Code1.Length == 0 || string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (Code2.Length == 0 || string.Compare(block.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0))
                     return block;
@@ -530,9 +530,9 @@ namespace CloudberryKingdom.Levels
             return null;
         }
 
-        public Block FindBlock(string Code1, string Code2, string Code3)
+        public BlockBase FindBlock(string Code1, string Code2, string Code3)
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if ((Code1.Length == 0 || string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (Code2.Length == 0 || string.Compare(block.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (Code3.Length == 0 || string.Compare(block.Core.EditorCode3, Code3, StringComparison.OrdinalIgnoreCase) == 0))
@@ -608,9 +608,9 @@ namespace CloudberryKingdom.Levels
             stream.Close();
 
             // Initialize blocks
-            AddedBlocks = new List<Block>();
+            AddedBlocks = new List<BlockBase>();
             Doodad doodad;
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 block.BlockCore.OnlyCollidesWithLowerLayers = false;
                 block.Box.Invalidated = true;
@@ -648,18 +648,18 @@ namespace CloudberryKingdom.Levels
                 }
             }
 
-            foreach (Block block in AddedBlocks)
+            foreach (BlockBase block in AddedBlocks)
                 AddBlock(block);
             AddedBlocks.Clear();
         }
 
         public void PurgeEditables()
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (block.Core.EditHoldable)
                     Recycle.CollectObject(block);
 
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (obj.Core.EditHoldable)
                     Recycle.CollectObject(obj);
         }
@@ -671,7 +671,7 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < Num; i++)
             {
                 ObjectType type = (ObjectType)reader.ReadInt32();
-                Block block = (Block)Recycle.GetObject(type, false);
+                BlockBase block = (BlockBase)Recycle.GetObject(type, false);
                 block.Read(reader);
 
                 AddBlock(block);
@@ -689,14 +689,14 @@ namespace CloudberryKingdom.Levels
                     //continue;
 
                     type = ObjectType.Coin;
-                    IObject obj = (IObject)Recycle.GetObject(type, false);
+                    ObjectBase obj = (ObjectBase)Recycle.GetObject(type, false);
                     obj.Read(reader);
                     continue;
                 }
                 else
                 {
                     //if (type == ObjectType.Undefined) type = ObjectType.Coin;
-                    IObject obj = (IObject)Recycle.GetObject(type, false);
+                    ObjectBase obj = (ObjectBase)Recycle.GetObject(type, false);
                     obj.Read(reader);
 
                     AddObject(obj, false);
@@ -705,7 +705,7 @@ namespace CloudberryKingdom.Levels
 
             // Sort sublayers
             for (int i = 0; i < NumDrawLayers; i++)
-                DrawLayer[i].Sort(delegate(IObject A, IObject B) { return A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer); });
+                DrawLayer[i].Sort(delegate(ObjectBase A, ObjectBase B) { return A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer); });
         }
 
         public void Write(BinaryWriter writer)
@@ -719,14 +719,14 @@ namespace CloudberryKingdom.Levels
 
             // count number of blocks to save
             int Num = 0;
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (block.Core.EditHoldable)
                     Num++;
 
             // record the number
             writer.Write(Num);
 
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 if (block.Core.EditHoldable)
                 {
@@ -737,14 +737,14 @@ namespace CloudberryKingdom.Levels
 
             // count number of objects to save
             Num = 0;
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (obj.Core.EditHoldable)
                     Num++;
 
             // record the number
             writer.Write(Num);
 
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 if (obj.Core.EditHoldable)
                 {
@@ -771,10 +771,10 @@ namespace CloudberryKingdom.Levels
                 piece.Shift(shift);
             }
 
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 block.Move(shift);
 
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 obj.Move(shift);
 
             foreach (Bob bob in Bobs)
@@ -786,7 +786,7 @@ namespace CloudberryKingdom.Levels
 
         public void KeepCoinsDead()
         {
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;
                 if (null != coin)
@@ -897,9 +897,9 @@ namespace CloudberryKingdom.Levels
         /// Gets the objects associated with a GUID.
         /// If the object is marked for deletion then null is returned.
         /// </summary>
-        public IObject GuidToObj(UInt64 guid)
+        public ObjectBase GuidToObj(UInt64 guid)
         {
-            IObject obj = LookupGUID(guid);
+            ObjectBase obj = LookupGUID(guid);
             if (obj != null && obj.Core.MarkedForDeletion)
                 return null;
             else
@@ -910,9 +910,9 @@ namespace CloudberryKingdom.Levels
         /// Gets the objects associated with a list of GUIDs.
         /// If the object is marked for deletion then null is returned.
         /// </summary>
-        public List<IObject> GuidToObj(List<UInt64> guids)
+        public List<ObjectBase> GuidToObj(List<UInt64> guids)
         {
-            List<IObject> list = new List<IObject>();
+            List<ObjectBase> list = new List<ObjectBase>();
             foreach (UInt64 guid in guids) list.Add(GuidToObj(guid));
             return list;
         }
@@ -921,9 +921,9 @@ namespace CloudberryKingdom.Levels
         /// Gets the object associated with a GUID, even if that object is marked for deletion.
         /// If no such object exists then null is returned.
         /// </summary>
-        public IObject LookupGUID(UInt64 guid)
+        public ObjectBase LookupGUID(UInt64 guid)
         {
-            IObject FoundObj = Objects.Find(obj => obj.Core.MyGuid == guid);
+            ObjectBase FoundObj = Objects.Find(obj => obj.Core.MyGuid == guid);
             if (FoundObj != null)
                 return FoundObj;
 
@@ -1043,10 +1043,10 @@ namespace CloudberryKingdom.Levels
 
 
 
-            foreach (Block block in Blocks) if (block.Core.RemoveOnReset) Recycle.CollectObject(block);
+            foreach (BlockBase block in Blocks) if (block.Core.RemoveOnReset) Recycle.CollectObject(block);
             CleanBlockList();
             
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 block.Reset(BoxesOnly);
                 if (block.BlockCore.Objects != null)
@@ -1068,15 +1068,15 @@ namespace CloudberryKingdom.Levels
             foreach (Block block in NewBlocks) AddBlock(block);
             */
             
-            foreach (IObject obj in Objects) if (obj.Core.RemoveOnReset) Recycle.CollectObject(obj);
+            foreach (ObjectBase obj in Objects) if (obj.Core.RemoveOnReset) Recycle.CollectObject(obj);
             CleanAllObjectLists();
-            List<IObject> NewObjects = new List<IObject>();
+            List<ObjectBase> NewObjects = new List<ObjectBase>();
 
             
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 obj.Reset(BoxesOnly);         
-                IObject NewObj;
+                ObjectBase NewObj;
                 if (obj.Core.ResetOnlyOnReset)
                     NewObj = obj;
                 else
@@ -1092,7 +1092,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Recover correct object pointers from GUIDs
-            foreach (IObject obj in NewObjects)
+            foreach (ObjectBase obj in NewObjects)
             {
                 if (obj.Core.ParentObject != null)
                 {
@@ -1104,11 +1104,11 @@ namespace CloudberryKingdom.Levels
 
 
             ClearAllObjectLists();
-            foreach (IObject obj in NewObjects)
+            foreach (ObjectBase obj in NewObjects)
             {
                 AddObject(obj, false);
             }
-            foreach (IObject block in Blocks)
+            foreach (ObjectBase block in Blocks)
                 ReAddObject(block);
             
 
@@ -1139,7 +1139,7 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public void SynchObject(IObject obj)
+        public void SynchObject(ObjectBase obj)
         {
             if (obj.Core.MyLevel == null)
                 obj.Core.StepOffset = 0;
@@ -1147,7 +1147,7 @@ namespace CloudberryKingdom.Levels
                 obj.Core.StepOffset = obj.Core.MyLevel.GetPhsxStep() - GetPhsxStep();
         }
 
-        public void MoveUpOneSublayer(IObject obj)
+        public void MoveUpOneSublayer(ObjectBase obj)
         {
             int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj) + 1;
             int N = DrawLayer[obj.Core.DrawLayer].Count;
@@ -1156,7 +1156,7 @@ namespace CloudberryKingdom.Levels
             DrawLayer[obj.Core.DrawLayer].Insert(i, obj);
         }
 
-        public void MoveToTopOfDrawLayer(IObject obj)
+        public void MoveToTopOfDrawLayer(ObjectBase obj)
         {
             int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj);
             int N = DrawLayer[obj.Core.DrawLayer].Count;
@@ -1166,7 +1166,7 @@ namespace CloudberryKingdom.Levels
             DrawLayer[obj.Core.DrawLayer].Insert(N - 1, obj);
         }
 
-        public void MoveDownOneSublayer(IObject obj)
+        public void MoveDownOneSublayer(ObjectBase obj)
         {
             int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj) - 1;
             int N = DrawLayer[obj.Core.DrawLayer].Count;
@@ -1175,7 +1175,7 @@ namespace CloudberryKingdom.Levels
             DrawLayer[obj.Core.DrawLayer].Insert(i, obj);
         }
 
-        public void ChangeObjectDrawLayer(IObject obj, int DestinationLayer)
+        public void ChangeObjectDrawLayer(ObjectBase obj, int DestinationLayer)
         {
             if (obj.Core.DrawLayer == DestinationLayer)
                 return;
@@ -1185,7 +1185,7 @@ namespace CloudberryKingdom.Levels
             obj.Core.DrawLayer = DestinationLayer;
         }
 
-        public void RelayerObject(IObject Obj, int NewLayer, bool Front)
+        public void RelayerObject(ObjectBase Obj, int NewLayer, bool Front)
         {
             DrawLayer[Obj.Core.DrawLayer].Remove(Obj);
 
@@ -1198,11 +1198,11 @@ namespace CloudberryKingdom.Levels
         }
 
         //Dictionary<IObject, bool> AllObjects = new Dictionary<IObject, bool>();
-        public void AddObject(IObject NewObject)
+        public void AddObject(ObjectBase NewObject)
         {
             AddObject(NewObject, true);
         }
-        public void AddObject(IObject NewObject, bool AddTimeStamp)
+        public void AddObject(ObjectBase NewObject, bool AddTimeStamp)
         {
             if (AddTimeStamp)
                 NewObject.Core.AddedTimeStamp = CurPhsxStep;
@@ -1244,7 +1244,7 @@ namespace CloudberryKingdom.Levels
         /// Call to add an object back to the level,
         /// assuming it was never deleted from the main object/block list, nor the main dictionary.
         /// </summary>
-        public void ReAddObject(IObject NewObject)
+        public void ReAddObject(ObjectBase NewObject)
         {
             //AllObjects.Add(NewObject, true);
             DrawLayer[NewObject.Core.DrawLayer].Add(NewObject);
@@ -1255,11 +1255,11 @@ namespace CloudberryKingdom.Levels
                 DrawLayer[NewObject.Core.DrawLayer3].Add(NewObject);
         }
 
-        public List<IObject> PreRecycleBin = new List<IObject>(1000);
+        public List<ObjectBase> PreRecycleBin = new List<ObjectBase>(1000);
 
         void EmptyPreRecycleBin()
         {
-            foreach (IObject obj in PreRecycleBin)
+            foreach (ObjectBase obj in PreRecycleBin)
             {
                 //if (obj is MovingPlatform && ((MovingPlatform)obj).Parent != null) Tools.Write("!");
                 obj.Core.MarkedForDeletion = false;
@@ -1312,11 +1312,11 @@ namespace CloudberryKingdom.Levels
 
 
 
-        public void AddBlock(Block block)
+        public void AddBlock(BlockBase block)
         {
             AddBlock(block, true);
         }
-        public void AddBlock(Block block, bool AddTimeStamp)
+        public void AddBlock(BlockBase block, bool AddTimeStamp)
         {
             // Add a time stamp
             if (AddTimeStamp)
@@ -1414,7 +1414,7 @@ namespace CloudberryKingdom.Levels
             }
 
 
-            foreach (IObject obj in DrawLayer[i])
+            foreach (ObjectBase obj in DrawLayer[i])
                 if (obj.Core.Show
 #if WINDOWS
                     || Tools.Editing)
@@ -1426,7 +1426,7 @@ namespace CloudberryKingdom.Levels
 
             if (MyGame != null && MyGame.DrawObjectText)
             {
-                foreach (IObject obj in DrawLayer[i])
+                foreach (ObjectBase obj in DrawLayer[i])
                     obj.TextDraw();
                 Tools.EndSpriteBatch();
             }
@@ -1638,25 +1638,25 @@ namespace CloudberryKingdom.Levels
 
         public void FinalizeBlocks()
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 block.BlockCore.Finalized = true;
         }
 
         public void TagAll(int Tag)
         {
-            foreach (IObject obj in Objects) obj.Core.Tag = Tag;
-            foreach (Block block in Blocks) block.Core.Tag = Tag;
+            foreach (ObjectBase obj in Objects) obj.Core.Tag = Tag;
+            foreach (BlockBase block in Blocks) block.Core.Tag = Tag;
         }
 
         // Take all objects in a different level and add them
         public void AddLevelBlocks(Level level)
         {
-            foreach (Block block in level.Blocks) AddBlock(block);
+            foreach (BlockBase block in level.Blocks) AddBlock(block);
             //level.RemoveForeignObjects();
         }
         public void AddLevelBlocks(Level level, int Tag)
         {
-            foreach (Block block in level.Blocks) if (block.Core.Tag == Tag && !block.Core.DoNotScrollOut) AddBlock(block);
+            foreach (BlockBase block in level.Blocks) if (block.Core.Tag == Tag && !block.Core.DoNotScrollOut) AddBlock(block);
             level.RemoveForeignObjects();
         }
         public void AddLevelObjects(Level level)
@@ -1666,12 +1666,12 @@ namespace CloudberryKingdom.Levels
         }
         public void AddLevelObjects(Level level, Vector2 p1, Vector2 p2)
         {
-            foreach (IObject obj in level.Objects) if (IsBetween(obj.Core.Data.Position, p1, p2) && !obj.Core.DoNotScrollOut) AddObject(obj, false);
+            foreach (ObjectBase obj in level.Objects) if (IsBetween(obj.Core.Data.Position, p1, p2) && !obj.Core.DoNotScrollOut) AddObject(obj, false);
             //level.RemoveForeignObjects();
         }
         public void AddLevelObjects(Level level, int Tag)
         {
-            foreach (IObject obj in level.Objects) if (obj.Core.Tag == Tag && !obj.Core.DoNotScrollOut) AddObject(obj, false);
+            foreach (ObjectBase obj in level.Objects) if (obj.Core.Tag == Tag && !obj.Core.DoNotScrollOut) AddObject(obj, false);
             level.RemoveForeignObjects();
         }
 
@@ -1724,19 +1724,19 @@ namespace CloudberryKingdom.Levels
         /// <summary>
         /// Get a list of all objects in the level of a given type.
         /// </summary>
-        public List<IObject> GetObjectList(ObjectType type)
+        public List<ObjectBase> GetObjectList(ObjectType type)
         {
-            List<IObject> list = new List<IObject>();
+            List<ObjectBase> list = new List<ObjectBase>();
 
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (obj.Core.MyType == type && !obj.Core.MarkedForDeletion)
                     list.Add(obj);
 
             return list;
         }
 
-        public delegate Vector2 Metric(IObject A, IObject B);
-        static Vector2 DefaultMetric(IObject A, IObject B)
+        public delegate Vector2 Metric(ObjectBase A, ObjectBase B);
+        static Vector2 DefaultMetric(ObjectBase A, ObjectBase B)
         {
             return new Vector2(
                 Math.Abs(A.Core.Data.Position.X - B.Core.Data.Position.X),
@@ -1753,25 +1753,25 @@ namespace CloudberryKingdom.Levels
         }
         public void Cleanup(ObjectType type, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR, Metric metric)
         {
-            List<IObject> CleanupList = GetObjectList(type);
+            List<ObjectBase> CleanupList = GetObjectList(type);
 
             Cleanup(CleanupList, MinDistFunc, false, BL, TR, metric);
         }
 
-        public void Cleanup(List<IObject> ObjList, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR)
+        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR)
         {
             Cleanup(ObjList, MinDistFunc, false, BL, TR);
         }
         // If MustBeDifferent is set, then only two objects of different types can force a deletion
-        public void Cleanup(List<IObject> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR)
+        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR)
         {
             Cleanup(ObjList, MinDistFunc, MustBeDifferent, BL, TR, DefaultMetric);
         }
-        public void Cleanup(List<IObject> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, Metric metric)
+        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, Metric metric)
         {
             if (ObjList == null) return;
 
-            foreach (IObject obj in ObjList)
+            foreach (ObjectBase obj in ObjList)
             {
                 if (obj.Core.GenData.EnforceBounds)
                 if (obj.Core.Data.Position.X > TR.X || obj.Core.Data.Position.X < BL.X ||
@@ -1799,9 +1799,9 @@ namespace CloudberryKingdom.Levels
         }
 
 
-        void CheckAgainst(IObject obj, List<IObject> ObjList, CleanupCallback MinDistFunc, Metric metric, bool MustBeDifferent)
+        void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, CleanupCallback MinDistFunc, Metric metric, bool MustBeDifferent)
         {
-            foreach (IObject obj2 in ObjList)
+            foreach (ObjectBase obj2 in ObjList)
             {
                 if (!obj2.Core.GenData.LimitDensity) return;
 
@@ -2063,7 +2063,7 @@ namespace CloudberryKingdom.Levels
 
         void UpdateBlocks()
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (!block.Core.MarkedForDeletion)
                     block.PhsxStep();
         }
@@ -2071,7 +2071,7 @@ namespace CloudberryKingdom.Levels
         void UpdateObjects()
         {
             //foreach (IObject Object in Objects)
-            foreach (IObject Object in ActiveObjectList)
+            foreach (ObjectBase Object in ActiveObjectList)
             {
                 if (!Object.Core.IsGameObject && !Object.Core.MarkedForDeletion)
                     Object.PhsxStep();
@@ -2080,7 +2080,7 @@ namespace CloudberryKingdom.Levels
 
         void UpdateBlocks2()
         {
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (!block.Core.MarkedForDeletion)
                     block.PhsxStep2();
         }
@@ -2088,7 +2088,7 @@ namespace CloudberryKingdom.Levels
         void UpdateObjects2()
         {
             //foreach (IObject Object in Objects)
-            foreach (IObject Object in ActiveObjectList)
+            foreach (ObjectBase Object in ActiveObjectList)
             {
                 if (!Object.Core.MarkedForDeletion)
                     Object.PhsxStep2();
@@ -2345,23 +2345,23 @@ namespace CloudberryKingdom.Levels
 
         private void EditingPhsxStep()
         {
-            foreach (IObject obj in Objects)
-                if (obj is Block)
-                    Blocks.Add((Block)obj);
+            foreach (ObjectBase obj in Objects)
+                if (obj is BlockBase)
+                    Blocks.Add((BlockBase)obj);
 
-            Objects.RemoveAll(obj => obj is Block);
+            Objects.RemoveAll(obj => obj is BlockBase);
         }
 
 
 
 
-        public List<IObject> ActiveObjectList;
+        public List<ObjectBase> ActiveObjectList;
 
         void CreateActiveObjectList()
         {
             if (BoxesOnly)
             {
-                ActiveObjectList = new List<IObject>();
+                ActiveObjectList = new List<ObjectBase>();
                 ResetActiveObjectList();
             }
             else
@@ -2375,7 +2375,7 @@ namespace CloudberryKingdom.Levels
             ActiveObjectList.Clear();
             
             // Keep active all objects that didn't skip their phsx the previous step.
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 if (!obj.Core.SkippedPhsx && !obj.Core.MarkedForDeletion)
                 {
@@ -2395,7 +2395,7 @@ namespace CloudberryKingdom.Levels
 
             ActiveObjectList.Clear();
             //ActiveObjectList.AddRange(Objects);
-            foreach (IObject obj in Objects) ActiveObjectList.Add(obj);
+            foreach (ObjectBase obj in Objects) ActiveObjectList.Add(obj);
         }
 
 
@@ -2425,7 +2425,7 @@ namespace CloudberryKingdom.Levels
         {
             NumCoins = 0;
             TotalCoinScore = 0;
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;
                 if (null != coin && !coin.Core.MarkedForDeletion)

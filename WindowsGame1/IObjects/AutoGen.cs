@@ -136,8 +136,8 @@ namespace CloudberryKingdom
     {
         public virtual AutoGen_Parameters SetParameters(PieceSeedData data, Level level) { return null; }
 
-        public virtual IObject CreateAt(Level level, Vector2 pos) { return null;  }
-        public virtual IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR) { return null; }
+        public virtual ObjectBase CreateAt(Level level, Vector2 pos) { return null;  }
+        public virtual ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR) { return null; }
 
         public bool Do_WeightedPreFill_1, Do_PreFill_1, Do_PreFill_2, Do_ActiveFill_1, Do_ActiveFill_2;
         public virtual void PreFill_1(Level level, Vector2 BL, Vector2 TR) { }

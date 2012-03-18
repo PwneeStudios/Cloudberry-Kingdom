@@ -9,10 +9,10 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public enum LaserState { Off, Warn, On };
-    public class Laser : ObjectBase, IObject, IBound
+    public class Laser : ObjectBase, IBound
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
         public MovingLine MyLine;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             SmallerWidth = 170f / 200f;
 
@@ -116,7 +116,7 @@ namespace CloudberryKingdom
             return Vector2.Min(p1, p2);
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             //float PhsxCutoff = 1800;
             float PhsxCutoff = 500;
@@ -173,14 +173,14 @@ namespace CloudberryKingdom
             MyLine.SetTarget(p1, p2);
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.SkippedPhsx)
                 MyLine.SwapToCurrent();
         }
 
         public float SmallerWidth;
-        public void Draw()
+        public override void Draw()
         {
             if (DeleteOnTouch) return;
 
@@ -248,7 +248,7 @@ namespace CloudberryKingdom
             Move(shift);
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
             MyLine.Current.p1 += shift;
@@ -260,13 +260,13 @@ namespace CloudberryKingdom
             p2 += shift;
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
         }
 
         public static bool DeleteOnTouch = false;
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (MyState == LaserState.On && !Core.SkippedPhsx)
             if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
@@ -290,7 +290,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
             Core.WakeUpRequirements = true;
@@ -313,20 +313,20 @@ namespace CloudberryKingdom
             Init(Core.GetPhsxStep());
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

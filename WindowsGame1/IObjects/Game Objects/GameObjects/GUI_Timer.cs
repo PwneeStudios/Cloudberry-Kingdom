@@ -23,7 +23,7 @@ namespace CloudberryKingdom
 
         public int CoinTimeValue = 60;
         public int MaxTime = 60;
-        public void OnCoinGrab(IObject obj)
+        public void OnCoinGrab(ObjectBase obj)
         {
             Time += CoinTimeValue;
 

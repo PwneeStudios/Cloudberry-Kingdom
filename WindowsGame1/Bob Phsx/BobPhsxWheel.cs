@@ -145,7 +145,7 @@ namespace CloudberryKingdom
 
         public override void LandOnSomething(bool MakeReadyToJump)
         {
-            if (MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is Block && !PrevOnGround)
+            if (MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 LandSound.Play(.47f);
             base.LandOnSomething(MakeReadyToJump);
         }
@@ -177,7 +177,7 @@ namespace CloudberryKingdom
             return false;
         }
 
-        public override void SideHit(ColType side, Block block)
+        public override void SideHit(ColType side, BlockBase block)
         {
             base.SideHit(side, block);
 

@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 
     }
 
-    public class GameObject : ObjectBase, IObject
+    public class GameObject : ObjectBase
     {
         /// <summary>
         /// Tries to add the game object to the game object's level's game.
@@ -61,7 +61,7 @@ namespace CloudberryKingdom
             return MyGame == null;
         }
 
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         public enum Tag { RemoveOnLevelFinish };
         public Set<Tag> Tags = new Set<Tag>();
@@ -165,7 +165,7 @@ namespace CloudberryKingdom
             ReleaseBody();
         }
 
-        public void Release()
+        public override void Release()
         {
             if (!PreventRelease && !Core.Released)
                 ReleaseBody();
@@ -192,7 +192,7 @@ namespace CloudberryKingdom
         /// </summary>
         public GameData MyGame;
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
             Core.DrawLayer = 10;
@@ -230,7 +230,7 @@ namespace CloudberryKingdom
             MyDraw();
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (!AutoDraw) return;
 
@@ -246,7 +246,7 @@ namespace CloudberryKingdom
         }
 
         public int SkipPhsx = 0;
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (SkipPhsx > 0) { SkipPhsx--; return; }
 
@@ -280,25 +280,25 @@ namespace CloudberryKingdom
         {
         }
 
-        public void PhsxStep2() { }
+        public override void PhsxStep2() { }
         public virtual void Reset(bool BoxesOnly) { }
-        public void Clone(IObject A) { }
-        public void Interact(Bob bob) { }
+        public override void Clone(ObjectBase A) { }
+        public override void Interact(Bob bob) { }
         public virtual void Move(Vector2 shift) { }
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

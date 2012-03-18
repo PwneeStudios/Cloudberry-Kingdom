@@ -392,7 +392,7 @@ namespace CloudberryKingdom
             return HoldFlip != MyBob.PlayerObject.xFlip;
         }
 
-        public IObject ObjectLandedOn;
+        public ObjectBase ObjectLandedOn;
         public virtual void LandOnSomething(bool MakeReadyToJump) { }
         public virtual void HitHeadOnSomething() { }
 
@@ -435,7 +435,7 @@ namespace CloudberryKingdom
         }
 
         public int LastUsedStamp = 0;
-        public virtual void SideHit(ColType side, Block block)
+        public virtual void SideHit(ColType side, BlockBase block)
         {
         }
 
@@ -443,7 +443,7 @@ namespace CloudberryKingdom
         {
         }
 
-        public bool SkipInteraction(Block block)
+        public bool SkipInteraction(BlockBase block)
         {
             if (block.Core.MarkedForDeletion || !block.Core.Active || !block.IsActive || !block.Core.Real) return true;
             if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer) return true;
@@ -452,7 +452,7 @@ namespace CloudberryKingdom
 
         public virtual void BlockInteractions()
         {
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 if (SkipInteraction(block)) continue;
 
@@ -469,13 +469,13 @@ namespace CloudberryKingdom
 
         public bool PlacedJump = false, NextJumpIsPlacedJump = false;
 
-        public virtual bool IsTopCollision(ColType Col, AABox box, Block block)
+        public virtual bool IsTopCollision(ColType Col, AABox box, BlockBase block)
         {
             return Col != ColType.NoCol && (Col == ColType.Top ||
                    Col != ColType.Bottom && Math.Max(MyBob.Box.Current.BL.Y, MyBob.Box.Target.BL.Y) > box.Target.TR.Y - Math.Max(-1.35 * Core.Data.Velocity.Y, 7));
         }
 
-        public virtual bool IsBottomCollision(ColType Col, AABox box, Block block)
+        public virtual bool IsBottomCollision(ColType Col, AABox box, BlockBase block)
         {
             return Col == ColType.Bottom ||
                 Col != ColType.Bottom && Core.Data.Velocity.X != 0 && !OnGround && Math.Min(MyBob.Box.Current.TR.Y, MyBob.Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7);

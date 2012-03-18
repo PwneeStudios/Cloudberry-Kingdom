@@ -8,18 +8,18 @@ namespace CloudberryKingdom
 {
     public class BSP_Line
     {
-        public List<List<IObject>> Grid;
+        public List<List<ObjectBase>> Grid;
 
         Vector2 BL, TR, Size;
         int N;
 
-        public BSP_Line(List<IObject> list)
+        public BSP_Line(List<ObjectBase> list)
         {
             // Calculate limits
             BL = list[0].Core.Data.Position;
             TR = list[0].Core.Data.Position;
 
-            foreach (IObject obj in list)
+            foreach (ObjectBase obj in list)
             {
                 Vector2 pos = obj.Core.Data.Position;
 
@@ -31,13 +31,13 @@ namespace CloudberryKingdom
             N = (int)(Size.X / 2000);
 
             // Allocate the grid
-            Grid = new List<List<IObject>>(N + 1);
+            Grid = new List<List<ObjectBase>>(N + 1);
 
             for (int i = 0; i < N + 1; i++)
-                Grid.Add(new List<IObject>(200));
+                Grid.Add(new List<ObjectBase>(200));
 
             // Fill the grid
-            foreach (IObject obj in list)
+            foreach (ObjectBase obj in list)
             {
                 Vector2 pos = obj.Core.Data.Position;
 

@@ -9,9 +9,9 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Coins
 {
-    public class Coin : ObjectBase, IObject
+    public class Coin : ObjectBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         static EzSound MySound;
 
@@ -26,12 +26,12 @@ namespace CloudberryKingdom.Coins
 
         public int MyValue, MyScoreValue;
 
-        public void Release()
+        public override void Release()
         {
             Core.Release();
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Core.Init();
 
@@ -162,7 +162,7 @@ namespace CloudberryKingdom.Coins
             return new Vector2((float)Math.Cos(t)) * Radii + Core.StartData.Position;
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (!Core.Active) return;
 
@@ -190,7 +190,7 @@ namespace CloudberryKingdom.Coins
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
@@ -208,7 +208,7 @@ namespace CloudberryKingdom.Coins
                 MyQuad.Update(ref Base);
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
 
@@ -217,7 +217,7 @@ namespace CloudberryKingdom.Coins
             Update();
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
@@ -225,7 +225,7 @@ namespace CloudberryKingdom.Coins
             Box.Move(shift);
         }
 
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.Active) return;
             if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
@@ -268,7 +268,7 @@ namespace CloudberryKingdom.Coins
 
 
         static Vector2 DrawGrace = new Vector2(50, 50);
-        public void Draw()
+        public override void Draw()
         {
             if (!Core.Active) return;
             if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
@@ -284,7 +284,7 @@ namespace CloudberryKingdom.Coins
                 Box.Draw(Tools.QDrawer, Color.Bisque, 10);
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -303,20 +303,20 @@ namespace CloudberryKingdom.Coins
             Radii = CoinA.Radii;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

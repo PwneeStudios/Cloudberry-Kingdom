@@ -200,14 +200,14 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        void Clean(IObject[,] array)
+        void Clean(ObjectBase[,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
                 for (int j = 0; j < array.GetLength(1); j++)
                     if (array[i,j] != null && array[i,j].Core.MarkedForDeletion)
                         array[i, j] = null;
         }
-        void Clean(IObject[,] array, int i, int j)
+        void Clean(ObjectBase[,] array, int i, int j)
         {
             if (array[i, j] == null) return;
             array[i, j].CollectSelf();
@@ -219,7 +219,7 @@ namespace CloudberryKingdom.Levels
             Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
 
             ulong[,] GUIDs = Params.TunnelGUIDs;
-            IObject[,] Blobs = new IObject[GUIDs.GetLength(0), GUIDs.GetLength(1)];
+            ObjectBase[,] Blobs = new ObjectBase[GUIDs.GetLength(0), GUIDs.GetLength(1)];
 
             for (int i = 0; i < Blobs.GetLength(0); i++)
                 for (int j = 0; j < Blobs.GetLength(1); j++)
@@ -387,7 +387,7 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
         {
             base.CreateAt(level, pos, BL, TR);
 
@@ -405,7 +405,7 @@ namespace CloudberryKingdom.Levels
             return NewBlob;
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             base.CreateAt(level, pos);
 
@@ -416,7 +416,7 @@ namespace CloudberryKingdom.Levels
             return NewBlob;
         }
 
-        IObject BasicCreateAt(Level level, Vector2 pos)
+        ObjectBase BasicCreateAt(Level level, Vector2 pos)
         {
             StyleData Style = level.Style;
             RichLevelGenData GenData = level.CurMakeData.GenData;

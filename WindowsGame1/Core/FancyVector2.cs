@@ -56,7 +56,7 @@ namespace Drawing
         //}
 
         public IPos Center;
-        public IObject ObjCenter;
+        public ObjectBase ObjCenter;
         // Debug Center
         //IPos _Center;
         //public IPos Center
@@ -121,12 +121,12 @@ namespace Drawing
         /// <summary>
         /// Sets the FancyPos's ObjCenter FancyPos. Updates relative coordinates so that absolute coordinates are unaffected.
         /// </summary>
-        public void SetCenter(IObject ObjCenter) { SetCenter(ObjCenter, false); }
+        public void SetCenter(ObjectBase ObjCenter) { SetCenter(ObjCenter, false); }
         /// <summary>
         /// Sets the FancyPos's ObjCenter FancyPos
         /// </summary>
         /// <param name="UsePosAsRelPos">Whether to use the current position as relative coordinates in the new system</param>
-        public void SetCenter(IObject ObjCenter, bool UsePosAsRelPos)
+        public void SetCenter(ObjectBase ObjCenter, bool UsePosAsRelPos)
         {
             if (this.ObjCenter == ObjCenter) return;
 

@@ -123,14 +123,14 @@ namespace CloudberryKingdom.Levels
             level.CleanupBouncyBlocks(BL, TR);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)        
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)        
         {
             base.CreateAt(level, pos, BL, TR);
 
             return CreateAt(level, pos);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)        
+        public override ObjectBase CreateAt(Level level, Vector2 pos)        
         {
             base.CreateAt(level, pos);
 

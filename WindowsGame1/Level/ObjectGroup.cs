@@ -26,10 +26,10 @@ namespace CloudberryKingdom
 
         public FancyVector2 FancyPos, FancyScale;
 
-        List<IObject> IObjects = new List<IObject>();
+        List<ObjectBase> IObjects = new List<ObjectBase>();
         public Level lvl;
 
-        IObject Center;
+        ObjectBase Center;
         public ObjectGroup()
         {
             Init(null, null, Vector2.Zero, new Vector2(590));
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
             Size = size;
         }
 
-        public void Add(IObject IObject) { IObjects.Add(IObject); }
+        public void Add(ObjectBase IObject) { IObjects.Add(IObject); }
 
         public Vector2 PosOf(string Code1)
         {
@@ -115,7 +115,7 @@ namespace CloudberryKingdom
 
         public void Shift(Vector2 shift)
         {
-            foreach (IObject obj in IObjects)
+            foreach (ObjectBase obj in IObjects)
                 obj.Move(shift);
         }
     }

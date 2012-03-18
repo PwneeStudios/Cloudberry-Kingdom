@@ -4,7 +4,7 @@ using CloudberryKingdom.Goombas;
 
 namespace CloudberryKingdom
 {
-    public partial class BlobGuy : IObject
+    public partial class BlobGuy
     {
         public ScenePart Make_Wanted_Idle()
         {

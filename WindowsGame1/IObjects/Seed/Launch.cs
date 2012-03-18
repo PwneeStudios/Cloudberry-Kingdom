@@ -9,7 +9,7 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public partial class Seed : ObjectBase, IObject, ILevelConnector
+    public partial class Seed : ObjectBase, ILevelConnector
     {
         public NormalBlock LandingBlock = null; // Block to land on
         List<Bob> HoldBobs;
@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
         public bool Launched; // Whether the stickmen have been launched from the seed yet
         public bool Panning; // Whether the camera is panning
-        List<Block> Blocks;
+        List<BlockBase> Blocks;
         float LandingY; // Y coordinate of the landing block
         int PanDuration = 180;
         int[] PostSlideCount = { 0, 0, 0, 0 };
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
                     NewLevel.AddObject(this);
 
                     // Add the wrapping blocks to the new level
-                    foreach (Block block in Blocks)
+                    foreach (BlockBase block in Blocks)
                         NewLevel.AddBlock(block);
 
                     // Remove seed and wrapping blocks from previous level
@@ -378,7 +378,7 @@ namespace CloudberryKingdom
             if (Wrapping)
             {
                 float LowestY = 10000000; foreach (Bob bob in Core.MyLevel.Bobs) LowestY = Math.Min(LowestY, bob.Core.Data.Position.Y - 700);
-                foreach (Block block in Blocks)
+                foreach (BlockBase block in Blocks)
                     if (block.Box.Current.TR.X < cam.BL.X - 100)
                     {
                         block.Move(new Vector2(cam.GetWidth() + block.Box.Current.Size.X + MyLevel.Rnd.RndFloat(0, 10000), 0));
@@ -505,16 +505,16 @@ namespace CloudberryKingdom
             Wrapping = false;
 
             // Remove blocks to the right of screen
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
                 if (block.Box.Current.BL.X > cam.TR.X)
                     block.Move(new Vector2(-50000, 0));
 
             AddNextLevel(NextLevelSeedData);
         }
 
-        static public List<Block> MakeRandomBlocks(Level level, Vector2 BL, Vector2 TR)
+        static public List<BlockBase> MakeRandomBlocks(Level level, Vector2 BL, Vector2 TR)
         {
-            List<Block> blocks = new List<Block>();
+            List<BlockBase> blocks = new List<BlockBase>();
 
             Vector2 Pos = BL;
 

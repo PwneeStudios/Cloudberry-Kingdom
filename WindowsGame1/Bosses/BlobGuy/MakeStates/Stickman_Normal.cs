@@ -6,7 +6,7 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public partial class BlobGuy : IObject
+    public partial class BlobGuy
     {
         void Flash(int step)
         {
@@ -242,7 +242,7 @@ namespace CloudberryKingdom
                     Count++;
                 }
                 //foreach (Goomba blob in CrossBlobs)
-                foreach (IObject obj in Core.MyLevel.Objects)
+                foreach (ObjectBase obj in Core.MyLevel.Objects)
                 {
                     Goomba blob = obj as Goomba;
                     if (null != blob && blob.MyColor == Goomba.BlobColor.Pink)

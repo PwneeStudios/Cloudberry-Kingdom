@@ -148,7 +148,7 @@ namespace CloudberryKingdom.Levels
             return (AutoGen_Parameters)Params;
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
         {
             base.CreateAt(level, pos, BL, TR);
 
@@ -478,7 +478,7 @@ namespace CloudberryKingdom.Levels
 
             return emitter;
         }
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             FireballEmitter_Parameters Params = GetParams(level);
 
@@ -511,7 +511,7 @@ namespace CloudberryKingdom.Levels
         {
             FireballEmitter_Parameters Params = GetParams(level);
 
-            foreach (Block block in level.Blocks)
+            foreach (BlockBase block in level.Blocks)
             {
                 Vector2 pos = block.Core.Data.Position;
 
@@ -598,7 +598,7 @@ namespace CloudberryKingdom.Levels
             
             int density;
 
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 Vector2 pos = block.Core.Data.Position;
 
@@ -641,7 +641,7 @@ namespace CloudberryKingdom.Levels
                     y = (int)((y - ymin) / yspace) * yspace + ymin;
 
                     // Make sure chosen location doesn't intersect another block
-                    if (!Blocks.All(delegate(Block block2)
+                    if (!Blocks.All(delegate(BlockBase block2)
                     {
                         return block2 == block || block2.BlockCore.Layer < block.BlockCore.Layer ||
                             x > block2.Box.Current.TR.X + 100 || x < block2.Box.Current.BL.X - 100 ||

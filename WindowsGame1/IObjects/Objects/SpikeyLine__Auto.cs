@@ -93,7 +93,7 @@ namespace CloudberryKingdom.Levels
             //Params.Lines.Add(Line);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
             SpikeyLine_Parameters Params = (SpikeyLine_Parameters)level.Style.FindParams(SpikeyLine_AutoGen.Instance);

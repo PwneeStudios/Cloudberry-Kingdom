@@ -8,10 +8,10 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Floater_Core : ObjectBase, IObject, IBound
+    public class Floater_Core : ObjectBase, IBound
     {
-        public void TextDraw() { }
-        public void Release()
+        public override void TextDraw() { }
+        public override void Release()
         {
             Core.Release();
         }
@@ -180,7 +180,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (Core.SkippedPhsx) return;
 
@@ -210,7 +210,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (Core.SkippedPhsx) return;
 
@@ -242,7 +242,7 @@ namespace CloudberryKingdom
             MyObject.Update();
         }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             Core.Active = true;
 
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
         protected Bob.BobDeathType DeathType = Bob.BobDeathType.Floater;
 
         public AutoGen AutoGenSingleton;
-        public void Interact(Bob bob)
+        public override void Interact(Bob bob)
         {
             if (!Core.SkippedPhsx)
             {
@@ -299,7 +299,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public virtual void Clone(IObject A)
+        public virtual void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -307,20 +307,20 @@ namespace CloudberryKingdom
             UpdateObject();
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
 public virtual void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

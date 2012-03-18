@@ -190,11 +190,11 @@ namespace CloudberryKingdom
             }
 
             // Cleanup lava
-            List<Block> Lavas = NewLevel.Blocks.FindAll(block => block.Core.MyType == ObjectType.LavaBlock);
+            List<BlockBase> Lavas = NewLevel.Blocks.FindAll(block => block.Core.MyType == ObjectType.LavaBlock);
             if (Lavas.Count > 0)
             {
                 // Find the lowest watermark
-                Block Lowest = Lavas.ArgMin(lava => lava.Box.TR.Y);
+                BlockBase Lowest = Lavas.ArgMin(lava => lava.Box.TR.Y);
 
                 // Extend left and right to cover whole level
                 Lowest.Extend(Side.Left, NewLevel.BL.X - 5000);

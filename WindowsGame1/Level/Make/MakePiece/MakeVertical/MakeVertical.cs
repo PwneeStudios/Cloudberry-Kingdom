@@ -259,7 +259,7 @@ namespace CloudberryKingdom.Levels
 
             // Set flag when a block on the last row is used.
             bool EndReached = false;
-            foreach (Block block in Blocks.FindAll(match => match.Core == "LastRow"))
+            foreach (BlockBase block in Blocks.FindAll(match => match.Core == "LastRow"))
                 block.Core.GenData.OnUsed = () => EndReached = true;
 
             // Initial platform
@@ -303,7 +303,7 @@ namespace CloudberryKingdom.Levels
                 
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Bound, .35f * CurMakeData.SparsityMultiplier);
             }
-            foreach (Block block in Blocks)
+            foreach (BlockBase block in Blocks)
             {
                 NormalBlock nblock = block as NormalBlock;
                 if (null != nblock)
@@ -371,14 +371,14 @@ namespace CloudberryKingdom.Levels
             Sleep();
 
             // Remove unused objects
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (!obj.Core.GenData.Used && obj.Core.GenData.RemoveIfUnused)
                     Recycle.CollectObject(obj);
             CleanObjectList();
             Sleep();
 
             // Remove unused blocks
-            foreach (Block _block in Blocks)
+            foreach (BlockBase _block in Blocks)
                 if (!_block.Core.GenData.Used && _block.Core.GenData.RemoveIfUnused)
                     Recycle.CollectObject(_block);
             CleanBlockList();
@@ -422,7 +422,7 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
             Sleep();
 
-            Cleanup(Objects.FindAll(delegate(IObject obj) { return obj.Core.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
+            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
             {
                 float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
                 return new Vector2(dist, dist);

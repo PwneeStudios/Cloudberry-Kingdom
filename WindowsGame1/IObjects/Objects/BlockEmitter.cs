@@ -8,15 +8,15 @@ using System.Collections.Generic;
 
 namespace CloudberryKingdom
 {
-    public class BlockEmitter : ObjectBase, IObject
+    public class BlockEmitter : ObjectBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
         public MovingPlatform.MoveType MyMoveType;
         public float Amp;
 
         List<MovingPlatform> Platforms = new List<MovingPlatform>();
 
-        public void Release()
+        public override void Release()
         {
             Core.Release();
 
@@ -30,12 +30,12 @@ namespace CloudberryKingdom
         public int Delay, Offset;
         public Vector2 Size;
 
-        public void OnUsed()
+        public override void OnUsed()
         {
             Platforms.ForEach(platform => platform.Core.GenData.Used = true);
         }
 
-        public void OnMarkedForDeletion()
+        public override void OnMarkedForDeletion()
         {
             if (!Core.DeletedByBob) return;
 
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             Platforms.Clear();
         }
         
-        public void MakeNew()
+        public override void MakeNew()
         {
             Platforms.Clear();
 
@@ -93,7 +93,7 @@ namespace CloudberryKingdom
         /// </summary>
         bool SetToPreEmit = false;
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             if (DoPreEmit)
                 SetToPreEmit = true;
@@ -162,7 +162,7 @@ namespace CloudberryKingdom
             Platforms.Remove(platform);
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             if (SetToPreEmit) PreEmit();
 
@@ -190,18 +190,18 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             Core.Data.Position += shift;
             EmitData.Position += shift;
             Core.StartData.Position += shift;
         }
 
-        public void PhsxStep2() { }
-        public void Draw() { }
-        public void Interact(Bob bob) { }
+        public override void PhsxStep2() { }
+        public override void Draw() { }
+        public override void Interact(Bob bob) { }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -219,18 +219,18 @@ namespace CloudberryKingdom
             GiveCustomRange = EmitterA.GiveCustomRange;
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             Core.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
-public bool PreDecision(Bob bob) { return false; }
+public override void Smash(Bob bob) { }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

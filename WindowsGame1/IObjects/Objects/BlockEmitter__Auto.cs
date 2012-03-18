@@ -90,7 +90,7 @@ namespace CloudberryKingdom.Levels
             Do_WeightedPreFill_1 = true;
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             return base.CreateAt(level, pos);
 

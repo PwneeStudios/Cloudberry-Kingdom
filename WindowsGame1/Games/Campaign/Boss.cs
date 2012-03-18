@@ -321,7 +321,7 @@ namespace CloudberryKingdom
                             if (boss != null)
                             {
                                 boss.CollectSelf();
-                                foreach (IObject obj in MyLevel.Objects)
+                                foreach (ObjectBase obj in MyLevel.Objects)
                                     if (obj is Goomba)
                                         obj.CollectSelf();
                             }

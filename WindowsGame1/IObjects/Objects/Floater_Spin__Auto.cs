@@ -98,7 +98,7 @@ namespace CloudberryKingdom.Levels
             level.CleanupSpinFloaters(BL, TR);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
             Floater_Spin_Parameters Params = (Floater_Spin_Parameters)level.Style.FindParams(Floater_Spin_AutoGen.Instance);
@@ -207,7 +207,7 @@ namespace CloudberryKingdom.Levels
 
             if (!Params.Make) return;
 
-            foreach (Block block in level.Blocks)
+            foreach (BlockBase block in level.Blocks)
             {
                 if (block.Core.Placed) continue;
 

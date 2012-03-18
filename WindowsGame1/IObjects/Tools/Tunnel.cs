@@ -17,7 +17,7 @@ namespace CloudberryKingdom
         public int Thickness = 1;
 
         public ulong[,] TunnelGUIDs;
-        public IObject[,] TunnelObjs;
+        public ObjectBase[,] TunnelObjs;
 
         public TunnelFill()
         {
@@ -30,10 +30,10 @@ namespace CloudberryKingdom
             this.M = M;
 
             TunnelGUIDs = new ulong[N, M];
-            TunnelObjs = new IObject[N, M];
+            TunnelObjs = new ObjectBase[N, M];
         }
 
-        void SetTunnelObjParameter(IObject obj)
+        void SetTunnelObjParameter(ObjectBase obj)
         {
             obj.Core.GenData.RemoveIfUnused = false;
         }
@@ -55,8 +55,8 @@ namespace CloudberryKingdom
 
         public void CleanupTunnel(Level level)
         {
-            Dictionary<ulong, IObject> ObjDict = new Dictionary<ulong, IObject>();
-            foreach (IObject obj in level.Objects)
+            Dictionary<ulong, ObjectBase> ObjDict = new Dictionary<ulong, ObjectBase>();
+            foreach (ObjectBase obj in level.Objects)
                 if (!ObjDict.ContainsKey(obj.Core.MyGuid))
                     ObjDict.Add(obj.Core.MyGuid, obj);
 

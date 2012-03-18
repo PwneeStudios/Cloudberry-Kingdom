@@ -27,15 +27,15 @@ namespace CloudberryKingdom
     public class RecycleBin
     {
         ObjectType MyType;
-        Stack<IObject> FullObject, BoxObject;
+        Stack<ObjectBase> FullObject, BoxObject;
 
         public void Release()
         {
-            foreach (IObject obj in FullObject)
+            foreach (ObjectBase obj in FullObject)
                 if (obj.Core.MyLevel == null)
                     obj.Release();
 
-            foreach (IObject obj in BoxObject)
+            foreach (ObjectBase obj in BoxObject)
                 if (obj.Core.MyLevel == null)
                     obj.Release();
         }
@@ -44,20 +44,20 @@ namespace CloudberryKingdom
         {
             MyType = type;
 
-            FullObject = new Stack<IObject>();
-            BoxObject = new Stack<IObject>();
+            FullObject = new Stack<ObjectBase>();
+            BoxObject = new Stack<ObjectBase>();
         }
 
-        public IObject GetObject(bool BoxesOnly)
+        public ObjectBase GetObject(bool BoxesOnly)
         {
             if (BoxesOnly) return GetObject_BoxesOnly();
             else return GetObject_Graphical();
         }
-        IObject GetObject_BoxesOnly() { return __GetObject(true); }
-        IObject GetObject_Graphical() { return __GetObject(false); }
-        IObject __GetObject(bool BoxesOnly)
+        ObjectBase GetObject_BoxesOnly() { return __GetObject(true); }
+        ObjectBase GetObject_Graphical() { return __GetObject(false); }
+        ObjectBase __GetObject(bool BoxesOnly)
         {
-            IObject obj = null;
+            ObjectBase obj = null;
 
             //lock (this)
             {                
@@ -82,7 +82,7 @@ namespace CloudberryKingdom
             return obj;
         }
 
-        public void CollectObject(IObject obj)
+        public void CollectObject(ObjectBase obj)
         {
             if (obj.Core.MarkedForDeletion)
                 return;
@@ -112,7 +112,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public IObject NewObject(bool BoxesOnly)
+        public ObjectBase NewObject(bool BoxesOnly)
         {
             switch (MyType)
             {
@@ -277,7 +277,7 @@ namespace CloudberryKingdom
             Bins = new RecycleBin[N];
         }
 
-        public IObject GetNewObject(ObjectType type, bool BoxesOnly)
+        public ObjectBase GetNewObject(ObjectType type, bool BoxesOnly)
         {
             if (type == ObjectType.Undefined)
                 return null;
@@ -285,17 +285,17 @@ namespace CloudberryKingdom
             if (Bins[(int)type] == null)
                 Bins[(int)type] = new RecycleBin(type);
 
-            IObject obj = Bins[(int)type].NewObject(BoxesOnly);
+            ObjectBase obj = Bins[(int)type].NewObject(BoxesOnly);
 
             return obj;
         }
 
-        public IObject this[ObjectType type, bool BoxesOnly]
+        public ObjectBase this[ObjectType type, bool BoxesOnly]
         {
             get { return GetObject(type, BoxesOnly); }
         }
 
-        public IObject GetObject(ObjectType type, bool BoxesOnly)
+        public ObjectBase GetObject(ObjectType type, bool BoxesOnly)
         {
             //if (type == ObjectType.FlyingBlob)
             //    Tools.Write("!");
@@ -311,13 +311,13 @@ namespace CloudberryKingdom
                 Bins[(int)type] = new RecycleBin(type);
 
             //return Bins[type].GetObject(BoxesOnly);
-            IObject obj = Bins[(int)type].GetObject(BoxesOnly);
+            ObjectBase obj = Bins[(int)type].GetObject(BoxesOnly);
 
             return obj;
         }
 
-        public void CollectObject(IObject obj) { CollectObject(obj, true); }
-        public void CollectObject(IObject obj, bool CollectAssociates)
+        public void CollectObject(ObjectBase obj) { CollectObject(obj, true); }
+        public void CollectObject(ObjectBase obj, bool CollectAssociates)
         {
             if (obj == null || obj.Core.MarkedForDeletion)
                 return;
@@ -352,7 +352,7 @@ namespace CloudberryKingdom
                 for (int i = 0; i < obj.Core.Associations.Length; i++)
                     if (obj.Core.Associations[i].Guid > 0)
                     {
-                        IObject _obj = obj.Core.MyLevel.LookupGUID(obj.Core.Associations[i].Guid);
+                        ObjectBase _obj = obj.Core.MyLevel.LookupGUID(obj.Core.Associations[i].Guid);
                         if (_obj == null) continue;
 
                         // Delete the associated object if DeleteWhenDeleted flag is set

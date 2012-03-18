@@ -414,7 +414,7 @@ namespace CloudberryKingdom
 
         public static void RectangleTarget(List<Goomba> blobs, Vector2 pos, Vector2 size) { RectangleTarget(blobs.Count, blobs, pos, size); }
         public static int RectangleTarget(int n) { return RectangleTarget(n, null, Vector2.Zero, Vector2.One); }
-        public static void RectangleTarget(List<Goomba> blobs, Block block)
+        public static void RectangleTarget(List<Goomba> blobs, BlockBase block)
         {
             RectangleTarget(blobs.Count, blobs, block.Box.Current.Center, 2*block.Box.Current.Size);
         }

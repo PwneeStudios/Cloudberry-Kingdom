@@ -86,7 +86,7 @@ namespace CloudberryKingdom.Levels
             foreach (List<ulong> GuidList in Params.Snakes)
             {
                 // Convert the list to objects
-                List<IObject> Snake = level.GuidToObj(GuidList);
+                List<ObjectBase> Snake = level.GuidToObj(GuidList);
 
                 // Find a deleted element to start with
                 int start = 0;
@@ -179,7 +179,7 @@ namespace CloudberryKingdom.Levels
             Params.Snakes.Add(Snake);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos)
+        public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
             Firesnake_Parameters Params = (Firesnake_Parameters)level.Style.FindParams(Firesnake_AutoGen.Instance);

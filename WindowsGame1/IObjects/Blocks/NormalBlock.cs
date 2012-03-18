@@ -7,17 +7,17 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom.Blocks
 {
     public delegate void BlockExtendCallback(NormalBlock block);
-    public class NormalBlock : BlockBase, Block
+    public class NormalBlock : BlockBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         public NormalBlockDraw MyDraw;
 
-        public Block HoldBlock;
+        public BlockBase HoldBlock;
 
         public bool Moved;
 
-        public void Interact(Bob bob) { }
+        public override void Interact(Bob bob) { }
 
         public void BasicConstruction(bool BoxesOnly)
         {
@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Blocks
             MakeNew();
         }
 
-        public void Release()
+        public override void Release()
         {
             BlockCore.Release();
             Core.MyLevel = null;
@@ -38,7 +38,7 @@ namespace CloudberryKingdom.Blocks
             MyDraw = null;
         }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             Active = true;            
 
@@ -331,7 +331,7 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
             BlockCore.StartData.Position += shift;
@@ -341,12 +341,12 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public void LandedOn(Bob bob) { }
-        public void HitHeadOn(Bob bob) { }
-        public void SideHit(Bob bob) { }
-        public void Hit(Bob bob) { }
+        public override void LandedOn(Bob bob) { }
+        public override void HitHeadOn(Bob bob) { }
+        public override void SideHit(Bob bob) { }
+        public override void Hit(Bob bob) { }
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             if (Core.AlwaysBoxesOnly)
                 BoxesOnly = true;
@@ -366,7 +366,7 @@ namespace CloudberryKingdom.Blocks
             Update();
         }
 
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             //if (!Active) return;
 
@@ -385,7 +385,7 @@ namespace CloudberryKingdom.Blocks
             //}
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (Moved)
                 MyBox.SwapToCurrent();
@@ -422,7 +422,7 @@ namespace CloudberryKingdom.Blocks
             Moved = true;
         }
 
-        public void Extend(Side side, float pos)
+        public override void Extend(Side side, float pos)
         {
             MyBox.Invalidated = true;
 
@@ -444,7 +444,7 @@ namespace CloudberryKingdom.Blocks
                 ResetPieces();
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (!Active) return;
             if (!Core.Active) return;
@@ -474,7 +474,7 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             NormalBlock BlockA = A as NormalBlock;
             BlockCore.Clone(A.Core);
@@ -489,13 +489,13 @@ namespace CloudberryKingdom.Blocks
                 MyDraw.Clone(BlockA.MyDraw);
         }
         
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             BlockCore.Write(writer);
 
             Box.Write(writer);            
         }
-        public void Read(BinaryReader reader)
+        public override void Read(BinaryReader reader)
         {
             BlockCore.Read(reader);
 
@@ -503,7 +503,7 @@ namespace CloudberryKingdom.Blocks
             ResetPieces();
         }
 
-        public bool PreDecision(Bob bob)
+        public override bool PreDecision(Bob bob)
         {
             if (BlockCore.Ceiling)
             {
@@ -549,11 +549,11 @@ namespace CloudberryKingdom.Blocks
 
         public override void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
-            Block_PostCollideDecision(this as Block, bob, ref Col, ref Overlap, ref Delete);
+            Block_PostCollideDecision(this as BlockBase, bob, ref Col, ref Overlap, ref Delete);
             base.PostCollideDecision(bob, ref Col, ref Overlap, ref Delete);
         }
 
-        public static void Block_PostCollideDecision(Block block, Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
+        public static void Block_PostCollideDecision(BlockBase block, Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
             bool MakeTopOnly = false;
 
@@ -604,11 +604,11 @@ namespace CloudberryKingdom.Blocks
         {
             base.PostInteractWith(bob);
 
-            Block block = (Block)this;
+            BlockBase block = (BlockBase)this;
 
             // Normal blocks delete surrounding blocks when stamped as used
             if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
-                foreach (Block nblock in Core.MyLevel.Blocks)
+                foreach (BlockBase nblock in Core.MyLevel.Blocks)
                 {
                     NormalBlock Normal = nblock as NormalBlock;
                     if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
@@ -626,7 +626,7 @@ namespace CloudberryKingdom.Blocks
         {
             base.PostKeep(bob, ref Col, ref Overlap);
 
-            Block block = (NormalBlock)this;
+            BlockBase block = (NormalBlock)this;
 
             // Shift bottom of block if necessary
             if (block is NormalBlock && !block.BlockCore.DeleteIfTopOnly)
@@ -644,13 +644,13 @@ namespace CloudberryKingdom.Blocks
         }
 
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public void Smash(Bob bob) { }
+public override void Smash(Bob bob) { }
 //StubStubStubEnd7
     }
 }

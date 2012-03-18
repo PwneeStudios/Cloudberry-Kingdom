@@ -187,7 +187,7 @@ namespace CloudberryKingdom
             End += shift;
         }
 
-        public override void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             base.Clone(A);
 

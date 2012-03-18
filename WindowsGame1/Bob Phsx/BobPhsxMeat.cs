@@ -75,8 +75,8 @@ namespace CloudberryKingdom
         int StepsSinceSide, StepsOnSide;
         public int StickyDuration = 60;
         ColType StickySide;
-        Block LastStickyBlock;
-        public override void SideHit(ColType side, Block block)
+        BlockBase LastStickyBlock;
+        public override void SideHit(ColType side, BlockBase block)
         {
             base.SideHit(side, block);
 
@@ -359,12 +359,12 @@ namespace CloudberryKingdom
             }
         }
 
-        public override bool IsTopCollision(ColType Col, AABox box, Block block)
+        public override bool IsTopCollision(ColType Col, AABox box, BlockBase block)
         {
             return Col != ColType.NoCol && Col == ColType.Top;
         }
 
-        public override bool IsBottomCollision(ColType Col, AABox box, Block block)
+        public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)
         {
             return Col == ColType.Bottom;
         }

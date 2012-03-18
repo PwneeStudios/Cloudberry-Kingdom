@@ -200,7 +200,7 @@ namespace CloudberryKingdom
             princess.PickUp(mvp);
 
             // Blocks
-            foreach (Block block in MyLevel.Blocks)
+            foreach (BlockBase block in MyLevel.Blocks)
             {
                 // Make top only
                 NormalBlock nblock = block as NormalBlock;
@@ -383,7 +383,7 @@ namespace CloudberryKingdom
                     Tools.Pop(2);
                     WaitThenDo(10, () => Tools.Pop(3));
                     
-                    foreach (IObject obj in MyLevel.Objects)
+                    foreach (ObjectBase obj in MyLevel.Objects)
                     {
                         BerryBubble b = obj as BerryBubble;
                         if (null != b)

@@ -297,7 +297,7 @@ namespace CloudberryKingdom
                 // Check for last level
                 if (LevelSeeds.IndexOf(data) == LevelSeeds.Count - 1)
                 {
-                    IObject obj = data.MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
+                    ObjectBase obj = data.MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
 
                     Door door = obj as Door;
                     if (null != door)

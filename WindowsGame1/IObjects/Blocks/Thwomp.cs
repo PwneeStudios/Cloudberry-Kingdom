@@ -10,16 +10,16 @@ using Drawing;
 namespace CloudberryKingdom
 {
     public enum ThwompState { Waiting, Falling, Pause, Rising, Vibrate };
-    public class Thwomp : BlockBase, Block
+    public class Thwomp : BlockBase
     {
-        public void TextDraw() { }
+        public override void TextDraw() { }
 
         public QuadClass MyQuad;
         ThwompState State;
         
-        public void Interact(Bob bob) { }
+        public override void Interact(Bob bob) { }
 
-        public void MakeNew()
+        public override void MakeNew()
         {
             KillsOnSmash = true;
 
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
             SetState(ThwompState.Waiting);
         }
 
-        public void Release()
+        public override void Release()
         {
             OnSmash = null;
 
@@ -110,27 +110,27 @@ namespace CloudberryKingdom
             SetState(ThwompState.Waiting);
         }
 
-        public void Hit(Bob bob) { }
-        public void LandedOn(Bob bob)
+        public override void Hit(Bob bob) { }
+        public override void LandedOn(Bob bob)
         {
         }
 
         public bool KillsOnSmash;
         public Action<Bob> OnSmash;
-        public void Smash(Bob bob) { if (OnSmash != null) OnSmash(bob); }
+        public override void Smash(Bob bob) { if (OnSmash != null) OnSmash(bob); }
 
-        public void HitHeadOn(Bob bob)
+        public override void HitHeadOn(Bob bob)
         {
             if (KillsOnSmash)
                 bob.Die(Bob.BobDeathType.Other);
 
             //if (OnSmash != null) OnSmash(bob);
         }
-        public void SideHit(Bob bob)
+        public override void SideHit(Bob bob)
         {
         } 
 
-        public void Reset(bool BoxesOnly)
+        public override void Reset(bool BoxesOnly)
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
@@ -151,7 +151,7 @@ namespace CloudberryKingdom
         }
 
         public int PauseAtBottomLength = 60;//93;
-        public void PhsxStep()
+        public override void PhsxStep()
         {
             Active = Core.Active = true;
             if (!Core.Held)
@@ -194,7 +194,7 @@ namespace CloudberryKingdom
                 if (MyQuad != null) MyQuad.Pos = Pos + Offset;
 
                 // Interact with blocks
-                foreach (Block block in Core.MyLevel.Blocks)
+                foreach (BlockBase block in Core.MyLevel.Blocks)
                     ColWithBlock(block);
             }
             else if (State == ThwompState.Pause)
@@ -236,7 +236,7 @@ namespace CloudberryKingdom
             Count++;
         }
 
-        public void PhsxStep2()
+        public override void PhsxStep2()
         {
             if (!Active) return;
 
@@ -250,7 +250,7 @@ namespace CloudberryKingdom
 
         protected EzSound MySound;
         int Count = 0;
-        void ColWithBlock(Block block)
+        void ColWithBlock(BlockBase block)
         {
             if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) return;
 
@@ -279,7 +279,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Extend(Side side, float pos)
+        public override void Extend(Side side, float pos)
         {
             switch (side)
             {
@@ -326,7 +326,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Move(Vector2 shift)
+        public override void Move(Vector2 shift)
         {
             BlockCore.Data.Position += shift;
             BlockCore.StartData.Position += shift;
@@ -335,7 +335,7 @@ namespace CloudberryKingdom
 
             Update();
         }
-        public void Draw()
+        public override void Draw()
         {
             bool DrawSelf = true;
             if (!Core.Held)
@@ -363,7 +363,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 
@@ -372,19 +372,19 @@ namespace CloudberryKingdom
             Init(BlockA.Box.Current.Center, BlockA.Size);
         }
 
-        public void Write(BinaryWriter writer)
+        public override void Write(BinaryWriter writer)
         {
             BlockCore.Write(writer);
         }
-        public void Read(BinaryReader reader) { Core.Read(reader); }
+        public override void Read(BinaryReader reader) { Core.Read(reader); }
 //StubStubStubStart
-public void OnUsed() { }
-public void OnMarkedForDeletion() { }
-public void OnAttachedToBlock() { }
-public bool PermissionToUse() { return true; }
+public override void OnUsed() { }
+public override void OnMarkedForDeletion() { }
+public override void OnAttachedToBlock() { }
+public override bool PermissionToUse() { return true; }
 public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 public GameData Game { get { return Core.MyLevel.MyGame; } }
-public bool PreDecision(Bob bob) { return false; }
+public override bool PreDecision(Bob bob) { return false; }
 //StubStubStubEnd7
     }
 }

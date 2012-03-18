@@ -80,9 +80,9 @@ namespace CloudberryKingdom.Blocks
 
         public bool OnlyCollidesWithLowerLayers;
 
-        public Block TopRightNeighbor, TopLeftNeighbor;
+        public BlockBase TopRightNeighbor, TopLeftNeighbor;
 
-        public List<IObject> Objects = new List<IObject>();
+        public List<ObjectBase> Objects = new List<ObjectBase>();
 
         public override void Release()
         {
@@ -99,7 +99,7 @@ namespace CloudberryKingdom.Blocks
         {
             if (Objects == null) return;
 
-            foreach (IObject obj in Objects)
+            foreach (ObjectBase obj in Objects)
                 if (!obj.Core.MarkedForDeletion)
                     obj.Draw();
         }
@@ -221,6 +221,16 @@ namespace CloudberryKingdom.Blocks
             CoreData = BlockCore as ObjectData;
         }
 
+        public virtual void Extend(Side side, float pos) { }
+
+        public virtual void LandedOn(Bob bob) { }
+        public virtual void HitHeadOn(Bob bob) { }
+        public virtual void Smash(Bob bob) { }
+        public virtual void SideHit(Bob bob) { }
+        public virtual void Hit(Bob bob) { }
+
+        public virtual bool PreDecision(Bob bob) { return false; }
+
         public virtual bool PostCollidePreDecision(Bob bob)
         {
             return false;
@@ -256,7 +266,6 @@ namespace CloudberryKingdom.Blocks
             else
                 return PostCollideDecision_Bottom_Normal(bob, ref Col, ref Overlap);
         }
-
 
         public virtual bool PostCollideDecision_Side_Meat(Bob bob, ref ColType Col, ref bool Overlap)
         {
@@ -310,7 +319,6 @@ namespace CloudberryKingdom.Blocks
                 return PostCollideDecision_Side_Normal(bob, ref Col, ref Overlap);
         }
 
-
         public virtual bool PostCollideDecision_Land_Meat(Bob bob, ref ColType Col, ref bool Overlap)
         {
             BobPhsxMeat meat = (BobPhsxMeat)bob.MyPhsx;
@@ -344,7 +352,6 @@ namespace CloudberryKingdom.Blocks
                 return PostCollideDecision_Land_Normal(bob, ref Col, ref Overlap);
         }
 
-
         public virtual void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete)
         {
             // Decide if we should delete or keep the block
@@ -370,7 +377,7 @@ namespace CloudberryKingdom.Blocks
             // Don't land on a block that says not to
             bool DesiresDeletion = false;
             if (Core.GenData.TemporaryNoLandZone ||
-                !Core.GenData.Used && !((Block)this).PermissionToUse())
+                !Core.GenData.Used && !((BlockBase)this).PermissionToUse())
                 DesiresDeletion = Delete = true;
 
             if (Core.GenData.Used) Delete = false;
@@ -398,11 +405,10 @@ namespace CloudberryKingdom.Blocks
         
         public virtual void PostKeep(Bob bob, ref ColType Col, ref bool Overlap) { }
         public virtual void PostInteractWith(Bob bob) { }
-
-        public Camera Cam { get { return Core.MyLevel.MainCamera; } }
     }
 
-    public interface Block : IObject
+    /*
+    public interface Block : ObjectBase
     {
         AABox Box { get; }
         bool IsActive { get; set; }
@@ -422,5 +428,5 @@ namespace CloudberryKingdom.Blocks
         void PostCollideDecision(Bob bob, ref ColType Col, ref bool Overlap, ref bool Delete);
         void PostKeep(Bob bob, ref ColType Col, ref bool Overlap);
         void PostInteractWith(Bob bob);
-    }
+    }*/
 }

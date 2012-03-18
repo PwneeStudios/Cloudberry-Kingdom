@@ -7,7 +7,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class SpikeyLine : Floater_Core, IObject, IBound
+    public class SpikeyLine : Floater_Core, IBound
     {
         public int Period, Offset;
         public Vector2 p1, p2;
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
             base.Move(shift);            
         }
 
-        public override void Clone(IObject A)
+        public override void Clone(ObjectBase A)
         {
             Core.Clone(A.Core);
 

@@ -67,7 +67,7 @@ namespace CloudberryKingdom.Levels
             return (ConveyorBlock_Parameters)level.Style.FindParams(ConveyorBlock_AutoGen.Instance);
         }
 
-        public override IObject CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
+        public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
         {
             base.CreateAt(level, pos, BL, TR);
 

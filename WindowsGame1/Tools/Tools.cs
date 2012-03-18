@@ -1328,7 +1328,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="pos"></param>
-        public static void MoveTo(IObject obj, Vector2 pos)
+        public static void MoveTo(ObjectBase obj, Vector2 pos)
         {
             obj.Move(pos - obj.Core.Data.Position);
         }

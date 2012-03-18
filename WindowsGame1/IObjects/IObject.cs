@@ -13,6 +13,10 @@ namespace CloudberryKingdom
     {
         public Level MyLevel { get { return Core.MyLevel; } }
         public Rand Rnd { get { return Core.MyLevel.Rnd; } }
+        public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
+        public GameData Game { get { return Core.MyLevel.MyGame; } }
+        public GameData MyGame { get { return Core.MyLevel.MyGame; } }
+        public Camera Cam { get { return Core.MyLevel.MainCamera; } }
 
         protected ObjectData CoreData;
         public ObjectData Core { get { return CoreData; } }
@@ -21,8 +25,33 @@ namespace CloudberryKingdom
         {
             CoreData = new ObjectData();
         }
+        
+        public virtual void Release()
+        {
+            Core.Release();
+        }
+
+        public virtual void MakeNew() { }
+        public virtual void PhsxStep() { }
+        public virtual void PhsxStep2() { }
+        public virtual void Draw() { }
+        public virtual void TextDraw() { }
+        public virtual void Reset(bool BoxesOnly) { }
+        public virtual void Clone(ObjectBase A) { Core.Clone(A.Core); }
+        public virtual void Read(BinaryReader reader) { Core.Read(reader); }
+        public virtual void Write(BinaryWriter writer) { Core.Write(writer); }
+        public virtual void Interact(Bob bob) { }
+        public virtual void Move(Vector2 shift) { }
+
+        public virtual void OnUsed() { }
+        public virtual void OnMarkedForDeletion() { }
+        public virtual void OnAttachedToBlock() { }
+        public virtual bool PermissionToUse() { return true; }
+        public virtual void Smash(Bob bob) { }
+        public virtual bool PreDecision(Bob bob) { return false; }
     }
 
+    /*
     public interface IObject
     {
         ObjectData Core { get; }
@@ -49,7 +78,7 @@ namespace CloudberryKingdom
         void OnMarkedForDeletion();
         void OnAttachedToBlock();
         bool PermissionToUse();
-    }
+    }*/
 
     public struct GenerationData
     {
@@ -168,20 +197,20 @@ namespace CloudberryKingdom
 
     public static class ObjectExtension
     {
-        public static void SetParentBlock(this IObject obj, Block block)
+        public static void SetParentBlock(this ObjectBase obj, BlockBase block)
         {
             obj.Core.SetParentBlock(block);
             obj.OnAttachedToBlock();
         }
 
-        public static void CollectSelf(this IObject obj)
+        public static void CollectSelf(this ObjectBase obj)
         {
             if (obj.Core.MarkedForDeletion) return;
 
             obj.Core.Recycle.CollectObject(obj);
         }
 
-        public static void StampAsUsed(this IObject obj, int CurPhsxStep)
+        public static void StampAsUsed(this ObjectBase obj, int CurPhsxStep)
         {
             obj.Core.GenData.__StampAsUsed(CurPhsxStep);
             obj.OnUsed();
@@ -190,13 +219,13 @@ namespace CloudberryKingdom
 
     public static class BlockExtension
     {
-        public static void StampAsFullyUsed(this Block block, int CurPhsxStep)
+        public static void StampAsFullyUsed(this BlockBase block, int CurPhsxStep)
         {
             block.StampAsUsed(CurPhsxStep);
             block.BlockCore.NonTopUsed = true;
         }
 
-        public static void Stretch(this Block block, Side side, float amount)
+        public static void Stretch(this BlockBase block, Side side, float amount)
         {
             block.Box.CalcBounds();
             switch (side) {
@@ -472,8 +501,8 @@ namespace CloudberryKingdom
         }
 
         public UInt64 ParentObjId;
-        public IObject ParentObject;
-        public Block ParentBlock;
+        public ObjectBase ParentObject;
+        public BlockBase ParentBlock;
         public Vector2 ParentOffset;
 
         /// <summary>
@@ -501,15 +530,15 @@ namespace CloudberryKingdom
 
         public int StepOffset; // When an object from one level is added to another, an offset is calculated to keep it synchronized
 
-        public static void AddAssociation(bool DeleteWhenDeleted, bool UseWhenUsed, params IObject[] objs)
+        public static void AddAssociation(bool DeleteWhenDeleted, bool UseWhenUsed, params ObjectBase[] objs)
         {
-            foreach (IObject obj in objs)
-                foreach (IObject _obj in objs)
+            foreach (ObjectBase obj in objs)
+                foreach (ObjectBase _obj in objs)
                     if (obj != _obj)
                         obj.Core.AddAssociate(_obj, DeleteWhenDeleted, UseWhenUsed);
         }
 
-        public void AddAssociate(IObject obj, bool DeleteWhenDeleted, bool UseWhenUsed)
+        public void AddAssociate(ObjectBase obj, bool DeleteWhenDeleted, bool UseWhenUsed)
         {
             int FreeIndex = 0;
             if (Associations == null)
@@ -527,7 +556,7 @@ namespace CloudberryKingdom
             Associations[FreeIndex].UseWhenUsed = UseWhenUsed;
         }
 
-        public bool IsAssociatedWith(IObject obj)
+        public bool IsAssociatedWith(ObjectBase obj)
         {
             if (Associations == null || obj.Core.Associations == null)
                 return false;
@@ -535,7 +564,7 @@ namespace CloudberryKingdom
                 return Associations.Any(data => data.Guid == obj.Core.MyGuid);
         }
 
-        public int GetAssociatedIndex(IObject obj)
+        public int GetAssociatedIndex(ObjectBase obj)
         {
             for (int i = 0; i < Associations.Length; i++)
                 if (Associations[i].Guid == obj.Core.MyGuid)
@@ -544,7 +573,7 @@ namespace CloudberryKingdom
             return -1;
         }
 
-        public AssociatedObjData GetAssociationData(IObject obj)
+        public AssociatedObjData GetAssociationData(ObjectBase obj)
         {
             return Associations.First(delegate(AssociatedObjData data) { return data.Guid == obj.Core.MyGuid; });
         }
@@ -569,13 +598,13 @@ namespace CloudberryKingdom
             InteractingBob = null;
         }
 
-        public void SetParentObj(IObject obj)
+        public void SetParentObj(ObjectBase obj)
         {
             ParentObject = obj;
             ParentObjId = obj.Core.MyGuid;
         }
 
-        public void SetParentBlock(Block block)
+        public void SetParentBlock(BlockBase block)
         {
             ParentBlock = block;
 

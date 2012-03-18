@@ -321,7 +321,7 @@ namespace CloudberryKingdom
         {
             if (Core.MyLevel.PlayMode != 0) return;
 
-            foreach (Block block in Core.MyLevel.Blocks)
+            foreach (BlockBase block in Core.MyLevel.Blocks)
             {
                 if (!block.Core.MarkedForDeletion && block.IsActive && block.Core.Active && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
                 {
