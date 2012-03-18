@@ -212,10 +212,14 @@ namespace CloudberryKingdom.Blocks
         public bool Active;
         public bool IsActive { get { return Active; } set { Active = value; } }
 
-        public BlockData CoreData;
-        public BlockData BlockCore { get { return CoreData; } }
-        public ObjectData Core { get { return CoreData as BlockData; } }
+        protected BlockData BlockCoreData;
+        public BlockData BlockCore { get { return BlockCoreData; } }
 
+        public BlockBase()
+        {
+            BlockCoreData = new BlockData();
+            CoreData = BlockCore as ObjectData;
+        }
 
         public virtual bool PostCollidePreDecision(Bob bob)
         {
@@ -403,7 +407,6 @@ namespace CloudberryKingdom.Blocks
         AABox Box { get; }
         bool IsActive { get; set; }
         BlockData BlockCore { get; }
-        Camera Cam { get; }
 
         void Extend(Side side, float pos);
 

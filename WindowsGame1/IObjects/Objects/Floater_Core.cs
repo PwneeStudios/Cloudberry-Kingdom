@@ -23,9 +23,6 @@ namespace CloudberryKingdom
 
         public CircleBox Circle;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public virtual void MakeNew()
         {
             //Box.Initialize(Core.Data.Position, MyObject.Boxes[0].Size() / 2);
@@ -49,8 +46,6 @@ namespace CloudberryKingdom
                 ChainTexture = Tools.TextureWad.FindByName("Chain_Tile");
             }
 
-            CoreData = new ObjectData();
-
             MyObject = new SimpleObject(Prototypes.floater.MyObject, BoxesOnly);
 
             MyObject.Boxes[0].Animated = false;
@@ -67,8 +62,6 @@ namespace CloudberryKingdom
 
         public Floater_Core(string file)
         {
-            CoreData = new ObjectData();
-
             ObjectClass SourceObject;
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);

@@ -17,9 +17,6 @@ namespace CloudberryKingdom
 
         AABox Box;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public virtual void MakeNew()
         {
             Core.Init();
@@ -29,7 +26,6 @@ namespace CloudberryKingdom
 
         public ZoneTrigger()
         {
-            CoreData = new ObjectData();
             Box = new AABox();
 
             MakeNew();

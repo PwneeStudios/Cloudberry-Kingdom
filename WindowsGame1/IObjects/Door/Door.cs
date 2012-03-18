@@ -50,9 +50,6 @@ namespace CloudberryKingdom
         public DoorAction OnOpen { get { return _OnOpen; } set { _OnOpen = value; } }
         public DoorAction OnEnter, ExtraPhsx;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         PressNote MyPressNote;
 
         public void MakeNew()
@@ -188,8 +185,6 @@ namespace CloudberryKingdom
 
         public Door(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Core.BoxesOnly = BoxesOnly;
 
             MyObject = new SimpleObject(Prototypes.Door, false);

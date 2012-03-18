@@ -30,9 +30,6 @@ namespace CloudberryKingdom
 
         Vector2 Size;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             if (!Core.BoxesOnly)
@@ -57,8 +54,6 @@ namespace CloudberryKingdom
 
         public Fireball(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-            
             //Box = new AABox();
             Box = new CircleBox();
 

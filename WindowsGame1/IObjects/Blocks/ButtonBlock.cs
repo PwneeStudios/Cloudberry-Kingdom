@@ -33,13 +33,13 @@ namespace CloudberryKingdom.Blocks
         public ButtonBlock(ButtonBlock block)
         {
             Active = block.Active;
-            CoreData = new BlockData();
-            CoreData.MyType = block.BlockCore.MyType;
+
+            BlockCore.MyType = block.BlockCore.MyType;
 
             MyBox = new AABox(block.Box.Current.Center, block.Box.Current.Size);
 
             BlockCore.Data = block.BlockCore.Data;
-            CoreData.StartData = block.BlockCore.StartData;
+            BlockCore.StartData = block.BlockCore.StartData;
 
             BlockCore.Layer = block.BlockCore.Layer;
 
@@ -57,8 +57,8 @@ namespace CloudberryKingdom.Blocks
         public ButtonBlock(Vector2 Pos, Vector2 Size)
         {
             Active = true;
-            CoreData = new BlockData();
-            CoreData.MyType = ObjectType.Button;
+            
+            BlockCore.MyType = ObjectType.Button;
                         
 
             Vector2 BoxSize = Size; BoxSize.Y = BoxSize.X * .6f;
@@ -66,7 +66,7 @@ namespace CloudberryKingdom.Blocks
             MyBox = new AABox(BoxPos, BoxSize);
             
             BlockCore.Data.Position = BoxPos;
-            CoreData.StartData.Position = BoxPos;
+            BlockCore.StartData.Position = BoxPos;
 
             BlockCore.Layer = 1;
 
@@ -160,13 +160,13 @@ namespace CloudberryKingdom.Blocks
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
 

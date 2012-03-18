@@ -28,9 +28,9 @@ namespace CloudberryKingdom
             MyAnimSpeed = .36f;
 
             Core.Init();
-            CoreData.MyType = ObjectType.FlyingBlock;
+            BlockCore.MyType = ObjectType.FlyingBlock;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             Core.DrawLayer = 5;
             Core.DrawLayer2 = 8;
 
@@ -58,8 +58,6 @@ namespace CloudberryKingdom
 
         public FlyingBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyObject = new SimpleObject(Prototypes.FlyingBlockObj, BoxesOnly);
 
             MyObject.Boxes[0].Animated = false;
@@ -90,13 +88,13 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -141,7 +139,7 @@ namespace CloudberryKingdom
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
 
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -154,7 +152,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center;
 
@@ -193,7 +191,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
 
@@ -240,12 +238,12 @@ namespace CloudberryKingdom
             {
                 if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
                 {
-                    if (DrawSelf && !CoreData.BoxesOnly)
+                    if (DrawSelf && !BlockCore.BoxesOnly)
                         MyObject.Draw(Tools.QDrawer, Tools.EffectWad, 0, 1);
                 }
                 else
                 {
-                    if (DrawSelf && !CoreData.BoxesOnly)
+                    if (DrawSelf && !BlockCore.BoxesOnly)
                         MyObject.Draw(Tools.QDrawer, Tools.EffectWad, 2, 2);
                     
                     BlockCore.Draw();

@@ -29,9 +29,6 @@ namespace CloudberryKingdom
 
         public MovingLine MyLine;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             SmallerWidth = 170f / 200f;
@@ -59,8 +56,6 @@ namespace CloudberryKingdom
                 LaserTexture = Tools.TextureWad.FindByName("Laser");
             }
 
-            CoreData = new ObjectData();
-
             MakeNew();
 
             Core.BoxesOnly = false;
@@ -76,8 +71,6 @@ namespace CloudberryKingdom
             {
                 LaserTexture = Tools.TextureWad.FindByName("Laser");
             }
-
-            CoreData = new ObjectData();
 
             MakeNew();
 

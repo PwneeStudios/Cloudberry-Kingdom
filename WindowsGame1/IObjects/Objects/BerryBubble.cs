@@ -21,9 +21,6 @@ namespace CloudberryKingdom
         public DrawPile MyPile;
         public QuadClass Berry, Bubble;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public float RotateSpeed = 0;
 
         public void Rotate(float degrees)
@@ -89,8 +86,6 @@ namespace CloudberryKingdom
         }
         protected void Init(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-            
             Box = new CircleBox();
             if (!BoxesOnly)
             {

@@ -40,9 +40,6 @@ namespace CloudberryKingdom
         int Step = 0;
         Bob MyBob;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public PopIn(bool BoxesOnly)
         {
         }
@@ -50,7 +47,6 @@ namespace CloudberryKingdom
         public void MakeNew()
         {
             Step = 0;
-            CoreData = new ObjectData();
 
             Core.ResetOnlyOnReset = true;
         }

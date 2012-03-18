@@ -45,9 +45,6 @@ namespace CloudberryKingdom.FireSpinners
         public MovingLine MyLine;
         public Vector2 dir;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         void SetColor()
         {
             MyQuad.SetColor(new Color(255, 140, 140));
@@ -87,8 +84,6 @@ namespace CloudberryKingdom.FireSpinners
         {
             if (BallTexture == null)
                 BallTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FireSpinner_Ball_Texture"));
-
-            CoreData = new ObjectData();
 
             MakeNew();
 

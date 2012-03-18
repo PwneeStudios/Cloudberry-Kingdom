@@ -24,9 +24,6 @@ namespace CloudberryKingdom
 
         public bool DrawEnd = false;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             Core.ResetOnlyOnReset = true;
@@ -42,8 +39,6 @@ namespace CloudberryKingdom
         }
         protected void Init(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Core.Init();
             Core.MyType = ObjectType.Undefined;
             Core.EditHoldable = false;

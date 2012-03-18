@@ -26,9 +26,6 @@ namespace CloudberryKingdom.Clouds
 
         public AABox Box;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             Core.Init();
@@ -69,8 +66,6 @@ namespace CloudberryKingdom.Clouds
 
         public Cloud(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Box = new AABox();
 
             if (!BoxesOnly)

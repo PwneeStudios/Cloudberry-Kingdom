@@ -29,17 +29,12 @@ namespace CloudberryKingdom.Balrogs
         int DurationIndex, Count;
         bool Triggered, DrawMark;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
         }
 
         public BalrogFlyupTrigger()
         {
-            CoreData = new ObjectData();
-
             if (TinkSound == null) TinkSound = Tools.SoundWad.FindByName("!Tink");
 
             WarningQuad = new SimpleQuad();
@@ -177,9 +172,6 @@ public bool PreDecision(Bob bob) { return false; }
  
         public AABox Box;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             MyObject.Read(0, 0);
@@ -189,8 +181,6 @@ public bool PreDecision(Bob bob) { return false; }
     
         public Balrog(Balrog balrog, bool boxesOnly)
         {
-            CoreData = new ObjectData();
-
             BoxesOnly = boxesOnly;
 
             MyObject = new SimpleObject(balrog.MyObject, BoxesOnly);
@@ -205,8 +195,6 @@ public bool PreDecision(Bob bob) { return false; }
 
         public Balrog(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
         {
-            CoreData = new ObjectData();
-
             WooshSound = Tools.SoundWad.FindByName("Balrog_Woosh");
 
             ObjectClass SourceObject;

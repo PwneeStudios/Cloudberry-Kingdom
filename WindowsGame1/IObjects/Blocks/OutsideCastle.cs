@@ -21,7 +21,7 @@ namespace CloudberryKingdom
             Box.TopOnly = true;
 
             BlockCore.Init();
-            CoreData.Layer = .3f;
+            BlockCore.Layer = .3f;
             Core.MyType = ObjectType.OutsideCastleBlock;
 
             MyPieces.Init(Tools.TextureWad.FindByName("Castle"), Tools.BasicEffect);
@@ -36,7 +36,6 @@ namespace CloudberryKingdom
 
         public OutsideCastleBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
             MyBox = new AABox();
 
             Core.BoxesOnly = BoxesOnly;
@@ -48,7 +47,7 @@ namespace CloudberryKingdom
 
         public void Init(Vector2 center, Vector2 size)
         {
-            CoreData.Data.Position = CoreData.StartData.Position = center;
+            BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, size);
 
@@ -88,11 +87,11 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -115,7 +114,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             MyPieces.Base.Origin = Box.Current.Center;
             MyPieces.Update();
@@ -144,7 +143,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Draw()
@@ -152,10 +151,10 @@ namespace CloudberryKingdom
             if (!Active) return;
 
             Vector2 BL = MyBox.Current.BL;//MyQuad.BL();
-            if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
+            if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
                 return;
             Vector2 TR = MyBox.Current.TR;// MyQuad.TR();
-            if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y)
+            if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
                 return;
 
             Update();
@@ -163,7 +162,7 @@ namespace CloudberryKingdom
             if (Tools.DrawBoxes)
                 MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
 
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             if (Tools.DrawGraphics)
             {

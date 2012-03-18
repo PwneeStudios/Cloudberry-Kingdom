@@ -23,9 +23,6 @@ namespace CloudberryKingdom
 
         public bool OverlapTriggers; // If true the trigger is set off if the box overlaps with a bob
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             MyCode = TriggerCode.None;
@@ -38,7 +35,6 @@ namespace CloudberryKingdom
 
         public LineTrigger()
         {
-            CoreData = new ObjectData();
             Box = new AABox();
 
             MakeNew();

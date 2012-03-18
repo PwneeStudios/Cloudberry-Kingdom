@@ -28,9 +28,6 @@ namespace CloudberryKingdom
         public Vector2 Radii;
         public int Period, Offset;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             if (!Core.BoxesOnly)
@@ -54,8 +51,6 @@ namespace CloudberryKingdom
 
         public Firesnake(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-            
             Box = new CircleBox();
 
             MakeNew();

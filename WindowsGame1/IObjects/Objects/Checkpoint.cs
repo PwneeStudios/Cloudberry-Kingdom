@@ -40,9 +40,6 @@ namespace CloudberryKingdom
         public LevelPiece MyPiece;
         public int MyPieceIndex;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             Taken = TakenAnimFinished = false;
@@ -63,8 +60,6 @@ namespace CloudberryKingdom
 
         public Checkpoint()
         {
-            CoreData = new ObjectData();
-
             Box = new AABox();
 
             MyQuad = new SimpleQuad();

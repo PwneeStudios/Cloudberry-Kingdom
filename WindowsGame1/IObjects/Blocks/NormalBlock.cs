@@ -21,7 +21,6 @@ namespace CloudberryKingdom.Blocks
 
         public void BasicConstruction(bool BoxesOnly)
         {
-            CoreData = new BlockData();            
             Core.BoxesOnly = BoxesOnly;
 
             MyBox = new AABox();
@@ -49,7 +48,7 @@ namespace CloudberryKingdom.Blocks
                 MyDraw.MakeNew();
 
             BlockCore.Init();
-            CoreData.Layer = .3f;
+            BlockCore.Layer = .3f;
             Core.DrawLayer = 1;
             Core.MyType = ObjectType.NormalBlock;
             Core.EditHoldable = Core.Holdable = true;
@@ -294,7 +293,7 @@ namespace CloudberryKingdom.Blocks
 
         public void Init(Vector2 center, Vector2 size)
         {
-            CoreData.Data.Position = CoreData.StartData.Position = center;
+            BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, size);
 
@@ -352,14 +351,14 @@ namespace CloudberryKingdom.Blocks
             if (Core.AlwaysBoxesOnly)
                 BoxesOnly = true;
             else
-                CoreData.BoxesOnly = BoxesOnly;
+                BlockCore.BoxesOnly = BoxesOnly;
 
             if (!Core.BoxesOnly)
                 ResetPieces();
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -373,10 +372,10 @@ namespace CloudberryKingdom.Blocks
 
             Active = Core.Active = true;
             Vector2 BL = MyBox.Current.BL;
-            if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y + 500)//+ 1250)
+            if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 500)//+ 1250)
                 Active = Core.Active = false;
             Vector2 TR = MyBox.Current.TR;
-            if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 250)//- 500)
+            if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 250)//- 500)
                 Active = Core.Active = false;
 
             //if (Core.MyLevel != null)
@@ -439,7 +438,7 @@ namespace CloudberryKingdom.Blocks
             if (!Core.BoxesOnly)
                 MyDraw.Init(this, GetPieceTemplate());
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
 
             if (!Core.BoxesOnly)
                 ResetPieces();
@@ -455,7 +454,7 @@ namespace CloudberryKingdom.Blocks
             if (Tools.DrawBoxes)
                 MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
 
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             if (Tools.DrawGraphics && Core.Show)
             {

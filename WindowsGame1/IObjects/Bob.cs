@@ -396,9 +396,6 @@ namespace CloudberryKingdom.Bobs
 
         public bool Immortal, DoNotTrackOffScreen = false;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public bool TopCol, BottomCol;
 
         public FancyVector2 FancyPos;
@@ -534,7 +531,6 @@ namespace CloudberryKingdom.Bobs
 
             //MyHat = new Hat();
 
-            CoreData = new ObjectData();
             Core.DrawLayer = 6;
             Core.Show = true;
 

@@ -19,9 +19,6 @@ namespace CloudberryKingdom
 
         public QuadClass MyQuad;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         EzTexture OnTexture, OffTexture;
 
         public void MakeNew()
@@ -40,8 +37,6 @@ namespace CloudberryKingdom
 
         public Sign(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Core.BoxesOnly = BoxesOnly;
 
             MakeNew();

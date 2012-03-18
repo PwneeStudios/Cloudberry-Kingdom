@@ -110,16 +110,16 @@ namespace CloudberryKingdom.Blocks
         public void MakeNew()
         {
             BlockCore.Init();
-            CoreData.MyType = ObjectType.Wall;
+            BlockCore.MyType = ObjectType.Wall;
             Core.DrawLayer = 9;
 
             Active = false;
 
-            CoreData.Layer = .7f;
+            BlockCore.Layer = .7f;
 
             Core.RemoveOnReset = false;
-            CoreData.HitHead = true;
-            CoreData.NoComputerTouch = true;
+            BlockCore.HitHead = true;
+            BlockCore.NoComputerTouch = true;
 
             Core.EditHoldable = Core.Holdable = true;
         }
@@ -136,8 +136,6 @@ namespace CloudberryKingdom.Blocks
 
         public Wall(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyBox = new AABox();
             MyDraw = new NormalBlockDraw();
 
@@ -206,7 +204,7 @@ namespace CloudberryKingdom.Blocks
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             if (!Core.BoxesOnly)
                 ResetPieces();
@@ -343,7 +341,7 @@ namespace CloudberryKingdom.Blocks
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             MyDraw.Update();
         }
@@ -357,7 +355,7 @@ namespace CloudberryKingdom.Blocks
 
             if (Tools.DrawGraphics)
             {
-                if (!CoreData.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                 {
                     MyDraw.Draw();
                     Tools.QDrawer.Flush();
@@ -378,7 +376,7 @@ namespace CloudberryKingdom.Blocks
             if (!Core.BoxesOnly)
                 ResetPieces();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
 
             ResetPieces();
         }

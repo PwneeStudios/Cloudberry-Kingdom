@@ -23,9 +23,6 @@ namespace CloudberryKingdom
 
         protected float BounceLoss = .75f;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public float Friction = .98f;
         public float SmallFriction = .905f;
 
@@ -54,8 +51,6 @@ namespace CloudberryKingdom
 
         public InteractWithBlocks(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Box = new AABox();
 
             MakeNew();

@@ -29,9 +29,9 @@ namespace CloudberryKingdom
             MyAnimSpeed = .36f;
 
             Core.Init();
-            CoreData.MyType = ObjectType.IceBlock;
+            BlockCore.MyType = ObjectType.IceBlock;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             Core.DrawLayer = 4;
 
             if (!Core.BoxesOnly)
@@ -60,8 +60,6 @@ namespace CloudberryKingdom
 
         public IceBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             if (!BoxesOnly)
             {
                 Ice = new QuadClass();
@@ -103,13 +101,13 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -123,9 +121,9 @@ namespace CloudberryKingdom
             Active = Core.Active = true;
             if (!Core.Held)
             {
-                if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
                     Active = Core.Active = false;
-                if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
                     Active = Core.Active = false;
             }
 
@@ -133,7 +131,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
 
             EmitterPhsx();
         }
@@ -224,7 +222,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             Base.Origin = Core.Data.Position;
             MyQuad.Update(ref Base);
@@ -255,7 +253,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)

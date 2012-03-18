@@ -11,8 +11,16 @@ namespace CloudberryKingdom
 {
     public class ObjectBase
     {
-        public Level MyLevel { get { return ((IObject)this).Core.MyLevel; } }
-        public Rand Rnd { get { return ((IObject)this).Core.MyLevel.Rnd; } }
+        public Level MyLevel { get { return Core.MyLevel; } }
+        public Rand Rnd { get { return Core.MyLevel.Rnd; } }
+
+        protected ObjectData CoreData;
+        public ObjectData Core { get { return CoreData; } }
+
+        public ObjectBase()
+        {
+            CoreData = new ObjectData();
+        }
     }
 
     public interface IObject

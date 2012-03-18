@@ -73,9 +73,6 @@ namespace CloudberryKingdom.Goombas
 
         Bob KillingBob;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void SetColor(BlobColor color)
         {
             MyColor = color;
@@ -177,8 +174,6 @@ namespace CloudberryKingdom.Goombas
 
         public Goomba(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             MyObject = new SimpleObject(Prototypes.flyinggoomba.MyObject, BoxesOnly);
 
             Box = new AABox();

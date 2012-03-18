@@ -19,7 +19,7 @@ namespace CloudberryKingdom
         {
             Core.Init();
             Core.DrawLayer = 3;
-            CoreData.MyType = ObjectType.ConveyorBlock;
+            BlockCore.MyType = ObjectType.ConveyorBlock;
         }
 
         public void Release()
@@ -32,8 +32,6 @@ namespace CloudberryKingdom
 
         public ConveyorBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             if (!BoxesOnly)
             {
                 MyQuad = new QuadClass();
@@ -71,9 +69,9 @@ namespace CloudberryKingdom
             Size = size;
             Size.Y = texture_size.Y;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             MyBox = new AABox(center, Size);
-            MyQuad.Base.Origin = CoreData.Data.Position = CoreData.StartData.Position = center;
+            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, Size);
 
@@ -98,15 +96,15 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             BlockCore.StoodOn = false;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -135,7 +133,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -147,7 +145,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
         }
 
         public void Extend(Side side, float pos)
@@ -173,7 +171,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)
@@ -194,7 +192,7 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
-                if (!CoreData.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                 {
                     MyQuad.Base.Origin = MyBox.Current.Center;
                     MyQuad.Draw();

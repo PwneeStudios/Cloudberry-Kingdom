@@ -78,8 +78,6 @@ namespace CloudberryKingdom
         {
             MySound = Tools.Sound("Bash");
 
-            CoreData = new BlockData();
-
             MyQuad = new QuadClass();
 
             MyBox = new AABox();
@@ -96,9 +94,9 @@ namespace CloudberryKingdom
 
             Active = true;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             MyBox = new AABox(center, Size);
-            MyQuad.Base.Origin = CoreData.Data.Position = CoreData.StartData.Position = center;
+            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, Size);
 
@@ -134,17 +132,17 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
             SetState(ThwompState.Waiting, true);
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             BlockCore.StoodOn = false;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, Size);
             MyBox.SwapToCurrent();
@@ -158,9 +156,9 @@ namespace CloudberryKingdom
             Active = Core.Active = true;
             if (!Core.Held)
             {
-                if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
                     Active = Core.Active = false;
-                if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 200)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
                     Active = Core.Active = false;
             }
 
@@ -191,7 +189,7 @@ namespace CloudberryKingdom
             else if (State == ThwompState.Falling)
             {
                 Core.Data.Velocity.Y = Tools.Restrict(-68, 0, Core.Data.Velocity.Y - 2.5f);
-                Core.Data.Position.Y += CoreData.Data.Velocity.Y;
+                Core.Data.Position.Y += BlockCore.Data.Velocity.Y;
                 Box.SetTarget(Pos + new Vector2(0, -1), Size);
                 if (MyQuad != null) MyQuad.Pos = Pos + Offset;
 
@@ -217,7 +215,7 @@ namespace CloudberryKingdom
             else if (State == ThwompState.Rising)
             {
                 Core.Data.Velocity.Y = Tools.Restrict(-5, 20, Core.Data.Velocity.Y + 1.05f);
-                Core.Data.Position.Y += CoreData.Data.Velocity.Y;
+                Core.Data.Position.Y += BlockCore.Data.Velocity.Y;
                 Box.SetTarget(Pos + new Vector2(0, -1), Size);
                 if (MyQuad != null) MyQuad.Pos = Pos + Offset;
 
@@ -233,7 +231,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
 
             Count++;
         }
@@ -247,7 +245,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
         }
 
         protected EzSound MySound;
@@ -304,7 +302,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         Vector2 Offset;
@@ -357,8 +355,8 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
-                if (DrawSelf && !CoreData.BoxesOnly)
-                if (!CoreData.BoxesOnly)
+                if (DrawSelf && !BlockCore.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                     MyQuad.Draw();
 
                 BlockCore.Draw();

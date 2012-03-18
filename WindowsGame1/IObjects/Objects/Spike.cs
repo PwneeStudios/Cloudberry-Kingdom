@@ -32,9 +32,6 @@ namespace CloudberryKingdom.Spikes
 
         public bool Exposed;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void SetPeriod(int Period)
         {
             Period -= 7 + 7;
@@ -80,8 +77,6 @@ namespace CloudberryKingdom.Spikes
 
         public Spike(bool BoxesOnly)
         {
-            CoreData = new ObjectData();           
-
             MyObject = new SimpleObject(Prototypes.spike.MyObject, BoxesOnly);
 
             Box = new AABox();
@@ -106,8 +101,6 @@ namespace CloudberryKingdom.Spikes
 
         public Spike(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
         {
-            CoreData = new ObjectData();
-
             ObjectClass SourceObject;
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);

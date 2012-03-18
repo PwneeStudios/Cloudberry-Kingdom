@@ -30,9 +30,6 @@ namespace CloudberryKingdom.Bobs
             Core.Release();
         }
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public AABox Box;
         Vector2 HandSize;
 
@@ -98,8 +95,6 @@ namespace CloudberryKingdom.Bobs
 
         public Hand()
         {
-            CoreData = new ObjectData();
-
             MyQuad = new QuadClass();
 
             Box = new AABox(Core.Data.Position, HandSize);

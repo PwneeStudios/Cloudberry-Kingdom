@@ -20,17 +20,12 @@ namespace CloudberryKingdom
 
         public bool Repeat;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
         }
 
         public TimerTrigger()
         {
-            CoreData = new ObjectData();
-
             MakeNew();
         }
 

@@ -29,7 +29,7 @@ namespace CloudberryKingdom
             Core.Init();
             //BlockCore.GivesVelocity = false;
             Core.DrawLayer = 3;
-            CoreData.MyType = ObjectType.BouncyBlock;
+            BlockCore.MyType = ObjectType.BouncyBlock;
 
             SideDampening = 1f;
 
@@ -65,8 +65,6 @@ namespace CloudberryKingdom
 
         public BouncyBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyQuad = new QuadClass();
 
             MyBox = new AABox();
@@ -82,9 +80,9 @@ namespace CloudberryKingdom
             
             this.speed = speed;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             MyBox = new AABox(center, size);
-            MyQuad.Base.Origin = CoreData.Data.Position = CoreData.StartData.Position = center;
+            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, size);
 
@@ -138,7 +136,7 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
@@ -147,9 +145,9 @@ namespace CloudberryKingdom
 
             SetState(BouncyBlockState.Regular, true);
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -162,9 +160,9 @@ namespace CloudberryKingdom
             Active = Core.Active = true;
             if (!Core.Held)
             {
-                if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y + 50)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 50)
                     Active = Core.Active = false;
-                if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 150)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 150)
                     Active = Core.Active = false;
             }
 
@@ -188,7 +186,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(Core.Data.Position, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -201,7 +199,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
         }
 
         public void Extend(Side side, float pos)
@@ -227,7 +225,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)
@@ -248,7 +246,7 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
-                if (!CoreData.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                 {
                     MyQuad.Base.Origin = MyBox.Current.Center + Offset;
                     MyQuad.Base.e1.X = MyBox.Current.Size.X + SizeOffset.X;

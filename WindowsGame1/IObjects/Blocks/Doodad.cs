@@ -58,7 +58,7 @@ namespace CloudberryKingdom
             Active = true;
 
             BlockCore.Init();
-            CoreData.MyType = ObjectType.Doodad;
+            BlockCore.MyType = ObjectType.Doodad;
             Core.EditHoldable = true;
         }
 
@@ -71,7 +71,6 @@ namespace CloudberryKingdom
 
         public Doodad()
         {
-            CoreData = new BlockData();
             MyBox = new AABox();
             MyBox.Initialize(Vector2.Zero, Vector2.Zero);
 
@@ -86,7 +85,7 @@ namespace CloudberryKingdom
 
             MyBox.Initialize(Pos, Size);
 
-            CoreData.StartData.Position = Pos;
+            BlockCore.StartData.Position = Pos;
 
             MyFileName = filename;
             MyAnimSpeed = Speed;
@@ -106,7 +105,7 @@ namespace CloudberryKingdom
 
             MyBox.Initialize(Pos, Size);
 
-            CoreData.StartData.Position = Pos;            
+            BlockCore.StartData.Position = Pos;            
         }
 
         public void InitType()
@@ -335,10 +334,10 @@ namespace CloudberryKingdom
         {
             MyBox.CalcBounds();
             Vector2 BL = MyBox.RealBL();
-            if (BL.X > CoreData.MyLevel.MainCamera.TR.X || BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
+            if (BL.X > BlockCore.MyLevel.MainCamera.TR.X || BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
                 return;
             Vector2 TR = MyBox.RealTR();
-            if (TR.X < CoreData.MyLevel.MainCamera.BL.X || TR.Y < CoreData.MyLevel.MainCamera.BL.Y)
+            if (TR.X < BlockCore.MyLevel.MainCamera.BL.X || TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
                 return;
 
             if (Tools.DrawGraphics && BlockCore.Show)
@@ -431,7 +430,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = CoreData.Data.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = BlockCore.Data.Position = MyBox.Current.Center;
         }
 
         public void MatchBoxToQuad()
@@ -449,11 +448,11 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
         }

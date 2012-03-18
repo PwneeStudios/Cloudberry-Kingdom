@@ -30,9 +30,6 @@ namespace CloudberryKingdom
         public int Delay, Offset;
         public Vector2 Size;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void OnUsed()
         {
             Platforms.ForEach(platform => platform.Core.GenData.Used = true);
@@ -80,7 +77,6 @@ namespace CloudberryKingdom
 
         public BlockEmitter(bool BoxesOnly)
         {            
-            CoreData = new ObjectData();
             Core.BoxesOnly = BoxesOnly;
 
             MakeNew();

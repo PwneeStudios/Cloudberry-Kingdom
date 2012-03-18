@@ -26,9 +26,6 @@ namespace CloudberryKingdom
 
         public bool DrawEmitter;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             Core.Init();
@@ -57,8 +54,6 @@ namespace CloudberryKingdom
 
         public FireballEmitter(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-            
             Core.BoxesOnly = BoxesOnly;
 
             MakeNew();

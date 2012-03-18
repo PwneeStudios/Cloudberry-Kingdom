@@ -38,7 +38,7 @@ namespace CloudberryKingdom
 
             Core.Init();
             Core.DrawLayer = 3;
-            CoreData.MyType = ObjectType.FallingBlock;
+            BlockCore.MyType = ObjectType.FallingBlock;
 
             SetState(FallingBlockState.Regular);
         }
@@ -80,8 +80,6 @@ namespace CloudberryKingdom
 
         public FallingBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyQuad = new QuadClass();
 
             MyBox = new AABox();
@@ -97,9 +95,9 @@ namespace CloudberryKingdom
 
             Life = StartLife = life;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             MyBox = new AABox(center, size);
-            MyQuad.Base.Origin = CoreData.Data.Position = CoreData.StartData.Position = center;
+            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyBox.Initialize(center, size);
 
@@ -135,7 +133,7 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
@@ -147,11 +145,11 @@ namespace CloudberryKingdom
 
             SetState(FallingBlockState.Regular, true);
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             BlockCore.StoodOn = false;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -164,9 +162,9 @@ namespace CloudberryKingdom
             Active = Core.Active = true;
             if (!Core.Held)
             {
-                if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
                     Active = Core.Active = false;
-                if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 200)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
                     Active = Core.Active = false;
             }
 
@@ -178,7 +176,7 @@ namespace CloudberryKingdom
             BlockCore.UseCustomCenterAsParent = true;
             BlockCore.CustomCenterAsParent = Box.Target.Center + Offset;
 
-            if (CoreData.StoodOn)
+            if (BlockCore.StoodOn)
             {
                 ResetTimer = ResetTimerLength;
 
@@ -202,13 +200,13 @@ namespace CloudberryKingdom
 
             if (State == FallingBlockState.Angry)
             {
-                CoreData.Data.Velocity.Y += AngryAccel.Y;
-                if (CoreData.Data.Velocity.Y > AngryMaxSpeed) CoreData.Data.Velocity.Y = AngryMaxSpeed;
-                MyBox.Current.Center.Y += CoreData.Data.Velocity.Y;
+                BlockCore.Data.Velocity.Y += AngryAccel.Y;
+                if (BlockCore.Data.Velocity.Y > AngryMaxSpeed) BlockCore.Data.Velocity.Y = AngryMaxSpeed;
+                MyBox.Current.Center.Y += BlockCore.Data.Velocity.Y;
             }
             else
             {
-                if (CoreData.StoodOn || Life < StartLife / 3) Life--;
+                if (BlockCore.StoodOn || Life < StartLife / 3) Life--;
                 if (Life <= 0)
                 {
                     if (State != FallingBlockState.Falling)
@@ -218,16 +216,16 @@ namespace CloudberryKingdom
                         else
                             SetState(FallingBlockState.Falling);
                     }
-                    CoreData.Data.Velocity.Y -= 1;
-                    if (CoreData.Data.Velocity.Y < -20) CoreData.Data.Velocity.Y = -20;
-                    MyBox.Current.Center.Y += CoreData.Data.Velocity.Y;
+                    BlockCore.Data.Velocity.Y -= 1;
+                    if (BlockCore.Data.Velocity.Y < -20) BlockCore.Data.Velocity.Y = -20;
+                    MyBox.Current.Center.Y += BlockCore.Data.Velocity.Y;
                 }
 
                 // Check for hitting bottom of screen
                 if (State == FallingBlockState.Falling && 
                     (Core.MyLevel.Geometry != LevelGeometry.Up && Core.MyLevel.Geometry != LevelGeometry.Down))
                 {
-                    if (MyBox.Current.Center.Y < CoreData.MyLevel.MainCamera.BL.Y - 200)
+                    if (MyBox.Current.Center.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
                     {
                         // Emit a dust plume if the game is in draw mode and there isn't any lava
                         if (Core.MyLevel.PlayMode == 0 && !EmittedExplosion &&
@@ -237,14 +235,14 @@ namespace CloudberryKingdom
                             ParticleEffects.DustCloudExplosion(Core.MyLevel, MyBox.Current.Center);
                         }
                     }
-                    if (MyBox.Current.Center.Y < CoreData.MyLevel.MainCamera.BL.Y - 500) Active = false;
+                    if (MyBox.Current.Center.Y < BlockCore.MyLevel.MainCamera.BL.Y - 500) Active = false;
                 }
             }
             Update();
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -257,7 +255,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
         }
 
         public void Extend(Side side, float pos)
@@ -283,7 +281,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)
@@ -319,8 +317,8 @@ namespace CloudberryKingdom
             {
                 //if (State != FallingBlockState.Falling) return;
 
-                if (DrawSelf && !CoreData.BoxesOnly)
-                if (!CoreData.BoxesOnly)
+                if (DrawSelf && !BlockCore.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                 {
                     MyQuad.Base.Origin = MyBox.Current.Center + Offset;
                     MyQuad.Draw();

@@ -19,7 +19,7 @@ namespace CloudberryKingdom
         {
             Core.Init();
             Core.DrawLayer = 9;
-            CoreData.MyType = ObjectType.LavaBlock;
+            BlockCore.MyType = ObjectType.LavaBlock;
 
             MyQuad.EffectName = "Lava";
         }
@@ -34,8 +34,6 @@ namespace CloudberryKingdom
 
         public LavaBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyQuad = new QuadClass();
 
             MyBox = new AABox();
@@ -81,7 +79,7 @@ namespace CloudberryKingdom
 
             MyBox.Initialize(center, size);
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             
             MyBox = new AABox(center, size);
 
@@ -94,7 +92,7 @@ namespace CloudberryKingdom
 
         void SetQuad(Vector2 center, Vector2 size)
         {
-            MyQuad.Base.Origin = CoreData.Data.Position = CoreData.StartData.Position = center;
+            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             MyQuad.Base.e1.X = size.X;
             MyQuad.Base.e2.Y = size.Y;
@@ -108,15 +106,15 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
             BlockCore.StoodOn = false;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -158,7 +156,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -170,7 +168,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
         }
 
         public void Extend(Side side, float pos)
@@ -198,7 +196,7 @@ namespace CloudberryKingdom
             SetQuad(MyBox.Target.Center, MyBox.Target.Size);
             SetUV();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)
@@ -217,7 +215,7 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
-                if (!CoreData.BoxesOnly)
+                if (!BlockCore.BoxesOnly)
                 {
                     Tools.TheGame.DoLavaUpdate = true;
 

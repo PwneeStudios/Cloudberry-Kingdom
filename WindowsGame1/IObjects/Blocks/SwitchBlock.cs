@@ -17,7 +17,7 @@ namespace CloudberryKingdom.Blocks
         public void MakeNew()
         {
             BlockCore.Init();
-            CoreData.MyType = ObjectType.OnOffBlock;
+            BlockCore.MyType = ObjectType.OnOffBlock;
 
             Core.EditHoldable = false;
 
@@ -36,7 +36,6 @@ namespace CloudberryKingdom.Blocks
         public SwitchBlock(Vector2 Pos)
         {
             Active = true;
-            CoreData = new BlockData();
 
             Vector2 Size = new Vector2(100);
             MyBox = new AABox(Pos, Size);
@@ -137,13 +136,13 @@ namespace CloudberryKingdom.Blocks
         {
             CountSinceActivation = 0;
 
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
 

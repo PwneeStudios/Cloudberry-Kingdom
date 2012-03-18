@@ -24,9 +24,6 @@ namespace CloudberryKingdom.Coins
         public SimpleQuad MyQuad;
         public BasePoint Base;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public int MyValue, MyScoreValue;
 
         public void Release()
@@ -50,8 +47,6 @@ namespace CloudberryKingdom.Coins
 
         public Coin(bool BoxesOnly)
         {
-            CoreData = new ObjectData();
-
             Box = new AABox();
 
             if (!BoxesOnly)

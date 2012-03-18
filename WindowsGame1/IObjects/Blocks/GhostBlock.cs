@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 
             Core.Init();
             Core.DrawLayer = 3;
-            CoreData.MyType = ObjectType.GhostBlock;
+            BlockCore.MyType = ObjectType.GhostBlock;
 
             SetState(GhostBlockState.PhasedIn);
 
@@ -94,8 +94,6 @@ namespace CloudberryKingdom
 
         public GhostBlock(bool BoxesOnly)
         {
-            CoreData = new BlockData();
-
             MyObject = new SimpleObject(Prototypes.GhostBlockObj, BoxesOnly);
 
             MyObject.Boxes[0].Animated = false;
@@ -113,7 +111,7 @@ namespace CloudberryKingdom
         {
             Active = true;
 
-            CoreData.Layer = .35f;
+            BlockCore.Layer = .35f;
             Core.DrawLayer = 7;
 
             if (TallBox)
@@ -138,15 +136,15 @@ namespace CloudberryKingdom
 
         public void Reset(bool BoxesOnly)
         {
-            CoreData.BoxesOnly = BoxesOnly;
+            BlockCore.BoxesOnly = BoxesOnly;
 
             Active = true;
 
             SetState(GhostBlockState.PhasedIn, true);
 
-            CoreData.Data = CoreData.StartData;
+            BlockCore.Data = BlockCore.StartData;
 
-            MyBox.Current.Center = CoreData.StartData.Position;
+            MyBox.Current.Center = BlockCore.StartData.Position;
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
@@ -199,9 +197,9 @@ namespace CloudberryKingdom
             Active = Core.Active = true;
             if (!Core.Held)
             {
-                if (MyBox.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X + 40 || MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y + 200)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X + 40 || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 200)
                     Active = Core.Active = false;
-                if (MyBox.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X  - 40|| MyBox.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 200)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X  - 40|| MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
                     Active = Core.Active = false;
             }
 
@@ -261,7 +259,7 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
-            CoreData.StoodOn = false;
+            BlockCore.StoodOn = false;
         }
 
         public void PhsxStep2()
@@ -274,7 +272,7 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (CoreData.BoxesOnly) return;
+            if (BlockCore.BoxesOnly) return;
 
             if (TallBox)
                 MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center - new Vector2(0, MyBox.Current.Size.Y * (TallScale - 1) / 2);
@@ -320,7 +318,7 @@ namespace CloudberryKingdom
 
             Update();
 
-            CoreData.StartData.Position = MyBox.Current.Center;
+            BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
         public void Move(Vector2 shift)
@@ -344,7 +342,7 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
-                if (Active && !CoreData.BoxesOnly)
+                if (Active && !BlockCore.BoxesOnly)
                 {
                     Vector4 Full, Half;
                     Full = new Vector4(1, 1f, 1f, 1f);

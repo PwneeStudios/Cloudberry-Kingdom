@@ -21,9 +21,6 @@ namespace CloudberryKingdom
         public int Index;
         public float ContinuousIndex;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public Camera MyCam;
 
         public bool FadeOut;
@@ -35,8 +32,6 @@ namespace CloudberryKingdom
 
         public TextList()
         {
-            CoreData = new ObjectData();
-
             Text = new List<EzText>();
             SetIndex(0);
 

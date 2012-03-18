@@ -35,9 +35,6 @@ namespace CloudberryKingdom
 
         public bool SkipPhsx;
 
-        public ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         public void MakeNew()
         {
             Core.Init();
@@ -51,8 +48,6 @@ namespace CloudberryKingdom
 
         public Seed()
         {
-            CoreData = new ObjectData();
-
             MakeNew();
 
             Core.BoxesOnly = false;

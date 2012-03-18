@@ -187,9 +187,6 @@ namespace CloudberryKingdom
             Core.MarkedForDeletion = true;
         }
 
-        ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
-
         /// <summary>
         /// The GameData this GameObject belongs to.
         /// </summary>
@@ -208,8 +205,6 @@ namespace CloudberryKingdom
 
         public GameObject()
         {
-            CoreData = new ObjectData();
-
             MakeNew();
         }
 
