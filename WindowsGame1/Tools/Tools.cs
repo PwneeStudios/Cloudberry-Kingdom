@@ -370,6 +370,8 @@ namespace CloudberryKingdom
 
     public class Tools
     {
+        public static void Nothing() { }
+
         public static bool AllUnique<T>(List<T> list, Func<T, int> transform)
         {
             Set<int> guids = new Set<int>();

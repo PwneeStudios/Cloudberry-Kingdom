@@ -645,7 +645,7 @@ namespace Drawing
             return TR;
         }
 
-        public override void Update()
+        public override void Update(float Expand)
         {
             if (!Show && Children.Count == 0) return;
             
@@ -666,7 +666,11 @@ namespace Drawing
 
             for (int i = 0; i < 4; i++)
             {
+                Vector2 HoldRelPos = Corner[i].RelPos;
+                Corner[i].RelPos *= Expand;
                 Corner[i].PosFromRelPos();
+                Corner[i].RelPos = HoldRelPos;
+
                 Vertices[i].xy = Corner[i].Pos;
             }
         }

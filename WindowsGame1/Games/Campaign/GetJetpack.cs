@@ -95,25 +95,23 @@ namespace CloudberryKingdom
 
         void Tutorial()
         {
-            return;
+            //CinematicToDo(115, () =>
+            //{
+            //    Arrow arrow = new Arrow();
+            //    arrow.SetOrientation(Arrow.Orientation.Right);
+            //    arrow.Move(Cam.Pos + new Vector2(30, -40));
+            //    arrow.PointTo(Cam.Pos + new Vector2(0, 1));
+            //    AddGameObject(arrow);
 
-            CinematicToDo(115, () =>
-            {
-                Arrow arrow = new Arrow();
-                arrow.SetOrientation(Arrow.Orientation.Right);
-                arrow.Move(Cam.Pos + new Vector2(30, -40));
-                arrow.PointTo(Cam.Pos + new Vector2(0, 1));
-                AddGameObject(arrow);
+            //    GUI_Text text = new GUI_Text("Hold " + ButtonString.Jump(85) + " to thrust", Cam.Pos + new Vector2(0, 500));
+            //    AddGameObject(text);
 
-                GUI_Text text = new GUI_Text("Hold " + ButtonString.Jump(85) + " to thrust", Cam.Pos + new Vector2(0, 500));
-                AddGameObject(text);
-
-                CinematicToDo(165, () =>
-                {
-                    arrow.Release();
-                    text.Kill();
-                });
-            });
+            //    CinematicToDo(165, () =>
+            //    {
+            //        arrow.Release();
+            //        text.Kill();
+            //    });
+            //});
         }
     }
 }

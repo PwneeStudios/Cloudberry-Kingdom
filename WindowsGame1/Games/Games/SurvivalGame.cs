@@ -12,8 +12,6 @@ namespace CloudberryKingdom
     {
         public List<Bob> HoldBobs;
 
-        bool ShowedNote_Comp = false, ShowedNote_NewLevel = false;
-
         public override void SetCreatedBobParameters(Bob bob)
         {
             bob.Immortal = false;

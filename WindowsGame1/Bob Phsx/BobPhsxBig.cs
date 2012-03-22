@@ -27,7 +27,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Big"), Color.White, 1.25f * DefaultIconWidth);
         }
         static readonly BobPhsxBig instance = new BobPhsxBig();
-        public static BobPhsxBig Instance { get { return instance; } }
+        public static new BobPhsxBig Instance { get { return instance; } }
 
         // Instancable class
         public BobPhsxBig()

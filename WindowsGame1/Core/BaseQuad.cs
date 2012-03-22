@@ -74,7 +74,8 @@ namespace Drawing
             MyEffect = null;
         }
 
-        virtual public void Update() { }
+        public void Update() { Update(1); }
+        virtual public void Update(float Expand) { }
 
         virtual public void SetHold() { }
         virtual public void ReadAnim(int anim, int frame) { }

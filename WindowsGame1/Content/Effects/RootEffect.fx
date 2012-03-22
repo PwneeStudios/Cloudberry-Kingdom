@@ -1,3 +1,10 @@
+#define PIXEL_SHADER ps_3_0
+#define VERTEX_SHADER vs_3_0
+
+//#define PIXEL_SHADER ps_2_0
+//#define VERTEX_SHADER vs_1_1
+
+
 float4 xCameraPos;
 float xCameraAngle;
 float xCameraAspect;

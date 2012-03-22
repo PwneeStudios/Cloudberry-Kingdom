@@ -25,7 +25,7 @@ technique Simplest
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 LightSourcePixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER LightSourcePixelShader();
     }
 }

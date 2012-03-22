@@ -105,10 +105,9 @@ namespace CloudberryKingdom.Levels
         public bool GetAlive(int Step)
         {
             //if (!SuperSparse)
-            if (true)
                 return Alive[Step];
-            else
-                return Alive[Step / PareDivider];
+            //else
+            //    return Alive[Step / PareDivider];
         }
 
         public byte GetAnim(int Step)

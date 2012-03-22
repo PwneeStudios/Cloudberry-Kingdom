@@ -6,7 +6,6 @@ using Drawing;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {

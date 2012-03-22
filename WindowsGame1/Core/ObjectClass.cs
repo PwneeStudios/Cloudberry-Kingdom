@@ -900,14 +900,21 @@ namespace Drawing
                 Update(null);
         }
 
+        public void SetColor(Color color)
+        {
+            foreach (BaseQuad quad in QuadList)
+                quad.SetColor(color);
+        }
+
         public void UpdateBoxes()
         {
             foreach (ObjectBox box in BoxList)
                 box.Update();
         }
 
-        public void Update(BaseQuad quad) { Update(quad, ObjectDrawOrder.None); }
-        public void Update(BaseQuad quad, ObjectDrawOrder Exclude)
+        public void Update(BaseQuad quad) { Update(quad, ObjectDrawOrder.None, 1); }
+        public void Update(BaseQuad quad, ObjectDrawOrder Exclude) { Update(quad, Exclude, 1); }
+        public void Update(BaseQuad quad, ObjectDrawOrder Exclude, float Expand)
         {
             ParentQuad.Update();
 
@@ -921,12 +928,12 @@ namespace Drawing
                     {
                         Quad __quad = _quad as Quad;
                         if (_quad.MyDrawOrder != Exclude || (__quad != null && __quad.Children.Count > 0 && __quad.Children[0].MyDrawOrder != Exclude))
-                            _quad.Update();
+                            _quad.Update(Expand);
                     }
                 }
                 else
                     foreach (BaseQuad _quad in QuadList)
-                        _quad.Update();
+                        _quad.Update(Expand);
             }
 
             if (BoxList.Count > 0)

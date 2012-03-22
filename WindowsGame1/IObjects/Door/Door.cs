@@ -61,6 +61,7 @@ namespace CloudberryKingdom
             Core.MyType = ObjectType.Door;
             Core.DrawLayer = 1;
             Core.DrawLayer2 = 1;
+            Core.DrawSubLayer = 1000; Core.FixSubLayer = true;
             Core.ResetOnlyOnReset = true;
 
             Core.EditHoldable = true;

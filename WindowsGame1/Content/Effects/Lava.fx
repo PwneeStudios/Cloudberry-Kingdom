@@ -177,8 +177,8 @@ technique Simplest
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 LavaPixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER LavaPixelShader();
     }
 }
 
@@ -186,7 +186,7 @@ technique DepthVelocityInfo
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 LavaPixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER LavaPixelShader();
     }
 }

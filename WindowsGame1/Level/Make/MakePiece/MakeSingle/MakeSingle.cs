@@ -696,18 +696,16 @@ namespace CloudberryKingdom.Levels
         static int CountToSleep = 0;
         static void Sleep()
         {
-            return;
-            Thread.Sleep(3);
+            //Thread.Sleep(3);
         }
         static void CheckToSleep()
         {
-            return;
-            CountToSleep++;
-            if (CountToSleep >= 5)
-            {
-                CountToSleep = 0;
-                Sleep();
-            }
+            //CountToSleep++;
+            //if (CountToSleep >= 5)
+            //{
+            //    CountToSleep = 0;
+            //    Sleep();
+            //}
         }
 
         public float ModNormalBlockWeight = 1f;

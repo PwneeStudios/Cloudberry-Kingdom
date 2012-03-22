@@ -7,7 +7,7 @@ using CloudberryKingdom.Awards;
 using System.IO;
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
@@ -547,9 +547,10 @@ namespace CloudberryKingdom
             {
 #if PC_VERSION
                 return ExistingPlayers;
-#else
+#elif XBOX_SIGNIN
                 return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
-                //return ExistingPlayers.FindAll(player => player.MyGamer != null);
+#else
+                return ExistingPlayers;
 #endif
             }
         }
@@ -702,7 +703,7 @@ namespace CloudberryKingdom
         public static void Init()
         {
 #if PC_VERSION
-            _DefaultName = PlayerManager.RandomNames.Choose();
+            _DefaultName = PlayerManager.RandomNames.Choose(Tools.GlobalRnd);
 #endif
 
             Players = new PlayerData[4];

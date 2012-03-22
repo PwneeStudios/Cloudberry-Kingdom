@@ -57,7 +57,7 @@ namespace CloudberryKingdom
             }
         }
 
-        EzText WantedText1, WantedText2;
+        EzText WantedText1;
         void InitTitle()
         {
             Title = new EzText("Balrog", Tools.Font_Dylan42, 2000, true, true);

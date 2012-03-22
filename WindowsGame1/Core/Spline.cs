@@ -272,13 +272,13 @@ namespace Drawing
 
             Vector2 BezPoint = Bezier(t, Node[i].RelPos, 2 * Node[i].RelPos - Control[i].RelPos, Control[i + 1].RelPos, Node[i + 1].RelPos);
             Vector2 normal = new Vector2();
-            if (false)//UsePrev)
-            {
-                normal.X = BezPoint.Y - Prev.Y;
-                normal.Y = Prev.X - BezPoint.X;
-                normal.Normalize();
-            }
-            else
+            //if (UsePrev)
+            //{
+            //    normal.X = BezPoint.Y - Prev.Y;
+            //    normal.Y = Prev.X - BezPoint.X;
+            //    normal.Normalize();
+            //}
+            //else
                 normal = BezierNormal(t, Node[i].RelPos, 2 * Node[i].RelPos - Control[i].RelPos, Control[i + 1].RelPos, Node[i + 1].RelPos);
             vec1 = n * normal + BezPoint;
             vec2 = -n * normal + BezPoint;

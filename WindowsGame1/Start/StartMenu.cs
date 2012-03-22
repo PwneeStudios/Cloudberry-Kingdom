@@ -23,9 +23,9 @@ namespace CloudberryKingdom
             Hide(PresetPos.Top);
 
             // XBox goes to sign in / char select, unless we are debugging
-            if (false)//Tools.TheGame.SimpleLoad)
-                Call(new CategoryMenu());
-            else
+            //if (Tools.TheGame.SimpleLoad)
+            //    Call(new CategoryMenu());
+            //else
                 CharSelect();
 #endif
         }

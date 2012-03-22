@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
@@ -125,10 +125,10 @@ namespace CloudberryKingdom
 
             ResourceLoadedCountRef = new WrappedFloat();
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
             Components.Add(new GamerServicesComponent(this));
 #endif
-                    
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -166,6 +166,7 @@ namespace CloudberryKingdom
             rez.Fullscreen = false;
 #else
             rez.Fullscreen = true;
+            //rez.Fullscreen = false;
 #endif
             rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -252,7 +253,7 @@ namespace CloudberryKingdom
             base.Initialize();
         }
 
-#if NOT_PC
+#if NOT_PC && XBOX_SIGNIN
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
             SaveGroup.SaveAll();
@@ -737,7 +738,7 @@ namespace CloudberryKingdom
                         // Load saved files
                         SaveGroup.Initialize();
 
-#if NOT_PC
+#if NOT_PC && XBOX_SIGNIN
                         SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
                         SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
 #endif
@@ -1334,7 +1335,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    //MakeTestLevel(); return;
+                    MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1446,7 +1447,7 @@ namespace CloudberryKingdom
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             Console.WriteLine("Seed chosen = {0}", data.Seed);
-            //data.Seed = 1;
+            data.Seed = 1755192844;
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
@@ -1468,8 +1469,8 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
             //data.DefaultHeroType = BobPhsxNormal.Instance;
-            //data.DefaultHeroType = BobPhsxInvert.Instance;
-            data.DefaultHeroType = BobPhsxMeat.Instance;
+            data.DefaultHeroType = BobPhsxInvert.Instance;
+            //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
@@ -1481,8 +1482,8 @@ namespace CloudberryKingdom
             //data.PlaceObjectType = PlaceTypes.FallingBlock;
             data.PlaceObjectType = PlaceTypes.Princess;
 
-            //data.MyGeometry = LevelGeometry.Right;
-            data.MyGeometry = LevelGeometry.Up;
+            data.MyGeometry = LevelGeometry.Right;
+            //data.MyGeometry = LevelGeometry.Up;
             data.PieceLength = 7000;
             data.NumPieces = 1;
 
@@ -1924,11 +1925,11 @@ ObjectData.UpdateWeak();
 
             bool DrawBool = true;
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
             DrawBool = !Guide.IsVisible;
 #endif
 
-            
+
             if (!LogoScreenUp)
             if (!Tools.CurGameData.Loading)
             if (DrawBool)
@@ -2328,7 +2329,7 @@ ObjectData.UpdateWeak();
             //bmp.UnlockBits(bitmapData);
 
             if (DelaySave)
-                ;
+                Tools.Nothing();
             else
                 bmp.Save(filename, imageFormat);
         }

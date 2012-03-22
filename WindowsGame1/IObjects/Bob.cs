@@ -274,7 +274,7 @@ namespace CloudberryKingdom.Bobs
             if (scheme.HatData == null) scheme.HatData = Hat.None;
 
             if (MyHeroType is BobPhsxSpaceship)
-                ;//scheme.HatData.QuadName = "None";
+                Tools.Nothing();//scheme.HatData.QuadName = "None";
             else
             {
                 PlayerObject.FindQuad("Head").Show = scheme.HatData.DrawHead;
@@ -1269,26 +1269,26 @@ namespace CloudberryKingdom.Bobs
                 else
                 {
                     // Do the screen wrap
-                    bool Moved = false;
+                    //bool Moved = false;
                     Vector2 w = Core.MyLevel.MainCamera.TR - Core.MyLevel.MainCamera.BL + new Vector2(1200, 1600);
                     if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 100)
                     {
-                        Moved = true;
+                        //Moved = true;
                         Move(new Vector2(w.X, 0));
                     }
                     if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 100)
                     {
-                        Moved = true;
+                        //Moved = true;
                         Move(new Vector2(-w.X, 0));
                     }
                     if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 600)
                     {
-                        Moved = true;
+                        //Moved = true;
                         Move(new Vector2(0, w.Y));
                     }
                     if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 600)
                     {
-                        Moved = true;
+                        //Moved = true;
                         Move(new Vector2(0, -w.Y));
                     }
 
@@ -1364,15 +1364,14 @@ namespace CloudberryKingdom.Bobs
             }
 
             //if (MyPlayerIndex == PlayerIndex.Two)
-            if (false)
-            {
-                CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Y);
-                KeyboardDir.X = KeyboardDir.Y = 0;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Y)) KeyboardDir.Y = 1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.H)) KeyboardDir.Y = -1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.J)) KeyboardDir.X = 1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.G)) KeyboardDir.X = -1;
-            }
+            //{
+            //    CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Y);
+            //    KeyboardDir.X = KeyboardDir.Y = 0;
+            //    if (Tools.keybState.IsKeyDownCustom(Keys.Y)) KeyboardDir.Y = 1;
+            //    if (Tools.keybState.IsKeyDownCustom(Keys.H)) KeyboardDir.Y = -1;
+            //    if (Tools.keybState.IsKeyDownCustom(Keys.J)) KeyboardDir.X = 1;
+            //    if (Tools.keybState.IsKeyDownCustom(Keys.G)) KeyboardDir.X = -1;
+            //}
 
             if (KeyboardDir.LengthSquared() > CurInput.xVec.LengthSquared())
                 CurInput.xVec = KeyboardDir;
@@ -1652,6 +1651,13 @@ namespace CloudberryKingdom.Bobs
                         PlayerObject.ContainedDraw();
                     else
                         PlayerObject.Draw(Tools.EffectWad, true);
+
+                    // EXPERIMENTAL: Non-shader draw code.
+                    //PlayerObject.SetColor(Color.Black);
+                    //PlayerObject.Update(null, ObjectDrawOrder.None, 1.6f);
+                    //PlayerObject.Draw(Tools.EffectWad, false);
+                    //PlayerObject.SetColor(Color.White);
+                    //PlayerObject.Draw(Tools.EffectWad, true);
                 }
             }
 
@@ -1768,6 +1774,9 @@ namespace CloudberryKingdom.Bobs
                     {
                         TopCol = true;
                     }
+
+                    if (Col == ColType.Right) Tools.Write(0);
+                    if (Col == ColType.Left) Tools.Write(0);
 
                     if (MyPhsx.IsBottomCollision(Col, box, block))
                         Col = ColType.Bottom;
@@ -2115,7 +2124,7 @@ namespace CloudberryKingdom.Bobs
                         if (!CompControl)
                         {
                             if (Cinematic)
-                                ;//AnimAndUpdate();
+                                Tools.Nothing();//AnimAndUpdate();
                             else
                             {
                                 if (CodeControl)

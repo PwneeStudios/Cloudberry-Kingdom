@@ -30,10 +30,12 @@ namespace Drawing
         static ObjectVector temp1 = new ObjectVector();
         static ObjectVector temp2 = new ObjectVector();
 
-        public void Release()
+        public override void Release()
         {
+            base.Release();
+
             Device = null;
-            MySpline.Release(); MySpline = null;
+            if (MySpline != null) MySpline.Release(); MySpline = null;
         }
 
         public override void CopyAnim(BaseQuad basequad, int Anim)
@@ -240,7 +242,7 @@ namespace Drawing
         }
 #endif
 
-        public override void Update()
+        public override void Update(float Expand)
         {
             if (!Show) return;
 
@@ -260,7 +262,10 @@ namespace Drawing
 
             MySpline.Update();
 
-            DeformToSpline();
+            float HoldWidth = Width;
+            Width *= Expand;
+                DeformToSpline();
+            Width = HoldWidth;
         }
 
 #if EDITOR

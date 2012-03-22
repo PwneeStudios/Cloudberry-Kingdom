@@ -97,5 +97,12 @@ namespace CloudberryKingdom
             var Ceiling_Params = (Ceiling_Parameters)Style.FindParams(Ceiling_AutoGen.Instance);
             Ceiling_Params.Make = false;
         }
+
+        public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)
+        {
+            //return base.IsBottomCollision(Col, box, block);
+            return Col == ColType.Bottom ||
+                Col != ColType.Bottom && Core.Data.Velocity.X != 0 && Math.Min(MyBob.Box.Current.TR.Y, MyBob.Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7);
+        }
     }
 }

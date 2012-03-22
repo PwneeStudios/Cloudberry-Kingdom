@@ -703,9 +703,13 @@ namespace CloudberryKingdom.Levels
                 }
             }
 
-            // Sort sublayers
+            SortDrawLayers();
+        }
+
+        void SortDrawLayers()
+        {
             for (int i = 0; i < NumDrawLayers; i++)
-                DrawLayer[i].Sort(delegate(ObjectBase A, ObjectBase B) { return A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer); });
+                DrawLayer[i].Sort((A, B) => A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer));
         }
 
         public void Write(BinaryWriter writer)
@@ -1009,7 +1013,9 @@ namespace CloudberryKingdom.Levels
             {
                 for (int j = 0; j < DrawLayer[i].Count; j++)
                 {
-                    DrawLayer[i][j].Core.DrawSubLayer = j;
+                    var Core = DrawLayer[i][j].Core;
+                    if (!Core.FixSubLayer)
+                        Core.DrawSubLayer = j;
                 }
             }
 
@@ -1110,13 +1116,8 @@ namespace CloudberryKingdom.Levels
             }
             foreach (ObjectBase block in Blocks)
                 ReAddObject(block);
-            
 
-            // Sort sublayers
-            for (int i = 0; i < NumDrawLayers; i++)
-            {
-                DrawLayer[i].Sort((A, B) => A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer));
-            }
+            SortDrawLayers();
 
             // Create new active object list
             CreateActiveObjectList();

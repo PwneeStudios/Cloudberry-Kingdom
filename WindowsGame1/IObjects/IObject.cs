@@ -451,6 +451,11 @@ namespace CloudberryKingdom
 
         public Level MyLevel;
         public int DrawLayer, DrawSubLayer;
+        
+        /// <summary>
+        /// Prevents the DrawSubLayer from being overridden by it's actual position in the DrawLayer array.
+        /// </summary>
+        public bool FixSubLayer = false;
 
         /// <summary>
         /// If true then this obstacle can be continuously scaled up and down in difficulty.

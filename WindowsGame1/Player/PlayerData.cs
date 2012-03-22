@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
@@ -102,9 +102,9 @@ namespace CloudberryKingdom
         public bool KeyboardUsedLast = false;
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
         public Gamer _MyGamer;
-        public Gamer MyGamer { get { return CheckForMatchingGamer(); } }// set { _MyGamer = value; } }
+        public Gamer MyGamer { get { return CheckForMatchingGamer(); } }
 #endif
 
         public ColorScheme ColorScheme;
@@ -186,6 +186,7 @@ namespace CloudberryKingdom
             return "Stickman";
         }
 #else
+#if XBOX_SIGNIN
         public Gamer CheckForMatchingGamer()
         {
             _MyGamer = null;
@@ -200,7 +201,7 @@ namespace CloudberryKingdom
 
             return _MyGamer;
         }
-
+#endif
         /// <summary>
         /// Gets the color that the player's name should be drawn with.
         /// </summary>
@@ -230,9 +231,12 @@ namespace CloudberryKingdom
 
         public String GetName()
         {
+#if XBOX_SIGNIN
             if (MyGamer != null)
                 return MyGamer.Gamertag;
-            else if (StoredName.Length > 0)
+            else
+#endif
+            if (StoredName.Length > 0)
                 return StoredName;
             else
             {

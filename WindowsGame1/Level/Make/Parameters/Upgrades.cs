@@ -68,8 +68,6 @@ namespace CloudberryKingdom.Levels
         public static int MaxBobWidth = 360;
         public void CalcGenData(LevelGenData GenData, StyleData Style)
         {
-            bool debug = false;
-
             Style.Calculate(this);
 
             float JumpLevel = this[Upgrade.Jump];

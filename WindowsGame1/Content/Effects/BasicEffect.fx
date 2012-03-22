@@ -215,9 +215,9 @@ technique Simplest
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        //PixelShader = compile ps_3_0 ColorizePixelShader();
-        PixelShader = compile ps_3_0 OurFirstPixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        //PixelShader = compile PIXEL_SHADER ColorizePixelShader();
+        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
     }
 }
 
@@ -225,8 +225,8 @@ technique Suck
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SuckVertexShader();
-        PixelShader = compile ps_3_0 OurFirstPixelShader();
+        VertexShader = compile VERTEX_SHADER SuckVertexShader();
+        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
     }
 }
 
@@ -234,8 +234,8 @@ technique PushOut
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 PushOutVertexShader();
-        PixelShader = compile ps_3_0 OurFirstPixelShader();
+        VertexShader = compile VERTEX_SHADER PushOutVertexShader();
+        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
     }
 }
 
@@ -243,8 +243,8 @@ technique PivotTechnique
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 PivotVertexShader();
-        PixelShader = compile ps_3_0 OurFirstPixelShader();
+        VertexShader = compile VERTEX_SHADER PivotVertexShader();
+        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
     }
 }
 
@@ -252,8 +252,8 @@ technique DepthVelocityInfo
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 DepthVelocityPixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER DepthVelocityPixelShader();
     }
 }
 
@@ -261,8 +261,8 @@ technique Outline
 {
     pass Pass0
     {
-		VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 OutlinePixelShader();
+		VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER OutlinePixelShader();
     }
 }
 
@@ -270,7 +270,7 @@ technique RefinedOutline
 {
     pass Pass0
     {
-		VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 RefinedOutlinePixelShader();
+		VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER RefinedOutlinePixelShader();
     }
 }

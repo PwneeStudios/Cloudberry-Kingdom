@@ -183,9 +183,10 @@ namespace CloudberryKingdom
 
                 // Extra blobs
                 RandomBlobsVertical(Core.MyLevel, 10, .8f, Goomba.BlobColor.Gold);
-                return;
+                
                 //ElevatorBlobs();
 
+                /*
                 int LineSweepPeriod = 240;
 
                 if (Core.MyLevel.CurPhsxStep % (3 * LineSweepPeriod / 2) == 25)
@@ -213,6 +214,7 @@ namespace CloudberryKingdom
                             break;
                     }
                 }
+                 * */
             };
 
             // Ball Up

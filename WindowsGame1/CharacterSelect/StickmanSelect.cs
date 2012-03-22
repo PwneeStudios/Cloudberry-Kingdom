@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Drawing;
@@ -520,8 +520,12 @@ namespace CloudberryKingdom
             //MakeCustomizeMenu();
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
             MakeSignInChoiceMenu();
+#else
+            // Dummy menu
+            SignInChoiceMenu = new Menu();
+            SignInChoiceMenu.FancyPos = new FancyVector2(FancyCenter);
 #endif
 
             InitColorScheme(PlayerIndex);
@@ -532,11 +536,13 @@ namespace CloudberryKingdom
             {
 #if PC_VERSION
                 SetState(SelectState.SimpleSelect);
-#else
+#elif XBOX_SIGNIN
                 if (Player.MyGamer == null)
                     SetState(SelectState.SignInChoice);
                 else
                     SetState(SelectState.SimpleSelect);
+#else
+                SetState(SelectState.SimpleSelect);
 #endif
             }
             else
@@ -683,8 +689,9 @@ namespace CloudberryKingdom
 
                 DollPhsx.OverrideAnimBehavior = false;
             }
-            else if (Step < 240) ;//270) ;
-            else //if (Step < 600)
+            else if (Step < 240)
+                Tools.Nothing();
+            else
             {
                 DollVel.X += .075f * (16 - DollVel.X);
             }
@@ -1000,11 +1007,13 @@ namespace CloudberryKingdom
             {
 #if PC_VERSION || DEBUG
                 SetState(SelectState.SimpleSelect);
-#else
+#elif XBOX_SIGNIN
                 if (Player.MyGamer != null)
                     SetState(SelectState.SimpleSelect);
                 else
                     SetState(SelectState.SignInChoice);
+#else
+                SetState(SelectState.SimpleSelect);
 #endif
                 Customize.MyMenu.SelectSound.Play();
             }
@@ -1017,7 +1026,7 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
         bool GuideUpPhsxStep()
         {
             if (!GamerGuideUp && !Guide.IsVisible) return false;
@@ -1063,12 +1072,12 @@ namespace CloudberryKingdom
             }
             else
                 Simple.MyMenu.Active = true;
-#else
+#elif XBOX_SIGNIN
             if (GuideUpPhsxStep())
                 return;
 #endif
 
-#if NOT_PC
+#if NOT_PC && XBOX_SIGNIN
             // Check for signout
             if (MyState != SelectState.SignInChoice && MyState != SelectState.PressAtoJoin)
             {

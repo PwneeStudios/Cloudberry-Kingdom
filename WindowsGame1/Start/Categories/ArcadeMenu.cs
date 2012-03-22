@@ -195,7 +195,7 @@ namespace CloudberryKingdom
             PosAdd *= .895f;
         }
 
-        EzText Goal;
+        //EzText Goal;
         Vector2 GetGoalPos() { 
             //return new Vector2(75.23828f, -599.6826f);
             return new Vector2(-174.6031f, -603.1746f);
@@ -240,7 +240,6 @@ namespace CloudberryKingdom
 
                 // If the goal has been met then allow difficulty selection
                 //if (challenge.GetGoalMet())
-                if (true)
                 {
                     //DifficultyMenu levelmenu = new LevelMenu(true);
                     DifficultyMenu levelmenu = new LevelMenu(false, challenge.HighLevel.Top, challenge.StartLevels);
@@ -269,7 +268,7 @@ namespace CloudberryKingdom
                     Call(levelmenu);
                 }
                 // Otherwise select the easiest difficulty
-                else
+/*                else
                 {
                     // Start the game
                     MyGame.PlayGame(() =>
@@ -281,7 +280,7 @@ namespace CloudberryKingdom
 
                         challenge.Start(0);
                     });
-                }
+                }*/
             };
             return item;
         }

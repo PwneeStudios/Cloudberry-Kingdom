@@ -122,6 +122,11 @@ namespace CloudberryKingdom
             {
                 GUI_Panel panel;
 
+#if DEBUG
+                panel = new CategoryMenu();
+#else
+                panel = new StartMenu();
+#endif
                 //panel = new StartMenu();
 
                 //panel = new AdvancedCustomGUI();
@@ -129,7 +134,7 @@ namespace CloudberryKingdom
 
                 //panel = new StatsMenu();
                 //panel = new AwardmentMenu();
-                panel = new CategoryMenu();
+                //panel = new CategoryMenu();
                 //panel = new CampaignMenu();
                 //panel = new ArcadeMenu();
 

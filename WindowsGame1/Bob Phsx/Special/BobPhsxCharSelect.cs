@@ -5,7 +5,6 @@ namespace CloudberryKingdom
 {
     public class BobPhsxCharSelect : BobPhsxNormal
     {
-        Vector2 Offset;
         public bool OverrideAnimBehavior = false;
 
         public override void PhsxStep2()

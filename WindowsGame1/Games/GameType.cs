@@ -5,7 +5,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
@@ -970,7 +970,7 @@ namespace CloudberryKingdom
                 }
         }
 
-#if NOT_PC
+#if NOT_PC && XBOX_SIGNIN
         void UpdateSignedInPlayers()
         {
             if (CharacterSelectManager.IsShowing) return;
@@ -1136,7 +1136,7 @@ namespace CloudberryKingdom
                         MyLevel.PhsxStep(false);
                         EzSoundWad.SuppressSounds = HoldSuppress;
 
-#if NOT_PC
+#if NOT_PC && XBOX_SIGNIN
                         UpdateSignedInPlayers();
 #endif
                     }
@@ -1360,7 +1360,7 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-#else
+#elif XBOX_SIGNIN
         /*
         public virtual void OnSignIn(SignedInEventArgs e)
         {

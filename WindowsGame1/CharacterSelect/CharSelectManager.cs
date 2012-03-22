@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+#if PC_VERSION
+#elif XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 using Drawing;
 
 using CloudberryKingdom.Bobs;
@@ -47,9 +50,12 @@ namespace CloudberryKingdom
         {
             CamPos = new FancyVector2();
 
+#if XBOX_SIGNIN
             SignedInGamer.SignedIn += new System.EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+#endif
         }
 
+#if XBOX_SIGNIN
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
             if (CharSelect == null) return;
@@ -67,7 +73,7 @@ namespace CloudberryKingdom
                 }
             });
         }
-
+#endif
         /// <summary>
         /// Initialize the "Choose your hero!" text
         /// </summary>

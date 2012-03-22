@@ -65,8 +65,8 @@ technique Simplest
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 CirclePixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER CirclePixelShader();
     }
 }
 
@@ -74,8 +74,8 @@ technique DepthVelocityInfo
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 SimplestVertexShader();
-        PixelShader = compile ps_3_0 DepthVelocityPixelShader();
+        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
+        PixelShader = compile PIXEL_SHADER DepthVelocityPixelShader();
     }
 }
 
@@ -83,7 +83,7 @@ technique PivotTechnique
 {
     pass Pass0
     {
-        VertexShader = compile vs_3_0 PivotVertexShader();
-        PixelShader = compile ps_3_0 CirclePixelShader();
+        VertexShader = compile VERTEX_SHADER PivotVertexShader();
+        PixelShader = compile PIXEL_SHADER CirclePixelShader();
     }
 }

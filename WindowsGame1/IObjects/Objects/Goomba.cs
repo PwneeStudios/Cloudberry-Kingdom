@@ -40,7 +40,7 @@ namespace CloudberryKingdom.Goombas
 
         static float[] BobMaxSpeed = { 2f, 0f };
         static float BobXAccel = .53f;
-        static float Gravity = 2.95f;
+        //static float Gravity = 2.95f;
         static float BobXFriction = 1f;
 
         public SimpleObject MyObject;
@@ -427,8 +427,8 @@ namespace CloudberryKingdom.Goombas
 
             if (!Core.BoxesOnly) AnimStep();
 
-            bool Right, Left, Up;
-            Right = Left = Up = false;
+            bool Right, Left;
+            Right = Left = false;
 
             UpdateObject();
 
@@ -485,8 +485,8 @@ namespace CloudberryKingdom.Goombas
             if (MyObject != null)
             {
                 MyObject.Base.Origin = Core.Data.Position;
-                MyObject.Base.e1.X = 490f;
-                MyObject.Base.e2.Y = 490f;
+                //MyObject.Base.e1.X = 490f;
+                //MyObject.Base.e2.Y = 490f;
 
                 if (CopySource != null)
                     MyObject.CopyUpdate(CopySource.MyObject);

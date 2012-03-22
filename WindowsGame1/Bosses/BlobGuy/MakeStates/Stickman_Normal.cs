@@ -168,7 +168,7 @@ namespace CloudberryKingdom
         {
             ScenePart State = new ScenePart();
 
-            Laser Laser_1, Laser_2, Laser_3;
+            //Laser Laser_1, Laser_2, Laser_3;
             princess = null;
 
             Vector2[] Targets = { Vector2.Zero, new Vector2(-1200, 0), new Vector2(1200, 0), Vector2.Zero,

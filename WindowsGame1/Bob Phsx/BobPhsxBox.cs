@@ -18,7 +18,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Box"), Color.White, DefaultIconWidth);
         }
         static readonly BobPhsxBox instance = new BobPhsxBox();
-        public static BobPhsxBox Instance { get { return instance; } }
+        public static new BobPhsxBox Instance { get { return instance; } }
 
         // Instancable class
         bool InitializedAnim;

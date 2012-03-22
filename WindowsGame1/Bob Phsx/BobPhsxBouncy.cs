@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroImage_Bouncy"), Color.White, DefaultIconWidth);
         }
         static readonly BobPhsxBouncy instance = new BobPhsxBouncy();
-        public static BobPhsxBouncy Instance { get { return instance; } }
+        public static new BobPhsxBouncy Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {

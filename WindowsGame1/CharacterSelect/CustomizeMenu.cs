@@ -248,7 +248,6 @@ namespace CloudberryKingdom
 
 
                 int WidthCount = 5;
-                float ScaleSplotch = 1;
 #if PC_VERSION
                 int m = Tools.Restrict(5, 10, (int)Math.Ceiling(Count / 5f));
                 //float Height = m * 400 / 5;
@@ -259,7 +258,7 @@ namespace CloudberryKingdom
                 if (m == 6) ShiftSelect.Y -= 100;
                 backdrop.SizeY = DefaultBackdropSize.Y * m / 4f;
                 WidthCount = 5;
-                ScaleSplotch = 1.08f;
+                //ScaleSplotch = 1.08f;
 #else
                 int m = 5;
                 float Height = 400;

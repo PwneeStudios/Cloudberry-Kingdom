@@ -8,7 +8,7 @@ namespace CloudberryKingdom
 {
     public class StringWorldGameData : GameData
     {
-        public static GameData Factory(LevelSeedData data, bool MakeInBackground)
+        public static new GameData Factory(LevelSeedData data, bool MakeInBackground)
         {
             return null;
         }
