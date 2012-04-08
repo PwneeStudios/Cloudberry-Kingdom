@@ -745,41 +745,42 @@ namespace Drawing
         }
         public void Draw(QuadDrawer QDrawer, EzEffectWad EffectWad, int StartIndex, int EndIndex)
         {
-            if (xFlip)
-                foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(true);
-            if (yFlip)
-                foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(true);
             if (xFlip || yFlip)
-                foreach (EzEffect fx in MyEffects) fx.FlipCenter.SetValue(FlipCenter);
+                foreach (EzEffect fx in MyEffects)
+                {
+                    fx.FlipCenter.SetValue(FlipCenter);
+                    fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
+                }
+
             
             for (int i = StartIndex; i <= EndIndex; i++)
                 QDrawer.DrawQuad(Quads[i]);
 
             if (xFlip || yFlip)
+            {
                 QDrawer.Flush();
-            if (xFlip)
-                foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(false);
-            if (yFlip)
-                foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(false);
+                foreach (EzEffect fx in MyEffects)
+                    fx.FlipVector.SetValue(new Vector2(-1, -1));
+            }
         }
 
         public void DrawQuad(SimpleQuad Quad)
         {
-            if (xFlip)
-                Quad.MyEffect.xFlip.SetValue(true);
-            if (yFlip)
-                Quad.MyEffect.yFlip.SetValue(true);
             if (xFlip || yFlip)
-                Quad.MyEffect.FlipCenter.SetValue(FlipCenter);
+                foreach (EzEffect fx in MyEffects)
+                {
+                    fx.FlipCenter.SetValue(FlipCenter);
+                    fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
+                }
 
             Tools.QDrawer.DrawQuad(Quad);
 
             if (xFlip || yFlip)
+            {
                 Tools.QDrawer.Flush();
-            if (xFlip)
-                Quad.MyEffect.xFlip.SetValue(false);
-            if (yFlip)
-                Quad.MyEffect.yFlip.SetValue(false);
+                foreach (EzEffect fx in MyEffects)
+                    fx.FlipVector.SetValue(new Vector2(-1, -1));
+            }
         }
 
         public void EnqueueTransfer(int _anim, float _destT, float speed, bool DestLoop)

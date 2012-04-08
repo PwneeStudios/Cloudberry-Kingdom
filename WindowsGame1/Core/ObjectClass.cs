@@ -1171,13 +1171,10 @@ namespace Drawing
             //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.xFlip.SetValue(true);
             //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.FlipCenter.SetValue(FlipCenter);
 
-            if (xFlip && !BoxesOnly && QuadList != null)
-                foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(true);
-            if (yFlip && !BoxesOnly && QuadList != null)
-                foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(true);
+            if ((xFlip || yFlip) && !BoxesOnly && QuadList != null)
+                foreach (EzEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
             if (xFlip || yFlip)
                 foreach (EzEffect fx in MyEffects) fx.FlipCenter.SetValue(FlipCenter);
-
 
             if (!BoxesOnly && QuadList != null)
                 foreach (BaseQuad quad in QuadList)
@@ -1195,9 +1192,8 @@ namespace Drawing
                 }
             QDrawer.Flush();
 
-            //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.xFlip.SetValue(false);
-            if (xFlip && !BoxesOnly && QuadList != null) foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(false);
-            if (yFlip && !BoxesOnly && QuadList != null) foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(false);
+            if ((xFlip || yFlip) && !BoxesOnly && QuadList != null)
+                foreach (EzEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(-1, -1));
         }
 
         public SpriteAnim AnimToSpriteFrames(int anim, int NumFrames, bool Loop, Vector2 Padding)

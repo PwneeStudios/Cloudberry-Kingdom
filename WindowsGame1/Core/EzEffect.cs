@@ -13,7 +13,7 @@ namespace Drawing
 
         public Effect effect;
         public string Name;
-        public EffectParameter xFlip, yFlip, FlipCenter, xTexture, Illumination;
+        public EffectParameter xFlip, yFlip, FlipCenter, xTexture, Illumination, FlipVector;
 
         public float CurrentIllumination = 0;
 
@@ -98,6 +98,7 @@ namespace Drawing
                 Neweffect.Name = Name;
                 Neweffect.effect = effect;
 
+                Neweffect.FlipVector = effect.Parameters["FlipVector"];
                 Neweffect.xFlip = effect.Parameters["xFlip"];
                 Neweffect.yFlip = effect.Parameters["yFlip"];
                 Neweffect.FlipCenter = effect.Parameters["FlipCenter"];

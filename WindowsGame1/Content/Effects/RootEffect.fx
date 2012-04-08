@@ -8,7 +8,8 @@
 float4 xCameraPos;
 float xCameraAngle;
 float xCameraAspect;
-bool xFlip, yFlip;
+
+float2 FlipVector;
 float2 FlipCenter, Pivot;
 float t;
 float Illumination;
@@ -34,8 +35,9 @@ VertexToPixel SimplestVertexShader( float2 inPos : POSITION0, float2 inTexCoords
 
     Output.Position.xy = inPos;
     Output.Position.w = 1;
-    if (xFlip) inPos.x = FlipCenter.x - (inPos.x - FlipCenter.x);
-	if (yFlip) inPos.y = FlipCenter.y - (inPos.y - FlipCenter.y);
+    
+	inPos.x = FlipCenter.x - FlipVector.x * (inPos.x - FlipCenter.x);
+	inPos.y = FlipCenter.y - FlipVector.y * (inPos.y - FlipCenter.y);
 
     Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
@@ -54,8 +56,11 @@ VertexToPixel SuckVertexShader( float2 inPos : POSITION0, float2 inTexCoords : T
 
     Output.Position.xy = inPos;
     Output.Position.w = 1;
-    if (xFlip) inPos.x = FlipCenter.x - (inPos.x - FlipCenter.x);
-    Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
+
+	inPos.x = FlipCenter.x - FlipVector.x * (inPos.x - FlipCenter.x);
+	inPos.y = FlipCenter.y - FlipVector.y * (inPos.y - FlipCenter.y);
+    
+	Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
 
 
@@ -91,7 +96,10 @@ VertexToPixel PushOutVertexShader( float2 inPos : POSITION0, float2 inTexCoords 
 
     Output.Position.xy = inPos;
     Output.Position.w = 1;
-    if (xFlip) inPos.x = FlipCenter.x - (inPos.x - FlipCenter.x);
+
+	inPos.x = FlipCenter.x - FlipVector.x * (inPos.x - FlipCenter.x);
+	inPos.y = FlipCenter.y - FlipVector.y * (inPos.y - FlipCenter.y);
+
     Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
 
@@ -137,7 +145,10 @@ VertexToPixel PivotVertexShader( float2 inPos : POSITION0, float2 inTexCoords : 
 
     Output.Position.xy = inPos;
     Output.Position.w = 1;
-    if (xFlip) inPos.x = FlipCenter.x - (inPos.x - FlipCenter.x);
+    
+	inPos.x = FlipCenter.x - FlipVector.x * (inPos.x - FlipCenter.x);
+	inPos.y = FlipCenter.y - FlipVector.y * (inPos.y - FlipCenter.y);
+
     Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
     
