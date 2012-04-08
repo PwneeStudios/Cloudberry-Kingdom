@@ -45,7 +45,9 @@ namespace CloudberryKingdom
             {
                 normal.BobJumpLength = 1;
                 normal.BobJumpAccel = 0;
-                normal.BobInitialJumpSpeed = 6;
+                normal.BobInitialJumpSpeed = 0;
+                normal.Gravity = 4;
+                normal.BobMaxFallSpeed = -30;
             }
         }
 
@@ -61,16 +63,6 @@ namespace CloudberryKingdom
             BobInitialJumpSpeedDucking = Math.Abs(BobInitialJumpSpeedDucking);
             BobInitialJumpSpeedDucking2 = Math.Abs(BobInitialJumpSpeedDucking2);
             BobMaxFallSpeed = -Math.Abs(BobMaxFallSpeed);
-
-            BobPhsxNormal normal = this as BobPhsxNormal;
-            if (null != normal)
-            {
-                normal.BobJumpLength = 1;
-                normal.BobJumpAccel = 0;
-                normal.BobInitialJumpSpeed = 0;
-                normal.Gravity = 4;
-                normal.BobMaxFallSpeed = -30;
-            }
         }
 
         public override void PhsxStep()

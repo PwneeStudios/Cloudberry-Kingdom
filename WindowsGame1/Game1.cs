@@ -2041,6 +2041,7 @@ ObjectData.UpdateWeak();
             foreach (EzEffect fx in EffectWad.EffectList) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
             foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["t"].SetValue(Tools.t);
             foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["Illumination"].SetValue(1f);
+            foreach (EzEffect fx in EffectWad.EffectList) fx.FlipVector.SetValue(new Vector2(-1, -1));
 
             Tools.SetStandardRenderStates();
             GraphicsDevice.Clear(Color.Black);
