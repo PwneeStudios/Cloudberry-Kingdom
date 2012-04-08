@@ -352,9 +352,9 @@ namespace CloudberryKingdom
             }
         }
 
-        public override void PostInteractWith(Bob bob)
+        public override void PostInteractWith(Bob bob, ref ColType Col, ref bool Overlap)
         {
-            base.PostInteractWith(bob);
+            base.PostInteractWith(bob, ref Col, ref Overlap);
 
             GhostBlock block = this as GhostBlock;
 

@@ -133,7 +133,7 @@ namespace CloudberryKingdom
                 if (step < 20)
                     return;
                 else if (step < Jump)
-                    bob.MyPhsx.LandOnSomething(true);
+                    bob.MyPhsx.LandOnSomething(true, null);
                 else if (step < Jump + 52)
                 {
                     if (step == Jump + 2)

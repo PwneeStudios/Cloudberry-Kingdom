@@ -1069,7 +1069,7 @@ namespace CloudberryKingdom
                 Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
             }
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
+            if (Tools.keybState.IsKeyDownCustom(Keys.D8) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D8))
             //if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
             {
                 Tools.Editing = true;
@@ -1232,11 +1232,19 @@ namespace CloudberryKingdom
             Tools.StartSpriteBatch();
 
 #if WINDOWS
+            // Grace period for falling
+            string str = "";
+            if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)
+            {
+                var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
+                if (null != phsx) str = phsx.FallingCount.ToString();
+            }
+
             // GC
             //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + debugstring;
 
             // Phsx count
-            string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
+            //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
 
             // Score
             //PlayerData p = PlayerManager.Get(0);
@@ -1259,7 +1267,7 @@ namespace CloudberryKingdom
             string str = debugstring;
 #endif
 
-            str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
+            //str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
 
             Tools.spriteBatch.DrawString(Font1,
                     str,
@@ -1447,7 +1455,7 @@ namespace CloudberryKingdom
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             Console.WriteLine("Seed chosen = {0}", data.Seed);
-            data.Seed = 1755192844;
+            //data.Seed = 1755192844;
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
@@ -1557,16 +1565,26 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
             piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            piece.MyUpgrades1[Upgrade.Laser] = 4;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
-            piece.MyUpgrades1[Upgrade.Speed] = 4;
-            piece.MyUpgrades1[Upgrade.Jump] = 3;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            //piece.MyUpgrades1[Upgrade.Laser] = 4;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
+            piece.MyUpgrades1[Upgrade.Jump] = 8;
             piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
-            piece.MyUpgrades1[Upgrade.BouncyBlock] = 4;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 8;
-            piece.MyUpgrades1[Upgrade.Speed] = 8;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
+            piece.MyUpgrades1[Upgrade.Speed] = 3;
+
+
+            //piece.MyUpgrades1[Upgrade.Pinky] = 2;
+            //piece.MyUpgrades1[Upgrade.Laser] = 4;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.Jump] = 4;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.Speed] = 4;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
@@ -1581,7 +1599,7 @@ namespace CloudberryKingdom
             style.DoublePathType = StyleData._DoublePathType.Gap;
             */
 
-            piece.Style.MyModParams = TestLevelModParams;
+            //piece.Style.MyModParams = TestLevelModParams;
 
             piece.Style.ChanceToKeepUnused = 0;
 
@@ -2062,7 +2080,7 @@ ObjectData.UpdateWeak();
             }*/
                 
             //if (ShowFPS || Tools.DebugConvenience)
-            if (BuildDebug)
+            if (BuildDebug || ShowFPS)
                 DrawGC();
 
             if (Tools.CurLevel != null)

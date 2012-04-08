@@ -245,7 +245,6 @@ namespace CloudberryKingdom.Blocks
             if (Col == ColType.Bottom) return true;
             return false;
         }
-        
         public virtual bool PostCollideDecision_Bottom_Normal(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (bob.MyPhsx.Gravity > 0)
@@ -262,7 +261,6 @@ namespace CloudberryKingdom.Blocks
                 return false;
             }
         }
-        
         public virtual bool PostCollideDecision_Bottom(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (bob.MyPhsx is BobPhsxMeat)
@@ -298,7 +296,6 @@ namespace CloudberryKingdom.Blocks
 
             return false;
         }
-
         public virtual bool PostCollideDecision_Side_Normal(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (Col == ColType.Left || Col == ColType.Right) return true;
@@ -314,7 +311,6 @@ namespace CloudberryKingdom.Blocks
             
             return false;
         }
-
         public virtual bool PostCollideDecision_Side(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (bob.MyPhsx is BobPhsxMeat)
@@ -343,7 +339,7 @@ namespace CloudberryKingdom.Blocks
             }
             else
             {
-                if (Col == ColType.Bottom && bob.WantsToLand != false) return true;
+                if (Col == ColType.Bottom && bob.WantsToLand == false) return true;
             }
 
             return false;
@@ -408,7 +404,7 @@ namespace CloudberryKingdom.Blocks
         }
         
         public virtual void PostKeep(Bob bob, ref ColType Col, ref bool Overlap) { }
-        public virtual void PostInteractWith(Bob bob) { }
+        public virtual void PostInteractWith(Bob bob, ref ColType Col, ref bool Overlap) { }
     }
 
     /*

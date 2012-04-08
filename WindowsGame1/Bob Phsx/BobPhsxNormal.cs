@@ -269,9 +269,11 @@ namespace CloudberryKingdom
             }
         }
 
+        
         public virtual void UpdateReadyToJump()
         {
-            if (!MyBob.CurInput.A_Button &&
+            if ((MustHitGroundToReadyJump && OnGround || !MustHitGroundToReadyJump && true) &&
+                !MyBob.CurInput.A_Button &&
                 (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps) ||
                 (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl))
                 ReadyToJump = true;
@@ -507,10 +509,12 @@ namespace CloudberryKingdom
                 float HoldVel = yVel;
 
                 // Only apply gravity if we haven't reached terminal velocity
-                if (yVel > BobMaxFallSpeed && Gravity > 0)
+                if (DynamicGreaterThan(yVel, BobMaxFallSpeed))
                     yVel -= Gravity;
-                if (yVel < BobMaxFallSpeed && Gravity < 0)
-                    yVel -= Gravity;
+                //if (yVel > BobMaxFallSpeed && Gravity > 0)
+                //    yVel -= Gravity;
+                //if (yVel < -BobMaxFallSpeed && Gravity < 0)
+                //    yVel -= Gravity;
 
                 if (Math.Sign(HoldVel) != Math.Sign(yVel))
                 {
@@ -533,9 +537,9 @@ namespace CloudberryKingdom
             LandSound.Play(.47f);
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            base.LandOnSomething(MakeReadyToJump);
+            base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
 
             if (LandSound != null && MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 PlayLandSound();
@@ -560,9 +564,9 @@ namespace CloudberryKingdom
             }
         }
 
-        public override void HitHeadOnSomething()
+        public override void HitHeadOnSomething(ObjectBase ThingHit)
         {
-            base.HitHeadOnSomething();
+            base.HitHeadOnSomething(ThingHit);
 
             JumpCount = 0;
         }
@@ -807,10 +811,13 @@ namespace CloudberryKingdom
                 MyBob.CurInput.A_Button = true;
 
 
-            if (Pos.Y > MyBob.MoveData.MaxTargetY && OnGround ||
-                Pos.Y > MyBob.MoveData.MaxTargetY + 250 ||
-                Pos.Y > MyBob.TargetPosition.Y - 150 && JumpDelayCount < 2 && CurJump > 0)
-                MyBob.CurInput.A_Button = false;
+            if (Gravity > 0)
+            {
+                if (Pos.Y > MyBob.MoveData.MaxTargetY && OnGround ||
+                    Pos.Y > MyBob.MoveData.MaxTargetY + 250 ||
+                    Pos.Y > MyBob.TargetPosition.Y - 150 && JumpDelayCount < 2 && CurJump > 0)
+                    MyBob.CurInput.A_Button = false;
+            }
             if (Pos.Y < MyBob.MoveData.MinTargetY && AutoFallOrJump > 0)
             {
                 MyBob.CurInput.A_Button = true;
@@ -891,11 +898,21 @@ namespace CloudberryKingdom
             if (!OnGround && RetardJumpLength >= 1 && JumpCount < RetardJumpLength && JumpCount > 1)
                 MyBob.CurInput.A_Button = false;
 
-            // Decide if the computer should want to land or not
-            if ((ReadyToThrust || CanJump) && Pos.Y > BL.Y + 900)
-                MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y - 400;
+            // Decide if the computer should want to land or not            
+            if (Gravity > 0)
+            {
+                if ((ReadyToThrust || CanJump) && Pos.Y > BL.Y + 900)
+                    MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y - 400;
+                else
+                    MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y + 200;
+            }
             else
-                MyBob.WantsToLand = Pos.Y < MyBob.TargetPosition.Y + 200;
+            {
+                if ((ReadyToThrust || CanJump) && Pos.Y < TR.Y - 900)
+                    MyBob.WantsToLand = Pos.Y > MyBob.TargetPosition.Y + 400;
+                else
+                    MyBob.WantsToLand = Pos.Y > MyBob.TargetPosition.Y - 200;
+            }
 
             // Don't land near the apex of a jump
             PreventEarlyLandings(GenData);

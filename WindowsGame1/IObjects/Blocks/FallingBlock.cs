@@ -103,6 +103,28 @@ namespace CloudberryKingdom
             Update();
         }
 
+        public override void HitHeadOn(Bob bob)
+        {
+            /* Use this if you want inverted Bobs to set off falling blocks
+             * 
+            // We only care about inverted Bobs landing on us upside down.
+            if (bob.MyPhsx.Gravity > 0) return;
+
+            // Don't register as a land if the Bob is moving downward.
+            if (bob.Core.Data.Velocity.Y < -3)
+            {
+                BlockCore.StoodOn = false;
+                return;
+            }
+
+            if (State == FallingBlockState.Regular)
+                SetState(FallingBlockState.Touched);
+
+            if (bob.Core.Data.Velocity.Y > 10)
+                Life -= 8;
+             * */
+        }
+
         public override void LandedOn(Bob bob)
         {
             // Don't register as a land if the Bob is moving upward.
@@ -113,12 +135,7 @@ namespace CloudberryKingdom
             }
 
             if (State == FallingBlockState.Regular)
-            {
-                //if (Thwomp)
-                  //  SetState(FallingBlockState.Angry);
-                //else
                     SetState(FallingBlockState.Touched);
-            }
 
             if (bob.Core.Data.Velocity.Y < -10)
                 Life -= 8;

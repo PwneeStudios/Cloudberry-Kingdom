@@ -148,6 +148,9 @@ namespace CloudberryKingdom
         /// </summary>
         public float EdgeSafety;
 
+        public bool NoBottomShift;
+        public bool NoMakingTopOnly;
+
         public delegate void UsedCallback();
         public UsedCallback OnUsed, OnMarkedForDeletion;
         public void __StampAsUsed(int Step)
@@ -194,6 +197,9 @@ namespace CloudberryKingdom
             JumpNow = false;
 
             EdgeSafety = 0;
+
+            NoBottomShift = false;
+            NoMakingTopOnly = false;
         }
     }
 

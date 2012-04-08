@@ -184,6 +184,11 @@ namespace CloudberryKingdom
 
         public bool Ducking;
         
+        /// <summary>
+        /// If true, then the player must first land, then release the A button, and then press A again to jump.
+        /// </summary>
+        public bool MustHitGroundToReadyJump = false;
+
         public float MaxSpeed, XAccel;
 
         public float Gravity;
@@ -191,6 +196,7 @@ namespace CloudberryKingdom
 
         public float BobMaxFallSpeed = -29f;
         public bool OnGround, PrevOnGround, Jumped;
+        public int AirTime = 0;
 
         public Vector2 JumpStartPos;
         public bool ApexReached;
@@ -248,6 +254,11 @@ namespace CloudberryKingdom
         }
 
         public virtual void KillJump() { }
+        
+        /// <summary>
+        /// Called when an external force (such as a bouncy block) forces Bob toward a specific direction.
+        /// </summary>
+        public virtual void Forced(Vector2 Dir) { }
 
         public virtual void DampForcedJump()
         {
@@ -324,6 +335,12 @@ namespace CloudberryKingdom
         public Vector2 PrevVel, PrevPos;
         public virtual void PhsxStep()
         {
+            if (OnGround) AirTime = 0;
+            else AirTime++;
+
+            if (MyBob.CurInput.A_Button) MyBob.Count_ButtonA++;
+            else MyBob.Count_ButtonA = 0;
+
             if (Oscillate) OscillatePhsx();
         }
         public virtual void PhsxStep2()
@@ -393,8 +410,11 @@ namespace CloudberryKingdom
         }
 
         public ObjectBase ObjectLandedOn;
-        public virtual void LandOnSomething(bool MakeReadyToJump) { }
-        public virtual void HitHeadOnSomething() { }
+        public virtual void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
+        {
+            ObjectLandedOn = ThingLandedOn;
+        }
+        public virtual void HitHeadOnSomething(ObjectBase ThingHit) { }
 
         public virtual void GenerateInput(int CurPhsxStep)
         {

@@ -1630,7 +1630,7 @@ namespace CloudberryKingdom.Levels
                 MainCamera.BL = HoldBL;
                 MainCamera.TR = HoldTR;
             }
-
+            
             if (UseLighting && LightLayer == LightLayers.FrontOfEverything)
                 DrawLighting();   
 

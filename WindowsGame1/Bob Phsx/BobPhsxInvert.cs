@@ -27,7 +27,27 @@ namespace CloudberryKingdom
         }
 
         // Instancable class
-        public BobPhsxInvert() { }
+        public BobPhsxInvert()
+        {
+            Set(this);
+        }
+
+        public override void Set(BobPhsx phsx)
+        {
+            Set(phsx, Vector2.One);
+        }
+        public void Set(BobPhsx phsx, Vector2 modsize)
+        {
+            //MustHitGroundToReadyJump = true;
+
+            BobPhsxNormal normal = phsx as BobPhsxNormal;
+            if (null != normal)
+            {
+                normal.BobJumpLength = 1;
+                normal.BobJumpAccel = 0;
+                normal.BobInitialJumpSpeed = 6;
+            }
+        }
 
         public override void Init(Bobs.Bob bob)
         {
@@ -41,6 +61,36 @@ namespace CloudberryKingdom
             BobInitialJumpSpeedDucking = Math.Abs(BobInitialJumpSpeedDucking);
             BobInitialJumpSpeedDucking2 = Math.Abs(BobInitialJumpSpeedDucking2);
             BobMaxFallSpeed = -Math.Abs(BobMaxFallSpeed);
+
+            BobPhsxNormal normal = this as BobPhsxNormal;
+            if (null != normal)
+            {
+                normal.BobJumpLength = 1;
+                normal.BobJumpAccel = 0;
+                normal.BobInitialJumpSpeed = 0;
+                normal.Gravity = 4;
+                normal.BobMaxFallSpeed = -30;
+            }
+        }
+
+        public override void PhsxStep()
+        {
+            base.PhsxStep();
+
+            Obj.yFlip = Gravity < 0;
+
+            // If we are falling (and not falling too fast already),
+            // accelerate if the player is pressing (A).
+            if (!OnGround && MyBob.CurInput.A_Button && AirTime > 7 && DynamicGreaterThan(yVel, BobMaxFallSpeed * 2))
+                yVel -= Gravity;
+        }
+
+        public override void UpdateReadyToJump()
+        {
+            base.UpdateReadyToJump();
+
+            if (MyBob.Count_ButtonA > 4)
+                ReadyToJump = false;
         }
 
         protected override void DoJump()
@@ -51,25 +101,44 @@ namespace CloudberryKingdom
 
             Gravity *= -1;
             ForceDown *= -1;
-            BobMaxFallSpeed *= -1;
+            //BobMaxFallSpeed *= -1;
 
             BobInitialJumpSpeed *= -1;
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public void Invert()
         {
-            if (Gravity < 0)
-                base.HitHeadOnSomething();
-            else
-                base.LandOnSomething(MakeReadyToJump);
+            BobJumpAccel *= -1;
+
+            Gravity *= -1;
+            ForceDown *= -1;
+            //BobMaxFallSpeed *= -1;
+
+            BobInitialJumpSpeed *= -1;
         }
 
-        public override void HitHeadOnSomething()
+        public override void Forced(Vector2 Dir)
+        {
+            base.Forced(Dir);
+
+            if (Math.Sign(Dir.Y) == Math.Sign(Gravity))
+                Invert();
+        }
+
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
             if (Gravity < 0)
-                base.LandOnSomething(false);
+                base.HitHeadOnSomething(ThingLandedOn);
             else
-                base.HitHeadOnSomething();                
+                base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
+        }
+
+        public override void HitHeadOnSomething(ObjectBase ThingHit)
+        {
+            if (Gravity < 0)
+                base.LandOnSomething(false, ThingHit);
+            else
+                base.HitHeadOnSomething(ThingHit);
         }
 
         public override bool ShouldStartJumpAnim()
@@ -77,12 +146,78 @@ namespace CloudberryKingdom
             return StartJumpAnim;
         }
 
+        enum Behavior { Pause, Regular };
+        Behavior CurBehavior = Behavior.Pause;
+        int BehaviorLength;
+        public override void GenerateInput(int CurPhsxStep)
+        {
+            base.GenerateInput(CurPhsxStep);
+
+            // Change behavior
+            if (CurPhsxStep < 10)
+            {
+                CurBehavior = Behavior.Pause;
+                BehaviorLength = 0;
+            }
+            else
+            {
+                if (BehaviorLength == 0)
+                {
+                    if (MyLevel.Rnd.RndFloat() > .7f)
+                    {
+                        CurBehavior = Behavior.Pause;
+                        BehaviorLength = MyLevel.Rnd.RndInt(5, 10);
+                        //BehaviorLength = MyLevel.Rnd.RndInt(5, 40);
+                    }
+                    else
+                    {
+                        CurBehavior = Behavior.Regular;
+                        BehaviorLength = MyLevel.Rnd.RndInt(25, 60);
+                    }
+                }
+                else
+                    BehaviorLength--;
+            }
+
+            // Act according to behavior
+            switch (CurBehavior)
+            {
+                case Behavior.Pause:
+                    MyBob.CurInput.xVec.X = 0;
+                    break;
+                case Behavior.Regular:
+                    break;
+            }
+        }
+
+        int Count = 0;
         protected override void SetTarget(Levels.RichLevelGenData GenData)
         {
-            base.SetTarget(GenData);
+            //base.SetTarget(GenData);
 
-            if (MyBob.TargetPosition.Y > Cam.Pos.Y)
-                MyBob.TargetPosition.Y -= 900;
+            if (Count <= 0 || Math.Abs(MyBob.TargetPosition.Y - Pos.Y) < 200)
+            {
+                Count = MyLevel.Rnd.RndInt(30, 60);
+                //MyBob.TargetPosition.Y = MyLevel.Rnd.RndFloat(MyBob.MoveData.MinTargetY, MyBob.MoveData.MaxTargetY);
+
+                if (Pos.Y > Cam.Pos.Y)
+                    MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY;
+                else
+                    MyBob.TargetPosition.Y = MyBob.MoveData.MaxTargetY - MyLevel.Rnd.RndFloat(400, 900);
+
+                if (MyLevel.Rnd.RndFloat() > .85f)
+                {
+                    CurBehavior = Behavior.Pause;
+                    BehaviorLength = MyLevel.Rnd.RndInt(15, 30);
+                }
+
+                //MyLevel.Rnd.RndFloat(Cam.Pos.Y, MyBob.MoveData.MaxTargetY);
+            }
+            else
+                Count--;
+
+            //if (MyBob.TargetPosition.Y > Cam.Pos.Y)
+            //    MyBob.TargetPosition.Y -= 900;
         }
 
         protected override void PreventEarlyLandings(Levels.RichLevelGenData GenData)
@@ -94,8 +229,19 @@ namespace CloudberryKingdom
         {
             base.ModData(ref makeData, Style);
 
+            makeData.TopLikeBottom = true;
+            makeData.BlocksAsIs = true;
+
             var Ceiling_Params = (Ceiling_Parameters)Style.FindParams(Ceiling_AutoGen.Instance);
             Ceiling_Params.Make = false;
+
+            Style.BlockFillType = StyleData._BlockFillType.Invertable;
+
+            Style.TopSpace = 50;
+
+            var MParams = (MovingBlock_Parameters)Style.FindParams(MovingBlock_AutoGen.Instance);
+            if (MParams.Aspect == MovingBlock_Parameters.AspectType.Tall)
+                MParams.Aspect = MovingBlock_Parameters.AspectType.Thin;
         }
 
         public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)

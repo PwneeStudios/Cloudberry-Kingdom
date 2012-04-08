@@ -50,6 +50,8 @@ namespace CloudberryKingdom
             listener.MyButton2 = ControllerButtons.Enter;
             listener.MyAction = () =>
                 {
+                    if (Tools.StepControl) return;
+
                     Level level = Tools.CurLevel;
                     if (!level.Replay && !level.Watching && !level.Finished && !level.PreventHelp)
                         listener.Call(new HelpMenu());

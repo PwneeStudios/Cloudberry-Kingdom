@@ -645,8 +645,7 @@ namespace CloudberryKingdom.Goombas
                                 bob.Core.Data.Velocity.Y += VelY * bob.MyPhsx.BlobMod;
 
                             // The player landed on something
-                            bob.MyPhsx.ObjectLandedOn = this;
-                            bob.MyPhsx.LandOnSomething(true);
+                            bob.MyPhsx.LandOnSomething(true, this);
                         }
 
                         // This code is to modify the player's velocity rather than override it.

@@ -205,7 +205,7 @@ namespace CloudberryKingdom
                     // The player landed on something
                     int HoldPopModifier = bob.PopModifier;
                     bob.MyPhsx.ObjectLandedOn = this;
-                    bob.MyPhsx.LandOnSomething(true);
+                    bob.MyPhsx.LandOnSomething(true, this);
                     bob.MyPhsx.MaxJumpAccelMultiple = 1 + .8f * bob.MyPhsx.BlobMod;
                     bob.Core.Data.Velocity.Y = 9.5f * bob.MyPhsx.BlobMod;
                     bob.PopModifier = HoldPopModifier;

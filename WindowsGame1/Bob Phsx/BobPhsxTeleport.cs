@@ -105,14 +105,14 @@ namespace CloudberryKingdom
         {
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            base.LandOnSomething(MakeReadyToJump);
+            base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
         }
 
-        public override void HitHeadOnSomething()
+        public override void HitHeadOnSomething(ObjectBase ThingHit)
         {
-            base.HitHeadOnSomething();
+            base.HitHeadOnSomething(ThingHit);
         }
 
         public override void GenerateInput(int CurPhsxStep)

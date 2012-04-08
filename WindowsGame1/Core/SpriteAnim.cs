@@ -37,6 +37,7 @@ namespace Drawing
         {
             // Make sure stickman is oriented correctly            
             Obj.xFlip = false;
+            Obj.yFlip = false;
             Obj.ContainedQuadAngle = 0;
 
             Vector2 Padding = new Vector2(10, 90) + ExtraPadding;

@@ -112,9 +112,9 @@ namespace CloudberryKingdom
             //    base.LandOnSomething(false);
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            base.LandOnSomething(MakeReadyToJump);
+            base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
 
             LastJumpWasSticky = false;
             StepsOnSide = 0;

@@ -909,7 +909,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Invert phsx safety blocks
-            if (DefaultHeroType is BobPhsxInvert)
+            if (CurMakeData.TopLikeBottom)
                 Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000),
                             new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
                             new Vector2(SafetyWidth, 500), 2 * SafetyWidth + ExtraSpace, StyleData.GroundType.SafetyNet);
@@ -1001,6 +1001,14 @@ namespace CloudberryKingdom.Levels
                 Fill_BL = new Vector2(Fill_BL.X, Fill_BL.Y + 65);
                 Fill_TR = new Vector2(Fill_TR.X, Fill_BL.Y + 85);
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
+
+                if (CurMakeData.TopLikeBottom)
+                {
+                    // Add a row at the very top, just to be safe.
+                    Fill_BL = new Vector2(Fill_BL.X, Fill_TR.Y - 35);
+                    Fill_TR = new Vector2(Fill_TR.X, Fill_TR.Y - 5);
+                    Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
+                }
             }
 
             Pre1 += 'C';

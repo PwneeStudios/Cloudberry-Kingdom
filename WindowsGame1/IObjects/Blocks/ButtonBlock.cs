@@ -132,7 +132,7 @@ namespace CloudberryKingdom.Blocks
 
             bob.Core.Data.Velocity.Y = 4;
 
-            bob.MyPhsx.LandOnSomething(true);
+            bob.MyPhsx.LandOnSomething(true, this);
 
             Update();
         }

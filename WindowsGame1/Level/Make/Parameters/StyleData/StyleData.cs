@@ -78,7 +78,7 @@ namespace CloudberryKingdom.Levels
         public bool RemoveBlockOnOverlap;
         public float MinBlockDist;
 
-        public enum _BlockFillType { Regular, Spaceship };
+        public enum _BlockFillType { Regular, Spaceship, Invertable };
         float[] BlockFillTypeRatio = { 1f, 0f };
         public _BlockFillType BlockFillType;
 

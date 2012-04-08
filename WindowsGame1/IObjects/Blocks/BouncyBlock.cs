@@ -112,6 +112,8 @@ namespace CloudberryKingdom
         public override void SideHit(Bob bob)
         {            
             Offset = new Vector2(Math.Sign(bob.Core.Data.Position.X - Core.Data.Position.X), 0);
+            bob.MyPhsx.Forced(Offset);
+
             Snap(bob);
         }
 
@@ -120,6 +122,8 @@ namespace CloudberryKingdom
             bob.MyPhsx.OverrideSticky = true;
 
             Offset = new Vector2(0, 1);
+            bob.MyPhsx.Forced(Offset);
+
             bob.MyPhsx.MaxJumpAccelMultiple = 2.5f;
             bob.MyPhsx.JumpLengthModifier = .85f;
             Snap(bob);
@@ -128,7 +132,9 @@ namespace CloudberryKingdom
         public override void HitHeadOn(Bob bob)
         {
             bob.MyPhsx.KillJump();
-            Offset = new Vector2(0, -1);            
+            Offset = new Vector2(0, -1);
+            bob.MyPhsx.Forced(Offset);
+
             Snap(bob);
         }
 

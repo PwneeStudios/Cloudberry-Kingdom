@@ -29,7 +29,7 @@ namespace Drawing
         public List<BaseQuad> QuadList;
 
         private QuadDrawer QDrawer;
-        public bool xFlip, CenterFlipOnBox;
+        public bool xFlip, yFlip, CenterFlipOnBox;
         public Vector2 FlipCenter;
         public Vector2 OutlineWidth = new Vector2(1);
         public Color OutlineColor, InsideColor;
@@ -936,7 +936,9 @@ namespace Drawing
                         _quad.Update(Expand);
             }
 
-            if (BoxList.Count > 0)
+            if (BoxList.Count > 1)
+                FlipCenter = BoxList[1].Center();
+            else if (BoxList.Count > 0)
                 FlipCenter = BoxList[0].Center();
             else
                 FlipCenter = ParentQuad.Center.Pos;
@@ -1050,6 +1052,7 @@ namespace Drawing
                 float locx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
                 float locy = (BoxList[0].TR.Pos.Y + BoxList[0].BL.Pos.Y) / 2;
                 if (xFlip) locx = FlipCenter.X - (locx - FlipCenter.X);
+                if (yFlip) locy = FlipCenter.Y - (locy - FlipCenter.Y);
 
                 ContainedQuad.Center.Move(new Vector2(locx, locy));
 
@@ -1059,10 +1062,14 @@ namespace Drawing
                 {
                     ContainedQuad.PointxAxisTo(Tools.AngleToDir(ContainedQuadAngle));
                 }
-                if (AnimGroup == null || !xFlip)
+                //if (AnimGroup == null || !xFlip)
+                //    ContainedQuad.Scale(new Vector2(scalex, scaley));
+                //else
+                //    ContainedQuad.Scale(new Vector2(-scalex, scaley));
+                if (AnimGroup == null)
                     ContainedQuad.Scale(new Vector2(scalex, scaley));
                 else
-                    ContainedQuad.Scale(new Vector2(-scalex, scaley));
+                    ContainedQuad.Scale(new Vector2(xFlip ? -scalex : scalex, yFlip ? -scaley : scaley));
                 ContainedQuad.Update();
 
                 if (AnimGroup == null)
@@ -1165,10 +1172,12 @@ namespace Drawing
             //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.FlipCenter.SetValue(FlipCenter);
 
             if (xFlip && !BoxesOnly && QuadList != null)
-            {
                 foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(true);
+            if (yFlip && !BoxesOnly && QuadList != null)
+                foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(true);
+            if (xFlip || yFlip)
                 foreach (EzEffect fx in MyEffects) fx.FlipCenter.SetValue(FlipCenter);
-            }
+
 
             if (!BoxesOnly && QuadList != null)
                 foreach (BaseQuad quad in QuadList)
@@ -1188,6 +1197,7 @@ namespace Drawing
 
             //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.xFlip.SetValue(false);
             if (xFlip && !BoxesOnly && QuadList != null) foreach (EzEffect fx in MyEffects) fx.xFlip.SetValue(false);
+            if (yFlip && !BoxesOnly && QuadList != null) foreach (EzEffect fx in MyEffects) fx.yFlip.SetValue(false);
         }
 
         public SpriteAnim AnimToSpriteFrames(int anim, int NumFrames, bool Loop, Vector2 Padding)
@@ -1238,6 +1248,7 @@ namespace Drawing
             float posx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
             float posy = (BoxList[0].TR.Pos.Y + BoxList[0].BL.Pos.Y) / 2;
             if (xFlip) posx = FlipCenter.X - (posx - FlipCenter.X);
+            if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
             foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(1);
@@ -1274,6 +1285,7 @@ namespace Drawing
             float posx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
             float posy = (BoxList[0].TR.Pos.Y + BoxList[0].BL.Pos.Y) / 2;
             if (xFlip) posx = FlipCenter.X - (posx - FlipCenter.X);
+            if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
             foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(1);

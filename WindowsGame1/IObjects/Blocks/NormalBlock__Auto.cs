@@ -339,6 +339,64 @@ namespace CloudberryKingdom.Levels
 
                     break;
 
+                case StyleData._BlockFillType.Invertable:
+                    if (pos.Y < level.MainCamera.Pos.Y - 0)
+                    {
+                        size = new Vector2(
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeX, pos)),
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeY, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeY, pos)));
+                        if (-2 * size.Y + pos.Y < BL.Y - 100) size.Y = (pos.Y - BL.Y + 100) / 2;
+
+                        offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
+
+                        if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
+
+                        block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                        block.Init(pos + offset, size);
+                        block.Extend(Side.Bottom, block.Box.BL.Y - level.CurMakeData.PieceSeed.ExtraBlockLength);
+                    }
+                    //else if (pos.Y > level.MainCamera.Pos.Y + 400)
+                    else
+                    {
+                        size = new Vector2(
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeX, pos)),
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeY, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeY, pos)));
+                        if (2 * size.Y + pos.Y > TR.Y + 100) size.Y = (TR.Y - pos.Y + 100) / 2;
+
+                        offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) + size.Y);
+
+                        if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
+
+                        block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                        block.Init(pos + offset, size);
+                        block.Extend(Side.Top, block.Box.TR.Y + level.CurMakeData.PieceSeed.ExtraBlockLength);
+                    }
+                    //else
+                    //{
+                    //    size = new Vector2(
+                    //        level.Rnd.Rnd.Next(
+                    //        GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                    //        GenData.Get(DifficultyParam.MaxBoxSizeX, pos)),
+                    //        level.Rnd.Rnd.Next(100, 400));
+
+                    //    offset = Vector2.Zero;
+
+                    //    if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
+
+                    //    block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                    //    block.Init(pos + offset, size);
+                    //}
+
+                    break;
+
                 case StyleData._BlockFillType.Spaceship:
                     size = new Vector2(100 * level.Rnd.Rnd.Next(1, 4), 100 * level.Rnd.Rnd.Next(1, 4));
                     offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
@@ -359,6 +417,12 @@ namespace CloudberryKingdom.Levels
             block.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
 
             block.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
+
+            if (level.CurMakeData.BlocksAsIs)
+            {
+                block.Core.GenData.NoMakingTopOnly = true;
+                block.Core.GenData.NoBottomShift = true;
+            }
 
             // Ensure bounds
             float CurTrX = block.Box.GetTR().X;

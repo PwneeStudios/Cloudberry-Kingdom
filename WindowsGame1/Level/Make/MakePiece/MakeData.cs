@@ -45,6 +45,17 @@ namespace CloudberryKingdom.Levels
             public bool MidDivider;
 
             /// <summary>
+            /// If true the top has extra safety blocks and extra stage 1 fill, to mimick the bottom.
+            /// Used, in particular, for InvertBob.
+            /// </summary>
+            public bool TopLikeBottom = false;
+
+            /// <summary>
+            /// If true then blocks will not be modified (no shifting of bottom, no top only).
+            /// </summary>
+            public bool BlocksAsIs = false;
+
+            /// <summary>
             /// When making a multi-piece level, this index specifies which piece the MakeData refers to.
             /// </summary>
             public int Index;

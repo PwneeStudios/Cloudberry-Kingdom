@@ -364,6 +364,7 @@ namespace CloudberryKingdom.Bobs
 
         public BobMove MoveData;
 
+        public int Count_ButtonA;
         public BobInput CurInput, PrevInput;
         public BobPhsx MyPhsx;
 
@@ -1745,9 +1746,7 @@ namespace CloudberryKingdom.Bobs
                                     Core.Data.Velocity.Y = Math.Max(NewVel, Core.Data.Velocity.Y);
                             }
 
-                            GroundSpeed = (box.Target.TR.X - box.Current.TR.X + box.Target.BL.X - box.Current.BL.X) / 2;
-                            if (block != null)
-                                GroundSpeed += block.BlockCore.GroundSpeed;
+                            UpdateGroundSpeed(box, block);
                         }
                         else
                         {
@@ -1758,8 +1757,8 @@ namespace CloudberryKingdom.Bobs
                                 Core.Data.Velocity.Y = Math.Max(Core.Data.Velocity.Y, NewVel);
                         }                        
 
-                        MyPhsx.ObjectLandedOn = block;
-                        MyPhsx.LandOnSomething(false);
+                        //MyPhsx.ObjectLandedOn = block;
+                        MyPhsx.LandOnSomething(false, block);
                         
                         if (OnLand != null) OnLand(); OnLand = null;
                     }
@@ -1790,7 +1789,7 @@ namespace CloudberryKingdom.Bobs
                             return;
                         }
 
-                        MyPhsx.HitHeadOnSomething();
+                        MyPhsx.HitHeadOnSomething(block);
 
                         if (block != null)
                             block.HitHeadOn(this);
@@ -1804,6 +1803,10 @@ namespace CloudberryKingdom.Bobs
                                 NewVel = Math.Min(Math.Min(0, NewVel), box.Target.BL.Y - box.Current.BL.Y) + 10;
                                 Core.Data.Velocity.Y = Math.Min(NewVel, Core.Data.Velocity.Y);
                             }
+
+                            // If we are inverted, then we can take on the speed of the block we have landed on upside-down.
+                            if (MyPhsx.Gravity < 0)
+                                UpdateGroundSpeed(box, block);
                         }
                         else
                         {
@@ -1862,6 +1865,13 @@ namespace CloudberryKingdom.Bobs
                     }
                 }
             }
+        }
+
+        private void UpdateGroundSpeed(AABox box, BlockBase block)
+        {
+            GroundSpeed = (box.Target.TR.X - box.Current.TR.X + box.Target.BL.X - box.Current.BL.X) / 2;
+            if (block != null)
+                GroundSpeed += block.BlockCore.GroundSpeed;
         }
 
         void InitBoxesForCollisionDetect()
@@ -2096,6 +2106,8 @@ namespace CloudberryKingdom.Bobs
                 Vector2 BodyPosition = new Vector2((HeadPos.X + Core.Data.Position.X) / 2, HeadPos.Y + 46);
                 if (PlayerObject.xFlip)
                     BodyPosition.X = 2 * PlayerObject.FlipCenter.X - BodyPosition.X;
+                if (PlayerObject.yFlip)
+                    BodyPosition.Y = 2 * PlayerObject.FlipCenter.Y - BodyPosition.Y;
                 HeldObject.Move(BodyPosition + .9f * Core.Data.Velocity + HeldObject.Core.HeldOffset + offset - HeldObject.Core.Data.Position);
                 if (HeldObject is PrincessBubble)
                     ;
@@ -2232,7 +2244,8 @@ namespace CloudberryKingdom.Bobs
             {
                 float DeathDist = 650;
                 if (Core.MyLevel.MyGame.MyGameFlags.IsTethered) DeathDist = 900;
-                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DeathDist)
+                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DeathDist ||
+                    Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + DeathDist)
                 {
                     Die(BobDeathType.Fall);
                 }
@@ -2255,6 +2268,7 @@ namespace CloudberryKingdom.Bobs
             /////////////////////////////////////////////////////////////////////////////////////////////
             //                 Block Interactions                                                      //
             /////////////////////////////////////////////////////////////////////////////////////////////            
+            NewVel = 0;
             BlockInteractions();
 
             /////////////////////////////////////////////////////////////////////////////////////////////
@@ -2701,7 +2715,7 @@ namespace CloudberryKingdom.Bobs
                                             block.StampAsUsed(CurPhsxStep);
                                             MyPhsx.LastUsedStamp = CurPhsxStep;
 
-                                            block.PostInteractWith(this);
+                                            block.PostInteractWith(this, ref Col, ref Overlap);
                                             //block.PostCollidePreDecision(this);
                                         }
                                     }

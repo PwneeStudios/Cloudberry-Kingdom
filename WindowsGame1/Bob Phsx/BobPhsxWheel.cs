@@ -143,16 +143,16 @@ namespace CloudberryKingdom
                 return 1;
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
             if (MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 LandSound.Play(.47f);
-            base.LandOnSomething(MakeReadyToJump);
+            base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
         }
 
-        public override void HitHeadOnSomething()
+        public override void HitHeadOnSomething(ObjectBase ThingHit)
         {
-            base.HitHeadOnSomething();
+            base.HitHeadOnSomething(ThingHit);
         }
 
         public override void GenerateInput(int CurPhsxStep)

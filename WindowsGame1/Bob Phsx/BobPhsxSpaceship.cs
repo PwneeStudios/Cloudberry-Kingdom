@@ -91,9 +91,9 @@ namespace CloudberryKingdom
         {
         }
 
-        public override void LandOnSomething(bool MakeReadyToJump)
+        public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            base.LandOnSomething(MakeReadyToJump);
+            base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
 
             MyBob.Core.Data.Velocity.Y = MyBob.Core.Data.Velocity.Y + 5;
 
@@ -102,9 +102,9 @@ namespace CloudberryKingdom
             OnGround = true;
         }
 
-        public override void HitHeadOnSomething()
+        public override void HitHeadOnSomething(ObjectBase ThingHit)
         {
-            base.HitHeadOnSomething();
+            base.HitHeadOnSomething(ThingHit);
         }
 
         int TurnCountdown = 0, Dir = 0;

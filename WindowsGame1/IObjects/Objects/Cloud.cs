@@ -208,8 +208,7 @@ namespace CloudberryKingdom.Clouds
 
                     if (bob.Core.Data.Velocity.Y <= 0)
                     {
-                        bob.MyPhsx.ObjectLandedOn = this;
-                        bob.MyPhsx.LandOnSomething(false);
+                        bob.MyPhsx.LandOnSomething(false, this);
 
                         Displacement += Shiftiness * bob.Core.Data.Velocity / 2;
                     }

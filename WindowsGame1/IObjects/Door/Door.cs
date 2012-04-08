@@ -338,10 +338,17 @@ namespace CloudberryKingdom
 
             if (UseObject)
             {
+                // Flip xFlips if the camera is horizontally flipped!
                 if (Core.MyLevel != null && Core.MyLevel.ModZoom.X < 0)
                     MyObject.xFlip = true;
                 else
                     MyObject.xFlip = false;
+
+                // Flip yFlips if the camera is vertically flipped!
+                if (Core.MyLevel != null && Core.MyLevel.ModZoom.Y < 0)
+                    MyObject.yFlip = true;
+                else
+                    MyObject.yFlip = false;
 
                 MyObject.Base.Origin = Core.Data.Position;
                 MyObject.Update();
