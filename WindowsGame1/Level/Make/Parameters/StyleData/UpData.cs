@@ -27,6 +27,7 @@
             : base(Rnd)
         {
             VisualStyle = VisualStyles.Castle;
+            BlockFillType = _BlockFillType.TopOnly;
         }
 
         public override void Randomize()

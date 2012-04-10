@@ -182,7 +182,12 @@ namespace CloudberryKingdom
                     NewLevel.CurPiece = level.LevelPieces[0];
                 }
 
+                // Absorb the new level
                 NewLevel.AbsorbLevel(level);
+
+                // Absorb the new level's time type
+                if (level.TimeType != Level.TimeTypes.Regular)
+                    NewLevel.TimeType = level.TimeType;
 
                 NewLevel.Par += level.Par; // Add the level's par to the big level's par
 

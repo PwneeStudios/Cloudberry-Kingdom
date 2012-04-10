@@ -2305,7 +2305,7 @@ namespace CloudberryKingdom.Levels
         private void SetIndependentStep()
         {
             float PrevIndependentPhsxStep = IndependentPhsxStep;
-            TimeType = TimeTypes.Regular;
+            //TimeType = TimeTypes.Regular;
             //TimeType = TimeTypes.xSync;
             switch (TimeType)
             {
@@ -2340,7 +2340,7 @@ namespace CloudberryKingdom.Levels
         public float IndependentPhsxStep = 0, IndependentDeltaT = 0;
         float Prev = 0;
 
-        public enum TimeTypes { Regular, xSync };
+        public enum TimeTypes { Unset, Regular, xSync };
         public TimeTypes TimeType = TimeTypes.Regular;
 
 

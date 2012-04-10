@@ -35,6 +35,9 @@ namespace CloudberryKingdom.Levels
 
             // Change data depending on hero type
             level.DefaultHeroType.ModData(ref level.CurMakeData, this);
+
+            // Set time type
+            level.TimeType = TimeType;
         }
         public AutoGen_Parameters FindParams(AutoGen gen)
         {
@@ -47,6 +50,7 @@ namespace CloudberryKingdom.Levels
         }
 
         public float Zoom = 1;
+        public Level.TimeTypes TimeType = Level.TimeTypes.Regular;
 
         public bool SuppressCoins, SuppressCheckpoints;
 
@@ -80,7 +84,7 @@ namespace CloudberryKingdom.Levels
         public bool RemoveBlockOnOverlap;
         public float MinBlockDist;
 
-        public enum _BlockFillType { Regular, Spaceship, Invertable, Sideways };
+        public enum _BlockFillType { Regular, TopOnly, Spaceship, Invertable, Sideways };
         float[] BlockFillTypeRatio = { 1f, 0f };
         public _BlockFillType BlockFillType;
 

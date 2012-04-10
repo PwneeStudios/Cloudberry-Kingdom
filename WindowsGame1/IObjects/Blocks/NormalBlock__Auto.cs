@@ -342,6 +342,21 @@ namespace CloudberryKingdom.Levels
 
                     break;
 
+                case StyleData._BlockFillType.TopOnly:
+                    size = new Vector2(
+                        level.Rnd.Rnd.Next(
+                        GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                        GenData.Get(DifficultyParam.MaxBoxSizeX, pos)),
+                        50);
+
+                    if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
+
+                    block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                    block.Init(pos + offset, size);
+                    block.MakeTopOnly();
+
+                    break;
+
                 case StyleData._BlockFillType.Invertable:
                     if (pos.Y < level.MainCamera.Pos.Y - 0)
                     {
