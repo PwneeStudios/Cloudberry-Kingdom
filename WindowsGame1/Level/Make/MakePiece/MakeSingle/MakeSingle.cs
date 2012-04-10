@@ -251,7 +251,7 @@ namespace CloudberryKingdom.Levels
                     block.BlockCore.NonTopUsed = true;
                     block.BlockCore.Virgin = Virgin;
                     block.BlockCore.GenData.Used = Used;
-                    block.BlockCore.InvertDraw = InvertDraw;
+                    block.BlockCore.MyOrientation = InvertDraw ? PieceQuad.Orientation.UpsideDown : PieceQuad.Orientation.Normal;
                     AddBlock(block);
 
                     LastBlock = block;
@@ -707,10 +707,11 @@ namespace CloudberryKingdom.Levels
             //    Sleep();
             //}
         }
-
-        public float ModNormalBlockWeight = 1f;
+        
         public void Stage1RndFill(Vector2 BL, Vector2 TR, Vector2 BL_Cutoff, float Sparsity)
         {
+            var NParams = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
+
             float[] Weights = new float[Generators.WeightedPreFill_1_Gens.Count];
 
             Vector2 xstep = new Vector2(CurMakeData.PieceSeed.Style.FillxStep * Sparsity, 0);
@@ -727,7 +728,7 @@ namespace CloudberryKingdom.Levels
 
                         if (gen != NormalBlock_AutoGen.Instance)
                         {                            
-                            float weight = CurMakeData.PieceSeed.Style.FindParams(gen).FillWeight.GetVal(pos);
+                            float weight = Style.FindParams(gen).FillWeight.GetVal(pos);
                             
                             Weights[i] = weight;
                             MaxWeight = Math.Max(MaxWeight, weight);
@@ -735,8 +736,13 @@ namespace CloudberryKingdom.Levels
                     }
 
                     float NormalBlockTotal = Math.Max(0, 3f - MaxWeight / 3f);
-                    
-                    Weights[Generators.WeightedPreFill_1_Gens.IndexOf(NormalBlock_AutoGen.Instance)] = NormalBlockTotal * ModNormalBlockWeight;
+
+                    Weights[Generators.WeightedPreFill_1_Gens.IndexOf(NormalBlock_AutoGen.Instance)] =
+                        NParams.CustomWeight ?
+                            NParams.FillWeight.GetVal(pos)
+                            :
+                            NormalBlockTotal * Style.ModNormalBlockWeight;
+                            
 
                     // Choose a random generator and make a new obstacle with it
                     int choice = Rnd.Choose(Weights);

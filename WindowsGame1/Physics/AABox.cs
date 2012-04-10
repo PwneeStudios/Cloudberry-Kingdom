@@ -207,5 +207,20 @@ namespace CloudberryKingdom
 
             Invalidated = true;
         }
+
+        public float xSpeed()
+        {
+            return (Target.TR.X - Current.TR.X + Target.BL.X - Current.BL.X) / 2;
+        }
+
+        public float RightSpeed()
+        {
+            return Target.TR.X - Current.TR.X;
+        }
+
+        public float LeftSpeed()
+        {
+            return Target.BL.X - Current.BL.X;
+        }
     }
 }

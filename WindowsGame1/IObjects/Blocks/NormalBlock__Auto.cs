@@ -13,6 +13,8 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool Make = true;
 
+        public bool CustomWeight = false;
+
         public struct _Special
         {
             /// <summary>
@@ -317,6 +319,7 @@ namespace CloudberryKingdom.Levels
             Vector2 size = Vector2.Zero;
             Vector2 offset = Vector2.Zero;
 
+            bool EnsureBoundsAfter = true;
             switch (Style.BlockFillType)
             {
                 case StyleData._BlockFillType.Regular:
@@ -397,6 +400,45 @@ namespace CloudberryKingdom.Levels
 
                     break;
 
+                case StyleData._BlockFillType.Sideways:
+                    if (pos.X < level.MainCamera.Pos.X - 0)
+                    {
+                        size = new Vector2(
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeY, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeY, pos)),
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeX, pos)));
+
+                        offset = new Vector2(level.Rnd.Rnd.Next(0, 0) - size.X, level.Rnd.Rnd.Next(0, 0));
+
+                        block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                        block.BlockCore.MyOrientation = PieceQuad.Orientation.RotateRight;
+                        block.Init(pos + offset, size);
+                        block.Extend(Side.Left, block.Box.BL.X - level.CurMakeData.PieceSeed.ExtraBlockLength);
+                    }
+                    else
+                    {
+                        size = new Vector2(
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeY, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeY, pos)),
+                            level.Rnd.Rnd.Next(
+                            GenData.Get(DifficultyParam.MinBoxSizeX, pos),
+                            GenData.Get(DifficultyParam.MaxBoxSizeX, pos)));
+
+                        offset = new Vector2(level.Rnd.Rnd.Next(0, 0) + size.X, level.Rnd.Rnd.Next(0, 0));
+
+                        block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                        block.BlockCore.MyOrientation = PieceQuad.Orientation.RotateLeft;
+                        block.Init(pos + offset, size);
+                        block.Extend(Side.Right, block.Box.TR.X + level.CurMakeData.PieceSeed.ExtraBlockLength);
+                    }
+                    block.Core.GenData.NoBottomShift = block.Core.GenData.NoMakingTopOnly = true;
+                    EnsureBoundsAfter = false;
+                    break;
+
                 case StyleData._BlockFillType.Spaceship:
                     size = new Vector2(100 * level.Rnd.Rnd.Next(1, 4), 100 * level.Rnd.Rnd.Next(1, 4));
                     offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
@@ -425,9 +467,12 @@ namespace CloudberryKingdom.Levels
             }
 
             // Ensure bounds
-            float CurTrX = block.Box.GetTR().X;
-            if (CurTrX > TR.X + 250)
-                block.Move(new Vector2(TR.X + 250 - CurTrX, 0));
+            if (EnsureBoundsAfter)
+            {
+                float CurTrX = block.Box.GetTR().X;
+                if (CurTrX > TR.X + 250)
+                    block.Move(new Vector2(TR.X + 250 - CurTrX, 0));
+            }
 
             if (Style.RemoveBlockOnCol)
                 block.BlockCore.GenData.RemoveIfUsed = true;

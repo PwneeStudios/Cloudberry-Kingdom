@@ -504,5 +504,9 @@ namespace CloudberryKingdom
         public virtual void ModData(ref Level.MakeData makeData, StyleData Style)
         {
         }
+
+        public virtual void OnInitBoxes()
+        {
+        }
     }
 }

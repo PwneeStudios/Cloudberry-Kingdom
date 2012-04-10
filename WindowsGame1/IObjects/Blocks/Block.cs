@@ -33,7 +33,7 @@ namespace CloudberryKingdom.Blocks
         /// <summary>
         /// If true the block is drawn upside down.
         /// </summary>
-        public bool InvertDraw;
+        public PieceQuad.Orientation MyOrientation;
 
         /// <summary>
         /// If true, overlapping non-child objects are removed.
@@ -116,7 +116,7 @@ namespace CloudberryKingdom.Blocks
             CustomCenterAsParent = Vector2.Zero;
             OffsetMultAsParent = Vector2.One;
 
-            InvertDraw = false;
+            MyOrientation = PieceQuad.Orientation.Normal;
 
             RemoveOverlappingObjects = true;
 
@@ -154,7 +154,7 @@ namespace CloudberryKingdom.Blocks
             CustomCenterAsParent = BlockDataA.CustomCenterAsParent;
             OffsetMultAsParent = BlockDataA.OffsetMultAsParent;
 
-            InvertDraw = BlockDataA.InvertDraw;
+            MyOrientation = BlockDataA.MyOrientation;
 
             GivesVelocity = BlockDataA.GivesVelocity;
 
@@ -275,8 +275,11 @@ namespace CloudberryKingdom.Blocks
             {
                 if (Core.GetPhsxStep() < bob.MyPhsx.LastUsedStamp + 7) return true;
 
-                if (Box.BL.Y > bob.Box.TR.Y - 20) return true;
-                if (Box.TR.Y < bob.Box.BL.Y + 20) return true;
+                if (Box.BL.Y > bob.Box.TR.Y - 40) return true;
+                if (Box.TR.Y < bob.Box.BL.Y + 40) return true;
+                //if (Box.BL.Y > bob.Box.TR.Y - 20) return true;
+                //if (Box.TR.Y < bob.Box.BL.Y + 20) return true;
+
 
                 if (this is BouncyBlock) return true;
 

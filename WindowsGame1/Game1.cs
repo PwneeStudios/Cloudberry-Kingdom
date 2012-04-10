@@ -1236,8 +1236,12 @@ namespace CloudberryKingdom
             string str = "";
             if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)
             {
-                var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
-                if (null != phsx) str = phsx.FallingCount.ToString();
+                //var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
+                //if (null != phsx) str = phsx.FallingCount.ToString();
+
+                var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxMeat;
+                //if (null != phsx) str = phsx.WallJumpCount.ToString();
+                if (null != phsx) str = phsx.StepsSinceSide.ToString();
             }
 
             // GC
@@ -1477,8 +1481,8 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
             //data.DefaultHeroType = BobPhsxNormal.Instance;
-            data.DefaultHeroType = BobPhsxInvert.Instance;
-            //data.DefaultHeroType = BobPhsxMeat.Instance;
+            //data.DefaultHeroType = BobPhsxInvert.Instance;
+            data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
@@ -1490,8 +1494,8 @@ namespace CloudberryKingdom
             //data.PlaceObjectType = PlaceTypes.FallingBlock;
             data.PlaceObjectType = PlaceTypes.Princess;
 
-            data.MyGeometry = LevelGeometry.Right;
-            //data.MyGeometry = LevelGeometry.Up;
+            //data.MyGeometry = LevelGeometry.Right;
+            data.MyGeometry = LevelGeometry.Up;
             data.PieceLength = 7000;
             data.NumPieces = 1;
 
@@ -1564,27 +1568,29 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-            piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            //piece.MyUpgrades1[Upgrade.Laser] = 4;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
-            piece.MyUpgrades1[Upgrade.Jump] = 8;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
-            //piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
-            piece.MyUpgrades1[Upgrade.Speed] = 3;
-
-
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.Laser] = 4;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.Jump] = 4;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.Speed] = 4;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            ////piece.MyUpgrades1[Upgrade.Laser] = 4;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.Jump] = 5;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
+            ////piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
+            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.Speed] = 3;
+
+
+            piece.MyUpgrades1[Upgrade.Pinky] = 2;
+            piece.MyUpgrades1[Upgrade.Laser] = 2;
+            piece.MyUpgrades1[Upgrade.Spike] = 2;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
+            piece.MyUpgrades1[Upgrade.Jump] = 4;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
+            piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
+            piece.MyUpgrades1[Upgrade.Speed] = 6;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
@@ -2036,12 +2042,8 @@ ObjectData.UpdateWeak();
             }
 
             EffectWad.SetCameraPosition(cameraPos);
-            
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["xCameraAspect"].SetValue(MainCamera.AspectRatio);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["t"].SetValue(Tools.t);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["Illumination"].SetValue(1f);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.FlipVector.SetValue(new Vector2(-1, -1));
+
+            Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
 
             Tools.SetStandardRenderStates();
             GraphicsDevice.Clear(Color.Black);

@@ -53,6 +53,8 @@ namespace CloudberryKingdom.Levels
         public float TopSpace, BottomSpace;
         public float FillxStep, FillyStep;
 
+        public float ModNormalBlockWeight = 1f;
+
         /// <summary>
         /// The length of time the computer waits at the beginning of the level.
         /// </summary>
@@ -78,7 +80,7 @@ namespace CloudberryKingdom.Levels
         public bool RemoveBlockOnOverlap;
         public float MinBlockDist;
 
-        public enum _BlockFillType { Regular, Spaceship, Invertable };
+        public enum _BlockFillType { Regular, Spaceship, Invertable, Sideways };
         float[] BlockFillTypeRatio = { 1f, 0f };
         public _BlockFillType BlockFillType;
 

@@ -58,6 +58,15 @@ namespace CloudberryKingdom.Blocks
 
         PieceQuad GetPieceTemplate()
         {
+            if (BlockCore.MyOrientation == PieceQuad.Orientation.RotateRight ||
+                BlockCore.MyOrientation == PieceQuad.Orientation.RotateLeft)
+                return GetPieceTemplate(Box.Current.Size.Y);
+            else
+                return GetPieceTemplate(Box.Current.Size.X);
+        }
+
+        PieceQuad GetPieceTemplate(float width)
+        {
             if (TileSets.Get(Core.MyTileSetType).PassableSides)
             {
                 BlockCore.UseTopOnlyTexture = false;
@@ -67,48 +76,48 @@ namespace CloudberryKingdom.Blocks
             switch (Core.MyTileSetType)
             {
                 case TileSet.Castle:
-                    return GetPieceTemplate_Inside1();
+                    return GetPieceTemplate_Inside1(width);
 
                 case TileSet.Dungeon:
-                    return GetPieceTemplate_Inside2();
+                    return GetPieceTemplate_Inside2(width);
 
                 case TileSet.Island:
-                    return GetPieceTemplate_Island();
+                    return GetPieceTemplate_Island(width);
 
                 case TileSet.Dark:
-                    return GetPieceTemplate_Dark();
+                    return GetPieceTemplate_Dark(width);
 
                 case TileSet.Rain:
                 case TileSet.Terrace:
-                    return GetPieceTemplate_Outside();
+                    return GetPieceTemplate_Outside(width);
 
                 case TileSet.DarkTerrace:
-                    return GetPieceTemplate_Outside();
+                    return GetPieceTemplate_Outside(width);
 
                 case TileSet.OutsideGrass:
-                    return GetPieceTemplate_OutsideGrass();
+                    return GetPieceTemplate_OutsideGrass(width);
 
                 case TileSet.TileBlock:
-                    return GetPieceTemplate_TileBlock();
+                    return GetPieceTemplate_TileBlock(width);
 
                 case TileSet.CastlePiece:
-                    return GetPieceTemplate_Castle(false);
+                    return GetPieceTemplate_Castle(false, width);
                 case TileSet.CastlePiece2:
-                    return GetPieceTemplate_Castle(true);
+                    return GetPieceTemplate_Castle(true, width);
 
                 case TileSet.Catwalk:
                     Box.TopOnly = true;
                     return PieceQuad.Catwalk;
 
                 case TileSet.Cement:
-                    return GetPieceTemplate_Cement();
+                    return GetPieceTemplate_Cement(width);
 
                 default:
-                    return GetPieceTemplate_Inside2();
+                    return GetPieceTemplate_Inside2(width);
             }
         }
 
-        PieceQuad GetPieceTemplate_Castle(bool Shift)
+        PieceQuad GetPieceTemplate_Castle(bool Shift, float width)
         {
             PieceQuad Template = null;
             if (Box.TopOnly && BlockCore.UseTopOnlyTexture)
@@ -125,7 +134,7 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Outside()
+        PieceQuad GetPieceTemplate_Outside(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
@@ -135,15 +144,15 @@ namespace CloudberryKingdom.Blocks
             }
             else
             {
-                if (Box.Current.Size.X < InfoWad.GetFloat("Outside_Pillar_SmallestWidthCutoff"))
+                if (width < InfoWad.GetFloat("Outside_Pillar_SmallestWidthCutoff"))
                     Template = PieceQuad.Outside_Smallest;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Outside_Pillar_SmallerWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Outside_Pillar_SmallerWidthCutoff"))
                     Template = PieceQuad.Outside_Smaller;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Outside_Pillar_SmallWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Outside_Pillar_SmallWidthCutoff"))
                     Template = PieceQuad.Outside_Small;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Outside_Pillar_MediumWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Outside_Pillar_MediumWidthCutoff"))
                     Template = PieceQuad.Outside_Medium;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Outside_Pillar_LargeWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Outside_Pillar_LargeWidthCutoff"))
                     Template = PieceQuad.Outside_Large;
                 else
                     Template = PieceQuad.Outside_XLarge;
@@ -153,7 +162,7 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_OutsideGrass()
+        PieceQuad GetPieceTemplate_OutsideGrass(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
@@ -162,7 +171,7 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Cement()
+        PieceQuad GetPieceTemplate_Cement(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
@@ -171,7 +180,7 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_TileBlock()
+        PieceQuad GetPieceTemplate_TileBlock(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
@@ -180,32 +189,32 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Inside1()
+        PieceQuad GetPieceTemplate_Inside1(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
             if (Box.TopOnly && BlockCore.UseTopOnlyTexture)
             {
-                if (Box.Current.Size.X < InfoWad.GetFloat("FloatingBlock_SmallWidthCutoff"))
+                if (width < InfoWad.GetFloat("FloatingBlock_SmallWidthCutoff"))
                     Template = PieceQuad.Floating_Small;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("FloatingBlock_MediumWidthCutoff"))
+                else if (width < InfoWad.GetFloat("FloatingBlock_MediumWidthCutoff"))
                     Template = PieceQuad.Floating_Medium;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("FloatingBlock_LargeWidthCutoff"))
+                else if (width < InfoWad.GetFloat("FloatingBlock_LargeWidthCutoff"))
                     Template = PieceQuad.Floating_Large;
                 else
                     Template = PieceQuad.Floating_Xlarge;
             }
             else
             {
-                if (Box.Current.Size.X < 270)
+                if (width < 270)
                 {
-                    if (Box.Current.Size.X < InfoWad.GetFloat("BrickPillar_SmallWidthCutoff"))
+                    if (width < InfoWad.GetFloat("BrickPillar_SmallWidthCutoff"))
                         Template = PieceQuad.BrickPillar_Small;
-                    else if (Box.Current.Size.X < InfoWad.GetFloat("BrickPillar_MediumWidthCutoff"))
+                    else if (width < InfoWad.GetFloat("BrickPillar_MediumWidthCutoff"))
                         Template = PieceQuad.BrickPillar_Medium;
-                    else if (Box.Current.Size.X < InfoWad.GetFloat("BrickPillar_LargeWidthCutoff"))
+                    else if (width < InfoWad.GetFloat("BrickPillar_LargeWidthCutoff"))
                         Template = PieceQuad.BrickPillar_Large;
-                    else if (Box.Current.Size.X < InfoWad.GetFloat("BrickPillar_LargePlusWidthCutoff"))
+                    else if (width < InfoWad.GetFloat("BrickPillar_LargePlusWidthCutoff"))
                         Template = PieceQuad.BrickPillar_LargePlus;
                     else
                         Template = PieceQuad.BrickPillar_Xlarge;
@@ -219,7 +228,7 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Inside2()
+        PieceQuad GetPieceTemplate_Inside2(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
@@ -229,28 +238,28 @@ namespace CloudberryKingdom.Blocks
             }
             else
             {
-                if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_SmallestWidthCutoff"))
+                if (width < InfoWad.GetFloat("Inside2_SmallestWidthCutoff"))
                     Template = PieceQuad.Inside2_Smallest;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_SmallerWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_SmallerWidthCutoff"))
                     Template = PieceQuad.Inside2_Smaller;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_SmallWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_SmallWidthCutoff"))
                     Template = PieceQuad.Inside2_Small;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_MediumWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_MediumWidthCutoff"))
                     Template = PieceQuad.Inside2_Medium;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_LargeWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_LargeWidthCutoff"))
                     Template = PieceQuad.Inside2_Large;
                 else
                     Template = PieceQuad.Inside2_XLarge;
 
-                if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_Pillar_SmallestWidthCutoff"))
+                if (width < InfoWad.GetFloat("Inside2_Pillar_SmallestWidthCutoff"))
                     Template = PieceQuad.Inside2_Pillar_Smallest;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_Pillar_SmallerWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_Pillar_SmallerWidthCutoff"))
                     Template = PieceQuad.Inside2_Pillar_Smaller;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_Pillar_SmallWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_Pillar_SmallWidthCutoff"))
                     Template = PieceQuad.Inside2_Pillar_Small;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_Pillar_MediumWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_Pillar_MediumWidthCutoff"))
                     Template = PieceQuad.Inside2_Pillar_Medium;
-                else if (Box.Current.Size.X < InfoWad.GetFloat("Inside2_Pillar_LargeWidthCutoff"))
+                else if (width < InfoWad.GetFloat("Inside2_Pillar_LargeWidthCutoff"))
                     Template = PieceQuad.Inside2_Pillar_Large;
                 else
                     Template = PieceQuad.Inside2_Pillar_XLarge;                
@@ -259,22 +268,22 @@ namespace CloudberryKingdom.Blocks
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Dark()
+        PieceQuad GetPieceTemplate_Dark(float width)
         {
             // Check to see if we should make this a pillar, a floater, or a wall
             PieceQuad Template = null;
             if (Box.TopOnly && BlockCore.UseTopOnlyTexture)
                 Template = PieceQuad.Inside2_Thin;
             else
-                Template = PieceQuad.DarkPillars.Get(Box.Current.Size.X);
+                Template = PieceQuad.DarkPillars.Get(width);
 
             return Template;
         }
 
-        PieceQuad GetPieceTemplate_Island()
+        PieceQuad GetPieceTemplate_Island(float width)
         {
             Box.TopOnly = true;
-            PieceQuad Template = PieceQuad.Islands.Get(Box.Current.Size.X);
+            PieceQuad Template = PieceQuad.Islands.Get(width);
 
             return Template;
         }

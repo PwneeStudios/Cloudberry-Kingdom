@@ -113,8 +113,9 @@ namespace CloudberryKingdom.Levels
 
             CurMakeData = makeData;
             InitMakeData(CurMakeData);
+            Style.ModNormalBlockWeight = .15f;
 
-            VerticalData Style = (VerticalData)CurMakeData.PieceSeed.Style;
+            VerticalData VStyle = (VerticalData)CurMakeData.PieceSeed.Style;
             LevelGeometry Geometry = CurMakeData.PieceSeed.GeometryType;
 
             // Shift start position up for down levels
@@ -181,7 +182,7 @@ namespace CloudberryKingdom.Levels
 
             // Back piece
             if (!NewStyle)
-                MakeBack(Style, ref BL_Bound, ref TR_Bound);
+                MakeBack(VStyle, ref BL_Bound, ref TR_Bound);
 
 
             // Safety nets
@@ -263,9 +264,9 @@ namespace CloudberryKingdom.Levels
                 block.Core.GenData.OnUsed = () => EndReached = true;
 
             // Initial platform
-            if (CurMakeData.InitialPlats && Style.MakeInitialPlats)
+            if (CurMakeData.InitialPlats && VStyle.MakeInitialPlats)
             {
-                MakeVerticalInitialPlats(Style);
+                MakeVerticalInitialPlats(VStyle);
                 Sleep();
             }
 
@@ -273,8 +274,8 @@ namespace CloudberryKingdom.Levels
             MakeThing MakeFinalPlat = null;
             if (CurMakeData.FinalPlats)
             {
-                if (Style.MyFinalPlatsType == StyleData.FinalPlatsType.Door) MakeFinalPlat = new MakeFinalDoorVertical(this);
-                if (Style.MyFinalPlatsType == StyleData.FinalPlatsType.DarkBottom) MakeFinalPlat = new MakeDarkBottom(this);
+                if (VStyle.MyFinalPlatsType == StyleData.FinalPlatsType.Door) MakeFinalPlat = new MakeFinalDoorVertical(this);
+                if (VStyle.MyFinalPlatsType == StyleData.FinalPlatsType.DarkBottom) MakeFinalPlat = new MakeDarkBottom(this);
             }
 
             if (MakeFinalPlat != null) MakeFinalPlat.Phase1();
@@ -293,8 +294,7 @@ namespace CloudberryKingdom.Levels
 
 
             // Stage 1 fill
-            NormalBlock_Parameters BlockParams = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
-            ModNormalBlockWeight = .15f;
+            NormalBlock_Parameters BlockParams = (NormalBlock_Parameters)VStyle.FindParams(NormalBlock_AutoGen.Instance);
             if (BlockParams.DoStage1Fill)
             {
                 //Fill_BL = BL_Bound + new Vector2(400, 0);
@@ -303,12 +303,12 @@ namespace CloudberryKingdom.Levels
                 
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Bound, .35f * CurMakeData.SparsityMultiplier);
             }
-            foreach (BlockBase block in Blocks)
-            {
-                NormalBlock nblock = block as NormalBlock;
-                if (null != nblock)
-                    nblock.MakeTopOnly();
-            }
+            //foreach (BlockBase block in Blocks)
+            //{
+            //    NormalBlock nblock = block as NormalBlock;
+            //    if (null != nblock)
+            //        nblock.MakeTopOnly();
+            //}
 
             DEBUG("Pre stage 1, about to reset");
 

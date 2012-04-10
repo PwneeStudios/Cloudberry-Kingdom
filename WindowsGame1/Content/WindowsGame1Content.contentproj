@@ -355,6 +355,10 @@
       <Name>FlyingBlock</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Objects\meatboy.smo">
+      <Name>meatboy</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Objects\regular_spike.smo">
       <Name>regular_spike</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

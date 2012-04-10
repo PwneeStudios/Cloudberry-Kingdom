@@ -402,7 +402,7 @@ namespace Drawing
                 }
 
                 // Copy quad
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C))
+                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C))
                 {
                     if (SelectedQuads.Count > 0)
                     {
@@ -413,7 +413,7 @@ namespace Drawing
                             CopyQuad = new BendableQuad((BendableQuad)SelectedQuads[0], true);
                     }
                 }
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V))
+                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V))
                 {
                     if (CopyQuad != null)
                     {
@@ -561,7 +561,7 @@ namespace Drawing
 
 
                 // Set anim speed
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.OemTilde) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.OemTilde))
+                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.OemTilde) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.OemTilde))
                 {
                     Dlg = new SetNameDialog();
 
@@ -613,7 +613,7 @@ namespace Drawing
                 }
 
                 // Color dialog
-                if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift) && !KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C))
+                if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift) && !KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.C))
                 {
                     System.Windows.Forms.ColorDialog colorDlg = new System.Windows.Forms.ColorDialog();
                     colorDlg.AnyColor = true;
@@ -685,7 +685,8 @@ namespace Drawing
                 if (!DialogUp)
                 if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.S) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.S))
                 {
-                    if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl)
+                    if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) &&
+                        !KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl)
                         && CurrentFileLocation.Length > 0)
                     {
                         // Verify save
@@ -1024,7 +1025,7 @@ namespace Drawing
                     // Check to see if selection box is large enough to process
                     if (Dragging && (MousePos - DragStart).Length() > .1f)
                     {
-                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                         {
                             SelectedQuads.Clear();
                             SelectedBoxes.Clear();
@@ -1092,7 +1093,7 @@ namespace Drawing
 
                     bool flag = false;
                     {
-                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                         {
                             SelectedBoxes.Clear();
                             SelectedPoints.Clear();
@@ -1196,7 +1197,7 @@ namespace Drawing
 
                         if (ClickedOnAQuad)
                         {
-                            if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                            if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                             {
                                 SelectedQuads.Clear();
                                 SelectedBoxes.Clear();
@@ -1226,7 +1227,7 @@ namespace Drawing
 
                                     if (!flag)
                                     {
-                                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                                        if (!KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                                         {
                                             SelectedQuads.Clear();
                                             SelectedBoxes.Clear();
@@ -1247,7 +1248,7 @@ namespace Drawing
 
 
 
-                        if (!ClickedOnAQuad && !flag && !KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                        if (!ClickedOnAQuad && !flag && !KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                         {
                             SelectedQuads.Clear();
                             SelectedBoxes.Clear();
@@ -1563,7 +1564,7 @@ namespace Drawing
                 BaseQuad quad = GetNodeQuad(Node, MainObject);
 
                 // Unselect other nodes if not holding control
-                if (!PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                if (!PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl))
                 {
                     SelectedQuads.Clear();
                     ClearSelected(QuadNode);
@@ -1635,7 +1636,7 @@ namespace Drawing
         void QuadTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Unselect other nodes if not holding control
-            if (!PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftControl) &&
+            if (!PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) &&
                 !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift))
             {
                 SelectedQuads.Clear();
@@ -1849,6 +1850,7 @@ namespace Drawing
 
         protected override void Draw(GameTime gameTime)
         {
+            
             fps = .7f * fps + .3f * (1000f / Math.Max(1, gameTime.ElapsedGameTime.Milliseconds));
             /*device.SetRenderTarget(renderTarget);
 
@@ -1891,7 +1893,24 @@ namespace Drawing
                 //EffectWad.FindByName("BasicEffect").effect.Parameters["InsideColor"].SetValue(Color.White.ToVector4());
             }*/
 
-            Tools.SetStandardRenderStates();
+            // set the viewport to the whole screen
+            GraphicsDevice.Viewport = new Viewport
+            {
+                X = 0,
+                Y = 0,
+                Width = GraphicsDevice.PresentationParameters.BackBufferWidth,
+                Height = GraphicsDevice.PresentationParameters.BackBufferHeight,
+                MinDepth = 0,
+                MaxDepth = 1
+            };
+            GraphicsDevice.Clear(Color.Black);
+
+            Tools.QDrawer.SetAddressMode(true, true);
+            Tools.Device.RasterizerState = RasterizerState.CullNone;
+            Tools.Device.BlendState = BlendState.AlphaBlend;
+            Tools.Device.DepthStencilState = DepthStencilState.DepthRead;
+
+            //Tools.SetStandardRenderStates();
             /*
             device.VertexDeclaration = vertexDeclaration;
             device.RenderState.AlphaBlendEnable = true;
@@ -1910,9 +1929,7 @@ namespace Drawing
                 MainObject.PreDraw(device, EffectWad);
 
             Tools.EffectWad.SetCameraPosition(cameraPos);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["xCameraAspect"].SetValue((float)ScreenWidth / (float)ScreenHeight);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["Illumination"].SetValue(1f);
+            Tools.SetDefaultEffectParams(AspectRatio);
 
             device.SetRenderTarget(Tools.DestinationRenderTarget);
             if (Tools.ScreenshotMode)
@@ -1920,7 +1937,7 @@ namespace Drawing
             else
                 device.Clear(Color.Gray);
             
-
+            
             if (ShowTextureSelection)
             {
                 Quad quad = new Quad();

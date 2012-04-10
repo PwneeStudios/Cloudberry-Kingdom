@@ -12,6 +12,19 @@ namespace Drawing
         public MyOwnVertexFormat Vertex;
         public Vector2 Pos;
 
+        public void RotateRight()
+        {
+            Tools.Swap(ref Pos.X, ref Pos.Y);
+            Tools.Swap(ref Vertex.uv.X, ref Vertex.uv.X);
+        }
+
+        public void RotateLeft()
+        {
+            RotateRight();
+            Pos.X *= -1;
+            Vertex.uv.X *= -1;
+        }
+
         public void Release()
         {
             AnimData.Release();
@@ -286,6 +299,22 @@ namespace Drawing
             v1.Pos = TR;
             v2.Pos = BL;
             v3.Pos = new Vector2(TR.X, BL.Y);
+        }
+
+        public void RotateRight()
+        {
+            v0.RotateRight();
+            v1.RotateRight();
+            v2.RotateRight();
+            v3.RotateRight();
+        }
+
+        public void RotateLeft()
+        {
+            v0.RotateLeft();
+            v1.RotateLeft();
+            v2.RotateLeft();
+            v3.RotateLeft();
         }
 
         public void RotateUV()

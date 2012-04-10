@@ -218,7 +218,7 @@ namespace CloudberryKingdom.Bobs
 
         public int HeldObjectIteration;
 
-        public bool DrawOutline, CanHaveCape;
+        public bool DrawOutline, CanHaveCape, CanHaveHat = true;
         public BobPhsx MyObjectType;
 
         public float NewY, NewVel, Xvel;
@@ -273,9 +273,7 @@ namespace CloudberryKingdom.Bobs
 
             if (scheme.HatData == null) scheme.HatData = Hat.None;
 
-            if (MyHeroType is BobPhsxSpaceship)
-                Tools.Nothing();//scheme.HatData.QuadName = "None";
-            else
+            if (CanHaveHat)
             {
                 PlayerObject.FindQuad("Head").Show = scheme.HatData.DrawHead;
                 foreach (BaseQuad quad in PlayerObject.QuadList)
@@ -521,6 +519,7 @@ namespace CloudberryKingdom.Bobs
 
             DrawOutline = bob.DrawOutline;
             CanHaveCape = bob.CanHaveCape;
+            CanHaveHat = bob.CanHaveHat;
             MyObjectType = bob.MyObjectType;
 
             //MyHat = new Hat();
@@ -549,8 +548,9 @@ namespace CloudberryKingdom.Bobs
         {
             LoadFromFile(file, EffectWad, TextureWad, BobPhsxNormal.Instance);
         }
-        public Bob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx MyHeroType)
+        public Bob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx MyHeroType, bool AllowHats)
         {
+            CanHaveHat = AllowHats;
             LoadFromFile(file, EffectWad, TextureWad, MyHeroType);
         }
         public void LoadFromFile(string file, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx HeroType)
@@ -1665,6 +1665,8 @@ namespace CloudberryKingdom.Bobs
             if (Tools.DrawBoxes)
             {
                 Box.Draw(Tools.QDrawer, Color.Wheat, 12);
+                Box.DrawT(Tools.QDrawer, Color.Pink, 6);
+
                 Box2.Draw(Tools.QDrawer, Color.Wheat, 12);
                 Box2.DrawT(Tools.QDrawer, Color.Wheat, 12);
 
@@ -1716,6 +1718,8 @@ namespace CloudberryKingdom.Bobs
 
             if (MyPhsx.IsTopCollision(Col, box, block))
             {
+                //if (Col != ColType.Top) Tools.Write(0);
+
                 Col = ColType.Top;
 
                 NewY = box.Target.TR.Y + Box.Current.Size.Y + .01f;
@@ -1869,7 +1873,8 @@ namespace CloudberryKingdom.Bobs
 
         private void UpdateGroundSpeed(AABox box, BlockBase block)
         {
-            GroundSpeed = (box.Target.TR.X - box.Current.TR.X + box.Target.BL.X - box.Current.BL.X) / 2;
+            GroundSpeed = box.xSpeed();
+
             if (block != null)
                 GroundSpeed += block.BlockCore.GroundSpeed;
         }
@@ -1897,6 +1902,8 @@ namespace CloudberryKingdom.Bobs
             }
 
             Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+
+            MyPhsx.OnInitBoxes();
         }
 
         public void UpdateCape()
@@ -1921,10 +1928,19 @@ namespace CloudberryKingdom.Bobs
             // Set the anchor point
             if (temp == null) temp = new ObjectVector();            
             if (Body == null) Body = (BendableQuad)PlayerObject.FindQuad("Body");
-            temp.ParentQuad = Body.ParentQuad;
 
-            Body.MySpline.GetBothVectors(1.20f, 0, ref temp.RelPos, ref temp.RelPos);
-            temp.FastPosFromRelPos(Body.ParentQuad);
+            if (Body == null)
+            {
+                if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
+                temp.Pos = Head.Center.Pos;
+            }
+            else
+            {
+                temp.ParentQuad = Body.ParentQuad;
+                Body.MySpline.GetBothVectors(1.20f, 0, ref temp.RelPos, ref temp.RelPos);
+                temp.FastPosFromRelPos(Body.ParentQuad);
+            }
+
             Vector2 vel = MyPhsx.ApparentVelocity;
             MyCape.AnchorPoint[0] = temp.Pos + (vel);
 

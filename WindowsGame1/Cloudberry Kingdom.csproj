@@ -73,13 +73,14 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Editor|x86' ">
     <OutputPath>bin\x86\Editor\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS EDITOR NOT_PC</DefineConstants>
-    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG;TRACE;WINDOWS EDITOR NOT_PC</DefineConstants>
+    <Optimize>false</Optimize>
     <NoStdLib>true</NoStdLib>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PC|x86' ">
     <OutputPath>bin\x86\PC\</OutputPath>

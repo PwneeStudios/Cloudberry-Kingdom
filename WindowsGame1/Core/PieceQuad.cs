@@ -120,7 +120,8 @@ namespace CloudberryKingdom
 
         public SimpleQuad Left, Right, Top, Bottom, TR, TL, BL, BR, Center;
 
-        public bool BottomUp;
+        public enum Orientation { Normal, UpsideDown, RotateRight, RotateLeft };
+        public Orientation MyOrientation = Orientation.Normal;
 
         public Vector2 TL_UV, BR_UV;
 
@@ -539,22 +540,52 @@ namespace CloudberryKingdom
             */
             Left.UVFromBounds(new Vector2(0, V), new Vector2(1, 0));
             Right.UVFromBounds(new Vector2(0, V), new Vector2(1, 0));
-            if (!BottomUp)
-            {
-                Top.UVFromBounds(new Vector2(0, 1), new Vector2(U, 0));
-                Bottom.UVFromBounds(new Vector2(0, 1), new Vector2(U, 0));
-                Center.UVFromBounds(new Vector2(0, V), new Vector2(U, 0));
-            }
-            else
-            {
-                Top.UVFromBounds(new Vector2(0, 0), new Vector2(U, 1));
-                Bottom.UVFromBounds(new Vector2(0, 0), new Vector2(U, 1));
-                Center.UVFromBounds(new Vector2(0, 0), new Vector2(U, V));
 
-                SimpleQuad temp = Top;
-                Top = Bottom;
-                Bottom = temp;
-            }    
+            Orientation HoldOrientation;
+            switch (MyOrientation)
+            {
+                case Orientation.Normal:
+                    Top.UVFromBounds(new Vector2(0, 1), new Vector2(U, 0));
+                    Bottom.UVFromBounds(new Vector2(0, 1), new Vector2(U, 0));
+                    Center.UVFromBounds(new Vector2(0, V), new Vector2(U, 0));
+                    break;
+
+                case Orientation.UpsideDown:
+                    Top.UVFromBounds(new Vector2(0, 0), new Vector2(U, 1));
+                    Bottom.UVFromBounds(new Vector2(0, 0), new Vector2(U, 1));
+                    Center.UVFromBounds(new Vector2(0, 0), new Vector2(U, V));
+
+                    SimpleQuad temp = Top;
+                    Top = Bottom;
+                    Bottom = temp;
+                    break;
+
+                case Orientation.RotateRight:
+                    HoldOrientation = MyOrientation;
+                    MyOrientation = Orientation.Normal;
+                    Tools.Swap(ref Size.X, ref Size.Y);
+                    CalcQuads(Size);
+                    MyOrientation = HoldOrientation;
+
+                    Top.RotateRight();
+                    Bottom.RotateRight();
+                    Center.RotateRight();
+
+                    break;
+
+                case Orientation.RotateLeft:
+                    HoldOrientation = MyOrientation;
+                    MyOrientation = Orientation.Normal;
+                    Tools.Swap(ref Size.X, ref Size.Y);
+                    CalcQuads(Size);
+                    MyOrientation = HoldOrientation;
+
+                    Top.RotateLeft();
+                    Bottom.RotateLeft();
+                    Center.RotateLeft();
+
+                    break;
+            }
         }
 
         public float FixedHeight = -1;

@@ -66,7 +66,8 @@ namespace CloudberryKingdom
             }
             set
             {
-                val1 = Val;
+                val1 = value;
+                val2_IsSet = false;
             }
         }
 

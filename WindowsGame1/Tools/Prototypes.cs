@@ -96,10 +96,6 @@ namespace CloudberryKingdom
             BobPhsxInvert.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
             bob.Add(BobPhsxInvert.Instance, NewBob);
 
-            // Meat
-            BobPhsxMeat.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
-            bob.Add(BobPhsxMeat.Instance, NewBob);
-
             // Tiny Bob
             BobPhsxSmall.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
             bob.Add(BobPhsxSmall.Instance, NewBob);
@@ -192,17 +188,38 @@ namespace CloudberryKingdom
             bob.Add(BobPhsxRocketbox.Instance, NewBob);
 
             // Spaceship 
-            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance);
+            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, false);
             NewBob.MyObjectType = BobPhsxSpaceship.Instance;
             NewBob.PlayerObject.ParentQuad.Scale(new Vector2(3.5f, 3.5f));
             NewBob.DrawOutline = true;
             foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
                 quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
             NewBob.CanHaveCape = false;
+            NewBob.CanHaveHat = false;
             NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
 
             BobPhsxSpaceship.Instance.Prototype = NewBob;
             bob.Add(BobPhsxSpaceship.Instance, NewBob);
+
+
+            // Meat
+            //BobPhsxMeat.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
+            //bob.Add(BobPhsxMeat.Instance, NewBob);
+
+            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\MeatBoy.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, true);
+            NewBob.MyObjectType = BobPhsxMeat.Instance;
+            NewBob.PlayerObject.ParentQuad.Scale(new Vector2(2.75f, 2.75f));
+            NewBob.DrawOutline = true;
+            foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+                quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+            NewBob.CanHaveCape = true;
+            NewBob.CanHaveHat = true;
+            NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+            NewBob.PlayerObject.QuadList[0].SetTexture("FallingBlock1", Tools.TextureWad);
+            NewBob.PlayerObject.QuadList[1].SetTexture("FallingBlock1", Tools.TextureWad);
+
+            BobPhsxMeat.Instance.Prototype = NewBob;
+            bob.Add(BobPhsxMeat.Instance, NewBob);
 
 
 
