@@ -1347,7 +1347,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    MakeTestLevel(); return;
+                    //MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1495,8 +1495,8 @@ namespace CloudberryKingdom
             //data.PlaceObjectType = PlaceTypes.FallingBlock;
             data.PlaceObjectType = PlaceTypes.Princess;
 
-            //data.MyGeometry = LevelGeometry.Right;
-            data.MyGeometry = LevelGeometry.Up;
+            data.MyGeometry = LevelGeometry.Right;
+            //data.MyGeometry = LevelGeometry.Up;
             data.PieceLength = 7000;
             data.NumPieces = 1;
 
@@ -1569,6 +1569,8 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
+            piece.MyUpgrades1[Upgrade.MovingBlock2] = 10;
+
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
             ////piece.MyUpgrades1[Upgrade.Laser] = 4;
@@ -1581,17 +1583,17 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Speed] = 3;
 
 
-            piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            piece.MyUpgrades1[Upgrade.Laser] = 2;
-            piece.MyUpgrades1[Upgrade.Spike] = 2;
-            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
-            piece.MyUpgrades1[Upgrade.Jump] = 4;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
-            piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
-            piece.MyUpgrades1[Upgrade.Speed] = 6;
+            //piece.MyUpgrades1[Upgrade.Pinky] = 2;
+            //piece.MyUpgrades1[Upgrade.Laser] = 2;
+            //piece.MyUpgrades1[Upgrade.Spike] = 2;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.Jump] = 4;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
+            //piece.MyUpgrades1[Upgrade.Speed] = 6;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

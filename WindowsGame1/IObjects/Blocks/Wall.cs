@@ -117,7 +117,6 @@ namespace CloudberryKingdom.Blocks
 
             Core.RemoveOnReset = false;
             BlockCore.HitHead = true;
-            BlockCore.NoComputerTouch = true;
 
             Core.EditHoldable = Core.Holdable = true;
         }

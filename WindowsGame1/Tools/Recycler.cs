@@ -22,7 +22,8 @@ namespace CloudberryKingdom
                              CameraZone,
                              Doodad, SelectBox,
                              Cloud, BouncyBlock, Floater_Spin, ConveyorBlock, SpikeyLine, Firesnake, FlyingBlock, IceBlock, Wall,
-                             BerryBubble, Seed, Region };
+                             BerryBubble, Seed, Region,
+                             MovingBlock2 };
 
     public class RecycleBin
     {
@@ -178,6 +179,10 @@ namespace CloudberryKingdom
                     return new IceBlock(BoxesOnly);
                 case ObjectType.BerryBubble:
                     return new BerryBubble(BoxesOnly);
+
+                case ObjectType.MovingBlock2:
+                    return new MovingBlock2(BoxesOnly);
+
                 default:
                     return null;
                     throw (new System.Exception("No type found for desired object"));

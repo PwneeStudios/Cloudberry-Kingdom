@@ -1589,6 +1589,17 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return Lerp(values[i1], values[i2], t - i1);
         }
 
+        public static Vector2 MultiLerpRestrict(float t, params Vector2[] values)
+        {
+            if (t <= 0) return values[0];
+            if (t >= values.Length - 1) return values[values.Length - 1];
+
+            int i1 = Math.Min((int)t, values.Length - 1);
+            int i2 = i1 + 1;
+
+            return Vector2.Lerp(values[i1], values[i2], t - i1);
+        }
+
         public static int LerpRestrict(int v1, int v2, float t)
         {
             return (int)LerpRestrict((float)v1, (float)v2, t);

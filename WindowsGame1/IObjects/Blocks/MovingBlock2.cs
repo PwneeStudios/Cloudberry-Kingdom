@@ -7,20 +7,27 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Blocks
 {
-    public enum MovingBlockMoveType { Line, Circle, FigureEight }
-    public class MovingBlock : BlockBase, IBound
+    public enum MovingBlock2MoveType { Line, Square }
+    public class MovingBlock2 : BlockBase, IBound
     {
-        public MovingBlockMoveType MoveType;
+        public MovingBlock2MoveType MoveType;
         public int Period, Offset;
         public Vector2 Displacement;
 
-        public NormalBlockDraw MyDraw;
+        public QuadClass MyQuad;
+
+        public Vector2[] Points = new Vector2[5];
+        public int NumPoints = 0;
 
         public override void MakeNew()
         {
+            NumPoints = 0;
+
             BlockCore.Init();
-            BlockCore.MyType = ObjectType.MovingBlock;
+            BlockCore.MyType = ObjectType.MovingBlock2;
             Core.DrawLayer = 3;
+
+            MyBox.TopOnly = true;
 
             Displacement = new Vector2(200, 0);
             Period = 400;
@@ -40,14 +47,13 @@ namespace CloudberryKingdom.Blocks
         {
             base.Release();
 
-            MyDraw.Release();
-            MyDraw = null;
+            MyQuad = null;
         }
 
-        public MovingBlock(bool BoxesOnly)
+        public MovingBlock2(bool BoxesOnly)
         {
             MyBox = new AABox();
-            MyDraw = new NormalBlockDraw();
+            MyQuad = new QuadClass();
 
             MakeNew();
 
@@ -72,37 +78,27 @@ namespace CloudberryKingdom.Blocks
 
             return min;
         }
-               
-        public void ResetPieces()
+
+        public void Init(Vector2 center, Vector2 size) { Init(center, size, true); }
+        public void Init(Vector2 center, Vector2 size, bool TopOnly)
         {
-            MyDraw.Init(this, PieceQuad.MovingBlock);
+            if (!TopOnly)
+                Box.TopOnly = false;
 
-            if (Box.Current.Size.X < 100)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Small");
-            else if (Box.Current.Size.X < 175)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Medium");
-            else
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Large");
-
-            float UV_Repeats = 1.25f * MyBox.Current.Size.Y / MyBox.Current.Size.X;
-            if (UV_Repeats > 2)
-            {
-                MyDraw.MyPieces.Center.v2.Vertex.uv.Y = UV_Repeats;
-                MyDraw.MyPieces.Center.v3.Vertex.uv.Y = UV_Repeats;
-            }
-            if (UV_Repeats < .75f)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Thin");
-        }
-
-        public void Init(Vector2 center, Vector2 size)
-        {
             MyBox.Initialize(center, size);
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            if (!Core.BoxesOnly)
-                MyDraw.Init(this, PieceQuad.MovingBlock);
+            //if (!Core.BoxesOnly)
+            {
+                MyQuad.SetToDefault();
+                MyQuad.TextureName = "Palette";
+                MyQuad.Quad.SetColor(new Color(210, 210, 210));
 
-            Update();
+                MyQuad.Base.e1.X = size.X;
+                MyQuad.Base.e2.Y = size.Y;
+
+                Update();
+            }
         }
 
         public void MoveToBounded(Vector2 shift)
@@ -124,9 +120,6 @@ namespace CloudberryKingdom.Blocks
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
-            if (!Core.BoxesOnly)
-                ResetPieces();           
-
             Core.Data = BlockCore.Data = BlockCore.StartData;
 
             MyBox.Current.Center = BlockCore.StartData.Position;
@@ -138,17 +131,16 @@ namespace CloudberryKingdom.Blocks
             Active = false;
         }
 
+
         Vector2 CalcPosition(float t)
         {
             switch (MoveType)
             {
-                case MovingBlockMoveType.Line:
-                    return BlockCore.StartData.Position + Displacement * (float)Math.Cos(2 * Math.PI * t);
-
-                case MovingBlockMoveType.Circle:
-                    return BlockCore.StartData.Position +
-                        new Vector2(Displacement.X * (float)Math.Cos(2 * Math.PI * t),
-                                    Displacement.Y * (float)Math.Sin(2 * Math.PI * t));
+                case MovingBlock2MoveType.Line:
+                    //return BlockCore.StartData.Position + Displacement * (float)Math.Cos(2 * Math.PI * t);
+                    //return Tools.MultiLerpRestrict(t, BlockCore.StartData.Position + Displacement,
+                    //                                  BlockCore.StartData.Position - Displacement);
+                    return Tools.MultiLerpRestrict(Tools.ZigZag(1, t) * (NumPoints - 1), Points);
             }
 
             return BlockCore.StartData.Position;
@@ -158,7 +150,6 @@ namespace CloudberryKingdom.Blocks
         {
             if (!Core.Held)
             {
-                //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
                 float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
                 Core.Data.Position = CalcPosition((float)Step / Period);
             }
@@ -192,11 +183,13 @@ namespace CloudberryKingdom.Blocks
             MyBox.SwapToCurrent();
         }
 
-        public void Update()
+        void Update()
         {
             if (BlockCore.BoxesOnly) return;
 
-            MyDraw.Update();
+            MyQuad.Pos = MyBox.Target.Center;
+
+            MyQuad.Update();
         }
 
         public override void Draw()
@@ -224,8 +217,11 @@ namespace CloudberryKingdom.Blocks
             {
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 {
-                    MyDraw.Draw();
-                    //Tools.QDrawer.Flush();
+                    for (int i = 0; i < NumPoints - 1; i++)
+                        Tools.QDrawer.DrawLine(Points[i], Points[i + 1], Tools.GrayColor(.5f), 9f);
+                    for (int i = 0; i < NumPoints; i++)
+                        Tools.QDrawer.DrawCircle(Points[i], 12f, Tools.GrayColor(.35f));
+                    MyQuad.Draw();
                 }
 
                 BlockCore.Draw();
@@ -240,17 +236,12 @@ namespace CloudberryKingdom.Blocks
 
             Update();
 
-            if (!Core.BoxesOnly)
-                ResetPieces();
-
             BlockCore.StartData.Position = MyBox.Current.Center;
-
-            ResetPieces();
         }
 
         public override void Clone(ObjectBase A)
         {
-            MovingBlock BlockA = A as MovingBlock;
+            MovingBlock2 BlockA = A as MovingBlock2;
 
             Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
 

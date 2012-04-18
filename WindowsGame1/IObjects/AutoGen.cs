@@ -20,7 +20,7 @@ namespace CloudberryKingdom
 */
 
     // Would be nice to get rid of this, and just rely on ...__AutoGen.instances, and have dictionaries with instances as keys
-    public enum Upgrade { Fireball, Firesnake, FlyingBlock, Spike, FallingBlock, FlyBlob, FireSpinner, MovingBlock, Elevator, SpikeyGuy, Pinky, SpikeyLine, Laser, GhostBlock, BouncyBlock, Cloud, Conveyor, General, Speed, Jump, Ceiling };
+    public enum Upgrade { Fireball, Firesnake, FlyingBlock, Spike, FallingBlock, FlyBlob, FireSpinner, MovingBlock, Elevator, SpikeyGuy, Pinky, SpikeyLine, Laser, GhostBlock, BouncyBlock, Cloud, Conveyor, MovingBlock2, General, Speed, Jump, Ceiling };
 
     public class AutoGen_Parameters
     {

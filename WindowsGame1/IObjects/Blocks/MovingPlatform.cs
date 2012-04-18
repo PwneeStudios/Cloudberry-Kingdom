@@ -80,15 +80,6 @@ namespace CloudberryKingdom.Blocks
             Core.DrawLayer = 4;
 
             MyBox.TopOnly = true;
-
-            /*
-            // Remove from the emitter's list when this platform is deleted
-            Core.GenData.OnMarkedForDeletion += OnMarkedForDeletion;
-
-            // When this platform is used mark the parent as used
-            if (Core.BoxesOnly)
-                Core.GenData.OnUsed = OnUsed;
-             */
         }
 
         public override void Release()

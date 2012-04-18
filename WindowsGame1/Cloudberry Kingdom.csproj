@@ -265,6 +265,8 @@
     <Compile Include="InGameStartMenus\Verify\VerifyQuitCampaign.cs" />
     <Compile Include="IObjects\Blocks\Conveyor.cs" />
     <Compile Include="IObjects\Blocks\Conveyor__Auto.cs" />
+    <Compile Include="IObjects\Blocks\MovingBlock2__Auto.cs" />
+    <Compile Include="IObjects\Blocks\MovingBlock2.cs" />
     <Compile Include="IObjects\Blocks\Thwomp.cs" />
     <Compile Include="IObjects\Blocks\Wall.cs" />
     <Compile Include="IObjects\Blocks\IceBlock.cs" />

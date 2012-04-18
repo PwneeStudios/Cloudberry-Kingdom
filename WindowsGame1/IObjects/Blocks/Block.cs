@@ -55,7 +55,7 @@ namespace CloudberryKingdom.Blocks
         /// </summary>
         public bool DeleteIfTopOnly;
 
-        public bool StoodOn, HitHead, NoComputerTouch;
+        public bool StoodOn, HitHead;
 
         /// <summary>
         /// When true the block will not override the imposition of another block.
@@ -127,7 +127,7 @@ namespace CloudberryKingdom.Blocks
             DisableFlexibleHeight = false;
             DeleteIfTopOnly = false;
 
-            StoodOn = HitHead = NoComputerTouch = false;
+            StoodOn = HitHead = false;
 
             GivesVelocity = true;
 
