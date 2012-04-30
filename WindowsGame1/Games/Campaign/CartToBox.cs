@@ -97,15 +97,15 @@ namespace CloudberryKingdom
         {
             Tools.SoundWad.FindByName("Piece Explosion Small").Play(1f);
 
-            Quad q; int i;
+            Quad q; Particles.Particle p;
 
             q = bob.PlayerObject.FindQuad("Wheel_Left") as Quad;
-            i = PopSingleWheel(q);
-            MyLevel.MainEmitter.Particles[i].Data.Velocity = new Vector2(-40, 45);
+            p = PopSingleWheel(q);
+            p.Data.Velocity = new Vector2(-40, 45);
 
             q = bob.PlayerObject.FindQuad("Wheel_Right") as Quad;
-            i = PopSingleWheel(q);
-            MyLevel.MainEmitter.Particles[i].Data.Velocity = new Vector2(40, 55);
+            p = PopSingleWheel(q);
+            p.Data.Velocity = new Vector2(40, 55);
 
             ParticleEffects.DustCloudExplosion(MyLevel, bob.Pos);
 
@@ -145,7 +145,7 @@ namespace CloudberryKingdom
             }
         }
 
-        int PopSingleWheel(Quad q)
+        Particles.Particle PopSingleWheel(Quad q)
         {
             Particles.Particle p = ParticleEffects.CoinExplosionTemplate;
             p.MyQuad = new SimpleQuad(q);
@@ -155,7 +155,8 @@ namespace CloudberryKingdom
             q.Center.PosFromRelPos();
             p.Data.Position = q.Center.Pos;
 
-            return MyLevel.MainEmitter.EmitParticle(p);
+            MyLevel.MainEmitter.EmitParticle(p);
+            return p;
         }
 
         public override void PhsxStep()

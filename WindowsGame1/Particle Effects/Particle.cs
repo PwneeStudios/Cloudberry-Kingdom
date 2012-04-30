@@ -1,14 +1,54 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-
+using System.Collections.Generic;
 using Drawing;
 
 using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Particles
 {
-    public struct Particle
+    public class Particle
     {
+        public static Bin<Particle> Pool = new Bin<Particle>(
+            () => new Particle(),
+            //particle => particle.Init(),
+            particle => { },
+            1000);
+
+        public void Recycle()
+        {
+            Pool.ReturnItem(this);
+        }
+
+        public void Copy(Particle template)
+        {
+            Frozen = template.Frozen;
+            Code = template.Code;
+            KillOffSides = template.KillOffSides;
+            KillOffBottom = template.KillOffBottom;
+
+            FadingIn = template.FadingIn;
+            FadeInTargetAlpha = template.FadeInTargetAlpha;
+
+            Data = template.Data;
+            Size = template.Size;
+            SizeSpeed = template.SizeSpeed;
+            Angle = template.Angle;
+            AngleSpeed = template.AngleSpeed;
+            Life = template.Life;
+
+            UseAttraction = template.UseAttraction;
+            AttractionPoint = template.AttractionPoint;
+            AttractionStrength = template.AttractionStrength;
+
+            ColorVel = template.ColorVel;
+            FadeInColorVel = template.FadeInColorVel;
+            MyColor = template.MyColor;
+
+            MyQuad = template.MyQuad;
+            Base = template.Base;
+        }
+
         public bool Frozen; public int Code;
         public bool KillOffSides, KillOffBottom;
 
@@ -29,11 +69,6 @@ namespace CloudberryKingdom.Particles
 
         public SimpleQuad MyQuad;
         public BasePoint Base;
-
-        public void Release()
-        {
-            MyQuad.Release();
-        }
 
         public void Init()
         {
@@ -81,6 +116,7 @@ namespace CloudberryKingdom.Particles
             }
             else
                 Data.Velocity += Data.Acceleration;
+
             Data.Position += Data.Velocity;
             Life -= 1;
 
@@ -106,14 +142,6 @@ namespace CloudberryKingdom.Particles
             
             UpdateQuad();
             Tools.QDrawer.DrawQuad(MyQuad);
-
-            /*
-            if (MyText != null)
-            {
-                MyText.Pos = Data.Position;
-                MyText.Draw(MyCam);
-            }
-             * */
         }
     }
 }

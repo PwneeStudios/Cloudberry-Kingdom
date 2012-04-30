@@ -26,17 +26,17 @@ namespace CloudberryKingdom
             CoinExplosionTemplate.KillOffBottom = CoinExplosionTemplate.KillOffSides = true;
         }
 
-        static void SetRandomCoin(ParticleEmitter emit, int i)
+        static void SetRandomCoin(Particle p)
         {
             switch (Tools.GlobalRnd.RndInt(0, 6))
             {
-                case 0: emit.Particles[i].MyQuad.TextureName = "CoinBlue"; break;
-                case 1: emit.Particles[i].MyQuad.TextureName = "CoinCyan"; break;
-                case 2: emit.Particles[i].MyQuad.TextureName = "CoinGreen"; break;
-                case 3: emit.Particles[i].MyQuad.TextureName = "CoinOrange"; break;
-                case 4: emit.Particles[i].MyQuad.TextureName = "CoinPurple"; break;
-                case 5: emit.Particles[i].MyQuad.TextureName = "CoinRed"; break;
-                case 6: emit.Particles[i].MyQuad.TextureName = "CoinYellow"; break;
+                case 0: p.MyQuad.TextureName = "CoinBlue"; break;
+                case 1: p.MyQuad.TextureName = "CoinCyan"; break;
+                case 2: p.MyQuad.TextureName = "CoinGreen"; break;
+                case 3: p.MyQuad.TextureName = "CoinOrange"; break;
+                case 4: p.MyQuad.TextureName = "CoinPurple"; break;
+                case 5: p.MyQuad.TextureName = "CoinRed"; break;
+                case 6: p.MyQuad.TextureName = "CoinYellow"; break;
             }
         }
 
@@ -49,20 +49,18 @@ namespace CloudberryKingdom
             int i;
             for (int k = 0; k < 14; k++)
             {
-                i = emit.GetNextSlot();
-
-                emit.Particles[i] = CoinExplosionTemplate;
+                var p = emit.GetNewParticle(CoinExplosionTemplate);
 
                 Vector2 Dir = level.Rnd.RndDir();
 
-                emit.Particles[i].Data.Position = pos + 45 * Dir * intensity;
-                emit.Particles[i].Data.Velocity = 45 * intensity * (float)level.Rnd.Rnd.NextDouble() * Dir
+                p.Data.Position = pos + 45 * Dir * intensity;
+                p.Data.Velocity = 45 * intensity * (float)level.Rnd.Rnd.NextDouble() * Dir
                                                     + new Vector2(0, 13);
-                emit.Particles[i].Angle = level.Rnd.RndFloat(0, 100);
-                emit.Particles[i].Size *= intensity;
+                p.Angle = level.Rnd.RndFloat(0, 100);
+                p.Size *= intensity;
 
-                //emit.Particles[i].MyQuad.TextureName = "CoinBlue";
-                emit.Particles[i].MyQuad.TextureName = "CoinGreen";
+                //p.MyQuad.TextureName = "CoinBlue";
+                p.MyQuad.TextureName = "CoinGreen";
                 //SetRandomCoin(emit, i);
             }
         }

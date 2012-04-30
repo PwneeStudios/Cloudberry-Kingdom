@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-
+using System.Collections.Generic;
 using Drawing;
 
 using CloudberryKingdom.Levels;
@@ -11,7 +11,7 @@ namespace CloudberryKingdom.Particles
     {
         public static Bin<ParticleEmitter> Pool = new Bin<ParticleEmitter>(
             () => new ParticleEmitter(300),
-            emiiter => { },
+            emitter => { },
             20);
 
         public EzTexture MyTexture;
@@ -24,8 +24,7 @@ namespace CloudberryKingdom.Particles
 
         public Particle ParticleTemplate;
 
-        public int Capacity;
-        public Particle[] Particles;
+        public LinkedList<Particle> Particles;
 
         public int DisplacementRange;
         public float VelRange;
@@ -49,18 +48,11 @@ namespace CloudberryKingdom.Particles
         public void Release()
         {
             MyLevel = null;
-
+            Clean();
             Pool.ReturnItem(this);
-            /*
-            if (Particles != null)
-                foreach (Particle particle in Particles)
-                    particle.Release();
-            
-            Particles = null;
-            
-            ParticleTemplate.Release();*/
         }
 
+        public int TotalCapacity;
         public ParticleEmitter(int Capacity)
         {
             Init(Capacity);
@@ -68,12 +60,13 @@ namespace CloudberryKingdom.Particles
 
         void Init(int capacity)
         {
+            TotalCapacity = capacity;
+
             Count = Index = 0;
 
-            Capacity = capacity;
-            Particles = new Particle[Capacity];
+            Particles = new LinkedList<Particle>();
 
-            MyTexture = Tools.TextureWad.FindByName("White");
+            MyTexture = Tools.TextureWad.TextureList[0];
 
             On = true;
 
@@ -81,7 +74,9 @@ namespace CloudberryKingdom.Particles
             VelRange = 5f;
             VelBase = 2;
             VelDir = new Vector2(0, 0);
-        
+
+            ParticleTemplate = new Particle();
+            ParticleTemplate.Init();
             ParticleTemplate.SetSize(150);
             ParticleTemplate.Life = 200;
         }
@@ -91,135 +86,79 @@ namespace CloudberryKingdom.Particles
         /// </summary>
         public void Clean()
         {
-            for (int i = 0; i < Capacity; i++)
-                Particles[i].Life = 0;
+            foreach (Particle p in Particles)
+                p.Recycle();
+            Particles.Clear();
         }
 
         public void Absorb(ParticleEmitter emitter)
         {
-            for (int i = 0; i < emitter.Capacity; i++)
-            {
-                if (emitter.Particles[i].Life > 0)
-                {
-                    FindNextSlot();
-                    Particles[Index] = emitter.Particles[i];
-                    //Particles[Index].MyCam = MyLevel.MainCamera;
-                }
-            }
+            foreach (Particle p in emitter.Particles)
+                Particles.AddLast(p);
+            emitter.Particles.Clear();
         }
 
-        public int EmitParticle(Particle p)
+        public void KillParticle(LinkedListNode<Particle> node)
         {
-            int i = GetNextSlot();
-            Particles[i] = p;
+            Particles.Remove(node);
+            node.Value.Recycle();
+        }
 
-            return i;
+        public void EmitParticle(Particle p)
+        {
+            Particles.AddLast(p);
+        }
+
+        public Particle GetNewParticle(Particle template)
+        {
+            var p = Particle.Pool.Get();
+            p.Copy(template);
+
+            Particles.AddLast(p);
+
+            if (Particles.Count > TotalCapacity)
+                KillParticle(Particles.First);
+
+            return p;
         }
 
         public void Draw()
         {
-            //Tools.Device.RenderState.DestinationBlend = Blend.One;
-            for (int i = Index + 1; i < Capacity; i++) if (Particles[i].Life > 0) Particles[i].Draw();
-            for (int i = 0; i <= Index; i++) if (Particles[i].Life > 0) Particles[i].Draw();
-
-            //for (int i = Index; i > 0; i--) if (Particles[i].Life > 0) Particles[i].Draw();
-            //for (int i = Capacity - 1; i > Index; i--) if (Particles[i].Life > 0) Particles[i].Draw();
-            
+            foreach (Particle p in Particles)
+                p.Draw();
             Tools.QDrawer.Flush();
-            //Tools.Device.RenderState.DestinationBlend = Blend.InverseSourceAlpha; 
         }
 
         public void Unfreeze(int code)
         {
-            for (int i = 0; i < Capacity; i++)
-                if (Particles[i].Code == code)
-                    Particles[i].Frozen = false;
+            foreach (Particle p in Particles)
+                if (p.Code == code)
+                    p.Frozen = false;
         }
 
         public void RestrictedUpdate(int code)
         {
-            for (int i = 0; i < Capacity; i++)
-                if (Particles[i].Code == code)
-                    Particles[i].Phsx(Tools.CurLevel.MainCamera);
-        }
-
-        public void FindNextSlot()
-        {
-            int StartIndex = Index;
-            while (Particles[Index].Life > 0)
-            {
-                Index++;
-                if (Index >= Capacity) Index = 0;
-                if (Index == StartIndex) break;
-            }
-        }
-
-        public void FindPrevSlot()
-        {
-            int StartIndex = Index;
-            while (Particles[Index].Life > 0)
-            {
-                Index--;
-                if (Index < 0) Index = Capacity - 1;
-                if (Index == StartIndex) break;
-            }
-        }
-
-        public int GetNextSlot()
-        {
-            FindNextSlot();
-            return Index;
-        }
-
-        public int GetPrevSlot()
-        {
-            FindPrevSlot();
-            return Index;
+            foreach (Particle p in Particles)
+                if (p.Code == code)
+                    p.Phsx(Tools.CurLevel.MainCamera);
         }
 
         public void Phsx()
         {
             UpdateStep();
 
-            for (int i = 0; i < Capacity; i++)
-                if (Particles[i].Life > 0)
-                    Particles[i].Phsx(Tools.CurLevel.MainCamera);
-            return;
-            if (!On)
-                return;
-
-            if (MyLevel != null)
+            var node = Particles.First;
+            while (node != null)
             {
-                if (Position.X > MyLevel.MainCamera.TR.X + 200 ||
-                    Position.X < MyLevel.MainCamera.BL.X - 200 ||
-                    Position.Y > MyLevel.MainCamera.TR.Y + 200 ||
-                    Position.Y < MyLevel.MainCamera.BL.Y - 200)
-                    return;
-            }
+                var p = node.Value;
+                var next = node.Next;
 
-            Count++;
-            if (Count > Delay)
-            {
-                Count = 0;
-                for (int i = 0; i < Amount; i++)
-                {
-                    // Find availabe particle slot
-                    FindNextSlot();
+                if (p.Life > 0)// && p.MyColor.W > 0)
+                    p.Phsx(Tools.CurLevel.MainCamera);
+                else
+                    KillParticle(node);
 
-                    Particles[Index] = ParticleTemplate;
-//                    Particle particle = new Particle();
-  //                  particle.Data.Position = Position;
-                    Particles[Index].Data.Position = Position;
-
-                    double a, r;
-                    a = Tools.GlobalRnd.Rnd.Next(360) / 180f * Math.PI;
-                    r = VelRange * Tools.GlobalRnd.Rnd.NextDouble() + VelBase;
-                    Particles[Index].Data.Velocity = new Vector2((float)(r * Math.Cos(a)), (float)(r * Math.Sin(a)));
-                    Particles[Index].Data.Velocity += VelDir;
-
-                    //particle.Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.GlobalRnd.Rnd.Next(DisplacementRange);
-                    Particles[Index].Data.Position += new Vector2((float)(Math.Cos(a)), (float)(Math.Sin(a))) * Tools.GlobalRnd.Rnd.Next(DisplacementRange);
-                }
+                node = next;
             }
         }
     }

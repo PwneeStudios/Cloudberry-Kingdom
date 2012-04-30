@@ -61,10 +61,9 @@ namespace CloudberryKingdom.Coins
 
             for (int j = 0; j < 3; j++)
             {
-                i = Core.MyLevel.MainEmitter.GetNextSlot();
-                Core.MyLevel.MainEmitter.Particles[i] = DieTemplate;
-                Core.MyLevel.MainEmitter.Particles[i].Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
-                Core.MyLevel.MainEmitter.Particles[i].MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
+                var p = Core.MyLevel.MainEmitter.GetNewParticle(DieTemplate);
+                p.Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
+                p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
             }
 
             // Text float

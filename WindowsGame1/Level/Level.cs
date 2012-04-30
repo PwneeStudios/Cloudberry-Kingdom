@@ -816,19 +816,17 @@ namespace CloudberryKingdom.Levels
         {
             if (NoParticles) return;
 
-            int i = MainEmitter.GetNextSlot();
-            MainEmitter.Particles[i] = PopTemplate;
-            MainEmitter.Particles[i].Data.Position = pos;
-            MainEmitter.Particles[i].SetSize(size);
-            MainEmitter.Particles[i].MyQuad.MyTexture = tex;
+            var p = MainEmitter.GetNewParticle(PopTemplate);
+            p.Data.Position = pos;
+            p.SetSize(size);
+            p.MyQuad.MyTexture = tex;
         }
         public void AddPop(Vector2 pos, ref Particle Template)
         {
             if (NoParticles) return;
 
-            int i = MainEmitter.GetNextSlot();
-            MainEmitter.Particles[i] = Template;
-            MainEmitter.Particles[i].Data.Position = pos;
+            var p = MainEmitter.GetNewParticle(Template);
+            p.Data.Position = pos;
         }
 
 

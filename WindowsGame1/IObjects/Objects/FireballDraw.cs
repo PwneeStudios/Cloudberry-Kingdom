@@ -127,18 +127,16 @@ namespace CloudberryKingdom
             Fireball_Emitter.Phsx();
 
             // Flame superparticle physics
-            int i;
             for (int k = 0; k < 1; k++)
             {
-                i = Flame_Emitter.GetNextSlot();
-                Flame_Emitter.Particles[i] = EmitterTemplate;
+                var p = Flame_Emitter.GetNewParticle(EmitterTemplate);
                 Vector2 Dir = Rnd.RndDir();
-                Flame_Emitter.Particles[i].Data.Position = 20 * Dir; //+ Tools.CurLevel.MainCamera.Data.Position;
-                //Emitter2.Particles[i].Data.Velocity = 4 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
-                Flame_Emitter.Particles[i].Data.Velocity = 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
-                Flame_Emitter.Particles[i].Data.Acceleration = .07f * -Flame_Emitter.Particles[i].Data.Velocity;
-                Flame_Emitter.Particles[i].AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
-                Flame_Emitter.Particles[i].ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
+                p.Data.Position = 20 * Dir; //+ Tools.CurLevel.MainCamera.Data.Position;
+                //p.Data.Velocity = 4 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Velocity = 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Acceleration -= .07f * p.Data.Velocity;
+                p.AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
+                p.ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
             }
             Flame_Emitter.Phsx();
 
@@ -237,19 +235,18 @@ namespace CloudberryKingdom
             int i;
             for (int k = 0; k < 20; k++)
             {
-                i = level.MainEmitter.GetNextSlot();
-                level.MainEmitter.Particles[i] = ExplodeTemplate;
+                var p = level.MainEmitter.GetNewParticle(ExplodeTemplate);
                 Vector2 Dir = Rnd.RndDir();
-                level.MainEmitter.Particles[i].Data.Position = pos + 23 * Dir * Scale;
-                //level.MainEmitter.Particles[i].Data.Velocity = 4 * (float)Rnd.Rnd.NextDouble() * Dir;
-                level.MainEmitter.Particles[i].Data.Velocity = Scale * 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
-                level.MainEmitter.Particles[i].Data.Acceleration = .045f * -level.MainEmitter.Particles[i].Data.Velocity;
-                level.MainEmitter.Particles[i].Data.Velocity += vel;
+                p.Data.Position = pos + 23 * Dir * Scale;
+                //p.Data.Velocity = 4 * (float)Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Velocity = Scale * 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Acceleration = -.045f * p.Data.Velocity;
+                p.Data.Velocity += vel;
 
-                level.MainEmitter.Particles[i].Size *= ScaleQuad;
+                p.Size *= ScaleQuad;
 
-                level.MainEmitter.Particles[i].AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
-                //level.MainEmitter.Particles[i].ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
+                p.AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
+                //p.ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
             }
         }
     }

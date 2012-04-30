@@ -260,23 +260,21 @@ namespace CloudberryKingdom.Goombas
 
         public void Squish(Vector2 vel)
         {
-            Particle[] p = Core.MyLevel.MainEmitter.Particles;
+            var emitter = Core.MyLevel.MainEmitter;
 
-            int i;
             for (int k = 0; k < 9; k++)
             {
-                i = Core.MyLevel.MainEmitter.GetNextSlot();
-                p[i] = BlobGooTemplate;
-                p[i].MyQuad.MyTexture = GetGooTexture(MyColor);
+                var p = emitter.GetNewParticle(BlobGooTemplate);
+                p.MyQuad.MyTexture = GetGooTexture(MyColor);
 
                 Vector2 Dir = MyLevel.Rnd.RndDir();
-                p[i].Data.Position = Core.Data.Position + 50 * Dir;
-                p[i].Data.Velocity = 20 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Position = Core.Data.Position + 50 * Dir;
+                p.Data.Velocity = 20 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
 
-                p[i].Data.Velocity.Y = .5f * Math.Abs(p[i].Data.Velocity.Y);
-                p[i].Data.Velocity.Y += 6;
-                p[i].Data.Velocity += vel;
-                p[i].AngleSpeed *= 2 * (float)(MyLevel.Rnd.Rnd.NextDouble() - .5f);
+                p.Data.Velocity.Y = .5f * Math.Abs(p.Data.Velocity.Y);
+                p.Data.Velocity.Y += 6;
+                p.Data.Velocity += vel;
+                p.AngleSpeed *= 2 * (float)(MyLevel.Rnd.Rnd.NextDouble() - .5f);
             }
 
             SquishSound.PlayModulated(.02f);
