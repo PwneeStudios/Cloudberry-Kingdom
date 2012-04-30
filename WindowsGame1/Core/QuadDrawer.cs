@@ -162,6 +162,41 @@ namespace Drawing
             SetSamplerState();
         }
 
+        public void DrawQuad_Simplified(SimpleQuad quad)
+        {
+            if (CurrentEffect.effect != quad.MyEffect.effect ||
+                CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||
+                CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked)
+                Flush();
+
+            if (i == 0)
+            {
+                if (Current_U_Wrap != quad.U_Wrap || Current_V_Wrap != quad.V_Wrap)
+                    SetAddressMode(quad.U_Wrap, quad.V_Wrap);
+
+                CurrentEffect = quad.MyEffect;
+                CurrentTexture = quad.MyTexture;
+
+                if (CurrentTexture.FromPacked)
+                    CurrentTexture = CurrentTexture.Packed;
+
+                if (CurrentEffect.CurrentIllumination != Illumination)
+                {
+                    CurrentEffect.CurrentIllumination = Illumination;
+                    CurrentEffect.Illumination.SetValue(Illumination);
+                }
+            }
+
+            //CurrentEffect.effect.Parameters["Illumination"].SetValue(.5f);
+            Vertices[i] = quad.v0.Vertex;
+            Vertices[i + 5] = Vertices[i + 1] = quad.v1.Vertex;
+            Vertices[i + 4] = Vertices[i + 2] = quad.v2.Vertex;
+            Vertices[i + 3] = quad.v3.Vertex;
+
+            i += 6;
+            TrianglesInBuffer += 2;
+        }
+
         public void DrawQuad(SimpleQuad quad)
         {
             if (quad.Hide) return;
