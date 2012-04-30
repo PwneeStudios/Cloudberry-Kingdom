@@ -2260,11 +2260,10 @@ namespace CloudberryKingdom.Bobs
             {
                 float DeathDist = 650;
                 if (Core.MyLevel.MyGame.MyGameFlags.IsTethered) DeathDist = 900;
-                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DeathDist ||
-                    Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + DeathDist)
-                {
+                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DeathDist)
                     Die(BobDeathType.Fall);
-                }
+                else if (MyPhsx.Gravity < 0 && Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + DeathDist)
+                    Die(BobDeathType.Fall);
                 else
                     if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 1500 ||
                         Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 550 ||
