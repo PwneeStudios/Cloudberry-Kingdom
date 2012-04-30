@@ -53,7 +53,7 @@ namespace CloudberryKingdom
         public int DrawCount, PhsxCount;
 
         public ResolutionGroup Resolution;
-        public ResolutionGroup []Resolutions = new ResolutionGroup[4];
+        public ResolutionGroup[] Resolutions = new ResolutionGroup[4];
 
 #if WINDOWS
         QuadClass MousePointer, MouseBack;
@@ -110,8 +110,28 @@ namespace CloudberryKingdom
 
         //public CharacterSelectManager CharSelectManager = new CharacterSelectManager();
 
+        /*
+        void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            foreach (GraphicsAdapter curAdapter in GraphicsAdapter.Adapters)
+            {
+                if (curAdapter.Description.Contains("PerfHUD"))
+                {
+                    e.GraphicsDeviceInformation.Adapter = curAdapter;
+                    //e.GraphicsDeviceInformation.DeviceType = DeviceType.Reference;
+                    break;
+                }
+            }
+            return;
+        }*/
+
         public CloudberryKingdomGame()
         {
+            // PerfHUD
+#if DEBUG
+            //graphics.PreparingDeviceSettings += this.graphics_PreparingDeviceSettings;
+#endif
+
             //var profilerGameComponent = new Indiefreaks.Xna.Profiler.ProfilerGameComponent(this, "Fonts/LilFont");
             //Indiefreaks.AOP.Profiler.ProfilingManager.Run = true;
             //Components.Add(profilerGameComponent);
@@ -182,7 +202,7 @@ namespace CloudberryKingdom
             ////// Load saved files
             ////PlayerManager.Init();
             ////SaveGroup.Initialize();
-            
+
 
             // Set the possible resolutions
             Resolutions[0] = new ResolutionGroup();
@@ -231,8 +251,11 @@ namespace CloudberryKingdom
             }
             else
             {
-                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                graphics.PreferredBackBufferWidth = 800;
+                graphics.PreferredBackBufferHeight = 600;
+                graphics.IsFullScreen = rez.Fullscreen;
             }
 #if DEBUG
             if (!graphics.IsFullScreen)
@@ -283,7 +306,7 @@ namespace CloudberryKingdom
             PieceQuad.LoadTemplates();
 
             PieceQuad c;
-            
+
             //c = PieceQuad.Castle = new PieceQuad();
             //c.Init(null, Tools.BasicEffect);
             //c.Data.RepeatWidth = 10000;
@@ -324,7 +347,7 @@ namespace CloudberryKingdom
             c.Bottom.Hide = c.BL.Hide = c.BR.Hide = true;
             c.Data.UV_Multiples = new Vector2(1, 0);
             c.Data.Top_TR_Shift.Y = c.Data.TL_TR_Shift.Y = c.Data.TR_TR_Shift.Y =
-            c.Data.Top_BL_Shift.Y = c.Data.TL_BL_Shift.Y = c.Data.TR_BL_Shift.Y = 
+            c.Data.Top_BL_Shift.Y = c.Data.TL_BL_Shift.Y = c.Data.TR_BL_Shift.Y =
             c.Data.Center_TR_Shift.Y = c.Data.Left_TR_Shift.Y = c.Data.Right_TR_Shift.Y = 130;
             c.SetTexture("Castle");
 
@@ -342,10 +365,10 @@ namespace CloudberryKingdom
             var p = PieceQuad.Islands = new PieceQuadGroup();
             PieceQuad.Islands.InitPillars("Outside_Platform", new string[] { "xxsmall", "xsmall", "medium", "large" });
             PieceQuad.Islands.SetCutoffs(80, 130, 290);
-            p[0].FixedHeight = 66*1.6f;
-            p[1].FixedHeight = 99*1.65f;
-            p[2].FixedHeight = 180*1.7f;
-            p[3].FixedHeight = 209*1.75f;
+            p[0].FixedHeight = 66 * 1.6f;
+            p[1].FixedHeight = 99 * 1.65f;
+            p[2].FixedHeight = 180 * 1.7f;
+            p[3].FixedHeight = 209 * 1.75f;
 
 
             // Catwalk
@@ -422,7 +445,7 @@ namespace CloudberryKingdom
                 Tools.SongWad = new EzSongWad();
 
             Tools.SongWad.PlayerControl = Tools.SongWad.DisplayInfo = true;
-            
+
             string path = Path.Combine(Globals.ContentDirectory, "Music");
             string[] files = Directory.GetFiles(path);
 
@@ -460,16 +483,16 @@ namespace CloudberryKingdom
                 //if (SimpleLoad && Tools.SongWad.SongList.Count > 0) break;
             }
 
-            
+
             Tools.Song_Happy = Tools.SongWad.FindByName("Happy");
             Tools.Song_Happy.DisplayInfo = false;
 
             Tools.Song_140mph = Tools.SongWad.FindByName("140 Mph in the Fog^Blind Digital");
             Tools.Song_140mph.Volume = .7f;
-            
+
             Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue Chair^Blind Digital");
             Tools.Song_BlueChair.Volume = .7f;
-            
+
             Tools.Song_Evidence = Tools.SongWad.FindByName("Evidence^Blind Digital");
             Tools.Song_Evidence.Volume = .7f;
 
@@ -515,7 +538,7 @@ namespace CloudberryKingdom
             }
 
             string path = Path.Combine(Globals.ContentDirectory, "Sound");
-            string []files = Directory.GetFiles(path);
+            string[] files = Directory.GetFiles(path);
             foreach (String file in files)
             {
                 int i = file.IndexOf("Sound") + 5 + 1;
@@ -641,7 +664,7 @@ namespace CloudberryKingdom
             ////seed = 1266783283;
             //Console.WriteLine("Seed: {0}", seed);
             //MyLevel.Rnd.Rnd = new Random(seed);
-            
+
             Tools.EffectWad = EffectWad;
             Tools.TextureWad = TextureWad;
             Tools.Device = device;
@@ -650,7 +673,7 @@ namespace CloudberryKingdom
             LoadingResources = new WrappedBool(false);
             LoadingResources.MyBool = true;
             LogoScreenUp = true;
-            
+
             Tools.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             screenWidth = device.PresentationParameters.BackBufferWidth;
@@ -662,10 +685,10 @@ namespace CloudberryKingdom
                                    pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
                                    RenderTargetUsage.DiscardContents);
 
-            
+
 
             MainCamera = new Camera(screenWidth, screenHeight);
-            
+
             MainCamera.Update();
 
             Tools.SoundVolume = new WrappedFloat();
@@ -721,10 +744,10 @@ namespace CloudberryKingdom
 
                         // Load the infowad and boxes
                         Action infoaction = () =>
-                            {
-                                ReloadInfo();
-                                Tools.Write("Infowad done...");
-                            };
+                        {
+                            ReloadInfo();
+                            Tools.Write("Infowad done...");
+                        };
                         //Thread InfoThread = Tools.EasyThread(3, "Infowad", infoaction);
                         infoaction();
 
@@ -760,18 +783,18 @@ namespace CloudberryKingdom
 #endif
 
                         Action objaction = () =>
-                            {
-                                Prototypes.LoadObjects();
-                                ObjectIcon.InitIcons();
+                        {
+                            Prototypes.LoadObjects();
+                            ObjectIcon.InitIcons();
 
-                                Tools.Write("Stickmen done...");
-                            };
+                            Tools.Write("Stickmen done...");
+                        };
                         //Thread ObjThread = Tools.EasyThread(5, "prototypes", objaction);
                         objaction();
 
 
                         Tools.padState = new GamePadState[4];
-                        Tools.PrevpadState = new GamePadState[4];            
+                        Tools.PrevpadState = new GamePadState[4];
                         Tools.SetStandardRenderStates();
 
 
@@ -891,7 +914,7 @@ namespace CloudberryKingdom
 
                 // Update player stats
                 Tools.CurLevel.CountReset();
-                
+
                 Tools.CurLevel.SetToReset = true;
             }
         }
@@ -1186,7 +1209,7 @@ namespace CloudberryKingdom
                 {
                     if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
                     {
-                        if (Tools.padState[i].Buttons.LeftShoulder != ButtonState.Pressed && 
+                        if (Tools.padState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
                             Tools.padState[i].Buttons.RightShoulder != ButtonState.Pressed)
                             ShortReset = false;
                     }
@@ -1218,7 +1241,7 @@ namespace CloudberryKingdom
                 if (Tools.PhsxSpeed > 4) Tools.PhsxSpeed = 1;
             }
             */
-            
+
             Fireball.TexturePhsx();
         }
 
@@ -1392,7 +1415,7 @@ namespace CloudberryKingdom
                         Tools.CurGameData = new Campaign_String(); return;
                         //Tools.CurGameData = new Campaign_Chaos(null); return;
 
-                        
+
                         //Tools.CurGameData = new Campaign_GetCart(null); return;
                         //Tools.CurGameData = new Campaign_GetWheelie(null); return;
                         //Tools.CurGameData = new Campaign_CreditsLevel(); return;
@@ -1469,7 +1492,7 @@ namespace CloudberryKingdom
             data.SetBackground(BackgroundType.Dungeon);
 
             //var custom = (BobPhsxNormal)BobPhsxSmall.Instance.Clone();
-            
+
             //var custom = (BobPhsxNormal)BobPhsxBouncy.Instance.Clone();
             //custom.NumJumps = 2;
             //data.DefaultHeroType = custom;
@@ -1521,8 +1544,8 @@ namespace CloudberryKingdom
 
             //Campaign.CarryPrinces(data);
 
-                // Rumble
-                //level.MyGame.AddGameObject(new Rumble());
+            // Rumble
+            //level.MyGame.AddGameObject(new Rumble());
             //};
 
             data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
@@ -1690,7 +1713,7 @@ namespace CloudberryKingdom
 
             // Special mixes: (rockcircle + bouncyhall + lasers)
         }
-        
+
         void MakeTestSurvivalLevel()
         {
             LevelSeedData data = new LevelSeedData();
@@ -1732,7 +1755,7 @@ namespace CloudberryKingdom
 
                 piece.Style.MyModParams = (level, p) =>
                 {
-                    FireballEmitter_Parameters Params =  (FireballEmitter_Parameters)p.Style.FindParams(FireballEmitter_AutoGen.Instance);
+                    FireballEmitter_Parameters Params = (FireballEmitter_Parameters)p.Style.FindParams(FireballEmitter_AutoGen.Instance);
                     Params.Special.SurvivalFill = true;
 
                     p.Paths = level.CurMakeData.NumInitialBobs = 1; p.LockNumOfPaths = true;
@@ -1755,7 +1778,7 @@ namespace CloudberryKingdom
         /// Whether the mouse should be allowed to be shown, usually only when a menu is active.
         /// </summary>
         public bool ShowMouse = false;
-        
+
         /// <summary>
         /// Whether the user is using the mouse. False when the mouse hasn't been used since the arrow keys.
         /// </summary>
@@ -1805,9 +1828,9 @@ namespace CloudberryKingdom
 #if PC_VERSION
                 (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
 #else
-                (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+ (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
 #endif
-                )
+)
                 MouseInUse = false;
 
             if (Tools.DeltaMouse != Vector2.Zero ||
@@ -1846,68 +1869,11 @@ ObjectData.UpdateWeak();
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
 
-            //if (Tools.SongWad == null) return;
-
 #if WINDOWS
-            if (!this.IsActive)
-            {
-                // The window isn't active, so
-
-                // show the actual mouse (not our custom drawn mouse)
-                this.IsMouseVisible = true;
-
-                if (FirstInactiveFrame)
-                {
-                    // If a song is playing, stop it,
-                    // and note that we should resume once the window becomes active
-                    if (Tools.SongWad != null && Tools.SongWad.IsPlaying())
-                    {
-                        MediaPlaying_HoldState = true;
-                        MediaPlayer.Pause();
-                    }
-
-                    FirstInactiveFrame = false;
-                }
-
-                FirstActiveFrame = true;
-
-                // Comment this line to allow the game to run while not in focus
-                //return;
-            }
-            else
-            {
-                // The window is active, so
-
-                // hide the actual mouse (we draw our own custom mouse in game)
-                this.IsMouseVisible = false;
-
-                if (FirstActiveFrame)
-                {
-                    // If a song was playing previously when the window was active before,
-                    // resume that song
-                    if (MediaPlaying_HoldState)
-                        MediaPlayer.Resume();
-
-                    FirstActiveFrame = false;
-                }
-
-                FirstInactiveFrame = true;
-            }
+            ActiveInactive();
 #endif
 
-
-
-
-
-
-
-
-
-
-
-
-
-            // set the viewport to the whole screen
+            // Set the viewport to the whole screen
             GraphicsDevice.Viewport = new Viewport
             {
                 X = 0,
@@ -1918,29 +1884,15 @@ ObjectData.UpdateWeak();
                 MaxDepth = 1
             };
 
-            // clear whole screen to black
+            // Clear whole screen to black
             GraphicsDevice.Clear(Color.Black);
 
-
+            // Make the actual view port we draw to, and clear it
             MakeInnerViewport();
-
-            // and clear that
             GraphicsDevice.Clear(Color.Black);
 
             graphics.GraphicsDevice.Viewport = MainViewport;
-            //return;
 
-
-
-
-
-
-
-
-
-//#if PC_VERSION
-//            UpdateMouseUse();
-//#endif
 
             Tools.DrawCount++;
 
@@ -1958,98 +1910,46 @@ ObjectData.UpdateWeak();
 
 
             if (!LogoScreenUp)
-            if (!Tools.CurGameData.Loading)
-            if (DrawBool)
-            {
-                // Update controller/keyboard states
-                if (!LogoScreenUp)
-                {
-#if WINDOWS
-                    Tools.keybState = Keyboard.GetState();
-                    Tools.CurMouseState = Mouse.GetState();
-#endif           
-                    Tools.padState[0] = GamePad.GetState(PlayerIndex.One);
-                    Tools.padState[1] = GamePad.GetState(PlayerIndex.Two);
-                    Tools.padState[2] = GamePad.GetState(PlayerIndex.Three);
-                    Tools.padState[3] = GamePad.GetState(PlayerIndex.Four);
+                if (!Tools.CurGameData.Loading)
+                    if (DrawBool)
+                    {
+                        // Update controller/keyboard states
+                        UpdateControllerAndKeyboard();
 
-                    ButtonStats.Update();
+                        // Update sounds
+                        if (!LogoScreenUp)
+                            Tools.SoundWad.Update();
 
-                    Tools.UpdateVibrations();
-                }
+                        // Update songs
+                        if (Tools.SongWad != null)
+                            Tools.SongWad.PhsxStep();
 
-#if PC_VERSION
-                UpdateMouseUse();
-#endif
+                        // Track time, changes in time, and FPS
+                        Tools.gameTime = gameTime;
+                        DrawCount++;
 
-                // Update sounds
-                if (!LogoScreenUp)
-                    Tools.SoundWad.Update();
+                        float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
+                        Tools.dt = new_t - Tools.t;
+                        Tools.t = new_t;
+                        fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.Milliseconds));
 
-                // Update songs
-                if (Tools.SongWad != null)
-                    Tools.SongWad.PhsxStep();
+                        // Determine how many phsx steps to take
+                        int Reps = 0;
+                        if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
+                        else if (Tools.PhsxSpeed == 1) Reps = 1;
+                        else if (Tools.PhsxSpeed == 2) Reps = 2;
+                        else if (Tools.PhsxSpeed == 3) Reps = 4;
 
-                // Track time, changes in time, and FPS
-                Tools.gameTime = gameTime;
-                DrawCount++;
+                        // Do the phsx
+                        for (int i = 0; i < Reps; i++)
+                        {
+                            PhsxCount++;
+                            PhsxStep();
+                        }
+                    }
 
-                float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
-                Tools.dt = new_t - Tools.t;
-                Tools.t = new_t;
-                fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.Milliseconds));
-
-                // Determine how many phsx steps to take
-                int Reps = 0;
-                if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
-                else if (Tools.PhsxSpeed == 1) Reps = 1;
-                else if (Tools.PhsxSpeed == 2) Reps = 2;
-                else if (Tools.PhsxSpeed == 3) Reps = 4;
-
-                // Do the phsx
-                for (int i = 0; i < Reps; i++)
-                {
-                    PhsxCount++;
-                    PhsxStep();
-                }
-            }
-
-
-            Vector4 cameraPos = new Vector4(MainCamera.Data.Position.X, MainCamera.Data.Position.Y, MainCamera.Zoom.X, MainCamera.Zoom.Y);//.001f, .001f);
-
-            // All these renderstates need to be ported to XNA 4.0
-            /*
-            device.RenderState.AlphaBlendEnable = true;
-            device.RenderState.CullMode = CullMode.None;
-
-            device.RenderState.DestinationBlend = Blend.One;
-            device.RenderState.SourceBlend = Blend.SourceAlpha;
-            */
-
-            Tools.SetStandardRenderStates();
-
-
-            if (!LogoScreenUp)
-            {
-                if (!LavaInitialized)
-                    Lava();
-
-                if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
-                {
-                    device.BlendState = BlendState.Additive;
-                    Fireball.DrawFireballTexture(device, EffectWad);
-                    Fireball.DrawEmitterTexture(device, EffectWad);
-                    device.BlendState = BlendState.AlphaBlend;
-                    Lava();
-                }
-            }
-
-            EffectWad.SetCameraPosition(cameraPos);
-
-            Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
-
-            Tools.SetStandardRenderStates();
-            GraphicsDevice.Clear(Color.Black);
+            // Setup the rendering parameters
+            SetupToRender();
 
             if (LogoScreenUp || LogoScreenPropUp)
             {
@@ -2072,9 +1972,6 @@ ObjectData.UpdateWeak();
                 }
                 else
                     GraphicsDevice.Clear(Color.Black);
-
-                //if (Tools.CurSongWad != null)
-                  //  Tools.CurSongWad.PhsxStep();
             }
 
             // Debug stat coins
@@ -2084,7 +1981,7 @@ ObjectData.UpdateWeak();
                 PlayerData p = PlayerManager.Get(0);
                 Console.WriteLine("{0}, {1}, {2}, {3}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.LifetimeStats.Coins);
             }*/
-                
+
             //if (ShowFPS || Tools.DebugConvenience)
             if (BuildDebug || ShowFPS)
                 DrawGC();
@@ -2094,8 +1991,6 @@ ObjectData.UpdateWeak();
                 Tools.QDrawer.Flush();
                 Tools.StartGUIDraw();
             }
-
-
 
 #if PC_VERSION
             if (!Tools.ShowLoadingScreen && ShowMouse && !Tools.CapturingVideo)
@@ -2156,6 +2051,112 @@ ObjectData.UpdateWeak();
             }
 #endif
         }
+
+        private void SetupToRender()
+        {
+            Vector4 cameraPos = new Vector4(MainCamera.Data.Position.X, MainCamera.Data.Position.Y, MainCamera.Zoom.X, MainCamera.Zoom.Y);//.001f, .001f);
+
+            Tools.SetStandardRenderStates();
+
+            Compute_FireAndLava();
+
+            EffectWad.SetCameraPosition(cameraPos);
+
+            Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
+
+            Tools.SetStandardRenderStates();
+            GraphicsDevice.Clear(Color.Black);
+        }
+
+        private void Compute_FireAndLava()
+        {
+            if (!LogoScreenUp)
+            {
+                if (!LavaInitialized)
+                    Lava();
+
+                if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
+                {
+                    device.BlendState = BlendState.Additive;
+                    Fireball.DrawFireballTexture(device, EffectWad);
+                    Fireball.DrawEmitterTexture(device, EffectWad);
+                    device.BlendState = BlendState.AlphaBlend;
+                    Lava();
+                }
+            }
+        }
+
+        private void UpdateControllerAndKeyboard()
+        {
+            // Update controller/keyboard states
+            if (!LogoScreenUp)
+            {
+#if WINDOWS
+                Tools.keybState = Keyboard.GetState();
+                Tools.CurMouseState = Mouse.GetState();
+#endif
+                Tools.padState[0] = GamePad.GetState(PlayerIndex.One);
+                Tools.padState[1] = GamePad.GetState(PlayerIndex.Two);
+                Tools.padState[2] = GamePad.GetState(PlayerIndex.Three);
+                Tools.padState[3] = GamePad.GetState(PlayerIndex.Four);
+
+                ButtonStats.Update();
+
+                Tools.UpdateVibrations();
+            }
+
+#if PC_VERSION
+                UpdateMouseUse();
+#endif
+        }
+
+#if WINDOWS
+        private void ActiveInactive()
+        {
+            if (!this.IsActive)
+            {
+                // The window isn't active, so
+                // show the actual mouse (not our custom drawn mouse)
+                this.IsMouseVisible = true;
+
+                if (FirstInactiveFrame)
+                {
+                    // If a song is playing, stop it,
+                    // and note that we should resume once the window becomes active
+                    if (Tools.SongWad != null && Tools.SongWad.IsPlaying())
+                    {
+                        MediaPlaying_HoldState = true;
+                        MediaPlayer.Pause();
+                    }
+
+                    FirstInactiveFrame = false;
+                }
+
+                FirstActiveFrame = true;
+
+                // Comment this line to allow the game to run while not in focus
+                //return;
+            }
+            else
+            {
+                // The window is active, so
+                // hide the actual mouse (we draw our own custom mouse in game)
+                this.IsMouseVisible = false;
+
+                if (FirstActiveFrame)
+                {
+                    // If a song was playing previously when the window was active before,
+                    // resume that song
+                    if (MediaPlaying_HoldState)
+                        MediaPlayer.Resume();
+
+                    FirstActiveFrame = false;
+                }
+
+                FirstInactiveFrame = true;
+            }
+        }
+#endif
 
         public void MakeInnerViewport()
         {
@@ -2297,12 +2298,12 @@ ObjectData.UpdateWeak();
             }
         }
 
-        #if WINDOWS
+#if WINDOWS
         BmpWriter bmpwriter;
-        #endif
+#endif
     }
 
-    #if WINDOWS
+#if WINDOWS
     public class BmpWriter
     {
         byte[] textureData;
@@ -2358,5 +2359,5 @@ ObjectData.UpdateWeak();
                 bmp.Save(filename, imageFormat);
         }
     }
-    #endif
+#endif
 }
