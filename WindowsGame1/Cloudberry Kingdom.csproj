@@ -346,6 +346,7 @@
     <Compile Include="Menus\MenuItem.cs" />
     <Compile Include="Menus\ScrollBar.cs" />
     <Compile Include="Particle Effects\CoinExplosion.cs" />
+    <Compile Include="Particle Effects\ParticleEmitter.cs" />
     <Compile Include="Physics\Circle.cs" />
     <Compile Include="Player\ColorScheme.cs" />
     <Compile Include="Player\ColorSchemeManager.cs" />
