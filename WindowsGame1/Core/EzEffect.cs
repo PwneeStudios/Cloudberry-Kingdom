@@ -13,7 +13,8 @@ namespace Drawing
 
         public Effect effect;
         public string Name;
-        public EffectParameter xFlip, yFlip, FlipCenter, xTexture, Illumination, FlipVector;
+        public EffectParameter xFlip, yFlip, FlipCenter, xTexture, Illumination, FlipVector, t, xCameraAspect, xCameraPos;
+        public EffectTechnique Simplest;
 
         public float CurrentIllumination = 0;
 
@@ -29,11 +30,7 @@ namespace Drawing
 
             if (CameraPosition != MySetCameraPosition)
             {
-                //Vector4 cam = CameraPosition;
-                //cam.Z *= -1;
-                //effect.Parameters["xCameraPos"].SetValue(cam);
-
-                effect.Parameters["xCameraPos"].SetValue(CameraPosition);
+                xCameraPos.SetValue(CameraPosition);
                 MySetCameraPosition = CameraPosition;
             }
 
@@ -104,6 +101,11 @@ namespace Drawing
                 Neweffect.FlipCenter = effect.Parameters["FlipCenter"];
                 Neweffect.xTexture = effect.Parameters["xTexture"];
                 Neweffect.Illumination = effect.Parameters["Illumination"];
+                Neweffect.t = effect.Parameters["t"];
+                Neweffect.xCameraAspect = effect.Parameters["xCameraAspect"];
+                Neweffect.xCameraPos = effect.Parameters["xCameraPos"];
+
+                Neweffect.Simplest = effect.Techniques["Simplest"];
 
                 Neweffect.MyWad = this;
 

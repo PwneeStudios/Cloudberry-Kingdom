@@ -1388,7 +1388,7 @@ namespace CloudberryKingdom.Levels
             if (SuckActivated)
             {
                 Tools.QDrawer.Flush();
-                Tools.BasicEffect.effect.CurrentTechnique = Tools.BasicEffect.effect.Techniques["Simplest"];
+                Tools.BasicEffect.effect.CurrentTechnique = Tools.BasicEffect.Simplest;
                 SuckActivated = false;
             }
         }

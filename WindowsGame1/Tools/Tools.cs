@@ -1495,11 +1495,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void SetDefaultEffectParams(float AspectRatio)
         {
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["xCameraAspect"].SetValue(AspectRatio);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["t"].SetValue(Tools.t);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.effect.Parameters["Illumination"].SetValue(1f);
-            foreach (EzEffect fx in EffectWad.EffectList) fx.FlipVector.SetValue(new Vector2(-1, -1));
+            foreach (EzEffect fx in EffectWad.EffectList)
+            {
+                fx.xCameraAspect.SetValue(AspectRatio);
+                fx.effect.CurrentTechnique = fx.Simplest;
+                fx.t.SetValue(Tools.t);
+                fx.Illumination.SetValue(1f);
+                fx.FlipVector.SetValue(new Vector2(-1, -1));
+            }
         }
 
         public static void ResetViewport()

@@ -1125,7 +1125,7 @@ namespace Drawing
                     QDrawer.DrawQuad(ContainedQuad);
                     QDrawer.Flush();
 
-                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.effect.Techniques["Simplest"];
+                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.Simplest;
                     ContainedQuad.MyEffect.effect.Parameters["OutlineScale"].SetValue(new Vector2(1, 1));
 
                     Tools.QDrawer.Flush();
@@ -1153,7 +1153,7 @@ namespace Drawing
                     Vector2 padding = Vector2.Zero;
                     ContainedQuad.MyTexture.Tex = AnimGroup.Get(anim, t, ref padding); //AnimGroup.SpriteAnims[0].Frames[3];                                        
                     ContainedQuad.MyEffect = Tools.EffectWad.EffectList[0];
-                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.effect.Techniques["Simplest"];
+                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.Simplest;
                     QDrawer.DrawQuad(ContainedQuad);
                     QDrawer.Flush();
                     ContainedQuad.MyTexture.Tex = hold;
@@ -1234,11 +1234,11 @@ namespace Drawing
         public Texture2D DrawToTexture(GraphicsDevice device, EzEffectWad EffectWad, Vector2 Padding)
         {
             Vector4 HoldCameraPos = EffectWad.CameraPosition;
-            float HoldCameraAspect = EffectWad.EffectList[0].effect.Parameters["xCameraAspect"].GetValueSingle();
+            float HoldCameraAspect = EffectWad.EffectList[0].xCameraAspect.GetValueSingle();
 
             device.SetRenderTarget(ToTextureRenderTarget);
             device.Clear(Color.Transparent);
-            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
+            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.Simplest;
             float scalex = Padding.X + (BoxList[0].TR.Pos.X - BoxList[0].BL.Pos.X) / 2;
             float scaley = Padding.Y + (BoxList[0].TR.Pos.Y - BoxList[0].BL.Pos.Y) / 2;
             float posx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
@@ -1247,13 +1247,13 @@ namespace Drawing
             if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
-            foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(1);
+            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
             ContainedDraw(null);
             device.SetRenderTarget(Tools.DestinationRenderTarget);
             Tools.ResetViewport();
 
             EffectWad.SetCameraPosition(HoldCameraPos);
-            foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(HoldCameraAspect);
+            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
 
             Texture2D tex = ToTextureRenderTarget;
             Color[] Array = new Color[tex.Width * tex.Height];
@@ -1271,7 +1271,7 @@ namespace Drawing
             if (MyEffects == null) return ObjectRenderTarget;
 
             Vector4 HoldCameraPos = EffectWad.CameraPosition;
-            float HoldCameraAspect = EffectWad.EffectList[0].effect.Parameters["xCameraAspect"].GetValueSingle();
+            float HoldCameraAspect = EffectWad.EffectList[0].xCameraAspect.GetValueSingle();
             
             device.SetRenderTarget(ObjectRenderTarget);
             device.Clear(Color.Transparent);
@@ -1284,14 +1284,14 @@ namespace Drawing
             if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
-            foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(1);
+            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
             Draw(EffectWad, false, ObjectDrawOrder.WithOutline);
             device.SetRenderTarget(Tools.DestinationRenderTarget);
             Tools.ResetViewport();
 
             EffectWad.SetCameraPosition(HoldCameraPos);
-            foreach (EzEffect fx in MyEffects) fx.effect.Parameters["xCameraAspect"].SetValue(HoldCameraAspect);
-            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
+            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
+            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.Simplest;
             return ObjectRenderTarget;
         }
     }

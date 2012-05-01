@@ -183,7 +183,7 @@ namespace CloudberryKingdom
             PlayerManager.RezData rez = new PlayerManager.RezData();
             rez.Custom = true;
 #if DEBUG
-            rez.Fullscreen = false;
+            rez.Fullscreen = true;
 #else
             rez.Fullscreen = true;
             //rez.Fullscreen = false;
@@ -2239,11 +2239,13 @@ ObjectData.UpdateWeak();
                     WaveHeightColor[Int * i + j] = new Color(Tools.EncodeFloatRGBA(val));
                 }
 
-            EffectWad.FindByName("Lava").effect.Parameters["xHeight"].SetValue((Texture)null);
+            var e = EffectWad.FindByName("Lava");
+            
+            e.effect.Parameters["xHeight"].SetValue((Texture)null);
             device.Textures[0] = null;
             WaveTexture.SetData(WaveHeightColor);
-            EffectWad.FindByName("Lava").effect.Parameters["t"].SetValue((float)step);
-            EffectWad.FindByName("Lava").effect.Parameters["xHeight"].SetValue(WaveTexture);
+            e.t.SetValue((float)step);
+            e.effect.Parameters["xHeight"].SetValue(WaveTexture);
 
             graphics.GraphicsDevice.Textures[1] = WaveTexture;
         }

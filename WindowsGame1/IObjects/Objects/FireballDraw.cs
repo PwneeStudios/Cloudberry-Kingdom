@@ -154,15 +154,15 @@ namespace CloudberryKingdom
             float scalex = 350;
             float scaley = 150;
 
-            ShadeQuad.MyEffect.effect.CurrentTechnique = ShadeQuad.MyEffect.effect.Techniques["Simplest"];
+            ShadeQuad.MyEffect.effect.CurrentTechnique = ShadeQuad.MyEffect.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));
-            ShadeQuad.MyEffect.effect.Parameters["xCameraAspect"].SetValue(1);
+            ShadeQuad.MyEffect.xCameraAspect.SetValue(1);
 
 
             float TimeScale = 4f;
 
             ShadeQuad.SetColor(Color.White);
-            ShadeQuad.MyEffect.effect.Parameters["t"].SetValue(t / TimeScale);
+            ShadeQuad.MyEffect.t.SetValue(t / TimeScale);
             if (Tools.DrawCount > 5)
             ShadeQuad.MyTexture = EmitterTexture;
             else
@@ -170,11 +170,11 @@ namespace CloudberryKingdom
             Tools.QDrawer.DrawQuad(ShadeQuad);
             Tools.QDrawer.Flush();
 
-            ShadeQuad.MyEffect.effect.Parameters["t"].SetValue(t / TimeScale + 150);
+            ShadeQuad.MyEffect.t.SetValue(t / TimeScale + 150);
             Tools.QDrawer.DrawQuad(ShadeQuad);
             Tools.QDrawer.Flush();
 
-            ShadeQuad.MyEffect.effect.Parameters["t"].SetValue(t / TimeScale + 300);
+            ShadeQuad.MyEffect.t.SetValue(t / TimeScale + 300);
             Tools.QDrawer.DrawQuad(ShadeQuad);
             Tools.QDrawer.Flush();
 
@@ -198,9 +198,9 @@ namespace CloudberryKingdom
 
             EzEffect fx = Tools.EffectWad.EffectList[0];
 
-            fx.effect.CurrentTechnique = fx.effect.Techniques["Simplest"];
+            fx.effect.CurrentTechnique = fx.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));
-            fx.effect.Parameters["xCameraAspect"].SetValue(1);
+            fx.xCameraAspect.SetValue(1);
 
             Flame_Emitter.Draw();
 

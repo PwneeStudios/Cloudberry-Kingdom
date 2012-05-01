@@ -111,8 +111,7 @@ namespace Drawing
                 CurrentTexture = quad.MyTexture;
             }
             CurrentEffect.CurrentIllumination = 1;
-            CurrentEffect.effect.Parameters["Illumination"].SetValue(1);
-            
+            CurrentEffect.Illumination.SetValue(1);
 
 
             Vertices[i] = quad.Vertices[0];
