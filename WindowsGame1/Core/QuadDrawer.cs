@@ -164,9 +164,16 @@ namespace Drawing
 
         public void DrawQuad_Simplified(SimpleQuad quad)
         {
+            // Calculate illumination
+            if (quad.UseGlobalIllumination)
+                Illumination = GlobalIllumination * quad.Illumination;
+            else
+                Illumination = quad.Illumination;
+
             if (CurrentEffect.effect != quad.MyEffect.effect ||
                 CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||
-                CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked)
+                CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked ||
+                CurrentEffect.CurrentIllumination != Illumination)
                 Flush();
 
             if (i == 0)
@@ -187,7 +194,6 @@ namespace Drawing
                 }
             }
 
-            //CurrentEffect.effect.Parameters["Illumination"].SetValue(.5f);
             Vertices[i] = quad.v0.Vertex;
             Vertices[i + 5] = Vertices[i + 1] = quad.v1.Vertex;
             Vertices[i + 4] = Vertices[i + 2] = quad.v2.Vertex;
@@ -238,15 +244,11 @@ namespace Drawing
                     CurrentEffect.Illumination.SetValue(Illumination);
                 }
             }
-            
-            //CurrentEffect.effect.Parameters["Illumination"].SetValue(.5f);
-            Vertices[i] = quad.v0.Vertex;
-            Vertices[i + 1] = quad.v1.Vertex;
-            Vertices[i + 2] = quad.v2.Vertex;
 
+            Vertices[i] = quad.v0.Vertex;
+            Vertices[i + 5] = Vertices[i + 1] = quad.v1.Vertex;
+            Vertices[i + 4] = Vertices[i + 2] = quad.v2.Vertex;
             Vertices[i + 3] = quad.v3.Vertex;
-            Vertices[i + 4] = quad.v2.Vertex;
-            Vertices[i + 5] = quad.v1.Vertex;
 
             i += 6;
             TrianglesInBuffer += 2;

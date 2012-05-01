@@ -70,7 +70,7 @@ namespace CloudberryKingdom
             Pos = BL.Y;
             while (Pos < TR.Y)
             {
-                BackgroundFloater window = new BackgroundFloater(MyLevel, BL.X - 1000, TR.X + 400);
+                BackgroundFloater window = new BackgroundFloater_Stationary(MyLevel);//, BL.X - 1000, TR.X + 400);
                 window.Data.Position = new Vector2(MyLevel.Rnd.RndFloat(-1500, 1500) * 1.5f, Pos);
 
                 if (MyLevel.Rnd.RndBool())

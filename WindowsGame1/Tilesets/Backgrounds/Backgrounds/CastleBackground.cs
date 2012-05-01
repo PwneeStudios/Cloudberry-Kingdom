@@ -83,7 +83,7 @@ namespace CloudberryKingdom
 
         private void RndFloater(ref Vector2 BL, ref Vector2 TR, BackgroundFloaterList NewList, ref Vector2 pos)
         {
-            BackgroundFloater window = new BackgroundFloater(MyLevel, BL.X - 1000, TR.X + 400);
+            BackgroundFloater window = new BackgroundFloater_Stationary(MyLevel);//, BL.X - 1000, TR.X + 400);
             window.Data.Position = pos;
 
             if (MyLevel.Rnd.RndFloat() > .6855f)
