@@ -141,6 +141,8 @@ namespace Drawing
 
         Vector2 uv0, uv1, uv2, uv3;
 
+        Vector2 PreCalc0, PreCalc1, PreCalc2, PreCalc3;
+
         public SimpleVector v0, v1, v2, v3;
         public EzEffect MyEffect;
 
@@ -210,6 +212,11 @@ namespace Drawing
             v2 = quad.v2;
             v3 = quad.v3;
 
+            PreCalc0 = quad.PreCalc0;
+            PreCalc1 = quad.PreCalc1;
+            PreCalc2 = quad.PreCalc2;
+            PreCalc3 = quad.PreCalc3;
+
             MyEffect = quad.MyEffect;
             _MyTexture = quad._MyTexture;
 
@@ -251,6 +258,8 @@ namespace Drawing
             v1.AnimData = quad.Corner[1].AnimData;
             v2.AnimData = quad.Corner[2].AnimData;
             v3.AnimData = quad.Corner[3].AnimData;
+
+            PreCalc0 = PreCalc1 = PreCalc2 = PreCalc3 = Vector2.Zero;
 
             MyEffect = quad.MyEffect;
             _MyTexture = null;
@@ -410,6 +419,22 @@ namespace Drawing
             v1.Vertex.xy = SourceQuad.v1.Vertex.xy + shift;
             v2.Vertex.xy = SourceQuad.v2.Vertex.xy + shift;
             v3.Vertex.xy = SourceQuad.v3.Vertex.xy + shift;
+        }
+
+        public void UpdateShift(ref BasePoint Base)
+        {
+            v0.Vertex.xy = Base.Origin + PreCalc0;
+            v1.Vertex.xy = Base.Origin + PreCalc1;
+            v2.Vertex.xy = Base.Origin + PreCalc2;
+            v3.Vertex.xy = Base.Origin + PreCalc3;
+        }
+
+        public void UpdateShift_Precalc(ref BasePoint Base)
+        {
+            PreCalc0 = v0.Pos.X * Base.e1 + v0.Pos.Y * Base.e2;
+            PreCalc1 = v1.Pos.X * Base.e1 + v1.Pos.Y * Base.e2;
+            PreCalc2 = v2.Pos.X * Base.e1 + v2.Pos.Y * Base.e2;
+            PreCalc3 = v3.Pos.X * Base.e1 + v3.Pos.Y * Base.e2;
         }
 
         public void Update(ref BasePoint Base)

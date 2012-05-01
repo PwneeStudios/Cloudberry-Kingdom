@@ -125,6 +125,7 @@ namespace CloudberryKingdom
         {
             MyQuad.Base.Origin = Data.Position;
             MyQuad.Update();
+            MyQuad.UpdateShift_Precalc();
         }
 
         public virtual void PhsxStep()
@@ -140,12 +141,19 @@ namespace CloudberryKingdom
             MyQuad.Base.Origin = Data.Position;
 
             if (SpinVelocity != 0)
+            {
                 MyQuad.Angle += SpinVelocity;
+                MyQuad.Update();
+            }
+            else
+            {
+                MyQuad.UpdateShift();
+            }
         }
 
         public virtual void Draw()
         {
-            MyQuad.Draw();
+            Tools.QDrawer.DrawQuad(MyQuad.Quad);
         }
     }
 }

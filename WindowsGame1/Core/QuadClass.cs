@@ -503,6 +503,16 @@ namespace CloudberryKingdom
                 Quad.SetColor(HoldColor);
         }
 
+        public void UpdateShift()
+        {
+            Quad.UpdateShift(ref Base);
+        }
+
+        public void UpdateShift_Precalc()
+        {
+            Quad.UpdateShift_Precalc(ref Base);
+        }
+
         public void Update()
         {
             Quad.Update(ref Base);
