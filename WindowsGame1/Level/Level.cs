@@ -1586,7 +1586,17 @@ namespace CloudberryKingdom.Levels
             EnsureSuckEffect();
             EndSuckEffect();
 
-            if (MyBackground != null) MyBackground.Draw();
+            if (MyBackground != null)
+            {
+//#if DEBUG
+                //Background.Test = true;
+                //Background.Test = false;
+                if (Background.Test)
+                    Background.DrawTest();
+                else
+//#endif
+                MyBackground.Draw();
+            }
 
             if (MyGame != null) MyGame.PreDraw();
 

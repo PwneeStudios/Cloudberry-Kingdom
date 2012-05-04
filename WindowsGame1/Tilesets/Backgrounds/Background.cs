@@ -172,6 +172,26 @@ namespace CloudberryKingdom
             if (MyCollection != null)
                 MyCollection.UpdateBounds(BL, TR);
         }
+        
+
+        public static bool Test = true;
+        static QuadClass TestQuad = new QuadClass();
+//#if DEBUG
+        public static void DrawTest()
+        {
+            Camera Cam = Tools.CurCamera;
+
+            TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
+            TestQuad.FullScreen(Cam);
+            TestQuad.TextureName = "BGPlain";
+            TestQuad.ScaleXToMatchRatio();
+            TestQuad.Quad.SetColor(Tools.GrayColor(.825f));
+
+            Cam.SetVertexCamera();
+
+            TestQuad.Draw();
+        }
+//#endif
 
         public virtual void Draw()
         {

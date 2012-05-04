@@ -68,6 +68,7 @@ namespace CloudberryKingdom
                         //floater.MyQuad.ScaleXToMatchRatio();                    
 
                         floater.Data.Velocity.X = -19;// MyLevel.Rnd.RndFloat(-10, 10);
+                        floater.InitialUpdate();
 
                         NewList.Floaters.Add(floater);
 

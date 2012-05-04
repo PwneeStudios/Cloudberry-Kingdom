@@ -64,6 +64,7 @@ namespace CloudberryKingdom
                 cloud.MyQuad.Quad.SetColor(Tools.Gray(.945f));
                 cloud.MyQuad.Size = new Vector2(300, 200);
                 cloud.Data.Velocity = new Vector2(-55, 0);
+                cloud.InitialUpdate();
 
                 Pos += MyLevel.Rnd.RndFloat(800, 1400);
 
@@ -81,6 +82,7 @@ namespace CloudberryKingdom
                 cloud.MyQuad.TextureName = "cloud1";
                 cloud.MyQuad.Size = new Vector2(300, 200);
                 cloud.Data.Velocity = new Vector2(-55, 0);
+                cloud.InitialUpdate();
 
                 Pos += MyLevel.Rnd.RndFloat(800, 1400);
 

@@ -61,7 +61,7 @@ namespace CloudberryKingdom
 
         public void Read(BinaryReader reader)
         {
-            return;
+            //return;
 
             // Version
             int LoadedVersion = reader.ReadInt32();

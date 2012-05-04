@@ -103,11 +103,11 @@ namespace CloudberryKingdom
 
         public override void Draw()
         {
+            Camera Cam = MyLevel.MainCamera;
+
             MyCollection.PhsxStep();
 
             base.Draw();            
-
-            Camera Cam = MyLevel.MainCamera;
 
             BackgroundQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * Light));
             BackgroundQuad.FullScreen(Cam);

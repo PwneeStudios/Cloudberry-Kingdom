@@ -183,7 +183,7 @@ namespace CloudberryKingdom
             PlayerManager.RezData rez = new PlayerManager.RezData();
             rez.Custom = true;
 #if DEBUG
-            rez.Fullscreen = true;
+            rez.Fullscreen = false;
 #else
             rez.Fullscreen = true;
             //rez.Fullscreen = false;
@@ -1064,6 +1064,11 @@ namespace CloudberryKingdom
             //    }
             //}
 
+            if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
+            {
+                Background.Test = !Background.Test;
+            }
+
 #if PC_DEBUG || (WINDOWS && DEBUG)
             if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
             {
@@ -1489,7 +1494,7 @@ namespace CloudberryKingdom
             //data.SetBackground(BackgroundType.Outside);
             //data.SetBackground(BackgroundType.Night);
             //data.SetBackground(BackgroundType.NightSky);
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetBackground(BackgroundType.Sky);
 
             //var custom = (BobPhsxNormal)BobPhsxSmall.Instance.Clone();
 

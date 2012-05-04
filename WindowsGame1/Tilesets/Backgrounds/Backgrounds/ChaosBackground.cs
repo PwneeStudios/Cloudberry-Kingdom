@@ -70,6 +70,7 @@ namespace CloudberryKingdom
                 cloud.MyQuad.ScaleYToMatchRatio();
                 cloud.Data.Velocity = new Vector2(MyLevel.Rnd.RndFloat(-55, -40), 0) * ModCloudSpeed;
                 cloud.SpinVelocity = MyLevel.Rnd.RndFloat(.55f, .9f) * ModSpinVel;
+                cloud.InitialUpdate();
 
                 Pos += MyLevel.Rnd.RndFloat(800, 1400) * .2f;
 
@@ -91,6 +92,7 @@ namespace CloudberryKingdom
             //    cloud.MyQuad.Size = new Vector2(300, 200) * MyLevel.Rnd.RndFloat(1, 2);
             //    cloud.Data.Velocity = new Vector2(-55, 0) * ModCloudSpeed;
             //    cloud.SpinVelocity = MyLevel.Rnd.RndFloat(-2, 2) * ModSpinVel;
+            //    cloud.InitialUpdate();
 
             //    Pos += MyLevel.Rnd.RndFloat(800, 1400) * .4f;
 
