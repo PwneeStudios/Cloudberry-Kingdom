@@ -1,6 +1,4 @@
-﻿#define EDITOR
-
-using System;
+﻿using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -137,6 +135,18 @@ namespace Drawing
             ObjectVectorList.Add(TR);
 
             return ObjectVectorList;
+        }
+
+        public void SaveState(int StateIndex)
+        {
+            TR.SaveState(StateIndex);
+            BL.SaveState(StateIndex);
+        }
+
+        public void RecoverState(int StateIndex)
+        {
+            TR.RecoverState(StateIndex);
+            BL.RecoverState(StateIndex);
         }
 #endif
 

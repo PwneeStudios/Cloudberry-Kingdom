@@ -184,6 +184,7 @@
     <Compile Include="Bob Phsx\BobPhsxInvert.cs" />
     <Compile Include="Bob Phsx\BobPhsxMeat.cs" />
     <Compile Include="Bob Phsx\BobPhsxBraid.cs" />
+    <Compile Include="Bob Phsx\BobPhsxMario.cs" />
     <Compile Include="Challenges\ChallengeList.cs" />
     <Compile Include="Challenges\ChallengeGroup.cs" />
     <Compile Include="CharacterSelect\ArrowMenu.cs" />
@@ -194,8 +195,10 @@
     <Compile Include="CharacterSelect\SimpleMenu.cs" />
     <Compile Include="CharacterSelect\QuadSelect.cs" />
     <Compile Include="CharacterSelect\GridSelect.cs" />
+    <Compile Include="Core\Animation\AnimationData_Integer.cs" />
+    <Compile Include="Core\Animation\AnimQueue.cs" />
     <Compile Include="Core\EzSound.cs" />
-    <Compile Include="Core\EzEffect.cs" />
+    <Compile Include="Core\Draw\EzEffect.cs" />
     <Compile Include="Core\EzSong.cs" />
     <Compile Include="Games\Bonus\BonusFail.cs" />
     <Compile Include="Games\Bonus\BonusWin.cs" />
@@ -275,6 +278,8 @@
     <Compile Include="IObjects\Blocks\Lava.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IObjects\Bob\BobInput.cs" />
+    <Compile Include="IObjects\Bob\BobLink.cs" />
     <Compile Include="IObjects\Door\Sign.cs" />
     <Compile Include="IObjects\Game Objects\GameObjects\CoinScoreMultiplierObject.cs" />
     <Compile Include="Games\Bonus\ContinuousDiff.cs" />
@@ -386,7 +391,7 @@
     <Compile Include="IObjects\Game Objects\GameObjects\End\GameOverPanel.cs" />
     <Compile Include="IObjects\Objects\FireballDraw.cs" />
     <Compile Include="Start\Loading\Loading.cs" />
-    <Compile Include="Core\DrawPile.cs" />
+    <Compile Include="Core\Draw\DrawPile.cs" />
     <Compile Include="Start\Title.cs" />
     <Compile Include="Start\StartMenu.cs" />
     <Compile Include="Games\Games\SurvivalGame.cs" />
@@ -442,14 +447,14 @@
     <Compile Include="CharacterSelect\CharSelectManager.cs" />
     <Compile Include="Cinematics\Intro.cs" />
     <Compile Include="Cinematics\ScenePart.cs" />
-    <Compile Include="Core\EzFont.cs" />
+    <Compile Include="Core\Draw\EzFont.cs" />
     <Compile Include="Core\FancyColor.cs" />
     <Compile Include="Core\FancyVector2.cs" />
-    <Compile Include="Core\PieceQuad.cs" />
-    <Compile Include="Core\QuadClass.cs" />
-    <Compile Include="Core\SpriteAnim.cs" />
-    <Compile Include="Core\ObjectBox.cs" />
-    <Compile Include="Core\ObjectVector.cs" />
+    <Compile Include="Core\Draw\Quads\PieceQuad.cs" />
+    <Compile Include="Core\Draw\Quads\QuadClass.cs" />
+    <Compile Include="Core\Draw\SpriteAnim.cs" />
+    <Compile Include="Core\Draw\Object\ObjectBox.cs" />
+    <Compile Include="Core\Draw\Quads\ObjectVector.cs" />
     <Compile Include="Editor\AnimationToolbox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -543,7 +548,7 @@
     <Compile Include="Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
     <Compile Include="Tilesets\TileSet.cs" />
     <Compile Include="Player\ClrTextFx.cs" />
-    <Compile Include="Core\AnimationData.cs" />
+    <Compile Include="Core\Animation\AnimationData_Vector.cs" />
     <Compile Include="Tilesets\Backgrounds\Background.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\SpaceBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\DungeonBackground.cs" />
@@ -561,12 +566,12 @@
     <Compile Include="Menus\ControlScreen.cs" />
     <Compile Include="IObjects\Blocks\BouncyBlock.cs" />
     <Compile Include="Core\WriteReadTools.cs" />
-    <Compile Include="Core\QuadDrawer.cs" />
-    <Compile Include="Core\BaseQuad.cs" />
-    <Compile Include="Core\BendableQuad.cs" />
-    <Compile Include="Core\ObjectClass.cs" />
-    <Compile Include="Core\Quad.cs" />
-    <Compile Include="Core\Spline.cs" />
+    <Compile Include="Core\Draw\Quads\QuadDrawer.cs" />
+    <Compile Include="Core\Draw\Quads\BaseQuad.cs" />
+    <Compile Include="Core\Draw\Quads\BendableQuad.cs" />
+    <Compile Include="Core\Draw\Object\ObjectClass.cs" />
+    <Compile Include="Core\Draw\Quads\Quad.cs" />
+    <Compile Include="Core\Draw\Quads\Spline.cs" />
     <Compile Include="IObjects\Blocks\Doodad.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\CastleBackground.cs" />
     <Compile Include="IObjects\Objects\Fireball.cs" />
@@ -574,10 +579,10 @@
     <Compile Include="IObjects\Objects\Balrog.cs" />
     <Compile Include="IObjects\Blocks\Block.cs" />
     <Compile Include="IObjects\Objects\BlockEmitter.cs" />
-    <Compile Include="IObjects\Bob.cs" />
+    <Compile Include="IObjects\Bob\Bob.cs" />
     <Compile Include="IObjects\Blocks\ButtonBlock.cs" />
     <Compile Include="IObjects\Objects\Coin.cs" />
-    <Compile Include="Core\EzText.cs" />
+    <Compile Include="Core\Draw\EzText.cs" />
     <Compile Include="IObjects\Blocks\FallingBlock.cs" />
     <Compile Include="IObjects\Objects\FireballEmitter.cs" />
     <Compile Include="IObjects\Objects\FireSpinner.cs" />
@@ -608,7 +613,7 @@
     <Compile Include="IObjects\Blocks\MovingPlatform.cs" />
     <Compile Include="IObjects\Blocks\MovingBlock.cs" />
     <Compile Include="Games\Games\NormalGame.cs" />
-    <Compile Include="Core\VertexFormat.cs" />
+    <Compile Include="Core\Draw\VertexFormat.cs" />
     <Compile Include="IObjects\Blocks\SwitchBlock.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\OutsideBackground.cs" />
     <Compile Include="Particle Effects\ParticleEffects.cs" />
@@ -619,11 +624,11 @@
     <Compile Include="Particle Effects\Particle.cs" />
     <Compile Include="Tools\Prototypes.cs" />
     <Compile Include="Tools\Recycler.cs" />
-    <Compile Include="Core\Simple.cs" />
+    <Compile Include="Core\Draw\Object\Simple.cs" />
     <Compile Include="IObjects\Objects\Spike.cs" />
     <Compile Include="IObjects\Special\TextList.cs" />
     <Compile Include="IObjects\Triggers\TimerTrigger.cs" />
-    <Compile Include="Core\EzTexture.cs" />
+    <Compile Include="Core\Draw\EzTexture.cs" />
     <Compile Include="IObjects\Door\Door.cs" />
     <Compile Include="IObjects\Blocks\OutsideCastle.cs" />
     <Compile Include="Tools\Tools.cs" />

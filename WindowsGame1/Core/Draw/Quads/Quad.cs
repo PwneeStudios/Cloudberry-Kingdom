@@ -28,6 +28,19 @@ namespace Drawing
             Corner = null;
         }
 
+        public void MirrorUV_Horizontal()
+        {
+            Vector2 hold;
+
+            hold = Vertices[0].uv;
+            Vertices[0].uv = Vertices[1].uv;
+            Vertices[1].uv = hold;
+
+            hold = Vertices[2].uv;
+            Vertices[2].uv = Vertices[3].uv;
+            Vertices[3].uv = hold;
+        }
+
         public override void CopyAnim(BaseQuad basequad, int Anim)
         {
             Quad quad = basequad as Quad;
@@ -171,6 +184,9 @@ namespace Drawing
 
         public override void Calc(int anim, float t, int AnimLength, bool Loop, bool Linear)
         {
+            if (TextureIsAnimated)
+                MyTexture = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
+
             Center.RelPos = Center.AnimData.Calc(anim, t, AnimLength, Loop, Linear);
             xAxis.RelPos = xAxis.AnimData.CalcAxis(anim, t, AnimLength, Loop, Linear);
             yAxis.RelPos = yAxis.AnimData.CalcAxis(anim, t, AnimLength, Loop, Linear);
@@ -524,6 +540,11 @@ namespace Drawing
         public Quad(Quad quad, bool DeepClone)
         {
             base.Clone(quad);
+
+            if (DeepClone)
+                TextureAnim = new AnimationData_Texture(quad.TextureAnim);
+            else
+                TextureAnim = quad.TextureAnim;
 
             InitVertices();
 

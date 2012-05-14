@@ -1,6 +1,4 @@
-﻿#define EDITOR
-
-using System;
+﻿using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -41,12 +39,6 @@ namespace Drawing
             Obj.ContainedQuadAngle = 0;
 
             Vector2 Padding = new Vector2(10, 90) + ExtraPadding;
-            /*
-            SpriteAnims.Add(0, Obj.AnimToSpriteFrames(0, 1, true, Padding));
-            SpriteAnims.Add(1, Obj.AnimToSpriteFrames(1, 1, true, 1, 1, Padding));
-            SpriteAnims.Add(2, Obj.AnimToSpriteFrames(2, 1, false, 1, 1, Padding));
-            SpriteAnims.Add(4, Obj.AnimToSpriteFrames(4, 1, false, 1, 1, Padding));
-            SpriteAnims.Add(5, Obj.AnimToSpriteFrames(5, 1, false, 1, 1, Padding));*/
 
             SpriteFunc(SpriteAnims, Padding);
 

@@ -1375,7 +1375,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    //MakeTestLevel(); return;
+                    MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1492,9 +1492,9 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //data.SetBackground(BackgroundType.Outside);
-            //data.SetBackground(BackgroundType.Night);
+            data.SetBackground(BackgroundType.Night);
             //data.SetBackground(BackgroundType.NightSky);
-            data.SetBackground(BackgroundType.Sky);
+            //data.SetBackground(BackgroundType.Sky);
 
             //var custom = (BobPhsxNormal)BobPhsxSmall.Instance.Clone();
 
@@ -1508,7 +1508,8 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxMario.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
@@ -1597,16 +1598,16 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-            piece.MyUpgrades1[Upgrade.MovingBlock2] = 10;
+            //piece.MyUpgrades1[Upgrade.MovingBlock2] = 2;
 
-            //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            piece.MyUpgrades1[Upgrade.Pinky] = 2;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
             ////piece.MyUpgrades1[Upgrade.Laser] = 4;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.Jump] = 5;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
+            piece.MyUpgrades1[Upgrade.Jump] = 2;
             //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
             //piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
-            ////piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 2;
             ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
             //piece.MyUpgrades1[Upgrade.Speed] = 3;
 
@@ -2350,15 +2351,15 @@ ObjectData.UpdateWeak();
                 textureData[i + 2] = blue;
             }
 
-            //bitmapData = bmp.LockBits(
-            //               rect,
-            //               System.Drawing.Imaging.ImageLockMode.WriteOnly,
-            //               System.Drawing.Imaging.PixelFormat.Format32bppArgb
-            //             );
+            bitmapData = bmp.LockBits(
+                           rect,
+                           System.Drawing.Imaging.ImageLockMode.WriteOnly,
+                           System.Drawing.Imaging.PixelFormat.Format32bppArgb
+                         );
 
             safePtr = bitmapData.Scan0;
             System.Runtime.InteropServices.Marshal.Copy(textureData, 0, safePtr, textureData.Length);
-            //bmp.UnlockBits(bitmapData);
+            bmp.UnlockBits(bitmapData);
 
             if (DelaySave)
                 Tools.Nothing();

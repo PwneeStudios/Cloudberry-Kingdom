@@ -61,9 +61,9 @@ namespace CloudberryKingdom
 
             // Players
             //SetHeroType(BobPhsxInvert.Instance);
-            SetHeroType(BobPhsxMeat.Instance);
+            //SetHeroType(BobPhsxMeat.Instance);
 
-            //SetHeroType(BobPhsxNormal.Instance);
+            SetHeroType(BobPhsxNormal.Instance);
             //SetHeroType(BobPhsxSmall.Instance);
             
             //BobPhsx SmallerBob = BobPhsxNormal.Instance.Clone();

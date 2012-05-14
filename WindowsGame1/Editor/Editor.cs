@@ -849,6 +849,7 @@ namespace Drawing
                         quad.Vertices[3].uv = uv[1];
                     }
                 }
+
                 // Mirror quad's UV coordinates
                 if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.I) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.I))
                 {
@@ -965,11 +966,19 @@ namespace Drawing
                             NumPressed = i;
 
                     if (NumPressed >= 0)
+                    {
                         foreach (BaseQuad quad in SelectedQuads)
                             if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift))
                                 quad.SaveState(NumPressed);
                             else
                                 quad.RecoverState(NumPressed);
+                        
+                        foreach (ObjectBox box in SelectedBoxes)
+                            if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                                box.SaveState(NumPressed);
+                            else
+                                box.RecoverState(NumPressed);
+                    }
                 }
 
 

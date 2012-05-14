@@ -132,7 +132,6 @@ namespace CloudberryKingdom.Levels
                     //Computers[i] = new Bob(Prototypes.bob[level.DefaultHeroType], true);
                     Computers[i] = new Bob(level.DefaultHeroType, true);
 
-                    Computers[i].InitAuto();
                     level.AddBob(Computers[i]);
                     Sleep();
                 }

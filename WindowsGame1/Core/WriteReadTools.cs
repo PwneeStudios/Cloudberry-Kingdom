@@ -52,6 +52,32 @@ namespace Drawing
             }
         }
 
+        public static void WriteOneAnim(BinaryWriter writer, OneAnim_Texture anim)
+        {
+            if (anim.Data == null) writer.Write(-1);
+            else
+            {
+                writer.Write(anim.Data.Length);
+                for (int i = 0; i < anim.Data.Length; i++)
+                    writer.Write(anim.Data[i].Name);
+            }
+        }
+
+        public static void ReadOneAnim(BinaryReader reader, ref OneAnim_Texture anim)
+        {
+            int length = reader.ReadInt32();
+            if (length == -1) anim.Data = null;
+            else
+            {
+                anim.Data = new EzTexture[length];
+                for (int i = 0; i < length; i++)
+                {
+                    string s = reader.ReadString();
+                    anim.Data[i] = Tools.Texture(s);
+                }
+            }
+        }
+
 
         public static void WriteVector2(BinaryWriter writer, Vector2 vec)
         {
