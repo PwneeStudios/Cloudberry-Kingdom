@@ -12,7 +12,8 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-#if PC_VERSION
+#if FALSE
+//#if PC_VERSION
     public class PlayerData
     {
 #else
@@ -180,7 +181,7 @@ namespace CloudberryKingdom
 
         int RandomNameIndex;
 
-#if PC_VERSION
+#if FALSE
         public String GetName()
         {
             return "Stickman";

@@ -139,8 +139,8 @@ namespace CloudberryKingdom
         public void SetAccels() { SetAccels(19); }
         public void SetAccels(float JumpLength)
         {
-            BobJumpAccel = (Gravity + 3.45f) / JumpLength;
-            BobJumpAccel2 = (Gravity + 3.42f) / JumpLength;
+            if (JumpLength > 0) BobJumpAccel = (Gravity + 3.45f) / JumpLength;
+            if (JumpLength > 0) BobJumpAccel2 = (Gravity + 3.42f) / JumpLength;
             JetPackAccel = Gravity * 1.19f;
         }
 
@@ -219,6 +219,8 @@ namespace CloudberryKingdom
         public override void PhsxStep()
         {
             base.PhsxStep();
+
+            //Console.WriteLine("{0}  {1}", Pos, Vel);
 
             if (NoStickPeriod > 0)
                 NoStickPeriod--;

@@ -217,7 +217,10 @@ namespace CloudberryKingdom.Blocks
                 Update();
 
                 if (Tools.DrawBoxes)
-                    MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                {
+                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                    MyBox.DrawFilled(Tools.QDrawer, Color.DarkBlue);
+                }
             }
 
             if (Tools.DrawGraphics)
@@ -225,11 +228,10 @@ namespace CloudberryKingdom.Blocks
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 {
                     MyDraw.Draw();
-                    //Tools.QDrawer.Flush();
                 }
-
-                BlockCore.Draw();
             }
+
+            BlockCore.Draw();
         }
 
         public override void Extend(Side side, float pos)

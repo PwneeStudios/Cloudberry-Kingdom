@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-#if NOT_PC
+//#if NOT_PC
     public partial class CharacterSelect
     {
         public static void ScaleGamerTag(EzText GamerTag)
@@ -54,5 +54,5 @@ namespace CloudberryKingdom
             Tools.EndGUIDraw();
         }
     }
-#endif
+//#endif
 }

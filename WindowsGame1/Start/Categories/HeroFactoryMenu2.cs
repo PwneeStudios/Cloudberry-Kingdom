@@ -34,7 +34,7 @@ namespace CloudberryKingdom
 
             MakeBobPhsx();
 
-            Challenge_Escalation.Hero = Hero;
+            Challenge_HeroFactoryEscalation.FactoryHero = Hero;
 
             // Start the game
             MyGame.PlayGame(() =>
@@ -43,7 +43,7 @@ namespace CloudberryKingdom
                 if (!MyGame.ExecutingPreviousLoadFunction)
                     HeroRush_Tutorial.ShowTitle = true;
 
-                Challenge_Escalation.Instance.Start(0);
+                Challenge_HeroFactoryEscalation.Instance.Start(0);
             });
 
             MyGame.OnReturnTo_OneOff += () => Show();
@@ -108,11 +108,26 @@ namespace CloudberryKingdom
 
         void MakeBobPhsx()
         {
-            Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Jump, Size);
+            // Error check
+            if (Base is BobPhsxSpaceship)
+            {
+                Jump = BobPhsxNormal.Instance;
+            }
+
+            // Make the hero
+            //Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Jump, Size);
+            Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Size, Jump);
 
             Hero.Gravity *= GravitySlider.Val;
             Hero.XAccel *= AccelSlider.Val;
             Hero.MaxSpeed *= MaxSpeedSlider.Val;
+
+            BobPhsxWheel wheel = Hero as BobPhsxWheel;
+            if (null != wheel)
+            {
+                wheel.AngleAcc *= (float)Math.Pow(AccelSlider.Val, 1.5f);
+                wheel.MaxAngleSpeed *= MaxSpeedSlider.Val;
+            }
 
             if (Hero is BobPhsxNormal)
             {
@@ -189,12 +204,12 @@ namespace CloudberryKingdom
             Vector2 shift = new Vector2(30, 430);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000));
+            block.Init(MyGame.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
             block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000));
+            block.Init(MyGame.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
             block.BlockCore.MyTileSetType = TileSet.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
         }
@@ -445,8 +460,17 @@ namespace CloudberryKingdom
             Vector2 add = new Vector2(0, -60);
 
 
+#if PC_VERSION
+            bool WithButtonPics = false;
+#else
+            bool WithButtonPics = true;
+#endif
+
             // Start
-            A = Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " test", ItemFont));
+            if (WithButtonPics)
+                A = Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " test", ItemFont));
+            else
+                A = Start = item = new MenuItem(new EzText("Test", ItemFont));
             item.JiggleOnGo = false;
             AddItem(item);
             item.Go = Cast.ToItem(StartTest);
@@ -464,7 +488,10 @@ namespace CloudberryKingdom
 
 
             // Back
-            B = Back = item = new MenuItem(new EzText(ButtonString.Back(90) + " back", ItemFont));
+            if (WithButtonPics)
+                B = Back = item = new MenuItem(new EzText(ButtonString.Back(90) + " back", ItemFont));
+            else
+                B = Back = item = new MenuItem(new EzText("Back", ItemFont));
             AddItem(item);
             item.SelectSound = null;
             item.Go = Cast.ToItem(ReturnToCaller);
@@ -483,8 +510,10 @@ namespace CloudberryKingdom
 #if NOT_PC
             Y = item = new MenuItem(new EzText(ButtonString.Y(90) + " more", ItemFont));
 #else
-            //MenuItem Y = item = new MenuItem(new EzText("more", ItemFont));
-            Y = item = new MenuItem(new EzText(ButtonString.Y(90) + " more", ItemFont));
+            if (WithButtonPics)
+                Y = item = new MenuItem(new EzText(ButtonString.Y(90) + " more", ItemFont));
+            else
+                Y = item = new MenuItem(new EzText("More", ItemFont));
 #endif
             AddItem(item);
             item.SelectSound = null;
@@ -503,8 +532,10 @@ namespace CloudberryKingdom
 #if NOT_PC
             X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
 #else
-            X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
-            //MenuItem X = item = new MenuItem(new EzText("play", ItemFont));
+            if (WithButtonPics)
+                X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
+            else
+                X = item = new MenuItem(new EzText("Play", ItemFont));
 #endif
             AddItem(item);
             item.SelectSound = null;
@@ -518,7 +549,6 @@ namespace CloudberryKingdom
             MyMenu.OnX = Cast.ToMenu(X.Go);
 #endif
             item.ScaleText(scale);
-
 
 
 

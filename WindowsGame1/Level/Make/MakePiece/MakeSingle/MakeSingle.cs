@@ -243,7 +243,7 @@ namespace CloudberryKingdom.Levels
 
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                     block.Core.AlwaysBoxesOnly = BoxesOnly;
-                    block.Init(pos + new Vector2(0, -size.Y), size);
+                    block.Init(pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
                     block.Core.GenData.RemoveIfUnused = true;
                     block.BlockCore.BlobsOnTop = true;
                     //block.Core.GenData.AlwaysLandOn = true;
@@ -437,7 +437,7 @@ namespace CloudberryKingdom.Levels
                     pos.X -= 50;
 
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(pos, size);
+                    block.Init(pos, size, MyTileSetInfo);
                     block.BlockCore.BlobsOnTop = false;
                     block.StampAsUsed(0);
                     block.Core.GenData.RemoveIfUnused = false;
@@ -503,7 +503,7 @@ namespace CloudberryKingdom.Levels
             size = new Vector2(2200, 200);
             nblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
             nblock.Core.MyTileSetType = MyTileSet;
-            nblock.Init(Pos, size);
+            nblock.Init(Pos, size, MyTileSetInfo);
             nblock.Extend(Side.Bottom, MainCamera.BL.Y - 300);
             nblock.Extend(Side.Top, MainCamera.BL.Y + 500);
             //nblock.Extend(Side.Right, Pos.X + MainCamera.GetWidth() + 7500);
@@ -560,7 +560,7 @@ namespace CloudberryKingdom.Levels
                 _pos =>
                 {
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(_pos + new Vector2(0, -size.Y), size);
+                    block.Init(_pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
                     block.Core.GenData.RemoveIfUnused = true;
                     block.BlockCore.BlobsOnTop = false;
                     block.Core.GenData.AlwaysLandOn = true;
@@ -633,7 +633,7 @@ namespace CloudberryKingdom.Levels
                 while (Pos.Y < TR.Y)
                 {
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(Pos + new Vector2(width, -200), new Vector2(width, 200));
+                    block.Init(Pos + new Vector2(width, -200), new Vector2(width, 200), MyTileSetInfo);
                     block.Extend(Side.Bottom, BL.Y - 300 - CurMakeData.PieceSeed.ExtraBlockLength);
 
                     block.Core.GenData.RemoveIfUnused = true;
@@ -671,7 +671,7 @@ namespace CloudberryKingdom.Levels
             while (Pos.X < TR.X)
             {
                 block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                block.Init(Pos + new Vector2(width, Rnd.RndFloat(200, 1000)), new Vector2(Rnd.RndFloat(width/2,width), 200));
+                block.Init(Pos + new Vector2(width, Rnd.RndFloat(200, 1000)), new Vector2(Rnd.RndFloat(width / 2, width), 200), MyTileSetInfo);
                 block.Extend(Side.Bottom, BL.Y - 300);
 
                 block.Core.GenData.RemoveIfUnused = true;

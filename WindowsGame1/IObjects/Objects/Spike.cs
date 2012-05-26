@@ -232,9 +232,11 @@ namespace CloudberryKingdom.Spikes
 
             if (Tools.DrawGraphics)
                 MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
+
             if (Tools.DrawBoxes)
             {
-                Box.Draw(Tools.QDrawer, Color.Blue, 10);
+                //Box.Draw(Tools.QDrawer, Color.Blue, 10);
+                Box.DrawFilled(Tools.QDrawer, Color.Blue);
             }
         }
 

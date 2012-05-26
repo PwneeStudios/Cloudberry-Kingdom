@@ -194,8 +194,18 @@ namespace CloudberryKingdom
 
             FontScale = 1f;
 
+
+#if PC_VERSION
+            bool WithButtonPics = false;
+#else
+            bool WithButtonPics = true;
+#endif
+
             // Start
-            Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " Test Hero", ItemFont));
+            if (WithButtonPics)
+                Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " Test Hero", ItemFont));
+            else
+                Start = item = new MenuItem(new EzText("Test Hero", ItemFont));
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
@@ -217,7 +227,11 @@ namespace CloudberryKingdom
                 //    return true;
                 //};
 
-            item = new MenuItem(new EzText(ButtonString.Back(90) + " Back", ItemFont));
+            
+            if (WithButtonPics)
+                item = new MenuItem(new EzText(ButtonString.Back(90) + " Back", ItemFont));
+            else
+                item = new MenuItem(new EzText("Back", ItemFont));
             AddItem(item);
             item.SelectSound = null;
             item.Go = me => ReturnToCaller();

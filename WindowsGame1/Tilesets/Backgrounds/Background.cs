@@ -2,6 +2,8 @@
 
 using CloudberryKingdom.Levels;
 
+using Drawing;
+
 namespace CloudberryKingdom
 {
     public enum BackgroundType { None, Random, Castle, Dungeon, Outside, Space, Gray, Construct, Rain, Dark, Sky, Night, NightSky, Chaos };
@@ -63,37 +65,6 @@ namespace CloudberryKingdom
             }
 
             return NewBackground;
-        }
-
-        /// <summary>
-        /// Get the tileset associated with a given background type
-        /// </summary>
-        public static TileSet GetTileSet(BackgroundType Type)
-        {
-            switch (Type)
-            {
-                case BackgroundType.Random: return TileSet.Random;
-
-                case BackgroundType.Castle: return TileSet.Castle;
-
-                case BackgroundType.Dungeon: return TileSet.Dungeon;
-                case BackgroundType.Dark: return TileSet.Dark;
-
-                case BackgroundType.NightSky:
-                case BackgroundType.Sky: return TileSet.Island;
-
-                case BackgroundType.Night:
-                case BackgroundType.Rain:
-                case BackgroundType.Outside: return TileSet.Terrace;
-
-                case BackgroundType.Space: return TileSet.Castle;
-
-                case BackgroundType.Gray:
-                    return TileSet.Terrace;
-                //return TileSet.Cement;
-            }
-
-            return TileSet.None;
         }
 
         public Background()
@@ -175,18 +146,31 @@ namespace CloudberryKingdom
         
 
         public static bool Test = true;
+        public static bool GreenScreen = true;
         static QuadClass TestQuad = new QuadClass();
+        public static EzTexture TestTexture = null;
+
 //#if DEBUG
         public static void DrawTest()
         {
             Camera Cam = Tools.CurCamera;
 
-            TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
-            TestQuad.FullScreen(Cam);
-            TestQuad.TextureName = "BGPlain";
-            TestQuad.ScaleXToMatchRatio();
-            TestQuad.Quad.SetColor(Tools.GrayColor(.825f));
-
+            if (GreenScreen)
+            {
+                TestQuad.Quad.SetColor(new Color(new Vector3(0, 1, 0) * 1));
+                TestQuad.TextureName = "White";
+                TestQuad.FullScreen(Cam);
+            }
+            else
+            {
+                TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
+                //TestQuad.TextureName = "BGPlain";
+                TestQuad.Quad.MyTexture = TestTexture;
+                TestQuad.Quad.SetColor(Tools.GrayColor(.825f));
+                TestQuad.FullScreen(Cam);
+                TestQuad.ScaleXToMatchRatio();
+            }
+            
             Cam.SetVertexCamera();
 
             TestQuad.Draw();

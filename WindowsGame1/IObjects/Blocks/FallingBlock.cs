@@ -320,7 +320,10 @@ namespace CloudberryKingdom
                 Update();
 
                 if (Tools.DrawBoxes)
-                    MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                {
+                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                    MyBox.DrawFilled(Tools.QDrawer, Color.Red);
+                }
             }
 
             if (Tools.DrawGraphics)
@@ -333,9 +336,9 @@ namespace CloudberryKingdom
                     MyQuad.Base.Origin = MyBox.Current.Center + Offset;
                     MyQuad.Draw();
                 }
-
-                BlockCore.Draw();
             }
+
+            BlockCore.Draw();
         }
 
         public override void Clone(ObjectBase A)

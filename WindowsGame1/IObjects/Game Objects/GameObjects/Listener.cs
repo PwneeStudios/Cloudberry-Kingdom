@@ -16,7 +16,10 @@ namespace CloudberryKingdom
         public Listener(ControllerButtons button, Action action)
         {
             if (button == ControllerButtons.A)
-                MyButton2 = ControllerButtons.Enter;
+            {
+                if (MyButton2 == null) MyButton2 = new ButtonClass();
+                MyButton2.Set(ControllerButtons.Enter);
+            }
 
             Active = true;
             PauseOnPause = false;
@@ -49,7 +52,7 @@ namespace CloudberryKingdom
         }
 
         public ControllerButtons MyButton = ControllerButtons.A;
-        public ControllerButtons MyButton2 = ControllerButtons.None;
+        public ButtonClass MyButton2 = null;
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();

@@ -526,7 +526,7 @@ namespace CloudberryKingdom
             {
                 block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, false);
                 block.Core.MyTileSetType = level.MyTileSet;
-                block.Init(Pos + new Vector2(width, level.Rnd.RndFloat(200, 1000)), new Vector2(level.Rnd.RndFloat(width / 2, width), 200));
+                block.Init(Pos + new Vector2(width, level.Rnd.RndFloat(200, 1000)), new Vector2(level.Rnd.RndFloat(width / 2, width), 200), level.MyTileSetInfo);
                 block.Extend(Side.Bottom, BL.Y - 300);
 
                 level.AddBlock(block);

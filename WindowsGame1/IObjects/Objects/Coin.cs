@@ -221,8 +221,6 @@ namespace CloudberryKingdom.Coins
             if (!Core.Active) return;
             if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
 
-            //ColType Col = Phsx.CollisionTest(bob.Box2, Box);
-            //if (Col != ColType.NoCol)
             bool Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
             if (Col)
             {

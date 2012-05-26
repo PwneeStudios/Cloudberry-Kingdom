@@ -49,7 +49,7 @@ namespace CloudberryKingdom
                 // Catwalk for door
                 var block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, false);
                 float pos = i % 2 == 0 ? Right : Left;
-                block.Init(new Vector2(pos, FloorPos.Y), new Vector2(500, 100));
+                block.Init(new Vector2(pos, FloorPos.Y), new Vector2(500, 100), MyLevel.MyTileSetInfo);
                 block.Core.MyTileSetType = TileSet.Catwalk;
                 if (i % 2 == 0)
                     block.Stretch(Side.Left, 50);

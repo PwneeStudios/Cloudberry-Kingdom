@@ -184,6 +184,8 @@ namespace Drawing
 
         public override void Calc(int anim, float t, int AnimLength, bool Loop, bool Linear)
         {
+            if (!Show && Children.Count == 0) return;
+
             if (TextureIsAnimated)
                 MyTexture = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
 
@@ -243,7 +245,7 @@ namespace Drawing
             WriteReadTools.ReadColor(reader, ref MyColor);
 
             string name = reader.ReadString();
-            MyTexture = TextureWad.FindByName(name);//reader.ReadString());
+            MyTexture = TextureWad.FindByPathOrName(name);//reader.ReadString());
             MyEffect = EffectWad.FindByName(reader.ReadString());
         }
 
@@ -475,7 +477,7 @@ namespace Drawing
             if (UseNames)
             {
                 if (MyTexture.Name != null)
-                    MyTexture = TexWad.FindByName(MyTexture.Path);
+                    MyTexture = TexWad.FindByPathOrName(MyTexture.Path);
                 MyEffect = EffectWad.FindByName(MyEffect.Name);
             }
         }

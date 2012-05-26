@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -30,6 +31,11 @@ namespace Drawing
         public bool FromPacked = false;
 
         public EzTexture Packed;
+
+        /// <summary>
+        /// If true this texture was loaded dynamically after the game loaded, not from a packed XNA file.
+        /// </summary>
+        public bool Dynamic = false;
 
         /// <summary>
         /// Texture coordintes within a bigger packed collection
@@ -277,33 +283,39 @@ namespace Drawing
                 AllLoaded.val = true;
         }
 
-        /*
-        public void LoadAll(float PercentToLoad, ContentManager Content, WrappedFloat ResourceLoadedCountRef)
+        public void KillDynamic()
         {
-            lock (AllLoaded)
+            foreach (EzTexture texture in TextureList)
+                if (texture.Dynamic)
+                    texture.Tex.Dispose();
+
+            TextureList.RemoveAll(t => t.Dynamic);
+            BigNameDict.RemoveAll(kp => kp.Value.Dynamic);
+            NameDict.RemoveAll(kp => kp.Value.Dynamic);
+            //PackedDict.RemoveAll(kp => kp.Value.Dynamic);
+            PathDict.RemoveAll(kp => kp.Value.Dynamic);
+        }
+
+        public void LoadAllDynamic(ContentManager Content)
+        {
+            String path = Path.Combine(Globals.ContentDirectory, "DynamicLoad");
+            string[] files = Tools.GetFiles(path, true);
+
+            foreach (String file in files)
             {
-                if (AllLoaded.val)
-                    return;
-                AllLoaded.val = true;
-
-                EzTexture Tex;
-                for (int i = 0; i < TextureList.Count * PercentToLoad; i++)
+                string extension = Tools.GetFileExt(path, file);
+                if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp")
                 {
-                    Tex = TextureList[i];
+                    string filename = Tools.GetFileName(path, file);
+                    Stream stream = File.Open(file, FileMode.Open); 
 
-                    // If texture hasn't been loaded yet, load it
-                    if (Tex.Tex == null)
-                    {
-                        AllLoaded.val = false;
-                        //Tex.Tex = Content.Load<Texture2D>("Art\\" + Tex.Path);
-                        Tex.Tex = Content.Load<Texture2D>(Tex.Path);
+                    var texture = Tools.TextureWad.AddTexture(Texture2D.FromStream(Tools.Device, stream), filename);
+                    texture.Dynamic = true;
 
-                        ResourceLoadedCountRef.MyFloat++;
-                    }
+                    stream.Close();
                 }
             }
         }
-*/
 
         public EzTexture FindOrLoad(ContentManager Content, string name)
         {
@@ -314,20 +326,30 @@ namespace Drawing
             return Tools.TextureWad.AddTexture(Content.Load<Texture2D>(name), name);
         }
 
-        /*
-        public EzTexture FindByName(string name)
+        /// <summary>
+        /// Accepts a path. If the path does not exist, the name is used instead.
+        /// </summary>
+        public EzTexture FindByPathOrName(string path)
         {
-            EzTexture texture = _FindByName(name);
+            // Look for the texture with the full path
+            var PathTexture = FindByName(path);
 
-            if (texture == null) return null;
-
-            if (texture.Tex == null)
+            // If nothing but white was found
+            if (PathTexture == null || PathTexture == TextureList[0])
             {
-                texture.Load();
-            }
+                // Get the name from the path
+                int i = path.LastIndexOf("\\");
+                
+                // If the name is the path, return what we found
+                if (i <= 0) return PathTexture;
 
-            return texture;
-        }*/
+                // Otherwise find the name and return the result
+                string name = path.Substring(i + 1);
+                return FindByName(name);
+            }
+            else
+                return PathTexture;
+        }
 
         public EzTexture FindByName(string name)
         {

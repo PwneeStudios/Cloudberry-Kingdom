@@ -246,7 +246,8 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Start
             MenuItem item;
-            MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
+            //MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
+            MenuItem Start = item = new MenuItem(new EzText("Start", ItemFont));
             item.Go = Go;
             item.JiggleOnGo = false;
             AddItem(item);
@@ -259,7 +260,8 @@ namespace CloudberryKingdom
             MyMenu.OnA = MyMenu.OnA = Go;
 
             // Random
-            item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
+            //item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
+            item = new MenuItem(new EzText("Random", ItemFont));
             item.Go = Randomize;
             AddItem(item);
             item.SelectSound = null;
@@ -269,7 +271,8 @@ namespace CloudberryKingdom
             //item.AdditionalOnSelect = () => SetBerry("cb_surprised");
 
             // Zero
-            item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
+            //item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
+            item = new MenuItem(new EzText("Reset", ItemFont));
             item.Go = Zero;
             AddItem(item);
             item.SelectSound = null;
@@ -281,7 +284,8 @@ namespace CloudberryKingdom
             //item.AdditionalOnSelect = () => SetBerry("cb_surprised");
 
             // Back
-            item = new MenuItem(new EzText(ButtonString.Back(82) + " Back", ItemFont));
+            //item = new MenuItem(new EzText(ButtonString.Back(82) + " Back", ItemFont));
+            item = new MenuItem(new EzText("Back", ItemFont));
             item.Go = null;
             AddItem(item);
             item.SelectSound = null;

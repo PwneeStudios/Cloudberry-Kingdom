@@ -371,7 +371,7 @@ namespace CloudberryKingdom
 
 
 
-        public void DrawNonText()
+        public virtual void DrawNonText()
         {
             EnsurePileFancyPos();
             EnsureMenuFancyPos();

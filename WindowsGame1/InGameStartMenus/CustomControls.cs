@@ -41,6 +41,11 @@ namespace CloudberryKingdom
         public static Color SecondaryKeyColor = Color.SkyBlue;
         protected override void ReleaseBody()
         {
+            base.ReleaseBody();
+        }
+
+        void Save()
+        {
             // Before we exit make sure secondary keys match up to what the user just specified.
             foreach (MenuItem item in MyMenu.Items)
             {
@@ -50,8 +55,6 @@ namespace CloudberryKingdom
             }
 
             PlayerManager.SaveRezAndKeys();
-
-            base.ReleaseBody();
         }
 
         protected override void SetTextProperties(EzText text)
@@ -77,7 +80,7 @@ namespace CloudberryKingdom
             if (null == citem) return;
 
             MyPile.Add(citem.MyQuad);
-            citem.MyQuad.Pos = item.Pos + new Vector2(-220, -132);
+            citem.MyQuad.Pos = item.Pos + new Vector2(-150, -132);
         }
 
         public CustomControlsMenu() { }
@@ -166,36 +169,34 @@ namespace CloudberryKingdom
             MyMenu.Control = Control;
 
             MakeBack();
-            ItemPos = new Vector2(0f, 740f) + new Vector2(-500, 187);//214.2859f);
-            PosAdd = new Vector2(0, -146);//-165);
-            FontScale *= .73f;// .778f;
+            ItemSetup();
 
             ControlItem item;
 
-            item = new ControlItem("Quick spawn", ButtonCheck.Quickspawn_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Quickspawn_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Quickspawn_Secondary);
+            item = new ControlItem("Quick spawn", ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+            item.SetSecondaryKey = key => ButtonCheck.Quickspawn_KeyboardKey.Set(key);
+			item.Reset = _item => _item.SetKey(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
             AddItem(item);
 
-            item = new ControlItem("Power ups", ButtonCheck.Help_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Help_Secondary = key;
-            item.Reset = _item => _item.SetKey(ButtonCheck.Help_Secondary);
+            item = new ControlItem("Power up menu", ButtonCheck.Help_KeyboardKey.KeyboardKey);
+            item.SetSecondaryKey = key => ButtonCheck.Help_KeyboardKey.Set(key);
+            item.Reset = _item => _item.SetKey(ButtonCheck.Help_KeyboardKey.KeyboardKey);
             AddItem(item);
 
-            item = new ControlItem("Go/Select", ButtonCheck.Go_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Go_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Go_Secondary);
-            AddItem(item);
+            //item = new ControlItem("Go/Select", ButtonCheck.Go_Secondary);
+            //item.SetSecondaryKey = key => ButtonCheck.Go_Secondary = key;
+            //item.Reset = _item => _item.SetKey(ButtonCheck.Go_Secondary);
+            //AddItem(item);
 
-            item = new ControlItem("Back/Cancel", ButtonCheck.Back_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Back_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Back_Secondary);
-            AddItem(item);
+            //item = new ControlItem("Back/Cancel", ButtonCheck.Back_Secondary);
+            //item.SetSecondaryKey = key => ButtonCheck.Back_Secondary = key;
+            //item.Reset = _item => _item.SetKey(ButtonCheck.Back_Secondary);
+            //AddItem(item);
 
-            item = new ControlItem("Start/Menu", ButtonCheck.Start_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Start_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Start_Secondary);
-            AddItem(item);
+            //item = new ControlItem("Start/Menu", ButtonCheck.Start_Secondary);
+            //item.SetSecondaryKey = key => ButtonCheck.Start_Secondary = key;
+            //item.Reset = _item => _item.SetKey(ButtonCheck.Start_Secondary);
+            //AddItem(item);
 
             item = new ControlItem("Left", ButtonCheck.Left_Secondary);
             item.SetSecondaryKey = key => ButtonCheck.Left_Secondary = key;
@@ -227,26 +228,35 @@ namespace CloudberryKingdom
 			item.Reset = _item => _item.SetKey(ButtonCheck.ReplayNext_Secondary);
             AddItem(item);
 
-            //item = new ControlItem("Toggle (Replay, single/multi) (Slow-mo, toggels when activated)", ButtonCheck.Go_Secondary);
-            //item.SetSecondaryKey = key => ButtonCheck.Quickspawn_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Quickspawn_Secondary);
-            //item.ScaleText(.35f);
-            //AddItem(item);
-
-            //ItemPos += .7f * PosAdd * .5f;
-            item = new ControlItem("Toggle (Replay, single/multi)\n   (Slow-mo, toggles if activated)", ButtonCheck.Toggle_Secondary);
-            item.SetSecondaryKey = key => ButtonCheck.Toggle_Secondary = key;
-			item.Reset = _item => _item.SetKey(ButtonCheck.Toggle_Secondary);
+            item = new ControlItem("Replay, Toggle single/multi playback", ButtonCheck.SlowMoToggle_Secondary);
+            item.SetSecondaryKey = key => ButtonCheck.ReplayToggle_Secondary = key;
+			item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
             AddItem(item);
-            item.ScaleText(.68f);
+
+            item = new ControlItem("Toggle Slow-mo, (only works when activated)", ButtonCheck.SlowMoToggle_Secondary);
+            item.SetSecondaryKey = key => ButtonCheck.SlowMoToggle_Secondary = key;
+            item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+            AddItem(item);
 
             ButtonCheck.KillSecondary();
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB =
+                _m =>
+                {
+                    Save();
+                    return MenuReturnToCaller(_m);
+                };
 
             // Shift everything
             EnsureFancy();
 
             MyMenu.SelectItem(2);
+        }
+
+        private void ItemSetup()
+        {
+            ItemPos = new Vector2(0f, 700f) + new Vector2(-850, 187);//214.2859f);
+            PosAdd = new Vector2(0, -176);//-165);
+            FontScale *= .73f;// .778f;
         }
 
 
@@ -262,13 +272,13 @@ namespace CloudberryKingdom
                 foreach (Keys key in ButtonString.KeyToString.Keys)
                     if (ButtonCheck.State(key).Down)
                     {
-                        // Make sure there are no double keys
-                        foreach (MenuItem other in MyMenu.Items)
-                        {
-                            ControlItem citem = other as ControlItem;
-                            if (null != citem && citem.MyKey == key)
-                                citem.SetKey(item.MyKey);
-                        }
+                        //// Make sure there are no double keys
+                        //foreach (MenuItem other in MyMenu.Items)
+                        //{
+                        //    ControlItem citem = other as ControlItem;
+                        //    if (null != citem && citem.MyKey == key)
+                        //        citem.SetKey(item.MyKey);
+                        //}
 
                         item.SetKey(key);
                     }

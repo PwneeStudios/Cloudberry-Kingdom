@@ -123,6 +123,7 @@ namespace CloudberryKingdom
                 GUI_Panel panel;
 
 #if DEBUG
+                //panel = new StartMenu();
                 panel = new CategoryMenu();
 #else
                 panel = new StartMenu();

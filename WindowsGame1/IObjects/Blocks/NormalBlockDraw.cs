@@ -65,7 +65,7 @@ namespace CloudberryKingdom.Blocks
 
                 MyPieces.MyOrientation = block.BlockCore.MyOrientation;
 
-                if (MyBlock.Core.MyTileSetType.DungeonLike() && MyBlock.BlockCore.CeilingDraw)
+                if (MyBlock.Core.MyTileSet.DungeonLike && MyBlock.BlockCore.CeilingDraw)
                     MyPieces.MyOrientation = PieceQuad.Orientation.UpsideDown;
             }
 

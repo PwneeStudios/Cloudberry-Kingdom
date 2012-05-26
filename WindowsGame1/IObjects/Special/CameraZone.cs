@@ -91,7 +91,7 @@ namespace CloudberryKingdom
             };
         }
 
-        public override void  PhsxStep()
+        public override void PhsxStep()
         {
  	         base.PhsxStep();             
         }

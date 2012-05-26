@@ -77,7 +77,7 @@ namespace CloudberryKingdom
         public static bool AlwaysGiveTutorials = true;
         public static bool SimpleAiColors = false;
         public static bool RecordIntro = false;
-        public static bool UnlockAll = true;
+        public static bool UnlockAll = false;
         public static bool SimpleLoad = false;
         public static bool BuildDebug = false;
 #endif
@@ -158,6 +158,9 @@ namespace CloudberryKingdom
         protected override void Initialize()
         {
 #if PC_VERSION
+            //var x = SteamManager.SteamInitialize();
+            //var y = SteamManager.GetSteamName();
+
             KeyboardHandler.EventInput.Initialize(this.Window);
 #endif
             Globals.ContentDirectory = Content.RootDirectory;
@@ -236,6 +239,7 @@ namespace CloudberryKingdom
 
             graphics.PreferredBackBufferWidth = Resolution.Backbuffer.X;
             graphics.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
+            //graphics.SynchronizeWithVerticalRetrace = false;
 
 #if PC_VERSION || WINDOWS
             if (rez.Custom)
@@ -300,6 +304,12 @@ namespace CloudberryKingdom
 
         public void ReloadInfo()
         {
+#if DEBUG
+            Tools.TextureWad.KillDynamic();
+            Tools.TextureWad.LoadAllDynamic(Content);
+            Background.TestTexture = Tools.Texture("DynoTest");
+#endif
+
             InfoWad.Init();
             InfoWad.Read(Path.Combine(Globals.ContentDirectory, "InfoWad.infowad"));
 
@@ -745,6 +755,7 @@ namespace CloudberryKingdom
                         // Load the infowad and boxes
                         Action infoaction = () =>
                         {
+                            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
                             ReloadInfo();
                             Tools.Write("Infowad done...");
                         };
@@ -831,8 +842,11 @@ namespace CloudberryKingdom
 #endif
             };
 
+            if (!DONOTHING)
             LoadThread.Start();
         }
+
+        public bool DONOTHING = false;
 
         private void FontLoad()
         {
@@ -868,8 +882,12 @@ namespace CloudberryKingdom
         }
 
 
+        public bool RunningSlowly = false;
         protected override void Update(GameTime gameTime)
         {
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+            this.IsFixedTimeStep = true;
+            RunningSlowly = gameTime.IsRunningSlowly;
             base.Update(gameTime);
         }
 
@@ -1029,10 +1047,20 @@ namespace CloudberryKingdom
             }
 #endif
 
-            if ((Tools.keybState.IsKeyDownCustom(Keys.Space) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Space) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_Secondary) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_Secondary))
-                && Tools.CurLevel.ResetEnabled())
+            // Quick game reset
+            //if (//Tools.CurLevel.ResetEnabled() &&
+            //    Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
+            //    //Tools.keybState.IsKeyDownCustom(Keys.S) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.S))
+            //    Tools.CurGameData.EndGame(true);
+
+            if (Tools.CurLevel.ResetEnabled() && 
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 CountShortReset();
+            //if ((Tools.keybState.IsKeyDownCustom(Keys.Space) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Space) ||
+            //    Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
+            //    && Tools.CurLevel.ResetEnabled())
+            //    CountShortReset();
+
 
 #if PC_DEBUG
             if (Tools.FreeCam)
@@ -1048,26 +1076,27 @@ namespace CloudberryKingdom
             }
 #endif
 
-            //if (Tools.keybState.IsKeyDownCustom(Keys.Space) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Space))
-            //{
-            //    LoadSound(false);
+            if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+            {
+                //LoadSound(false);
 
-            //    ReloadInfo();
+                ReloadInfo();
 
-            //    foreach (Block block in Tools.CurLevel.Blocks)
-            //    {
-            //        NormalBlock nblock = block as NormalBlock;
-            //        if (null != nblock) nblock.ResetPieces();
+                //foreach (Block block in Tools.CurLevel.Blocks)
+                //{
+                //    NormalBlock nblock = block as NormalBlock;
+                //    if (null != nblock) nblock.ResetPieces();
 
-            //        MovingBlock mblock = block as MovingBlock;
-            //        if (null != mblock) mblock.ResetPieces();
-            //    }
-            //}
+                //    MovingBlock mblock = block as MovingBlock;
+                //    if (null != mblock) mblock.ResetPieces();
+                //}
+            }
 
             if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
-            {
                 Background.Test = !Background.Test;
-            }
+
+            if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
+                Background.GreenScreen = !Background.GreenScreen;
 
 #if PC_DEBUG || (WINDOWS && DEBUG)
             if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
@@ -1261,19 +1290,21 @@ namespace CloudberryKingdom
 
 #if WINDOWS
             // Grace period for falling
-            string str = "";
-            if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)
-            {
-                //var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
-                //if (null != phsx) str = phsx.FallingCount.ToString();
+            //string str = "";
+            //if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)
+            //{
+            //    //var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
+            //    //if (null != phsx) str = phsx.FallingCount.ToString();
 
-                var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxMeat;
-                //if (null != phsx) str = phsx.WallJumpCount.ToString();
-                if (null != phsx) str = phsx.StepsSinceSide.ToString();
-            }
+            //    var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxMeat;
+            //    //if (null != phsx) str = phsx.WallJumpCount.ToString();
+            //    if (null != phsx) str = phsx.StepsSinceSide.ToString();
+            //}
 
             // GC
-            //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + debugstring;
+            string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
+                + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
+                + debugstring;
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
@@ -1375,7 +1406,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    MakeTestLevel(); return;
+                    //MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1503,12 +1534,12 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = custom;
 
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Jetpack);
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
+            data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Big, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Box, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            data.DefaultHeroType = BobPhsxMario.Instance;
+            //data.DefaultHeroType = BobPhsxMario.Instance;
             //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
@@ -1832,9 +1863,9 @@ namespace CloudberryKingdom
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary) ||
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary) ||
 #if PC_VERSION
-                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
 #else
- (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+                (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
 #endif
 )
                 MouseInUse = false;
@@ -1870,6 +1901,12 @@ namespace CloudberryKingdom
         public double DeltaT = 0;
         protected override void Draw(GameTime gameTime)
         {
+            if (DONOTHING)
+            {
+                GraphicsDevice.Clear(Color.Green);
+                return;
+            }
+
 #if DEBUG_OBJDATA
 ObjectData.UpdateWeak();
 #endif
@@ -1914,21 +1951,27 @@ ObjectData.UpdateWeak();
             DrawBool = !Guide.IsVisible;
 #endif
 
+            bool DoShit = true;// Tools.DrawCount % 2 == 0;
+            bool DrawShit = true;
+
 
             if (!LogoScreenUp)
                 if (!Tools.CurGameData.Loading)
                     if (DrawBool)
                     {
-                        // Update controller/keyboard states
-                        UpdateControllerAndKeyboard();
+                        if (DoShit)
+                        {
+                            // Update controller/keyboard states
+                            UpdateControllerAndKeyboard();
 
-                        // Update sounds
-                        if (!LogoScreenUp)
-                            Tools.SoundWad.Update();
+                            // Update sounds
+                            if (!LogoScreenUp)
+                                Tools.SoundWad.Update();
 
-                        // Update songs
-                        if (Tools.SongWad != null)
-                            Tools.SongWad.PhsxStep();
+                            // Update songs
+                            if (Tools.SongWad != null)
+                                Tools.SongWad.PhsxStep();
+                        }
 
                         // Track time, changes in time, and FPS
                         Tools.gameTime = gameTime;
@@ -1937,20 +1980,24 @@ ObjectData.UpdateWeak();
                         float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
                         Tools.dt = new_t - Tools.t;
                         Tools.t = new_t;
-                        fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.Milliseconds));
+                        //fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.Milliseconds));
+                        fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.TotalMilliseconds));
 
-                        // Determine how many phsx steps to take
-                        int Reps = 0;
-                        if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
-                        else if (Tools.PhsxSpeed == 1) Reps = 1;
-                        else if (Tools.PhsxSpeed == 2) Reps = 2;
-                        else if (Tools.PhsxSpeed == 3) Reps = 4;
-
-                        // Do the phsx
-                        for (int i = 0; i < Reps; i++)
+                        if (DoShit)
                         {
-                            PhsxCount++;
-                            PhsxStep();
+                            // Determine how many phsx steps to take
+                            int Reps = 0;
+                            if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
+                            else if (Tools.PhsxSpeed == 1) Reps = 1;
+                            else if (Tools.PhsxSpeed == 2) Reps = 2;
+                            else if (Tools.PhsxSpeed == 3) Reps = 4;
+
+                            // Do the phsx
+                            for (int i = 0; i < Reps; i++)
+                            {
+                                PhsxCount++;
+                                PhsxStep();
+                            }
                         }
                     }
 
@@ -1963,6 +2010,7 @@ ObjectData.UpdateWeak();
                 return;
             }
 
+            if (DrawShit)
             if (Tools.ShowLoadingScreen)
             {
                 Tools.CurrentLoadingScreen.PreDraw();
@@ -1988,7 +2036,7 @@ ObjectData.UpdateWeak();
                 Console.WriteLine("{0}, {1}, {2}, {3}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.LifetimeStats.Coins);
             }*/
 
-            //if (ShowFPS || Tools.DebugConvenience)
+            //////////if (ShowFPS || Tools.DebugConvenience)
             if (BuildDebug || ShowFPS)
                 DrawGC();
 

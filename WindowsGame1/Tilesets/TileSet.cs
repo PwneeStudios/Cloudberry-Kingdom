@@ -1,27 +1,206 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
+using CloudberryKingdom.Blocks;
+
 namespace CloudberryKingdom
 {
-    public enum TileSet { None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky };
-
-    public static class TileSetExtension
-    {
-        public static bool DungeonLike(this TileSet tile)
-        {
-            return (tile == TileSet.Dungeon || tile == TileSet.Dark);
-        }
-    }
-
     /// <summary>
     /// Stores a tile set's information, including what obstacles are allowed.
     /// </summary>
     public class TileSetInfo
     {
-        public TileSet StandInType = TileSet.None;
+        // CRAP
+        public bool DungeonLike = false;
 
-        public TileSet Type;
+
+
+        // New tile set stuff
+        Dictionary<int, PieceQuad>
+            Pillars = new Dictionary<int, PieceQuad>(),
+            Platforms = new Dictionary<int, PieceQuad>();
+
+        /// <summary>
+        /// Read tileset info from a file.
+        /// </summary>
+        public void Read(String file)
+        {
+            FixedWidths = true;
+            ProvidesTemplates = true;
+
+            FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
+            StreamReader reader = new StreamReader(stream);
+
+            String line;
+
+            line = reader.ReadLine();
+            while (line != null)
+            {
+                line = Tools.RemoveComment(line);
+
+                var bits = line.Split(' ').ToList();
+                bits.RemoveAll(bit => string.Compare(bit, " ") == 0 || string.Compare(bit, "\t") == 0);
+
+                if (bits.Count > 0)
+                {
+                    var first = bits[0];
+
+                    // Is it a pillar?
+                    if (first.Contains("Pillar_"))
+                    {
+                        // Get the pillar width
+                        var num_str = first.Substring(first.IndexOf("_") + 1);
+                        int width = int.Parse(num_str);
+
+                        // Get the rest of the information
+                        var piecequad = ParsePillarLine(width, bits);
+                        Pillars.Add(width, piecequad);
+                    }
+                    // Is it a platform?
+                    else if (first.Contains("Platform_"))
+                    {
+                        // Get the platform width
+                        var num_str = first.Substring(first.IndexOf("_") + 1);
+                        int width = int.Parse(num_str);
+
+                        // Get the rest of the information
+                        var piecequad = ParsePlatformLine(width, bits);
+                        Pillars.Add(width, piecequad);
+                    }
+                    else switch (first)
+                    {
+                        case "Name": Name = bits[1]; break;
+                        default: break;
+                    }
+                }
+
+
+                line = reader.ReadLine();
+            }
+
+            reader.Close();
+            stream.Close();
+
+            // Sort widths
+            var list = Pillars.Keys.ToList(); list.Sort(); PillarWidths = list.ToArray();
+                list = Pillars.Keys.ToList(); list.Sort(); PillarWidths = list.ToArray();
+        }
+
+        PieceQuad ParsePillarLine(int width, List<string> bits)
+        {
+            var c = new PieceQuad();
+            c.Init(null, Tools.BasicEffect);
+            c.Data.RepeatWidth = 2000;
+            c.Data.RepeatHeight = 2000;
+            c.Data.MiddleOnly = false;
+            c.Data.CenterOnly = true;
+            c.Data.UV_Multiples = new Vector2(1, 0);
+            
+            c.Center.TextureName = bits[1];
+            int tex_width = c.Center.MyTexture.Tex.Width;
+
+            float diff = tex_width - width;
+            diff /= 2;
+
+            c.Data.Left_TR_Shift.X = diff;
+            c.Data.Left_BL_Shift.X = -diff;
+
+            return c;
+        }
+
+        PieceQuad ParsePlatformLine(int width, List<string> bits)
+        {
+            var c = new PieceQuad();
+            c.Init(null, Tools.BasicEffect);
+            c.Data.RepeatWidth = 2000;
+            c.Data.RepeatHeight = 2000;
+            c.Data.MiddleOnly = false;
+            c.Data.CenterOnly = true;
+            c.Data.UV_Multiples = new Vector2(1, 1);
+
+            c.Center.TextureName = bits[1];
+            int tex_width = c.Center.MyTexture.Tex.Width;
+            int tex_height = c.Center.MyTexture.Tex.Height;
+
+            // Center the quad
+            float diff = tex_width - width;
+            diff /= 2;
+
+            c.Data.Left_TR_Shift.X = diff;
+            c.Data.Left_BL_Shift.X = -diff;
+
+            // Extend the quad down to properly scale quad
+            c.Data.Bottom_BL_Shift.Y = -tex_height;
+
+            return c;
+        }
+
+        public bool FixedWidths = false;
+        public bool ProvidesTemplates = false;
+        public int[] PillarWidths, PlatformWidths;
+
+        public void SnapWidthUp_Pillar(ref Vector2 size)
+        {
+            SnapWidthUp(ref size, PillarWidths);
+        }
+        public void SnapWidthUp_Platform(ref Vector2 size)
+        {
+            SnapWidthUp(ref size, PlatformWidths);
+        }
+
+        public static void SnapWidthUp(ref Vector2 size, int[] Widths)
+        {
+            for (int i = 0; i < Widths.Length; i++)
+            {
+                if (size.X < Widths[i])
+                {
+                    size.X = Widths[i];
+                    return;
+                }
+            }
+
+            size.X = Widths[Widths.Length - 1];
+        }
+
+        public PieceQuad GetPieceTemplate(BlockBase block)
+        {
+            // Get the block's info
+            var box = block.Box;
+            var core = block.BlockCore;
+
+            // Get the width of the block (accounting for possible rotations for Meatboy levels)
+            float width = 0;
+            if (core.MyOrientation == PieceQuad.Orientation.RotateRight ||
+                core.MyOrientation == PieceQuad.Orientation.RotateLeft)
+                width = box.Current.Size.Y;
+            else
+                width = box.Current.Size.X;
+
+            // Get the piecequad template
+
+
+            return null;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public TileSetInfo StandInType = TileSets.None;
+
         public List<Upgrade> ObstacleUpgrades = new List<Upgrade>();
         public List<Upgrade> JumpUpgrades, DodgeUpgrades;
 
@@ -45,9 +224,6 @@ namespace CloudberryKingdom
 
         public void PostProcess()
         {
-            //JumpUpgrades = new List<Upgrade>();
-            //DodgeUpgrades = new List<Upgrade>();
-
             JumpUpgrades = new List<Upgrade>(ObstacleUpgrades.Intersect(RegularLevel.JumpUpgrades));
             DodgeUpgrades = new List<Upgrade>(ObstacleUpgrades.Intersect(RegularLevel.DodgeUpgrades));
         }
@@ -58,25 +234,23 @@ namespace CloudberryKingdom
     /// </summary>
     public sealed class TileSets
     {
-        static Dictionary<TileSet, TileSetInfo> Dict = new Dictionary<TileSet, TileSetInfo>();
-
         static readonly TileSets instance = new TileSets();
         public static TileSets Instance { get { return instance; } }
+
+        public static TileSetInfo None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky;
+        public static TileSetInfo DefaultTileSet;
+
+        public static List<TileSetInfo> TileSets;
 
         static TileSets() { }
         TileSets()
         {
             TileSetInfo info;
-            
-            foreach (TileSet tileset in Tools.GetValues<TileSet>())
-            {
-                info = new TileSetInfo();
-                info.Type = tileset;
-                Dict.Add(tileset, info);
-            }
+ 
+            //public enum TileSet { None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky };
 
             // None
-            info = Dict[TileSet.None];
+            DefaultTileSet = None = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "None";
             info.MyBackgroundType = BackgroundType.None;
             info.ScreenshotString = "Screenshot_Random";
@@ -87,7 +261,7 @@ namespace CloudberryKingdom
             });
 
             // Random
-            info = Dict[TileSet.Random];
+            Random = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Random";
             info.MyBackgroundType = BackgroundType.Random;
             info.ScreenshotString = "Screenshot_Random";
@@ -96,7 +270,7 @@ namespace CloudberryKingdom
             });
 
             // Outside
-            info = Dict[TileSet.Terrace];
+            Terrace = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Terrace";
             info.MyBackgroundType = BackgroundType.Outside;
             info.ScreenshotString = "Screenshot_Terrace";
@@ -110,7 +284,8 @@ namespace CloudberryKingdom
             });
 
             // Dark
-            info = Dict[TileSet.Dark];
+            Dark = info = new TileSetInfo(); TileSets.Add(info);
+            info.DungeonLike = true;
             info.Name = "Darkness";
             info.MyBackgroundType = BackgroundType.Dark;
             info.ScreenshotString = "Screenshot_Dark";
@@ -121,7 +296,7 @@ namespace CloudberryKingdom
             });
 
             // Dark Outside
-            info = Dict[TileSet.DarkTerrace];
+            DarkTerrace = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Nightmare";
             info.Tint = new Vector4(.8f, .5f, .45f, 1f);
             info.MyBackgroundType = BackgroundType.Gray;
@@ -135,7 +310,7 @@ namespace CloudberryKingdom
             });
 
             // Rain
-            info = Dict[TileSet.Rain];
+            Rain = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Rain";
             //info.Tint = new Vector4(.8f, .5f, .45f, 1f);
             info.MyBackgroundType = BackgroundType.Rain;
@@ -149,7 +324,7 @@ namespace CloudberryKingdom
             });
 
             // Sky
-            info = Dict[TileSet.Island];
+            Island = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Sky";
             info.MyBackgroundType = BackgroundType.Sky;
             info.ScreenshotString = "Screenshot_Sky";
@@ -161,21 +336,21 @@ namespace CloudberryKingdom
             });
 
             // Night sky
-            info = Dict[TileSet._NightSky];
+            _NightSky = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Night Sky";
             info.MyBackgroundType = BackgroundType.NightSky;
             info.ScreenshotString = "Screenshot_NightSky";
-            info.StandInType = TileSet.Island;
+            info.StandInType = Island;
 
             // Night
-            info = Dict[TileSet._Night];
+            _Night = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Night time";
             info.MyBackgroundType = BackgroundType.Night;
             info.ScreenshotString = "Screenshot_Night";
-            info.StandInType = TileSet.Terrace;
+            info.StandInType = Terrace;
 
             // Castle inside
-            info = Dict[TileSet.Castle];
+            Castle = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Castle";
             info.MyBackgroundType = BackgroundType.Castle;
             info.ScreenshotString = "Screenshot_Castle";
@@ -186,7 +361,8 @@ namespace CloudberryKingdom
             });
 
             // Dungeon inside
-            info = Dict[TileSet.Dungeon];
+            Dungeon = info = new TileSetInfo(); TileSets.Add(info);
+            info.DungeonLike = true;
             info.Name = "Dungeon";
             info.MyBackgroundType = BackgroundType.Dungeon;
             info.ScreenshotString = "Screenshot_Dungeon";
@@ -197,7 +373,7 @@ namespace CloudberryKingdom
             });
 
             // Grass
-            info = Dict[TileSet.OutsideGrass];
+            OutsideGrass = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Grass";
             info.HasCeiling = false;
             info.FlexibleHeight = true;
@@ -206,7 +382,7 @@ namespace CloudberryKingdom
             });
 
             // Cement
-            info = Dict[TileSet.Cement];
+            Cement = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Cement";
             info.HasCeiling = true;
             info.FlexibleHeight = false;
@@ -215,7 +391,7 @@ namespace CloudberryKingdom
             });
 
             // Tileblock
-            info = Dict[TileSet.TileBlock];
+            TileBlock = info = new TileSetInfo(); TileSets.Add(info);
             info.Name = "Tiles";
             info.HasCeiling = true;
             info.FlexibleHeight = false;
@@ -224,18 +400,8 @@ namespace CloudberryKingdom
             });
 
             RegularLevel.InitLists();
-            foreach (TileSetInfo _info in Dict.Values)
+            foreach (var _info in TileSets)
                 _info.PostProcess();
-        }
-
-        /// <summary>
-        /// Returns a tile set's information.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static TileSetInfo Get(TileSet type)
-        {
-            return Dict[type];
         }
     }
 }

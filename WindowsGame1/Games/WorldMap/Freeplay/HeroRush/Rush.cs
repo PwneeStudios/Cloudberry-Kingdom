@@ -30,8 +30,9 @@ namespace CloudberryKingdom
 
             game.AddToDo(() =>
             {
-                int Delay = 10;
-                game.WaitThenDo(Delay, () =>
+                //int Delay = 10;
+                //int Delay = 0;
+                //game.WaitThenDo(Delay, () =>
                 {
                     // Kill all the players
                     foreach (Bob bob in level.Bobs)
@@ -48,7 +49,8 @@ namespace CloudberryKingdom
 
                     // Add the Game Over panel, check for Awardments
                     game.WaitThenDo(105, ShowEndScreen);
-                });
+                }
+                //);
 
                 return true;
             });

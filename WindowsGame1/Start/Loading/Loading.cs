@@ -161,13 +161,13 @@ namespace CloudberryKingdom
 
             if (style == 0)
             {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\Load\\LoadOutline");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\Load\\LoadFill");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadOutline");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadFill");
             }
             else if (style == 1)
             {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\Load\\LoadOutline_2");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\Load\\LoadFill_2");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadOutline_2");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadFill_2");
             }
 
             MyPile = new DrawPile();
@@ -176,7 +176,7 @@ namespace CloudberryKingdom
             {
                 QuadClass AboveBar = new QuadClass();
                 AboveBar.SetToDefault();
-                AboveBar.Quad.MyTexture = Tools.TextureWad.FindOrLoad(Content, "Art\\Load\\PwneeStudios");
+                AboveBar.Quad.MyTexture = Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\PwneeStudios");
                 AboveBar.ScaleToTextureSize();
                 MyPile.Add(AboveBar);
             }

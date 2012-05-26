@@ -48,7 +48,7 @@ namespace CloudberryKingdom.Blocks
             Core.MyType = ObjectType.NormalBlock;
             Core.EditHoldable = Core.Holdable = true;
 
-            Init(Vector2.Zero, Vector2.Zero);
+            Init(Vector2.Zero, Vector2.Zero, TileSets.DefaultTileSet);
         }
 
         public NormalBlock(bool BoxesOnly)
@@ -67,13 +67,18 @@ namespace CloudberryKingdom.Blocks
 
         PieceQuad GetPieceTemplate(float width)
         {
-            if (TileSets.Get(Core.MyTileSetType).PassableSides)
+            var Info = TileSets.Get(Core.MyTileSetType);
+            if (Info.ProvidesTemplates)
+                return Info.GetPieceTemplate(this);
+
+
+            if (Info.PassableSides)
             {
                 BlockCore.UseTopOnlyTexture = false;
                 Box.TopOnly = true;
             }
 
-            switch (Core.MyTileSetType)
+            switch (Info.Type)
             {
                 case TileSet.Castle:
                     return GetPieceTemplate_Inside1(width);
@@ -293,9 +298,18 @@ namespace CloudberryKingdom.Blocks
             MyDraw.Init(this, GetPieceTemplate());
         }
 
-        public void Init(Vector2 center, Vector2 size)
+        public void Init(Vector2 center, Vector2 size, TileSet tile) { Init(center, size, TileSets.Get(tile)); }
+        public void Init(Vector2 center, Vector2 size, TileSetInfo tile)
         {
             BlockCore.Data.Position = BlockCore.StartData.Position = center;
+
+            if (tile.FixedWidths)
+            {
+                if (Box.TopOnly)
+                    tile.SnapWidthUp_Platform(ref size);
+                else
+                    tile.SnapWidthUp_Pillar(ref size);
+            }
 
             MyBox.Initialize(center, size);
 
@@ -480,7 +494,7 @@ namespace CloudberryKingdom.Blocks
 
             Box.TopOnly = BlockA.Box.TopOnly;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, A.Core.MyTileSet);
 
             if (MyDraw != null && BlockA.MyDraw != null)
                 MyDraw.Clone(BlockA.MyDraw);

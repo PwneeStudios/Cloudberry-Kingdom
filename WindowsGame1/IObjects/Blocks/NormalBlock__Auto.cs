@@ -175,7 +175,7 @@ namespace CloudberryKingdom.Levels
 
             door.MyBackblock.Extend(Side.Right, pos.X + 350);
             door.MyBackblock.Extend(Side.Left, pos.X - 800);
-            door.MyBackblock.Core.MyTileSetType = level.CurMakeData.LevelSeed.MyTileSet;
+            door.MyBackblock.Core.MyTileSet = level.CurMakeData.LevelSeed.MyTileSet;
 
             // Shift start position
             /*for (int i = 0; i < level.CurMakeData.NumInitialBobs; i++)
@@ -266,7 +266,7 @@ namespace CloudberryKingdom.Levels
         public NormalBlock CreateCementBlock(Level level, Vector2 pos, Vector2 size)
         {
             NormalBlock block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-            block.Init(pos, size);
+            block.Init(pos, size, TileSet.Cement);
 
             block.Core.MyTileSetType = TileSet.Cement;
 
@@ -287,7 +287,7 @@ namespace CloudberryKingdom.Levels
 
             NormalBlock block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
             BlockData core = block.BlockCore;
-            block.Init(pos, new Vector2(50, 50));
+            block.Init(pos, new Vector2(50, 50), level.MyTileSetInfo);
 
             core.GenData.RemoveIfUnused = true;
             core.BlobsOnTop = true;
@@ -337,7 +337,7 @@ namespace CloudberryKingdom.Levels
                     if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
 
                     block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(pos + offset, size);
+                    block.Init(pos + offset, size, level.MyTileSetInfo);
                     block.Extend(Side.Bottom, block.Box.BL.Y - level.CurMakeData.PieceSeed.ExtraBlockLength);
 
                     break;
@@ -352,7 +352,7 @@ namespace CloudberryKingdom.Levels
                     if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
 
                     block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(pos + offset, size);
+                    block.Init(pos + offset, size, level.MyTileSetInfo);
                     block.MakeTopOnly();
 
                     break;
@@ -374,7 +374,7 @@ namespace CloudberryKingdom.Levels
                         if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
 
                         block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-                        block.Init(pos + offset, size);
+                        block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Bottom, block.Box.BL.Y - level.CurMakeData.PieceSeed.ExtraBlockLength);
                     }
                     //else if (pos.Y > level.MainCamera.Pos.Y + 400)
@@ -394,7 +394,7 @@ namespace CloudberryKingdom.Levels
                         if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
 
                         block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-                        block.Init(pos + offset, size);
+                        block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Top, block.Box.TR.Y + level.CurMakeData.PieceSeed.ExtraBlockLength);
                     }
                     //else
@@ -430,7 +430,7 @@ namespace CloudberryKingdom.Levels
 
                         block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
                         block.BlockCore.MyOrientation = PieceQuad.Orientation.RotateRight;
-                        block.Init(pos + offset, size);
+                        block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Left, block.Box.BL.X - level.CurMakeData.PieceSeed.ExtraBlockLength);
                     }
                     else
@@ -447,7 +447,7 @@ namespace CloudberryKingdom.Levels
 
                         block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
                         block.BlockCore.MyOrientation = PieceQuad.Orientation.RotateLeft;
-                        block.Init(pos + offset, size);
+                        block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Right, block.Box.TR.X + level.CurMakeData.PieceSeed.ExtraBlockLength);
                     }
                     block.Core.GenData.NoBottomShift = block.Core.GenData.NoMakingTopOnly = true;

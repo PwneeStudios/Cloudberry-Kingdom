@@ -263,7 +263,12 @@ namespace CloudberryKingdom
         {
             MenuItem item;
 
+#if PC_VERSION
+            item = new MenuItem(new EzText(ButtonString.Back(86) + text, ItemFont));
+#else
             item = new MenuItem(new EzText(ButtonString.Back(86) + " " + text, ItemFont));
+#endif
+            
             item.Go = menuitem => MyMenu.OnB(MyMenu);
             AddItem(item);
             item.SelectSound = null;

@@ -99,11 +99,11 @@ namespace CloudberryKingdom
             MyPile.Add(q);
             q.Pos = new Vector2(-666.6665f, 761.9049f);
 
-            q = new QuadClass("BackspaceKey"); q.ScaleXToMatchRatio(130);
+            q = new QuadClass("Backspace_Key"); q.ScaleXToMatchRatio(130);
             MyPile.Add(q);
             q.Pos = new Vector2(-801.5879f, -261.9048f);
 
-            q = new QuadClass("SpaceKey"); q.ScaleXToMatchRatio(130);
+            q = new QuadClass("Space_Key"); q.ScaleXToMatchRatio(130);
             MyPile.Add(q);
             q.Pos = new Vector2(-793.6523f, 436.5077f);
 #endif

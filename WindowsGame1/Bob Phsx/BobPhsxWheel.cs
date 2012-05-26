@@ -83,12 +83,12 @@ namespace CloudberryKingdom
             return;
         }
         
-        float MaxAngleSpeed = .0878f;
+        public float MaxAngleSpeed = .0878f, AngleAcc = .00125f;
         public override void DoXAccel()
-        {            
-            float AngleAcc = .00125f;
+        {
+            float _AngleAcc = AngleAcc;
             //if (!OnGround) AngleAcc *= 1.5f;
-            float AngleFriction = .5f * AngleAcc;
+            float AngleFriction = .5f * _AngleAcc;
 
 /*            float MaxAngleSpeed = .15f;
             float AngleAcc = .00175f;
@@ -102,8 +102,8 @@ namespace CloudberryKingdom
             {
                 // Faster acc if we are trying to reverse directions
                 if (Math.Sign(xVec) != Math.Sign(AngleSpeed))
-                    AngleAcc *= 1.65f;
-                AngleSpeed += AngleAcc * MyBob.CurInput.xVec.X;
+                    _AngleAcc *= 1.65f;
+                AngleSpeed += _AngleAcc * MyBob.CurInput.xVec.X;
             }
             else
             {

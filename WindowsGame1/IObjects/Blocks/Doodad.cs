@@ -154,7 +154,7 @@ namespace CloudberryKingdom
                     
                     block = (NormalBlock)Core.Recycle.GetObject(ObjectType.NormalBlock, false);
                     block.Init(new Vector2(Core.Data.Position.X, MyBox.Current.TR.Y) + TopCenter,
-                               new Vector2(MyBox.Current.Size.X - 70, 10));
+                               new Vector2(MyBox.Current.Size.X - 70, 10), Core.MyLevel.MyTileSetInfo);
                     block.Core.MyTileSetType = TileSet.CastlePiece;
                     block.BlockCore.OnlyCollidesWithLowerLayers = true;
                     block.BlockCore.Show = false;
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
                     block.Core.MyTileSetType = TileSet.CastlePiece;
                     block.BlockCore.OnlyCollidesWithLowerLayers = true;
                     block.Init(MyBox.Current.TR - SideCenter,
-                               SideSize);
+                               SideSize, Core.MyLevel.MyTileSetInfo);
                     block.BlockCore.Show = false;
                     //block.MakeTopOnly();
                     block.Core.DrawLayer = Core.DrawLayer;
@@ -179,7 +179,7 @@ namespace CloudberryKingdom
                     block.BlockCore.OnlyCollidesWithLowerLayers = true;
                     SideCenter.X *= -1;
                     block.Init(MyBox.Current.TL() - SideCenter,
-                               SideSize);
+                               SideSize, Core.MyLevel.MyTileSetInfo);
                     block.BlockCore.Show = false;
                     //block.MakeTopOnly();
                     block.Core.DrawLayer = Core.DrawLayer;

@@ -162,7 +162,7 @@ namespace CloudberryKingdom
             }
 
             return
-                piece => SetPieceSeed(piece, LevelSeed.MyTileInfo, Jump, Dodge, Speed, JumpComplexity, DodgeComplexity);
+                piece => SetPieceSeed(piece, LevelSeed.MyTileSet, Jump, Dodge, Speed, JumpComplexity, DodgeComplexity);
         }
 
 

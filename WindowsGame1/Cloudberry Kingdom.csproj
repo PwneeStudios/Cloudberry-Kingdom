@@ -241,6 +241,7 @@
     </Compile>
     <Compile Include="Games\WorldMap\Challenges\_Survival.cs" />
     <Compile Include="Games\WorldMap\Freeplay\Construct.cs" />
+    <Compile Include="Games\WorldMap\Freeplay\HeroFactory_Escalation.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis_Tutorial.cs" />
     <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis.cs" />
     <Compile Include="Games\WorldMap\Freeplay\Wheelie.cs" />
@@ -422,6 +423,7 @@
     <Compile Include="Level\Make\Parameters\StyleData\UpData.cs" />
     <Compile Include="Menus\LongMenu.cs" />
     <Compile Include="Start\VerifyQuitGame.cs" />
+    <Compile Include="Steam\SteamManager.cs" />
     <Compile Include="Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ConstructBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ChaosBackground.cs" />
@@ -452,7 +454,7 @@
     <Compile Include="Core\FancyVector2.cs" />
     <Compile Include="Core\Draw\Quads\PieceQuad.cs" />
     <Compile Include="Core\Draw\Quads\QuadClass.cs" />
-    <Compile Include="Core\Draw\SpriteAnim.cs" />
+    <Compile Include="Core\Animation\SpriteAnim.cs" />
     <Compile Include="Core\Draw\Object\ObjectBox.cs" />
     <Compile Include="Core\Draw\Quads\ObjectVector.cs" />
     <Compile Include="Editor\AnimationToolbox.cs">
@@ -596,6 +598,7 @@
     <Compile Include="Physics\Line.cs" />
     <Compile Include="Physics\FloatRectangle.cs" />
     <Compile Include="Tools\BSP.cs" />
+    <Compile Include="Tools\InfoWad2.cs" />
     <Compile Include="Tools\Random.cs" />
     <Compile Include="Tools\TextInput.cs" />
     <Compile Include="Tools\EzStorage.cs" />

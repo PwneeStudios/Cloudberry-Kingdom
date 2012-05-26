@@ -321,7 +321,10 @@ namespace CloudberryKingdom
                 Update();
 
                 if (Tools.DrawBoxes)
-                    MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                {
+                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                    MyBox.DrawFilled(Tools.QDrawer, Color.Green);
+                }
             }
 
             if (Tools.DrawGraphics)
@@ -347,9 +350,9 @@ namespace CloudberryKingdom
                         Tools.QDrawer.Flush();
                     }
                 }
-
-                BlockCore.Draw();
             }
+
+            BlockCore.Draw();
         }
 
         public override void PostInteractWith(Bob bob, ref ColType Col, ref bool Overlap)

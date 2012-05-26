@@ -59,8 +59,8 @@ namespace CloudberryKingdom
 
         public override void Draw()
         {
-            if (Tools.DrawBoxes && Core.Active)
-                Box.Draw(Tools.QDrawer, Color.Teal, 30);
+            //if (Tools.DrawBoxes && Core.Active)
+            //    Box.Draw(Tools.QDrawer, Color.Teal, 30);
         }
 
         public override void Clone(ObjectBase A)

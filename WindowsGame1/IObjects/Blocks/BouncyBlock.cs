@@ -246,7 +246,10 @@ namespace CloudberryKingdom
             Update();
 
             if (Tools.DrawBoxes)
-                MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+            {
+                //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+                MyBox.DrawFilled(Tools.QDrawer, Color.SpringGreen);
+            }
 
             if (Tools.DrawGraphics)
             {
@@ -259,9 +262,9 @@ namespace CloudberryKingdom
                     MyQuad.Draw();
                     Tools.QDrawer.Flush();
                 }
-
-                BlockCore.Draw();
             }
+
+            BlockCore.Draw();
         }
 
         public override void Clone(ObjectBase A)

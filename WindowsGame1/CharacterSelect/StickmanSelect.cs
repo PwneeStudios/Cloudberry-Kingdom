@@ -37,13 +37,11 @@ namespace CloudberryKingdom
         CustomizeMenu Customize;
         public ArrowMenu Arrows;
 
-#if PC_VERSION
-#else
         Menu SignInChoiceMenu;
 
         EzText GamerTag;
         EzText JoinText;
-#endif
+
         QuadClass Backdrop;
 
         int PlayerIndex;
@@ -70,10 +68,6 @@ namespace CloudberryKingdom
         {
             if (Centers == null)
             {
-#if PC_VERSION
-                Centers = new Vector2[1];
-                Centers[0] = new Vector2(-600, -180);
-#else
                 Centers = new Vector2[4];
                 float span = -160 + Tools.CurCamera.GetWidth() * CharacterSelectManager.ZoomMod;// +160;
 
@@ -81,7 +75,6 @@ namespace CloudberryKingdom
 
                 for (int i = 0; i < 4; i++)
                     Centers[i] = new Vector2(-span / 2 + Width / 2 + i * Width, 0);
-#endif
             }
         }
 
@@ -106,31 +99,28 @@ namespace CloudberryKingdom
                 Doll.Release(); Doll = null;
             }
 
-#if PC_VERSION
-#else
             if (SignInChoiceMenu != null) SignInChoiceMenu.Release(); SignInChoiceMenu = null;
 
             if (GamerTag != null) GamerTag.Release(); GamerTag = null;
             if (JoinText != null) JoinText.Release(); JoinText = null;
-#endif
+
             Backdrop.Release();
         }
 
-#if PC_VERSION
-        Vector2 DefaultDollPos = new Vector2(135f, 40);
-#else
         Vector2 DefaultDollPos = new Vector2(0, 0);
         Vector2 BobPos = new Vector2(0, 25);
-#endif
+
         //Vector2 GamerTagRelPos = new Vector2(0, -455);
         Vector2 GamerTagRelPos = new Vector2(0, -602);
         public void SetState(SelectState NewState) { SetState(NewState, false); }
-        public void SetState(SelectState NewState, bool Force)
+        public void SetState(SelectState NewState, bool Force) { SetState(NewState, Force, false); }
+        public void SetState(SelectState NewState, bool Force, bool Invert)
         {
             Accelerate = false;
 
             bool Up = true;
             if (PlayerIndex % 2 == 0) Up = false;
+
 
             if (NewState != MyState || Force)
             {
@@ -146,11 +136,8 @@ namespace CloudberryKingdom
                 {
                     case SelectState.Done:
                     case SelectState.Initialize:
-#if PC_VERSION
-                        dest = GUI_Panel.PresetPos.Right;
-#else
                         dest = GUI_Panel.PresetPos.Bottom;
-#endif
+
                         MyBackdrop.SlideOut(dest, 0);
                         Simple.SlideOut(dest, 0);
                         Arrows.SlideOut(dest, 0);
@@ -161,17 +148,30 @@ namespace CloudberryKingdom
                         DollPos = DefaultDollPos;
                         DollVel = new Vector2(0, 0);
                         Backdrop.FancyPos.RelVal = new Vector2(0, BackdropY);
+                        if (Up)
+                            MyBackdrop.SlideOut(GUI_Panel.PresetPos.Bottom, 0);
+                        else
+                            MyBackdrop.SlideOut(GUI_Panel.PresetPos.Top, 0);
 
-#if PC_VERSION
-#else
+
                         GamerTag.FancyPos.RelVal = new Vector2(0, BackdropY) + GamerTagRelPos;
                         if (QuickJoin)
-                            JoinText.FancyPos.RelVal = new Vector2(0, 1700);
+                        {
+                            if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800 || MyState == SelectState.Initialize)
+                                JoinText.FancyPos.RelVal = new Vector2(0, 1700);
+                        }
                         else
-                            JoinText.FancyPos.RelVal = new Vector2(0, -1450);
+                        {
+                            if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800 || MyState == SelectState.Initialize)
+                                JoinText.FancyPos.RelVal = new Vector2(0, -1450);
+                        }
                         //CustomizeMenu.FancyPos.RelVal = new Vector2(0, BackdropY - 675);
 
+#if NOT_PC
                         SignInChoiceMenu.FancyPos.RelVal = new Vector2(0, -1550*1.1f);
+                        SignInChoiceMenu.FancyPos.Update();
+#else
+                        SignInChoiceMenu.FancyPos.RelVal = new Vector2(-10000, -15500);
                         SignInChoiceMenu.FancyPos.Update();
 #endif
                         break;
@@ -196,13 +196,8 @@ namespace CloudberryKingdom
                             Up = true;
                         }
 
-#if PC_VERSION
-                        dest = GUI_Panel.PresetPos.Right;
-#else
                         dest = GUI_Panel.PresetPos.Bottom;
-#endif
 
-#if PC_VERSION
                         if (Simple.Active) Simple.SlideOut(dest, Frames);
                         if (Arrows.Active) Arrows.SlideOut(dest, Frames);
                         Customize.SlideOut(GUI_Panel.PresetPos.Right, Frames);
@@ -222,7 +217,7 @@ namespace CloudberryKingdom
                                 MyBackdrop.SlideIn(Frames);
                             }
                         }
-#else
+
                         Simple.SlideOut(dest, Frames);
                         Arrows.SlideOut(dest, Frames);
                         Customize.SlideOut(GUI_Panel.PresetPos.Bottom, Frames);
@@ -238,25 +233,24 @@ namespace CloudberryKingdom
                             {
                                 MyBackdrop.SlideOut(GUI_Panel.PresetPos.Bottom, 0);
                                 MyBackdrop.SlideIn(Frames);
-                                JoinText.FancyPos.LerpTo(new Vector2(0, -1450), new Vector2(0, 100), Frames);
+                                if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800 || MyState == SelectState.Initialize)
+                                    JoinText.FancyPos.LerpTo(new Vector2(0, -1450), new Vector2(0, 100), Frames);
                             }
                             else
                             {
                                 MyBackdrop.SlideOut(GUI_Panel.PresetPos.Top, 0);
                                 MyBackdrop.SlideIn(Frames);
-                                JoinText.FancyPos.LerpTo(new Vector2(0, 1700), new Vector2(0, 100), Frames);
+                                if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800 || MyState == SelectState.Initialize)
+                                    JoinText.FancyPos.LerpTo(new Vector2(0, 1700), new Vector2(0, 100), Frames);
                             }
                         }
-#endif
+
 
                         BackdropY = -1550;
                         DollPos = DefaultDollPos;
                         DollVel = new Vector2(0, 0);
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY), Frames);
-#if PC_VERSION
-                        //if (MyState == SelectState.SimpleSelect)
-                          //  MyBackdrop.SlideOut(GUI_Panel.PresetPos.Bottom, Frames);
-#else
+
                         GamerTag.FancyPos.LerpTo(new Vector2(0, BackdropY) + GamerTagRelPos, Frames);
                         //JoinText.FancyPos.LerpTo(new Vector2(0, 100), Frames);
 
@@ -267,15 +261,11 @@ namespace CloudberryKingdom
                             SignInChoiceMenu.FancyPos.RelVal = new Vector2(0, -1550*1.1f);
                             SignInChoiceMenu.FancyPos.Playing = false;
                         }
-#endif
+
                         break;
 
                     case SelectState.Waiting:
-#if PC_VERSION
-                        dest = GUI_Panel.PresetPos.Right;
-#else
                         dest = GUI_Panel.PresetPos.Bottom;
-#endif
 
                         if (QuickJoin)
                         {
@@ -293,29 +283,22 @@ namespace CloudberryKingdom
                         if (Simple.Active) Simple.SlideOut(dest, Frames);
                         if (Arrows.Active) Arrows.SlideOut(dest, Frames);
 
-#if PC_VERSION
-                        Customize.SlideOut(dest, Frames);
-#else
                         if (Customize.Active) Customize.SlideOut(dest, Frames);
-#endif
+
                         DollPos = DefaultDollPos;
                         DollVel = new Vector2(0, 0);
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY), Frames);
-#if PC_VERSION
-#else                        
                         GamerTag.FancyPos.LerpTo(new Vector2(0, BackdropY) + GamerTagRelPos, Frames);
-                        JoinText.FancyPos.LerpTo(new Vector2(0, 1700*1.1f), Frames);
+                        if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                            JoinText.FancyPos.LerpTo(new Vector2(0, 1700*1.1f), Frames);
 
                         SignInChoiceMenu.FancyPos.LerpTo(new Vector2(0, 1700*1.1f), Frames);
-#endif
+
                         break;
 
                     case SelectState.Back:
                         Frames = 30;
 
-#if PC_VERSION
-                        MyBackdrop.SlideOut(GUI_Panel.PresetPos.Right, Frames);
-#else
                         if (Up)
                         {
                             BackdropY = 1800;
@@ -327,16 +310,12 @@ namespace CloudberryKingdom
                             MyBackdrop.SlideOut(GUI_Panel.PresetPos.Bottom, Frames);
                         }
 
-                        JoinText.FancyPos.LerpTo(new Vector2(0, (BackdropY - 300)*1.1f), Frames);
-#endif
+                        if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                            JoinText.FancyPos.LerpTo(new Vector2(0, (BackdropY - 300)*1.1f), Frames);
+
                         break;
 
                     case SelectState.Leaving:
-#if PC_VERSION
-                        dest = GUI_Panel.PresetPos.Right;
-                        MyBackdrop.SlideOut(dest, Frames);
-                        Backdrop.FancyPos.LerpTo(new Vector2(1900, 0), Frames);
-#else
                         dest = GUI_Panel.PresetPos.Bottom;
 
                         if (MyState != SelectState.Waiting)
@@ -349,27 +328,23 @@ namespace CloudberryKingdom
                             BackdropY = 1800;
                             MyBackdrop.SlideOut(GUI_Panel.PresetPos.Top, Frames);
                         }
-#endif
 
                         Simple.SlideOut(dest, Frames);
                         if (Arrows.Active) Arrows.SlideOut(dest, Frames);
-#if PC_VERSION
+
                         Customize.SlideOut(dest, Frames);
-#else
-                        Customize.SlideOut(dest, Frames);
-#endif
                         
                         DollPos = DefaultDollPos;
                         DollVel = new Vector2(0, 0);
                         
-#if PC_VERSION
-#else
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY), Frames);
                         GamerTag.FancyPos.LerpTo(new Vector2(0, BackdropY*1.1f) + GamerTagRelPos, Frames);
-                        JoinText.FancyPos.LerpTo(new Vector2(0, (BackdropY - 300)*1.1f), Frames);
+
+                        if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                            JoinText.FancyPos.LerpTo(new Vector2(0, (BackdropY - 300)*1.1f), Frames);
 
                         SignInChoiceMenu.FancyPos.LerpTo(new Vector2(0, BackdropY - 100), Frames);
-#endif
+
                         break;
 
                     case SelectState.CustomizeSelect:
@@ -382,21 +357,17 @@ namespace CloudberryKingdom
                         Arrows.SlideOut(GUI_Panel.PresetPos.Bottom, Frames);
                         Customize.SlideIn(Frames);
 
-#if PC_VERSION
-                        BackdropY = 250;
-#else
                         BackdropY = 425;
-#endif
+
                         DollPos = DefaultDollPos;
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY), Frames);                        
 
-#if PC_VERSION
-#else
-                        JoinText.FancyPos.LerpTo(new Vector2(0, 1700), Frames);
+                        if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                            JoinText.FancyPos.LerpTo(new Vector2(0, 1700), Frames);
 
                         GamerTag.FancyPos.LerpTo(new Vector2(0, -1500*1.1f) + GamerTagRelPos, Frames);
                         SignInChoiceMenu.FancyPos.LerpTo(new Vector2(0, 1700*1.1f), Frames);
-#endif
+
                         break;
 
                     case SelectState.SimpleSelect:
@@ -405,38 +376,44 @@ namespace CloudberryKingdom
                         Player.Exists = true;
                         CharacterSelectManager.UpdateAvailableHats();
 
-#if NOT_PC
                         SetGamerTag();
-#endif
+
+                        if (Invert)
+                        {
+                            Simple.SlideOut(GUI_Panel.PresetPos.Top, 0);
+                            Arrows.SlideOut(GUI_Panel.PresetPos.Top, 0);
+                            JoinText.FancyPos.RelVal = new Vector2(0, 1700);
+                            Backdrop.FancyPos.LerpTo(new Vector2(0, 1900), 0);
+                            GamerTag.FancyPos.LerpTo(new Vector2(0, 1900), 0);
+                            JoinText.FancyPos.LerpTo(new Vector2(0, -1700), 0);
+                        }
+                        else
+                        {
+                            if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                                JoinText.FancyPos.LerpTo(new Vector2(0, -1450), Frames);
+                        }
 
                         MyBackdrop.SlideIn(Frames);
                         Simple.SlideIn(Frames);
                         Arrows.SlideIn(Frames);
-#if PC_VERSION
-                        Customize.SlideOut(GUI_Panel.PresetPos.Right, Frames);
-#else
+
                         Customize.SlideOut(GUI_Panel.PresetPos.Bottom, Frames);
-#endif
 
                         //BackdropY = 250;
                         BackdropY = 500;
                         DollPos = DefaultDollPos;
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY - 160), Frames);
-#if PC_VERSION
-#else
+
                         GamerTag.FancyPos.LerpTo(new Vector2(0, BackdropY) + GamerTagRelPos, Frames);
-                        JoinText.FancyPos.LerpTo(new Vector2(0, 1700), Frames);
                         //CustomizeMenu.FancyPos.LerpTo(new Vector2(0, -1300), Frames);
 
                         if (MyState == SelectState.SignInChoice)
                             SignInChoiceMenu.FancyPos.LerpTo(new Vector2(0, 1700*1.1f), Frames);
                         else
                             SignInChoiceMenu.FancyPos.RelVal = new Vector2(0, 1700);
-#endif
+
                         break;
 
-#if PC_VERSION
-#else
                     case SelectState.SignInChoice:
                         Player.Exists = false;
 
@@ -456,11 +433,11 @@ namespace CloudberryKingdom
                         DollVel = new Vector2(0, 0);
                         Backdrop.FancyPos.LerpTo(new Vector2(0, BackdropY), Frames);
                         GamerTag.FancyPos.LerpTo(new Vector2(0, BackdropY) + GamerTagRelPos, Frames);
-                        JoinText.FancyPos.LerpTo(new Vector2(0, 1700), Frames);
+                        if (Math.Abs(JoinText.FancyPos.GetDest().Y) < 800)
+                            JoinText.FancyPos.LerpTo(new Vector2(0, 1700), Frames);
                         
                         //SignInChoiceMenu.FancyPos.LerpTo(new Vector2(0, 120), Frames);
                         break;
-#endif
                 }
 
                 MyState = NewState;
@@ -479,10 +456,9 @@ namespace CloudberryKingdom
             NormalZoomCenter = Center;// CharacterSelectManager.ZoomMod;
             FancyCenter = new FancyVector2();
 
-#if NOT_PC
             SetGamerTag();
             MakeText();
-#endif
+
             MakeDoll();
             MakeBubble();
             
@@ -496,31 +472,19 @@ namespace CloudberryKingdom
             Simple = new SimpleMenu(PlayerIndex, this);
             Simple.Shift(NormalZoomCenter);
             game.AddGameObject(Simple);
-#if PC_VERSION
-            Simple.MyMenu.FancyPos.RelValY = -17.07916f;
-#endif
             
-
             Customize = new CustomizeMenu(PlayerIndex, this);
             Customize.Shift(NormalZoomCenter);
-#if PC_VERSION
-            Customize.MyMenu.FancyPos.RelValY = 470.7936f;
-#endif
 
             game.AddGameObject(Customize);
 
             Arrows = new ArrowMenu(PlayerIndex, this);
             Arrows.Shift(NormalZoomCenter);
             game.AddGameObject(Arrows);
-#if PC_VERSION
-            Arrows.MyMenu.OnB = Simple.MyMenu.OnB;
-#endif
-
 
             //MakeCustomizeMenu();
 
-#if PC_VERSION
-#elif XBOX_SIGNIN
+#if XBOX_SIGNIN
             MakeSignInChoiceMenu();
 #else
             // Dummy menu
@@ -534,9 +498,7 @@ namespace CloudberryKingdom
 
             if (QuickJoin)
             {
-#if PC_VERSION
-                SetState(SelectState.SimpleSelect);
-#elif XBOX_SIGNIN
+#if XBOX_SIGNIN
                 if (Player.MyGamer == null)
                     SetState(SelectState.SignInChoice);
                 else
@@ -549,7 +511,7 @@ namespace CloudberryKingdom
             {
 #if PC_VERSION
                 if (PlayerIndex == 0)
-                    SetState(SelectState.SimpleSelect);
+                    SetState(SelectState.SimpleSelect, false, true);
                 else
                     SetState(SelectState.PressAtoJoin);
 #else
@@ -586,13 +548,14 @@ namespace CloudberryKingdom
                     ItemIndex[i] = 0;
         }
 
-#if PC_VERSION
-#else
         void MakeText()
         {
             // Press A to join
-            //JoinText = new EzText("Press\n{pController_A_big,46,?}\nto join!", Tools.Font_Dylan24, true, true);
-            JoinText = new EzText("Press\n" + ButtonString.Go(89) + "\nto join!", Tools.Font_DylanThin42, 1000, true, true, .65f);
+#if PC_VERSION
+            JoinText = new EzText("Press\n" + ButtonString.Go_Controller(89) + "\nto join!", Tools.Font_DylanThin42, 1000, true, true, .65f);
+#else
+            JoinText = new EzText("Press\n{pController_A_big,46,?}\nto join!", Tools.Font_Dylan24, true, true);
+#endif
             JoinText.Scale = .89f;
 
             //JoinText.Shadow = true;
@@ -605,7 +568,7 @@ namespace CloudberryKingdom
             //JoinText.AddBackdrop();            
             ModBackdrop(JoinText);
         }
-#endif
+
         void ModBackdrop(EzText Text)
         {
             if (Text.Backdrop == null) return;
@@ -629,11 +592,6 @@ namespace CloudberryKingdom
             Doll.CompControl = true;
             Doll.DrawWithLevel = false;
 
-#if PC_VERSION
-            // Use the more refined outline pixel shader
-            Doll.PlayerObject.RefinedOutline = true;
-#endif
-
             PhsxData data = new PhsxData();
             Doll.Init(false, data, Tools.CurGameData);
 
@@ -649,13 +607,10 @@ namespace CloudberryKingdom
             Backdrop.Quad.MyTexture = Tools.TextureWad.FindByName("CharMenu");//Bubble");
         }
 
-#if PC_VERSION
-#else
         void SignInChoicePhsxStep()
         {
             SignInChoiceMenu.PhsxStep();
         }
-#endif
         
         public void SelectingDollAnimations()
         {
@@ -747,15 +702,13 @@ namespace CloudberryKingdom
                 SetState(SelectState.PressAtoJoin);
             Customize.MyMenu.BackSound.Play();
 
-#if PC_VERSION
-            Player.Exists = true;
-#endif
+//#if PC_VERSION
+//            Player.Exists = true;
+//#endif
         }
 
         void SimplePhsxStep()
         {
-#if PC_VERSION
-#else
             if (ButtonCheck.State(ControllerButtons.Y, PlayerIndex).Pressed)
                 SimpleToCustom();
 
@@ -767,7 +720,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.X, PlayerIndex).Pressed)
                 Randomize();
-#endif
+
             // Animation
             SelectingDollAnimations();
         }
@@ -1005,9 +958,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.A, PlayerIndex).Pressed)
             {
-#if PC_VERSION || DEBUG
-                SetState(SelectState.SimpleSelect);
-#elif XBOX_SIGNIN
+#if XBOX_SIGNIN
                 if (Player.MyGamer != null)
                     SetState(SelectState.SimpleSelect);
                 else
@@ -1025,8 +976,7 @@ namespace CloudberryKingdom
                 SetState(SelectState.Done);
         }
 
-#if PC_VERSION
-#elif XBOX_SIGNIN
+#if XBOX_SIGNIN
         bool GuideUpPhsxStep()
         {
             if (!GamerGuideUp && !Guide.IsVisible) return false;
@@ -1203,7 +1153,7 @@ namespace CloudberryKingdom
 #if NOT_PC
             if (OnScreen(SignInChoiceMenu.FancyPos, 0, 100))
                 SignInChoiceMenu.DrawText(0);
-
+#endif
             if (GamerTag != null)
             {
                 Player.SetNameText(GamerTag);
@@ -1214,8 +1164,6 @@ namespace CloudberryKingdom
                 JoinText.Draw(Tools.CurLevel.MainCamera, false);
             else
                 JoinText.FancyPos.Update();
-
-#endif
         }
 
         bool OnScreen(FancyVector2 pos) { return OnScreen(pos, 0, 0); }
@@ -1231,12 +1179,8 @@ namespace CloudberryKingdom
         {
             if (OnScreen(Backdrop.FancyPos, -250, 0))
             {
-#if PC_VERSION
-                //DollPos.X = MyBackdrop.Pos.RelVal.X;
-                Vector2 CurDollPos = (MyBackdrop.Pos.RelVal + Simple.BobPos.RelVal) / CharacterSelectManager.BobZoom + Tools.CurLevel.MainCamera.Data.Position;;
-#else
                 Vector2 CurDollPos = (DollPos + Backdrop.Pos + Center) / CharacterSelectManager.BobZoom + Tools.CurLevel.MainCamera.Data.Position;
-#endif
+
                 Doll.Move(CurDollPos - Doll.Core.Data.Position);
 
                 Doll.Draw();
@@ -1277,15 +1221,12 @@ namespace CloudberryKingdom
             else
                 Backdrop.FancyPos.Update();
             
-#if PC_VERSION
-#else
             GamerTag.DrawBackdrop();
 
             if (OnScreen(JoinText.FancyPos))
                 JoinText.DrawBackdrop();
             else
                 JoinText.FancyPos.Update();
-#endif
 
             Tools.QDrawer.Flush();
         }

@@ -28,6 +28,9 @@ namespace CloudberryKingdom
         public static void Init()
         {
             KeyToString = new Dictionary<Keys, string>();
+
+            KeyToString.Add(Keys.None, "None");
+            
             KeyToString.Add(Keys.A, "A");
             KeyToString.Add(Keys.B, "B");
             KeyToString.Add(Keys.C, "C");
@@ -54,6 +57,25 @@ namespace CloudberryKingdom
             KeyToString.Add(Keys.X, "X");
             KeyToString.Add(Keys.Y, "Y");
             KeyToString.Add(Keys.Z, "Z");
+
+            KeyToString.Add(Keys.Enter, "Enter");
+            KeyToString.Add(Keys.Space, "Space");
+            KeyToString.Add(Keys.Back, "Backspace");
+            KeyToString.Add(Keys.Escape, "Esc");
+
+            //KeyToString.Add(Keys.OemPeriod, ".");
+            //KeyToString.Add(Keys.OemComma, ",");
+            //KeyToString.Add(Keys.OemBackslash, "\\");
+            //KeyToString.Add(Keys.OemQuestion, "?");
+            //KeyToString.Add(Keys.OemOpenBrackets, "[");
+            //KeyToString.Add(Keys.OemCloseBrackets, "]");
+
+            //KeyToString.Add(Keys.RightControl, "R Cntrl");
+            //KeyToString.Add(Keys.LeftControl, "L Cntrl");
+            //KeyToString.Add(Keys.RightAlt, "R Alt");
+            //KeyToString.Add(Keys.LeftAlt, "L Alt");
+            //KeyToString.Add(Keys.RightShift, "R Shift");
+            //KeyToString.Add(Keys.LeftShift, "L Shift");
         }
 
         public static void SetKeyFromString(ref Keys key, string str)
@@ -83,11 +105,23 @@ namespace CloudberryKingdom
             return str;
         }
 
-        // Secondary
-        public static string Back(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Back_Secondary)); }
-        public static string Go(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Go_Secondary)); }
-        public static string X(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Toggle_Secondary)); }
-        public static string Y(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Help_Secondary)); }
+        // Go/Back small keys
+        //public static string Back(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Back_Secondary)); }
+        //public static string Go(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Go_Secondary)); }
+
+        // Go/Back big keys
+        //public static string Back(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(Keys.Back)); }
+        //public static string Go(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(Keys.Enter)); }
+        
+        // Go/Back no keys
+        public static string Back(int size) { return ""; }
+        public static string Go(int size) { return ""; }
+
+        public static string Backspace(int size) { return string.Format("{{p{1},{0},?}}{{s70,0}}", size, KeyToTexture(Keys.Back)); }
+        public static string Enter(int size) { return string.Format("{{p{1},{0},?}}{{s70,0}}", size, KeyToTexture(Keys.Enter)); }        
+
+        public static string X(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.SlowMoToggle_Secondary)); }
+        public static string Y(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey)); }
         public static string LeftRight(int size) { return string.Format("{{pLeftRight_Key,{0},?}}{{s15,0}}", size); }
         public static string LeftBumper(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.ReplayPrev_Secondary)); }
         public static string RightBumper(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.ReplayNext_Secondary)); }
@@ -97,14 +131,15 @@ namespace CloudberryKingdom
         // Regular keys
         public static string KeyStr(Keys key, int size)
         {
-            float BackScale = 2.0083f;
+            if (key == Keys.Enter || key == Keys.Space)
+                size = (int)(2.0083f * size);
 
             switch (key)
             {
-                case Keys.Space:
-                    return string.Format("{{pSpaceKey,{0},?}}{{s15,0}}", size * BackScale);
-                case Keys.Enter:
-                    return string.Format("{{pEnter_Key,{0},?}}{{s15,0}}", size * BackScale);
+                //case Keys.Space:
+                //    return string.Format("{{pSpace_Key,{0},?}}{{s15,0}}", size * BackScale);
+                //case Keys.Enter:
+                //    return string.Format("{{pEnter_Key,{0},?}}{{s15,0}}", size * BackScale);
                 default:
                     return string.Format("{{p{0},{1},?}}{{s15,0}}", ButtonString.KeyToTexture(key), size);
             }
@@ -112,7 +147,7 @@ namespace CloudberryKingdom
 
         // Sane
         //public static float BackScale = 1.3f;
-        //public static string Back(int size) { return string.Format("{{pBackspaceKey,{0},?}}{{s15,0}}", size * BackScale); }
+        //public static string Back(int size) { return string.Format("{{pBackspace_Key,{0},?}}{{s15,0}}", size * BackScale); }
         //public static string Go(int size) { return string.Format("{{pEnterKey,{0},?}}{{s15,0}}", size * BackScale); }
         //public static string X(int size) { return string.Format("{{pC_Key,{0},?}}{{s15,0}}", size); }
         //public static string Y(int size) { return string.Format("{{pV_Key,{0},?}}{{s15,0}}", size); }
@@ -132,6 +167,8 @@ namespace CloudberryKingdom
         //public static string RightBumper(int size) { return string.Format("{{pD_Key,{0},?}}{{s15,0}}", size); }
         //public static string Up(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
         //public static string Jump(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
+
+        public static string Go_Controller(int size) { return string.Format("{{pController_A_BigThin,{0},?}}", size); }
 #else
         public static void Init() { }
         public static string Back(int size) { return string.Format("{{pController_B_BigThin,{0},?}}", size); }
@@ -277,7 +314,10 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public string FirstString()
         {
-            return Bits[0].str;
+            if (Bits.Count == 0)
+                return "";
+            else
+                return Bits[0].str;
         }
 
         public PieceQuad Backdrop;
@@ -889,6 +929,8 @@ namespace CloudberryKingdom
         public void Draw(Camera cam) { Draw(cam, true); }
         public void Draw(Camera cam, bool EndBatch)
         {
+            //Console.Write(MyString);
+
             Alpha += AlphaVel;
 
             MyCameraZoom = cam.Zoom;

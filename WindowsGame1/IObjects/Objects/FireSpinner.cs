@@ -224,8 +224,8 @@ namespace CloudberryKingdom.FireSpinners
 
             if (Tools.DrawBoxes)
             {
-                Tools.QDrawer.DrawLine(MyLine.Current.p1, MyLine.Current.p2, Color.AntiqueWhite, 15);
-                Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, Color.AntiqueWhite, 15);
+                //Tools.QDrawer.DrawLine(MyLine.Current.p1, MyLine.Current.p2, Color.AntiqueWhite, 15);
+                Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, Color.Orange, 20);
             }
         }
 

@@ -65,7 +65,7 @@ namespace CloudberryKingdom.Levels
 
                 case LadderType.FinalPlat:
                     FinalPlat = block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(TR, Vector2.Zero);
+                    block.Init(TR, Vector2.Zero, MyTileSetInfo);
                     block.Extend(Side.Left, LeftCenter.X);
                     block.Extend(Side.Right, LeftCenter.X + 5000);
                     block.Extend(Side.Top, LeftCenter.Y - MainCamera.GetHeight() / 2 + 150);
@@ -87,7 +87,7 @@ namespace CloudberryKingdom.Levels
 
                     // Stop block, to prevent Bob from running off edge
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(TR, Vector2.Zero);
+                    block.Init(TR, Vector2.Zero, MyTileSetInfo);
                     block.Extend(Side.Left, LeftCenter.X + 4400);
                     block.Extend(Side.Right, LeftCenter.X + 4500);
                     block.Extend(Side.Bottom, LeftCenter.Y - 1500);
@@ -106,7 +106,7 @@ namespace CloudberryKingdom.Levels
                     {
                         block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                         block.Box.TopOnly = true;
-                        block.Init(pos, Size);
+                        block.Init(pos, Size, MyTileSetInfo);
 
                         block.Core.GenData.RemoveIfUnused = false;
                         block.BlockCore.BlobsOnTop = false;
@@ -132,9 +132,9 @@ namespace CloudberryKingdom.Levels
                         block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                         block.Box.TopOnly = true;
                         if (Count % 2 == 0)
-                            block.Init(pos + offset, Size);
+                            block.Init(pos + offset, Size, MyTileSetInfo);
                         else
-                            block.Init(pos - offset, Size);
+                            block.Init(pos - offset, Size, MyTileSetInfo);
 
                         block.Core.GenData.RemoveIfUnused = false;
                         block.BlockCore.BlobsOnTop = false;

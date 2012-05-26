@@ -40,11 +40,14 @@ namespace CloudberryKingdom
             writer.Write(Hints.QuickSpawn);
             writer.Write(Hints.YForHelp);
 
+            /*
 #if PC_VERSION
             writer.Write(PlayerManager.DefaultName);
 
             PlayerManager.Player.Write(writer);
 #endif
+             */
+
             // Locks
             writer.Write(Challenge_HeroRush.Instance.GetGoalMet());
             writer.Write(Challenge_HeroRush2.Instance.GetGoalMet());
@@ -54,6 +57,7 @@ namespace CloudberryKingdom
             writer.Write(Challenge_Construct.Instance.GetGoalMet());
 
 
+            /*
             // Resolution information
 #if WINDOWS
             writer.Write(ResolutionPreferenceSet);
@@ -70,6 +74,7 @@ namespace CloudberryKingdom
                 writer.Write(ResolutionGroup.LastSetMode.Height);
             }
 #endif
+             */
         }
 
         protected override void Deserialize(BinaryReader reader)
@@ -86,6 +91,7 @@ namespace CloudberryKingdom
             Hints.QuickSpawn = reader.ReadInt32();
             Hints.YForHelp = reader.ReadInt32();
 
+            /*
 #if PC_VERSION
             PlayerManager.DefaultName = reader.ReadString();
             if (PlayerManager.DefaultName.Length < 1)
@@ -93,6 +99,7 @@ namespace CloudberryKingdom
 
             PlayerManager.Player.Read(reader);
 #endif
+             */
 
             // Locks
             Challenge_HeroRush.Instance.SetGoalMet(reader.ReadBoolean());
@@ -102,6 +109,7 @@ namespace CloudberryKingdom
             Challenge_UpUp.Instance.SetGoalMet(reader.ReadBoolean());
             Challenge_Construct.Instance.SetGoalMet(reader.ReadBoolean());
 
+            /*
             // Resolution information
 #if WINDOWS
             ResolutionPreferenceSet = reader.ReadBoolean();
@@ -109,6 +117,7 @@ namespace CloudberryKingdom
             int Width = reader.ReadInt32();
             int Height = reader.ReadInt32();
 #endif
+             */
             //if (ResolutionPreferenceSet)
             //{
             //    Tools.TheGame.ToDo.Add(() =>
@@ -160,7 +169,7 @@ namespace CloudberryKingdom
 
                 // Secondary keys
                 writer.WriteLine("// Quickspawn =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Quickspawn_Secondary]);
+                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey]);
                 writer.WriteLine();
 
                 writer.WriteLine("// Start/Menu =");
@@ -184,7 +193,7 @@ namespace CloudberryKingdom
                 writer.WriteLine();
 
                 writer.WriteLine("// Toggle (Replay, single/multi) (Slow-mo, toggles if activated) =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Toggle_Secondary]);
+                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.SlowMoToggle_Secondary]);
                 writer.WriteLine();
 
                 writer.WriteLine("// Left =");
@@ -228,7 +237,7 @@ namespace CloudberryKingdom
                 reader.ReadLine();
                 // Secondary keys
                 reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Quickspawn_Secondary, reader.ReadLine());
+                ButtonString.SetKeyFromString(ref ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, reader.ReadLine());
                 reader.ReadLine();
 
                 reader.ReadLine();
@@ -252,7 +261,7 @@ namespace CloudberryKingdom
                 reader.ReadLine();
 
                 reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Toggle_Secondary, reader.ReadLine());
+                ButtonString.SetKeyFromString(ref ButtonCheck.SlowMoToggle_Secondary, reader.ReadLine());
                 reader.ReadLine();
 
                 reader.ReadLine();

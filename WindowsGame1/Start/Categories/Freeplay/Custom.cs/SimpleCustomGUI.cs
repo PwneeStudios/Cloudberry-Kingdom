@@ -112,7 +112,7 @@ namespace CloudberryKingdom
                 LevelSeedData.PostMake_Standard(level, true);
                 level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
 
-                if (data.MyTileSet == TileSet.Dark)
+                if (data.MyTileSet == TileSets.Dark)
                     Campaign.UseBobLighting_NotCampaign(level);
             };
 
@@ -355,13 +355,12 @@ namespace CloudberryKingdom
             MenuList LocationList = new MenuList();
             LocationList.Center = !LeftJustify;
             LocationList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
-            TileSet[] tilesets = { TileSet.Random, TileSet.Terrace, TileSet.Dungeon, TileSet.Castle, TileSet.Rain, TileSet.Island, TileSet.Dark, TileSet._Night, TileSet._NightSky };
-            foreach (TileSet tileset in tilesets)
+            TileSetInfo[] tilesets = { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky };
+            foreach (TileSetInfo tileset in tilesets)
             {
-                TileSetInfo tile = TileSets.Get(tileset);
-                item = new MenuItem(new EzText(tile.Name, ItemFont, false, true));
+                item = new MenuItem(new EzText(tileset.Name, ItemFont, false, true));
                 SetItemProperties(item);
-                LocationList.AddItem(item, tile);
+                LocationList.AddItem(item, tileset);
             }
             AddItem(LocationList);
             if (LeftJustify)
@@ -375,8 +374,8 @@ namespace CloudberryKingdom
                     Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
                     Screenshot.TextureName = tileset.ScreenshotString;
                     Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Tex.Width);
-                    
-                    LevelSeed.SetBackground(tileset.MyBackgroundType);
+
+                    LevelSeed.SetTileSet(tileset);
                 };
             LocationList.SetIndex(0);
 

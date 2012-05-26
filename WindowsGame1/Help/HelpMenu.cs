@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using CloudberryKingdom.Levels;
 
@@ -47,7 +48,7 @@ namespace CloudberryKingdom
             Listener listener = new Listener();
             //listener.MyType = Listener.Type.OnDown;
             listener.MyButton = ControllerButtons.Y;
-            listener.MyButton2 = ControllerButtons.Enter;
+            listener.MyButton2 = ButtonCheck.Help_KeyboardKey;
             listener.MyAction = () =>
                 {
                     if (Tools.StepControl) return;

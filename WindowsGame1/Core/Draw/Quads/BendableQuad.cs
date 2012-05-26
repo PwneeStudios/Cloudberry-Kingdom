@@ -90,6 +90,8 @@ namespace Drawing
 
         public override void Calc(int anim, float t, int AnimLength, bool Loop, bool Linear)
         {
+            //if (!Show && Children.Count == 0) return;
+
             MySpline.Calc(anim, t, AnimLength, Loop, Linear);
         }
 
@@ -142,7 +144,7 @@ namespace Drawing
 
             WriteReadTools.ReadColor(reader, ref MyColor);
 
-            MyTexture = TextureWad.FindByName(reader.ReadString());
+            MyTexture = TextureWad.FindByPathOrName(reader.ReadString());
             MyEffect = EffectWad.FindByName(reader.ReadString());
 
 #if EDITOR
@@ -218,7 +220,7 @@ namespace Drawing
 
             if (UseNames)
             {
-                MyTexture = TexWad.FindByName(MyTexture.Path);
+                MyTexture = TexWad.FindByPathOrName(MyTexture.Path);
                 MyEffect = EffectWad.FindByName(MyEffect.Name);
             }
         }

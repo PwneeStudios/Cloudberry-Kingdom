@@ -223,24 +223,12 @@ namespace CloudberryKingdom
         public List<PieceSeedData> PieceSeeds;
 
         public BackgroundType MyBackgroundType;
-        public TileSet MyTileSet;
-        public TileSetInfo MyTileInfo;
+        public TileSetInfo MyTileSet;
 
-        public void SetBackground(TileSet tileset)
-        {
-            SetBackground(TileSets.Get(tileset).MyBackgroundType);
-        }
-
-        public void SetBackground(BackgroundType type)
-        {
-            MyBackgroundType = type;
-            SetTileSet(Background.GetTileSet(type));
-        }
-
-        public void SetTileSet(TileSet tileset)
+        public void SetTileSet(TileSetInfo tileset)
         {
             MyTileSet = tileset;
-            MyTileInfo = TileSets.Get(MyTileSet);
+            MyBackgroundType = MyTileSet.MyBackgroundType;
         }
 
         /// <summary>
@@ -287,7 +275,7 @@ namespace CloudberryKingdom
             MyGameType = data.MyGameType;
             MyBackgroundType = data.MyBackgroundType;
             MyTileSet = data.MyTileSet;
-            MyTileInfo = data.MyTileInfo;
+            MyTileSet = data.MyTileSet;
             
             DefaultHeroType = data.DefaultHeroType;
             MyGameFlags = data.MyGameFlags;

@@ -79,17 +79,30 @@ namespace CloudberryKingdom
             MyPile.Backdrop.ShadowOffset = new Vector2(12, 12);
             MyPile.Backdrop.ShadowColor = new Color(100, 100, 100, 100);
 
+            Vector2 AdditionalAdd = Vector2.Zero;
+#if PC_VERSION
+            AdditionalAdd = new Vector2(-2, 0);
+            Play = new EzText(ButtonString.Enter(140) + " Play", ItemFont, true);
+#else
             Play = new EzText(ButtonString.Go(90) + " Play", ItemFont, true);
+#endif
             SetHeaderProperties(Play);
             Play.MyFloatColor = new Color(67, 198, 48, 255).ToVector4();
             if (Type == ReplayGUIType.Computer) Play.Pos = new Vector2(-739.4f, -835f);
             else Play.Pos = new Vector2(-610f, -713.8889f);
+            Play.Pos += AdditionalAdd;
 
+#if PC_VERSION
+            AdditionalAdd = new Vector2(-2, 0);
+            End = new EzText(ButtonString.Backspace(140) + " Done", ItemFont, true);
+#else
             End = new EzText(ButtonString.Back(85) + " Done", ItemFont, true);
+#endif
             SetHeaderProperties(End);
             End.MyFloatColor = new Color(239, 41, 41, 255).ToVector4();
             if (Type == ReplayGUIType.Computer) End.Pos = new Vector2(-225.5557f, -835f);
             else End.Pos = new Vector2(-480f, -829.4445f);
+            Play.Pos += AdditionalAdd;
 
             if (Type == ReplayGUIType.Replay)
             {

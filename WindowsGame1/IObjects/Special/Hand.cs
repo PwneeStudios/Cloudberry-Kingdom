@@ -484,7 +484,7 @@ namespace CloudberryKingdom.Bobs
             if (Tools.keybState.IsKeyDownCustom(Keys.M) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.M))
             {
                 NormalBlock block = (NormalBlock)Core.Recycle.GetObject(ObjectType.NormalBlock, false);
-                block.Init(Core.Data.Position, new Vector2(100, 100));
+                block.Init(Core.Data.Position, new Vector2(100, 100), Core.MyLevel.MyTileSetInfo);
                 if (Tools.CurLevel.CurEditorDrawLayer >= 0)
                     block.Core.DrawLayer = Tools.CurLevel.CurEditorDrawLayer;
 

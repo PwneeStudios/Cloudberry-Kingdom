@@ -39,11 +39,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // The distance between the two arrows
-#if PC_VERSION
-            float SeparationWidth = 300;// 375;
-#else
             float SeparationWidth = 300;
-#endif
 
             // Left/Right arros
             Vector2 padding = new Vector2(0, 80);
@@ -52,9 +48,6 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText("{pcharmenu_larrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
             //item.MyOscillateParams.UseGlobalCount = true;
-#if PC_VERSION
-            item.Padding += padding;
-#endif
             item.Go = menuitem => Parent.SimpleSelect_Left();
             ItemPos = new Vector2(-SeparationWidth, 250f);
             AddItem(item);
@@ -63,25 +56,14 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText("{pcharmenu_rarrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
             //item.MyOscillateParams.UseGlobalCount = true;
-#if PC_VERSION
-            item.Padding += padding;
-#endif
             item.Go = menuitem => Parent.SimpleSelect_Right();
             ItemPos = new Vector2(SeparationWidth, 250f);
             AddItem(item);
 
             EnsureFancy();
 
-#if PC_VERSION
-            MyMenu.AffectsOutsideMouse = false;
-            MyMenu.CheckForOutsideClick = false;
-            MyMenu.FancyPos.RelVal =
-                //new Vector2(-27.77734f, 88.88879f - 150 + 47);
-                new Vector2(84.2063f, 235f) + new Vector2(3.968262f, -126.9841f);
-#else
             MyMenu.FancyPos.RelVal = new Vector2(-62.5f, -15 + 250);
             //MyMenu.FancyPos.RelVal = new Vector2(-62.5f, 155.5f);
-#endif
         }
 
         protected override void MyDraw()
@@ -93,12 +75,7 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
-#if PC_VERSION
-            //SlideOut(PresetPos.Right, 0);
             SlideOut(PresetPos.Bottom, 0);
-#else
-            SlideOut(PresetPos.Bottom, 0);
-#endif
         }
     }
 }

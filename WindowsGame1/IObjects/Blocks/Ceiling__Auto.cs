@@ -71,7 +71,7 @@ namespace CloudberryKingdom.Levels
             NormalBlock cblock = (NormalBlock)level.Recycle[ObjectType.NormalBlock, true];
             Vector2 size = TR - BL + new Vector2(4000, 0);
             Vector2 pos = (TR + BL) / 2 + new Vector2(0, 500);
-            cblock.Init(pos, size);
+            cblock.Init(pos, size, level.MyTileSetInfo);
 
             cblock.Extend(Side.Bottom, TR.Y - 200);
             cblock.StampAsFullyUsed(0);
@@ -142,7 +142,7 @@ namespace CloudberryKingdom.Levels
 
                 cblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                 // Initialize the size, make sure to modify it's width, since it's a ceiling block
-                cblock.Init(Pos + offset, size - NormalBlockDraw.ModCeilingSize);
+                cblock.Init(Pos + offset, size - NormalBlockDraw.ModCeilingSize, MyTileSetInfo);
                 cblock.Core.GenData.RemoveIfUnused = false;
                 cblock.BlockCore.CeilingDraw = cblock.BlockCore.Ceiling = true;
                 cblock.BlockCore.BlobsOnTop = false;

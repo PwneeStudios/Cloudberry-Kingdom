@@ -120,7 +120,7 @@ namespace CloudberryKingdom
             }
 
             return
-                piece => SetPieceSeed(piece, LevelSeed.MyTileInfo, BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity);
+                piece => SetPieceSeed(piece, LevelSeed.MyTileSet, BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity);
         }
     }
 }

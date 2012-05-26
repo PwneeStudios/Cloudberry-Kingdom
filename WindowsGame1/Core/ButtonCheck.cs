@@ -3,7 +3,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace CloudberryKingdom
 {
     public static class KeyboardExtension
@@ -106,6 +105,24 @@ namespace CloudberryKingdom
         }
     }
 
+    public class ButtonClass
+    {
+        public ControllerButtons ControllerButton = ControllerButtons.None;
+        public Keys KeyboardKey = Keys.None;
+        public bool IsKeyboard = true;
+
+        public void Set(Keys key)
+        {
+            KeyboardKey = key;
+            IsKeyboard = true;
+        }
+        public void Set(ControllerButtons key)
+        {
+            ControllerButton = key;
+            IsKeyboard = false;
+        }
+    }
+
     public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None };
 
     public enum MashType { Hold, Tap, Alternate, HoldDir };
@@ -115,25 +132,37 @@ namespace CloudberryKingdom
     {
         public static void KillSecondary()
         {
-            Quickspawn_Secondary = Help_Secondary = Start_Secondary = Go_Secondary =
-                Back_Secondary = ReplayPrev_Secondary = ReplayNext_Secondary = Toggle_Secondary =
+            Help_KeyboardKey.Set(Keys.None);
+            Quickspawn_KeyboardKey.Set(Keys.None);
+            Start_Secondary = Go_Secondary =
+                Back_Secondary = ReplayPrev_Secondary = ReplayNext_Secondary = SlowMoToggle_Secondary =
                 Left_Secondary = Right_Secondary = Up_Secondary = Down_Secondary = Keys.None;
         }
 
-        public static Keys Quickspawn_Secondary, Help_Secondary, Start_Secondary, Go_Secondary,
-                Back_Secondary, ReplayPrev_Secondary, ReplayNext_Secondary, Toggle_Secondary,
+        public static ButtonClass Quickspawn_KeyboardKey = new ButtonClass(), Help_KeyboardKey = new ButtonClass(),
+                                  QuickReset_KeyboardKey = new ButtonClass();
+        public static Keys Start_Secondary, Go_Secondary,
+                Back_Secondary,
+                ReplayPrev_Secondary, ReplayNext_Secondary, ReplayToggle_Secondary,
+                SlowMoToggle_Secondary,
                 Left_Secondary, Right_Secondary, Up_Secondary, Down_Secondary;
 
         public static void Reset()
         {
-            Quickspawn_Secondary = Keys.R;
-            Help_Secondary = Keys.H;
-            Start_Secondary = Keys.T;
-            Go_Secondary = Keys.Z;
-            Back_Secondary = Keys.X;
+            QuickReset_KeyboardKey.Set(Keys.F);
+            Quickspawn_KeyboardKey.Set(Keys.Space);
+            Help_KeyboardKey.Set(Keys.Enter);
+
+            Start_Secondary = Keys.None;
+            Go_Secondary = Keys.None;
+            Back_Secondary = Keys.None;
+            
             ReplayPrev_Secondary = Keys.N;
             ReplayNext_Secondary = Keys.M;
-            Toggle_Secondary = Keys.C;
+            ReplayToggle_Secondary = Keys.L;
+            
+            SlowMoToggle_Secondary = Keys.C;
+            
             Left_Secondary = Keys.A;
             Right_Secondary = Keys.D;
             Up_Secondary = Keys.W;
@@ -284,6 +313,65 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool PreLogIn = true;
 
+        static public ButtonData State(ButtonClass Button, PlayerIndex Index)
+        {
+            return State(Button, -2);
+        }
+        static public ButtonData State(ButtonClass Button, int iPlayerIndex)
+        {
+            if (Button == null)
+                return State(ControllerButtons.None, iPlayerIndex);
+
+            if (Button.IsKeyboard)
+                return GetState(Button.KeyboardKey, false);
+            else
+                return State(Button.ControllerButton, iPlayerIndex);
+        }
+        static ButtonData GetState(Keys Key, bool Prev)
+        {
+            ButtonData Data = new ButtonData();
+            if (Key == Keys.None) return Data;
+
+            if (PreventNextInput)
+            {
+                Data.Pressed = Data.Down = false;
+
+                if (Tools.TheGame.DrawCount > PreventTimeStamp + 3)
+                    PreventNextInput = false;
+
+                return Data;
+            }
+
+#if WINDOWS
+            KeyboardState keyboard;
+            if (Prev)
+                keyboard = Tools.PrevKeyboardState;
+            else
+                keyboard = Tools.keybState;
+
+            Data.Down = keyboard.IsKeyDownCustom(Key);
+#endif
+
+            // Get previous data to calculate Pressed and Released
+            if (!Prev)
+            {
+                ButtonData prevdata = GetState(Key, true);
+
+                // Pressed == true if the previous state was not pressed but the current is
+                if (Data.Down && !prevdata.Down)
+                    Data.Pressed = true;
+
+                // Released == true if the previous state was not Released but the current is
+                if (!Data.Down && prevdata.Down)
+                    Data.Released = true;
+            }
+
+            return Data;
+        }
+
+
+
+
         static public ButtonData State(ControllerButtons Button, PlayerIndex Index) { return GetState(Button, (int)Index, false, true); }
         static public ButtonData State(ControllerButtons Button, int iPlayerIndex) { return GetState(Button, iPlayerIndex, false, true); }
         static public ButtonData State(ControllerButtons Button, int iPlayerIndex, bool UseKeyboardMapping) { return GetState(Button, iPlayerIndex, false, UseKeyboardMapping); }
@@ -387,7 +475,7 @@ namespace CloudberryKingdom
                     TertiaryKey = Back_Secondary;
                 }
                 if (Button == ControllerButtons.X)
-                    TertiaryKey = Toggle_Secondary;
+                    TertiaryKey = SlowMoToggle_Secondary;
                 //if (Button == ControllerButtons.Y)
                 //    TertiaryKey = Help_Secondary;
                 if (Button == ControllerButtons.LS)
@@ -397,7 +485,7 @@ namespace CloudberryKingdom
 
 
                 if (Button == ControllerButtons.X) key = Keys.None;// Keys.C;
-                if (Button == ControllerButtons.Y) key = Help_Secondary;// Keys.V;
+                if (Button == ControllerButtons.Y) key = Keys.None;// Keys.V;
                 if (Button == ControllerButtons.RT) key = Keys.OemPeriod;
                 if (Button == ControllerButtons.LT) key = Keys.OemComma;
                 if (Button == ControllerButtons.LS) key = Keys.A;

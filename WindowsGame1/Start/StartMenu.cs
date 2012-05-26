@@ -13,7 +13,8 @@ namespace CloudberryKingdom
 
         void MenuGo_Start(MenuItem item)
         {
-#if PC_VERSION
+#if FALSE
+//#if PC_VERSION
             SlideInFrom = PresetPos.Right;
             Hide(PresetPos.Right);
 
@@ -44,7 +45,8 @@ namespace CloudberryKingdom
             CharacterSelectManager.ParentPanel = null;
             MyGame.WaitThenDo(CallDelay, () =>
             {
-#if PC_VERSION
+#if FALSE
+//#if PC_VERSION
                 CharacterSelectManager.Start(0, false);
 #else
                 for (int i = 0; i < 4; i++)
@@ -96,7 +98,8 @@ namespace CloudberryKingdom
                 Tools.TheGame.LoadingScreen.IsDone = true;
         }
 
-#if PC_VERSION
+#if FALSE
+//#if PC_VERSION
         bool BubbledIn = false;
         public override void SlideIn(int Frames)
         {
@@ -244,8 +247,8 @@ namespace CloudberryKingdom
 
             MyMenu.CheckForOutsideClick = false;
             MyMenu.OnB = menu =>
-                //{ Exit(); return false; };
-                { MenuGo_ScreenSaver(null); return false; };
+                { Exit(); return false; };
+                //{ MenuGo_ScreenSaver(null); return false; };
 
             FontScale *= .88f;
             PosAdd = new Vector2(0, -117);
@@ -258,26 +261,34 @@ namespace CloudberryKingdom
             AddItem(item, 1.3f);
             ItemPos.Y -= 95;
 
-            //item = new MenuItem(new EzText("Watch", ItemFont, Center, yCenter));
-            //item.Go = MenuGo_ScreenSaver;
-            //AddItem(item);
+            // Screen saver
+            item = new MenuItem(new EzText("Insanity", ItemFont, Center, yCenter));
+            item.Go = MenuGo_ScreenSaver;
+            AddItem(item);
 
-#if PC_VERSION
+
+            // Customize
+#if FALSE
+//#if PC_VERSION
             item = new MenuItem(new EzText("Customize", ItemFont, Center, yCenter));
             //item = new MenuItem(new EzText("Tailor", ItemFont, Center, yCenter));
             item.Go = MenuGo_Customize;
             AddItem(item);
 #endif
 
+            //Controls
 #if NOT_PC
             item = new MenuItem(new EzText("Controls", ItemFont, Center, yCenter));
             item.Go = MenuGo_Controls;
             AddItem(item);
 #endif
+
+            // Options
             item = new MenuItem(new EzText("Options", ItemFont, Center, yCenter));
             item.Go = MenuGo_Options;
             AddItem(item);
 
+            // Stats
             bool IncludeStats = false;
             if (IncludeStats)
             {
@@ -360,7 +371,8 @@ namespace CloudberryKingdom
             else
                 FinishedCount = 0;
 
-#if PC_VERSION
+#if FALSE
+//#if PC_VERSION
             int DelayOnReturn = 12;
             int DelayKillCharSelect = 30;
 #else

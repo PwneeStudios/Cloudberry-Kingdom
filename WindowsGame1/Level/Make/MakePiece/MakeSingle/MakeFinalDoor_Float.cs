@@ -60,7 +60,7 @@ namespace CloudberryKingdom.Levels
             // Create a dummy block
             int width = 400;
             FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
-            ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width));
+            ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width), MyLevel.MyTileSetInfo);
             FinalBlock.Core.MyTileSetType = MyLevel.MyTileSet;
         }
 

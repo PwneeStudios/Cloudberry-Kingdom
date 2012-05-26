@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 #if NOT_PC
                 return "Hold " + ButtonString.LeftBumper(85) + " and " + ButtonString.RightBumper(85) + " to respawn quickly!";
 #else
-                return "Press " + ButtonString.KeyStr(ButtonCheck.Quickspawn_Secondary, 85) + " or " +
+                return "Press " + ButtonString.KeyStr(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, 85) + " or " +
                     ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Space, 85) + " to respawn quickly!";
 #endif
             }

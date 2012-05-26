@@ -5,8 +5,6 @@ namespace CloudberryKingdom
 #if PC_VERSION
     public class SimpleMenu : StartMenuBase
     {
-        public FancyVector2 BobPos = new FancyVector2(), HeaderPos = new FancyVector2();
-
         CharacterSelect Parent;
 
         protected override void ReleaseBody()
@@ -18,8 +16,6 @@ namespace CloudberryKingdom
 
         public SimpleMenu(int Control, CharacterSelect Parent) : base(false)
         {
-            BobPos.RelVal = new Vector2(-464.2876f, 39.68256f);
-
             this.Control = Control;
             this.Parent = Parent;
 
@@ -44,8 +40,8 @@ namespace CloudberryKingdom
 
             // Make the menu
             MyMenu = new Menu(false);
-
-            Control = -1;
+            MyMenu.Control = Control;
+            //Control = -1;
 
             MyMenu.OnB = null;
             MenuItem item;
@@ -53,7 +49,7 @@ namespace CloudberryKingdom
             // Customize
             item = new MenuItem(new EzText("Custom", ItemFont));
             item.Go = menuitem => Parent.SimpleToCustom();
-            ItemPos = new Vector2(540f, 429.4446f);
+            ItemPos = new Vector2(-523, -174);
             PosAdd = new Vector2(0, -220);
             AddItem(item);
 
@@ -62,10 +58,16 @@ namespace CloudberryKingdom
             item.Go = menuitem => Parent.Randomize();
             AddItem(item);
 
+
             // Confirm
             item = new MenuItem(new EzText("Done", ItemFont));
-            item.Go = menuitem => Parent.SimpleToBack();
+            item.Go = menuitem =>
+                //Parent.SimpleToBack();
+                Parent.SetState(SelectState.Waiting);
             AddItem(item);
+
+            // Select "Confirm" to start with
+            MyMenu.SelectItem(item);
 
             MyMenu.OnB = menu => { Parent.SimpleToBack(); return false; };
 

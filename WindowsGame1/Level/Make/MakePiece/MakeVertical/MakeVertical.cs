@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Levels
 
                         block.Core.MyTileSetType = TileSet.TileBlock;
                         block.Core.DrawLayer = 2;
-                        block.Init(startblock.Pos, Vector2.One);
+                        block.Init(startblock.Pos, Vector2.One, MyTileSetInfo);
                         block.Stretch(Side.Right, 2000);
                         block.Stretch(Side.Left, -2000);
                         block.Stretch(Side.Bottom, -800);
@@ -221,7 +221,7 @@ namespace CloudberryKingdom.Levels
                 {
                     NormalBlock block = (NormalBlock)NormalBlock_AutoGen.Instance.CreateAt(this, _pos);
 
-                    block.Init(_pos, Size);
+                    block.Init(_pos, Size, MyTileSetInfo);
                     block.MakeTopOnly();
 
                     // Door catwalks need to be moved forward
@@ -496,7 +496,7 @@ namespace CloudberryKingdom.Levels
         private NormalBlock MakePillarBack(Vector2 p1, Vector2 p2)
         {
             NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-            doo.Init((p1 + p2) / 2, new Vector2(350, Math.Abs(p2.Y - p1.Y) / 2));
+            doo.Init((p1 + p2) / 2, new Vector2(350, Math.Abs(p2.Y - p1.Y) / 2), MyTileSetInfo);
             doo.BlockCore.MyTileSetType = TileSet.Dungeon;
 
             AddBlock(doo);
@@ -511,7 +511,7 @@ namespace CloudberryKingdom.Levels
         private void MakeBack_Castle(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)
         {
             NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-            doo.Init(Vector2.Zero, Vector2.One);
+            doo.Init(Vector2.Zero, Vector2.One, MyTileSetInfo);
             doo.BlockCore.MyTileSetType = TileSet.CastlePiece2;
 
             float DistanceFromSide = 600;

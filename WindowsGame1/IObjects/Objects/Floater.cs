@@ -182,8 +182,14 @@ namespace CloudberryKingdom
                     MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
                 }
             }
+
             if (Tools.DrawBoxes)
-                Circle.Draw(new Color(50, 50, 255, 220));
+            {
+                Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
+                //Circle.Draw(new Color(50, 50, 255, 220));
+
+                Circle.Draw(Color.LightSlateGray);
+            }
         }
 
         public void CalculateLength()

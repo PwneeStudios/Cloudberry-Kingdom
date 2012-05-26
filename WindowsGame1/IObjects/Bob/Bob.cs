@@ -751,7 +751,7 @@ namespace CloudberryKingdom.Bobs
                             pos = new Vector2(Box.Current.Center.X, Box.Current.BL.Y);
                             pos.X += 2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f);
                             NormalBlock NBlock = (NormalBlock)Core.Recycle.GetObject(ObjectType.NormalBlock, false);
-                            NBlock.Init(pos, new Vector2(135, 100));
+                            NBlock.Init(pos, new Vector2(135, 100), Core.MyLevel.MyTileSetInfo);
                             NBlock.Extend(Side.Top, Box.Target.BL.Y - 1f);
                             NBlock.Extend(Side.Bottom, NBlock.Box.Current.BL.Y - 100);
 
@@ -1495,7 +1495,7 @@ namespace CloudberryKingdom.Bobs
             }
 
 
-            if (MyCape != null && CanHaveCape && Core.Show && ShowCape && !SkipDraw)
+            if (MyCape != null && CanHaveCape && Core.Show && ShowCape && !SkipDraw && Tools.DrawGraphics)
             {                
                 MyCape.Draw();
             }
@@ -1530,11 +1530,11 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawBoxes)
             {
-                Box.Draw(Tools.QDrawer, Color.Wheat, 12);
-                Box.DrawT(Tools.QDrawer, Color.Pink, 6);
+                Box.Draw(Tools.QDrawer, Color.HotPink, 12);
+                Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
 
-                Box2.Draw(Tools.QDrawer, Color.Wheat, 12);
-                Box2.DrawT(Tools.QDrawer, Color.Wheat, 12);
+                Box2.Draw(Tools.QDrawer, Color.HotPink, 12);
+                Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
                 if (Boxes != null)
                 {
@@ -2095,6 +2095,7 @@ namespace CloudberryKingdom.Bobs
                     }
                 }
             }
+
 
             // Integrate velocity
             if (!Cinematic)

@@ -1586,12 +1586,12 @@ namespace CloudberryKingdom.Levels
             EnsureSuckEffect();
             EndSuckEffect();
 
-            if (MyBackground != null)
+            if (MyBackground != null && Tools.DrawGraphics)
             {
 //#if DEBUG
                 //Background.Test = true;
                 //Background.Test = false;
-                if (Background.Test)
+                if (Background.Test || Background.GreenScreen)
                     Background.DrawTest();
                 else
 //#endif

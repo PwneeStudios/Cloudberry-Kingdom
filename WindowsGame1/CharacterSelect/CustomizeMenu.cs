@@ -43,20 +43,12 @@ namespace CloudberryKingdom
 
             item.Go = null;
             
-#if PC_VERSION
-                item.Padding += new Vector2(0, 35);
-#endif
-
             item.SelectIconOffset = new Vector2(0, -160);// new Vector2(435, 3);
         }
 
         protected override void AddItem(MenuItem item)
         {
             base.AddItem(item);
-
-#if PC_VERSION
-            item.Padding.Y -= 37;
-#endif
         }
 
         QuadClass backdrop;
@@ -76,12 +68,6 @@ namespace CloudberryKingdom
 
             MyMenu.OnB = null;
 
-#if NOT_PC
-            MyMenu.SelectIcon = new QuadClass();
-            //MyMenu.SelectIcon.Scale(75);
-            MyMenu.SelectIcon.Scale(90);
-            MyMenu.SelectIcon.Quad.MyTexture = ButtonTexture.Go;
-#endif
             MyMenu.MyPieceQuadTemplate = PieceQuad.Get("DullMenu");
 
             MyMenu.OnB = menu => { Back(); return true; };
@@ -102,14 +88,10 @@ namespace CloudberryKingdom
 
             MyMenu.Items[5].Go = _item =>
             {
-#if PC_VERSION
-                Parent.SimpleToBack();
-#else
                 if (CurClrSelect != null)
                     CurClrSelect.ReturnToCaller();
 
                 Parent.SetState(SelectState.Waiting);
-#endif
             };
 
             
@@ -127,34 +109,21 @@ namespace CloudberryKingdom
             MyPile.Add(backdrop);
             backdrop.Pos =
                 //new Vector2(-15.87302f, 39.68255f);
-#if PC_VERSION
-                new Vector2(55.55557f, 87.30157f);
-#else
                 new Vector2(-3.968235f, 95.23785f);
-#endif
 
             backdrop.Show = false;
 
             EnsureFancy();
 
-#if PC_VERSION
-            MyPile.Pos = new Vector2(1000, 12);
-            MyMenu.FancyPos.RelVal = new Vector2(1035f, 500f);
-#else
             MyPile.Pos = new Vector2(0f, -655 + 150);
             MyMenu.FancyPos.RelVal = new Vector2(0, 0);
-#endif
         }
 
         public override void OnAdd()
         {
             base.OnAdd();
 
-#if PC_VERSION
-            SlideOut(PresetPos.Right, 0);
-#else
             SlideOut(PresetPos.Bottom, 0);
-#endif
         }
 
         /// <summary>
@@ -173,21 +142,14 @@ namespace CloudberryKingdom
             ColorSelectPanel ClrSelect;
 
             Vector2 ShiftSelect = Vector2.Zero;
-#if PC_VERSION
-            //float scale = 1.18f;
-            float scale = 1.31f;
-            ShiftSelect = new Vector2(63.4917f, 0f);
-#else
             //float scale = 1.248f;
             float scale = 1.31f;
-#endif
-
             
 
             // Make the hat select
             if (MyMenu.CurIndex == 2)
             {
-#if PC_VERSION
+#if FALSE
                 int total = CharacterSelectManager.AvailableHats.Count;
                 //int m = Tools.Restrict(4, 9, (int)Math.Ceiling(total / 4f));
                 int m = Tools.Restrict(5, 9, (int)Math.Ceiling(total / 4f));
@@ -248,7 +210,7 @@ namespace CloudberryKingdom
 
 
                 int WidthCount = 5;
-#if PC_VERSION
+#if FALSE
                 int m = Tools.Restrict(5, 10, (int)Math.Ceiling(Count / 5f));
                 //float Height = m * 400 / 5;
                 //backdrop.SizeY = DefaultBackdropSize.Y * m / 5f;
@@ -316,7 +278,7 @@ namespace CloudberryKingdom
                 }
             }
             
-#if PC_VERSION
+#if FALSE
             ClrSelect.Grid.Pos = ShiftSelect + AmountShifted + new Vector2(1464.286f, -23.80954f) + new Vector2(1240, 0) + new Vector2(-1730.159f, 43.65082f);
             ClrSelect.Grid.SelectedScale = 1.5f;
 #else
@@ -328,11 +290,8 @@ namespace CloudberryKingdom
             ClrSelect.Grid.SetIndexViaAssociated(Parent.ItemIndex[MyMenu.CurIndex]);
 
             MyGame.AddGameObject(ClrSelect);
-#if PC_VERSION
-            ClrSelect.SlideOut(PresetPos.Right, 0);
-#else
             ClrSelect.SlideOut(PresetPos.Bottom, 0);
-#endif
+
             //ClrSelect.SlideIn(6);
             ClrSelect.SlideIn(0);
 
@@ -350,16 +309,8 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
-            // Skip menu phsx if color select is up and mouse is not in use or mouse is over color select
-#if PC_VERSION
-            //if (!(CurClrSelect != null && (!Tools.TheGame.MouseInUse || CurClrSelect.Grid.MouseInBox)))
             if (CurClrSelect == null)
                 base.MyPhsxStep();
-#else
-            if (CurClrSelect == null)
-                base.MyPhsxStep();
-#endif
-                
 
             // When set to true the menu phsx will be skipped
 #if PC_VERSION

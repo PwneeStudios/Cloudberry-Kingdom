@@ -31,20 +31,12 @@ namespace CloudberryKingdom
         static FancyVector2 CamPos;
         public static EzText ChooseYourHero_Text;
         static bool Show_ChooseYourHero = false;
-#if PC_VERSION
-        static int ChooseYourHero_LerpLength = 70;
-#else
+
         static int ChooseYourHero_LerpLength = 100;
-#endif
 
         static Vector2
-#if PC_VERSION
-            HidePos = new Vector2(-100, 2520),
-            ShowPos = new Vector2(-44.44336f, 824.7618f);
-#else
             HidePos = new Vector2(0, 2520),
             ShowPos = new Vector2(50.79541f, 900.1587f);
-#endif
 
         public CharacterSelectManager()
         {
@@ -79,11 +71,9 @@ namespace CloudberryKingdom
         /// </summary>
         static void InitText()
         {
-#if PC_VERSION
-            string Text = "Transmogrify!";
-#else
+            //string Text = "Transmogrify!";
             string Text = "Choose your hero";
-#endif
+
             ChooseYourHero_Text = new EzText(Text, Tools.Font_DylanThin42, 2000, true, true);
             ChooseYourHero_Text.Scale = 1.25f;
             ChooseYourHero_Text.FancyPos = new FancyVector2(CamPos);
@@ -134,11 +124,6 @@ namespace CloudberryKingdom
             if (CharSelect[PlayerIndex] != null || Delay[PlayerIndex] < 3)
                 return;
 
-#if PC_VERSION
-            // Only allow single player for PC version
-            if (PlayerIndex != 0) return;
-#endif
-
             CharSelect[PlayerIndex] = new CharacterSelect(PlayerIndex, QuickJoin);
             
             IsShowing = true;
@@ -179,12 +164,6 @@ namespace CloudberryKingdom
 
         public static bool AllExited()
         {
-#if PC_VERSION
-            if (CharSelect[0] == null) return true;
-            if (CharSelect[0].MyState == SelectState.PressAtoJoin) return true;
-            return false;    
-#endif
-
             bool All = true;
             for (int i = 0; i < 4; i++)
                 if (CharSelect[i] != null && CharSelect[i].MyState != SelectState.PressAtoJoin)

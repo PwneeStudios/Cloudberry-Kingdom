@@ -15,6 +15,7 @@ namespace CloudberryKingdom
         public static ScoreList UpUpHighScore, UpUpHighLevel;
         public static ScoreList WheelieHighScore, WheelieHighLevel;
         public static ScoreList EscalationHighScore, EscalationHighLevel;
+        public static ScoreList HeroFactoryEscalationHighScore, HeroFactoryEscalationHighLevel;
         public static ScoreList HeroRushHighScore, HeroRushHighLevel;
         public static ScoreList HeroRush2HighScore, HeroRush2HighLevel;
 
@@ -40,6 +41,9 @@ namespace CloudberryKingdom
             // Escalation Scores
             InitRushScore("Escalation", ref EscalationHighScore, ref EscalationHighLevel);
 
+            // Escalation Scores
+            InitRushScore("Hero Factor", ref HeroFactoryEscalationHighScore, ref HeroFactoryEscalationHighLevel);
+            
             // Wheelie Scores
             InitRushScore("Wheelie", ref WheelieHighScore, ref WheelieHighLevel);
 
@@ -69,6 +73,12 @@ namespace CloudberryKingdom
             PlayerManager.SavePlayerData.ContainerName = "PlayerData";
             PlayerManager.SavePlayerData.FileName = "PlayerData.hsc";
             Add(PlayerManager.SavePlayerData);
+
+#if PC_VERSION
+            PlayerManager.Player.ContainerName = "PlayerData";
+            PlayerManager.Player.FileName = "MainPlayer";
+            Add(PlayerManager.Player);
+#endif
 
             LockManager.Instance.ContainerName = "LockData";
             LockManager.Instance.FileName = "LockData.shazaam";

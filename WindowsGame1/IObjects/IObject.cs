@@ -365,16 +365,6 @@ namespace CloudberryKingdom
         public bool WakeUpRequirements;
 
         public TileSetInfo MyTileSet;
-        TileSet _MyTileSetType;
-        public TileSet MyTileSetType
-        {
-            get { return _MyTileSetType; }
-            set
-            {
-                _MyTileSetType = value;
-                MyTileSet = TileSets.Get(MyTileSetType);
-            }
-        }
         
         /// <summary>
         /// Whether the object should be drawn encased in glass.

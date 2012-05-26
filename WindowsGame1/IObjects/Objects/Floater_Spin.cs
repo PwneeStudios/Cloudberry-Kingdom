@@ -186,13 +186,25 @@ namespace CloudberryKingdom
                         MyObject.UpdateQuads();
                         MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
                     }
-
-                    if (Tools.DrawBoxes)
-                        Circle.Draw(new Color(50, 50, 255, 220));
                 }
             }
-            //if (Tools.DrawBoxes)
-            //    Circle.Draw(new Color(50, 50, 255, 220));
+
+            if (Tools.DrawBoxes)
+            {
+                if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+                {
+                }
+                else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
+                {
+                    Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position,
+                                new Color(255, 255, 255, 215),
+                                20);
+                }
+                else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
+                {
+                    Circle.Draw(new Color(50, 50, 255, 220));
+                }
+            }
         }
 
         public override void Move(Vector2 shift)
