@@ -11,10 +11,11 @@ namespace CloudberryKingdom
     /// <summary>
     /// Stores a tile set's information, including what obstacles are allowed.
     /// </summary>
-    public class TileSetInfo
+    public class TileSet
     {
         // CRAP
         public bool DungeonLike = false;
+        public Door.Types DoorType = Door.Types.Brick;
 
 
 
@@ -26,12 +27,43 @@ namespace CloudberryKingdom
         /// <summary>
         /// Read tileset info from a file.
         /// </summary>
-        public void Read(String file)
+        public void Read(String path)
         {
+            // Find path
+            FileStream stream = null;
+            string original_path = path;
+            try
+            {
+                stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+            }
+            catch
+            {
+                try
+                {
+                    path = Path.Combine(Globals.ContentDirectory, original_path);
+                    stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+                }
+                catch
+                {
+                    try
+                    {
+                        path = Path.Combine(Globals.ContentDirectory, Path.Combine("DynamicLoad", original_path));
+                        stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+                    }
+                    catch
+                    {
+                        Tools.Log(string.Format("Attempting to load a .tileset file. Path <{0}> not found."));
+                    }
+                }
+            }
+
+
+
+
             FixedWidths = true;
             ProvidesTemplates = true;
+            MyBackgroundType = BackgroundType.Dungeon;
 
-            FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             StreamReader reader = new StreamReader(stream);
 
             String line;
@@ -68,7 +100,7 @@ namespace CloudberryKingdom
 
                         // Get the rest of the information
                         var piecequad = ParsePlatformLine(width, bits);
-                        Pillars.Add(width, piecequad);
+                        Platforms.Add(width, piecequad);
                     }
                     else switch (first)
                     {
@@ -86,7 +118,7 @@ namespace CloudberryKingdom
 
             // Sort widths
             var list = Pillars.Keys.ToList(); list.Sort(); PillarWidths = list.ToArray();
-                list = Pillars.Keys.ToList(); list.Sort(); PillarWidths = list.ToArray();
+                list = Platforms.Keys.ToList(); list.Sort(); PlatformWidths = list.ToArray();
         }
 
         PieceQuad ParsePillarLine(int width, List<string> bits)
@@ -180,9 +212,19 @@ namespace CloudberryKingdom
                 width = box.Current.Size.X;
 
             // Get the piecequad template
-
-
-            return null;
+            try
+            {
+                if (block.Box.TopOnly)
+                    return Platforms[(int)width];
+                else
+                    return Pillars[(int)width];
+            }
+            catch
+            {
+                Tools.Log(string.Format("Could not find {0} of width {1} for tileset {2}",
+                    block.Box.TopOnly ? "Platform" : "Pillar", width, Name));
+                return null;
+            }
         }
 
 
@@ -199,7 +241,7 @@ namespace CloudberryKingdom
 
 
 
-        public TileSetInfo StandInType = TileSets.None;
+        public TileSet StandInType = TileSets.None;
 
         public List<Upgrade> ObstacleUpgrades = new List<Upgrade>();
         public List<Upgrade> JumpUpgrades, DodgeUpgrades;
@@ -208,6 +250,7 @@ namespace CloudberryKingdom
         public bool HasCeiling;
 
         public string Name;
+        public int Guid;
 
         public Vector4 Tint = new Vector4(1);
 
@@ -234,24 +277,36 @@ namespace CloudberryKingdom
     /// </summary>
     public sealed class TileSets
     {
-        static readonly TileSets instance = new TileSets();
-        public static TileSets Instance { get { return instance; } }
+        public static TileSet None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky;
+        public static TileSet DefaultTileSet;
 
-        public static TileSetInfo None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky;
-        public static TileSetInfo DefaultTileSet;
+        public static List<TileSet> TileList = new List<TileSet>();
+        public static Dictionary<int, TileSet> GuidLookup = new Dictionary<int, TileSet>();
+        public static Dictionary<string, TileSet> NameLookup = new Dictionary<string, TileSet>();
 
-        public static List<TileSetInfo> TileSets;
-
-        static TileSets() { }
-        TileSets()
+        public static void AddTileSet(TileSet tileset)
         {
-            TileSetInfo info;
- 
+            TileList.Add(tileset);
+            GuidLookup.Add(tileset.Guid, tileset);
+            NameLookup.Add(tileset.Name, tileset);
+        }
+
+        public static void Init()
+        {
+            TileSet info;
+
+            var d = new TileSet();
+            d.Read("DynamicLoad\\TestTileSet\\TestTileSet.tileset");
+            AddTileSet(d);
+
+
             //public enum TileSet { None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky };
 
             // None
-            DefaultTileSet = None = info = new TileSetInfo(); TileSets.Add(info);
+            DefaultTileSet = None = info = new TileSet();
             info.Name = "None";
+            info.Guid = 5551;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.None;
             info.ScreenshotString = "Screenshot_Random";
             info.HasCeiling = true;
@@ -261,8 +316,10 @@ namespace CloudberryKingdom
             });
 
             // Random
-            Random = info = new TileSetInfo(); TileSets.Add(info);
+            Random = info = new TileSet();
             info.Name = "Random";
+            info.Guid = 5552;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.Random;
             info.ScreenshotString = "Screenshot_Random";
             info.ObstacleUpgrades.AddRange(new Upgrade[] {
@@ -270,8 +327,11 @@ namespace CloudberryKingdom
             });
 
             // Outside
-            Terrace = info = new TileSetInfo(); TileSets.Add(info);
+            Terrace = info = new TileSet();
             info.Name = "Terrace";
+            info.Guid = 5553;
+            AddTileSet(info);
+            info.DoorType = Door.Types.Grass;
             info.MyBackgroundType = BackgroundType.Outside;
             info.ScreenshotString = "Screenshot_Terrace";
             info.HasCeiling = false;
@@ -284,9 +344,12 @@ namespace CloudberryKingdom
             });
 
             // Dark
-            Dark = info = new TileSetInfo(); TileSets.Add(info);
+            Dark = info = new TileSet();
             info.DungeonLike = true;
             info.Name = "Darkness";
+            info.Guid = 5554;
+            AddTileSet(info);
+            info.DoorType = Door.Types.Dark;
             info.MyBackgroundType = BackgroundType.Dark;
             info.ScreenshotString = "Screenshot_Dark";
             info.HasCeiling = true;
@@ -296,8 +359,11 @@ namespace CloudberryKingdom
             });
 
             // Dark Outside
-            DarkTerrace = info = new TileSetInfo(); TileSets.Add(info);
+            DarkTerrace = info = new TileSet();
             info.Name = "Nightmare";
+            info.Guid = 5555;
+            AddTileSet(info);
+            info.DoorType = Door.Types.Grass;
             info.Tint = new Vector4(.8f, .5f, .45f, 1f);
             info.MyBackgroundType = BackgroundType.Gray;
             info.ScreenshotString = "Screenshot_Terrace";
@@ -310,8 +376,11 @@ namespace CloudberryKingdom
             });
 
             // Rain
-            Rain = info = new TileSetInfo(); TileSets.Add(info);
+            Rain = info = new TileSet();
             info.Name = "Rain";
+            info.Guid = 5556;
+            AddTileSet(info);
+            info.DoorType = Door.Types.Grass;
             //info.Tint = new Vector4(.8f, .5f, .45f, 1f);
             info.MyBackgroundType = BackgroundType.Rain;
             info.ScreenshotString = "Screenshot_Rain";
@@ -324,8 +393,10 @@ namespace CloudberryKingdom
             });
 
             // Sky
-            Island = info = new TileSetInfo(); TileSets.Add(info);
+            Island = info = new TileSet();
             info.Name = "Sky";
+            info.Guid = 5557;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.Sky;
             info.ScreenshotString = "Screenshot_Sky";
             info.HasCeiling = false;
@@ -336,22 +407,28 @@ namespace CloudberryKingdom
             });
 
             // Night sky
-            _NightSky = info = new TileSetInfo(); TileSets.Add(info);
+            _NightSky = info = new TileSet();
             info.Name = "Night Sky";
+            info.Guid = 5558;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.NightSky;
             info.ScreenshotString = "Screenshot_NightSky";
             info.StandInType = Island;
 
             // Night
-            _Night = info = new TileSetInfo(); TileSets.Add(info);
+            _Night = info = new TileSet();
             info.Name = "Night time";
+            info.Guid = 5559;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.Night;
             info.ScreenshotString = "Screenshot_Night";
             info.StandInType = Terrace;
 
             // Castle inside
-            Castle = info = new TileSetInfo(); TileSets.Add(info);
+            Castle = info = new TileSet();
             info.Name = "Castle";
+            info.Guid = 5560;
+            AddTileSet(info);
             info.MyBackgroundType = BackgroundType.Castle;
             info.ScreenshotString = "Screenshot_Castle";
             info.HasCeiling = true;
@@ -361,9 +438,12 @@ namespace CloudberryKingdom
             });
 
             // Dungeon inside
-            Dungeon = info = new TileSetInfo(); TileSets.Add(info);
+            Dungeon = info = new TileSet();
             info.DungeonLike = true;
             info.Name = "Dungeon";
+            info.Guid = 5561;
+            AddTileSet(info);
+            info.DoorType = Door.Types.Rock;
             info.MyBackgroundType = BackgroundType.Dungeon;
             info.ScreenshotString = "Screenshot_Dungeon";
             info.HasCeiling = true;
@@ -373,8 +453,10 @@ namespace CloudberryKingdom
             });
 
             // Grass
-            OutsideGrass = info = new TileSetInfo(); TileSets.Add(info);
+            OutsideGrass = info = new TileSet();
             info.Name = "Grass";
+            info.Guid = 5562;
+            AddTileSet(info);
             info.HasCeiling = false;
             info.FlexibleHeight = true;
             info.ObstacleUpgrades.AddRange(new Upgrade[] {
@@ -382,25 +464,54 @@ namespace CloudberryKingdom
             });
 
             // Cement
-            Cement = info = new TileSetInfo(); TileSets.Add(info);
+            Cement = info = new TileSet();
             info.Name = "Cement";
+            info.Guid = 5563;
+            AddTileSet(info);
             info.HasCeiling = true;
             info.FlexibleHeight = false;
             info.ObstacleUpgrades.AddRange(new Upgrade[] {
                 Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike
             });
+
+            // Catwalk
+            Catwalk = info = new TileSet();
+            info.Name = "Catwalk";
+            info.Guid = 5564;
+            AddTileSet(info);
+            info.HasCeiling = false;
+            info.FlexibleHeight = false;
 
             // Tileblock
-            TileBlock = info = new TileSetInfo(); TileSets.Add(info);
+            TileBlock = info = new TileSet();
             info.Name = "Tiles";
+            info.Guid = 5565;
+            AddTileSet(info);
             info.HasCeiling = true;
             info.FlexibleHeight = false;
             info.ObstacleUpgrades.AddRange(new Upgrade[] {
                 Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike
             });
 
+            // CastlePiece
+            CastlePiece = info = new TileSet();
+            info.Name = "CastlePiece";
+            info.Guid = 5566;
+            AddTileSet(info);
+            info.HasCeiling = false;
+            info.FlexibleHeight = false;
+
+            // CastlePiece2
+            CastlePiece2 = info = new TileSet();
+            info.Name = "CastlePiece2";
+            info.Guid = 5567;
+            AddTileSet(info);
+            info.HasCeiling = false;
+            info.FlexibleHeight = false;
+
+
             RegularLevel.InitLists();
-            foreach (var _info in TileSets)
+            foreach (var _info in TileList)
                 _info.PostProcess();
         }
     }

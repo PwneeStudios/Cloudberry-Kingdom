@@ -11,8 +11,8 @@ namespace CloudberryKingdom
         public GrayBackground()
         {
             MyType = BackgroundType.Gray;
-            //MyTileSet = TileSets.Get(TileSet.Cement);
-            MyTileSet = TileSets.Get(TileSet.DarkTerrace);
+            //MyTileSet = TileSets.Cement;
+            MyTileSet = TileSets.DarkTerrace;
         }
 
         public override void Init(Level level)

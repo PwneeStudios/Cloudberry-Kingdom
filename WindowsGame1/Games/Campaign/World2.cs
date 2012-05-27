@@ -88,7 +88,7 @@ namespace CloudberryKingdom
 
         LevelSeedData DarkLevel()
         {
-            var d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 1.2f, TileSet.Dark);
+            var d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 1.2f, TileSets.Dark);
             d.PostMake += Campaign.UseBobLighting;
 
             return d;
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
         {
             var d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxJetman.Instance, 8000, 1, LevelGeometry.Up);
             d.MyGeometry = LevelGeometry.Up;
-            d.SetBackground(TileSet.Terrace);
+            d.SetTileSet(TileSets.Terrace);
 
             return d;
         }
@@ -109,8 +109,8 @@ namespace CloudberryKingdom
             //var d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 3000, 1, LevelGeometry.Down);
             d.MyGeometry = LevelGeometry.Down;
             d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
-            //d.SetBackground(TileSet.Terrace);
-            d.SetBackground(BackgroundType.Rain);
+            //d.SetTileSet(TileSets.Terrace);
+            d.SetTileSet(TileSets.Rain);
 
             return d;
         }
@@ -120,11 +120,11 @@ namespace CloudberryKingdom
             MakeDoorAction(FindDoor("Enter"), () =>
                  Load(new Campaign_IntroWorld()));
 
-            //MakeDoorAction_Level(Doors[1], Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 1.2f, TileSet.Dark));
+            //MakeDoorAction_Level(Doors[1], Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 1.2f, TileSets.Dark));
             //MakeDoorAction_Level(Doors[1], World1_To_World2_UpLevel());
             //MakeDoorAction_Level(Doors[1], DarkLevel());
             LevelSeedData d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 4000, 1);
-            d.SetBackground(TileSet.Terrace);
+            d.SetTileSet(TileSets.Terrace);
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
             d.PieceSeeds[0].Style.MyFinalDoorStyle = StyleData.FinalDoorStyle.TerraceToCastle;
             d.PostMake += lvl => Campaign.LevelWithPrincess(lvl, true, Campaign.PrincessPos.CenterToRight, true);

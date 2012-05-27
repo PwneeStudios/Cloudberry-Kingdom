@@ -13,7 +13,7 @@ namespace CloudberryKingdom
             AllowLava = false;
 
             MyType = BackgroundType.Sky;
-            MyTileSet = TileSets.Get(TileSet.Island);
+            MyTileSet = TileSets.Island;
         }
 
         public override void Init(Level level)

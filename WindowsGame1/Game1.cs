@@ -762,6 +762,8 @@ namespace CloudberryKingdom
                         //Thread InfoThread = Tools.EasyThread(3, "Infowad", infoaction);
                         infoaction();
 
+                        TileSets.Init();
+
                         Fireball.InitRenderTargets(device, device.PresentationParameters, 300, 200);
 
                         ParticleEffects.Init();
@@ -820,6 +822,7 @@ namespace CloudberryKingdom
                         //Tools.TextureWad.threads[2].Join();
 
                         Tools.Write("Textures done...");
+
 
                         //FontThread.Join();
                         //InfoThread.Join();
@@ -1522,10 +1525,12 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            //data.SetBackground(BackgroundType.Outside);
-            data.SetBackground(BackgroundType.Night);
-            //data.SetBackground(BackgroundType.NightSky);
-            //data.SetBackground(BackgroundType.Sky);
+            data.SetTileSet("TestTileSet");
+            //data.SetTileSet(TileSets.Dungeon);
+            //data.SetTileSet(TileSets.Terrace);
+            //data.SetTileSet(TileSets._Night);
+            //data.SetTileSet(TileSets._NightSky);
+            //data.SetTileSet(TileSets.Island);
 
             //var custom = (BobPhsxNormal)BobPhsxSmall.Instance.Clone();
 
@@ -1534,13 +1539,13 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = custom;
 
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Jetpack);
-            data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Big, Hero_MoveMod.Double);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Big, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Box, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
             //data.DefaultHeroType = BobPhsxMario.Instance;
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
@@ -1631,29 +1636,30 @@ namespace CloudberryKingdom
 
             //piece.MyUpgrades1[Upgrade.MovingBlock2] = 2;
 
-            piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            ////piece.MyUpgrades1[Upgrade.Laser] = 4;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
-            piece.MyUpgrades1[Upgrade.Jump] = 2;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 2;
-            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.Speed] = 3;
-
-
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.Laser] = 2;
-            //piece.MyUpgrades1[Upgrade.Spike] = 2;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.Jump] = 4;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
-            //piece.MyUpgrades1[Upgrade.Speed] = 6;
+            //////piece.MyUpgrades1[Upgrade.Laser] = 4;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
+            //piece.MyUpgrades1[Upgrade.Jump] = 2;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            ////piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 2;
+            //////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
+            ////piece.MyUpgrades1[Upgrade.Speed] = 3;
+
+
+
+            //piece.MyUpgrades1[Upgrade.Pinky] = 6;
+            //piece.MyUpgrades1[Upgrade.Laser] = 6;
+            //piece.MyUpgrades1[Upgrade.Spike] = 5;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 5;
+            ////piece.MyUpgrades1[Upgrade.Jump] = 4;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
+            ////piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
+            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
+            ////piece.MyUpgrades1[Upgrade.Speed] = 6;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

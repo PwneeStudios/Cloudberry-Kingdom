@@ -35,8 +35,8 @@ namespace CloudberryKingdom
         int LevelLength_Short = 9000;
         int LevelLength_Long = 9000;
         static TileSet[] tilesets = {
-            TileSet.Dungeon, TileSet._Night, TileSet.Castle, TileSet.Rain, TileSet.Dungeon,
-            TileSet._NightSky };
+            TileSets.Dungeon, TileSets._Night, TileSets.Castle, TileSets.Rain, TileSets.Dungeon,
+            TileSets._NightSky };
 
         static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[] {
             BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Classic),
@@ -66,7 +66,7 @@ namespace CloudberryKingdom
 
             // Create the LevelSeedData
             LevelSeedData data = Campaign.HeroLevel(Difficulty, hero, Length, 1, LevelGeometry.Right);
-            data.SetBackground(GetTileSet(Index - StartIndex));
+            data.SetTileSet(GetTileSet(Index - StartIndex));
 
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)

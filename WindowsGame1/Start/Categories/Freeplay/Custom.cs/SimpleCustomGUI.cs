@@ -355,8 +355,8 @@ namespace CloudberryKingdom
             MenuList LocationList = new MenuList();
             LocationList.Center = !LeftJustify;
             LocationList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
-            TileSetInfo[] tilesets = { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky };
-            foreach (TileSetInfo tileset in tilesets)
+            TileSet[] tilesets = { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky };
+            foreach (TileSet tileset in tilesets)
             {
                 item = new MenuItem(new EzText(tileset.Name, ItemFont, false, true));
                 SetItemProperties(item);
@@ -369,7 +369,7 @@ namespace CloudberryKingdom
                 LocationList.Pos = new Vector2(200f, 828f);
             LocationList.OnIndexSelect = () =>
                 {
-                    TileSetInfo tileset = LocationList.CurObj as TileSetInfo;
+                    TileSet tileset = LocationList.CurObj as TileSet;
 
                     Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
                     Screenshot.TextureName = tileset.ScreenshotString;

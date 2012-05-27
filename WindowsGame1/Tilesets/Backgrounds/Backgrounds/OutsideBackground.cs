@@ -11,7 +11,7 @@ namespace CloudberryKingdom
         public OutsideBackground()
         {
             MyType = BackgroundType.Outside;
-            MyTileSet = TileSets.Get(TileSet.Terrace);
+            MyTileSet = TileSets.Terrace;
         }
 
         public override void Init(Level level)

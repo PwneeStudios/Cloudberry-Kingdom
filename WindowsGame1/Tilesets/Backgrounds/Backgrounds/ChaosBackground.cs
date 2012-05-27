@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             MyGlobalIllumination = .5f;
             Light = .4f;
             MyType = BackgroundType.Night;
-            MyTileSet = TileSets.Get(TileSet.Terrace);
+            MyTileSet = TileSets.Terrace;
         }
 
         public override void Init(Level level)

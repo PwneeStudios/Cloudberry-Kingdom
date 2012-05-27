@@ -223,9 +223,15 @@ namespace CloudberryKingdom
         public List<PieceSeedData> PieceSeeds;
 
         public BackgroundType MyBackgroundType;
-        public TileSetInfo MyTileSet;
+        public TileSet MyTileSet;
 
-        public void SetTileSet(TileSetInfo tileset)
+        public void SetTileSet(string name)
+        {
+            var tileset = TileSets.NameLookup[name];
+            SetTileSet(tileset);
+        }
+
+        public void SetTileSet(TileSet tileset)
         {
             MyTileSet = tileset;
             MyBackgroundType = MyTileSet.MyBackgroundType;
@@ -340,10 +346,10 @@ namespace CloudberryKingdom
         void Sanitize()
         {
             // Convert random tileset to an actual randomly chosen tileset
-            if (MyTileSet == TileSet.Random)
+            if (MyTileSet == TileSets.Random)
             {
-                MyTileSet = new TileSet[] { TileSet.Terrace, TileSet.Dungeon, TileSet.Castle }.Choose(Rnd);
-                SetBackground(MyTileSet);
+                MyTileSet = new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }.Choose(Rnd);
+                SetTileSet(MyTileSet);
             }
 
             // Convert random hero to an actual randomly chosen hero
@@ -515,7 +521,7 @@ namespace CloudberryKingdom
 
             // Set background and tileset
             NewLevel.MyBackground = Background.Get(MyBackgroundType);
-            //NewLevel.MyTileSet = NewLevel.MyBackground.MyTileSet.Type;
+            //NewLevel.MyTileSet = NewLevel.MyBackground.MyTileSet;
             NewLevel.MyTileSet = MyTileSet;
 
             return NewLevel;

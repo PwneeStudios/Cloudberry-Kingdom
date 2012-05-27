@@ -318,19 +318,19 @@ namespace CloudberryKingdom
             if (CrazyForTrailer)
             {
                 data.MyGameFlags.IsTethered = true;
-                data.SetBackground(Tools.GlobalRnd.ChooseOne(BackgroundType.Castle, BackgroundType.Dungeon, BackgroundType.Outside,
-                                                             BackgroundType.Night, BackgroundType.Sky));
-                //data.SetBackground(BackgroundType.Night);
+                data.SetTileSet(Tools.GlobalRnd.ChooseOne(TileSets.Castle, TileSets.Dungeon, TileSets.Terrace,
+                                                          TileSets._Night, TileSets.Island));
+                //data.SetTileSet(TileSets._Night);
             }
 
             if (First)
-                data.SetBackground(BackgroundType.Dungeon);
+                data.SetTileSet(TileSets.Dungeon);
 
             if (ForTrailer)
             {
-                //data.SetBackground(BackgroundType.NightSky);
-                data.SetBackground(BackgroundType.Sky);
-                data.SetTileSet(TileSet.Dungeon);
+                //data.SetTileSet(TileSets._NightSky);
+                data.SetTileSet(TileSets.Island);
+                data.SetTileSet(TileSets.Dungeon);
             }
 
             // Adjust the piece seed data

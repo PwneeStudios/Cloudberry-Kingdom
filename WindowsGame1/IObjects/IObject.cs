@@ -364,7 +364,17 @@ namespace CloudberryKingdom
         /// </summary>
         public bool WakeUpRequirements;
 
-        public TileSetInfo MyTileSet;
+        TileSet _TileSet = null;
+        public TileSet MyTileSet
+        {
+            get { return _TileSet; }
+            set
+            {
+                _TileSet = value;
+                if (_TileSet == null)
+                    Tools.Break();
+            }
+        }
         
         /// <summary>
         /// Whether the object should be drawn encased in glass.
@@ -650,7 +660,7 @@ namespace CloudberryKingdom
         {
             Released = false;
 
-            MyTileSetType = TileSet.None;
+            MyTileSet = TileSets.None;
             Encased = false;
 
             EditorCode1 = EditorCode2 = EditorCode3 = "";
@@ -704,7 +714,7 @@ namespace CloudberryKingdom
 
         public virtual void Clone(ObjectData A)
         {
-            MyTileSetType = A.MyTileSetType;
+            MyTileSet = A.MyTileSet;
             Encased = A.Encased;
 
             if (A.EditorCode1 == null) EditorCode1 = null; else EditorCode1 = string.Copy(A.EditorCode1);
@@ -774,7 +784,7 @@ namespace CloudberryKingdom
 
         public virtual void Write(BinaryWriter writer)
         {
-            writer.Write((int)MyTileSetType);
+            writer.Write((uint)MyTileSet.Guid);
             writer.Write(EditorCode1);
             writer.Write(EditorCode2);
             writer.Write(EditorCode3);
@@ -816,7 +826,10 @@ namespace CloudberryKingdom
 
         public virtual void Read(BinaryReader reader)
         {
-            MyTileSetType = (TileSet)reader.ReadUInt32();
+            //MyTileSet = (TileSet)reader.ReadUInt32();
+            int TileGuid = (int)reader.ReadUInt32();
+            MyTileSet = TileSets.GuidLookup[TileGuid];
+
             EditorCode1 = reader.ReadString();
             EditorCode2 = reader.ReadString();
             EditorCode3 = reader.ReadString();

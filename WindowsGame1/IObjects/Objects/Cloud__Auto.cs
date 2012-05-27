@@ -79,8 +79,8 @@ namespace CloudberryKingdom.Levels
             TileSet tileset = level.MyTileSet;
 
             if (level.MyLevelSeed.MyBackgroundType == BackgroundType.Sky)
-                tileset = TileSet.Terrace;
-            NewCloud.Init(new Vector2(120f * size, 50), TileSets.Get(tileset));
+                tileset = TileSets.Terrace;
+            NewCloud.Init(new Vector2(120f * size, 50), tileset);
 
             NewCloud.Core.Data.Position = NewCloud.Core.StartData.Position = pos;
 

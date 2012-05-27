@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
             WorldMap world = Tools.WorldMap as WorldMap;
 
-            list.Add(Campaign.HeroLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 3000, 1, LevelGeometry.Right, TileSet._NightSky));
+            list.Add(Campaign.HeroLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 3000, 1, LevelGeometry.Right, TileSets._NightSky));
             //list.Add(new LevelSeedData(() => world.Load(new Campaign_World2(true))));
             list.Add(Level1());
             list.Add(Level2());
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameType = NormalGameData.Factory;
 
@@ -82,7 +82,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameType = NormalGameData.Factory;
 

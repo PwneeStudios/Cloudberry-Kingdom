@@ -213,7 +213,7 @@ namespace CloudberryKingdom.Levels
         public Background MyBackground;
         public TileSet MyTileSet;
 
-        public TileSetInfo MyTileSetInfo { get { return TileSets.Get(MyTileSet); } }
+        public TileSet MyTileSetInfo { get { return MyTileSet; } }
 
         public int Par;
 
@@ -333,7 +333,7 @@ namespace CloudberryKingdom.Levels
         void Init(bool NoParticles)
         {
             this.NoParticles = NoParticles;
-            MyTileSet = TileSet.Castle;
+            MyTileSet = TileSets.Castle;
 
             CanWatchComputer = CanWatchReplay = false;
 
@@ -622,7 +622,7 @@ namespace CloudberryKingdom.Levels
                 }
                 else
                 {
-                    if (block.Core.MyTileSetType == TileSet.CastlePiece)
+                    if (block.Core.MyTileSet == TileSets.CastlePiece)
                     {
                         if (string.Compare(block.Core.EditorCode3, "NotTopOnly", StringComparison.OrdinalIgnoreCase) == 0)
                             block.Box.TopOnly = false;
@@ -1322,8 +1322,8 @@ namespace CloudberryKingdom.Levels
                 block.Core.AddedTimeStamp = CurPhsxStep;
 
             // Set a default tile set if none is specified
-            if (block.Core.MyTileSetType == TileSet.None)
-                block.Core.MyTileSetType = MyTileSet;
+            if (block.Core.MyTileSet == TileSets.None)
+                block.Core.MyTileSet = MyTileSet;
 
             // Add the block to the block list
             SynchObject(block);

@@ -233,7 +233,7 @@ namespace CloudberryKingdom
 
         protected virtual TileSet GetTileSet(int i)
         {
-            return TileSet.Castle;
+            return TileSets.Castle;
         }
 
         int LevelLength_Short = 2150;
@@ -248,7 +248,7 @@ namespace CloudberryKingdom
 
             // Create the LevelSeedData
             LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);
-            data.SetBackground(GetTileSet(Index));
+            data.SetTileSet(GetTileSet(Index));
 
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)

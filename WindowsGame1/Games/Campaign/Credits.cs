@@ -212,7 +212,7 @@ namespace CloudberryKingdom
                 }
 
                 // Extend grass
-                if (block.Core.MyTileSetType == TileSet.OutsideGrass)
+                if (block.Core.MyTileSet == TileSets.OutsideGrass)
                 {
                     block.Extend(Side.Left, -10000);
                     block.Extend(Side.Right, 90000);

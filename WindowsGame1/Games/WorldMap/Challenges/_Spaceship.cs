@@ -42,7 +42,7 @@ namespace CloudberryKingdom
         {
             data.Seed = data.Rnd.Rnd.Next();
 
-            data.SetBackground(BackgroundType.Castle);
+            data.SetTileSet(TileSets.Castle);
             data.DefaultHeroType = BobPhsxSpaceship.Instance;
         }
 
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
         }
 
         static List<Upgrade> Picks1, Picks2;
-        static void SetPieceSeed(PieceSeedData piece, TileSetInfo tileset, int BlockLevel, int ObjectLevel, int Speed, int BlockComplexity, int ObjectComplexity)
+        static void SetPieceSeed(PieceSeedData piece, TileSet tileset, int BlockLevel, int ObjectLevel, int Speed, int BlockComplexity, int ObjectComplexity)
         {
             InitLists();
 

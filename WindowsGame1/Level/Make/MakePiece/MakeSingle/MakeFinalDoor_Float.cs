@@ -61,7 +61,7 @@ namespace CloudberryKingdom.Levels
             int width = 400;
             FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
             ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width), MyLevel.MyTileSetInfo);
-            FinalBlock.Core.MyTileSetType = MyLevel.MyTileSet;
+            FinalBlock.Core.MyTileSet = MyLevel.MyTileSet;
         }
 
         public override void Phase3()
@@ -69,7 +69,7 @@ namespace CloudberryKingdom.Levels
             base.Phase3();
 
             // Sky
-            if (FinalBlock.Core.MyTileSetType == TileSet.Island)
+            if (FinalBlock.Core.MyTileSet == TileSets.Island)
             {
                 FinalPos.X += 130;
             }
@@ -81,7 +81,7 @@ namespace CloudberryKingdom.Levels
             // Terrace-To-Castle
             if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
             {
-                MyLevel.MadeBackBlock.Core.MyTileSetType = TileSet.CastlePiece2;
+                MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
                 MyLevel.MadeBackBlock.Stretch(Side.Right, 1500);
                 MyLevel.MadeBackBlock.Stretch(Side.Left, -50);
                 MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
@@ -89,7 +89,7 @@ namespace CloudberryKingdom.Levels
 
             SetFinalDoor(door, MyLevel, FinalPos);
 
-            if (FinalBlock.Core.MyTileSetType == TileSet.Island)
+            if (FinalBlock.Core.MyTileSet == TileSets.Island)
             {
                 MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
             }

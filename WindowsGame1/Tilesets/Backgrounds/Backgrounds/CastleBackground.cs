@@ -16,7 +16,7 @@ namespace CloudberryKingdom
             //Light = .3f;
 
             MyType = BackgroundType.Castle;
-            MyTileSet = TileSets.Get(TileSet.Castle);
+            MyTileSet = TileSets.Castle;
         }
 
         public override void Init(Level level)

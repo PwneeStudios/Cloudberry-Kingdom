@@ -58,9 +58,9 @@ namespace CloudberryKingdom.Levels
 
             // Start door
             Vector2 pos = new Vector2 (MainPlatform.Box.BL.X + 300, 0);
-            Door door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSet.None);
+            Door door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSets.None);
 
-            door.MyBackblock.Core.MyTileSetType = TileSet.Dungeon;
+            door.MyBackblock.Core.MyTileSet = TileSets.Dungeon;
             door.MyBackblock.Extend(Side.Right, pos.X + 350);
             door.MyBackblock.Extend(Side.Left, MainPlatform.Box.BL.X + 30);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);
@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Levels
 
             // End door
             pos = new Vector2(MainPlatform.Box.TR.X - 300, 0);
-            door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSet.None);
+            door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSets.None);
             MakeFinalDoor.SetFinalDoor(door, this, pos);
             door.ExtraPhsx = me =>
                 {
@@ -86,7 +86,7 @@ namespace CloudberryKingdom.Levels
                 };
 
 
-            door.MyBackblock.Core.MyTileSetType = TileSet.Dungeon;
+            door.MyBackblock.Core.MyTileSet = TileSets.Dungeon;
             door.MyBackblock.Extend(Side.Right, MainPlatform.Box.TR.X - 30);
             door.MyBackblock.Extend(Side.Left, pos.X - 350);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);

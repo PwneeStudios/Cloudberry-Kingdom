@@ -70,7 +70,7 @@ namespace CloudberryKingdom.Blocks
             }
 
             // Tint
-            //if (MyBlock.Core.MyTileSetType == TileSet.DarkTerrace)
+            //if (MyBlock.Core.MyTileSet == TileSets.DarkTerrace)
             SetTint(MyBlock.Core.MyTileSet.Tint);
 
             SetTint(Tint);

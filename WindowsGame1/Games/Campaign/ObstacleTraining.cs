@@ -42,7 +42,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
             data.DefaultHeroType = BobPhsxSmall.Instance;
             data.MyGameType = NormalGameData.Factory;
 
@@ -74,7 +74,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameType = NormalGameData.Factory;
 

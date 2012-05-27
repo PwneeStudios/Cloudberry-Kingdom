@@ -117,7 +117,7 @@ namespace CloudberryKingdom.Levels
     {
         public void MakeCeiling(Vector2 BL, Vector2 TR, float MaxStartY)
         {
-            if (!TileSets.Get(MyTileSet).HasCeiling) return;
+            if (!MyTileSet.HasCeiling) return;
 
             Ceiling_Parameters Params = (Ceiling_Parameters)Style.FindParams(Ceiling_AutoGen.Instance);
 
@@ -137,7 +137,7 @@ namespace CloudberryKingdom.Levels
                         Params.HeightRange.RndFloat(Pos, Rnd));
                 Vector2 offset = new Vector2(Rnd.Rnd.Next(0, 0) + size.X, -size.Y + 85);
 
-                if (this.MyTileSet == TileSet.Castle)
+                if (this.MyTileSet == TileSets.Castle)
                     size.X += 25;
 
                 cblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);

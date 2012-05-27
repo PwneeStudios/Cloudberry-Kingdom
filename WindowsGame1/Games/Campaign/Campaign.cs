@@ -111,7 +111,7 @@ namespace CloudberryKingdom
             data.Seed = data.Rnd.Rnd.Next();
 
             data.MyGameType = NormalGameData.Factory;
-            data.SetBackground(data.Rnd.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
+            data.SetTileSet(data.Rnd.Choose(new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }));
 
             data.DefaultHeroType = BobPhsxNormal.Instance;
 
@@ -133,7 +133,7 @@ namespace CloudberryKingdom
         }
         public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length, int NumPieces, LevelGeometry Geometry)
         {
-            return HeroLevel(Difficulty, Hero, Length, NumPieces, Geometry, TileSet.Random);
+            return HeroLevel(Difficulty, Hero, Length, NumPieces, Geometry, TileSets.Random);
         }
         public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length, int NumPieces, LevelGeometry Geometry, TileSet tileset)
         {
@@ -142,13 +142,12 @@ namespace CloudberryKingdom
             LevelSeedData data = new LevelSeedData();
 
             // Randomize tileset if none is specified
-            if (tileset == TileSet.Random)
+            if (tileset == TileSets.Random)
                 StandardInit(data);
             else
             {
                 StandardInit(data);
-                data.SetBackground(tileset);
-                data.MyTileSet = tileset;
+                data.SetTileSet(tileset);
             }
 
             data.DefaultHeroType = Hero;
@@ -172,7 +171,7 @@ namespace CloudberryKingdom
             data.PieceLength = data.Length = Length;
             data.DefaultHeroType = Hero;
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
 
             data.StandardInit((p, u) =>
             {
@@ -212,7 +211,7 @@ namespace CloudberryKingdom
             data.NumPieces = NumPieces;
             data.DefaultHeroType = Hero;
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
 
             data.StandardInit((p, u) =>
             {
@@ -226,7 +225,7 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
-            data.SetBackground(BackgroundType.Dungeon);
+            data.SetTileSet(TileSets.Dungeon);
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameType = NormalGameData.Factory;
 
@@ -288,8 +287,7 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
             //data.MyBackgroundType = BackgroundType.Gray;
-            data.SetBackground(BackgroundType.Gray);
-            data.SetTileSet(TileSet.DarkTerrace);
+            data.SetTileSet(TileSets.DarkTerrace);
 
             data.DefaultHeroType = BobPhsxNormal.Instance;
             data.MyGameType = NormalGameData.Factory;

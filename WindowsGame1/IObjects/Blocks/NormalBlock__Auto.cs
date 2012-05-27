@@ -191,7 +191,7 @@ namespace CloudberryKingdom.Levels
 
             door.MyBackblock.Extend(Side.Right, pos.X + 800);
             door.MyBackblock.Extend(Side.Left, pos.X - 350);
-            door.MyBackblock.Core.MyTileSetType = level.CurMakeData.LevelSeed.MyTileSet;
+            door.MyBackblock.Core.MyTileSet = level.CurMakeData.LevelSeed.MyTileSet;
             
 
             //    if (Geometry == LevelGeometry.Right)
@@ -266,9 +266,9 @@ namespace CloudberryKingdom.Levels
         public NormalBlock CreateCementBlock(Level level, Vector2 pos, Vector2 size)
         {
             NormalBlock block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-            block.Init(pos, size, TileSet.Cement);
+            block.Init(pos, size, TileSets.Cement);
 
-            block.Core.MyTileSetType = TileSet.Cement;
+            block.Core.MyTileSet = TileSets.Cement;
 
             block.BlockCore.DeleteIfTopOnly = true;
 

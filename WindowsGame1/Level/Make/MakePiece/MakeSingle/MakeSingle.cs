@@ -290,8 +290,8 @@ namespace CloudberryKingdom.Levels
             AddObject(door);
 
             float shift = 0; // The amount to shift the door above the block's top
-            if (BackdropTileset == TileSet.Castle) shift = 7;
-            if (block.Core.MyTileSetType == TileSet.TileBlock)
+            if (BackdropTileset == TileSets.Castle) shift = 7;
+            if (block.Core.MyTileSet == TileSets.TileBlock)
             {
                 DesiredDoorLayer = 1;
                 DesiredDoorLayer2 = 3;
@@ -321,7 +321,7 @@ namespace CloudberryKingdom.Levels
 
             door.MyBackblock = backblock;
 
-            if (BackdropTileset.DungeonLike())
+            if (BackdropTileset.DungeonLike)
             {
                 if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
                 {
@@ -347,32 +347,29 @@ namespace CloudberryKingdom.Levels
                     SetBackblockProperties(backblock2);
                 }
             }
-            else switch (BackdropTileset)
+            else if (BackdropTileset == TileSets.Island)
             {
-                case TileSet.Island:
-                    BackdropTileset = backblock.Core.MyTileSetType = TileSet.Terrace;
-                    backblock.Box.TopOnly = false;
-                    backblock.Extend(Side.Top, block.Box.Current.TR.Y + 800);
-                    backblock.Extend(Side.Bottom, block.Box.Current.TR.Y - 30);
-                    backblock.Extend(Side.Left, block.Box.Current.BL.X + 70);
-                    backblock.Extend(Side.Right, block.Box.Current.TR.X - 70);
+                BackdropTileset = backblock.Core.MyTileSet = TileSets.Terrace;
+                backblock.Box.TopOnly = false;
+                backblock.Extend(Side.Top, block.Box.Current.TR.Y + 800);
+                backblock.Extend(Side.Bottom, block.Box.Current.TR.Y - 30);
+                backblock.Extend(Side.Left, block.Box.Current.BL.X + 70);
+                backblock.Extend(Side.Right, block.Box.Current.TR.X - 70);
 
-                    SetBackblockProperties(backblock);
-
-                    break;
-                default:
-                    backblock.Extend(Side.Top, MainCamera.TR.Y + 500);
-                    backblock.Extend(Side.Bottom, MainCamera.BL.Y - 500);
-
-                    SetBackblockProperties(backblock);
-
-                    break;
+                SetBackblockProperties(backblock);
             }
-            backblock.Core.MyTileSetType = BackdropTileset;
+            else
+            {
+                backblock.Extend(Side.Top, MainCamera.TR.Y + 500);
+                backblock.Extend(Side.Bottom, MainCamera.BL.Y - 500);
+
+                SetBackblockProperties(backblock);
+            }
+            backblock.Core.MyTileSet = BackdropTileset;
 
             // Cement
-            if (MyTileSet == TileSet.Cement)
-                backblock.Core.MyTileSetType = TileSet.CastlePiece;
+            if (MyTileSet == TileSets.Cement)
+                backblock.Core.MyTileSet = TileSets.CastlePiece;
 
             // Make sure door is just in front of backdrop
             door.Core.DrawLayer = DesiredDoorLayer;
@@ -445,8 +442,8 @@ namespace CloudberryKingdom.Levels
                     // Whether this start piece is a Castle-To-Terrace transition
                     bool CastleToTerrace = Style.MyInitialPlatsType == StyleData.InitialPlatsType.CastleToTerrace;
 
-                    if (MyTileSet == TileSet.Cement || CastleToTerrace)
-                        block.Core.MyTileSetType = TileSet.Catwalk;
+                    if (MyTileSet == TileSets.Cement || CastleToTerrace)
+                        block.Core.MyTileSet = TileSets.Catwalk;
 
                     if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
                         block.Extend(Side.Left, block.Box.BL.X + 30);
@@ -463,7 +460,7 @@ namespace CloudberryKingdom.Levels
                         pos.X += 150;
 
                     // Sky
-                    if (block.Core.MyTileSetType == TileSet.Island)
+                    if (block.Core.MyTileSet == TileSets.Island)
                     {
                         block.Stretch(Side.Left, 55);
                         block.Move(new Vector2(160, 0));
@@ -475,7 +472,7 @@ namespace CloudberryKingdom.Levels
                     {
                         block.Stretch(Side.Left, -2000);
                         block.Stretch(Side.Right, 500);
-                        door = PlaceDoorOnBlock(pos + new Vector2(380, 0), block, true, TileSet.CastlePiece);
+                        door = PlaceDoorOnBlock(pos + new Vector2(380, 0), block, true, TileSets.CastlePiece);
                     }
                     else
                         door = PlaceDoorOnBlock(pos, block, true);                        
@@ -502,7 +499,7 @@ namespace CloudberryKingdom.Levels
             Vector2 Pos = BL;
             size = new Vector2(2200, 200);
             nblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-            nblock.Core.MyTileSetType = MyTileSet;
+            nblock.Core.MyTileSet = MyTileSet;
             nblock.Init(Pos, size, MyTileSetInfo);
             nblock.Extend(Side.Bottom, MainCamera.BL.Y - 300);
             nblock.Extend(Side.Top, MainCamera.BL.Y + 500);

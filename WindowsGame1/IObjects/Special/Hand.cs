@@ -519,10 +519,10 @@ namespace CloudberryKingdom.Bobs
                 if (HeldObject != null)
                 {
                     NormalBlock block = HeldObject as NormalBlock;
-                    int tile = (int)HeldObject.Core.MyTileSetType;
-                    tile++;
-                    if (tile >= Tools.Length<TileSet>()) tile = 0;
-                    HeldObject.Core.MyTileSetType = (TileSet)tile;
+                    int tile_index = TileSets.TileList.IndexOf(HeldObject.Core.MyTileSet);
+                    tile_index++;
+                    if (tile_index >= TileSets.TileList.Count) tile_index = 0;
+                    HeldObject.Core.MyTileSet = TileSets.TileList[tile_index];
 
                     if (null != block)
                         block.ResetPieces();
@@ -556,7 +556,7 @@ namespace CloudberryKingdom.Bobs
             if (Tools.keybState.IsKeyDownCustom(Keys.L) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.L))
             {
                 Cloud cloud = (Cloud)Core.Recycle.GetObject(ObjectType.Cloud, false);
-                cloud.Init(new Vector2(100, 100), TileSet.Terrace);
+                cloud.Init(new Vector2(100, 100), TileSets.Terrace);
                 cloud.Move(Core.Data.Position);
                 if (Tools.CurLevel.CurEditorDrawLayer >= 0)
                     cloud.Core.DrawLayer = Tools.CurLevel.CurEditorDrawLayer;

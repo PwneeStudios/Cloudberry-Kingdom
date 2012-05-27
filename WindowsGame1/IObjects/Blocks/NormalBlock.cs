@@ -67,59 +67,45 @@ namespace CloudberryKingdom.Blocks
 
         PieceQuad GetPieceTemplate(float width)
         {
-            var Info = TileSets.Get(Core.MyTileSetType);
-            if (Info.ProvidesTemplates)
-                return Info.GetPieceTemplate(this);
+            var tileset = Core.MyTileSet;
+            if (tileset.ProvidesTemplates)
+                return tileset.GetPieceTemplate(this);
 
-
-            if (Info.PassableSides)
+            if (tileset.PassableSides)
             {
                 BlockCore.UseTopOnlyTexture = false;
                 Box.TopOnly = true;
             }
 
-            switch (Info.Type)
+            if (tileset == TileSets.Castle)
+                return GetPieceTemplate_Inside1(width);
+            else if (tileset == TileSets.Dungeon)
+                return GetPieceTemplate_Inside2(width);
+            else if (tileset == TileSets.Island)
+                return GetPieceTemplate_Island(width);
+            else if (tileset == TileSets.Dark)
+                return GetPieceTemplate_Dark(width);
+            else if (tileset == TileSets.Rain || tileset == TileSets.Terrace)
+                return GetPieceTemplate_Outside(width);
+            else if (tileset == TileSets.DarkTerrace)
+                return GetPieceTemplate_Outside(width);
+            else if (tileset == TileSets.OutsideGrass)
+                return GetPieceTemplate_OutsideGrass(width);
+            else if (tileset == TileSets.TileBlock)
+                return GetPieceTemplate_TileBlock(width);
+            else if (tileset == TileSets.CastlePiece)
+                return GetPieceTemplate_Castle(false, width);
+            else if (tileset == TileSets.CastlePiece2)
+                return GetPieceTemplate_Castle(true, width);
+            else if (tileset == TileSets.Catwalk)
             {
-                case TileSet.Castle:
-                    return GetPieceTemplate_Inside1(width);
-
-                case TileSet.Dungeon:
-                    return GetPieceTemplate_Inside2(width);
-
-                case TileSet.Island:
-                    return GetPieceTemplate_Island(width);
-
-                case TileSet.Dark:
-                    return GetPieceTemplate_Dark(width);
-
-                case TileSet.Rain:
-                case TileSet.Terrace:
-                    return GetPieceTemplate_Outside(width);
-
-                case TileSet.DarkTerrace:
-                    return GetPieceTemplate_Outside(width);
-
-                case TileSet.OutsideGrass:
-                    return GetPieceTemplate_OutsideGrass(width);
-
-                case TileSet.TileBlock:
-                    return GetPieceTemplate_TileBlock(width);
-
-                case TileSet.CastlePiece:
-                    return GetPieceTemplate_Castle(false, width);
-                case TileSet.CastlePiece2:
-                    return GetPieceTemplate_Castle(true, width);
-
-                case TileSet.Catwalk:
-                    Box.TopOnly = true;
-                    return PieceQuad.Catwalk;
-
-                case TileSet.Cement:
-                    return GetPieceTemplate_Cement(width);
-
-                default:
-                    return GetPieceTemplate_Inside2(width);
+                Box.TopOnly = true;
+                return PieceQuad.Catwalk;
             }
+            else if (tileset == TileSets.Cement)
+                return GetPieceTemplate_Cement(width);
+            else
+                return GetPieceTemplate_Inside2(width);
         }
 
         PieceQuad GetPieceTemplate_Castle(bool Shift, float width)
@@ -298,10 +284,11 @@ namespace CloudberryKingdom.Blocks
             MyDraw.Init(this, GetPieceTemplate());
         }
 
-        public void Init(Vector2 center, Vector2 size, TileSet tile) { Init(center, size, TileSets.Get(tile)); }
-        public void Init(Vector2 center, Vector2 size, TileSetInfo tile)
+        public void Init(Vector2 center, Vector2 size, TileSet tile)
         {
-            BlockCore.Data.Position = BlockCore.StartData.Position = center;
+            Core.Data.Position = Core.StartData.Position = center;
+            Core.MyTileSet = tile;
+            Tools.Assert(Core.MyTileSet != null);
 
             if (tile.FixedWidths)
             {
@@ -325,6 +312,8 @@ namespace CloudberryKingdom.Blocks
 
         public void CheckHeight()
         {
+            Tools.Assert(Core.MyTileSet != null);
+
             if (BlockCore.DisableFlexibleHeight || !Core.MyTileSet.FlexibleHeight)
             {
                 if (MyBox.Current.BL.Y > Core.MyLevel.MainCamera.BL.Y - 20)
@@ -339,8 +328,10 @@ namespace CloudberryKingdom.Blocks
 
         public void MakeTopOnly()
         {
-            if (Core.MyTileSetType == TileSet.Cement)
-                Core.MyTileSetType = TileSet.Catwalk;
+            Tools.Assert(Core.MyTileSet != null);
+
+            if (Core.MyTileSet == TileSets.Cement)
+                Core.MyTileSet = TileSets.Catwalk;
 
             Box.TopOnly = true;
             Extend(Side.Bottom, Box.Current.TR.Y - TopOnlyHeight);
@@ -379,8 +370,6 @@ namespace CloudberryKingdom.Blocks
 
         public override void PhsxStep()
         {
-            //if (!Active) return;
-
             Active = Core.Active = true;
             Vector2 BL = MyBox.Current.BL;
             if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 500)//+ 1250)
@@ -388,12 +377,6 @@ namespace CloudberryKingdom.Blocks
             Vector2 TR = MyBox.Current.TR;
             if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 250)//- 500)
                 Active = Core.Active = false;
-
-            //if (Core.MyLevel != null)
-            //{
-            //    MyBox.Target.Center = Pos + 100 * new Vector2(0, (float)Math.Sin(Core.GetPhsxStep() * .01f));
-            //    Moved = true;
-            //}
         }
 
         public override void PhsxStep2()
@@ -407,18 +390,7 @@ namespace CloudberryKingdom.Blocks
 
         public void Update()
         {
-            /*
-            if (!Core.GenData.Used && CoreData.BoxesOnly && Core.MyLevel != null && Core.MyLevel.PlayMode == 2)
-            {
-                //return;
-                if (Core.MyTileSetType == TileSet.Cement)
-                {
-                    MyBox.Current.Size = MyBox.Target.Size =
-                        new IntVector2(MyBox.Current.Size / 150) * 150;
-                }
-            }*/
-
-            if (Core.MyTileSetType == TileSet.Island)
+            if (Core.MyTileSet == TileSets.Island)
                 Box.TopOnly = true;
 
             MyDraw.Update();
@@ -435,6 +407,8 @@ namespace CloudberryKingdom.Blocks
 
         public override void Extend(Side side, float pos)
         {
+            Tools.Assert(Core.MyTileSet != null);
+
             MyBox.Invalidated = true;
 
             MyBox.Extend(side, pos);
@@ -443,7 +417,7 @@ namespace CloudberryKingdom.Blocks
             MyBox.Validate();
 
             // This is a hack to make sure dungeon blocks don't repeat vertically
-            if (Core.MyTileSetType.DungeonLike() && !BlockCore.Ceiling && MyBox.Current.Size.Y > 2000)
+            if (Core.MyTileSet.DungeonLike && !BlockCore.Ceiling && MyBox.Current.Size.Y > 2000)
                 Extend(Side.Bottom, MyBox.Current.TR.Y - 1950);
 
             if (!Core.BoxesOnly)
@@ -469,7 +443,7 @@ namespace CloudberryKingdom.Blocks
 
             if (Tools.DrawGraphics && Core.Show)
             {
-                if (Core.MyTileSetType != TileSet.None)
+                if (Core.MyTileSet != TileSets.None)
                 {
                     MyDraw.Draw();
                     Tools.QDrawer.Flush();

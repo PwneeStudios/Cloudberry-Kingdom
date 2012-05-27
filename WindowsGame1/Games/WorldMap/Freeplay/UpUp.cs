@@ -39,9 +39,9 @@ namespace CloudberryKingdom
 
 
         static TileSet[] tilesets = {
-            TileSet.Castle, TileSet.Dungeon, TileSet.Terrace,
-            TileSet.Castle, TileSet.Dungeon, TileSet.Rain,
-            TileSet.Castle, TileSet.Dungeon, TileSet._Night };
+            TileSets.Castle, TileSets.Dungeon, TileSets.Terrace,
+            TileSets.Castle, TileSets.Dungeon, TileSets.Rain,
+            TileSets.Castle, TileSets.Dungeon, TileSets._Night };
 
         //static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[] {
         //    BobPhsxDouble.Instance, BobPhsxJetman.Instance, 
@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 
             // Create the LevelSeedData
             LevelSeedData data = Campaign.HeroLevel(Difficulty, hero, Length, 1, LevelGeometry.Up);
-            data.SetBackground(GetTileSet(Index - StartIndex));
+            data.SetTileSet(GetTileSet(Index - StartIndex));
 
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)

@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             data.Seed = data.Rnd.Rnd.Next();
 
             //data.MyBackgroundType = BackgroundType.Outside;
-            data.SetBackground(data.Rnd.Choose(new BackgroundType[] { BackgroundType.Outside, BackgroundType.Dungeon, BackgroundType.Castle }));
+            data.SetTileSet(data.Rnd.Choose(new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }));
             
             data.DefaultHeroType = BobPhsxNormal.Instance;
         }
@@ -67,7 +67,7 @@ namespace CloudberryKingdom
         }
 
         static List<Upgrade> Picks1, Picks2;
-        static void SetPieceSeed(PieceSeedData piece, TileSetInfo tileset, int Jump, int Dodge, int Speed, int JumpComplexity, int DodgeComplexity)
+        static void SetPieceSeed(PieceSeedData piece, TileSet tileset, int Jump, int Dodge, int Speed, int JumpComplexity, int DodgeComplexity)
         {
             InitLists();
 

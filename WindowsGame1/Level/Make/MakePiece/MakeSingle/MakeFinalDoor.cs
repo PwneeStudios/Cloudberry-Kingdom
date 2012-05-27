@@ -45,7 +45,7 @@ namespace CloudberryKingdom.Levels
                 FinalBlocks.Add(block);
 
                 // Sky
-                if (block.Core.MyTileSetType == TileSet.Island)
+                if (block.Core.MyTileSet == TileSets.Island)
                 {
                     block.Move(new Vector2(-25, 0));
                 }
@@ -114,7 +114,7 @@ namespace CloudberryKingdom.Levels
             base.Phase3();
 
             // Sky
-            if (FinalBlock.Core.MyTileSetType == TileSet.Island)
+            if (FinalBlock.Core.MyTileSet == TileSets.Island)
             {
                 FinalPos.X += 130;
             }
@@ -125,10 +125,10 @@ namespace CloudberryKingdom.Levels
             // Terrace-To-Castle
             if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
             {
-                MyLevel.MadeBackBlock.Core.MyTileSetType = TileSet.CastlePiece2;
+                MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
                 MyLevel.MadeBackBlock.Stretch(Side.Right, 1000);
                 MyLevel.MadeBackBlock.Stretch(Side.Left, -200);
-                FinalBlock.Core.MyTileSetType = TileSet.Catwalk;
+                FinalBlock.Core.MyTileSet = TileSets.Catwalk;
                 FinalBlock.Stretch(Side.Left, -200);
             }
 

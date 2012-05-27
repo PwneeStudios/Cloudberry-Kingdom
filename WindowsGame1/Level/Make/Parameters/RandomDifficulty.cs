@@ -65,9 +65,6 @@ namespace CloudberryKingdom
         /// <param name="Seed"></param>
         static public void IntToDifficulty(PieceSeedData Seed, TileSet TileType)
         {
-            // Get the tile set's associated information
-            TileSets.Get(TileType);
-
             ZeroUpgrades(Seed.MyUpgrades1);
             Seed.MyUpgrades1[Upgrade.FireSpinner] = 10;
             Seed.MyUpgrades1[Upgrade.General] = 10;

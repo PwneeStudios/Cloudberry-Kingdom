@@ -73,7 +73,7 @@ namespace CloudberryKingdom.Levels
                             FinalCamZone.End.Y += 400;
                             FinalCamZone.Start.Y -= 100;
 
-                        block.Core.MyTileSetType = TileSet.TileBlock;
+                        block.Core.MyTileSet = TileSets.TileBlock;
                         block.Core.DrawLayer = 2;
                         block.Init(startblock.Pos, Vector2.One, MyTileSetInfo);
                         block.Stretch(Side.Right, 2000);
@@ -206,9 +206,9 @@ namespace CloudberryKingdom.Levels
             float StepMultiplier = SetStepMultiplier(ref Size, ref Step);
 
             if (NewStyle)
-                this.MyTileSet = TileSet.Dungeon;
+                this.MyTileSet = TileSets.Dungeon;
             else
-                this.MyTileSet = TileSet.Catwalk;                
+                this.MyTileSet = TileSets.Catwalk;                
             BL_Bound.Y += 200;
             TR_Bound.Y -= 200;
             Vector2 _pos = BL_Bound;
@@ -497,7 +497,7 @@ namespace CloudberryKingdom.Levels
         {
             NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
             doo.Init((p1 + p2) / 2, new Vector2(350, Math.Abs(p2.Y - p1.Y) / 2), MyTileSetInfo);
-            doo.BlockCore.MyTileSetType = TileSet.Dungeon;
+            doo.BlockCore.MyTileSet = TileSets.Dungeon;
 
             AddBlock(doo);
 
@@ -512,7 +512,7 @@ namespace CloudberryKingdom.Levels
         {
             NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
             doo.Init(Vector2.Zero, Vector2.One, MyTileSetInfo);
-            doo.BlockCore.MyTileSetType = TileSet.CastlePiece2;
+            doo.BlockCore.MyTileSet = TileSets.CastlePiece2;
 
             float DistanceFromSide = 600;
             doo.Extend(Side.Left, MainCamera.BL.X + DistanceFromSide);

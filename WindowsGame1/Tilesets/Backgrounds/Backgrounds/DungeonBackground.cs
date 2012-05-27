@@ -12,7 +12,7 @@ namespace CloudberryKingdom
         public DungeonBackground()
         {
             MyType = BackgroundType.Dungeon;
-            MyTileSet = TileSets.Get(TileSet.Dungeon);
+            MyTileSet = TileSets.Dungeon;
         }
 
         public override void Init(Level level)

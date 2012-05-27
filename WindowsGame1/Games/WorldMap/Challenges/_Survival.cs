@@ -50,7 +50,7 @@ namespace CloudberryKingdom
         {
             data.Seed = data.Rnd.Rnd.Next();
 
-            data.SetBackground(BackgroundType.Gray);
+            data.SetTileSet(TileSets.Rain);
             data.DefaultHeroType = BobPhsxNormal.Instance;
         }
 

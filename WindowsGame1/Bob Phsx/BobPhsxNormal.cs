@@ -961,7 +961,7 @@ namespace CloudberryKingdom
                 else
                     RndMoveType = MyLevel.Rnd.Rnd.Next(0, 5);
 
-                if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSet.Island)
+                if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSets.Island)
                     RndMoveType = 10;
             }
             RndMoveType = 10; /// DANGER DANGER 

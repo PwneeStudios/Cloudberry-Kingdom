@@ -50,7 +50,7 @@ namespace CloudberryKingdom
                 var block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, false);
                 float pos = i % 2 == 0 ? Right : Left;
                 block.Init(new Vector2(pos, FloorPos.Y), new Vector2(500, 100), MyLevel.MyTileSetInfo);
-                block.Core.MyTileSetType = TileSet.Catwalk;
+                block.Core.MyTileSet = TileSets.Catwalk;
                 if (i % 2 == 0)
                     block.Stretch(Side.Left, 50);
                 else

@@ -118,16 +118,19 @@ namespace CloudberryKingdom
         {
             SetColor(Color.White);
 
-            switch (TileSetType)
-            {
-                case TileSet.Rain:
-                case TileSet.Terrace: SetDoorType(Types.Grass); break;
-                case TileSet.DarkTerrace: SetDoorType(Types.Grass);
-                    SetColor(TileSets.Get(TileSet.DarkTerrace).Tint); break;
-                case TileSet.Dungeon: SetDoorType(Types.Rock); break;
-                case TileSet.Dark: SetDoorType(Types.Dark); break;
-                default: SetDoorType(Types.Brick); break;
-            }
+            SetDoorType(TileSetType.DoorType);
+            SetColor(TileSetType.Tint);
+            
+            //switch (TileSetType)
+            //{
+            //    case TileSets.Rain:
+            //    case TileSets.Terrace: SetDoorType(Types.Grass); break;
+            //    case TileSets.DarkTerrace: SetDoorType(Types.Grass);
+            //        SetColor(TileSets.DarkTerrace.Tint); break;
+            //    case TileSets.Dungeon: SetDoorType(Types.Rock); break;
+            //    case TileSets.Dark: SetDoorType(Types.Dark); break;
+            //    default: SetDoorType(Types.Brick); break;
+            //}
         }
 
         public void SetColor(Vector4 color) { SetColor(new Color(color)); }

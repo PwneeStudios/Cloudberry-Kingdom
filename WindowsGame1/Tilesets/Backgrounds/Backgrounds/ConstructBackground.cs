@@ -11,7 +11,7 @@ namespace CloudberryKingdom
         public ConstructBackground()
         {
             MyType = BackgroundType.Construct;
-            MyTileSet = TileSets.Get(TileSet.None);
+            MyTileSet = TileSets.None;
         }
 
         public override void Init(Level level)

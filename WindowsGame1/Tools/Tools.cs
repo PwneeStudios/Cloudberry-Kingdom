@@ -370,6 +370,19 @@ namespace CloudberryKingdom
 
     public class Tools
     {
+        public static void Assert(bool MustBeTrue)
+        {
+#if DEBUG
+            if (!MustBeTrue)
+                Break();
+#endif
+        }
+
+        public static void Log(string dump)
+        {
+        }
+
+
         public static void Nothing() { }
 
         public static bool AllUnique<T>(List<T> list, Func<T, int> transform)

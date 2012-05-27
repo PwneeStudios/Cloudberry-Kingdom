@@ -43,8 +43,7 @@ namespace CloudberryKingdom.Clouds
             //Box.SwapToCurrent();
         }
 
-        public void Init(Vector2 Size, TileSet tileset) { Init(Size, TileSets.Get(tileset)); }
-        public void Init(Vector2 Size, TileSetInfo MyTileSet)
+        public void Init(Vector2 Size, TileSet MyTileSet)
         {
             Core.MyTileSet = MyTileSet;
             this.Size = Size;
@@ -52,7 +51,7 @@ namespace CloudberryKingdom.Clouds
 
             Core.MyTileSet = MyTileSet;
             if (!Core.BoxesOnly)
-                if (MyTileSet.Type == TileSet.Terrace)// || MyTileSet.Type == TileSet.Island)
+                if (MyTileSet == TileSets.Terrace)// || MyTileSet == TileSets.Island)
                     MyQuad.Quad.SetColor(new Color(.6f, .6f, .6f, .95f));
         }
 

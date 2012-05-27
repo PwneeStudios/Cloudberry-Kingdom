@@ -230,7 +230,13 @@ namespace CloudberryKingdom
             EzStorage.Load(ActualContainerName, FileName,
                 reader =>
                 {
-                    Deserialize(reader);
+                    try
+                    {
+                        Deserialize(reader);
+                    }
+                    catch
+                    {
+                    }
                     Changed = false;
                     SaveGroup.Decr();
                 },

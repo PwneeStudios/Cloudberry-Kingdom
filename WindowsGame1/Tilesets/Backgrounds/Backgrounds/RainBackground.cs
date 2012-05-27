@@ -9,7 +9,7 @@ namespace CloudberryKingdom
         public RainBackground()
         {
             MyType = BackgroundType.Rain;
-            MyTileSet = TileSets.Get(TileSet.Terrace);
+            MyTileSet = TileSets.Terrace;
         }
 
         bool RainAdded = false;

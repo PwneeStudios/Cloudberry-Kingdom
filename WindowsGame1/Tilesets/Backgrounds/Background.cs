@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
         public Vector2 BL, TR;
 
-        public TileSetInfo MyTileSet;
+        public TileSet MyTileSet;
 
         public void Release()
         {
@@ -145,8 +145,8 @@ namespace CloudberryKingdom
         }
         
 
-        public static bool Test = true;
-        public static bool GreenScreen = true;
+        public static bool Test = false;
+        public static bool GreenScreen = false;
         static QuadClass TestQuad = new QuadClass();
         public static EzTexture TestTexture = null;
 

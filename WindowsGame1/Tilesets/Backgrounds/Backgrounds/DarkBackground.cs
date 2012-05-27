@@ -13,7 +13,7 @@ namespace CloudberryKingdom
             : base()
         {
             MyType = BackgroundType.Dark;
-            MyTileSet = TileSets.Get(TileSet.Dark);
+            MyTileSet = TileSets.Dark;
         }
 
         public override void Init(Level level)

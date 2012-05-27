@@ -205,10 +205,10 @@ namespace CloudberryKingdom
                 if (!block.Core.Show && block.Core.EditorCode3.CompareTo("icon") != 0) continue;
 
                 // Don't grab the grass
-                if (block.Core.MyTileSetType == TileSet.OutsideGrass)
+                if (block.Core.MyTileSet == TileSets.OutsideGrass)
                     grass = block;
-                else if (block.Core.MyTileSetType == TileSet.CastlePiece2 ||
-                         block.Core.MyTileSetType == TileSet.CastlePiece)
+                else if (block.Core.MyTileSet == TileSets.CastlePiece2 ||
+                         block.Core.MyTileSet == TileSets.CastlePiece)
                 {
                     castleblock = block;
                     castle.Add(block);

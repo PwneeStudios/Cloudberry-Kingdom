@@ -173,9 +173,9 @@ namespace CloudberryKingdom
 
         int LevelsPerTileset = 2;
         static TileSet[] tilesets = {
-            TileSet.Terrace, TileSet.Dungeon, TileSet.Island,
-            TileSet.Castle, TileSet.Rain, TileSet.Dungeon,
-            TileSet._Night, TileSet._NightSky };
+            TileSets.Terrace, TileSets.Dungeon, TileSets.Island,
+            TileSets.Castle, TileSets.Rain, TileSets.Dungeon,
+            TileSets._Night, TileSets._NightSky };
 
         protected virtual TileSet GetTileSet(int i)
         {
@@ -200,7 +200,7 @@ namespace CloudberryKingdom
 
             // Create the LevelSeedData
             LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);
-            //data.SetBackground(GetTileSet(Index - StartIndex));
+            //data.SetTileSet(GetTileSet(Index - StartIndex));
 
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)

@@ -171,6 +171,10 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <None Include="DynamicLoad\Load">
+      <Name>Load</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Effects\RootEffect.fx">
       <Name>RootEffect</Name>
       <Importer>EffectImporter</Importer>
