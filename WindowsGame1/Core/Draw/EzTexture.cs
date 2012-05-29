@@ -296,21 +296,104 @@ namespace Drawing
             PathDict.RemoveAll(kp => kp.Value.Dynamic);
         }
 
-        public void LoadAllDynamic(ContentManager Content)
+        public enum WhatToLoad { Art, Tilesets };
+        public void LoadModRoot(Stream stream, WhatToLoad what)
         {
-            String path = Path.Combine(Globals.ContentDirectory, "DynamicLoad");
+            StreamReader reader = new StreamReader(stream);
+
+            String line;
+
+            line = reader.ReadLine();
+            while (line != null)
+            {
+                var bits = Tools.GetBitsFromLine(line);
+
+                if (bits.Count > 0)
+                {
+                    var first = bits[0];
+
+                    switch (first)
+                    {
+                        case "Load":
+                            LoadFolder(bits[1], what);
+                            break;
+                        
+                        default: break;
+                    }
+                }
+
+                line = reader.ReadLine();
+            }
+
+            reader.Close();
+            stream.Close();
+        }
+
+        /// <summary>
+        /// Dynamically load a folder (assuming it is inside DynamicLoad).
+        /// </summary>
+        public void LoadFolder(string path, WhatToLoad what)
+        {
+            path = Path.Combine(Globals.ContentDirectory, Path.Combine("DynamicLoad", path));
+
             string[] files = Tools.GetFiles(path, true);
 
             foreach (String file in files)
             {
                 string extension = Tools.GetFileExt(path, file);
-                if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp")
-                {
-                    string filename = Tools.GetFileName(path, file);
-                    Stream stream = File.Open(file, FileMode.Open); 
 
-                    var texture = Tools.TextureWad.AddTexture(Texture2D.FromStream(Tools.Device, stream), filename);
-                    texture.Dynamic = true;
+                // Load sprites
+                if (what == WhatToLoad.Art)
+                    if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp")
+                    {
+                        string filename = Tools.GetFileName(path, file);
+                        Stream stream = File.Open(file, FileMode.Open);
+                        var tex = Texture2D.FromStream(Tools.Device, stream);
+                        stream.Close();
+
+                        //if (file.Contains("600")) Tools.Write("");
+                        ConvertToPreMultipliedAlpha(tex);
+
+                        var texture = Tools.TextureWad.AddTexture(tex, filename);
+                        texture.Dynamic = true;
+                    }
+
+                // Load tileset
+                if (what == WhatToLoad.Tilesets)
+                    if (extension == "tileset")
+                        TileSets.LoadTileSet(file);
+            }
+        }
+
+        public static Texture2D ConvertToPreMultipliedAlpha(Texture2D texture)
+        {
+            Color[] data = new Color[texture.Width * texture.Height];
+            texture.GetData<Color>(data, 0, data.Length);
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = new Color(new Vector4(data[i].ToVector3() * (data[i].A / 255f), (data[i].A / 255f)));
+            }
+            texture.SetData<Color>(data, 0, data.Length);
+
+            return texture;
+        }
+
+        public void LoadAllDynamic(ContentManager Content, WhatToLoad what)
+        {
+            String path = Path.Combine(Globals.ContentDirectory, "DynamicLoad");
+            
+            // Find top level files
+            string[] files = Tools.GetFiles(path, false);
+
+            // Process files that are .modroots
+            foreach (String file in files)
+            {
+                string extension = Tools.GetFileExt(path, file);
+                if (extension == "modroot")
+                {
+                    Stream stream = File.Open(file, FileMode.Open);
+
+                    LoadModRoot(stream, what);
 
                     stream.Close();
                 }
@@ -400,8 +483,15 @@ namespace Drawing
             {
                 NewTex = FindByName(Name);
 
+                // Override pre-existing texture?
                 if (Tex != null)
+                {
+                    // Get rid of old texture if it was dynamic.
+                    if (NewTex.Dynamic && NewTex.Tex != null && !NewTex.Tex.IsDisposed)
+                        NewTex.Tex.Dispose();
+
                     NewTex.Tex = Tex;
+                }
             }
             else
             {

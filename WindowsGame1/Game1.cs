@@ -305,9 +305,10 @@ namespace CloudberryKingdom
         public void ReloadInfo()
         {
 #if DEBUG
-            Tools.TextureWad.KillDynamic();
-            Tools.TextureWad.LoadAllDynamic(Content);
-            Background.TestTexture = Tools.Texture("DynoTest");
+            //TileSets.KillDynamic();
+            //Tools.TextureWad.KillDynamic();
+            Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+            Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
 #endif
 
             InfoWad.Init();
@@ -1085,14 +1086,14 @@ namespace CloudberryKingdom
 
                 ReloadInfo();
 
-                //foreach (Block block in Tools.CurLevel.Blocks)
-                //{
-                //    NormalBlock nblock = block as NormalBlock;
-                //    if (null != nblock) nblock.ResetPieces();
+                foreach (BlockBase block in Tools.CurLevel.Blocks)
+                {
+                    NormalBlock nblock = block as NormalBlock;
+                    if (null != nblock) nblock.ResetPieces();
 
-                //    MovingBlock mblock = block as MovingBlock;
-                //    if (null != mblock) mblock.ResetPieces();
-                //}
+                    MovingBlock mblock = block as MovingBlock;
+                    if (null != mblock) mblock.ResetPieces();
+                }
             }
 
             if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))

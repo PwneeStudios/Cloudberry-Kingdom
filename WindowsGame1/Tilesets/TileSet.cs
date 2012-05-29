@@ -13,22 +13,68 @@ namespace CloudberryKingdom
     /// </summary>
     public class TileSet
     {
+        public TileSet()
+        {
+            MakeNew();
+        }
+
+        public void MakeNew()
+        {
+            IsLoaded = false;
+
+            CustomStartEnd = false;
+            DungeonLike = false;
+            DoorType = Door.Types.Brick;
+
+            Pillars = new Dictionary<int, PieceQuad>();
+            Platforms = new Dictionary<int, PieceQuad>();
+
+            FixedWidths = false;
+            ProvidesTemplates = false;
+
+            StandInType = TileSets.None;
+
+            ObstacleUpgrades = new List<Upgrade>();
+
+            FlexibleHeight = false;
+            HasCeiling = false;
+
+            Name = "";
+            MyPath = "";
+            Guid = 0;
+
+            Tint = new Vector4(1);
+
+            ScreenshotString = "";
+
+            MyBackgroundType = BackgroundType.Dungeon;
+
+            CoinScoreColor = new Color(220, 255, 255);
+        }
+
         // CRAP
-        public bool DungeonLike = false;
-        public Door.Types DoorType = Door.Types.Brick;
-
-
+        public bool DungeonLike;
+        public Door.Types DoorType;
 
         // New tile set stuff
-        Dictionary<int, PieceQuad>
-            Pillars = new Dictionary<int, PieceQuad>(),
-            Platforms = new Dictionary<int, PieceQuad>();
+        public bool IsLoaded;
+        public bool CustomStartEnd;
+        Dictionary<int, PieceQuad> Pillars, Platforms;
+
+        public bool FixedWidths;
+        public bool ProvidesTemplates;
+        public int[] PillarWidths, PlatformWidths;
+
 
         /// <summary>
         /// Read tileset info from a file.
         /// </summary>
         public void Read(String path)
         {
+            MyPath = path;
+            IsLoaded = true;
+            CustomStartEnd = true;
+
             // Find path
             FileStream stream = null;
             string original_path = path;
@@ -71,10 +117,7 @@ namespace CloudberryKingdom
             line = reader.ReadLine();
             while (line != null)
             {
-                line = Tools.RemoveComment(line);
-
-                var bits = line.Split(' ').ToList();
-                bits.RemoveAll(bit => string.Compare(bit, " ") == 0 || string.Compare(bit, "\t") == 0);
+                var bits = Tools.GetBitsFromLine(line);
 
                 if (bits.Count > 0)
                 {
@@ -130,15 +173,8 @@ namespace CloudberryKingdom
             c.Data.MiddleOnly = false;
             c.Data.CenterOnly = true;
             c.Data.UV_Multiples = new Vector2(1, 0);
-            
-            c.Center.TextureName = bits[1];
-            int tex_width = c.Center.MyTexture.Tex.Width;
 
-            float diff = tex_width - width;
-            diff /= 2;
-
-            c.Data.Left_TR_Shift.X = diff;
-            c.Data.Left_BL_Shift.X = -diff;
+            ParseExtraBlockInfo(c, width, bits);
 
             return c;
         }
@@ -153,48 +189,61 @@ namespace CloudberryKingdom
             c.Data.CenterOnly = true;
             c.Data.UV_Multiples = new Vector2(1, 1);
 
-            c.Center.TextureName = bits[1];
-            int tex_width = c.Center.MyTexture.Tex.Width;
-            int tex_height = c.Center.MyTexture.Tex.Height;
-
-            // Center the quad
-            float diff = tex_width - width;
-            diff /= 2;
-
-            c.Data.Left_TR_Shift.X = diff;
-            c.Data.Left_BL_Shift.X = -diff;
-
-            // Extend the quad down to properly scale quad
-            c.Data.Bottom_BL_Shift.Y = -tex_height;
+            ParseExtraBlockInfo(c, width, bits);
 
             return c;
         }
 
-        public bool FixedWidths = false;
-        public bool ProvidesTemplates = false;
-        public int[] PillarWidths, PlatformWidths;
+        void ParseExtraBlockInfo(PieceQuad c, int width, List<string> bits)
+        {
+            c.Center.U_Wrap = c.Center.V_Wrap = false;
 
-        public void SnapWidthUp_Pillar(ref Vector2 size)
-        {
-            SnapWidthUp(ref size, PillarWidths);
-        }
-        public void SnapWidthUp_Platform(ref Vector2 size)
-        {
-            SnapWidthUp(ref size, PlatformWidths);
-        }
+            c.Center.TextureName = bits[1];
+            int tex_width = c.Center.MyTexture.Tex.Width;
+            int tex_height = c.Center.MyTexture.Tex.Height;
 
-        public static void SnapWidthUp(ref Vector2 size, int[] Widths)
-        {
-            for (int i = 0; i < Widths.Length; i++)
+            for (int i = 2; i < bits.Count; i++)
             {
-                if (size.X < Widths[i])
+                switch (bits[i])
                 {
-                    size.X = Widths[i];
-                    return;
+                    case "left": c.Data.Center_BL_Shift.X = float.Parse(bits[i + 1]); break;
+                    case "right": c.Data.Center_TR_Shift.X = float.Parse(bits[i + 1]); break;
+                    case "top": c.Data.Center_TR_Shift.Y = float.Parse(bits[i + 1]); break;
                 }
             }
 
-            size.X = Widths[Widths.Length - 1];
+            // Extend the quad down to properly scale quad
+            float sprite_width = 2 * width + c.Data.Center_TR_Shift.X - c.Data.Center_BL_Shift.X;
+            c.FixedHeight = sprite_width * (float)tex_height / (float)tex_width;
+            //c.Data.Bottom_BL_Shift.Y = -tex_height;
+        }
+
+        public void SnapWidthUp_Pillar(ref Vector2 size)
+        {
+            size.X = SnapWidthUp(size.X, PillarWidths);
+        }
+        public void SnapWidthUp_Platform(ref Vector2 size)
+        {
+            size.X = SnapWidthUp(size.X, PlatformWidths);
+        }
+
+        public static int SnapWidthUp(float width, int[] Widths)
+        {
+            int int_width = 0;
+
+            int_width = Widths[Widths.Length - 1];
+            for (int i = 0; i < Widths.Length; i++)
+            {
+                if (width < Widths[i])
+                {
+                    int_width = Widths[i];
+                    break;
+                }
+            }
+            
+            width = int_width;
+
+            return int_width;
         }
 
         public PieceQuad GetPieceTemplate(BlockBase block)
@@ -211,13 +260,15 @@ namespace CloudberryKingdom
             else
                 width = box.Current.Size.X;
 
+            int int_width = SnapWidthUp(width - .1f, PillarWidths);
+
             // Get the piecequad template
             try
             {
-                if (block.Box.TopOnly)
-                    return Platforms[(int)width];
+                if (block.Box.TopOnly && block.BlockCore.UseTopOnlyTexture)
+                    return Platforms[int_width];
                 else
-                    return Pillars[(int)width];
+                    return Pillars[int_width];
             }
             catch
             {
@@ -249,7 +300,7 @@ namespace CloudberryKingdom
         public bool FlexibleHeight;
         public bool HasCeiling;
 
-        public string Name;
+        public string Name, MyPath;
         public int Guid;
 
         public Vector4 Tint = new Vector4(1);
@@ -282,25 +333,78 @@ namespace CloudberryKingdom
 
         public static List<TileSet> TileList = new List<TileSet>();
         public static Dictionary<int, TileSet> GuidLookup = new Dictionary<int, TileSet>();
-        public static Dictionary<string, TileSet> NameLookup = new Dictionary<string, TileSet>();
+        public static Dictionary<string, TileSet> NameLookup = new Dictionary<string, TileSet>(), PathLookup = new Dictionary<string,TileSet>();
+
+        public static void KillDynamic()
+        {
+            TileList.RemoveAll(tile => tile.IsLoaded);
+            GuidLookup.RemoveAll(pair => pair.Value.IsLoaded);
+            NameLookup.RemoveAll(pair => pair.Value.IsLoaded);
+            PathLookup.RemoveAll(pair => pair.Value.IsLoaded);
+        }
 
         public static void AddTileSet(TileSet tileset)
         {
             TileList.Add(tileset);
-            GuidLookup.Add(tileset.Guid, tileset);
-            NameLookup.Add(tileset.Name, tileset);
+
+            // Add the tileset to the Guid lookup
+            try
+            {
+                GuidLookup.Add(tileset.Guid, tileset);
+            }
+            catch
+            {
+                Tools.Log(string.Format("TileSet Guid {0} already exists (Name = {1})", tileset.Guid, tileset.Name));
+                GuidLookup[tileset.Guid] = tileset;
+            }
+
+            // Add the tileset to the Name lookup
+            try
+            {
+                NameLookup.Add(tileset.Name, tileset);
+            }
+            catch
+            {
+                Tools.Log(string.Format("TileSet name {0} already exists (Guid = {1})", tileset.Name, tileset.Guid));
+                NameLookup[tileset.Name] = tileset;
+            }
+
+            // Add the tileset to the Path lookup
+            if (tileset.MyPath.Length > 0)
+            {
+                try
+                {
+                    PathLookup.Add(tileset.MyPath, tileset);
+                }
+                catch
+                {
+                    Tools.Log(string.Format("TileSet path {0} already exists (Name = {1})", tileset.MyPath, tileset.Name));
+                    PathLookup[tileset.Name] = tileset;
+                }
+            }
+        }
+
+        public static void LoadTileSet(string path)
+        {
+            TileSet tileset;
+            if (PathLookup.ContainsKey(path))
+            {
+                tileset = PathLookup[path];
+                tileset.MakeNew();
+            }
+            else
+                tileset = new TileSet();
+
+            tileset.Read(path);
+            AddTileSet(tileset);
         }
 
         public static void Init()
         {
             TileSet info;
 
-            var d = new TileSet();
-            d.Read("DynamicLoad\\TestTileSet\\TestTileSet.tileset");
-            AddTileSet(d);
-
-
             //public enum TileSet { None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky };
+
 
             // None
             DefaultTileSet = None = info = new TileSet();

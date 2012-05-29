@@ -475,7 +475,7 @@ namespace CloudberryKingdom.Levels
                         door = PlaceDoorOnBlock(pos + new Vector2(380, 0), block, true, TileSets.CastlePiece);
                     }
                     else
-                        door = PlaceDoorOnBlock(pos, block, true);                        
+                        door = PlaceDoorOnBlock(pos, block, MyTileSet.CustomStartEnd ? false : true);
                     door.Core.EditorCode1 = LevelConnector.StartOfLevelCode;
 
                     // Shift start position

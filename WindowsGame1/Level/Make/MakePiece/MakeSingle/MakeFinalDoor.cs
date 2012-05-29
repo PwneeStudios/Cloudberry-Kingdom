@@ -120,7 +120,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Add door
-            Door door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, true);
+            Door door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, MyLevel.MyTileSet.CustomStartEnd ? false : true);
 
             // Terrace-To-Castle
             if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)

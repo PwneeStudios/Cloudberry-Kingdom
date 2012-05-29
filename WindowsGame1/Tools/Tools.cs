@@ -1232,10 +1232,23 @@ public static Thread EasyThread(int affinity, string name, Action action)
             Tools.ShowLoadingScreen = false;
         }
 
+        /// <summary>
+        /// Parses a string, stripping comments, and returning the sequence of bits it contains (separated strings).
+        /// </summary>
+        public static List<string> GetBitsFromLine(String line)
+        {
+            line = Tools.RemoveComment(line);
+
+            var bits = line.Split(' ').ToList();
+            bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
+
+            return bits;
+        }
+
         public static string RemoveComment(String str)
         {
             int CommentIndex = str.IndexOf("//");
-            if (CommentIndex > 0)
+            if (CommentIndex >= 0)
                 str = str.Substring(0, CommentIndex);
             return str;
         }
