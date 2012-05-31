@@ -380,7 +380,7 @@ namespace CloudberryKingdom
             MyLevel.MainCamera.Zoom = new Vector2(CamZone.Zoom * .001f);
         }
 
-        protected void MakeBackground(BackgroundType type)
+        protected void MakeBackground(BackgroundTemplate type)
         {
             MyLevel.MyBackground = Background.Get(type);
             MyLevel.MyBackground.Init(MyLevel);

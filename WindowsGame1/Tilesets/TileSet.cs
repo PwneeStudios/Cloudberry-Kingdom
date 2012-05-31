@@ -119,7 +119,7 @@ namespace CloudberryKingdom
             {
                 var bits = Tools.GetBitsFromLine(line);
 
-                if (bits.Count > 0)
+                if (bits.Count > 1)
                 {
                     var first = bits[0];
 
@@ -147,6 +147,21 @@ namespace CloudberryKingdom
                     }
                     else switch (first)
                     {
+                        case "BackgroundImage":
+                            BackgroundTemplate b;
+                            try
+                            {
+                                b = BackgroundType.NameLookup[bits[1]];
+                            }
+                            catch
+                            {
+                                b = new BackgroundTemplate();
+                                b.Name = bits[1];
+                            }
+
+
+                            break;
+
                         case "Name": Name = bits[1]; break;
                         default: break;
                     }
@@ -307,7 +322,7 @@ namespace CloudberryKingdom
 
         public string ScreenshotString;
 
-        public BackgroundType MyBackgroundType;
+        public BackgroundTemplate MyBackgroundType;
 
         public Color CoinScoreColor = new Color(220, 255, 255);
 

@@ -20,7 +20,7 @@ namespace CloudberryKingdom
             DelayToDrop = 130;
         }
 
-        public Campaign_GetJetpack(BackgroundType type, EzSong song)
+        public Campaign_GetJetpack(BackgroundTemplate type, EzSong song)
             : base(false)
         {
             SetParams();

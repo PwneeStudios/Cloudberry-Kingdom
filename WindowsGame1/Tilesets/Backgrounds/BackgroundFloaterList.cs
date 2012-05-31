@@ -101,8 +101,7 @@ namespace CloudberryKingdom
             Tools.QDrawer.Flush();
 
             Camera Cam = MyLevel.MainCamera;
-            //Vector4 ParralaxCameraPos = new Vector4(Cam.Data.Position.X, Cam.Data.Position.Y, Cam.Zoom.X * Parralax, Cam.Zoom.Y * Parralax);
-            //Tools.EffectWad.SetCameraPosition(ParralaxCameraPos);
+
             Cam.SetVertexZoom(Parralax * CamMod);
 
             foreach (BackgroundFloater Floater in Floaters)

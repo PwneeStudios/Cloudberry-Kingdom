@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 using CloudberryKingdom.Levels;
 
@@ -6,7 +7,43 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public enum BackgroundType { None, Random, Castle, Dungeon, Outside, Space, Gray, Construct, Rain, Dark, Sky, Night, NightSky, Chaos };
+    public class BackgroundType
+    { 
+        public static BackgroundTemplate
+            None = new BackgroundTemplate(),
+            Random = new BackgroundTemplate(),
+            Castle = new BackgroundTemplate(),
+            Dungeon = new BackgroundTemplate(),
+            Outside = new BackgroundTemplate(),
+            Space = new BackgroundTemplate(),
+            Gray = new BackgroundTemplate(),
+            Construct = new BackgroundTemplate(),
+            Rain = new BackgroundTemplate(),
+            Dark = new BackgroundTemplate(),
+            Sky = new BackgroundTemplate(),
+            Night = new BackgroundTemplate(),
+            NightSky = new BackgroundTemplate(),
+            Chaos = new BackgroundTemplate();
+
+        public static Dictionary<string, BackgroundTemplate> NameLookup = new Dictionary<string, BackgroundTemplate>();
+        public static void AddTemplate(BackgroundTemplate template)
+        {
+            NameLookup.Add(template.Name, template);
+        }
+    }
+
+    public class BackgroundTemplate
+    {
+        public string Name;
+        public bool MadeOfCode = true;
+
+        public Background MakeInstanceOf()
+        {
+            var b = new Background();
+            return b;
+        }
+    }
+
     public class Background
     {
         public float MyGlobalIllumination = 1f;
@@ -20,7 +57,7 @@ namespace CloudberryKingdom
         public Level MyLevel;
         public Rand Rnd { get { return MyLevel.Rnd; } }
 
-        public BackgroundType MyType;
+        public BackgroundTemplate MyType;
 
         public BackgroundCollection MyCollection;
         public Vector2 OffsetOffset = Vector2.Zero; // How much the BackgroundQuad offset is offset by (from calls to Move)
@@ -36,35 +73,28 @@ namespace CloudberryKingdom
             MyLevel = null;
         }
 
-        public static Background Get(BackgroundType Type)
+        public static Background Get(BackgroundTemplate Type)
         {
-            Background NewBackground = null;
+            if (Type == BackgroundType.Castle) return new CastleBackground();
 
-            switch (Type)
-            {
-                case BackgroundType.Castle: NewBackground = new CastleBackground(); break;
+            if (Type == BackgroundType.Dungeon) return new DungeonBackground();
+            if (Type == BackgroundType.Dark) return new DarkBackground();
 
-                case BackgroundType.Dungeon: NewBackground = new DungeonBackground(); break;
-                case BackgroundType.Dark: NewBackground = new DarkBackground(); break;
+            if (Type == BackgroundType.Sky) return new SkyBackground();
+            if (Type == BackgroundType.Outside) return new OutsideBackground();
+            if (Type == BackgroundType.Night) return new NightTimeBackground();
+            if (Type == BackgroundType.NightSky) return new NightSkyBackground();
+            if (Type == BackgroundType.Chaos) return new ChaosBackground();
 
-                case BackgroundType.Sky: NewBackground = new SkyBackground(); break;
-                case BackgroundType.Outside: NewBackground = new OutsideBackground(); break;
-                case BackgroundType.Night: NewBackground = new NightTimeBackground(); break;
-                case BackgroundType.NightSky: NewBackground = new NightSkyBackground(); break;
-                case BackgroundType.Chaos: NewBackground = new ChaosBackground(); break;
+            if (Type == BackgroundType.Space) return new SpaceBackground();
 
-                case BackgroundType.Space: NewBackground = new SpaceBackground(); break;
+            if (Type == BackgroundType.Gray) return new GrayBackground();
 
-                case BackgroundType.Gray: NewBackground = new GrayBackground(); break;
+            if (Type == BackgroundType.Construct) return new ConstructBackground();
 
-                case BackgroundType.Construct: NewBackground = new ConstructBackground(); break;
+            if (Type == BackgroundType.Rain) return new RainBackground();
 
-                case BackgroundType.Rain: NewBackground = new RainBackground(); break;
-
-                default: return null;
-            }
-
-            return NewBackground;
+            return null;
         }
 
         public Background()
@@ -144,7 +174,6 @@ namespace CloudberryKingdom
                 MyCollection.UpdateBounds(BL, TR);
         }
         
-
         public static bool Test = false;
         public static bool GreenScreen = false;
         static QuadClass TestQuad = new QuadClass();
@@ -165,7 +194,12 @@ namespace CloudberryKingdom
             {
                 TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
                 //TestQuad.TextureName = "BGPlain";
+                //TestQuad.TextureName = "tigar_inside_castle";
+                
+                if (TestTexture == null)
+                    TestTexture = Tools.Texture("BGPlain");
                 TestQuad.Quad.MyTexture = TestTexture;
+
                 TestQuad.Quad.SetColor(Tools.GrayColor(.825f));
                 TestQuad.FullScreen(Cam);
                 TestQuad.ScaleXToMatchRatio();

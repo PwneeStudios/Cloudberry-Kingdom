@@ -1,7 +1,7 @@
 ﻿#if WINDOWS
 namespace CloudberryKingdom.Viewer
 {
-    public partial class Viewer
+    public partial class GameObjViewer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,23 +29,23 @@ namespace CloudberryKingdom.Viewer
         /// </summary>
         private void InitializeComponent()
         {
-            this.ViewerTree = new System.Windows.Forms.TreeView();
+            this.ObjTree = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // ViewerTree
             // 
-            this.ViewerTree.Location = new System.Drawing.Point(12, 12);
-            this.ViewerTree.Name = "ViewerTree";
-            this.ViewerTree.Size = new System.Drawing.Size(299, 450);
-            this.ViewerTree.TabIndex = 0;
-            this.ViewerTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewerTree_AfterSelect);
+            this.ObjTree.Location = new System.Drawing.Point(12, 12);
+            this.ObjTree.Name = "ViewerTree";
+            this.ObjTree.Size = new System.Drawing.Size(299, 450);
+            this.ObjTree.TabIndex = 0;
+            this.ObjTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewerTree_AfterSelect);
             // 
             // Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(323, 474);
-            this.Controls.Add(this.ViewerTree);
+            this.Controls.Add(this.ObjTree);
             this.Name = "Viewer";
             this.Text = "Viewer";
             this.Load += new System.EventHandler(this.Viewer_Load);
@@ -55,7 +55,7 @@ namespace CloudberryKingdom.Viewer
 
         #endregion
 
-        private System.Windows.Forms.TreeView ViewerTree;
+        private System.Windows.Forms.TreeView ObjTree;
     }
 }
 #endif

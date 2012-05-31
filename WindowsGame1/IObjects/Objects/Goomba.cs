@@ -138,6 +138,7 @@ namespace CloudberryKingdom.Goombas
             Period = 1;
 
             MyObject.Linear = true;
+            //MyObject.Linear = false;
 
             MyObject.Boxes[0].Animated = false;
             MyObject.Boxes[1].Animated = false;
@@ -468,6 +469,8 @@ namespace CloudberryKingdom.Goombas
 
         public void AnimStep()
         {
+            MyObject.Linear = false;
+
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
             //MyObject.Linear = false;

@@ -222,7 +222,7 @@ namespace CloudberryKingdom
 
         public List<PieceSeedData> PieceSeeds;
 
-        public BackgroundType MyBackgroundType;
+        public BackgroundTemplate MyBackgroundType;
         public TileSet MyTileSet;
 
         public void SetTileSet(string name)

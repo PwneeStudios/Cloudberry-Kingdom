@@ -12,9 +12,9 @@ using System.Reflection;
 
 namespace CloudberryKingdom.Viewer
 {
-    public partial class Viewer : Form
+    public partial class GameObjViewer : Form
     {
-        public Viewer()
+        public GameObjViewer()
         {
             InitializeComponent();
 
@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Viewer
 
         public void Input()
         {
-            FieldNode node = ViewerTree.SelectedNode as FieldNode;
+            FieldNode node = ObjTree.SelectedNode as FieldNode;
 
             // If selected node is a TreeNode
             if (null != node)
@@ -188,9 +188,9 @@ namespace CloudberryKingdom.Viewer
             {
                 IViewable viewable = obj as IViewable;
                 if (null != viewable)
-                    ViewerTree.Nodes.Add(ViewableToNode(viewable, 0));
+                    ObjTree.Nodes.Add(ViewableToNode(viewable, 0));
             }
-            ViewerTree.Nodes.Add(ViewableToNode(CharacterSelectManager.Instance, 0));
+            ObjTree.Nodes.Add(ViewableToNode(CharacterSelectManager.Instance, 0));
         }
 
         FieldNode SelectedFieldNode = null;

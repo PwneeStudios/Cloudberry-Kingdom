@@ -1023,7 +1023,7 @@ namespace CloudberryKingdom
             if ((Tools.viewer == null || Tools.viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
             {
-                Tools.viewer = new Viewer.Viewer();
+                Tools.viewer = new Viewer.GameObjViewer();
                 Tools.viewer.Show();
             }
             if (Tools.viewer != null)
