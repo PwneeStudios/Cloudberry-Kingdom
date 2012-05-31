@@ -34,6 +34,21 @@ namespace CloudberryKingdom
             return true;
         }
 
+        public bool HitTest_WithParallax(Vector2 pos, Vector2 padding, float Parallax)
+        {
+            if (!Show) return false;
+
+            Update();
+
+            var c = Tools.CurCamera.Pos;
+            if (pos.X > Parallax * (TR.X - c.X) + c.X + padding.X) return false;
+            if (pos.X < Parallax * (BL.X - c.X) + c.X - padding.X) return false;
+            if (pos.Y > Parallax * (TR.Y - c.Y) + c.Y + padding.Y) return false;
+            if (pos.Y < Parallax * (BL.Y - c.Y) + c.Y - padding.Y) return false;
+
+            return true;
+        }
+
         public Vector2 TR { get { return Quad.v1.Vertex.xy; } }
         public Vector2 BL { get { return Quad.v2.Vertex.xy; } }
 

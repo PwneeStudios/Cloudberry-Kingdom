@@ -454,6 +454,11 @@ public static string DefaultObjectDirectory()
     return Path.Combine(Globals.ContentDirectory, "Objects");
 }
 
+public static string DefaultDynamicDirectory()
+{
+    return Path.Combine(Directory.GetCurrentDirectory(), Path.Combine(Globals.ContentDirectory, "DynamicLoad"));
+}
+
 public static string SourceTextureDirectory()
 {
     return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))), "Content\\Art");
@@ -844,7 +849,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
       
 #if WINDOWS
         public static Viewer.GameObjViewer gameobj_viewer;
-        public static Viewer.
+        public static Viewer.BackgroundViewer background_viewer;
         public static BlockDialog Dlg;
         
         static bool _DialogUp = false;
@@ -910,6 +915,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static XnaInput.MouseState CurMouseState, PrevMouseState;
         public static Vector2 DeltaMouse;
         public static int DeltaScroll;
+        public static bool MouseInWindow = false;
         public static bool Editing;
 
         public static Vector2 MousePos
@@ -971,6 +977,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// </summary>
         public static bool MouseDown() { return CurMouseDown() || PrevMouseDown(); }
 
+        /// <summary>
+        /// True when the left mouse button is down currently and was NOT down on the previous frame.
+        /// </summary>
+        public static bool MousePressed() { return CurMouseDown() && !PrevMouseDown(); }
 
         /// <summary>
         /// Whether the left RightMouse button is currently down.
@@ -998,10 +1008,36 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return Tools.ToWorldCoordinates(MousePos
             , Tools.CurLevel.MainCamera);
         }
+
+        public static bool ShiftDown()
+        {
+            return
+                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) ||
+                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+        }
+
+        public static bool CntrlDown()
+        {
+            return
+                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) ||
+                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl);
+        }
 #else
 
 #endif
         public static XnaInput.GamePadState[] padState, PrevpadState;
+
+        /// <summary>
+        /// Return just the file name of a path.
+        /// </summary>
+        public static string StripPath(string file)
+        {
+            int LastSlash = file.LastIndexOf("\\");
+            if (LastSlash < 0)
+                return file;
+            else
+                return file.Substring(LastSlash + 1);
+        }
 
         public static EzTexture Texture(string name) { return TextureWad.FindByName(name); }
         public static EzSound Sound(string name) { return SoundWad.FindByName(name); }

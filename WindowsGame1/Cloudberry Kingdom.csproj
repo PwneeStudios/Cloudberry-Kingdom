@@ -173,11 +173,11 @@
   <ItemGroup>
     <Compile Include="Awardments\AwardmentMessage.cs" />
     <Compile Include="Awardments\ShopMenu.cs" />
-    <Compile Include="Backgrounds\BackgroundView.cs">
+    <Compile Include="Backgrounds\BackgroundViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Backgrounds\BackgroundView.Designer.cs">
-      <DependentUpon>BackgroundView.cs</DependentUpon>
+    <Compile Include="Backgrounds\BackgroundViewer.Designer.cs">
+      <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Bob Phsx\BobPhsxJetman.cs" />
     <Compile Include="Bob Phsx\BobPhsxDouble.cs" />
@@ -711,8 +711,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Backgrounds\BackgroundView.resx">
-      <DependentUpon>BackgroundView.cs</DependentUpon>
+    <EmbeddedResource Include="Backgrounds\BackgroundViewer.resx">
+      <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\AnimationToolbox.resx">
       <DependentUpon>AnimationToolbox.cs</DependentUpon>

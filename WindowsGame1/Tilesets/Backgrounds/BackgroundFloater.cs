@@ -8,6 +8,29 @@ namespace CloudberryKingdom
 {
     public class BackgroundFloater
     {
+#if DEBUG
+        public bool Selected = false, SoftSelected = false, FixedAspectPreference = false, FixedPos = false;
+
+        /// <summary>
+        /// Get the list a floater belongs to.
+        /// Note, this is expensive and should not exist in Release mode.
+        /// There is no need for a floater to track who it's parent is, and only complicates the GC graph.
+        /// </summary>
+        public BackgroundFloaterList Parent
+        {
+            get
+            {
+                if (MyLevel == null) return null;
+                if (MyLevel.MyBackground == null) return null;
+
+                foreach (var list in MyLevel.MyBackground.MyCollection.Lists)
+                    if (list.Floaters.Contains(this))
+                        return list;
+                return null;
+            }
+        }
+#endif
+
         float _SpinVelocity;
         public float SpinVelocity
         {
@@ -39,6 +62,17 @@ namespace CloudberryKingdom
         public void SetLevel(Level level)
         {
             MyLevel = level;
+        }
+
+        public void ChangeParallax(float Prev, float New)
+        {
+            float ratio = Prev / New;
+            var cam = MyLevel.MainCamera.Pos;
+
+            Data.Position = (Data.Position - cam) * ratio + cam;
+            MyQuad.Size *= ratio;
+
+            InitialUpdate();
         }
 
         public void Move(Vector2 shift)
@@ -151,9 +185,35 @@ namespace CloudberryKingdom
             }
         }
 
+#if DEBUG
+        protected void Draw_DebugExtra()
+        {
+            if (Selected || SoftSelected)
+            {
+                var HoldTexture = MyQuad.Quad.MyTexture;
+                var HoldColor = MyQuad.Quad.MySetColor;
+
+                MyQuad.Quad.MyTexture = Tools.TextureWad.DefaultTexture;
+                if (Selected)
+                    MyQuad.Quad.SetColor(new Color(200, 200, 255, 135));
+                else
+                    MyQuad.Quad.SetColor(new Color(200, 200, 255, 45));
+
+                Tools.QDrawer.DrawQuad(MyQuad.Quad);
+
+                MyQuad.Quad.MyTexture = HoldTexture;
+                MyQuad.Quad.SetColor(HoldColor);
+            }
+        }
+#endif
+
         public virtual void Draw()
         {
             Tools.QDrawer.DrawQuad(MyQuad.Quad);
+
+#if DEBUG
+            Draw_DebugExtra();
+#endif
         }
     }
 }

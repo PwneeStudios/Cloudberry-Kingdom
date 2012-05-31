@@ -66,7 +66,7 @@ namespace CloudberryKingdom
             float Pos;
 
             NewList = new BackgroundFloaterList();
-            NewList.Parralax = .5f;
+            NewList.Parallax = .5f;
             Pos = BL.Y;
             while (Pos < TR.Y)
             {

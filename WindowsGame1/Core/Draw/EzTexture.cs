@@ -499,11 +499,12 @@ namespace Drawing
                 NewTex.Path = Name;
                 NewTex.Tex = Tex;
 
-                int LastSlash = Name.LastIndexOf("\\");
-                if (LastSlash < 0)
-                    NewTex.Name = Name;
-                else
-                    NewTex.Name = Name.Substring(LastSlash + 1);
+                NewTex.Name = Tools.StripPath(Name);
+                //int LastSlash = Name.LastIndexOf("\\");
+                //if (LastSlash < 0)
+                //    NewTex.Name = Name;
+                //else
+                //    NewTex.Name = Name.Substring(LastSlash + 1);
 
                 //lock (AllLoaded)
                 {

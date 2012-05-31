@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             {
                 BackgroundFloaterList NewList = new BackgroundFloaterList();
                 NewList.MyLevel = MyLevel;
-                NewList.Parralax = .83f - .17f * i;
+                NewList.Parallax = .83f - .17f * i;
 
                 Vector2 Pos = BL;
                 Pos.X -= 650;

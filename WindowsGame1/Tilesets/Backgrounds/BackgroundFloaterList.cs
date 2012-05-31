@@ -11,7 +11,16 @@ namespace CloudberryKingdom
         public Level MyLevel;
         public List<BackgroundFloater> Floaters;
 
-        public float Parralax;
+        public float Parallax;
+
+        public void SetParallaxAndPropagate(float Parallax)
+        {
+            float PrevParallax = this.Parallax;
+            this.Parallax = Parallax;
+
+            foreach (var floater in Floaters)
+                floater.ChangeParallax(PrevParallax, Parallax);
+        }
 
         public BackgroundFloaterList()
         {
@@ -102,7 +111,7 @@ namespace CloudberryKingdom
 
             Camera Cam = MyLevel.MainCamera;
 
-            Cam.SetVertexZoom(Parralax * CamMod);
+            Cam.SetVertexZoom(Parallax * CamMod);
 
             foreach (BackgroundFloater Floater in Floaters)
                 Floater.Draw();
@@ -112,7 +121,7 @@ namespace CloudberryKingdom
         {
             MyLevel = level;
 
-            Parralax = InfoWad.GetFloat(Root + "_Parralax");
+            Parallax = InfoWad.GetFloat(Root + "_Parralax");
 
             BackgroundFloater.AddSpan(Root, Floaters, BL, TR, MyLevel);
         }

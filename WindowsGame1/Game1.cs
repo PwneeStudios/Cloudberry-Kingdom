@@ -1019,7 +1019,7 @@ namespace CloudberryKingdom
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
             //}
 
-            // Viewer
+            // Game Obj Viewer
             if ((Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
             {
@@ -1032,6 +1032,21 @@ namespace CloudberryKingdom
                     Tools.gameobj_viewer = null;
                 else
                     Tools.gameobj_viewer.Input();
+            }
+
+            // Game Obj Viewer
+            if ((Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
+                && Tools.keybState.IsKeyDown(Keys.V) && !Tools.PrevKeyboardState.IsKeyDown(Keys.V))
+            {
+                Tools.background_viewer = new Viewer.BackgroundViewer();
+                Tools.background_viewer.Show();
+            }
+            if (Tools.background_viewer != null)
+            {
+                if (Tools.background_viewer.IsDisposed)
+                    Tools.background_viewer = null;
+                else
+                    Tools.background_viewer.Input();
             }
 
             if (Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
@@ -1215,6 +1230,10 @@ namespace CloudberryKingdom
                 DoGameDataPhsx();
             }
 
+            Tools.MouseInWindow =
+                Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
+                Tools.CurMouseState.Y > 0 && Tools.CurMouseState.Y < Resolution.Backbuffer.Y;
+
             Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
             Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
                                Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
@@ -1305,10 +1324,14 @@ namespace CloudberryKingdom
             //    if (null != phsx) str = phsx.StepsSinceSide.ToString();
             //}
 
+            // Mouse
+            //string str = string.Format("Mouse delta: {0}", Tools.DeltaMouse);
+            string str = string.Format("Mouse in window: {0}", Tools.MouseInWindow);
+
             // GC
-            string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
-                + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
-                + debugstring;
+            //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
+            //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
+            //    + debugstring;
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
@@ -1410,7 +1433,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    //MakeTestLevel(); return;
+                    MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1526,8 +1549,8 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            data.SetTileSet("TestTileSet");
-            //data.SetTileSet(TileSets.Dungeon);
+            //data.SetTileSet("TestTileSet");
+            data.SetTileSet(TileSets.Dungeon);
             //data.SetTileSet(TileSets.Terrace);
             //data.SetTileSet(TileSets._Night);
             //data.SetTileSet(TileSets._NightSky);
@@ -2215,6 +2238,10 @@ ObjectData.UpdateWeak();
                 }
 
                 FirstInactiveFrame = true;
+
+                // If we are editing the background show the mouse
+                if (Tools.background_viewer != null)
+                    this.IsMouseVisible = true;
             }
         }
 #endif
