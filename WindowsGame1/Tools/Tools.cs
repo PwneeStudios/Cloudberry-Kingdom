@@ -843,7 +843,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
       
 #if WINDOWS
-        public static Viewer.GameObjViewer viewer;
+        public static Viewer.GameObjViewer gameobj_viewer;
+        public static Viewer.
         public static BlockDialog Dlg;
         
         static bool _DialogUp = false;

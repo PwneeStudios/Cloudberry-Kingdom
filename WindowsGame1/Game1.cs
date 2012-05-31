@@ -1020,18 +1020,18 @@ namespace CloudberryKingdom
             //}
 
             // Viewer
-            if ((Tools.viewer == null || Tools.viewer.IsDisposed)
+            if ((Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
             {
-                Tools.viewer = new Viewer.GameObjViewer();
-                Tools.viewer.Show();
+                Tools.gameobj_viewer = new Viewer.GameObjViewer();
+                Tools.gameobj_viewer.Show();
             }
-            if (Tools.viewer != null)
+            if (Tools.gameobj_viewer != null)
             {
-                if (Tools.viewer.IsDisposed)
-                    Tools.viewer = null;
+                if (Tools.gameobj_viewer.IsDisposed)
+                    Tools.gameobj_viewer = null;
                 else
-                    Tools.viewer.Input();
+                    Tools.gameobj_viewer.Input();
             }
 
             if (Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
