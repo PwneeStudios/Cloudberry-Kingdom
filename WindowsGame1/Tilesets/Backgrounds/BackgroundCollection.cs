@@ -27,6 +27,11 @@ namespace CloudberryKingdom
                 list.Release();
         }
 
+        public void Sort()
+        {
+            Lists.Sort((list1, list2) => list1.Parallax.CompareTo(list2.Parallax));
+        }
+
         public void SetLevel(Level level)
         {
             MyLevel = level;

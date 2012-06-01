@@ -48,7 +48,6 @@ namespace CloudberryKingdom.Viewer
             this.size_xNum = new System.Windows.Forms.NumericUpDown();
             this.pos_yNum = new System.Windows.Forms.NumericUpDown();
             this.UV_Page = new System.Windows.Forms.TabPage();
-            this.TextureButton = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -60,6 +59,9 @@ namespace CloudberryKingdom.Viewer
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.Texture_Page = new System.Windows.Forms.TabPage();
+            this.TextureCombobox = new System.Windows.Forms.ComboBox();
+            this.TextureButton = new System.Windows.Forms.Button();
             this.LayerBox = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ParallaxNum = new System.Windows.Forms.NumericUpDown();
@@ -71,11 +73,9 @@ namespace CloudberryKingdom.Viewer
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TextureCombobox = new System.Windows.Forms.ComboBox();
             this.NewLayerButton = new System.Windows.Forms.Button();
-            this.Texture_Page = new System.Windows.Forms.TabPage();
             this.NewFloaterButton = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.QuadBox.SuspendLayout();
             this.QuadTab.SuspendLayout();
             this.XY_Page.SuspendLayout();
@@ -92,15 +92,16 @@ namespace CloudberryKingdom.Viewer
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            this.Texture_Page.SuspendLayout();
             this.LayerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.Texture_Page.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayerTree
             // 
-            this.LayerTree.Location = new System.Drawing.Point(12, 293);
+            this.LayerTree.AllowDrop = true;
+            this.LayerTree.Location = new System.Drawing.Point(12, 292);
             this.LayerTree.Name = "LayerTree";
             this.LayerTree.Size = new System.Drawing.Size(272, 430);
             this.LayerTree.TabIndex = 0;
@@ -159,6 +160,8 @@ namespace CloudberryKingdom.Viewer
             this.AspectCheckbox.Size = new System.Drawing.Size(100, 17);
             this.AspectCheckbox.TabIndex = 12;
             this.AspectCheckbox.Text = "File aspect ratio";
+            this.ToolTips.SetToolTip(this.AspectCheckbox, "Force the quad\'s aspect ratio to be the aspect ratio of it\'s texture.\\nThe height" +
+                    " of the quad will be scaled; the width will be unaffected.");
             this.AspectCheckbox.UseVisualStyleBackColor = true;
             this.AspectCheckbox.CheckedChanged += new System.EventHandler(this.AspectCheckbox_CheckedChanged);
             // 
@@ -193,6 +196,7 @@ namespace CloudberryKingdom.Viewer
             this.FixedPosCheckbox.Size = new System.Drawing.Size(71, 17);
             this.FixedPosCheckbox.TabIndex = 11;
             this.FixedPosCheckbox.Text = "Fixed pos";
+            this.ToolTips.SetToolTip(this.FixedPosCheckbox, "Fix the position of the quad relative to the camera.");
             this.FixedPosCheckbox.UseVisualStyleBackColor = true;
             this.FixedPosCheckbox.CheckedChanged += new System.EventHandler(this.FixedPosCheckbox_CheckedChanged);
             // 
@@ -357,16 +361,6 @@ namespace CloudberryKingdom.Viewer
             this.UV_Page.Text = "U, V";
             this.UV_Page.UseVisualStyleBackColor = true;
             // 
-            // TextureButton
-            // 
-            this.TextureButton.Location = new System.Drawing.Point(3, 3);
-            this.TextureButton.Name = "TextureButton";
-            this.TextureButton.Size = new System.Drawing.Size(28, 28);
-            this.TextureButton.TabIndex = 22;
-            this.TextureButton.Text = "T";
-            this.TextureButton.UseVisualStyleBackColor = true;
-            this.TextureButton.Click += new System.EventHandler(this.TextureButton_Click);
-            // 
             // numericUpDown1
             // 
             this.numericUpDown1.DecimalPlaces = 2;
@@ -530,8 +524,38 @@ namespace CloudberryKingdom.Viewer
             this.numericUpDown6.Size = new System.Drawing.Size(64, 20);
             this.numericUpDown6.TabIndex = 16;
             // 
+            // Texture_Page
+            // 
+            this.Texture_Page.Controls.Add(this.TextureCombobox);
+            this.Texture_Page.Controls.Add(this.TextureButton);
+            this.Texture_Page.Location = new System.Drawing.Point(4, 22);
+            this.Texture_Page.Name = "Texture_Page";
+            this.Texture_Page.Size = new System.Drawing.Size(254, 107);
+            this.Texture_Page.TabIndex = 2;
+            this.Texture_Page.Text = "Texture";
+            this.Texture_Page.UseVisualStyleBackColor = true;
+            // 
+            // TextureCombobox
+            // 
+            this.TextureCombobox.FormattingEnabled = true;
+            this.TextureCombobox.Location = new System.Drawing.Point(39, 8);
+            this.TextureCombobox.Name = "TextureCombobox";
+            this.TextureCombobox.Size = new System.Drawing.Size(121, 21);
+            this.TextureCombobox.TabIndex = 23;
+            // 
+            // TextureButton
+            // 
+            this.TextureButton.Location = new System.Drawing.Point(3, 3);
+            this.TextureButton.Name = "TextureButton";
+            this.TextureButton.Size = new System.Drawing.Size(28, 28);
+            this.TextureButton.TabIndex = 22;
+            this.TextureButton.Text = "T";
+            this.TextureButton.UseVisualStyleBackColor = true;
+            this.TextureButton.Click += new System.EventHandler(this.TextureButton_Click);
+            // 
             // LayerBox
             // 
+            this.LayerBox.Controls.Add(this.NewFloaterButton);
             this.LayerBox.Controls.Add(this.label6);
             this.LayerBox.Controls.Add(this.ParallaxNum);
             this.LayerBox.Location = new System.Drawing.Point(12, 71);
@@ -581,18 +605,18 @@ namespace CloudberryKingdom.Viewer
             // 
             // PlayButton
             // 
-            this.PlayButton.Location = new System.Drawing.Point(12, 27);
+            this.PlayButton.Location = new System.Drawing.Point(222, 27);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(38, 38);
+            this.PlayButton.Size = new System.Drawing.Size(28, 28);
             this.PlayButton.TabIndex = 3;
             this.PlayButton.Text = "Play";
             this.PlayButton.UseVisualStyleBackColor = true;
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(58, 27);
+            this.ResetButton.Location = new System.Drawing.Point(252, 27);
             this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(38, 38);
+            this.ResetButton.Size = new System.Drawing.Size(28, 28);
             this.ResetButton.TabIndex = 4;
             this.ResetButton.Text = "Reset";
             this.ResetButton.UseVisualStyleBackColor = true;
@@ -600,7 +624,7 @@ namespace CloudberryKingdom.Viewer
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(102, 52);
+            this.StatusLabel.Location = new System.Drawing.Point(234, 55);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(46, 13);
             this.StatusLabel.TabIndex = 13;
@@ -644,53 +668,40 @@ namespace CloudberryKingdom.Viewer
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
-            // TextureCombobox
-            // 
-            this.TextureCombobox.FormattingEnabled = true;
-            this.TextureCombobox.Location = new System.Drawing.Point(39, 8);
-            this.TextureCombobox.Name = "TextureCombobox";
-            this.TextureCombobox.Size = new System.Drawing.Size(121, 21);
-            this.TextureCombobox.TabIndex = 23;
-            // 
             // NewLayerButton
             // 
-            this.NewLayerButton.Location = new System.Drawing.Point(144, 27);
+            this.NewLayerButton.Location = new System.Drawing.Point(12, 27);
             this.NewLayerButton.Name = "NewLayerButton";
-            this.NewLayerButton.Size = new System.Drawing.Size(38, 38);
+            this.NewLayerButton.Size = new System.Drawing.Size(28, 28);
             this.NewLayerButton.TabIndex = 15;
             this.NewLayerButton.Text = "N L";
+            this.ToolTips.SetToolTip(this.NewLayerButton, "New Layer (L)");
             this.NewLayerButton.UseVisualStyleBackColor = true;
-            // 
-            // Texture_Page
-            // 
-            this.Texture_Page.Controls.Add(this.TextureCombobox);
-            this.Texture_Page.Controls.Add(this.TextureButton);
-            this.Texture_Page.Location = new System.Drawing.Point(4, 22);
-            this.Texture_Page.Name = "Texture_Page";
-            this.Texture_Page.Size = new System.Drawing.Size(254, 107);
-            this.Texture_Page.TabIndex = 2;
-            this.Texture_Page.Text = "Texture";
-            this.Texture_Page.UseVisualStyleBackColor = true;
+            this.NewLayerButton.Click += new System.EventHandler(this.NewLayerButton_Click);
             // 
             // NewFloaterButton
             // 
-            this.NewFloaterButton.Location = new System.Drawing.Point(188, 27);
+            this.NewFloaterButton.Location = new System.Drawing.Point(236, 13);
             this.NewFloaterButton.Name = "NewFloaterButton";
-            this.NewFloaterButton.Size = new System.Drawing.Size(38, 38);
+            this.NewFloaterButton.Size = new System.Drawing.Size(28, 28);
             this.NewFloaterButton.TabIndex = 16;
             this.NewFloaterButton.Text = "N F";
+            this.ToolTips.SetToolTip(this.NewFloaterButton, "New Quad (K)");
             this.NewFloaterButton.UseVisualStyleBackColor = true;
+            this.NewFloaterButton.Click += new System.EventHandler(this.NewFloaterButton_Click);
             // 
-            // toolTip1
+            // ToolTips
             // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            this.ToolTips.AutoPopDelay = 50000;
+            this.ToolTips.InitialDelay = 400;
+            this.ToolTips.ReshowDelay = 100;
+            this.ToolTips.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // BackgroundViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(296, 735);
-            this.Controls.Add(this.NewFloaterButton);
             this.Controls.Add(this.NewLayerButton);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.ResetButton);
@@ -721,12 +732,12 @@ namespace CloudberryKingdom.Viewer
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            this.Texture_Page.ResumeLayout(false);
             this.LayerBox.ResumeLayout(false);
             this.LayerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.Texture_Page.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -779,7 +790,7 @@ namespace CloudberryKingdom.Viewer
         private System.Windows.Forms.TabPage Texture_Page;
         public System.Windows.Forms.Button NewLayerButton;
         public System.Windows.Forms.Button NewFloaterButton;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip ToolTips;
     }
 }
 #endif

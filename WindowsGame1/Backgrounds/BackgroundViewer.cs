@@ -18,9 +18,117 @@ namespace CloudberryKingdom.Viewer
         {
             InitializeComponent();
 
-            TextureButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\ToolbarIcons-full-20100505\\png\\24\\Modern3D\\objects\\painting.png");
+            NewFloaterButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\rectangle_blue.png");
+            SetButtonParams(NewFloaterButton);
+
+            NewLayerButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\layers.png");
+            SetButtonParams(NewLayerButton);
+
+            TextureButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\Quad_24.png");
+            SetButtonParams(TextureButton);
+
+            ////LayerTree.DragEnter += new DragEventHandler(LayerTree_DragEnter);
+            LayerTree.ItemDrag += new ItemDragEventHandler(LayerTree_ItemDrag);
+            LayerTree.DragDrop += new DragEventHandler(LayerTree_DragDrop);
+            LayerTree.DragOver += new DragEventHandler(LayerTree_DragOver);
+            LayerTree.AllowDrop = true;
+
+            //LayerTree.DragDrop += new DragEventHandler(LayerTree_DragDrop);
+            LayerTree.MouseDown += new MouseEventHandler(LayerTree_MouseDown);
 
             FillTree();
+        }
+
+        TreeNode GetReceivingNode(TreeView Tree, Vector2 pos)
+        {
+            System.Drawing.Point pt1 = Tree.PointToClient(new System.Drawing.Point((int)pos.X, (int)pos.Y));
+
+            TreeNode node1 = Tree.GetNodeAt(pt1);
+
+            return node1;
+        }
+
+        ////void LayerTree_DragDrop(object sender, DragEventArgs e)
+        ////{
+            
+        ////}
+
+        void LayerTree_MouseDown(object sender, MouseEventArgs e)
+        {
+            var node = ((TreeView)sender).GetNodeAt(new System.Drawing.Point((int)e.X, (int)e.Y));
+
+            LayerTree.SelectedNode = node;
+            //if (node != null)
+            //{
+            //    LayerTree.DoDragDrop(node, DragDropEffects.Move);
+            //}
+        }
+
+
+
+        void LayerTree_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+            //var node = GetReceivingNode((TreeView)sender, new Vector2(e.X, e.Y));
+        }
+
+        TreeNode_ DraggedNode;
+        void LayerTree_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            DraggedNode = e.Item as TreeNode_;
+            LayerTree.DoDragDrop(DraggedNode, DragDropEffects.Move);
+        }
+
+        void LayerTree_DragDrop(object sender, DragEventArgs e)
+        {
+            var ReceivingNode = GetReceivingNode((TreeView)sender, new Vector2(e.X, e.Y));
+
+            if (DraggedNode == null || ReceivingNode == null) return;
+            if (DraggedNode == ReceivingNode) return;
+            var fnode = DraggedNode as TreeNode_Floater;
+            var lnode = DraggedNode as TreeNode_List;
+
+            TreeNode_List ReceivingLayerNode = null;
+
+            if (ReceivingNode is TreeNode_Floater)
+                ReceivingLayerNode = ReceivingNode.Parent as TreeNode_List;
+            else if (ReceivingNode is TreeNode_List)
+                ReceivingLayerNode = ReceivingNode as TreeNode_List;
+            else
+                ReceivingLayerNode = null;
+
+            if (null != lnode)
+            {
+                if (lnode != ReceivingLayerNode)
+                {
+                    //lnode.Free();
+                    LayerTree.Nodes.Remove(lnode);
+                    LayerTree.Nodes.Insert(LayerTree.Nodes.IndexOf(ReceivingLayerNode) + 1, lnode);
+
+                    LayerTree.SelectedNode = lnode;
+                }
+            }
+            else
+            {
+                if (ReceivingLayerNode != null)
+                {
+                    ReceivingLayerNode.Insert(ReceivingLayerNode.Nodes.IndexOf(ReceivingNode) + 1, fnode);
+                    LayerTree.SelectedNode = fnode;
+                }
+            }
+        }
+
+
+
+        private void SetButtonParams(Button button)
+        {
+            button.Text = "";
+            button.Size = new System.Drawing.Size(28, 28);
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(255, 240, 240, 240);
+            button.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
+            button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 150, 150, 150);
+            button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 200, 200, 200);
         }
 
         bool ContainsMouse
@@ -64,6 +172,18 @@ namespace CloudberryKingdom.Viewer
             public virtual void SyncNumerics()
             {
             }
+
+            public virtual void Insert(int Index, TreeNode_ node)
+            {
+                node.Free();
+            }
+
+            public virtual void Free()
+            {
+                if (Parent == null) return;
+
+                Parent.Nodes.Remove(this);
+            }
         }
 
         class TreeNode_List : TreeNode_
@@ -81,6 +201,21 @@ namespace CloudberryKingdom.Viewer
 
                 // Sync Parallax
                 Controller.ParallaxNum.Value = (decimal)MyList.Parallax;
+
+                //Controller.background.MyCollection.Sort();
+                //Controller.LayerTree.Sort();
+            }
+
+            public override void Insert(int Index, TreeNode_ node)
+            {
+                base.Insert(Index, node);
+
+                var fnode = node as TreeNode_Floater;
+                if (null == fnode)
+                    throw new Exception("Layer can only have floater children.");
+
+                MyList.Floaters.Add(fnode.MyFloater);
+                Nodes.Add(fnode);
             }
         }
 
@@ -92,6 +227,8 @@ namespace CloudberryKingdom.Viewer
                 : base(Controller)
             {
                 MyFloater = floater;
+
+                Text = string.Format("{0}", floater.MyQuad.Quad.MyTexture.Name);
             }
 
             public override void SyncNumerics()
@@ -112,6 +249,23 @@ namespace CloudberryKingdom.Viewer
                 // Sync aspect bool
                 Controller.AspectCheckbox.Checked = MyFloater.FixedAspectPreference;
                 Controller.FixedPosCheckbox.Checked = MyFloater.FixedPos;
+            }
+
+            public override void Free()
+            {
+                if (Parent == null) return;
+
+                var list_parent = Parent as TreeNode_List;
+                if (null != list_parent)
+                    list_parent.MyList.Floaters.Remove(this.MyFloater);
+
+                base.Free();
+            }
+
+            public override void Insert(int Index, TreeNode_ node)
+            {
+                base.Insert(Index, node);
+                throw new Exception("Floater node can't have children.");
             }
         }
 
@@ -135,11 +289,7 @@ namespace CloudberryKingdom.Viewer
 
                 // Loop through the floaters for this list.
                 foreach (var floater in list.Floaters)
-                {
-                    var floater_node = new TreeNode_Floater(floater, this);
-                    floater_node.Text = string.Format("{0}", floater.MyQuad.Quad.MyTexture.Name);
-                    list_node.Nodes.Add(floater_node);
-                }
+                    list_node.Nodes.Add(new TreeNode_Floater(floater, this));
             }
         }
 
@@ -161,6 +311,10 @@ namespace CloudberryKingdom.Viewer
             // Escape to deselect
             if (Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 DeselectAll();
+
+            // Delete
+            if (Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Delete))
+                DeleteSelected();
 
             // No soft if inactive
             if (!MouseActiveInWorld)
@@ -246,12 +400,40 @@ namespace CloudberryKingdom.Viewer
 
         void DeselectAll()
         {
+            // Unselect floaters
             foreach (var floater in SelectedFloaters)
                 floater.Selected = false;
             SelectedFloaters.Clear();
             
+            // If selected item is a floater, select nothing.
             if (LayerTree.SelectedNode is TreeNode_Floater)
                 LayerTree.SelectedNode = null;
+
+            // Update fake highlighting
+            FakeHighlightTree();
+        }
+
+        void DeleteSelected()
+        {
+            // Delete a layer
+            var layer_node = LayerTree.SelectedNode as TreeNode_List;
+            if (null != layer_node)
+            {
+                LayerTree.Nodes.Remove(layer_node);
+                background.MyCollection.Lists.Remove(layer_node.MyList);
+            }
+            else
+            {
+                foreach (var floater in SelectedFloaters)
+                {
+                    var floater_node = GetNodeOf(floater) as TreeNode_Floater;
+                    if (null != floater_node)
+                    {
+                        floater_node.Parent.Nodes.Remove(floater_node);
+                        floater_node.MyFloater.Parent.Floaters.Remove(floater_node.MyFloater);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -310,6 +492,33 @@ namespace CloudberryKingdom.Viewer
             // Then highlight what is selected
             foreach (var floater in SelectedFloaters)
                 floater.Selected = true;
+            // Fake highlight the tree
+            FakeHighlightTree();
+        }
+
+        /// <summary>
+        /// Provides the illusion of a multi-select tree.
+        /// </summary>
+        private void FakeHighlightTree()
+        {
+            foreach (TreeNode lnode in LayerTree.Nodes)
+                foreach (TreeNode fnode in lnode.Nodes)
+                {
+                    TreeNode_Floater floater_node = fnode as TreeNode_Floater;
+                    if (null != floater_node)
+                    {
+                        if (floater_node.MyFloater.Selected)
+                        {
+                            floater_node.BackColor = System.Drawing.Color.FromArgb(255, 51, 153, 255);
+                            floater_node.ForeColor = System.Drawing.Color.White;
+                        }
+                        else
+                        {
+                            floater_node.BackColor = System.Drawing.Color.White;
+                            floater_node.ForeColor = System.Drawing.Color.Black;
+                        }
+                    }
+                }
         }
 
         /// <summary>
@@ -367,6 +576,76 @@ namespace CloudberryKingdom.Viewer
         {
 
         }
+
+        BackgroundFloaterList CurrentLayer
+        {
+            get
+            {
+                if (CurrentLayerNode == null)
+                    return null;
+                else
+                    return CurrentLayerNode.MyList;
+            }
+        }
+
+        TreeNode_List CurrentLayerNode
+        {
+            get
+            {
+                var lnode = LayerTree.SelectedNode as TreeNode_List;
+                if (null != lnode)
+                    return lnode;
+
+                var fnode = LayerTree.SelectedNode as TreeNode_Floater;
+                if (null != fnode)
+                    return fnode.Parent as TreeNode_List;
+
+                return null;
+            }
+        }
+
+        private void NewFloaterButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentLayer != null)
+            {
+                var floater = new BackgroundFloater(Tools.CurLevel, -100000, 100000);
+                floater.Data.Position = Tools.CurCamera.Pos;
+                floater.MyQuad.Size = new Vector2(400, 400);
+                floater.FixedAspectPreference = true;
+
+                // Add the floater
+                CurrentLayer.Floaters.Add(floater);
+                var node = new TreeNode_Floater(floater, this);
+                CurrentLayerNode.Nodes.Add(node);
+
+                // Select the floater
+                LayerTree.SelectedNode = node;
+            }
+        }
+
+        private void NewLayerButton_Click(object sender, EventArgs e)
+        {
+            var list = new BackgroundFloaterList();
+            list.MyLevel = background.MyLevel;
+            list.Parallax = .9f;
+
+            // Add list
+            background.MyCollection.Lists.Add(list);
+            var node = new TreeNode_List(list, this);
+            LayerTree.Nodes.Add(node);
+
+            // Select the list
+            LayerTree.SelectedNode = node;
+        }
+
+        //static int NodeSorter(TreeNode n1, TreeNode n2)
+        //{
+        //    var l1 = n1 as TreeNode_List;
+        //    var l2 = n2 as TreeNode_List;
+        //    if (null != l1 && null != l2) return l1.MyList.Parallax.CompareTo(l2.MyList.Parallax);
+
+        //    return 0;
+        //}
     }
 }
 #endif
