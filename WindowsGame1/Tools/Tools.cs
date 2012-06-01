@@ -848,10 +848,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
       
 #if WINDOWS
+#if DEBUG
+        public static bool ViewerIsUp { get { return gameobj_viewer != null || background_viewer != null; } }
         public static Viewer.GameObjViewer gameobj_viewer;
         public static Viewer.BackgroundViewer background_viewer;
+#else
+        public static bool ViewerIsUp { get { return false; } }
+#endif
+
         public static BlockDialog Dlg;
-        
         static bool _DialogUp = false;
         public static bool DialogUp { get { return _DialogUp; } set { _DialogUp = value; } }
 #endif

@@ -1,4 +1,4 @@
-﻿#if WINDOWS
+﻿#if WINDOWS && DEBUG
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

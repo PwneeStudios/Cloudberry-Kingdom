@@ -301,7 +301,7 @@ namespace CloudberryKingdom
         bool CheckForBackFromOutsideClick()
         {
 #if PC_VERSION
-            if (Tools.viewer != null) return false;
+            if (Tools.ViewerIsUp) return false;
 
             bool Hit = HitTest();
 

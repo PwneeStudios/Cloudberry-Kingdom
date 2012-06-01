@@ -1053,18 +1053,18 @@ namespace CloudberryKingdom
                 ShowFPS = !ShowFPS;
 #endif
 
-#if PC_VERSION
-            if (SimpleLoad)
-            {
-                if ((Tools.viewer == null || Tools.viewer.IsDisposed) && Tools.keybState.IsKeyDownCustom(Keys.B) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.B))
-                {
-                    Tools.viewer = new Viewer.Viewer();
-                    Tools.viewer.Show();
-                }
-                if (Tools.viewer != null && !Tools.viewer.IsDisposed)
-                    Tools.viewer.Input();
-            }
-#endif
+//#if PC_VERSION
+//            if (SimpleLoad)
+//            {
+//                if ((Tools.ViewerIsUp || Tools.viewer.IsDisposed) && Tools.keybState.IsKeyDownCustom(Keys.B) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.B))
+//                {
+//                    Tools.viewer = new Viewer.Viewer();
+//                    Tools.viewer.Show();
+//                }
+//                if (Tools.viewer != null && !Tools.viewer.IsDisposed)
+//                    Tools.viewer.Input();
+//            }
+//#endif
 
             // Quick game reset
             //if (//Tools.CurLevel.ResetEnabled() &&
@@ -1433,7 +1433,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    MakeTestLevel(); return;
+                    //MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -2240,7 +2240,8 @@ ObjectData.UpdateWeak();
                 FirstInactiveFrame = true;
 
                 // If we are editing the background show the mouse
-                if (Tools.background_viewer != null)
+                //if (Tools.background_viewer != null)
+                if (Tools.ViewerIsUp)
                     this.IsMouseVisible = true;
             }
         }

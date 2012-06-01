@@ -479,7 +479,7 @@ namespace CloudberryKingdom
         bool IsOutside()
         {
 #if PC_VERSION
-            if (Tools.viewer != null) return false;
+            if (Tools.ViewerIsUp) return false;
 
             Vector2 MousePos = Tools.MouseGUIPos(MyCameraZoom);
             bool Hit = HitTest(MousePos);
