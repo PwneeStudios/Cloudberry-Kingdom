@@ -10,7 +10,7 @@ namespace CloudberryKingdom.Blocks
 
         public Color Tint;
 
-        public PieceQuad MyPieces;
+        public PieceQuad MyPieces, MyTemplate;
         BlockBase MyBlock;
 
         public NormalBlockDraw() { MakeNew(); }
@@ -18,11 +18,13 @@ namespace CloudberryKingdom.Blocks
         public void MakeNew()
         {
             SetTint(Color.White);
+            MyTemplate = null;
         }
 
         public void Clone(NormalBlockDraw DrawA)
         {
             SetTint(DrawA.Tint);
+            MyTemplate = DrawA.MyTemplate;
         }
 
         public void SetTint(Vector4 v) { SetTint(new Color(v)); }
@@ -43,14 +45,17 @@ namespace CloudberryKingdom.Blocks
 
         public static Vector2 ModCeilingSize = new Vector2(25f, 0f);
         public void Init(BlockBase block) { Init(block, null); }
-        public void Init(BlockBase block, PieceQuad Template)
+        public void Init(BlockBase block, PieceQuad template)
         {
+            if (MyTemplate != null)
+                template = MyTemplate;
+
             //MyPieces.Init(Tools.TextureWad.FindByName("White"), Tools.BasicEffect);
 
-            if (Template != null)
+            if (template != null)
             {
                 if (MyPieces == null) MyPieces = new PieceQuad();
-                MyPieces.Clone(Template);
+                MyPieces.Clone(template);
             }
 
             MyBlock = block;

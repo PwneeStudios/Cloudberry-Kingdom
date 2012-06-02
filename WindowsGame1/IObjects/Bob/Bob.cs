@@ -931,7 +931,7 @@ namespace CloudberryKingdom.Bobs
 
             offset.Y -= 125;            
             
-            NewBlock.Init(pos + offset, new Vector2(120, 120));
+            NewBlock.Init(pos + offset, new Vector2(120, 120), MyLevel);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
             return NewBlock as MovingBlock;
@@ -1745,8 +1745,9 @@ namespace CloudberryKingdom.Bobs
                 GroundSpeed += block.BlockCore.GroundSpeed;
         }
 
-        void InitBoxesForCollisionDetect()
+        public void InitBoxesForCollisionDetect()
         {
+            //PlayerObject.Update(null);
             Box.Current.Size = PlayerObject.BoxList[1].Size() / 2;
             Box2.Current.Size = PlayerObject.BoxList[2].Size() / 2;
 

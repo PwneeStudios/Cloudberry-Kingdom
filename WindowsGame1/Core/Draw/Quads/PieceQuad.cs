@@ -66,6 +66,10 @@ namespace CloudberryKingdom
 
     public class PieceQuad
     {
+        // Some pillar info
+        public float BoxHeight = -1;
+
+
         public float Group_CutoffWidth = 0;
 
         /// <summary>

@@ -225,59 +225,107 @@ namespace CloudberryKingdom
 
 
             // Mario
-            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Mario.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, true);
-            NewBob.MyObjectType = BobPhsxMario.Instance;
-            //NewBob.PlayerObject.ParentQuad.Scale(new Vector2(1.8f, 1.7f));
-            NewBob.PlayerObject.ParentQuad.Scale(new Vector2(1.15f, 1.5f));
-            NewBob.DrawOutline = true;
-            foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
-                quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
-            NewBob.CanHaveCape = true;
-            NewBob.CanHaveHat = true;
-            NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+            bool Mario = true;
+            if (Mario)
+            {
+                NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Mario.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, true);
+                NewBob.MyObjectType = BobPhsxMario.Instance;
+                NewBob.PlayerObject.ParentQuad.Scale(new Vector2(1.8f, 1.7f));
+                NewBob.MyCapeType = Cape.CapeType.None;
+                NewBob.DrawOutline = true;
+                foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+                    quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+                NewBob.CanHaveCape = true;
+                NewBob.CanHaveHat = true;
+                NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
 
-            var p = NewBob.PlayerObject;
-            var q = p.FindQuad("Head");
-            q.TextureAnim = new AnimationData_Texture();
-            //EzTexture i_stand_1 = Tools.Texture("Mario_Run_3"),
-            //          i_run_1 = Tools.Texture("Mario_Run_1"),
-            //          i_run_2 = Tools.Texture("Mario_Run_2"),
-            //          i_run_3 = Tools.Texture("Mario_Run_3"),
-            //          i_jump_1 = Tools.Texture("Mario_Jump_1"),
-            //          i_fall_1 = Tools.Texture("Mario_Fall_1"),
-            //          i_duck_1 = Tools.Texture("Mario_Duck_1");
+                var p = NewBob.PlayerObject;
+                var q = p.FindQuad("Head");
+                q.TextureAnim = new AnimationData_Texture();
+                EzTexture i_stand_1 = Tools.Texture("Mario_Run_3"),
+                          i_run_1 = Tools.Texture("Mario_Run_1"),
+                          i_run_2 = Tools.Texture("Mario_Run_2"),
+                          i_run_3 = Tools.Texture("Mario_Run_3"),
+                          i_jump_1 = Tools.Texture("Mario_Jump_1"),
+                          i_fall_1 = Tools.Texture("Mario_Fall_1"),
+                          i_turn_1 = Tools.Texture("Mario_Turn_1"),
+                          i_duck_1 = Tools.Texture("Mario_Duck_1");
 
-            var Q = q as Quad;
-            Q.MirrorUV_Horizontal();
-            EzTexture i_stand_1 = Tools.Texture("Stomp3"),
-                      i_run_1 = Tools.Texture("Stomp1"),
-                      i_run_2 = Tools.Texture("Stomp2"),
-                      i_run_3 = Tools.Texture("Stomp3"),
-                      i_run_4 = Tools.Texture("Stomp4"),
-                      i_run_5 = Tools.Texture("Stomp5"),
-                      i_jump_1 = Tools.Texture("Stomp1"),
-                      i_fall_1 = Tools.Texture("Stomp3"),
-                      i_duck_1 = Tools.Texture("Stomp3");
-            
-            q.TextureAnim.Anims = new OneAnim_Texture[20];
-            q.TextureAnim.AddFrame(i_stand_1, 0);
-            q.TextureAnim.AddFrame(i_run_1, 1);
-            q.TextureAnim.AddFrame(i_run_2, 1);
-            q.TextureAnim.AddFrame(i_run_3, 1);
-            q.TextureAnim.AddFrame(i_run_4, 1);
-            q.TextureAnim.AddFrame(i_run_5, 1);
-            q.TextureAnim.AddFrame(i_run_3, 1);
-            p.Read(1, 0);
-            for (int i = 0; i < 6; i++)
-                p.Record(1, i, true);
-            p.AnimLength[1] = 6;
-            q.TextureAnim.AddFrame(i_jump_1, 2);
-            q.TextureAnim.AddFrame(i_fall_1, 3);
-            q.TextureAnim.AddFrame(i_duck_1, 4);
+                //var Q = q as Quad;
+                //Q.MirrorUV_Horizontal();
 
-            BobPhsxMario.Instance.Prototype = NewBob;
-            bob.Add(BobPhsxMario.Instance, NewBob);
+                q.TextureAnim.Anims = new OneAnim_Texture[20];
+                q.TextureAnim.AddFrame(i_stand_1, 0);
+                q.TextureAnim.AddFrame(i_run_1, 1);
+                q.TextureAnim.AddFrame(i_run_2, 1);
+                q.TextureAnim.AddFrame(i_run_3, 1);
+                q.TextureAnim.AddFrame(i_run_3, 1);
+                q.TextureAnim.AddFrame(i_jump_1, 2);
+                q.TextureAnim.AddFrame(i_fall_1, 3);
+                q.TextureAnim.AddFrame(i_duck_1, 4);
+                q.TextureAnim.AddFrame(i_turn_1, 5);
+                p.Read(0, 0);
+                p.Record(5, 0, true);
+                p.Record(5, 1, true);
 
+                BobPhsxMario.Instance.Prototype = NewBob;
+                bob.Add(BobPhsxMario.Instance, NewBob);
+            }
+            else
+            {
+                NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Mario.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, true);
+                NewBob.MyObjectType = BobPhsxMario.Instance;
+                //NewBob.PlayerObject.ParentQuad.Scale(new Vector2(1.8f, 1.7f));
+                NewBob.PlayerObject.ParentQuad.Scale(new Vector2(1.15f, 1.5f));
+                NewBob.DrawOutline = true;
+                foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+                    quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+                NewBob.CanHaveCape = true;
+                NewBob.CanHaveHat = true;
+                NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+
+                var p = NewBob.PlayerObject;
+                var q = p.FindQuad("Head");
+                q.TextureAnim = new AnimationData_Texture();
+                //EzTexture i_stand_1 = Tools.Texture("Mario_Run_3"),
+                //          i_run_1 = Tools.Texture("Mario_Run_1"),
+                //          i_run_2 = Tools.Texture("Mario_Run_2"),
+                //          i_run_3 = Tools.Texture("Mario_Run_3"),
+                //          i_jump_1 = Tools.Texture("Mario_Jump_1"),
+                //          i_fall_1 = Tools.Texture("Mario_Fall_1"),
+                //          i_duck_1 = Tools.Texture("Mario_Duck_1");
+
+                var Q = q as Quad;
+                Q.MirrorUV_Horizontal();
+                EzTexture i_stand_1 = Tools.Texture("Stomp3"),
+                          i_run_1 = Tools.Texture("Stomp1"),
+                          i_run_2 = Tools.Texture("Stomp2"),
+                          i_run_3 = Tools.Texture("Stomp3"),
+                          i_run_4 = Tools.Texture("Stomp4"),
+                          i_run_5 = Tools.Texture("Stomp5"),
+                          i_jump_1 = Tools.Texture("Stomp1"),
+                          i_fall_1 = Tools.Texture("Stomp3"),
+                          i_duck_1 = Tools.Texture("Stomp3");
+
+                q.TextureAnim.Anims = new OneAnim_Texture[20];
+                q.TextureAnim.AddFrame(i_stand_1, 0);
+                q.TextureAnim.AddFrame(i_run_1, 1);
+                q.TextureAnim.AddFrame(i_run_2, 1);
+                q.TextureAnim.AddFrame(i_run_3, 1);
+                q.TextureAnim.AddFrame(i_run_4, 1);
+                q.TextureAnim.AddFrame(i_run_5, 1);
+                q.TextureAnim.AddFrame(i_run_3, 1);
+                p.Read(1, 0);
+                for (int i = 0; i < 6; i++)
+                    p.Record(1, i, true);
+                p.AnimLength[1] = 6;
+                q.TextureAnim.AddFrame(i_jump_1, 2);
+                q.TextureAnim.AddFrame(i_fall_1, 3);
+                q.TextureAnim.AddFrame(i_duck_1, 4);
+
+                BobPhsxMario.Instance.Prototype = NewBob;
+                bob.Add(BobPhsxMario.Instance, NewBob);
+            }
             
 
 

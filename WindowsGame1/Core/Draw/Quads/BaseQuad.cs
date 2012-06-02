@@ -26,6 +26,7 @@ namespace Drawing
         public EzEffect MyEffect;
 
         public AnimationData_Texture TextureAnim;
+        public bool UpdateSpriteAnim = true;
         public bool TextureIsAnimated { get { return TextureAnim.Anims != null; } }
 
         public Color MyColor, PremultipliedColor;

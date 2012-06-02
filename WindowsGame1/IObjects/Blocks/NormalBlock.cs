@@ -69,7 +69,12 @@ namespace CloudberryKingdom.Blocks
         {
             var tileset = Core.MyTileSet;
             if (tileset.ProvidesTemplates)
-                return tileset.GetPieceTemplate(this);
+            {
+                if (MyLevel == null)
+                    return tileset.GetPieceTemplate(this, null);
+                else
+                    return tileset.GetPieceTemplate(this, Rnd);
+            }
 
             if (tileset.PassableSides)
             {
@@ -293,9 +298,11 @@ namespace CloudberryKingdom.Blocks
             if (tile.FixedWidths)
             {
                 if (Box.TopOnly)
-                    tile.SnapWidthUp_Platform(ref size);
+                    tile.Pillars.SnapWidthUp(ref size);
                 else
-                    tile.SnapWidthUp_Pillar(ref size);
+                    tile.Platforms.SnapWidthUp(ref size);
+                //size.Y = 170;
+                //Extend(Side.Bottom, Box.TR.Y - 170);
             }
 
             MyBox.Initialize(center, size);
@@ -355,7 +362,7 @@ namespace CloudberryKingdom.Blocks
             else
                 BlockCore.BoxesOnly = BoxesOnly;
 
-            if (!Core.BoxesOnly)
+            if (!Core.BoxesOnly && !Core.VisualResettedOnce)
                 ResetPieces();
 
             Active = true;
@@ -366,6 +373,9 @@ namespace CloudberryKingdom.Blocks
             MyBox.SwapToCurrent();
 
             Update();
+
+            if (!Core.BoxesOnly)
+                Core.VisualResettedOnce = true;
         }
 
         public override void PhsxStep()

@@ -8,6 +8,65 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
+    public class BlockGroup
+    {
+        public Dictionary<int, List<PieceQuad>> Dict;
+        public int[] Widths;
+
+        public BlockGroup()
+        {
+            Dict = new Dictionary<int, List<PieceQuad>>();
+        }
+
+        public void Add(int width, PieceQuad piece)
+        {
+            if (!Dict.ContainsKey(width))
+                Dict.Add(width, new List<PieceQuad>());
+
+            Dict[width].Add(piece);
+        }
+
+        public PieceQuad Choose(int width, Rand rnd)
+        {
+            return Dict[width].Choose(rnd);
+        }
+
+        public void SortWidths()
+        {
+            var list = Dict.Keys.ToList();
+            list.Sort();
+            Widths = list.ToArray();
+        }
+
+        public int SnapWidthUp(float width)
+        {
+            return SnapWidthUp(width, Widths);
+        }
+        public void SnapWidthUp(ref Vector2 size)
+        {
+            size.X = SnapWidthUp(size.X, Widths);
+        }
+
+        public static int SnapWidthUp(float width, int[] Widths)
+        {
+            int int_width = 0;
+
+            int_width = Widths[Widths.Length - 1];
+            for (int i = 0; i < Widths.Length; i++)
+            {
+                if (width < Widths[i])
+                {
+                    int_width = Widths[i];
+                    break;
+                }
+            }
+
+            width = int_width;
+
+            return int_width;
+        }
+    }
+
     /// <summary>
     /// Stores a tile set's information, including what obstacles are allowed.
     /// </summary>
@@ -26,8 +85,9 @@ namespace CloudberryKingdom
             DungeonLike = false;
             DoorType = Door.Types.Brick;
 
-            Pillars = new Dictionary<int, PieceQuad>();
-            Platforms = new Dictionary<int, PieceQuad>();
+            Pillars = new BlockGroup();
+            Platforms = new BlockGroup();
+            MovingBlocks = new BlockGroup();
 
             FixedWidths = false;
             ProvidesTemplates = false;
@@ -59,7 +119,8 @@ namespace CloudberryKingdom
         // New tile set stuff
         public bool IsLoaded;
         public bool CustomStartEnd;
-        Dictionary<int, PieceQuad> Pillars, Platforms;
+        public BlockGroup Pillars, Platforms;
+        public BlockGroup MovingBlocks, FallingBlocks, BouncyBlocks;
 
         public bool FixedWidths;
         public bool ProvidesTemplates;
@@ -126,24 +187,17 @@ namespace CloudberryKingdom
                     // Is it a pillar?
                     if (first.Contains("Pillar_"))
                     {
-                        // Get the pillar width
-                        var num_str = first.Substring(first.IndexOf("_") + 1);
-                        int width = int.Parse(num_str);
-
-                        // Get the rest of the information
-                        var piecequad = ParsePillarLine(width, bits);
-                        Pillars.Add(width, piecequad);
+                        ParseBlock(bits, first, Pillars);
                     }
                     // Is it a platform?
                     else if (first.Contains("Platform_"))
                     {
-                        // Get the platform width
-                        var num_str = first.Substring(first.IndexOf("_") + 1);
-                        int width = int.Parse(num_str);
-
-                        // Get the rest of the information
-                        var piecequad = ParsePlatformLine(width, bits);
-                        Platforms.Add(width, piecequad);
+                        ParseBlock(bits, first, Platforms);
+                    }
+                    // Is it a moving block?
+                    else if (first.Contains("MovingBlock_"))
+                    {
+                        ParseBlock(bits, first, MovingBlocks);
                     }
                     else switch (first)
                     {
@@ -175,44 +229,73 @@ namespace CloudberryKingdom
             stream.Close();
 
             // Sort widths
-            var list = Pillars.Keys.ToList(); list.Sort(); PillarWidths = list.ToArray();
-                list = Platforms.Keys.ToList(); list.Sort(); PlatformWidths = list.ToArray();
+            Pillars.SortWidths();
+            Platforms.SortWidths();
+            MovingBlocks.SortWidths();
         }
 
-        PieceQuad ParsePillarLine(int width, List<string> bits)
+        private void ParseBlock(List<string> bits, string first, BlockGroup group)
+        {
+            // Get the block width
+            var num_str = first.Substring(first.IndexOf("_") + 1);
+            int width = int.Parse(num_str);
+
+            // Get the rest of the information
+            var piecequad = ParseBlockLine(width, bits);
+            group.Add(width, piecequad);
+        }
+
+        PieceQuad ParseBlockLine(int width, List<string> bits)
         {
             var c = new PieceQuad();
             c.Init(null, Tools.BasicEffect);
-            c.Data.RepeatWidth = 2000;
-            c.Data.RepeatHeight = 2000;
-            c.Data.MiddleOnly = false;
-            c.Data.CenterOnly = true;
-            c.Data.UV_Multiples = new Vector2(1, 0);
+
+            bool IsTile = Tools.BitsHasBit(bits, "tile");
+
+            if (IsTile)
+            {
+                c.Data.RepeatWidth = 2000;
+                c.Data.RepeatHeight = 2000;
+                c.Data.MiddleOnly = false;
+                c.Data.CenterOnly = true;
+                c.Data.UV_Multiples = new Vector2(0, 0);
+                c.Center.U_Wrap = c.Center.V_Wrap = true;
+            }
+            else
+            {
+                c.Data.RepeatWidth = 2000;
+                c.Data.RepeatHeight = 2000;
+                c.Data.MiddleOnly = false;
+                c.Data.CenterOnly = true;
+                c.Data.UV_Multiples = new Vector2(1, 0);
+                c.Center.U_Wrap = c.Center.V_Wrap = false;
+
+                c.FixedHeight = 0; // Flag to tell ParseExtra to set the height properly
+            }
 
             ParseExtraBlockInfo(c, width, bits);
 
             return c;
         }
 
-        PieceQuad ParsePlatformLine(int width, List<string> bits)
-        {
-            var c = new PieceQuad();
-            c.Init(null, Tools.BasicEffect);
-            c.Data.RepeatWidth = 2000;
-            c.Data.RepeatHeight = 2000;
-            c.Data.MiddleOnly = false;
-            c.Data.CenterOnly = true;
-            c.Data.UV_Multiples = new Vector2(1, 1);
+        //PieceQuad ParsePlatformLine(int width, List<string> bits)
+        //{
+        //    var c = new PieceQuad();
+        //    c.Init(null, Tools.BasicEffect);
+        //    c.Data.RepeatWidth = 2000;
+        //    c.Data.RepeatHeight = 2000;
+        //    c.Data.MiddleOnly = false;
+        //    c.Data.CenterOnly = true;
+        //    c.Data.UV_Multiples = new Vector2(1, 1);
+        //    c.Center.U_Wrap = c.Center.V_Wrap = false;
 
-            ParseExtraBlockInfo(c, width, bits);
+        //    ParseExtraBlockInfo(c, width, bits);
 
-            return c;
-        }
+        //    return c;
+        //}
 
         void ParseExtraBlockInfo(PieceQuad c, int width, List<string> bits)
         {
-            c.Center.U_Wrap = c.Center.V_Wrap = false;
-
             c.Center.TextureName = bits[1];
             int tex_width = c.Center.MyTexture.Tex.Width;
             int tex_height = c.Center.MyTexture.Tex.Height;
@@ -221,48 +304,38 @@ namespace CloudberryKingdom
             {
                 switch (bits[i])
                 {
+                    case "box_height": c.BoxHeight = 2 * float.Parse(bits[i + 1]); break;
+                    case "width": c.Data.RepeatWidth = 2*float.Parse(bits[i + 1]); break;
+                    case "height": c.Data.RepeatHeight = 2*float.Parse(bits[i + 1]); break;
                     case "left": c.Data.Center_BL_Shift.X = float.Parse(bits[i + 1]); break;
                     case "right": c.Data.Center_TR_Shift.X = float.Parse(bits[i + 1]); break;
-                    case "top": c.Data.Center_TR_Shift.Y = float.Parse(bits[i + 1]); break;
+                    case "top": 
+                        var shift = float.Parse(bits[i + 1]);
+                        c.Data.Center_TR_Shift.Y = shift;
+                        c.Data.Center_BL_Shift.Y = shift;
+                        break;
                 }
             }
 
             // Extend the quad down to properly scale quad
-            float sprite_width = 2 * width + c.Data.Center_TR_Shift.X - c.Data.Center_BL_Shift.X;
-            c.FixedHeight = sprite_width * (float)tex_height / (float)tex_width;
-            //c.Data.Bottom_BL_Shift.Y = -tex_height;
-        }
-
-        public void SnapWidthUp_Pillar(ref Vector2 size)
-        {
-            size.X = SnapWidthUp(size.X, PillarWidths);
-        }
-        public void SnapWidthUp_Platform(ref Vector2 size)
-        {
-            size.X = SnapWidthUp(size.X, PlatformWidths);
-        }
-
-        public static int SnapWidthUp(float width, int[] Widths)
-        {
-            int int_width = 0;
-
-            int_width = Widths[Widths.Length - 1];
-            for (int i = 0; i < Widths.Length; i++)
+            if (c.FixedHeight == 0)
             {
-                if (width < Widths[i])
-                {
-                    int_width = Widths[i];
-                    break;
-                }
+                float sprite_width = 2 * width + c.Data.Center_TR_Shift.X - c.Data.Center_BL_Shift.X;
+                c.FixedHeight = sprite_width * (float)tex_height / (float)tex_width;
             }
-            
-            width = int_width;
-
-            return int_width;
         }
 
-        public PieceQuad GetPieceTemplate(BlockBase block)
+        public PieceQuad GetPieceTemplate(BlockBase block, Rand rnd) { return GetPieceTemplate(block, rnd, null); }
+        public PieceQuad GetPieceTemplate(BlockBase block, Rand rnd, BlockGroup group)
         {
+            if (group == null)
+            {
+                if (block.Box.TopOnly && block.BlockCore.UseTopOnlyTexture)
+                    group = Platforms;
+                else
+                    group = Pillars;
+            }
+                
             // Get the block's info
             var box = block.Box;
             var core = block.BlockCore;
@@ -275,20 +348,17 @@ namespace CloudberryKingdom
             else
                 width = box.Current.Size.X;
 
-            int int_width = SnapWidthUp(width - .1f, PillarWidths);
+            int int_width = group.SnapWidthUp(width - .1f);
 
             // Get the piecequad template
             try
             {
-                if (block.Box.TopOnly && block.BlockCore.UseTopOnlyTexture)
-                    return Platforms[int_width];
-                else
-                    return Pillars[int_width];
+                return group.Choose(int_width, rnd);
             }
             catch
             {
                 Tools.Log(string.Format("Could not find {0} of width {1} for tileset {2}",
-                    block.Box.TopOnly ? "Platform" : "Pillar", width, Name));
+                    "block", width, Name));
                 return null;
             }
         }

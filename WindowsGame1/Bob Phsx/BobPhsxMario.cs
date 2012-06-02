@@ -16,7 +16,7 @@ namespace CloudberryKingdom
         public void Set(BobPhsx phsx, Vector2 modsize)
         {
             //phsx.ModInitSize = 1.25f * new Vector2(.27f, .27f) * modsize;
-            //phsx.CapePrototype = Cape.CapeType.Small;
+            phsx.CapePrototype = Cape.CapeType.None;
         }
 
         // Singleton
@@ -72,7 +72,7 @@ namespace CloudberryKingdom
             if (Ducking && MyBob.PlayerObject.DestinationAnim() != 4)
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
-                MyBob.PlayerObject.EnqueueAnimation(4, 0, false);
+                MyBob.PlayerObject.EnqueueAnimation(4, 1, false);
                 //MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 12;
                 MyBob.PlayerObject.DequeueTransfers();
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 2.5f;
@@ -80,11 +80,13 @@ namespace CloudberryKingdom
             // Reverse ducking animation
             if (!Ducking && MyBob.PlayerObject.DestinationAnim() == 4)
             {
+                MyBob.PlayerObject.DoSpriteAnim = false;
+
                 MyBob.PlayerObject.AnimQueue.Clear();
                 if (yVel > 0)
-                    MyBob.PlayerObject.EnqueueAnimation(2, 0, false);
+                    MyBob.PlayerObject.EnqueueAnimation(2, .8f, false);
                 else
-                    MyBob.PlayerObject.EnqueueAnimation(3, 0, false);
+                    MyBob.PlayerObject.EnqueueAnimation(3, .8f, false);
                 MyBob.PlayerObject.DequeueTransfers();
                 //MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 100f;
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 200f;
@@ -98,7 +100,7 @@ namespace CloudberryKingdom
                     {
                         int HoldDest = MyBob.PlayerObject.DestinationAnim();
                         MyBob.PlayerObject.AnimQueue.Clear();
-                        MyBob.PlayerObject.EnqueueAnimation(0, 0, true);
+                        MyBob.PlayerObject.EnqueueAnimation(0, 1, true);
                         //MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 20;
                         MyBob.PlayerObject.DequeueTransfers();
                         if (HoldDest == 1)
@@ -108,6 +110,19 @@ namespace CloudberryKingdom
 
             // Running animation
             if (!Ducking)
+            {
+                // Slide
+                if (Math.Abs(xVel) >= .35f && OnGround && Math.Sign(MyBob.CurInput.xVec.X) != Math.Sign(xVel)
+                    && Math.Abs(MyBob.CurInput.xVec.X) > .35f)
+                {
+                    if ((MyBob.PlayerObject.DestinationAnim() != 5 || MyBob.PlayerObject.AnimQueue.Count == 0 || !MyBob.PlayerObject.Play || !MyBob.PlayerObject.Loop))
+                    {
+                        MyBob.PlayerObject.EnqueueAnimation(5, 0, true);
+                        MyBob.PlayerObject.DequeueTransfers();
+                    }
+                }
+                else
+                    
                 if ((Math.Abs(xVel) >= .35f && OnGround)
                     && (MyBob.PlayerObject.DestinationAnim() != 1 || MyBob.PlayerObject.AnimQueue.Count == 0 || !MyBob.PlayerObject.Play || !MyBob.PlayerObject.Loop))
                 {
@@ -117,11 +132,11 @@ namespace CloudberryKingdom
                         if (OnGround)
                         {
                             MyBob.PlayerObject.EnqueueAnimation(1, 0, true);
-                            //MyBob.PlayerObject.AnimQueue.Peek().AnimSpeed *= 2.5f;
                             MyBob.PlayerObject.DequeueTransfers();
                         }
                     }
                 }
+            }
 
             // Jump animation
             if (!Ducking)
@@ -149,13 +164,15 @@ namespace CloudberryKingdom
 
             float AnimSpeed = 1.5f;
             if (MyBob.PlayerObject.DestinationAnim() == 1 && MyBob.PlayerObject.Loop)
-                AnimSpeed = RunAnimSpeed * Math.Max(.35f, .1f * Math.Abs(xVel));
+                AnimSpeed = 1.29f * RunAnimSpeed * Math.Max(.35f, .1f * Math.Abs(xVel));
             if (MyBob.CharacterSelect)
                 // Use time invariant update
                 MyBob.PlayerObject.PlayUpdate(1000f * AnimSpeed * Tools.dt / 150f);
             else
                 // Fixed speed update
                 MyBob.PlayerObject.PlayUpdate(AnimSpeed * 17f / 19f * 1000f / 60f / 150f * 1.285f);
+            MyBob.PlayerObject.DoSpriteAnim = true;
+            MyBob.InitBoxesForCollisionDetect();
         }
     }
 }

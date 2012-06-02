@@ -426,6 +426,7 @@ namespace Drawing
             return t > time && OldT <= time;
         }
 
+        public bool DoSpriteAnim = true;
         public void PlayUpdate(float DeltaT)
         {
             OldT = t;
@@ -499,7 +500,10 @@ namespace Drawing
             {
                 if (!BoxesOnly && QuadList != null)
                     foreach (BaseQuad quad in QuadList)
+                    {
+                        quad.UpdateSpriteAnim = DoSpriteAnim;
                         quad.Calc(anim, t, AnimLength[anim], Loop, Linear);
+                    }
                 foreach (ObjectBox box in BoxList)
                     box.Calc(anim, t, AnimLength[anim], Loop, Linear);
             }

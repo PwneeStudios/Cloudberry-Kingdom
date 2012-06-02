@@ -403,6 +403,8 @@ namespace CloudberryKingdom
         public ObjectType MyType;
         public bool BoxesOnly, Show, AlwaysBoxesOnly;
 
+        public bool VisualResettedOnce = false;
+
         public bool RemoveOnReset, MarkedForDeletion;
         public bool Active;
         //public bool _Active;
@@ -671,6 +673,8 @@ namespace CloudberryKingdom
 
             IsGameObject = false;
 
+            VisualResettedOnce = false;
+
             HeldOffset = Vector2.Zero;
             Held = Placed = false;
 
@@ -738,6 +742,8 @@ namespace CloudberryKingdom
             AddedTimeStamp = A.AddedTimeStamp;
 
             ContinuousEnabled = A.ContinuousEnabled;
+
+            VisualResettedOnce = A.VisualResettedOnce;
 
             HeldOffset = A.HeldOffset;
             Held = A.Held;

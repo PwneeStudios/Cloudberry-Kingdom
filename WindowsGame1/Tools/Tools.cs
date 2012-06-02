@@ -193,8 +193,11 @@ namespace CloudberryKingdom
         /// </summary>
         public static T Choose<T>(this List<T> list, Rand rnd)
         {
+            if (rnd == null)
+                return list[0];
+            else
             //if (list == null || list.Count == 0) return null;
-            return list[rnd.RndInt(0, list.Count - 1)];
+                return list[rnd.RndInt(0, list.Count - 1)];
         }
 
         public static int IndexOf<T>(this List<T> list, Predicate<T> match)
@@ -1285,6 +1288,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
             bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
 
             return bits;
+        }
+
+        public static bool BitsHasBit(List<string> Bits, string Bit)
+        {
+            if (Bits.Contains(Bit)) return true;
+            else return false;
         }
 
         public static string RemoveComment(String str)

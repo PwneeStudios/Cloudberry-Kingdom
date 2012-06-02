@@ -185,7 +185,7 @@ namespace CloudberryKingdom.Levels
             }
 
             MovingBlock mblock = (MovingBlock)level.Recycle.GetObject(ObjectType.MovingBlock, true);
-            mblock.Init(pos + offset, size);
+            mblock.Init(pos + offset, size, level);
 
             mblock.Period = (int)Params.Period.GetVal(pos);
 

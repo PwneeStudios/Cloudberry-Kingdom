@@ -207,7 +207,7 @@ namespace CloudberryKingdom
                     if (PlaceType == PlaceTypes.MovingBlock)
                     {
                         MovingBlock mblock = bob.HeldObject as MovingBlock;
-                        mblock.Init(Vector2.Zero, new Vector2(75, 75));
+                        mblock.Init(Vector2.Zero, new Vector2(75, 75), MyLevel);
                     }
                     if (PlaceType == PlaceTypes.GhostBlock)
                     {

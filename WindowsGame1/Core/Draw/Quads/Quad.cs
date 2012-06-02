@@ -186,7 +186,7 @@ namespace Drawing
         {
             if (!Show && Children.Count == 0) return;
 
-            if (TextureIsAnimated)
+            if (TextureIsAnimated && UpdateSpriteAnim)
                 MyTexture = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
 
             Center.RelPos = Center.AnimData.Calc(anim, t, AnimLength, Loop, Linear);

@@ -239,7 +239,7 @@ namespace CloudberryKingdom
 
             graphics.PreferredBackBufferWidth = Resolution.Backbuffer.X;
             graphics.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
-            //graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
 
 #if PC_VERSION || WINDOWS
             if (rez.Custom)
@@ -1433,7 +1433,7 @@ namespace CloudberryKingdom
 
 
                     //LevelSeedData.ForcedReturnEarly = 0;
-                    //MakeTestLevel(); return;
+                    MakeTestLevel(); return;
 
 
 #if DEBUG
@@ -1550,7 +1550,8 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //data.SetTileSet("TestTileSet");
-            data.SetTileSet(TileSets.Dungeon);
+            data.SetTileSet("Mario3_Outside");
+            //data.SetTileSet(TileSets.Dungeon);
             //data.SetTileSet(TileSets.Terrace);
             //data.SetTileSet(TileSets._Night);
             //data.SetTileSet(TileSets._NightSky);
@@ -1568,8 +1569,8 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Oscillate, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxMario.Instance;
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxMario.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
@@ -1664,9 +1665,9 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
             //////piece.MyUpgrades1[Upgrade.Laser] = 4;
             //piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
-            //piece.MyUpgrades1[Upgrade.Jump] = 2;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            ////piece.MyUpgrades1[Upgrade.MovingBlock] = 6;
+            piece.MyUpgrades1[Upgrade.Jump] = 4;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 4;
             //piece.MyUpgrades1[Upgrade.FlyBlob] = 2;
             //////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
             ////piece.MyUpgrades1[Upgrade.Speed] = 3;

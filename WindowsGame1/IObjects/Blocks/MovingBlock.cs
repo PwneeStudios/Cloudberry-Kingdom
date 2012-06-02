@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Blocks
 {
@@ -75,6 +76,11 @@ namespace CloudberryKingdom.Blocks
                
         public void ResetPieces()
         {
+            MyDraw.Init(this);
+            if (MyDraw.MyTemplate != null) return;
+
+
+            // old, crap
             MyDraw.Init(this, PieceQuad.MovingBlock);
 
             if (Box.Current.Size.X < 100)
@@ -94,13 +100,27 @@ namespace CloudberryKingdom.Blocks
                 MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Thin");
         }
 
-        public void Init(Vector2 center, Vector2 size)
+        public void Init(Vector2 center, Vector2 size, Level level)
         {
-            MyBox.Initialize(center, size);
+            var tile = Core.MyTileSet = level.MyTileSet;
+            Tools.Assert(Core.MyTileSet != null);
+
+            // Set the size based on tileset limitations.
+            if (tile.FixedWidths)
+            {
+                tile.MovingBlocks.SnapWidthUp(ref size);
+                MyBox.Initialize(center, size);
+                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.MovingBlocks);
+                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
+            }
+            else
+                MyBox.Initialize(center, size);
+            
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
             if (!Core.BoxesOnly)
-                MyDraw.Init(this, PieceQuad.MovingBlock);
+                MyDraw.Init(this);
+                //MyDraw.Init(this, PieceQuad.MovingBlock);
 
             Update();
         }
@@ -254,7 +274,7 @@ namespace CloudberryKingdom.Blocks
         {
             MovingBlock BlockA = A as MovingBlock;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.MyLevel);
 
             Core.Clone(A.Core);
 
