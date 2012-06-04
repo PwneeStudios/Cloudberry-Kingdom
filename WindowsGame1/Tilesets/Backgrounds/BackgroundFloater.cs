@@ -199,7 +199,7 @@ namespace CloudberryKingdom
                 else
                     MyQuad.Quad.SetColor(new Color(200, 200, 255, 45));
 
-                Tools.QDrawer.DrawQuad(MyQuad.Quad);
+                Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
 
                 MyQuad.Quad.MyTexture = HoldTexture;
                 MyQuad.Quad.SetColor(HoldColor);
@@ -209,7 +209,7 @@ namespace CloudberryKingdom
 
         public virtual void Draw()
         {
-            Tools.QDrawer.DrawQuad(MyQuad.Quad);
+            Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
 
 #if DEBUG
             Draw_DebugExtra();

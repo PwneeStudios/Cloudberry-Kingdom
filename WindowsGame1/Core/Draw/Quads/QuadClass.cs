@@ -496,7 +496,7 @@ namespace CloudberryKingdom
                 Color _HoldColor = Quad.MySetColor;
                 Quad.SetColor(ShadowColor);
                 Quad.Update(ref Base);
-                Tools.QDrawer.DrawQuad(Quad);
+                Tools.QDrawer.DrawQuad(ref Quad);
                 //Tools.QDrawer.Flush();
                 Quad.MyEffect = Tools.BasicEffect;
                 Base.Origin += ShadowOffset;
@@ -508,7 +508,7 @@ namespace CloudberryKingdom
                 Quad.Update(ref Base);
 
             if (DrawQuad)
-                Tools.QDrawer.DrawQuad(Quad);
+                Tools.QDrawer.DrawQuad(ref Quad);
 
             // Reset scaling if modified
             if (FancyScale == null && ParentScaling != Vector2.One)

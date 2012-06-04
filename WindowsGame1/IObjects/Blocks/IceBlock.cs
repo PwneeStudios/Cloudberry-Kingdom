@@ -276,7 +276,7 @@ namespace CloudberryKingdom
             {
                 Update();
                 Ice.Draw();
-                Tools.QDrawer.DrawQuad(MyQuad);
+                Tools.QDrawer.DrawQuad(ref MyQuad);
             }
         }
 

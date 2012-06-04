@@ -468,12 +468,12 @@ namespace CloudberryKingdom
                     else
                     {
                         if (IndexOfBack >= 0)
-                            //Tools.QDrawer.DrawQuad(MyObject.Quads[IndexOfBack]);
-                            MyObject.DrawQuad(MyObject.Quads[IndexOfBack]);
+                            //Tools.QDrawer.DrawQuad(ref MyObject.Quads[IndexOfBack]);
+                            MyObject.DrawQuad(ref MyObject.Quads[IndexOfBack]);
 
                         if (IndexOfFront >= 0)
-                            //Tools.QDrawer.DrawQuad(MyObject.Quads[IndexOfFront]);
-                            MyObject.DrawQuad(MyObject.Quads[IndexOfFront]);
+                            //Tools.QDrawer.DrawQuad(ref MyObject.Quads[IndexOfFront]);
+                            MyObject.DrawQuad(ref MyObject.Quads[IndexOfFront]);
                     }                    
                 }
                 else

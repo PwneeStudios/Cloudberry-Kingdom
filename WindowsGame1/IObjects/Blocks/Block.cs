@@ -239,6 +239,8 @@ namespace CloudberryKingdom.Blocks
         public virtual void ResetPieces()
         {
             MyDraw.Init(this);
+
+            MyDraw.MyPieces.Center.Playing = false;
         }
 
         public override void PhsxStep2()

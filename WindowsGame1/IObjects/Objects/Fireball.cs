@@ -167,7 +167,7 @@ namespace CloudberryKingdom
                 MyQuad.Update(ref Base);
 
                 // Draw the fireball
-                Tools.QDrawer.DrawQuad(MyQuad);
+                Tools.QDrawer.DrawQuad(ref MyQuad);
             }
 
             if (Tools.DrawBoxes)

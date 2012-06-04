@@ -217,13 +217,22 @@ namespace CloudberryKingdom
                     else switch (first)
                     {
                         case "sprite_anim":
-                            var dict = Tools.GetLocations(bits, "name", "file", "size");
+                            var dict = Tools.GetLocations(bits, "name", "file", "size", "frame_length", "reverse_at_end");
 
                             var name = bits[dict["name"] + 1];
                             var file = bits[dict["file"] + 1];
                             var size = int.Parse(bits[dict["size"] + 1]);
 
                             var sprite_anim = new AnimationData_Texture(Tools.Texture(file), size);
+
+                            if (dict.ContainsKey("reverse_at_end"))
+                                sprite_anim.Reverse = true;
+                            if (dict.ContainsKey("frame_length"))
+                            {
+                                var frame_length = int.Parse(bits[dict["frame_length"] + 1]);
+                                sprite_anim.Speed = 1f / frame_length;
+                            }
+                            
                             Tools.TextureWad.Add(sprite_anim, name);
 
                             break;

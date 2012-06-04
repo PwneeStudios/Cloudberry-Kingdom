@@ -111,9 +111,6 @@ namespace CloudberryKingdom
 
             BlockCore.StartData.Position = Pos = center;
 
-            if (!Core.BoxesOnly)
-                MyDraw.Init(this);
-
             SetState(FallingBlockState.Regular, true);
         }
 

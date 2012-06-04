@@ -39,10 +39,15 @@ namespace Drawing
 
         public int Hold;
 
+        public float Speed;
+        public bool Reverse;
+
         public AnimationData_Texture()
         {
             Linear = false;
             Hold = 0;
+            Reverse = false;
+            Speed = .1f;
 
             Anims = null;
         }
@@ -51,6 +56,8 @@ namespace Drawing
         {
             Linear = false;
             Hold = 0;
+            Reverse = false;
+            Speed = .1f;
 
             if (texture == null)
             {
@@ -71,6 +78,8 @@ namespace Drawing
 
             Linear = false;
             Hold = 0;
+            Reverse = false;
+            Speed = .1f;
 
             int frames = strip.Tex.Width / width;
             Anims = new OneAnim_Texture[1];
@@ -117,7 +126,9 @@ namespace Drawing
 
         public AnimationData_Texture(AnimationData_Texture data)
         {
-            Linear = false;
+            Linear = data.Linear;
+            Reverse = data.Reverse;
+            Speed = data.Speed;
 
             Hold = 0;
             Anims = new OneAnim_Texture[data.Anims.Length];

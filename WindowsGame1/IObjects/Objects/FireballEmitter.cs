@@ -221,7 +221,7 @@ namespace CloudberryKingdom
             if (Tools.DrawGraphics)
             {
                 Update();
-                Tools.QDrawer.DrawQuad(MyQuad);
+                Tools.QDrawer.DrawQuad(ref MyQuad);
             }
         }
 

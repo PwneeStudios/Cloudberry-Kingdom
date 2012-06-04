@@ -15,6 +15,7 @@ namespace CloudberryKingdom.Coins
         {
             public TextureOrAnim Sprite = null;
             public Vector2 Size = Vector2.One;
+            public bool ShowEffect = true, ShowText = true;
         }
 
         static EzSound MySound;
@@ -65,19 +66,26 @@ namespace CloudberryKingdom.Coins
 
             MySound.Play(.65f, .1f, 0);
 
-            for (int j = 0; j < 3; j++)
+            // Effect
+            if (Info.Coins.ShowEffect)
             {
-                var p = Core.MyLevel.MainEmitter.GetNewParticle(DieTemplate);
-                p.Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
-                p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
+                for (int j = 0; j < 3; j++)
+                {
+                    var p = Core.MyLevel.MainEmitter.GetNewParticle(DieTemplate);
+                    p.Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
+                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
+                }
             }
 
             // Text float
-            int val = CalcScoreValue();
-            TextFloat text = new TextFloat("+" + val.ToString(), Core.Data.Position + new Vector2(21, 22.5f));
-            text.MyText.MyFloatColor = Core.MyLevel.MyTileSetInfo.CoinScoreColor.ToVector4();
-            text.Core.DrawLayer = 8;
-            Core.MyLevel.MyGame.AddGameObject(text);
+            if (Info.Coins.ShowText)
+            {
+                int val = CalcScoreValue();
+                TextFloat text = new TextFloat("+" + val.ToString(), Core.Data.Position + new Vector2(21, 22.5f));
+                text.MyText.MyFloatColor = Core.MyLevel.MyTileSetInfo.CoinScoreColor.ToVector4();
+                text.Core.DrawLayer = 8;
+                Core.MyLevel.MyGame.AddGameObject(text);
+            }
         }
 
         GameData MyGame { get { return Core.MyLevel.MyGame; } }
@@ -278,7 +286,7 @@ namespace CloudberryKingdom.Coins
                 return;
 
             if (Tools.DrawGraphics && !Core.BoxesOnly)
-                Tools.QDrawer.DrawQuad(MyQuad);
+                Tools.QDrawer.DrawQuad(ref MyQuad);
             if (Tools.DrawBoxes)
                 Box.Draw(Tools.QDrawer, Color.Bisque, 10);
         }

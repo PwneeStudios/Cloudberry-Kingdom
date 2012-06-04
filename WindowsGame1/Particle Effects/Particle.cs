@@ -141,7 +141,7 @@ namespace CloudberryKingdom.Particles
             MyQuad.SetColor(new Color(MyColor));
             
             UpdateQuad();
-            Tools.QDrawer.DrawQuad_Simplified(MyQuad);
+            Tools.QDrawer.DrawQuad_Simplified(ref MyQuad);
         }
     }
 }

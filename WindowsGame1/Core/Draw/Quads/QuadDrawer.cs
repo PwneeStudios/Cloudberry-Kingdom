@@ -161,7 +161,7 @@ namespace Drawing
             SetSamplerState();
         }
 
-        public void DrawQuad_Simplified(SimpleQuad quad)
+        public void DrawQuad_Simplified(ref SimpleQuad quad)
         {
             // Calculate illumination
             if (quad.UseGlobalIllumination)
@@ -202,7 +202,7 @@ namespace Drawing
             TrianglesInBuffer += 2;
         }
 
-        public void DrawQuad(SimpleQuad quad)
+        public void DrawQuad(ref SimpleQuad quad)
         {
             if (quad.Hide) return;
 
@@ -274,7 +274,7 @@ namespace Drawing
             LineQuad.v2.Vertex.uv = new Vector2(0, 1);
             LineQuad.v3.Vertex.uv = new Vector2(1, 1);
 
-            DrawQuad(LineQuad);
+            DrawQuad(ref LineQuad);
         }
 
         public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width)
@@ -335,7 +335,7 @@ namespace Drawing
 
             LineQuad.BlendAddRatio = BlendAddRatio;
 
-            DrawQuad(LineQuad);
+            DrawQuad(ref LineQuad);
 
             LineQuad.BlendAddRatio = 0;
         }
@@ -390,7 +390,7 @@ namespace Drawing
             LineQuad.v3.Vertex.uv = new Vector2(1, 1);
 
 
-            DrawQuad(LineQuad);
+            DrawQuad(ref LineQuad);
         }
 
         public void DrawBox(Vector2 BL, Vector2 TR, Color color, float width)

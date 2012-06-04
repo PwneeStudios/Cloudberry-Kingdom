@@ -100,7 +100,7 @@ namespace CloudberryKingdom.Blocks
         public override void Draw()
         {
             MyQuad.Update(ref Base);
-            Tools.QDrawer.DrawQuad(MyQuad);
+            Tools.QDrawer.DrawQuad(ref MyQuad);
 
             if (Tools.DrawBoxes)
             {

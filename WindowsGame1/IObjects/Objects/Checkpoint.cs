@@ -322,7 +322,7 @@ namespace CloudberryKingdom
             if (Tools.DrawGraphics && !Core.BoxesOnly)
             {
                 SetAlpha();
-                //Tools.QDrawer.DrawQuad(MyQuad);
+                //Tools.QDrawer.DrawQuad(ref MyQuad);
 
                 MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
                 Tools.QDrawer.Flush();

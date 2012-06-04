@@ -194,7 +194,7 @@ namespace CloudberryKingdom.FireSpinners
 
                     MyQuad.Update(ref Base);
 
-                    Tools.QDrawer.DrawQuad(MyQuad);
+                    Tools.QDrawer.DrawQuad(ref MyQuad);
                 }
 
                 // Draw extra anchor
@@ -213,7 +213,7 @@ namespace CloudberryKingdom.FireSpinners
                     EzTexture Hold = MyQuad.MyTexture;
                     MyQuad.MyTexture = AnchorTexture;
 
-                    Tools.QDrawer.DrawQuad(MyQuad);
+                    Tools.QDrawer.DrawQuad(ref MyQuad);
 
                     Base.e1 /= .6f;
                     Base.e2 /= .6f;

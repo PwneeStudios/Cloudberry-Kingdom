@@ -661,46 +661,46 @@ namespace CloudberryKingdom
 
             if (Data.CenterOnly)
             {
-                Tools.QDrawer.DrawQuad(Center);
+                Tools.QDrawer.DrawQuad(ref Center);
             }
             else
             {
                 if (Data.MiddleOnly)
                 {
-                    Tools.QDrawer.DrawQuad(Bottom);
-                    Tools.QDrawer.DrawQuad(Center);
-                    Tools.QDrawer.DrawQuad(Top);
+                    Tools.QDrawer.DrawQuad(ref Bottom);
+                    Tools.QDrawer.DrawQuad(ref Center);
+                    Tools.QDrawer.DrawQuad(ref Top);
                 }
                 else
                 {
                     switch (MyDrawOrder)
                     {
                         case DrawOrder.CenterOnTop:
-                            Tools.QDrawer.DrawQuad(BL);
-                            Tools.QDrawer.DrawQuad(Bottom);
-                            Tools.QDrawer.DrawQuad(BR);
+                            Tools.QDrawer.DrawQuad(ref BL);
+                            Tools.QDrawer.DrawQuad(ref Bottom);
+                            Tools.QDrawer.DrawQuad(ref BR);
 
-                            Tools.QDrawer.DrawQuad(Left);
-                            Tools.QDrawer.DrawQuad(Right);
-                            Tools.QDrawer.DrawQuad(Center);
+                            Tools.QDrawer.DrawQuad(ref Left);
+                            Tools.QDrawer.DrawQuad(ref Right);
+                            Tools.QDrawer.DrawQuad(ref Center);
 
-                            Tools.QDrawer.DrawQuad(TL);
-                            Tools.QDrawer.DrawQuad(TR);
-                            Tools.QDrawer.DrawQuad(Top);
+                            Tools.QDrawer.DrawQuad(ref TL);
+                            Tools.QDrawer.DrawQuad(ref TR);
+                            Tools.QDrawer.DrawQuad(ref Top);
                             break;
 
                         case DrawOrder.CenterOnBottom:
-                            Tools.QDrawer.DrawQuad(BL);
-                            Tools.QDrawer.DrawQuad(Bottom);
-                            Tools.QDrawer.DrawQuad(BR);
+                            Tools.QDrawer.DrawQuad(ref BL);
+                            Tools.QDrawer.DrawQuad(ref Bottom);
+                            Tools.QDrawer.DrawQuad(ref BR);
 
-                            Tools.QDrawer.DrawQuad(Center);
-                            Tools.QDrawer.DrawQuad(Left);
-                            Tools.QDrawer.DrawQuad(Right);
+                            Tools.QDrawer.DrawQuad(ref Center);
+                            Tools.QDrawer.DrawQuad(ref Left);
+                            Tools.QDrawer.DrawQuad(ref Right);
 
-                            Tools.QDrawer.DrawQuad(TL);
-                            Tools.QDrawer.DrawQuad(TR);
-                            Tools.QDrawer.DrawQuad(Top);
+                            Tools.QDrawer.DrawQuad(ref TL);
+                            Tools.QDrawer.DrawQuad(ref TR);
+                            Tools.QDrawer.DrawQuad(ref Top);
                             break;
                     }
                 }

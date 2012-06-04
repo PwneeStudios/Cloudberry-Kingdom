@@ -144,27 +144,19 @@ namespace Drawing
             t = 0;
             anim = 0;
             Playing = true;
+            speed = 1;
         }
-        //float _t;
-        public float t;
-        //public float t
-        //{
-        //    get { return _t; }
-        //    set
-        //    {
-        //        _t = value;
-        //        if (_t == 0) Tools.Nothing();
-        //    }
-        //}
 
+        public float t;
 
         public int anim;
         public bool Playing;
+        public float speed;
 
         public void UpdateTextureAnim()
         {
             float dt = Tools.CurLevel.IndependentDeltaT;
-            t += dt;
+            t += dt * TextureAnim.Speed * speed;
             CalcTexture(anim, t);
         }
 
@@ -201,6 +193,27 @@ namespace Drawing
         {
             this.anim = anim;
             this.t = frame;
+
+            if (t > TextureAnim.Anims[anim].Data.Length)
+            {
+                if (TextureAnim.Reverse)
+                {
+                    speed *= -1;
+                    t -= 1;
+                }
+                else
+                    t = 0;
+            }
+            else if (t < 0)
+            {
+                if (TextureAnim.Reverse)
+                {
+                    speed *= -1;
+                    t += 1;
+                }
+                else
+                    t = TextureAnim.Anims[anim].Data.Length;
+            }
 
             var data = TextureAnim.Calc(anim, frame);
             MyTexture = data.texture;
@@ -240,13 +253,13 @@ namespace Drawing
             MyTexture = null;
         }
 
-        public SimpleQuad(SimpleQuad quad)
+        public SimpleQuad(ref SimpleQuad quad)
         {
             Name = quad.Name;
 
             Animated = quad.Animated;
             TextureAnim = quad.TextureAnim;
-            t = quad.t; anim = quad.anim; Playing = quad.Playing;
+            t = quad.t; anim = quad.anim; Playing = quad.Playing; speed = quad.speed;
 
             Hide = false;
 
@@ -322,7 +335,7 @@ namespace Drawing
             UseGlobalIllumination = true;
             Illumination = 1f;
 
-            t = anim = 0; Playing = false;
+            t = anim = 0; Playing = false; speed = 1;
 
             MyTexture = quad.MyTexture;
             //TextureName = quad.MyTexture.Name;
@@ -668,8 +681,10 @@ namespace Drawing
             Released = true;
 
             if (Quads != null)
-                foreach (SimpleQuad quad in Quads)
-                    quad.Release();
+                for (int i = 0; i < Quads.Length; i++)
+                    Quads[i].Release();
+                //foreach (SimpleQuad quad in Quads)
+                    //quad.Release();
             if (Boxes != null)
                 foreach (SimpleBox box in Boxes)
                     box.Release();
@@ -738,7 +753,7 @@ namespace Drawing
             {
                 Quads = new SimpleQuad[obj.Quads.Length];
                 for (int i = 0; i < obj.Quads.Length; i++)
-                    Quads[i] = new SimpleQuad(obj.Quads[i]);
+                    Quads[i] = new SimpleQuad(ref obj.Quads[i]);
             }
 
             Boxes = new SimpleBox[obj.Boxes.Length];
@@ -902,7 +917,7 @@ namespace Drawing
 
             
             for (int i = StartIndex; i <= EndIndex; i++)
-                QDrawer.DrawQuad(Quads[i]);
+                QDrawer.DrawQuad(ref Quads[i]);
 
             if (xFlip || yFlip)
             {
@@ -912,7 +927,7 @@ namespace Drawing
             }
         }
 
-        public void DrawQuad(SimpleQuad Quad)
+        public void DrawQuad(ref SimpleQuad Quad)
         {
             if (xFlip || yFlip)
                 foreach (EzEffect fx in MyEffects)
@@ -921,7 +936,7 @@ namespace Drawing
                     fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
                 }
 
-            Tools.QDrawer.DrawQuad(Quad);
+            Tools.QDrawer.DrawQuad(ref Quad);
 
             if (xFlip || yFlip)
             {

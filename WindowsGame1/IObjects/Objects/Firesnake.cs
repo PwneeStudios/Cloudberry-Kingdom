@@ -81,7 +81,7 @@ namespace CloudberryKingdom
                 MyQuad.Update(ref Base);
 
                 // Draw the Firesnake
-                Tools.QDrawer.DrawQuad(MyQuad);
+                Tools.QDrawer.DrawQuad(ref MyQuad);
             }
 
             if (Tools.DrawBoxes)

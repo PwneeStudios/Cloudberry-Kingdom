@@ -103,7 +103,7 @@ namespace CloudberryKingdom.Balrogs
                 WarningQuad.Update(ref Base);
 
                 if (Tools.DrawGraphics)
-                    Tools.QDrawer.DrawQuad(WarningQuad);
+                    Tools.QDrawer.DrawQuad(ref WarningQuad);
             }
 
             if (Tools.DrawBoxes)

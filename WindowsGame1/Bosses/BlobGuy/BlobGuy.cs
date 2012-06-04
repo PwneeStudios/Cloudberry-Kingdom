@@ -309,7 +309,7 @@ namespace CloudberryKingdom
             //for (int i = 0; i < 3; i++)
                 foreach (Goomba blob in list)
                     if (!OnlyArrived || blob.HasArrived)
-                        Tools.QDrawer.DrawQuad(blob.MyObject.Quads[i]);
+                        Tools.QDrawer.DrawQuad(ref blob.MyObject.Quads[i]);
         }
 
         public override void Draw()

@@ -1340,6 +1340,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 // Vector2
                 else if (fieldinfo.FieldType == typeof(Vector2))
                     fieldinfo.SetValue(obj, ParseToVector2(Bits[1], Bits[2]));
+                // bool
+                else if (fieldinfo.FieldType == typeof(bool))
+                    fieldinfo.SetValue(obj, bool.Parse(Bits[1]));
                 // TextureOrAnim
                 else if (fieldinfo.FieldType == typeof(TextureOrAnim))
                     fieldinfo.SetValue(obj, Tools.TextureWad.FindTextureOrAnim(Bits[1]));
