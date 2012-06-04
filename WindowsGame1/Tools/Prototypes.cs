@@ -295,8 +295,8 @@ namespace CloudberryKingdom
                 //          i_fall_1 = Tools.Texture("Mario_Fall_1"),
                 //          i_duck_1 = Tools.Texture("Mario_Duck_1");
 
-                var Q = q as Quad;
-                Q.MirrorUV_Horizontal();
+                //var Q = q as Quad;
+                //Q.MirrorUV_Horizontal();
                 EzTexture i_stand_1 = Tools.Texture("Stomp3"),
                           i_run_1 = Tools.Texture("Stomp1"),
                           i_run_2 = Tools.Texture("Stomp2"),
@@ -326,7 +326,12 @@ namespace CloudberryKingdom
                 BobPhsxMario.Instance.Prototype = NewBob;
                 bob.Add(BobPhsxMario.Instance, NewBob);
             }
-            
+
+            // Falling block
+            var Fall = new AnimationData_Texture(Tools.Texture("FallingBlock"), 129);
+            PieceQuad.FallingBlock = new PieceQuad();
+            PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
+            PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
 
 
             // Associate the BobPhsx with each prototype

@@ -59,7 +59,11 @@ namespace Drawing
             {
                 writer.Write(anim.Data.Length);
                 for (int i = 0; i < anim.Data.Length; i++)
-                    writer.Write(anim.Data[i].Name);
+                {
+                    writer.Write(anim.Data[i].texture.Name);
+                    writer.Write(anim.Data[i].uv_bl);
+                    writer.Write(anim.Data[i].uv_tr);
+                }
             }
         }
 
@@ -69,11 +73,13 @@ namespace Drawing
             if (length == -1) anim.Data = null;
             else
             {
-                anim.Data = new EzTexture[length];
+                anim.Data = new FrameData[length];
                 for (int i = 0; i < length; i++)
                 {
                     string s = reader.ReadString();
-                    anim.Data[i] = Tools.Texture(s);
+                    anim.Data[i].texture = Tools.Texture(s);
+                    anim.Data[i].uv_tr = reader.ReadVector2();
+                    anim.Data[i].uv_bl = reader.ReadVector2();
                 }
             }
         }

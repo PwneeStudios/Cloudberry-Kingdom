@@ -11,6 +11,12 @@ namespace CloudberryKingdom.Coins
 {
     public class Coin : ObjectBase
     {
+        public class CoinTileInfo
+        {
+            public TextureOrAnim Sprite = null;
+            public Vector2 Size = Vector2.One;
+        }
+
         static EzSound MySound;
 
         static Particle DieTemplate;
@@ -115,8 +121,8 @@ namespace CloudberryKingdom.Coins
             {
                 MyQuad.MyEffect = Tools.BasicEffect;
 
-
-                SetType(CoinType.Blue);
+                //SetType(CoinType.Blue);
+                MyType = CoinType.Blue;
                 MyQuad.SetColor(InfoWad.GetColor("CoinColor"));
 
                 MyQuad.Init();
@@ -132,11 +138,16 @@ namespace CloudberryKingdom.Coins
         public void SetType(CoinType type)
         {
             MyType = type;
+
             switch (MyType)
             {
                 case CoinType.Blue:
                     AlwaysActive = false;
-                    MyQuad.MyTexture = Blue; break;
+                    if (Info.Coins.Sprite != null)
+                        MyQuad.SetTextureOrAnim(Info.Coins.Sprite);
+                    else
+                        MyQuad.MyTexture = Blue;
+                    break;
                 case CoinType.Red:
                     AlwaysActive = true;
                     MyQuad.MyTexture = Red; break;

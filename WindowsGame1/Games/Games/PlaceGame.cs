@@ -202,7 +202,7 @@ namespace CloudberryKingdom
                     if (PlaceType == PlaceTypes.FallingBlock)
                     {
                         FallingBlock fblock = bob.HeldObject as FallingBlock;
-                        fblock.Init(Vector2.Zero, new Vector2(75, 75), 100);
+                        fblock.Init(Vector2.Zero, new Vector2(75, 75), 100, MyLevel);
                     }
                     if (PlaceType == PlaceTypes.MovingBlock)
                     {

@@ -136,6 +136,38 @@ namespace Drawing
     public struct SimpleQuad
     {
         public bool Animated;
+
+        AnimationData_Texture TextureAnim;
+        public void SetTextureAnim(AnimationData_Texture TextureAnim)
+        {
+            this.TextureAnim = TextureAnim;
+            t = 0;
+            anim = 0;
+            Playing = true;
+        }
+        //float _t;
+        public float t;
+        //public float t
+        //{
+        //    get { return _t; }
+        //    set
+        //    {
+        //        _t = value;
+        //        if (_t == 0) Tools.Nothing();
+        //    }
+        //}
+
+
+        public int anim;
+        public bool Playing;
+
+        public void UpdateTextureAnim()
+        {
+            float dt = Tools.CurLevel.IndependentDeltaT;
+            t += dt;
+            CalcTexture(anim, t);
+        }
+
         public bool UseGlobalIllumination;
         public float Illumination;
 
@@ -164,6 +196,24 @@ namespace Drawing
             }
         }
         EzTexture _MyTexture;
+
+        public void CalcTexture(int anim, float frame)
+        {
+            this.anim = anim;
+            this.t = frame;
+
+            var data = TextureAnim.Calc(anim, frame);
+            MyTexture = data.texture;
+
+            //uv0 = new Vector2(data.uv_bl.X, data.uv_bl.X);
+            //uv1 = new Vector2(data.uv_tr.X, data.uv_bl.X);
+            //uv2 = new Vector2(data.uv_bl.X, data.uv_tr.X);
+            //uv3 = new Vector2(data.uv_tr.X, data.uv_tr.X);
+            v0.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);
+            v1.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_bl.Y);
+            v2.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_tr.Y);
+            v3.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_tr.Y);
+        }
 
         void map(ref Vector2 base_uv, ref Vector2 new_uv, ref Vector2 bl, ref Vector2 tr)
         {
@@ -195,6 +245,8 @@ namespace Drawing
             Name = quad.Name;
 
             Animated = quad.Animated;
+            TextureAnim = quad.TextureAnim;
+            t = quad.t; anim = quad.anim; Playing = quad.Playing;
 
             Hide = false;
 
@@ -232,6 +284,7 @@ namespace Drawing
             Name = quad.Name;
 
             Animated = true;
+            TextureAnim = quad.TextureAnim;
 
             Hide = false;
 
@@ -269,8 +322,49 @@ namespace Drawing
             UseGlobalIllumination = true;
             Illumination = 1f;
 
+            t = anim = 0; Playing = false;
+
             MyTexture = quad.MyTexture;
             //TextureName = quad.MyTexture.Name;
+        }
+
+        public void SetTextureOrAnim(TextureOrAnim t_or_a)
+        {
+            if (t_or_a.IsAnim)
+            {
+                SetTextureAnim(t_or_a.MyAnim);
+                CalcTexture(0, 0);
+            }
+            else
+                MyTexture = t_or_a.MyTexture;
+        }
+        public void SetTextureOrAnim(string name)
+        {
+            if (Tools.TextureWad.AnimationDict.ContainsKey(name))
+                SetTextureAnim(Tools.TextureWad.AnimationDict[name]);
+            else
+                TextureName = name;
+        }
+
+        public int TexWidth
+        {
+            get
+            {
+                if (TextureAnim != null)
+                    return TextureAnim.Width;
+                else
+                    return MyTexture.Tex.Width;
+            }
+        }
+        public int TexHeight
+        {
+            get
+            {
+                if (TextureAnim != null)
+                    return TextureAnim.Height;
+                else
+                    return MyTexture.Tex.Height;
+            }
         }
 
         /// <summary>

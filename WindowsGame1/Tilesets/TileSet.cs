@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
+using Drawing;
 using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
@@ -72,6 +73,12 @@ namespace CloudberryKingdom
     /// </summary>
     public class TileSet
     {
+        public class TileSetInfo
+        {
+            public Coins.Coin.CoinTileInfo Coins = new Coins.Coin.CoinTileInfo();
+        }
+        public TileSetInfo MyTileSetInfo;
+
         public TileSet()
         {
             MakeNew();
@@ -81,6 +88,8 @@ namespace CloudberryKingdom
         {
             IsLoaded = false;
 
+            MyTileSetInfo = new TileSetInfo();
+
             CustomStartEnd = false;
             DungeonLike = false;
             DoorType = Door.Types.Brick;
@@ -88,6 +97,7 @@ namespace CloudberryKingdom
             Pillars = new BlockGroup();
             Platforms = new BlockGroup();
             MovingBlocks = new BlockGroup();
+            FallingBlocks = new BlockGroup();
 
             FixedWidths = false;
             ProvidesTemplates = false;
@@ -199,8 +209,25 @@ namespace CloudberryKingdom
                     {
                         ParseBlock(bits, first, MovingBlocks);
                     }
+                    // Is it a falling block?
+                    else if (first.Contains("FallingBlock_"))
+                    {
+                        ParseBlock(bits, first, FallingBlocks);
+                    }
                     else switch (first)
                     {
+                        case "sprite_anim":
+                            var dict = Tools.GetLocations(bits, "name", "file", "size");
+
+                            var name = bits[dict["name"] + 1];
+                            var file = bits[dict["file"] + 1];
+                            var size = int.Parse(bits[dict["size"] + 1]);
+
+                            var sprite_anim = new AnimationData_Texture(Tools.Texture(file), size);
+                            Tools.TextureWad.Add(sprite_anim, name);
+
+                            break;
+
                         case "BackgroundImage":
                             BackgroundTemplate b;
                             try
@@ -217,7 +244,9 @@ namespace CloudberryKingdom
                             break;
 
                         case "Name": Name = bits[1]; break;
-                        default: break;
+                        default:
+                            Tools.ReadLineToObj(MyTileSetInfo, bits);
+                            break;
                     }
                 }
 
@@ -232,6 +261,7 @@ namespace CloudberryKingdom
             Pillars.SortWidths();
             Platforms.SortWidths();
             MovingBlocks.SortWidths();
+            FallingBlocks.SortWidths();
         }
 
         private void ParseBlock(List<string> bits, string first, BlockGroup group)
@@ -296,9 +326,13 @@ namespace CloudberryKingdom
 
         void ParseExtraBlockInfo(PieceQuad c, int width, List<string> bits)
         {
-            c.Center.TextureName = bits[1];
-            int tex_width = c.Center.MyTexture.Tex.Width;
-            int tex_height = c.Center.MyTexture.Tex.Height;
+            c.Center.SetTextureOrAnim(bits[1]);
+            //c.Center.TextureName = bits[1];
+
+            //int tex_width = c.Center.MyTexture.Tex.Width;
+            //int tex_height = c.Center.MyTexture.Tex.Height;
+            int tex_width = c.Center.TexWidth;
+            int tex_height = c.Center.TexHeight;
 
             for (int i = 2; i < bits.Count; i++)
             {
@@ -324,6 +358,29 @@ namespace CloudberryKingdom
                 c.FixedHeight = sprite_width * (float)tex_height / (float)tex_width;
             }
         }
+
+        /*
+        void ReadBlockToFields(object group, List<string> bits)
+        {
+            var FieldNames = new List<string>();
+            foreach (var field in group.GetType().GetFields())
+            {
+                FieldNames.Add(field.Name);
+            }
+
+            var dict = Tools.GetLocations(bits, FieldNames);
+
+            foreach (var field in group.GetType().GetFields())
+            {
+                if (!field.IsPublic && dict.ContainsKey(field.Name)) continue;
+
+                if (field.FieldType == typeof(int))
+                {
+                    field.SetValue(group, int.Parse(bits[dict[field.Name] + 1]));
+                }
+            }
+        }
+        */
 
         public PieceQuad GetPieceTemplate(BlockBase block, Rand rnd) { return GetPieceTemplate(block, rnd, null); }
         public PieceQuad GetPieceTemplate(BlockBase block, Rand rnd, BlockGroup group)

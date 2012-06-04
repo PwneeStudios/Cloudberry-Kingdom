@@ -187,7 +187,15 @@ namespace Drawing
             if (!Show && Children.Count == 0) return;
 
             if (TextureIsAnimated && UpdateSpriteAnim)
-                MyTexture = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
+            {
+                var data = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
+                MyTexture = data.texture;
+
+                Vertices[0].uv = new Vector2(data.uv_bl.X, data.uv_bl.X);
+                Vertices[1].uv = new Vector2(data.uv_tr.X, data.uv_bl.X);
+                Vertices[2].uv = new Vector2(data.uv_bl.X, data.uv_tr.X);
+                Vertices[3].uv = new Vector2(data.uv_tr.X, data.uv_tr.X);
+            }
 
             Center.RelPos = Center.AnimData.Calc(anim, t, AnimLength, Loop, Linear);
             xAxis.RelPos = xAxis.AnimData.CalcAxis(anim, t, AnimLength, Loop, Linear);

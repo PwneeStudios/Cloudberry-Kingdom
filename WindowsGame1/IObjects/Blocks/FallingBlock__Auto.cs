@@ -114,7 +114,7 @@ namespace CloudberryKingdom.Levels
 
             fblock = (FallingBlock)level.Recycle.GetObject(ObjectType.FallingBlock, true);
             int Life = (int)Params.Delay.GetVal(pos);
-            fblock.Init(pos + offset, size, Life);
+            fblock.Init(pos + offset, size, Life, level);
             fblock.BlockCore.BlobsOnTop = true;
             
             fblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);

@@ -1290,6 +1290,62 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return bits;
         }
 
+        public static Dictionary<string, int> GetLocations(List<string> Bits, params string[] keywords)
+        {
+            var dict = new Dictionary<string,int>();
+            for (int i = 0; i < Bits.Count; i++)
+                if (keywords.Contains(Bits[i]))
+                    dict.Add(Bits[i], i);
+            return dict;
+        }
+        public static Dictionary<string, int> GetLocations(List<string> Bits, List<string> keywords)
+        {
+            var dict = new Dictionary<string, int>();
+            for (int i = 0; i < Bits.Count; i++)
+                if (keywords.Contains(Bits[i]))
+                    dict.Add(Bits[i], i);
+            return dict;
+        }
+
+        public static void ReadLineToObj(object obj, List<string> Bits)
+        {
+            ReadLineToObj(obj, Bits[0], Bits);
+        }
+        public static void ReadLineToObj(object obj, string field, List<string> Bits)
+        {
+            // If field name has a period in it, resolve recursively.
+            var period = field.IndexOf(".");
+            if (period > 0)
+            {
+                var subfield = field.Substring(period + 1);
+                field = field.Substring(0, period);
+
+                var subobject_field = obj.GetType().GetField(field);
+                if (subobject_field == null) { Tools.Log(string.Format("Field {0} not found.", field)); return; }
+
+                var subobject = subobject_field.GetValue(obj);
+                if (subobject == null) { Tools.Log(string.Format("Subfield {0} was a null object and could not be written into.", field)); return; }
+
+                ReadLineToObj(subobject, subfield, Bits);
+            }
+            // otherwise parse the input into the given field.
+            else
+            {
+                var fieldinfo = obj.GetType().GetField(field);
+                if (fieldinfo == null) { Tools.Log(string.Format("Field {0} not found.", field)); return; }
+
+                // int
+                if (fieldinfo.FieldType == typeof(int))
+                    fieldinfo.SetValue(obj, int.Parse(Bits[1]));
+                // Vector2
+                else if (fieldinfo.FieldType == typeof(Vector2))
+                    fieldinfo.SetValue(obj, ParseToVector2(Bits[1], Bits[2]));
+                // TextureOrAnim
+                else if (fieldinfo.FieldType == typeof(TextureOrAnim))
+                    fieldinfo.SetValue(obj, Tools.TextureWad.FindTextureOrAnim(Bits[1]));
+            }
+        }
+
         public static bool BitsHasBit(List<string> Bits, string Bit)
         {
             if (Bits.Contains(Bit)) return true;
@@ -1304,6 +1360,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return str;
         }
 
+        public static Vector2 ParseToVector2(String bit1, String bit2)
+        {
+            Vector2 Vec;
+            
+            Vec.X = float.Parse(bit1);
+            Vec.Y = float.Parse(bit2);
+            
+            return Vec;
+        }
         public static Vector2 ParseToVector2(String str)
         {
             int CommaIndex = str.IndexOf(",");

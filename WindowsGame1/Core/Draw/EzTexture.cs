@@ -89,8 +89,35 @@ namespace Drawing
         }
     }
 
+    public class TextureOrAnim
+    {
+        public EzTexture MyTexture;
+        public AnimationData_Texture MyAnim;
+        public bool IsAnim = false;
+
+        public void Set(string name)
+        {
+            if (Tools.TextureWad.AnimationDict.ContainsKey(name))
+            {
+                MyAnim = Tools.TextureWad.AnimationDict[name];
+                IsAnim = true;
+            }
+            else
+            {
+                MyTexture = Tools.Texture(name);
+                IsAnim = false;
+            }
+        }
+    }
     public class EzTextureWad
     {
+        public TextureOrAnim FindTextureOrAnim(string name)
+        {
+            var t_or_a = new TextureOrAnim();
+            t_or_a.Set(name);
+            return t_or_a;
+        }
+
         /// <summary>
         /// The texture returned when a texture isn't found in the wad.
         /// </summary>
@@ -98,6 +125,16 @@ namespace Drawing
 
         public List<EzTexture> TextureList;
         public LockableBool AllLoaded;
+
+        public Dictionary<string, AnimationData_Texture> AnimationDict;
+        public void Add(AnimationData_Texture anim, string name)
+        {
+            if (AnimationDict.ContainsKey(name))
+                AnimationDict[name] = anim;
+            else
+                AnimationDict.Add(name, anim);
+        }
+
 
         public Dictionary<string, EzTexture> PathDict, NameDict, BigNameDict;
         public void Add(PackedTexture packed)
@@ -119,6 +156,8 @@ namespace Drawing
         {
             AllLoaded = new LockableBool();
             TextureList = new List<EzTexture>();
+
+            AnimationDict = new Dictionary<string, AnimationData_Texture>(StringComparer.CurrentCultureIgnoreCase);
 
             PathDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
             NameDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);

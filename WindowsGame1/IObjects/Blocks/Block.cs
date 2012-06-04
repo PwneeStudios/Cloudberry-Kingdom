@@ -226,7 +226,28 @@ namespace CloudberryKingdom.Blocks
             base.Release();
             
             MyBox = null;
+
+            if (MyDraw != null)
+            {
+                MyDraw.Release();
+                MyDraw = null;
+            }
         }
+
+
+        public NormalBlockDraw MyDraw;
+        public virtual void ResetPieces()
+        {
+            MyDraw.Init(this);
+        }
+
+        public override void PhsxStep2()
+        {
+            if (!Active) return;
+
+            MyBox.SwapToCurrent();
+        }
+
 
         public virtual void Extend(Side side, float pos) { }
 

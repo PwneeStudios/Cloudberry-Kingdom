@@ -31,6 +31,16 @@ namespace CloudberryKingdom
 
         protected ObjectData CoreData;
         public ObjectData Core { get { return CoreData; } }
+        public TileSet.TileSetInfo Info
+        {
+            get
+            {
+                if (CoreData.MyLevel == null)
+                    return null;
+
+                return CoreData.MyLevel.MyTileSet.MyTileSetInfo;
+            }
+        }
 
         public ObjectBase()
         {

@@ -69,6 +69,11 @@ namespace CloudberryKingdom
         // Some pillar info
         public float BoxHeight = -1;
 
+        public void CalcTexture(int anim, float t)
+        {
+            Center.CalcTexture(anim, t);
+        }
+
 
         public float Group_CutoffWidth = 0;
 
@@ -110,7 +115,7 @@ namespace CloudberryKingdom
 
         public static PieceQuad BrickWall, BrickPillar_Small, BrickPillar_Medium, BrickPillar_Large, BrickPillar_LargePlus, BrickPillar_Xlarge,
                                 Floating_Small, Floating_Medium, Floating_Large, Floating_Xlarge,
-                                MovingBlock,
+                                MovingBlock, FallingBlock,
                                 Castle, Catwalk, Castle2,
                                 OutsideBlock, TileBlock, Cement,
                                 Outside_Smallest, Outside_Smaller, Outside_Small, Outside_Medium, Outside_Large, Outside_XLarge,
@@ -123,6 +128,9 @@ namespace CloudberryKingdom
         public static PieceQuadGroup DarkPillars, Islands;
 
         public SimpleQuad Left, Right, Top, Bottom, TR, TL, BL, BR, Center;
+
+        public float t;
+        public bool Playing = false;
 
         public enum Orientation { Normal, UpsideDown, RotateRight, RotateLeft };
         public Orientation MyOrientation = Orientation.Normal;

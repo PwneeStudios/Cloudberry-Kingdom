@@ -15,8 +15,6 @@ namespace CloudberryKingdom.Blocks
         public int Period, Offset;
         public Vector2 Displacement;
 
-        public NormalBlockDraw MyDraw;
-
         public override void MakeNew()
         {
             BlockCore.Init();
@@ -35,14 +33,6 @@ namespace CloudberryKingdom.Blocks
             BlockCore.HitHead = true;
 
             Core.EditHoldable = Core.Holdable = true;
-        }
-
-        public override void Release()
-        {
-            base.Release();
-
-            MyDraw.Release();
-            MyDraw = null;
         }
 
         public MovingBlock(bool BoxesOnly)
@@ -74,10 +64,13 @@ namespace CloudberryKingdom.Blocks
             return min;
         }
                
-        public void ResetPieces()
+        public override void ResetPieces()
         {
-            MyDraw.Init(this);
-            if (MyDraw.MyTemplate != null) return;
+            if (MyDraw.MyTemplate != null)
+            {
+                base.ResetPieces();
+                return;
+            }
 
 
             // old, crap
@@ -110,8 +103,8 @@ namespace CloudberryKingdom.Blocks
             {
                 tile.MovingBlocks.SnapWidthUp(ref size);
                 MyBox.Initialize(center, size);
-                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.MovingBlocks);
-                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
+                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.MovingBlocks);
+                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
             }
             else
                 MyBox.Initialize(center, size);
@@ -121,8 +114,6 @@ namespace CloudberryKingdom.Blocks
             if (!Core.BoxesOnly)
                 MyDraw.Init(this);
                 //MyDraw.Init(this, PieceQuad.MovingBlock);
-
-            Update();
         }
 
         public void MoveToBounded(Vector2 shift)
@@ -136,8 +127,6 @@ namespace CloudberryKingdom.Blocks
             BlockCore.StartData.Position += shift;
 
             Box.Move(shift);
-
-            Update();
         }
 
         public override void Reset(bool BoxesOnly)
@@ -152,8 +141,6 @@ namespace CloudberryKingdom.Blocks
             MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
-
-            Update();
 
             Active = false;
         }
@@ -196,27 +183,11 @@ namespace CloudberryKingdom.Blocks
                         
             MyBox.Target.Center = Core.Data.Position;
 
-            Update();
-
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
             if (!Active)
                 MyBox.SwapToCurrent();
 
             Active = true;
-        }
-
-        public override void PhsxStep2()
-        {
-            if (!Active) return;
-
-            MyBox.SwapToCurrent();
-        }
-
-        public void Update()
-        {
-            if (BlockCore.BoxesOnly) return;
-
-            MyDraw.Update();
         }
 
         public override void Draw()
@@ -234,8 +205,6 @@ namespace CloudberryKingdom.Blocks
 
             if (DrawSelf)
             {
-                Update();
-
                 if (Tools.DrawBoxes)
                 {
                     //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
@@ -247,6 +216,7 @@ namespace CloudberryKingdom.Blocks
             {
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 {
+                    MyDraw.Update();
                     MyDraw.Draw();
                 }
             }
@@ -259,8 +229,6 @@ namespace CloudberryKingdom.Blocks
             MyBox.Invalidated = true;
 
             MyBox.Extend(side, pos);
-
-            Update();
 
             if (!Core.BoxesOnly)
                 ResetPieces();

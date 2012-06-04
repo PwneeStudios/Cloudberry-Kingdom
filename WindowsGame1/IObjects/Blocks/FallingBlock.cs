@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -19,7 +20,6 @@ namespace CloudberryKingdom
         public int StartLife, Life;
         //public int StartLife { get { return _StartLife; } set { _StartLife = value; if (value > 20) Console.WriteLine("!");  } }
 
-        public QuadClass MyQuad;
         FallingBlockState State;
         bool EmittedExplosion;
         public Vector2 Offset;
@@ -43,7 +43,8 @@ namespace CloudberryKingdom
         {
             base.Release();
 
-            MyQuad = null;
+            MyDraw.Release();
+            MyDraw = null;
         }
 
         public void SetState(FallingBlockState NewState) { SetState(NewState, false); }
@@ -55,17 +56,17 @@ namespace CloudberryKingdom
                 {
                     case FallingBlockState.Regular:
                         TouchedOnce = HitGround = false;
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Regular_Texture"));
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
                         break;
                     case FallingBlockState.Touched:
                         HitGround = false;
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Touched_Texture"));
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
                         break;
                     case FallingBlockState.Falling:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Falling_Texture"));
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 2);
                         break;
                     case FallingBlockState.Angry:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Angry_Texture"));
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 3);
                         break;
                 }
             }
@@ -75,32 +76,45 @@ namespace CloudberryKingdom
 
         public FallingBlock(bool BoxesOnly)
         {
-            MyQuad = new QuadClass();
-
             MyBox = new AABox();
+            MyDraw = new NormalBlockDraw();
 
             MakeNew();
 
             Core.BoxesOnly = BoxesOnly;
         }
 
-        public void Init(Vector2 center, Vector2 size, int life)
+        public void Init(Vector2 center, Vector2 size, int life, Level level)
         {
             Active = true;
 
             Life = StartLife = life;
 
             BlockCore.Layer = .35f;
-            MyBox = new AABox(center, size);
-            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            MyBox.Initialize(center, size);
+            var tile = Core.MyTileSet = level.MyTileSet;
+            Tools.Assert(Core.MyTileSet != null);
+
+            // Set the size based on tileset limitations.
+            if (tile.FixedWidths)
+            {
+                tile.FallingBlocks.SnapWidthUp(ref size);
+                MyBox.Initialize(center, size);
+                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.FallingBlocks);
+                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
+            }
+            else
+            {
+                MyBox = new AABox(center, size);
+                MyDraw.MyTemplate = PieceQuad.FallingBlock;
+            }
+
+            BlockCore.StartData.Position = Pos = center;
+
+            if (!Core.BoxesOnly)
+                MyDraw.Init(this);
 
             SetState(FallingBlockState.Regular, true);
-            MyQuad.Base.e1.X = size.X;
-            MyQuad.Base.e2.Y = size.Y;
-
-            Update();
         }
 
         public override void HitHeadOn(Bob bob)
@@ -145,6 +159,9 @@ namespace CloudberryKingdom
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
+            if (!Core.BoxesOnly)
+                ResetPieces();           
+
             Active = true;
 
             Life = StartLife;
@@ -163,8 +180,6 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
-
-            Update();
         }
 
         public override void PhsxStep()
@@ -248,24 +263,10 @@ namespace CloudberryKingdom
                     if (MyBox.Current.Center.Y < BlockCore.MyLevel.MainCamera.BL.Y - 500) Active = false;
                 }
             }
-            Update();
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
 
             BlockCore.StoodOn = false;
-        }
-
-        public override void PhsxStep2()
-        {
-            if (!Active) return;
-
-            MyBox.SwapToCurrent();
-        }
-
-
-        public void Update()
-        {
-            if (BlockCore.BoxesOnly) return;
         }
 
         public override void Extend(Side side, float pos)
@@ -289,8 +290,6 @@ namespace CloudberryKingdom
             MyBox.Target.FromBounds();
             MyBox.SwapToCurrent();
 
-            Update();
-
             BlockCore.StartData.Position = MyBox.Current.Center;
         }
 
@@ -300,8 +299,6 @@ namespace CloudberryKingdom
             BlockCore.StartData.Position += shift;
 
             Box.Move(shift);
-
-            Update();
         }
         public override void Draw()
         {
@@ -317,8 +314,6 @@ namespace CloudberryKingdom
 
             if (DrawSelf)
             {
-                Update();
-
                 if (Tools.DrawBoxes)
                 {
                     //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
@@ -333,8 +328,10 @@ namespace CloudberryKingdom
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 if (!BlockCore.BoxesOnly)
                 {
-                    MyQuad.Base.Origin = MyBox.Current.Center + Offset;
-                    MyQuad.Draw();
+                    MyDraw.Update();
+                    MyDraw.MyPieces.Base.Origin += Offset;
+
+                    MyDraw.Draw();
                 }
             }
 
@@ -347,7 +344,7 @@ namespace CloudberryKingdom
 
             FallingBlock BlockA = A as FallingBlock;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.StartLife);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.StartLife, BlockA.MyLevel);
 
             TouchedOnce = BlockA.TouchedOnce;
             StartLife = BlockA.StartLife;

@@ -210,6 +210,9 @@ namespace Drawing
 
             if (Tools.UsingSpriteBatch) Tools.EndSpriteBatch();
 
+            // Update anim
+            if (quad.Playing) quad.UpdateTextureAnim();
+
             // Calculate illumination
             if (quad.UseGlobalIllumination)
                 Illumination = GlobalIllumination * quad.Illumination;
