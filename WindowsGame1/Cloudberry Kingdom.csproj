@@ -433,6 +433,7 @@
     <Compile Include="Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ConstructBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ChaosBackground.cs" />
+    <Compile Include="Tilesets\Backgrounds\Backgrounds\MarioSkyBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\NightSkyBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\NightTimeBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\SkyBackground.cs" />

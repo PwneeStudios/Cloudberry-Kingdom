@@ -76,6 +76,10 @@ namespace CloudberryKingdom
         public class TileSetInfo
         {
             public Coins.Coin.CoinTileInfo Coins = new Coins.Coin.CoinTileInfo();
+            public FireSpinners.FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinners.FireSpinner.FireSpinnerTileInfo();
+            public Goombas.Goomba.GoombaTileInfo Blobs = new Goombas.Goomba.GoombaTileInfo();
+            public Door.DoorTileInfo Doors = new Door.DoorTileInfo();
+            public Fireball.FireballTileInfo Fireballs = new Fireball.FireballTileInfo();
         }
         public TileSetInfo MyTileSetInfo;
 
@@ -179,7 +183,8 @@ namespace CloudberryKingdom
 
             FixedWidths = true;
             ProvidesTemplates = true;
-            MyBackgroundType = BackgroundType.Dungeon;
+            //MyBackgroundType = BackgroundType.Dungeon;
+            MyBackgroundType = BackgroundType.MarioSky;
 
             StreamReader reader = new StreamReader(stream);
 

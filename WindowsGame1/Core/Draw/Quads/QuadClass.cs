@@ -287,9 +287,9 @@ namespace CloudberryKingdom
         {
             if (Quad.MyTexture != null)
             {
-                Size = new Vector2(Quad.MyTexture.Tex.Width, Quad.MyTexture.Tex.Height);
-                //Base.e1 = new Vector2(Quad.MyTexture.Tex.Width, 0);
-                //Base.e2 = new Vector2(0, Quad.MyTexture.Tex.Height);
+                Size = new Vector2(Quad.TexWidth, Quad.TexHeight);
+                //Base.e1 = new Vector2(Quad.TexWidth, 0);
+                //Base.e2 = new Vector2(0, Quad.TexHeight);
             }
         }
 
@@ -313,8 +313,8 @@ namespace CloudberryKingdom
         /// </summary>
         public Vector2 GetTextureScaling()
         {
-            return new Vector2(Size.X / Quad.MyTexture.Tex.Width,
-                               Size.Y / Quad.MyTexture.Tex.Height);
+            return new Vector2(Size.X / Quad.TexWidth,
+                               Size.Y / Quad.TexHeight);
         }
 
         public void ScaleXToMatchRatio()
@@ -324,7 +324,7 @@ namespace CloudberryKingdom
         public void ScaleXToMatchRatio(float height)
         {
             if (Quad.MyTexture.Load())
-                Size = new Vector2(height * Quad.MyTexture.Tex.Width / Quad.MyTexture.Tex.Height, height);
+                Size = new Vector2(height * Quad.TexWidth / Quad.TexHeight, height);
         }
 
         public void ScaleYToMatchRatio()
@@ -334,12 +334,12 @@ namespace CloudberryKingdom
         public void ScaleYToMatchRatio(float width)
         {
             if (Quad.MyTexture.Load())
-                Size = new Vector2(width, width * Quad.MyTexture.Tex.Height / Quad.MyTexture.Tex.Width);
+                Size = new Vector2(width, width * Quad.TexHeight / Quad.TexWidth);
         }
 
         public void RepeatY()
         {
-            float V = (Size.Y / Quad.MyTexture.Tex.Height) / (Size.X / Quad.MyTexture.Tex.Width);
+            float V = (Size.Y / Quad.TexHeight) / (Size.X / Quad.TexWidth);
             Quad.UVFromBounds(Vector2.Zero, new Vector2(1, V));
             Quad.V_Wrap = true;
         }

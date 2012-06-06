@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
+using System.IO;
 using CloudberryKingdom.Levels;
 
 using Drawing;
@@ -21,6 +21,7 @@ namespace CloudberryKingdom
             Rain = new BackgroundTemplate(),
             Dark = new BackgroundTemplate(),
             Sky = new BackgroundTemplate(),
+            MarioSky = new BackgroundTemplate(),
             Night = new BackgroundTemplate(),
             NightSky = new BackgroundTemplate(),
             Chaos = new BackgroundTemplate();
@@ -81,6 +82,7 @@ namespace CloudberryKingdom
             if (Type == BackgroundType.Dark) return new DarkBackground();
 
             if (Type == BackgroundType.Sky) return new SkyBackground();
+            if (Type == BackgroundType.MarioSky) return new MarioSkyBackground();
             if (Type == BackgroundType.Outside) return new OutsideBackground();
             if (Type == BackgroundType.Night) return new NightTimeBackground();
             if (Type == BackgroundType.NightSky) return new NightSkyBackground();
@@ -226,6 +228,20 @@ namespace CloudberryKingdom
                     clr.W = fl.MyQuad.Quad.MySetColor.ToVector4().W;
                     fl.MyQuad.Quad.SetColor(clr);
                 }
+        }
+
+        public void Write(string path)
+        {
+            var stream = File.Open(path, FileMode.Open, FileAccess.Write, FileShare.None);
+
+
+
+            stream.Close();
+        }
+
+        public void Read(string path)
+        {
+            var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
         }
     }
 }

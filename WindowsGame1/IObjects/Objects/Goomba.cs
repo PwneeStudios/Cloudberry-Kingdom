@@ -13,6 +13,12 @@ namespace CloudberryKingdom.Goombas
 {
     public class Goomba : ObjectBase, IBound
     {
+        public class GoombaTileInfo
+        {
+            public TextureOrAnim Sprite = null;
+            public Vector2 Size = new Vector2(72), Shift = Vector2.Zero;
+        }
+
         public enum BlobColor { Green, Pink, Blue, Grey, Gold };
         public enum PhsxType { Prescribed, ToTarget };
         public enum PrescribedMoveType { Line, Circle, Star };
@@ -44,6 +50,7 @@ namespace CloudberryKingdom.Goombas
         static float BobXFriction = 1f;
 
         public SimpleObject MyObject;
+        public QuadClass MyQuad;
         public float MyAnimSpeed;
 
         /// <summary>
@@ -69,6 +76,8 @@ namespace CloudberryKingdom.Goombas
         public void SetColor(BlobColor color)
         {
             MyColor = color;
+            if (Core.BoxesOnly || MyLevel == null) return;
+
             if (MyObject.Quads != null && MyObject.Quads.Length >= 2)
             {
                 switch (MyColor)
@@ -84,6 +93,14 @@ namespace CloudberryKingdom.Goombas
                     case BlobColor.Gold:
                         MyObject.Quads[2].MyTexture = Tools.TextureWad.FindByName("Blob2_Body5"); break;
                 }
+            }
+
+            if (Info.Blobs.Sprite != null)
+            {
+                if (MyQuad == null)
+                    MyQuad = new QuadClass();
+                MyQuad.Quad.SetTextureOrAnim(Info.Blobs.Sprite);
+                MyQuad.ScaleYToMatchRatio(100);
             }
         }
 
@@ -511,7 +528,15 @@ namespace CloudberryKingdom.Goombas
             }
 
             if (Tools.DrawGraphics)
-                 MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
+            {
+                if (MyQuad == null)
+                    MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
+                else
+                {
+                    MyQuad.Pos = Pos;
+                    MyQuad.Draw();
+                }
+            }
             if (Tools.DrawBoxes)
             {
                 Box.DrawT(Tools.QDrawer, Color.Blue, 10);

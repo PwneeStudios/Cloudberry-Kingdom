@@ -78,6 +78,8 @@ namespace CloudberryKingdom
 
             if (Tools.DrawGraphics)
             {
+                if (!Info.Doors.Show) return;
+
                 float x = MyQuad.SizeX;
                 if (Core.MyLevel != null && Core.MyLevel.ModZoom.X < 0)
                 {

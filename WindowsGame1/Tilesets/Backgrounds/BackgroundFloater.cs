@@ -9,7 +9,7 @@ namespace CloudberryKingdom
     public class BackgroundFloater
     {
 #if DEBUG
-        public bool Selected = false, SoftSelected = false, FixedAspectPreference = false, FixedPos = false;
+        public bool Selected = false, SoftSelected = false, FixedAspectPreference = true, FixedPos = false;
 
         /// <summary>
         /// Get the list a floater belongs to.

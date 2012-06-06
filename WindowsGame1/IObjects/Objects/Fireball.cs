@@ -10,6 +10,12 @@ namespace CloudberryKingdom
 {
     public partial class Fireball : ObjectBase
     {
+        public class FireballTileInfo
+        {
+            public TextureOrAnim Sprite = null;
+            public Vector2 Size = new Vector2(72), Shift = Vector2.Zero;
+        }
+
         public override void Release()
         {
             base.Release();
@@ -19,8 +25,7 @@ namespace CloudberryKingdom
 
         public CircleBox Box;
 
-        public SimpleQuad MyQuad;
-        public BasePoint Base;
+        public QuadClass MyQuad;
 
         public int Life, StartLife;
         public ObjectBase Parent;
@@ -34,10 +39,10 @@ namespace CloudberryKingdom
         {
             if (!Core.BoxesOnly)
             {
-                MyQuad.Init();
-                MyQuad.MyEffect = Tools.BasicEffect;
-                MyQuad.MyTexture = Tools.TextureWad.FindByName("White");
-                MyQuad.UseGlobalIllumination = false;
+                //MyQuad.Init();
+                //MyQuad.MyEffect = Tools.BasicEffect;
+                //MyQuad.MyTexture = Tools.TextureWad.FindByName("White");
+                //MyQuad.UseGlobalIllumination = false;
             }
         }
 
@@ -62,7 +67,7 @@ namespace CloudberryKingdom
             Core.BoxesOnly = BoxesOnly;
         }
 
-        public void Initialize(int type, PhsxData data)
+        public void Initialize(int type, PhsxData data, Level level)
         {
             Core.Init();
             Core.MyType = ObjectType.Fireball;
@@ -74,17 +79,25 @@ namespace CloudberryKingdom
             Life = StartLife;
 
             FireballType = type;
+
+            if (level.Info.Fireballs.Sprite != null)
+            {
+                if (MyQuad == null)
+                    MyQuad = new QuadClass();
+                MyQuad.Quad.SetTextureOrAnim(level.Info.Fireballs.Sprite);
+                MyQuad.ScaleYToMatchRatio(100);
+            }
+            else
             switch (FireballType)
             {
                 case 0:
                     if (!Core.BoxesOnly)
-                        MyQuad.MyTexture = FireballTexture;
+                        MyQuad.Quad.MyTexture = FireballTexture;
 
                     //Size = 1.75f * new Vector2(15, 15);
                     Size = new Vector2(40);
 
-                    Base.e1 = new Vector2(160, 0);
-                    Base.e2 = new Vector2(0, 160);
+                    MyQuad.Size = new Vector2(160);
                     break;
                 case 1:
                     Size = new Vector2(120, 120);
@@ -133,7 +146,7 @@ namespace CloudberryKingdom
             if (Alpha != MyAlpha)
             {
                 MyAlpha = Alpha;
-                MyQuad.SetColor(new Color(1, 1, 1, MyAlpha));
+                MyQuad.Quad.SetColor(new Color(1, 1, 1, MyAlpha));
             }
         }
 
@@ -155,19 +168,17 @@ namespace CloudberryKingdom
                     SetAlpha(1f);
 
                 // Point forward
-                Tools.PointxAxisTo(ref Base.e1, ref Base.e2, Core.Data.Velocity);
-
-                Base.e1 *= -1;
+                MyQuad.PointxAxisTo(-Core.Data.Velocity);
+                MyQuad.Base.e1 *= -1;
 
                 // Shift forward
                 Vector2 dir = Core.Data.Velocity;
                 dir.Normalize();
 
-                Base.Origin = Core.Data.Position - 30 * dir;
-                MyQuad.Update(ref Base);
+                MyQuad.Pos = Core.Data.Position - 30 * dir;
 
                 // Draw the fireball
-                Tools.QDrawer.DrawQuad(ref MyQuad);
+                MyQuad.Draw();
             }
 
             if (Tools.DrawBoxes)
@@ -177,7 +188,6 @@ namespace CloudberryKingdom
 
         public override void Move(Vector2 shift)
         {
-            Base.Origin += shift;
             Core.Data.Position += shift;
 
             Box.Move(shift);
@@ -224,7 +234,7 @@ namespace CloudberryKingdom
 
             Size = FireballA.Size;
 
-            Initialize(FireballA.FireballType, FireballA.Core.Data);
+            Initialize(FireballA.FireballType, FireballA.Core.Data, FireballA.MyLevel);
 
             StartLife = FireballA.StartLife;
         }

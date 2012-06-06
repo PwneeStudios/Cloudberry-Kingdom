@@ -1587,7 +1587,8 @@ namespace CloudberryKingdom
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            data.PieceLength = 7000;
+            //data.PieceLength = 5000;
+            data.PieceLength = 28000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
@@ -1662,15 +1663,15 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.MovingBlock2] = 2;
 
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
             //////piece.MyUpgrades1[Upgrade.Laser] = 4;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
+            ////piece.MyUpgrades1[Upgrade.Fireball] = 5;
             piece.MyUpgrades1[Upgrade.Jump] = 4;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.FlyBlob] = 2;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 3;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 5;
             //////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
-            piece.MyUpgrades1[Upgrade.Speed] = 8;
+            piece.MyUpgrades1[Upgrade.Speed] = 3;
 
 
 

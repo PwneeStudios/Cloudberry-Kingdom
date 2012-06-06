@@ -63,18 +63,18 @@ namespace CloudberryKingdom.Viewer
             this.TextureCombobox = new System.Windows.Forms.ComboBox();
             this.TextureButton = new System.Windows.Forms.Button();
             this.LayerBox = new System.Windows.Forms.GroupBox();
+            this.NewFloaterButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.ParallaxNum = new System.Windows.Forms.NumericUpDown();
             this.PlayButton = new System.Windows.Forms.Button();
             this.ResetButton = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewLayerButton = new System.Windows.Forms.Button();
-            this.NewFloaterButton = new System.Windows.Forms.Button();
             this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.QuadBox.SuspendLayout();
             this.QuadTab.SuspendLayout();
@@ -95,7 +95,7 @@ namespace CloudberryKingdom.Viewer
             this.Texture_Page.SuspendLayout();
             this.LayerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).BeginInit();
-            this.menuStrip1.SuspendLayout();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayerTree
@@ -565,6 +565,17 @@ namespace CloudberryKingdom.Viewer
             this.LayerBox.TabStop = false;
             this.LayerBox.Text = "Layer";
             // 
+            // NewFloaterButton
+            // 
+            this.NewFloaterButton.Location = new System.Drawing.Point(236, 13);
+            this.NewFloaterButton.Name = "NewFloaterButton";
+            this.NewFloaterButton.Size = new System.Drawing.Size(28, 28);
+            this.NewFloaterButton.TabIndex = 16;
+            this.NewFloaterButton.Text = "N F";
+            this.ToolTips.SetToolTip(this.NewFloaterButton, "New Quad (K)");
+            this.NewFloaterButton.UseVisualStyleBackColor = true;
+            this.NewFloaterButton.Click += new System.EventHandler(this.NewFloaterButton_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -630,15 +641,16 @@ namespace CloudberryKingdom.Viewer
             this.StatusLabel.TabIndex = 13;
             this.StatusLabel.Text = "Paused.";
             // 
-            // menuStrip1
+            // MenuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(296, 24);
-            this.menuStrip1.TabIndex = 14;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(296, 24);
+            this.MenuStrip.TabIndex = 14;
+            this.MenuStrip.Text = "menuStrip1";
+            this.MenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -653,14 +665,16 @@ namespace CloudberryKingdom.Viewer
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
@@ -678,17 +692,6 @@ namespace CloudberryKingdom.Viewer
             this.ToolTips.SetToolTip(this.NewLayerButton, "New Layer (L)");
             this.NewLayerButton.UseVisualStyleBackColor = true;
             this.NewLayerButton.Click += new System.EventHandler(this.NewLayerButton_Click);
-            // 
-            // NewFloaterButton
-            // 
-            this.NewFloaterButton.Location = new System.Drawing.Point(236, 13);
-            this.NewFloaterButton.Name = "NewFloaterButton";
-            this.NewFloaterButton.Size = new System.Drawing.Size(28, 28);
-            this.NewFloaterButton.TabIndex = 16;
-            this.NewFloaterButton.Text = "N F";
-            this.ToolTips.SetToolTip(this.NewFloaterButton, "New Quad (K)");
-            this.NewFloaterButton.UseVisualStyleBackColor = true;
-            this.NewFloaterButton.Click += new System.EventHandler(this.NewFloaterButton_Click);
             // 
             // ToolTips
             // 
@@ -709,8 +712,8 @@ namespace CloudberryKingdom.Viewer
             this.Controls.Add(this.LayerBox);
             this.Controls.Add(this.QuadBox);
             this.Controls.Add(this.LayerTree);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.MenuStrip);
+            this.MainMenuStrip = this.MenuStrip;
             this.Name = "BackgroundViewer";
             this.Text = "BackgroundView";
             this.TopMost = true;
@@ -736,8 +739,8 @@ namespace CloudberryKingdom.Viewer
             this.LayerBox.ResumeLayout(false);
             this.LayerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.MenuStrip.ResumeLayout(false);
+            this.MenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,7 +769,7 @@ namespace CloudberryKingdom.Viewer
         public System.Windows.Forms.Label StatusLabel;
         public System.Windows.Forms.CheckBox AspectCheckbox;
         public System.Windows.Forms.CheckBox FixedPosCheckbox;
-        public System.Windows.Forms.MenuStrip menuStrip1;
+        public System.Windows.Forms.MenuStrip MenuStrip;
         public System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;

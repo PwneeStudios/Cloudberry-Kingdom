@@ -638,6 +638,45 @@ namespace CloudberryKingdom.Viewer
             LayerTree.SelectedNode = node;
         }
 
+        private void MenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        void SaveAs()
+        {
+            var Dlg = new Forms.SaveFileDialog();
+            Tools.DialogUp = true;
+            Dlg.Title = "Choose location...";
+
+            Dlg.InitialDirectory = Tools.DefaultDynamicDirectory();
+            Dlg.Filter = "BKG Texture (*.bkg)|*.bkg";
+            //Dlg.CheckFileExists = true;
+
+            // Check the user didn't cancel
+            if (Dlg.ShowDialog() != Forms.DialogResult.Cancel)
+            {
+                Save(Dlg.FileName);
+            }
+
+            Tools.DialogUp = false;
+        }
+
+        void Save(string filename)
+        {
+            //background.
+        }
+
         //static int NodeSorter(TreeNode n1, TreeNode n2)
         //{
         //    var l1 = n1 as TreeNode_List;

@@ -78,7 +78,7 @@ namespace CloudberryKingdom.Levels
 
             SetVal(ref BorderFillStep, u =>
             {
-                return 125;
+                return 525;
                 //return Tools.DifficultyLerp19(400, 200, u[Upgrade.Fireball]);
             });
 
@@ -205,7 +205,7 @@ namespace CloudberryKingdom.Levels
 
                 Inner inner = delegate()
                 {
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 0; j < 1; j++)
                     {
                         FireballEmitter emitter = (FireballEmitter)CreateAt(level, pos);
 
@@ -491,13 +491,15 @@ namespace CloudberryKingdom.Levels
             else
                 emitter.Offset = level.Rnd.Rnd.Next(0, Params.NumOffsets) * emitter.Period / Params.NumOffsets;
             emitter.FireOnScreen = true;
-            emitter.DrawEmitter = true;
+            emitter.DrawEmitter = false;
 
             return emitter;
         }
 
         public static double GetAngle(float MaxAngle, int NumAngles, Rand Rnd)
         {
+            return 0;
+
             if (NumAngles < 0)
                 return Rnd.Rnd.NextDouble() * 2 * MaxAngle - MaxAngle;
             else if (NumAngles == 1)
@@ -556,12 +558,12 @@ namespace CloudberryKingdom.Levels
                 //SurvivalFill(level, BL, TR);
                 SurvivalRotatingTunnel(level, BL, TR, Length);
 
-            if (Params.Special.BorderFill)
-                BorderFill(level, BL, TR);
+            //if (Params.Special.BorderFill)
+                //BorderFill(level, BL, TR);
 
             //if (Params.DoStage2Fill)
-            //    AutoFireballEmitters_OnIceBlocks(level);
-                //level.AutoFireballEmitters();
+            ////    AutoFireballEmitters_OnIceBlocks(level);
+            //    level.AutoFireballEmitters();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)

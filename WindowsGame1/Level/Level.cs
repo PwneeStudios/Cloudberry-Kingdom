@@ -214,6 +214,13 @@ namespace CloudberryKingdom.Levels
         public TileSet MyTileSet;
 
         public TileSet MyTileSetInfo { get { return MyTileSet; } }
+        public TileSet.TileSetInfo Info
+        {
+            get
+            {
+                return MyTileSet.MyTileSetInfo;
+            }
+        }
 
         public int Par;
 

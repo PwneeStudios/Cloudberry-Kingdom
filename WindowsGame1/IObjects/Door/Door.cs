@@ -13,6 +13,13 @@ namespace CloudberryKingdom
     public delegate void DoorAction(Door door);
     public class Door : ObjectBase, ILevelConnector
     {
+        public class DoorTileInfo
+        {
+            public TextureOrAnim Sprite = null;
+            public Vector2 Size = Vector2.One;
+            public bool Show = true;
+        }
+
         public enum Types { Brick, Rock, Grass, Dark };
         public Types MyType;
 
@@ -456,6 +463,8 @@ namespace CloudberryKingdom
             if (Tools.DrawGraphics)
             {
                 Update();
+
+                if (!Info.Doors.Show) return;
 
                 if (UseObject)
                 {

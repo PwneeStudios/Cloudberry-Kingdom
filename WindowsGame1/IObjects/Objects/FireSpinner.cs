@@ -10,6 +10,12 @@ namespace CloudberryKingdom.FireSpinners
 {
     public class FireSpinner : ObjectBase
     {
+        public class FireSpinnerTileInfo
+        {
+            public TextureOrAnim Sprite = null;
+            public Vector2 Size = new Vector2(72);
+        }
+
         /// <summary>
         /// If true then the individual flames comprising the firespinners have an offset
         /// that varies between different firespinners (to prevent player 'vertigo')
@@ -41,9 +47,27 @@ namespace CloudberryKingdom.FireSpinners
 
         void SetColor()
         {
-            MyQuad.SetColor(new Color(255, 140, 140));
-            MyQuad.MyEffect = Tools.BasicEffect;
-            MyQuad.MyTexture = BallTexture;
+            if (!Core.BoxesOnly)
+            {
+                MyQuad.SetColor(new Color(255, 140, 140));
+                MyQuad.MyEffect = Tools.BasicEffect;
+
+                Vector2 Size;
+
+                if (Info.Spinners.Sprite == null)
+                {
+                    MyQuad.MyTexture = BallTexture;
+                    Size = new Vector2(72);
+                }
+                else
+                {
+                    MyQuad.MyTexture = Info.Spinners.Sprite.MyTexture;
+                    Size = Info.Spinners.Size;
+                }
+
+                Base.e1 = new Vector2(Size.X, 0);
+                Base.e2 = new Vector2(0, Size.Y);
+            }
         }
 
         static EzTexture BallTexture = null;
@@ -69,7 +93,7 @@ namespace CloudberryKingdom.FireSpinners
                 Base.e2 = new Vector2(0, Size.Y);
             }
 
-            SetColor();
+            //SetColor();
 
             Core.WakeUpRequirements = true;
         }
@@ -122,7 +146,7 @@ namespace CloudberryKingdom.FireSpinners
 
             //MiniAngle = Orientation * (Core.MyLevel.CurPhsxStep + MiniAngle_Offset) * .22f;
             //SetTarget(Core.GetPhsxStep());
-            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * .22f;
+            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * .22f * .82f;
             SetTarget(Core.GetIndependentPhsxStep());
         }
 
@@ -194,9 +218,10 @@ namespace CloudberryKingdom.FireSpinners
 
                     MyQuad.Update(ref Base);
 
+                    //SetColor();
                     Tools.QDrawer.DrawQuad(ref MyQuad);
                 }
-
+                /*
                 // Draw extra anchor
                 if (Math.Abs(Core.Data.Position.X - MyLine.Current.p1.X) > 10 ||
                     Math.Abs(Core.Data.Position.Y - MyLine.Current.p1.Y) > 10)
@@ -219,7 +244,7 @@ namespace CloudberryKingdom.FireSpinners
                     Base.e2 /= .6f;
 
                     MyQuad.MyTexture = Hold;
-                }
+                }*/
             }
 
             if (Tools.DrawBoxes)
@@ -283,6 +308,7 @@ namespace CloudberryKingdom.FireSpinners
             MyLine.SkipEdge = SpinnerA.MyLine.SkipEdge;
 
             Init(Core.GetPhsxStep());
+            SetColor();
         }
     }
 }

@@ -126,7 +126,7 @@ namespace CloudberryKingdom
             {
                 Fireball NewFireball = (Fireball)Core.Recycle.GetObject(ObjectType.Fireball, Core.BoxesOnly);
                 EmitData.Position = Core.Data.Position + EmitData.Velocity * .5f;
-                NewFireball.Initialize(FireballType, EmitData);
+                NewFireball.Initialize(FireballType, EmitData, MyLevel);
 
                 if (AlwaysOn) NewFireball.StartLife = NewFireball.Life = 200;
 
