@@ -8,10 +8,40 @@ namespace CloudberryKingdom
 {
     public class BackgroundFloaterList
     {
+        public string Name = null;
+        
+#if DEBUG
+        public bool Show = true;
+
+        /// <summary>
+        /// When locked a layer can not be edited.
+        /// </summary>
+        public bool Lock = false;
+
+        public bool Editable
+        {
+            get
+            {
+                return Show && !Lock;
+            }
+        }
+#endif
+
         public Level MyLevel;
         public List<BackgroundFloater> Floaters;
 
         public float Parallax;
+
+        /// <summary>
+        /// Reset the list to its start position.
+        /// </summary>
+        public void Reset()
+        {
+            if (Floaters == null) return;
+
+            foreach (var floater in Floaters)
+                floater.Reset();
+        }
 
         public void SetParallaxAndPropagate(float Parallax)
         {
@@ -107,6 +137,10 @@ namespace CloudberryKingdom
         public void Draw() { Draw(1); }
         public void Draw(float CamMod)
         {
+#if DEBUG
+            if (!Show) return;
+#endif
+
             Tools.QDrawer.Flush();
 
             Camera Cam = MyLevel.MainCamera;

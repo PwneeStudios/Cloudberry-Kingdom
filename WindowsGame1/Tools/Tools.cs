@@ -52,6 +52,11 @@ namespace CloudberryKingdom
             return index;
         }
 
+        public static string ToSimpleString(this Vector2 v)
+        {
+            return string.Format("{0}, {1}", v.X, v.Y);
+        }
+
 
         public static Vector2[] Map(this Vector2[] list, Func<Vector2, Vector2> map)
         {
@@ -852,10 +857,21 @@ public static Thread EasyThread(int affinity, string name, Action action)
       
 #if WINDOWS
 #if DEBUG
+        public static bool EditorPause
+        {
+            get
+            {
+                if (!ViewerIsUp) return false;
+                if (background_viewer != null)
+                    return !background_viewer.PlayCheckbox.Checked;
+                return false;
+            }
+        }
         public static bool ViewerIsUp { get { return gameobj_viewer != null || background_viewer != null; } }
         public static Viewer.GameObjViewer gameobj_viewer;
         public static Viewer.BackgroundViewer background_viewer;
 #else
+        public const bool EditorPause = false;
         public static bool ViewerIsUp { get { return false; } }
 #endif
 
@@ -921,7 +937,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 #if WINDOWS
         public static XnaInput.KeyboardState keybState, PrevKeyboardState;
         public static XnaInput.MouseState CurMouseState, PrevMouseState;
-        public static Vector2 DeltaMouse;
+        public static Vector2 DeltaMouse, RawDeltaMouse;
         public static int DeltaScroll;
         public static bool MouseInWindow = false;
         public static bool Editing;
@@ -1385,6 +1401,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             return Vec;
         }
+
 
         public static Color ParseToColor(String str)
         {

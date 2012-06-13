@@ -605,7 +605,7 @@ namespace CloudberryKingdom
 
             // Dark
             Dark = info = new TileSet();
-            info.DungeonLike = true;
+            info. DungeonLike = true;
             info.Name = "Darkness";
             info.Guid = 5554;
             AddTileSet(info);

@@ -255,11 +255,12 @@ namespace CloudberryKingdom
             }
             else
             {
-                //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                graphics.PreferredBackBufferWidth = 800;
-                graphics.PreferredBackBufferHeight = 600;
-                graphics.IsFullScreen = rez.Fullscreen;
+                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                graphics.IsFullScreen = false;
+                //graphics.PreferredBackBufferWidth = 800;
+                //graphics.PreferredBackBufferHeight = 600;
+                //graphics.IsFullScreen = rez.Fullscreen;
             }
 #if DEBUG
             if (!graphics.IsFullScreen)
@@ -305,10 +306,11 @@ namespace CloudberryKingdom
         public void ReloadInfo()
         {
 #if DEBUG
-            //TileSets.KillDynamic();
-            //Tools.TextureWad.KillDynamic();
-            Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-            Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+            //////TileSets.KillDynamic();
+            //////Tools.TextureWad.KillDynamic();
+
+            //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+            //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
 #endif
 
             InfoWad.Init();
@@ -658,6 +660,13 @@ namespace CloudberryKingdom
             Tools.ScoreTextFont = new EzFont("Fonts/ScoreTextFont");
         }
 
+        bool DoVideoTest = false;
+        Video TestVideo1, TestVideo2;
+        VideoPlayer VPlayer1, VPlayer2;
+        Texture2D VTexture;
+        EzTexture VEZTexture = new EzTexture();
+        WrappedBool VBool;
+
         protected override void LoadContent()
         {
             device = graphics.GraphicsDevice;
@@ -717,6 +726,117 @@ namespace CloudberryKingdom
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Content, ResourceLoadedCountRef);
 
+
+            if (DoVideoTest)
+            {
+                VBool = new WrappedBool(false);
+
+                Thread VThread = null;
+                VThread = new Thread(
+                     new ThreadStart(
+                         delegate
+                         {
+#if XBOX
+                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
+#endif
+                             Tools.TheGame.Exiting += (o, e) =>
+                                 {
+                                     if (VThread != null)
+                                         VThread.Abort();
+                                 };
+
+                             // Test load movie
+                             TestVideo1 = Content.Load<Video>("Movies//TestMovie");
+                             TestVideo2 = Content.Load<Video>("Movies//TestMovie");
+
+                             VPlayer1 = new VideoPlayer();
+                             VPlayer1.IsLooped = true;
+                             VPlayer1.Play(TestVideo1);
+                             //VPlayer1.Pause();
+
+                             VPlayer2 = new VideoPlayer();
+                             VPlayer2.IsLooped = true;
+                             VPlayer2.Play(TestVideo2);
+                             VPlayer2.Pause();
+
+                             while (true)
+                             {
+                                 lock (VEZTexture)
+                                 {
+                                     VTexture = VPlayer1.GetTexture();
+                                     VEZTexture.Tex = VTexture;
+
+                                     //if (VPlayer1 != null)
+                                     //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
+
+                                     /*
+                                                                     if (VPlayer1 != null
+                                                                         && VPlayer1.PlayPosition.Ticks >= 55130000)
+                                                                         //&& VPlayer1.PlayPosition.Ticks >= 155100000)
+                                                                         //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
+                                                                     {
+                                                                         VPlayer1.Pause();
+                                                                         Tools.Swap(ref VPlayer1, ref VPlayer2);
+                                                                         VPlayer1.Resume();
+
+                                                                         VPlayer2.Stop();
+                                                                         VPlayer2.Play(TestVideo1);
+                                                                         VPlayer2.Pause();
+                                                                     }
+                                      * */
+                                 }
+                             }
+                         }))
+                 {
+                     Name = "LoadThread",
+#if WINDOWS
+                     Priority = ThreadPriority.Lowest,
+#endif
+                 };
+                VThread.Start();
+
+
+
+                Thread VRestartThread = new Thread(
+                    new ThreadStart(
+                        delegate
+                        {
+                            while (true)
+                            {
+                                if (VEZTexture == null) continue;
+
+                                lock (VEZTexture)
+                                {
+                                    VTexture = VPlayer1.GetTexture();
+                                    VEZTexture.Tex = VTexture;
+
+                                    if (VPlayer1 != null
+                                        //&& VPlayer1.PlayPosition.Ticks >= 55130000)
+                                        //&& VPlayer1.PlayPosition.Ticks >= 155100000)
+                                        && VPlayer1.PlayPosition.TotalMilliseconds == 0)
+                                    {
+                                        VPlayer1.Pause();
+                                        Tools.Swap(ref VPlayer1, ref VPlayer2);
+                                        VPlayer1.Resume();
+
+                                        //VPlayer2.Stop();
+                                        //VPlayer2.Play(TestVideo1);
+                                        VPlayer2.Pause();
+                                    }
+                                }
+                            }
+                        }))
+                {
+                    Name = "VRestartThread",
+#if WINDOWS
+                    Priority = ThreadPriority.Lowest,
+#endif
+                };
+                //VRestartThread.Start();
+            }
+
+
+
             // Load resource thread
             Thread LoadThread = new Thread(
                 new ThreadStart(
@@ -736,6 +856,7 @@ namespace CloudberryKingdom
                         Tools.TheGame.Exiting += abort;
 
                         Tools.Write("Start");
+
 
                         // Load art
                         LoadArtMusicSound(true);
@@ -889,6 +1010,38 @@ namespace CloudberryKingdom
         public bool RunningSlowly = false;
         protected override void Update(GameTime gameTime)
         {
+            //VPlayer.IsLooped = false;
+            //if (VPlayer != null && (Tools.PhsxCount % 60 == 0 || VPlayer.State == MediaState.Stopped))
+            //{
+            //    //VPlayer.IsLooped = true;
+            //    VPlayer.Play(TestVideo);
+            //}
+
+            //if (VPlayer1 != null)
+            //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
+            //if (VPlayer1 != null
+            //    && VPlayer1.PlayPosition.Ticks >= 55130000)//155100000)
+            //{
+            //    //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
+            //    VPlayer1.Pause();
+            //    Tools.Swap(ref VPlayer1, ref VPlayer2);
+            //    VPlayer1.Resume();
+            //    lock (VBool)
+            //    {
+            //        VBool.MyBool = true;
+            //    }
+            //}
+
+            if (Tools.keybState.IsKeyDown(Keys.D6))
+            {
+                VPlayer1.Resume();
+            }
+            if (Tools.keybState.IsKeyDown(Keys.D7))
+            {
+                VPlayer1.Stop();
+                VPlayer1.Play(TestVideo1);
+            }
+
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
             this.IsFixedTimeStep = true;
             RunningSlowly = gameTime.IsRunningSlowly;
@@ -944,6 +1097,8 @@ namespace CloudberryKingdom
         GameData Game { get { return Tools.CurGameData; } }
         void DoGameDataPhsx()
         {
+            if (Tools.EditorPause) return;
+
             Tools.PhsxCount++;
 
             if (Tools.WorldMap != null)
@@ -1019,6 +1174,7 @@ namespace CloudberryKingdom
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
             //}
 
+            /*
             // Game Obj Viewer
             if ((Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
@@ -1033,8 +1189,9 @@ namespace CloudberryKingdom
                 else
                     Tools.gameobj_viewer.Input();
             }
+             * */
 
-            // Game Obj Viewer
+            // Background viewer
             if ((Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.V) && !Tools.PrevKeyboardState.IsKeyDown(Keys.V))
             {
@@ -1049,22 +1206,9 @@ namespace CloudberryKingdom
                     Tools.background_viewer.Input();
             }
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
+            if (!Tools.ViewerIsUp && Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
                 ShowFPS = !ShowFPS;
 #endif
-
-//#if PC_VERSION
-//            if (SimpleLoad)
-//            {
-//                if ((Tools.ViewerIsUp || Tools.viewer.IsDisposed) && Tools.keybState.IsKeyDownCustom(Keys.B) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.B))
-//                {
-//                    Tools.viewer = new Viewer.Viewer();
-//                    Tools.viewer.Show();
-//                }
-//                if (Tools.viewer != null && !Tools.viewer.IsDisposed)
-//                    Tools.viewer.Input();
-//            }
-//#endif
 
             // Quick game reset
             //if (//Tools.CurLevel.ResetEnabled() &&
@@ -1075,12 +1219,10 @@ namespace CloudberryKingdom
             if (Tools.CurLevel.ResetEnabled() && 
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 CountShortReset();
-            //if ((Tools.keybState.IsKeyDownCustom(Keys.Space) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Space) ||
-            //    Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
-            //    && Tools.CurLevel.ResetEnabled())
-            //    CountShortReset();
 
 
+            if (!Tools.ViewerIsUp)
+            {
 #if PC_DEBUG
             if (Tools.FreeCam)
             {
@@ -1095,136 +1237,139 @@ namespace CloudberryKingdom
             }
 #endif
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
-            {
-                //LoadSound(false);
-
-                ReloadInfo();
-
-                foreach (BlockBase block in Tools.CurLevel.Blocks)
+                if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
                 {
-                    NormalBlock nblock = block as NormalBlock;
-                    if (null != nblock) nblock.ResetPieces();
+                    //LoadSound(false);
 
-                    MovingBlock mblock = block as MovingBlock;
-                    if (null != mblock) mblock.ResetPieces();
+                    ReloadInfo();
+
+                    foreach (BlockBase block in Tools.CurLevel.Blocks)
+                    {
+                        NormalBlock nblock = block as NormalBlock;
+                        if (null != nblock) nblock.ResetPieces();
+
+                        MovingBlock mblock = block as MovingBlock;
+                        if (null != mblock) mblock.ResetPieces();
+                    }
                 }
-            }
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
-                Background.Test = !Background.Test;
+                if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
+                    Background.Test = !Background.Test;
 
-            if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
-                Background.GreenScreen = !Background.GreenScreen;
+                if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
+                    Background.GreenScreen = !Background.GreenScreen;
 
 #if PC_DEBUG || (WINDOWS && DEBUG)
-            if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
-            {
-                //if (Tools.CurGameData != null) Tools.CurGameData.Release();
-                GameData.LockLevelStart = false;
-                LevelSeedData.ForcedReturnEarly = 0;
-                MakeTestLevel(); return;
-            }
-            if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
-            {
-                //if (Tools.CurGameData != null) Tools.CurGameData.Release();
-                GameData.LockLevelStart = false;
-                LevelSeedData.ForcedReturnEarly = 1;
-                MakeTestLevel(); return;
-            }
-
-
-            if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
-            {
-                Tools.CurLevel.MainCamera.Zoom *= .99f;
-                Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
-            }
-            if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
-            {
-                Tools.CurLevel.MainCamera.Zoom /= .99f;
-                Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
-            }
-
-            if (Tools.keybState.IsKeyDownCustom(Keys.D8) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D8))
-            //if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
-            {
-                Tools.Editing = true;
-
-                Hand NewHand = new Hand();
-                NewHand.Core.Active = NewHand.Core.Show = true;
-                NewHand.Core.Data.Position = Tools.CurLevel.MainCamera.Data.Position;
-                Tools.CurLevel.AddObject(NewHand);
-
-                Tools.CurLevel.Bobs.Clear();
-            }
-
-            if (Tools.keybState.IsKeyDownCustom(Keys.Escape) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Escape))
-            {
-                EndVideoCapture();
-            }
-            if (SetToBringSaveVideoDialog ||
-                Tools.keybState.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.U))
-            {
-                SetToBringSaveVideoDialog = false;
-
-                Forms.FolderBrowserDialog ofd = new Forms.FolderBrowserDialog();
-                string root = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                ofd.SelectedPath = root + "\\Test";
-
-                //Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
-                //ofd.Title = "Save as...";
-                //ofd.Filter = "Imaginary extension (*.iex)|*.iex";
-                //ofd.InitialDirectory = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                //ofd.CheckFileExists = false;
-
-                Tools.DialogUp = true;
-
-                // Check the user didn't cancel
-                if (ofd.ShowDialog() != Forms.DialogResult.Cancel)
+                if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
                 {
+                    //if (Tools.CurGameData != null) Tools.CurGameData.Release();
+                    GameData.LockLevelStart = false;
+                    LevelSeedData.ForcedReturnEarly = 0;
+                    MakeTestLevel(); return;
+                }
+                if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
+                {
+                    //if (Tools.CurGameData != null) Tools.CurGameData.Release();
+                    GameData.LockLevelStart = false;
+                    LevelSeedData.ForcedReturnEarly = 1;
+                    MakeTestLevel(); return;
+                }
+
+
+                if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
+                {
+                    Tools.CurLevel.MainCamera.Zoom *= .99f;
+                    Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
+                }
+                if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
+                {
+                    Tools.CurLevel.MainCamera.Zoom /= .99f;
+                    Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
+                }
+
+                if (Tools.keybState.IsKeyDownCustom(Keys.D8) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D8))
+                //if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
+                {
+                    Tools.Editing = true;
+
+                    Hand NewHand = new Hand();
+                    NewHand.Core.Active = NewHand.Core.Show = true;
+                    NewHand.Core.Data.Position = Tools.CurLevel.MainCamera.Data.Position;
+                    Tools.CurLevel.AddObject(NewHand);
+
+                    Tools.CurLevel.Bobs.Clear();
+                }
+
+                if (Tools.keybState.IsKeyDownCustom(Keys.Escape) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Escape))
+                {
+                    EndVideoCapture();
+                }
+                if (SetToBringSaveVideoDialog ||
+                    Tools.keybState.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.U))
+                {
+                    SetToBringSaveVideoDialog = false;
+
+                    Forms.FolderBrowserDialog ofd = new Forms.FolderBrowserDialog();
+                    string root = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
+                    ofd.SelectedPath = root + "\\Test";
+
+                    //Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
+                    //ofd.Title = "Save as...";
+                    //ofd.Filter = "Imaginary extension (*.iex)|*.iex";
+                    //ofd.InitialDirectory = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
+                    //ofd.CheckFileExists = false;
+
+                    Tools.DialogUp = true;
+
+                    // Check the user didn't cancel
+                    if (ofd.ShowDialog() != Forms.DialogResult.Cancel)
+                    {
+                        Tools.DialogUp = false;
+
+                        // Record video
+                        BeginVideoCapture();
+                        ofd.ShowNewFolderButton = true;
+                        VideoFolderName = ofd.SelectedPath;
+                        //VideoFolderName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.'));
+
+                        // Make directory
+                        if (VideoFolderName.Length <= root.Length) return;
+                        if (System.IO.Directory.Exists(VideoFolderName))
+                            System.IO.Directory.Delete(VideoFolderName, true);
+                        System.IO.Directory.CreateDirectory(VideoFolderName);
+                    }
+
                     Tools.DialogUp = false;
-
-                    // Record video
-                    BeginVideoCapture();
-                    ofd.ShowNewFolderButton = true;
-                    VideoFolderName = ofd.SelectedPath;
-                    //VideoFolderName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.'));
-
-                    // Make directory
-                    if (VideoFolderName.Length <= root.Length) return;
-                    if (System.IO.Directory.Exists(VideoFolderName))
-                        System.IO.Directory.Delete(VideoFolderName, true);
-                    System.IO.Directory.CreateDirectory(VideoFolderName);
                 }
 
-                Tools.DialogUp = false;
-            }
-
-            if (Tools.keybState.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.I))
-            {
-                ChangeScreenshotMode();
-            }
-
-            if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
-            {
-                foreach (Bob bob in Tools.CurLevel.Bobs)
+                if (Tools.keybState.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.I))
                 {
-                    bob.Immortal = !bob.Immortal;
+                    ChangeScreenshotMode();
                 }
-            }
-            if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
-                Tools.FreeCam = !Tools.FreeCam;
-            if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
-                Tools.DrawGraphics = !Tools.DrawGraphics;
-            if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
-                Tools.DrawBoxes = !Tools.DrawBoxes;
-            if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
-                Tools.StepControl = !Tools.StepControl;
-            if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
-            {
-                Tools.IncrPhsxSpeed();
-            }
+
+                if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
+                {
+                    foreach (Bob bob in Tools.CurLevel.Bobs)
+                    {
+                        bob.Immortal = !bob.Immortal;
+                    }
+                }
+                if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
+                    Tools.FreeCam = !Tools.FreeCam;
+                if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
+                    Tools.DrawGraphics = !Tools.DrawGraphics;
+                if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
+                    Tools.DrawBoxes = !Tools.DrawBoxes;
+                if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
+                    Tools.StepControl = !Tools.StepControl;
+                if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
+                {
+                    Tools.IncrPhsxSpeed();
+                }
 #endif
+            }
+
+
             if (!Tools.StepControl || (Tools.keybState.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Enter)))
             {
                 DoGameDataPhsx();
@@ -1237,6 +1382,8 @@ namespace CloudberryKingdom
             Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
             Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
                                Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
+            Tools.RawDeltaMouse = new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y) -
+                                  new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y);
 
             Tools.PrevKeyboardState = Tools.keybState;
             Tools.PrevMouseState = Tools.CurMouseState;
@@ -1326,12 +1473,21 @@ namespace CloudberryKingdom
 
             // Mouse
             //string str = string.Format("Mouse delta: {0}", Tools.DeltaMouse);
-            string str = string.Format("Mouse in window: {0}", Tools.MouseInWindow);
+            //string str = string.Format("Mouse in window: {0}", Tools.MouseInWindow);
+
+            // VPlayer
+            //string str = "";
+            //if (VPlayer1 != null)
+            //{
+            //    str = VPlayer1.PlayPosition.Ticks.ToString();
+            //    //Console.WriteLine(str);
+            //}
+
 
             // GC
-            //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
-            //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
-            //    + debugstring;
+            string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
+                + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
+                + debugstring;
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
@@ -1432,11 +1588,11 @@ namespace CloudberryKingdom
                     //PlayerManager.Get(1).IsAlive = true;
 
 
+#if DEBUG
                     //LevelSeedData.ForcedReturnEarly = 0;
                     MakeTestLevel(); return;
 
 
-#if DEBUG
                     if (RecordIntro)
                     {
                         ScreenSaver Intro = new ScreenSaver(); Intro.InitToRecord(); return;
@@ -1550,8 +1706,8 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //data.SetTileSet("TestTileSet");
-            data.SetTileSet("Mario3_Outside");
-            //data.SetTileSet(TileSets.Dungeon);
+            //data.SetTileSet("Mario3_Outside");
+            data.SetTileSet(TileSets.Dungeon);
             //data.SetTileSet(TileSets.Terrace);
             //data.SetTileSet(TileSets._Night);
             //data.SetTileSet(TileSets._NightSky);
@@ -1587,8 +1743,8 @@ namespace CloudberryKingdom
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            //data.PieceLength = 5000;
-            data.PieceLength = 28000;
+            data.PieceLength = 5000;
+            //data.PieceLength = 28000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
@@ -2039,6 +2195,12 @@ ObjectData.UpdateWeak();
             if (LogoScreenUp || LogoScreenPropUp)
             {
                 LoadingScreen.Draw();
+                if (DoVideoTest)
+                lock (VEZTexture)
+                {
+                    if (VEZTexture.Tex != null)
+                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
+                }
                 return;
             }
 
@@ -2055,6 +2217,13 @@ ObjectData.UpdateWeak();
                 {
                     Tools.CurGameData.Draw();
                     Tools.CurGameData.PostDraw();
+
+                    if (DoVideoTest)
+                    lock (VEZTexture)
+                    {
+                        if (VEZTexture.Tex != null)
+                            Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
+                    }
                 }
                 else
                     GraphicsDevice.Clear(Color.Black);

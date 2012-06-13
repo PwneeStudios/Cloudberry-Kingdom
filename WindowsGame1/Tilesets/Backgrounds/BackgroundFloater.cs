@@ -9,7 +9,17 @@ namespace CloudberryKingdom
     public class BackgroundFloater
     {
 #if DEBUG
-        public bool Selected = false, SoftSelected = false, FixedAspectPreference = true, FixedPos = false;
+        public bool Selected = false, SoftSelected = false, FixedAspectPreference = true;
+
+        public bool Editable
+        {
+            get
+            {
+                if (Parent == null) return false;
+
+                return Parent.Show && !Parent.Lock;
+            }
+        }
 
         /// <summary>
         /// Get the list a floater belongs to.
@@ -44,10 +54,19 @@ namespace CloudberryKingdom
         }
 
         Level MyLevel;
+        public string Name = null;
 
         public QuadClass MyQuad;
 
-        public PhsxData Data;
+        public PhsxData Data, StartData;
+
+        /// <summary>
+        /// Sets the current and start position of the floater.
+        /// </summary>
+        public void SetPos(Vector2 pos)
+        {
+            Data.Position = StartData.Position = pos;
+        }
 
         public float X_Left, X_Right;
 
@@ -64,12 +83,22 @@ namespace CloudberryKingdom
             MyLevel = level;
         }
 
+        /// <summary>
+        /// Reset the floater to its start position.
+        /// </summary>
+        public void Reset()
+        {
+            Data.Position = StartData.Position;
+            InitialUpdate();
+        }
+
         public void ChangeParallax(float Prev, float New)
         {
             float ratio = Prev / New;
             var cam = MyLevel.MainCamera.Pos;
 
             Data.Position = (Data.Position - cam) * ratio + cam;
+            StartData.Position = (StartData.Position - cam) * ratio + cam;
             MyQuad.Size *= ratio;
 
             InitialUpdate();
@@ -81,6 +110,7 @@ namespace CloudberryKingdom
             X_Right += shift.X;
 
             Data.Position += shift;
+            StartData.Position += shift;
         }
 
         public void UpdateBounds(Vector2 BL, Vector2 TR)
@@ -123,6 +153,20 @@ namespace CloudberryKingdom
             }
         }
 
+        public BackgroundFloater(BackgroundFloater source)
+        {
+            this.X_Left = source.X_Left;
+            this.X_Right = source.X_Right;
+            this.Data = source.Data;
+            this.StartData = source.StartData;
+#if DEBUG
+            this.FixedAspectPreference = source.FixedAspectPreference;
+#endif
+            this.MyLevel = source.MyLevel;
+            this.MyQuad = new QuadClass(source.MyQuad);
+            this.Name = source.Name;
+        }
+
         public BackgroundFloater(Level level, float X_Left, float X_Right)
         {
             this.X_Left = X_Left;
@@ -157,7 +201,7 @@ namespace CloudberryKingdom
 
         public virtual void InitialUpdate()
         {
-            MyQuad.Base.Origin = Data.Position;
+            MyQuad.Base.Origin = Data.Position = StartData.Position;
             MyQuad.Update();
             MyQuad.UpdateShift_Precalc();
         }

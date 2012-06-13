@@ -27,6 +27,17 @@ namespace CloudberryKingdom
                 list.Release();
         }
 
+        /// <summary>
+        /// Reset the lists to their start position.
+        /// </summary>
+        public void Reset()
+        {
+            if (Lists == null) return;
+
+            foreach (var list in Lists)
+                list.Reset();
+        }
+
         public void Sort()
         {
             Lists.Sort((list1, list2) => list1.Parallax.CompareTo(list2.Parallax));
@@ -113,6 +124,8 @@ namespace CloudberryKingdom
 
         public void PhsxStep()
         {
+            if (Tools.EditorPause) return;
+
             foreach (BackgroundFloaterList list in Lists)
                 list.PhsxStep();
         }

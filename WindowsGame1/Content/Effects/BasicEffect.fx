@@ -27,6 +27,23 @@ PixelToFrame OurFirstPixelShader(VertexToPixel PSIn)
     Output.Color = baseColor;
     Output.Color *= PSIn.Color;
 
+	/*
+	// Rotate
+	float3 c = Output.Color;
+	float3 v = float3(.57735,.57735,.57735);
+	float a = t;
+	
+	float trig2 = cos(a);
+	float trig1 = 1 - trig2;
+	float trig3 = sin(a);
+	float dot = trig1 * (c.x * v.x + c.y * v.y + c.z * c.z);
+
+	Output.Color.xyz = float3(
+		v.x * dot + c.x * trig2 + (-v.z * c.y + v.y * c.z) * trig3,
+		v.y * dot + c.y * trig2 + (v.z * c.x - v.x * c.z) * trig3,
+		v.z * dot + c.z * trig2 + (-v.y * c.x + v.x * c.y) * trig3);
+		*/
+
     return Output;
 }
 

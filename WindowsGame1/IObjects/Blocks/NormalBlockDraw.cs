@@ -66,12 +66,12 @@ namespace CloudberryKingdom.Blocks
 
             if (MyPieces != null)
             {
-                MyPieces.CalcQuads(MyBlock.Box.Current.Size + ModSize);
-
                 MyPieces.MyOrientation = block.BlockCore.MyOrientation;
 
                 if (MyBlock.Core.MyTileSet.DungeonLike && MyBlock.BlockCore.CeilingDraw)
                     MyPieces.MyOrientation = PieceQuad.Orientation.UpsideDown;
+
+                MyPieces.CalcQuads(MyBlock.Box.Current.Size + ModSize);
             }
 
             // Tint

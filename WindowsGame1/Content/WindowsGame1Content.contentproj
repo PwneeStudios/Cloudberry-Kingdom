@@ -76,6 +76,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Movies\TestMovie.wmv">
+      <Name>TestMovie</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
     <Compile Include="White.bmp">
       <Name>White</Name>
       <Importer>TextureImporter</Importer>
@@ -299,8 +304,8 @@
       <Name>FlyingBlock</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Objects\Mario.smo">
-      <Name>Mario</Name>
+    <None Include="Objects\SpriteHeroTemplate.smo">
+      <Name>SpriteHeroTemplate</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Objects\meatboy.smo">

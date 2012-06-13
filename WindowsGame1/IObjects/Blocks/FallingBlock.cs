@@ -43,8 +43,7 @@ namespace CloudberryKingdom
         {
             base.Release();
 
-            MyDraw.Release();
-            MyDraw = null;
+            if (MyDraw != null) MyDraw.Release(); MyDraw = null;
         }
 
         public void SetState(FallingBlockState NewState) { SetState(NewState, false); }

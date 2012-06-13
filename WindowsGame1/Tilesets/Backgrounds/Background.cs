@@ -74,6 +74,16 @@ namespace CloudberryKingdom
             MyLevel = null;
         }
 
+        /// <summary>
+        /// Reset the list to its start position.
+        /// </summary>
+        public void Reset()
+        {
+            if (MyCollection == null) return;
+
+            MyCollection.Reset();
+        }
+
         public static Background Get(BackgroundTemplate Type)
         {
             if (Type == BackgroundType.Castle) return new CastleBackground();

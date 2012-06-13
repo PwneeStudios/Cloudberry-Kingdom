@@ -41,10 +41,21 @@ namespace CloudberryKingdom
             Update();
 
             var c = Tools.CurCamera.Pos;
-            if (pos.X > Parallax * (TR.X - c.X) + c.X + padding.X) return false;
-            if (pos.X < Parallax * (BL.X - c.X) + c.X - padding.X) return false;
-            if (pos.Y > Parallax * (TR.Y - c.Y) + c.Y + padding.Y) return false;
-            if (pos.Y < Parallax * (BL.Y - c.Y) + c.Y - padding.Y) return false;
+
+            if (Base.e1.X > 0)
+            {
+                if (pos.X > Parallax * (TR.X - c.X) + c.X + padding.X) return false;
+                if (pos.X < Parallax * (BL.X - c.X) + c.X - padding.X) return false;
+                if (pos.Y > Parallax * (TR.Y - c.Y) + c.Y + padding.Y) return false;
+                if (pos.Y < Parallax * (BL.Y - c.Y) + c.Y - padding.Y) return false;
+            }
+            else
+            {
+                if (pos.X > Parallax * (BL.X - c.X) + c.X + padding.X) return false;
+                if (pos.X < Parallax * (TR.X - c.X) + c.X - padding.X) return false;
+                if (pos.Y > Parallax * (TR.Y - c.Y) + c.Y + padding.Y) return false;
+                if (pos.Y < Parallax * (BL.Y - c.Y) + c.Y - padding.Y) return false;
+            }
 
             return true;
         }
@@ -197,6 +208,12 @@ namespace CloudberryKingdom
             Quad = new SimpleQuad(quad);
         }
 
+        public QuadClass(QuadClass quad)
+        {
+            Initialize(null, false, false);
+            quad.Clone(this);
+        }
+
         public QuadClass()
         {
             Initialize(null, false, false);
@@ -268,9 +285,12 @@ namespace CloudberryKingdom
         /// </summary>
         public void Clone(QuadClass quad)
         {
+            quad.Base = Base;
+
             quad.Quad.MyTexture = Quad.MyTexture;
             quad.Quad.MyEffect = Quad.MyEffect;
-            quad.Base = Base;
+            
+            quad.Quad.SetColor(Quad.MySetColor);
         }
 
         public void SetTexture(string Name)

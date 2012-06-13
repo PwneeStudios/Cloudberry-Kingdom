@@ -154,6 +154,8 @@ namespace CloudberryKingdom
 
             MyDrawOrder = PieceQuadA.MyDrawOrder;
 
+            MyOrientation = PieceQuadA.MyOrientation;
+
             Left = PieceQuadA.Left;
             Right = PieceQuadA.Right;
             Top = PieceQuadA.Top;
