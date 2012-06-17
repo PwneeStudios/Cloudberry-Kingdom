@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
+using System.IO;
 using CloudberryKingdom;
 
 namespace Drawing
 {
-    public struct SimpleVector
+    public struct SimpleVector : IReadWrite
     {
         public AnimationData AnimData;
         public MyOwnVertexFormat Vertex;
@@ -28,6 +28,15 @@ namespace Drawing
         public void Release()
         {
             AnimData.Release();
+        }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "Pos");
+        }
+        public void Read(StreamReader reader)
+        {
+            this = (SimpleVector)Tools.ReadFields(this, reader);
         }
     }
 
@@ -133,8 +142,18 @@ namespace Drawing
           */
     }
 
-    public struct SimpleQuad
+    public struct SimpleQuad : IReadWrite
     {
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "v0", "v1", "v2", "v3", "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture");
+        }
+        public void Read(StreamReader reader)
+        {
+            this = (SimpleQuad)Tools.ReadFields(this, reader);
+            SetColor(MySetColor, true);
+        }
+
         public bool Animated;
 
         AnimationData_Texture TextureAnim;
@@ -187,7 +206,7 @@ namespace Drawing
                 }
             }
         }
-        EzTexture _MyTexture;
+        public EzTexture _MyTexture;
 
         public void CalcTexture(int anim, float frame)
         {
@@ -401,6 +420,13 @@ namespace Drawing
         public Vector2 TR { get { return v1.Vertex.xy; } }
         public Vector2 BL { get { return v2.Vertex.xy; } }
 
+        public float Right  { get { return v1.Vertex.xy.X; } }
+        public float Left   { get { return v2.Vertex.xy.X; } }
+        public float Top    { get { return v1.Vertex.xy.Y; } }
+        public float Bottom { get { return v2.Vertex.xy.Y; } }
+        public float Width  { get { return Right - Left; } }
+        public float Height { get { return Top - Bottom; } }
+
         public void Shift(Vector2 shift)
         {
             v0.Pos += shift;
@@ -469,6 +495,37 @@ namespace Drawing
             v3.Vertex.uv = hold;
         }
 
+        public Vector2 UV_Offset
+        {
+            get
+            {
+                return v0.Vertex.uv;
+            }
+            set
+            {
+                UVFromBounds_2(value, value + UV_Repeat);
+            }
+        }
+        public Vector2 UV_Repeat
+        {
+            get
+            {
+                return v3.Vertex.uv - v0.Vertex.uv;
+            }
+            set
+            {
+                UVFromBounds_2(UV_Offset, UV_Offset + value);
+            }
+        }
+
+        public void UV_Phsx(Vector2 speed)
+        {
+            v0.Vertex.uv += speed;
+            v1.Vertex.uv += speed;
+            v2.Vertex.uv += speed;
+            v3.Vertex.uv += speed;
+        }
+
         // v0 v1
         // v2 v3
         public void UVFromBounds(Vector2 BL, Vector2 TR)
@@ -477,6 +534,14 @@ namespace Drawing
             v1.Vertex.uv = TR;
             v2.Vertex.uv = BL;
             v3.Vertex.uv = new Vector2(TR.X, BL.Y);
+        }
+
+        public void UVFromBounds_2(Vector2 BL, Vector2 TR)
+        {
+            v0.Vertex.uv = BL;
+            v1.Vertex.uv = new Vector2(TR.X, BL.Y);
+            v2.Vertex.uv = new Vector2(BL.X, TR.Y);
+            v3.Vertex.uv = TR;
         }
 
         public void Init()
@@ -596,9 +661,10 @@ namespace Drawing
 
         public Color MySetColor, PremultipliedColor;
         public float BlendAddRatio;
-        public void SetColor(Color color)
+        public void SetColor(Color color) { SetColor(color, false); }
+        public void SetColor(Color color, bool ForceUpdate)
         {
-            if (color == MySetColor) return;
+            if (!ForceUpdate && color == MySetColor) return;
 
             MySetColor = color;
 

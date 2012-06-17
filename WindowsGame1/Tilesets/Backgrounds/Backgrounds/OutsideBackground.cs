@@ -43,8 +43,8 @@ namespace CloudberryKingdom
             Pos = BL.Y;
             while (Pos < TR.Y)
             {
-                BackgroundFloater cloud = new BackgroundFloater(b.MyLevel, BL.X - 1700, TR.X + 400);
-                cloud.Data.Position = new Vector2(b.Rnd.RndFloat(-1500, 1500)*2.3f, Pos);
+                BackgroundFloater cloud = new BackgroundFloater(b.MyLevel);
+                cloud.StartData.Position = new Vector2(b.Rnd.RndFloat(-1500, 1500)*2.3f, Pos);
                 cloud.MyQuad.TextureName = "cloud" + b.Rnd.RndInt(1, 4).ToString();
 
                 cloud.MyQuad.Quad.SetColor(Tools.Gray(.945f));
@@ -53,6 +53,7 @@ namespace CloudberryKingdom
 
                 Pos += b.Rnd.RndFloat(800, 1400) * .7f;
 
+                cloud.InitialUpdate();
                 NewList.Floaters.Add(cloud);
             }
             b.MyCollection.Lists.Add(NewList);
@@ -62,8 +63,8 @@ namespace CloudberryKingdom
             Pos = BL.Y;
             while (Pos < TR.Y)
             {
-                BackgroundFloater cloud = new BackgroundFloater(b.MyLevel, BL.X - 1700, TR.X + 400);
-                cloud.Data.Position = new Vector2(b.Rnd.RndFloat(-1800, 1800)*2.3f, Pos);
+                BackgroundFloater cloud = new BackgroundFloater(b.MyLevel);
+                cloud.StartData.Position = new Vector2(b.Rnd.RndFloat(-1800, 1800)*2.3f, Pos);
                 cloud.MyQuad.TextureName = "cloud" + b.Rnd.RndInt(1, 4).ToString(); 
                 
                 cloud.MyQuad.Size = new Vector2(300, 200);
@@ -71,6 +72,7 @@ namespace CloudberryKingdom
 
                 Pos += b.Rnd.RndFloat(800, 1400) * .7f;
 
+                cloud.InitialUpdate();
                 NewList.Floaters.Add(cloud);
             }
             b.MyCollection.Lists.Add(NewList);

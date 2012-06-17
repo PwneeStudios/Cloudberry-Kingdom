@@ -84,7 +84,7 @@ namespace CloudberryKingdom
         private void RndFloater(ref Vector2 BL, ref Vector2 TR, BackgroundFloaterList NewList, ref Vector2 pos)
         {
             BackgroundFloater window = new BackgroundFloater_Stationary(MyLevel);//, BL.X - 1000, TR.X + 400);
-            window.Data.Position = pos;
+            window.StartData.Position = pos;
 
             if (MyLevel.Rnd.RndFloat() > .6855f)
             {
@@ -99,6 +99,7 @@ namespace CloudberryKingdom
 
             window.MyQuad.Quad.SetColor(new Color(120, 120, 140, 255));
 
+            window.InitialUpdate();
             NewList.Floaters.Add(window);
         }
 

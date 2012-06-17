@@ -58,8 +58,8 @@ namespace CloudberryKingdom
                     Pos.Y = BL.Y;
                     while (Pos.Y < TR.Y)
                     {
-                        BackgroundFloater floater = new BackgroundFloater(MyLevel, BL.X, TR.X);
-                        floater.Data.Position = Pos + new Vector2(MyLevel.Rnd.RndFloat(-300, 300), MyLevel.Rnd.RndFloat(-300, 300));
+                        BackgroundFloater floater = new BackgroundFloater(MyLevel);
+                        floater.StartData.Position = Pos + new Vector2(MyLevel.Rnd.RndFloat(-300, 300), MyLevel.Rnd.RndFloat(-300, 300));
                         floater.MyQuad.Scale(330);
                         floater.MyQuad.Base.e2.Y *= .7f;
                         //floater.MyQuad.SetTexture("Cloud" + (MyLevel.Rnd.RndInt(1, 6)).ToString());

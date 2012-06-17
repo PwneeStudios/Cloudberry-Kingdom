@@ -50,7 +50,12 @@ namespace CloudberryKingdom
             get { return Data.Position; }
             set { Data.Position = value; }
         }
-        
+
+        public Vector2 PosToScreenPos(Vector2 pos, float parallax)
+        {
+            return (pos - Pos) * parallax;
+        }
+
 
         /// <summary>
         /// The current maximum speed amonst all the alive players.

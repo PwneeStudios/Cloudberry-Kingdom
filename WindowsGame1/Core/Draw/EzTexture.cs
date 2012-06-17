@@ -60,7 +60,11 @@ namespace Drawing
             return _Tex != null;
         }
 #endif
-        //public EzTexture() { }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class PackedTexture
@@ -335,7 +339,7 @@ namespace Drawing
             PathDict.RemoveAll(kp => kp.Value.Dynamic);
         }
 
-        public enum WhatToLoad { Art, Tilesets };
+        public enum WhatToLoad { Art, Backgrounds, Tilesets };
         public void LoadModRoot(Stream stream, WhatToLoad what)
         {
             StreamReader reader = new StreamReader(stream);
@@ -355,6 +359,10 @@ namespace Drawing
                     {
                         case "Load":
                             LoadFolder(bits[1], what);
+                            break;
+
+                        case "TileSetToTest":
+                            CloudberryKingdomGame.TileSetToTest = bits[1];
                             break;
                         
                         default: break;
@@ -401,6 +409,11 @@ namespace Drawing
                 if (what == WhatToLoad.Tilesets)
                     if (extension == "tileset")
                         TileSets.LoadTileSet(file);
+
+                // Load tileset
+                if (what == WhatToLoad.Backgrounds)
+                    if (extension == "bkg")
+                        BackgroundType.Load(file);
             }
         }
 

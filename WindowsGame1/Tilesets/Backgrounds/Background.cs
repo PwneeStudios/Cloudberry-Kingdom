@@ -26,10 +26,36 @@ namespace CloudberryKingdom
             NightSky = new BackgroundTemplate(),
             Chaos = new BackgroundTemplate();
 
-        public static Dictionary<string, BackgroundTemplate> NameLookup = new Dictionary<string, BackgroundTemplate>();
+        public static Dictionary<string, BackgroundTemplate>
+            NameLookup = new Dictionary<string, BackgroundTemplate>(),
+            PathLookup = new Dictionary<string, BackgroundTemplate>();
+        
         public static void AddTemplate(BackgroundTemplate template)
         {
             NameLookup.Add(template.Name, template);
+            PathLookup.Add(template.File, template);
+        }
+
+        public static void Load(string path)
+        {
+            BackgroundTemplate template;
+            if (PathLookup.ContainsKey(path))
+            {
+                template = PathLookup[path];
+            }
+            else
+            {
+                template = new BackgroundTemplate();
+
+                var name = Tools.GetFileName(path);
+                template.Name = name;
+                template.File = path;
+
+                AddTemplate(template);
+            }
+
+            template.MadeOfCode = false;
+            template.MadeOfText = true;
         }
     }
 
@@ -37,15 +63,61 @@ namespace CloudberryKingdom
     {
         public string Name;
         public bool MadeOfCode = true;
+        public bool MadeOfText = false;
+        public string File = null;
 
         public Background MakeInstanceOf()
         {
-            var b = new Background();
+            var b = new RegularBackground();
+            b.MyTemplate = this;
+
+            if (MadeOfCode || File == null) return b;
+
             return b;
         }
     }
 
-    public class Background
+    public class RegularBackground : Background
+    {
+        public BackgroundTemplate MyTemplate = null;
+
+        public RegularBackground()
+        {
+        }
+
+        public override void Init(Level level)
+        {
+            MyLevel = level;
+            MyCollection = new BackgroundCollection(MyLevel);
+            TR = new Vector2(5000, 2000);
+            BL = new Vector2(-2000, -2000);
+
+            if (MyTemplate != null && MyTemplate.MadeOfText)
+                Load(MyTemplate.File);
+        }
+
+        public override void Draw()
+        {
+            Tools.QDrawer.Flush();
+            Camera Cam = MyLevel.MainCamera;
+            Cam.SetVertexCamera();
+
+#if DEBUG && INCLUDE_EDITOR
+            if (Tools.background_viewer != null)
+            {
+                Tools.background_viewer.PreDraw();
+                Tools.QDrawer.Flush();
+            }
+#endif
+
+            MyCollection.PhsxStep();
+            MyCollection.Draw();
+
+            Tools.QDrawer.Flush();
+        }
+    }
+
+    public class Background : IReadWrite
     {
         public float MyGlobalIllumination = 1f;
         public bool AllowLava = true;
@@ -106,7 +178,7 @@ namespace CloudberryKingdom
 
             if (Type == BackgroundType.Rain) return new RainBackground();
 
-            return null;
+            return Type.MakeInstanceOf();
         }
 
         public Background()
@@ -181,9 +253,6 @@ namespace CloudberryKingdom
                 this.TR = Vector2.Max(this.TR, TR);
                 this.BL = Vector2.Min(this.BL, BL);
             }
-
-            if (MyCollection != null)
-                MyCollection.UpdateBounds(BL, TR);
         }
         
         public static bool Test = false;
@@ -207,9 +276,14 @@ namespace CloudberryKingdom
                 TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
                 //TestQuad.TextureName = "BGPlain";
                 //TestQuad.TextureName = "tigar_inside_castle";
-                
+                //TestTexture = Tools.Texture("BGPlain");
+                //TestTexture = Tools.Texture("11 hill_4");
+
                 if (TestTexture == null)
-                    TestTexture = Tools.Texture("BGPlain");
+                {
+                    //TestTexture = Tools.Texture("BGPlain");
+                    TestTexture = Tools.Texture("11 hill_4");
+                }
                 TestQuad.Quad.MyTexture = TestTexture;
 
                 TestQuad.Quad.SetColor(Tools.GrayColor(.825f));
@@ -240,18 +314,41 @@ namespace CloudberryKingdom
                 }
         }
 
-        public void Write(string path)
+        public void Write(StreamWriter writer)
         {
-            var stream = File.Open(path, FileMode.Open, FileAccess.Write, FileShare.None);
+            Tools.WriteFields(this, writer, "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection");
+        }
 
+        public void Read(StreamReader reader)
+        {
+            MyCollection.Lists.Clear();
 
+            Tools.ReadFields(this, reader);
 
+            SetLevel(MyLevel);
+            Reset();
+        }
+
+        public void Save(string path)
+        {
+            var stream = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+            var writer = new StreamWriter(stream);
+
+            Write(writer);
+
+            writer.Close();
             stream.Close();
         }
 
-        public void Read(string path)
+        public void Load(string path)
         {
             var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+            var reader = new StreamReader(stream);
+
+            Read(reader);
+
+            reader.Close();
+            stream.Close();
         }
     }
 }

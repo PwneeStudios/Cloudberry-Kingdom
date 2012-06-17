@@ -176,10 +176,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <None Include="DynamicLoad\Standard.modroot">
-      <Name>Standard</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Effects\RootEffect.fx">
       <Name>RootEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -1317,6 +1313,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Art\Environments\Castle\Portraits\" />
+    <Folder Include="DynamicLoad\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Art\Powerups\Cart.png">
@@ -3969,6 +3966,13 @@
   <ItemGroup>
     <Compile Include="Art\Obstacles\FallingBlock\FallingBlock.png">
       <Name>FallingBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\TestBackgrounds\11 hill_4.jpg">
+      <Name>11 hill_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -71,7 +71,7 @@ namespace CloudberryKingdom
             while (Pos < TR.Y)
             {
                 BackgroundFloater window = new BackgroundFloater_Stationary(MyLevel);//, BL.X - 1000, TR.X + 400);
-                window.Data.Position = new Vector2(MyLevel.Rnd.RndFloat(-1500, 1500) * 1.5f, Pos);
+                window.StartData.Position = new Vector2(MyLevel.Rnd.RndFloat(-1500, 1500) * 1.5f, Pos);
 
                 if (MyLevel.Rnd.RndBool())
                 {
@@ -107,7 +107,6 @@ namespace CloudberryKingdom
             BackgroundQuad.FullScreen(Cam);
             //BackgroundQuad.Base.Origin = Cam.Data.Position;
 
-            Vector2 offset;
             Vector2 repeat = InfoWad.GetVec("Inside2_BackgroundRepeat");
             float Parralax = InfoWad.GetFloat("Inside2_BackgroundParralax");
             /*

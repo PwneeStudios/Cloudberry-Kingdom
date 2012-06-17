@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
+using System.IO;
 using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundFloaterList
+    public class BackgroundFloaterList : IReadWrite
     {
         public string Name = null;
-        
-#if DEBUG
+
+#if INCLUDE_EDITOR
         public bool Show = true;
 
         /// <summary>
@@ -73,26 +73,6 @@ namespace CloudberryKingdom
                 floater.SetLevel(level);
         }
 
-        public void CalcBounds()
-        {
-            Vector2 BL = new Vector2(1000000, 1000000);
-            Vector2 TR = new Vector2(-1000000, -1000000);
-
-            foreach (BackgroundFloater floater in Floaters)
-            {
-                TR = Vector2.Max(TR, new Vector2(floater.X_Left, 0));
-                BL = Vector2.Min(BL, new Vector2(floater.X_Right, 0));
-            }
-
-            UpdateBounds(BL, TR);
-        }
-
-        public void UpdateBounds(Vector2 BL, Vector2 TR)
-        {
-            foreach (BackgroundFloater floater in Floaters)
-                floater.UpdateBounds(BL, TR);
-        }
-
         public void Move(Vector2 shift)
         {
             foreach (BackgroundFloater floater in Floaters)
@@ -124,20 +104,26 @@ namespace CloudberryKingdom
                 floater.SetLevel(MyLevel);
 
             Floaters.AddRange(list.Floaters);
-
-            CalcBounds();
         }
 
+        public Vector2 BL, TR;
         public void PhsxStep()
         {
+            TR = MyLevel.MyBackground.TR;
+            BL = MyLevel.MyBackground.BL;
+            var c = MyLevel.MainCamera.Pos;
+
+            TR = c + (TR - c) / Parallax;
+            BL = c + (BL - c) / Parallax;
+
             foreach (BackgroundFloater Floater in Floaters)
-                Floater.PhsxStep();
+                Floater.PhsxStep(this);
         }
 
         public void Draw() { Draw(1); }
         public void Draw(float CamMod)
         {
-#if DEBUG
+#if DEBUG && INCLUDE_EDITOR
             if (!Show) return;
 #endif
 
@@ -158,6 +144,16 @@ namespace CloudberryKingdom
             Parallax = InfoWad.GetFloat(Root + "_Parralax");
 
             BackgroundFloater.AddSpan(Root, Floaters, BL, TR, MyLevel);
+        }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "Name", "Parallax", "Floaters");
+        }
+
+        public void Read(StreamReader reader)
+        {
+            Tools.ReadFields(this, reader);
         }
     }
 }

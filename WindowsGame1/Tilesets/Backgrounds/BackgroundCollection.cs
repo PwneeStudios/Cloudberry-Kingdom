@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundCollection
+    public class BackgroundCollection : IReadWrite
     {
         public Level MyLevel;
 
@@ -73,12 +74,6 @@ namespace CloudberryKingdom
                 Lists[i].Absorb(collection.Lists[i]);
         }
 
-        public void UpdateBounds(Vector2 BL, Vector2 TR)
-        {
-            foreach (BackgroundFloaterList list in Lists)
-                list.UpdateBounds(BL, TR);
-        }
-
         public void FromInfoWad(string Root, Vector2 BL, Vector2 TR, Level level)
         {
             int NumLists = (int)InfoWad.GetFloat(Root + "_Num");
@@ -128,6 +123,16 @@ namespace CloudberryKingdom
 
             foreach (BackgroundFloaterList list in Lists)
                 list.PhsxStep();
+        }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "Lists");
+        }
+
+        public void Read(StreamReader reader)
+        {
+            Tools.ReadFields(this, reader);
         }
     }
 }

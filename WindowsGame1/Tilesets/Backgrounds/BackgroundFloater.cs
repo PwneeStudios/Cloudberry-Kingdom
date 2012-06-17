@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 using CloudberryKingdom.Levels;
 
+#if INCLUDE_EDITOR
+using CloudberryKingdom.Viewer;
+#endif
+
 namespace CloudberryKingdom
 {
-    public class BackgroundFloater
+    public class BackgroundFloater : IReadWrite
     {
-#if DEBUG
+#if INCLUDE_EDITOR
         public bool Selected = false, SoftSelected = false, FixedAspectPreference = true;
 
         public bool Editable
@@ -39,6 +44,8 @@ namespace CloudberryKingdom
                 return null;
             }
         }
+
+        public BackgroundViewer.TreeNode_Floater Node = null;
 #endif
 
         float _SpinVelocity;
@@ -57,6 +64,7 @@ namespace CloudberryKingdom
         public string Name = null;
 
         public QuadClass MyQuad;
+        public Vector2 uv_speed = Vector2.Zero, uv_offset = Vector2.Zero;
 
         public PhsxData Data, StartData;
 
@@ -67,8 +75,6 @@ namespace CloudberryKingdom
         {
             Data.Position = StartData.Position = pos;
         }
-
-        public float X_Left, X_Right;
 
         public string Root;
 
@@ -89,6 +95,8 @@ namespace CloudberryKingdom
         public void Reset()
         {
             Data.Position = StartData.Position;
+            MyQuad.Quad.UV_Offset = uv_offset;
+
             InitialUpdate();
         }
 
@@ -106,17 +114,10 @@ namespace CloudberryKingdom
 
         public void Move(Vector2 shift)
         {
-            X_Left += shift.X;
-            X_Right += shift.X;
-
             Data.Position += shift;
             StartData.Position += shift;
-        }
-
-        public void UpdateBounds(Vector2 BL, Vector2 TR)
-        {
-            X_Left = Math.Min(X_Left, BL.X);
-            X_Right = Math.Max(X_Right, TR.X);
+            
+            InitialUpdate();
         }
 
         public static void AddSpan(string Root, List<BackgroundFloater> Quads, Vector2 BL, Vector2 TR, Level level)
@@ -142,9 +143,9 @@ namespace CloudberryKingdom
                 if (SpeedRange.X == 0 && SpeedRange.Y == 0)
                     floater = new BackgroundFloater_Stationary(level, Root + "_" + type.ToString());
                 else
-                    floater = new BackgroundFloater(level, Root + "_" + type.ToString(), BL.X, TR.X);
+                    floater = new BackgroundFloater(level, Root + "_" + type.ToString());
 
-                floater.Data.Position = new Vector2(Pos, level.Rnd.RndFloat(YRange.X, YRange.Y));
+                floater.StartData.Position = new Vector2(Pos, level.Rnd.RndFloat(YRange.X, YRange.Y));
                 floater.InitialUpdate();
 
                 Pos += level.Rnd.RndFloat(DistRange.X, DistRange.Y) / 2;
@@ -155,11 +156,9 @@ namespace CloudberryKingdom
 
         public BackgroundFloater(BackgroundFloater source)
         {
-            this.X_Left = source.X_Left;
-            this.X_Right = source.X_Right;
             this.Data = source.Data;
             this.StartData = source.StartData;
-#if DEBUG
+#if DEBUG && INCLUDE_EDITOR
             this.FixedAspectPreference = source.FixedAspectPreference;
 #endif
             this.MyLevel = source.MyLevel;
@@ -167,21 +166,21 @@ namespace CloudberryKingdom
             this.Name = source.Name;
         }
 
-        public BackgroundFloater(Level level, float X_Left, float X_Right)
+        public BackgroundFloater()
         {
-            this.X_Left = X_Left;
-            this.X_Right = X_Right;
+            MyQuad = new QuadClass();
+        }
 
+        public BackgroundFloater(Level level)
+        {
             MyLevel = level;
 
             MyQuad = new QuadClass();
         }
 
-        public BackgroundFloater(Level level, string Root, float X_Left, float X_Right)
+        public BackgroundFloater(Level level, string Root)
         {
             this.Root = Root;
-            this.X_Left = X_Left;
-            this.X_Right = X_Right;
 
             MyLevel = level;
 
@@ -206,15 +205,22 @@ namespace CloudberryKingdom
             MyQuad.UpdateShift_Precalc();
         }
 
-        public virtual void PhsxStep()
+        public virtual void PhsxStep(BackgroundFloaterList list)
         {
+            MyQuad.Quad.UV_Phsx(uv_speed);
+
             Data.Position += Data.Velocity;
 
-            if (Data.Position.X + 2 * MyQuad.Base.e1.X < X_Left - 300)
-                Data.Position.X = X_Right + 2 * MyQuad.Base.e1.X + 200;
+            if (MyQuad.Quad.Right < list.BL.X - 100)
+                Data.Position.X = list.TR.X + MyQuad.Quad.Width / 2 + 50;
+            else if (MyQuad.Quad.Left > list.TR.X + 100)
+                Data.Position.X = list.BL.X - MyQuad.Quad.Width / 2 - 50;
 
-            if (Data.Position.X - 2 * MyQuad.Base.e1.X > X_Right + 300)
-                Data.Position.X = X_Left - 2 * MyQuad.Base.e1.X - 200;
+            //if (Data.Position.X + 2 * MyQuad.Base.e1.X < X_Left - 300)
+            //    Data.Position.X = X_Right + 2 * MyQuad.Base.e1.X + 200;
+
+            //if (Data.Position.X - 2 * MyQuad.Base.e1.X > X_Right + 300)
+            //    Data.Position.X = X_Left - 2 * MyQuad.Base.e1.X - 200;
 
             MyQuad.Base.Origin = Data.Position;
 
@@ -229,7 +235,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if DEBUG
+#if DEBUG && INCLUDE_EDITOR
         protected void Draw_DebugExtra()
         {
             if (Selected || SoftSelected)
@@ -255,9 +261,20 @@ namespace CloudberryKingdom
         {
             Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
 
-#if DEBUG
+#if DEBUG && INCLUDE_EDITOR
             Draw_DebugExtra();
 #endif
+        }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "Name", "MyQuad", "uv_speed", "uv_offset", "Data", "StartData");
+        }
+
+        public void Read(StreamReader reader)
+        {
+            Tools.ReadFields(this, reader);
+            InitialUpdate();
         }
     }
 }

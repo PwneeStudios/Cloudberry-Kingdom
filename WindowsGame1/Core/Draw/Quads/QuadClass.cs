@@ -7,7 +7,7 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class QuadClass : IViewable
+    public class QuadClass : IViewable, IReadWrite
     {
         public string[] GetViewables()
         {
@@ -77,7 +77,7 @@ namespace CloudberryKingdom
         public Color ShadowColor = Color.Black;
         public float ShadowScale = 1f;
 
-        public SimpleQuad Quad;
+        public SimpleQuad Quad = new SimpleQuad();
         
         public BasePoint Base;
         public FancyVector2 FancyPos, FancyScale, FancyAngle;
@@ -551,6 +551,15 @@ namespace CloudberryKingdom
         public void Update()
         {
             Quad.Update(ref Base);
+        }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "Quad", "Base");
+        }
+        public void Read(StreamReader reader)
+        {
+            Tools.ReadFields(this, reader);
         }
 
         public void Write(BinaryWriter writer)

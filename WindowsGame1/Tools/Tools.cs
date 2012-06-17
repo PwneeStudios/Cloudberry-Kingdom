@@ -24,10 +24,19 @@ using CloudberryKingdom.Blocks;
 #if WINDOWS
 using CloudberryKingdom;
 using CloudberryKingdom.Viewer;
+#if INCLUDE_EDITOR
+using Forms = System.Windows.Forms;
+#endif
 #endif
 
 namespace CloudberryKingdom
 {
+    interface IReadWrite
+    {
+        void Write(StreamWriter writer);
+        void Read(StreamReader reader);
+    }
+
     public static class StringExtension
     {
         public static string Capitalize(this string s)
@@ -388,6 +397,11 @@ namespace CloudberryKingdom
 
         public static void Log(string dump)
         {
+            var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+            var writer = new StreamWriter(stream);
+            writer.Write(dump);
+            writer.Close();
+            stream.Close();
         }
 
 
@@ -856,7 +870,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
       
 #if WINDOWS
-#if DEBUG
+#if INCLUDE_EDITOR
         public static bool EditorPause
         {
             get
@@ -894,6 +908,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static float CurSongVolume;
         public static WrappedFloat SoundVolume, MusicVolume;
 
+#if INCLUDE_EDITOR && WINDOWS
+        public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(TheGame.Window.Handle); } }
+#endif
         public static CloudberryKingdom.CloudberryKingdomGame TheGame;
         public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
 
@@ -1120,6 +1137,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             int i = FilePath.LastIndexOf("\\");
             int j = FilePath.IndexOf(".", i);
+            if (j < 0) j = FilePath.Length;
             if (i < 0) return FilePath.Substring(0, j - 1);
             else return FilePath.Substring(i + 1, j - 1 - i);
         }
@@ -1306,6 +1324,192 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return bits;
         }
 
+
+        public static object ReadFields(object obj, StreamReader reader)
+        {
+            var line = reader.ReadLine();
+            while (line != null)
+            {
+                var bits = Tools.GetBitsFromLine(line);
+                
+                if (bits.Count > 0)
+                {
+                    var first = bits[0];
+
+                    bool WasReadable = false;
+                    try
+                    {
+                        var info = obj.GetType().GetField(first);
+                        if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
+                        {
+                            WasReadable = true;
+                            var rw = (IReadWrite)(info.GetValue(obj));
+                            rw.Read(reader);
+                            info.SetValue(obj, rw);
+                        }
+                        else
+                        // List of IReadWrites
+                        {
+                            Type type = info.FieldType;
+                            if (type.IsGenericType && type.GetGenericTypeDefinition()
+                                    == typeof(List<>))
+                            {
+                                WasReadable = true;
+
+                                var list = info.GetValue(obj) as System.Collections.IList;
+
+                                Type itemType = type.GetGenericArguments()[0];
+                                if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
+                                    ReadList(reader, list, itemType);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        WasReadable = false;
+                    }
+
+                    if (!WasReadable)
+                        switch (first)
+                        {
+                            case "End":
+                                return obj;
+
+                            case "_MyTexture":
+                                Tools.ReadLineToObj(obj, bits);
+                                break;
+
+                            default:
+                                Tools.ReadLineToObj(obj, bits);
+                                break;
+                        }
+                }
+
+                line = reader.ReadLine();
+            }
+
+            return obj;
+        }
+
+        private static void ReadList(StreamReader reader, System.Collections.IList list, Type itemType)
+        {
+            var line = reader.ReadLine();
+            bool ReadingList = true;
+
+            while (line != null && ReadingList)
+            {
+                line = reader.ReadLine();
+                var bits = Tools.GetBitsFromLine(line);
+
+                switch (bits[0])
+                {
+                    case "Add":
+                        var constructor = itemType.GetConstructor(Type.EmptyTypes);
+                        var newobj = constructor.Invoke(Type.EmptyTypes);
+                        ReadFields(newobj, reader);
+                        list.Add(newobj);
+
+                        break;
+                    case "EndList":
+                        ReadingList = false;
+                        break;
+                    case "End":
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        static int WriteRecursiveDepth = 0;
+        public static void WriteFields(object obj, StreamWriter writer, params string[] VariableNames)
+        {
+            WriteRecursiveDepth++;
+            string WhiteSpace = "";
+            for (int i = 1; i < WriteRecursiveDepth; i++)
+                WhiteSpace += "  ";
+
+            foreach (FieldInfo info in obj.GetType().GetFields())
+            {
+                // Check if field is listed as a variable to be written.
+                if (VariableNames.Contains(info.Name))
+                {
+                    string line = null;
+                    // int
+                    if (info.FieldType == typeof(int))
+                        line = ((int)info.GetValue(obj)).ToString();
+                    // float
+                    else if (info.FieldType == typeof(float))
+                        line = ((float)info.GetValue(obj)).ToString();
+                    // Vector2
+                    else if (info.FieldType == typeof(Vector2))
+                    {
+                        var v = (Vector2)(info.GetValue(obj));
+                        line = string.Format("{0} {1}", v.X, v.Y);
+                    }
+                    // Color
+                    else if (info.FieldType == typeof(Color))
+                    {
+                        var c = (Color)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2} {3}", c.R, c.G, c.B, c.A);
+                    }
+                    // string
+                    else if (info.FieldType == typeof(string))
+                        line = ((string)info.GetValue(obj)).ToString();
+                    // EzTexture
+                    else if (info.FieldType == typeof(EzTexture))
+                        line = ((EzTexture)info.GetValue(obj)).Name.ToString();
+                    // PhsxData
+                    else if (info.FieldType == typeof(PhsxData))
+                    {
+                        var d = (PhsxData)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2} {3} {4} {5}", d.Position.X, d.Position.Y, d.Velocity.X, d.Velocity.Y, d.Acceleration.X, d.Acceleration.Y);
+                    }
+                    // BasePoint
+                    else if (info.FieldType == typeof(BasePoint))
+                    {
+                        var b = (BasePoint)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2} {3} {4} {5}", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+                    }
+                    else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
+                    {
+                        var rw = (IReadWrite)(info.GetValue(obj));
+                        writer.WriteLine(WhiteSpace + info.Name);
+                        rw.Write(writer);
+                        writer.WriteLine(WhiteSpace + "End");
+                        writer.WriteLine();
+                    }
+                    else
+                    {
+                        // List of IReadWrites
+                        Type type = info.FieldType;
+                        if (type.IsGenericType && type.GetGenericTypeDefinition()
+                                == typeof(List<>))
+                        {
+                            Type itemType = type.GetGenericArguments()[0];
+                            if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
+                            {
+                                writer.WriteLine(WhiteSpace + info.Name);
+                                writer.WriteLine(WhiteSpace + "StartList");
+                                foreach (var rw in (IEnumerable<IReadWrite>)info.GetValue(obj))
+                                {
+                                    writer.WriteLine(WhiteSpace + "Add");
+                                    rw.Write(writer);
+                                    writer.WriteLine(WhiteSpace + "End");
+                                }
+                                writer.WriteLine(WhiteSpace + "EndList");
+                                writer.WriteLine();
+                            }
+                        }
+                    }
+
+                    if (line != null)
+                        writer.WriteLine(WhiteSpace + string.Format("{0} {1}", info.Name, line));
+                }
+            }
+
+            WriteRecursiveDepth--;
+        }
+
         public static Dictionary<string, int> GetLocations(List<string> Bits, params string[] keywords)
         {
             var dict = new Dictionary<string,int>();
@@ -1350,18 +1554,37 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 var fieldinfo = obj.GetType().GetField(field);
                 if (fieldinfo == null) { Tools.Log(string.Format("Field {0} not found.", field)); return; }
 
+
                 // int
                 if (fieldinfo.FieldType == typeof(int))
                     fieldinfo.SetValue(obj, int.Parse(Bits[1]));
+                // float
+                if (fieldinfo.FieldType == typeof(float))
+                    fieldinfo.SetValue(obj, float.Parse(Bits[1]));
                 // Vector2
                 else if (fieldinfo.FieldType == typeof(Vector2))
                     fieldinfo.SetValue(obj, ParseToVector2(Bits[1], Bits[2]));
+                // Color
+                else if (fieldinfo.FieldType == typeof(Color))
+                    fieldinfo.SetValue(obj, ParseToColor(Bits[1], Bits[2], Bits[3], Bits[4]));
                 // bool
                 else if (fieldinfo.FieldType == typeof(bool))
                     fieldinfo.SetValue(obj, bool.Parse(Bits[1]));
+                // EzTexture
+                else if (fieldinfo.FieldType == typeof(EzTexture))
+                    fieldinfo.SetValue(obj, Tools.TextureWad.FindByName(Bits[1]));
                 // TextureOrAnim
                 else if (fieldinfo.FieldType == typeof(TextureOrAnim))
                     fieldinfo.SetValue(obj, Tools.TextureWad.FindTextureOrAnim(Bits[1]));
+                // string
+                else if (fieldinfo.FieldType == typeof(string))
+                    fieldinfo.SetValue(obj, Bits[1]);
+                // PhsxData
+                else if (fieldinfo.FieldType == typeof(PhsxData))
+                    fieldinfo.SetValue(obj, Tools.ParseToPhsxData(Bits[1], Bits[2], Bits[3], Bits[4], Bits[5], Bits[6]));
+                // BasePoint
+                else if (fieldinfo.FieldType == typeof(BasePoint))
+                    fieldinfo.SetValue(obj, Tools.ParseToBasePoint(Bits[1], Bits[2], Bits[3], Bits[4], Bits[5], Bits[6]));
             }
         }
 
@@ -1388,6 +1611,35 @@ public static Thread EasyThread(int affinity, string name, Action action)
             
             return Vec;
         }
+
+        public static PhsxData ParseToPhsxData(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6)
+        {
+            PhsxData data;
+
+            data.Position.X = float.Parse(bit1);
+            data.Position.Y = float.Parse(bit2);
+            data.Velocity.X = float.Parse(bit3);
+            data.Velocity.Y = float.Parse(bit4);
+            data.Acceleration.X = float.Parse(bit5);
+            data.Acceleration.Y = float.Parse(bit6);
+
+            return data;
+        }
+
+        public static BasePoint ParseToBasePoint(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6)
+        {
+            BasePoint b;
+
+            b.e1.X = float.Parse(bit1);
+            b.e1.Y = float.Parse(bit2);
+            b.e2.X = float.Parse(bit3);
+            b.e2.Y = float.Parse(bit4);
+            b.Origin.X = float.Parse(bit5);
+            b.Origin.Y = float.Parse(bit6);
+
+            return b;
+        }
+
         public static Vector2 ParseToVector2(String str)
         {
             int CommaIndex = str.IndexOf(",");
@@ -1402,6 +1654,17 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return Vec;
         }
 
+        public static Color ParseToColor(String bit1, String bit2, String bit3, String bit4)
+        {
+            Color c = Color.White;
+
+            c.R = byte.Parse(bit1);
+            c.G = byte.Parse(bit2);
+            c.B = byte.Parse(bit3);
+            c.A = byte.Parse(bit4);
+
+            return c;
+        }
 
         public static Color ParseToColor(String str)
         {

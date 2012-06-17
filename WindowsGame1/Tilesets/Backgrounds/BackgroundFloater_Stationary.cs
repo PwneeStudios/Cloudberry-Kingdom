@@ -9,16 +9,16 @@ namespace CloudberryKingdom
     public class BackgroundFloater_Stationary : BackgroundFloater
     {
         public BackgroundFloater_Stationary(Level level)
-            : base(level, 0, 0)
+            : base(level)
         {
         }
 
         public BackgroundFloater_Stationary(Level level, string Root)
-            : base(level, Root, 0, 0)
+            : base(level, Root)
         {
         }
 
-        public override void PhsxStep()
+        public override void PhsxStep(BackgroundFloaterList list)
         {
         }
 
@@ -26,7 +26,7 @@ namespace CloudberryKingdom
         {
             Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
 
-#if DEBUG
+#if DEBUG && INCLUDE_EDITOR
             Draw_DebugExtra();
 #endif
         }

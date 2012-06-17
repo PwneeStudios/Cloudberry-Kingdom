@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using System.IO;
+using CloudberryKingdom;
 
 namespace Drawing
 {    
-    public struct MyOwnVertexFormat : IVertexType
+    public struct MyOwnVertexFormat : IVertexType, IReadWrite
     {
         public Vector2 xy;
         public Vector2 uv;
@@ -32,5 +33,14 @@ namespace Drawing
         );
 
         VertexDeclaration IVertexType.VertexDeclaration { get { return VertexDeclaration; } }
+
+        public void Write(StreamWriter writer)
+        {
+            Tools.WriteFields(this, writer, "xy", "uv", "Color");
+        }
+        public void Read(StreamReader reader)
+        {
+            Tools.ReadFields(this, reader);
+        }
     }
 }

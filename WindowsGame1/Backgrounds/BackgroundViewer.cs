@@ -1,4 +1,4 @@
-﻿#if WINDOWS && DEBUG
+﻿#if WINDOWS && INCLUDE_EDITOR
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using XnaInput = Microsoft.Xna.Framework.Input;
 using Forms = System.Windows.Forms;
 using Xna = Microsoft.Xna.Framework;
+using Drawing;
 
 namespace CloudberryKingdom.Viewer
 {
@@ -20,34 +21,51 @@ namespace CloudberryKingdom.Viewer
         {
             InitializeComponent();
 
-            NewFloaterButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\rectangle_blue.png");
+            var path = "EditorToolPics";
+            
+            NewFloaterButton.Image = Image.FromFile(path + "\\rectangle_blue.png");
             SetButtonParams(NewFloaterButton);
 
-            NewLayerButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\layers.png");
+            NewLayerButton.Image = Image.FromFile(path + "\\layers.png");
             SetButtonParams(NewLayerButton);
 
-            TextureButton.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\Quad_24.png");
+            TextureButton.Image = Image.FromFile(path + "\\Quad_24.png");
             SetButtonParams(TextureButton);
 
-            LayerLockCheckbox.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\lock.png");
-            LayerShowCheckbox.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\eye.png");
+            LayerLockCheckbox.Image = Image.FromFile(path + "\\lock.png");
+            LayerShowCheckbox.Image = Image.FromFile(path + "\\eye.png");
 
-            PlayCheckbox.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\Play.png");
+            PlayCheckbox.Image = Image.FromFile(path + "\\Play.png");
             SetButtonParams(PlayCheckbox);
             PlayCheckbox.Checked = false;
 
+            CameraMoveCheckbox.Image = Image.FromFile(path + "\\MoveCam.png");
+            SetButtonParams(CameraMoveCheckbox);
+            CameraMoveCheckbox.Checked = true; CameraMoveCheckbox.Checked = false;
+
+            MoveBoundsCheckbox.Image = Image.FromFile(path + "\\MoveBounds.png");
+            SetButtonParams(MoveBoundsCheckbox);
+            MoveBoundsCheckbox.Checked = true; MoveBoundsCheckbox.Checked = false;
+
+            MoveQuadsCheckbox.Image = Image.FromFile(path + "\\MoveQuad.png");
+            SetButtonParams(MoveQuadsCheckbox);
+            MoveQuadsCheckbox.Checked = true;
+
+            
             ColorButton.Text = "";
 
-            CameraMoveCheckbox.Image = Image.FromFile("C:\\Users\\Ez\\Desktop\\EditorToolPics\\Move.png");
-            SetButtonParams(CameraMoveCheckbox);
+            SetVectorBox(pos_VectorBox);
+            SetVectorBox(size_VectorBox);
+            SetVectorBox(vel_VectorBox);
 
-            pos_VectorBox.Validating += ReverseSync;
-            pos_VectorBox.KeyPress += new KeyPressEventHandler(VectorBox_KeyPress);
-            size_VectorBox.Validating += ReverseSync;
-            size_VectorBox.KeyPress += new KeyPressEventHandler(VectorBox_KeyPress);
-            vel_VectorBox.Validating += ReverseSync;
-            vel_VectorBox.KeyPress += new KeyPressEventHandler(VectorBox_KeyPress);
+            SetVectorBox(offset_VectorBox);
+            SetVectorBox(repeat_VectorBox);
+            SetVectorBox(speed_VectorBox);
 
+            LayerTree.KeyDown += new KeyEventHandler(LayerTree_KeyDown);
+            LayerTree.AfterLabelEdit += new NodeLabelEditEventHandler(LayerTree_AfterLabelEdit);
+            LayerTree.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(LayerTree_NodeMouseDoubleClick);
+            LayerTree.BeforeLabelEdit += new NodeLabelEditEventHandler(LayerTree_BeforeLabelEdit);
             LayerTree.ItemDrag += new ItemDragEventHandler(LayerTree_ItemDrag);
             LayerTree.DragDrop += new DragEventHandler(LayerTree_DragDrop);
             LayerTree.DragOver += new DragEventHandler(LayerTree_DragOver);
@@ -59,13 +77,81 @@ namespace CloudberryKingdom.Viewer
 
             FillTree();
         }
+        void LayerTree_KeyDown(object sender, KeyEventArgs e)
+        {
+            var node = LayerTree.SelectedNode as TreeNode_;
 
+            // Press F2 to rename a node.
+            if (e.KeyData == Keys.F2 && node != null)
+            {
+                BeginLabelEdit(node);
+            }
+        }
+
+        void LayerTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            BeginLabelEdit(e.Node);
+        }
+
+        void BeginLabelEdit(TreeNode node)
+        {
+            LayerTree.LabelEdit = true;
+            node.BeginEdit();
+        }
+
+        bool EditingNodeText = false;
+        void LayerTree_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            EditingNodeText = true;
+        }
+
+        void LayerTree_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            EditingNodeText = false;
+            LayerTree.LabelEdit = false;
+
+            var node = e.Node as TreeNode_;
+            if (null == node) return;
+
+            if (e.Label == null)
+                node.SetName(node.GetName());
+            else
+                node.SetName(e.Label);
+        }
+
+        void SetVectorBox(TextBox box)
+        {
+            box.Validating += ReverseSync;
+            box.KeyPress += VectorBox_KeyPress;
+
+            box.BackColor = System.Drawing.SystemColors.Control;
+            box.GotFocus += new EventHandler(box_GotFocus);
+            box.LostFocus += new EventHandler(box_LostFocus);
+        }
+        void box_LostFocus(object sender, EventArgs e)
+        {
+            var box = sender as TextBox;
+            if (null == box) return;
+
+            box.BackColor = System.Drawing.SystemColors.Control;
+        }
+        void box_GotFocus(object sender, EventArgs e)
+        {
+            var box = sender as TextBox;
+            if (null == box) return;
+
+            box.BackColor = System.Drawing.SystemColors.Window;
+        }
         void VectorBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             var box = sender as TextBox;
 
             if (null != box && e.KeyChar == 13)
+            {
                 ReverseSync(sender, e);
+                ProcessTabKey(true);
+                //box.Parent.Focus();
+            }
         }
 
         TreeNode GetReceivingNode(TreeView Tree, Vector2 pos)
@@ -254,7 +340,7 @@ namespace CloudberryKingdom.Viewer
 
         }
 
-        class TreeNode_ : TreeNode
+        public class TreeNode_ : TreeNode
         {
             public BackgroundViewer Controller;
 
@@ -262,6 +348,15 @@ namespace CloudberryKingdom.Viewer
                 : base()
             {
                 this.Controller = Controller;
+            }
+
+            public virtual string GetName()
+            {
+                return null;
+            }
+            public virtual void SetName(string name)
+            {
+                this.Text = name;
             }
 
             public virtual void SyncNumerics()
@@ -279,9 +374,11 @@ namespace CloudberryKingdom.Viewer
 
                 Parent.Nodes.Remove(this);
             }
+
+            public bool UserSetName = false;
         }
 
-        class TreeNode_List : TreeNode_
+        public class TreeNode_List : TreeNode_
         {
             public BackgroundFloaterList MyList;
             public TreeNode_List(BackgroundFloaterList list, BackgroundViewer Controller)
@@ -294,7 +391,19 @@ namespace CloudberryKingdom.Viewer
                 // Name the list if it is unnamed.
                 Controller.NameList(list);
 
-                Text = list.Name;
+                SetName(MyList.Name);
+                UserSetName = true;
+            }
+
+            public override string GetName()
+            {
+                return MyList.Name;
+            }
+            public override void SetName(string name)
+            {
+                base.SetName(name);
+
+                MyList.Name = name;
             }
 
             public TreeNode_Floater Add(BackgroundFloater floater)
@@ -344,7 +453,7 @@ namespace CloudberryKingdom.Viewer
             }
         }
 
-        class TreeNode_Floater : TreeNode_
+        public class TreeNode_Floater : TreeNode_
         {
             public BackgroundFloater MyFloater;
 
@@ -352,11 +461,28 @@ namespace CloudberryKingdom.Viewer
                 : base(Controller)
             {
                 MyFloater = floater;
+                MyFloater.Node = this;
 
                 if (floater.Name == null)
                     floater.Name = string.Format("{0}", floater.MyQuad.Quad.MyTexture.Name);
 
-                Text = floater.Name;
+                SetName(MyFloater.Name);
+            }
+
+            public override string GetName()
+            {
+                return MyFloater.Name;
+            }
+            public override void SetName(string name)
+            {
+                base.SetName(name);
+
+                MyFloater.Name = name;
+
+                if (MyFloater.Name == MyFloater.MyQuad.Quad.MyTexture.Name)
+                    UserSetName = false;
+                else
+                    UserSetName = true;
             }
 
             public override void SyncNumerics()
@@ -375,15 +501,11 @@ namespace CloudberryKingdom.Viewer
                 Controller.pos_VectorBox.Text = MyFloater.StartData.Position.ToSimpleString();
                 Controller.size_VectorBox.Text = MyFloater.MyQuad.Size.ToSimpleString();
                 Controller.vel_VectorBox.Text = MyFloater.StartData.Velocity.ToSimpleString();
-                //Controller.pos_xNum.Value = (decimal)MyFloater.Data.Position.X;
-                //Controller.pos_yNum.Value = (decimal)MyFloater.Data.Position.Y;
-                //Controller.size_xNum.Value = (decimal)MyFloater.MyQuad.Size.X;
-                //Controller.size_yNum.Value = (decimal)MyFloater.MyQuad.Size.Y;
-                //Controller.speed_xNum.Value = (decimal)MyFloater.Data.Velocity.X;
-                //Controller.speed_yNum.Value = (decimal)MyFloater.Data.Velocity.Y;
 
                 // Sync u,v values
-                //Controller.bo.Value = (decimal)MyFloater.Data.Velocity.Y;
+                Controller.offset_VectorBox.Text = MyFloater.MyQuad.Quad.UV_Offset.ToSimpleString();
+                Controller.repeat_VectorBox.Text = MyFloater.MyQuad.Quad.UV_Repeat.ToSimpleString();
+                Controller.speed_VectorBox.Text = MyFloater.uv_speed.ToSimpleString();
 
                 // Sync aspect bool
                 Controller.AspectCheckbox.Checked = MyFloater.FixedAspectPreference;
@@ -424,7 +546,10 @@ namespace CloudberryKingdom.Viewer
 
                 // Loop through the floaters for this list.
                 foreach (var floater in list.Floaters)
+                {
                     list_node.Nodes.Add(new TreeNode_Floater(floater, this));
+                    AddTextureToCombobox(floater.MyQuad.Quad.MyTexture);
+                }
             }
         }
 
@@ -451,7 +576,7 @@ namespace CloudberryKingdom.Viewer
             if (FloaterCopy == null) return;
 
             var floater = new BackgroundFloater(FloaterCopy);
-            floater.Data.Position = Tools.CurCamera.Pos;
+            floater.StartData.Position = Tools.CurCamera.Pos;
             floater.InitialUpdate();
             
             var node = CurrentLayerNode.Add(floater);
@@ -460,17 +585,41 @@ namespace CloudberryKingdom.Viewer
             LayerTree.SelectedNode = node;
         }
 
+        public void PreDraw()
+        {
+            if (axisLinesToolStripMenuItem.Checked)
+            {
+                var extent = 10000;
+                var width = 12.5f;
+                Tools.QDrawer.DrawLine(new Vector2(0, extent), new Vector2(0, -extent), new Xna.Color(1f, 1f, 1f, .5f), width);
+                Tools.QDrawer.DrawLine(new Vector2(extent, 0), new Vector2(-extent, 0), new Xna.Color(1f, 1f, 1f, .5f), width);
+            }
+        }
 
         public void Draw()
         {
             var cam = new Camera(); cam.Update();
-            background.BL = Vector2.Zero;
-            Tools.QDrawer.DrawBox(new Vector2(, cam.BL.Y),
-                                  new Vector2(, cam.TR.Y), Xna.Color.Purple, 5);
+
+            // Bounding box
+            if (boundingBoxToolStripMenuItem.Checked)
+                Tools.QDrawer.DrawBox(background.BL, background.TR, Xna.Color.Purple, 50);
+
+            // Camera box
+            if (cameraBoxToolStripMenuItem.Checked)
+            {
+                float Thickness = 20;
+                var DefaultSize = new Vector2(1777, 1000) + new Vector2(Thickness);
+                var Pos = background.MyLevel.MainCamera.Pos;
+                Tools.QDrawer.DrawBox(Pos - DefaultSize, Pos + DefaultSize, Xna.Color.MediumPurple, Thickness);
+            }
+
+            Tools.QDrawer.Flush();
         }
 
         public void Input()
         {
+            if (EditingNodeText) return;
+
             // Lock location
             //var loc = Form.FromHandle(Tools.TheGame.Window.Handle).Location;
             //loc.X -= this.Size.Width;
@@ -478,13 +627,49 @@ namespace CloudberryKingdom.Viewer
             //this.Location = loc;
 
             // Can not edit while level is active.
-            if (!Tools.EditorPause) return;
+            if (!Tools.EditorPause)
+            {
+                if (ButtonCheck.State(XnaInput.Keys.P).Released)
+                    PlayCheckbox.Checked = !PlayCheckbox.Checked;
+
+                return;
+            }
 
             if (Tools.MousePressed())
                 MouseActiveInWorld_OnLastMouseClick = MouseActiveInWorld;
 
             var pos = Tools.MouseWorldPos();
             var delta = Tools.DeltaMouse;
+
+            // Hot Keys
+            if (!Tools.CntrlDown() && !Tools.ShiftDown() && !Tools.DialogUp)
+            {
+                if (ButtonCheck.State(XnaInput.Keys.T).Released)
+                    TextureButton_Click(null, null);
+                if (ButtonCheck.State(XnaInput.Keys.O).Released)
+                    ColorButton_Click(null, null);
+                if (ButtonCheck.State(XnaInput.Keys.K).Released)
+                    LayerLockCheckbox.Checked = !LayerLockCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.S).Released)
+                    LayerShowCheckbox.Checked = !LayerShowCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.L).Released)
+                    NewLayerButton_Click(null, null);
+                if (ButtonCheck.State(XnaInput.Keys.Q).Released)
+                    NewFloaterButton_Click(null, null);
+                if (ButtonCheck.State(XnaInput.Keys.P).Released)
+                    PlayCheckbox.Checked = !PlayCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.B).Released)
+                    MoveBoundsCheckbox.Checked = !MoveBoundsCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.C).Released)
+                    CameraMoveCheckbox.Checked = !CameraMoveCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.M).Released)
+                    MoveQuadsCheckbox.Checked = !MoveQuadsCheckbox.Checked;
+                if (ButtonCheck.State(XnaInput.Keys.X).Released)
+                {
+                    ParallaxNum.Focus();
+                    ParallaxNum.Select(0, 100);
+                }
+            }
 
             // Copy
             if (Tools.CntrlDown() && ButtonCheck.State(XnaInput.Keys.C).Released)
@@ -512,6 +697,8 @@ namespace CloudberryKingdom.Viewer
 
             if (CameraMoveCheckbox.Checked || Tools.CurRightMouseDown())
                 MouseInput_Camera(ref pos, ref delta);
+            else if (MoveBoundsCheckbox.Checked)
+                MouseInput_MoveBounds(ref pos, ref delta);
             else
                 MouseInput_Floaters(ref pos, ref delta);
         }
@@ -542,6 +729,22 @@ namespace CloudberryKingdom.Viewer
                     //cam.Update();
                     //cam.SetVertexCamera();
                 }
+            }
+        }
+
+        private void MouseInput_MoveBounds(ref Vector2 pos, ref Vector2 delta)
+        {
+            // If shift is down do scaling of the bounds.
+            if (Tools.ShiftDown())
+            {
+                background.BL -= delta;
+                background.TR += delta;
+            }
+            // If the left mouse is down do moving of the bounds.
+            else if (Tools.MouseDown() && !Tools.MousePressed())
+            {
+                background.BL += delta;
+                background.TR += delta;
             }
         }
 
@@ -788,10 +991,9 @@ namespace CloudberryKingdom.Viewer
         /// </summary>
         private void ParallaxNum_ValueChanged(object sender, EventArgs e)
         {
-            var layer_node = LayerTree.SelectedNode as TreeNode_List;
-            if (null == layer_node) return;
+            if (null == CurrentLayerNode) return;
 
-            layer_node.MyList.SetParallaxAndPropagate((float)ParallaxNum.Value);
+            CurrentLayer.SetParallaxAndPropagate((float)ParallaxNum.Value);
         }
 
         private void TextureButton_Click(object sender, EventArgs e)
@@ -809,8 +1011,13 @@ namespace CloudberryKingdom.Viewer
             if (Dlg.ShowDialog() != Forms.DialogResult.Cancel)
             {
                 // Set the texture
+                var texture = Tools.Texture(Tools.GetFileName(Dlg.FileName));
                 foreach (var floater in SelectedFloaters)
-                    floater.MyQuad.TextureName = Tools.GetFileName(Dlg.FileName);
+                    SetFloaterTexture(floater, texture);
+
+                SyncSelectedNumerics();
+
+                AddTextureToCombobox(texture);
             }
 
             Tools.DialogUp = false;
@@ -871,8 +1078,8 @@ namespace CloudberryKingdom.Viewer
         {
             if (CurrentLayer != null)
             {
-                var floater = new BackgroundFloater(Tools.CurLevel, -100000, 100000);
-                floater.Data.Position = Tools.CurCamera.Pos;
+                var floater = new BackgroundFloater(Tools.CurLevel);
+                floater.StartData.Position = Tools.CurCamera.Pos;
                 floater.MyQuad.Size = new Vector2(400, 400);
                 floater.MyQuad.Quad.SetColor(new Vector4(1));
                 floater.FixedAspectPreference = true;
@@ -908,14 +1115,44 @@ namespace CloudberryKingdom.Viewer
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (CurrentFileName != null)
+            {
+                Save(CurrentFileName);
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SaveAs();
         }
 
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var Dlg = new Forms.OpenFileDialog();
+            Tools.DialogUp = true;
+            Dlg.Title = "Choose file...";
+
+            if (CurrentFileName == null)
+                Dlg.InitialDirectory = Tools.DefaultDynamicDirectory();
+            else
+                Dlg.InitialDirectory = CurrentFileName;
+            Dlg.Filter = "BKG Texture (*.bkg)|*.bkg";
+            Dlg.CheckFileExists = true;
+
+            // Check the user didn't cancel
+            if (Dlg.ShowDialog() != Forms.DialogResult.Cancel)
+            {
+                CurrentFileName = Dlg.FileName;
+                background.Load(CurrentFileName);
+                
+                LayerTree.Nodes.Clear();
+                FillTree();
+            }
+
+            Tools.DialogUp = false;
+        }
+
+        string CurrentFileName = null;
         void SaveAs()
         {
             var Dlg = new Forms.SaveFileDialog();
@@ -929,6 +1166,7 @@ namespace CloudberryKingdom.Viewer
             // Check the user didn't cancel
             if (Dlg.ShowDialog() != Forms.DialogResult.Cancel)
             {
+                CurrentFileName = Dlg.FileName;
                 Save(Dlg.FileName);
             }
 
@@ -937,7 +1175,7 @@ namespace CloudberryKingdom.Viewer
 
         void Save(string filename)
         {
-            //background.
+            background.Save(filename);
         }
 
         private void ShowLayer_Click(object sender, EventArgs e)
@@ -961,28 +1199,42 @@ namespace CloudberryKingdom.Viewer
             Tools.DialogUp = false;
         }
 
+        /// <summary>
+        /// Toggle button for Move Camera tool.
+        /// </summary>
         private void CameraMoveCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (CameraMoveCheckbox.Checked)
             {
-                Form winForm = (Form)Form.FromHandle(Tools.TheGame.Window.Handle);
-                winForm.Cursor = Cursors.SizeAll;
+                AllButtonsOff(CameraMoveCheckbox);
+
+                Tools.WinForm.Cursor = Cursors.SizeAll;
             }
             else
-            {
-                Form winForm = (Form)Form.FromHandle(Tools.TheGame.Window.Handle);
-                winForm.Cursor = Cursors.Default;
-            }
+                DefaultSwitchOff();
         }
 
+        bool Playing = false;
         private void PlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (PlayCheckbox.Checked)
+            {
+                AllButtonsOff(PlayCheckbox);
+                
+                Playing = true;
                 StatusLabel.Text = "Playing";
+                Tools.WinForm.Cursor = Cursors.No;
+            }
             else
             {
-                background.Reset();
-                StatusLabel.Text = "Stopped";
+                if (Playing)
+                {
+                    background.Reset();
+                    StatusLabel.Text = "Stopped";
+                    Playing = false;
+                }
+
+                DefaultSwitchOff();
             }
         }
 
@@ -1014,12 +1266,20 @@ namespace CloudberryKingdom.Viewer
             floater.Data.Position = floater.StartData.Position = FromVectorBox(pos_VectorBox, floater.StartData.Position);
             floater.MyQuad.Size = FromVectorBox(size_VectorBox, floater.MyQuad.Size);
             floater.StartData.Velocity = floater.Data.Velocity = FromVectorBox(vel_VectorBox, floater.Data.Velocity);
-            //floater.SetPos(new Vector2((float)pos_xNum.Value, (float)pos_yNum.Value));
-            //floater.MyQuad.SizeX = (float)size_xNum.Value;
-            //floater.MyQuad.SizeY = (float)size_yNum.Value;
-            //floater.Data.Velocity.X = (float)speed_xNum.Value;
-            //floater.Data.Velocity.Y = (float)speed_yNum.Value;
-            
+
+            floater.MyQuad.Quad.UV_Offset = FromVectorBox(offset_VectorBox, floater.MyQuad.Quad.UV_Offset);
+            floater.MyQuad.Quad.UV_Repeat = FromVectorBox(repeat_VectorBox, floater.MyQuad.Quad.UV_Repeat);
+            floater.uv_offset = floater.MyQuad.Quad.UV_Offset;
+            floater.uv_speed = FromVectorBox(speed_VectorBox, floater.uv_speed);
+
+            // If we are repeating more than once, or have UV speed, use texture wrapping.
+            if (floater.uv_speed != Vector2.Zero ||
+                floater.MyQuad.Quad.UV_Repeat.X > 1 ||
+                floater.MyQuad.Quad.UV_Repeat.Y > 1)
+                floater.MyQuad.Quad.U_Wrap = floater.MyQuad.Quad.V_Wrap = true;
+            else
+                floater.MyQuad.Quad.U_Wrap = floater.MyQuad.Quad.V_Wrap = false;
+
             floater.InitialUpdate();
             SyncSelectedNumerics();
         }
@@ -1038,6 +1298,82 @@ namespace CloudberryKingdom.Viewer
         private void BackgroundViewer_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void MoveBoundsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MoveBoundsCheckbox.Checked)
+            {
+                AllButtonsOff(MoveBoundsCheckbox);
+
+                Tools.WinForm.Cursor = Cursors.Cross;
+            }
+            else
+                DefaultSwitchOff();
+        }
+
+        /// <summary>
+        /// For the group of toggle buttons that should only have one down at a time, this will turn all of them off except one.
+        /// </summary>
+        void AllButtonsOff(CheckBox except)
+        {
+            ProgramaticCheck = true;
+            if (CameraMoveCheckbox != except) CameraMoveCheckbox.Checked = false;
+            if (MoveBoundsCheckbox != except) MoveBoundsCheckbox.Checked = false;
+            if (MoveQuadsCheckbox != except) MoveQuadsCheckbox.Checked = false;
+            if (PlayCheckbox != except) PlayCheckbox.Checked = false;
+            ProgramaticCheck = false;
+        }
+        bool ProgramaticCheck = false;
+
+        private void MoveQuadsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MoveQuadsCheckbox.Checked)
+            {
+                AllButtonsOff(MoveQuadsCheckbox);
+
+                Tools.WinForm.Cursor = Cursors.Default;
+            }
+            else
+                DefaultSwitchOff();
+        }
+
+        void DefaultSwitchOff()
+        {
+            if (ProgramaticCheck) return;
+            
+            Tools.WinForm.Cursor = Cursors.Default;
+            MoveQuadsCheckbox.Checked = true;
+        }
+
+        private void TextureCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var floater in SelectedFloaters)
+                SetFloaterTexture(floater, (EzTexture)TextureCombobox.SelectedItem);
+
+            SyncSelectedNumerics();
+        }
+
+        void SetFloaterTexture(BackgroundFloater floater, EzTexture texture)
+        {
+            floater.MyQuad.Quad.MyTexture = texture;
+
+            if (AspectCheckbox.Checked)
+            {
+                floater.MyQuad.ScaleYToMatchRatio();
+                floater.InitialUpdate();
+
+                if (!floater.Node.UserSetName)
+                    floater.Node.SetName(floater.MyQuad.Quad.MyTexture.Name);
+            }
+        }
+
+        void AddTextureToCombobox(EzTexture texture)
+        {
+            if (TextureCombobox.Items.Contains(texture)) return;
+
+            //TextureCombobox.Items.Add(Tools.GetFileName(texture.Name));
+            TextureCombobox.Items.Add(texture);
         }
     }
 }

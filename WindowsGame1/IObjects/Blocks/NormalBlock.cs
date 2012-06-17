@@ -298,9 +298,10 @@ namespace CloudberryKingdom.Blocks
             if (tile.FixedWidths)
             {
                 if (Box.TopOnly)
-                    tile.Pillars.SnapWidthUp(ref size);
-                else
                     tile.Platforms.SnapWidthUp(ref size);
+                else
+                    tile.Pillars.SnapWidthUp(ref size);
+                    
                 //size.Y = 170;
                 //Extend(Side.Bottom, Box.TR.Y - 170);
             }

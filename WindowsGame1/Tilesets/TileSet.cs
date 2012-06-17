@@ -242,18 +242,19 @@ namespace CloudberryKingdom
 
                             break;
 
-                        case "BackgroundImage":
-                            BackgroundTemplate b;
+                        case "BackgroundFile":
+                            BackgroundTemplate template;
                             try
                             {
-                                b = BackgroundType.NameLookup[bits[1]];
+                                template = BackgroundType.NameLookup[bits[1]];
                             }
                             catch
                             {
-                                b = new BackgroundTemplate();
-                                b.Name = bits[1];
+                                template = new BackgroundTemplate();
+                                template.Name = bits[1];
                             }
 
+                            MyBackgroundType = template;
 
                             break;
 
@@ -402,7 +403,11 @@ namespace CloudberryKingdom
             if (group == null)
             {
                 if (block.Box.TopOnly && block.BlockCore.UseTopOnlyTexture)
+                {
                     group = Platforms;
+                    if (group.Widths.Length == 0)
+                        group = Pillars;
+                }
                 else
                     group = Pillars;
             }
@@ -605,7 +610,7 @@ namespace CloudberryKingdom
 
             // Dark
             Dark = info = new TileSet();
-            info. DungeonLike = true;
+            info.DungeonLike = true;
             info.Name = "Darkness";
             info.Guid = 5554;
             AddTileSet(info);

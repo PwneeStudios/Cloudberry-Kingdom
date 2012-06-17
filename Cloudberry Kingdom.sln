@@ -13,6 +13,9 @@ Global
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
 		Debug|Xbox 360 = Debug|Xbox 360
+		Editor Release|Mixed Platforms = Editor Release|Mixed Platforms
+		Editor Release|x86 = Editor Release|x86
+		Editor Release|Xbox 360 = Editor Release|Xbox 360
 		Editor|Mixed Platforms = Editor|Mixed Platforms
 		Editor|x86 = Editor|x86
 		Editor|Xbox 360 = Editor|Xbox 360
@@ -39,6 +42,11 @@ Global
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Debug|x86.Build.0 = Debug|x86
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Debug|Xbox 360.ActiveCfg = Debug|x86
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Debug|Xbox 360.Build.0 = Debug|x86
+		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor Release|Mixed Platforms.ActiveCfg = Editor Release|x86
+		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor Release|Mixed Platforms.Build.0 = Editor Release|x86
+		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor Release|x86.ActiveCfg = Editor Release|x86
+		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor Release|x86.Build.0 = Editor Release|x86
+		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor Release|Xbox 360.ActiveCfg = Editor Release|x86
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor|Mixed Platforms.ActiveCfg = Editor|x86
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor|Mixed Platforms.Build.0 = Editor|x86
 		{7534FCCD-467A-4312-B9A9-47351EF6558B}.Editor|x86.ActiveCfg = Editor|x86
@@ -68,6 +76,9 @@ Global
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Debug|x86.ActiveCfg = Debug|x86
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor Release|Mixed Platforms.ActiveCfg = Release|x86
+		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor Release|x86.ActiveCfg = Release|x86
+		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor Release|Xbox 360.ActiveCfg = Release|x86
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor|Mixed Platforms.ActiveCfg = Editor|x86
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor|x86.ActiveCfg = Editor|x86
 		{CE0C1B81-ECEF-490F-933A-E4E696B5E486}.Editor|Xbox 360.ActiveCfg = Editor|x86
