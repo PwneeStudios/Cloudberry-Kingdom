@@ -11,6 +11,15 @@ namespace CloudberryKingdom.Blocks
     public enum MovingBlockMoveType { Line, Circle, FigureEight }
     public class MovingBlock : BlockBase, IBound
     {
+        public class MovingBlockTileInfo
+        {
+            public BlockGroup Group = PieceQuad.MovingGroup;
+
+            public MovingBlockTileInfo()
+            {
+            }
+        }
+
         public MovingBlockMoveType MoveType;
         public int Period, Offset;
         public Vector2 Displacement;
@@ -64,6 +73,7 @@ namespace CloudberryKingdom.Blocks
             return min;
         }
                
+        /*
         public override void ResetPieces()
         {
             if (MyDraw.MyTemplate != null)
@@ -71,7 +81,6 @@ namespace CloudberryKingdom.Blocks
                 base.ResetPieces();
                 return;
             }
-
 
             // old, crap
             MyDraw.Init(this, PieceQuad.MovingBlock);
@@ -91,29 +100,11 @@ namespace CloudberryKingdom.Blocks
             }
             if (UV_Repeats < .75f)
                 MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Thin");
-        }
+        }*/
 
         public void Init(Vector2 center, Vector2 size, Level level)
         {
-            var tile = Core.MyTileSet = level.MyTileSet;
-            Tools.Assert(Core.MyTileSet != null);
-
-            // Set the size based on tileset limitations.
-            if (tile.FixedWidths)
-            {
-                tile.MovingBlocks.SnapWidthUp(ref size);
-                MyBox.Initialize(center, size);
-                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.MovingBlocks);
-                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
-            }
-            else
-                MyBox.Initialize(center, size);
-            
-            Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
-
-            if (!Core.BoxesOnly)
-                MyDraw.Init(this);
-                //MyDraw.Init(this, PieceQuad.MovingBlock);
+            base.Init(ref center, ref size, level, level.Info.MovingBlocks.Group);
         }
 
         public void MoveToBounded(Vector2 shift)
@@ -131,10 +122,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Reset(bool BoxesOnly)
         {
-            BlockCore.BoxesOnly = BoxesOnly;
-
-            if (!Core.BoxesOnly)
-                ResetPieces();           
+            base.Reset(BoxesOnly);
 
             Core.Data = BlockCore.Data = BlockCore.StartData;
 

@@ -99,6 +99,15 @@ namespace Drawing
         public AnimationData_Texture MyAnim;
         public bool IsAnim = false;
 
+        public TextureOrAnim()
+        {
+        }
+
+        public TextureOrAnim(string name)
+        {
+            Set(name);
+        }
+
         public void Set(string name)
         {
             if (Tools.TextureWad.AnimationDict.ContainsKey(name))
@@ -111,6 +120,20 @@ namespace Drawing
                 MyTexture = Tools.Texture(name);
                 IsAnim = false;
             }
+        }
+
+        public static implicit operator TextureOrAnim(EzTexture texture)
+        {
+            var t_or_a = new TextureOrAnim();
+            t_or_a.MyTexture = texture;
+            return t_or_a;
+        }
+
+        public static implicit operator TextureOrAnim(string name)
+        {
+            var t_or_a = new TextureOrAnim();
+            t_or_a.Set(name);
+            return t_or_a;
         }
     }
     public class EzTextureWad

@@ -127,26 +127,26 @@ namespace CloudberryKingdom
             Vector2 Size;
 
             RightArrow = new QuadClass();
-            RightArrow.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("MenuRightArrow_Texture"));
-            Size = InfoWad.GetVec("MenuArrow_Size");
+            RightArrow.Quad.MyTexture = Menu.DefaultMenuInfo.MenuRightArrow_Texture;
+            Size = Menu.DefaultMenuInfo.MenuArrow_Size;
             RightArrow.Base.e1 *= Size.X;
             RightArrow.Base.e2 *= Size.Y;
 
             LeftArrow = new QuadClass();
-            LeftArrow.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("MenuLeftArrow_Texture"));
-            Size = InfoWad.GetVec("MenuArrow_Size");
+            LeftArrow.Quad.MyTexture = Menu.DefaultMenuInfo.MenuLeftArrow_Texture;
+            Size = Menu.DefaultMenuInfo.MenuArrow_Size;
             LeftArrow.Base.e1 *= Size.X;
             LeftArrow.Base.e2 *= Size.Y;
 
             RightArrow_Selected = new QuadClass();
-            RightArrow_Selected.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("MenuRightArrow_Selected_Texture"));
-            Size = InfoWad.GetVec("MenuArrow_Selected_Size");
+            RightArrow_Selected.Quad.MyTexture = Menu.DefaultMenuInfo.MenuRightArrow_Selected_Texture;
+            Size = Menu.DefaultMenuInfo.MenuArrow_Selected_Size;
             RightArrow_Selected.Base.e1 *= Size.X;
             RightArrow_Selected.Base.e2 *= Size.Y;
 
             LeftArrow_Selected = new QuadClass();
-            LeftArrow_Selected.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("MenuLeftArrow_Selected_Texture"));
-            Size = InfoWad.GetVec("MenuArrow_Selected_Size");
+            LeftArrow_Selected.Quad.MyTexture = Menu.DefaultMenuInfo.MenuLeftArrow_Selected_Texture;
+            Size = Menu.DefaultMenuInfo.MenuArrow_Selected_Size;
             LeftArrow_Selected.Base.e1 *= Size.X;
             LeftArrow_Selected.Base.e2 *= Size.Y;
         }
@@ -376,8 +376,8 @@ namespace CloudberryKingdom
                 {
                     if (!CustomArrow)
                     {
-                        RightArrow.Base.Origin = ItemPos + new Vector2(2*Width + RightArrow.Base.e1.X, 0) + InfoWad.GetVec("MenuRightArrow_Offset") + cam.Data.Position;
-                        LeftArrow.Base.Origin = ItemPos - new Vector2(LeftArrow.Base.e1.X, 0) + InfoWad.GetVec("MenuLeftArrow_Offset") + cam.Data.Position;
+                        RightArrow.Base.Origin = ItemPos + new Vector2(2*Width + RightArrow.Base.e1.X, 0) + Menu.DefaultMenuInfo.MenuRightArrow_Offset + cam.Data.Position;
+                        LeftArrow.Base.Origin = ItemPos - new Vector2(LeftArrow.Base.e1.X, 0) + Menu.DefaultMenuInfo.MenuLeftArrow_Offset + cam.Data.Position;
                     }
                     else
                     {
@@ -395,8 +395,8 @@ namespace CloudberryKingdom
                 {
                     if (!CustomArrow)
                     {
-                        RightArrow_Selected.Base.Origin = ItemPos + new Vector2(2*Width + RightArrow_Selected.Base.e1.X, 0) + InfoWad.GetVec("MenuRightArrow_Selected_Offset");
-                        LeftArrow_Selected.Base.Origin = ItemPos - new Vector2(LeftArrow_Selected.Base.e1.X, 0) + InfoWad.GetVec("MenuLeftArrow_Selected_Offset");
+                        RightArrow_Selected.Base.Origin = ItemPos + new Vector2(2 * Width + RightArrow_Selected.Base.e1.X, 0) + Menu.DefaultMenuInfo.MenuRightArrow_Selected_Offset;
+                        LeftArrow_Selected.Base.Origin = ItemPos - new Vector2(LeftArrow_Selected.Base.e1.X, 0) + Menu.DefaultMenuInfo.MenuLeftArrow_Selected_Offset;
                     }
                     else
                     {

@@ -61,7 +61,6 @@ namespace CloudberryKingdom.Levels
 
             Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)FlyingBlobLevel);
 
-            //if (MyLevel.Rnd.Rnd.NextDouble() < InfoWad.GetFloat("ChanceToHaveUnusedMovingBlock2"))
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
@@ -427,6 +426,7 @@ namespace CloudberryKingdom.Levels
 
             // Make the new blob
             Goomba NewBlob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, true);
+            NewBlob.Init(level);
 
             NewBlob.Core.Data.Position = NewBlob.Core.StartData.Position = pos;
             NewBlob.Period = (int)Params.Period.GetVal(pos);

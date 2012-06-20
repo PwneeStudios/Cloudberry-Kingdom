@@ -64,14 +64,14 @@ namespace CloudberryKingdom
 
             Prototypes.flyinggoomba = new Goomba(Path.Combine(Globals.ContentDirectory, "Objects\\Blob.smo"), Tools.EffectWad, Tools.TextureWad);
             Prototypes.flyinggoomba.Core.MyType = ObjectType.FlyingBlob;
-            Vector2 BlobSize = InfoWad.GetVec("FlyingBlob_Size");
+            Vector2 BlobSize = new Vector2(1.11f, 1.11f);
             Prototypes.flyinggoomba.MyObject.Base.e1 *= BlobSize.X;
             Prototypes.flyinggoomba.MyObject.Base.e2 *= BlobSize.Y;
 
             Prototypes.spike = new Spike(Path.Combine(Globals.ContentDirectory, "Objects\\regular_spike.smo"), Tools.EffectWad, Tools.TextureWad);
 
             Prototypes.floater = new Floater_Core(Path.Combine(Globals.ContentDirectory, "Objects\\SpikeGuy.smo"));
-            Vector2 SpikeyGuySize = InfoWad.GetVec("SpikeyGuy_Size");
+            Vector2 SpikeyGuySize = new Vector2(1.55f, 1.55f);
             Prototypes.floater.MyObject.Base.e1 *= SpikeyGuySize.X;
             Prototypes.floater.MyObject.Base.e2 *= SpikeyGuySize.Y;
 
@@ -275,13 +275,6 @@ namespace CloudberryKingdom
                 BobPhsxMario.Instance.Prototype = NewBob;
                 bob.Add(BobPhsxMario.Instance, NewBob);
             }
-
-            // Falling block
-            var Fall = new AnimationData_Texture(Tools.Texture("FallingBlock"), 129);
-            PieceQuad.FallingBlock = new PieceQuad();
-            PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
-            PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
-
 
             // Associate the BobPhsx with each prototype
             foreach (BobPhsx HeroType in Bob.HeroTypes)

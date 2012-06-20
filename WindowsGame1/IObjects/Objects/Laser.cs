@@ -9,22 +9,28 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
     public enum LaserState { Off, Warn, On };
-    public class Laser : ObjectBase, IBound
+    public class Laser : _LineDeath, IBound
     {
+        public class LaserTileInfo : _TileInfo
+        {
+            public LaserTileInfo()
+            {
+                Sprite = "Laser";
+            }
+        }
+
         LaserState MyState;
         float StateChange;
-
-        static EzTexture LaserTexture;
 
         public bool AlwaysOn, AlwaysOff;
         public int Offset, Period, Duration, WarnDuration;
 
         public Vector2 p1, p2;
 
-        public MovingLine MyLine;
-
         public override void MakeNew()
         {
+            AutoGenSingleton = Laser_AutoGen.Instance;
+
             SmallerWidth = 170f / 200f;
 
             AlwaysOn = false;
@@ -36,36 +42,11 @@ namespace CloudberryKingdom
             Core.DrawLayer = 9;
             Core.ContinuousEnabled = true;
 
-            if (!Core.BoxesOnly)
-            {
-            }
-
             Core.WakeUpRequirements = true;
-        }
-
-        public Laser()
-        {
-            if (LaserTexture == null)
-            {
-                LaserTexture = Tools.TextureWad.FindByName("Laser");
-            }
-
-            MakeNew();
-
-            Core.BoxesOnly = false;
-
-            AlwaysOn = true;
-            SmallerWidth = .4f;
-            Core.RemoveOnReset = true;
         }
 
         public Laser(bool BoxesOnly)
         {
-            if (LaserTexture == null)
-            {
-                LaserTexture = Tools.TextureWad.FindByName("Laser");
-            }
-
             MakeNew();
 
             Core.BoxesOnly = BoxesOnly;
@@ -112,7 +93,6 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
-            //float PhsxCutoff = 1800;
             float PhsxCutoff = 500;
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = -100;
             if (!Core.MyLevel.MainCamera.OnScreen(BL, TR, PhsxCutoff))
@@ -167,72 +147,48 @@ namespace CloudberryKingdom
             MyLine.SetTarget(p1, p2);
         }
 
-        public override void PhsxStep2()
-        {
-            if (!Core.SkippedPhsx)
-                MyLine.SwapToCurrent();
-        }
-
         public float SmallerWidth;
         public override void Draw()
         {
-            if (DeleteOnTouch) return;
-
             float Radius = Math.Abs(p2.X - p1.X);
             if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 150 + Radius || Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 150 + Radius)
                 return;
             if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 150 - Radius || Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 150 - Radius)
                 return;
 
-            if (Tools.DrawGraphics && !Core.BoxesOnly)
+            Vector4 Full, Half;
+            Full = new Vector4(1, 1f, 1f, .95f);
+            Half = new Vector4(1, .5f, .5f, .4f);
+
+            if (AlwaysOff)
             {
+                Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
+                            new Color((1 - StateChange) * new Vector4(1, 1f, 1f, 0f) + StateChange * Full),
+                            (1 - StateChange) * 120 + StateChange * 200 * SmallerWidth,
+                            Info.Lasers.Sprite.MyTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
             }
-
-            //if (Tools.DrawBoxes)
+            else
             {
-                /*
                 if (MyState == LaserState.Warn)
-                    Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, new Color(1, .5f, .5f, .4f), 60, LaserTexture, null, 60, 1);
+                {
+                    Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
+                                new Color((1 - StateChange) * Full + StateChange * Half),
+                                (1 - StateChange) * 170 + StateChange * 60,
+                                Info.Lasers.Sprite.MyTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
+                }
                 if (MyState == LaserState.On)
-                    Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, new Color(1, 1f, 1f, .95f), 160, LaserTexture, null, 60, 1);
-                */
-
-
-                Vector4 Full, Half;
-                Full = new Vector4(1, 1f, 1f, .95f);
-                Half = new Vector4(1, .5f, .5f, .4f);
-
-                if (AlwaysOff)
                 {
                     Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
                                 new Color((1 - StateChange) * new Vector4(1, 1f, 1f, 0f) + StateChange * Full),
-                                (1 - StateChange) * 120 + StateChange * 200 * SmallerWidth,
-                                LaserTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
+                                (1 - StateChange) * 200 + StateChange * 200 * SmallerWidth,
+                                Info.Lasers.Sprite.MyTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
                 }
-                else
+                if (MyState == LaserState.Off && StateChange < .95f)
                 {
-                    if (MyState == LaserState.Warn)
-                    {
-                        Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
-                                    new Color((1 - StateChange) * Full + StateChange * Half),
-                                    (1 - StateChange) * 170 + StateChange * 60,
-                                    LaserTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
-                    }
-                    if (MyState == LaserState.On)
-                    {
-                        Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
-                                    new Color((1 - StateChange) * new Vector4(1, 1f, 1f, 0f) + StateChange * Full),
-                                    (1 - StateChange) * 200 + StateChange * 200 * SmallerWidth,
-                                    LaserTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
-                        //Tools.QDrawer.Flush();
-                    }
-                    if (MyState == LaserState.Off && StateChange < .95f)
-                    {
-                        Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
-                                    new Color((1 - StateChange) * Half + StateChange * new Vector4(1, 1f, 1f, 0f)),
-                                    (1 - StateChange) * 60 + StateChange * 40,
-                                    LaserTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
-                    }
+                    Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2,
+                                new Color((1 - StateChange) * Half + StateChange * new Vector4(1, 1f, 1f, 0f)),
+                                (1 - StateChange) * 60 + StateChange * 40,
+                                Info.Lasers.Sprite.MyTexture, Tools.EffectWad.EffectList[0], 60, 1, false);
                 }
             }
         }
@@ -244,7 +200,8 @@ namespace CloudberryKingdom
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            base.Move(shift);
+
             MyLine.Current.p1 += shift;
             MyLine.Current.p2 += shift;
             MyLine.Target.p1 += shift;
@@ -254,34 +211,10 @@ namespace CloudberryKingdom
             p2 += shift;
         }
 
-        public override void Reset(bool BoxesOnly)
-        {
-            Core.Active = true;
-        }
-
-        public static bool DeleteOnTouch = false;
         public override void Interact(Bob bob)
         {
             if (MyState == LaserState.On && !Core.SkippedPhsx)
-            if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
-            {
-                if (Core.MyLevel.PlayMode != 0)
-                {
-                    bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, Core, bob, Laser_AutoGen.Instance);
-
-                    if (col)
-                        Core.Recycle.CollectObject(this);
-                }
-                else if (DeleteOnTouch)
-                {
-                    bool col = Phsx.AABoxAndLineCollisionTest(bob.Box, ref MyLine);
-
-                    if (col)
-                        Core.Recycle.CollectObject(this);
-                }
-                else
-                    bob.Die(Bob.BobDeathType.Laser, this);
-            }
+                base.Interact(bob);
         }
 
         public override void Clone(ObjectBase A)

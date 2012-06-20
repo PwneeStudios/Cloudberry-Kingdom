@@ -141,9 +141,9 @@ namespace CloudberryKingdom.Levels
             if (Params.MinSpikeDensity.Val <= 0)
                 return;
 
-            float SpikeTopOffset = InfoWad.GetFloat("Spike_TopOffset");
-            float SpikeBottomOffset = InfoWad.GetFloat("Spike_BottomOffset");
-            float SpikeSideOffset = InfoWad.GetFloat("Spike_SideOffset");
+            float SpikeTopOffset = Info.Spikes.TopOffset;
+            float SpikeBottomOffset = Info.Spikes.BottomOffset;
+            float SpikeSideOffset = Info.Spikes.SideOffset;
 
             foreach (BlockBase block in Blocks)
             {
@@ -171,6 +171,7 @@ namespace CloudberryKingdom.Levels
                     if (xdif > 15)
                     {
                         Spike spike = (Spike)Recycle.GetObject(ObjectType.Spike, true);//false);
+                        spike.Init(this);
 
                         float x = (float)Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 55;
                         float y;

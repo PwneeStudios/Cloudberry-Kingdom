@@ -9,6 +9,11 @@ namespace CloudberryKingdom.Blocks
 {
     public class MovingPlatform : BlockBase
     {
+        public class ElevatorTileInfo
+        {
+            public BlockGroup Group =  PieceQuad.ElevatorGroup;
+        }
+
         public enum MoveType { Normal, Sine };
         public MoveType MyMoveType;
         public float Amp;
@@ -17,8 +22,6 @@ namespace CloudberryKingdom.Blocks
         public Vector2 Range;
 
         public BlockEmitter Parent;
-
-        public QuadClass MyQuad;
 
         BlockEmitter_Parameters Params
         {
@@ -87,20 +90,20 @@ namespace CloudberryKingdom.Blocks
             base.Release();
 
             Parent = null;
-            MyQuad = null;
         }
 
         public MovingPlatform(bool BoxesOnly)
         {
-            MyQuad = new QuadClass();
             MyBox = new AABox();
+            MyDraw = new NormalBlockDraw();
 
             Core.BoxesOnly = BoxesOnly;
             MakeNew();
         }
 
-        public void Init(Vector2 center, Vector2 size)
+        public void Init(Vector2 center, Vector2 size, Level level)
         {
+            // Not TopOnly if hero is a spaceship.
             if (Parent != null && Parent.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Box.TopOnly)
             {
                 Box.TopOnly = false;
@@ -111,20 +114,9 @@ namespace CloudberryKingdom.Blocks
             Active = true;
 
             BlockCore.Layer = .3f;
-            MyBox.Initialize(center, size);
-            BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            if (!Core.BoxesOnly)
-            {
-                MyQuad.SetToDefault();
-                MyQuad.TextureName = "Palette";
-                MyQuad.Quad.SetColor(new Color(210, 210, 210));
-
-                MyQuad.Base.e1.X = size.X;
-                MyQuad.Base.e2.Y = size.Y;
-
-                Update();
-            }
+            base.Init(ref center, ref size, level, level.Info.Elevators.Group);
+            Reset(level.BoxesOnly);
 
             Core.RemoveOnReset = true;
             BlockCore.HitHead = true;
@@ -141,7 +133,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Reset(bool BoxesOnly)
         {
-            BlockCore.BoxesOnly = BoxesOnly;
+            base.Reset(BoxesOnly);
 
             Active = true;
 
@@ -192,16 +184,7 @@ namespace CloudberryKingdom.Blocks
             //CoreData.Data.Velocity += CoreData.Data.Acceleration;
             BlockCore.Data.Position = MyBox.Target.Center;
 
-            if (!Core.BoxesOnly) Update();
-
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
-        }
-
-        void Update()
-        {
-            MyQuad.Pos = MyBox.Target.Center;
-
-            MyQuad.Update();
         }
 
         public override void PhsxStep2()
@@ -229,7 +212,8 @@ namespace CloudberryKingdom.Blocks
 
             if (Tools.DrawGraphics)
             {
-                MyQuad.Draw();
+                MyDraw.Update();
+                MyDraw.Draw();
             }
         }
 
@@ -245,7 +229,7 @@ namespace CloudberryKingdom.Blocks
 
             Range = BlockA.Range;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, A.MyLevel);
 
             Active = BlockA.Active;
         }

@@ -1691,9 +1691,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
             Component1 = str.Substring(0, LineIndex);
             Component2 = str.Substring(LineIndex + 1, str.Length - LineIndex - 1);
 
+            return NewSound(ParseToFileName(Component1), float.Parse(Component2));
+        }
+
+        public static EzSound NewSound(string name, float volume)
+        {
             EzSound snd = new EzSound();
-            snd.sound = Tools.SoundWad.FindByName(ParseToFileName(Component1)).sound;
-            snd.DefaultVolume = float.Parse(Component2);
+            snd.sound = Tools.SoundWad.FindByName(name).sound;
+            snd.DefaultVolume = volume;
             snd.MaxInstances = 4;
 
             Tools.PrivateSoundWad.SoundList.Add(snd);

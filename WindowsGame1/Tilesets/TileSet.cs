@@ -75,11 +75,25 @@ namespace CloudberryKingdom
     {
         public class TileSetInfo
         {
-            public Coins.Coin.CoinTileInfo Coins = new Coins.Coin.CoinTileInfo();
-            public FireSpinners.FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinners.FireSpinner.FireSpinnerTileInfo();
+            public float ScaleAll = 1f, ScaleAllBlocks = 1f, ScaleAllObjects = 1f;
+
+            public MovingPlatform.ElevatorTileInfo Elevators = new MovingPlatform.ElevatorTileInfo();
+            public MovingBlock.MovingBlockTileInfo MovingBlocks = new MovingBlock.MovingBlockTileInfo();
+            public BouncyBlock.BouncyBlockTileInfo BouncyBlocks = new BouncyBlock.BouncyBlockTileInfo();
+            public FallingBlock.FallingBlockTileInfo FallingBlocks = new FallingBlock.FallingBlockTileInfo();
+            public GhostBlock.GhostBlockTileInfo GhostBlocks = new GhostBlock.GhostBlockTileInfo();
             public Goombas.Goomba.GoombaTileInfo Blobs = new Goombas.Goomba.GoombaTileInfo();
-            public Door.DoorTileInfo Doors = new Door.DoorTileInfo();
+
+            public Laser.LaserTileInfo Lasers = new Laser.LaserTileInfo();
+            public Floater_Spin.SpinTileInfo Orbs = new Floater_Spin.SpinTileInfo();
+            public Floater.SpikeyGuyTileInfo SpikeyGuys = new Floater.SpikeyGuyTileInfo();
+            public Spikes.Spike.SpikeTileInfo Spikes = new Spikes.Spike.SpikeTileInfo();
+            public FireSpinners.FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinners.FireSpinner.FireSpinnerTileInfo();
             public Fireball.FireballTileInfo Fireballs = new Fireball.FireballTileInfo();
+
+            public Checkpoint.CheckpointTileInfo Checkpoints = new Checkpoint.CheckpointTileInfo();
+            public Coins.Coin.CoinTileInfo Coins = new Coins.Coin.CoinTileInfo();
+            public Door.DoorTileInfo Doors = new Door.DoorTileInfo();
         }
         public TileSetInfo MyTileSetInfo;
 
@@ -100,8 +114,6 @@ namespace CloudberryKingdom
 
             Pillars = new BlockGroup();
             Platforms = new BlockGroup();
-            MovingBlocks = new BlockGroup();
-            FallingBlocks = new BlockGroup();
 
             FixedWidths = false;
             ProvidesTemplates = false;
@@ -134,7 +146,6 @@ namespace CloudberryKingdom
         public bool IsLoaded;
         public bool CustomStartEnd;
         public BlockGroup Pillars, Platforms;
-        public BlockGroup MovingBlocks, FallingBlocks, BouncyBlocks;
 
         public bool FixedWidths;
         public bool ProvidesTemplates;
@@ -212,12 +223,17 @@ namespace CloudberryKingdom
                     // Is it a moving block?
                     else if (first.Contains("MovingBlock_"))
                     {
-                        ParseBlock(bits, first, MovingBlocks);
+                        ParseBlock(bits, first, MyTileSetInfo.MovingBlocks.Group);
                     }
                     // Is it a falling block?
                     else if (first.Contains("FallingBlock_"))
                     {
-                        ParseBlock(bits, first, FallingBlocks);
+                        ParseBlock(bits, first, MyTileSetInfo.FallingBlocks.Group);
+                    }
+                    // Is it a bouncy block?
+                    else if (first.Contains("BouncyBlock_"))
+                    {
+                        ParseBlock(bits, first, MyTileSetInfo.BouncyBlocks.Group);
                     }
                     else switch (first)
                     {
@@ -275,8 +291,12 @@ namespace CloudberryKingdom
             // Sort widths
             Pillars.SortWidths();
             Platforms.SortWidths();
-            MovingBlocks.SortWidths();
-            FallingBlocks.SortWidths();
+
+            //MyTileSetInfo.Elevators.Group.SortWidths();
+            //MyTileSetInfo.FallingBlocks.Group.SortWidths();
+            //MyTileSetInfo.GhostBlocks.Group.SortWidths();
+            //MyTileSetInfo.MovingBlocks.Group.SortWidths();
+            //MyTileSetInfo.BouncyBlocks.Group.SortWidths();
         }
 
         private void ParseBlock(List<string> bits, string first, BlockGroup group)

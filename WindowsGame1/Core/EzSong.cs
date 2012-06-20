@@ -96,8 +96,8 @@ namespace Drawing
             if (!song.DisplayInfo) return;
 
             SongInfoText = new EzText(song.SongName + "\n" + song.ArtistName, Tools.LilFont, true, true);
-            SongInfoText._Pos = InfoWad.GetVec("SongInfoCenter");
-            SongInfoText.MyFloatColor = new Vector4(1, 1, 1, InfoWad.GetFloat("SongInfoInitialAlpha"));
+            SongInfoText._Pos = new Vector2(-850, -790);
+            SongInfoText.MyFloatColor = new Vector4(1, 1, 1, 4.5f);
             SongInfoText.Alpha = -.45f;
             SongInfoText.FixedToCamera = true;
 
@@ -145,9 +145,8 @@ namespace Drawing
         {
             if (DisplayingInfo && SongInfoText != null)
             {
-                SongInfoText.MyFloatColor.W -= InfoWad.GetFloat("SongInfoAlphaDecay");
-                //if (SongInfoText.MyFloatColor.W <= .2f)
-                //    Tools.Write("!");
+                SongInfoText.MyFloatColor.W -= .02f;
+
                 if (SongInfoText.Alpha < 1) SongInfoText.Alpha += .03f;
                 if (SongInfoText.MyFloatColor.W <= 0)
                     DisplayingInfo = false;

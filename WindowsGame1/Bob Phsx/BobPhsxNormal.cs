@@ -29,9 +29,9 @@ namespace CloudberryKingdom
 
 
         protected EzSound LandSound = null;
-        EzSound DoubleJump = Tools.SoundWad.FindByName("DoubleJump");
-        EzSound ThrustSound = InfoWad.GetSound("BobJetpack_Sound");
-        int ThrustSoundDelay = (int)InfoWad.GetFloat("BobJetpack_SoundDelay");
+        EzSound DoubleJump = BobPhsx.DefaultInfo.DoubleJump_Sound;
+        EzSound ThrustSound = BobPhsx.DefaultInfo.BobJetpack_Sound;
+        int ThrustSoundDelay = BobPhsx.DefaultInfo.BobJetpack_SoundDelay;
         int ThrustSoundCount;
 
         int RndMoveType, Offset;

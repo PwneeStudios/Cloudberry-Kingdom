@@ -18,6 +18,9 @@ namespace CloudberryKingdom
             public TextureOrAnim Sprite = null;
             public Vector2 Size = Vector2.One;
             public bool Show = true;
+
+            public EzSound DoorOpen = Tools.NewSound("Door Opening", 1);
+            public EzSound DoorClose = Tools.NewSound("Door Slamming", 1);
         }
 
         public enum Types { Brick, Rock, Grass, Dark };
@@ -316,12 +319,12 @@ namespace CloudberryKingdom
                     }
 
                     if (PlaySound && !SuppressSound)
-                        InfoWad.GetSound("DoorClose").Play();
+                        Info.Doors.DoorClose.Play();
                 }
                 else
                 {
                     if (PlaySound && !SuppressSound)
-                        InfoWad.GetSound("DoorOpen").Play();
+                        Info.Doors.DoorOpen.Play();
                 }
             }
         }

@@ -30,7 +30,7 @@ namespace CloudberryKingdom
                 OnSlide();
         }
 
-        public int DelayToSlideSound = (int)InfoWad.GetFloat("Menu_Slide_SoundDelay");
+        public int DelayToSlideSound = Menu.DefaultMenuInfo.Menu_Slide_SoundDelay;
         public int DelayToSlideSoundCount = 0;
 
         public virtual Vector2 BL { get { return Vector2.Zero; } }

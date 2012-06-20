@@ -112,6 +112,15 @@ namespace CloudberryKingdom
             return State;
         }
 
+        void ProcessLasery(Laser laser)
+        {
+            laser.Core.BoxesOnly = false;
+
+            laser.AlwaysOn = true;
+            laser.SmallerWidth = .4f;
+            laser.Core.RemoveOnReset = true;
+        }
+
         private void MakeLasers()
         {
             foreach (ObjectBase obj in Core.MyLevel.Objects)
@@ -134,9 +143,9 @@ namespace CloudberryKingdom
             //}
 
 
-            Laser_2 = new Laser();
+            Laser_2 = new Laser(false); ProcessLasery(Laser_2);
             Core.MyLevel.AddObject(Laser_2);
-            Laser_3 = new Laser();
+            Laser_3 = new Laser(false); ProcessLasery(Laser_3);
             Core.MyLevel.AddObject(Laser_3);
 
             Game.CinematicToDo(() =>

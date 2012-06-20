@@ -20,9 +20,15 @@ namespace CloudberryKingdom
         static int DrawWidth, DrawHeight;
         public static ParticleEmitter Fireball_Emitter, Flame_Emitter, Emitter_Emitter;
 
-        public static void InitRenderTargets(GraphicsDevice device, PresentationParameters pp, int Width, int Height)
+        public static void PreInit()
         {
             FireballTexture = new EzTexture();
+            FlameTexture = new EzTexture();
+            EmitterTexture = new EzTexture();
+        }
+
+        public static void InitRenderTargets(GraphicsDevice device, PresentationParameters pp, int Width, int Height)
+        {
             FireballTexture.Name = "FireballTexture";
 
             DrawWidth = Width;
@@ -33,8 +39,7 @@ namespace CloudberryKingdom
                                    RenderTargetUsage.DiscardContents);
 
 
-            FlameTexture = new EzTexture();// FlameTexture.Name = "FlameTexture";
-            EmitterTexture = new EzTexture(); EmitterTexture.Name = "EmitterTexture";
+            EmitterTexture.Name = "EmitterTexture";
 
             FlameRenderTarget = new RenderTarget2D(device,
                 300, 300, false,

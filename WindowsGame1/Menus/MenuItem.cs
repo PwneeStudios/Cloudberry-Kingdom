@@ -183,8 +183,8 @@ namespace CloudberryKingdom
 
         void SetToDefaultColors()
         {
-            MySelectedColor = InfoWad.GetColor("Menu_SelectedTextColor").ToVector4();
-            MyColor = InfoWad.GetColor("Menu_UnselectedTextColor").ToVector4();
+            MySelectedColor = new Color(255, 255, 255, 255).ToVector4();
+            MyColor = new Color(220, 220, 220, 200).ToVector4();
 
             MySelectedFont = Tools.Font_Dylan20;
             MyFont = Tools.Font_Dylan20;

@@ -475,8 +475,8 @@ namespace CloudberryKingdom
             AddItem(item);
             item.Go = Cast.ToItem(StartTest);
             item.Pos = item.SelectedPos = pos; pos += add;
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #if NOT_PC
             item.Selectable = false;
             item.Pos = pos; pos += add;
@@ -496,8 +496,8 @@ namespace CloudberryKingdom
             item.SelectSound = null;
             item.Go = Cast.ToItem(ReturnToCaller);
             item.Pos = item.SelectedPos = pos; pos += add;
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
 #if NOT_PC
             item.Selectable = false;
             item.Pos = pos; pos += add;

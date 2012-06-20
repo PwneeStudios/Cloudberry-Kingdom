@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using System.IO;
+using CloudberryKingdom;
 
 namespace Drawing
 {
@@ -37,6 +38,11 @@ namespace Drawing
 
         public bool Linear;
 
+        /// <summary>
+        /// If true the animation textures are all on a single strip.
+        /// </summary>
+        public bool IsStrip = false;
+
         public int Hold;
 
         public float Speed;
@@ -44,6 +50,8 @@ namespace Drawing
 
         public AnimationData_Texture()
         {
+            IsStrip = false;
+
             Linear = false;
             Hold = 0;
             Reverse = false;
@@ -52,8 +60,46 @@ namespace Drawing
             Anims = null;
         }
 
+        public AnimationData_Texture(string TextureName)
+        {
+            IsStrip = false;
+
+            Linear = false;
+            Hold = 0;
+            Reverse = false;
+            Speed = .1f;
+
+            Anims = new OneAnim_Texture[1];
+
+            AddFrame(Tools.Texture(TextureName), 0);
+
+            var FirstFrameTexture = Anims[0].Data[0].texture;
+            Width = FirstFrameTexture.Tex.Width;
+            Height = FirstFrameTexture.Tex.Height;
+        }
+        public AnimationData_Texture(string TextureRoot, int StartFrame, int EndFrame)
+        {
+            IsStrip = false;
+
+            Linear = false;
+            Hold = 0;
+            Reverse = false;
+            Speed = .1f;
+
+            Anims = new OneAnim_Texture[1];
+
+            for (int i = StartFrame; i <= EndFrame; i++)
+                AddFrame(Tools.Texture(TextureRoot + i.ToString()), 0);
+
+            var FirstFrameTexture = Anims[0].Data[0].texture;
+            Width = FirstFrameTexture.Tex.Width;
+            Height = FirstFrameTexture.Tex.Height;
+        }
+
         public AnimationData_Texture(EzTexture texture)
         {
+            IsStrip = false;
+
             Linear = false;
             Hold = 0;
             Reverse = false;
@@ -73,6 +119,8 @@ namespace Drawing
         public int Width, Height;
         public AnimationData_Texture(EzTexture strip, int width)
         {
+            IsStrip = true;
+
             Width = width;
             Height = strip.Tex.Height;
 

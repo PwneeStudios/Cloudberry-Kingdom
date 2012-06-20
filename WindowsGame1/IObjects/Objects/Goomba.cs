@@ -8,6 +8,7 @@ using Drawing;
 
 using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Goombas
 {
@@ -16,7 +17,7 @@ namespace CloudberryKingdom.Goombas
         public class GoombaTileInfo
         {
             public TextureOrAnim Sprite = null;
-            public Vector2 Size = new Vector2(72), Shift = Vector2.Zero;
+            public Vector2 Size = new Vector2(616.05f, 616.05f), Shift = Vector2.Zero;
         }
 
         public enum BlobColor { Green, Pink, Blue, Grey, Gold };
@@ -130,7 +131,7 @@ namespace CloudberryKingdom.Goombas
             Target = TargetVel = Vector2.Zero;
             Core.Data = new PhsxData();
 
-            MyAnimSpeed = InfoWad.GetFloat("FlyingBlob_AnimSpeed");
+            MyAnimSpeed = .1666f;
 
             MyPhsxType = PhsxType.Prescribed;
             HasArrived = false;
@@ -154,6 +155,22 @@ namespace CloudberryKingdom.Goombas
             Offset = 0;
             Period = 1;
 
+
+            Core.WakeUpRequirements = true;
+            NeverSkip = false;
+
+            StartLife = Life = 1;
+            Direction = -1;
+
+            GiveVelocity = false;
+        }
+
+        public void Init(Level level)
+        {
+            Vector2 size = level.Info.Blobs.Size * level.Info.ScaleAll * level.Info.ScaleAllObjects;
+            MyObject.Base.e1 = new Vector2(size.X, 0);
+            MyObject.Base.e2 = new Vector2(0, size.Y);
+
             MyObject.Linear = true;
             //MyObject.Linear = false;
 
@@ -165,14 +182,6 @@ namespace CloudberryKingdom.Goombas
 
             MyObject.Read(0, 0);
             MyObject.Update();
-
-            Core.WakeUpRequirements = true;
-            NeverSkip = false;
-           
-            StartLife = Life = 1;
-            Direction = -1;
-
-            GiveVelocity = false;
 
             Box.SetTarget(Core.Data.Position, Box.Current.Size);
             Box.SwapToCurrent();
@@ -711,7 +720,8 @@ namespace CloudberryKingdom.Goombas
         {
             Core.Clone(A.Core);
 
-            Goomba GoombaA = A as Goomba;            
+            Goomba GoombaA = A as Goomba;
+            Init(A.MyLevel);
 
             MyMoveType = GoombaA.MyMoveType;
 

@@ -49,7 +49,7 @@ namespace CloudberryKingdom.Levels
                     {
                         BouncyBlock bouncy;
                         bouncy = (BouncyBlock)MySourceGame.Recycle.GetObject(ObjectType.BouncyBlock, false);
-                        bouncy.Init(new Vector2(LeftCenter.X, y), new Vector2(220, 220), 70);
+                        bouncy.Init(new Vector2(LeftCenter.X, y), new Vector2(220, 220), 70, this);
                         bouncy.Core.DrawLayer = 9;
 
                         bouncy.Core.GenData.RemoveIfUnused = true;

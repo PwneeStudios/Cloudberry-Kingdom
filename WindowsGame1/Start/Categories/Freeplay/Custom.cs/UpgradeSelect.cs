@@ -61,7 +61,7 @@ namespace CloudberryKingdom
         public UpgradeSelect() { }
         public UpgradeSelect(Vector2 Size, int Width, int Height)
         {
-            MoveSound = InfoWad.GetSound("Menu_UpDown_Sound");
+            MoveSound = Menu.DefaultMenuInfo.Menu_UpDown_Sound;
 
             //NoMoveDuration = 9;
             LeftRightWrap = false;

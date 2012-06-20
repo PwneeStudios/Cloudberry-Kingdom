@@ -439,7 +439,7 @@ namespace CloudberryKingdom.Bobs
                 .1f;
             JumpSound.DelayTillNextSoundCanPlay = 10;
 
-            DieSound = DieSound_Default = InfoWad.GetSound("BobDie_Sound");
+            DieSound = DieSound_Default = Tools.Sound("Death Chime");
 
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
@@ -826,7 +826,7 @@ namespace CloudberryKingdom.Bobs
             int Speed = 75;// 100;
 
             offset.Y -= 90;
-            NewBlock.Init(pos + offset, new Vector2(125, 125), Speed);
+            NewBlock.Init(pos + offset, new Vector2(125, 125), Speed, MyLevel);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
             return NewBlock as BlockBase;
@@ -843,7 +843,7 @@ namespace CloudberryKingdom.Bobs
 
             int Speed = (int)Params.Speed.GetVal(Core.Data.Position);
 
-            NewBlock.Init(pos + offset, new Vector2(75, 75), Speed);
+            NewBlock.Init(pos + offset, new Vector2(75, 75), Speed, MyLevel);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
             return NewBlock as BlockBase;
@@ -861,7 +861,7 @@ namespace CloudberryKingdom.Bobs
             else pos.X = Box.Target.Center.X;
             pos.Y = Box.Target.BL.Y - 75f / 1 - .01f;
             GhostBlock NewBlock = new GhostBlock(false);
-            NewBlock.Init(pos + offset, new Vector2(75, 75));
+            NewBlock.Init(pos + offset, new Vector2(75, 75), MyLevel);
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
             // Get GhostBlock parameters

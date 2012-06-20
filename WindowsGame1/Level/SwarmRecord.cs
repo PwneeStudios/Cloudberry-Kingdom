@@ -12,9 +12,9 @@ namespace CloudberryKingdom.Levels
         public Queue<Recording> Records;
         public Recording MainRecord;
 #if XBOX
-        int MaxRecords = (int)InfoWad.GetFloat("MaxRecords_Xbox") / Math.Max(1, PlayerManager.GetNumPlayers());
+        int MaxRecords = 200 / Math.Max(1, PlayerManager.GetNumPlayers());
 #else
-        int MaxRecords = (int)InfoWad.GetFloat("MaxRecords_PC");
+        int MaxRecords = 500 / Math.Max(1, PlayerManager.GetNumPlayers());
 #endif
         
         QuadClass BobQuad;

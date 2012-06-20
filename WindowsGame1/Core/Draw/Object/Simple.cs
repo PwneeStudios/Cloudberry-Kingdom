@@ -165,6 +165,15 @@ namespace Drawing
             Playing = true;
             speed = 1;
         }
+        public void Set(TextureOrAnim t_or_a)
+        {
+            SetTextureOrAnim(t_or_a);
+        }
+        public void Set(string name)
+        {
+            SetTextureOrAnim(name);
+        }
+
 
         public float t;
 
@@ -237,14 +246,13 @@ namespace Drawing
             var data = TextureAnim.Calc(anim, frame);
             MyTexture = data.texture;
 
-            //uv0 = new Vector2(data.uv_bl.X, data.uv_bl.X);
-            //uv1 = new Vector2(data.uv_tr.X, data.uv_bl.X);
-            //uv2 = new Vector2(data.uv_bl.X, data.uv_tr.X);
-            //uv3 = new Vector2(data.uv_tr.X, data.uv_tr.X);
-            v0.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);
-            v1.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_bl.Y);
-            v2.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_tr.Y);
-            v3.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_tr.Y);
+            if (TextureAnim.IsStrip)
+            {
+                v0.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);
+                v1.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_bl.Y);
+                v2.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_tr.Y);
+                v3.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_tr.Y);
+            }
         }
 
         void map(ref Vector2 base_uv, ref Vector2 new_uv, ref Vector2 bl, ref Vector2 tr)

@@ -101,8 +101,8 @@ namespace CloudberryKingdom
             base.Init();
 
             // Sounds
-            SelectSound = InfoWad.GetSound("Menu_Select_Sound");
-            BackSound = InfoWad.GetSound("Menu_Back_Sound");
+            SelectSound = Menu.DefaultMenuInfo.Menu_Select_Sound;
+            BackSound = Menu.DefaultMenuInfo.Menu_Back_Sound;
 
             // Delays
             Defaults();
@@ -272,8 +272,8 @@ namespace CloudberryKingdom
             item.Go = menuitem => MyMenu.OnB(MyMenu);
             AddItem(item);
             item.SelectSound = null;
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
             item.AdditionalOnSelect = () =>
                 {

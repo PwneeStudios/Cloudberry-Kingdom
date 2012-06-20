@@ -6,7 +6,6 @@ OPTIMIZE:
 		Would be more than a 100 fold speedup
 	* Megatexture, minimize calls to Flush (which would almost be a 2 fold speedup for drawing)
 	* Level creation profiling? (run a loop and then run nprof) (run a loop in the background and see when the game lags. turn off different parts of the makelevel code and see what helps)
-	* Get rid of InfoWad
 	* Text:	combine drawstring and drawoutline into one draw (and the pngs into one png)
 	* simpleobject xflip. should update fx bool if and only if current object's xflip is different than last.
 

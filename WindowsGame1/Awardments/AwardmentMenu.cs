@@ -44,7 +44,7 @@ namespace CloudberryKingdom.Awards
             // Stats
             ItemPos.Y += 70;
             item = new MenuItem(new EzText(ButtonString.Go(ButtonSize) + " Stats", ItemFont));
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
             item.Go = _item => Stats();
             MyMenu.OnA = m => Stats();
             ItemPos = new Vector2(1357.7f, 991.4287f);
@@ -52,8 +52,8 @@ namespace CloudberryKingdom.Awards
             ItemPos.Y -= 83;
             //item.ScaleText(1.65f);
             item.ScaleText(.5f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
             item.UnaffectedByScroll = true;
 
@@ -204,15 +204,15 @@ namespace CloudberryKingdom.Awards
         {
             MenuItem item;
             item = new MenuItem(new EzText(ButtonString.Go(ButtonSize) + " Stats", ItemFont));
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
             item.Go = _item => Stats();
             MyMenu.OnA = m => Stats();
             AddItem(item);
             ItemPos.Y -= 83;
             //item.ScaleText(1.65f);
             //item.ScaleText(.5f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
             item.AdditionalOnSelect = Clear;
             return item;
         }

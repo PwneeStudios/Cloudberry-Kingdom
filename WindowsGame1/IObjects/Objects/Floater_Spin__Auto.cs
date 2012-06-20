@@ -105,16 +105,10 @@ namespace CloudberryKingdom.Levels
 
             // Get the new floater
             Floater_Spin NewFloater = (Floater_Spin)level.Recycle.GetObject(ObjectType.Floater_Spin, true);
-            //NewFloater.Init();
+            NewFloater.Init(pos, level);
 
-            NewFloater.Core.Data.Position = NewFloater.Core.StartData.Position = pos;
-
-            NewFloater.PivotPoint = pos;
-
-            //NewFloater.Period = (int)Params.FloaterPeriod.GetVal(pos);
             NewFloater.Offset = level.Rnd.Rnd.Next(0, NewFloater.Period);
             NewFloater.Length = 650;
-                //(NewFloater.Core.StartData.Position - NewFloater.PivotPoint).Length();
 
             // Discrete period offsets
             int NumOffsets = Params.NumOffsets;
@@ -128,22 +122,6 @@ namespace CloudberryKingdom.Levels
 
             return NewFloater;
         }
-
-        //Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR)
-        //{
-        //    Vector2 pos = bob.Core.Data.Position + new Vector2(MyLevel.Rnd.RndFloat(-600, 600), MyLevel.Rnd.RndFloat(-300, 400));
-        //    pos.Y = Math.Min(pos.Y, TR.Y - 400);
-        //    pos.Y = Math.Max(pos.Y, BL.Y + 220);
-        //    return pos;
-        //    pos.X = Math.Max(BL.X + 380, Math.Min(pos.X, TR.X - 350));
-        //    if ((bob.MyPhsx.OnGround || bob.Core.Data.Velocity.Y < 0))
-        //        pos.Y = bob.Core.Data.Position.Y + 200;
-        //    pos.Y = Math.Max(bob.Core.MyLevel.MainCamera.BL.Y + 270, Math.Min(pos.Y, bob.Core.MyLevel.MainCamera.TR.Y - 550));
-        //    if (Math.Abs(bob.Core.Data.Position.Y - pos.Y) < 100)
-        //        pos.X += .4f * (pos.X - bob.Core.Data.Position.X);
-
-        //    return pos;
-        //}
 
         void Circle(Level level, Vector2 Center, float Radius, int Num, int Dir)
         {

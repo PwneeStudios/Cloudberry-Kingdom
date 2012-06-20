@@ -192,12 +192,12 @@ namespace CloudberryKingdom
                     if (PlaceType == PlaceTypes.SuperBouncyBlock)
                     {
                         BouncyBlock fblock = bob.HeldObject as BouncyBlock;
-                        fblock.Init(Vector2.Zero, new Vector2(125, 125), 100);
+                        fblock.Init(Vector2.Zero, new Vector2(125, 125), 100, MyLevel);
                     }
                     if (PlaceType == PlaceTypes.BouncyBlock)
                     {
                         BouncyBlock fblock = bob.HeldObject as BouncyBlock;
-                        fblock.Init(Vector2.Zero, new Vector2(75, 75), 100);
+                        fblock.Init(Vector2.Zero, new Vector2(75, 75), 100, MyLevel);
                     }
                     if (PlaceType == PlaceTypes.FallingBlock)
                     {
@@ -212,7 +212,7 @@ namespace CloudberryKingdom
                     if (PlaceType == PlaceTypes.GhostBlock)
                     {
                         GhostBlock gblock = bob.HeldObject as GhostBlock;
-                        gblock.Init(Vector2.Zero, new Vector2(55, 55));
+                        gblock.Init(Vector2.Zero, new Vector2(55, 55), MyLevel);
                         gblock.InLength = 60;
                         gblock.OutLength = 60;
                     }

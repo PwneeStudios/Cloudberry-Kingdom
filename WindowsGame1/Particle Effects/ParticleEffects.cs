@@ -257,39 +257,39 @@ namespace CloudberryKingdom
             switch (Tools.GlobalRnd.Rnd.Next(0, 8))
             {
                 case 0:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Touched_Texture"));
+                    p.MyQuad.Set("FallingBlock2");
                     break;
 
                 case 1:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Falling_Texture"));
+                    p.MyQuad.Set("FallingBlock1");
                     break;
 
                 case 2:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("blue_small");
+                    p.MyQuad.Set("blue_small");
                     break;
 
                 case 3:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("fading block");
+                    p.MyQuad.Set("fading block");
                     p.Size *= new Vector2(1f, 1.11f);
                     break;
 
                 case 4:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("SpikeyGuy");
+                    p.MyQuad.Set("SpikeyGuy");
                     //p.MyQuad.MyTexture = Tools.TextureWad.FindByName("tree_small");
                     p.Size *= new Vector2(1.2f, 1.6f);
                     break;
 
                 case 5:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("blob2_body");
+                    p.MyQuad.Set("blob2_body");
                     break;
 
                 case 6:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("checkpoint3");
+                    p.MyQuad.Set("checkpoint3");
                     p.Size *= new Vector2(1, 1);
                     break;
 
                 case 7:
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("CoinBlue");
+                    p.MyQuad.Set("CoinBlue");
                     p.Size *= new Vector2(.3f, .7f);
                     break;
             }

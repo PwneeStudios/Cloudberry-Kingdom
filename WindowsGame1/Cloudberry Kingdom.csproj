@@ -333,16 +333,17 @@
     <Compile Include="IObjects\Game Objects\GameObjects\GUI_NextLife.cs" />
     <Compile Include="IObjects\Game Objects\GameObjects\LevelTitle.cs" />
     <Compile Include="IObjects\Game Objects\GameObjects\GUI_Text.cs" />
-    <Compile Include="IObjects\Objects\Coin__Auto.cs" />
-    <Compile Include="IObjects\Objects\BerryBubble.cs" />
-    <Compile Include="IObjects\Objects\Chain.cs" />
+    <Compile Include="IObjects\Objects\Grab\Coin__Auto.cs" />
+    <Compile Include="IObjects\Campaign\BerryBubble.cs" />
+    <Compile Include="IObjects\Campaign\Chain.cs" />
+    <Compile Include="IObjects\Objects\_CircleDeath.cs" />
     <Compile Include="IObjects\Powerups\Powerup_DoubleJump.cs" />
     <Compile Include="IObjects\Powerups\Powerup_Jetpack.cs" />
     <Compile Include="IObjects\Powerups\Powerup_Bouncy.cs" />
     <Compile Include="IObjects\Powerups\Powerup_Wheelie.cs" />
     <Compile Include="IObjects\Powerups\Powerup_Cart.cs" />
     <Compile Include="IObjects\Powerups\InteractWithBlocks.cs" />
-    <Compile Include="IObjects\Objects\PrincessBubble.cs" />
+    <Compile Include="IObjects\Campaign\PrincessBubble.cs" />
     <Compile Include="IObjects\Objects\Firesnake__Auto.cs" />
     <Compile Include="IObjects\Objects\Firesnake.cs" />
     <Compile Include="IObjects\Objects\SpikeyLine.cs" />
@@ -582,7 +583,7 @@
     <Compile Include="Tools\Camera.cs" />
     <Compile Include="IObjects\Special\CameraZone.cs" />
     <Compile Include="Player\Cape.cs" />
-    <Compile Include="IObjects\Objects\Checkpoint.cs" />
+    <Compile Include="IObjects\Objects\Grab\Checkpoint.cs" />
     <Compile Include="IObjects\Objects\Cloud.cs" />
     <Compile Include="Menus\ControlScreen.cs" />
     <Compile Include="IObjects\Blocks\BouncyBlock.cs" />
@@ -597,12 +598,11 @@
     <Compile Include="Tilesets\Backgrounds\Backgrounds\CastleBackground.cs" />
     <Compile Include="IObjects\Objects\Fireball.cs" />
     <None Include="WindowsGame1_TemporaryKey.pfx" />
-    <Compile Include="IObjects\Objects\Balrog.cs" />
     <Compile Include="IObjects\Blocks\Block.cs" />
     <Compile Include="IObjects\Objects\BlockEmitter.cs" />
     <Compile Include="IObjects\Bob\Bob.cs" />
     <Compile Include="IObjects\Blocks\ButtonBlock.cs" />
-    <Compile Include="IObjects\Objects\Coin.cs" />
+    <Compile Include="IObjects\Objects\Grab\Coin.cs" />
     <Compile Include="Core\Draw\EzText.cs" />
     <Compile Include="IObjects\Blocks\FallingBlock.cs" />
     <Compile Include="IObjects\Objects\FireballEmitter.cs" />
@@ -757,9 +757,9 @@
     <Folder Include="Buttons\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Content\WindowsGame1Content.contentproj">
+    <ProjectReference Include="Content\Content.contentproj">
       <Project>{CE0C1B81-ECEF-490F-933A-E4E696B5E486}</Project>
-      <Name>WindowsGame1Content %28Content%29</Name>
+      <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

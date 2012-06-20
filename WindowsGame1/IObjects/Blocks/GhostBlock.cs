@@ -6,12 +6,18 @@ using Drawing;
 
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
     public enum GhostBlockState { PhasedIn, PhasedOut };
     public class GhostBlock : BlockBase
     {
+        public class GhostBlockTileInfo
+        {
+            public BlockGroup Group = null;
+        }
+
         public SimpleObject MyObject;
 
         GhostBlockState State;
@@ -39,7 +45,7 @@ namespace CloudberryKingdom
         {
             TallBox = false;
 
-            MyAnimSpeed = InfoWad.GetFloat("GhostBlock_AnimSpeed");
+            MyAnimSpeed = .1666f;
 
             MyBox.TopOnly = true;
 
@@ -97,7 +103,7 @@ namespace CloudberryKingdom
 
         public static float TallScale = 1.45f;
         public bool TallBox;
-        public void Init(Vector2 center, Vector2 size)
+        public void Init(Vector2 center, Vector2 size, Level level)
         {
             Active = true;
 
@@ -107,11 +113,18 @@ namespace CloudberryKingdom
             if (TallBox)
                 size.Y *= TallScale;
 
-            MyBox = new AABox(center, size);
-            MyBox.Initialize(center, size);
-            MyBox.TopOnly = true;
+            // Use PieceQuad group if it exists.
+            if (level.Info.GhostBlocks.Group != null)
+                base.Init(ref center, ref size, level, level.Info.GhostBlocks.Group);
+            // Otherwise use old SimpleObject
+            else
+            {
+                Core.StartData.Position = Core.Data.Position = center;
+             
+                MyBox.Initialize(center, size);
+            }
 
-            Core.StartData.Position = Core.Data.Position = center;
+            MyBox.TopOnly = true;
 
             SetState(GhostBlockState.PhasedIn, true);
 
@@ -132,7 +145,6 @@ namespace CloudberryKingdom
 
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
-            //MyBox.TopOnly = true;
 
             Update();
         }
@@ -189,13 +201,6 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly && Active && Core.Active) AnimStep();
 
-            //if ((Core.MyLevel.DefaultHeroType is BobPhsxSpaceship ||
-            //     Core.MyLevel.DefaultHeroType is BobPhsxMeat) &&
-            //    Box.TopOnly)
-            //{
-            //    Box.TopOnly = false;
-            //}
-
             Core.GenData.JumpNow = Core.GenData.TemporaryNoLandZone = false;
 
             float Step = GetStep();
@@ -210,9 +215,7 @@ namespace CloudberryKingdom
 
                 // If we're about to fade out don't allow computer to land on this ghost
                 // and jump if the computer is already on it
-                //if (StateChange < .25f + TimeSafety) Core.GenData.TemporaryNoLandZone = true;
                 if (StateChange < .25f + TimeSafety) Core.GenData.JumpNow = true;
-                //if (StateChange < .25f + .65f)       Core.GenData.TemporaryNoLandZone = true;
                 if (StateChange < .25f + .65f)       Core.GenData.JumpNow = true;
             }
             else
@@ -224,10 +227,6 @@ namespace CloudberryKingdom
                 // the StateChange approaches 0 (faded out)
                 StateChange = (InLength + OutLength - Step) / (float)LengthOfPhaseChange;
                 if (StateChange < .75f) Core.Active = true;
-
-                // If we just faded in don't allow computer to land on this ghost,
-                //if (StateChange < .75f + TimeSafety) Core.GenData.TemporaryNoLandZone = true;
-                //if (StateChange < .75f + .15)        Core.GenData.TemporaryNoLandZone = true;
             }
 
             // Make sure StateChange lies between 0 and 1
@@ -252,7 +251,6 @@ namespace CloudberryKingdom
 
             MyBox.SwapToCurrent();
         }
-
 
         public void Update()
         {
@@ -321,10 +319,7 @@ namespace CloudberryKingdom
                 Update();
 
                 if (Tools.DrawBoxes)
-                {
-                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
                     MyBox.DrawFilled(Tools.QDrawer, Color.Green);
-                }
             }
 
             if (Tools.DrawGraphics)
@@ -334,20 +329,23 @@ namespace CloudberryKingdom
                     Vector4 Full, Half;
                     Full = new Vector4(1, 1f, 1f, 1f);
                     Half = new Vector4(1, 1f, 1f, 0.06f);
+                    Color color;
 
                     if (State == GhostBlockState.PhasedIn)
+                        color = new Color((1 - StateChange) * Half + StateChange * Full);
+                    else
+                        color = new Color((1 - StateChange) * Full + StateChange * Half);
+
+                    if (Info.GhostBlocks.Group == null)
                     {
-                        MyObject.SetColor(new Color((1 - StateChange) * Half + StateChange * Full));
-
+                        MyObject.SetColor(color);
                         MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
-                        Tools.QDrawer.Flush();
+                        //Tools.QDrawer.Flush();
                     }
-                    if (State == GhostBlockState.PhasedOut)
-                    { 
-                        MyObject.SetColor(new Color((1 - StateChange) * Full + StateChange * Half));
-
-                        MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
-                        Tools.QDrawer.Flush();
+                    else
+                    {
+                        MyDraw.Update();
+                        MyDraw.Draw();
                     }
                 }
             }
@@ -381,7 +379,7 @@ namespace CloudberryKingdom
 
             GhostBlock BlockA = A as GhostBlock;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, A.MyLevel);
             MyBox.TopOnly = BlockA.MyBox.TopOnly;
         }
     }

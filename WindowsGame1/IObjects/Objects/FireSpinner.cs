@@ -8,12 +8,17 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.FireSpinners
 {
-    public class FireSpinner : ObjectBase
+    public class FireSpinner : _LineDeath
     {
         public class FireSpinnerTileInfo
         {
-            public TextureOrAnim Sprite = null;
-            public Vector2 Size = new Vector2(72);
+            public TextureOrAnim Sprite = Tools.TextureWad.FindTextureOrAnim("small flame");
+            public TextureOrAnim BaseSprite = null;
+            public Vector2 Size = new Vector2(72, 72);
+            public int Length = 53;
+            public float RotateStep = .22f * .82f;
+            
+            public float TopOffset = -80, BottomOffset = 80;
         }
 
         /// <summary>
@@ -24,7 +29,6 @@ namespace CloudberryKingdom.FireSpinners
 
         public SimpleQuad MyQuad;
         public BasePoint Base;
-        public EzTexture AnchorTexture;
 
         public int Offset, Period;
 
@@ -41,36 +45,9 @@ namespace CloudberryKingdom.FireSpinners
         private float MiniAngle_Offset;
 
         public int Orientation;
-
-        public MovingLine MyLine;
+        
         public Vector2 dir;
 
-        void SetColor()
-        {
-            if (!Core.BoxesOnly)
-            {
-                MyQuad.SetColor(new Color(255, 140, 140));
-                MyQuad.MyEffect = Tools.BasicEffect;
-
-                Vector2 Size;
-
-                if (Info.Spinners.Sprite == null)
-                {
-                    MyQuad.MyTexture = BallTexture;
-                    Size = new Vector2(72);
-                }
-                else
-                {
-                    MyQuad.MyTexture = Info.Spinners.Sprite.MyTexture;
-                    Size = Info.Spinners.Size;
-                }
-
-                Base.e1 = new Vector2(Size.X, 0);
-                Base.e2 = new Vector2(0, Size.Y);
-            }
-        }
-
-        static EzTexture BallTexture = null;
         public override void MakeNew()
         {
             Core.Init();
@@ -81,35 +58,30 @@ namespace CloudberryKingdom.FireSpinners
             Core.GenData.NoBlockOverlap = true;
             Core.GenData.LimitGeneralDensity = true;
 
+            Core.WakeUpRequirements = true;
+        }
+
+        public override void Init(Vector2 pos, Level level)
+        {
+            base.Init(pos, level);
+
             if (!Core.BoxesOnly)
             {
                 MyQuad.Init();
                 MyQuad.UseGlobalIllumination = false;
                 MyQuad.MyEffect = Tools.BasicEffect;
-                MyQuad.MyTexture = BallTexture;
+                MyQuad.Set(Info.Spinners.Sprite);
 
-                Vector2 Size = new Vector2(72);
+                Vector2 Size = Info.Spinners.Size;
                 Base.e1 = new Vector2(Size.X, 0);
                 Base.e2 = new Vector2(0, Size.Y);
+
+                MyQuad.SetColor(new Color(255, 140, 140));
+                MyQuad.MyEffect = Tools.BasicEffect;
+                MyQuad.MyTexture = Info.Spinners.Sprite.MyTexture;
             }
 
-            //SetColor();
-
-            Core.WakeUpRequirements = true;
-        }
-
-        public FireSpinner(bool BoxesOnly)
-        {
-            if (BallTexture == null)
-                BallTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FireSpinner_Ball_Texture"));
-
-            MakeNew();
-
-            Core.BoxesOnly = BoxesOnly;
-        }
-
-        public void Init(int CurPhsxStep)
-        {
+            int CurPhsxStep = level.CurPhsxStep;
             Angle = 2 * (float)Math.PI * (CurPhsxStep + Offset) / (float)Period;
             MiniAngle = CurPhsxStep * .22f;
             if (RandomMiniOrientation)
@@ -122,6 +94,13 @@ namespace CloudberryKingdom.FireSpinners
             MyLine.Current = MyLine.Target;
 
             MyLine.SkipEdge = true;
+        }
+
+        public FireSpinner(bool BoxesOnly)
+        {
+            MakeNew();
+
+            Core.BoxesOnly = BoxesOnly;
         }
 
         public override void PhsxStep()
@@ -144,9 +123,7 @@ namespace CloudberryKingdom.FireSpinners
                 Core.WakeUpRequirements = false;
             }
 
-            //MiniAngle = Orientation * (Core.MyLevel.CurPhsxStep + MiniAngle_Offset) * .22f;
-            //SetTarget(Core.GetPhsxStep());
-            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * .22f * .82f;
+            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * Info.Spinners.RotateStep;
             SetTarget(Core.GetIndependentPhsxStep());
         }
 
@@ -181,12 +158,6 @@ namespace CloudberryKingdom.FireSpinners
             p2 = Core.Data.Position + .7f * (dir + dir2) * Radius;
         }
 
-        public override void PhsxStep2()
-        {
-            if (!Core.SkippedPhsx)
-                MyLine.SwapToCurrent();
-        }
-
         public override void Draw()
         {
             if (Core.SkippedPhsx) return;
@@ -202,7 +173,7 @@ namespace CloudberryKingdom.FireSpinners
 
             if (Tools.DrawGraphics && !Core.BoxesOnly)
             {
-                float BallLength = 53;
+                float BallLength = Info.Spinners.Length;
                 float CurRadius = (MyLine.Current.p2 - MyLine.Current.p1).Length();
                 int Balls = (int)(CurRadius / BallLength + .5f);
                 BallLength = (CurRadius - 10) / Balls;
@@ -263,13 +234,6 @@ namespace CloudberryKingdom.FireSpinners
             MyLine.Target.p2 += shift;
         }
 
-        public override void Reset(bool BoxesOnly)
-        {
-            Core.Active = true;
-            
-            SetColor();
-        }
-
         public override void Interact(Bob bob)
         {
             if (!Core.SkippedPhsx)
@@ -296,6 +260,7 @@ namespace CloudberryKingdom.FireSpinners
             Core.WakeUpRequirements = true;
 
             FireSpinner SpinnerA = A as FireSpinner;
+            Init(SpinnerA.Pos, SpinnerA.MyLevel);
 
             Radius = SpinnerA.Radius;
 
@@ -306,9 +271,6 @@ namespace CloudberryKingdom.FireSpinners
             Angle = SpinnerA.Angle;
 
             MyLine.SkipEdge = SpinnerA.MyLine.SkipEdge;
-
-            Init(Core.GetPhsxStep());
-            SetColor();
         }
     }
 }

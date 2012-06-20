@@ -140,15 +140,15 @@ namespace CloudberryKingdom.Blocks
             }
             else
             {
-                if (width < InfoWad.GetFloat("Outside_Pillar_SmallestWidthCutoff"))
+                if (width < 60)
                     Template = PieceQuad.Outside_Smallest;
-                else if (width < InfoWad.GetFloat("Outside_Pillar_SmallerWidthCutoff"))
+                else if (width < 90)
                     Template = PieceQuad.Outside_Smaller;
-                else if (width < InfoWad.GetFloat("Outside_Pillar_SmallWidthCutoff"))
+                else if (width < 125)
                     Template = PieceQuad.Outside_Small;
-                else if (width < InfoWad.GetFloat("Outside_Pillar_MediumWidthCutoff"))
+                else if (width < 370)
                     Template = PieceQuad.Outside_Medium;
-                else if (width < InfoWad.GetFloat("Outside_Pillar_LargeWidthCutoff"))
+                else if (width < 600)
                     Template = PieceQuad.Outside_Large;
                 else
                     Template = PieceQuad.Outside_XLarge;
@@ -191,11 +191,11 @@ namespace CloudberryKingdom.Blocks
             PieceQuad Template = null;
             if (Box.TopOnly && BlockCore.UseTopOnlyTexture)
             {
-                if (width < InfoWad.GetFloat("FloatingBlock_SmallWidthCutoff"))
+                if (width < 60)
                     Template = PieceQuad.Floating_Small;
-                else if (width < InfoWad.GetFloat("FloatingBlock_MediumWidthCutoff"))
+                else if (width < 100)
                     Template = PieceQuad.Floating_Medium;
-                else if (width < InfoWad.GetFloat("FloatingBlock_LargeWidthCutoff"))
+                else if (width < 180)
                     Template = PieceQuad.Floating_Large;
                 else
                     Template = PieceQuad.Floating_Xlarge;
@@ -204,13 +204,13 @@ namespace CloudberryKingdom.Blocks
             {
                 if (width < 270)
                 {
-                    if (width < InfoWad.GetFloat("BrickPillar_SmallWidthCutoff"))
+                    if (width < 60)
                         Template = PieceQuad.BrickPillar_Small;
-                    else if (width < InfoWad.GetFloat("BrickPillar_MediumWidthCutoff"))
+                    else if (width < 120)
                         Template = PieceQuad.BrickPillar_Medium;
-                    else if (width < InfoWad.GetFloat("BrickPillar_LargeWidthCutoff"))
+                    else if (width < 270)
                         Template = PieceQuad.BrickPillar_Large;
-                    else if (width < InfoWad.GetFloat("BrickPillar_LargePlusWidthCutoff"))
+                    else if (width < 450)
                         Template = PieceQuad.BrickPillar_LargePlus;
                     else
                         Template = PieceQuad.BrickPillar_Xlarge;
@@ -234,28 +234,28 @@ namespace CloudberryKingdom.Blocks
             }
             else
             {
-                if (width < InfoWad.GetFloat("Inside2_SmallestWidthCutoff"))
+                if (width < 60)
                     Template = PieceQuad.Inside2_Smallest;
-                else if (width < InfoWad.GetFloat("Inside2_SmallerWidthCutoff"))
+                else if (width < 150)
                     Template = PieceQuad.Inside2_Smaller;
-                else if (width < InfoWad.GetFloat("Inside2_SmallWidthCutoff"))
+                else if (width < 250)
                     Template = PieceQuad.Inside2_Small;
-                else if (width < InfoWad.GetFloat("Inside2_MediumWidthCutoff"))
+                else if (width < 350)
                     Template = PieceQuad.Inside2_Medium;
-                else if (width < InfoWad.GetFloat("Inside2_LargeWidthCutoff"))
+                else if (width < 500)
                     Template = PieceQuad.Inside2_Large;
                 else
                     Template = PieceQuad.Inside2_XLarge;
 
-                if (width < InfoWad.GetFloat("Inside2_Pillar_SmallestWidthCutoff"))
+                if (width < 86)
                     Template = PieceQuad.Inside2_Pillar_Smallest;
-                else if (width < InfoWad.GetFloat("Inside2_Pillar_SmallerWidthCutoff"))
+                else if (width < 128)
                     Template = PieceQuad.Inside2_Pillar_Smaller;
-                else if (width < InfoWad.GetFloat("Inside2_Pillar_SmallWidthCutoff"))
+                else if (width < 230)
                     Template = PieceQuad.Inside2_Pillar_Small;
-                else if (width < InfoWad.GetFloat("Inside2_Pillar_MediumWidthCutoff"))
+                else if (width < 444)
                     Template = PieceQuad.Inside2_Pillar_Medium;
-                else if (width < InfoWad.GetFloat("Inside2_Pillar_LargeWidthCutoff"))
+                else if (width < 800)
                     Template = PieceQuad.Inside2_Pillar_Large;
                 else
                     Template = PieceQuad.Inside2_Pillar_XLarge;                

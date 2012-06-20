@@ -252,8 +252,8 @@ namespace CloudberryKingdom
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
             //item.AdditionalOnSelect = () => SetBerry("cb_enthusiastic");
 
             // Select 'Start Level' when the user presses (A)
@@ -291,14 +291,14 @@ namespace CloudberryKingdom
             item.SelectSound = null;
             item.Go = ItemReturnToCaller;
             item.Pos = item.SelectedPos = new Vector2(702.3179f, -689.9683f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             //item.AdditionalOnSelect = () => SetBerry("cb_crying");
 #else
             EzText text;
             text = new EzText(ButtonString.Go(90) + " Start", ItemFont);
             text.Pos = new Vector2(417.4604f, -159.4446f);
-            text.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
+            text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             MyPile.Add(text);
 
             text = new EzText(ButtonString.X(90) + " Random", ItemFont);
@@ -308,7 +308,7 @@ namespace CloudberryKingdom
 
             text = new EzText(ButtonString.Back(90) + " Back", ItemFont);
             text.Pos = new Vector2(682.4761f, -622.5079f);
-            text.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+            text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             MyPile.Add(text);
 #endif
         }

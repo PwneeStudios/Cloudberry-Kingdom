@@ -11,6 +11,15 @@ namespace CloudberryKingdom
     public enum FallingBlockState { Regular, Touched, Falling, Angry };
     public class FallingBlock : BlockBase
     {
+        public class FallingBlockTileInfo
+        {
+            public BlockGroup Group = PieceQuad.FallGroup;
+
+            public FallingBlockTileInfo()
+            {
+            }
+        }
+
         public bool TouchedOnce, HitGround;
 
         public bool Thwomp;
@@ -37,13 +46,6 @@ namespace CloudberryKingdom
             BlockCore.MyType = ObjectType.FallingBlock;
 
             SetState(FallingBlockState.Regular);
-        }
-
-        public override void Release()
-        {
-            base.Release();
-
-            if (MyDraw != null) MyDraw.Release(); MyDraw = null;
         }
 
         public void SetState(FallingBlockState NewState) { SetState(NewState, false); }
@@ -91,24 +93,7 @@ namespace CloudberryKingdom
 
             BlockCore.Layer = .35f;
 
-            var tile = Core.MyTileSet = level.MyTileSet;
-            Tools.Assert(Core.MyTileSet != null);
-
-            // Set the size based on tileset limitations.
-            if (tile.FixedWidths)
-            {
-                tile.FallingBlocks.SnapWidthUp(ref size);
-                MyBox.Initialize(center, size);
-                MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.FallingBlocks);
-                //MyDraw.MyTemplate = tile.GetPieceTemplate(this, level.Rnd, tile.Pillars);
-            }
-            else
-            {
-                MyBox = new AABox(center, size);
-                MyDraw.MyTemplate = PieceQuad.FallingBlock;
-            }
-
-            BlockCore.StartData.Position = Pos = center;
+            base.Init(ref center, ref size, level, level.Info.FallingBlocks.Group);
 
             SetState(FallingBlockState.Regular, true);
         }
@@ -153,10 +138,7 @@ namespace CloudberryKingdom
 
         public override void Reset(bool BoxesOnly)
         {
-            BlockCore.BoxesOnly = BoxesOnly;
-
-            if (!Core.BoxesOnly)
-                ResetPieces();           
+            base.Reset(BoxesOnly);
 
             Active = true;
 
@@ -304,7 +286,6 @@ namespace CloudberryKingdom
                 if (!Active) DrawSelf = false;
 
                 if (!Core.MyLevel.MainCamera.OnScreen(MyBox.Current.Center, 600))
-                //if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 600))
                     DrawSelf = false;
             }
 
@@ -312,15 +293,12 @@ namespace CloudberryKingdom
             {
                 if (Tools.DrawBoxes)
                 {
-                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
                     MyBox.DrawFilled(Tools.QDrawer, Color.Red);
                 }
             }
 
             if (Tools.DrawGraphics)
             {
-                //if (State != FallingBlockState.Falling) return;
-
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 if (!BlockCore.BoxesOnly)
                 {

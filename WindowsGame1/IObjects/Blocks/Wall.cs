@@ -76,14 +76,14 @@ namespace CloudberryKingdom.Blocks
 
             if (Horizontal)
             {
-                float SpikeSideOffset = InfoWad.GetFloat("Spike_SideOffset");
+                float SpikeSideOffset = Info.Spikes.SideOffset;
                 float x = Box.Target.TR.X + SpikeSideOffset;
                 spike.SetDir(3);
                 spike.Core.Data.Position = new Vector2(x, pos);
             }
             else
             {
-                float SpikeTopOffset = InfoWad.GetFloat("Spike_TopOffset");
+                float SpikeTopOffset = Info.Spikes.TopOffset;
                 float y = Box.Target.TR.Y + SpikeTopOffset;
                 spike.SetDir(0);
                 spike.Core.Data.Position = new Vector2(pos, y);

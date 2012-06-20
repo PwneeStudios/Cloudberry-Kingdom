@@ -1,191 +1,3 @@
-[dec][Maelstrom_Regular_Period] 120
-
-[snd][LevelComplete] "Level Complete" | 1
-[snd][DoorOpen] "Door Opening" | 1
-[snd][DoorClose] "Door Slamming" | 1
-[snd][RecordScratch] "Record Scratch" | .96
-[snd][DifficultySelect_Locked] "Chain Hit" | 1
-[snd][DifficultySelect_Select] "Block Bump" | 1
-[snd][TitleScreenChain_Sound] "Chain Pull" | .96
-[snd][Checkpoint_Sound] "Checkpoint" | .6
-[snd][BobDie_Sound] "Death Chime" | 1
-[snd][GetCoin_Sound] "Coin" | .75
-
-[snd][Menu_UpDown_Sound] "Menu Hover" | .7
-[snd][Menu_Select_Sound] "Menu Select" | .6
-[snd][Menu_Slide_Sound] "Menu Tick" | .3
-[snd][Menu_ListScroll_Sound] "Menu Hover" | .5
-[dec][Menu_Slide_SoundDelay] 7
-[snd][Menu_Back_Sound] "Menu Back" | .8
-
-[snd][Resume_Sound] "Paper Flip" | 1
-
-[snd][BobBoxJump_Sound] "BoxHero_Land" | 1
-[snd][BobJetpack_Sound] "Jetpack" | .15
-[dec][BobJetpack_SoundDelay] 5
-
-
-
-[vec][TitleMenu_Pos] 0, 170
-[vec][TitleMenu_CareerPos] 0, 190
-[vec][TitleMenu_FreeplayPos] 0, 23
-[vec][TitleMenu_StatisticsPos] 0, -100
-[vec][TitleMenu_ControlsPos] 0, -240
-[vec][TitleMenu_OptionsPos] 0, -420
-[vec][TitleMenu_ExitPos] 0, -620
-
-
-[dec][FloatingBlock_SmallWidthCutoff] 60
-[dec][FloatingBlock_MediumWidthCutoff] 100
-[dec][FloatingBlock_LargeWidthCutoff] 180	
-
-[dec][BrickPillar_SmallWidthCutoff] 60
-[dec][BrickPillar_MediumWidthCutoff] 120
-[dec][BrickPillar_LargeWidthCutoff] 270	
-[dec][BrickPillar_LargePlusWidthCutoff] 450	
-
-[dec][Inside2_SmallestWidthCutoff] 60
-[dec][Inside2_SmallerWidthCutoff] 150
-[dec][Inside2_SmallWidthCutoff] 250
-[dec][Inside2_MediumWidthCutoff] 350
-[dec][Inside2_LargeWidthCutoff] 500	
-
-[dec][Inside2_Pillar_SmallestWidthCutoff] 86
-[dec][Inside2_Pillar_SmallerWidthCutoff] 128
-[dec][Inside2_Pillar_SmallWidthCutoff] 230
-[dec][Inside2_Pillar_MediumWidthCutoff] 444
-[dec][Inside2_Pillar_LargeWidthCutoff] 800	
-
-[dec][Outside_Pillar_SmallestWidthCutoff] 60
-[dec][Outside_Pillar_SmallerWidthCutoff] 90
-[dec][Outside_Pillar_SmallWidthCutoff] 125
-[dec][Outside_Pillar_MediumWidthCutoff] 370
-[dec][Outside_Pillar_LargeWidthCutoff] 600	
-
-[str][SliderBack_Texture] "menuslider_bar"
-[vec][SliderBack_Size] 250, 35
-//[str][SliderBack_Texture] "SliderBack"
-//[vec][SliderBack_Size] 250, 100
-[str][Slider_Texture] "menuslider_slider"
-//[str][Slider_Texture] "Slider"
-//[vec][Slider_Size] 50, 65
-[vec][Slider_StartPos] -210, 0
-[vec][Slider_EndPos] 210, 0
-[vec][Slider_Size] 28, 55
-
-// The amount of space on the right and top side of the menu boundary
-[vec][Menu_Boundary_TR_Spacing] 110, 84
-// The amount of space on the left and bottom side of the menu boundary
-[vec][Menu_Boundary_BL_Spacing] 110, 84
-[clr][Menu_SelectedTextColor] 255, 255, 255, 255
-[clr][Menu_UnselectedTextColor] 220, 220, 220, 200
-
-[clr][Menu_SelectedNextColor] 100, 250, 100, 255
-[clr][Menu_SelectedBackColor] 250, 100, 100, 255
-[clr][Menu_UnselectedNextColor] 40, 180, 40, 255
-[clr][Menu_UnselectedBackColor] 180, 40, 40, 255
-
-[str][CoinTexture] "CoinBlue"
-[vec][CoinSize] 50, 75
-[clr][CoinColor] 255, 255, 255, 255
-
-[vec][SongInfoCenter] -850, -790
-[dec][SongInfoInitialAlpha] 4.5
-[dec][SongInfoAlphaDecay] .02
-
-[dec][FlyingBlob_AnimSpeed] .1666
-[vec][FlyingBlob_Size] 1.11, 1.11
-
-[vec][SpikeyGuy_Size] 1.55, 1.55
-
-[dec][GhostBlock_AnimSpeed] .1666
-
-[vec][Spike_Size] 575, 535
-[dec][Spike_TopOffset] 2
-[dec][Spike_BottomOffset] 2
-[dec][Spike_SideOffset] 2
-
-[dec][Spinner_TopOffset] 0
-[dec][Spinner_BottomOffset] 0
-
-[str][MenuRightArrow_Texture] "ListRightArrow"
-[str][MenuLeftArrow_Texture] "ListLeftArrow"
-[vec][MenuRightArrow_Offset] 20, -14
-[vec][MenuLeftArrow_Offset] -20, -14
-[vec][MenuArrow_Size] 45, 45
-[clr][MenuArrow_Color] 255, 255, 255, 255
-
-[str][MenuRightArrow_Selected_Texture] "ListRightArrow"
-[str][MenuLeftArrow_Selected_Texture] "ListLeftArrow"
-[vec][MenuRightArrow_Selected_Offset] 20, -14
-[vec][MenuLeftArrow_Selected_Offset] -20, -14
-[vec][MenuArrow_Selected_Size] 45, 45
-[clr][MenuArrow_Selected_Color] 255, 255, 255, 0
-
-// Color select menu
-[vec][ColorMenu_Pos_1] 0, 356
-[vec][ColorMenu_Pos_2] 0, 240
-[vec][ColorMenu_Pos_3] 0, -23
-[vec][ColorMenu_Pos_4] 0, -75
-[vec][ColorMenu_Pos_5] 0, -252
-[vec][ColorMenu_Pos_6] 0, -373
-[vec][ColorMenu_Pos_7] 0, -560
-[vec][ColorMenu_Pos_8] 0, -798
-[str][ColorMenuRightArrow_Texture] "CharMenu_rarrow_0"
-[str][ColorMenuLeftArrow_Texture] "CharMenu_larrow_0"
-[vec][ColorMenuRightArrow_Offset] 208, 0
-[vec][ColorMenuLeftArrow_Offset] -208, 0
-[vec][ColorMenuArrow_Size] 40, 40
-[clr][ColorMenuArrow_Color] 255, 255, 255, 255
-
-[str][ColorMenuRightArrow_Selected_Texture] "CharMenu_rarrow_1"
-[str][ColorMenuLeftArrow_Selected_Texture] "CharMenu_larrow_1"
-[vec][ColorMenuRightArrow_Selected_Offset] 223, 0
-[vec][ColorMenuLeftArrow_Selected_Offset] -221, 0
-[vec][ColorMenuArrow_Selected_Size] 60, 60
-[clr][ColorMenuArrow_Selected_Color] 255, 255, 255, 255
-
-[clr][CharacterMenu_ItemTitle_Color] 25, 25, 25, 255
-[clr][CharacterMenu_LetsRockSelected_Color] 25, 200, 25, 255
-[clr][CharacterMenu_LetsRock_Color] 200, 220, 200, 200
-
-[vec][Checkpoint_Size] 115, 115
-[vec][Checkpoint_TextureSize] 170, 170
-[str][Checkpoint_Texture] "Checkpoint3"
-
-[dec][NormalLevelPiece_Length] 4200
-[dec][PlaceLevelPiece_Length] 4200
-[dec][MakeLevelPiece_Length] 3000
-//[dec][NormalLevelPiece_Length] 8500
-//[dec][MakeLevelPiece_Length] 3500
-
-[str][FallingBlock_Regular_Texture] "FallingBlock1"
-[str][FallingBlock_Touched_Texture] "FallingBlock2"
-[str][FallingBlock_Falling_Texture] "FallingBlock3"
-[str][FallingBlock_Angry_Texture] "FallingBlock4"
-
-[str][BouncyBlock_Regular_Texture] "FallingBlock1"
-[str][BouncyBlock_Stiff_Texture] "FallingBlock4"
-
-[vec][FireSpinner_Ball_Size] 63, -63
-[str][FireSpinner_Ball_Texture] "small flame"
-[dec][FireSpinner_Ball_Length] 53
-[dec][FireSpinner_Ball_RotateStep] .01
-
-[dec][MaxRecords_PC] 150
-[dec][MaxRecords_Xbox] 80
-
-[dec][ChanceToHaveUnusedFlyingBlobs] .4
-[vec][KeepUnusedFlyingBlobs_Range] .0, .35
-[dec][ChanceToHaveUnusedMovingBlock2] .4
-[vec][KeepUnusedMovingBlock2_Range] .0, .35
-[dec][ChanceToHaveUnusedGhostBlock] .4
-[vec][KeepUnusedGhostBlock_Range] .0, .35
-[dec][ChanceToHaveUnusedFallingBlock] .4
-[vec][KeepUnusedFallingBlock_Range] .0, .35
-
-[dec][ExitDoor_X_Offset] 1250
-
 /////////////////////////////////////////////////////////
 //////////////   Inside1 Background   ///////////////////
 /////////////////////////////////////////////////////////
@@ -274,50 +86,50 @@
 [dec][Outside_0_Num] 5
 [dec][Outside_0_Parralax] .2
 [str][Outside_0_0_Texture] "Cloud1"
-[vec][Outside_0_0_Size] #Outside_Cloud_Size //1650, 875 //900, 380
+[vec][Outside_0_0_Size] #Outside_Cloud_Size
 [vec][Outside_0_0_SizeAdd] 270, 200
 [vec][Outside_0_0_SpeedRange] -.8, -.9
-[vec][Outside_0_0_YRange] #Outside_Cloud_YRange //0, 1300
+[vec][Outside_0_0_YRange] #Outside_Cloud_YRange
 [vec][Outside_0_0_Dist] 1700, 2400
 [clr][Outside_0_0_Color] #Outside_Cloud_Color
 [dec][Outside_0_0_Ratio] .2
 
 [dec][Outside_0_Parralax] .2
 [str][Outside_0_1_Texture] "Cloud3"
-[vec][Outside_0_1_Size] #Outside_Cloud_Size //900, 380
+[vec][Outside_0_1_Size] #Outside_Cloud_Size
 [vec][Outside_0_1_SizeAdd] 270, 200
 [vec][Outside_0_1_SpeedRange] -.8, -.9
-[vec][Outside_0_1_YRange] #Outside_Cloud_YRange //0, 1300
+[vec][Outside_0_1_YRange] #Outside_Cloud_YRange
 [vec][Outside_0_1_Dist] 1700, 2400
 [clr][Outside_0_1_Color] #Outside_Cloud_Color
 [dec][Outside_0_1_Ratio] .2
 
 [dec][Outside_0_Parralax] .2
 [str][Outside_0_2_Texture] "Cloud4"
-[vec][Outside_0_2_Size] #Outside_Cloud_Size //900, 380
+[vec][Outside_0_2_Size] #Outside_Cloud_Size
 [vec][Outside_0_2_SizeAdd] 270, 200
 [vec][Outside_0_2_SpeedRange] -.8, -.9
-[vec][Outside_0_2_YRange] #Outside_Cloud_YRange //0, 1300
+[vec][Outside_0_2_YRange] #Outside_Cloud_YRange
 [vec][Outside_0_2_Dist] 1700, 2400
 [clr][Outside_0_2_Color] #Outside_Cloud_Color
 [dec][Outside_0_2_Ratio] .2
 
 [dec][Outside_0_Parralax] .2
 [str][Outside_0_3_Texture] "Cloud5"
-[vec][Outside_0_3_Size] #Outside_Cloud_Size //900, 380
+[vec][Outside_0_3_Size] #Outside_Cloud_Size
 [vec][Outside_0_3_SizeAdd] 270, 200
 [vec][Outside_0_3_SpeedRange] -.8, -.9
-[vec][Outside_0_3_YRange] #Outside_Cloud_YRange //0, 1300
+[vec][Outside_0_3_YRange] #Outside_Cloud_YRange
 [vec][Outside_0_3_Dist] 1700, 2400
 [clr][Outside_0_3_Color] #Outside_Cloud_Color
 [dec][Outside_0_3_Ratio] .2
 
 [dec][Outside_0_Parralax] .2
 [str][Outside_0_4_Texture] "Cloud6"
-[vec][Outside_0_4_Size] #Outside_Cloud_Size //900, 380
+[vec][Outside_0_4_Size] #Outside_Cloud_Size
 [vec][Outside_0_4_SizeAdd] 270, 200
 [vec][Outside_0_4_SpeedRange] -.8, -.9
-[vec][Outside_0_4_YRange] #Outside_Cloud_Size //0, 1300
+[vec][Outside_0_4_YRange] #Outside_Cloud_Size
 [vec][Outside_0_4_Dist] 1700, 2400
 [clr][Outside_0_4_Color] #Outside_Cloud_Color
 [dec][Outside_0_4_Ratio] .2
@@ -325,7 +137,7 @@
 [dec][Outside_1_Num] 1
 [dec][Outside_1_Parralax] .2
 [str][Outside_1_0_Texture] "hill_medium"
-[vec][Outside_1_0_Size] 4000, 2850 //2020, 1430
+[vec][Outside_1_0_Size] 4000, 2850
 [vec][Outside_1_0_SizeAdd] 380, 320
 [vec][Outside_1_0_SpeedRange] 0, 0
 [vec][Outside_1_0_YRange] -1590, -1350
@@ -334,24 +146,24 @@
 [dec][Outside_1_0_Ratio] 1
 
 [dec][Outside_2_Num] 1
-[dec][Outside_2_Parralax] .27 //.47
+[dec][Outside_2_Parralax] .27
 [str][Outside_2_0_Texture] "Cloud1"
 [vec][Outside_2_0_Size] 1650, 790 //900, 380
 [vec][Outside_2_0_SizeAdd] 150, 200
 [vec][Outside_2_0_SpeedRange] -.8, -.9
 [vec][Outside_2_0_YRange] -990, 200
-[vec][Outside_2_0_Dist] 1700, 3200 //1700, 2400
+[vec][Outside_2_0_Dist] 1700, 3200
 [clr][Outside_2_0_Color] 254, 254, 254, 255
 [dec][Outside_2_0_Ratio] 1
 
 [dec][Outside_3_Num] 1
-[dec][Outside_3_Parralax] .33 //.35
+[dec][Outside_3_Parralax] .33
 [str][Outside_3_0_Texture] "Hill_medium"
-[vec][Outside_3_0_Size] 2800, 1450 //2580, 1300
-[vec][Outside_3_0_SizeAdd] 295, 534 //250, 500
+[vec][Outside_3_0_Size] 2800, 1450
+[vec][Outside_3_0_SizeAdd] 295, 534
 [vec][Outside_3_0_SpeedRange] 0, 0
-[vec][Outside_3_0_YRange] -2070, -1860 //-1950, -1750
-[vec][Outside_3_0_Dist] 1900, 4000 // 1900, 3200
+[vec][Outside_3_0_YRange] -2070, -1860
+[vec][Outside_3_0_Dist] 1900, 4000
 [clr][Outside_3_0_Color] 255, 255, 255, 255
 [dec][Outside_3_0_Ratio] 1
 

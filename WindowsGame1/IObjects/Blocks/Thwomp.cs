@@ -43,20 +43,20 @@ namespace CloudberryKingdom
                 switch (NewState)
                 {
                     case ThwompState.Waiting:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Regular_Texture"));
+                        MyQuad.Quad.Set("FallingBlock1");
                         break;
                     case ThwompState.Falling:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Touched_Texture"));
+                        MyQuad.Quad.Set("FallingBlock2");
                         break;
                     case ThwompState.Pause:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Falling_Texture"));
+                        MyQuad.Quad.Set("FallingBlock3");
                         break;
                     case ThwompState.Rising:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Angry_Texture"));
+                        MyQuad.Quad.Set("FallingBlock4");
                         break;
                     case ThwompState.Vibrate:
                         Tools.Sound("Rumble_Short").Play();
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("FallingBlock_Angry_Texture"));
+                        MyQuad.Quad.Set("FallingBlock4");
                         VibrateIntensity = 3f;
                         break;
                 }

@@ -209,8 +209,8 @@ namespace CloudberryKingdom
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #if NOT_PC
             item.Selectable = false;
             item.Pos = new Vector2(721.8262f, -226.9048f);
@@ -236,8 +236,8 @@ namespace CloudberryKingdom
             item.SelectSound = null;
             item.Go = me => ReturnToCaller();
             item.Pos = item.SelectedPos = new Vector2(922.9375f, -523.8096f);
-            item.MyText.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
-            item.MySelectedText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
 #if NOT_PC
             item.Selectable = false;
             item.Pos = new Vector2(958.6523f, -468.254f);

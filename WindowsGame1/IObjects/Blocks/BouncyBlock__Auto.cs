@@ -77,11 +77,11 @@ namespace CloudberryKingdom.Levels
             return (AutoGen_Parameters)Params;
         }
 
-        void SetHallwaysBlockProperties(BouncyBlock block)
+        void SetHallwaysBlockProperties(BouncyBlock block, Level level)
         {
             block.Core.GenData.Used = true;
 
-            block.Init(block.Core.Data.Position, new Vector2(150, 150), 80);
+            block.Init(block.Core.Data.Position, new Vector2(150, 150), 80, level);
         }
         void Hallway(Level level, Vector2 BL, Vector2 TR)
         {
@@ -93,9 +93,9 @@ namespace CloudberryKingdom.Levels
             {
                 BouncyBlock block;
                 block = (BouncyBlock)CreateAt(level, new Vector2(x, TR.Y - 300));
-                SetHallwaysBlockProperties(block);
+                SetHallwaysBlockProperties(block, level);
                 block = (BouncyBlock)CreateAt(level, new Vector2(x, BL.Y + 300));
-                SetHallwaysBlockProperties(block);
+                SetHallwaysBlockProperties(block, level);
 
                 x += 2 * block.Box.Current.Size.X;
             }
@@ -156,7 +156,7 @@ namespace CloudberryKingdom.Levels
             }
 
             bblock = (BouncyBlock)level.Recycle.GetObject(ObjectType.BouncyBlock, true);
-            bblock.Init(pos + offset, size, speed);
+            bblock.Init(pos + offset, size, speed, level);
             bblock.SideDampening = SideDampening;
             bblock.BlockCore.BlobsOnTop = true;
 

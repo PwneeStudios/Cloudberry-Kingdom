@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Blocks
 {
@@ -234,10 +235,33 @@ namespace CloudberryKingdom.Blocks
             }
         }
 
+        public override void Reset(bool BoxesOnly)
+        {
+            base.Reset(BoxesOnly);
+
+            BlockCore.BoxesOnly = BoxesOnly;
+
+            if (!Core.BoxesOnly)
+                ResetPieces();
+        }
+
+        public void Init(ref Vector2 center, ref Vector2 size, Level level, BlockGroup group)
+        {
+            size *= level.Info.ScaleAll * level.Info.ScaleAllBlocks;
+
+            if (Core.MyTileSet.FixedWidths)
+                group.SnapWidthUp(ref size);
+            MyBox.Initialize(center, size);
+            MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
+
+            Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
+        }
 
         public NormalBlockDraw MyDraw;
         public virtual void ResetPieces()
         {
+            if (MyDraw == null) return;
+
             MyDraw.Init(this);
 
             MyDraw.MyPieces.Center.Playing = false;

@@ -99,7 +99,7 @@ namespace CloudberryKingdom.Blocks
                 }
 
                 MyPieces.Draw();
-                Tools.QDrawer.Flush();
+                //Tools.QDrawer.Flush();
             }
         }
     }

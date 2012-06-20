@@ -9,6 +9,12 @@ namespace CloudberryKingdom
 {
     public class Floater : Floater_Core, IBound
     {
+        public class SpikeyGuyTileInfo
+        {
+            //public TextureOrAnim Sprite = Tools.TextureWad.FindTextureOrAnim("small flame");
+            //public Vector2 Scale = new Vector2(1.55f, 1.55f);
+        }
+
         public float Angle, MaxAngle, Length;
         public int Period, Offset;
         public Vector2 PivotPoint;

@@ -584,7 +584,7 @@ namespace CloudberryKingdom.Levels
             MakeAt MakeBouncy = delegate(Vector2 Pos)
             {
                 BouncyBlock bouncy = (BouncyBlock)Recycle.GetObject(ObjectType.BouncyBlock, false);
-                bouncy.Init(Pos, new Vector2(170, 170), 90);
+                bouncy.Init(Pos, new Vector2(170, 170), 90, this);
                 bouncy.Core.DrawLayer = 9;
 
                 bouncy.Core.GenData.RemoveIfUnused = true;

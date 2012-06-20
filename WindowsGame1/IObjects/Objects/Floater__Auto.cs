@@ -7,7 +7,7 @@ namespace CloudberryKingdom.Levels
 {
     public class Floater_Parameters : AutoGen_Parameters
     {
-        public Param FloaterMinDist, FloaterSparsity, FloaterPeriod, FloaterMaxAngle, FloaterPlaceDelay, FloaterScale;
+        public Param FloaterMinDist, FloaterSparsity, FloaterPeriod, FloaterMaxAngle, FloaterPlaceDelay;
 
         public TunnelFill Tunnel;
 
@@ -47,11 +47,6 @@ namespace CloudberryKingdom.Levels
             FloaterMinDist = new Param(PieceSeed, u =>
             {
                 return Math.Max(80, 800 - 63.5f * u[Upgrade.SpikeyGuy]);
-            });
-
-            FloaterScale = new Param(PieceSeed, u =>
-            {
-                return Math.Min(160, 90 + 7 * u[Upgrade.SpikeyGuy]);
             });
 
             FloaterPeriod = new Param(PieceSeed, u =>

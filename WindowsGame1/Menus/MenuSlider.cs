@@ -58,13 +58,13 @@ namespace CloudberryKingdom
 #endif
 
             SliderBack = new QuadClass();
-            SliderBack.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("SliderBack_Texture"));
+            SliderBack.Quad.MyTexture = Menu.DefaultMenuInfo.SliderBack_Texture;
             Vector2 Size = new Vector2(250, 35) * 1.35f;
             SliderBack.Base.e1 *= Size.X;
             SliderBack.Base.e2 *= Size.Y;
 
             Slider = new QuadClass();
-            Slider.Quad.MyTexture = Tools.TextureWad.FindByName(InfoWad.GetStr("Slider_Texture"));
+            Slider.Quad.MyTexture = Menu.DefaultMenuInfo.Slider_Texture;
             Size = new Vector2(28, 55) * 1.35f;
             Slider.Base.e1 *= Size.X;
             Slider.Base.e2 *= Size.Y;

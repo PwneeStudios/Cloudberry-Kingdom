@@ -346,7 +346,7 @@ namespace CloudberryKingdom
             {
                 Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
                 Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
             }
 #endif
 
@@ -487,6 +487,52 @@ namespace CloudberryKingdom
             PieceQuad.OutsideBlock = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\OutsideBlock.boxes"));
             PieceQuad.TileBlock = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\TileBlock.boxes"));
             PieceQuad.Cement = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Cement.boxes"));
+
+            // Falling block
+            var Fall = new AnimationData_Texture("FallingBlock", 1, 4);
+            PieceQuad.FallingBlock = new PieceQuad();
+            PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
+            PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
+            PieceQuad.FallGroup = new BlockGroup();
+            PieceQuad.FallGroup.Add(100, PieceQuad.FallingBlock);
+            PieceQuad.FallGroup.SortWidths();
+
+            // Bouncy block
+            var Bouncy = new AnimationData_Texture("BouncyBlock", 1, 2);
+            PieceQuad.BouncyBlock = new PieceQuad();
+            PieceQuad.BouncyBlock.Clone(PieceQuad.MovingBlock);
+            PieceQuad.BouncyBlock.Center.SetTextureAnim(Bouncy);
+            PieceQuad.BouncyGroup = new BlockGroup();
+            PieceQuad.BouncyGroup.Add(100, PieceQuad.BouncyBlock);
+            PieceQuad.BouncyGroup.SortWidths();
+
+            // Moving block
+
+            PieceQuad.MovingGroup = new BlockGroup();
+            PieceQuad.MovingGroup.Add(100, PieceQuad.MovingBlock);
+            PieceQuad.MovingGroup.SortWidths();
+
+            // Elevator
+            PieceQuad.Elevator = new PieceQuad();
+            PieceQuad.Elevator.Clone(PieceQuad.MovingBlock);
+            PieceQuad.Elevator.Center.Set("palette");
+            PieceQuad.Elevator.Center.SetColor(new Color(210, 210, 210));
+            PieceQuad.ElevatorGroup = new BlockGroup();
+            PieceQuad.ElevatorGroup.Add(100, PieceQuad.Elevator);
+            PieceQuad.ElevatorGroup.SortWidths();
+
+
+#if INCLUDE_EDITOR
+            //////TileSets.KillDynamic();
+            //////Tools.TextureWad.KillDynamic();
+
+            if (LoadDynamic)
+            {
+                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
+                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+            }
+#endif
         }
 
         protected void LoadMusic(bool CreateNewWad)
@@ -894,6 +940,7 @@ namespace CloudberryKingdom
 
                         Tools.Write("Start");
 
+                        Fireball.PreInit();
 
                         // Load art
                         LoadArtMusicSound(true);
@@ -1069,6 +1116,7 @@ namespace CloudberryKingdom
             //    }
             //}
 
+            /*
             if (Tools.keybState.IsKeyDown(Keys.D6))
             {
                 VPlayer1.Resume();
@@ -1077,7 +1125,7 @@ namespace CloudberryKingdom
             {
                 VPlayer1.Stop();
                 VPlayer1.Play(TestVideo1);
-            }
+            }*/
 
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
             this.IsFixedTimeStep = true;
@@ -1305,6 +1353,25 @@ namespace CloudberryKingdom
                     MakeTestLevel(); return;
                 }
 
+                if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
+                {
+                    foreach (Bob bob in Tools.CurLevel.Bobs)
+                    {
+                        bob.Immortal = !bob.Immortal;
+                    }
+                }
+
+                if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
+                    Tools.DrawGraphics = !Tools.DrawGraphics;
+                if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
+                    Tools.DrawBoxes = !Tools.DrawBoxes;
+                if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
+                    Tools.StepControl = !Tools.StepControl;
+                if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
+                {
+                    Tools.IncrPhsxSpeed();
+                }
+
 #if INCLUDE_EDITOR
 #else
                 if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
@@ -1386,25 +1453,8 @@ namespace CloudberryKingdom
                     ChangeScreenshotMode();
                 }
 
-                if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
-                {
-                    foreach (Bob bob in Tools.CurLevel.Bobs)
-                    {
-                        bob.Immortal = !bob.Immortal;
-                    }
-                }
                 if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
                     Tools.FreeCam = !Tools.FreeCam;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
-                    Tools.DrawGraphics = !Tools.DrawGraphics;
-                if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
-                    Tools.DrawBoxes = !Tools.DrawBoxes;
-                if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
-                    Tools.StepControl = !Tools.StepControl;
-                if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
-                {
-                    Tools.IncrPhsxSpeed();
-                }
 #endif
 
 #endif
@@ -1789,6 +1839,8 @@ namespace CloudberryKingdom
             else
                 data.SetTileSet(TileSetToTest);
 
+            //data.SetTileSet(TileSets.Dungeon);
+
             //data.SetTileSet("Mario3_Outside");
             //data.SetTileSet(TileSets.Dungeon);
             //data.SetTileSet(TileSets.Terrace);
@@ -1904,27 +1956,30 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
             //////piece.MyUpgrades1[Upgrade.Laser] = 4;
-            ////piece.MyUpgrades1[Upgrade.Fireball] = 5;
-            piece.MyUpgrades1[Upgrade.Jump] = 3;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 3;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
-            //////piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
-            piece.MyUpgrades1[Upgrade.Speed] = 1;
-
-
-
-            //piece.MyUpgrades1[Upgrade.Pinky] = 6;
-            //piece.MyUpgrades1[Upgrade.Laser] = 6;
             //piece.MyUpgrades1[Upgrade.Spike] = 5;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 5;
-            ////piece.MyUpgrades1[Upgrade.Jump] = 4;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
-            ////piece.MyUpgrades1[Upgrade.FlyBlob] = 0;
-            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 0;
-            ////piece.MyUpgrades1[Upgrade.Speed] = 6;
+            piece.MyUpgrades1[Upgrade.Jump] = 8;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 5;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 6;
+            //piece.MyUpgrades1[Upgrade.Speed] = 5;
+
+
+
+            piece.MyUpgrades1[Upgrade.Spike] = 2;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            piece.MyUpgrades1[Upgrade.Laser] = 2;
+            piece.MyUpgrades1[Upgrade.Pinky] = 2;
+            piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
+            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
+
+            piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
+            piece.MyUpgrades1[Upgrade.Cloud] = 7;
+            //piece.MyUpgrades1[Upgrade.Elevator] = 7;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

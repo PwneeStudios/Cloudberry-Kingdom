@@ -130,7 +130,7 @@ namespace CloudberryKingdom.Levels
                 else
                     gblock.TallBox = false;
 
-                gblock.Init(pos + offset, size);
+                gblock.Init(pos + offset, size, level);
 
                 gblock.BlockCore.BlobsOnTop = false;
 

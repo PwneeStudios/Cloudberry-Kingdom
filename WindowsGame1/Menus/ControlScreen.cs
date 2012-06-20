@@ -73,15 +73,15 @@ namespace CloudberryKingdom
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-388.8873f, 182.5395f);
-            text.MyFloatColor = InfoWad.GetColor("Menu_UnselectedNextColor").ToVector4();
-            text.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+            text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+            text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
             text = new EzText("back", Tools.Font_DylanThin42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-380.9512f, -71.42798f);
-            text.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
-            text.MyFloatColor = InfoWad.GetColor("Menu_UnselectedBackColor").ToVector4();
+            text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
+            text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
             text = new EzText("b", Tools.Font_DylanThin42);
             text.SubstituteText("<");

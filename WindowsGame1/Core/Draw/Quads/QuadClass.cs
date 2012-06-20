@@ -441,6 +441,15 @@ namespace CloudberryKingdom
 
             ScaleYToMatchRatio(Width);
         }
+        public void Set(TextureOrAnim t_or_a)
+        {
+            Quad.SetTextureOrAnim(t_or_a);
+        }
+        public void Set(string name)
+        {
+            Quad.SetTextureOrAnim(name);
+        }
+
 
         public void Draw() { Draw(true, true, Shadow); }
         public void DrawShadow() { Draw(true, false, true); }

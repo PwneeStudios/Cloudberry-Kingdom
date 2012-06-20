@@ -8,9 +8,18 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class Floater_Spin : Floater_Core, IBound
+    public class Floater_Spin : _CircleDeath
     {
-        static bool Flaming = true;
+        public class SpinTileInfo
+        {
+            public TextureOrAnim Sprite = Fireball.EmitterTexture;
+            public TextureOrAnim BaseSprite = "Joint";
+            public TextureOrAnim ChainSprite = "Chain_Tile";
+            public float ChainWidth = 44, ChainRepeatWidth = 63;
+            public Vector2 Size = new Vector2(320), Shift = Vector2.Zero;
+            public Vector2 BaseSize = new Vector2(50, 50);
+            public float Radius = 200;
+        }
 
         public float Angle, MaxAngle, Length;
         public int Period, Offset;
@@ -18,9 +27,7 @@ namespace CloudberryKingdom
 
         public int Dir;
 
-        QuadClass Anchor;
-
-        QuadClass Head;
+        QuadClass Anchor, Head;
 
         public override void OnAttachedToBlock()
         {
@@ -50,31 +57,32 @@ namespace CloudberryKingdom
             Offset = 0;
             PivotPoint = Vector2.Zero;
 
-            if (!Core.BoxesOnly)
-            {
-                Anchor = new QuadClass();
-                Anchor.SetToDefault();
-                Anchor.TextureName = "Joint";
-                Anchor.Size = new Vector2(50, 50);
-
-                if (Flaming)
-                {
-                    Head = new QuadClass();
-                    Head.Quad.UseGlobalIllumination = false;
-                    Head.SetToDefault();
-                    Head.Quad.MyTexture = Fireball.EmitterTexture;
-                    Head.Size = new Vector2(Radius + 120);
-                }
-            }
-
             base.MakeNew();
 
             Core.DrawLayer = 4;
             Core.DrawLayer2 = 5;
             Core.DrawLayer3 = 6;
-            
-            //Core.DrawLayer2 = 6;
-            
+        }
+
+        public override void Init(Vector2 pos, Level level)
+        {
+            base.Init(pos, level);
+
+            PivotPoint = pos;
+
+            if (!Core.BoxesOnly)
+            {
+                Anchor.Set(level.Info.Orbs.BaseSprite);
+                Anchor.SetToDefault();
+                Anchor.Set(level.Info.Orbs.BaseSprite);
+                Anchor.Size = level.Info.Orbs.BaseSize;
+
+                Head.Set(level.Info.Orbs.Sprite);
+                Head.Quad.UseGlobalIllumination = false;
+                Head.SetToDefault();
+                Head.Set(level.Info.Orbs.Sprite);
+                Head.Size = level.Info.Orbs.Size;
+            }
         }
 
         public Floater_Spin(bool BoxesOnly)
@@ -83,13 +91,10 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly)
             {
-                MyObject.Quads[0].MyTexture = Tools.TextureWad.FindByName("SpikeBlob2");
-                MyObject.Quads[1].MyTexture = Tools.TextureWad.FindByName("SpikeyGuy2");
-                //MyObject.Quads[0].MyTexture = Tools.TextureWad.FindByName("SpikeBlob2");
-                //MyObject.Quads[1].MyTexture = Tools.TextureWad.FindByName("SpikeyGuy3");
+                Anchor = new QuadClass();
+                Head = new QuadClass();
             }
         }
-
 
         public float MinY()
         {
@@ -102,7 +107,7 @@ namespace CloudberryKingdom
         /// <param name="t">The parametric time variable, t = (Step + Offset) / Period</param>
         /// <returns></returns>
         float CorrespondingAngle;
-        public override Vector2 GetPos(float t)
+        Vector2 GetPos(float t)
         {
             CorrespondingAngle = (float)(2 * Math.PI * t);
             Vector2 Dir = Tools.AngleToDir(CorrespondingAngle);
@@ -126,7 +131,6 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
             float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
             float t = Dir * (float)Step / (float)Period;
 
@@ -134,12 +138,10 @@ namespace CloudberryKingdom
             Angle = CorrespondingAngle;
 
             Core.Data.Position = Pos;
-            Tools.PointyAxisTo(ref MyObject.Base, Core.Data.Position - PivotPoint);
 
             base.PhsxStep();
-            Circle.Radius = Radius;
+            Circle.Radius = Info.Orbs.Radius;
         }
-        static float Radius = 200;
 
 
         bool OffScreen = false;
@@ -149,7 +151,7 @@ namespace CloudberryKingdom
 
             if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
             {
-                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Radius + 600))
+                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Info.Orbs.Radius + 600))
                     OffScreen = false;
                 else
                 {
@@ -170,22 +172,14 @@ namespace CloudberryKingdom
                 else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
                 {
                     Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position,
-                                new Color(255, 255, 255, 215),//140),
-                                44,
-                                ChainTexture, Tools.EffectWad.EffectList[0], 63, 0, 0f);
+                                new Color(255, 255, 255, 215),
+                                Info.Orbs.ChainWidth,
+                                Info.Orbs.ChainSprite.MyTexture, Tools.EffectWad.EffectList[0], Info.Orbs.ChainRepeatWidth, 0, 0f);
                 }
                 else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
                 {
-                    if (Flaming)
-                    {
-                        Head.Pos = Pos;
-                        Head.Draw();
-                    }
-                    else
-                    {
-                        MyObject.UpdateQuads();
-                        MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
-                    }
+                    Head.Pos = Pos;
+                    Head.Draw();
                 }
             }
 
@@ -219,6 +213,7 @@ namespace CloudberryKingdom
             Core.Clone(A.Core);
 
             Floater_Spin FloaterA = A as Floater_Spin;
+            Init(FloaterA.Pos, FloaterA.MyLevel);
 
             Angle = FloaterA.Angle;
             Dir = FloaterA.Dir;
@@ -228,7 +223,6 @@ namespace CloudberryKingdom
             Length = FloaterA.Length;
 
             Core.WakeUpRequirements = true;
-            UpdateObject();
         }
     }
 }

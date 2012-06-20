@@ -229,7 +229,7 @@ namespace CloudberryKingdom
             {
                 EzText ContinueText = new EzText(ButtonString.Go(90) + " Continue", ItemFont);
                 SetHeaderProperties(ContinueText);
-                ContinueText.MyFloatColor = InfoWad.GetColor("Menu_SelectedNextColor").ToVector4();
+                ContinueText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
                 MyPile.Add(ContinueText);
                 ContinueText.Pos = new Vector2(180f, -477.7778f) + ShiftAll;
 
@@ -237,7 +237,7 @@ namespace CloudberryKingdom
                 {
                     EzText ReplayText = new EzText(ButtonString.X(90) + " Watch Replay", ItemFont);
                     SetHeaderProperties(ReplayText);
-                    ReplayText.MyFloatColor = InfoWad.GetColor("Menu_SelectedBackColor").ToVector4();
+                    ReplayText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
                     ReplayText.MyFloatColor = new Color(184, 231, 231).ToVector4();
                     MyPile.Add(ReplayText);
                     ReplayText.Pos = new Vector2(180f, -325.3333f) + ShiftAll;

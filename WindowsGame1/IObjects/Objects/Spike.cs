@@ -13,6 +13,12 @@ namespace CloudberryKingdom.Spikes
 {
     public class Spike : ObjectBase
     {
+        public class SpikeTileInfo
+        {
+            public Vector2 Size = new Vector2(575, 535);
+            public float TopOffset = 2, BottomOffset = 2, SideOffset = 2;
+        }
+
         static bool PeakOut = true;
 
         public SimpleObject MyObject;        
@@ -56,16 +62,23 @@ namespace CloudberryKingdom.Spikes
             Core.GenData.NoBlockOverlap = true;
             Core.GenData.LimitGeneralDensity = true;
 
+            Core.WakeUpRequirements = true;
+        }
+
+        public void Init(Level level)
+        {
+            Vector2 size = level.Info.Spikes.Size * level.Info.ScaleAll * level.Info.ScaleAllObjects;
+            MyObject.Base.e1 = new Vector2(size.X, 0);
+            MyObject.Base.e2 = new Vector2(0, size.Y);
+
             Box.Initialize(Core.Data.Position, Prototypes.spike.MyObject.Boxes[0].Size() / 2);
-            
+
             MyObject.Read(0, 0);
             MyObject.Update();
-            UpdateObject();            
+            UpdateObject();
 
             Box.SetTarget(Core.Data.Position, Box.Current.Size);
             Box.SwapToCurrent();
-
-            Core.WakeUpRequirements = true;
         }
 
         public Spike(bool BoxesOnly)
@@ -105,9 +118,6 @@ namespace CloudberryKingdom.Spikes
 
             SourceObject.ConvertForSimple();            
             MyObject = new SimpleObject(SourceObject);
-            Vector2 size = InfoWad.GetVec("Spike_Size");
-            MyObject.Base.e1 *= size.X;// *.125f;
-            MyObject.Base.e2 *= size.Y;// *.125f;
 
             MyObject.Quads[1].Animated = false;
             
@@ -291,6 +301,7 @@ namespace CloudberryKingdom.Spikes
             Core.Clone(A.Core);
                         
             Spike SpikeA = A as Spike;
+            Init(A.MyLevel);
 
             SetDir(SpikeA.Dir);
 

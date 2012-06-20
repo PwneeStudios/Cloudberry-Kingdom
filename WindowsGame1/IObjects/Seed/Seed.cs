@@ -88,7 +88,7 @@ namespace CloudberryKingdom
         {
             if (Core.MyLevel.PlayMode != 0) return;
 
-            MySound.Play();
+            //MySound.Play();
         }
 
         public void Init()
@@ -97,7 +97,7 @@ namespace CloudberryKingdom
             {
                 TemplateInitialized = true;
 
-                MySound = InfoWad.GetSound("Checkpoint_Sound");
+                //MySound = InfoWad.GetSound("Checkpoint_Sound");
             }
         }
 
@@ -138,7 +138,7 @@ namespace CloudberryKingdom
         }
 
         int WhispySound_Count = 0;
-        int WhispySound_Period = (int)InfoWad.GetFloat("Maelstrom_Regular_Period");
+        int WhispySound_Period = 120;
         void WhispySound_Phsx()
         {
             if (WhispySound_Count == 0)

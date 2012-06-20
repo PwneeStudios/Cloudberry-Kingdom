@@ -115,7 +115,7 @@ namespace CloudberryKingdom
             MovingPlatform block = (MovingPlatform)Core.Recycle.GetObject(ObjectType.MovingPlatform, Core.BoxesOnly);
 
             block.Parent = this;
-            block.Init(EmitData.Position, Size);
+            block.Init(EmitData.Position, Size, MyLevel);
 
             if (GiveLayer) block.Core.DrawLayer = Core.DrawLayer;
 

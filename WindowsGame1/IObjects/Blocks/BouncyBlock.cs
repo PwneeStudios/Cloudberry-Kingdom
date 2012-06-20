@@ -5,15 +5,23 @@ using Microsoft.Xna.Framework;
 using Drawing;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
     public enum BouncyBlockState { Regular, SuperStiff };
     public class BouncyBlock : BlockBase
     {
-        public EzSound BounceSound = Tools.SoundWad.FindByName("BouncyBlock_Bounce");
+        public class BouncyBlockTileInfo
+        {
+            public BlockGroup Group = PieceQuad.BouncyGroup;
+            public EzSound BounceSound = Tools.SoundWad.FindByName("BouncyBlock_Bounce");
 
-        public QuadClass MyQuad;
+            public BouncyBlockTileInfo()
+            {
+            }
+        }
+
         BouncyBlockState State;
         public Vector2 Offset, SizeOffset;
         public float speed;
@@ -32,14 +40,6 @@ namespace CloudberryKingdom
             SetState(BouncyBlockState.Regular);
         }
 
-        public override void Release()
-        {
-            base.Release();
-
-            MyQuad = null;
-            MyBox = null;
-        }
-
         public void SetState(BouncyBlockState NewState) { SetState(NewState, false); }
         public void SetState(BouncyBlockState NewState, bool ForceSet)
         {
@@ -48,43 +48,38 @@ namespace CloudberryKingdom
                 switch (NewState)
                 {
                     case BouncyBlockState.Regular:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName("BouncyBlock1");
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
                         break;
                     case BouncyBlockState.SuperStiff:
-                        MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName("BouncyBlock2");
+                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
                         break;
                 }
             }
 
             State = NewState;
-        }
+         }
 
         public BouncyBlock(bool BoxesOnly)
         {
-            MyQuad = new QuadClass();
-
             MyBox = new AABox();
+            MyDraw = new NormalBlockDraw();
 
             MakeNew();
 
             Core.BoxesOnly = BoxesOnly;
         }
 
-        public void Init(Vector2 center, Vector2 size, float speed)
+        public void Init(Vector2 center, Vector2 size, float speed, Level level)
         {
             Active = true;
             
             this.speed = speed;
 
             BlockCore.Layer = .35f;
-            MyBox = new AABox(center, size);
-            MyQuad.Base.Origin = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            MyBox.Initialize(center, size);
+            base.Init(ref center, ref size, level, level.Info.BouncyBlocks.Group);
 
             SetState(BouncyBlockState.Regular, true);
-            MyQuad.Base.e1.X = size.X;
-            MyQuad.Base.e2.Y = size.Y;
 
             Update();
         }
@@ -140,7 +135,7 @@ namespace CloudberryKingdom
 
         public override void Reset(bool BoxesOnly)
         {
-            BlockCore.BoxesOnly = BoxesOnly;
+            base.Reset(BoxesOnly);
 
             Active = true;
 
@@ -255,12 +250,10 @@ namespace CloudberryKingdom
             {
                 if (!BlockCore.BoxesOnly)
                 {
-                    MyQuad.Base.Origin = MyBox.Current.Center + Offset;
-                    MyQuad.Base.e1.X = MyBox.Current.Size.X + SizeOffset.X;
-                    MyQuad.Base.e2.Y = MyBox.Current.Size.Y + SizeOffset.Y;
+                    MyDraw.Update();
+                    MyDraw.MyPieces.Base.Origin += Offset;
 
-                    MyQuad.Draw();
-                    Tools.QDrawer.Flush();
+                    MyDraw.Draw();
                 }
             }
 
@@ -273,7 +266,7 @@ namespace CloudberryKingdom
 
             BouncyBlock BlockA = A as BouncyBlock;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.speed);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.speed, BlockA.MyLevel);
 
             SideDampening = BlockA.SideDampening;
 

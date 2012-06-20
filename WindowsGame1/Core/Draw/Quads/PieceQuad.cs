@@ -115,7 +115,7 @@ namespace CloudberryKingdom
 
         public static PieceQuad BrickWall, BrickPillar_Small, BrickPillar_Medium, BrickPillar_Large, BrickPillar_LargePlus, BrickPillar_Xlarge,
                                 Floating_Small, Floating_Medium, Floating_Large, Floating_Xlarge,
-                                MovingBlock, FallingBlock,
+                                MovingBlock, FallingBlock, BouncyBlock, Elevator,
                                 Castle, Catwalk, Castle2,
                                 OutsideBlock, TileBlock, Cement,
                                 Outside_Smallest, Outside_Smaller, Outside_Small, Outside_Medium, Outside_Large, Outside_XLarge,
@@ -124,6 +124,8 @@ namespace CloudberryKingdom
                                 Inside2_Pillar_Smallest, Inside2_Pillar_Smaller, Inside2_Pillar_Small, Inside2_Pillar_Medium, Inside2_Pillar_Large, Inside2_Pillar_XLarge,
                                 SpeechBubble, SpeechBubbleRed,
                                 Menu, CharMenu, CharMenu_Top, FreePlayMenu, TitleMenuPieces;
+
+        public static BlockGroup FallGroup, BouncyGroup, MovingGroup, ElevatorGroup;
 
         public static PieceQuadGroup DarkPillars, Islands;
 

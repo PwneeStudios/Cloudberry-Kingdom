@@ -123,8 +123,8 @@ namespace CloudberryKingdom.Levels
             // Get FireSpinner parameters
             FireSpinner_Parameters Params = (FireSpinner_Parameters)Style.FindParams(FireSpinner_AutoGen.Instance);
 
-            float SpinnerTopOffset = InfoWad.GetFloat("Spinner_TopOffset");
-            float SpinnerBottomOffset = InfoWad.GetFloat("Spinner_BottomOffset");
+            float SpinnerTopOffset = Info.Spinners.TopOffset;
+            float SpinnerBottomOffset = Info.Spinners.BottomOffset;
 
             foreach (BlockBase block in Blocks)
             {
@@ -150,11 +150,11 @@ namespace CloudberryKingdom.Levels
                         float y;
                         if (block.BlockCore.BlobsOnTop)
                         {
-                            y = block.Box.Target.TR.Y - 80 + SpinnerTopOffset;
+                            y = block.Box.Target.TR.Y + SpinnerTopOffset;
                         }
                         else
                         {
-                            y = block.Box.Target.BL.Y + 80 - SpinnerBottomOffset;
+                            y = block.Box.Target.BL.Y + SpinnerBottomOffset;
                         }
 
                         if (x > CurMakeData.PieceSeed.End.X - 400) continue;

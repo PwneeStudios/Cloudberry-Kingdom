@@ -23,7 +23,7 @@ namespace CloudberryKingdom.Awards
 
         void Yes(MenuItem item)
         {
-            var sound = InfoWad.GetSound("GetCoin_Sound");
+            var sound = Tools.Sound("Coin");
             int wait = 0;
             float pitch = 0;
             for (int i = 0; i < Cost; i += 150)
