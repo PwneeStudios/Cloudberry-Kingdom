@@ -1604,7 +1604,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static Vector2 ParseToVector2(String bit1, String bit2)
         {
-            Vector2 Vec;
+            Vector2 Vec = Vector2.Zero;
             
             Vec.X = float.Parse(bit1);
             Vec.Y = float.Parse(bit2);
@@ -1614,7 +1614,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static PhsxData ParseToPhsxData(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6)
         {
-            PhsxData data;
+            PhsxData data = new PhsxData();
 
             data.Position.X = float.Parse(bit1);
             data.Position.Y = float.Parse(bit2);
@@ -1628,7 +1628,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static BasePoint ParseToBasePoint(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6)
         {
-            BasePoint b;
+            BasePoint b = new BasePoint();
 
             b.e1.X = float.Parse(bit1);
             b.e1.Y = float.Parse(bit2);

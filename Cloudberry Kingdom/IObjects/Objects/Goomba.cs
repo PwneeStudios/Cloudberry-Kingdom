@@ -165,8 +165,10 @@ namespace CloudberryKingdom.Goombas
             GiveVelocity = false;
         }
 
-        public void Init(Level level)
+        public override void Init(Vector2 pos, Level level)
         {
+            base.Init(pos, level);
+
             Vector2 size = level.Info.Blobs.Size * level.Info.ScaleAll * level.Info.ScaleAllObjects;
             MyObject.Base.e1 = new Vector2(size.X, 0);
             MyObject.Base.e2 = new Vector2(0, size.Y);
@@ -721,7 +723,7 @@ namespace CloudberryKingdom.Goombas
             Core.Clone(A.Core);
 
             Goomba GoombaA = A as Goomba;
-            Init(A.MyLevel);
+            Init(A.Core.StartData.Position, A.MyLevel);
 
             MyMoveType = GoombaA.MyMoveType;
 

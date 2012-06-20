@@ -75,8 +75,6 @@ namespace CloudberryKingdom
             MyPieceIndex = -1;
 
             SetAnimation();
-
-            Init();
         }
 
         public Checkpoint()
@@ -126,22 +124,24 @@ namespace CloudberryKingdom
 
             Game.CheckpointGrabEvent(this);
 
-            MySound.Play();
+            Info.Checkpoints.MySound.Play();
         }
 
-        public void Init()
+        public void Init(Level level)
         {
-            Box.Initialize(Core.Data.Position, Info.Checkpoints.Size);
+            base.Init(Vector2.Zero, level);
+
+            Box.Initialize(Core.Data.Position, level.Info.Checkpoints.Size);
 
             if (!Core.BoxesOnly)
             {
                 MyQuad.MyEffect = Tools.BasicEffect;
-                MyQuad.MyTexture = Tools.Texture("Checkpoint3");
+                MyQuad.Set(level.Info.Checkpoints.Sprite);
                 MyQuad.Init();
             }
 
-            Base.e1 = new Vector2(Info.Checkpoints.TextureSize.X, 0);
-            Base.e2 = new Vector2(0, Info.Checkpoints.TextureSize.Y);
+            Base.e1 = new Vector2(level.Info.Checkpoints.TextureSize.X, 0);
+            Base.e2 = new Vector2(0, level.Info.Checkpoints.TextureSize.Y);
 
             Update();
         }

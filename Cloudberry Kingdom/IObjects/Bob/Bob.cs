@@ -734,6 +734,7 @@ namespace CloudberryKingdom.Bobs
                             pos.Y -= 135;
 
                             Goomba NewGoomba = (Goomba)Core.Recycle.GetObject(ObjectType.FlyingBlob, false);
+                            NewGoomba.Init(pos, MyLevel);
                             NewObj = NewGoomba;
 
                             NewGoomba.Core.Data.Position = NewGoomba.Core.StartData.Position = pos;

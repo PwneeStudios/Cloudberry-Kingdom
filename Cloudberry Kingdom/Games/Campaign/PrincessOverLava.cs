@@ -156,6 +156,7 @@ namespace CloudberryKingdom
 
             // Make blob
             Goomba blob = (Goomba)Recycle.GetObject(ObjectType.FlyingBlob, false);
+            blob.Init(Vector2.Zero, MyLevel);
             block.Box.CalcBounds_Full();
             blob.Pos = new Vector2(MyLevel.Rnd.RndFloat(block.Box.TR.X, block.Box.BL.X), block.Pos.Y);
 

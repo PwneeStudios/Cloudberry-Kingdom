@@ -102,8 +102,9 @@ namespace CloudberryKingdom
         {
             base.SetIndex(NewIndex);
 
-            LastHitItem = CurMenuItem;
 #if WINDOWS
+            LastHitItem = CurMenuItem;
+
             if (!Tools.TheGame.MouseInUse)
                 SelectedItem = CurMenuItem;
 #else

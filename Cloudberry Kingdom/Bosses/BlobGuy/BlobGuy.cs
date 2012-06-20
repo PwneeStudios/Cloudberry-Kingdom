@@ -386,7 +386,8 @@ namespace CloudberryKingdom
         Goomba MakeBlob(bool CopySource)
         {
             Goomba blob = (Goomba)Core.Recycle.GetObject(ObjectType.FlyingBlob, false);
-            blob.Core.Data.Position = RandomPos_ScreenSide(Core.MyLevel.MainCamera); //Core.MyLevel.MainCamera.Data.Position +2000 * MyLevel.Rnd.RndDir();
+            var pos = RandomPos_ScreenSide(Core.MyLevel.MainCamera); //Core.MyLevel.MainCamera.Data.Position +2000 * MyLevel.Rnd.RndDir();
+            blob.Init(pos, MyLevel);
 
             if (CopySource)
             {
@@ -839,7 +840,7 @@ namespace CloudberryKingdom
 
             // Make blob
             Goomba blob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, false);
-
+            blob.Init(Vector2.Zero, level);
             ModBlob(blob);
 
             blob.NeverSkip = true;

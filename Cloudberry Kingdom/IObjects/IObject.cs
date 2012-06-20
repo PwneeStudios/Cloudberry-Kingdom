@@ -68,11 +68,6 @@ namespace CloudberryKingdom
             OnUsed();
         }
 
-        public void A(int x = 1)
-        {
-            Tools.Write(x);
-        }
-
         public virtual void MakeNew() { }
         public virtual void PhsxStep() { }
         public virtual void PhsxStep2() { }
@@ -85,7 +80,6 @@ namespace CloudberryKingdom
         public virtual void Interact(Bob bob) { }
         public virtual void Move(Vector2 shift)
         {
-            A();
             Core.StartData.Position += shift;
             Core.Data.Position += shift;
         }

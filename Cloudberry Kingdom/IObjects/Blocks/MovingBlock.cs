@@ -73,14 +73,13 @@ namespace CloudberryKingdom.Blocks
             return min;
         }
                
-        /*
         public override void ResetPieces()
         {
-            if (MyDraw.MyTemplate != null)
-            {
-                base.ResetPieces();
-                return;
-            }
+            //if (MyDraw.MyTemplate != null)
+            //{
+            //    base.ResetPieces();
+            //    return;
+            //}
 
             // old, crap
             MyDraw.Init(this, PieceQuad.MovingBlock);
@@ -100,7 +99,7 @@ namespace CloudberryKingdom.Blocks
             }
             if (UV_Repeats < .75f)
                 MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Thin");
-        }*/
+        }
 
         public void Init(Vector2 center, Vector2 size, Level level)
         {

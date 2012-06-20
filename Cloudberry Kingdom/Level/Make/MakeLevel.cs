@@ -158,7 +158,8 @@ namespace CloudberryKingdom
                     for (int i = 0; i < level.LevelPieces[0].NumBobs; i++)
                     {
                         Checkpoint checkpoint = (Checkpoint)game.Recycle.GetObject(ObjectType.Checkpoint, false);
-                        
+                        checkpoint.Init(level);
+
                         PhsxData data = level.LevelPieces[0].StartData[i];
                         data.Position.X = level.LevelPieces[0].StartData[0].Position.X;
                         data.Position += level.LevelPieces[0].CheckpointShift[i];

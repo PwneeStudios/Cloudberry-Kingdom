@@ -1545,6 +1545,7 @@ namespace CloudberryKingdom
         StringBuilder MainString = new StringBuilder(100, 100);
         void DrawGC()
         {
+            
             if (Tools.ScreenshotMode) return;
 
             Tools.StartSpriteBatch();

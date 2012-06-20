@@ -426,7 +426,7 @@ namespace CloudberryKingdom.Levels
 
             // Make the new blob
             Goomba NewBlob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, true);
-            NewBlob.Init(level);
+            NewBlob.Init(pos, level);
 
             NewBlob.Core.Data.Position = NewBlob.Core.StartData.Position = pos;
             NewBlob.Period = (int)Params.Period.GetVal(pos);

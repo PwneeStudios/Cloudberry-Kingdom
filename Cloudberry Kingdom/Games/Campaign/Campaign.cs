@@ -540,6 +540,7 @@ namespace CloudberryKingdom
             for (int i = 0; i < n; i++)
             {
                 Goomba blob = (Goomba)game.Recycle.GetObject(ObjectType.FlyingBlob, false);
+                blob.Init(Vector2.Zero, game.MyLevel);
                 blob.SetStandardTargetParams();
                 Blobs.Add(blob);
                 game.MyLevel.AddObject(blob);
@@ -776,7 +777,8 @@ namespace CloudberryKingdom
         {
             // Make blob
             Goomba blob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, false);
-            blob.Pos = new Vector2(level.MainCamera.BL.X - 500, level.Rnd.RndFloat(level.MainCamera.BL.Y, level.MainCamera.TR.Y));
+            var pos = new Vector2(level.MainCamera.BL.X - 500, level.Rnd.RndFloat(level.MainCamera.BL.Y, level.MainCamera.TR.Y));
+            blob.Init(pos, level);
 
             blob.NeverSkip = true;
 
