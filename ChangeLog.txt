@@ -1,0 +1,15 @@
+v0.1.2
+--------------------------------------------------------------------------------------------------------
+Added a pre-game launcher that automatically installs XNA 4.0 and .NET Framework 4.
+Added a dump log that outputs errors whenever the game crashes.
+Added this log file to track changes.
+
+v0.1.1
+--------------------------------------------------------------------------------------------------------
+Added support for mouse interaction with GUIs.
+Added support for multiple resolutions, fullscreen/windowed mode.
+Hats and advanced Arcade games are now locked by default, and must be unlocked through gameplay.
+
+v0.1.0
+--------------------------------------------------------------------------------------------------------
+Initial beta release.
