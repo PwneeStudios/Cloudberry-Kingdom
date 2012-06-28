@@ -74,6 +74,7 @@ namespace CloudberryKingdom.Viewer
             this.PlayCheckbox = new System.Windows.Forms.CheckBox();
             this.MoveBoundsCheckbox = new System.Windows.Forms.CheckBox();
             this.MoveQuadsCheckbox = new System.Windows.Forms.CheckBox();
+            this.dumpToCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.QuadBox.SuspendLayout();
             this.QuadTab.SuspendLayout();
             this.XY_Page.SuspendLayout();
@@ -419,7 +420,8 @@ namespace CloudberryKingdom.Viewer
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
-            this.loadToolStripMenuItem});
+            this.loadToolStripMenuItem,
+            this.dumpToCodeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -427,21 +429,21 @@ namespace CloudberryKingdom.Viewer
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -552,6 +554,13 @@ namespace CloudberryKingdom.Viewer
             this.MoveQuadsCheckbox.UseVisualStyleBackColor = true;
             this.MoveQuadsCheckbox.CheckedChanged += new System.EventHandler(this.MoveQuadsCheckbox_CheckedChanged);
             // 
+            // dumpToCodeToolStripMenuItem
+            // 
+            this.dumpToCodeToolStripMenuItem.Name = "dumpToCodeToolStripMenuItem";
+            this.dumpToCodeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dumpToCodeToolStripMenuItem.Text = "Dump to code";
+            this.dumpToCodeToolStripMenuItem.Click += new System.EventHandler(this.dumpToCodeToolStripMenuItem_Click);
+            // 
             // BackgroundViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,6 +645,7 @@ namespace CloudberryKingdom.Viewer
         private System.Windows.Forms.ToolStripMenuItem boundingBoxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem axisLinesToolStripMenuItem;
         private System.Windows.Forms.CheckBox MoveQuadsCheckbox;
+        private System.Windows.Forms.ToolStripMenuItem dumpToCodeToolStripMenuItem;
     }
 }
 #endif

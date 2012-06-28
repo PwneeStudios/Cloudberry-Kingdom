@@ -61,7 +61,8 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
                     if (MyTextBox != null)
-                        MyMenu.Show = MyMenu.Active = false;
+                        MyGame.WaitThenDo(DelayPhsx, () => MyTextBox.Active = true);
+                        //MyMenu.Show = MyMenu.Active = false;
 #endif
                 });
         }
@@ -146,6 +147,7 @@ namespace CloudberryKingdom
 
             // Make the text box to allow the player to enter their name
             MyTextBox = new GUI_EnterName();
+            MyTextBox.Active = false; // Keep inactive until parent GUI_Panel says it's OK to take input.
             MyTextBox.AutoDraw = false;
             MyGame.AddGameObject(MyTextBox);
 

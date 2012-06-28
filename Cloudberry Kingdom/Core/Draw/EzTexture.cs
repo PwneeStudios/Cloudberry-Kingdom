@@ -156,10 +156,7 @@ namespace Drawing
         public Dictionary<string, AnimationData_Texture> AnimationDict;
         public void Add(AnimationData_Texture anim, string name)
         {
-            if (AnimationDict.ContainsKey(name))
-                AnimationDict[name] = anim;
-            else
-                AnimationDict.Add(name, anim);
+            AnimationDict.AddOrOverwrite(name, anim);
         }
 
 
@@ -587,10 +584,10 @@ namespace Drawing
 
                     string name = NewTex.Name.ToLower();
                     if (!NameDict.ContainsKey(name))
-                        NameDict.Add(name, NewTex);
-                    PathDict.Add(NewTex.Path.ToLower(), NewTex);
+                        NameDict.AddOrOverwrite(name, NewTex);
+                    PathDict.AddOrOverwrite(NewTex.Path.ToLower(), NewTex);
 
-                    BigNameDict.Add(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
+                    BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
                 }
             }
 

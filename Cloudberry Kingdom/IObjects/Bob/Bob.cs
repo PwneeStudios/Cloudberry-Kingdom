@@ -810,6 +810,7 @@ namespace CloudberryKingdom.Bobs
             Life = (int)Params.Delay.GetVal(Core.Data.Position);
 
             NewBlock.Init(pos + offset, new Vector2(75, 75), Life, MyLevel);
+            
             NewBlock.BlockCore.BoxesOnly = BoxesOnly;
 
             return NewBlock as BlockBase;

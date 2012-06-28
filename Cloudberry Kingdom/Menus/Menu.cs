@@ -32,7 +32,7 @@ namespace CloudberryKingdom
     }
 
     public delegate bool MenuB(Menu menu);
-    public class Menu : IViewable, IViewableList
+    public class Menu : ViewReadWrite, IViewableList
     {
         public static class DefaultMenuInfo
         {
@@ -70,9 +70,9 @@ namespace CloudberryKingdom
             public static Vector2 Slider_Size = new Vector2(28, 55);
         }
 
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
-            return new string[] { "BackdropShift" };
+            return new string[] { "BackdropShift", "Items" };
         }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)
@@ -779,7 +779,9 @@ namespace CloudberryKingdom
         /// </summary>
         public Vector2 MyCameraZoom { get { return _MyCameraZoom; } set { _MyCameraZoom = value; } }
 
-        public bool Show = true;
+        bool _Show = true;
+        public bool Show { get { return _Show; } set { _Show = value; } }
+        //public bool Show = true;
         public virtual void Draw()
         {
             MyCameraZoom = Tools.CurCamera.Zoom;

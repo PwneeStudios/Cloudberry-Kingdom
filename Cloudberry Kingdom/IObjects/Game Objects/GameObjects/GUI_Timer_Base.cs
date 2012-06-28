@@ -168,6 +168,8 @@ namespace CloudberryKingdom
             base.MyPhsxStep();
             if (Core.Released || MyGame == null) return;
 
+            if (MyGame.HasBeenCompleted) return;
+
             if (MyGame.SoftPause) return;
             if (Hid || !Active) return;
 

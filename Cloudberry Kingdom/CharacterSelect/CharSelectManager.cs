@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Drawing;
@@ -11,11 +11,11 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class CharacterSelectManager : IViewable
+    public class CharacterSelectManager : ViewReadWrite
     {
         public static GUI_Panel ParentPanel;
 
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }
@@ -42,12 +42,12 @@ namespace CloudberryKingdom
         {
             CamPos = new FancyVector2();
 
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
             SignedInGamer.SignedIn += new System.EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
 #endif
         }
 
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
             if (CharSelect == null) return;

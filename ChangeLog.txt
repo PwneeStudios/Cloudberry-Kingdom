@@ -1,8 +1,31 @@
+(In development)
+--------------------------------------------------------------------------------------------------------
+New Arcade meta-game. Prepare yourself.
+Save/load levels.
+Save/load custom heroes.
+Use custom heroes in Freeplay.
+
+v0.1.5
+--------------------------------------------------------------------------------------------------------
+Game now saves volume preferences.
+Bug fixed: Preferences were being deleted when new updates to the game came out.
+Bug fixed: Freeplay wall and build levels were crashing.
+Bug fixed: Players can no longer get on top of levels.
+
+v0.1.4
+--------------------------------------------------------------------------------------------------------
+Bug fixed: Game was not pausing correctly when it didn't have focus.
+Bug fixed: Game Over screen in Arcade games occasionally had no menu, and could not be exited.
+Bug fixed: Corrupted game folders occasionally contain duplicate resources. This no longer crashes the game.
+
+v0.1.3
+--------------------------------------------------------------------------------------------------------
+Added this log file to track changes.
+
 v0.1.2
 --------------------------------------------------------------------------------------------------------
 Added a pre-game launcher that automatically installs XNA 4.0 and .NET Framework 4.
 Added a dump log that outputs errors whenever the game crashes.
-Added this log file to track changes.
 
 v0.1.1
 --------------------------------------------------------------------------------------------------------

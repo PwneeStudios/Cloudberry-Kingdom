@@ -7,7 +7,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundCollection : IReadWrite
+    public class BackgroundCollection : ViewReadWrite
     {
         public Level MyLevel;
 
@@ -119,20 +119,13 @@ namespace CloudberryKingdom
 
         public void PhsxStep()
         {
+#if INCLUDE_EDITOR
             if (Tools.EditorPause) return;
-
+#endif
             foreach (BackgroundFloaterList list in Lists)
                 list.PhsxStep();
         }
 
-        public void Write(StreamWriter writer)
-        {
-            Tools.WriteFields(this, writer, "Lists");
-        }
-
-        public void Read(StreamReader reader)
-        {
-            Tools.ReadFields(this, reader);
-        }
+        public override string[] GetViewables() { return new string[] { "Lists" }; }
     }
 }

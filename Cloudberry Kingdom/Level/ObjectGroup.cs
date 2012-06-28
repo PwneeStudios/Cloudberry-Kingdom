@@ -7,9 +7,9 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public class ObjectGroup : IViewable
+    public class ObjectGroup : ViewReadWrite
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }

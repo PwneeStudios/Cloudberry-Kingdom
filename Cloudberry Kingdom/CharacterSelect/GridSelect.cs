@@ -5,8 +5,10 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class GridSelect
+    public class GridSelect : ViewReadWrite
     {
+        public override string[] GetViewables() { return new string[] { }; }
+
         protected List<object> AssociatedObjects;
 
         /// <summary>

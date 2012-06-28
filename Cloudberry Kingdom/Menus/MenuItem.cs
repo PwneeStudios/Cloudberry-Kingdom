@@ -7,7 +7,7 @@ using Drawing;
 namespace CloudberryKingdom
 {
     public delegate void MenuItemGo(MenuItem item);
-    public class MenuItem : IViewable
+    public class MenuItem : ViewReadWrite
     {
         public int Code = 0;
 
@@ -19,9 +19,9 @@ namespace CloudberryKingdom
         public object MyObject = null;
         public int MyInt = 0;
 
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
-            return new string[] { "Pos", "SelectedPos", "!MyMenu" };
+            return new string[] { "Pos", "SelectedPos", "MyText", "MySelectedText", "!MyMenu" };
         }
 
         public MenuItem Clone()

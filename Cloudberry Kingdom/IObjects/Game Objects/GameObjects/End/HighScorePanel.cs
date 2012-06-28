@@ -149,12 +149,19 @@ namespace CloudberryKingdom
         {
             // (X) to swap
             //SwapText = new EzText(ButtonString.X(120), Tools.Font_Dylan60, 1450, false, true, .6f);
+
+#if PC_VERSION
+            SwapText = new EzText(ButtonString.Enter(200), Tools.Font_Dylan60, 1450, false, true, .6f);
+            SwapText.Pos = new Vector2(-1169.281f, 602.9366f);
+#else
             SwapText = new EzText(ButtonString.Go(130), Tools.Font_Dylan60, 1450, false, true, .6f);
+            SwapText.Pos = new Vector2(-1014.837f, 597.3811f);
+#endif
+
             SwapText.Scale = .8f;
             SwapText.MyFloatColor = new Color(255, 255, 255).ToVector4();
             SwapText.OutlineColor = new Color(0, 0, 0).ToVector4();
-            SwapText.Pos =
-                new Vector2(-1014.837f, 597.3811f);
+
             MyPile.Add(SwapText);
             //Text.Shadow = true;
             SwapText.ShadowColor = new Color(.36f, .36f, .36f, .86f);

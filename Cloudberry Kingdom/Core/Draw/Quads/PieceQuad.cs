@@ -108,7 +108,7 @@ namespace CloudberryKingdom
                 if (Tools.GetFileExt(path, file) == "boxes")
                 {
                     PieceQuad Template = new PieceQuad(file);
-                    Dict.Add(Tools.GetFileName(file), Template);
+                    Dict.AddOrOverwrite(Tools.GetFileName(file), Template);
                 }
             }
         }

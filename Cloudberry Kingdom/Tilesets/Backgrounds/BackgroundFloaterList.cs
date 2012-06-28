@@ -6,7 +6,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundFloaterList : IReadWrite
+    public class BackgroundFloaterList : ViewReadWrite
     {
         public string Name = null;
 
@@ -146,14 +146,6 @@ namespace CloudberryKingdom
             BackgroundFloater.AddSpan(Root, Floaters, BL, TR, MyLevel);
         }
 
-        public void Write(StreamWriter writer)
-        {
-            Tools.WriteFields(this, writer, "Name", "Parallax", "Floaters");
-        }
-
-        public void Read(StreamReader reader)
-        {
-            Tools.ReadFields(this, reader);
-        }
+        public override string[] GetViewables() { return new string[] { "Name", "Parallax", "Floaters" }; }
     }
 }

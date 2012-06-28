@@ -116,7 +116,7 @@ namespace CloudberryKingdom.Spikes
             reader.Close();
             stream.Close();
 
-            SourceObject.ConvertForSimple();            
+            SourceObject.ConvertForSimple();
             MyObject = new SimpleObject(SourceObject);
 
             MyObject.Quads[1].Animated = false;

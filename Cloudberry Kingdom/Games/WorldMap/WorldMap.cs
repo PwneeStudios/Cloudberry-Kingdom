@@ -61,7 +61,7 @@ namespace CloudberryKingdom
 
         public void Add(Door door, T item)
         {
-            Add(door.Core.EditorCode1, item);
+            this.AddOrOverwrite(door.Core.EditorCode1, item);
         }
     }
 
@@ -173,10 +173,10 @@ namespace CloudberryKingdom
             // Add to dictionaries
             string code = door.Core.EditorCode1;
 
-            Doors.Add(code, door);
+            Doors.AddOrOverwrite(code, door);
             if (!Data.ContainsKey(code))
-                Data.Add(code, new DoorData());
-            Dependence.Add(code, new List<string>());
+                Data.AddOrOverwrite(code, new DoorData());
+            Dependence.AddOrOverwrite(code, new List<string>());
 
             // Mod door interaction size
             door.ModDoorSize = new Vector2(.9125f, 1f);

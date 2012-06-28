@@ -31,12 +31,6 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    interface IReadWrite
-    {
-        void Write(StreamWriter writer);
-        void Read(StreamReader reader);
-    }
-
     public static class StringExtension
     {
         public static string Capitalize(this string s)
@@ -382,6 +376,14 @@ namespace CloudberryKingdom
             {
                 dict.Remove(cur.Key);
             }
+        }
+
+        public static void AddOrOverwrite<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
+        {
+            if (dict.ContainsKey(key))
+                dict[key] = value;
+            else
+                dict.Add(key, value);
         }
     }
 
@@ -907,11 +909,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static float CurSongVolume;
         public static WrappedFloat SoundVolume, MusicVolume;
+        public static bool FixedTimeStep = true;
 
 #if INCLUDE_EDITOR && WINDOWS
         public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(TheGame.Window.Handle); } }
 #endif
         public static CloudberryKingdom.CloudberryKingdomGame TheGame;
+        public static Version GameVersion { get { return CloudberryKingdom.CloudberryKingdomGame.GameVersion; } }
         public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
 
         public static String[] ButtonNames = { "A", "B", "X", "Y", "RS", "LS", "RT", "LT", "RJ", "RJ", "LJ", "LJ", "DPad", "Start" };
@@ -1324,6 +1328,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return bits;
         }
 
+        public static List<string> GetBitsFromReader(StreamReader reader)
+        {
+            return GetBitsFromLine(reader.ReadLine());
+        }
+
 
         public static object ReadFields(object obj, StreamReader reader)
         {
@@ -1421,6 +1430,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
         }
         static int WriteRecursiveDepth = 0;
+        static int WriteObjId = 0;
         public static void WriteFields(object obj, StreamWriter writer, params string[] VariableNames)
         {
             WriteRecursiveDepth++;
@@ -1509,6 +1519,137 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             WriteRecursiveDepth--;
         }
+
+        static void ResetWrite()
+        {
+            WriteRecursiveDepth = 0;
+            WriteObjId = 0;
+        }
+
+        public static void WriteCode(IReadWrite rw)
+        {
+            ResetWrite();
+
+            var stream = File.Open("code_dump.code", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+            var writer = new StreamWriter(stream);
+
+            rw.WriteCode("", writer);
+
+            writer.Close();
+            stream.Close();
+        }
+        
+        public static void WriteFieldsToCode(object obj, string prefix, StreamWriter writer, params string[] VariableNames)
+        {
+            string _prefix = prefix;
+            if (prefix.Length > 0)
+                _prefix += ".";
+
+            WriteRecursiveDepth++;
+            string WhiteSpace = "";
+            for (int i = 1; i < WriteRecursiveDepth; i++)
+                WhiteSpace += "  ";
+
+            foreach (FieldInfo info in obj.GetType().GetFields())
+            {
+                // Check if field is listed as a variable to be written.
+                if (VariableNames.Contains(info.Name))
+                {
+                    string line = null;
+                    // int
+                    if (info.FieldType == typeof(int))
+                        line = ((int)info.GetValue(obj)).ToString();
+                    // float
+                    else if (info.FieldType == typeof(float))
+                        line = ((float)info.GetValue(obj)).ToString();
+                    // Vector2
+                    else if (info.FieldType == typeof(Vector2))
+                    {
+                        var v = (Vector2)(info.GetValue(obj));
+                        line = string.Format("new Vector2({0}f, {1}f)", v.X, v.Y);
+                    }
+                    // Color
+                    else if (info.FieldType == typeof(Color))
+                    {
+                        var c = (Color)(info.GetValue(obj));
+                        line = string.Format("new Color({0}, {1}, {2}, {3})", c.R, c.G, c.B, c.A);
+                    }
+                    // string
+                    else if (info.FieldType == typeof(string))
+                        line = string.Format("\"{0}\"", ((string)info.GetValue(obj)));
+                    // EzTexture
+                    else if (info.FieldType == typeof(EzTexture))
+                        line = string.Format("Tools.Texture(\"{0}\")", ((EzTexture)info.GetValue(obj)).Name);
+                    // PhsxData
+                    else if (info.FieldType == typeof(PhsxData))
+                    {
+                        var d = (PhsxData)(info.GetValue(obj));
+                        line = string.Format("new PhsxData({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", d.Position.X, d.Position.Y, d.Velocity.X, d.Velocity.Y, d.Acceleration.X, d.Acceleration.Y);
+                    }
+                    // BasePoint
+                    else if (info.FieldType == typeof(BasePoint))
+                    {
+                        var b = (BasePoint)(info.GetValue(obj));
+                        line = string.Format("new Drawing.BasePoint({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+                    }
+                    else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
+                    {
+                        var rw = (IReadWrite)(info.GetValue(obj));
+                        if (null == rw && !info.FieldType.IsValueType) continue;
+
+                        rw.WriteCode(_prefix + info.Name, writer);
+                        writer.WriteLine();
+                    }
+                    else
+                    {
+                        // List of IReadWrites
+                        Type type = info.FieldType;
+                        if (type.IsGenericType && type.GetGenericTypeDefinition()
+                                == typeof(List<>))
+                        {
+                            Type itemType = type.GetGenericArguments()[0];
+                            if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
+                            {
+                                foreach (var rw in (IEnumerable<IReadWrite>)info.GetValue(obj))
+                                {
+                                    // Get a new unique name for this object.
+                                    string item_name = GetObjName();
+                                    
+                                    // Get the string that constructs this object.
+                                    string construct = null;
+                                    if (rw is ViewReadWrite)
+                                        construct = ((ViewReadWrite)rw).GetConstructorString();
+                                    if (construct == null) construct = string.Format("new {0}()", rw.GetType());
+
+                                    // Write the constructor.
+                                    writer.WriteLine(WhiteSpace + string.Format("{0} {1} = {2};", rw.GetType(), item_name, construct));
+                                    
+                                    // Write the interior information of the object.
+                                    rw.WriteCode(item_name, writer);
+
+                                    // Add the object to the list.
+                                    writer.WriteLine(WhiteSpace + string.Format("{0}.Add({1});", info.Name, item_name));
+                                    writer.WriteLine();
+                                }
+                                writer.WriteLine();
+                            }
+                        }
+                    }
+
+                    if (line != null)
+                        writer.WriteLine(WhiteSpace + string.Format("{2}{0} = {1};", info.Name, line, _prefix));
+                }
+            }
+
+            WriteRecursiveDepth--;
+        }
+        static int GetObjId()
+        {
+            WriteObjId++;
+            return WriteObjId;
+        }
+        static string ObjName(int id) { return string.Format("__{0}", id); }
+        static string GetObjName() { return ObjName(GetObjId()); }
 
         public static Dictionary<string, int> GetLocations(List<string> Bits, params string[] keywords)
         {

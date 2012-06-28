@@ -632,6 +632,8 @@ namespace CloudberryKingdom
         {
             GameData game = door.Core.MyLevel.MyGame;
 
+            game.CompleteLevelEvent();
+
             // Don't do anything if level has ended
             if (door.Core.MyLevel.Finished)
                 return;

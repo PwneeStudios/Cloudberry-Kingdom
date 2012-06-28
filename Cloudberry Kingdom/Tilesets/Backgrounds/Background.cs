@@ -32,8 +32,8 @@ namespace CloudberryKingdom
         
         public static void AddTemplate(BackgroundTemplate template)
         {
-            NameLookup.Add(template.Name, template);
-            PathLookup.Add(template.File, template);
+            NameLookup.AddOrOverwrite(template.Name, template);
+            PathLookup.AddOrOverwrite(template.File, template);
         }
 
         public static void Load(string path)
@@ -117,7 +117,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public class Background : IReadWrite
+    public class Background : ViewReadWrite
     {
         public float MyGlobalIllumination = 1f;
         public bool AllowLava = true;
@@ -314,20 +314,20 @@ namespace CloudberryKingdom
                 }
         }
 
-        public void Write(StreamWriter writer)
+        public override string[] GetViewables()
         {
-            Tools.WriteFields(this, writer, "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection");
+            return new string[] { "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection" };
         }
-
         public void Read(StreamReader reader)
         {
             MyCollection.Lists.Clear();
 
-            Tools.ReadFields(this, reader);
+            base.Read(reader);
 
             SetLevel(MyLevel);
             Reset();
         }
+
 
         public void Save(string path)
         {

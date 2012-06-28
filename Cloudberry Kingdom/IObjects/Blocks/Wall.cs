@@ -72,7 +72,7 @@ namespace CloudberryKingdom.Blocks
         private void MakeSpike(int count, float pos)
         {
             Spike spike = (Spike)Core.MyLevel.Recycle.GetObject(ObjectType.Spike, false);
-
+            spike.Init(MyLevel);
 
             if (Horizontal)
             {
@@ -103,8 +103,6 @@ namespace CloudberryKingdom.Blocks
         public float Accel = .2f;
         public int InitialDelay = 60;
 
-        public NormalBlockDraw MyDraw;
-
         public override void MakeNew()
         {
             BlockCore.Init();
@@ -121,14 +119,6 @@ namespace CloudberryKingdom.Blocks
             Core.EditHoldable = Core.Holdable = true;
         }
 
-        public override void Release()
-        {
-            base.Release();
-
-            MyDraw.Release();
-            MyDraw = null;
-        }
-
         public Wall(bool BoxesOnly)
         {
             MyBox = new AABox();
@@ -139,7 +129,7 @@ namespace CloudberryKingdom.Blocks
             Core.BoxesOnly = BoxesOnly;
         }
 
-        public void ResetPieces()
+        public override void ResetPieces()
         {
             MyDraw.Init(this, PieceQuad.Castle);
         }

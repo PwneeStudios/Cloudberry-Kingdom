@@ -9,7 +9,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class ObjectBase
+    public class ObjectBase : ViewReadWrite
     {
         public GameData Game { get { return Core.MyLevel.MyGame; } }
         public Level MyLevel { get { return Core.MyLevel; } }

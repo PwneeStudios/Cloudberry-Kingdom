@@ -15,9 +15,9 @@ using Drawing;
 namespace CloudberryKingdom.Levels
 {
     public delegate void FinishedLevelHandler();
-    public partial class Level : IViewable
+    public partial class Level : ViewReadWrite
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }

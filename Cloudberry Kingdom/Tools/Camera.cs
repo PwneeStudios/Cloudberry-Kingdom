@@ -8,9 +8,9 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Camera : IPos, IViewable
+    public class Camera : ViewReadWrite, IPos
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { "!MyLevel" };
         }
@@ -370,7 +370,9 @@ namespace CloudberryKingdom
         float t;
         public void PhsxStep()
         {
+#if INCLUDE_EDITOR
             if (Tools.ViewerIsUp) return;
+#endif
 
             Vector2 CurPos = Data.Position;
             Vector2 CurZoom = Zoom;

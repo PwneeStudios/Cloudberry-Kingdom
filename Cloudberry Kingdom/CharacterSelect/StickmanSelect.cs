@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Drawing;
@@ -484,7 +484,7 @@ namespace CloudberryKingdom
 
             //MakeCustomizeMenu();
 
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
             MakeSignInChoiceMenu();
 #else
             // Dummy menu
@@ -498,7 +498,7 @@ namespace CloudberryKingdom
 
             if (QuickJoin)
             {
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
                 if (Player.MyGamer == null)
                     SetState(SelectState.SignInChoice);
                 else
@@ -958,7 +958,7 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.A, PlayerIndex).Pressed)
             {
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
                 if (Player.MyGamer != null)
                     SetState(SelectState.SimpleSelect);
                 else
@@ -976,7 +976,7 @@ namespace CloudberryKingdom
                 SetState(SelectState.Done);
         }
 
-#if XBOX_SIGNIN
+#if XBOX || XBOX_SIGNIN
         bool GuideUpPhsxStep()
         {
             if (!GamerGuideUp && !Guide.IsVisible) return false;
@@ -1022,12 +1022,12 @@ namespace CloudberryKingdom
             }
             else
                 Simple.MyMenu.Active = true;
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
             if (GuideUpPhsxStep())
                 return;
 #endif
 
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
             // Check for signout
             if (MyState != SelectState.SignInChoice && MyState != SelectState.PressAtoJoin)
             {

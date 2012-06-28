@@ -11,7 +11,7 @@ using CloudberryKingdom.Viewer;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundFloater : IReadWrite
+    public class BackgroundFloater : ViewReadWrite
     {
 #if INCLUDE_EDITOR
         public bool Selected = false, SoftSelected = false, FixedAspectPreference = true;
@@ -266,14 +266,12 @@ namespace CloudberryKingdom
 #endif
         }
 
-        public void Write(StreamWriter writer)
-        {
-            Tools.WriteFields(this, writer, "Name", "MyQuad", "uv_speed", "uv_offset", "Data", "StartData");
-        }
+        static string[] _bits_to_save = new string[] { "Name", "MyQuad", "uv_speed", "uv_offset", "Data", "StartData" };
+        public override string[] GetViewables() { return _bits_to_save; }
 
-        public void Read(StreamReader reader)
+        public override void Read(StreamReader reader)
         {
-            Tools.ReadFields(this, reader);
+            base.Read(reader);
             InitialUpdate();
         }
     }

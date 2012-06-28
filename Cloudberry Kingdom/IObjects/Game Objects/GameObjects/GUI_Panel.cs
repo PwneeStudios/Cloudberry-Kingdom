@@ -5,11 +5,11 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class GUI_Panel : GameObject, IViewable
+    public class GUI_Panel : GameObject
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
-            return new string[] { };
+            return new string[] { "MyMenu", "MyPile" };
         }
 
         int _Control = -2; // MUST be initialized to something negative

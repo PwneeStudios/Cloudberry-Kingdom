@@ -153,7 +153,7 @@ namespace CloudberryKingdom.Levels
                     cblock.Extend(Side.Bottom, Math.Max(cblock.Box.Current.BL.Y, MaxStartY + 250));
                 cblock.Extend(Side.Left, Math.Max(cblock.Box.Current.BL.X, BL.X));
                 cblock.Extend(Side.Right, Math.Min(cblock.Box.Current.TR.X, TR.X));
-                cblock.Extend(Side.Top, TR.Y + 600 + CurMakeData.PieceSeed.ExtraBlockLength);
+                cblock.Extend(Side.Top, TR.Y + 600 + CurMakeData.PieceSeed.ExtraBlockLength + 1000);
                 
                 if (cblock.Box.Current.Size.X > 35)
                     AddBlock(cblock);

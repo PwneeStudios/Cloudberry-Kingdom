@@ -182,8 +182,20 @@ namespace CloudberryKingdom
 #endif
     }
 
-    public class EzText : IViewable
+    public class EzText : ViewReadWrite
     {
+        public override string[] GetViewables()
+        {
+            return new string[] { "Name", "MyString", "Code", "FancyPos", "_Pos", "Shadow", "PicShadow", "ShadowOffset", "ShadowColor", "ShadowScale",
+                "Alpha", "MyColor", "MyFloatColor" };
+        }
+
+        public override string GetConstructorString()
+        {
+            return string.Format("new EzText(\"{0}\", ItemFont)", MyString);
+        }
+
+
         public static string ColorToMarkup(int r, int g, int b)
         {
             return ColorToMarkup(r, g, b, 0, null);
@@ -231,11 +243,6 @@ namespace CloudberryKingdom
         /// </summary>
         public string Name = "";
 
-
-        public string[] GetViewables()
-        {
-            return new string[] { };
-        }
 
         /// <summary>
         /// Layer of the text, used in DrawPiles

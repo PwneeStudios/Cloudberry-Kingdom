@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +34,16 @@ namespace CloudberryKingdom
 {
     public struct PhsxData
     {
+        public PhsxData(float pos_x, float pos_y, float vel_x, float vel_y, float acc_x, float acc_y)
+        {
+            Position.X = pos_x;
+            Position.Y = pos_y;
+            Velocity.X = vel_x;
+            Velocity.Y = vel_y;
+            Acceleration.X = acc_x;
+            Acceleration.Y = acc_y;
+        }
+
         public Vector2 Position, Velocity, Acceleration;
 
         public void UpdatePosition() { Position += Velocity; }
@@ -45,15 +55,46 @@ namespace CloudberryKingdom
         }
     }
 
+    public struct Version : IComparable
+    {
+        public int MajorVersion, MinorVersion, SubVersion;
+        public Version(int Major, int Minor, int Sub)
+        {
+            MajorVersion = Major;
+            MinorVersion = Minor;
+            SubVersion = Sub;
+        }
+
+        public int CompareTo(object o)
+        {
+            Version v = (Version)o;
+
+            if (v.MajorVersion == MajorVersion)
+            {
+                if (v.MinorVersion == MinorVersion)
+                    return this.SubVersion.CompareTo(v.SubVersion);
+                else
+                    return this.MinorVersion.CompareTo(v.MinorVersion);
+            }
+            else
+                return this.MajorVersion.CompareTo(v.MajorVersion);
+        }
+
+        public static bool operator >(Version v1, Version v2) { return v1.CompareTo(v2) > 0; }
+        public static bool operator >=(Version v1, Version v2) { return v1.CompareTo(v2) >= 0; }
+        public static bool operator <(Version v1, Version v2) { return v1.CompareTo(v2) < 0; }
+        public static bool operator <=(Version v1, Version v2) { return v1.CompareTo(v2) <= 0; }
+    }
+
     public class CloudberryKingdomGame : Game
     {
         /// <summary>
-        /// The version of the game.
+        /// The version of the game we are working on now (+1 over the last uploaded to Steam).
         /// MajorVersion is 0 for beta, 1 for release.
         /// MinorVersion increases with substantial change.
         /// SubVersion increases with any pushed change.
         /// </summary>
-        public static int MajorVersion = 0, MinorVersion = 1, SubVersion = 2;
+        public static Version GameVersion = new Version(0, 1, 5);
 
         public static string[] args;
         public static bool StartAsBackgroundEditor = false;
@@ -66,6 +107,8 @@ namespace CloudberryKingdom
         public static string TileSetToTest = null;
         public static void ProcessArgs(string[] args)
         {
+            //StartAsTestLevel = true; LoadDynamic = true; return;
+
             CloudberryKingdomGame.args = args;
 
             foreach (var arg in args)
@@ -178,7 +221,7 @@ namespace CloudberryKingdom
 
             ResourceLoadedCountRef = new WrappedFloat();
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
             Components.Add(new GamerServicesComponent(this));
 #endif
 
@@ -204,7 +247,21 @@ namespace CloudberryKingdom
             ButtonString.Init();
             ButtonCheck.Reset();
 
+
+            // Volume control
+            Tools.SoundVolume = new WrappedFloat();
+            Tools.SoundVolume.MinVal = 0;
+            Tools.SoundVolume.MaxVal = 1;
+            Tools.SoundVolume.Val = .7f;
+
+            Tools.MusicVolume = new WrappedFloat();
+            Tools.MusicVolume.MinVal = 0;
+            Tools.MusicVolume.MaxVal = 1;
+            Tools.MusicVolume.Val = 1;
+            Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
+
 #if PC_VERSION
+            // Resolution, key mapping, other preferences
             PlayerManager.RezData rez;
             try
             {
@@ -304,7 +361,7 @@ namespace CloudberryKingdom
 #endif
 #endif
             graphics.ApplyChanges();
-            Window.Title = "Cloudberry Kingdom";
+            Window.Title = "Cloudberry Kingdom ";
 
             // Fill the pools
             ComputerRecording.InitPool();
@@ -314,7 +371,7 @@ namespace CloudberryKingdom
             base.Initialize();
         }
 
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
             SaveGroup.SaveAll();
@@ -346,7 +403,7 @@ namespace CloudberryKingdom
             {
                 Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
                 Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
             }
 #endif
 
@@ -507,7 +564,6 @@ namespace CloudberryKingdom
             PieceQuad.BouncyGroup.SortWidths();
 
             // Moving block
-
             PieceQuad.MovingGroup = new BlockGroup();
             PieceQuad.MovingGroup.Add(100, PieceQuad.MovingBlock);
             PieceQuad.MovingGroup.SortWidths();
@@ -794,129 +850,12 @@ namespace CloudberryKingdom
 
             MainCamera.Update();
 
-            Tools.SoundVolume = new WrappedFloat();
-            Tools.SoundVolume.MinVal = 0;
-            Tools.SoundVolume.MaxVal = 1;
-            Tools.SoundVolume.Val = 1;
-
-            Tools.MusicVolume = new WrappedFloat();
-            Tools.MusicVolume.MinVal = 0;
-            Tools.MusicVolume.MaxVal = 1;
-            Tools.MusicVolume.Val = 1;
-            Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
-
             // Create the initial loading screen
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Content, ResourceLoadedCountRef);
 
 
-            if (DoVideoTest)
-            {
-                VBool = new WrappedBool(false);
-
-                Thread VThread = null;
-                VThread = new Thread(
-                     new ThreadStart(
-                         delegate
-                         {
-#if XBOX
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
-#endif
-                             Tools.TheGame.Exiting += (o, e) =>
-                                 {
-                                     if (VThread != null)
-                                         VThread.Abort();
-                                 };
-
-                             // Test load movie
-                             TestVideo1 = Content.Load<Video>("Movies//TestMovie");
-                             TestVideo2 = Content.Load<Video>("Movies//TestMovie");
-
-                             VPlayer1 = new VideoPlayer();
-                             VPlayer1.IsLooped = true;
-                             VPlayer1.Play(TestVideo1);
-                             //VPlayer1.Pause();
-
-                             VPlayer2 = new VideoPlayer();
-                             VPlayer2.IsLooped = true;
-                             VPlayer2.Play(TestVideo2);
-                             VPlayer2.Pause();
-
-                             while (true)
-                             {
-                                 lock (VEZTexture)
-                                 {
-                                     VTexture = VPlayer1.GetTexture();
-                                     VEZTexture.Tex = VTexture;
-
-                                     //if (VPlayer1 != null)
-                                     //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
-
-                                     /*
-                                                                     if (VPlayer1 != null
-                                                                         && VPlayer1.PlayPosition.Ticks >= 55130000)
-                                                                         //&& VPlayer1.PlayPosition.Ticks >= 155100000)
-                                                                         //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
-                                                                     {
-                                                                         VPlayer1.Pause();
-                                                                         Tools.Swap(ref VPlayer1, ref VPlayer2);
-                                                                         VPlayer1.Resume();
-
-                                                                         VPlayer2.Stop();
-                                                                         VPlayer2.Play(TestVideo1);
-                                                                         VPlayer2.Pause();
-                                                                     }
-                                      * */
-                                 }
-                             }
-                         }))
-                 {
-                     Name = "LoadThread",
-#if WINDOWS
-                     Priority = ThreadPriority.Lowest,
-#endif
-                 };
-                VThread.Start();
-
-
-
-                Thread VRestartThread = new Thread(
-                    new ThreadStart(
-                        delegate
-                        {
-                            while (true)
-                            {
-                                if (VEZTexture == null) continue;
-
-                                lock (VEZTexture)
-                                {
-                                    VTexture = VPlayer1.GetTexture();
-                                    VEZTexture.Tex = VTexture;
-
-                                    if (VPlayer1 != null
-                                        //&& VPlayer1.PlayPosition.Ticks >= 55130000)
-                                        //&& VPlayer1.PlayPosition.Ticks >= 155100000)
-                                        && VPlayer1.PlayPosition.TotalMilliseconds == 0)
-                                    {
-                                        VPlayer1.Pause();
-                                        Tools.Swap(ref VPlayer1, ref VPlayer2);
-                                        VPlayer1.Resume();
-
-                                        //VPlayer2.Stop();
-                                        //VPlayer2.Play(TestVideo1);
-                                        VPlayer2.Pause();
-                                    }
-                                }
-                            }
-                        }))
-                {
-                    Name = "VRestartThread",
-#if WINDOWS
-                    Priority = ThreadPriority.Lowest,
-#endif
-                };
-                //VRestartThread.Start();
-            }
+            //VideoTest();
 
 
 
@@ -980,7 +919,7 @@ namespace CloudberryKingdom
                         // Load saved files
                         SaveGroup.Initialize();
 
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
                         SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
                         SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
 #endif
@@ -1053,6 +992,120 @@ namespace CloudberryKingdom
 
             if (!DONOTHING)
             LoadThread.Start();
+        }
+
+        private void VideoTest()
+        {
+            if (DoVideoTest)
+            {
+                VBool = new WrappedBool(false);
+
+                Thread VThread = null;
+                VThread = new Thread(
+                     new ThreadStart(
+                         delegate
+                         {
+#if XBOX
+                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
+#endif
+                             Tools.TheGame.Exiting += (o, e) =>
+                             {
+                                 if (VThread != null)
+                                     VThread.Abort();
+                             };
+
+                             // Test load movie
+                             TestVideo1 = Content.Load<Video>("Movies//TestMovie");
+                             TestVideo2 = Content.Load<Video>("Movies//TestMovie");
+
+                             VPlayer1 = new VideoPlayer();
+                             VPlayer1.IsLooped = true;
+                             VPlayer1.Play(TestVideo1);
+                             //VPlayer1.Pause();
+
+                             VPlayer2 = new VideoPlayer();
+                             VPlayer2.IsLooped = true;
+                             VPlayer2.Play(TestVideo2);
+                             VPlayer2.Pause();
+
+
+                             while (true)
+                             {
+                                 lock (VEZTexture)
+                                 {
+                                     VTexture = VPlayer1.GetTexture();
+                                     VEZTexture.Tex = VTexture;
+
+                                     //if (VPlayer1 != null)
+                                     //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
+
+                                     /*
+                                                                     if (VPlayer1 != null
+                                                                         && VPlayer1.PlayPosition.Ticks >= 55130000)
+                                                                         //&& VPlayer1.PlayPosition.Ticks >= 155100000)
+                                                                         //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
+                                                                     {
+                                                                         VPlayer1.Pause();
+                                                                         Tools.Swap(ref VPlayer1, ref VPlayer2);
+                                                                         VPlayer1.Resume();
+
+                                                                         VPlayer2.Stop();
+                                                                         VPlayer2.Play(TestVideo1);
+                                                                         VPlayer2.Pause();
+                                                                     }
+                                      * */
+                                 }
+                             }
+
+
+                         }))
+                {
+                    Name = "LoadThread",
+#if WINDOWS
+                    Priority = ThreadPriority.Lowest,
+#endif
+                };
+                VThread.Start();
+
+
+
+                Thread VRestartThread = new Thread(
+                    new ThreadStart(
+                        delegate
+                        {
+                            while (true)
+                            {
+                                if (VEZTexture == null) continue;
+
+                                lock (VEZTexture)
+                                {
+                                    VTexture = VPlayer1.GetTexture();
+                                    VEZTexture.Tex = VTexture;
+
+                                    if (VPlayer1 != null
+                                        //&& VPlayer1.PlayPosition.Ticks >= 55130000)
+                                        //&& VPlayer1.PlayPosition.Ticks >= 155100000)
+                                        && VPlayer1.PlayPosition.TotalMilliseconds == 0)
+                                    {
+                                        VPlayer1.Pause();
+                                        Tools.Swap(ref VPlayer1, ref VPlayer2);
+                                        VPlayer1.Resume();
+
+                                        //VPlayer2.Stop();
+                                        //VPlayer2.Play(TestVideo1);
+                                        VPlayer2.Pause();
+                                    }
+                                }
+                            }
+                        }))
+                {
+                    Name = "VRestartThread",
+#if WINDOWS
+                    Priority = ThreadPriority.Lowest,
+#endif
+                };
+                //VRestartThread.Start();
+            }
         }
 
         public bool DONOTHING = false;
@@ -1128,7 +1181,7 @@ namespace CloudberryKingdom
             }*/
 
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
-            this.IsFixedTimeStep = true;
+            this.IsFixedTimeStep = Tools.FixedTimeStep;
             RunningSlowly = gameTime.IsRunningSlowly;
             base.Update(gameTime);
         }
@@ -1182,7 +1235,9 @@ namespace CloudberryKingdom
         GameData Game { get { return Tools.CurGameData; } }
         void DoGameDataPhsx()
         {
+#if INCLUDE_EDITOR
             if (Tools.EditorPause) return;
+#endif
 
             Tools.PhsxCount++;
 
@@ -1259,7 +1314,7 @@ namespace CloudberryKingdom
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
             //}
 
-            /*
+            
             // Game Obj Viewer
             if ((Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
@@ -1274,7 +1329,6 @@ namespace CloudberryKingdom
                 else
                     Tools.gameobj_viewer.Input();
             }
-             * */
 
             // Background viewer
             if ((Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
@@ -1373,6 +1427,8 @@ namespace CloudberryKingdom
                 }
 
 #if INCLUDE_EDITOR
+                if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
+                    Tools.FreeCam = !Tools.FreeCam;
 #else
                 if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
                 {
@@ -1629,18 +1685,18 @@ namespace CloudberryKingdom
             //return;
 
             //if (false)
-            if (SimpleLoad)
-            {
-                Tools.SoundVolume.Val = 0;
-                Tools.MusicVolume.Val = 0;
-                //Tools.SoundVolume.Val = 0.5f;
-                //Tools.MusicVolume.Val = 0.5f;// .07f;
-            }
-            else
-            {
-                Tools.SoundVolume.Val = 1f;
-                Tools.MusicVolume.Val = .7f;
-            }
+            //if (SimpleLoad)
+            //{
+            //    Tools.SoundVolume.Val = 0;
+            //    Tools.MusicVolume.Val = 0;
+            //    //Tools.SoundVolume.Val = 0.5f;
+            //    //Tools.MusicVolume.Val = 0.5f;// .07f;
+            //}
+            //else
+            //{
+            //    Tools.SoundVolume.Val = 1f;
+            //    Tools.MusicVolume.Val = .7f;
+            //}
 
             if (!LoadingResources.MyBool)
             {
@@ -1952,35 +2008,13 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-            //piece.MyUpgrades1[Upgrade.MovingBlock2] = 2;
-
+            piece.MyUpgrades1[Upgrade.Jump] = 6;
+            //piece.MyUpgrades1[Upgrade.Spike] = 2;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            //piece.MyUpgrades1[Upgrade.Laser] = 2;
             //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
-            //////piece.MyUpgrades1[Upgrade.Laser] = 4;
-            //piece.MyUpgrades1[Upgrade.Spike] = 5;
-            piece.MyUpgrades1[Upgrade.Jump] = 8;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
-            //piece.MyUpgrades1[Upgrade.FlyBlob] = 5;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 6;
-            //piece.MyUpgrades1[Upgrade.Speed] = 5;
-
-
-
-            piece.MyUpgrades1[Upgrade.Spike] = 2;
-            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            piece.MyUpgrades1[Upgrade.Laser] = 2;
-            piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
-            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
-
-            piece.MyUpgrades1[Upgrade.BouncyBlock] = 7;
-            piece.MyUpgrades1[Upgrade.Cloud] = 7;
-            //piece.MyUpgrades1[Upgrade.Elevator] = 7;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 7;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
+            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
@@ -2235,13 +2269,10 @@ namespace CloudberryKingdom
             }
 
 #if DEBUG_OBJDATA
-ObjectData.UpdateWeak();
+            ObjectData.UpdateWeak();
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
 
-#if WINDOWS
-            ActiveInactive();
-#endif
 
             // Set the viewport to the whole screen
             GraphicsDevice.Viewport = new Viewport
@@ -2256,6 +2287,11 @@ ObjectData.UpdateWeak();
 
             // Clear whole screen to black
             GraphicsDevice.Clear(Color.Black);
+
+#if WINDOWS
+            if (!ActiveInactive())
+                return;
+#endif
 
             // Make the actual view port we draw to, and clear it
             MakeInnerViewport();
@@ -2274,7 +2310,7 @@ ObjectData.UpdateWeak();
 
             bool DrawBool = true;
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
             DrawBool = !Guide.IsVisible;
 #endif
 
@@ -2334,12 +2370,7 @@ ObjectData.UpdateWeak();
             if (LogoScreenUp || LogoScreenPropUp)
             {
                 LoadingScreen.Draw();
-                if (DoVideoTest)
-                lock (VEZTexture)
-                {
-                    if (VEZTexture.Tex != null)
-                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
-                }
+                //VideoTest_Draw();
                 return;
             }
 
@@ -2357,12 +2388,7 @@ ObjectData.UpdateWeak();
                     Tools.CurGameData.Draw();
                     Tools.CurGameData.PostDraw();
 
-                    if (DoVideoTest)
-                    lock (VEZTexture)
-                    {
-                        if (VEZTexture.Tex != null)
-                            Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
-                    }
+                    //VideoTest_Draw2();
                 }
                 else
                     GraphicsDevice.Clear(Color.Black);
@@ -2451,6 +2477,26 @@ ObjectData.UpdateWeak();
 #endif
         }
 
+        private void VideoTest_Draw2()
+        {
+            if (DoVideoTest)
+                lock (VEZTexture)
+                {
+                    if (VEZTexture.Tex != null)
+                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
+                }
+        }
+
+        private void VideoTest_Draw()
+        {
+            if (DoVideoTest)
+                lock (VEZTexture)
+                {
+                    if (VEZTexture.Tex != null)
+                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
+                }
+        }
+
         private void SetupToRender()
         {
             Vector4 cameraPos = new Vector4(MainCamera.Data.Position.X, MainCamera.Data.Position.Y, MainCamera.Zoom.X, MainCamera.Zoom.Y);//.001f, .001f);
@@ -2464,7 +2510,7 @@ ObjectData.UpdateWeak();
             Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
 
             Tools.SetStandardRenderStates();
-            GraphicsDevice.Clear(Color.Black);
+            //GraphicsDevice.Clear(Color.Black);
         }
 
         private void Compute_FireAndLava()
@@ -2510,7 +2556,7 @@ ObjectData.UpdateWeak();
         }
 
 #if WINDOWS
-        private void ActiveInactive()
+        private bool ActiveInactive()
         {
             if (!this.IsActive)
             {
@@ -2533,8 +2579,7 @@ ObjectData.UpdateWeak();
 
                 FirstActiveFrame = true;
 
-                // Comment this line to allow the game to run while not in focus
-                //return;
+                return false;
             }
             else
             {
@@ -2558,6 +2603,8 @@ ObjectData.UpdateWeak();
                 //if (Tools.background_viewer != null)
                 if (Tools.ViewerIsUp)
                     this.IsMouseVisible = true;
+
+                return true;
             }
         }
 #endif

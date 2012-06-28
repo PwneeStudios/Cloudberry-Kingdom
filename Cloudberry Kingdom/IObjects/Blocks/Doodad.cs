@@ -13,16 +13,7 @@ namespace CloudberryKingdom
 {
     public delegate void HitDoodadCallback();
     public class Doodad : BlockBase
-#if PC_DEBUG
-        , IViewable
     {
-        public string[] GetViewables()
-        {
-            return new string[] { };
-        }
-#else
-    {
-#endif
         public override string ToString()
         {
             return string.Format("{0} : {1} : {2}, a {3}", Core.EditorCode1, Core.EditorCode2, Core.EditorCode3, base.ToString());

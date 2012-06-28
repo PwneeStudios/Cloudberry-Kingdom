@@ -12,6 +12,7 @@ namespace CloudberryKingdom
             base.OnAdd();
             
             MyGame.OnCoinGrab += OnCoinGrab;
+            MyGame.OnCompleteLevel += OnCompleteLevel;
         }
 
         protected override void ReleaseBody()
@@ -21,7 +22,7 @@ namespace CloudberryKingdom
             base.ReleaseBody();            
         }
 
-        public int CoinTimeValue = 60;
+        public int CoinTimeValue = 60, MinLevelStartTimeValue = 62 + 31;
         public int MaxTime = 60;
         public void OnCoinGrab(ObjectBase obj)
         {
@@ -29,6 +30,12 @@ namespace CloudberryKingdom
 
             if (Time > MaxTime)
                 Time = MaxTime;
+        }
+
+        public void OnCompleteLevel()
+        {
+            MinLevelStartTimeValue = 124;
+            Time = Tools.Restrict(MinLevelStartTimeValue, MaxTime, Time);
         }
     }
 }

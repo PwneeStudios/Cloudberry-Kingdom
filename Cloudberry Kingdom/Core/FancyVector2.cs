@@ -14,9 +14,9 @@ namespace Drawing
     }
 
     public enum LerpStyle { Linear, SmallOvershoot, DecayPlusSmallOvershoot, DecayNoOvershoot, Sigmoid }
-    public class FancyVector2 : IPos, IViewable
+    public class FancyVector2 : ViewReadWrite, IPos
     {
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { "RelVal" };
         }

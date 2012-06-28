@@ -255,6 +255,8 @@ namespace CloudberryKingdom.Blocks
             MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
 
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
+
+            if (!Core.BoxesOnly) Reset(false);
         }
 
         public NormalBlockDraw MyDraw;

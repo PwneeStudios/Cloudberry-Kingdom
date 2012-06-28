@@ -30,9 +30,14 @@ namespace Drawing
             AnimData.Release();
         }
 
+        static string[] _bits_to_save = new string[] { "Pos" };
+        public void WriteCode(string prefix, StreamWriter writer)
+        {
+            Tools.WriteFieldsToCode(this, prefix, writer, _bits_to_save);
+        }
         public void Write(StreamWriter writer)
         {
-            Tools.WriteFields(this, writer, "Pos");
+            Tools.WriteFields(this, writer, _bits_to_save);
         }
         public void Read(StreamReader reader)
         {
@@ -144,9 +149,16 @@ namespace Drawing
 
     public struct SimpleQuad : IReadWrite
     {
+        string[] _bits_to_save { get { return IsDefault() ? _bits_to_save_simple : _bits_to_save_full; } }
+        static string[] _bits_to_save_full = new string[] { "v0", "v1", "v2", "v3", "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture" };
+        static string[] _bits_to_save_simple = new string[] { "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture" };
+        public void WriteCode(string prefix, StreamWriter writer)
+        {
+            Tools.WriteFieldsToCode(this, prefix, writer, _bits_to_save);
+        }
         public void Write(StreamWriter writer)
         {
-            Tools.WriteFields(this, writer, "v0", "v1", "v2", "v3", "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture");
+            Tools.WriteFields(this, writer, _bits_to_save);
         }
         public void Read(StreamReader reader)
         {
@@ -576,6 +588,26 @@ namespace Drawing
             uv3 = v3.Vertex.uv = new Vector2(1, 1);
         }
 
+        bool IsDefault()
+        {
+            if (v0.Pos != new Vector2(-1, 1)) return false;
+            if (v1.Pos != new Vector2(1, 1)) return false;
+            if (v2.Pos != new Vector2(-1, -1)) return false;
+            if (v3.Pos != new Vector2(1, -1)) return false;
+
+            if (uv0 != new Vector2(0, 0)) return false;
+            if (uv1 != new Vector2(1, 0)) return false;
+            if (uv2 != new Vector2(0, 1)) return false;
+            if (uv3 != new Vector2(1, 1)) return false;
+
+            //if (v0.Vertex.uv == new Vector2(0, 0)) return false;
+            //if (v1.Vertex.uv == new Vector2(1, 0)) return false;
+            //if (v2.Vertex.uv == new Vector2(0, 1)) return false;
+            //if (v3.Vertex.uv == new Vector2(1, 1)) return false;
+
+            return true;
+        }
+
         /// <summary>
         /// Shift the quad's absolute vertex coordinates. Does not effect normal coordinates.
         /// </summary>
@@ -706,6 +738,16 @@ namespace Drawing
     public struct BasePoint
     {
         public Vector2 Origin, e1, e2;
+
+        public BasePoint(float e1x, float e1y, float e2x, float e2y, float ox, float oy)
+        {
+            e1.X = e1x;
+            e1.Y = e1y;
+            e2.X = e2x;
+            e2.Y = e2y;
+            Origin.X = ox;
+            Origin.Y = oy;
+        }
 
         public void Init()
         {

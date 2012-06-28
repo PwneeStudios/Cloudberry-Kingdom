@@ -5,11 +5,11 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class DrawPile : IViewable, IViewableList
+    public class DrawPile : ViewReadWrite, IViewableList
     {
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
-            return new string[] { "BackdropShift" };
+            return new string[] { "BackdropShift", "MyQuadList", "MyTextList" };
         }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)

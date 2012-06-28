@@ -1375,6 +1375,11 @@ namespace CloudberryKingdom.Viewer
             //TextureCombobox.Items.Add(Tools.GetFileName(texture.Name));
             TextureCombobox.Items.Add(texture);
         }
+
+        private void dumpToCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Tools.WriteCode(background);
+        }
     }
 }
 #endif

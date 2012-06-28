@@ -79,6 +79,8 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
+            if (!Active) return;
+
             // Decide if we should draw the caret
             if (HasFocus)
             {
@@ -213,6 +215,8 @@ namespace CloudberryKingdom
         public bool LimitLength = true;
         void CharEntered(object o, CharacterEventArgs e)
         {
+            if (!Active) return;
+
             DeleteSelected();
 
             if (IsAcceptableChar(e.Character) && (!LimitLength || MyText.FirstString().Length < MaxLength))
@@ -259,6 +263,8 @@ namespace CloudberryKingdom
 
         void KeyDown(object o, KeyEventArgs e)
         {
+            if (!Active) return;
+
             if (e.KeyCode == Keys.Back) Backspace();
             if (e.KeyCode == Keys.Enter) Enter();
         }

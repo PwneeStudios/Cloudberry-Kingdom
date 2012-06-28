@@ -4,9 +4,9 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class GUI_NextLife : GameObject, IViewable
+    public class GUI_NextLife : GameObject
     {
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }

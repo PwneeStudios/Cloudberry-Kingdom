@@ -3,12 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class UpgradeSelect : GridSelect, IViewable, IViewableList
+    public class UpgradeSelect : GridSelect, IViewableList
     {
-        public string[] GetViewables()
-        {
-            return new string[] { };
-        }
+        public override string[] GetViewables() { return new string[] { }; }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)
         {

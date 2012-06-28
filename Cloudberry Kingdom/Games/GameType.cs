@@ -5,7 +5,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
@@ -56,13 +56,19 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// True when a single player has successfully navigated the level.
+        /// </summary>
+        public bool HasBeenCompleted = false;
+
         public Func<GameObject> MakeScore;
         public StatGroup MyStatGroup = StatGroup.Level;
         public static void EOL_DoorAction(Door door)
-        //public static void EOL_DoorAction(Door door, StatGroup group)
         {
             StatGroup group = door.Game.MyStatGroup;
             GameData game = door.Core.MyLevel.MyGame;
+
+            game.HasBeenCompleted = true;
 
             // Give bonus to completing player
             door.Core.MyLevel.EndOfLevelBonus(door.InteractingBob.MyPlayerData);
@@ -425,6 +431,20 @@ namespace CloudberryKingdom
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
         public void CoinGrabEvent(ObjectBase coin) { if (OnCoinGrab != null) OnCoinGrab(coin); }
+
+        /// <summary>
+        /// Event handler. Activates when a level is completed.
+        /// </summary>
+        public event Action OnCompleteLevel;
+        /// <summary>
+        /// Call this when level is completed to activate the level complete event handler.
+        /// </summary>
+        public void CompleteLevelEvent()
+        {
+            HasBeenCompleted = true;
+            if (OnCompleteLevel != null)
+                OnCompleteLevel();
+        }
 
         /// <summary>
         /// Event handler. Activates when all players die and the level is reset.
@@ -970,7 +990,7 @@ namespace CloudberryKingdom
                 }
         }
 
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
         void UpdateSignedInPlayers()
         {
             if (CharacterSelectManager.IsShowing) return;
@@ -1136,7 +1156,7 @@ namespace CloudberryKingdom
                         MyLevel.PhsxStep(false);
                         EzSoundWad.SuppressSounds = HoldSuppress;
 
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
                         UpdateSignedInPlayers();
 #endif
                     }
@@ -1360,7 +1380,7 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
         /*
         public virtual void OnSignIn(SignedInEventArgs e)
         {

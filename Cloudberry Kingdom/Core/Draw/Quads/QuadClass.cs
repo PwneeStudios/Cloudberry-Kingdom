@@ -7,12 +7,9 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class QuadClass : IViewable, IReadWrite
+    public class QuadClass : ViewReadWrite
     {
-        public string[] GetViewables()
-        {
-            return new string[] { };
-        }
+        public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
 
         public static QuadClass FindQuad(List<QuadClass> list, string Name)
         {
@@ -560,15 +557,6 @@ namespace CloudberryKingdom
         public void Update()
         {
             Quad.Update(ref Base);
-        }
-
-        public void Write(StreamWriter writer)
-        {
-            Tools.WriteFields(this, writer, "Quad", "Base");
-        }
-        public void Read(StreamReader reader)
-        {
-            Tools.ReadFields(this, reader);
         }
 
         public void Write(BinaryWriter writer)

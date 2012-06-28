@@ -5,12 +5,12 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class ProgressBar : IViewable
+    public class ProgressBar : ViewReadWrite
     {
         public enum BarType { Scale, Reveal };
         public BarType MyType = BarType.Scale;
 
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }
@@ -198,7 +198,7 @@ namespace CloudberryKingdom
             MyProgressBar.Pos = new Vector2(0, -80);
         }
 
-        public static int TotalResources = (int)(EzTextureWad.PercentToLoad * 553);
+        public static int TotalResources = (int)(EzTextureWad.PercentToLoad * 513);//553);
         //public static int TotalResources = 553;
 
         static int FakeResources = 360;//70;
@@ -225,7 +225,7 @@ namespace CloudberryKingdom
             }
 
             // Fade
-            if (LoadingPercent > 97.6f && Accelerate)
+            if (LoadingPercent > 97.6f && Accelerate)// || !Tools.TheGame.LoadingResources.MyBool)
             {
                 BlackQuad.Alpha += .0223f;
                 if (BlackQuad.Alpha >= 1)

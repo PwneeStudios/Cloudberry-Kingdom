@@ -7,7 +7,7 @@ using CloudberryKingdom.Awards;
 using System.IO;
 
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
@@ -137,150 +137,172 @@ namespace CloudberryKingdom
 #if PC_VERSION
         public static void SaveRezAndKeys()
         {
-            //string fullpath = Tools.TheGame.Content.RootDirectory;
-            //string fullpath = Path.GetDirectoryName(Globals.ContentDirectory);
+            //using (StreamWriter writer = new StreamWriter("Custom"))
 
-            using (StreamWriter writer = new StreamWriter("Custom"))
-            {
-                //FileStream stream = File.Open(fullpath, FileMode.Create, FileAccess.Write, FileShare.None);
-                //BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
-
-                // Resolution information
-                writer.WriteLine("// Custom resolution?");
-                writer.WriteLine(SavePlayerData.ResolutionPreferenceSet);
-                writer.WriteLine("// Full screen");
-                writer.WriteLine(Tools.Fullscreen);
-                if (ResolutionGroup.LastSetMode == null)
-                {
-                    writer.WriteLine("// Width");
-                    writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferWidth);
-                    writer.WriteLine("// Height");
-                    writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferHeight);
-                }
-                else
-                {
-                    writer.WriteLine("// Width");
-                    writer.WriteLine(ResolutionGroup.LastSetMode.Width);
-                    writer.WriteLine("// Height");
-                    writer.WriteLine(ResolutionGroup.LastSetMode.Height);
-                }
-
-                writer.WriteLine();
-
-                // Secondary keys
-                writer.WriteLine("// Quickspawn =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Start/Menu =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Start_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Go/Select =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Go_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Back/Cancel =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Back_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Replay, Previous part =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayPrev_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Replay, Next part =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayNext_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Toggle (Replay, single/multi) (Slow-mo, toggles if activated) =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.SlowMoToggle_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Left =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Left_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Right =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Right_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Up =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Up_Secondary]);
-                writer.WriteLine();
-
-                writer.WriteLine("// Down =");
-                writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Down_Secondary]);
-            }
-            //writer.Close();
-            //stream.Close();
+            EzStorage.Save("Settings", "Custom", _SaveRezAndKeys, null);
         }
 
-        public static RezData LoadRezAndKeys()
+        static void _SaveRezAndKeys(StreamWriter writer)
         {
-            //string fullpath = Tools.TheGame.Content.RootDirectory;
-
-            RezData d;
-
-            using (StreamReader reader = new StreamReader("Custom"))
+            // Resolution information
+            writer.WriteLine("// Custom resolution?");
+            writer.WriteLine(SavePlayerData.ResolutionPreferenceSet);
+            writer.WriteLine("// Full screen");
+            writer.WriteLine(Tools.Fullscreen);
+            if (ResolutionGroup.LastSetMode == null)
             {
-                // Resolution information
-                d = new RezData();
-                reader.ReadLine();
-                d.Custom = bool.Parse(reader.ReadLine());
-                reader.ReadLine();
-                d.Fullscreen = bool.Parse(reader.ReadLine());
-                reader.ReadLine();
-                d.Width = int.Parse(reader.ReadLine());
-                reader.ReadLine();
-                d.Height = int.Parse(reader.ReadLine());
-
-                reader.ReadLine();
-                // Secondary keys
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Start_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Go_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Back_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.ReplayPrev_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.ReplayNext_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.SlowMoToggle_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Left_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Right_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Up_Secondary, reader.ReadLine());
-                reader.ReadLine();
-
-                reader.ReadLine();
-                ButtonString.SetKeyFromString(ref ButtonCheck.Down_Secondary, reader.ReadLine());
+                writer.WriteLine("// Width");
+                writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferWidth);
+                writer.WriteLine("// Height");
+                writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferHeight);
+            }
+            else
+            {
+                writer.WriteLine("// Width");
+                writer.WriteLine(ResolutionGroup.LastSetMode.Width);
+                writer.WriteLine("// Height");
+                writer.WriteLine(ResolutionGroup.LastSetMode.Height);
             }
 
+            writer.WriteLine();
+
+            // Secondary keys
+            writer.WriteLine("// Quickspawn =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Start/Menu =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Start_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Go/Select =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Go_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Back/Cancel =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Back_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Replay, Previous part =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayPrev_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Replay, Next part =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayNext_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Toggle (Replay, single/multi) (Slow-mo, toggles if activated) =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.SlowMoToggle_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Left =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Left_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Right =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Right_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Up =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Up_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("// Down =");
+            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Down_Secondary]);
+            writer.WriteLine();
+
+            writer.WriteLine("MusicVolume " + Tools.MusicVolume.Val.ToString());
+            writer.WriteLine("SoundVolume " + Tools.SoundVolume.Val.ToString());
+            writer.WriteLine("FixedTimeStep " + Tools.FixedTimeStep.ToString());
+        }
+
+        static RezData d;
+        public static RezData LoadRezAndKeys()
+        {
+            //RezData d;
+            //using (StreamReader reader = new StreamReader("Custom"))
+
+            EzStorage.Load("Settings", "Custom", _LoadRezAndKeys, null);
+
             return d;
+        }
+
+        static void _LoadRezAndKeys(StreamReader reader)
+        {
+            // Resolution information
+            d = new RezData();
+            reader.ReadLine();
+            d.Custom = bool.Parse(reader.ReadLine());
+            reader.ReadLine();
+            d.Fullscreen = bool.Parse(reader.ReadLine());
+            reader.ReadLine();
+            d.Width = int.Parse(reader.ReadLine());
+            reader.ReadLine();
+            d.Height = int.Parse(reader.ReadLine());
+
+            reader.ReadLine();
+            // Secondary keys
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Start_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Go_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Back_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.ReplayPrev_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.ReplayNext_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.SlowMoToggle_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Left_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Right_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Up_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            reader.ReadLine();
+            ButtonString.SetKeyFromString(ref ButtonCheck.Down_Secondary, reader.ReadLine());
+            reader.ReadLine();
+
+            // Extra shit
+            try
+            {
+                List<string> bits;
+
+                bits = Tools.GetBitsFromReader(reader);
+                Tools.MusicVolume.Val = Tools.Restrict(0, 1, float.Parse(bits[1]));
+
+                bits = Tools.GetBitsFromReader(reader);
+                Tools.SoundVolume.Val = Tools.Restrict(0, 1, float.Parse(bits[1]));
+
+                bits = Tools.GetBitsFromReader(reader);
+                Tools.FixedTimeStep = bool.Parse(bits[1]);
+            }
+            catch
+            {
+            }
         }
 #endif
         static int _CoinsSpent;
@@ -556,7 +578,7 @@ namespace CloudberryKingdom
             {
 #if PC_VERSION
                 return ExistingPlayers;
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
                 return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
 #else
                 return ExistingPlayers;

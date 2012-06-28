@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#elif XBOX_SIGNIN
+#elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Drawing;
@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-#if NOT_PC && XBOX_SIGNIN
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
     public partial class CharacterSelect
     {
         void MakeSignInChoiceMenu()

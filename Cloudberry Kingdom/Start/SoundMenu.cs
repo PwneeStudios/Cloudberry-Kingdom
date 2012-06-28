@@ -22,6 +22,8 @@ namespace CloudberryKingdom
         {
             base.Init();
 
+            this.FontScale *= .9f;
+
             // Header
             string Text = "Options";
             HeaderText = new EzText(Text, ItemFont);
@@ -51,7 +53,8 @@ namespace CloudberryKingdom
 #endif
             MusicSlider.SliderShift.X += 300;
 
-#if PC_VERSION
+#if true
+//#if PC_VERSION
             if (Centered)
             {
                 MenuItem item = new MenuItem(new EzText("Controls", ItemFont));
@@ -61,7 +64,11 @@ namespace CloudberryKingdom
                         Call(new ControlScreen(Control), 10);
                     };
                 AddItem(item);
-                item.SetPos = new Vector2(619.0466f, 273.0472f);
+#if PC_VERSION
+                item.SetPos = new Vector2(596.8245f, 325.825f);
+#else
+                item.SetPos = new Vector2(511.9037f, -169.0948f);
+#endif
             }
 
 #if PC_VERSION
@@ -69,15 +76,14 @@ namespace CloudberryKingdom
             var mitem = new MenuItem(new EzText("Edit controls", ItemFont));
             mitem.Go = menuitem => Call(new CustomControlsMenu(), 10);
             AddItem(mitem);
-            mitem.SetPos = new Vector2(611.1101f, 61.41245f);
-
+            mitem.SetPos = new Vector2(591.6658f, 133.6347f);
 
 
             // Full screen resolutions
             var RezText = new EzText("Resolution:", ItemFont);
             SetHeaderProperties(RezText);
             MyPile.Add(RezText);
-            RezText.Pos = new Vector2(-1221.032f, -238.8261f);
+            RezText.Pos = new Vector2(-1173.81f, -174.9373f);
             RezText.Scale *= .9f;
 
             MenuList FsRezList = new MenuList();
@@ -85,6 +91,7 @@ namespace CloudberryKingdom
             FsRezList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
             int i = 0;
             int CurRez = 0;
+
 
             // Get viable resolutions
             List<DisplayMode> modes = new List<DisplayMode>();
@@ -118,7 +125,7 @@ namespace CloudberryKingdom
                 i++;
             }
             AddItem(FsRezList);
-            FsRezList.SetPos = new Vector2(1085.714f, -353.7465f);
+            FsRezList.SetPos = new Vector2(1019.047f, -256.5245f);
             FsRezList.SetIndex(CurRez);
             FsRezList.OnConfirmedIndexSelect = () =>
             {
@@ -136,7 +143,7 @@ namespace CloudberryKingdom
             var FullScreenText = new EzText("Full screen:", ItemFont);
             SetHeaderProperties(FullScreenText);
             MyPile.Add(FullScreenText);
-            FullScreenText.Pos = new Vector2(-1165.475f, -461.0471f);
+            FullScreenText.Pos = new Vector2(-1190.475f, -338.825f);
             FullScreenText.Scale *= .9f;
 
             var toggle = new MenuToggle(ItemFont);
@@ -150,7 +157,28 @@ namespace CloudberryKingdom
             toggle.Toggle(Tools.Fullscreen);
             toggle.PrefixText = ""; // "Fullscreen: ";
             AddItem(toggle);
-            toggle.SetPos = new Vector2(1253.967f, -404.1903f);
+            toggle.SetPos = new Vector2(1245.634f, -281.9681f);
+
+            // No fixed timestep
+            var FixedTimeStepText = new EzText("Fixed time step:", ItemFont);
+            SetHeaderProperties(FixedTimeStepText);
+            MyPile.Add(FixedTimeStepText);
+            FixedTimeStepText.Pos = new Vector2(-1232.142f, -499.9359f);
+            FixedTimeStepText.Scale *= .9f;
+
+            var fixed_toggle = new MenuToggle(ItemFont);
+            fixed_toggle.OnToggle = (state) =>
+            {
+                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+                Tools.FixedTimeStep = state;
+                SaveGroup.SaveAll();
+                PlayerManager.SaveRezAndKeys();
+            };
+            fixed_toggle.Toggle(Tools.FixedTimeStep);
+            fixed_toggle.PrefixText = "";
+            AddItem(fixed_toggle);
+            fixed_toggle.SetPos = new Vector2(1315.078f, -451.4125f);
+
 #endif
 
 
@@ -184,6 +212,15 @@ namespace CloudberryKingdom
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
+        }
+
+        public override bool MenuReturnToCaller(Menu menu)
+        {
+#if PC_VERSION
+            PlayerManager.SaveRezAndKeys();
+#endif
+
+            return base.MenuReturnToCaller(menu);
         }
 
         private void SetPosition()

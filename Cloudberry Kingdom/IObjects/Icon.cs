@@ -5,9 +5,9 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class ObjectIcon : IViewable
+    public class ObjectIcon : ViewReadWrite
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }

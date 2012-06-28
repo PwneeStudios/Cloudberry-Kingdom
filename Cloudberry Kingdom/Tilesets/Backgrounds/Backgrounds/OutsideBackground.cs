@@ -4,7 +4,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class OutsideBackground : Background
+    public partial class OutsideBackground : Background
     {
         public QuadClass BackgroundQuad;
         

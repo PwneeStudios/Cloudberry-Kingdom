@@ -5,9 +5,9 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class OhNo : GameObject, IViewable
+    public class OhNo : GameObject
     {
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { };
         }

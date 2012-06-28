@@ -8,7 +8,7 @@ namespace CloudberryKingdom
     public delegate void MenuListSelect();
     public class MenuList : MenuItem
     {
-        public virtual string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { "RightArrowOffset", "LeftArrowOffset", "Pos", "SelectedPos", "!MyMenu" };
         }

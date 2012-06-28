@@ -58,9 +58,14 @@ namespace CloudberryKingdom.Viewer
             }
         }
 
+        class ViewableNode : TreeNode
+        {
+            public ViewReadWrite MyItem;
+        }
+
         class FieldNode : TreeNode
         {
-            public IViewable ParentViewable;
+            public ViewReadWrite ParentViewable;
             public FieldInfo field;
 
             public string RootText = "";
@@ -109,9 +114,11 @@ namespace CloudberryKingdom.Viewer
             }
         }
 
-        TreeNode ViewableToNode(IViewable viewable, int Depth)
+        TreeNode ViewableToNode(ViewReadWrite viewable, int Depth)
         {
-            TreeNode node = new TreeNode();
+            //TreeNode node = new TreeNode();
+            ViewableNode node = new ViewableNode();
+            node.MyItem = viewable;
             node.Name = node.Text = viewable.GetType().Name;
 
             if (Depth > 10) return node;
@@ -135,14 +142,15 @@ namespace CloudberryKingdom.Viewer
             foreach (FieldInfo info in viewable.GetType().GetFields())
             {
                 // Check if field is itself viewable and not banned
-                if (!unviewables.Contains(info.Name) && info.FieldType.GetInterfaces().Contains(typeof(IViewable)))
-                {
-                    IViewable child = (IViewable)info.GetValue(viewable);
-                    //IViewable child = (IViewable)viewable.GetType().InvokeMember(info.Name,
-                    //    BindingFlags.GetField | BindingFlags.Instance | BindingFlags.Public,
-                    //    null, viewable, null);
+                ViewReadWrite child = info.GetValue(viewable) as ViewReadWrite;
+                //if (info.Name == "MyMenu") Tools.Write("!");
 
-                    if (child != null) ViewableChildren.Add(new InstancePlusName(child, info.Name));
+                if (!info.FieldType.IsValueType && null == child) continue;
+
+                //if (!unviewables.Contains(info.Name) && info.FieldType.GetInterfaces().Contains(typeof(ViewReadWrite)))
+                if (!unviewables.Contains(info.Name) && child is ViewReadWrite)
+                {
+                    ViewableChildren.Add(new InstancePlusName(child, info.Name));
                 }
                 else
                 {
@@ -186,7 +194,7 @@ namespace CloudberryKingdom.Viewer
         {
             foreach (GameObject obj in Tools.CurGameData.MyGameObjects)
             {
-                IViewable viewable = obj as IViewable;
+                ViewReadWrite viewable = obj as ViewReadWrite;
                 if (null != viewable)
                     ObjTree.Nodes.Add(ViewableToNode(viewable, 0));
             }
@@ -209,6 +217,14 @@ namespace CloudberryKingdom.Viewer
         private void Viewer_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dumpToCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var to_save = this.ObjTree.SelectedNode as ViewableNode;
+            if (null == to_save) return;
+
+            Tools.WriteCode(to_save.MyItem);
         }
     }
 }

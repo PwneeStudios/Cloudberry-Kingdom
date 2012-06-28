@@ -276,12 +276,14 @@ namespace CloudberryKingdom
             AddItem(item);
 #endif
 
+            /*
             //Controls
 #if NOT_PC
             item = new MenuItem(new EzText("Controls", ItemFont, Center, yCenter));
             item.Go = MenuGo_Controls;
             AddItem(item);
 #endif
+            */
 
             // Options
             item = new MenuItem(new EzText("Options", ItemFont, Center, yCenter));

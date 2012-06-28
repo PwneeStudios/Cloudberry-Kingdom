@@ -6,9 +6,9 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    public class UpgradeBar : IViewable
+    public class UpgradeBar : ViewReadWrite
     {
-        public string[] GetViewables()
+        public override string[] GetViewables()
         {
             return new string[] { "IconOffset" };
         }

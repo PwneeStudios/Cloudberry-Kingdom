@@ -31,7 +31,7 @@ namespace CloudberryKingdom
     {
         public static class DefaultInfo
         {
-            public static EzSound DoubleJump_Sound = Tools.NewSound("Jump5", 1);
+            public static EzSound DoubleJump_Sound = Tools.NewSound("Jump5", .1f);
             public static EzSound BobBoxJump_Sound = Tools.NewSound("BoxHero_Land", 1);
             public static EzSound BobJetpack_Sound = Tools.NewSound("Jetpack", .15f);
             public static int BobJetpack_SoundDelay = 5;
