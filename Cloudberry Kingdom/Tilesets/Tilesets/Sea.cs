@@ -139,7 +139,7 @@ info.Clouds.Sprite.Sprite = "cloud_sea";
 
 //info.Coins.Sprite.Sprite = "coin_blue";
 info.Coins.Sprite.Sprite = "CoinShimmer";
-info.Coins.Sprite.Size = new Vector2(50, -1);
+info.Coins.Sprite.Size = new Vector2(105, -1);
 info.Coins.ShowCoin = true;
 info.Coins.ShowEffect = true;
 info.Coins.ShowText = true;

@@ -443,7 +443,6 @@ namespace CloudberryKingdom
         /// A collection of objects in the game that are not in the level, such as GUIs.
         /// </summary>
         public List<GameObject> MyGameObjects = new List<GameObject>(), NewGameObjects = new List<GameObject>();
-        public List<IPrepareToDraw> NeedyObjects = new List<IPrepareToDraw>();
 
         /// <summary>
         /// Remove all GameObjects with a specified tag.
@@ -718,7 +717,6 @@ namespace CloudberryKingdom
             foreach (GameObject obj in MyGameObjects)
                 obj.Release();
             NewGameObjects = MyGameObjects = null;
-            NeedyObjects = null;
 
             if (FadeColor != null)
                 FadeColor.Release();
@@ -800,10 +798,6 @@ namespace CloudberryKingdom
                 NewGameObjects.Add(obj);
             else
                 MyGameObjects.Add(obj);
-
-            IPrepareToDraw NeedyObj = obj as IPrepareToDraw;
-            if (null != NeedyObj)
-                NeedyObjects.Add(NeedyObj);
 
             if (MyLevel != null)
                 MyLevel.AddObject(obj);
@@ -1317,9 +1311,6 @@ namespace CloudberryKingdom
                 bob.PrepareToDraw();
             }
             Tools.Device.BlendState = BlendState.AlphaBlend;
-
-            foreach (IPrepareToDraw needy in NeedyObjects)
-                needy.PrepareToDraw();
         }
 
         public virtual void Draw()

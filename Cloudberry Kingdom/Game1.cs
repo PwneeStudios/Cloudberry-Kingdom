@@ -785,10 +785,6 @@ namespace CloudberryKingdom
 
                         Tools.Write("ArtMusic done...");
 
-                        MyLavaDraw = new LavaDraw(device);
-
-                        Tools.Write("Lava done...");
-
                         // Load the infowad and boxes
                         Action infoaction = () =>
                         {
@@ -2363,47 +2359,6 @@ namespace CloudberryKingdom
             if (Tools.background_viewer != null)
                 Tools.background_viewer.Draw();
 #endif
-
-            // Save screenshot
-#if WINDOWS
-            if (Tools.ScreenshotMode)
-            {
-                Tools.Device.SetRenderTarget(null);
-
-                Tools.Screenshot = Tools.DestinationRenderTarget;
-
-                string filename;
-                if (Tools.CapturingVideo)
-                {
-                    Tools.VideoFrame++;
-                    filename = VideoFolderName + "\\frame_" + Tools.VideoFrame.ToString() + ".png";
-                }
-                else
-                {
-                    Tools.Screenshots++;
-                    filename = "Screenshot_" + Tools.Screenshots.ToString() + ".png";
-                }
-
-                int Width = Tools.Device.PresentationParameters.BackBufferWidth,
-                    Height = Tools.Device.PresentationParameters.BackBufferHeight;
-                if (bmpwriter == null ||
-                    bmpwriter.Width != Width ||
-                    bmpwriter.Height != Height)
-                {
-                    bmpwriter = new BmpWriter(Width, Height);
-                }
-
-                bmpwriter.TextureToBmp(Tools.Screenshot, filename);
-
-                if (!Tools.CapturingVideo)
-                    ChangeScreenshotMode();
-
-                Tools.StartSpriteBatch();
-                //Tools.spriteBatch.Draw(Tools.TextureWad.TextureList[0].Tex, Vector2.Zero, Color.White);
-                Tools.spriteBatch.Draw(Tools.Screenshot, Vector2.Zero, Color.White);
-                Tools.EndSpriteBatch();
-            }
-#endif
         }
 
 
@@ -2429,7 +2384,7 @@ namespace CloudberryKingdom
             Tools.SetStandardRenderStates();
 
             Tools.QDrawer.SetInitialState();
-            Compute_FireAndLava();
+            ComputeFire();
 
             Tools.EffectWad.SetCameraPosition(cameraPos);
 
@@ -2439,12 +2394,7 @@ namespace CloudberryKingdom
             //GraphicsDevice.Clear(Color.Black);
         }
 
-#if WINDOWS
-        BmpWriter bmpwriter;
-#endif
-        public LavaDraw MyLavaDraw;
-
-        private void Compute_FireAndLava()
+        private void ComputeFire()
         {
             if (!LogoScreenUp)
             {
@@ -2455,9 +2405,7 @@ namespace CloudberryKingdom
                     Fireball.DrawFireballTexture(device, Tools.EffectWad);
                     Fireball.DrawEmitterTexture(device, Tools.EffectWad);
                     
-                    // Compute lava texture
                     device.BlendState = BlendState.AlphaBlend;
-                    MyLavaDraw.Update();
                 }
             }
         }

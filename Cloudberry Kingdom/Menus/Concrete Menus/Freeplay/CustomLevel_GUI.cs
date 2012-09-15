@@ -248,19 +248,12 @@ namespace CloudberryKingdom
             CheckpointsText.Show = Show;
         }
 
-        void ShowObjs(bool Show)
-        {
-            ObjList.Include = Show;
-            ObjText.Show = Show;
-        }
-
         bool HasWall = false;
         void SelectNormal()
         {
             HasWall = false;
 
             AnyHero();
-            ShowObjs(false);
             ShowHeros(true);
             
             ShowCheckpoints(true);
@@ -270,7 +263,6 @@ namespace CloudberryKingdom
         {
             HasWall = false;
 
-            ShowObjs(true);
             ShowHeros(false);
             ShowCheckpoints(true);
         }
@@ -294,8 +286,8 @@ namespace CloudberryKingdom
         LengthSlider length;
         MenuSliderBase checkpoints;
         MenuItem Start;
-        MenuList HeroList, ObjList, DiffList;
-        EzText HeroText, ObjText, CheckpointsText;
+        MenuList HeroList, DiffList;
+        EzText HeroText, CheckpointsText;
         public override void Init()
         {
             ItemShadows = false;
@@ -565,7 +557,6 @@ namespace CloudberryKingdom
             MyPile.Add(CheckpointsText);
             CheckpointsText.Pos = new Vector2(-1008.33f, -661.1111f);
 
-            //checkpoints = new MenuSliderBase(new EzText("x ", ItemFont));
             checkpoints = new MenuSliderNoSlide(new EzText("x ", ItemFont));
             checkpoints.Name = "Checkpoints";
             checkpoints.MyFloat = new WrappedFloat(1, 0, 4);
@@ -715,7 +706,6 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Location"); if (_item != null) { _item.SetPos = new Vector2(-66.66797f, 677.9999f); }
             _item = MyMenu.FindItemByName("Game"); if (_item != null) { _item.SetPos = new Vector2(-24.66602f, 475.4443f); }
             _item = MyMenu.FindItemByName("Hero"); if (_item != null) { _item.SetPos = new Vector2(-4.999969f, 284f); }
-            _item = MyMenu.FindItemByName("Obj"); if (_item != null) { _item.SetPos = new Vector2(114.4454f, 392.3334f); }
             _item = MyMenu.FindItemByName("Diff"); if (_item != null) { _item.SetPos = new Vector2(-41.10744f, 79.66678f); }
             _item = MyMenu.FindItemByName("Length"); if (_item != null) { _item.SetPos = new Vector2(-221.8892f, -342.2129f); }
             _item = MyMenu.FindItemByName("Checkpoints"); if (_item != null) { _item.SetPos = new Vector2(150.3331f, -602.7712f); }
@@ -729,7 +719,6 @@ namespace CloudberryKingdom
             _t = MyPile.FindEzText("Location"); if (_t != null) { _t.Pos = new Vector2(-1002.89f, 802.4446f); }
             _t = MyPile.FindEzText("Game"); if (_t != null) { _t.Pos = new Vector2(-844.444f, 619.3334f); }
             _t = MyPile.FindEzText("Hero"); if (_t != null) { _t.Pos = new Vector2(-780.5543f, 419.5557f); }
-            _t = MyPile.FindEzText("Obj"); if (_t != null) { _t.Pos = new Vector2(-1044.443f, 489f); }
             _t = MyPile.FindEzText("Diff"); if (_t != null) { _t.Pos = new Vector2(-1033.889f, 212.7778f); }
             _t = MyPile.FindEzText("Length"); if (_t != null) { _t.Pos = new Vector2(-1166.665f, 36.11107f); }
             _t = MyPile.FindEzText("Checkpoints"); if (_t != null) { _t.Pos = new Vector2(-1177.774f, -463.8889f); }
@@ -745,7 +734,6 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Location"); if (_item != null) { _item.SetPos = new Vector2(-66.66797f, 677.9999f); }
             _item = MyMenu.FindItemByName("Game"); if (_item != null) { _item.SetPos = new Vector2(-24.66602f, 475.4443f); }
             _item = MyMenu.FindItemByName("Hero"); if (_item != null) { _item.SetPos = new Vector2(-4.999969f, 284f); }
-            _item = MyMenu.FindItemByName("Obj"); if (_item != null) { _item.SetPos = new Vector2(114.4454f, 392.3334f); }
             _item = MyMenu.FindItemByName("Diff"); if (_item != null) { _item.SetPos = new Vector2(-41.10744f, 79.66678f); }
             _item = MyMenu.FindItemByName("Length"); if (_item != null) { _item.SetPos = new Vector2(-221.8892f, -342.2129f); }
             _item = MyMenu.FindItemByName("Checkpoints"); if (_item != null) { _item.SetPos = new Vector2(150.3331f, -602.7712f); }
@@ -759,7 +747,6 @@ namespace CloudberryKingdom
             _t = MyPile.FindEzText("Location"); if (_t != null) { _t.Pos = new Vector2(-1002.89f, 802.4446f); }
             _t = MyPile.FindEzText("Game"); if (_t != null) { _t.Pos = new Vector2(-844.444f, 619.3334f); }
             _t = MyPile.FindEzText("Hero"); if (_t != null) { _t.Pos = new Vector2(-780.5543f, 419.5557f); }
-            _t = MyPile.FindEzText("Obj"); if (_t != null) { _t.Pos = new Vector2(-1044.443f, 489f); }
             _t = MyPile.FindEzText("Diff"); if (_t != null) { _t.Pos = new Vector2(-1033.889f, 212.7778f); }
             _t = MyPile.FindEzText("Length"); if (_t != null) { _t.Pos = new Vector2(-1166.665f, 36.11107f); }
             _t = MyPile.FindEzText("Checkpoints"); if (_t != null) { _t.Pos = new Vector2(-1177.774f, -463.8889f); }

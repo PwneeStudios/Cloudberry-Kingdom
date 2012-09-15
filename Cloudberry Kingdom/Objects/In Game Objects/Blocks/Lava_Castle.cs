@@ -38,11 +38,6 @@ namespace CloudberryKingdom
             SetUV();
         }
 
-        protected override float Height(float x)
-        {
-            return Box.TR.Y;
-        }
-
         public override void Draw()
         {
             Update();

@@ -46,18 +46,6 @@ namespace CloudberryKingdom
             MyQuad.Quad.UVFromBounds(new Vector2(repeats + u_offset, 1), new Vector2(0 + u_offset, 0));
         }
 
-        protected virtual float Height(float x)
-        {
-            Box.CalcBounds();
-
-            float s = (x - Box.BL.X) / (Box.TR.X - Box.BL.X);
-            float repeats = Size.X / TextureSize.X;
-            float u = (1 - s) * (repeats + u_offset) + s * (0 + u_offset);
-            u = (u + 1000) % 1;
-
-            return -530 + 400 * (1 - 9.7f * Tools.TheGame.MyLavaDraw.Height(u)) + Box.TR.Y;
-        }
-
         public void Init(float top, float left, float right, float depth)
         {
             float width = right - left;
@@ -114,7 +102,7 @@ namespace CloudberryKingdom
 
         void CollisionCheck(Bob bob)
         {
-            float h = Height(bob.Pos.X);
+            float h = MyBox.TR.Y;
             
             if (bob.Box.BL.Y < h - 40)
                 bob.Die(Bob.BobDeathType.Lava);
@@ -200,36 +188,6 @@ namespace CloudberryKingdom
         
         public override void Draw()
         {
-            Update();
-
-            if (Tools.DrawGraphics)
-            {
-                if (!BlockCore.BoxesOnly)
-                {
-                    Tools.TheGame.MyLavaDraw.DoLavaUpdate = true;
-
-                    Tools.EffectWad.FindByName("Lava").effect.Parameters["EdgeColor"].SetValue(new Color(169, 18, 18).ToVector4());
-                    Tools.EffectWad.FindByName("Lava").effect.Parameters["LavaColor"].SetValue(new Color(255, 0, 0).ToVector4());
-
-                    MyQuad.Base.Origin = MyBox.Current.Center + new Vector2(0, 118);
-                    MyQuad.Draw();
-                    Tools.QDrawer.Flush();
-                }
-
-                BlockCore.Draw();
-            }
-
-            if (Tools.DrawBoxes)
-            {
-                MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
-
-                float x = Box.BL.X;
-                while (x < Box.TR.X)
-                {
-                    Tools.QDrawer.DrawCircle(new Vector2(x, Height(x)), 20, Color.LimeGreen);
-                    x += 200;
-                }
-            }
         }
 
         public override bool PreDecision(Bob bob)
