@@ -187,7 +187,7 @@ namespace CloudberryKingdom
             else if (style == 1)
             {
                 EzText pwnee = new EzText("pwnee studios", Tools.Font_Grobold42, true, true);
-                CampaignMenu.HappyBlueColor(pwnee);
+                CampaignMenu._x_x_HappyBlueColor(pwnee);
                 pwnee.Scale *= .9f;
                 MyPile.Add(pwnee);
 

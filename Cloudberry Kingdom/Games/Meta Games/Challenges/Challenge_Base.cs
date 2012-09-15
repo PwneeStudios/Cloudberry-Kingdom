@@ -16,8 +16,6 @@ namespace CloudberryKingdom
     {
         public int[] StartLevels = { 1, 50, 100, 150 };
 
-        public static DifficultyFunc D { get { return Campaign.D; } }
-
         /// <summary>
         /// The last difficulty selected via the difficulty select menu
         /// </summary>

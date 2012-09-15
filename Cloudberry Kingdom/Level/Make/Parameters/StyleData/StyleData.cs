@@ -65,8 +65,8 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public Vector2 ComputerWaitLengthRange = new Vector2(15, 36);//50);
 
-        public enum FinalPlatsType { Seed, Door, DarkBottom };
-        public FinalPlatsType MyFinalPlatsType = FinalPlatsType.Seed;
+        public enum FinalPlatsType { Door, DarkBottom };
+        public FinalPlatsType MyFinalPlatsType = FinalPlatsType.Door;
         
         public enum FinalDoorStyle { Normal, TerraceToCastle };
         public FinalDoorStyle MyFinalDoorStyle = FinalDoorStyle.Normal;

@@ -869,7 +869,7 @@ namespace CloudberryKingdom
                 MyBob.CurInput.A_Button = true;
             }
 
-            if (AutoFallOrJump < 0 && !MyBob.MoveData.PlacePlatforms)
+            if (AutoFallOrJump < 0)
                 MyBob.CurInput.A_Button = false;
 
 
@@ -978,12 +978,6 @@ namespace CloudberryKingdom
 
             // Always prevent jump if we are near the top
             if (Pos.Y > TR.Y - 150)
-                MyBob.CurInput.A_Button = false;
-
-            // Place platforms jump modification
-            if (MyBob.MoveData.PlacePlatforms && Pos.Y < BL.Y + 450)
-                MyBob.CurInput.A_Button = true;
-            if (MyBob.MoveData.PlacePlatforms && Pos.Y > TR.Y - 500)
                 MyBob.CurInput.A_Button = false;
         }
 
@@ -1100,18 +1094,11 @@ namespace CloudberryKingdom
                     break;
             }
 
-            // Let go of A for 1 frame to allow for place
-            if (MyBob.PrevInput.A_Button && yVel < -5 && ReadyToPlace())
+            // Let go of A for 1 frame
+            if (MyBob.PrevInput.A_Button && yVel < -5)
                 MyBob.CurInput.A_Button = false;
 
             AdditionalGenerateInputChecks(CurPhsxStep);
-
-            /*
-            RichLevelGenData GenData = MyBob.Core.MyLevel.CurMakeData.GenData;
-            int ApexWait = GenData.Get(DifficultyParam.ApexWait, Pos);
-            Console.WriteLine("{0} / {1}  :  {2}", xVel, BobMaxSpeed, MyBob.CurInput.xVec.X);
-            Console.WriteLine("Want:{0} Apex:{1}  {2} / {3}", MyBob.WantsToLand, ApexReached, CountSinceApex, ApexWait);
-             * */
         }
 
         public float ForcedJumpDamping = 1;
@@ -1400,11 +1387,6 @@ namespace CloudberryKingdom
         public virtual bool ShouldStartJumpAnim()
         {
             return DynamicGreaterThan(yVel, 10f) && !OnGround && StartJumpAnim;
-        }
-
-        public override bool ReadyToPlace()
-        {
-            return !(OnGround || FallingCount < BobFallDelay);
         }
 
         public virtual void SetDeathVel(Bob.BobDeathType DeathType)

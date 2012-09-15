@@ -27,7 +27,7 @@ namespace CloudberryKingdom
 
             HintText = new EzText(hint, Tools.Font_Grobold42, 10000, true, true);
             HintText.Scale *= .6125f;
-            CampaignMenu.HappyBlueColor(HintText);
+            CampaignMenu._x_x_HappyBlueColor(HintText);
             //HintText.OutlineColor = Color.Purple.ToVector4();
             HintText.Pos = new Vector2(0, -250);
         }
@@ -69,7 +69,7 @@ namespace CloudberryKingdom
             if (type is BobPhsxSpaceship)
             {
                 TextObject = new EzText("?", Tools.Font_Grobold42, true, true);
-                CampaignMenu.HappyBlueColor(TextObject);
+                CampaignMenu._x_x_HappyBlueColor(TextObject);
                 TextObject.Scale *= 1.25f;
                 TextObject.FixedToCamera = true;
                 TextObject._Pos = new Vector2(11, 170);

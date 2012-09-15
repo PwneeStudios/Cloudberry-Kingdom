@@ -22,7 +22,7 @@ namespace CloudberryKingdom
                              CameraZone,
                              Doodad, SelectBox,
                              Cloud, BouncyBlock, Floater_Spin, ConveyorBlock, SpikeyLine, Firesnake, FlyingBlock, IceBlock, Wall,
-                             BerryBubble, Seed, Region,
+                             BerryBubble, Region,
                              Pendulum, Serpent, LavaDrip };
 
     public class RecycleBin
@@ -158,8 +158,6 @@ namespace CloudberryKingdom
                     return new Door(BoxesOnly);
                 case ObjectType.Checkpoint:
                     return new Checkpoint();
-                case ObjectType.Seed:
-                    return new Seed();
                 case ObjectType.Doodad:
                     return new Doodad();
                 case ObjectType.Laser:

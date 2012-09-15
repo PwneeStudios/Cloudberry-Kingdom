@@ -788,8 +788,6 @@ namespace CloudberryKingdom
             }
         }
 
-        public virtual bool ReadyToPlace() { return false; }
-
         public virtual void IncrementJumpCounter()
         {
             if (!MyBob.CompControl && !MyBob.Core.MyLevel.Watching && MyBob.Core.MyLevel.PlayMode == 0)

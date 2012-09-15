@@ -476,7 +476,6 @@ namespace CloudberryKingdom
 
             if (!TemporaryBlock)
             {
-                bob.TemporaryPlaceBlock = true;
                 OnOpen(this);
                 DoorOperated++;
             }

@@ -174,7 +174,7 @@ namespace CloudberryKingdom.Levels
 
         public bool EndOfReplay()
         {
-            return CurPhsxStep >= CurPiece.PieceLength || Bobs.Exists(delegate(Bob bob) { return bob.SuckedIn; });
+            return CurPhsxStep >= CurPiece.PieceLength;
         }
 
         public Action OnEndReplay;

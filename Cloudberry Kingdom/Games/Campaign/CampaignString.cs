@@ -141,72 +141,6 @@ namespace CloudberryKingdom
         {
             LevelSeedData d;
 
-            // DEBUG: make the first door the victory door
-            if (DEBUG_FirstDoorVictory)
-                Add(CampaignEnd);
-
-            //d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 4000, 1);
-            //d.SetTileSet(TileSets.Terrace);
-            //d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
-            //d.PieceSeeds[0].Style.MyFinalDoorStyle = StyleData.FinalDoorStyle.TerraceToCastle;
-            //d.PostMake += lvl => Campaign.LevelWithPrincess(lvl, true, Campaign.PrincessPos.CenterToRight);
-            //Add(d);
-
-            // Start music
-            //LevelSeedData.BOL_StartMusic();
-
-            //for (int i = 0; i < 3; i++)
-            //    PlayerManager.Get(i).IsAlive = PlayerManager.Get(i).Exists = true;
-
-
-            // Test credits
-            //Add(() => LoadAsSubGame(new Campaign_PrincessRoom()));
-            //Add(() => LoadAsSubGame(new Campaign_Boss(true)));
-
-
-            // new up level intro
-            //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 4000, 1, LevelGeometry.Up, TileSets.Dungeon);
-            //d.PostMake += lvl => Campaign_UpExplosion.UpExplosion(lvl);
-            //d.SetBackFirstAttemp(Campaign_UpExplosion.SetBack);
-            //d.SetToShowLevelTitle(false);
-            //d.SetToStartSong(Tools.Song_TidyUp);
-            //Add(d);
-
-            // new down level
-            //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 4500, 1, LevelGeometry.Down);
-            //d.PostMake += Campaign_PrincessDown.PrincessDown;
-            //d.SetToShowLevelTitle(false);
-            //d.MyGeometry = LevelGeometry.Down;
-            //d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
-            //d.SetTileSet(TileSets.Terrace);
-            //d.SetToStartSong(Tools.Song_GetaGrip);
-            //Add(d);
-
-            //AddSubGame(() => new Campaign_GetJetpack(BackgroundType.Night, Tools.Song_BlueChair));
-            //AddSubGame(() => new Campaign_GetCart(Tools.Song_Evidence));
-            //AddSubGame(() => new Campaign_CartToBox(Tools.Song_FatInFire));
-            
-            //Add(() => Challenge_SavePrincessRush.Instance.Start(Campaign.Index));
-            //Add(() => LoadAsSubGame(new Campaign_PrincessOverLava_Get()));
-
-
-            //d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxRocketbox.Instance, 15500, 1, LevelGeometry.Right, TileSets.Island);
-            //d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
-            //d.PieceSeeds[0].Style.MyFinalDoorStyle = StyleData.FinalDoorStyle.TerraceToCastle;
-            //d.SetToShowLevelTitle();
-            //d.NoMusicStart = true;
-            //Add(d);
-
-            // Test boss
-            //Add(() => LoadAsSubGame(new Campaign_BossNew(true), false));
-
-            // Hardcore intro
-            //if (Campaign.Difficulty > 2)
-            //{
-            //    AddSubGame(() => new Campaign_Chaos(null));
-            //}
-
-
             // World titles
             LevelSeedData.FirstWorld();
             Tools.SongWad.SuppressNextInfoDisplay = true;
@@ -214,27 +148,14 @@ namespace CloudberryKingdom
             // First level, princess, dramatic entrance
             d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 7000, 2);
             d.SetTileSet(TileSets.Terrace);
-            //d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
             d.PieceSeeds[1].Style.MyFinalDoorStyle = StyleData.FinalDoorStyle.TerraceToCastle;
             d.PostMake += lvl => Campaign.LevelWithPrincess(lvl, true, Campaign.PrincessPos.CenterToRight, true);
             var style = d.PieceSeeds[0].Style as SingleData;
             style.InitialDoorYRange = new Vector2(-400);
-            //d.SetToShowLevelTitle(240);
             d.SetToShowLevelTitle(40);
             d.SetBackFirstAttemp(Campaign.LvlWithPrincess_SetBack);
             d.SetToStartSong(Tools.Song_BlueChair);
-            //d.PostMake += lvl =>
-            //{
-            //    // Slide in score/level gui before level starts
-            //    GameData g = lvl.MyGame;
-            //    foreach (var obj in g.MyGameObjects)
-            //    {
-            //        if (obj is GUI_Level || obj is GUI_Score)
-            //            ((GUI_Panel)obj).SlideIn(0);
-            //    }
-            //};
             Add(d);
-
 
             // Level 2, Wall
             d = Campaign.WallLevel(Campaign.Difficulty, BobPhsxNormal.Instance, 1.15f);
@@ -263,41 +184,8 @@ namespace CloudberryKingdom
             d.OnBeginLoad += QuickSpawnHint;
             Add(d);
 
-            //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 9500, 1, LevelGeometry.Down);
-            //d.SetToShowLevelTitle(false);
-            //d.MyGeometry = LevelGeometry.Down;
-            //d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
-            //d.SetTileSet(TileSets.Terrace);
-            //d.DelayEntrance();
-            //d.SetToStartSong(Tools.Song_GetaGrip);
-            //Add(d);
-            d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 9500, 1, LevelGeometry.Down);
-            d.PostMake += Campaign_PrincessDown.PrincessDown;
-            d.SetToShowLevelTitle(false);
-            d.MyGeometry = LevelGeometry.Down;
-            d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
-            d.SetTileSet(TileSets.Terrace);
-            d.SetToStartSong(Tools.Song_GetaGrip);
-            d.SetBackFirstAttemp(Campaign_PrincessDown.SetBack);
-            Add(d);
-
             // NEW WORLD
             LevelSeedData.NewWorld();
-
-            // To dungeon, from above (Become tiny)
-            AddSubGame(() => new Campaign_DungeonFromAbove(Tools.Song_FatInFire));
-
-            d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxSmall.Instance, 8500, 2, LevelGeometry.Right, TileSets.Dungeon);
-            d.SetToShowLevelTitle();
-            d.DelayEntrance();
-            d.NoMusicStart = true;
-            d.OnBeginLoad += PowerupHint;
-            Add(d);
-            d = Campaign.HeroLevel(Campaign.Difficulty, BobPhsxSmall.Instance, 8500, 2, LevelGeometry.Right, TileSets.Dungeon);
-            d.SetToShowLevelTitle();
-            d.DelayEntrance();
-            d.SetToStartSong(Tools.Song_House);
-            Add(d);
 
             // Get double jump
             AddSubGame(() => new Campaign_GetDouble(Tools.Song_Evidence));
@@ -307,14 +195,7 @@ namespace CloudberryKingdom
             d.DelayEntrance();
             d.NoMusicStart = true;
             Add(d);
-            //d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 7500, 1, LevelGeometry.Up, TileSets.Dungeon);
-            //d.SetToShowLevelTitle(false);
-            //d.DelayEntrance();
-            //d.SetToStartSong(Tools.Song_TidyUp);
-            //Add(d);
             d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxDouble.Instance, 7500, 1, LevelGeometry.Up, TileSets.Dungeon);
-            d.PostMake += lvl => Campaign_UpExplosion.UpExplosion(lvl);
-            d.SetBackFirstAttemp(Campaign_UpExplosion.SetBack);
             d.SetToShowLevelTitle(false);
             d.SetToStartSong(Tools.Song_TidyUp);
             Add(d);
@@ -338,7 +219,6 @@ namespace CloudberryKingdom
             d.SetToShowLevelTitle(false);
             d.SetTileSet(TileSets.Castle);
             d.NoMusicStart = true;
-            d.PostMake += lvl => lvl.MyGame.AddGameObject(new PreSpaceship());
             Add(d);
 
             // Up level, from ground level, get jetpack
@@ -347,8 +227,6 @@ namespace CloudberryKingdom
             d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxJetman.Instance, 7500, 1, LevelGeometry.Up);
             d.SetTileSet(TileSets._Night);
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
-            //d.PostMake += lvl => lvl.Move(new Vector2(0, 1000), false);
-            //d.SetToShowLevelTitle();
             d.SetToShowLevelTitle(false);
             d.DelayEntrance();
             d.NoMusicStart = true;
@@ -373,26 +251,11 @@ namespace CloudberryKingdom
             Add(d);
 
 
-            // FINAL
-
-            // Dramatic scene, princess over lava, followed by Rush
-            int NumFloors = Challenge_SavePrincessRush.NumLevels[Campaign.Index] + 1;
-            ModTitle = t =>
-            {
-                CampaignMenu.HardcoreColor(t.LevelText);
-                t.MyPile.Pos += new Vector2(40, 0);
-            };
-            Add(() => LoadAsSubGame(new Campaign_DarkTower(), "The Dark Tower", ModTitle));
-            Add(() => Challenge_SavePrincessRush.Instance.Start(Campaign.Index));
-            Add(() => LoadAsSubGame(new Campaign_PrincessOverLava_Get(), "Floor " + NumFloors.ToString()));
-
-            
             // NEW WORLD
             LevelSeedData.NewWorld();
 
             // Rain, carrying princess with RUMBLE
             d = Campaign.HeroLevel(Campaign.Difficulty + .3f, BobPhsxNormal.Instance, 7000, 2);
-            //d.SetToShowLevelTitle(false);
             d.SetToShowLevelTitle();
             d.SetTileSet(TileSets.Terrace);
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;

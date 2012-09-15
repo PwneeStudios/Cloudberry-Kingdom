@@ -62,12 +62,6 @@ namespace CloudberryKingdom
             // Time Crisis Scores
             InitRushScore("TimeCrisis", ref TimeCrisisHighScore, ref TimeCrisisHighLevel);
 
-
-            // Campaign Scores
-            CampaignScores = new CampaignList[Campaign.NumDifficulties];
-            for (int i = 0; i < Campaign.NumDifficulties; i++)
-                CampaignScores[i] = new CampaignList(i);
-
             // Player data
             PlayerManager.SavePlayerData = new _SavePlayerData();
             PlayerManager.SavePlayerData.ContainerName = "PlayerData";

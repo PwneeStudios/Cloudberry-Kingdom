@@ -141,7 +141,6 @@ namespace CloudberryKingdom.Levels
                     bob.MyStats.DeathsBy[(int)Bob.BobDeathType.Total]++;
                 }
             }
-            Campaign.Attempts++;
         }
 
         /// <summary>
@@ -1046,8 +1045,6 @@ namespace CloudberryKingdom.Levels
             Vector2 BobsCenter = new Vector2(0, 0);
             foreach (Bob bob in Bobs)
             {
-                bob.EndSuckedIn();
-
                 PhsxData StartData;
                 if (bob.MyPiece != null)
                 {
@@ -2185,7 +2182,7 @@ namespace CloudberryKingdom.Levels
                     }
 
                     if (bob.MyPiece != null && bob.MyPiece.Recording != null && !bob.CharacterSelect && !bob.CharacterSelect2)
-                        if (PlayMode == 1 && !bob.SuckedIn || PlayMode == 0 && bob.CompControl && !Replay)
+                        if (PlayMode == 1 || PlayMode == 0 && bob.CompControl && !Replay)
                         {
                             int index = CurPhsxStep - bob.IndexOffset;
                             Vector2 a, b;

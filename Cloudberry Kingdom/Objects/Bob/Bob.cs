@@ -37,39 +37,6 @@ namespace CloudberryKingdom.Bobs
             Tools.Restrict(0, 1, ref LightSourceFade);
         }
 
-        public void SetAnimation(string Name, float PlaySpeed)
-        {
-            SetAnimation(Name, 0, false, PlaySpeed);
-        }
-        public void SetAnimation(string Name, float StartT, bool Loop, float PlaySpeed)
-        {
-            PlayerObject.PlayUpdate(.01f);
-            UpdateObject();
-
-            PlayerObject.AnimQueue.Clear();
-            PlayerObject.EnqueueAnimation(Name, MyLevel.Rnd.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
-            PlayerObject.DequeueTransfers();
-
-            PlayerObject.PlayUpdate(.01f);
-            UpdateObject();
-        }
-
-        public void TransferToAnimation(string Name, float PlaySpeed)
-        {
-            TransferToAnimation(Name, 0, false, PlaySpeed);
-        }
-        public void TransferToAnimation(string Name, float StartT, bool Loop, float PlaySpeed)
-        {
-            PlayerObject.PlayUpdate(.01f);
-            UpdateObject();
-
-            PlayerObject.AnimQueue.Clear();
-            PlayerObject.EnqueueAnimation(Name, MyLevel.Rnd.RndFloat(0, 1), Loop, true, 1, PlaySpeed, false);
-
-            PlayerObject.PlayUpdate(.01f);
-            UpdateObject();
-        }
-
         public bool Dopple = false;
         public Vector2 LastPlacedCoin;
 
@@ -92,7 +59,6 @@ namespace CloudberryKingdom.Bobs
         public bool Moved;
 
         public ColorScheme MyColorScheme;
-        public ObjectBase HeldObject;
 
         public int HeldObjectIteration;
 
@@ -250,9 +216,6 @@ namespace CloudberryKingdom.Bobs
 
         public struct BobMove
         {
-            public bool PlacePlatforms;
-            public PlaceTypes PlaceObject;
-
             public float MaxTargetY, MinTargetY;
 
             public int Copy;
@@ -315,7 +278,6 @@ namespace CloudberryKingdom.Bobs
         public bool SaveNoBlock;
         public int PlaceDelay = 23;
         public int PlaceTimer;
-        public PlaceTypes PlaceType;
 
         public bool Immortal, DoNotTrackOffScreen = false;
 
@@ -324,9 +286,7 @@ namespace CloudberryKingdom.Bobs
         public FancyVector2 FancyPos;
         public bool CompControl, CharacterSelect, CharacterSelect2, Cinematic, DrawWithLevel = true, AffectsCamera = true;
         public int IndexOffset;
-        public bool SuckedIn;
-        public Seed SuckedInSeed;
-
+        
         public int ControlCount = 0;
 
         /// <summary>
@@ -621,23 +581,6 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-        public void SetPlaceAnimData()
-        {
-            if (BoxesOnly) return;
-
-            PlayerObject.ImportAnimDataShallow(Prototypes.PlaceBob,
-                                        Prototypes.PlaceBob.FindQuads("Arm_Left", "Arm_Right", "Hand_Left", "Hand_Right"),
-                                        new List<string>(new string[] { "Stand", "Run", "Duck", "Jump", "Die", "JumpContinue" }));
-        }
-
-        public void UnsetPlaceAnimData()
-        {
-            ObjectClass regular = Prototypes.bob[BobPhsxNormal.Instance].PlayerObject;
-            PlayerObject.ImportAnimDataShallow(regular,
-                                        regular.FindQuads("Arm_Left", "Arm_Right", "Hand_Left", "Hand_Right"),
-                                        new List<string>(new string[] { "Stand", "Run", "Duck", "Jump", "Die", "JumpContinue" }));
-        }
-
         public void Init(bool BoxesOnly, PhsxData StartData, GameData game)
         {
             Core.Show = true;
@@ -664,7 +607,6 @@ namespace CloudberryKingdom.Bobs
 
             ImmortalCountDown = ImmortalLength;
             Moved = false;
-            //MyColorScheme = Generic.ColorSchemes[0];
 
             PlaceTimer = 0;
 
@@ -678,22 +620,14 @@ namespace CloudberryKingdom.Bobs
 
             if (PlayerObject == null)
             {
-                //PlayerObject = new ObjectClass(Prototypes.bob[type].PlayerObject, BoxesOnly, false);
                 PlayerObject = new ObjectClass(type.Prototype.PlayerObject, BoxesOnly, false);
 
-                PlayerObject.FinishLoading(); //PlayerObject.FinishLoading(Tools.QDrawer, Tools.Device, Tools.TextureWad, Tools.EffectWad, Tools.Device.PresentationParameters, 200, 350);
+                PlayerObject.FinishLoading();
                 Vector2 size = PlayerObject.BoxList[0].Size();
                 float ratio = size.Y / size.X;
                 int width = Tools.TheGame.Resolution.Bob.X;
                 int height = (int)(width * ratio);
-                PlayerObject.FinishLoading(Tools.QDrawer, Tools.Device, Tools.TextureWad, Tools.EffectWad, Tools.Device.PresentationParameters, width, height);//Tools.Device.PresentationParameters.BackBufferWidth / 4, Tools.Device.PresentationParameters.BackBufferHeight / 4);
-            }
-
-            
-            // Copy placebob's arm anim data
-            if (MoveData.PlacePlatforms && !BoxesOnly && PlayerObject.QuadList != null)
-            {
-                SetPlaceAnimData();
+                PlayerObject.FinishLoading(Tools.QDrawer, Tools.Device, Tools.TextureWad, Tools.EffectWad, Tools.Device.PresentationParameters, width, height);
             }
 
             PlayerObject.Read(0, 0);
@@ -724,286 +658,6 @@ namespace CloudberryKingdom.Bobs
             }
 
             SetColorScheme(MyColorScheme);
-        }
-
-        public bool TemporaryPlaceBlock;
-        bool ReadyToPlace = false;
-        public void ButtonPhsx()
-        {
-            if (MoveData.PlacePlatforms && !TemporaryPlaceBlock)
-            {
-                PlaceTimer--;
-
-                if (Core.GetPhsxStep() > 10)
-                if (CurInput.A_Button && !PrevInput.A_Button && PlaceTimer <= 0 && ReadyToPlace)
-                {
-                    PlaceTimer = PlaceDelay;
-                    SaveNoBlock = true;
-
-                    HeldObjectIteration++;
-
-                    Vector2 pos;
-                    Vector2 offset;
-                    BlockBase NewBlock;
-                    ObjectBase NewObj = null;
-                    switch (MoveData.PlaceObject)
-                    {
-                        case PlaceTypes.SuperBouncyBlock:
-                            offset = new Vector2(2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f), 0);
-                            offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
-                            NewObj = NewBlock = MakeSuperBouncyBlock(offset);
-
-                            Core.MyLevel.AddPop(NewBlock.Box.Current.Center);
-
-                            break;
-
-                        case PlaceTypes.BouncyBlock:
-                            offset = new Vector2(2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f), 0);
-                            offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
-                            NewObj = NewBlock = MakeBouncyBlock(offset);
-
-                            Core.MyLevel.AddPop(NewBlock.Box.Current.Center);
-
-                            break;
-
-                        case PlaceTypes.FallingBlock:
-                            offset = new Vector2(2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f), 0);
-                            offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
-                            NewObj = NewBlock = MakeFallingBlock(offset);
-
-                            Core.MyLevel.AddPop(NewBlock.Box.Current.Center);
-
-                            break;
-
-                        case PlaceTypes.GhostBlock:
-                            offset = new Vector2(2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f), 0);
-                            offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
-                            NewObj = NewBlock = MakeGhostBlock(offset);
-
-                            Core.MyLevel.AddPop(NewBlock.Box.Current.Center);
-
-                            break;
-
-                        case PlaceTypes.MovingBlock:
-                            offset = new Vector2(2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f), 0);
-                            offset.X -= 60 * Math.Sign(Core.Data.Velocity.X);
-                            offset.Y -= 40;
-                            MovingBlock MBlock = MakeMovingBlock2(offset);
-                            NewObj = (ObjectBase)MBlock;
-
-                            Core.MyLevel.AddPop(MBlock.Box.Current.Center);
-
-                            break;
-
-                        case PlaceTypes.FlyingBlob:
-                            pos = new Vector2(Box.Current.Center.X, Box.Current.BL.Y);
-                            pos.X += 2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f);
-                            pos.Y -= 135;
-
-                            Goomba NewGoomba = (Goomba)Core.Recycle.GetObject(ObjectType.FlyingBlob, false);
-                            NewGoomba.Init(pos, MyLevel);
-                            NewObj = NewGoomba;
-
-                            NewGoomba.Core.Data.Position = NewGoomba.Core.StartData.Position = pos;
-                            NewGoomba.Period = 100;
-                            NewGoomba.Offset = 0;
-                            NewGoomba.Displacement = new Vector2(0, 0);
-                            NewGoomba.UpdateObject();
-
-                            Core.MyLevel.AddObject(NewGoomba);
-
-                            Core.MyLevel.AddPop(NewGoomba.Core.Data.Position, 155);
-                            break;
-
-                        case PlaceTypes.NormalBlock:
-                            pos = new Vector2(Box.Current.Center.X, Box.Current.BL.Y);
-                            pos.X += 2f * Core.Data.Velocity.X * (Math.Max(0, Core.Data.Velocity.Y / MyPhsx.Gravity) + 1f);
-                            NormalBlock NBlock = (NormalBlock)Core.Recycle.GetObject(ObjectType.NormalBlock, false);
-                            NBlock.Init(pos, new Vector2(135, 100), Core.MyLevel.MyTileSetInfo);
-                            NBlock.Extend(Side.Top, Box.Target.BL.Y - 1f);
-                            NBlock.Extend(Side.Bottom, NBlock.Box.Current.BL.Y - 100);
-
-                            NewObj = (ObjectBase)NBlock;
-
-                            Core.MyLevel.AddPop(NBlock.Box.Current.Center, 155);
-                            break;
-                    }
-
-                    NewBlock = NewObj as BlockBase;
-                    if (null != NewBlock)
-                        Core.MyLevel.AddBlock(NewBlock);
-
-
-                    if (NewObj != null)
-                    {
-                        NewObj.Core.GenData.Used = true;
-                        NewObj.Core.RemoveOnReset = true;
-                        NewObj.Core.Placed = true;
-                    }
-
-                    MyPhsx.NextJumpIsPlacedJump = true;
-                }
-            }
-
-            TemporaryPlaceBlock = false;
-        }
-
-
-
-
-        public Vector2 PosToPlace()
-        {
-            int Dir = Math.Sign(Core.Data.Velocity.X);
-
-            Vector2 pos = Vector2.Zero;
-            if (Dir == 1) pos.X = Box.Target.TR.X + 75f / 1 - .01f;
-            else if (Dir == -1) pos.X = Box.Target.BL.X - 75f / 1 + .01f;
-            else pos.X = Box.Target.Center.X;
-            pos.Y = Box.Target.BL.Y - 75f / 1 - .01f;
-
-            return pos;
-        }
-
-        public BlockBase MakeFallingBlock(Vector2 offset)
-        {
-            Vector2 pos = PosToPlace();
-
-            FallingBlock NewBlock = new FallingBlock(false);
-            int Life = 26;
-
-            // Get FallingBlock parameters
-            FallingBlock_Parameters Params = (FallingBlock_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(FallingBlock_AutoGen.Instance);
-
-            Life = (int)Params.Delay.GetVal(Core.Data.Position);
-
-            NewBlock.Init(pos + offset, new Vector2(75, 75), Life, MyLevel);
-            
-            NewBlock.BlockCore.BoxesOnly = BoxesOnly;
-
-            return NewBlock as BlockBase;
-        }
-
-        public BlockBase MakeSuperBouncyBlock(Vector2 offset)
-        {
-            Vector2 pos = PosToPlace();
-
-            BouncyBlock NewBlock = new BouncyBlock(false);
-
-            // Get BouncyBlock parameters
-            BouncyBlock_Parameters Params = (BouncyBlock_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(BouncyBlock_AutoGen.Instance);
-
-            int Speed = 75;// 100;
-
-            offset.Y -= 90;
-            NewBlock.Init(pos + offset, new Vector2(125, 125), Speed, MyLevel);
-            NewBlock.BlockCore.BoxesOnly = BoxesOnly;
-
-            return NewBlock as BlockBase;
-        }
-
-        public BlockBase MakeBouncyBlock(Vector2 offset)
-        {
-            Vector2 pos = PosToPlace();
-
-            BouncyBlock NewBlock = new BouncyBlock(false);
-
-            // Get BouncyBlock parameters
-            BouncyBlock_Parameters Params = (BouncyBlock_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(BouncyBlock_AutoGen.Instance);
-
-            int Speed = (int)Params.Speed.GetVal(Core.Data.Position);
-
-            NewBlock.Init(pos + offset, new Vector2(75, 75), Speed, MyLevel);
-            NewBlock.BlockCore.BoxesOnly = BoxesOnly;
-
-            return NewBlock as BlockBase;
-        }
-
-        public BlockBase MakeGhostBlock(Vector2 offset)
-        {
-            return MakeGhostBlock(offset, Math.Sign(Core.Data.Velocity.X));
-        }
-        public BlockBase MakeGhostBlock(Vector2 offset, int Dir)
-        {
-            Vector2 pos = Vector2.Zero;
-            if (Dir == 1) pos.X = Box.Target.TR.X + 75f / 1 - .01f;
-            else if (Dir == -1) pos.X = Box.Target.BL.X - 75f / 1 + .01f;
-            else pos.X = Box.Target.Center.X;
-            pos.Y = Box.Target.BL.Y - 75f / 1 - .01f;
-            GhostBlock NewBlock = new GhostBlock(false);
-            NewBlock.Init(pos + offset, new Vector2(75, 75), MyLevel);
-            NewBlock.BlockCore.BoxesOnly = BoxesOnly;
-
-            // Get GhostBlock parameters
-            GhostBlock_Parameters Params = (GhostBlock_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(GhostBlock_AutoGen.Instance);
-
-            //RichLevelGenData GenData = ((PlaceGameData)Tools.CurGameData).MyGenData;
-            //int InLength = GenData.Get(DifficultyType.GhostBlockInLength, pos);
-            //int OutLength = GenData.Get(DifficultyType.GhostBlockOutLength, pos);
-
-            int InLength = (int)Params.InLength.GetVal(pos);
-            int OutLength = (int)Params.OutLength.GetVal(pos);
-            
-            int Offset = -Core.MyLevel.CurPhsxStep;
-
-            NewBlock.InLength = InLength;
-            NewBlock.OutLength = OutLength;
-            NewBlock.Offset = Offset;
-
-
-            return NewBlock as BlockBase;
-        }
-
-        public MovingBlock MakeMovingBlock2(Vector2 offset)
-        {
-            int Dir = Math.Sign(Core.Data.Velocity.X);
-
-            Vector2 pos = Vector2.Zero;
-            if (Dir == 1) pos.X = Box.Target.TR.X + 75f / 1 - .01f;
-            else if (Dir == -1) pos.X = Box.Target.BL.X - 75f / 1 + .01f;
-            else pos.X = Box.Target.Center.X;
-            pos.Y = Box.Target.BL.Y - 75f / 1 - .01f;
-            //MovingBlock2 NewBlock = (MovingBlock2)Core.Recycle.GetObject(ObjectType.MovingBlock2, false);
-            MovingBlock NewBlock = new MovingBlock(false);
-
-            // Get MovingBlock parameters
-            MovingBlock_Parameters Params = (MovingBlock_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(MovingBlock_AutoGen.Instance);
-
-            //RichLevelGenData GenData = ((PlaceGameData)Tools.CurGameData).MyGenData;
-            //NewBlock.Period = GenData.Get(DifficultyType.MovingBlock2Period, pos);
-            //float Displacement = GenData.Get(DifficultyType.MovingBlock2Range, pos);
-
-            NewBlock.Period = (int)Params.Period.GetVal(pos);
-            float Displacement = (int)Params.Range.GetVal(pos);
-
-            switch (HeldObjectIteration % 4)
-            {
-                case 0:
-                    NewBlock.Offset = -Core.MyLevel.CurPhsxStep + 3 * NewBlock.Period / 4;
-                    NewBlock.Displacement = new Vector2(0, Displacement);
-                    break;
-
-                case 1:
-                    NewBlock.Offset = -Core.MyLevel.CurPhsxStep - NewBlock.Period / 4;
-                    NewBlock.Displacement = new Vector2(Displacement, Displacement);
-                    break;
-
-                case 2:
-                    NewBlock.Offset = -Core.MyLevel.CurPhsxStep - NewBlock.Period / 4;
-                    NewBlock.Displacement = new Vector2(Displacement, 0);
-                    break;
-
-                case 3:
-                    NewBlock.Offset = -Core.MyLevel.CurPhsxStep - NewBlock.Period / 4;
-                    NewBlock.Displacement = new Vector2(-Displacement, Displacement);
-                    break;
-            }
-
-            offset.Y -= 125;            
-            
-            NewBlock.Init(pos + offset, new Vector2(120, 120), MyLevel);
-            NewBlock.BlockCore.BoxesOnly = BoxesOnly;
-
-            return NewBlock as MovingBlock;
         }
 
         /// <summary>
@@ -1111,9 +765,6 @@ namespace CloudberryKingdom.Bobs
 #if XBOX
             Tools.SetVibration(MyPlayerIndex, .5f, .5f, 45);
 #endif
-
-            if (HeldObject != null && PlaceTimer <= 0)
-                Core.MyLevel.AddPop(HeldObject.Core.Data.Position);
 
             // Update stats
             if (DeathType != BobDeathType.None)
@@ -1708,12 +1359,6 @@ namespace CloudberryKingdom.Bobs
                     Boxes[8].Draw(Tools.QDrawer, Color.Blue, 8);
                 }
             }
-
-            // Held object
-            if (HeldObject != null && PlaceTimer <= 0 && !Dead && !Dying)
-            {
-                HeldObject.Draw();
-            }
         }
 
         public override void Move(Vector2 shift)
@@ -2031,41 +1676,6 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.OnGround = true;
         }
 
-        public void EndSuckedIn()
-        {
-            SuckedIn = false;
-            PlayerObject.ContainedQuadAngle = 0;
-        }
-        void SuckedInPhsxStep()
-        {
-            Vector2 acc = SuckedInSeed.Core.Data.Position - Core.Data.Position;
-            float l = acc.Length();
-            acc.Normalize();
-            if (l > 550)//425)
-            {
-                Vector2 normal = new Vector2(-acc.Y, acc.X);
-                acc = acc * Math.Min(15, l) + normal * MyLevel.Rnd.RndFloat(2.4f, 2.6f);// 2.5f;
-            }
-            else
-            {
-                Core.Data.Velocity.Normalize();
-                Core.Data.Velocity *= 40;// MyLevel.Rnd.RndFloat(35, 45);// 40;
-            }
-            Core.Data.Velocity += acc;
-            Core.Data.Velocity *= .9f;
-
-            PlayerObject.ContainedQuadAngle = -Core.MyLevel.CurPhsxStep / 4f;
-
-            // Integrate velocity
-            Core.Data.Position += Core.Data.Velocity;// +new Vector2(GroundSpeed, 0);
-
-            // Cape
-            if (Core.MyLevel.PlayMode == 0 && MyCape != null)
-                UpdateCape();
-            Wind /= 2;
-            CapeWind /= 2;
-        }
-
         /// <summary>
         /// Whether to do object interactions.
         /// </summary>
@@ -2081,12 +1691,6 @@ namespace CloudberryKingdom.Bobs
             if (CharacterSelect2)
             {
                 DollPhsxStep();
-                return;
-            }
-
-            if (SuckedIn)
-            {
-                SuckedInPhsxStep();
                 return;
             }
 
@@ -2130,49 +1734,12 @@ namespace CloudberryKingdom.Bobs
                     MyTempStats.FinalTimeSpentNotMoving++;
             }
 
-            // Held object
-            if (HeldObject != null)
-            {
-                Vector2 HeadPos;
-                if (BoxesOnly)
-                {
-                    HeadPos = new Vector2(Pos.X, Box.TR.Y);   
-                }
-                else
-                {
-                    if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
-                    HeadPos = Head.Center.Pos;
-                }
-
-                Vector2 offset = Vector2.Zero;
-                switch (HeldObject.Core.MyType)
-                {
-                    case ObjectType.FlyingBlob: offset = new Vector2(-16, -20); break;
-                    case ObjectType.FallingBlock: offset = new Vector2(0, -6); break;
-                    case ObjectType.MovingBlock: offset = new Vector2(0, -6); break;
-                    case ObjectType.GhostBlock: offset = new Vector2(0, 0); break;
-                }
-
-                Vector2 BodyPosition = new Vector2((HeadPos.X + Core.Data.Position.X) / 2, HeadPos.Y + 46);
-                if (PlayerObject.xFlip)
-                    BodyPosition.X = 2 * PlayerObject.FlipCenter.X - BodyPosition.X;
-                if (PlayerObject.yFlip)
-                    BodyPosition.Y = 2 * PlayerObject.FlipCenter.Y - BodyPosition.Y;
-                HeldObject.Move(BodyPosition + .9f * Core.Data.Velocity + HeldObject.Core.HeldOffset + offset - HeldObject.Core.Data.Position);
-                if (HeldObject is PrincessBubble)
-                    ;
-                else
-                    HeldObject.PhsxStep();
-            }
-
             // Increment life counter
             if (Core.MyLevel.PlayMode == 0 && !CompControl && !Core.MyLevel.Watching)
                 MyStats.TimeAlive++;
 
             // Screen wrap
             CheckForScreenWrap();
-
-
 
             if (!CharacterSelect)
             {
@@ -2225,10 +1792,6 @@ namespace CloudberryKingdom.Bobs
                 CurInput.B_Button = false;
                 CurInput.xVec = Vector2.Zero;
             }
-
-            //ButtonPhsx();
-            ReadyToPlace = MyPhsx.ReadyToPlace();
-
 
             // Phsyics update
             if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
@@ -2326,8 +1889,6 @@ namespace CloudberryKingdom.Bobs
             /////////////////////////////////////////////////////////////////////////////////////////////            
             if (DoObjectInteractions)
                 ObjectInteractions();
-
-            ButtonPhsx();
 
             // Reset boxes to normal
             Box.SetCurrent(Core.Data.Position, Box.Current.Size);

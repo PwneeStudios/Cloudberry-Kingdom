@@ -972,7 +972,6 @@ namespace CloudberryKingdom.Levels
             MakeThing MakeFinalPlat = null;
             if (CurMakeData.FinalPlats)
             {
-                if (Style.MyFinalPlatsType == StyleData.FinalPlatsType.Seed) MakeFinalPlat = new MakeFinalSeed(this);
                 if (Style.MyFinalPlatsType == StyleData.FinalPlatsType.Door)
                 {
                     if (DefaultHeroType == BobPhsxRocketbox.Instance || DefaultHeroType is BobPhsxSpaceship)

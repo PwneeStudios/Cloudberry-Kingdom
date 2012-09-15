@@ -35,46 +35,9 @@ namespace CloudberryKingdom
 
             writer.Write(ScreenSaver.WatchedIntro);
             writer.Write(HeroRush_Tutorial.WatchedOnce);
-            writer.Write(Campaign_Chaos.WatchedOnce);
 
             writer.Write(Hints.QuickSpawn);
             writer.Write(Hints.YForHelp);
-
-            /*
-#if PC_VERSION
-            writer.Write(PlayerManager.DefaultName);
-
-            PlayerManager.Player.Write(writer);
-#endif
-             */
-
-            // Locks
-            writer.Write(Challenge_HeroRush.Instance.IsGoalMet());
-            writer.Write(Challenge_HeroRush2.Instance.IsGoalMet());
-            writer.Write(Challenge_Escalation.Instance.IsGoalMet());
-            writer.Write(Challenge_Wheelie.Instance.IsGoalMet());
-            writer.Write(Challenge_UpUp.Instance.IsGoalMet());
-            writer.Write(Challenge_Construct.Instance.IsGoalMet());
-
-
-            /*
-            // Resolution information
-#if WINDOWS
-            writer.Write(ResolutionPreferenceSet);
-            writer.Write(Tools.Fullscreen);
-
-            if (ResolutionGroup.LastSetMode == null)
-            {
-                writer.Write(Tools.TheGame.graphics.PreferredBackBufferWidth);
-                writer.Write(Tools.TheGame.graphics.PreferredBackBufferHeight);
-            }
-            else
-            {
-                writer.Write(ResolutionGroup.LastSetMode.Width);
-                writer.Write(ResolutionGroup.LastSetMode.Height);
-            }
-#endif
-             */
         }
 
         protected override void Deserialize(BinaryReader reader)
@@ -83,49 +46,9 @@ namespace CloudberryKingdom
 
             ScreenSaver.WatchedIntro = reader.ReadBoolean();
             HeroRush_Tutorial.WatchedOnce = reader.ReadBoolean();
-            if (CloudberryKingdomGame.AlwaysGiveTutorials)
-                HeroRush_Tutorial.WatchedOnce = false;
-
-            Campaign_Chaos.WatchedOnce = true;//reader.ReadBoolean();
 
             Hints.QuickSpawn = reader.ReadInt32();
             Hints.YForHelp = reader.ReadInt32();
-
-            /*
-#if PC_VERSION
-            PlayerManager.DefaultName = reader.ReadString();
-            if (PlayerManager.DefaultName.Length < 1)
-                PlayerManager.DefaultName = "Stickman";
-
-            PlayerManager.Player.Read(reader);
-#endif
-             */
-
-            // Locks
-            reader.ReadBoolean();//Challenge_HeroRush.Instance.SetGoalMet(reader.ReadBoolean());
-            reader.ReadBoolean();//Challenge_HeroRush2.Instance.SetGoalMet(reader.ReadBoolean());
-            reader.ReadBoolean();//Challenge_Escalation.Instance.SetGoalMet(reader.ReadBoolean());
-            reader.ReadBoolean();//Challenge_Wheelie.Instance.SetGoalMet(reader.ReadBoolean());
-            reader.ReadBoolean();//Challenge_UpUp.Instance.SetGoalMet(reader.ReadBoolean());
-            reader.ReadBoolean();//Challenge_Construct.Instance.SetGoalMet(reader.ReadBoolean());
-
-            /*
-            // Resolution information
-#if WINDOWS
-            ResolutionPreferenceSet = reader.ReadBoolean();
-            bool Fullscreen = reader.ReadBoolean();
-            int Width = reader.ReadInt32();
-            int Height = reader.ReadInt32();
-#endif
-             */
-            //if (ResolutionPreferenceSet)
-            //{
-            //    Tools.TheGame.ToDo.Add(() =>
-            //    {
-            //        Tools.Fullscreen = Fullscreen;
-            //        ResolutionGroup.Use(Width, Height);
-            //    });
-            //}
         }
     }
 
@@ -137,8 +60,6 @@ namespace CloudberryKingdom
 #if PC_VERSION
         public static void SaveRezAndKeys()
         {
-            //using (StreamWriter writer = new StreamWriter("Custom"))
-
             EzStorage.Save("Settings", "Custom", _SaveRezAndKeys, null);
         }
 
@@ -216,6 +137,8 @@ namespace CloudberryKingdom
             writer.WriteLine("FixedTimeStep " + Tools.FixedTimeStep.ToString());
             writer.WriteLine("FixedTimeStep_HasBeenSet " + Tools.FixedTimeStep_HasBeenSet.ToString());
         }
+
+        public static bool PartiallyInvisible, TotallyInvisible;
 
         static RezData d;
         public static RezData LoadRezAndKeys()
@@ -365,8 +288,6 @@ namespace CloudberryKingdom
         {
             for (int i = 0; i < 4; i++)
             {
-                if (Campaign.CurData != null)
-                    Campaign.CurData.Score += Get(i).GameStats.Score;
                 Get(i).LifetimeStats.Absorb(Get(i).GameStats);
                 Get(i).CampaignStats.Absorb(Get(i).GameStats);
                 Get(i).GameStats.Clean();
@@ -666,10 +587,6 @@ namespace CloudberryKingdom
                     Score_Attempts += stats.DeathsBy[(int)Bob.BobDeathType.Total];
                     Score_Time = Math.Max(Score_Time, stats.TimeAlive);
                 }
-            if (group == StatGroup.Campaign)
-                Score_Attempts = Campaign.Attempts;
-
-            //AbsorbLevelStats();
         }
 
         public static bool Showed_ShouldCheckOutWorlds = false;

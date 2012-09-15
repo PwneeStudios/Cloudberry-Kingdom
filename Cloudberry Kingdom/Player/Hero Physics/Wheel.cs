@@ -166,11 +166,6 @@ namespace CloudberryKingdom
             }
         }
 
-        public override bool ReadyToPlace()
-        {
-            return base.ReadyToPlace();
-        }
-
         public override bool CheckFor_xFlip()
         {
             return false;

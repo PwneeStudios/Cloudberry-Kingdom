@@ -47,7 +47,7 @@ namespace CloudberryKingdom
     /// <summary>
     /// This is the main super-class of the engine.
     /// Whenever a player is playing, they are in a 'Game'.
-    /// A game consists of at least one level (a Level class instance),
+    /// A Game consists of at least one level (a Level class instance),
     /// as well as some goal or purpose: getting to a door, collecting coins, surviving, or building a level, etc.
     /// The game class holds the levels and purpose of the level.
     /// Different purposes are implemented as children classes of the main GameData class.
@@ -58,9 +58,7 @@ namespace CloudberryKingdom
         /// Dictionary to get a game factory from a string.
         /// </summary>
         public static Dictionary<string, GameFactory> FactoryDict = new Dictionary<string, GameFactory> { 
-            { "normal", NormalGameData.Factory },
-            { "place", PlaceGameData.Factory },
-            { "survive", SurvivalGameData.Factory } };
+            { "normal", NormalGameData.Factory } };
 
         /// <summary>
         /// Used in the Background Editor to assign GUID to objects.
@@ -1232,7 +1230,6 @@ namespace CloudberryKingdom
                         // Do the level's phsx, suppressing sound if necessary
                         bool HoldSuppress = EzSoundWad.SuppressSounds;
                         EzSoundWad.SuppressSounds |= MyLevel.SuppressSounds;
-                        Campaign.Time++;
                         MyLevel.PhsxStep(false);
                         EzSoundWad.SuppressSounds = HoldSuppress;
 
@@ -1449,7 +1446,6 @@ namespace CloudberryKingdom
             if (PlayerManager.AllDead() && level.ResetEnabled())
             {
                 level.SetToReset = true;
-                Campaign.Attempts++;
 
                 DoToDoOnDoneDyingList();
             }
@@ -1585,8 +1581,8 @@ namespace CloudberryKingdom
                 (scheme.CapeColor.Clr.A == 0 && scheme.CapeOutlineColor.Clr.A == 0))
                 TotallyInvisible = true;
 
-            if (!PartiallyInvisible) Campaign.PartiallyInvisible = false;
-            if (!TotallyInvisible) Campaign.TotallyInvisible = false;
+            if (!PartiallyInvisible) PlayerManager.PartiallyInvisible = false;
+            if (!TotallyInvisible) PlayerManager.TotallyInvisible = false;
             return Count;
         }
 
@@ -1666,6 +1662,12 @@ namespace CloudberryKingdom
         public float BlobGraceY = 76;
 
         #region Helper functions for campaign
+        public static void UseBobLighting(Level lvl, int difficulty)
+        {
+            lvl.UseLighting = true; lvl.StickmanLighting = true; lvl.SetBobLightRadius(difficulty);
+            Tools.SongWad.SuppressNextInfoDisplay = true;
+        }
+
         public void AddPowerups(BobPhsx Powerup, string Title, Vector2 Pos, Vector2 Add, Vector2 Vel, Vector2 VelAdd, Action OnGrab, Action<InteractWithBlocks> ModPowerup)
         {
             bool Grabbed = false;

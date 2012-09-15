@@ -296,11 +296,6 @@ namespace CloudberryKingdom
             base.AnimStep();
         }
 
-        public override bool ReadyToPlace()
-        {
-            return false;
-        }
-
         public override void ToSprites(Dictionary<int, SpriteAnim> SpriteAnims, Vector2 Padding)
         {
             ObjectClass Obj = MyBob.PlayerObject;

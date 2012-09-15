@@ -141,10 +141,9 @@ namespace CloudberryKingdom
 
 #if DEBUG || INCLUDE_EDITOR
         public static bool AlwaysGiveTutorials = true;
-        public static bool RecordIntro = false;
         public static bool UnlockAll = true;
-        public static bool SimpleLoad = RecordIntro ? false : true;
-        public static bool SimpleAiColors = RecordIntro ? true : false;
+        public static bool SimpleLoad = true;
+        public static bool SimpleAiColors = false;
         public static bool BuildDebug = false;
 #else
         public static bool AlwaysGiveTutorials = false;
@@ -1635,11 +1634,6 @@ namespace CloudberryKingdom
                     PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
 
 
-
-                    //Tools.CurGameData = new WorldGameData(); return;
-                    //Tools.CurGameData = new ArcadeGame(); return;
-                    //Tools.CurGameData = new WorldGame(); return;
-
                     // Now that everything is loaded, start the real game, dependent on the command line arguments.
                     if (StartAsBackgroundEditor)
                     {
@@ -1666,127 +1660,19 @@ namespace CloudberryKingdom
                         return;
                     }
 
-
-                    //PlayerManager.Get(1).IsAlive = PlayerManager.Get(1).Exists = true;
-                    //for (int i = 0; i < 4; i++)
-                    //    PlayerManager.Get(i).ColorScheme = ColorSchemeManager.ColorSchemes[i];
-
-
-                    //Campaign.InitCampaign(3);
-                    //Tools.CurGameData = new Campaign_DungeonFromAbove(null); return;
-
-
-                    // Trailer scenes
-                    //ScreenSaver Intro = new ScreenSaver(true); Intro.InitForTrailer(); return;
-
-
-
-                    //IntroCinematic Intro = new IntroCinematic();
-                    //Intro.Start();
-
-
-                    //PlayerManager.Get(1).Exists = true;
-                    //PlayerManager.Get(1).IsAlive = true;
-
-
 #if DEBUG
-                    //LevelSeedData.ForcedReturnEarly = 0;
-                    //MakeTestLevel(); return;
-
-
-                    if (RecordIntro)
+                    if (SimpleLoad)
                     {
-                        ScreenSaver Intro = new ScreenSaver(); Intro.InitToRecord(); return;
-                        //ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
                     }
                     else
                     {
-                        if (!SimpleLoad)
-                        {
-                            ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-                        }
-                        else
-                        {
-                            Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
-                        }
+                        ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;                        
                     }
 #else
                     // Full Game
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
 #endif
-
-                    Campaign.InitCampaign(0); Tools.CurGameData = new Doom(); return;
-
-
-                    // Test individual campaign levels
-                    bool TestCampaign = true;
-                    //TestCampaign = false;
-                    if (TestCampaign)
-                    {
-                        //PlayerManager.Get(1).Exists = true;
-                        //PlayerManager.Get(1).IsAlive = true;
-
-                        Campaign.InitCampaign(3);
-                        Tools.CurGameData = new Campaign_String(); return;
-                        //Tools.CurGameData = new Campaign_Chaos(null); return;
-
-
-                        //Tools.CurGameData = new Campaign_GetCart(null); return;
-                        //Tools.CurGameData = new Campaign_GetWheelie(null); return;
-                        //Tools.CurGameData = new Campaign_CreditsLevel(); return;
-                        //Tools.CurGameData = new Campaign_PrincessRoom(); return;
-                        //Tools.CurGameData = new Campaign_BossNew(true); return;
-                        //Tools.CurGameData = new Campaign_GetBouncy(null); return;
-                        //Tools.CurGameData = new Campaign_GetJetpack(BackgroundType.Night, null); return;
-                        //Tools.CurGameData = new Campaign_BossNew(true); return;
-                        //Tools.CurGameData = new Doom(); return;
-                        //Tools.CurGameData = new Campaign_IntroWorld(); return;
-                        //Tools.CurGameData = new Campaign_World2(true); return;
-                        //Tools.CurGameData = new Campaign_FlyIn(); return;
-                        //Tools.CurGameData = new Campaign_TunnelOutside(); return;
-                    }
-
-                    //MakeTestLevel(); return;
-                    //MakeTestSurvivalLevel();
-
-
-                    //StringWorldGameData StringWorld = new StringWorldGameData();
-                    //Tools.WorldMap = Tools.CurGameData = StringWorld;
-
-                    /* Endurance 
-                    Endurance endurance = new Endurance();
-                    Tools.WorldMap = Tools.CurGameData = endurance;
-                    Tools.CurLevel = endurance.MyLevel;
-                    */
-
-                    //Tools.CurGameType = GameType.DifficultySelect;                    
-                    //Tools.CurGameData = new DifficultySelection(); return;
-                    //Tools.CurGameData.DefaultHeroType = BobPhsxJetpack.Instance;
-                    //Tools.BeginLoadingScreen();
-
-                    //Generic.InitWorldData();
-                    //Tools.CurGameData = new WorldGameData(1);
-
-                    //Tools.CurGameData = new CharacterSelectGameData();
-
-                    //Tools.CurGameData.FadeIn(.037f);
-
-                    // Current Title Screen
-                    //PlayerManager.Get(1).Exists = true;
-                    //PlayerManager.Get(1).IsAlive = true;
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                    //return;
-                    //PlayerManager.Get(1).Exists = true;
-                    //PlayerManager.Get(1).IsAlive = true;
-
-                    //Challenge_TimeCrisis.Instance.Start(1);
-                    //HeroRushTutorial.ShowTitle = false; HeroRushTutorial.WatchedOnce = true;
-                    //Challenge_HeroRush.Instance.Start(0);
-                    //Challenge_Endurance.Instance.Start(1);
-                    //Challenge_Place.Instance.Start(1);
-                    //Challenge_Regular.Instance.Start(1);
-                    //Challenge_Fireballs.Instance.Start(1);
-                    //Challenge_Survival.Instance.Start(0);
                 }
             }
         }
@@ -1912,9 +1798,6 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxScale.Instance;
             //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
-
-            //data.PlaceObjectType = PlaceTypes.FallingBlock;
-            data.PlaceObjectType = PlaceTypes.Princess;
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
@@ -2202,65 +2085,6 @@ namespace CloudberryKingdom
 
 
             // Special mixes: (rockcircle + bouncyhall + lasers)
-        }
-
-        void MakeTestSurvivalLevel()
-        {
-            LevelSeedData data = new LevelSeedData();
-
-            //data.Seed = MyLevel.Rnd.Rnd.Next();
-
-            data.MyBackgroundType = BackgroundType.Gray;
-            data.DefaultHeroType = BobPhsxNormal.Instance;
-
-            GameFactory type = SurvivalGameData.Factory;
-            data.MyGameFlags.IsTethered = false;
-            data.MyGameFlags.IsTethered = false;
-
-            //type = GameType.Place;
-
-            data.Initialize(type, LevelGeometry.OneScreen, (int)1, (int)1100, delegate(PieceSeedData piece)
-            {
-                //piece.Paths = RndDifficulty.ChoosePaths(piece);
-
-                RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
-                //piece.MyUpgrades1[Upgrade.FlyBlob] = 7;
-                //piece.MyUpgrades1[Upgrade.BouncyBlock] = 10;
-                piece.MyUpgrades1[Upgrade.Jump] = 4;
-                piece.MyUpgrades1[Upgrade.Fireball] = 1;
-                //piece.MyUpgrades1[Upgrade.Speed] = 7;
-                //piece.MyUpgrades1[Upgrade.FireSpinner] = 4;
-                //piece.MyUpgrades1[Upgrade.Laser] = 6;
-                //piece.MyUpgrades1[Upgrade.Cloud] = 7;
-                //piece.MyUpgrades1[Upgrade.Floater] = 10;
-                //piece.MyUpgrades1[Upgrade.Floater_Spin] = 4;
-                //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
-                //piece.MyUpgrades1[Upgrade.MovingBlock] = 10;
-                //piece.MyUpgrades1[Upgrade.FallingBlock] = 4;
-                //piece.MyUpgrades1[Upgrade.FlyBlob] = 4;
-                piece.MyUpgrades1[Upgrade.Ceiling] = 2;
-                piece.MyUpgrades1[Upgrade.General] = 2;
-                piece.MyUpgrades1[Upgrade.Speed] = 4;
-                piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
-
-                piece.Style.MyModParams = (level, p) =>
-                {
-                    FireballEmitter_Parameters Params = (FireballEmitter_Parameters)p.Style.FindParams(FireballEmitter_AutoGen.Instance);
-                    Params.Special.SurvivalFill = true;
-
-                    p.Paths = level.CurMakeData.NumInitialBobs = 1; p.LockNumOfPaths = true;
-                };
-
-                RndDifficulty.ZeroUpgrades(piece.MyUpgrades2);
-                piece.MyUpgrades1.UpgradeLevels.CopyTo(piece.MyUpgrades2.UpgradeLevels, 0);
-                piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
-            });
-
-            // Add Landing Zone
-            data.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.LandingZone;
-
-
-            GameData.StartLevel(data);
         }
 
 #if WINDOWS

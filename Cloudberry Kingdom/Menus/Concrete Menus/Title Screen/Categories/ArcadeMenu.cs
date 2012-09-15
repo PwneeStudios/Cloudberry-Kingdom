@@ -90,35 +90,8 @@ namespace CloudberryKingdom
             }
         }
 
-        void MenuGo_LostLevels(MenuItem item)
-        {
-            Tools.BeginLoadingScreen(true);
-            Active = false;
-
-            MyGame.WaitThenDo(70, () =>
-            {
-                Tools.EndLoadingScreen();
-
-                // Todo for when doom exits
-                MyGame.AddToDo(() =>
-                {
-                    GameData game = MyGame;
-
-                    SlideOut(PresetPos.Left, 0);
-                    MyGame.WaitThenDo(12, () =>
-                        SlideIn());
-                });
-                MyGame.PhsxStepsToDo = 3;
-
-                Campaign.InitCampaign(0);
-                Tools.CurGameData = new Doom();
-            });
-        }
-
         public ArcadeMenu()
         {
-            Campaign.InitCampaign(0);
-            Campaign.IsPlaying = false;
         }
 
         public override void  Init()
@@ -170,27 +143,6 @@ namespace CloudberryKingdom
             // Bungee Co-op
             item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
 
-            //// Construct
-            //item = AddEscalation(Challenge_Construct.Instance);
-
-            //// Wheelie
-            //item = AddChallenge(Challenge_Wheelie.Instance, Challenge_Escalation.Instance);
-
-            //// Up up
-            //item = AddChallenge(Challenge_UpUp.Instance, Challenge_Wheelie.Instance);
-
-            //// Lost Levels
-            //item = new MenuItem(new EzText("Lost Levels", ItemFont));
-            //AddItem(item);
-            //item.Go = MenuGo_LostLevels;
-            //item.AdditionalOnSelect = () =>
-            //        pics.Set("LostLevels", "", new Vector2(575.3966f, -444.4442f),
-            //        true, new Vector2(924.6016f, -662.6984f));
-
-
-            // Back button
-            //item = MakeBackButton();
-
             // Backdrop
             QuadClass backdrop;
             
@@ -231,9 +183,6 @@ namespace CloudberryKingdom
             ArcadeItem item;
             string name = challenge.MenuName != null ? challenge.MenuName : challenge.Name;
             
-            //item = new MenuItem(new EzText(name, ItemFont));
-            //item.MyObject = prereq;
-
             item = new ArcadeItem(new EzText(name, ItemFont), challenge, prereq);
 
             item.Name = itemname;
@@ -247,44 +196,6 @@ namespace CloudberryKingdom
         protected virtual void Go(MenuItem item)
         {
         }
-        /*
-            ArcadeItem me = item as ArcadeItem;
-
-            bool Locked = me.MyPrereq != null && !PlayerManager.Awarded(me.MyPrereq) && !CloudberryKingdomGame.UnlockAll;
-            if (Locked) return;
-
-            // If the goal has been met then allow difficulty selection
-            //if (challenge.GetGoalMet())
-            {
-                StartLevelMenu levelmenu = new StartLevelMenu(me.MyChallenge.HighLevel.Top);
-                //DifficultyMenu levelmenu = new LevelMenu(false, me.challenge.HighLevel.Top, me.challenge.StartLevels);
-                //levelmenu.ShowHighScore(me.challenge.HighScore.Top);
-
-                levelmenu.MyMenu.SelectItem(Challenge_HeroRush.PreviousMenuIndex);
-
-                levelmenu.StartFunc = (level, menuindex) =>
-                {
-                    // Save the menu item index
-                    Challenge_HeroRush.PreviousMenuIndex = menuindex;
-
-                    // Start the game
-                    MyGame.PlayGame(() =>
-                    {
-                        // Show title again if we're selecting from the menu
-                        if (!MyGame.ExecutingPreviousLoadFunction)
-                            //Escalation_Tutorial.ShowTitle = true;
-                            HeroRush_Tutorial.ShowTitle = true;
-
-                        me.MyChallenge.Start(level);
-                    });
-                };
-
-                levelmenu.ReturnFunc = () => { };
-
-                Call(levelmenu);
-            }
-        }
-        */
 
         protected override void MyPhsxStep()
         {

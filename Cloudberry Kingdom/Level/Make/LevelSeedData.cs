@@ -454,10 +454,7 @@ namespace CloudberryKingdom
                                        HelpMenu.MakeListener(),
                                        new PerfectScoreObject(global, ShowMultiplier));
 
-            if (Campaign.IsPlaying)
-                level.MyGame.AddGameObject(InGameStartMenu_CampaignLevel.MakeListener());
-            else
-                level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
         }
 
         /// <summary>
@@ -493,9 +490,6 @@ namespace CloudberryKingdom
         {
             LevelSeedData.PostMake_Standard(level, true, false);
             level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
-
-            if (MyTileSet == TileSets.Dark)
-                Campaign.UseBobLighting_NotCampaign(level);
         }
 
         public static void PostMake_Standard(Level level, bool StartMusic, bool ShowMultiplier)
@@ -537,7 +531,6 @@ namespace CloudberryKingdom
         public int PieceLength = 3000;
 
         public BobPhsx DefaultHeroType;
-        public PlaceTypes PlaceObjectType;
 
         public GameFlags MyGameFlags;
 
@@ -623,7 +616,6 @@ namespace CloudberryKingdom
             
             DefaultHeroType = data.DefaultHeroType;
             MyGameFlags = data.MyGameFlags;
-            PlaceObjectType = data.PlaceObjectType;
 
             Length = data.Length;
             PieceLength = data.PieceLength;
@@ -714,13 +706,6 @@ namespace CloudberryKingdom
                     DefaultHeroType = BobPhsxJetman.Instance;
             }
 
-            // Prevent unusual hero types for Build levels
-            if (MyGameType == PlaceGameData.Factory)
-            {
-                if (!PlaceGameData.AllowedHeros.Contains(DefaultHeroType))
-                    DefaultHeroType = BobPhsxNormal.Instance;
-            }
-
             TestNumber = Rnd.RndInt(0, 1000);
             Tools.Write(string.Format("Post-sanitize: {0}", TestNumber));
         }
@@ -758,12 +743,6 @@ namespace CloudberryKingdom
             Sanitize();
 
             if (factory == NormalGameData.Factory) InitNormal(false, CustomDiff);
-            else if (factory == PlaceGameData.Factory) InitPlace(CustomDiff);
-            else if (factory == SurvivalGameData.Factory)
-            {
-                InitNormal(false, CustomDiff);
-                this.Length = Length;
-            }
         }
 
         public float CalcPieceLength(PieceSeedData data)

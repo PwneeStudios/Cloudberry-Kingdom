@@ -125,39 +125,39 @@ namespace CloudberryKingdom
         {
             if (Index != 2) return;
             
-            if (Campaign.Time < FastCampaign_Minutes * 60 * 62)
-                GiveAward(FastCampaign2);
+            //if (Campaign.Time < FastCampaign_Minutes * 60 * 62)
+            //    GiveAward(FastCampaign2);
         }
 
         public static void CheckForAward_EbenezerAbusiveCastle(int Index)
         {
             if (Index < 2) return;
 
-            if (Campaign.Coins == Campaign.TotalCoins)
-                GiveAward(AllCoinsAbusiveCastle);
+            //if (Campaign.Coins == Campaign.TotalCoins)
+            //    GiveAward(AllCoinsAbusiveCastle);
         }
 
         public static void CheckForAward_PerfectEasyCastle(int Index)
         {
             if (Index < 0) return;
 
-            if (Campaign.Coins == Campaign.TotalCoins && Campaign.Attempts == 0)
-                GiveAward(PerfectEasyCastle);
+            //if (Campaign.Coins == Campaign.TotalCoins && Campaign.Attempts == 0)
+            //    GiveAward(PerfectEasyCastle);
         }
 
         public static void CheckForAward_NoDeathNormalCastle(int Index)
         {
             if (Index < 0) return;
 
-            if (Campaign.Attempts == 0)
-                GiveAward(NoDeathsNormalCastle);
+            //if (Campaign.Attempts == 0)
+            //    GiveAward(NoDeathsNormalCastle);
         }
 
         public static void CheckForAward_PartiallyInvisible(int Index)
         {
             if (Index < 2) return;
 
-            if (Campaign.PartiallyInvisible)
+            if (PlayerManager.PartiallyInvisible)
                 GiveAward(PartiallyInvisibleCampaign);
         }
 
@@ -165,7 +165,7 @@ namespace CloudberryKingdom
         {
             if (Index < 0) return;
 
-            if (Campaign.TotallyInvisible)
+            if (PlayerManager.TotallyInvisible)
                 GiveAward(TotallyInvisibleCampaign);
         }
 

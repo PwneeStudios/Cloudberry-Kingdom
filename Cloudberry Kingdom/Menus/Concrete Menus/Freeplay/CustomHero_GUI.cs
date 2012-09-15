@@ -211,7 +211,7 @@ namespace CloudberryKingdom
             text.Scale = FontScale * 1.42f;
             text.ShadowOffset = new Vector2(17);
 
-            CampaignMenu.HappyBlueColor(text); text.ShadowColor = Tools.GrayColor(.3f); text.Scale *= 1.25f;
+            CampaignMenu._x_x_HappyBlueColor(text); text.ShadowColor = Tools.GrayColor(.3f); text.Scale *= 1.25f;
         }
 
         protected override void SetItemProperties(MenuItem item)

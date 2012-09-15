@@ -514,8 +514,6 @@ namespace CloudberryKingdom
                 if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.Core.Data.Position)) || MyLevel.PlayMode != 0)
                 {
                     Vector2 bpos = bob.Core.Data.Position;
-                    BobPhsxMap mapbob = bob.MyPhsx as BobPhsxMap;
-                    if (null != mapbob) bpos = Vector2.Lerp(bpos, mapbob.DestinationNode.Pos, 1f);
 
                     BobsCenter += bpos;
 

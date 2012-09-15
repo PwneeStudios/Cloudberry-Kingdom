@@ -4,47 +4,6 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class InGameStartMenu_CampaignLevel : InGameStartMenu
-    {
-        public InGameStartMenu_CampaignLevel(int Control) : base(Control) { }
-
-        protected override void MakeExitItem()
-        {
-            MenuItem item = new MenuItem(new EzText("Exit to menu", ItemFont));
-            item.Go = menuitem => Call(new VerifyQuitLevelMenu(Control, "Exit to menu?"), 0);
-
-            AddItem(item);
-        }
-
-        public static new GameObject MakeListener()
-        {
-            return MakeListener_Base(listener =>
-                new InGameStartMenu_Campaign(listener.TriggeringPlayerIndex));
-        }
-    }
-
-    public class InGameStartMenu_Campaign : InGameStartMenu
-    {
-        public InGameStartMenu_Campaign(int Control) : base(Control) { }
-
-        protected override void MakeExitItem()
-        {
-            //MenuItem item = new MenuItem(new EzText("Exit campaign", ItemFont));
-            //item.Go = menuitem => Call(new VerifyQuitLevelMenu(Control, "Exit campaign?"), 0);
-
-            MenuItem item = new MenuItem(new EzText("Exit to menu", ItemFont));
-            item.Go = menuitem => Call(new VerifyQuitLevelMenu(Control, "Exit to menu?"), 0);
-
-            AddItem(item);
-        }
-
-        public static new GameObject MakeListener()
-        {
-            return MakeListener_Base(listener =>
-                new InGameStartMenu_Campaign(listener.TriggeringPlayerIndex));
-        }
-    }
-
     public class InGameStartMenu : StartMenuBase
     {
         public static bool PreventMenu = false;
@@ -111,7 +70,6 @@ namespace CloudberryKingdom
             this.SelectedItemShift = new Vector2(0, 0);
 
             // Make the backdrop
-            //QuadClass backdrop = new QuadClass("Backplate_1500x900", 1500, true);
             QuadClass backdrop = new QuadClass("Backplate_1080x840", 1500, true);
             
             MyPile.Add(backdrop);
@@ -129,10 +87,7 @@ namespace CloudberryKingdom
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
-            //HeaderText.Pos = new Vector2(616.5557f, 941.3334f);
             HeaderText.Pos = new Vector2(-1663.889f, 971.8889f);
-
-
 
             ItemPos = new Vector2(-1560.333f, 600f);
             PosAdd = new Vector2(0, -270);

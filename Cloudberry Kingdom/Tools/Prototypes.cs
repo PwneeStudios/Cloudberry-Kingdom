@@ -341,7 +341,6 @@ namespace CloudberryKingdom
             return obj;
         }
 
-        public static Balrog balrog;
         public static Goomba FlyingBlobObj;
         public static Goomba goomba;
         public static Dictionary<BobPhsx, Bob> bob;
@@ -431,10 +430,6 @@ namespace CloudberryKingdom
             // Classic Bob
             BobPhsxNormal.Instance.Prototype = NewBob;
             bob.Add(BobPhsxNormal.Instance, NewBob);
-
-            // World Map Hero
-            BobPhsxMap.Instance.Prototype = NewBob;
-            bob.Add(BobPhsxMap.Instance, NewBob);
 
             // Invert
             BobPhsxInvert.Instance.Prototype = BobPhsxNormal.Instance.Prototype;

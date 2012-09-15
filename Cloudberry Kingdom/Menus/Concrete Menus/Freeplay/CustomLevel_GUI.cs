@@ -22,7 +22,7 @@ namespace CloudberryKingdom
         LevelSeedData LevelSeed;
         PieceSeedData PieceSeed;
 
-        public ObjectIcon HeroIcon, ObjIcon, MiniCheckpoint;
+        public ObjectIcon HeroIcon, MiniCheckpoint;
         public CustomHoverIcon HoverIcon = new CustomHoverIcon();
 
         public CustomLevel_GUI()
@@ -45,10 +45,6 @@ namespace CloudberryKingdom
             if (LevelSeed.MyGeometry != LevelGeometry.Right)
                 LevelSeed.NumPieces = 1;
 
-            // Classic hero if it is a build level
-            if (data.MyGameType == PlaceGameData.Factory)
-                data.DefaultHeroType = BobPhsxNormal.Instance;
-
             // Copy Upgrade1 to Upgrade2
             PieceSeed.MyUpgrades1.UpgradeLevels.CopyTo(PieceSeed.MyUpgrades2.UpgradeLevels, 0);
 
@@ -68,15 +64,10 @@ namespace CloudberryKingdom
                 int diff = new int[] { 0, 2, 4, 6, 9 }[DiffList.ListIndex];
                 LevelSeedData.CustomDifficulty custom;
                 
-                if (data.MyGameType == PlaceGameData.Factory)
-                    custom = Challenge_Place.StandardPieceMod(diff, data);
-                else if (data.DefaultHeroType is BobPhsxSpaceship)
+                if (data.DefaultHeroType is BobPhsxSpaceship)
                     custom = Challenge_Spaceship.StandardPieceMod(diff, data);
                 else
-                {
-                    //custom = RegularLevel.StandardPieceMod(diff, data);
                     custom = RegularLevel.FixedPieceMod(DiffList.ListIndex - 1, data);
-                }
 
                 LevelSeedData.CustomDifficulty modcustom = p =>
                 {
@@ -123,7 +114,6 @@ namespace CloudberryKingdom
             data.PostMake += data.PostMake_EnableLoad;
 
             PlayerManager.CoinsSpent = -999;
-            Campaign.IsPlaying = false;
 
             GameData game = data.Create();
             game.ParentGame = MyGame;
@@ -434,18 +424,6 @@ namespace CloudberryKingdom
                         LevelSeed.MyGeometry = LevelGeometry.Right;
                         SelectNormal();
                     }
-                    else if (gamename.CompareTo("Build") == 0)
-                    {
-                        LevelSeed.MyGameType = PlaceGameData.Factory;
-                        LevelSeed.MyGeometry = LevelGeometry.Right;
-                        SelectBuild();
-                    }
-                    else if (gamename.CompareTo("Survival") == 0)
-                    {
-                        LevelSeed.MyGameType = SurvivalGameData.Factory;
-                        LevelSeed.MyGeometry = LevelGeometry.Right;
-                        SelectSurvival();
-                    }
                     else if (gamename.CompareTo("Bungee") == 0)
                     {
                         LevelSeed.MyGameType = NormalGameData.Factory;
@@ -506,49 +484,6 @@ namespace CloudberryKingdom
                 HeroList.Pos = new Vector2(117.2227f, 828f - 2 * 222f);
             HeroList.OnIndexSelect = HeroList_OnIndex;
             HeroList.SetIndex(0);
-
-            // Object
-            ObjText = new EzText("Material:", ItemFont);
-            ObjText.Name = "Obj";
-            SetHeaderProperties(ObjText);
-            MyPile.Add(ObjText);
-            ObjText.Pos = new Vector2(-1044.443f, 933f - 2 * 222f);
-
-            ObjList = new MenuList();
-            ObjList.Name = "Obj";
-            ObjList.Center = true;
-            ObjList.MyExpandPos = new Vector2(-302.4992f, 261.9365f);
-            ObjList.AdditionalExpandProcessing = (_expand, _item) =>
-            {
-                _item.Shift(new Vector2(126, 0));
-                _expand.ItemPos.Y -= 45;
-                _item.Icon.SetScale(.812f);
-            };
-            foreach (PlaceTypes placetype in PlaceGameData.EditorAllowedPlaceTypes)
-            {
-                ObjectType objtype = PlaceGameData.PlaceObjectType[(int)placetype];
-                string name = PlaceGameData.PlaceTypeNames[(int)placetype];
-
-                item = new MenuItem(new EzText("    ", ItemFont, false, true));
-                SetItemProperties(item);
-                item.Icon = ObjectIcon.CreateIcon(objtype).Clone(ObjectIcon.IconScale.NearlyFull);
-                item.Icon.FancyPos.SetCenter(ObjList.FancyPos);
-                ObjList.AddItem(item, placetype);
-                item.MyDrawLayer = 1;
-            }
-            ObjList.MyDrawLayer = 1;
-
-            AddItem(ObjList);
-            ObjList.Pos = new Vector2(117.2227f, 828f - 2 * 222f);
-            ObjList.OnIndexSelect = () =>
-            {
-                PlaceTypes placetype = (PlaceTypes)ObjList.CurObj;
-                ObjectType objtype = PlaceGameData.PlaceObjectType[(int)placetype];
-
-                LevelSeed.PlaceObjectType = placetype;
-            };
-            ObjList.SetIndex(0);
-
 
             // Difficulty
             EzText DiffText = new EzText("Difficulty:", ItemFont);
@@ -942,13 +877,6 @@ namespace CloudberryKingdom
 
             if (HeroIcon != null)
                 HeroIcon.Draw(false);
-
-            if (ObjIcon != null)
-                ObjIcon.Draw(false);
-
-            //HoverIcon.Draw(false);
-
-
  
             int NumCheckpoints = (int)checkpoints.MyFloat.Val;
 

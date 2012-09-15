@@ -17,11 +17,6 @@ namespace CloudberryKingdom
         public static bool WatchedIntro { get { return _WatchedIntro; } set { _WatchedIntro = value; PlayerManager.SavePlayerData.Changed = true; } }
         static bool _WatchedIntro = false;
 
-        public void InitForTrailer()
-        {
-            InitToRecord();
-        }
-
         float InitialZoom = 0f;
         void ForTrailerParams()
         {
@@ -36,13 +31,6 @@ namespace CloudberryKingdom
             
             //InitialZoom = .45f;
             InitialZoom = 1f;
-        }
-
-        bool ForRecording = false;
-        public void InitToRecord()
-        {
-            Init();
-            ForRecording = true;
         }
 
         public override void Init()
@@ -101,21 +89,13 @@ namespace CloudberryKingdom
                     Tools.ShowLoadingScreen = false;
                     Tools.TheGame.LogoScreenPropUp = false;
                     Tools.Write("+++++++++++++++++++ Ending screensave load...");
-
-                    // Bring dialog to save video
-                    if (ForRecording)
-                        data.MyGame.WaitThenDo(3, () =>
-                            Tools.TheGame.SetToBringSaveVideoDialog = true);
                 };
 
             OnSwapToLevel += index =>
                 {
-                    if (!ForRecording)
-                    {
-                        // Hid the 'Press A to start' text after the first level
-                        if (index > 0)
-                            PressA.Hid = true;
-                    }
+                    // Hide the 'Press A to start' text after the first level
+                    if (index > 0)
+                        PressA.Hid = true;
 
                     if (ForTrailer)
                     {
@@ -155,7 +135,6 @@ namespace CloudberryKingdom
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, () =>
                         {
                             WatchedIntro = true;
-                            if (ForRecording) return;
 
 #if PC_VERSION
                             PressA = new GUI_Text("Press " + ButtonString.Go_Controller(97) + " to start",
@@ -173,8 +152,6 @@ namespace CloudberryKingdom
 
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>
                         {
-                            if (ForRecording) return;
-
                             Listener PressA_Listener = null;
                             PressA_Listener = new Listener(ControllerButtons.A, () =>
                                  {
