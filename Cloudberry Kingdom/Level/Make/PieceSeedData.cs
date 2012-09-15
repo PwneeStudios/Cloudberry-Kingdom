@@ -58,6 +58,7 @@ namespace CloudberryKingdom
         public bool LockNumOfPaths = false;
 
         public Level.LadderType Ladder;
+        public BlockEmitter_Parameters.BoxStyle ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.TopOnly;
 
         public PieceSeedData PieceSeed; // Used if this is a platform used for making new platforms
 
@@ -82,17 +83,31 @@ namespace CloudberryKingdom
             MyUpgrades2.CalcGenData(MyGenData.gen2, Style);
         }
 
+        public void CopyUpgrades(PieceSeedData piece)
+        {
+            MyUpgrades1.CopyFrom(piece.MyUpgrades1);
+            MyUpgrades2.CopyFrom(piece.MyUpgrades2);
+        }
+
         public void CalcBounds()
         {
         }
 
         public void StandardClose()
         {
+            int TestNumber;
+                
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test close start: {0}", TestNumber));
+
             MyUpgrades1.CalcGenData(MyGenData.gen1, Style);
 
             RndDifficulty.ZeroUpgrades(MyUpgrades2);
             MyUpgrades1.UpgradeLevels.CopyTo(MyUpgrades2.UpgradeLevels, 0);
             MyUpgrades2.CalcGenData(MyGenData.gen2, Style);
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test close end: {0}", TestNumber));
 
             Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
             Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;

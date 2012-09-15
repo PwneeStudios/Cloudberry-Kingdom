@@ -21,13 +21,19 @@ namespace CloudberryKingdom
         }
         public Level MakeLevel(bool MakeBackground, GameData game)
         {
+            this.Seed = this.Seed;
+            int TestNumber;
+
             game.EndMusicOnFinish = !NoMusicStart;
+
+            game.DefaultHeroType = this.DefaultHeroType;// = BobPhsxMario.Instance;
 
             Level NewLevel = MakeNewLevel(game);
             NewLevel.Geometry = MyGeometry;
             Camera cam = NewLevel.MainCamera;
 
             // Set lava
+            if (NewLevel.Info.AllowLava)
             switch (LavaMake)
             {
                 case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
@@ -71,9 +77,10 @@ namespace CloudberryKingdom
                 {
                     Piece.Paths = 2;
                 }
-                
-                Tools.Write("Test 1 ---> {0}");
 
+                TestNumber = Rnd.RndInt(0, 1000);
+                Tools.Write("Test 1 ---> {0}", TestNumber);
+                
 
 
                 level = new Level(true);
@@ -102,6 +109,7 @@ namespace CloudberryKingdom
                 int ReturnEarly = SetReturnEarly(Piece);
 
                 level.Geometry = Piece.GeometryType;
+                level.BoxesOnly = true;
                 switch (Piece.GeometryType)
                 {
                     case LevelGeometry.Right:
@@ -123,6 +131,8 @@ namespace CloudberryKingdom
                         break;
                 }
 
+                TestNumber = Rnd.RndInt(0, 1000);
+                Tools.Write("Test 1.5 ---> {0}", TestNumber);
                     
                 
                 if (ReturnEarly > 0)
@@ -192,7 +202,8 @@ namespace CloudberryKingdom
 
                 NewLevel.Par += level.Par; // Add the level's par to the big level's par
 
-                Tools.Write("Test 2 ---> {0}");
+                TestNumber = Rnd.RndInt(0, 1000);
+                Tools.Write("Test 2 ---> {0}", TestNumber);
             }
 
             // Cleanup lava

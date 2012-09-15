@@ -32,60 +32,6 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    public struct PhsxData
-    {
-        public PhsxData(float pos_x, float pos_y, float vel_x, float vel_y, float acc_x, float acc_y)
-        {
-            Position.X = pos_x;
-            Position.Y = pos_y;
-            Velocity.X = vel_x;
-            Velocity.Y = vel_y;
-            Acceleration.X = acc_x;
-            Acceleration.Y = acc_y;
-        }
-
-        public Vector2 Position, Velocity, Acceleration;
-
-        public void UpdatePosition() { Position += Velocity; }
-
-        public void Integrate()
-        {
-            Velocity += Acceleration;
-            Position += Velocity;
-        }
-    }
-
-    public struct Version : IComparable
-    {
-        public int MajorVersion, MinorVersion, SubVersion;
-        public Version(int Major, int Minor, int Sub)
-        {
-            MajorVersion = Major;
-            MinorVersion = Minor;
-            SubVersion = Sub;
-        }
-
-        public int CompareTo(object o)
-        {
-            Version v = (Version)o;
-
-            if (v.MajorVersion == MajorVersion)
-            {
-                if (v.MinorVersion == MinorVersion)
-                    return this.SubVersion.CompareTo(v.SubVersion);
-                else
-                    return this.MinorVersion.CompareTo(v.MinorVersion);
-            }
-            else
-                return this.MajorVersion.CompareTo(v.MajorVersion);
-        }
-
-        public static bool operator >(Version v1, Version v2) { return v1.CompareTo(v2) > 0; }
-        public static bool operator >=(Version v1, Version v2) { return v1.CompareTo(v2) >= 0; }
-        public static bool operator <(Version v1, Version v2) { return v1.CompareTo(v2) < 0; }
-        public static bool operator <=(Version v1, Version v2) { return v1.CompareTo(v2) <= 0; }
-    }
-
     public class CloudberryKingdomGame : Game
     {
         /// <summary>
@@ -96,27 +42,83 @@ namespace CloudberryKingdom
         /// </summary>
         public static Version GameVersion = new Version(0, 1, 5);
 
+        /// <summary>
+        /// The command line arguments.
+        /// </summary>
         public static string[] args;
+
         public static bool StartAsBackgroundEditor = false;
         public static bool StartAsTestLevel = false;
+        public static bool StartAsBobAnimationTest = false;
+        public static bool StartAsFreeplay = false;
 #if INCLUDE_EDITOR
         public static bool LoadDynamic = true;
 #else
         public static bool LoadDynamic = false;
 #endif
-        public static string TileSetToTest = null;
+        public static bool ShowSongInfo = true;
+
+        public static string TileSetToTest = "cave";
+        public static string ModRoot = "Standard";
+        public static bool AlwaysSkipDynamicArt = false;
+
+        public static bool HideGui = false;
+        public static bool HideForeground = false;
+        public static bool UseNewBob = false;
+
+        //public static SimpleGameFactory TitleGameFactory = TitleGameData_Intense.Factory;
+        public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
+        //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;
+
+        /// <summary>
+        /// Process the command line arguments.
+        /// This is used to load different tools, such as the background editor, instead of the main game.
+        /// </summary>
+        /// <param name="args"></param>
         public static void ProcessArgs(string[] args)
         {
-            //StartAsTestLevel = true; LoadDynamic = true; return;
+#if DEBUG
+            // Artifically simulate different command line arguments.
+            //args = new string[] { "test_bob_animation", "mod_root", "Bob" };
+            //args = new string[] { "test_level" }; AlwaysSkipDynamicArt = true;
+            //args = new string[] { "background_editor" }; //AlwaysSkipDynamicArt = true;
+            //args = new string[] { "test_all" }; AlwaysSkipDynamicArt = false;
+            //StartAsTestLevel = true;
+#endif
+            //args = new string[] { "test_all" }; AlwaysSkipDynamicArt = false;
+            
+            LoadDynamic = true;
+            AlwaysSkipDynamicArt = false;
+
 
             CloudberryKingdomGame.args = args;
 
-            foreach (var arg in args)
+            var list = new List<string>(args); list.Reverse();
+            var stack = new Stack<string>(list);
+            
+            while (stack.Count > 0)
             {
+                var arg = stack.Pop();
+
                 switch (arg)
                 {
                     case "background_editor": StartAsBackgroundEditor = true; LoadDynamic = true; break;
                     case "test_level": StartAsTestLevel = true; LoadDynamic = true; break;
+                    case "test_bob_animation": StartAsBobAnimationTest = true; LoadDynamic = false; break;
+                    case "test_all":
+                        ShowSongInfo = false;
+                        UseNewBob = true;
+                        StartAsFreeplay = true; LoadDynamic = true; break;
+                    case "test_all_old_bob":
+                        ShowSongInfo = false;
+                        StartAsFreeplay = true; LoadDynamic = true; break;
+
+                    case "mod_root":
+                        LoadDynamic = true;
+                        if (stack.Count > 0)
+                            ModRoot = stack.Pop();
+                        break;
+
                     default: break;
                 }
             }
@@ -137,11 +139,6 @@ namespace CloudberryKingdom
         public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
 #endif
 
-        QuadDrawer QDrawer;
-        EzEffectWad EffectWad;
-        EzTextureWad TextureWad;
-
-
 #if DEBUG || INCLUDE_EDITOR
         public static bool AlwaysGiveTutorials = true;
         public static bool RecordIntro = false;
@@ -150,10 +147,10 @@ namespace CloudberryKingdom
         public static bool SimpleAiColors = RecordIntro ? true : false;
         public static bool BuildDebug = false;
 #else
-        public static bool AlwaysGiveTutorials = true;
+        public static bool AlwaysGiveTutorials = false;
         public static bool SimpleAiColors = false;
         public static bool RecordIntro = false;
-        public static bool UnlockAll = false;
+        public static bool UnlockAll = true;
         public static bool SimpleLoad = false;
         public static bool BuildDebug = false;
 #endif
@@ -166,87 +163,69 @@ namespace CloudberryKingdom
         /// </summary>
         public bool LogoScreenPropUp;
 
+        /// <summary>
+        /// True when we are still loading resources during the game's initial load.
+        /// This is wrapped in a class so that it can be used as a lock.
+        /// </summary>
         public WrappedBool LoadingResources;
         public int LoadingOffset;
         public WrappedFloat ResourceLoadedCountRef;
+        
+        /// <summary>
+        /// The game's initial loading screen. Different than the in-game loading screens seen before levels.
+        /// </summary>
         public InitialLoadingScreen LoadingScreen;
-
 
         public GraphicsDeviceManager graphics;
 
         RenderTarget2D ScreenShotRenderTarget;
 
         GraphicsDevice device;
-        int screenWidth;
-        int screenHeight;
+        int screenWidth, screenHeight;
 
-        SpriteFont Font1;
+        /// <summary>
+        /// Font used to display debug info on the screen.
+        /// </summary>
+        SpriteFont DebugFont;
 
         Camera MainCamera;
 
-        //public CharacterSelectManager CharSelectManager = new CharacterSelectManager();
-
-        /*
-        void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
-        {
-            foreach (GraphicsAdapter curAdapter in GraphicsAdapter.Adapters)
-            {
-                if (curAdapter.Description.Contains("PerfHUD"))
-                {
-                    e.GraphicsDeviceInformation.Adapter = curAdapter;
-                    //e.GraphicsDeviceInformation.DeviceType = DeviceType.Reference;
-                    break;
-                }
-            }
-            return;
-        }*/
-
         public CloudberryKingdomGame()
         {
-            // PerfHUD
-#if DEBUG
-            //graphics.PreparingDeviceSettings += this.graphics_PreparingDeviceSettings;
-#endif
-
-            //var profilerGameComponent = new Indiefreaks.Xna.Profiler.ProfilerGameComponent(this, "Fonts/LilFont");
-            //Indiefreaks.AOP.Profiler.ProfilingManager.Run = true;
-            //Components.Add(profilerGameComponent);
-
-
-
-
-
-            //List<int> ints = new List<int>(new int[] { 2, 2, 2, 1, 2, 3, 3, 3, 2, 2, 2, 2 });
-            //Tools.RemoveAll(ints, num => num % 2 == 0);
-
-            ResourceLoadedCountRef = new WrappedFloat();
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
             Components.Add(new GamerServicesComponent(this));
 #endif
+            ResourceLoadedCountRef = new WrappedFloat();
 
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+
             Content.RootDirectory = "Content";
 
             Tools.TheGame = this;
         }
 
+        void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            //graphics.PreferMultiSampling = false;
+            //graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 16;
+
+            //graphics.PreferMultiSampling = true;
+            //graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 16;
+        }
+
         protected override void Initialize()
         {
-#if PC_VERSION
-            //var x = SteamManager.SteamInitialize();
-            //var y = SteamManager.GetSteamName();
-
+#if WINDOWS
             KeyboardHandler.EventInput.Initialize(this.Window);
 #endif
             Globals.ContentDirectory = Content.RootDirectory;
 
             Tools.LoadEffects(Content, true);
-            EffectWad = Tools.EffectWad;
 
             ButtonString.Init();
             ButtonCheck.Reset();
-
 
             // Volume control
             Tools.SoundVolume = new WrappedFloat();
@@ -260,8 +239,14 @@ namespace CloudberryKingdom
             Tools.MusicVolume.Val = 1;
             Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
 
+#if DEBUG || INCLUDE_EDITOR
+            Tools.SoundVolume.Val = 0;
+            Tools.MusicVolume.Val = 0;
+#endif
+
 #if PC_VERSION
-            // Resolution, key mapping, other preferences
+            // The PC version let's the player specify resolution, key mapping, and so on.
+            // Try to load these now.
             PlayerManager.RezData rez;
             try
             {
@@ -279,28 +264,14 @@ namespace CloudberryKingdom
             rez.Fullscreen = false;
 #else
             rez.Fullscreen = true;
-            //rez.Fullscreen = false;
 #endif
             rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 #endif
 
-            ////// Load
-            ////MyLevel.Rnd.Rnd = new Random();
-            ////int seed = MyLevel.Rnd.Rnd.Next();
-            //////seed = 1266783283;
-            ////Console.WriteLine("Seed: {0}", seed);
-            ////MyLevel.Rnd.Rnd = new Random(seed);
 
-            ////// Load saved files
-            ////PlayerManager.Init();
-            ////SaveGroup.Initialize();
-
-
-            // Set the possible resolutions
+            // Some possible resolutions.
             Resolutions[0] = new ResolutionGroup();
-            //Resolutions[0].Backbuffer = new IntVector2(1280, 720);
-            //Resolutions[0].Backbuffer = new IntVector2(1400, 900);
             Resolutions[0].Backbuffer = new IntVector2(1280, 800);
             Resolutions[0].Bob = new IntVector2(135, 0);
             Resolutions[0].TextOrigin = Vector2.Zero;
@@ -315,15 +286,6 @@ namespace CloudberryKingdom
             Resolutions[0].CopyTo(ref Resolutions[3]);
             Resolutions[3].Backbuffer = new IntVector2(640, 360);
 
-            //Resolutions[0].CopyTo(ref Resolutions[1], new Vector2(.5f, .5f));
-            //Resolutions[1].TextOrigin = new Vector2(-.5f, 0f);
-
-            //Resolutions[2] = new ResolutionGroup();
-            //Resolutions[2].Backbuffer = new IntVector2(640, 480);
-            //Resolutions[2].Bob = new IntVector2(135, 0);
-            //Resolutions[2].TextOrigin = new Vector2(-.5f, -.5f);
-            //Resolutions[2].LineHeightMod = .5f;
-
             // Set the default resolution
             Resolution = Resolutions[2];
 
@@ -331,6 +293,8 @@ namespace CloudberryKingdom
             graphics.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
             graphics.SynchronizeWithVerticalRetrace = true;
 
+            // Set the actual graphics device,
+            // based on the resolution preferences established above.
 #if PC_VERSION || WINDOWS
             if (rez.Custom)
             {
@@ -348,9 +312,6 @@ namespace CloudberryKingdom
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 graphics.IsFullScreen = false;
-                //graphics.PreferredBackBufferWidth = 800;
-                //graphics.PreferredBackBufferHeight = 600;
-                //graphics.IsFullScreen = rez.Fullscreen;
             }
 #if DEBUG || INCLUDE_EDITOR
             if (!graphics.IsFullScreen)
@@ -360,6 +321,7 @@ namespace CloudberryKingdom
             }
 #endif
 #endif
+
             graphics.ApplyChanges();
             Window.Title = "Cloudberry Kingdom ";
 
@@ -395,39 +357,11 @@ namespace CloudberryKingdom
 
         public void ReloadInfo()
         {
-#if INCLUDE_EDITOR
-            //////TileSets.KillDynamic();
-            //////Tools.TextureWad.KillDynamic();
-
-            if (LoadDynamic)
-            {
-                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
-            }
-#endif
-
-            InfoWad.Init();
-            InfoWad.Read(Path.Combine(Globals.ContentDirectory, "InfoWad.infowad"));
-
-            PieceQuad.LoadTemplates();
+            Tools.Write("Starting to load info...");
+            var t = new System.Diagnostics.Stopwatch();
+            t.Start();
 
             PieceQuad c;
-
-            //c = PieceQuad.Castle = new PieceQuad();
-            //c.Init(null, Tools.BasicEffect);
-            //c.Data.RepeatWidth = 10000;
-            //c.Data.RepeatHeight = 362*1.8f;
-            //c.Center.U_Wrap = false;
-            //c.Center.V_Wrap = true;
-            //c.Top.U_Wrap = c.Top.V_Wrap = false;
-            //c.Data.TopWidth = 133*1.8f;
-            //c.Data.MiddleOnly = true;
-            //c.Bottom.Hide = true;
-            //c.Data.UV_Multiples = new Vector2(1, 0);
-            //c.Center.TextureName = "Castle_big_center";
-            //c.Top.TextureName = "Castle_big_top";
-
             c = PieceQuad.Castle = new PieceQuad();
             c.Init(null, Tools.BasicEffect);
             c.Data.TopWidth = 133 * 1.8f;
@@ -440,7 +374,6 @@ namespace CloudberryKingdom
             c.Bottom.Hide = c.BL.Hide = c.BR.Hide = true;
             c.Data.UV_Multiples = new Vector2(1, 0);
             c.SetTexture("Castle");
-
 
             c = PieceQuad.Castle2 = new PieceQuad();
             c.Init(null, Tools.BasicEffect);
@@ -494,56 +427,37 @@ namespace CloudberryKingdom
             c.Data.UV_Multiples = new Vector2(1, 0);
             c.SetTexture("ledge");
 
-            //PieceQuad.Castle = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Castle.boxes"));
+            c = PieceQuad.SpeechBubble = new PieceQuad();
+            c.Data.RepeatWidth = 600;
+            c.Data.RepeatHeight = 350;
+            c.SetTexture("speechbubble_white");
+            c.BL.MyTexture = "speechbubble_white_bottomleft2";
+            c.Data.LeftWidth = c.Data.LeftWidth = c.Left.MyTexture.Tex.Width;
+            c.Data.RightWidth = c.Data.RightWidth = c.Right.MyTexture.Tex.Width;
+            c.Data.TopWidth = c.Data.TopWidth = c.Top.MyTexture.Tex.Width;
+            c.Data.BottomWidth = c.Data.BottomWidth = c.Bottom.MyTexture.Tex.Width;
+            c.Data.MiddleOnly = false;
+            c.Data.UV_Multiples = new Vector2(1, 1);
+            c.Top.U_Wrap = false;
+            c.Bottom.U_Wrap = false;
 
-            PieceQuad.Outside_Small = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Small.boxes"));
-            PieceQuad.Outside_Smaller = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Smaller.boxes"));
-            PieceQuad.Outside_Smallest = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Smallest.boxes"));
-            PieceQuad.Outside_Medium = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Medium.boxes"));
-            PieceQuad.Outside_Large = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Large.boxes"));
-            PieceQuad.Outside_XLarge = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Outside_Pillar_Xlarge.boxes"));
+            c = PieceQuad.SpeechBubbleRed = new PieceQuad();
+            c.Data.RepeatWidth = 600;
+            c.Data.RepeatHeight = 350;
+            c.SetTexture("speechbubble_red");
+            c.Data.LeftWidth = c.Data.LeftWidth = c.Left.MyTexture.Tex.Width;
+            c.Data.RightWidth = c.Data.RightWidth = c.Right.MyTexture.Tex.Width;
+            c.Data.TopWidth = c.Data.TopWidth = c.Top.MyTexture.Tex.Width;
+            c.Data.BottomWidth = c.Data.BottomWidth = c.Bottom.MyTexture.Tex.Width;
+            c.Data.MiddleOnly = false;
+            c.Data.UV_Multiples = new Vector2(1, 1);
+            c.Top.U_Wrap = false;
+            c.Bottom.U_Wrap = false;
 
-
-            PieceQuad.Inside2_Small = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Small.boxes"));
-            PieceQuad.Inside2_Smaller = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Smaller.boxes"));
-            PieceQuad.Inside2_Smallest = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Smallest.boxes"));
-            PieceQuad.Inside2_Medium = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Medium.boxes"));
-            PieceQuad.Inside2_Large = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Large.boxes"));
-            PieceQuad.Inside2_XLarge = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_block_Xlarge.boxes"));
-
-            PieceQuad.Inside2_Pillar_Small = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Small.boxes"));
-            PieceQuad.Inside2_Pillar_Smaller = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Smaller.boxes"));
-            PieceQuad.Inside2_Pillar_Smallest = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Smallest.boxes"));
-            PieceQuad.Inside2_Pillar_Medium = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Medium.boxes"));
-            PieceQuad.Inside2_Pillar_Large = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Large.boxes"));
-            PieceQuad.Inside2_Pillar_XLarge = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_pillar_Xlarge.boxes"));
-
-            PieceQuad.Inside2_Thin = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_Thin.boxes"));
-            PieceQuad.Inside2_Block = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Inside2_Block.boxes"));
-
-            PieceQuad.SpeechBubble = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\SpeechBubble.boxes"));
-            PieceQuad.SpeechBubbleRed = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\SpeechBubble_Red.boxes"));
-
-            //PieceQuad.Menu = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Menu.boxes"));
-            PieceQuad.TitleMenuPieces = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\TitleMenu.boxes"));
-            PieceQuad.FreePlayMenu = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\freeplaymenu.boxes"));
-            PieceQuad.CharMenu = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\CharMenu.boxes"));
-            PieceQuad.CharMenu_Top = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\CharMenu_Top.boxes"));
-
-            PieceQuad.MovingBlock = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\MovingBlock.boxes"));
-            PieceQuad.BrickWall = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickWall.boxes"));
-            PieceQuad.BrickPillar_Small = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickPillar_Small.boxes"));
-            PieceQuad.BrickPillar_Medium = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickPillar_Medium.boxes"));
-            PieceQuad.BrickPillar_Large = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickPillar_Large.boxes"));
-            PieceQuad.BrickPillar_LargePlus = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickPillar_LargePlus.boxes"));
-            PieceQuad.BrickPillar_Xlarge = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\BrickPillar_Xlarge.boxes"));
-            PieceQuad.Floating_Small = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Floating_Small.boxes"));
-            PieceQuad.Floating_Medium = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Floating_Medium.boxes"));
-            PieceQuad.Floating_Large = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Floating_Large.boxes"));
-            PieceQuad.Floating_Xlarge = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Floating_Xlarge_boxdata.boxes"));
-            PieceQuad.OutsideBlock = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\OutsideBlock.boxes"));
-            PieceQuad.TileBlock = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\TileBlock.boxes"));
-            PieceQuad.Cement = new PieceQuad(Path.Combine(Globals.ContentDirectory, "Boxes\\Cement.boxes"));
+            // Moving block
+            c = PieceQuad.MovingBlock = new PieceQuad();
+            c.Data.CenterOnly = true;
+            c.Center.MyTexture = "blue_small";
 
             // Falling block
             var Fall = new AnimationData_Texture("FallingBlock", 1, 4);
@@ -578,17 +492,20 @@ namespace CloudberryKingdom
             PieceQuad.ElevatorGroup.SortWidths();
 
 
-#if INCLUDE_EDITOR
-            //////TileSets.KillDynamic();
-            //////Tools.TextureWad.KillDynamic();
-
-            if (LoadDynamic)
+//#if INCLUDE_EDITOR
+            //if (LoadDynamic)
             {
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+                //if (!AlwaysSkipDynamicArt)
+                //    Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
                 //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
+                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
             }
-#endif
+//#endif
+
+            t.Stop();
+            Tools.Write("... done loading info!");
+            Tools.Write("Total seconds: {0}", t.Elapsed.TotalSeconds);
         }
 
         protected void LoadMusic(bool CreateNewWad)
@@ -767,24 +684,12 @@ namespace CloudberryKingdom
             Tools.TextureWad.Add(SquareBlock_Packed);
         }
 
-        protected void LoadArtMusicSound(bool CreateNewWads)
+        protected void LoadAssets(bool CreateNewWads)
         {
             // Load the art!
             Tools.PreloadArt(Content);
 
-            /*
-            if (Tools.DebugConvenience)
-                Tools.TextureWad.LoadAll(.2f, Content, ResourceLoadedCountRef);
-            else
-            {
-                if (SimpleLoad)
-                    Tools.TextureWad.LoadAll(.1f, Content, ResourceLoadedCountRef);
-                else
-                    Tools.TextureWad.LoadAll(0f, Content, ResourceLoadedCountRef);
-            }*/
-
             LoadPacked();
-
 
             Tools.Write("Art done...");
 
@@ -795,13 +700,11 @@ namespace CloudberryKingdom
             // Load the sound!
             LoadSound(CreateNewWads);
             Tools.Write("Sound done...");
-
-            Tools.ScoreTextFont = new EzFont("Fonts/ScoreTextFont");
         }
 
         bool DoVideoTest = false;
-        Video TestVideo1, TestVideo2;
-        VideoPlayer VPlayer1, VPlayer2;
+        Video TestVideo;
+        VideoPlayer VPlayer;
         Texture2D VTexture;
         EzTexture VEZTexture = new EzTexture();
         WrappedBool VBool;
@@ -812,20 +715,10 @@ namespace CloudberryKingdom
 
             Tools.LoadBasicArt(Content);
 
-            TextureWad = Tools.TextureWad;
+            Tools.QDrawer = new QuadDrawer(device, 1000);
+            Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
+            Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
 
-            Tools.QDrawer = QDrawer = new QuadDrawer(device, 1000);
-            QDrawer.DefaultEffect = EffectWad.FindByName("NoTexture");
-            QDrawer.DefaultTexture = TextureWad.FindByName("White");
-
-            //MyLevel.Rnd.Rnd = new Random();
-            //int seed = MyLevel.Rnd.Rnd.Next();
-            ////seed = 1266783283;
-            //Console.WriteLine("Seed: {0}", seed);
-            //MyLevel.Rnd.Rnd = new Random(seed);
-
-            Tools.EffectWad = EffectWad;
-            Tools.TextureWad = TextureWad;
             Tools.Device = device;
             Tools.t = 0;
 
@@ -855,11 +748,12 @@ namespace CloudberryKingdom
             LoadingScreen = new InitialLoadingScreen(Content, ResourceLoadedCountRef);
 
 
-            //VideoTest();
+            if (DoVideoTest)
+                VideoTest();
 
 
 
-            // Load resource thread
+            // Load resource thread.
             Thread LoadThread = new Thread(
                 new ThreadStart(
                     delegate
@@ -868,6 +762,8 @@ namespace CloudberryKingdom
                         Thread.CurrentThread.SetProcessorAffinity(new[] { 5 });
 #endif
                         LoadThread = Thread.CurrentThread;
+
+                        // Setup an abort, in case the game exits while loading.
                         EventHandler<EventArgs> abort = (s, e) =>
                         {
                             if (LoadThread != null)
@@ -882,18 +778,15 @@ namespace CloudberryKingdom
                         Fireball.PreInit();
 
                         // Load art
-                        LoadArtMusicSound(true);
+                        LoadAssets(true);
                         if (!SimpleLoad)
-                            Tools.TextureWad.LoadAllDirect(Content);
+                        {
+                            Tools.TextureWad.LoadFolder(Content, "Tigar");
+                        }
 
                         Tools.Write("ArtMusic done...");
 
-                        // Load fonts
-                        //Action fontaction = FontLoad;
-                        //////Thread FontThread = Tools.EasyThread(1, "Fonts", fontaction);
-                        //fontaction();
-
-                        InitLava();
+                        MyLavaDraw = new LavaDraw(device);
 
                         Tools.Write("Lava done...");
 
@@ -904,18 +797,16 @@ namespace CloudberryKingdom
                             ReloadInfo();
                             Tools.Write("Infowad done...");
                         };
-                        //Thread InfoThread = Tools.EasyThread(3, "Infowad", infoaction);
                         infoaction();
-
                         TileSets.Init();
 
                         Fireball.InitRenderTargets(device, device.PresentationParameters, 300, 200);
 
                         ParticleEffects.Init();
 
-                        //ChallengeList.Init();
                         PlayerManager.Init();
                         Awardments.Init();
+                        
                         // Load saved files
                         SaveGroup.Initialize();
 
@@ -926,7 +817,6 @@ namespace CloudberryKingdom
 
 
 #if PC_VERSION
-                                                                        
                         // Mouse pointer
                         MousePointer = new QuadClass();
                         MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
@@ -947,7 +837,6 @@ namespace CloudberryKingdom
 
                             Tools.Write("Stickmen done...");
                         };
-                        //Thread ObjThread = Tools.EasyThread(5, "prototypes", objaction);
                         objaction();
 
 
@@ -955,32 +844,15 @@ namespace CloudberryKingdom
                         Tools.PrevpadState = new GamePadState[4];
                         Tools.SetStandardRenderStates();
 
-
-                        // This must come at the very end, to avoid thread conflicts with the content manager
-                        //Tools.TextureWad.LoadAll(Content);
-
-                        //Tools.TextureWad.LoadAll_frac(0, 1);
-                        //Tools.TextureWad.LoadAll_frac(1, 3);
-                        //Tools.TextureWad.LoadAll_frac(2, 5);
-                        //Tools.TextureWad.threads[0].Join();
-                        //Tools.TextureWad.threads[1].Join();
-                        //Tools.TextureWad.threads[2].Join();
-
                         Tools.Write("Textures done...");
-
-
-                        //FontThread.Join();
-                        //InfoThread.Join();
-                        //ObjThread.Join();
 
                         Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
 
-                        //lock (LoadingResources)
-                        {
-                            LoadingResources.MyBool = false;
-                            Tools.Write("Loading done!");
-                        }
+                        // Note that we are done loading.
+                        LoadingResources.MyBool = false;
+                        Tools.Write("Loading done!");
 
+                        // Unregister from the game exiting.
                         Tools.TheGame.Exiting -= abort;
                     }))
             {
@@ -994,6 +866,9 @@ namespace CloudberryKingdom
             LoadThread.Start();
         }
 
+        /// <summary>
+        /// Video test. Will be canned once proper video class is implemented.
+        /// </summary>
         private void VideoTest()
         {
             if (DoVideoTest)
@@ -1006,7 +881,7 @@ namespace CloudberryKingdom
                          delegate
                          {
 #if XBOX
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
+                            Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
 #endif
                              Tools.TheGame.Exiting += (o, e) =>
                              {
@@ -1015,124 +890,44 @@ namespace CloudberryKingdom
                              };
 
                              // Test load movie
-                             TestVideo1 = Content.Load<Video>("Movies//TestMovie");
-                             TestVideo2 = Content.Load<Video>("Movies//TestMovie");
-
-                             VPlayer1 = new VideoPlayer();
-                             VPlayer1.IsLooped = true;
-                             VPlayer1.Play(TestVideo1);
-                             //VPlayer1.Pause();
-
-                             VPlayer2 = new VideoPlayer();
-                             VPlayer2.IsLooped = true;
-                             VPlayer2.Play(TestVideo2);
-                             VPlayer2.Pause();
-
+                             //TestVideo = Content.Load<Video>("Movies//TestMovie");
+                             TestVideo = Content.Load<Video>("Movies//TestCinematic");
+                             VPlayer = new VideoPlayer();
+                             VPlayer.IsLooped = false;
+                             VPlayer.Play(TestVideo);
 
                              while (true)
                              {
                                  lock (VEZTexture)
                                  {
-                                     VTexture = VPlayer1.GetTexture();
+                                     VTexture = VPlayer.GetTexture();
                                      VEZTexture.Tex = VTexture;
-
-                                     //if (VPlayer1 != null)
-                                     //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
-
-                                     /*
-                                                                     if (VPlayer1 != null
-                                                                         && VPlayer1.PlayPosition.Ticks >= 55130000)
-                                                                         //&& VPlayer1.PlayPosition.Ticks >= 155100000)
-                                                                         //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
-                                                                     {
-                                                                         VPlayer1.Pause();
-                                                                         Tools.Swap(ref VPlayer1, ref VPlayer2);
-                                                                         VPlayer1.Resume();
-
-                                                                         VPlayer2.Stop();
-                                                                         VPlayer2.Play(TestVideo1);
-                                                                         VPlayer2.Pause();
-                                                                     }
-                                      * */
                                  }
                              }
-
-
                          }))
                 {
-                    Name = "LoadThread",
+                    Name = "VideoThread",
 #if WINDOWS
                     Priority = ThreadPriority.Lowest,
 #endif
                 };
                 VThread.Start();
-
-
-
-                Thread VRestartThread = new Thread(
-                    new ThreadStart(
-                        delegate
-                        {
-                            while (true)
-                            {
-                                if (VEZTexture == null) continue;
-
-                                lock (VEZTexture)
-                                {
-                                    VTexture = VPlayer1.GetTexture();
-                                    VEZTexture.Tex = VTexture;
-
-                                    if (VPlayer1 != null
-                                        //&& VPlayer1.PlayPosition.Ticks >= 55130000)
-                                        //&& VPlayer1.PlayPosition.Ticks >= 155100000)
-                                        && VPlayer1.PlayPosition.TotalMilliseconds == 0)
-                                    {
-                                        VPlayer1.Pause();
-                                        Tools.Swap(ref VPlayer1, ref VPlayer2);
-                                        VPlayer1.Resume();
-
-                                        //VPlayer2.Stop();
-                                        //VPlayer2.Play(TestVideo1);
-                                        VPlayer2.Pause();
-                                    }
-                                }
-                            }
-                        }))
-                {
-                    Name = "VRestartThread",
-#if WINDOWS
-                    Priority = ThreadPriority.Lowest,
-#endif
-                };
-                //VRestartThread.Start();
             }
         }
 
         public bool DONOTHING = false;
 
+        /// <summary>
+        /// Load the necessary fonts.
+        /// </summary>
         private void FontLoad()
         {
+            Tools.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
+            Tools.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
+
             Tools.LilFont = new EzFont("Fonts/LilFont");
-            Tools.Font_Dylan15 = new EzFont("Fonts/LilFontBold");
-            Tools.Font_Dylan20 = new EzFont("Fonts/Dylan20", "Fonts/DylanThinOutline20", -22, 40);
-            Tools.Font_Dylan24 = new EzFont("Fonts/Dylan24", "Fonts/DylanThinOutline24", -22, 40);
-            Tools.Font_Dylan28 = new EzFont("Fonts/Dylan28", "Fonts/DylanThinOutline28", -22, 40);
-            //Tools.Font_Dylan42 = new EzFont("Fonts/BigFont2");
-            //Tools.Font_Dylan60 = new EzFont("Fonts/BigFont");
-            Tools.Font_Dylan42 = new EzFont("Fonts/Dylan42", "Fonts/DylanOutline42", -63, 40);
-            //Tools.Font_DylanThin42 = new EzFont("Fonts/Dylan42", "Fonts/DylanThinOutline42", -68, .5f);//40);
-            Tools.Font_DylanThin42 = new EzFont("Fonts/Dylan42", "Fonts/DylanThinOutline42", -68, 40);
-            Tools.Font_Dylan60 = new EzFont("Fonts/Dylan60", "Fonts/DylanOutline60", -75, 40);
 
-            Font1 = Tools.Font_Dylan60.Font;
-
-            Tools.Font_DylanThick20 = new EzFont("Fonts/Dylan20", "Fonts/DylanOutline20", -22, 45);
-            Tools.Font_DylanThick24 = new EzFont("Fonts/Dylan24", "Fonts/DylanOutline24", -22, 40);
-            Tools.Font_DylanThick28 = new EzFont("Fonts/Dylan28", "Fonts/DylanOutline28", -22, 40);
-
-            Tools.Font_DylanThick28 = new EzFont("Fonts/Dylan28", "Fonts/DylanOutline28", -22, 40);
-
-            Tools.MonoFont = new EzFont("Fonts/MonoFont");
+            Tools.TheGame.DebugFont = Tools.LilFont.Font;
 
             Tools.Write("Fonts done...");
         }
@@ -1145,6 +940,7 @@ namespace CloudberryKingdom
 
 
         public bool RunningSlowly = false;
+        static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
         protected override void Update(GameTime gameTime)
         {
             //VPlayer.IsLooped = false;
@@ -1180,13 +976,27 @@ namespace CloudberryKingdom
                 VPlayer1.Play(TestVideo1);
             }*/
 
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //graphics.SynchronizeWithVerticalRetrace = true;
+            //graphics.IsFullScreen = false;
+
+            //this.TargetElapsedTime = _TargetElapsedTime;
+            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
+            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 10);
+            //this.TargetElapsedTime = new TimeSpan(TimeSpan.TicksPerSecond / 60);
+
             this.IsFixedTimeStep = Tools.FixedTimeStep;
+            //this.IsFixedTimeStep = true;
+            //this.IsFixedTimeStep = false;
+
             RunningSlowly = gameTime.IsRunningSlowly;
             base.Update(gameTime);
         }
 
         string VideoFolderName = "";
+        public bool SetToBringSaveVideoDialog = false;
+        public bool SetToRecordInput = false;
+
         public void BeginVideoCapture()
         {
             if (Tools.ScreenshotMode == false)
@@ -1232,19 +1042,24 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// The current game being played.
+        /// </summary>
         GameData Game { get { return Tools.CurGameData; } }
+
+        /// <summary>
+        /// Update the current game.
+        /// </summary>
         void DoGameDataPhsx()
         {
 #if INCLUDE_EDITOR
             if (Tools.EditorPause) return;
 #endif
-
             Tools.PhsxCount++;
 
             if (Tools.WorldMap != null)
                 Tools.WorldMap.BackgroundPhsx();
 
-            //GameData Game = Tools.CurGameData;
             if (Game != null)
             {
                 for (int i = 0; i < Game.PhsxStepsToDo; i++)
@@ -1256,16 +1071,18 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// A list of actions to perform. Each time an action is peformed it is removed from the list.
+        /// </summary>
         public List<Action> ToDo = new List<Action>();
-        public bool SetToBringSaveVideoDialog = false;
-        public bool SetToRecordInput = false;
+
         protected void PhsxStep()
         {
             foreach (Action todo in ToDo)
                 todo();
             ToDo.Clear();
 
-            // WARNING!!!
+            // WARNING!!! Test the save code.
             //if (ButtonCheck.State(ControllerButtons.Y, -1).Pressed)
             //    SaveGroup.SaveAll();
 
@@ -1308,6 +1125,38 @@ namespace CloudberryKingdom
             //    lvl.CurrentRecording.Save("BeatBoss.rec", false);
             //}
 
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
+            {
+                // Test title screen
+                if (Tools.keybState.IsKeyDown(Keys.G) && !Tools.PrevKeyboardState.IsKeyDown(Keys.G))
+                {
+                    //TitleGameFactory = TitleGameData_Intense.Factory;
+                    TitleGameFactory = TitleGameData_MW.Factory;
+                    //TitleGameFactory = TitleGameData_Forest.Factory;
+
+                    Tools.SongWad.Stop();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                    return;
+                }
+
+                // Test title screen
+                if (Tools.keybState.IsKeyDown(Keys.H) && !Tools.PrevKeyboardState.IsKeyDown(Keys.H))
+                {
+                    //TitleGameFactory = TitleGameData_Intense.Factory;
+                    //TitleGameFactory = TitleGameData_MW.Factory;
+                    TitleGameFactory = TitleGameData_Forest.Factory;
+
+                    Tools.SongWad.Stop();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                    return;
+                }
+
+                if (Tools.keybState.IsKeyDown(Keys.J) && !Tools.PrevKeyboardState.IsKeyDown(Keys.J))
+                {
+                    Tools.CurGameData.FadeToBlack();
+                }
+            }
+
             //// Give award
             //if (Tools.keybState.IsKeyDown(Keys.S) && !Tools.PrevKeyboardState.IsKeyDown(Keys.S))
             //{
@@ -1316,7 +1165,7 @@ namespace CloudberryKingdom
 
             
             // Game Obj Viewer
-            if ((Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
+            if (!Tools.ViewerIsUp && (!KeyboardExtension.Freeze || Tools.CntrlDown()) && (Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
             {
                 Tools.gameobj_viewer = new Viewer.GameObjViewer();
@@ -1331,7 +1180,7 @@ namespace CloudberryKingdom
             }
 
             // Background viewer
-            if ((Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && (Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.V) && !Tools.PrevKeyboardState.IsKeyDown(Keys.V))
             {
                 Tools.background_viewer = new Viewer.BackgroundViewer();
@@ -1345,7 +1194,7 @@ namespace CloudberryKingdom
                     Tools.background_viewer.Input();
             }
 
-            if (!Tools.ViewerIsUp && Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
                 ShowFPS = !ShowFPS;
 #endif
 
@@ -1355,12 +1204,12 @@ namespace CloudberryKingdom
             //    //Tools.keybState.IsKeyDownCustom(Keys.S) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.S))
             //    Tools.CurGameData.EndGame(true);
 
-            if (Tools.CurLevel.ResetEnabled() && 
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() && 
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 CountShortReset();
 
 
-            if (!Tools.ViewerIsUp)
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {
 #if PC_DEBUG
             if (Tools.FreeCam)
@@ -1376,12 +1225,22 @@ namespace CloudberryKingdom
             }
 #endif
 
-                if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+                // Reload some dynamic data (tileset info, animation specifications).
+                if (Tools.keybState.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.X))
                 {
-                    //LoadSound(false);
+#if INCLUDE_EDITOR
+                    if (LoadDynamic)
+                    {
+                        ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+                        ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
+                        //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+                        //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
+                        TileSets.LoadSpriteEffects();
+                        TileSets.LoadCode();
+                    }
+#endif
 
-                    ReloadInfo();
-
+                    // Make blocks in the current level reset their art to reflect possible changes in the reloaded tileset info.
                     foreach (BlockBase block in Tools.CurLevel.Blocks)
                     {
                         NormalBlock nblock = block as NormalBlock;
@@ -1392,21 +1251,65 @@ namespace CloudberryKingdom
                     }
                 }
 
+#if DEBUG
+                // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
+                if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+                {
+                    //LoadSound(false);
+                    ReloadInfo();
+
+                    // Reset blocks
+                    foreach (BlockBase block in Tools.CurLevel.Blocks)
+                    {
+                        NormalBlock nblock = block as NormalBlock;
+                        if (null != nblock) nblock.ResetPieces();
+
+                        MovingBlock mblock = block as MovingBlock;
+                        if (null != mblock) mblock.ResetPieces();
+                    }
+
+                    // Reset capes. Currently broken.
+                    foreach (Bob bob in Tools.CurLevel.Bobs)
+                    {
+                        if (bob.MyCape != null)
+                        {
+                            bob.MyCape.Release();
+                            bob.MyCape = null;
+                            bob.SetHeroPhsx(bob.MyHeroType);
+                        }
+                        bob.PlayerObject.PlayUpdate(0);
+                        bob.PlayerObject.EnqueueAnimation(0, 0, true);
+                        bob.PlayerObject.DequeueTransfers();
+                    }
+                }
+
+                // Test a static image background.
                 if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
                     Background.Test = !Background.Test;
+#endif
 
+                // Turn on a simple green screen background.
                 if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
                     Background.GreenScreen = !Background.GreenScreen;
 
 #if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
+                Tools.ModNums();
+
+                // Load a test level.
                 if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
                 {
-                    //if (Tools.CurGameData != null) Tools.CurGameData.Release();
                     GameData.LockLevelStart = false;
                     LevelSeedData.ForcedReturnEarly = 0;
                     MakeTestLevel(); return;
                 }
 
+                // Hide the GUI. Used for video capture.
+                if (ButtonCheck.State(Keys.D8).Pressed) HideGui = !HideGui;
+                
+                // Hide the foreground. Used for video capture of backgrounds.
+                if (ButtonCheck.State(Keys.D7).Pressed) HideForeground = !HideForeground;
+
+                // Turn on/off immortality.
                 if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
                 {
                     foreach (Bob bob in Tools.CurLevel.Bobs)
@@ -1415,117 +1318,128 @@ namespace CloudberryKingdom
                     }
                 }
 
+                // Turn on/off graphics.
                 if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
                     Tools.DrawGraphics = !Tools.DrawGraphics;
+                // Turn on/off drawing of collision detection boxes.
                 if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
                     Tools.DrawBoxes = !Tools.DrawBoxes;
+                // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
                 if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
                     Tools.StepControl = !Tools.StepControl;
+                // Modify the speed of the game.
                 if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
                 {
                     Tools.IncrPhsxSpeed();
                 }
 
-#if INCLUDE_EDITOR
+#if INCLUDE_EDITOR && !DEBUG
+                // Turn on/off free camera motion (control via arrow keys).
                 if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
                     Tools.FreeCam = !Tools.FreeCam;
 #else
-                if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
+                // Don't do any of the following if a control box is up.
+                if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
                 {
-                    //if (Tools.CurGameData != null) Tools.CurGameData.Release();
-                    GameData.LockLevelStart = false;
-                    LevelSeedData.ForcedReturnEarly = 1;
-                    MakeTestLevel(); return;
-                }
-
-                if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
-                {
-                    Tools.CurLevel.MainCamera.Zoom *= .99f;
-                    Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
-                }
-                if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
-                {
-                    Tools.CurLevel.MainCamera.Zoom /= .99f;
-                    Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
-                }
-
-                if (Tools.keybState.IsKeyDownCustom(Keys.D8) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D8))
-                //if (Tools.keybState.IsKeyDownCustom(Keys.H) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.H))
-                {
-                    Tools.Editing = true;
-
-                    Hand NewHand = new Hand();
-                    NewHand.Core.Active = NewHand.Core.Show = true;
-                    NewHand.Core.Data.Position = Tools.CurLevel.MainCamera.Data.Position;
-                    Tools.CurLevel.AddObject(NewHand);
-
-                    Tools.CurLevel.Bobs.Clear();
-                }
-
-                if (Tools.keybState.IsKeyDownCustom(Keys.Escape) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Escape))
-                {
-                    EndVideoCapture();
-                }
-                if (SetToBringSaveVideoDialog ||
-                    Tools.keybState.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.U))
-                {
-                    SetToBringSaveVideoDialog = false;
-
-                    Forms.FolderBrowserDialog ofd = new Forms.FolderBrowserDialog();
-                    string root = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                    ofd.SelectedPath = root + "\\Test";
-
-                    //Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
-                    //ofd.Title = "Save as...";
-                    //ofd.Filter = "Imaginary extension (*.iex)|*.iex";
-                    //ofd.InitialDirectory = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                    //ofd.CheckFileExists = false;
-
-                    Tools.DialogUp = true;
-
-                    // Check the user didn't cancel
-                    if (ofd.ShowDialog() != Forms.DialogResult.Cancel)
+                    // Watch the computer make a level during Stage 1 of construction.
+                    if (Tools.keybState.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D3))
                     {
-                        Tools.DialogUp = false;
-
-                        // Record video
-                        BeginVideoCapture();
-                        ofd.ShowNewFolderButton = true;
-                        VideoFolderName = ofd.SelectedPath;
-                        //VideoFolderName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.'));
-
-                        // Make directory
-                        if (VideoFolderName.Length <= root.Length) return;
-                        if (System.IO.Directory.Exists(VideoFolderName))
-                            System.IO.Directory.Delete(VideoFolderName, true);
-                        System.IO.Directory.CreateDirectory(VideoFolderName);
+                        GameData.LockLevelStart = false;
+                        LevelSeedData.ForcedReturnEarly = 1;
+                        MakeTestLevel(); return;
                     }
 
-                    Tools.DialogUp = false;
-                }
+                    // Watch the computer make a level during Stage 2 of construction.
+                    if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
+                    {
+                        GameData.LockLevelStart = false;
+                        LevelSeedData.ForcedReturnEarly = 2;
+                        MakeTestLevel(); return;
+                    }
 
-                if (Tools.keybState.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.I))
-                {
-                    ChangeScreenshotMode();
-                }
+                    // Zoom in and out.
+                    if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
+                    {
+                        Tools.CurLevel.MainCamera.Zoom *= .99f;
+                        Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
+                    }
+                    if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
+                    {
+                        Tools.CurLevel.MainCamera.Zoom /= .99f;
+                        Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
+                    }
 
-                if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
-                    Tools.FreeCam = !Tools.FreeCam;
+                    // End video capture.
+                    if (Tools.keybState.IsKeyDownCustom(Keys.Escape) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Escape))
+                    {
+                        EndVideoCapture();
+                    }
+                    // Begin video capture.
+                    if (SetToBringSaveVideoDialog ||
+                        Tools.keybState.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.U))
+                    {
+                        SetToBringSaveVideoDialog = false;
+
+                        Forms.FolderBrowserDialog ofd = new Forms.FolderBrowserDialog();
+                        string root = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
+                        ofd.SelectedPath = root + "\\Test";
+
+                        //Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
+                        //ofd.Title = "Save as...";
+                        //ofd.Filter = "Imaginary extension (*.iex)|*.iex";
+                        //ofd.InitialDirectory = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
+                        //ofd.CheckFileExists = false;
+
+                        Tools.DialogUp = true;
+
+                        // Check the user didn't cancel
+                        if (ofd.ShowDialog() != Forms.DialogResult.Cancel)
+                        {
+                            Tools.DialogUp = false;
+
+                            // Record video
+                            BeginVideoCapture();
+                            ofd.ShowNewFolderButton = true;
+                            VideoFolderName = ofd.SelectedPath;
+                            //VideoFolderName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.'));
+
+                            // Make directory
+                            if (VideoFolderName.Length <= root.Length) return;
+                            if (System.IO.Directory.Exists(VideoFolderName))
+                                System.IO.Directory.Delete(VideoFolderName, true);
+                            System.IO.Directory.CreateDirectory(VideoFolderName);
+                        }
+
+                        Tools.DialogUp = false;
+                    }
+
+                    if (Tools.keybState.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.I))
+                    {
+                        ChangeScreenshotMode();
+                    }
+
+                    if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
+                        Tools.FreeCam = !Tools.FreeCam;
+                }
 #endif
 
 #endif
             }
 
-
+            // Do game update.
             if (!Tools.StepControl || (Tools.keybState.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Enter)))
             {
                 DoGameDataPhsx();
             }
+            else if (Tools.CurLevel != null)
+                Tools.CurLevel.IndependentDeltaT = 0;
 
+            // Determine if the mouse is in the window or not.
             Tools.MouseInWindow =
                 Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
                 Tools.CurMouseState.Y > 0 && Tools.CurMouseState.Y < Resolution.Backbuffer.Y;
 
+            // Calculate how much user has scrolled the mouse wheel and moved the mouse.
             Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
             Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
                                Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
@@ -1542,6 +1456,9 @@ namespace CloudberryKingdom
             if (SimpleLoad && ButtonCheck.State(ControllerButtons.Back, -1).Down)
                 Exit();
 
+            // Check for quick spawn. This allows the player to reset a level rapidly.
+            // For PC this is done via the spacebar (default).
+            // For XBox this is done by holding both shoulder buttons.
             bool ShortReset = false;
             for (int i = 0; i < 4; i++)
             {
@@ -1554,6 +1471,7 @@ namespace CloudberryKingdom
                 }
             }
 
+            // Do the quick spawn if it was chosen by the player.
             if (ShortReset)
             {
                 for (int i = 0; i < 4; i++)
@@ -1570,7 +1488,7 @@ namespace CloudberryKingdom
                     CountShortReset();
             }
 
-
+            // Store the previous states of the Xbox controllers.
             for (int i = 0; i < 4; i++)
                 if (Tools.PrevpadState[i] != null)
                     Tools.PrevpadState[i] = Tools.padState[i];
@@ -1593,18 +1511,34 @@ namespace CloudberryKingdom
             }
             */
 
+            // Update the fireball textures.
             Fireball.TexturePhsx();
         }
 
 
         public static string debugstring = "";
         StringBuilder MainString = new StringBuilder(100, 100);
+        /// <summary>
+        /// Method for drawing various debug information to the screen.
+        /// </summary>
         void DrawGC()
         {
-            
             if (Tools.ScreenshotMode) return;
 
             Tools.StartSpriteBatch();
+
+            if (Tools.ShowNums)
+            {
+                string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
+
+                Tools.StartSpriteBatch();
+                Tools.spriteBatch.DrawString(DebugFont,
+                        nums,
+                        new Vector2(0, 100),
+                        Color.Orange, 0, Vector2.Zero, .4f, SpriteEffects.None, 0);
+                Tools.EndSpriteBatch();
+                return;
+            }
 
 #if WINDOWS
             // Grace period for falling
@@ -1663,7 +1597,8 @@ namespace CloudberryKingdom
 
             //str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
 
-            Tools.spriteBatch.DrawString(Font1,
+
+            Tools.spriteBatch.DrawString(DebugFont,
                     str,
                     new Vector2(0, 100),
                     Color.Orange, 0, Vector2.Zero, .4f, SpriteEffects.None, 0);
@@ -1681,22 +1616,6 @@ namespace CloudberryKingdom
 
                 return;
             }
-
-            //return;
-
-            //if (false)
-            //if (SimpleLoad)
-            //{
-            //    Tools.SoundVolume.Val = 0;
-            //    Tools.MusicVolume.Val = 0;
-            //    //Tools.SoundVolume.Val = 0.5f;
-            //    //Tools.MusicVolume.Val = 0.5f;// .07f;
-            //}
-            //else
-            //{
-            //    Tools.SoundVolume.Val = 1f;
-            //    Tools.MusicVolume.Val = .7f;
-            //}
 
             if (!LoadingResources.MyBool)
             {
@@ -1717,7 +1636,11 @@ namespace CloudberryKingdom
 
 
 
-                    // Arg initial game setups
+                    //Tools.CurGameData = new WorldGameData(); return;
+                    //Tools.CurGameData = new ArcadeGame(); return;
+                    //Tools.CurGameData = new WorldGame(); return;
+
+                    // Now that everything is loaded, start the real game, dependent on the command line arguments.
                     if (StartAsBackgroundEditor)
                     {
                         MakeEmptyLevel();
@@ -1730,6 +1653,16 @@ namespace CloudberryKingdom
                     else if (StartAsTestLevel)
                     {
                         MakeTestLevel();
+                        return;
+                    }
+                    else if (StartAsBobAnimationTest)
+                    {
+                        MakeBobAnimationTest();
+                        return;
+                    }
+                    else if (StartAsFreeplay)
+                    {
+                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                         return;
                     }
 
@@ -1774,18 +1707,13 @@ namespace CloudberryKingdom
                         }
                         else
                         {
-                            Tools.CurGameData = new TitleGameData(); return;
+                            Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
                         }
                     }
 #else
                     // Full Game
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
 #endif
-
-                    // Record intro
-                    //ScreenSaver Intro = new ScreenSaver(); Intro.InitToRecord(); return;
-
-
 
                     Campaign.InitCampaign(0); Tools.CurGameData = new Doom(); return;
 
@@ -1846,7 +1774,7 @@ namespace CloudberryKingdom
                     // Current Title Screen
                     //PlayerManager.Get(1).Exists = true;
                     //PlayerManager.Get(1).IsAlive = true;
-                    Tools.CurGameData = new TitleGameData();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                     //return;
                     //PlayerManager.Get(1).Exists = true;
                     //PlayerManager.Get(1).IsAlive = true;
@@ -1860,6 +1788,61 @@ namespace CloudberryKingdom
                     //Challenge_Fireballs.Instance.Start(1);
                     //Challenge_Survival.Instance.Start(0);
                 }
+            }
+        }
+
+        void MakeBobAnimationTest()
+        {
+            Level level = new Level();
+            
+            //level.DefaultHeroType = BobPhsxNormal.Instance;
+
+            level.MainCamera = new Camera();
+            level.CurPiece = level.StartNewPiece(0, null, 1);
+            level.CurPiece.StartData[0].Position = new Vector2(0, 0);
+            level.MainCamera.BLCamBound = new Vector2(-100000, 0);
+            level.MainCamera.TRCamBound = new Vector2(100000, 0);
+            level.MainCamera.Update();
+            level.TimeLimit = -1;
+
+            level.MyTileSet = TileSets.Dungeon;
+            level.MyBackground = Background.Get(BackgroundType.Dungeon);
+            level.MyBackground.Init(level);
+
+            var game = Tools.CurGameData = level.MyGame = new GameData();
+            Tools.CurGameData.MyLevel = Tools.CurLevel = level;
+
+            game.AllowQuickJoin = false;
+
+            // Make ground
+            NormalBlock block;
+
+            foreach (NormalBlock _block in level.Blocks)
+                if (_block is NormalBlock)
+                    _block.CollectSelf();
+
+            Vector2 shift = new Vector2(30, 430);
+
+            block = (NormalBlock)game.Recycle.GetObject(ObjectType.NormalBlock, false);
+            block.Init(game.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000), level.MyTileSetInfo);
+            block.BlockCore.MyTileSet = TileSets.Dungeon;
+            level.AddBlock(block);
+
+            block = (NormalBlock)game.Recycle.GetObject(ObjectType.NormalBlock, false);
+            block.Init(game.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000), level.MyTileSetInfo);
+            block.BlockCore.MyTileSet = TileSets.Dungeon;
+            level.AddBlock(block);
+
+            // Make new bob
+            game.MakeBobs(level);
+
+            // Position bobs
+            foreach (Bob bob in level.Bobs)
+            {
+                Tools.MoveTo(bob, game.CamPos);
+
+                bob.ScreenWrap = true;
+                bob.Immortal = true;
             }
         }
 
@@ -1885,47 +1868,47 @@ namespace CloudberryKingdom
         {
             LevelSeedData data = new LevelSeedData();
 
+            //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
+            //GameData.StartLevel(data);
+            //return;
+
             data.Seed = Tools.GlobalRnd.Rnd.Next();
+            //data.Seed = 1106040853;
             Console.WriteLine("Seed chosen = {0}", data.Seed);
-            //data.Seed = 1755192844;
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
+
+            TileSetToTest = "sea";
+            //TileSetToTest = "hills";
+            //TileSetToTest = "forest";
+            //TileSetToTest = "cloud";
+            //TileSetToTest = "cave";
+            //TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet(TileSets.Dungeon);
             else
                 data.SetTileSet(TileSetToTest);
-
+            
             //data.SetTileSet(TileSets.Dungeon);
-
-            //data.SetTileSet("Mario3_Outside");
-            //data.SetTileSet(TileSets.Dungeon);
-            //data.SetTileSet(TileSets.Terrace);
-            //data.SetTileSet(TileSets._Night);
-            //data.SetTileSet(TileSets._NightSky);
-            //data.SetTileSet(TileSets.Island);
-
-            //var custom = (BobPhsxNormal)BobPhsxSmall.Instance.Clone();
-
-            //var custom = (BobPhsxNormal)BobPhsxBouncy.Instance.Clone();
-            //custom.NumJumps = 2;
-            //data.DefaultHeroType = custom;
 
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Jetpack);
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Big, Hero_MoveMod.Double);
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Box, Hero_Shape.Oscillate, Hero_MoveMod.Double);
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Oscillate, Hero_MoveMod.Double);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Box, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxMario.Instance;
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxBouncy.Instance;
+            //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
-            //data.DefaultHeroType = BobPhsxInvert.Instance;
+            data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
+            //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
             //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
@@ -1935,22 +1918,18 @@ namespace CloudberryKingdom
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            data.PieceLength = 10500;
-            //data.PieceLength = 28000;
+            //data.PieceLength = 3000;
+            data.PieceLength = 15000;
+            //data.PieceLength = 37000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
             //data.MyGameType = PlaceGameData.Factory;
 
-
             //data.MyGameFlags.IsTethered = true;
             //data.MyGameFlags.IsDoppleganger = true;
             //data.MyGameFlags.IsDopplegangerInvert = true;
 
-            //type = GameType.Place;
-
-            //data.Initialize(type, LevelGeometry.Big, (int)1, (int)20000, delegate(PieceSeedData piece)
-            //data.Initialize(type, LevelGeometry.Up, (int)1, (int)20000, delegate(PieceSeedData piece)
             data.Initialize(TestLevelInit);
 
             // Add Landing Zone
@@ -1964,7 +1943,8 @@ namespace CloudberryKingdom
             //level.MyGame.AddGameObject(new Rumble());
             //};
 
-            data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
+            //data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
+            data.LavaMake = LevelSeedData.LavaMakeTypes.AlwaysMake;
 
             GameData.StartLevel(data);
         }
@@ -1988,8 +1968,59 @@ namespace CloudberryKingdom
             //level.MyGame.DramaticEntry(level.StartDoor, 20);
         }
 
+        void writelist()
+        {
+            Tools.UseInvariantCulture();
+            FileStream fstream = File.Open("C:\\Users\\Ezra\\Desktop\\List.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+            StreamWriter writer = new StreamWriter(fstream, Encoding.UTF8);
+
+            var list = new string[] { "Blob", "Bouncy", "Cloud", "Elevator", "Falling", "Firespinner", "Ghost", "Laser", "Lava Drip", "Moving", "Serpent", "Spike", "Spikey", "Boulder" };
+            int n = 8;
+            int[] i = new int[n];
+            while (true)
+            {
+                bool overlap = false;
+                for (int k1 = 0; k1 < n; k1++)
+                    for (int k2 = 0; k2 < n; k2++)
+                        if (k1 != k2 && i[k1] == i[k2] || k1 < k2 && i[k1] > i[k2])
+                            overlap = true;
+
+                if (!overlap)
+                {
+                    string s = "";
+                    for (int k = n-1; k >= 0; k--)
+                    //for (int k = 0; k < n; k++)
+                        //s += i[k].ToString() + " + ";
+                        s += list[i[k]].ToString() + "\t";
+                    Tools.Write(s);
+                    writer.WriteLine(s);
+                }
+
+                int j = -1;
+                do
+                {
+                    j++;
+                    i[j]++;
+                    if (i[j] == list.Length)
+                    {
+                        if (j == n - 1)
+                        {
+                            writer.Close();
+                            fstream.Close();
+                            return;
+                        }
+                        i[j] = 0;
+                    }
+                }
+                while (i[j] == 0);
+            }
+        }
+
         void TestLevelInit(PieceSeedData piece)
         {
+            //writelist();
+            //Tools.Write("!");
+
             //piece.ZoomType = LevelZoom.Big;
             piece.ExtraBlockLength = 1000;
 
@@ -2008,13 +2039,27 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-            piece.MyUpgrades1[Upgrade.Jump] = 6;
-            //piece.MyUpgrades1[Upgrade.Spike] = 2;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            //piece.MyUpgrades1[Upgrade.Laser] = 2;
-            //piece.MyUpgrades1[Upgrade.Pinky] = 2;
-            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
-            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
+
+            piece.MyUpgrades1[Upgrade.Jump] = 5;
+            piece.MyUpgrades1[Upgrade.Speed] = 11;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 2.5f;
+            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2.5f;
+            //piece.MyUpgrades1[Upgrade.Ceiling] = 5;
+
+            //piece.MyUpgrades1[Upgrade.Elevator] = 11;
+            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 3;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
+            //piece.MyUpgrades1[Upgrade.Serpent] = 5;
+            piece.MyUpgrades1[Upgrade.Cloud] = 5;
+            //piece.MyUpgrades1[Upgrade.Pinky] = 5;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 3;
+            //piece.MyUpgrades1[Upgrade.Pendulum] = 3;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
+
+            __Roughly_Abusive(piece);
+            //__Roughly_Maso(piece);
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
@@ -2040,6 +2085,53 @@ namespace CloudberryKingdom
 
             piece.Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
             piece.Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
+        }
+
+        private static void __Roughly_Maso(PieceSeedData piece)
+        {
+            piece.MyUpgrades1[Upgrade.Jump] = 1;
+            piece.MyUpgrades1[Upgrade.Speed] = 10;
+
+            //piece.MyUpgrades1[Upgrade.Serpent] = 10;
+            //piece.MyUpgrades1[Upgrade.LavaDrip] = 10;
+            //piece.MyUpgrades1[Upgrade.Laser] = 10;
+
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
+            ////piece.MyUpgrades1[Upgrade.FallingBlock] = 4;
+            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 4;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 4;
+            //piece.MyUpgrades1[Upgrade.Elevator] = 1;
+            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 10;
+            ////piece.MyUpgrades1[Upgrade.Firesnake] = 6;
+            piece.MyUpgrades1[Upgrade.Spike] = 9;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 10;
+            
+            piece.MyUpgrades1[Upgrade.Pinky] = 4;
+            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
+            //piece.MyUpgrades1[Upgrade.Conveyor] = 8;
+        }
+
+        private static void __Roughly_Abusive(PieceSeedData piece)
+        {
+            piece.MyUpgrades1[Upgrade.Jump] = 1;
+            piece.MyUpgrades1[Upgrade.Speed] = 3;
+            ////piece.MyUpgrades1[Upgrade.Serpent] = 0;
+            ////piece.MyUpgrades1[Upgrade.LavaDrip] = 4;
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 4;
+            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 4;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 4;
+            //piece.MyUpgrades1[Upgrade.Elevator] = 1;
+            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
+            ////piece.MyUpgrades1[Upgrade.Firesnake] = 6;
+            piece.MyUpgrades1[Upgrade.Spike] = 2;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            //piece.MyUpgrades1[Upgrade.Laser] = 2;
+            piece.MyUpgrades1[Upgrade.Pinky] = 1;
+            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
+            //piece.MyUpgrades1[Upgrade.Conveyor] = 8;
         }
 
         void TestLevelModParams(Level level, PieceSeedData p)
@@ -2262,6 +2354,9 @@ namespace CloudberryKingdom
         public double DeltaT = 0;
         protected override void Draw(GameTime gameTime)
         {
+            //Tools.BasicEffect = Tools.EffectWad.FindByName("BW");
+            //Tools.BasicEffect = Tools.EffectWad.FindByName("Basic");
+
             if (DONOTHING)
             {
                 GraphicsDevice.Clear(Color.Green);
@@ -2367,13 +2462,20 @@ namespace CloudberryKingdom
             // Setup the rendering parameters
             SetupToRender();
 
+            //if (true)
             if (LogoScreenUp || LogoScreenPropUp)
             {
                 LoadingScreen.Draw();
-                //VideoTest_Draw();
+                if (DoVideoTest)
+                {
+                    VideoTest_Draw(Vector2.Zero);
+                    Tools.QDrawer.Flush();
+                }
                 return;
             }
-
+            if (DoVideoTest)
+                VideoTest_Draw();
+            
             if (DrawShit)
             if (Tools.ShowLoadingScreen)
             {
@@ -2394,6 +2496,9 @@ namespace CloudberryKingdom
                     GraphicsDevice.Clear(Color.Black);
             }
 
+            if (DoVideoTest)
+                VideoTest_Draw();
+
             // Debug stat coins
             /*
             if (DrawCount % 20 == 0)
@@ -2403,7 +2508,7 @@ namespace CloudberryKingdom
             }*/
 
             //////////if (ShowFPS || Tools.DebugConvenience)
-            if (BuildDebug || ShowFPS)
+            if (BuildDebug || ShowFPS || Tools.ShowNums)
                 DrawGC();
 
             if (Tools.CurLevel != null)
@@ -2477,23 +2582,19 @@ namespace CloudberryKingdom
 #endif
         }
 
-        private void VideoTest_Draw2()
-        {
-            if (DoVideoTest)
-                lock (VEZTexture)
-                {
-                    if (VEZTexture.Tex != null)
-                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
-                }
-        }
+
 
         private void VideoTest_Draw()
         {
+            VideoTest_Draw(Tools.CurCamera.Pos);
+        }
+        private void VideoTest_Draw(Vector2 pos)
+        {
             if (DoVideoTest)
                 lock (VEZTexture)
                 {
                     if (VEZTexture.Tex != null)
-                        Tools.QDrawer.DrawSquareDot(Tools.CurCamera.Pos - new Vector2(1200, 250), Color.White, 200, VEZTexture, Tools.BasicEffect);
+                        Tools.QDrawer.DrawToScaleQuad(pos, Color.White, 2400, VEZTexture, Tools.BasicEffect);
                 }
         }
 
@@ -2503,9 +2604,10 @@ namespace CloudberryKingdom
 
             Tools.SetStandardRenderStates();
 
+            Tools.QDrawer.SetInitialState();
             Compute_FireAndLava();
 
-            EffectWad.SetCameraPosition(cameraPos);
+            Tools.EffectWad.SetCameraPosition(cameraPos);
 
             Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
 
@@ -2513,20 +2615,25 @@ namespace CloudberryKingdom
             //GraphicsDevice.Clear(Color.Black);
         }
 
+#if WINDOWS
+        BmpWriter bmpwriter;
+#endif
+        public LavaDraw MyLavaDraw;
+
         private void Compute_FireAndLava()
         {
             if (!LogoScreenUp)
             {
-                if (!LavaInitialized)
-                    Lava();
-
                 if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
                 {
+                    // Compute fireballs textures
                     device.BlendState = BlendState.Additive;
-                    Fireball.DrawFireballTexture(device, EffectWad);
-                    Fireball.DrawEmitterTexture(device, EffectWad);
+                    Fireball.DrawFireballTexture(device, Tools.EffectWad);
+                    Fireball.DrawEmitterTexture(device, Tools.EffectWad);
+                    
+                    // Compute lava texture
                     device.BlendState = BlendState.AlphaBlend;
-                    Lava();
+                    MyLavaDraw.Update();
                 }
             }
         }
@@ -2600,7 +2707,6 @@ namespace CloudberryKingdom
                 FirstInactiveFrame = true;
 
                 // If we are editing the background show the mouse
-                //if (Tools.background_viewer != null)
                 if (Tools.ViewerIsUp)
                     this.IsMouseVisible = true;
 
@@ -2609,6 +2715,9 @@ namespace CloudberryKingdom
         }
 #endif
 
+        /// <summary>
+        /// If the aspect ratio of the game (1280:720) doesn't match the window, use a letterbox viewport.
+        /// </summary>
         public void MakeInnerViewport()
         {
             float targetAspectRatio = 1280f / 720f;
@@ -2633,184 +2742,5 @@ namespace CloudberryKingdom
                 MaxDepth = 1
             };
         }
-
-
-
-
-        const int WaveN = 256;
-        Texture2D WaveTexture;
-        const int Int = 3;
-        Color[] WaveHeightColor = new Color[Int * (WaveN - 1)];
-        float[] WaveHeight = new float[WaveN];
-        float[] WaveHeightv = new float[WaveN];
-        float[] OldWaveHeight = new float[WaveN];
-        float[] OldWaveHeightv = new float[WaveN];
-
-        void InitLava()
-        {
-            WaveTexture = new Texture2D(device, Int * (WaveN - 1), 1, false, SurfaceFormat.Color);
-            //WaveTexture = new Texture2D(device, Int * (WaveN - 1), 1, false, SurfaceFormat.Single);
-            //WaveTexture = new Texture2D(device, Int * (WaveN - 1), 1, 1, TextureUsage.None, SurfaceFormat.Color);
-        }
-
-        public float LavaHeight(float u)
-        {
-            int i = (int)(WaveN * u);
-            return OldWaveHeight[i];
-        }
-
-        public bool DoLavaUpdate = false;
-        void Lava()
-        {
-            if (!DoLavaUpdate && LavaInitialized)
-                return;
-            else
-                DoLavaUpdate = false;
-
-            int step = 0;
-            if (Tools.CurLevel != null)
-                step = Tools.CurLevel.CurPhsxStep;
-
-            if (LavaInitialized)
-                LavaPhsx();
-            else
-            {
-                for (int i = 0; i < 15; i++)
-                    LavaPhsx();
-
-                LavaInitialized = true;
-            }
-
-            for (int i = 0; i < WaveN - 1; i++)
-                for (int j = 0; j < Int; j++)
-                {
-                    float val = (.85f * WaveHeight[i] + .056f) * (1f - j / (float)Int) +
-                                (.85f * WaveHeight[i + 1] + .056f) * j / (float)Int;
-
-                    WaveHeightColor[Int * i + j] = new Color(Tools.EncodeFloatRGBA(val));
-                }
-
-            var e = EffectWad.FindByName("Lava");
-            
-            e.effect.Parameters["xHeight"].SetValue((Texture)null);
-            device.Textures[0] = null;
-            WaveTexture.SetData(WaveHeightColor);
-            e.t.SetValue((float)step);
-            e.effect.Parameters["xHeight"].SetValue(WaveTexture);
-
-            graphics.GraphicsDevice.Textures[1] = WaveTexture;
-        }
-
-        bool LavaInitialized;
-        void LavaPhsx()
-        {
-            int step = 0;
-            if (Tools.CurLevel != null)
-                step = Tools.CurLevel.CurPhsxStep;
-
-            for (int q = 0; q < 1; q++)
-            {
-                for (int i = 0; i < WaveN; i++)
-                {
-                    OldWaveHeight[i] = WaveHeight[i];
-                    OldWaveHeightv[i] = WaveHeightv[i];
-                }
-
-                float h = .5f * 1.05f * 1f / WaveN;
-                float dt = .05f;
-
-                for (int i = 0; i < WaveN; i++)
-                {
-                    float z = (OldWaveHeightv[(i + 1) % WaveN] + OldWaveHeightv[(i - 1 + WaveN) % WaveN] - 2 * OldWaveHeightv[i]) / (h);
-                    float w = (OldWaveHeight[(i + 1) % WaveN] + OldWaveHeight[(i - 1 + WaveN) % WaveN] - 2 * OldWaveHeight[i]) / (h);
-                    WaveHeightv[i] += dt * (
-                        .12f * ((float)Math.Abs(OldWaveHeight[i] * 15 + .033f) + .006f) * w
-                        + .00075f * (float)Math.Sin((2 * i * h + (float)step * .3) * 3.14159f * 6)
-                        - .0046f * (.04f - Math.Abs(z)) * Math.Sign(z)
-                        - .0046f * (.02f - Math.Abs(w)) * Math.Sign(w)
-                        - .06f * OldWaveHeightv[i]
-                        - 38 * OldWaveHeight[i] * OldWaveHeight[i] * OldWaveHeight[i]
-                        - 2 * Math.Abs(OldWaveHeight[i] * OldWaveHeightv[i]) * Math.Sign(OldWaveHeightv[(i + WaveN / 2) % WaveN])
-                        - 4 * Math.Abs(OldWaveHeight[i] * OldWaveHeightv[i]) * Math.Sign(OldWaveHeightv[(i + (int)(WaveN * 1.3f)) % WaveN])
-                        + .0043f * (.35f - Math.Abs(OldWaveHeight[i])) * Math.Sign(OldWaveHeight[i])
-                                     );
-
-                    if (Math.Abs(WaveHeightv[i]) > .047f)
-                        WaveHeightv[i] = .047f * Math.Sign(WaveHeightv[i]);
-                }
-
-                for (int i = 0; i < WaveN; i++)
-                {
-                    WaveHeight[i] += dt * 3.6f * WaveHeightv[i];
-
-                    if (Math.Abs(WaveHeight[i]) > .1125f)
-                    {
-                        WaveHeight[i] = .1125f * Math.Sign(WaveHeight[i]);
-                    }
-                }
-            }
-        }
-
-#if WINDOWS
-        BmpWriter bmpwriter;
-#endif
     }
-
-#if WINDOWS
-    public class BmpWriter
-    {
-        byte[] textureData;
-        System.Drawing.Bitmap bmp;
-        System.Drawing.Imaging.BitmapData bitmapData;
-        IntPtr safePtr;
-        System.Drawing.Rectangle rect;
-        public System.Drawing.Imaging.ImageFormat imageFormat;
-
-        public int Width, Height;
-
-        public BmpWriter(int width, int height)
-        {
-            this.Width = width;
-            this.Height = height;
-
-            textureData = new byte[4 * width * height];
-
-            bmp = new System.Drawing.Bitmap(
-                           width, height,
-                           System.Drawing.Imaging.PixelFormat.Format32bppArgb
-                         );
-
-            rect = new System.Drawing.Rectangle(0, 0, width, height);
-
-            imageFormat = System.Drawing.Imaging.ImageFormat.Png;
-        }
-
-        public void TextureToBmp(Texture2D texture, String filename, bool DelaySave = false)
-        {
-            texture.GetData<byte>(textureData);
-            byte blue;
-            for (int i = 0; i < textureData.Length; i += 4)
-            {
-                blue = textureData[i];
-                textureData[i] = textureData[i + 2];
-                textureData[i + 2] = blue;
-            }
-
-            bitmapData = bmp.LockBits(
-                           rect,
-                           System.Drawing.Imaging.ImageLockMode.WriteOnly,
-                           System.Drawing.Imaging.PixelFormat.Format32bppArgb
-                         );
-
-            safePtr = bitmapData.Scan0;
-            System.Runtime.InteropServices.Marshal.Copy(textureData, 0, safePtr, textureData.Length);
-            bmp.UnlockBits(bitmapData);
-
-            if (DelaySave)
-                Tools.Nothing();
-            else
-                bmp.Save(filename, imageFormat);
-        }
-    }
-#endif
 }

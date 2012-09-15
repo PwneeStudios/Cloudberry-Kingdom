@@ -24,8 +24,7 @@ namespace CloudberryKingdom
             Init("Doom\\BossLevel.lvl");
 
             MakeCenteredCamZone(.72f);
-            //MakeBackground(BackgroundType.Outside);
-            MakeBackground(BackgroundType.Rain);
+            MakeBackground(BackgroundType.Outside);
             
             // Players
             //SetHeroType(BobPhsxNormal.Instance);

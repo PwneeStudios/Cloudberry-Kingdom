@@ -71,9 +71,12 @@ namespace CloudberryKingdom
             PhsxStepsToDo += 2;
 
             // Exit sign
-            Sign sign = new Sign(false);
-            sign.PlaceAt(Doors["Exit"].GetTop());
-            MyLevel.AddObject(sign);
+            if (MyLevel.Info.Doors.ShowSign)
+            {
+                Sign sign = new Sign(false, MyLevel);
+                sign.PlaceAt(Doors["Exit"].GetTop());
+                MyLevel.AddObject(sign);
+            }
 
             // Exit door
             Doors["Exit"].SetLock(false, true, false);

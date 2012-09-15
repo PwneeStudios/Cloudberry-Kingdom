@@ -3,22 +3,13 @@ float2 OutlineScale;
 float4 OutlineColor, InsideColor;
 
 Texture xTexture;
-sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };//AddressU = wrap; AddressV = clamp;};
+//sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };//AddressU = wrap; AddressV = clamp;};
+sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture>; };
 
 texture SceneTexture;
+sampler SceneSampler : register(s0) = sampler_state { Texture = (SceneTexture); };
 
-sampler SceneSampler : register(s0) = sampler_state
-{
-    Texture = (SceneTexture);
-    
-    MinFilter = Linear;
-    MagFilter = Linear;
-    
-    AddressU = Clamp;
-    AddressV = Clamp;
-};
-
-PixelToFrame OurFirstPixelShader(VertexToPixel PSIn)
+PixelToFrame SimplePixelShader(VertexToPixel PSIn)
 {
     PixelToFrame Output = (PixelToFrame)0;
     
@@ -42,6 +33,7 @@ PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
 
 float4 OutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
+/*
 	float d = .055;
 		
 	float d2 = d / 16;
@@ -105,10 +97,13 @@ float4 OutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 	Color.rgb *= Color.a;
 	
 	return Color;
+	*/
+	return color;
 }
 
 float4 RefinedOutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
+/*
 	float d = .055;
 		
 	float d2 = d / 16;
@@ -219,6 +214,8 @@ v += abs(l - tex2D(SceneSampler, uv + float2( 0.995184726751 , -0.0980171395259 
 	Color.rgb *= Color.a;
 	
 	return Color;
+	*/
+	return color;
 }
 
 technique Simplest
@@ -226,7 +223,7 @@ technique Simplest
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
+        PixelShader = compile PIXEL_SHADER SimplePixelShader();
     }
 }
 

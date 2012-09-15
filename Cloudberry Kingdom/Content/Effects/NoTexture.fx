@@ -1,7 +1,8 @@
 ﻿#include"RootEffect.fx"
 
 Texture xTexture;
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
+//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
+sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 texture SceneTexture;
 
@@ -38,8 +39,9 @@ PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
 
 PixelToFrame OutlinePixelShader(VertexToPixel PSIn)
 {
-	PixelToFrame Output = (PixelToFrame)0;        
-
+	PixelToFrame Output = (PixelToFrame)0;
+	return Output;
+	/*
 	float2 uv = PSIn.TexCoords;
 	float4 Color = PSIn.Color;
 
@@ -71,6 +73,7 @@ PixelToFrame OutlinePixelShader(VertexToPixel PSIn)
 	Output.Color = Color;
 
 	return Output;
+	*/
 }
 
 technique Simplest

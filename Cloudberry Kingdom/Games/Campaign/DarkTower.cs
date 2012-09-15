@@ -62,7 +62,7 @@ namespace CloudberryKingdom
                 // Door
                 var door = MyLevel.PlaceDoorOnBlock(new Vector2(pos, FloorPos.Y), block, false);
                 TopDoor = door;
-                door.SetDoorType(Door.Types.Grass);
+                //door.SetDoorType(Door.Types.Grass);
                 door.Core.EditHoldable = false;
                 door.Core.DrawLayer = 1;
                 door.SetLock(true, true, false);

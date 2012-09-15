@@ -6,6 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
+    /// <summary>
+    /// Binary space partioning class.
+    /// Currently unmaintained and not in use.
+    /// </summary>
     public class BSP_Line
     {
         public List<List<ObjectBase>> Grid;

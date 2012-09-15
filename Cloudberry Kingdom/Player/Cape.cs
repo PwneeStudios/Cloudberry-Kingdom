@@ -54,6 +54,14 @@ namespace CloudberryKingdom
         public CapeNode[] Nodes;
         public CapeLink[] Links;
 
+        public void Copy(Cape cape)
+        {
+            for (int i = 0; i < Nodes.Length; i++)
+                Nodes[i] = cape.Nodes[i];
+
+            for (int i = 0; i < Links.Length; i++)
+                Links[i] = cape.Links[i];
+        }
 
 
         public Color _MyColor;
@@ -78,7 +86,8 @@ namespace CloudberryKingdom
 
         bool DrawLines, DrawNodes;
 
-        public Vector2 p1, p2;
+        public Vector2 p1_Left, p2_Left;
+        public Vector2 p1_Right, p2_Right;
 
         public void Release()
         {
@@ -104,6 +113,7 @@ namespace CloudberryKingdom
 
             _MyColor = clr;
             Color PremultipliedColor = Tools.PremultiplyAlpha(clr);
+            Color PremultipliedColor_Darker = Tools.PremultiplyAlpha(new Color(clr.ToVector3() * .5f));
 
             int count = 0;
             // Triangles
@@ -113,13 +123,13 @@ namespace CloudberryKingdom
             {
                 for (int j = 0; j < HorizontalSections; j++)
                 {
-                    Vertices[count].Color = PremultipliedColor;
+                    Vertices[count].Color = PremultipliedColor_Darker;
                     Vertices[count].uv = new Vector2(j * h1, i * h2);
 
                     Vertices[count + 1].Color = PremultipliedColor;
                     Vertices[count + 1].uv = new Vector2((j + 1) * h1, i * h2);
 
-                    Vertices[count + 2].Color = PremultipliedColor;
+                    Vertices[count + 2].Color = PremultipliedColor_Darker;
                     Vertices[count + 2].uv = new Vector2(j * h1, (i + 1) * h2);
 
                     Vertices[count + 3].Color = PremultipliedColor;
@@ -128,7 +138,7 @@ namespace CloudberryKingdom
                     Vertices[count + 5].Color = PremultipliedColor;
                     Vertices[count + 5].uv = new Vector2((j + 1) * h1, i * h2);
 
-                    Vertices[count + 4].Color = PremultipliedColor;
+                    Vertices[count + 4].Color = PremultipliedColor_Darker;
                     Vertices[count + 4].uv = new Vector2(j * h1, (i + 1) * h2);
 
                     count += 6;
@@ -167,10 +177,14 @@ namespace CloudberryKingdom
             }
         }
 
+        float CapeThickness = 16;
         public enum CapeType { Normal, Small, None };
-        public Cape(Bob bob, CapeType Type)
+        public CapeType MyType;
+
+        public Cape(Bob bob, CapeType Type, BobPhsx Phsx)
         {
             MyBob = bob;
+            MyType = Type;
 
             MaxForce = .9f;
             Sections = 5;
@@ -189,16 +203,20 @@ namespace CloudberryKingdom
             DrawLines = true;
             DrawNodes = true;
 
-            p1 = new Vector2(-63, -45);
-            p2 = new Vector2(-27, 0);
-
+            CapeThickness = Phsx.MyBob.PlayerObject.CapeThickness;
+            p1_Left = Phsx.MyBob.PlayerObject.p1_Left;
+            p2_Left = Phsx.MyBob.PlayerObject.p2_Left;
+            p1_Right = Phsx.MyBob.PlayerObject.p1_Right;
+            p2_Right = Phsx.MyBob.PlayerObject.p2_Right;
 
             switch (Type)
             {
                 case CapeType.Small:
                     strength_in *= 1.5f;
-                    p2 = new Vector2(-17, -2);
-                    p1 = new Vector2(-34, -25);
+                    p2_Left = new Vector2(-17, -2);
+                    p1_Left = new Vector2(-34, -25);
+                    p2_Right = new Vector2(17, -2);
+                    p1_Right = new Vector2(34, -25);
                     break;
             }
 
@@ -224,14 +242,14 @@ namespace CloudberryKingdom
                                 2 * Sections * HorizontalSections
             ];
 
-            Vector2 TL = p1;
-            Vector2 BL = p2;
             for (int i = 0; i < Sections + 1; i++)
             {
                 float t = i / (float)Sections;
-                Vector2 pos1 = t * TL + (1 - t) * BL;
-                Vector2 pos2 = pos1;
-                pos2.X *= -1;
+                Vector2 pos1 = t * p1_Left + (1 - t) * p2_Left;
+                //Vector2 pos2 = pos1;
+                //pos2.X *= -1;
+                Vector2 pos2 = t * p1_Right + (1 - t) * p2_Right;
+                
                 for (int j = 0; j <= HorizontalSections; j++)
                 {
                     float s = j / (float)HorizontalSections;
@@ -497,13 +515,16 @@ namespace CloudberryKingdom
             Effect.xTexture.SetValue(MyQuad.Quad.MyTexture.Tex);
             Effect.effect.CurrentTechnique.Passes[0].Apply();
 
-            Tools.QDrawer.SetAddressMode(true, true);
+            //Tools.QDrawer.SetAddressMode(true, true);
+            Tools.QDrawer.SetAddressMode(false, false);
 
             Tools.Device.DrawUserPrimitives(PrimitiveType.TriangleList, Vertices, 0, NumTriangles);
 
             Tools.QDrawer.Flush();
 
-            float width = 16;
+            float width = CapeThickness;
+            //float width = 16;
+            //float width = 8;
             if (DoScaling) width *= Scale.X;
 
             if (DrawLines)
@@ -521,7 +542,7 @@ namespace CloudberryKingdom
                         {
                             ApplyScaling(ref p1); ApplyScaling(ref p2);
                         }
-                        Tools.QDrawer.DrawLine(p1, p2, MyOutlineColor, width, Tools.TextureWad.TextureList[2], Tools.EffectWad.EffectList[0], 100, 0, true);
+                        Tools.QDrawer.DrawLine(p1, p2, MyOutlineColor, width, Tools.TextureWad.TextureList[2], Tools.BasicEffect, 100, 0, true);
                     }
                 }
 
@@ -532,7 +553,7 @@ namespace CloudberryKingdom
                     {
                         Vector2 p = Nodes[i].Data.Position;
                         if (DoScaling) ApplyScaling(ref p);
-                        Tools.QDrawer.DrawSquareDot(p, MyOutlineColor, width, Tools.TextureWad.TextureList[1], Tools.EffectWad.EffectList[0]);
+                        Tools.QDrawer.DrawSquareDot(p, MyOutlineColor, width, Tools.TextureWad.TextureList[1], Tools.BasicEffect);
                     }
                 }
         }

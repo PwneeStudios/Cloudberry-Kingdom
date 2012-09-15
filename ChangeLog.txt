@@ -1,13 +1,50 @@
 (In development)
 --------------------------------------------------------------------------------------------------------
-New Arcade meta-game. Prepare yourself.
-Save/load levels.
-Save/load custom heroes.
 Use custom heroes in Freeplay.
+Global leaderboards.
+New Arcade meta-game. Prepare yourself.
+Campaign!
+Optimize load time.
+Optimize game physics to run on low end computers.
+
+
+v0.2.3
+--------------------------------------------------------------------------------------------------------
+Bug fixed: Pressing Z was causing a debug function to destroy some loaded assets.
+Bug fixed: Loading a seed from the Freeplay screen was causing menus to get tangled.
+Bug fixed: Spaceship levels had an opening in the ceiling that allowed you to skip the whole level.
+
+v0.2.2
+--------------------------------------------------------------------------------------------------------
+Bug fixed: Different culture settings were crashing the game.
+Bug fixed: Removed option to load a seed while in an Arcade game. Seeds must be loaded from Freeplay.
+Bug fixed: Character select screen was crashing for some people updating from the previous build of the game.
+
+v0.2.1
+--------------------------------------------------------------------------------------------------------
+Added graphical display in Arcade games for extra life and score multiplier.
+Castle Lava! Hm, needs some work.
+Graphical fix: Cave background had some small missing pieces, and did not wrap continuously.
+Bug fixed: Hats and beards were temporarily falling off by duck-jumping then standing in mid-air.
+Bug fixed: Exiting from Freeplay via the Score Screen caused the game to hang.
+Bug fixed: Certain types of Freeplay levels were not being reproduced by their associated seed.
+
+v0.2.0
+--------------------------------------------------------------------------------------------------------
+Major graphics overhaul.
+Game no longer uses the HiDef profile, and should run on computers without dedicated GPUs. (If the game runs slow on your laptop, optimizations are soon to come! Don't worry!)
+
+v0.1.6
+--------------------------------------------------------------------------------------------------------
+Save/load levels.
+Copy/paste level seeds.
+Bug fixed: Crash when buying expensive items.
+Bug fixed: Elevator super launch at checkpoints.
 
 v0.1.5
 --------------------------------------------------------------------------------------------------------
 Game now saves volume preferences.
+PC version now has option to turn on/off IsFixedTimStep.
 Bug fixed: Preferences were being deleted when new updates to the game came out.
 Bug fixed: Freeplay wall and build levels were crashing.
 Bug fixed: Players can no longer get on top of levels.

@@ -1,0 +1,294 @@
+using Microsoft.Xna.Framework;
+using CloudberryKingdom.Awards;
+using CloudberryKingdom.Stats;
+
+namespace CloudberryKingdom
+{
+    public class ArcadeItem : MenuItem
+    {
+        public Challenge MyChallenge;
+        public Awardment MyPrereq;
+        public bool Locked;
+
+        public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq) : base(Text)
+        {
+            this.MyChallenge = MyChallenge;
+            this.MyPrereq = MyPrereq;
+
+            Locked = MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.UnlockAll;
+        }
+    }
+
+    public class ArcadeBaseMenu : StartMenuBase
+    {
+        protected LevelItem SelectedItem;
+        protected ArcadeItem MyArcadeItem;
+
+        protected virtual void StartFunc(LevelItem item)
+        {
+            SelectedItem = item;
+
+            // Save the menu item index
+            Challenge_HeroRush.PreviousMenuIndex = item.MenuIndex;
+
+            // Start the game
+            MyGame.PlayGame(PlayGame);
+        }
+
+        protected virtual void PlayGame()
+        {
+            // Show title again if we're selecting from the menu
+            if (!MyGame.ExecutingPreviousLoadFunction)
+                //Escalation_Tutorial.ShowTitle = true;
+                HeroRush_Tutorial.ShowTitle = true;
+
+            MyArcadeItem.MyChallenge.Start(SelectedItem.StartLevel);
+        }
+
+        public override void Release()
+        {
+            base.Release();
+
+            MyArcadeItem = null;
+            SelectedItem = null;
+        }
+    }
+
+
+    public class ArcadeMenu : ArcadeBaseMenu
+    {
+        bool Long = false;
+
+        protected override void SetItemProperties(MenuItem item)
+        {
+            base.SetItemProperties(item);
+
+            item.ScaleText(.945f);
+        }
+
+        public override void OnReturnTo()
+        {
+            base.OnReturnTo();
+            SetLockColors();
+        }
+
+        void SetLockColors()
+        {
+            foreach (MenuItem item in MyMenu.Items)
+            {
+                Awardment award = item.MyObject as Awardment;
+                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.UnlockAll)
+                {
+                    item.MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
+                    item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
+                }
+                else
+                {
+                    if (null != award)
+                        SetItemProperties(item);
+                }
+            }
+        }
+
+        void MenuGo_LostLevels(MenuItem item)
+        {
+            Tools.BeginLoadingScreen(true);
+            Active = false;
+
+            MyGame.WaitThenDo(70, () =>
+            {
+                Tools.EndLoadingScreen();
+
+                // Todo for when doom exits
+                MyGame.AddToDo(() =>
+                {
+                    GameData game = MyGame;
+
+                    SlideOut(PresetPos.Left, 0);
+                    MyGame.WaitThenDo(12, () =>
+                        SlideIn());
+                });
+                MyGame.PhsxStepsToDo = 3;
+
+                Campaign.InitCampaign(0);
+                Tools.CurGameData = new Doom();
+            });
+        }
+
+        public ArcadeMenu()
+        {
+            Campaign.InitCampaign(0);
+            Campaign.IsPlaying = false;
+        }
+
+        public override void  Init()
+        {
+ 	        base.Init();
+
+            SetParams();
+
+            MyPile = new DrawPile();
+
+            // Menu
+            if (Long)
+            {
+                MyMenu = new LongMenu();
+                MyMenu.FixedToCamera = false;
+                MyMenu.WrapSelect = false;
+            }
+            else
+                MyMenu = new Menu(false);
+
+            MyMenu.Control = -1;
+
+            MyMenu.OnB = MenuReturnToCaller;
+
+            // Header
+            MenuItem Header = new MenuItem(new EzText("The Arcade", Tools.Font_Grobold42_2));
+            Header.Name = "Header";
+            MyMenu.Add(Header);
+            SetItemProperties(Header);
+            Header.Pos = new Vector2(-1834.998f, 999.1272f);
+            Header.MyText.Scale *= 1.15f;
+            Header.Selectable = false;
+
+            MenuItem item;
+            ItemPos = new Vector2(-1689.523f, 520.4127f);
+
+            // Escalation
+            item = AddChallenge(Challenge_Escalation.Instance, null, null, "Escalation");
+
+            // Time Crisis
+            item = AddChallenge(Challenge_TimeCrisis.Instance, null, Awardments.UnlockHeroRush2, "Time Crisis");
+
+            // Hero Rush
+            item = AddChallenge(Challenge_HeroRush.Instance, null, Awardments.UnlockHeroRush2, "Hero Rush");
+
+            // Hero Rush 2
+            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Hero Rush 2");
+
+            // Bungee Co-op
+            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
+
+            //// Construct
+            //item = AddEscalation(Challenge_Construct.Instance);
+
+            //// Wheelie
+            //item = AddChallenge(Challenge_Wheelie.Instance, Challenge_Escalation.Instance);
+
+            //// Up up
+            //item = AddChallenge(Challenge_UpUp.Instance, Challenge_Wheelie.Instance);
+
+            //// Lost Levels
+            //item = new MenuItem(new EzText("Lost Levels", ItemFont));
+            //AddItem(item);
+            //item.Go = MenuGo_LostLevels;
+            //item.AdditionalOnSelect = () =>
+            //        pics.Set("LostLevels", "", new Vector2(575.3966f, -444.4442f),
+            //        true, new Vector2(924.6016f, -662.6984f));
+
+
+            // Back button
+            //item = MakeBackButton();
+
+            // Backdrop
+            QuadClass backdrop;
+            
+            backdrop = new QuadClass("Backplate_1500x900", 1500);
+            if (Long)
+                backdrop.SizeY *= 1.02f;
+            MyPile.Add(backdrop, "Backdrop");
+            backdrop.Pos = new Vector2(9.921265f, -111.1109f) + new Vector2(-297.6191f, 15.87299f);
+
+            // Position
+            EnsureFancy();
+            MyMenu.Pos = new Vector2(332, -40f);
+            MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+
+            MyMenu.SelectItem(1);
+
+            SetLockColors();
+        }
+
+        private void SetParams()
+        {
+            CallDelay = 20;
+
+            SlideLength = 27;
+
+            ReturnToCallerDelay = 20;
+            SlideInFrom = PresetPos.Left;
+            SlideOutTo = PresetPos.Left;
+        }
+
+        Vector2 GetGoalPos()
+        { 
+            return new Vector2(-174.6031f, -603.1746f);
+        }
+
+        private MenuItem AddChallenge(Challenge challenge, Awardment prereq, Awardment goal, string itemname)
+        {
+            ArcadeItem item;
+            string name = challenge.MenuName != null ? challenge.MenuName : challenge.Name;
+            
+            //item = new MenuItem(new EzText(name, ItemFont));
+            //item.MyObject = prereq;
+
+            item = new ArcadeItem(new EzText(name, ItemFont), challenge, prereq);
+
+            item.Name = itemname;
+            AddItem(item);
+
+            item.Go = Go;
+
+            return item;
+        }
+
+        protected virtual void Go(MenuItem item)
+        {
+        }
+        /*
+            ArcadeItem me = item as ArcadeItem;
+
+            bool Locked = me.MyPrereq != null && !PlayerManager.Awarded(me.MyPrereq) && !CloudberryKingdomGame.UnlockAll;
+            if (Locked) return;
+
+            // If the goal has been met then allow difficulty selection
+            //if (challenge.GetGoalMet())
+            {
+                StartLevelMenu levelmenu = new StartLevelMenu(me.MyChallenge.HighLevel.Top);
+                //DifficultyMenu levelmenu = new LevelMenu(false, me.challenge.HighLevel.Top, me.challenge.StartLevels);
+                //levelmenu.ShowHighScore(me.challenge.HighScore.Top);
+
+                levelmenu.MyMenu.SelectItem(Challenge_HeroRush.PreviousMenuIndex);
+
+                levelmenu.StartFunc = (level, menuindex) =>
+                {
+                    // Save the menu item index
+                    Challenge_HeroRush.PreviousMenuIndex = menuindex;
+
+                    // Start the game
+                    MyGame.PlayGame(() =>
+                    {
+                        // Show title again if we're selecting from the menu
+                        if (!MyGame.ExecutingPreviousLoadFunction)
+                            //Escalation_Tutorial.ShowTitle = true;
+                            HeroRush_Tutorial.ShowTitle = true;
+
+                        me.MyChallenge.Start(level);
+                    });
+                };
+
+                levelmenu.ReturnFunc = () => { };
+
+                Call(levelmenu);
+            }
+        }
+        */
+
+        protected override void MyPhsxStep()
+        {
+            base.MyPhsxStep();
+        }
+    }
+}

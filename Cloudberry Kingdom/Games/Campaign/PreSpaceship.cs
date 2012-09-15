@@ -32,7 +32,7 @@ namespace CloudberryKingdom
             MyPile.Add(Backdrop);
 
             // Centered text
-            EzText MyText = new EzText("And now for something\ncompletely different.", Tools.Font_DylanThin42, 1500, true, true);
+            EzText MyText = new EzText("And now for something\ncompletely different.", Tools.Font_Grobold42, 1500, true, true);
             CampaignMenu.HappyBlueColor(MyText);
             MyPile.Add(MyText);
 

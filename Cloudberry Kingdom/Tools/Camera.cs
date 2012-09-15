@@ -365,7 +365,7 @@ namespace CloudberryKingdom
 
         public static bool DisableOscillate = false;
 
-        public enum PhsxType { Fixed, SideLevel_Right, SideLevel_Up, SideLevel_Down, Center, SideLevel_Up_Relaxed };
+        public enum PhsxType { Fixed, SideLevel_Right, SideLevel_Up, SideLevel_Down, Center, SideLevel_Up_Relaxed, WorldMap };
         public PhsxType MyPhsxType = PhsxType.SideLevel_Right;
         float t;
         public void PhsxStep()
@@ -396,6 +396,10 @@ namespace CloudberryKingdom
 
             switch (MyPhsxType)
             {
+                case PhsxType.WorldMap:
+                    WorldMap_PhsxStep();
+                    break;
+
                 case PhsxType.Fixed:
                     Fixed_PhsxStep();
                     break;
@@ -485,6 +489,66 @@ namespace CloudberryKingdom
 
             if (FancyZoom != null)
                 Zoom = FancyZoom.Update();
+
+            Update();
+        }
+
+        public void WorldMap_PhsxStep()
+        {
+            //MyZone.Enforce(this);
+            //float zoom = 0.00072f;
+            //MyZone.Zoom = zoom / .001f;
+            MyZone.SetZoom(this);
+
+            Vector2 TR, BL;
+            TR = new Vector2(-10000000, -10000000);
+            BL = new Vector2(10000000, 10000000);
+
+            MaxPlayerSpeed = Vector2.Zero;
+
+            int Count = 0;
+            float TotalWeight = 0;
+            Vector2 BobsCenter = Vector2.Zero;
+            foreach (Bob bob in MyLevel.Bobs)
+            {
+                if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.Core.Data.Position)) || MyLevel.PlayMode != 0)
+                {
+                    Vector2 bpos = bob.Core.Data.Position;
+                    BobPhsxMap mapbob = bob.MyPhsx as BobPhsxMap;
+                    if (null != mapbob) bpos = Vector2.Lerp(bpos, mapbob.DestinationNode.Pos, 1f);
+
+                    BobsCenter += bpos;
+
+                    TR = Vector2.Max(TR, bob.Core.Data.Position);
+                    BL = Vector2.Min(BL, bob.Core.Data.Position);
+
+                    Count++;
+                    TotalWeight += bob.CameraWeight;
+                    bob.CameraWeight = Tools.Restrict(0, 1, bob.CameraWeight + bob.CameraWeightSpeed);
+                }
+            }
+
+            if (Count > 0)
+                BobsCenter /= TotalWeight;
+            else
+                BobsCenter = Data.Position;
+            Vector2 pos = BobsCenter;
+
+            Vector2 ratio = new Vector2(1.35f, 1.05f);
+            Vector2 ratio2 = new Vector2(1.65f, 1.9f);
+            if (pos.X > Target.X + ScreenWidth * ratio.X) Target.X += ScreenWidth * ratio2.X;
+            if (pos.X < Target.X - ScreenWidth * ratio.X) Target.X -= ScreenWidth * ratio2.X;
+            if (pos.Y > Target.Y + ScreenHeight * ratio.Y) Target.Y += ScreenHeight * ratio2.Y;
+            if (pos.Y < Target.Y - ScreenHeight * ratio.Y) Target.Y -= ScreenHeight * ratio2.Y;
+
+            Target.X = Tools.Restrict(MyZone.Start.X, MyZone.End.X, Target.X);
+            Target.Y = Tools.Restrict(MyZone.Start.Y, MyZone.End.Y, Target.Y);
+
+            Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
+
+            CurMaxSpeed = new Vector2(60);
+            Data.Position.X += Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X);
+            Data.Position.Y += Math.Sign(Target.Y - Data.Position.Y) * Math.Min(.15f * Math.Abs(Target.Y - Data.Position.Y), CurMaxSpeed.Y);
 
             Update();
         }

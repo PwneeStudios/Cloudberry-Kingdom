@@ -2,20 +2,11 @@
 //float t;
 
 Texture xTexture;
-//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };// AddressU = clamp; AddressV = clamp;};
+//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };// AddressU = clamp; AddressV = clamp;};
+sampler TextureSampler = sampler_state { texture = <xTexture>; };
 texture SceneTexture;
 
-sampler SceneSampler : register(s0) = sampler_state
-{
-    Texture = (SceneTexture);
-    
-    MinFilter = Linear;
-    MagFilter = Linear;
-    
-    AddressU = Clamp;
-    AddressV = Clamp;
-};
+sampler SceneSampler : register(s0) = sampler_state { Texture = (SceneTexture); };
 
 PixelToFrame FireballShader(VertexToPixel PSIn)
 {

@@ -153,6 +153,7 @@ namespace CloudberryKingdom.Levels
                     Center = LeftCenter + new Vector2(GetLadderSize(Ladder).X / 2, -MainCamera.GetHeight() / 2 - 250);
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
+                    bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
                     bm.EmitData.Position = bm.Core.Data.Position = Center;
                     bm.EmitData.Velocity = new Vector2(0, 6);
                     bm.Delay = 100;
@@ -173,6 +174,7 @@ namespace CloudberryKingdom.Levels
                     Center = LeftCenter + new Vector2(GetLadderSize(Ladder).X / 2, -MainCamera.GetHeight() / 2 - 250);
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
+                    bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
                     bm.EmitData.Position = bm.Core.Data.Position = Center + new Vector2(-175, 0);
                     bm.EmitData.Velocity = new Vector2(0, 6);
                     bm.Delay = 100;
@@ -190,6 +192,7 @@ namespace CloudberryKingdom.Levels
                     Center = LeftCenter + new Vector2(GetLadderSize(Ladder).X / 2, MainCamera.GetHeight() / 2 + 250);
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
+                    bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
                     bm.EmitData.Position = bm.Core.Data.Position = Center + new Vector2(175, 0);
                     bm.EmitData.Velocity = new Vector2(0, -6);
                     bm.Delay = 100;

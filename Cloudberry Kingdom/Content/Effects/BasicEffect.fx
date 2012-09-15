@@ -3,22 +3,13 @@ float2 OutlineScale;
 float4 OutlineColor, InsideColor;
 
 Texture xTexture;
-sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
+//sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
+sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture>; };
 
 texture SceneTexture;
+sampler SceneSampler : register(s0) = sampler_state { Texture = <SceneTexture>; };
 
-sampler SceneSampler : register(s0) = sampler_state
-{
-    Texture = (SceneTexture);
-    
-    MinFilter = Linear;
-    MagFilter = Linear;
-    
-    AddressU = Clamp;
-    AddressV = Clamp;
-};
-
-PixelToFrame OurFirstPixelShader(VertexToPixel PSIn)
+PixelToFrame SimplePixelShader(VertexToPixel PSIn)
 {
     PixelToFrame Output = (PixelToFrame)0;
     
@@ -26,23 +17,6 @@ PixelToFrame OurFirstPixelShader(VertexToPixel PSIn)
     
     Output.Color = baseColor;
     Output.Color *= PSIn.Color;
-
-	/*
-	// Rotate
-	float3 c = Output.Color;
-	float3 v = float3(.57735,.57735,.57735);
-	float a = t;
-	
-	float trig2 = cos(a);
-	float trig1 = 1 - trig2;
-	float trig3 = sin(a);
-	float dot = trig1 * (c.x * v.x + c.y * v.y + c.z * c.z);
-
-	Output.Color.xyz = float3(
-		v.x * dot + c.x * trig2 + (-v.z * c.y + v.y * c.z) * trig3,
-		v.y * dot + c.y * trig2 + (v.z * c.x - v.x * c.z) * trig3,
-		v.z * dot + c.z * trig2 + (-v.y * c.x + v.x * c.y) * trig3);
-		*/
 
     return Output;
 }
@@ -59,9 +33,9 @@ PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
     return Output;
 }
 
-
 float4 OutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
+/*
 	float d = .055 * OutlineScale;
 	float d2 = d / 16;
 	
@@ -116,10 +90,13 @@ float4 OutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 	Color.rgb *= Color.a;
 
 	return Color;
+	*/
+	return color;
 }
 
 float4 RefinedOutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
+/*
 	float d = .055;
 		
 	float d2 = .9 * d / 16;
@@ -225,6 +202,8 @@ v += abs(l - tex2D(SceneSampler, uv + float2( 0.995184726751 , -0.0980171395259 
 	Color.rgb *= Color.a;
 	
 	return Color;
+	*/
+	return color;
 }
 
 
@@ -233,8 +212,7 @@ technique Simplest
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        //PixelShader = compile PIXEL_SHADER ColorizePixelShader();
-        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
+        PixelShader = compile PIXEL_SHADER SimplePixelShader();
     }
 }
 
@@ -243,7 +221,7 @@ technique Suck
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER SuckVertexShader();
-        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
+        PixelShader = compile PIXEL_SHADER SimplePixelShader();
     }
 }
 
@@ -252,7 +230,7 @@ technique PushOut
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER PushOutVertexShader();
-        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
+        PixelShader = compile PIXEL_SHADER SimplePixelShader();
     }
 }
 
@@ -261,7 +239,7 @@ technique PivotTechnique
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER PivotVertexShader();
-        PixelShader = compile PIXEL_SHADER OurFirstPixelShader();
+        PixelShader = compile PIXEL_SHADER SimplePixelShader();
     }
 }
 

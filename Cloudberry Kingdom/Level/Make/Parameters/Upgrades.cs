@@ -76,8 +76,9 @@ namespace CloudberryKingdom.Levels
             // Jump
             GenData[DifficultyParam.FillSparsity] = 100;
             int Min = GenData[DifficultyParam.MinBoxSizeX] =
-                //(int)Math.Max(40, 120 - 10 * this[Upgrade.Jump]);
-                (int)Tools.DifficultyLerp(180, 40, this[Upgrade.Jump]);
+                //(int)Tools.DifficultyLerp(180, 40, this[Upgrade.Jump]);
+                (int)Tools.DifficultyLerpRestrict19(180, 40, this[Upgrade.Jump]);
+            if (Min < 50) GenData[DifficultyParam.MinBoxSizeX] = 10;
             GenData[DifficultyParam.MaxBoxSizeX] = 
                 //(int)Math.Max(Min + 1, 380 - 50 * this[Upgrade.Jump]);
                 //(int)Tools.DifficultyLerp(460, Min + 1, this[Upgrade.Jump]);

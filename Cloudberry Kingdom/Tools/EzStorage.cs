@@ -124,6 +124,8 @@ namespace CloudberryKingdom
         {
             foreach (SaveLoad ThingToSave in ThingsToSave)
             {
+                //if (!(ThingToSave is ScoreList)) Tools.Write("!");
+
                 Incr();
                 ThingToSave.Save();
                 Wait();

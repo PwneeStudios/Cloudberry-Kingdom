@@ -15,21 +15,6 @@ namespace CloudberryKingdom.Levels
             // Calculate the style parameters
             CurMakeData.PieceSeed.Style.CalcGenParams(CurMakeData.PieceSeed, this);
 
-            // Change data depending on hero type
-            if (DefaultHeroType is BobPhsxSpaceship)
-            {
-                CurMakeData.InitialPlats = false;
-                CurMakeData.PieceSeed.Style.TopSpace = 0;
-                CurMakeData.SparsityMultiplier = 2;
-                CurMakeData.PieceSeed.Style.UpperSafetyNetOffset = 360;
-                CurMakeData.PieceSeed.Style.BlockFillType = StyleData._BlockFillType.Spaceship;
-                CurMakeData.PieceSeed.Style.MinBlockDist = 250;
-                CurMakeData.PieceSeed.Style.RemovedUnusedOverlappingBlocks = true;
-                CurMakeData.PieceSeed.Style.RemoveBlockOnOverlap = true;
-
-                CurMakeData.PieceSeed.Style.MyGroundType = StyleData.GroundType.Used;
-            }
-
             // Move camera
             MainCamera.Data.Position = CurMakeData.CamStartPos;
             MainCamera.Update();

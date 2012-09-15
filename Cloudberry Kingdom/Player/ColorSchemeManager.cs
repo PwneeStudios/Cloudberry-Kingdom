@@ -22,10 +22,41 @@ namespace CloudberryKingdom
         public static List<MenuListItem> HatList, ColorList, CapeColorList, CapeOutlineColorList, TextureList, OutlineList;
 
         public static List<Hat> HatInfo;
+        public static List<Hat> BeardInfo;
 
         public static List<MenuListItem> ClrList;
 
         public static ClrTextFx None;
+
+        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, string Name)
+        {
+            return new MenuListItem
+                (
+                    new ClrTextFx(Guid, Price, Clr, M, Name),
+                    Name
+                );
+        }
+
+        static MenuListItem _i(int Guid, int Price, Color Clr, Color HighlightClr, Matrix M, string Name)
+        {
+            return new MenuListItem
+                (
+                    new ClrTextFx(Guid, Price, Clr, HighlightClr, M, Name),
+                    Name
+                );
+        }
+
+        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, EzEffect Effect, string Name)
+        {
+            var ctf = new ClrTextFx(Guid, Price, Clr, M, Name);
+            ctf.Effect = Effect;
+
+            return new MenuListItem
+                (
+                    ctf,
+                    Name
+                );
+        }
 
         public static void InitColorSchemes()
         {
@@ -40,6 +71,7 @@ namespace CloudberryKingdom
             ComputerColorSchemes = new List<ColorScheme>();
 
             HatInfo = new List<Hat>();
+            BeardInfo = new List<Hat>();
 
             // Mod cape functions
             Action<Bob> Reset = bob =>
@@ -58,33 +90,82 @@ namespace CloudberryKingdom
                 bob.ShowCape = true;
             };   
 
+            // Fill the beard list
+            Hat beard;
+
+            Hat.Vandyke =
+            beard = new Hat("None");
+            beard.Name = "Vandyke";
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259001;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
+            Hat.Beard = 
+            beard = new Hat("Facial_Beard");
+            beard.Name = "Rugged";
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259002;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
+            Hat.Mustache = 
+            beard = new Hat("Facial_Moustache");
+            beard.Name = "Manhattan";
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259003;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
+            Hat.BigBeard = 
+            beard = new Hat("Facial_BigBeard");
+            beard.Name = "Lumberjack";
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259004;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
+            Hat.Goatee = 
+            beard = new Hat("Facial_Goatee");
+            beard.Name = "Goatee";
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259005;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
+
             // Fill the hat list
             Hat hat;
             hat = new Hat("None");
+            hat.Name = "None";
             hat.Guid = 19;
                 HatInfo.Add(hat);
                 Hat.None = hat;
 
 
             hat = new Hat("Hat_Viking");
+            hat.Name = "Viking";
             hat.Price = Hat.Expensive;
             hat.Guid = 20;
                 hat.HatPicShift = new Vector2(-.02f, .075f);
 				HatInfo.Add(hat);
 				Hat.Viking = hat;
             hat = new Hat("Hat_Fedora");
+            hat.Name = "Fedora";
             hat.Price = Hat.Cheap;
             hat.Guid = 21;
                 hat.HatPicScale *= 1.075f;
 				HatInfo.Add(hat);                
 				Hat.Fedora = hat;
             hat = new Hat("Hat_Afro");
+            hat.Name = "Afro";
             hat.Price = Hat.Mid;
             hat.Guid = 22;
                 hat.HatPicScale *= 1.065f;
                 HatInfo.Add(hat);
                 Hat.Afro = hat;
             hat = new Hat("Hat_Halo");
+            hat.Name = "Halo";
             hat.Price = Hat.Mid;
             hat.Guid = 23;
                 hat.HatPicScale *= 1.07f;
@@ -92,6 +173,7 @@ namespace CloudberryKingdom
                 HatInfo.Add(hat);
                 Hat.Halo = hat;
             hat = new Hat("Hat_FireHead", false);
+            hat.Name = "Firehead";
             hat.Price = Hat.Expensive;
             hat.Guid = 24;
                 hat.HatPicTexture = Fireball.FlameTexture;
@@ -99,75 +181,78 @@ namespace CloudberryKingdom
                 HatInfo.Add(hat);
                 Hat.FireHead = hat;
             hat = new Hat("Hat_Ghost");
+            hat.Name = "Ghost";
             hat.Price = Hat.Cheap;
             hat.Guid = 25;
                 hat.HatPicScale *= .8f;
                 HatInfo.Add(hat);
                 Hat.Ghost = hat;
-            hat = new Hat("Hat_CheckpointHead", false);
-            hat.Price = Hat.Mid;
-            hat.Guid = 26;
-				HatInfo.Add(hat);
-				Hat.CheckpointHead = hat;
+            //hat = new Hat("Hat_CheckpointHead", false);
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 26;
+            //    HatInfo.Add(hat);
+            //    Hat.CheckpointHead = hat;
             hat = new Hat("Hat_Horns", true, false);
+            hat.Name = "Horns";
             hat.Price = Hat.Mid;
             hat.Guid = 27;
                 hat.HatPicTexture = Tools.TextureWad.FindByName("HatPic_Horns");
                 hat.HatPicScale *= 1.1f;
                 HatInfo.Add(hat);
                 Hat.Horns = hat;
-            hat = new Hat("Hat_Cloud");
-            hat.Price = Hat.Mid;
-            hat.Guid = 28;
-                hat.HatPicScale *= new Vector2(1.45f, 1.85f) * .83f;
-                HatInfo.Add(hat);
-                Hat.Cloud = hat;
-            hat = new Hat("", false);
-            hat.Price = Hat.Mid;
-            hat.Guid = 29;
-                //hat.HatPicTexture = Tools.TextureWad.FindByName("Pop");
-                hat.HatPicTexture = Tools.TextureWad.FindByName("QM_Happy");
-                hat.HatPicScale *= .85f;
-                HatInfo.Add(hat);
-                Hat.NoHead = hat;
-            hat = new Hat("Hat_FallingBlockHead", false);
-            hat.Price = Hat.Cheap;
-            hat.Guid = 30;
-                hat.HatPicScale *= .82f;
-                HatInfo.Add(hat);
-                Hat.FallingBlockHead = hat;
-            hat = new Hat("Hat_BlobHead", false);
-            hat.Price = Hat.Mid;
-            hat.Guid = 31;
-                hat.HatPicScale *= .89f;
-				HatInfo.Add(hat);
-				Hat.BlobHead = hat;
-            hat = new Hat("Hat_MovingBlockHead", false);
-            hat.Price = Hat.Cheap;
-            hat.Guid = 32;
-                hat.HatPicScale *= .89f;
-				HatInfo.Add(hat);
-				Hat.MovingBlockHead = hat;
-            hat = new Hat("Hat_SpikeyHead", false);
-            hat.Price = Hat.Mid;
-            hat.Guid = 33;
-                hat.HatPicScale *= 1.16f;
-                hat.HatPicShift = new Vector2(-.015f, .2f);
-                HatInfo.Add(hat);
-                Hat.SpikeyHead = hat;
-            hat = new Hat("Hat_FallingBlock3Head", false);
-            hat.Price = Hat.Mid;
-            hat.Guid = 34;
-                hat.HatPicScale *= .82f;
-                HatInfo.Add(hat);
-                Hat.FallingBlock3Head = hat;
-            hat = new Hat("Hat_Pink", false);
-            hat.Price = Hat.Cheap;
-            hat.Guid = 35;
-                hat.HatPicScale *= .95f;
-				HatInfo.Add(hat);
-				Hat.Pink = hat;
+            //hat = new Hat("Hat_Cloud");
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 28;
+            //    hat.HatPicScale *= new Vector2(1.45f, 1.85f) * .83f;
+            //    HatInfo.Add(hat);
+            //    Hat.Cloud = hat;
+            //hat = new Hat("", false);
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 29;
+            //    hat.HatPicTexture = Tools.TextureWad.FindByName("QM_Happy");
+            //    hat.HatPicScale *= .85f;
+            //    HatInfo.Add(hat);
+            //    Hat.NoHead = hat;
+            //hat = new Hat("Hat_FallingBlockHead", false);
+            //hat.Price = Hat.Cheap;
+            //hat.Guid = 30;
+            //    hat.HatPicScale *= .82f;
+            //    HatInfo.Add(hat);
+            //    Hat.FallingBlockHead = hat;
+            //hat = new Hat("Hat_BlobHead", false);
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 31;
+            //    hat.HatPicScale *= .89f;
+            //    HatInfo.Add(hat);
+            //    Hat.BlobHead = hat;
+            //hat = new Hat("Hat_MovingBlockHead", false);
+            //hat.Price = Hat.Cheap;
+            //hat.Guid = 32;
+            //    hat.HatPicScale *= .89f;
+            //    HatInfo.Add(hat);
+            //    Hat.MovingBlockHead = hat;
+            //hat = new Hat("Hat_SpikeyHead", false);
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 33;
+            //    hat.HatPicScale *= 1.16f;
+            //    hat.HatPicShift = new Vector2(-.015f, .2f);
+            //    HatInfo.Add(hat);
+            //    Hat.SpikeyHead = hat;
+            //hat = new Hat("Hat_FallingBlock3Head", false);
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 34;
+            //    hat.HatPicScale *= .82f;
+            //    HatInfo.Add(hat);
+            //    Hat.FallingBlock3Head = hat;
+            //hat = new Hat("Hat_Pink", false);
+            //hat.Price = Hat.Cheap;
+            //hat.Guid = 35;
+            //    hat.HatPicScale *= .95f;
+            //    HatInfo.Add(hat);
+            //    Hat.Pink = hat;
             hat = new Hat("Hat_Bubble", true);
+            hat.Name = "Bubble";
+            hat.DrawHead = false;
             hat.Price = Hat.Mid;
             hat.Guid = 36;
 				HatInfo.Add(hat);
@@ -178,6 +263,7 @@ float ScaleNew = 1.35f;
 float DefaultShiftX = -.35f;
 
             hat = new Hat("Hat_TopHat");
+            hat.Name = "Mmm, yes, indeed.";
             hat.Price = Hat.Expensive;
             hat.Guid = 37;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -185,6 +271,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.TopHat = hat;
             hat = new Hat("Hat_Knight", false);
+            hat.Name = "Sir Arthur";
             hat.Price = Hat.Expensive;
             hat.Guid = 38;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .105f);
@@ -192,6 +279,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.Knight = hat;
             hat = new Hat("Hat_Toad");
+            hat.Name = "Trippy";
             hat.Price = Hat.Expensive;
             hat.Guid = 39;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -199,6 +287,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.Toad = hat;
             hat = new Hat("Hat_BubbleBobble");
+            hat.Name = "Om Nom Nom";
             hat.Price = Hat.Expensive;
             hat.Guid = 40;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -206,13 +295,17 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.BubbleBobble = hat;
             hat = new Hat("Hat_Brain");
+            hat.DrawHead = false;
+            hat.Name = "BRAAAINS";
             hat.Price = Hat.Expensive;
             hat.Guid = 41;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.095f;
+                hat.AllowsFacialHair = false;
 				HatInfo.Add(hat);
 				Hat.Brain = hat;
             hat = new Hat("Hat_Gosu");
+            hat.Name = "Gosu";
             hat.Price = Hat.Expensive;
             hat.Guid = 42;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -223,127 +316,165 @@ float DefaultShiftX = -.35f;
 
 
             // Buyables
+            Hat.RobinHood = 
             hat = new Hat("Hat_RobinHood");
+            hat.Name = "Bob in Tights";
             hat.Price = Hat.Mid;
             hat.Guid = 1;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 
+            Hat.Rasta = 
             hat = new Hat("Hat_Rasta");
+            hat.Name = "Pastafarian";
             hat.Price = Hat.Mid;
             hat.Guid = 2;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Pumpkin = 
             hat = new Hat("Hat_Pumpkin");
+            hat.DrawHead = false;
+            hat.Name = "Pumpkin";
             hat.Price = Hat.Mid;
             hat.Guid = 3;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
+                hat.AllowsFacialHair = false;
 				HatInfo.Add(hat);
 				
+            Hat.Pirate = 
             hat = new Hat("Hat_Pirate");
+            hat.Name = "ARRRGGG";
             hat.Price = Hat.Expensive;
             hat.Guid = 4;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Miner = 
             hat = new Hat("Hat_Miner");
+            hat.Name = "Men at Work";
             hat.Price = Hat.Cheap;
             hat.Guid = 5;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Glasses = 
             hat = new Hat("Hat_Glasses");
+            hat.Name = "Four Eyes";
             hat.Price = Hat.Mid;
             hat.Guid = 6;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .1f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
-				
+			
+            Hat.BunnyEars = 
             hat = new Hat("Hat_BunnyEars");
+            hat.Name = "Bunny Ears";
             hat.Price = Hat.Mid;
             hat.Guid = 7;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
-            hat = new Hat("Hat_Beard");
-            hat.Price = Hat.Mid;
-            hat.Guid = 8;
-                //hat.HatPicShift = new Vector2(DefaultShiftX, .295f);
-                hat.HatPicShift = new Vector2(DefaultShiftX, .435f);
-                hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
+            //hat = new Hat("Hat_Beard");
+            //hat.Price = Hat.Mid;
+            //hat.Guid = 8;
+            //    hat.HatPicShift = new Vector2(DefaultShiftX, .435f);
+            //    hat.HatPicScale *= ScaleNew * 1.165f;
+            //    HatInfo.Add(hat);
 				
+            Hat.Antlers = 
             hat = new Hat("Hat_Antlers");
+            hat.Name = "The Great Stag";
             hat.Price = Hat.Mid;
             hat.Guid = 9;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Arrow = 
             hat = new Hat("Hat_Arrow");
+            hat.Name = "Custard";
             hat.Price = Hat.Expensive;
             hat.Guid = 10;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Bag = 
             hat = new Hat("Hat_Bag");
+            hat.Name = "Brown Bag";
+            hat.DrawHead = false;
             hat.Price = Hat.Cheap;
             hat.Guid = 11;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
+                hat.AllowsFacialHair = false;
 				HatInfo.Add(hat);
 				
+            Hat.Cone = 
             hat = new Hat("Hat_Cone");
+            hat.Name = "Traffic Cone";
             hat.Price = Hat.Cheap;
             hat.Guid = 12;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Pope = 
             hat = new Hat("Hat_Pope");
+            hat.Name = "Pope Hat";
             hat.Price = Hat.Expensive;
             hat.Guid = 13;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Rice = 
             hat = new Hat("Hat_Rice");
+            hat.Name = "Rice Hat";
             hat.Price = Hat.Cheap;
             hat.Guid = 14;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Santa = 
             hat = new Hat("Hat_Santa");
+            hat.Name = "Santa Claus";
             hat.Price = Hat.Expensive;
             hat.Guid = 15;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Sombrero = 
             hat = new Hat("Hat_Sombrero");
+            hat.Name = "Sombrero";
             hat.Price = Hat.Cheap;
             hat.Guid = 16;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Tiki = 
             hat = new Hat("Hat_Tiki");
+            hat.DrawHead = false;
+            hat.Name = "Tiki Mask";
             hat.Price = Hat.Mid;
             hat.Guid = 17;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
 				HatInfo.Add(hat);
 				
+            Hat.Wizard = 
             hat = new Hat("Hat_Wizard");
+            hat.Name = "Wizard";
             hat.Price = Hat.Mid;
             hat.Guid = 18;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.015f);
@@ -365,29 +496,47 @@ float DefaultShiftX = -.35f;
             //HatInfo.Add(hat);
 
 
-            // Fill the skin color list
-            ColorList.Add(new MenuListItem(new ClrTextFx(3500, 0, new Color(1f, 1f, 1f)), "White"));    // 0
-            ColorList.Add(new MenuListItem(new ClrTextFx(3501, 0, Color.Silver), "Silver"));            // 1
-            ColorList.Add(new MenuListItem(new ClrTextFx(3502, 0, Color.Gray), "Gray"));                // 2
-            ColorList.Add(new MenuListItem(new ClrTextFx(3503, 0, new Color(0f, 0f, 0f), new Color(50, 50, 50)), "Black"));    // 3
+            //colorm = LinearColorTransform(0); // Green
+            //colorm = HsvTransform(1.3f, 1.2f, 100); // Gold
+            //colorm = HsvTransform(1.5f, 1.5f, 100); // Gold 2
+            //colorm = HsvTransform(1.3f, 1.2f, 200); // Hot pink
+            //colorm = HsvTransform(1.3f, 1.2f, 250); // ?
+            //colorm = HsvTransform(.5f, 0f, 0); // Black
+            //colorm = HsvTransform(.15f, 0f, 0); // Dark Black
+            //colorm = HsvTransform(.75f, 0f, 0); // Gray
+            //colorm = HsvTransform(.8f, 1.3f, 225); // Purple
+            //colorm = HsvTransform(.9f, 1.3f, 110); // Orange
+            //colorm = LinearColorTransform(45); // Teal
+            //colorm = LinearColorTransform(120); // Blue
+            //colorm = HsvTransform(.95f, 1.3f, 0) * LinearColorTransform(240); // Red
+            //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
 
-            ColorList.Add(new MenuListItem(new ClrTextFx(3504, 0, Color.Cyan), "Cyan"));                // 4  
-            ColorList.Add(new MenuListItem(new ClrTextFx(3505, 0, new Color(0f, 0f, 1f)), "Blue"));     // 5
-            ColorList.Add(new MenuListItem(new ClrTextFx(3506, 0, Color.DarkBlue), "Teal"));            // 6
-            ColorList.Add(new MenuListItem(new ClrTextFx(3507, 0, Color.Indigo), "Indigo"));            // 7
-            ColorList.Add(new MenuListItem(new ClrTextFx(3508, 0, Color.Purple), "Purple"));            // 8
-            ColorList.Add(new MenuListItem(new ClrTextFx(3509, 0, Color.Brown), "Brown"));              // 9
-            ColorList.Add(new MenuListItem(new ClrTextFx(3510, 0, new Color(1f, 0, 0f)), "Red"));       // 10
-            ColorList.Add(new MenuListItem(new ClrTextFx(3511, 0, Color.HotPink), "Hot Pink"));         // 11
-            ColorList.Add(new MenuListItem(new ClrTextFx(3512, 0, new Color(1f, .6f, 0f)), "Orange"));  // 12
-            ColorList.Add(new MenuListItem(new ClrTextFx(3513, 0, Color.Gold), "Gold"));                // 13
-            ColorList.Add(new MenuListItem(new ClrTextFx(3514, 0, Color.Yellow), "Yellow"));            // 14
-            ColorList.Add(new MenuListItem(new ClrTextFx(3515, 0, new Color(0f, 1f, 0f)), "Green"));    // 15
-            ColorList.Add(new MenuListItem(new ClrTextFx(3516, 0, Color.LimeGreen), "LimeGreen"));      // 16
-            ColorList.Add(new MenuListItem(new ClrTextFx(3517, 0, Color.ForestGreen), "ForestGreen"));  // 17
+            // Fill the skin color list
+            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), Tools.HsvTransform(1.25f, 0f, 0),  "White"));    // 0
+            ColorList.Add(_i(3501, 0, Color.Silver,          Tools.HsvTransform(.85f, 0f, 0),   "Silver"));   // 1
+            ColorList.Add(_i(3502, 0, Color.Gray,            Tools.HsvTransform(.525f, 0f, 0),   "Gray"));     // 2
+            ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
+                                      new Color(50, 50, 50), Tools.HsvTransform(.3f, 0f, 0),    "Black"));    // 3
+
+            ColorList.Add(_i(3504, 0, Color.Cyan,            Tools.LinearColorTransform(45),    "Cyan"));     // 4  
+            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), Tools.LinearColorTransform(120),   "Blue"));     // 5
+            ColorList.Add(_i(3506, 0, Color.DarkBlue,        Tools.LinearColorTransform(80),    "Teal"));     // 6
+            ColorList.Add(_i(3507, 0, Color.Indigo,          Tools.HsvTransform(.8f, 1.3f, 225),"Indigo"));   // 7
+            ColorList.Add(_i(3508, 0, Color.Purple,          Tools.HsvTransform(.85f, 1.1f, 205),"Purple"));  // 8
+            ColorList.Add(_i(3509, 0, Color.Brown,           Tools.HsvTransform(1f, 1f, 80),"Brown"));        // 9
+            ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
+                                      Tools.HsvTransform(.95f, 1.3f, 0) * Tools.LinearColorTransform(240), "Red")); // 10
+            ColorList.Add(_i(3511, 0, Color.HotPink,         Tools.HsvTransform(1.3f, 1.2f, 200), "Hot Pink"));     // 11
+            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),Tools.HsvTransform(.9f, 1.3f, 110), "Orange"));        // 12
+            ColorList.Add(_i(3513, 0, Color.Gold,            Tools.HsvTransform(1.3f, 1.2f, 100), "Gold"));         // 13
+            ColorList.Add(_i(3514, 0, Color.Yellow,          Tools.HsvTransform(1.5f, 1.5f, 100), "Yellow"));       // 14
+            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), Tools.LinearColorTransform(0), "Green"));              // 15
+            ColorList.Add(_i(3516, 0, Color.LimeGreen,       Tools.HsvTransform(1.25f, 1.35f, 0), "LimeGreen"));    // 16
+            ColorList.Add(_i(3517, 0, Color.ForestGreen,     Tools.HsvTransform(.75f, .8f, 0), "ForestGreen"));     // 17
             
 
             // Fill the textured skin list
+            /*
             TextureList.Add(new MenuListItem(new ClrTextFx(3518, 1500, Color.White, "pillar_xlarge", Color.Gray), "Stone Skin"));     // 0
             TextureList.Add(new MenuListItem(new ClrTextFx(3519, 1000, Color.White, "Skins\\Rainbow", Color.Red), "Rainbow Skin"));  // 1
             TextureList.Add(new MenuListItem(new ClrTextFx(3520, 1000, Color.White, "Skins\\Tiger", Color.Orange), "Tiger Skin"));      // 2
@@ -396,19 +545,23 @@ float DefaultShiftX = -.35f;
             TextureList.Add(new MenuListItem(new ClrTextFx(3522, 1000, Color.White, "Skins\\Stars2", Color.DarkBlue), "Star Skin"));      // 4
             TextureList.Add(new MenuListItem(new ClrTextFx(3523, 1000, Color.White, "Skins\\Fractal1", Color.Cyan, "WaterBob"),
                                             "Psychadelic Skin"));                                           // 5
-            //TextureList.Add(new MenuListItem(new ClrTextFx(3520, Color.White, "skin", Color.Teal), "Bubble"));      // 6
-            MenuListItem NoTexture = new MenuListItem(new ClrTextFx(3524, 0, Color.Transparent), "Clear"); // 6
+
+             */
+            var m = new Matrix(); m.M11 = m.M12 = m.M13 = m.M14 = m.M21 = m.M22 = m.M23 = m.M24 = m.M31 = m.M32 = m.M33 = m.M34 = m.M41 = m.M42 = m.M43 = m.M44 = 0;
+            MenuListItem NoTexture = _i(3524, 0, Color.Transparent, m, "Clear"); // 6
             TextureList.Add(NoTexture);
-            
+
+
             // Fill the cape color list
             ClrTextFx cape;
-            None = new ClrTextFx(3525, 0, new Color(1f, 1f, 1f, 0f));
+            None = new ClrTextFx(3525, 0, new Color(1f, 1f, 1f, 0f), Matrix.Identity);
             None.Name = "None";
             CapeColorList.Add(new MenuListItem(None, "None"));
             CapeColorList.AddRange(ColorList);
 
             // Fill the outline color list
             OutlineList.AddRange(CapeColorList);
+            OutlineList.Add(NoTexture);
 
             // Fill the cape outline list
             foreach (MenuListItem item in CapeColorList)
@@ -425,25 +578,22 @@ float DefaultShiftX = -.35f;
             ColorList.AddRange(TextureList);
             CapeColorList.AddRange(TextureList);
             CapeColorList.Remove(NoTexture);
-            //CapeColorList.Add(new MenuListItem(new ClrTextFx(3520, Color.White, "FallingBlock1", false), ""));
-            //CapeColorList.Add(new MenuListItem(new ClrTextFx(3520, Color.White, "FallingBlock2", false), ""));
-            //CapeColorList.Add(new MenuListItem(new ClrTextFx(3520, Color.White, "FallingBlock3", false), ""));
+
             ClrTextFx fx;
             Vector2 fx_scale = new Vector2(.875f, 1.195f) * .98f;
-            
-            //fx = new ClrTextFx(3520, Color.White, "FallingBlock1", false, "FallingBlock1");
-            //fx.PicScale = fx_scale;
-            //CapeColorList.Add(new MenuListItem(fx, "HappyCape"));
 
             fx = new ClrTextFx(3526, 500, Color.White, "FallingBlock2", false, "FallingBlock2");
+            fx.Name = "Concern";
             fx.PicScale = fx_scale;
             CapeColorList.Add(new MenuListItem(fx, "ConcernedCape"));
 
             fx = new ClrTextFx(3527, 500, Color.White, "FallingBlock3", false, "FallingBlock3");
+            fx.Name = "AAAaahhh!";
             fx.PicScale = fx_scale;
             CapeColorList.Add(new MenuListItem(fx, "ScreamingCape"));
 
             fx = new ClrTextFx(3528, 500, Color.White, "Capes\\FallingBlock4Cape", false, "FallingBlock4");
+            fx.Name = "Anger";
             fx.PicScale = fx_scale * new Vector2(1.022f, 1.028f);
             CapeColorList.Add(new MenuListItem(fx, "AngryCape"));
 
@@ -457,30 +607,37 @@ float DefaultShiftX = -.35f;
             }
             CapeColorList = NewCapeList;
 
-            cape = (ClrTextFx)CapeColorList[1].obj;
-            cape.ModObject = bob =>
-            {
-                Reset(bob);
-                bob.PlayerObject.FindQuad("Wing1").Show = true;
-                bob.PlayerObject.FindQuad("Wing2").Show = true;
-            };
-            cape.PicTexture = Tools.TextureWad.FindByName("CapePic_Wings");
-            cape.Guid = 5000;
-            cape.Price = 5000;
-            CapeColorList.Add(new MenuListItem(cape, "Wings"));
+            //cape = (ClrTextFx)CapeColorList[1].obj;
+            //cape.ModObject = bob =>
+            //{
+            //    Reset(bob);
+            //    bob.PlayerObject.FindQuad("Wing1").Show = true;
+            //    bob.PlayerObject.FindQuad("Wing2").Show = true;
+            //};
+            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_Wings");
+            //cape.Guid = 5000;
+            //cape.Price = 5000;
+            //CapeColorList.Add(new MenuListItem(cape, "Wings"));
             
-            cape = (ClrTextFx)CapeColorList[1].obj;
-            cape.ModObject = bob =>
-            {
-                Reset(bob);
-                bob.PlayerObject.FindQuad("DWing1").Show = true;
-                bob.PlayerObject.FindQuad("DWing2").Show = true;
-            };
-            cape.PicTexture = Tools.TextureWad.FindByName("CapePic_DWings");
-            cape.Guid = 5001;
-            cape.Price = 5000;
-            CapeColorList.Add(new MenuListItem(cape, "DWings"));
+            //cape = (ClrTextFx)CapeColorList[1].obj;
+            //cape.ModObject = bob =>
+            //{
+            //    Reset(bob);
+            //    bob.PlayerObject.FindQuad("DWing1").Show = true;
+            //    bob.PlayerObject.FindQuad("DWing2").Show = true;
+            //};
+            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_DWings");
+            //cape.Guid = 5001;
+            //cape.Price = 5000;
+            //CapeColorList.Add(new MenuListItem(cape, "DWings"));
 
+
+            //// Add solid colors
+            //ColorList.Add(_i(77001, 0, Color.Red, Tools.PureColor(Color.Red), Tools.HslEffect, "Solid Red"));
+            //ColorList.Add(_i(77002, 0, Color.Green, Tools.PureColor(Color.Green), Tools.HslEffect, "Solid Green"));
+            //ColorList.Add(_i(77003, 0, Color.Blue, Tools.PureColor(Color.Blue), Tools.HslEffect, "Solid Blue"));
+            //ColorList.Add(_i(77004, 0, Color.Purple, Tools.PureColor(Color.Purple), Tools.HslEffect, "Solid Purple"));
+            //ColorList.Add(_i(77005, 0, Color.Orange, Tools.PureColor(Color.Orange), Tools.HslEffect, "Solid Orange"));
 
             // Combine all colors
             List<MenuListItem> temp;
@@ -495,104 +652,13 @@ float DefaultShiftX = -.35f;
             // Create the default color schemes
             ColorScheme scheme;
 
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[11].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[4].obj;
-            scheme.SkinColor = (ClrTextFx)ColorList[0].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[3].obj;
-            AddScheme(scheme, true);
-            
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[11].obj;//3].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[11].obj;//4].obj;
-            scheme.SkinColor = (ClrTextFx)ColorList[11].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[10].obj;
-            AddScheme(scheme, true);
-
-            AddScheme(new ColorScheme("White", "Black", "None", "None", "Hat_SpikeyHead"), true);
-
-            AddScheme(new ColorScheme("Hot Pink", "Stone Skin", "Wings", "White", "Hat_Horns"), false);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[18].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[16].obj;
-            scheme.SkinColor = (ClrTextFx)ColorList[15].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[17].obj;
-            AddScheme(scheme, true);
-
-            AddScheme(new ColorScheme("Brown", "Red", "AngryCape", "Brown", "Hat_FallingBlockHead"), true);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[7].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[6].obj;
-            scheme.SkinColor = (ClrTextFx)ColorList[5].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[6].obj;
-            AddScheme(scheme, true);
-
-            AddScheme(new ColorScheme("White", "Black", "None", "None", "Hat_Bubble"), true);
-
-            AddScheme(new ColorScheme("White", "Rainbow Skin", "None", "None", "Hat_Cloud"), false);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)ColorList[7].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[8].obj;
-            scheme.SkinColor = (ClrTextFx)ColorList[8].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[7].obj;
-            AddScheme(scheme, true);
-
-            //AddScheme(new ColorScheme("Black", "Gold", "Yellow", "Black", "None"));
-
-            AddScheme(new ColorScheme("Black", "Stone Skin", "Tiger Skin", "Black", "Hat_Viking"), true);
-            AddScheme(new ColorScheme("Black", "White", "Red", "Black", ""), false);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[4].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[13].obj;
-            scheme.SkinColor = (ClrTextFx)TextureList[2].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[3].obj;
-            AddScheme(scheme, true);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[13].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[13].obj;
-            scheme.SkinColor = (ClrTextFx)TextureList[3].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[3].obj;
-            scheme.HatData = HatInfo[3];
-            AddScheme(scheme, true);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[0].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[0].obj;
-            scheme.SkinColor = (ClrTextFx)TextureList[4].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[3].obj;
-            scheme.HatData = HatInfo[4];
-            AddScheme(scheme, true);
-
-            AddScheme(new ColorScheme("Red", "Yellow", "Red", "Yellow", "Hat_CheckpointHead"), true);
-
-            scheme = new ColorScheme();
-            scheme.Init();
-            scheme.CapeColor = (ClrTextFx)CapeColorList[0].obj;
-            scheme.CapeOutlineColor = (ClrTextFx)CapeOutlineColorList[0].obj;
-            scheme.SkinColor = (ClrTextFx)TextureList[5].obj;
-            scheme.OutlineColor = (ClrTextFx)ColorList[3].obj;
-            scheme.HatData = HatInfo[3];
-            AddScheme(scheme, true);
-
-            AddScheme(new ColorScheme("Black", "Clear", "None", "None", "None"), false);
-
-            AddScheme(new ColorScheme("Black", "Stone Skin", "DWings", "White", "Hat_Horns"), false);
-
-            AddScheme(new ColorScheme("None", "Clear", "Red", "Red", "None"), false);
+            AddScheme(new ColorScheme("Green", "Red", "Black", "", ""), true);
+            AddScheme(new ColorScheme("Gray", "Red", "Black", "", Hat.Mustache.Name), false);
+            AddScheme(new ColorScheme("Hot Pink", "Hot Pink", "Hot Pink", Hat.BunnyEars.Name, Hat.Beard.Name), false);
+            AddScheme(new ColorScheme("Gold", "Gold", "Gold", "", ""), false);
+            AddScheme(new ColorScheme("Purple", "Indigo", "Hot Pink", "None", "Vandyke"), false);
+            AddScheme(new ColorScheme("ForestGreen", "Yellow", "Gold", "Rice Hat", "Rugged"), false);
+            AddScheme(new ColorScheme("Red", "None", "None", "The Great Stag", "Vandyke"), false);
         }
     }
 }

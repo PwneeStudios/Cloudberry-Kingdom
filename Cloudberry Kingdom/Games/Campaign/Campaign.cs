@@ -347,7 +347,7 @@ namespace CloudberryKingdom
 
             data.PostMake += level =>
                 {
-                    LevelSeedData.PostMake_Standard(level, !data.NoMusicStart);
+                    LevelSeedData.PostMake_Standard(level, !data.NoMusicStart, true);
                     level.MyGame.MakeScore = () => new ScoreScreen_Campaign(StatGroup.Level, level.MyGame);
 
                     AddCampaignGUI(level);

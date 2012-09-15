@@ -14,6 +14,7 @@ namespace CloudberryKingdom
         {
             this.FileName = FileName;
 
+            Tools.UseInvariantCulture();
             stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             reader = new BinaryReader(stream, Encoding.UTF8);
         }

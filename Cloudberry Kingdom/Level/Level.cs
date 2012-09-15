@@ -98,6 +98,15 @@ namespace CloudberryKingdom.Levels
         public bool ReturnedEarly;
 
 
+        /// <summary>
+        /// If true the user can load other levels from the start menu in this level.
+        /// </summary>
+        public bool CanLoadLevels = false;
+
+        /// <summary>
+        /// If true the user can save this level.
+        /// </summary>        
+        public bool CanSaveLevel = true;
 
         /// <summary>
         /// If true the player can watch the computer replay.
@@ -590,6 +599,7 @@ namespace CloudberryKingdom.Levels
                 fullpath = Path.Combine(SourceLevelDirectory(), file);
 
             // Now write to file
+            Tools.UseInvariantCulture();
             FileStream stream = File.Open(fullpath, FileMode.Create, FileAccess.Write, FileShare.None);
             BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
             Tools.CurLevel.Write(writer);
@@ -608,6 +618,7 @@ namespace CloudberryKingdom.Levels
             string fullpath = Path.Combine(DefaultLevelDirectory(), file);
 
             // Now read the file
+            Tools.UseInvariantCulture();
             FileStream stream = File.Open(fullpath, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
             Read(reader);
@@ -955,6 +966,10 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        void NonLambdaReset()
+        {
+        }
+
         public bool BoxesOnly;
         public void ResetAll(bool BoxesOnly) { ResetAll(BoxesOnly, true); }
         public void ResetAll(bool BoxesOnly, bool AdditionalReset)
@@ -967,6 +982,8 @@ namespace CloudberryKingdom.Levels
         void __Reset(bool BoxesOnly, bool AdditionalReset)
         {
             this.BoxesOnly = BoxesOnly;
+            BlockTimeVel = BlockTime = 0;
+            NonLambdaReset();
 
             if (MyGame != null) MyGame.FreeReset = FreeReset;
             FreeReset = false;
@@ -1413,6 +1430,9 @@ namespace CloudberryKingdom.Levels
 
             if (CurEditorDrawLayer >= 0 && CurEditorDrawLayer != i) return;
 
+            if (i == CharacterSelectManager.DrawLayer + 1)
+                CharacterSelectManager.Draw();
+
             if (i == FirstSecondDrawLayer)
             {
                 if (Replay && !MainReplayOnly)
@@ -1427,7 +1447,9 @@ namespace CloudberryKingdom.Levels
 #else
                     )
 #endif
+                {
                     obj.Draw();
+                }
             Tools.QDrawer.Flush();
 
             if (MyGame != null && MyGame.DrawObjectText)
@@ -1595,16 +1617,13 @@ namespace CloudberryKingdom.Levels
 
             if (MyBackground != null && Tools.DrawGraphics)
             {
-//#if DEBUG
-                //Background.Test = true;
-                //Background.Test = false;
                 if (Background.Test || Background.GreenScreen)
                     Background.DrawTest();
                 else
-//#endif
-                MyBackground.Draw();
+                    MyBackground.Draw();
             }
 
+            if (CloudberryKingdomGame.HideForeground) return;
             if (MyGame != null) MyGame.PreDraw();
 
             EnsureSuckEffect();
@@ -1629,7 +1648,13 @@ namespace CloudberryKingdom.Levels
             Tools.QDrawer.Flush();
 
             if (UseLighting && LightLayer == LightLayers.FrontOfLevel)
-                DrawLighting();   
+                DrawLighting();
+
+            // Draw background's foreground.
+            if (MyBackground != null && Tools.DrawGraphics)
+            {
+                MyBackground.DrawForeground();
+            }
 
             // Draw final DrawLayer
             if (ModZoom != Vector2.One) { Tools.EffectWad.ModZoom = Vector2.One; Tools.EffectWad.ResetCameraPos(); }
@@ -2196,6 +2221,9 @@ namespace CloudberryKingdom.Levels
         {
             //LowestBob = null;
             //LowestBob = Bobs.ArgMax(bob => bob.Pos.Y);
+
+            BlockTime += BlockTimeVel;
+            BlockTimeVel *= .95f;
 
             if (!IndependentStepSetOnce)
                 SetIndependentStep();

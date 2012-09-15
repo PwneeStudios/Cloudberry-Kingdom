@@ -53,7 +53,6 @@ namespace CloudberryKingdom
             Tools.CurLevel = this.MyLevel;
         }
 
-        StartMenu menu;
         GUI_Text PressA;
 
         public static int MandatoryWatchLength
@@ -158,8 +157,13 @@ namespace CloudberryKingdom
                             WatchedIntro = true;
                             if (ForRecording) return;
 
+#if PC_VERSION
+                            PressA = new GUI_Text("Press " + ButtonString.Go_Controller(97) + " to start",
+                                                           new Vector2(0, -865), true);
+#else
                             PressA = new GUI_Text("Press " + ButtonString.Go(97) + " to start",
                                                            new Vector2(0, -865), true);
+#endif
                             PressA.MyText.Scale *= .68f;
                             PressA.PreventRelease = true;
                             PressA.FixedToCamera = true;
@@ -180,7 +184,7 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
-                                             Tools.CurGameData = new TitleGameData();
+                                             Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);
                                              Tools.AddToDo(() => this.Release());
                                          });
@@ -315,23 +319,21 @@ namespace CloudberryKingdom
             else
                 data = RegularLevel.HeroLevel(index % 5, hero, Length);
 
-            if (CrazyForTrailer)
-            {
-                data.MyGameFlags.IsTethered = true;
-                data.SetTileSet(Tools.GlobalRnd.ChooseOne(TileSets.Castle, TileSets.Dungeon, TileSets.Terrace,
-                                                          TileSets._Night, TileSets.Island));
-                //data.SetTileSet(TileSets._Night);
-            }
+            //if (CrazyForTrailer)
+            //{
+            //    data.MyGameFlags.IsTethered = true;
+            //    data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "clouds", "hills"));
+            //}
+            data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "cloud", "hills"));
 
-            if (First)
-                data.SetTileSet(TileSets.Dungeon);
+            //if (First)
+            //    data.SetTileSet(TileSets.Dungeon);
 
-            if (ForTrailer)
-            {
-                //data.SetTileSet(TileSets._NightSky);
-                data.SetTileSet(TileSets.Island);
-                data.SetTileSet(TileSets.Dungeon);
-            }
+            //if (ForTrailer)
+            //{
+            //    data.SetTileSet(TileSets.Island);
+            //    data.SetTileSet(TileSets.Dungeon);
+            //}
 
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)
@@ -412,9 +414,6 @@ namespace CloudberryKingdom
 
                         piece.Style.MyModParams = (level, p) =>
                         {
-                            FireballEmitter_Parameters FParams = (FireballEmitter_Parameters)p.Style.FindParams(FireballEmitter_AutoGen.Instance);
-                            FParams.Special.BorderFill = true;
-
                             Goomba_Parameters GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
                             GParams.KeepUnused = MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f);
                             GParams.FillWeight = 100;

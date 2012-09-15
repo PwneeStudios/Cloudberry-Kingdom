@@ -46,10 +46,17 @@ namespace CloudberryKingdom
 
         public Color Clr; public EzTexture Texture; public EzEffect Effect;
 
+        /// <summary>
+        /// This matrix is used to hue rotate Bob's outfit.
+        /// </summary>
+        public Matrix M;
+
         public static List<ClrTextFx> FullList = new List<ClrTextFx>();
 
-        public ClrTextFx(int Guid, int Price, Color color)
+        public ClrTextFx(int Guid, int Price, Color color, Matrix M)
         {
+            this.M = M;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -57,11 +64,29 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             Texture = Tools.TextureWad.TextureList[0];
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, Color DetailColor)
+        public ClrTextFx(int Guid, int Price, Color color, Matrix M, string Name)
         {
+            this.M = M;
+            this.Name = Name;
+
+            this.Guid = Guid; this.Price = Price;
+            UsePaintTexture = true;
+
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+
+            this.Clr = this.DetailColor = color;
+            Texture = Tools.TextureWad.TextureList[0];
+            Effect = Tools.BasicEffect; ;
+        }
+
+        public ClrTextFx(int Guid, int Price, Color color, Color DetailColor, Matrix M, string Name)
+        {
+            this.M = M;
+            this.Name = Name;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -70,11 +95,13 @@ namespace CloudberryKingdom
             this.Clr = color;
             this.DetailColor = DetailColor;
             Texture = Tools.TextureWad.TextureList[0];
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, EzTexture texture)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -82,11 +109,13 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             this.Texture = texture;
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, string texture)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -94,11 +123,13 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, string texture, bool UsePaintTexture)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             this.UsePaintTexture = UsePaintTexture;
 
@@ -106,11 +137,13 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, string texture, bool UsePaintTexture, EzTexture PicTexture)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             this.UsePaintTexture = UsePaintTexture;
             this.PicTexture = PicTexture;
@@ -119,11 +152,13 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, string texture, bool UsePaintTexture, string PicTextureName)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             this.UsePaintTexture = UsePaintTexture;
             this.PicTexture = Tools.TextureWad.FindByName(PicTextureName);
@@ -132,11 +167,13 @@ namespace CloudberryKingdom
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, string texture, Color DetailColor)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -145,11 +182,13 @@ namespace CloudberryKingdom
             this.Clr = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
             this.DetailColor = DetailColor;
-            Effect = Tools.EffectWad.EffectList[0];
+            Effect = Tools.BasicEffect;;
         }
 
         public ClrTextFx(int Guid, int Price, Color color, EzTexture texture, Color DetailColor, EzEffect effect)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
@@ -163,6 +202,8 @@ namespace CloudberryKingdom
 
         public ClrTextFx(int Guid, int Price, Color color, string texture, Color DetailColor, string effect)
         {
+            this.M = Matrix.Identity;
+
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 

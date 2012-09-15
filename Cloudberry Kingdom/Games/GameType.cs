@@ -15,7 +15,11 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
+    /// <summary>
+    /// A GameFactory takes in seed information (a LevelSeedData instance), and creates an actual game.
+    /// </summary>
     public delegate GameData GameFactory(LevelSeedData data, bool MakeInBackground);
+    public delegate GameData SimpleGameFactory();
 
     public struct GameFlags
     {
@@ -40,11 +44,33 @@ namespace CloudberryKingdom
         }
     }
 
+    /// <summary>
+    /// This is the main super-class of the engine.
+    /// Whenever a player is playing, they are in a 'Game'.
+    /// A game consists of at least one level (a Level class instance),
+    /// as well as some goal or purpose: getting to a door, collecting coins, surviving, or building a level, etc.
+    /// The game class holds the levels and purpose of the level.
+    /// Different purposes are implemented as children classes of the main GameData class.
+    /// </summary>
     public class GameData
     {
+        /// <summary>
+        /// Dictionary to get a game factory from a string.
+        /// </summary>
+        public static Dictionary<string, GameFactory> FactoryDict = new Dictionary<string, GameFactory> { 
+            { "normal", NormalGameData.Factory },
+            { "place", PlaceGameData.Factory },
+            { "survive", SurvivalGameData.Factory } };
+
+        /// <summary>
+        /// Used in the Background Editor to assign GUID to objects.
+        /// </summary>
         public static int DataCounter = 0;
         public int MyDataNumber = DataCounter++;
 
+        /// <summary>
+        /// Whether the game has lava.
+        /// </summary>
         public bool HasLava = false;
 
         protected void KillThread(object sender, System.EventArgs e)
@@ -61,8 +87,23 @@ namespace CloudberryKingdom
         /// </summary>
         public bool HasBeenCompleted = false;
 
+        /// <summary>
+        /// Function to be called that makes the game's score screen.
+        /// </summary>
         public Func<GameObject> MakeScore;
+
+        /// <summary>
+        /// The statistics associated with this game.
+        /// A standaone game (the default) has stats only associated with its specific level.
+        /// A campaign game may have stats that spans multiple games.
+        /// Likewise an arcade game (comprised of many levels) can have stats that span many levels.
+        /// </summary>
         public StatGroup MyStatGroup = StatGroup.Level;
+
+        /// <summary>
+        /// Action to take when the player exits the final door of the level.
+        /// </summary>
+        /// <param name="door"></param>
         public static void EOL_DoorAction(Door door)
         {
             StatGroup group = door.Game.MyStatGroup;
@@ -111,6 +152,9 @@ namespace CloudberryKingdom
             };
         }
 
+        /// <summary>
+        /// Recycle bin for this game.
+        /// </summary>
         public Recycler Recycle;
 
         /// <summary>
@@ -189,7 +233,7 @@ namespace CloudberryKingdom
         {
             PreviousLoadFunction = LoadFunction;
 
-            LoadFunction();
+            if (LoadFunction != null) LoadFunction();
         }
 
         /// <summary>
@@ -293,6 +337,9 @@ namespace CloudberryKingdom
 
         public int CurPlayer;
 
+        /// <summary>
+        /// Main camera of this game.
+        /// </summary>
         public Camera Cam
         {
             get
@@ -301,16 +348,31 @@ namespace CloudberryKingdom
                 return MyLevel.MainCamera;
             }
         }
+
+        /// <summary>
+        /// Random number generator for this game.
+        /// All numbers generated in this game should come from this generator.
+        /// </summary>
         public Rand Rnd { get { return MyLevel.Rnd; } }        
 
-
+        /// <summary>
+        /// The level immediately associated with this game.
+        /// Note: some games have multiple levels associated to them via a list.
+        /// Nonetheless, at all times, every game needs to have at least one level specifically singled out as it's actual level.
+        /// </summary>
         public Level MyLevel;
 
+        /// <summary>
+        /// Position of a block in the level with a given code.
+        /// </summary>
         public Vector2 Pos(string code)
         {
             return MyLevel.FindBlock(code).Pos;
         }
 
+        /// <summary>
+        /// The position of the main camera.
+        /// </summary>
         public Vector2 CamPos
         {
             get
@@ -328,8 +390,60 @@ namespace CloudberryKingdom
         protected bool FadingToBlack, FadingIn;
         public FancyColor FadeColor;
 
+        public bool IsFading()
+        {
+            return FadingToBlack || FadingIn;
+        }
+
+        /// <summary>
+        /// Fade partially to black, do some action, then fade back in.
+        /// </summary>
+        public void PartialFade_InAndOut(int Delay, float TargetOpaqueness, int FadeOutLength, int FadeInLength, Action OnBlack)
+        {
+            // Wait then screen partially fade to black.
+            WaitThenDo(Delay, () => FadeToBlack(TargetOpaqueness / FadeOutLength));
+
+            // Wait for the apex of blackness, trigger the action and fade back in.
+            WaitThenDo(Delay + FadeOutLength,
+                () =>
+                {
+                    // Fade in and do action.
+                    FadeIn(TargetOpaqueness / FadeOutLength);
+                    BlackAlpha = TargetOpaqueness;
+                    if (OnBlack != null) OnBlack();
+                });
+        }
+
+        /// <summary>
+        /// Transition to a black screen via a right-to-left screen swipe, then fade back in.
+        /// When the screen is completely dark, just before fading back in, the OnBlack action is called.
+        /// </summary>
+        public void SlideOut_FadeIn(int Delay, Action OnBlack)
+        {
+            var black = new StartMenu_MW_Black();
+            AddGameObject(black);
+
+            // Wait then screen swipe to black.
+            WaitThenDo(Delay, black.SlideFromRight, "SlideOut_FadeIn");
+
+            // Wait for screen to be completely black, then fade in.
+            WaitThenDo(Delay + 17,
+                () =>
+                {
+                    // Get rid of black screen swipe.
+                    black.MyPile.Alpha = 0; black.CollectSelf();
+
+                    // Fade in and do action.
+                    FadeIn(.025f);
+                    if (OnBlack != null) OnBlack();
+                }, "SlideOut_FadeIn");
+        }
+
         public Door CurDoor;
 
+        /// <summary>
+        /// A collection of objects in the game that are not in the level, such as GUIs.
+        /// </summary>
         public List<GameObject> MyGameObjects = new List<GameObject>(), NewGameObjects = new List<GameObject>();
         public List<IPrepareToDraw> NeedyObjects = new List<IPrepareToDraw>();
 
@@ -469,48 +583,6 @@ namespace CloudberryKingdom
             if (OnReturnTo_OneOff != null) OnReturnTo_OneOff(); OnReturnTo_OneOff = null;
         }
 
-        public class ToDoItem
-        {
-            public Func<bool> MyFunc;
-            public string Name;
-
-            public int Step = 0;
-
-            /// <summary>
-            /// If true the function will be deleted without executing.
-            /// </summary>
-            public bool MarkedForDeletion
-            {
-                get { return _MarkedForDeltion; }
-                set { _MarkedForDeltion = value; }
-            }
-            bool _MarkedForDeltion;
-
-            /// <summary>
-            /// Whether the item pauses when the game is paused.
-            /// </summary>
-            public bool PauseOnPause;
-
-            public bool RemoveOnReset;
-
-            public ToDoItem(Func<bool> FuncToDo, string Name, bool PauseOnPause, bool RemoveOnReset)
-            {
-                MyFunc = FuncToDo;
-                this.Name = Name;
-                this.PauseOnPause = PauseOnPause;
-                this.RemoveOnReset = RemoveOnReset;
-            }
-
-            /// <summary>
-            /// Mark the function for deletion and prevent execution.
-            /// </summary>
-            public void Delete()
-            {
-                MarkedForDeletion = true;
-            }
-        }
-
-
         /// <summary>
         /// Add a nameless function to the to do list.
         /// The function should return true if it wishes to be removed from the queue after execution.
@@ -626,6 +698,10 @@ namespace CloudberryKingdom
         public BobPhsx DefaultHeroType = BobPhsxNormal.Instance;
 
         public bool Released = false;
+
+        /// <summary>
+        /// Clean up the game, remove all connections to everything to ensure proper garbage collection.
+        /// </summary>
         public virtual void Release()
         {
             if (Released) return;
@@ -661,7 +737,6 @@ namespace CloudberryKingdom
             OnLevelRetry = null;
             OnReturnTo = null;
 
-
             CurToDo = null; NextToDo = null;
             ToDoOnReset = null;
             ToDoOnDeath = null;
@@ -670,7 +745,6 @@ namespace CloudberryKingdom
             Recycler.ReturnRecycler(Recycle);
             Recycle = null;
         }
-
 
         public static GameData Factory(LevelSeedData data, bool MakeInBackground) { return null; }
 
@@ -810,7 +884,8 @@ namespace CloudberryKingdom
 
             IsSetToReturnTo = false;
 
-            PrevLevel.Release();
+            if (PrevLevel != null) PrevLevel.Release();
+            else Tools.Nothing();
 
             Tools.PhsxSpeed = 1;
             LockLevelStart = false;
@@ -910,8 +985,6 @@ namespace CloudberryKingdom
                         return false;
                 });
 
-            CharacterSelectManager.DelayQuickJoin(PlayerIndex);
-
             if (PlayerManager.AllDead() && !MyLevel.PreventReset)
                 MyLevel.ResetAll(false);
         }
@@ -945,6 +1018,10 @@ namespace CloudberryKingdom
             PlayerManager.RevivePlayer(Player.MyPlayerIndex);
 
             SetCreatedBobParameters(Player);
+
+#if INCLUDE_EDITOR
+            Player.Immortal = true;            
+#endif
 
             Player.MyPiece = MyLevel.CurPiece;
 
@@ -986,7 +1063,7 @@ namespace CloudberryKingdom
                 if (!PlayerManager.Get(i).Exists &&
                     ButtonCheck.State(ControllerButtons.A, i).Pressed)
                 {
-                    CharacterSelectManager.Start(i, true);
+                    CharacterSelectManager.Start(null);
                 }
         }
 
@@ -1060,7 +1137,7 @@ namespace CloudberryKingdom
             CalculateCoinScoreMultiplier();
 
             // GameObject physics
-            if (MyLevel != null)
+            if (MyLevel != null && !Tools.ViewerIsUp)
             {
                 LockGameObjects(true);
 
@@ -1089,7 +1166,7 @@ namespace CloudberryKingdom
                 if (obj.Core.MarkedForDeletion)
                     obj.Release();
             }
-            MyGameObjects.RemoveAll(match => match.Core.MarkedForDeletion);
+            CleanGameObjects();
 
             // Update pause
             UpdateGamePause();
@@ -1139,7 +1216,10 @@ namespace CloudberryKingdom
             {
                 // Return and skip further actions, unless the character select is showing
                 if (!CharacterSelectManager.IsShowing)
+                {
+                    MyLevel.IndependentDeltaT = 0;
                     return;
+                }
             }
             
             PhsxCount++;
@@ -1187,6 +1267,11 @@ namespace CloudberryKingdom
             }
         }
 
+        private void CleanGameObjects()
+        {
+            MyGameObjects.RemoveAll(match => match.Core.MarkedForDeletion);
+        }
+
         public virtual void Move(Vector2 shift)
         {
             if (MyLevel != null) MyLevel.Move(shift);
@@ -1227,7 +1312,8 @@ namespace CloudberryKingdom
             if (MyLevel != null && MyLevel.LevelReleased)
                 return;
 
-            Tools.QDrawer.SetAddressMode(true, true);
+            //Tools.QDrawer.SetAddressMode(true, true);
+            Tools.QDrawer.SetAddressMode(false, false);
             Tools.Device.BlendState = BlendState.NonPremultiplied;
             foreach (Bob bob in MyLevel.Bobs)
             {
@@ -1264,8 +1350,6 @@ namespace CloudberryKingdom
                         Cam.Zoom = new Vector2(ForceLevelZoomBeforeDraw);
                     CalculateForceZoom();
                     MyLevel.Draw();
-                    
-                    CharacterSelectManager.Draw();
                 }
         }
 
@@ -1331,9 +1415,13 @@ namespace CloudberryKingdom
 
             PlayerManager.KillPlayer(bob.MyPlayerIndex);
             
-            DoToDoOnDeathList();
+            if (PlayerManager.AllDead())
+                DoToDoOnDeathList();
         }
 
+        /// <summary>
+        /// A list of actions to take immediately after the last player alive dies.
+        /// </summary>
         public List<Action> ToDoOnDeath = new List<Action>();
         void DoToDoOnDeathList()
         {
@@ -1610,6 +1698,13 @@ namespace CloudberryKingdom
         #endregion
 
         #region Helper functions for mini-games
+        public void RemoveLastCoinText()
+        {
+            foreach (GameObject gameobj in MyGameObjects)
+                if (gameobj.Core.AddedTimeStamp == MyLevel.CurPhsxStep)
+                    gameobj.Release();
+        }
+
         public void ReturnToWorldMap(Door d)
         {
             d.SetLock(true, true, true);

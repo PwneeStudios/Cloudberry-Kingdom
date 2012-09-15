@@ -394,7 +394,7 @@ namespace CloudberryKingdom
             d = Campaign.HeroLevel(Campaign.Difficulty + .3f, BobPhsxNormal.Instance, 7000, 2);
             //d.SetToShowLevelTitle(false);
             d.SetToShowLevelTitle();
-            d.SetTileSet(TileSets.Rain);
+            d.SetTileSet(TileSets.Terrace);
             d.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.CastleToTerrace;
             d.PieceSeeds[1].Style.MyFinalDoorStyle = StyleData.FinalDoorStyle.TerraceToCastle;
 

@@ -199,6 +199,7 @@ namespace CloudberryKingdom.Levels
             bool Used = false;
             bool BoxesOnly = false;
             bool InvertDraw = false;
+            bool Invert = false;
 
             switch (Type)
             {
@@ -212,10 +213,15 @@ namespace CloudberryKingdom.Levels
 
                 case StyleData.GroundType.InvertedUsed:
                     Virgin = Used = true;
-                    InvertDraw = true;
+                    //InvertDraw = true;
+                    Invert = true;
                     break;
 
                 case StyleData.GroundType.SafetyNet:
+                    break;
+
+                case StyleData.GroundType.InvertSafetyNet:
+                    Invert = true;
                     break;
 
                 case StyleData.GroundType.InvisibleUsed:
@@ -249,9 +255,11 @@ namespace CloudberryKingdom.Levels
                     //block.Core.GenData.AlwaysLandOn = true;
                     block.Core.GenData.AlwaysUse = true;
                     block.BlockCore.NonTopUsed = true;
+                    block.Invert = Invert; 
                     block.BlockCore.Virgin = Virgin;
                     block.BlockCore.GenData.Used = Used;
                     block.BlockCore.MyOrientation = InvertDraw ? PieceQuad.Orientation.UpsideDown : PieceQuad.Orientation.Normal;
+
                     AddBlock(block);
 
                     LastBlock = block;
@@ -282,29 +290,16 @@ namespace CloudberryKingdom.Levels
 
             // Add door
             Door door = (Door)Recycle.GetObject(ObjectType.Door, false);
-            door.Layered = LayeredDoor;
+            //door.Layered = LayeredDoor;
             door.StampAsUsed(0);
 
             door.SetDoorType(BackdropTileset);
 
             AddObject(door);
 
-            float shift = 0; // The amount to shift the door above the block's top
-            if (BackdropTileset == TileSets.Castle) shift = 7;
-            if (block.Core.MyTileSet == TileSets.TileBlock)
-            {
-                DesiredDoorLayer = 1;
-                DesiredDoorLayer2 = 3;
-                ((NormalBlock)block).MyDraw.Update();
-                shift =
-                    41f;
-                    ////((NormalBlock)block).MyDraw.MyPieces.Data.Center_TR_Shift.Y / 2;
-                    //((NormalBlock)block).MyDraw.MyPieces.Center.TR.Y - block.Box.TR.Y;
-            }
-
             // Place the door above the block
             block.Box.CalcBounds_Full();
-            door.PlaceAt(new Vector2(pos.X, block.Box.TR.Y + shift + 1));
+            door.PlaceAt(new Vector2(pos.X, block.Box.TR.Y + 1));
 
             // If we don't want a backdrop we're done
             if (!AddBackdrop)
@@ -423,6 +418,8 @@ namespace CloudberryKingdom.Levels
 
             pos = new Vector2(BL.X + 10, (BL.Y + TR.Y) / 2) + new Vector2(0, -size.Y);
 
+            pos += Info.ShiftStartBlock;
+
             switch (Style.MyInitialPlatsType)
             {
                 case StyleData.InitialPlatsType.Spaceship:
@@ -434,6 +431,14 @@ namespace CloudberryKingdom.Levels
                     pos.X -= 50;
 
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
+
+                    // New style end blocks
+                    if (MyTileSet.FixedWidths)
+                    {
+                        block.BlockCore.StartPiece = true;
+                        block.Core.DrawLayer = 0;
+                    }
+
                     block.Init(pos, size, MyTileSetInfo);
                     block.BlockCore.BlobsOnTop = false;
                     block.StampAsUsed(0);
@@ -467,6 +472,8 @@ namespace CloudberryKingdom.Levels
                         pos.X += 265;
                     }
 
+                    pos.X += Info.ShiftStartDoor;
+
                     Door door;
                     if (CastleToTerrace)
                     {
@@ -479,7 +486,7 @@ namespace CloudberryKingdom.Levels
                     door.Core.EditorCode1 = LevelConnector.StartOfLevelCode;
 
                     // Shift start position
-                    SpreadStartPositions(CurPiece, CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
+                    SpreadStartPositions(CurPiece, CurMakeData, door.Pos, new Vector2(50, 0));
 
                     return block.Box.TR.X + Rnd.RndFloat(100, 250);
 
@@ -528,13 +535,15 @@ namespace CloudberryKingdom.Levels
             BL = BL + new Vector2(-600, -400);
             TR = new Vector2(BL.X + 750, TR.Y + 400);
 
+            return TR.X + 400;
+
+
             pos = BL;
             while (pos.Y < TR.Y)
             {
                 block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this, pos, new Vector2(TR.X, pos.Y));
                 pos.Y += 2 * block.Box.Current.Size.Y;
 
-                //block.StampAsUsed(0);
                 block.Core.GenData.KeepIfUnused = true;
                 block.Core.GenData.RemoveIfUnused = false;
                 block.Core.GenData.RemoveIfOverlap = false;
@@ -616,9 +625,9 @@ namespace CloudberryKingdom.Levels
         public delegate void ModBlockCallback(BlockBase block);
         public float VanillaFill(Vector2 BL, Vector2 TR, float width)
         {
-            return VanillaFill(BL, TR, width, 200, null);
+            return VanillaFill(BL, TR, width, 200, null, null);
         }
-        public float VanillaFill(Vector2 BL, Vector2 TR, float width, float ystep, ModBlockCallback Callback)
+        public float VanillaFill(Vector2 BL, Vector2 TR, float width, float ystep, ModBlockCallback PreInit, ModBlockCallback PostInit)
         {
             Vector2 Pos = BL;
 
@@ -630,6 +639,10 @@ namespace CloudberryKingdom.Levels
                 while (Pos.Y < TR.Y)
                 {
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
+
+                    if (PreInit != null)
+                        PreInit(block);
+
                     block.Init(Pos + new Vector2(width, -200), new Vector2(width, 200), MyTileSetInfo);
                     block.Extend(Side.Bottom, BL.Y - 300 - CurMakeData.PieceSeed.ExtraBlockLength);
 
@@ -642,8 +655,8 @@ namespace CloudberryKingdom.Levels
                     if (Pos.X + step >= TR.X)
                         block.Core.GenData.EdgeJumpOnly = true;
 
-                    if (Callback != null)
-                        Callback(block);
+                    if (PostInit != null)
+                        PostInit(block);
 
                     AddBlock(block);
 
@@ -839,6 +852,8 @@ namespace CloudberryKingdom.Levels
         public int LastStep;
         public bool MakeSingle(int Length, float MaxRight, float MaxLeft, int StartPhsxStep, int ReturnEarly, MakeData makeData)
         {
+            int TestNumber;
+
             // Tracking info
             Pre1 = Pre2 = Post = ""; Step1 = Step2 = 0;
             Pre1 += 'A';
@@ -847,6 +862,8 @@ namespace CloudberryKingdom.Levels
 
             PREFILL();
             DEBUG("Pre stage 1, about to fill");
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test: {0}", TestNumber));
 
             CurMakeData = makeData;            
             InitMakeData(CurMakeData);
@@ -905,7 +922,7 @@ namespace CloudberryKingdom.Levels
             {
                 VoidHeight = 40;
                 LavaBlock lblock = (LavaBlock)Recycle.GetObject(ObjectType.LavaBlock, false);
-                lblock.Init(MainCamera.BL.Y + Rnd.RndFloat(300, 1400) + Style.LowerSafetyNetOffset,
+                lblock.Init(MainCamera.BL.Y + Rnd.RndFloat(300, 800) + Style.LowerSafetyNetOffset,
                             MaxLeft - 1000, MaxRight + 1000, 5000);
                 lblock.StampAsUsed(0);
                 AddBlock(lblock);
@@ -913,9 +930,13 @@ namespace CloudberryKingdom.Levels
 
             // Invert phsx safety blocks
             if (CurMakeData.TopLikeBottom)
-                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000),
+                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000 + Style.UpperSafetyNetOffset),
                             new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
-                            new Vector2(SafetyWidth, 500), 2 * SafetyWidth + ExtraSpace, StyleData.GroundType.SafetyNet);
+                            new Vector2(SafetyWidth, 500), 2 * SafetyWidth + ExtraSpace, Style.MyTopType);
+            else if (CurMakeData.TopLikeBottom_Thin)
+                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000 + Style.UpperSafetyNetOffset),
+                            new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
+                            new Vector2(100, 500), 2 * 150 + 50, Style.MyTopType);
 
             LastSafetyBlock = Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.BL.Y + VoidHeight + 65 + Style.LowerSafetyNetOffset),
                             new Vector2(MaxRight + 500, MainCamera.BL.Y + VoidHeight + 215 + Style.LowerSafetyNetOffset),
@@ -1016,6 +1037,8 @@ namespace CloudberryKingdom.Levels
 
             Pre1 += 'C';
             DEBUG("Pre stage 1, about to reset");
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test: {0}", TestNumber));
 
             PlayMode = 2;
             RecordPosition = true;
@@ -1031,11 +1054,17 @@ namespace CloudberryKingdom.Levels
             CurMakeData.TRBobMoveZone = new Vector2(MaxRight + EndBuffer, MainCamera.TR.Y + 500);
             CurMakeData.BLBobMoveZone = new Vector2(MaxLeft, MainCamera.BL.Y - 500);
             if (ReturnEarly == 1) return false;
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test a: {0}", TestNumber));
             
             // Stage 1 Run through
             Pre1 += 'D';
             Stage1(BL_Bound, TR_Bound, Length);
             Pre2 += 'A';
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test b: {0}", TestNumber));
 
             // Continue making Final Platform
             if (MakeFinalPlat != null) MakeFinalPlat.Phase2();
@@ -1047,7 +1076,8 @@ namespace CloudberryKingdom.Levels
             CurPiece.Par = LastStep;
             Par += CurPiece.Par;
 
-            //Console.WriteLine("Test 4 ---> {0}", Rnd.Rnd.Next());
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test c: {0}", TestNumber));
 
             DEBUG("Done with stage 1 run through, about to cleanup");
 
@@ -1074,7 +1104,8 @@ namespace CloudberryKingdom.Levels
 
             Pre2 += 'C';
             DEBUG("Pre stage 2, about to reset");
-
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test d: {0}", TestNumber));
 
             PlayMode = 1;
             RecordPosition = false;
@@ -1252,19 +1283,68 @@ namespace CloudberryKingdom.Levels
 
         public void BlockOverlapCleanup()
         {
+            if (Style.OverlapCleanupType == StyleData._OverlapCleanupType.Regular)
+                RegularBlockCleanup();
+            else
+                SpaceshipBlockCleanup();
+        }
+
+        void SpaceshipBlockCleanup()
+        {
             foreach (BlockBase block2 in Blocks)
             {
-                if (!block2.Core.MarkedForDeletion)
+                if (block2.Core.MarkedForDeletion) continue;
+
+                foreach (BlockBase block in Blocks)
                 {
-                    foreach (BlockBase block in Blocks)
+                    if (block2.Core.MarkedForDeletion) break;
+                    if (block.Core.GenData.Used || block.Core.MarkedForDeletion) continue;
+
+                    if (block != block2 && block.Core.GenData.RemoveIfOverlap && block2.Core.GenData.RemoveIfOverlap &&
+                         ((block.Core.Data.Position - block2.Core.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
                     {
-                        if (!block.Core.GenData.Used && !block.Core.MarkedForDeletion)
+                        switch (block.Core.GenData.MyOverlapPreference)
                         {
-                            if (block != block2 && block.Core.GenData.RemoveIfOverlap &&
-                                ((block.Core.Data.Position - block2.Core.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist ||
-                                 Phsx.BoxBoxOverlap(block.Box, block2.Box)))
-                                Recycle.CollectObject(block);
+                            case GenerationData.OverlapPreference.RemoveHigherThanMe:
+                                if (block2.Box.Target.TR.Y > block.Box.Target.TR.Y)
+                                    Recycle.CollectObject(block2);
+                                else
+                                    Recycle.CollectObject(block);
+                                break;
+
+                            case GenerationData.OverlapPreference.RemoveLowerThanMe:
+                                if (block2.Box.Target.TR.Y > block.Box.Target.TR.Y)
+                                    Recycle.CollectObject(block);
+                                else
+                                    Recycle.CollectObject(block2);
+                                break;
+
+                            case GenerationData.OverlapPreference.RemoveRandom:
+                                if (Rnd.RndBool())
+                                    Recycle.CollectObject(block2);
+                                else
+                                    Recycle.CollectObject(block);
+                                break;
                         }
+                    }
+                }
+            }
+        }
+
+        void RegularBlockCleanup()
+        {
+            foreach (BlockBase block2 in Blocks)
+            {
+                if (block2.Core.MarkedForDeletion) continue;
+
+                foreach (BlockBase block in Blocks)
+                {
+                    if (block.Core.GenData.Used || block.Core.MarkedForDeletion) continue;
+
+                    if (block != block2 && block.Core.GenData.RemoveIfOverlap &&
+                         ((block.Core.Data.Position - block2.Core.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
+                    {
+                        Recycle.CollectObject(block);
                     }
                 }
             }

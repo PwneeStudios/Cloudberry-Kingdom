@@ -46,9 +46,16 @@ namespace CloudberryKingdom.Levels
 
             /// <summary>
             /// If true the top has extra safety blocks and extra stage 1 fill, to mimick the bottom.
-            /// Used, in particular, for InvertBob.
+            /// Used, in particular, for Spaceship hero.
             /// </summary>
             public bool TopLikeBottom = false;
+
+            /// <summary>
+            /// If true the top has extra safety blocks and extra stage 1 fill, to mimick the bottom.
+            /// Blocks are thinner than normal.
+            /// Used, in particular, for Invert bob.
+            /// </summary>
+            public bool TopLikeBottom_Thin = false;
 
             /// <summary>
             /// If true then blocks will not be modified (no shifting of bottom, no top only).

@@ -67,7 +67,7 @@ namespace CloudberryKingdom
         void FirstText()
         {
             string str = string.Format("In the {0} was the void...", EzText.ColorToMarkup(CampaignMenu.DifficultyColor[2], MarkShift, "beginning"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 392.157f);
             SetTextProperties(text);
 
@@ -81,7 +81,7 @@ namespace CloudberryKingdom
         void SecondText()
         {
             string str = string.Format("...from it spawned {0}.", EzText.ColorToMarkup(new Color(205, 10, 10), MarkShift, "chaos"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-850.654f, 0.157f);
             SetTextProperties(text);
 
@@ -140,7 +140,7 @@ namespace CloudberryKingdom
                 str = string.Format("In the chaos\n    the {0} found beauty,", EzText.ColorToMarkup(CampaignMenu.DifficultyColor[5], MarkShift, "void"));
                 
 
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 392.157f);
             SetTextProperties(text);
 
@@ -155,7 +155,7 @@ namespace CloudberryKingdom
         void PostExplosionText2()
         {
             string str = string.Format("     the {0} found beauty,", EzText.ColorToMarkup(CampaignMenu.DifficultyColor[5], MarkShift, "void"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 200);
             SetTextProperties(text);
 
@@ -172,7 +172,7 @@ namespace CloudberryKingdom
         void PostExplosionText3()
         {
             string str = string.Format("a {0}.", EzText.ColorToMarkup(Color.HotPink, MarkShift, "princess"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-850.654f, 0.157f);
             SetTextProperties(text);
 
@@ -234,7 +234,7 @@ namespace CloudberryKingdom
         void AloneText1()
         {
             string str = string.Format("But the beauty was alone...");
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 392.157f);
             SetTextProperties(text);
 
@@ -248,7 +248,7 @@ namespace CloudberryKingdom
         void AloneText2()
         {
             string str = string.Format("there was no one to {0} her.", EzText.ColorToMarkup(Color.HotPink, MarkShift, "love"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-850.654f, 0.157f);
             SetTextProperties(text);
 
@@ -268,7 +268,7 @@ namespace CloudberryKingdom
         void BlobText1()
         {
             string str = string.Format("So the void made the {0},", EzText.ColorToMarkup(CampaignMenu.DifficultyColor[2], MarkShift, "blobs"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 392.157f);
             SetTextProperties(text);
 
@@ -284,7 +284,7 @@ namespace CloudberryKingdom
         void BlobText2()
         {
             string str = string.Format("to kidnap her.");
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-850.654f, 0.157f);
             SetTextProperties(text);
 
@@ -304,7 +304,7 @@ namespace CloudberryKingdom
         void YouText1()
         {
             string str = string.Format("and the void made a {0}...", EzText.ColorToMarkup(CampaignMenu.DifficultyColor[1], MarkShift, "hero"));
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-1300.654f, 392.157f);
             SetTextProperties(text);
 
@@ -320,7 +320,7 @@ namespace CloudberryKingdom
         void YouText2()
         {
             string str = string.Format("to save her.");
-            var text = new EzText(str, Tools.Font_DylanThin42, style);
+            var text = new EzText(str, Tools.Font_Grobold42, style);
             text.Pos = new Vector2(-850.654f, 0.157f);
             SetTextProperties(text);
 
@@ -353,7 +353,7 @@ namespace CloudberryKingdom
         {
             CinematicToDo(delay, () =>
             {
-                var text = new EzText(str, Tools.Font_DylanThin42, style);
+                var text = new EzText(str, Tools.Font_Grobold42, style);
                 text.Pos = pos;
                 SetTextProperties(text);
 

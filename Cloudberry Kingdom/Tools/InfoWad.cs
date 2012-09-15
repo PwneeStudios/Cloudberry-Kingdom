@@ -45,6 +45,7 @@ namespace CloudberryKingdom
 
         public static void Read(String file)
         {
+            Tools.UseInvariantCulture();
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             StreamReader reader = new StreamReader(stream);
 

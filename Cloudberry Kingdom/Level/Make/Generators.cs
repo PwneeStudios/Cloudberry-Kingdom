@@ -41,7 +41,9 @@ namespace CloudberryKingdom.Levels
             AddGenerator(FlyingBlock_AutoGen.Instance);
             AddGenerator(ConveyorBlock_AutoGen.Instance);
 
-            AddGenerator(MovingBlock2_AutoGen.Instance);
+            AddGenerator(Pendulum_AutoGen.Instance);
+            AddGenerator(Serpent_AutoGen.Instance);
+            AddGenerator(LavaDrip_AutoGen.Instance);
         }
 
         public static void AddGenerator(AutoGen gen)

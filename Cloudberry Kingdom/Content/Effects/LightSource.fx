@@ -1,6 +1,7 @@
 ﻿#include"RootEffect.fx"
 Texture xTexture;
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
+//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
+sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 float Fade;
 

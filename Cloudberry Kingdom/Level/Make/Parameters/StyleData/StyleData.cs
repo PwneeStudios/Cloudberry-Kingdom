@@ -35,6 +35,7 @@ namespace CloudberryKingdom.Levels
 
             // Change data depending on hero type
             level.DefaultHeroType.ModData(ref level.CurMakeData, this);
+            level.DefaultHeroType.ModLadderPiece(SeedData);
 
             // Set time type
             level.TimeType = TimeType;
@@ -76,7 +77,7 @@ namespace CloudberryKingdom.Levels
         public bool MakeInitialPlats;
         public float UpperSafetyNetOffset, LowerSafetyNetOffset;
 
-        public enum GroundType { None, SafetyNet, InvisibleUsed, Used, InvertedUsed, VirginUsed };
+        public enum GroundType { None, SafetyNet, InvisibleUsed, Used, InvertedUsed, VirginUsed, InvertSafetyNet };
         public GroundType MyGroundType, MyTopType;
 
         public bool RemovedUnusedOverlappingBlocks;
@@ -87,6 +88,9 @@ namespace CloudberryKingdom.Levels
         public enum _BlockFillType { Regular, TopOnly, Spaceship, Invertable, Sideways };
         float[] BlockFillTypeRatio = { 1f, 0f };
         public _BlockFillType BlockFillType;
+
+        public enum _OverlapCleanupType { Regular, Sophisticated };
+        public _OverlapCleanupType OverlapCleanupType;
 
 
         public enum _SparsityType { Regular, LilSparse, VerySparse };
@@ -121,7 +125,7 @@ namespace CloudberryKingdom.Levels
         float[] ElevatorSwitchTypeRatio = { .35f, .5f, .1f, .05f };
 
         public enum _OffsetType { Random, AllSame, SpatiallyPeriodic };
-        public _OffsetType MovingBlock2OffsetType, FlyingBlobOffsetType;
+        public _OffsetType PendulumOffsetType, FlyingBlobOffsetType;
         float[] OffsetTypeRatio = { .7f, .25f, .05f };
 
         public enum _FillType { Rnd, HalfnHalf, Pure };
@@ -148,6 +152,7 @@ namespace CloudberryKingdom.Levels
         public Rand Rnd;
         public StyleData(Rand Rnd)
         {
+            //this.Rnd = new Rand(Rnd.MySeed);
             this.Rnd = Rnd;
 
             Randomize();
@@ -179,16 +184,21 @@ namespace CloudberryKingdom.Levels
 
         public virtual void Randomize()
         {
+            int TestNumber;
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Pre-style: {0}", TestNumber));
+
             FillxStep = 225;
             FillyStep = 200;
 
             //FillxStep = 175;
             //FillyStep = 175;
 
-            UpperSafetyNetOffset = 800;
+            UpperSafetyNetOffset = 0;
 
             MyGroundType = GroundType.SafetyNet;
-            MyTopType = GroundType.InvisibleUsed;
+            MyTopType = GroundType.InvertSafetyNet;
 
             // Fast
             //TopSpace = 560;
@@ -204,12 +214,14 @@ namespace CloudberryKingdom.Levels
             
             MakeInitialPlats = true;
 
+            OverlapCleanupType = _OverlapCleanupType.Regular;
+
             SparsityType = (_SparsityType)Rnd.Choose(SparsityTypeRatio);
 
             ElevatorSwitchType = (_ElevatorSwitchType)Rnd.Choose(ElevatorSwitchTypeRatio);
 
             FlyingBlobOffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
-            MovingBlock2OffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
+            PendulumOffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
 
             JumpType = (_JumpType)Rnd.Rnd.Next(0, Tools.Length<_JumpType>());
             
@@ -228,6 +240,9 @@ namespace CloudberryKingdom.Levels
             SinglePathType = (_SinglePathType)Rnd.Choose(_SinglePathRatio);
             DoublePathType = (_DoublePathType)Rnd.Rnd.Next(0, Tools.Length<_DoublePathType>());
             TriplePathType = (_TriplePathType)Rnd.Rnd.Next(0, Tools.Length<_TriplePathType>());
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Post-style: {0}", TestNumber));
         }
 
         public float GetSparsity()

@@ -33,34 +33,66 @@ namespace CloudberryKingdom.Levels
 
             MyLevel.EndBuffer = 1500;
 
-            Vector2 BL = new Vector2(MyLevel.MaxRight + 450, MyLevel.MainCamera.BL.Y + Level.SafetyNetHeight + 65);
+            Vector2 BL;
+
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
+                BL = new Vector2(MyLevel.MaxRight + 450, MyLevel.MainCamera.BL.Y + Level.SafetyNetHeight);
+            // Old style end blocks
+            else
+                BL = new Vector2(MyLevel.MaxRight + 450, MyLevel.MainCamera.BL.Y + Level.SafetyNetHeight + 65);
+            
+            float Spacing = 200;
             Vector2 TR = new Vector2(MyLevel.MaxRight + 1000, MyLevel.MainCamera.TR.Y - 850);
 
-            float NewRight = MyLevel.VanillaFill(BL, TR, 400, 400, block =>
-            {
-                block.BlockCore.DisableFlexibleHeight = true;
-                block.BlockCore.DeleteIfTopOnly = true;
-                block.BlockCore.GenData.RemoveIfUnused = true;
-                block.Core.EditorCode1 = "FinalBlock";
-                FinalBlocks.Add(block);
-
-                // Sky
-                if (block.Core.MyTileSet == TileSets.Island)
-                {
-                    block.Move(new Vector2(-25, 0));
-                }
-            });
+            float NewRight = MyLevel.VanillaFill(BL, TR, 400, Spacing,
+            block => block.BlockCore.EndPiece = true, ModBlock);
 
             // Make lowest block a safety (we'll place the door here if no other block is used)
             FinalBlocks[0].Core.GenData.KeepIfUnused = true;
             FinalBlocks[0].BlockCore.NonTopUsed = true;
 
-            // Extend lowest block to match up with safety net (or extend safety net instead)
-            if (MyLevel.LastSafetyBlock != null &&
-                MyLevel.LastSafetyBlock.Box.TR.X + 50 < FinalBlocks[0].Box.BL.X)
-                FinalBlocks[0].Extend(Side.Left, MyLevel.LastSafetyBlock.Box.TR.X + 50);
-            else
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
+            {
                 MyLevel.LastSafetyBlock.Extend(Side.Right, FinalBlocks[0].Box.BL.X - 50);
+            }
+            // Old style end blocks
+            else
+            {
+                // Extend lowest block to match up with safety net (or extend safety net instead)
+                if (MyLevel.LastSafetyBlock != null &&
+                    MyLevel.LastSafetyBlock.Box.TR.X + 50 < FinalBlocks[0].Box.BL.X)
+                    FinalBlocks[0].Extend(Side.Left, MyLevel.LastSafetyBlock.Box.TR.X + 50);
+                else
+                    MyLevel.LastSafetyBlock.Extend(Side.Right, FinalBlocks[0].Box.BL.X - 50);
+            }
+        }
+
+        void ModBlock(BlockBase block)
+        {
+            block.BlockCore.DisableFlexibleHeight = true;
+            block.BlockCore.DeleteIfTopOnly = true;
+            block.BlockCore.GenData.RemoveIfUnused = true;
+            block.BlockCore.GenData.AlwaysUse = false;
+            block.Core.EditorCode1 = "FinalBlock";
+            FinalBlocks.Add(block);
+
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
+            {
+                block.BlockCore.EndPiece = true;
+                block.Core.DrawLayer = 0;
+            }
+            // Old style end blocks
+            else
+            {
+                // Sky
+                if (block.Core.MyTileSet == TileSets.Island)
+                {
+                    block.Move(new Vector2(-25, 0));
+                }
+            }
         }
 
         public override void Phase2()
@@ -113,23 +145,40 @@ namespace CloudberryKingdom.Levels
         {
             base.Phase3();
 
-            // Sky
-            if (FinalBlock.Core.MyTileSet == TileSets.Island)
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
             {
-                FinalPos.X += 130;
+                FinalPos.X += 230;
+            }
+            // Old style end blocks
+            else
+            {
+                // Sky
+                if (FinalBlock.Core.MyTileSet == TileSets.Island)
+                {
+                    FinalPos.X += 130;
+                }
             }
 
             // Add door
             Door door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, MyLevel.MyTileSet.CustomStartEnd ? false : true);
 
-            // Terrace-To-Castle
-            if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
             {
-                MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
-                MyLevel.MadeBackBlock.Stretch(Side.Right, 1000);
-                MyLevel.MadeBackBlock.Stretch(Side.Left, -200);
-                FinalBlock.Core.MyTileSet = TileSets.Catwalk;
-                FinalBlock.Stretch(Side.Left, -200);
+                door.Mirror = true;
+            }
+            // Old style end blocks
+            {
+                // Terrace-To-Castle
+                if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
+                {
+                    MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
+                    MyLevel.MadeBackBlock.Stretch(Side.Right, 1000);
+                    MyLevel.MadeBackBlock.Stretch(Side.Left, -200);
+                    FinalBlock.Core.MyTileSet = TileSets.Catwalk;
+                    FinalBlock.Stretch(Side.Left, -200);
+                }
             }
 
             SetFinalDoor(door, MyLevel, FinalPos);
@@ -138,9 +187,12 @@ namespace CloudberryKingdom.Levels
             MyLevel.PushLava(FinalBlock.Box.Target.TR.Y - 60);
 
             // Add exit sign
-            Sign sign = new Sign(false);
-            sign.PlaceAt(door.GetTop());
-            MyLevel.AddObject(sign);
+            if (MyLevel.Info.Doors.ShowSign)
+            {
+                Sign sign = new Sign(false, MyLevel);
+                sign.PlaceAt(door.GetTop());
+                MyLevel.AddObject(sign);
+            }
 
             // Cleanup
             FinalBlocks.Clear();

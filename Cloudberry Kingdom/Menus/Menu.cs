@@ -29,6 +29,11 @@ namespace CloudberryKingdom
         {
             return () => a(null);
         }
+
+        public static Action ToAction(Func<Menu, bool> a)
+        {
+            return () => a(null);
+        }
     }
 
     public delegate bool MenuB(Menu menu);
@@ -73,6 +78,41 @@ namespace CloudberryKingdom
         public override string[] GetViewables()
         {
             return new string[] { "BackdropShift", "Items" };
+        }
+
+        public override string CopyToClipboard(string suffix)
+        {
+            string s = "";
+
+            if (Items.Count > 0) s += "MenuItem _item;\n";
+            foreach (MenuItem item in Items)
+            {
+                string SelectedPos = "";
+                if (item.SelectedPos != item.Pos)
+                {
+                    var spos = item.SelectedPos;
+                    if (spos.Y == item.Pos.Y) spos.Y = -1;
+
+                    SelectedPos = string.Format("_item.SetSelectedPos({0});", Tools.ToCode(spos));
+                }
+
+                s += string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}\n", suffix, item.Name, Tools.ToCode(item.Pos), item.MyText.Scale, item.MySelectedText.Scale, Tools.ToCode(item.SelectIconOffset), SelectedPos);
+            }
+
+            if (Items.Count > 0) s += "\n";
+            s += string.Format("{0}Pos = {1};\n", suffix, Tools.ToCode(Pos));
+
+            return s;
+        }
+
+        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
+        {
+            Pos += shift;
+        }
+
+        public MenuItem FindItemByName(string name)
+        {
+            return Items.Find(match => match.Name == name);
         }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)
@@ -173,6 +213,14 @@ namespace CloudberryKingdom
             AdditionalCheckForOutsideClick = null;
         }
 
+        public void ClearList()
+        {
+            if (Items != null)
+                foreach (MenuItem item in Items)
+                    item.Release();
+            Items.Clear();
+        }
+
         public Menu() { Init(); }
         public Menu(bool FixedToCamera)
         {
@@ -197,7 +245,7 @@ namespace CloudberryKingdom
 
             OnB = DefaultOnB;
 
-            MyPieceQuadTemplate = PieceQuad.FreePlayMenu;//.Menu;
+            MyPieceQuadTemplate = null;
             MyPieceQuadTemplate2 = null;
         }
 
@@ -639,6 +687,11 @@ namespace CloudberryKingdom
             }
         }
 
+        public void SortByHeight()
+        {
+            Items.Sort((item1, item2) => -item1.Pos.Y.CompareTo(item2.Pos.Y));
+        }
+
         public void ResetPieces()
         {
             MyPieceQuad = new PieceQuad();
@@ -720,7 +773,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void DrawText(int Layer)
+        public virtual void DrawText(int Layer)
         {
             MyCameraZoom = Tools.CurCamera.Zoom;
             if (!Show) return;
@@ -741,7 +794,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether an item should be drawn as selected or not.
         /// </summary>
-        bool DrawItemAsSelected(MenuItem item)
+        protected bool DrawItemAsSelected(MenuItem item)
         {
 #if PC_VERSION
 #else
@@ -779,9 +832,10 @@ namespace CloudberryKingdom
         /// </summary>
         public Vector2 MyCameraZoom { get { return _MyCameraZoom; } set { _MyCameraZoom = value; } }
 
-        bool _Show = true;
-        public bool Show { get { return _Show; } set { _Show = value; } }
-        //public bool Show = true;
+        //bool _Show = true;
+        //public bool Show { get { return _Show; } set { _Show = value; } }
+        public bool Show = true;
+
         public virtual void Draw()
         {
             MyCameraZoom = Tools.CurCamera.Zoom;
@@ -791,7 +845,6 @@ namespace CloudberryKingdom
             DrawNonText(0);
             DrawText(0);
             Tools.EndSpriteBatch();
-            //DrawNonText(1);
             DrawNonText2();
             DrawText(1);
         }

@@ -68,6 +68,14 @@ namespace CloudberryKingdom
 
         public PhsxData Data, StartData;
 
+        public Vector2 Pos
+        {
+            get
+            {
+                return Data.Position;
+            }
+        }
+
         /// <summary>
         /// Sets the current and start position of the floater.
         /// </summary>
@@ -78,7 +86,7 @@ namespace CloudberryKingdom
 
         public string Root;
 
-        public void Release()
+        public virtual void Release()
         {
             MyLevel = null;
             MyQuad.Release();
@@ -87,6 +95,11 @@ namespace CloudberryKingdom
         public void SetLevel(Level level)
         {
             MyLevel = level;
+        }
+
+        public virtual void SetBackground(Background b)
+        {
+            //MyBackground = b;
         }
 
         /// <summary>
@@ -203,6 +216,13 @@ namespace CloudberryKingdom
             MyQuad.Base.Origin = Data.Position = StartData.Position;
             MyQuad.Update();
             MyQuad.UpdateShift_Precalc();
+
+            // If we are repeating more than once, or have UV speed, use texture wrapping.
+            MyQuad.Quad.U_Wrap = MyQuad.Quad.V_Wrap = false;
+            if (uv_speed.X != 0 || MyQuad.Quad.UV_Repeat.X > 1)
+                MyQuad.Quad.U_Wrap = true;
+            if (uv_speed.Y != 0 || MyQuad.Quad.UV_Repeat.Y > 1)
+                MyQuad.Quad.V_Wrap = true;
         }
 
         public virtual void PhsxStep(BackgroundFloaterList list)
@@ -216,13 +236,15 @@ namespace CloudberryKingdom
             else if (MyQuad.Quad.Left > list.TR.X + 100)
                 Data.Position.X = list.BL.X - MyQuad.Quad.Width / 2 - 50;
 
-            //if (Data.Position.X + 2 * MyQuad.Base.e1.X < X_Left - 300)
-            //    Data.Position.X = X_Right + 2 * MyQuad.Base.e1.X + 200;
-
-            //if (Data.Position.X - 2 * MyQuad.Base.e1.X > X_Right + 300)
-            //    Data.Position.X = X_Left - 2 * MyQuad.Base.e1.X - 200;
-
             MyQuad.Base.Origin = Data.Position;
+            //if (MyQuad.TextureName.Contains("chan"))
+            //{
+            //    MyQuad.PointxAxisTo(Tools.Periodic(.005f, -.005f, 300, MyLevel.CurPhsxStep));
+            //    InitialUpdate();
+            //}
+            //else
+                MyQuad.PointxAxisTo(0);
+            MyQuad.Update();
 
             if (SpinVelocity != 0)
             {
@@ -238,6 +260,8 @@ namespace CloudberryKingdom
 #if DEBUG && INCLUDE_EDITOR
         protected void Draw_DebugExtra()
         {
+            if (Tools.background_viewer == null || Tools.background_viewer.PlayCheckbox.Checked) return;
+
             if (Selected || SoftSelected)
             {
                 var HoldTexture = MyQuad.Quad.MyTexture;

@@ -57,11 +57,27 @@ namespace CloudberryKingdom.Levels
 
             MyLevel.LastStep = NewLastStep;
 
-            // Create a dummy block
-            int width = 400;
-            FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
-            ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width), MyLevel.MyTileSetInfo);
-            FinalBlock.Core.MyTileSet = MyLevel.MyTileSet;
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
+            {
+                // Create the block
+                var block = FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
+
+                block.BlockCore.EndPiece = true;
+                ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(-130, -600), new Vector2(400, 400), MyLevel.MyTileSetInfo);
+                
+                block.Core.DrawLayer = 0;
+                block.Core.Real = false;
+            }
+            // Old style end blocks
+            else
+            {
+                // Create a dummy block
+                int width = 400;
+                FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
+                ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width), MyLevel.MyTileSetInfo);
+                FinalBlock.Core.MyTileSet = MyLevel.MyTileSet;
+            }
         }
 
         public override void Phase3()
@@ -74,33 +90,58 @@ namespace CloudberryKingdom.Levels
                 FinalPos.X += 130;
             }
 
-            // Add door
-            Door door = MyLevel.PlaceDoorOnBlock_Unlayered(FinalPos, FinalBlock, true);
-            Tools.MoveTo(door, FinalPos);
+            Door door;
 
-            // Terrace-To-Castle
-            if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
             {
-                MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
-                MyLevel.MadeBackBlock.Stretch(Side.Right, 1500);
-                MyLevel.MadeBackBlock.Stretch(Side.Left, -50);
-                MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
+                door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, false);
+                MyLevel.AddBlock(FinalBlock);
+                FinalBlock.Active = false;
+                door.Mirror = true;
+            }
+            // Old style end blocks
+            else
+            {
+                // Add door
+                door = MyLevel.PlaceDoorOnBlock_Unlayered(FinalPos, FinalBlock, true);
+                Tools.MoveTo(door, FinalPos);
+
+                // Terrace-To-Castle
+                if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
+                {
+                    MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
+                    MyLevel.MadeBackBlock.Stretch(Side.Right, 1500);
+                    MyLevel.MadeBackBlock.Stretch(Side.Left, -50);
+                    MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
+                }
             }
 
             SetFinalDoor(door, MyLevel, FinalPos);
 
-            if (FinalBlock.Core.MyTileSet == TileSets.Island)
+            // New style end blocks
+            if (MyLevel.MyTileSet.FixedWidths)
             {
-                MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
+            }
+            // Old style end blocks
+            else
+            {
+                if (FinalBlock.Core.MyTileSet == TileSets.Island)
+                {
+                    MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
+                }
             }
 
             // Push lava down
             MyLevel.PushLava(FinalBlock.Box.Target.TR.Y - 60);
 
             // Add exit sign
-            Sign sign = new Sign(false);
-            sign.PlaceAt(door.GetTop());
-            MyLevel.AddObject(sign);
+            if (MyLevel.Info.Doors.ShowSign)
+            {
+                Sign sign = new Sign(false, MyLevel);
+                sign.PlaceAt(door.GetTop());
+                MyLevel.AddObject(sign);
+            }
 
             // Cleanup
             FinalBlock = null;

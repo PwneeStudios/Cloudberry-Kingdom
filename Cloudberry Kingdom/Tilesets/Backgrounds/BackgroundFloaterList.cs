@@ -10,6 +10,9 @@ namespace CloudberryKingdom
     {
         public string Name = null;
 
+        public bool Foreground = false;
+        public bool Fixed = false;
+
 #if INCLUDE_EDITOR
         public bool Show = true;
 
@@ -73,6 +76,12 @@ namespace CloudberryKingdom
                 floater.SetLevel(level);
         }
 
+        public void SetBackground(Background Background)
+        {
+            foreach (BackgroundFloater floater in Floaters)
+                floater.SetBackground(Background);
+        }
+
         public void Move(Vector2 shift)
         {
             foreach (BackgroundFloater floater in Floaters)
@@ -127,6 +136,8 @@ namespace CloudberryKingdom
             if (!Show) return;
 #endif
 
+            if (DoPreDraw) return;
+
             Tools.QDrawer.Flush();
 
             Camera Cam = MyLevel.MainCamera;
@@ -137,6 +148,8 @@ namespace CloudberryKingdom
                 Floater.Draw();
         }
 
+        public bool DoPreDraw = false;
+
         public void Init(string Root, Vector2 BL, Vector2 TR, Level level)
         {
             MyLevel = level;
@@ -146,6 +159,6 @@ namespace CloudberryKingdom
             BackgroundFloater.AddSpan(Root, Floaters, BL, TR, MyLevel);
         }
 
-        public override string[] GetViewables() { return new string[] { "Name", "Parallax", "Floaters" }; }
+        public override string[] GetViewables() { return new string[] { "Name", "Parallax", "Floaters", "Fixed", "Foreground", "DoPreDraw" }; }
     }
 }

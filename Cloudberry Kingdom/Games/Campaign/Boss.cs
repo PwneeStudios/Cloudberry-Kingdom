@@ -34,7 +34,7 @@ namespace CloudberryKingdom
             Tools.BeginLoadingScreen_Fake(130);
 
             MakeCenteredCamZone(.72f);
-            MakeBackground(BackgroundType.Rain);
+            MakeBackground(BackgroundType.Outside);
 
             // Music
             WaitThenDo(20, () =>

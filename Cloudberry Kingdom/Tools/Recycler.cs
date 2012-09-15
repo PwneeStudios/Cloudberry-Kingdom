@@ -23,7 +23,7 @@ namespace CloudberryKingdom
                              Doodad, SelectBox,
                              Cloud, BouncyBlock, Floater_Spin, ConveyorBlock, SpikeyLine, Firesnake, FlyingBlock, IceBlock, Wall,
                              BerryBubble, Seed, Region,
-                             MovingBlock2 };
+                             Pendulum, Serpent, LavaDrip };
 
     public class RecycleBin
     {
@@ -142,7 +142,8 @@ namespace CloudberryKingdom
                 case ObjectType.BouncyBlock:
                     return new BouncyBlock(BoxesOnly);
                 case ObjectType.LavaBlock:
-                    return new LavaBlock(BoxesOnly);
+                    //return new LavaBlock(BoxesOnly);
+                    return new LavaBlock_Castle(BoxesOnly);
                 case ObjectType.LineTrigger:
                     return new LineTrigger();
                 case ObjectType.TimerTrigger:
@@ -180,8 +181,12 @@ namespace CloudberryKingdom
                 case ObjectType.BerryBubble:
                     return new BerryBubble(BoxesOnly);
 
-                case ObjectType.MovingBlock2:
-                    return new MovingBlock2(BoxesOnly);
+                case ObjectType.Pendulum:
+                    return new Pendulum(BoxesOnly);
+                case ObjectType.Serpent:
+                    return new Serpents.Serpent(BoxesOnly);
+                case ObjectType.LavaDrip:
+                    return new LavaDrips.LavaDrip(BoxesOnly);
 
                 default:
                     return null;

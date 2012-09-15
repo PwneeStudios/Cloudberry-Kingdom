@@ -24,7 +24,7 @@
     <XnaUpgrade>
     </XnaUpgrade>
     <XnaOutputType>Game</XnaOutputType>
-    <XnaProfile>HiDef</XnaProfile>
+    <XnaProfile>Reach</XnaProfile>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -183,44 +183,128 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Awardments\AwardmentMessage.cs" />
-    <Compile Include="Awardments\ShopMenu.cs" />
-    <Compile Include="Backgrounds\BackgroundViewer.cs">
+    <Compile Include="Games\ToDoItem.cs" />
+    <Compile Include="Games\World Map\ArcadeGame.cs" />
+    <Compile Include="Games\World Map\WorldGame.cs" />
+    <Compile Include="Games\World Map\MapBob.cs" />
+    <Compile Include="Games\World Map\WorldMapGui.cs" />
+    <Compile Include="Games\World Map\WorldMapGame.cs" />
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\ArrowMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\CharacterSelect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\HeroLevel.cs" />
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\CustomizeMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Doll.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\GamerTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\JoinText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Select\ColorSelect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Select\GridSelect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Select\QuadSelect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\SignInChoiceMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\SimpleMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Waiting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menus\Concrete Menus\Freeplay\CustomHero_GUI.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\PhsxSlider.cs" />
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\StartLevelMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\Doll.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_CustomLevel.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\Arcade\StartMenu_MW_Arcade.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Exit.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Options.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_Title.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_PressStart.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_Campaign.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Forest\TitleGame_Forest.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Black.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Campaign.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_PressStart.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Backpanel.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\MW\TitleGame_MW.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense_Backpanel.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Types\Intense\TitleGame_Intense.cs" />
+    <Compile Include="Menus\MiniMenu.cs" />
+    <Compile Include="Objects\Blocks\Lava_Castle.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\MultiplierUp.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Multiplier.cs" />
+    <Compile Include="Player\Awardments\AwardmentMessage.cs" />
+    <Compile Include="Player\Awardments\ShopMenu.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_Rain.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Forest.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Cloud.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Cave.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Hills.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Castle.cs" />
+    <Compile Include="Tilesets\Backgrounds\_Code\_code_Sea.cs" />
+    <Compile Include="Tilesets\Tilesets\Clouds.cs" />
+    <Compile Include="Tilesets\Tilesets\Castle.cs" />
+    <Compile Include="Tilesets\Tilesets\Sea.cs" />
+    <Compile Include="Tilesets\Tilesets\Hills.cs" />
+    <Compile Include="Tilesets\Tilesets\Forest.cs" />
+    <Compile Include="Tilesets\Tilesets\Cave.cs" />
+    <Compile Include="__Core Engine\Draw\Simple\BasePoint.cs" />
+    <Compile Include="__Core Engine\Draw\Simple\SimpleObject.cs" />
+    <Compile Include="__Core Engine\Draw\Simple\SimpleQuad.cs" />
+    <Compile Include="__Core Engine\Draw\Simple\SimpleBox.cs" />
+    <Compile Include="__Core Engine\Draw\Simple\SimpleVector.cs" />
+    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Backgrounds\BackgroundViewer.Designer.cs">
+    <Compile Include="__Editors\Background Editor\BackgroundViewer.Designer.cs">
       <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Bob Phsx\BobPhsxJetman.cs" />
-    <Compile Include="Bob Phsx\BobPhsxDouble.cs" />
-    <Compile Include="Bob Phsx\BobPhsxBouncy.cs" />
-    <Compile Include="Bob Phsx\BobPhsxSmall.cs" />
-    <Compile Include="Bob Phsx\BobPhsxBig.cs" />
-    <Compile Include="Bob Phsx\BobPhsxRandom.cs" />
-    <Compile Include="Bob Phsx\BobPhsxScale.cs" />
-    <Compile Include="Bob Phsx\BobPhsxRocketbox.cs" />
-    <Compile Include="Bob Phsx\BobPhsxInvert.cs" />
-    <Compile Include="Bob Phsx\BobPhsxMeat.cs" />
-    <Compile Include="Bob Phsx\BobPhsxBraid.cs" />
-    <Compile Include="Bob Phsx\BobPhsxMario.cs" />
-    <Compile Include="Challenges\ChallengeList.cs" />
-    <Compile Include="Challenges\ChallengeGroup.cs" />
-    <Compile Include="CharacterSelect\ArrowMenu.cs" />
-    <Compile Include="CharacterSelect\BackdropPanel.cs" />
-    <Compile Include="CharacterSelect\GamerTag.cs" />
-    <Compile Include="CharacterSelect\SignInChoiceMenu.cs" />
-    <Compile Include="CharacterSelect\CustomizeMenu.cs" />
-    <Compile Include="CharacterSelect\SimpleMenu.cs" />
-    <Compile Include="CharacterSelect\QuadSelect.cs" />
-    <Compile Include="CharacterSelect\GridSelect.cs" />
-    <Compile Include="Core\Animation\AnimationData_Integer.cs" />
-    <Compile Include="Core\Animation\AnimQueue.cs" />
-    <Compile Include="Core\EzSound.cs" />
-    <Compile Include="Core\Draw\EzEffect.cs" />
-    <Compile Include="Core\EzSong.cs" />
-    <Compile Include="Games\Bonus\BonusFail.cs" />
-    <Compile Include="Games\Bonus\BonusWin.cs" />
-    <Compile Include="Games\Bonus\DiffSlider.cs" />
+    <Compile Include="Player\Hero Physics\Jetman.cs" />
+    <Compile Include="Player\Hero Physics\Double.cs" />
+    <Compile Include="Player\Hero Physics\Bouncy.cs" />
+    <Compile Include="Player\Hero Physics\Small.cs" />
+    <Compile Include="Player\Hero Physics\Big.cs" />
+    <Compile Include="Player\Hero Physics\Random.cs" />
+    <Compile Include="Player\Hero Physics\Scale.cs" />
+    <Compile Include="Player\Hero Physics\Rocketbox.cs" />
+    <Compile Include="Player\Hero Physics\Invert.cs" />
+    <Compile Include="Player\Hero Physics\Meat.cs" />
+    <Compile Include="Player\Hero Physics\Braid.cs" />
+    <Compile Include="__Garbage\Challenges\ChallengeList.cs" />
+    <Compile Include="__Garbage\Challenges\ChallengeGroup.cs" />
+    <Compile Include="__Core Engine\Animation\AnimationData_Integer.cs" />
+    <Compile Include="__Core Engine\Animation\AnimQueue.cs" />
+    <Compile Include="Objects\Blocks\LavaDraw.cs" />
+    <Compile Include="Tools\BmpWriter.cs" />
+    <Compile Include="Version.cs" />
+    <Compile Include="__Core Engine\PhsxData.cs" />
+    <Compile Include="__Core Engine\EzSound.cs" />
+    <Compile Include="__Core Engine\Draw\EzEffect.cs" />
+    <Compile Include="__Core Engine\EzSong.cs" />
+    <Compile Include="Games\Bonus %28__Garbage%29\BonusFail.cs" />
+    <Compile Include="Games\Bonus %28__Garbage%29\BonusWin.cs" />
+    <Compile Include="Games\Bonus %28__Garbage%29\DiffSlider.cs" />
     <Compile Include="Games\Campaign\Campaign.cs" />
     <Compile Include="Games\Campaign\Boss.cs" />
     <Compile Include="Games\Campaign\CampaignString.cs" />
@@ -251,182 +335,195 @@
     <Compile Include="Games\Campaign\TunnelOutside.cs" />
     <Compile Include="Games\Campaign\IntroWorld.cs" />
     <Compile Include="Games\TutorialHelper.cs" />
-    <Compile Include="Games\WorldMap\Challenges\_Regular.cs">
+    <Compile Include="Games\Meta Games\Challenges\_Regular.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Games\WorldMap\Challenges\_Spaceship.cs">
+    <Compile Include="Games\Meta Games\Challenges\_Spaceship.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Games\WorldMap\Challenges\_Survival.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\Construct.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroFactory_Escalation.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis_Tutorial.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\TimeCrisis.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\Wheelie.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\UpUp.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\Escalation_Tutorial.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush2_Tutorial.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\Rush.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush2.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\Escalation.cs" />
-    <Compile Include="Games\WorldMap\VanillaStringWorld.cs" />
-    <Compile Include="Games\WorldMap\WorldMap.cs" />
+    <Compile Include="Games\Meta Games\Challenges\_Survival.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\Construct.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroFactory_Escalation.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\TimeCrisis_Tutorial.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\TimeCrisis.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\Wheelie.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\UpUp.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\Escalation_Tutorial.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\HeroRush2_Tutorial.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\Rush.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\HeroRush2.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\Escalation.cs" />
+    <Compile Include="Games\Meta Games\VanillaStringWorld.cs" />
+    <Compile Include="Games\Meta Games\WorldMap.cs" />
     <Compile Include="Games\ScreenSaver.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\CoinMod.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush_Tutorial.cs" />
-    <Compile Include="Games\WorldMap\Freeplay\HeroRush\HeroRush.cs" />
-    <Compile Include="Games\WorldMap\StringWorlds\StringWorld_Timed.cs" />
-    <Compile Include="Games\WorldMap\Challenges\_Place.cs" />
-    <Compile Include="Help\HintBlurb2.cs" />
-    <Compile Include="Help\HintBlurb.cs" />
-    <Compile Include="Help\HelpBlurb.cs" />
-    <Compile Include="Help\HelpMenu.cs" />
-    <Compile Include="Help\HintGiver.cs" />
-    <Compile Include="InGameStartMenus\InGameStartMenu.cs" />
-    <Compile Include="InGameStartMenus\CustomControls.cs" />
-    <Compile Include="InGameStartMenus\Verify\VerifyQuitCampaign.cs" />
-    <Compile Include="IObjects\Blocks\Conveyor.cs" />
-    <Compile Include="IObjects\Blocks\Conveyor__Auto.cs" />
-    <Compile Include="IObjects\Blocks\MovingBlock2__Auto.cs" />
-    <Compile Include="IObjects\Blocks\MovingBlock2.cs" />
-    <Compile Include="IObjects\Blocks\Thwomp.cs" />
-    <Compile Include="IObjects\Blocks\Wall.cs" />
-    <Compile Include="IObjects\Blocks\IceBlock.cs" />
-    <Compile Include="IObjects\Blocks\FlyingBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\FlyingBlock.cs" />
-    <Compile Include="IObjects\Blocks\Lava.cs">
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\CoinMod.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\HeroRush_Tutorial.cs" />
+    <Compile Include="Games\Meta Games\Freeplay\HeroRush\HeroRush.cs" />
+    <Compile Include="Games\Meta Games\StringWorlds\StringWorld_Timed.cs" />
+    <Compile Include="Games\Meta Games\Challenges\_Place.cs" />
+    <Compile Include="Menus\Concrete Menus\Help\HintBlurb2.cs" />
+    <Compile Include="Menus\Concrete Menus\Help\HintBlurb.cs" />
+    <Compile Include="Menus\Concrete Menus\Help\HelpBlurb.cs" />
+    <Compile Include="Menus\Concrete Menus\Help\HelpMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Help\HintGiver.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Sub Menus\LoadSeedAs.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Sub Menus\SaveSeedAs.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\InGameStartMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Sub Menus\CustomControls.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Sub Menus\SaveLoadSeedMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Verify\VerifyDeleteSeeds.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Verify\VerifyQuitCampaign.cs" />
+    <Compile Include="Objects\Blocks\Conveyor.cs" />
+    <Compile Include="Objects\Blocks\Conveyor__Auto.cs" />
+    <Compile Include="Objects\Blocks\Pendulum__Auto.cs" />
+    <Compile Include="Objects\Blocks\Pendulum.cs" />
+    <Compile Include="Objects\Blocks\Thwomp.cs" />
+    <Compile Include="Objects\Blocks\Wall.cs" />
+    <Compile Include="Objects\Blocks\IceBlock.cs" />
+    <Compile Include="Objects\Blocks\FlyingBlock__Auto.cs" />
+    <Compile Include="Objects\Blocks\FlyingBlock.cs" />
+    <Compile Include="Objects\Blocks\Lava.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IObjects\Bob\BobInput.cs" />
-    <Compile Include="IObjects\Bob\BobLink.cs" />
-    <Compile Include="IObjects\Door\Sign.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\CoinScoreMultiplierObject.cs" />
-    <Compile Include="Games\Bonus\ContinuousDiff.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\OhNo.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Lives.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Region.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\DanceBerry.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Rain.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Blobs.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Rumble.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Coins.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\DoorIcon.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\HelpBubble.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Timer_Simple.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Timer_Base.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_TextBox.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\End\HighScorePanel.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Level.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Score.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\PerfectScoreObject.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\TimerWarning.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Guide.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\ExplodeBobs.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\SlowMo.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Listener.cs" />
-    <Compile Include="InGameStartMenus\Verify\VerifyBase.cs" />
-    <Compile Include="InGameStartMenus\Verify\VerifyQuitLevel.cs" />
-    <Compile Include="InGameStartMenus\Verify\VerifyRemove.cs" />
-    <Compile Include="IObjects\AutoGen.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\Cheer.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\SuperCheer.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_NextLife.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\LevelTitle.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Text.cs" />
-    <Compile Include="IObjects\Objects\Grab\Coin__Auto.cs" />
-    <Compile Include="IObjects\Campaign\BerryBubble.cs" />
-    <Compile Include="IObjects\Campaign\Chain.cs" />
-    <Compile Include="IObjects\Objects\_CircleDeath.cs" />
-    <Compile Include="IObjects\Powerups\Powerup_DoubleJump.cs" />
-    <Compile Include="IObjects\Powerups\Powerup_Jetpack.cs" />
-    <Compile Include="IObjects\Powerups\Powerup_Bouncy.cs" />
-    <Compile Include="IObjects\Powerups\Powerup_Wheelie.cs" />
-    <Compile Include="IObjects\Powerups\Powerup_Cart.cs" />
-    <Compile Include="IObjects\Powerups\InteractWithBlocks.cs" />
-    <Compile Include="IObjects\Campaign\PrincessBubble.cs" />
-    <Compile Include="IObjects\Objects\Firesnake__Auto.cs" />
-    <Compile Include="IObjects\Objects\Firesnake.cs" />
-    <Compile Include="IObjects\Objects\SpikeyLine.cs" />
-    <Compile Include="IObjects\Objects\SpikeyLine__Auto.cs" />
-    <Compile Include="IObjects\Objects\Floater_Core.cs">
+    <Compile Include="Objects\Bob\BobInput.cs" />
+    <Compile Include="Objects\Bob\BobLink.cs" />
+    <Compile Include="Objects\Door\Sign.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\CoinScoreMultiplierObject.cs" />
+    <Compile Include="Games\Bonus %28__Garbage%29\ContinuousDiff.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\OhNo.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Lives.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\Region.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\DanceBerry.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Blobs.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\Rumble.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Coins.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\DoorIcon.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\HelpBubble.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Timer_Simple.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Timer_Base.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_TextBox.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\End\HighScorePanel.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Level.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Score.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\PerfectScoreObject.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\TimerWarning.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\Guide.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\ExplodeBobs.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\SlowMo.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\Listener.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Verify\VerifyBase.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Verify\VerifyQuitLevel.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Verify\VerifyRemove.cs" />
+    <Compile Include="Objects\AutoGen.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\Cheer.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\SuperCheer.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_NextLife.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\LevelTitle.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Text.cs" />
+    <Compile Include="Objects\In Game Objects\BaseClasses\_LineDeath.cs" />
+    <Compile Include="Objects\In Game Objects\BaseClasses\_BoxDeath.cs" />
+    <Compile Include="Objects\In Game Objects\BaseClasses\_Obstacle.cs" />
+    <Compile Include="Objects\In Game Objects\BaseClasses\_Death.cs" />
+    <Compile Include="Objects\In Game Objects\LavaDrip__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\LavaDrip.cs" />
+    <Compile Include="Objects\In Game Objects\Serpent__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Serpent.cs" />
+    <Compile Include="Objects\In Game Objects\Grab\Coin__Auto.cs" />
+    <Compile Include="Objects\Campaign\BerryBubble.cs" />
+    <Compile Include="Objects\Campaign\Chain.cs" />
+    <Compile Include="Objects\In Game Objects\BaseClasses\_CircleDeath.cs" />
+    <Compile Include="Objects\Powerups\Powerup_DoubleJump.cs" />
+    <Compile Include="Objects\Powerups\Powerup_Jetpack.cs" />
+    <Compile Include="Objects\Powerups\Powerup_Bouncy.cs" />
+    <Compile Include="Objects\Powerups\Powerup_Wheelie.cs" />
+    <Compile Include="Objects\Powerups\Powerup_Cart.cs" />
+    <Compile Include="Objects\Powerups\InteractWithBlocks.cs" />
+    <Compile Include="Objects\Campaign\PrincessBubble.cs" />
+    <Compile Include="Objects\In Game Objects\Firesnake__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Firesnake.cs" />
+    <Compile Include="Objects\In Game Objects\SpikeyLine.cs" />
+    <Compile Include="Objects\In Game Objects\SpikeyLine__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Floater_Core.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IObjects\Special\Arrow.cs" />
-    <Compile Include="IObjects\Special\TextFloat.cs" />
-    <Compile Include="IObjects\Tools\Tunnel.cs" />
+    <Compile Include="Objects\Special\Arrow.cs" />
+    <Compile Include="Objects\Special\TextFloat.cs" />
+    <Compile Include="Objects\Tools\Tunnel.cs" />
     <Compile Include="Level\Make\MakePiece\MakeSingle\MakeFinalDoor_Float.cs" />
     <Compile Include="Level\Make\MakePiece\MakeVertical\MakeDarkBottom.cs" />
     <Compile Include="Level\Make\Parameters\StyleData\DownData.cs" />
     <Compile Include="Level\ObjectGroup.cs" />
     <Compile Include="Level\Make\MakeLevel.cs" />
     <Compile Include="Level\Make\DifficultyGroups.cs" />
-    <Compile Include="Menus\MenuListAll.cs" />
-    <Compile Include="Menus\MenuListExpand.cs" />
-    <Compile Include="Menus\MenuScrollBar.cs" />
-    <Compile Include="Menus\MenuSliderNoSlide.cs" />
-    <Compile Include="Menus\MenuToggle.cs" />
-    <Compile Include="Menus\MenuSliderBase.cs" />
-    <Compile Include="Menus\MenuList.cs" />
-    <Compile Include="Menus\MenuSlider.cs" />
-    <Compile Include="Menus\MenuItem.cs" />
-    <Compile Include="Menus\ScrollBar.cs" />
-    <Compile Include="Particle Effects\CoinExplosion.cs" />
-    <Compile Include="Particle Effects\ParticleEmitter.cs" />
-    <Compile Include="Physics\Circle.cs" />
+    <Compile Include="Menus\Menu Components\MenuListAll.cs" />
+    <Compile Include="Menus\Menu Components\MenuListExpand.cs" />
+    <Compile Include="Menus\Menu Components\MenuScrollBar.cs" />
+    <Compile Include="Menus\Menu Components\MenuSliderNoSlide.cs" />
+    <Compile Include="Menus\Menu Components\MenuToggle.cs" />
+    <Compile Include="Menus\Menu Components\MenuSliderBase.cs" />
+    <Compile Include="Menus\Menu Components\MenuList.cs" />
+    <Compile Include="Menus\Menu Components\MenuSlider.cs" />
+    <Compile Include="Menus\Menu Components\MenuItem.cs" />
+    <Compile Include="Menus\Menu Components\ScrollBar.cs" />
+    <Compile Include="__Core Engine\Particle Effects\CoinExplosion.cs" />
+    <Compile Include="__Core Engine\Particle Effects\ParticleEmitter.cs" />
+    <Compile Include="Collision Detection\Circle.cs" />
     <Compile Include="Player\ColorScheme.cs" />
     <Compile Include="Player\ColorSchemeManager.cs" />
+    <Compile Include="Player\SavedSeeds.cs" />
     <Compile Include="Player\LockManager.cs" />
     <Compile Include="Player\Stats.cs" />
     <Compile Include="Player\PlayerManager.cs" />
     <Compile Include="Player\PlayerData.cs" />
     <Compile Include="ResolutionGroup.cs" />
-    <Compile Include="Score\StatsScreen.cs" />
-    <Compile Include="Score\ScoreList.cs" />
-    <Compile Include="Score\ScoreScreen.cs" />
-    <Compile Include="Awardments\Awardment.cs" />
-    <Compile Include="Awardments\AwardmentMenu.cs" />
-    <Compile Include="Start\Categories\CategoryMenu.cs" />
-    <Compile Include="Start\Categories\BlurbBerry.cs" />
-    <Compile Include="Start\Categories\Challenges\LevelMenu.cs" />
-    <Compile Include="Start\Categories\Challenges\DiffPics.cs" />
-    <Compile Include="Start\Categories\Challenges\ChallengeMenu.cs" />
-    <Compile Include="Start\Categories\Challenges\DifficultyMenu.cs" />
-    <Compile Include="Start\Categories\Challenges\ChallengeMenuItem.cs" />
-    <Compile Include="Start\Categories\CampaignMenu.cs" />
-    <Compile Include="Start\Categories\ArcadeMenu.cs" />
-    <Compile Include="Start\Categories\HeroFactoryMenu2.cs" />
-    <Compile Include="Start\Categories\Freeplay\Custom.cs\LengthSlider.cs" />
-    <Compile Include="Start\Categories\Freeplay\Custom.cs\SimpleCustomGUI.cs" />
-    <Compile Include="Start\Categories\Freeplay\Custom.cs\AdvancedCustomGUI.cs" />
-    <Compile Include="Start\Categories\Freeplay\Custom.cs\UpgradeSelect.cs" />
-    <Compile Include="Start\Categories\Freeplay\Custom.cs\UpgradeBar.cs" />
-    <Compile Include="Start\Categories\CategoryPics.cs" />
-    <Compile Include="Start\Categories\HeroFactoryMenu.cs" />
-    <Compile Include="Start\SoundMenu.cs" />
-    <Compile Include="Start\StartMenuBase.cs" />
-    <Compile Include="Games\WorldMap\Challenges\Challenge_Base.cs" />
-    <Compile Include="Games\WorldMap\StringWorlds\StringWorld_Endurance.cs" />
-    <Compile Include="IObjects\Door\PressNote.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\End\VictoryPanel.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\End\GameOverPanel.cs" />
-    <Compile Include="IObjects\Objects\FireballDraw.cs" />
-    <Compile Include="Start\Loading\Loading.cs" />
-    <Compile Include="Core\Draw\DrawPile.cs" />
-    <Compile Include="Start\Title.cs" />
-    <Compile Include="Start\StartMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Score Screens\StatsScreen.cs" />
+    <Compile Include="Menus\Concrete Menus\Score Screens\ScoreList.cs" />
+    <Compile Include="Menus\Concrete Menus\Score Screens\ScoreScreen.cs" />
+    <Compile Include="Player\Awardments\Awardment.cs" />
+    <Compile Include="Player\Awardments\AwardmentMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\CategoryMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\BlurbBerry.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\LevelMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\DiffPics.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\DifficultyMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenuItem.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\CampaignMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\ArcadeMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\SavedSeedsGUI.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\HeroFactoryMenu2.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\LengthSlider.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\CustomLevel_GUI.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\CustomUpgrades_GUI.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\UpgradeSelect.cs" />
+    <Compile Include="Menus\Concrete Menus\Freeplay\UpgradeBar.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Categories\CategoryPics.cs" />
+    <Compile Include="Menus\Concrete Menus\Loading Screen\LoadingScreen2.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Sub Menus\SoundMenu.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\StartMenuBase.cs" />
+    <Compile Include="Games\Meta Games\Challenges\Challenge_Base.cs" />
+    <Compile Include="Games\Meta Games\StringWorlds\StringWorld_Endurance.cs" />
+    <Compile Include="Objects\Door\PressNote.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\End\VictoryPanel.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\End\GameOverPanel.cs" />
+    <Compile Include="Objects\In Game Objects\FireballDraw.cs" />
+    <Compile Include="Menus\Concrete Menus\Loading Screen\Loading.cs" />
+    <Compile Include="__Core Engine\Draw\DrawPile.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\TitleGameBase.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\StartMenu.cs" />
     <Compile Include="Games\Games\SurvivalGame.cs" />
-    <Compile Include="Games\WorldMap\StringWorlds\LevelConnector.cs" />
-    <Compile Include="IObjects\Blocks\Ceiling__Auto.cs" />
-    <Compile Include="IObjects\Blocks\NormalBlockDraw.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Timer.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_Panel.cs" />
-    <Compile Include="IObjects\IPrepareToDraw.cs" />
-    <Compile Include="IObjects\Game Objects\GameObject.cs" />
-    <Compile Include="IObjects\Game Objects\GameObjects\GUI_LivesLeft.cs" />
-    <Compile Include="IObjects\Game Objects\Template_GameObject.cs" />
-    <Compile Include="IObjects\Objects\Floater_Spin.cs" />
-    <Compile Include="IObjects\Objects\Floater_Spin__Auto.cs" />
-    <Compile Include="IObjects\Seed\DownLaunch.cs" />
+    <Compile Include="Games\Meta Games\StringWorlds\LevelConnector.cs" />
+    <Compile Include="Objects\Blocks\Ceiling__Auto.cs" />
+    <Compile Include="Objects\Blocks\NormalBlockDraw.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Timer.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_Panel.cs" />
+    <Compile Include="Objects\IPrepareToDraw.cs" />
+    <Compile Include="Objects\Game Objects\GameObject.cs" />
+    <Compile Include="Objects\Game Objects\GameObjects\GUI_LivesLeft.cs" />
+    <Compile Include="Objects\Game Objects\Template_GameObject.cs" />
+    <Compile Include="Objects\In Game Objects\Floater_Spin.cs" />
+    <Compile Include="Objects\In Game Objects\Floater_Spin__Auto.cs" />
+    <Compile Include="Objects\Seed\DownLaunch.cs" />
     <Compile Include="Level\Make\MakePiece\MakeSingle\MakeFinalDoor.cs" />
     <Compile Include="Level\Make\MakePiece\MakeSingle\MakeFinalSeed.cs" />
     <Compile Include="Level\Make\MakePiece\MakeThing.cs" />
@@ -441,8 +538,8 @@
     <Compile Include="Level\Make\Parameters\StyleData\OneScreenData.cs" />
     <Compile Include="Level\Make\Parameters\StyleData\UpData.cs" />
     <Compile Include="Menus\LongMenu.cs" />
-    <Compile Include="Start\VerifyQuitGame.cs" />
-    <Compile Include="Steam\SteamManager.cs" />
+    <Compile Include="Menus\Concrete Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
+    <Compile Include="__Steam_Wrapper\SteamManager.cs" />
     <Compile Include="Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ConstructBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\ChaosBackground.cs" />
@@ -451,91 +548,89 @@
     <Compile Include="Tilesets\Backgrounds\Backgrounds\NightTimeBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\SkyBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\DarkBackground.cs" />
-    <Compile Include="Tilesets\Backgrounds\Backgrounds\RainBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\GrayBackground.cs" />
-    <Compile Include="Bob Phsx\Special\BobPhsxCharSelect.cs" />
-    <Compile Include="Bob Phsx\Special\BobPhsxCinematic.cs" />
-    <Compile Include="Bob Phsx\BobPhsxWheel.cs" />
-    <Compile Include="Bosses\Balrog\Balrog.cs" />
-    <Compile Include="Bosses\Balrog\MakeStates\Wanted_Idle.cs" />
-    <Compile Include="Bosses\BlobGuy\BlobGuy.cs" />
-    <Compile Include="Bosses\BlobGuy\MakeStates\Stickman_Normal.cs" />
-    <Compile Include="Bosses\BlobGuy\MakeStates\Wanted_Idle.cs" />
-    <Compile Include="Bosses\BlobGuy\MakeStates\Stickman_FromAbove.cs" />
-    <Compile Include="Bosses\BlockHead\BlockHead.cs" />
-    <Compile Include="Bosses\BlockHead\MakeStates\Wanted_Idle.cs" />
-    <Compile Include="Bosses\Boss.cs" />
-    <Compile Include="CharacterSelect\ColorSelect.cs" />
-    <Compile Include="CharacterSelect\CharSelectManager.cs" />
-    <Compile Include="Cinematics\Intro.cs" />
-    <Compile Include="Cinematics\ScenePart.cs" />
-    <Compile Include="Core\Draw\EzFont.cs" />
-    <Compile Include="Core\FancyColor.cs" />
-    <Compile Include="Core\FancyVector2.cs" />
-    <Compile Include="Core\Draw\Quads\PieceQuad.cs" />
-    <Compile Include="Core\Draw\Quads\QuadClass.cs" />
-    <Compile Include="Core\Animation\SpriteAnim.cs" />
-    <Compile Include="Core\Draw\Object\ObjectBox.cs" />
-    <Compile Include="Core\Draw\Quads\ObjectVector.cs" />
-    <Compile Include="Editor\AnimationToolbox.cs">
+    <Compile Include="Player\Hero Physics\Special\BobPhsxCharSelect.cs" />
+    <Compile Include="Player\Hero Physics\Special\BobPhsxCinematic.cs" />
+    <Compile Include="Player\Hero Physics\Wheel.cs" />
+    <Compile Include="__Garbage\Bosses\Balrog\Balrog.cs" />
+    <Compile Include="__Garbage\Bosses\Balrog\MakeStates\Wanted_Idle.cs" />
+    <Compile Include="__Garbage\Bosses\BlobGuy\BlobGuy.cs" />
+    <Compile Include="__Garbage\Bosses\BlobGuy\MakeStates\Stickman_Normal.cs" />
+    <Compile Include="__Garbage\Bosses\BlobGuy\MakeStates\Wanted_Idle.cs" />
+    <Compile Include="__Garbage\Bosses\BlobGuy\MakeStates\Stickman_FromAbove.cs" />
+    <Compile Include="__Garbage\Bosses\BlockHead\BlockHead.cs" />
+    <Compile Include="__Garbage\Bosses\BlockHead\MakeStates\Wanted_Idle.cs" />
+    <Compile Include="__Garbage\Bosses\Boss.cs" />
+    <Compile Include="Menus\Concrete Menus\CharacterSelect\CharSelectManager.cs" />
+    <Compile Include="__Garbage\Cinematics\Intro.cs" />
+    <Compile Include="__Garbage\Cinematics\ScenePart.cs" />
+    <Compile Include="__Core Engine\Draw\EzFont.cs" />
+    <Compile Include="__Core Engine\FancyColor.cs" />
+    <Compile Include="__Core Engine\FancyVector2.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\PieceQuad.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\QuadClass.cs" />
+    <Compile Include="__Core Engine\Animation\SpriteAnim.cs" />
+    <Compile Include="__Core Engine\Draw\Object\ObjectBox.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\ObjectVector.cs" />
+    <Compile Include="__Editors\Object Editor\AnimationToolbox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\AnimationToolbox.Designer.cs">
+    <Compile Include="__Editors\Object Editor\AnimationToolbox.Designer.cs">
       <DependentUpon>AnimationToolbox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\BlockDialog.cs">
+    <Compile Include="__Editors\Object Editor\BlockDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\BlockDialog.Designer.cs">
+    <Compile Include="__Editors\Object Editor\BlockDialog.Designer.cs">
       <DependentUpon>BlockDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Editor.cs" />
-    <Compile Include="Editor\ImportQuads.cs">
+    <Compile Include="__Editors\Object Editor\Editor.cs" />
+    <Compile Include="__Editors\Object Editor\ImportQuads.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\ImportQuads.Designer.cs">
+    <Compile Include="__Editors\Object Editor\ImportQuads.Designer.cs">
       <DependentUpon>ImportQuads.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\SetNameDialog.cs">
+    <Compile Include="__Editors\Object Editor\SetNameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\SetNameDialog.Designer.cs">
+    <Compile Include="__Editors\Object Editor\SetNameDialog.Designer.cs">
       <DependentUpon>SetNameDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Toolbox.cs">
+    <Compile Include="__Editors\Object Editor\Toolbox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\Toolbox.Designer.cs">
+    <Compile Include="__Editors\Object Editor\Toolbox.Designer.cs">
       <DependentUpon>Toolbox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\VerifySave.cs">
+    <Compile Include="__Editors\Object Editor\VerifySave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\VerifySave.designer.cs">
+    <Compile Include="__Editors\Object Editor\VerifySave.designer.cs">
       <DependentUpon>VerifySave.cs</DependentUpon>
     </Compile>
     <Compile Include="Games\Games\DifficultySelection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IObjects\Blocks\BouncyBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\NormalBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\NormalBlock.cs" />
-    <Compile Include="IObjects\Blocks\MovingBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\GhostBlock__Auto.cs" />
-    <Compile Include="IObjects\Blocks\FallingBlock__Auto.cs" />
-    <Compile Include="IObjects\IBounded.cs" />
-    <Compile Include="IObjects\Objects\BlockEmitter__Auto.cs" />
-    <Compile Include="IObjects\Objects\Cloud__Auto.cs" />
-    <Compile Include="IObjects\Seed\End.cs" />
-    <Compile Include="IObjects\Seed\Launch.cs" />
-    <Compile Include="IObjects\Seed\Seed.cs" />
-    <Compile Include="IObjects\Objects\Goomba__Auto.cs" />
-    <Compile Include="IObjects\Objects\Floater__Auto.cs" />
-    <Compile Include="IObjects\Objects\Laser__Auto.cs" />
-    <Compile Include="IObjects\Objects\Spike__Auto.cs" />
-    <Compile Include="IObjects\Objects\FireSpinner__Auto.cs" />
-    <Compile Include="IObjects\Seed\Start.cs" />
-    <Compile Include="IObjects\Special\PopIn.cs" />
+    <Compile Include="Objects\Blocks\BouncyBlock__Auto.cs" />
+    <Compile Include="Objects\Blocks\NormalBlock__Auto.cs" />
+    <Compile Include="Objects\Blocks\NormalBlock.cs" />
+    <Compile Include="Objects\Blocks\MovingBlock__Auto.cs" />
+    <Compile Include="Objects\Blocks\GhostBlock__Auto.cs" />
+    <Compile Include="Objects\Blocks\FallingBlock__Auto.cs" />
+    <Compile Include="Objects\IBounded.cs" />
+    <Compile Include="Objects\In Game Objects\BlockEmitter__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Cloud__Auto.cs" />
+    <Compile Include="Objects\Seed\End.cs" />
+    <Compile Include="Objects\Seed\Launch.cs" />
+    <Compile Include="Objects\Seed\Seed.cs" />
+    <Compile Include="Objects\In Game Objects\Goomba__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Floater__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Laser__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\Spike__Auto.cs" />
+    <Compile Include="Objects\In Game Objects\FireSpinner__Auto.cs" />
+    <Compile Include="Objects\Seed\Start.cs" />
+    <Compile Include="Objects\Special\PopIn.cs" />
     <Compile Include="Level\Make\Ladders.cs" />
     <Compile Include="Level\Make\Parameters\Param.cs" />
     <Compile Include="Level\Make\PieceSeedData.cs" />
@@ -543,80 +638,82 @@
     <Compile Include="Level\Make\LevelSeedData.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IObjects\Icon.cs" />
-    <Compile Include="IObjects\Objects\FireballEmitter__Auto.cs" />
+    <Compile Include="Objects\Icon.cs" />
+    <Compile Include="Objects\In Game Objects\FireballEmitter__Auto.cs" />
     <Compile Include="Level\ClosingCircle.cs" />
-    <Compile Include="Level\ComputerRecording.cs" />
+    <Compile Include="Level\Make\ComputerRecording.cs" />
     <Compile Include="Level\Make\Generators.cs" />
-    <Compile Include="Level\Replays.cs" />
+    <Compile Include="Level\Replays\Replays.cs" />
     <Compile Include="Level\Make\Parameters\LevelGenData.cs" />
     <Compile Include="Level\LevelPiece.cs" />
     <Compile Include="Level\Make\MakePiece\MakeSingle\MakeSingle.cs" />
-    <Compile Include="Level\Recording.cs" />
-    <Compile Include="Level\ReplayGUI.cs" />
+    <Compile Include="Level\Replays\Recording.cs" />
+    <Compile Include="Level\Replays\ReplayGUI.cs" />
     <Compile Include="Level\Make\Parameters\StyleData\StyleData.cs" />
-    <Compile Include="Level\SwarmBundle.cs" />
-    <Compile Include="Level\SwarmRecord.cs" />
+    <Compile Include="Level\Replays\SwarmBundle.cs" />
+    <Compile Include="Level\Replays\SwarmRecord.cs" />
     <Compile Include="Level\Make\Parameters\Upgrades.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="CharacterSelect\StickmanSelect.cs" />
-    <Compile Include="Score\ScoreText.cs" />
+    <Compile Include="Menus\Concrete Menus\Score Screens\ScoreText.cs" />
     <Compile Include="Tilesets\Backgrounds\BackgroundFloaterList.cs" />
     <Compile Include="Tilesets\Backgrounds\BackgroundFloater.cs" />
     <Compile Include="Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
+    <Compile Include="Tilesets\Backgrounds\Map\BackgroundNode.cs" />
     <Compile Include="Tilesets\Backgrounds\FromCode\_1_OutsideBackground.cs" />
+    <Compile Include="Tilesets\BlockGroup.cs" />
+    <Compile Include="Tilesets\SpriteInfo.cs" />
     <Compile Include="Tilesets\TileSet.cs" />
     <Compile Include="Player\ClrTextFx.cs" />
-    <Compile Include="Core\Animation\AnimationData_Vector.cs" />
+    <Compile Include="__Core Engine\Animation\AnimationData_Vector.cs" />
     <Compile Include="Tilesets\Backgrounds\Background.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\SpaceBackground.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\DungeonBackground.cs" />
-    <Compile Include="Bob Phsx\BobPhsx.cs" />
-    <Compile Include="Bob Phsx\BobPhsxBox.cs" />
-    <Compile Include="Bob Phsx\BobPhsxNormal.cs" />
-    <Compile Include="Bob Phsx\BobPhsxSpaceship.cs" />
-    <Compile Include="Bob Phsx\BobPhsxTeleport.cs" />
-    <Compile Include="Core\ButtonCheck.cs" />
+    <Compile Include="Player\Hero Physics\Base.cs" />
+    <Compile Include="Player\Hero Physics\Box.cs" />
+    <Compile Include="Player\Hero Physics\Normal.cs" />
+    <Compile Include="Player\Hero Physics\Spaceship.cs" />
+    <Compile Include="Player\Hero Physics\Teleport.cs" />
+    <Compile Include="__Core Engine\ButtonCheck.cs" />
     <Compile Include="Tools\Camera.cs" />
-    <Compile Include="IObjects\Special\CameraZone.cs" />
+    <Compile Include="Objects\Special\CameraZone.cs" />
     <Compile Include="Player\Cape.cs" />
-    <Compile Include="IObjects\Objects\Grab\Checkpoint.cs" />
-    <Compile Include="IObjects\Objects\Cloud.cs" />
-    <Compile Include="Menus\ControlScreen.cs" />
-    <Compile Include="IObjects\Blocks\BouncyBlock.cs" />
-    <Compile Include="Core\WriteReadTools.cs" />
-    <Compile Include="Core\Draw\Quads\QuadDrawer.cs" />
-    <Compile Include="Core\Draw\Quads\BaseQuad.cs" />
-    <Compile Include="Core\Draw\Quads\BendableQuad.cs" />
-    <Compile Include="Core\Draw\Object\ObjectClass.cs" />
-    <Compile Include="Core\Draw\Quads\Quad.cs" />
-    <Compile Include="Core\Draw\Quads\Spline.cs" />
-    <Compile Include="IObjects\Blocks\Doodad.cs" />
+    <Compile Include="Objects\In Game Objects\Grab\Checkpoint.cs" />
+    <Compile Include="Objects\In Game Objects\Cloud.cs" />
+    <Compile Include="Menus\Concrete Menus\InGameStartMenus\Sub Menus\ControlScreen.cs" />
+    <Compile Include="Objects\Blocks\BouncyBlock.cs" />
+    <Compile Include="__Core Engine\WriteReadTools.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\QuadDrawer.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\BaseQuad.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\BendableQuad.cs" />
+    <Compile Include="__Core Engine\Draw\Object\ObjectClass.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\Quad.cs" />
+    <Compile Include="__Core Engine\Draw\Quads\Spline.cs" />
+    <Compile Include="Objects\Blocks\Doodad.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\CastleBackground.cs" />
-    <Compile Include="IObjects\Objects\Fireball.cs" />
+    <Compile Include="Objects\In Game Objects\Fireball.cs" />
     <None Include="WindowsGame1_TemporaryKey.pfx" />
-    <Compile Include="IObjects\Blocks\Block.cs" />
-    <Compile Include="IObjects\Objects\BlockEmitter.cs" />
-    <Compile Include="IObjects\Bob\Bob.cs" />
-    <Compile Include="IObjects\Blocks\ButtonBlock.cs" />
-    <Compile Include="IObjects\Objects\Grab\Coin.cs" />
-    <Compile Include="Core\Draw\EzText.cs" />
-    <Compile Include="IObjects\Blocks\FallingBlock.cs" />
-    <Compile Include="IObjects\Objects\FireballEmitter.cs" />
-    <Compile Include="IObjects\Objects\FireSpinner.cs" />
-    <Compile Include="IObjects\Objects\Floater.cs" />
+    <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\In Game Objects\BlockEmitter.cs" />
+    <Compile Include="Objects\Bob\Bob.cs" />
+    <Compile Include="Objects\Blocks\ButtonBlock.cs" />
+    <Compile Include="Objects\In Game Objects\Grab\Coin.cs" />
+    <Compile Include="__Core Engine\Draw\EzText.cs" />
+    <Compile Include="Objects\Blocks\FallingBlock.cs" />
+    <Compile Include="Objects\In Game Objects\FireballEmitter.cs" />
+    <Compile Include="Objects\In Game Objects\FireSpinner.cs" />
+    <Compile Include="Objects\In Game Objects\Floater.cs" />
     <Compile Include="Games\GameType.cs" />
-    <Compile Include="IObjects\Blocks\GhostBlock.cs" />
-    <Compile Include="IObjects\Objects\Goomba.cs" />
-    <Compile Include="IObjects\Special\Hand.cs" />
-    <Compile Include="Physics\Phsx.cs" />
-    <Compile Include="Physics\AABox.cs" />
-    <Compile Include="Physics\Line.cs" />
-    <Compile Include="Physics\FloatRectangle.cs" />
+    <Compile Include="Objects\Blocks\GhostBlock.cs" />
+    <Compile Include="Objects\In Game Objects\Goomba.cs" />
+    <Compile Include="Objects\Special\Hand.cs" />
+    <Compile Include="Collision Detection\Phsx.cs" />
+    <Compile Include="Collision Detection\AABox.cs" />
+    <Compile Include="Collision Detection\Line.cs" />
+    <Compile Include="Collision Detection\FloatRectangle.cs" />
     <Compile Include="Tools\BSP.cs" />
     <Compile Include="Tools\InfoWad2.cs" />
     <Compile Include="Tools\Random.cs" />
@@ -627,54 +724,53 @@
     <Compile Include="Tools\EzReader.cs" />
     <Compile Include="Tools\Globals.cs" />
     <Compile Include="Tools\InfoWad.cs" />
-    <Compile Include="IObjects\IObject.cs" />
-    <Compile Include="IObjects\Objects\Laser.cs" />
+    <Compile Include="Objects\ObjectBase.cs" />
+    <Compile Include="Objects\In Game Objects\Laser.cs" />
     <Compile Include="Level\Level.cs" />
-    <Compile Include="IObjects\Triggers\LineTrigger.cs" />
-    <Compile Include="Start\Loading\LoadingScreen.cs" />
+    <Compile Include="Objects\Triggers\LineTrigger.cs" />
+    <Compile Include="Menus\Concrete Menus\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Menus\Menu.cs" />
-    <Compile Include="IObjects\Blocks\MovingPlatform.cs" />
-    <Compile Include="IObjects\Blocks\MovingBlock.cs" />
+    <Compile Include="Objects\Blocks\MovingPlatform.cs" />
+    <Compile Include="Objects\Blocks\MovingBlock.cs" />
     <Compile Include="Games\Games\NormalGame.cs" />
-    <Compile Include="Core\Draw\VertexFormat.cs" />
-    <Compile Include="IObjects\Blocks\SwitchBlock.cs" />
+    <Compile Include="__Core Engine\Draw\VertexFormat.cs" />
+    <Compile Include="Objects\Blocks\SwitchBlock.cs" />
     <Compile Include="Tilesets\Backgrounds\Backgrounds\OutsideBackground.cs" />
-    <Compile Include="Particle Effects\ParticleEffects.cs" />
+    <Compile Include="__Core Engine\Particle Effects\ParticleEffects.cs" />
     <Compile Include="Games\Games\PlaceGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Particle Effects\Particle.cs" />
+    <Compile Include="__Core Engine\Particle Effects\Particle.cs" />
     <Compile Include="Tools\Prototypes.cs" />
     <Compile Include="Tools\Recycler.cs" />
-    <Compile Include="Core\Draw\Object\Simple.cs" />
-    <Compile Include="IObjects\Objects\Spike.cs" />
-    <Compile Include="IObjects\Special\TextList.cs" />
-    <Compile Include="IObjects\Triggers\TimerTrigger.cs" />
-    <Compile Include="Core\Draw\EzTexture.cs" />
-    <Compile Include="IObjects\Door\Door.cs" />
-    <Compile Include="IObjects\Blocks\OutsideCastle.cs" />
+    <Compile Include="Objects\In Game Objects\Spike.cs" />
+    <Compile Include="Objects\Special\TextList.cs" />
+    <Compile Include="Objects\Triggers\TimerTrigger.cs" />
+    <Compile Include="__Core Engine\Draw\EzTexture.cs" />
+    <Compile Include="Objects\Door\Door.cs" />
+    <Compile Include="Objects\Blocks\OutsideCastle.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Tools\Unset.cs" />
     <Compile Include="Tools\WaitAndDo.cs" />
     <Compile Include="Tools\WrappedFloat.cs" />
-    <Compile Include="Games\WorldMap\StringWorlds\StringWorld.cs" />
-    <Compile Include="IObjects\Triggers\ZoneTrigger.cs" />
-    <Compile Include="Viewer\IViewable.cs" />
-    <Compile Include="Viewer\GameObjViewer.cs">
+    <Compile Include="Games\Meta Games\StringWorlds\StringWorld.cs" />
+    <Compile Include="Objects\Triggers\ZoneTrigger.cs" />
+    <Compile Include="__Editors\GUI Editor\IViewable.cs" />
+    <Compile Include="__Editors\GUI Editor\GameObjViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Viewer\GameObjViewer.Designer.cs">
+    <Compile Include="__Editors\GUI Editor\GameObjViewer.Designer.cs">
       <DependentUpon>GameObjViewer.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Big.ico" />
     <Content Include="Big128.png" />
-    <Content Include="Content\FallingBlock1.png" />
     <Content Include="Content\game icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="__Garbage\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
@@ -725,38 +821,36 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Backgrounds\BackgroundViewer.resx">
+    <EmbeddedResource Include="__Editors\Background Editor\BackgroundViewer.resx">
       <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\AnimationToolbox.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\AnimationToolbox.resx">
       <DependentUpon>AnimationToolbox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\BlockDialog.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\BlockDialog.resx">
       <DependentUpon>BlockDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ImportQuads.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\ImportQuads.resx">
       <DependentUpon>ImportQuads.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\SetNameDialog.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\SetNameDialog.resx">
       <DependentUpon>SetNameDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Toolbox.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\Toolbox.resx">
       <DependentUpon>Toolbox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\VerifySave.resx">
+    <EmbeddedResource Include="__Editors\Object Editor\VerifySave.resx">
       <DependentUpon>VerifySave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Viewer\GameObjViewer.resx">
+    <EmbeddedResource Include="__Editors\GUI Editor\GameObjViewer.resx">
       <DependentUpon>GameObjViewer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Buttons\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="Content\Content.contentproj">
       <Project>{CE0C1B81-ECEF-490F-933A-E4E696B5E486}</Project>

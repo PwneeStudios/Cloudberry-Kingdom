@@ -135,7 +135,7 @@ namespace CloudberryKingdom
             if (!StarsOnly)
             {
                 Tools.QDrawer.Flush();
-                MyCollection.Draw(CamMod);
+                MyCollection.Draw(CamMod, false);
                 Tools.QDrawer.Flush();
             }
 

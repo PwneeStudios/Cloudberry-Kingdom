@@ -1,20 +1,11 @@
 #include"RootEffect.fx"
 Texture xTexture;
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap;};
+//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap;};
+sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 texture SceneTexture;
 
-sampler SceneSampler : register(s0) = sampler_state
-{
-    Texture = (SceneTexture);
-    
-    MinFilter = Linear;
-    MagFilter = Linear;
-    
-    AddressU = Clamp;
-    AddressV = Clamp;
-};
-
+sampler SceneSampler : register(s0) = sampler_state { Texture = (SceneTexture); };
 
 PixelToFrame CirclePixelShader(VertexToPixel PSIn)
 {
@@ -22,7 +13,6 @@ PixelToFrame CirclePixelShader(VertexToPixel PSIn)
     
     float d = (PSIn.TexCoords.x - .5) * (PSIn.TexCoords.x - .5) + (PSIn.TexCoords.y - .5) * (PSIn.TexCoords.y - .5);
     
-//    PSIn.TexCoords += .07 * (PSIn.TexCoords - float2(.5,.5)) * 1. / (saturate(pow((.55 - d),2)) + .001);
     float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
     
     Output.Color = baseColor;

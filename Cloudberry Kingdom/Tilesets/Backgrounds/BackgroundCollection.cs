@@ -52,6 +52,12 @@ namespace CloudberryKingdom
                 list.SetLevel(level);
         }
 
+        public void SetBackground(Background b)
+        {
+            foreach (BackgroundFloaterList list in Lists)
+                list.SetBackground(b);
+        }
+
         public void Move(Vector2 shift)
         {
             foreach (BackgroundFloaterList list in Lists)
@@ -108,11 +114,12 @@ namespace CloudberryKingdom
             //Tools.EffectWad.SetCameraPosition(cameraPos);
         }
 
-        public void Draw() { Draw(1f); }
-        public void Draw(float CamMod)
+        public void Draw() { Draw(1f, false); }
+        public void Draw(float CamMod, bool Foreground)
         {
             foreach (BackgroundFloaterList list in Lists)
-                list.Draw(CamMod);
+                if (list.Foreground == Foreground)
+                    list.Draw(CamMod);
 
             FinishDraw();
         }

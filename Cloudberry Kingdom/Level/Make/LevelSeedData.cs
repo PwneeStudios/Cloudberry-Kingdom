@@ -27,6 +27,326 @@ namespace CloudberryKingdom
     public delegate void PostMakeAction(Level level);
     public partial class LevelSeedData
     {
+        public bool Saveable = true;
+
+        /// <summary>
+        /// Set default parameters for this LevelSeedData assuming we are about to read in parameters from a string.
+        /// </summary>
+        public void DefaultRead(string str)
+        {
+            int i = Math.Abs(str.GetHashCode());
+
+            // Save defaults
+            //Length = PieceLength = 3000;
+            //SetTileSet("castle");
+            //MyGeometry = LevelGeometry.Right;
+            //MyGameType = NormalGameData.Factory;
+            //LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
+            //DefaultHeroType = BobPhsxNormal.Instance;
+            //NumPieces = 1;
+
+            // Defaults from hash
+
+            // Length
+            Length = PieceLength = i % 5000 + 3000;
+
+            // Tileset
+            i /= 2;
+            var tilesets = TileSets.NameLookup.Keys.ToList();
+            var tileset = CustomLevel_GUI.FreeplayTilesets[(i + 23) % CustomLevel_GUI.FreeplayTilesets.Count];
+            if (tileset == TileSets.Random)
+                tileset = CustomLevel_GUI.FreeplayTilesets[(i + 2323) % CustomLevel_GUI.FreeplayTilesets.Count];
+            if (tileset == TileSets.Random)
+                tileset = CustomLevel_GUI.FreeplayTilesets[CustomLevel_GUI.FreeplayTilesets.Count - 1];
+            SetTileSet(tileset);
+
+            // Geometry, gametype
+            i /= 3; i *= 2;
+            MyGeometry = LevelGeometry.Right;
+            MyGameType = NormalGameData.Factory;
+            LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
+            
+            // Hero
+            DefaultHeroType = CustomLevel_GUI.FreeplayHeroes[(i + 555) % CustomLevel_GUI.FreeplayHeroes.Count];
+            
+            // Pieces
+            NumPieces = i % 2 + 1;
+
+            // Seed
+            Seed = i % 7777777;
+
+            PostMake = PostMake_StandardLoad;
+        }
+
+        /// <summary>
+        /// Read in parameters from a string.
+        /// </summary>
+        public void ReadString(string str)
+        {
+            DefaultRead(str);
+            UpgradeStrs.Clear();
+
+            str = Tools.RemoveComment(str);
+            var bits = str.Split(';');
+
+            for (int i = 0; i < bits.Length; i++)
+            {
+                int index = bits[i].IndexOf(":"); if (index <= 0) continue;
+                string identifier = bits[i].Substring(0, index);
+                string data = bits[i].Substring(index + 1);
+                string[] terms;
+
+                switch (identifier)
+                {
+                    // Seed [This must come first]
+                    case "s":
+                        try
+                        {
+                            Seed = int.Parse(data);
+                        }
+                        catch
+                        {
+                            Seed = data.GetHashCode();
+                        }
+                        break;
+
+                    // Game type
+                    case "g":
+                        try
+                        {
+                            MyGameType = GameData.FactoryDict[data];
+                        }
+                        catch
+                        {
+                            MyGameType = NormalGameData.Factory;
+                        }
+                        break;
+
+                    // Geometry
+                    case "geo":
+                        try
+                        {
+                            MyGeometry = (LevelGeometry)int.Parse(data);
+                        }
+                        catch
+                        {
+                            MyGeometry = LevelGeometry.Right;
+                        }
+                        break;
+
+                    // Hero [This must come before "ph:"]
+                    case "h":
+                        terms = data.Split(',');
+                        if (terms.Length == 4)
+                            DefaultHeroType = BobPhsx.MakeCustom(terms[0], terms[1], terms[2], terms[3]);
+                        else
+                            DefaultHeroType = BobPhsxNormal.Instance;
+                        break;
+
+                    // Custom physics [This must come after "h:"]
+                    case "ph":
+                        var custom = new BobPhsx.CustomPhsxData();
+                        custom.Init(data);
+                        DefaultHeroType.SetCustomPhsx(custom);
+                        break;
+
+                    // Tileset
+                    case "t":
+                        MyTileSet = null;
+                        if (data.Length > 0)
+                        {
+                            try
+                            {
+                                SetTileSet(data);
+                            }
+                            catch
+                            {
+                                MyTileSet = null;
+                            }
+                        }
+                        if (MyTileSet == null)
+                            SetTileSet("castle");
+
+                        break;
+
+                    // Number of pieces
+                    case "n":
+                        try
+                        {
+                            NumPieces = int.Parse(data);
+                            NumPieces = Tools.Restrict(1, 5, NumPieces);
+                        }
+                        catch
+                        {
+                            NumPieces = 1;
+                        }
+                        break;
+
+                    // Length
+                    case "l":
+                        try
+                        {
+                            Length = int.Parse(data);
+                            Length = Tools.Restrict(2000, 50000, Length);
+                            PieceLength = Length;
+                        }
+                        catch
+                        {
+                            PieceLength = Length = 5000;
+                        }
+                        break;
+
+                    // Upgrades
+                    case "u":
+                        UpgradeStrs.Add(data);
+                        break;
+
+                    default: break;
+                }
+            }
+
+            // Error catch.
+            if (DefaultHeroType is BobPhsxMeat) { MyGeometry = LevelGeometry.Up; NumPieces = 1; }
+            if (DefaultHeroType is BobPhsxRocketbox) { MyGeometry = LevelGeometry.Right; NumPieces = 1; }
+
+            // If no upgrade was provided, zero everything.
+            if (UpgradeStrs.Count == 0)
+            {
+                UpgradeStrs.Add("");
+            }
+            this.Initialize(ModPieceViaString);
+        }
+
+        
+
+        /// <summary>
+        /// While reading in parameters from a string, the portion of the string storing upgrade data is stored in this string.
+        /// </summary>
+        List<string> UpgradeStrs = new List<string>();
+
+        /// <summary>
+        /// Modify a PieceSeedData to conform to the upgrade data stored in UpgradeStr.
+        /// </summary>
+        void ModPieceViaString(PieceSeedData piece)
+        {
+            // Break the data up by commas
+            int index = Tools.Restrict(0, UpgradeStrs.Count - 1, piece.MyPieceIndex);
+            var terms = UpgradeStrs[index].Split(',');
+
+            // Try and load the data into the upgrade array.
+            try
+            {
+                for (int i = 0; i < terms.Length; i++)
+                    piece.MyUpgrades1.UpgradeLevels[i] = float.Parse(terms[i]);
+            }
+            catch
+            {
+                // If we fail, zero all the upgrades.
+                piece.MyUpgrades1.Zero();
+            }
+
+            /*
+            // Copy the left endpoint upgrades to the right endpoint, and then calculate Generation Data.
+            piece.MyUpgrades2.CopyFrom(piece.MyUpgrades1);
+            piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
+            piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
+
+            // Doors
+            piece.Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
+            piece.Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
+             * */
+            piece.StandardClose();
+        }
+
+        public string SuggestedName()
+        {
+            return DefaultHeroType.Name + "_" + Seed.ToString();
+        }
+
+        public override string ToString()
+        {
+            int _version = 0;
+            string version = _version.ToString() + ";";
+
+            // Seed
+            string seed = "s:" + Seed.ToString() + ";";
+
+            // Game
+            string game = "";
+            if (MyGameType != NormalGameData.Factory)
+            {
+                try
+                {
+                    game = "g:" + GameData.FactoryDict.Keys.Where(k => GameData.FactoryDict[k] == MyGameType).First();
+                    game += ";";
+                }
+                catch
+                {
+                    return "!This level can not be saved!";
+                }
+            }
+
+            // Geometry
+            string geometry = "";
+            if (MyGeometry != LevelGeometry.Right)
+                geometry = "geo:" + (int)MyGeometry + ";";
+
+            // Hero
+            string hero = "h:" + DefaultHeroType.Specification.ToString() + ";";
+
+            // Custom phsx
+            string customphsx = "";
+            if (DefaultHeroType.CustomPhsx) customphsx = DefaultHeroType.MyCustomPhsxData.ToString();
+
+            // Tileset
+            string tileset = "t:" + MyTileSet.Name + ";";
+
+            // Pieces
+            string pieces = "n:" + NumPieces + ";";
+
+            // Length
+            string length = "l:" + Length.ToString() + ";";
+
+            // Upgrades
+            //string upgrades = "u:";
+            //float[] upgrade_levels = PieceSeeds[0].MyUpgrades1.UpgradeLevels;
+            //for (int i = 0; i < upgrade_levels.Length; i++)
+            //{
+            //    upgrades += upgrade_levels[i].ToString();
+            //    if (i + 1 < upgrade_levels.Length) upgrades += ",";
+            //}
+            //upgrades += ";";
+            string upgrades = "";
+            foreach (PieceSeedData p in PieceSeeds)
+            {
+                if (p.Ladder != Level.LadderType.None) continue;
+
+                upgrades += "u:";
+            
+                float[] upgrade_levels = p.MyUpgrades1.UpgradeLevels;
+                for (int i = 0; i < upgrade_levels.Length; i++)
+                {
+                    upgrades += upgrade_levels[i].ToString();
+                    if (i + 1 < upgrade_levels.Length) upgrades += ",";
+                }
+                upgrades += ";";
+            }
+
+            // Build final string
+            string str = version + seed + game + geometry + hero + tileset + pieces + length + upgrades;
+
+            return str;
+        }
+
+        public static string GetNameFromSeedStr(string seed)
+        {
+            int index_name = seed.IndexOf("name:") + 5;
+            int index_name_end = seed.IndexOf(";", index_name);
+            string name = seed.Substring(index_name, index_name_end - index_name);
+
+            return name;
+        }
+
         /// <summary>
         /// Called when the loading screen is created, just before the level creation algorithm starts.
         /// </summary>
@@ -128,11 +448,11 @@ namespace CloudberryKingdom
         /// <summary>
         /// Adds the default GameObjects to a level.
         /// </summary>
-        public static void AddGameObjects_Default(Level level, bool global)
+        public static void AddGameObjects_Default(Level level, bool global, bool ShowMultiplier)
         {
             level.MyGame.AddGameObject(new HintGiver(),
                                        HelpMenu.MakeListener(),
-                                       new PerfectScoreObject(global));
+                                       new PerfectScoreObject(global, ShowMultiplier));
 
             if (Campaign.IsPlaying)
                 level.MyGame.AddGameObject(InGameStartMenu_CampaignLevel.MakeListener());
@@ -146,7 +466,7 @@ namespace CloudberryKingdom
         public static void AddGameObjects_BareBones(Level level, bool global)
         {
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener(),
-                                       new PerfectScoreObject(global));
+                                       new PerfectScoreObject(global, true));
         }
 
         /// <summary>
@@ -160,9 +480,27 @@ namespace CloudberryKingdom
             Tools.SongWad.Start(true);
         }
 
-        public static void PostMake_Standard(Level level, bool StartMusic)
+        /// <summary>
+        /// Prevent the user from being able to load different levels from the menu within this level.
+        /// </summary>
+        /// <param name="level"></param>
+        public void PostMake_EnableLoad(Level level)
         {
-            AddGameObjects_Default(level, false);
+            level.CanLoadLevels = true;
+        }
+
+        public void PostMake_StandardLoad(Level level)
+        {
+            LevelSeedData.PostMake_Standard(level, true, false);
+            level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
+
+            if (MyTileSet == TileSets.Dark)
+                Campaign.UseBobLighting_NotCampaign(level);
+        }
+
+        public static void PostMake_Standard(Level level, bool StartMusic, bool ShowMultiplier)
+        {
+            AddGameObjects_Default(level, false, ShowMultiplier);
 
             if (StartMusic)
                 level.MyGame.WaitThenDo(8, BOL_StartMusic);
@@ -175,7 +513,7 @@ namespace CloudberryKingdom
 
         public static void PostMake_StringWorldStandard(Level level)
         {
-            AddGameObjects_Default(level, false);
+            AddGameObjects_Default(level, false, true);
 
             level.MyGame.WaitThenDo(8, () =>
             {
@@ -345,10 +683,19 @@ namespace CloudberryKingdom
         /// </summary>
         void Sanitize()
         {
+            int TestNumber;
+            
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Pre-sanitize: {0}", TestNumber));
+
             // Convert random tileset to an actual randomly chosen tileset
+            // use global RND.
             if (MyTileSet == TileSets.Random)
             {
-                MyTileSet = new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }.Choose(Rnd);
+                MyTileSet = CustomLevel_GUI.FreeplayTilesets[Tools.GlobalRnd.RndInt(1, CustomLevel_GUI.FreeplayTilesets.Count - 1)];
+                //MyTileSet = CustomLevel_GUI.FreeplayTilesets.Choose(Rnd);
+                //MyTileSet = new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }.Choose(Rnd);
+
                 SetTileSet(MyTileSet);
             }
 
@@ -373,6 +720,9 @@ namespace CloudberryKingdom
                 if (!PlaceGameData.AllowedHeros.Contains(DefaultHeroType))
                     DefaultHeroType = BobPhsxNormal.Instance;
             }
+
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Post-sanitize: {0}", TestNumber));
         }
 
         public void StandardInit(Action<PieceSeedData, Upgrades> CustomDiff)
@@ -490,6 +840,7 @@ namespace CloudberryKingdom
                     Piece.Start = Pos;
                     Piece.Ladder = RndDifficulty.ChooseLadder(Difficulty);
                     Pos += Level.GetLadderSize(Piece.Ladder);
+                    DefaultHeroType.ModLadderPiece(Piece);
                     PieceSeeds.Add(Piece);
                 }
             }          

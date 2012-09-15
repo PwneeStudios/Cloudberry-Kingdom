@@ -43,10 +43,10 @@ namespace CloudberryKingdom
             Cam.MyZone.CameraType = Camera.PhsxType.SideLevel_Up_Relaxed;
             Cam.MyZone.End.Y += 6000;
 
-            
 
-            //MakeBackground(BackgroundType.Outside);
-            MakeBackground(BackgroundType.Rain);
+
+            MakeBackground(BackgroundType.Outside);
+            //MakeBackground(BackgroundType.Rain);
             //MyLevel.UseLighting = true;
             //MyLevel.StickmanLighting = true;
             
@@ -109,8 +109,8 @@ namespace CloudberryKingdom
             //var d = Campaign.HeroLevel(Campaign.Difficulty + .2f, BobPhsxBox.Instance, 3000, 1, LevelGeometry.Down);
             d.MyGeometry = LevelGeometry.Down;
             d.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
-            //d.SetTileSet(TileSets.Terrace);
-            d.SetTileSet(TileSets.Rain);
+            d.SetTileSet(TileSets.Terrace);
+            //d.SetTileSet(TileSets.Rain);
 
             return d;
         }
@@ -163,7 +163,7 @@ namespace CloudberryKingdom
             Icons[6].SetIcon(BobPhsxBouncy.Instance);
 
             // Boss
-            Doors[201].MyObject.Base.SetScale(new Vector2(608, 600) * 1.56f);
+            //Doors[201].MyObject.Base.SetScale(new Vector2(608, 600) * 1.56f);
             Icons[201].MyPile.Scale(1.4f);
             MakeDoorAction(Doors[201], () => Load(new Campaign_Boss(true)));
             //AddDependence(201, 5, 6);

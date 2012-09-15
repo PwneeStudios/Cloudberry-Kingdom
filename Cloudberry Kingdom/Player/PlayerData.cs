@@ -37,6 +37,8 @@ namespace CloudberryKingdom
 #endif
         public static int version = 1;
 
+        public SavedSeeds MySavedSeeds = new SavedSeeds();
+
         public void Write(BinaryWriter writer)
         {
             // Version
@@ -58,12 +60,13 @@ namespace CloudberryKingdom
 
             // Stats
             LifetimeStats.Write(writer);
+
+            // Save seed
+            MySavedSeeds.Write(writer);
         }
 
         public void Read(BinaryReader reader)
         {
-            //return;
-
             // Version
             int LoadedVersion = reader.ReadInt32();
 
@@ -87,6 +90,16 @@ namespace CloudberryKingdom
 
             // Stats
             LifetimeStats.Read(reader);
+
+            // Saved Seeds
+            try
+            {
+                MySavedSeeds.Read(reader);
+            }
+            catch
+            {
+                MySavedSeeds = new SavedSeeds();
+            }
         }
 
         public int Bank()
@@ -111,6 +124,8 @@ namespace CloudberryKingdom
         public ColorScheme ColorScheme;
         public ColorScheme CustomColorScheme;
         public int ColorSchemeIndex = Unset.Int;
+
+
 
         public PlayerStats LifetimeStats, GameStats, LevelStats, TempStats;
 

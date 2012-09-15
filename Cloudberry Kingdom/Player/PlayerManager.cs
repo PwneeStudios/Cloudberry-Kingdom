@@ -49,12 +49,12 @@ namespace CloudberryKingdom
              */
 
             // Locks
-            writer.Write(Challenge_HeroRush.Instance.GetGoalMet());
-            writer.Write(Challenge_HeroRush2.Instance.GetGoalMet());
-            writer.Write(Challenge_Escalation.Instance.GetGoalMet());
-            writer.Write(Challenge_Wheelie.Instance.GetGoalMet());
-            writer.Write(Challenge_UpUp.Instance.GetGoalMet());
-            writer.Write(Challenge_Construct.Instance.GetGoalMet());
+            writer.Write(Challenge_HeroRush.Instance.IsGoalMet());
+            writer.Write(Challenge_HeroRush2.Instance.IsGoalMet());
+            writer.Write(Challenge_Escalation.Instance.IsGoalMet());
+            writer.Write(Challenge_Wheelie.Instance.IsGoalMet());
+            writer.Write(Challenge_UpUp.Instance.IsGoalMet());
+            writer.Write(Challenge_Construct.Instance.IsGoalMet());
 
 
             /*
@@ -102,12 +102,12 @@ namespace CloudberryKingdom
              */
 
             // Locks
-            Challenge_HeroRush.Instance.SetGoalMet(reader.ReadBoolean());
-            Challenge_HeroRush2.Instance.SetGoalMet(reader.ReadBoolean());
-            Challenge_Escalation.Instance.SetGoalMet(reader.ReadBoolean());
-            Challenge_Wheelie.Instance.SetGoalMet(reader.ReadBoolean());
-            Challenge_UpUp.Instance.SetGoalMet(reader.ReadBoolean());
-            Challenge_Construct.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_HeroRush.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_HeroRush2.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_Escalation.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_Wheelie.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_UpUp.Instance.SetGoalMet(reader.ReadBoolean());
+            reader.ReadBoolean();//Challenge_Construct.Instance.SetGoalMet(reader.ReadBoolean());
 
             /*
             // Resolution information
@@ -214,6 +214,7 @@ namespace CloudberryKingdom
             writer.WriteLine("MusicVolume " + Tools.MusicVolume.Val.ToString());
             writer.WriteLine("SoundVolume " + Tools.SoundVolume.Val.ToString());
             writer.WriteLine("FixedTimeStep " + Tools.FixedTimeStep.ToString());
+            writer.WriteLine("FixedTimeStep_HasBeenSet " + Tools.FixedTimeStep_HasBeenSet.ToString());
         }
 
         static RezData d;
@@ -299,6 +300,20 @@ namespace CloudberryKingdom
 
                 bits = Tools.GetBitsFromReader(reader);
                 Tools.FixedTimeStep = bool.Parse(bits[1]);
+
+                // Check whether fixedtimestep has been set by the player.
+                // If it hasn't, set it to false.
+                try
+                {
+                    bits = Tools.GetBitsFromReader(reader);
+                    Tools.FixedTimeStep_HasBeenSet = bool.Parse(bits[1]);
+                }
+                catch
+                {
+                    Tools.FixedTimeStep_HasBeenSet = false;
+                }
+                if (!Tools.FixedTimeStep_HasBeenSet)
+                    Tools.FixedTimeStep = false;
             }
             catch
             {
@@ -360,7 +375,7 @@ namespace CloudberryKingdom
 
         // Random names
         public static string[] RandomNames = { "Honky Tonk", "Bosco", "Nuh Guck", "Short-shorts", "Itsy-bitsy", "Low Ball", "Cowboy Stu", "Capsaicin", "Hoity-toity", "Ram Bam", "King Kong", "Upsilon", "Omega", "Peristaltic Pump", "Jeebers", "Sugar Cane", "See-Saw", "Ink Blot", "Glottal Stop", "Olive Oil", "Cod Fish", "Flax", "Tahini", "Cotton Ball", "Sweet Justice", "Ham Sandwich", "Liverwurst", "Cumulus", "Oyster", "Klein", "Hippopotamus", "Bonobo", "Homo Erectus", "Australopithecine", "Quetzalcoatl", "Balogna", "Ceraunoscopy", "Shirley", "Susie", "Sally", "Sue", "Tyrannosaur", "Stick Man Chu", "Paragon", "Woodchuck", "Laissez Faire", "Ipso Facto", "Leviticus", "Berrylicious", "Elderberry", "Currant", "Blackberry", "Blueberry", "Strawberry", "Gooseberry", "Honeysuckle", "Nannyberry", "Hackberry", "Boysenberry", "Cloudberry", "Thimbleberry", "Huckleberry", "Bilberry", "Bearberry", "Mulberry", "Wolfberry", "Raisin", "Samson" };
-        //"{s15,15}!{s15,15}", "{pHeart,60,?}", "{pStar,85,?}", "{pTree_large,55,?}", "{pController_X_big,40,?}" };
+        //"{s15,15}!{s15,15}", "{pHeart,60,?}", "{pStar,85,?}", "{pTree_large,55,?}", "{pXbox_X,40,?}" };
 
         public static int FirstPlayer = 0;
         public static bool HaveFirstPlayer;
@@ -628,7 +643,7 @@ namespace CloudberryKingdom
         public static PlayerData Get(PlayerIndex Index) { return Players[(int)Index]; }
         public static PlayerData Get(Bob bob) { return Players[(int)bob.MyPlayerIndex]; }
 
-        public static int Score_Blobs, Score_Coins, Score_Attempts;
+        public static int Score_Blobs, Score_Coins, Score_Attempts, Score_Time;
         public static void CalcScore(StatGroup group)
         {
             if (group == StatGroup.Level)
@@ -639,7 +654,7 @@ namespace CloudberryKingdom
                 AbsorbLevelStats();
             }
 
-            Score_Attempts = Score_Blobs = Score_Coins = 0;
+            Score_Attempts = Score_Blobs = Score_Coins = Score_Time = 0;
 
             for (int i = 0; i < 4; i++)
                 if (PlayerManager.Get(i).Exists)
@@ -649,6 +664,7 @@ namespace CloudberryKingdom
                     Score_Coins += stats.Coins;
                     Score_Blobs += stats.Blobs;
                     Score_Attempts += stats.DeathsBy[(int)Bob.BobDeathType.Total];
+                    Score_Time = Math.Max(Score_Time, stats.TimeAlive);
                 }
             if (group == StatGroup.Campaign)
                 Score_Attempts = Campaign.Attempts;

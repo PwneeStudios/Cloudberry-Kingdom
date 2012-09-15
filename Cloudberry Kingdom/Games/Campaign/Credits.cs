@@ -29,12 +29,12 @@ namespace CloudberryKingdom
             MyPile.Add(Backdrop);
 
             // Centered text
-            EzText MyText = new EzText("For the real ending,\nbeat the campaign on", Tools.Font_DylanThin42, 1500, true, true, .65f);
+            EzText MyText = new EzText("For the real ending,\nbeat the campaign on", Tools.Font_Grobold42, 1500, true, true, .65f);
             CampaignMenu.HappyBlueColor(MyText);
             MyText.Pos += new Vector2(0, 150);
             MyPile.Add(MyText);
 
-            EzText HText = new EzText("HARDCORE", Tools.Font_DylanThin42, 1500, true, true);
+            EzText HText = new EzText("HARDCORE", Tools.Font_Grobold42, 1500, true, true);
             HText.Pos += new Vector2(0, -350);
             CampaignMenu.HardcoreColor(HText);
             MyPile.Add(HText);
@@ -118,14 +118,14 @@ namespace CloudberryKingdom
             Berry = new QuadClass("cb_naked"); MyPile.Add(Berry); Berry.Pos = new Vector2(-515.2776f, -215.278f);
             Berry = new QuadClass("cb_naked"); MyPile.Add(Berry); Berry.Pos = new Vector2(588.8889f, -263.8891f);
 
-            EzText Text = new EzText("Berries freed:", Tools.Font_DylanThin42, true, true);
+            EzText Text = new EzText("Berries freed:", Tools.Font_Grobold42, true, true);
             CampaignMenu.EasyColor(Text);
             MyPile.Add(Text);
             Text.Pos = new Vector2(-209.7227f, 351.3889f);
 
             // Berry score
             int Berries = PlayerManager.PlayerSum(p => p.GetStats(StatGroup.Level).Berries);
-            Text = new EzText(Berries.ToString(), Tools.Font_DylanThin42, true, true);
+            Text = new EzText(Berries.ToString(), Tools.Font_Grobold42, true, true);
             MyPile.Add(Text);
             Text.Pos = new Vector2(868.0557f, 333.3334f);
 

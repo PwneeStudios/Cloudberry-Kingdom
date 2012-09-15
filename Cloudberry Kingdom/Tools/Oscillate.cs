@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             switch (MyType)
             {
                 case Type.Jiggle:
-                    TargetJiggleScale = scale;
+                    TargetJiggleScale = scale = base_value;
                     Count = 0; break;
 
                 default:

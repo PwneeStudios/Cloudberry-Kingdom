@@ -3,10 +3,12 @@
 float4 EdgeColor, LavaColor;
 
 Texture xTexture;
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap; };
+//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap; };
+sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 Texture xHeight;
-sampler DisplacementSampler = sampler_state { texture = <xHeight> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap; };
+//sampler DisplacementSampler = sampler_state { texture = <xHeight> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap; };
+sampler DisplacementSampler = sampler_state { texture = <xHeight>; };
 
 PixelToFrame LavaPixelShader(VertexToPixel PSIn)
 {

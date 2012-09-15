@@ -1,9 +1,8 @@
-#define PIXEL_SHADER ps_3_0
-#define VERTEX_SHADER vs_3_0
+//#define PIXEL_SHADER ps_3_0
+//#define VERTEX_SHADER vs_3_0
 
-//#define PIXEL_SHADER ps_2_0
-//#define VERTEX_SHADER vs_1_1
-
+#define PIXEL_SHADER ps_2_0
+#define VERTEX_SHADER vs_1_1
 
 float4 xCameraPos;
 float xCameraAngle;
@@ -16,12 +15,17 @@ float Illumination;
 
 float SuckTime;
 
+float4x4 ColorMatrix;
+
+Texture ExtraTexture1;
+Texture ExtraTexture2;
+
 struct VertexToPixel
 {
     float4 Position     : POSITION0;    
     float4 Color		: COLOR0;
     float2 TexCoords    : TEXCOORD0;
-    //float2 Position2D   : TEXCOORD2;
+    float2 Position2D   : TEXCOORD2;
 };
 
 struct PixelToFrame
@@ -41,6 +45,8 @@ VertexToPixel SimplestVertexShader( float2 inPos : POSITION0, float2 inTexCoords
 
     Output.Position.x = (inPos.x - xCameraPos.x) / xCameraAspect * xCameraPos.z;
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
+
+	Output.Position2D = Output.Position.xy;
 
     Output.TexCoords = inTexCoords;
     Output.Color = inColor;
@@ -153,7 +159,6 @@ VertexToPixel PivotVertexShader( float2 inPos : POSITION0, float2 inTexCoords : 
     Output.Position.y = (inPos.y - xCameraPos.y) * xCameraPos.w;
     
     Output.TexCoords = inTexCoords;
-    //Output.Position2D = inPos.xy;
     Output.Color = inColor;
     
     return Output;

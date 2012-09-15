@@ -408,6 +408,7 @@ namespace CloudberryKingdom
 
 
         public static void Nothing() { }
+        public static void Warning() { }
 
         public static bool AllUnique<T>(List<T> list, Func<T, int> transform)
         {
@@ -598,6 +599,23 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             //return string.Format("{0:0}h:{1:00}m:{2:00}.{3:00}", h, m, s, mi);
             return string.Format("{0:0}:{1:00}:{2:00}.{3:00}", h, m, s, mi);
+        }
+
+        public static string ShortTime(int frames)
+        {
+            int h = Hours(frames);
+            int m = Minutes(frames);
+            int s = Seconds(frames);
+            int mi = Milliseconds(frames);
+
+            if (h > 0)
+                return string.Format("{0:0}:{1:00}:{2:00}.{3:00}", h, m, s, mi);
+            else if (m > 0)
+                return string.Format("{1:0}:{2:00}", h, m, s, mi);
+            else if (s > 10)
+                return string.Format("{2:0}.{3:0}", h, m, s, mi / 10);
+            else
+                return string.Format("{2:0}.{3:00}", h, m, s, mi);
         }
 
         public static int Hours(int frames)
@@ -858,6 +876,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static SimpleObject LoadSimpleObject(string file)
         {
             ObjectClass SourceObject;
+            Tools.UseInvariantCulture();
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
             SourceObject = new ObjectClass(Tools.QDrawer, Tools.Device, Tools.Device.PresentationParameters, 100, 100, EffectWad.FindByName("BasicEffect"), TextureWad.FindByName("White"));
@@ -909,7 +928,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static float CurSongVolume;
         public static WrappedFloat SoundVolume, MusicVolume;
-        public static bool FixedTimeStep = true;
+        public static bool FixedTimeStep = false;
+        public static bool FixedTimeStep_HasBeenSet = false;
 
 #if INCLUDE_EDITOR && WINDOWS
         public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(TheGame.Window.Handle); } }
@@ -943,11 +963,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static bool UsingSpriteBatch;
         public static SpriteBatch spriteBatch;
-        public static EzFont LilFont, ScoreTextFont;
-        public static EzFont MonoFont;
-        public static EzFont Font_Dylan60, Font_Dylan42, Font_Dylan20, Font_Dylan15, Font_Dylan24, Font_Dylan28;
-        public static EzFont Font_DylanThick20, Font_DylanThick24, Font_DylanThick28;
-        public static EzFont Font_DylanThin42;
+
+        public static EzFont Font_Grobold42, Font_Grobold42_2;
+        public static EzFont LilFont;
 
         public static int[] VibrateTimes = { 0, 0, 0, 0 };
 
@@ -1067,6 +1085,32 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) ||
                 Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl);
         }
+
+        public static string RemoveAfter(string s, string occurence)
+        {
+            if (s.Contains(occurence)) s = s.Remove(s.IndexOf(occurence));
+            return s;
+        }
+        public static string SantitizeOneLineString(string s, EzFont font)
+        {
+            s = RemoveAfter(s, "\n");
+            s = RemoveAfter(s, "\t");
+
+            s = s.Replace("{", " ");
+            s = s.Replace("}", " ");
+
+            try
+            {
+                font.Font.MeasureString(s);
+            }
+            catch
+            {
+                s = "Invalid";
+            }
+
+            return s;
+        }
+
 #else
 
 #endif
@@ -1084,6 +1128,22 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 return file.Substring(LastSlash + 1);
         }
 
+        /// <summary>
+        /// Return just the first folder of the path.
+        /// </summary>
+        public static string FirstFolder(string path, string ignore)
+        {
+            int i = path.IndexOf(ignore);
+            if (i >= 0)
+                path = path.Substring(i + ignore.Length);
+
+            int FirstSlash = path.IndexOf("\\");
+            if (FirstSlash < 0)
+                return path;
+            else
+                return path.Substring(0, FirstSlash);
+        }
+
         public static EzTexture Texture(string name) { return TextureWad.FindByName(name); }
         public static EzSound Sound(string name) { return SoundWad.FindByName(name); }
         public static void Pop() { Pop(2); }
@@ -1093,7 +1153,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         //public static Random Rnd;
         public static Rand GlobalRnd = new Rand(0);
         public static EzEffectWad EffectWad;
-        public static EzEffect BasicEffect, NoTexture, CircleEffect, RainEffect, LightSourceEffect;
+        public static EzEffect BasicEffect, NoTexture, CircleEffect, LightSourceEffect, HslEffect, HslGreenEffect, WindowEffect;
         public static Effect PaintEffect_SpriteBatch;
         public static EzTextureWad TextureWad;
         public static ContentManager SoundContentManager;
@@ -1119,7 +1179,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static int PhsxSpeed { get { return _PhsxSpeed; } set { _PhsxSpeed = value; } }
 
         public static bool ShowLoadingScreen;
-        public static LoadingScreen CurrentLoadingScreen;
+        public static ILoadingScreen CurrentLoadingScreen;
 
         public static void LoadBasicArt(ContentManager Content)
         {
@@ -1237,14 +1297,19 @@ public static Thread EasyThread(int affinity, string name, Action action)
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Paint"), "Paint");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Lava"), "Lava");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\LightMap"), "LightMap");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Rain"), "Rain");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\LightSource"), "LightSource");
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\BwEffect"), "BW");
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl_Green"), "Hsl_Green");
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl"), "Hsl");
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Window"), "Window");
 
             BasicEffect = EffectWad.EffectList[0];
             NoTexture = EffectWad.EffectList[1];
             CircleEffect = EffectWad.EffectList[2];
-            RainEffect = EffectWad.FindByName("Rain");
             LightSourceEffect = EffectWad.FindByName("LightSource");
+            HslEffect = EffectWad.FindByName("Hsl");
+            HslGreenEffect = EffectWad.FindByName("Hsl_Green");
+            WindowEffect = EffectWad.FindByName("Window");
 
             PaintEffect_SpriteBatch = Content.Load<Effect>("Effects\\Paint_SpriteBatch");
         }
@@ -1283,7 +1348,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             Tools.ShowLoadingScreen = true;
             //if (CurrentLoadingScreen == null)
-            CurrentLoadingScreen = new LoadingScreen();
+            
+            //CurrentLoadingScreen = new LoadingScreen();
+            CurrentLoadingScreen = new LoadingScreen2();
+
             CurrentLoadingScreen.Start();
         }
 
@@ -1296,12 +1364,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
             Tools.ShowLoadingScreen = true;
             CurrentLoadingScreen = new LoadingScreen();
             CurrentLoadingScreen.Start();
-            CurrentLoadingScreen.Fake = true;
+            CurrentLoadingScreen.MakeFake();
         }
 
         public static void PlayHappyMusic()
         {
-            Tools.SongWad.SetPlayList(Tools.Song_Happy);
+            //Tools.SongWad.SetPlayList(Tools.Song_Happy);
+            Tools.SongWad.SuppressNextInfoDisplay = true;
+            Tools.SongWad.SetPlayList(Tools.Song_Heavens);
             Tools.SongWad.Start(true);
         }
         
@@ -1322,7 +1392,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             line = Tools.RemoveComment(line);
 
-            var bits = line.Split(' ').ToList();
+            var bits = line.Split(' ', '\t').ToList();
             bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
 
             return bits;
@@ -1346,9 +1416,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     var first = bits[0];
 
                     bool WasReadable = false;
-                    try
+                    var info = obj.GetType().GetField(first);
+                    //try
+                    if (info != null)
                     {
-                        var info = obj.GetType().GetField(first);
+                        info = obj.GetType().GetField(first);
                         if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
                         {
                             WasReadable = true;
@@ -1373,7 +1445,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
                             }
                         }
                     }
-                    catch
+                    //catch
+                    else
                     {
                         WasReadable = false;
                     }
@@ -1413,9 +1486,20 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 switch (bits[0])
                 {
                     case "Add":
-                        var constructor = itemType.GetConstructor(Type.EmptyTypes);
+                        ConstructorInfo constructor;
+                        if (bits.Count > 1)
+                        {
+                            //var type = Type.GetType("CloudberryKingdom." + bits[1]);
+                            var type = Type.GetType(bits[1]);
+                            constructor = type.GetConstructor(Type.EmptyTypes);
+                        }
+                        else
+                            constructor = itemType.GetConstructor(Type.EmptyTypes);
+
                         var newobj = constructor.Invoke(Type.EmptyTypes);
-                        ReadFields(newobj, reader);
+                        //ReadFields(newobj, reader);
+                        if (newobj is IReadWrite) ((IReadWrite)newobj).Read(reader);
+                        else ReadFields(newobj, reader);
                         list.Add(newobj);
 
                         break;
@@ -1456,18 +1540,47 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         var v = (Vector2)(info.GetValue(obj));
                         line = string.Format("{0} {1}", v.X, v.Y);
                     }
+                    // Vector3
+                    else if (info.FieldType == typeof(Vector3))
+                    {
+                        var v = (Vector3)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2}", v.X, v.Y, v.Z);
+                    }
+                    // Vector4
+                    else if (info.FieldType == typeof(Vector4))
+                    {
+                        var v = (Vector4)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2} {3}", v.X, v.Y, v.Z, v.W);
+                    }
                     // Color
                     else if (info.FieldType == typeof(Color))
                     {
                         var c = (Color)(info.GetValue(obj));
                         line = string.Format("{0} {1} {2} {3}", c.R, c.G, c.B, c.A);
                     }
+                    // bool
+                    else if (info.FieldType == typeof(bool))
+                    {
+                        var b = (bool)(info.GetValue(obj));
+                        line = string.Format("{0}", b);
+                    }
                     // string
                     else if (info.FieldType == typeof(string))
                         line = ((string)info.GetValue(obj)).ToString();
                     // EzTexture
                     else if (info.FieldType == typeof(EzTexture))
-                        line = ((EzTexture)info.GetValue(obj)).Name.ToString();
+                    {
+                        EzTexture texture = (EzTexture)info.GetValue(obj);
+                        if (texture == null) continue;
+                        else line = texture.Name.ToString();
+                    }
+                    // EzEffect
+                    else if (info.FieldType == typeof(EzEffect))
+                    {
+                        EzEffect effect = (EzEffect)info.GetValue(obj);
+                        if (effect == null) continue;
+                        else line = effect.Name.ToString();
+                    }
                     // PhsxData
                     else if (info.FieldType == typeof(PhsxData))
                     {
@@ -1479,6 +1592,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     {
                         var b = (BasePoint)(info.GetValue(obj));
                         line = string.Format("{0} {1} {2} {3} {4} {5}", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+                    }
+                    // MyOwnVertexFormat
+                    else if (info.FieldType == typeof(MyOwnVertexFormat))
+                    {
+                        var v = (MyOwnVertexFormat)(info.GetValue(obj));
+                        line = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}", v.xy.X, v.xy.Y, v.uv.X, v.uv.Y, v.Color.R, v.Color.G, v.Color.B, v.Color.A);
                     }
                     else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
                     {
@@ -1502,7 +1621,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                                 writer.WriteLine(WhiteSpace + "StartList");
                                 foreach (var rw in (IEnumerable<IReadWrite>)info.GetValue(obj))
                                 {
-                                    writer.WriteLine(WhiteSpace + "Add");
+                                    writer.WriteLine(WhiteSpace + "Add " + rw.GetType().Namespace + "." + rw.GetType().Name);
                                     rw.Write(writer);
                                     writer.WriteLine(WhiteSpace + "End");
                                 }
@@ -1526,19 +1645,25 @@ public static Thread EasyThread(int affinity, string name, Action action)
             WriteObjId = 0;
         }
 
-        public static void WriteCode(IReadWrite rw)
+        public static void WriteCode(string root, IReadWrite rw)
         {
             ResetWrite();
 
-            var stream = File.Open("code_dump.code", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+            var stream = File.Open("code_dump.code", FileMode.Create, FileAccess.Write, FileShare.None);
             var writer = new StreamWriter(stream);
 
-            rw.WriteCode("", writer);
+            rw.WriteCode(root, writer);
 
             writer.Close();
             stream.Close();
         }
-        
+
+        public static string ToCode(Vector2 v)
+        {
+            return string.Format("new Vector2({0}f, {1}f)", v.X, v.Y);
+        }
+
+        static bool LastLineWasBlank = false;
         public static void WriteFieldsToCode(object obj, string prefix, StreamWriter writer, params string[] VariableNames)
         {
             string _prefix = prefix;
@@ -1561,12 +1686,27 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         line = ((int)info.GetValue(obj)).ToString();
                     // float
                     else if (info.FieldType == typeof(float))
-                        line = ((float)info.GetValue(obj)).ToString();
+                    {
+                        var v = (float)(info.GetValue(obj));
+                        line = string.Format("{0}f", v);
+                    }
                     // Vector2
                     else if (info.FieldType == typeof(Vector2))
                     {
                         var v = (Vector2)(info.GetValue(obj));
                         line = string.Format("new Vector2({0}f, {1}f)", v.X, v.Y);
+                    }
+                    // Vector3
+                    else if (info.FieldType == typeof(Vector3))
+                    {
+                        var v = (Vector3)(info.GetValue(obj));
+                        line = string.Format("new Vector3({0}f, {1}f, {2}f)", v.X, v.Y, v.Z);
+                    }
+                    // Vector4
+                    else if (info.FieldType == typeof(Vector4))
+                    {
+                        var v = (Vector4)(info.GetValue(obj));
+                        line = string.Format("new Vector4({0}f, {1}f, {2}f, {3}f)", v.X, v.Y, v.Z, v.W);
                     }
                     // Color
                     else if (info.FieldType == typeof(Color))
@@ -1574,17 +1714,50 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         var c = (Color)(info.GetValue(obj));
                         line = string.Format("new Color({0}, {1}, {2}, {3})", c.R, c.G, c.B, c.A);
                     }
+                    // bool
+                    else if (info.FieldType == typeof(bool))
+                    {
+                        var b = (bool)(info.GetValue(obj));
+                        line = b ? "true" : "false";
+                    }
                     // string
                     else if (info.FieldType == typeof(string))
                         line = string.Format("\"{0}\"", ((string)info.GetValue(obj)));
                     // EzTexture
                     else if (info.FieldType == typeof(EzTexture))
-                        line = string.Format("Tools.Texture(\"{0}\")", ((EzTexture)info.GetValue(obj)).Name);
+                    {
+                        var texture = (EzTexture)info.GetValue(obj);
+                        if (null == texture)
+                            line = "null";
+                        else
+                            line = string.Format("Tools.Texture(\"{0}\")", texture.Name);
+                    }
+                    // EzEffect
+                    else if (info.FieldType == typeof(EzEffect))
+                    {
+                        EzEffect effect = (EzEffect)info.GetValue(obj);
+                        if (effect == null) continue;
+                        else
+                        {
+                            switch (effect.Name)
+                            {
+                                case "Basic": line = "Tools.BasicEffect"; break;
+                                case "Window": line = "Tools.WindowEffect"; break;
+                                default: line = string.Format("Tools.Effect(\"{0}\")", effect.Name.ToString()); break;
+                            }
+                        }
+                    }
                     // PhsxData
                     else if (info.FieldType == typeof(PhsxData))
                     {
                         var d = (PhsxData)(info.GetValue(obj));
                         line = string.Format("new PhsxData({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", d.Position.X, d.Position.Y, d.Velocity.X, d.Velocity.Y, d.Acceleration.X, d.Acceleration.Y);
+                    }
+                    // MyOwnVertexFormat
+                    else if (info.FieldType == typeof(MyOwnVertexFormat))
+                    {
+                        var v = (MyOwnVertexFormat)(info.GetValue(obj));
+                        line = string.Format("new MyOwnVertexFormat(new Vector2({0}f, {1}f), new Vector2({2}f, {3}f), new Color({4}, {5}, {6}, {7}))", v.xy.X, v.xy.Y, v.uv.X, v.uv.Y, v.Color.R, v.Color.G, v.Color.B, v.Color.A);
                     }
                     // BasePoint
                     else if (info.FieldType == typeof(BasePoint))
@@ -1598,7 +1771,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         if (null == rw && !info.FieldType.IsValueType) continue;
 
                         rw.WriteCode(_prefix + info.Name, writer);
-                        writer.WriteLine();
+                        if (!LastLineWasBlank) writer.WriteLine();
+                        LastLineWasBlank = true;
                     }
                     else
                     {
@@ -1614,7 +1788,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                                 {
                                     // Get a new unique name for this object.
                                     string item_name = GetObjName();
-                                    
+
                                     // Get the string that constructs this object.
                                     string construct = null;
                                     if (rw is ViewReadWrite)
@@ -1623,21 +1797,25 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
                                     // Write the constructor.
                                     writer.WriteLine(WhiteSpace + string.Format("{0} {1} = {2};", rw.GetType(), item_name, construct));
-                                    
+
                                     // Write the interior information of the object.
                                     rw.WriteCode(item_name, writer);
 
                                     // Add the object to the list.
-                                    writer.WriteLine(WhiteSpace + string.Format("{0}.Add({1});", info.Name, item_name));
-                                    writer.WriteLine();
+                                    writer.WriteLine(WhiteSpace + string.Format("{2}{0}.Add({1});", info.Name, item_name, _prefix));
+                                    if (!LastLineWasBlank) writer.WriteLine();
+                                    LastLineWasBlank = true;
                                 }
-                                writer.WriteLine();
+                                if (!LastLineWasBlank) writer.WriteLine();
                             }
                         }
                     }
 
                     if (line != null)
+                    {
                         writer.WriteLine(WhiteSpace + string.Format("{2}{0} = {1};", info.Name, line, _prefix));
+                        LastLineWasBlank = false;
+                    }
                 }
             }
 
@@ -1670,9 +1848,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ReadLineToObj(object obj, List<string> Bits)
         {
-            ReadLineToObj(obj, Bits[0], Bits);
+            ReadLineToObj(ref obj, Bits[0], Bits);
         }
-        public static void ReadLineToObj(object obj, string field, List<string> Bits)
+        public static void ReadLineToObj(ref object obj, string field, List<string> Bits)
         {
             // If field name has a period in it, resolve recursively.
             var period = field.IndexOf(".");
@@ -1687,7 +1865,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 var subobject = subobject_field.GetValue(obj);
                 if (subobject == null) { Tools.Log(string.Format("Subfield {0} was a null object and could not be written into.", field)); return; }
 
-                ReadLineToObj(subobject, subfield, Bits);
+                ReadLineToObj(ref subobject, subfield, Bits);
             }
             // otherwise parse the input into the given field.
             else
@@ -1705,6 +1883,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 // Vector2
                 else if (fieldinfo.FieldType == typeof(Vector2))
                     fieldinfo.SetValue(obj, ParseToVector2(Bits[1], Bits[2]));
+                // Vector4
+                else if (fieldinfo.FieldType == typeof(Vector4))
+                    fieldinfo.SetValue(obj, ParseToVector4(Bits[1], Bits[2], Bits[3], Bits[4]));
                 // Color
                 else if (fieldinfo.FieldType == typeof(Color))
                     fieldinfo.SetValue(obj, ParseToColor(Bits[1], Bits[2], Bits[3], Bits[4]));
@@ -1714,18 +1895,27 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 // EzTexture
                 else if (fieldinfo.FieldType == typeof(EzTexture))
                     fieldinfo.SetValue(obj, Tools.TextureWad.FindByName(Bits[1]));
+                // EzEffect
+                else if (fieldinfo.FieldType == typeof(EzEffect))
+                    fieldinfo.SetValue(obj, Tools.EffectWad.FindByName(Bits[1]));
                 // TextureOrAnim
                 else if (fieldinfo.FieldType == typeof(TextureOrAnim))
                     fieldinfo.SetValue(obj, Tools.TextureWad.FindTextureOrAnim(Bits[1]));
                 // string
                 else if (fieldinfo.FieldType == typeof(string))
-                    fieldinfo.SetValue(obj, Bits[1]);
+                    if (Bits.Count == 1)
+                        fieldinfo.SetValue(obj, "");
+                    else
+                        fieldinfo.SetValue(obj, Bits[1]);
                 // PhsxData
                 else if (fieldinfo.FieldType == typeof(PhsxData))
                     fieldinfo.SetValue(obj, Tools.ParseToPhsxData(Bits[1], Bits[2], Bits[3], Bits[4], Bits[5], Bits[6]));
                 // BasePoint
                 else if (fieldinfo.FieldType == typeof(BasePoint))
                     fieldinfo.SetValue(obj, Tools.ParseToBasePoint(Bits[1], Bits[2], Bits[3], Bits[4], Bits[5], Bits[6]));
+                // MyOwnVertexFormat
+                else if (fieldinfo.FieldType == typeof(MyOwnVertexFormat))
+                    fieldinfo.SetValue(obj, Tools.ParseToMyOwnVertexFormat(Bits[1], Bits[2], Bits[3], Bits[4], Bits[5], Bits[6], Bits[7], Bits[8]));
             }
         }
 
@@ -1753,6 +1943,18 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return Vec;
         }
 
+        public static Vector4 ParseToVector4(String bit1, String bit2, String bit3, String bit4)
+        {
+            Vector4 Vec = Vector4.Zero;
+
+            Vec.X = float.Parse(bit1);
+            Vec.Y = float.Parse(bit2);
+            Vec.Z = float.Parse(bit3);
+            Vec.W = float.Parse(bit4);
+
+            return Vec;
+        }
+
         public static PhsxData ParseToPhsxData(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6)
         {
             PhsxData data = new PhsxData();
@@ -1777,6 +1979,24 @@ public static Thread EasyThread(int affinity, string name, Action action)
             b.e2.Y = float.Parse(bit4);
             b.Origin.X = float.Parse(bit5);
             b.Origin.Y = float.Parse(bit6);
+
+            return b;
+        }
+
+        public static MyOwnVertexFormat ParseToMyOwnVertexFormat(String bit1, String bit2, String bit3, String bit4, String bit5, String bit6, string bit7, string bit8)
+        {
+            MyOwnVertexFormat b = new MyOwnVertexFormat();
+
+            b.xy.X = float.Parse(bit1);
+            b.xy.Y = float.Parse(bit2);
+            
+            b.uv.X = float.Parse(bit3);
+            b.uv.Y = float.Parse(bit4);
+
+            b.Color.R = byte.Parse(bit5);
+            b.Color.G = byte.Parse(bit6);
+            b.Color.B = byte.Parse(bit7);
+            b.Color.A = byte.Parse(bit8);
 
             return b;
         }
@@ -2017,7 +2237,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 if (AsPaint)
                 {
                     PaintEffect_SpriteBatch.Parameters["xTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex);
-                    //PaintEffect_SpriteBatch.Parameters["SceneTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex);
+                    //PaintEffect_SpriteBatch.Parameters["SceneTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex); 
                     Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, Tools.PaintEffect_SpriteBatch, Matrix.CreateScale(scale, scale, 1f));
                 }
                 else
@@ -2042,22 +2262,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// </summary>
         public static void SetStandardRenderStates()
         {
-            Tools.QDrawer.SetAddressMode(true, true);
-            // All these renderstates need to be ported to XNA 4.0
-            /*
-            Tools.Device.RenderState.DepthBufferEnable = true;
-
-            Tools.Device.RenderState.AlphaBlendEnable = true;
-            Tools.Device.RenderState.CullMode = CullMode.None;
-            Tools.Device.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
-            Tools.Device.RenderState.SourceBlend = Blend.SourceAlpha;
-
-            Tools.Device.RenderState.AlphaSourceBlend = Blend.One;
-            Tools.Device.RenderState.AlphaDestinationBlend = Blend.One;
-             * */
+            //Tools.QDrawer.SetAddressMode(true, true);
+            //Tools.QDrawer.SetAddressMode(false, false);
+            Tools.QDrawer.SetInitialState();
 
             Tools.Device.RasterizerState = RasterizerState.CullNone;
-            //Tools.Device.BlendState = BlendState.NonPremultiplied;
             Tools.Device.BlendState = BlendState.AlphaBlend;
             Tools.Device.DepthStencilState = DepthStencilState.DepthRead;
 
@@ -2074,6 +2283,114 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 fx.Illumination.SetValue(1f);
                 fx.FlipVector.SetValue(new Vector2(-1, -1));
             }
+
+            Matrix colorm;
+
+        colorm = LinearColorTransform(0); // Green
+        //colorm = HsvTransform(1.3f, 1.2f, 100); // Gold
+        //colorm = HsvTransform(1.5f, 1.5f, 100); // Gold 2
+        //colorm = HsvTransform(1.3f, 1.2f, 200); // Hot pink
+        //colorm = HsvTransform(1.3f, 1.2f, 250); // ?
+        //colorm = HsvTransform(.5f, 0f, 0); // Black
+        //colorm = HsvTransform(.15f, 0f, 0); // Dark Black
+        //colorm = HsvTransform(.75f, 0f, 0); // Gray
+        //colorm = HsvTransform(.8f, 1.3f, 225); // Purple
+        //colorm = HsvTransform(.9f, 1.3f, 110); // Orange
+        //colorm = LinearColorTransform(45); // Teal
+        //colorm = LinearColorTransform(120); // Blue
+        //colorm = HsvTransform(.95f, 1.3f, 0) * LinearColorTransform(240); // Red
+        //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
+
+            HslGreenEffect.effect.Parameters["ColorMatrix"].SetValue(colorm);
+            HslEffect.effect.Parameters["ColorMatrix"].SetValue(colorm);
+            
+            //colorm = HsvTransform(1f, 1f, 30) * 
+            //        new Matrix(.6f, .6f, .6f, 0,
+            //                    0, 0, 0, 0,
+            //                    0, 0, 0, 0,
+            //                    0, 0, 0, 1);
+            //colorm = HsvTransform(.7f, 1f, 160);
+            //colorm = HsvTransform(Num_0_to_2, 1f, Num_0_to_360);
+            //colorm = HsvTransform(1f, 1f, 200);
+        }
+
+        public static float Num_0_to_360 = 0;
+        public static float Num_0_to_2 = 0;
+        public static bool ShowNums = false;
+
+        public static void ModNums()
+        {
+            if (ButtonCheck.State(XnaInput.Keys.D1).Down)
+                Num_0_to_360 = Tools.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
+            if (ButtonCheck.State(XnaInput.Keys.D2).Down)
+                Num_0_to_2 = Tools.Restrict(0, 2, Num_0_to_2 + .001f * Tools.DeltaMouse.X);
+
+            if (ButtonCheck.State(XnaInput.Keys.D1).Down || ButtonCheck.State(XnaInput.Keys.D2).Down)
+                ShowNums = true;
+        }
+
+        static Matrix transform_red = new Matrix(0, 1, 0, 0,
+                                                 1, 0, 0, 0,
+                                                 0, 0, 1, 0,
+                                                 0, 0, 0, 1);
+
+        static Matrix transform_green = new Matrix(1, 0, 0, 0,
+                                                   0, 1, 0, 0,
+                                                   0, 0, 1, 0,
+                                                   0, 0, 0, 1);
+
+        static Matrix transform_blue = new Matrix(0, 0, 1, 0,
+                                                  1, 0, 0, 0,
+                                                  0, 1, 0, 0,
+                                                  0, 0, 0, 1);
+
+        public static Matrix LinearColorTransform(float angle)
+        {
+            float s = ((angle % 360 + 360) % 360) / 120;
+
+            if (s < 1)
+            {
+                return (1 - s) * transform_green + s * transform_blue;
+            }
+            else if (s < 2)
+            {
+                s = s - 1;
+                return (1 - s) * transform_blue + s * transform_red;
+            }
+            else
+            {
+                s = s - 2;
+                return (1 - s) * transform_red + s * transform_green;
+            }
+        }
+
+        public static Matrix PureColor(Color color)
+        {
+            return new Matrix(0, 0, 0, color.R,
+                              0, 0, 0, color.G,
+                              0, 0, 0, color.B,
+                              0, 0, 0, 1);
+        }
+
+        public static Matrix HsvTransform(float V, float S, float H)
+        {
+            float a = Radians(H);
+            float U = (float)Math.Cos(a), W = (float)Math.Sin(a);
+            var hsv = new Matrix(
+                .299f * V + .701f * V * S * U + .168f * V * S * W, .587f * V - .587f * V * S * U + .330f * V * S * W, .114f * V - .114f * V * S * U - .497f * V * S * W, 0,
+                .299f * V - .299f * V * S * U - .328f * V * S * W, .587f * V + .413f * V * S * U + .035f * V * S * W, .114f * V - .114f * V * S * U + .292f * V * S * W, 0,
+                .299f * V - .300f * V * S * U + 1.25f * V * S * W, .587f * V - .588f * V * S * U - 1.05f * V * S * W, .114f * V + .886f * V * S * U - .203f * V * S * W, 0,
+                0, 0, 0, 1);
+            return hsv;
+        }
+
+        /// <summary>
+        /// Gets a non-unique number associated with a matrix.
+        /// Used to quickly determine if two matrices are probably the same.
+        /// </summary>
+        public static float MatrixSignature(Matrix m)
+        {
+            return m.M11 + m.M22 + m.M33 + m.M44;
         }
 
         public static void ResetViewport()
@@ -2217,7 +2534,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return SpecialLerp(v1, v2, Restrict(0, 1, t));
         }
 
-
+        /// <summary>
+        /// Let f(x) be a linear function such that f(g1.x) = g1.y and f(g2.x) = g2.y.
+        /// This function returns f(t).
         public static float Lerp(Vector2 g1, Vector2 g2, float t)
         {
             float width = g2.X - g1.X;
@@ -2260,6 +2579,70 @@ public static Thread EasyThread(int affinity, string name, Action action)
                    Level9Val * (level - 1f) * (level - 5f) / ((9f - 1f) * (9f - 5f));
         }
 
+        public static Vector2[] FloatArrayToVectorArray_y(float[] v)
+        {
+            Vector2[] vec = new Vector2[v.Length];
+            for (int i = 0; i < v.Length; i++)
+                vec[i] = new Vector2(0, v[i]);
+            return vec;
+        }
+
+        public static float SmoothLerp(float v1, float v2, float t)
+        {
+            return FancyLerp(t, new float[] { 
+                Tools.Lerp(v1, v2, 0),
+                Tools.Lerp(v1, v2, 0.5f),
+                Tools.Lerp(v1, v2, 0.75f),
+                Tools.Lerp(v1, v2, 0.875f),
+                Tools.Lerp(v1, v2, 0.9375f),
+                Tools.Lerp(v1, v2, 1) });
+        }
+
+        public static float FancyLerp(float t, float[] keyframes)
+        {
+            if (t >= 1) return keyframes[keyframes.Length - 1];
+            if (t <= 0) return keyframes[0];
+
+            float _t = keyframes.Length * t;
+            int frame = (int)(_t);
+
+            var v1 = frame > 0 ? keyframes[frame - 1] : keyframes[0];
+            var v2 = keyframes[frame];
+            var v3 = frame + 1 < keyframes.Length ? keyframes[frame + 1] : keyframes[keyframes.Length - 1];
+            var v4 = frame + 2 < keyframes.Length ? keyframes[frame + 2] : keyframes[keyframes.Length - 1];
+
+            //return Vector2.CatmullRom(v1, v2, v3, v4, _t - frame);
+            //return Vector2.Hermite(v2, v2 - v1, v3, v4 - v3, _t - frame);
+            return Lerp(v2, v3, _t - frame);
+        }
+        public static Vector2 FancyLerp(float t, Vector2[] keyframes)
+        {
+            if (t >= 1) return keyframes[keyframes.Length - 1];
+            if (t <= 0) return keyframes[0];
+
+            float _t = keyframes.Length * t;
+            int frame = (int)(_t);
+
+            var v1 = frame > 0 ? keyframes[frame - 1] : keyframes[0];
+            var v2 = keyframes[frame];
+            var v3 = frame + 1 < keyframes.Length ? keyframes[frame + 1] : keyframes[keyframes.Length - 1];
+            var v4 = frame + 2 < keyframes.Length ? keyframes[frame + 2] : keyframes[keyframes.Length - 1];
+
+            //return Vector2.CatmullRom(v1, v2, v3, v4, _t - frame);
+            //return Vector2.Hermite(v2, v2 - v1, v3, v4 - v3, _t - frame);
+            return Vector2.Lerp(v2, v3, _t - frame);
+        }
+
+        public static float ParabolaInterp(float t, Vector2 apex, float zero1)
+        {
+            float q = (float)Math.Pow(zero1 - apex.X, 2);
+            return apex.Y * (float)(q - Math.Pow(t - apex.X, 2)) / q;
+        }
+        public static float ParabolaInterp(float t, Vector2 apex, float zero1, float power)
+        {
+            float q = (float)Math.Pow(Math.Abs(zero1 - apex.X), power);
+            return apex.Y * (float)(q - Math.Pow(Math.Abs(t - apex.X), power)) / q;
+        }
 
         public static bool IncrementsContainsSum(int[] Incr, int S)
         {
@@ -2276,7 +2659,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
 
 
-
+        public static void UseInvariantCulture()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+        }
 
 
         public static bool _AllTaken(bool[] list1, bool[] list2, int Length)
@@ -2326,6 +2712,18 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static void PointxAxisToAngle(ref BasePoint Base, float angle)
         {
             PointxAxisTo(ref Base, AngleToDir(angle));
+        }
+
+        public static string ScoreString(int num, int outof)
+        {
+            return num.ToString() + "/" + outof.ToString();
+            //return "x" + num.ToString() + "/" + outof.ToString();
+        }
+
+        public static string ScoreString(int num)
+        {
+            return num.ToString();
+            //return "x" + num.ToString();
         }
 
         /// <summary>

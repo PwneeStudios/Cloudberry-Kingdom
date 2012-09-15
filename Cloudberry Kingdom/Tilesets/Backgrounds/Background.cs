@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using System;
 using System.IO;
+using System.Collections.Generic;
+
 using CloudberryKingdom.Levels;
 
 using Drawing;
@@ -8,7 +10,11 @@ using Drawing;
 namespace CloudberryKingdom
 {
     public class BackgroundType
-    { 
+    {
+        public static Dictionary<string, BackgroundTemplate>
+            NameLookup = new Dictionary<string, BackgroundTemplate>(),
+            PathLookup = new Dictionary<string, BackgroundTemplate>();
+
         public static BackgroundTemplate
             None = new BackgroundTemplate(),
             Random = new BackgroundTemplate(),
@@ -18,17 +24,23 @@ namespace CloudberryKingdom
             Space = new BackgroundTemplate(),
             Gray = new BackgroundTemplate(),
             Construct = new BackgroundTemplate(),
-            Rain = new BackgroundTemplate(),
             Dark = new BackgroundTemplate(),
             Sky = new BackgroundTemplate(),
             MarioSky = new BackgroundTemplate(),
             Night = new BackgroundTemplate(),
             NightSky = new BackgroundTemplate(),
-            Chaos = new BackgroundTemplate();
-
-        public static Dictionary<string, BackgroundTemplate>
-            NameLookup = new Dictionary<string, BackgroundTemplate>(),
-            PathLookup = new Dictionary<string, BackgroundTemplate>();
+            Chaos = new BackgroundTemplate(),
+            
+            _Sea = new BackgroundTemplate("sea", Background._code_Sea),
+            _Sea_Rain = new BackgroundTemplate("sea_rain", Background._code_Sea, Background.AddRainLayer),
+            _Hills = new BackgroundTemplate("hills", Background._code_Hills),
+            _Hills_Rain = new BackgroundTemplate("hills_rain", Background._code_Hills, Background.AddRainLayer),
+            _Forest = new BackgroundTemplate("forest", Background._code_Forest, Background.TurnOffSnow),
+            _Forest_Snow = new BackgroundTemplate("forest_snow", Background._code_Forest, Background.TurnOnSnow),
+            _Cloud = new BackgroundTemplate("cloud", Background._code_Cloud),
+            _Cloud_Rain = new BackgroundTemplate("cloud_rain", Background._code_Cloud, Background.AddRainLayer),
+            _Cave = new BackgroundTemplate("cave", Background._code_Cave),
+            _Castle = new BackgroundTemplate("castle", Background._code_Castle);
         
         public static void AddTemplate(BackgroundTemplate template)
         {
@@ -66,6 +78,24 @@ namespace CloudberryKingdom
         public bool MadeOfText = false;
         public string File = null;
 
+        public Action<Background> Code;
+
+        public BackgroundTemplate()
+        {
+        }
+
+        public BackgroundTemplate(string Name, params Action<Background>[] Codes)
+        {
+            this.Name = this.File = Name;
+            this.MadeOfCode = true;
+            this.MadeOfText = false;
+            
+            foreach (var code in Codes)
+                this.Code += code;
+
+            BackgroundType.AddTemplate(this);
+        }
+
         public Background MakeInstanceOf()
         {
             var b = new RegularBackground();
@@ -92,8 +122,13 @@ namespace CloudberryKingdom
             TR = new Vector2(5000, 2000);
             BL = new Vector2(-2000, -2000);
 
-            if (MyTemplate != null && MyTemplate.MadeOfText)
-                Load(MyTemplate.File);
+            if (MyTemplate != null)
+            {
+                if (MyTemplate.MadeOfCode)
+                    UseCode(MyTemplate, this);
+                else if (MyTemplate.MadeOfText)
+                    Load(MyTemplate.File);
+            }
         }
 
         public override void Draw()
@@ -110,15 +145,38 @@ namespace CloudberryKingdom
             }
 #endif
 
-            MyCollection.PhsxStep();
+            if (MyLevel.IndependentDeltaT > 0)
+                MyCollection.PhsxStep();
+
             MyCollection.Draw();
+
+            Tools.QDrawer.Flush();
+        }
+
+        public override void DrawForeground()
+        {
+            Tools.QDrawer.Flush();
+            Camera Cam = MyLevel.MainCamera;
+            Cam.SetVertexCamera();
+
+            MyCollection.Draw(1f, true);
 
             Tools.QDrawer.Flush();
         }
     }
 
-    public class Background : ViewReadWrite
+    public partial class Background : ViewReadWrite
     {
+        public int GuidCounter = 0;
+        public int GetGuid()
+        {
+            if (GuidCounter <= 0) GuidCounter = 1;
+
+            return GuidCounter++;
+        }
+
+        public Dictionary<int, BackgroundNode> NodeLookup = new Dictionary<int, BackgroundNode>();
+
         public float MyGlobalIllumination = 1f;
         public bool AllowLava = true;
 
@@ -156,6 +214,24 @@ namespace CloudberryKingdom
             MyCollection.Reset();
         }
 
+        public static Background UseCode(BackgroundTemplate template, Background b)
+        {
+            b.MyCollection.Lists.Clear();
+
+            template.Code(b);
+            
+            b.SetLevel(b.MyLevel);
+            b.SetBackground(b);
+            b.Reset();
+
+            return b;
+        }
+
+        public static Background Get(string name)
+        {
+            return BackgroundType.NameLookup[name].MakeInstanceOf();
+        }
+
         public static Background Get(BackgroundTemplate Type)
         {
             if (Type == BackgroundType.Castle) return new CastleBackground();
@@ -175,8 +251,6 @@ namespace CloudberryKingdom
             if (Type == BackgroundType.Gray) return new GrayBackground();
 
             if (Type == BackgroundType.Construct) return new ConstructBackground();
-
-            if (Type == BackgroundType.Rain) return new RainBackground();
 
             return Type.MakeInstanceOf();
         }
@@ -207,6 +281,12 @@ namespace CloudberryKingdom
 
             if (MyCollection != null)
                 MyCollection.SetLevel(level);
+        }
+
+        public virtual void SetBackground(Background b)
+        {
+            if (MyCollection != null)
+                MyCollection.SetBackground(b);
         }
 
         public virtual void Absorb(Background background)
@@ -302,6 +382,8 @@ namespace CloudberryKingdom
             Tools.QDrawer.GlobalIllumination = MyGlobalIllumination;
         }
 
+        public virtual void DrawForeground() { }
+
         public void DimAll(float dim)
         {
             foreach (var c in MyCollection.Lists)
@@ -316,15 +398,16 @@ namespace CloudberryKingdom
 
         public override string[] GetViewables()
         {
-            return new string[] { "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection" };
+            return new string[] { "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection", "GuidCounter" };
         }
-        public void Read(StreamReader reader)
+        public override void Read(StreamReader reader)
         {
             MyCollection.Lists.Clear();
 
             base.Read(reader);
 
             SetLevel(MyLevel);
+            SetBackground(this);
             Reset();
         }
 
@@ -342,6 +425,7 @@ namespace CloudberryKingdom
 
         public void Load(string path)
         {
+            Tools.UseInvariantCulture();
             var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
             var reader = new StreamReader(stream);
 

@@ -28,8 +28,8 @@ namespace CloudberryKingdom
             MyLevel.PreventReset = true;
 
             MakeCenteredCamZone(.8f);
-            //MakeBackground(BackgroundType.Night);
-            MakeBackground(BackgroundType.Rain);
+            MakeBackground(BackgroundType.Night);
+            //MakeBackground(BackgroundType.Rain);
             if (ForTrailer)
                 MakeBackground(BackgroundType.Outside);
 
@@ -64,9 +64,12 @@ namespace CloudberryKingdom
             MyLevel.AddObject(princess);
 
             // Exit sign
-            Sign sign = new Sign(false);
-            sign.PlaceAt(Doors["Exit"].GetTop());
-            MyLevel.AddObject(sign);
+            if (MyLevel.Info.Doors.ShowSign)
+            {
+                Sign sign = new Sign(false, MyLevel);
+                sign.PlaceAt(Doors["Exit"].GetTop());
+                MyLevel.AddObject(sign);
+            }
 
             // Exit door
             Doors["Exit"].SetLock(true, true, false);
