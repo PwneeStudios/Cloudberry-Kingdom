@@ -27,12 +27,6 @@ namespace CloudberryKingdom
             Constructor();
         }
 
-        void ModBackdrop(EzText Text)
-        {
-            Text.BackdropModAlpha = .6f;
-            Text.Backdrop.SetColor(new Color(200, 200, 200));
-        }
-        
         protected override void SetItemProperties(MenuItem item)
         {
             //base.SetItemProperties(item);

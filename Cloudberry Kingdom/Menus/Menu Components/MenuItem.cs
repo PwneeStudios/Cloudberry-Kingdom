@@ -290,18 +290,12 @@ namespace CloudberryKingdom
             if (Selected)
             {
                 if (MySelectedText != null)
-                {
                     MySelectedText._Pos = SelectedPos + PosOffset;
-                    MySelectedText.DrawBackdrop();
-                }
             }
             else
             {
                 if (MyText != null)
-                {
                     MyText._Pos = Pos + PosOffset;
-                    MyText.DrawBackdrop();
-                }
             }
         }
 

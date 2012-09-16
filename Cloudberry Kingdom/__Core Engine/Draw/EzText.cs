@@ -336,8 +336,6 @@ namespace CloudberryKingdom
                 return Bits[0].str;
         }
 
-        public PieceQuad Backdrop;
-
         public bool FixedToCamera;
 
         public bool ColorizePics;
@@ -457,67 +455,13 @@ namespace CloudberryKingdom
         public enum Style { Normal, FadingOff };
         public bool RightJustify = false;
         public bool Centered, YCentered;
-        public EzText() { }
+
         public EzText(String str, EzFont font) { MyFont = font; Init(str); }
         public EzText(String str, EzFont font, string Name) { this.Name = Name; MyFont = font; Init(str); }
-        public EzText(String str, EzFont font, Style style)
-        {
-            MyFont = font;
-            if (style == Style.FadingOff)
-            {
-                BitByBit = true;
-                Alpha = 0;
-                AlphaVel = .025f * 1.3f * 2;
-            }
-            Init(str, 10000, false, false, .65f);
-        }
         public EzText(String str, EzFont font, bool Centered) { MyFont = font; Init(str, 10000, Centered, false, 1); }
-        public EzText(String str, EzFont font, float Width, bool Centered) { MyFont = font; Init(str, Width, Centered, false, 1); }
         public EzText(String str, EzFont font, bool Centered, bool YCentered) { MyFont = font; Init(str, 10000, Centered, YCentered, 1); }
         public EzText(String str, EzFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(str, Width, Centered, YCentered, 1); }
         public EzText(String str, EzFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(str, Width, Centered, YCentered, LineHeightMod); }
-
-        public Vector2 BackdropShift = Vector2.Zero;
-        public void AddBackdrop() { AddBackdrop(new Vector2(.65f, .65f), Vector2.Zero, Vector2.Zero, new Vector2(10000,10000)); }
-        public void AddBackdrop(Vector2 mult_padding) { AddBackdrop(mult_padding, Vector2.Zero, Vector2.Zero, new Vector2(10000, 10000)); }
-        public void AddBackdrop(Vector2 mult_padding, Vector2 add_padding) { AddBackdrop(mult_padding, add_padding, Vector2.Zero, new Vector2(10000, 10000)); }
-        public void AddBackdrop(Vector2 mult_padding, Vector2 add_padding, Vector2 min_dim, Vector2 max_dim)
-        {
-            return;
-
-            if (Backdrop == null)
-                Backdrop = new PieceQuad();
-            //Backdrop.Clone(PieceQuad.Get("DullMenu"));
-
-            Vector2 dim;
-            dim = mult_padding * GetWorldSize() + add_padding;
-
-            Backdrop.CalcQuads(Vector2.Min(Vector2.Max(dim, min_dim), max_dim));
-        }
-
-        /// <summary>
-        /// The backdrop alpha is multiplied by this before being drawn.
-        /// </summary>
-        public float BackdropModAlpha = 1;
-
-        public void DrawBackdrop()
-        {
-            if (Backdrop == null) return;
-
-            if (FancyPos == null)
-            {
-                Backdrop.Base.Origin = _Pos;
-                if (FixedToCamera)
-                    Backdrop.Base.Origin += Tools.CurLevel.MainCamera.Data.Position;
-            }
-            else
-                Backdrop.Base.Origin = FancyPos.Update();
-
-            Backdrop.Base.Origin += BackdropShift;
-
-            Backdrop.SetAlpha(Alpha * BackdropModAlpha);
-            Backdrop.Draw();
-        }
 
         Vector2 loc;
         float LineHeight;
@@ -551,7 +495,7 @@ namespace CloudberryKingdom
         {
             char c = str[1];
 
-            int Comma1, Comma2, Comma3, Comma4;
+            int Comma1, Comma2, Comma3;
             String WidthString, HeightString;
             switch (c)
             {
@@ -564,9 +508,6 @@ namespace CloudberryKingdom
                     Comma2 = str.IndexOf(",", Comma1 + 1);
 
                     Parse_PicName = str.Substring(2, Comma1 - 2);
-                    //WidthString = str.Substring(Comma1 + 1, Comma2 - 1 - Comma1);
-                    //HeightString = str.Substring(Comma2 + 1);
-                    //Parse_PicName = string_bits[0];
                     WidthString = string_bits[1];
                     HeightString = string_bits[2];
 
@@ -652,7 +593,6 @@ namespace CloudberryKingdom
                 if (BracketIndex == -1 && SpaceIndex == -1) { NewEndIndex = str.Length; ReachedEnd = true; }
                 else if (BracketIndex == -1) NewEndIndex = SpaceIndex + 1;
                 else if (SpaceIndex == -1) NewEndIndex = BracketIndex + 1;
-                //else NewEndIndex = Math.Min(BracketIndex, SpaceIndex) + 1;
                 else NewEndIndex = BracketIndex + 1;
 
                 if (DelimiterIndex >= 0 && DelimiterIndex < NewEndIndex) { NewEndIndex = DelimiterIndex; ReachedEnd = true; }
@@ -694,7 +634,6 @@ namespace CloudberryKingdom
             }
 
             Vector2 TextSize = MyFont.Font.MeasureString(str);
-            //TextSize.Y = MyFont.LineSpacing;
             TextSize.Y *= Tools.TheGame.Resolution.LineHeightMod;
 
             Size.X += TextSize.X;
@@ -703,7 +642,6 @@ namespace CloudberryKingdom
             return Size;
         }
 
-        bool BitByBit = false;
         Color CurColor = Color.White;
         float AddLine(String str, float StartX, float StartY, int LineNumber)
         {
@@ -713,11 +651,8 @@ namespace CloudberryKingdom
             float LineHeight = MyFont.Font.MeasureString(" ").Y;
             int BeginBracketIndex, EndBracketIndex;
 
-            //Color CurColor = Color.White;
-
             bool FirstElement = true;
 
-            //BitByBit = true;
             while (str.Length > 0)
             {
                 BeginBracketIndex = str.IndexOf("{", 0);
@@ -737,11 +672,8 @@ namespace CloudberryKingdom
                         if (!FirstElement) Parse_PicShift.X -= .25f * Parse_PicSize.X;
 
                         pic.tex = Tools.TextureWad.FindByName(Parse_PicName);
-                        //float y = Tools.TheGame.Resolution.LineHeightMod * MyFont.LineSpacing / 2 - Parse_PicSize.Y / 2 + StartY;
-                        //float y = Tools.TheGame.Resolution.LineHeightMod * MyFont.LineSpacing / 1 + StartY;
 
                         float y = .5f * Tools.TheGame.Resolution.LineHeightMod * MyFont.LineSpacing - .5f * Parse_PicSize.Y + StartY;
-                        //float y = .5f * Tools.TheGame.Resolution.LineHeightMod * MyFont.Font.MeasureString("abc").Y - .5f * Parse_PicSize.Y + StartY;
                         pic.rect = new Rectangle((int)(loc.X + Parse_PicShift.X), (int)(y + loc.Y + Parse_PicShift.Y), (int)Parse_PicSize.X, (int)Parse_PicSize.Y);
                         pic.size = Parse_PicSize;
                         pic.AsPaint = AsPaint;
@@ -756,7 +688,6 @@ namespace CloudberryKingdom
                     if (Parse_Type == ParseData.Color)
                     {
                         CurColor = Parse_Color;
-                        if (BitByBit) loc.X += MyFont.Font.MeasureString(" ").X;// -MyFont.Font.Spacing;
                         loc.X += .35f * MyFont.Font.Spacing;
                     }
                 }
@@ -766,8 +697,6 @@ namespace CloudberryKingdom
                     int i;
                     if (BeginBracketIndex < 0) i = str.Length; else i = BeginBracketIndex;
 
-                    if (BitByBit) i = 1;
-
                     EzTextBit bit = new EzTextBit();
                     bit.LineNumber = LineNumber;
                     bit.clr = CurColor;
@@ -776,9 +705,7 @@ namespace CloudberryKingdom
 
                     bit.size = MyFont.Font.MeasureString(bit.str);
                     bit.size.Y *= Tools.TheGame.Resolution.LineHeightMod;
-                    //if (BitByBit && (bit.str.Length == 0 || bit.str[0] != ' ')) bit.size.X += MyFont.Font.Spacing;
-                    if (BitByBit) bit.size.X += MyFont.Font.Spacing;
-
+                    
                     bit.loc = loc + new Vector2(0, StartY);
                     Bits.Add(bit);
 
@@ -904,8 +831,7 @@ namespace CloudberryKingdom
                 float x = -Size.X / 2;
                 TextWidth = Math.Max(TextWidth, Size.X);
                 y += LineHeightMod * AddLine(Line, x, y, LineNumber);
-                //AddLine(Line, x, y, LineNumber);
-                //y += MyFont.LineSpacing;
+
                 str = str.Remove(0, i);
                 if (str.Length > 0 && str[0] == ' ') str = str.Remove(0, 1);
                 if (str.Length > 0 && str[0] == '\n') str = str.Remove(0, 1);
@@ -933,10 +859,6 @@ namespace CloudberryKingdom
             }
         }
 
-        //public void RightJustify()
-        //{
-        //    Pos = new Vector2(Pos.X - GetWorldWidth(), Pos.Y
-        //}
         public void Center()
         {
             Pos = new Vector2(Pos.X - .5f * GetWorldWidth(), Pos.Y);
@@ -948,13 +870,9 @@ namespace CloudberryKingdom
         public void Draw(Camera cam) { Draw(cam, true); }
         public void Draw(Camera cam, bool EndBatch)
         {
-            //Console.Write(MyString);
-
             Alpha += AlphaVel;
 
             MyCameraZoom = cam.Zoom;
-            //MyCameraZoom = cam.Zoom * Tools.EffectWad.ModZoom;
-            //MyCameraZoom = new Vector2(-cam.Zoom.X, cam.Zoom.Y);
 
             if (!Show) return;
 
@@ -974,7 +892,7 @@ namespace CloudberryKingdom
             if (FancyPos != null)
                 _Pos = FancyPos.Update(ParentScaling);
 
-            PicColor = Color.Black;//MyColor;
+            PicColor = Color.Black;
             if (Shadow)
             {
                 // Note: never end the SpriteBatch for drawing a shadow,
@@ -993,11 +911,9 @@ namespace CloudberryKingdom
             }
             PicColor = Color.White;
 
-            //PicColor = new Color(MyFloatColor);
             if (!ColorizePics)
             {
                 PicColor = Color.White;
-                //PicColor.A = MyColor.A;
             }
 
             if (MyFont.OutlineFont != null && OutlineColor.W != 0)
@@ -1018,17 +934,6 @@ namespace CloudberryKingdom
             }
             if (ParentAlpha != 1)
                 Alpha = HoldAlpha;
-        }
-
-        public void KillBitByBit() { KillBitByBit(float.NaN); }
-        public void KillBitByBit(float SetAlpha)
-        {
-            if (SetAlpha != float.NaN)
-                Alpha = SetAlpha;
-
-            BitByBit = false;
-            foreach (EzTextBit bit in Bits)
-                bit.clr.A = (byte)255;
         }
 
         public float Angle = 0;
@@ -1053,23 +958,11 @@ namespace CloudberryKingdom
             Vector2 Position = _Pos + JustificationShift;
             if (FixedToCamera) Position += cam.Data.Position;
             Vector2 Loc = Tools.ToScreenCoordinates(Position, cam, Tools.EffectWad.ModZoom);
-            //Vector2 Loc2 = Tools.ToScreenCoordinates(Position + new Vector2(.5f, .5f), cam);
 
-            //Tools.QDrawer.DrawLine(Position, Position + new Vector2(1000, 0), Color.YellowGreen, 10);
-
-            float BitAlphaMod = 0;
             Tools.StartSpriteBatch();
             foreach (EzTextBit bit in Bits)
             {
-                Color textcolor;
-                if (BitByBit)
-                {
-                    var c = MyColor.ToVector4() * bit.clr.ToVector4();
-                    c.W = color.W * Alpha * bit.clr.ToVector4().W + BitAlphaMod;
-                    textcolor = Tools.PremultiplyAlpha(new Color(c));
-                }
-                else
-                    textcolor = Tools.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
+                Color textcolor = Tools.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
 
                 if (bit.builder_str != null)
                     Tools.spriteBatch.DrawString(font, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
@@ -1077,14 +970,6 @@ namespace CloudberryKingdom
                 else
                     Tools.spriteBatch.DrawString(font, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
                          Angle, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod, SpriteEffects.None, 1);
-
-                if (BitByBit)
-                {
-                    if (bit.str != null && bit.str[0] != ' ')
-                        BitAlphaMod -= .165f * 1.35f;
-                    else
-                        BitAlphaMod -= .165f * .5f;// 2f;
-                }
             }
             if (DrawPics)
                 foreach (EzTextPic pic in Pics)
@@ -1125,15 +1010,9 @@ namespace CloudberryKingdom
             {
                 Vector2 loc, size;
 
-                {
-                    loc = GetWorldVector(bit.loc);
-                    size = GetWorldVector(bit.size);
-                }
-                //else
-                //{
-                //    loc = GetGUIVector(bit.loc);
-                //    size = GetGUIVector(bit.size);
-                //}
+                loc = GetWorldVector(bit.loc);
+                size = GetWorldVector(bit.size);
+
                 Vector2 bit_TR = Scale * loc + Loc; bit_TR.X += 1 * Scale * size.X; bit_TR.Y += .25f * Scale * size.Y;
                 Vector2 bit_BL = Scale * loc + Loc; bit_BL.Y += .75f * Scale * size.Y;
 

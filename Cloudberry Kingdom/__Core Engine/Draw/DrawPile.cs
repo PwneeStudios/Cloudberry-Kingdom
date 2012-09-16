@@ -331,8 +331,6 @@ namespace CloudberryKingdom
                 }
             }
 
-            if (Layer == 0)
-                foreach (EzText text in MyTextList) if (text.Backdrop != null) text.DrawBackdrop();
             Tools.QDrawer.Flush();
         }
 
