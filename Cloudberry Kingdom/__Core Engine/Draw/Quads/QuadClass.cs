@@ -94,8 +94,8 @@ namespace CloudberryKingdom
         public float ShadowScale = 1f;
 
         public SimpleQuad Quad = new SimpleQuad();
-        
         public BasePoint Base;
+
         public FancyVector2 FancyPos, FancyScale, FancyAngle;
 
         public FancyVector2 FancyLightAlpha;

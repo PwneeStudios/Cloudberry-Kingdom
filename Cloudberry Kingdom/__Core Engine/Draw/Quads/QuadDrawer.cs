@@ -191,7 +191,7 @@ namespace Drawing
         {
             if (quad.Hide) return;
 
-            if (quad.MyEffect == null || quad.MyTexture == null) return;
+            if (quad.MyEffect == null || quad.MyTexture == null) { Tools.Break(); return; }
 
             if (Tools.UsingSpriteBatch) Tools.EndSpriteBatch();
 
@@ -204,7 +204,7 @@ namespace Drawing
             else
                 Illumination = quad.Illumination;
 
-            if (i + 6 > N ||
+            if (i + 6 >= N ||
                 i != 0 &&
                     (CurrentEffect.effect != quad.MyEffect.effect ||
                      CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||

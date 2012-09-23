@@ -51,7 +51,7 @@ namespace Drawing
         public bool FromCode = false;
 
         /// <summary>
-        /// Texture coordintes within a bigger packed collection
+        /// Texture coordinates in the atlas.
         /// </summary>
         public Vector2 BL = Vector2.Zero, TR = Vector2.One;
 
@@ -210,136 +210,6 @@ namespace Drawing
             BigNameDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
         }
 
-        /*
-        public void _LoadAll_frac(ContentManager Content, int m)
-        {
-            EzTexture Tex;
-            for (int i = 0; i < TextureList.Count; i++)
-            {
-                if (i % 3 == m)
-                {
-                    {
-                        Tex = TextureList[i];
-
-                        // If texture hasn't been loaded yet, load it
-                        if (Tex.Tex == null)
-                        {
-                            AllLoaded.val = false;
-                            Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-
-                            {
-                                Tools.TheGame.ResourceLoadedCountRef.Val++;
-                            }
-                        }
-                    }
-                }
-            }
-
-            AllLoaded.val = true;
-        }
-        public Thread[] threads = new Thread[3];
-        public void LoadAll_frac(int m, int thread)
-        {
-            ContentManager manager = new ContentManager(Tools.TheGame.Content.ServiceProvider, Tools.TheGame.Content.RootDirectory);
-
-            Thread LoadThread = threads[m] = new Thread(
-                new ThreadStart(
-                    delegate
-                    {
-#if XBOX
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { thread });
-#endif
-                        LoadThread = Thread.CurrentThread;
-                        EventHandler<EventArgs> abort = (s, e) =>
-                        {
-                            if (LoadThread != null)
-                            {
-                                LoadThread.Abort();
-                            }
-                        };
-                        Tools.TheGame.Exiting += abort;
-
-                        _LoadAll_frac(manager, m);
-
-                        Tools.TheGame.Exiting -= abort;
-                    }))
-            {
-                Name = "LoadArtThread",
-#if WINDOWS
-                Priority = ThreadPriority.Highest,
-#endif
-            };
-
-            LoadThread.Start();
-        }
-
-        public Thread LoadThread;
-        public void LoadAll(ContentManager Content)
-        {
-            LoadThread = new Thread(
-                new ThreadStart(
-                    delegate
-                    {
-#if XBOX
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 5 });
-#endif
-                        LoadThread = Thread.CurrentThread;
-                        EventHandler<EventArgs> abort = (s, e) =>
-                        {
-                            if (LoadThread != null)
-                            {
-                                LoadThread.Abort();
-                            }
-                        };
-                        Tools.TheGame.Exiting += abort;
-
-                        _LoadAll(Content);
-
-                        Tools.TheGame.Exiting -= abort;
-                    }))
-            {
-                Name = "LoadArtThread",
-#if WINDOWS
-                Priority = ThreadPriority.Highest,
-#endif
-            };
-
-            LoadThread.Start();
-        }
-
-        public void _LoadAll(ContentManager Content)
-        {
-            EzTexture Tex;
-            for (int i = 0; i < TextureList.Count; i++)
-            {
-                int j = i + 20;
-                lock (Content)
-                //lock (TextureList[i])
-                {
-                    for (; i < TextureList.Count && i < j; i++)
-                    {
-                        Tex = TextureList[i];
-
-                        // If texture hasn't been loaded yet, load it
-                        if (Tex.Tex == null)
-                        {
-                            AllLoaded.val = false;
-                            Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-
-                            lock (Tools.TheGame.ResourceLoadedCountRef)
-                            {
-                                Tools.TheGame.ResourceLoadedCountRef.Val++;
-                            }
-                        }
-                    }
-
-                    Thread.Sleep(10);
-                }
-            }
-
-            AllLoaded.val = true;
-        }
-        */
         public static float PercentToLoad =
                     1f;
                     //.2f;
