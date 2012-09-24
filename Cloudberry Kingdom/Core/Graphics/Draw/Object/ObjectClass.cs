@@ -194,11 +194,7 @@ namespace Drawing
                     AddQuad(NewQuad);
                 }
                 else
-                {
-                    BendableQuad NewQuad = new BendableQuad();
-                    NewQuad.ParentObject = this;
-                    QuadList.Add(NewQuad);
-                }
+                    Tools.Break();
             }
 
             // Load the quad data
@@ -725,20 +721,9 @@ namespace Drawing
                         nquad.ParentObject = this;
                         if (quad.ParentQuad == quad.ParentObject.ParentQuad)
                             ParentQuad.AddQuadChild(nquad);
-                        //                    AddQuad(new Quad((Quad)quad));
-                    }
-                    if (quad is BendableQuad)
-                    {
-                        BendableQuad nquad = new BendableQuad((BendableQuad)quad, DeepClone);
-                        nquad.ParentObject = this;
-                        if (quad.ParentQuad == quad.ParentObject.ParentQuad)
-                            ParentQuad.AddQuadChild(nquad, true);
-                        QuadList.Add(nquad);
-                        //AddBendableQuad(new BendableQuad((BendableQuad)quad));
                     }
                 }
             }
-
 
             // Clone boxes
             BoxList = new List<ObjectBox>();
@@ -1035,28 +1020,6 @@ namespace Drawing
             box.BL.RelPosFromPos();
         }
 
-        public void AddBaseQuad(BaseQuad quad, bool AddChildren) { AddBaseQuad(quad, AddChildren, true); }
-        public void AddBaseQuad(BaseQuad quad, bool AddChildren, bool ChangeParent)
-        {
-            if (quad is Quad)
-            {
-                AddQuad((Quad)quad, ChangeParent);
-                if (AddChildren)
-                    foreach (BaseQuad child in ((Quad)quad).Children)
-                        AddBaseQuad(child, AddChildren, false);
-            }
-            if (quad is BendableQuad) AddBendableQuad((BendableQuad)quad, ChangeParent);
-        }
-
-        public void AddBendableQuad(BendableQuad quad) { AddBendableQuad(quad, true); }
-        public void AddBendableQuad(BendableQuad quad, bool ChangeParent)
-        {
-            QuadList.Add(quad);
-            quad.ParentObject = this;
-            if (ChangeParent)
-                ParentQuad.AddQuadChild(quad);
-        }
-
         public void AddQuad(Quad quad) { AddQuad(quad, true); }
         public void AddQuad(Quad quad, bool ChangeParent)
         {
@@ -1239,13 +1202,7 @@ namespace Drawing
                     if (DrawOrder != ObjectDrawOrder.All)
                         if (quad.MyDrawOrder != DrawOrder) continue;
 
-                    if (quad is BendableQuad)
-                    {
-                        QDrawer.Flush();
-                        ((BendableQuad)quad).Draw();
-                    }
-                    else
-                        ((Quad)quad).Draw(QDrawer);
+                    quad.Draw();
                 }
 
             // Extra quad to draw. Pretty fucking leaky hack.

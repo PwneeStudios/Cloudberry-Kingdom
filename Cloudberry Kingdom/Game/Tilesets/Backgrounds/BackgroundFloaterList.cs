@@ -13,9 +13,9 @@ namespace CloudberryKingdom
         public bool Foreground = false;
         public bool Fixed = false;
 
-#if INCLUDE_EDITOR
         public bool Show = true;
 
+#if INCLUDE_EDITOR
         /// <summary>
         /// When locked a layer can not be edited.
         /// </summary>
@@ -132,9 +132,7 @@ namespace CloudberryKingdom
         public void Draw() { Draw(1); }
         public void Draw(float CamMod)
         {
-#if DEBUG && INCLUDE_EDITOR
             if (!Show) return;
-#endif
 
             if (DoPreDraw) return;
 

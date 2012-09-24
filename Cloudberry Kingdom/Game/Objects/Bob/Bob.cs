@@ -92,7 +92,6 @@ namespace CloudberryKingdom.Bobs
 
             if (PlayerObject != null) PlayerObject.Release(); PlayerObject = null;
 
-            if (Body != null) Body.Release(); Body = null;
             if (temp != null) temp.Release(); temp = null;
         }
 
@@ -109,7 +108,6 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.FinishLoading(Tools.QDrawer, Tools.Device, Tools.TextureWad, Tools.EffectWad, Tools.Device.PresentationParameters, width, (int)(width * ratio), false);
 
             Head = null;
-            Body = null;
         }
 
         public void SetColorScheme(ColorScheme scheme)
@@ -243,7 +241,6 @@ namespace CloudberryKingdom.Bobs
         public Color InsideColor;
         
         ObjectVector temp = null;
-        BendableQuad Body = null;
         Quad Head = null;
 
         public List<BobLink> MyBobLinks;
@@ -1604,19 +1601,10 @@ namespace CloudberryKingdom.Bobs
 
             // Set the anchor point
             if (temp == null) temp = new ObjectVector();            
-            if (Body == null) Body = (BendableQuad)PlayerObject.FindQuad("Body");
 
-            if (Body == null)
-            {
-                if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
-                temp.Pos = Head.Center.Pos;
-            }
-            else
-            {
-                temp.ParentQuad = Body.ParentQuad;
-                Body.MySpline.GetBothVectors(1.20f, 0, ref temp.RelPos, ref temp.RelPos);
-                temp.FastPosFromRelPos(Body.ParentQuad);
-            }
+            if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
+            temp.Pos = Head.Center.Pos;
+
             temp.Pos += MyPhsx.CapeOffset;
             MyCape.Gravity = MyPhsx.CapeGravity;
 

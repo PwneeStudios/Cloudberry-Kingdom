@@ -13,6 +13,9 @@ using Drawing;
 
 namespace Drawing
 {
+    /// <summary>
+    /// Should be replaced. Right now this is used for drawing the players in the replays, but replays should instead be reusing the same draw code for the player as the normal draw code.
+    /// </summary>
     public class SpriteAnimGroup
     {
         public Dictionary<int, SpriteAnim> SpriteAnims;

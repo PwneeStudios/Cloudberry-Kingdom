@@ -266,7 +266,7 @@ namespace Drawing
 
             float HoldWidth = Width;
             Width *= Expand;
-                DeformToSpline();
+            DeformToSpline();
             Width = HoldWidth;
         }
 
@@ -512,7 +512,7 @@ namespace Drawing
             MyEffect.xTexture.SetValue(MyTexture.Tex);
 
             MyEffect.effect.CurrentTechnique.Passes[0].Apply();
-            
+
             Device.DrawUserPrimitives<MyOwnVertexFormat>(PrimitiveType.TriangleStrip, Vertices, 0, NumTriangles);
         }
 

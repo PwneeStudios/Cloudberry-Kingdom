@@ -8,152 +8,6 @@ using CloudberryKingdom;
 
 namespace Drawing
 {
-    public class EzTexture
-    {
-        //public Texture2D Tex;
-        Texture2D _Tex;
-        public Texture2D Tex 
-        {
-            get
-            {
-                //if (_Tex == null)
-                //    Load();
-                return _Tex;
-            }
-            set { _Tex = value; }
-        }
-
-        public float AspectRatio
-        {
-            get
-            {
-                return (float)_Tex.Width / (float)_Tex.Height;
-            }
-        }
-
-        public string Path, Name;
-
-        /// <summary>
-        /// If true this texture is a sub-image from a packed collection.
-        /// </summary>
-        public bool FromPacked = false;
-
-        public EzTexture Packed;
-
-        /// <summary>
-        /// If true this texture was loaded dynamically after the game loaded, not from a packed XNA file.
-        /// </summary>
-        public bool Dynamic = false;
-
-        /// <summary>
-        /// If true this texture is created via code, not from an asset file.
-        /// </summary>
-        public bool FromCode = false;
-
-        /// <summary>
-        /// Texture coordinates in the atlas.
-        /// </summary>
-        public Vector2 BL = Vector2.Zero, TR = Vector2.One;
-
-#if EDITOR
-        public static Game game;
-        public bool Load()
-        {
-            if (Tex == null && Path != null)
-                Tex = game.Content.Load<Texture2D>(Path);
-
-            return Tex != null;
-        }
-#else
-        public bool Load()
-        {
-            if (_Tex == null && Path != null)
-                _Tex = Tools.TheGame.Content.Load<Texture2D>(Path);
-
-            return _Tex != null;
-        }
-#endif
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public static implicit operator EzTexture(string name)
-        {
-            return Tools.Texture(name);
-        }
-    }
-
-    public class PackedTexture
-    {
-        public EzTexture MyTexture;
-
-        public struct SubTexture
-        {
-            public string name;
-            public Vector2 BL, TR;
-        }
-        public List<SubTexture> SubTextures = new List<SubTexture>();
-        public PackedTexture(string name)
-        {
-            MyTexture = Tools.TextureWad.FindByName(name);
-        }
-
-        public void Add(string name, float x1, float y1, float x2, float y2)
-        {
-            SubTexture sub;
-            sub.name = name;
-            sub.BL = new Vector2(x1, y2);
-            sub.TR = new Vector2(x2, y1);
-
-            SubTextures.Add(sub);
-        }
-    }
-
-    public class TextureOrAnim
-    {
-        public EzTexture MyTexture;
-        public AnimationData_Texture MyAnim;
-        public bool IsAnim = false;
-
-        public TextureOrAnim()
-        {
-        }
-
-        public TextureOrAnim(string name)
-        {
-            Set(name);
-        }
-
-        public void Set(string name)
-        {
-            if (Tools.TextureWad.AnimationDict.ContainsKey(name))
-            {
-                MyAnim = Tools.TextureWad.AnimationDict[name];
-                IsAnim = true;
-            }
-            else
-            {
-                MyTexture = Tools.Texture(name);
-                IsAnim = false;
-            }
-        }
-
-        public static implicit operator TextureOrAnim(EzTexture texture)
-        {
-            var t_or_a = new TextureOrAnim();
-            t_or_a.MyTexture = texture;
-            return t_or_a;
-        }
-
-        public static implicit operator TextureOrAnim(string name)
-        {
-            var t_or_a = new TextureOrAnim();
-            t_or_a.Set(name);
-            return t_or_a;
-        }
-    }
     public class EzTextureWad
     {
         public TextureOrAnim FindTextureOrAnim(string name)
@@ -508,29 +362,21 @@ namespace Drawing
                 NewTex.Tex = Tex;
 
                 NewTex.Name = Tools.StripPath(Name);
-                //int LastSlash = Name.LastIndexOf("\\");
-                //if (LastSlash < 0)
-                //    NewTex.Name = Name;
-                //else
-                //    NewTex.Name = Name.Substring(LastSlash + 1);
 
-                //lock (AllLoaded)
-                {
-                    TextureList.Add(NewTex);
+                TextureList.Add(NewTex);
 
-                    string name = NewTex.Name.ToLower();
-                    if (!NameDict.ContainsKey(name))
-                        NameDict.AddOrOverwrite(name, NewTex);
-                    PathDict.AddOrOverwrite(NewTex.Path.ToLower(), NewTex);
+                string name = NewTex.Name.ToLower();
+                if (!NameDict.ContainsKey(name))
+                    NameDict.AddOrOverwrite(name, NewTex);
+                PathDict.AddOrOverwrite(NewTex.Path.ToLower(), NewTex);
 
-                    BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
+                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
 
-                    // Add to folder
-                    string folder = Tools.FirstFolder(Name, "Art\\");
-                    if (!TextureListByFolder.ContainsKey(folder))
-                        TextureListByFolder.Add(folder, new List<EzTexture>());
-                    TextureListByFolder[folder].Add(NewTex);
-                }
+                // Add to folder
+                string folder = Tools.FirstFolder(Name, "Art\\");
+                if (!TextureListByFolder.ContainsKey(folder))
+                    TextureListByFolder.Add(folder, new List<EzTexture>());
+                TextureListByFolder[folder].Add(NewTex);
             }
 
             return NewTex;

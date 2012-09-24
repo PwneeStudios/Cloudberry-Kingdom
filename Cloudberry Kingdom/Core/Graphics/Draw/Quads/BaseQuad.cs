@@ -228,7 +228,7 @@ namespace Drawing
             Vertices.CopyTo(hold, 0);
 
             SetColor(color);
-            
+
             Draw(QDrawer);
             QDrawer.Flush();
 

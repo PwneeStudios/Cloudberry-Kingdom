@@ -269,7 +269,7 @@ namespace Drawing
             writer.Write(MyTexture.Path);
             writer.Write(MyEffect.Name);
 
-            
+
         }
 
         public override void Read(BinaryReader reader, EzEffectWad EffectWad, EzTextureWad TextureWad, int VersionNumber)
@@ -636,7 +636,7 @@ namespace Drawing
                 Scale(value);
             }
         }
-            
+
         public void Scale(Vector2 Stretch)
         {
             xAxis.RelPos *= Stretch.X;
@@ -751,7 +751,7 @@ namespace Drawing
         public override void Draw()
         {
             Draw(Tools.QDrawer);
-        } 
+        }
 
 
         override public void Draw(QuadDrawer Drawer)
