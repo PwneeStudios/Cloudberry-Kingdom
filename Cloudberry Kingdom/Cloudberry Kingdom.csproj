@@ -187,6 +187,7 @@
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
+    <Compile Include="Game\DebugHelper.cs" />
     <Compile Include="Game\InitialLoading.cs" />
     <Compile Include="Game\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\_Spaceship.cs" />

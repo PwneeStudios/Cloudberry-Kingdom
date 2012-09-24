@@ -895,7 +895,7 @@ namespace CloudberryKingdom
             // New tile sets
             TileSets.LoadCode();
 
-            if (CloudberryKingdomGame.StartAsFreeplay)
+            if (CloudberryKingdom_XboxPC.StartAsFreeplay)
                 Tools.Nothing();//SimpleCustomGUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky });
             else
                 //CustomLevel_GUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky });

@@ -82,7 +82,7 @@ namespace CloudberryKingdom
                     ||
                     hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
                     ||
-                    CloudberryKingdomGame.UnlockAll)
+                    CloudberryKingdom_XboxPC.UnlockAll)
                     AvailableHats += hat;
         }
 
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
                     ||
                     Beard.AssociatedAward != null && PlayerManager.Awarded(Beard.AssociatedAward)
                     ||
-                    CloudberryKingdomGame.UnlockAll)
+                    CloudberryKingdom_XboxPC.UnlockAll)
                     AvailableBeards += Beard;
         }
 

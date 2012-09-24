@@ -341,7 +341,7 @@ namespace CloudberryKingdom
         {
             MyCameraZoom = Tools.CurCamera.Zoom;
 
-            if (CloudberryKingdomGame.HideGui) return;
+            if (CloudberryKingdom_XboxPC.HideGui) return;
             if (!Core.Show || Core.Released) return;
 
             // Skip if offscreen

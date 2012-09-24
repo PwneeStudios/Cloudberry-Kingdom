@@ -32,7 +32,7 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    public partial class CloudberryKingdomGame : Game
+    public partial class CloudberryKingdom_XboxPC : Game
     {
         /// <summary>
         /// The version of the game we are working on now (+1 over the last uploaded to Steam).
@@ -91,7 +91,7 @@ namespace CloudberryKingdom
             AlwaysSkipDynamicArt = false;
 
 
-            CloudberryKingdomGame.args = args;
+            CloudberryKingdom_XboxPC.args = args;
 
             var list = new List<string>(args); list.Reverse();
             var stack = new Stack<string>(list);
@@ -189,7 +189,7 @@ namespace CloudberryKingdom
 
         Camera MainCamera;
 
-        public CloudberryKingdomGame()
+        public CloudberryKingdom_XboxPC()
         {
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN

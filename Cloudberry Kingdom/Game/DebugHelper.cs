@@ -7,10 +7,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using CloudberryKingdom.Levels;
+using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    partial class CloudberryKingdomGame
+    partial class CloudberryKingdom_XboxPC
     {
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
@@ -29,7 +31,7 @@ namespace CloudberryKingdom
                     //TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                    Tools.CurGameData = CloudberryKingdom_XboxPC.TitleGameFactory();
                     return true;
                 }
 
@@ -41,7 +43,7 @@ namespace CloudberryKingdom
                     TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                    Tools.CurGameData = CloudberryKingdom_XboxPC.TitleGameFactory();
                     return true;
                 }
 

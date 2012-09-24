@@ -161,7 +161,7 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
-                                             Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                                             Tools.CurGameData = CloudberryKingdom_XboxPC.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);
                                              Tools.AddToDo(() => this.Release());
                                          });

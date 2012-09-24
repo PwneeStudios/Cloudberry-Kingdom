@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             // assuming they have previously gotten to that level.
             IndexCutoff = 1;
             for (int i = 0; i < Levels.Length; i++)
-                if (HighestLevel >= Levels[i] || CloudberryKingdomGame.UnlockAll) IndexCutoff = i + 1;
+                if (HighestLevel >= Levels[i] || CloudberryKingdom_XboxPC.UnlockAll) IndexCutoff = i + 1;
 
             Initialize();
         }

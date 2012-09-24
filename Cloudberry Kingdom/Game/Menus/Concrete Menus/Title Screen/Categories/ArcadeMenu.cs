@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             this.MyChallenge = MyChallenge;
             this.MyPrereq = MyPrereq;
 
-            Locked = MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.UnlockAll;
+            Locked = MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdom_XboxPC.UnlockAll;
         }
     }
 
@@ -77,7 +77,7 @@ namespace CloudberryKingdom
             foreach (MenuItem item in MyMenu.Items)
             {
                 Awardment award = item.MyObject as Awardment;
-                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.UnlockAll)
+                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdom_XboxPC.UnlockAll)
                 {
                     item.MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
                     item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();

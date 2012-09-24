@@ -16,7 +16,7 @@ namespace CloudberryKingdom
 
         static void Main(string[] args)
         {
-            CloudberryKingdomGame.ProcessArgs(args);
+            CloudberryKingdom_XboxPC.ProcessArgs(args);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             
@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 #endif
 
 #if GAME
-            using (CloudberryKingdomGame game = new CloudberryKingdomGame())
+            using (CloudberryKingdom_XboxPC game = new CloudberryKingdom_XboxPC())
 #else
             using (Game_Editor game = new Game_Editor())            
 #endif
