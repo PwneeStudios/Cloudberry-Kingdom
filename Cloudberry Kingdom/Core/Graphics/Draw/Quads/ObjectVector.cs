@@ -154,12 +154,6 @@ namespace Drawing
                     axis = PQuad.yAxis.Pos - PQuad.Center.Pos;
                     RelPos.Y = Vector2.Dot(Dif, axis) / axis.LengthSquared();
                 }
-                else
-                {
-                    BendableQuad PQuad = (BendableQuad)ParentQuad;
-                    //RelPos = PQuad.MySpline.ClosestPoint(Pos, RelPos);
-                    //RelPos = new Vector2(0.7f, 0f);
-                }
             }
             else
                 RelPos = Pos - C;
@@ -186,25 +180,6 @@ namespace Drawing
                     if (CenterPoint == null) C1 = PQuad.Center.Pos;
 
                     Pos = C1 + RelPos.X * (PQuad.xAxis.Pos - C2) + RelPos.Y * (PQuad.yAxis.Pos - C2);
-                }
-                else
-                {
-                    BendableQuad BQuad = (BendableQuad)ParentQuad;
-                    Vector2 HoldRelPos = RelPos;
-
-                    RelPos = BQuad.MySpline.GetVector(RelPos.X, RelPos.Y);
-
-                    Quad PQuad = BQuad.ParentQuad;
-                    if (PQuad != null) C2 = PQuad.Center.Pos;
-                    if (CenterPoint == null && PQuad != null) C1 = PQuad.Center.Pos;
-
-                    if (PQuad != null)
-                        RelPos = C1 + RelPos.X * (PQuad.xAxis.Pos - C2) + RelPos.Y * (PQuad.yAxis.Pos - C2);
-                    else
-                        RelPos = RelPos;
-                    Move(RelPos);
-
-                    RelPos = HoldRelPos;
                 }
             }
             else

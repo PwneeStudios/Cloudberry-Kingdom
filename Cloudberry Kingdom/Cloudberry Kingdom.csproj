@@ -184,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Effects\EzEffectWad.cs" />
-    <Compile Include="Core\Graphics\Draw\Quads\Class1.cs" />
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
@@ -620,7 +619,6 @@
     <Compile Include="Core\Graphics\Draw\Quads\BaseQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Object\ObjectClass.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\Quad.cs" />
-    <Compile Include="Core\Graphics\Draw\Quads\Spline.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Doodad.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\CastleBackground.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Fireball.cs" />

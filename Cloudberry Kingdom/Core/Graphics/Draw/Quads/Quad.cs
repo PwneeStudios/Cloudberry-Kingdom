@@ -404,26 +404,6 @@ namespace Drawing
                     child_quad.yAxis.ParentQuad = null; child_quad.yAxis.RelPosFromPos();
                 }
 
-                if (child is BendableQuad)
-                {
-                    BendableQuad bend_child = (BendableQuad)child;
-
-                    for (int i = 0; i < bend_child.MySpline.Nodes; i++)
-                    {
-                        bend_child.MySpline.Node[i].ParentQuad = null;
-                        bend_child.MySpline.Node[i].RelPosFromPos();
-                        bend_child.MySpline.Control[i].ParentQuad = null;
-                        bend_child.MySpline.Control[i].RelPosFromPos();
-                    }
-                    /*
-                    foreach (ObjectVector point in bend_child.GetObjectVectors())
-                    {
-                        point.ParentQuad = null; point.RelPosFromPos();
-                    }*/
-
-                    bend_child.Width *= (xAxis.Pos - Center.Pos).Length();
-                }
-
                 if (child.ParentQuad == ParentObject.ParentQuad)
                     child.ParentQuad = null;
                 else
@@ -456,27 +436,6 @@ namespace Drawing
                 child_quad.Center.ParentQuad = this; if (!KeepNumericData) child_quad.Center.RelPosFromPos();
                 child_quad.xAxis.ParentQuad = this; if (!KeepNumericData) child_quad.xAxis.RelPosFromPos();
                 child_quad.yAxis.ParentQuad = this; if (!KeepNumericData) child_quad.yAxis.RelPosFromPos();
-            }
-
-            if (child is BendableQuad)
-            {
-                BendableQuad bend_child = (BendableQuad)child;
-
-                for (int i = 0; i < bend_child.MySpline.Nodes; i++)
-                {
-                    bend_child.MySpline.Node[i].ParentQuad = this;
-                    if (!KeepNumericData) bend_child.MySpline.Node[i].RelPosFromPos();
-                    bend_child.MySpline.Control[i].ParentQuad = this;
-                    if (!KeepNumericData) bend_child.MySpline.Control[i].RelPosFromPos();
-                }
-                /*
-                                foreach (ObjectVector point in bend_child.GetObjectVectors())
-                                {
-                                    point.ParentQuad = this; if (!KeepNumericData) point.RelPosFromPos();
-                                }
-                                */
-                if (!KeepNumericData)
-                    bend_child.Width *= 1f / (xAxis.Pos - Center.Pos).Length();
             }
 
             child.ParentQuad = this;
