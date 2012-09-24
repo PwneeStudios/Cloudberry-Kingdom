@@ -138,52 +138,28 @@ namespace Drawing
 
         public void RelPosFromPos()
         {
-            Vector2 C = new Vector2(0, 0);
-            if (CenterPoint != null) C = CenterPoint.Pos;
-
             if (ParentQuad != null)
-            {
-                if (ParentQuad is Quad)
-                {
-                    Quad PQuad = (Quad)ParentQuad;
-                    if (CenterPoint == null) C = PQuad.Center.Pos;
-
-                    Vector2 Dif = Pos - C;// PQuad.Center.Pos;
-                    Vector2 axis = PQuad.xAxis.Pos - PQuad.Center.Pos;
-                    RelPos.X = Vector2.Dot(Dif, axis) / axis.LengthSquared();
-                    axis = PQuad.yAxis.Pos - PQuad.Center.Pos;
-                    RelPos.Y = Vector2.Dot(Dif, axis) / axis.LengthSquared();
-                }
-            }
+                ParentQuad.Set_RelPosFromPos(this);
             else
-                RelPos = Pos - C;
-        }
+            {
+                Vector2 C = Vector2.Zero;
+                if (CenterPoint != null) C = CenterPoint.Pos;
 
-        // Assumes there is a parent quad and that it is a quad
-        public void FastPosFromRelPos(Quad parent)
-        {
-            Pos = parent.Center.Pos * (1 - RelPos.X - RelPos.Y) + RelPos.X * (parent.xAxis.Pos) + RelPos.Y * (parent.yAxis.Pos);
+                RelPos = Pos - C;
+            }
         }
 
         public void PosFromRelPos()
         {
-            Vector2 C1 = new Vector2(0, 0);
-            Vector2 C2 = new Vector2(0, 0);
-            if (CenterPoint != null) C1 = CenterPoint.Pos;
-
             if (ParentQuad != null)
-            {
-                if (ParentQuad is Quad)
-                {
-                    Quad PQuad = (Quad)ParentQuad;
-                    C2 = PQuad.Center.Pos;
-                    if (CenterPoint == null) C1 = PQuad.Center.Pos;
-
-                    Pos = C1 + RelPos.X * (PQuad.xAxis.Pos - C2) + RelPos.Y * (PQuad.yAxis.Pos - C2);
-                }
-            }
+                ParentQuad.Set_PosFromRelPos(this);
             else
-                Pos = RelPos + C1;
+            {
+                Vector2 C = Vector2.Zero;
+                if (CenterPoint != null) C = CenterPoint.Pos;
+
+                Pos = RelPos + C;
+            }
         }
     }
 }

@@ -246,6 +246,14 @@ namespace Drawing
                 Vertices[i].Color = PremultipliedColor;
         }
 
+        public virtual void Set_PosFromRelPos(ObjectVector v)
+        {
+        }
+
+        public virtual void Set_RelPosFromPos(ObjectVector v)
+        {
+        }
+
 #if EDITOR
         virtual public void ClickOnChildButton()
         {

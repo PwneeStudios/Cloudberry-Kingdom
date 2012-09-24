@@ -707,6 +707,32 @@ namespace Drawing
             }
         }
 
+        public override void Set_PosFromRelPos(ObjectVector v)
+        {
+            Vector2 C1 = Vector2.Zero;
+            Vector2 C2 = Vector2.Zero;
+            if (v.CenterPoint != null) C1 = v.CenterPoint.Pos;
+
+            C2 = Center.Pos;
+            if (v.CenterPoint == null) C1 = Center.Pos;
+
+            v.Pos = C1 + v.RelPos.X * (xAxis.Pos - C2) + v.RelPos.Y * (yAxis.Pos - C2);
+        }
+
+        public override void Set_RelPosFromPos(ObjectVector v)
+        {
+            Vector2 C = new Vector2(0, 0);
+            if (v.CenterPoint != null) C = v.CenterPoint.Pos;
+
+            if (v.CenterPoint == null) C = Center.Pos;
+
+            Vector2 Dif = v.Pos - C;
+            Vector2 axis = xAxis.Pos - Center.Pos;
+            v.RelPos.X = Vector2.Dot(Dif, axis) / axis.LengthSquared();
+            axis = yAxis.Pos - Center.Pos;
+            v.RelPos.Y = Vector2.Dot(Dif, axis) / axis.LengthSquared();
+        }
+
         public override void Draw()
         {
             Draw(Tools.QDrawer);
