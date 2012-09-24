@@ -825,9 +825,9 @@ namespace CloudberryKingdom.Levels
 #if DEBUG
             if (!showdebug || !dodebug) return;
 
-            CloudberryKingdom_XboxPC.debugstring = str;
+            CloudberryKingdom.debugstring = str;
             Thread.Sleep(5000);
-            CloudberryKingdom_XboxPC.debugstring = "DOING" + str;
+            CloudberryKingdom.debugstring = "DOING" + str;
 #endif
         }
 

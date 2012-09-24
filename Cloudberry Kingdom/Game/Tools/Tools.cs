@@ -934,8 +934,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 #if INCLUDE_EDITOR && WINDOWS
         public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(TheGame.Window.Handle); } }
 #endif
-        public static CloudberryKingdom.CloudberryKingdom_XboxPC TheGame;
-        public static Version GameVersion { get { return CloudberryKingdom.CloudberryKingdom_XboxPC.GameVersion; } }
+        public static CloudberryKingdom.CloudberryKingdom TheGame;
+        public static Version GameVersion { get { return CloudberryKingdom.CloudberryKingdom.GameVersion; } }
         public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
 
         public static String[] ButtonNames = { "A", "B", "X", "Y", "RS", "LS", "RT", "LT", "RJ", "RJ", "LJ", "LJ", "DPad", "Start" };

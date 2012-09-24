@@ -3,7 +3,7 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
-    static class Program
+    static class MainClass
     {
         /// <summary>
         /// The main entry point for the application.
@@ -16,7 +16,7 @@ namespace CloudberryKingdom
 
         static void Main(string[] args)
         {
-            CloudberryKingdom_XboxPC.ProcessArgs(args);
+            CloudberryKingdom.ProcessArgs(args);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             
@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 #endif
 
 #if GAME
-            using (CloudberryKingdom_XboxPC game = new CloudberryKingdom_XboxPC())
+            using (CloudberryKingdom game = new CloudberryKingdom())
 #else
             using (Game_Editor game = new Game_Editor())            
 #endif

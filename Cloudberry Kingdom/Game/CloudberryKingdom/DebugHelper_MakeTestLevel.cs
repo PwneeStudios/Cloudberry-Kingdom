@@ -8,7 +8,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    partial class CloudberryKingdom_XboxPC
+    partial class CloudberryKingdom
     {
         void MakeEmptyLevel()
         {

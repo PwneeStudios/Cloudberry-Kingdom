@@ -32,10 +32,10 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    public partial class CloudberryKingdom_XboxPC : Game
+    public partial class CloudberryKingdom
     {
         /// <summary>
-        /// The version of the game we are working on now (+1 over the last uploaded to Steam).
+        /// The version of the game we are working on now (+1 over the last version uploaded to Steam).
         /// MajorVersion is 0 for beta, 1 for release.
         /// MinorVersion increases with substantial change.
         /// SubVersion increases with any pushed change.
@@ -91,7 +91,7 @@ namespace CloudberryKingdom
             AlwaysSkipDynamicArt = false;
 
 
-            CloudberryKingdom_XboxPC.args = args;
+            CloudberryKingdom.args = args;
 
             var list = new List<string>(args); list.Reverse();
             var stack = new Stack<string>(list);
@@ -154,7 +154,6 @@ namespace CloudberryKingdom
         public static bool BuildDebug = false;
 #endif
 
-
         bool LogoScreenUp;
 
         /// <summary>
@@ -175,12 +174,10 @@ namespace CloudberryKingdom
         /// </summary>
         public InitialLoadingScreen LoadingScreen;
 
-        public GraphicsDeviceManager graphics;
+        GraphicsDevice MyGraphicsDevice;
+        public GraphicsDeviceManager MyGraphicsDeviceManager;
 
-        RenderTarget2D ScreenShotRenderTarget;
-
-        GraphicsDevice device;
-        int screenWidth, screenHeight;
+        int ScreenWidth, ScreenHeight;
 
         /// <summary>
         /// Font used to display debug info on the screen.
@@ -189,7 +186,7 @@ namespace CloudberryKingdom
 
         Camera MainCamera;
 
-        public CloudberryKingdom_XboxPC()
+        public CloudberryKingdom()
         {
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
@@ -197,8 +194,8 @@ namespace CloudberryKingdom
 #endif
             ResourceLoadedCountRef = new WrappedFloat();
 
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+            MyGraphicsDeviceManager = new GraphicsDeviceManager(this);
+            MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
             Content.RootDirectory = "Content";
 
@@ -288,9 +285,9 @@ namespace CloudberryKingdom
             // Set the default resolution
             Resolution = Resolutions[2];
 
-            graphics.PreferredBackBufferWidth = Resolution.Backbuffer.X;
-            graphics.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
-            graphics.SynchronizeWithVerticalRetrace = true;
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = Resolution.Backbuffer.X;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
+            MyGraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
 
             // Set the actual graphics device,
             // based on the resolution preferences established above.
@@ -302,26 +299,26 @@ namespace CloudberryKingdom
                     rez.Height = (int)((720f / 1280f) * rez.Width);
                 }
 
-                graphics.PreferredBackBufferWidth = rez.Width;
-                graphics.PreferredBackBufferHeight = rez.Height;
-                graphics.IsFullScreen = rez.Fullscreen;
+                MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
+                MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
+                MyGraphicsDeviceManager.IsFullScreen = rez.Fullscreen;
             }
             else
             {
-                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                graphics.IsFullScreen = false;
+                MyGraphicsDeviceManager.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                MyGraphicsDeviceManager.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                MyGraphicsDeviceManager.IsFullScreen = false;
             }
 #if DEBUG || INCLUDE_EDITOR
-            if (!graphics.IsFullScreen)
+            if (!MyGraphicsDeviceManager.IsFullScreen)
             {
-                graphics.PreferredBackBufferWidth = 1280;
-                graphics.PreferredBackBufferHeight = 720;
+                MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+                MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             }
 #endif
 #endif
 
-            graphics.ApplyChanges();
+            MyGraphicsDeviceManager.ApplyChanges();
             Window.Title = "Cloudberry Kingdom ";
 
             // Fill the pools
@@ -645,56 +642,35 @@ namespace CloudberryKingdom
             Tools.Write("Sound done...");
         }
 
-        bool DoVideoTest = false;
-        Video TestVideo;
-        VideoPlayer VPlayer;
-        Texture2D VTexture;
-        EzTexture VEZTexture = new EzTexture();
-        WrappedBool VBool;
-
         protected override void LoadContent()
         {
-            device = graphics.GraphicsDevice;
+            MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
 
             Tools.LoadBasicArt(Content);
 
-            Tools.QDrawer = new QuadDrawer(device, 1000);
+            Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 1000);
             Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
             Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
 
-            Tools.Device = device;
+            Tools.Device = MyGraphicsDevice;
             Tools.t = 0;
 
             LoadingResources = new WrappedBool(false);
             LoadingResources.MyBool = true;
             LogoScreenUp = true;
 
-            Tools.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Tools.spriteBatch = new SpriteBatch(MyGraphicsDevice);
 
-            screenWidth = device.PresentationParameters.BackBufferWidth;
-            screenHeight = device.PresentationParameters.BackBufferHeight;
+            ScreenWidth = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
+            ScreenHeight = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
 
-            PresentationParameters pp = Tools.Device.PresentationParameters;
-            ScreenShotRenderTarget = new RenderTarget2D(Tools.Device,
-            pp.BackBufferWidth, pp.BackBufferHeight, false,
-                                   pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
-                                   RenderTargetUsage.DiscardContents);
-
-
-
-            MainCamera = new Camera(screenWidth, screenHeight);
+            MainCamera = new Camera(ScreenWidth, ScreenHeight);
 
             MainCamera.Update();
 
             // Create the initial loading screen
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Content, ResourceLoadedCountRef);
-
-
-            if (DoVideoTest)
-                VideoTest();
-
-
 
             // Load resource thread.
             Thread LoadThread = new Thread(
@@ -736,7 +712,7 @@ namespace CloudberryKingdom
 
                         TileSets.Init();
 
-                        Fireball.InitRenderTargets(device, device.PresentationParameters, 300, 200);
+                        Fireball.InitRenderTargets(MyGraphicsDevice, MyGraphicsDevice.PresentationParameters, 300, 200);
 
                         ParticleEffects.Init();
 
@@ -797,55 +773,6 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
-        /// Video test. Will be canned once proper video class is implemented.
-        /// </summary>
-        private void VideoTest()
-        {
-            if (DoVideoTest)
-            {
-                VBool = new WrappedBool(false);
-
-                Thread VThread = null;
-                VThread = new Thread(
-                     new ThreadStart(
-                         delegate
-                         {
-#if XBOX
-                            Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
-#endif
-                             Tools.TheGame.Exiting += (o, e) =>
-                             {
-                                 if (VThread != null)
-                                     VThread.Abort();
-                             };
-
-                             // Test load movie
-                             //TestVideo = Content.Load<Video>("Movies//TestMovie");
-                             TestVideo = Content.Load<Video>("Movies//TestCinematic");
-                             VPlayer = new VideoPlayer();
-                             VPlayer.IsLooped = false;
-                             VPlayer.Play(TestVideo);
-
-                             while (true)
-                             {
-                                 lock (VEZTexture)
-                                 {
-                                     VTexture = VPlayer.GetTexture();
-                                     VEZTexture.Tex = VTexture;
-                                 }
-                             }
-                         }))
-                {
-                    Name = "VideoThread",
-#if WINDOWS
-                    Priority = ThreadPriority.Lowest,
-#endif
-                };
-                VThread.Start();
-            }
-        }
-
-        /// <summary>
         /// Load the necessary fonts.
         /// </summary>
         private void FontLoad()
@@ -869,48 +796,6 @@ namespace CloudberryKingdom
         static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
         protected override void Update(GameTime gameTime)
         {
-            //VPlayer.IsLooped = false;
-            //if (VPlayer != null && (Tools.PhsxCount % 60 == 0 || VPlayer.State == MediaState.Stopped))
-            //{
-            //    //VPlayer.IsLooped = true;
-            //    VPlayer.Play(TestVideo);
-            //}
-
-            //if (VPlayer1 != null)
-            //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
-            //if (VPlayer1 != null
-            //    && VPlayer1.PlayPosition.Ticks >= 55130000)//155100000)
-            //{
-            //    //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
-            //    VPlayer1.Pause();
-            //    Tools.Swap(ref VPlayer1, ref VPlayer2);
-            //    VPlayer1.Resume();
-            //    lock (VBool)
-            //    {
-            //        VBool.MyBool = true;
-            //    }
-            //}
-
-            /*
-            if (Tools.keybState.IsKeyDown(Keys.D6))
-            {
-                VPlayer1.Resume();
-            }
-            if (Tools.keybState.IsKeyDown(Keys.D7))
-            {
-                VPlayer1.Stop();
-                VPlayer1.Play(TestVideo1);
-            }*/
-
-            //graphics.SynchronizeWithVerticalRetrace = false;
-            //graphics.SynchronizeWithVerticalRetrace = true;
-            //graphics.IsFullScreen = false;
-
-            //this.TargetElapsedTime = _TargetElapsedTime;
-            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
-            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 10);
-            //this.TargetElapsedTime = new TimeSpan(TimeSpan.TicksPerSecond / 60);
-
             this.IsFixedTimeStep = Tools.FixedTimeStep;
 
             RunningSlowly = gameTime.IsRunningSlowly;
@@ -1197,7 +1082,7 @@ namespace CloudberryKingdom
             MakeInnerViewport();
             GraphicsDevice.Clear(Color.Black);
 
-            graphics.GraphicsDevice.Viewport = MainViewport;
+            MyGraphicsDeviceManager.GraphicsDevice.Viewport = MainViewport;
 
 
             Tools.DrawCount++;
@@ -1373,11 +1258,11 @@ namespace CloudberryKingdom
                 if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
                 {
                     // Compute fireballs textures
-                    device.BlendState = BlendState.Additive;
-                    Fireball.DrawFireballTexture(device, Tools.EffectWad);
-                    Fireball.DrawEmitterTexture(device, Tools.EffectWad);
+                    MyGraphicsDevice.BlendState = BlendState.Additive;
+                    Fireball.DrawFireballTexture(MyGraphicsDevice, Tools.EffectWad);
+                    Fireball.DrawEmitterTexture(MyGraphicsDevice, Tools.EffectWad);
                     
-                    device.BlendState = BlendState.AlphaBlend;
+                    MyGraphicsDevice.BlendState = BlendState.AlphaBlend;
                 }
             }
         }

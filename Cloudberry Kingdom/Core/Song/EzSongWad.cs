@@ -76,7 +76,7 @@ namespace Drawing
 
         public void Draw()
         {
-            if (CloudberryKingdom_XboxPC.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen
+            if (CloudberryKingdom.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen
                 && !Tools.ScreenshotMode && !Tools.CapturingVideo)
             {
                 SongInfoText.Draw(DefaultCam);

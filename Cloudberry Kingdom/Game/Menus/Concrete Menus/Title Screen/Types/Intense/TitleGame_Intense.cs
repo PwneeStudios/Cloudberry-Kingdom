@@ -74,7 +74,7 @@ namespace CloudberryKingdom
             // Menu
             GUI_Panel panel;
 
-            if (CloudberryKingdom_XboxPC.StartAsFreeplay)
+            if (CloudberryKingdom.StartAsFreeplay)
                 panel = new CustomLevel_GUI();
             else
             {

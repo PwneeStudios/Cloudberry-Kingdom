@@ -1620,7 +1620,7 @@ namespace CloudberryKingdom.Levels
                     MyBackground.Draw();
             }
 
-            if (CloudberryKingdom_XboxPC.HideForeground) return;
+            if (CloudberryKingdom.HideForeground) return;
             if (MyGame != null) MyGame.PreDraw();
 
             EnsureSuckEffect();
