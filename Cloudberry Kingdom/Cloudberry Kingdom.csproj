@@ -187,6 +187,7 @@
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
+    <Compile Include="Game\CloudberryKingdom.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\_Spaceship.cs" />
     <Compile Include="Game\Games\ToDoItem.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\ArrowMenu.cs">
@@ -606,7 +607,7 @@
     <Compile Include="Game\Player\Hero Physics\Box.cs" />
     <Compile Include="Game\Player\Hero Physics\Normal.cs" />
     <Compile Include="Game\Player\Hero Physics\Spaceship.cs" />
-    <Compile Include="Core\ButtonCheck.cs" />
+    <Compile Include="Core\Input\ButtonCheck.cs" />
     <Compile Include="Game\Tools\Camera.cs" />
     <Compile Include="Game\Objects\Special\CameraZone.cs" />
     <Compile Include="Game\Player\Cape.cs" />
@@ -615,7 +616,7 @@
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Sub Menus\ControlScreen.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\BouncyBlock.cs" />
     <Compile Include="Core\WriteReadTools.cs" />
-    <Compile Include="Core\Graphics\Draw\Quads\QuadDrawer.cs" />
+    <Compile Include="Core\Graphics\QuadDrawer.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\BaseQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Object\ObjectClass.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\Quad.cs" />
@@ -660,7 +661,7 @@
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingPlatform.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingBlock.cs" />
     <Compile Include="Game\Games\NormalGame.cs" />
-    <Compile Include="Core\Graphics\Draw\VertexFormat.cs" />
+    <Compile Include="Core\Graphics\VertexFormat.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\SwitchBlock.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\OutsideBackground.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />

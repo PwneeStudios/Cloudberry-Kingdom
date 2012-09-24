@@ -208,8 +208,6 @@ namespace CloudberryKingdom.Levels
 
         public void EndComputerWatch()
         {
-            if (Tools.CapturingVideo) Tools.TheGame.EndVideoCapture();
-
             RestoreCamera();
 
             ReplayPaused = false;

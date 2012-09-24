@@ -1614,7 +1614,7 @@ namespace CloudberryKingdom.Levels
 
             if (MyBackground != null && Tools.DrawGraphics)
             {
-                if (Background.Test || Background.GreenScreen)
+                if (Background.GreenScreen)
                     Background.DrawTest();
                 else
                     MyBackground.Draw();

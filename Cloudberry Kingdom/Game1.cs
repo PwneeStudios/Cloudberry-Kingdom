@@ -32,7 +32,7 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    public class CloudberryKingdomGame : Game
+    public partial class CloudberryKingdomGame : Game
     {
         /// <summary>
         /// The version of the game we are working on now (+1 over the last uploaded to Steam).
@@ -517,15 +517,6 @@ namespace CloudberryKingdom
             string path = Path.Combine(Globals.ContentDirectory, "Music");
             string[] files = Directory.GetFiles(path);
 
-            //if (SimpleLoad)
-            //{
-            //    files = new string[] { "Music\\Happy.xnb",
-            //                           "Music\\140 Mph in the Fog^Blind Digital.xnb",
-            //                           "Music\\Blue Chair^Blind Digital.xnb",
-            //                           "Music\\Ripcurl^Blind Digital.xnb",
-            //                           "Music\\Evidence^Blind Digital.xnb" };
-            //}
-
             foreach (String file in files)
             {
                 int i = file.IndexOf("Music") + 5 + 1;
@@ -543,12 +534,7 @@ namespace CloudberryKingdom
                         Tools.SongWad.FindByName(name).song = Content.Load<Song>("Music\\" + name);
                 }
 
-                //lock (ResourceLoadedCountRef)
-                {
-                    ResourceLoadedCountRef.MyFloat++;
-                }
-
-                //if (SimpleLoad && Tools.SongWad.SongList.Count > 0) break;
+                ResourceLoadedCountRef.MyFloat++;
             }
 
 
@@ -587,7 +573,6 @@ namespace CloudberryKingdom
 
             Tools.Song_WritersBlock = Tools.SongWad.FindByName("Writer's Block^Peacemaker");
             Tools.Song_WritersBlock.Volume = 1f;
-
 
             // Create the standard playlist
             Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
@@ -632,12 +617,7 @@ namespace CloudberryKingdom
                     }
                 }
 
-                //lock (ResourceLoadedCountRef)
-                {
-                    ResourceLoadedCountRef.MyFloat++;
-                }
-
-                //if (SimpleLoad && Tools.SoundWad.SoundList.Count > 0) break;
+                ResourceLoadedCountRef.MyFloat++;
             }
 
             if (Tools.SoundContentManager != null)
@@ -786,13 +766,10 @@ namespace CloudberryKingdom
                         Tools.Write("ArtMusic done...");
 
                         // Load the infowad and boxes
-                        Action infoaction = () =>
-                        {
-                            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                            ReloadInfo();
-                            Tools.Write("Infowad done...");
-                        };
-                        infoaction();
+                        Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+                        ReloadInfo();
+                        Tools.Write("Infowad done...");
+
                         TileSets.Init();
 
                         Fireball.InitRenderTargets(device, device.PresentationParameters, 300, 200);
@@ -825,15 +802,10 @@ namespace CloudberryKingdom
                         MouseBack.Quad.SetColor(new Color(255, 150, 150, 100));
 #endif
 
-                        Action objaction = () =>
-                        {
-                            Prototypes.LoadObjects();
-                            ObjectIcon.InitIcons();
+                        Prototypes.LoadObjects();
+                        ObjectIcon.InitIcons();
 
-                            Tools.Write("Stickmen done...");
-                        };
-                        objaction();
-
+                        Tools.Write("Stickmen done...");
 
                         Tools.padState = new GamePadState[4];
                         Tools.PrevpadState = new GamePadState[4];
@@ -857,7 +829,6 @@ namespace CloudberryKingdom
 #endif
             };
 
-            if (!DONOTHING)
             LoadThread.Start();
         }
 
@@ -909,8 +880,6 @@ namespace CloudberryKingdom
                 VThread.Start();
             }
         }
-
-        public bool DONOTHING = false;
 
         /// <summary>
         /// Load the necessary fonts.
@@ -981,49 +950,16 @@ namespace CloudberryKingdom
             //this.TargetElapsedTime = new TimeSpan(TimeSpan.TicksPerSecond / 60);
 
             this.IsFixedTimeStep = Tools.FixedTimeStep;
-            //this.IsFixedTimeStep = true;
-            //this.IsFixedTimeStep = false;
 
             RunningSlowly = gameTime.IsRunningSlowly;
             base.Update(gameTime);
         }
 
-        string VideoFolderName = "";
-        public bool SetToBringSaveVideoDialog = false;
-        public bool SetToRecordInput = false;
-
-        public void BeginVideoCapture()
-        {
-            if (Tools.ScreenshotMode == false)
-            {
-                ChangeScreenshotMode();
-                Tools.CapturingVideo = true;
-                Tools.VideoFrame = 0;
-            }
-        }
-
-        public void EndVideoCapture()
-        {
-            if (Tools.CapturingVideo)
-            {
-                ChangeScreenshotMode();
-                Tools.CapturingVideo = false;
-            }
-        }
-
-        void ChangeScreenshotMode()
-        {
-            Tools.ScreenshotMode = !Tools.ScreenshotMode;
-            if (Tools.ScreenshotMode) Tools.DestinationRenderTarget = ScreenShotRenderTarget;
-            else Tools.DestinationRenderTarget = null;
-            Tools.ResetViewport();
-        }
-
-        void CountShortReset()
+        void DoQuickSpawn()
         {
             if (Tools.CurLevel.ResetEnabled() && Tools.CurLevel.PlayMode == 0 && !Tools.CurLevel.Watching && !Tools.CurGameData.PauseGame && Tools.CurGameData.QuickSpawnEnabled())
             {
-                // Note that quickspawn was used, so that no hint is given about it
+                // Note that quickspawn was used, hence we should not give hints to the player to use Quick Spawn in the future.
                 Hints.QuickSpawn = 999;
 
                 // Don't count reset against player if it happens within the first half second
@@ -1071,55 +1007,122 @@ namespace CloudberryKingdom
         /// </summary>
         public List<Action> ToDo = new List<Action>();
 
-        protected void PhsxStep()
+        private void DoToDoList()
         {
             foreach (Action todo in ToDo)
                 todo();
             ToDo.Clear();
+        }
 
-            // WARNING!!! Test the save code.
-            //if (ButtonCheck.State(ControllerButtons.Y, -1).Pressed)
-            //    SaveGroup.SaveAll();
+        protected void PhsxStep()
+        {
+            DoToDoList();
 
 #if WINDOWS
+            // Save the current keyboard state.
             if (Tools.PrevKeyboardState == null) Tools.PrevKeyboardState = Tools.keybState;
 
-#if (PC_DEBUG || WINDOWS) && INCLUDE_EDITOR
-            //if (Tools.keybState.IsKeyDownCustom(Keys.A))
-            //{
-            //    Tools.CurLevel.PlayMode = 0;
-            //}
+            // Debug tools
+#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
+            {
+                if (DebugModePhsx())
+                    return;
+            }
+#endif
 
-            //// Start Record
-            //if (SetToRecordInput ||
-            //    Tools.keybState.IsKeyDown(Keys.T) && !Tools.PrevKeyboardState.IsKeyDown(Keys.T))
-            //{
-            //    SetToRecordInput = false;
+            // Do game update.
+            if (!Tools.StepControl || (Tools.keybState.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Enter)))
+            {
+                DoGameDataPhsx();
+            }
+            else if (Tools.CurLevel != null)
+                Tools.CurLevel.IndependentDeltaT = 0;
 
-            //    Level lvl = Tools.CurLevel;
-            //    lvl.NoCameraChange = true;
-            //    lvl.CurPhsxStep = 0;
-            //    lvl.CleanRecording();
-            //    lvl.AllowRecording = true;
-            //    lvl.StartRecording();
-            //}
+            // Quick Spawn
+            CheckForQuickSpawn_PC();
 
-            //// Add recording
-            //if (Tools.keybState.IsKeyDown(Keys.Y) && !Tools.PrevKeyboardState.IsKeyDown(Keys.Y))
-            //{
-            //    Level lvl = Tools.CurLevel;
-            //    lvl.AddCurRecording();
-            //    lvl.MainReplayOnly = true;
-            //    lvl.WatchReplay(true);
-            //}
+            // Determine if the mouse is in the window or not.
+            Tools.MouseInWindow =
+                Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
+                Tools.CurMouseState.Y > 0 && Tools.CurMouseState.Y < Resolution.Backbuffer.Y;
 
-            //// Save recording
-            //if (Tools.keybState.IsKeyDown(Keys.G) && !Tools.PrevKeyboardState.IsKeyDown(Keys.G))
-            //{
-            //    Level lvl = Tools.CurLevel;
-            //    lvl.CurrentRecording.Save("BeatBoss.rec", false);
-            //}
+            // Calculate how much user has scrolled the mouse wheel and moved the mouse.
+            Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
+            Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
+                               Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
+            Tools.RawDeltaMouse = new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y) -
+                                  new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y);
 
+            Tools.PrevKeyboardState = Tools.keybState;
+            Tools.PrevMouseState = Tools.CurMouseState;
+#else
+            DoGameDataPhsx();
+#endif
+
+            // Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
+            CheckForQuickSpawn_Xbox();
+
+            // Store the previous states of the Xbox controllers.
+            for (int i = 0; i < 4; i++)
+                if (Tools.PrevpadState[i] != null)
+                    Tools.PrevpadState[i] = Tools.padState[i];
+
+            // Update the fireball textures.
+            Fireball.TexturePhsx();
+        }
+
+        private void CheckForQuickSpawn_PC()
+        {
+            // Should implement a GameObject that marshalls quickspawns instead.
+            Tools.Warning();
+
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() &&
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
+                DoQuickSpawn();
+        }
+
+        private void CheckForQuickSpawn_Xbox()
+        {
+            // Check for quick spawn on Xbox. This allows the player to reset a level rapidly.
+            // For XBox this is done by holding both shoulder buttons.
+            bool ShortReset = false;
+            for (int i = 0; i < 4; i++)
+            {
+                if (PlayerManager.Get(i).Exists)
+                {
+                    if (Tools.padState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.padState[i].Buttons.RightShoulder == ButtonState.Pressed &&
+                        (Tools.PrevpadState[i].Buttons.LeftShoulder != ButtonState.Pressed
+                         || Tools.PrevpadState[i].Buttons.RightShoulder != ButtonState.Pressed))
+                        ShortReset = true;
+                }
+            }
+
+            // Do the quick spawn if it was chosen by the player.
+            if (ShortReset)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
+                    {
+                        if (Tools.padState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
+                            Tools.padState[i].Buttons.RightShoulder != ButtonState.Pressed)
+                            ShortReset = false;
+                    }
+                }
+
+                if (ShortReset && Tools.CurLevel.ResetEnabled())
+                    DoQuickSpawn();
+            }
+        }
+
+        /// <summary>
+        /// Extra functions that allow a user to better debug/test/
+        /// </summary>
+        /// <returns>Return true if the calling method should return.</returns>
+        private bool DebugModePhsx()
+        {
+#if WINDOWS
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {
                 // Test title screen
@@ -1131,7 +1134,7 @@ namespace CloudberryKingdom
 
                     Tools.SongWad.Stop();
                     Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                    return;
+                    return true;
                 }
 
                 // Test title screen
@@ -1143,7 +1146,7 @@ namespace CloudberryKingdom
 
                     Tools.SongWad.Stop();
                     Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                    return;
+                    return true;
                 }
 
                 if (Tools.keybState.IsKeyDown(Keys.J) && !Tools.PrevKeyboardState.IsKeyDown(Keys.J))
@@ -1158,7 +1161,6 @@ namespace CloudberryKingdom
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
             //}
 
-            
             // Game Obj Viewer
             if (!Tools.ViewerIsUp && (!KeyboardExtension.Freeze || Tools.CntrlDown()) && (Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
                 && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
@@ -1193,19 +1195,6 @@ namespace CloudberryKingdom
                 ShowFPS = !ShowFPS;
 #endif
 
-            // Quick game reset
-            //if (//Tools.CurLevel.ResetEnabled() &&
-            //    Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
-            //    //Tools.keybState.IsKeyDownCustom(Keys.S) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.S))
-            //    Tools.CurGameData.EndGame(true);
-
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() && 
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
-                CountShortReset();
-
-
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
-            {
 #if PC_DEBUG
             if (Tools.FreeCam)
             {
@@ -1220,273 +1209,136 @@ namespace CloudberryKingdom
             }
 #endif
 
-                // Reload some dynamic data (tileset info, animation specifications).
-                if (Tools.keybState.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.X))
-                {
+            // Reload some dynamic data (tileset info, animation specifications).
+            if (Tools.keybState.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.X))
+            {
 #if INCLUDE_EDITOR
-                    if (LoadDynamic)
-                    {
-                        ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-                        ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                        //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
-                        //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
-                        TileSets.LoadSpriteEffects();
-                        TileSets.LoadCode();
-                    }
+                if (LoadDynamic)
+                {
+                    ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+                    ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
+                    //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
+                    //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
+                    TileSets.LoadSpriteEffects();
+                    TileSets.LoadCode();
+                }
 #endif
 
-                    // Make blocks in the current level reset their art to reflect possible changes in the reloaded tileset info.
-                    foreach (BlockBase block in Tools.CurLevel.Blocks)
-                    {
-                        NormalBlock nblock = block as NormalBlock;
-                        if (null != nblock) nblock.ResetPieces();
+                // Make blocks in the current level reset their art to reflect possible changes in the reloaded tileset info.
+                foreach (BlockBase block in Tools.CurLevel.Blocks)
+                {
+                    NormalBlock nblock = block as NormalBlock;
+                    if (null != nblock) nblock.ResetPieces();
 
-                        MovingBlock mblock = block as MovingBlock;
-                        if (null != mblock) mblock.ResetPieces();
-                    }
+                    MovingBlock mblock = block as MovingBlock;
+                    if (null != mblock) mblock.ResetPieces();
                 }
+            }
 
 #if DEBUG
-                // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
-                if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+            // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
+            if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+            {
+                ReloadInfo();
+
+                // Reset blocks
+                foreach (BlockBase block in Tools.CurLevel.Blocks)
                 {
-                    //LoadSound(false);
-                    ReloadInfo();
+                    NormalBlock nblock = block as NormalBlock;
+                    if (null != nblock) nblock.ResetPieces();
 
-                    // Reset blocks
-                    foreach (BlockBase block in Tools.CurLevel.Blocks)
-                    {
-                        NormalBlock nblock = block as NormalBlock;
-                        if (null != nblock) nblock.ResetPieces();
-
-                        MovingBlock mblock = block as MovingBlock;
-                        if (null != mblock) mblock.ResetPieces();
-                    }
-
-                    // Reset capes. Currently broken.
-                    foreach (Bob bob in Tools.CurLevel.Bobs)
-                    {
-                        if (bob.MyCape != null)
-                        {
-                            bob.MyCape.Release();
-                            bob.MyCape = null;
-                            bob.SetHeroPhsx(bob.MyHeroType);
-                        }
-                        bob.PlayerObject.PlayUpdate(0);
-                        bob.PlayerObject.EnqueueAnimation(0, 0, true);
-                        bob.PlayerObject.DequeueTransfers();
-                    }
+                    MovingBlock mblock = block as MovingBlock;
+                    if (null != mblock) mblock.ResetPieces();
                 }
-
-                // Test a static image background.
-                if (Tools.keybState.IsKeyDownCustom(Keys.D0) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D0))
-                    Background.Test = !Background.Test;
+            }
 #endif
 
-                // Turn on a simple green screen background.
-                if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
-                    Background.GreenScreen = !Background.GreenScreen;
+            // Turn on a simple green screen background.
+            if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
+                Background.GreenScreen = !Background.GreenScreen;
 
-#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
-                Tools.ModNums();
+            Tools.ModNums();
 
-                // Load a test level.
-                if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
+            // Load a test level.
+            if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
+            {
+                GameData.LockLevelStart = false;
+                LevelSeedData.ForcedReturnEarly = 0;
+                MakeTestLevel(); return true;
+            }
+
+            // Hide the GUI. Used for video capture.
+            if (ButtonCheck.State(Keys.D8).Pressed) HideGui = !HideGui;
+
+            // Hide the foreground. Used for video capture of backgrounds.
+            if (ButtonCheck.State(Keys.D7).Pressed) HideForeground = !HideForeground;
+
+            // Turn on/off immortality.
+            if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
+            {
+                foreach (Bob bob in Tools.CurLevel.Bobs)
+                {
+                    bob.Immortal = !bob.Immortal;
+                }
+            }
+
+            // Turn on/off graphics.
+            if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
+                Tools.DrawGraphics = !Tools.DrawGraphics;
+            // Turn on/off drawing of collision detection boxes.
+            if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
+                Tools.DrawBoxes = !Tools.DrawBoxes;
+            // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
+            if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
+                Tools.StepControl = !Tools.StepControl;
+            // Modify the speed of the game.
+            if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
+            {
+                Tools.IncrPhsxSpeed();
+            }
+
+            // Don't do any of the following if a control box is up.
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
+            {
+                // Watch the computer make a level during Stage 1 of construction.
+                if (Tools.keybState.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D3))
                 {
                     GameData.LockLevelStart = false;
-                    LevelSeedData.ForcedReturnEarly = 0;
-                    MakeTestLevel(); return;
+                    LevelSeedData.ForcedReturnEarly = 1;
+                    MakeTestLevel(); return true;
                 }
 
-                // Hide the GUI. Used for video capture.
-                if (ButtonCheck.State(Keys.D8).Pressed) HideGui = !HideGui;
-                
-                // Hide the foreground. Used for video capture of backgrounds.
-                if (ButtonCheck.State(Keys.D7).Pressed) HideForeground = !HideForeground;
-
-                // Turn on/off immortality.
-                if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
+                // Watch the computer make a level during Stage 2 of construction.
+                if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
                 {
-                    foreach (Bob bob in Tools.CurLevel.Bobs)
-                    {
-                        bob.Immortal = !bob.Immortal;
-                    }
+                    GameData.LockLevelStart = false;
+                    LevelSeedData.ForcedReturnEarly = 2;
+                    MakeTestLevel(); return true;
                 }
 
-                // Turn on/off graphics.
-                if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
-                    Tools.DrawGraphics = !Tools.DrawGraphics;
-                // Turn on/off drawing of collision detection boxes.
-                if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
-                    Tools.DrawBoxes = !Tools.DrawBoxes;
-                // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
-                if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
-                    Tools.StepControl = !Tools.StepControl;
-                // Modify the speed of the game.
-                if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
+                // Zoom in and out.
+                if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
                 {
-                    Tools.IncrPhsxSpeed();
+                    Tools.CurLevel.MainCamera.Zoom *= .99f;
+                    Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
+                }
+                if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
+                {
+                    Tools.CurLevel.MainCamera.Zoom /= .99f;
+                    Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
                 }
 
-#if INCLUDE_EDITOR && !DEBUG
-                // Turn on/off free camera motion (control via arrow keys).
+                // Turn on/off FreeCam, which allows the user to pan the camera through the level freely.
                 if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
                     Tools.FreeCam = !Tools.FreeCam;
-#else
-                // Don't do any of the following if a control box is up.
-                if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
-                {
-                    // Watch the computer make a level during Stage 1 of construction.
-                    if (Tools.keybState.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D3))
-                    {
-                        GameData.LockLevelStart = false;
-                        LevelSeedData.ForcedReturnEarly = 1;
-                        MakeTestLevel(); return;
-                    }
-
-                    // Watch the computer make a level during Stage 2 of construction.
-                    if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
-                    {
-                        GameData.LockLevelStart = false;
-                        LevelSeedData.ForcedReturnEarly = 2;
-                        MakeTestLevel(); return;
-                    }
-
-                    // Zoom in and out.
-                    if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
-                    {
-                        Tools.CurLevel.MainCamera.Zoom *= .99f;
-                        Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
-                    }
-                    if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
-                    {
-                        Tools.CurLevel.MainCamera.Zoom /= .99f;
-                        Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
-                    }
-
-                    // End video capture.
-                    if (Tools.keybState.IsKeyDownCustom(Keys.Escape) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Escape))
-                    {
-                        EndVideoCapture();
-                    }
-                    // Begin video capture.
-                    if (SetToBringSaveVideoDialog ||
-                        Tools.keybState.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.U))
-                    {
-                        SetToBringSaveVideoDialog = false;
-
-                        Forms.FolderBrowserDialog ofd = new Forms.FolderBrowserDialog();
-                        string root = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                        ofd.SelectedPath = root + "\\Test";
-
-                        //Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
-                        //ofd.Title = "Save as...";
-                        //ofd.Filter = "Imaginary extension (*.iex)|*.iex";
-                        //ofd.InitialDirectory = "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\Videos";
-                        //ofd.CheckFileExists = false;
-
-                        Tools.DialogUp = true;
-
-                        // Check the user didn't cancel
-                        if (ofd.ShowDialog() != Forms.DialogResult.Cancel)
-                        {
-                            Tools.DialogUp = false;
-
-                            // Record video
-                            BeginVideoCapture();
-                            ofd.ShowNewFolderButton = true;
-                            VideoFolderName = ofd.SelectedPath;
-                            //VideoFolderName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.'));
-
-                            // Make directory
-                            if (VideoFolderName.Length <= root.Length) return;
-                            if (System.IO.Directory.Exists(VideoFolderName))
-                                System.IO.Directory.Delete(VideoFolderName, true);
-                            System.IO.Directory.CreateDirectory(VideoFolderName);
-                        }
-
-                        Tools.DialogUp = false;
-                    }
-
-                    if (Tools.keybState.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.I))
-                    {
-                        ChangeScreenshotMode();
-                    }
-
-                    if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
-                        Tools.FreeCam = !Tools.FreeCam;
-                }
-#endif
-
-#endif
             }
-
-            // Do game update.
-            if (!Tools.StepControl || (Tools.keybState.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Enter)))
-            {
-                DoGameDataPhsx();
-            }
-            else if (Tools.CurLevel != null)
-                Tools.CurLevel.IndependentDeltaT = 0;
-
-            // Determine if the mouse is in the window or not.
-            Tools.MouseInWindow =
-                Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
-                Tools.CurMouseState.Y > 0 && Tools.CurMouseState.Y < Resolution.Backbuffer.Y;
-
-            // Calculate how much user has scrolled the mouse wheel and moved the mouse.
-            Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
-            Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
-                               Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
-            Tools.RawDeltaMouse = new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y) -
-                                  new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y);
-
-            Tools.PrevKeyboardState = Tools.keybState;
-            Tools.PrevMouseState = Tools.CurMouseState;
-#else
-            DoGameDataPhsx();
-#endif
 
             // Allow Back to exit the game if we are in test mode
             if (SimpleLoad && ButtonCheck.State(ControllerButtons.Back, -1).Down)
+            {
                 Exit();
-
-            // Check for quick spawn. This allows the player to reset a level rapidly.
-            // For PC this is done via the spacebar (default).
-            // For XBox this is done by holding both shoulder buttons.
-            bool ShortReset = false;
-            for (int i = 0; i < 4; i++)
-            {
-                if (PlayerManager.Get(i).Exists)
-                {
-                    if (Tools.padState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.padState[i].Buttons.RightShoulder == ButtonState.Pressed &&
-                        (Tools.PrevpadState[i].Buttons.LeftShoulder != ButtonState.Pressed
-                         || Tools.PrevpadState[i].Buttons.RightShoulder != ButtonState.Pressed))
-                        ShortReset = true;
-                }
+                return true;
             }
-
-            // Do the quick spawn if it was chosen by the player.
-            if (ShortReset)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
-                    {
-                        if (Tools.padState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
-                            Tools.padState[i].Buttons.RightShoulder != ButtonState.Pressed)
-                            ShortReset = false;
-                    }
-                }
-
-                if (ShortReset && Tools.CurLevel.ResetEnabled())
-                    CountShortReset();
-            }
-
-            // Store the previous states of the Xbox controllers.
-            for (int i = 0; i < 4; i++)
-                if (Tools.PrevpadState[i] != null)
-                    Tools.PrevpadState[i] = Tools.padState[i];
 
             /* XBOX Debug buttons
             if (Tools.padState[0].Buttons.B == ButtonState.Pressed && Tools.PrevpadState[0].Buttons.B != ButtonState.Pressed)
@@ -1506,17 +1358,16 @@ namespace CloudberryKingdom
             }
             */
 
-            // Update the fireball textures.
-            Fireball.TexturePhsx();
+            return false;
         }
-
 
         public static string debugstring = "";
         StringBuilder MainString = new StringBuilder(100, 100);
+
         /// <summary>
         /// Method for drawing various debug information to the screen.
         /// </summary>
-        void DrawGC()
+        void DrawDebugInfo()
         {
             if (Tools.ScreenshotMode) return;
 
@@ -1635,19 +1486,14 @@ namespace CloudberryKingdom
                     {
                         MakeEmptyLevel();
 #if INCLUDE_EDITOR
-            Tools.background_viewer = new Viewer.BackgroundViewer();
-            Tools.background_viewer.Show();
+                        Tools.background_viewer = new Viewer.BackgroundViewer();
+                        Tools.background_viewer.Show();
 #endif
                         return;
                     }
                     else if (StartAsTestLevel)
                     {
                         MakeTestLevel();
-                        return;
-                    }
-                    else if (StartAsBobAnimationTest)
-                    {
-                        MakeBobAnimationTest();
                         return;
                     }
                     else if (StartAsFreeplay)
@@ -1670,61 +1516,6 @@ namespace CloudberryKingdom
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
 #endif
                 }
-            }
-        }
-
-        void MakeBobAnimationTest()
-        {
-            Level level = new Level();
-            
-            //level.DefaultHeroType = BobPhsxNormal.Instance;
-
-            level.MainCamera = new Camera();
-            level.CurPiece = level.StartNewPiece(0, null, 1);
-            level.CurPiece.StartData[0].Position = new Vector2(0, 0);
-            level.MainCamera.BLCamBound = new Vector2(-100000, 0);
-            level.MainCamera.TRCamBound = new Vector2(100000, 0);
-            level.MainCamera.Update();
-            level.TimeLimit = -1;
-
-            level.MyTileSet = TileSets.Dungeon;
-            level.MyBackground = Background.Get(BackgroundType.Dungeon);
-            level.MyBackground.Init(level);
-
-            var game = Tools.CurGameData = level.MyGame = new GameData();
-            Tools.CurGameData.MyLevel = Tools.CurLevel = level;
-
-            game.AllowQuickJoin = false;
-
-            // Make ground
-            NormalBlock block;
-
-            foreach (NormalBlock _block in level.Blocks)
-                if (_block is NormalBlock)
-                    _block.CollectSelf();
-
-            Vector2 shift = new Vector2(30, 430);
-
-            block = (NormalBlock)game.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(game.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000), level.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.Dungeon;
-            level.AddBlock(block);
-
-            block = (NormalBlock)game.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(game.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000), level.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.Dungeon;
-            level.AddBlock(block);
-
-            // Make new bob
-            game.MakeBobs(level);
-
-            // Position bobs
-            foreach (Bob bob in level.Bobs)
-            {
-                Tools.MoveTo(bob, game.CamPos);
-
-                bob.ScreenWrap = true;
-                bob.Immortal = true;
             }
         }
 
@@ -1845,54 +1636,6 @@ namespace CloudberryKingdom
             //level.MyGame.AddGameObject(new GUI_Lives(gui));
 
             //level.MyGame.DramaticEntry(level.StartDoor, 20);
-        }
-
-        void writelist()
-        {
-            Tools.UseInvariantCulture();
-            FileStream fstream = File.Open("C:\\Users\\Ezra\\Desktop\\List.txt", FileMode.Create, FileAccess.Write, FileShare.None);
-            StreamWriter writer = new StreamWriter(fstream, Encoding.UTF8);
-
-            var list = new string[] { "Blob", "Bouncy", "Cloud", "Elevator", "Falling", "Firespinner", "Ghost", "Laser", "Lava Drip", "Moving", "Serpent", "Spike", "Spikey", "Boulder" };
-            int n = 8;
-            int[] i = new int[n];
-            while (true)
-            {
-                bool overlap = false;
-                for (int k1 = 0; k1 < n; k1++)
-                    for (int k2 = 0; k2 < n; k2++)
-                        if (k1 != k2 && i[k1] == i[k2] || k1 < k2 && i[k1] > i[k2])
-                            overlap = true;
-
-                if (!overlap)
-                {
-                    string s = "";
-                    for (int k = n-1; k >= 0; k--)
-                    //for (int k = 0; k < n; k++)
-                        //s += i[k].ToString() + " + ";
-                        s += list[i[k]].ToString() + "\t";
-                    Tools.Write(s);
-                    writer.WriteLine(s);
-                }
-
-                int j = -1;
-                do
-                {
-                    j++;
-                    i[j]++;
-                    if (i[j] == list.Length)
-                    {
-                        if (j == n - 1)
-                        {
-                            writer.Close();
-                            fstream.Close();
-                            return;
-                        }
-                        i[j] = 0;
-                    }
-                }
-                while (i[j] == 0);
-            }
         }
 
         void TestLevelInit(PieceSeedData piece)
@@ -2174,15 +1917,6 @@ namespace CloudberryKingdom
         public double DeltaT = 0;
         protected override void Draw(GameTime gameTime)
         {
-            //Tools.BasicEffect = Tools.EffectWad.FindByName("BW");
-            //Tools.BasicEffect = Tools.EffectWad.FindByName("Basic");
-
-            if (DONOTHING)
-            {
-                GraphicsDevice.Clear(Color.Green);
-                return;
-            }
-
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
 #endif
@@ -2229,9 +1963,8 @@ namespace CloudberryKingdom
             DrawBool = !Guide.IsVisible;
 #endif
 
-            bool DoShit = true;// Tools.DrawCount % 2 == 0;
+            bool DoShit = true;
             bool DrawShit = true;
-
 
             if (!LogoScreenUp)
                 if (!Tools.CurGameData.Loading)
@@ -2258,7 +1991,7 @@ namespace CloudberryKingdom
                         float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
                         Tools.dt = new_t - Tools.t;
                         Tools.t = new_t;
-                        //fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.Milliseconds));
+
                         fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.TotalMilliseconds));
 
                         if (DoShit)
@@ -2309,8 +2042,6 @@ namespace CloudberryKingdom
                 {
                     Tools.CurGameData.Draw();
                     Tools.CurGameData.PostDraw();
-
-                    //VideoTest_Draw2();
                 }
                 else
                     GraphicsDevice.Clear(Color.Black);
@@ -2319,17 +2050,10 @@ namespace CloudberryKingdom
             if (DoVideoTest)
                 VideoTest_Draw();
 
-            // Debug stat coins
-            /*
-            if (DrawCount % 20 == 0)
-            {
-                PlayerData p = PlayerManager.Get(0);
-                Console.WriteLine("{0}, {1}, {2}, {3}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.LifetimeStats.Coins);
-            }*/
-
-            //////////if (ShowFPS || Tools.DebugConvenience)
+#if DEBUG
             if (BuildDebug || ShowFPS || Tools.ShowNums)
-                DrawGC();
+                DrawDebugInfo();
+#endif
 
             if (Tools.CurLevel != null)
             {

@@ -340,8 +340,6 @@ namespace CloudberryKingdom
             if (Quad.MyTexture != null)
             {
                 Size = new Vector2(Quad.TexWidth, Quad.TexHeight);
-                //Base.e1 = new Vector2(Quad.TexWidth, 0);
-                //Base.e2 = new Vector2(0, Quad.TexHeight);
             }
         }
 
@@ -356,8 +354,6 @@ namespace CloudberryKingdom
         public void Scale(float scale)
         {
             Size *= scale;
-            //Base.e1 *= scale;
-            //Base.e2 *= scale;
         }
 
         /// <summary>
@@ -423,7 +419,7 @@ namespace CloudberryKingdom
         public void FullScreen(Camera cam)
         {
             Size = new Vector2((cam.EffectiveTR.X - cam.EffectiveBL.X) / 2, (cam.EffectiveTR.Y - cam.EffectiveBL.Y) / 2);
-            Pos = (cam.EffectiveTR + cam.EffectiveBL) / 2; //cam.EffectivePos + cam.ShakeOffset;
+            Pos = (cam.EffectiveTR + cam.EffectiveBL) / 2;
         }
 
         public void FromBounds(Vector2 BL, Vector2 TR)
@@ -444,13 +440,7 @@ namespace CloudberryKingdom
             Set(texture, 1);
             ScaleToTextureSize();
         }
-        //public QuadClass(string TextureName)
-        //{
-        //    Initialize(null, false, false);
-        //    Set(TextureName, 1);
-        //    ScaleToTextureSize();
-        //}
-
+ 
         public QuadClass(string TextureName, float Width)
         {
             Initialize(null, false, false);

@@ -335,7 +335,6 @@ namespace CloudberryKingdom
             }
         }
         
-        public static bool Test = false;
         public static bool GreenScreen = false;
         static QuadClass TestQuad = new QuadClass();
         public static EzTexture TestTexture = null;

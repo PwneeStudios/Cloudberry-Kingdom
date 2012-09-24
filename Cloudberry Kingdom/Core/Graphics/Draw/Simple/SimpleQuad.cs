@@ -254,7 +254,6 @@ namespace Drawing
             t = anim = 0; Playing = false; speed = 1;
             
             MyTexture = quad.MyTexture;
-            //TextureName = quad.MyTexture.Name;
         }
 
         public void SetTextureOrAnim(TextureOrAnim t_or_a)
