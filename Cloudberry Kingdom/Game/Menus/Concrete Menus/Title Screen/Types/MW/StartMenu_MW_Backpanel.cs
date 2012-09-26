@@ -155,7 +155,7 @@ namespace CloudberryKingdom
                 black = CoreMath.Restrict(.7f, 1f, black - .33f);
             else
                 black = CoreMath.Restrict(.7f, 1f, black + .33f);
-            Scene_Blur.Quad.SetColor(CoreMath.Gray(black));
+            Scene_Blur.Quad.SetColor(ColorHelper.Gray(black));
 
             // Oscillate title color
             if (Title.Show)

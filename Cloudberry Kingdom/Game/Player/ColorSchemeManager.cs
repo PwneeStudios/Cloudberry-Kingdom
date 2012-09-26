@@ -512,27 +512,27 @@ float DefaultShiftX = -.35f;
             //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
 
             // Fill the skin color list
-            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), Tools.HsvTransform(1.25f, 0f, 0),  "White"));    // 0
-            ColorList.Add(_i(3501, 0, Color.Silver,          Tools.HsvTransform(.85f, 0f, 0),   "Silver"));   // 1
-            ColorList.Add(_i(3502, 0, Color.Gray,            Tools.HsvTransform(.525f, 0f, 0),   "Gray"));     // 2
+            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),  "White"));    // 0
+            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),   "Silver"));   // 1
+            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),   "Gray"));     // 2
             ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
-                                      new Color(50, 50, 50), Tools.HsvTransform(.3f, 0f, 0),    "Black"));    // 3
+                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),    "Black"));    // 3
 
-            ColorList.Add(_i(3504, 0, Color.Cyan,            Tools.LinearColorTransform(45),    "Cyan"));     // 4  
-            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), Tools.LinearColorTransform(120),   "Blue"));     // 5
-            ColorList.Add(_i(3506, 0, Color.DarkBlue,        Tools.LinearColorTransform(80),    "Teal"));     // 6
-            ColorList.Add(_i(3507, 0, Color.Indigo,          Tools.HsvTransform(.8f, 1.3f, 225),"Indigo"));   // 7
-            ColorList.Add(_i(3508, 0, Color.Purple,          Tools.HsvTransform(.85f, 1.1f, 205),"Purple"));  // 8
-            ColorList.Add(_i(3509, 0, Color.Brown,           Tools.HsvTransform(1f, 1f, 80),"Brown"));        // 9
+            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),    "Cyan"));     // 4  
+            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),   "Blue"));     // 5
+            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),    "Teal"));     // 6
+            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),"Indigo"));   // 7
+            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205),"Purple"));  // 8
+            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),"Brown"));        // 9
             ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
-                                      Tools.HsvTransform(.95f, 1.3f, 0) * Tools.LinearColorTransform(240), "Red")); // 10
-            ColorList.Add(_i(3511, 0, Color.HotPink,         Tools.HsvTransform(1.3f, 1.2f, 200), "Hot Pink"));     // 11
-            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),Tools.HsvTransform(.9f, 1.3f, 110), "Orange"));        // 12
-            ColorList.Add(_i(3513, 0, Color.Gold,            Tools.HsvTransform(1.3f, 1.2f, 100), "Gold"));         // 13
-            ColorList.Add(_i(3514, 0, Color.Yellow,          Tools.HsvTransform(1.5f, 1.5f, 100), "Yellow"));       // 14
-            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), Tools.LinearColorTransform(0), "Green"));              // 15
-            ColorList.Add(_i(3516, 0, Color.LimeGreen,       Tools.HsvTransform(1.25f, 1.35f, 0), "LimeGreen"));    // 16
-            ColorList.Add(_i(3517, 0, Color.ForestGreen,     Tools.HsvTransform(.75f, .8f, 0), "ForestGreen"));     // 17
+                                      ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), "Red")); // 10
+            ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), "Hot Pink"));     // 11
+            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110), "Orange"));        // 12
+            ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), "Gold"));         // 13
+            ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), "Yellow"));       // 14
+            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0), "Green"));              // 15
+            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), "LimeGreen"));    // 16
+            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0), "ForestGreen"));     // 17
             
 
             // Fill the textured skin list
@@ -633,11 +633,11 @@ float DefaultShiftX = -.35f;
 
 
             //// Add solid colors
-            //ColorList.Add(_i(77001, 0, Color.Red, Tools.PureColor(Color.Red), Tools.HslEffect, "Solid Red"));
-            //ColorList.Add(_i(77002, 0, Color.Green, Tools.PureColor(Color.Green), Tools.HslEffect, "Solid Green"));
-            //ColorList.Add(_i(77003, 0, Color.Blue, Tools.PureColor(Color.Blue), Tools.HslEffect, "Solid Blue"));
-            //ColorList.Add(_i(77004, 0, Color.Purple, Tools.PureColor(Color.Purple), Tools.HslEffect, "Solid Purple"));
-            //ColorList.Add(_i(77005, 0, Color.Orange, Tools.PureColor(Color.Orange), Tools.HslEffect, "Solid Orange"));
+            //ColorList.Add(_i(77001, 0, Color.Red, ColorHelper.PureColor(Color.Red), Tools.HslEffect, "Solid Red"));
+            //ColorList.Add(_i(77002, 0, Color.Green, ColorHelper.PureColor(Color.Green), Tools.HslEffect, "Solid Green"));
+            //ColorList.Add(_i(77003, 0, Color.Blue, ColorHelper.PureColor(Color.Blue), Tools.HslEffect, "Solid Blue"));
+            //ColorList.Add(_i(77004, 0, Color.Purple, ColorHelper.PureColor(Color.Purple), Tools.HslEffect, "Solid Purple"));
+            //ColorList.Add(_i(77005, 0, Color.Orange, ColorHelper.PureColor(Color.Orange), Tools.HslEffect, "Solid Orange"));
 
             // Combine all colors
             List<MenuListItem> temp;

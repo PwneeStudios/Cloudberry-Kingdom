@@ -400,7 +400,7 @@ namespace CloudberryKingdom
 
         public void PointxAxisTo(Vector2 Dir)
         {
-            Tools.PointxAxisTo(ref Base.e1, ref Base.e2, Dir);
+            CoreMath.PointxAxisTo(ref Base.e1, ref Base.e2, Dir);
         }
 
         public void TextureParralax(float Parralax, Vector2 repeat, Vector2 shift, Camera Cam)

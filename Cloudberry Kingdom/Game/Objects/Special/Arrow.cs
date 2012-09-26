@@ -65,7 +65,7 @@ namespace CloudberryKingdom
         public void PointTo(Vector2 pos)
         {
             PointToPos = pos;
-            Tools.PointxAxisTo(ref MyObject.Base, Core.Data.Position - PointToPos);
+            CoreMath.PointxAxisTo(ref MyObject.Base, Core.Data.Position - PointToPos);
             MyObject.Base.e2 *= MyOrientation;
         }
 

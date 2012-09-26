@@ -60,7 +60,7 @@ namespace CloudberryKingdom
             if (Core.BoxesOnly) return;
 
             Base.Origin = Core.Data.Position;
-            //Tools.PointxAxisTo(ref Base.e1, ref Base.e2, EmitData.Velocity);
+            //CoreMath.PointxAxisTo(ref Base.e1, ref Base.e2, EmitData.Velocity);
 
             MyQuad.Update(ref Base);
         }

@@ -140,7 +140,7 @@ namespace CloudberryKingdom.Spikes
         {
             Angle = Ang;
             Vector2 Direction = new Vector2((float)Math.Cos(Ang), (float)Math.Sin(Ang));
-            Tools.PointxAxisTo(ref MyObject.Base.e1, ref MyObject.Base.e2, Direction);
+            CoreMath.PointxAxisTo(ref MyObject.Base.e1, ref MyObject.Base.e2, Direction);
 
             if (MyQuad != null)
                 MyQuad.PointxAxisTo(Direction);

@@ -180,7 +180,7 @@ namespace CloudberryKingdom
             MyQuad.PointxAxisTo(-Core.Data.Velocity);
 
             //MyQuad.Quad.MyEffect = Tools.HslEffect;
-            //Tools.HslEffect.Hsl.SetValue(Tools.HsvTransform(0, 0, 200));
+            //Tools.HslEffect.Hsl.SetValue(ColorHelper.HsvTransform(0, 0, 200));
 
             // Shift forward
             Vector2 dir = Core.Data.Velocity;

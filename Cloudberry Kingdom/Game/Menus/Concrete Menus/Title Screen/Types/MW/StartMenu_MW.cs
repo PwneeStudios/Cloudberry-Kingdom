@@ -110,7 +110,7 @@ namespace CloudberryKingdom
         void SmallBlackBox()
         {
             BackBox.TextureName = "White";
-            BackBox.Quad.SetColor(CoreMath.Gray(.1f));
+            BackBox.Quad.SetColor(ColorHelper.Gray(.1f));
             BackBox.Alpha = .73f;
 
             MenuItem _item;

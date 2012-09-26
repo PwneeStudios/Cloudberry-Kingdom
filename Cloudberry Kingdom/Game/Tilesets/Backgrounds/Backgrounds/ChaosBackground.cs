@@ -65,7 +65,7 @@ namespace CloudberryKingdom
                 cloud.StartData.Position = new Vector2(Pos, MyLevel.Rnd.RndFloat(-2900, 2900));
                 cloud.MyQuad.TextureName = Rnd.RandomItem(textures);
 
-                cloud.MyQuad.Quad.SetColor(CoreMath.Gray(.945f));
+                cloud.MyQuad.Quad.SetColor(ColorHelper.Gray(.945f));
                 cloud.MyQuad.Size = new Vector2(300, 200) * MyLevel.Rnd.RndFloat(1, 2.3f);
                 cloud.MyQuad.ScaleYToMatchRatio();
                 cloud.Data.Velocity = new Vector2(MyLevel.Rnd.RndFloat(-55, -40), 0) * ModCloudSpeed;

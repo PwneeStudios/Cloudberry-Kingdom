@@ -595,7 +595,7 @@ namespace Drawing
 
             MySetColor = color;
 
-            PremultipliedColor = Tools.PremultiplyAlpha(color, BlendAddRatio);
+            PremultipliedColor = ColorHelper.PremultiplyAlpha(color, BlendAddRatio);
 
             v0.Vertex.Color = PremultipliedColor;
             v1.Vertex.Color = PremultipliedColor;

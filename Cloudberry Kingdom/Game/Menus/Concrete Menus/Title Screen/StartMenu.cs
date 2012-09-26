@@ -183,8 +183,8 @@ namespace CloudberryKingdom
 
         private static void GrayItem(MenuItem item)
         {
-            item.MyText.MyFloatColor = CoreMath.Gray(.535f);
-            item.MySelectedText.MyFloatColor = CoreMath.Gray(.55f);
+            item.MyText.MyFloatColor = ColorHelper.Gray(.535f);
+            item.MySelectedText.MyFloatColor = ColorHelper.Gray(.55f);
         }
 
         void MakeMenu()

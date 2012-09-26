@@ -233,7 +233,7 @@ namespace CloudberryKingdom
             text.Scale = FontScale * 1.42f;
             text.ShadowOffset = new Vector2(17);
 
-            CampaignMenu._x_x_HappyBlueColor(text); text.ShadowColor = CoreMath.GrayColor(.3f); text.Scale *= 1.25f;
+            CampaignMenu._x_x_HappyBlueColor(text); text.ShadowColor = ColorHelper.GrayColor(.3f); text.Scale *= 1.25f;
         }
 
         private MenuItem MakeListItem(BobPhsx hero, MenuList list)

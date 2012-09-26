@@ -29,7 +29,7 @@ namespace Drawing
             set
             {
                 _CurrentMatrix = value;
-                CurrentMatrixSignature = Tools.MatrixSignature(_CurrentMatrix);
+                CurrentMatrixSignature = ColorHelper.MatrixSignature(_CurrentMatrix);
             }
         }
         Matrix _CurrentMatrix;
@@ -251,7 +251,7 @@ namespace Drawing
             LineQuad.MyEffect = Tools.BasicEffect;;
             LineQuad.MyTexture = DefaultTexture;
 
-            color = Tools.PremultiplyAlpha(color);
+            color = ColorHelper.PremultiplyAlpha(color);
 
             LineQuad.v0.Vertex.xy = new Vector2(BL.X, TR.Y); LineQuad.v0.Vertex.Color = color;
             LineQuad.v1.Vertex.xy = TR; LineQuad.v1.Vertex.Color = color;
@@ -298,7 +298,7 @@ namespace Drawing
         }
         public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex, EzEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift, bool Wrap)
         {
-            color = Tools.PremultiplyAlpha(color);
+            color = ColorHelper.PremultiplyAlpha(color);
 
             Vector2 Tangent = x2 - x1;
             Vector2 Normal = new Vector2(Tangent.Y, -Tangent.X);
@@ -352,7 +352,7 @@ namespace Drawing
 
         public void DrawLineAndEndPoints(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex1, EzTexture Tex2, EzTexture Tex3, EzEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift)
         {
-            color = Tools.PremultiplyAlpha(color);
+            color = ColorHelper.PremultiplyAlpha(color);
 
             Vector2 Tangent = x2 - x1;
             Tangent.Normalize();
@@ -449,7 +449,7 @@ namespace Drawing
         }
         public void DrawSquareDot(Vector2 x, Color color, float width, EzTexture Tex, EzEffect fx)
         {
-            color = Tools.PremultiplyAlpha(color);
+            color = ColorHelper.PremultiplyAlpha(color);
 
             LineQuad.MyEffect = DefaultEffect;
             if (fx == null)
@@ -488,7 +488,7 @@ namespace Drawing
         }
         public void DrawToScaleQuad(Vector2 x, Color color, float width, EzTexture Tex, EzEffect fx)
         {
-            color = Tools.PremultiplyAlpha(color);
+            color = ColorHelper.PremultiplyAlpha(color);
 
             LineQuad.MyEffect = DefaultEffect;
             if (fx == null)

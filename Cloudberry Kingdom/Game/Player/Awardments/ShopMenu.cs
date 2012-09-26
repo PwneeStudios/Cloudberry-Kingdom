@@ -136,7 +136,7 @@ namespace CloudberryKingdom.Awards
         {
             base.SetHeaderProperties(text);
             text.Shadow = false;
-            text.MyFloatColor = CoreMath.Gray(.923f);
+            text.MyFloatColor = ColorHelper.Gray(.923f);
         }
 
         public override void Init()

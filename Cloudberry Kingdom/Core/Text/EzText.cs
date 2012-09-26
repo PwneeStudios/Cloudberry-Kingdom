@@ -962,7 +962,7 @@ namespace CloudberryKingdom
             Tools.StartSpriteBatch();
             foreach (EzTextBit bit in Bits)
             {
-                Color textcolor = Tools.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
+                Color textcolor = ColorHelper.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
 
                 if (bit.builder_str != null)
                     Tools.Render.MySpriteBatch.DrawString(font, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
@@ -977,7 +977,7 @@ namespace CloudberryKingdom
                     Color piccolor = PicColor;
                     piccolor.A = Tools.FloatToByte(Alpha * piccolor.A / 255f);
 
-                    piccolor = Tools.PremultiplyAlpha(piccolor);
+                    piccolor = ColorHelper.PremultiplyAlpha(piccolor);
 
                     Vector2 pos = Loc + Scale * ZoomMod * new Vector2(pic.rect.X, pic.rect.Y);
                     Vector2 scale = Scale * ZoomMod * new Vector2(pic.rect.Width / (float)pic.tex.Tex.Width, pic.rect.Height / (float)pic.tex.Tex.Height);

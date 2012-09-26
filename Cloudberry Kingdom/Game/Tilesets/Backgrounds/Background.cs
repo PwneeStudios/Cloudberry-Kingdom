@@ -365,7 +365,7 @@ namespace CloudberryKingdom
                 }
                 TestQuad.Quad.MyTexture = TestTexture;
 
-                TestQuad.Quad.SetColor(CoreMath.GrayColor(.825f));
+                TestQuad.Quad.SetColor(ColorHelper.GrayColor(.825f));
                 TestQuad.FullScreen(Cam);
                 TestQuad.ScaleXToMatchRatio();
             }

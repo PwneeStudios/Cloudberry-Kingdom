@@ -17,7 +17,7 @@ namespace CloudberryKingdom.Stats
         {
             base.SetHeaderProperties(text);
             text.Shadow = false;
-            text.MyFloatColor = CoreMath.Gray(.923f);
+            text.MyFloatColor = ColorHelper.Gray(.923f);
         }
 
         static Vector2[] x1_name = { new Vector2(1431.285f, -158.9048f) };

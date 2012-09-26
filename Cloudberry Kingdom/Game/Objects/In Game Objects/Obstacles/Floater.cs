@@ -145,7 +145,7 @@ namespace CloudberryKingdom
             Angle = CorrespondingAngle;
 
             Core.Data.Position = Pos;
-            Tools.PointyAxisTo(ref MyObject.Base, PivotPoint - Core.Data.Position);
+            CoreMath.PointyAxisTo(ref MyObject.Base, PivotPoint - Core.Data.Position);
 
             base.PhsxStep();
         }

@@ -3,15 +3,12 @@ using System.IO;
 using System.Text;
 using Microsoft.Xna.Framework;
 
+using Drawing;
+
 namespace CloudberryKingdom
 {
-    public class CoreMath
+    public static class CoreMath
     {
-        public static Color GrayColor(float val) { return new Color(Gray(val)); }
-        public static Vector4 Gray(float val)
-        {
-            return new Vector4(val, val, val, 1);
-        }
         public static int Modulo(int n, int p)
         {
             int M = n % p;
@@ -397,6 +394,48 @@ namespace CloudberryKingdom
         {
             float q = (float)Math.Pow(Math.Abs(zero1 - apex.X), power);
             return apex.Y * (float)(q - Math.Pow(Math.Abs(t - apex.X), power)) / q;
+        }
+
+
+
+
+        public static Vector2 Reciprocal(Vector2 v)
+        {
+            return new Vector2(v.Y, -v.X);
+        }
+        public static void RotatedBasis(float Degrees, ref Vector2 v)
+        {
+            Vector2 e1 = CoreMath.DegreesToDir(Degrees);
+            Vector2 e2 = CoreMath.DegreesToDir(Degrees + 90);
+
+            v = v.X * e1 + v.Y * e2;
+        }
+        public static void PointyAxisTo(ref BasePoint Base, Vector2 dir)
+        {
+            PointxAxisTo(ref Base, Reciprocal(dir));
+        }
+        public static void PointxAxisTo(ref BasePoint Base, Vector2 dir)
+        {
+            PointxAxisTo(ref Base.e1, ref Base.e2, dir);
+        }
+        public static void PointxAxisTo(ref Vector2 e1, ref Vector2 e2, Vector2 dir)
+        {
+            if (dir.Length() < .0001f) return;
+
+            dir.Normalize();
+
+            float l = e1.Length();
+            e1 = dir * l;
+
+            l = e2.Length();
+            e2.X = -e1.Y;
+            e2.Y = e1.X;
+            e2.Normalize();
+            e2 *= l;
+        }
+        public static void PointxAxisToAngle(ref BasePoint Base, float angle)
+        {
+            PointxAxisTo(ref Base, CoreMath.AngleToDir(angle));
         }
     }
 }

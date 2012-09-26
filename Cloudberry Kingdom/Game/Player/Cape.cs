@@ -112,8 +112,8 @@ namespace CloudberryKingdom
             if (clr == MyColor) return;
 
             _MyColor = clr;
-            Color PremultipliedColor = Tools.PremultiplyAlpha(clr);
-            Color PremultipliedColor_Darker = Tools.PremultiplyAlpha(new Color(clr.ToVector3() * .5f));
+            Color PremultipliedColor = ColorHelper.PremultiplyAlpha(clr);
+            Color PremultipliedColor_Darker = ColorHelper.PremultiplyAlpha(new Color(clr.ToVector3() * .5f));
 
             int count = 0;
             // Triangles

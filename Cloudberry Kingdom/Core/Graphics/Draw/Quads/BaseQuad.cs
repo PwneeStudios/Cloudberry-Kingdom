@@ -36,7 +36,7 @@ namespace Drawing
             set
             {
                 _MyMatrix = value;
-                MyMatrixSignature = Tools.MatrixSignature(_MyMatrix);
+                MyMatrixSignature = ColorHelper.MatrixSignature(_MyMatrix);
             }
         }
 
@@ -240,7 +240,7 @@ namespace Drawing
         {
             MyColor = color;
 
-            PremultipliedColor = Tools.PremultiplyAlpha(color);
+            PremultipliedColor = ColorHelper.PremultiplyAlpha(color);
 
             for (int i = 0; i < NumVertices; i++)
                 Vertices[i].Color = PremultipliedColor;
