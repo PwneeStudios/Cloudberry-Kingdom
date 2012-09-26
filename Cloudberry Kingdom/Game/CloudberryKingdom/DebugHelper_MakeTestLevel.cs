@@ -30,6 +30,11 @@ namespace CloudberryKingdom
 
         void MakeTestLevel()
         {
+            //PlayerManager.Players[0].Exists = true;
+            //PlayerManager.Players[1].Exists = true;
+            //PlayerManager.Players[2].Exists = true;
+            //PlayerManager.Players[3].Exists = true;
+
             LevelSeedData data = new LevelSeedData();
 
             //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
@@ -62,11 +67,11 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
-            data.DefaultHeroType = BobPhsxInvert.Instance;
+            //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;

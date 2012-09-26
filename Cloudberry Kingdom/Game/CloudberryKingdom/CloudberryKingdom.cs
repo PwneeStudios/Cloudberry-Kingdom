@@ -883,11 +883,8 @@ namespace CloudberryKingdom
 
             // Debug tools
 #if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
-            {
-                if (DebugModePhsx())
-                    return;
-            }
+            if (DebugModePhsx())
+                return;
 #endif
 
             // Do game update.

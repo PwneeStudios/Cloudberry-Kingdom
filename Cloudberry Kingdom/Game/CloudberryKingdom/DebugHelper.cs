@@ -20,6 +20,8 @@ namespace CloudberryKingdom
         /// <returns>Return true if the calling method should return.</returns>
         private bool DebugModePhsx()
         {
+            //if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze) return;
+
 #if WINDOWS
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {

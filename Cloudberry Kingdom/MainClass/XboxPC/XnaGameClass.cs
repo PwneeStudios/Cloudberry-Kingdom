@@ -60,6 +60,8 @@ namespace CloudberryKingdom
         protected override void LoadContent()
         {
             MyGame.LoadContent();
+
+            base.LoadContent();
         }
 
         protected override void UnloadContent()
@@ -75,12 +77,15 @@ namespace CloudberryKingdom
             MyGame.RunningSlowly = gameTime.IsRunningSlowly;
 
             MyGame.Update();
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             MyGame.Draw(gameTime);
+
+            base.Draw(gameTime);
         }
     }
 }
