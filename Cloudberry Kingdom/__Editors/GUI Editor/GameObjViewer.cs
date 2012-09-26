@@ -33,7 +33,7 @@ namespace CloudberryKingdom.Viewer
             if (!PositionSet)
             {
                 this.Location = new System.Drawing.Point(1460, 194);
-                Form.FromHandle(Tools.TheGame.Window.Handle).Location = new System.Drawing.Point(170, 200);
+                Form.FromHandle(Tools.GameClass.Window.Handle).Location = new System.Drawing.Point(170, 200);
 
                 PositionSet = true;
             }

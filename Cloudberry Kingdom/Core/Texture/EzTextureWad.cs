@@ -150,7 +150,7 @@ namespace Drawing
                             break;
 
                         case "TileSetToTest":
-                            CloudberryKingdom.TileSetToTest = bits[1];
+                            CloudberryKingdomGame.TileSetToTest = bits[1];
                             break;
 
                         default: break;
@@ -235,7 +235,7 @@ namespace Drawing
             {
                 // Only load the specified mod root
                 var name = Tools.GetFileName(path, file);
-                if (string.Compare(name, CloudberryKingdom.ModRoot, true) != 0) continue;
+                if (string.Compare(name, CloudberryKingdomGame.ModRoot, true) != 0) continue;
 
                 string extension = Tools.GetFileExt(path, file);
                 if (extension != "modroot") continue;
@@ -291,7 +291,7 @@ namespace Drawing
             else
             {
                 //lock (texture)
-                //lock (Tools.TheGame.Content)
+                //lock (Tools.GameClass.Content)
                 {
                     if (texture.Tex == null)
                     {

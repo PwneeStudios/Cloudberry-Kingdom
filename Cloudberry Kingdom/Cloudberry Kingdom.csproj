@@ -184,12 +184,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\ResolutionGroup.cs" />
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
-    <Compile Include="Game\DebugHelper.cs" />
-    <Compile Include="Game\InitialLoading.cs" />
-    <Compile Include="Game\DebugHelper_MakeTestLevel.cs" />
+    <Compile Include="Core\Version.cs" />
+    <Compile Include="Game\CloudberryKingdom\CloudberryKingdom.cs" />
+    <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
+    <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
+    <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\_Spaceship.cs" />
     <Compile Include="Game\Games\ToDoItem.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\ArrowMenu.cs">
@@ -279,6 +282,8 @@
     <Compile Include="Core\Graphics\Draw\Simple\SimpleQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleBox.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleVector.cs" />
+    <Compile Include="MainClass\XboxPC\MainClass.cs" />
+    <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,7 +304,6 @@
     <Compile Include="Core\Animation\AnimationData_Integer.cs" />
     <Compile Include="Core\Animation\AnimQueue.cs" />
     <Compile Include="Game\Tools\BmpWriter.cs" />
-    <Compile Include="Version.cs" />
     <Compile Include="Core\PhsxData.cs" />
     <Compile Include="Core\Sound\EzSound.cs" />
     <Compile Include="Core\Effects\EzEffect.cs" />
@@ -432,7 +436,6 @@
     <Compile Include="Game\Player\Stats.cs" />
     <Compile Include="Game\Player\PlayerManager.cs" />
     <Compile Include="Game\Player\PlayerData.cs" />
-    <Compile Include="ResolutionGroup.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\StatsScreen.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreList.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreScreen.cs" />
@@ -668,8 +671,6 @@
     <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\OutsideBackground.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="Core\Particle Effects\Particle.cs" />
     <Compile Include="Game\Tools\Prototypes.cs" />
     <Compile Include="Game\Tools\Recycler.cs" />

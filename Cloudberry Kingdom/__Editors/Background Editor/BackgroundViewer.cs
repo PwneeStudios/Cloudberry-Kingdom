@@ -341,7 +341,7 @@ namespace CloudberryKingdom.Viewer
             {
                 if (Tools.PrevMouseDown() && !MouseActiveInWorld_OnLastMouseClick) return false;
 
-                return !ContainsMouse && Tools.MouseInWindow && Tools.TheGame.IsActive;
+                return !ContainsMouse && Tools.MouseInWindow && Tools.GameClass.IsActive;
             }
         }
 
@@ -708,7 +708,7 @@ namespace CloudberryKingdom.Viewer
             if (!PositionSet)
             {
                 this.Location = new System.Drawing.Point(1490, 79);
-                Form.FromHandle(Tools.TheGame.Window.Handle).Location = new System.Drawing.Point(200, 200);
+                Form.FromHandle(Tools.GameClass.Window.Handle).Location = new System.Drawing.Point(200, 200);
 
                 PositionSet = true;
             }

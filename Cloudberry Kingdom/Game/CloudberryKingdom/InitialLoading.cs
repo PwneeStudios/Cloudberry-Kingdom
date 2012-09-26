@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    partial class CloudberryKingdom
+    partial class CloudberryKingdomGame
     {
         bool DoInnerLogoPhsx = true;
         void LogoPhsx()
@@ -56,14 +56,14 @@ namespace CloudberryKingdom
                     }
                     else if (StartAsFreeplay)
                     {
-                        Tools.CurGameData = CloudberryKingdom.TitleGameFactory();
+                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                         return;
                     }
 
 #if DEBUG
                     if (SimpleLoad)
                     {
-                        Tools.CurGameData = CloudberryKingdom.TitleGameFactory(); return;
+                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
                     }
                     else
                     {

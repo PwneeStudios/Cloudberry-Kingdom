@@ -73,9 +73,9 @@ namespace CloudberryKingdom
             if (ResolutionGroup.LastSetMode == null)
             {
                 writer.WriteLine("// Width");
-                writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferWidth);
+                writer.WriteLine(Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth);
                 writer.WriteLine("// Height");
-                writer.WriteLine(Tools.TheGame.graphics.PreferredBackBufferHeight);
+                writer.WriteLine(Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight);
             }
             else
             {

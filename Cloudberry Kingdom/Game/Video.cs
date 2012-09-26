@@ -63,6 +63,20 @@ namespace CloudberryKingdom.Game
                 VThread.Start();
         }
 
+        private void VideoTest_Draw()
+        {
+            VideoTest_Draw(Tools.CurCamera.Pos);
+        }
+        private void VideoTest_Draw(Vector2 pos)
+        {
+            if (DoVideoTest)
+                lock (VEZTexture)
+                {
+                    if (VEZTexture.Tex != null)
+                        Tools.QDrawer.DrawToScaleQuad(pos, Color.White, 2400, VEZTexture, Tools.BasicEffect);
+                }
+        }
+
 
         void Update()
         {

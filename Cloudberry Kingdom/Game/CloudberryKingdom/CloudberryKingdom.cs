@@ -32,7 +32,7 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    public partial class CloudberryKingdom
+    public partial class CloudberryKingdomGame
     {
         /// <summary>
         /// The version of the game we are working on now (+1 over the last version uploaded to Steam).
@@ -70,6 +70,23 @@ namespace CloudberryKingdom
         public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;
 
+        public event EventHandler<EventArgs> Exiting
+        {
+            add
+            {
+                Tools.GameClass.Exiting += value;
+            }
+            remove
+            {
+                Tools.GameClass.Exiting -= value;
+            }
+        }
+
+        public void Exit()
+        {
+            Tools.GameClass.Exit();
+        }
+
         /// <summary>
         /// Process the command line arguments.
         /// This is used to load different tools, such as the background editor, instead of the main game.
@@ -91,7 +108,7 @@ namespace CloudberryKingdom
             AlwaysSkipDynamicArt = false;
 
 
-            CloudberryKingdom.args = args;
+            CloudberryKingdomGame.args = args;
 
             var list = new List<string>(args); list.Reverse();
             var stack = new Stack<string>(list);
@@ -174,7 +191,7 @@ namespace CloudberryKingdom
         /// </summary>
         public InitialLoadingScreen LoadingScreen;
 
-        GraphicsDevice MyGraphicsDevice;
+        public GraphicsDevice MyGraphicsDevice;
         public GraphicsDeviceManager MyGraphicsDeviceManager;
 
         int ScreenWidth, ScreenHeight;
@@ -186,7 +203,7 @@ namespace CloudberryKingdom
 
         Camera MainCamera;
 
-        public CloudberryKingdom()
+        public CloudberryKingdomGame()
         {
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
@@ -194,10 +211,10 @@ namespace CloudberryKingdom
 #endif
             ResourceLoadedCountRef = new WrappedFloat();
 
-            MyGraphicsDeviceManager = new GraphicsDeviceManager(this);
+            MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
-            Content.RootDirectory = "Content";
+            Tools.GameClass.Content.RootDirectory = "Content";
 
             Tools.TheGame = this;
         }
@@ -205,20 +222,20 @@ namespace CloudberryKingdom
         void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             //graphics.PreferMultiSampling = false;
-            //graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 16;
+            //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
 
             //graphics.PreferMultiSampling = true;
-            //graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 16;
+            //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
-        protected override void Initialize()
+        public void Initialize()
         {
 #if WINDOWS
-            KeyboardHandler.EventInput.Initialize(this.Window);
+            KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
-            Globals.ContentDirectory = Content.RootDirectory;
+            Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
-            Tools.LoadEffects(Content, true);
+            Tools.LoadEffects(Tools.GameClass.Content, true);
 
             ButtonString.Init();
             ButtonCheck.Reset();
@@ -319,14 +336,11 @@ namespace CloudberryKingdom
 #endif
 
             MyGraphicsDeviceManager.ApplyChanges();
-            Window.Title = "Cloudberry Kingdom ";
 
             // Fill the pools
             ComputerRecording.InitPool();
 
             fps = 0;
-
-            base.Initialize();
         }
 
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
@@ -526,9 +540,9 @@ namespace CloudberryKingdom
                 if (extension == "xnb")
                 {
                     if (CreateNewWad)
-                        Tools.SongWad.AddSong(Content.Load<Song>("Music\\" + name), name);
+                        Tools.SongWad.AddSong(Tools.GameClass.Content.Load<Song>("Music\\" + name), name);
                     else
-                        Tools.SongWad.FindByName(name).song = Content.Load<Song>("Music\\" + name);
+                        Tools.SongWad.FindByName(name).song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
@@ -579,7 +593,7 @@ namespace CloudberryKingdom
 
         protected void LoadSound(bool CreateNewWad)
         {
-            ContentManager manager = new ContentManager(Content.ServiceProvider, Content.RootDirectory);
+            ContentManager manager = new ContentManager(Tools.GameClass.Content.ServiceProvider, Tools.GameClass.Content.RootDirectory);
 
             if (CreateNewWad)
             {
@@ -629,7 +643,7 @@ namespace CloudberryKingdom
         protected void LoadAssets(bool CreateNewWads)
         {
             // Load the art!
-            Tools.PreloadArt(Content);
+            Tools.PreloadArt(Tools.GameClass.Content);
 
             Tools.Write("Art done...");
 
@@ -642,11 +656,11 @@ namespace CloudberryKingdom
             Tools.Write("Sound done...");
         }
 
-        protected override void LoadContent()
+        public void LoadContent()
         {
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
 
-            Tools.LoadBasicArt(Content);
+            Tools.LoadBasicArt(Tools.GameClass.Content);
 
             Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 1000);
             Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
@@ -670,7 +684,7 @@ namespace CloudberryKingdom
 
             // Create the initial loading screen
             FontLoad();
-            LoadingScreen = new InitialLoadingScreen(Content, ResourceLoadedCountRef);
+            LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
             // Load resource thread.
             Thread LoadThread = new Thread(
@@ -700,7 +714,7 @@ namespace CloudberryKingdom
                         LoadAssets(true);
                         if (!SimpleLoad)
                         {
-                            Tools.TextureWad.LoadFolder(Content, "Tigar");
+                            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Tigar");
                         }
 
                         Tools.Write("ArtMusic done...");
@@ -787,19 +801,15 @@ namespace CloudberryKingdom
             Tools.Write("Fonts done...");
         }
 
-        protected override void UnloadContent()
+        protected void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
         public bool RunningSlowly = false;
         static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
-        protected override void Update(GameTime gameTime)
+        public void Update()
         {
-            this.IsFixedTimeStep = Tools.FixedTimeStep;
-
-            RunningSlowly = gameTime.IsRunningSlowly;
-            base.Update(gameTime);
         }
 
         void DoQuickSpawn()
@@ -1051,7 +1061,7 @@ namespace CloudberryKingdom
         public float SpriteScaling = 1f;
 
         public double DeltaT = 0;
-        protected override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
@@ -1060,18 +1070,18 @@ namespace CloudberryKingdom
 
 
             // Set the viewport to the whole screen
-            GraphicsDevice.Viewport = new Viewport
+            MyGraphicsDevice.Viewport = new Viewport
             {
                 X = 0,
                 Y = 0,
-                Width = GraphicsDevice.PresentationParameters.BackBufferWidth,
-                Height = GraphicsDevice.PresentationParameters.BackBufferHeight,
+                Width = MyGraphicsDevice.PresentationParameters.BackBufferWidth,
+                Height = MyGraphicsDevice.PresentationParameters.BackBufferHeight,
                 MinDepth = 0,
                 MaxDepth = 1
             };
 
             // Clear whole screen to black
-            GraphicsDevice.Clear(Color.Black);
+            MyGraphicsDevice.Clear(Color.Black);
 
 #if WINDOWS
             if (!ActiveInactive())
@@ -1080,9 +1090,9 @@ namespace CloudberryKingdom
 
             // Make the actual view port we draw to, and clear it
             MakeInnerViewport();
-            GraphicsDevice.Clear(Color.Black);
+            MyGraphicsDevice.Clear(Color.Black);
 
-            MyGraphicsDeviceManager.GraphicsDevice.Viewport = MainViewport;
+            MyGraphicsDevice.Viewport = MainViewport;
 
 
             Tools.DrawCount++;
@@ -1151,19 +1161,11 @@ namespace CloudberryKingdom
             // Setup the rendering parameters
             SetupToRender();
 
-            //if (true)
             if (LogoScreenUp || LogoScreenPropUp)
             {
                 LoadingScreen.Draw();
-                if (DoVideoTest)
-                {
-                    VideoTest_Draw(Vector2.Zero);
-                    Tools.QDrawer.Flush();
-                }
                 return;
             }
-            if (DoVideoTest)
-                VideoTest_Draw();
             
             if (DrawShit)
             if (Tools.ShowLoadingScreen)
@@ -1180,11 +1182,8 @@ namespace CloudberryKingdom
                     Tools.CurGameData.PostDraw();
                 }
                 else
-                    GraphicsDevice.Clear(Color.Black);
+                    MyGraphicsDevice.Clear(Color.Black);
             }
-
-            if (DoVideoTest)
-                VideoTest_Draw();
 
 #if DEBUG
             if (BuildDebug || ShowFPS || Tools.ShowNums)
@@ -1203,8 +1202,6 @@ namespace CloudberryKingdom
             ShowMouse = false;
 #endif
 
-            base.Draw(gameTime);
-
             if (!Tools.CapturingVideo)
                 if (Tools.SongWad != null)
                     Tools.SongWad.Draw();
@@ -1219,20 +1216,6 @@ namespace CloudberryKingdom
             if (Tools.background_viewer != null)
                 Tools.background_viewer.Draw();
 #endif
-        }
-
-        private void VideoTest_Draw()
-        {
-            VideoTest_Draw(Tools.CurCamera.Pos);
-        }
-        private void VideoTest_Draw(Vector2 pos)
-        {
-            if (DoVideoTest)
-                lock (VEZTexture)
-                {
-                    if (VEZTexture.Tex != null)
-                        Tools.QDrawer.DrawToScaleQuad(pos, Color.White, 2400, VEZTexture, Tools.BasicEffect);
-                }
         }
 
         private void SetupToRender()
@@ -1294,11 +1277,11 @@ namespace CloudberryKingdom
 #if WINDOWS
         private bool ActiveInactive()
         {
-            if (!this.IsActive)
+            if (!Tools.GameClass.IsActive)
             {
                 // The window isn't active, so
                 // show the actual mouse (not our custom drawn mouse)
-                this.IsMouseVisible = true;
+                Tools.GameClass.IsMouseVisible = true;
 
                 if (FirstInactiveFrame)
                 {
@@ -1321,7 +1304,7 @@ namespace CloudberryKingdom
             {
                 // The window is active, so
                 // hide the actual mouse (we draw our own custom mouse in game)
-                this.IsMouseVisible = false;
+                Tools.GameClass.IsMouseVisible = false;
 
                 if (FirstActiveFrame)
                 {
@@ -1337,7 +1320,7 @@ namespace CloudberryKingdom
 
                 // If we are editing the background show the mouse
                 if (Tools.ViewerIsUp)
-                    this.IsMouseVisible = true;
+                    Tools.GameClass.IsMouseVisible = true;
 
                 return true;
             }
@@ -1351,20 +1334,20 @@ namespace CloudberryKingdom
         {
             float targetAspectRatio = 1280f / 720f;
             // figure out the largest area that fits in this resolution at the desired aspect ratio
-            int width = GraphicsDevice.PresentationParameters.BackBufferWidth;
+            int width = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
             SpriteScaling = width / 1280f;
             int height = (int)(width / targetAspectRatio + .5f);
-            if (height > GraphicsDevice.PresentationParameters.BackBufferHeight)
+            if (height > MyGraphicsDevice.PresentationParameters.BackBufferHeight)
             {
-                height = GraphicsDevice.PresentationParameters.BackBufferHeight;
+                height = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
                 width = (int)(height * targetAspectRatio + .5f);
             }
 
             // set up the new viewport centered in the backbuffer
-            MainViewport = GraphicsDevice.Viewport = new Viewport
+            MainViewport = MyGraphicsDevice.Viewport = new Viewport
             {
-                X = GraphicsDevice.PresentationParameters.BackBufferWidth / 2 - width / 2,
-                Y = GraphicsDevice.PresentationParameters.BackBufferHeight / 2 - height / 2,
+                X = MyGraphicsDevice.PresentationParameters.BackBufferWidth / 2 - width / 2,
+                Y = MyGraphicsDevice.PresentationParameters.BackBufferHeight / 2 - height / 2,
                 Width = width,
                 Height = height,
                 MinDepth = 0,

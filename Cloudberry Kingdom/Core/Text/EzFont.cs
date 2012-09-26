@@ -10,7 +10,7 @@ namespace CloudberryKingdom
 
         public EzFont(string FontName)
         {
-            Font = Tools.TheGame.Content.Load<SpriteFont>(FontName);
+            Font = Tools.GameClass.Content.Load<SpriteFont>(FontName);
             CharacterSpacing = Font.Spacing;
             
             //LineSpacing = Font.LineSpacing;
@@ -45,12 +45,12 @@ namespace CloudberryKingdom
             this.CharacterSpacing = CharacterSpacing;
             this.LineSpacing = LineSpacing;
 
-            Font = Tools.TheGame.Content.Load<SpriteFont>(FontName);
+            Font = Tools.GameClass.Content.Load<SpriteFont>(FontName);
             FixFont();
 
             if (OutlineFontName.Length > 1)
             {
-                OutlineFont = Tools.TheGame.Content.Load<SpriteFont>(OutlineFontName);
+                OutlineFont = Tools.GameClass.Content.Load<SpriteFont>(OutlineFontName);
                 OutlineFont.Spacing = CharacterSpacing;
                 OutlineFont.LineSpacing = LineSpacing;
             }

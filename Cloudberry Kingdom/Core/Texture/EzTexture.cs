@@ -62,7 +62,7 @@ namespace Drawing
         public bool Load()
         {
             if (_Tex == null && Path != null)
-                _Tex = Tools.TheGame.Content.Load<Texture2D>(Path);
+                _Tex = Tools.GameClass.Content.Load<Texture2D>(Path);
 
             return _Tex != null;
         }

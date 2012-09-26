@@ -114,13 +114,13 @@ namespace CloudberryKingdom
                 SetItemProperties(item);
                 FsRezList.AddItem(item, mode);
 
-                if (mode.Width == Tools.TheGame.graphics.PreferredBackBufferWidth &&
-                    mode.Height == Tools.TheGame.graphics.PreferredBackBufferHeight)
+                if (mode.Width == Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth &&
+                    mode.Height == Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight)
                 {
                     CurRez = i;
                     found = true;
                 }
-                else if (!found && mode.Width == Tools.TheGame.graphics.PreferredBackBufferWidth)
+                else if (!found && mode.Width == Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth)
                     CurRez = i;
 
                 i++;

@@ -1584,7 +1584,7 @@ namespace CloudberryKingdom.Levels
 
             Tools.QDrawer.Flush();
             Tools.Device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.TheGame.GraphicsDevice.Clear(Color.Black);
+            Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
             Tools.ResetViewport();
             LightTexture.Tex = LightRenderTarget;
         }
@@ -1620,7 +1620,7 @@ namespace CloudberryKingdom.Levels
                     MyBackground.Draw();
             }
 
-            if (CloudberryKingdom.HideForeground) return;
+            if (CloudberryKingdomGame.HideForeground) return;
             if (MyGame != null) MyGame.PreDraw();
 
             EnsureSuckEffect();

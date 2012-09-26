@@ -932,10 +932,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool FixedTimeStep_HasBeenSet = false;
 
 #if INCLUDE_EDITOR && WINDOWS
-        public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(TheGame.Window.Handle); } }
+        public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(GameClass.Window.Handle); } }
 #endif
-        public static CloudberryKingdom.CloudberryKingdom TheGame;
-        public static Version GameVersion { get { return CloudberryKingdom.CloudberryKingdom.GameVersion; } }
+
+        public static XnaGameClass GameClass;
+
+        public static CloudberryKingdomGame TheGame;
+        public static Version GameVersion { get { return CloudberryKingdomGame.GameVersion; } }
         public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
 
         public static String[] ButtonNames = { "A", "B", "X", "Y", "RS", "LS", "RT", "LT", "RJ", "RJ", "LJ", "LJ", "DPad", "Start" };
@@ -989,15 +992,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static bool Fullscreen
         {
-            get { return TheGame.graphics.IsFullScreen; }
+            get { return TheGame.MyGraphicsDeviceManager.IsFullScreen; }
             set
             {
                 if (value != Fullscreen)
                 {
                     if (value)
                     {
-                        int width = Tools.TheGame.graphics.PreferredBackBufferWidth,
-                            height = Tools.TheGame.graphics.PreferredBackBufferHeight;
+                        int width = Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth,
+                            height = Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight;
 
                         var safe = ResolutionGroup.SafeResolution(width, height);
                         width = safe.X;
@@ -1006,7 +1009,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         ResolutionGroup.Use(width, height, false);
                     }
 
-                    TheGame.graphics.ToggleFullScreen();
+                    TheGame.MyGraphicsDeviceManager.ToggleFullScreen();
 
                     // Reset the resolution, in case we were trimming the letterbox
                     if (ResolutionGroup.LastSetMode != null)
@@ -2395,7 +2398,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ResetViewport()
         {
-            Tools.TheGame.graphics.GraphicsDevice.Viewport = Tools.TheGame.MainViewport;
+            Tools.TheGame.MyGraphicsDeviceManager.GraphicsDevice.Viewport = Tools.TheGame.MainViewport;
         }
 
         /// <summary>

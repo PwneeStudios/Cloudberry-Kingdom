@@ -12,7 +12,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    partial class CloudberryKingdom
+    partial class CloudberryKingdomGame
     {
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
@@ -31,7 +31,7 @@ namespace CloudberryKingdom
                     //TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdom.TitleGameFactory();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                     return true;
                 }
 
@@ -43,7 +43,7 @@ namespace CloudberryKingdom
                     TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdom.TitleGameFactory();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                     return true;
                 }
 

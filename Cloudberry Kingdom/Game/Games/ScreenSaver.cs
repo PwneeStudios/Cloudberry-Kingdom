@@ -161,7 +161,7 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
-                                             Tools.CurGameData = CloudberryKingdom.TitleGameFactory();
+                                             Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);
                                              Tools.AddToDo(() => this.Release());
                                          });

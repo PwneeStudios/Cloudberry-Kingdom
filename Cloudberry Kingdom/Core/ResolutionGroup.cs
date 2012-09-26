@@ -59,7 +59,7 @@ namespace CloudberryKingdom
             var save = Tools.MousePos;
 #endif
             if (AllowModifications)
-                if (Tools.TheGame.graphics.IsFullScreen)
+                if (Tools.TheGame.MyGraphicsDeviceManager.IsFullScreen)
                 {
                     var safe = SafeResolution(width, height);
                     width = safe.X;
@@ -69,9 +69,9 @@ namespace CloudberryKingdom
                     // Trim excess
                     height = (int)((720f / 1280f) * width);
 
-            Tools.TheGame.graphics.PreferredBackBufferWidth = width;
-            Tools.TheGame.graphics.PreferredBackBufferHeight = height;
-            Tools.TheGame.graphics.ApplyChanges();
+            Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth = width;
+            Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight = height;
+            Tools.TheGame.MyGraphicsDeviceManager.ApplyChanges();
             Tools.TheGame.MakeInnerViewport();
            
 #if WINDOWS 
@@ -82,14 +82,14 @@ namespace CloudberryKingdom
         public void Use()
         {
             int width = Backbuffer.X, height = Backbuffer.Y;
-            if (!Tools.TheGame.graphics.IsFullScreen)
+            if (!Tools.TheGame.MyGraphicsDeviceManager.IsFullScreen)
             {
                 height = (int)((720f / 1280f) * width);
             }
 
-            Tools.TheGame.graphics.PreferredBackBufferWidth = width;
-            Tools.TheGame.graphics.PreferredBackBufferHeight = height;
-            Tools.TheGame.graphics.ApplyChanges();
+            Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth = width;
+            Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight = height;
+            Tools.TheGame.MyGraphicsDeviceManager.ApplyChanges();
             Tools.TheGame.MakeInnerViewport();
         }
 

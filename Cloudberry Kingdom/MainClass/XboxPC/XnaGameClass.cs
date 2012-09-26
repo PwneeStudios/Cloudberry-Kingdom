@@ -34,11 +34,12 @@ namespace CloudberryKingdom
 {
     public partial class XnaGameClass : Game
     {
-        CloudberryKingdom CloudberryKingdomGame;
-
+        CloudberryKingdomGame MyGame;
+        
         public XnaGameClass()
         {
-            CloudberryKingdomGame = new CloudberryKingdom();
+            Tools.GameClass = this;
+            MyGame = new CloudberryKingdomGame();
 
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
@@ -49,14 +50,16 @@ namespace CloudberryKingdom
 
         protected override void Initialize()
         {
-            CloudberryKingdomGame.Initialize();
+            MyGame.Initialize();
+
+            Window.Title = "Cloudberry Kingdom ";
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            CloudberryKingdomGame.LoadContent();
+            MyGame.LoadContent();
         }
 
         protected override void UnloadContent()
@@ -64,21 +67,20 @@ namespace CloudberryKingdom
             // TODO: Unload any non ContentManager content here
         }
 
-        public bool RunningSlowly = false;
         static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
         protected override void Update(GameTime gameTime)
         {
             this.IsFixedTimeStep = Tools.FixedTimeStep;
 
-            RunningSlowly = gameTime.IsRunningSlowly;
+            MyGame.RunningSlowly = gameTime.IsRunningSlowly;
 
-            CloudberryKingdomGame.Update();
+            MyGame.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            CloudberryKingdomGame.Draw();
+            MyGame.Draw(gameTime);
         }
     }
 }

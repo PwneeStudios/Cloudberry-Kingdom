@@ -53,7 +53,7 @@ namespace CloudberryKingdom
                     Tools.SongWad.Restart(true);
                 });
 
-            if (ShowTitle || !WatchedOnce || CloudberryKingdom.AlwaysGiveTutorials)
+            if (ShowTitle || !WatchedOnce || CloudberryKingdomGame.AlwaysGiveTutorials)
                 MyGame.WaitThenDo(27, () => Title());
             else
                 MyGame.WaitThenDo(20, () => Ready());
@@ -61,7 +61,7 @@ namespace CloudberryKingdom
 
         protected void TutorialOrSkip()
         {
-            if (!CloudberryKingdom.AlwaysGiveTutorials && (WatchedOnce || TemporarySkip))
+            if (!CloudberryKingdomGame.AlwaysGiveTutorials && (WatchedOnce || TemporarySkip))
                 Ready();
             else
             {

@@ -76,7 +76,7 @@ namespace Drawing
 
         public void Draw()
         {
-            if (CloudberryKingdom.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen
+            if (CloudberryKingdomGame.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen
                 && !Tools.ScreenshotMode && !Tools.CapturingVideo)
             {
                 SongInfoText.Draw(DefaultCam);
@@ -313,7 +313,7 @@ namespace Drawing
         public void Play(int Index, bool DisplayInfo)
         {
             if (PlayList[CurIndex].song == null)
-                PlayList[CurIndex].song = Tools.TheGame.Content.Load<Song>("Music\\" + PlayList[CurIndex].FileName);
+                PlayList[CurIndex].song = Tools.GameClass.Content.Load<Song>("Music\\" + PlayList[CurIndex].FileName);
 
             Elapsed = 0;
             Duration = PlayList[CurIndex].Play(DisplayInfo);
