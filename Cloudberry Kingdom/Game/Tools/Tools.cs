@@ -986,8 +986,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static Vector2 MousePos
         {
-            get { return new Vector2(CurMouseState.X, CurMouseState.Y) / TheGame.SpriteScaling; }
-            set { XnaInput.Mouse.SetPosition((int)(value.X * TheGame.SpriteScaling), (int)(value.Y  * TheGame.SpriteScaling)); }
+            get { return new Vector2(CurMouseState.X, CurMouseState.Y) / Tools.Render.SpriteScaling; }
+            set { XnaInput.Mouse.SetPosition((int)(value.X * Tools.Render.SpriteScaling), (int)(value.Y * Tools.Render.SpriteScaling)); }
         }
 
         public static bool Fullscreen
@@ -1163,6 +1163,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static EzSoundWad SoundWad, PrivateSoundWad;
         public static EzSongWad SongWad;
         public static QuadDrawer QDrawer;
+        public static MainRender Render;
         public static GraphicsDevice Device;
         public static RenderTarget2D DestinationRenderTarget;
         public static bool ScreenshotMode, CapturingVideo;
@@ -2235,7 +2236,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 //Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 //float scale = 1440f / 1280f;
                 //float scale = 800f / 1280f;
-                float scale = TheGame.SpriteScaling;
+                float scale = Tools.Render.SpriteScaling;
 
                 if (AsPaint)
                 {
@@ -2398,7 +2399,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ResetViewport()
         {
-            Tools.TheGame.MyGraphicsDeviceManager.GraphicsDevice.Viewport = Tools.TheGame.MainViewport;
+            Tools.TheGame.MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
         }
 
         /// <summary>

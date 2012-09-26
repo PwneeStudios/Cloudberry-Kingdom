@@ -134,6 +134,62 @@ namespace CloudberryKingdom
     }
     public class ButtonCheck
     {
+        /// <summary>
+        /// Whether the user is using the mouse. False when the mouse hasn't been used since the arrow keys.
+        /// </summary>
+        public static bool MouseInUse = false;
+        public static bool PrevMouseInUse = false;
+
+        public static void UpdateControllerAndKeyboard()
+        {
+            // Update controller/keyboard states
+#if WINDOWS
+                Tools.keybState = Keyboard.GetState();
+                Tools.CurMouseState = Mouse.GetState();
+#endif
+                Tools.padState[0] = GamePad.GetState(PlayerIndex.One);
+                Tools.padState[1] = GamePad.GetState(PlayerIndex.Two);
+                Tools.padState[2] = GamePad.GetState(PlayerIndex.Three);
+                Tools.padState[3] = GamePad.GetState(PlayerIndex.Four);
+
+                ButtonStats.Update();
+
+                Tools.UpdateVibrations();
+
+#if PC_VERSION
+            UpdateMouseUse();
+#endif
+        }
+
+        /// <summary>
+        /// Update the boolean flag MouseInUse
+        /// </summary>
+        public static void UpdateMouseUse()
+        {
+            if (Tools.keybState.IsKeyDownCustom(Keys.Up) ||
+                Tools.keybState.IsKeyDownCustom(Keys.Down) ||
+                Tools.keybState.IsKeyDownCustom(Keys.Left) ||
+                Tools.keybState.IsKeyDownCustom(Keys.Right) ||
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary) ||
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Down_Secondary) ||
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary) ||
+                Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary) ||
+#if PC_VERSION
+ (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
+#else
+                (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
+#endif
+)
+                MouseInUse = false;
+
+            if (Tools.DeltaMouse != Vector2.Zero ||
+                Tools.CurMouseState.LeftButton == ButtonState.Pressed ||
+                Tools.CurMouseState.RightButton == ButtonState.Pressed)
+                MouseInUse = true;
+
+            PrevMouseInUse = MouseInUse;
+        }
+
         public static void KillSecondary()
         {
             Help_KeyboardKey.Set(Keys.None);

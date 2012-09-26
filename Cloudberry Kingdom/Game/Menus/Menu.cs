@@ -439,7 +439,7 @@ namespace CloudberryKingdom
             Tools.TheGame.ShowMouse = true;
 
             // If mouse is in use check to see if anything should be selected
-            if (Tools.TheGame.MouseInUse)
+            if (ButtonCheck.MouseInUse)
             {
                 /*
                 if (Tools.MouseDown())
@@ -540,7 +540,7 @@ namespace CloudberryKingdom
             bool ClickBack = false;
             
 #if PC_VERSION
-            if (CheckForOutsideClick && NoneSelected && Tools.TheGame.MouseInUse && Tools.MouseReleased())
+            if (CheckForOutsideClick && NoneSelected && ButtonCheck.MouseInUse && Tools.MouseReleased())
                 if (outside)
                     ClickBack = true;
             if (!Tools.CurMouseDown())
@@ -589,7 +589,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // If the mouse is in use and nothing is selected, then hitting a key on the keyboard
             // should only hide the mouse, it shouldn't immediately change what is selected
-            if (Tools.TheGame.MouseInUse)
+            if (ButtonCheck.MouseInUse)
             {
                 if (NoneSelected) DelayCount = SelectDelay;
                 else DelayCount = 0;
@@ -598,7 +598,7 @@ namespace CloudberryKingdom
 
             // If the menu can use the keyboard then check for index changes by the arrow keys
 #if PC_VERSION
-            if (!MouseOnly && !Tools.TheGame.PrevMouseInUse)
+            if (!MouseOnly && !ButtonCheck.PrevMouseInUse)
 #else
             if (!MouseOnly)
 #endif

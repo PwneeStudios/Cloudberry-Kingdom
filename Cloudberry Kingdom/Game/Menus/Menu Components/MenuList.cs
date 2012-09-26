@@ -315,7 +315,7 @@ namespace CloudberryKingdom
                 if (Selected)
                 {
 #if WINDOWS
-                    if (Tools.TheGame.MouseInUse && ClickForNextItem)
+                    if (ButtonCheck.MouseInUse && ClickForNextItem)
                         if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
                             !ButtonCheck.KeyboardGo())
                         {
@@ -407,7 +407,7 @@ namespace CloudberryKingdom
 #if WINDOWS
                     // Highlight selected arrow
                     QuadClass arrow = null;
-                    if (Tools.TheGame.MouseInUse)
+                    if (ButtonCheck.MouseInUse)
                     {
                         Vector2 mouse = Tools.MouseGUIPos(MyCameraZoom);
                         arrow = GetSelectedArrow();

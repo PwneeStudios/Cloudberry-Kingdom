@@ -289,7 +289,7 @@ namespace CloudberryKingdom
         void UpdateMouseInBox()
         {
             // Always consider the mouse in the box if the mouse isn't in use
-            if (!Tools.TheGame.MouseInUse)
+            if (!ButtonCheck.MouseInUse)
                 MouseInBox = true;
             // Otherwise do an actual distance check
             else if (!Tools.Close(FancyPos.AbsVal, Tools.MouseGUIPos(MyCameraZoom), Size + new Vector2(150, 150)))
@@ -302,7 +302,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
             UpdateMouseInBox();
 
-            if (Tools.TheGame.ShowMouse && Tools.TheGame.MouseInUse)
+            if (Tools.TheGame.ShowMouse && ButtonCheck.MouseInUse)
                 MouseInteract();
 #endif
 

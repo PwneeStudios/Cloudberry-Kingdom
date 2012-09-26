@@ -327,7 +327,7 @@ namespace CloudberryKingdom
 
             if (Selected
 #if PC_VERSION
-                && (Tools.TheGame.MouseInUse || !MyMenu.MouseOnly)
+                && (ButtonCheck.MouseInUse || !MyMenu.MouseOnly)
 #endif
                 || AlwaysDrawAsSelected && MyOscillateParams.MyType != OscillateParams.Type.Oscillate)
             {
@@ -543,7 +543,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Mouse interact
             bool SelectThis = false;
-            if (Tools.TheGame.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
+            if (ButtonCheck.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
                 && !MyMenu.HasSelectedThisStep && Selectable)
                 if (HitTest())
                 {
@@ -577,11 +577,11 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
             // Don't activate the item if the menu is mouse only and the mouse isn't in use
-            if (MyMenu.MouseOnly && !Tools.TheGame.MouseInUse)
+            if (MyMenu.MouseOnly && !ButtonCheck.MouseInUse)
                 Activate = false;
 
             // Don't activate the itme if the mouse is in use and isn't over the item
-            if (Tools.TheGame.MouseInUse && !HitTest())
+            if (ButtonCheck.MouseInUse && !HitTest())
                 Activate = false;
 #else
             if (MyMenu.MouseOnly)
@@ -590,7 +590,7 @@ namespace CloudberryKingdom
 
             // Mouse down over the item
 #if PC_VERSION
-            if (OnClick != null && Tools.TheGame.MouseInUse && Tools.CurMouseDown() && HitTest())
+            if (OnClick != null && ButtonCheck.MouseInUse && Tools.CurMouseDown() && HitTest())
                 OnClick(this);
 #endif
             // Go function

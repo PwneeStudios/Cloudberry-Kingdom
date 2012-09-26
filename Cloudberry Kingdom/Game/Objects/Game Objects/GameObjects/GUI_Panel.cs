@@ -485,7 +485,7 @@ namespace CloudberryKingdom
 
             // check if the player clicks back outside the panel
             bool ClickBack = false;
-            if (CheckForOutsideClick && Tools.TheGame.MouseInUse && Tools.MouseReleased())
+            if (CheckForOutsideClick && ButtonCheck.MouseInUse && Tools.MouseReleased())
                 if (outside)
                     ClickBack = true;
             if (!Tools.CurMouseDown())

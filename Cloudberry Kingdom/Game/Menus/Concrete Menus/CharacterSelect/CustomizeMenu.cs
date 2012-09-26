@@ -299,7 +299,7 @@ namespace CloudberryKingdom
                     if (MyMenu.CurIndex < MyCharacterSelect.ItemIndex.Length && !MyMenu.NoneSelected
 #if PC_VERSION
                         // Skip if the color select is up but the mouse isn't in use
-                        && !(!Tools.TheGame.MouseInUse && CurClrSelect != null))
+                        && !(!ButtonCheck.MouseInUse && CurClrSelect != null))
 #else
                         )
 #endif

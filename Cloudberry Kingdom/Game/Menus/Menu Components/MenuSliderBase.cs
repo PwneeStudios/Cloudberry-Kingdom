@@ -153,7 +153,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
         protected virtual void PC_OnLeftMouseDown()
         {
-            if (!Tools.TheGame.MouseInUse) return;
+            if (!ButtonCheck.MouseInUse) return;
 
             MyMenu.HasSelectedThisStep = true;
 

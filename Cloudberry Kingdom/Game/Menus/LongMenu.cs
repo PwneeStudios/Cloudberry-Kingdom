@@ -26,7 +26,7 @@ namespace CloudberryKingdom
             }
 
 #if PC_VERSION
-            if (!Tools.TheGame.MouseInUse) Scroll();
+            if (!ButtonCheck.MouseInUse) Scroll();
 #else
             Scroll();
 #endif

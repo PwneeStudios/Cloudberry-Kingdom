@@ -662,6 +662,8 @@ namespace CloudberryKingdom
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
 
+            Tools.Render = new MainRender(MyGraphicsDevice);
+
             Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 1000);
             Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
             Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
@@ -980,17 +982,11 @@ namespace CloudberryKingdom
         public bool ShowMouse = false;
 
         /// <summary>
-        /// Whether the user is using the mouse. False when the mouse hasn't been used since the arrow keys.
-        /// </summary>
-        public bool MouseInUse = false;
-        public bool PrevMouseInUse = false;
-
-        /// <summary>
         /// Draw the mouse cursor.
         /// </summary>
         void MouseDraw()
         {
-            if (!MouseInUse) return;
+            if (!ButtonCheck.MouseInUse) return;
             if (MousePointer == null) return;
 
             Vector2 Pos = Tools.MouseWorldPos();
@@ -1011,35 +1007,6 @@ namespace CloudberryKingdom
 
             Tools.QDrawer.Flush();
         }
-
-        /// <summary>
-        /// Update the boolean flag MouseInUse
-        /// </summary>
-        void UpdateMouseUse()
-        {
-            if (Tools.keybState.IsKeyDownCustom(Keys.Up) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Down) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Left) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Right) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Down_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary) ||
-#if PC_VERSION
-                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
-#else
-                (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
-#endif
-)
-                MouseInUse = false;
-
-            if (Tools.DeltaMouse != Vector2.Zero ||
-                Tools.CurMouseState.LeftButton == ButtonState.Pressed ||
-                Tools.CurMouseState.RightButton == ButtonState.Pressed)
-                MouseInUse = true;
-
-            PrevMouseInUse = MouseInUse;
-        }
 #endif
 
         /// <summary>
@@ -1056,9 +1023,6 @@ namespace CloudberryKingdom
         /// Whether this is the first frame the window has been active
         /// </summary>
         public bool FirstActiveFrame = true;
-
-        public Viewport MainViewport;
-        public float SpriteScaling = 1f;
 
         public double DeltaT = 0;
         public void Draw(GameTime gameTime)
@@ -1089,11 +1053,10 @@ namespace CloudberryKingdom
 #endif
 
             // Make the actual view port we draw to, and clear it
-            MakeInnerViewport();
+            Tools.Render.MakeInnerViewport();
             MyGraphicsDevice.Clear(Color.Black);
 
-            MyGraphicsDevice.Viewport = MainViewport;
-
+            MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
 
             Tools.DrawCount++;
 
@@ -1119,8 +1082,8 @@ namespace CloudberryKingdom
                         if (DoShit)
                         {
                             // Update controller/keyboard states
-                            UpdateControllerAndKeyboard();
-
+                            ButtonCheck.UpdateControllerAndKeyboard();
+                            
                             // Update sounds
                             if (!LogoScreenUp)
                                 Tools.SoundWad.Update();
@@ -1250,31 +1213,11 @@ namespace CloudberryKingdom
             }
         }
 
-        private void UpdateControllerAndKeyboard()
-        {
-            // Update controller/keyboard states
-            if (!LogoScreenUp)
-            {
 #if WINDOWS
-                Tools.keybState = Keyboard.GetState();
-                Tools.CurMouseState = Mouse.GetState();
-#endif
-                Tools.padState[0] = GamePad.GetState(PlayerIndex.One);
-                Tools.padState[1] = GamePad.GetState(PlayerIndex.Two);
-                Tools.padState[2] = GamePad.GetState(PlayerIndex.Three);
-                Tools.padState[3] = GamePad.GetState(PlayerIndex.Four);
-
-                ButtonStats.Update();
-
-                Tools.UpdateVibrations();
-            }
-
-#if PC_VERSION
-                UpdateMouseUse();
-#endif
-        }
-
-#if WINDOWS
+        /// <summary>
+        /// Decide if the game should be active or not.
+        /// </summary>
+        /// <returns>Returns true if the game is active.</returns>
         private bool ActiveInactive()
         {
             if (!Tools.GameClass.IsActive)
@@ -1326,33 +1269,5 @@ namespace CloudberryKingdom
             }
         }
 #endif
-
-        /// <summary>
-        /// If the aspect ratio of the game (1280:720) doesn't match the window, use a letterbox viewport.
-        /// </summary>
-        public void MakeInnerViewport()
-        {
-            float targetAspectRatio = 1280f / 720f;
-            // figure out the largest area that fits in this resolution at the desired aspect ratio
-            int width = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
-            SpriteScaling = width / 1280f;
-            int height = (int)(width / targetAspectRatio + .5f);
-            if (height > MyGraphicsDevice.PresentationParameters.BackBufferHeight)
-            {
-                height = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
-                width = (int)(height * targetAspectRatio + .5f);
-            }
-
-            // set up the new viewport centered in the backbuffer
-            MainViewport = MyGraphicsDevice.Viewport = new Viewport
-            {
-                X = MyGraphicsDevice.PresentationParameters.BackBufferWidth / 2 - width / 2,
-                Y = MyGraphicsDevice.PresentationParameters.BackBufferHeight / 2 - height / 2,
-                Width = width,
-                Height = height,
-                MinDepth = 0,
-                MaxDepth = 1
-            };
-        }
     }
 }

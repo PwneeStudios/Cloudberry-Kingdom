@@ -117,7 +117,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
         public void MouseInteract()
         {
-            if (Tools.TheGame.MouseInUse)
+            if (ButtonCheck.MouseInUse)
                 if (ButtonCheck.State(ControllerButtons.A, -1).Down &&
                     !ButtonCheck.KeyboardGo())
                 {

@@ -76,7 +76,7 @@ namespace CloudberryKingdom
         public override void PhsxStep(bool Selected)
         {
 #if WINDOWS
-            if (!Tools.TheGame.MouseInUse)
+            if (!ButtonCheck.MouseInUse)
             {
                 if (SelectedItem != null && CurMenuItem != SelectedItem)
                     SetSelectedItem(SelectedItem);
@@ -86,7 +86,7 @@ namespace CloudberryKingdom
             base.PhsxStep(Selected);
 
 #if WINDOWS
-            if (Tools.TheGame.MouseInUse)
+            if (ButtonCheck.MouseInUse)
             {
                 if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
                             !ButtonCheck.KeyboardGo())
@@ -105,7 +105,7 @@ namespace CloudberryKingdom
 #if WINDOWS
             LastHitItem = CurMenuItem;
 
-            if (!Tools.TheGame.MouseInUse)
+            if (!ButtonCheck.MouseInUse)
                 SelectedItem = CurMenuItem;
 #else
             SelectedItem = CurMenuItem;

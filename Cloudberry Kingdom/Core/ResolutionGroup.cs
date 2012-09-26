@@ -72,7 +72,7 @@ namespace CloudberryKingdom
             Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth = width;
             Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight = height;
             Tools.TheGame.MyGraphicsDeviceManager.ApplyChanges();
-            Tools.TheGame.MakeInnerViewport();
+            Tools.Render.MakeInnerViewport();
            
 #if WINDOWS 
             Tools.MousePos = save;
@@ -90,7 +90,7 @@ namespace CloudberryKingdom
             Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth = width;
             Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight = height;
             Tools.TheGame.MyGraphicsDeviceManager.ApplyChanges();
-            Tools.TheGame.MakeInnerViewport();
+            Tools.Render.MakeInnerViewport();
         }
 
         public IntVector2 Backbuffer, Bob;
