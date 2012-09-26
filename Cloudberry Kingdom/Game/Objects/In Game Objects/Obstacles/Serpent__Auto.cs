@@ -28,7 +28,7 @@ namespace CloudberryKingdom.Levels
                 if (SerpentLevel == 0)
                     return SerpentStepCutoff + 1;
                 else
-                    return Tools.DifficultyLerp159(1450, 550, 250, SerpentLevel);
+                    return DifficultyHelper.Interp159(1450, 550, 250, SerpentLevel);
             });
 
             SerpentPeriod = new Param(PieceSeed);

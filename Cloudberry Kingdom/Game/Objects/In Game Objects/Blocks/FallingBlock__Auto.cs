@@ -38,14 +38,14 @@ namespace CloudberryKingdom.Levels
             AngryAccel = new Param(PieceSeed);
             AngryAccel.SetVal(u =>
             {
-                return Tools.DifficultyLerp(-70, 320, u[Upgrade.BouncyBlock]);
+                return DifficultyHelper.Interp(-70, 320, u[Upgrade.BouncyBlock]);
                 //return -70 + 40 * u[Upgrade.FallingBlock];
             });
 
             AngryRatio = new Param(PieceSeed);
             AngryRatio.SetVal(u =>
             {
-                return Tools.DifficultyLerp(-27, 35, u[Upgrade.BouncyBlock]);
+                return DifficultyHelper.Interp(-27, 35, u[Upgrade.BouncyBlock]);
                 //return -40 + 10 * u[Upgrade.FallingBlock];
             });
 

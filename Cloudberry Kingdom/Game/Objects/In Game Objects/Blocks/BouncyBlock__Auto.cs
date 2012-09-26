@@ -31,14 +31,14 @@ namespace CloudberryKingdom.Levels
             Speed = new Param(PieceSeed);
             Speed.SetVal(u =>
             {
-                return Tools.DifficultyLerp(45, 60, u[Upgrade.BouncyBlock]);
-                //return Tools.DifficultyLerp(45, 70, u[Upgrade.BouncyBlock]);
+                return DifficultyHelper.Interp(45, 60, u[Upgrade.BouncyBlock]);
+                //return DifficultyHelper.Interp(45, 70, u[Upgrade.BouncyBlock]);
             });
 
             SideDampening = new Param(PieceSeed);
             SideDampening.SetVal(u =>
             {
-                return Tools.DifficultyLerp159(.55f, .83f, 1.2f, u[Upgrade.BouncyBlock]);
+                return DifficultyHelper.Interp159(.55f, .83f, 1.2f, u[Upgrade.BouncyBlock]);
             });
 
             Size = new Param(PieceSeed);
@@ -50,7 +50,7 @@ namespace CloudberryKingdom.Levels
             EdgeSafety = new Param(PieceSeed);
             EdgeSafety.SetVal(u =>
             {
-                return Math.Max(.01f, Tools.DifficultyLerp159(.4f, .3f, .05f, u[Upgrade.BouncyBlock]));
+                return Math.Max(.01f, DifficultyHelper.Interp159(.4f, .3f, .05f, u[Upgrade.BouncyBlock]));
             });
         }
     }

@@ -26,8 +26,8 @@ namespace CloudberryKingdom.Levels
 
             InLength = new Param(PieceSeed, u =>
             {
-                return Tools.DifficultyLerp(147, 75, u[Upgrade.Speed]) *
-                    Tools.DifficultyLerp(1.275f, .275f, u[Upgrade.GhostBlock]);
+                return DifficultyHelper.Interp(147, 75, u[Upgrade.Speed]) *
+                    DifficultyHelper.Interp(1.275f, .275f, u[Upgrade.GhostBlock]);
             });
 
             OutLength = new Param(PieceSeed, u =>
@@ -43,7 +43,7 @@ namespace CloudberryKingdom.Levels
             TimeSafety = new Param(PieceSeed);
             TimeSafety.SetVal(u =>
             {
-                return Math.Max(0f, Tools.DifficultyLerp(1f, 0f, u[Upgrade.GhostBlock]));
+                return Math.Max(0f, DifficultyHelper.Interp(1f, 0f, u[Upgrade.GhostBlock]));
             });
 
             // Masochistic

@@ -33,13 +33,13 @@ namespace CloudberryKingdom.Levels
 
 /*
         public static ParamInfo _MinDist = new ParamInfo(60, 700, 600, c_MinDist, "Min distance");
-        static float c_MinDist(Upgrades u) { return Tools.DifficultyLerp159(650, 270, 110, u[Upgrade.FireSpinner]); }
+        static float c_MinDist(Upgrades u) { return DifficultyHelper.Interp159(650, 270, 110, u[Upgrade.FireSpinner]); }
 
         public static ParamInfo _MinDensity = new ParamInfo(20, 200, 60, c_MinDensity, "Min density");
-        static float c_MinDensity(Upgrades u) { return Tools.DifficultyLerp(50, 80, u[Upgrade.FireSpinner]); }
+        static float c_MinDensity(Upgrades u) { return DifficultyHelper.Interp(50, 80, u[Upgrade.FireSpinner]); }
 
         public static ParamInfo _MaxDensity = new ParamInfo(20, 400, 60, c_MaxDensity, "Max density");
-        static float c_MaxDensity(Upgrades u) { return Tools.DifficultyLerp(50, 150, u[Upgrade.FireSpinner]); }
+        static float c_MaxDensity(Upgrades u) { return DifficultyHelper.Interp(50, 150, u[Upgrade.FireSpinner]); }
 
         public static ParamInfo _Length = new ParamInfo(100, 1200, 300, c_Length, "Length");
         static float c_Length(Upgrades u) { return 240 + 36 * u[Upgrade.FireSpinner]; }
@@ -72,7 +72,7 @@ namespace CloudberryKingdom.Levels
 
             MinDist = new Param(PieceSeed);
             MinDist.SetVal(u =>
-                Tools.DifficultyLerp159(650, 270, 110, u[Upgrade.FireSpinner]));
+                DifficultyHelper.Interp159(650, 270, 110, u[Upgrade.FireSpinner]));
 
             Length = new Param(PieceSeed);
             Length.SetVal(u =>
@@ -92,7 +92,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.FireSpinner] == 0)
                     return 0;
 
-                return Tools.DifficultyLerp(50, 80, u[Upgrade.FireSpinner]);
+                return DifficultyHelper.Interp(50, 80, u[Upgrade.FireSpinner]);
             });
 
             MaxDensity = new Param(PieceSeed);
@@ -101,7 +101,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.FireSpinner] == 0)
                     return 0;
 
-                return Tools.DifficultyLerp(50, 150, u[Upgrade.FireSpinner]);
+                return DifficultyHelper.Interp(50, 150, u[Upgrade.FireSpinner]);
             });
         }
     }

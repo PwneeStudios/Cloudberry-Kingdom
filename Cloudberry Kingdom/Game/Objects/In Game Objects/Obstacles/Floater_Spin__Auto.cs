@@ -49,7 +49,7 @@ namespace CloudberryKingdom.Levels
 
             FloaterMinDist = new Param(PieceSeed);
             FloaterMinDist.SetVal(u =>
-                Tools.DifficultyLerp159(700, 320, 100, u[Upgrade.Pinky]));
+                DifficultyHelper.Interp159(700, 320, 100, u[Upgrade.Pinky]));
 
             FloaterScale = new Param(PieceSeed);
             FloaterScale.SetVal(u =>
@@ -68,7 +68,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.Pinky] == 0)
                     return 0;
 
-                return Tools.DifficultyLerp(40, 73, u[Upgrade.Pinky]);
+                return DifficultyHelper.Interp(40, 73, u[Upgrade.Pinky]);
             });
         }
     }

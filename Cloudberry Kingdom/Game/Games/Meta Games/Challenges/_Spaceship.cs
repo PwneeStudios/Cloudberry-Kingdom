@@ -113,7 +113,7 @@ namespace CloudberryKingdom
                 default:
                     BlockLevel = Difficulty;
                     ObjectLevel = Difficulty;
-                    Speed = (int)Tools.DifficultyLerp159(2, 4, 9, Difficulty);
+                    Speed = (int)DifficultyHelper.Interp159(2, 4, 9, Difficulty);
                     BlockComplexity = LevelSeed.Rnd.RndInt(1, 3);
                     ObjectComplexity = LevelSeed.Rnd.RndInt(1, 4);
                     break;

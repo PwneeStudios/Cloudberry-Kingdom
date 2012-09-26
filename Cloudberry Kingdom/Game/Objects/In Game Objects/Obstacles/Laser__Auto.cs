@@ -27,8 +27,8 @@ namespace CloudberryKingdom.Levels
                 float LaserLevel = u[Upgrade.Laser];
                 if (LaserLevel == 0) return LaserStepCutoff + 1;
                 else
-                    //return Tools.DifficultyLerp159(1200, 400, 60, LaserLevel);
-                    return Tools.DifficultyLerp159(1450, 400, 60, LaserLevel);
+                    //return DifficultyHelper.Interp159(1200, 400, 60, LaserLevel);
+                    return DifficultyHelper.Interp159(1450, 400, 60, LaserLevel);
             });
 
             LaserPeriod = new Param(PieceSeed);

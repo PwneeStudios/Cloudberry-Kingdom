@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Levels
                 if (LavaDripLevel == 0)
                     return LavaDripStepCutoff + 1;
                 else
-                    return Tools.DifficultyLerp159(1450, 550, 250, LavaDripLevel);
+                    return DifficultyHelper.Interp159(1450, 550, 250, LavaDripLevel);
             });
 
             Length = new VectorParam(PieceSeed,

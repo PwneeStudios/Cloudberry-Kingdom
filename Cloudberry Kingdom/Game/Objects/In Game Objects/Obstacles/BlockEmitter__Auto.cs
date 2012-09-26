@@ -38,16 +38,16 @@ namespace CloudberryKingdom.Levels
             Dist.SetVal(u =>
             {
                 if (u[Upgrade.Elevator] > 0)
-                    //return .105f * Tools.DifficultyLerp19(3000, 500, u[Upgrade.Elevator]);
-                    return .105f * Tools.DifficultyLerp19(5000, 500, u[Upgrade.Elevator]);
+                    //return .105f * DifficultyHelper.Interp19(3000, 500, u[Upgrade.Elevator]);
+                    return .105f * DifficultyHelper.Interp19(5000, 500, u[Upgrade.Elevator]);
                 else
                     return 1400;
             });
 
             DistAdd = new Param(PieceSeed);
-            //DistAdd.SetVal(u => .105f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
-            //DistAdd.SetVal(u => .385f * Tools.DifficultyLerp19(2800, 500, u[Upgrade.Elevator]));
-            DistAdd.SetVal(u => Tools.DifficultyLerp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
+            //DistAdd.SetVal(u => .105f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
+            //DistAdd.SetVal(u => .385f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
+            DistAdd.SetVal(u => DifficultyHelper.Interp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
 
             Amp = new Param(PieceSeed);
             Amp.SetVal(u =>
@@ -68,13 +68,13 @@ namespace CloudberryKingdom.Levels
             });
 
             Speed = new Param(PieceSeed);
-            Speed.SetVal(u => Tools.DifficultyLerp19(5.6f, 16f, u[Upgrade.Speed]));
+            Speed.SetVal(u => DifficultyHelper.Interp19(5.6f, 16f, u[Upgrade.Speed]));
 
             //Width = new Param(PieceSeed, u => 150);
-            Width = new Param(PieceSeed, u => Tools.DifficultyLerp159(150, 120, 75, u[Upgrade.Elevator]));
+            Width = new Param(PieceSeed, u => DifficultyHelper.Interp159(150, 120, 75, u[Upgrade.Elevator]));
 
             SpeedAdd = new Param(PieceSeed);
-            SpeedAdd.SetVal(u => Tools.DifficultyLerp19(5.6f, 13f, u[Upgrade.Speed])
+            SpeedAdd.SetVal(u => DifficultyHelper.Interp19(5.6f, 13f, u[Upgrade.Speed])
                              * .025f * u[Upgrade.Elevator]);
 
             WidthAdd = new Param(PieceSeed);

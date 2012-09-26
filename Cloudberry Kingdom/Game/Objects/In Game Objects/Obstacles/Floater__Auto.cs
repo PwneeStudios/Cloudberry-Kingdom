@@ -30,7 +30,7 @@ namespace CloudberryKingdom.Levels
             SetVal(ref HallwaySpacing, u =>
                 new Vector2(
                     300 - 5 * u[Upgrade.SpikeyGuy],
-                    Tools.DifficultyLerp19(220, 80, u[Upgrade.SpikeyGuy])));
+                    DifficultyHelper.Interp19(220, 80, u[Upgrade.SpikeyGuy])));
 
             if (PieceSeed.MyUpgrades1[Upgrade.SpikeyGuy] > 0 ||
                 PieceSeed.MyUpgrades2[Upgrade.SpikeyGuy] > 0)

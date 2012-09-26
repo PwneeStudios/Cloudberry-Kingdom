@@ -22,12 +22,12 @@ namespace CloudberryKingdom.Levels
 
             Speed = new Param(PieceSeed, u =>
             {
-                return Tools.DifficultyLerp(.04175f, .16f, u[Upgrade.Conveyor]) *
-                    Tools.DifficultyLerp(1f, 1.55f, u[Upgrade.Speed]);
+                return DifficultyHelper.Interp(.04175f, .16f, u[Upgrade.Conveyor]) *
+                    DifficultyHelper.Interp(1f, 1.55f, u[Upgrade.Speed]);
             });
 
             Width = new Param(PieceSeed, u =>
-                Tools.DifficultyLerpRestrict19(240, 60, u[Upgrade.Conveyor]));
+                DifficultyHelper.InterpRestrict19(240, 60, u[Upgrade.Conveyor]));
         }
     }
 

@@ -40,12 +40,12 @@ namespace CloudberryKingdom.Levels
             {
                 float LineLevel = u[Upgrade.Firesnake];
                 
-                return Tools.DifficultyLerp159(1340, 830, 340, LineLevel);
+                return DifficultyHelper.Interp159(1340, 830, 340, LineLevel);
             });
 
             Period = new Param(PieceSeed, u =>
-                Tools.DifficultyLerp(290, 150, u[Upgrade.Firesnake]) *
-                Tools.DifficultyLerp(1.7f, 1.0f, u[Upgrade.Speed]));
+                DifficultyHelper.Interp(290, 150, u[Upgrade.Firesnake]) *
+                DifficultyHelper.Interp(1.7f, 1.0f, u[Upgrade.Speed]));
                 //Math.Max(70, 200 - 11 * u[Upgrade.Speed]));
 
             RadiiX = new VectorParam(PieceSeed, u => new Vector2(400, 1000));

@@ -21,8 +21,8 @@ namespace CloudberryKingdom.Levels
 
             Period = new Param(PieceSeed, u =>
             {
-                return Tools.DifficultyLerp(217, 125, u[Upgrade.Speed]) *
-                    Tools.DifficultyLerp(1.275f, .275f, u[Upgrade.FlyingBlock]);
+                return DifficultyHelper.Interp(217, 125, u[Upgrade.Speed]) *
+                    DifficultyHelper.Interp(1.275f, .275f, u[Upgrade.FlyingBlock]);
             });
 
             Width = new Param(PieceSeed, u =>

@@ -76,13 +76,13 @@ namespace CloudberryKingdom.Levels
             // Jump
             GenData[DifficultyParam.FillSparsity] = 100;
             int Min = GenData[DifficultyParam.MinBoxSizeX] =
-                //(int)Tools.DifficultyLerp(180, 40, this[Upgrade.Jump]);
-                (int)Tools.DifficultyLerpRestrict19(180, 40, this[Upgrade.Jump]);
+                //(int)DifficultyHelper.Interp(180, 40, this[Upgrade.Jump]);
+                (int)DifficultyHelper.InterpRestrict19(180, 40, this[Upgrade.Jump]);
             if (Min < 50) GenData[DifficultyParam.MinBoxSizeX] = 10;
             GenData[DifficultyParam.MaxBoxSizeX] = 
                 //(int)Math.Max(Min + 1, 380 - 50 * this[Upgrade.Jump]);
-                //(int)Tools.DifficultyLerp(460, Min + 1, this[Upgrade.Jump]);
-                (int)Tools.DifficultyLerp(420, Min + 1, this[Upgrade.Jump]);
+                //(int)DifficultyHelper.Interp(460, Min + 1, this[Upgrade.Jump]);
+                (int)DifficultyHelper.Interp(420, Min + 1, this[Upgrade.Jump]);
             GenData[DifficultyParam.MinBoxSizeY] = 2000;
             GenData[DifficultyParam.MaxBoxSizeY] = 2000;
 
@@ -91,7 +91,7 @@ namespace CloudberryKingdom.Levels
             GenData[DifficultyParam.JumpingSpeedRetardFactor] =
                             (int)Math.Min(100, 66f + 3.4f * JumpLevel);
                             //(int)Math.Min(100, 76f + 3f * JumpLevel);
-            GenData[DifficultyParam.RetardJumpLength] = (int)Tools.DifficultyLerp159(9, 6f, -1, JumpLevel);
+            GenData[DifficultyParam.RetardJumpLength] = (int)DifficultyHelper.Interp159(9, 6f, -1, JumpLevel);
             GenData[DifficultyParam.DistancePast] = (int)Math.Min(10, 5 - 115f + .1f * 115f * JumpLevel);
             GenData[DifficultyParam.DistancePast_NoJump] = (int)Math.Min(800, .1f * 700f * JumpLevel);
             GenData[DifficultyParam.EdgeJumpDuration] = (int)Math.Min(800, .1f * 300f * JumpLevel);

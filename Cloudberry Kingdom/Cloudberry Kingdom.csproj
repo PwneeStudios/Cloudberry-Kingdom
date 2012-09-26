@@ -197,6 +197,7 @@
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\_Spaceship.cs" />
     <Compile Include="Game\Games\ToDoItem.cs" />
+    <Compile Include="Game\Level\Make\DifficultyHelper.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\ArrowMenu.cs">
       <SubType>Code</SubType>
     </Compile>

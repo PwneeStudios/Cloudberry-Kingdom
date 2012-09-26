@@ -60,7 +60,7 @@ namespace CloudberryKingdom.Levels
             Range = new Param(PieceSeed);
             Range.SetVal(u =>
             {
-                return Tools.DifficultyLerp(240, 600, .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]));
+                return DifficultyHelper.Interp(240, 600, .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]));
             });
 
             Period = new Param(PieceSeed);

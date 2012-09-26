@@ -38,8 +38,8 @@ namespace CloudberryKingdom.Levels
             {
                 float LineLevel = u[Upgrade.SpikeyLine];
                 
-                //return Tools.DifficultyLerp159(1200, 800, 340, LineLevel);
-                return Tools.DifficultyLerp159(1550, 800, 340, LineLevel);
+                //return DifficultyHelper.Interp159(1200, 800, 340, LineLevel);
+                return DifficultyHelper.Interp159(1550, 800, 340, LineLevel);
             });
 
             LinePeriod = new Param(PieceSeed, u =>

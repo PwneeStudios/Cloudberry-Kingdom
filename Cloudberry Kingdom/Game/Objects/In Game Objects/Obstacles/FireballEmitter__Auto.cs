@@ -71,11 +71,11 @@ namespace CloudberryKingdom.Levels
             //DoStage2Fill = false;
 
             Tunnel = new TunnelFill();
-            SetVal(ref TunnelTimeSpace, u => Math.Max(8, Tools.DifficultyLerp19(28, 8, u[Upgrade.Fireball])));
+            SetVal(ref TunnelTimeSpace, u => Math.Max(8, DifficultyHelper.Interp19(28, 8, u[Upgrade.Fireball])));
 
             SetVal(ref SurvivalHallwaySpeed, u =>
             {
-                return Tools.DifficultyLerp19(20, 45, u[Upgrade.Speed]);
+                return DifficultyHelper.Interp19(20, 45, u[Upgrade.Speed]);
             });
 
 
@@ -84,7 +84,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.Fireball] > 0)
                     DoFill = true;
 
-                return Tools.DifficultyLerp159(800, 500, 200, u[Upgrade.Fireball]);
+                return DifficultyHelper.Interp159(800, 500, 200, u[Upgrade.Fireball]);
             });
 
             // General difficulty
@@ -109,8 +109,8 @@ namespace CloudberryKingdom.Levels
             FireballEmitterMinDist = new Param(PieceSeed);
             FireballEmitterMinDist.SetVal(u =>
             {
-                //return Tools.DifficultyLerp159(700, 240, 80, u[Upgrade.Fireball]);
-                return Tools.DifficultyLerp159(700, 340, 120, u[Upgrade.Fireball]);
+                //return DifficultyHelper.Interp159(700, 240, 80, u[Upgrade.Fireball]);
+                return DifficultyHelper.Interp159(700, 340, 120, u[Upgrade.Fireball]);
             });
 
             MinFireballEmitterDensity = new Param(PieceSeed);

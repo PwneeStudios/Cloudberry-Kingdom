@@ -42,7 +42,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.Spike] == 0)
                     return 0;
 
-                return Tools.DifficultyLerp(6, 50, u[Upgrade.Spike]);
+                return DifficultyHelper.Interp(6, 50, u[Upgrade.Spike]);
             });
 
             MaxSpikeDensity = new Param(PieceSeed);
@@ -51,7 +51,7 @@ namespace CloudberryKingdom.Levels
                 if (u[Upgrade.Spike] == 0)
                     return 0;
 
-                return Tools.DifficultyLerp(9, 80, u[Upgrade.Spike]);
+                return DifficultyHelper.Interp(9, 80, u[Upgrade.Spike]);
             });
 
             SpikePeriod = new Param(PieceSeed);

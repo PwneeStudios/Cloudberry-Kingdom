@@ -72,7 +72,7 @@ namespace CloudberryKingdom.Levels
 
             Range = new Param(PieceSeed, u =>
             {
-                float val = Tools.DifficultyLerp(40, 500, .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]));
+                float val = DifficultyHelper.Interp(40, 500, .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]));
                 if (val < 80)
                     val = 0;
                 return val;
@@ -87,7 +87,7 @@ namespace CloudberryKingdom.Levels
             EdgeSafety = new Param(PieceSeed);
             EdgeSafety.SetVal(u =>
             {
-                return Math.Max(6f, Tools.DifficultyLerp(45f, 6f, u[Upgrade.FlyBlob]));
+                return Math.Max(6f, DifficultyHelper.Interp(45f, 6f, u[Upgrade.FlyBlob]));
             });
 
             Size = new Param(PieceSeed);

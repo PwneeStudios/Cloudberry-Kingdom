@@ -131,7 +131,7 @@ namespace CloudberryKingdom
                 case 0:
                     Jump = Difficulty;
                     Dodge = Difficulty;
-                    Speed = (int)Tools.DifficultyLerp159(2, 4, 7, Difficulty);
+                    Speed = (int)DifficultyHelper.Interp159(2, 4, 7, Difficulty);
                     JumpComplexity = 2;
                     DodgeComplexity = 1;
                     break;
@@ -139,7 +139,7 @@ namespace CloudberryKingdom
                 case 1:
                     Jump = Difficulty / 2;
                     Dodge = (int)(1.5f * Difficulty);
-                    Speed = (int)Tools.DifficultyLerp159(2, 3, 6, Difficulty);
+                    Speed = (int)DifficultyHelper.Interp159(2, 3, 6, Difficulty);
                     JumpComplexity = 1;
                     DodgeComplexity = 2;
                     break;
@@ -147,7 +147,7 @@ namespace CloudberryKingdom
                 case 2:
                     Jump = Difficulty / 2;
                     Dodge = (int)(1.5f * Difficulty);
-                    Speed = (int)Tools.DifficultyLerp159(2, 4, 9, Difficulty);
+                    Speed = (int)DifficultyHelper.Interp159(2, 4, 9, Difficulty);
                     JumpComplexity = 0;
                     DodgeComplexity = LevelSeed.Rnd.RndInt(1, 3);
                     break;
@@ -155,7 +155,7 @@ namespace CloudberryKingdom
                 default:
                     Jump = Difficulty;
                     Dodge = 0;
-                    Speed = (int)Tools.DifficultyLerp159(2, 4, 6, Difficulty);
+                    Speed = (int)DifficultyHelper.Interp159(2, 4, 6, Difficulty);
                     JumpComplexity = LevelSeed.Rnd.RndInt(1, 3);
                     DodgeComplexity = 0;
                     break;
