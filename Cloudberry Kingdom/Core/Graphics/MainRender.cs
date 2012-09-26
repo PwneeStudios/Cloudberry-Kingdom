@@ -13,9 +13,32 @@ namespace Drawing
 
         public Viewport MainViewport;
 
+        public bool UsingSpriteBatch = false;
+        public SpriteBatch MySpriteBatch;
+
+
         public MainRender(GraphicsDevice Device)
         {
             MyGraphicsDevice = Device;
+        }
+
+        /// <summary>
+        /// Sets the standard render states.
+        /// </summary>
+        public void SetStandardRenderStates()
+        {
+            Tools.QDrawer.SetInitialState();
+
+            MyGraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            MyGraphicsDevice.BlendState = BlendState.AlphaBlend;
+            MyGraphicsDevice.DepthStencilState = DepthStencilState.DepthRead;
+
+            ResetViewport();
+        }
+
+        public void ResetViewport()
+        {
+            Tools.TheGame.MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
         }
 
         /// <summary>
@@ -44,6 +67,21 @@ namespace Drawing
                 MinDepth = 0,
                 MaxDepth = 1
             };
+        }
+
+        /// <summary>
+        /// Ends the SpriteBatch, if in use, and resets standard render states.
+        /// </summary>
+        public void EndSpriteBatch()
+        {
+            if (UsingSpriteBatch)
+            {
+                UsingSpriteBatch = false;
+
+                MySpriteBatch.End();
+
+                Tools.Render.SetStandardRenderStates();
+            }
         }
     }
 }

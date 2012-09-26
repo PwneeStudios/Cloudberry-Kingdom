@@ -193,7 +193,7 @@ namespace Drawing
 
             if (quad.MyEffect == null || quad.MyTexture == null) { Tools.Break(); return; }
 
-            if (Tools.UsingSpriteBatch) Tools.EndSpriteBatch();
+            if (Tools.Render.UsingSpriteBatch) Tools.Render.EndSpriteBatch();
 
             // Update anim
             if (quad.Playing) quad.UpdateTextureAnim();

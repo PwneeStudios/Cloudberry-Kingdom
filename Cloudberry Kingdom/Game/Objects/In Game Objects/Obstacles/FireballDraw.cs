@@ -187,7 +187,7 @@ namespace CloudberryKingdom
             Tools.QDrawer.Flush();
 
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
 
             FireballTexture.Tex = FireballRenderTarget;
 
@@ -213,7 +213,7 @@ namespace CloudberryKingdom
             Flame_Emitter.Draw();
 
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
             FlameTexture.Tex = FlameRenderTarget;
 
 
@@ -231,7 +231,7 @@ namespace CloudberryKingdom
             Emitter_Emitter.Draw();
 
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
             EmitterTexture.Tex = EmitterRenderTarget;
         }
 

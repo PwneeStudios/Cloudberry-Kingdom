@@ -308,7 +308,7 @@ namespace CloudberryKingdom
             DrawNonText(Layer);
 
             DrawText(Layer);
-            Tools.EndSpriteBatch();
+            Tools.Render.EndSpriteBatch();
         }
 
         public void DrawNonText(int Layer)

@@ -1275,7 +1275,7 @@ namespace Drawing
             foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
             ContainedDraw(null);
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
 
             EffectWad.SetCameraPosition(HoldCameraPos);
             foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
@@ -1312,7 +1312,7 @@ namespace Drawing
             foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
             Draw(EffectWad, false, ObjectDrawOrder.WithOutline);
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
 
             EffectWad.SetCameraPosition(HoldCameraPos);
             foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);

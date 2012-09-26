@@ -177,7 +177,7 @@ namespace CloudberryKingdom
             LoadingText.Draw(cam);
             if (HintText != null) HintText.Draw(cam);
             if (TextObject != null) TextObject.Draw(cam);
-            Tools.EndSpriteBatch();
+            Tools.Render.EndSpriteBatch();
             BlackQuad.Draw();
             Tools.QDrawer.Flush();
         }

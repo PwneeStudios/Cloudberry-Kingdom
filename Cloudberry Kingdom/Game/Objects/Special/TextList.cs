@@ -67,7 +67,7 @@ namespace CloudberryKingdom
                     Text[i].Draw(MyCam, false);
                 }
             }
-            Tools.EndSpriteBatch();
+            Tools.Render.EndSpriteBatch();
         }
 
         public void ShiftUp()

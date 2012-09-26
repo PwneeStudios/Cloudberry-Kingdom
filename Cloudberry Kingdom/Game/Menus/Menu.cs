@@ -844,7 +844,7 @@ namespace CloudberryKingdom
 
             DrawNonText(0);
             DrawText(0);
-            Tools.EndSpriteBatch();
+            Tools.Render.EndSpriteBatch();
             DrawNonText2();
             DrawText(1);
         }

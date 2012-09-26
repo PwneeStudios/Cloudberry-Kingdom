@@ -124,7 +124,7 @@ namespace CloudberryKingdom.Particles
 
         public void Draw()
         {
-            if (Tools.UsingSpriteBatch) Tools.EndSpriteBatch();
+            if (Tools.Render.UsingSpriteBatch) Tools.Render.EndSpriteBatch();
 
             foreach (Particle p in Particles)
                 p.Draw();

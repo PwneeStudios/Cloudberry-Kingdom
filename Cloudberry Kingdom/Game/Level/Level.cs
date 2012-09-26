@@ -1453,7 +1453,7 @@ namespace CloudberryKingdom.Levels
             {
                 foreach (ObjectBase obj in DrawLayer[i])
                     obj.TextDraw();
-                Tools.EndSpriteBatch();
+                Tools.Render.EndSpriteBatch();
             }
 
             if (!Replay || MainReplayOnly)
@@ -1585,7 +1585,7 @@ namespace CloudberryKingdom.Levels
             Tools.QDrawer.Flush();
             Tools.Device.SetRenderTarget(Tools.DestinationRenderTarget);
             Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
-            Tools.ResetViewport();
+            Tools.Render.ResetViewport();
             LightTexture.Tex = LightRenderTarget;
         }
 

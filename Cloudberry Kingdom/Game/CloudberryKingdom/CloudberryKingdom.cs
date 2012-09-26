@@ -675,7 +675,7 @@ namespace CloudberryKingdom
             LoadingResources.MyBool = true;
             LogoScreenUp = true;
 
-            Tools.spriteBatch = new SpriteBatch(MyGraphicsDevice);
+            Tools.Render.MySpriteBatch = new SpriteBatch(MyGraphicsDevice);
 
             ScreenWidth = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
             ScreenHeight = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -765,7 +765,7 @@ namespace CloudberryKingdom
 
                         Tools.padState = new GamePadState[4];
                         Tools.PrevpadState = new GamePadState[4];
-                        Tools.SetStandardRenderStates();
+                        Tools.Render.SetStandardRenderStates();
 
                         Tools.Write("Textures done...");
 
@@ -1185,7 +1185,7 @@ namespace CloudberryKingdom
         {
             Vector4 cameraPos = new Vector4(MainCamera.Data.Position.X, MainCamera.Data.Position.Y, MainCamera.Zoom.X, MainCamera.Zoom.Y);//.001f, .001f);
 
-            Tools.SetStandardRenderStates();
+            Tools.Render.SetStandardRenderStates();
 
             Tools.QDrawer.SetInitialState();
             ComputeFire();
@@ -1194,7 +1194,7 @@ namespace CloudberryKingdom
 
             Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
 
-            Tools.SetStandardRenderStates();
+            Tools.Render.SetStandardRenderStates();
         }
 
         private void ComputeFire()

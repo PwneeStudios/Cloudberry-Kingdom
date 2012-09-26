@@ -227,7 +227,7 @@ namespace CloudberryKingdom
 
             base.MyDraw();
 
-            Tools.EndSpriteBatch();
+            Tools.Render.EndSpriteBatch();
 
             if (zoom != null)
             {

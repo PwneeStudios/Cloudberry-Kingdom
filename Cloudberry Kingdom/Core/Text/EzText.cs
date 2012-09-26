@@ -965,10 +965,10 @@ namespace CloudberryKingdom
                 Color textcolor = Tools.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
 
                 if (bit.builder_str != null)
-                    Tools.spriteBatch.DrawString(font, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
+                    Tools.Render.MySpriteBatch.DrawString(font, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
                         0, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale*ZoomMod, SpriteEffects.None, 1);
                 else
-                    Tools.spriteBatch.DrawString(font, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
+                    Tools.Render.MySpriteBatch.DrawString(font, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
                          Angle, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod, SpriteEffects.None, 1);
             }
             if (DrawPics)
@@ -984,19 +984,19 @@ namespace CloudberryKingdom
 
                     if (pic.AsPaint)
                     {
-                        Tools.EndSpriteBatch();
+                        Tools.Render.EndSpriteBatch();
                         Tools.StartSpriteBatch(true);
                     }
-                    Tools.spriteBatch.Draw(pic.tex.Tex, pos, null, piccolor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                    Tools.Render.MySpriteBatch.Draw(pic.tex.Tex, pos, null, piccolor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
                     if (pic.AsPaint)
                     {
-                        Tools.EndSpriteBatch();
+                        Tools.Render.EndSpriteBatch();
                         Tools.StartSpriteBatch();
                     }
                 }
 
             if (EndBatch)
-                Tools.EndSpriteBatch();
+                Tools.Render.EndSpriteBatch();
         }
 
         public void CalcBounds()

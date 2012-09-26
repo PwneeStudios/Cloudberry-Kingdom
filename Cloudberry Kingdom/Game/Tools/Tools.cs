@@ -964,9 +964,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         }
         public static GameData WorldMap, TitleGame;
 
-        public static bool UsingSpriteBatch;
-        public static SpriteBatch spriteBatch;
-
         public static EzFont Font_Grobold42, Font_Grobold42_2;
         public static EzFont LilFont;
 
@@ -2230,7 +2227,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static void StartSpriteBatch() { StartSpriteBatch(false); }
         public static void StartSpriteBatch(bool AsPaint)
         {
-            if (!UsingSpriteBatch)
+            if (!Tools.Render.UsingSpriteBatch)
             {
                 Tools.QDrawer.Flush();
                 //Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -2242,12 +2239,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 {
                     PaintEffect_SpriteBatch.Parameters["xTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex);
                     //PaintEffect_SpriteBatch.Parameters["SceneTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex); 
-                    Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, Tools.PaintEffect_SpriteBatch, Matrix.CreateScale(scale, scale, 1f));
+                    Tools.Render.MySpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, Tools.PaintEffect_SpriteBatch, Matrix.CreateScale(scale, scale, 1f));
                 }
                 else
-                    Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Matrix.CreateScale(scale, scale, 1f));
+                    Tools.Render.MySpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Matrix.CreateScale(scale, scale, 1f));
 
-                UsingSpriteBatch = true;
+                Tools.Render.UsingSpriteBatch = true;
             }
         }
 
@@ -2258,23 +2255,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             Vector2 loc = ToScreenCoordinates(pos, cam, Vector2.One);
 
-            Tools.spriteBatch.DrawString(font, str, loc, Color.Azure, 0, Vector2.Zero, new Vector2(.5f, .5f), SpriteEffects.None, 0);
-        }
-
-        /// <summary>
-        /// Sets the standard render states.
-        /// </summary>
-        public static void SetStandardRenderStates()
-        {
-            //Tools.QDrawer.SetAddressMode(true, true);
-            //Tools.QDrawer.SetAddressMode(false, false);
-            Tools.QDrawer.SetInitialState();
-
-            Tools.Device.RasterizerState = RasterizerState.CullNone;
-            Tools.Device.BlendState = BlendState.AlphaBlend;
-            Tools.Device.DepthStencilState = DepthStencilState.DepthRead;
-
-            ResetViewport();
+            Tools.Render.MySpriteBatch.DrawString(font, str, loc, Color.Azure, 0, Vector2.Zero, new Vector2(.5f, .5f), SpriteEffects.None, 0);
         }
 
         public static void SetDefaultEffectParams(float AspectRatio)
@@ -2395,26 +2376,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static float MatrixSignature(Matrix m)
         {
             return m.M11 + m.M22 + m.M33 + m.M44;
-        }
-
-        public static void ResetViewport()
-        {
-            Tools.TheGame.MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
-        }
-
-        /// <summary>
-        /// Ends the SpriteBatch, if in use, and resets standard render states.
-        /// </summary>
-        public static void EndSpriteBatch()
-        {
-            if (UsingSpriteBatch)
-            {
-                UsingSpriteBatch = false;
-
-                Tools.spriteBatch.End();
-
-                SetStandardRenderStates();
-            }
         }
 
         /// <summary>
