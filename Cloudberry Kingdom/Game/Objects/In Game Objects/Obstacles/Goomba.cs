@@ -400,8 +400,8 @@ namespace CloudberryKingdom.Goombas
             switch (MyPhsxType)
             {
                 case PhsxType.Prescribed:
-                    //int Step = Tools.Modulo(Core.GetPhsxStep() + Offset, Period);
-                    float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
+                    //int Step = CoreMath.Modulo(Core.GetPhsxStep() + Offset, Period);
+                    float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
 
                     if (!Core.Held)
                         Core.Data.Position = CalcPosition((float)Step / Period);

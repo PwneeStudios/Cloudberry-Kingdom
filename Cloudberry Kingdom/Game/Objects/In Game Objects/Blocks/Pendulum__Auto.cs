@@ -37,7 +37,7 @@ namespace CloudberryKingdom.Levels
             Period.SetVal(u =>
             {
                 float speed = 300 - 30 * u[Upgrade.Speed] + 45 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum]);
-                return Tools.Restrict(40, 1000, speed);
+                return CoreMath.Restrict(40, 1000, speed);
             });
 
             MaxAngle = new Param(PieceSeed, u => Math.Min(750, 30 + 64 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum])));
@@ -100,7 +100,7 @@ namespace CloudberryKingdom.Levels
             else
             {
                 p.PivotPoint.X = level.MainCamera.BL.X - 160;
-                p.AddAngle = Tools.Radians(90);
+                p.AddAngle = CoreMath.Radians(90);
                 //mblock.PivotLocationType = Floater.PivotLocationTypes.LeftRight;
             }
 

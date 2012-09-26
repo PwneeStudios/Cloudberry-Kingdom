@@ -104,7 +104,7 @@ namespace CloudberryKingdom
         Vector2 GetPos(float t)
         {
             CorrespondingAngle = (float)(2 * Math.PI * t);
-            Vector2 Dir = Tools.AngleToDir(CorrespondingAngle);
+            Vector2 Dir = CoreMath.AngleToDir(CorrespondingAngle);
             Vector2 Pos = PivotPoint + Length * Dir;
 
             return Pos;
@@ -125,7 +125,7 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
+            float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
             float t = Dir * (float)Step / (float)Period;
 
             Pos = GetPos(t);

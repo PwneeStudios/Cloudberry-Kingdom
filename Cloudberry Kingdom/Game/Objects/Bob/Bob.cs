@@ -34,7 +34,7 @@ namespace CloudberryKingdom.Bobs
         void DoLightSourceFade()
         {
             LightSourceFade += LightSourceFadeVel;
-            Tools.Restrict(0, 1, ref LightSourceFade);
+            CoreMath.Restrict(0, 1, ref LightSourceFade);
         }
 
         public bool Dopple = false;
@@ -374,7 +374,7 @@ namespace CloudberryKingdom.Bobs
 
         public AABox GetBox(int DifficultyLevel)
         {
-            int index = Tools.Restrict(0, Boxes.Count - 1, DifficultyLevel);
+            int index = CoreMath.Restrict(0, Boxes.Count - 1, DifficultyLevel);
             return Boxes[index];
         }
 
@@ -1319,13 +1319,13 @@ namespace CloudberryKingdom.Bobs
                             Vector2 hold = p.Center.Pos;
 
                             float D = 116.6666f * p.Size.Y / 260;
-                            var d = D * Tools.AngleToDir(PlayerObject.ContainedQuadAngle + 1.57);
+                            var d = D * CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle + 1.57);
                             var move = new Vector2(0, D) - d;
                             PlayerObject.ParentQuad.Center.Move(move + p.Center.Pos);
 
-                            PlayerObject.ParentQuad.PointxAxisTo(Tools.AngleToDir(PlayerObject.ContainedQuadAngle));
+                            PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle));
                             PlayerObject.Draw(Tools.EffectWad, true);
-                            PlayerObject.ParentQuad.PointxAxisTo(Tools.AngleToDir(0));
+                            PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(0));
 
                             PlayerObject.ParentQuad.Center.Move(hold);
                             PlayerObject.Update(null);

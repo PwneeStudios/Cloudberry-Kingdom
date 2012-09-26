@@ -189,6 +189,7 @@
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
+    <Compile Include="Core\Tools\CoreMath.cs" />
     <Compile Include="Core\Version.cs" />
     <Compile Include="Game\CloudberryKingdom\CloudberryKingdom.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />

@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 
         string TimeToString()
         {
-            return Tools.Time(Score);
+            return CoreMath.Time(Score);
         }
 
         string AttemptsToString()

@@ -1077,7 +1077,7 @@ namespace Drawing
                 ContainedQuad.yAxis.RelPos = new Vector2(0, 1);
                 if (ContainedQuadAngle != 0)
                 {
-                    ContainedQuad.PointxAxisTo(Tools.AngleToDir(ContainedQuadAngle));
+                    ContainedQuad.PointxAxisTo(CoreMath.AngleToDir(ContainedQuadAngle));
                 }
                 //if (AnimGroup == null || !xFlip)
                 //    ContainedQuad.Scale(new Vector2(scalex, scaley));

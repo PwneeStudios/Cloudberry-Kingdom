@@ -76,8 +76,8 @@ namespace CloudberryKingdom
             {
                 WheelAngle -= xVel * .33f / 60f;
 
-                LeftWheel.PointxAxisTo(Tools.AngleToDir(WheelAngle));
-                RightWheel.PointxAxisTo(Tools.AngleToDir(WheelAngle));
+                LeftWheel.PointxAxisTo(CoreMath.AngleToDir(WheelAngle));
+                RightWheel.PointxAxisTo(CoreMath.AngleToDir(WheelAngle));
             }
         }
 

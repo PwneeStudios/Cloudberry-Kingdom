@@ -137,8 +137,8 @@ namespace CloudberryKingdom
 
             Radius = Info.SpikeyGuys.Radius;
 
-            //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
-            float Step = Tools.Modulo(Core.MyLevel.IndependentPhsxStep + Offset, (float)Period);
+            //int Step = CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            float Step = CoreMath.Modulo(Core.MyLevel.IndependentPhsxStep + Offset, (float)Period);
             float t = (float)Step / (float)Period;
              
             Vector2 Pos = GetPos(t);

@@ -48,7 +48,7 @@ namespace CloudberryKingdom
             //BL = Vector2.Min(Target.p1, Target.p2);
 
             // Cheapest
-            Tools.MaxAndMin(ref Target.p1, ref Target.p2, ref TR, ref BL);
+            CoreMath.MaxAndMin(ref Target.p1, ref Target.p2, ref TR, ref BL);
         }
 
         public void Validate()

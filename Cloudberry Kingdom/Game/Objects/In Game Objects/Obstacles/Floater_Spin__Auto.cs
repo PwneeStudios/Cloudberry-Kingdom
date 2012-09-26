@@ -247,7 +247,7 @@ namespace CloudberryKingdom.Levels
             {
                 Floater_Spin floater_A = A as Floater_Spin;
                 Floater_Spin floater_B = B as Floater_Spin;
-                return Tools.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
+                return CoreMath.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
             }
             );
         }

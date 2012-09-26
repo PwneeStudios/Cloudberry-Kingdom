@@ -92,13 +92,13 @@ namespace CloudberryKingdom
             {
                 c1 = new Color(255, 255, 255).ToVector4();
                 c2 = new Color(230, 230, 230).ToVector4();
-                TitleQ.Quad.SetColor(Vector4.Lerp(c1, c2, Tools.Periodic(0, 1, 3, t - 1)));
+                TitleQ.Quad.SetColor(Vector4.Lerp(c1, c2, CoreMath.Periodic(0, 1, 3, t - 1)));
             }
 
 
             TitleQ.Size = new Vector2(1069.027f, 429.9995f) * Tools.SmoothLerp(.85f, 1f, t);
                 // .LerpRestrict(.8f, 1f, t);
-            TitleQ.Pos = new Vector2(-22.2207f, 52.7778f + Tools.Periodic(0, 12, 9, Tools.t));
+            TitleQ.Pos = new Vector2(-22.2207f, 52.7778f + CoreMath.Periodic(0, 12, 9, Tools.t));
 
             base.MyDraw();
         }

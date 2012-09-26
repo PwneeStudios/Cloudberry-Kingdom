@@ -152,10 +152,10 @@ namespace CloudberryKingdom
             // Fade to black/from black for blurred background
             float black = Scene_Blur.Quad.MySetColor.R / 255f;
             if (MyState == State.Scene_Blur_Dark)
-                black = Tools.Restrict(.7f, 1f, black - .33f);
+                black = CoreMath.Restrict(.7f, 1f, black - .33f);
             else
-                black = Tools.Restrict(.7f, 1f, black + .33f);
-            Scene_Blur.Quad.SetColor(Tools.Gray(black));
+                black = CoreMath.Restrict(.7f, 1f, black + .33f);
+            Scene_Blur.Quad.SetColor(CoreMath.Gray(black));
 
             // Oscillate title color
             if (Title.Show)

@@ -176,7 +176,7 @@ namespace CloudberryKingdom
             float length = tangent.Length();
             float t = Vector2.Dot(dif, tangent) / (length * length);
 
-            t = Tools.Restrict(0, 1, t);
+            t = CoreMath.Restrict(0, 1, t);
 
             MyFloat.Val = (1 - t) * MyFloat.MinVal + t * MyFloat.MaxVal;
 

@@ -174,7 +174,7 @@ namespace CloudberryKingdom
             }
             else if (State == ThwompState.Falling)
             {
-                Core.Data.Velocity.Y = Tools.Restrict(-68, 0, Core.Data.Velocity.Y - 2.5f);
+                Core.Data.Velocity.Y = CoreMath.Restrict(-68, 0, Core.Data.Velocity.Y - 2.5f);
                 Core.Data.Position.Y += BlockCore.Data.Velocity.Y;
                 Box.SetTarget(Pos + new Vector2(0, -1), Size);
                 if (MyQuad != null) MyQuad.Pos = Pos + Offset;
@@ -185,7 +185,7 @@ namespace CloudberryKingdom
             }
             else if (State == ThwompState.Pause)
             {
-                //Core.Data.Velocity.Y = Tools.Restrict(-40, 30, Core.Data.Velocity.Y - 1.5f);
+                //Core.Data.Velocity.Y = CoreMath.Restrict(-40, 30, Core.Data.Velocity.Y - 1.5f);
                 //Core.Data.Position.Y += CoreData.Data.Velocity.Y;
                 //Box.SetTarget(Pos + new Vector2(0, -1), Size);
                 //if (MyQuad != null) MyQuad.Pos = Pos + Offset;
@@ -200,7 +200,7 @@ namespace CloudberryKingdom
             }
             else if (State == ThwompState.Rising)
             {
-                Core.Data.Velocity.Y = Tools.Restrict(-5, 20, Core.Data.Velocity.Y + 1.05f);
+                Core.Data.Velocity.Y = CoreMath.Restrict(-5, 20, Core.Data.Velocity.Y + 1.05f);
                 Core.Data.Position.Y += BlockCore.Data.Velocity.Y;
                 Box.SetTarget(Pos + new Vector2(0, -1), Size);
                 if (MyQuad != null) MyQuad.Pos = Pos + Offset;
@@ -246,7 +246,7 @@ namespace CloudberryKingdom
                 float VelFadeBegin = -15;
                 if (MySound != null && Core.Data.Velocity.Y < -2)
                 {
-                    MySound.Play(Tools.Restrict(0, 1, Core.Data.Velocity.Y / VelFadeBegin));
+                    MySound.Play(CoreMath.Restrict(0, 1, Core.Data.Velocity.Y / VelFadeBegin));
                     Tools.CurCamera.StartShake(.5f, 36, false);
                 }
 

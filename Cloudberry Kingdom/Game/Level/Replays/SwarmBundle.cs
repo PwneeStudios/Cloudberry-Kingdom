@@ -68,7 +68,7 @@ namespace CloudberryKingdom.Levels
 
         public void SetSwarm(Level level, int i)
         {
-            i = Tools.Restrict(0, Swarms.Count - 1, i);
+            i = CoreMath.Restrict(0, Swarms.Count - 1, i);
 
             CurrentSwarm = Swarms[i];
             level.CurPiece = CurrentSwarm.MyLevelPiece;

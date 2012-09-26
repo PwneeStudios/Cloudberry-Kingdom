@@ -135,7 +135,7 @@ namespace CloudberryKingdom
                 //    if (item == CurMenuItem)
                 //        icon.IconQuad.Quad.SetColor(Color.White);
                 //    else
-                //        icon.IconQuad.Quad.SetColor(Tools.GrayColor(.8f));
+                //        icon.IconQuad.Quad.SetColor(CoreMath.GrayColor(.8f));
                 //}
 
                 item.Draw(Text, cam, Selected && item == CurMenuItem);

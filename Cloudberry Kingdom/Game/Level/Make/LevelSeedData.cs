@@ -174,7 +174,7 @@ namespace CloudberryKingdom
                         try
                         {
                             NumPieces = int.Parse(data);
-                            NumPieces = Tools.Restrict(1, 5, NumPieces);
+                            NumPieces = CoreMath.Restrict(1, 5, NumPieces);
                         }
                         catch
                         {
@@ -187,7 +187,7 @@ namespace CloudberryKingdom
                         try
                         {
                             Length = int.Parse(data);
-                            Length = Tools.Restrict(2000, 50000, Length);
+                            Length = CoreMath.Restrict(2000, 50000, Length);
                             PieceLength = Length;
                         }
                         catch
@@ -230,7 +230,7 @@ namespace CloudberryKingdom
         void ModPieceViaString(PieceSeedData piece)
         {
             // Break the data up by commas
-            int index = Tools.Restrict(0, UpgradeStrs.Count - 1, piece.MyPieceIndex);
+            int index = CoreMath.Restrict(0, UpgradeStrs.Count - 1, piece.MyPieceIndex);
             var terms = UpgradeStrs[index].Split(',');
 
             // Try and load the data into the upgrade array.

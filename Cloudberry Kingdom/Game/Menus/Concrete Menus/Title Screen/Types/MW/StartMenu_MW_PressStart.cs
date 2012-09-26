@@ -81,10 +81,10 @@ namespace CloudberryKingdom
         {
             if (!Active) return;
 
-            float s = Tools.Periodic(.85f, 1f, 3, Tools.t);
+            float s = CoreMath.Periodic(.85f, 1f, 3, Tools.t);
             Text.MyFloatColor = new Color((int)(226 * s), 10, 83).ToVector4();
-            //Text.Pos = new Vector2(-922.2231f, -619.4446f + Tools.Periodic(0, 8, 3, Tools.t));
-            Text.Scale = Tools.Periodic(.818668f, .838668f, 3, Tools.t);
+            //Text.Pos = new Vector2(-922.2231f, -619.4446f + CoreMath.Periodic(0, 8, 3, Tools.t));
+            Text.Scale = CoreMath.Periodic(.818668f, .838668f, 3, Tools.t);
 
             t += .01f;
             Text.Alpha = t;

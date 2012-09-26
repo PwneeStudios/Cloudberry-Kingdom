@@ -174,7 +174,7 @@ namespace CloudberryKingdom
                 }
             Core.SkippedPhsx = false;
 
-            if (Tools.Modulo(Core.GetPhsxStep(), Delay) == Offset)
+            if (CoreMath.Modulo(Core.GetPhsxStep(), Delay) == Offset)
             {
                 Emit(Core.MyLevel.CurPhsxStep);
             }

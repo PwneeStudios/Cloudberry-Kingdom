@@ -85,7 +85,7 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
+            float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
             float t = (float)Step / (float)Period;
 
             Vector2 v = GetPos(t);

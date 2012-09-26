@@ -75,7 +75,7 @@ namespace Drawing
             if (EzSoundWad.SuppressSounds) return;
             //CutOffExtra();
 
-            sound.Play(volume * Tools.SoundVolume.Val * DefaultVolume, Tools.Restrict(-1, 1, pitch), Tools.Restrict(-1, 1, pan));
+            sound.Play(volume * Tools.SoundVolume.Val * DefaultVolume, CoreMath.Restrict(-1, 1, pitch), CoreMath.Restrict(-1, 1, pan));
             //if (Instances.Count == MaxInstances)
             //{
             //  Instances[0].Dispose();

@@ -209,7 +209,7 @@ namespace CloudberryKingdom.Viewer
                     if (pt.Y < 9)
                         InsertIndex = 0;
 
-                    InsertIndex = Tools.Restrict(0, LayerTree.Nodes.Count, InsertIndex);
+                    InsertIndex = CoreMath.Restrict(0, LayerTree.Nodes.Count, InsertIndex);
 
                     // Insert the preivew node.
                     LayerTree.Nodes.Insert(InsertIndex, PreviewNode);
@@ -226,7 +226,7 @@ namespace CloudberryKingdom.Viewer
                     KillPreview();
                     
                     int InsertIndex = ReceivingLayerNode.Nodes.IndexOf(ReceivingNode) + 1;
-                    InsertIndex = Tools.Restrict(0, ReceivingLayerNode.Nodes.Count, InsertIndex);
+                    InsertIndex = CoreMath.Restrict(0, ReceivingLayerNode.Nodes.Count, InsertIndex);
 
                     //if (ReceivingLayerNode != LayerTree.SelectedNode.Parent ||
                     //    Math.Abs(InsertIndex - LayerTree.SelectedNode.Index) > 0)
@@ -1010,7 +1010,7 @@ namespace CloudberryKingdom.Viewer
                         if (null != bnode && null != hnode)
                         {
                             Vector2 dif = hit_floater.Data.Position - bnode.Data.Position;
-                            float angle = Tools.Degrees(Tools.VectorToAngle(dif));
+                            float angle = CoreMath.Degrees(CoreMath.VectorToAngle(dif));
                             if (angle < 0) angle += 360;
                             if (angle > 315 || angle <= 45)
                             {

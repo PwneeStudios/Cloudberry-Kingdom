@@ -189,10 +189,10 @@ namespace CloudberryKingdom
                 _BaseType = _Shape = _MoveMod = _Special = 0;
             }
 
-            _BaseType = Tools.Restrict(0, Tools.Length<Hero_BaseType>() - 1, _BaseType);
-            _Shape = Tools.Restrict(0, Tools.Length<Hero_Shape>() - 1, _Shape);
-            _MoveMod = Tools.Restrict(0, Tools.Length<Hero_MoveMod>() - 1, _MoveMod);
-            _Special = Tools.Restrict(0, Tools.Length<Hero_Special>() - 1, _Special);
+            _BaseType = CoreMath.Restrict(0, Tools.Length<Hero_BaseType>() - 1, _BaseType);
+            _Shape = CoreMath.Restrict(0, Tools.Length<Hero_Shape>() - 1, _Shape);
+            _MoveMod = CoreMath.Restrict(0, Tools.Length<Hero_MoveMod>() - 1, _MoveMod);
+            _Special = CoreMath.Restrict(0, Tools.Length<Hero_Special>() - 1, _Special);
 
             return MakeCustom(_BaseType, _Shape, _MoveMod);
         }
@@ -337,7 +337,7 @@ namespace CloudberryKingdom
                     for (int i = 0; i < terms.Length; i++)
                     {
                         float v = float.Parse(terms[i]);
-                        data[i] = Tools.Restrict(Bounds(i).MinValue, Bounds(i).MaxValue, v);
+                        data[i] = CoreMath.Restrict(Bounds(i).MinValue, Bounds(i).MaxValue, v);
                     }
                 }
                 catch
@@ -612,14 +612,14 @@ namespace CloudberryKingdom
         void OscillatePhsx()
         {
             float t = MyBob.Core.GetPhsxStep();
-            float scale = Tools.Periodic(OscillateSize1, OscillateSize2, 30 * OscillatePeriod, t, 90);
+            float scale = CoreMath.Periodic(OscillateSize1, OscillateSize2, 30 * OscillatePeriod, t, 90);
             ScaledFactor = scale;
 
             Vector2 size = Prototype.PlayerObject.ParentQuad.Size * new Vector2(1.7f, 1.4f);
             size *= scale;
             MyBob.PlayerObject.ParentQuad.Size = size;
 
-            Gravity = Tools.Periodic(OscillateGravity1, OscillateGravity2, 30 * OscillatePeriod, t, 90);
+            Gravity = CoreMath.Periodic(OscillateGravity1, OscillateGravity2, 30 * OscillatePeriod, t, 90);
             RunAnimSpeed = 1f / ((scale - 1) * .16f + 1);
             ExplosionScale = 1.4f * ((scale - 1) * .5f + 1);
 
@@ -736,11 +736,11 @@ namespace CloudberryKingdom
             // Stay left of lowest bob
             //if (MyBob != MyLevel.LowestBob && MyLevel.LowestBob != null)
             //    if (MyBob.Pos.X > MyLevel.LowestBob.Pos.X - 30)
-            //        Tools.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
+            //        CoreMath.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
 
             //if (MyBob != MyLevel.LowestBob && MyLevel.LowestBob != null)
             //    if (MyBob.Pos.X > MyLevel.LowestBob.Pos.X - 240)
-            //        Tools.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
+            //        CoreMath.Restrict(-1, 0, ref MyBob.CurInput.xVec.X);
 
             FirstPhsxStep = false;
         }

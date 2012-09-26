@@ -216,10 +216,10 @@ namespace CloudberryKingdom
                 List<string> bits;
 
                 bits = Tools.GetBitsFromReader(reader);
-                Tools.MusicVolume.Val = Tools.Restrict(0, 1, float.Parse(bits[1]));
+                Tools.MusicVolume.Val = CoreMath.Restrict(0, 1, float.Parse(bits[1]));
 
                 bits = Tools.GetBitsFromReader(reader);
-                Tools.SoundVolume.Val = Tools.Restrict(0, 1, float.Parse(bits[1]));
+                Tools.SoundVolume.Val = CoreMath.Restrict(0, 1, float.Parse(bits[1]));
 
                 bits = Tools.GetBitsFromReader(reader);
                 Tools.FixedTimeStep = bool.Parse(bits[1]);

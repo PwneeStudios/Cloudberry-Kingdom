@@ -282,7 +282,7 @@ namespace CloudberryKingdom
 
                 if (Change)
                 {
-                    SpeedVal = Tools.Restrict(0, 4, SpeedVal);
+                    SpeedVal = CoreMath.Restrict(0, 4, SpeedVal);
 
                     //if (SpeedVal == 1) Delay = 30;
                     //else if (SpeedVal == 2) Delay = 30;

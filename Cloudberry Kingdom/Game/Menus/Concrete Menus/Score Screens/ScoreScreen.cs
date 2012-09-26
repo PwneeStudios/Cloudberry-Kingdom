@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             int BlobTotal = PlayerManager.PlayerMax(p => p.GetStats(MyStatGroup).TotalBlobs);
 
             MyPile.Add(new EzText(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins"));
-            MyPile.Add(new EzText(Tools.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs"));
+            MyPile.Add(new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs"));
             MyPile.Add(new EzText(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths"));
 
             // Awardments

@@ -82,13 +82,13 @@ namespace CloudberryKingdom
 
             Vector4 c1 = new Color(213, 200, 227).ToVector4();
             Vector4 c2 = new Color(190, 200, 227).ToVector4();
-            Text.MyFloatColor = Vector4.Lerp(c1, c2, Tools.Periodic(0, 1, 3, Tools.t));
+            Text.MyFloatColor = Vector4.Lerp(c1, c2, CoreMath.Periodic(0, 1, 3, Tools.t));
 
             t += .01f;
             Text.Alpha = t;
 
-            //Text.Pos = new Vector2(-922.2231f, -619.4446f + Tools.Periodic(0, 8, 3, Tools.t));
-            Text.Scale = .8f * Tools.Periodic(.818668f, .831668f, 3, Tools.t);
+            //Text.Pos = new Vector2(-922.2231f, -619.4446f + CoreMath.Periodic(0, 8, 3, Tools.t));
+            Text.Scale = .8f * CoreMath.Periodic(.818668f, .831668f, 3, Tools.t);
 
             base.MyDraw();
         }

@@ -31,7 +31,7 @@ namespace CloudberryKingdom
         {
             // Calculate difficulty based on level
             // t ranges from 0 to 1
-            float t = Tools.Restrict(0, 1, Index / (float)LevelMax);
+            float t = CoreMath.Restrict(0, 1, Index / (float)LevelMax);
 
             switch (CoinControlType)
             {

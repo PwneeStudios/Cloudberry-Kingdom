@@ -90,7 +90,7 @@ namespace CloudberryKingdom.LavaDrips
 
             Exposed = true;
 
-            float t = (float)Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, DownT + WaitT + PeakT);
+            float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, DownT + WaitT + PeakT);
             
             float s = 0;
             if (t < PeakT) s = Tools.FancyLerp(t / PeakT, KeyFrames_Peak).Y * KeyFrames_Down[0].Y;

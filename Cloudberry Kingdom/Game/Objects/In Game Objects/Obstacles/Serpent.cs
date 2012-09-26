@@ -98,7 +98,7 @@ namespace CloudberryKingdom.Serpents
 
             Exposed = true;
 
-            float t = (float)Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
+            float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
 
             float s = 0, s_fish = 0;
 

@@ -224,7 +224,7 @@ namespace CloudberryKingdom
                 {
                     ResourceCount.MyFloat += .5f;
                     if (Accelerate)
-                        ResourceCount.MyFloat  = Tools.Restrict(0, TotalResources + FakeResources,
+                        ResourceCount.MyFloat  = CoreMath.Restrict(0, TotalResources + FakeResources,
                             ResourceCount.MyFloat + .033f * (TotalResources + FakeResources));
                 }
             }

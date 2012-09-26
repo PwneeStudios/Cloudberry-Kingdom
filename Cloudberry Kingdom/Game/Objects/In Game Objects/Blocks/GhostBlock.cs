@@ -169,8 +169,8 @@ namespace CloudberryKingdom
         /// </summary>
         public float GetStep()
         {
-            //return Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
-            return Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
+            //return CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+            return CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
         }
 
         /// <summary>

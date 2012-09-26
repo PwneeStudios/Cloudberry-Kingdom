@@ -162,7 +162,7 @@ namespace CloudberryKingdom
 
             if (MyBob.IsSpriteBased)
             {
-                //MyBob.PlayerObject.ParentQuad.PointxAxisTo(Tools.AngleToDir(MyBob.PlayerObject.ContainedQuadAngle));
+                //MyBob.PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(MyBob.PlayerObject.ContainedQuadAngle));
             }
         }
 

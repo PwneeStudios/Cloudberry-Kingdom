@@ -55,13 +55,13 @@ namespace CloudberryKingdom
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-404.7632f, 626.9842f);
-            text.MyFloatColor = Tools.Gray(.955f);
+            text.MyFloatColor = CoreMath.Gray(.955f);
 
             text = new EzText("power ups", Tools.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-380.9531f, 380.9523f);
-            text.MyFloatColor = Tools.Gray(.955f);
+            text.MyFloatColor = CoreMath.Gray(.955f);
 
             text = new EzText("menu", Tools.Font_Grobold42);
             text.Scale = 1.06f;

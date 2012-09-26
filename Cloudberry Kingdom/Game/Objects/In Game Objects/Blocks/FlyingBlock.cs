@@ -98,7 +98,7 @@ namespace CloudberryKingdom
         public Vector2 GetPos()
         {
             double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / (float)Period;
-            Core.Data.Position = Tools.AngleToDir(t) * Radii + Orbit;
+            Core.Data.Position = CoreMath.AngleToDir(t) * Radii + Orbit;
             return Core.Data.Position;
         }
 

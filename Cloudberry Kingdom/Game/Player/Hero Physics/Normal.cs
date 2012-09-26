@@ -426,7 +426,7 @@ namespace CloudberryKingdom
             {
                 float max = yVel + JumpAccelModifier * speed;
                 float min = MaxJumpAccelMultiple * speed;
-                yVel = Tools.Restrict(min, max, yVel);
+                yVel = CoreMath.Restrict(min, max, yVel);
             }
             else
                 yVel = JumpAccelModifier * speed;

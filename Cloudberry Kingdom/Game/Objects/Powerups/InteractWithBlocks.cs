@@ -81,7 +81,7 @@ namespace CloudberryKingdom
                 Core.Data.Velocity.X *= SmallFriction;
             else
                 Core.Data.Velocity.X *= Friction;
-            Tools.Restrict(-30, 40, ref Core.Data.Velocity.Y);
+            CoreMath.Restrict(-30, 40, ref Core.Data.Velocity.Y);
 
             Box.SetTarget(Pos + new Vector2(0, -1), Size);
             if (MyQuad != null) MyQuad.Pos = Pos;
@@ -156,7 +156,7 @@ namespace CloudberryKingdom
             {
                 float VelFadeBegin = -15;
                 if (MySound != null && Core.Data.Velocity.Y < -2)
-                    MySound.Play(Tools.Restrict(0, 1, Core.Data.Velocity.Y / VelFadeBegin));
+                    MySound.Play(CoreMath.Restrict(0, 1, Core.Data.Velocity.Y / VelFadeBegin));
 
                 //Core.Data.Position += new Vector2(0, block.Box.TR.Y - Box.Target.BL.Y + 1f);
                 Core.Data.Position += new Vector2(0, block.Box.TR.Y - Box.Target.BL.Y);

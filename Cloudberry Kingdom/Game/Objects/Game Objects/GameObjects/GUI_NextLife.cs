@@ -125,7 +125,7 @@ namespace CloudberryKingdom
             Coin.TextureName = coin;
             Coin.Scale(61.5f);
             Coin.ScaleYToMatchRatio();
-            Coin.PointxAxisTo(20 / Tools.c);
+            Coin.PointxAxisTo(20 / CoreMath.c);
             
             MyPile.Add(Coin);
             MyPile.Add(CoinsText);

@@ -207,7 +207,7 @@ namespace CloudberryKingdom
             }
             else
             {
-                Tools.Restrict(0, MyList.Count - 1, ref NewIndex);
+                CoreMath.Restrict(0, MyList.Count - 1, ref NewIndex);
             }
 
             int HoldIndex = ListIndex;

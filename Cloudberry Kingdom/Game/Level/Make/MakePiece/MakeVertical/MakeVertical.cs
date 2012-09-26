@@ -15,7 +15,7 @@ namespace CloudberryKingdom.Levels
         /// <returns></returns>
         public CameraZone MakeVerticalCameraZone(LevelGeometry Geometry, float Height)
         {
-            Vector2 Size = Tools.Abs(CurMakeData.PieceSeed.End - CurMakeData.PieceSeed.Start) / 2;
+            Vector2 Size = CoreMath.Abs(CurMakeData.PieceSeed.End - CurMakeData.PieceSeed.Start) / 2;
             Size.Y += 900;
             Size = Vector2.Max(Size, MainCamera.GetSize());
 

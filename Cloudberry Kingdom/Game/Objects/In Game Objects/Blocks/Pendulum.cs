@@ -187,8 +187,8 @@ namespace CloudberryKingdom.Blocks
         {
             if (!Core.Held)
             {
-                //float Step = Tools.Modulo(MyLevel.BlockTime + Offset, (float)Period);
-                float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
+                //float Step = CoreMath.Modulo(MyLevel.BlockTime + Offset, (float)Period);
+                float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
                 Pos = CalcPosition((float)Step / Period);
             }
 

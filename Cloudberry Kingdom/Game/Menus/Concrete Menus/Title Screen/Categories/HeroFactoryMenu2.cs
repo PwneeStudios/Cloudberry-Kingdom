@@ -222,8 +222,8 @@ namespace CloudberryKingdom
             text.ShadowColor = new Color(.2f, .2f, .2f, .6f);
             text.Shadow = false;
 
-            //text.Angle = Tools.Radians(30);
-            text.Angle = Tools.Radians(23);
+            //text.Angle = CoreMath.Radians(30);
+            text.Angle = CoreMath.Radians(23);
         }
 
         void SetSuperHeader(EzText text)
@@ -233,7 +233,7 @@ namespace CloudberryKingdom
             text.Scale = FontScale * 1.42f;
             text.ShadowOffset = new Vector2(17);
 
-            CampaignMenu._x_x_HappyBlueColor(text); text.ShadowColor = Tools.GrayColor(.3f); text.Scale *= 1.25f;
+            CampaignMenu._x_x_HappyBlueColor(text); text.ShadowColor = CoreMath.GrayColor(.3f); text.Scale *= 1.25f;
         }
 
         private MenuItem MakeListItem(BobPhsx hero, MenuList list)

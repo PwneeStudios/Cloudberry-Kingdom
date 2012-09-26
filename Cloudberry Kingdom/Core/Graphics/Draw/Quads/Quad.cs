@@ -129,7 +129,7 @@ namespace Drawing
 
         void ModifyAxis(ObjectVector axis, int anim, int frame, ChangeMode RecordMode)
         {
-            Vector2 Change_axis = Tools.CartesianToPolar(axis.RelPos) - Tools.CartesianToPolar(axis.AnimData.Get(anim, frame));
+            Vector2 Change_axis = CoreMath.CartesianToPolar(axis.RelPos) - CoreMath.CartesianToPolar(axis.AnimData.Get(anim, frame));
             Change_axis.Y = 1 + Change_axis.Y / axis.AnimData.Get(anim, frame).Length();
 
             for (int _anim = 0; _anim < axis.AnimData.Anims.Length; _anim++)
@@ -140,10 +140,10 @@ namespace Drawing
                     for (int _frame = 0; _frame < axis.AnimData.Anims[_anim].Data.Length; _frame++)
                         if (anim != _anim || frame != _frame)
                         {
-                            Vector2 polar = Tools.CartesianToPolar(axis.AnimData.Anims[_anim].Data[_frame]);
+                            Vector2 polar = CoreMath.CartesianToPolar(axis.AnimData.Anims[_anim].Data[_frame]);
                             polar.X += Change_axis.X;
                             polar.Y *= Change_axis.Y;
-                            axis.AnimData.Anims[_anim].Data[_frame] = Tools.PolarToCartesian(polar);
+                            axis.AnimData.Anims[_anim].Data[_frame] = CoreMath.PolarToCartesian(polar);
                         }
             }
         }

@@ -196,8 +196,8 @@ namespace CloudberryKingdom
 
         public float Degrees
         {
-            get { return Tools.Degrees(Angle); }
-            set { Angle = Tools.Radians(value); }
+            get { return CoreMath.Degrees(Angle); }
+            set { Angle = CoreMath.Radians(value); }
         }
 
         public float Angle
@@ -557,7 +557,7 @@ namespace CloudberryKingdom
 
             if (FancyLightAlpha != null)
             {
-                FancyLightAlpha.RelVal = Tools.Restrict(0, 1000, FancyLightAlpha.RelVal);
+                FancyLightAlpha.RelVal = CoreMath.Restrict(0, 1000, FancyLightAlpha.RelVal);
                 FancyLightAlpha.Update();
 
                 var color = new Vector4(FancyLightAlpha.Pos.X / 1000f);

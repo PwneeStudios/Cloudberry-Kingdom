@@ -43,7 +43,7 @@ namespace CloudberryKingdom
  	        base.Init();
 
             BackBox = new QuadClass("White"); BackBox.Quad.SetColor(Color.Black);
-            BackBox.Quad.SetColor(Tools.Gray(.1f));
+            BackBox.Quad.SetColor(CoreMath.Gray(.1f));
             BackBox.Alpha = .73f;
             MyPile.Add(BackBox, "BackBox");
 

@@ -224,7 +224,7 @@ namespace CloudberryKingdom.Blocks
                 CurShakeIntensity = ShakeIntensity;
             else
                 CurShakeIntensity *= .98f;
-            Tools.Restrict(MinShakeIntensity, ShakeIntensity, ref CurShakeIntensity);
+            CoreMath.Restrict(MinShakeIntensity, ShakeIntensity, ref CurShakeIntensity);
 
             int Wait = 2;
             if (CurShakeIntensity < MinShakeIntensity + 2)
@@ -241,10 +241,10 @@ namespace CloudberryKingdom.Blocks
 
             if (Horizontal)
                 Core.Data.Velocity.X =
-                    Tools.Restrict(0, Speed, Core.Data.Velocity.X + Accel);
+                    CoreMath.Restrict(0, Speed, Core.Data.Velocity.X + Accel);
             else
                 Core.Data.Velocity.Y =
-                    Tools.Restrict(0, Speed, Core.Data.Velocity.Y + Accel);
+                    CoreMath.Restrict(0, Speed, Core.Data.Velocity.Y + Accel);
 
             if (Pos.X > Cam.Pos.X - 5350)
             {

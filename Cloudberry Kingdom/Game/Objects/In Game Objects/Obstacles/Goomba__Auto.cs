@@ -81,7 +81,7 @@ namespace CloudberryKingdom.Levels
             Period = new Param(PieceSeed, u =>
             {
                 float speed = 200 - 20 * u[Upgrade.Speed] + 25 * .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]);
-                return Tools.Restrict(40, 1000, speed);
+                return CoreMath.Restrict(40, 1000, speed);
             });
 
             EdgeSafety = new Param(PieceSeed);
@@ -397,7 +397,7 @@ namespace CloudberryKingdom.Levels
 
             // If the blob is too low make sure it's path is horizontal
             if (pos.Y < BL.Y + 500)
-                SetMoveType(NewBlob, Tools.SupNorm(NewBlob.Displacement), Goomba_Parameters.MotionType.Horizontal, level.Rnd);
+                SetMoveType(NewBlob, CoreMath.SupNorm(NewBlob.Displacement), Goomba_Parameters.MotionType.Horizontal, level.Rnd);
 
             level.AddObject(NewBlob);
 

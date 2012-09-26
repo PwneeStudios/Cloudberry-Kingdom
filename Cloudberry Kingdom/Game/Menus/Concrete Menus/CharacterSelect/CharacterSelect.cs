@@ -226,7 +226,7 @@ namespace CloudberryKingdom
             }
             else
             {
-                Player.ColorSchemeIndex = Tools.Restrict(0, ColorSchemeManager.ColorSchemes.Count - 1, Player.ColorSchemeIndex);
+                Player.ColorSchemeIndex = CoreMath.Restrict(0, ColorSchemeManager.ColorSchemes.Count - 1, Player.ColorSchemeIndex);
 
                 Player.ColorScheme = ColorSchemeManager.ColorSchemes[Player.ColorSchemeIndex];                
                 MyDoll.MyDoll.SetColorScheme(Player.ColorScheme);

@@ -67,7 +67,7 @@ namespace CloudberryKingdom.Levels
             Period.SetVal(u =>
             {
                 float speed = 280 - 32 * u[Upgrade.Speed] + 40 * .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]);
-                return Tools.Restrict(40, 1000, speed);
+                return CoreMath.Restrict(40, 1000, speed);
             });
         }
     }

@@ -70,8 +70,8 @@ namespace CloudberryKingdom
                 if (SubThreshholdCount % Period == 15)
                 {
 #if XBOX
-                    float LeftIntensity = Tools.Restrict(.4f, .4f, t);
-                    float RightIntensity = Tools.Restrict(.1f, .3f, t);
+                    float LeftIntensity = CoreMath.Restrict(.4f, .4f, t);
+                    float RightIntensity = CoreMath.Restrict(.1f, .3f, t);
 
                     foreach (PlayerData player in PlayerManager.AlivePlayers)
                         Tools.SetVibration(player.MyPlayerIndex, LeftIntensity, LeftIntensity, 30);
@@ -80,9 +80,9 @@ namespace CloudberryKingdom
 
                 // Flash the screen
                 float h = (float)Math.Cos(2 * Math.PI * (float)(SubThreshholdCount - 15) / Period);
-                //h = Tools.Restrict(.5f, 1f, h) - .5f;
-                //h = (Tools.Restrict(.35f, 1f, h) - .35f) * .4f;
-                h = (Tools.Restrict(.65f, 1f, h) - .65f) * 1.5f;
+                //h = CoreMath.Restrict(.5f, 1f, h) - .5f;
+                //h = (CoreMath.Restrict(.35f, 1f, h) - .35f) * .4f;
+                h = (CoreMath.Restrict(.65f, 1f, h) - .65f) * 1.5f;
 
                 SetAlpha(h);
 

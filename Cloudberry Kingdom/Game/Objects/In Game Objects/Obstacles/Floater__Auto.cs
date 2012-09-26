@@ -147,7 +147,7 @@ namespace CloudberryKingdom.Levels
             else
             {
                 NewFloater.PivotPoint.X = level.MainCamera.BL.X - 160;
-                NewFloater.AddAngle = Tools.Radians(90);
+                NewFloater.AddAngle = CoreMath.Radians(90);
                 NewFloater.PivotLocationType = Floater.PivotLocationTypes.LeftRight;
             }
 

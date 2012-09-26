@@ -60,7 +60,7 @@ namespace CloudberryKingdom
 
         public void SetLine(Vector2 p, float degrees)
         {
-            SetLine(p + Tools.DegreesToDir(degrees) * 3800, p - Tools.DegreesToDir(degrees) * 3800);
+            SetLine(p + CoreMath.DegreesToDir(degrees) * 3800, p - CoreMath.DegreesToDir(degrees) * 3800);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace CloudberryKingdom
             if (AlwaysOn)
             {
                 MyState = LaserState.On;
-                float TargetState = Tools.PeriodicCentered(.86f, 1f, 70, Core.MyLevel.CurPhsxStep);
+                float TargetState = CoreMath.PeriodicCentered(.86f, 1f, 70, Core.MyLevel.CurPhsxStep);
                 StateChange += .02f * Math.Sign(TargetState - StateChange);
                 if (StateChange > 1) StateChange = 1;
             }
@@ -118,8 +118,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                //int Step = Tools.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
-                float Step = Tools.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
+                //int Step = CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
+                float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
                 if (Step < WarnDuration)
                 {
                     MyState = LaserState.Warn;

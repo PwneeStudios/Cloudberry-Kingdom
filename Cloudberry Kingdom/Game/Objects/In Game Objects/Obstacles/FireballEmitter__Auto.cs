@@ -172,7 +172,7 @@ namespace CloudberryKingdom.Levels
 
             iceblock = (IceBlock)level.Recycle.GetObject(ObjectType.IceBlock, false);
             Vector2 size = new Vector2(115) * .8f;
-            pos = Tools.Snap(pos, size*2);
+            pos = CoreMath.Snap(pos, size*2);
             iceblock.Init(pos, size);
             iceblock.Period = Period;
             iceblock.Offset = Offset;
@@ -215,7 +215,7 @@ namespace CloudberryKingdom.Levels
             float MaxAngle = .001f * Params.FireballMaxAngle.GetVal(pos);
             double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles, level.Rnd);
             if (Geometry == LevelGeometry.Right) Angle += Math.PI / 2;
-            emitter.EmitData.Velocity = Tools.AngleToDir(Angle) * Speed;
+            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
             level.AddObject(emitter);
 
@@ -308,12 +308,12 @@ namespace CloudberryKingdom.Levels
             emitter.EmitData.Velocity = Speed * Vector2.Normalize(AimPos - EmitPos);
 
             // Snap angle to 0/90/180/270 if close
-            Vector2 polar = Tools.CartesianToPolar(emitter.EmitData.Velocity);
+            Vector2 polar = CoreMath.CartesianToPolar(emitter.EmitData.Velocity);
 
             foreach (float AngleSnap in AngleSnaps)
-                if (Tools.AngleDist(Tools.c * polar.X, AngleSnap) < 7) polar.X = AngleSnap / Tools.c;
+                if (CoreMath.AngleDist(CoreMath.c * polar.X, AngleSnap) < 7) polar.X = AngleSnap / CoreMath.c;
 
-            emitter.EmitData.Velocity = Tools.PolarToCartesian(polar);
+            emitter.EmitData.Velocity = CoreMath.PolarToCartesian(polar);
 
 
             emitter.Core.GenData.KeepIfUnused = true;
@@ -431,7 +431,7 @@ namespace CloudberryKingdom.Levels
 
                 
 
-                Vector2 Dir = Tools.DegreesToDir(Angle);
+                Vector2 Dir = CoreMath.DegreesToDir(Angle);
                 Vector2 Tangent = new Vector2(-Dir.Y, Dir.X);
 
                 int J = 0;
@@ -540,9 +540,9 @@ namespace CloudberryKingdom.Levels
                 emitter.EmitData.Velocity = new Vector2(0, 1) * Speed;
 
                 emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = Tools.DegreesToDir(45) * Speed;
+                emitter.EmitData.Velocity = CoreMath.DegreesToDir(45) * Speed;
                 emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = Tools.DegreesToDir(135) * Speed;
+                emitter.EmitData.Velocity = CoreMath.DegreesToDir(135) * Speed;
 
                 /*
                 emitter = AddEmitterToIce(level, ice);
@@ -692,14 +692,14 @@ namespace CloudberryKingdom.Levels
                         case 3:
                             Angle += Math.PI / 2;
                             //emitter.EmitData.Velocity = new Vector2(0, Speed);
-                            emitter.EmitData.Velocity = Tools.AngleToDir(Angle) * Speed;
+                            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
                             break;
 
                         case 1:
                             Angle -= Math.PI / 2;
                             //emitter.EmitData.Velocity = new Vector2(0, -Speed);
-                            emitter.EmitData.Velocity = Tools.AngleToDir(Angle) * Speed;
+                            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
                             break;
 

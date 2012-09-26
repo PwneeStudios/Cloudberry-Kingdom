@@ -292,7 +292,7 @@ namespace CloudberryKingdom
             if (!ButtonCheck.MouseInUse)
                 MouseInBox = true;
             // Otherwise do an actual distance check
-            else if (!Tools.Close(FancyPos.AbsVal, Tools.MouseGUIPos(MyCameraZoom), Size + new Vector2(150, 150)))
+            else if (!CoreMath.Close(FancyPos.AbsVal, Tools.MouseGUIPos(MyCameraZoom), Size + new Vector2(150, 150)))
                 MouseInBox = false;
         }
 #endif

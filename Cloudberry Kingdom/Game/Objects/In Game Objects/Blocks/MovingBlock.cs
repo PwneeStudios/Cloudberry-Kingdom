@@ -155,7 +155,7 @@ namespace CloudberryKingdom.Blocks
         {
             if (!Core.Held)
             {
-                float Step = Tools.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
+                float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
                 Core.Data.Position = CalcPosition((float)Step / Period);
             }
 

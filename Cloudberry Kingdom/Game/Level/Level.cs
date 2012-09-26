@@ -1636,7 +1636,7 @@ namespace CloudberryKingdom.Levels
                 MainCamera.TR = new Vector2(1000000, 1000000);
             }
 
-            for (int i = StartLayer; i <= Tools.Restrict(0, Level.AfterParticlesDrawLayer - 1, EndLayer); i++)
+            for (int i = StartLayer; i <= CoreMath.Restrict(0, Level.AfterParticlesDrawLayer - 1, EndLayer); i++)
                 DrawGivenLayer(i);
 
             // Draw particles

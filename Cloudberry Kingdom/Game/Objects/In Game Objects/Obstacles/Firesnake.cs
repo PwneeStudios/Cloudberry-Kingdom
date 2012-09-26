@@ -71,7 +71,7 @@ namespace CloudberryKingdom
         public override void PhsxStep()
         {
             double t = 2 * Math.PI * (Core.GetIndependentPhsxStep() + Offset) / (float)Period;
-            Pos = Tools.AngleToDir(t) * Radii + Orbit;
+            Pos = CoreMath.AngleToDir(t) * Radii + Orbit;
 
             base.PhsxStep();
         }

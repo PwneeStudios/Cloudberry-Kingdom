@@ -459,7 +459,7 @@ namespace CloudberryKingdom
             }
             else
             {
-                NearCount = Tools.Restrict(0, 30, NearCount);
+                NearCount = CoreMath.Restrict(0, 30, NearCount);
                 NearCount--;
             }
 

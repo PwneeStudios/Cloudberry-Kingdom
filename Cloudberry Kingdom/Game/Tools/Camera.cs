@@ -522,7 +522,7 @@ namespace CloudberryKingdom
 
                     Count++;
                     TotalWeight += bob.CameraWeight;
-                    bob.CameraWeight = Tools.Restrict(0, 1, bob.CameraWeight + bob.CameraWeightSpeed);
+                    bob.CameraWeight = CoreMath.Restrict(0, 1, bob.CameraWeight + bob.CameraWeightSpeed);
                 }
             }
 
@@ -539,8 +539,8 @@ namespace CloudberryKingdom
             if (pos.Y > Target.Y + ScreenHeight * ratio.Y) Target.Y += ScreenHeight * ratio2.Y;
             if (pos.Y < Target.Y - ScreenHeight * ratio.Y) Target.Y -= ScreenHeight * ratio2.Y;
 
-            Target.X = Tools.Restrict(MyZone.Start.X, MyZone.End.X, Target.X);
-            Target.Y = Tools.Restrict(MyZone.Start.Y, MyZone.End.Y, Target.Y);
+            Target.X = CoreMath.Restrict(MyZone.Start.X, MyZone.End.X, Target.X);
+            Target.Y = CoreMath.Restrict(MyZone.Start.Y, MyZone.End.Y, Target.Y);
 
             Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
 
@@ -646,7 +646,7 @@ namespace CloudberryKingdom
                 if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.Core.Data.Position)) || MyLevel.PlayMode != 0)
                 {
                     //MaxPlayerSpeed = Math.Max(MaxPlayerSpeed, bob.Core.Data.Velocity.Length());
-                    MaxPlayerSpeed = Vector2.Max(MaxPlayerSpeed, Tools.Abs(bob.Core.Data.Velocity));
+                    MaxPlayerSpeed = Vector2.Max(MaxPlayerSpeed, CoreMath.Abs(bob.Core.Data.Velocity));
 
                     BobsCenter += bob.Core.Data.Position;
                     
@@ -658,7 +658,7 @@ namespace CloudberryKingdom
 
                     Count++;
                     TotalWeight += bob.CameraWeight;
-                    bob.CameraWeight = Tools.Restrict(0, 1, bob.CameraWeight + bob.CameraWeightSpeed);
+                    bob.CameraWeight = CoreMath.Restrict(0, 1, bob.CameraWeight + bob.CameraWeightSpeed);
                 }
             }
 
