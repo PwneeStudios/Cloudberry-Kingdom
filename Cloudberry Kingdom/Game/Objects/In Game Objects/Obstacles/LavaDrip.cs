@@ -93,8 +93,8 @@ namespace CloudberryKingdom.LavaDrips
             float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, DownT + WaitT + PeakT);
             
             float s = 0;
-            if (t < PeakT) s = Tools.FancyLerp(t / PeakT, KeyFrames_Peak).Y * KeyFrames_Down[0].Y;
-            else if (t < PeakT + DownT) s = Tools.FancyLerp((t - PeakT) / (float)DownT, KeyFrames_Down).Y;
+            if (t < PeakT) s = CoreMath.FancyLerp(t / PeakT, KeyFrames_Peak).Y * KeyFrames_Down[0].Y;
+            else if (t < PeakT + DownT) s = CoreMath.FancyLerp((t - PeakT) / (float)DownT, KeyFrames_Down).Y;
             else s = 1f;
 
             Pos = Vector2.Lerp(Start, End, s);

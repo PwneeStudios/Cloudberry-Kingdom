@@ -245,7 +245,7 @@ namespace CloudberryKingdom
                     }
                 }
 
-                lvl.Bobs[0].CapeWind = Tools.LerpRestrict(2.7f, 0, wind_t.Val) *
+                lvl.Bobs[0].CapeWind = CoreMath.LerpRestrict(2.7f, 0, wind_t.Val) *
                     Cape.SineWind(new Vector2(-1, .15f), .75f + .3f, 4.5f, lvl.CurPhsxStep);
 
                 Camera cam = lvl.MainCamera;
@@ -253,9 +253,9 @@ namespace CloudberryKingdom
                 cam.EffectivePos = lvl.Bobs[0].Pos;
                 cam.EffectiveZoom = new Vector2(.0025f);
 
-                cam.EffectivePos = Tools.LerpRestrict(lvl.Bobs[0].Pos, cam.Data.Position, pos_t.Val);
+                cam.EffectivePos = CoreMath.LerpRestrict(lvl.Bobs[0].Pos, cam.Data.Position, pos_t.Val);
                 cam.EffectivePos.Y = cam.Data.Position.Y;
-                cam.EffectiveZoom = new Vector2(Tools.LerpRestrict(.0025f, .001f, zoom_t.Val));
+                cam.EffectiveZoom = new Vector2(CoreMath.LerpRestrict(.0025f, .001f, zoom_t.Val));
             }
             
 

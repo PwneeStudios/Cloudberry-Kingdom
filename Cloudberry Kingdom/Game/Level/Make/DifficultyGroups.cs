@@ -27,11 +27,11 @@ namespace CloudberryKingdom
                 (Easy, Normal, Abusive, Hardcore, Masochistic) =>
                 {
                     //if (d < 0) return 0;
-                    if (d < 0) return Tools.LerpRestrict((float)0, (float)Easy, d - -1);
-                    else if (d < 1) return Tools.SpecialLerp((float)Easy, (float)Normal, d - 0);
-                    else if (d < 2) return Tools.SpecialLerp((float)Normal, (float)Abusive, d - 1);
-                    else if (d < 3) return Tools.SpecialLerp((float)Abusive, (float)Hardcore, d - 2);
-                    else return Tools.SpecialLerpRestrict((float)Hardcore, (float)Masochistic, d - 3);
+                    if (d < 0) return CoreMath.LerpRestrict((float)0, (float)Easy, d - -1);
+                    else if (d < 1) return CoreMath.SpecialLerp((float)Easy, (float)Normal, d - 0);
+                    else if (d < 2) return CoreMath.SpecialLerp((float)Normal, (float)Abusive, d - 1);
+                    else if (d < 3) return CoreMath.SpecialLerp((float)Abusive, (float)Hardcore, d - 2);
+                    else return CoreMath.SpecialLerpRestrict((float)Hardcore, (float)Masochistic, d - 3);
                 };
         }
 

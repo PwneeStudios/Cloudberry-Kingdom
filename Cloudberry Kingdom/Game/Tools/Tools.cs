@@ -2107,9 +2107,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return NewColor;
         }
 
-
-        
-        
         public static bool DebugConvenience;// = true;
 
         /// <summary>
@@ -2140,88 +2137,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
         }
 
-        /// <summary>
-        /// Interpolate between a list of values.
-        /// t = 0 returns the first value, t = 1 the second value, etc
-        /// </summary>
-        public static float MultiLerpRestrict(float t, params float[] values)
-        {
-            if (t <= 0) return values[0];
-            if (t >= values.Length - 1) return values[values.Length - 1];
-
-            int i1 = Math.Min((int)t, values.Length - 1);
-            int i2 = i1 + 1;
-
-            return Lerp(values[i1], values[i2], t - i1);
-        }
-
-        public static Vector2 MultiLerpRestrict(float t, params Vector2[] values)
-        {
-            if (t <= 0) return values[0];
-            if (t >= values.Length - 1) return values[values.Length - 1];
-
-            int i1 = Math.Min((int)t, values.Length - 1);
-            int i2 = i1 + 1;
-
-            return Vector2.Lerp(values[i1], values[i2], t - i1);
-        }
-
-        public static int LerpRestrict(int v1, int v2, float t)
-        {
-            return (int)LerpRestrict((float)v1, (float)v2, t);
-        }
-        public static int Lerp(int v1, int v2, float t)
-        {
-            return (int)Lerp((float)v1, (float)v2, t);
-        }
-        public static float LerpRestrict(float v1, float v2, float t)
-        {
-            return Lerp(v1, v2, CoreMath.Restrict(0, 1, t));
-        }
-        public static float Lerp(float v1, float v2, float t)
-        {
-            return (1 - t) * v1 + t * v2;
-        }
-        public static Vector2 LerpRestrict(Vector2 v1, Vector2 v2, float t)
-        {
-            if (t > 1) return v2;
-            if (t < 0) return v1;
-            return Vector2.Lerp(v1, v2, t);
-        }
-
-        /// <summary>
-        /// Linear interpolation with the additional property that
-        /// if v1 == 0, then t <- Max(0, t - .5)
-        /// </summary>
-        public static float SpecialLerp(float v1, float v2, float t)
-        {
-            if (v1 == 0)
-                t = (float)Math.Max(0, t - .5);
-
-            return (1 - t) * v1 + t * v2;
-        }
-
-        /// <summary>
-        /// Special linear interpolation, followed by a restriction between the v0 and v1 values.
-        /// </summary>
-        public static float SpecialLerpRestrict(float v1, float v2, float t)
-        {
-            return SpecialLerp(v1, v2, CoreMath.Restrict(0, 1, t));
-        }
-
-        /// <summary>
-        /// Let f(x) be a linear function such that f(g1.x) = g1.y and f(g2.x) = g2.y.
-        /// This function returns f(t).
-        public static float Lerp(Vector2 g1, Vector2 g2, float t)
-        {
-            float width = g2.X - g1.X;
-            float s = (t - g1.X) / width;
-
-            return g2.Y * s + g1.Y * (1 - s);
-        }
         public static float DifficultyLerp(float Level1Val, float Level10Val, float level)
         {
-            return Lerp(new Vector2(1, Level1Val), new Vector2(10, Level10Val), level);
+            return CoreMath.Lerp(new Vector2(1, Level1Val), new Vector2(10, Level10Val), level);
         }
         public static float DifficultyLerpRestrict19(float Level1Val, float Level9Val, float level)
         {
@@ -2230,7 +2148,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         }
         public static float DifficultyLerp19(float Level1Val, float Level9Val, float level)
         {
-            return Lerp(new Vector2(1, Level1Val), new Vector2(9, Level9Val), level);
+            return CoreMath.Lerp(new Vector2(1, Level1Val), new Vector2(9, Level9Val), level);
         }
         public static Vector2 DifficultyLerpRestrict19(Vector2 Level1Val, Vector2 Level9Val, float level)
         {
@@ -2262,63 +2180,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return vec;
         }
 
-        public static float SmoothLerp(float v1, float v2, float t)
-        {
-            return FancyLerp(t, new float[] { 
-                Tools.Lerp(v1, v2, 0),
-                Tools.Lerp(v1, v2, 0.5f),
-                Tools.Lerp(v1, v2, 0.75f),
-                Tools.Lerp(v1, v2, 0.875f),
-                Tools.Lerp(v1, v2, 0.9375f),
-                Tools.Lerp(v1, v2, 1) });
-        }
-
-        public static float FancyLerp(float t, float[] keyframes)
-        {
-            if (t >= 1) return keyframes[keyframes.Length - 1];
-            if (t <= 0) return keyframes[0];
-
-            float _t = keyframes.Length * t;
-            int frame = (int)(_t);
-
-            var v1 = frame > 0 ? keyframes[frame - 1] : keyframes[0];
-            var v2 = keyframes[frame];
-            var v3 = frame + 1 < keyframes.Length ? keyframes[frame + 1] : keyframes[keyframes.Length - 1];
-            var v4 = frame + 2 < keyframes.Length ? keyframes[frame + 2] : keyframes[keyframes.Length - 1];
-
-            //return Vector2.CatmullRom(v1, v2, v3, v4, _t - frame);
-            //return Vector2.Hermite(v2, v2 - v1, v3, v4 - v3, _t - frame);
-            return Lerp(v2, v3, _t - frame);
-        }
-        public static Vector2 FancyLerp(float t, Vector2[] keyframes)
-        {
-            if (t >= 1) return keyframes[keyframes.Length - 1];
-            if (t <= 0) return keyframes[0];
-
-            float _t = keyframes.Length * t;
-            int frame = (int)(_t);
-
-            var v1 = frame > 0 ? keyframes[frame - 1] : keyframes[0];
-            var v2 = keyframes[frame];
-            var v3 = frame + 1 < keyframes.Length ? keyframes[frame + 1] : keyframes[keyframes.Length - 1];
-            var v4 = frame + 2 < keyframes.Length ? keyframes[frame + 2] : keyframes[keyframes.Length - 1];
-
-            //return Vector2.CatmullRom(v1, v2, v3, v4, _t - frame);
-            //return Vector2.Hermite(v2, v2 - v1, v3, v4 - v3, _t - frame);
-            return Vector2.Lerp(v2, v3, _t - frame);
-        }
-
-        public static float ParabolaInterp(float t, Vector2 apex, float zero1)
-        {
-            float q = (float)Math.Pow(zero1 - apex.X, 2);
-            return apex.Y * (float)(q - Math.Pow(t - apex.X, 2)) / q;
-        }
-        public static float ParabolaInterp(float t, Vector2 apex, float zero1, float power)
-        {
-            float q = (float)Math.Pow(Math.Abs(zero1 - apex.X), power);
-            return apex.Y * (float)(q - Math.Pow(Math.Abs(t - apex.X), power)) / q;
-        }
-
         public static bool IncrementsContainsSum(int[] Incr, int S)
         {
             int Sum = 0;
@@ -2332,13 +2193,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return false;
         }
 
-
-
         public static void UseInvariantCulture()
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
         }
-
 
         public static bool _AllTaken(bool[] list1, bool[] list2, int Length)
         {
@@ -2352,7 +2210,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             return new Vector2(v.Y, -v.X);
         }
-
         public static void RotatedBasis(float Degrees, ref Vector2 v)
         {
             Vector2 e1 = CoreMath.DegreesToDir(Degrees);
@@ -2360,7 +2217,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             v = v.X * e1 + v.Y * e2;
         }
-
         public static void PointyAxisTo(ref BasePoint Base, Vector2 dir)
         {
             PointxAxisTo(ref Base, Reciprocal(dir));
@@ -2389,12 +2245,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
             PointxAxisTo(ref Base, CoreMath.AngleToDir(angle));
         }
 
+
         public static string ScoreString(int num, int outof)
         {
             return num.ToString() + "/" + outof.ToString();
             //return "x" + num.ToString() + "/" + outof.ToString();
         }
-
         public static string ScoreString(int num)
         {
             return num.ToString();
@@ -2419,7 +2275,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     obj.MoveToBounded(new Vector2(BL.X - BL_Bound, 0));
             }
         }
-
         /// <summary>
         /// Moves an IObject/IBound object to within BL.Y and TR.Y
         /// </summary>
@@ -2438,7 +2293,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     obj.MoveToBounded(new Vector2(0, BL.Y - BL_Bound));
             }
         }
-
         /// <summary>
         /// Moves an IObject/IBound object to within BL and TR
         /// </summary>
@@ -2459,30 +2313,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 obj.MoveToBounded(new Vector2(0, TR.Y - TR_Bound.Y));
             else if (BL_Bound.Y < BL.Y)
                 obj.MoveToBounded(new Vector2(0, BL.Y - BL_Bound.Y));
-        }
-
-        /// <summary>
-        /// Encode a float as an RGBA color.
-        /// </summary>
-        public static Vector3 EncodeFloatRGBA(float v)
-        {
-            const float max24int = 256 * 256 * 256 - 1;
-            Vector3 color = new Vector3((float)Math.Floor(v * max24int / (256 * 256)),
-                                        (float)Math.Floor(v * max24int / 256),
-                                        (float)Math.Floor(v * max24int));
-
-            color.Z -= color.Y * 256f;
-            color.Y -= color.X * 256f;
-
-            return color / 255f;
-        }
-
-        /// <summary>
-        /// Decode an RGBA color into a float (assuming the RGBA was an encoding of a float to start with)
-        /// </summary>
-        public static float DecodeFloatRGBA(Vector4 rgba)
-        {
-            return rgba.X * 1f + rgba.Y / 255f + rgba.Z / 65025f + rgba.W / 160581375f;
         }
     }
 }

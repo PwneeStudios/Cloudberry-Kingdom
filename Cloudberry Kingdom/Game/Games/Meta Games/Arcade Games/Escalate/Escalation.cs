@@ -166,7 +166,7 @@ namespace CloudberryKingdom
             for (i = StartIndex; i < StartIndex + 100; i++)
             {
                 int Index = i; // Get the level number
-                float difficulty = Tools.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
+                float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
                 MakeList.Add(() => Make(Index, difficulty));
             }
 
@@ -222,7 +222,7 @@ namespace CloudberryKingdom
             // Adjust the length. Longer for higher levels.
             int Length;
             float t = ((Index - StartIndex) % LevelsPerTileset) / (float)(LevelsPerTileset - 1);
-            Length = Tools.LerpRestrict(LevelLength_Short, LevelLength_Long, t);
+            Length = CoreMath.LerpRestrict(LevelLength_Short, LevelLength_Long, t);
 
             // Create the LevelSeedData
             LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);

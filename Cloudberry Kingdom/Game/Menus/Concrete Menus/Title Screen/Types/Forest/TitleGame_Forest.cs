@@ -156,7 +156,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
             Tools.TheGame.ShowMouse = true;
 #endif
-            //CamZone.Zoom = Tools.LerpRestrict(.9f, 1f, Tools.t / 3);
+            //CamZone.Zoom = CoreMath.LerpRestrict(.9f, 1f, Tools.t / 3);
             //CamZone.Zoom = .5f;
 
             Camera cam = MyLevel.MainCamera;

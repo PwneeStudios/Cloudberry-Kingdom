@@ -96,7 +96,7 @@ namespace CloudberryKingdom
             }
 
 
-            TitleQ.Size = new Vector2(1069.027f, 429.9995f) * Tools.SmoothLerp(.85f, 1f, t);
+            TitleQ.Size = new Vector2(1069.027f, 429.9995f) * CoreMath.SmoothLerp(.85f, 1f, t);
                 // .LerpRestrict(.8f, 1f, t);
             TitleQ.Pos = new Vector2(-22.2207f, 52.7778f + CoreMath.Periodic(0, 12, 9, Tools.t));
 

@@ -106,7 +106,7 @@ namespace CloudberryKingdom.Serpents
             if (!Core.BoxesOnly)
             {
                 if (t < WaitT1 + UpT)
-                    s_fish = Tools.ParabolaInterp(t / (WaitT1), new Vector2(1.2f, 1.00f), 0, 2.5f);
+                    s_fish = CoreMath.ParabolaInterp(t / (WaitT1), new Vector2(1.2f, 1.00f), 0, 2.5f);
 
                 MyFish.Pos = Vector2.Lerp(Start, End, s_fish);
             }
@@ -115,11 +115,11 @@ namespace CloudberryKingdom.Serpents
             if (t < WaitT1)
                 s = 0;
             else if (t < UpT + WaitT1)
-                s = Tools.ParabolaInterp((t - WaitT1) / (float)(UpT), new Vector2(1, 1f), 0, 2.5f);
+                s = CoreMath.ParabolaInterp((t - WaitT1) / (float)(UpT), new Vector2(1, 1f), 0, 2.5f);
             else if (t < WaitT2 + UpT + WaitT1)
                 s = 1;
             else
-                s = Tools.ParabolaInterp(1 + (t - WaitT2 - UpT - WaitT1) / (float)DownT, new Vector2(1, 1f), 0);
+                s = CoreMath.ParabolaInterp(1 + (t - WaitT2 - UpT - WaitT1) / (float)DownT, new Vector2(1, 1f), 0);
 
             Pos = Vector2.Lerp(Start, End, s);
         }
