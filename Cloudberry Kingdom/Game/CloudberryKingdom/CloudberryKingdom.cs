@@ -335,6 +335,13 @@ namespace CloudberryKingdom
 #endif
 #endif
 
+            //// 640x480
+            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 640;
+            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 480;
+            //// 1280x720
+            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+
             MyGraphicsDeviceManager.ApplyChanges();
 
             // Fill the pools

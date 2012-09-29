@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,8 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            TileSetToTest = "sea";
-            //TileSetToTest = "hills";
+            //TileSetToTest = "cloud";
+            TileSetToTest = "hills_rain";
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
@@ -321,3 +322,4 @@ namespace CloudberryKingdom
         }
     }
 }
+#endif

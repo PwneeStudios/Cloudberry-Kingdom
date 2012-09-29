@@ -740,8 +740,6 @@ namespace CloudberryKingdom
             __44.DoPreDraw = false;
             b.MyCollection.Lists.Add(__44);
 
-            AddRainLayer(b);
-
             b.Light = 1f;
             b.BL = new Vector2(-4848.254f, -4500f);
             b.TR = new Vector2(42470f, 3600f);

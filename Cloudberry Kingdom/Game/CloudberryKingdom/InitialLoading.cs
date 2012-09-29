@@ -42,7 +42,9 @@ namespace CloudberryKingdom
                     // Now that everything is loaded, start the real game, dependent on the command line arguments.
                     if (StartAsBackgroundEditor)
                     {
+#if DEBUG
                         MakeEmptyLevel();
+#endif
 #if INCLUDE_EDITOR
                         Tools.background_viewer = new Viewer.BackgroundViewer();
                         Tools.background_viewer.Show();
@@ -51,7 +53,9 @@ namespace CloudberryKingdom
                     }
                     else if (StartAsTestLevel)
                     {
+#if DEBUG
                         MakeTestLevel();
+#endif
                         return;
                     }
                     else if (StartAsFreeplay)
