@@ -44,8 +44,9 @@ namespace CloudberryKingdom
             data.Seed = data.Rnd.Rnd.Next();
 
             //data.MyBackgroundType = BackgroundType.Outside;
-            data.SetTileSet(data.Rnd.Choose(new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }));
-            
+            //data.SetTileSet(data.Rnd.Choose(new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }));
+            data.SetTileSet(null);
+
             data.DefaultHeroType = BobPhsxNormal.Instance;
         }
 
@@ -209,10 +210,6 @@ namespace CloudberryKingdom
 
             switch (Difficulty)
             {
-                //case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1); break;
-                //case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1); break;
-                //case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1); break;
-                //default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1); break;
                 case 0: Tools.GlobalRnd.Choose(EasyUpgrades)(piece.MyUpgrades1); break;
                 case 1: Tools.GlobalRnd.Choose(NormalUpgrades)(piece.MyUpgrades1); break;
                 case 2: Tools.GlobalRnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1); break;
@@ -490,8 +487,8 @@ namespace CloudberryKingdom
             {
                 u[Upgrade.Jump] = 2;
                 u[Upgrade.Speed] = 6;
-                u[Upgrade.SpikeyGuy] = 6;
-                u[Upgrade.Spike] = 9;
+                u[Upgrade.SpikeyGuy] = 5f;
+                u[Upgrade.Spike] = 7.5f;
             });
 
             f.Add(u =>

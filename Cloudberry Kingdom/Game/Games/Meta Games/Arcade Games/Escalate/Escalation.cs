@@ -180,7 +180,7 @@ namespace CloudberryKingdom
             for (; i < n; i++)
             {
                 int Index = i; // Get the level number
-                MakeList.Add(() => Make(Index, 4f));
+                MakeList.Add(() => Make(Index, 4.5f));
             }
 
             return MakeList;
