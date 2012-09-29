@@ -406,8 +406,6 @@ namespace CloudberryKingdom
             {
                 c.Data.RepeatWidth = 2000;
                 c.Data.RepeatHeight = 2000;
-                c.Data.MiddleOnly = false;
-                c.Data.CenterOnly = true;
                 c.Data.UV_Multiples = new Vector2(0, 0);
                 c.Center.U_Wrap = c.Center.V_Wrap = true;
             }
@@ -415,8 +413,6 @@ namespace CloudberryKingdom
             {
                 c.Data.RepeatWidth = 2000;
                 c.Data.RepeatHeight = 2000;
-                c.Data.MiddleOnly = false;
-                c.Data.CenterOnly = true;
                 c.Data.UV_Multiples = new Vector2(1, 0);
                 c.Center.U_Wrap = c.Center.V_Wrap = false;
 
@@ -587,41 +583,14 @@ namespace CloudberryKingdom
 
             // Add the tileset to the Guid lookup
             GuidLookup.AddOrOverwrite(tileset.Guid, tileset);
-            //try
-            //{
-            //    GuidLookup.Add(tileset.Guid, tileset);
-            //}
-            //catch
-            //{
-            //    Tools.Log(string.Format("TileSet Guid {0} already exists (Name = {1})", tileset.Guid, tileset.Name));
-            //    GuidLookup[tileset.Guid] = tileset;
-            //}
 
             // Add the tileset to the Name lookup
             NameLookup.AddOrOverwrite(tileset.Name, tileset);
-            //try
-            //{
-            //    NameLookup.Add(tileset.Name, tileset);
-            //}
-            //catch
-            //{
-            //    Tools.Log(string.Format("TileSet name {0} already exists (Guid = {1})", tileset.Name, tileset.Guid));
-            //    NameLookup[tileset.Name] = tileset;
-            //}
 
             // Add the tileset to the Path lookup
             if (tileset.MyPath.Length > 0)
             {
                 PathLookup.AddOrOverwrite(tileset.MyPath, tileset);
-                //try
-                //{
-                //    PathLookup.Add(tileset.MyPath, tileset);
-                //}
-                //catch
-                //{
-                //    Tools.Log(string.Format("TileSet path {0} already exists (Name = {1})", tileset.MyPath, tileset.Name));
-                //    PathLookup[tileset.Name] = tileset;
-                //}
             }
         }
 
@@ -692,8 +661,6 @@ namespace CloudberryKingdom
         {
             TileSet info;
 
-            //public enum TileSet { None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Rain, Island, _Night, _NightSky };
-
             // None
             DefaultTileSet = None = info = new TileSet();
             info.Name = "None";
@@ -718,189 +685,14 @@ namespace CloudberryKingdom
                 Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Fireball, Upgrade.Pinky
             });
 
-            // Outside
-            Terrace = info = new TileSet();
-            info.Name = "Terrace";
-            info.Guid = 5553;
-            AddTileSet(info);
-            //info.DoorType = Door.Types.Grass;
-            info.MyBackgroundType = BackgroundType.Outside;
-            info.ScreenshotString = "Screenshot_Terrace";
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-            //info.CoinScoreColor = new Color(230, 0, 0);
-            info.CoinScoreColor = new Color(234, 0, 255);
-            //info.PassableSides = true;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Fireball, Upgrade.Pinky
-            });
-
-            Terrace.MyTileSetInfo.Clouds.Sprite.Tint = new Color(.6f, .6f, .6f, .95f);
-
-
-            // Dark
-            Dark = info = new TileSet();
-            info.DungeonLike = true;
-            info.Name = "Darkness";
-            info.Guid = 5554;
-            AddTileSet(info);
-            //info.DoorType = Door.Types.Dark;
-            info.MyBackgroundType = BackgroundType.Dark;
-            info.ScreenshotString = "Screenshot_Dark";
-            info.HasCeiling = true;
-            info.FlexibleHeight = true;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike, Upgrade.Laser, Upgrade.Elevator, Upgrade.FallingBlock, Upgrade.GhostBlock
-            });
-
-            // Dark Outside
-            DarkTerrace = info = new TileSet();
-            info.Name = "Nightmare";
-            info.Guid = 5555;
-            AddTileSet(info);
-            //info.DoorType = Door.Types.Grass;
-            info.Tint = new Vector4(.8f, .5f, .45f, 1f);
-            info.MyBackgroundType = BackgroundType.Gray;
-            info.ScreenshotString = "Screenshot_Terrace";
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-            //info.CoinScoreColor = new Color(230, 0, 0);
-            info.CoinScoreColor = new Color(234, 0, 255);
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Fireball, Upgrade.Pinky
-            });
-
-            // Sky
-            Island = info = new TileSet();
-            info.Name = "Sky";
-            info.Guid = 5557;
-            AddTileSet(info);
-            info.MyBackgroundType = BackgroundType.Sky;
-            info.ScreenshotString = "Screenshot_Sky";
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-            info.CoinScoreColor = new Color(234, 0, 255);
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Fireball, Upgrade.Pinky
-            });
-
-            Island.MyTileSetInfo.Clouds.Sprite.Tint = new Color(.6f, .6f, .6f, .95f);
-
-            // Night sky
-            _NightSky = info = new TileSet();
-            info.Name = "Night Sky";
-            info.Guid = 5558;
-            AddTileSet(info);
-            info.MyBackgroundType = BackgroundType.NightSky;
-            info.ScreenshotString = "Screenshot_NightSky";
-            info.StandInType = Island;
-
-            // Night
-            _Night = info = new TileSet();
-            info.Name = "Night time";
-            info.Guid = 5559;
-            AddTileSet(info);
-            info.MyBackgroundType = BackgroundType.Night;
-            info.ScreenshotString = "Screenshot_Night";
-            info.StandInType = Terrace;
-
-            // Castle inside
-            Castle = info = new TileSet();
-            info.Name = "Castle";
-            info.Guid = 5560;
-            AddTileSet(info);
-            info.MyBackgroundType = BackgroundType.Castle;
-            info.ScreenshotString = "Screenshot_Castle";
-            info.HasCeiling = true;
-            info.FlexibleHeight = true;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike, Upgrade.Laser, Upgrade.Elevator, Upgrade.FallingBlock, Upgrade.GhostBlock
-            });
-
-            // Dungeon inside
-            Dungeon = info = new TileSet();
-            info.DungeonLike = true;
-            info.Name = "Dungeon";
-            info.Guid = 5561;
-            AddTileSet(info);
-            //info.DoorType = Door.Types.Rock;
-            info.MyBackgroundType = BackgroundType.Dungeon;
-            info.ScreenshotString = "Screenshot_Dungeon";
-            info.HasCeiling = true;
-            info.FlexibleHeight = false;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike, Upgrade.Fireball, Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Cloud
-            });
-
-            // Grass
-            OutsideGrass = info = new TileSet();
-            info.Name = "Grass";
-            info.Guid = 5562;
-            AddTileSet(info);
-            info.HasCeiling = false;
-            info.FlexibleHeight = true;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike
-            });
-
-            // Cement
-            Cement = info = new TileSet();
-            info.Name = "Cement";
-            info.Guid = 5563;
-            AddTileSet(info);
-            info.HasCeiling = true;
-            info.FlexibleHeight = false;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike
-            });
-
-            // Catwalk
-            Catwalk = info = new TileSet();
-            info.Name = "Catwalk";
-            info.Guid = 5564;
-            AddTileSet(info);
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-
-            // Tileblock
-            TileBlock = info = new TileSet();
-            info.Name = "Tiles";
-            info.Guid = 5565;
-            AddTileSet(info);
-            info.HasCeiling = true;
-            info.FlexibleHeight = false;
-            info.ObstacleUpgrades.AddRange(new Upgrade[] {
-                Upgrade.BouncyBlock, Upgrade.FlyBlob, Upgrade.MovingBlock, Upgrade.Spike
-            });
-
-            // CastlePiece
-            CastlePiece = info = new TileSet();
-            info.Name = "CastlePiece";
-            info.Guid = 5566;
-            AddTileSet(info);
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-
-            // CastlePiece2
-            CastlePiece2 = info = new TileSet();
-            info.Name = "CastlePiece2";
-            info.Guid = 5567;
-            AddTileSet(info);
-            info.HasCeiling = false;
-            info.FlexibleHeight = false;
-
             // Sprite effects
             LoadSpriteEffects();
 
             // New tile sets
             TileSets.LoadCode();
 
-            if (CloudberryKingdomGame.StartAsFreeplay)
-                Tools.Nothing();//SimpleCustomGUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky });
-            else
-                //CustomLevel_GUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, TileSets.Terrace, TileSets.Dungeon, TileSets.Castle, TileSets.Rain, TileSets.Island, TileSets.Dark, TileSets._Night, TileSets._NightSky });
-                CustomLevel_GUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, "sea", "hills", "forest", "cloud", "cave", "castle" });
-
+            // Freeplay tilesets
+            CustomLevel_GUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, "sea", "hills", "forest", "cloud", "cave", "castle" });
 
             RegularLevel.InitLists();
             foreach (var _info in TileList)

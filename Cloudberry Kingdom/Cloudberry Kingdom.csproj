@@ -682,7 +682,6 @@
     <Compile Include="Game\Objects\Triggers\TimerTrigger.cs" />
     <Compile Include="Core\Texture\EzTexture.cs" />
     <Compile Include="Game\Objects\Door\Door.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\OutsideCastle.cs" />
     <Compile Include="Game\Tools\Tools.cs" />
     <Compile Include="Game\Tools\Unset.cs" />
     <Compile Include="Game\Tools\WaitAndDo.cs" />

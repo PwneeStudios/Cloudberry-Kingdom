@@ -380,13 +380,11 @@ namespace CloudberryKingdom
 
             // Moving block
             c = PieceQuad.MovingBlock = new PieceQuad();
-            c.Data.CenterOnly = true;
             c.Center.MyTexture = "blue_small";
 
             // Falling block
             var Fall = new AnimationData_Texture("FallingBlock", 1, 4);
             PieceQuad.FallingBlock = new PieceQuad();
-            //PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
             PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
             PieceQuad.FallGroup = new BlockGroup();
             PieceQuad.FallGroup.Add(100, PieceQuad.FallingBlock);
@@ -395,7 +393,6 @@ namespace CloudberryKingdom
             // Bouncy block
             var Bouncy = new AnimationData_Texture("BouncyBlock", 1, 2);
             PieceQuad.BouncyBlock = new PieceQuad();
-            //PieceQuad.BouncyBlock.Clone(PieceQuad.MovingBlock);
             PieceQuad.BouncyBlock.Center.SetTextureAnim(Bouncy);
             PieceQuad.BouncyGroup = new BlockGroup();
             PieceQuad.BouncyGroup.Add(100, PieceQuad.BouncyBlock);
@@ -408,7 +405,6 @@ namespace CloudberryKingdom
 
             // Elevator
             PieceQuad.Elevator = new PieceQuad();
-            //PieceQuad.Elevator.Clone(PieceQuad.MovingBlock);
             PieceQuad.Elevator.Center.Set("palette");
             PieceQuad.Elevator.Center.SetColor(new Color(210, 210, 210));
             PieceQuad.ElevatorGroup = new BlockGroup();

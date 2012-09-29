@@ -93,13 +93,6 @@ namespace CloudberryKingdom.Blocks
         {
             if (MyPieces != null)
             {
-                if (Shadow)
-                {
-                    MyPieces.Shadow = Shadow;
-                    MyPieces.ShadowColor = ShadowColor;
-                    MyPieces.ShadowOffset = ShadowOffset;
-                }
-
                 MyPieces.Draw();
             }
         }

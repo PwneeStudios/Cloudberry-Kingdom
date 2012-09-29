@@ -17,8 +17,6 @@ namespace CloudberryKingdom
         public float RepeatWidth, RepeatHeight;
 
         public Vector2 UV_Multiples;
-        public bool MiddleOnly; // True if we only have a top, a middle, and a bottom
-        public bool CenterOnly; // True if we only have a center
 
         /// <summary>
         /// Make quad flush against bottom, instead of top.
@@ -52,8 +50,6 @@ namespace CloudberryKingdom
                 c.Init(null, Tools.BasicEffect);
                 c.Data.RepeatWidth = 1000;
                 c.Data.RepeatHeight = 2000;
-                c.Data.MiddleOnly = false;
-                c.Data.CenterOnly = true;
                 c.Center.TextureName = root + "_" + suffix;
                 c.Data.UV_Multiples = new Vector2(1, 0);
                 
@@ -89,20 +85,12 @@ namespace CloudberryKingdom
             Center.CalcTexture(anim, t);
         }
 
-
         public float Group_CutoffWidth = 0;
 
         /// <summary>
         /// Layer of the quad, used in DrawPiles
         /// </summary>
         public int Layer = 0;
-
-        public bool Shadow = false;
-        public Vector2 ShadowOffset = Vector2.Zero;
-        public Color ShadowColor = Color.Black;
-
-        public enum DrawOrder { CenterOnTop, CenterOnBottom };
-        public DrawOrder MyDrawOrder;
 
         public static Dictionary<string, PieceQuad> Dict;
 
@@ -122,8 +110,6 @@ namespace CloudberryKingdom
         public enum Orientation { Normal, UpsideDown, RotateRight, RotateLeft };
         public Orientation MyOrientation = Orientation.Normal;
 
-        public Vector2 TL_UV, BR_UV;
-
         public PieceQuadData Data;
 
         public Color MyColor;
@@ -139,14 +125,9 @@ namespace CloudberryKingdom
 
             Data = PieceQuadA.Data;
 
-            MyDrawOrder = PieceQuadA.MyDrawOrder;
-
             MyOrientation = PieceQuadA.MyOrientation;
 
             Center = PieceQuadA.Center;
-
-            TL_UV = PieceQuadA.TL_UV;
-            BR_UV = PieceQuadA.BR_UV;
 
             Base = PieceQuadA.Base;
 
@@ -174,8 +155,6 @@ namespace CloudberryKingdom
 
             Data.RepeatWidth = 2000;
             Data.RepeatHeight = 2000;
-            Data.MiddleOnly = false;
-            Data.CenterOnly = true;
             Data.UV_Multiples = new Vector2(1, 0);
             Center.U_Wrap = Center.V_Wrap = false;
 
@@ -200,26 +179,6 @@ namespace CloudberryKingdom
             }
         }
 
-
-
-
-
-        /// <summary>
-        /// Returns whether the line has a '?' in it
-        /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
-        bool IsQM(string line)
-        {
-            if (line.Contains('?')) return true;
-            return false;
-        }
-
-        void PreventWrap()
-        {
-            Center.U_Wrap = Center.V_Wrap = false;
-        }
-
         public PieceQuad()
         {
             InitAll();
@@ -228,21 +187,9 @@ namespace CloudberryKingdom
         void InitAll()
         {
             Center = new SimpleQuad();
-
             Center.Init();
 
             Base.Init();            
-        }
-
-        public void SetTexture(String root) { SetTexture(root, false); }
-        public void SetTexture(String root, bool MiddleOnly)
-        {
-            if (root[root.Length - 1] != '\\')
-                root += "_";
-
-            this.Data.MiddleOnly = MiddleOnly;
-
-            Center.MyTexture = Tools.TextureWad.FindByName(root + "middle");
         }
 
         public void SetAlpha(float Alpha)
@@ -275,10 +222,7 @@ namespace CloudberryKingdom
             Data.LeftWidth = Data.RightWidth = Data.TopWidth = Data.BottomWidth = 0;
             Data.RepeatWidth = Data.RepeatHeight = 0;
 
-            TL_UV = BR_UV = Vector2.Zero;
-
             Center.U_Wrap = false;
-
             Center.V_Wrap = false;
 
             Center.MyTexture = tex;
@@ -291,7 +235,6 @@ namespace CloudberryKingdom
 
             SetColor(Color.White);
         }
-
 
         public Vector2 FromBounds(Vector2 TR, Vector2 BL)
         {
@@ -306,11 +249,6 @@ namespace CloudberryKingdom
 
         public void CalcQuads(Vector2 Size)
         {
-            //if (FixedHeight >= 0)
-            //{
-            //    Size.Y = FixedHeight;
-            //}
-
             // Prevent the center from being a sliver
             if (Data.LeftWidth + Data.RightWidth + 3 > 2 * Size.X)
                 Size.X = .5f * (Data.LeftWidth + Data.RightWidth);
@@ -401,47 +339,14 @@ namespace CloudberryKingdom
         public float FixedHeight = -1;
         public void Update()
         {
-            if (Data.CenterOnly)
-            {
-                Center.Update(ref Base);
-            }
-            else
-            {
-                if (Data.MiddleOnly)
-                {
-                    Center.Update(ref Base);
-                }
-                else
-                {
-                    Center.Update(ref Base);
-                }
-            }
+            Center.Update(ref Base);
         }
 
         public void Draw()
         {
-            if (Shadow)
-            {
-                SetEffect(Tools.NoTexture);
-                Base.Origin -= ShadowOffset;
-                Color HoldColor = MyColor;
-                SetColor(ShadowColor);
-                
-                Shadow = false; Draw(); Shadow = true;
-
-                SetEffect(Tools.BasicEffect);
-                Base.Origin += ShadowOffset;
-                SetColor(HoldColor);
-            }
-
             Update();
 
-            if (Data.CenterOnly)
-            {
-                Tools.QDrawer.DrawQuad(ref Center);
-            }
-
-            Tools.QDrawer.Flush();
+            Tools.QDrawer.DrawQuad(ref Center);
         }
     }
 }

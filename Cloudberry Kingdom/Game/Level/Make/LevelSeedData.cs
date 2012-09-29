@@ -558,14 +558,14 @@ namespace CloudberryKingdom
 
         public void SetTileSet(string name)
         {
-            var tileset = TileSets.NameLookup[name];
-            SetTileSet(tileset);
+            if (name == null) SetTileSet((TileSet)null);
+            else SetTileSet(TileSets.NameLookup[name]);
         }
 
         public void SetTileSet(TileSet tileset)
         {
             MyTileSet = tileset;
-            MyBackgroundType = MyTileSet.MyBackgroundType;
+            MyBackgroundType = MyTileSet == null ? null : MyTileSet.MyBackgroundType;
         }
 
         /// <summary>
