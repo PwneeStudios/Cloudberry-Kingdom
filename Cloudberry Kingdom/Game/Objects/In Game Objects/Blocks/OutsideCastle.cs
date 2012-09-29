@@ -49,12 +49,7 @@ namespace CloudberryKingdom
 
             MyPieces.Data.RepeatWidth = 180;
             MyPieces.Data.RepeatHeight = 300;
-            MyPieces.Right.MyTexture = Tools.TextureWad.FindByName("Castle_Right");
-            MyPieces.Left.MyTexture = Tools.TextureWad.FindByName("Castle_Left");
             MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Castle_Center");
-            MyPieces.TR.MyTexture = Tools.TextureWad.FindByName("Castle_TR");
-            MyPieces.TL.MyTexture = Tools.TextureWad.FindByName("Castle_TL");
-            MyPieces.Top.MyTexture = Tools.TextureWad.FindByName("Castle_Top");
 
             MyPieces.Data.LeftWidth = 90;
             MyPieces.Data.RightWidth = 90;
