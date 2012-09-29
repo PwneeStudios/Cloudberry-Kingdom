@@ -40,7 +40,7 @@ namespace CloudberryKingdom
         /// MinorVersion increases with substantial change.
         /// SubVersion increases with any pushed change.
         /// </summary>
-        public static Version GameVersion = new Version(0, 1, 5);
+        public static Version GameVersion = new Version(0, 2, 4);
 
         /// <summary>
         /// The command line arguments.
@@ -69,6 +69,67 @@ namespace CloudberryKingdom
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Intense.Factory;
         public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;
+
+        bool ShowFPS = false;
+        public static float fps;
+
+        public int DrawCount, PhsxCount;
+
+        public ResolutionGroup Resolution;
+        public ResolutionGroup[] Resolutions = new ResolutionGroup[4];
+
+#if WINDOWS
+        QuadClass MousePointer, MouseBack;
+        bool _DrawMouseBackIcon = false;
+        public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
+#endif
+
+#if DEBUG || INCLUDE_EDITOR
+        public static bool AlwaysGiveTutorials = true;
+        public static bool UnlockAll = true;
+        public static bool SimpleLoad = true;
+        public static bool SimpleAiColors = false;
+        public static bool BuildDebug = false;
+#else
+        public static bool AlwaysGiveTutorials = false;
+        public static bool SimpleAiColors = false;
+        public static bool RecordIntro = false;
+        public static bool UnlockAll = true;
+        public static bool SimpleLoad = false;
+        public static bool BuildDebug = false;
+#endif
+
+        bool LogoScreenUp;
+
+        /// <summary>
+        /// When true the initial loading screen is drawn even after loading is finished
+        /// </summary>
+        public bool LogoScreenPropUp;
+
+        /// <summary>
+        /// True when we are still loading resources during the game's initial load.
+        /// This is wrapped in a class so that it can be used as a lock.
+        /// </summary>
+        public WrappedBool LoadingResources;
+        public int LoadingOffset;
+        public WrappedFloat ResourceLoadedCountRef;
+
+        /// <summary>
+        /// The game's initial loading screen. Different than the in-game loading screens seen before levels.
+        /// </summary>
+        public InitialLoadingScreen LoadingScreen;
+
+        public GraphicsDevice MyGraphicsDevice;
+        public GraphicsDeviceManager MyGraphicsDeviceManager;
+
+        int ScreenWidth, ScreenHeight;
+
+        /// <summary>
+        /// Font used to display debug info on the screen.
+        /// </summary>
+        SpriteFont DebugFont;
+
+        Camera MainCamera;
 
         public event EventHandler<EventArgs> Exiting
         {
@@ -140,68 +201,6 @@ namespace CloudberryKingdom
                 }
             }
         }
-
-
-        bool ShowFPS = false;
-        public static float fps;
-
-        public int DrawCount, PhsxCount;
-
-        public ResolutionGroup Resolution;
-        public ResolutionGroup[] Resolutions = new ResolutionGroup[4];
-
-#if WINDOWS
-        QuadClass MousePointer, MouseBack;
-        bool _DrawMouseBackIcon = false;
-        public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
-#endif
-
-#if DEBUG || INCLUDE_EDITOR
-        public static bool AlwaysGiveTutorials = true;
-        public static bool UnlockAll = true;
-        public static bool SimpleLoad = true;
-        public static bool SimpleAiColors = false;
-        public static bool BuildDebug = false;
-#else
-        public static bool AlwaysGiveTutorials = false;
-        public static bool SimpleAiColors = false;
-        public static bool RecordIntro = false;
-        public static bool UnlockAll = true;
-        public static bool SimpleLoad = false;
-        public static bool BuildDebug = false;
-#endif
-
-        bool LogoScreenUp;
-
-        /// <summary>
-        /// When true the initial loading screen is drawn even after loading is finished
-        /// </summary>
-        public bool LogoScreenPropUp;
-
-        /// <summary>
-        /// True when we are still loading resources during the game's initial load.
-        /// This is wrapped in a class so that it can be used as a lock.
-        /// </summary>
-        public WrappedBool LoadingResources;
-        public int LoadingOffset;
-        public WrappedFloat ResourceLoadedCountRef;
-        
-        /// <summary>
-        /// The game's initial loading screen. Different than the in-game loading screens seen before levels.
-        /// </summary>
-        public InitialLoadingScreen LoadingScreen;
-
-        public GraphicsDevice MyGraphicsDevice;
-        public GraphicsDeviceManager MyGraphicsDeviceManager;
-
-        int ScreenWidth, ScreenHeight;
-
-        /// <summary>
-        /// Font used to display debug info on the screen.
-        /// </summary>
-        SpriteFont DebugFont;
-
-        Camera MainCamera;
 
         public CloudberryKingdomGame()
         {
@@ -281,7 +280,6 @@ namespace CloudberryKingdom
             rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 #endif
-
 
             // Some possible resolutions.
             Resolutions[0] = new ResolutionGroup();
@@ -372,104 +370,13 @@ namespace CloudberryKingdom
         }
 #endif
 
-        public void ReloadInfo()
+        public void LoadInfo()
         {
             Tools.Write("Starting to load info...");
             var t = new System.Diagnostics.Stopwatch();
             t.Start();
 
             PieceQuad c;
-            c = PieceQuad.Castle = new PieceQuad();
-            c.Init(null, Tools.BasicEffect);
-            c.Data.TopWidth = 133 * 1.8f;
-            c.Data.LeftWidth = 625 * 1.4f;
-            c.Data.RightWidth = 742 * 1.4f;
-            c.Data.RepeatWidth = 578 * 1.4f;
-            c.Data.RepeatHeight = 362 * 1.8f;
-            c.Center.U_Wrap = c.Center.V_Wrap = true;
-            c.Top.U_Wrap = true; c.Top.V_Wrap = false;
-            c.Bottom.Hide = c.BL.Hide = c.BR.Hide = true;
-            c.Data.UV_Multiples = new Vector2(1, 0);
-            c.SetTexture("Castle");
-
-            c = PieceQuad.Castle2 = new PieceQuad();
-            c.Init(null, Tools.BasicEffect);
-            c.Data.TopWidth = 133 * 1.8f;
-            c.Data.LeftWidth = 625 * 1.4f;
-            c.Data.RightWidth = 742 * 1.4f;
-            c.Data.RepeatWidth = 578 * 1.4f;
-            c.Data.RepeatHeight = 362 * 1.8f;
-            c.Center.U_Wrap = c.Center.V_Wrap = true;
-            c.Top.U_Wrap = true; c.Top.V_Wrap = false;
-            c.Bottom.Hide = c.BL.Hide = c.BR.Hide = true;
-            c.Data.UV_Multiples = new Vector2(1, 0);
-            c.Data.Top_TR_Shift.Y = c.Data.TL_TR_Shift.Y = c.Data.TR_TR_Shift.Y =
-            c.Data.Top_BL_Shift.Y = c.Data.TL_BL_Shift.Y = c.Data.TR_BL_Shift.Y =
-            c.Data.Center_TR_Shift.Y = c.Data.Left_TR_Shift.Y = c.Data.Right_TR_Shift.Y = 130;
-            c.SetTexture("Castle");
-
-            // Dark tile
-            PieceQuad.DarkPillars = new PieceQuadGroup();
-            PieceQuad.DarkPillars.InitPillars("darkpillar");
-            PieceQuad.DarkPillars.SetCutoffs(60, 135, 210, 290, 390, 520);
-            foreach (PieceQuad piece in PieceQuad.DarkPillars)
-            {
-                piece.Data.Center_TR_Shift = new Vector2(23, 26);
-                piece.Data.Center_BL_Shift = new Vector2(-23, -20);
-            }
-
-            // Island
-            var p = PieceQuad.Islands = new PieceQuadGroup();
-            PieceQuad.Islands.InitPillars("Outside_Platform", new string[] { "xxsmall", "xsmall", "medium", "large" });
-            PieceQuad.Islands.SetCutoffs(80, 130, 290);
-            p[0].FixedHeight = 66 * 1.6f;
-            p[1].FixedHeight = 99 * 1.65f;
-            p[2].FixedHeight = 180 * 1.7f;
-            p[3].FixedHeight = 209 * 1.75f;
-
-
-            // Catwalk
-            c = PieceQuad.Catwalk = new PieceQuad();
-            c.Init(null, Tools.BasicEffect);
-            c.Data.TopWidth = 73;
-            c.Data.LeftWidth = 102;
-            c.Data.RightWidth = 102;
-            c.Data.RepeatWidth = 129;
-            c.Data.RepeatHeight = 362 * 1.8f;
-            c.Data.Top_TR_Shift.Y = c.Data.TL_TR_Shift.Y = c.Data.TR_TR_Shift.Y = 1;// 10;
-            c.Center.U_Wrap = c.Center.V_Wrap = true;
-            c.Top.U_Wrap = true; c.Top.V_Wrap = false;
-            c.Bottom.Hide = c.BL.Hide = c.BR.Hide = true;
-            c.Center.Hide = c.Left.Hide = c.Right.Hide = true;
-            c.Data.UV_Multiples = new Vector2(1, 0);
-            c.SetTexture("ledge");
-
-            c = PieceQuad.SpeechBubble = new PieceQuad();
-            c.Data.RepeatWidth = 600;
-            c.Data.RepeatHeight = 350;
-            c.SetTexture("speechbubble_white");
-            c.BL.MyTexture = "speechbubble_white_bottomleft2";
-            c.Data.LeftWidth = c.Data.LeftWidth = c.Left.MyTexture.Tex.Width;
-            c.Data.RightWidth = c.Data.RightWidth = c.Right.MyTexture.Tex.Width;
-            c.Data.TopWidth = c.Data.TopWidth = c.Top.MyTexture.Tex.Width;
-            c.Data.BottomWidth = c.Data.BottomWidth = c.Bottom.MyTexture.Tex.Width;
-            c.Data.MiddleOnly = false;
-            c.Data.UV_Multiples = new Vector2(1, 1);
-            c.Top.U_Wrap = false;
-            c.Bottom.U_Wrap = false;
-
-            c = PieceQuad.SpeechBubbleRed = new PieceQuad();
-            c.Data.RepeatWidth = 600;
-            c.Data.RepeatHeight = 350;
-            c.SetTexture("speechbubble_red");
-            c.Data.LeftWidth = c.Data.LeftWidth = c.Left.MyTexture.Tex.Width;
-            c.Data.RightWidth = c.Data.RightWidth = c.Right.MyTexture.Tex.Width;
-            c.Data.TopWidth = c.Data.TopWidth = c.Top.MyTexture.Tex.Width;
-            c.Data.BottomWidth = c.Data.BottomWidth = c.Bottom.MyTexture.Tex.Width;
-            c.Data.MiddleOnly = false;
-            c.Data.UV_Multiples = new Vector2(1, 1);
-            c.Top.U_Wrap = false;
-            c.Bottom.U_Wrap = false;
 
             // Moving block
             c = PieceQuad.MovingBlock = new PieceQuad();
@@ -479,7 +386,7 @@ namespace CloudberryKingdom
             // Falling block
             var Fall = new AnimationData_Texture("FallingBlock", 1, 4);
             PieceQuad.FallingBlock = new PieceQuad();
-            PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
+            //PieceQuad.FallingBlock.Clone(PieceQuad.MovingBlock);
             PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
             PieceQuad.FallGroup = new BlockGroup();
             PieceQuad.FallGroup.Add(100, PieceQuad.FallingBlock);
@@ -488,7 +395,7 @@ namespace CloudberryKingdom
             // Bouncy block
             var Bouncy = new AnimationData_Texture("BouncyBlock", 1, 2);
             PieceQuad.BouncyBlock = new PieceQuad();
-            PieceQuad.BouncyBlock.Clone(PieceQuad.MovingBlock);
+            //PieceQuad.BouncyBlock.Clone(PieceQuad.MovingBlock);
             PieceQuad.BouncyBlock.Center.SetTextureAnim(Bouncy);
             PieceQuad.BouncyGroup = new BlockGroup();
             PieceQuad.BouncyGroup.Add(100, PieceQuad.BouncyBlock);
@@ -501,7 +408,7 @@ namespace CloudberryKingdom
 
             // Elevator
             PieceQuad.Elevator = new PieceQuad();
-            PieceQuad.Elevator.Clone(PieceQuad.MovingBlock);
+            //PieceQuad.Elevator.Clone(PieceQuad.MovingBlock);
             PieceQuad.Elevator.Center.Set("palette");
             PieceQuad.Elevator.Center.SetColor(new Color(210, 210, 210));
             PieceQuad.ElevatorGroup = new BlockGroup();
@@ -730,7 +637,7 @@ namespace CloudberryKingdom
 
                         // Load the infowad and boxes
                         Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                        ReloadInfo();
+                        LoadInfo();
                         Tools.Write("Infowad done...");
 
                         TileSets.Init();

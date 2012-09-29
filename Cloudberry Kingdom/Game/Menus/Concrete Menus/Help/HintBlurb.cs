@@ -11,13 +11,6 @@ namespace CloudberryKingdom
             Core.RemoveOnReset = false;
 
             MyPile = new DrawPile();
-
-            MyPile.Backdrop = new PieceQuad();
-            MyPile.Backdrop.Clone(PieceQuad.SpeechBubble);
-            MyPile.Backdrop.CalcQuads(new Vector2(855, 400));
-            MyPile.BackdropShift = new Vector2(113.8889f, -180f);
-            MyPile.Backdrop.SetColor(Color.Pink);
-            MyPile.Backdrop.SetAlpha(.8f);
             
             QuadClass Berry = new QuadClass();
             Berry.SetToDefault();

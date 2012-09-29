@@ -465,7 +465,6 @@
     <Compile Include="Game\Games\Meta Games\Challenges\Challenge_Base.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld_Endurance.cs" />
     <Compile Include="Game\Objects\Door\PressNote.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\End\VictoryPanel.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\End\GameOverPanel.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireballDraw.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Loading Screen\Loading.cs" />

@@ -76,32 +76,13 @@ namespace CloudberryKingdom.Blocks
         public override void ResetPieces()
         {
             if (Info.MovingBlocks.Group != null)
+            {
                 if (MyDraw.MyTemplate != null)
                 {
                     MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, Rnd, Info.MovingBlocks.Group);
-                    MyDraw.Init(this, MyDraw.MyTemplate, false         );
-                    //base.ResetPieces();
-                    return;
+                    MyDraw.Init(this, MyDraw.MyTemplate, false);
                 }
-
-            // old, crap
-            MyDraw.Init(this, PieceQuad.MovingBlock, false);
-
-            if (Box.Current.Size.X < 100)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Small");
-            else if (Box.Current.Size.X < 175)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Medium");
-            else
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Large");
-
-            float UV_Repeats = 1.25f * MyBox.Current.Size.Y / MyBox.Current.Size.X;
-            if (UV_Repeats > 2)
-            {
-                MyDraw.MyPieces.Center.v2.Vertex.uv.Y = UV_Repeats;
-                MyDraw.MyPieces.Center.v3.Vertex.uv.Y = UV_Repeats;
             }
-            if (UV_Repeats < .75f)
-                MyDraw.MyPieces.Center.MyTexture = Tools.TextureWad.FindByName("Blue_Thin");
         }
 
         public void Init(Vector2 center, Vector2 size, Level level)

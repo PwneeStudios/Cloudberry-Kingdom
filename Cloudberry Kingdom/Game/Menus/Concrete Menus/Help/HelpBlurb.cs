@@ -8,13 +8,6 @@ namespace CloudberryKingdom
         public HelpBlurb()
         {
             MyPile = new DrawPile();
-
-            MyPile.Backdrop = new PieceQuad();
-            MyPile.Backdrop.Clone(PieceQuad.SpeechBubble);
-            MyPile.Backdrop.CalcQuads(new Vector2(855, 400));
-            MyPile.BackdropShift = new Vector2(575, 220);
-            MyPile.Backdrop.SetColor(Color.Pink);
-            MyPile.Backdrop.SetAlpha(.8f);
             
             QuadClass Berry = new QuadClass();
             Berry.SetToDefault();

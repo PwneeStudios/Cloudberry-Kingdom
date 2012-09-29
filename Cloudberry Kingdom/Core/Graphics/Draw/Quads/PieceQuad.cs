@@ -128,14 +128,8 @@ namespace CloudberryKingdom
             }
         }
 
-        public static PieceQuad 
-                                MovingBlock, FallingBlock, BouncyBlock, Elevator,
-                                Castle, Catwalk, Castle2,
-                                SpeechBubble, SpeechBubbleRed;
-
+        public static PieceQuad MovingBlock, FallingBlock, BouncyBlock, Elevator;
         public static BlockGroup FallGroup, BouncyGroup, MovingGroup, ElevatorGroup;
-
-        public static PieceQuadGroup DarkPillars, Islands;
 
         public SimpleQuad Left, Right, Top, Bottom, TR, TL, BL, BR, Center;
 

@@ -140,7 +140,7 @@ namespace CloudberryKingdom
             // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
             if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
             {
-                ReloadInfo();
+                LoadInfo();
 
                 // Reset blocks
                 foreach (BlockBase block in Tools.CurLevel.Blocks)

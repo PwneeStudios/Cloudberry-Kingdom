@@ -9,7 +9,7 @@ namespace CloudberryKingdom
     {
         public override string[] GetViewables()
         {
-            return new string[] { "BackdropShift", "MyQuadList", "MyTextList" };
+            return new string[] { "MyQuadList", "MyTextList" };
         }
 
         public override string CopyToClipboard(string suffix)
@@ -93,8 +93,6 @@ namespace CloudberryKingdom
 
         public List<EzText> MyTextList = new List<EzText>();
         public List<QuadClass> MyQuadList = new List<QuadClass>();
-
-        public PieceQuad Backdrop = null;
 
         public DrawPile()
         {
@@ -247,49 +245,6 @@ namespace CloudberryKingdom
             }
         }
 
-        public void SetBackdrop(Vector2 BL, Vector2 TR, PieceQuad Template)
-        {
-            if (Backdrop == null)
-                Backdrop = new PieceQuad();
-
-            Backdrop.Clone(Template);
-
-            Vector2 Size = TR - BL;
-            Vector2 Shift = (TR + BL) / 2;
-
-            Backdrop.CalcQuads(Size / 2);
-            BackdropShift = Shift;//TR + TR_Shift - Size / 2;
-        }
-
-        public Vector2 BackdropShift = Vector2.Zero;
-        public void UpdateBackdrop(Vector2 TR_Shift, Vector2 BL_Shift)
-        {
-            if (Backdrop == null)
-                Backdrop = new PieceQuad();
-
-            Backdrop.Clone(PieceQuad.SpeechBubble);
-
-            Vector2 TR = new Vector2(-10000000, -10000000);
-            Vector2 BL = new Vector2(10000000, 10000000);
-            foreach (QuadClass quad in MyQuadList)
-            {
-                quad.Update();
-                TR = Vector2.Max(TR, quad.TR);
-                BL = Vector2.Min(BL, quad.BL);
-            }
-
-            foreach (EzText text in MyTextList)
-            {
-                text.CalcBounds();
-                TR = Vector2.Max(TR, text.TR);
-                BL = Vector2.Min(BL, text.BL);
-            }
-
-            Vector2 Size = TR - BL + TR_Shift - BL_Shift;
-            Backdrop.CalcQuads(Size / 2);
-            BackdropShift = TR + TR_Shift - Size / 2;
-        }
-
         public void Update()
         {
             Alpha += AlphaVel;
@@ -314,12 +269,6 @@ namespace CloudberryKingdom
         public void DrawNonText(int Layer)
         {
             FancyPos.Update();
-
-            if (Backdrop != null && Backdrop.Layer == Layer)
-            {
-                Backdrop.Base.Origin = FancyPos.AbsVal + BackdropShift;
-                Backdrop.Draw();
-            }
 
             foreach (QuadClass quad in MyQuadList)
             {

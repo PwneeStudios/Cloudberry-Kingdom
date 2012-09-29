@@ -84,8 +84,9 @@ namespace CloudberryKingdom.Blocks
                 Box.TopOnly = true;
             }
 
-                Box.TopOnly = true;
-                return PieceQuad.Catwalk;
+            Box.TopOnly = true;
+            return null;
+            //return PieceQuad.Catwalk;
         }
 
         public override void ResetPieces()

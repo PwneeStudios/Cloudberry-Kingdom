@@ -60,25 +60,6 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
 
-            MyPile.Backdrop = new PieceQuad();
-
-            MyPile.Backdrop.Clone(PieceQuad.SpeechBubble);
-            if (Type == ReplayGUIType.Computer)
-            {
-                MyPile.Backdrop.CalcQuads(new Vector2(1150, 300));
-                MyPile.BackdropShift = new Vector2(38.88916f, -1119.444f);
-            }
-            else
-            {
-                MyPile.Backdrop.CalcQuads(new Vector2(1085, 420));
-                MyPile.BackdropShift = new Vector2(0f, -1119.444f);
-            }
-            MyPile.Backdrop.SetColor(new Color(200, 200, 255));
-            MyPile.Backdrop.SetAlpha(.4f);
-            //MyPile.Backdrop.Shadow = true;
-            MyPile.Backdrop.ShadowOffset = new Vector2(12, 12);
-            MyPile.Backdrop.ShadowColor = new Color(100, 100, 100, 100);
-
             Vector2 AdditionalAdd = Vector2.Zero;
 #if PC_VERSION
             AdditionalAdd = new Vector2(-2, 0);

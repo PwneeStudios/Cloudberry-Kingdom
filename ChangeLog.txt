@@ -7,6 +7,11 @@ Campaign!
 Optimize load time.
 Optimize game physics to run on low end computers.
 
+v0.2.4
+--------------------------------------------------------------------------------------------------------
+New menu system!
+Choose your preferred hero in Arcade games.
+Invert Hero! With regards to Captain Viridian and Terry Cavanagh.
 
 v0.2.3
 --------------------------------------------------------------------------------------------------------
