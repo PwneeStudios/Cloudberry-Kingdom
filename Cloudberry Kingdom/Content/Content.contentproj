@@ -4099,21 +4099,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Tigar\Environments\Cave\Obstacles\Flow\Flow_Cave_01.png">
-      <Name>Flow_Cave_01</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Tigar\Environments\Cave\Obstacles\Flow\Flow_Cave_02.png">
-      <Name>Flow_Cave_02</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Tigar\Environments\Cave\Obstacles\Flow\Flow_Cave_03.png">
-      <Name>Flow_Cave_03</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Tigar\Environments\Cave\Obstacles\Flow\Flow_Cave_1.png">
       <Name>Flow_Cave_1</Name>
       <Importer>TextureImporter</Importer>
@@ -7865,6 +7850,28 @@
     </Compile>
     <Compile Include="Art\Tigar\Bob\Cart\Bob_Cart_Stand_0001.png">
       <Name>Bob_Cart_Stand_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Tigar\Environments\Forest\Obstacles\Serpent\Serpent_Fish_Forest_1.png">
+      <Name>Serpent_Fish_Forest_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Tigar\Environments\Forest\Obstacles\Serpent\Serpent_Fish_Forest_2.png">
+      <Name>Serpent_Fish_Forest_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Tigar\Environments\Forest\Obstacles\Serpent\Serpent_Forest_1.png">
+      <Name>Serpent_Forest_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Tigar\Environments\Forest\Obstacles\Serpent\Serpent_Forest_2.png">
+      <Name>Serpent_Forest_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

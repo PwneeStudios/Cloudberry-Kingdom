@@ -39,6 +39,10 @@ info.Walls.Sprite.Size = new Vector2(1500, -1);
 info.Walls.Sprite.Offset = new Vector2(0, 4650);
 info.Walls.Sprite.Degrees = -90;
 
+info.LavaDrips.Line.End1 = "Flow_Sea_1";
+info.LavaDrips.Line.Sprite = "Flow_Sea_2";
+info.LavaDrips.Line.End2 = "Flow_Sea_3";
+
 info.Lasers.Line.Sprite = "Laser_Forest";
 info.Lasers.Line.RepeatWidth = 135;
 info.Lasers.Line.Dir = 0;
@@ -82,10 +86,10 @@ info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Forest_80", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Forest_135", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Forest_190", -1, 1, 1));
 
-sprite_anim("Serpent_Forest", "Serpent_Castle", 1, 2, 8);
+sprite_anim("Serpent_Forest", "Serpent_Forest", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Forest";
 info.Serpents.Serpent.Offset = new Vector2(0, -.675f);
-sprite_anim("Serpent_Fish_Forest", "Serpent_Fish_Castle", 1, 2, 5);
+sprite_anim("Serpent_Fish_Forest", "Serpent_Fish_Forest", 1, 2, 5);
 info.Serpents.Fish.Sprite = "Serpent_Fish_Forest";
 info.Serpents.Fish.Size = new Vector2(60, -1);
 info.Serpents.Fish.Offset = new Vector2(55, 0);

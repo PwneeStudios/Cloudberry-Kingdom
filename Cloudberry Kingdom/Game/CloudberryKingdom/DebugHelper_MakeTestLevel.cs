@@ -48,8 +48,8 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            //TileSetToTest = "cloud";
-            TileSetToTest = "hills_rain";
+            TileSetToTest = "sea";
+            //TileSetToTest = "hills_rain";
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
@@ -158,9 +158,12 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
+            piece.MyUpgrades1[Upgrade.LavaDrip] = 6;
+            piece.MyUpgrades1[Upgrade.Serpent] = 6;
+            piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            piece.MyUpgrades1[Upgrade.Jump] = 5;
-            piece.MyUpgrades1[Upgrade.Speed] = 11;
+            //piece.MyUpgrades1[Upgrade.Jump] = 5;
+            //piece.MyUpgrades1[Upgrade.Speed] = 11;
             //piece.MyUpgrades1[Upgrade.Fireball] = 2.5f;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2.5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 5;
@@ -170,14 +173,14 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
             //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
             //piece.MyUpgrades1[Upgrade.Serpent] = 5;
-            piece.MyUpgrades1[Upgrade.Cloud] = 5;
+            //piece.MyUpgrades1[Upgrade.Cloud] = 5;
             //piece.MyUpgrades1[Upgrade.Pinky] = 5;
             //piece.MyUpgrades1[Upgrade.Fireball] = 3;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 3;
             //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
             //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
 
-            __Roughly_Abusive(piece);
+            //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);

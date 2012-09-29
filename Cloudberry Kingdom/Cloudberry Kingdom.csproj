@@ -498,14 +498,6 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
     <Compile Include="__Steam_Wrapper\SteamManager.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundCollection.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\ConstructBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\ChaosBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\MarioSkyBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\NightSkyBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\NightTimeBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\SkyBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\DarkBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\GrayBackground.cs" />
     <Compile Include="Game\Player\Hero Physics\Special\BobPhsxCharSelect.cs" />
     <Compile Include="Game\Player\Hero Physics\Special\BobPhsxCinematic.cs" />
     <Compile Include="Game\Player\Hero Physics\Wheel.cs" />
@@ -602,15 +594,12 @@
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\Map\BackgroundNode.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\FromCode\_1_OutsideBackground.cs" />
     <Compile Include="Game\Tilesets\BlockGroup.cs" />
     <Compile Include="Game\Tilesets\SpriteInfo.cs" />
     <Compile Include="Game\Tilesets\TileSet.cs" />
     <Compile Include="Game\Player\ClrTextFx.cs" />
     <Compile Include="Core\Animation\AnimationData_Vector.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\Background.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\SpaceBackground.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\DungeonBackground.cs" />
     <Compile Include="Game\Player\Hero Physics\Base.cs" />
     <Compile Include="Game\Player\Hero Physics\Box.cs" />
     <Compile Include="Game\Player\Hero Physics\Normal.cs" />
@@ -629,7 +618,6 @@
     <Compile Include="Core\Graphics\Draw\Object\ObjectClass.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\Quad.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Doodad.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\CastleBackground.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Fireball.cs" />
     <None Include="WindowsGame1_TemporaryKey.pfx" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Block.cs" />
@@ -671,7 +659,6 @@
     <Compile Include="Game\Games\NormalGame.cs" />
     <Compile Include="Core\Graphics\VertexFormat.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\SwitchBlock.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Backgrounds\OutsideBackground.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Particle Effects\Particle.cs" />

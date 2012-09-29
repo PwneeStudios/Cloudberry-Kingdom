@@ -225,6 +225,21 @@ namespace CloudberryKingdom
         {
             List<Action<Upgrades, DifficultyFunc>> f = EasyUpgrades;
 
+            // New obstacles
+            f.Add((u, D) =>
+            {
+                u[Upgrade.Jump] =     D(2, 5, 3, 2, 0);
+                u[Upgrade.Speed] =    D(0, 1, 2, 7, 11);
+                u[Upgrade.Serpent] =  D(1, 1, 4, 7, 3);
+                u[Upgrade.LavaDrip] = D(1, 1, 4, 7, 3);
+                u[Upgrade.Pendulum] = D(1, 1, 4, 7, 2.2);
+            });
+
+
+
+            // Standard obstacles
+
+
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(2, 5, 5, 5, 5);

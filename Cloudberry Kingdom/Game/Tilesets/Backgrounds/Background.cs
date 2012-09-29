@@ -234,24 +234,6 @@ namespace CloudberryKingdom
 
         public static Background Get(BackgroundTemplate Type)
         {
-            if (Type == BackgroundType.Castle) return new CastleBackground();
-
-            if (Type == BackgroundType.Dungeon) return new DungeonBackground();
-            if (Type == BackgroundType.Dark) return new DarkBackground();
-
-            if (Type == BackgroundType.Sky) return new SkyBackground();
-            if (Type == BackgroundType.MarioSky) return new MarioSkyBackground();
-            if (Type == BackgroundType.Outside) return new OutsideBackground();
-            if (Type == BackgroundType.Night) return new NightTimeBackground();
-            if (Type == BackgroundType.NightSky) return new NightSkyBackground();
-            if (Type == BackgroundType.Chaos) return new ChaosBackground();
-
-            if (Type == BackgroundType.Space) return new SpaceBackground();
-
-            if (Type == BackgroundType.Gray) return new GrayBackground();
-
-            if (Type == BackgroundType.Construct) return new ConstructBackground();
-
             return Type.MakeInstanceOf();
         }
 

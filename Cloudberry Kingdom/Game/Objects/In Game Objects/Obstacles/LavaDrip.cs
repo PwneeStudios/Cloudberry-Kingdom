@@ -15,7 +15,7 @@ namespace CloudberryKingdom.LavaDrips
     {
         public class LavaDripTileInfo : TileInfoBase
         {
-            public LineSpriteInfo Line = new LineSpriteInfo("Lava_Drip_1", "Lava_Drip_2", "Lava_Drip_3", 330);
+            public LineSpriteInfo Line = new LineSpriteInfo("Lava_Drip_1", "Lava_Drip_2", "Lava_Drip_3", 440);
             public Vector2 BoxSize = new Vector2(118, 1300);
         }
 

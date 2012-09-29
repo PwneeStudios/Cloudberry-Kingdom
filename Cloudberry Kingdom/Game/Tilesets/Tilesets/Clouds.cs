@@ -39,6 +39,10 @@ info.Walls.Sprite.Size = new Vector2(1500, -1);
 info.Walls.Sprite.Offset = new Vector2(0, 4573);
 info.Walls.Sprite.Degrees = -90;
 
+info.LavaDrips.Line.End1 = "Flow_cave_1";
+info.LavaDrips.Line.Sprite = "Flow_cave_2";
+info.LavaDrips.Line.End2 = "Flow_Cave_3";
+
 info.Lasers.Line.Sprite = "Laser_Cloud";
 info.Lasers.Line.RepeatWidth = 135;
 info.Lasers.Line.Dir = 0;
