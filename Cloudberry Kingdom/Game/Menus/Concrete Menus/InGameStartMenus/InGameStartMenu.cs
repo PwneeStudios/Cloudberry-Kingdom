@@ -66,7 +66,7 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
 
             this.CallDelay = 5;
-            this.SlideLength = 20;
+            this.SlideLength = 14;
             this.SelectedItemShift = new Vector2(0, 0);
 
             // Make the backdrop
@@ -81,6 +81,8 @@ namespace CloudberryKingdom
             MyMenu.OnB = null;
 
             MenuItem item;
+
+            MakeDarkBack();
 
             // Header
             EzText HeaderText = new EzText("Menu", ItemFont);

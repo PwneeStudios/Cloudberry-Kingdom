@@ -6,6 +6,19 @@ namespace CloudberryKingdom
 {
     public class StartMenuBase : GUI_Panel
     {
+        QuadClass DarkBack;
+        protected void MakeDarkBack()
+        {
+            // Make the dark back
+            DarkBack = new QuadClass("White");
+            DarkBack.Quad.SetColor(ColorHelper.GrayColor(.25f));
+            DarkBack.Alpha = 0f;
+            DarkBack.Fade(.1f); DarkBack.MaxAlpha = .5f;
+            DarkBack.FullScreen(Tools.CurCamera);
+            DarkBack.Scale(5);
+            MyPile.Add(DarkBack, "Dark");
+        }
+
         public static void RegularColor(EzText name)
         {
             name.MyFloatColor = new Color(255, 255, 255).ToVector4();
@@ -242,6 +255,9 @@ namespace CloudberryKingdom
         {
             base.ReturnToCaller();
 
+            if (DarkBack != null)
+                DarkBack.Fade(-.1f);
+
             if (PlaySound && BackSound != null)
                 BackSound.Play();
         }
@@ -384,5 +400,13 @@ namespace CloudberryKingdom
 
         public StartMenuBase() { Core.DrawLayer = DefaultMenuLayer; }
         public StartMenuBase(bool CallBaseConstructor) : base(CallBaseConstructor) { Core.DrawLayer = DefaultMenuLayer; }
+
+        public override void Draw()
+        {
+            base.Draw();
+
+            if (DarkBack != null && !IsOnScreen)
+                DarkBack.Draw();
+        }
     }
 }

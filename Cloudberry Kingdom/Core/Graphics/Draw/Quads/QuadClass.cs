@@ -588,6 +588,12 @@ namespace CloudberryKingdom
             Alpha = 1f;
         }
 
+        /// <summary>
+        /// When the alpha of this quad is being automatically changed (via FadeSpeed),
+        /// the alpha value is always restricted between this min and max.
+        /// </summary>
+        public float MinAlpha = 0, MaxAlpha = 1;
+
         public bool Show = true;
         public virtual void Draw(bool Update, bool DrawQuad, bool DrawShadow)
         {
@@ -595,7 +601,7 @@ namespace CloudberryKingdom
 
             if (Fading)
             {
-                Alpha += FadeSpeed;
+                Alpha = CoreMath.Restrict(MinAlpha, MaxAlpha, Alpha + FadeSpeed);
             }
 
             if (FancyLightAlpha != null)

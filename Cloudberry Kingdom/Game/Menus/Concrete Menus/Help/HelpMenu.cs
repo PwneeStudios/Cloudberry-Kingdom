@@ -195,6 +195,8 @@ namespace CloudberryKingdom
 
         EzText CoinsText;
 
+        QuadClass DarkBack;
+
         HelpBlurb Blurb;
         public override void Init()
         {
@@ -212,18 +214,18 @@ namespace CloudberryKingdom
             RightPanel = Blurb = new HelpBlurb();
 
             this.CallDelay = 3;
-            this.SlideLength = 30;
+            this.SlideLength = 14;
             this.SelectedItemShift = new Vector2(0, 0);
             //this.SlideInFrom = PresetPos.Right;
 
-            // Make the backdrop
+            MakeDarkBack();
+
+            // Make the left backdrop
             QuadClass backdrop = new QuadClass("Backplate_1500x900", 1500);
             MyPile.Add(backdrop, "Backdrop");
             backdrop.Pos = new Vector2(-1777.778f, 30.55557f);
 
-
             // Coin
-            //QuadClass Coin = new QuadClass("CoinBlue", 90, true);
             QuadClass Coin = new QuadClass("Coin_Blue", 90, true);
             Coin.Pos = new Vector2(-873.1558f, 770.5778f);
             MyPile.Add(Coin, "Coin");
@@ -323,25 +325,22 @@ namespace CloudberryKingdom
             SetPos();
         }
 
-
-
-
         void SetPos()
         {
             MenuItem _item;
-            _item = MyMenu.FindItemByName("WatchComputer"); if (_item != null) { _item.SetPos = new Vector2(-1050f, 285.0002f); }
-            _item = MyMenu.FindItemByName("ShowPath"); if (_item != null) { _item.SetPos = new Vector2(-1047.222f, -98.8887f); }
-            _item = MyMenu.FindItemByName("SlowMo"); if (_item != null) { _item.SetPos = new Vector2(-1052.777f, -499.4443f); }
+            _item = MyMenu.FindItemByName("WatchComputer"); if (_item != null) { _item.SetPos = new Vector2(-1050f, 285.0002f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("ShowPath"); if (_item != null) { _item.SetPos = new Vector2(-1047.222f, -98.8887f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("SlowMo"); if (_item != null) { _item.SetPos = new Vector2(-1052.777f, -499.4443f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(0f, 0f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-771.3337f, 622.889f); }
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1613.889f, 877.4446f); }
+            _t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-771.3337f, 622.889f); _t.Scale = 0.6593335f; }
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 816.3335f); _t.Scale = 0.9640832f; }
 
             QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-1827.778f, -22.22221f); _q.Size = new Vector2(1654.582f, 992.7494f); }
-            _q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-828.7114f, 687.2447f); _q.Size = new Vector2(90f, 128.5714f); }
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(22.22229f, -33.33333f); _q.Size = new Vector2(1740.553f, 1044.332f); }
+            _q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-798.1558f, 634.4669f); _q.Size = new Vector2(110.5714f, 110.5714f); }
 
             MyPile.Pos = new Vector2(0f, 0f);
         }
@@ -358,6 +357,21 @@ namespace CloudberryKingdom
 #if PC_VERSION
             item.Padding += new Vector2(20, 40);
 #endif
+        }
+
+        public override void ReturnToCaller(bool PlaySound)
+        {
+            base.ReturnToCaller(PlaySound);
+        }
+
+        public override void SlideIn(int Frames)
+        {
+            base.SlideIn(Frames);
+        }
+
+        protected override void SlideOut_RightPanel(PresetPos Preset, int Frames)
+        {
+            base.SlideOut_RightPanel(Preset, Frames);
         }
     }
 }

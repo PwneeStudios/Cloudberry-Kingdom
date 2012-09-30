@@ -60,60 +60,74 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
 
+            // Backrop
+            QuadClass backdrop2 = new QuadClass("White", 1500);
+            backdrop2.Quad.SetColor(ColorHelper.GrayColor(.1f));
+            backdrop2.Alpha = .45f;
+            MyPile.Add(backdrop2, "Backdrop2");
+
+            QuadClass backdrop = new QuadClass("White", 1500);
+            backdrop.Quad.SetColor(ColorHelper.GrayColor(.25f));
+            backdrop.Alpha = .35f;
+            MyPile.Add(backdrop, "Backdrop");
+
             Vector2 AdditionalAdd = Vector2.Zero;
 #if PC_VERSION
             AdditionalAdd = new Vector2(-2, 0);
             Play = new EzText(ButtonString.Enter(140) + " Play", ItemFont, true);
+            Play.Name = "Play";
+            SetGrayHeaderProperties(Play);
 #else
             Play = new EzText(ButtonString.Go(90) + " Play", ItemFont, true);
-#endif
-            SetHeaderProperties(Play);
             Play.MyFloatColor = new Color(67, 198, 48, 255).ToVector4();
-            if (Type == ReplayGUIType.Computer) Play.Pos = new Vector2(-739.4f, -835f);
-            else Play.Pos = new Vector2(-610f, -713.8889f);
-            Play.Pos += AdditionalAdd;
+            Play.Name = "Play";
+            SetHeaderProperties(Play);
+#endif
 
 #if PC_VERSION
             AdditionalAdd = new Vector2(-2, 0);
             End = new EzText(ButtonString.Backspace(140) + " Done", ItemFont, true);
+            End.Name = "Back";
+            SetGrayHeaderProperties(End);
 #else
             End = new EzText(ButtonString.Back(85) + " Done", ItemFont, true);
-#endif
-            SetHeaderProperties(End);
             End.MyFloatColor = new Color(239, 41, 41, 255).ToVector4();
-            if (Type == ReplayGUIType.Computer) End.Pos = new Vector2(-225.5557f, -835f);
-            else End.Pos = new Vector2(-480f, -829.4445f);
-            Play.Pos += AdditionalAdd;
+            End.Name = "Back";
+            SetHeaderProperties(End);
+#endif
 
             if (Type == ReplayGUIType.Replay)
             {
                 Toggle = new EzText(ButtonString.X(90) + " Solo", ItemFont, true);
+                Toggle.Name = "Toggle";
+#if PC_VERSION
+                SetGrayHeaderProperties(Toggle);
+#else
                 SetHeaderProperties(Toggle);
                 Toggle.MyFloatColor = new Color(0, 0, 255, 255).ToVector4();
-                Toggle.Pos = new Vector2(-20f, -702.7774f);
+#endif
                 SetToggleText();
             }
 
             Speed = new EzText(ButtonString.LeftRight(85) + " Speed x 1", ItemFont, true);
+            Speed.Name = "Speed";
             SetGrayHeaderProperties(Speed);
-            if (Type == ReplayGUIType.Computer) Speed.Pos = new Vector2(857.1113f, -835f);
-            else Speed.Pos = new Vector2(145f, -821.1113f);
 
             if (Type == ReplayGUIType.Computer)
             {
                 LB = new EzText(ButtonString.LeftBumper(85) + " Reset", ItemFont, true);
+                LB.Name = "Reset";
                 SetGrayHeaderProperties(LB);
-                LB.Pos = new Vector2(266.7783f, -835f);
             }
             else
             {
                 LB = new EzText(ButtonString.LeftBumper(85) + " Prev", ItemFont, true);
+                LB.Name = "Prev";
                 SetGrayHeaderProperties(LB);
-                LB.Pos = new Vector2(792.4443f, -815.5555f);
 
                 RB = new EzText(ButtonString.RightBumper(85) + " Next", ItemFont, true);
+                RB.Name = "Next";
                 SetGrayHeaderProperties(RB);
-                RB.Pos = new Vector2(657.2222f, -704.4443f);
             }
 
             BigPaused = new QuadClass();
@@ -132,6 +146,44 @@ namespace CloudberryKingdom
             BigEnd.Pos = new Vector2(1277.222f, 774.4444f);
 
             SetPlayText();
+
+
+
+
+
+
+
+
+            if (Type == ReplayGUIType.Computer)
+            {
+                EzText _t;
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-773.9557f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-192.2225f, -829.4445f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(366.7781f, -835f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(934.8892f, -835f); _t.Scale = 0.44f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(52.77765f, -2058.333f); _q.Size = new Vector2(1219.997f, 1219.997f); }
+
+                MyPile.Pos = new Vector2(0f, 0f);
+            }
+            else
+            {
+                EzText _t;
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1083.334f, -827.778f); _t.Scale = 0.4145834f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-549.9999f, -830.5555f); _t.Scale = 0.4147499f; }
+                _t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-138.8893f, -830.5555f); _t.Scale = 0.4139166f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(419.4443f, -836.1107f); _t.Scale = 0.3873335f; }
+                _t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(933.3335f, -827.7777f); _t.Scale = 0.4208333f; }
+                _t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1341.666f, -824.9999f); _t.Scale = 0.4238334f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(108.3335f, -2330.556f); _q.Size = new Vector2(1500f, 1500f); }
+
+                MyPile.Pos = new Vector2(0f, 0f);
+            }
         }
 
         public void StartUp()

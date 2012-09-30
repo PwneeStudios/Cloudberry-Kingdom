@@ -120,6 +120,8 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
 
+            //MakeDarkBack();
+
             QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
             MyPile.Add(Backdrop);
             MyPile.Add(Backdrop);

@@ -15,8 +15,8 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 3, 0);
-            Name = "Invert";
-            Adjective = "Invert";
+            Name = "Viridian";
+            Adjective = "Anti-Grav";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, -1.2f * DefaultIconWidth);
         }
         static readonly BobPhsxInvert instance = new BobPhsxInvert();

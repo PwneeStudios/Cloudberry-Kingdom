@@ -52,8 +52,8 @@ namespace CloudberryKingdom
             //TileSetToTest = "hills";
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
-            TileSetToTest = "cave";
-            //TileSetToTest = "castle";
+            //TileSetToTest = "cave";
+            TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet(TileSets.Dungeon);
