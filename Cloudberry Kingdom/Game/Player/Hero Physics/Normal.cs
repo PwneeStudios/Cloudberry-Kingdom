@@ -170,6 +170,11 @@ namespace CloudberryKingdom
             XAccel = .53f * MaxSpeed / 17f;
             XFriction = .78f * MaxSpeed / 17f;
             MaxSpeed = 17.2f;
+
+
+            // Slight faster
+            MaxSpeed *= 1.055f;
+            XAccel *= 1.105f;
         }
 
         public override void Init(Bob bob)

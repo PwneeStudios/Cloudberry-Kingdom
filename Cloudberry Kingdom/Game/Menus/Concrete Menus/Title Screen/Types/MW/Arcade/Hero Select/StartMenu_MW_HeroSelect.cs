@@ -99,14 +99,9 @@ namespace CloudberryKingdom
             BobPhsx SmallJetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
             SmallJetpackWheelie.Name = "Flaming Vomit";
 
-            BobPhsx Uber = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Big, Hero_MoveMod.Classic);
-            Uber.Name = "Uber Man";
-            Uber.Gravity *= .935f;
-            Uber.MaxSpeed *= 1.65f;
-            Uber.XAccel *= 1.65f;
-
             var list = new BobPhsx[] { BobPhsxNormal.Instance,
-                                       Uber,
+                                       BobPhsxBig.Instance,
+                                       //Uber,
                                        BobPhsxInvert.Instance,
                                        BobPhsxBraid.Instance,
                                        BobPhsxDouble.Instance,

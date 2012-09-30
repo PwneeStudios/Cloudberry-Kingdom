@@ -27,10 +27,7 @@ namespace CloudberryKingdom
 
         protected override void SetItemProperties(MenuItem item)
         {
-            //base.SetItemProperties(item);
-
             item.MyText.Scale = item.MySelectedText.Scale = FontScale;
-
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
 
             item.Go = null;
@@ -70,9 +67,6 @@ namespace CloudberryKingdom
 
         void Go(MenuItem item)
         {
-            if (CurClrSelect != null)
-                CurClrSelect.ReturnToCaller();
-
             Call(new Waiting(Control, MyCharacterSelect));
             Hide();
         }
@@ -82,7 +76,7 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-200, 100);
             PosAdd = new Vector2(0, -160);
             SelectedItemShift = new Vector2(0, 0);
-            FontScale = .635f;
+            FontScale = .5835f;
             ItemFont = Tools.Font_Grobold42;
 
             AddItem(new MenuItem(new EzText("Color", ItemFont)));
@@ -104,17 +98,6 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
-        /// <summary>
-        /// The current color selection GameObject, if there is one.
-        /// Set to null once the selection object starts sliding out.
-        /// </summary>
-        public BaseColorSelect CurClrSelect;
-
-        /// <summary>
-        /// The custom menu index associated with the current color selection box
-        /// </summary>
-        int ClrSelectIndex;
-
         protected override void MyDraw()
         {
             base.MyDraw();
@@ -122,16 +105,14 @@ namespace CloudberryKingdom
 
         public void CreateColorSelect()
         {
-            return;
-
-            BaseColorSelect ClrSelect;
+            ListSelectPanel ClrSelect;
 
             Vector2 ShiftSelect = Vector2.Zero;            
 
             // Make the hat select
             if (MyMenu.CurIndex == 2)
             {
-                var list = new ListSelectPanel(Control, "Hat");
+                var list = new ListSelectPanel(Control, "Hat", MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = list;
 
                 foreach (Hat hat in CharacterSelectManager.AvailableHats)
@@ -148,7 +129,7 @@ namespace CloudberryKingdom
             // Make the beard select
             else if (MyMenu.CurIndex == 1)
             {
-                var list = new ListSelectPanel(Control, "Beard");
+                var list = new ListSelectPanel(Control, "Beard", MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = list;
 
                 foreach (Hat beard in CharacterSelectManager.AvailableBeards)
@@ -166,7 +147,7 @@ namespace CloudberryKingdom
             else
             {
                 var list = MyCharacterSelect.ItemList[MyMenu.CurIndex];
-                var select = new ListSelectPanel(Control, "Color");
+                var select = new ListSelectPanel(Control, "Color", MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = select;
 
                 foreach (MenuListItem item in list)
@@ -186,32 +167,16 @@ namespace CloudberryKingdom
                 }
             }
 
-            // Set the position
-            if (ClrSelect is ColorSelectPanel)
-            {
-                ((ColorSelectPanel)ClrSelect).Grid.Pos = AmountShifted + new Vector2(-20f, -480f);
-            }
-
             // Set the index of the list
-            if (ClrSelect is BaseColorSelect)
-            {
-                ClrSelect.SetIndexViaAssociated(MyCharacterSelect.ItemIndex[MyMenu.CurIndex]);
-            }
+            ClrSelect.SetIndexViaAssociated(MyCharacterSelect.ItemIndex[MyMenu.CurIndex]);
 
             Call(ClrSelect);
             Hide();
-
-            CurClrSelect = ClrSelect;
-            ClrSelectIndex = MyMenu.CurIndex;
         }
 
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
-            return;
-
-            if (CurClrSelect == null)
-                base.MyPhsxStep();
 
             if (!Active) return;
             MyCharacterSelect.MyState = CharacterSelect.SelectState.Selecting;
@@ -219,102 +184,6 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyGamerTag.ShowGamerTag = true;
             MyCharacterSelect.MyHeroLevel.ShowHeroLevel = true;
             MyCharacterSelect.Player.Exists = true;
-
-            // When set to true the menu phsx will be skipped
-#if PC_VERSION
-            //bool SkipMenuPhsx = false;
-            //if (CurClrSelect != null && (!Tools.TheGame.MouseInUse || CurClrSelect.Grid.MouseInBox))
-            //    SkipMenuPhsx = true;
-            bool SkipMenuPhsx = (CurClrSelect != null);
-#else
-            bool SkipMenuPhsx = (CurClrSelect != null);
-#endif
-
-
-            // When the color select is up
-            if (CurClrSelect != null)
-            {
-                // Check if the user is done selecting a color
-                if (CurClrSelect.Done())
-                {
-                    // If the user canceled
-                    if (CurClrSelect.ExitState() == GuiExitState.Cancel)
-                    {
-                        MyCharacterSelect.ItemIndex[ClrSelectIndex] = MyCharacterSelect.HoldIndex;
-                        MyMenu.BackSound.Play();
-                    }
-                    // If the user selected something
-                    else
-                    {
-                        MyMenu.SelectSound.Play();
-
-                        // Save new custom color scheme
-                        MyCharacterSelect.Player.CustomColorScheme = MyCharacterSelect.Player.ColorScheme;
-                        MyCharacterSelect.Player.ColorSchemeIndex = -1;
-                    }
-
-                    // Slide out the color select
-                    CurClrSelect.ReturnToCaller();
-                    CurClrSelect = null;
-
-                    MyMenu.Show = true;
-                    SkipMenuPhsx = true;
-                    SkipPhsx = 2;
-
-                    // Burn one phsx step of the menu
-                    bool Hold = MyMenu.CheckForOutsideClick;
-                    MyMenu.CheckForOutsideClick = false;
-                    MyMenu.PhsxStep();
-                    MyMenu.PhsxStep();
-                    MyMenu.PhsxStep();
-                    MyMenu.CheckForOutsideClick = Hold;
-                    MyMenu.SkipPhsx = true;
-                }
-                else
-                {
-#if PC_VERSION
-                    //// If the mouse is in the box update the color/texture index
-                    //if (CurClrSelect.Grid.MouseInBox)                                            
-                    //    Parent.ItemIndex[ClrSelectIndex] = CurClrSelect.Grid.GetAssociatedIndex();
-                    //// Otherwise revert to last selected index
-                    //else
-                    //    Parent.ItemIndex[ClrSelectIndex] = Parent.HoldIndex;
-                    MyCharacterSelect.ItemIndex[ClrSelectIndex] = CurClrSelect.GetAssociatedIndex();
-#else
-                    // Update the color/texture index
-                    MyCharacterSelect.ItemIndex[ClrSelectIndex] = CurClrSelect.GetAssociatedIndex();
-#endif
-                }
-
-                MyCharacterSelect.Customize_UpdateColors();
-            }
-
-            if (!SkipMenuPhsx)
-            {
-                // Check to see if we should bring a new color select up
-                if (CurClrSelect == null)
-                if (ButtonCheck.State(ControllerButtons.X, Control).Pressed ||
-                    ButtonCheck.State(ControllerButtons.A, Control).Pressed)
-                {
-                    if (MyMenu.CurIndex < MyCharacterSelect.ItemIndex.Length && !MyMenu.NoneSelected
-#if PC_VERSION
-                        // Skip if the color select is up but the mouse isn't in use
-                        && !(!ButtonCheck.MouseInUse && CurClrSelect != null))
-#else
-                        )
-#endif
-                    {
-                        MyCharacterSelect.HoldIndex = MyCharacterSelect.ItemIndex[MyMenu.CurIndex];
-
-                        MyMenu.LastActivatedItem = MyMenu.CurIndex;
-
-                        if (CurClrSelect != null)
-                            CurClrSelect.ReturnToCaller();
-                        CreateColorSelect();
-                        MyMenu.SelectSound.Play();
-                    }
-                }
-            }
         }
    }
 }

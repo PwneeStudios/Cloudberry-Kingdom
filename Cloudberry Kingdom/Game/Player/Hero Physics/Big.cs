@@ -19,6 +19,10 @@ namespace CloudberryKingdom
             {
                 normal.Gravity *= 1.55f;
                 normal.SetAccels();
+
+                Gravity *= .935f;
+                MaxSpeed *= 1.5f;
+                XAccel *= 1.5f;
             }
         }
 

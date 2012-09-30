@@ -518,21 +518,25 @@ float DefaultShiftX = -.35f;
             ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
                                       new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),    "Black"));    // 3
 
-            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),    "Cyan"));     // 4  
-            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),   "Blue"));     // 5
-            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),    "Teal"));     // 6
-            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),"Indigo"));   // 7
-            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205),"Purple"));  // 8
+            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      "Cyan"));     // 4  
+            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     "Blue"));     // 5
+            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      "Teal"));     // 6
+            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  "Indigo"));   // 7
+            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), "Purple"));  // 8
             ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),"Brown"));        // 9
             ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
                                       ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), "Red")); // 10
             ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), "Hot Pink"));     // 11
-            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110), "Orange"));        // 12
+            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110),  "Orange"));        // 12
             ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), "Gold"));         // 13
             ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), "Yellow"));       // 14
-            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0), "Green"));              // 15
-            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), "LimeGreen"));    // 16
-            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0), "ForestGreen"));     // 17
+            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0),       "Green"));              // 15
+            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), "Lime Green"));    // 16
+            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0),    "Forest Green"));     // 17
+            
+            ColorList.Add(_i(3518, 0, ColorHelper.GrayColor(.2f), ColorHelper.HsvTransform(0, 0, 1),     "Ninja"));     // 18
+            ColorList.Add(_i(3519, 0, Color.White,                ColorHelper.HsvTransform(1.75f, 0, 1), "Bright White"));     // 19
+
             
 
             // Fill the textured skin list
@@ -657,7 +661,7 @@ float DefaultShiftX = -.35f;
             AddScheme(new ColorScheme("Hot Pink", "Hot Pink", "Hot Pink", Hat.BunnyEars.Name, Hat.Beard.Name), false);
             AddScheme(new ColorScheme("Gold", "Gold", "Gold", "", ""), false);
             AddScheme(new ColorScheme("Purple", "Indigo", "Hot Pink", "None", "Vandyke"), false);
-            AddScheme(new ColorScheme("ForestGreen", "Yellow", "Gold", "Rice Hat", "Rugged"), false);
+            AddScheme(new ColorScheme("Forest Green", "Yellow", "Gold", "Rice Hat", "Rugged"), false);
             AddScheme(new ColorScheme("Red", "None", "None", "The Great Stag", "Vandyke"), false);
         }
     }
