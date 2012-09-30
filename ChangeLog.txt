@@ -10,8 +10,10 @@ Optimize game physics to run on low end computers.
 v0.2.4
 --------------------------------------------------------------------------------------------------------
 New menu system!
-Choose your preferred hero in Arcade games.
+Escalation/Time Crisis now give option to choose hero.
 Invert Hero! With regards to Captain Viridian and Terry Cavanagh.
+New obstacles sprinkled into Arcade: Fireballs, Serpents, Lava Drips, Pendulums
+Smoothed out difficulty curve in Arcade games.
 
 v0.2.3
 --------------------------------------------------------------------------------------------------------

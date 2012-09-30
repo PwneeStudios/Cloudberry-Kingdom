@@ -76,7 +76,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static float MatrixSignature(Matrix m)
         {
-            return m.M11 + m.M22 + m.M33 + m.M44;
+            return m.M11 + m.M22 + m.M33;
         }
 
         /// <summary>

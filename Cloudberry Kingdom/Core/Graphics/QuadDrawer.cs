@@ -82,6 +82,19 @@ namespace Drawing
             WrapClamp.AddressV = TextureAddressMode.Clamp;
         }
 
+        public void SetColorMatrix(Matrix m, float signature)
+        {
+            if (CurrentMatrixSignature != signature)
+            {
+                Flush();
+
+                CurrentMatrixSignature = signature;
+                CurrentMatrix = m;
+
+                Tools.HslEffect.Hsl.SetValue(CurrentMatrix);
+            }
+        }
+
         public void DrawQuad(Quad quad)
         {
             if (i + 6 > N ||
@@ -559,6 +572,9 @@ namespace Drawing
             {
                 CurrentEffect.xTexture.SetValue(CurrentTexture.Tex);
                 CurrentEffect.Hsl.SetValue(CurrentMatrix);
+
+                // Test HSV transform
+                //CurrentEffect.Hsl.SetValue(ColorHelper.HsvTransform(Tools.Num_0_to_2, 1f, Tools.Num_0_to_360));
 
                 if (!CurrentEffect.IsUpToDate)
                     CurrentEffect.SetCameraParameters();

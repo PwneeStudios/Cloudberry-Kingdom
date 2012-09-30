@@ -78,6 +78,8 @@ namespace CloudberryKingdom
         public Color Tint;
         public bool RelativeOffset;
         public float Degrees = 0;
+        
+        public Matrix ColorMatrix = Matrix.Identity;
 
         public SpriteInfo(TextureOrAnim Sprite)
         {

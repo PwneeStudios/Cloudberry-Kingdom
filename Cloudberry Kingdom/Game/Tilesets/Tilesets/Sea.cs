@@ -137,6 +137,8 @@ info.Blobs.GooSprite = "BlobGoo5";
 
 info.Clouds.Sprite.Sprite = "cloud_sea";
 
+info.Fireballs.Sprite.ColorMatrix = ColorHelper.HsvTransform(1, 1, 132);
+
 //info.Coins.Sprite.Sprite = "coin_blue";
 info.Coins.Sprite.Sprite = "CoinShimmer";
 info.Coins.Sprite.Size = new Vector2(105, -1);

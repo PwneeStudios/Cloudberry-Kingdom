@@ -7,6 +7,49 @@ using Drawing;
 
 namespace CloudberryKingdom
 {
+    public class HsvQuad : QuadClass
+    {
+        /// <summary>
+        /// Color rotation matrix.
+        /// </summary>
+        public Matrix MyMatrix
+        {
+            get
+            {
+                return _MyMatrix;
+            }
+
+            set
+            {
+                _MyMatrix = value;
+                _MyMatrixSignature = ColorHelper.MatrixSignature(_MyMatrix);
+            }
+        }
+        Matrix _MyMatrix;
+        float _MyMatrixSignature;
+
+        public HsvQuad()
+            : base()
+        {
+        }
+
+        public override void Set(SpriteInfo info, Vector2 Size)
+        {
+            base.Set(info, Size);
+
+            if (info != null)
+            {
+                MyMatrix = info.ColorMatrix;
+            }
+        }
+
+        public override void Draw(bool Update, bool DrawQuad, bool DrawShadow)
+        {
+            Tools.QDrawer.SetColorMatrix(MyMatrix, _MyMatrixSignature);
+            base.Draw(Update, DrawQuad, DrawShadow);
+        }
+    }
+    
     public class QuadClass : ViewReadWrite
     {
         public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
@@ -486,10 +529,10 @@ namespace CloudberryKingdom
         }
 
         public void Set(SpriteInfo info)
-        {
+        { 
             Set(info, info.Size);
         }
-        public void Set(SpriteInfo info, Vector2 Size)
+        public virtual void Set(SpriteInfo info, Vector2 Size)
         {
             if (info.Sprite == null)
                 Show = false;
@@ -546,7 +589,7 @@ namespace CloudberryKingdom
         }
 
         public bool Show = true;
-        public void Draw(bool Update, bool DrawQuad, bool DrawShadow)
+        public virtual void Draw(bool Update, bool DrawQuad, bool DrawShadow)
         {
             if (!Show) return;
 

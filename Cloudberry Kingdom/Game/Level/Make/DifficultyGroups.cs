@@ -230,11 +230,11 @@ namespace CloudberryKingdom
             {
                 u[Upgrade.Jump] =     D(2, 5, 3, 2, 0);
                 u[Upgrade.Speed] =    D(0, 1, 2, 7, 11);
-                u[Upgrade.Serpent] =  D(1, 1, 4, 7, 3);
-                u[Upgrade.LavaDrip] = D(1, 1, 4, 7, 3);
-                u[Upgrade.Pendulum] = D(1, 1, 4, 7, 2.2);
+                u[Upgrade.Serpent] =  D(1, 1, 4, 7, 9);
+                u[Upgrade.LavaDrip] = D(1, 1, 4, 7, 9);
+                u[Upgrade.Pendulum] = D(1, 1, 4, 7, 9);
+                u[Upgrade.Fireball] = D(0, 0, 0, 0, 9);
             });
-
 
 
             // Standard obstacles

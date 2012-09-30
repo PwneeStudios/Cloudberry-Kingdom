@@ -22,7 +22,7 @@ namespace CloudberryKingdom
             Parent = null;
         }
 
-        public QuadClass MyQuad;
+        public HsvQuad MyQuad;
 
         public int Life, StartLife;
         public ObjectBase Parent;
@@ -55,7 +55,7 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly)
             {
-                MyQuad = new QuadClass();
+                MyQuad = new HsvQuad();
             }
         }
 
@@ -81,44 +81,23 @@ namespace CloudberryKingdom
 
             if (level.Info.Fireballs.Sprite.Sprite != null)
             {
-                if (MyQuad == null) MyQuad = new QuadClass();
+                if (MyQuad == null) MyQuad = new HsvQuad();
                 MyQuad.Set(level.Info.Fireballs.Sprite);
                 //MyQuad.Quad.MirrorUV_Vertical();
             }
             else
             {
-                if (MyQuad == null) MyQuad = new QuadClass();
+                if (MyQuad == null) MyQuad = new HsvQuad();
 
-                switch (FireballType)
+                if (!Core.BoxesOnly)
                 {
-                    case 0:
-                        if (!Core.BoxesOnly)
-                        {
-                            MyQuad.Quad.MyTexture = FireballTexture;
-                            //MyQuad.Quad.SetColor(new Color(0, 200, 200));
-                        }
-
-                        //Size = 1.75f * new Vector2(15, 15);
-                        Size = new Vector2(40);
-
-                        //MyQuad.Size = new Vector2(160);
-                        MyQuad.Size = new Vector2(195);
-                        //MyQuad.Size = new Vector2(500);
-                        break;
-                    case 1:
-                        Size = new Vector2(120, 120);
-                        /*
-                        emitter.Amount = 3;
-                        emitter.Delay = 1;
-                        emitter.Particles = Particles;
-                        emitter.DisplacementRange = 100;
-                        emitter.ParticleSize = 150;
-                        emitter.VelRange = 5;
-                        emitter.Life = 200;
-                        emitter.AlphaVel = -.01f;
-                         */
-                        break;
+                    MyQuad.Size = new Vector2(195);
+                    MyQuad.Quad.MyTexture = FireballTexture;
+                    MyQuad.Set(level.Info.Fireballs.Sprite);
+                    MyQuad.Show = true;
                 }
+
+                Size = new Vector2(40);
             }
                                     
             Circle.Initialize(data.Position, Size.X);
@@ -179,7 +158,7 @@ namespace CloudberryKingdom
             // Point forward
             MyQuad.PointxAxisTo(-Core.Data.Velocity);
 
-            //MyQuad.Quad.MyEffect = Tools.HslEffect;
+            MyQuad.Quad.MyEffect = Tools.HslEffect;
             //Tools.HslEffect.Hsl.SetValue(ColorHelper.HsvTransform(0, 0, 200));
 
             // Shift forward
