@@ -77,7 +77,7 @@ namespace CloudberryKingdom
             // Yes
             item = new MenuItem(new EzText("Yes", ItemFont));
             item.Name = "Yes";
-            item.Go = _item => Cast.ToItem(Tools.TheGame.Exit);
+            item.Go = Cast.ToItem(Tools.TheGame.Exit);
             item.AdditionalOnSelect = () => Berry.TextureName = "cb_crying";
             AddItem(item);
 

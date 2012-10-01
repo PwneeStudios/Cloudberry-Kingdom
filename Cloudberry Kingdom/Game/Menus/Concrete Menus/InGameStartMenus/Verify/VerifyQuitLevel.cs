@@ -29,7 +29,7 @@ namespace CloudberryKingdom
             HeaderText.Pos = HeaderPos;
 
 
-            // Yes
+            // k
             item = new MenuItem(new EzText("Yes", ItemFont));
             //item.SetIcon(ObjectIcon.RobotIcon.Clone());
             //item.Icon.Pos = IconOffset;
