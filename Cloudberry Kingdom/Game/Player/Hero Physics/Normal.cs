@@ -173,8 +173,8 @@ namespace CloudberryKingdom
 
 
             // Slight faster
-            MaxSpeed *= 1.055f;
-            XAccel *= 1.105f;
+            MaxSpeed *= 1.04f;
+            XAccel *= 1.1175f;
         }
 
         public override void Init(Bob bob)

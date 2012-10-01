@@ -239,6 +239,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\CustomHero_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\PhsxSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\AlertBase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\StartLevelMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\Doll.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />

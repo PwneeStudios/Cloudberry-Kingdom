@@ -25,6 +25,8 @@ namespace CloudberryKingdom
             base.Init();
 
             this.FontScale *= .9f;
+            CallDelay = 0;
+            ReturnToCallerDelay = 0;
             
             MenuItem item;
 
@@ -54,10 +56,38 @@ namespace CloudberryKingdom
         {
             // Save the seed
             if (TextBox.Text.Length > 0)
+            {
                 Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
 
+                // Success!
+                var ok = new AlertBaseMenu(Control, "Seed saved successfully!", "Hooray!");
+                ok.OnOk = OnOk;
+                Call(ok);
+            }
+            else
+            {
+                // Failure!
+                var ok = new AlertBaseMenu(Control, "No name given, seed was not saved.", "Oh.");
+                ok.OnOk = OnOk;
+                Call(ok);
+            }
+
+            Hide(PresetPos.Left);
             Active = false;
-            ReturnToCaller();
+        }
+
+        public override void OnReturnTo()
+        {
+            // Do nothing
+        }
+
+        void OnOk()
+        {
+            this.SlideOutTo = PresetPos.Left;
+            ReturnToCaller(false);
+            
+            this.Hid = true;
+            this.Active = false;
         }
 
         public override void Release()

@@ -443,6 +443,7 @@ namespace CloudberryKingdom
                 (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
             {
                 NearCount++;
+                //if (NearCount > 10 || MyPressNote != null) // For debuggin, note always shows
                 if (NearCount > DelayToShowNote || MyPressNote != null)
                     MakeNote();
 

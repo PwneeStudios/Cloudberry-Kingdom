@@ -11,26 +11,25 @@ namespace CloudberryKingdom
     public class PressNote : GUI_Text
     {
         public const int ButtonScale = 87;
-        public const float TextScale = .555f / .7f;
+        public const float TextScale = .555f / .7f * .8f;
 
         Door Parent;
 
         public PressNote(Door Parent) :
 #if PC_VERSION
-            base("Press" + ButtonString.Up(ButtonScale), Parent.Pos, true)
+            base("Press " + ButtonString.Up(ButtonScale), Parent.Pos, true)
 #else
-            base("Press" + ButtonString.X(ButtonScale), Parent.Pos, true)
+            base("Press " + ButtonString.X(ButtonScale), Parent.Pos, true)
 #endif
         {
             this.Parent = Parent;
             Oscillate = true;
             OscillationSpeed = .0125f;
 
-            MyPile.Pos += new Vector2(0, 208);
             MyText.Scale = TextScale;
             MyText.ZoomWithCam = true;
 
-            Core.DrawLayer = Level.LastInLevelDrawLayer - 1;
+            Core.DrawLayer = Level.LastInLevelDrawLayer;
             Core.RemoveOnReset = true;
 
             Core.ParentObject = Parent;
@@ -42,8 +41,14 @@ namespace CloudberryKingdom
             backdrop.Size = new Vector2(303.8582f, 157.471f);
             backdrop = new QuadClass("Cloud1", 300, true);
             MyPile.Add(backdrop);
-            backdrop.Pos = new Vector2(92.59253f, -69.44446f);
+            backdrop.Pos = new Vector2(106.59253f, -69.44446f);
             backdrop.Size = new Vector2(288.4258f, 149.755f);
+
+            Pos.RelVal = Parent.Pos;
+
+            MyPile.FancyPos.RelVal = new Vector2(33, 340);
+
+            Active = true;
         }
 
         int Life = 255;
@@ -76,6 +81,11 @@ namespace CloudberryKingdom
                 FadeOut();
             else
                 Count++;
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
         }
     }
 }

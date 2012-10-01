@@ -16,7 +16,7 @@ namespace CloudberryKingdom.Coins
             //public SpriteInfo Sprite = new SpriteInfo("CoinBlue2", new Vector2(105, -1));
             public SpriteInfo Sprite = new SpriteInfo("CoinShimmer", new Vector2(105, -1));
 
-            public Vector2 BoxSize = new Vector2(40, 40);
+            public Vector2 BoxSize = new Vector2(52.5f, 65);
             public Color Color = new Color(255, 255, 255, 255);
             public bool ShowEffect = true, ShowText = true, ShowCoin = true;
 
