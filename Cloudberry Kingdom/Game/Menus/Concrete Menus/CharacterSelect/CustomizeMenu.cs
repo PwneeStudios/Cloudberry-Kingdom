@@ -30,8 +30,6 @@ namespace CloudberryKingdom
             item.MyText.Scale = item.MySelectedText.Scale = FontScale;
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
 
-            item.Go = null;
-            
             item.SelectIconOffset = new Vector2(0, -160);
         }
 
@@ -63,12 +61,32 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("Color"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, 5.555542f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+            _item = MyMenu.FindItemByName("Beard"); if (_item != null) { _item.SetPos = new Vector2(-205.5554f, -123.8889f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+            _item = MyMenu.FindItemByName("Hat"); if (_item != null) { _item.SetPos = new Vector2(-141.6667f, -250.5555f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+            _item = MyMenu.FindItemByName("Cape"); if (_item != null) { _item.SetPos = new Vector2(-188.8889f, -377.2222f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+            _item = MyMenu.FindItemByName("Lining"); if (_item != null) { _item.SetPos = new Vector2(-191.6665f, -501.1112f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+            _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-177.7778f, -672.2223f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+
+            MyMenu.Pos = new Vector2(-1320f, -22.22222f);
+
+            MyPile.Pos = new Vector2(-1320f, 0f);
         }
 
         void Go(MenuItem item)
         {
             Call(new Waiting(Control, MyCharacterSelect));
             Hide();
+        }
+
+        void AddMenuItem(string Text, string Name)
+        {
+            MenuItem item = new MenuItem(new EzText(Text, ItemFont));
+            item.Name = Name;
+            item.Go = Cast.ToItem(CreateColorSelect);
+            
+            AddItem(item);
         }
 
         private void MakeItems()
@@ -79,16 +97,13 @@ namespace CloudberryKingdom
             FontScale = .5835f;
             ItemFont = Tools.Font_Grobold42;
 
-            AddItem(new MenuItem(new EzText("Color", ItemFont)));
-            //AddItem(new MenuItem(new EzText("Border", ItemFont)));
+            AddMenuItem("Color", "Color");
+            AddMenuItem("Beard", "Beard");
+            AddMenuItem("Hat", "Hat");
+            AddMenuItem("Cape", "Cape");
+            AddMenuItem("Lining", "Lining");
 
-            AddItem(new MenuItem(new EzText("Beard", ItemFont)));
-            AddItem(new MenuItem(new EzText("Hat", ItemFont)));
-
-            AddItem(new MenuItem(new EzText("Cape", ItemFont)));
-            AddItem(new MenuItem(new EzText("Lining", ItemFont)));
-
-            MenuItem back = new MenuItem(new EzText("Done", ItemFont));
+            MenuItem back = new MenuItem(new EzText("Done", ItemFont), "Done");
             AddItem(back);
             back.Go = Go;
         }

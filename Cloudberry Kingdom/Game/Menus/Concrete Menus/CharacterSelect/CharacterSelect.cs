@@ -27,9 +27,6 @@ namespace CloudberryKingdom
         public HeroLevel MyHeroLevel;
         public Doll MyDoll;
 
-        bool ShowColorSelect = false;
-        public int HoldIndex;
-
         public int PlayerIndex;
         public PlayerData Player { get { return PlayerManager.Get(PlayerIndex); } }
 
@@ -231,6 +228,30 @@ namespace CloudberryKingdom
                 Player.ColorScheme = ColorSchemeManager.ColorSchemes[Player.ColorSchemeIndex];                
                 MyDoll.MyDoll.SetColorScheme(Player.ColorScheme);
             }
+
+            // Make sure indices match up to the color scheme.
+            CopyIndicesFromColorScheme();
+        }
+
+        Predicate<MenuListItem> Match(ClrTextFx obj)
+        {
+            return _match => ((ClrTextFx)_match.obj).Guid == obj.Guid;
+        }
+
+        /// <summary>
+        /// Find the indices that would reproduce the current color scheme.
+        /// </summary>
+        void CopyIndicesFromColorScheme()
+        {
+            ItemIndex[0] = ItemList[0].IndexOf(Match(Player.ColorScheme.SkinColor));
+            ItemIndex[1] = ColorSchemeManager.BeardInfo.IndexOf(Player.ColorScheme.BeardData);
+            ItemIndex[2] = ColorSchemeManager.HatInfo.IndexOf(Player.ColorScheme.HatData);
+            ItemIndex[3] = ItemList[3].IndexOf(Match(Player.ColorScheme.CapeColor));
+            ItemIndex[4] = ItemList[4].IndexOf(Match(Player.ColorScheme.CapeOutlineColor));
+
+            for (int i = 0; i <= 4; i++)
+                if (ItemIndex[i] < 0)
+                    ItemIndex[i] = 0;
         }
 
         public void PhsxStep()

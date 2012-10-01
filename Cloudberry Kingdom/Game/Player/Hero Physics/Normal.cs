@@ -412,7 +412,7 @@ namespace CloudberryKingdom
             NoStickPeriod = 3;
             JumpCount = (int)(JumpCount * JumpLengthModifier);
 
-            if (MyBob.Core.MyLevel.PlayMode == 0)
+            if (MyBob.Core.MyLevel.PlayMode == 0 && !MyBob.CharacterSelect)
             {
                 if (CurJump > 1)
                     DoubleJump.Play();

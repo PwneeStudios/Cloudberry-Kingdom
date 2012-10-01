@@ -370,7 +370,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// When true the menu's back command can be activated by clicking outside the menu's active area.
         /// </summary>
-        public bool CheckForOutsideClick = true;
+        //public bool CheckForOutsideClick = true;
+        public bool CheckForOutsideClick = false;
 
         /// <summary>
         /// When true the menu can modify the mouse cursor show the back icon (when outside the menu's box).

@@ -205,14 +205,21 @@ namespace CloudberryKingdom
 #endif
 
             // Quick slide
+            float MidVal = (MyFloat.MinVal + MyFloat.MaxVal) / 2;
             if (ButtonCheck.State(ControllerButtons.LS, Control).Pressed)
             {
-                MyFloat.Val = MyFloat.MinVal;
+                if (MyFloat.Val < MidVal)
+                    MyFloat.Val = MyFloat.MinVal;
+                else
+                    MyFloat.Val = MidVal;
                 Slide();
             }
             if (ButtonCheck.State(ControllerButtons.RS, Control).Pressed)
             {
-                MyFloat.Val = MyFloat.MaxVal;
+                if (MyFloat.Val > MidVal)
+                    MyFloat.Val = MyFloat.MaxVal;
+                else
+                    MyFloat.Val = MidVal;
                 Slide();
             }
 

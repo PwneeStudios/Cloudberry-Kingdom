@@ -69,6 +69,8 @@ namespace CloudberryKingdom
             this.SlideLength = 14;
             this.SelectedItemShift = new Vector2(0, 0);
 
+            MakeDarkBack();
+
             // Make the backdrop
             QuadClass backdrop = new QuadClass("Backplate_1080x840", 1500, true);
             
@@ -81,8 +83,6 @@ namespace CloudberryKingdom
             MyMenu.OnB = null;
 
             MenuItem item;
-
-            MakeDarkBack();
 
             // Header
             EzText HeaderText = new EzText("Menu", ItemFont);

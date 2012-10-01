@@ -906,11 +906,11 @@ namespace CloudberryKingdom
             Tools.QDrawer.DrawSquareDot(Pos, Color.Black, 8);
 
             // Draw the mouse back icon
-            if (DrawMouseBackIcon)
-            {
-                MouseBack.Pos = MousePointer.Pos + new Vector2(44, 98);
-                MouseBack.Draw();
-            }
+            //if (DrawMouseBackIcon)
+            //{
+            //    MouseBack.Pos = MousePointer.Pos + new Vector2(44, 98);
+            //    MouseBack.Draw();
+            //}
 
             Tools.QDrawer.Flush();
         }

@@ -362,7 +362,7 @@ namespace CloudberryKingdom
             var keys = Tools.keybState.GetPressedKeys();
             bool AnyKeyDown = !(keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None));
 
-            return AnyKeyDown || AnyMouseKey();
+            return AnyKeyDown || AnyMouseKey() || AllState(-2).Down;
 #else
             return AllState(-2);
 #endif

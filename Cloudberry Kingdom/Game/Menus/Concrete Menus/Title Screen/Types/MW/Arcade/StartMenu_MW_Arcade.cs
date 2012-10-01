@@ -76,11 +76,11 @@ namespace CloudberryKingdom
         void SetPos()
         {
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Header"); if (_item != null) { _item.SetPos = new Vector2(-2771.113f, 901.9052f); _item.MyText.Scale = 1.960415f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2600.635f, -1)); }
-            _item = MyMenu.FindItemByName("Escalation"); if (_item != null) { _item.SetPos = new Vector2(-2458.969f, 320.413f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2600.635f, -1)); }
-            _item = MyMenu.FindItemByName("Time Crisis"); if (_item != null) { _item.SetPos = new Vector2(-2467.301f, 117.0817f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2600.635f, -1)); }
-            _item = MyMenu.FindItemByName("Hero Rush"); if (_item != null) { _item.SetPos = new Vector2(-2456.189f, -97.36035f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2600.635f, -1)); }
-            _item = MyMenu.FindItemByName("Hero Rush 2"); if (_item != null) { _item.SetPos = new Vector2(-2472.857f, -297.9135f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2600.635f, -1)); }
+            _item = MyMenu.FindItemByName("Header"); if (_item != null) { _item.SetPos = new Vector2(-2771.113f, 901.9052f); _item.MyText.Scale = 1.960415f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2490.635f, -1)); }
+            _item = MyMenu.FindItemByName("Escalation"); if (_item != null) { _item.SetPos = new Vector2(-2458.969f, 320.413f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2490.635f, -1)); }
+            _item = MyMenu.FindItemByName("Time Crisis"); if (_item != null) { _item.SetPos = new Vector2(-2467.301f, 117.0817f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2490.635f, -1)); }
+            _item = MyMenu.FindItemByName("Hero Rush"); if (_item != null) { _item.SetPos = new Vector2(-2456.189f, -97.36035f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2490.635f, -1)); }
+            _item = MyMenu.FindItemByName("Hero Rush 2"); if (_item != null) { _item.SetPos = new Vector2(-2472.857f, -297.9135f); _item.MyText.Scale = 1f; _item.MySelectedText.Scale = 1f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(-2490.635f, -1)); }
 
             MyMenu.Pos = new Vector2(1070.889f, -45.5556f);
 

@@ -28,7 +28,11 @@ namespace CloudberryKingdom
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
             if (ShiftDown)
-                MyText.Scale += (shift.X + shift.Y) * .00003f;
+            {
+                var scale = (shift.X + shift.Y) * .00003f;
+                MyText.Scale += scale;
+                MySelectedText.Scale += scale;
+            }
             else
                 SetPos += shift;
         }
@@ -230,6 +234,11 @@ namespace CloudberryKingdom
         public MenuItem(EzText Text)
         {
             Init(Text, Text.Clone());
+        }
+        public MenuItem(EzText Text, string Name)
+        {
+            Init(Text, Text.Clone());
+            this.Name = Name;
         }        
         public MenuItem(EzText Text, EzText SelectedText)
         {

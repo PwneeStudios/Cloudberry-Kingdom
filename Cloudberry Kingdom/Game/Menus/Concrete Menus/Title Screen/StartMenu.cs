@@ -34,9 +34,26 @@ namespace CloudberryKingdom
             //DoneWithCharSelect();
         }
 
+        /// <summary>
+        /// When true the user can not selected back.
+        /// </summary>
+        protected bool NoBack = false;
+
         protected virtual void BringCharacterSelect()
         {
+            NoBack = true;
             MyGame.SlideOut_FadeIn(20, CharacterSelect);
+        }
+
+        public override void Show()
+        {
+            NoBack = false;
+            base.Show();
+        }
+
+        public override void ReturnToCaller()
+        {
+            base.ReturnToCaller();
         }
 
         protected virtual void CharacterSelect()

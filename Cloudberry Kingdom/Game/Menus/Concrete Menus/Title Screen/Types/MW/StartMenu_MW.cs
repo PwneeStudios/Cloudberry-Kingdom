@@ -76,6 +76,13 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
+        public override bool MenuReturnToCaller(Menu menu)
+        {
+            if (NoBack) return false;
+
+            return base.MenuReturnToCaller(menu);
+        }
+
         public override void Init()
         {
  	        base.Init();

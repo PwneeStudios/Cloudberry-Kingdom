@@ -141,7 +141,7 @@ namespace CloudberryKingdom
             item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Hero Rush 2");
 
             // Bungee Co-op
-            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
+            //item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
 
             // Backdrop
             QuadClass backdrop;
