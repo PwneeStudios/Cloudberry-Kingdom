@@ -252,6 +252,8 @@ namespace Drawing
         /// </summary>
         public void Start(bool PlayNext)
         {
+            Unpause();
+
             this.PlayNext = PlayNext;
 
             if (!SamePlayList(CurrentPlayingList, PlayList))

@@ -1,0 +1,3 @@
+Bug: Music wasn't playing if you didn't watch the screensaver intro.
+Tweak: CharacterSelect doll locations were off.
+Tweak: StoryMode MenuItems were overlapping with white background. This is now fixed.

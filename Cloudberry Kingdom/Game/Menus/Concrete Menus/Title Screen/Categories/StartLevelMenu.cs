@@ -137,6 +137,7 @@ namespace CloudberryKingdom
                 if (!Locked) item.Go = Launch;
 
                 AddItem(item);
+                item.SelectedPos.X -= 25;
             }
             ItemPos += PosAdd * .3f;
 

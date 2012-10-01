@@ -101,6 +101,9 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyGamerTag.ShowGamerTag = false;
             MyCharacterSelect.Player.Exists = false;
 
+            // Use this if statement if you want keyboard to control all characters (For debugging)
+            //if (ButtonCheck.State(ControllerButtons.A, -2).Pressed)
+
             if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
 #if XBOX || XBOX_SIGNIN

@@ -15,9 +15,9 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 0, 1);
-            Name = "Invert Hero";
-            Adjective = "Invert";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Braid"), Color.White, 1.2f * DefaultIconWidth);
+            Name = "Time Master";
+            Adjective = "Chrono";
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, 1.2f * DefaultIconWidth);
         }
         static readonly BobPhsxBraid instance = new BobPhsxBraid();
         public static new BobPhsxBraid Instance { get { return instance; } }

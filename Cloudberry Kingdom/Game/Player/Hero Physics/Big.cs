@@ -32,8 +32,8 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 3, 0, 0);
-            Name = "Sumo";
-            Adjective = "fatty";
+            Name = "Fat Bob";
+            Adjective = "Fatty";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, 1.28f * DefaultIconWidth);
         }
         static readonly BobPhsxBig instance = new BobPhsxBig();

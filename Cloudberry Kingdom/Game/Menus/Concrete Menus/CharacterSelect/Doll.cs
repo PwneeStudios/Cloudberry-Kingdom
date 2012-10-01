@@ -111,10 +111,12 @@ namespace CloudberryKingdom
         {
             if (ShowBob)
             {
-                MyPile.Pos = new Vector2(-152.7773f, 269.4444f);
+                //MyPile.Pos = new Vector2(-152.7773f, 269.4444f);
+                MyPile.Pos = new Vector2(-10, 260);
 
                 Vector2 Pos = CharacterSelect.Centers[Control] + MyPile.Pos;
-                Vector2 CurDollPos = Pos / CharacterSelectManager.BobZoom + Tools.CurGameData.CamPos;
+                Vector2 CurDollPos = Pos / (CharacterSelectManager.BobZoom / CharacterSelectManager.ZoomMod) + Tools.CurGameData.CamPos;
+                //Vector2 CurDollPos = Pos / 2.35f + Tools.CurGameData.CamPos;
 
                 MyDoll.Move(CurDollPos - MyDoll.Core.Data.Position);
                 MyDoll.Draw();

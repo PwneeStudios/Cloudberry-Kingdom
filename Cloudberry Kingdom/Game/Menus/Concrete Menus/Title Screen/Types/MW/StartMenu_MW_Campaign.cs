@@ -106,13 +106,13 @@ namespace CloudberryKingdom
         {
             MenuItem _item;
             _item = MyMenu.FindItemByName("Header"); if (_item != null) { _item.SetPos = new Vector2(-13.89111f, 700f); _item.MyText.Scale = 1.241666f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("MainCampaign"); if (_item != null) { _item.SetPos = new Vector2(686.4453f, 191.6667f); _item.MyText.Scale = 0.85f; _item.MySelectedText.Scale = 0.8487501f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SelectedPos = new Vector2(622.5566f, 186.1112f); }
-            _item = MyMenu.FindItemByName("Easy"); if (_item != null) { _item.SetPos = new Vector2(708.665f, -36.44455f); _item.MyText.Scale = 0.85f; _item.MySelectedText.Scale = 0.85f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SelectedPos = new Vector2(622.5566f, -36.44455f); }
-            _item = MyMenu.FindItemByName("Hard"); if (_item != null) { _item.SetPos = new Vector2(711.4443f, -239.5557f); _item.MyText.Scale = 0.85f; _item.MySelectedText.Scale = 0.85f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SelectedPos = new Vector2(622.5566f, -239.5557f); }
-            _item = MyMenu.FindItemByName("Hardcore"); if (_item != null) { _item.SetPos = new Vector2(714.2227f, -437.111f); _item.MyText.Scale = 0.85f; _item.MySelectedText.Scale = 0.85f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SelectedPos = new Vector2(622.5566f, -437.111f); }
-            _item = MyMenu.FindItemByName("Maso"); if (_item != null) { _item.SetPos = new Vector2(730.8906f, -656.889f); _item.MyText.Scale = 0.85f; _item.MySelectedText.Scale = 0.85f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SelectedPos = new Vector2(622.5566f, -656.889f); }
+            _item = MyMenu.FindItemByName("MainCampaign"); if (_item != null) { _item.SetPos = new Vector2(686.4453f, 191.6667f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, 186.1112f)); }
+            _item = MyMenu.FindItemByName("Easy"); if (_item != null) { _item.SetPos = new Vector2(708.665f, -36.44455f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
+            _item = MyMenu.FindItemByName("Hard"); if (_item != null) { _item.SetPos = new Vector2(711.4443f, -239.5557f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
+            _item = MyMenu.FindItemByName("Hardcore"); if (_item != null) { _item.SetPos = new Vector2(714.2227f, -437.111f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
+            _item = MyMenu.FindItemByName("Maso"); if (_item != null) { _item.SetPos = new Vector2(730.8906f, -656.889f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
 
-            MyMenu.Pos = new Vector2(-852.7783f, 213.8889f);
+            MyMenu.Pos = new Vector2(-783.3339f, 227.7778f);
 
             MyPile.Pos = new Vector2(0f, 0f);
         }
