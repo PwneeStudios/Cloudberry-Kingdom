@@ -180,6 +180,8 @@ namespace CloudberryKingdom
         {
             base.MyDraw();
 
+            if (!Core.Show || Core.Released || Hid) return;
+
             DrawBob();
         }
     }

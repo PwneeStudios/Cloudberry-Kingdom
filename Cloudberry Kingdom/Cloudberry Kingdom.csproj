@@ -183,6 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />
     <Compile Include="Core\ResolutionGroup.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\AlertBase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\StartLevelMenu.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\HeroSelectOptions.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\Doll.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_CustomLevel.cs" />

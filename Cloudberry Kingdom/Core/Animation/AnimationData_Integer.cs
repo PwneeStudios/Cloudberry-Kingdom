@@ -29,46 +29,15 @@ namespace Drawing
     }
     public class AnimationData_Texture
     {
-        /// <summary>
-        /// If false, only changing values are recorded
-        /// </summary>
-        public static bool RecordAll;
-
         public OneAnim_Texture[] Anims;
-
-        public bool Linear;
-
-        /// <summary>
-        /// If true the animation textures are all on a single strip.
-        /// </summary>
-        public bool IsStrip = false;
-
-        public int Hold;
-
-        public float Speed;
-        public bool Reverse;
 
         public AnimationData_Texture()
         {
-            IsStrip = false;
-
-            Linear = false;
-            Hold = 0;
-            Reverse = false;
-            Speed = .1f;
-
             Anims = null;
         }
 
         public AnimationData_Texture(string TextureName)
         {
-            IsStrip = false;
-
-            Linear = false;
-            Hold = 0;
-            Reverse = false;
-            Speed = .1f;
-
             Anims = new OneAnim_Texture[1];
 
             AddFrame(Tools.Texture(TextureName), 0);
@@ -79,13 +48,6 @@ namespace Drawing
         }
         public AnimationData_Texture(string TextureRoot, int StartFrame, int EndFrame)
         {
-            IsStrip = false;
-
-            Linear = false;
-            Hold = 0;
-            Reverse = false;
-            Speed = .1f;
-
             Anims = new OneAnim_Texture[1];
 
             // Determine format of texture names.
@@ -140,13 +102,6 @@ namespace Drawing
 
         public AnimationData_Texture(EzTexture texture)
         {
-            IsStrip = false;
-
-            Linear = false;
-            Hold = 0;
-            Reverse = false;
-            Speed = .1f;
-
             if (texture == null)
             {
                 Anims = null;
@@ -159,29 +114,6 @@ namespace Drawing
         }
 
         public int Width, Height;
-        public AnimationData_Texture(EzTexture strip, int width)
-        {
-            IsStrip = true;
-
-            Width = width;
-            Height = strip.Tex.Height;
-
-            Linear = false;
-            Hold = 0;
-            Reverse = false;
-            Speed = .1f;
-
-            int frames = strip.Tex.Width / width;
-            Anims = new OneAnim_Texture[1];
-
-            Vector2 uv_size = new Vector2(1f / frames, 1);
-            Vector2 uv_left = Vector2.Zero;
-            for (int i = 0; i < frames; i++)
-            {
-                AddFrame(strip, 0, uv_left, uv_size);
-                uv_left.X += uv_size.X;
-            }
-        }
 
         public void Release()
         {
@@ -216,11 +148,6 @@ namespace Drawing
 
         public AnimationData_Texture(AnimationData_Texture data)
         {
-            Linear = data.Linear;
-            Reverse = data.Reverse;
-            Speed = data.Speed;
-
-            Hold = 0;
             Anims = new OneAnim_Texture[data.Anims.Length];
             for (int i = 0; i < data.Anims.Length; i++)
                 CopyAnim(data, i);
@@ -230,6 +157,7 @@ namespace Drawing
         {
             if (data.Anims[Anim].Data != null)
             {
+                Anims[Anim].Speed = data.Anims[Anim].Speed;
                 Anims[Anim].Data = new FrameData[data.Anims[Anim].Data.Length];
                 data.Anims[Anim].Data.CopyTo(Anims[Anim].Data, 0);
             }
@@ -237,30 +165,10 @@ namespace Drawing
                 Anims[Anim].Data = null;
         }
 
-        //public AnimationData_Integer()
         public void Init()
         {
             Anims = new OneAnim_Texture[] { new OneAnim_Texture() };
-            Hold = 0;
         }
-
-        /*
-        public int Width
-        {
-            get
-            {
-                var data = Anims[0].Data[0];
-                return (int)(data.texture.Tex.Width * (data.uv_tr.X - data.uv_bl.X));
-            }
-        }
-        public int Width
-        {
-            get
-            {
-                var data = Anims[0].Data[0];
-                return (int)(data.texture.Tex.Width * (data.uv_tr.X - data.uv_bl.X));
-            }
-        }*/
 
         public void InsertFrame(int anim, int frame)
         {
@@ -374,15 +282,7 @@ namespace Drawing
             {
                 int Length = Anims[anim].Data.Length;
                 if (Length > 0)
-                {
-                    //if (frame >= Length)
-                    //    Default = Anims[anim].Data[Length - 1];
-                    //else if (frame > 0)
-                    //    Default = Get(anim, frame - 1);
-                    //else
-                    //    Default = Anims[anim].Data[0];
                     Default = Anims[anim].Data[0];
-                }
                 else
                     return Default;
             }
@@ -390,15 +290,6 @@ namespace Drawing
                 return Default;
 
             return Anims[anim].Data[frame];
-        }
-
-        public int Transfer(int DestAnim, float DestT, int DestLength, bool DestLoop, bool DestLinear, float t)
-        {
-            return Hold;
-            //int v1 = Hold;
-            //int v2 = Calc(DestAnim, DestT, DestLength, DestLoop, DestLinear);
-
-            //return int.Lerp(v1, v2, t);
         }
 
         public int LastSetFrame = 0, LastSetAnim = 0;
@@ -411,7 +302,7 @@ namespace Drawing
             return Anims[LastSetAnim].Data[LastSetFrame];
         }
 
-        public FrameData Calc(int anim, float t, int Length, bool Loop, bool Linear)
+        public FrameData Calc(int anim, float t, int Length, bool Loop)
         {
             int i = (int)Math.Floor(t);
             LastSetFrame = i;
@@ -421,7 +312,7 @@ namespace Drawing
 
         public FrameData Calc(int anim, float t)
         {
-            return Calc(anim, t, Anims[anim].Data.Length, true, Linear);
+            return Calc(anim, t, Anims[anim].Data.Length, true);
         }
     }
 }

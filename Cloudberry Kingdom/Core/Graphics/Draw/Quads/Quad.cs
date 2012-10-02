@@ -219,7 +219,7 @@ namespace Drawing
             if (TextureIsAnimated && UpdateSpriteAnim)
             {
                 t = t + .5f;
-                var data = TextureAnim.Calc(anim, t, AnimLength, Loop, Linear);
+                var data = TextureAnim.Calc(anim, t, AnimLength, Loop);
                 MyTexture = data.texture;
 
                 Vertices[0].uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);

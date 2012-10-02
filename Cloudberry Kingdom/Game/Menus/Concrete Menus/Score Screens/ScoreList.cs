@@ -55,6 +55,24 @@ namespace CloudberryKingdom
             writer.Write(GamerTag);
         }
 
+        public void WriteChunk(BinaryWriter writer)
+        {
+            writer.Write(0);
+            writer.Write(1 + 4 + GamerTag.Length);
+
+            writer.Write(Fake);
+            writer.Write(Score);
+            writer.Write(GamerTag);
+        }
+
+        public static void ReadChunk_0(BinaryReader reader)
+        {
+            var entry = new ScoreEntry();
+
+            //entry.Fake = reader.ReadBoolean(
+            //reader.Read(Fake);
+        }
+
         public override string ToString()
         {
             return ToString(0);

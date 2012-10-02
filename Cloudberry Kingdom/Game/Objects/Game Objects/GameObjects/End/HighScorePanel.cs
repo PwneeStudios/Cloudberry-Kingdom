@@ -23,9 +23,14 @@ namespace CloudberryKingdom
             Constructor(Scores);
         }
 
+        bool Instant = true;
         public void Constructor(ScoreList Scores)
         {
-            Fast();
+            if (Instant)
+                NoDelays();
+            else
+                Fast();
+                
 
             MyScoreList = Scores;
             Create();
@@ -36,11 +41,14 @@ namespace CloudberryKingdom
         static string[] TextureName = { "Score\\Score Screen_pink", "score screen_grey", "score screen" };
         HighScorePanel[] Panels;
 
-        public HighScorePanel(CampaignList scores) { MultiInit(scores.Score, scores.Attempts, scores.Time); }
-        public HighScorePanel(params ScoreList[] Scores) { MultiInit(Scores); }
-        public void MultiInit(params ScoreList[] Scores)
+        public HighScorePanel(CampaignList scores) { MultiInit(false, scores.Score, scores.Attempts, scores.Time); }
+        public HighScorePanel(params ScoreList[] Scores) { MultiInit(false, Scores); }
+        public HighScorePanel(bool Instant, params ScoreList[] Scores) { MultiInit(Instant, Scores); }
+        public void MultiInit(bool Instant, params ScoreList[] Scores)
         {
-            OnOutsideClick = () => ReturnToCaller();
+            this.Instant = Instant;
+
+            OnOutsideClick = ReturnToCaller;
             CheckForOutsideClick = true;
 
             Constructor(Scores[0]);
@@ -102,8 +110,6 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
 
             // Make the backdrop
-            //Backdrop = new QuadClass("Score\\Score Screen_pink");
-            //Backdrop = new QuadClass("Score\\Score Screen_pink", 500, true);
             Backdrop = new QuadClass("Backplate_1500x900", 500, true);
             Backdrop.Degrees = 90;
             Backdrop.TextureName = "Score\\score screen_grey";
@@ -144,14 +150,18 @@ namespace CloudberryKingdom
                 MyPile.Add(Text);
             }
 
+            SetPos();
+        }
 
+        void SetPos()
+        {
             EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 585f); }
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 585f); _t.Scale = 0.8f; }
 
             QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-108.3324f, -253.3332f); _q.Size = new Vector2(1979.999f, 1187.999f); }
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-102.7767f, -253.3332f); _q.Size = new Vector2(1930.665f, 1206.665f); }
 
-            MyPile.Pos = new Vector2(119.4443f, 227.7778f);
+            MyPile.Pos = new Vector2(161.1108f, 227.7778f);
 
         }
 

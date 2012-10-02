@@ -186,6 +186,13 @@ namespace CloudberryKingdom
             DefaultSlides();
         }
 
+        public void NoDelays()
+        {
+            SlideLength = 0;
+            CallDelay = 0;
+            ReturnToCallerDelay = 0;
+        }
+
         public void FastDelays()
         {
             CallDelay = 18;

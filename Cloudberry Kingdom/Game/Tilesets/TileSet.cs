@@ -281,12 +281,7 @@ namespace CloudberryKingdom
                             var file = bits[dict["file"] + 1];
 
                             AnimationData_Texture sprite_anim = null;
-                            if (dict.ContainsKey("size"))
-                            {
-                                var size = int.Parse(bits[dict["size"] + 1]);
-                                sprite_anim = new AnimationData_Texture(Tools.Texture(file), size);
-                            }
-                            else if (dict.ContainsKey("frames"))
+                            if (dict.ContainsKey("frames"))
                             {
                                 int start_frame = int.Parse(bits[dict["frames"] + 1]);
                                 int end_frame;
@@ -297,12 +292,10 @@ namespace CloudberryKingdom
                                 sprite_anim = new AnimationData_Texture(file, start_frame, end_frame);
                             }
 
-                            if (dict.ContainsKey("reverse_at_end"))
-                                sprite_anim.Reverse = true;
                             if (dict.ContainsKey("frame_length"))
                             {
                                 var frame_length = int.Parse(bits[dict["frame_length"] + 1]);
-                                sprite_anim.Speed = 1f / frame_length;
+                                sprite_anim.Anims[0].Speed = 1f / frame_length;
                             }
                             
                             Tools.TextureWad.Add(sprite_anim, name);
@@ -648,10 +641,7 @@ namespace CloudberryKingdom
             sprite_anim = new AnimationData_Texture(texture_root, start_frame, end_frame);
 
             // Set speed based on how long each frame is.
-            sprite_anim.Speed = 1f / frame_length;
-
-            if (reverse_at_end)
-                sprite_anim.Reverse = true;
+            sprite_anim.Anims[0].Speed = 1f / frame_length;
 
             // Add new sprite animation to the texture wad.
             Tools.TextureWad.Add(sprite_anim, name);

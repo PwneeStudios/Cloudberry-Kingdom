@@ -25,6 +25,8 @@ namespace CloudberryKingdom
         public TitleGameData_MW Title;
         public ArcadeMenu Arcade;
 
+        HeroSelectOptions Options;
+
         public StartMenu_MW_HeroSelect(TitleGameData_MW Title, ArcadeMenu Arcade, ArcadeItem MyArcadeItem)
             : base()
         {
@@ -38,6 +40,7 @@ namespace CloudberryKingdom
             base.Release();
 
             if (MyHeroDoll != null) MyHeroDoll.Release();
+            if (Options != null) Options.Release();
 
             Title = null;
             Arcade = null;
@@ -56,7 +59,8 @@ namespace CloudberryKingdom
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Kobbler_Blur);
             base.SlideIn(0);
 
-            if (MyHeroDoll != null) MyHeroDoll.SlideIn(0);
+            if (MyHeroDoll != null) { MyHeroDoll.SlideIn(0); MyHeroDoll.Hid = false; }
+            if (Options != null) Options.SlideIn(0);
         }
 
         public override void SlideOut(PresetPos Preset, int Frames)
@@ -64,12 +68,18 @@ namespace CloudberryKingdom
             base.SlideOut(Preset, 0);
             
             if (MyHeroDoll != null) MyHeroDoll.SlideOut(Preset, 0);
+            if (Options != null) Options.SlideOut(Preset, 0);
         }
 
         protected override void SetItemProperties(MenuItem item)
         {
             base.SetItemProperties(item);
 
+            SetItemProperties_FadedOnUnselect(item);
+        }
+
+        public static void SetItemProperties_FadedOnUnselect(MenuItem item)
+        {
             item.MySelectedText.Shadow = item.MyText.Shadow = false;
 
             StartMenu.SetItemProperties_Green(item, true);
@@ -82,11 +92,16 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
+            // Hero Doll
             MyHeroDoll = new HeroDoll(Control);
             MyGame.AddGameObject(MyHeroDoll);
+
+            // Options. Menu for PC, graphics only for consoles.
+            Options = new HeroSelectOptions(this);
+            MyGame.AddGameObject(Options);
         }
 
-        HeroDoll MyHeroDoll;
+        public HeroDoll MyHeroDoll;
         public override void Init()
         {
  	        base.Init();
@@ -101,9 +116,7 @@ namespace CloudberryKingdom
 
             var list = new BobPhsx[] { BobPhsxNormal.Instance,
                                        BobPhsxBig.Instance,
-                                       //Uber,
-                                       BobPhsxInvert.Instance,
-                                       BobPhsxBraid.Instance,
+                                       BobPhsxInvert.Instance,                                       
                                        BobPhsxDouble.Instance,
                                        BobPhsxJetman.Instance,
                                        //BobPhsxMeat.Instance,
@@ -111,6 +124,7 @@ namespace CloudberryKingdom
                                        BobPhsxBox.Instance,
                                        //BobPhsxRocketbox.Instance,
                                        BobPhsxScale.Instance,
+                                       BobPhsxBraid.Instance,
                                        BobPhsxSmall.Instance,
                                        BobPhsxSpaceship.Instance,
                                        BobPhsxWheel.Instance,
@@ -168,15 +182,6 @@ namespace CloudberryKingdom
 
             Level = new EzText("63", Tools.Font_Grobold42_2);
             MyPile.Add(Level, "Level");
-
-            // Options
-            string Space = "{s34,0}";
-            EzText StartText = new EzText(ButtonString.Go(80) + Space + "{c122,209,39,255} Start", ItemFont, true, true);
-            MyPile.Add(StartText, "Go");
-
-            EzText LeaderText = new EzText(ButtonString.X(80) + Space + "{c150,189,244,255} Leaderboard", ItemFont, true, true);
-            MyPile.Add(LeaderText, "Leaderboard");
-
             #endregion
 
             /// <summary>

@@ -59,9 +59,9 @@ namespace Drawing
 
         public void UpdateTextureAnim()
         {
-            //float dt = Tools.CurLevel.IndependentDeltaT;
             float dt = Tools.CurLevel.IndependentDeltaT;
-            t += dt * TextureAnim.Speed * speed;
+            t += dt * TextureAnim.Anims[anim].Speed * speed;
+
             CalcTexture(anim, t);
         }
 
@@ -108,36 +108,10 @@ namespace Drawing
             this.t = frame;
 
             if (t >= TextureAnim.Anims[anim].Data.Length)
-            {
-                if (TextureAnim.Reverse)
-                {
-                    speed *= -1;
-                    t -= 1;
-                }
-                else
-                    t = 0;
-            }
-            else if (t < 0)
-            {
-                if (TextureAnim.Reverse)
-                {
-                    speed *= -1;
-                    t += 1;
-                }
-                else
-                    t = TextureAnim.Anims[anim].Data.Length;
-            }
+                t = 0;
 
             var data = TextureAnim.Calc(anim, t);
             MyTexture = data.texture;
-
-            if (TextureAnim.IsStrip)
-            {
-                v0.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);
-                v1.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_bl.Y);
-                v2.Vertex.uv = new Vector2(data.uv_bl.X, data.uv_tr.Y);
-                v3.Vertex.uv = new Vector2(data.uv_tr.X, data.uv_tr.Y);
-            }
         }
 
         void map(ref Vector2 base_uv, ref Vector2 new_uv, ref Vector2 bl, ref Vector2 tr)
