@@ -209,7 +209,7 @@ namespace CloudberryKingdom
             if (IconQuad.Quad.TextureAnim == null)
                 IconTexture = IconQuad.Quad.MyTexture;
             else
-                IconTexture = IconQuad.Quad.TextureAnim.Anims[0].Data[0].texture;
+                IconTexture = IconQuad.Quad.TextureAnim.Anims[0].Data[0];
 
             this.DisplayText = "";
             this.NormalWidth = 161 * 1.31f * info.Size.X / 62f;

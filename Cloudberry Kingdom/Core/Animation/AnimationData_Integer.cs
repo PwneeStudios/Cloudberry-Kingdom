@@ -12,18 +12,9 @@ using CloudberryKingdom;
 
 namespace Drawing
 {
-    public struct FrameData
+     public struct OneAnim_Texture
     {
-        public EzTexture texture;
-        public FrameData(EzTexture texture)
-        {
-            this.texture = texture;
-        }
-    }
-
-    public struct OneAnim_Texture
-    {
-        public FrameData[] Data;
+        public EzTexture[] Data;
         public float Speed;
     }
 
@@ -42,7 +33,7 @@ namespace Drawing
 
             AddFrame(Tools.Texture(TextureName), 0);
 
-            var FirstFrameTexture = Anims[0].Data[0].texture;
+            var FirstFrameTexture = Anims[0].Data[0];
             Width = FirstFrameTexture.Tex.Width;
             Height = FirstFrameTexture.Tex.Height;
         }
@@ -95,7 +86,7 @@ namespace Drawing
                     AddFrame(Tools.Texture(TextureRoot + format + i.ToString()), 0);
             }
 
-            var FirstFrameTexture = Anims[0].Data[0].texture;
+            var FirstFrameTexture = Anims[0].Data[0];
             Width = FirstFrameTexture.Tex.Width;
             Height = FirstFrameTexture.Tex.Height;
         }
@@ -158,7 +149,7 @@ namespace Drawing
             if (data.Anims[Anim].Data != null)
             {
                 Anims[Anim].Speed = data.Anims[Anim].Speed;
-                Anims[Anim].Data = new FrameData[data.Anims[Anim].Data.Length];
+                Anims[Anim].Data = new EzTexture[data.Anims[Anim].Data.Length];
                 data.Anims[Anim].Data.CopyTo(Anims[Anim].Data, 0);
             }
             else
@@ -177,7 +168,7 @@ namespace Drawing
             if (frame >= Anims[anim].Data.Length) return;
 
             OneAnim_Texture NewAnim = new OneAnim_Texture();
-            NewAnim.Data = new FrameData[Anims[anim].Data.Length + 1];
+            NewAnim.Data = new EzTexture[Anims[anim].Data.Length + 1];
             for (int i = 0; i < frame; i++) NewAnim.Data[i] = Anims[anim].Data[i];
             NewAnim.Data[frame] = Anims[anim].Data[frame];
             for (int i = frame + 1; i < Anims[anim].Data.Length + 1; i++) NewAnim.Data[i] = Anims[anim].Data[i-1];
@@ -193,7 +184,7 @@ namespace Drawing
             if (Anims[anim].Data == null) return;
 
             OneAnim_Texture NewAnim = new OneAnim_Texture();
-            NewAnim.Data = new FrameData[0];
+            NewAnim.Data = new EzTexture[0];
             Anims[anim] = NewAnim;
         }
 
@@ -206,7 +197,7 @@ namespace Drawing
             if (Anims[anim].Data.Length > 1)
             {
                 OneAnim_Texture NewAnim = new OneAnim_Texture();
-                NewAnim.Data = new FrameData[Anims[anim].Data.Length - 1];
+                NewAnim.Data = new EzTexture[Anims[anim].Data.Length - 1];
                 for (int i = 0; i < frame; i++) NewAnim.Data[i] = Anims[anim].Data[i];
                 for (int i = frame + 1; i < Anims[anim].Data.Length; i++) NewAnim.Data[i - 1] = Anims[anim].Data[i];
                 Anims[anim] = NewAnim;
@@ -224,7 +215,7 @@ namespace Drawing
         }
         public void Set(EzTexture val, int anim, int frame)
         {
-            FrameData Default = new FrameData(null);
+            EzTexture Default = null;
             if (Anims[0].Data != null)
             {
                 Default = Anims[0].Data[0];
@@ -239,36 +230,34 @@ namespace Drawing
 
             if (Anims[anim].Data == null)
             {
-                Anims[anim].Data = new FrameData[] { new FrameData(null) };
+                Anims[anim].Data = new EzTexture[] { null };
             }
             else
                 if (frame > 0)
                     Default = Get(anim, frame - 1);
 
-            if (frame >= Anims[anim].Data.Length && !(val == Default.texture && Anims[anim].Data.Length <= 1))
+            if (frame >= Anims[anim].Data.Length && !(val == Default && Anims[anim].Data.Length <= 1))
             {
-                FrameData[] NewData = new FrameData[frame + 1];
+                EzTexture[] NewData = new EzTexture[frame + 1];
                 for (int i = 0; i < frame + 1; i++)
-                {
-                    NewData[i] = new FrameData(null);
-                    NewData[i].texture = Default.texture;
-                }
+                    NewData[i]= Default;
+
                 Anims[anim].Data.CopyTo(NewData, 0);
                 Anims[anim].Data = NewData;
             }
 
             if (frame < Anims[anim].Data.Length)
             {
-                Anims[anim].Data[frame].texture = val;
+                Anims[anim].Data[frame] = val;
             }
         }
 
-        public FrameData Get(int anim, int frame)
+        public EzTexture Get(int anim, int frame)
         {
             if (Anims[0].Data == null)
-                return new FrameData(null);
+                return null;
 
-            FrameData Default = Anims[0].Data[0];
+            EzTexture Default = Anims[0].Data[0];
 
             if (anim >= Anims.Length)
                 return Default;
@@ -290,7 +279,7 @@ namespace Drawing
         }
 
         public int LastSetFrame = 0, LastSetAnim = 0;
-        public FrameData NextKeyFrame()
+        public EzTexture NextKeyFrame()
         {
             LastSetFrame++;
             if (LastSetFrame >= Anims[LastSetAnim].Data.Length)
@@ -299,7 +288,7 @@ namespace Drawing
             return Anims[LastSetAnim].Data[LastSetFrame];
         }
 
-        public FrameData Calc(int anim, float t, int Length, bool Loop)
+        public EzTexture Calc(int anim, float t, int Length, bool Loop)
         {
             int i = (int)Math.Floor(t);
             LastSetFrame = i;
@@ -307,7 +296,7 @@ namespace Drawing
             return Get(anim, i);
         }
 
-        public FrameData Calc(int anim, float t)
+        public EzTexture Calc(int anim, float t)
         {
             return Calc(anim, t, Anims[anim].Data.Length, true);
         }

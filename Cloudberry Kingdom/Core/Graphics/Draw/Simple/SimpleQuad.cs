@@ -30,7 +30,7 @@ namespace Drawing
         public void NextKeyFrame()
         {
             var data = TextureAnim.NextKeyFrame();
-            MyTexture = data.texture;
+            MyTexture = data;
         }
 
         public AnimationData_Texture TextureAnim;
@@ -111,7 +111,7 @@ namespace Drawing
                 t = 0;
 
             var data = TextureAnim.Calc(anim, t);
-            MyTexture = data.texture;
+            MyTexture = data;
         }
 
         void map(ref Vector2 base_uv, ref Vector2 new_uv, ref Vector2 bl, ref Vector2 tr)
