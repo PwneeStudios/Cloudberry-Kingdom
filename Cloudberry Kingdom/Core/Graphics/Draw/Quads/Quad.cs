@@ -97,18 +97,15 @@ namespace Drawing
                 var data = TextureAnim.Calc(anim, frame);
                 MyTexture = data.texture;
 
-                Vertices[0].uv = new Vector2(data.uv_bl.X, data.uv_bl.X);
-                Vertices[1].uv = new Vector2(data.uv_tr.X, data.uv_bl.X);
-                Vertices[2].uv = new Vector2(data.uv_bl.X, data.uv_tr.X);
-                Vertices[3].uv = new Vector2(data.uv_tr.X, data.uv_tr.X);
+                Vertices[0].uv = new Vector2(0, 0);
+                Vertices[1].uv = new Vector2(1, 0);
+                Vertices[2].uv = new Vector2(0, 1);
+                Vertices[3].uv = new Vector2(1, 1);
             }
         }
 
         public override void Record(int anim, int frame, bool UseRelativeCoords)
         {
-            //if (this.Name == "Head") Tools.Write("");
-            //if (this.Name == "MainQuad") Tools.Write("");
-
             if (UseRelativeCoords)
             {
                 Center.AnimData.Set(Center.RelPos, anim, frame);
@@ -222,10 +219,10 @@ namespace Drawing
                 var data = TextureAnim.Calc(anim, t, AnimLength, Loop);
                 MyTexture = data.texture;
 
-                Vertices[0].uv = new Vector2(data.uv_bl.X, data.uv_bl.Y);
-                Vertices[1].uv = new Vector2(data.uv_tr.X, data.uv_bl.Y);
-                Vertices[2].uv = new Vector2(data.uv_bl.X, data.uv_tr.Y);
-                Vertices[3].uv = new Vector2(data.uv_tr.X, data.uv_tr.Y);
+                Vertices[0].uv = new Vector2(0, 0);
+                Vertices[1].uv = new Vector2(1, 0);
+                Vertices[2].uv = new Vector2(0, 1);
+                Vertices[3].uv = new Vector2(1, 1);
 
                 int frame = (int)Math.Floor(t);
                 Center.RelPos = Center.AnimData.Get(anim, frame);

@@ -61,8 +61,8 @@ namespace Drawing
                 for (int i = 0; i < anim.Data.Length; i++)
                 {
                     writer.Write(anim.Data[i].texture.Name);
-                    writer.Write(anim.Data[i].uv_bl);
-                    writer.Write(anim.Data[i].uv_tr);
+                    writer.Write(Vector2.Zero); // Dummy
+                    writer.Write(Vector2.Zero); // Dummy
                 }
             }
         }
@@ -78,8 +78,8 @@ namespace Drawing
                 {
                     string s = reader.ReadString();
                     anim.Data[i].texture = Tools.Texture(s);
-                    anim.Data[i].uv_bl = reader.ReadVector2();
-                    anim.Data[i].uv_tr = reader.ReadVector2();
+                    reader.ReadVector2(); // Dummy
+                    reader.ReadVector2(); // Dummy
                 }
             }
         }

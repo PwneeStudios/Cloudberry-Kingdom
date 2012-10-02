@@ -14,19 +14,19 @@ namespace Drawing
 {
     public struct FrameData
     {
-        public EzTexture texture; public Vector2 uv_bl, uv_tr;
+        public EzTexture texture;
         public FrameData(EzTexture texture)
         {
             this.texture = texture;
-            uv_bl = Vector2.Zero;
-            uv_tr = Vector2.One;
         }
     }
+
     public struct OneAnim_Texture
     {
         public FrameData[] Data;
         public float Speed;
     }
+
     public class AnimationData_Texture
     {
         public OneAnim_Texture[] Anims;
@@ -213,17 +213,16 @@ namespace Drawing
             }
         }
 
-        public void AddFrame(EzTexture val, int anim) { AddFrame(val, anim, Vector2.Zero, Vector2.One); }
-        public void AddFrame(EzTexture val, int anim, Vector2 uv, Vector2 uv_size)
+        public void AddFrame(EzTexture val, int anim)
         {
             int frame = 0;
             if (anim >= Anims.Length) frame = 0;
             else if (Anims[anim].Data == null) frame = 0;
             else frame = Anims[anim].Data.Length;
 
-            Set(val, anim, frame, uv, uv_size);
+            Set(val, anim, frame);
         }
-        public void Set(EzTexture val, int anim, int frame, Vector2 uv, Vector2 uv_size)
+        public void Set(EzTexture val, int anim, int frame)
         {
             FrameData Default = new FrameData(null);
             if (Anims[0].Data != null)
@@ -246,7 +245,7 @@ namespace Drawing
                 if (frame > 0)
                     Default = Get(anim, frame - 1);
 
-            if (frame >= Anims[anim].Data.Length && !(val == Default.texture && uv == Default.uv_bl && Anims[anim].Data.Length <= 1))
+            if (frame >= Anims[anim].Data.Length && !(val == Default.texture && Anims[anim].Data.Length <= 1))
             {
                 FrameData[] NewData = new FrameData[frame + 1];
                 for (int i = 0; i < frame + 1; i++)
@@ -261,8 +260,6 @@ namespace Drawing
             if (frame < Anims[anim].Data.Length)
             {
                 Anims[anim].Data[frame].texture = val;
-                Anims[anim].Data[frame].uv_bl = uv;
-                Anims[anim].Data[frame].uv_tr = uv + uv_size;
             }
         }
 
