@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Drawing
+namespace CoreEngine
 {
     public partial class AnimationToolbox : Form
     {

@@ -484,7 +484,7 @@ namespace CloudberryKingdom
             MyPile.Add(DiffText);
             DiffText.Pos = new Vector2(-1233.889f, 40.55557f);
 
-            string[] Names = CampaignMenu.DifficultyNames;
+            string[] Names = CampaignHelper.DifficultyNames;
             DiffList = new MenuList();
             DiffList.Name = "Diff";
             DiffList.Center = !LeftJustify;

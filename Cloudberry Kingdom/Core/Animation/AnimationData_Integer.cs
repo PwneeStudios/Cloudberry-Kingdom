@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
-     public struct OneAnim_Texture
+    public struct OneAnim_Texture
     {
         public EzTexture[] Data;
         public float Speed;

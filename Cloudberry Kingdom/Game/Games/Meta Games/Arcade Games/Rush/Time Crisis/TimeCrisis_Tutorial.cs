@@ -24,7 +24,7 @@ namespace CloudberryKingdom
             //GUI_Text text2 = GUI_Text.SimpleTitle("Revenge of the Double Jump");
             text.MyText.Pos += new Vector2(0, -110);
             //text2.MyText.Pos += new Vector2(0, 300);
-            //CampaignMenu.AbusiveColor(text2.MyText);
+            //CampaignHelper.AbusiveColor(text2.MyText);
 
             MyGame.AddGameObject(text);
             MyGame.WaitThenDo(0, () => {

@@ -3,18 +3,28 @@ using System;
 using System.IO;
 using System.Reflection;
 
+using CoreEngine;
+
 namespace CloudberryKingdom
 {
     public enum StatGroup { Lifetime, Game, Level, Temp, Campaign };
     public class PlayerStats
     {
-        public static int version = 1;
+        public void WriteChunk_4(BinaryWriter writer)
+        {
+            var chunk = new Chunk();
+            chunk.Type = 0;
 
+            chunk.Finish(writer);
+        }
+
+        public void ReadChunk_4(Chunk chunk)
+        {
+        }
+
+        /*
         public void Write(BinaryWriter writer)
         {
-            // Version
-            writer.Write(version);
-
             // Stats
             foreach (FieldInfo info in GetType().GetFields())
             {
@@ -42,7 +52,7 @@ namespace CloudberryKingdom
             // Deaths
             for (int i = 0; i < DeathsBy.Length; i++)
                 DeathsBy[i] = reader.ReadInt32();
-        }
+        }*/
 
         // Add all fields and elements of arrays to the corresponding field in this instance.
         public PlayerStats Absorb(PlayerStats stats)

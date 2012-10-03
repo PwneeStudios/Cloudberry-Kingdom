@@ -181,7 +181,7 @@ namespace CloudberryKingdom.Awards
             FreeplayText = new EzText("Freeplay:", Tools.Font_Grobold42);
             FreeplayText.Scale *= .5f;
             MyPile.Add(FreeplayText);
-            CampaignMenu.AbusiveColor(FreeplayText);
+            CkColorHelper.AbusiveColor(FreeplayText);
             FreeplayText.Pos = new Vector2(142.8594f, 817.4604f);
 
             ProgressText = null;

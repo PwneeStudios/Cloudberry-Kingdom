@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Drawing;
+using CoreEngine;
 
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
@@ -729,7 +729,7 @@ namespace CloudberryKingdom
             if (Tools.CurLevel.ResetEnabled() && Tools.CurLevel.PlayMode == 0 && !Tools.CurLevel.Watching && !Tools.CurGameData.PauseGame && Tools.CurGameData.QuickSpawnEnabled())
             {
                 // Note that quickspawn was used, hence we should not give hints to the player to use Quick Spawn in the future.
-                Hints.QuickSpawn = 999;
+                Hints.SetQuickSpawnNum(999);
 
                 // Don't count reset against player if it happens within the first half second
                 if (Tools.CurLevel.CurPhsxStep < 30)

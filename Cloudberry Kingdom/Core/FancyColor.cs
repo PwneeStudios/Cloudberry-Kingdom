@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class FancyColor
     {

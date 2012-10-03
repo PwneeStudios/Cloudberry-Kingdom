@@ -12,8 +12,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether the Hero Rush introduction has been watched before.
         /// </summary>
-        public static bool WatchedOnce { get { return _WatchedOnce; } set { _WatchedOnce = value; PlayerManager.SavePlayerData.Changed = true; } }
-        static bool _WatchedOnce = false;
+        public static bool HasWatchedOnce = false;
+        public static void WatchedOnce() { HasWatchedOnce = true; PlayerManager.SavePlayerData.Changed = true; }
 
         /// <summary>
         /// When true the tutorial will skip the long version.
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
                     Tools.SongWad.Restart(true);
                 });
 
-            if (ShowTitle || !WatchedOnce || CloudberryKingdomGame.AlwaysGiveTutorials)
+            if (ShowTitle || !HasWatchedOnce || CloudberryKingdomGame.AlwaysGiveTutorials)
                 MyGame.WaitThenDo(27, () => Title());
             else
                 MyGame.WaitThenDo(20, () => Ready());
@@ -61,13 +61,13 @@ namespace CloudberryKingdom
 
         protected void TutorialOrSkip()
         {
-            if (!CloudberryKingdomGame.AlwaysGiveTutorials && (WatchedOnce || TemporarySkip))
+            if (!CloudberryKingdomGame.AlwaysGiveTutorials && (HasWatchedOnce || TemporarySkip))
                 Ready();
             else
             {
                 StartTutorial();
 
-                WatchedOnce = true;
+                WatchedOnce();
             }
 
             TemporarySkip = false;

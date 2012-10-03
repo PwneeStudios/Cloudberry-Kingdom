@@ -67,7 +67,7 @@ namespace CloudberryKingdom
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-396.8247f, 976.1902f);
-            text.MyFloatColor = CampaignMenu.DifficultyColor[1].ToVector4();
+            text.MyFloatColor = CampaignHelper.DifficultyColor[1].ToVector4();
 
             text = new EzText("accept", Tools.Font_Grobold42);
             text.Scale = 1.06f;

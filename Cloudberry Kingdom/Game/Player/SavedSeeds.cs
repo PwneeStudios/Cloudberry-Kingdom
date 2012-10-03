@@ -4,6 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 
+using CoreEngine;
+
 namespace CloudberryKingdom
 {
     public class SavedSeeds
@@ -28,6 +30,19 @@ namespace CloudberryKingdom
             return true;
         }
 
+        public void WriteChunk_5(BinaryWriter writer)
+        {
+            var chunk = new Chunk();
+            chunk.Type = 0;
+
+            chunk.Finish(writer);
+        }
+
+        public void ReadChunk_5(Chunk chunk)
+        {
+        }
+
+        /*
         public void Write(BinaryWriter writer)
         {
             // Version
@@ -47,6 +62,6 @@ namespace CloudberryKingdom
             SeedStrings.Clear();
             for (int i = 0; i < n; i++)
                 SeedStrings.Add(reader.ReadString());
-        }
+        }*/
     }
 }

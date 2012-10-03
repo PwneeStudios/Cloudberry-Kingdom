@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             item.MyText.Scale *= 1.15f;
             item.MySelectedText.Scale *= 1.3f;
 
-            GreenItem(item);
+            CkColorHelper.GreenItem(item);
         }
 
         protected override void SetHeaderProperties(EzText text)

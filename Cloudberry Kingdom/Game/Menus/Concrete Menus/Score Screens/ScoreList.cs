@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
@@ -48,29 +49,23 @@ namespace CloudberryKingdom
             GamerTag = reader.ReadString();
         }
 
-        public void Serialize(BinaryWriter writer)
+        public void WriteChunk_0(BinaryWriter writer)
         {
-            writer.Write(Fake);
-            writer.Write(Score);
-            writer.Write(GamerTag);
+            var chunk = new Chunk();
+            chunk.Type = 0;
+
+            chunk.Write(Fake);
+            chunk.Write(Score);
+            chunk.Write(GamerTag);
+            
+            chunk.Finish(writer);
         }
 
-        public void WriteChunk(BinaryWriter writer)
+        public void ReadChunk_0(Chunk chunk)
         {
-            writer.Write(0);
-            writer.Write(1 + 4 + GamerTag.Length);
-
-            writer.Write(Fake);
-            writer.Write(Score);
-            writer.Write(GamerTag);
-        }
-
-        public static void ReadChunk_0(BinaryReader reader)
-        {
-            var entry = new ScoreEntry();
-
-            //entry.Fake = reader.ReadBoolean(
-            //reader.Read(Fake);
+            Fake = chunk.ReadBool();
+            Score = chunk.ReadInt();
+            GamerTag = chunk.ReadString();
         }
 
         public override string ToString()
@@ -211,6 +206,8 @@ namespace CloudberryKingdom
         public int DefaultValue;
         void Init(int Capacity, int DefaultValue)
         {
+            MostRecent = null;
+
             this.DefaultValue = DefaultValue;
             this.ContainerName = "HighScores";
 
@@ -245,31 +242,43 @@ namespace CloudberryKingdom
             }
         }
 
-        protected override void Serialize(BinaryWriter writer)
+        void WriteChunk_1(BinaryWriter writer)
         {
-            base.Serialize(writer);
+            var chunk = new Chunk();
+            chunk.Type = 1;
 
-            writer.Write(Capacity);
-            writer.Write(DefaultValue);
+            chunk.Write(Capacity);
+            chunk.Write(DefaultValue);
 
-            writer.Write(Scores.Count);
-            foreach (ScoreEntry score in Scores)
-                score.Serialize(writer);
+            chunk.Finish(writer);
         }
 
-        protected override void Deserialize(BinaryReader reader)
+        void ReadChunk_1(Chunk chunk)
         {
-            base.Deserialize(reader);
+            Capacity = chunk.ReadInt();
+            DefaultValue = chunk.ReadInt();
 
-            int capacity = reader.ReadInt32();
-            int defaultvalue = reader.ReadInt32();
-            Init(capacity, defaultvalue);
+            Init(Capacity, DefaultValue);
+        }
 
-            int count = reader.ReadInt32();
-            for (int i = 0; i < count; i++)
-                Add(new ScoreEntry(reader));
+        protected override void Serialize(BinaryWriter writer)
+        {
+            WriteChunk_1(writer);
 
-            MostRecent = null;
+            foreach (ScoreEntry score in Scores)
+                score.WriteChunk_0(writer);
+        }
+
+        protected override void Deserialize(byte[] Data)
+        {
+            foreach (Chunk chunk in Chunks.Get(Data))
+            {
+                switch (chunk.Type)
+                {
+                    case 1: ReadChunk_1(chunk); break;
+                    case 0: var score = new ScoreEntry(); score.ReadChunk_0(chunk); Add(score); break;
+                }
+            }
         }
 
         /// <summary>

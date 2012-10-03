@@ -1,24 +1,11 @@
 using Microsoft.Xna.Framework;
 
-using Drawing;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public class StartMenuBase : GUI_Panel
+    public class CkColorHelper
     {
-        QuadClass DarkBack;
-        protected void MakeDarkBack()
-        {
-            // Make the dark back
-            DarkBack = new QuadClass("White");
-            DarkBack.Quad.SetColor(ColorHelper.GrayColor(.25f));
-            DarkBack.Alpha = 0f;
-            DarkBack.Fade(.1f); DarkBack.MaxAlpha = .5f;
-            DarkBack.FullScreen(Tools.CurCamera);
-            DarkBack.Scale(5);
-            MyPile.Add(DarkBack, "Dark");
-        }
-
         public static void RegularColor(EzText name)
         {
             name.MyFloatColor = new Color(255, 255, 255).ToVector4();
@@ -71,6 +58,22 @@ namespace CloudberryKingdom
         {
             item.MyText.MyFloatColor = new Color(255, 255, 255).ToVector4();
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
+        }
+    }
+
+    public class StartMenuBase : GUI_Panel
+    {
+        QuadClass DarkBack;
+        protected void MakeDarkBack()
+        {
+            // Make the dark back
+            DarkBack = new QuadClass("White");
+            DarkBack.Quad.SetColor(ColorHelper.GrayColor(.25f));
+            DarkBack.Alpha = 0f;
+            DarkBack.Fade(.1f); DarkBack.MaxAlpha = .5f;
+            DarkBack.FullScreen(Tools.CurCamera);
+            DarkBack.Scale(5);
+            MyPile.Add(DarkBack, "Dark");
         }
 
         protected EzSound SelectSound, BackSound;

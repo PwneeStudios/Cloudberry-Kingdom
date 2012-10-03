@@ -7,7 +7,7 @@ using System.IO;
 
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class Quad : BaseQuad
     {

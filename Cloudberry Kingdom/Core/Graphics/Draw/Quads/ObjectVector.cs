@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using Drawing;
+using CoreEngine;
 
-namespace Drawing
+namespace CoreEngine
 {
     public delegate void MoveCallback(Vector2 Pos);
     public delegate void ClickCallback();

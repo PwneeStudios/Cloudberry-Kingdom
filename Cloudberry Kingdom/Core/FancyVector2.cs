@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public interface IPos
     {

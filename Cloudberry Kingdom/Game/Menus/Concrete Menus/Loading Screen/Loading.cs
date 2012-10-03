@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Drawing;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
@@ -187,7 +187,7 @@ namespace CloudberryKingdom
             else if (style == 1)
             {
                 EzText pwnee = new EzText("pwnee studios", Tools.Font_Grobold42, true, true);
-                CampaignMenu._x_x_HappyBlueColor(pwnee);
+                CkColorHelper._x_x_HappyBlueColor(pwnee);
                 pwnee.Scale *= .9f;
                 MyPile.Add(pwnee);
 

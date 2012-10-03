@@ -54,7 +54,7 @@ namespace CloudberryKingdom
             //text.OutlineColor = new Color(255, 255, 255).ToVector4();
 
             // Red
-            CampaignMenu._x_x_Red(text);
+            CkColorHelper._x_x_Red(text);
 
             text.Shadow = true;
             text.ShadowOffset = new Vector2(10.5f, 10.5f);

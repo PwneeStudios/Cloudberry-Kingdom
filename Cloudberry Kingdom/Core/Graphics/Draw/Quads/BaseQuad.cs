@@ -8,7 +8,7 @@ using System.IO;
 
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public enum ObjectDrawOrder { WithOutline, BeforeOutline, AfterOutline, All, None };
     public enum ChangeMode { SingleFrame, SingleAnim, All };

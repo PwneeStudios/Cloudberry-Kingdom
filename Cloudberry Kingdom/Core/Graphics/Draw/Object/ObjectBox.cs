@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using Drawing;
+using CoreEngine;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class ObjectBox
     {

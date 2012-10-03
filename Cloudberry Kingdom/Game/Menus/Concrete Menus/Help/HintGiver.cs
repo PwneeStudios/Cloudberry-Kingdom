@@ -6,11 +6,13 @@ namespace CloudberryKingdom
 {
     public static class Hints
     {
-        public static int YForHelp { get { return _YForHelp; } set { _YForHelp = value; PlayerManager.SavePlayerData.Changed = true; } }
-        static int _YForHelp = 0;
+        public static int YForHelpNum = 0;
+        public static void SetYForHelpNum(int val) { YForHelpNum = val; PlayerManager.SavePlayerData.Changed = true; }
+        public static void IncrYForHelpNum() { YForHelpNum++; PlayerManager.SavePlayerData.Changed = true; }
 
-        public static int QuickSpawn { get { return _QuickSpawn; } set { _QuickSpawn = value; PlayerManager.SavePlayerData.Changed = true; } }
-        static int _QuickSpawn = 0;
+        public static int QuickSpawnNum = 0;
+        public static void SetQuickSpawnNum(int val) { QuickSpawnNum = val; PlayerManager.SavePlayerData.Changed = true; }
+        public static void IncrQuickSpawnNum() { QuickSpawnNum++; PlayerManager.SavePlayerData.Changed = true; }
 
         public static HintGiver CurrentGiver;
     }
@@ -51,11 +53,11 @@ namespace CloudberryKingdom
             //int FirstHint = 12, SecondHint = 36, ThirdHint = 70;
             int FirstHint = 9, SecondHint = 20, ThirdHint = 40;
             //int FirstHint = 2, SecondHint = 4, ThirdHint = 6;
-            if (level.CurPhsxStep == 20 && level.PieceAttempts > FirstHint && Hints.QuickSpawn == 0 ||
-                level.CurPhsxStep == 20 && level.PieceAttempts > SecondHint && Hints.QuickSpawn == 1 ||
-                level.CurPhsxStep == 20 && level.PieceAttempts > ThirdHint && Hints.QuickSpawn == 2)
+            if (level.CurPhsxStep == 20 && level.PieceAttempts > FirstHint && Hints.QuickSpawnNum == 0 ||
+                level.CurPhsxStep == 20 && level.PieceAttempts > SecondHint && Hints.QuickSpawnNum == 1 ||
+                level.CurPhsxStep == 20 && level.PieceAttempts > ThirdHint && Hints.QuickSpawnNum == 2)
             {
-                Hints.QuickSpawn++;
+                Hints.IncrQuickSpawnNum();
 
                 MyGame.WaitThenDo(5, () =>
                 {
@@ -106,16 +108,16 @@ namespace CloudberryKingdom
             //int FirstHint = 24, SecondHint = 50, ThirdHint = 90;
             //int FirstHint = 18, SecondHint = 50, ThirdHint = 90;
             int FirstHint = 14, SecondHint = 27, ThirdHint = 60;
-            if (level.CurPhsxStep == 30 && level.PieceAttempts > FirstHint && Hints.YForHelp == 0 ||
-                level.CurPhsxStep == 30 && level.PieceAttempts > SecondHint && Hints.YForHelp == 1 ||
-                level.CurPhsxStep == 30 && level.PieceAttempts > ThirdHint && Hints.YForHelp == 2)
+            if (level.CurPhsxStep == 30 && level.PieceAttempts > FirstHint && Hints.YForHelpNum == 0 ||
+                level.CurPhsxStep == 30 && level.PieceAttempts > SecondHint && Hints.YForHelpNum == 1 ||
+                level.CurPhsxStep == 30 && level.PieceAttempts > ThirdHint && Hints.YForHelpNum == 2)
             {
-                Hints.YForHelp++;
+                Hints.IncrYForHelpNum();
 
                 //MyGame.ToDoOnReset.Add(() =>
                 MyGame.WaitThenDo(5, () =>
                 {
-                    if (Hints.YForHelp > 10) return;
+                    if (Hints.YForHelpNum > 10) return;
 
                     HintBlurb2 hint = new HintBlurb2();
                     hint.SetText(PowerupHint);

@@ -40,7 +40,7 @@ namespace CloudberryKingdom
         public HelpMenu()
         {
             // Note that help was used, so that no hint is given about it
-            Hints.YForHelp = 999;
+            Hints.SetYForHelpNum(999);
         }
 
         public static GameObject MakeListener()

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public struct SimpleVector : IReadWrite
     {

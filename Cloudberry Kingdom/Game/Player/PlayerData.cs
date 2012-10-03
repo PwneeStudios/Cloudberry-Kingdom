@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
+using CoreEngine;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
@@ -26,79 +27,69 @@ namespace CloudberryKingdom
 
         protected override void Serialize(BinaryWriter writer)
         {
-            base.Serialize(writer);
             Write(writer);
         }
-        protected override void Deserialize(BinaryReader reader)
+        protected override void Deserialize(byte[] Data)
         {
-            base.Deserialize(reader);
-            Read(reader);
+            Read(Data);
         }
 #endif
-        public static int version = 1;
-
         public SavedSeeds MySavedSeeds = new SavedSeeds();
 
         public void Write(BinaryWriter writer)
         {
-            // Version
-            writer.Write(version);
-
             // Color scheme
-            CustomColorScheme.Write(writer);
-            writer.Write(ColorSchemeIndex);
+            CustomColorScheme.WriteChunk_0(writer);
+            Chunk.WriteSingle(writer, 1, ColorSchemeIndex);
 
             // Awardments
-            writer.Write(Awardments.Count);
             foreach (int guid in Awardments)
-                writer.Write(guid);
+                Chunk.WriteSingle(writer, 2, ColorSchemeIndex);
 
             // Purchases
-            writer.Write(Purchases.Count);
             foreach (int guid in Purchases)
-                writer.Write(guid);
+                Chunk.WriteSingle(writer, 3, ColorSchemeIndex);
 
             // Stats
-            LifetimeStats.Write(writer);
+            LifetimeStats.WriteChunk_4(writer);
 
             // Save seed
-            MySavedSeeds.Write(writer);
+            MySavedSeeds.WriteChunk_5(writer);
         }
 
-        public void Read(BinaryReader reader)
+        public void Read(byte[] Data)
         {
-            // Version
-            int LoadedVersion = reader.ReadInt32();
-
-            // Color scheme
-            CustomColorScheme.Read(reader);
-            ColorScheme = CustomColorScheme;
-            ColorSchemeIndex = reader.ReadInt32();
-            if (ColorSchemeIndex == Unset.Int) ColorSchemeIndex = 0;
-            if (ColorSchemeIndex >= 0)
-                ColorScheme = ColorSchemeManager.ColorSchemes[ColorSchemeIndex];
-
-            // Awardments
-            int n = reader.ReadInt32();
-            for (int i = 0; i < n; i++)
-                Awardments += reader.ReadInt32();
-
-            // Purchases
-            n = reader.ReadInt32();
-            for (int i = 0; i < n; i++)
-                Purchases += reader.ReadInt32();
-
-            // Stats
-            LifetimeStats.Read(reader);
-
-            // Saved Seeds
-            try
+            foreach (Chunk chunk in Chunks.Get(Data))
             {
-                MySavedSeeds.Read(reader);
-            }
-            catch
-            {
-                MySavedSeeds = new SavedSeeds();
+                switch (chunk.Type)
+                {
+                    // Color scheme
+                    case 0:
+                        CustomColorScheme.ReadChunk_0(chunk);
+                        ColorScheme = CustomColorScheme;
+                        break;
+
+                    case 1:
+                        chunk.ReadSingle(ref ColorSchemeIndex);
+
+                        if (ColorSchemeIndex == Unset.Int) ColorSchemeIndex = 0;
+                        if (ColorSchemeIndex >= 0)
+                            ColorScheme = ColorSchemeManager.ColorSchemes[ColorSchemeIndex];
+
+                        break;
+
+                    // Awardments
+                    case 2: Awardments += chunk.ReadInt(); break;
+
+                    // Purchases
+                    case 3: Purchases += chunk.ReadInt(); break;
+
+                    // Stats
+                    case 4: LifetimeStats.ReadChunk_4(chunk); break;
+
+                    // Saved Seeds
+                    case 5: MySavedSeeds.ReadChunk_5(chunk); break;
+                }
             }
         }
 

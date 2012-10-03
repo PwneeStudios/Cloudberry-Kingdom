@@ -30,8 +30,8 @@ namespace CloudberryKingdom
         public void InitialZoomIn()
         {
             var size = Scene.Size;
-            Scene.FancyScale = new Drawing.FancyVector2();
-            Scene.FancyScale.LerpTo(1.025f * size, size, 120, Drawing.LerpStyle.DecayNoOvershoot);
+            Scene.FancyScale = new CoreEngine.FancyVector2();
+            Scene.FancyScale.LerpTo(1.025f * size, size, 120, CoreEngine.LerpStyle.DecayNoOvershoot);
         }
 
         QuadClass Scene, Title, Scene_NoBob_Blur, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten,

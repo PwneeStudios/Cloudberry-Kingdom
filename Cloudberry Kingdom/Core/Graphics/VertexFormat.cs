@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {    
     public struct MyOwnVertexFormat : IVertexType //, IReadWrite
     {

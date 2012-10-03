@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawing
+namespace CoreEngine
 {
     public partial class VerifySaveDialog : Form
     {

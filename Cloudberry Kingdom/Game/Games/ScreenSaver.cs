@@ -3,7 +3,7 @@ using CloudberryKingdom.Levels;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using CloudberryKingdom.Blocks;
-using Drawing;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
@@ -14,8 +14,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether the game introduction has been watched before or not
         /// </summary>
-        public static bool WatchedIntro { get { return _WatchedIntro; } set { _WatchedIntro = value; PlayerManager.SavePlayerData.Changed = true; } }
-        static bool _WatchedIntro = false;
+        public static bool HasWatchedIntro = false;
+        public static void WatchedIntro() { HasWatchedIntro = true; PlayerManager.SavePlayerData.Changed = true; }        
 
         float InitialZoom = 0f;
         void ForTrailerParams()
@@ -55,7 +55,7 @@ namespace CloudberryKingdom
         {
             get 
             {
-                if (WatchedIntro)
+                if (HasWatchedIntro)
                     return 0;
                 else
                     return MandatoryWatchLength_Initial;
@@ -149,7 +149,7 @@ namespace CloudberryKingdom
                     {
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, () =>
                         {
-                            WatchedIntro = true;
+                            WatchedIntro();
 
 #if PC_VERSION
                             PressA = new GUI_Text("Press " + ButtonString.Go_Controller(97) + " to start",

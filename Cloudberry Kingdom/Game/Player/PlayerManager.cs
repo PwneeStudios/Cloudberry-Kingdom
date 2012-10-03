@@ -3,8 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using CloudberryKingdom.Awards;
 using System.IO;
+using CoreEngine;
 
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
@@ -32,23 +34,25 @@ namespace CloudberryKingdom
         protected override void Serialize(BinaryWriter writer)
         {
             base.Serialize(writer);
-
-            writer.Write(ScreenSaver.WatchedIntro);
-            writer.Write(HeroRush_Tutorial.WatchedOnce);
-
-            writer.Write(Hints.QuickSpawn);
-            writer.Write(Hints.YForHelp);
+            
+            Chunk.WriteSingle(writer, 0, ScreenSaver.HasWatchedIntro);
+            Chunk.WriteSingle(writer, 1, HeroRush_Tutorial.HasWatchedOnce);
+            Chunk.WriteSingle(writer, 2, Hints.QuickSpawnNum);
+            Chunk.WriteSingle(writer, 3, Hints.YForHelpNum);
         }
 
-        protected override void Deserialize(BinaryReader reader)
+        protected override void Deserialize(byte[] Data)
         {
-            base.Deserialize(reader);
-
-            ScreenSaver.WatchedIntro = reader.ReadBoolean();
-            HeroRush_Tutorial.WatchedOnce = reader.ReadBoolean();
-
-            Hints.QuickSpawn = reader.ReadInt32();
-            Hints.YForHelp = reader.ReadInt32();
+            foreach (Chunk chunk in Chunks.Get(Data))
+            {
+                switch (chunk.Type)
+                {
+                    case 0: chunk.ReadSingle(ref ScreenSaver.HasWatchedIntro); break;
+                    case 1: chunk.ReadSingle(ref HeroRush_Tutorial.HasWatchedOnce); break;
+                    case 2: chunk.ReadSingle(ref Hints.QuickSpawnNum); break;
+                    case 3: chunk.ReadSingle(ref Hints.YForHelpNum); break;
+                }
+            }
         }
     }
 
@@ -63,185 +67,95 @@ namespace CloudberryKingdom
             EzStorage.Save("Settings", "Custom", _SaveRezAndKeys, null);
         }
 
-        static void _SaveRezAndKeys(StreamWriter writer)
+        static void _SaveRezAndKeys(BinaryWriter writer)
         {
-            // Resolution information
-            writer.WriteLine("// Custom resolution?");
-            writer.WriteLine(SavePlayerData.ResolutionPreferenceSet);
-            writer.WriteLine("// Full screen");
-            writer.WriteLine(Tools.Fullscreen);
+            Chunk.WriteSingle(writer, 0, SavePlayerData.ResolutionPreferenceSet);
+            
+            // Fullscreen
+            Chunk.WriteSingle(writer, 1, Tools.Fullscreen);
+
+            // Resolution
             if (ResolutionGroup.LastSetMode == null)
             {
-                writer.WriteLine("// Width");
-                writer.WriteLine(Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth);
-                writer.WriteLine("// Height");
-                writer.WriteLine(Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight);
+                Chunk.WriteSingle(writer, 2, Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth);
+                Chunk.WriteSingle(writer, 3, Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight);
             }
             else
             {
-                writer.WriteLine("// Width");
-                writer.WriteLine(ResolutionGroup.LastSetMode.Width);
-                writer.WriteLine("// Height");
-                writer.WriteLine(ResolutionGroup.LastSetMode.Height);
+                Chunk.WriteSingle(writer, 2, ResolutionGroup.LastSetMode.Width);
+                Chunk.WriteSingle(writer, 3, ResolutionGroup.LastSetMode.Height);
             }
 
-            writer.WriteLine();
-
             // Secondary keys
-            writer.WriteLine("// Quickspawn =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey]);
-            writer.WriteLine();
+            Chunk.WriteSingle(writer, 4, ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+            Chunk.WriteSingle(writer, 5, ButtonCheck.Start_Secondary);
+            Chunk.WriteSingle(writer, 6, ButtonCheck.Go_Secondary);
+            Chunk.WriteSingle(writer, 7, ButtonCheck.Back_Secondary);
+            Chunk.WriteSingle(writer, 8, ButtonCheck.ReplayPrev_Secondary);
+            Chunk.WriteSingle(writer, 9, ButtonCheck.ReplayNext_Secondary);
+            Chunk.WriteSingle(writer,10, ButtonCheck.SlowMoToggle_Secondary);
+            Chunk.WriteSingle(writer,11, ButtonCheck.Left_Secondary);
+            Chunk.WriteSingle(writer,12, ButtonCheck.Right_Secondary);
+            Chunk.WriteSingle(writer,13, ButtonCheck.Up_Secondary);
+            Chunk.WriteSingle(writer,14, ButtonCheck.Down_Secondary);
 
-            writer.WriteLine("// Start/Menu =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Start_Secondary]);
-            writer.WriteLine();
+            // Volume
+            Chunk.WriteSingle(writer, 15, Tools.MusicVolume.Val);
+            Chunk.WriteSingle(writer, 16, Tools.SoundVolume.Val);
 
-            writer.WriteLine("// Go/Select =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Go_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Back/Cancel =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Back_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Replay, Previous part =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayPrev_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Replay, Next part =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.ReplayNext_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Toggle (Replay, single/multi) (Slow-mo, toggles if activated) =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.SlowMoToggle_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Left =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Left_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Right =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Right_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Up =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Up_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("// Down =");
-            writer.WriteLine(ButtonString.KeyToString[ButtonCheck.Down_Secondary]);
-            writer.WriteLine();
-
-            writer.WriteLine("MusicVolume " + Tools.MusicVolume.Val.ToString());
-            writer.WriteLine("SoundVolume " + Tools.SoundVolume.Val.ToString());
-            writer.WriteLine("FixedTimeStep " + Tools.FixedTimeStep.ToString());
-            writer.WriteLine("FixedTimeStep_HasBeenSet " + Tools.FixedTimeStep_HasBeenSet.ToString());
+            // Fixed time step setting
+            Chunk.WriteSingle(writer, 17, Tools.FixedTimeStep);
         }
-
-        public static bool PartiallyInvisible, TotallyInvisible;
 
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-            //RezData d;
-            //using (StreamReader reader = new StreamReader("Custom"))
-
             EzStorage.Load("Settings", "Custom", _LoadRezAndKeys, null);
 
             return d;
         }
 
-        static void _LoadRezAndKeys(StreamReader reader)
+        static void _LoadRezAndKeys(byte[] Data)
         {
-            // Resolution information
             d = new RezData();
-            reader.ReadLine();
-            d.Custom = bool.Parse(reader.ReadLine());
-            reader.ReadLine();
-            d.Fullscreen = bool.Parse(reader.ReadLine());
-            reader.ReadLine();
-            d.Width = int.Parse(reader.ReadLine());
-            reader.ReadLine();
-            d.Height = int.Parse(reader.ReadLine());
 
-            reader.ReadLine();
-            // Secondary keys
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Start_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Go_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Back_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.ReplayPrev_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.ReplayNext_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.SlowMoToggle_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Left_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Right_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Up_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            reader.ReadLine();
-            ButtonString.SetKeyFromString(ref ButtonCheck.Down_Secondary, reader.ReadLine());
-            reader.ReadLine();
-
-            // Extra shit
-            try
+            foreach (Chunk chunk in Chunks.Get(Data))
             {
-                List<string> bits;
-
-                bits = Tools.GetBitsFromReader(reader);
-                Tools.MusicVolume.Val = CoreMath.Restrict(0, 1, float.Parse(bits[1]));
-
-                bits = Tools.GetBitsFromReader(reader);
-                Tools.SoundVolume.Val = CoreMath.Restrict(0, 1, float.Parse(bits[1]));
-
-                bits = Tools.GetBitsFromReader(reader);
-                Tools.FixedTimeStep = bool.Parse(bits[1]);
-
-                // Check whether fixedtimestep has been set by the player.
-                // If it hasn't, set it to false.
-                try
+                switch (chunk.Type)
                 {
-                    bits = Tools.GetBitsFromReader(reader);
-                    Tools.FixedTimeStep_HasBeenSet = bool.Parse(bits[1]);
+                    case 0: chunk.ReadSingle(ref d.Custom); break;
+                    
+                    // Fullscreen
+                    case 1: chunk.ReadSingle(ref d.Fullscreen); break;
+                    
+                    // Resolution
+                    case 2: chunk.ReadSingle(ref d.Width); break;
+                    case 3: chunk.ReadSingle(ref d.Height); break;
+
+                    // Secondary keys
+                    case 4: chunk.ReadSingle(ref ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey); break;
+                    case 5: chunk.ReadSingle(ref ButtonCheck.Start_Secondary); break;
+                    case 6: chunk.ReadSingle(ref ButtonCheck.Go_Secondary); break;
+                    case 7: chunk.ReadSingle(ref ButtonCheck.Back_Secondary); break;
+                    case 8: chunk.ReadSingle(ref ButtonCheck.ReplayPrev_Secondary); break;
+                    case 9: chunk.ReadSingle(ref ButtonCheck.ReplayNext_Secondary); break;
+                    case 10: chunk.ReadSingle(ref ButtonCheck.SlowMoToggle_Secondary); break;
+                    case 11: chunk.ReadSingle(ref ButtonCheck.Left_Secondary); break;
+                    case 12: chunk.ReadSingle(ref ButtonCheck.Right_Secondary); break;
+                    case 13: chunk.ReadSingle(ref ButtonCheck.Up_Secondary); break;
+                    case 14: chunk.ReadSingle(ref ButtonCheck.Down_Secondary); break;
+
+                    // Volume
+                    case 15: Tools.MusicVolume.Val = chunk.ReadFloat(); break;
+                    case 16: Tools.SoundVolume.Val = chunk.ReadFloat(); break;
+
+                    // Fixed time step setting
+                    case 17: chunk.ReadSingle(ref Tools.FixedTimeStep); break;
                 }
-                catch
-                {
-                    Tools.FixedTimeStep_HasBeenSet = false;
-                }
-                if (!Tools.FixedTimeStep_HasBeenSet)
-                    Tools.FixedTimeStep = false;
-            }
-            catch
-            {
             }
         }
+
+        public static bool PartiallyInvisible, TotallyInvisible;
 #endif
         static int _CoinsSpent;
         public static int CoinsSpent { get { return _CoinsSpent; } set { _CoinsSpent = value; } }

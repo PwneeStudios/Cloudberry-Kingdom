@@ -148,7 +148,7 @@ namespace CloudberryKingdom
                 Tools.CurGameData.AddGameObject(title);
 
                 if ((levelindex + 1) % LevelsPerDifficulty == 0)
-                    CampaignMenu._x_x_Red(title.text);
+                    CkColorHelper._x_x_Red(title.text);
 
             }
 

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-using Drawing;
+using CoreEngine;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Goombas;
@@ -187,7 +187,6 @@ namespace CloudberryKingdom.Bobs
                 var wb = PlayerObject.FindQuad("Wings_Back"); if (wb != null) wb.MyMatrix = scheme.SkinColor.M;
             }
 
-            PlayerObject.OutlineColor = scheme.OutlineColor.Clr;
             PlayerObject.InsideColor = scheme.SkinColor.Clr;
             if (MyCape != null)
             {
@@ -1283,7 +1282,6 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawGraphics && !BoxesOnly && Core.Show)
             {
-                PlayerObject.OutlineColor = MyColorScheme.OutlineColor.Clr;
                 PlayerObject.InsideColor = MyColorScheme.SkinColor.Clr;
 
                 if (FadingIn)

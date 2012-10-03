@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 
-using Drawing;
+using CoreEngine;
 
 using CloudberryKingdom.Awards;
 
@@ -122,53 +122,41 @@ namespace CloudberryKingdom.Bobs
 
     public struct ColorScheme
     {
-        public static int version = 1;
-
         public override string ToString()
         {
             return string.Format("\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\"", SkinColor.Name, CapeColor.Name, CapeOutlineColor.Name, HatData.Name, BeardData.Name);
         }
 
-        public void Write(BinaryWriter writer)
+        public void WriteChunk_0(BinaryWriter writer)
         {
-            // Version
-            writer.Write(version);
+            var chunk = new Chunk();
+            chunk.Type = 0;
 
-            ClrTextFx clr; int index;
+            ClrTextFx clr;
 
-            //clr = OutlineColor;
-            //index = ColorSchemeManager.OutlineList.IndexOf(item => (ClrTextFx)(item.obj) == clr);
-            //writer.WriteSafeIndex(index);
-
-            index = ColorSchemeManager.BeardInfo.IndexOf(BeardData);
-            writer.WriteSafeIndex(index);
-
+            chunk.Write(Math.Abs(ColorSchemeManager.BeardInfo.IndexOf(BeardData)));
+            
             clr = SkinColor;
-            index = ColorSchemeManager.ColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr);
-            writer.WriteSafeIndex(index);
+            chunk.Write(Math.Abs(ColorSchemeManager.ColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
 
             clr = CapeColor;
-            index = ColorSchemeManager.CapeColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr);
-            writer.WriteSafeIndex(index);
+            chunk.Write(Math.Abs(ColorSchemeManager.CapeColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
 
             clr = CapeOutlineColor;
-            index = ColorSchemeManager.CapeOutlineColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr);
-            writer.WriteSafeIndex(index);
+            chunk.Write(Math.Abs(ColorSchemeManager.CapeOutlineColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
 
-            index = ColorSchemeManager.HatInfo.IndexOf(HatData);
-            writer.WriteSafeIndex(index);
+            chunk.Write(Math.Abs(ColorSchemeManager.HatInfo.IndexOf(HatData)));
+
+            chunk.Finish(writer);
         }
 
-        public void Read(BinaryReader reader)
+        public void ReadChunk_0(Chunk chunk)
         {
-            // Version
-            int LoadedVersion = reader.ReadInt32();
             int index;
 
-            //OutlineColor = (ClrTextFx)ColorSchemeManager.OutlineList[index].obj;
             try
             {
-                index = reader.ReadInt32();
+                index = chunk.ReadInt();
                 BeardData = ColorSchemeManager.BeardInfo[index];
             }
             catch
@@ -178,7 +166,7 @@ namespace CloudberryKingdom.Bobs
 
             try
             {
-                index = reader.ReadInt32();
+                index = chunk.ReadInt();
                 SkinColor = (ClrTextFx)ColorSchemeManager.ColorList[index].obj;
             }
             catch
@@ -188,7 +176,7 @@ namespace CloudberryKingdom.Bobs
 
             try
             {
-                index = reader.ReadInt32();
+                index = chunk.ReadInt();
                 CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList[index].obj;
             }
             catch
@@ -198,7 +186,7 @@ namespace CloudberryKingdom.Bobs
 
             try
             {
-                index = reader.ReadInt32();
+                index = chunk.ReadInt();
                 CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList[index].obj;
             }
             catch
@@ -208,7 +196,7 @@ namespace CloudberryKingdom.Bobs
 
             try
             {
-                index = reader.ReadInt32();
+                index = chunk.ReadInt();
                 HatData = ColorSchemeManager.HatInfo[index];
             }
             catch
@@ -217,7 +205,7 @@ namespace CloudberryKingdom.Bobs
             }
         }
 
-        public ClrTextFx OutlineColor, SkinColor, CapeColor, CapeOutlineColor;
+        public ClrTextFx SkinColor, CapeColor, CapeOutlineColor;
         public Hat HatData, BeardData;
 
         public void Init()
@@ -228,27 +216,11 @@ namespace CloudberryKingdom.Bobs
 
         public ColorScheme(string skincolor, string capecolor, string capeoutlinecolor, string hatname, string beardname)
         {
-            string outlinecolor = "black";
-            OutlineColor = (ClrTextFx)ColorSchemeManager.OutlineList.Find(item => string.Compare(item.str, outlinecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            
             SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => string.Compare(item.str, skincolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
             CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => string.Compare(item.str, capecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
             CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => string.Compare(item.str, capeoutlinecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
             HatData = ColorSchemeManager.HatInfo.Find(hat => string.Compare(hat.Name, hatname, StringComparison.OrdinalIgnoreCase) == 0);
             BeardData = ColorSchemeManager.BeardInfo.Find(beard => string.Compare(beard.Name, beardname, StringComparison.OrdinalIgnoreCase) == 0);
-
-            if (HatData == null) HatData = Hat.None;
-            if (BeardData == null) BeardData = Hat.Vandyke;
-        }
-
-        public ColorScheme(string outlinecolor, string skincolor, string capecolor, string capeoutlinecolor, string hatname, string beardname)
-        {
-            OutlineColor = (ClrTextFx)ColorSchemeManager.OutlineList.Find(item =>  string.Compare(item.str, outlinecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item =>  string.Compare(item.str, skincolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item =>  string.Compare(item.str, capecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item =>  string.Compare(item.str, capeoutlinecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            HatData = ColorSchemeManager.HatInfo.Find(hat => string.Compare(hat.QuadName, hatname, StringComparison.OrdinalIgnoreCase) == 0);
-            BeardData = ColorSchemeManager.BeardInfo.Find(beard => string.Compare(beard.QuadName, beardname, StringComparison.OrdinalIgnoreCase) == 0);
 
             if (HatData == null) HatData = Hat.None;
             if (BeardData == null) BeardData = Hat.Vandyke;

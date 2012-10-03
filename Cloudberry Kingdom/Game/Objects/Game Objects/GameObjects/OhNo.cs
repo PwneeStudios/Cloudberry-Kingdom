@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Levels;
-using Drawing;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
             Text = new EzText("Oh no!", Tools.Font_Grobold42, 1000, true, true);
             Text.Scale *= 1.85f;
-            CampaignMenu._x_x_EasyColor(Text);
+            CkColorHelper._x_x_EasyColor(Text);
             MyPile.Add(Text);
         }
 

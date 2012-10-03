@@ -55,7 +55,7 @@ namespace CloudberryKingdom
             set
             {
                 if (MyQuad != null && MyQuad.FancyAngle == null)
-                    MyQuad.FancyAngle = new Drawing.FancyVector2();
+                    MyQuad.FancyAngle = new CoreEngine.FancyVector2();
                 _SpinVelocity = value;
             }
         }

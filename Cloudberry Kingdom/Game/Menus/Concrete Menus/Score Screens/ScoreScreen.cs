@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-using Drawing;
+using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Stats;
 
@@ -95,7 +95,7 @@ namespace CloudberryKingdom
         {
             base.SetItemProperties(item);
 
-            GreenItem(item);
+            CkColorHelper.GreenItem(item);
         }
 
         protected override void SetHeaderProperties(EzText text)

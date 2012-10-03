@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class EzSound
     {

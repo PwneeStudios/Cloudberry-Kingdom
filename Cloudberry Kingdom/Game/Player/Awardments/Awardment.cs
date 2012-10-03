@@ -211,27 +211,27 @@ namespace CloudberryKingdom
         static string BeatStr = "Beat a classic castle\non";
         public static Awardment[] BeatCampaign = new Awardment[] {
             null,
-            new Awardment(1, "Italian Plumbing", BeatStr + CampaignMenu.GetName(2), Hat.Toad),
-            new Awardment(2, "Bubbly Bop", BeatStr + CampaignMenu.GetName(3), Hat.BubbleBobble),
-            new Awardment(3, "Ghouls n' stickmen", BeatStr + CampaignMenu.GetName(4), Hat.Knight),
-            new Awardment(4, "Gosu Master", BeatStr + CampaignMenu.GetName(5), Hat.Gosu) };
+            new Awardment(1, "Italian Plumbing", BeatStr + CampaignHelper.GetName(2), Hat.Toad),
+            new Awardment(2, "Bubbly Bop", BeatStr + CampaignHelper.GetName(3), Hat.BubbleBobble),
+            new Awardment(3, "Ghouls n' stickmen", BeatStr + CampaignHelper.GetName(4), Hat.Knight),
+            new Awardment(4, "Gosu Master", BeatStr + CampaignHelper.GetName(5), Hat.Gosu) };
         public static Awardment JumpAlot = new Awardment(5, "Jumple-upagus", "Jump " + LotsOfJumps.ToString() + " times.", Hat.Bubble);
 
-        public static Awardment HoldForwardFreeplay = new Awardment(6, "White Rabbit", "Beat a max length " + CampaignMenu.GetName(2) + "level, always holding forward. Classic hero. No checkpoints.", Hat.Cloud);
+        public static Awardment HoldForwardFreeplay = new Awardment(6, "White Rabbit", "Beat a max length " + CampaignHelper.GetName(2) + "level, always holding forward. Classic hero. No checkpoints.", Hat.Cloud);
         public static Awardment HeroRush_Score = new Awardment(7, "Locked IN", "Score " + HeroRushScore + " points in Hero Rush.", Hat.FallingBlockHead);
         public static Awardment Escalation_Levels = new Awardment(8, "Iron Man", "Beat 26.2 levels in Escalation.", Hat.FireHead);
 
-        public static Awardment FastCampaign2 = new Awardment(10, "Minute man", "Beat an" + CampaignMenu.GetName(3) + "castle in under " + FastCampaign_Minutes.ToString() + " minutes.", Hat.Pink);
+        public static Awardment FastCampaign2 = new Awardment(10, "Minute man", "Beat an" + CampaignHelper.GetName(3) + "castle in under " + FastCampaign_Minutes.ToString() + " minutes.", Hat.Pink);
 
         public static Awardment HeroRush2_Score = new Awardment(12, "Jack of all sticks", "Score " + HeroRush2Score + " points\nin Hero Rush 2:\n{c255,10,10,255}Revenge of the Double Jump.", Hat.Fedora);
-        public static Awardment PartiallyInvisibleCampaign = new Awardment(13, "I HAVE NO FEET", "Beat an" + CampaignMenu.GetName(3) + "castle while invisible. Cape and hat recommended.", Hat.Ghost);
-        public static Awardment TotallyInvisibleCampaign = new Awardment(14, "Mind Games", "Beat a" + CampaignMenu.GetName(1) + "castle while invisible, with no hat and no cape.", Hat.Brain);
+        public static Awardment PartiallyInvisibleCampaign = new Awardment(13, "I HAVE NO FEET", "Beat an" + CampaignHelper.GetName(3) + "castle while invisible. Cape and hat recommended.", Hat.Ghost);
+        public static Awardment TotallyInvisibleCampaign = new Awardment(14, "Mind Games", "Beat a" + CampaignHelper.GetName(1) + "castle while invisible, with no hat and no cape.", Hat.Brain);
 
-        public static Awardment NoCoinFreeplay = new Awardment(15, "Chromotephobia", "Beat a max length " + CampaignMenu.GetName(2) + "level without grabbing a single coin. Classic hero. No checkpoints.", Hat.CheckpointHead);
+        public static Awardment NoCoinFreeplay = new Awardment(15, "Chromotephobia", "Beat a max length " + CampaignHelper.GetName(2) + "level without grabbing a single coin. Classic hero. No checkpoints.", Hat.CheckpointHead);
         
-        public static Awardment AllCoinsAbusiveCastle = new Awardment(16, "Ebenezer", "Grab every coin in\nan" + CampaignMenu.GetName(3) + "castle.", Hat.TopHat);
-        public static Awardment NoDeathsNormalCastle = new Awardment(17, "Untouchable", "Beat an" + CampaignMenu.GetName(2) + "castle without dying once.", Hat.Afro);
-        public static Awardment PerfectEasyCastle = new Awardment(18, "Perfection", "Grab every coin in a" + CampaignMenu.GetName(1) + "castle without dying once. Image is everything.", Hat.Halo);
+        public static Awardment AllCoinsAbusiveCastle = new Awardment(16, "Ebenezer", "Grab every coin in\nan" + CampaignHelper.GetName(3) + "castle.", Hat.TopHat);
+        public static Awardment NoDeathsNormalCastle = new Awardment(17, "Untouchable", "Beat an" + CampaignHelper.GetName(2) + "castle without dying once.", Hat.Afro);
+        public static Awardment PerfectEasyCastle = new Awardment(18, "Perfection", "Grab every coin in a" + CampaignHelper.GetName(1) + "castle without dying once. Image is everything.", Hat.Halo);
 
         public static Awardment UnlockHeroRush2 = new Awardment(100, "Hero Rush 2 unlocked!",
             string.Format("{0}Required:{1}\n   Level {3} in {2}Hero Rush", EzText.ColorToMarkup(new Color(205, 10, 10)), EzText.ColorToMarkup(Color.White), EzText.ColorToMarkup(new Color(26, 178, 231)), HeroRush2_LevelUnlock),

@@ -74,10 +74,6 @@ namespace CloudberryKingdom
             Add(PlayerManager.Player);
 #endif
 
-            LockManager.Instance.ContainerName = "LockData";
-            LockManager.Instance.FileName = "LockData.shazaam";
-            Add(LockManager.Instance);
-
             LoadAll();
 
 
@@ -244,7 +240,7 @@ namespace CloudberryKingdom
         }
 
         protected virtual void Serialize(BinaryWriter writer) { }
-        protected virtual void Deserialize(BinaryReader reader) { }
+        protected virtual void Deserialize(byte[] Data) { }
     }
     
     public static class EzStorage
@@ -353,15 +349,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public static void Load(string ContainerName, string FileName, Action<StreamReader> LoadLogic, Action Fail)
-        {
-            Load(ContainerName, FileName, null, LoadLogic, Fail);
-        }
-        public static void Load(string ContainerName, string FileName, Action<BinaryReader> LoadLogic, Action Fail)
-        {
-            Load(ContainerName, FileName, LoadLogic, null, Fail);
-        }
-        public static void Load(string ContainerName, string FileName, Action<BinaryReader> LoadLogic_1, Action<StreamReader> LoadLogic_2, Action Fail)
+        public static void Load(string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
             if (!DeviceOK())
                 GetDevice();
@@ -397,14 +385,12 @@ namespace CloudberryKingdom
                     StorageContainer container = Device.EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();
 
-                    if (LoadLogic_1 != null)
-                        LoadFromContainer(container, FileName, LoadLogic_1, LoadLogic_2, Fail);
-                    if (LoadLogic_2 != null)
-                        LoadFromContainer(container, FileName, LoadLogic_1, LoadLogic_2, Fail);
+                    if (LoadLogic != null)
+                        LoadFromContainer(container, FileName, LoadLogic, Fail);
                 }, null);
         }
 
-        static void LoadFromContainer(StorageContainer container, string FileName, Action<BinaryReader> LoadLogic_1, Action<StreamReader> LoadLogic_2, Action DoesNotExist)
+        static void LoadFromContainer(StorageContainer container, string FileName, Action<byte[]> LoadLogic, Action DoesNotExist)
         {
             // Fallback action if file doesn't exist
             if (!container.FileExists(FileName))
@@ -422,25 +408,12 @@ namespace CloudberryKingdom
                 return;
             }
 
-            // Get the file.
-            Stream stream = container.OpenFile(FileName, FileMode.Open);
-
-            // Load the data
-            if (LoadLogic_1 != null)
+            // Load and process the data
+            if (LoadLogic != null)
             {
-                BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
-                LoadLogic_1(reader);
-                reader.Close();
+                var Data = File.ReadAllBytes(FileName);
+                LoadLogic(Data);
             }
-            if (LoadLogic_2 != null)
-            {
-                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                LoadLogic_2(reader);
-                reader.Close();
-            }
-
-            // Close the file.
-            stream.Close();
 
             // Dispose the container, to commit changes.
             container.Dispose();

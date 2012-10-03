@@ -439,7 +439,6 @@
     <Compile Include="Game\Player\ColorScheme.cs" />
     <Compile Include="Game\Player\ColorSchemeManager.cs" />
     <Compile Include="Game\Player\SavedSeeds.cs" />
-    <Compile Include="Game\Player\LockManager.cs" />
     <Compile Include="Game\Player\Stats.cs" />
     <Compile Include="Game\Player\PlayerManager.cs" />
     <Compile Include="Game\Player\PlayerData.cs" />

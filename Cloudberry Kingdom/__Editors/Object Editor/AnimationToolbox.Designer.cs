@@ -1,5 +1,5 @@
 ﻿#if WINDOWS
-namespace Drawing
+namespace CoreEngine
 {
     partial class AnimationToolbox
     {

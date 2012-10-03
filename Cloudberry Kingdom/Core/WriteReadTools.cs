@@ -4,7 +4,7 @@ using System.IO;
 
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public static class WriteReadTools
     {

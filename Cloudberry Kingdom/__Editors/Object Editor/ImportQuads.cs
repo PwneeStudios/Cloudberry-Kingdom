@@ -9,7 +9,7 @@ using System.Text;
 using CloudberryKingdom;
 #endif
 
-namespace Drawing
+namespace CoreEngine
 {
     public partial class ImportQuads : Form
     {

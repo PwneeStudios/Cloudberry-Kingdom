@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using Drawing;
+using CoreEngine;
 
-namespace Drawing
+namespace CoreEngine
 {
     /// <summary>
     /// Should be replaced. Right now this is used for drawing the players in the replays, but replays should instead be reusing the same draw code for the player as the normal draw code.

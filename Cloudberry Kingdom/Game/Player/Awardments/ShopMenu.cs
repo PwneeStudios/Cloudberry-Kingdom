@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Stats;
 using CloudberryKingdom;
-using Drawing;
+using CoreEngine;
 
 namespace CloudberryKingdom.Awards
 {
@@ -400,7 +400,7 @@ namespace CloudberryKingdom.Awards
 
             Bank = new EzText("Bank", Tools.Font_Grobold42);
             Bank.Scale *= 1.1f;
-            CampaignMenu.UnpleasantColor(Bank);
+            CkColorHelper.UnpleasantColor(Bank);
             MyPile.Add(Bank);
             Bank.Pos = new Vector2(100f, 919.0476f);
 

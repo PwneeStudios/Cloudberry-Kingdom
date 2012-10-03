@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     /// <summary>
     /// Wraps either an EzTexture or an AnimationData_Texture.

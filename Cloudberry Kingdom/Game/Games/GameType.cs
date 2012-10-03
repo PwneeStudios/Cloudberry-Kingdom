@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
-using Drawing;
+using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
@@ -1565,7 +1565,7 @@ namespace CloudberryKingdom
             // Check for invisible color scheme
             bool PartiallyInvisible = false, TotallyInvisible = false;
             ColorScheme scheme = PlayerManager.Get(i).ColorScheme;
-            if (scheme.OutlineColor.Clr.A == 0 && scheme.SkinColor.Clr.A == 0)
+            if (scheme.SkinColor.Clr.A == 0)
                 PartiallyInvisible = true;
             if (PartiallyInvisible &&
                 (scheme.HatData == Hat.None || scheme.HatData == Hat.NoHead) &&

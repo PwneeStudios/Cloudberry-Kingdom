@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             if (WatchedOnce)
             {
                 GUI_Text text = GUI_Text.SimpleTitle(Escalation.Name);
-                CampaignMenu._x_x_HappyBlueColor(text.MyText);
+                CkColorHelper._x_x_HappyBlueColor(text.MyText);
 
                 MyGame.AddGameObject(text);
 
@@ -108,7 +108,7 @@ namespace CloudberryKingdom
             else
             {
                 GUI_Text text = GUI_Text.SimpleTitle(Escalation.Name);
-                CampaignMenu._x_x_HappyBlueColor(text.MyText);
+                CkColorHelper._x_x_HappyBlueColor(text.MyText);
                 text.Pos.RelVal.Y -= 800;
 
                 MyGame.AddGameObject(text);

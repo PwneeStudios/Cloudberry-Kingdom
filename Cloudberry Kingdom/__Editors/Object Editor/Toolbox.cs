@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 #endif
 
-namespace Drawing
+namespace CoreEngine
 {
     public partial class Toolbox : Form
     {

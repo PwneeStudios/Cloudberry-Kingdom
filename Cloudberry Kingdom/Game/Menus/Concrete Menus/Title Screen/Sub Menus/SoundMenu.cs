@@ -172,7 +172,6 @@ namespace CloudberryKingdom
             {
                 PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
                 Tools.FixedTimeStep = state;
-                Tools.FixedTimeStep_HasBeenSet = true;
                 SaveGroup.SaveAll();
                 PlayerManager.SaveRezAndKeys();
             };

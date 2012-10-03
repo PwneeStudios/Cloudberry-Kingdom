@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-namespace Drawing
+namespace CoreEngine
 {
     public struct OneAnim { public Vector2[] Data; }
     public struct AnimationData
@@ -80,7 +80,6 @@ namespace Drawing
         //public AnimationData()
         public void Init()
         {
-            //Data = new Vector2[][]  { null };
             Anims = new OneAnim[] { new OneAnim() };
             Hold = Vector2.Zero;
         }
@@ -193,7 +192,7 @@ namespace Drawing
 
         public Vector2 Transfer(int DestAnim, float DestT, int DestLength, bool DestLoop, bool DestLinear, float t)
         {
-            Vector2 v1 = Hold;//Calc(OldAnim, OldT, OldLength, OldLoop);
+            Vector2 v1 = Hold;
             Vector2 v2 = Calc(DestAnim, DestT, DestLength, DestLoop, DestLinear);
 
             return Vector2.Lerp(v1, v2, t);

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class EzSong
     {
