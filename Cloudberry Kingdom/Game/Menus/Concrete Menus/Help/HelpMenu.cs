@@ -6,7 +6,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class HelpMenu : StartMenuBase
+    public class HelpMenu : CkBaseMenu
     {
         int Bank()
         {

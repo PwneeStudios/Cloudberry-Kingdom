@@ -37,10 +37,19 @@ namespace CoreEngine
     {
         byte[] Data;
         int Position = 0;
+        int DataLength;
 
         public ChunkEnumerator(byte[] Data)
         {
             this.Data = Data;
+            DataLength = Data.Length;
+        }
+
+        public ChunkEnumerator(byte[] Data, int Start, int DataLength)
+        {
+            this.Data = Data;
+            this.Position = Start;
+            this.DataLength = DataLength;
         }
 
         Chunk _Current;
@@ -48,13 +57,20 @@ namespace CoreEngine
 
         public bool MoveNext()
         {
-            if (Position >= Data.Length) return false;
+            if (Position >= DataLength) return false;
 
             int Type = BitConverter.ToInt32(Data, Position);
             int Length = BitConverter.ToInt32(Data, Position + 4);
 
-            var _Current = new Chunk(Length + 8);
-            _Current.Write(Data, Position, Length + 8);
+            if (Type < 0) throw new Exception("Chunk type must be non-negative. Are you loading a non-chunked file?");
+            if (Length <= 0) throw new Exception("Chunk length must be strictly positive. Are you loading a non-chunked file?");
+
+            _Current = new Chunk(Length);
+            _Current.Copy(Data, Position, Length);
+            _Current.Type = Type;
+            _Current.Length = Length;
+
+            Position += Length;
 
             return true;
         }
@@ -79,7 +95,7 @@ namespace CoreEngine
         }
     }
 
-    public class Chunk
+    public class Chunk : IEnumerable<Chunk>
     {
         public int Type = -1;
         public int Length = 0;
@@ -101,6 +117,16 @@ namespace CoreEngine
         {
             Buffer = new byte[Capacity];
             Length = Capacity;
+        }
+
+        public IEnumerator<Chunk> GetEnumerator()
+        {
+            return new ChunkEnumerator(Buffer, 8, Length);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new ChunkEnumerator(Buffer, 8, Length);
         }
 
         /// <summary>
@@ -133,41 +159,67 @@ namespace CoreEngine
             SetTypeAndLength();
             writer.Write(Buffer, 0, Position);
         }
+        public void Finish(Chunk ParentChunk)
+        {
+            SetTypeAndLength();
+            ParentChunk.Write(Buffer, 0, Position);
+        }
+
+        void EnsureRoom(int Size)
+        {
+            // Make sure we don't write past the end of the buffer
+            while (Position + Size >= Buffer.Length)
+                Expand();
+        }
 
         public void Write(byte[] Bytes)
         {
-            // Make sure we don't write past the end of the buffer
-            while (Position + Bytes.Length >= Buffer.Length)
-                Expand();
+            EnsureRoom(Bytes.Length);
 
             // Write the bytes
-            for (int i = Position; i < Bytes.Length; i++)
-                Buffer[i] = Bytes[Position - i];
+            for (int i = Position; i < Position + Bytes.Length; i++)
+                Buffer[i] = Bytes[i - Position];
             
             Position += Bytes.Length;
         }
         public void Write(byte[] Bytes, int StartIndex, int BytesToCopy)
         {
+            EnsureRoom(BytesToCopy);
+
             for (int i = StartIndex; i < StartIndex + BytesToCopy; i++)
-                Buffer[Position + i] = Bytes[i];
+                Buffer[Position + i - StartIndex] = Bytes[i];
 
             Position += BytesToCopy;
+        }
+
+        /// <summary>
+        /// Copy bytes from another chunk. This will overwrite the Type and Length bytes for this chunk.
+        /// </summary>
+        /// <param name="Bytes">Bytes from the other chunk</param>
+        /// <param name="StartIndex">StartIndex in the other chunk's buffer.</param>
+        /// <param name="BytesToCopy">Number of bytes to copy from the other chunk's buffer.</param>
+        public void Copy(byte[] Bytes, int StartIndex, int BytesToCopy)
+        {
+            Position = 0;
+            EnsureRoom(BytesToCopy);
+
+            Position = 8;
+
+            for (int i = StartIndex; i < StartIndex + BytesToCopy; i++)
+                Buffer[i - StartIndex] = Bytes[i];
         }
 
         public void Write(bool val)
         {
             Write(BitConverter.GetBytes(val));
-            Position += 1;
         }
         public void Write(int val)
         {
             Write(BitConverter.GetBytes(val));
-            Position += 4;
         }
         public void Write(float val)
         {
             Write(BitConverter.GetBytes(val));
-            Position += 4;
         }
         public void Write(string val)
         {
@@ -273,6 +325,43 @@ namespace CoreEngine
             chunk.Write((int)val);
 
             chunk.Finish(writer);
+        }
+
+        public void WriteSingle(int type, int val)
+        {
+            var chunk = new Chunk();
+            chunk.Type = type;
+
+            chunk.Write(val);
+
+            chunk.Finish(this);
+        }
+        public void WriteSingle(int type, bool val)
+        {
+            var chunk = new Chunk();
+            chunk.Type = type;
+
+            chunk.Write(val);
+
+            chunk.Finish(this);
+        }
+        public void WriteSingle(int type, float val)
+        {
+            var chunk = new Chunk();
+            chunk.Type = type;
+
+            chunk.Write(val);
+
+            chunk.Finish(this);
+        }
+        public void WriteSingle(int type, string val)
+        {
+            var chunk = new Chunk();
+            chunk.Type = type;
+
+            chunk.Write(val);
+
+            chunk.Finish(this);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public class StartLevelMenu : StartMenuBase
+    public class StartLevelMenu : CkBaseMenu
     {
         protected override void SetHeaderProperties(EzText text)
         {

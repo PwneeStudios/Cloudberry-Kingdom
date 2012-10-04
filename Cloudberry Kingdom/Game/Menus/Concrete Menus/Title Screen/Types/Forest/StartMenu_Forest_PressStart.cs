@@ -3,7 +3,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class StartMenu_Forest_PressStart : StartMenuBase
+    public class StartMenu_Forest_PressStart : CkBaseMenu
     {
         public TitleGameData_Forest Title;
         public StartMenu_Forest_PressStart(TitleGameData_Forest Title)

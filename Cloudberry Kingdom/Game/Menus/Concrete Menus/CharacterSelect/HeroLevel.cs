@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class HeroLevel : StartMenuBase
+    public class HeroLevel : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public HeroLevel(int Control, CharacterSelect MyCharacterSelect)

@@ -260,6 +260,13 @@ namespace CloudberryKingdom
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
             PlayerManager.RezData rez;
+
+            //PlayerManager.SavePlayerData = new _SavePlayerData();
+            //PlayerManager.SavePlayerData.ContainerName = "PlayerData";
+            //PlayerManager.SavePlayerData.FileName = "PlayerData.hsc";
+            //PlayerManager.SaveRezAndKeys();
+            //rez = PlayerManager.LoadRezAndKeys();
+            //Tools.Warning();
             try
             {
                 rez = PlayerManager.LoadRezAndKeys();

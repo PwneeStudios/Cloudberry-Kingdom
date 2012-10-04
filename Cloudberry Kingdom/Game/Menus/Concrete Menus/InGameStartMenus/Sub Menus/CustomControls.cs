@@ -36,7 +36,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public class CustomControlsMenu : StartMenuBase
+    public class CustomControlsMenu : CkBaseMenu
     {
         public static Color SecondaryKeyColor = Color.SkyBlue;
         protected override void ReleaseBody()

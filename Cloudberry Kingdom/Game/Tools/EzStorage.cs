@@ -222,18 +222,13 @@ namespace CloudberryKingdom
             EzStorage.Load(ActualContainerName, FileName,
                 reader =>
                 {
-                    try
-                    {
-                        Deserialize(reader);
-                    }
-                    catch
-                    {
-                    }
+                    Deserialize(reader);
                     Changed = false;
                     SaveGroup.Decr();
                 },
                 () =>
                 {
+                    FailLoad();
                     SaveGroup.Decr();
                     Changed = false;
                 });
@@ -241,6 +236,7 @@ namespace CloudberryKingdom
 
         protected virtual void Serialize(BinaryWriter writer) { }
         protected virtual void Deserialize(byte[] Data) { }
+        protected virtual void FailLoad() { }
     }
     
     public static class EzStorage
@@ -263,15 +259,7 @@ namespace CloudberryKingdom
             result.AsyncWaitHandle.Close();
         }
 
-        public static void Save(string ContainerName, string FileName, Action<StreamWriter> SaveLogic, Action Fail)
-        {
-            Save(ContainerName, FileName, null, SaveLogic, Fail);
-        }
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
-        {
-            Save(ContainerName, FileName, SaveLogic, null, Fail);
-        }
-        public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic_1, Action<StreamWriter> SaveLogic_2, Action Fail)
         {
             if (!DeviceOK())
                 GetDevice();
@@ -306,14 +294,12 @@ namespace CloudberryKingdom
                     StorageContainer container = Device.EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();
 
-                    if (SaveLogic_1 != null)
-                        SaveToContainer(container, FileName, SaveLogic_1, SaveLogic_2);
-                    if (SaveLogic_2 != null)
-                        SaveToContainer(container, FileName, SaveLogic_1, SaveLogic_2);
+                    if (SaveLogic != null)
+                        SaveToContainer(container, FileName, SaveLogic);
                 }, null);
         }
 
-        static void SaveToContainer(StorageContainer container, string FileName, Action<BinaryWriter> SaveLogic_1, Action<StreamWriter> SaveLogic_2)
+        static void SaveToContainer(StorageContainer container, string FileName, Action<BinaryWriter> SaveLogic) 
         {
             // Check to see whether the save exists.
             if (container.FileExists(FileName))
@@ -324,16 +310,10 @@ namespace CloudberryKingdom
             Stream stream = container.CreateFile(FileName);
 
             // Save the data
-            if (SaveLogic_1 != null)
+            if (SaveLogic != null)
             {
                 BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
-                SaveLogic_1(writer);
-                writer.Close();
-            }
-            if (SaveLogic_2 != null)
-            {
-                StreamWriter writer = new StreamWriter(stream, Encoding.UTF8);
-                SaveLogic_2(writer);
+                SaveLogic(writer);
                 writer.Close();
             }
 
@@ -390,7 +370,7 @@ namespace CloudberryKingdom
                 }, null);
         }
 
-        static void LoadFromContainer(StorageContainer container, string FileName, Action<byte[]> LoadLogic, Action DoesNotExist)
+        static void LoadFromContainer(StorageContainer container, string FileName, Action<byte[]> LoadLogic, Action FailLogic)
         {
             // Fallback action if file doesn't exist
             if (!container.FileExists(FileName))
@@ -402,8 +382,8 @@ namespace CloudberryKingdom
                     InUse.MyBool = false;
                 }
 
-                if (DoesNotExist != null)
-                    DoesNotExist();
+                if (FailLogic != null)
+                    FailLogic();
 
                 return;
             }
@@ -411,8 +391,18 @@ namespace CloudberryKingdom
             // Load and process the data
             if (LoadLogic != null)
             {
-                var Data = File.ReadAllBytes(FileName);
-                LoadLogic(Data);
+                try
+                {
+                    Stream s = container.OpenFile(FileName, FileMode.Open);
+                    byte[] Data = new byte[s.Length];
+                    s.Read(Data, 0, (int)s.Length);
+
+                    LoadLogic(Data);
+                }
+                catch
+                {
+                    FailLogic();
+                }
             }
 
             // Dispose the container, to commit changes.

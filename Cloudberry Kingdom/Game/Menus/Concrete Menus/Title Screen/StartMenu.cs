@@ -3,7 +3,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class StartMenu : StartMenuBase
+    public class StartMenu : CkBaseMenu
     {
         public override void Hide(PresetPos pos, int frames)
         {

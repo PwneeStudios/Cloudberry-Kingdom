@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Doll : StartMenuBase
+    public class Doll : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public Doll(int Control, CharacterSelect MyCharacterSelect) : base(false)

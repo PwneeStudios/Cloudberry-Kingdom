@@ -6,7 +6,7 @@ using CloudberryKingdom.Levels;
 namespace CloudberryKingdom
 {
     public enum ReplayGUIType { Replay, Computer };
-    public class ReplayGUI : StartMenuBase
+    public class ReplayGUI : CkBaseMenu
     {
         public override void ReturnToCaller()
         {

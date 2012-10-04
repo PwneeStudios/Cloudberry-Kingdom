@@ -2,7 +2,7 @@
 
 namespace CloudberryKingdom
 {
-    public class ScrollBar : StartMenuBase
+    public class ScrollBar : CkBaseMenu
     {
         LongMenu AttachedMenu;
         GUI_Panel Parent;

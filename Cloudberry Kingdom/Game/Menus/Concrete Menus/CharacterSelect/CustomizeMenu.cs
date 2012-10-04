@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class CustomizeMenu : StartMenuBase
+    public class CustomizeMenu : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
 

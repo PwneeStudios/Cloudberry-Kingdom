@@ -10,8 +10,6 @@ namespace CloudberryKingdom
 {
     public class SavedSeeds
     {
-        public static int version = 1;
-
         public List<string> SeedStrings = new List<string>(50);
 
         public void SaveSeed(string seed, string name)
@@ -23,6 +21,12 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// A rough heuristic fo determining if a string is a seed.
+        /// Heuristic has no false negatives, but many false positives.
+        /// </summary>
+        /// <param name="seed">The string to check.</param>
+        /// <returns>Whether the string is a seed (heuristically).</returns>
         public bool IsSeedValue(string seed)
         {
             if (!seed.Contains(";")) return false;
@@ -30,38 +34,28 @@ namespace CloudberryKingdom
             return true;
         }
 
+        #region WriteRead
         public void WriteChunk_5(BinaryWriter writer)
         {
             var chunk = new Chunk();
-            chunk.Type = 0;
+            chunk.Type = 5;
+
+            foreach (string seed in SeedStrings)
+                chunk.WriteSingle(0, seed);
 
             chunk.Finish(writer);
         }
 
-        public void ReadChunk_5(Chunk chunk)
+        public void ReadChunk_5(Chunk ParentChunk)
         {
+            foreach (Chunk chunk in ParentChunk)
+            {
+                switch (chunk.Type)
+                {
+                    case 0: SeedStrings.Add(chunk.ReadString()); break;
+                }
+            }
         }
-
-        /*
-        public void Write(BinaryWriter writer)
-        {
-            // Version
-            writer.Write(version);
-
-            writer.Write(SeedStrings.Count);
-            for (int i = 0; i < SeedStrings.Count; i++)
-                writer.Write(SeedStrings[i]);
-        }
-
-        public void Read(BinaryReader reader)
-        {
-            // Version
-            int LoadedVersion = reader.ReadInt32();
-
-            int n = reader.ReadInt32();
-            SeedStrings.Clear();
-            for (int i = 0; i < n; i++)
-                SeedStrings.Add(reader.ReadString());
-        }*/
+        #endregion
     }
 }

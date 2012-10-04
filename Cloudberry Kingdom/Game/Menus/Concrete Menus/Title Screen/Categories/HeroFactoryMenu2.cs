@@ -7,7 +7,7 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public class HeroFactoryMenu2 : StartMenuBase
+    public class HeroFactoryMenu2 : CkBaseMenu
     {
         public HeroFactoryMenu2() { }
 

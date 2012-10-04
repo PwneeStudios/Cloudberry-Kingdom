@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class GamerTag : StartMenuBase
+    public class GamerTag : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public GamerTag(int Control, CharacterSelect MyCharacterSelect)

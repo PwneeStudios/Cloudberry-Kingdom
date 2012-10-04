@@ -3,7 +3,7 @@ using System;
 
 namespace CloudberryKingdom
 {
-    public class VerifyBaseMenu : StartMenuBase
+    public class VerifyBaseMenu : CkBaseMenu
     {
         /// <summary>
         /// Called when the user chooses yes/no.

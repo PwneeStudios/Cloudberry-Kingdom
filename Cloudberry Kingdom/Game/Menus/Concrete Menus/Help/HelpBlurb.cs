@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class HelpBlurb : StartMenuBase
+    public class HelpBlurb : CkBaseMenu
     {
         public HelpBlurb()
         {

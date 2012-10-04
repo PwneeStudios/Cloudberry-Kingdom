@@ -13,30 +13,52 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-#if FALSE
-//#if PC_VERSION
-    public class PlayerData
-    {
-#else
     public class PlayerData : SaveLoad
     {
+        public SavedSeeds MySavedSeeds = new SavedSeeds();
+
+        public PlayerIndex MyPlayerIndex;
+        public bool Exists, IsAlive;
+
+        public Set<int> Purchases = new Set<int>();
+        public Set<int> Awardments = new Set<int>();
+
+        public Dictionary<Guid, int> ChallengeStars = new Dictionary<Guid, int>();
+
+        public int MyIndex;
+
+        int RandomNameIndex;
+
+        /// <summary>
+        /// If this player data is or was associated with a gamer tag, this is the name of the gamer tag.
+        /// </summary>
+        public string StoredName = "";
+
+        /// <summary>
+        /// If true the player used a keyboard instead of a gamepad for the last movement input.
+        /// </summary>
+        public bool KeyboardUsedLast = false;
+
+        public ColorScheme ColorScheme;
+        public ColorScheme CustomColorScheme;
+        public int ColorSchemeIndex = Unset.Int;
+
+        public PlayerStats LifetimeStats, GameStats, LevelStats, TempStats;
+        public PlayerStats CampaignStats;
+
+#if PC_VERSION
+#elif XBOX || XBOX_SIGNIN
+        public Gamer _MyGamer;
+        public Gamer MyGamer { get { return CheckForMatchingGamer(); } }
+#endif
+
         public PlayerData()
         {
             AlwaysSave = true;
         }
 
+        #region WriteRead
         protected override void Serialize(BinaryWriter writer)
-        {
-            Write(writer);
-        }
-        protected override void Deserialize(byte[] Data)
-        {
-            Read(Data);
-        }
-#endif
-        public SavedSeeds MySavedSeeds = new SavedSeeds();
-
-        public void Write(BinaryWriter writer)
         {
             // Color scheme
             CustomColorScheme.WriteChunk_0(writer);
@@ -57,7 +79,7 @@ namespace CloudberryKingdom
             MySavedSeeds.WriteChunk_5(writer);
         }
 
-        public void Read(byte[] Data)
+        protected override void Deserialize(byte[] Data)
         {
             foreach (Chunk chunk in Chunks.Get(Data))
             {
@@ -92,36 +114,8 @@ namespace CloudberryKingdom
                 }
             }
         }
+        #endregion
 
-        public int Bank()
-        {
-            return LifetimeStats.Coins - LifetimeStats.CoinsSpentAtShop;
-        }
-
-        public PlayerIndex MyPlayerIndex;
-        public bool Exists, IsAlive;
-
-        /// <summary>
-        /// If true the player used a keyboard instead of a gamepad for the last movement input.
-        /// </summary>
-        public bool KeyboardUsedLast = false;
-
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
-        public Gamer _MyGamer;
-        public Gamer MyGamer { get { return CheckForMatchingGamer(); } }
-#endif
-
-        public ColorScheme ColorScheme;
-        public ColorScheme CustomColorScheme;
-        public int ColorSchemeIndex = Unset.Int;
-
-
-
-        public PlayerStats LifetimeStats, GameStats, LevelStats, TempStats;
-
-        public PlayerStats CampaignStats;
-        
         public PlayerStats Stats { get { return LevelStats; } }
         public PlayerStats GetStats(StatGroup group)
         {
@@ -178,21 +172,11 @@ namespace CloudberryKingdom
             return CampaignStats.Score + GameStats.Score + LevelStats.Score + TempStats.Score;
         }
 
-        public Set<int> Purchases = new Set<int>();
-        public Set<int> Awardments = new Set<int>();
-
-        public Dictionary<Guid, int> ChallengeStars = new Dictionary<Guid, int>();
-
-        public int MyIndex;
-
-        int RandomNameIndex;
-
-#if FALSE
-        public String GetName()
+        public int Bank()
         {
-            return "Stickman";
+            return LifetimeStats.Coins - LifetimeStats.CoinsSpentAtShop;
         }
-#else
+
 #if XBOX || XBOX_SIGNIN
         public Gamer CheckForMatchingGamer()
         {
@@ -231,11 +215,6 @@ namespace CloudberryKingdom
             //text.OutlineColor = Generic.PlayerColorSchemes[PlayerIndex].OutlineColor.Clr.ToVector4();
         }
 
-        /// <summary>
-        /// If this player data is or was associated with a gamer tag, this is the name of the gamer tag.
-        /// </summary>
-        public string StoredName = "";
-
         public String GetName()
         {
 #if XBOX || XBOX_SIGNIN
@@ -252,7 +231,7 @@ namespace CloudberryKingdom
                 return PlayerManager.RandomNames[RandomNameIndex];
             }
         }
-#endif
+
         public void Init(int Index)
         {
             Init();
@@ -272,10 +251,6 @@ namespace CloudberryKingdom
             LifetimeStats = new PlayerStats();
 
             CampaignStats = new PlayerStats();
-
-        //    foreach (Challenge challenge in ChallengeList.Challenges)
-        //        if (challenge.ID != Guid.Empty)
-        //            ChallengeStars.Add(challenge.ID, 0);
         }
     }
 }

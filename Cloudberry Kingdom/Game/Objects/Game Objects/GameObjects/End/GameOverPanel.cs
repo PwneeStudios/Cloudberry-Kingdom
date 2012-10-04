@@ -4,7 +4,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class GameOverPanel : StartMenuBase
+    public class GameOverPanel : CkBaseMenu
     {
         public int DelayPhsx = 42;
 

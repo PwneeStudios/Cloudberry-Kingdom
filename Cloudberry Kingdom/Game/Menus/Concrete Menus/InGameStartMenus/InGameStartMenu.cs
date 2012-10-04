@@ -4,7 +4,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class InGameStartMenu : StartMenuBase
+    public class InGameStartMenu : CkBaseMenu
     {
         public static bool PreventMenu = false;
 

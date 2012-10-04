@@ -263,6 +263,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\TitleGame_Intense.cs" />
+    <Compile Include="Game\Menus\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\MultiplierUp.cs" />
@@ -452,7 +453,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\DifficultyMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenuItem.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\CampaignMenu.cs" />
+    <Compile Include="Game\Games\CampaignHelper.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\ArcadeMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\SavedSeedsGUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\HeroFactoryMenu2.cs" />
@@ -463,7 +464,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeBar.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen2.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\SoundMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenuBase.cs" />
+    <Compile Include="Game\Menus\CkBaseMenu.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\Challenge_Base.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld_Endurance.cs" />
     <Compile Include="Game\Objects\Door\PressNote.cs" />

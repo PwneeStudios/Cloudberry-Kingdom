@@ -222,8 +222,10 @@ namespace CloudberryKingdom
         /// <summary>
         /// Get the value of the top score
         /// </summary>
-        public int Top {
-            get {
+        public int Top
+        {
+            get
+            {
                 if (Scores == null) return 0;
                 if (Scores.Count == 0) return 0;
 
@@ -267,6 +269,11 @@ namespace CloudberryKingdom
 
             foreach (ScoreEntry score in Scores)
                 score.WriteChunk_0(writer);
+        }
+
+        protected override void FailLoad()
+        {
+            Init(Capacity, DefaultValue);
         }
 
         protected override void Deserialize(byte[] Data)

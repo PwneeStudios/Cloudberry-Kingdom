@@ -3,7 +3,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class CharSelectBackdrop : StartMenuBase
+    public class CharSelectBackdrop : CkBaseMenu
     {
         public CharSelectBackdrop()
             : base()

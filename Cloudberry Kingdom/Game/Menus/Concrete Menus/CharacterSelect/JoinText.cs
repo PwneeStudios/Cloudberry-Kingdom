@@ -11,7 +11,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class JoinText : StartMenuBase
+    public class JoinText : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public JoinText(int Control, CharacterSelect MyCharacterSelect)

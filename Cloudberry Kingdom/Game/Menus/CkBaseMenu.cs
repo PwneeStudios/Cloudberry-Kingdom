@@ -4,64 +4,7 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public class CkColorHelper
-    {
-        public static void RegularColor(EzText name)
-        {
-            name.MyFloatColor = new Color(255, 255, 255).ToVector4();
-            name.OutlineColor = new Color(0, 0, 0).ToVector4();
-        }
-
-        public static void _x_x_MasochisticColor(EzText name)
-        {
-            name.MyFloatColor = new Color(0, 0, 0).ToVector4();
-            name.OutlineColor = new Color(0, 255, 255).ToVector4();
-        }
-
-        public static void _x_x_HardcoreColor(EzText name)
-        {
-            name.MyFloatColor = new Color(0, 0, 0).ToVector4();
-            name.OutlineColor = new Color(255, 10, 10).ToVector4();
-        }
-
-        public static void AbusiveColor(EzText name)
-        {
-            name.MyFloatColor = new Color(248, 136, 8).ToVector4();
-            name.OutlineColor = new Color(248, 0, 8).ToVector4();
-        }
-
-        public static void UnpleasantColor(EzText name)
-        {
-            name.MyFloatColor = new Color(44, 203, 48).ToVector4();
-            name.OutlineColor = new Color(0, 71, 0).ToVector4();
-        }
-
-        public static void _x_x_EasyColor(EzText name)
-        {
-            name.MyFloatColor = new Color(184, 240, 255).ToVector4();
-            name.OutlineColor = new Color(37, 118, 158).ToVector4();
-        }
-
-        public static void _x_x_HappyBlueColor(EzText name)
-        {
-            name.MyFloatColor = new Color(26, 188, 241).ToVector4();
-            name.OutlineColor = new Color(255, 255, 255).ToVector4();
-        }
-
-        public static void _x_x_Red(EzText text)
-        {
-            text.MyFloatColor = new Color(228, 0, 69).ToVector4();
-            text.OutlineColor = Color.White.ToVector4();
-        }
-
-        public static void GreenItem(MenuItem item)
-        {
-            item.MyText.MyFloatColor = new Color(255, 255, 255).ToVector4();
-            item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
-        }
-    }
-
-    public class StartMenuBase : GUI_Panel
+    public class CkBaseMenu : GUI_Panel
     {
         QuadClass DarkBack;
         protected void MakeDarkBack()
@@ -408,8 +351,8 @@ namespace CloudberryKingdom
         //public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer + 1;
         public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer;
 
-        public StartMenuBase() { Core.DrawLayer = DefaultMenuLayer; }
-        public StartMenuBase(bool CallBaseConstructor) : base(CallBaseConstructor) { Core.DrawLayer = DefaultMenuLayer; }
+        public CkBaseMenu() { Core.DrawLayer = DefaultMenuLayer; }
+        public CkBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { Core.DrawLayer = DefaultMenuLayer; }
 
         public override void Draw()
         {

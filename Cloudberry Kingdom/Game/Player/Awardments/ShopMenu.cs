@@ -103,7 +103,7 @@ namespace CloudberryKingdom.Awards
         }
     }
 
-    public class ShopMenu : StartMenuBase
+    public class ShopMenu : CkBaseMenu
     {
         public static ShopMenu ActiveShop;
 

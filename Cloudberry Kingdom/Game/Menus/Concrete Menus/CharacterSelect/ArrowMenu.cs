@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class ArrowMenu : StartMenuBase
+    public class ArrowMenu : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
 

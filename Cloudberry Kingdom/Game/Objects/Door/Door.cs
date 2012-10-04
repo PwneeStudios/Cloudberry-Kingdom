@@ -400,15 +400,14 @@ namespace CloudberryKingdom
 
                 if (DoorOperated == 0) return _DelayToShowNote_First;
                 else if (DoorOperated == 1) return _DelayToShowNote_Second;
-                else return _DelayToShowNote;
+                else return _DelayToShowNote_Nth;
             }
         }
 
         /// <summary> This length is used only for the first time a player opens a door. </summary>
-        int _DelayToShowNote_First = 48;
+        int _DelayToShowNote_First = 60;
         int _DelayToShowNote_Second = 75;
-        /// <summary> This length is used for every time the player has already opened a door at least once. </summary>
-        int _DelayToShowNote = 180;
+        int _DelayToShowNote_Nth = 180;
 
 
         /// <summary>

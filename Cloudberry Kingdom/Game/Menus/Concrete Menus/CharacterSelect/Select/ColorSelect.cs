@@ -3,7 +3,7 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public class ListSelectPanel : StartMenuBase
+    public class ListSelectPanel : CkBaseMenu
     {
         public MenuList MyList;
         CharacterSelect MyCharacterSelect;

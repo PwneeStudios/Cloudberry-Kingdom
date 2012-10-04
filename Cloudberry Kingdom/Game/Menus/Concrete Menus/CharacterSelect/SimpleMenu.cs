@@ -4,7 +4,7 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public class SimpleMenuBase : StartMenuBase
+    public class SimpleMenuBase : CkBaseMenu
     {
         protected CharacterSelect MyCharacterSelect;
         ArrowMenu Arrows;

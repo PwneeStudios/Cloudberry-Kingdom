@@ -5,7 +5,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class MenuListExpand : StartMenuBase
+    public class MenuListExpand : CkBaseMenu
     {
         protected override void ReleaseBody()
         {

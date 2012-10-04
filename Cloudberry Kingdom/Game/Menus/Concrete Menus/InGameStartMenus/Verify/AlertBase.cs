@@ -3,7 +3,7 @@ using System;
 
 namespace CloudberryKingdom
 {
-    public class AlertBaseMenu : StartMenuBase
+    public class AlertBaseMenu : CkBaseMenu
     {
         /// <summary>
         /// Called when the user presses OK.

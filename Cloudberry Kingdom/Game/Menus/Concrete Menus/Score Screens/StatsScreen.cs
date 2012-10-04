@@ -4,7 +4,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Stats
 {
-    public class StatsMenu : StartMenuBase
+    public class StatsMenu : CkBaseMenu
     {
         protected override void SetItemProperties(MenuItem item)
         {
@@ -96,15 +96,12 @@ namespace CloudberryKingdom.Stats
             {
                 var player = PlayerManager.Get(i);
                 
-                //Stats[i] = player.GetStats(group);
                 Stats[i] = player.GetSummedStats(group);
                 if (!Tools.CurLevel.Finished && !Tools.CurLevel.CoinsCountInStats)
                     Stats[i].TotalCoins += Tools.CurLevel.NumCoins;
             }
 
             MyPile = new DrawPile();
-
-
 
             // Make the menu
             MyMenu = new LongMenu();
@@ -197,7 +194,8 @@ namespace CloudberryKingdom.Stats
             AddRow(new MenuItem(new EzText("Blobs", ItemFont)), j => Stats[j].Blobs);
             AddRow(new MenuItem(new EzText("Checkpoints", ItemFont)), j => Stats[j].Checkpoints);
             AddRow(new MenuItem(new EzText("Average Life", ItemFont)), j => Stats[j].LifeExpectancy);
-            AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
+            
+            //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
 
             // Deaths
             Header = new MenuItem(new EzText("Deaths", Tools.Font_Grobold42_2));
@@ -233,22 +231,26 @@ namespace CloudberryKingdom.Stats
 
 
 
-            // Backdrop
-            QuadClass backdrop;
-            
-            //backdrop = new QuadClass("Backplate_1500x900", 1500, true);
-            //MyPile.Add(backdrop);
-            //backdrop.Pos = new Vector2(3009.921265f, -111.1109f) + new Vector2(-297.6191f, 15.87299f);
+            // Darker Backdrop
+            QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
+            MyPile.Add(Backdrop);
+            MyPile.Add(Backdrop);
 
-            backdrop = new QuadClass("score screen", 1500, true);
-            MyPile.Add(backdrop);
-            MyPile.Add(backdrop);
-            backdrop.Size = new Vector2(1453.1744f, 1973.215f);
-            backdrop.Pos = new Vector2(0f, -35.71438f);
+            // Bubbly-Happy backdrop
+            //QuadClass backdrop;
+            //backdrop = new QuadClass("score screen", 1500, true);
+            //MyPile.Add(backdrop);
+            //MyPile.Add(backdrop);
+            //backdrop.Size = new Vector2(1453.1744f, 1973.215f);
+            //backdrop.Pos = new Vector2(0f, -35.71438f);
 
             EnsureFancy();
             MyMenu.Pos = new Vector2(67.45706f, 0f);
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
         }
 
         Vector2 BarPos;

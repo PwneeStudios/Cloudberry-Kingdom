@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class HintBlurb2 : StartMenuBase
+    public class HintBlurb2 : CkBaseMenu
     {
         protected QuadClass Backdrop;
 

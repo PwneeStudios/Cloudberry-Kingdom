@@ -19,7 +19,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public class ArcadeBaseMenu : StartMenuBase
+    public class ArcadeBaseMenu : CkBaseMenu
     {
         protected LevelItem SelectedItem;
         protected ArcadeItem MyArcadeItem;

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CloudberryKingdom
 {
-    public class ControlScreen : StartMenuBase
+    public class ControlScreen : CkBaseMenu
     {
         QuadClass BackgroundQuad;
       

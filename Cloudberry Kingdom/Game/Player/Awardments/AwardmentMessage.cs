@@ -2,7 +2,7 @@
 
 namespace CloudberryKingdom.Awards
 {
-    public class AwardmentMessage : StartMenuBase
+    public class AwardmentMessage : CkBaseMenu
     {
         public static int Style = 0;
 

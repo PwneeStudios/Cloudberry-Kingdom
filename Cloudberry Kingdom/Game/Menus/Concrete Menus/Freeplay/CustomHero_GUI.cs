@@ -8,7 +8,7 @@ using CloudberryKingdom.Menus;
 
 namespace CloudberryKingdom
 {
-    public class CustomHero_GUI : StartMenuBase
+    public class CustomHero_GUI : CkBaseMenu
     {
         public CustomHero_GUI() { }
 

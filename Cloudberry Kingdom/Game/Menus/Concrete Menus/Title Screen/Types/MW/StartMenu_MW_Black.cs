@@ -3,7 +3,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class StartMenu_MW_Black : StartMenuBase
+    public class StartMenu_MW_Black : CkBaseMenu
     {
         public override void SlideIn(int Frames)
         {

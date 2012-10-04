@@ -4,7 +4,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class HighScorePanel : StartMenuBase
+    public class HighScorePanel : CkBaseMenu
     {
         public ScoreList MyScoreList;
 

@@ -7,7 +7,7 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Waiting : StartMenuBase
+    public class Waiting : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public Waiting(int Control, CharacterSelect MyCharacterSelect)

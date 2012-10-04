@@ -4,7 +4,7 @@ using System;
 
 namespace CloudberryKingdom
 {
-    public class CustomUpgrades_GUI : StartMenuBase
+    public class CustomUpgrades_GUI : CkBaseMenu
     {
         PieceSeedData PieceSeed;
 

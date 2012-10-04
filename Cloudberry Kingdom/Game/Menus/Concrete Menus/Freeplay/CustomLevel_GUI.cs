@@ -8,7 +8,7 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public class CustomLevel_GUI : StartMenuBase
+    public class CustomLevel_GUI : CkBaseMenu
     {
         public static List<TileSet> FreeplayTilesets = new List<TileSet>();
         public static List<BobPhsx> FreeplayHeroes = new List<BobPhsx>();

@@ -4,7 +4,7 @@ using System;
 
 namespace CloudberryKingdom
 {
-    public class SavedSeedsGUI : StartMenuBase
+    public class SavedSeedsGUI : CkBaseMenu
     {
         public SavedSeedsGUI()
         {

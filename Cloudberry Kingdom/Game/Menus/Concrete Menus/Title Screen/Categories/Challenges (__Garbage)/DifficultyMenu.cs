@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class DifficultyMenu : StartMenuBase
+    public class DifficultyMenu : CkBaseMenu
     {
         protected override void SetHeaderProperties(EzText text)
         {

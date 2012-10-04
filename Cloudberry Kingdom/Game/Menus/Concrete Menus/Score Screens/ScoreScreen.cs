@@ -6,7 +6,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class ScoreScreen : StartMenuBase
+    public class ScoreScreen : CkBaseMenu
     {
         bool _Add_Watch, _Add_Save;
         protected virtual void MakeMenu()

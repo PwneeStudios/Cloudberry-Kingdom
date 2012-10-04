@@ -5,7 +5,7 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom.Awards
 {
-    public class AwardmentMenu : StartMenuBase
+    public class AwardmentMenu : CkBaseMenu
     {
         EzText Description;
         QuadClass Hat;
