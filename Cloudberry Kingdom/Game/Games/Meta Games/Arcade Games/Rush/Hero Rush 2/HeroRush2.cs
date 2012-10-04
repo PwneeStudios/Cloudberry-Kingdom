@@ -81,8 +81,8 @@ namespace CloudberryKingdom
         protected Challenge_HeroRush2()
         {
             ID = new Guid("2a5144f2-585e-4716-7398-0c96b6ebdec7");
-            MenuName = "Absurdiverse";
-            Name = "Absurdiverse";
+            MenuName = "Hybrid Rush";
+            Name = "Hybrid Rush";
             MenuPic = "menupic_herorush2";
             HighScore = SaveGroup.HeroRush2HighScore;
             HighLevel = SaveGroup.HeroRush2HighLevel;

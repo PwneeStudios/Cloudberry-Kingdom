@@ -37,7 +37,12 @@ namespace CloudberryKingdom
 
             BackgroundQuad = new QuadClass();
             BackgroundQuad.SetToDefault();
+            
+#if PC_VERSION
+            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen_PC");
+#else
             BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen");
+#endif
 
             MyPile = new DrawPile();
             EnsureFancy();

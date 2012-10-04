@@ -897,12 +897,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
             TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
 
-#if PC_VERSION
-            TextureWad.AddTexture(Content.Load<Texture2D>("ControllerScreen_PC"), "ControllerScreen");
-#else
-            TextureWad.AddTexture(Content.Load<Texture2D>("ControllerScreen"), "ControllerScreen");
-#endif            
-
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
         }
 
@@ -1002,7 +996,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Circle"), "Circle");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Shell"), "Shell");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\FireballEffect"), "Fireball");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\WaterBob"), "WaterBob");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Paint"), "Paint");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Lava"), "Lava");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\LightMap"), "LightMap");

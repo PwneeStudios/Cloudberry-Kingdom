@@ -155,17 +155,16 @@ namespace CloudberryKingdom
             this.ResourceCount = ResourceCount;
 
             Whinney = Content.Load<SoundEffect>("Whinney");
-            //Angels = Content.Load<SoundEffect>("Angels");
 
             if (style == 0)
             {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadOutline");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadFill");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill");
             }
             else if (style == 1)
             {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadOutline_2");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen\\LoadFill_2");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline_2");
+                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill_2");
             }
 
             MyPile = new DrawPile();
@@ -177,8 +176,8 @@ namespace CloudberryKingdom
                 //AboveBar.Quad.MyTexture = Tools.TextureWad.FindOrLoad(Content, "Art\\Tigar\\Splash");
                 //MyPile.Add(AboveBar);
 
-                Tools.TextureWad.FindOrLoad(Content, "Art\\Tigar\\Splash");
-                Splash = new QuadClass("Art\\Tigar\\Splash", 1400);
+                Tools.TextureWad.FindOrLoad(Content, "Splash");
+                Splash = new QuadClass("Splash", 1400);
                 MyPile.Add(Splash);
 
                 MyProgressBar = new ProgressBar();

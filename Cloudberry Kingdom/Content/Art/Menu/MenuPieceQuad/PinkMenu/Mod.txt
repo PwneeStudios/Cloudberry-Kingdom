@@ -1,4 +1,0 @@
-(define pattern "C:\\Users\\Ez\\Desktop\\Cloudberry Kingdom\\WindowsGame1\\Content\\Art\\MenuPieceQuad\\PinkMenu\\*.png")
-
-(InvertBatch pattern)
-(ColorizeBatch pattern 321 69 5)

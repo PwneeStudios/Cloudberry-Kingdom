@@ -58,7 +58,7 @@ namespace CloudberryKingdom
 
             Scene_Blur = new QuadClass("Title_Blur", 1778);
             MyPile.Add(Scene_Blur, "Scene_Blur");
-
+ 
             Scene_Princess = new QuadClass("Scene_Princess", 1778);
             MyPile.Add(Scene_Princess, "Scene_Princess");
 
