@@ -14,61 +14,69 @@ namespace CloudberryKingdom
 
     public class Challenge
     {
+        public static BobPhsx ChosenHero;
+        const int LevelMask = 10000;
+
         public int[] StartLevels = { 1, 50, 100, 150 };
 
-        /// <summary>
-        /// The last difficulty selected via the difficulty select menu
-        /// </summary>
-        public static int PreviousMenuIndex = 0;
-
-
-        public string MenuPic;
         public string Name, MenuName;
-        public Guid ID;
         
-        public int Goal_Level = 0, Goal_Score = 0;
+        public int GameId_Score, GameId_Level;
+        protected int GameTypeId;
 
-        public string GoalText()
+        public int SetGameId()
         {
-            if (Goal_Level > 0)
-                return string.Format("Goal: Reach level {0}", Goal_Level);
+            int HeroId = Challenge.ChosenHero == null ? 0 : Challenge.ChosenHero.Id;
 
-            if (Goal_Score > 0)
-                return string.Format("Goal: Score of {0}", Goal_Score);
-
-            return null;
+            GameId_Score = 100 * HeroId + GameTypeId;
+            GameId_Level = 100 * HeroId + GameTypeId + LevelMask;
+            return GameId_Score;
         }
-
-        public bool GoalMet = false;
-        public virtual bool IsGoalMet() { return GoalMet; }
-        public void UpdateGoalMet()
-        {
-            int score = HighScore != null ? HighScore.Top : 0;
-            int level = HighLevel != null ? HighLevel.Top : 0;
-            CheckIfGoalMet(score, level);
-        }
-        public virtual void CheckIfGoalMet(int level, int score)
-        {
-            if (level >= Goal_Level && score >= Goal_Score) SetGoalMet(true);
-            else SetGoalMet(false);
-        }
-        public virtual void SetGoalMet(bool value) { GoalMet = value; }
-
-        public ScoreList HighScore, HighLevel;
-
-        public Challenge(string Name)
-        {
-            this.Name = Name;
-            ID = new Guid();
-        }
-
-        public Challenge() { }
 
         protected StringWorldGameData StringWorld { get { return (StringWorldGameData)Tools.WorldMap; } }
 
+        /// <summary>
+        /// Get the top score that anyone on this machine has ever gotten.
+        /// </summary>
+        public int TopScore()
+        {
+            SetGameId();
+            return ScoreDatabase.Max(GameId_Score).Score;
+        }
+
+        /// <summary>
+        /// Get the highest level that anyone on this machine has ever gotten.
+        /// </summary>
+        public int TopLevel()
+        {
+            SetGameId();
+            return ScoreDatabase.Max(GameId_Level).Level;
+        }
+
+        /// <summary>
+        /// Get the top score that anyone playing has ever gotten.
+        /// </summary>
+        public int TopPlayerScore()
+        {
+            SetGameId();
+            return PlayerManager.MaxPlayerHighScore(GameId_Score);
+        }
+
+        /// <summary>
+        /// Get the highest level that anyone playing has ever gotten.
+        /// </summary>
+        public int TopPlayerLevel()
+        {
+            SetGameId();
+            return PlayerManager.MaxPlayerHighScore(GameId_Level);
+        }
+
         protected virtual void ShowEndScreen()
         {
-            Tools.CurGameData.AddGameObject(new GameOverPanel(HighScore, HighLevel, StringWorld, CheckIfGoalMet));
+            var MyGameOverPanel = new GameOverPanel(GameId_Score, GameId_Level);
+            MyGameOverPanel.Levels = StringWorld.CurLevelIndex + 1;
+            
+            Tools.CurGameData.AddGameObject();
         }
 
         /// <summary>
@@ -94,10 +102,6 @@ namespace CloudberryKingdom
         public void Aftermath()
         {
             AftermathData data = Tools.CurrentAftermath;
-
-            if (data.Success)
-                foreach (PlayerData player in PlayerManager.Players)
-                    player.ChallengeStars[ID] = Math.Max(player.ChallengeStars[ID], DifficultySelected + 1);
         }
         
         protected virtual void SetGameParent(GameData game)

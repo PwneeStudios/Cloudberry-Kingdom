@@ -20,8 +20,6 @@ namespace CloudberryKingdom
 
     public class StartMenu_MW_HeroSelect : ArcadeBaseMenu
     {
-        public static BobPhsx ChosenHero = BobPhsxNormal.Instance;
-
         public TitleGameData_MW Title;
         public ArcadeMenu Arcade;
 
@@ -110,6 +108,9 @@ namespace CloudberryKingdom
 
             CallDelay = ReturnToCallerDelay = 0;
 
+            Score = new EzText("0", Tools.Font_Grobold42_2);
+            Level = new EzText("0", Tools.Font_Grobold42_2);
+
             // Heroes
             BobPhsx SmallJetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
             SmallJetpackWheelie.Name = "Flaming Vomit";
@@ -133,6 +134,8 @@ namespace CloudberryKingdom
             // Menu
             MiniMenu mini = new MiniMenu();
             MyMenu = mini;
+
+            MyMenu.OnSelect = UpdateScore;
 
             mini.WrapSelect = false;
             mini.Shift = new Vector2(0, -135);
@@ -173,14 +176,12 @@ namespace CloudberryKingdom
             StartMenu.SetText_Green(ScoreHeader, true);
             MyPile.Add(ScoreHeader, "ScoreHeader");
 
-            Score = new EzText("284,566", Tools.Font_Grobold42_2);
             MyPile.Add(Score, "Score");
 
             var LevelHeader = new EzText("Best Level", Tools.Font_Grobold42_2);
             StartMenu.SetText_Green(LevelHeader, true);
             MyPile.Add(LevelHeader, "LevelHeader");
-
-            Level = new EzText("63", Tools.Font_Grobold42_2);
+            
             MyPile.Add(Level, "Level");
             #endregion
 
@@ -196,6 +197,18 @@ namespace CloudberryKingdom
         }
 
         EzText Score, Level;
+
+        void UpdateScore()
+        {
+            var item = MyMenu.CurItem as HeroItem;
+            if (null == item) return;
+
+            var TopScore = MyArcadeItem.MyChallenge.TopScore();
+            var TopLevel = MyArcadeItem.MyChallenge.TopLevel();
+
+            Score.SubstituteText(TopScore.ToString());
+            Level.SubstituteText(TopLevel.ToString());
+        }
 
         void SetPos()
         {
@@ -223,11 +236,11 @@ namespace CloudberryKingdom
             var hitem = item as HeroItem;
             if (null == hitem || hitem.Locked) return;
 
-            StartMenu_MW_HeroSelect.ChosenHero = hitem.Hero;
+            Challenge.ChosenHero = hitem.Hero;
 
-            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.HighLevel.Top);
+            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopLevel());
 
-            levelmenu.MyMenu.SelectItem(Challenge_HeroRush.PreviousMenuIndex);
+            levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
             levelmenu.StartFunc = StartFunc;
             levelmenu.ReturnFunc = null;
 

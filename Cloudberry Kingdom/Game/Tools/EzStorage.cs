@@ -11,56 +11,9 @@ namespace CloudberryKingdom
     {
         static List<SaveLoad> ThingsToSave = new List<SaveLoad>();
 
-        public static ScoreList ConstructHighScore, ConstructHighLevel;
-        public static ScoreList UpUpHighScore, UpUpHighLevel;
-        public static ScoreList WheelieHighScore, WheelieHighLevel;
-        public static ScoreList EscalationHighScore, EscalationHighLevel;
-        public static ScoreList HeroFactoryEscalationHighScore, HeroFactoryEscalationHighLevel;
-        public static ScoreList HeroRushHighScore, HeroRushHighLevel;
-        public static ScoreList HeroRush2HighScore, HeroRush2HighLevel;
-
-        public static ScoreList TimeCrisisHighScore, TimeCrisisHighLevel;
-
-        public static CampaignList[] CampaignScores;
-
-        static void InitRushScore(string name, ref ScoreList scorelist, ref ScoreList lvllist)
-        {
-            scorelist = new ScoreList();
-            scorelist.FileName = name + ".hsc";
-            Add(scorelist);
-
-            lvllist = new ScoreList();
-            lvllist.Header = "High Levels";
-            lvllist.Prefix = "Level ";
-            lvllist.FileName = name + "Level.hsc";
-            Add(lvllist);
-        }
-
         public static void Initialize()
         {
-            // Escalation Scores
-            InitRushScore("Escalation", ref EscalationHighScore, ref EscalationHighLevel);
-
-            // Escalation Scores
-            InitRushScore("Hero Factor", ref HeroFactoryEscalationHighScore, ref HeroFactoryEscalationHighLevel);
-            
-            // Wheelie Scores
-            InitRushScore("Wheelie", ref WheelieHighScore, ref WheelieHighLevel);
-
-            // Construct Scores
-            InitRushScore("Construct", ref ConstructHighScore, ref ConstructHighLevel);
-
-            // UpUp Scores
-            InitRushScore("UpUp", ref UpUpHighScore, ref UpUpHighLevel);
-
-            // Hero Rush Scores
-            InitRushScore("HeroRush", ref HeroRushHighScore, ref HeroRushHighLevel);
-
-            // Hero Rush 2 Scores
-            InitRushScore("HeroRush2", ref HeroRush2HighScore, ref HeroRush2HighLevel);
-
-            // Time Crisis Scores
-            InitRushScore("TimeCrisis", ref TimeCrisisHighScore, ref TimeCrisisHighLevel);
+            ScoreDatabase.Initialize();
 
             // Player data
             PlayerManager.SavePlayerData = new _SavePlayerData();

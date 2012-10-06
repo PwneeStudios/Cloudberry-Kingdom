@@ -6,6 +6,19 @@ namespace CloudberryKingdom
 {
     public class GameOverPanel : CkBaseMenu
     {
+        int GameId_Score, GameId_Level;
+
+        /// <summary>
+        /// A High Scores list for the game just played.
+        /// </summary>
+        ScoreList MyHighScoreList, MyHighLevelList;
+
+        GUI_TextBox MyTextBox;
+        Vector2 MenuPos;
+
+        ScoreEntry HighScoreEntry, HighLevelEntry;
+        public int Score, Levels, Attempts, Time, Date;
+
         public int DelayPhsx = 42;
 
         public override void Init()
@@ -17,7 +30,6 @@ namespace CloudberryKingdom
             Fast();
         }
 
-        int Score = 0;
         public override void OnAdd()
         {
             base.OnAdd();
@@ -31,13 +43,15 @@ namespace CloudberryKingdom
             PlayerManager.AbsorbLevelStats();            
 
             // Update HighScore list
+            PlayerManager.CalcScore(StatGroup.Game);
             Score = PlayerManager.GetGameScore();
-            if (OnScoreTabulate != null)
-                OnScoreTabulate(Score);
-            if (OnLevelTabulate != null)
-                OnLevelTabulate(Levels);
-            if (OnTabulate != null)
-                OnTabulate(Score, Levels);
+            Attempts = PlayerManager.Score_Attempts;
+            Time = PlayerManager.Score_Time;
+            Date = 0;
+
+            string GamerTag = PlayerManager.GetGroupGamerTag(100);
+            HighScoreEntry = new ScoreEntry(GamerTag, GameId_Score, Score, Score, Levels, Attempts, Time, Date);
+            HighLevelEntry = new ScoreEntry(GamerTag, GameId_Level, Score, Score, Levels, Attempts, Time, Date);
 
 #if NOT_PC
             AddScore();
@@ -125,31 +139,19 @@ namespace CloudberryKingdom
         {
         }
 
-        void AddScore() { AddScore(null); }
-        void AddScore(string name)
-        {
-            MyHighScoreList.Add(new ScoreEntry(Score, name));
-            if (MyHighScoreList2 != null)
-                MyHighScoreList2.Add(new ScoreEntry(Levels, name));
-        }
-
 #if PC_VERSION
         protected override void ReleaseBody()
         {
             base.ReleaseBody();
 
-            OnScoreTabulate = null;
-            if (MyTextBox != null)
-                MyTextBox.Release();
+            if (MyTextBox != null) MyTextBox.Release(); MyTextBox = null;
         }
 
-        GUI_TextBox MyTextBox;
-        Vector2 MenuPos;
         void MakeTextBox()
         {
             // Do nothing if the score doesn't qualify for the high score list
-            if (!MyHighScoreList.Qualifies(Score) &&
-                (MyHighScoreList2 == null || !MyHighScoreList2.Qualifies(Levels)))
+            if (!MyHighScoreList.Qualifies(HighScoreEntry) &&
+                (MyHighLevelList == null || !MyHighLevelList.Qualifies(HighLevelEntry)))
                 return;
 
             // Make the text box to allow the player to enter their name
@@ -159,9 +161,7 @@ namespace CloudberryKingdom
             MyGame.AddGameObject(MyTextBox);
 
             MyTextBox.Pos.SetCenter(Pos);
-            MyTextBox.Pos.RelVal =
-                //new Vector2(95.23779f, -556.3492f);
-                new Vector2(95.23779f, -506);
+            MyTextBox.Pos.RelVal = new Vector2(95.23779f, -506);
             MyTextBox.Pos.code = 23;
             
             // Hide the menu
@@ -172,7 +172,8 @@ namespace CloudberryKingdom
             MyTextBox.OnEnter += () =>
                 {
                     // Add the high score
-                    AddScore(MyTextBox.Text);
+                    MyHighScoreList.Add(HighScoreEntry);
+                    MyHighLevelList.Add(HighLevelEntry);
 
                     MyGame.WaitThenDo(35, () =>
                         {
@@ -261,58 +262,17 @@ namespace CloudberryKingdom
         void Action_ShowHighScores()
         {
             Hide(PresetPos.Bottom);
-            Call(new HighScorePanel(MyHighScoreList, MyHighScoreList2));
+            Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
         }
-
-        int Levels = 0; // How many levels the player finished
-
-        int Step = 0;
-        protected override void MyPhsxStep()
-        {
-            base.MyPhsxStep();
-
-            if (!Active) return;
-        }
-
-        /// <summary>
-        /// A High Scores list for the game just played.
-        /// </summary>
-        ScoreList MyHighScoreList, MyHighScoreList2;
-
-        /// <summary>
-        /// Called when the score is tabulated.
-        /// </summary>
-        Action<int> OnScoreTabulate;
-
-        /// <summary>
-        /// Called when the number of levels is tabulated.
-        /// </summary>
-        Action<int> OnLevelTabulate;
-
-        Action<int, int> OnTabulate;
 
         public GameOverPanel() { }
-        public GameOverPanel(ScoreList HighScores, ScoreList HighLevels, StringWorldGameData StringWorld,
-                             Action<int> OnScoreTabulate, Action<int> OnLevelTabulate)
+        public GameOverPanel(int GameId_Score, int GameId_Level)
         {
-            this.MyHighScoreList = HighScores;
-            this.MyHighScoreList2 = HighLevels;
-            this.OnScoreTabulate = OnScoreTabulate;
-            this.OnLevelTabulate = OnLevelTabulate;
+            this.GameId_Score = GameId_Score;
+            this.GameId_Level = GameId_Level;
 
-            if (StringWorld != null)
-                this.Levels = StringWorld.CurLevelIndex + 1;
-        }
-
-        public GameOverPanel(ScoreList HighScores, ScoreList HighLevels, StringWorldGameData StringWorld,
-                             Action<int, int> OnTabulate)
-        {
-            this.MyHighScoreList = HighScores;
-            this.MyHighScoreList2 = HighLevels;
-            this.OnTabulate = OnTabulate;
-
-            if (StringWorld != null)
-                this.Levels = StringWorld.CurLevelIndex + 1;
+            MyHighScoreList = ScoreDatabase.GetList(GameId_Score);
+            MyHighLevelList = ScoreDatabase.GetList(GameId_Level);
         }
 
         protected override void MyDraw()

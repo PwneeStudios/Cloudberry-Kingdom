@@ -9,25 +9,14 @@ namespace CloudberryKingdom
 {
     public class Challenge_HeroRush : Rush
     {
-        public override void CheckIfGoalMet(int level, int score)
-        {
-            base.CheckIfGoalMet(level, score);
-
-            Awardments.CheckForAward_HeroRush_Score(score);
-        }
-
         static readonly Challenge_HeroRush instance = new Challenge_HeroRush();
         public static Challenge_HeroRush Instance { get { return instance; } }
 
         protected Challenge_HeroRush()
         {
-            ID = new Guid("3a5141f9-585e-4716-8398-0c96b6ebdec7");
+            GameTypeId = 1;
             MenuName = "Hero Rush";
-            Name = "Hero Rush";
-            MenuPic = "menupic_herorush1";
-            HighScore = SaveGroup.HeroRushHighScore;
-            HighLevel = SaveGroup.HeroRushHighLevel;
-            Goal_Level = 5;
+            Name = "Hero Rush";            
         }
 
         // The progression of max time and start time for increasing difficulty

@@ -15,15 +15,15 @@ namespace CloudberryKingdom
 {
     public class PlayerData : SaveLoad
     {
-        public SavedSeeds MySavedSeeds = new SavedSeeds();
+        public SavedSeeds MySavedSeeds;
 
         public PlayerIndex MyPlayerIndex;
         public bool Exists, IsAlive;
 
-        public Set<int> Purchases = new Set<int>();
-        public Set<int> Awardments = new Set<int>();
+        public Set<int> Purchases;
+        public Set<int> Awardments;
 
-        public Dictionary<Guid, int> ChallengeStars = new Dictionary<Guid, int>();
+        public Dictionary<int, ScoreEntry> HighScores;
 
         public int MyIndex;
 
@@ -64,6 +64,10 @@ namespace CloudberryKingdom
             CustomColorScheme.WriteChunk_0(writer);
             Chunk.WriteSingle(writer, 1, ColorSchemeIndex);
 
+            // High Scores
+            foreach (var HighScore in HighScores.Values)
+                HighScore.WriteChunk_1000(writer);
+
             // Awardments
             foreach (int guid in Awardments)
                 Chunk.WriteSingle(writer, 2, ColorSchemeIndex);
@@ -77,6 +81,14 @@ namespace CloudberryKingdom
 
             // Save seed
             MySavedSeeds.WriteChunk_5(writer);
+        }
+
+        protected override void FailLoad()
+        {
+            MySavedSeeds = new SavedSeeds();
+            HighScores = new Dictionary<int, ScoreEntry>();
+            Purchases = new Set<int>();
+            Awardments = new Set<int>();            
         }
 
         protected override void Deserialize(byte[] Data)
@@ -100,6 +112,9 @@ namespace CloudberryKingdom
 
                         break;
 
+                    // High Scores
+                    case 1000: var score = new ScoreEntry(); score.ReadChunk_1000(chunk); AddHighScore(score); break;
+
                     // Awardments
                     case 2: Awardments += chunk.ReadInt(); break;
 
@@ -115,6 +130,25 @@ namespace CloudberryKingdom
             }
         }
         #endregion
+
+        public int GetHighScore(int GameId)
+        {
+            if (HighScores.ContainsKey(GameId))
+                return HighScores[GameId].Value;
+            else
+                return 0;
+        }
+
+        public void AddHighScore(ScoreEntry score)
+        {
+            if (HighScores.ContainsKey(score.GameId) && score.Value < HighScores[score.GameId].Value)
+                return;
+
+            HighScores.AddOrOverwrite(score.GameId, score);
+
+            // Mark this object as changed, so that it will be saved to disk.
+            Changed = true;
+        }
 
         public PlayerStats Stats { get { return LevelStats; } }
         public PlayerStats GetStats(StatGroup group)

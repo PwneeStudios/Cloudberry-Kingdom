@@ -9,13 +9,6 @@ namespace CloudberryKingdom
 {
     public class Challenge_HeroRush2 : Challenge_HeroRush
     {
-        public override void CheckIfGoalMet(int level, int score)
-        {
-            base.CheckIfGoalMet(level, score);
-
-            Awardments.CheckForAward_HeroRush2_Score(score);
-        }
-
         public static List<HeroSpec> HeroList = new List<HeroSpec>(100);
 
         static readonly Challenge_HeroRush2 instance = new Challenge_HeroRush2();
@@ -80,14 +73,10 @@ namespace CloudberryKingdom
 
         protected Challenge_HeroRush2()
         {
-            ID = new Guid("2a5144f2-585e-4716-7398-0c96b6ebdec7");
+            GameTypeId = 1;
             MenuName = "Hybrid Rush";
             Name = "Hybrid Rush";
-            MenuPic = "menupic_herorush2";
-            HighScore = SaveGroup.HeroRush2HighScore;
-            HighLevel = SaveGroup.HeroRush2HighLevel;
-            Goal_Level = 35;
-
+            
             // Create the list of custom heros
             Hero_BaseType[] BaseTypes = new Hero_BaseType[]
                 { Hero_BaseType.Bouncy, Hero_BaseType.Box, Hero_BaseType.Classic, Hero_BaseType.Spaceship,

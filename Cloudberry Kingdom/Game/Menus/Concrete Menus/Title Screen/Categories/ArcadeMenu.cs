@@ -21,15 +21,15 @@ namespace CloudberryKingdom
 
     public class ArcadeBaseMenu : CkBaseMenu
     {
-        protected LevelItem SelectedItem;
-        protected ArcadeItem MyArcadeItem;
+        public LevelItem SelectedItem;
+        public ArcadeItem MyArcadeItem;
 
         protected virtual void StartFunc(LevelItem item)
         {
             SelectedItem = item;
 
             // Save the menu item index
-            Challenge_HeroRush.PreviousMenuIndex = item.MenuIndex;
+            StartLevelMenu.PreviousMenuIndex = item.MenuIndex;
 
             // Start the game
             MyGame.PlayGame(PlayGame);

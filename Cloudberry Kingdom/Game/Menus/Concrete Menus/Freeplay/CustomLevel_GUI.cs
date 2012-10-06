@@ -65,7 +65,7 @@ namespace CloudberryKingdom
                 LevelSeedData.CustomDifficulty custom;
                 
                 if (data.DefaultHeroType is BobPhsxSpaceship)
-                    custom = Challenge_Spaceship.StandardPieceMod(diff, data);
+                    custom = SpaceshipLevel.StandardPieceMod(diff, data);
                 else
                     custom = RegularLevel.FixedPieceMod(DiffList.ListIndex - 1, data);
 
@@ -74,9 +74,6 @@ namespace CloudberryKingdom
                     custom(p);
 
                     p.StandardClose();
-                    //// Ceiling upgrade based on jump upgrade
-                    //p.MyUpgrades1[Upgrade.Ceiling] = p.MyUpgrades2[Upgrade.Ceiling]
-                    //    = MyLevel.Rnd.RndFloat(0, PieceSeed.MyUpgrades1[Upgrade.Jump]);
                 };
 
                 data.Initialize(custom);

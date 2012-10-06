@@ -23,6 +23,11 @@ namespace CloudberryKingdom
 
     public class StartLevelMenu : CkBaseMenu
     {
+        /// <summary>
+        /// The last difficulty selected via the difficulty select menu
+        /// </summary>
+        public static int PreviousMenuIndex = 0;
+
         protected override void SetHeaderProperties(EzText text)
         {
             base.SetHeaderProperties(text);

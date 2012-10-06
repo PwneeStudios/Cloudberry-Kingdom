@@ -536,26 +536,6 @@ namespace CloudberryKingdom.Levels
             TR = new Vector2(BL.X + 750, TR.Y + 400);
 
             return TR.X + 400;
-
-
-            pos = BL;
-            while (pos.Y < TR.Y)
-            {
-                block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this, pos, new Vector2(TR.X, pos.Y));
-                pos.Y += 2 * block.Box.Current.Size.Y;
-
-                block.Core.GenData.KeepIfUnused = true;
-                block.Core.GenData.RemoveIfUnused = false;
-                block.Core.GenData.RemoveIfOverlap = false;
-                block.BlockCore.BlobsOnTop = false;
-                block.Core.GenData.AlwaysLandOn = true;
-                block.BlockCore.Virgin = true;
-                block.BlockCore.BlobsOnTop = false;
-
-                AddBlock(block);
-            }
-
-            return TR.X + 400;
         }
 
         private float MakeInitial_Normal(Vector2 BL, Vector2 TR, Vector2 size)

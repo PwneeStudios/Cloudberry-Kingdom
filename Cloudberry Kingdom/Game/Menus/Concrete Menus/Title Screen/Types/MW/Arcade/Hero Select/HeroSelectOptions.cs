@@ -53,9 +53,12 @@ namespace CloudberryKingdom
             var item = HeroSelect.MyMenu.CurItem as HeroItem;
             if (null == item) return;
 
-            var hero = item.Hero;
+            var challenge = HeroSelect.MyArcadeItem.MyChallenge;
+            challenge.SetGameId();
 
-            var panel = new HighScorePanel(true, SaveGroup.EscalationHighLevel, SaveGroup.EscalationHighScore);
+            int GameId_Score = HeroSelect.MyArcadeItem.MyChallenge.GameId_Score;
+            int GameId_Level = HeroSelect.MyArcadeItem.MyChallenge.GameId_Level;
+            var panel = new HighScorePanel(true, ScoreDatabase.GetList(GameId_Score), ScoreDatabase.GetList(GameId_Level));
             panel.NoDelays();
             HeroSelect.Call(panel);
             HeroSelect.Hide();
@@ -141,11 +144,11 @@ namespace CloudberryKingdom
             var hitem = item as HeroItem;
             if (null == hitem || hitem.Locked) return;
 
-            StartMenu_MW_HeroSelect.ChosenHero = hitem.Hero;
+            Challenge.ChosenHero = hitem.Hero;
 
-            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.HighLevel.Top);
+            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopPlayerLevel());
 
-            levelmenu.MyMenu.SelectItem(Challenge_HeroRush.PreviousMenuIndex);
+            levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
             levelmenu.StartFunc = StartFunc;
             levelmenu.ReturnFunc = null;
 

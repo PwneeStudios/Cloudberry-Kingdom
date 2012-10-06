@@ -14,7 +14,6 @@ namespace CloudberryKingdom
         /// </summary>
         public static LevelSeedData.CustomDifficulty FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
         {
-            //if (Difficulty < 0) Difficulty = 0;
             return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
         }
 

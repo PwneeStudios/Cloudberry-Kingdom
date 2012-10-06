@@ -420,6 +420,8 @@ namespace CloudberryKingdom
 
         public HeroSpec Specification;
         public string Name = "None";
+        public int Id = -1;
+
         public string Adjective = "";
         public string NameTemplate = "Hero";
         public ObjectIcon Icon;

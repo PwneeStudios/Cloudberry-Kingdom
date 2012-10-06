@@ -210,7 +210,6 @@ namespace CloudberryKingdom
 
         // Random names
         public static string[] RandomNames = { "Honky Tonk", "Bosco", "Nuh Guck", "Short-shorts", "Itsy-bitsy", "Low Ball", "Cowboy Stu", "Capsaicin", "Hoity-toity", "Ram Bam", "King Kong", "Upsilon", "Omega", "Peristaltic Pump", "Jeebers", "Sugar Cane", "See-Saw", "Ink Blot", "Glottal Stop", "Olive Oil", "Cod Fish", "Flax", "Tahini", "Cotton Ball", "Sweet Justice", "Ham Sandwich", "Liverwurst", "Cumulus", "Oyster", "Klein", "Hippopotamus", "Bonobo", "Homo Erectus", "Australopithecine", "Quetzalcoatl", "Balogna", "Ceraunoscopy", "Shirley", "Susie", "Sally", "Sue", "Tyrannosaur", "Stick Man Chu", "Paragon", "Woodchuck", "Laissez Faire", "Ipso Facto", "Leviticus", "Berrylicious", "Elderberry", "Currant", "Blackberry", "Blueberry", "Strawberry", "Gooseberry", "Honeysuckle", "Nannyberry", "Hackberry", "Boysenberry", "Cloudberry", "Thimbleberry", "Huckleberry", "Bilberry", "Bearberry", "Mulberry", "Wolfberry", "Raisin", "Samson" };
-        //"{s15,15}!{s15,15}", "{pHeart,60,?}", "{pStar,85,?}", "{pTree_large,55,?}", "{pXbox_X,40,?}" };
 
         public static int FirstPlayer = 0;
         public static bool HaveFirstPlayer;
@@ -289,6 +288,15 @@ namespace CloudberryKingdom
             }
 
             return GroupTag;
+        }
+
+        public static int MaxPlayerHighScore(int GameId)
+        {
+            int max = 0;
+            foreach (PlayerData player in ExistingPlayers)
+                max = Math.Max(max, player.GetHighScore(GameId));
+
+            return max;
         }
 
         /// <summary>

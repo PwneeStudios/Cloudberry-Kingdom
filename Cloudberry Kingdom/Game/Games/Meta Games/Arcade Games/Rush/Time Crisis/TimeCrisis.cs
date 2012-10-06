@@ -14,25 +14,14 @@ namespace CloudberryKingdom
 
         protected Challenge_TimeCrisis()
         {
-            ID = new Guid("3b5144f2-285a-4713-7398-0c96b6ebdda1");
+            GameTypeId = 1;
             MenuName = "Time Crisis";
             Name = MenuName;
-            MenuPic = "menupic_escalation";
-            HighScore = SaveGroup.TimeCrisisHighScore;
-            HighLevel = SaveGroup.TimeCrisisHighLevel;
-            Goal_Level = 35;
-        }
-
-        protected override void ShowEndScreen()
-        {
-            Tools.CurGameData.AddGameObject(new GameOverPanel(HighScore, HighLevel, StringWorld,
-                null, null));
         }
 
         protected override BobPhsx GetHero(int i)
         {
-            return StartMenu_MW_HeroSelect.ChosenHero;
-            //return BobPhsxNormal.Instance;
+            return Challenge.ChosenHero;
         }
 
         protected override void PreStart_Tutorial(bool TemporarySkip)

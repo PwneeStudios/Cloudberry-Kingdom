@@ -28,13 +28,10 @@ namespace CloudberryKingdom.Awards
             if (Style == 0)
             {
                 if (award.Unlockable == null)
-                    //Title = new EzText("Game unlocked:", Tools.Font_Grobold42_2, 1800, false, false, .575f);
                     Title = new EzText("", Tools.Font_Grobold42_2, 1800, false, false, .575f);
                 else
                     Title = new EzText("Awardment unlocked:", Tools.Font_Grobold42_2, 1800, false, false, .575f);
-                Title.Pos =
-                    new Vector2(-1726.192f, 369.0475f);
-                    //new Vector2(-1686.508f, 341.2697f);
+                Title.Pos = new Vector2(-1726.192f, 369.0475f);
                 Title.Scale *= .79f;
                 MyPile.Add(Title);
             }
@@ -52,24 +49,22 @@ namespace CloudberryKingdom.Awards
             }
 
             QuadClass cloud = new QuadClass("cloud1", 250, true);
-            //cloud.Pos = new Vector2(1285.715f, 63.49208f);
-            //cloud.Size = new Vector2(555.5547f, 447.5287f);
             cloud.Pos = new Vector2(1293.431f, 86.64027f);
             cloud.Size = new Vector2(586.4189f, 551.6953f);
             MyPile.Add(cloud);
 
-            if (award.Unlockable == null)
-            {
-                QuadClass HatQuad = new QuadClass("Stickman", 263);
-                HatQuad.Pos += new Vector2(1383.016f, 157.0794f);
-                MyPile.Add(HatQuad);
-            }
-            else
-            {
-                QuadClass HatQuad = AwardmentMenu.MakeHatQuad(award.Unlockable);
-                HatQuad.Pos += new Vector2(1373.016f, 115.0794f);
-                MyPile.Add(HatQuad);
-            }
+            //if (award.Unlockable == null)
+            //{
+            //    QuadClass HatQuad = new QuadClass("Stickman", 263);
+            //    HatQuad.Pos += new Vector2(1383.016f, 157.0794f);
+            //    MyPile.Add(HatQuad);
+            //}
+            //else
+            //{
+            //    QuadClass HatQuad = AwardmentMenu.MakeHatQuad(award.Unlockable);
+            //    HatQuad.Pos += new Vector2(1373.016f, 115.0794f);
+            //    MyPile.Add(HatQuad);
+            //}
         }
 
         protected virtual void MakeBackdrop()

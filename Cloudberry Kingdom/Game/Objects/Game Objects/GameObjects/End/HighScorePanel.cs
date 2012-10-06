@@ -41,7 +41,6 @@ namespace CloudberryKingdom
         static string[] TextureName = { "Score\\Score Screen_pink", "score screen_grey", "score screen" };
         HighScorePanel[] Panels;
 
-        public HighScorePanel(CampaignList scores) { MultiInit(false, scores.Score, scores.Attempts, scores.Time); }
         public HighScorePanel(params ScoreList[] Scores) { MultiInit(false, Scores); }
         public HighScorePanel(bool Instant, params ScoreList[] Scores) { MultiInit(Instant, Scores); }
         public void MultiInit(bool Instant, params ScoreList[] Scores)
@@ -138,10 +137,8 @@ namespace CloudberryKingdom
                 Text = new EzText(MyScoreList.ScoreString(score, DesiredLength), Tools.Font_Grobold42);
                 SetHeaderProperties(Text);
                 Text.Scale *= .55f;
-                if (score == MyScoreList.MostRecent)
-                    Text.MyFloatColor =
-                        //CurrentScoreColor;
-                        Color.LimeGreen.ToVector4();
+                if (score.Date == ScoreDatabase.MostRecentScoreDate)
+                    Text.MyFloatColor = Color.LimeGreen.ToVector4();
                 else
                     Text.MyFloatColor = ScoreColor;
                 Text.Pos = pos;

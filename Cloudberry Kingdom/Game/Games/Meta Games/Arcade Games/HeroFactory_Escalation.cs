@@ -16,18 +16,8 @@ namespace CloudberryKingdom
 
         protected Challenge_HeroFactoryEscalation()
         {
-            ID = new Guid("1a8141f9-aa5e-3f1e-8298-0c36b6ebdec3");
+            GameTypeId = 10;
             Name = "Hero Factory";
-            //MenuPic = "menupic_HeroFactoryEscalation";
-            MenuPic = "menupic_classic";
-            HighScore = SaveGroup.HeroFactoryEscalationHighScore;
-            HighLevel = SaveGroup.HeroFactoryEscalationHighLevel;
-            Goal_Level = 35;
-        }
-
-        protected override void ShowEndScreen()
-        {
-            Tools.CurGameData.AddGameObject(new GameOverPanel(HighScore, HighLevel, StringWorld, null, null));
         }
 
         protected override BobPhsx GetHero(int i)

@@ -9,13 +9,6 @@ namespace CloudberryKingdom
 {
     public class Challenge_Escalation : Challenge
     {
-        public override void CheckIfGoalMet(int level, int score)
-        {
-            base.CheckIfGoalMet(level, score);
-
-            Awardments.CheckForAward_Escalation_Level(level - StartIndex);
-        }
-
         static int[] NumLives = { 15, 12, 10, 5, 1 };
 
         static readonly Challenge_Escalation instance = new Challenge_Escalation();
@@ -23,16 +16,10 @@ namespace CloudberryKingdom
 
         public GUI_LivesLeft Gui_LivesLeft;
 
-
-
         protected Challenge_Escalation()
         {
-            ID = new Guid("1a8141f9-525e-4e1e-8298-0c36b6ebdec3");
+            GameTypeId = 0;
             MenuName = Name = "Escalation";
-            MenuPic = "menupic_classic";
-            HighScore = SaveGroup.EscalationHighScore;
-            HighLevel = SaveGroup.EscalationHighLevel;
-            Goal_Level = 35;
         }
 
         protected void OnOutOfLives(GUI_LivesLeft Lives)
@@ -186,33 +173,19 @@ namespace CloudberryKingdom
             return MakeList;
         }
 
-        //int LevelLength_Short = 5050;
-        //int LevelLength_Long = 7300;
-
         int LevelLength_Short = 5500;
         int LevelLength_Long = 7500;
 
-        //static TileSet[] tilesets = {
-        //    TileSets.Terrace, TileSets.Dungeon, TileSets.Island,
-        //    TileSets.Castle, TileSets.Rain, TileSets.Dungeon,
-        //    TileSets._Night, TileSets._NightSky };
-
-        //static string[] tilesets = { "sea", "hills", "forest", "cloud", "cave", "castle" };
         static string[] tilesets = { "hills", "forest", "cloud", "cave", "castle", "sea" };
 
         protected virtual TileSet GetTileSet(int i)
         {
-            //return TileSets.NameLookup[tilesets[i % tilesets.Length]];
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 
-        //static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
-        //    { BobPhsxNormal.Instance });
-
         protected virtual BobPhsx GetHero(int i)
         {
-            return StartMenu_MW_HeroSelect.ChosenHero;
-            //return HeroTypes[i % HeroTypes.Count];
+            return Challenge.ChosenHero;
         }
 
         protected virtual LevelSeedData Make(int Index, float Difficulty)

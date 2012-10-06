@@ -5,46 +5,16 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class RegularLevel : Challenge
+    public class RegularLevel
     {
-        static readonly RegularLevel instance = new RegularLevel();
-        public static RegularLevel Instance { get { return instance; } }
-
         RegularLevel()
         {
-            ID = new Guid("5ec69b87-3ef7-4a50-bf3a-8e55499e9bd0");
-            Name = "Regular";
-        }
-
-        public override void Start(int Difficulty)
-        {
-            base.Start(Difficulty);
-
-            StringWorldEndurance StringWorld =
-                new StringWorldEndurance(GetSeeds(), null, 25);
-            SetGameParent(StringWorld);
-            StringWorld.Init();
-            StringWorld.SetLevel(0);
-        }
-
-        protected override List<MakeSeed> MakeMakeList(int Difficulty)
-        {
-            List<MakeSeed> MakeList = new List<MakeSeed>();
-
-            int diff = new int[] { 2, 4, 6, 9 }[Difficulty];
-
-            for (int i = 0; i < 10; i++)
-            MakeList.Add(() => StandardLevel(diff, LevelGeometry.Right));
-
-            return MakeList;
         }
 
         static void StandardInit(LevelSeedData data)
         {
             data.Seed = data.Rnd.Rnd.Next();
 
-            //data.MyBackgroundType = BackgroundType.Outside;
-            //data.SetTileSet(data.Rnd.Choose(new TileSet[] { TileSets.Terrace, TileSets.Dungeon, TileSets.Castle }));
             data.SetTileSet(null);
 
             data.DefaultHeroType = BobPhsxNormal.Instance;
@@ -56,116 +26,13 @@ namespace CloudberryKingdom
             if (JumpUpgrades == null)
             {
                 JumpUpgrades = new List<Upgrade>(new Upgrade[] { Upgrade.MovingBlock, Upgrade.GhostBlock, Upgrade.FlyBlob, Upgrade.FallingBlock, Upgrade.Elevator, Upgrade.Cloud, Upgrade.BouncyBlock });
-
-
                 DodgeUpgrades = new List<Upgrade>(new Upgrade[] { Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike });
-                //DodgeUpgrades = new List<Upgrade>(new Upgrade[] { Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.SpikeyLine, Upgrade.Firesnake });
 
                 ObstacleUpgrades = new List<Upgrade>();
                 ObstacleUpgrades.AddRange(JumpUpgrades);
                 ObstacleUpgrades.AddRange(DodgeUpgrades);
             }
         }
-
-        static List<Upgrade> Picks1, Picks2;
-        static void SetPieceSeed(PieceSeedData piece, TileSet tileset, int Jump, int Dodge, int Speed, int JumpComplexity, int DodgeComplexity)
-        {
-            InitLists();
-
-            // Pick upgrades            
-            if (piece.MyPieceIndex == 0)
-            {
-                Picks1 = piece.Rnd.Choose(tileset.JumpUpgrades, JumpComplexity);
-                Picks2 = piece.Rnd.Choose(tileset.DodgeUpgrades, DodgeComplexity);
-
-                //Picks1 = Tools.Choose(JumpUpgrades, JumpComplexity);
-                //Picks2 = Tools.Choose(DodgeUpgrades, DodgeComplexity);
-            }
-
-            foreach (Upgrade upgrade in Picks1)
-                piece.MyUpgrades1[upgrade] = Jump;
-
-            int DodgeLevel = (int)(Dodge);
-            if (DodgeComplexity == 2) DodgeLevel = DodgeLevel - 1;
-            else if (DodgeComplexity == 3) DodgeLevel = DodgeLevel - 2;
-            else if (DodgeComplexity == 4) DodgeLevel = DodgeLevel - 3;
-            
-            //int DodgeLevel = (int)(Dodge / (1 + .5f * (DodgeComplexity - 1)));
-            //if (DodgeLevel < 1) DodgeLevel = 1;
-            
-            foreach (Upgrade upgrade in Picks2)
-                piece.MyUpgrades1[upgrade] = DodgeLevel;
-
-            piece.MyUpgrades1[Upgrade.Jump] = Jump;
-            piece.MyUpgrades1[Upgrade.Ceiling] = (Jump + Dodge) / 2;
-            piece.MyUpgrades1[Upgrade.General] = Dodge;
-            piece.MyUpgrades1[Upgrade.Speed] = Speed;
-
-            piece.Style.MyModParams = (level, p) =>
-            {
-                NormalBlock_Parameters NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);
-                //NParams.SetHallway(p.GeometryType);
-            };
-
-            piece.StandardClose();
-        }
-
-        public static LevelSeedData StandardLevel(int Difficulty, LevelGeometry Geometry)
-        {
-            LevelSeedData data = new LevelSeedData();
-
-            StandardInit(data);
-
-            LevelSeedData.CustomDifficulty custom = StandardPieceMod(Difficulty, data);
-
-            data.Initialize(NormalGameData.Factory, Geometry, 2, 4500, custom);
-
-            return data;
-        }
-
-        public static LevelSeedData.CustomDifficulty StandardPieceMod(int Difficulty, LevelSeedData LevelSeed)
-        {
-            int Jump, Dodge, Speed, JumpComplexity, DodgeComplexity;
-
-            switch (LevelSeed.Rnd.RndInt(0, 3))
-            {
-                case 0:
-                    Jump = Difficulty;
-                    Dodge = Difficulty;
-                    Speed = (int)DifficultyHelper.Interp159(2, 4, 7, Difficulty);
-                    JumpComplexity = 2;
-                    DodgeComplexity = 1;
-                    break;
-
-                case 1:
-                    Jump = Difficulty / 2;
-                    Dodge = (int)(1.5f * Difficulty);
-                    Speed = (int)DifficultyHelper.Interp159(2, 3, 6, Difficulty);
-                    JumpComplexity = 1;
-                    DodgeComplexity = 2;
-                    break;
-
-                case 2:
-                    Jump = Difficulty / 2;
-                    Dodge = (int)(1.5f * Difficulty);
-                    Speed = (int)DifficultyHelper.Interp159(2, 4, 9, Difficulty);
-                    JumpComplexity = 0;
-                    DodgeComplexity = LevelSeed.Rnd.RndInt(1, 3);
-                    break;
-
-                default:
-                    Jump = Difficulty;
-                    Dodge = 0;
-                    Speed = (int)DifficultyHelper.Interp159(2, 4, 6, Difficulty);
-                    JumpComplexity = LevelSeed.Rnd.RndInt(1, 3);
-                    DodgeComplexity = 0;
-                    break;
-            }
-
-            return
-                piece => SetPieceSeed(piece, LevelSeed.MyTileSet, Jump, Dodge, Speed, JumpComplexity, DodgeComplexity);
-        }
-
 
         // -------------------------
         // Fixed upgrade lists
@@ -178,7 +45,6 @@ namespace CloudberryKingdom
 
             data.DefaultHeroType = Hero;
 
-            //LevelSeedData.CustomDifficulty custom = FixedPieceMod(Difficulty, data);
             LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
 
             data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 1, Length, custom);

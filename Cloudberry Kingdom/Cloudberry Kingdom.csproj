@@ -241,6 +241,8 @@
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\PhsxSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\AlertBase.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreDatabase.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreEntry.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\StartLevelMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\HeroSelectOptions.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\Doll.cs" />
@@ -269,7 +271,7 @@
     <Compile Include="Game\Objects\Game Objects\GameObjects\MultiplierUp.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Multiplier.cs" />
     <Compile Include="Game\Player\Awardments\AwardmentMessage.cs" />
-    <Compile Include="Game\Player\Awardments\ShopMenu.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\ShopMenu.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Rain.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Forest.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Cloud.cs" />
@@ -447,12 +449,6 @@
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreList.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreScreen.cs" />
     <Compile Include="Game\Player\Awardments\Awardment.cs" />
-    <Compile Include="Game\Player\Awardments\AwardmentMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\LevelMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\DiffPics.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\DifficultyMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\Challenges %28__Garbage%29\ChallengeMenuItem.cs" />
     <Compile Include="Game\Games\CampaignHelper.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\ArcadeMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\SavedSeedsGUI.cs" />

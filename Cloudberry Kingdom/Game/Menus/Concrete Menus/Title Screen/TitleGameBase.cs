@@ -85,8 +85,6 @@ namespace CloudberryKingdom
             return level;
         }
 
-        int InitialDelay = 40;
-     
         public override void Init()
         {
             base.Init();
