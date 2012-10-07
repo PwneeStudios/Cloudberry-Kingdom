@@ -110,7 +110,6 @@ info.SpikeyGuys.Chain.Sprite = "Floater_Rope_Cloud";
 info.SpikeyGuys.Chain.RepeatWidth = 1900;
 info.SpikeyGuys.Chain.Width = 55;
 
-//info.Orbs.Ball.Sprite = "Floater_Spikey_Sea_v2";
 info.Orbs.Ball.Sprite = "Floater_Spikey_Sea";
 info.Orbs.Ball.Size = new Vector2(170, -1);
 info.Orbs.Ball.Offset = new Vector2(0, 9);

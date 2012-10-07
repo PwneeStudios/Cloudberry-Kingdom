@@ -31,14 +31,20 @@ namespace CloudberryKingdom
             long LoadBob = Stop();
 
             Start();
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
+            long LoadMenus = Stop();
+
+            Start();
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+            long LoadEffects = Stop();
+
+            Start();
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old Art Holdover");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             long LoadRest = Stop();
@@ -91,6 +97,8 @@ namespace CloudberryKingdom
             Console.WriteLine("Pre load       {0}", PreLoad);
             Console.WriteLine("Load Bob       {0}", LoadBob);
             Console.WriteLine("Load enviros   {0}", LoadEnviros);
+            Console.WriteLine("Load effects   {0}", LoadEffects);
+            Console.WriteLine("Load menus     {0}", LoadMenus);
             Console.WriteLine("Load rest      {0}", LoadRest);
             Console.WriteLine("Load info      {0}", Info);
             Console.WriteLine("Load tiles     {0}", Tiles);

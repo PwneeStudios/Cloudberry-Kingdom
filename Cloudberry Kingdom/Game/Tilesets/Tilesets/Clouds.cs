@@ -54,7 +54,6 @@ sprite_anim("fblock_cloud", "fblock_cloud", 1, 3, 2);
 info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cloud", -3, 3, 2));
 
 sprite_anim("Bouncy_cloud", "Bouncy_cloud", 1, 3, 2);
-//sprite_anim("Bouncy_cloud", "Bouncy_cloud_v2", 1, 3, 2));
 info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cloud", -6, 6, 13));
 
 sprite_anim("flame_cloud", "firespinner_flame_cloud", 1, 4, 6);

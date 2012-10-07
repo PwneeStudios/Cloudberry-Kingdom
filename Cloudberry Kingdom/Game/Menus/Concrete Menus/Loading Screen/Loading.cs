@@ -201,10 +201,8 @@ namespace CloudberryKingdom
             MyPile.Add(BlackQuad);
         }
 
-        public static int TotalResources = (int)(EzTextureWad.PercentToLoad * 699);
-        //public static int TotalResources = 553;
+        public static int TotalResources = 1071;
 
-        static int FakeResources = 360;//70;
         public bool Accelerate = false;
         int DoneCount = 0;
         public void PhsxStep()
@@ -215,7 +213,7 @@ namespace CloudberryKingdom
 
             //lock (ResourceCount)
             {
-                LoadingPercent = 100 * (ResourceCount.MyFloat - 0) / (TotalResources + FakeResources - 0);
+                LoadingPercent = 100f * ResourceCount.MyFloat / TotalResources;
                 MyProgressBar.SetPercent(LoadingPercent);
 
                 // 'Load' the fake resources
@@ -223,8 +221,8 @@ namespace CloudberryKingdom
                 {
                     ResourceCount.MyFloat += .5f;
                     if (Accelerate)
-                        ResourceCount.MyFloat  = CoreMath.Restrict(0, TotalResources + FakeResources,
-                            ResourceCount.MyFloat + .033f * (TotalResources + FakeResources));
+                        ResourceCount.MyFloat  = CoreMath.Restrict(0, TotalResources,
+                            ResourceCount.MyFloat + .033f * (TotalResources));
                 }
             }
 

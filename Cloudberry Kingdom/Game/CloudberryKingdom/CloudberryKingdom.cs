@@ -576,6 +576,7 @@ namespace CloudberryKingdom
             Tools.Write("Sound done...");
         }
 
+        Thread LoadThread;
         public void LoadContent()
         {
             //BenchmarkLoadSize();
@@ -612,34 +613,36 @@ namespace CloudberryKingdom
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
             //BenchmarkAll();
-            //Tools.Warning();
-            _LoadThread(); return;
+            //Tools.Warning(); return;
+            
+            //_LoadThread(); return;
 
 
             // Load resource thread.
-            Thread LoadThread = new Thread(
+            LoadThread = new Thread(
+            //Thread LoadThread = new Thread(
                 new ThreadStart(
                     delegate
                     {
-#if XBOX
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 5 });
-#endif
-                        LoadThread = Thread.CurrentThread;
+//#if XBOX
+//                        Thread.CurrentThread.SetProcessorAffinity(new[] { 5 });
+//#endif
+//                        var ThisThread = Thread.CurrentThread;
 
-                        // Setup an abort, in case the game exits while loading.
-                        EventHandler<EventArgs> abort = (s, e) =>
-                        {
-                            if (LoadThread != null)
-                            {
-                                LoadThread.Abort();
-                            }
-                        };
-                        Tools.TheGame.Exiting += abort;
+//                        // Setup an abort, in case the game exits while loading.
+//                        EventHandler<EventArgs> abort = (s, e) =>
+//                        {
+//                            if (ThisThread != null)
+//                            {
+//                                ThisThread.Abort();
+//                            }
+//                        };
+//                        Tools.TheGame.Exiting += abort;
 
                         _LoadThread();
 
-                        // Unregister from the game exiting.
-                        Tools.TheGame.Exiting -= abort;
+                        //// Unregister from the game exiting.
+                        //Tools.TheGame.Exiting -= abort;
                     }))
             {
                 Name = "LoadThread",
@@ -649,6 +652,7 @@ namespace CloudberryKingdom
             };
 
             LoadThread.Start();
+            //LoadThread.Join();
         }
 
         private void _LoadThread()
@@ -659,11 +663,18 @@ namespace CloudberryKingdom
 
             // Load art
             LoadAssets(true);
-            if (!SimpleLoad)
-            {
-                //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Tigar");
-            }
-
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old Art Holdover");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             Tools.Write("ArtMusic done...");
 
             // Load the infowad and boxes
@@ -976,6 +987,13 @@ namespace CloudberryKingdom
 
             // Clear whole screen to black
             MyGraphicsDevice.Clear(Color.Black);
+
+            //lock (LoadThread)
+            {
+                LoadThread.Join(10);
+            }
+
+            //return;
 
 #if WINDOWS
             if (!ActiveInactive())

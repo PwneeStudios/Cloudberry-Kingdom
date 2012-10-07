@@ -1009,6 +1009,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Art\Environments\Cave\Obstacles\Firespinner\" />
     <Folder Include="Art\_Packed\" />
   </ItemGroup>
   <ItemGroup>
@@ -2174,26 +2175,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Blob\Blob_Castle_v2_1.png">
-      <Name>Blob_Castle_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Blob\Blob_Castle_v2_2.png">
-      <Name>Blob_Castle_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Blob\Blob_Castle_v2_3.png">
-      <Name>Blob_Castle_v2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Blob\Blob_Castle_v2_4.png">
-      <Name>Blob_Castle_v2_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_1.png">
       <Name>Bouncy_Castle_1</Name>
       <Importer>TextureImporter</Importer>
@@ -2206,21 +2187,6 @@
     </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_3.png">
       <Name>Bouncy_Castle_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_v2_1.PNG">
-      <Name>Bouncy_Castle_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_v2_2.PNG">
-      <Name>Bouncy_Castle_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_v2_3.PNG">
-      <Name>Bouncy_Castle_v2_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2264,18 +2230,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Base_Castle.PNG">
-      <Name>Firespinner_Base_Castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Base_Castle_2.PNG">
       <Name>Firespinner_Base_Castle_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Base_Castle_3.PNG">
-      <Name>Firespinner_Base_Castle_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2299,98 +2255,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v2_1.png">
-      <Name>Firespinner_Flame_Castle_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v2_2.png">
-      <Name>Firespinner_Flame_Castle_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v2_3.png">
-      <Name>Firespinner_Flame_Castle_v2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v2_4.png">
-      <Name>Firespinner_Flame_Castle_v2_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v3_1.png">
-      <Name>Firespinner_Flame_Castle_v3_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v3_2.png">
-      <Name>Firespinner_Flame_Castle_v3_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v3_3.png">
-      <Name>Firespinner_Flame_Castle_v3_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\Firespinner_Flame_Castle_v4_4.png">
-      <Name>Firespinner_Flame_Castle_v4_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Firespinner\firespinner_gear_dkpurp.PNG">
-      <Name>firespinner_gear_dkpurp</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Boulder_Castle.png">
-      <Name>Floater_Boulder_Castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Boulder_Rope_v2.png">
-      <Name>Floater_Boulder_Rope_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Buzzsaw_Castle.png">
-      <Name>Floater_Buzzsaw_Castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Buzzsaw_Chain.png">
-      <Name>Floater_Buzzsaw_Chain</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Buzzsaw_Yellow_Castle.PNG">
       <Name>Floater_Buzzsaw_Yellow_Castle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Buzzsaw_Yellow_Castle_2.png">
-      <Name>Floater_Buzzsaw_Yellow_Castle_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Chain_Castle.png">
       <Name>Floater_Chain_Castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Chain_Purple_Castle_v1.png">
-      <Name>Floater_Chain_Purple_Castle_v1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Chain_Purple_Castle_v2.png">
-      <Name>Floater_Chain_Purple_Castle_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Floater\Floater_Rope_Castle.png">
-      <Name>Floater_Rope_Castle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2434,18 +2305,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_135_v2.PNG">
-      <Name>Movingblock_Castle_135_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_190.png">
       <Name>Movingblock_Castle_190</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_190_v2.png">
-      <Name>Movingblock_Castle_190_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2454,18 +2315,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_40_v2.PNG">
-      <Name>Movingblock_Castle_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_80.png">
       <Name>Movingblock_Castle_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_80_v2.PNG">
-      <Name>Movingblock_Castle_80_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2569,11 +2420,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Bat\Cave_Bat.png">
-      <Name>Cave_Bat</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cave\Obstacles\Blob\Blob_Cave_1.PNG">
       <Name>Blob_Cave_1</Name>
       <Importer>TextureImporter</Importer>
@@ -2649,46 +2495,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Base_Cave.PNG">
-      <Name>Firespinner_Base_Cave</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Base_Cave_2.PNG">
-      <Name>Firespinner_Base_Cave_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Flame_Cave_1.png">
-      <Name>Firespinner_Flame_Cave_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Flame_Cave_2.png">
-      <Name>Firespinner_Flame_Cave_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Flame_Cave_3.png">
-      <Name>Firespinner_Flame_Cave_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Firespinner\Firespinner_Flame_Cave_4.png">
-      <Name>Firespinner_Flame_Cave_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Floater\Floater_Boulder_Cave.png">
-      <Name>Floater_Boulder_Cave</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Floater\Floater_Boulder_Rope_v2.png">
-      <Name>Floater_Boulder_Rope_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cave\Obstacles\Floater\Floater_Chain_Cave.png">
       <Name>Floater_Chain_Cave</Name>
       <Importer>TextureImporter</Importer>
@@ -2729,28 +2535,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_135_v2.png">
-      <Name>Movingblock_Cave_135_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_135_v3.png">
-      <Name>Movingblock_Cave_135_v3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_190.png">
       <Name>Movingblock_Cave_190</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_190_v2.png">
-      <Name>Movingblock_Cave_190_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_190_v3.png">
-      <Name>Movingblock_Cave_190_v3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2759,28 +2545,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_40_v2.PNG">
-      <Name>Movingblock_Cave_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_40_v3.png">
-      <Name>Movingblock_Cave_40_v3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_80.png">
       <Name>Movingblock_Cave_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_80_v2.png">
-      <Name>Movingblock_Cave_80_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_80_v3.png">
-      <Name>Movingblock_Cave_80_v3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2929,21 +2695,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_v2_1.png">
-      <Name>Bouncy_Cloud_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_v2_2.png">
-      <Name>Bouncy_Cloud_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_v2_3.png">
-      <Name>Bouncy_Cloud_v2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Cloud\Cloud_Cloud.png">
       <Name>Cloud_Cloud</Name>
       <Importer>TextureImporter</Importer>
@@ -2981,21 +2732,6 @@
     </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_3.png">
       <Name>Fblock_Cloud_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_v2_1.png">
-      <Name>Fblock_Cloud_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_v2_2.png">
-      <Name>Fblock_Cloud_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_v2_3.png">
-      <Name>Fblock_Cloud_v2_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3044,11 +2780,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Floater\Floater_Rope_Cloud_v2.png">
-      <Name>Floater_Rope_Cloud_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Floater\Floater_Spikey_Cloud.png">
       <Name>Floater_Spikey_Cloud</Name>
       <Importer>TextureImporter</Importer>
@@ -3064,18 +2795,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\Movingblock_Cloud_135_v2.png">
-      <Name>Movingblock_Cloud_135_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_190.png">
       <Name>MovingBlock_Cloud_190</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\Movingblock_Cloud_190_v2.png">
-      <Name>Movingblock_Cloud_190_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3084,18 +2805,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\Movingblock_Cloud_40_v2.png">
-      <Name>Movingblock_Cloud_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_80.png">
       <Name>MovingBlock_Cloud_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\Movingblock_Cloud_80_v2.png">
-      <Name>Movingblock_Cloud_80_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3234,18 +2945,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_1.png">
-      <Name>Elevator_Forest_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_135.PNG">
       <Name>Elevator_Forest_135</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_135v2.PNG">
-      <Name>Elevator_Forest_135v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3254,33 +2955,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_190v2.PNG">
-      <Name>Elevator_Forest_190v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_2.PNG">
-      <Name>Elevator_Forest_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_40.PNG">
       <Name>Elevator_Forest_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_40v2.PNG">
-      <Name>Elevator_Forest_40v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_80.PNG">
       <Name>Elevator_Forest_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Elevator\Elevator_Forest_80v2.PNG">
-      <Name>Elevator_Forest_80v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3304,16 +2985,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Firespinner\Firespinner_Base_Forest_2.PNG">
-      <Name>Firespinner_Base_Forest_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Firespinner\Firespinner_Base_Forest_3.PNG">
-      <Name>Firespinner_Base_Forest_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Firespinner\Firespinner_Flame_Forest_1.png">
       <Name>Firespinner_Flame_Forest_1</Name>
       <Importer>TextureImporter</Importer>
@@ -3334,53 +3005,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Boulder_Forest.png">
-      <Name>Floater_Boulder_Forest</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Buzzsaw_Forest.png">
       <Name>Floater_Buzzsaw_Forest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Buzzsaw_Forest_v1.png">
-      <Name>Floater_Buzzsaw_Forest_v1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Buzzsaw_Forest_v2.png">
-      <Name>Floater_Buzzsaw_Forest_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Buzzsaw_Forest_v3.png">
-      <Name>Floater_Buzzsaw_Forest_v3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Buzzsaw_Forest_v4.png">
-      <Name>Floater_Buzzsaw_Forest_v4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Chain_Big_Forest.png">
-      <Name>Floater_Chain_Big_Forest</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Chain_Forest.png">
       <Name>Floater_Chain_Forest</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Rope_Forest.png">
-      <Name>Floater_Rope_Forest</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Floater\Floater_Rope_Forest_v2.png">
-      <Name>Floater_Rope_Forest_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3394,16 +3025,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Ghost Block\Ghostblock_Forest_2.PNG">
-      <Name>Ghostblock_Forest_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_135.PNG">
-      <Name>Movingblock_Forest_135</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_135_v2.PNG">
       <Name>Movingblock_Forest_135_v2</Name>
       <Importer>TextureImporter</Importer>
@@ -3414,28 +3035,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_190.PNG">
-      <Name>Movingblock_Forest_190</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_190_v2.png">
       <Name>Movingblock_Forest_190_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_40.PNG">
-      <Name>Movingblock_Forest_40</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_40_v2.PNG">
       <Name>Movingblock_Forest_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_80.PNG">
-      <Name>Movingblock_Forest_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3454,28 +3060,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Spike\Spike_Base_Forest_11.png">
-      <Name>Spike_Base_Forest_11</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Spike\Spike_Base_Forest_2.PNG">
       <Name>Spike_Base_Forest_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Spike\Spike_Base_Forest_22.png">
-      <Name>Spike_Base_Forest_22</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Forest\Obstacles\Spike\Spike_Base_Forest_3.PNG">
       <Name>Spike_Base_Forest_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Spike\Spike_Base_Forest_33.png">
-      <Name>Spike_Base_Forest_33</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3614,11 +3205,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Firespinner\Firespinner_Base_Hills_v2.png">
-      <Name>Firespinner_Base_Hills_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Firespinner\Firespinner_Flame_Hills_1.png">
       <Name>Firespinner_Flame_Hills_1</Name>
       <Importer>TextureImporter</Importer>
@@ -3639,23 +3225,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Firespinner\firespinner_gear_hills.png">
-      <Name>firespinner_gear_hills</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Floater\Floater_Boulder_Hills.png">
       <Name>Floater_Boulder_Hills</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Floater\Floater_Boulder_Hills_v1.PNG">
-      <Name>Floater_Boulder_Hills_v1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Floater\Floater_Boulder_Hills_v2.png">
-      <Name>Floater_Boulder_Hills_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3666,11 +3237,6 @@
     </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Floater\Floater_Rope_Hills.PNG">
       <Name>Floater_Rope_Hills</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Floater\Floater_Rope_v2.png">
-      <Name>Floater_Rope_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3689,18 +3255,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_135_v2.png">
-      <Name>Movingblock_Hills_135_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_190.png">
       <Name>Movingblock_Hills_190</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_190_v2.PNG">
-      <Name>Movingblock_Hills_190_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3709,18 +3265,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_40_v2.PNG">
-      <Name>Movingblock_Hills_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_80.png">
       <Name>Movingblock_Hills_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_80_v2.PNG">
-      <Name>Movingblock_Hills_80_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3734,28 +3280,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Spike\Spike_Base_Hills_11.png">
-      <Name>Spike_Base_Hills_11</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Spike\Spike_Base_Hills_2.PNG">
       <Name>Spike_Base_Hills_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Spike\Spike_Base_Hills_22.png">
-      <Name>Spike_Base_Hills_22</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Hills\Obstacles\Spike\Spike_Base_Hills_3.png">
       <Name>Spike_Base_Hills_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Spike\Spike_Base_Hills_33.png">
-      <Name>Spike_Base_Hills_33</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3834,26 +3365,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Blob\Blob_Sea_v2_1.png">
-      <Name>Blob_Sea_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Blob\Blob_Sea_v2_2.png">
-      <Name>Blob_Sea_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Blob\Blob_Sea_v2_3.png">
-      <Name>Blob_Sea_v2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Blob\Blob_Sea_v2_4.png">
-      <Name>Blob_Sea_v2_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Bouncy Block\Bouncy_Sea_1.png">
       <Name>Bouncy_Sea_1</Name>
       <Importer>TextureImporter</Importer>
@@ -3871,11 +3382,6 @@
     </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Cloud\Cloud_Sea.png">
       <Name>Cloud_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Cloud\Sea_Cloud_v2.png">
-      <Name>Sea_Cloud_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3914,31 +3420,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_v2_1.png">
-      <Name>Fblock_Sea_v2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_v2_2.png">
-      <Name>Fblock_Sea_v2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_v2_3.png">
-      <Name>Fblock_Sea_v2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Firespinner\Firespinner_Base_Sea.png">
-      <Name>Firespinner_Base_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Firespinner\Firespinner_Base_Sea_2.PNG">
-      <Name>Firespinner_Base_Sea_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Firespinner\Firespinner_Flame_Sea_1.png">
       <Name>Firespinner_Flame_Sea_1</Name>
       <Importer>TextureImporter</Importer>
@@ -3959,53 +3440,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Blowfish_Sea.png">
-      <Name>Floater_Blowfish_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Boulder_Sea.png">
-      <Name>Floater_Boulder_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Chain_Sea.png">
       <Name>Floater_Chain_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Chain_Sea_v2.png">
-      <Name>Floater_Chain_Sea_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_LineAndHook_Sea.png">
-      <Name>Floater_LineAndHook_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Line_Sea.png">
-      <Name>Floater_Line_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Rope_Sea.png">
-      <Name>Floater_Rope_Sea</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Rope_Sea_v2.png">
-      <Name>Floater_Rope_Sea_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Rope_v2.png">
-      <Name>Floater_Rope_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Floater\Floater_Spikey_Blue.png">
-      <Name>Floater_Spikey_Blue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4039,18 +3475,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Ghost Block\Ghostblock_Sea_v2.png">
-      <Name>Ghostblock_Sea_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_135.png">
       <Name>Movingblock_Sea_135</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_135_v2.PNG">
-      <Name>Movingblock_Sea_135_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4059,28 +3485,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_190_v2.PNG">
-      <Name>Movingblock_Sea_190_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_40.png">
       <Name>Movingblock_Sea_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_40_v2.png">
-      <Name>Movingblock_Sea_40_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_80.PNG">
       <Name>Movingblock_Sea_80</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_80_v2.PNG">
-      <Name>Movingblock_Sea_80_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4121,16 +3532,6 @@
     </Compile>
     <Compile Include="Art\Environments\Sea\Obstacles\Spike\Spike_Base_Sea_3.PNG">
       <Name>Spike_Base_Sea_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Spike\Spike_Base_Sea_v2.png">
-      <Name>Spike_Base_Sea_v2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Spike\Spike_Sea_1.png">
-      <Name>Spike_Sea_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -6398,6 +5799,13 @@
     </Compile>
     <Compile Include="Art\Old Art Holdover\WidePlaque.png">
       <Name>WidePlaque</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Environments\Sea\Obstacles\Firespinner\firespinner_gear_dkpurp.PNG">
+      <Name>firespinner_gear_dkpurp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

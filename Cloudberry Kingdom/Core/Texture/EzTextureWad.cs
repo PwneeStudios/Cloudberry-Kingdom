@@ -26,7 +26,6 @@ namespace CoreEngine
 
         public List<EzTexture> TextureList;
         public Dictionary<string, List<EzTexture>> TextureListByFolder;
-        public LockableBool AllLoaded;
 
         public Dictionary<string, AnimationData_Texture> AnimationDict;
         public void Add(AnimationData_Texture anim, string name)
@@ -53,7 +52,6 @@ namespace CoreEngine
 
         public EzTextureWad()
         {
-            AllLoaded = new LockableBool();
             TextureList = new List<EzTexture>();
             TextureListByFolder = new Dictionary<string, List<EzTexture>>();
 
@@ -64,34 +62,6 @@ namespace CoreEngine
             BigNameDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
         }
 
-        public static float PercentToLoad =
-                    1f;
-                    //.2f;
-        public void LoadAllDirect(ContentManager Content)
-        {
-            EzTexture Tex;
-            int n = (int)(TextureList.Count * PercentToLoad);
-            for (int i = 0; i < n; i++)
-            {
-                Tex = TextureList[i];
-
-                // If texture hasn't been loaded yet, load it
-                if (Tex.Tex == null && !Tex.FromCode)
-                {
-                    AllLoaded.val = false;
-                    Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-
-#if EDITOR
-#else
-                    Tools.TheGame.ResourceLoadedCountRef.Val++;
-#endif
-                }
-            }
-
-            if (PercentToLoad == 1f)
-                AllLoaded.val = true;
-        }
-
         public void LoadFolder(ContentManager Content, string Folder)
         {
             foreach (EzTexture Tex in TextureListByFolder[Folder])
@@ -99,7 +69,6 @@ namespace CoreEngine
                 // If texture hasn't been loaded yet, load it
                 if (Tex.Tex == null && !Tex.FromCode)
                 {
-                    AllLoaded.val = false;
                     Tex.Tex = Content.Load<Texture2D>(Tex.Path);
 
 #if EDITOR
@@ -108,9 +77,6 @@ namespace CoreEngine
 #endif
                 }
             }
-
-            //if (PercentToLoad == 1f)
-            //    AllLoaded.val = true;
         }
 
         public void KillDynamic()
@@ -287,18 +253,7 @@ namespace CoreEngine
 
             if (texture == null) return null;
 
-            if (AllLoaded.val) return texture;
-            else
-            {
-                //lock (texture)
-                //lock (Tools.GameClass.Content)
-                {
-                    if (texture.Tex == null)
-                    {
-                        texture.Load();
-                    }
-                }
-            }
+            if (texture.Tex == null) texture.Load();
 
             return texture;
         }

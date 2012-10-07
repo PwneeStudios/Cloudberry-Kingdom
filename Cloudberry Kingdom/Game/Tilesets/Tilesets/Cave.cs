@@ -14,21 +14,21 @@ namespace CloudberryKingdom
 
 t.Name = "cave";
 
-t.Pillars.Add(new PieceQuad(50, "pillar_cave_50", -15, 15, 3));
-t.Pillars.Add(new PieceQuad(100, "pillar_cave_100", -15, 15, 12));
-t.Pillars.Add(new PieceQuad(150, "pillar_cave_150", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(250, "pillar_cave_250", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(300, "pillar_cave_300", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(600, "pillar_cave_600", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(50, "pillar_cave_50", -15, 15, 3));
+//t.Pillars.Add(new PieceQuad(100, "pillar_cave_100", -15, 15, 12));
+//t.Pillars.Add(new PieceQuad(150, "pillar_cave_150", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(250, "pillar_cave_250", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(300, "pillar_cave_300", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(600, "pillar_cave_600", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000", -15, 15, 0));
 
-//t.Pillars.Add(new PieceQuad(50, "pillar_cave_50_v3", -15, 15, 3));
-//t.Pillars.Add(new PieceQuad(100, "pillar_cave_100_v3", -15, 15, 12));
-//t.Pillars.Add(new PieceQuad(150, "pillar_cave_150_v3", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(250, "pillar_cave_250_v3", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(300, "pillar_cave_300_v3", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(600, "pillar_cave_600_v3", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(50, "pillar_cave_50_v3", -15, 15, 3));
+t.Pillars.Add(new PieceQuad(100, "pillar_cave_100_v3", -15, 15, 12));
+t.Pillars.Add(new PieceQuad(150, "pillar_cave_150_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(250, "pillar_cave_250_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(300, "pillar_cave_300_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(600, "pillar_cave_600_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -15, 15, 0));
 
 t.Ceilings.Add(new PieceQuad(50, "pillar_cave_50", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(100, "pillar_cave_100", -20, 20, 0, true));
@@ -78,14 +78,11 @@ info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cave", -3, 3, 2));
 sprite_anim("Bouncy_cave", "Bouncy_cave", 1, 3, 2);
 info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cave", -6, 6, 13));
 
-//sprite_anim("flame_cave", "firespinner_flame_cave", 1, 4, 6);
 sprite_anim("flame_cave", "firespinner_flame_cloud", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_cave";
 info.Spinners.Flame.Size = new Vector2(45, -1);
 info.Spinners.Rotate = false;
 info.Spinners.RotateStep = .13f;
-//info.Spinners.Base.Sprite = "firespinner_base_cave";
-//info.Spinners.Base.Sprite = "firespinner_gear_dkpurp";
 info.Spinners.Base.Sprite = "firespinner_base_cloud";
 info.Spinners.Base.Size = new Vector2(90, -1);
 info.Spinners.Base.Offset = new Vector2(0, -25);
