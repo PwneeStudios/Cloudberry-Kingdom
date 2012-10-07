@@ -10,6 +10,8 @@ namespace CoreEngine
 {
     public class EzTexture
     {
+        public int Width, Height;
+
         Texture2D _Tex;
         public Texture2D Tex 
         {

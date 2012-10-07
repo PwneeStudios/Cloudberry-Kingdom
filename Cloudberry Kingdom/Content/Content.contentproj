@@ -5782,11 +5782,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\score screen.png">
-      <Name>score screen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Old Art Holdover\score screen_grey.png">
       <Name>score screen_grey</Name>
       <Importer>TextureImporter</Importer>
@@ -5794,11 +5789,6 @@
     </Compile>
     <Compile Include="Art\Old Art Holdover\SpikeyGuy.png">
       <Name>SpikeyGuy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Old Art Holdover\WidePlaque.png">
-      <Name>WidePlaque</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

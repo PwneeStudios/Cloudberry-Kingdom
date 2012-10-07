@@ -612,8 +612,10 @@ namespace CloudberryKingdom
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
-            //BenchmarkAll();
-            //Tools.Warning(); return;
+
+            Tools.PreprocessArt(Tools.GameClass.Content);
+            BenchmarkAll();
+            Tools.Warning(); return;
             
             //_LoadThread(); return;
 
