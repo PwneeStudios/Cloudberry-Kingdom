@@ -194,6 +194,7 @@
     <Compile Include="Core\Tools\CoreMath.cs" />
     <Compile Include="Core\Version.cs" />
     <Compile Include="Game\CloudberryKingdom\CloudberryKingdom.cs" />
+    <Compile Include="Game\CloudberryKingdom\BenchmarkHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />

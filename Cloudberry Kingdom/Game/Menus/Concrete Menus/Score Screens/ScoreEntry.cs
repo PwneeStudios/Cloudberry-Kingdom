@@ -33,7 +33,8 @@ namespace CloudberryKingdom
 
             this.GamerTag = GamerTag;
             this.GameId = Game;
-            this.Value = Score;
+            this.Value = Value;
+            this.Score = Score;
             this.Level = Level;
             this.Attempts = Attempts;
             this.Time = Time;

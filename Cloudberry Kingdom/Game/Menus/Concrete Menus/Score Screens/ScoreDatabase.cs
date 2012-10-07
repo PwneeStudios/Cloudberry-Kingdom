@@ -10,6 +10,13 @@ namespace CloudberryKingdom
         private static ScoreDatabase Instance;
 
         public static int MostRecentScoreDate = 0;
+        public static int CurrentDate()
+        {
+            TimeSpan t = (DateTime.Now - new DateTime(2000, 1, 1));
+            int minutes = (int)t.TotalMinutes;
+            
+            return minutes;
+        }
 
         public static int Capacity = 20;
 
@@ -21,7 +28,9 @@ namespace CloudberryKingdom
             Instance.ContainerName = "HighScores";
             Instance.FileName = "HighScores";
             Instance.FailLoad();
-            
+
+            MostRecentScoreDate = CurrentDate();
+
             SaveGroup.Add(Instance);
         }
 
@@ -121,6 +130,9 @@ namespace CloudberryKingdom
 
         public static void Add(ScoreEntry score)
         {
+            foreach (var player in PlayerManager.ExistingPlayers)
+                player.AddHighScore(score);
+
             EnsureList(score.GameId);
 
             if (!Qualifies(score.GameId, score.Value))

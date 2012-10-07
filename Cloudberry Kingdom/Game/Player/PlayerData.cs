@@ -55,6 +55,7 @@ namespace CloudberryKingdom
         public PlayerData()
         {
             AlwaysSave = true;
+            FailLoad();
         }
 
         #region WriteRead

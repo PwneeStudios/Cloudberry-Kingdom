@@ -38,7 +38,7 @@ namespace CloudberryKingdom
         }
 
 
-        static string[] TextureName = { "Score\\Score Screen_pink", "score screen_grey", "score screen" };
+        static string[] TextureName = { "score screen_grey", "score screen_grey", "score screen_grey" };
         HighScorePanel[] Panels;
 
         public HighScorePanel(params ScoreList[] Scores) { MultiInit(false, Scores); }
@@ -53,12 +53,14 @@ namespace CloudberryKingdom
             Constructor(Scores[0]);
 
             Panels = new HighScorePanel[Scores.Length];
+            
             Panels[0] = this;
+            Panels[0].Backdrop.TextureName = "score screen_grey";
+
             for (int i = 1; i < Scores.Length; i++)
             {
                 Panels[i] = new HighScorePanel(Scores[i]);
                 Panels[i].Backdrop.TextureName = "score screen_grey";
-                //Panels[i].Backdrop.TextureName = TextureName[i];
             }
 
             for (int i = 0; i < Scores.Length; i++)
@@ -70,7 +72,6 @@ namespace CloudberryKingdom
             for (int i = 0; i < Panels.Length - 1; i++)
                 Tools.Swap(ref Panels[i].MyPile, ref Panels[i+1].MyPile);
 
-            //Tools.Swap(ref MyPile, ref SecondPanel.MyPile);
             MyPile.Jiggle(true, 8, .3f);
         }
 
@@ -114,11 +115,10 @@ namespace CloudberryKingdom
             Backdrop.TextureName = "Score\\score screen_grey";
 
             MyPile.Add(Backdrop, "Backdrop");
-            //MyPile.Insert(0, Backdrop);
             Backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'High Score' text
-            EzText Text = new EzText(MyScoreList.Header, Tools.Font_Grobold42_2, 1450, false, true, .6f);
+            EzText Text = new EzText(MyScoreList.GetHeader(), Tools.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = .8f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
@@ -137,6 +137,7 @@ namespace CloudberryKingdom
                 Text = new EzText(MyScoreList.ScoreString(score, DesiredLength), Tools.Font_Grobold42);
                 SetHeaderProperties(Text);
                 Text.Scale *= .55f;
+
                 if (score.Date == ScoreDatabase.MostRecentScoreDate)
                     Text.MyFloatColor = Color.LimeGreen.ToVector4();
                 else

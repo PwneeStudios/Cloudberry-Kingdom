@@ -76,7 +76,7 @@ namespace CloudberryKingdom
             var MyGameOverPanel = new GameOverPanel(GameId_Score, GameId_Level);
             MyGameOverPanel.Levels = StringWorld.CurLevelIndex + 1;
             
-            Tools.CurGameData.AddGameObject();
+            Tools.CurGameData.AddGameObject(MyGameOverPanel);
         }
 
         /// <summary>

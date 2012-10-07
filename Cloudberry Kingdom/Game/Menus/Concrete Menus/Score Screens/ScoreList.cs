@@ -7,10 +7,29 @@ namespace CloudberryKingdom
 {
     public class ScoreList
     {
-        public int Capacity = 20;
+        public int Capacity = 10;
 
-        public string Header = "High Scores", Prefix = "";
         public ScoreEntry.Format MyFormat = ScoreEntry.Format.Score;
+
+        public string GetHeader()
+        {
+            switch (MyFormat)
+            {
+                case ScoreEntry.Format.Score: return "High Scores";
+                case ScoreEntry.Format.Level: return "Best Level";
+                default: return "Nothing";
+            }
+        }
+
+        public string GetPrefix()
+        {
+            switch (MyFormat)
+            {
+                case ScoreEntry.Format.Score: return "";
+                case ScoreEntry.Format.Level: return "";
+                default: return "";
+            }
+        }
 
         public List<ScoreEntry> Scores;
 
@@ -72,7 +91,7 @@ namespace CloudberryKingdom
             while (RankStr.Length < 4) RankStr += " ";
 
             if (!score.Fake)
-                RankStr += Prefix;
+                RankStr += GetPrefix();
 
             string ScoreStr = string.Format("{0:n}", score);
             return RankStr + score.ToString(Length - RankStr.Length);
@@ -80,7 +99,30 @@ namespace CloudberryKingdom
 
         public void Add(ScoreEntry score)
         {
+            if (!Qualifies(score))
+                return;
+
             Scores.Add(score);
+
+            Sort();
+            TrimExcess();
+        }
+
+        /// <summary>
+        /// Remove excess entries, if the list is over capacity.
+        /// </summary>
+        void TrimExcess()
+        {
+            if (Scores.Count > Capacity)
+                Scores.RemoveRange(Scores.Count - 1, Scores.Count - Capacity);
+        }
+
+        /// <summary>
+        /// Sort the list by value.
+        /// </summary>
+        void Sort()
+        {
+            Scores.Sort((score1, score2) => (score2.Value - score1.Value));
         }
     }
 }

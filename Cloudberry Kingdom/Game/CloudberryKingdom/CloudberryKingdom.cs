@@ -234,6 +234,9 @@ namespace CloudberryKingdom
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
+
+            
+
             Tools.LoadEffects(Tools.GameClass.Content, true);
 
             ButtonString.Init();
@@ -575,6 +578,9 @@ namespace CloudberryKingdom
 
         public void LoadContent()
         {
+            //BenchmarkLoadSize();
+            //Tools.Warning();
+
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
@@ -605,6 +611,11 @@ namespace CloudberryKingdom
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
+            //BenchmarkAll();
+            //Tools.Warning();
+            _LoadThread(); return;
+
+
             // Load resource thread.
             Thread LoadThread = new Thread(
                 new ThreadStart(
@@ -625,72 +636,7 @@ namespace CloudberryKingdom
                         };
                         Tools.TheGame.Exiting += abort;
 
-                        Tools.Write("Start");
-
-                        Fireball.PreInit();
-
-                        // Load art
-                        LoadAssets(true);
-                        if (!SimpleLoad)
-                        {
-                            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Tigar");
-                        }
-
-                        Tools.Write("ArtMusic done...");
-
-                        // Load the infowad and boxes
-                        Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                        LoadInfo();
-                        Tools.Write("Infowad done...");
-
-                        TileSets.Init();
-
-                        Fireball.InitRenderTargets(MyGraphicsDevice, MyGraphicsDevice.PresentationParameters, 300, 200);
-
-                        ParticleEffects.Init();
-
-                        PlayerManager.Init();
-                        Awardments.Init();
-                        
-                        // Load saved files
-                        SaveGroup.Initialize();
-
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-                        SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-                        SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
-#endif
-
-
-#if PC_VERSION
-                        // Mouse pointer
-                        MousePointer = new QuadClass();
-                        MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
-                        MousePointer.ScaleToTextureSize();
-                        MousePointer.Scale(1.5f);
-
-                        // Mouse back icon
-                        MouseBack = new QuadClass();
-                        MouseBack.Quad.MyTexture = Tools.TextureWad.FindByName("charmenu_larrow_1");
-                        MouseBack.ScaleYToMatchRatio(40);
-                        MouseBack.Quad.SetColor(new Color(255, 150, 150, 100));
-#endif
-
-                        Prototypes.LoadObjects();
-                        ObjectIcon.InitIcons();
-
-                        Tools.Write("Stickmen done...");
-
-                        Tools.padState = new GamePadState[4];
-                        Tools.PrevpadState = new GamePadState[4];
-                        Tools.Render.SetStandardRenderStates();
-
-                        Tools.Write("Textures done...");
-
-                        Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
-
-                        // Note that we are done loading.
-                        LoadingResources.MyBool = false;
-                        Tools.Write("Loading done!");
+                        _LoadThread();
 
                         // Unregister from the game exiting.
                         Tools.TheGame.Exiting -= abort;
@@ -703,6 +649,76 @@ namespace CloudberryKingdom
             };
 
             LoadThread.Start();
+        }
+
+        private void _LoadThread()
+        {
+            Tools.Write("Start");
+
+            Fireball.PreInit();
+
+            // Load art
+            LoadAssets(true);
+            if (!SimpleLoad)
+            {
+                //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Tigar");
+            }
+
+            Tools.Write("ArtMusic done...");
+
+            // Load the infowad and boxes
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            LoadInfo();
+            Tools.Write("Infowad done...");
+
+            TileSets.Init();
+
+            Fireball.InitRenderTargets(MyGraphicsDevice, MyGraphicsDevice.PresentationParameters, 300, 200);
+
+            ParticleEffects.Init();
+
+            PlayerManager.Init();
+            Awardments.Init();
+
+            // Load saved files
+            SaveGroup.Initialize();
+
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
+                        SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+                        SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+#endif
+
+
+#if PC_VERSION
+            // Mouse pointer
+            MousePointer = new QuadClass();
+            MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
+            MousePointer.ScaleToTextureSize();
+            MousePointer.Scale(1.5f);
+
+            // Mouse back icon
+            MouseBack = new QuadClass();
+            MouseBack.Quad.MyTexture = Tools.TextureWad.FindByName("charmenu_larrow_1");
+            MouseBack.ScaleYToMatchRatio(40);
+            MouseBack.Quad.SetColor(new Color(255, 150, 150, 100));
+#endif
+
+            Prototypes.LoadObjects();
+            ObjectIcon.InitIcons();
+
+            Tools.Write("Stickmen done...");
+
+            Tools.padState = new GamePadState[4];
+            Tools.PrevpadState = new GamePadState[4];
+            //Tools.Render.SetStandardRenderStates();
+
+            Tools.Write("Textures done...");
+
+            Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
+
+            // Note that we are done loading.
+            LoadingResources.MyBool = false;
+            Tools.Write("Loading done!");
         }
 
         /// <summary>

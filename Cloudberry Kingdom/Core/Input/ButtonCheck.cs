@@ -161,21 +161,15 @@ namespace CloudberryKingdom
 #endif
         }
 
+#if PC_VERSION
         /// <summary>
         /// Update the boolean flag MouseInUse
         /// </summary>
         public static void UpdateMouseUse()
         {
-            if (Tools.keybState.IsKeyDownCustom(Keys.Up) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Down) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Left) ||
-                Tools.keybState.IsKeyDownCustom(Keys.Right) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Down_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary) ||
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary) ||
+            if (ButtonCheck.AnyKeyboardKey() ||
 #if PC_VERSION
- (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
+                (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
 #else
                 (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)
 #endif
@@ -189,6 +183,7 @@ namespace CloudberryKingdom
 
             PrevMouseInUse = MouseInUse;
         }
+#endif
 
         public static void KillSecondary()
         {
@@ -356,13 +351,20 @@ namespace CloudberryKingdom
         }
 #endif
 
-        public static bool AnyKey()
-        {
 #if WINDOWS
+        public static bool AnyKeyboardKey()
+        {
             var keys = Tools.keybState.GetPressedKeys();
             bool AnyKeyDown = !(keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None));
 
-            return AnyKeyDown || AnyMouseKey() || AllState(-2).Down;
+            return AnyKeyDown;
+        }
+#endif
+
+        public static bool AnyKey()
+        {
+#if WINDOWS
+            return AnyKeyboardKey() || AnyMouseKey() || AllState(-2).Down;
 #else
             return AllState(-2);
 #endif

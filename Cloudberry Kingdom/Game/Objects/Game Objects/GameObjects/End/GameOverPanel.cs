@@ -47,11 +47,12 @@ namespace CloudberryKingdom
             Score = PlayerManager.GetGameScore();
             Attempts = PlayerManager.Score_Attempts;
             Time = PlayerManager.Score_Time;
-            Date = 0;
+            Date = ScoreDatabase.CurrentDate();
+            ScoreDatabase.MostRecentScoreDate = Date;
 
-            string GamerTag = PlayerManager.GetGroupGamerTag(100);
-            HighScoreEntry = new ScoreEntry(GamerTag, GameId_Score, Score, Score, Levels, Attempts, Time, Date);
-            HighLevelEntry = new ScoreEntry(GamerTag, GameId_Level, Score, Score, Levels, Attempts, Time, Date);
+            string GamerTag = PlayerManager.GetGroupGamerTag(18);
+            HighScoreEntry = new ScoreEntry(GamerTag, GameId_Score, Score,  Score, Levels, Attempts, Time, Date);
+            HighLevelEntry = new ScoreEntry(GamerTag, GameId_Level, Levels, Score, Levels, Attempts, Time, Date);
 
 #if NOT_PC
             AddScore();
@@ -171,9 +172,11 @@ namespace CloudberryKingdom
             // Show the menu when the user is done entering their name
             MyTextBox.OnEnter += () =>
                 {
+                    // Use the entered text as the GamerTag
+                    HighScoreEntry.GamerTag = HighLevelEntry.GamerTag = MyTextBox.Text;
+
                     // Add the high score
-                    MyHighScoreList.Add(HighScoreEntry);
-                    MyHighLevelList.Add(HighLevelEntry);
+                    AddScore();
 
                     MyGame.WaitThenDo(35, () =>
                         {
@@ -184,6 +187,14 @@ namespace CloudberryKingdom
                             MyTextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
                         });
                 };
+        }
+
+        private void AddScore()
+        {
+            MyHighScoreList.Add(HighScoreEntry);
+            MyHighLevelList.Add(HighLevelEntry);
+            ScoreDatabase.Add(HighScoreEntry);
+            ScoreDatabase.Add(HighLevelEntry);
         }
 #else
         protected override void ReleaseBody()
@@ -272,7 +283,10 @@ namespace CloudberryKingdom
             this.GameId_Level = GameId_Level;
 
             MyHighScoreList = ScoreDatabase.GetList(GameId_Score);
+            MyHighScoreList.MyFormat = ScoreEntry.Format.Score;
+            
             MyHighLevelList = ScoreDatabase.GetList(GameId_Level);
+            MyHighLevelList.MyFormat = ScoreEntry.Format.Level;
         }
 
         protected override void MyDraw()
