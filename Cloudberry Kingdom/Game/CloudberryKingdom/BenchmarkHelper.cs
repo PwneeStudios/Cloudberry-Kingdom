@@ -18,10 +18,8 @@ namespace CloudberryKingdom
         private void BenchmarkAll()
         {
             // Load art
-            Start();
-            LoadAssets(true);
-            long PreLoad = Stop();
-
+            Start2();
+            
             Start();
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
             long LoadEnviros = Stop();
@@ -36,7 +34,7 @@ namespace CloudberryKingdom
 
             Start();
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+            //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
             long LoadEffects = Stop();
 
             Start();
@@ -92,9 +90,11 @@ namespace CloudberryKingdom
             Tools.PrevpadState = new GamePadState[4];
             long GamePads = Stop();
 
+            long Total = Stop2();
+
             Tools.Write("Textures done...");
 
-            Console.WriteLine("Pre load       {0}", PreLoad);
+            //Console.WriteLine("Pre load       {0}", PreLoad);
             Console.WriteLine("Load Bob       {0}", LoadBob);
             Console.WriteLine("Load enviros   {0}", LoadEnviros);
             Console.WriteLine("Load effects   {0}", LoadEffects);
@@ -108,6 +108,8 @@ namespace CloudberryKingdom
             Console.WriteLine("Load Protos    {0}", Protos);
             Console.WriteLine("Load Icons     {0}", Icons);
             Console.WriteLine("Load Small     {0}", GamePads);
+            Console.WriteLine("-----------------------", GamePads);
+            Console.WriteLine("Total          {0}", Total);
             Console.WriteLine("");
         }
 
@@ -122,6 +124,19 @@ namespace CloudberryKingdom
             stopwatch.Stop();
             return stopwatch.ElapsedTicks;
         }
+
+        static System.Diagnostics.Stopwatch stopwatch2;
+        static void Start2()
+        {
+            stopwatch2 = new System.Diagnostics.Stopwatch();
+            stopwatch2.Start();
+        }
+        static long Stop2()
+        {
+            stopwatch2.Stop();
+            return stopwatch2.ElapsedTicks;
+        }
+
 
         private static void BenchmarkLoadSize()
         {

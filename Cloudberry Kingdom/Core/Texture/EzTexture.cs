@@ -23,7 +23,7 @@ namespace CoreEngine
         {
             get
             {
-                return (float)_Tex.Width / (float)_Tex.Height;
+                return (float)Width / (float)Height;
             }
         }
 
@@ -64,7 +64,11 @@ namespace CoreEngine
         public bool Load()
         {
             if (_Tex == null && Path != null)
+            {
                 _Tex = Tools.GameClass.Content.Load<Texture2D>(Path);
+                Width = _Tex.Width;
+                Height = _Tex.Height;
+            }
 
             return _Tex != null;
         }

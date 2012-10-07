@@ -371,7 +371,7 @@ namespace CloudberryKingdom.Bobs
                                     doodad.MyQuad.Quad.MyTexture = Tools.TextureWad.FindByName(Tools.Dlg.textBox1.Text);
 
                                     Vector2 size = new Vector2(doodad.MyQuad.Base.e1.X, doodad.MyQuad.Base.e2.Y);
-                                    //Vector2 size = 2 * new Vector2(doodad.MyQuad.Quad.MyTexture.Tex.Width, doodad.MyQuad.Quad.MyTexture.Tex.Height);                                    
+                                    //Vector2 size = 2 * new Vector2(doodad.MyQuad.Quad.MyTexture.Width, doodad.MyQuad.Quad.MyTexture.Height);                                    
                                     
                                     //doodad.MyQuad.Base.e2.Y = 1000;
                                     //doodad.MyQuad.ScaleXToMatchRatio();

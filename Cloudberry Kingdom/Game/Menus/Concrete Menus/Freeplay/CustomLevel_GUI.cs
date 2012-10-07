@@ -367,7 +367,7 @@ namespace CloudberryKingdom
 
                     Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
                     Screenshot.TextureName = tileset.ScreenshotString;
-                    Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Tex.Width);
+                    Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Width);
 
                     LevelSeed.SetTileSet(tileset);
                 };

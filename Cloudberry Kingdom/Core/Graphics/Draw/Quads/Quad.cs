@@ -31,8 +31,8 @@ namespace CoreEngine
         public void Resize()
         {
             float width = (Corner[1].RelPos - Corner[0].RelPos).Length();
-            Vector2 NewSize = new Vector2(MyTexture.Tex.Width, MyTexture.Tex.Height);
-            NewSize *= .5f * width / MyTexture.Tex.Width;
+            Vector2 NewSize = new Vector2(MyTexture.Width, MyTexture.Height);
+            NewSize *= .5f * width / MyTexture.Width;
             ScaleCorners(NewSize);
         }
 

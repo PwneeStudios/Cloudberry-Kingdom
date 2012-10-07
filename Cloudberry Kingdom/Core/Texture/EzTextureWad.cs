@@ -52,14 +52,16 @@ namespace CoreEngine
 
         public EzTextureWad()
         {
-            TextureList = new List<EzTexture>();
-            TextureListByFolder = new Dictionary<string, List<EzTexture>>();
+            const int Size = 2000;
 
-            AnimationDict = new Dictionary<string, AnimationData_Texture>(StringComparer.CurrentCultureIgnoreCase);
+            TextureList = new List<EzTexture>(Size);
+            TextureListByFolder = new Dictionary<string, List<EzTexture>>(Size);
 
-            PathDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
-            NameDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
-            BigNameDict = new Dictionary<string, EzTexture>(StringComparer.CurrentCultureIgnoreCase);
+            AnimationDict = new Dictionary<string, AnimationData_Texture>(Size, StringComparer.CurrentCultureIgnoreCase);
+
+            PathDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
+            NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
+            BigNameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
         }
 
         public void LoadFolder(ContentManager Content, string Folder)
@@ -70,6 +72,8 @@ namespace CoreEngine
                 if (Tex.Tex == null && !Tex.FromCode)
                 {
                     Tex.Tex = Content.Load<Texture2D>(Tex.Path);
+                    Tex.Width = Tex.Tex.Width;
+                    Tex.Height = Tex.Tex.Height;
 
 #if EDITOR
 #else
@@ -253,7 +257,10 @@ namespace CoreEngine
 
             if (texture == null) return null;
 
-            if (texture.Tex == null) texture.Load();
+            if (texture.Tex == null)
+            {
+                texture.Load();
+            }
 
             return texture;
         }
@@ -294,6 +301,13 @@ namespace CoreEngine
 
         public EzTexture AddTexture(Texture2D Tex, string Name)
         {
+            if (Tex == null)
+                return AddTexture(Tex, Name, 0, 0);
+            else
+                return AddTexture(Tex, Name, Tex.Width, Tex.Height);
+        }
+        public EzTexture AddTexture(Texture2D Tex, string Name, int Width, int Height)
+        {
             EzTexture NewTex = null;
 
             if (TextureList.Exists(match => string.Compare(match.Path, Name, StringComparison.OrdinalIgnoreCase) == 0))
@@ -333,6 +347,43 @@ namespace CoreEngine
                     TextureListByFolder.Add(folder, new List<EzTexture>());
                 TextureListByFolder[folder].Add(NewTex);
             }
+
+            NewTex.Width = Width;
+            NewTex.Height = Height;
+
+            return NewTex;
+        }
+
+        public EzTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height)
+        {
+            return null;
+        }
+
+        public EzTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height,
+                                         string StrippedName, string LowerName, string LowerPath, string BigName, string Folder)
+        {
+            EzTexture NewTex = null;
+
+            NewTex = new EzTexture();
+            NewTex.Path = Name;
+            NewTex.Tex = Tex;
+
+            NewTex.Name = StrippedName;
+
+            TextureList.Add(NewTex);
+
+            NameDict.Add(LowerName, NewTex);
+            PathDict.Add(LowerPath, NewTex);
+
+            BigNameDict.Add(BigName, NewTex);
+
+            // Add to folder
+            if (!TextureListByFolder.ContainsKey(Folder))
+                TextureListByFolder.Add(Folder, new List<EzTexture>());
+            TextureListByFolder[Folder].Add(NewTex);
+
+            NewTex.Width = Width;
+            NewTex.Height = Height;
 
             return NewTex;
         }

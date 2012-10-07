@@ -422,8 +422,8 @@ namespace CloudberryKingdom
             c.Center.SetTextureOrAnim(bits[1]);
             //c.Center.TextureName = bits[1];
 
-            //int tex_width = c.Center.MyTexture.Tex.Width;
-            //int tex_height = c.Center.MyTexture.Tex.Height;
+            //int tex_width = c.Center.MyTexture.Width;
+            //int tex_height = c.Center.MyTexture.Height;
             int tex_width = c.Center.TexWidth;
             int tex_height = c.Center.TexHeight;
 

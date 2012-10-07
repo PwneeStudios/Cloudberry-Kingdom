@@ -255,7 +255,7 @@ namespace CoreEngine
                 if (TextureAnim != null)
                     return TextureAnim.Width;
                 else
-                    return MyTexture.Tex.Width;
+                    return MyTexture.Width;
             }
         }
         public int TexHeight
@@ -265,7 +265,7 @@ namespace CoreEngine
                 if (TextureAnim != null)
                     return TextureAnim.Height;
                 else
-                    return MyTexture.Tex.Height;
+                    return MyTexture.Height;
             }
         }
 
@@ -280,7 +280,7 @@ namespace CoreEngine
 
         public void EnforceTextureRatio()
         {
-            float Ratio = (float)MyTexture.Tex.Height / (float)MyTexture.Tex.Width;
+            float Ratio = (float)MyTexture.Height / (float)MyTexture.Width;
             v0.Pos = new Vector2(-1, Ratio);
             v1.Pos = new Vector2(1, Ratio);
             v2.Pos = new Vector2(-1, -Ratio);

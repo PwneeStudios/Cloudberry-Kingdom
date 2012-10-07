@@ -34,8 +34,8 @@ namespace CoreEngine
             AddFrame(Tools.Texture(TextureName), 0);
 
             var FirstFrameTexture = Anims[0].Data[0];
-            Width = FirstFrameTexture.Tex.Width;
-            Height = FirstFrameTexture.Tex.Height;
+            Width = FirstFrameTexture.Width;
+            Height = FirstFrameTexture.Height;
         }
         public AnimationData_Texture(string TextureRoot, int StartFrame, int EndFrame)
         {
@@ -87,8 +87,8 @@ namespace CoreEngine
             }
 
             var FirstFrameTexture = Anims[0].Data[0];
-            Width = FirstFrameTexture.Tex.Width;
-            Height = FirstFrameTexture.Tex.Height;
+            Width = FirstFrameTexture.Width;
+            Height = FirstFrameTexture.Height;
         }
 
         public AnimationData_Texture(EzTexture texture)

@@ -30,7 +30,7 @@ namespace CloudberryKingdom
             this.Sprite = Body;
 
             this.Width = Width;
-            this.RepeatWidth = Width * (float)Body.MyTexture.Tex.Height / (float)Body.MyTexture.Tex.Width;
+            this.RepeatWidth = Width * (float)Body.MyTexture.Height / (float)Body.MyTexture.Width;
 
             this.Dir = 0;
             this.Tint = Vector4.One;

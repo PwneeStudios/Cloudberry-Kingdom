@@ -524,12 +524,12 @@ namespace CloudberryKingdom
 
                     Vector2 size;
                     EzTexture texture = Tools.TextureWad.FindByName(Parse_PicName);
-                    float ratio = (float)texture.Tex.Width / (float)texture.Tex.Height;
+                    float ratio = (float)texture.Width / (float)texture.Height;
 
                     // 's' scale the texture
                     if (WidthString.Contains('s'))
                     {
-                        size = new Vector2(texture.Tex.Width, texture.Tex.Height);
+                        size = new Vector2(texture.Width, texture.Height);
                         size *= float.Parse(HeightString);
                     }
                     // '?' calculates that number from the texture height/width ratio
@@ -980,7 +980,7 @@ namespace CloudberryKingdom
                     piccolor = ColorHelper.PremultiplyAlpha(piccolor);
 
                     Vector2 pos = Loc + Scale * ZoomMod * new Vector2(pic.rect.X, pic.rect.Y);
-                    Vector2 scale = Scale * ZoomMod * new Vector2(pic.rect.Width / (float)pic.tex.Tex.Width, pic.rect.Height / (float)pic.tex.Tex.Height);
+                    Vector2 scale = Scale * ZoomMod * new Vector2(pic.rect.Width / (float)pic.tex.Width, pic.rect.Height / (float)pic.tex.Height);
 
                     if (pic.AsPaint)
                     {

@@ -197,12 +197,12 @@ namespace CloudberryKingdom
                                 _quad.xAxis.RelPos = new Vector2(1, 0);
                                 _quad.yAxis.RelPos = new Vector2(0, 1);
 
-                                //_quad.xAxis.RelPos.X = _quad.yAxis.RelPos.Y * (float)texture.Tex.Width / (float)texture.Tex.Height;
+                                //_quad.xAxis.RelPos.X = _quad.yAxis.RelPos.Y * (float)texture.Width / (float)texture.Height;
                                 //if (reverse)
                                 //    _quad.xAxis.RelPos.X = -System.Math.Abs(_quad.xAxis.RelPos.X);
 
                                 _quad.Center.RelPos = shift / scale;
-                                _quad.xAxis.RelPos.X = scale * (float)texture.Tex.Width / (float)texture.Tex.Height;
+                                _quad.xAxis.RelPos.X = scale * (float)texture.Width / (float)texture.Height;
                                 if (reverse)
                                     _quad.xAxis.RelPos.X = -System.Math.Abs(_quad.xAxis.RelPos.X);
                                 _quad.yAxis.RelPos.Y = scale;

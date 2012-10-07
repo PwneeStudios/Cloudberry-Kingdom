@@ -650,7 +650,7 @@ namespace CloudberryKingdom.Viewer
             float x = floater.StartData.Position.X - floater.MyQuad.Size.X;
             float size = floater.MyQuad.SizeX;
 
-            float OriginalWidth = (T1.Tex.Width + T2.Tex.Width);
+            float OriginalWidth = (T1.Width + T2.Width);
 
             
 
@@ -666,7 +666,7 @@ namespace CloudberryKingdom.Viewer
                 copy.InitialUpdate();
                 node = CurrentLayerNode.Add(copy);
 
-                scale = (float)T1.Tex.Width / (float)OriginalWidth / repeat;
+                scale = (float)T1.Width / (float)OriginalWidth / repeat;
                 add = scale * size;
                 copy.SetPos(new Vector2(x + add, copy.StartData.Position.Y));
                 x += 2 * add;
@@ -681,7 +681,7 @@ namespace CloudberryKingdom.Viewer
                 copy.InitialUpdate();
                 node = CurrentLayerNode.Add(copy);
 
-                scale = (float)T2.Tex.Width / (float)OriginalWidth / repeat;
+                scale = (float)T2.Width / (float)OriginalWidth / repeat;
                 add = scale * size;
                 copy.SetPos(new Vector2(x + add, copy.StartData.Position.Y));
                 x += 2 * add;

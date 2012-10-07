@@ -563,17 +563,13 @@ namespace CloudberryKingdom
         protected void LoadAssets(bool CreateNewWads)
         {
             // Load the art!
-            Tools.PreloadArt(Tools.GameClass.Content);
-
-            Tools.Write("Art done...");
+            PreloadArt();
 
             // Load the music!
             LoadMusic(CreateNewWads);
-            Tools.Write("Music done...");
 
             // Load the sound!
             LoadSound(CreateNewWads);
-            Tools.Write("Sound done...");
         }
 
         Thread LoadThread;
@@ -608,53 +604,22 @@ namespace CloudberryKingdom
 
             MainCamera.Update();
 
+            // Pre load. This happens before anything appears.
+            LoadAssets(true);
+
+            // Benchmarking and preprocessing
+            //PreprocessArt();
+            //BenchmarkAll();
+            //Tools.Warning(); return;
+            
+            //_LoadThread(); return;
+
             // Create the initial loading screen
             FontLoad();
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
-
-            Tools.PreprocessArt(Tools.GameClass.Content);
-            BenchmarkAll();
-            Tools.Warning(); return;
-            
-            //_LoadThread(); return;
-
-
-            // Load resource thread.
-            LoadThread = new Thread(
-            //Thread LoadThread = new Thread(
-                new ThreadStart(
-                    delegate
-                    {
-//#if XBOX
-//                        Thread.CurrentThread.SetProcessorAffinity(new[] { 5 });
-//#endif
-//                        var ThisThread = Thread.CurrentThread;
-
-//                        // Setup an abort, in case the game exits while loading.
-//                        EventHandler<EventArgs> abort = (s, e) =>
-//                        {
-//                            if (ThisThread != null)
-//                            {
-//                                ThisThread.Abort();
-//                            }
-//                        };
-//                        Tools.TheGame.Exiting += abort;
-
-                        _LoadThread();
-
-                        //// Unregister from the game exiting.
-                        //Tools.TheGame.Exiting -= abort;
-                    }))
-            {
-                Name = "LoadThread",
-#if WINDOWS
-                Priority = ThreadPriority.Highest,
-#endif
-            };
-
-            LoadThread.Start();
-            //LoadThread.Join();
+            // Load resource thread
+            LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
 
         private void _LoadThread()
@@ -664,13 +629,12 @@ namespace CloudberryKingdom
             Fireball.PreInit();
 
             // Load art
-            LoadAssets(true);
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+            //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");

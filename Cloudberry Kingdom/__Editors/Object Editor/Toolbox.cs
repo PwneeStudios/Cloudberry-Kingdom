@@ -39,8 +39,8 @@ namespace CoreEngine
                 if (null != quad)
                 {
                     float width = (quad.Corner[1].RelPos - quad.Corner[0].RelPos).Length();
-                    Vector2 NewSize = new Vector2(quad.MyTexture.Tex.Width, quad.MyTexture.Tex.Height);
-                    NewSize *= .5f * width / quad.MyTexture.Tex.Width;
+                    Vector2 NewSize = new Vector2(quad.MyTexture.Width, quad.MyTexture.Height);
+                    NewSize *= .5f * width / quad.MyTexture.Width;
                     quad.ScaleCorners(NewSize);
                 }
             }
