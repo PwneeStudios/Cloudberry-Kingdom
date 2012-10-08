@@ -2240,23 +2240,13 @@ namespace CloudberryKingdom.Levels
             if (!SetToReset && Watching && Replay && !ReplayPaused && MySwarmBundle.EndCheck(this))
             {
                 if (!MySwarmBundle.GetNextSwarm(this))
-                {
-                    // End the computer watch if we are video capturing
-                    if (Tools.CapturingVideo)
-                        EndReplay();
-                    else
-                        ReplayPaused = true;
-                }
+                    ReplayPaused = true;
                 else
                     SetToReset = true;
             }
             if (!SetToReset && Watching && !Replay && EndOfReplay())
             {
-                // End the computer watch if we are video capturing
-                if (Tools.CapturingVideo)
-                    EndComputerWatch();
-                else
-                    ReplayPaused = true;
+                ReplayPaused = true;
             }
 
            

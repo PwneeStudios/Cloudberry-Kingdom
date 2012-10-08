@@ -619,11 +619,16 @@ namespace CloudberryKingdom
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
             // Load resource thread
+            MainVideo.Load();
             LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
 
         private void _LoadThread()
         {
+            Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
+
+            Thread.SpinWait(100);
+
             Tools.Write("Start");
 
             Fireball.PreInit();
@@ -687,7 +692,6 @@ namespace CloudberryKingdom
 
             Tools.padState = new GamePadState[4];
             Tools.PrevpadState = new GamePadState[4];
-            //Tools.Render.SetStandardRenderStates();
 
             Tools.Write("Textures done...");
 
@@ -696,6 +700,8 @@ namespace CloudberryKingdom
             // Note that we are done loading.
             LoadingResources.MyBool = false;
             Tools.Write("Loading done!");
+
+            Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
         }
 
         /// <summary>
@@ -956,7 +962,7 @@ namespace CloudberryKingdom
 
             //lock (LoadThread)
             {
-                LoadThread.Join(10);
+                LoadThread.Join(1);
             }
 
             //return;
@@ -973,6 +979,13 @@ namespace CloudberryKingdom
             MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
 
             Tools.DrawCount++;
+
+            // Main Video
+            SetupToRender();
+
+            //if (MainVideo.Draw()) return;
+            //return;
+            //MainVideo.Draw();
 
             if (LogoScreenUp) LogoPhsx();
             else if (LogoScreenPropUp) LoadingScreen.PhsxStep();
@@ -1074,14 +1087,13 @@ namespace CloudberryKingdom
             }
 
 #if PC_VERSION
-            if (!Tools.ShowLoadingScreen && ShowMouse && !Tools.CapturingVideo)
+            if (!Tools.ShowLoadingScreen && ShowMouse)
                 MouseDraw();
             ShowMouse = false;
 #endif
 
-            if (!Tools.CapturingVideo)
-                if (Tools.SongWad != null)
-                    Tools.SongWad.Draw();
+            if (Tools.SongWad != null)
+                Tools.SongWad.Draw();
 
             if (Tools.CurLevel != null)
             {

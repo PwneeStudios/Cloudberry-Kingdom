@@ -270,8 +270,6 @@ namespace CloudberryKingdom
         /// </summary>
         void DrawDebugInfo()
         {
-            if (Tools.ScreenshotMode) return;
-
             Tools.StartSpriteBatch();
 
             if (Tools.ShowNums)

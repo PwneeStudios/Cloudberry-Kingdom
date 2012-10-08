@@ -669,15 +669,8 @@ namespace CloudberryKingdom.Bobs
 
         public override void Draw()
         {
-            if (Tools.ScreenshotMode || Tools.CapturingVideo) return;
-
             if (Tools.DrawGraphics)
             {
-                //if (HeldObject != null)
-                //{
-                //    HeldObject.Draw();
-                //}
-
                 Update();
 
                 MyQuad.Draw();

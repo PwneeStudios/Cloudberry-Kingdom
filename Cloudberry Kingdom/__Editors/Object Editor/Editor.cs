@@ -2205,28 +2205,6 @@ namespace Drawing
                 //            spriteBatch.DrawString(Font1, MouseX.X.ToString(), new Vector2(300, 300), Color.Azure);
                 spriteBatch.End();
             }
-
-            // Save screenshot
-#if WINDOWS
-            if (Tools.ScreenshotMode)
-            {
-                Tools.Device.SetRenderTarget(null);
-
-                Tools.Screenshot = Tools.DestinationRenderTarget;
-
-                string FileName = CurrentFileName.Substring(0, CurrentFileName.IndexOf('.'))
-                    + "_Screenshot_" + Tools.Screenshots.ToString() + ".png";
-
-                Tools.Screenshots++;
-
-                Stream stream = File.OpenWrite(FileName);
-                Tools.Screenshot.SaveAsPng(stream, Tools.Screenshot.Width, Tools.Screenshot.Height);
-                stream.Close();
-
-                if (!Tools.CapturingVideo)
-                    ChangeScreenshotMode();
-            }
-#endif
         }
     }
 }

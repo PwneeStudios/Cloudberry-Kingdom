@@ -2,125 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using Drawing;
 
-namespace CloudberryKingdom.Game
+using CoreEngine;
+
+namespace CloudberryKingdom
 {
-    class Video
+    class MainVideo
     {
-        Video TestVideo;
-        VideoPlayer VPlayer;
-        Texture2D VTexture;
-        EzTexture VEZTexture = new EzTexture();
-        WrappedBool VBool;
+        public static bool Playing = false;
 
-        /// <summary>
-        /// Video test. Will be canned once proper video class is implemented.
-        /// </summary>
-        private void VideoTest()
+        static Video TestVideo;
+        static VideoPlayer VPlayer;
+        
+        static EzTexture VEZTexture = new EzTexture();
+
+        public static void Load()
         {
-                VBool = new WrappedBool(false);
+            return;
 
-                Thread VThread = null;
-                VThread = new Thread(
-                     new ThreadStart(
-                         delegate
-                         {
-#if XBOX
-                            Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
-#endif
-                             Tools.TheGame.Exiting += (o, e) =>
-                             {
-                                 if (VThread != null)
-                                     VThread.Abort();
-                             };
+            Playing = true;
 
-                             // Test load movie
-                             TestVideo = Content.Load<Video>("Movies//TestCinematic");
-                             VPlayer = new VideoPlayer();
-                             VPlayer.IsLooped = false;
-                             VPlayer.Play(TestVideo);
+            //TestVideo = Tools.GameClass.Content.Load<Video>("Movies//TestCinematic");
+            TestVideo = Tools.GameClass.Content.Load<Video>("Movies//LogoSalad");
 
-                             while (true)
-                             {
-                                 lock (VEZTexture)
-                                 {
-                                     VTexture = VPlayer.GetTexture();
-                                     VEZTexture.Tex = VTexture;
-                                 }
-                             }
-                         }))
-                {
-                    Name = "VideoThread",
-#if WINDOWS
-                    Priority = ThreadPriority.Lowest,
-#endif
-                };
-                VThread.Start();
+            VPlayer = new VideoPlayer();
+            VPlayer.IsLooped = false;
+            VPlayer.Play(TestVideo);
         }
 
-        private void VideoTest_Draw()
+        static bool timed = false;
+        public static bool Draw()
         {
-            VideoTest_Draw(Tools.CurCamera.Pos);
-        }
-        private void VideoTest_Draw(Vector2 pos)
-        {
-            if (DoVideoTest)
-                lock (VEZTexture)
-                {
-                    if (VEZTexture.Tex != null)
-                        Tools.QDrawer.DrawToScaleQuad(pos, Color.White, 2400, VEZTexture, Tools.BasicEffect);
-                }
-        }
+            if (!Playing) return false;
 
-
-        void Update()
-        {
-            //VPlayer.IsLooped = false;
-            //if (VPlayer != null && (Tools.PhsxCount % 60 == 0 || VPlayer.State == MediaState.Stopped))
-            //{
-            //    //VPlayer.IsLooped = true;
-            //    VPlayer.Play(TestVideo);
-            //}
-
-            //if (VPlayer1 != null)
-            //    Console.WriteLine(string.Format("! {0} {1}", VPlayer1.PlayPosition.Ticks, VPlayer2.PlayPosition.Ticks));
-            //if (VPlayer1 != null
-            //    && VPlayer1.PlayPosition.Ticks >= 55130000)//155100000)
-            //{
-            //    //&& VPlayer.PlayPosition.TotalMilliseconds == 0)
-            //    VPlayer1.Pause();
-            //    Tools.Swap(ref VPlayer1, ref VPlayer2);
-            //    VPlayer1.Resume();
-            //    lock (VBool)
-            //    {
-            //        VBool.MyBool = true;
-            //    }
-            //}
-
-            /*
-            if (Tools.keybState.IsKeyDown(Keys.D6))
+            if (!timed)
             {
-                VPlayer1.Resume();
+                Tools.Write(string.Format("First movie draw is {0}", System.DateTime.Now));
+                timed = true;
             }
-            if (Tools.keybState.IsKeyDown(Keys.D7))
-            {
-                VPlayer1.Stop();
-                VPlayer1.Play(TestVideo1);
-            }*/
 
-            //graphics.SynchronizeWithVerticalRetrace = false;
-            //graphics.SynchronizeWithVerticalRetrace = true;
-            //graphics.IsFullScreen = false;
+            VEZTexture.Tex = VPlayer.GetTexture();
+            VEZTexture.Width = VEZTexture.Tex.Width;
+            VEZTexture.Height = VEZTexture.Tex.Height;
 
-            //this.TargetElapsedTime = _TargetElapsedTime;
-            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
-            //this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 10);
-            //this.TargetElapsedTime = new TimeSpan(TimeSpan.TicksPerSecond / 60);
+            Vector2 Pos = Tools.CurCamera.Pos;
+            Tools.QDrawer.DrawToScaleQuad(Pos, Color.White, 3580, VEZTexture, Tools.BasicEffect);
+            Tools.QDrawer.Flush();
+
+            return true;
         }
     }
 }

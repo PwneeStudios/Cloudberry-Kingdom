@@ -84,13 +84,11 @@ namespace CloudberryKingdom
             data.MyGameFlags.IsTethered = false;
 
             data.PreInitialize(NormalGameData.Factory, 100, (int)3, (int)7000, delegate(PieceSeedData piece)
-            //data.PreInitialize(GameType.Normal, 100, (int)1, (int)1000, delegate(PieceSeedData piece)
             {
                 RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
                 piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
                 piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
                 piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
-                //piece.MyUpgrades1[Upgrade.Cloud] = 10;
                 piece.MyUpgrades1[Upgrade.Jump] = 8;
                 piece.MyUpgrades1[Upgrade.General] = 3;
                 piece.MyUpgrades1[Upgrade.Speed] = 3;
@@ -511,10 +509,6 @@ namespace CloudberryKingdom
 
             DrawObjectText = true;
 
-            //Tools.WorldMap = this;
-            //Tools.CurGameData = this;
-
-            //Tools.CurLevel =
             MyLevel = MakeLevel();
             MyLevel.MyGame = this;
 
@@ -525,7 +519,6 @@ namespace CloudberryKingdom
             if (LevelSeeds == null)
                 MakeLevelSeeds();
 
-            //Load(StartIndex);
             SetLevel(StartIndex);
 
             FadeIn(.011f);

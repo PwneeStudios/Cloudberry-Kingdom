@@ -389,7 +389,7 @@ namespace CloudberryKingdom
         {
             Level level = MyGame.MyLevel;
 
-            if (Tools.CapturingVideo || level.SuppressReplayButtons)
+            if (level.SuppressReplayButtons)
                 return;
 
             base.MyPhsxStep();
@@ -429,7 +429,7 @@ namespace CloudberryKingdom
 
             Level level = MyGame.MyLevel;
 
-            if (Tools.CapturingVideo || level.SuppressReplayButtons || Tools.ScreenshotMode)
+            if (level.SuppressReplayButtons)
                 return;
 
             base.MyDraw();

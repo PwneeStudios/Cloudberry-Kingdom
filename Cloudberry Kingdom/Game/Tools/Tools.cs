@@ -514,7 +514,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
     {
         Name = name,
 #if WINDOWS
-        Priority = ThreadPriority.Highest,
+        //Priority = ThreadPriority.Highest,
+        Priority = ThreadPriority.Lowest,
 #endif
     };
 
@@ -858,7 +859,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static void Pop(int Pitch) { Sound("Pop " + CoreMath.Restrict(1, 3, Pitch).ToString()).Play(); }
 
         public static GameTime gameTime;
-        //public static Random Rnd;
+
         public static Rand GlobalRnd = new Rand(0);
         public static EzEffectWad EffectWad;
         public static EzEffect BasicEffect, NoTexture, CircleEffect, LightSourceEffect, HslEffect, HslGreenEffect, WindowEffect;
@@ -871,10 +872,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static MainRender Render;
         public static GraphicsDevice Device;
         public static RenderTarget2D DestinationRenderTarget;
-        public static bool ScreenshotMode, CapturingVideo;
-        public static Texture2D Screenshot;
+
         public static float t, dt;
-        public static int Screenshots = 0, VideoFrame = 0;
+
         public static int DrawCount, PhsxCount;
 
         public static EzSong Song_140mph, Song_Happy, Song_BlueChair, Song_Ripcurl, Song_Evidence, Song_GetaGrip, Song_House, Song_Nero, Song_FatInFire, Song_Heavens, Song_TidyUp, Song_WritersBlock;

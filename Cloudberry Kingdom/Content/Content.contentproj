@@ -2126,20 +2126,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Movies\TestMovie.wmv">
-      <Name>TestMovie</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Movies\TestCinematic.wmv">
-      <Name>TestCinematic</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Art\Environments\Castle\Door\door_castle_1.png">
       <Name>door_castle_1</Name>
       <Importer>TextureImporter</Importer>
@@ -5798,6 +5784,13 @@
       <Name>firespinner_gear_dkpurp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Movies\LogoSalad.wmv">
+      <Name>LogoSalad</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

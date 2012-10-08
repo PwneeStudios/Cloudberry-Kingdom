@@ -30,27 +30,21 @@ namespace CloudberryKingdom
 
             game.AddToDo(() =>
             {
-                //int Delay = 10;
-                //int Delay = 0;
-                //game.WaitThenDo(Delay, () =>
+                // Kill all the players
+                foreach (Bob bob in level.Bobs)
                 {
-                    // Kill all the players
-                    foreach (Bob bob in level.Bobs)
+                    if (bob.IsVisible())
                     {
-                        if (bob.IsVisible())
-                        {
-                            ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
-                            bob.Core.Show = false;
-                        }
-
-                        if (!bob.Dead && !bob.Dying)
-                            bob.Die(Bob.BobDeathType.None, true, false);
+                        ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
+                        bob.Core.Show = false;
                     }
 
-                    // Add the Game Over panel, check for Awardments
-                    game.WaitThenDo(105, ShowEndScreen);
+                    if (!bob.Dead && !bob.Dying)
+                        bob.Die(Bob.BobDeathType.None, true, false);
                 }
-                //);
+
+                // Add the Game Over panel, check for Awardments
+                game.WaitThenDo(105, ShowEndScreen);
 
                 return true;
             });
