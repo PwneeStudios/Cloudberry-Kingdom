@@ -13,17 +13,16 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
-    public enum ObjectType { Undefined,
-                             FlyingBlob, BlockEmitter, Coin, Spike, FireballEmitter, Fireball, FireSpinner, Button, Floater, Laser,
-                             Checkpoint,
-                             NormalBlock, FallingBlock, LavaBlock, MovingPlatform, MovingBlock, UpgradeBlock, OnOffBlock, ActiveBlock, GhostBlock,
-                             OutsideCastleBlock, Door,
-                             LineTrigger, TimerTrigger, ZoneTrigger,
-                             CameraZone,
-                             Doodad, SelectBox,
-                             Cloud, BouncyBlock, Floater_Spin, ConveyorBlock, SpikeyLine, Firesnake, FlyingBlock, IceBlock, Wall,
-                             BerryBubble, Region,
-                             Pendulum, Serpent, LavaDrip };
+    public enum ObjectType { 
+                                Undefined,
+                                Coin, Checkpoint, BerryBubble,
+                                FlyingBlob, BlockEmitter, Spike, FireballEmitter, Fireball, FireSpinner, Floater, Laser,
+                                NormalBlock, FallingBlock, LavaBlock, MovingPlatform, MovingBlock, GhostBlock,
+                                Cloud, BouncyBlock, Floater_Spin, SpikeyLine,
+                                Pendulum, Serpent, LavaDrip, Firesnake, ConveyorBlock,
+                                Door, Wall,
+                                ZoneTrigger, CameraZone
+                           };
 
     public class RecycleBin
     {
@@ -144,10 +143,6 @@ namespace CloudberryKingdom
                 case ObjectType.LavaBlock:
                     //return new LavaBlock(BoxesOnly);
                     return new LavaBlock_Castle(BoxesOnly);
-                case ObjectType.LineTrigger:
-                    return new LineTrigger();
-                case ObjectType.TimerTrigger:
-                    return new TimerTrigger();
                 case ObjectType.Floater:
                     return new Floater(BoxesOnly);
                 case ObjectType.Floater_Spin:
@@ -158,8 +153,6 @@ namespace CloudberryKingdom
                     return new Door(BoxesOnly);
                 case ObjectType.Checkpoint:
                     return new Checkpoint();
-                case ObjectType.Doodad:
-                    return new Doodad();
                 case ObjectType.Laser:
                     return new Laser(BoxesOnly);
                 case ObjectType.Cloud:
@@ -172,10 +165,6 @@ namespace CloudberryKingdom
                     return new SpikeyLine(BoxesOnly);
                 case ObjectType.Firesnake:
                     return new Firesnake(BoxesOnly);
-                case ObjectType.FlyingBlock:
-                    return new FlyingBlock(BoxesOnly);
-                case ObjectType.IceBlock:
-                    return new IceBlock(BoxesOnly);
                 case ObjectType.BerryBubble:
                     return new BerryBubble(BoxesOnly);
 

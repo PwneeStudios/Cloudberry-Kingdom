@@ -354,11 +354,7 @@
     <Compile Include="Game\Objects\In Game Objects\Blocks\Conveyor__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Pendulum__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Pendulum.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\Thwomp.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Wall.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\IceBlock.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\FlyingBlock__Auto.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\FlyingBlock.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -426,7 +422,6 @@
     <Compile Include="Game\Level\Make\MakePiece\MakeSingle\MakeFinalDoor_Float.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeVertical\MakeDarkBottom.cs" />
     <Compile Include="Game\Level\Make\Parameters\StyleData\DownData.cs" />
-    <Compile Include="Game\Level\ObjectGroup.cs" />
     <Compile Include="Game\Level\Make\MakeLevel.cs" />
     <Compile Include="Game\Level\Make\DifficultyGroups.cs" />
     <Compile Include="Game\Menus\Menu Components\MenuListAll.cs" />
@@ -563,7 +558,6 @@
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Spike__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireSpinner__Auto.cs" />
-    <Compile Include="Game\Objects\Special\PopIn.cs" />
     <Compile Include="Game\Level\Make\Ladders.cs" />
     <Compile Include="Game\Level\Make\Parameters\Param.cs" />
     <Compile Include="Game\Level\Make\PieceSeedData.cs" />
@@ -595,7 +589,6 @@
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloaterList.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Map\BackgroundNode.cs" />
     <Compile Include="Game\Tilesets\BlockGroup.cs" />
     <Compile Include="Game\Tilesets\SpriteInfo.cs" />
     <Compile Include="Game\Tilesets\TileSet.cs" />
@@ -619,13 +612,11 @@
     <Compile Include="Core\Graphics\Draw\Quads\BaseQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Object\ObjectClass.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\Quad.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\Doodad.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Fireball.cs" />
     <None Include="WindowsGame1_TemporaryKey.pfx" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Block.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\BlockEmitter.cs" />
     <Compile Include="Game\Objects\Bob\Bob.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\ButtonBlock.cs" />
     <Compile Include="Game\Objects\In Game Objects\Grab\Coin.cs" />
     <Compile Include="Core\Text\EzText.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\FallingBlock.cs" />
@@ -635,7 +626,6 @@
     <Compile Include="Game\Games\GameType.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\GhostBlock.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Goomba.cs" />
-    <Compile Include="Game\Objects\Special\Hand.cs" />
     <Compile Include="Game\Collision Detection\Phsx.cs" />
     <Compile Include="Game\Collision Detection\AABox.cs" />
     <Compile Include="Game\Collision Detection\Line.cs" />
@@ -653,14 +643,12 @@
     <Compile Include="Game\Objects\ObjectBase.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser.cs" />
     <Compile Include="Game\Level\Level.cs" />
-    <Compile Include="Game\Objects\Triggers\LineTrigger.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Game\Menus\Menu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingPlatform.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingBlock.cs" />
     <Compile Include="Game\Games\NormalGame.cs" />
     <Compile Include="Core\Graphics\VertexFormat.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Blocks\SwitchBlock.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Particle Effects\Particle.cs" />
@@ -668,7 +656,6 @@
     <Compile Include="Game\Tools\Recycler.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Spike.cs" />
     <Compile Include="Game\Objects\Special\TextList.cs" />
-    <Compile Include="Game\Objects\Triggers\TimerTrigger.cs" />
     <Compile Include="Core\Texture\EzTexture.cs" />
     <Compile Include="Game\Objects\Door\Door.cs" />
     <Compile Include="Game\Tools\Tools.cs" />
@@ -676,7 +663,7 @@
     <Compile Include="Game\Tools\WaitAndDo.cs" />
     <Compile Include="Game\Tools\WrappedFloat.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
-    <Compile Include="Game\Objects\Triggers\ZoneTrigger.cs" />
+    <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
     <Compile Include="__Editors\GUI Editor\IViewable.cs" />
     <Compile Include="__Editors\GUI Editor\GameObjViewer.cs">
       <SubType>Form</SubType>

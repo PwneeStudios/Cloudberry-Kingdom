@@ -175,8 +175,6 @@ namespace CloudberryKingdom
             return GuidCounter++;
         }
 
-        public Dictionary<int, BackgroundNode> NodeLookup = new Dictionary<int, BackgroundNode>();
-
         public float MyGlobalIllumination = 1f;
         public bool AllowLava = true;
 

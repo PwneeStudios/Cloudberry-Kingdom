@@ -308,9 +308,6 @@ namespace CloudberryKingdom
 
         public GameFlags MyGameFlags;
 
-        public bool ShowHand = false;
-        public QuadClass HandQuad;
-        
         public bool ShowHelpNotes = true, FadeToBlackBeforeReturn = false, FadingToReturn = false;
 
         public bool Loading;
@@ -721,7 +718,6 @@ namespace CloudberryKingdom
             if (FadeColor != null)
                 FadeColor.Release();
 
-            if (HandQuad != null) HandQuad.Release(); HandQuad = null;
             if (BlackQuad != null) BlackQuad.Release(); BlackQuad = null;
             if (CurDoor != null) CurDoor.Release();
 
@@ -756,12 +752,6 @@ namespace CloudberryKingdom
             Recycle = Recycler.GetRecycler();
 
             EndGame = this.Finish;
-
-            HandQuad = new QuadClass();
-            HandQuad.SetToDefault();
-            HandQuad.Quad.MyTexture = Tools.TextureWad.FindByName("DirectionArrow");
-            HandQuad.Base.e1.X = -400;
-            HandQuad.Base.e2.Y = 400;
 
             Loading = false;
 
@@ -1365,15 +1355,7 @@ namespace CloudberryKingdom
 
         public virtual void PostDraw()
         {
-            //MyLevel.MainCamera.SetToDefaultZoom();
             Tools.StartGUIDraw();
-
-            // Hand
-            if (ShowHand && (MyLevel.CurPhsxStep / 45) % 2 == 0)
-            {
-                HandQuad.Draw();
-                Tools.QDrawer.Flush();
-            }
 
             if (FadingToBlack || FadingIn || FadeColor != null)
             {

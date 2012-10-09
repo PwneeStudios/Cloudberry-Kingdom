@@ -141,7 +141,6 @@ namespace CloudberryKingdom.Levels
         static FireballEmitter_AutoGen() { }
         FireballEmitter_AutoGen()
         {
-            //Do_WeightedPreFill_1 = true;
             Do_PreFill_2 = true;
         }
 
@@ -161,33 +160,13 @@ namespace CloudberryKingdom.Levels
             RichLevelGenData GenData = level.CurMakeData.GenData;
             PieceSeedData piece = level.CurMakeData.PieceSeed;
 
-            // Get IceBlock parameters
+            // Get emitter parameters
             FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
 
             int Period = (int)Params.Period.GetVal(pos);
-            int Offset = Params.ChooseOffset(Period, level.Rnd); 
-                         //MyLevel.Rnd.Rnd.Next(Period);
+            int Offset = Params.ChooseOffset(Period, level.Rnd);
 
-            IceBlock iceblock = null;
-
-            iceblock = (IceBlock)level.Recycle.GetObject(ObjectType.IceBlock, false);
-            Vector2 size = new Vector2(115) * .8f;
-            pos = CoreMath.Snap(pos, size*2);
-            iceblock.Init(pos, size);
-            iceblock.Period = Period;
-            iceblock.Offset = Offset;
-
-            iceblock.BlockCore.BlobsOnTop = true;
-
-            iceblock.BlockCore.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(pos), level.Rnd);
-            iceblock.BlockCore.GenData.EdgeSafety = GenData.Get(DifficultyParam.EdgeSafety, pos);
-
-            if (level.Style.RemoveBlockOnOverlap)
-                iceblock.BlockCore.GenData.RemoveIfOverlap = true;
-
-            level.AddBlock(iceblock);
-
-            return iceblock;
+            return null;
         }
 
         void inner(FireballEmitter_Parameters Params, Level level, Vector2 pos, int i, LevelGeometry Geometry)
@@ -476,19 +455,7 @@ namespace CloudberryKingdom.Levels
         {
             return (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
         }
-        public FireballEmitter AddEmitterToIce(Level level, IceBlock ice)
-        {
-            FireballEmitter emitter = (FireballEmitter)CreateAt(level, ice.Core.Data.Position);
-
-            emitter.SetParentBlock(ice);
-
-            emitter.Period = ice.Period; emitter.Offset = ice.Offset;
-            emitter.DrawEmitter = false;
-
-            level.AddObject(emitter);
-
-            return emitter;
-        }
+        
         public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             FireballEmitter_Parameters Params = GetParams(level);
@@ -519,42 +486,6 @@ namespace CloudberryKingdom.Levels
                 return Rnd.Rnd.Next(0, NumAngles) * 2f * MaxAngle / (NumAngles - 1) - MaxAngle;
         }
 
-
-        public void AutoFireballEmitters_OnIceBlocks(Level level)
-        {
-            FireballEmitter_Parameters Params = GetParams(level);
-
-            foreach (BlockBase block in level.Blocks)
-            {
-                Vector2 pos = block.Core.Data.Position;
-
-                if (block.Core.Placed) continue;
-
-                IceBlock ice = block as IceBlock;
-                if (null == ice) continue;
-
-                float Speed = Params.FireballSpeed.GetVal(ice.Core.Data.Position);
-
-                FireballEmitter emitter;
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = new Vector2(0, 1) * Speed;
-
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = CoreMath.DegreesToDir(45) * Speed;
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = CoreMath.DegreesToDir(135) * Speed;
-
-                /*
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = new Vector2(1, 0) * Speed;
-
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = new Vector2(0, -1) * Speed;
-
-                emitter = AddEmitterToIce(level, ice);
-                emitter.EmitData.Velocity = new Vector2(-1, 0) * Speed;*/
-            }
-        }
 
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {

@@ -329,13 +329,6 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool NoParticles;
 
-        public Level(string filename, GameData game)
-        {
-            MyGame = game;
-            Init(false);
-            Load(filename);
-        }
-
         public Level()
         {
             Init(false);
@@ -604,123 +597,6 @@ namespace CloudberryKingdom.Levels
             Tools.CurLevel.Write(writer);
             writer.Close();
             stream.Close();
-        }
-
-        /// <summary>
-        /// Load into the level information from a .lvl file.
-        /// </summary>
-        public void Load(String file)
-        {
-            SourceFile = file;
-
-            // First move to standard directory for .lvl files
-            string fullpath = Path.Combine(DefaultLevelDirectory(), file);
-
-            // Now read the file
-            Tools.UseInvariantCulture();
-            FileStream stream = File.Open(fullpath, FileMode.Open, FileAccess.Read, FileShare.None);
-            BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
-            Read(reader);
-            reader.Close();
-            stream.Close();
-
-            // Initialize blocks
-            AddedBlocks = new List<BlockBase>();
-            Doodad doodad;
-            foreach (BlockBase block in Blocks)
-            {
-                block.BlockCore.OnlyCollidesWithLowerLayers = false;
-                block.Box.Invalidated = true;
-
-                doodad = block as Doodad;
-                if (null != doodad)// && doodad.Core.EditorCode1 != "")
-                {
-                    doodad.InitType();
-                }
-                else
-                {
-                    if (block.Core.MyTileSet == TileSets.CastlePiece)
-                    {
-                        if (string.Compare(block.Core.EditorCode3, "NotTopOnly", StringComparison.OrdinalIgnoreCase) == 0)
-                            block.Box.TopOnly = false;
-                        else
-                            block.Box.TopOnly = true;
-                        block.BlockCore.OnlyCollidesWithLowerLayers = true;
-                    }
-
-                    if (string.Compare(block.Core.EditorCode1, "DoNotUseTopOnlyTexture", StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        block.BlockCore.UseTopOnlyTexture = false;
-                        block.Box.TopOnly = true;
-                        ((NormalBlock)block).ResetPieces();
-                    }
-
-                    if (string.Compare(block.Core.EditorCode1, "TextureOnly", StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        block.BlockCore.UseTopOnlyTexture = false;
-                        block.Box.TopOnly = true;
-                        ((NormalBlock)block).ResetPieces();
-                        block.Core.Real = false;
-                    }
-                }
-            }
-
-            foreach (BlockBase block in AddedBlocks)
-                AddBlock(block);
-            AddedBlocks.Clear();
-        }
-
-        public void PurgeEditables()
-        {
-            foreach (BlockBase block in Blocks)
-                if (block.Core.EditHoldable)
-                    Recycle.CollectObject(block);
-
-            foreach (ObjectBase obj in Objects)
-                if (obj.Core.EditHoldable)
-                    Recycle.CollectObject(obj);
-        }
-
-        public void Read(BinaryReader reader)
-        {
-            int Num = reader.ReadInt32();
-
-            for (int i = 0; i < Num; i++)
-            {
-                ObjectType type = (ObjectType)reader.ReadInt32();
-                BlockBase block = (BlockBase)Recycle.GetObject(type, false);
-                block.Read(reader);
-
-                AddBlock(block);
-            }
-
-            Num = reader.ReadInt32();
-             
-            for (int i = 0; i < Num; i++)
-            {
-                ObjectType type = (ObjectType)reader.ReadInt32();
-                Tools.Write(type);
-
-                if (type == ObjectType.Undefined || (int)type > 1000)
-                {
-                    //continue;
-
-                    type = ObjectType.Coin;
-                    ObjectBase obj = (ObjectBase)Recycle.GetObject(type, false);
-                    obj.Read(reader);
-                    continue;
-                }
-                else
-                {
-                    //if (type == ObjectType.Undefined) type = ObjectType.Coin;
-                    ObjectBase obj = (ObjectBase)Recycle.GetObject(type, false);
-                    obj.Read(reader);
-
-                    AddObject(obj, false);
-                }
-            }
-
-            SortDrawLayers();
         }
 
         void SortDrawLayers()

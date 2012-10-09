@@ -528,25 +528,6 @@ namespace CloudberryKingdom.Levels
 
         private void MakeBack_Pillar(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)
         {
-            Doodad doo = (Doodad)Recycle.GetObject(ObjectType.Doodad, false);
-            doo.Init(MainCamera.Data.Position, new Vector2(100, 100));
-
-            float DistanceFromSide = 600;
-            doo.Extend(Side.Left, MainCamera.BL.X + DistanceFromSide);
-            doo.Extend(Side.Right, MainCamera.TR.X - DistanceFromSide);
-            doo.Extend(Side.Top, TR_Bound.Y + 1000);
-            doo.Extend(Side.Bottom, BL_Bound.Y - 1600);//100);
-            AddBlock(doo);
-            doo.BlockCore.Virgin = true;
-            doo.BlockCore.RemoveOverlappingObjects = false;
-            doo.IsActive = doo.BlockCore.Active = false;
-            doo.Core.DrawLayer = 0;
-            doo.Core.GenData.Used = true;
-
-            doo.MyQuad.TextureName = "pillar_big";
-
-            doo.MyQuad.RepeatY();
-            doo.MatchBoxToQuad();
         }
 
         private void MakeBack(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)

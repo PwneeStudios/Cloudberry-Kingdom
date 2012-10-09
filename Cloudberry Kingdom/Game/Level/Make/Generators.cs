@@ -38,9 +38,7 @@ namespace CloudberryKingdom.Levels
             AddGenerator(Cloud_AutoGen.Instance);
             AddGenerator(SpikeyLine_AutoGen.Instance);
             AddGenerator(Firesnake_AutoGen.Instance);
-            AddGenerator(FlyingBlock_AutoGen.Instance);
             AddGenerator(ConveyorBlock_AutoGen.Instance);
-
             AddGenerator(Pendulum_AutoGen.Instance);
             AddGenerator(Serpent_AutoGen.Instance);
             AddGenerator(LavaDrip_AutoGen.Instance);

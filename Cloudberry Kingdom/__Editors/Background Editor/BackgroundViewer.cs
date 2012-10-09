@@ -776,8 +776,6 @@ namespace CloudberryKingdom.Viewer
                     CameraMoveCheckbox.Checked = !CameraMoveCheckbox.Checked;
                 if (ButtonCheck.State(XnaInput.Keys.M).Released)
                     MoveQuadsCheckbox.Checked = !MoveQuadsCheckbox.Checked;
-                if (ButtonCheck.State(XnaInput.Keys.N).Released)
-                    NodeCheckbox.Checked = !NodeCheckbox.Checked;
                 if (ButtonCheck.State(XnaInput.Keys.X).Released)
                 {
                     ParallaxNum.Focus();
@@ -813,8 +811,6 @@ namespace CloudberryKingdom.Viewer
                 MouseInput_Camera(ref pos, ref delta);
             else if (MoveBoundsCheckbox.Checked)
                 MouseInput_MoveBounds(ref pos, ref delta);
-            else if (NodeCheckbox.Checked)
-                MouseInput_Nodes(ref pos, ref delta);
             else
                 MouseInput_Floaters(ref pos, ref delta);
         }
@@ -853,43 +849,7 @@ namespace CloudberryKingdom.Viewer
 
         private void MouseInput_Nodes(ref Vector2 pos, ref Vector2 delta)
         {
-            if (Tools.ShiftDown() && SelectedFloaters.Count > 0 && ButtonCheck.State(XnaInput.Keys.W).Released)
-            {
-                var bnode = SelectedFloaters[0] as BackgroundNode;
-                if (null != bnode)
-                {
-                    if (bnode.Connect_E != null) bnode.Connect_E.Guid_W = -1; bnode.Guid_E = -1;
-                    if (bnode.Connect_W != null) bnode.Connect_W.Guid_E = -1; bnode.Guid_W = -1;
-                    if (bnode.Connect_S != null) bnode.Connect_S.Guid_N = -1; bnode.Guid_S = -1;
-                    if (bnode.Connect_N != null) bnode.Connect_N.Guid_S = -1; bnode.Guid_N = -1;
-                }
-
-                return;
-            }
-
             MouseInput_Floaters(ref pos, ref delta);
-
-            // If Cntrl is down, snap the Background Node to the closest position to axis align it with connected nodes.
-            if (Tools.CntrlDown())
-            {
-                var node = SelectedFloaters[0] as BackgroundNode;
-                if (null != node)
-                {
-                    if (node.Connect_N != null && node.Connect_S == null) node.SetPos(new Vector2(node.Connect_N.Data.Position.X, node.Data.Position.Y));
-                    if (node.Connect_N == null && node.Connect_S != null) node.SetPos(new Vector2(node.Connect_S.Data.Position.X, node.Data.Position.Y));
-                    if (node.Connect_N != null && node.Connect_S != null) node.SetPos(new Vector2(
-                        (node.Connect_N.Data.Position.X + node.Connect_S.Data.Position.X) / 2,
-                        node.Data.Position.Y));
-
-                    if (node.Connect_E != null && node.Connect_W == null) node.SetPos(new Vector2(node.Data.Position.X, node.Connect_E.Data.Position.Y));
-                    if (node.Connect_E == null && node.Connect_W != null) node.SetPos(new Vector2(node.Data.Position.X, node.Connect_W.Data.Position.Y));
-                    if (node.Connect_E != null && node.Connect_W != null) node.SetPos(new Vector2(
-                        node.Data.Position.X,
-                        (node.Connect_E.Data.Position.Y + node.Connect_W.Data.Position.Y) / 2));
-
-                    node.InitialUpdate();
-                }
-            }
         }
 
         private void MouseInput_MoveBounds(ref Vector2 pos, ref Vector2 delta)
@@ -974,16 +934,7 @@ namespace CloudberryKingdom.Viewer
                     foreach (var floater in list.Floaters)
                         if (floater.MyQuad.HitTest_WithParallax(pos, Vector2.Zero, list.Parallax))
                         {
-                            if (NodeCheckbox.Checked && !(floater is BackgroundNode)) continue;
-
-                            // Found a floater underneath the mouse.
-                            // If multiple hit floaters show up, prefer hit floaters that are already selected.
-
-                            //if (hit_floater == null ||
-                            //    floater.Selected || !hit_floater.Selected)
-                            {
                                 hit_floater = floater;
-                            }
                         }
                 }
 
@@ -1002,50 +953,6 @@ namespace CloudberryKingdom.Viewer
                             LayerTree.SelectedNode = node;
                         }
                     }
-                    else if (SelectedFloaters.Count > 0 && ButtonCheck.State(XnaInput.Keys.W).Released)
-                    {
-                        var bnode = SelectedFloaters[0] as BackgroundNode;
-                        var hnode = hit_floater as BackgroundNode;
-
-                        if (null != bnode && null != hnode)
-                        {
-                            Vector2 dif = hit_floater.Data.Position - bnode.Data.Position;
-                            float angle = CoreMath.Degrees(CoreMath.VectorToAngle(dif));
-                            if (angle < 0) angle += 360;
-                            if (angle > 315 || angle <= 45)
-                            {
-                                if (bnode.Connect_E != null) bnode.Connect_E.Guid_W = -1;
-                                if (hnode.Connect_W != null) hnode.Connect_W.Guid_E = -1;
-
-                                bnode.Guid_E = hnode.Guid;
-                                hnode.Guid_W = bnode.Guid;
-                            }
-                            else if (angle > 45 && angle <= 135)
-                            {
-                                if (bnode.Connect_N != null) bnode.Connect_N.Guid_S = -1;
-                                if (hnode.Connect_S != null) hnode.Connect_S.Guid_N = -1;
-
-                                bnode.Guid_N = hnode.Guid;
-                                hnode.Guid_S = bnode.Guid;
-                            }
-                            else if (angle > 135 && angle <= 225)
-                            {
-                                if (bnode.Connect_W != null) bnode.Connect_W.Guid_E = -1;
-                                if (hnode.Connect_E != null) hnode.Connect_E.Guid_W = -1;
-
-                                bnode.Guid_W = hnode.Guid;
-                                hnode.Guid_E = bnode.Guid;
-                            }
-                            else if (angle > 225 && angle <= 315)
-                            {
-                                if (bnode.Connect_S != null) bnode.Connect_S.Guid_N = -1;
-                                if (hnode.Connect_N != null) hnode.Connect_N.Guid_S = -1;
-
-                                bnode.Guid_S = hnode.Guid;
-                                hnode.Guid_N = bnode.Guid;
-                            }
-                        }
-                    }
                 }
                 // Otherwise if Cntrl isn't pressed and we click, select nothing.
                 else
@@ -1061,9 +968,6 @@ namespace CloudberryKingdom.Viewer
             var node = LayerTree.SelectedNode as TreeNode_;
             if (null != node)
                 node.SyncNumerics();
-
-            if (WorldNode != null)
-                SyncWorldNode();
         }
 
         void DeselectAll()
@@ -1301,25 +1205,10 @@ namespace CloudberryKingdom.Viewer
         {
             if (CurrentLayer != null)
             {
-                BackgroundNode bnode;
                 BackgroundFloater floater;
 
-                if (NodeCheckbox.Checked)
-                {
-                    CurrentLayer.DoPreDraw = true;
-
-                    floater = bnode = new BackgroundNode(Tools.CurLevel);
-                    bnode.MyBackground = background;
-                    bnode.Guid = background.GetGuid();
-                    bnode.SetBackground(background);
-                    bnode.MyQuad.TextureName = "Castle";
-                    bnode.MyQuad.Size = new Vector2(100, 100);
-                }
-                else
-                {
-                    floater = new BackgroundFloater(Tools.CurLevel);
-                    floater.MyQuad.Size = new Vector2(400, 400);
-                }
+                floater = new BackgroundFloater(Tools.CurLevel);
+                floater.MyQuad.Size = new Vector2(400, 400);
 
                 floater.StartData.Position = Tools.CurCamera.Pos;
                 floater.MyQuad.Quad.SetColor(new Vector4(1));
@@ -1555,7 +1444,6 @@ namespace CloudberryKingdom.Viewer
             if (MoveBoundsCheckbox != except) MoveBoundsCheckbox.Checked = false;
             if (MoveQuadsCheckbox != except) MoveQuadsCheckbox.Checked = false;
             if (PlayCheckbox != except) PlayCheckbox.Checked = false;
-            if (NodeCheckbox != except) NodeCheckbox.Checked = false;
             ProgramaticCheck = false;
         }
         bool ProgramaticCheck = false;
@@ -1609,14 +1497,7 @@ namespace CloudberryKingdom.Viewer
 
         private void NodeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (NodeCheckbox.Checked)
-            {
-                AllButtonsOff(NodeCheckbox);
-
-                Tools.WinForm.Cursor = Cursors.Default;
-            }
-            else
-                DefaultSwitchOff();
+            DefaultSwitchOff();
         }
 
         private void ForegroundCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -1674,37 +1555,6 @@ namespace CloudberryKingdom.Viewer
         private void Info_Click(object sender, EventArgs e)
         {
 
-        }
-
-        BackgroundNode WorldNode
-        {
-            get
-            {
-                if (SelectedFloaters.Count == 0) return null;
-                else return SelectedFloaters[0] as BackgroundNode;
-            }
-        }
-
-        void SyncWorldNode()
-        {
-            InfoNumberNumbox.Value = WorldNode.Number;
-            InfoNameTextbox.Text = WorldNode.MapName;
-        }
-
-        void ReverseSyncWolrdNode()
-        {
-            WorldNode.Number = (int)((float)InfoNumberNumbox.Value + .001f);
-            WorldNode.MapName = InfoNameTextbox.Text;
-        }
-
-        private void InfoNumberNumbox_ValueChanged(object sender, EventArgs e)
-        {
-            if (WorldNode != null) ReverseSyncWolrdNode();
-        }
-
-        private void InfoNameTextbox_TextChanged(object sender, EventArgs e)
-        {
-            if (WorldNode != null) ReverseSyncWolrdNode();
         }
     }
 }

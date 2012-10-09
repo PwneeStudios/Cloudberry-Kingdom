@@ -49,6 +49,7 @@ namespace CloudberryKingdom.Viewer
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.Texture_Page = new System.Windows.Forms.TabPage();
+            this.BlendAddRatioTrack = new System.Windows.Forms.TrackBar();
             this.EffectComboBox = new System.Windows.Forms.ComboBox();
             this.AlphaTrack = new System.Windows.Forms.TrackBar();
             this.ColorButton = new System.Windows.Forms.Button();
@@ -57,6 +58,11 @@ namespace CloudberryKingdom.Viewer
             this.Extra_Page = new System.Windows.Forms.TabPage();
             this.ExtraTexture2Combobox = new System.Windows.Forms.ComboBox();
             this.ExtraTexture1Combobox = new System.Windows.Forms.ComboBox();
+            this.Info = new System.Windows.Forms.TabPage();
+            this.InfoNumLabel = new System.Windows.Forms.Label();
+            this.InfoNumberNumbox = new System.Windows.Forms.NumericUpDown();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.InfoNameTextbox = new System.Windows.Forms.TextBox();
             this.LayerBox = new System.Windows.Forms.GroupBox();
             this.FixedCheckbox = new System.Windows.Forms.CheckBox();
             this.ForegroundCheckbox = new System.Windows.Forms.CheckBox();
@@ -83,26 +89,19 @@ namespace CloudberryKingdom.Viewer
             this.PlayCheckbox = new System.Windows.Forms.CheckBox();
             this.MoveBoundsCheckbox = new System.Windows.Forms.CheckBox();
             this.MoveQuadsCheckbox = new System.Windows.Forms.CheckBox();
-            this.NodeCheckbox = new System.Windows.Forms.CheckBox();
-            this.Info = new System.Windows.Forms.TabPage();
-            this.InfoNameTextbox = new System.Windows.Forms.TextBox();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.InfoNumberNumbox = new System.Windows.Forms.NumericUpDown();
-            this.InfoNumLabel = new System.Windows.Forms.Label();
-            this.BlendAddRatioTrack = new System.Windows.Forms.TrackBar();
             this.QuadBox.SuspendLayout();
             this.QuadTab.SuspendLayout();
             this.XY_Page.SuspendLayout();
             this.UV_Page.SuspendLayout();
             this.Texture_Page.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BlendAddRatioTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlphaTrack)).BeginInit();
             this.Extra_Page.SuspendLayout();
+            this.Info.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InfoNumberNumbox)).BeginInit();
             this.LayerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).BeginInit();
             this.MenuStrip.SuspendLayout();
-            this.Info.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InfoNumberNumbox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlendAddRatioTrack)).BeginInit();
             this.SuspendLayout();
             // 
             // LayerTree
@@ -322,6 +321,18 @@ namespace CloudberryKingdom.Viewer
             this.Texture_Page.Text = "Texture";
             this.Texture_Page.UseVisualStyleBackColor = true;
             // 
+            // BlendAddRatioTrack
+            // 
+            this.BlendAddRatioTrack.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BlendAddRatioTrack.Location = new System.Drawing.Point(111, 87);
+            this.BlendAddRatioTrack.Maximum = 100;
+            this.BlendAddRatioTrack.Name = "BlendAddRatioTrack";
+            this.BlendAddRatioTrack.Size = new System.Drawing.Size(104, 56);
+            this.BlendAddRatioTrack.TabIndex = 21;
+            this.BlendAddRatioTrack.TickFrequency = 10;
+            this.BlendAddRatioTrack.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.BlendAddRatioTrack.Scroll += new System.EventHandler(this.BlendAddRatioTrack_Scroll);
+            // 
             // EffectComboBox
             // 
             this.EffectComboBox.FormattingEnabled = true;
@@ -414,6 +425,63 @@ namespace CloudberryKingdom.Viewer
             this.ExtraTexture1Combobox.Size = new System.Drawing.Size(160, 24);
             this.ExtraTexture1Combobox.TabIndex = 18;
             this.ExtraTexture1Combobox.SelectedIndexChanged += new System.EventHandler(this.ExtraTexture1Combobox_SelectedIndexChanged);
+            // 
+            // Info
+            // 
+            this.Info.Controls.Add(this.InfoNumLabel);
+            this.Info.Controls.Add(this.InfoNumberNumbox);
+            this.Info.Controls.Add(this.NameLabel);
+            this.Info.Controls.Add(this.InfoNameTextbox);
+            this.Info.Location = new System.Drawing.Point(4, 25);
+            this.Info.Name = "Info";
+            this.Info.Padding = new System.Windows.Forms.Padding(3);
+            this.Info.Size = new System.Drawing.Size(295, 131);
+            this.Info.TabIndex = 4;
+            this.Info.Text = "Info";
+            this.Info.UseVisualStyleBackColor = true;
+            this.Info.Click += new System.EventHandler(this.Info_Click);
+            // 
+            // InfoNumLabel
+            // 
+            this.InfoNumLabel.AutoSize = true;
+            this.InfoNumLabel.Location = new System.Drawing.Point(116, 49);
+            this.InfoNumLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.InfoNumLabel.Name = "InfoNumLabel";
+            this.InfoNumLabel.Size = new System.Drawing.Size(56, 17);
+            this.InfoNumLabel.TabIndex = 16;
+            this.InfoNumLabel.Text = "number";
+            // 
+            // InfoNumberNumbox
+            // 
+            this.InfoNumberNumbox.Location = new System.Drawing.Point(23, 44);
+            this.InfoNumberNumbox.Margin = new System.Windows.Forms.Padding(4);
+            this.InfoNumberNumbox.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.InfoNumberNumbox.Name = "InfoNumberNumbox";
+            this.InfoNumberNumbox.Size = new System.Drawing.Size(85, 22);
+            this.InfoNumberNumbox.TabIndex = 15;
+            this.ToolTips.SetToolTip(this.InfoNumberNumbox, "The number for this node.");
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(146, 20);
+            this.NameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(43, 17);
+            this.NameLabel.TabIndex = 13;
+            this.NameLabel.Text = "name";
+            // 
+            // InfoNameTextbox
+            // 
+            this.InfoNameTextbox.Location = new System.Drawing.Point(23, 15);
+            this.InfoNameTextbox.Name = "InfoNameTextbox";
+            this.InfoNameTextbox.Size = new System.Drawing.Size(118, 22);
+            this.InfoNameTextbox.TabIndex = 0;
+            this.ToolTips.SetToolTip(this.InfoNameTextbox, "The name for this node.");
             // 
             // LayerBox
             // 
@@ -720,97 +788,11 @@ namespace CloudberryKingdom.Viewer
             this.MoveQuadsCheckbox.UseVisualStyleBackColor = true;
             this.MoveQuadsCheckbox.CheckedChanged += new System.EventHandler(this.MoveQuadsCheckbox_CheckedChanged);
             // 
-            // NodeCheckbox
-            // 
-            this.NodeCheckbox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.NodeCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.NodeCheckbox.Location = new System.Drawing.Point(72, 75);
-            this.NodeCheckbox.Margin = new System.Windows.Forms.Padding(4);
-            this.NodeCheckbox.Name = "NodeCheckbox";
-            this.NodeCheckbox.Size = new System.Drawing.Size(37, 34);
-            this.NodeCheckbox.TabIndex = 22;
-            this.NodeCheckbox.Text = "Nodes";
-            this.ToolTips.SetToolTip(this.NodeCheckbox, "Move nodes (N)");
-            this.NodeCheckbox.UseVisualStyleBackColor = true;
-            this.NodeCheckbox.CheckedChanged += new System.EventHandler(this.NodeCheckbox_CheckedChanged);
-            // 
-            // Info
-            // 
-            this.Info.Controls.Add(this.InfoNumLabel);
-            this.Info.Controls.Add(this.InfoNumberNumbox);
-            this.Info.Controls.Add(this.NameLabel);
-            this.Info.Controls.Add(this.InfoNameTextbox);
-            this.Info.Location = new System.Drawing.Point(4, 25);
-            this.Info.Name = "Info";
-            this.Info.Padding = new System.Windows.Forms.Padding(3);
-            this.Info.Size = new System.Drawing.Size(295, 131);
-            this.Info.TabIndex = 4;
-            this.Info.Text = "Info";
-            this.Info.UseVisualStyleBackColor = true;
-            this.Info.Click += new System.EventHandler(this.Info_Click);
-            // 
-            // InfoNameTextbox
-            // 
-            this.InfoNameTextbox.Location = new System.Drawing.Point(23, 15);
-            this.InfoNameTextbox.Name = "InfoNameTextbox";
-            this.InfoNameTextbox.Size = new System.Drawing.Size(118, 22);
-            this.InfoNameTextbox.TabIndex = 0;
-            this.ToolTips.SetToolTip(this.InfoNameTextbox, "The name for this node.");
-            this.InfoNameTextbox.TextChanged += new System.EventHandler(this.InfoNameTextbox_TextChanged);
-            // 
-            // NameLabel
-            // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(146, 20);
-            this.NameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(43, 17);
-            this.NameLabel.TabIndex = 13;
-            this.NameLabel.Text = "name";
-            // 
-            // InfoNumberNumbox
-            // 
-            this.InfoNumberNumbox.Location = new System.Drawing.Point(23, 44);
-            this.InfoNumberNumbox.Margin = new System.Windows.Forms.Padding(4);
-            this.InfoNumberNumbox.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.InfoNumberNumbox.Name = "InfoNumberNumbox";
-            this.InfoNumberNumbox.Size = new System.Drawing.Size(85, 22);
-            this.InfoNumberNumbox.TabIndex = 15;
-            this.ToolTips.SetToolTip(this.InfoNumberNumbox, "The number for this node.");
-            this.InfoNumberNumbox.ValueChanged += new System.EventHandler(this.InfoNumberNumbox_ValueChanged);
-            // 
-            // InfoNumLabel
-            // 
-            this.InfoNumLabel.AutoSize = true;
-            this.InfoNumLabel.Location = new System.Drawing.Point(116, 49);
-            this.InfoNumLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.InfoNumLabel.Name = "InfoNumLabel";
-            this.InfoNumLabel.Size = new System.Drawing.Size(56, 17);
-            this.InfoNumLabel.TabIndex = 16;
-            this.InfoNumLabel.Text = "number";
-            // 
-            // BlendAddRatioTrack
-            // 
-            this.BlendAddRatioTrack.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.BlendAddRatioTrack.Location = new System.Drawing.Point(111, 87);
-            this.BlendAddRatioTrack.Maximum = 100;
-            this.BlendAddRatioTrack.Name = "BlendAddRatioTrack";
-            this.BlendAddRatioTrack.Size = new System.Drawing.Size(104, 56);
-            this.BlendAddRatioTrack.TabIndex = 21;
-            this.BlendAddRatioTrack.TickFrequency = 10;
-            this.BlendAddRatioTrack.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.BlendAddRatioTrack.Scroll += new System.EventHandler(this.BlendAddRatioTrack_Scroll);
-            // 
             // BackgroundViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(349, 905);
-            this.Controls.Add(this.NodeCheckbox);
             this.Controls.Add(this.MoveQuadsCheckbox);
             this.Controls.Add(this.MoveBoundsCheckbox);
             this.Controls.Add(this.PlayCheckbox);
@@ -836,17 +818,17 @@ namespace CloudberryKingdom.Viewer
             this.UV_Page.PerformLayout();
             this.Texture_Page.ResumeLayout(false);
             this.Texture_Page.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BlendAddRatioTrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlphaTrack)).EndInit();
             this.Extra_Page.ResumeLayout(false);
+            this.Info.ResumeLayout(false);
+            this.Info.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InfoNumberNumbox)).EndInit();
             this.LayerBox.ResumeLayout(false);
             this.LayerBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParallaxNum)).EndInit();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
-            this.Info.ResumeLayout(false);
-            this.Info.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InfoNumberNumbox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlendAddRatioTrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -899,7 +881,6 @@ namespace CloudberryKingdom.Viewer
         private System.Windows.Forms.ToolStripMenuItem axisLinesToolStripMenuItem;
         private System.Windows.Forms.CheckBox MoveQuadsCheckbox;
         private System.Windows.Forms.ToolStripMenuItem dumpToCodeToolStripMenuItem;
-        private System.Windows.Forms.CheckBox NodeCheckbox;
         private System.Windows.Forms.CheckBox FixedCheckbox;
         private System.Windows.Forms.CheckBox ForegroundCheckbox;
         public System.Windows.Forms.Label label8;
