@@ -17,15 +17,12 @@ namespace CloudberryKingdom
         {
             if (Released) return;
 
-            foreach (LevelSeedData data in LevelSeeds)
+            if (NextLevelSeed != null)
             {
-                if (data != null && data.MyGame != null && !data.MyGame.Released)
-                {
-                    data.MyGame.Release();
-                    data.Release();
-                }
+                NextLevelSeed.MyGame.Release();
+                NextLevelSeed.Release();
             }
-            LevelSeeds = null;
+            NextLevelSeed = null;
 
             CurLevelSeed = null;
             LastLevelSeedSet = null;
@@ -44,11 +41,12 @@ namespace CloudberryKingdom
 
         public int Count;
 
-        public List<LevelSeedData> LevelSeeds;
-        public int CurLevelIndex = 0;
+        protected Func<int, LevelSeedData> GetSeedFunc;
+        LevelSeedData NextLevelSeed, CurLevelSeed;
+
+        public int NextLevelIndex = 0, CurLevelIndex = 0;
         public bool FirstLevelHasLoaded = false;
         public bool FirstLevelHasBegun = false;
-        LevelSeedData CurLevelSeed; // May be differet than LevelSeeds[CurLevelIndex]
 
         /// <summary>
         /// Called when a level begins loading
@@ -57,76 +55,22 @@ namespace CloudberryKingdom
 
         public LevelSeedData GetSeed(int Index)
         {
-            return LevelSeeds[Index];
+            if (GetSeedFunc == null)
+                return null;
+            else
+                return GetSeedFunc(Index);
         }
-
-        public int GetIndex(Level level)
-        {
-            return LevelSeeds.FindIndex(data => data != null && data.MyGame != null && data.MyGame.MyLevel == level);
-        }
-        public int GetIndex(GameData game)
-        {
-            return LevelSeeds.FindIndex(data => data.MyGame == game);
-        }
-        public int GetIndex(LevelSeedData data)
-        {
-            return LevelSeeds.FindIndex(_data => data == _data);
-        }
-
-        protected virtual LevelSeedData MakeLevelSeed(int LevelNum)
-        {
-            LevelSeedData data;
-
-            data = new LevelSeedData();
-            data.Seed = MyLevel.Rnd.Rnd.Next();
-            data.SetTileSet(TileSets.Terrace);
-            data.DefaultHeroType = BobPhsxNormal.Instance;
-            data.MyGameFlags.IsTethered = false;
-
-            data.PreInitialize(NormalGameData.Factory, 100, (int)3, (int)7000, delegate(PieceSeedData piece)
-            {
-                RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
-                piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
-                piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
-                piece.MyUpgrades1[Upgrade.MovingBlock] = 3;
-                piece.MyUpgrades1[Upgrade.Jump] = 8;
-                piece.MyUpgrades1[Upgrade.General] = 3;
-                piece.MyUpgrades1[Upgrade.Speed] = 3;
-                piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
-
-                RndDifficulty.ZeroUpgrades(piece.MyUpgrades2);
-                piece.MyUpgrades1.UpgradeLevels.CopyTo(piece.MyUpgrades2.UpgradeLevels, 0);
-                piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
-
-                if (piece.MyPieceIndex == 0)
-                    piece.Style.MyInitialPlatsType = StyleData.InitialPlatsType.LandingZone;
-            });
-
-            return data;
-        }
-
-        void MakeLevelSeeds()
-        {
-            LevelSeeds = new List<LevelSeedData>();
-            
-            for (int i = 0; i < 100; i++)
-            {
-                LevelSeedData data = MakeLevelSeed(i);
-                LevelSeeds.Add(data);
-            }
-        }
-
 
         /// <summary>
-        /// Returns whether the level of the specified index has finished loading.
+        /// Returns whether the StringWorld is ready to switch to the next level
         /// </summary>
-        public bool IsLoaded(int Index)
+        public bool NextIsReady()
         {
-            LevelSeedData data = LevelSeeds[Index];
+            if (NextLevelSeed == null) return false;
 
-            lock (data.Loaded)
+            lock (NextLevelSeed.Loaded)
             {
-                return data.Loaded.val;
+                return NextLevelSeed.Loaded.val;
             }
         }
 
@@ -138,15 +82,12 @@ namespace CloudberryKingdom
         /// <summary>
         /// How long to wait before opening the initial door.
         /// </summary>
-        //int WaitLengthToOpenDoor = 0;
         int WaitLengthToOpenDoor = 6;
-        //int WaitLengthToOpenDoor = 10;
 
         /// <summary>
         /// How long to wait before opening the initial door on the first level.
         /// </summary>
         protected int WaitLengthToOpenDoor_FirstLevel = 6;
-        
 
         /// <summary>
         /// Various details that must occur just before a level is played.
@@ -154,7 +95,6 @@ namespace CloudberryKingdom
         public void LevelBegin(Level level)
         {
             Recycler.DumpMetaBin();
-            //Recycle.Empty();
 
             if (OnLevelBegin != null)
                 OnLevelBegin(level);
@@ -166,7 +106,6 @@ namespace CloudberryKingdom
             {
                 level.MyGame.AddToDo(() =>
                     {
-                        //if (level.MyGame.SoftPause)
                         if (level.MyGame.PauseGame)
                             return false;
 
@@ -176,9 +115,6 @@ namespace CloudberryKingdom
                         // Start music
                         if (StartLevelMusic != null)
                             StartLevelMusic(this);
-
-                        // Start recording
-                        //level.StartRecording();
 
                         return true;
                     });
@@ -262,20 +198,14 @@ namespace CloudberryKingdom
         /// Assuming a level is loaded, set that level as current.
         /// Begin loading next level.
         /// </summary>
-        public void SetLevel(LevelSeedData data) { SetLevel(data, true); }
-        public void SetLevel(LevelSeedData data, bool Fresh) { SetLevel(LevelSeeds.IndexOf(data), Fresh); }
-        public void SetLevel(int Index) { SetLevel(Index, true); }
-        public void SetLevel(int Index, bool Fresh)
+        public void SetLevel()
         {
-            CurLevelIndex = Index;
-            LevelSeedData data = LevelSeeds[CurLevelIndex];
-
-            if (Fresh && data.MyGame != null)
+            if (NextLevelSeed.MyGame != null)
             {
                 // Check for last level
-                if (LevelSeeds.IndexOf(data) == LevelSeeds.Count - 1)
+                if (NextIsLast())
                 {
-                    ObjectBase obj = data.MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
+                    ObjectBase obj = NextLevelSeed.MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
 
                     Door door = obj as Door;
                     if (null != door)
@@ -283,17 +213,17 @@ namespace CloudberryKingdom
                 }
 
                 // Replace all Bobs with new Bobs (to handle newly joined players)
-                data.MyGame.UpdateBobs();
-                data.MyGame.Reset();
+                NextLevelSeed.MyGame.UpdateBobs();
+                NextLevelSeed.MyGame.Reset();
             }
 
-            lock (data.Loaded)
+            lock (NextLevelSeed.Loaded)
             {
                 // If game hasn't loaded yet, bring loading screen
-                if (!data.Loaded.val)
+                if (!NextLevelSeed.Loaded.val)
                 {
-                    if (!data.LoadingBegun)
-                        Load(CurLevelIndex);
+                    if (!NextLevelSeed.LoadingBegun)
+                        Tools.Break();
 
                     if (!Tools.ShowLoadingScreen)
                     {
@@ -304,7 +234,7 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    SwapToLevel(data);
+                    SwapToLevel();
                     Tools.WorldMap = this;
                 }
             }
@@ -335,27 +265,29 @@ namespace CloudberryKingdom
         /// </summary>
         bool FirstLevelSwappedIn = false;
 
-        public void SwapToLevel(LevelSeedData data)
+        public bool NextIsLast() { return NextLevelSeed.Name == "Last"; }
+
+        public void SwapToLevel()
         {
             // Perform actions if this is the first level being swapped in.
             if (!FirstLevelSwappedIn)
             {
                 if (OnSwapToFirstLevel != null)
-                    OnSwapToFirstLevel(data);
+                    OnSwapToFirstLevel(NextLevelSeed);
                 FirstLevelSwappedIn = true;
             }
 
             // Perform actions if this is the last level being swapped in.
-            if (LevelSeeds.IndexOf(data) == LevelSeeds.Count - 1)
+            if (NextIsLast())
             {
                 if (OnSwapToLastLevel != null)
-                    OnSwapToLastLevel(data);
+                    OnSwapToLastLevel(NextLevelSeed);
             }
 
             // Stores the GameObjects in the current game marked as 'PreventRelease'
             List<GameObject> ObjectsToSave = new List<GameObject>();
 
-            if (CurLevelSeed != null && data != CurLevelSeed)
+            if (CurLevelSeed != null && NextLevelSeed != CurLevelSeed)
             {
                 if (CurLevelSeed.MyGame.Loading)
                     throw new InvalidOperationException("Swapping from a level that hasn't finished loading!");
@@ -369,18 +301,14 @@ namespace CloudberryKingdom
                 CurLevelSeed.Release();
             }
 
+            CurLevelSeed = NextLevelSeed;
+            CurLevelIndex = NextLevelIndex;
 
-            //FirstLevelHasLoaded = true;
-
-            CurLevelSeed = data;
-            Tools.CurGameData = data.MyGame;
-            Tools.CurLevel = data.MyGame.MyLevel;
+            Tools.CurGameData = CurLevelSeed.MyGame;
+            Tools.CurLevel = CurLevelSeed.MyGame.MyLevel;
 
             // Set end of game function
             Tools.CurGameData.EndGame = this.Finish;
-
-            // Make Level Title
-            //Tools.CurGameData.AddGameObject(new LevelTitle(String.Format("Level {0}", CurLevelIndex + 1)));
 
             // Add the saved objects
             foreach (GameObject obj in ObjectsToSave)
@@ -399,19 +327,19 @@ namespace CloudberryKingdom
         {
         }
 
-
         public void Load(int Index)
         {
-            if (Index >= LevelSeeds.Count) return;
-
             GameData.LockLevelStart = false;
-            LevelSeedData data = LevelSeeds[Index];
 
-            if (data.LoadingBegun) return;
+            NextLevelIndex = Index;
+            NextLevelSeed = GetSeed(NextLevelIndex);
+
+            if (CurLevelSeed == null) CurLevelSeed = NextLevelSeed;
 
             if (OnBeginLoad != null)
                 OnBeginLoad();
-            GameData.StartLevel(data, true);
+
+            GameData.StartLevel(NextLevelSeed, true);
         }
 
         public bool EndLoadingImmediately = false;
@@ -421,68 +349,56 @@ namespace CloudberryKingdom
         {
             if (SkipBackgroundPhsx) return;
 
-            LevelSeedData data = LevelSeeds[CurLevelIndex];
-            if ((Tools.ShowLoadingScreen || EndLoadingImmediately) && Tools.CurGameData != data.MyGame)
+            if ((Tools.ShowLoadingScreen || EndLoadingImmediately) && Tools.CurGameData != CurLevelSeed.MyGame)
             {
                 // If the level is finished loading, end the loading screen
-                lock (data.Loaded)
+                lock (CurLevelSeed.Loaded)
                 {
-                    if (data.Loaded.val)
+                    if (CurLevelSeed.Loaded.val)
                     {
                         if (EndLoadingImmediately)
                             Tools.EndLoadingScreen_Immediate();
                         else
                             Tools.EndLoadingScreen();
-                        SetLevel(CurLevelIndex);
+                        SetLevel();
                     }
                 }
             }
             else
             {
                 // Begin loading next level
-                if (CurLevelIndex + 1 < LevelSeeds.Count && FirstLevelHasLoaded)
+                if (FirstLevelHasLoaded)
                 {
-                    //if (!LevelSeeds[CurLevelIndex + 1].LoadingBegun)
-                    Load(CurLevelIndex + 1);
-
-                    // Set current level's next level
-                    if (LastLevelSeedSet != Tools.CurLevel)
+                    if (CurLevelSeed == NextLevelSeed)
                     {
-                        LastLevelSeedSet = Tools.CurLevel;
+                        Load(CurLevelIndex + 1);
 
-                        ILevelConnector connector = (ILevelConnector)Tools.CurLevel.FindIObject(LevelConnector.EndOfLevelCode);
-                        if (connector != null)
-                            connector.NextLevelSeedData = LevelSeeds[CurLevelIndex + 1];
+                        // Set current level's next level
+                        if (LastLevelSeedSet != Tools.CurLevel)
+                        {
+                            LastLevelSeedSet = Tools.CurLevel;
+
+                            ILevelConnector connector = (ILevelConnector)Tools.CurLevel.FindIObject(LevelConnector.EndOfLevelCode);
+                            if (connector != null)
+                                connector.NextLevelSeedData = NextLevelSeed;
+                        }
                     }
                 }
-
-                //if (Tools.CurLevel.LevelCleared && Tools.CurLevel.Circle.FinishedCount > 20 && Tools.CurLevel.CurPhsxStep > 120 && CurLevelIndex + 1 < LevelSeeds.Count && LevelSeeds[CurLevelIndex + 1].Loaded.val)
-                //  SetLevel(CurLevelIndex + 1);
             }
-
             
-            data = LevelSeeds[CurLevelIndex];
-
             // If the level is finished loading, end the loading screen
             if (!FirstLevelHasLoaded)
             {
-                lock (data.Loaded)
+                lock (CurLevelSeed.Loaded)
                 {
-                    if (data.Loaded.val)
+                    if (CurLevelSeed.Loaded.val)
                     {
-                        //Tools.StartPlaylist();
-                        //Tools.CurLevel.StartRecording();
                         LevelBegin(Tools.CurLevel);
 
                         FirstLevelHasLoaded = true;
                     }
                 }
             }
-        }
-
-        public StringWorldGameData(List<LevelSeedData> LevelSeeds)
-        {
-            this.LevelSeeds = LevelSeeds;
         }
 
         public StringWorldGameData()
@@ -516,10 +432,8 @@ namespace CloudberryKingdom
 
             SuppressQuickSpawn = true;
 
-            if (LevelSeeds == null)
-                MakeLevelSeeds();
-
-            SetLevel(StartIndex);
+            Load(StartIndex);
+            SetLevel();
 
             FadeIn(.011f);
             BlackAlpha = 1.35f;
@@ -565,7 +479,7 @@ namespace CloudberryKingdom
         public void EOL_StringWorldDoorAction(Door door)
         {
             // Make sure that there is another level to go to
-            if (CurLevelIndex >= LevelSeeds.Count - 1)
+            if (NextLevelSeed == null)
                 return;
             else
             {
@@ -587,9 +501,9 @@ namespace CloudberryKingdom
                 game.WaitThenAddToToDo(13, () =>
                     {
                         // If the next level is loaded, start the level
-                        if (LevelIsLoaded(door.NextLevelSeedData))
+                        if (NextIsReady())
                         {
-                            SetLevel(door.NextLevelSeedData);
+                            SetLevel();
                             LevelBegin(Tools.CurLevel);
 
                             return true;

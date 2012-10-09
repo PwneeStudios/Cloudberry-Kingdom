@@ -9,7 +9,8 @@ namespace CloudberryKingdom
 {
     public class Challenge_Escalation : Challenge
     {
-        static int[] NumLives = { 15, 12, 10, 5, 1 };
+        //static int[] NumLives = { 15, 12, 10, 5, 1 };
+        static int[] NumLives = { 15, 15, 15, 15, 15 };
 
         static readonly Challenge_Escalation instance = new Challenge_Escalation();
         public static Challenge_Escalation Instance { get { return instance; } }
@@ -59,12 +60,12 @@ namespace CloudberryKingdom
             Gui_LivesLeft.OnOutOfLives += OnOutOfLives;
 
             // Create the string world, and add the relevant game objects
-            MyStringWorld = new StringWorldEndurance(GetSeeds(), Gui_LivesLeft, 25);
+            MyStringWorld = new StringWorldEndurance(GetSeed, Gui_LivesLeft, 25);
             
             Escalation_Tutorial.WatchedOnce = true;
             if (!Escalation_Tutorial.WatchedOnce)
                 MyStringWorld.FirstDoorAction = false;
-            MyStringWorld.OnBeginLoad += () => MyStringWorld.LevelSeeds.AddRange(this.GetMoreSeeds());
+
             MyStringWorld.StartLevelMusic = game => { };
 
             // Start menu
@@ -89,7 +90,7 @@ namespace CloudberryKingdom
 
         int GetLives()
         {
-            int Difficulty = (StartIndex + 1) / 50;// LevelsPerDifficulty;
+            int Difficulty = (StartIndex + 1) / 50;
             return NumLives[Difficulty];
         }
 
@@ -127,8 +128,6 @@ namespace CloudberryKingdom
             // Reset time after death
             Tools.CurGameData.SetDeathTime(GameData.DeathTime.Normal);
 
-            ////////// Level title (1, 5, 10, 15, ...)
-            ////////if (levelindex == 0 || (levelindex + 1) % 5 == 0)
             if (levelindex > StartIndex)
             {
                 var title = new LevelTitle(string.Format("Level {0}", levelindex + 1));
@@ -144,33 +143,12 @@ namespace CloudberryKingdom
             //g.AddGameObject(new LevelTitle(g.MyLevel.DefaultHeroType.Name, new Vector2(150, -300), .7f, true));
         }
 
-        protected override List<MakeSeed> MakeMakeList(int Difficulty)
+        public override LevelSeedData GetSeed(int Index)
         {
-            List<MakeSeed> MakeList = new List<MakeSeed>();
+            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
+            var seed = Make(Index, difficulty);
 
-            for (i = 0; i < StartIndex; i++)
-                MakeList.Add(() => null);
-            for (i = StartIndex; i < StartIndex + 100; i++)
-            {
-                int Index = i; // Get the level number
-                float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
-                MakeList.Add(() => Make(Index, difficulty));
-            }
-
-            return MakeList;
-        }
-        protected override List<MakeSeed> MakeMoreMakeList(int Difficulty)
-        {
-            List<MakeSeed> MakeList = new List<MakeSeed>();
-
-            int n = i + 1;
-            for (; i < n; i++)
-            {
-                int Index = i; // Get the level number
-                MakeList.Add(() => Make(Index, 4.5f));
-            }
-
-            return MakeList;
+            return seed;
         }
 
         int LevelLength_Short = 5500;

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace CloudberryKingdom
 {
-    public delegate LevelSeedData MakeSeed();
-
     public class AftermathData
     {
         public bool Success;
@@ -12,7 +10,7 @@ namespace CloudberryKingdom
         public bool Retry = false;
     }
 
-    public class Challenge
+    public abstract class Challenge
     {
         public static BobPhsx ChosenHero;
         const int LevelMask = 10000;
@@ -111,43 +109,6 @@ namespace CloudberryKingdom
             Tools.CurLevel = game.MyLevel;
         }
 
-        protected virtual List<MakeSeed> MakeMakeList(int Difficulty) { return null; }
-        protected virtual List<MakeSeed> MakeMoreMakeList(int Difficulty) { return null; }
-
-        public virtual LevelSeedData GetSeed(int Difficulty, int Index)
-        {
-            return MakeMakeList(Difficulty)[Index]();
-        }
-
-        public virtual List<LevelSeedData> GetMoreSeeds()
-        {
-            List<LevelSeedData> seeds = new List<LevelSeedData>();
-
-            var MakeMore = MakeMoreMakeList(DifficultySelected);
-
-            if (MakeMore == null) return null;
-
-            foreach (MakeSeed make in MakeMore)
-                seeds.Add(make());
-
-            return seeds;
-        }
-
-        public virtual List<LevelSeedData> GetSeeds(int Difficulty)
-        {
-            DifficultySelected = Difficulty;
-
-            List<LevelSeedData> seeds = new List<LevelSeedData>();
-            
-            foreach (MakeSeed make in MakeMakeList(Difficulty))
-                seeds.Add(make());
-
-            return seeds;
-        }
-
-        public virtual List<LevelSeedData> GetSeeds()
-        {
-            return GetSeeds(DifficultySelected);
-        }
+        public abstract LevelSeedData GetSeed(int Index);
     }
 }

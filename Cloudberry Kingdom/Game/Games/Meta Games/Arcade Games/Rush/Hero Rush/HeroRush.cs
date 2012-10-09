@@ -43,8 +43,6 @@ namespace CloudberryKingdom
 
         protected virtual void MakeExitDoorIcon(int levelindex)
         {
-            //Vector2 shift = new Vector2(240, 490);
-            //Vector2 shift = new Vector2(40, 490);
             Vector2 shift = new Vector2(0, 470);
 
             Tools.CurGameData.AddGameObject(new DoorIcon(GetHero(levelindex + 1 - StartIndex),
@@ -112,72 +110,32 @@ namespace CloudberryKingdom
             // Cheering berries (20, 40, 60, ...)
             if ((levelindex + 1) % LevelsPerDifficulty == 0 && levelindex != StartIndex)
                 Tools.CurGameData.AddGameObject(new SuperCheer(1));
-
-            // Level title (1, 5, 10, 15, ...)
-            //if (levelindex == 0 || (levelindex + 1) % 5 == 0)
-            //    Tools.CurGameData.AddGameObject(new LevelTitle(string.Format("Level {0}", levelindex + 1)));
-
-            // Hero title
-            //var g = Tools.CurGameData;
-            //g.AddGameObject(new LevelTitle(g.MyLevel.DefaultHeroType.Name, new Vector2(150, -300), .7f, true));
         }
 
-
-        protected override List<MakeSeed> MakeMakeList(int Difficulty)
+        public override LevelSeedData GetSeed(int Index)
         {
-            List<MakeSeed> MakeList = new List<MakeSeed>();
+            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
+            var seed = Make(Index, difficulty);
 
-            for (i = 0; i < StartIndex; i++)
-                MakeList.Add(() => null);
-            for (i = StartIndex; i < StartIndex + 100; i++)
-            {
-                int Index = i; // Get the level number
-                float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
-                MakeList.Add(() => Make(Index, difficulty));
-            }
-
-            return MakeList;
-        }
-        protected override List<MakeSeed> MakeMoreMakeList(int Difficulty)
-        {
-            List<MakeSeed> MakeList = new List<MakeSeed>();
-
-            int n = i + 1;
-            for (; i < n; i++)
-            {
-                int Index = i; // Get the level number
-                MakeList.Add(() => Make(Index, 4f));
-            }
-
-            return MakeList;
+            return seed;
         }
 
         static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
             { BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance,
               BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance,
-              //BobPhsxBox.Instance,
-              BobPhsxBouncy.Instance,
-              //BobPhsxRocketbox.Instance,
-              BobPhsxBig.Instance });
+              BobPhsxBouncy.Instance, BobPhsxBig.Instance });
 
         protected virtual BobPhsx GetHero(int i)
         {
-            //return Bob.HeroTypes[i % Bob.HeroTypes.Count];
             return HeroTypes[i % HeroTypes.Count];
         }
 
         int LevelsPerTileset = 4;
-        //static TileSet[] tilesets = {
-        //    TileSets.Terrace, TileSets.Dungeon, TileSets.Island,
-        //    TileSets.Castle, TileSets.Rain, TileSets.Dungeon,
-        //    TileSets._Night, TileSets._NightSky };
-
-        //static string[] tilesets = { "sea", "hills", "forest", "cloud", "cave", "castle" };
-        static string[] tilesets = { "hills", "forest", "cloud", "cave", "castle", "sea" };
+        static string[] tilesets = { "sea", "hills", "forest", "cloud", "cave", "castle" };
+        //static string[] tilesets = { "hills", "forest", "cloud", "cave", "castle", "sea" };
 
         protected virtual TileSet GetTileSet(int i)
         {
-            //return TileSets.NameLookup[tilesets[i % tilesets.Length]];
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 

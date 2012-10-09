@@ -2,6 +2,7 @@
 
 using CloudberryKingdom.Levels;
 
+using System;
 using System.Threading;
 
 namespace CloudberryKingdom
@@ -14,9 +15,9 @@ namespace CloudberryKingdom
         public GUI_Level MyGUI_Level;
         CoinScoreMultiplierObject MyCoinScoreMultiplier;
 
-        public StringWorldTimed(List<LevelSeedData> LevelSeeds, GUI_Timer Timer)
+        public StringWorldTimed(Func<int, LevelSeedData> GetSeed, GUI_Timer Timer)
         {
-            this.LevelSeeds = LevelSeeds;
+            this.GetSeedFunc = GetSeed;
 
             MyGUI_Timer = Timer;
 

@@ -64,7 +64,7 @@ namespace CloudberryKingdom
         const int MandatoryWatchLength_Initial = 400;
 
         float InitialFadeInSpeed = .01f;
-        static int InitialDarkness = 30;//3;
+        static int InitialDarkness = 30;
         int PartialZoomOut = 60 + InitialDarkness - 3, FullZoomOut = 180, KillCapeDelay = 200;
         int InitialDelay = 210 + InitialDarkness - 3;
         public ScreenSaver()
@@ -79,17 +79,12 @@ namespace CloudberryKingdom
         }
         void Constructor()
         {
-            //if (ForTrailer)
-            //    WaitLengthToOpenDoor_FirstLevel = 135 + InitialDarkness - 3;
-            //else
-                WaitLengthToOpenDoor_FirstLevel = 10 + InitialDarkness - 3;
+            WaitLengthToOpenDoor_FirstLevel = 10 + InitialDarkness - 3;
 
             Tools.TheGame.LogoScreenPropUp = true;
             Tools.Write("+++++++++++++++++++ Beginning screensave load...");
 
-            LevelSeeds = new List<LevelSeedData>();
-            for (int i = 0; i < 5; i++)
-                LevelSeeds.Add(Make(i));
+            this.GetSeedFunc = Make;
             
             OnSwapToFirstLevel += (data) =>
                 {
@@ -105,21 +100,11 @@ namespace CloudberryKingdom
                     if (index > 0)
                         PressA.Hid = true;
 
-                    //if (ForTrailer)
-                    //{
-                    //    Camera.DisableOscillate = true;
-                    //    foreach (BlockBase block in Tools.CurLevel.Blocks)
-                    //        if (block.Pos.X > Tools.CurLevel.Bobs[0].Pos.X + 200)
-                    //            block.CollectSelf();
-                    //}
-
                     Tools.CurLevel.SuppressSounds = true;
 
-                    LevelSeeds.Add(Make(LevelSeeds.Count));                     // Replenish pool of level seeds
-                    Tools.CurLevel.WatchComputer(false);                        // Watch the computer
-                    Tools.CurGameData.PhsxStepsToDo += 1;// MyLevel.Rnd.RndInt(150, 190);   // Skip beginning 
+                    Tools.CurLevel.WatchComputer(false);  // Watch the computer
+                    Tools.CurGameData.PhsxStepsToDo += 1; // Skip beginning 
                     Tools.CurGameData.SuppressSoundForExtraSteps = true;
-                    //Duration = MyLevel.Rnd.RndInt(100, 330) + Tools.CurGameData.PhsxStepsToDo;
                     Duration = 10000;
 
                     bool First = index == 0;
@@ -276,11 +261,10 @@ namespace CloudberryKingdom
             
 
             if (DoBackgroundPhsx &&
-                IsLoaded(CurLevelIndex + 1) &&
-                //true)
+                NextIsReady() &&
                 (Tools.CurLevel.CurPhsxStep > Duration || Tools.CurLevel.CurPhsxStep > Tools.CurLevel.CurPiece.PieceLength - 50))
             {
-                SetLevel(CurLevelIndex + 1);
+                SetLevel();
                 Recycler.DumpMetaBin();
             }
         }
@@ -304,9 +288,6 @@ namespace CloudberryKingdom
                         BobPhsxSmall.Instance,
                         BobPhsxBig.Instance,
                         BobPhsxBouncy.Instance,
-                        //BobPhsxBox.Instance,
-                        //BobPhsxDouble.Instance,
-                        //BobPhsxRocketbox.Instance,
                         BobPhsxInvert.Instance,
                         BobPhsxSpaceship.Instance,
                         BobPhsxScale.Instance,
@@ -317,7 +298,6 @@ namespace CloudberryKingdom
             }
 
             int Length = 6700;
-            //int Length = 4000;
 
             // Create the LevelSeedData
             LevelSeedData data;
@@ -340,15 +320,6 @@ namespace CloudberryKingdom
             //data.SetTileSet(Tools.GlobalRnd.ChooseOne("sea", "forest", "cave", "castle", "cloud", "hills",
             //                                          "sea_rain", "forest_snow", "hills_rain"));
 
-            //if (First)
-            //    data.SetTileSet(TileSets.Dungeon);
-
-            //if (ForTrailer)
-            //{
-            //    data.SetTileSet(TileSets.Island);
-            //    data.SetTileSet(TileSets.Dungeon);
-            //}
-
             // Adjust the piece seed data
             foreach (PieceSeedData piece in data.PieceSeeds)
             {
@@ -370,22 +341,19 @@ namespace CloudberryKingdom
                 // No balls to the wall
                 piece.Style.FunRun = false;
 
-                //if (ForTrailer)
-                //    piece.Style.AlwaysEdgeJump = true;
-
                 // Only one path
                 piece.Paths = Paths; piece.LockNumOfPaths = true;
 
-                piece.Style.MyModParams = (level, p) =>
-                {
-                    Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-                    Params.FillType = Coin_Parameters.FillTypes.Regular;
+                //piece.Style.MyModParams = (level, p) =>
+                //{
+                //    Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                //    Params.FillType = Coin_Parameters.FillTypes.Regular;
 
-                    //if (ForTrailer)
-                    //{
-                    //    Params.FillType = Coin_Parameters.FillTypes.None;
-                    //}
-                };
+                //    if (ForTrailer)
+                //    {
+                //        Params.FillType = Coin_Parameters.FillTypes.None;
+                //    }
+                //};
             }
 
             return data;

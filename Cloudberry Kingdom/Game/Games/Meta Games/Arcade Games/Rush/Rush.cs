@@ -7,10 +7,8 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Rush : Challenge
+    public abstract class Rush : Challenge
     {
-        protected StringWorldGameData StringWorld { get { return (StringWorldGameData)Tools.WorldMap; } }
-
         public GUI_Timer Timer;
         protected void OnTimeExpired(GUI_Timer_Base Timer)
         {
@@ -65,8 +63,7 @@ namespace CloudberryKingdom
             Timer.OnTimeExpired += OnTimeExpired;
 
             // Create the string world, and add the relevant game objects
-            MyStringWorld = new StringWorldTimed(GetSeeds(), Timer);
-            MyStringWorld.OnBeginLoad += () => MyStringWorld.LevelSeeds.AddRange(this.GetMoreSeeds());
+            MyStringWorld = new StringWorldTimed(GetSeed, Timer);
             MyStringWorld.StartLevelMusic = game => { };
 
             // Start menu

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CloudberryKingdom
 {
@@ -12,9 +13,9 @@ namespace CloudberryKingdom
         GUI_NextLife Gui_NextLife;
         CoinScoreMultiplierObject MyCoinScoreMultiplier;
 
-        public StringWorldEndurance(List<LevelSeedData> LevelSeeds, GUI_LivesLeft Gui_LivesLeft, int NextLife)
+        public StringWorldEndurance(Func<int, LevelSeedData> GetSeed, GUI_LivesLeft Gui_LivesLeft, int NextLife)
         {
-            this.LevelSeeds = LevelSeeds;
+            this.GetSeedFunc = GetSeed;
 
             // Lives
             this.Gui_LivesLeft = Gui_LivesLeft;
