@@ -405,6 +405,11 @@ namespace CloudberryKingdom
         {
         }
 
+        public StringWorldGameData(Func<int, LevelSeedData> GetSeed)
+        {
+            this.GetSeedFunc = GetSeed;
+        }
+
         public Level MakeLevel()
         {
             Level level = new Level(false);

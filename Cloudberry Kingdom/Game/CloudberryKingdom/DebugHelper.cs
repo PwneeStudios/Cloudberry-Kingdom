@@ -312,9 +312,10 @@ namespace CloudberryKingdom
 
 
             // GC
-            string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
-                + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
-                + debugstring;
+            //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
+            //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
+            //    + debugstring;
+            string str = debugstring;
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
@@ -346,7 +347,7 @@ namespace CloudberryKingdom
             Tools.Render.MySpriteBatch.DrawString(DebugFont,
                     str,
                     new Vector2(0, 100),
-                    Color.Orange, 0, Vector2.Zero, .4f, SpriteEffects.None, 0);
+                    Color.Orange, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
             Tools.Render.EndSpriteBatch();
         }
     }

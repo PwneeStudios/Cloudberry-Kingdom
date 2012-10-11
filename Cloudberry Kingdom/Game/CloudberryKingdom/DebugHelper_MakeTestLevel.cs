@@ -162,16 +162,14 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Serpent] = 6;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            piece.MyUpgrades1[Upgrade.Fireball] = 5f;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 5f;
 
-            //piece.MyUpgrades1[Upgrade.Jump] = 5;
-            //piece.MyUpgrades1[Upgrade.Speed] = 11;
-            
-            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2.5f;
-            //piece.MyUpgrades1[Upgrade.Ceiling] = 5;
-
-            //piece.MyUpgrades1[Upgrade.Elevator] = 11;
-            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 3;
+            piece.MyUpgrades1[Upgrade.Jump] = 8;
+            //piece.MyUpgrades1[Upgrade.Speed] = 5;
+            piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
+            piece.MyUpgrades1[Upgrade.Ceiling] = 5;
+            ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
+            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
             //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
             //piece.MyUpgrades1[Upgrade.Serpent] = 5;
@@ -183,7 +181,8 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
 
             __Roughly_Abusive(piece);
-            //__Roughly_Maso(piece);
+            __Roughly_Maso(piece);
+            piece.Style.Masochistic = true;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
@@ -216,9 +215,9 @@ namespace CloudberryKingdom
             piece.MyUpgrades1[Upgrade.Jump] = 1;
             piece.MyUpgrades1[Upgrade.Speed] = 10;
 
-            //piece.MyUpgrades1[Upgrade.Serpent] = 10;
+            piece.MyUpgrades1[Upgrade.Serpent] = 7;
             //piece.MyUpgrades1[Upgrade.LavaDrip] = 10;
-            //piece.MyUpgrades1[Upgrade.Laser] = 10;
+            piece.MyUpgrades1[Upgrade.Laser] = 5;
 
             piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
             piece.MyUpgrades1[Upgrade.GhostBlock] = 4;

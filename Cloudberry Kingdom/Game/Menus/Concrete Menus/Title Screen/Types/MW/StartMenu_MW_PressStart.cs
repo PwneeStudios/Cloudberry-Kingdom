@@ -41,7 +41,9 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
-            Text = new EzText("Press any key to start", Tools.Font_Grobold42, true);
+            //Text = new EzText("Press any key to start", Tools.Font_Grobold42, true);
+            Text = new EzText("Press Start", Tools.Font_Grobold42, true);
+            
             Text.MyFloatColor = new Color(226, 10, 83).ToVector4();
             Text.OutlineColor = Color.Black.ToVector4();
             MyPile.Add(Text);
@@ -52,8 +54,8 @@ namespace CloudberryKingdom
         void SetPos()
         {
             EzText _t;
-            _t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(8.332428f, -672.2224f); _t.Scale = 0.8212293f; }
-            MyPile.Pos = new Vector2(0f, 0f);
+            _t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-11.11157f, -461.111f); _t.Scale = 0.66054f; }
+            MyPile.Pos = new Vector2(-91.66675f, -250f);
         }
 
         protected override void MyPhsxStep()
@@ -83,8 +85,8 @@ namespace CloudberryKingdom
 
             float s = CoreMath.Periodic(.85f, 1f, 3, Tools.t);
             Text.MyFloatColor = new Color((int)(226 * s), 10, 83).ToVector4();
-            //Text.Pos = new Vector2(-922.2231f, -619.4446f + CoreMath.Periodic(0, 8, 3, Tools.t));
-            Text.Scale = CoreMath.Periodic(.818668f, .838668f, 3, Tools.t);
+
+            Text.Scale = CoreMath.Periodic(.818668f, .838668f, 3, Tools.t) * .8f;
 
             t += .01f;
             Text.Alpha = t;

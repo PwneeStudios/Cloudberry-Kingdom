@@ -209,7 +209,6 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Arcade
-            //string arcade = "Arcade";
             string arcade = "The Arcade";
             item = new MenuItem(new EzText(arcade, ItemFont));
             item.Name = "Arcade";
@@ -217,7 +216,6 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Campaign
-            //string campaign = "Career";
             string campaign = "Story Mode";
             item = new MenuItem(new EzText(campaign, ItemFont));
             item.Name = "Campaign";

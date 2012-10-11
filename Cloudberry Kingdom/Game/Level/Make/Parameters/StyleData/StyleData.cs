@@ -149,6 +149,8 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool FunRun = true;
 
+        public bool Masochistic = false;
+
         public Rand Rnd;
         public StyleData(Rand Rnd)
         {

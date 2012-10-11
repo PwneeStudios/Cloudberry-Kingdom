@@ -303,18 +303,29 @@ namespace CloudberryKingdom
             }
         }
 
-        
+
+        protected bool AutoAllowComputerToJumpOnLand = true;
         public virtual void UpdateReadyToJump()
         {
-            if ((MustHitGroundToReadyJump && OnGround || !MustHitGroundToReadyJump && true) &&
-                !MyBob.CurInput.A_Button &&
-                (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps) ||
-                (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl))
-                ReadyToJump = true;
-            
-            if (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl)
-                if (NumJumps > 1 && !OnGround && CurJump > 0 && JumpDelayCount > -25)
-                    ReadyToJump = false;
+            if (AutoAllowComputerToJumpOnLand)
+            {
+                if ((MustHitGroundToReadyJump && OnGround || !MustHitGroundToReadyJump && true) &&
+                    !MyBob.CurInput.A_Button &&
+                    (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps) ||
+                    (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl))
+                    ReadyToJump = true;
+            }
+            else
+            {
+                if ((MustHitGroundToReadyJump && OnGround || !MustHitGroundToReadyJump && true) &&
+                    !MyBob.CurInput.A_Button &&
+                    (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps))
+                    ReadyToJump = true;
+            }
+
+            //if (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl)
+            //    if (NumJumps > 1 && !OnGround && CurJump > 0 && JumpDelayCount > -25)
+            //        ReadyToJump = false;
 
             // Update ReadyToThrust
             if (JetPack && !OnGround && (!MyBob.CurInput.A_Button || !StartedJump))
@@ -965,25 +976,95 @@ namespace CloudberryKingdom
                     MyBob.WantsToLand = Pos.Y > MyBob.TargetPosition.Y - 200;
             }
 
+            // Jetpack extra-extra
+            if (JetPack)
+            {
+                switch ((CurPhsxStep / 60) % 4)
+                {
+                    case 0:
+                        if (MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 0)
+                            MyBob.CurInput.A_Button = true;
+                        if (!MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 10)
+                            MyBob.CurInput.A_Button = true;
+                        break;
+                    case 1:
+                        MyBob.CurInput.A_Button = true;
+                        break;
+                    case 2:
+                        if (yVel < 0)
+                            MyBob.CurInput.A_Button = true;
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+
+            // Masochistic
+            if (MyLevel.Style.Masochistic)
+            {
+                if (Pos.Y < TR.Y - 400 && xVel > -2 && Pos.X > CurPhsxStep * (4000f / 800f))
+                {
+                    switch ((CurPhsxStep / 60) % 2)
+                    {
+                        case 0:
+                            MyBob.CurInput.xVec.Y = -1;
+                            if (yVel < 0)
+                                MyBob.CurInput.A_Button = true;
+                            MyBob.CurInput.xVec.X = 0;
+                            break;
+                        case 1:
+                            break;
+                    }
+                }
+                else
+                {
+                    MyBob.CurInput.xVec.X = 1;
+                    MyBob.CurInput.xVec.Y = 0;
+                    MyBob.CurInput.A_Button = true;
+                }
+            }
+
+
             // Don't land near the apex of a jump
             PreventEarlyLandings(GenData);
             
-            /*
             // Double jump extra
-            if (Jumped && CurJump > 0 && NumJumps > 1 && ReadyToJump)
+            if (NumJumps > 1)
             {
-                if (JumpDelayCount > -400)
-                    MyBob.CurInput.A_Button = false;
+                AutoAllowComputerToJumpOnLand = false;
+                
+                if (Jumped && CurJump > 0 && NumJumps > 1 && yVel < 0)
+                {
+                    switch ((CurPhsxStep / 60) % 3)
+                    {
+                        case 0:
+                            if (CurJump < NumJumps && Pos.Y > MyBob.TargetPosition.Y - 600)
+                                MyBob.WantsToLand = false;
+                            if (yVel < -6)
+                                MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = MyBob.WantsToLand;
+                            break;
+
+                        case 1:
+                            MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = true;
+                            break;
+
+                        case 2:
+                            MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = false;
+                            break;
+                    }
+                }
+
+                if (CurJump > 0 && Pos.Y > MyBob.TargetPosition.Y - 200)
+                    MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = false;
             }
-
-            if (CurJump > 0 && ReadyToJump && MyBob.CurInput.A_Button)
-                Console.WriteLine("blah");
-            */
-
 
             // Always prevent jump if we are near the top
             if (Pos.Y > TR.Y - 150)
+            {
+                MyBob.CurInput.xVec.X = 1;
+                MyBob.CurInput.xVec.Y = 0;
                 MyBob.CurInput.A_Button = false;
+            }
         }
 
         protected virtual void SetTarget(RichLevelGenData GenData)
@@ -1104,6 +1185,9 @@ namespace CloudberryKingdom
                 MyBob.CurInput.A_Button = false;
 
             AdditionalGenerateInputChecks(CurPhsxStep);
+
+            //CloudberryKingdomGame.debugstring = string.Format("{0}, {1}", JumpDelayCount, MyBob.CurInput.A_Button);
+            CloudberryKingdomGame.debugstring = string.Format("{0}, {1}", Pos.X, CurPhsxStep);
         }
 
         public float ForcedJumpDamping = 1;

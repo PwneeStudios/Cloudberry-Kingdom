@@ -152,6 +152,9 @@ namespace CloudberryKingdom
         public override void GenerateInput(int CurPhsxStep)
         {
             base.GenerateInput(CurPhsxStep);
+
+            if (MyBob.CurInput.xVec.Y == -1)
+                MyBob.CurInput.xVec.X = -1;
         }
 
         public override void AnimStep()

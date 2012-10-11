@@ -184,7 +184,8 @@ namespace CloudberryKingdom.Levels
 
             foreach (Bob bob in level.Bobs)
             {
-                if (!level.MainCamera.OnScreen(bob.Core.Data.Position, new Vector2(-200, -240)))
+                if (!level.MainCamera.OnScreen(bob.Core.Data.Position, new Vector2(-200, -240)) ||
+                    level.Style.Masochistic)
                     continue;
 
                 Vector2 pos = bob.Core.Data.Position;

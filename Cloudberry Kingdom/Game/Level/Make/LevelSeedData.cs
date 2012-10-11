@@ -36,17 +36,6 @@ namespace CloudberryKingdom
         {
             int i = Math.Abs(str.GetHashCode());
 
-            // Save defaults
-            //Length = PieceLength = 3000;
-            //SetTileSet("castle");
-            //MyGeometry = LevelGeometry.Right;
-            //MyGameType = NormalGameData.Factory;
-            //LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
-            //DefaultHeroType = BobPhsxNormal.Instance;
-            //NumPieces = 1;
-
-            // Defaults from hash
-
             // Length
             Length = PieceLength = i % 5000 + 3000;
 
@@ -245,16 +234,6 @@ namespace CloudberryKingdom
                 piece.MyUpgrades1.Zero();
             }
 
-            /*
-            // Copy the left endpoint upgrades to the right endpoint, and then calculate Generation Data.
-            piece.MyUpgrades2.CopyFrom(piece.MyUpgrades1);
-            piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
-            piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
-
-            // Doors
-            piece.Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
-            piece.Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
-             * */
             piece.StandardClose();
         }
 
@@ -433,10 +412,10 @@ namespace CloudberryKingdom
                 game.PhsxStepsToDo += 2;
             };
 
-            SetBackFirstAttemp(Wait);
+            SetBackFirstAttempt(Wait);
         }
 
-        public void SetBackFirstAttemp(int Steps)
+        public void SetBackFirstAttempt(int Steps)
         {
             PostMake += lvl => lvl.SetBack(Steps);
         }

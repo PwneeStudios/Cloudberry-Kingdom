@@ -48,13 +48,12 @@ namespace CloudberryKingdom
             });
         }
 
-        protected int i = 0;
         protected int StartIndex = 0;
         protected StringWorldTimed MyStringWorld;
         public override void Start(int StartLevel)
         {
             base.Start(StartLevel);
-            i = StartIndex = StartLevel;
+            StartIndex = StartLevel;
 
             // Create the timer
             Timer = new GUI_Timer();

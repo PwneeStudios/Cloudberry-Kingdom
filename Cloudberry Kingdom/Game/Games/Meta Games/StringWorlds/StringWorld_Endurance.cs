@@ -14,9 +14,8 @@ namespace CloudberryKingdom
         CoinScoreMultiplierObject MyCoinScoreMultiplier;
 
         public StringWorldEndurance(Func<int, LevelSeedData> GetSeed, GUI_LivesLeft Gui_LivesLeft, int NextLife)
+            : base(GetSeed)
         {
-            this.GetSeedFunc = GetSeed;
-
             // Lives
             this.Gui_LivesLeft = Gui_LivesLeft;
             Gui_Lives = new GUI_Lives(Gui_LivesLeft);

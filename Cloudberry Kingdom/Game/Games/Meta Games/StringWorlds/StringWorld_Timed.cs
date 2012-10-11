@@ -16,9 +16,8 @@ namespace CloudberryKingdom
         CoinScoreMultiplierObject MyCoinScoreMultiplier;
 
         public StringWorldTimed(Func<int, LevelSeedData> GetSeed, GUI_Timer Timer)
+            : base(GetSeed)
         {
-            this.GetSeedFunc = GetSeed;
-
             MyGUI_Timer = Timer;
 
             Warning = new TimerWarning();
