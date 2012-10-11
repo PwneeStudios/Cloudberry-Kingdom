@@ -15,35 +15,39 @@ namespace CloudberryKingdom
     {
         public static bool Playing = false;
 
-        static Video TestVideo;
+        static Video CurrentVideo;
         static VideoPlayer VPlayer;
         
         static EzTexture VEZTexture = new EzTexture();
 
+        static double Duration;
+        static DateTime StartTime;
+
         public static void Load()
         {
-            return;
-
             Playing = true;
 
-            //TestVideo = Tools.GameClass.Content.Load<Video>("Movies//TestCinematic");
-            TestVideo = Tools.GameClass.Content.Load<Video>("Movies//LogoSalad");
+            CurrentVideo = Tools.GameClass.Content.Load<Video>("Movies//LogoSalad");
 
             VPlayer = new VideoPlayer();
             VPlayer.IsLooped = false;
-            VPlayer.Play(TestVideo);
+            VPlayer.Play(CurrentVideo);
+
+            Duration = CurrentVideo.Duration.TotalSeconds;
+            StartTime = DateTime.Now;
         }
 
-        static bool timed = false;
+        static double ElapsedTime()
+        {
+            return (DateTime.Now - StartTime).TotalSeconds;
+        }
+
         public static bool Draw()
         {
             if (!Playing) return false;
 
-            if (!timed)
-            {
-                Tools.Write(string.Format("First movie draw is {0}", System.DateTime.Now));
-                timed = true;
-            }
+            if (ElapsedTime() > Duration)
+                Playing = false;
 
             VEZTexture.Tex = VPlayer.GetTexture();
             VEZTexture.Width = VEZTexture.Tex.Width;

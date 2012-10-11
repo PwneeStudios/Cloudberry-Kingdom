@@ -145,11 +145,11 @@ namespace CloudberryKingdom
         {
             if (ExitFreeplay)
             {
-                if (UpgradeGui != null)
+                if (CallingPanel != null)
                 {
                     SlideOut(PresetPos.Left);
-                    UpgradeGui.SlideOut(PresetPos.Left);
-                    UpgradeGui.ReleaseWhenDone = true;
+                    CallingPanel.SlideOut(PresetPos.Left);
+                    CallingPanel.ReleaseWhenDone = true;
                 }
 
                 MenuReturnToCaller(MyMenu);
@@ -159,7 +159,7 @@ namespace CloudberryKingdom
             }
 
             // If we started the level from the basic menu
-            if (UpgradeGui == null)
+            if (CallingPanel == null)
             {
                 if (Active)
                 {
@@ -171,8 +171,8 @@ namespace CloudberryKingdom
             else
             {
                 SlideOut(PresetPos.Right, 0);
-                UpgradeGui.SlideOut(PresetPos.Right, 0);
-                UpgradeGui.SlideIn();
+                CallingPanel.SlideOut(PresetPos.Right, 0);
+                CallingPanel.SlideIn();
                 Active = false;
             }
         }
@@ -666,8 +666,14 @@ namespace CloudberryKingdom
             {
                 Start.SubstituteText(" Start");
                 Start.Go = thisitem =>
-                    MyGame.PlayGame(() => StartLevelFromMenuData());
+                    MyGame.PlayGame(StartLevel);
             }
+        }
+
+        void StartLevel()
+        {
+            CallingPanel = null;
+            StartLevelFromMenuData();
         }
 
         private void HeroList_OnIndex()
@@ -784,7 +790,11 @@ namespace CloudberryKingdom
             ShowCheckpoints(false);
         }
 
-        CustomUpgrades_GUI UpgradeGui;
+        /// <summary>
+        /// The panel that actually starts the level, when it is started.
+        /// </summary>
+        public GUI_Panel CallingPanel;
+
         void BringUpgrades()
         {
             //BringHero();
@@ -794,8 +804,8 @@ namespace CloudberryKingdom
             //DiffList.SetIndex(0);
 
             // Create the advanced menu
-            UpgradeGui = new CustomUpgrades_GUI(PieceSeed);
-            Call(UpgradeGui, 0);
+            CallingPanel = new PassiveUpgrades_GUI(PieceSeed, this);
+            Call(CallingPanel, 0);
             Hide(PresetPos.Left);
             this.SlideInFrom = PresetPos.Left;
         }
@@ -833,7 +843,7 @@ namespace CloudberryKingdom
             base.OnReturnTo();
 
             MyMenu.Show = true;
-            UpgradeGui = null;
+            CallingPanel = null;
         }
 
         int DesiredNumCheckpoints = 0;
@@ -841,10 +851,7 @@ namespace CloudberryKingdom
         int DesiredHeroIndex = 0;
         protected override void MyDraw()
         {
-            //Backdrop.Base.Origin = Pos.Update() + new Vector2(180, 75);
-            //Backdrop.Draw();
-
-            if (!Active && UpgradeGui != null && !UpgradeGui.Pos.Playing)
+            if (!Active && CallingPanel != null && !CallingPanel.Pos.Playing)
                 MyMenu.Show = false;
             else
                 MyMenu.Show = true;

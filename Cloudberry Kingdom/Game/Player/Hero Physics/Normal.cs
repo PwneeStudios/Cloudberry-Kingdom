@@ -36,6 +36,7 @@ namespace CloudberryKingdom
         int ThrustSoundCount;
 
         int RndMoveType, Offset;
+        int RndThrustType;
 
         public override bool Sticky
         {
@@ -979,24 +980,20 @@ namespace CloudberryKingdom
             // Jetpack extra-extra
             if (JetPack)
             {
-                switch ((CurPhsxStep / 60) % 4)
+                switch (RndThrustType)
                 {
                     case 0:
-                        if (MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 0)
-                            MyBob.CurInput.A_Button = true;
-                        if (!MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 10)
-                            MyBob.CurInput.A_Button = true;
+                        HighThrusts(CurPhsxStep);
                         break;
                     case 1:
                         MyBob.CurInput.A_Button = true;
                         break;
                     case 2:
-                        if (yVel < 0)
-                            MyBob.CurInput.A_Button = true;
-                        break;
-                    case 3:
                         break;
                 }
+
+                if (CurPhsxStep % 75 == 0)
+                    RndThrustType = MyLevel.Rnd.Rnd.Next(0, 3);
             }
 
             // Masochistic
@@ -1067,7 +1064,31 @@ namespace CloudberryKingdom
             }
         }
 
-        protected virtual void SetTarget(RichLevelGenData GenData)
+        
+
+private void HighThrusts(int CurPhsxStep)
+{
+                        switch ((CurPhsxStep / 60) % 4)
+                        {
+                            case 0:
+                                if (JetPackCount > 5)
+                                    MyBob.CurInput.A_Button = false;
+                                if (MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 0)
+                                    MyBob.CurInput.A_Button = true;
+                                if (!MyBob.WantsToLand && JetPackCount < JetPackLength - 1 && yVel < 0)
+                                    MyBob.CurInput.A_Button = true;
+                                break;
+                            case 1:
+                                MyBob.CurInput.A_Button = true;
+                                break;
+                            case 2:
+                                if (yVel < 0)
+                                    MyBob.CurInput.A_Button = true;
+                                break;
+                            case 3:
+                                break;
+                        }
+}protected virtual void SetTarget(RichLevelGenData GenData)
         {
             int Period = GenData.Get(BehaviorParam.MoveTypePeriod, Pos);
             float InnerPeriod = GenData.Get(BehaviorParam.MoveTypeInnerPeriod, Pos);
@@ -1080,15 +1101,17 @@ namespace CloudberryKingdom
             // If this is the first phsx step choose a move type
             if (FirstPhsxStep)
             {
-                if (MyLevel.Rnd.RndFloat() < .425f)
+                RndThrustType = MyLevel.Rnd.Rnd.Next(0, 3);
+
+                if (MyLevel.Rnd.RndFloat() < .5f)
                     RndMoveType = 10;
                 else
-                    RndMoveType = MyLevel.Rnd.Rnd.Next(0, 5);
+                    RndMoveType = MyLevel.Rnd.Rnd.Next(0, 6);
 
-                if (MyLevel.Style.AlwaysCurvyMove || MyLevel.MyTileSet == TileSets.Island)
+                if (MyLevel.Style.AlwaysCurvyMove)
                     RndMoveType = 10;
             }
-            RndMoveType = 10; /// DANGER DANGER 
+            //RndMoveType = 10; /// DANGER DANGER 
 
             ///////////////////////////////////////
             // Pick target for Bob to strive for //
@@ -1118,6 +1141,9 @@ namespace CloudberryKingdom
                     else
                         t = .3f;
                     break;
+                case 6:
+                    RndMoveType = 10;
+                    break;
                 case 10:
                     // Hard up and hard down.
                     AllowTypeSwitching = false;
@@ -1144,7 +1170,7 @@ namespace CloudberryKingdom
                 MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY + t * (MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
 
             if (AllowTypeSwitching && MyBob.Core.MyLevel.GetPhsxStep() % Period == 0)
-                RndMoveType = MyLevel.Rnd.Rnd.Next(0, 9);
+                RndMoveType = MyLevel.Rnd.Rnd.Next(0, 7);
 
         }
 
@@ -1186,8 +1212,11 @@ namespace CloudberryKingdom
 
             AdditionalGenerateInputChecks(CurPhsxStep);
 
+#if DEBUG
             //CloudberryKingdomGame.debugstring = string.Format("{0}, {1}", JumpDelayCount, MyBob.CurInput.A_Button);
-            CloudberryKingdomGame.debugstring = string.Format("{0}, {1}", Pos.X, CurPhsxStep);
+            //CloudberryKingdomGame.debugstring = string.Format("{0}, {1}", Pos.X, CurPhsxStep);
+            CloudberryKingdomGame.debugstring = RndThrustType.ToString();
+#endif
         }
 
         public float ForcedJumpDamping = 1;

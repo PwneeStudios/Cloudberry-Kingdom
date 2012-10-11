@@ -188,11 +188,11 @@ namespace CloudberryKingdom.Levels
             switch (Style.MoveTypePeriod)
             {
                 case StyleData._MoveTypePeriod.Inf:
-                    GenData[BehaviorParam.MoveTypePeriod] = 7000; break;
+                    GenData[BehaviorParam.MoveTypePeriod] = 300; break;
                 case StyleData._MoveTypePeriod.Normal1:
-                    GenData[BehaviorParam.MoveTypePeriod] = 100; break;
+                    GenData[BehaviorParam.MoveTypePeriod] = 80; break;
                 case StyleData._MoveTypePeriod.Normal2:
-                    GenData[BehaviorParam.MoveTypePeriod] = 250; break;
+                    GenData[BehaviorParam.MoveTypePeriod] = 150; break;
                 case StyleData._MoveTypePeriod.Short:
                     GenData[BehaviorParam.MoveTypePeriod] = 40; break;
             }

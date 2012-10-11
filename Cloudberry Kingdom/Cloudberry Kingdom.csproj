@@ -455,7 +455,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\HeroFactoryMenu2.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\LengthSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\CustomLevel_GUI.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\CustomUpgrades_GUI.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Freeplay\Upgrades\CustomUpgrades_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeSelect.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeBar.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen2.cs" />

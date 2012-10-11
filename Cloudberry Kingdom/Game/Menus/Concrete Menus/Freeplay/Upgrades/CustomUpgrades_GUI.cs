@@ -4,15 +4,58 @@ using System;
 
 namespace CloudberryKingdom
 {
+    public class AggressiveUpgrades_GUI : CustomUpgrades_GUI
+    {
+        public AggressiveUpgrades_GUI(PieceSeedData PieceSeed, CustomLevel_GUI CustomLevel)
+            : base(PieceSeed, CustomLevel)
+        {
+        }
+
+        public override List<Upgrade> GetUpgradeList()
+        {
+            return new List<Upgrade>(new Upgrade[] { Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine });
+        }
+
+        protected override void Go()
+        {
+            StartGame();
+        }
+    }
+
+    public class PassiveUpgrades_GUI : CustomUpgrades_GUI
+    {
+        public PassiveUpgrades_GUI(PieceSeedData PieceSeed, CustomLevel_GUI CustomLevel)
+            : base(PieceSeed, CustomLevel)
+        {
+        }
+
+        public override List<Upgrade> GetUpgradeList()
+        {
+            return new List<Upgrade>(new Upgrade[] { Upgrade.Jump, Upgrade.Speed, Upgrade.Ceiling, Upgrade.MovingBlock, Upgrade.GhostBlock, Upgrade.FlyBlob, Upgrade.FallingBlock, Upgrade.Elevator, Upgrade.Cloud, Upgrade.BouncyBlock, Upgrade.Pendulum });
+        }
+
+        protected override void Go()
+        {
+            var UpgradeGui = new AggressiveUpgrades_GUI(PieceSeed, CustomLevel);
+            Call(UpgradeGui, 0);
+            Hide(PresetPos.Left);
+            this.SlideInFrom = PresetPos.Left;
+        }
+    }
+
     public class CustomUpgrades_GUI : CkBaseMenu
     {
-        PieceSeedData PieceSeed;
+        protected PieceSeedData PieceSeed;
+        protected CustomLevel_GUI CustomLevel;
 
         EzText TopText;
 
-        public CustomUpgrades_GUI(PieceSeedData PieceSeed)
+        public CustomUpgrades_GUI(PieceSeedData PieceSeed, CustomLevel_GUI CustomLevel)
         {
+            CustomLevel.CallingPanel = this;
+
             this.PieceSeed = PieceSeed;
+            this.CustomLevel = CustomLevel;
         }
 
         public override void OnAdd()
@@ -86,11 +129,10 @@ namespace CloudberryKingdom
 
         void StartLevel()
         {
-            CustomLevel_GUI simple = Caller as CustomLevel_GUI;
-            if (null != simple) simple.StartLevelFromMenuData();
+            CustomLevel.StartLevelFromMenuData();
         }
 
-        void Zero(MenuItem _item)
+        void Zero()
         {
             foreach (MenuItem item in MyMenu.Items)
             {
@@ -100,7 +142,7 @@ namespace CloudberryKingdom
             }
         }
 
-        void Randomize(MenuItem _item)
+        void Randomize()
         {
             if (MyLevel.Rnd.RndFloat() < .25f)
             {
@@ -131,6 +173,11 @@ namespace CloudberryKingdom
 
         float ScaleList = .7f;
 
+        public virtual List<Upgrade> GetUpgradeList()
+        {
+            return new List<Upgrade>();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -151,12 +198,8 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-950, 928 + 300 * (1 - ScaleList));
             PosAdd.Y *= 1.015f * ScaleList;
 
-            // Add obstacles to the grid
-            AddUpgrade(Upgrade.Jump);
-            AddUpgrade(Upgrade.Speed);
-            AddUpgrade(Upgrade.Ceiling);
-
-            foreach (Upgrade upgrade in RegularLevel.ObstacleUpgrades)
+            // Add obstacles
+            foreach (Upgrade upgrade in GetUpgradeList())
                 AddUpgrade(upgrade);
 
             MyPile = new DrawPile();
@@ -220,19 +263,21 @@ namespace CloudberryKingdom
         private void MakeMenu()
         {
             MyMenu = new Menu(false);
-            MyMenu.OnA = _menu => { MyGame.PlayGame(() => StartLevel()); return true; };
+            MyMenu.OnA = Cast.ToMenu(Go);
             MyMenu.OnB = MenuReturnToCaller;
-            MyMenu.OnX = _menu => { Randomize(null); return true; };
-            MyMenu.OnY = () => Zero(null);
+            MyMenu.OnX = Cast.ToMenu(Randomize);
+            MyMenu.OnY = Zero;
             MyMenu.SelectDelay = 11;
         }
 
-        void Go(MenuItem item)
+        protected virtual void Go()
+        {
+        }
+
+        protected void StartGame()
         {
             MyGame.PlayGame(() => StartLevel());
         }
-
-        bool Go(Menu menu) { Go((MenuItem)null); return true; }
 
         private void MakeOptions()
         {
@@ -244,7 +289,7 @@ namespace CloudberryKingdom
             //MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
             MenuItem Start = item = new MenuItem(new EzText("Start", ItemFont));
             item.Name = "Start";
-            item.Go = Go;
+            item.Go = Cast.ToItem(Go);
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
@@ -253,13 +298,13 @@ namespace CloudberryKingdom
             //item.AdditionalOnSelect = () => SetBerry("cb_enthusiastic");
 
             // Select 'Start Level' when the user presses (A)
-            MyMenu.OnA = MyMenu.OnA = Go;
+            MyMenu.OnA = Cast.ToMenu(Go);
 
             // Random
             //item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
             item = new MenuItem(new EzText("Random", ItemFont));
             item.Name = "Random";
-            item.Go = Randomize;
+            item.Go = Cast.ToItem(Randomize);
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(511.8408f, -302.6506f);
@@ -271,7 +316,7 @@ namespace CloudberryKingdom
             //item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
             item = new MenuItem(new EzText("Reset", ItemFont));
             item.Name = "Reset";
-            item.Go = Zero;
+            item.Go = Cast.ToItem(Zero);
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(599.1416f, -501.0634f);

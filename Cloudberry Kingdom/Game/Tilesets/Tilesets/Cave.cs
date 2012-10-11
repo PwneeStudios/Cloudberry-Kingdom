@@ -14,6 +14,8 @@ namespace CloudberryKingdom
 
 t.Name = "cave";
 
+t.HasCeiling = true;
+
 //t.Pillars.Add(new PieceQuad(50, "pillar_cave_50", -15, 15, 3));
 //t.Pillars.Add(new PieceQuad(100, "pillar_cave_100", -15, 15, 12));
 //t.Pillars.Add(new PieceQuad(150, "pillar_cave_150", -15, 15, 0));

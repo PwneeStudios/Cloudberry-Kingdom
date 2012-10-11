@@ -165,7 +165,7 @@ namespace CloudberryKingdom
             int tex_width = Center.TexWidth;
             int tex_height = Center.TexHeight;
 
-            if (upside_down) Data.UpsideDown = true;
+            if (upside_down) { Data.UpsideDown = true; Data.BottomFlush = true; }
             Data.Center_BL_Shift.X = left;
             Data.Center_TR_Shift.X = right;
             Data.Center_TR_Shift.Y = 

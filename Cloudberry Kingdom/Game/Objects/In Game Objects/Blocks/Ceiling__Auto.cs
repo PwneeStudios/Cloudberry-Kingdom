@@ -138,19 +138,13 @@ namespace CloudberryKingdom.Levels
             {
                 Vector2 size = new Vector2(
                         Params.WidthRange.RndFloat(Pos, Rnd),
-                        //new Vector2(MyLevel.Rnd.RndFloat(
-                        //Params.MinWidth.GetVal(Pos),
-                        //Params.MaxWidth.GetVal(Pos)),
-                        //MyLevel.Rnd.Rnd.Next(100, 900));
                         Params.HeightRange.RndFloat(Pos, Rnd));
 
                 cblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                 cblock.Init(Vector2.Zero, size, MyTileSetInfo);
                 size = cblock.Box.Current.Size;
 
-                //Vector2 offset = new Vector2(Rnd.Rnd.Next(0, 0) + size.X, -size.Y + 85);
                 Vector2 offset = new Vector2(size.X, 0);
-                //Vector2 offset = Vector2.Zero;
 
                 if (this.MyTileSet == TileSets.Castle)
                     size.X += 25;
@@ -164,25 +158,23 @@ namespace CloudberryKingdom.Levels
                 offset = new Vector2(size.X, 0);
 
                 // Initialize the size, make sure to modify it's width, since it's a ceiling block
-                //cblock.Init(Pos + offset, size - NormalBlockDraw.ModCeilingSize, MyTileSetInfo);
                 cblock.Init(Pos + offset, size, MyTileSetInfo);
                 cblock.Core.GenData.RemoveIfUnused = false;
+                cblock.Core.GenData.KeepIfUnused = true;
                 cblock.BlockCore.CeilingDraw = cblock.BlockCore.Ceiling = true;
                 cblock.BlockCore.BlobsOnTop = false;
                 cblock.BlockCore.TopLeftNeighbor = lastblock;
+                cblock.BlockCore.CeilingDraw = true;
                 lastblock = cblock;
 
                 if (Pos.X < BL.X + 900)
                     cblock.Extend(Side.Bottom, Math.Max(cblock.Box.Current.BL.Y, MaxStartY + 250));
-                //cblock.Extend(Side.Left, Math.Max(cblock.Box.Current.BL.X, BL.X));
-                //cblock.Extend(Side.Right, Math.Min(cblock.Box.Current.TR.X, TR.X));
                 if (cblock.Box.Current.Size.X < 40) { Pos.X += 100; continue; }
                 cblock.Extend(Side.Top, TR.Y + 600 + CurMakeData.PieceSeed.ExtraBlockLength + 1000);
                 
                 if (cblock.Box.Current.Size.X > 35)
                     AddBlock(cblock);
 
-                //Pos.X += 2 * size.X;
                 switch (Params.MyStyle)
                 {
                     case Ceiling_Parameters.Style.Normal:
@@ -199,10 +191,6 @@ namespace CloudberryKingdom.Levels
                         break;
                 }
                 Pos.X += 20;
-
-                //Tools.Write("{0}, {1}, {2}", cblock.Box.Current.BL.X, cblock.Box.Current.TR.X, Pos.X);
-
-                //if (cblock.Box.Current.Size.X < 120) Tools.Write("!");
             }
         }
     }

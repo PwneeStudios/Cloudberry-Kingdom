@@ -522,7 +522,6 @@ namespace CloudberryKingdom
         public TileSet StandInType = TileSets.None;
 
         public List<Upgrade> ObstacleUpgrades = new List<Upgrade>();
-        public List<Upgrade> JumpUpgrades, DodgeUpgrades;
 
         public bool FlexibleHeight;
         public bool HasCeiling;
@@ -542,12 +541,6 @@ namespace CloudberryKingdom
         /// If true the player can not collide with the sides or bottoms of the blocks.
         /// </summary>
         public bool PassableSides;
-
-        public void PostProcess()
-        {
-            JumpUpgrades = new List<Upgrade>(ObstacleUpgrades.Intersect(RegularLevel.JumpUpgrades));
-            DodgeUpgrades = new List<Upgrade>(ObstacleUpgrades.Intersect(RegularLevel.DodgeUpgrades));
-        }
     }
 
     /// <summary>
@@ -683,10 +676,6 @@ namespace CloudberryKingdom
 
             // Freeplay tilesets
             CustomLevel_GUI.FreeplayTilesets = new List<TileSet>(new TileSet[] { TileSets.Random, "sea", "hills", "forest", "cloud", "cave", "castle" });
-
-            RegularLevel.InitLists();
-            foreach (var _info in TileList)
-                _info.PostProcess();
         }
 
         public static void LoadSpriteEffects()

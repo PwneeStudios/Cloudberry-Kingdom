@@ -20,20 +20,6 @@ namespace CloudberryKingdom
             data.DefaultHeroType = BobPhsxNormal.Instance;
         }
 
-        public static List<Upgrade> ObstacleUpgrades, JumpUpgrades, DodgeUpgrades;
-        public static void InitLists()
-        {
-            if (JumpUpgrades == null)
-            {
-                JumpUpgrades = new List<Upgrade>(new Upgrade[] { Upgrade.MovingBlock, Upgrade.GhostBlock, Upgrade.FlyBlob, Upgrade.FallingBlock, Upgrade.Elevator, Upgrade.Cloud, Upgrade.BouncyBlock });
-                DodgeUpgrades = new List<Upgrade>(new Upgrade[] { Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike });
-
-                ObstacleUpgrades = new List<Upgrade>();
-                ObstacleUpgrades.AddRange(JumpUpgrades);
-                ObstacleUpgrades.AddRange(DodgeUpgrades);
-            }
-        }
-
         // -------------------------
         // Fixed upgrade lists
         // -------------------------

@@ -15,7 +15,14 @@ namespace CloudberryKingdom
         /// Whether the game introduction has been watched before or not
         /// </summary>
         public static bool HasWatchedIntro = false;
-        public static void WatchedIntro() { HasWatchedIntro = true; PlayerManager.SavePlayerData.Changed = true; }        
+        public static void WatchedIntro() { HasWatchedIntro = true; PlayerManager.SavePlayerData.Changed = true; }
+
+        bool Bungee = false;
+        bool AllHeroes = false;
+        int Difficulty = 4;
+        int Paths = 1;
+        BobPhsx FixedHero = BobPhsxNormal.Instance;
+        TileSet FixedTileSet = null;
 
         float InitialZoom = 0f;
         void ForTrailerParams()
@@ -28,7 +35,6 @@ namespace CloudberryKingdom
             Paths = 1;
             FixedHero = BobPhsxNormal.Instance;
             FixedTileSet = "sea";
-
 
             InitialFadeInSpeed = 1;
             InitialDarkness = 0;
@@ -269,14 +275,6 @@ namespace CloudberryKingdom
             }
         }
 
-        bool Bungee          = false;
-        bool AllHeroes       = false;
-        int Difficulty       = 4;
-        int Paths            = 1;
-        BobPhsx FixedHero    = BobPhsxNormal.Instance;
-        TileSet FixedTileSet = "sea";
-
-
         LevelSeedData Make(int index)
         {
             bool First = index == 0;
@@ -305,7 +303,6 @@ namespace CloudberryKingdom
                 data = RegularLevel.HeroLevel(Difficulty, hero, Length);
             else
                 data = RegularLevel.HeroLevel(index % 5, hero, Length);
-
 
             if (Bungee)
             {
@@ -343,17 +340,6 @@ namespace CloudberryKingdom
 
                 // Only one path
                 piece.Paths = Paths; piece.LockNumOfPaths = true;
-
-                //piece.Style.MyModParams = (level, p) =>
-                //{
-                //    Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-                //    Params.FillType = Coin_Parameters.FillTypes.Regular;
-
-                //    if (ForTrailer)
-                //    {
-                //        Params.FillType = Coin_Parameters.FillTypes.None;
-                //    }
-                //};
             }
 
             return data;

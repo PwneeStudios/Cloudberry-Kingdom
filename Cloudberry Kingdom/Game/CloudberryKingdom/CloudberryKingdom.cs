@@ -983,9 +983,7 @@ namespace CloudberryKingdom
             // Main Video
             SetupToRender();
 
-            //if (MainVideo.Draw()) return;
-            //return;
-            //MainVideo.Draw();
+            if (MainVideo.Draw()) return;
 
             if (LogoScreenUp) LogoPhsx();
             else if (LogoScreenPropUp) LoadingScreen.PhsxStep();
@@ -1053,7 +1051,7 @@ namespace CloudberryKingdom
 
             if (LogoScreenUp || LogoScreenPropUp)
             {
-                LoadingScreen.Draw();
+                //LoadingScreen.Draw();
                 return;
             }
             
