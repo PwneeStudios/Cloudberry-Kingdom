@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             LoadingScreen.PhsxStep();
             if (!DoInnerLogoPhsx)
             {
-                if (LoadingScreen.IsDone || SimpleLoad)
+                if (LoadingScreen.IsDone)
                     LogoScreenUp = false;
 
                 return;
@@ -23,15 +23,10 @@ namespace CloudberryKingdom
 
             if (!LoadingResources.MyBool)
             {
-                Tools.Write("+++++++++++++++++++ Resources all loaded!");
-
-                //if (false)
-                if (LoadingScreen.IsDone || SimpleLoad || !LoadingResources.MyBool)
+                if (LoadingScreen.IsDone || !LoadingResources.MyBool)
                 {
-                    Tools.Write("+++++++++++++++++++ Resources all loaded!");
-
                     DoInnerLogoPhsx = false;
-                    if (LoadingScreen.IsDone || SimpleLoad)
+                    if (LoadingScreen.IsDone)
                         LogoScreenUp = false;
 
                     DrawCount = PhsxCount = 0;
@@ -65,16 +60,10 @@ namespace CloudberryKingdom
                     }
 
 #if DEBUG
-                    if (SimpleLoad)
-                    {
-                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
-                    }
-                    else
-                    {
-                        ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-                    }
+                    // Start at Title Screen
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
 #else
-                    // Full Game
+                    // Start at Screen Saver
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
 #endif
                 }

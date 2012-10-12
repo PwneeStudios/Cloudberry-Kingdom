@@ -15,6 +15,8 @@ namespace CloudberryKingdom
 {
     partial class CloudberryKingdomGame
     {
+        bool ShowFPS = false;
+
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
         /// </summary>
@@ -235,11 +237,13 @@ namespace CloudberryKingdom
             }
 
             // Allow Back to exit the game if we are in test mode
-            if (SimpleLoad && ButtonCheck.State(ControllerButtons.Back, -1).Down)
+#if DEBUG
+            if (ButtonCheck.State(ControllerButtons.Back, -1).Down)
             {
                 Exit();
                 return true;
             }
+#endif
 
             /* XBOX Debug buttons
             if (Tools.padState[0].Buttons.B == ButtonState.Pressed && Tools.PrevpadState[0].Buttons.B != ButtonState.Pressed)

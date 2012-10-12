@@ -269,6 +269,9 @@ namespace CloudberryKingdom
 
         public void SwapToLevel()
         {
+            Tools.CurGameData = NextLevelSeed.MyGame;
+            Tools.CurLevel = NextLevelSeed.MyGame.MyLevel;
+
             // Perform actions if this is the first level being swapped in.
             if (!FirstLevelSwappedIn)
             {
@@ -304,8 +307,8 @@ namespace CloudberryKingdom
             CurLevelSeed = NextLevelSeed;
             CurLevelIndex = NextLevelIndex;
 
-            Tools.CurGameData = CurLevelSeed.MyGame;
-            Tools.CurLevel = CurLevelSeed.MyGame.MyLevel;
+            //Tools.CurGameData = CurLevelSeed.MyGame;
+            //Tools.CurLevel = CurLevelSeed.MyGame.MyLevel;
 
             // Set end of game function
             Tools.CurGameData.EndGame = this.Finish;

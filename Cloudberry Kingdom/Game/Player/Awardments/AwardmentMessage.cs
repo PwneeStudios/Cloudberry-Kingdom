@@ -48,10 +48,10 @@ namespace CloudberryKingdom.Awards
                 MyPile.Add(Title);
             }
 
-            QuadClass cloud = new QuadClass("cloud1", 250, true);
-            cloud.Pos = new Vector2(1293.431f, 86.64027f);
-            cloud.Size = new Vector2(586.4189f, 551.6953f);
-            MyPile.Add(cloud);
+            //QuadClass cloud = new QuadClass("cloud1", 250, true);
+            //cloud.Pos = new Vector2(1293.431f, 86.64027f);
+            //cloud.Size = new Vector2(586.4189f, 551.6953f);
+            //MyPile.Add(cloud);
 
             //if (award.Unlockable == null)
             //{

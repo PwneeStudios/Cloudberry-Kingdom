@@ -70,7 +70,6 @@ namespace CloudberryKingdom
         public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;
 
-        bool ShowFPS = false;
         public static float fps;
 
         public int DrawCount, PhsxCount;
@@ -87,16 +86,11 @@ namespace CloudberryKingdom
 #if DEBUG || INCLUDE_EDITOR
         public static bool AlwaysGiveTutorials = true;
         public static bool UnlockAll = true;
-        public static bool SimpleLoad = true;
         public static bool SimpleAiColors = false;
-        public static bool BuildDebug = false;
 #else
         public static bool AlwaysGiveTutorials = false;
-        public static bool SimpleAiColors = false;
-        public static bool RecordIntro = false;
         public static bool UnlockAll = true;
-        public static bool SimpleLoad = false;
-        public static bool BuildDebug = false;
+        public static bool SimpleAiColors = false;
 #endif
 
         bool LogoScreenUp;
@@ -347,8 +341,10 @@ namespace CloudberryKingdom
             //MyGraphicsDeviceManager.PreferredBackBufferWidth = 640;
             //MyGraphicsDeviceManager.PreferredBackBufferHeight = 480;
             //// 1280x720
-            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+            MyGraphicsDeviceManager.IsFullScreen = false;
+            
 
             MyGraphicsDeviceManager.ApplyChanges();
 
@@ -945,7 +941,144 @@ namespace CloudberryKingdom
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Accelerate asset loading
+            if (LogoScreenUp)
+                LoadThread.Join(1);
 
+            // Prepare to draw
+            Tools.DrawCount++;
+            SetupToRender();
+
+            // Main Video
+            if (MainVideo.Draw()) return;
+
+            // Fps
+            UpdateFps(gameTime);
+
+            // Draw nothing if Xbox guide is up
+#if XBOX || XBOX_SIGNIN
+            if (Guide.IsVisible) return;
+#endif
+
+            // What to do
+            if (LogoScreenUp) LogoPhsx();
+            else if (LogoScreenPropUp) LoadingScreen.PhsxStep();
+
+            if (!LogoScreenUp && !Tools.CurGameData.Loading)
+            {
+                GameUpdate(gameTime);
+            }
+
+            // What to draw
+            if (LogoScreenUp || LogoScreenPropUp)
+                LoadingScreen.Draw();
+            else if (Tools.ShowLoadingScreen)
+                DrawLoading();
+            else if (Tools.CurGameData != null)
+                DrawGame();
+            else
+                DrawNothing();
+
+#if DEBUG
+            if (ShowFPS || Tools.ShowNums)
+                DrawDebugInfo();
+#endif
+
+
+#if DEBUG && INCLUDE_EDITOR
+            if (Tools.background_viewer != null)
+                Tools.background_viewer.Draw();
+#endif
+        }
+
+        private void DrawLoading()
+        {
+            Tools.CurrentLoadingScreen.PreDraw();
+            Tools.CurrentLoadingScreen.Draw(MainCamera);
+        }
+
+        private void DrawNothing()
+        {
+            MyGraphicsDevice.Clear(Color.Black);
+        }
+
+        private void DrawGame()
+        {
+            Tools.CurGameData.Draw();
+            Tools.CurGameData.PostDraw();
+
+            if (Tools.CurLevel != null)
+            {
+                Tools.QDrawer.Flush();
+                Tools.StartGUIDraw();
+
+#if PC_VERSION
+                if (!Tools.ShowLoadingScreen && ShowMouse)
+                    MouseDraw();
+                ShowMouse = false;
+#endif
+
+                if (Tools.SongWad != null)
+                    Tools.SongWad.Draw();
+
+                Tools.EndGUIDraw();
+                Tools.QDrawer.Flush();
+            }
+        }
+
+        private void GameUpdate(GameTime gameTime)
+        {
+            // Do nothing if editors are open.
+#if WINDOWS
+            if (Tools.Dlg != null || Tools.DialogUp) return;
+#endif
+
+            // Update controller/keyboard states
+            ButtonCheck.UpdateControllerAndKeyboard();
+
+            // Update sounds
+            if (!LogoScreenUp)
+                Tools.SoundWad.Update();
+
+            // Update songs
+            if (Tools.SongWad != null)
+                Tools.SongWad.PhsxStep();
+
+            fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.TotalMilliseconds));
+
+            // Determine how many phsx steps to take
+            int Reps = 0;
+            if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
+            else if (Tools.PhsxSpeed == 1) Reps = 1;
+            else if (Tools.PhsxSpeed == 2) Reps = 2;
+            else if (Tools.PhsxSpeed == 3) Reps = 4;
+
+            // Do the phsx
+            for (int i = 0; i < Reps; i++)
+            {
+                PhsxCount++;
+                PhsxStep();
+            }
+        }
+
+        private void UpdateFps(GameTime gameTime)
+        {
+            // Track time, changes in time, and FPS
+            Tools.gameTime = gameTime;
+            DrawCount++;
+
+            // Update fps
+            float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
+            Tools.dt = new_t - Tools.t;
+            Tools.t = new_t;
+        }
+
+        /// <summary>
+        /// Sets up the renderer. Returns true if no additional drawing should be done, because the game does not have focus.
+        /// </summary>
+        /// <returns></returns>
+        private bool SetupToRender()
+        {
             // Set the viewport to the whole screen
             MyGraphicsDevice.Viewport = new Viewport
             {
@@ -960,16 +1093,9 @@ namespace CloudberryKingdom
             // Clear whole screen to black
             MyGraphicsDevice.Clear(Color.Black);
 
-            //lock (LoadThread)
-            {
-                LoadThread.Join(1);
-            }
-
-            //return;
-
 #if WINDOWS
             if (!ActiveInactive())
-                return;
+                return true;
 #endif
 
             // Make the actual view port we draw to, and clear it
@@ -978,135 +1104,7 @@ namespace CloudberryKingdom
 
             MyGraphicsDevice.Viewport = Tools.Render.MainViewport;
 
-            Tools.DrawCount++;
-
-            // Main Video
-            SetupToRender();
-
-            if (MainVideo.Draw()) return;
-
-            if (LogoScreenUp) LogoPhsx();
-            else if (LogoScreenPropUp) LoadingScreen.PhsxStep();
-#if WINDOWS
-            if (Tools.Dlg != null || Tools.DialogUp) return;
-#endif
-
-            bool DrawBool = true;
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
-            DrawBool = !Guide.IsVisible;
-#endif
-
-            bool DoShit = true;
-            bool DrawShit = true;
-
-            if (!LogoScreenUp)
-                if (!Tools.CurGameData.Loading)
-                    if (DrawBool)
-                    {
-                        if (DoShit)
-                        {
-                            // Update controller/keyboard states
-                            ButtonCheck.UpdateControllerAndKeyboard();
-                            
-                            // Update sounds
-                            if (!LogoScreenUp)
-                                Tools.SoundWad.Update();
-
-                            // Update songs
-                            if (Tools.SongWad != null)
-                                Tools.SongWad.PhsxStep();
-                        }
-
-                        // Track time, changes in time, and FPS
-                        Tools.gameTime = gameTime;
-                        DrawCount++;
-
-                        float new_t = (float)gameTime.TotalGameTime.TotalSeconds;
-                        Tools.dt = new_t - Tools.t;
-                        Tools.t = new_t;
-
-                        fps = .3f * fps + .7f * (1000f / (float)Math.Max(.00000231f, gameTime.ElapsedGameTime.TotalMilliseconds));
-
-                        if (DoShit)
-                        {
-                            // Determine how many phsx steps to take
-                            int Reps = 0;
-                            if (Tools.PhsxSpeed == 0 && DrawCount % 2 == 0) Reps = 1;
-                            else if (Tools.PhsxSpeed == 1) Reps = 1;
-                            else if (Tools.PhsxSpeed == 2) Reps = 2;
-                            else if (Tools.PhsxSpeed == 3) Reps = 4;
-
-                            // Do the phsx
-                            for (int i = 0; i < Reps; i++)
-                            {
-                                PhsxCount++;
-                                PhsxStep();
-                            }
-                        }
-                    }
-
-            // Setup the rendering parameters
-            SetupToRender();
-
-            if (LogoScreenUp || LogoScreenPropUp)
-            {
-                //LoadingScreen.Draw();
-                return;
-            }
-            
-            if (DrawShit)
-            if (Tools.ShowLoadingScreen)
-            {
-                Tools.CurrentLoadingScreen.PreDraw();
-                Tools.CurrentLoadingScreen.Draw(MainCamera);
-                return;
-            }
-            else
-            {
-                if (Tools.CurGameData != null)
-                {
-                    Tools.CurGameData.Draw();
-                    Tools.CurGameData.PostDraw();
-                }
-                else
-                    MyGraphicsDevice.Clear(Color.Black);
-            }
-
-#if DEBUG
-            if (BuildDebug || ShowFPS || Tools.ShowNums)
-                DrawDebugInfo();
-#endif
-
-            if (Tools.CurLevel != null)
-            {
-                Tools.QDrawer.Flush();
-                Tools.StartGUIDraw();
-            }
-
-#if PC_VERSION
-            if (!Tools.ShowLoadingScreen && ShowMouse)
-                MouseDraw();
-            ShowMouse = false;
-#endif
-
-            if (Tools.SongWad != null)
-                Tools.SongWad.Draw();
-
-            if (Tools.CurLevel != null)
-            {
-                Tools.EndGUIDraw();
-                Tools.QDrawer.Flush();
-            }
-
-#if DEBUG && INCLUDE_EDITOR
-            if (Tools.background_viewer != null)
-                Tools.background_viewer.Draw();
-#endif
-        }
-
-        private void SetupToRender()
-        {
+            // Default camera
             Vector4 cameraPos = new Vector4(MainCamera.Data.Position.X, MainCamera.Data.Position.Y, MainCamera.Zoom.X, MainCamera.Zoom.Y);//.001f, .001f);
 
             Tools.Render.SetStandardRenderStates();
@@ -1119,6 +1117,8 @@ namespace CloudberryKingdom
             Tools.SetDefaultEffectParams(MainCamera.AspectRatio);
 
             Tools.Render.SetStandardRenderStates();
+
+            return false;
         }
 
         private void ComputeFire()
