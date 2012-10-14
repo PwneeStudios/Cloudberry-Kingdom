@@ -125,6 +125,8 @@ namespace CloudberryKingdom
 
                     if (First)
                     {
+                        Tools.CurGameData.SuppressSongInfo = true;
+
                         Tools.SongWad.FadeOut();
 
                         Tools.CurLevel.Bobs[0].SetColorScheme(ColorSchemeManager.ComputerColorSchemes[0]);

@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 
 using CloudberryKingdom.Levels;
+using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Obstacles
 {
-    public class Boulder : Floater_Core, IBound
+    public class Boulder : _CircleDeath, IBound
     {
         public class BoulderTileInfo : TileInfoBase
         {
@@ -33,8 +34,12 @@ namespace CloudberryKingdom.Obstacles
 
         public override void MakeNew()
         {
+            base.MakeNew();
+
             AutoGenSingleton = Boulder_AutoGen.Instance;
             Core.MyType = ObjectType.Boulder;
+            DeathType = Bob.BobDeathType.Boulder;
+
             Core.ContinuousEnabled = true;
 
             Angle = 0;
@@ -46,15 +51,21 @@ namespace CloudberryKingdom.Obstacles
             AddAngle = 0;
             PivotLocationType = PivotLocationTypes.TopBottom;
 
-            base.MakeNew();
-
             SetLayers();
         }
 
         public override void Init(Vector2 pos, Level level)
         {
-            base.Init();
+            base.Init(pos, level);
 
+            Radius = 120;
+
+            Core.Init();
+            Core.ContinuousEnabled = true;
+
+            Core.GenData.OverlapWidth = 60;
+
+            Circle.Center = Core.Data.Position;
             Core.Data.Position = Core.StartData.Position = PivotPoint = pos;
 
             BoulderTileInfo info = level.Info.Boulders;
@@ -82,10 +93,38 @@ namespace CloudberryKingdom.Obstacles
         {
             base.Construct(BoxesOnly);
 
-            if (!BoxesOnly)
+            if (!Core.BoxesOnly)
             {
                 MyQuad = new QuadClass();
             }
+        }
+
+        public Vector2 TR_Bound()
+        {
+            Vector2 TR = GetPos(0);
+            float step = .2f;
+            float t = step;
+            while (t <= 1)
+            {
+                TR = Vector2.Max(TR, GetPos(t));
+                t += step;
+            }
+
+            return TR;
+        }
+
+        public Vector2 BL_Bound()
+        {
+            Vector2 BL = GetPos(0);
+            float step = .2f;
+            float t = step;
+            while (t <= 1)
+            {
+                BL = Vector2.Min(BL, GetPos(t));
+                t += step;
+            }
+
+            return BL;
         }
 
         public float MinY()
@@ -104,7 +143,7 @@ namespace CloudberryKingdom.Obstacles
         /// <param name="t">The parametric time variable, t = (Step + Offset) / Period</param>
         /// <returns></returns>
         float CorrespondingAngle;
-        public override Vector2 GetPos(float t)
+        Vector2 GetPos(float t)
         {
             CorrespondingAngle = MaxAngle * (float)Math.Cos(2 * Math.PI * t);
             Vector2 Dir = new Vector2((float)Math.Cos(AddAngle + CorrespondingAngle - Math.PI / 2),
@@ -137,7 +176,6 @@ namespace CloudberryKingdom.Obstacles
 
             Radius = Info.Boulders.Radius;
 
-            //int Step = CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
             float Step = CoreMath.Modulo(Core.MyLevel.IndependentPhsxStep + Offset, (float)Period);
             float t = (float)Step / (float)Period;
              
@@ -145,16 +183,13 @@ namespace CloudberryKingdom.Obstacles
             Angle = CorrespondingAngle;
 
             Core.Data.Position = Pos;
-            CoreMath.PointyAxisTo(ref MyObject.Base, PivotPoint - Core.Data.Position);
 
-            base.PhsxStep();
+            ActivePhsxStep();
         }
 
         bool OffScreen = false;
-        public override void Draw()
+        protected override void DrawGraphics()
         {
-            if (Core.SkippedPhsx) return;
-
             if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
             {
                 if (PivotLocationType == PivotLocationTypes.TopBottom)
@@ -199,36 +234,27 @@ namespace CloudberryKingdom.Obstacles
             else
                 if (OffScreen) return;
 
-            if (Tools.DrawGraphics)
+            if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
             {
-                if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+                Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.Boulders.Chain);
+            }
+            else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
+            {
+                if (MyQuad != null && MyQuad.Show)
                 {
-                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.Boulders.Chain);
-                }
-                else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
-                {
-                    if (MyObject == null || (MyQuad != null && MyQuad.Show))
-                    {
-                        MyQuad.PointxAxisTo(Angle);
-                        MyQuad.Pos = Pos;
+                    MyQuad.PointxAxisTo(Angle);
+                    MyQuad.Pos = Pos;
 
-                        MyQuad.Draw();
-                    }
-                    else
-                    {
-                        MyObject.UpdateQuads();
-                        MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
-                    }
+                    MyQuad.Draw();
                 }
             }
+        }
 
-            if (Tools.DrawBoxes)
-            {
-                Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
-                //Circle.Draw(new Color(50, 50, 255, 220));
+        protected override void DrawBoxes()
+        {
+            Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
 
-                Circle.Draw(Color.LightSlateGray);
-            }
+            Circle.Draw(Color.LightSlateGray);
         }
 
         public void CalculateLength()
@@ -238,15 +264,21 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Move(Vector2 shift)
         {
-            Core.StartData.Position += shift;
-            Core.Data.Position += shift;
             PivotPoint += shift;
 
-            //Box.Move(shift);
-            Circle.Move(shift);
+            base.Move(shift);
+        }
 
-            MyObject.Base.Origin += shift;
-            MyObject.Update();
+        public void MoveToBounded(Vector2 shift)
+        {
+            Move(shift);
+        }
+
+        public override void Reset(bool BoxesOnly)
+        {
+            base.Reset(BoxesOnly);
+
+            Core.Data.Velocity = Vector2.Zero;
         }
 
         public override void Clone(ObjectBase A)
@@ -267,7 +299,6 @@ namespace CloudberryKingdom.Obstacles
             PivotLocationType = FloaterA.PivotLocationType;
 
             Core.WakeUpRequirements = true;
-            UpdateObject();
         }
     }
 }

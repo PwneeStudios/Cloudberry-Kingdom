@@ -76,7 +76,8 @@ namespace CoreEngine
 
         public void Draw()
         {
-            if (CloudberryKingdomGame.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen)
+            if (CloudberryKingdomGame.ShowSongInfo && DisplayInfo && DisplayingInfo && SongInfoText != null && !Tools.ShowLoadingScreen &&
+                Tools.CurGameData != null && !Tools.CurGameData.PauseGame && !Tools.CurGameData.SuppressSongInfo)
             {
                 SongInfoText.Draw(DefaultCam);
             }

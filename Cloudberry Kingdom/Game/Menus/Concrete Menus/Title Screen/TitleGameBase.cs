@@ -31,6 +31,7 @@ namespace CloudberryKingdom
             Init();
 
             Tools.CurGameData.SuppressQuickSpawn = true;
+            Tools.CurGameData.SuppressSongInfo = true;
         }
 
         public override void SetToReturnTo(int code)

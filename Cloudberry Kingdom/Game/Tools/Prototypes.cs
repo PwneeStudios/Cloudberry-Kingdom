@@ -345,7 +345,6 @@ namespace CloudberryKingdom
         public static FlyingBlob goomba;
         public static Dictionary<BobPhsx, Bob> bob;
         public static Spike SpikeObj;
-        public static Floater_Core SpikeyGuyObj;
         public static SimpleObject GhostBlockObj, CheckpointObj, Door, GrassDoor, ArrowObj;
 
         public static ObjectClass Hero;
@@ -383,7 +382,6 @@ namespace CloudberryKingdom
 
         public static void LoadObjects()
         {
-            //Prototypes.CheckpointObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\FlyingCoin.smo"));
             Prototypes.CheckpointObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\FlyingCoin_v2.smo"));
             
             Prototypes.ArrowObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\Arrow.smo"));
@@ -397,12 +395,6 @@ namespace CloudberryKingdom
             Prototypes.FlyingBlobObj.MyObject.Base.e2 *= BlobSize.Y;
 
             Prototypes.SpikeObj = new Spike(Path.Combine(Globals.ContentDirectory, "Objects\\regular_spike.smo"), Tools.EffectWad, Tools.TextureWad);
-
-            Prototypes.SpikeyGuyObj = new Floater_Core(Path.Combine(Globals.ContentDirectory, "Objects\\SpikeGuy.smo"));
-            Vector2 SpikeyGuySize = new Vector2(1.55f, 1.55f);
-            Prototypes.SpikeyGuyObj.MyObject.Base.e1 *= SpikeyGuySize.X;
-            Prototypes.SpikeyGuyObj.MyObject.Base.e2 *= SpikeyGuySize.Y;
-
 
             // Create all the stickmen hero prototypes
             bob = new Dictionary<BobPhsx, Bob>();

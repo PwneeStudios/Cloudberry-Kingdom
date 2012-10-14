@@ -335,6 +335,11 @@ namespace CloudberryKingdom
         public int CurPlayer;
 
         /// <summary>
+        /// When true song info will not appear when a new song starts.
+        /// </summary>
+        public bool SuppressSongInfo = false;
+
+        /// <summary>
         /// Main camera of this game.
         /// </summary>
         public Camera Cam

@@ -118,7 +118,6 @@ namespace CloudberryKingdom.Obstacles
             float PhsxCutoff = Length + 1300;
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = Length + 100;
             
-            //if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
             if (!Core.MyLevel.MainCamera.OnScreen(PivotPoint, PhsxCutoff))
             {
                 Core.SkippedPhsx = true;
@@ -197,7 +196,7 @@ namespace CloudberryKingdom.Obstacles
         {
             PivotPoint += shift;
 
-            base.Move(shift);            
+            base.Move(shift);
         }
 
         public override void Clone(ObjectBase A)
