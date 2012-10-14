@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Goombas;
+using CloudberryKingdom;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {
-    public class Goomba_Parameters : AutoGen_Parameters
+    public class FlyingBlob_Parameters : AutoGen_Parameters
     {
         public Param Range, Period, KeepUnused, Size;
         
@@ -49,7 +50,7 @@ namespace CloudberryKingdom.Levels
         public ulong[,] TunnelGUIDs;
         
 
-        public Goomba_Parameters()
+        public FlyingBlob_Parameters()
         {
         }
 
@@ -95,13 +96,13 @@ namespace CloudberryKingdom.Levels
         }
     }
 
-    public sealed class Goomba_AutoGen : AutoGen
+    public sealed class FlyingBlob_AutoGen : AutoGen
     {
-        static readonly Goomba_AutoGen instance = new Goomba_AutoGen();
-        public static Goomba_AutoGen Instance { get { return instance; } }
+        static readonly FlyingBlob_AutoGen instance = new FlyingBlob_AutoGen();
+        public static FlyingBlob_AutoGen Instance { get { return instance; } }
 
-        static Goomba_AutoGen() { }
-        Goomba_AutoGen()
+        static FlyingBlob_AutoGen() { }
+        FlyingBlob_AutoGen()
         {
             Do_WeightedPreFill_1 = true;
             Do_PreFill_1 = true;
@@ -110,7 +111,7 @@ namespace CloudberryKingdom.Levels
 
         public override AutoGen_Parameters SetParameters(PieceSeedData data, Level level)
         {
-            Goomba_Parameters Params = new Goomba_Parameters();
+            FlyingBlob_Parameters Params = new FlyingBlob_Parameters();
             Params.SetParameters(data, level);
 
             return (AutoGen_Parameters)Params;
@@ -124,14 +125,14 @@ namespace CloudberryKingdom.Levels
         {
             for (int j = 0; j < Num; j++)
             {
-                Goomba blob = (Goomba)CreateAt(level, Center);
+                FlyingBlob blob = (FlyingBlob)CreateAt(level, Center);
 
-                blob.SetColor(Goomba.BlobColor.Blue);
+                blob.SetColor(FlyingBlob.BlobColor.Blue);
 
                 blob.Period = 3 * blob.Period / 2;
                 blob.Offset = (int)(j * ((float)blob.Period / Num));
 
-                SetMoveType(blob, Radius, Goomba_Parameters.MotionType.Cirlces, level.Rnd);
+                SetMoveType(blob, Radius, FlyingBlob_Parameters.MotionType.Cirlces, level.Rnd);
 
                 blob.Displacement.X = Dir * Math.Abs(blob.Displacement.X);
 
@@ -162,9 +163,9 @@ namespace CloudberryKingdom.Levels
         }
 
 
-        void SetTunnelBlobParameter(Goomba blob, Goomba_Parameters Params, Rand Rnd)
+        void SetTunnelBlobParameter(FlyingBlob blob, FlyingBlob_Parameters Params, Rand Rnd)
         {
-            blob.SetColor(Goomba.BlobColor.Pink);
+            blob.SetColor(FlyingBlob.BlobColor.Pink);
 
             blob.Core.GenData.RemoveIfUnused = false;
 
@@ -177,7 +178,7 @@ namespace CloudberryKingdom.Levels
         void Tunnel(Level level, Vector2 BL, Vector2 TR)
         {
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
             BL.X = level.FillBL.X;
 
@@ -191,7 +192,7 @@ namespace CloudberryKingdom.Levels
             {
                 for (int j = 0; j < M; j++)
                 {
-                    Goomba blob = (Goomba)CreateAt(level, BL + new Vector2(i, j) * Step);
+                    FlyingBlob blob = (FlyingBlob)CreateAt(level, BL + new Vector2(i, j) * Step);
                     SetTunnelBlobParameter(blob, Params, level.Rnd);
 
                     Params.TunnelGUIDs[i, j] = blob.Core.MyGuid;
@@ -215,7 +216,7 @@ namespace CloudberryKingdom.Levels
         void CleanupTunnel(Level level)
         {
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
             ulong[,] GUIDs = Params.TunnelGUIDs;
             ObjectBase[,] Blobs = new ObjectBase[GUIDs.GetLength(0), GUIDs.GetLength(1)];
@@ -292,7 +293,7 @@ namespace CloudberryKingdom.Levels
             base.ActiveFill_1(level, BL, TR);
 
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
             if (Params.Special.Tunnel)
                 Tunnel(level, BL, TR);
@@ -305,7 +306,7 @@ namespace CloudberryKingdom.Levels
             base.Cleanup_1(level, BL, TR);
 
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
             if (Params.Special.Tunnel)
                 CleanupTunnel(level);
@@ -323,64 +324,64 @@ namespace CloudberryKingdom.Levels
             level.CleanupGoombas(BL, TR);
         }
 
-        public void SetMoveType(Goomba fblob, float Displacement, Goomba_Parameters.MotionType mtype, Rand Rnd)
+        public void SetMoveType(FlyingBlob fblob, float Displacement, FlyingBlob_Parameters.MotionType mtype, Rand Rnd)
         {
             switch (mtype)
             {
-                case Goomba_Parameters.MotionType.Vertical:
-                    fblob.MyMoveType = Goomba.PrescribedMoveType.Line;
+                case FlyingBlob_Parameters.MotionType.Vertical:
+                    fblob.MyMoveType = FlyingBlob.PrescribedMoveType.Line;
                     fblob.Displacement = new Vector2(0, .5f * Displacement);
                     break;
 
-                case Goomba_Parameters.MotionType.Horizontal:
-                    fblob.MyMoveType = Goomba.PrescribedMoveType.Line;
+                case FlyingBlob_Parameters.MotionType.Horizontal:
+                    fblob.MyMoveType = FlyingBlob.PrescribedMoveType.Line;
                     fblob.Displacement = new Vector2(Displacement, 0);
                     break;
                     
-                case Goomba_Parameters.MotionType.Cross:
-                    fblob.MyMoveType = Goomba.PrescribedMoveType.Line;
+                case FlyingBlob_Parameters.MotionType.Cross:
+                    fblob.MyMoveType = FlyingBlob.PrescribedMoveType.Line;
                     if (Rnd.Rnd.NextDouble() > .5)
                         fblob.Displacement = new Vector2(Displacement, .5f * Displacement);
                     else
                         fblob.Displacement = new Vector2(-Displacement, .5f * Displacement);
                     break;
 
-                case Goomba_Parameters.MotionType.Cirlces:
-                    fblob.MyMoveType = Goomba.PrescribedMoveType.Circle;
+                case FlyingBlob_Parameters.MotionType.Cirlces:
+                    fblob.MyMoveType = FlyingBlob.PrescribedMoveType.Circle;
                     fblob.Displacement = new Vector2(Displacement * .7f, Displacement * .5f);
                     fblob.Displacement.X *= Rnd.Rnd.Next(0, 2) * 2 - 1;
                     break;
 
-                case Goomba_Parameters.MotionType.AA:
+                case FlyingBlob_Parameters.MotionType.AA:
                     if (Rnd.Rnd.NextDouble() > .5)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Vertical, Rnd);
+                        SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Vertical, Rnd);
                     else
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Horizontal, Rnd);
+                        SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Horizontal, Rnd);
                     break;
 
-                case Goomba_Parameters.MotionType.Straight:
+                case FlyingBlob_Parameters.MotionType.Straight:
                     if (Rnd.Rnd.NextDouble() > .5)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cross, Rnd);
+                        SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Cross, Rnd);
                     else
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.AA, Rnd);
+                        SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.AA, Rnd);
                     break;
 
-                case Goomba_Parameters.MotionType.Heart:
-                    fblob.MyMoveType = Goomba.PrescribedMoveType.Star;
+                case FlyingBlob_Parameters.MotionType.Heart:
+                    fblob.MyMoveType = FlyingBlob.PrescribedMoveType.Star;
                     fblob.Displacement = new Vector2(Displacement * .7f, Displacement * .7f);
                     fblob.Displacement.X *= Rnd.Rnd.Next(0, 2) * 2 - 1;
                     break;
 
-                case Goomba_Parameters.MotionType.All:
+                case FlyingBlob_Parameters.MotionType.All:
                     double rnd = Rnd.Rnd.NextDouble();
                     if (rnd > .66666)
-                        SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Straight, Rnd);
+                        SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Straight, Rnd);
                     else
                     {
                         if (rnd > .33333)
-                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Cirlces, Rnd);
+                            SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Cirlces, Rnd);
                         else
-                            SetMoveType(fblob, Displacement, Goomba_Parameters.MotionType.Heart, Rnd);
+                            SetMoveType(fblob, Displacement, FlyingBlob_Parameters.MotionType.Heart, Rnd);
                     }
                     break;
             }
@@ -390,14 +391,14 @@ namespace CloudberryKingdom.Levels
         {
             base.CreateAt(level, pos, BL, TR);
 
-            Goomba NewBlob = (Goomba)BasicCreateAt(level, pos);
+            FlyingBlob NewBlob = (FlyingBlob)BasicCreateAt(level, pos);
 
             TR.X += 200;
             Tools.EnsureBounds_X(NewBlob, TR, BL);
 
             // If the blob is too low make sure it's path is horizontal
             if (pos.Y < BL.Y + 500)
-                SetMoveType(NewBlob, CoreMath.SupNorm(NewBlob.Displacement), Goomba_Parameters.MotionType.Horizontal, level.Rnd);
+                SetMoveType(NewBlob, CoreMath.SupNorm(NewBlob.Displacement), FlyingBlob_Parameters.MotionType.Horizontal, level.Rnd);
 
             level.AddObject(NewBlob);
 
@@ -408,7 +409,7 @@ namespace CloudberryKingdom.Levels
         {
             base.CreateAt(level, pos);
 
-            Goomba NewBlob = (Goomba)BasicCreateAt(level, pos);
+            FlyingBlob NewBlob = (FlyingBlob)BasicCreateAt(level, pos);
 
             level.AddObject(NewBlob);
 
@@ -422,10 +423,10 @@ namespace CloudberryKingdom.Levels
             PieceSeedData piece = level.CurMakeData.PieceSeed;
 
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)level.Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
             // Make the new blob
-            Goomba NewBlob = (Goomba)level.Recycle.GetObject(ObjectType.FlyingBlob, true);
+            FlyingBlob NewBlob = (FlyingBlob)level.Recycle.GetObject(ObjectType.FlyingBlob, true);
             NewBlob.Init(pos, level);
 
             NewBlob.Core.Data.Position = NewBlob.Core.StartData.Position = pos;
@@ -458,12 +459,12 @@ namespace CloudberryKingdom.Levels
         public void CleanupGoombas(Vector2 BL, Vector2 TR)
         {
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)Style.FindParams(FlyingBlob_AutoGen.Instance);
         }
         public void AutoGoombas()
         {
             // Get Goomba parameters
-            Goomba_Parameters Params = (Goomba_Parameters)Style.FindParams(Goomba_AutoGen.Instance);
+            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)Style.FindParams(FlyingBlob_AutoGen.Instance);
         }
     }
 }

@@ -6,8 +6,8 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 
 using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Goombas;
-using CloudberryKingdom.Spikes;
+using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {
@@ -341,8 +341,8 @@ namespace CloudberryKingdom
             return obj;
         }
 
-        public static Goomba FlyingBlobObj;
-        public static Goomba goomba;
+        public static FlyingBlob FlyingBlobObj;
+        public static FlyingBlob goomba;
         public static Dictionary<BobPhsx, Bob> bob;
         public static Spike SpikeObj;
         public static Floater_Core SpikeyGuyObj;
@@ -390,7 +390,7 @@ namespace CloudberryKingdom
 
             Prototypes.GhostBlockObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\GhostBlock.smo"));
 
-            Prototypes.FlyingBlobObj = new Goomba(Path.Combine(Globals.ContentDirectory, "Objects\\Blob.smo"), Tools.EffectWad, Tools.TextureWad);
+            Prototypes.FlyingBlobObj = new FlyingBlob(Path.Combine(Globals.ContentDirectory, "Objects\\Blob.smo"), Tools.EffectWad, Tools.TextureWad);
             Prototypes.FlyingBlobObj.Core.MyType = ObjectType.FlyingBlob;
             Vector2 BlobSize = new Vector2(1.11f, 1.11f);
             Prototypes.FlyingBlobObj.MyObject.Base.e1 *= BlobSize.X;

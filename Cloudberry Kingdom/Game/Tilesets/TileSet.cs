@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 using CoreEngine;
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Obstacles;
+using CloudberryKingdom.InGameObjects;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -35,7 +38,7 @@ namespace CloudberryKingdom
                 case Upgrade.Firesnake: return info.Firesnakes;
                 case Upgrade.FireSpinner: return info.Spinners;
                 case Upgrade.FlyBlob: return info.Blobs;
-                case Upgrade.FlyingBlock: return null;
+                case Upgrade.__Unused__1: return null;
                 case Upgrade.General: return null;
                 case Upgrade.GhostBlock: return info.GhostBlocks;
                 case Upgrade.Jump: return null;
@@ -43,11 +46,11 @@ namespace CloudberryKingdom
                 case Upgrade.LavaDrip: return info.LavaDrips;
                 case Upgrade.MovingBlock: return info.MovingBlocks;
                 case Upgrade.Pendulum: return info.Pendulums;
-                case Upgrade.Pinky: return info.Orbs;
+                case Upgrade.Pinky: return info.SpikeyGuys;
                 case Upgrade.Serpent: return info.Serpents;
                 case Upgrade.Speed: return null;
                 case Upgrade.Spike: return info.Spikes;
-                case Upgrade.SpikeyGuy: return info.SpikeyGuys;
+                case Upgrade.SpikeyGuy: return info.Boulders;
                 case Upgrade.SpikeyLine: return info.SpikeyLines;
 
                 default: return null;
@@ -74,28 +77,28 @@ namespace CloudberryKingdom
             public Wall.WallTileInfo Walls = new Wall.WallTileInfo();
 
             public Pendulum.PendulumTileInfo Pendulums = new Pendulum.PendulumTileInfo();
-            public LavaDrips.LavaDrip.LavaDripTileInfo LavaDrips = new LavaDrips.LavaDrip.LavaDripTileInfo();
-            public Serpents.Serpent.SerpentTileInfo Serpents = new Serpents.Serpent.SerpentTileInfo();
+            public LavaDrip.LavaDripTileInfo LavaDrips = new LavaDrip.LavaDripTileInfo();
+            public Serpent.SerpentTileInfo Serpents = new Serpent.SerpentTileInfo();
             public Firesnake.FiresnakeTileInfo Firesnakes = new Firesnake.FiresnakeTileInfo();
 
-            public Clouds.Cloud.CloudTileInfo Clouds = new Clouds.Cloud.CloudTileInfo();
+            public Cloud.CloudTileInfo Clouds = new Obstacles.Cloud.CloudTileInfo();
             public MovingPlatform.ElevatorTileInfo Elevators = new MovingPlatform.ElevatorTileInfo();
             public MovingBlock.MovingBlockTileInfo MovingBlocks = new MovingBlock.MovingBlockTileInfo();
             public BouncyBlock.BouncyBlockTileInfo BouncyBlocks = new BouncyBlock.BouncyBlockTileInfo();
             public FallingBlock.FallingBlockTileInfo FallingBlocks = new FallingBlock.FallingBlockTileInfo();
             public GhostBlock.GhostBlockTileInfo GhostBlocks = new GhostBlock.GhostBlockTileInfo();
-            public Goombas.Goomba.GoombaTileInfo Blobs = new Goombas.Goomba.GoombaTileInfo();
+            public FlyingBlob.FlyingBlobTileInfo Blobs = new FlyingBlob.FlyingBlobTileInfo();
 
             public Laser.LaserTileInfo Lasers = new Laser.LaserTileInfo();
             public SpikeyLine.SpikeyLineTileInfo SpikeyLines = new SpikeyLine.SpikeyLineTileInfo();
-            public Floater_Spin.SpinTileInfo Orbs = new Floater_Spin.SpinTileInfo();
-            public Floater.SpikeyGuyTileInfo SpikeyGuys = new Floater.SpikeyGuyTileInfo();
-            public Spikes.Spike.SpikeTileInfo Spikes = new Spikes.Spike.SpikeTileInfo();
-            public FireSpinners.FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinners.FireSpinner.FireSpinnerTileInfo();
+            public SpikeyGuy.SpikeyGuyTileInfo SpikeyGuys = new SpikeyGuy.SpikeyGuyTileInfo();
+            public Boulder.BoulderTileInfo Boulders = new Boulder.BoulderTileInfo();
+            public Spike.SpikeTileInfo Spikes = new Obstacles.Spike.SpikeTileInfo();
+            public FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinner.FireSpinnerTileInfo();
             public Fireball.FireballTileInfo Fireballs = new Fireball.FireballTileInfo();
 
             public Checkpoint.CheckpointTileInfo Checkpoints = new Checkpoint.CheckpointTileInfo();
-            public Coins.Coin.CoinTileInfo Coins = new Coins.Coin.CoinTileInfo();
+            public Coin.CoinTileInfo Coins = new Coin.CoinTileInfo();
             public Door.DoorTileInfo Doors = new Door.DoorTileInfo();
         }
         public TileSetInfo MyTileSetInfo;

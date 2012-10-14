@@ -3,6 +3,8 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
+using CloudberryKingdom.InGameObjects;
+
 namespace CloudberryKingdom
 {
     public class GUI_BlobQuota : GUI_Blobs

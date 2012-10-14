@@ -187,12 +187,11 @@ namespace CloudberryKingdom.Blocks
         {
             if (!Core.Held)
             {
-                //float Step = CoreMath.Modulo(MyLevel.BlockTime + Offset, (float)Period);
                 float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
                 Pos = CalcPosition((float)Step / Period);
             }
 
-            Vector2 PhsxCutoff = new Vector2(900);
+            Vector2 PhsxCutoff = new Vector2(900 + Length);
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
             {
@@ -261,7 +260,7 @@ namespace CloudberryKingdom.Blocks
                     //Tools.QDrawer.DrawLine(Core.Data.Position + add, PivotPoint + add, Info.SpikeyGuys.Chain);
                     //Tools.QDrawer.DrawLine(Core.Data.Position - add, PivotPoint - add, Info.SpikeyGuys.Chain);
 
-                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.SpikeyGuys.Chain);
+                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.Boulders.Chain);
 
                     MyDraw.Update();
                     MyDraw.Draw();

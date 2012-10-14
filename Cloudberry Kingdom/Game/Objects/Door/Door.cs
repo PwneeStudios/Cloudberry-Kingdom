@@ -8,7 +8,7 @@ using CoreEngine;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.InGameObjects
 {
     public delegate void DoorAction(Door door);
     public class Door : ObjectBase, ILevelConnector

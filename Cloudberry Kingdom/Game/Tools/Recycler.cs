@@ -4,21 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using CloudberryKingdom.Clouds;
-using CloudberryKingdom.Goombas;
-using CloudberryKingdom.Spikes;
-using CloudberryKingdom.FireSpinners;
-using CloudberryKingdom.Coins;
+using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
     public enum ObjectType { 
                                 Undefined,
                                 Coin, Checkpoint, BerryBubble,
-                                FlyingBlob, BlockEmitter, Spike, FireballEmitter, Fireball, FireSpinner, Floater, Laser,
+                                FlyingBlob, BlockEmitter, Spike, FireballEmitter, Fireball, FireSpinner, Boulder, Laser,
                                 NormalBlock, FallingBlock, LavaBlock, MovingPlatform, MovingBlock, GhostBlock,
-                                Cloud, BouncyBlock, Floater_Spin, SpikeyLine,
+                                Cloud, BouncyBlock, SpikeyGuy, SpikeyLine,
                                 Pendulum, Serpent, LavaDrip, Firesnake, ConveyorBlock,
                                 Door, Wall,
                                 ZoneTrigger, CameraZone
@@ -117,7 +114,7 @@ namespace CloudberryKingdom
             switch (MyType)
             {
                 case ObjectType.FlyingBlob:
-                    return new Goomba(BoxesOnly);
+                    return new FlyingBlob(BoxesOnly);
                 case ObjectType.BlockEmitter:
                     return new BlockEmitter(BoxesOnly);
                 case ObjectType.Coin:
@@ -143,10 +140,10 @@ namespace CloudberryKingdom
                 case ObjectType.LavaBlock:
                     //return new LavaBlock(BoxesOnly);
                     return new LavaBlock_Castle(BoxesOnly);
-                case ObjectType.Floater:
-                    return new Floater(BoxesOnly);
-                case ObjectType.Floater_Spin:
-                    return new Floater_Spin(BoxesOnly);
+                case ObjectType.Boulder:
+                    return new Boulder(BoxesOnly);
+                case ObjectType.SpikeyGuy:
+                    return new SpikeyGuy(BoxesOnly);
                 case ObjectType.CameraZone:
                     return new CameraZone();
                 case ObjectType.Door:
@@ -171,9 +168,9 @@ namespace CloudberryKingdom
                 case ObjectType.Pendulum:
                     return new Pendulum(BoxesOnly);
                 case ObjectType.Serpent:
-                    return new Serpents.Serpent(BoxesOnly);
+                    return new Obstacles.Serpent(BoxesOnly);
                 case ObjectType.LavaDrip:
-                    return new LavaDrips.LavaDrip(BoxesOnly);
+                    return new Obstacles.LavaDrip(BoxesOnly);
 
                 default:
                     return null;

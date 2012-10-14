@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Goombas;
-using CloudberryKingdom.Coins;
+using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom.Bobs
 {
@@ -75,8 +75,6 @@ namespace CloudberryKingdom.Bobs
             OnLand = null;
             OnApexReached = null;
             OnAnimFinish = null;
-
-            AddedCoins = null;
 
             MyPiece = null;
             if (MyRecord != null) MyRecord.Release(); MyRecord = null;
@@ -349,8 +347,6 @@ namespace CloudberryKingdom.Bobs
 
         public BlockBase LastCeiling = null;
         Vector2 LastCoinPos;
-
-        List<Coin> AddedCoins;
 
         public int MinFall, MinDrop;
 
@@ -694,7 +690,7 @@ namespace CloudberryKingdom.Bobs
         int DeathCount = 0;
 
         public ObjectBase KillingObject = null;
-        public enum BobDeathType                { None,   Fireball,   Firesnake,    FireSpinner,    Floater,      Pinky,   Spike,   Fall,      Lava,   Blob,   Laser,   LavaFlow,    FallingSpike,
+        public enum BobDeathType                { None,   Fireball,   Firesnake,    FireSpinner,    Boulder,      SpikeyGuy,   Spike,   Fall,      Lava,   Blob,   Laser,   LavaFlow,    FallingSpike,
             unnamed1, unnamed2, unnamed3, unnamed4, unnamed5, unnamed6, unnamed7, unnamed8, unnamed9, unnamed10, unnamed11, unnamed12, unnamed13, unnamed14, unnamed15, unnamed16, unnamed17, unnamed18, unnamed19, unnamed20, unnamed21, unnamed22, unnamed23, unnamed24, unnamed25, unnamed26, unnamed27, unnamed28, unnamed29, unnamed30, 
             Time,         LeftBehind,    Other,   Total };
 
@@ -704,8 +700,8 @@ namespace CloudberryKingdom.Bobs
             { BobDeathType.Fireball, "fireball" },
             { BobDeathType.Firesnake, "fire snake" },
             { BobDeathType.FireSpinner, "fire spinner" },
-            { BobDeathType.Floater, "spikey guy" },
-            { BobDeathType.Pinky, "pinky" },
+            { BobDeathType.Boulder, "boulder" },
+            { BobDeathType.SpikeyGuy, "spikey guy" },
             { BobDeathType.Spike, "spike" },
             { BobDeathType.Fall, "falling" },
             { BobDeathType.Lava, "lava" },

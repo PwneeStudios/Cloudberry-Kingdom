@@ -6,11 +6,11 @@ using CoreEngine;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
-    public class Floater_Spin : _CircleDeath
+    public class SpikeyGuy : _CircleDeath
     {
-        public class SpinTileInfo : TileInfoBase
+        public class SpikeyGuyTileInfo : TileInfoBase
         {
             public SpriteInfo Ball = new SpriteInfo("EmitterTexture", new Vector2(320), Vector2.Zero, Color.White);
             public SpriteInfo Base = new SpriteInfo("Joint", new Vector2(50, -1), Vector2.Zero, Color.White);
@@ -49,9 +49,9 @@ namespace CloudberryKingdom
         {
             base.MakeNew();
 
-            AutoGenSingleton = Floater_Spin_AutoGen.Instance;
-            Core.MyType = ObjectType.Floater_Spin;
-            DeathType = Bobs.Bob.BobDeathType.Pinky;
+            AutoGenSingleton = SpikeyGuy_AutoGen.Instance;
+            Core.MyType = ObjectType.SpikeyGuy;
+            DeathType = Bobs.Bob.BobDeathType.SpikeyGuy;
 
             Core.ContinuousEnabled = true;
             
@@ -74,12 +74,12 @@ namespace CloudberryKingdom
 
             if (!Core.BoxesOnly)
             {
-                Head.Set(level.Info.Orbs.Ball);
-                Anchor.Set(level.Info.Orbs.Base);
+                Head.Set(level.Info.SpikeyGuys.Ball);
+                Anchor.Set(level.Info.SpikeyGuys.Base);
             }
         }
 
-        public Floater_Spin(bool BoxesOnly)
+        public SpikeyGuy(bool BoxesOnly)
         {
             base.Construct(BoxesOnly);
 
@@ -115,9 +115,11 @@ namespace CloudberryKingdom
             if (Core.ParentBlock != null)
                 PivotPoint = Core.GetPosFromParentOffset();
 
-            float PhsxCutoff = Length + 1000;
+            float PhsxCutoff = Length + 1300;
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = Length + 100;
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
+            
+            //if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
+            if (!Core.MyLevel.MainCamera.OnScreen(PivotPoint, PhsxCutoff))
             {
                 Core.SkippedPhsx = true;
                 Core.WakeUpRequirements = true;
@@ -131,7 +133,7 @@ namespace CloudberryKingdom
             Pos = GetPos(t);
             Angle = CorrespondingAngle;
 
-            Radius = Info.Orbs.Radius;
+            Radius = Info.SpikeyGuys.Radius;
 
             ActivePhsxStep();
         }
@@ -142,7 +144,7 @@ namespace CloudberryKingdom
         {
             if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
             {
-                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Info.Orbs.Radius + 600))
+                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Info.SpikeyGuys.Radius + 600))
                     OffScreen = false;
                 else
                 {
@@ -160,14 +162,14 @@ namespace CloudberryKingdom
             }
             else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
             {
-                Tools.QDrawer.DrawLine(PivotPoint, Pos, Info.Orbs.Chain);
+                Tools.QDrawer.DrawLine(PivotPoint, Pos, Info.SpikeyGuys.Chain);
             }
             else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
             {
-                if (Info.Orbs.Rotate)
-                    Head.PointxAxisTo(CorrespondingAngle + Info.Orbs.RotateOffset + Info.Orbs.RotateSpeed * MyLevel.IndependentPhsxStep);
+                if (Info.SpikeyGuys.Rotate)
+                    Head.PointxAxisTo(CorrespondingAngle + Info.SpikeyGuys.RotateOffset + Info.SpikeyGuys.RotateSpeed * MyLevel.IndependentPhsxStep);
                 else
-                    Head.PointxAxisTo(Info.Orbs.RotateOffset);
+                    Head.PointxAxisTo(Info.SpikeyGuys.RotateOffset);
 
                 Head.Pos = Pos;
                 Head.Draw();
@@ -202,7 +204,7 @@ namespace CloudberryKingdom
         {
             Core.Clone(A.Core);
 
-            Floater_Spin FloaterA = A as Floater_Spin;
+            SpikeyGuy FloaterA = A as SpikeyGuy;
             Init(FloaterA.Pos, FloaterA.MyLevel);
 
             Angle = FloaterA.Angle;

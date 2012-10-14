@@ -25,6 +25,7 @@ namespace CloudberryKingdom
             chunk.WriteSingle(6, Levels);
             chunk.WriteSingle(7, Checkpoints);
             chunk.WriteSingle(8, Jumps);
+            chunk.WriteSingle(10, TimeAlive);
 
             for (int i = 0; i < DeathsBy.Length; i++)
                 WriteDeathChunk_9(chunk, i);
@@ -47,6 +48,7 @@ namespace CloudberryKingdom
                     case 6: chunk.ReadSingle(ref Levels); break;
                     case 7: chunk.ReadSingle(ref Checkpoints); break;
                     case 8: chunk.ReadSingle(ref Jumps); break;
+                    case 10: chunk.ReadSingle(ref TimeAlive); break;
 
                     case 9: ReadDeathChunk_9(chunk); break;
                 }
@@ -120,7 +122,7 @@ namespace CloudberryKingdom
         {
             get
             {
-                TimeSpan time = new TimeSpan(0, 0, LifeExpectancy_Frames / 61);
+                TimeSpan time = new TimeSpan(0, 0, LifeExpectancy_Frames / 60);
                 if (time.Hours == 0)
                     return string.Format("{0}:{1:00}", time.Minutes, time.Seconds);
                 else

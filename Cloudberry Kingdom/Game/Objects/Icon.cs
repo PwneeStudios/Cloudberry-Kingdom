@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 
 using CoreEngine;
 
+using CloudberryKingdom.Levels;
+
 namespace CloudberryKingdom
 {
     public class ObjectIcon : ViewReadWrite
@@ -41,8 +43,8 @@ namespace CloudberryKingdom
                 case Upgrade.Elevator: return "Elevators";
                 case Upgrade.FallingBlock: return "Falling blocks";
                 case Upgrade.FireSpinner: return "Fire spinners";
-                case Upgrade.SpikeyGuy: return "Spikey guys";
-                case Upgrade.Pinky: return "Pinkies";
+                case Upgrade.SpikeyGuy: return "Boulders";
+                case Upgrade.Pinky: return "Spikey guys";
                 case Upgrade.FlyBlob: return "Flying blobs";
                 case Upgrade.GhostBlock: return "Ghost blocks";
                 case Upgrade.Laser: return "Lasers";
@@ -51,6 +53,9 @@ namespace CloudberryKingdom
                 case Upgrade.Fireball: return "Fireballs";
                 case Upgrade.Firesnake: return "Firesnake";
                 case Upgrade.SpikeyLine: return "Spikey line";
+                case Upgrade.Serpent: return "Serpent";
+                case Upgrade.LavaDrip: return "Sludge";
+                case Upgrade.Pendulum: return "Pendulum";
                 default: return "";
             }
         }

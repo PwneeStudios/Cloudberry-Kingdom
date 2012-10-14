@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
-using CloudberryKingdom.Spikes;
+using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 

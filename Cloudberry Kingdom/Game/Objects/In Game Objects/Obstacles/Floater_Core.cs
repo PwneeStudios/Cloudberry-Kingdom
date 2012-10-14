@@ -1,10 +1,12 @@
 using System.Text;
+using System.IO;
+
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
 
-using System.IO;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -34,7 +36,6 @@ namespace CloudberryKingdom
         {
             if (ChainTexture == null)
             {
-                //ChainTexture = Tools.TextureWad.FindByName("Chain_regular_big");
                 ChainTexture = Tools.TextureWad.FindByName("Chain_Tile");
             }
 
@@ -219,7 +220,7 @@ namespace CloudberryKingdom
             Core.Data.Velocity = Vector2.Zero;
         }
 
-        protected Bob.BobDeathType DeathType = Bob.BobDeathType.Floater;
+        protected Bob.BobDeathType DeathType = Bob.BobDeathType.Boulder;
 
         public AutoGen AutoGenSingleton;
         public override void Interact(Bob bob)

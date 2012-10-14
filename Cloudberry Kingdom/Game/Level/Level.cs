@@ -1,15 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
+
 using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Coins;
+using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Particles;
+using CloudberryKingdom.InGameObjects;
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Goombas;
+
 using CoreEngine;
 
 namespace CloudberryKingdom.Levels
@@ -2341,7 +2344,7 @@ namespace CloudberryKingdom.Levels
                     TotalCoinScore += coin.MyScoreValue;
                 }
 
-                Goomba blob = obj as Goomba;
+                FlyingBlob blob = obj as FlyingBlob;
                 if (null != blob)
                 {
                     NumBlobs++;

@@ -5,11 +5,11 @@ using CoreEngine;
 
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
-    public class Floater : Floater_Core, IBound
+    public class Boulder : Floater_Core, IBound
     {
-        public class SpikeyGuyTileInfo : TileInfoBase
+        public class BoulderTileInfo : TileInfoBase
         {
             public SpriteInfo Ball = new SpriteInfo(null, Vector2.One);
 
@@ -33,8 +33,8 @@ namespace CloudberryKingdom
 
         public override void MakeNew()
         {
-            AutoGenSingleton = Floater_AutoGen.Instance;
-            Core.MyType = ObjectType.Floater;
+            AutoGenSingleton = Boulder_AutoGen.Instance;
+            Core.MyType = ObjectType.Boulder;
             Core.ContinuousEnabled = true;
 
             Angle = 0;
@@ -57,7 +57,7 @@ namespace CloudberryKingdom
 
             Core.Data.Position = Core.StartData.Position = PivotPoint = pos;
 
-            SpikeyGuyTileInfo info = level.Info.SpikeyGuys;
+            BoulderTileInfo info = level.Info.Boulders;
 
             if (!level.BoxesOnly)
             {
@@ -78,7 +78,7 @@ namespace CloudberryKingdom
             Core.DrawLayer2 = 8;
         }
 
-        public Floater(bool BoxesOnly)
+        public Boulder(bool BoxesOnly)
         {
             base.Construct(BoxesOnly);
 
@@ -135,7 +135,7 @@ namespace CloudberryKingdom
             }
             Core.SkippedPhsx = false;
 
-            Radius = Info.SpikeyGuys.Radius;
+            Radius = Info.Boulders.Radius;
 
             //int Step = CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
             float Step = CoreMath.Modulo(Core.MyLevel.IndependentPhsxStep + Offset, (float)Period);
@@ -203,7 +203,7 @@ namespace CloudberryKingdom
             {
                 if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
                 {
-                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.SpikeyGuys.Chain);
+                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.Boulders.Chain);
                 }
                 else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
                 {
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
         {
             Core.Clone(A.Core);
 
-            Floater FloaterA = A as Floater;
+            Boulder FloaterA = A as Boulder;
             Init(FloaterA.Pos, FloaterA.MyLevel);
 
             Angle = FloaterA.Angle;

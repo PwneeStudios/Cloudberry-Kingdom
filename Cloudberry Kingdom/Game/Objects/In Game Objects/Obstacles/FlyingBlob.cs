@@ -10,11 +10,11 @@ using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Goombas
+namespace CloudberryKingdom.Obstacles
 {
-    public class Goomba : _Obstacle, IBound
+    public class FlyingBlob : _Obstacle, IBound
     {
-        public class GoombaTileInfo : TileInfoBase
+        public class FlyingBlobTileInfo : TileInfoBase
         {
             public SpriteInfo Body = new SpriteInfo(null, Vector2.One, Vector2.Zero, Color.White);
 
@@ -59,7 +59,7 @@ namespace CloudberryKingdom.Goombas
         /// <summary>
         /// Source from which to copy object vertex info
         /// </summary>
-        public Goomba CopySource;
+        public FlyingBlob CopySource;
 
         /// <summary>
         /// Whether to delete the blob permanently when it dies
@@ -197,7 +197,7 @@ namespace CloudberryKingdom.Goombas
             Box2.SwapToCurrent();
         }
 
-        public Goomba(bool BoxesOnly) { Construct(BoxesOnly); }
+        public FlyingBlob(bool BoxesOnly) { Construct(BoxesOnly); }
 
         public override void Construct(bool BoxesOnly)
         {
@@ -225,7 +225,7 @@ namespace CloudberryKingdom.Goombas
             MyObject.Update();
         }
 
-        public Goomba(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
+        public FlyingBlob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
         {
             CoreData = new ObjectData();
             Core.Active = true;
@@ -734,7 +734,7 @@ namespace CloudberryKingdom.Goombas
         {
             Core.Clone(A.Core);
 
-            Goomba GoombaA = A as Goomba;
+            FlyingBlob GoombaA = A as FlyingBlob;
             Init(A.Core.StartData.Position, A.MyLevel);
 
             MyMoveType = GoombaA.MyMoveType;
@@ -769,7 +769,7 @@ namespace CloudberryKingdom.Goombas
             MaxVel = 31;
             MaxAcc = 4.9f;
 
-            MyPhsxType = Goomba.PhsxType.ToTarget;
+            MyPhsxType = FlyingBlob.PhsxType.ToTarget;
             Core.DrawLayer = 9;
         }
     }

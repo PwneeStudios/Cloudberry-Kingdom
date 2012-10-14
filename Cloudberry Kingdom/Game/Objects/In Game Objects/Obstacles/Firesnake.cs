@@ -7,7 +7,7 @@ using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
     public partial class Firesnake : _CircleDeath
     {

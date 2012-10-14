@@ -7,9 +7,11 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {

@@ -479,8 +479,8 @@
     <Compile Include="Game\Objects\Game Objects\GameObject.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_LivesLeft.cs" />
     <Compile Include="Game\Objects\Game Objects\Template_GameObject.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Floater_Spin.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Floater_Spin__Auto.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\SpikeyGuy.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\SpikeyGuy__Auto.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeSingle\MakeFinalDoor.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeThing.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeData.cs" />
@@ -555,8 +555,8 @@
     <Compile Include="Game\Objects\IBounded.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\BlockEmitter__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Cloud__Auto.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Goomba__Auto.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Floater__Auto.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\FlyingBlob__Auto.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\Boulder__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Spike__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireSpinner__Auto.cs" />
@@ -624,10 +624,10 @@
     <Compile Include="Game\Objects\In Game Objects\Blocks\FallingBlock.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireballEmitter.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireSpinner.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Floater.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\Boulder.cs" />
     <Compile Include="Game\Games\GameType.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\GhostBlock.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Goomba.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\FlyingBlob.cs" />
     <Compile Include="Game\Collision Detection\Phsx.cs" />
     <Compile Include="Game\Collision Detection\AABox.cs" />
     <Compile Include="Game\Collision Detection\Line.cs" />

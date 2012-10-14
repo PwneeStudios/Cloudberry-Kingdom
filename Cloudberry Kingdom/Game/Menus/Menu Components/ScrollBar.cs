@@ -30,7 +30,7 @@ namespace CloudberryKingdom
         {
             this.AttachedMenu = AttachedMenu;
             this.Parent = Parent;
-            this.Parent.OnRelease += () => Release();
+            this.Parent.OnRelease += Release;
 
             Constructor();
         }
@@ -60,22 +60,33 @@ namespace CloudberryKingdom
             slider.BL_HitPadding.X += 50;
             slider.TR_HitPadding.X += 50;
 #endif
-            slider.Slider.TextureName = "BouncyBlock_Castle";// "BouncyBlock1";
+            slider.Slider.TextureName = "BouncyBlock_Castle";
             slider.Slider.ScaleYToMatchRatio(90);
             slider.SliderBack.TextureName = "Chain_Tile";
             slider.TabOffset = new Vector2(0, 28);
             slider.MyFloat = new WrappedFloat(0, 0, 9);
 
-            float height = AttachedMenu.Height();
-            slider.MyFloat.GetCallback = () => height - AttachedMenu.FancyPos.RelVal.Y;
-            slider.MyFloat.SetCallback = () =>
-                AttachedMenu.FancyPos.RelVal = new Vector2(AttachedMenu.FancyPos.RelVal.X, height - slider.MyFloat.MyFloat);
-            slider.MyFloat.MaxVal = height;
+            Height = AttachedMenu.Height();
+            slider.MyFloat.GetCallback = SliderGet;
+            slider.MyFloat.SetCallback = SliderSet;
+            slider.MyFloat.MaxVal = Height;
             slider.MyFloat.MinVal = 0;
 
             MyMenu.Add(slider);
 
             slider.Pos = slider.PosOffset = slider.SelectedPos = Vector2.Zero;
+        }
+
+        float Height;
+
+        float SliderGet()
+        {
+            return Height - AttachedMenu.FancyPos.RelVal.Y;
+        }
+
+        void SliderSet()
+        {
+            AttachedMenu.FancyPos.RelVal = new Vector2(AttachedMenu.FancyPos.RelVal.X, Height - slider.MyFloat.MyFloat);
         }
 
         protected override void MyPhsxStep()

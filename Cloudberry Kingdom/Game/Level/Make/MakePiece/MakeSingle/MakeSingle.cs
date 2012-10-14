@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Coins;
+using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Blocks;
-
-using System.Threading;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom.Levels
 {

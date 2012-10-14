@@ -3,16 +3,16 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+#if XBOX || XBOX_SIGNIN
+using Microsoft.Xna.Framework.GamerServices;
+#endif
 
 using CoreEngine;
 
@@ -20,13 +20,11 @@ using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Awards;
+using CloudberryKingdom.InGameObjects;
+using CloudberryKingdom.Obstacles;
 
-#if XBOX
-#else
+#if WINDOWS && DEBUG
 using CloudberryKingdom.Viewer;
-#endif
-
-#if WINDOWS
 using Forms = System.Windows.Forms;
 #endif
 
@@ -934,6 +932,13 @@ namespace CloudberryKingdom
         public bool FirstActiveFrame = true;
 
         public double DeltaT = 0;
+
+        /// <summary>
+        /// The main draw loop.
+        /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
+        /// Also updates the game logic. TODO: Seperate this from the draw function?
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
 #if DEBUG_OBJDATA
@@ -991,17 +996,26 @@ namespace CloudberryKingdom
 #endif
         }
 
+        /// <summary>
+        /// Draws the load screen, assuming the game should not be drawn this frame.
+        /// </summary>
         private void DrawLoading()
         {
             Tools.CurrentLoadingScreen.PreDraw();
             Tools.CurrentLoadingScreen.Draw(MainCamera);
         }
 
+        /// <summary>
+        /// Draws nothing (black). Called when the game shouldn't be shown, nor anything else, such as load screens.
+        /// </summary>
         private void DrawNothing()
         {
             MyGraphicsDevice.Clear(Color.Black);
         }
 
+        /// <summary>
+        /// Draws the actual the game, not any loading screens or other non-game graphics.
+        /// </summary>
         private void DrawGame()
         {
             Tools.CurGameData.Draw();
@@ -1026,6 +1040,10 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// The update function called for the actual game, not for loading screens or other non-game functions.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void GameUpdate(GameTime gameTime)
         {
             // Do nothing if editors are open.
@@ -1121,6 +1139,9 @@ namespace CloudberryKingdom
             return false;
         }
 
+        /// <summary>
+        /// Draw the fireball textures to memory.
+        /// </summary>
         private void ComputeFire()
         {
             if (!LogoScreenUp)

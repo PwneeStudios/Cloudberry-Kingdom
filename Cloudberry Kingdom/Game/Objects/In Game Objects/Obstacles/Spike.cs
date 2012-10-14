@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 
 using CoreEngine;
 
+using CloudberryKingdom;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Spikes
+namespace CloudberryKingdom.Obstacles
 {
     public class Spike : _BoxDeath
     {

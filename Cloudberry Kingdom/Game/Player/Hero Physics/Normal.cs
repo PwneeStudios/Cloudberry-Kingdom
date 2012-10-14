@@ -6,7 +6,7 @@ using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Goombas;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {
@@ -605,7 +605,7 @@ namespace CloudberryKingdom
             CurJump = 1;
             JetPackCount = 0;
 
-            if (ObjectLandedOn is Goomba)
+            if (ObjectLandedOn is FlyingBlob)
                 FallingCount = -4;
 
             if (ObjectLandedOn is BouncyBlock)

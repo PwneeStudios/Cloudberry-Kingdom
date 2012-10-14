@@ -407,7 +407,7 @@ namespace CloudberryKingdom
 
             piece.Style.MyModParams = (level, p) =>
             {
-                Goomba_Parameters GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
+                FlyingBlob_Parameters GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
                 GParams.KeepUnused = MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f);
                 GParams.FillWeight = 100;
                 GParams.Period = 115;

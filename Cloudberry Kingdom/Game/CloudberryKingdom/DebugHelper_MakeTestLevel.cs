@@ -86,7 +86,7 @@ namespace CloudberryKingdom
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
             //data.PieceLength = 3000;
-            data.PieceLength = 15000;
+            data.PieceLength = 45000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;
 
@@ -294,7 +294,7 @@ namespace CloudberryKingdom
             MParams.Motion = MovingBlock_Parameters.MotionType.Vertical;
             var BParams = (BouncyBlock_Parameters)p.Style.FindParams(BouncyBlock_AutoGen.Instance);
             BParams.Size = size;
-            var GParams = (Goomba_Parameters)p.Style.FindParams(Goomba_AutoGen.Instance);
+            var GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
             //GParams.Counter
             var NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);
             //NParams.Make = false;

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Spikes;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {

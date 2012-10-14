@@ -101,23 +101,23 @@ info.Spikes.Base.Sprite = "spike_base_hills_1";
 info.Spikes.Base.Size = new Vector2(54, -1);
 info.Spikes.PeakHeight = .335f;
 
-info.SpikeyGuys.Ball.Sprite = "floater_boulder_hills";
-info.SpikeyGuys.Ball.Size = new Vector2(200, -1);
-info.SpikeyGuys.Radius = 140;
-info.SpikeyGuys.Chain.Sprite = "floater_rope_hills";
+info.Boulders.Ball.Sprite = "floater_boulder_hills";
+info.Boulders.Ball.Size = new Vector2(200, -1);
+info.Boulders.Radius = 140;
+info.Boulders.Chain.Sprite = "floater_rope_hills";
+info.Boulders.Chain.Width = 55;
+info.Boulders.Chain.RepeatWidth = 1900;
+
+info.SpikeyGuys.Ball.Sprite = "floater_spikey_hills";
+info.SpikeyGuys.Ball.Size = new Vector2(150, -1);
+info.SpikeyGuys.Ball.Offset = new Vector2(0, 8);
+info.SpikeyGuys.Base.Sprite = null;
+info.SpikeyGuys.Rotate = true;
+info.SpikeyGuys.Radius = 116;
+info.SpikeyGuys.RotateOffset = -1.57f;
+info.SpikeyGuys.Chain.Sprite = "floater_chain_hills";
 info.SpikeyGuys.Chain.Width = 55;
 info.SpikeyGuys.Chain.RepeatWidth = 1900;
-
-info.Orbs.Ball.Sprite = "floater_spikey_hills";
-info.Orbs.Ball.Size = new Vector2(150, -1);
-info.Orbs.Ball.Offset = new Vector2(0, 8);
-info.Orbs.Base.Sprite = null;
-info.Orbs.Rotate = true;
-info.Orbs.Radius = 116;
-info.Orbs.RotateOffset = -1.57f;
-info.Orbs.Chain.Sprite = "floater_chain_hills";
-info.Orbs.Chain.Width = 55;
-info.Orbs.Chain.RepeatWidth = 1900;
 
 info.SpikeyLines.Ball.Sprite = "Floater_Spikey_Hills";
 info.SpikeyLines.Ball.Size = new Vector2(150, -1);

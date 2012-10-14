@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Serpents;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {

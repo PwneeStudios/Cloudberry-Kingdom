@@ -65,8 +65,14 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    Size += new Vector2((shift.X + shift.Y) * .03f);
-                    ScaleXToMatchRatio(Size.Y);
+                    // Only rescale the quad to the proper aspect ratio if we are using Left Shift.
+                    if (Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                    {
+                        Size += new Vector2((shift.X + shift.Y) * .03f);
+                        ScaleXToMatchRatio(Size.Y);
+                    }
+                    else
+                        Size += .03f * new Vector2(shift.X, shift.Y);
                 }
             }
             else

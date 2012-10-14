@@ -1,11 +1,13 @@
 ﻿using System;
+
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {
-    public class Floater_Parameters : AutoGen_Parameters
+    public class Boulder_Parameters : AutoGen_Parameters
     {
         public Param FloaterMinDist, FloaterSparsity, FloaterPeriod, FloaterMaxAngle, FloaterPlaceDelay;
 
@@ -74,13 +76,13 @@ namespace CloudberryKingdom.Levels
         }
     }
 
-    public sealed class Floater_AutoGen : AutoGen
+    public sealed class Boulder_AutoGen : AutoGen
     {
-        static readonly Floater_AutoGen instance = new Floater_AutoGen();
-        public static Floater_AutoGen Instance { get { return instance; } }
+        static readonly Boulder_AutoGen instance = new Boulder_AutoGen();
+        public static Boulder_AutoGen Instance { get { return instance; } }
 
-        static Floater_AutoGen() { }
-        Floater_AutoGen()
+        static Boulder_AutoGen() { }
+        Boulder_AutoGen()
         {
             Do_ActiveFill_1 = true;
             Do_PreFill_2 = true;
@@ -89,7 +91,7 @@ namespace CloudberryKingdom.Levels
 
         public override AutoGen_Parameters SetParameters(PieceSeedData data, Level level)
         {
-            Floater_Parameters Params = new Floater_Parameters();
+            Boulder_Parameters Params = new Boulder_Parameters();
             Params.SetParameters(data, level);
 
             return (AutoGen_Parameters)Params;
@@ -101,7 +103,7 @@ namespace CloudberryKingdom.Levels
             level.CleanupFloaters(BL, TR);
 
             // Get Floater parameters
-            Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             if (Params.Special.Hallway)
                 Params.Tunnel.CleanupTunnel(level);
@@ -109,7 +111,7 @@ namespace CloudberryKingdom.Levels
 
         void Hallway(Level level, Vector2 BL, Vector2 TR)
         {
-            Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             TR.X += 700;
 
@@ -124,7 +126,7 @@ namespace CloudberryKingdom.Levels
             {
                 Vector2 pos = Spacing * new Vector2(i, j) + BL;
 
-                Floater floater = (Floater)CreateAt(level, pos);
+                Boulder floater = (Boulder)CreateAt(level, pos);
                 floater.Offset = 0;
                 floater.Core.GenData.KeepIfUnused = true;
                 floater.Core.GenData.EnforceBounds = false;
@@ -136,10 +138,10 @@ namespace CloudberryKingdom.Levels
         public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
-            Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             // Get the new floater
-            Floater NewFloater = (Floater)level.Recycle.GetObject(ObjectType.Floater, true);
+            Boulder NewFloater = (Boulder)level.Recycle.GetObject(ObjectType.Boulder, true);
             NewFloater.Init(pos, level);
 
             if (level.PieceSeed.GeometryType == LevelGeometry.Right)
@@ -148,7 +150,7 @@ namespace CloudberryKingdom.Levels
             {
                 NewFloater.PivotPoint.X = level.MainCamera.BL.X - 160;
                 NewFloater.AddAngle = CoreMath.Radians(90);
-                NewFloater.PivotLocationType = Floater.PivotLocationTypes.LeftRight;
+                NewFloater.PivotLocationType = Boulder.PivotLocationTypes.LeftRight;
             }
 
             NewFloater.Period = (int)Params.FloaterPeriod.GetVal(pos);
@@ -192,7 +194,7 @@ namespace CloudberryKingdom.Levels
             base.ActiveFill_1(level, BL, TR);
 
             // Get Floater parameters
-            Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             if (!Params.DoStage2Fill) return;
 
@@ -207,7 +209,7 @@ namespace CloudberryKingdom.Levels
                 int Delay = (int)Params.FloaterPlaceDelay.GetVal(pos);
                 if (Step > 90 && Step % Delay == 0)
                 {
-                    Floater floater = (Floater)CreateAt(level, CalcPos(bob, BL, TR, level.Rnd));
+                    Boulder floater = (Boulder)CreateAt(level, CalcPos(bob, BL, TR, level.Rnd));
                     Vector2 Padding = new Vector2(200, 375);
 
                     if (level.PieceSeed.GeometryType == LevelGeometry.Right)
@@ -225,7 +227,7 @@ namespace CloudberryKingdom.Levels
             base.PreFill_2(level, BL, TR);
 
             // Get Floater parameters
-            Floater_Parameters Params = (Floater_Parameters)level.Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             if (Params.Special.Hallway)
                 Hallway(level, BL, TR);
@@ -240,7 +242,7 @@ namespace CloudberryKingdom.Levels
             level.Fill(FillBL, FillTR, 225 * Sparsity, 250,
                 (Level.FillCallback)delegate(Vector2 pos)
                 {
-                    Floater floater = (Floater)CreateAt(level, pos);
+                    Boulder floater = (Boulder)CreateAt(level, pos);
                     Vector2 Padding = new Vector2(200, 375);
 
                     if (level.PieceSeed.GeometryType == LevelGeometry.Right)
@@ -258,9 +260,9 @@ namespace CloudberryKingdom.Levels
         public void CleanupFloaters(Vector2 BL, Vector2 TR)
         {
             // Get Floater parameters
-            Floater_Parameters Params = (Floater_Parameters)Style.FindParams(Floater_AutoGen.Instance);
+            Boulder_Parameters Params = (Boulder_Parameters)Style.FindParams(Boulder_AutoGen.Instance);
 
-            Cleanup(ObjectType.Floater, delegate(Vector2 pos)
+            Cleanup(ObjectType.Boulder, delegate(Vector2 pos)
             {
                 float dist = Params.FloaterMinDist.GetVal(pos);
                 return new Vector2(dist, dist);

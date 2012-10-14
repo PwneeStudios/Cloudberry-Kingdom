@@ -13,11 +13,16 @@ namespace CloudberryKingdom.Stats
             item.MyText.Shadow = item.MySelectedText.Shadow = false;
         }
 
-        protected void SetHeaderProperties2(EzText text)
+        protected override void SetHeaderProperties(EzText text)
         {
-            base.SetHeaderProperties(text);
+            text.MyFloatColor = new Vector4(.6f, .6f, .6f, 1f);
+            text.OutlineColor = new Vector4(0f, 0f, 0f, 1f);
+
             text.Shadow = false;
-            text.MyFloatColor = ColorHelper.Gray(.923f);
+            text.ShadowColor = new Color(.2f, .2f, .2f, 1f);
+            text.ShadowOffset = new Vector2(12, 12);
+
+            text.Scale = FontScale * .9f;
         }
 
         static Vector2[] x1_name = { new Vector2(1431.285f, -158.9048f) };
@@ -124,7 +129,7 @@ namespace CloudberryKingdom.Stats
             // Header
             MenuItem Header;
             if (group == StatGroup.Lifetime)
-                Header = new MenuItem(new EzText("Stats!", Tools.Font_Grobold42_2));
+                Header = new MenuItem(new EzText("Statistics", Tools.Font_Grobold42_2));
             else if (group == StatGroup.Campaign)
             {
                 Header = new MenuItem(new EzText("Campaign!", Tools.Font_Grobold42_2));
@@ -236,21 +241,24 @@ namespace CloudberryKingdom.Stats
             MyPile.Add(Backdrop);
             MyPile.Add(Backdrop);
 
-            // Bubbly-Happy backdrop
-            //QuadClass backdrop;
-            //backdrop = new QuadClass("score screen", 1500, true);
-            //MyPile.Add(backdrop);
-            //MyPile.Add(backdrop);
-            //backdrop.Size = new Vector2(1453.1744f, 1973.215f);
-            //backdrop.Pos = new Vector2(0f, -35.71438f);
-
             EnsureFancy();
             MyMenu.Pos = new Vector2(67.45706f, 0f);
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 
+            SetPos();
+        }
+
+
+        void SetPos()
+        {
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1230.718f, 975.2383f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            MyMenu.Pos = new Vector2(67.45706f, 0f);
 
             QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-91.66821f, -103.8888f); _q.Size = new Vector2(1907.893f, 1089.838f); }
+
+            MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
 
         Vector2 BarPos;
@@ -260,13 +268,10 @@ namespace CloudberryKingdom.Stats
 
             // Scroll bar
 #if PC_VERSION
-            //if (false)
-            {
-                bar = new ScrollBar((LongMenu)MyMenu, this);
-                bar.BarPos = BarPos;
-                MyGame.AddGameObject(bar);
-                MyMenu.AdditionalCheckForOutsideClick += () => bar.MyMenu.HitTest();
-            }
+            bar = new ScrollBar((LongMenu)MyMenu, this);
+            bar.BarPos = BarPos;
+            MyGame.AddGameObject(bar);
+            MyMenu.AdditionalCheckForOutsideClick += () => bar.MyMenu.HitTest();
 #endif
         }
 

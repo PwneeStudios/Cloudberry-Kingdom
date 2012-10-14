@@ -1,3 +1,5 @@
+using CloudberryKingdom.InGameObjects;
+
 namespace CloudberryKingdom
 {
     /// <summary>

@@ -2,6 +2,8 @@
 
 using Microsoft.Xna.Framework;
 
+using CloudberryKingdom.Obstacles;
+
 namespace CloudberryKingdom.Levels
 {
     public class SpikeyLine_Parameters : AutoGen_Parameters

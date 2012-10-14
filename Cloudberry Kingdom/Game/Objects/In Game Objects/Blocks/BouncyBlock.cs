@@ -7,7 +7,7 @@ using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Blocks
 {
     public enum BouncyBlockState { Regular, SuperStiff };
     public class BouncyBlock : BlockBase

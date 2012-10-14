@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework;
 
 using CoreEngine;
 
-using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Blocks
 {
     public enum GhostBlockState { PhasedIn, PhasedOut };
     public class GhostBlock : BlockBase

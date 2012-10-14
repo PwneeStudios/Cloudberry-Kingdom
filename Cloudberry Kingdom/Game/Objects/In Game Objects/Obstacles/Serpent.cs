@@ -9,7 +9,7 @@ using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Serpents
+namespace CloudberryKingdom.Obstacles
 {
     public class Serpent : _BoxDeath
     {
@@ -17,7 +17,7 @@ namespace CloudberryKingdom.Serpents
         {
             public SpriteInfo Serpent = new SpriteInfo("Serpent", new Vector2(200, -1), new Vector2(0, -.855f), Color.White, true);
             public SpriteInfo Fish = new SpriteInfo("Fish_1", new Vector2(35, -1));
-            public Vector2 BoxSize = new Vector2(90, 90);
+            public Vector2 BoxSize = new Vector2(90, 1000);
         }
 
         public QuadClass MyQuad, MyFish;
@@ -35,7 +35,7 @@ namespace CloudberryKingdom.Serpents
             AutoGenSingleton = Serpent_AutoGen.Instance;
             Core.MyType = ObjectType.Serpent;
             DeathType = Bobs.Bob.BobDeathType.None;
-            Core.DrawLayer = 9;
+            Core.DrawLayer = 8;
 
             PhsxCutoff_Playing = new Vector2(200, 4000);
             PhsxCutoff_BoxesOnly = new Vector2(-150, 4000);
@@ -77,12 +77,23 @@ namespace CloudberryKingdom.Serpents
 
         public void SetPeriod(int Period)
         {
-            WaitT1 = 50;
+            WaitT1 = 58;
             UpT = 67;
             DownT = 45;
+            WaitT2 = 5;
 
-            WaitT2 = Period - UpT - DownT - WaitT1;
-            if (WaitT2 < 0) WaitT2 = 0;
+            int Total = WaitT1 + UpT + DownT + WaitT2;
+            WaitT1 = (int)(WaitT1 * Period / (float)Total);
+            WaitT2 = (int)(WaitT2 * Period / (float)Total);
+            DownT = (int)(DownT * Period / (float)Total);
+            UpT = (int)(UpT * Period / (float)Total);
+
+            //WaitT1 = 50;
+            //UpT = 67;
+            //DownT = 45;
+
+            //WaitT2 = Period - UpT - DownT - WaitT1;
+            //if (WaitT2 < 0) WaitT2 = 0;
         }
 
         protected override void ActivePhsxStep()
@@ -121,15 +132,31 @@ namespace CloudberryKingdom.Serpents
             else
                 s = CoreMath.ParabolaInterp(1 + (t - WaitT2 - UpT - WaitT1) / (float)DownT, new Vector2(1, 1f), 0);
 
-            Pos = Vector2.Lerp(Start, End, s);
+            //if (!Core.BoxesOnly)
+            //{
+            //    MyQuad.Quad.Playing = true;
+            //    if (t < WaitT1 + UpT * .51f)
+            //    {
+            //        MyQuad.Quad.Playing = false;
+            //        MyQuad.Quad.CalcTexture(0, 0);
+            //    }
+            //    else
+            //    {
+            //        MyQuad.Quad.Playing = false;
+            //        MyQuad.Quad.CalcTexture(0, 1);
+            //    }
+            //}
+
+
+            Pos = Vector2.Lerp(Start, End, s) - new Vector2(0, BoxSize.Y);
         }
 
         protected override void DrawGraphics()
         {
-            if (MyFish.Pos.Y > Pos.Y - 50)
+            if (MyFish.Pos.Y > Pos.Y + BoxSize.Y - 50)
                 MyFish.Draw();
 
-            MyQuad.Pos = Pos;
+            MyQuad.Pos = Pos + new Vector2(0, BoxSize.Y);
             MyQuad.Draw();
         }
 

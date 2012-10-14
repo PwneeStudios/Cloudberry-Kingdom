@@ -6,7 +6,7 @@ using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Particles;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
     public partial class Fireball : _CircleDeath
     {

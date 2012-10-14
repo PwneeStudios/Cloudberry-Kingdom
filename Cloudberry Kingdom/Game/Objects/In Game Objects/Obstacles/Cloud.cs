@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Clouds
+namespace CloudberryKingdom.Obstacles
 {
     public class Cloud : _Obstacle
     {

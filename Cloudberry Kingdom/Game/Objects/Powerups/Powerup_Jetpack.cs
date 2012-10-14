@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
@@ -7,6 +8,8 @@ using CoreEngine;
 using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Blocks;
+
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {

@@ -7,7 +7,7 @@ using CoreEngine;
 using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Coins
+namespace CloudberryKingdom.InGameObjects
 {
     public class Coin : ObjectBase
     {

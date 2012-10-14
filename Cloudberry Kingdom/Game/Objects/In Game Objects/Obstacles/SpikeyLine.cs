@@ -5,7 +5,7 @@ using CoreEngine;
 
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
     public class SpikeyLine : _CircleDeath, IBound
     {
@@ -28,7 +28,7 @@ namespace CloudberryKingdom
         {
             base.MakeNew();
 
-            AutoGenSingleton = Floater_AutoGen.Instance;
+            AutoGenSingleton = Boulder_AutoGen.Instance;
             Core.MyType = ObjectType.SpikeyLine;
             DeathType = Bobs.Bob.BobDeathType.FallingSpike;
 

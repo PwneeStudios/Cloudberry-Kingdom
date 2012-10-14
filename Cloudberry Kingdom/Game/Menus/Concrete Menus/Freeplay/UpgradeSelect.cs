@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
+using CloudberryKingdom.Levels;
+
 namespace CloudberryKingdom
 {
     public class UpgradeSelect : GridSelect, IViewableList

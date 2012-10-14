@@ -1,6 +1,9 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -19,6 +22,11 @@ namespace CloudberryKingdom
         protected override void Go()
         {
             StartGame();
+        }
+
+        protected override string HeaderText()
+        {
+            return "Aggressive";
         }
     }
 
@@ -40,6 +48,11 @@ namespace CloudberryKingdom
             Call(UpgradeGui, 0);
             Hide(PresetPos.Left);
             this.SlideInFrom = PresetPos.Left;
+        }
+
+        protected override string HeaderText()
+        {
+            return "Passive";
         }
     }
 
@@ -101,9 +114,9 @@ namespace CloudberryKingdom
                     if (slider == MyMenu.CurItem)
                     {
                         PictureIcon pic = BigIcon as PictureIcon;
-                        if (slider.MyFloat.Val > 7.6f) pic.IconQuad.TextureName = "FallingBlock3";
-                        else if (slider.MyFloat.Val > 3.2f) pic.IconQuad.TextureName = "FallingBlock2";
-                        else pic.IconQuad.TextureName = "FallingBlock1";
+                        if (slider.MyFloat.Val > 7.6f) pic.IconQuad.TextureName = "fblock_castle_3";
+                        else if (slider.MyFloat.Val > 3.2f) pic.IconQuad.TextureName = "fblock_castle_2";
+                        else pic.IconQuad.TextureName = "fblock_castle_1";
                     }
                 };
             }
@@ -182,7 +195,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            ScaleList = .6125f;
+            ScaleList = .73f;
 
             Control = -1;
 
@@ -196,7 +209,7 @@ namespace CloudberryKingdom
             MakeMenu();
 
             ItemPos = new Vector2(-950, 928 + 300 * (1 - ScaleList));
-            PosAdd.Y *= 1.015f * ScaleList;
+            PosAdd.Y *= 1.15f * ScaleList;
 
             // Add obstacles
             foreach (Upgrade upgrade in GetUpgradeList())
@@ -221,7 +234,18 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
+            // Header
+            EzText LocationText = new EzText(HeaderText(), ItemFont);
+            LocationText.Name = "Header";
+            SetHeaderProperties(LocationText);
+            MyPile.Add(LocationText);
+
             SetPos();
+        }
+
+        protected virtual string HeaderText()
+        {
+            return "";
         }
 
         void SetPos()

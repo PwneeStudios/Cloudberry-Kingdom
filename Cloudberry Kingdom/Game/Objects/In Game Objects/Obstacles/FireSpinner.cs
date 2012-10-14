@@ -6,7 +6,7 @@ using System.IO;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.FireSpinners
+namespace CloudberryKingdom.Obstacles
 {
     public class FireSpinner : _LineDeath
     {

@@ -6,7 +6,7 @@ using CloudberryKingdom.Levels;
 using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.InGameObjects
 {
     public class Checkpoint : ObjectBase
     {

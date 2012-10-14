@@ -15,6 +15,7 @@ namespace CloudberryKingdom
             DarkBack.Alpha = 0f;
             DarkBack.Fade(.1f); DarkBack.MaxAlpha = .5f;
             DarkBack.FullScreen(Tools.CurCamera);
+            DarkBack.Pos = Vector2.Zero;
             DarkBack.Scale(5);
             MyPile.Add(DarkBack, "Dark");
         }

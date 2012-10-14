@@ -9,7 +9,7 @@ using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.LavaDrips
+namespace CloudberryKingdom.Obstacles
 {
     public class LavaDrip : _BoxDeath
     {

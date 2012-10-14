@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {
-    public class Floater_Spin_Parameters : AutoGen_Parameters
+    public class SpikeyGuy_Parameters : AutoGen_Parameters
     {
         public Param FloaterMinDist, Density, FloaterPeriod, FloaterScale;
         public bool Make;
@@ -73,20 +74,20 @@ namespace CloudberryKingdom.Levels
         }
     }
 
-    public class Floater_Spin_AutoGen : AutoGen
+    public class SpikeyGuy_AutoGen : AutoGen
     {
-        static readonly Floater_Spin_AutoGen instance = new Floater_Spin_AutoGen();
-        public static Floater_Spin_AutoGen Instance { get { return instance; } }
+        static readonly SpikeyGuy_AutoGen instance = new SpikeyGuy_AutoGen();
+        public static SpikeyGuy_AutoGen Instance { get { return instance; } }
 
-        static Floater_Spin_AutoGen() { }
-        protected Floater_Spin_AutoGen()
+        static SpikeyGuy_AutoGen() { }
+        protected SpikeyGuy_AutoGen()
         {
             Do_PreFill_2 = true;
         }
 
         public override AutoGen_Parameters SetParameters(PieceSeedData data, Level level)
         {
-            Floater_Spin_Parameters Params = new Floater_Spin_Parameters();
+            SpikeyGuy_Parameters Params = new SpikeyGuy_Parameters();
             Params.SetParameters(data, level);
 
             return (AutoGen_Parameters)Params;
@@ -101,10 +102,10 @@ namespace CloudberryKingdom.Levels
         public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
             // Get Floater parameters
-            Floater_Spin_Parameters Params = (Floater_Spin_Parameters)level.Style.FindParams(Floater_Spin_AutoGen.Instance);
+            SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)level.Style.FindParams(SpikeyGuy_AutoGen.Instance);
 
             // Get the new floater
-            Floater_Spin NewFloater = (Floater_Spin)level.Recycle.GetObject(ObjectType.Floater_Spin, true);
+            SpikeyGuy NewFloater = (SpikeyGuy)level.Recycle.GetObject(ObjectType.SpikeyGuy, true);
             NewFloater.Length = 650;
             NewFloater.Init(pos, level);
 
@@ -127,7 +128,7 @@ namespace CloudberryKingdom.Levels
         {
             for (int j = 0; j < Num; j++)
             {
-                Floater_Spin floater = (Floater_Spin)CreateAt(level, Center);
+                SpikeyGuy floater = (SpikeyGuy)CreateAt(level, Center);
 
                 floater.Period = 3 * floater.Period / 2;
                 floater.Offset = (int)(j * ((float)floater.Period / Num));
@@ -176,7 +177,7 @@ namespace CloudberryKingdom.Levels
             base.PreFill_2(level, BL, TR);
 
             // Get Floater parameters
-            Floater_Spin_Parameters Params = (Floater_Spin_Parameters)level.Style.FindParams(Floater_Spin_AutoGen.Instance);
+            SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)level.Style.FindParams(SpikeyGuy_AutoGen.Instance);
 
             if (Params.Special.Rockwheel)
                 Rockwheel(level, BL, TR);
@@ -219,7 +220,7 @@ namespace CloudberryKingdom.Levels
 
                         if (x > level.CurMakeData.PieceSeed.End.X - 400) continue;
 
-                        Floater_Spin floater = (Floater_Spin)CreateAt(level, new Vector2(x, y));
+                        SpikeyGuy floater = (SpikeyGuy)CreateAt(level, new Vector2(x, y));
 
                         floater.SetParentBlock(block);
 
@@ -235,9 +236,9 @@ namespace CloudberryKingdom.Levels
         public void CleanupSpinFloaters(Vector2 BL, Vector2 TR)
         {
             // Get Floater parameters
-            Floater_Spin_Parameters Params = (Floater_Spin_Parameters)Style.FindParams(Floater_Spin_AutoGen.Instance);
+            SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)Style.FindParams(SpikeyGuy_AutoGen.Instance);
 
-            Cleanup(ObjectType.Floater_Spin,
+            Cleanup(ObjectType.SpikeyGuy,
             pos =>
             {
                 float dist = Params.FloaterMinDist.GetVal(pos);
@@ -245,8 +246,8 @@ namespace CloudberryKingdom.Levels
             }, BL + new Vector2(400, 0), TR - new Vector2(500, 0),
             (A, B) =>
             {
-                Floater_Spin floater_A = A as Floater_Spin;
-                Floater_Spin floater_B = B as Floater_Spin;
+                SpikeyGuy floater_A = A as SpikeyGuy;
+                SpikeyGuy floater_B = B as SpikeyGuy;
                 return CoreMath.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
             }
             );

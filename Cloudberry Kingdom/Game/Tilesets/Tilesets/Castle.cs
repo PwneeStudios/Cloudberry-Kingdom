@@ -57,7 +57,7 @@ info.Walls.Sprite.Degrees = -90;
 info.LavaDrips.Line.End1 = "Flow_Castle_1";
 info.LavaDrips.Line.Sprite = "Flow_Castle_2";
 info.LavaDrips.Line.End2 = "Flow_Castle_3";
-info.LavaDrips.Icon.Sprite = "FlowCastle_1";
+info.LavaDrips.Icon.Sprite = "Flow_Icon_Castle";
 
 info.Lasers.Line.Sprite = "Laser_Castle";
 info.Lasers.Line.RepeatWidth = 135;
@@ -110,16 +110,18 @@ info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1));
-info.Pendulums.Icon.Sprite = "Elevator_Castle_80";
+//info.Pendulums.Icon.Sprite = "Elevator_Castle_80";
+info.Pendulums.Icon.Sprite = "Pendulum_Icon_Castle";
 
 sprite_anim("Serpent_Castle", "Serpent_Castle", 1, 2, 8);
+//sprite_anim("Serpent_Castle", "SerpentHead_Castle", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Castle";
 info.Serpents.Serpent.Offset = new Vector2(0, -.675f);
 sprite_anim("Serpent_Fish_Castle", "Serpent_Fish_Castle", 1, 2, 5);
 info.Serpents.Fish.Sprite = "Serpent_Fish_Castle";
 info.Serpents.Fish.Size = new Vector2(60, -1);
 info.Serpents.Fish.Offset = new Vector2(55, 0);
-info.Serpents.Icon.Sprite = "Serpent_Castle";
+info.Serpents.Icon.Sprite = "SerpentHead_Castle_1";
 
 info.Spikes.Spike.Sprite = "spike_castle";
 info.Spikes.Spike.Size = new Vector2(38, -1);
@@ -131,26 +133,26 @@ info.Spikes.PeakHeight = .335f;
 info.Spikes.Icon.Sprite = "Spike_Castle";
 info.Spikes.Icon.Size = new Vector2(25, -1);
 
-info.SpikeyGuys.Ball.Sprite = "Floater_Spikey_castle_v1";
-info.SpikeyGuys.Ball.Size = new Vector2(150, -1);
-info.SpikeyGuys.Radius = 106;
+info.Boulders.Ball.Sprite = "Floater_Spikey_castle_v1";
+info.Boulders.Ball.Size = new Vector2(150, -1);
+info.Boulders.Radius = 106;
+info.Boulders.Chain.Sprite = "floater_chain_castle";
+info.Boulders.Chain.Width = 55;
+info.Boulders.Chain.RepeatWidth = 1900;
+info.Boulders.Icon.Sprite = "Floater_Spikey_Castle_v1";
+
+info.SpikeyGuys.Ball.Sprite = "floater_buzzsaw_yellow_castle";
+info.SpikeyGuys.Ball.Size = new Vector2(190, -1);
+info.SpikeyGuys.Ball.Offset = new Vector2(0, 0);
+info.SpikeyGuys.Base.Sprite = null;
+info.SpikeyGuys.Rotate = true;
+info.SpikeyGuys.RotateSpeed = -.15f;
+info.SpikeyGuys.Radius = 130;
+info.SpikeyGuys.RotateOffset = -1.57f;
 info.SpikeyGuys.Chain.Sprite = "floater_chain_castle";
 info.SpikeyGuys.Chain.Width = 55;
 info.SpikeyGuys.Chain.RepeatWidth = 1900;
-info.SpikeyGuys.Icon.Sprite = "Floater_Spikey_Castle_v1";
-
-info.Orbs.Ball.Sprite = "floater_buzzsaw_yellow_castle";
-info.Orbs.Ball.Size = new Vector2(190, -1);
-info.Orbs.Ball.Offset = new Vector2(0, 0);
-info.Orbs.Base.Sprite = null;
-info.Orbs.Rotate = true;
-info.Orbs.RotateSpeed = -.15f;
-info.Orbs.Radius = 130;
-info.Orbs.RotateOffset = -1.57f;
-info.Orbs.Chain.Sprite = "floater_chain_castle";
-info.Orbs.Chain.Width = 55;
-info.Orbs.Chain.RepeatWidth = 1900;
-info.Orbs.Icon.Sprite = "Floater_Buzzsaw_Yellow_Castle";
+info.SpikeyGuys.Icon.Sprite = "Floater_Buzzsaw_Yellow_Castle";
 
 info.SpikeyLines.Ball.Sprite = "Floater_Spikey_Castle_v2";
 info.SpikeyLines.Ball.Size = new Vector2(150, -1);

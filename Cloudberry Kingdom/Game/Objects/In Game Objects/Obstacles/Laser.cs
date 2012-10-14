@@ -6,7 +6,7 @@ using System.IO;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom
+namespace CloudberryKingdom.Obstacles
 {
     public enum LaserState { Off, Warn, On };
     public class Laser : _LineDeath, IBound

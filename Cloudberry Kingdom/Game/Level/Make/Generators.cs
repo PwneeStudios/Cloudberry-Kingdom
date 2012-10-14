@@ -27,9 +27,9 @@ namespace CloudberryKingdom.Levels
             AddGenerator(FireSpinner_AutoGen.Instance);
             AddGenerator(Spike_AutoGen.Instance);
             AddGenerator(Laser_AutoGen.Instance);
-            AddGenerator(Floater_AutoGen.Instance);
-            AddGenerator(Floater_Spin_AutoGen.Instance);
-            AddGenerator(Goomba_AutoGen.Instance);
+            AddGenerator(Boulder_AutoGen.Instance);
+            AddGenerator(SpikeyGuy_AutoGen.Instance);
+            AddGenerator(FlyingBlob_AutoGen.Instance);
             AddGenerator(FallingBlock_AutoGen.Instance);
             AddGenerator(GhostBlock_AutoGen.Instance);
             AddGenerator(MovingBlock_AutoGen.Instance);
