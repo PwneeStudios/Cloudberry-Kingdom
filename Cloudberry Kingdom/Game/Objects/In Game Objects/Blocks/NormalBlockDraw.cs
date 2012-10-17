@@ -62,7 +62,6 @@ namespace CloudberryKingdom.Blocks
 
             // Grow the block a bit if it is a ceiling piece
             Vector2 ModSize = Vector2.Zero;
-            //if (MyBlock.BlockCore.CeilingDraw) ModSize = ModCeilingSize;
 
             if (MyPieces != null)
             {
@@ -70,14 +69,10 @@ namespace CloudberryKingdom.Blocks
 
                 MyPieces.MyOrientation = block.BlockCore.MyOrientation;
 
-                if (MyBlock.Core.MyTileSet.DungeonLike && MyBlock.BlockCore.CeilingDraw)
-                    MyPieces.MyOrientation = PieceQuad.Orientation.UpsideDown;
-
                 MyPieces.CalcQuads(MyBlock.Box.Current.Size + ModSize);
             }
 
             // Tint
-            //if (MyBlock.Core.MyTileSet == TileSets.DarkTerrace)
             SetTint(MyBlock.Core.MyTileSet.Tint);
 
             SetTint(Tint);

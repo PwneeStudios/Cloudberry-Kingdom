@@ -18,6 +18,8 @@ namespace CloudberryKingdom.InGameObjects
             public SpriteInfo Sprite = new SpriteInfo(null);
             public bool Show = true;
 
+            public Vector2 SizePadding = Vector2.Zero;
+
             public Vector2 ShiftBottom = Vector2.Zero;
             public Vector2 ShiftStart = Vector2.Zero;
             public Vector2 CollisionSize = new Vector2(100, 200);
@@ -434,11 +436,13 @@ namespace CloudberryKingdom.InGameObjects
 
             InteractingBob = bob;
 
+            float scale = bob.GetScale().X;
+
             bool InteractedWith = false;
             if (((bob.MyObjectType is BobPhsxSpaceship &&
-                 (bob.Pos - Pos).LengthSquared() < 3000 + Math.Max(0, 1400 * (bob.MyPhsx.ScaledFactor - 1))) ||
-                (Math.Abs(bob.Pos.X - Pos.X) < DoorSize.X - 15 + .025f * bob.Box.Current.Size.X + Math.Max(0, 45 * (bob.MyPhsx.ScaledFactor - 1)) &&
-                 Math.Abs(bob.Pos.Y - Pos.Y) < DoorSize.Y + 50 + Math.Max(0, 80 * (bob.MyPhsx.ScaledFactor - 1)))) &&
+                 (bob.Pos - Pos).LengthSquared() < 4300 + Math.Max(0, 1400 * (scale - 1))) ||
+                (Math.Abs(bob.Pos.X - Pos.X) < DoorSize.X + Info.Doors.SizePadding.X + 22 + .025f * bob.Box.Current.Size.X + Math.Max(0, 45 * (scale - 1)) &&
+                 Math.Abs(bob.Pos.Y - Pos.Y) < DoorSize.Y + Info.Doors.SizePadding.X + 50 + Math.Max(0, 80 * (scale - 1)))) &&
                 (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
             {
                 NearCount++;

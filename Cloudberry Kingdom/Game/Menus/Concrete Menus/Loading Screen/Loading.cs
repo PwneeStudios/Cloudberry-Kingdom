@@ -201,7 +201,7 @@ namespace CloudberryKingdom
             MyPile.Add(BlackQuad);
         }
 
-        public static int TotalResources = 1071;
+        public static int TotalResources = 895;
 
         public bool Accelerate = false;
         int DoneCount = 0;

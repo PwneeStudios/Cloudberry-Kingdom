@@ -88,30 +88,11 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(cblock);
         }
 
-        public void MakeCementCeiling(Level level, Vector2 BL, Vector2 TR)
-        {
-            Vector2 pos1 = new Vector2(BL.X - 800, TR.Y - 260);
-            Vector2 pos2 = new Vector2(TR.X + 1600, TR.Y + 200);
-            
-            NormalBlock ceiling = NormalBlock_AutoGen.Instance.CreateCementBlockLine(level, pos1, pos2);
-            ceiling.StampAsFullyUsed(0);
-
-            ceiling.BlockCore.Finalized = true;
-
-            level.AddBlock(ceiling);
-        }
-
         public override void PreFill_1(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
 
             Ceiling_Parameters Params = (Ceiling_Parameters)level.Style.FindParams(Ceiling_AutoGen.Instance);
-
-            if (Params.Special.CementCeiling)
-                MakeCementCeiling(level, BL, TR);
-
-            if (Params.Special.LongCeiling)
-                MakeLongCeiling(level, BL, TR);
 
             float MaxStartY = -100000;
             for (int i = 0; i < level.CurMakeData.NumInitialBobs; i++)
@@ -145,9 +126,6 @@ namespace CloudberryKingdom.Levels
                 size = cblock.Box.Current.Size;
 
                 Vector2 offset = new Vector2(size.X, 0);
-
-                if (this.MyTileSet == TileSets.Castle)
-                    size.X += 25;
 
                 // Make sure the ceiling block isn't past the left or right edges of the level.
                 if (Pos.X + offset.X + size.X > TR.X)

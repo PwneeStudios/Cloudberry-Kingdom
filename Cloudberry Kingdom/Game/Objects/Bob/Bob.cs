@@ -1210,18 +1210,21 @@ namespace CloudberryKingdom.Bobs
 
                 Rocket.Degrees = -33;
                 Rocket.ScaleYToMatchRatio(PlayerObject.ParentQuad.Size.X * scale);
-                //Rocket.Pos = Pos + RocketOffset * PlayerObject.ParentQuad.Size / new Vector2(260);
-                Rocket.Pos = Pos + new Vector2(-88, 20) * PlayerObject.ParentQuad.Size / new Vector2(260);
+                Rocket.Pos = Pos + new Vector2(-88, 20) * GetScale();
                 Rocket.Draw();
 
                 Rocket.Degrees = 33;
                 Rocket.Quad.MirrorUV_Horizontal();
                 Rocket.ScaleYToMatchRatio(PlayerObject.ParentQuad.Size.X * scale);
-                //Rocket.Pos = Pos + RocketOffset * PlayerObject.ParentQuad.Size / new Vector2(260);
-                Rocket.Pos = Pos + new Vector2(93, 20) * PlayerObject.ParentQuad.Size / new Vector2(260);
+                Rocket.Pos = Pos + new Vector2(93, 20) * GetScale();
                 Rocket.Draw();
                 Rocket.Quad.MirrorUV_Horizontal();
             }
+        }
+
+        public Vector2 GetScale()
+        {
+            return PlayerObject.ParentQuad.Size / new Vector2(260);
         }
 
         public override void Draw()
@@ -1599,7 +1602,12 @@ namespace CloudberryKingdom.Bobs
             if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
             temp.Pos = Head.Center.Pos;
 
-            temp.Pos += MyPhsx.CapeOffset;
+            if (MyPhsx.Ducking)
+                temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+            else
+                temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;
+                
+
             MyCape.Gravity = MyPhsx.CapeGravity;
 
             Vector2 vel = MyPhsx.ApparentVelocity;

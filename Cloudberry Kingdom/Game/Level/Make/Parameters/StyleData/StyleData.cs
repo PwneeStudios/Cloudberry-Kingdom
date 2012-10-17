@@ -68,10 +68,10 @@ namespace CloudberryKingdom.Levels
         public enum FinalPlatsType { Door, DarkBottom };
         public FinalPlatsType MyFinalPlatsType = FinalPlatsType.Door;
         
-        public enum FinalDoorStyle { Normal, TerraceToCastle };
+        public enum FinalDoorStyle { Normal };
         public FinalDoorStyle MyFinalDoorStyle = FinalDoorStyle.Normal;
 
-        public enum InitialPlatsType { Normal, LandingZone, Door, Spaceship, CastleToTerrace, Up_TiledFloor };
+        public enum InitialPlatsType { Normal, LandingZone, Door, Spaceship, Up_TiledFloor };
         public InitialPlatsType MyInitialPlatsType = InitialPlatsType.Normal;
 
         public bool MakeInitialPlats;
@@ -85,7 +85,7 @@ namespace CloudberryKingdom.Levels
         public bool RemoveBlockOnOverlap;
         public float MinBlockDist;
 
-        public enum _BlockFillType { Regular, TopOnly, Spaceship, Invertable, Sideways };
+        public enum _BlockFillType { Regular, TopOnly, Invertable, Sideways };
         float[] BlockFillTypeRatio = { 1f, 0f };
         public _BlockFillType BlockFillType;
 

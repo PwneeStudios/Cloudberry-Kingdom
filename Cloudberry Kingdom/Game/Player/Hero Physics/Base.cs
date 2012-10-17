@@ -370,6 +370,7 @@ namespace CloudberryKingdom
             XAccel *= data[CustomData.accel];
             MaxSpeed *= data[CustomData.maxspeed];
             ModInitSize *= data[CustomData.size];
+            ModCapeSize *= data[CustomData.size];
 
             // Wheelie phsx
             BobPhsxWheel wheel = this as BobPhsxWheel;
@@ -430,7 +431,9 @@ namespace CloudberryKingdom
         public Bob Prototype;
         public Cape.CapeType CapePrototype;
         public Vector2 CapeOffset = Vector2.Zero;
+        public Vector2 CapeOffset_Ducking = new Vector2(-20, 0);
         public Vector2 CapeGravity = new Vector2(0, -1.45f) / 1.45f;
+        public Vector2 ModCapeSize = Vector2.One;
         public float DollCamZoomMod = 1f;
 
         bool SingletonInitialized = false;

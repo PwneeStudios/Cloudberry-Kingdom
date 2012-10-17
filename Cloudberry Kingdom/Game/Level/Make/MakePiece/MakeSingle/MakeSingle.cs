@@ -316,55 +316,12 @@ namespace CloudberryKingdom.Levels
 
             door.MyBackblock = backblock;
 
-            if (BackdropTileset.DungeonLike)
-            {
-                if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
-                {
-                    backblock.Extend(Side.Top, door.Pos.Y + 800);
-                    backblock.Extend(Side.Bottom, door.Pos.Y - 2800);
+            backblock.Extend(Side.Top, MainCamera.TR.Y + 500);
+            backblock.Extend(Side.Bottom, MainCamera.BL.Y - 500);
 
-                    SetBackblockProperties(backblock);
-                }
-                else
-                {
-                    backblock.Extend(Side.Top, MainCamera.TR.Y + 25);
-                    backblock.Extend(Side.Bottom, MainCamera.BL.Y);
+            SetBackblockProperties(backblock);
 
-                    SetBackblockProperties(backblock);
-
-                    // Additional block to complete the lower portion of the backblock
-                    NormalBlock backblock2 = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    backblock2.Clone(block);
-
-                    backblock2.Extend(Side.Top, MainCamera.BL.Y + 125);
-                    backblock2.Extend(Side.Bottom, MainCamera.BL.Y - 300);
-
-                    SetBackblockProperties(backblock2);
-                }
-            }
-            else if (BackdropTileset == TileSets.Island)
-            {
-                BackdropTileset = backblock.Core.MyTileSet = TileSets.Terrace;
-                backblock.Box.TopOnly = false;
-                backblock.Extend(Side.Top, block.Box.Current.TR.Y + 800);
-                backblock.Extend(Side.Bottom, block.Box.Current.TR.Y - 30);
-                backblock.Extend(Side.Left, block.Box.Current.BL.X + 70);
-                backblock.Extend(Side.Right, block.Box.Current.TR.X - 70);
-
-                SetBackblockProperties(backblock);
-            }
-            else
-            {
-                backblock.Extend(Side.Top, MainCamera.TR.Y + 500);
-                backblock.Extend(Side.Bottom, MainCamera.BL.Y - 500);
-
-                SetBackblockProperties(backblock);
-            }
             backblock.Core.MyTileSet = BackdropTileset;
-
-            // Cement
-            if (MyTileSet == TileSets.Cement)
-                backblock.Core.MyTileSet = TileSets.CastlePiece;
 
             // Make sure door is just in front of backdrop
             door.Core.DrawLayer = DesiredDoorLayer;
@@ -426,7 +383,6 @@ namespace CloudberryKingdom.Levels
                     return MakeInitial_Spaceship(ref BL, ref TR, ref pos, ref block);
 
                 case StyleData.InitialPlatsType.Door:
-                case StyleData.InitialPlatsType.CastleToTerrace:
                     size.X += 100;
                     pos.X -= 50;
 
@@ -444,12 +400,6 @@ namespace CloudberryKingdom.Levels
                     block.StampAsUsed(0);
                     block.Core.GenData.RemoveIfUnused = false;
 
-                    // Whether this start piece is a Castle-To-Terrace transition
-                    bool CastleToTerrace = Style.MyInitialPlatsType == StyleData.InitialPlatsType.CastleToTerrace;
-
-                    if (MyTileSet == TileSets.Cement || CastleToTerrace)
-                        block.Core.MyTileSet = TileSets.Catwalk;
-
                     if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
                         block.Extend(Side.Left, block.Box.BL.X + 30);
 
@@ -464,25 +414,10 @@ namespace CloudberryKingdom.Levels
                     if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
                         pos.X += 150;
 
-                    // Sky
-                    if (block.Core.MyTileSet == TileSets.Island)
-                    {
-                        block.Stretch(Side.Left, 55);
-                        block.Move(new Vector2(160, 0));
-                        pos.X += 265;
-                    }
-
                     pos.X += Info.ShiftStartDoor;
 
                     Door door;
-                    if (CastleToTerrace)
-                    {
-                        block.Stretch(Side.Left, -2000);
-                        block.Stretch(Side.Right, 500);
-                        door = PlaceDoorOnBlock(pos + new Vector2(380, 0), block, true, TileSets.CastlePiece);
-                    }
-                    else
-                        door = PlaceDoorOnBlock(pos, block, MyTileSet.CustomStartEnd ? false : true);
+                    door = PlaceDoorOnBlock(pos, block, MyTileSet.CustomStartEnd ? false : true);
                     door.Core.EditorCode1 = LevelConnector.StartOfLevelCode;
 
                     // Shift start position
@@ -922,30 +857,7 @@ namespace CloudberryKingdom.Levels
                             new Vector2(MaxRight + 500, MainCamera.BL.Y + VoidHeight + 215 + Style.LowerSafetyNetOffset),
                             new Vector2(SafetyWidth, 200 + CurMakeData.PieceSeed.ExtraBlockLength), 2*SafetyWidth+ExtraSpace, Style.MyGroundType);
 
-            //Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.TR.Y + Style.UpperSafetyNetOffset),
-            //                new Vector2(MaxRight, MainCamera.TR.Y + Style.UpperSafetyNetOffset + 100),
-            //                new Vector2(750, 200), 1500, Style.MyTopType);
             Sleep();
-
-
-            // Mid divider
-            if (CurMakeData.MidDivider)
-            {
-                BlockBase block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this,
-                    new Vector2(MaxLeft + 300, MainCamera.Data.Position.Y),
-                    new Vector2(MaxRight + 600, MainCamera.Data.Position.Y));
-                /*
-                NormalBlock block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                block.Init(TR, Vector2.Zero);
-                block.Extend(Side.Left, MaxLeft);
-                block.Extend(Side.Right, MaxRight);
-                block.Extend(Side.Top, MainCamera.Data.Position.Y + 30);
-                block.Extend(Side.Bottom, MainCamera.Data.Position.Y - 30);*/
-                //block.Core.GenData.Used = true;
-                block.StampAsUsed(0);
-
-                AddBlock(block);
-            }
 
             // Final platform
             EndBuffer = 0;

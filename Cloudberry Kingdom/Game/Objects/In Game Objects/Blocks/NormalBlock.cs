@@ -153,9 +153,6 @@ namespace CloudberryKingdom.Blocks
         {
             Tools.Assert(Core.MyTileSet != null);
 
-            if (Core.MyTileSet == TileSets.Cement)
-                Core.MyTileSet = TileSets.Catwalk;
-
             Box.TopOnly = true;
             Extend(Side.Bottom, Box.Current.TR.Y - TopOnlyHeight);
             Update();
@@ -219,9 +216,6 @@ namespace CloudberryKingdom.Blocks
 
         public void Update()
         {
-            if (Core.MyTileSet == TileSets.Island)
-                Box.TopOnly = true;
-
             MyDraw.Update();
         }
 
@@ -244,10 +238,6 @@ namespace CloudberryKingdom.Blocks
 
             Update();
             MyBox.Validate();
-
-            // This is a hack to make sure dungeon blocks don't repeat vertically
-            if (Core.MyTileSet.DungeonLike && !BlockCore.Ceiling && MyBox.Current.Size.Y > 2000)
-                Extend(Side.Bottom, MyBox.Current.TR.Y - 1950);
 
             if (!Core.BoxesOnly)
                 MyDraw.Init(this, GetPieceTemplate(), Invert);

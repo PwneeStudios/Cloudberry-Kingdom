@@ -163,7 +163,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public static void Thrust(Level level, int Layer, Vector2 pos, Vector2 dir, Vector2 vel)
+        public static void Thrust(Level level, int Layer, Vector2 pos, Vector2 dir, Vector2 vel, float scale)
         {
             //if (level.GetPhsxStep() % 3 != 0) return;
 
@@ -176,6 +176,8 @@ namespace CloudberryKingdom
 
                 p.Data.Position = pos + 3 * Dir;
                 p.Data.Velocity = vel + 23 * (.6f + .2f * (float)Tools.GlobalRnd.Rnd.NextDouble()) * dir + 1 * Dir;
+
+                p.Size *= scale;
             }
         }
 

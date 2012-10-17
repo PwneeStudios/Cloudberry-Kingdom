@@ -75,33 +75,17 @@ namespace CloudberryKingdom.Levels
             Pendulum_Parameters Params = (Pendulum_Parameters)level.Style.FindParams(Pendulum_AutoGen.Instance);
 
             Vector2 size = new Vector2(Params.Size.GetVal(pos), 40);
-
-            //Vector2 offset = Vector2.Zero;
             Vector2 offset = new Vector2(0, -300);
-
-            if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
-            {
-                offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
-
-                if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
-                if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
-
-                TR.X -= 350;
-                BL.X += 200;
-            }
 
             Pendulum p = (Pendulum)level.Recycle.GetObject(ObjectType.Pendulum, true);
             p.Init(pos + offset, size, level);
 
             if (level.PieceSeed.GeometryType == LevelGeometry.Right)
-                //p.PivotPoint.Y = level.MainCamera.TR.Y + 160;
                 p.PivotPoint.Y = p.Pos.Y + 2000;
-                //p.PivotPoint.Y = p.Pos.Y - 2000;
             else
             {
                 p.PivotPoint.X = level.MainCamera.BL.X - 160;
                 p.AddAngle = CoreMath.Radians(90);
-                //mblock.PivotLocationType = Floater.PivotLocationTypes.LeftRight;
             }
 
             p.Period = (int)Params.Period.GetVal(pos);

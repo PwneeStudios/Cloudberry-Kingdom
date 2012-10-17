@@ -19,12 +19,14 @@ namespace CloudberryKingdom
         /// <summary>
         /// This is the level seed being edited.
         /// </summary>
-        LevelSeedData LevelSeed;
-        PieceSeedData PieceSeed;
+        public LevelSeedData LevelSeed;
+        public PieceSeedData PieceSeed;
 
         public ObjectIcon HeroIcon, MiniCheckpoint;
-        public CustomHoverIcon HoverIcon = new CustomHoverIcon();
 
+        //static string CustomHeroString = "Custom";
+        static string CustomHeroString = "Factory";
+        
         public CustomLevel_GUI()
         {
             NoBackIfNoCaller = true;
@@ -49,7 +51,7 @@ namespace CloudberryKingdom
             PieceSeed.MyUpgrades1.UpgradeLevels.CopyTo(PieceSeed.MyUpgrades2.UpgradeLevels, 0);
 
             // Custom difficulty
-            if (DiffList.ListIndex == 0)
+            if (IsCustomDifficulty())
             {
                 data.Initialize(piece =>
                 {
@@ -462,7 +464,7 @@ namespace CloudberryKingdom
             SetItemProperties(item);
             HeroList.AddItem(item, BobPhsxRandom.Instance);
             // Custom
-            item = new MenuItem(new EzText("Custom", ItemFont, false, true));
+            item = new MenuItem(new EzText(CustomHeroString, ItemFont, false, true));
             SetItemProperties(item);
             HeroList.AddItem(item, null);
 
@@ -606,6 +608,7 @@ namespace CloudberryKingdom
             item.Selectable = false;
             item.Pos = new Vector2(721.8262f, -226.9048f);
 #endif
+            item.Go = Cast.ToItem(BringNext);
             item.ScaleText(.92f);
 
             // Select 'Start Level' when the user presses (A)
@@ -657,17 +660,9 @@ namespace CloudberryKingdom
         private void DiffList_OnIndex()
         {
             if (DiffList.ListIndex == 0)
-            {
                 Start.SubstituteText(" Continue");
-                Start.Go = thisitem =>
-                    MyGame.PlayGame(() => BringUpgrades());
-            }
             else
-            {
                 Start.SubstituteText(" Start");
-                Start.Go = thisitem =>
-                    MyGame.PlayGame(StartLevel);
-            }
         }
 
         void StartLevel()
@@ -693,13 +688,23 @@ namespace CloudberryKingdom
                         HeroList.SetIndex(HeroList.ListIndex + 1);
             }
             else
-                if (string.Compare(HeroList.CurMenuItem.MyString, "Custom") == 0)
+                if (IsCustomHero())
                     HeroIcon = ObjectIcon.CustomIcon;
 
             HeroIcon.FancyPos.SetCenter(Pos);
             
             HeroIcon.Pos = new Vector2(1050.003f, 383.3334f);
             //HeroIcon.Pos = new Vector2(525.002f, 238.8889f);
+        }
+
+        private bool IsCustomHero()
+        {
+            return (string.Compare(HeroList.CurMenuItem.MyString, CustomHeroString) == 0);
+        }
+
+        public bool IsCustomDifficulty()
+        {
+            return DiffList.ListIndex == 0;
         }
 
         public void SetPos()
@@ -795,19 +800,14 @@ namespace CloudberryKingdom
         /// </summary>
         public GUI_Panel CallingPanel;
 
-        void BringUpgrades()
+        void BringNext()
         {
-            //BringHero();
-            //return;
-
-            //// Set the difficulty to custom
-            //DiffList.SetIndex(0);
-
-            // Create the advanced menu
-            CallingPanel = new PassiveUpgrades_GUI(PieceSeed, this);
-            Call(CallingPanel, 0);
-            Hide(PresetPos.Left);
-            this.SlideInFrom = PresetPos.Left;
+            if (IsCustomHero())
+                BringHero();
+            else if (IsCustomDifficulty())
+                BringUpgrades();
+            else
+                StartLevel();
         }
 
         public override void Show()
@@ -818,12 +818,18 @@ namespace CloudberryKingdom
         CustomHero_GUI HeroGui;
         void BringHero()
         {
-            //if (HeroGui == null) HeroGui = new CustomHero_GUI();
-            //HeroGui.PreventRelease = true;
-
-            HeroGui = new CustomHero_GUI();
-
+            HeroGui = new CustomHero_GUI(this);
             Call(HeroGui, 0);
+            Hide(PresetPos.Left);
+            this.SlideInFrom = PresetPos.Left;
+        }
+
+        void BringUpgrades()
+        {
+            CallingPanel = new PassiveUpgrades_GUI(PieceSeed, this);
+            Call(CallingPanel, 0);
+            Hide(PresetPos.Left);
+            this.SlideInFrom = PresetPos.Left;
         }
 
         void BringLoad()

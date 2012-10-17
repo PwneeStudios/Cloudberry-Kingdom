@@ -613,7 +613,9 @@ namespace CloudberryKingdom
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
 
             // Load resource thread
+#if !DEBUG
             MainVideo.Load();
+#endif
             LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
 
@@ -719,9 +721,12 @@ namespace CloudberryKingdom
         }
 
         public bool RunningSlowly = false;
-        static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
         public void Update()
         {
+            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 10f));
+            //Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
+            //Tools.GameClass.IsFixedTimeStep = true;
         }
 
         void DoQuickSpawn()

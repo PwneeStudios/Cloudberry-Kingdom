@@ -12,7 +12,7 @@ namespace CloudberryKingdom
                 phsx.ModInitSize = new Vector2(1.7f, 1.4f);
 
             phsx.CapePrototype = Cape.CapeType.Normal;
-            phsx.CapeOffset += new Vector2(0, 20);
+            phsx.CapeOffset += new Vector2(0, -20);
 
             BobPhsxNormal normal = phsx as BobPhsxNormal;
             if (null != normal)
@@ -20,9 +20,9 @@ namespace CloudberryKingdom
                 normal.Gravity *= 1.55f;
                 normal.SetAccels();
 
-                Gravity *= .935f;
-                MaxSpeed *= 1.5f;
-                XAccel *= 1.5f;
+                normal.Gravity *= .935f;
+                normal.MaxSpeed *= 1.5f;
+                normal.XAccel *= 1.5f;
             }
         }
 

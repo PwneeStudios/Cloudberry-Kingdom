@@ -71,7 +71,8 @@ namespace CloudberryKingdom
             BlackBox();
         }
 
-        public enum State { Scene_Title, Scene, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten, Scene_Blur_Dark,
+        public enum State { None,
+                            Scene_Title, Scene, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten, Scene_Blur_Dark,
                             Scene_Kobbler, Scene_Kobbler_Blur };
         public void SetState(State state)
         {
@@ -83,6 +84,10 @@ namespace CloudberryKingdom
 
             switch (state)
             {
+                case State.None:
+                    Title.Show = Scene.Show = Scene_Princess.Show = Scene_Kobbler.Show = false;
+                    break;
+
                 case State.Scene_Title:
                     Title.Show = Scene.Show = true; break;
 
@@ -110,7 +115,14 @@ namespace CloudberryKingdom
                     if (MyState == State.Scene_Title) Scene.Show = true;
                     if (MyState == State.Scene_Princess) Scene_Princess.Show = true;
                     if (MyState == State.Scene_NoBob_Brighten) Scene_NoBob_Brighten.Show = true;
-                    if (MyState == State.Scene_Blur)
+
+                    if (MyState == State.None)
+                    {
+                        Scene_Blur.Alpha = 0;
+                        Scene_Blur.Fade(.025f);
+                        Scene_Blur.Show = true;
+                    }
+                    else if (MyState == State.Scene_Blur)
                     {
                         Scene_Blur.Fade(.25f);
                         Scene_Blur.Show = true;

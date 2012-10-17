@@ -13,7 +13,7 @@ namespace CloudberryKingdom
     public enum ObjectType { 
                                 Undefined,
                                 Coin, Checkpoint, BerryBubble,
-                                FlyingBlob, BlockEmitter, Spike, FireballEmitter, Fireball, FireSpinner, Boulder, Laser,
+                                FlyingBlob, BlockEmitter, Spike, Fireball, FireSpinner, Boulder, Laser,
                                 NormalBlock, FallingBlock, LavaBlock, MovingPlatform, MovingBlock, GhostBlock,
                                 Cloud, BouncyBlock, SpikeyGuy, SpikeyLine,
                                 Pendulum, Serpent, LavaDrip, Firesnake, ConveyorBlock,
@@ -121,8 +121,6 @@ namespace CloudberryKingdom
                     return new Coin(BoxesOnly);
                 case ObjectType.Spike:
                     return new Spike(BoxesOnly);
-                case ObjectType.FireballEmitter:
-                    return new FireballEmitter(BoxesOnly);
                 case ObjectType.Fireball:
                     return new Fireball(BoxesOnly);
                 case ObjectType.FireSpinner:

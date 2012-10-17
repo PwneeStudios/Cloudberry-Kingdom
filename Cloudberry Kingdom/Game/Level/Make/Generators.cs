@@ -23,7 +23,7 @@ namespace CloudberryKingdom.Levels
 
             AddGenerator(Coin_AutoGen.Instance);
 
-            AddGenerator(FireballEmitter_AutoGen.Instance);
+            AddGenerator(Fireball_AutoGen.Instance);
             AddGenerator(FireSpinner_AutoGen.Instance);
             AddGenerator(Spike_AutoGen.Instance);
             AddGenerator(Laser_AutoGen.Instance);

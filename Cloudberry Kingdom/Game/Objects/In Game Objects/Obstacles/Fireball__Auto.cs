@@ -4,16 +4,17 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels
 {
-    public class FireballEmitter_Parameters : AutoGen_Parameters
+    public class Fireball_Parameters : AutoGen_Parameters
     {
         public int NumDirections; // Evenly divide angle range into max(range/(N+4),pi/20) directions and randomly pick from those?
         public int Multi; // careful not to increase angle too much, start at greatest angle and add fireballs backwards
                             // use angle range as the spread angle 
 
-        public Param FireballSpeed, FireballMaxAngle, FireballEmitterMinDist, MinFireballEmitterDensity, MaxFireballEmitterDensity, Period;
+        public Param FireballSpeed, FireballMaxAngle, FireballMinDist, MinFireballDensity, MaxFireballDensity, Period;
         public Param KeepUnused;
 
         /// <summary>
@@ -51,9 +52,9 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            NumAngles = 4;// 2;
+            NumAngles = 4;
             NumPeriods = 1;
-            NumOffsets = 16;// 3;
+            NumOffsets = 16;
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -68,7 +69,6 @@ namespace CloudberryKingdom.Levels
                 Special.BorderFill = true;
 
             Special.BorderFill = false;
-            //DoStage2Fill = false;
 
             Tunnel = new TunnelFill();
             SetVal(ref TunnelTimeSpace, u => Math.Max(8, DifficultyHelper.Interp19(28, 8, u[Upgrade.Fireball])));
@@ -77,7 +77,6 @@ namespace CloudberryKingdom.Levels
             {
                 return DifficultyHelper.Interp19(20, 45, u[Upgrade.Speed]);
             });
-
 
             SetVal(ref BorderFillStep, u =>
             {
@@ -89,64 +88,42 @@ namespace CloudberryKingdom.Levels
 
             // General difficulty
             BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.Fireball];
-            });
+            BobWidthLevel.SetVal(u => u[Upgrade.Fireball]);
 
             FireballSpeed = new Param(PieceSeed);
-            FireballSpeed.SetVal(u =>
-            {
-                return 8 + u[Upgrade.Speed] + 1f * u[Upgrade.Fireball];
-            });
+            FireballSpeed.SetVal(u => 8 + u[Upgrade.Speed] + 1f * u[Upgrade.Fireball]);
 
             FireballMaxAngle = new Param(PieceSeed);
-            FireballMaxAngle.SetVal(u =>
-            {
-                return Math.Min(750, 0 + 100 * u[Upgrade.Fireball]);
-            });
+            FireballMaxAngle.SetVal(u => Math.Min(750, 0 + 100 * u[Upgrade.Fireball]));
 
-            FireballEmitterMinDist = new Param(PieceSeed);
-            FireballEmitterMinDist.SetVal(u =>
-            {
-                //return DifficultyHelper.Interp159(700, 240, 80, u[Upgrade.Fireball]);
-                return DifficultyHelper.Interp159(700, 340, 120, u[Upgrade.Fireball]);
-            });
+            FireballMinDist = new Param(PieceSeed);
+            FireballMinDist.SetVal(u => DifficultyHelper.Interp159(700, 340, 120, u[Upgrade.Fireball]));
 
-            MinFireballEmitterDensity = new Param(PieceSeed);
-            MinFireballEmitterDensity.SetVal(u =>
-            {
-                return 4 * u[Upgrade.Fireball];
-            });
+            MinFireballDensity = new Param(PieceSeed);
+            MinFireballDensity.SetVal(u => 4 * u[Upgrade.Fireball]);
 
-            MaxFireballEmitterDensity = new Param(PieceSeed);
-            MaxFireballEmitterDensity.SetVal(u =>
-            {
-                return 4 * u[Upgrade.Fireball];
-            });
+            MaxFireballDensity = new Param(PieceSeed);
+            MaxFireballDensity.SetVal(u => 4 * u[Upgrade.Fireball]);
 
             Period = new Param(PieceSeed);
-            Period.SetVal(u =>
-            {
-                return Math.Max(20, 140 - 12 * u[Upgrade.Speed]);
-            });
+            Period.SetVal(u => Math.Max(20, 140 - 12 * u[Upgrade.Speed]));
         }
     }
 
-    public sealed class FireballEmitter_AutoGen : AutoGen
+    public sealed class Fireball_AutoGen : AutoGen
     {
-        static readonly FireballEmitter_AutoGen instance = new FireballEmitter_AutoGen();
-        public static FireballEmitter_AutoGen Instance { get { return instance; } }
+        static readonly Fireball_AutoGen instance = new Fireball_AutoGen();
+        public static Fireball_AutoGen Instance { get { return instance; } }
 
-        static FireballEmitter_AutoGen() { }
-        FireballEmitter_AutoGen()
+        static Fireball_AutoGen() { }
+        Fireball_AutoGen()
         {
             Do_PreFill_2 = true;
         }
 
         public override AutoGen_Parameters SetParameters(PieceSeedData data, Level level)
         {
-            FireballEmitter_Parameters Params = new FireballEmitter_Parameters();
+            Fireball_Parameters Params = new Fireball_Parameters();
             Params.SetParameters(data, level);
 
             return (AutoGen_Parameters)Params;
@@ -161,7 +138,7 @@ namespace CloudberryKingdom.Levels
             PieceSeedData piece = level.CurMakeData.PieceSeed;
 
             // Get emitter parameters
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             int Period = (int)Params.Period.GetVal(pos);
             int Offset = Params.ChooseOffset(Period, level.Rnd);
@@ -169,47 +146,30 @@ namespace CloudberryKingdom.Levels
             return null;
         }
 
-        void inner(FireballEmitter_Parameters Params, Level level, Vector2 pos, int i, LevelGeometry Geometry)
+        void inner(Fireball_Parameters Params, Level level, Vector2 pos, int i, LevelGeometry Geometry)
         {
-            FireballEmitter emitter = (FireballEmitter)CreateAt(level, pos);
+            Fireball emitter = (Fireball)CreateAt(level, pos);
 
             float Speed = Params.FireballSpeed.GetVal(pos) * (i == 0 ? 1 : -1);
 
             if (Params.Arc)
             {
-                emitter.EmitData.Acceleration.Y = -Math.Abs(Speed) / 100f;
-
-                //Speed *= 2;
-                //float dx = 1500f;
-                //if (Geometry != LevelGeometry.Right) dx = 2100f;
-
-                //float v = Math.Abs(Speed);
-                //float accel = -.5f * v * v / dx * Math.Sign(Speed);
-                //if (Geometry == LevelGeometry.Right)
-                //    emitter.EmitData.Acceleration = new Vector2(0, accel);
-                //else
-                //    emitter.EmitData.Acceleration = new Vector2(accel, 0);
+                emitter.Core.StartData.Acceleration.Y = -Math.Abs(Speed) / 100f;
             }
 
             float MaxAngle = .001f * Params.FireballMaxAngle.GetVal(pos);
-            double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles, level.Rnd);
+            double Angle = Fireball_AutoGen.GetAngle(MaxAngle, Params.NumAngles, level.Rnd);
             if (Geometry == LevelGeometry.Right) Angle += Math.PI / 2;
-            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
+            emitter.Core.StartData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
             level.AddObject(emitter);
 
             emitter.Core.GenData.EnforceBounds = false;
-
-            emitter.DrawEmitter = false;
-            emitter.AlwaysOn = true;
-
-            //emitter.Core.GenData.KeepIfUnused = true;
-            //SetSurvivalParams(level, emitter, EmitPosition, AimPosition);
         }
 
         void BorderFill(Level level, Vector2 BL, Vector2 TR)
         {
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             LevelGeometry Geometry = level.CurMakeData.PieceSeed.GeometryType;
 
@@ -229,9 +189,6 @@ namespace CloudberryKingdom.Levels
                     shift = -250;
                     pos.Y = (i == 0 ? level.MainCamera.BL.Y + shift : level.MainCamera.TR.Y - shift);
                     
-                    //for (pos.X = BL.X + Params.BorderFillStep/2; pos.X < TR.X + 400; pos.X += Params.BorderFillStep)
-                    //    inner(Params, level, pos, i, Geometry);
-
                     pos.X = BL.X + Params.BorderFillStep/2;
                     while (pos.X < TR.X + 400)
                     {
@@ -257,12 +214,12 @@ namespace CloudberryKingdom.Levels
         {
             for (int j = 0; j < Num; j++)
             {
-                FireballEmitter emitter = (FireballEmitter)CreateAt(level, Center);
+                Fireball emitter = (Fireball)CreateAt(level, Center);
 
                 emitter.Period = 3 * emitter.Period / 2;
                 emitter.Offset = (int)(j * ((float)emitter.Period / Num));
 
-                emitter.EmitData.Velocity = Dir;
+                emitter.Core.StartData.Velocity = Dir;
 
                 emitter.Core.GenData.KeepIfUnused = true;
 
@@ -271,36 +228,29 @@ namespace CloudberryKingdom.Levels
         }*/
 
         static float[] AngleSnaps = { 0, 90, 180, 270 };
-        void SetSurvivalParams(Level level, FireballEmitter emitter, Vector2 EmitPos, Vector2 AimPos)
+        void SetSurvivalParams(Level level, Fireball emitter, Vector2 EmitPos, Vector2 AimPos)
         {
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             float Speed = Params.SurvivalHallwaySpeed;
 
-            //emitter.Period *= 3;
             emitter.Period = 500;
             emitter.Offset = level.Rnd.Rnd.Next(emitter.Period);
 
-            emitter.DrawEmitter = false;
-            emitter.Range = 1600;
-
-            emitter.EmitData.Velocity = Speed * Vector2.Normalize(AimPos - EmitPos);
+            emitter.Core.StartData.Velocity = Speed * Vector2.Normalize(AimPos - EmitPos);
 
             // Snap angle to 0/90/180/270 if close
-            Vector2 polar = CoreMath.CartesianToPolar(emitter.EmitData.Velocity);
+            Vector2 polar = CoreMath.CartesianToPolar(emitter.Core.StartData.Velocity);
 
             foreach (float AngleSnap in AngleSnaps)
                 if (CoreMath.AngleDist(CoreMath.c * polar.X, AngleSnap) < 7) polar.X = AngleSnap / CoreMath.c;
 
-            emitter.EmitData.Velocity = CoreMath.PolarToCartesian(polar);
-
+            emitter.Core.StartData.Velocity = CoreMath.PolarToCartesian(polar);
 
             emitter.Core.GenData.KeepIfUnused = true;
 
             emitter.Core.GenData.LimitDensity = false;
             emitter.Core.GenData.EnforceBounds = false;
-
-            emitter.AlwaysOn = true;
 
             level.AddObject(emitter);
         }
@@ -350,7 +300,7 @@ namespace CloudberryKingdom.Levels
                         break;
                 }
 
-                FireballEmitter emitter = (FireballEmitter)CreateAt(level, EmitPosition);
+                Fireball emitter = (Fireball)CreateAt(level, EmitPosition);
                 SetSurvivalParams(level, emitter, EmitPosition, AimPosition);
 
                 emitter.Offset = i;
@@ -360,7 +310,7 @@ namespace CloudberryKingdom.Levels
 
         void SurvivalRotatingTunnel(Level level, Vector2 BL, Vector2 TR, int Length)
         {
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             Length -= 30;
 
@@ -382,22 +332,22 @@ namespace CloudberryKingdom.Levels
             {
                 switch (Params.TunnelType)
                 {
-                    case FireballEmitter_Parameters.TunnelTypes.Chaos:
+                    case Fireball_Parameters.TunnelTypes.Chaos:
                         Angle += 77; break;
 
-                    case FireballEmitter_Parameters.TunnelTypes._0:
+                    case Fireball_Parameters.TunnelTypes._0:
                         Angle = 0; break;
 
-                    case FireballEmitter_Parameters.TunnelTypes._45:
+                    case Fireball_Parameters.TunnelTypes._45:
                         Angle = 45; break;
 
-                    case FireballEmitter_Parameters.TunnelTypes._90:
+                    case Fireball_Parameters.TunnelTypes._90:
                         Angle = 90; break;
 
-                    case FireballEmitter_Parameters.TunnelTypes._4way:
+                    case Fireball_Parameters.TunnelTypes._4way:
                         Angle = 90 * I; break;
 
-                    case FireballEmitter_Parameters.TunnelTypes._45_45:
+                    case Fireball_Parameters.TunnelTypes._45_45:
                         Angle += I % 2 == 0 ? 90 : -90; break;
                 }
                 
@@ -437,7 +387,7 @@ namespace CloudberryKingdom.Levels
                     AimPosition = Center + new Vector2(level.Rnd.RndFloat(-900, 900), 150);
                     */
 
-                    FireballEmitter emitter = (FireballEmitter)CreateAt(level, EmitPosition);
+                    Fireball emitter = (Fireball)CreateAt(level, EmitPosition);
                     SetSurvivalParams(level, emitter, EmitPosition, AimPosition);
                     emitter.Offset = i;
                     emitter.Period = 100000;// Length;
@@ -451,33 +401,34 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public FireballEmitter_Parameters GetParams(Level level)
+        public Fireball_Parameters GetParams(Level level)
         {
-            return (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            return (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
         }
         
         public override ObjectBase CreateAt(Level level, Vector2 pos)
         {
-            FireballEmitter_Parameters Params = GetParams(level);
+            Fireball_Parameters Params = GetParams(level);
 
-            FireballEmitter emitter = (FireballEmitter)level.Recycle.GetObject(ObjectType.FireballEmitter, true);
+            Fireball emitter = (Fireball)level.Recycle.GetObject(ObjectType.Fireball, true);
+
+            emitter.Init(new PhsxData(), level);
 
             emitter.Core.Data.Position = pos;
+            emitter.Core.StartData.Position = pos;
+
             emitter.Period = (level.Rnd.Rnd.Next(Params.NumPeriods - 1) + 1) * (int)Params.Period.GetVal(pos);
+            
             if (Params.NumOffsets < 0)
                 emitter.Offset = level.Rnd.Rnd.Next(emitter.Period);
             else
                 emitter.Offset = level.Rnd.Rnd.Next(0, Params.NumOffsets) * emitter.Period / Params.NumOffsets;
-            emitter.FireOnScreen = true;
-            emitter.DrawEmitter = false;
 
             return emitter;
         }
 
         public static double GetAngle(float MaxAngle, int NumAngles, Rand Rnd)
         {
-            //return 0;
-
             if (NumAngles < 0)
                 return Rnd.Rnd.NextDouble() * 2 * MaxAngle - MaxAngle;
             else if (NumAngles == 1)
@@ -491,8 +442,8 @@ namespace CloudberryKingdom.Levels
         {
             base.PreFill_2(level, BL, TR);
 
-            // Get FireballEmitter parameters
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            // Get Fireball parameters
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             int Length = level.CurPiece.PieceLength;
 
@@ -504,18 +455,18 @@ namespace CloudberryKingdom.Levels
                 //BorderFill(level, BL, TR);
 
             if (Params.DoStage2Fill && Params.DoFill)
-            ////    AutoFireballEmitters_OnIceBlocks(level);
+            ////    AutoFireballs_OnIceBlocks(level);
                 BorderFill(level, BL, TR);
-                //level.AutoFireballEmitters();
+                //level.AutoFireballs();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            //level.CleanupFireballEmitters(BL, TR);
+            //level.CleanupFireballs(BL, TR);
 
-            // Get FireballEmitter parameters
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)level.Style.FindParams(FireballEmitter_AutoGen.Instance);
+            // Get Fireball parameters
+            Fireball_Parameters Params = (Fireball_Parameters)level.Style.FindParams(Fireball_AutoGen.Instance);
 
             if (Params.Special.SurvivalFill)
                 Params.Tunnel.CleanupTunnel(level);
@@ -524,22 +475,22 @@ namespace CloudberryKingdom.Levels
 
     public partial class Level
     {
-        public void CleanupFireballEmitters(Vector2 BL, Vector2 TR)
+        public void CleanupFireballs(Vector2 BL, Vector2 TR)
         {
-            // Get FireballEmitter parameters
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)Style.FindParams(FireballEmitter_AutoGen.Instance);
+            // Get Fireball parameters
+            Fireball_Parameters Params = (Fireball_Parameters)Style.FindParams(Fireball_AutoGen.Instance);
 
-            Cleanup(ObjectType.FireballEmitter, pos =>
+            Cleanup(ObjectType.Fireball, pos =>
             {
-                float dist = Params.FireballEmitterMinDist.GetVal(pos);
+                float dist = Params.FireballMinDist.GetVal(pos);
                 return new Vector2(dist, dist);
             }, BL, TR);
         }
 
-        public void AutoFireballEmitters()
+        public void AutoFireballs()
         {
-            // Get FireballEmitter parameters
-            FireballEmitter_Parameters Params = (FireballEmitter_Parameters)Style.FindParams(FireballEmitter_AutoGen.Instance);
+            // Get Fireball parameters
+            Fireball_Parameters Params = (Fireball_Parameters)Style.FindParams(Fireball_AutoGen.Instance);
             
             int density;
 
@@ -556,8 +507,8 @@ namespace CloudberryKingdom.Levels
 
 
 
-                density = (int)Rnd.RndFloat(Params.MinFireballEmitterDensity.GetVal(pos),
-                                         Params.MaxFireballEmitterDensity.GetVal(pos));
+                density = (int)Rnd.RndFloat(Params.MinFireballDensity.GetVal(pos),
+                                         Params.MaxFireballDensity.GetVal(pos));
 
                 // Add emitter
                 float xmin = block.Box.Current.BL.X + 80;
@@ -593,7 +544,7 @@ namespace CloudberryKingdom.Levels
                             y > block2.Box.Current.TR.Y + 100 || y < block2.Box.Current.BL.Y - 100;
                     })) continue;
 
-                    FireballEmitter emitter = (FireballEmitter)FireballEmitter_AutoGen.Instance.CreateAt(this, new Vector2(x, y));
+                    Fireball emitter = (Fireball)Fireball_AutoGen.Instance.CreateAt(this, new Vector2(x, y));
                         
                     emitter.SetParentBlock(block);
 
@@ -607,40 +558,39 @@ namespace CloudberryKingdom.Levels
 
                     // Diagonal paths
                     float MaxAngle = .001f * Params.FireballMaxAngle.GetVal(pos);
-                    double Angle = FireballEmitter_AutoGen.GetAngle(MaxAngle, Params.NumAngles, Rnd);
+                    double Angle = Fireball_AutoGen.GetAngle(MaxAngle, Params.NumAngles, Rnd);
 
                     // Lava emitters are always vertical and invisible
                     float Speed = Params.FireballSpeed.GetVal(block.Core.Data.Position);
                     if (block.BlockCore.MyType == ObjectType.LavaBlock)
                     {
-                        emitter.DrawEmitter = false;
-                        emitter.EmitData.Acceleration = new Vector2(0, -.7f);
-                        emitter.EmitData.Velocity = new Vector2(0, 50);
+                        emitter.Core.StartData.Acceleration = new Vector2(0, -.7f);
+                        emitter.Core.StartData.Velocity = new Vector2(0, 50);
                     }
                     else
                     switch (Dir)
                     {
                         case 3:
                             Angle += Math.PI / 2;
-                            //emitter.EmitData.Velocity = new Vector2(0, Speed);
-                            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
+                            //emitter.Core.StartData.Velocity = new Vector2(0, Speed);
+                            emitter.Core.StartData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
                             break;
 
                         case 1:
                             Angle -= Math.PI / 2;
-                            //emitter.EmitData.Velocity = new Vector2(0, -Speed);
-                            emitter.EmitData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
+                            //emitter.Core.StartData.Velocity = new Vector2(0, -Speed);
+                            emitter.Core.StartData.Velocity = CoreMath.AngleToDir(Angle) * Speed;
 
                             break;
 
                         case 0:
-                            emitter.EmitData.Velocity = new Vector2(Speed, 0);
+                            emitter.Core.StartData.Velocity = new Vector2(Speed, 0);
 
                             break;
 
                         case 2:
-                            emitter.EmitData.Velocity = new Vector2(-Speed, 0);
+                            emitter.Core.StartData.Velocity = new Vector2(-Speed, 0);
 
                             break;
                     }

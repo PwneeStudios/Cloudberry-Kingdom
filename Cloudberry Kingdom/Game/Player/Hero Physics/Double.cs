@@ -32,19 +32,19 @@ namespace CloudberryKingdom
                 obj.FindQuad("Wings_Front").MyEffect = Tools.HslGreenEffect;
                 obj.FindQuad("Wings_Back").MyEffect = Tools.HslGreenEffect;
 
-                BaseQuad quad = obj.FindQuad("Arm_Right");
-                if (quad != null) quad.Show = false;
-                else return;
+                //BaseQuad quad = obj.FindQuad("Arm_Right");
+                //if (quad != null) quad.Show = false;
+                //else return;
 
-                obj.FindQuad("Arm_Left").Show = false;
-                bool feet = !(phsx is BobPhsxBox);
-                {
-                    obj.FindQuad("Foot_Left").Show = feet;
-                    obj.FindQuad("Foot_Right").Show = feet;
-                }
-                obj.FindQuad("Leg_Left").Show = false;
-                obj.FindQuad("Leg_Right").Show = false;
-                obj.FindQuad("Body").Show = false;
+                //obj.FindQuad("Arm_Left").Show = false;
+                //bool feet = !(phsx is BobPhsxBox);
+                //{
+                //    obj.FindQuad("Foot_Left").Show = feet;
+                //    obj.FindQuad("Foot_Right").Show = feet;
+                //}
+                //obj.FindQuad("Leg_Left").Show = false;
+                //obj.FindQuad("Leg_Right").Show = false;
+                //obj.FindQuad("Body").Show = false;
             }
         }
 

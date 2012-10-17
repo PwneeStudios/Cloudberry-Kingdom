@@ -12,7 +12,6 @@ namespace CloudberryKingdom
         }
         public void Set(BobPhsx phsx, Vector2 modsize)
         {
-            //phsx.ModInitSize = new Vector2(.6f, .65f) * modsize;
             phsx.ModInitSize = new Vector2(.6f) * modsize;
             
             phsx.CapePrototype = Cape.CapeType.Small;

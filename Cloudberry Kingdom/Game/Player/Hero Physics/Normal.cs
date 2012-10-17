@@ -293,14 +293,16 @@ namespace CloudberryKingdom
                     MyBob.PlayerObject.ParentQuad.Size / new Vector2(260);
 
                 int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
-                
+
+                float scale = .5f * (Math.Abs(Mod.X) - 1) + 1;
+
                 if (Ducking)
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos_Duck, Mod * ThrustDir_Duck, Vel / 1.5f);
+                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos_Duck, Mod * ThrustDir_Duck, Vel / 1.5f, scale);
                 else
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos1, Mod * ThrustDir1, Vel / 1.5f);
+                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos1, Mod * ThrustDir1, Vel / 1.5f, scale);
 
                 if (ThrustType == RocketThrustType.Double)
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + ThrustPos2, Mod * ThrustDir2, Vel / 1.5f);
+                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos2, Mod * ThrustDir2, Vel / 1.5f, scale);
             }
         }
 

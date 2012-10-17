@@ -344,7 +344,7 @@ namespace CloudberryKingdom.Levels
         void Init(bool NoParticles)
         {
             this.NoParticles = NoParticles;
-            MyTileSet = TileSets.Castle;
+            MyTileSet = TileSets.TileList[0];
 
             CanWatchComputer = CanWatchReplay = false;
 
@@ -2219,7 +2219,8 @@ namespace CloudberryKingdom.Levels
             switch (TimeType)
             {
                 case TimeTypes.Regular:
-                    IndependentPhsxStep = CurPhsxStep;
+                    //IndependentPhsxStep = CurPhsxStep * 1.5f;
+                    IndependentPhsxStep = CurPhsxStep * 1f;
                     if (!IndependentStepSetOnce)
                         PrevIndependentPhsxStep = IndependentPhsxStep - 1;
                     break;

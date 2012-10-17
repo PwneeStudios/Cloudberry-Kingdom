@@ -15,7 +15,7 @@ namespace CloudberryKingdom.Obstacles
     {
         public class SerpentTileInfo : TileInfoBase
         {
-            public SpriteInfo Serpent = new SpriteInfo("Serpent", new Vector2(200, -1), new Vector2(0, -.855f), Color.White, true);
+            public SpriteInfo Serpent = new SpriteInfo("Serpent", new Vector2(200, -1), new Vector2(0, -.875f), Color.White, true);
             public SpriteInfo Fish = new SpriteInfo("Fish_1", new Vector2(35, -1));
             public Vector2 BoxSize = new Vector2(90, 1000);
         }

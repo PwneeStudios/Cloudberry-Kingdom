@@ -85,15 +85,6 @@ namespace CloudberryKingdom.Levels
                 block.BlockCore.EndPiece = true;
                 block.Core.DrawLayer = 0;
             }
-            // Old style end blocks
-            else
-            {
-                // Sky
-                if (block.Core.MyTileSet == TileSets.Island)
-                {
-                    block.Move(new Vector2(-25, 0));
-                }
-            }
         }
 
         public override void Phase2()
@@ -151,15 +142,6 @@ namespace CloudberryKingdom.Levels
             {
                 FinalPos.X += 230;
             }
-            // Old style end blocks
-            else
-            {
-                // Sky
-                if (FinalBlock.Core.MyTileSet == TileSets.Island)
-                {
-                    FinalPos.X += 130;
-                }
-            }
 
             // Add door
             Door door = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, MyLevel.MyTileSet.CustomStartEnd ? false : true);
@@ -168,18 +150,6 @@ namespace CloudberryKingdom.Levels
             if (MyLevel.MyTileSet.FixedWidths)
             {
                 door.Mirror = true;
-            }
-            // Old style end blocks
-            {
-                // Terrace-To-Castle
-                if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
-                {
-                    MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
-                    MyLevel.MadeBackBlock.Stretch(Side.Right, 1000);
-                    MyLevel.MadeBackBlock.Stretch(Side.Left, -200);
-                    FinalBlock.Core.MyTileSet = TileSets.Catwalk;
-                    FinalBlock.Stretch(Side.Left, -200);
-                }
             }
 
             SetFinalDoor(door, MyLevel, FinalPos);

@@ -16,34 +16,11 @@ namespace CloudberryKingdom.Levels
 
         public bool CustomWeight = false;
 
-        public struct _Special
-        {
-            /// <summary>
-            /// Create a long, narrow hallway
-            /// </summary>
-            public bool Hallway;
-        }
-        public _Special Special;
-
-        public float HallwayWidth = Unset.Float;
-
         public Wall MyWall;
         public Wall SetWall(LevelGeometry geometry)
         {
             MyWall = Wall.MakeWall(geometry);
             return MyWall;
-        }
-
-        public void SetHallway(LevelGeometry geometry)
-        {
-            Special.Hallway = true;
-            if (geometry == LevelGeometry.Right)
-            {
-                DoStage1Fill = DoInitialPlats = DoFinalPlats = false;
-                SetVal(ref HallwayWidth, 450);
-            }
-            else
-                SetVal(ref HallwayWidth, 75);
         }
 
         /// <summary>
@@ -99,115 +76,9 @@ namespace CloudberryKingdom.Levels
             Params.MyWall = null;
         }
 
-        void SetHallwayBlockProperties(BlockBase block)
-        {
-            block.StampAsUsed(0);
-            block.BlockCore.NonTopUsed = true;
-        }
-
-        void Hallway(Level level, Vector2 BL, Vector2 TR)
-        {
-            if (level.CurMakeData.LevelSeed.MyGeometry == LevelGeometry.Right)
-                HorizontalHallway(level, BL, TR);
-            else
-                VerticalHallway(level, BL, TR);
-        }
-
         NormalBlock_Parameters GetParams(Level level)
         {
             return (NormalBlock_Parameters)level.Style.FindParams(NormalBlock_AutoGen.Instance);
-        }
-
-        void VerticalHallway(Level level, Vector2 BL, Vector2 TR)
-        {
-            var Params = GetParams(level);
-
-            Vector2 Pos = BL;
-
-            float MinRadius = Params.HallwayWidth;
-            BlockBase LeftMostBlock = Tools.ArgMax(level.Blocks.FindAll(match => match.Box.GetTR().X < -MinRadius), element => element.Core.Data.Position.X);
-            BlockBase RightMostBlock = Tools.ArgMin(level.Blocks.FindAll(match => match.Box.GetBL().X > MinRadius), element => element.Core.Data.Position.X);
-
-            Vector2 pos1 = new Vector2(0, BL.Y - 700);
-            Vector2 pos2 = new Vector2(0, TR.Y + 700);
-            Vector2 right = new Vector2(RightMostBlock.Box.GetTR().X, 0);
-            Vector2 left = new Vector2(LeftMostBlock.Box.GetBL().X, 0);
-            NormalBlock block;
-
-            // Right block
-            block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(level, pos1 + right, pos2 + right, true);
-            SetHallwayBlockProperties(block);
-
-            level.AddBlock(block);
-
-            // Left block
-            block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(level, pos1 + left, pos2 + left, false);
-            SetHallwayBlockProperties(block);
-
-            level.AddBlock(block);
-        }
-
-        void HorizontalHallway(Level level, Vector2 BL, Vector2 TR)
-        {
-            NormalBlock_Parameters Params = (NormalBlock_Parameters)level.Style.FindParams(NormalBlock_AutoGen.Instance);
-
-            Vector2 Pos = BL;
-
-            Vector2 pos1 = new Vector2(BL.X - 900, BL.Y + 700);
-            Vector2 pos2 = new Vector2(TR.X + 900, BL.Y + 700);
-            Vector2 shift = new Vector2(0, Params.HallwayWidth);
-            NormalBlock block;
-
-            // Top block
-            block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(level, pos1 + shift, pos2 + shift);
-            SetHallwayBlockProperties(block);
-
-            level.AddBlock(block);
-
-            // Bottom block
-            block = NormalBlock_AutoGen.Instance.CreateCementBlockLine(level, pos1, pos2);
-            SetHallwayBlockProperties(block);
-
-            level.AddBlock(block);
-
-            // Start door
-            Vector2 pos = level.CurPiece.StartData[0].Position;
-            Door door = level.PlaceDoorOnBlock(pos, block, true);
-
-            door.MyBackblock.Extend(Side.Right, pos.X + 350);
-            door.MyBackblock.Extend(Side.Left, pos.X - 800);
-            door.MyBackblock.Core.MyTileSet = level.CurMakeData.LevelSeed.MyTileSet;
-
-            // Shift start position
-            /*for (int i = 0; i < level.CurMakeData.NumInitialBobs; i++)
-            {
-                level.CurPiece.StartData[i].Position = door.Core.Data.Position;
-            }*/
-            Level.SpreadStartPositions(level.CurPiece, level.CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
-
-            // End door
-            pos = new Vector2(TR.X, 0);
-            door = level.PlaceDoorOnBlock(pos, block, true);
-            MakeFinalDoor.SetFinalDoor(door, level, pos);
-
-            door.MyBackblock.Extend(Side.Right, pos.X + 800);
-            door.MyBackblock.Extend(Side.Left, pos.X - 350);
-            door.MyBackblock.Core.MyTileSet = level.CurMakeData.LevelSeed.MyTileSet;
-            
-
-            //    if (Geometry == LevelGeometry.Right)
-            //    {
-            //        pos.Y = (i == 0 ? level.MainCamera.BL.Y + shift : level.MainCamera.TR.Y - shift);
-            //        for (pos.X = BL.X; pos.X < TR.X; pos.X += 200)
-            //            inner();
-            //    }
-            //    else
-            //    {
-            //        pos.X = (i == 0 ? level.MainCamera.BL.X + shift : level.MainCamera.TR.X - shift);
-            //        for (pos.Y = BL.Y; pos.Y < TR.Y; pos.Y += 200)
-            //            inner();
-            //    }
-            //}
         }
 
         public override void PreFill_1(Level level, Vector2 BL, Vector2 TR)
@@ -216,9 +87,6 @@ namespace CloudberryKingdom.Levels
 
             // Get NormalBlock parameters
             NormalBlock_Parameters Params = (NormalBlock_Parameters)level.Style.FindParams(NormalBlock_AutoGen.Instance);
-
-            if (Params.Special.Hallway)
-                Hallway(level, BL, TR);
 
             if (Params.MyWall != null)
                 MakeWall(level);
@@ -234,46 +102,6 @@ namespace CloudberryKingdom.Levels
         {
             base.Cleanup_2(level, BL, TR);
             level.CleanupNormalBlocks(BL, TR);
-        }
-
-        public NormalBlock CreateCementBlock(Level level, Vector2 pos)
-        {
-            return CreateCementBlock(level, pos, new Vector2(75, 75));
-        }
-
-        public NormalBlock CreateCementBlockLine(Level level, Vector2 pos1, Vector2 pos2)
-        {
-            return CreateCementBlockLine(level, pos1, pos2, true);
-        }
-
-        /// <summary>
-        /// Create a line of cement blocks.
-        /// </summary>
-        /// <param name="ShiftRight">When centering the blocks, whether to shift right or left.</param>
-        public NormalBlock CreateCementBlockLine(Level level, Vector2 pos1, Vector2 pos2, bool ShiftRight)
-        {
-            Vector2 dif = (pos2 - pos1) / 150f;
-            dif.X = (int)dif.X; dif.Y = (int)dif.Y;
-            if (dif.X < 1) dif.X = 1;
-            if (dif.Y < 1) dif.Y = 1;
-
-            dif *= 150;
-
-            Vector2 shift = dif / 2;
-            if (!ShiftRight) shift.X *= -1;
-
-            return CreateCementBlock(level, pos1 + shift, dif / 2);
-        }
-        public NormalBlock CreateCementBlock(Level level, Vector2 pos, Vector2 size)
-        {
-            NormalBlock block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-            block.Init(pos, size, TileSets.Cement);
-
-            block.Core.MyTileSet = TileSets.Cement;
-
-            block.BlockCore.DeleteIfTopOnly = true;
-
-            return block;
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos)
@@ -446,18 +274,6 @@ namespace CloudberryKingdom.Levels
                     }
                     block.Core.GenData.NoBottomShift = block.Core.GenData.NoMakingTopOnly = true;
                     EnsureBoundsAfter = false;
-                    break;
-
-                case StyleData._BlockFillType.Spaceship:
-                    size = new Vector2(100 * level.Rnd.Rnd.Next(1, 4), 100 * level.Rnd.Rnd.Next(1, 4));
-                    offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
-                    if (pos.X > piece.End.X - 400) offset.X -= pos.X - piece.End.X + 400;
-                    if (pos.X < piece.Start.X + 400) offset.X += piece.Start.X - pos.X + 400;
-
-                    if (pos.X - size.X < BL.X) offset.X += BL.X - (pos.X - size.X);
-
-                    block = CreateCementBlockLine(level, pos + offset - size, pos + offset + size);
-
                     break;
 
                 default:

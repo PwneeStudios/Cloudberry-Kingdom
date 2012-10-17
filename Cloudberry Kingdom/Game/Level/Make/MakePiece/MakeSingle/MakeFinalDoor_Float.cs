@@ -85,12 +85,6 @@ namespace CloudberryKingdom.Levels
         {
             base.Phase3();
 
-            // Sky
-            if (FinalBlock.Core.MyTileSet == TileSets.Island)
-            {
-                FinalPos.X += 130;
-            }
-
             Door door;
 
             // New style end blocks
@@ -107,15 +101,6 @@ namespace CloudberryKingdom.Levels
                 // Add door
                 door = MyLevel.PlaceDoorOnBlock_Unlayered(FinalPos, FinalBlock, true);
                 Tools.MoveTo(door, FinalPos);
-
-                // Terrace-To-Castle
-                if (MyLevel.Style.MyFinalDoorStyle == StyleData.FinalDoorStyle.TerraceToCastle)
-                {
-                    MyLevel.MadeBackBlock.Core.MyTileSet = TileSets.CastlePiece2;
-                    MyLevel.MadeBackBlock.Stretch(Side.Right, 1500);
-                    MyLevel.MadeBackBlock.Stretch(Side.Left, -50);
-                    MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
-                }
             }
 
             SetFinalDoor(door, MyLevel, FinalPos);
@@ -123,14 +108,6 @@ namespace CloudberryKingdom.Levels
             // New style end blocks
             if (MyLevel.MyTileSet.FixedWidths)
             {
-            }
-            // Old style end blocks
-            else
-            {
-                if (FinalBlock.Core.MyTileSet == TileSets.Island)
-                {
-                    MyLevel.MadeBackBlock.Extend(Side.Bottom, -2200);
-                }
             }
 
             // Push lava down

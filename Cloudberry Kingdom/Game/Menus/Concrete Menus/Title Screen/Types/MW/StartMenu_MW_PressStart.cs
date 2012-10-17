@@ -34,7 +34,9 @@ namespace CloudberryKingdom
         {
  	        base.Init();
 
-            DelayToAllowInput = 80;
+            //DelayToAllowInput = 80;
+            DelayToAllowInput = 50;
+
             CallDelay = ReturnToCallerDelay = 0;
 
             MyPile = new DrawPile();

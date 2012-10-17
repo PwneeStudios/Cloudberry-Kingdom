@@ -15,38 +15,39 @@ namespace CloudberryKingdom.Obstacles
             public SpriteInfo Sprite = new SpriteInfo(null, new Vector2(72, -1));
         }
 
-        public override void Release()
-        {
-            base.Release();
-
-            Parent = null;
-        }
-
         public HsvQuad MyQuad;
 
-        public int Life, StartLife;
-        public ObjectBase Parent;
-        public int CreationTimeStamp;
+        public int Period, Offset;
 
-        public int FireballType;
-
-        Vector2 Size;
+        bool Alive;
 
         public override void MakeNew()
         {
             base.MakeNew();
+
+            Core.MyType = ObjectType.Fireball;
+            AutoGenSingleton = Fireball_AutoGen.Instance;
+            DeathType = Bobs.Bob.BobDeathType.Fireball;
+
+            Core.ContinuousEnabled = true;
+
+            Radius = 40;
+
+            Alive = true;
+            PrevStep = 0;
         }
 
         public override void Die()
         {
             base.Die();
 
-            if (Core.MyLevel.PlayMode != 0) return;
+            Alive = false;
 
-            ExplodeSound.Play(1);
-            Explosion(Core.Data.Position, Core.MyLevel, .33f * Core.Data.Velocity, 1, 1);
-
-            CollectSelf();
+            if (Core.MyLevel.PlayMode == 0)
+            {
+                ExplodeSound.Play(1);
+                Explosion(Core.Data.Position, Core.MyLevel, .33f * Core.Data.Velocity, 1, 1);
+            }
         }
 
         public Fireball(bool BoxesOnly)
@@ -59,107 +60,80 @@ namespace CloudberryKingdom.Obstacles
             }
         }
 
-        public void Init(int type, PhsxData data, Level level)
+        public void Init(PhsxData data, Level level)
         {
             base.Init(data.Position, level);
 
-            Core.Init();
-            Core.MyType = ObjectType.Fireball;
-            AutoGenSingleton = FireballEmitter_AutoGen.Instance;
-            DeathType = Bobs.Bob.BobDeathType.Fireball;
+            Alive = true;
 
-            Core.DrawLayer = 7;
-            Core.RemoveOnReset = true;
+            Core.Init();
 
             Core.Data = data;
-            StartLife = 50;
-            Life = StartLife;
 
-            FireballType = type;
-
-            Radius = 50;
-
-            if (level.Info.Fireballs.Sprite.Sprite != null)
+            if (!level.BoxesOnly)
             {
-                if (MyQuad == null) MyQuad = new HsvQuad();
-                MyQuad.Set(level.Info.Fireballs.Sprite);
-                //MyQuad.Quad.MirrorUV_Vertical();
+                if (level.Info.Fireballs.Sprite.Sprite != null)
+                {
+                    if (MyQuad == null) MyQuad = new HsvQuad();
+                    MyQuad.Set(level.Info.Fireballs.Sprite);
+                }
+                else
+                {
+                    if (MyQuad == null) MyQuad = new HsvQuad();
+
+                    if (!Core.BoxesOnly)
+                    {
+                        MyQuad.Size = new Vector2(195);
+                        MyQuad.Quad.MyTexture = FireballTexture;
+                        MyQuad.Set(level.Info.Fireballs.Sprite);
+                        MyQuad.Show = true;
+                    }
+                }
+            }
+        }
+
+        float PrevStep;
+        Vector2 GetPos()
+        {
+            float Step = Core.GetPhsxStep() % Period - Offset;
+
+            if (PrevStep < 0 && Step > 0) Alive = true;
+
+            PrevStep = Step;
+
+            return Core.StartData.Position + Step * Core.StartData.Velocity;
+        }
+
+        protected override void ActivePhsxStep()
+        {
+            if (!Alive)
+            {
+                Core.Active = false;
+                return;
             }
             else
-            {
-                if (MyQuad == null) MyQuad = new HsvQuad();
-
-                if (!Core.BoxesOnly)
-                {
-                    MyQuad.Size = new Vector2(195);
-                    MyQuad.Quad.MyTexture = FireballTexture;
-                    MyQuad.Set(level.Info.Fireballs.Sprite);
-                    MyQuad.Show = true;
-                }
-
-                Size = new Vector2(40);
-            }
-                                    
-            Circle.Initialize(data.Position, Size.X);
+                Core.Active = true;
+            
+            Pos = GetPos();
+            
+            base.ActivePhsxStep();
         }
 
-        public override void PhsxStep()
+        public override void Interact(Bob bob)
         {
-            //base.PhsxStep();
-            Core.SkippedPhsx = false;
+            if (!Alive) return;
 
-            Life -= 1;
-            if (Life == 0)
-            {
-                Vector2 Range = new Vector2(200, 200);
-                if (Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, Range))
-                    Life = 1;
-                else
-                    if (!Core.MarkedForDeletion)
-                    {
-                        Core.Recycle.CollectObject(this);
-                        return;
-                    }
-            }
-
-            Core.Data.Position += Core.Data.Velocity;
-            Core.Data.Velocity += Core.Data.Acceleration;
-
-            //Box.Target.Set(Core.Data.Position, Size);
-            Circle.Center = Core.Data.Position;
-        }
-
-        float MyAlpha;
-        void SetAlpha(float Alpha)
-        {
-            if (Alpha != MyAlpha)
-            {
-                MyAlpha = Alpha;
-                //MyQuad.Quad.SetColor(new Color(1, 1, 1, MyAlpha));
-                MyQuad.Quad.SetColor(new Color(1, .70f, .70f, MyAlpha));
-            }
+            base.Interact(bob);
         }
 
         protected override void DrawGraphics()
         {
-            if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 150 || Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 150)
-                return;
-            if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 150 || Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 150)
-                return;
-
-            // Fade in
-            const float FadeInLength = 10;
-            int Dif = StartLife - Life;
-            if (Dif <= FadeInLength)
-                SetAlpha(Dif / FadeInLength);
-            else
-                SetAlpha(1f);
+            if (!Alive || !Core.MyLevel.MainCamera.OnScreen(Pos, 300)) return;
 
             // Point forward
             MyQuad.PointxAxisTo(-Core.Data.Velocity);
 
             MyQuad.Quad.MyEffect = Tools.HslEffect;
-            //Tools.HslEffect.Hsl.SetValue(ColorHelper.HsvTransform(0, 0, 200));
 
             // Shift forward
             Vector2 dir = Core.Data.Velocity;
@@ -169,28 +143,11 @@ namespace CloudberryKingdom.Obstacles
 
             // Draw the fireball
             MyQuad.Draw();
-
-            //Tools.QDrawer.Flush();
         }
 
         protected override void DrawBoxes()
         {
             Circle.Draw(new Color(50, 50, 255, 220));
-        }
-
-        public override void Move(Vector2 shift)
-        {
-            Core.Data.Position += shift;
-
-            Circle.Move(shift);
-        }
-
-        public override void CollectSelf()
-        {
-            base.CollectSelf();
-
-            if (MyLevel.PlayMode != 0)
-                Parent.CollectSelf();
         }
 
         public override void Clone(ObjectBase A)
@@ -199,18 +156,12 @@ namespace CloudberryKingdom.Obstacles
 
             Fireball FireballA = A as Fireball;
 
-            Life = FireballA.Life;
-            StartLife = FireballA.StartLife;
-            Parent = FireballA.Parent;
-            CreationTimeStamp = FireballA.CreationTimeStamp;
+            Radius = FireballA.Radius;
+            Period = FireballA.Period;
+            Offset = FireballA.Offset;
 
-            FireballType = FireballA.FireballType;
-
-            Size = FireballA.Size;
-
-            Init(FireballA.FireballType, FireballA.Core.Data, FireballA.MyLevel);
-
-            StartLife = FireballA.StartLife;
+            Init(FireballA.Core.Data, FireballA.MyLevel);
+            Core.StartData = FireballA.Core.StartData;
         }
     }
 }

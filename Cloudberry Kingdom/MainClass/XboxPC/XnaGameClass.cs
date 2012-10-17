@@ -69,7 +69,6 @@ namespace CloudberryKingdom
             // TODO: Unload any non ContentManager content here
         }
 
-        static TimeSpan _TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
         protected override void Update(GameTime gameTime)
         {
             this.IsFixedTimeStep = Tools.FixedTimeStep;

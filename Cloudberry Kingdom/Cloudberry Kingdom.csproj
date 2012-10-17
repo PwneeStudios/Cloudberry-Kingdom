@@ -415,9 +415,6 @@
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Firesnake.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\SpikeyLine.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\SpikeyLine__Auto.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\Floater_Core.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Game\Objects\Special\Arrow.cs" />
     <Compile Include="Game\Objects\Special\TextFloat.cs" />
     <Compile Include="Game\Level\Make\Tools\Tunnel.cs" />
@@ -568,7 +565,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Game\Objects\Icon.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\FireballEmitter__Auto.cs" />
+    <Compile Include="Game\Objects\In Game Objects\Obstacles\Fireball__Auto.cs" />
     <Compile Include="Game\Level\ClosingCircle.cs" />
     <Compile Include="Game\Level\Make\ComputerRecording.cs" />
     <Compile Include="Game\Level\Make\Generators.cs" />
@@ -622,7 +619,6 @@
     <Compile Include="Game\Objects\In Game Objects\Grab\Coin.cs" />
     <Compile Include="Core\Text\EzText.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\FallingBlock.cs" />
-    <Compile Include="Game\Objects\In Game Objects\Obstacles\FireballEmitter.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\FireSpinner.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Boulder.cs" />
     <Compile Include="Game\Games\GameType.cs" />

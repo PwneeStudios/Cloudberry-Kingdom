@@ -76,7 +76,6 @@ namespace CloudberryKingdom.Levels
                             FinalCamZone.End.Y += 400;
                             FinalCamZone.Start.Y -= 100;
 
-                        block.Core.MyTileSet = TileSets.TileBlock;
                         block.Core.DrawLayer = 2;
                         block.Init(startblock.Pos, Vector2.One, MyTileSetInfo);
                         block.Stretch(Side.Right, 2000);
@@ -112,8 +111,6 @@ namespace CloudberryKingdom.Levels
 
         public bool MakeVertical(int Length, float Height, int StartPhsxStep, int ReturnEarly, MakeData makeData)
         {
-            bool NewStyle = true;
-
             CurMakeData = makeData;
             InitMakeData(CurMakeData);
             Style.ModNormalBlockWeight = .15f;
@@ -182,12 +179,6 @@ namespace CloudberryKingdom.Levels
 
             FillBL = BL_Bound;
 
-
-            // Back piece
-            if (!NewStyle)
-                MakeBack(VStyle, ref BL_Bound, ref TR_Bound);
-
-
             // Safety nets
             Vector2 Size, Step;
             Size = new Vector2(100, 50);
@@ -208,10 +199,6 @@ namespace CloudberryKingdom.Levels
             // Vary the spacing depending on how high the hero can jump
             float StepMultiplier = SetStepMultiplier(ref Size, ref Step);
 
-            if (NewStyle)
-                this.MyTileSet = TileSets.Dungeon;
-            else
-                this.MyTileSet = TileSets.Catwalk;                
             BL_Bound.Y += 200;
             TR_Bound.Y -= 200;
             Vector2 _pos = BL_Bound;
@@ -444,27 +431,20 @@ namespace CloudberryKingdom.Levels
 
             CleanAllObjectLists();
 
-            //Recycle.Empty();
-
             // Finish making Final Platform
             if (MakeFinalPlat != null) { MakeFinalPlat.Phase3(); MakeFinalPlat.Cleanup(); }
 
-            //this.Move(new Vector2(0, -7000), false);
-
-            if (NewStyle)
+            if (Geometry == LevelGeometry.Up)
             {
-                if (Geometry == LevelGeometry.Up)
-                {
-                    var back = MakePillarBack(FinalDoor.Pos + new Vector2(0, -400), FinalDoor.Pos + new Vector2(0, 2000));
-                    back.BlockCore.CeilingDraw = true;
-                    MakePillarBack(StartDoor.Pos + new Vector2(0, 400), StartDoor.Pos - new Vector2(0, 2000));
-                }
-                else
-                {
-                    var back = MakePillarBack(StartDoor.Pos + new Vector2(0, -400), StartDoor.Pos + new Vector2(0, 2000));
-                    back.BlockCore.CeilingDraw = true;
-                    MakePillarBack(FinalDoor.Pos + new Vector2(0, 400), FinalDoor.Pos - new Vector2(0, 2000));
-                }
+                var back = MakePillarBack(FinalDoor.Pos + new Vector2(0, -400), FinalDoor.Pos + new Vector2(0, 2000));
+                back.BlockCore.CeilingDraw = true;
+                MakePillarBack(StartDoor.Pos + new Vector2(0, 400), StartDoor.Pos - new Vector2(0, 2000));
+            }
+            else
+            {
+                var back = MakePillarBack(StartDoor.Pos + new Vector2(0, -400), StartDoor.Pos + new Vector2(0, 2000));
+                back.BlockCore.CeilingDraw = true;
+                MakePillarBack(FinalDoor.Pos + new Vector2(0, 400), FinalDoor.Pos - new Vector2(0, 2000));
             }
 
             return false;
@@ -500,7 +480,6 @@ namespace CloudberryKingdom.Levels
         {
             NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
             doo.Init((p1 + p2) / 2, new Vector2(350, Math.Abs(p2.Y - p1.Y) / 2), MyTileSetInfo);
-            doo.BlockCore.MyTileSet = TileSets.Dungeon;
 
             AddBlock(doo);
 
@@ -509,37 +488,6 @@ namespace CloudberryKingdom.Levels
             SetBackblockProperties(doo);
 
             return doo;
-        }
-
-        private void MakeBack_Castle(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)
-        {
-            NormalBlock doo = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-            doo.Init(Vector2.Zero, Vector2.One, MyTileSetInfo);
-            doo.BlockCore.MyTileSet = TileSets.CastlePiece2;
-
-            float DistanceFromSide = 600;
-            doo.Extend(Side.Left, MainCamera.BL.X + DistanceFromSide);
-            doo.Extend(Side.Right, MainCamera.TR.X - DistanceFromSide);
-            doo.Extend(Side.Top, TR_Bound.Y + 1000);
-            doo.Extend(Side.Bottom, BL_Bound.Y - 1600);//100);
-            AddBlock(doo);
-        
-            doo.BlockCore.Virgin = true;
-            doo.BlockCore.RemoveOverlappingObjects = false;
-            SetBackblockProperties(doo);
-        }
-
-        private void MakeBack_Pillar(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)
-        {
-        }
-
-        private void MakeBack(VerticalData Style, ref Vector2 BL_Bound, ref Vector2 TR_Bound)
-        {
-            switch (Style.VisualStyle)
-            {
-                case VerticalData.VisualStyles.Pillar: MakeBack_Pillar(Style, ref BL_Bound, ref TR_Bound); break;
-                case VerticalData.VisualStyles.Castle: MakeBack_Castle(Style, ref BL_Bound, ref TR_Bound); break;
-            }
         }
     }
 }

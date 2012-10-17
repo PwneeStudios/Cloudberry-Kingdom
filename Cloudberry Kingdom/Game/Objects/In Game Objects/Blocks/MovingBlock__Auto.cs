@@ -176,17 +176,6 @@ namespace CloudberryKingdom.Levels
 
             Vector2 offset = new Vector2(level.Rnd.Rnd.Next(0, 0), level.Rnd.Rnd.Next(0, 0) - size.Y);
 
-            if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
-            {
-                offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
-
-                if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
-                if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
-
-                TR.X -= 350;
-                BL.X += 200;
-            }
-
             MovingBlock mblock = (MovingBlock)level.Recycle.GetObject(ObjectType.MovingBlock, true);
             mblock.Init(pos + offset, size, level);
 

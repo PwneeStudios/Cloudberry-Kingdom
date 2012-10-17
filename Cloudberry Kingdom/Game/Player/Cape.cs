@@ -220,7 +220,11 @@ namespace CloudberryKingdom
                     break;
             }
 
-
+            p2_Left *= Phsx.ModCapeSize;
+            p1_Left *= Phsx.ModCapeSize;
+            p2_Right *= Phsx.ModCapeSize;
+            p1_Right *= Phsx.ModCapeSize;
+            strength_in *= 1f / (.5f * (Phsx.ModCapeSize.X - 1) + 1);
 
 
             MyQuad = new QuadClass();

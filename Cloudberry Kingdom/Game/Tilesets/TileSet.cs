@@ -127,8 +127,6 @@ namespace CloudberryKingdom
             MyTileSetInfo = new TileSetInfo();
 
             CustomStartEnd = false;
-            DungeonLike = false;
-            //DoorType = Door.Types.Brick;
 
             Pillars = new BlockGroup();
             Platforms = new BlockGroup();
@@ -158,9 +156,6 @@ namespace CloudberryKingdom
 
             CoinScoreColor = new Color(220, 255, 255);
         }
-
-        // CRAP
-        public bool DungeonLike;
 
         // New tile set stuff
         public bool IsLoaded;
@@ -551,7 +546,7 @@ namespace CloudberryKingdom
     /// </summary>
     public sealed partial class TileSets
     {
-        public static TileSet None, Random, Terrace, Castle, Dungeon, CastlePiece, OutsideGrass, TileBlock, Cement, Catwalk, DarkTerrace, CastlePiece2, Dark, Island, _Night, _NightSky;
+        public static TileSet None, Random;
         public static TileSet DefaultTileSet;
 
         public static List<TileSet> TileList = new List<TileSet>();

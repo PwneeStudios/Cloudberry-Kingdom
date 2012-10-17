@@ -204,12 +204,10 @@ namespace CloudberryKingdom
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
             block.Init(MyGame.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
             block.Init(MyGame.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.OutsideGrass;
             MyGame.MyLevel.AddBlock(block);
         }
 

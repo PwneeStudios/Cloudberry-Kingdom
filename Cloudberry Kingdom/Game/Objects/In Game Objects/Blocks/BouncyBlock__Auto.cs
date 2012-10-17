@@ -151,13 +151,6 @@ namespace CloudberryKingdom.Levels
             float speed = Params.Speed.GetVal(pos);
             float SideDampening = Params.SideDampening.GetVal(pos);
 
-            if (Style.BlockFillType == StyleData._BlockFillType.Spaceship)
-            {
-                offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
-                if (pos.X > piece.End.X - 400) offset.X -= pos.X - piece.End.X + 400;
-                if (pos.X < piece.Start.X + 400) offset.X += piece.Start.X - pos.X + 400;
-            }
-
             bblock = (BouncyBlock)level.Recycle.GetObject(ObjectType.BouncyBlock, true);
             bblock.Init(pos + offset, size, speed, level);
             bblock.SideDampening = SideDampening;

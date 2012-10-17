@@ -44,36 +44,21 @@ namespace CloudberryKingdom.Levels
             CamZone.Start = CurPiece.CamStartPos = CurMakeData.CamStartPos;
             CamZone.Zoom = Style.Zoom;
 
-            // Preset platform
-            /*
-            Vector2 pos = MainCamera.Pos - new Vector2(1000, 300);
-            while (pos.X < MainCamera.Pos.X + 1000)
-            {
-                NormalBlock block = NormalBlock_AutoGen.Instance.CreateCementBlock(this, pos);
-                AddBlock(block);
-
-                pos.X += 2 * block.Box.Current.Size.X;
-            }*/
             Vector2 pos1 = MainCamera.Pos + new Vector2(-1000, -370);
             Vector2 pos2 = MainCamera.Pos + new Vector2(1000, -370);
-            NormalBlock MainPlatform = NormalBlock_AutoGen.Instance.CreateCementBlockLine(this, pos1, pos2);
+            NormalBlock MainPlatform = null; Tools.Break();
             AddBlock(MainPlatform);
 
             // Start door
             Vector2 pos = new Vector2 (MainPlatform.Box.BL.X + 300, 0);
             Door door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSets.None);
 
-            door.MyBackblock.Core.MyTileSet = TileSets.Dungeon;
+            door.MyBackblock.Core.MyTileSet = "castle";
             door.MyBackblock.Extend(Side.Right, pos.X + 350);
             door.MyBackblock.Extend(Side.Left, MainPlatform.Box.BL.X + 30);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);
             door.MyBackblock.Extend(Side.Top, MainPlatform.Box.TR.Y + 1000);
 
-            // Shift start position
-            /*for (int i = 0; i < CurMakeData.NumInitialBobs; i++)
-            {
-                CurPiece.StartData[i].Position = door.Core.Data.Position;
-            }*/
             Level.SpreadStartPositions(CurPiece, CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
 
             // End door
@@ -88,8 +73,7 @@ namespace CloudberryKingdom.Levels
                         me.SetLock(true);
                 };
 
-
-            door.MyBackblock.Core.MyTileSet = TileSets.Dungeon;
+            door.MyBackblock.Core.MyTileSet = "castle";
             door.MyBackblock.Extend(Side.Right, MainPlatform.Box.TR.X - 30);
             door.MyBackblock.Extend(Side.Left, pos.X - 350);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);

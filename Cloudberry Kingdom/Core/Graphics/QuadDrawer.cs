@@ -167,7 +167,8 @@ namespace CoreEngine
             else
                 Illumination = quad.Illumination;
 
-            if (CurrentEffect.effect != quad.MyEffect.effect ||
+            if (i + 6 >= N ||
+                CurrentEffect.effect != quad.MyEffect.effect ||
                 CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||
                 CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked ||
                 CurrentEffect.CurrentIllumination != Illumination)

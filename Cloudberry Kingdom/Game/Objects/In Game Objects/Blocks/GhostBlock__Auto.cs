@@ -117,14 +117,6 @@ namespace CloudberryKingdom.Levels
                 Vector2 offset = Vector2.Zero;
                 if (i == 1) offset = new Vector2(50, 0);
 
-                if (level.Style.BlockFillType == StyleData._BlockFillType.Spaceship)
-                {
-                    offset += new Vector2(level.Rnd.Rnd.Next(0, 100), level.Rnd.Rnd.Next(0, 100));
-
-                    if (pos.X > level.CurMakeData.PieceSeed.End.X - 400) offset.X -= pos.X - level.CurMakeData.PieceSeed.End.X + 400;
-                    if (pos.X < level.CurMakeData.PieceSeed.Start.X + 400) offset.X += level.CurMakeData.PieceSeed.Start.X - pos.X + 400;
-                }
-
                 gblock = (GhostBlock)level.Recycle.GetObject(ObjectType.GhostBlock, false);
                 
                 // Box type

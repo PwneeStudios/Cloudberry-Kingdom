@@ -42,10 +42,10 @@ info.ShiftStartBlock = new Vector2(100, 0);
 
 sprite_anim("door_castle", "door_castle", 1, 2, 2);
 info.Doors.Sprite.Sprite = "door_castle";
-info.Doors.Sprite.Size = new Vector2(310, -1);
 info.Doors.Sprite.Size = new Vector2(450, 250);
 info.Doors.Sprite.Offset = new Vector2(-210, 35);
 info.Doors.ShiftStart = new Vector2(0, 190);
+info.Doors.SizePadding = new Vector2(10, 0);
 
 info.Walls.Sprite.Sprite = "pillar_castle_1000";
 info.Walls.Sprite.Size = new Vector2(1500, -1);

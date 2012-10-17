@@ -56,7 +56,7 @@ namespace CloudberryKingdom
             TileSetToTest = "castle";
 
             if (TileSetToTest == null)
-                data.SetTileSet(TileSets.Dungeon);
+                data.SetTileSet("castle");
             else
                 data.SetTileSet(TileSetToTest);
 
@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
@@ -80,13 +80,13 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
-            data.DefaultHeroType = BobPhsxJetman.Instance;
+            //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
             //data.PieceLength = 3000;
-            data.PieceLength = 45000;
+            data.PieceLength = 15000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;
 
@@ -162,7 +162,7 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Serpent] = 6;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            //piece.MyUpgrades1[Upgrade.Fireball] = 5f;
+            piece.MyUpgrades1[Upgrade.Fireball] = 5f;
 
             //piece.MyUpgrades1[Upgrade.Jump] = 8;
             //piece.MyUpgrades1[Upgrade.Speed] = 5;
@@ -180,7 +180,7 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
             //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
 
-            __Roughly_Abusive(piece);
+            //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
             //piece.Style.Masochistic = true;
 

@@ -10,7 +10,16 @@ namespace CloudberryKingdom
 {
     public class CustomHero_GUI : CkBaseMenu
     {
-        public CustomHero_GUI() { }
+        public static BobPhsx Hero;
+        BobPhsxNormal NormalHero { get { return Hero as BobPhsxNormal; } }
+
+        protected CustomLevel_GUI CustomLevel;
+        public CustomHero_GUI(CustomLevel_GUI CustomLevel)
+        {
+            this.CustomLevel = CustomLevel;
+
+            CustomLevel.CallingPanel = this;
+        }
 
         public override void OnAdd()
         {
@@ -32,8 +41,8 @@ namespace CloudberryKingdom
         PhsxSlider SizeSlider, PhasedSizeSlider, PhasedGravitySlider, PhasePeriodSlider;
         private void MakeSliders()
         {
-            ItemPos = new Vector2(-583.4305f, 650.1083f);
-            PosAdd = new Vector2(0, -90);
+            ItemPos = new Vector2(-583.4305f, 698.1083f);
+            PosAdd = new Vector2(0, -93.45f);
 
             PhsxSlider.Font = ItemFont;
             PhsxSlider.Process = AddItem;
@@ -47,25 +56,16 @@ namespace CloudberryKingdom
             JumpLengthSlider = new PhsxSlider("Jump length", BobPhsx.CustomData.jumplength);
             JumpAccelSlider = new PhsxSlider("Jump accel", BobPhsx.CustomData.jumpaccel);
 
-            //if (Jump is BobPhsxDouble)
-            {
-                NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps);
-                DoubleJumpLengthSlider = new PhsxSlider("Double jump length", BobPhsx.CustomData.jumplength2);
-                DoubleJumpAccelSlider = new PhsxSlider("Doule jump accel", BobPhsx.CustomData.jumpaccel2);
-            }
+            NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps);
+            DoubleJumpLengthSlider = new PhsxSlider("Double jump length", BobPhsx.CustomData.jumplength2);
+            DoubleJumpAccelSlider = new PhsxSlider("Doule jump accel", BobPhsx.CustomData.jumpaccel2);
 
-            //if (Jump is BobPhsxJetman)
-            {
-                JetPackSlider = new PhsxSlider("Jetpack accel", BobPhsx.CustomData.jetpackaccel);
-                JetPackFuelSlider = new PhsxSlider("Jetpack fuel", BobPhsx.CustomData.jetpackfuel);
-            }
+            JetPackSlider = new PhsxSlider("Jetpack accel", BobPhsx.CustomData.jetpackaccel);
+            JetPackFuelSlider = new PhsxSlider("Jetpack fuel", BobPhsx.CustomData.jetpackfuel);
 
-            //if (Size is BobPhsxScale)
-            {
-                PhasedSizeSlider = new PhsxSlider("Phased size", BobPhsx.CustomData.size2);
-                PhasedGravitySlider = new PhsxSlider("Phased gravity", BobPhsx.CustomData.gravity2);
-                PhasePeriodSlider = new PhsxSlider("Phase period", BobPhsx.CustomData.phaseperiod);
-            }
+            PhasedSizeSlider = new PhsxSlider("Phased size", BobPhsx.CustomData.size2);
+            PhasedGravitySlider = new PhsxSlider("Phased gravity", BobPhsx.CustomData.gravity2);
+            PhasePeriodSlider = new PhsxSlider("Phase period", BobPhsx.CustomData.phaseperiod);
         }
 
         public void StartTest()
@@ -74,12 +74,15 @@ namespace CloudberryKingdom
 
             MakeBobPhsx();
 
-            CreateHeros();
+            CreateHeroes();
             
             RemovePreviousGround();
             CreateGround();
 
             Testing = true;
+
+            var custom = CustomLevel as StartMenu_MW_CustomLevel;
+            custom.Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.None);
         }
 
         bool Testing = false;
@@ -91,6 +94,9 @@ namespace CloudberryKingdom
 
         void EndTest()
         {
+            var custom = CustomLevel as StartMenu_MW_CustomLevel;
+            custom.Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
+
             Testing = false;
             Show();
 
@@ -121,9 +127,6 @@ namespace CloudberryKingdom
             }, "RemoveBobs", false, true);
         }
 
-        BobPhsx Hero;
-        BobPhsxNormal NormalHero { get { return (BobPhsxNormal)Hero; } }
-
         void MakeBobPhsx()
         {
             // Error check
@@ -141,7 +144,7 @@ namespace CloudberryKingdom
         }
 
 
-        void CreateHeros()
+        void CreateHeroes()
         {
             // Remove any previous bobs
             MyGame.KillToDo("RemoveBobs");
@@ -172,36 +175,33 @@ namespace CloudberryKingdom
 
         void CreateGround()
         {
+            MyGame.MyLevel.MyTileSet = "castle";
+
             NormalBlock block;
 
             foreach (NormalBlock _block in MyGame.MyLevel.Blocks)
                 if (_block is NormalBlock)
                     _block.CollectSelf();
 
-            Vector2 shift = new Vector2(30, 430);
-
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(-1000, -3100) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.OutsideGrass;
+            block.Init(new Vector2(-1000, -3100), new Vector2(1100, 2500), MyGame.MyLevel.MyTileSetInfo);
+            block.MyBox.TopOnly = false;
             MyGame.MyLevel.AddBlock(block);
 
             block = (NormalBlock)MyGame.Recycle.GetObject(ObjectType.NormalBlock, false);
-            block.Init(MyGame.CamPos + new Vector2(1150, -2950) + shift, new Vector2(1000, 2000), MyGame.MyLevel.MyTileSetInfo);
-            block.BlockCore.MyTileSet = TileSets.OutsideGrass;
+            block.Init(new Vector2(1050, -2950), new Vector2(1000, 2500), MyGame.MyLevel.MyTileSetInfo);
+            block.MyBox.TopOnly = false;
             MyGame.MyLevel.AddBlock(block);
         }
-
-
 
         protected override void SetHeaderProperties(EzText text)
         {
             base.SetHeaderProperties(text);
 
             text.ShadowColor = new Color(.2f, .2f, .2f, .6f);
-            text.Shadow = false;
+            text.Shadow = true;
 
-            //text.Angle = CoreMath.Radians(30);
-            text.Angle = CoreMath.Radians(23);
+            //text.Angle = CoreMath.Radians(23);
         }
 
         void SetSuperHeader(EzText text)
@@ -209,14 +209,17 @@ namespace CloudberryKingdom
             base.SetHeaderProperties(text);
             text.MyFloatColor = new Vector4(1, 1, 1, 1);
             text.Scale = FontScale * 1.42f;
-            text.ShadowOffset = new Vector2(17);
+            
+            text.Shadow = false;
 
-            CkColorHelper._x_x_HappyBlueColor(text); text.ShadowColor = ColorHelper.GrayColor(.3f); text.Scale *= 1.25f;
+            CkColorHelper._x_x_HappyBlueColor(text); 
+            text.Scale *= 1.25f;
         }
 
         protected override void SetItemProperties(MenuItem item)
         {
             base.SetItemProperties(item);
+            StartMenu.SetItemProperties_Red(item);
         }
 
         MenuList MakeList()
@@ -291,7 +294,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Hero lists
-            BaseHeader = HeroText = new EzText("base", ItemFont);
+            BaseHeader = HeroText = new EzText("base:", ItemFont);
             HeroText.Name = "base";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -309,7 +312,7 @@ namespace CloudberryKingdom
             AddItem(BaseList);
 
             // Hero jump
-            JumpHeader = HeroText = new EzText("jump", ItemFont);
+            JumpHeader = HeroText = new EzText("jump:", ItemFont);
             HeroText.Name = "jump";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -327,7 +330,7 @@ namespace CloudberryKingdom
             AddItem(JumpList);
 
             // Hero shape
-            SizeHeader = HeroText = new EzText("size", ItemFont);
+            SizeHeader = HeroText = new EzText("size:", ItemFont);
             HeroText.Name = "size";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -346,6 +349,9 @@ namespace CloudberryKingdom
             AddItem(SizeList);
 
             SetListActions();
+            BaseList.SetIndex(0);
+            SizeList.SetIndex(0);
+            JumpList.SetIndex(0);
 
             FontScale = 1f;
 
@@ -371,21 +377,21 @@ namespace CloudberryKingdom
         void SetPos()
         {
             MenuItem _item;
-            _item = MyMenu.FindItemByName("base"); if (_item != null) { _item.SetPos = new Vector2(-1747.061f, 592.6232f); }
-            _item = MyMenu.FindItemByName("jump"); if (_item != null) { _item.SetPos = new Vector2(-1736.793f, 423.8497f); }
-            _item = MyMenu.FindItemByName("size"); if (_item != null) { _item.SetPos = new Vector2(-1736.792f, 253.4573f); }
-            _item = MyMenu.FindItemByName("test"); if (_item != null) { _item.SetPos = new Vector2(-2028.219f, -35.12787f); }
-            _item = MyMenu.FindItemByName("back"); if (_item != null) { _item.SetPos = new Vector2(-2020.28f, -190.5425f); }
-            _item = MyMenu.FindItemByName("continue"); if (_item != null) { _item.SetPos = new Vector2(-2012.342f, -338.019f); }
-            _item = MyMenu.FindItemByName("reset"); if (_item != null) { _item.SetPos = new Vector2(-2063.941f, -485.4954f); }
+            _item = MyMenu.FindItemByName("base"); if (_item != null) { _item.SetPos = new Vector2(-1655.38f, 642.6317f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("jump"); if (_item != null) { _item.SetPos = new Vector2(-1653.446f, 451.6321f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("size"); if (_item != null) { _item.SetPos = new Vector2(-1656.223f, 256.2355f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("test"); if (_item != null) { _item.SetPos = new Vector2(-1914.311f, 134.3449f); _item.MyText.Scale = 0.7685415f; _item.MySelectedText.Scale = 0.7685415f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("back"); if (_item != null) { _item.SetPos = new Vector2(-1909.15f, -90.52583f); _item.MyText.Scale = 0.6955291f; _item.MySelectedText.Scale = 0.6955291f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("continue"); if (_item != null) { _item.SetPos = new Vector2(-1915.104f, -288.0107f); _item.MyText.Scale = 0.7520385f; _item.MySelectedText.Scale = 0.7520385f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("reset"); if (_item != null) { _item.SetPos = new Vector2(-1916.694f, -502.1649f); _item.MyText.Scale = 0.7f; _item.MySelectedText.Scale = 0.7f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(1166.862f, -69.45605f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1169.842f, 985.7144f); }
-            _t = MyPile.FindEzText("base"); if (_t != null) { _t.Pos = new Vector2(-1194.643f, 677.8907f); }
-            _t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-1178.852f, 551.7187f); }
-            _t = MyPile.FindEzText("size"); if (_t != null) { _t.Pos = new Vector2(-1143.129f, 392.9507f); }
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-664.2021f, 960.7101f); _t.Scale = 0.8010691f; }
+            _t = MyPile.FindEzText("base"); if (_t != null) { _t.Pos = new Vector2(-1269.655f, 708.4517f); _t.Scale = 0.6189448f; }
+            _t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-1270.534f, 507.2669f); _t.Scale = 0.5981081f; }
+            _t = MyPile.FindEzText("size"); if (_t != null) { _t.Pos = new Vector2(-1234.811f, 317.9383f); _t.Scale = 0.6634525f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 1083.871f); }
@@ -421,7 +427,6 @@ namespace CloudberryKingdom
 #if NOT_PC
             item.Selectable = false;
 #endif
-            item.ScaleText(bigscale);
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = Cast.ToMenu(Start.Go);
@@ -441,9 +446,6 @@ namespace CloudberryKingdom
 #if NOT_PC
             item.Selectable = false;
 #endif
-            item.ScaleText(scale);
-
-
 
             // Continue
 #if NOT_PC
@@ -463,14 +465,13 @@ namespace CloudberryKingdom
             item.Selectable = false;
             MyMenu.OnX = Cast.ToMenu(X.Go);
 #endif
-            item.ScaleText(scale);
+            item.Go = Cast.ToItem(Next);
 
             // Reset
             item = ResetButton = new MenuItem(new EzText("Reset", ItemFont));
             item.Name = "reset";
             AddItem(item);
             item.Go = Cast.ToItem(ResetSliders);
-            item.ScaleText(.7f);
         }
 
         bool AdvancedAvailable()
@@ -495,6 +496,31 @@ namespace CloudberryKingdom
         }
 
         MenuItem ResetButton;
+
+        void Next()
+        {
+            if (CustomLevel.IsCustomDifficulty())
+            {
+                MakeBobPhsx();
+                CustomLevel.LevelSeed.DefaultHeroType = Hero;
+
+                CustomLevel.CallingPanel = new PassiveUpgrades_GUI(CustomLevel.PieceSeed, CustomLevel);
+                Call(CustomLevel.CallingPanel, 0);
+                Hide(PresetPos.Left);
+                this.SlideInFrom = PresetPos.Left;
+            }
+            else
+            {
+                MyGame.PlayGame(StartLevel);
+            }
+        }
+
+        void StartLevel()
+        {
+            MakeBobPhsx();
+            CustomLevel.LevelSeed.DefaultHeroType = Hero;
+            CustomLevel.StartLevelFromMenuData();
+        }
 
         void ResetSliders()
         {

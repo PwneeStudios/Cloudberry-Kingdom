@@ -42,8 +42,6 @@ namespace CloudberryKingdom.Levels
 
             public bool SetTRCamBound;
 
-            public bool MidDivider;
-
             /// <summary>
             /// If true the top has extra safety blocks and extra stage 1 fill, to mimick the bottom.
             /// Used, in particular, for Spaceship hero.

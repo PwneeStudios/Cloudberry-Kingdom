@@ -577,7 +577,9 @@ namespace CloudberryKingdom
         public float Alpha
         {
             get { return Quad.MySetColor.A / 255f; }
-            set { Quad.SetAlpha(value); }
+            set {
+                //if (value == 1) Tools.Write("");
+                Quad.SetAlpha(value); }
         }
 
         bool Fading = false;

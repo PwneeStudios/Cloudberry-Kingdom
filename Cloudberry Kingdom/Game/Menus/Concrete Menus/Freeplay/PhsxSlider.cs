@@ -20,12 +20,12 @@ namespace CloudberryKingdom.Menus
                                        BobPhsx.CustomPhsxData.Bounds(type).MinValue,
                                        BobPhsx.CustomPhsxData.Bounds(type).MaxValue);
             Process(this);
-            ScaleText(.5f);
+            ScaleText(.33f);
 
-            SliderShift = new Vector2(-266.6946f, -57.77405f);
+            SliderShift = new Vector2(-296.6946f, -57.77405f);
 
-            Slider.Scale(.8f);
-            SliderBack.Scale(.8f);
+            Slider.Scale(.66f);
+            SliderBack.Scale(.73f);
             Start *= .8f;
             End *= .8f;
         }

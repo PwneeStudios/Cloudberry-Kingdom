@@ -16,7 +16,7 @@ namespace CloudberryKingdom
 
         public override List<Upgrade> GetUpgradeList()
         {
-            return new List<Upgrade>(new Upgrade[] { Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine });
+            return new List<Upgrade>(new Upgrade[] { Upgrade.FlyBlob, Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine });
         }
 
         protected override void Go()
@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 
         public override List<Upgrade> GetUpgradeList()
         {
-            return new List<Upgrade>(new Upgrade[] { Upgrade.Jump, Upgrade.Speed, Upgrade.Ceiling, Upgrade.MovingBlock, Upgrade.GhostBlock, Upgrade.FlyBlob, Upgrade.FallingBlock, Upgrade.Elevator, Upgrade.Cloud, Upgrade.BouncyBlock, Upgrade.Pendulum });
+            return new List<Upgrade>(new Upgrade[] { Upgrade.Jump, Upgrade.Speed, Upgrade.Ceiling, Upgrade.MovingBlock, Upgrade.GhostBlock, Upgrade.FallingBlock, Upgrade.Elevator, Upgrade.Cloud, Upgrade.BouncyBlock, Upgrade.Pendulum });
         }
 
         protected override void Go()
@@ -195,7 +195,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            ScaleList = .73f;
+            ScaleList = .72f;
 
             Control = -1;
 
@@ -208,8 +208,8 @@ namespace CloudberryKingdom
             // Make the menu
             MakeMenu();
 
-            ItemPos = new Vector2(-950, 928 + 300 * (1 - ScaleList));
-            PosAdd.Y *= 1.15f * ScaleList;
+            ItemPos = new Vector2(-950, 880);
+            PosAdd.Y *= 1.18f * ScaleList;
 
             // Add obstacles
             foreach (Upgrade upgrade in GetUpgradeList())
@@ -252,21 +252,21 @@ namespace CloudberryKingdom
         {
 #if PC_VERSION
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(317.0639f, 22.30127f); }
-            _item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(325.7295f, -155.4283f); }
-            _item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(324.1416f, -326.0634f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(327.3179f, -498.3018f); }
+            _item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(317.0639f, 22.30127f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(325.7295f, -155.4283f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(324.1416f, -326.0634f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(327.3179f, -498.3018f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
 
             EzText _t;
-            _t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8779f, 725f); }
+            _t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8778f, 725f); _t.Scale = 0.664f; }
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
 
             MyPile.Pos = new Vector2(-285f, 0f);
-
 #else
             MenuItem _item;
             MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
