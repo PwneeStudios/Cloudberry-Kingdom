@@ -16,6 +16,7 @@ namespace CloudberryKingdom
         {
             _PreloadArt();
             //_PreloadArt_Preprocess();
+            //PreprocessArt();
         }
 
         static void _PreloadArt()
@@ -34,7 +35,9 @@ namespace CloudberryKingdom
 
         public static void PreprocessArt()
         {
-            String path = Path.Combine(Globals.ContentDirectory, "Art");
+            //String path = Path.Combine(Globals.ContentDirectory, "Art");
+            String path = "C://Users//Ezra//Desktop//Dir//Pwnee//CK//Cloudberry Kingdom//Cloudberry Kingdom//Content//";
+
             string[] files = Tools.GetFiles(path, true);
 
             Tools.Write("");
@@ -42,10 +45,11 @@ namespace CloudberryKingdom
 
             foreach (String file in files)
             {
-                if (Tools.GetFileExt(path, file) == "xnb")
+                //if (Tools.GetFileExt(path, file) == "xnb")
+                if (Tools.GetFileExt(path, file) == "png")
                 {
                     var t = Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-                    t.Load();
+                    //t.Load();
 
                     string FilePath = t.Path;
                     string StrippedName = Tools.StripPath(FilePath);
@@ -54,8 +58,11 @@ namespace CloudberryKingdom
                     string BigName = Tools.GetFileBigName(FilePath).ToLower();
                     string Folder = Tools.FirstFolder(FilePath, "Art\\");
 
-                    Tools.Write("Tools.TextureWad.AddTexture_Fast(null, \"{0}\", {1}, {2}, {3}, {4}, {5}, {6}, {7});", Tools.ToCode(FilePath), t.Width, t.Height,
-                        Tools.ToCode(StrippedName), Tools.ToCode(LowerName), Tools.ToCode(LowerPath), Tools.ToCode(BigName), Tools.ToCode(Folder));
+                    //Tools.Write("Tools.TextureWad.AddTexture_Fast(null, \"{0}\", {1}, {2}, {3}, {4}, {5}, {6}, {7});", Tools.ToCode(FilePath), t.Width, t.Height,
+                    //    Tools.ToCode(StrippedName), Tools.ToCode(LowerName), Tools.ToCode(LowerPath), Tools.ToCode(BigName), Tools.ToCode(Folder));
+
+                    var c_path = FilePath.Replace("\\", "/");
+                    Tools.Write(c_path + ".png");
                 }
             }
 

@@ -116,7 +116,6 @@ info.Pendulums.Icon.Sprite = "Pendulum_Icon_Castle";
 sprite_anim("Serpent_Castle", "Serpent_Castle", 1, 2, 8);
 //sprite_anim("Serpent_Castle", "SerpentHead_Castle", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Castle";
-info.Serpents.Serpent.Offset = new Vector2(0, -.675f);
 sprite_anim("Serpent_Fish_Castle", "Serpent_Fish_Castle", 1, 2, 5);
 info.Serpents.Fish.Sprite = "Serpent_Fish_Castle";
 info.Serpents.Fish.Size = new Vector2(60, -1);

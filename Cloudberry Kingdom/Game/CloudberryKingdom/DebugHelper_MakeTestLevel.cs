@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxBraid.Instance;
@@ -80,7 +80,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
-            //data.DefaultHeroType = BobPhsxJetman.Instance;
+            data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
 
             data.MyGeometry = LevelGeometry.Right;
@@ -159,13 +159,13 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
             //piece.MyUpgrades1[Upgrade.LavaDrip] = 6;
-            //piece.MyUpgrades1[Upgrade.Serpent] = 6;
+            piece.MyUpgrades1[Upgrade.Serpent] = 6f;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            piece.MyUpgrades1[Upgrade.Fireball] = 5f;
+            piece.MyUpgrades1[Upgrade.Fireball] = 9f;
 
             //piece.MyUpgrades1[Upgrade.Jump] = 8;
-            //piece.MyUpgrades1[Upgrade.Speed] = 5;
+            piece.MyUpgrades1[Upgrade.Speed] = 9;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
             ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
@@ -182,7 +182,7 @@ namespace CloudberryKingdom
 
             //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
-            //piece.Style.Masochistic = true;
+            piece.Style.Masochistic = true;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

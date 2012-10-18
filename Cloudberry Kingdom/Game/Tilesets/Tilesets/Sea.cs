@@ -87,7 +87,6 @@ info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Sea_190", -1, 1, 1));
 
 sprite_anim("Serpent_Sea", "Serpent_Sea", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Sea";
-info.Serpents.Serpent.Offset = new Vector2(0, -.675f);
 sprite_anim("Serpent_Fish_Sea", "Serpent_Fish_Sea", 1, 2, 5);
 info.Serpents.Fish.Sprite = "Serpent_Fish_Sea";
 info.Serpents.Fish.Size = new Vector2(60, -1);

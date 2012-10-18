@@ -29,7 +29,12 @@ namespace CloudberryKingdom.Obstacles
             AutoGenSingleton = Fireball_AutoGen.Instance;
             DeathType = Bobs.Bob.BobDeathType.Fireball;
 
+            PhsxCutoff_Playing = new Vector2(10000);
+            PhsxCutoff_BoxesOnly = new Vector2(10000);
+
             Core.ContinuousEnabled = true;
+
+            Core.DrawLayer = 8;
 
             Radius = 40;
 
@@ -66,8 +71,6 @@ namespace CloudberryKingdom.Obstacles
 
             Alive = true;
 
-            Core.Init();
-
             Core.Data = data;
 
             if (!level.BoxesOnly)
@@ -95,12 +98,15 @@ namespace CloudberryKingdom.Obstacles
         float PrevStep;
         Vector2 GetPos()
         {
-            float Step = Core.GetPhsxStep() % Period - Offset;
+            //if (!Alive) Tools.Write("!");
 
-            if (PrevStep < 0 && Step > 0) Alive = true;
+            float Step = (Core.MyLevel.IndependentPhsxStep - Offset + Period) % Period;
+
+            if (PrevStep > Step) Alive = true;
 
             PrevStep = Step;
 
+            //Tools.Write(Core.StartData.Velocity.Length());
             return Core.StartData.Position + Step * Core.StartData.Velocity;
         }
 
@@ -109,6 +115,7 @@ namespace CloudberryKingdom.Obstacles
             if (!Alive)
             {
                 Core.Active = false;
+                Pos = GetPos();
                 return;
             }
             else

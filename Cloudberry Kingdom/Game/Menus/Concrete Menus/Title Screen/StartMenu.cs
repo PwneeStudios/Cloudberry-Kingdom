@@ -335,26 +335,15 @@ namespace CloudberryKingdom
             MyPile.Pos = new Vector2(0f, 0f);
         }
 
-
-        /// <summary>
-        /// Once the players have finished choosing their hero start counting
-        /// </summary>
-        int FinishedCount = 0;
-
-        /// <summary>
-        /// Once the players have exited out of the character select start counting
-        /// </summary>
-        int ExitCount = 0;
-
         protected override void SetChildControl(GUI_Panel child)
         {
         }
 
-        int Count = 0;
         protected override void MyPhsxStep()
         {
+            MyMenu.Active = !NoBack;
+
             base.MyPhsxStep();
-            Count++;
 
             if (Active)
                 ButtonCheck.PreLogIn = true;
@@ -391,6 +380,7 @@ namespace CloudberryKingdom
         public override void OnReturnTo()
         {
             base.OnReturnTo();
+            NoBack = false;
         }
     }
 }

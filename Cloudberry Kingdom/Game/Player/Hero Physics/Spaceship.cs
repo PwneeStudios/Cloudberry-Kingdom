@@ -27,7 +27,7 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(4, 0, 0, 0);
             Name = "Spaceship";
             NameTemplate = "spaceship";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("Spaceship_1"), Color.White, 1.15f * DefaultIconWidth);
+            Icon = new PictureIcon(Tools.Texture("Spaceship_Paper"), Color.White, 1.15f * DefaultIconWidth);
         }
         static readonly BobPhsxSpaceship instance = new BobPhsxSpaceship();
         public static BobPhsxSpaceship Instance { get { return instance; } }

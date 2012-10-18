@@ -74,6 +74,11 @@ namespace CloudberryKingdom
             Box.SwapToCurrent();
         }
 
+        public override void OnMarkedForDeletion()
+        {
+            base.OnMarkedForDeletion();
+        }
+
         protected override void DrawBoxes()
         {
             Box.Draw(new Color(50, 50, 255, 120), 5);
@@ -102,7 +107,10 @@ namespace CloudberryKingdom
                         bool col = Phsx.BoxBoxOverlap_Tiered(Box, Core, bob, AutoGenSingleton);
 
                         if (col)
+                        {
+                            //if ((Pos - bob.Pos).Length() > 2000) Tools.Write(0);
                             Core.Recycle.CollectObject(this);
+                        }
                     }
                 }
             }

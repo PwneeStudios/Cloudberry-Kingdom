@@ -7,35 +7,28 @@ namespace CloudberryKingdom.Levels
 {
     public class Serpent_Parameters : AutoGen_Parameters
     {
-        public float SerpentStepCutoff = 1499;
-        public Param SerpentStep, SerpentPeriod;
+        public float SerpentStepCutoff = 1651;
+        public Param SerpentStep, SerpentPeriod, NumToMake;
 
         public override void SetParameters(PieceSeedData PieceSeed, Level level)
         {
             base.SetParameters(PieceSeed, level);
 
             // General difficulty
-            BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.Serpent];
-            });
+            BobWidthLevel = new Param(PieceSeed, u => u[Upgrade.Serpent]);
 
-            SerpentStep = new Param(PieceSeed);
-            SerpentStep.SetVal(u =>
+            NumToMake = new Param(PieceSeed, u => u[Upgrade.Serpent] < 4 ? 3 : 2);
+
+            SerpentStep = new Param(PieceSeed, u =>
             {
                 float SerpentLevel = u[Upgrade.Serpent];
                 if (SerpentLevel == 0)
                     return SerpentStepCutoff + 1;
                 else
-                    return DifficultyHelper.Interp159(1450, 550, 250, SerpentLevel);
+                    return DifficultyHelper.Interp159(1650, 860, 350, SerpentLevel);
             });
 
-            SerpentPeriod = new Param(PieceSeed);
-            SerpentPeriod.SetVal(u =>
-            {
-                return Math.Max(70, 200 - 9 * u[Upgrade.Speed]);
-            });
+            SerpentPeriod = new Param(PieceSeed, u => Math.Max(70, 200 - 9 * u[Upgrade.Speed]));
         }
     }
 
@@ -67,7 +60,7 @@ namespace CloudberryKingdom.Levels
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupSerpents(BL, TR);
+            level.CleanupSerpents(BL + new Vector2(0, -5000), TR);
         }
     }
 
@@ -78,6 +71,7 @@ namespace CloudberryKingdom.Levels
             // Get Serpent parameters
             Serpent_Parameters Params = (Serpent_Parameters)Style.FindParams(Serpent_AutoGen.Instance);
 
+            Cleanup_xCoord(ObjectType.Serpent, 10);
             /*
             Cleanup(ObjectType.Serpent, delegate(Vector2 pos)
             {
@@ -108,20 +102,27 @@ namespace CloudberryKingdom.Levels
 
                 if (step < Params.SerpentStepCutoff)
                 {
-                    Serpent serpent = (Serpent)Recycle.GetObject(ObjectType.Serpent, true);
-                    serpent.Init(loc, this);
-
                     int period = (int)Params.SerpentPeriod.GetVal(loc);
-                    serpent.SetPeriod(period);
+                    int offset = Rnd.Rnd.Next(period);
+                    int num = (int)Params.NumToMake.GetVal(loc);
 
-                    serpent.Offset = Rnd.Rnd.Next(period);
+                    // Create 2 serpents in this location, with offset perios.
+                    for (int i = 0; i < num; i++)
+                    {
+                        Serpent serpent = (Serpent)Recycle.GetObject(ObjectType.Serpent, true);
+                        serpent.Init(loc, this);
+                        
+                        serpent.SetPeriod(period);
 
-                    serpent.Core.GenData.LimitGeneralDensity = false;
+                        serpent.Offset = (int)(offset + i * period / (float)num);
 
-                    // Make sure we stay in bounds
-                    //Tools.EnsureBounds_X(serpent, TR, BL);
+                        serpent.Core.GenData.LimitGeneralDensity = false;
 
-                    AddObject(serpent);
+                        // Make sure we stay in bounds
+                        //Tools.EnsureBounds_X(serpent, TR, BL);
+
+                        AddObject(serpent);
+                    }
                 }
 
                 if (PieceSeed.GeometryType == LevelGeometry.Right)

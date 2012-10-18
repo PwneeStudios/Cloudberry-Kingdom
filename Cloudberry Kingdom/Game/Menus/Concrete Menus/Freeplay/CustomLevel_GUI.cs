@@ -332,14 +332,14 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Location screenshot
-            QuadClass Screenshot = new QuadClass();
-            Screenshot.Name = "Screenshot";
-            Screenshot.SetToDefault();
-            Screenshot.TextureName = "Screenshot_Terrace";
-            Screenshot.ScaleYToMatchRatio(500);
-            MyPile.Add(Screenshot);
-            Screenshot.Pos = new Vector2(1340.002f, 497.2222f);
-            Screenshot.SetDefaultShadow(15);
+            //QuadClass Screenshot = new QuadClass();
+            //Screenshot.Name = "Screenshot";
+            //Screenshot.SetToDefault();
+            //Screenshot.TextureName = "Screenshot_Terrace";
+            //Screenshot.ScaleYToMatchRatio(500);
+            //MyPile.Add(Screenshot);
+            //Screenshot.Pos = new Vector2(1340.002f, 497.2222f);
+            //Screenshot.SetDefaultShadow(15);
 
             // Location
             EzText LocationText = new EzText("Location:", ItemFont);
@@ -367,9 +367,9 @@ namespace CloudberryKingdom
                 {
                     TileSet tileset = LocationList.CurObj as TileSet;
 
-                    Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
-                    Screenshot.TextureName = tileset.ScreenshotString;
-                    Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Width);
+                    //Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
+                    //Screenshot.TextureName = tileset.ScreenshotString;
+                    //Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Width);
 
                     LevelSeed.SetTileSet(tileset);
                 };
@@ -884,7 +884,6 @@ namespace CloudberryKingdom
                 MiniCheckpoint.Pos = new Vector2(length.BL.X + i * step + 15, length.TR.Y);
                 MiniCheckpoint.Draw(false);
             }
-
         }
 
         public static string SeedStringToLoad = null;

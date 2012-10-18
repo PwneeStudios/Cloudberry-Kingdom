@@ -1716,6 +1716,20 @@ namespace CloudberryKingdom.Levels
         }
 
 
+        public void Cleanup_xCoord(ObjectType ObjType, float MinDist)
+        {
+            List<ObjectBase> ObjList = GetObjectList(ObjType);
+
+            foreach (ObjectBase obj in ObjList)
+            {
+                if (obj.Core.MarkedForDeletion)
+                    continue;
+
+                CheckAgainst_xCoord(obj, ObjList, MinDist);
+            }
+        }
+
+
         void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, CleanupCallback MinDistFunc, Metric metric, bool MustBeDifferent)
         {
             foreach (ObjectBase obj2 in ObjList)
@@ -1755,6 +1769,33 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        void CheckAgainst_xCoord(ObjectBase obj, List<ObjectBase> ObjList, float MinDist)
+        {
+            foreach (ObjectBase obj2 in ObjList)
+            {
+                if (!obj.Core.MarkedForDeletion &&
+                    !obj2.Core.MarkedForDeletion &&
+                    obj != obj2)
+                {
+                    float d = (float)Math.Abs(obj.Pos.X - obj2.Pos.X);
+
+                    if (d < MinDist)
+                    {
+                        int Choice = 0; // 0 -> Remove first object, 1 -> Remove second object
+
+                        if (obj.Core.GenData.KeepIfUnused && obj2.Core.GenData.KeepIfUnused) return;
+                        else if (obj.Core.GenData.KeepIfUnused) Choice = 1;
+                        else if (obj2.Core.GenData.KeepIfUnused) Choice = 0;
+                        else if (Rnd.Rnd.NextDouble() > .5) Choice = 1;
+
+                        if (Choice == 0)
+                            Recycle.CollectObject(obj);
+                        else
+                            Recycle.CollectObject(obj2);
+                    }
+                }
+            }
+        }
 
 
 
@@ -2228,7 +2269,22 @@ namespace CloudberryKingdom.Levels
                 case TimeTypes.xSync:
                     if (Bobs.Count > 0 && Bobs[0] != null)
                     {
-                        float New = Bobs[0].Pos.X / 10;
+                        int NumAlive = 0;
+                        Vector2 Pos = Vector2.Zero;
+                        foreach (var bob in Bobs)
+                        {
+                            if (bob.MyPlayerData.IsAlive)
+                            {
+                                NumAlive++;
+                                Pos += bob.Pos;
+                            }
+                        }
+
+                        if (NumAlive == 0)
+                            break;
+
+                        //float New = Bobs[0].Pos.X / 10;
+                        float New = (Pos.X / NumAlive) / 10;
 
                         if (!IndependentStepSetOnce)
                             Prev = New;

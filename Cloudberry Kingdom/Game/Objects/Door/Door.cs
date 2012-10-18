@@ -446,7 +446,7 @@ namespace CloudberryKingdom.InGameObjects
                 (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
             {
                 NearCount++;
-                //if (NearCount > 10 || MyPressNote != null) // For debuggin, note always shows
+                //if (NearCount > 10 || MyPressNote != null) // For debugging purposes, always have the note show up.
                 if (NearCount > DelayToShowNote || MyPressNote != null)
                     MakeNote();
 

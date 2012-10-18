@@ -40,7 +40,7 @@ namespace CloudberryKingdom.Obstacles
             PhsxCutoff_Playing = new Vector2(200, 4000);
             PhsxCutoff_BoxesOnly = new Vector2(-150, 4000);
 
-            Core.GenData.NoBlockOverlap = true;
+            Core.GenData.NoBlockOverlap = false;
             Core.GenData.LimitGeneralDensity = false;
 
             Core.WakeUpRequirements = true;
@@ -57,6 +57,7 @@ namespace CloudberryKingdom.Obstacles
 
             if (!level.BoxesOnly)
             {
+                info.Serpent.Offset = new Vector2(0, -.79f);
                 MyQuad.Set(info.Serpent);
                 MyFish.Set(info.Fish);
             }
