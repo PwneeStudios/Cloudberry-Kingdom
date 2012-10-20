@@ -188,6 +188,12 @@ namespace CloudberryKingdom
                         });
                 };
         }
+#else
+        protected override void ReleaseBody()
+        {
+            base.ReleaseBody();
+        }
+#endif
 
         private void AddScore()
         {
@@ -196,13 +202,6 @@ namespace CloudberryKingdom
             ScoreDatabase.Add(HighScoreEntry);
             ScoreDatabase.Add(HighLevelEntry);
         }
-#else
-        protected override void ReleaseBody()
-        {
-            base.ReleaseBody();
-            OnScoreTabulate = null;
-        }
-#endif
 
         protected override void SetHeaderProperties(EzText text)
         {

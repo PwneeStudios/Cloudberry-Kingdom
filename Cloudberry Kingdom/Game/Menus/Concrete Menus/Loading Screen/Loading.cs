@@ -151,9 +151,9 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
 
-            Tools.TextureWad.FindOrLoad(Content, "Splash");
-            Splash = new QuadClass("Splash", 1400);
-            MyPile.Add(Splash);
+            //Tools.TextureWad.FindOrLoad(Content, "Splash");
+            //Splash = new QuadClass("Splash", 1400);
+            //MyPile.Add(Splash);
 
             MyProgressBar = new ProgressBar();
             MyProgressBar.Pos = new Vector2(900, -400);

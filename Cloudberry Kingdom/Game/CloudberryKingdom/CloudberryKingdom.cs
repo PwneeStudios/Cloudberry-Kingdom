@@ -719,15 +719,6 @@ namespace CloudberryKingdom
             // TODO: Unload any non ContentManager content here
         }
 
-        public bool RunningSlowly = false;
-        public void Update()
-        {
-            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
-            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 10f));
-            //Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
-            //Tools.GameClass.IsFixedTimeStep = true;
-        }
-
         void DoQuickSpawn()
         {
             if (Tools.CurLevel.ResetEnabled() && Tools.CurLevel.PlayMode == 0 && !Tools.CurLevel.Watching && !Tools.CurGameData.PauseGame && Tools.CurGameData.QuickSpawnEnabled())
@@ -937,6 +928,15 @@ namespace CloudberryKingdom
 
         public double DeltaT = 0;
 
+        public bool RunningSlowly = false;
+        public void Update()
+        {
+            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 10f));
+            //Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
+            //Tools.GameClass.IsFixedTimeStep = true;
+        }
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -956,7 +956,7 @@ namespace CloudberryKingdom
 
             // Prepare to draw
             Tools.DrawCount++;
-            SetupToRender();
+            if (SetupToRender()) return;
 
             // Main Video
             if (MainVideo.Draw()) return;
@@ -970,13 +970,12 @@ namespace CloudberryKingdom
 #endif
 
             // What to do
-            if (LogoScreenUp) LogoPhsx();
-            else if (LogoScreenPropUp) LoadingScreen.PhsxStep();
-
-            if (!LogoScreenUp && !Tools.CurGameData.Loading)
-            {
+            if (LogoScreenUp)
+                LogoPhsx();
+            else if (LogoScreenPropUp)
+                LoadingScreen.PhsxStep();
+            else if (!LogoScreenUp && !Tools.CurGameData.Loading)
                 GameUpdate(gameTime);
-            }
 
             // What to draw
             if (LogoScreenUp || LogoScreenPropUp)
@@ -988,16 +987,24 @@ namespace CloudberryKingdom
             else
                 DrawNothing();
 
+            DrawExtra();
+        }
+
+        /// <summary>
+        /// Non-game drawing, such as debug info and tool drawing.
+        /// </summary>
+        private static void DrawExtra()
+        {
 #if DEBUG
             if (ShowFPS || Tools.ShowNums)
                 DrawDebugInfo();
 #endif
 
-
 #if DEBUG && INCLUDE_EDITOR
             if (Tools.background_viewer != null)
                 Tools.background_viewer.Draw();
 #endif
+            Tools.Nothing();
         }
 
         /// <summary>

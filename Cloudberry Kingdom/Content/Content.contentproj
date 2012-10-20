@@ -1609,13 +1609,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Splash.jpg">
-      <Name>Splash</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Art\Bob\FacialHair\Goatee_Brown.png">
       <Name>Goatee_Brown</Name>
       <Importer>TextureImporter</Importer>

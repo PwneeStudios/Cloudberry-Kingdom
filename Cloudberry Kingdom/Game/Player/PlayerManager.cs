@@ -154,9 +154,9 @@ namespace CloudberryKingdom
                 }
             }
         }
-
-        public static bool PartiallyInvisible, TotallyInvisible;
 #endif
+        public static bool PartiallyInvisible, TotallyInvisible;
+
         static int _CoinsSpent;
         public static int CoinsSpent { get { return _CoinsSpent; } set { _CoinsSpent = value; } }
 

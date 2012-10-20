@@ -255,14 +255,6 @@ namespace CloudberryKingdom
         {
         }
 
-        void ModBackdrop(EzText Text)
-        {
-            if (Text.Backdrop == null) return;
-
-            Text.BackdropModAlpha = .835f;
-            Text.Backdrop.SetColor(new Color(255, 255, 255));
-        }
-
         public override void Init()
         {
             base.Init();
@@ -291,8 +283,6 @@ namespace CloudberryKingdom
             ContinueText.Pos = new Vector2(23.09587f + Shift, -386.9842f);
 
             MyPile.Add(ContinueText, "A");
-            ContinueText.BackdropShift = new Vector2(-45, -6);
-            ModBackdrop(ContinueText);
 
             // Press Y to customize
             EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + Space + "{c255,255,155,255} Custom", ItemFont, true, true);
@@ -303,8 +293,6 @@ namespace CloudberryKingdom
             CustomizeText.Pos = new Vector2(105.2387f + Shift, -611.9048f);
 
             MyPile.Add(CustomizeText, "Y");
-            CustomizeText.BackdropShift = new Vector2(-45, -6);
-            ModBackdrop(CustomizeText);
 
             // Press X to randomize
             EzText RandomText = new EzText(ButtonString.X(ButtonSize) + Space + "{c194,210,255,255} Random", ItemFont, true, true);
@@ -315,8 +303,6 @@ namespace CloudberryKingdom
             RandomText.Pos = new Vector2(69.52449f + Shift, -835.7142f);
 
             MyPile.Add(RandomText, "X");
-            RandomText.BackdropShift = new Vector2(-45, -6);
-            ModBackdrop(RandomText);
 
             SetPos();
         }
