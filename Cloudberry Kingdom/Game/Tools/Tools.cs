@@ -1446,7 +1446,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     else if (info.FieldType == typeof(BasePoint))
                     {
                         var b = (BasePoint)(info.GetValue(obj));
-                        line = string.Format("new Drawing.BasePoint({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+                        line = string.Format("new CoreEngine.BasePoint({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
                     }
                     else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
                     {

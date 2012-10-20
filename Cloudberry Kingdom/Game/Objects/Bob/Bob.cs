@@ -164,17 +164,9 @@ namespace CloudberryKingdom.Bobs
                             if (null != _Quad) _Quad.HideChildren();
                         }
                     }
-
-                    //if (quad.Name == "Hat") quad.Show = false;
                 }
             }
  
-            PlayerObject.MySkinTexture = scheme.SkinColor.Texture;
-            if (scheme.SkinColor.Effect == null)
-                PlayerObject.MySkinEffect = Tools.BasicEffect;
-            else
-                PlayerObject.MySkinEffect = scheme.SkinColor.Effect;
-
 
             var q = PlayerObject.FindQuad("MainQuad");
             if (q != null)
@@ -185,7 +177,6 @@ namespace CloudberryKingdom.Bobs
                 var wb = PlayerObject.FindQuad("Wings_Back"); if (wb != null) wb.MyMatrix = scheme.SkinColor.M;
             }
 
-            PlayerObject.InsideColor = scheme.SkinColor.Clr;
             if (MyCape != null)
             {
                 if (scheme.CapeColor.Clr.A == 0 || scheme.CapeOutlineColor.Clr.A == 0)
@@ -344,7 +335,6 @@ namespace CloudberryKingdom.Bobs
         
         public ObjectClass PlayerObject;
 
-
         public BlockBase LastCeiling = null;
         Vector2 LastCoinPos;
 
@@ -462,19 +452,12 @@ namespace CloudberryKingdom.Bobs
             CoreData = new ObjectData();
             Core.Show = true;
 
-            JumpSound = JumpSound_Default =
-                    // Tools.SoundWad.FindByName("Jump");
-                     Tools.SoundWad.FindByName("Jump5");
-            JumpSound.DefaultVolume =
-                //.2f;
-                .1f;
+            JumpSound = JumpSound_Default = Tools.SoundWad.FindByName("Jump5");
+            JumpSound.DefaultVolume = .1f;
             JumpSound.DelayTillNextSoundCanPlay = 10;
 
             DieSound = DieSound_Default = Tools.Sound("Death Chime");
 
-
-            PlayerObject.OutlineWidth = new Vector2(1);//1150, 1150);
-            PlayerObject.OutlineColor = Color.BlueViolet;
             PlayerObject.Read(0, 0);
             PlayerObject.Play = true;
 
@@ -483,15 +466,13 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.ParentQuad.Update();
             PlayerObject.Update(null);
             PlayerObject.PlayUpdate(0);
-            //blobBox = new AABox(blob.Position, new Vector2((PlayerObject.BoxList[0].TR.Pos.X - PlayerObject.BoxList[0].BL.Pos.X) / 2, (PlayerObject.BoxList[0].TR.Pos.Y - PlayerObject.BoxList[0].BL.Pos.Y) / 2));
+            
             Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
             Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
-            //                new Vector2(blobTexture.Width/2, blobTexture.Height/2));
 
             MyPhsx = new BobPhsx();
             MyPhsx.Init(this);
 
-            //PlayerObject.ConvertForSimple();
             SetColorScheme(ColorSchemeManager.ColorSchemes[0]);
         }
 
@@ -1281,15 +1262,6 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawGraphics && !BoxesOnly && Core.Show)
             {
-                PlayerObject.InsideColor = MyColorScheme.SkinColor.Clr;
-
-                if (FadingIn)
-                {
-                    PlayerObject.OutlineColor = new Color(PlayerObject.OutlineColor.ToVector4() * Fade);
-                    PlayerObject.InsideColor = new Color(PlayerObject.InsideColor.ToVector4() * Fade);
-                    PlayerObject.ContainedQuad.SetColor(new Color(1, 1, 1, Fade));
-                }
-
                 if (!SkipDraw)
                 {
                     if (DrawOutline)
@@ -1299,7 +1271,6 @@ namespace CloudberryKingdom.Bobs
                     }
                     else
                     {
-                        //if (DrawRocket) DrawTheRocket();
                         if (MyPhsx.ThrustType == BobPhsx.RocketThrustType.Double)
                             DrawTheRocket();
 

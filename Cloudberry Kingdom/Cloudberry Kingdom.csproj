@@ -584,7 +584,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreText.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloaterList.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />

@@ -56,7 +56,9 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(0, 0, 1, 0);
             Name = "Double Jump";
             Adjective = "double jump";
+            
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Double"), Color.White, 1.1f * DefaultIconWidth * 286f / 240f);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(-.3f, .085f));
         }
         static readonly BobPhsxDouble instance = new BobPhsxDouble();
         public static new BobPhsxDouble Instance { get { return instance; } }

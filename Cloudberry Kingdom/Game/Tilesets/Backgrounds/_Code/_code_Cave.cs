@@ -273,240 +273,324 @@ namespace CloudberryKingdom
             __17.Foreground = false;
             __17.Fixed = false;
             CloudberryKingdom.BackgroundFloater __18 = new CloudberryKingdom.BackgroundFloater();
-            __18.Name = "cave_bottom_1_p1_0";
+            __18.Name = "cave_bottom_1_p2_trim1";
             __18.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __18.MyQuad.Quad.ExtraTexture1 = null;
             __18.MyQuad.Quad.ExtraTexture2 = null;
-            __18.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1");
+            __18.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2_trim1");
             __18.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __18.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __18.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __18.MyQuad.Base = new CoreEngine.BasePoint(5069.857f, 0f, 0f, 2145.972f, -3929.473f, 73.79541f);
+            __18.MyQuad.Base = new CoreEngine.BasePoint(1193.933f, 0f, 0f, 964.7405f, 2967.173f, -1099.445f);
 
             __18.uv_speed = new Vector2(0f, 0f);
             __18.uv_offset = new Vector2(0f, 0f);
-            __18.Data = new PhsxData(-3929.473f, 73.79541f, 0f, 0f, 0f, 0f);
-            __18.StartData = new PhsxData(-3929.473f, 73.79541f, 0f, 0f, 0f, 0f);
+            __18.Data = new PhsxData(2967.173f, -1099.445f, 0f, 0f, 0f, 0f);
+            __18.StartData = new PhsxData(2967.173f, -1099.445f, 0f, 0f, 0f, 0f);
             __17.Floaters.Add(__18);
 
             CloudberryKingdom.BackgroundFloater __19 = new CloudberryKingdom.BackgroundFloater();
-            __19.Name = "cave_bottom_1_p2_0";
+            __19.Name = "cave_bottom_1_p2_trim2";
             __19.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __19.MyQuad.Quad.ExtraTexture1 = null;
             __19.MyQuad.Quad.ExtraTexture2 = null;
-            __19.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2");
+            __19.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2_trim2");
             __19.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __19.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __19.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __19.MyQuad.Base = new CoreEngine.BasePoint(5069.857f, 0f, 0f, 2145.972f, 6210.242f, 73.79541f);
+            __19.MyQuad.Base = new CoreEngine.BasePoint(3174.72f, 0f, 0f, 1819.886f, 8139.643f, -271.6292f);
 
             __19.uv_speed = new Vector2(0f, 0f);
             __19.uv_offset = new Vector2(0f, 0f);
-            __19.Data = new PhsxData(6210.242f, 73.79541f, 0f, 0f, 0f, 0f);
-            __19.StartData = new PhsxData(6210.242f, 73.79541f, 0f, 0f, 0f, 0f);
+            __19.Data = new PhsxData(8139.643f, -271.6292f, 0f, 0f, 0f, 0f);
+            __19.StartData = new PhsxData(8139.643f, -271.6292f, 0f, 0f, 0f, 0f);
             __17.Floaters.Add(__19);
 
             CloudberryKingdom.BackgroundFloater __20 = new CloudberryKingdom.BackgroundFloater();
-            __20.Name = "cave_bottom_1_p1_1";
+            __20.Name = "cave_bottom_1_trim1";
             __20.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __20.MyQuad.Quad.ExtraTexture1 = null;
             __20.MyQuad.Quad.ExtraTexture2 = null;
-            __20.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1");
+            __20.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_trim1");
             __20.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __20.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __20.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __20.MyQuad.Base = new CoreEngine.BasePoint(5069.857f, 0f, 0f, 2145.972f, 16349.96f, 73.79541f);
+            __20.MyQuad.Base = new CoreEngine.BasePoint(798.1164f, 0f, 0f, 1067.863f, -7564.104f, -1065.574f);
 
             __20.uv_speed = new Vector2(0f, 0f);
             __20.uv_offset = new Vector2(0f, 0f);
-            __20.Data = new PhsxData(16349.96f, 73.79541f, 0f, 0f, 0f, 0f);
-            __20.StartData = new PhsxData(16349.96f, 73.79541f, 0f, 0f, 0f, 0f);
+            __20.Data = new PhsxData(-7564.104f, -1065.574f, 0f, 0f, 0f, 0f);
+            __20.StartData = new PhsxData(-7564.104f, -1065.574f, 0f, 0f, 0f, 0f);
             __17.Floaters.Add(__20);
 
             CloudberryKingdom.BackgroundFloater __21 = new CloudberryKingdom.BackgroundFloater();
-            __21.Name = "cave_bottom_1_p2_1";
+            __21.Name = "cave_bottom_1_trim2";
             __21.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __21.MyQuad.Quad.ExtraTexture1 = null;
             __21.MyQuad.Quad.ExtraTexture2 = null;
-            __21.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2");
+            __21.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_trim2");
             __21.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __21.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __21.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __21.MyQuad.Base = new CoreEngine.BasePoint(5069.857f, 0f, 0f, 2145.972f, 26489.67f, 73.79541f);
+            __21.MyQuad.Base = new CoreEngine.BasePoint(1169.693f, 0f, 0f, 558.5469f, -3669.087f, -1468.35f);
 
             __21.uv_speed = new Vector2(0f, 0f);
             __21.uv_offset = new Vector2(0f, 0f);
-            __21.Data = new PhsxData(26489.67f, 73.79541f, 0f, 0f, 0f, 0f);
-            __21.StartData = new PhsxData(26489.67f, 73.79541f, 0f, 0f, 0f, 0f);
+            __21.Data = new PhsxData(-3669.087f, -1468.35f, 0f, 0f, 0f, 0f);
+            __21.StartData = new PhsxData(-3669.087f, -1468.35f, 0f, 0f, 0f, 0f);
             __17.Floaters.Add(__21);
+
+            CloudberryKingdom.BackgroundFloater __22 = new CloudberryKingdom.BackgroundFloater();
+            __22.Name = "cave_bottom_1_p2_trim1";
+            __22.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __22.MyQuad.Quad.ExtraTexture1 = null;
+            __22.MyQuad.Quad.ExtraTexture2 = null;
+            __22.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2_trim1");
+            __22.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __22.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __22.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __22.MyQuad.Base = new CoreEngine.BasePoint(1193.933f, 0f, 0f, 964.7405f, 23295.67f, -1171.816f);
+
+            __22.uv_speed = new Vector2(0f, 0f);
+            __22.uv_offset = new Vector2(0f, 0f);
+            __22.Data = new PhsxData(23295.67f, -1171.816f, 0f, 0f, 0f, 0f);
+            __22.StartData = new PhsxData(23295.67f, -1171.816f, 0f, 0f, 0f, 0f);
+            __17.Floaters.Add(__22);
+
+            CloudberryKingdom.BackgroundFloater __23 = new CloudberryKingdom.BackgroundFloater();
+            __23.Name = "cave_bottom_1_p2_trim2";
+            __23.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __23.MyQuad.Quad.ExtraTexture1 = null;
+            __23.MyQuad.Quad.ExtraTexture2 = null;
+            __23.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_p2_trim2");
+            __23.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __23.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __23.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __23.MyQuad.Base = new CoreEngine.BasePoint(3174.72f, 0f, 0f, 1819.886f, 28381.08f, -351.9041f);
+
+            __23.uv_speed = new Vector2(0f, 0f);
+            __23.uv_offset = new Vector2(0f, 0f);
+            __23.Data = new PhsxData(28381.08f, -351.9041f, 0f, 0f, 0f, 0f);
+            __23.StartData = new PhsxData(28381.08f, -351.9041f, 0f, 0f, 0f, 0f);
+            __17.Floaters.Add(__23);
+
+            CloudberryKingdom.BackgroundFloater __24 = new CloudberryKingdom.BackgroundFloater();
+            __24.Name = "cave_bottom_1_trim1";
+            __24.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __24.MyQuad.Quad.ExtraTexture1 = null;
+            __24.MyQuad.Quad.ExtraTexture2 = null;
+            __24.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_trim1");
+            __24.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __24.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __24.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __24.MyQuad.Base = new CoreEngine.BasePoint(798.1164f, 0f, 0f, 1067.863f, 12685.62f, -1074.208f);
+
+            __24.uv_speed = new Vector2(0f, 0f);
+            __24.uv_offset = new Vector2(0f, 0f);
+            __24.Data = new PhsxData(12685.62f, -1074.208f, 0f, 0f, 0f, 0f);
+            __24.StartData = new PhsxData(12685.62f, -1074.208f, 0f, 0f, 0f, 0f);
+            __17.Floaters.Add(__24);
+
+            CloudberryKingdom.BackgroundFloater __25 = new CloudberryKingdom.BackgroundFloater();
+            __25.Name = "cave_bottom_1_trim2";
+            __25.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(15360.32f, -998.902f), new Vector2(0f, 0f), new Color(255, 255, 255, 255));
+            __25.MyQuad.Quad.v0.Pos = new Vector2(-1.1347f, 0.9736457f);
+
+            __25.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(17699.71f, -998.902f), new Vector2(1f, 0f), new Color(255, 255, 255, 255));
+            __25.MyQuad.Quad.v1.Pos = new Vector2(0.8653001f, 0.9736457f);
+
+            __25.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(15360.32f, -2115.996f), new Vector2(0f, 1f), new Color(255, 255, 255, 255));
+            __25.MyQuad.Quad.v2.Pos = new Vector2(-1.1347f, -1.026354f);
+
+            __25.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(17699.71f, -2115.996f), new Vector2(1f, 1f), new Color(255, 255, 255, 255));
+            __25.MyQuad.Quad.v3.Pos = new Vector2(0.8653001f, -1.026354f);
+
+            __25.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __25.MyQuad.Quad.ExtraTexture1 = null;
+            __25.MyQuad.Quad.ExtraTexture2 = null;
+            __25.MyQuad.Quad._MyTexture = Tools.Texture("cave_bottom_1_trim2");
+            __25.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __25.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __25.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __25.MyQuad.Base = new CoreEngine.BasePoint(1169.693f, 0f, 0f, 558.5469f, 16687.57f, -1542.729f);
+
+            __25.uv_speed = new Vector2(0f, 0f);
+            __25.uv_offset = new Vector2(0f, 0f);
+            __25.Data = new PhsxData(16687.57f, -1542.729f, 0f, 0f, 0f, 0f);
+            __25.StartData = new PhsxData(16687.57f, -1542.729f, 0f, 0f, 0f, 0f);
+            __17.Floaters.Add(__25);
 
             __17.Parallax = 0.5f;
             __17.DoPreDraw = false;
             b.MyCollection.Lists.Add(__17);
 
-            CloudberryKingdom.BackgroundFloaterList __22 = new CloudberryKingdom.BackgroundFloaterList();
-            __22.Name = "Top_1";
-            __22.Foreground = false;
-            __22.Fixed = false;
-            CloudberryKingdom.BackgroundFloater __23 = new CloudberryKingdom.BackgroundFloater();
-            __23.Name = "cave_top_1_p1_0";
-            __23.MyQuad.Quad.MyEffect = Tools.BasicEffect;
-            __23.MyQuad.Quad.ExtraTexture1 = null;
-            __23.MyQuad.Quad.ExtraTexture2 = null;
-            __23.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1");
-            __23.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
-            __23.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
-            __23.MyQuad.Quad.BlendAddRatio = 0f;
+            CloudberryKingdom.BackgroundFloaterList __26 = new CloudberryKingdom.BackgroundFloaterList();
+            __26.Name = "Top_1";
+            __26.Foreground = false;
+            __26.Fixed = false;
+            CloudberryKingdom.BackgroundFloater __27 = new CloudberryKingdom.BackgroundFloater();
+            __27.Name = "cave_top_1_p1_0";
+            __27.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __27.MyQuad.Quad.ExtraTexture1 = null;
+            __27.MyQuad.Quad.ExtraTexture2 = null;
+            __27.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1");
+            __27.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __27.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __27.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __23.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, -2258.242f, 30.32861f);
+            __27.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, -2258.242f, 30.32861f);
 
-            __23.uv_speed = new Vector2(0f, 0f);
-            __23.uv_offset = new Vector2(0f, 0f);
-            __23.Data = new PhsxData(-2258.242f, 30.32861f, 0f, 0f, 0f, 0f);
-            __23.StartData = new PhsxData(-2258.242f, 30.32861f, 0f, 0f, 0f, 0f);
-            __22.Floaters.Add(__23);
+            __27.uv_speed = new Vector2(0f, 0f);
+            __27.uv_offset = new Vector2(0f, 0f);
+            __27.Data = new PhsxData(-2258.242f, 30.32861f, 0f, 0f, 0f, 0f);
+            __27.StartData = new PhsxData(-2258.242f, 30.32861f, 0f, 0f, 0f, 0f);
+            __26.Floaters.Add(__27);
 
-            CloudberryKingdom.BackgroundFloater __24 = new CloudberryKingdom.BackgroundFloater();
-            __24.Name = "cave_top_1_p2_0";
-            __24.MyQuad.Quad.MyEffect = Tools.BasicEffect;
-            __24.MyQuad.Quad.ExtraTexture1 = null;
-            __24.MyQuad.Quad.ExtraTexture2 = null;
-            __24.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1_p2");
-            __24.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
-            __24.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
-            __24.MyQuad.Quad.BlendAddRatio = 0f;
-
-            __24.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 6400.621f, 30.32861f);
-
-            __24.uv_speed = new Vector2(0f, 0f);
-            __24.uv_offset = new Vector2(0f, 0f);
-            __24.Data = new PhsxData(6400.621f, 30.32861f, 0f, 0f, 0f, 0f);
-            __24.StartData = new PhsxData(6400.621f, 30.32861f, 0f, 0f, 0f, 0f);
-            __22.Floaters.Add(__24);
-
-            CloudberryKingdom.BackgroundFloater __25 = new CloudberryKingdom.BackgroundFloater();
-            __25.Name = "cave_top_1_p1_1";
-            __25.MyQuad.Quad.MyEffect = Tools.BasicEffect;
-            __25.MyQuad.Quad.ExtraTexture1 = null;
-            __25.MyQuad.Quad.ExtraTexture2 = null;
-            __25.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1");
-            __25.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
-            __25.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
-            __25.MyQuad.Quad.BlendAddRatio = 0f;
-
-            __25.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 15059.48f, 30.32861f);
-
-            __25.uv_speed = new Vector2(0f, 0f);
-            __25.uv_offset = new Vector2(0f, 0f);
-            __25.Data = new PhsxData(15059.48f, 30.32861f, 0f, 0f, 0f, 0f);
-            __25.StartData = new PhsxData(15059.48f, 30.32861f, 0f, 0f, 0f, 0f);
-            __22.Floaters.Add(__25);
-
-            CloudberryKingdom.BackgroundFloater __26 = new CloudberryKingdom.BackgroundFloater();
-            __26.Name = "cave_top_1_p2_1";
-            __26.MyQuad.Quad.MyEffect = Tools.BasicEffect;
-            __26.MyQuad.Quad.ExtraTexture1 = null;
-            __26.MyQuad.Quad.ExtraTexture2 = null;
-            __26.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1_p2");
-            __26.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
-            __26.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
-            __26.MyQuad.Quad.BlendAddRatio = 0f;
-
-            __26.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 23718.34f, 30.32861f);
-
-            __26.uv_speed = new Vector2(0f, 0f);
-            __26.uv_offset = new Vector2(0f, 0f);
-            __26.Data = new PhsxData(23718.34f, 30.32861f, 0f, 0f, 0f, 0f);
-            __26.StartData = new PhsxData(23718.34f, 30.32861f, 0f, 0f, 0f, 0f);
-            __22.Floaters.Add(__26);
-
-            __22.Parallax = 0.6f;
-            __22.DoPreDraw = false;
-            b.MyCollection.Lists.Add(__22);
-
-            CloudberryKingdom.BackgroundFloaterList __27 = new CloudberryKingdom.BackgroundFloaterList();
-            __27.Name = "Lights";
-            __27.Foreground = false;
-            __27.Fixed = false;
             CloudberryKingdom.BackgroundFloater __28 = new CloudberryKingdom.BackgroundFloater();
-            __28.Name = "cave_lightshafts_p1_0";
+            __28.Name = "cave_top_1_p2_0";
             __28.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __28.MyQuad.Quad.ExtraTexture1 = null;
             __28.MyQuad.Quad.ExtraTexture2 = null;
-            __28.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts");
+            __28.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1_p2");
             __28.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __28.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __28.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __28.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 2142.867f, -1.561279f);
+            __28.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 6400.621f, 30.32861f);
 
             __28.uv_speed = new Vector2(0f, 0f);
             __28.uv_offset = new Vector2(0f, 0f);
-            __28.Data = new PhsxData(2142.867f, -1.561279f, 0f, 0f, 0f, 0f);
-            __28.StartData = new PhsxData(2142.867f, -1.561279f, 0f, 0f, 0f, 0f);
-            __27.Floaters.Add(__28);
+            __28.Data = new PhsxData(6400.621f, 30.32861f, 0f, 0f, 0f, 0f);
+            __28.StartData = new PhsxData(6400.621f, 30.32861f, 0f, 0f, 0f, 0f);
+            __26.Floaters.Add(__28);
 
             CloudberryKingdom.BackgroundFloater __29 = new CloudberryKingdom.BackgroundFloater();
-            __29.Name = "cave_lightshafts_p2_0";
+            __29.Name = "cave_top_1_p1_1";
             __29.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __29.MyQuad.Quad.ExtraTexture1 = null;
             __29.MyQuad.Quad.ExtraTexture2 = null;
-            __29.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts_p2");
+            __29.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1");
             __29.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __29.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __29.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __29.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 9308.145f, -1.561279f);
+            __29.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 15059.48f, 30.32861f);
 
             __29.uv_speed = new Vector2(0f, 0f);
             __29.uv_offset = new Vector2(0f, 0f);
-            __29.Data = new PhsxData(9308.145f, -1.561279f, 0f, 0f, 0f, 0f);
-            __29.StartData = new PhsxData(9308.145f, -1.561279f, 0f, 0f, 0f, 0f);
-            __27.Floaters.Add(__29);
+            __29.Data = new PhsxData(15059.48f, 30.32861f, 0f, 0f, 0f, 0f);
+            __29.StartData = new PhsxData(15059.48f, 30.32861f, 0f, 0f, 0f, 0f);
+            __26.Floaters.Add(__29);
 
             CloudberryKingdom.BackgroundFloater __30 = new CloudberryKingdom.BackgroundFloater();
-            __30.Name = "cave_lightshafts_p1_1";
+            __30.Name = "cave_top_1_p2_1";
             __30.MyQuad.Quad.MyEffect = Tools.BasicEffect;
             __30.MyQuad.Quad.ExtraTexture1 = null;
             __30.MyQuad.Quad.ExtraTexture2 = null;
-            __30.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts");
+            __30.MyQuad.Quad._MyTexture = Tools.Texture("cave_top_1_p2");
             __30.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
             __30.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __30.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __30.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 16473.42f, -1.561279f);
+            __30.MyQuad.Base = new CoreEngine.BasePoint(4329.43f, 0f, 0f, 1832.563f, 23718.34f, 30.32861f);
 
             __30.uv_speed = new Vector2(0f, 0f);
             __30.uv_offset = new Vector2(0f, 0f);
-            __30.Data = new PhsxData(16473.42f, -1.561279f, 0f, 0f, 0f, 0f);
-            __30.StartData = new PhsxData(16473.42f, -1.561279f, 0f, 0f, 0f, 0f);
-            __27.Floaters.Add(__30);
+            __30.Data = new PhsxData(23718.34f, 30.32861f, 0f, 0f, 0f, 0f);
+            __30.StartData = new PhsxData(23718.34f, 30.32861f, 0f, 0f, 0f, 0f);
+            __26.Floaters.Add(__30);
 
-            CloudberryKingdom.BackgroundFloater __31 = new CloudberryKingdom.BackgroundFloater();
-            __31.Name = "cave_lightshafts_p2_1";
-            __31.MyQuad.Quad.MyEffect = Tools.BasicEffect;
-            __31.MyQuad.Quad.ExtraTexture1 = null;
-            __31.MyQuad.Quad.ExtraTexture2 = null;
-            __31.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts_p2");
-            __31.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
-            __31.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
-            __31.MyQuad.Quad.BlendAddRatio = 0f;
+            __26.Parallax = 0.6f;
+            __26.DoPreDraw = false;
+            b.MyCollection.Lists.Add(__26);
 
-            __31.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 23638.69f, -1.561279f);
+            CloudberryKingdom.BackgroundFloaterList __31 = new CloudberryKingdom.BackgroundFloaterList();
+            __31.Name = "Lights";
+            __31.Foreground = false;
+            __31.Fixed = false;
+            CloudberryKingdom.BackgroundFloater __32 = new CloudberryKingdom.BackgroundFloater();
+            __32.Name = "cave_lightshafts_p1_0";
+            __32.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __32.MyQuad.Quad.ExtraTexture1 = null;
+            __32.MyQuad.Quad.ExtraTexture2 = null;
+            __32.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts");
+            __32.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __32.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __32.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __31.uv_speed = new Vector2(0f, 0f);
-            __31.uv_offset = new Vector2(0f, 0f);
-            __31.Data = new PhsxData(23638.69f, -1.561279f, 0f, 0f, 0f, 0f);
-            __31.StartData = new PhsxData(23638.69f, -1.561279f, 0f, 0f, 0f, 0f);
-            __27.Floaters.Add(__31);
+            __32.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 2142.867f, -1.561279f);
 
-            __27.Parallax = 0.68f;
-            __27.DoPreDraw = false;
-            b.MyCollection.Lists.Add(__27);
+            __32.uv_speed = new Vector2(0f, 0f);
+            __32.uv_offset = new Vector2(0f, 0f);
+            __32.Data = new PhsxData(2142.867f, -1.561279f, 0f, 0f, 0f, 0f);
+            __32.StartData = new PhsxData(2142.867f, -1.561279f, 0f, 0f, 0f, 0f);
+            __31.Floaters.Add(__32);
+
+            CloudberryKingdom.BackgroundFloater __33 = new CloudberryKingdom.BackgroundFloater();
+            __33.Name = "cave_lightshafts_p2_0";
+            __33.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __33.MyQuad.Quad.ExtraTexture1 = null;
+            __33.MyQuad.Quad.ExtraTexture2 = null;
+            __33.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts_p2");
+            __33.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __33.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __33.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __33.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 9308.145f, -1.561279f);
+
+            __33.uv_speed = new Vector2(0f, 0f);
+            __33.uv_offset = new Vector2(0f, 0f);
+            __33.Data = new PhsxData(9308.145f, -1.561279f, 0f, 0f, 0f, 0f);
+            __33.StartData = new PhsxData(9308.145f, -1.561279f, 0f, 0f, 0f, 0f);
+            __31.Floaters.Add(__33);
+
+            CloudberryKingdom.BackgroundFloater __34 = new CloudberryKingdom.BackgroundFloater();
+            __34.Name = "cave_lightshafts_p1_1";
+            __34.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __34.MyQuad.Quad.ExtraTexture1 = null;
+            __34.MyQuad.Quad.ExtraTexture2 = null;
+            __34.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts");
+            __34.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __34.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __34.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __34.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 16473.42f, -1.561279f);
+
+            __34.uv_speed = new Vector2(0f, 0f);
+            __34.uv_offset = new Vector2(0f, 0f);
+            __34.Data = new PhsxData(16473.42f, -1.561279f, 0f, 0f, 0f, 0f);
+            __34.StartData = new PhsxData(16473.42f, -1.561279f, 0f, 0f, 0f, 0f);
+            __31.Floaters.Add(__34);
+
+            CloudberryKingdom.BackgroundFloater __35 = new CloudberryKingdom.BackgroundFloater();
+            __35.Name = "cave_lightshafts_p2_1";
+            __35.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+            __35.MyQuad.Quad.ExtraTexture1 = null;
+            __35.MyQuad.Quad.ExtraTexture2 = null;
+            __35.MyQuad.Quad._MyTexture = Tools.Texture("cave_lightshafts_p2");
+            __35.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+            __35.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+            __35.MyQuad.Quad.BlendAddRatio = 0f;
+
+            __35.MyQuad.Base = new CoreEngine.BasePoint(3582.637f, 0f, 0f, 1516.46f, 23638.69f, -1.561279f);
+
+            __35.uv_speed = new Vector2(0f, 0f);
+            __35.uv_offset = new Vector2(0f, 0f);
+            __35.Data = new PhsxData(23638.69f, -1.561279f, 0f, 0f, 0f, 0f);
+            __35.StartData = new PhsxData(23638.69f, -1.561279f, 0f, 0f, 0f, 0f);
+            __31.Floaters.Add(__35);
+
+            __31.Parallax = 0.68f;
+            __31.DoPreDraw = false;
+            b.MyCollection.Lists.Add(__31);
 
             b.Light = 1f;
             b.BL = new Vector2(-4670f, -4500f);

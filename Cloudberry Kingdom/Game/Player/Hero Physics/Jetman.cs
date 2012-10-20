@@ -61,7 +61,9 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(0, 0, 2, 0);
             Name = "Jetman";
             Adjective = "jetman";
+
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Jetman"), Color.White, 1.1f * DefaultIconWidth);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(-.25f, -.01f));
         }
         static readonly BobPhsxJetman instance = new BobPhsxJetman();
         public static new BobPhsxJetman Instance { get { return instance; } }

@@ -17,7 +17,8 @@ namespace CloudberryKingdom
         public static void LoadAnimation(string path)
         {
             //if (!path.Contains("double")) return;
-            if (path.Contains("double")) return;
+            //if (path.Contains("double")) return;
+            if (!path.Contains("bob_v2_trimmed")) return;
 
             Tools.UseInvariantCulture();
             FileStream rstream = File.Open("Content\\Objects\\TigarBob.smo", FileMode.Open, FileAccess.Read, FileShare.None);
@@ -292,7 +293,9 @@ namespace CloudberryKingdom
             if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)// && Tools.CurLevel.DefaultHeroType == BobPhsxNormal.Instance)
             {
                 Tools.CurLevel.Bobs[0].PlayerObject = new ObjectClass(p, false, false);
-                Tools.CurLevel.Bobs[0].MyPhsx.Prototype.PlayerObject = p;
+                Tools.CurLevel.Bobs[0].PlayerObject.AnimQueue.Clear();
+                Tools.CurLevel.Bobs[0].PlayerObject.EnqueueAnimation(0, 0, true);
+                //Tools.CurLevel.Bobs[0].MyPhsx.Prototype.PlayerObject = p;
                 //BobPhsxNormal.Instance.Prototype.PlayerObject = p;
             }
             else

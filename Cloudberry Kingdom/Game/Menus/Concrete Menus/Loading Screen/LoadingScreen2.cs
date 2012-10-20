@@ -36,11 +36,8 @@ namespace CloudberryKingdom
         {
             BackgroundQuad = new QuadClass();
             BackgroundQuad.SetToDefault();
-            //BackgroundQuad.Quad.SetColor(Color.Black);
-            //BackgroundQuad.Quad.SetColor(Color.Gray);
 
-            //BackgroundQuad.Set("LoadingStrip");
-            BackgroundQuad.Set("LoadingStrip2");
+            BackgroundQuad.Set("LoadingStrip");
             BackgroundQuad.Quad.SetColor(Color.Gray);
 
             BlackQuad = new QuadClass();
@@ -101,11 +98,6 @@ namespace CloudberryKingdom
                     foreach (BaseQuad quad in CenterObject.QuadList)
                         quad.MyDrawOrder = ObjectDrawOrder.WithOutline;
                 }
-
-                CenterObject.OutlineColor = Color.BlueViolet;
-                CenterObject.InsideColor = Color.Black;
-                CenterObject.MySkinTexture = Tools.TextureWad.TextureList[0]; ;
-                CenterObject.MySkinEffect = Tools.BasicEffect;;
             }
         }
 

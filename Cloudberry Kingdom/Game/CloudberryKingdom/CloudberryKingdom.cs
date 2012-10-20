@@ -671,8 +671,7 @@ namespace CloudberryKingdom
             // Mouse pointer
             MousePointer = new QuadClass();
             MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
-            MousePointer.ScaleToTextureSize();
-            MousePointer.Scale(1.5f);
+            MousePointer.ScaleYToMatchRatio(70);
 
             // Mouse back icon
             MouseBack = new QuadClass();

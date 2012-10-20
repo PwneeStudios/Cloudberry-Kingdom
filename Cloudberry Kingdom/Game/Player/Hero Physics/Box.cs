@@ -16,7 +16,10 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(1, 0, 0, 0);
             Name = "Hero in a Box";
             NameTemplate = "hero in a box";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Box"), Color.White, DefaultIconWidth * 1.125f);
+            
+            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Box"), Color.White, DefaultIconWidth * 1.125f);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Box_Duck_0000"), Color.White, DefaultIconWidth * 1.35f);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, .0485f));
         }
         static readonly BobPhsxBox instance = new BobPhsxBox();
         public static new BobPhsxBox Instance { get { return instance; } }

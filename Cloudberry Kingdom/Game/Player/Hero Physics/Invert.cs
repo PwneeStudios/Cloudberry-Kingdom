@@ -17,7 +17,11 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(0, 0, 3, 0);
             Name = "Viridian";
             Adjective = "Anti-Grav";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, -1.2f * DefaultIconWidth);
+            
+            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, -1.2f * DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * -1.2f);
+
+            HeroDollShift = new Vector2(0, 100);
         }
         static readonly BobPhsxInvert instance = new BobPhsxInvert();
         public static new BobPhsxInvert Instance { get { return instance; } }

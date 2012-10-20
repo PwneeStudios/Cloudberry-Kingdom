@@ -43,11 +43,13 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
             EnsureFancy();
 
-            var Backdrop = new QuadClass("CharSelect_Backdrop", 1778);
+            var Backdrop = new QuadClass("CharSelect", 1778);
             MyPile.Add(Backdrop, "Backdrop");
 
-            var Frame = new QuadClass("CharSelect_Frame", 1778);
-            MyPile.Add(Frame, "Frame");
+            //var Backdrop = new QuadClass("CharSelect_Backdrop", 1778);
+            //MyPile.Add(Backdrop, "Backdrop");
+            //var Frame = new QuadClass("CharSelect_Frame", 1778);
+            //MyPile.Add(Frame, "Frame");
 
             SetPos();
         }

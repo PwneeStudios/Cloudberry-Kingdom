@@ -15,6 +15,7 @@ namespace CloudberryKingdom
     public abstract class TileInfoBase
     {
         public SpriteInfo Icon = new SpriteInfo(null, new Vector2(50, -1));
+        public SpriteInfo Icon_Big = null;
     }
 
     /// <summary>

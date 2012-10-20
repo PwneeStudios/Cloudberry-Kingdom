@@ -61,6 +61,13 @@ namespace CloudberryKingdom
 
     public class BobPhsx
     {
+#if DEBUG
+        public void ResetInfo()
+        {
+            InitSingleton();
+        }
+#endif
+
         public static class DefaultInfo
         {
             public static EzSound DoubleJump_Sound = Tools.NewSound("Jump5", .1f);
@@ -435,6 +442,8 @@ namespace CloudberryKingdom
         public Vector2 CapeGravity = new Vector2(0, -1.45f) / 1.45f;
         public Vector2 ModCapeSize = Vector2.One;
         public float DollCamZoomMod = 1f;
+
+        public Vector2 HeroDollShift = Vector2.Zero;
 
         bool SingletonInitialized = false;
         protected virtual void InitSingleton()

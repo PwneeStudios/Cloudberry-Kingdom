@@ -21,7 +21,9 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(2, 0, 0, 0);
             Name = "Wheelie";
             NameTemplate = "wheelie";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Wheel"), Color.White, 1.4f * DefaultIconWidth);
+
+            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Wheel"), Color.White, 1.4f * DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Wheel_0000"), Color.White, 1.4f * DefaultIconWidth);
         }
         static readonly BobPhsxWheel instance = new BobPhsxWheel();
         new public static BobPhsxWheel Instance { get { return instance; } }

@@ -18,6 +18,7 @@ namespace CloudberryKingdom
             Name = "Rocketbox!";
             NameTemplate = "rocketbox";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Cart"), Color.White, DefaultIconWidth);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, -.485f));
         }
         static readonly BobPhsxRocketbox instance = new BobPhsxRocketbox();
         public static new BobPhsxRocketbox Instance { get { return instance; } }

@@ -35,7 +35,8 @@ namespace CloudberryKingdom
             Name = "Tiny Bob";
             Adjective = "tiny";
             //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Tiny"), Color.White, DefaultIconWidth);
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, DefaultIconWidth * .6f);
+            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, DefaultIconWidth * .6f);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * .8f);
         }
         static readonly BobPhsxSmall instance = new BobPhsxSmall();
         new public static BobPhsxSmall Instance { get { return instance; } }

@@ -129,7 +129,7 @@ namespace CloudberryKingdom
                     TopText.Pos = new Vector2(761 + 280, -46 + 771);
                     TopText.Center();
 
-                    BigIcon = ObjectIcon.CreateIcon(upgrade);
+                    BigIcon = ObjectIcon.CreateIcon(upgrade, true);
                     BigIcon.SetScale(2f);
                     BigIcon.FancyPos.SetCenter(Pos);
                     BigIcon.Pos = new Vector2(731f + 500 * (1 - ScaleList), 198f);

@@ -155,6 +155,7 @@ namespace CloudberryKingdom
 
             // Backdrop
             var Backdrop = new QuadClass("Arcade_Box");
+            Backdrop.ScaleYToMatchRatio(587);
             MyPile.Add(Backdrop);
 
             // Back

@@ -16,21 +16,13 @@ t.Name = "cave";
 
 t.HasCeiling = true;
 
-//t.Pillars.Add(new PieceQuad(50, "pillar_cave_50", -15, 15, 3));
-//t.Pillars.Add(new PieceQuad(100, "pillar_cave_100", -15, 15, 12));
-//t.Pillars.Add(new PieceQuad(150, "pillar_cave_150", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(250, "pillar_cave_250", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(300, "pillar_cave_300", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(600, "pillar_cave_600", -15, 15, 0));
-//t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000", -15, 15, 0));
-
-t.Pillars.Add(new PieceQuad(50, "pillar_cave_50_v3", -15, 15, 3));
-t.Pillars.Add(new PieceQuad(100, "pillar_cave_100_v3", -15, 15, 12));
-t.Pillars.Add(new PieceQuad(150, "pillar_cave_150_v3", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(250, "pillar_cave_250_v3", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(300, "pillar_cave_300_v3", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(600, "pillar_cave_600_v3", -15, 15, 0));
-t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(50, "pillar_cave_50", -15, 15, 3));
+t.Pillars.Add(new PieceQuad(100, "pillar_cave_100", -15, 15, 12));
+t.Pillars.Add(new PieceQuad(150, "pillar_cave_150", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(250, "pillar_cave_250", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(300, "pillar_cave_300", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(600, "pillar_cave_600", -15, 15, 0));
+t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000", -15, 15, 0));
 
 t.Ceilings.Add(new PieceQuad(50, "pillar_cave_50", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(100, "pillar_cave_100", -20, 20, 0, true));
@@ -39,6 +31,22 @@ t.Ceilings.Add(new PieceQuad(250, "pillar_cave_250", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(300, "pillar_cave_300", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(600, "pillar_cave_600", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(1000, "pillar_cave_1000", -20, 20, 0, true));
+
+//t.Pillars.Add(new PieceQuad(50, "pillar_cave_50_v3", -15, 15, 3));
+//t.Pillars.Add(new PieceQuad(100, "pillar_cave_100_v3", -15, 15, 12));
+//t.Pillars.Add(new PieceQuad(150, "pillar_cave_150_v3", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(250, "pillar_cave_250_v3", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(300, "pillar_cave_300_v3", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(600, "pillar_cave_600_v3", -15, 15, 0));
+//t.Pillars.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -15, 15, 0));
+
+//t.Ceilings.Add(new PieceQuad(50, "pillar_cave_50_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(100, "pillar_cave_100_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(150, "pillar_cave_150_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(250, "pillar_cave_250_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(300, "pillar_cave_300_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(600, "pillar_cave_600_v3", -20, 20, 0, true));
+//t.Ceilings.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -20, 20, 0, true));
 
 t.StartBlock.Add(new PieceQuad(400, "wall_cave", -650, 120, 1548));
 t.EndBlock.Add(new PieceQuad(400, "wall_cave", -34, 736, 1548));

@@ -13,7 +13,9 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(3, 0, 0, 0);
             Name = "Bouncy";
             NameTemplate = "bouncey bounce";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Bouncy"), Color.White, 1.123f * DefaultIconWidth);
+            
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Horse_0000"), Color.White, 1.35875f * DefaultIconWidth);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, -.035f));
         }
         static readonly BobPhsxBouncy instance = new BobPhsxBouncy();
         public static new BobPhsxBouncy Instance { get { return instance; } }

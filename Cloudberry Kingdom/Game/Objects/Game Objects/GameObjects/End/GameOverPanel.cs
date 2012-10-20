@@ -89,7 +89,7 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
 
             // Make the backdrop
-            QuadClass backdrop = new QuadClass("Score\\Score Screen");
+            QuadClass backdrop = new QuadClass("Score\\Score Screen", 1440);
             backdrop.Quad.SetColor(new Color(220, 220, 220));
             MyPile.Add(backdrop);
             backdrop.Pos = new Vector2(22.2233f, 10.55567f);

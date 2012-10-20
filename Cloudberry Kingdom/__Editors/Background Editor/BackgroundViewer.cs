@@ -756,6 +756,11 @@ namespace CloudberryKingdom.Viewer
                         SplitFloater(f, f.MyQuad.TextureName, f.MyQuad.TextureName + "_p2");
                     }
                 }
+                if (ButtonCheck.State(XnaInput.Keys.OemSemicolon).Released)
+                {
+                    if (CurrentFloater != null)
+                        Snap(CurrentFloater);
+                }
                 if (ButtonCheck.State(XnaInput.Keys.T).Released)
                     TextureButton_Click(null, null);
                 if (ButtonCheck.State(XnaInput.Keys.O).Released)
@@ -1122,7 +1127,30 @@ namespace CloudberryKingdom.Viewer
 
             CurrentLayer.SetParallaxAndPropagate((float)ParallaxNum.Value);
         }
-        
+
+        private void Snap(BackgroundFloater f)
+        {
+            const float epsilon = 60;
+
+            // Loop through each list.
+            foreach (var list in background.MyCollection.Lists)
+            {
+                // Loop through the floaters for this list.
+                foreach (var floater in list.Floaters)
+                {
+                    Vector2 TR_to_BL = floater.MyQuad.BL - f.MyQuad.TR;
+                    if (Math.Abs(TR_to_BL.X) < epsilon) f.Move(new Vector2(TR_to_BL.X, 0));
+                    if (Math.Abs(TR_to_BL.Y) < epsilon) f.Move(new Vector2(0, TR_to_BL.Y));
+
+                    Vector2 BL_to_TR = floater.MyQuad.TR - f.MyQuad.BL;
+                    if (Math.Abs(BL_to_TR.X) < epsilon) f.Move(new Vector2(BL_to_TR.X, 0));
+                    if (Math.Abs(BL_to_TR.Y) < epsilon) f.Move(new Vector2(0, BL_to_TR.Y));
+
+                    Console.WriteLine("!" + Math.Abs(TR_to_BL.X));
+                }
+            }
+        }
+
         private void TextureButton_Click(object sender, EventArgs e)
         {
             var Dlg = new Forms.OpenFileDialog();

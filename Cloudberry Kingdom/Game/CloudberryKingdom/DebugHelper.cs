@@ -142,17 +142,22 @@ namespace CloudberryKingdom
             // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
             if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
             {
-                LoadInfo();
+                foreach (var hero in Bob.HeroTypes)
+                    hero.ResetInfo();
 
-                // Reset blocks
-                foreach (BlockBase block in Tools.CurLevel.Blocks)
-                {
-                    NormalBlock nblock = block as NormalBlock;
-                    if (null != nblock) nblock.ResetPieces();
+                //Tools.TextureWad.LoadAllDynamic(Tools.GameClass.Content, CoreEngine.EzTextureWad.WhatToLoad.Animations);
 
-                    MovingBlock mblock = block as MovingBlock;
-                    if (null != mblock) mblock.ResetPieces();
-                }
+                //LoadInfo();
+
+                //// Reset blocks
+                //foreach (BlockBase block in Tools.CurLevel.Blocks)
+                //{
+                //    NormalBlock nblock = block as NormalBlock;
+                //    if (null != nblock) nblock.ResetPieces();
+
+                //    MovingBlock mblock = block as MovingBlock;
+                //    if (null != mblock) mblock.ResetPieces();
+                //}
             }
 #endif
 

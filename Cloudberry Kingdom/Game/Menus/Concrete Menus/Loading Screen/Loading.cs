@@ -40,9 +40,6 @@ namespace CloudberryKingdom
 
         public ProgressBar()
         {
-            if (InitialLoadingScreen.style == 1)
-                MyType = BarType.Reveal;
-
             Initialize();
 
             InitStandardBar();
@@ -63,17 +60,11 @@ namespace CloudberryKingdom
 
         public void InitStandardBar()
         {
-            if (InitialLoadingScreen.style == 0)
-                Outline.TextureName = "LoadOutline";
-            else
-                Outline.TextureName = "LoadOutline_2";
-            Outline.ScaleToTextureSize();
+            Outline.TextureName = "LoadOutline";
+            Outline.ScaleYToMatchRatio(192);
 
-            if (InitialLoadingScreen.style == 0)
-                Fill.TextureName = "LoadFill";
-            else
-                Fill.TextureName = "LoadFill_2";
-            Fill.ScaleToTextureSize();
+            Fill.TextureName = "LoadFill";
+            Fill.ScaleYToMatchRatio(192);
             Width = Fill.Size.X;
         }
 
@@ -149,50 +140,23 @@ namespace CloudberryKingdom
 
         QuadClass BlackQuad, Splash;
 
-        public static int style = 0;
         public InitialLoadingScreen(ContentManager Content, WrappedFloat ResourceCount)
         {
             this.ResourceCount = ResourceCount;
 
             Whinney = Content.Load<SoundEffect>("Whinney");
 
-            if (style == 0)
-            {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill");
-            }
-            else if (style == 1)
-            {
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline_2");
-                Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill_2");
-            }
+            Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline");
+            Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill");
 
             MyPile = new DrawPile();
 
-            if (style == 0)
-            {
-                //QuadClass AboveBar = new QuadClass();
-                //AboveBar.SetToDefault();
-                //AboveBar.Quad.MyTexture = Tools.TextureWad.FindOrLoad(Content, "Art\\Tigar\\Splash");
-                //MyPile.Add(AboveBar);
+            Tools.TextureWad.FindOrLoad(Content, "Splash");
+            Splash = new QuadClass("Splash", 1400);
+            MyPile.Add(Splash);
 
-                Tools.TextureWad.FindOrLoad(Content, "Splash");
-                Splash = new QuadClass("Splash", 1400);
-                MyPile.Add(Splash);
-
-                MyProgressBar = new ProgressBar();
-                MyProgressBar.Pos = new Vector2(900, -400);
-            }
-            else if (style == 1)
-            {
-                EzText pwnee = new EzText("pwnee studios", Tools.Font_Grobold42, true, true);
-                CkColorHelper._x_x_HappyBlueColor(pwnee);
-                pwnee.Scale *= .9f;
-                MyPile.Add(pwnee);
-
-                MyProgressBar = new ProgressBar();
-                MyProgressBar.Pos = new Vector2(0, -80);
-            }
+            MyProgressBar = new ProgressBar();
+            MyProgressBar.Pos = new Vector2(900, -400);
 
             BlackQuad = new QuadClass("White", 1400);
             BlackQuad.Quad.SetColor(new Color(0, 0, 0, 255));
@@ -201,7 +165,7 @@ namespace CloudberryKingdom
             MyPile.Add(BlackQuad);
         }
 
-        public static int TotalResources = 895;
+        public static int TotalResources = 805;
 
         public bool Accelerate = false;
         int DoneCount = 0;

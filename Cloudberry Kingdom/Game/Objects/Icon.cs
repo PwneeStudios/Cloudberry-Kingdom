@@ -23,12 +23,22 @@ namespace CloudberryKingdom
 
         public static ObjectIcon CreateIcon(Upgrade upgrade)
         {
+            return CreateIcon(upgrade, false);
+        }
+        public static ObjectIcon CreateIcon(Upgrade upgrade, bool big)
+        {
             if (UpgradeIcons.ContainsKey(upgrade))
                 return UpgradeIcons[upgrade].Clone();
             else
             {
                 var info = TileSet.UpgradeToInfo(upgrade, "castle");
-                var icon = new PictureIcon(info.Icon);
+                
+                PictureIcon icon;
+                if (big && info.Icon_Big != null)
+                    icon = new PictureIcon(info.Icon_Big);
+                else
+                    icon = new PictureIcon(info.Icon);
+                
                 icon.DisplayText = UpgradeName(upgrade);
                 return icon;
             }
@@ -290,6 +300,10 @@ namespace CloudberryKingdom
 
             PictureIcon icon = new PictureIcon(IconTexture, BarColor, width);
             icon.DisplayText = DisplayText;
+            icon.IconQuad.Quad.v0 = IconQuad.Quad.v0;
+            icon.IconQuad.Quad.v1 = IconQuad.Quad.v1;
+            icon.IconQuad.Quad.v2 = IconQuad.Quad.v2;
+            icon.IconQuad.Quad.v3 = IconQuad.Quad.v3;
 
             icon.HitPadding = HitPadding;
 

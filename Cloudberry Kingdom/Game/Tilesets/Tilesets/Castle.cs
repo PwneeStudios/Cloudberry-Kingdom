@@ -97,8 +97,11 @@ info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_castle_190", -1, 1, 
 info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_castle_135", -1, 1, 25));
 info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_castle_80", -1, 1, 5));
 info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_castle_40", -1, 1, 5));
-info.MovingBlocks.Icon.Sprite = "MovingBlock_Castle";
+info.MovingBlocks.Icon.Sprite = "MovingBlock_Castle_40";
 info.MovingBlocks.Icon.Size = new Vector2(40, -1);
+info.MovingBlocks.Icon_Big = new SpriteInfo(null);
+info.MovingBlocks.Icon_Big.Sprite = "MovingBlock_Castle_135";
+info.MovingBlocks.Icon_Big.Size = new Vector2(40, -1);
 
 info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1));
 info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1));

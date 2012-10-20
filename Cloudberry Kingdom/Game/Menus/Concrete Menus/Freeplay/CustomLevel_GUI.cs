@@ -453,12 +453,8 @@ namespace CloudberryKingdom
             HeroList.Center = !LeftJustify;
             HeroList.MyExpandPos = new Vector2(-782.1666f, 293.6826f);
             foreach (BobPhsx hero in FreeplayHeroes)
-            {
-                item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
-                item.MyObject = hero;
-                SetItemProperties(item);
-                HeroList.AddItem(item, hero);
-            }
+                AddHeroItem(hero);
+
             // Random
             item = new MenuItem(new EzText("Random", ItemFont, false, true));
             SetItemProperties(item);
@@ -655,6 +651,20 @@ namespace CloudberryKingdom
             DiffList.SetIndex(0);
             MyMenu.OnB = MenuReturnToCaller;
             MyMenu.OnY = BringLoad;
+        }
+
+        private MenuItem AddHeroItem(BobPhsx hero)
+        {
+            MenuItem item;
+            item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
+            item.MyObject = hero;
+            SetItemProperties(item);
+            HeroList.AddItem(item, hero);
+            float width = item.MyText.GetWorldWidth();
+            const float max_width = 800;
+            if (width > max_width)
+                item.ScaleText(max_width / width);
+            return item;
         }
 
         private void DiffList_OnIndex()

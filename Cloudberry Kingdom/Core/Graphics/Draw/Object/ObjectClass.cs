@@ -20,13 +20,12 @@ namespace CoreEngine
         public Vector2 p2_Right = new Vector2(27, 0);
 
 
-
         public static int ObjectClassVersionNumber = 54;
         public int VersionNumber;
 
         public float ContainedQuadAngle = 0;
         public Quad ContainedQuad = new Quad();
-        EzTexture ContainedTexture;
+
         public EzTexture MySkinTexture;
         public EzEffect MySkinEffect;
 

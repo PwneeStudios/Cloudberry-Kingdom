@@ -164,7 +164,7 @@ namespace CloudberryKingdom
             float Zoom = 2f * MyDoll.MyPhsx.DollCamZoomMod;
             cam.SetVertexZoom(new Vector2(Zoom));
 
-            Vector2 Pos = MyPile.Pos;
+            Vector2 Pos = MyPile.Pos + MyDoll.MyPhsx.HeroDollShift;
             Vector2 CurHeroDollPos = Pos / Zoom + Tools.CurGameData.CamPos;
 
             MyDoll.Move(CurHeroDollPos - MyDoll.Pos);
