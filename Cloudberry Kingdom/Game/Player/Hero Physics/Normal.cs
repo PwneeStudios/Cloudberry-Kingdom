@@ -1567,7 +1567,7 @@ private void HighThrusts(int CurPhsxStep)
         {
             Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
             Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
-            Tools.SoundWad.FindByName("Spaceship_Explode").Play(.4f);
+            Tools.SoundWad.FindByName("DustCloud_Explode").Play(.4f);
         }
 
         public override void Die(Bob.BobDeathType DeathType)

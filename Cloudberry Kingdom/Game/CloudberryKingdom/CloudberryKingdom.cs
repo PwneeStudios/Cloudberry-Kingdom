@@ -196,10 +196,6 @@ namespace CloudberryKingdom
 
         public CloudberryKingdomGame()
         {
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
-            Components.Add(new GamerServicesComponent(this));
-#endif
             ResourceLoadedCountRef = new WrappedFloat();
 
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
@@ -335,6 +331,7 @@ namespace CloudberryKingdom
 #endif
 #endif
 
+#if DEBUG
             //// 640x480
             //MyGraphicsDeviceManager.PreferredBackBufferWidth = 640;
             //MyGraphicsDeviceManager.PreferredBackBufferHeight = 480;
@@ -342,7 +339,12 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             MyGraphicsDeviceManager.IsFullScreen = false;
-            
+#endif
+
+            //IntPtr hWnd = Tools.GameClass.Window.Handle;
+            //var control = System.Windows.Forms.Control.FromHandle(hWnd);
+            //var form = control.FindForm();
+            //form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 
             MyGraphicsDeviceManager.ApplyChanges();
 
@@ -800,9 +802,10 @@ namespace CloudberryKingdom
             else if (Tools.CurLevel != null)
                 Tools.CurLevel.IndependentDeltaT = 0;
 
+#if WINDOWS
             // Quick Spawn
             CheckForQuickSpawn_PC();
-
+#endif
             // Determine if the mouse is in the window or not.
             Tools.MouseInWindow =
                 Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
@@ -833,6 +836,7 @@ namespace CloudberryKingdom
             Fireball.TexturePhsx();
         }
 
+#if WINDOWS
         private void CheckForQuickSpawn_PC()
         {
             // Should implement a GameObject that marshalls quickspawns instead.
@@ -842,6 +846,7 @@ namespace CloudberryKingdom
                 Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 DoQuickSpawn();
         }
+#endif
 
         private void CheckForQuickSpawn_Xbox()
         {
@@ -956,7 +961,7 @@ namespace CloudberryKingdom
 
             // Prepare to draw
             Tools.DrawCount++;
-            if (SetupToRender()) return;
+            if (SetupToRender()) ;// return;
 
             // Main Video
             if (MainVideo.Draw()) return;
@@ -974,7 +979,7 @@ namespace CloudberryKingdom
                 LogoPhsx();
             else if (LogoScreenPropUp)
                 LoadingScreen.PhsxStep();
-            else if (!LogoScreenUp && !Tools.CurGameData.Loading)
+            if (!LogoScreenUp && !Tools.CurGameData.Loading)
                 GameUpdate(gameTime);
 
             // What to draw
@@ -993,7 +998,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Non-game drawing, such as debug info and tool drawing.
         /// </summary>
-        private static void DrawExtra()
+        private void DrawExtra()
         {
 #if DEBUG
             if (ShowFPS || Tools.ShowNums)
@@ -1155,7 +1160,7 @@ namespace CloudberryKingdom
         /// </summary>
         private void ComputeFire()
         {
-            if (!LogoScreenUp)
+            if (!LogoScreenUp && !LogoScreenPropUp)
             {
                 if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
                 {

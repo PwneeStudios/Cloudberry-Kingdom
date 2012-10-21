@@ -52,6 +52,7 @@ namespace CloudberryKingdom
     
     public class QuadClass : ViewReadWrite
     {
+#if WINDOWS
         public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
@@ -78,6 +79,7 @@ namespace CloudberryKingdom
             else
                 Pos += shift;
         }
+#endif
 
         public static QuadClass FindQuad(List<QuadClass> list, string Name)
         {

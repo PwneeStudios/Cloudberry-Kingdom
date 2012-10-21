@@ -62,7 +62,7 @@ namespace CloudberryKingdom.Obstacles
 
             ShadeQuad.Update();
 
-            ExplodeSound = Tools.SoundWad.FindByName("Fireball_Explode");
+            ExplodeSound = Tools.SoundWad.FindByName("DustCloud_Explode");
 
             // Fireball particle emitter
             Fireball_Emitter = new ParticleEmitter(20);
@@ -220,13 +220,6 @@ namespace CloudberryKingdom.Obstacles
             // Draw emitter
             device.SetRenderTarget(EmitterRenderTarget);
             device.Clear(Color.Transparent);
-
-            // All these renderstates need to be ported to XNA 4.0
-            /*
-            device.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
-            device.RenderState.SourceBlend = Blend.SourceAlpha;
-            device.RenderState.SeparateAlphaBlendEnabled = true;
-            */
 
             Emitter_Emitter.Draw();
 

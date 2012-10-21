@@ -366,7 +366,7 @@ namespace CloudberryKingdom
 #if WINDOWS
             return AnyKeyboardKey() || AnyMouseKey() || AllState(-2).Down;
 #else
-            return AllState(-2);
+            return AllState(-2).Down;
 #endif
         }
 

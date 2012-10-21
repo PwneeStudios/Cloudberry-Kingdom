@@ -255,8 +255,8 @@ namespace CloudberryKingdom
         public void StartShake(float Intensity, int Length) { StartShake(Intensity, Length, true); }
         public void StartShake(float Intensity, int Length, bool Sound)
         {
-            if (Sound)
-                Tools.Sound("Rumble_Short").Play();
+            //if (Sound)
+            //    Tools.Sound("Rumble_Short").Play();
 
             ShakeCount = 0;
             ShakeLength = Length;

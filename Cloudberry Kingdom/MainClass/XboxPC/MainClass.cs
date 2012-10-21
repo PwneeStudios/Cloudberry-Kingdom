@@ -19,8 +19,8 @@ namespace CloudberryKingdom
             CloudberryKingdomGame.ProcessArgs(args);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            
-#if DEBUG
+
+#if DEBUG && WINDOWS
             AppDomain.CurrentDomain.FirstChanceException += new EventHandler<System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs>(CurrentDomain_FirstChanceException);
 #endif
 
@@ -34,10 +34,12 @@ namespace CloudberryKingdom
             }
         }
 
+#if DEBUG && WINDOWS
         static void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
         {
             Tools.Log(e.Exception.ToString());
         }
+#endif
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

@@ -219,21 +219,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Block Bump.wav">
-      <Name>Block Bump</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Chain Pull.wav">
-      <Name>Chain Pull</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Chain Hit.wav">
-      <Name>Chain Hit</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Sound\Checkpoint.wav">
       <Name>Checkpoint</Name>
       <Importer>WavImporter</Importer>
@@ -256,11 +241,6 @@
     </Compile>
     <Compile Include="Sound\Door Slamming.wav">
       <Name>Door Slamming</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Fireball_Explode.wav">
-      <Name>Fireball_Explode</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -294,18 +274,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Level Complete.wav">
-      <Name>Level Complete</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Sound\Menu Select.wav">
       <Name>Menu Select</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Paper Flip.wav">
-      <Name>Paper Flip</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -345,20 +315,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Rumble.wav">
-      <Name>Rumble</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\Piece Explosion.wav">
-      <Name>Piece Explosion</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Smooth.png">
       <Name>Smooth</Name>
       <Importer>TextureImporter</Importer>
@@ -390,43 +346,6 @@
     </Compile>
     <Compile Include="Sound\DustCloud_Explode.wav">
       <Name>DustCloud_Explode</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Launched_Flying.wav">
-      <Name>Launched_Flying</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Launched_Landing.wav">
-      <Name>Launched_Landing</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Maelstrom_Launch.wav">
-      <Name>Maelstrom_Launch</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Maelstrom_Regular.wav">
-      <Name>Maelstrom_Regular</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Maelstrom_SuckIn.wav">
-      <Name>Maelstrom_SuckIn</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Spaceship_Explode.wav">
-      <Name>Spaceship_Explode</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\Maelstrom_ReadyToLaunch.wav">
-      <Name>Maelstrom_ReadyToLaunch</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -552,29 +471,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Jump2.wav">
-      <Name>Jump2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\jump4.wav">
-      <Name>jump4</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sound\jump5.wav">
       <Name>jump5</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\Land.wav">
-      <Name>Land</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -586,25 +484,6 @@
   <ItemGroup>
     <Compile Include="Sound\Bash.wav">
       <Name>Bash</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\Rumble_Short.wav">
-      <Name>Rumble_Short</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\MonsterGrowl.wav">
-      <Name>MonsterGrowl</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sound\MonsterGrowl_Short.wav">
-      <Name>MonsterGrowl_Short</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -783,23 +662,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Effects\NewLava.png">
-      <Name>NewLava</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Effects\Pop.png">
       <Name>Pop</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Effects\QM_Happy.png">
-      <Name>QM_Happy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Effects\Smoke.png">
-      <Name>Smoke</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -964,11 +828,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Menu\check.png">
-      <Name>check</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Menu\Icons\Upgrades\CeilingIcon.png">
       <Name>CeilingIcon</Name>
       <Importer>TextureImporter</Importer>
@@ -986,11 +845,6 @@
     </Compile>
     <Compile Include="Art\Menu\Icons\Upgrades\SpeedIcon.png">
       <Name>SpeedIcon</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Menu\locked.png">
-      <Name>locked</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1016,11 +870,6 @@
     </Compile>
     <Compile Include="Art\Menu\Score\WidePlaque.png">
       <Name>WidePlaque</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Menu\uncheck.png">
-      <Name>uncheck</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1091,330 +940,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Bob\Box\Bob_Box_Duck\Bob_Box_Duck_0000.png">
-      <Name>Bob_Box_Duck_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0000.png">
-      <Name>Bob_Box_Jump_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0001.png">
-      <Name>Bob_Box_Jump_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0002.png">
-      <Name>Bob_Box_Jump_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0003.png">
-      <Name>Bob_Box_Jump_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0004.png">
-      <Name>Bob_Box_Jump_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Jump\Bob_Box_Jump_0005.png">
-      <Name>Bob_Box_Jump_0005</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0000.png">
-      <Name>Bob_Box_Land_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0001.png">
-      <Name>Bob_Box_Land_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0002.png">
-      <Name>Bob_Box_Land_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0003.png">
-      <Name>Bob_Box_Land_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0004.png">
-      <Name>Bob_Box_Land_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Land\Bob_Box_Land_0005.png">
-      <Name>Bob_Box_Land_0005</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0000.png">
-      <Name>Bob_Box_Stand_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0001.png">
-      <Name>Bob_Box_Stand_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0002.png">
-      <Name>Bob_Box_Stand_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0003.png">
-      <Name>Bob_Box_Stand_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0004.png">
-      <Name>Bob_Box_Stand_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0005.png">
-      <Name>Bob_Box_Stand_0005</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0006.png">
-      <Name>Bob_Box_Stand_0006</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0007.png">
-      <Name>Bob_Box_Stand_0007</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0008.png">
-      <Name>Bob_Box_Stand_0008</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0009.png">
-      <Name>Bob_Box_Stand_0009</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0010.png">
-      <Name>Bob_Box_Stand_0010</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0011.png">
-      <Name>Bob_Box_Stand_0011</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0012.png">
-      <Name>Bob_Box_Stand_0012</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0013.png">
-      <Name>Bob_Box_Stand_0013</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0014.png">
-      <Name>Bob_Box_Stand_0014</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0015.png">
-      <Name>Bob_Box_Stand_0015</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0016.png">
-      <Name>Bob_Box_Stand_0016</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0017.png">
-      <Name>Bob_Box_Stand_0017</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0018.png">
-      <Name>Bob_Box_Stand_0018</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0019.png">
-      <Name>Bob_Box_Stand_0019</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0020.png">
-      <Name>Bob_Box_Stand_0020</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0021.png">
-      <Name>Bob_Box_Stand_0021</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0022.png">
-      <Name>Bob_Box_Stand_0022</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0023.png">
-      <Name>Bob_Box_Stand_0023</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0024.png">
-      <Name>Bob_Box_Stand_0024</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0025.png">
-      <Name>Bob_Box_Stand_0025</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0026.png">
-      <Name>Bob_Box_Stand_0026</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0027.png">
-      <Name>Bob_Box_Stand_0027</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0028.png">
-      <Name>Bob_Box_Stand_0028</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0029.png">
-      <Name>Bob_Box_Stand_0029</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0030.png">
-      <Name>Bob_Box_Stand_0030</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0031.png">
-      <Name>Bob_Box_Stand_0031</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0032.png">
-      <Name>Bob_Box_Stand_0032</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0033.png">
-      <Name>Bob_Box_Stand_0033</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0034.png">
-      <Name>Bob_Box_Stand_0034</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0035.png">
-      <Name>Bob_Box_Stand_0035</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0036.png">
-      <Name>Bob_Box_Stand_0036</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0037.png">
-      <Name>Bob_Box_Stand_0037</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0038.png">
-      <Name>Bob_Box_Stand_0038</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0039.png">
-      <Name>Bob_Box_Stand_0039</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0040.png">
-      <Name>Bob_Box_Stand_0040</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0041.png">
-      <Name>Bob_Box_Stand_0041</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0042.png">
-      <Name>Bob_Box_Stand_0042</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0043.png">
-      <Name>Bob_Box_Stand_0043</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0044.png">
-      <Name>Bob_Box_Stand_0044</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0045.png">
-      <Name>Bob_Box_Stand_0045</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0046.png">
-      <Name>Bob_Box_Stand_0046</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Box\Bob_Box_Stand\Bob_Box_Stand_0047.png">
-      <Name>Bob_Box_Stand_0047</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Bob\Wheelie\Bob_Wheel_0000.PNG">
       <Name>Bob_Wheel_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Bob\Bouncy\Bob_Horse\Bob_Horse_0000.png">
-      <Name>Bob_Horse_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Bouncy\Bob_Horse\Bob_Horse_0001.png">
-      <Name>Bob_Horse_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Bouncy\Bob_Horse\Bob_Horse_0002.png">
-      <Name>Bob_Horse_0002</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2883,13 +2410,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Title\Title.png">
-      <Name>Title</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Art\Environments\Snow.png">
       <Name>Snow</Name>
       <Importer>TextureImporter</Importer>
@@ -3744,11 +3264,13 @@
       <Name>Arcade_Box</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
     </Compile>
     <Compile Include="Art\Title\Categories\Arcade\Arcade_BoxLeft.png">
       <Name>Arcade_BoxLeft</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -4023,408 +3545,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Jump_0001.png">
-      <Name>Bob_Jump_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Jump_0002.png">
-      <Name>Bob_Jump_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Jump_0003.png">
-      <Name>Bob_Jump_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Jump_0004.png">
-      <Name>Bob_Jump_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0001.png">
-      <Name>Bob_Run_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0002.png">
-      <Name>Bob_Run_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0003.png">
-      <Name>Bob_Run_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0004.png">
-      <Name>Bob_Run_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0005.png">
-      <Name>Bob_Run_0005</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0006.png">
-      <Name>Bob_Run_0006</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0007.png">
-      <Name>Bob_Run_0007</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0008.png">
-      <Name>Bob_Run_0008</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0009.png">
-      <Name>Bob_Run_0009</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0010.png">
-      <Name>Bob_Run_0010</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0011.png">
-      <Name>Bob_Run_0011</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0012.png">
-      <Name>Bob_Run_0012</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0013.png">
-      <Name>Bob_Run_0013</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0014.png">
-      <Name>Bob_Run_0014</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0015.png">
-      <Name>Bob_Run_0015</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0016.png">
-      <Name>Bob_Run_0016</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0017.png">
-      <Name>Bob_Run_0017</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0018.png">
-      <Name>Bob_Run_0018</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0019.png">
-      <Name>Bob_Run_0019</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0020.png">
-      <Name>Bob_Run_0020</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0021.png">
-      <Name>Bob_Run_0021</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0022.png">
-      <Name>Bob_Run_0022</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0023.png">
-      <Name>Bob_Run_0023</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Run_0024.png">
-      <Name>Bob_Run_0024</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_StandtoDuck_0000.png">
-      <Name>Bob_StandtoDuck_0000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_StandtoDuck_0001.png">
-      <Name>Bob_StandtoDuck_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_StandtoDuck_0002.png">
-      <Name>Bob_StandtoDuck_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_StandtoDuck_0003.png">
-      <Name>Bob_StandtoDuck_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0001.png">
-      <Name>Bob_Stand_0001</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0002.png">
-      <Name>Bob_Stand_0002</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0003.png">
-      <Name>Bob_Stand_0003</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0004.png">
-      <Name>Bob_Stand_0004</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0005.png">
-      <Name>Bob_Stand_0005</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0006.png">
-      <Name>Bob_Stand_0006</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0007.png">
-      <Name>Bob_Stand_0007</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0008.png">
-      <Name>Bob_Stand_0008</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0009.png">
-      <Name>Bob_Stand_0009</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0010.png">
-      <Name>Bob_Stand_0010</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0011.png">
-      <Name>Bob_Stand_0011</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0012.png">
-      <Name>Bob_Stand_0012</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0013.png">
-      <Name>Bob_Stand_0013</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0014.png">
-      <Name>Bob_Stand_0014</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0015.png">
-      <Name>Bob_Stand_0015</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0016.png">
-      <Name>Bob_Stand_0016</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0017.png">
-      <Name>Bob_Stand_0017</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0018.png">
-      <Name>Bob_Stand_0018</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0019.png">
-      <Name>Bob_Stand_0019</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0020.png">
-      <Name>Bob_Stand_0020</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0021.png">
-      <Name>Bob_Stand_0021</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0022.png">
-      <Name>Bob_Stand_0022</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0023.png">
-      <Name>Bob_Stand_0023</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0024.png">
-      <Name>Bob_Stand_0024</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0025.png">
-      <Name>Bob_Stand_0025</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0026.png">
-      <Name>Bob_Stand_0026</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0027.png">
-      <Name>Bob_Stand_0027</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0028.png">
-      <Name>Bob_Stand_0028</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0029.png">
-      <Name>Bob_Stand_0029</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0030.png">
-      <Name>Bob_Stand_0030</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0031.png">
-      <Name>Bob_Stand_0031</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0032.png">
-      <Name>Bob_Stand_0032</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0033.png">
-      <Name>Bob_Stand_0033</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0034.png">
-      <Name>Bob_Stand_0034</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0035.png">
-      <Name>Bob_Stand_0035</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0036.png">
-      <Name>Bob_Stand_0036</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0037.png">
-      <Name>Bob_Stand_0037</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0038.png">
-      <Name>Bob_Stand_0038</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0039.png">
-      <Name>Bob_Stand_0039</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0040.png">
-      <Name>Bob_Stand_0040</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0041.png">
-      <Name>Bob_Stand_0041</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0042.png">
-      <Name>Bob_Stand_0042</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0043.png">
-      <Name>Bob_Stand_0043</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0044.png">
-      <Name>Bob_Stand_0044</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0045.png">
-      <Name>Bob_Stand_0045</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0046.png">
-      <Name>Bob_Stand_0046</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0047.png">
-      <Name>Bob_Stand_0047</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\Classic\Bob_Trimmed\Bob_Stand_0048.png">
-      <Name>Bob_Stand_0048</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Art\Environments\Cave\Pillars\Pillar_Cave_100.png">
       <Name>Pillar_Cave_100</Name>
       <Importer>TextureImporter</Importer>
@@ -4457,6 +3577,735 @@
     </Compile>
     <Compile Include="Art\Environments\Cave\Pillars\Pillar_Cave_600.png">
       <Name>Pillar_Cave_600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Title\Title_Trim.png">
+      <Name>Title_Trim</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Duck_0000.png">
+      <Name>Bob_Box_Duck_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0000.png">
+      <Name>Bob_Box_Jump_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0001.png">
+      <Name>Bob_Box_Jump_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0002.png">
+      <Name>Bob_Box_Jump_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0003.png">
+      <Name>Bob_Box_Jump_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0004.png">
+      <Name>Bob_Box_Jump_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Jump_0005.png">
+      <Name>Bob_Box_Jump_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0000.png">
+      <Name>Bob_Box_Land_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0001.png">
+      <Name>Bob_Box_Land_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0002.png">
+      <Name>Bob_Box_Land_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0003.png">
+      <Name>Bob_Box_Land_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0004.png">
+      <Name>Bob_Box_Land_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Land_0005.png">
+      <Name>Bob_Box_Land_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0000.png">
+      <Name>Bob_Box_Stand_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0001.png">
+      <Name>Bob_Box_Stand_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0002.png">
+      <Name>Bob_Box_Stand_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0003.png">
+      <Name>Bob_Box_Stand_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0004.png">
+      <Name>Bob_Box_Stand_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0005.png">
+      <Name>Bob_Box_Stand_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0006.png">
+      <Name>Bob_Box_Stand_0006</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0007.png">
+      <Name>Bob_Box_Stand_0007</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0008.png">
+      <Name>Bob_Box_Stand_0008</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0009.png">
+      <Name>Bob_Box_Stand_0009</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0010.png">
+      <Name>Bob_Box_Stand_0010</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0011.png">
+      <Name>Bob_Box_Stand_0011</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0012.png">
+      <Name>Bob_Box_Stand_0012</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0013.png">
+      <Name>Bob_Box_Stand_0013</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0014.png">
+      <Name>Bob_Box_Stand_0014</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0015.png">
+      <Name>Bob_Box_Stand_0015</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0016.png">
+      <Name>Bob_Box_Stand_0016</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0017.png">
+      <Name>Bob_Box_Stand_0017</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0018.png">
+      <Name>Bob_Box_Stand_0018</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0019.png">
+      <Name>Bob_Box_Stand_0019</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0020.png">
+      <Name>Bob_Box_Stand_0020</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0021.png">
+      <Name>Bob_Box_Stand_0021</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0022.png">
+      <Name>Bob_Box_Stand_0022</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0023.png">
+      <Name>Bob_Box_Stand_0023</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0024.png">
+      <Name>Bob_Box_Stand_0024</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0025.png">
+      <Name>Bob_Box_Stand_0025</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0026.png">
+      <Name>Bob_Box_Stand_0026</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0027.png">
+      <Name>Bob_Box_Stand_0027</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0028.png">
+      <Name>Bob_Box_Stand_0028</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0029.png">
+      <Name>Bob_Box_Stand_0029</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0030.png">
+      <Name>Bob_Box_Stand_0030</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0031.png">
+      <Name>Bob_Box_Stand_0031</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0032.png">
+      <Name>Bob_Box_Stand_0032</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0033.png">
+      <Name>Bob_Box_Stand_0033</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0034.png">
+      <Name>Bob_Box_Stand_0034</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0035.png">
+      <Name>Bob_Box_Stand_0035</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0036.png">
+      <Name>Bob_Box_Stand_0036</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0037.png">
+      <Name>Bob_Box_Stand_0037</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0038.png">
+      <Name>Bob_Box_Stand_0038</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0039.png">
+      <Name>Bob_Box_Stand_0039</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0040.png">
+      <Name>Bob_Box_Stand_0040</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0041.png">
+      <Name>Bob_Box_Stand_0041</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0042.png">
+      <Name>Bob_Box_Stand_0042</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0043.png">
+      <Name>Bob_Box_Stand_0043</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0044.png">
+      <Name>Bob_Box_Stand_0044</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0045.png">
+      <Name>Bob_Box_Stand_0045</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0046.png">
+      <Name>Bob_Box_Stand_0046</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Box_Stand_0047.png">
+      <Name>Bob_Box_Stand_0047</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Horse_0000.png">
+      <Name>Bob_Horse_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Horse_0001.png">
+      <Name>Bob_Horse_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Horse_0002.png">
+      <Name>Bob_Horse_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Jump_0001.png">
+      <Name>Bob_Jump_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Jump_0002.png">
+      <Name>Bob_Jump_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Jump_0003.png">
+      <Name>Bob_Jump_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Jump_0004.png">
+      <Name>Bob_Jump_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0001.png">
+      <Name>Bob_Run_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0002.png">
+      <Name>Bob_Run_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0003.png">
+      <Name>Bob_Run_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0004.png">
+      <Name>Bob_Run_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0005.png">
+      <Name>Bob_Run_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0006.png">
+      <Name>Bob_Run_0006</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0007.png">
+      <Name>Bob_Run_0007</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0008.png">
+      <Name>Bob_Run_0008</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0009.png">
+      <Name>Bob_Run_0009</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0010.png">
+      <Name>Bob_Run_0010</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0011.png">
+      <Name>Bob_Run_0011</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0012.png">
+      <Name>Bob_Run_0012</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0013.png">
+      <Name>Bob_Run_0013</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0014.png">
+      <Name>Bob_Run_0014</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0015.png">
+      <Name>Bob_Run_0015</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0016.png">
+      <Name>Bob_Run_0016</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0017.png">
+      <Name>Bob_Run_0017</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0018.png">
+      <Name>Bob_Run_0018</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0019.png">
+      <Name>Bob_Run_0019</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0020.png">
+      <Name>Bob_Run_0020</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0021.png">
+      <Name>Bob_Run_0021</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0022.png">
+      <Name>Bob_Run_0022</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0023.png">
+      <Name>Bob_Run_0023</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Run_0024.png">
+      <Name>Bob_Run_0024</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_StandtoDuck_0000.png">
+      <Name>Bob_StandtoDuck_0000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_StandtoDuck_0001.png">
+      <Name>Bob_StandtoDuck_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_StandtoDuck_0002.png">
+      <Name>Bob_StandtoDuck_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_StandtoDuck_0003.png">
+      <Name>Bob_StandtoDuck_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0001.png">
+      <Name>Bob_Stand_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0002.png">
+      <Name>Bob_Stand_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0003.png">
+      <Name>Bob_Stand_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0004.png">
+      <Name>Bob_Stand_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0005.png">
+      <Name>Bob_Stand_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0006.png">
+      <Name>Bob_Stand_0006</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0007.png">
+      <Name>Bob_Stand_0007</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0008.png">
+      <Name>Bob_Stand_0008</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0009.png">
+      <Name>Bob_Stand_0009</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0010.png">
+      <Name>Bob_Stand_0010</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0011.png">
+      <Name>Bob_Stand_0011</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0012.png">
+      <Name>Bob_Stand_0012</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0013.png">
+      <Name>Bob_Stand_0013</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0014.png">
+      <Name>Bob_Stand_0014</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0015.png">
+      <Name>Bob_Stand_0015</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0016.png">
+      <Name>Bob_Stand_0016</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0017.png">
+      <Name>Bob_Stand_0017</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0018.png">
+      <Name>Bob_Stand_0018</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0019.png">
+      <Name>Bob_Stand_0019</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0020.png">
+      <Name>Bob_Stand_0020</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0021.png">
+      <Name>Bob_Stand_0021</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0022.png">
+      <Name>Bob_Stand_0022</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0023.png">
+      <Name>Bob_Stand_0023</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0024.png">
+      <Name>Bob_Stand_0024</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0025.png">
+      <Name>Bob_Stand_0025</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0026.png">
+      <Name>Bob_Stand_0026</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0027.png">
+      <Name>Bob_Stand_0027</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0028.png">
+      <Name>Bob_Stand_0028</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0029.png">
+      <Name>Bob_Stand_0029</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0030.png">
+      <Name>Bob_Stand_0030</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0031.png">
+      <Name>Bob_Stand_0031</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0032.png">
+      <Name>Bob_Stand_0032</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0033.png">
+      <Name>Bob_Stand_0033</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0034.png">
+      <Name>Bob_Stand_0034</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0035.png">
+      <Name>Bob_Stand_0035</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0036.png">
+      <Name>Bob_Stand_0036</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0037.png">
+      <Name>Bob_Stand_0037</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0038.png">
+      <Name>Bob_Stand_0038</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0039.png">
+      <Name>Bob_Stand_0039</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0040.png">
+      <Name>Bob_Stand_0040</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0041.png">
+      <Name>Bob_Stand_0041</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0042.png">
+      <Name>Bob_Stand_0042</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0043.png">
+      <Name>Bob_Stand_0043</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0044.png">
+      <Name>Bob_Stand_0044</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0045.png">
+      <Name>Bob_Stand_0045</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0046.png">
+      <Name>Bob_Stand_0046</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0047.png">
+      <Name>Bob_Stand_0047</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Stand_0048.png">
+      <Name>Bob_Stand_0048</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

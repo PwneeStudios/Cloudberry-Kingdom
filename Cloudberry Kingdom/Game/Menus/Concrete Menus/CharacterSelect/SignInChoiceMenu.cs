@@ -12,7 +12,7 @@ using CloudberryKingdom.Bobs;
 namespace CloudberryKingdom
 {
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
-    public class SignInMenu : StartMenuBase
+    public class SignInMenu : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
         public SignInMenu(int Control, CharacterSelect MyCharacterSelect) : base(false)

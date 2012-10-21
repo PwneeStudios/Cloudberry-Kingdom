@@ -223,11 +223,13 @@ namespace CloudberryKingdom
             Call(LoadMenu, 0);
         }
 
+#if WINDOWS
         void Copy(MenuItem _item)
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();
             System.Windows.Forms.Clipboard.SetText(seed);
         }
+#endif
 
         void LoadString(MenuItem _item)
         {

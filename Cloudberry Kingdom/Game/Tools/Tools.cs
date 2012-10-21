@@ -622,6 +622,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static BlockDialog Dlg;
         static bool _DialogUp = false;
         public static bool DialogUp { get { return _DialogUp; } set { _DialogUp = value; } }
+#else
+        public const bool ViewerIsUp = false;
 #endif
 
         static float _VolumeFade;
@@ -819,9 +821,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             return s;
         }
-
 #else
-
+        public static string SantitizeOneLineString(string s, EzFont font)
+        {
+            return s;
+        }
 #endif
         public static XnaInput.GamePadState[] padState, PrevpadState;
 
@@ -1987,6 +1991,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ModNums()
         {
+#if WINDOWS
             if (ButtonCheck.State(XnaInput.Keys.D1).Down)
                 Num_0_to_360 = CoreMath.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
             if (ButtonCheck.State(XnaInput.Keys.D2).Down)
@@ -1994,6 +1999,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             if (ButtonCheck.State(XnaInput.Keys.D1).Down || ButtonCheck.State(XnaInput.Keys.D2).Down)
                 ShowNums = true;
+#endif
         }
 
 

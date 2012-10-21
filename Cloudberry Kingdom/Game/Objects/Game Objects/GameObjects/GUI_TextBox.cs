@@ -1,10 +1,11 @@
-#if WINDOWS
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using System;
 
+#if WINDOWS
 using KeyboardHandler;
+#endif
 
 namespace CloudberryKingdom
 {
@@ -60,10 +61,12 @@ namespace CloudberryKingdom
         {
             HasFocus = true;
 
+#if WINDOWS
             KeyboardExtension.FreezeInput();
 
             EventInput.CharEntered += CharEntered;
             EventInput.KeyDown += KeyDown;
+#endif
         }
 
         public void ReleaseFocus()
@@ -71,10 +74,12 @@ namespace CloudberryKingdom
             if (!HasFocus) return;
             HasFocus = false;
 
+#if WINDOWS
             KeyboardExtension.UnfreezeInput();
 
             EventInput.CharEntered -= CharEntered;
             EventInput.KeyDown -= KeyDown;
+#endif
         }
 
         protected override void MyPhsxStep()
@@ -144,6 +149,7 @@ namespace CloudberryKingdom
             }
         }
 
+#if WINDOWS
         void Paste()
         {
             Clear();
@@ -160,6 +166,7 @@ namespace CloudberryKingdom
             if (Text != null && Text.Length > 0)
                 System.Windows.Forms.Clipboard.SetText(Text);
         }
+#endif
 
         char IncrChar(char c)
         {
@@ -277,6 +284,8 @@ namespace CloudberryKingdom
 
         public int MaxLength = 18;
         public bool LimitLength = true;
+
+#if WINDOWS
         void CharEntered(object o, CharacterEventArgs e)
         {
             if (!Active) return;
@@ -296,6 +305,7 @@ namespace CloudberryKingdom
 
             return ascii >= 32 && ascii <= 122;
         }
+#endif
 
         bool IsLetter(char c)
         {
@@ -325,6 +335,7 @@ namespace CloudberryKingdom
                 MyText.Pos = new Vector2(-MyText.GetWorldWidth() / 2, 0);
         }
 
+#if WINDOWS
         void KeyDown(object o, KeyEventArgs e)
         {
             if (!Active) return;
@@ -332,6 +343,7 @@ namespace CloudberryKingdom
             if (e.KeyCode == Keys.Back) Backspace();
             if (e.KeyCode == Keys.Enter) Enter();
         }
+#endif
 
         void Backspace()
         {
@@ -376,4 +388,3 @@ namespace CloudberryKingdom
         }
     }
 }
-#endif

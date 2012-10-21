@@ -24,7 +24,7 @@
     <XnaUpgrade>
     </XnaUpgrade>
     <XnaOutputType>Game</XnaOutputType>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -187,6 +187,7 @@
     <Compile Include="Core\Effects\EzEffectWad.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />
     <Compile Include="Core\ResolutionGroup.cs" />
+    <Compile Include="Core\Texture\EzTextureWad_Dynamic.cs" />
     <Compile Include="Core\Texture\PackedTexture.cs" />
     <Compile Include="Core\Texture\TextureOrAnim.cs" />
     <Compile Include="Core\Texture\EzTextureWad.cs" />
@@ -364,13 +365,10 @@
     <Compile Include="Game\Objects\Bob\BobLink.cs" />
     <Compile Include="Game\Objects\Door\Sign.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\CoinScoreMultiplierObject.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\OhNo.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Lives.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\Region.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\DanceBerry.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Blobs.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\Rumble.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Coins.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\DoorIcon.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\HelpBubble.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Timer_Simple.cs" />
@@ -661,7 +659,7 @@
     <Compile Include="Game\Tools\WrappedFloat.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
     <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
-    <Compile Include="__Editors\GUI Editor\IViewable.cs" />
+    <Compile Include="Core\IViewable.cs" />
     <Compile Include="__Editors\GUI Editor\GameObjViewer.cs">
       <SubType>Form</SubType>
     </Compile>

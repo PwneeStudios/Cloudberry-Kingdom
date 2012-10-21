@@ -12,12 +12,9 @@ namespace CoreEngine
 
         public BasePoint(float e1x, float e1y, float e2x, float e2y, float ox, float oy)
         {
-            e1.X = e1x;
-            e1.Y = e1y;
-            e2.X = e2x;
-            e2.Y = e2y;
-            Origin.X = ox;
-            Origin.Y = oy;
+            e1 = new Vector2(e1x, e1y);
+            e2 = new Vector2(e2x, e2y);
+            Origin = new Vector2(ox, oy);
         }
 
         public void Init()

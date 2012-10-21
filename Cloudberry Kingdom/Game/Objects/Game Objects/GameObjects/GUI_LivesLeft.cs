@@ -64,21 +64,21 @@ namespace CloudberryKingdom
             LivesLeftText.PicShadow = false;
             MyPile.Add(LivesLeftText);
 
+            SetPos();
 
+            // Hide initially
+            MyPile.Alpha = 0;
+        }
 
-
+        void SetPos()
+        {
             EzText _t;
             _t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(195.3334f, -43.77777f); }
 
             QuadClass _q;
-            _q = MyPile.FindQuad("Bob"); if (_q != null) { _q.Pos = new Vector2(133.3333f, -27.77774f); _q.Size = new Vector2(133f, 133f); }
+            _q = MyPile.FindQuad("Bob"); if (_q != null) { _q.Pos = new Vector2(133.3333f, -27.77774f); _q.ScaleYToMatchRatio(82.5f); }
 
             MyPile.Pos = new Vector2(-222.2232f, 897.222f);
-
-
-
-            // Hide initially
-            MyPile.Alpha = 0;
         }
 
         bool UseBlackBack = false;

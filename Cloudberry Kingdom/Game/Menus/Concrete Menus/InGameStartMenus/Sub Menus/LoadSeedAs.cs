@@ -86,7 +86,9 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
-            string clipboard;
+            string clipboard = null;
+
+#if WINDOWS
             try
             {
                 clipboard = System.Windows.Forms.Clipboard.GetText();
@@ -95,6 +97,7 @@ namespace CloudberryKingdom
             {
                 clipboard = "<Error>";
             }
+#endif
 
             if (clipboard == null || clipboard.Length == 0)
                 clipboard = "Type in a seed!";

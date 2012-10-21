@@ -133,21 +133,18 @@ namespace CloudberryKingdom
 
             MyPile.Pos = new Vector2(1002.133f, 670.5443f);
 
-            if (false)
-            {
-                CoinsText.Pos = new Vector2(189.7776f, 111.7778f);
-                Coin.Pos = new Vector2(149.0665f, 98.35567f);
-            }
-            else
-            {
-                EzText _t;
-                _t = MyPile.FindEzText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); }
+            SetPos();
+        }
 
-                QuadClass _q;
-                _q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.Size = new Vector2(51.00002f, 72.85717f); }
+        void SetPos()
+        {
+            EzText _t;
+            _t = MyPile.FindEzText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); }
 
-                Pos = new Vector2(1002.133f, 670.5443f);
-            }
+            QuadClass _q;
+            _q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.ScaleYToMatchRatio(100); }
+
+            Pos = new Vector2(1002.133f, 670.5443f);
         }
 
         public override void OnAdd()

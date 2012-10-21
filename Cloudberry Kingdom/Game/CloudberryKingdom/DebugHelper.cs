@@ -17,6 +17,7 @@ namespace CloudberryKingdom
     {
         bool ShowFPS = false;
 
+#if !XBOX
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
         /// </summary>
@@ -250,26 +251,9 @@ namespace CloudberryKingdom
             }
 #endif
 
-            /* XBOX Debug buttons
-            if (Tools.padState[0].Buttons.B == ButtonState.Pressed && Tools.PrevpadState[0].Buttons.B != ButtonState.Pressed)
-            {
-                Tools.CurLevel.ResetAll(false);
-                Tools.CurLevel.PlayMode = 0;
-            }
-            if (Tools.padState[0].Buttons.Y == ButtonState.Pressed && Tools.PrevpadState[0].Buttons.Y != ButtonState.Pressed)
-            {
-                Tools.CurLevel.ResetAll(false);
-                Tools.CurLevel.PlayMode = 1;
-            }
-            if (Tools.padState[0].Buttons.X == ButtonState.Pressed && Tools.PrevpadState[0].Buttons.X != ButtonState.Pressed)
-            {
-                Tools.PhsxSpeed += 1;
-                if (Tools.PhsxSpeed > 4) Tools.PhsxSpeed = 1;
-            }
-            */
-
             return false;
         }
+#endif
 
         public static string debugstring = "";
         StringBuilder MainString = new StringBuilder(100, 100);

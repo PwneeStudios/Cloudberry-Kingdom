@@ -1,11 +1,15 @@
 (In development)
 --------------------------------------------------------------------------------------------------------
-Use custom heroes in Freeplay.
 Global leaderboards.
-New Arcade meta-game. Prepare yourself.
-Campaign!
-Optimize load time.
+Campaign, almost done!
 Optimize game physics to run on low end computers.
+
+v0.2.5
+--------------------------------------------------------------------------------------------------------
+Custom heroes available in Freeplay.
+Optimized load time. Game now loads in under 5 seconds on a fast machine, rather than 30 seconds!
+Arcade games now track scores for each hero type you use.
+Options menu: Option for borderless windowed mode.
 
 v0.2.4
 --------------------------------------------------------------------------------------------------------

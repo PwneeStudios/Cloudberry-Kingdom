@@ -5,17 +5,14 @@ namespace CloudberryKingdom
 {
     public struct PhsxData
     {
+        public Vector2 Position, Velocity, Acceleration;
+
         public PhsxData(float pos_x, float pos_y, float vel_x, float vel_y, float acc_x, float acc_y)
         {
-            Position.X = pos_x;
-            Position.Y = pos_y;
-            Velocity.X = vel_x;
-            Velocity.Y = vel_y;
-            Acceleration.X = acc_x;
-            Acceleration.Y = acc_y;
+            Position = new Vector2(pos_x, pos_y);
+            Velocity = new Vector2(vel_x, vel_y);
+            Acceleration = new Vector2(acc_x, acc_y);
         }
-
-        public Vector2 Position, Velocity, Acceleration;
 
         public void UpdatePosition() { Position += Velocity; }
 

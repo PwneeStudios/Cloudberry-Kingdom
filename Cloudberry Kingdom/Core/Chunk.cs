@@ -223,10 +223,10 @@ namespace CoreEngine
         }
         public void Write(string val)
         {
-            int StringLength = System.Text.Encoding.ASCII.GetByteCount(val);
+            int StringLength = System.Text.Encoding.UTF8.GetByteCount(val);
             
             Write(StringLength);
-            Write(System.Text.Encoding.ASCII.GetBytes(val));
+            Write(System.Text.Encoding.UTF8.GetBytes(val));
         }
 
         public bool ReadBool()
@@ -253,7 +253,7 @@ namespace CoreEngine
         public string ReadString()
         {
             int StringLength = ReadInt();
-            var val = System.Text.Encoding.ASCII.GetString(Buffer, Position, StringLength);
+            var val = System.Text.Encoding.UTF8.GetString(Buffer, Position, StringLength);
 
             Position += StringLength;
 

@@ -177,7 +177,7 @@ namespace CloudberryKingdom
 
         public EzText FindEzText(string Name)
         {
-            return MyTextList.Find(text => string.Compare(text.Name, Name, true) == 0);
+            return MyTextList.Find(text => string.Compare(text.Name, Name, System.StringComparison.InvariantCultureIgnoreCase) == 0);
         }
 
         public float AlphaVel = 0;

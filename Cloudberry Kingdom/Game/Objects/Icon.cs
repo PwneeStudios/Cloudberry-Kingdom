@@ -17,7 +17,9 @@ namespace CloudberryKingdom
         public bool Flipped = false;
 
         public static ObjectIcon RobotIcon, PathIcon, SlowMoIcon;
-        public static ObjectIcon UncheckedIcon, CheckIcon, CheckpointIcon, RandomIcon, CustomIcon, CustomHoverIcon;
+        public static ObjectIcon CheckpointIcon, RandomIcon, CustomIcon, CustomHoverIcon;
+        //public static ObjectIcon UncheckedIcon, CheckIcon
+
         public static Dictionary<Upgrade, ObjectIcon> UpgradeIcons;
         public static Dictionary<ObjectType, ObjectIcon> ObjIcons;
 
@@ -117,8 +119,8 @@ namespace CloudberryKingdom
             //ObjIcons.Add(ObjectType.FlyingBlob, UpgradeIcons[Upgrade.FlyBlob]);
             //ObjIcons.Add(ObjectType.BouncyBlock, UpgradeIcons[Upgrade.BouncyBlock]);
 
-            CheckIcon = new PictureIcon("Check", Color.Lime, StandardWidth * .85f);
-            UncheckedIcon = new PictureIcon("Uncheck", Color.Lime, StandardWidth * .85f);
+            //CheckIcon = new PictureIcon("Check", Color.Lime, StandardWidth * .85f);
+            //UncheckedIcon = new PictureIcon("Uncheck", Color.Lime, StandardWidth * .85f);
             
             //CheckpointIcon = new PictureIcon("Icon_Checkpoint", Color.Lime, StandardWidth * .85f);
             CheckpointIcon = new PictureIcon("Icon_Checkpoint_v2", Color.Lime, StandardWidth * .85f);
