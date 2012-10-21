@@ -880,9 +880,9 @@ namespace CloudberryKingdom.Levels
 
 
             // Pre Fill #1
-            FillBL = new Vector2(Left + 0, MainCamera.BL.Y + 150 + VoidHeight);
+            FillBL = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y + 150 + VoidHeight);
 
-            Vector2 BL_Bound = new Vector2(MaxLeft + 100, MainCamera.BL.Y);//MainCamera.BLCamBound.Y - 1000);
+            Vector2 BL_Bound = new Vector2(MaxLeft + 100 + Style.SafeStartPadding, MainCamera.BL.Y);//MainCamera.BLCamBound.Y - 1000);
             Vector2 TR_Bound = new Vector2(MaxRight - 400, MainCamera.TR.Y);// MainCamera.TRCamBound.Y + 1000);
 
             Fill_BL = new Vector2(Left, MainCamera.BL.Y + Style.BottomSpace);
@@ -902,8 +902,8 @@ namespace CloudberryKingdom.Levels
             // Stage 1 Random fill
             if (BlockParams.DoStage1Fill)
             {
-                BL_Cutoff = new Vector2(Left + 0, MainCamera.BL.Y);
-                Fill_BL = new Vector2(Left, MainCamera.BL.Y + Style.BottomSpace);
+                BL_Cutoff = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y);
+                Fill_BL = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y + Style.BottomSpace);
                 Fill_TR = new Vector2(MaxRight + 100, MainCamera.TR.Y - Style.TopSpace);
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
 

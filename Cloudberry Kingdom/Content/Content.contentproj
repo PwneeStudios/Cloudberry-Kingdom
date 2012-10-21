@@ -2974,6 +2974,7 @@
       <Name>Title_Blur</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3259,6 +3260,7 @@
       <Name>Scene_Kobbler_Blur</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
     </Compile>
     <Compile Include="Art\Title\Categories\Arcade\Arcade_Box.png">
       <Name>Arcade_Box</Name>

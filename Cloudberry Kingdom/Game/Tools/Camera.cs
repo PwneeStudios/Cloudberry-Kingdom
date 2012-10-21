@@ -629,7 +629,7 @@ namespace CloudberryKingdom
             return Pos;
         }
 
-
+        public bool MovingCamera = false;
         public void SideLevel_PhsxStep()
         {
             Vector2 TR, BL;
@@ -812,9 +812,20 @@ namespace CloudberryKingdom
             //CurMaxSpeed = Math.Max(CurMaxSpeed, CurVel().X);
 
             Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
-            //CurMaxSpeed.Y = Math.Max(CurMaxSpeed.Y, 
             CurMaxSpeed = Vector2.Max(CurMaxSpeed, CurVel());
-            Data.Position.X += Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X);
+
+            if (MovingCamera)
+            {
+                float Retard = 1;
+                if (MyZone != null && Data.Position.X > MyZone.End.X)
+                    Retard = CoreMath.LerpRestrict(1, 0, (Data.Position.X - MyZone.End.X) / 200);
+                Data.Position.X += Math.Max(
+                                        Retard * Math.Min(MyLevel.CurPhsxStep * .1f, 15),
+                                        Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X));
+            }
+            else
+                Data.Position.X += Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X);
+
             Data.Position.Y += Math.Sign(Target.Y - Data.Position.Y) * Math.Min(.15f * Math.Abs(Target.Y - Data.Position.Y), CurMaxSpeed.Y);
 
 

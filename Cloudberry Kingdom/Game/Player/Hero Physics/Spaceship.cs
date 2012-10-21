@@ -45,7 +45,9 @@ namespace CloudberryKingdom
 
         public override void DefaultValues()
         {
-            MaxSpeed = 24f;
+            //MaxSpeed = 24f;
+            MaxSpeed = 30f;
+
             XAccel = 2.3f;
 
             base.DefaultValues();
@@ -64,7 +66,13 @@ namespace CloudberryKingdom
         {
             base.PhsxStep();
 
+            if (MyBob.CharacterSelect2) return;
+
+
+            MyLevel.MyCamera.MovingCamera = true;
+
             MyBob.Core.Data.Velocity *= .86f;
+            MyBob.Core.Data.Velocity.X += 2.8f;
 
             if (MyBob.CurInput.xVec.Length() > .2f)
             {
@@ -81,9 +89,24 @@ namespace CloudberryKingdom
             OnGround = false;
         }
 
+        public override void SideHit(ColType side, BlockBase block)
+        {
+            base.SideHit(side, block);
+
+            if (MyLevel.PlayMode == 0 && !MyBob.Immortal)
+                MyBob.Die(Bob.BobDeathType.Other);
+        }
+
         public override void PhsxStep2()
         {
             base.PhsxStep2();
+
+            if (MyBob.Core.MyLevel.PlayMode == 0 && MyBob.CurInput.xVec.X > -.3f)
+            {
+                float intensity = Math.Min(.3f + (MyBob.CurInput.xVec.X + .3f), 1f);
+                int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
+                ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + new Vector2(0, 10), new Vector2(-1, 0), new Vector2(-10, yVel), intensity);
+            }
         }
 
         public override bool CheckFor_xFlip()
@@ -194,6 +217,8 @@ namespace CloudberryKingdom
                 MyBob.CurInput.xVec.X = -1;
             MyBob.CurInput.xVec.X *= Math.Min(1, Math.Abs(MyBob.TargetPosition.X - MyBob.Core.Data.Position.X) / 100);
 
+            if (Pos.X > MyBob.TargetPosition.X + 400) MyBob.CurInput.xVec.X = 1;
+            if (Pos.X < MyBob.TargetPosition.X - 400) MyBob.CurInput.xVec.X = -1;
 
             if (MyBob.Core.Data.Position.Y > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.Y ||
                 MyBob.Core.Data.Position.X > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.X)
@@ -286,6 +311,23 @@ namespace CloudberryKingdom
                 MyBob.CurInput.xVec.Y = -1;
             MyBob.CurInput.xVec.Y *= Math.Min(1, Math.Abs(MyBob.TargetPosition.Y - MyBob.Core.Data.Position.Y) / 100);
 
+            if (Pos.X > CurPhsxStep * (4000f / 600f))
+            {
+                if (Pos.Y > MyBob.TargetPosition.Y && (CurPhsxStep / 40) % 3 == 0)
+                    MyBob.CurInput.xVec.X = -1;
+                if (Pos.Y < MyBob.TargetPosition.Y && (CurPhsxStep / 25) % 4 == 0)
+                    MyBob.CurInput.xVec.X = -1;
+            }
+            if (Pos.Y < MyBob.TargetPosition.Y && Pos.X < CurPhsxStep * (4000f / 900f))
+            {
+                MyBob.CurInput.xVec.X = 1;
+            }
+
+            if (Pos.X > MyLevel.Fill_TR.X - 1200)
+            {
+                if (Pos.Y > MyLevel.MainCamera.TR.Y - 600) MyBob.CurInput.xVec.Y = -1;
+                if (Pos.Y < MyLevel.MainCamera.BL.Y + 600) MyBob.CurInput.xVec.Y = 1;
+            }
 
             if (MyBob.Core.Data.Position.X > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.X ||
                 MyBob.Core.Data.Position.Y > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.Y)
@@ -339,7 +381,6 @@ namespace CloudberryKingdom
             Style.TopSpace = 0;
             makeData.SparsityMultiplier = 1.5f;
 
-            //Style.BlockFillType = StyleData._BlockFillType.Spaceship;
             Style.BlockFillType = StyleData._BlockFillType.Invertable;
             Style.OverlapCleanupType = StyleData._OverlapCleanupType.Sophisticated;
 
@@ -349,6 +390,8 @@ namespace CloudberryKingdom
 
             Style.BottomSpace = 150;
             Style.TopSpace = 0;
+
+            Style.SafeStartPadding = 400;
 
             makeData.TopLikeBottom = true;
 

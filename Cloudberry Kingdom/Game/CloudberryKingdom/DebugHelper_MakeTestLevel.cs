@@ -75,18 +75,18 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
-            //data.DefaultHeroType = BobPhsxSpaceship.Instance;
+            data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
-            data.DefaultHeroType = BobPhsxJetman.Instance;
+            //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            //data.PieceLength = 3000;
-            data.PieceLength = 15000;
+            data.PieceLength = 4000;
+            //data.PieceLength = 15000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;
 
@@ -159,13 +159,13 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
             //piece.MyUpgrades1[Upgrade.LavaDrip] = 6;
-            piece.MyUpgrades1[Upgrade.Serpent] = 6f;
+            //piece.MyUpgrades1[Upgrade.Serpent] = 6f;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            piece.MyUpgrades1[Upgrade.Fireball] = 9f;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
 
             //piece.MyUpgrades1[Upgrade.Jump] = 8;
-            piece.MyUpgrades1[Upgrade.Speed] = 9;
+            //piece.MyUpgrades1[Upgrade.Speed] = 9;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
             ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
@@ -180,7 +180,7 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
             //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
 
-            //__Roughly_Abusive(piece);
+            __Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
             piece.Style.Masochistic = true;
 

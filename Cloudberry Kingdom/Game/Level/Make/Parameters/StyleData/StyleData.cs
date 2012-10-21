@@ -77,6 +77,11 @@ namespace CloudberryKingdom.Levels
         public bool MakeInitialPlats;
         public float UpperSafetyNetOffset, LowerSafetyNetOffset;
 
+        /// <summary>
+        /// The width of an additional region of padding at the beginning of a level where no obstacles can exist.
+        /// </summary>
+        public float SafeStartPadding = 0;
+
         public enum GroundType { None, SafetyNet, InvisibleUsed, Used, InvertedUsed, VirginUsed, InvertSafetyNet };
         public GroundType MyGroundType, MyTopType;
 

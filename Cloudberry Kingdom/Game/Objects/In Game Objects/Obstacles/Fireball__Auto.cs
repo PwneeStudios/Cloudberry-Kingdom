@@ -68,7 +68,7 @@ namespace CloudberryKingdom.Levels
             MaxFireballDensity.SetVal(u => 4 * u[Upgrade.Fireball]);
 
             Period = new Param(PieceSeed);
-            Period.SetVal(u => DifficultyHelper.InterpRestrict159(220, 185, 140, .7f * u[Upgrade.Speed] + .3f * u[Upgrade.Fireball]));
+            Period.SetVal(u => DifficultyHelper.InterpRestrict159(240, 195, 148, .7f * u[Upgrade.Speed] + .3f * u[Upgrade.Fireball]));
         }
     }
 
@@ -126,9 +126,9 @@ namespace CloudberryKingdom.Levels
             if (Geometry == LevelGeometry.Right) Angle += Math.PI / 2;
             emitter.Core.StartData.Velocity = CoreMath.AngleToDir(Angle);
 
-            if (level.Style.Masochistic) emitter.Period = (int)(.85f * emitter.Period);
+            if (level.Style.Masochistic) emitter.Period = (int)(.9f * emitter.Period);
 
-            float v = Math.Abs(2 * emitter.Core.StartData.Position.Y / (.765f * emitter.Period));
+            float v = Math.Abs(2 * emitter.Core.StartData.Position.Y / (.785f * emitter.Period));
             emitter.Core.StartData.Velocity *= Speed * v / emitter.Core.StartData.Velocity.Y;
             float actual_v = emitter.Core.StartData.Velocity.Length();
             
