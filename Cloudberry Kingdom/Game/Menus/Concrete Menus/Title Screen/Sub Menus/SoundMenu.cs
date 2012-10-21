@@ -136,10 +136,6 @@ namespace CloudberryKingdom
                 PlayerManager.SaveRezAndKeys();
             };
 
-
-
-
-
             // Full screen toggle
             var FullScreenText = new EzText("Full screen:", ItemFont);
             SetHeaderProperties(FullScreenText);
@@ -156,30 +152,12 @@ namespace CloudberryKingdom
                 PlayerManager.SaveRezAndKeys();
             };
             toggle.Toggle(Tools.Fullscreen);
-            toggle.PrefixText = ""; // "Fullscreen: ";
+            toggle.PrefixText = "";
             AddItem(toggle);
             toggle.SetPos = new Vector2(1245.634f, -281.9681f);
 
-            // No fixed timestep
-            var FixedTimeStepText = new EzText("Fixed time step:", ItemFont);
-            SetHeaderProperties(FixedTimeStepText);
-            MyPile.Add(FixedTimeStepText);
-            FixedTimeStepText.Pos = new Vector2(-1232.142f, -499.9359f);
-            FixedTimeStepText.Scale *= .9f;
-
-            var fixed_toggle = new MenuToggle(ItemFont);
-            fixed_toggle.OnToggle = (state) =>
-            {
-                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                Tools.FixedTimeStep = state;
-                SaveGroup.SaveAll();
-                PlayerManager.SaveRezAndKeys();
-            };
-            fixed_toggle.Toggle(Tools.FixedTimeStep);
-            fixed_toggle.PrefixText = "";
-            AddItem(fixed_toggle);
-            fixed_toggle.SetPos = new Vector2(1315.078f, -451.4125f);
-
+            //AddToggle_FixedTimestep();
+            AddToggle_Borderless();
 #endif
 
 
@@ -213,6 +191,61 @@ namespace CloudberryKingdom
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
+        }
+
+        private void AddToggle_FixedTimestep()
+        {
+            // Header
+            var Text = new EzText("Fixed time step:", ItemFont);
+            SetHeaderProperties(Text);
+            MyPile.Add(Text);
+            Text.Pos = new Vector2(-1232.142f, -499.9359f);
+            Text.Scale *= .9f;
+
+            // Menu item
+            var Toggle = new MenuToggle(ItemFont);
+            Toggle.OnToggle = Toggle_FixedTimestep;
+
+            Toggle.Toggle(Tools.FixedTimeStep);
+            Toggle.PrefixText = "";
+            AddItem(Toggle);
+            Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
+        }
+
+        private void Toggle_FixedTimestep(bool state)
+        {
+            PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+            Tools.FixedTimeStep = state;
+            SaveGroup.SaveAll();
+            PlayerManager.SaveRezAndKeys();
+        }
+
+        private void AddToggle_Borderless()
+        {
+            // Menu
+            var Text = new EzText("Window border:", ItemFont);
+            SetHeaderProperties(Text);
+            MyPile.Add(Text);
+            Text.Pos = new Vector2(-1232.142f, -499.9359f);
+            Text.Scale *= .9f;
+
+            // Toggle
+            var Toggle = new MenuToggle(ItemFont);
+            Toggle.OnToggle = Toggle_Borderless;
+            Toggle.Toggle(Tools.WindowBorder);
+            Toggle.PrefixText = "";
+            AddItem(Toggle);
+            Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
+        }
+
+        private void Toggle_Borderless(bool state)
+        {
+            PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+            Tools.WindowBorder = state;
+            SaveGroup.SaveAll();
+            PlayerManager.SaveRezAndKeys();
+
+            Tools.GameClass.SetBorder(Tools.WindowBorder);
         }
 
         public override bool MenuReturnToCaller(Menu menu)

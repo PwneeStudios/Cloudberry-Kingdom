@@ -341,10 +341,7 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.IsFullScreen = false;
 #endif
 
-            //IntPtr hWnd = Tools.GameClass.Window.Handle;
-            //var control = System.Windows.Forms.Control.FromHandle(hWnd);
-            //var form = control.FindForm();
-            //form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Tools.GameClass.SetBorder(Tools.WindowBorder);
 
             MyGraphicsDeviceManager.ApplyChanges();
 

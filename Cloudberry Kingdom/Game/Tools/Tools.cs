@@ -640,7 +640,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static float CurSongVolume;
         public static WrappedFloat SoundVolume, MusicVolume;
         public static bool FixedTimeStep = false;
-        public static bool FixedTimeStep_HasBeenSet = false;
+        public static bool WindowBorder = true;
 
 #if INCLUDE_EDITOR && WINDOWS
         public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(GameClass.Window.Handle); } }

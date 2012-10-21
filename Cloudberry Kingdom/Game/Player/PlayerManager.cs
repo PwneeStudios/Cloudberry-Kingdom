@@ -105,6 +105,9 @@ namespace CloudberryKingdom
 
             // Fixed time step setting
             Chunk.WriteSingle(writer, 17, Tools.FixedTimeStep);
+
+            // Bordered window
+            Chunk.WriteSingle(writer, 18, Tools.WindowBorder);
         }
 
         static RezData d;
@@ -151,6 +154,9 @@ namespace CloudberryKingdom
 
                     // Fixed time step setting
                     case 17: chunk.ReadSingle(ref Tools.FixedTimeStep); break;
+
+                    // Bordered window
+                    case 18: chunk.ReadSingle(ref Tools.WindowBorder); break;
                 }
             }
         }

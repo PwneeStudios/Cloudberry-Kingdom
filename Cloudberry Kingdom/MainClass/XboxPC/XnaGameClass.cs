@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
+using System.Windows.Forms;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -85,6 +87,14 @@ namespace CloudberryKingdom
             MyGame.Draw(gameTime);
 
             base.Draw(gameTime);
+        }
+
+        public void SetBorder(bool Show)
+        {
+            IntPtr hWnd = Tools.GameClass.Window.Handle;
+            var control = Control.FromHandle(hWnd);
+            var form = control.FindForm();
+            form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         }
     }
 }
