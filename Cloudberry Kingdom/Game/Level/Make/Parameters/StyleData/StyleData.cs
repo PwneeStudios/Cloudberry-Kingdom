@@ -92,6 +92,11 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public float LengthPadding = 0;
 
+        /// <summary>
+        /// When trues players will automatically operate EOL doors.
+        /// </summary>
+        public bool AutoOpenDoor = false;
+
         public enum GroundType { None, SafetyNet, InvisibleUsed, Used, InvertedUsed, VirginUsed, InvertSafetyNet };
         public GroundType MyGroundType, MyTopType;
 

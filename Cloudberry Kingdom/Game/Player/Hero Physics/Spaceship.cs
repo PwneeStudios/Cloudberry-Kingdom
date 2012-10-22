@@ -393,8 +393,9 @@ namespace CloudberryKingdom
             Style.TopSpace = 0;
 
             Style.SafeStartPadding = 400;
-            Style.SafeEndPadding = -400;
-            Style.LengthPadding = 650;
+            Style.SafeEndPadding = -1000;
+            Style.LengthPadding = 1200;
+            Style.AutoOpenDoor = true;
 
             makeData.TopLikeBottom = true;
 

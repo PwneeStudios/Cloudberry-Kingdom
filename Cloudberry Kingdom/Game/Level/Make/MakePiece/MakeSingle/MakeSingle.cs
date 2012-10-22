@@ -790,6 +790,7 @@ namespace CloudberryKingdom.Levels
             // Length padding
             MaxRight += Style.LengthPadding;
             CurMakeData.PieceSeed.End.X += Style.LengthPadding;
+            this.MaxRight = MaxRight;
 
             // Move camera
             MainCamera.Data.Position = CurMakeData.CamStartPos;
@@ -1030,6 +1031,10 @@ namespace CloudberryKingdom.Levels
 
             // Finish making Final Platform
             if (MakeFinalPlat != null) { MakeFinalPlat.Phase3(); MakeFinalPlat.Cleanup(); }
+
+            // Door properties
+            Door door = FindIObject(LevelConnector.EndOfLevelCode) as Door;
+            if (null != door) door.AutoOpen = Style.AutoOpenDoor;
 
             return false;
         }

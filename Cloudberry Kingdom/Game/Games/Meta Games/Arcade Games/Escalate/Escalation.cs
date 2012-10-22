@@ -175,6 +175,9 @@ namespace CloudberryKingdom
             float t = ((Index - StartIndex) % LevelsPerTileset) / (float)(LevelsPerTileset - 1);
             Length = CoreMath.LerpRestrict(LevelLength_Short, LevelLength_Long, t);
 
+            if (hero is BobPhsxSpaceship)
+                Length += 2000;
+
             // Create the LevelSeedData
             LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);
             data.SetTileSet(GetTileSet(Index - StartIndex));

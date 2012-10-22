@@ -423,7 +423,7 @@ namespace CloudberryKingdom.InGameObjects
         /// <summary>
         /// When true the player will exit through a door automatically, without pressing anything.
         /// </summary>
-        public static bool AutoOpen = false;
+        public bool AutoOpen = false;
 
         public static bool AllowCompControl = false;
         public override void Interact(Bob bob)
