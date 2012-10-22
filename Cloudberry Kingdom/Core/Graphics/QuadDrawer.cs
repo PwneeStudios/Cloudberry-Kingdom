@@ -569,7 +569,8 @@ namespace CoreEngine
 //            if (Device.SamplerStates[1] != ClampClamp) Tools.Write("!");
 //#endif
 
-            if (CurrentTexture != null)
+            //if (CurrentTexture != null)
+            if (CurrentTexture != null && i > 0)
             {
                 CurrentEffect.xTexture.SetValue(CurrentTexture.Tex);
                 CurrentEffect.Hsl.SetValue(CurrentMatrix);
@@ -580,7 +581,7 @@ namespace CoreEngine
                 if (!CurrentEffect.IsUpToDate)
                     CurrentEffect.SetCameraParameters();
 
-                if (i > 0)
+                //if (i > 0)
                 {
                     CurrentEffect.effect.CurrentTechnique.Passes[0].Apply();
 

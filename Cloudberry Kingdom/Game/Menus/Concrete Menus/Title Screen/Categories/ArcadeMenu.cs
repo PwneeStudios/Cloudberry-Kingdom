@@ -24,6 +24,13 @@ namespace CloudberryKingdom
         public LevelItem SelectedItem;
         public ArcadeItem MyArcadeItem;
 
+        public override void OnAdd()
+        {
+            base.OnAdd();
+
+            MyGame.ClearPreviousLoadFunction();
+        }
+
         protected virtual void StartFunc(LevelItem item)
         {
             SelectedItem = item;

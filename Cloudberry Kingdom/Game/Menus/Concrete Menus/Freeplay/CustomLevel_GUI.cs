@@ -126,6 +126,8 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
+            MyGame.ClearPreviousLoadFunction();
+
             MyPile.Pos += RightPanelCenter;
             MyMenu.FancyPos.RelVal += RightPanelCenter;
 

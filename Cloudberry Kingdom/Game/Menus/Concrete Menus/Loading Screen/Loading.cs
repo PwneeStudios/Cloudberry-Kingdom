@@ -130,7 +130,7 @@ namespace CloudberryKingdom
     {
         public bool IsDone = false;
 
-        SoundEffect Whinney, Smack, Pop, Angels;
+        SoundEffect Whinney;
 
         DrawPile MyPile;
         ProgressBar MyProgressBar;
@@ -175,19 +175,16 @@ namespace CloudberryKingdom
 
             float LoadingPercent;
 
-            //lock (ResourceCount)
-            {
-                LoadingPercent = 100f * ResourceCount.MyFloat / TotalResources;
-                MyProgressBar.SetPercent(LoadingPercent);
+            LoadingPercent = 100f * ResourceCount.MyFloat / TotalResources;
+            MyProgressBar.SetPercent(LoadingPercent);
 
-                // 'Load' the fake resources
-                if (ResourceCount.MyFloat >= TotalResources - 5)
-                {
-                    ResourceCount.MyFloat += .5f;
-                    if (Accelerate)
-                        ResourceCount.MyFloat  = CoreMath.Restrict(0, TotalResources,
-                            ResourceCount.MyFloat + .033f * (TotalResources));
-                }
+            // 'Load' the fake resources
+            if (ResourceCount.MyFloat >= TotalResources - 5)
+            {
+                ResourceCount.MyFloat += .5f;
+                if (Accelerate)
+                    ResourceCount.MyFloat = CoreMath.Restrict(0, TotalResources,
+                        ResourceCount.MyFloat + .033f * (TotalResources));
             }
 
             // Fade

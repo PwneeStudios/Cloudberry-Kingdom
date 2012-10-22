@@ -88,8 +88,8 @@ namespace CloudberryKingdom
             Tools.Write("Stickmen done...");
 
             Start();
-            Tools.padState = new GamePadState[4];
-            Tools.PrevpadState = new GamePadState[4];
+            Tools.GamepadState = new GamePadState[4];
+            Tools.PrevGamepadState = new GamePadState[4];
             long GamePads = Stop();
 
             long Total = Stop2();

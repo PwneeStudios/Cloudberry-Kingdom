@@ -341,7 +341,9 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.IsFullScreen = false;
 #endif
 
+#if WINDOWS
             Tools.GameClass.SetBorder(Tools.WindowBorder);
+#endif
 
             MyGraphicsDeviceManager.ApplyChanges();
 
@@ -613,8 +615,10 @@ namespace CloudberryKingdom
 
             // Load resource thread
 #if !DEBUG
-            MainVideo.Load();
+            MainVideo.Load(UserPowers.CanSkipLogo);
 #endif
+            //MainVideo.Load(true);
+
             LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
 
@@ -626,6 +630,18 @@ namespace CloudberryKingdom
 
             Tools.Write("Start");
 
+            // Initialize players
+            PlayerManager.Init();
+
+            // Load saved files
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            SaveGroup.Initialize();
+
+            // Initialize the Gamepads
+            Tools.GamepadState = new GamePadState[4];
+            Tools.PrevGamepadState = new GamePadState[4];
+
+            // Fireball texture
             Fireball.PreInit();
 
             // Load art
@@ -643,26 +659,19 @@ namespace CloudberryKingdom
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             Tools.Write("ArtMusic done...");
 
-            // Load the infowad and boxes
-            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            // Load the tile info
             LoadInfo();
-            Tools.Write("Infowad done...");
-
             TileSets.Init();
 
             Fireball.InitRenderTargets(MyGraphicsDevice, MyGraphicsDevice.PresentationParameters, 300, 200);
 
             ParticleEffects.Init();
-
-            PlayerManager.Init();
+            
             Awardments.Init();
 
-            // Load saved files
-            SaveGroup.Initialize();
-
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
-                        SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-                        SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
 #endif
 
 
@@ -681,13 +690,6 @@ namespace CloudberryKingdom
 
             Prototypes.LoadObjects();
             ObjectIcon.InitIcons();
-
-            Tools.Write("Stickmen done...");
-
-            Tools.padState = new GamePadState[4];
-            Tools.PrevpadState = new GamePadState[4];
-
-            Tools.Write("Textures done...");
 
             Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
 
@@ -826,8 +828,8 @@ namespace CloudberryKingdom
 
             // Store the previous states of the Xbox controllers.
             for (int i = 0; i < 4; i++)
-                if (Tools.PrevpadState[i] != null)
-                    Tools.PrevpadState[i] = Tools.padState[i];
+                if (Tools.PrevGamepadState[i] != null)
+                    Tools.PrevGamepadState[i] = Tools.GamepadState[i];
 
             // Update the fireball textures.
             Fireball.TexturePhsx();
@@ -854,9 +856,9 @@ namespace CloudberryKingdom
             {
                 if (PlayerManager.Get(i).Exists)
                 {
-                    if (Tools.padState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.padState[i].Buttons.RightShoulder == ButtonState.Pressed &&
-                        (Tools.PrevpadState[i].Buttons.LeftShoulder != ButtonState.Pressed
-                         || Tools.PrevpadState[i].Buttons.RightShoulder != ButtonState.Pressed))
+                    if (Tools.GamepadState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.GamepadState[i].Buttons.RightShoulder == ButtonState.Pressed &&
+                        (Tools.PrevGamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed
+                         || Tools.PrevGamepadState[i].Buttons.RightShoulder != ButtonState.Pressed))
                         ShortReset = true;
                 }
             }
@@ -868,8 +870,8 @@ namespace CloudberryKingdom
                 {
                     if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
                     {
-                        if (Tools.padState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
-                            Tools.padState[i].Buttons.RightShoulder != ButtonState.Pressed)
+                        if (Tools.GamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
+                            Tools.GamepadState[i].Buttons.RightShoulder != ButtonState.Pressed)
                             ShortReset = false;
                     }
                 }
@@ -958,7 +960,7 @@ namespace CloudberryKingdom
 
             // Prepare to draw
             Tools.DrawCount++;
-            if (SetupToRender()) ;// return;
+            if (SetupToRender()) return;
 
             // Main Video
             if (MainVideo.Draw()) return;

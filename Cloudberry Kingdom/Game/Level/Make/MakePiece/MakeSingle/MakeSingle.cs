@@ -787,6 +787,10 @@ namespace CloudberryKingdom.Levels
             // Calculate the style parameters
             Style.CalcGenParams(CurMakeData.PieceSeed, this);
 
+            // Length padding
+            MaxRight += Style.LengthPadding;
+            CurMakeData.PieceSeed.End.X += Style.LengthPadding;
+
             // Move camera
             MainCamera.Data.Position = CurMakeData.CamStartPos;
             MainCamera.Update();
@@ -883,7 +887,7 @@ namespace CloudberryKingdom.Levels
             FillBL = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y + 150 + VoidHeight);
 
             Vector2 BL_Bound = new Vector2(MaxLeft + 100 + Style.SafeStartPadding, MainCamera.BL.Y);//MainCamera.BLCamBound.Y - 1000);
-            Vector2 TR_Bound = new Vector2(MaxRight - 400, MainCamera.TR.Y);// MainCamera.TRCamBound.Y + 1000);
+            Vector2 TR_Bound = new Vector2(MaxRight - 400 + Style.SafeEndPadding, MainCamera.TR.Y);// MainCamera.TRCamBound.Y + 1000);
 
             Fill_BL = new Vector2(Left, MainCamera.BL.Y + Style.BottomSpace);
             Fill_TR = new Vector2(MaxRight + 100, MainCamera.TR.Y - Style.TopSpace);
@@ -904,7 +908,7 @@ namespace CloudberryKingdom.Levels
             {
                 BL_Cutoff = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y);
                 Fill_BL = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y + Style.BottomSpace);
-                Fill_TR = new Vector2(MaxRight + 100, MainCamera.TR.Y - Style.TopSpace);
+                Fill_TR = new Vector2(MaxRight + 100 + Style.SafeEndPadding, MainCamera.TR.Y - Style.TopSpace);
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
 
                 // Add a row at the very bottom, just to be safe.

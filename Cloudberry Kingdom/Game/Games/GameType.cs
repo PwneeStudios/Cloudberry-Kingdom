@@ -226,6 +226,11 @@ namespace CloudberryKingdom
         /// </summary>
         Action PreviousLoadFunction = null;
 
+        public void ClearPreviousLoadFunction()
+        {
+            PreviousLoadFunction = null;
+        }
+
         /// <summary>
         /// Does the specified action and saves the action for the ability to replay it later.
         /// </summary>

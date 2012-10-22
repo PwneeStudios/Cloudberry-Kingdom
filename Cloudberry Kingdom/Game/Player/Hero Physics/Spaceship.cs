@@ -72,7 +72,8 @@ namespace CloudberryKingdom
             MyLevel.MyCamera.MovingCamera = true;
 
             MyBob.Core.Data.Velocity *= .86f;
-            MyBob.Core.Data.Velocity.X += 2.8f;
+            //MyBob.Core.Data.Velocity.X += 2.8f;
+            MyBob.Core.Data.Velocity.X += 2.3f;
 
             if (MyBob.CurInput.xVec.Length() > .2f)
             {
@@ -392,6 +393,8 @@ namespace CloudberryKingdom
             Style.TopSpace = 0;
 
             Style.SafeStartPadding = 400;
+            Style.SafeEndPadding = -400;
+            Style.LengthPadding = 650;
 
             makeData.TopLikeBottom = true;
 

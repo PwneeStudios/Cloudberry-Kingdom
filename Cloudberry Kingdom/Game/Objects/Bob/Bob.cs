@@ -894,7 +894,7 @@ namespace CloudberryKingdom.Bobs
 
             if (Immobile) return;
 
-            GamePadState pad = Tools.padState[(int)MyPlayerIndex];
+            GamePadState pad = Tools.GamepadState[(int)MyPlayerIndex];
             //pad = Tools.padState[0];
 
             if (pad.IsConnected)

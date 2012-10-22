@@ -164,24 +164,30 @@ namespace CloudberryKingdom
 
             // Find the initial door
             Door door = level.FindIObject(LevelConnector.StartOfLevelCode) as Door;
-            if (null == door) return;
+            if (null == door)
+            {
+
+                return;
+            }
 
             // Open the door and show players
             int Wait = WaitLengthToOpenDoor_FirstLevel;
-            //if (FirstLevelHasBegun)
+
             if (CurLevelIndex > 0)
                 Wait = WaitLengthToOpenDoor;
-            game.WaitThenDo(Wait, () =>
-                {
-                    // Whether to play a sound for the door opening
-                    bool sound = false;
-                    if (CurLevelIndex == StartIndex)
-                        sound = true;
-                    
-                    level.Finished = false;
-                    door.SetLock(false, false, sound);
-                    door.ShowBobs();
-                }); //, "OpenDoor", true, false);
+            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door));
+        }
+
+        private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door)
+        {
+            // Whether to play a sound for the door opening
+            bool sound = false;
+            if (CurLevelIndex == StartIndex)
+                sound = true;
+
+            level.Finished = false;
+            door.SetLock(false, false, sound);
+            door.ShowBobs();
         }
 
         /// <summary>

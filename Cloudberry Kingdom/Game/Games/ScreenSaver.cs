@@ -11,12 +11,6 @@ namespace CloudberryKingdom
     {
         public bool ForTrailer = false;
 
-        /// <summary>
-        /// Whether the game introduction has been watched before or not
-        /// </summary>
-        public static bool HasWatchedIntro = false;
-        public static void WatchedIntro() { HasWatchedIntro = true; PlayerManager.SavePlayerData.Changed = true; }
-
         bool Bungee = false;
         bool AllHeroes = false;
         int Difficulty = 4;
@@ -61,7 +55,7 @@ namespace CloudberryKingdom
         {
             get 
             {
-                if (HasWatchedIntro)
+                if (UserPowers.CanSkipScreensaver)
                     return 0;
                 else
                     return MandatoryWatchLength_Initial;
@@ -142,7 +136,7 @@ namespace CloudberryKingdom
                     {
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, () =>
                         {
-                            WatchedIntro();
+                            UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
 #if PC_VERSION
                             PressA = new GUI_Text("Press " + ButtonString.Go_Controller(97) + " to start",

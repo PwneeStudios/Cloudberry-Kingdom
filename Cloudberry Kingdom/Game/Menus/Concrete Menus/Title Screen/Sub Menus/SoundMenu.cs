@@ -193,6 +193,7 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
+#if PC_VERSION
         private void AddToggle_FixedTimestep()
         {
             // Header
@@ -247,6 +248,7 @@ namespace CloudberryKingdom
 
             Tools.GameClass.SetBorder(Tools.WindowBorder);
         }
+#endif
 
         public override bool MenuReturnToCaller(Menu menu)
         {

@@ -25,6 +25,8 @@ namespace CloudberryKingdom
 
         public Dictionary<int, ScoreEntry> HighScores;
 
+
+
         public int MyIndex;
 
         int RandomNameIndex;

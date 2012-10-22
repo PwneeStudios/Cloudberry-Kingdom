@@ -72,7 +72,7 @@ namespace CloudberryKingdom
             bool Incr = false;
             for (int i = 0; i < 4; i++)
             {
-                if (Tools.padState[i].Buttons.A == ButtonState.Pressed)
+                if (Tools.GamepadState[i].Buttons.A == ButtonState.Pressed)
                 {
                     Controller[i].IncrCount(ControllerButtons.A);
                     Incr = true;
@@ -147,10 +147,10 @@ namespace CloudberryKingdom
                 Tools.keybState = Keyboard.GetState();
                 Tools.CurMouseState = Mouse.GetState();
 #endif
-                Tools.padState[0] = GamePad.GetState(PlayerIndex.One);
-                Tools.padState[1] = GamePad.GetState(PlayerIndex.Two);
-                Tools.padState[2] = GamePad.GetState(PlayerIndex.Three);
-                Tools.padState[3] = GamePad.GetState(PlayerIndex.Four);
+                Tools.GamepadState[0] = GamePad.GetState(PlayerIndex.One);
+                Tools.GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
+                Tools.GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
+                Tools.GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
 
                 ButtonStats.Update();
 
@@ -620,8 +620,8 @@ namespace CloudberryKingdom
 #endif
             //#else
             GamePadState Pad;
-            if (Prev) Pad = Tools.PrevpadState[iPlayerIndex];
-            else Pad = Tools.padState[iPlayerIndex];
+            if (Prev) Pad = Tools.PrevGamepadState[iPlayerIndex];
+            else Pad = Tools.GamepadState[iPlayerIndex];
 
             switch (Button)
             {

@@ -17,6 +17,28 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
+    public static class UserPowers
+    {
+        /// <summary>
+        /// Whether the user can skip the beginning of the screen saver.
+        /// </summary>
+        public static bool CanSkipScreensaver = false;
+
+        /// <summary>
+        /// Whether the user can skip the logo salad.
+        /// </summary>
+        public static bool CanSkipLogo = false;
+
+        /// <summary>
+        /// Set the value of a variable and make sure the variable is persisted to disk.
+        /// </summary>
+        public static void Set(ref bool variable, bool value)
+        {
+            variable = value;
+            PlayerManager.SavePlayerData.Changed = true;
+        }
+    }
+
     public class _SavePlayerData : SaveLoad
     {
         public _SavePlayerData()
@@ -35,10 +57,11 @@ namespace CloudberryKingdom
         {
             base.Serialize(writer);
             
-            Chunk.WriteSingle(writer, 0, ScreenSaver.HasWatchedIntro);
+            Chunk.WriteSingle(writer, 0, UserPowers.CanSkipScreensaver);
             Chunk.WriteSingle(writer, 1, HeroRush_Tutorial.HasWatchedOnce);
             Chunk.WriteSingle(writer, 2, Hints.QuickSpawnNum);
             Chunk.WriteSingle(writer, 3, Hints.YForHelpNum);
+            Chunk.WriteSingle(writer, 4, UserPowers.CanSkipLogo);
         }
 
         protected override void Deserialize(byte[] Data)
@@ -47,10 +70,11 @@ namespace CloudberryKingdom
             {
                 switch (chunk.Type)
                 {
-                    case 0: chunk.ReadSingle(ref ScreenSaver.HasWatchedIntro); break;
+                    case 0: chunk.ReadSingle(ref UserPowers.CanSkipScreensaver); break;
                     case 1: chunk.ReadSingle(ref HeroRush_Tutorial.HasWatchedOnce); break;
                     case 2: chunk.ReadSingle(ref Hints.QuickSpawnNum); break;
                     case 3: chunk.ReadSingle(ref Hints.YForHelpNum); break;
+                    case 4: chunk.ReadSingle(ref UserPowers.CanSkipLogo); break;
                 }
             }
         }

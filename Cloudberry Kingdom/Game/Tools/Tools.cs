@@ -827,7 +827,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return s;
         }
 #endif
-        public static XnaInput.GamePadState[] padState, PrevpadState;
+        public static XnaInput.GamePadState[] GamepadState, PrevGamepadState;
 
         /// <summary>
         /// Return just the file name of a path.

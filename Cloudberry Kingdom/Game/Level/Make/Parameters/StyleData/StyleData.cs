@@ -82,6 +82,16 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public float SafeStartPadding = 0;
 
+        /// <summary>
+        /// The width of an additional region of padding at the end of a level where no obstacles can exist.
+        /// </summary>
+        public float SafeEndPadding = 0;
+
+        /// <summary>
+        /// Makes the level longer by this much.
+        /// </summary>
+        public float LengthPadding = 0;
+
         public enum GroundType { None, SafetyNet, InvisibleUsed, Used, InvertedUsed, VirginUsed, InvertSafetyNet };
         public GroundType MyGroundType, MyTopType;
 

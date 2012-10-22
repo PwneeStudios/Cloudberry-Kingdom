@@ -260,13 +260,10 @@
     <Compile Include="Game\Objects\Bob\BobLink.cs" />
     <Compile Include="Game\Objects\Door\Sign.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\CoinScoreMultiplierObject.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\OhNo.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Lives.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\Region.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\DanceBerry.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Blobs.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\Rumble.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Coins.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\DoorIcon.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\HelpBubble.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Timer_Simple.cs" />

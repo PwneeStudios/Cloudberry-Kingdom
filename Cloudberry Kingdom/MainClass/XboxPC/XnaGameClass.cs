@@ -3,7 +3,9 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
+#if WINDOWS
 using System.Windows.Forms;
+#endif
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -89,6 +91,7 @@ namespace CloudberryKingdom
             base.Draw(gameTime);
         }
 
+#if WINDOWS
         public void SetBorder(bool Show)
         {
             IntPtr hWnd = Tools.GameClass.Window.Handle;
@@ -96,5 +99,6 @@ namespace CloudberryKingdom
             var form = control.FindForm();
             form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         }
+#endif
     }
 }

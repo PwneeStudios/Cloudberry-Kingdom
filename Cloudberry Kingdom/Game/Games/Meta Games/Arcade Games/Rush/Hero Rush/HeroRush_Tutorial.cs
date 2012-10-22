@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
@@ -42,9 +43,14 @@ namespace CloudberryKingdom
 
             PauseGame = true;
 
-            foreach (Bob bob in MyGame.MyLevel.Bobs)
-                bob.Core.Show = false;
-            
+            // Find the initial door
+            Door door = MyGame.MyLevel.FindIObject(LevelConnector.StartOfLevelCode) as Door;
+            if (null != door)
+            {
+                foreach (Bob bob in MyGame.MyLevel.Bobs)
+                    bob.Core.Show = false;
+            }
+
             // Start the music
             MyGame.WaitThenDo(20, () =>
                 {
