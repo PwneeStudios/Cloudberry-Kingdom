@@ -241,7 +241,7 @@ namespace CloudberryKingdom
 
                 Obj.ParentQuad.Center.Move(Obj.ParentQuad.Center.Pos + shift);
                 Obj.ParentQuad.Update();
-                Obj.Update(null, ObjectDrawOrder.WithOutline);
+                Obj.Update(null);
 
                 if (MyBob.MyCape != null)
                     MyBob.MyCape.Move(shift);

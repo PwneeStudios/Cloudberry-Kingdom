@@ -29,23 +29,15 @@ namespace CoreEngine
         public EzTexture MySkinTexture;
         public EzEffect MySkinEffect;
 
-        /// <summary>
-        /// If true the outline pixel shader uses a more computationally expensive but refined method.
-        /// </summary>
-        public bool RefinedOutline = false;
-
         public Quad ParentQuad;
         public List<BaseQuad> QuadList;
 
         private QuadDrawer QDrawer;
         public bool xFlip, yFlip, CenterFlipOnBox;
         public Vector2 FlipCenter;
-        public Vector2 OutlineWidth = new Vector2(1);
-        public Color OutlineColor, InsideColor;
 
         RenderTarget2D ObjectRenderTarget, ToTextureRenderTarget;
         int DrawWidth, DrawHeight;
-        public Texture2D ObjTex, ObjDepthTex;
 
         public List<EzEffect> MyEffects;
 
@@ -95,15 +87,15 @@ namespace CoreEngine
         public void ConvertForSimple()
         {
             AnimationData.RecordAll = true;
-            //for (int i = 0; i < AnimName.Length; i++)
+
             for (int i = AnimName.Length - 1; i >= 0; i--)
             {
-                //for (int j = 0; j <= AnimLength[i]; j++)
+
                 for (int j = AnimLength[i]; j >= 0; j--)
                 {
                     Read(i, j);
                     Update(null);
-                    //RecordByDrawOrder(i, j, true, ObjectDrawOrder.AfterOutline);
+
                     Record(i, j, false);
                 }
             }
@@ -561,42 +553,14 @@ namespace CoreEngine
         }
 #endif
 
-        public void RecordByDrawOrder(int anim, int frame, bool UseRelativeCoords, ObjectDrawOrder DrawOrder)
-        {
-            foreach (BaseQuad quad in QuadList)
-                if (quad.MyDrawOrder == DrawOrder)
-                {
-                    Quad hold = quad.ParentQuad;
-                    ParentQuad.AddQuadChild(quad);
-                    //quad.OrphanSelf();
-                    //quad.Update();
-                    quad.Record(anim, frame, UseRelativeCoords);
-                    hold.AddQuadChild(quad);
-                }
-        }
-
         public void Record(int anim, int frame, bool UseRelativeCoords)
         {
             foreach (BaseQuad quad in QuadList)
                 quad.Record(anim, frame, UseRelativeCoords);
-            //                foreach (ObjectVector point in quad.GetObjectVectors())
-            //                  point.AnimData.Set(point.RelPos, anim, frame);
+
             foreach (ObjectBox box in BoxList)
                 box.Record(anim, frame, UseRelativeCoords);
-            //                foreach (ObjectVector point in box.GetObjectVectors())
-            //                  point.AnimData.Set(point.RelPos, anim, frame);
         }
-
-        ///// <summary>
-        ///// Clears a given animation back to 0 frames.
-        ///// </summary>
-        //public void ClearAnim(int anim)
-        //{
-        //    foreach (BaseQuad quad in QuadList)
-        //        quad.ClearAnim(anim);
-        //    foreach (ObjectBox box in BoxList)
-        //        box.ClearAnim(anim);
-        //}
 
         public void Read(int anim, int frame)
         {
@@ -691,10 +655,6 @@ namespace CoreEngine
 
 
             CenterFlipOnBox = obj.CenterFlipOnBox;
-
-            OutlineWidth = obj.OutlineWidth;
-            OutlineColor = obj.OutlineColor;
-            InsideColor = obj.InsideColor;
 
             ParentQuad = new Quad(obj.ParentQuad, DeepClone);
             ParentQuad.ParentObject = this;
@@ -799,9 +759,6 @@ namespace CoreEngine
             AnimQueue = new Queue<AnimQueueEntry>();
 
             CenterFlipOnBox = true;
-
-            OutlineWidth = new Vector2(1);
-            OutlineColor = Color.Black;
 
             ParentQuad = new Quad();
             ParentQuad.ParentObject = this;
@@ -948,9 +905,7 @@ namespace CoreEngine
                 box.Update();
         }
 
-        public void Update(BaseQuad quad) { Update(quad, ObjectDrawOrder.None, 1); }
-        public void Update(BaseQuad quad, ObjectDrawOrder Exclude) { Update(quad, Exclude, 1); }
-        public void Update(BaseQuad quad, ObjectDrawOrder Exclude, float Expand)
+        public void Update(BaseQuad quad)
         {
             ParentQuad.Update();
 
@@ -958,18 +913,8 @@ namespace CoreEngine
 
             if (!BoxesOnly && QuadList != null)
             {
-                if (Exclude != ObjectDrawOrder.None)
-                {
-                    foreach (BaseQuad _quad in QuadList)
-                    {
-                        Quad __quad = _quad as Quad;
-                        if (_quad.MyDrawOrder != Exclude || (__quad != null && __quad.Children.Count > 0 && __quad.Children[0].MyDrawOrder != Exclude))
-                            _quad.Update(Expand);
-                    }
-                }
-                else
-                    foreach (BaseQuad _quad in QuadList)
-                        _quad.Update(Expand);
+                foreach (BaseQuad _quad in QuadList)
+                    _quad.Update();
             }
 
             if (BoxList.Count > 1)
@@ -979,34 +924,6 @@ namespace CoreEngine
             else
                 FlipCenter = ParentQuad.Center.Pos;
         }
-        /*
-                public void Update(BaseQuad quad)
-                {
-                    if (quad == null)
-                        ParentQuad.Update();
-
-                    if (quad == null)
-                    {
-                        foreach (ObjectBox box in BoxList)
-                            box.Update();
-                        if (!BoxesOnly)
-                            foreach (BaseQuad _quad in QuadList)
-                                Update(_quad);
-                    }
-                    else
-                    {
-                        if (quad.ParentQuad != ParentQuad && quad.ParentQuad != null)
-                            Update(quad.ParentQuad);
-
-                        quad.Update();
-                    }
-
-                    if (BoxList.Count > 0)
-                        FlipCenter = BoxList[0].Center();
-                    else
-                        FlipCenter = ParentQuad.Center.Pos;
-                }*/
-
 
         public void AddBox(ObjectBox box)
         {
@@ -1070,9 +987,10 @@ namespace CoreEngine
         public EzTexture ExtraQuadToDrawTexture = null;
         public bool DrawExtraQuad = false;
 
-        public void Draw(bool UpdateFirst) { Draw(Tools.EffectWad, UpdateFirst, ObjectDrawOrder.All); }
-        public void Draw(EzEffectWad EffectWad, bool UpdateFirst, ObjectDrawOrder DrawOrder)
+        public void Draw(bool UpdateFirst)
         {
+            var EffectWad = Tools.EffectWad;
+
             if (UpdateFirst)
                 Update(null);
 
@@ -1083,12 +1001,7 @@ namespace CoreEngine
 
             if (!BoxesOnly && QuadList != null)
                 foreach (BaseQuad quad in QuadList)
-                {
-                    if (DrawOrder != ObjectDrawOrder.All)
-                        if (quad.MyDrawOrder != DrawOrder) continue;
-
                     quad.Draw();
-                }
 
             // Extra quad to draw. Pretty fucking leaky hack.
             if (DrawExtraQuad && ExtraQuadToDraw != null)

@@ -1280,7 +1280,7 @@ namespace CloudberryKingdom.Bobs
 
             PlayerObject.ParentQuad.Center.Move(PlayerObject.ParentQuad.Center.Pos + shift);
             PlayerObject.ParentQuad.Update();
-            PlayerObject.Update(null, ObjectDrawOrder.WithOutline);
+            PlayerObject.Update(null);
 
             if (MyCape != null)
                 MyCape.Move(shift);
