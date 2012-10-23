@@ -1,10 +1,9 @@
-#include"RootEffect.fx"
+#include "RootEffect.fx"
+
 Texture xTexture;
-//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = wrap; AddressV = wrap;};
 sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 texture SceneTexture;
-
 sampler SceneSampler : register(s0) = sampler_state { Texture = (SceneTexture); };
 
 PixelToFrame CirclePixelShader(VertexToPixel PSIn)
@@ -27,7 +26,6 @@ PixelToFrame CirclePixelShader(VertexToPixel PSIn)
         
     return Output;
 }
-
 
 technique Simplest
 {

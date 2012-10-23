@@ -62,7 +62,7 @@ namespace CloudberryKingdom.Bobs
 
         public int HeldObjectIteration;
 
-        public bool DrawOutline, CanHaveCape, CanHaveHat = true;
+        public bool CanHaveCape, CanHaveHat = true;
         public BobPhsx MyObjectType;
 
         public float NewY, NewVel, Xvel;
@@ -118,12 +118,6 @@ namespace CloudberryKingdom.Bobs
             if (scheme.HatData == null) scheme.HatData = Hat.None;
             if (scheme.BeardData == null) scheme.BeardData = Hat.None;
 
-
-            // For old stickman bob, we need to draw an outline.
-            // For new Bob, we don't.
-            DrawOutline = false;
-            //DrawOutline = true;
-            
             if (CanHaveHat)
             {
                 var head = PlayerObject.FindQuad("Head");
@@ -382,7 +376,6 @@ namespace CloudberryKingdom.Bobs
             MyHeroType = type;
             Bob bob = type.Prototype;
 
-            DrawOutline = bob.DrawOutline;
             CanHaveCape = bob.CanHaveCape;
             CanHaveHat = bob.CanHaveHat;
             MyObjectType = bob.MyObjectType;
@@ -1042,11 +1035,6 @@ namespace CloudberryKingdom.Bobs
                 if (ql.Count >= 1) PlayerObject.QuadList[1].MyEffect = Tools.HslGreenEffect;
                 if (ql.Count >= 0) PlayerObject.QuadList[0].Show = false;
                 if (ql.Count >= 2) PlayerObject.QuadList[2].Show = false;
-
-                //if (ql.Count >= 0) PlayerObject.QuadList[0].Show = true;
-                //if (ql.Count >= 2) PlayerObject.QuadList[2].Show = true;
-                //if (ql.Count >= 1) PlayerObject.QuadList[1].SetColor(MyColorScheme.OutlineColor.DetailColor);
-                //if (ql.Count >= 2) PlayerObject.QuadList[2].SetColor(MyColorScheme.SkinColor.DetailColor);
             }
         }
 
@@ -1233,48 +1221,33 @@ namespace CloudberryKingdom.Bobs
             {
                 if (!SkipDraw)
                 {
-                    if (DrawOutline)
+                    if (MyPhsx.ThrustType == BobPhsx.RocketThrustType.Double)
+                        DrawTheRocket();
+
+                    Tools.QDrawer.SetAddressMode(false, false);
+                    if (PlayerObject.ContainedQuadAngle == 0)
                     {
-                        Tools.QDrawer.SetAddressMode(false, false);
-                        PlayerObject.ContainedDraw();
+                        PlayerObject.Draw(true);
                     }
                     else
                     {
-                        if (MyPhsx.ThrustType == BobPhsx.RocketThrustType.Double)
-                            DrawTheRocket();
+                        PlayerObject.Update(null);
+                        var w = (Quad)PlayerObject.FindQuad("Wheel");
+                        var p = PlayerObject.ParentQuad;
+                        Vector2 hold = p.Center.Pos;
 
-                        Tools.QDrawer.SetAddressMode(false, false);
-                        if (PlayerObject.ContainedQuadAngle == 0)
-                        {
-                            PlayerObject.Draw(Tools.EffectWad, true);
-                        }
-                        else
-                        {
-                            PlayerObject.Update(null);
-                            var w = (Quad)PlayerObject.FindQuad("Wheel");
-                            var p = PlayerObject.ParentQuad;
-                            Vector2 hold = p.Center.Pos;
+                        float D = 116.6666f * p.Size.Y / 260;
+                        var d = D * CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle + 1.57);
+                        var move = new Vector2(0, D) - d;
+                        PlayerObject.ParentQuad.Center.Move(move + p.Center.Pos);
 
-                            float D = 116.6666f * p.Size.Y / 260;
-                            var d = D * CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle + 1.57);
-                            var move = new Vector2(0, D) - d;
-                            PlayerObject.ParentQuad.Center.Move(move + p.Center.Pos);
+                        PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle));
+                        PlayerObject.Draw(true);
+                        PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(0));
 
-                            PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle));
-                            PlayerObject.Draw(Tools.EffectWad, true);
-                            PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(0));
-
-                            PlayerObject.ParentQuad.Center.Move(hold);
-                            PlayerObject.Update(null);
-                        }
+                        PlayerObject.ParentQuad.Center.Move(hold);
+                        PlayerObject.Update(null);
                     }
-
-                    // EXPERIMENTAL: Non-shader draw code.
-                    //PlayerObject.SetColor(Color.Black);
-                    //PlayerObject.Update(null, ObjectDrawOrder.None, 1.6f);
-                    //PlayerObject.Draw(Tools.EffectWad, false);
-                    //PlayerObject.SetColor(Color.White);
-                    //PlayerObject.Draw(Tools.EffectWad, true);
                 }
             }
 

@@ -416,7 +416,6 @@ namespace CloudberryKingdom
             SetTigarLoaded(NewBob.PlayerObject);
             NewBob.IsSpriteBased = true;
             NewBob.MyObjectType = BobPhsxNormal.Instance;
-            NewBob.DrawOutline = true;
             NewBob.CanHaveCape = true;
             NewBob.PlayerObject.Linear = true;
             NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
@@ -504,7 +503,6 @@ namespace CloudberryKingdom
             NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, false);
             NewBob.MyObjectType = BobPhsxSpaceship.Instance;
             NewBob.PlayerObject.ParentQuad.Scale(new Vector2(3.5f, 3.5f));
-            NewBob.DrawOutline = true;
             foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
                 quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
             NewBob.CanHaveCape = false;
@@ -526,7 +524,6 @@ namespace CloudberryKingdom
             NewBob.IsSpriteBased = false;
             NewBob.MyObjectType = BobPhsxMeat.Instance;
             NewBob.PlayerObject.ParentQuad.Scale(new Vector2(2.75f, 2.75f));
-            NewBob.DrawOutline = true;
             foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
                 quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
             NewBob.CanHaveCape = true;

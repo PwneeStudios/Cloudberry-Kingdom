@@ -1,6 +1,6 @@
-﻿#include"RootEffect.fx"
+﻿#include "RootEffect.fx"
+
 Texture xTexture;
-//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
 sampler TextureSampler = sampler_state { texture = <xTexture>; };
 
 PixelToFrame CirclePixelShader(VertexToPixel PSIn)
@@ -20,37 +20,6 @@ PixelToFrame CirclePixelShader(VertexToPixel PSIn)
 	Output.Color.rgb *= Output.Color.a;
 	        
     return Output;
-}
-
-PixelToFrame OutlinePixelShader(VertexToPixel PSIn)
-{
-	PixelToFrame Output = (PixelToFrame)0;        
-	return Output;
-
-	/*
-	float2 uv = PSIn.TexCoords;
-	float4 Color = PSIn.Color;
-
-	float d = .003;
-
-	float l = tex2D(TextureSampler, uv).r;
-	float l1 = tex2D(TextureSampler, uv + float2(-1, -1) * d).r;
-	float l2 = tex2D(TextureSampler, uv + float2(1, 1) * d).r;
-	float l3 = tex2D(TextureSampler, uv + float2(-1, 1) * d).r;
-	float l4 = tex2D(TextureSampler, uv + float2(1, -1) * d).r;
-	
-	float v = (abs(l - l1) + abs(l - l2) + abs(l - l3) + abs(l - l4) + abs(l1 - l2) + abs(l3 - l4)) / 6;
-	v = saturate(saturate(v - .05) * 3);
-
-	Color = v * float4(.75,.5,.25,1) + (1 - v) * Color;
-
-	// Premultiply the alpha
-	Color.rgb *= Color.a;
-
-	Output.Color = Color;
-
-	return Output;
-	*/
 }
 
 technique Simplest

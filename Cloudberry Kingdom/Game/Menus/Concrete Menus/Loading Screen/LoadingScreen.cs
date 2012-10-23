@@ -4,19 +4,6 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public interface ILoadingScreen
-    {
-        void AddHint(string hint, int extra_wait);
-
-        void Start();
-        void End();
-
-        void PreDraw();
-        void Draw(Camera cam);
-
-        void MakeFake();
-    }
- 
     public class LoadingScreen : ILoadingScreen
     {
         public static int DefaultMinLoadLength = 85;
@@ -30,7 +17,7 @@ namespace CloudberryKingdom
         EzText LoadingText, HintText;
 
         EzText TextObject;
-
+        
         bool Fade;
         float FadeAlpha;
 
@@ -49,15 +36,18 @@ namespace CloudberryKingdom
         {
             BackgroundQuad = new QuadClass();
             BackgroundQuad.SetToDefault();
-            BackgroundQuad.Quad.SetColor(Color.Black);
+
+            BackgroundQuad.Set("LoadingStrip");
+            BackgroundQuad.Quad.SetColor(Color.Gray);
 
             BlackQuad = new QuadClass();
             BlackQuad.SetToDefault();
             BlackQuad.Quad.SetColor(new Color(0, 0, 0, 0));
              
             LoadingText = new EzText("Loading...", Tools.Font_Grobold42, true, true);
+            LoadingText.Scale *= .445f;
             LoadingText.FixedToCamera = true;
-            LoadingText._Pos = new Vector2(21, -56);
+            LoadingText._Pos = new Vector2(21, -106);
 
             if (CenterObject != null)
             {
@@ -67,11 +57,12 @@ namespace CloudberryKingdom
             TextObject = null;
 
             BobPhsx type;
-            if (Tools.WorldMap != null)
+            //if (Tools.WorldMap != null)
+            if (Tools.CurGameData == null || Tools.CurGameData.DefaultHeroType == null)
                 type = Tools.WorldMap.DefaultHeroType;
             else
                 type = Tools.CurGameData.DefaultHeroType;
-             
+
             if (type is BobPhsxSpaceship)
             {
                 TextObject = new EzText("?", Tools.Font_Grobold42, true, true);
@@ -113,7 +104,7 @@ namespace CloudberryKingdom
         int MinLoading;
         public void Start()
         {
-            MinLoadLength = 10000;
+            //MinLoadLength = 10000;
 
             MinLoading = MinLoadLength;
             MinLoadLength = DefaultMinLoadLength;
@@ -144,8 +135,7 @@ namespace CloudberryKingdom
 
             if (CenterObject != null)
             {
-                CenterObject.PlayUpdate(.135f);
-                
+                CenterObject.PlayUpdate(CenterObject.LoadingRunSpeed);
                 CenterObject.Update(null);
             }
         }
@@ -158,11 +148,15 @@ namespace CloudberryKingdom
             BlackQuad.FullScreen(cam);
             BlackQuad.Scale(1.25f);
 
+            if (CenterObject != null) CenterObject.MoveTo(new Vector2(0, -70));
+            LoadingText._Pos = new Vector2(18, -140);
+
             BackgroundQuad.Draw();
             Tools.QDrawer.Flush();
             if (CenterObject != null)
             {
-                CenterObject.ContainedDraw();
+                //CenterObject.ContainedDraw();
+                CenterObject.Draw(true);
                 Tools.QDrawer.Flush();
             }
             LoadingText.Draw(cam);

@@ -1,11 +1,9 @@
-﻿#include"RootEffect.fx"
-//float t;
+﻿#include "RootEffect.fx"
 
 Texture xTexture;
-//sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };// AddressU = clamp; AddressV = clamp;};
 sampler TextureSampler = sampler_state { texture = <xTexture>; };
-texture SceneTexture;
 
+texture SceneTexture;
 sampler SceneSampler : register(s0) = sampler_state { Texture = (SceneTexture); };
 
 PixelToFrame FireballShader(VertexToPixel PSIn)
@@ -15,12 +13,9 @@ PixelToFrame FireballShader(VertexToPixel PSIn)
     float2 uv = PSIn.TexCoords;
     
     uv.y = 1.2 * (pow(uv.x,3) / 1.7 + .6) * (uv.y - .5) + .5;
-    //uv.y = .85 * (pow(1-uv.x,.5) / 1.7 + .6) * (uv.y - .5) + .5;
-    //uv.x *= .7;
     
 	uv.x = pow(uv.x, .2 + .8 * (1 - uv.x));
 
-	//uv.y = .9 / max(.7,pow(uv.x,.75)) * (uv.y + (.04 * pow(uv.x,1) + .03)*sin(uv.x*10 + 25*t) - .5) + .5;
 	uv.y = .9 / max(.7,pow(uv.x,.75)) * (uv.y + (.023 * pow(uv.x,1) + .017)*sin(uv.x*10 + 25*t) - .5) + .5;    	
     
     float4 C = tex2D(TextureSampler, uv);
@@ -32,7 +27,6 @@ PixelToFrame FireballShader(VertexToPixel PSIn)
         
     return Output;
 }
-
 
 technique Simplest
 {

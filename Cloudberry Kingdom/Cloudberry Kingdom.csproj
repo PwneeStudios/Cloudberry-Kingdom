@@ -452,7 +452,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\Upgrades\CustomUpgrades_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeSelect.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeBar.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen2.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\SoundMenu.cs" />
     <Compile Include="Game\Menus\CkBaseMenu.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\Challenge_Base.cs" />
@@ -633,7 +633,7 @@
     <Compile Include="Game\Objects\ObjectBase.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser.cs" />
     <Compile Include="Game\Level\Level.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Loading Screen\ILoadingScreen.cs" />
     <Compile Include="Game\Menus\Menu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingPlatform.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\MovingBlock.cs" />

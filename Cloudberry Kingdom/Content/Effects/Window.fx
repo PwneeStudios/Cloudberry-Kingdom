@@ -1,9 +1,6 @@
-﻿#include"RootEffect.fx"
+﻿#include "RootEffect.fx"
 
 Texture xTexture;
-//sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
-//sampler BackTextureSampler : register(s0) = sampler_state { texture = <ExtraTexture1> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
-//sampler MaskTextureSampler : register(s2) = sampler_state { texture = <ExtraTexture2> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
 
 sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture>; };
 sampler BackTextureSampler : register(s0) = sampler_state { texture = <ExtraTexture1>; };

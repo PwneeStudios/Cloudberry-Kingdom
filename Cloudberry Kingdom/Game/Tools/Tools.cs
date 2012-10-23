@@ -1026,29 +1026,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
             DoNotKillMusicOnNextLoadingscreen = false;
 
             Tools.ShowLoadingScreen = true;
-            //if (CurrentLoadingScreen == null)
-            
-            //CurrentLoadingScreen = new LoadingScreen();
-            CurrentLoadingScreen = new LoadingScreen2();
 
-            CurrentLoadingScreen.Start();
-        }
-
-        public static void BeginLoadingScreen_Fake(int Length)
-        {
-            LoadingScreen.MinLoadLength = Length;
-
-            DoNotKillMusicOnNextLoadingscreen = false;
-
-            Tools.ShowLoadingScreen = true;
             CurrentLoadingScreen = new LoadingScreen();
+
             CurrentLoadingScreen.Start();
-            CurrentLoadingScreen.MakeFake();
         }
 
         public static void PlayHappyMusic()
         {
-            //Tools.SongWad.SetPlayList(Tools.Song_Happy);
             Tools.SongWad.SuppressNextInfoDisplay = true;
             Tools.SongWad.SetPlayList(Tools.Song_Heavens);
             Tools.SongWad.Start(true);

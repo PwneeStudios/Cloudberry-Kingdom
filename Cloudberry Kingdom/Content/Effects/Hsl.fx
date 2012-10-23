@@ -1,7 +1,6 @@
-﻿#include"RootEffect.fx"
+﻿#include "RootEffect.fx"
 
 Texture xTexture;
-//sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture>; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; };
 sampler TextureSampler : register(s1) = sampler_state { texture = <xTexture>; };
 
 PixelToFrame SimplePixelShader(VertexToPixel PSIn)

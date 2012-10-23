@@ -1042,14 +1042,10 @@ namespace CoreEngine
             QuadList.Remove(quad);
         }
 
-        public void ContainedDraw() { ContainedDraw(null); }
-        public void ContainedDraw(SpriteAnimGroup AnimGroup)
+        public void ContainedDraw()
         {
             if (BoxList.Count > 0)
             {
-                ContainedQuad.MyEffect = MySkinEffect;// ParentQuad.MyEffect;
-                //quad.Scale(new Vector2(1f / 8, 1f / 8));
-
                 float scalex = (BoxList[0].TR.Pos.X - BoxList[0].BL.Pos.X) / 2;
                 float scaley = (BoxList[0].TR.Pos.Y - BoxList[0].BL.Pos.Y) / 2;
                 float locx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
@@ -1061,105 +1057,12 @@ namespace CoreEngine
 
                 ContainedQuad.xAxis.RelPos = new Vector2(1, 0);
                 ContainedQuad.yAxis.RelPos = new Vector2(0, 1);
-                if (ContainedQuadAngle != 0)
-                {
-                    ContainedQuad.PointxAxisTo(CoreMath.AngleToDir(ContainedQuadAngle));
-                }
-                //if (AnimGroup == null || !xFlip)
-                //    ContainedQuad.Scale(new Vector2(scalex, scaley));
-                //else
-                //    ContainedQuad.Scale(new Vector2(-scalex, scaley));
-                if (AnimGroup == null)
-                    ContainedQuad.Scale(new Vector2(scalex, scaley));
-                else
-                    ContainedQuad.Scale(new Vector2(xFlip ? -scalex : scalex, yFlip ? -scaley : scaley));
-                ContainedQuad.Update();
 
-                if (AnimGroup == null)
-                {
-                    Tools.QDrawer.Flush();
+                Tools.QDrawer.Flush();
+                ContainedQuad.Scale(new Vector2(scalex, scaley));
 
-                    // Rotate parent quad if needed
-                    if (ContainedQuadAngle != 0)
-                    {
-                        EzEffect effect = Tools.BasicEffect;
-                        effect.effect.Parameters["xCameraAngle"].SetValue(ContainedQuadAngle);
-                        effect.effect.Parameters["Pivot"].SetValue(ContainedQuad.Center.Pos);
-                        EffectTechnique HoldTechnique = effect.effect.CurrentTechnique;
-                        effect.effect.CurrentTechnique = effect.effect.Techniques["PivotTechnique"];
-                        Draw(Tools.EffectWad, false, ObjectDrawOrder.BeforeOutline);
-                        effect.effect.CurrentTechnique = HoldTechnique;
-                    }
-                    else
-                        Draw(Tools.EffectWad, false, ObjectDrawOrder.BeforeOutline);
-                    Tools.QDrawer.Flush();
-
-                    if (MySkinEffect != null)
-                        ContainedQuad.MyEffect = MySkinEffect;
-                    else
-                        ContainedQuad.MyEffect = Tools.BasicEffect;
-
-                    if (RefinedOutline)
-                        ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.effect.Techniques["RefinedOutline"];
-                    else
-                        ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.effect.Techniques["Outline"];
-
-                    ContainedQuad.MyEffect.effect.Parameters["OutlineScale"].SetValue(
-                        //new Vector2(1 / scalex, 1 / scaley) * OutlineWidth);
-                        OutlineWidth);
-                    ContainedQuad.MyEffect.effect.Parameters["OutlineColor"].SetValue(OutlineColor.ToVector4());
-                    ContainedQuad.MyEffect.effect.Parameters["InsideColor"].SetValue(InsideColor.ToVector4());
-                    ContainedQuad.MyEffect.effect.Parameters["OutlineColor"].SetValue(OutlineColor.ToVector4());
-                    ContainedQuad.MyEffect.effect.Parameters["InsideColor"].SetValue(InsideColor.ToVector4());
-                    ContainedQuad.MyEffect.effect.Parameters["SceneTexture"].SetValue(ObjTex);
-                    //ContainedQuad.MyEffect.effect.Parameters["xTexture"].SetValue(ObjTex);
-
-                    //if (ContainedTexture == null)
-                    //    ContainedTexture = new EzTexture();
-                    //ContainedQuad.MyTexture = ContainedTexture;
-                    //ContainedQuad.MyTexture.Tex = ObjTex;// ObjDepthTex;
-
-                    if (MySkinTexture == null)
-                        ContainedQuad.MyTexture = Tools.TextureWad.TextureList[0];
-                    else
-                        ContainedQuad.MyTexture = MySkinTexture;
-                    // This line should not be commented for old stickman bob, with complex outline pixel shader.
-                    //QDrawer.DrawQuad(ContainedQuad);
-                    QDrawer.Flush();
-
-                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.Simplest;
-                    ContainedQuad.MyEffect.effect.Parameters["OutlineScale"].SetValue(new Vector2(1, 1));
-
-                    Tools.QDrawer.Flush();
-
-                    // Rotate parent quad if needed
-                    if (ContainedQuadAngle != 0)
-                    {
-                        EzEffect effect = Tools.BasicEffect;
-                        effect.effect.Parameters["xCameraAngle"].SetValue(ContainedQuadAngle);
-                        effect.effect.Parameters["Pivot"].SetValue(ContainedQuad.Center.Pos);
-                        //effect.effect.Parameters["Illumination"].SetValue(Tools.QDrawer.GlobalIllumination);
-                        EffectTechnique HoldEffect = effect.effect.CurrentTechnique;
-                        effect.effect.CurrentTechnique = effect.effect.Techniques["PivotTechnique"];
-                        Draw(Tools.EffectWad, false, ObjectDrawOrder.AfterOutline);
-                        effect.effect.CurrentTechnique = HoldEffect;// effect.effect.Techniques["Simplest"];
-                    }
-                    else                    
-                        Draw(Tools.EffectWad, false, ObjectDrawOrder.AfterOutline);
-                    Tools.QDrawer.Flush();
-                }
-                else
-                {
-                    QDrawer.Flush();
-                    Texture2D hold = ContainedQuad.MyTexture.Tex;
-                    Vector2 padding = Vector2.Zero;
-                    ContainedQuad.MyTexture.Tex = AnimGroup.Get(anim, t, ref padding); //AnimGroup.SpriteAnims[0].Frames[3];                                        
-                    ContainedQuad.MyEffect = Tools.BasicEffect;
-                    ContainedQuad.MyEffect.effect.CurrentTechnique = ContainedQuad.MyEffect.Simplest;
-                    QDrawer.DrawQuad(ContainedQuad);
-                    QDrawer.Flush();
-                    ContainedQuad.MyTexture.Tex = hold;
-                }
+                Draw(true);
+                Tools.QDrawer.Flush();
             }
         }
 
@@ -1167,8 +1070,7 @@ namespace CoreEngine
         public EzTexture ExtraQuadToDrawTexture = null;
         public bool DrawExtraQuad = false;
 
-        public void Draw(bool UpdateFirst) { Draw(Tools.EffectWad, UpdateFirst); }
-        public void Draw(EzEffectWad EffectWad, bool UpdateFirst) { Draw(EffectWad, UpdateFirst, ObjectDrawOrder.All); }
+        public void Draw(bool UpdateFirst) { Draw(Tools.EffectWad, UpdateFirst, ObjectDrawOrder.All); }
         public void Draw(EzEffectWad EffectWad, bool UpdateFirst, ObjectDrawOrder DrawOrder)
         {
             if (UpdateFirst)
@@ -1254,7 +1156,7 @@ namespace CoreEngine
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
             foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
-            ContainedDraw(null);
+            ContainedDraw();
             device.SetRenderTarget(Tools.DestinationRenderTarget);
             Tools.Render.ResetViewport();
 
