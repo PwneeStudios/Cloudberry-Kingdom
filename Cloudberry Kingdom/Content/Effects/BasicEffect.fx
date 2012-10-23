@@ -21,18 +21,6 @@ PixelToFrame SimplePixelShader(VertexToPixel PSIn)
     return Output;
 }
 
-PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
-{
-    PixelToFrame Output = (PixelToFrame)0;        
-
-	// This commented line should allow textured quads' transparency to effect the final transparency
-	//PSIn.Color.a *= tex2D(TextureSampler, PSIn.TexCoords).a;
-
-	Output.Color = float4(PSIn.Color.a,PSIn.Color.g,PSIn.Color.b,1);
-	        
-    return Output;
-}
-
 float4 OutlinePixelShader(float4 color : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
 /*
@@ -222,15 +210,6 @@ technique PivotTechnique
     {
         VertexShader = compile VERTEX_SHADER PivotVertexShader();
         PixelShader = compile PIXEL_SHADER SimplePixelShader();
-    }
-}
-
-technique DepthVelocityInfo
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        PixelShader = compile PIXEL_SHADER DepthVelocityPixelShader();
     }
 }
 

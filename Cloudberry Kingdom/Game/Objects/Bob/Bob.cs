@@ -1001,37 +1001,6 @@ namespace CloudberryKingdom.Bobs
         }
 
         /// <summary>
-        /// Set to true to skip the next call to PrepareToDraw
-        /// </summary>
-        public bool SkipPrepare = false;
-
-        /// <summary>
-        /// Prepare the stickman for drawing.
-        /// SHOULD BE REPLACED BY NON-SHADER MEANS.
-        /// </summary>
-        public void PrepareToDraw()
-        {
-            if (SkipPrepare)
-            {
-                SkipPrepare = false;
-                return;
-            }
-
-            if (BoxesOnly) return;
-
-            if (DrawOutline && Core.Show)
-            {
-                Vector2 size = PlayerObject.BoxList[0].Size();
-                float ratio = size.Y / size.X;
-                int width = Tools.TheGame.Resolution.Bob.X;
-                int height = (int)(width * ratio);
-
-                PlayerObject.MakeRenderTargetUnique(width, height);
-                PlayerObject.PreDraw(Tools.Device, Tools.EffectWad);
-            }
-        }
-
-        /// <summary>
         ///// When true the call to AnimAndUpdate must be done manually.
         /// </summary>
         public bool ManualAnimAndUpdate = false;

@@ -42,12 +42,3 @@ technique Simplest
         PixelShader = compile PIXEL_SHADER FireballShader();
     }
 }
-
-technique DepthVelocityInfo
-{
-    pass Pass0
-    {
-		VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        PixelShader = compile PIXEL_SHADER FireballShader();
-    }
-}

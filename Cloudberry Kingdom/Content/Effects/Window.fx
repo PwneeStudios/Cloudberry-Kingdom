@@ -32,30 +32,12 @@ PixelToFrame SimplePixelShader(VertexToPixel PSIn)
     return Output;
 }
 
-PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
-{
-    PixelToFrame Output = (PixelToFrame)0;        
-
-	Output.Color = float4(PSIn.Color.a,PSIn.Color.g,PSIn.Color.b,1);
-	        
-    return Output;
-}
-
 technique Simplest
 {
     pass Pass0
     {
         VertexShader = compile VERTEX_SHADER SimplestVertexShader();
         PixelShader = compile PIXEL_SHADER SimplePixelShader();
-    }
-}
-
-technique DepthVelocityInfo
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        PixelShader = compile PIXEL_SHADER DepthVelocityPixelShader();
     }
 }
 

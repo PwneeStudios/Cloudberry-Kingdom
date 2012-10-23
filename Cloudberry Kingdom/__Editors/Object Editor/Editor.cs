@@ -100,7 +100,6 @@ namespace Drawing
         VertexDeclaration vertexDeclaration;
         Vector4 cameraPos;
 
-        RenderTarget2D DepthVelocityRenderTarget;
         RenderTarget2D ObjectRenderTarget;
         Texture2D blob, WhiteTexture, backgroundTexture;
 

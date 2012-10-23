@@ -1301,21 +1301,6 @@ namespace CloudberryKingdom
             BlackAlpha = 0;
         }
 
-        public virtual void PrepareToDraw()
-        {
-            if (MyLevel != null && MyLevel.LevelReleased)
-                return;
-
-            //Tools.QDrawer.SetAddressMode(true, true);
-            Tools.QDrawer.SetAddressMode(false, false);
-            Tools.Device.BlendState = BlendState.NonPremultiplied;
-            foreach (Bob bob in MyLevel.Bobs)
-            {
-                bob.PrepareToDraw();
-            }
-            Tools.Device.BlendState = BlendState.AlphaBlend;
-        }
-
         public virtual void Draw()
         {
             if (Loading) return;
@@ -1325,21 +1310,11 @@ namespace CloudberryKingdom
                     if (MyLevel.LevelReleased)
                         return;
 
-                    // All these renderstates need to be ported to XNA 4.0
-                    /* Tools.Device.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
-
-                    if (Tools.ScreenshotMode)
-                        Tools.Device.RenderState.SeparateAlphaBlendEnabled = true;
-                    else
-                        Tools.Device.RenderState.SeparateAlphaBlendEnabled = false;
-                    */
-
-                    PrepareToDraw();
-                    Tools.Device.Clear(Color.Black);
-
                     if (ForceLevelZoomBeforeDraw > 0)
                         Cam.Zoom = new Vector2(ForceLevelZoomBeforeDraw);
+                    
                     CalculateForceZoom();
+
                     MyLevel.Draw();
                 }
         }
@@ -1360,10 +1335,6 @@ namespace CloudberryKingdom
 
             if (ForceLevelZoomBeforeDraw > ForceTargetZoom)
                 ForceLevelZoomBeforeDraw -= .00001f * (float)Math.Pow((ForceLevelZoomBeforeDraw - ForceTargetZoom) / (.00085f - .0007f), .5f);
-        }
-
-        public virtual void PreDraw()
-        {
         }
 
         public virtual void PostDraw()

@@ -1434,7 +1434,6 @@ namespace CloudberryKingdom.Levels
             }
 
             if (CloudberryKingdomGame.HideForeground) return;
-            if (MyGame != null) MyGame.PreDraw();
 
             MainCamera.SetVertexCamera();
 

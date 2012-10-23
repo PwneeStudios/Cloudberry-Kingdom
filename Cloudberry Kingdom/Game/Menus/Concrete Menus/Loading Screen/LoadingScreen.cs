@@ -146,11 +146,7 @@ namespace CloudberryKingdom
             {
                 CenterObject.PlayUpdate(.135f);
                 
-                //CenterObject.PlayUpdate(.85f);
                 CenterObject.Update(null);
-
-                CenterObject.PreDraw(Tools.Device, Tools.EffectWad);
-                Tools.QDrawer.Flush();
             }
         }
 

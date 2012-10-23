@@ -22,18 +22,6 @@ PixelToFrame CirclePixelShader(VertexToPixel PSIn)
     return Output;
 }
 
-PixelToFrame DepthVelocityPixelShader(VertexToPixel PSIn)
-{
-    PixelToFrame Output = (PixelToFrame)0;
-        
-	float d = (PSIn.TexCoords.x - .5) * (PSIn.TexCoords.x - .5) + (PSIn.TexCoords.y - .5) * (PSIn.TexCoords.y - .5);
-     
-	Output.Color = float4(PSIn.Color.a,PSIn.Color.g,PSIn.Color.b,1);
-	Output.Color.ra *= saturate(10000*(.25 - d));
-		
-    return Output;
-}
-
 PixelToFrame OutlinePixelShader(VertexToPixel PSIn)
 {
 	PixelToFrame Output = (PixelToFrame)0;        
@@ -71,15 +59,6 @@ technique Simplest
     {
         VertexShader = compile VERTEX_SHADER SimplestVertexShader();
         PixelShader = compile PIXEL_SHADER CirclePixelShader();
-    }
-}
-
-technique DepthVelocityInfo
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER SimplestVertexShader();
-        PixelShader = compile PIXEL_SHADER DepthVelocityPixelShader();
     }
 }
 

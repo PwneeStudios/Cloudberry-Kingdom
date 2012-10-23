@@ -43,7 +43,6 @@ namespace CoreEngine
         public Vector2 OutlineWidth = new Vector2(1);
         public Color OutlineColor, InsideColor;
 
-        //RenderTarget2D DepthVelocityRenderTarget
         RenderTarget2D ObjectRenderTarget, ToTextureRenderTarget;
         int DrawWidth, DrawHeight;
         public Texture2D ObjTex, ObjDepthTex;
@@ -67,7 +66,6 @@ namespace CoreEngine
 
         public void Release()
         {
-            //DepthVelocityRenderTarget.Dispose();
             if (ObjectRenderTarget != null && OriginalRenderTarget)
                 ObjectRenderTarget.Dispose();
 
@@ -1044,17 +1042,6 @@ namespace CoreEngine
             QuadList.Remove(quad);
         }
 
-        public void PreDraw(GraphicsDevice device, EzEffectWad EffectWad)
-        {
-            if (BoxList.Count > 0)
-            {
-                //Update(null);
-
-                ObjTex = DrawTexture(device, EffectWad);
-                //ObjDepthTex = DrawDepthTexture(device, EffectWad);
-            }
-        }
-
         public void ContainedDraw() { ContainedDraw(null); }
         public void ContainedDraw(SpriteAnimGroup AnimGroup)
         {
@@ -1187,9 +1174,6 @@ namespace CoreEngine
             if (UpdateFirst)
                 Update(null);
 
-            //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.xFlip.SetValue(true);
-            //if (xFlip) foreach (EzEffect fx in EffectWad.EffectList) fx.FlipCenter.SetValue(FlipCenter);
-
             if ((xFlip || yFlip) && !BoxesOnly && QuadList != null)
                 foreach (EzEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
             if (xFlip || yFlip)
@@ -1246,9 +1230,7 @@ namespace CoreEngine
             {
                 SetAnimT(StartT + i * Sprites.dt, Loop);
                 Update(null);
-                Tools.Device.BlendState = BlendState.NonPremultiplied;
-                PreDraw(Tools.Device, Tools.EffectWad);
-                Tools.Device.BlendState = BlendState.AlphaBlend;
+
                 Sprites.Frames[i] = DrawToTexture(Tools.Device, Tools.EffectWad, Padding);
             }
 
@@ -1288,35 +1270,6 @@ namespace CoreEngine
             Array = null;
 
             return tex2;
-        }
-
-        public Texture2D DrawTexture(GraphicsDevice device, EzEffectWad EffectWad)
-        {
-            if (MyEffects == null) return ObjectRenderTarget;
-
-            Vector4 HoldCameraPos = EffectWad.CameraPosition;
-            float HoldCameraAspect = EffectWad.EffectList[0].xCameraAspect.GetValueSingle();
-            
-            device.SetRenderTarget(ObjectRenderTarget);
-            device.Clear(Color.Blue);
-            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.effect.Techniques["DepthVelocityInfo"];
-            float scalex = (BoxList[0].TR.Pos.X - BoxList[0].BL.Pos.X) / 2;
-            float scaley = (BoxList[0].TR.Pos.Y - BoxList[0].BL.Pos.Y) / 2;
-            float posx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
-            float posy = (BoxList[0].TR.Pos.Y + BoxList[0].BL.Pos.Y) / 2;
-            if (xFlip) posx = FlipCenter.X - (posx - FlipCenter.X);
-            if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
-
-            EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
-            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
-            Draw(EffectWad, false, ObjectDrawOrder.WithOutline);
-            device.SetRenderTarget(Tools.DestinationRenderTarget);
-            Tools.Render.ResetViewport();
-
-            EffectWad.SetCameraPosition(HoldCameraPos);
-            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
-            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.Simplest;
-            return ObjectRenderTarget;
         }
     }
 }
