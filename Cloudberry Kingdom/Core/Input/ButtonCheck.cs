@@ -140,25 +140,53 @@ namespace CloudberryKingdom
         public static bool MouseInUse = false;
         public static bool PrevMouseInUse = false;
 
-        public static void UpdateControllerAndKeyboard()
+        public static void UpdateControllerAndKeyboard_StartOfStep()
         {
             // Update controller/keyboard states
 #if WINDOWS
-                Tools.keybState = Keyboard.GetState();
-                Tools.CurMouseState = Mouse.GetState();
+            Tools.Keyboard = Keyboard.GetState();
+            if (Tools.PrevKeyboard == null) Tools.PrevKeyboard = Tools.Keyboard;
+
+            Tools.Mouse = Mouse.GetState();
 #endif
-                Tools.GamepadState[0] = GamePad.GetState(PlayerIndex.One);
-                Tools.GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
-                Tools.GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
-                Tools.GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
+            Tools.GamepadState[0] = GamePad.GetState(PlayerIndex.One);
+            Tools.GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
+            Tools.GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
+            Tools.GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
 
-                ButtonStats.Update();
+            ButtonStats.Update();
 
-                Tools.UpdateVibrations();
+            Tools.UpdateVibrations();
 
 #if PC_VERSION
             UpdateMouseUse();
 #endif
+        }
+
+        public static void UpdateControllerAndKeyboard_EndOfStep(ResolutionGroup Resolution)
+        {
+            // Determine if the mouse is in the window or not.
+            Tools.MouseInWindow =
+                Tools.Mouse.X > 0 && Tools.Mouse.X < Resolution.Backbuffer.X &&
+                Tools.Mouse.Y > 0 && Tools.Mouse.Y < Resolution.Backbuffer.Y;
+
+            // Calculate how much user has scrolled the mouse wheel and moved the mouse.
+            Tools.DeltaScroll = Tools.Mouse.ScrollWheelValue - Tools.PrevMouse.ScrollWheelValue;
+            if (Tools.CurLevel != null)
+            {
+                Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.Mouse.X, Tools.Mouse.Y), Tools.CurLevel.MainCamera) -
+                                   Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouse.X, Tools.PrevMouse.Y), Tools.CurLevel.MainCamera);
+            }
+            Tools.RawDeltaMouse = new Vector2(Tools.Mouse.X, Tools.Mouse.Y) -
+                                  new Vector2(Tools.PrevMouse.X, Tools.PrevMouse.Y);
+
+            Tools.PrevKeyboard = Tools.Keyboard;
+            Tools.PrevMouse = Tools.Mouse;
+
+            // Store the previous states of the Xbox controllers.
+            for (int i = 0; i < 4; i++)
+                if (Tools.PrevGamepadState[i] != null)
+                    Tools.PrevGamepadState[i] = Tools.GamepadState[i];
         }
 
 #if PC_VERSION
@@ -177,8 +205,8 @@ namespace CloudberryKingdom
                 MouseInUse = false;
 
             if (Tools.DeltaMouse != Vector2.Zero ||
-                Tools.CurMouseState.LeftButton == ButtonState.Pressed ||
-                Tools.CurMouseState.RightButton == ButtonState.Pressed)
+                Tools.Mouse.LeftButton == ButtonState.Pressed ||
+                Tools.Mouse.RightButton == ButtonState.Pressed)
                 MouseInUse = true;
 
             PrevMouseInUse = MouseInUse;
@@ -337,9 +365,9 @@ namespace CloudberryKingdom
             ButtonData Data = new ButtonData();
             Data.PressingPlayer = 0;
 #if WINDOWS
-            Data.Down = Tools.keybState.IsKeyDownCustom(Key);
-            Data.Pressed = Data.Down && !Tools.PrevKeyboardState.IsKeyDownCustom(Key);
-            Data.Released = !Data.Down && Tools.PrevKeyboardState.IsKeyDownCustom(Key);
+            Data.Down = Tools.Keyboard.IsKeyDownCustom(Key);
+            Data.Pressed = Data.Down && !Tools.PrevKeyboard.IsKeyDownCustom(Key);
+            Data.Released = !Data.Down && Tools.PrevKeyboard.IsKeyDownCustom(Key);
 #endif
             return Data;
         }
@@ -354,7 +382,7 @@ namespace CloudberryKingdom
 #if WINDOWS
         public static bool AnyKeyboardKey()
         {
-            var keys = Tools.keybState.GetPressedKeys();
+            var keys = Tools.Keyboard.GetPressedKeys();
             bool AnyKeyDown = !(keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None));
 
             return AnyKeyDown;
@@ -383,9 +411,9 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool KeyboardGo()
         {
-            return Tools.keybState.IsKeyDownCustom(Keys.Enter)
-                || Tools.keybState.IsKeyDownCustom(Keys.Space)
-                || Tools.keybState.IsKeyDownCustom(Go_Secondary);
+            return Tools.Keyboard.IsKeyDownCustom(Keys.Enter)
+                || Tools.Keyboard.IsKeyDownCustom(Keys.Space)
+                || Tools.Keyboard.IsKeyDownCustom(Go_Secondary);
         }
 #endif
 
@@ -445,9 +473,9 @@ namespace CloudberryKingdom
 #if WINDOWS
             KeyboardState keyboard;
             if (Prev)
-                keyboard = Tools.PrevKeyboardState;
+                keyboard = Tools.PrevKeyboard;
             else
-                keyboard = Tools.keybState;
+                keyboard = Tools.Keyboard;
 
             Data.Down = keyboard.IsKeyDownCustom(Key);
 #endif
@@ -613,9 +641,9 @@ namespace CloudberryKingdom
 
             KeyboardState keyboard;
             if (Prev)
-                keyboard = Tools.PrevKeyboardState;
+                keyboard = Tools.PrevKeyboard;
             else
-                keyboard = Tools.keybState;
+                keyboard = Tools.Keyboard;
 
 #endif
             //#else
@@ -672,9 +700,9 @@ if (
             if (Button == ControllerButtons.A)
             {
                 if (Prev)
-                    Data.Down |= Tools.CurMouseState.LeftButton == ButtonState.Pressed;
+                    Data.Down |= Tools.Mouse.LeftButton == ButtonState.Pressed;
                 else
-                    Data.Down |= Tools.PrevMouseState.LeftButton == ButtonState.Pressed;
+                    Data.Down |= Tools.PrevMouse.LeftButton == ButtonState.Pressed;
             }
             else
                 Data.Down |= keyboard.IsKeyDownCustom(key);

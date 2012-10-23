@@ -29,8 +29,6 @@ namespace CloudberryKingdom
 
             LoadAll();
 
-
-
             //PlayerManager.Player.LifetimeStats.Coins += 1000;
             //PlayerManager.Player.Awardments += 4;
             //PlayerManager.Player.Awardments += 7;

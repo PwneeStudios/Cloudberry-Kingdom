@@ -7,6 +7,7 @@ using CoreEngine;
 
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.InGameObjects
 {
@@ -90,11 +91,16 @@ namespace CloudberryKingdom.InGameObjects
 
         public bool Mirror = false;
 
+        Vector2 HitBoxPadding = Vector2.Zero;
+
         /// <summary>
         /// Sets the door to a default type associated with the given tile set.
         /// </summary>
-        public void SetDoorType(TileSet TileSetType)
+        public void SetDoorType(TileSet TileSetType, Level level)
         {
+            if (level != null && level.CurMakeData != null && level.CurMakeData.PieceSeed != null)
+                HitBoxPadding = level.Style.DoorHitBoxPadding;
+
             Core.MyTileSet = TileSetType;
 
             var info = TileSetType.MyTileSetInfo.Doors;
@@ -338,7 +344,7 @@ namespace CloudberryKingdom.InGameObjects
         {
             Core.Active = true;
             
-            SetDoorType(Core.MyTileSet);
+            SetDoorType(Core.MyTileSet, null);
 
             MyPressNote = null;
         }
@@ -428,7 +434,7 @@ namespace CloudberryKingdom.InGameObjects
         public static bool AllowCompControl = false;
         public override void Interact(Bob bob)
         {
-            if (Locked || OnOpen == null)
+            if (Locked || OnOpen == null || MyLevel.PlayMode != 0)
                 return;
 
             // Don't interact with code controlled Bobs
@@ -438,11 +444,14 @@ namespace CloudberryKingdom.InGameObjects
 
             float scale = bob.GetScale().X;
 
+            float x_pad = DoorSize.X + HitBoxPadding.X + Info.Doors.SizePadding.X + 22 + .018f * bob.Box.Current.Size.X + Math.Max(0, 36 * (scale - 1));
+            x_pad = CoreMath.Restrict(Math.Abs(bob.Core.Data.Velocity.X * 1.3f), 500, x_pad);
+            float y_pad = DoorSize.Y + HitBoxPadding.Y + Info.Doors.SizePadding.X + 50 + Math.Max(0, 80 * (scale - 1));
+
             bool InteractedWith = false;
-            if (((bob.MyObjectType is BobPhsxSpaceship &&
-                 (bob.Pos - Pos).LengthSquared() < 4300 + Math.Max(0, 1400 * (scale - 1))) ||
-                (Math.Abs(bob.Pos.X - Pos.X) < DoorSize.X + Info.Doors.SizePadding.X + 22 + .025f * bob.Box.Current.Size.X + Math.Max(0, 45 * (scale - 1)) &&
-                 Math.Abs(bob.Pos.Y - Pos.Y) < DoorSize.Y + Info.Doors.SizePadding.X + 50 + Math.Max(0, 80 * (scale - 1)))) &&
+            if ((
+                (Math.Abs(bob.Pos.X - Pos.X) < x_pad &&
+                 Math.Abs(bob.Pos.Y - Pos.Y) < y_pad)) &&
                 (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
             {
                 NearCount++;
@@ -494,6 +503,8 @@ namespace CloudberryKingdom.InGameObjects
             DoorA.MyQuad.Clone(MyQuad);
             Locked = DoorA.Locked;
             SuppressSound = DoorA.SuppressSound;
+
+            HitBoxPadding = DoorA.HitBoxPadding;
         }
 
         public override void Write(BinaryWriter writer)

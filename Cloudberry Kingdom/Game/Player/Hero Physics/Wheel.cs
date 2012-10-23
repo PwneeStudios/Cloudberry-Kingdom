@@ -199,6 +199,13 @@ namespace CloudberryKingdom
             SetDeathVel(DeathType);
         }
 
+        public override void ModData(ref Level.MakeData makeData, StyleData Style)
+        {
+            base.ModData(ref makeData, Style);
+
+            Style.DoorHitBoxPadding = new Vector2(25, 0);
+        }
+
         public override void ToSprites(Dictionary<int, SpriteAnim> SpriteAnims, Vector2 Padding)
         {
             ObjectClass Obj = MyBob.PlayerObject;

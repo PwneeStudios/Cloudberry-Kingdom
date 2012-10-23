@@ -6,46 +6,14 @@ using System;
 
 using Microsoft.Xna.Framework;
 
+using CoreEngine;
+using CoreEngine.Random;
+
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public class Set<T> : IEnumerable
-    {
-        public Dictionary<T, bool> dict = new Dictionary<T,bool>();
-
-        public int Count { get { return dict.Count; } }
-
-        public bool this[T item]
-        {
-            get { return dict.ContainsKey(item); }
-        }
-
-        public static Set<T> operator+(Set<T> set, T item)
-        {
-            if (!set.dict.ContainsKey(item))
-                set.dict.Add(item, true);
-
-            return set;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() { return dict.Keys.GetEnumerator(); }
-
-        public T Choose(Rand Rnd)
-        {
-            int i = Rnd.RndInt(0, dict.Count - 1);
-            return dict.ElementAt(i).Key;
-        }
-
-        public bool Contains(T item)
-        {
-            if (item == null) return true;
-            else return dict.ContainsKey(item);
-        }
-
-    }
-
     public class GameObject : ObjectBase
     {
         /// <summary>

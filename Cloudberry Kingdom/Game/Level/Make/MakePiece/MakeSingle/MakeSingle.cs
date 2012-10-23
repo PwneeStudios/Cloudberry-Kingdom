@@ -293,7 +293,7 @@ namespace CloudberryKingdom.Levels
             //door.Layered = LayeredDoor;
             door.StampAsUsed(0);
 
-            door.SetDoorType(BackdropTileset);
+            door.SetDoorType(BackdropTileset, this);
 
             AddObject(door);
 
@@ -1109,20 +1109,13 @@ namespace CloudberryKingdom.Levels
                 Step2 = CurPhsxStep;
                 PhsxStep(true);
             }
-            //Console.WriteLine("Stage 2 finished at " + CurPhsxStep.ToString());
         }
 
-
-        BSP_Line MyBSP;
         void Stage2Cleanup(Vector2 BL_Bound, Vector2 TR_Bound)
         {
             OverlapCleanup();
             CleanAllObjectLists();
             Sleep();
-
-            // Create the Binary Space Partition
-            //MyBSP = new BSP_Line(Objects);
-            MyBSP = null;
 
             // Limit general density of all obstacles.
             Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
@@ -1132,20 +1125,6 @@ namespace CloudberryKingdom.Levels
             }, true, BL_Bound, TR_Bound);
             Sleep();
 
-            // Kill the BSP
-            MyBSP = null;
-
-            // Note:
-            // Eventually you should pass the BSP object directly to the cleanup.
-            // This way Firespinner cleanup could have an exclusively firespinner BSP.
-
-
-
-            /*Cleanup(ObjectType.Coin, delegate(Vector2 pos)
-            {
-                return new Vector2(180, 180);
-            }, BL_Bound, TR_Bound + new Vector2(500, 0));
-            Sleep();*/
             foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;

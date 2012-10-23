@@ -33,7 +33,7 @@ namespace CloudberryKingdom
             if (!Text)
             {
 #if PC_VERSION
-                if (Selected && Tools.CurMouseState.LeftButton == ButtonState.Pressed)
+                if (Selected && Tools.Mouse.LeftButton == ButtonState.Pressed)
                     Slider.Quad.MyTexture = Held;
                 else
                     Slider.Quad.MyTexture = Normal;

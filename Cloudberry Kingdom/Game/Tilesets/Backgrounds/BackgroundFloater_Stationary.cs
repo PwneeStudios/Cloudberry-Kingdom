@@ -13,11 +13,6 @@ namespace CloudberryKingdom
         {
         }
 
-        public BackgroundFloater_Stationary(Level level, string Root)
-            : base(level, Root)
-        {
-        }
-
         public override void PhsxStep(BackgroundFloaterList list)
         {
         }

@@ -602,6 +602,13 @@ namespace CloudberryKingdom
             // Pre load. This happens before anything appears.
             LoadAssets(true);
 
+            // Initialize players
+            PlayerManager.Init();
+
+            // Load saved files
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            SaveGroup.Initialize();
+
             // Benchmarking and preprocessing
             //PreprocessArt();
             //BenchmarkAll();
@@ -615,9 +622,10 @@ namespace CloudberryKingdom
 
             // Load resource thread
 #if !DEBUG
-            MainVideo.Load(UserPowers.CanSkipLogo);
+            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
 #endif
             //MainVideo.Load(true);
+            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
 
             LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
@@ -629,13 +637,6 @@ namespace CloudberryKingdom
             Thread.SpinWait(100);
 
             Tools.Write("Start");
-
-            // Initialize players
-            PlayerManager.Init();
-
-            // Load saved files
-            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-            SaveGroup.Initialize();
 
             // Initialize the Gamepads
             Tools.GamepadState = new GamePadState[4];
@@ -782,19 +783,15 @@ namespace CloudberryKingdom
         protected void PhsxStep()
         {
             DoToDoList();
-
 #if WINDOWS
-            // Save the current keyboard state.
-            if (Tools.PrevKeyboardState == null) Tools.PrevKeyboardState = Tools.keybState;
-
-            // Debug tools
 #if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
+            // Debug tools
             if (DebugModePhsx())
                 return;
 #endif
 
             // Do game update.
-            if (!Tools.StepControl || (Tools.keybState.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Enter)))
+            if (!Tools.StepControl || (Tools.Keyboard.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Enter)))
             {
                 DoGameDataPhsx();
             }
@@ -805,20 +802,6 @@ namespace CloudberryKingdom
             // Quick Spawn
             CheckForQuickSpawn_PC();
 #endif
-            // Determine if the mouse is in the window or not.
-            Tools.MouseInWindow =
-                Tools.CurMouseState.X > 0 && Tools.CurMouseState.X < Resolution.Backbuffer.X &&
-                Tools.CurMouseState.Y > 0 && Tools.CurMouseState.Y < Resolution.Backbuffer.Y;
-
-            // Calculate how much user has scrolled the mouse wheel and moved the mouse.
-            Tools.DeltaScroll = Tools.CurMouseState.ScrollWheelValue - Tools.PrevMouseState.ScrollWheelValue;
-            Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y), Tools.CurLevel.MainCamera) -
-                               Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y), Tools.CurLevel.MainCamera);
-            Tools.RawDeltaMouse = new Vector2(Tools.CurMouseState.X, Tools.CurMouseState.Y) -
-                                  new Vector2(Tools.PrevMouseState.X, Tools.PrevMouseState.Y);
-
-            Tools.PrevKeyboardState = Tools.keybState;
-            Tools.PrevMouseState = Tools.CurMouseState;
 #else
             DoGameDataPhsx();
 #endif
@@ -826,15 +809,13 @@ namespace CloudberryKingdom
             // Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
             CheckForQuickSpawn_Xbox();
 
-            // Store the previous states of the Xbox controllers.
-            for (int i = 0; i < 4; i++)
-                if (Tools.PrevGamepadState[i] != null)
-                    Tools.PrevGamepadState[i] = Tools.GamepadState[i];
+            // Finish updating the controlls; swap current to previous.
+            ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Resolution);
 
             // Update the fireball textures.
             Fireball.TexturePhsx();
         }
-
+        
 #if WINDOWS
         private void CheckForQuickSpawn_PC()
         {
@@ -842,7 +823,7 @@ namespace CloudberryKingdom
             Tools.Warning();
 
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() &&
-                Tools.keybState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboardState.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
+                Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 DoQuickSpawn();
         }
 #endif
@@ -1061,13 +1042,13 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         private void GameUpdate(GameTime gameTime)
         {
-            // Do nothing if editors are open.
 #if WINDOWS
+            // Do nothing if editors are open.
             if (Tools.Dlg != null || Tools.DialogUp) return;
 #endif
 
             // Update controller/keyboard states
-            ButtonCheck.UpdateControllerAndKeyboard();
+            ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
 
             // Update sounds
             if (!LogoScreenUp)

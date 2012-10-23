@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 
-namespace CloudberryKingdom
+using CoreEngine.Random;
+
+using CloudberryKingdom;
+
+namespace CoreEngine.Random
 {
     public class Rand
     {
@@ -11,10 +16,10 @@ namespace CloudberryKingdom
         public Rand(int seed)
         {
             MySeed = seed;
-            Rnd = new Random(MySeed);
+            Rnd = new System.Random(MySeed);
         }
 
-        public Random Rnd;
+        public System.Random Rnd;
 
         public Vector2 RndPos(Vector2 BL, Vector2 TR)
         {

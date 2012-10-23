@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
+using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Particles;
@@ -237,9 +238,10 @@ namespace CloudberryKingdom.Obstacles
             for (int k = 0; k < 20; k++)
             {
                 var p = level.MainEmitter.GetNewParticle(ExplodeTemplate);
+                
                 Vector2 Dir = Rnd.RndDir();
+
                 p.Data.Position = pos + 23 * Dir * Scale;
-                //p.Data.Velocity = 4 * (float)Rnd.Rnd.NextDouble() * Dir;
                 p.Data.Velocity = Scale * 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
                 p.Data.Acceleration = -.045f * p.Data.Velocity;
                 p.Data.Velocity += vel;

@@ -80,24 +80,6 @@ namespace CloudberryKingdom
                 Lists[i].Absorb(collection.Lists[i]);
         }
 
-        public void FromInfoWad(string Root, Vector2 BL, Vector2 TR, Level level)
-        {
-            int NumLists = (int)InfoWad.GetFloat(Root + "_Num");
-
-            for (int i = 0; i < NumLists; i++)
-            {
-                BackgroundFloaterList NewList = new BackgroundFloaterList();
-                NewList.Init(Root + "_" + i.ToString(), BL, TR, level);
-
-                if (i < Lists.Count)
-                {
-                    Lists[i].Absorb(NewList);
-                }
-                else
-                    Lists.Add(NewList);
-            }
-        }
-
         public void DrawLayer(int Layer)
         {
             if (Layer < Lists.Count)

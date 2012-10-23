@@ -9,14 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-#if PC_VERSION
-#else
-
-#endif
 using Microsoft.Xna.Framework.Graphics;
 using XnaInput = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using CoreEngine;
+using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
@@ -685,8 +683,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static int UpgradeTypes = Tools.GetValues<Upgrade>().Count();//Enum.GetValues(typeof(Upgrade)).Length;
 
 #if WINDOWS
-        public static XnaInput.KeyboardState keybState, PrevKeyboardState;
-        public static XnaInput.MouseState CurMouseState, PrevMouseState;
+        public static XnaInput.KeyboardState Keyboard, PrevKeyboard;
+        public static XnaInput.MouseState Mouse, PrevMouse;
         public static Vector2 DeltaMouse, RawDeltaMouse;
         public static int DeltaScroll;
         public static bool MouseInWindow = false;
@@ -694,7 +692,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static Vector2 MousePos
         {
-            get { return new Vector2(CurMouseState.X, CurMouseState.Y) / Tools.Render.SpriteScaling; }
+            get { return new Vector2(Mouse.X, Mouse.Y) / Tools.Render.SpriteScaling; }
             set { XnaInput.Mouse.SetPosition((int)(value.X * Tools.Render.SpriteScaling), (int)(value.Y * Tools.Render.SpriteScaling)); }
         }
 
@@ -729,12 +727,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// <summary>
         /// Whether the left mouse button is currently down.
         /// </summary>
-        public static bool CurMouseDown() { return CurMouseState.LeftButton == XnaInput.ButtonState.Pressed; }
+        public static bool CurMouseDown() { return Mouse.LeftButton == XnaInput.ButtonState.Pressed; }
         
         /// <summary>
         /// Whether the left mouse button was down on the last frame.
         /// </summary>
-        public static bool PrevMouseDown() { return PrevMouseState.LeftButton == XnaInput.ButtonState.Pressed; }
+        public static bool PrevMouseDown() { return PrevMouse.LeftButton == XnaInput.ButtonState.Pressed; }
 
         /// <summary>
         /// True when the left mouse button was pressed and released.
@@ -759,12 +757,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// <summary>
         /// Whether the left RightMouse button is currently down.
         /// </summary>
-        public static bool CurRightMouseDown() { return CurMouseState.RightButton == XnaInput.ButtonState.Pressed; }
+        public static bool CurRightMouseDown() { return Mouse.RightButton == XnaInput.ButtonState.Pressed; }
 
         /// <summary>
         /// Whether the left RightMouse button was down on the last frame.
         /// </summary>
-        public static bool PrevRightMouseDown() { return PrevMouseState.RightButton == XnaInput.ButtonState.Pressed; }
+        public static bool PrevRightMouseDown() { return PrevMouse.RightButton == XnaInput.ButtonState.Pressed; }
 
         /// <summary>
         /// True when the left RightMouse button was pressed and released.
@@ -786,15 +784,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool ShiftDown()
         {
             return
-                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) ||
-                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) ||
+                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
         }
 
         public static bool CntrlDown()
         {
             return
-                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) ||
-                Tools.keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl);
+                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) ||
+                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl);
         }
 
         public static string RemoveAfter(string s, string occurence)
@@ -1769,15 +1767,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         }
 
         /// <summary>
-        /// Increases the number of phsx steps taken per frame.
-        /// </summary>
-        public static void IncrPhsxSpeed()
-        {
-            Tools.PhsxSpeed += 1;
-            if (Tools.PhsxSpeed > 3) Tools.PhsxSpeed = 0;
-        }
-
-        /// <summary>
         /// Returns the number of elements in an enumeration.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1786,7 +1775,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             return GetValues<T>().Count();
         }
-
 
         public static IEnumerable<T> GetValues<T>()
         {
@@ -1802,6 +1790,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
         }
 
 
+        /// <summary>
+        /// Increases the number of phsx steps taken per frame.
+        /// </summary>
+        public static void IncrPhsxSpeed()
+        {
+            Tools.PhsxSpeed += 1;
+            if (Tools.PhsxSpeed > 3) Tools.PhsxSpeed = 0;
+        }
 
         /// <summary>
         /// Moves the object to the specified location. Uses IObject.Move

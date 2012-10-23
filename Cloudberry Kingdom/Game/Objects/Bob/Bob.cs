@@ -932,19 +932,19 @@ namespace CloudberryKingdom.Bobs
 
             //if (MyPlayerIndex == PlayerIndex.One)
             {
-                CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Up);
-                CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary);
+                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(Keys.Up);
+                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary);
                 KeyboardDir.X = KeyboardDir.Y = 0;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
-                if (Tools.keybState.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
-                if (Tools.keybState.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
-                if (Tools.keybState.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
-                if (Tools.keybState.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
                 //CurInput.B_Button |= Tools.keybState.IsKeyDownCustom(Keys.C);
-                CurInput.B_Button |= Tools.keybState.IsKeyDownCustom(ButtonCheck.Back_Secondary);
+                CurInput.B_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Back_Secondary);
             }
 
             //if (MyPlayerIndex == PlayerIndex.Two)

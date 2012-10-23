@@ -797,7 +797,7 @@ namespace CloudberryKingdom.Viewer
                 PasteFloater();
 
             // Escape to deselect
-            if (Tools.keybState.IsKeyDown(XnaInput.Keys.Escape))
+            if (Tools.Keyboard.IsKeyDown(XnaInput.Keys.Escape))
                 DeselectAll();
 
             // Delete

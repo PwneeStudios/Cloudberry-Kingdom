@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using CoreEngine.Random;
+
 namespace CloudberryKingdom.Levels
 {
     public class OneScreenData : StyleData

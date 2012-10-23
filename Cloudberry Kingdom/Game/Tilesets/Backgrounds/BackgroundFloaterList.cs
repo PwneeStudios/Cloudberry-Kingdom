@@ -148,15 +148,6 @@ namespace CloudberryKingdom
 
         public bool DoPreDraw = false;
 
-        public void Init(string Root, Vector2 BL, Vector2 TR, Level level)
-        {
-            MyLevel = level;
-
-            Parallax = InfoWad.GetFloat(Root + "_Parralax");
-
-            BackgroundFloater.AddSpan(Root, Floaters, BL, TR, MyLevel);
-        }
-
         public override string[] GetViewables() { return new string[] { "Name", "Parallax", "Floaters", "Fixed", "Foreground", "DoPreDraw" }; }
     }
 }

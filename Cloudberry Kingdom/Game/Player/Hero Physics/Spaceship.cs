@@ -385,6 +385,8 @@ namespace CloudberryKingdom
             Style.BlockFillType = StyleData._BlockFillType.Invertable;
             Style.OverlapCleanupType = StyleData._OverlapCleanupType.Sophisticated;
 
+            Style.DoorHitBoxPadding = new Vector2(-60, 0);
+
             Style.MinBlockDist = 250;
             Style.RemovedUnusedOverlappingBlocks = true;
             Style.RemoveBlockOnOverlap = true;

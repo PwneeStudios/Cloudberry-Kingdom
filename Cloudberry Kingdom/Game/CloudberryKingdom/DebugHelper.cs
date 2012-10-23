@@ -30,7 +30,7 @@ namespace CloudberryKingdom
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {
                 // Test title screen
-                if (Tools.keybState.IsKeyDown(Keys.G) && !Tools.PrevKeyboardState.IsKeyDown(Keys.G))
+                if (Tools.Keyboard.IsKeyDown(Keys.G) && !Tools.PrevKeyboard.IsKeyDown(Keys.G))
                 {
                     //TitleGameFactory = TitleGameData_Intense.Factory;
                     TitleGameFactory = TitleGameData_MW.Factory;
@@ -42,7 +42,7 @@ namespace CloudberryKingdom
                 }
 
                 // Test title screen
-                if (Tools.keybState.IsKeyDown(Keys.H) && !Tools.PrevKeyboardState.IsKeyDown(Keys.H))
+                if (Tools.Keyboard.IsKeyDown(Keys.H) && !Tools.PrevKeyboard.IsKeyDown(Keys.H))
                 {
                     //TitleGameFactory = TitleGameData_Intense.Factory;
                     //TitleGameFactory = TitleGameData_MW.Factory;
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
                     return true;
                 }
 
-                if (Tools.keybState.IsKeyDown(Keys.J) && !Tools.PrevKeyboardState.IsKeyDown(Keys.J))
+                if (Tools.Keyboard.IsKeyDown(Keys.J) && !Tools.PrevKeyboard.IsKeyDown(Keys.J))
                 {
                     Tools.CurGameData.FadeToBlack();
                 }
@@ -67,7 +67,7 @@ namespace CloudberryKingdom
 
             // Game Obj Viewer
             if (!Tools.ViewerIsUp && (!KeyboardExtension.Freeze || Tools.CntrlDown()) && (Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
-                && Tools.keybState.IsKeyDown(Keys.B) && !Tools.PrevKeyboardState.IsKeyDown(Keys.B))
+                && Tools.Keyboard.IsKeyDown(Keys.B) && !Tools.PrevKeyboard.IsKeyDown(Keys.B))
             {
                 Tools.gameobj_viewer = new Viewer.GameObjViewer();
                 Tools.gameobj_viewer.Show();
@@ -82,7 +82,7 @@ namespace CloudberryKingdom
 
             // Background viewer
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && (Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
-                && Tools.keybState.IsKeyDown(Keys.V) && !Tools.PrevKeyboardState.IsKeyDown(Keys.V))
+                && Tools.Keyboard.IsKeyDown(Keys.V) && !Tools.PrevKeyboard.IsKeyDown(Keys.V))
             {
                 Tools.background_viewer = new Viewer.BackgroundViewer();
                 Tools.background_viewer.Show();
@@ -95,7 +95,7 @@ namespace CloudberryKingdom
                     Tools.background_viewer.Input();
             }
 
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.keybState.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.F))
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.Keyboard.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.F))
                 ShowFPS = !ShowFPS;
 #endif
 
@@ -103,10 +103,10 @@ namespace CloudberryKingdom
             if (Tools.FreeCam)
             {
                 Vector2 pos = Tools.CurLevel.MainCamera.Data.Position;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Right)) pos.X += 130;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Left)) pos.X -= 130;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Up)) pos.Y += 130;
-                if (Tools.keybState.IsKeyDownCustom(Keys.Down)) pos.Y -= 130;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) pos.X += 130;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) pos.X -= 130;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) pos.Y += 130;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) pos.Y -= 130;
                 Tools.CurLevel.MainCamera.EffectivePos += pos - Tools.CurLevel.MainCamera.Data.Position;
                 Tools.CurLevel.MainCamera.Data.Position = Tools.CurLevel.MainCamera.Target = pos;
                 Tools.CurLevel.MainCamera.Update();
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
 #endif
 
             // Reload some dynamic data (tileset info, animation specifications).
-            if (Tools.keybState.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.X))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.X))
             {
 #if INCLUDE_EDITOR
                 if (LoadDynamic)
@@ -141,7 +141,7 @@ namespace CloudberryKingdom
 
 #if DEBUG
             // Reload ALL dynamic data (tileset info, animation specifications, dynamic art, backgrounds).
-            if (Tools.keybState.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Z))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Z) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Z))
             {
                 foreach (var hero in Bob.HeroTypes)
                     hero.ResetInfo();
@@ -163,13 +163,13 @@ namespace CloudberryKingdom
 #endif
 
             // Turn on a simple green screen background.
-            if (Tools.keybState.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D9))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D9))
                 Background.GreenScreen = !Background.GreenScreen;
 
             Tools.ModNums();
 
             // Load a test level.
-            if (Tools.keybState.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D5))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.D5) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D5))
             {
                 GameData.LockLevelStart = false;
                 LevelSeedData.ForcedReturnEarly = 0;
@@ -183,7 +183,7 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(Keys.D7).Pressed) HideForeground = !HideForeground;
 
             // Turn on/off immortality.
-            if (Tools.keybState.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.O))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)
                 {
@@ -192,16 +192,16 @@ namespace CloudberryKingdom
             }
 
             // Turn on/off graphics.
-            if (Tools.keybState.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.Q))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Q))
                 Tools.DrawGraphics = !Tools.DrawGraphics;
             // Turn on/off drawing of collision detection boxes.
-            if (Tools.keybState.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.W))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.W))
                 Tools.DrawBoxes = !Tools.DrawBoxes;
             // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
-            if (Tools.keybState.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.E))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.E))
                 Tools.StepControl = !Tools.StepControl;
             // Modify the speed of the game.
-            if (Tools.keybState.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.R))
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.R))
             {
                 Tools.IncrPhsxSpeed();
             }
@@ -210,7 +210,7 @@ namespace CloudberryKingdom
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {
                 // Watch the computer make a level during Stage 1 of construction.
-                if (Tools.keybState.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D3))
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D3))
                 {
                     GameData.LockLevelStart = false;
                     LevelSeedData.ForcedReturnEarly = 1;
@@ -218,7 +218,7 @@ namespace CloudberryKingdom
                 }
 
                 // Watch the computer make a level during Stage 2 of construction.
-                if (Tools.keybState.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.D4))
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.D4) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D4))
                 {
                     GameData.LockLevelStart = false;
                     LevelSeedData.ForcedReturnEarly = 2;
@@ -226,19 +226,19 @@ namespace CloudberryKingdom
                 }
 
                 // Zoom in and out.
-                if (Tools.keybState.IsKeyDownCustom(Keys.OemComma))
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.OemComma))
                 {
                     Tools.CurLevel.MainCamera.Zoom *= .99f;
                     Tools.CurLevel.MainCamera.EffectiveZoom *= .99f;
                 }
-                if (Tools.keybState.IsKeyDownCustom(Keys.OemPeriod))
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.OemPeriod))
                 {
                     Tools.CurLevel.MainCamera.Zoom /= .99f;
                     Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
                 }
 
                 // Turn on/off FreeCam, which allows the user to pan the camera through the level freely.
-                if (Tools.keybState.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboardState.IsKeyDownCustom(Keys.P))
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
                     Tools.FreeCam = !Tools.FreeCam;
             }
 

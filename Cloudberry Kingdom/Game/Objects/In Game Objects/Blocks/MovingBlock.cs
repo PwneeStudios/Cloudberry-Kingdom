@@ -167,19 +167,16 @@ namespace CloudberryKingdom.Blocks
             {
                 if (!Active) return;
                                 
-                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
+                if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X + 50 || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 100)
                     DrawSelf = false;
-                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
+                if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X - 50 || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 100)
                     DrawSelf = false;
             }
 
             if (DrawSelf)
             {
                 if (Tools.DrawBoxes)
-                {
-                    //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
                     MyBox.DrawFilled(Tools.QDrawer, Color.DarkBlue);
-                }
             }
 
             if (Tools.DrawGraphics)

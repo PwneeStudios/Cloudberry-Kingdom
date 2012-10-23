@@ -1,8 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using CoreEngine;
+
 using Microsoft.Xna.Framework;
+
+using CoreEngine;
+using CoreEngine.Random;
+
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;

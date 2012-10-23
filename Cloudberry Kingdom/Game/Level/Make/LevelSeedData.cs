@@ -4,8 +4,10 @@ using System.Linq;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Levels;
 using CoreEngine;
+using CoreEngine.Random;
+
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {

@@ -7,13 +7,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using CoreEngine;
+using CoreEngine.Random;
+
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Particles;
 using CloudberryKingdom.InGameObjects;
 using CloudberryKingdom.Blocks;
-
-using CoreEngine;
 
 namespace CloudberryKingdom.Levels
 {
@@ -1700,18 +1701,7 @@ namespace CloudberryKingdom.Levels
 
                 if (!obj.Core.GenData.LimitDensity) continue;
 
-                // If no BSP check against all objects
-                if (MyBSP == null)
-                    CheckAgainst(obj, ObjList, MinDistFunc, metric, MustBeDifferent);
-                else
-                {
-                    // Otherwise only check for objects known to be close
-                    int j1 = -1, j2 = -1;
-                    MyBSP.GetIndexBounds(obj.Core.Data.Position, ref j1, ref j2);
-
-                    for (int j = j1; j <= j2; j++)
-                        CheckAgainst(obj, MyBSP.Grid[j], MinDistFunc, metric, MustBeDifferent);
-                }
+                CheckAgainst(obj, ObjList, MinDistFunc, metric, MustBeDifferent);
             }
         }
 

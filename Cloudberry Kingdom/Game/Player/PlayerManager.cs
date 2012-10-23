@@ -27,7 +27,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether the user can skip the logo salad.
         /// </summary>
-        public static bool CanSkipLogo = false;
+        public static Set<string> WatchedVideo = new Set<string>();
 
         /// <summary>
         /// Set the value of a variable and make sure the variable is persisted to disk.
@@ -35,6 +35,11 @@ namespace CloudberryKingdom
         public static void Set(ref bool variable, bool value)
         {
             variable = value;
+            SetToSave();
+        }
+
+        public static void SetToSave()
+        {
             PlayerManager.SavePlayerData.Changed = true;
         }
     }
@@ -61,7 +66,10 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 1, HeroRush_Tutorial.HasWatchedOnce);
             Chunk.WriteSingle(writer, 2, Hints.QuickSpawnNum);
             Chunk.WriteSingle(writer, 3, Hints.YForHelpNum);
-            Chunk.WriteSingle(writer, 4, UserPowers.CanSkipLogo);
+            
+            // Save the names of videos the user has already watched.
+            foreach (var video in UserPowers.WatchedVideo)
+                Chunk.WriteSingle(writer, 5, video);
         }
 
         protected override void Deserialize(byte[] Data)
@@ -74,7 +82,13 @@ namespace CloudberryKingdom
                     case 1: chunk.ReadSingle(ref HeroRush_Tutorial.HasWatchedOnce); break;
                     case 2: chunk.ReadSingle(ref Hints.QuickSpawnNum); break;
                     case 3: chunk.ReadSingle(ref Hints.YForHelpNum); break;
-                    case 4: chunk.ReadSingle(ref UserPowers.CanSkipLogo); break;
+                    
+                    // Load the names of videos the user has already watched.
+                    case 5:
+                        string VideoName = null;
+                        chunk.ReadSingle(ref VideoName);
+                        UserPowers.WatchedVideo += VideoName;
+                        break;
                 }
             }
         }

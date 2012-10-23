@@ -35,7 +35,8 @@ namespace CloudberryKingdom
  	        base.Init();
 
             //DelayToAllowInput = 80;
-            DelayToAllowInput = 50;
+            //DelayToAllowInput = 50;
+            DelayToAllowInput = 15;
 
             CallDelay = ReturnToCallerDelay = 0;
 

@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
+using CoreEngine;
+using CoreEngine.Random;
 
 namespace CloudberryKingdom.Levels
 {
@@ -64,6 +68,8 @@ namespace CloudberryKingdom.Levels
         /// The length of time the computer waits at the beginning of the level.
         /// </summary>
         public Vector2 ComputerWaitLengthRange = new Vector2(15, 36);//50);
+
+        public Vector2 DoorHitBoxPadding = Vector2.Zero;
 
         public enum FinalPlatsType { Door, DarkBottom };
         public FinalPlatsType MyFinalPlatsType = FinalPlatsType.Door;

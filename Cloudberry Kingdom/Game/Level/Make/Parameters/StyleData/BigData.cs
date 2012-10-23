@@ -1,4 +1,7 @@
-﻿namespace CloudberryKingdom.Levels
+﻿using CoreEngine;
+using CoreEngine.Random;
+
+namespace CloudberryKingdom.Levels
 {
     public class BigData : StyleData
     {

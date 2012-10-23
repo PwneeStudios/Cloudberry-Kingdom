@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +26,21 @@ namespace CloudberryKingdom
 
         static bool CanSkip;
 
-        public static void Load(bool CanSkipVideo)
+        public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
-            CanSkip = CanSkipVideo;
+            CanSkip = UserPowers.WatchedVideo[MovieName];
+            StartVideo(MovieName, CanSkip);
+        }
+
+        public static void StartVideo(string MovieName, bool CanSkipVideo)
+        {
+            UserPowers.WatchedVideo += MovieName;
+            UserPowers.SetToSave();
 
             Playing = true;
             Cleaned = false;
 
-            CurrentVideo = Tools.GameClass.Content.Load<Video>("Movies//LogoSalad");
+            CurrentVideo = Tools.GameClass.Content.Load<Video>(Path.Combine("Movies", MovieName));
 
             VPlayer = new VideoPlayer();
             VPlayer.IsLooped = false;
@@ -54,9 +62,16 @@ namespace CloudberryKingdom
         public static void UserInput()
         {
             // End the video if the user presses a key
-            Playing = false;
-            if (CanSkip && PlayerManager.Players != null && ElapsedTime() > 1 && ButtonCheck.AnyKey())
-                Playing = false;
+            //Playing = false;
+            if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f)
+            {
+                ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+
+                if (ButtonCheck.AnyKey())
+                    Playing = false;
+
+                ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Tools.TheGame.Resolution);
+            }
         }
 
         public static bool Draw()

@@ -16,7 +16,7 @@ namespace CloudberryKingdom
 
         public override List<Upgrade> GetUpgradeList()
         {
-            return new List<Upgrade>(new Upgrade[] { Upgrade.FlyBlob, Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine });
+            return new List<Upgrade>(new Upgrade[] { Upgrade.FlyBlob, Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine, Upgrade.Fireball });
         }
 
         protected override void Go()

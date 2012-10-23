@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 using CoreEngine;
+using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;

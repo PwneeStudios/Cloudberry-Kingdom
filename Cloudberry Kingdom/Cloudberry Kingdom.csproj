@@ -13,9 +13,8 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaCrossPlatformGroupID>de5e9eb9-8936-4d51-947e-032e8faf63fd</XnaCrossPlatformGroupID>
-    <ApplicationIcon>Big.ico</ApplicationIcon>
-    <Thumbnail>
-    </Thumbnail>
+    <ApplicationIcon>Cloudberry.ico</ApplicationIcon>
+    <Thumbnail>BobIcon.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>528E677AEC1BCA314EEA5B3336002A83C917FCEA</ManifestCertificateThumbprint>
     <ManifestKeyFile>WindowsGame1_TemporaryKey.pfx</ManifestKeyFile>
@@ -185,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Tools\Set.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />
     <Compile Include="Core\ResolutionGroup.cs" />
     <Compile Include="Core\Texture\EzTextureWad_Dynamic.cs" />
@@ -319,7 +319,6 @@
     <Compile Include="Game\Player\Hero Physics\Braid.cs" />
     <Compile Include="Core\Animation\AnimationData_Integer.cs" />
     <Compile Include="Core\Animation\AnimQueue.cs" />
-    <Compile Include="Game\Tools\BmpWriter.cs" />
     <Compile Include="Core\PhsxData.cs" />
     <Compile Include="Core\Sound\EzSound.cs" />
     <Compile Include="Core\Effects\EzEffect.cs" />
@@ -609,7 +608,6 @@
     <Compile Include="Core\Graphics\Draw\Object\ObjectClass.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\Quad.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Fireball.cs" />
-    <None Include="WindowsGame1_TemporaryKey.pfx" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Block.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\BlockEmitter.cs" />
     <Compile Include="Game\Objects\Bob\Bob.cs" />
@@ -625,16 +623,13 @@
     <Compile Include="Game\Collision Detection\AABox.cs" />
     <Compile Include="Game\Collision Detection\Line.cs" />
     <Compile Include="Game\Collision Detection\FloatRectangle.cs" />
-    <Compile Include="Game\Tools\BSP.cs" />
-    <Compile Include="Game\Tools\InfoWad2.cs" />
-    <Compile Include="Game\Tools\Random.cs" />
+    <Compile Include="Core\Tools\Random.cs" />
     <Compile Include="Game\Tools\TextInput.cs" />
     <Compile Include="Game\Tools\EzStorage.cs" />
     <Compile Include="Game\Tools\Oscillate.cs" />
     <Compile Include="Game\Tools\IntVector2.cs" />
     <Compile Include="Game\Tools\EzReader.cs" />
     <Compile Include="Game\Tools\Globals.cs" />
-    <Compile Include="Game\Tools\InfoWad.cs" />
     <Compile Include="Game\Objects\ObjectBase.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser.cs" />
     <Compile Include="Game\Level\Level.cs" />
@@ -666,10 +661,6 @@
     <Compile Include="__Editors\GUI Editor\GameObjViewer.Designer.cs">
       <DependentUpon>GameObjViewer.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Big.ico" />
-    <Content Include="Big128.png" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
@@ -749,7 +740,11 @@
       <DependentUpon>GameObjViewer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="BobIcon.ico" />
+    <Content Include="BobIcon.png" />
+    <Content Include="Cloudberry.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Content\Content.contentproj">
       <Project>{CE0C1B81-ECEF-490F-933A-E4E696B5E486}</Project>
