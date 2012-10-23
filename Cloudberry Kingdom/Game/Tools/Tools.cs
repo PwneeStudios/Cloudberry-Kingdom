@@ -688,7 +688,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static Vector2 DeltaMouse, RawDeltaMouse;
         public static int DeltaScroll;
         public static bool MouseInWindow = false;
-        public static bool Editing;
 
         public static Vector2 MousePos
         {

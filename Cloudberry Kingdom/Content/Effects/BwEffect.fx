@@ -224,24 +224,6 @@ technique Simplest
     }
 }
 
-technique Suck
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER SuckVertexShader();
-        PixelShader = compile PIXEL_SHADER BwPixelShader();
-    }
-}
-
-technique PushOut
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER PushOutVertexShader();
-        PixelShader = compile PIXEL_SHADER BwPixelShader();
-    }
-}
-
 technique PivotTechnique
 {
     pass Pass0

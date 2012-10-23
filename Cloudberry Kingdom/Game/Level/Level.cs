@@ -553,7 +553,6 @@ namespace CloudberryKingdom.Levels
             return null;
         }
 
-        //public int GetPhsxStep() { return CurPhsxStep + StartPhsxStep + 1; }
         public int GetPhsxStep() { return CurPhsxStep + 1; }
         public float GetIndependentPhsxStep() { return IndependentPhsxStep + 1; }
 
@@ -1244,56 +1243,6 @@ namespace CloudberryKingdom.Levels
             Bobs.Add(bob);
         }
 
-        static bool DoingSuck = false;
-        public static void StartSuck()
-        {
-            SuckT = 0;
-            DoingSuck = true;
-        }
-
-        public static void EndSuck()
-        {
-            DoingSuck = false;
-            EndSuckEffect();
-        }
-
-        public static float SuckT = 0;
-        static float SuckTime()
-        {
-            float speed = 1.85f;// 1.6;
-            //return (float)(1f - Math.Cos(speed * SuckT * 3.14159f)) / 2;
-            return (float)(1f - Math.Cos(SuckT * 3.14159f)) / 2;
-        }
-
-        static bool SuckActivated = false;
-        public static void EnsureSuckEffect()
-        {
-            //if (ButtonCheck.State(Microsoft.Xna.Framework.Input.Keys.N).Down)
-            //    StartSuck();
-            if (SuckT > 2)
-                EndSuck();
-            SuckT += .165f * Tools.dt;
-
-            if (DoingSuck && !SuckActivated)
-            {
-                Tools.QDrawer.Flush();
-                //Tools.BasicEffect.effect.CurrentTechnique = Tools.BasicEffect.effect.Techniques["Suck"];
-                Tools.BasicEffect.effect.CurrentTechnique = Tools.BasicEffect.effect.Techniques["PushOut"];
-                Tools.BasicEffect.effect.Parameters["SuckTime"].SetValue(SuckTime());
-                SuckActivated = true;
-            }
-        }
-
-        public static void EndSuckEffect()
-        {
-            if (SuckActivated)
-            {
-                Tools.QDrawer.Flush();
-                Tools.BasicEffect.effect.CurrentTechnique = Tools.BasicEffect.Simplest;
-                SuckActivated = false;
-            }
-        }
-
         /// <summary>
         /// While the level is drawing this is the current draw layer being drawn.
         /// </summary>
@@ -1318,15 +1267,9 @@ namespace CloudberryKingdom.Levels
 
 
             foreach (ObjectBase obj in DrawLayer[i])
-                if (obj.Core.Show
-#if WINDOWS
-                    || Tools.Editing)
-#else
-                    )
-#endif
-                {
+                if (obj.Core.Show)
                     obj.Draw();
-                }
+
             Tools.QDrawer.Flush();
 
             if (MyGame != null && MyGame.DrawObjectText)
@@ -1343,22 +1286,15 @@ namespace CloudberryKingdom.Levels
                 {
                     if (Player.Core.DrawLayer == i && Player.MyBobLinks != null)
                         foreach (BobLink link in Player.MyBobLinks)
-                        {
-                            EndSuckEffect();
                             link.Draw();
-                        }
                 }
 
                 foreach (Bob Bob in Bobs)
                 {
                     if (Bob.DrawWithLevel && Bob.Core.DrawLayer == i)
-                    {
-                        EndSuckEffect();
                         Bob.Draw();
-                    }
                 }
                 Tools.QDrawer.Flush();
-                EnsureSuckEffect();
             }
 
             if (!NoParticles)
@@ -1489,9 +1425,6 @@ namespace CloudberryKingdom.Levels
             if (UseLighting)
                 PrepareLighting();
 
-            EnsureSuckEffect();
-            EndSuckEffect();
-
             if (MyBackground != null && Tools.DrawGraphics)
             {
                 if (Background.GreenScreen)
@@ -1502,8 +1435,6 @@ namespace CloudberryKingdom.Levels
 
             if (CloudberryKingdomGame.HideForeground) return;
             if (MyGame != null) MyGame.PreDraw();
-
-            EnsureSuckEffect();
 
             MainCamera.SetVertexCamera();
 
@@ -1570,7 +1501,6 @@ namespace CloudberryKingdom.Levels
         public void AddLevelBlocks(Level level)
         {
             foreach (BlockBase block in level.Blocks) AddBlock(block);
-            //level.RemoveForeignObjects();
         }
         public void AddLevelBlocks(Level level, int Tag)
         {
@@ -1580,12 +1510,10 @@ namespace CloudberryKingdom.Levels
         public void AddLevelObjects(Level level)
         {
             AddLevelObjects(level, new Vector2(-10000000, -100000000), new Vector2(10000000, 10000000));
-            //level.RemoveForeignObjects();
         }
         public void AddLevelObjects(Level level, Vector2 p1, Vector2 p2)
         {
             foreach (ObjectBase obj in level.Objects) if (IsBetween(obj.Core.Data.Position, p1, p2) && !obj.Core.DoNotScrollOut) AddObject(obj, false);
-            //level.RemoveForeignObjects();
         }
         public void AddLevelObjects(Level level, int Tag)
         {
@@ -1620,7 +1548,6 @@ namespace CloudberryKingdom.Levels
 
             AbsorbLevelVisuals(level);
 
-            //level.RemoveForeignObjects();
             level.Objects = null;
             level.Blocks = null;
 
@@ -1787,19 +1714,6 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public void StartPlayerPlay()
         {
             PieceAttempts--;
@@ -1813,190 +1727,7 @@ namespace CloudberryKingdom.Levels
             Bobs.AddRange(HoldPlayerBobs);
 
             SetToReset = true;
-
-            //AddComputerWatchDialogue();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         void EvolveParticles()
         {
@@ -2018,7 +1749,6 @@ namespace CloudberryKingdom.Levels
 
         void UpdateObjects()
         {
-            //foreach (IObject Object in Objects)
             foreach (ObjectBase Object in ActiveObjectList)
             {
                 if (!Object.Core.IsGameObject && !Object.Core.MarkedForDeletion)
@@ -2035,7 +1765,6 @@ namespace CloudberryKingdom.Levels
 
         void UpdateObjects2()
         {
-            //foreach (IObject Object in Objects)
             foreach (ObjectBase Object in ActiveObjectList)
             {
                 if (!Object.Core.MarkedForDeletion)
@@ -2045,29 +1774,6 @@ namespace CloudberryKingdom.Levels
 
         void UpdateBobs()
         {
-            /*
-            if (MyGame != null && MyGame.MyGameFlags.IsDoppleganger ||
-                MySourceGame != null && MySourceGame.MyGameFlags.IsDoppleganger)
-            {
-                Bob xsource = Bobs.ArgMax(bob => Math.Abs(bob.MyPhsx.Pos.X - bob.MyPhsx.PrevPos.X));
-                int ysource = Bobs.IndexMax(bob => bob.MyPhsx.Pos.Y - bob.MyPhsx.PrevPos.Y);
-                float y;
-                if (ysource == 0) y = Bobs[0].Pos.Y + Bobs[0].MyPhsx.Pos.Y - Bobs[0].MyPhsx.PrevPos.Y;
-                else              y = Bobs[0].Pos.Y + Bobs[1].MyPhsx.Pos.Y - Bobs[1].MyPhsx.PrevPos.Y;
-                float x = xsource.Pos.X;
-
-                float velx = xsource.MyPhsx.xVel;
-                float vely = Bobs.Max(bob => bob.MyPhsx.Vel.Y);
-
-                for (int i = 0; i < 2; i++)
-                {
-                    Bob bob = Bobs[i];
-                    bob.Pos = new Vector2(x, y + i * 1000);
-                    bob.MyPhsx.xVel = velx;
-                    bob.MyPhsx.yVel = vely;
-                }
-            }*/
-
             foreach (Bob bob in Bobs)
             {
                 bob.PhsxStep();
@@ -2121,31 +1827,16 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-
-        //public Bob LowestBob;
         public void PhsxStep(bool NotDrawing) { PhsxStep(NotDrawing, true); }
         public void PhsxStep(bool NotDrawing, bool GUIPhsx)
         {
-            //LowestBob = null;
-            //LowestBob = Bobs.ArgMax(bob => bob.Pos.Y);
-
             BlockTime += BlockTimeVel;
             BlockTimeVel *= .95f;
 
             if (!IndependentStepSetOnce)
                 SetIndependentStep();
 
-#if WINDOWS
-            if (Tools.Editing)
-            {
-                EditingPhsxStep();
-            }
-#endif
             if (LevelReleased) return;
-
-            //if (GUIPhsx && !SuppressReplayButtons)
-            //    if (Replay || Watching)
-            //        MyReplayGUI.ProcessInput(this);
 
             if (!SetToReset && Watching && Replay && !ReplayPaused && MySwarmBundle.EndCheck(this))
             {
@@ -2299,19 +1990,6 @@ namespace CloudberryKingdom.Levels
         public enum TimeTypes { Unset, Regular, xSync };
         public TimeTypes TimeType = TimeTypes.Regular;
 
-
-        private void EditingPhsxStep()
-        {
-            foreach (ObjectBase obj in Objects)
-                if (obj is BlockBase)
-                    Blocks.Add((BlockBase)obj);
-
-            Objects.RemoveAll(obj => obj is BlockBase);
-        }
-
-
-
-
         public List<ObjectBase> ActiveObjectList;
 
         void CreateActiveObjectList()
@@ -2339,8 +2017,6 @@ namespace CloudberryKingdom.Levels
                     ActiveObjectList.Add(obj);
                 }
             }
-
-            //Console.WriteLine("{0} : {1}", ActiveObjectList.Count, Objects.Count);
         }
 
         /// <summary>
@@ -2351,7 +2027,7 @@ namespace CloudberryKingdom.Levels
             if (ActiveObjectList == Objects) return;
 
             ActiveObjectList.Clear();
-            //ActiveObjectList.AddRange(Objects);
+
             foreach (ObjectBase obj in Objects) ActiveObjectList.Add(obj);
         }
 
@@ -2363,19 +2039,6 @@ namespace CloudberryKingdom.Levels
                 return true;
             else
                 return false;
-        }
-
-        public CameraZone LeftMostCameraZone()
-        {
-            return (CameraZone)GetObjectList(ObjectType.CameraZone).ArgMin(obj => {
-                CameraZone zone = obj as CameraZone;
-                return zone.Pos.X;
-            });
-        }
-
-        public void EraseNonDoodadCoins()
-        {
-            Objects.FindAll(obj => obj is Coin && obj.Core != "DoodadCoin").ForEach(obj => obj.CollectSelf());
         }
 
         public void CountCoinsAndBlobs()
@@ -2402,8 +2065,6 @@ namespace CloudberryKingdom.Levels
         public void SetBack(int Steps)
         {
             CurPiece.StartPhsxStep -= Steps;
-            //MyGame.WaitThenDo(5, () =>
-            //    MyGame.ToDoOnReset.Add(() => CurPiece.StartPhsxStep += Steps));
             MyGame.WaitThenDo(2, () => CurPiece.StartPhsxStep += Steps);
         }
     }

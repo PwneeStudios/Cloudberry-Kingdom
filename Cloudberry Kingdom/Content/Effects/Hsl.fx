@@ -45,24 +45,6 @@ technique DepthVelocityInfo
     }
 }
 
-technique Suck
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER SuckVertexShader();
-        PixelShader = compile PIXEL_SHADER SimplePixelShader();
-    }
-}
-
-technique PushOut
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER PushOutVertexShader();
-        PixelShader = compile PIXEL_SHADER SimplePixelShader();
-    }
-}
-
 technique PivotTechnique
 {
     pass Pass0

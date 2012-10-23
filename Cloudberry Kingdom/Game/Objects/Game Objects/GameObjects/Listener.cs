@@ -61,10 +61,6 @@ namespace CloudberryKingdom
 
             Level level = Core.MyLevel;
 
-#if WINDOWS
-            // No phsx if we are editing
-            if (Tools.Editing) return;
-#endif
             // Listen
             if (MyType == Type.OnDown &&
                     (ButtonCheck.State(MyButton, Control).Down || ButtonCheck.State(MyButton2, Control).Down)

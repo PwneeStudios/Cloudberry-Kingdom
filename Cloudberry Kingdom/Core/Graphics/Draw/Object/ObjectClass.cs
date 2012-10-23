@@ -1286,10 +1286,10 @@ namespace CoreEngine
             tex2.SetData<Color>(Array);
 
             Array = null;
-            //tex.Dispose();
 
             return tex2;
         }
+
         public Texture2D DrawTexture(GraphicsDevice device, EzEffectWad EffectWad)
         {
             if (MyEffects == null) return ObjectRenderTarget;
