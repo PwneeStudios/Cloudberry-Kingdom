@@ -38,7 +38,7 @@ namespace CloudberryKingdom
         }
 
 
-        static string[] TextureName = { "score screen_grey", "score screen_grey", "score screen_grey" };
+        static string[] TextureName = { "score_screen_grey", "score_screen_grey", "score_screen_grey" };
         HighScorePanel[] Panels;
 
         public HighScorePanel(params ScoreList[] Scores) { MultiInit(false, Scores); }
@@ -55,12 +55,12 @@ namespace CloudberryKingdom
             Panels = new HighScorePanel[Scores.Length];
             
             Panels[0] = this;
-            Panels[0].Backdrop.TextureName = "score screen_grey";
+            Panels[0].Backdrop.TextureName = "score_screen_grey";
 
             for (int i = 1; i < Scores.Length; i++)
             {
                 Panels[i] = new HighScorePanel(Scores[i]);
-                Panels[i].Backdrop.TextureName = "score screen_grey";
+                Panels[i].Backdrop.TextureName = "score_screen_grey";
             }
 
             for (int i = 0; i < Scores.Length; i++)
@@ -112,7 +112,7 @@ namespace CloudberryKingdom
             // Make the backdrop
             Backdrop = new QuadClass("Backplate_1500x900", 500, true);
             Backdrop.Degrees = 90;
-            Backdrop.TextureName = "Score\\score screen_grey";
+            Backdrop.TextureName = "Score\\Score_Screen_grey";
 
             MyPile.Add(Backdrop, "Backdrop");
             Backdrop.Pos = new Vector2(22.2233f, 10.55567f);

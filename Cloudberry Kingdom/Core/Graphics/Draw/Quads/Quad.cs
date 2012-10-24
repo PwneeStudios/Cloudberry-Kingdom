@@ -263,10 +263,8 @@ namespace CoreEngine
 
             WriteReadTools.WriteColor(writer, MyColor);
 
-            writer.Write(MyTexture.Path);
+            if (MyTexture.Path == null) writer.Write("White"); else writer.Write(MyTexture.Path);
             writer.Write(MyEffect.Name);
-
-
         }
 
         public override void Read(BinaryReader reader, EzEffectWad EffectWad, EzTextureWad TextureWad, int VersionNumber)
@@ -292,7 +290,10 @@ namespace CoreEngine
             WriteReadTools.ReadColor(reader, ref MyColor);
 
             string name = reader.ReadString();
-            MyTexture = TextureWad.FindByPathOrName(name);//reader.ReadString());
+            MyTexture = TextureWad.FindByPathOrName(name);
+            if (MyTexture == TextureWad.DefaultTexture)
+                MyTexture = TextureWad.FindByPathOrName(Name);
+            
             MyEffect = EffectWad.FindByName(reader.ReadString());
         }
 

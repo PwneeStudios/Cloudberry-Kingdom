@@ -216,9 +216,9 @@ namespace CloudberryKingdom
             MyMenu.OnB = Cast.ToMenu(SimpleToBack);
 
             // Backdrop
-            QuadClass backdrop = new QuadClass("score screen", 485);
+            QuadClass backdrop = new QuadClass("Score_Screen", 485);
             backdrop = new QuadClass(null, true, false);
-            backdrop.TextureName = "score screen";
+            backdrop.TextureName = "Score_Screen";
             backdrop.ScaleYToMatchRatio(485);
 
             backdrop.Pos = new Vector2(1198.412f, -115.0794f);

@@ -289,14 +289,6 @@ namespace CloudberryKingdom
             string length = "l:" + Length.ToString() + ";";
 
             // Upgrades
-            //string upgrades = "u:";
-            //float[] upgrade_levels = PieceSeeds[0].MyUpgrades1.UpgradeLevels;
-            //for (int i = 0; i < upgrade_levels.Length; i++)
-            //{
-            //    upgrades += upgrade_levels[i].ToString();
-            //    if (i + 1 < upgrade_levels.Length) upgrades += ",";
-            //}
-            //upgrades += ";";
             string upgrades = "";
             foreach (PieceSeedData p in PieceSeeds)
             {
@@ -312,6 +304,8 @@ namespace CloudberryKingdom
                 }
                 upgrades += ";";
             }
+
+            // Custom hero
 
             // Build final string
             string str = version + seed + game + geometry + hero + tileset + pieces + length + upgrades;

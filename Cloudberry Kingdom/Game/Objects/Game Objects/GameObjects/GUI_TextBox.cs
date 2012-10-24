@@ -207,7 +207,7 @@ namespace CloudberryKingdom
 
             // Backdrop
             Backdrop = new QuadClass(null, true, false);
-            Backdrop.TextureName = "score screen";
+            Backdrop.TextureName = "score_screen";
             Backdrop.Size = new Vector2(640.4763f, 138.0953f) * scale;
 
             MyText.Pos = new Vector2(-522.2222f, 23.80954f) * scale;
@@ -369,7 +369,7 @@ namespace CloudberryKingdom
             MyPile.Jiggle(true);
 
             // Change the backdrop color
-            Backdrop.TextureName = "Score\\Score Screen_grey";
+            Backdrop.TextureName = "Score\\Score_Screen_grey";
 
             if (OnEnter != null) OnEnter();
         }

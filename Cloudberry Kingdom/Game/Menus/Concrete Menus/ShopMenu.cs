@@ -51,8 +51,7 @@ namespace CloudberryKingdom.Awards
 
         public override void MakeBackdrop()
         {
-            //Backdrop = new QuadClass("score screen_grey", 1500, true);
-            Backdrop = new QuadClass("score screen", 1500, true);
+            Backdrop = new QuadClass("score_screen", 1500, true);
             MyPile.Add(Backdrop);
             MyPile.Add(Backdrop);
             Backdrop.Size = new Vector2(1246.031f, 691.4683f);
@@ -382,13 +381,13 @@ namespace CloudberryKingdom.Awards
             //MyPile.Add(backdrop);
             //backdrop.Pos = new Vector2(3009.921265f, -111.1109f) + new Vector2(-297.6191f, 15.87299f);
 
-            backdrop = new QuadClass("score screen", 1500, true);
+            backdrop = new QuadClass("score_screen", 1500, true);
             MyPile.Add(backdrop);
             MyPile.Add(backdrop);
             backdrop.Size = new Vector2(853.1744f, 1973.215f);
             backdrop.Pos = new Vector2(869.0458f, -35.71438f);
 
-            backdrop = new QuadClass("score screen", 1500, true);
+            backdrop = new QuadClass("score_screen", 1500, true);
             MyPile.Add(backdrop);
             MyPile.Add(backdrop);
             backdrop.Size = new Vector2(853.1744f, 1973.215f);

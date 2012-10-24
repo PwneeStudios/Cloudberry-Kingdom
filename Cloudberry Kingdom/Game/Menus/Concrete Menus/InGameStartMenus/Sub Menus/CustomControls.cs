@@ -96,7 +96,7 @@ namespace CloudberryKingdom
 
         public void MakeInstructions()
         {
-            var backdrop = new QuadClass("score screen", 1500, true);
+            var backdrop = new QuadClass("score_screen", 1500, true);
             MyPile.Add(backdrop);
             MyPile.Add(backdrop);
             backdrop.Size = new Vector2(603.1736f, 429.5635f);

@@ -656,7 +656,7 @@ namespace CloudberryKingdom
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old Art Holdover");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             Tools.Write("ArtMusic done...");
 

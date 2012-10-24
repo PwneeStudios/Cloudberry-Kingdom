@@ -286,13 +286,12 @@ namespace CloudberryKingdom
                     break;
 
                 case 3:
-                    p.MyQuad.Set("fading block");
+                    p.MyQuad.Set("fading_block");
                     p.Size *= new Vector2(1f, 1.11f);
                     break;
 
                 case 4:
                     p.MyQuad.Set("SpikeyGuy");
-                    //p.MyQuad.MyTexture = Tools.TextureWad.FindByName("tree_small");
                     p.Size *= new Vector2(1.2f, 1.6f);
                     break;
 

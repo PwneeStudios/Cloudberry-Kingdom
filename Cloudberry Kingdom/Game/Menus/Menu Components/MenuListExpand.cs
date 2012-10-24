@@ -107,7 +107,7 @@ namespace CloudberryKingdom
             }
 
             // Backdrop
-            backdrop = new QuadClass("score screen_grey", 482);
+            backdrop = new QuadClass("score_screen_grey", 482);
             //backdrop.Size = backdrop.Size * new Vector2(1f, 2.03f);
             MyMenu.CalcBounds();
             float Height = (MyMenu.TR.Y - MyMenu.BL.Y) / 2;

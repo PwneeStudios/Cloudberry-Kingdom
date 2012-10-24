@@ -44,18 +44,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\HeroItems\Hats\afro.png">
-      <Name>afro</Name>
+    <Compile Include="Art\HeroItems\Hats\hat_fedora.png">
+      <Name>hat_fedora</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\HeroItems\Hats\cowboy hat.png">
-      <Name>cowboy hat</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\HeroItems\Hats\halo.png">
-      <Name>halo</Name>
+    <Compile Include="Art\HeroItems\Hats\hat_halo.png">
+      <Name>hat_halo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -674,7 +669,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Old Art Holdover\FallingBlock4Cape.png">
+    <Compile Include="Art\Old_Art_Holdover\FallingBlock4Cape.png">
       <Name>FallingBlock4Cape</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -809,11 +804,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\HeroItems\Hats\viking helmet.png">
-      <Name>viking helmet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Art\LoadScreen_Initial\LoadFill.png">
@@ -863,8 +853,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Menu\Score\score screen.png">
-      <Name>score screen</Name>
+    <Compile Include="Art\Menu\Score\Score_Screen.png">
+      <Name>Score_Screen</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1035,7 +1025,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_A.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_A.png">
       <Name>Xbox_A</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1043,7 +1033,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_B.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_B.png">
       <Name>Xbox_B</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1051,7 +1041,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_Dir.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_Dir.png">
       <Name>Xbox_Dir</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1059,7 +1049,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_LB.PNG">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_LB.PNG">
       <Name>Xbox_LB</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1067,7 +1057,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_LT.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_LT.png">
       <Name>Xbox_LT</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1075,7 +1065,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_RB.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_RB.png">
       <Name>Xbox_RB</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1083,7 +1073,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_RT.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_RT.png">
       <Name>Xbox_RT</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1091,7 +1081,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_Start.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_Start.png">
       <Name>Xbox_Start</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1099,7 +1089,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_X.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_X.png">
       <Name>Xbox_X</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1107,7 +1097,7 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
     </Compile>
-    <Compile Include="Art\Buttons\Xbox 360\Xbox_Y.png">
+    <Compile Include="Art\Buttons\Xbox_360\Xbox_Y.png">
       <Name>Xbox_Y</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1178,17 +1168,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_1.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy_Block\Bouncy_Castle_1.png">
       <Name>Bouncy_Castle_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_2.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy_Block\Bouncy_Castle_2.png">
       <Name>Bouncy_Castle_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy Block\Bouncy_Castle_3.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Bouncy_Block\Bouncy_Castle_3.png">
       <Name>Bouncy_Castle_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1218,17 +1208,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Falling Block\Fblock_Castle_1.PNG">
+    <Compile Include="Art\Environments\Castle\Obstacles\Falling_Block\Fblock_Castle_1.PNG">
       <Name>Fblock_Castle_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Falling Block\Fblock_Castle_2.PNG">
+    <Compile Include="Art\Environments\Castle\Obstacles\Falling_Block\Fblock_Castle_2.PNG">
       <Name>Fblock_Castle_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Falling Block\Fblock_Castle_3.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Falling_Block\Fblock_Castle_3.png">
       <Name>Fblock_Castle_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1293,32 +1283,32 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Ghost Block\Ghostblock_Castle.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Ghost_Block\Ghostblock_Castle.png">
       <Name>Ghostblock_Castle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Moving_Block\Movingblock_Castle.png">
       <Name>Movingblock_Castle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_135.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Moving_Block\Movingblock_Castle_135.png">
       <Name>Movingblock_Castle_135</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_190.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Moving_Block\Movingblock_Castle_190.png">
       <Name>Movingblock_Castle_190</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_40.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Moving_Block\Movingblock_Castle_40.png">
       <Name>Movingblock_Castle_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Obstacles\Moving Block\Movingblock_Castle_80.png">
+    <Compile Include="Art\Environments\Castle\Obstacles\Moving_Block\Movingblock_Castle_80.png">
       <Name>Movingblock_Castle_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1423,17 +1413,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy Block\Bouncy_Cave_1.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy_Block\Bouncy_Cave_1.png">
       <Name>Bouncy_Cave_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy Block\Bouncy_Cave_2.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy_Block\Bouncy_Cave_2.png">
       <Name>Bouncy_Cave_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy Block\Bouncy_Cave_3.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Bouncy_Block\Bouncy_Cave_3.png">
       <Name>Bouncy_Cave_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1463,17 +1453,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Falling Block\Fblock_Cave_1.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Falling_Block\Fblock_Cave_1.png">
       <Name>Fblock_Cave_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Falling Block\Fblock_Cave_2.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Falling_Block\Fblock_Cave_2.png">
       <Name>Fblock_Cave_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Falling Block\Fblock_Cave_3.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Falling_Block\Fblock_Cave_3.png">
       <Name>Fblock_Cave_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1508,27 +1498,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Ghost Block\Ghostblock_Cave.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Ghost_Block\Ghostblock_Cave.png">
       <Name>Ghostblock_Cave</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_135.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Moving_Block\Movingblock_Cave_135.png">
       <Name>Movingblock_Cave_135</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_190.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Moving_Block\Movingblock_Cave_190.png">
       <Name>Movingblock_Cave_190</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_40.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Moving_Block\Movingblock_Cave_40.png">
       <Name>Movingblock_Cave_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cave\Obstacles\Moving Block\Movingblock_Cave_80.png">
+    <Compile Include="Art\Environments\Cave\Obstacles\Moving_Block\Movingblock_Cave_80.png">
       <Name>Movingblock_Cave_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1578,17 +1568,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_1.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy_Block\Bouncy_Cloud_1.png">
       <Name>Bouncy_Cloud_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_2.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy_Block\Bouncy_Cloud_2.png">
       <Name>Bouncy_Cloud_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy Block\Bouncy_Cloud_3.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Bouncy_Block\Bouncy_Cloud_3.png">
       <Name>Bouncy_Cloud_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1618,17 +1608,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_1.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Falling_Block\Fblock_Cloud_1.png">
       <Name>Fblock_Cloud_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_2.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Falling_Block\Fblock_Cloud_2.png">
       <Name>Fblock_Cloud_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Falling Block\Fblock_Cloud_3.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Falling_Block\Fblock_Cloud_3.png">
       <Name>Fblock_Cloud_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1678,27 +1668,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Ghost Block\Ghostblock_Cloud.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Ghost_Block\Ghostblock_Cloud.png">
       <Name>Ghostblock_Cloud</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_135.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Moving_Block\MovingBlock_Cloud_135.png">
       <Name>MovingBlock_Cloud_135</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_190.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Moving_Block\MovingBlock_Cloud_190.png">
       <Name>MovingBlock_Cloud_190</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_40.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Moving_Block\MovingBlock_Cloud_40.png">
       <Name>MovingBlock_Cloud_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Moving Block\MovingBlock_Cloud_80.png">
+    <Compile Include="Art\Environments\Cloud\Obstacles\Moving_Block\MovingBlock_Cloud_80.png">
       <Name>MovingBlock_Cloud_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1803,17 +1793,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy Block\Bouncy_Forest_1.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy_Block\Bouncy_Forest_1.PNG">
       <Name>Bouncy_Forest_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy Block\Bouncy_Forest_2.png">
+    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy_Block\Bouncy_Forest_2.png">
       <Name>Bouncy_Forest_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy Block\Bouncy_Forest_3.png">
+    <Compile Include="Art\Environments\Forest\Obstacles\Bouncy_Block\Bouncy_Forest_3.png">
       <Name>Bouncy_Forest_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1843,17 +1833,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Falling Block\Fblock_Forest_1.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Falling_Block\Fblock_Forest_1.PNG">
       <Name>Fblock_Forest_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Falling Block\Fblock_Forest_2.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Falling_Block\Fblock_Forest_2.PNG">
       <Name>Fblock_Forest_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Falling Block\Fblock_Forest_3.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Falling_Block\Fblock_Forest_3.PNG">
       <Name>Fblock_Forest_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1898,32 +1888,32 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Ghost Block\Ghostblock_Forest_1.png">
+    <Compile Include="Art\Environments\Forest\Obstacles\Ghost_Block\Ghostblock_Forest_1.png">
       <Name>Ghostblock_Forest_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_135_v2.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Moving_Block\Movingblock_Forest_135_v2.PNG">
       <Name>Movingblock_Forest_135_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\movingblock_forest_150.png">
+    <Compile Include="Art\Environments\Forest\Obstacles\Moving_Block\movingblock_forest_150.png">
       <Name>movingblock_forest_150</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_190_v2.png">
+    <Compile Include="Art\Environments\Forest\Obstacles\Moving_Block\Movingblock_Forest_190_v2.png">
       <Name>Movingblock_Forest_190_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_40_v2.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Moving_Block\Movingblock_Forest_40_v2.PNG">
       <Name>Movingblock_Forest_40_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Obstacles\Moving Block\Movingblock_Forest_80_v2.PNG">
+    <Compile Include="Art\Environments\Forest\Obstacles\Moving_Block\Movingblock_Forest_80_v2.PNG">
       <Name>Movingblock_Forest_80_v2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2008,17 +1998,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy Block\Bouncy_Hills_1.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy_Block\Bouncy_Hills_1.png">
       <Name>Bouncy_Hills_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy Block\Bouncy_Hills_2.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy_Block\Bouncy_Hills_2.png">
       <Name>Bouncy_Hills_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy Block\Bouncy_Hills_3.PNG">
+    <Compile Include="Art\Environments\Hills\Obstacles\Bouncy_Block\Bouncy_Hills_3.PNG">
       <Name>Bouncy_Hills_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2048,17 +2038,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Falling Block\Fblock_Hills_1.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Falling_Block\Fblock_Hills_1.png">
       <Name>Fblock_Hills_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Falling Block\Fblock_Hills_2.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Falling_Block\Fblock_Hills_2.png">
       <Name>Fblock_Hills_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Falling Block\Fblock_Hills_3.PNG">
+    <Compile Include="Art\Environments\Hills\Obstacles\Falling_Block\Fblock_Hills_3.PNG">
       <Name>Fblock_Hills_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2108,27 +2098,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Ghost Block\Ghostblock_Hills.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Ghost_Block\Ghostblock_Hills.png">
       <Name>Ghostblock_Hills</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_135.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Moving_Blocks\Movingblock_Hills_135.png">
       <Name>Movingblock_Hills_135</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_190.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Moving_Blocks\Movingblock_Hills_190.png">
       <Name>Movingblock_Hills_190</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_40.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Moving_Blocks\Movingblock_Hills_40.png">
       <Name>Movingblock_Hills_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Hills\Obstacles\Moving Blocks\Movingblock_Hills_80.png">
+    <Compile Include="Art\Environments\Hills\Obstacles\Moving_Blocks\Movingblock_Hills_80.png">
       <Name>Movingblock_Hills_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2213,17 +2203,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy Block\Bouncy_Sea_1.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy_Block\Bouncy_Sea_1.png">
       <Name>Bouncy_Sea_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy Block\Bouncy_Sea_2.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy_Block\Bouncy_Sea_2.png">
       <Name>Bouncy_Sea_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy Block\Bouncy_Sea_3.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Bouncy_Block\Bouncy_Sea_3.png">
       <Name>Bouncy_Sea_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2253,17 +2243,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_1.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Falling_Block\Fblock_Sea_1.png">
       <Name>Fblock_Sea_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_2.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Falling_Block\Fblock_Sea_2.png">
       <Name>Fblock_Sea_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Falling Block\Fblock_Sea_3.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Falling_Block\Fblock_Sea_3.png">
       <Name>Fblock_Sea_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -2318,27 +2308,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Ghost Block\Ghostblock_Sea.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Ghost_Block\Ghostblock_Sea.png">
       <Name>Ghostblock_Sea</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_135.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Moving_Block\Movingblock_Sea_135.png">
       <Name>Movingblock_Sea_135</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_190.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Moving_Block\Movingblock_Sea_190.png">
       <Name>Movingblock_Sea_190</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_40.png">
+    <Compile Include="Art\Environments\Sea\Obstacles\Moving_Block\Movingblock_Sea_40.png">
       <Name>Movingblock_Sea_40</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Sea\Obstacles\Moving Block\Movingblock_Sea_80.PNG">
+    <Compile Include="Art\Environments\Sea\Obstacles\Moving_Block\Movingblock_Sea_80.PNG">
       <Name>Movingblock_Sea_80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -3341,72 +3331,72 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Old Art Holdover\blob2_body.png">
+    <Compile Include="Art\Old_Art_Holdover\blob2_body.png">
       <Name>blob2_body</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\BlobGoo.png">
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo.png">
       <Name>BlobGoo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\BlobGoo2.png">
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo2.png">
       <Name>BlobGoo2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\BlobGoo3.png">
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo3.png">
       <Name>BlobGoo3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\BlobGoo4.png">
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo4.png">
       <Name>BlobGoo4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\BlobGoo5.png">
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo5.png">
       <Name>BlobGoo5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\blue_small.png">
+    <Compile Include="Art\Old_Art_Holdover\blue_small.png">
       <Name>blue_small</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\checkpoint3.png">
+    <Compile Include="Art\Old_Art_Holdover\checkpoint3.png">
       <Name>checkpoint3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\CoinBlue.png">
+    <Compile Include="Art\Old_Art_Holdover\CoinBlue.png">
       <Name>CoinBlue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\fading block.png">
-      <Name>fading block</Name>
+    <Compile Include="Art\Old_Art_Holdover\Fading_Block.png">
+      <Name>Fading_Block</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\FallingBlock1.png">
+    <Compile Include="Art\Old_Art_Holdover\FallingBlock1.png">
       <Name>FallingBlock1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\FallingBlock2.png">
+    <Compile Include="Art\Old_Art_Holdover\FallingBlock2.png">
       <Name>FallingBlock2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\score screen_grey.png">
-      <Name>score screen_grey</Name>
+    <Compile Include="Art\Old_Art_Holdover\Score_Screen_Grey.png">
+      <Name>Score_Screen_Grey</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\SpikeyGuy.png">
+    <Compile Include="Art\Old_Art_Holdover\SpikeyGuy.png">
       <Name>SpikeyGuy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -3427,17 +3417,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Old Art Holdover\blob2_lwing.png">
+    <Compile Include="Art\Old_Art_Holdover\blob2_lwing.png">
       <Name>blob2_lwing</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\blob2_rwing.png">
+    <Compile Include="Art\Old_Art_Holdover\blob2_rwing.png">
       <Name>blob2_rwing</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Old Art Holdover\cloud1.png">
+    <Compile Include="Art\Old_Art_Holdover\cloud1.png">
       <Name>cloud1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -4315,6 +4305,30 @@
   <ItemGroup>
     <Compile Include="Art\Menu\Icons\Upgrades\Icon_Fireball.png">
       <Name>Icon_Fireball</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\HeroItems\Hats\hat_afro.png">
+      <Name>hat_afro</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\HeroItems\Hats\hat_bubble.png">
+      <Name>hat_bubble</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\LeftHorn.png">
+      <Name>LeftHorn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\RightHorn.png">
+      <Name>RightHorn</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
