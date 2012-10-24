@@ -237,17 +237,6 @@ namespace CloudberryKingdom
             friction
         }
 
-        public static char CustomDataToChar(CustomData type)
-        {
-            return (char)((int)type + (int)'a');
-        }
-
-        public static CustomData CharToCustomData(char c)
-        {
-            return (CustomData)((int)c - (int)'a');
-        }
-
-
         public struct CustomPhsxData
         {
             public struct DataBounds

@@ -208,42 +208,6 @@ namespace CloudberryKingdom
             this.Initialize(ModPieceViaString);
         }
 
-        
-
-        /// <summary>
-        /// While reading in parameters from a string, the portion of the string storing upgrade data is stored in this string.
-        /// </summary>
-        List<string> UpgradeStrs = new List<string>();
-
-        /// <summary>
-        /// Modify a PieceSeedData to conform to the upgrade data stored in UpgradeStr.
-        /// </summary>
-        void ModPieceViaString(PieceSeedData piece)
-        {
-            // Break the data up by commas
-            int index = CoreMath.Restrict(0, UpgradeStrs.Count - 1, piece.MyPieceIndex);
-            var terms = UpgradeStrs[index].Split(',');
-
-            // Try and load the data into the upgrade array.
-            try
-            {
-                for (int i = 0; i < terms.Length; i++)
-                    piece.MyUpgrades1.UpgradeLevels[i] = float.Parse(terms[i]);
-            }
-            catch
-            {
-                // If we fail, zero all the upgrades.
-                piece.MyUpgrades1.Zero();
-            }
-
-            piece.StandardClose();
-        }
-
-        public string SuggestedName()
-        {
-            return DefaultHeroType.Name + "_" + Seed.ToString();
-        }
-
         public override string ToString()
         {
             int _version = 0;
@@ -295,7 +259,7 @@ namespace CloudberryKingdom
                 if (p.Ladder != Level.LadderType.None) continue;
 
                 upgrades += "u:";
-            
+
                 float[] upgrade_levels = p.MyUpgrades1.UpgradeLevels;
                 for (int i = 0; i < upgrade_levels.Length; i++)
                 {
@@ -305,12 +269,44 @@ namespace CloudberryKingdom
                 upgrades += ";";
             }
 
-            // Custom hero
-
             // Build final string
-            string str = version + seed + game + geometry + hero + tileset + pieces + length + upgrades;
+            string str = version + seed + game + geometry + hero + customphsx + tileset + pieces + length + upgrades;
 
             return str;
+        }        
+
+        /// <summary>
+        /// While reading in parameters from a string, the portion of the string storing upgrade data is stored in this string.
+        /// </summary>
+        List<string> UpgradeStrs = new List<string>();
+
+        /// <summary>
+        /// Modify a PieceSeedData to conform to the upgrade data stored in UpgradeStr.
+        /// </summary>
+        void ModPieceViaString(PieceSeedData piece)
+        {
+            // Break the data up by commas
+            int index = CoreMath.Restrict(0, UpgradeStrs.Count - 1, piece.MyPieceIndex);
+            var terms = UpgradeStrs[index].Split(',');
+
+            // Try and load the data into the upgrade array.
+            try
+            {
+                for (int i = 0; i < terms.Length; i++)
+                    piece.MyUpgrades1.UpgradeLevels[i] = float.Parse(terms[i]);
+            }
+            catch
+            {
+                // If we fail, zero all the upgrades.
+                piece.MyUpgrades1.Zero();
+            }
+
+            piece.StandardClose();
+        }
+
+        public string SuggestedName()
+        {
+            return DefaultHeroType.Name + "_" + Seed.ToString();
         }
 
         public static string GetNameFromSeedStr(string seed)
