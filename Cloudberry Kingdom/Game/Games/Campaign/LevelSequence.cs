@@ -9,7 +9,7 @@ namespace CloudberryKingdom
     {
         protected StringWorldGameData MyStringWorld;
 
-        public List<string> Seeds = new List<string>(500);
+        public List<string> Seeds = new List<string>(600);
 
         public LevelSequence()
         {
@@ -25,6 +25,12 @@ namespace CloudberryKingdom
         int StartIndex;
         public virtual void Start(int StartLevel)
         {
+#if DEBUG
+            // For debug purposes we reload the list of seeds each time, so that hot modifications can be made.
+            Seeds.Clear();
+            MakeSeedList();
+#endif
+
             StartIndex = StartLevel;
 
             // Create the string world, and add the relevant game objects
@@ -42,9 +48,16 @@ namespace CloudberryKingdom
             MyStringWorld.Init(StartLevel);
         }
 
-        void OnLevelBegin(Level level)
+        /// <summary>
+        /// Returns true if the standard StringWorld processing should be skipped.
+        /// Special levels (such as watching a movie) do not need the normal processing (and would crash the game if they happened).
+        /// </summary>
+        bool OnLevelBegin(Level level)
         {
+            if (level.MyGame is ActionGameData) return true;
+
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            return false;
         }
 
         protected virtual void SetGameParent(GameData game)

@@ -239,6 +239,11 @@ namespace CloudberryKingdom
 
         public struct CustomPhsxData
         {
+            public static void InitStatic()
+            {
+                _Bounds = new DataBounds[Length];
+            }
+
             public struct DataBounds
             {
                 public float DefaultValue, MinValue, MaxValue;
@@ -250,7 +255,7 @@ namespace CloudberryKingdom
                 }
             }
 
-            static DataBounds[] _Bounds = new DataBounds[17];
+            static DataBounds[] _Bounds;
             public static DataBounds Bounds(CustomData type)
             {
                 InitBounds();
@@ -288,14 +293,16 @@ namespace CloudberryKingdom
 
             float[] data;
 
+            public static int Length = 16;
+
             public void Init()
             {
-                data = new float[16];
+                data = new float[Length];
             }
 
             public void Init(params float[] vals)
             {
-                data = new float[16];
+                data = new float[Length];
 
                 Tools.Assert(vals.Length == data.Length);
 

@@ -605,6 +605,9 @@ namespace CloudberryKingdom
             // Initialize players
             PlayerManager.Init();
 
+            // Initialize heroes
+            BobPhsx.CustomPhsxData.InitStatic();
+
             // Load saved files
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             SaveGroup.Initialize();

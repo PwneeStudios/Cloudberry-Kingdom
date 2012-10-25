@@ -202,6 +202,7 @@
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
     <Compile Include="Game\Games\Campaign\CampaignSequence.cs" />
     <Compile Include="Game\Games\Campaign\LevelSequence.cs" />
+    <Compile Include="Game\Games\ActionGame.cs" />
     <Compile Include="Game\Games\Meta Games\Challenges\_Spaceship.cs" />
     <Compile Include="Game\Games\ToDoItem.cs" />
     <Compile Include="Game\Level\Make\DifficultyHelper.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_Campaign.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\TitleGame_Forest.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Black.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Story\StartMenu_MW_Cinematics.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Story\StartMenu_MW_Campaign.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_PressStart.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW.cs" />

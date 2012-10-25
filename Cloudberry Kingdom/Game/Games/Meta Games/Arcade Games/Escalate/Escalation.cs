@@ -73,6 +73,7 @@ namespace CloudberryKingdom
             {
                 level.MyGame.AddGameObject(HelpMenu.MakeListener());
                 level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+                return false;
             };
 
             // Additional preprocessing

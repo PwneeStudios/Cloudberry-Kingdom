@@ -67,7 +67,10 @@ namespace CloudberryKingdom
 
             // Start menu
             MyStringWorld.OnLevelBegin += level =>
+                {
                     level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+                    return false;
+                };
 
             // Invert level
 

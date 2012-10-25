@@ -26,7 +26,7 @@ namespace CloudberryKingdom
             }
         }
     }
-    public delegate void PostMakeAction(Level level);
+
     public partial class LevelSeedData
     {
         public bool Saveable = true;
@@ -39,7 +39,7 @@ namespace CloudberryKingdom
             int i = Math.Abs(str.GetHashCode());
 
             // Length
-            Length = PieceLength = i % 5000 + 3000;
+            Length = PieceLength = (int)(((uint)(i * 997)) % 7000 + 5000);
 
             // Tileset
             i /= 2;
@@ -59,7 +59,8 @@ namespace CloudberryKingdom
             
             // Hero
             DefaultHeroType = CustomLevel_GUI.FreeplayHeroes[(i + 555) % CustomLevel_GUI.FreeplayHeroes.Count];
-            
+            RandomHero(DefaultHeroType, i * i + 3 * i);
+
             // Pieces
             NumPieces = i % 2 + 1;
 
@@ -67,6 +68,8 @@ namespace CloudberryKingdom
             Seed = i % 7777777;
 
             PostMake = PostMake_StandardLoad;
+            
+            PieceHash = i * Seed;
         }
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace CloudberryKingdom
             DefaultRead(str);
             UpgradeStrs.Clear();
 
-            str = Tools.RemoveComment(str);
+            str = Tools.RemoveComment_SlashStyle(str);
             var bits = str.Split(';');
 
             for (int i = 0; i < bits.Length; i++)
@@ -204,8 +207,12 @@ namespace CloudberryKingdom
             if (UpgradeStrs.Count == 0)
             {
                 UpgradeStrs.Add("");
+                Initialize(ModPieceViaHash);
             }
-            this.Initialize(ModPieceViaString);
+            else
+            {
+                Initialize(ModPieceViaString);
+            }
         }
 
         public override string ToString()
@@ -302,6 +309,56 @@ namespace CloudberryKingdom
             }
 
             piece.StandardClose();
+        }
+
+        /// <summary>
+        /// Modify a PieceSeedData to have random upgrades.
+        /// </summary>
+        void ModPieceViaHash(PieceSeedData piece)
+        {
+            PieceHash = Math.Abs(PieceHash);
+            PieceHash *= 997;
+            PieceHash %= 1024;
+            PieceHash = Math.Abs(PieceHash);
+
+            int Bias = (int)(75 - (uint)PieceHash % 50);
+
+            for (int i = 0; i < piece.MyUpgrades1.UpgradeLevels.Length; i++)
+            {
+                int n1 = PieceHash | (2 + 8 + 32 + 128 + 512);
+                int n2 = PieceHash | (1 + 4 + 16 + 64 + 256);
+
+                int value = 0;
+                if ((n1 * n2 + (int)Math.Exp(i)) % 100 > Bias)
+                    value = (n1 + n1 * n2) % 10;
+
+                piece.MyUpgrades1.UpgradeLevels[i] = CoreMath.Restrict(0, 10, value);
+            }
+
+            piece.MyUpgrades1[Upgrade.Firesnake] =
+            piece.MyUpgrades1[Upgrade.Conveyor] = 0;
+
+            piece.StandardClose();
+        }
+        int PieceHash = 1;
+
+        /// <summary>
+        /// Make a random hero.
+        /// </summary>
+        void RandomHero(BobPhsx Hero, int Hash)
+        {
+            int Length = BobPhsx.CustomPhsxData.Length;
+            float[] vals = new float[Length];
+
+            for (int i = 0; i < Length; i++)
+            {
+                var value =  i * PieceHash * PieceHash + PieceHash + i * i;
+
+                vals[i] = CoreMath.Restrict(BobPhsx.CustomPhsxData.Bounds(i).MinValue, BobPhsx.CustomPhsxData.Bounds(i).MaxValue, value);
+                vals[i] = CoreMath.Restrict(0, 1, value);
+            }
+
+            Hero.MyCustomPhsxData.Init(vals);
         }
 
         public string SuggestedName()
@@ -414,7 +471,7 @@ namespace CloudberryKingdom
 
         public string Name = "";
 
-        public PostMakeAction PostMake;
+        public Action<Level> PostMake;
 
         /// <summary>
         /// Adds the default GameObjects to a level.
@@ -568,14 +625,6 @@ namespace CloudberryKingdom
             PieceSeeds = null;
         }
 
-        //public bool Preloadable { get { return SeedAction == null; } }
-        //public Action SeedAction;
-        //public LevelSeedData(Action SeedAction)
-        //{
-        //    this.SeedAction = SeedAction;
-        //}
-
-
         public LevelSeedData(LevelSeedData data)
         {
             Seed = data.Seed;
@@ -633,10 +682,10 @@ namespace CloudberryKingdom
             if (Initialized)
                 return;
 
+            if (MyGameType == ActionGameData.Factory) return;
+
             if (Length == 0)
                 throw(new Exception("Invalid length. PreInitialize may not have been called."));
-
-            //if (SeedAction != null) return;
 
             Initialize(MyGameType, MyGeometry, NumPieces, Length, MyCustomDifficulty);
         }

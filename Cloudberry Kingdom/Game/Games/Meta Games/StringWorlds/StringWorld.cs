@@ -78,7 +78,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called during LevelBegin, adds relevant GameObjects to the level's game.
         /// </summary>
-        public Action<Level> OnLevelBegin;
+        public Func<Level, bool> OnLevelBegin;
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -98,7 +98,13 @@ namespace CloudberryKingdom
             Recycler.DumpMetaBin();
 
             if (OnLevelBegin != null)
-                OnLevelBegin(level);
+            {
+                bool result = OnLevelBegin(level);
+                if (result)
+                {
+                    return;
+                }
+            }
 
             BeginningCloseDoor(level);
 
@@ -344,6 +350,8 @@ namespace CloudberryKingdom
             NextLevelIndex = Index;
             NextLevelSeed = GetSeed(NextLevelIndex);
 
+            if (NextLevelSeed == null) return;
+
             if (CurLevelSeed == null) CurLevelSeed = NextLevelSeed;
 
             if (OnBeginLoad != null)
@@ -359,6 +367,12 @@ namespace CloudberryKingdom
         {
             if (SkipBackgroundPhsx) return;
 
+            // ActionGames immediately switch to next game when they are done.
+            var ActionGame = Tools.CurGameData as ActionGameData;
+            if (null != ActionGame && ActionGame.Done)
+                TellGameToBringNext(0, ActionGame);
+
+            // The following code handles beginning the loading of new levels.
             if ((Tools.ShowLoadingScreen || EndLoadingImmediately) && Tools.CurGameData != CurLevelSeed.MyGame)
             {
                 // If the level is finished loading, end the loading screen
@@ -513,21 +527,33 @@ namespace CloudberryKingdom
                     });
 
                 // Tell the current Game to perform the following
-                game.WaitThenAddToToDo(13, () =>
-                    {
-                        // If the next level is loaded, start the level
-                        if (NextIsReady())
-                        {
-                            SetLevel();
-                            LevelBegin(Tools.CurLevel);
-
-                            return true;
-                        }
-                        // Otherwise wait
-                        else
-                            return false;
-                    });
+                TellGameToBringNext(13, game);
             }
+        }
+
+        bool WaitingForNext = false;
+        private void TellGameToBringNext(int delay, GameData game)
+        {
+            if (WaitingForNext) return;
+
+            WaitingForNext = true;
+
+            game.WaitThenAddToToDo(delay, () =>
+            {
+                // If the next level is loaded, start the level
+                if (NextIsReady())
+                {
+                    WaitingForNext = false;
+
+                    SetLevel();
+                    LevelBegin(Tools.CurLevel);
+
+                    return true;
+                }
+                // Otherwise wait
+                else
+                    return false;
+            });
         }
 
         public static void BaseDoorAction(Door door)
@@ -554,7 +580,6 @@ namespace CloudberryKingdom
         {
             SuppressQuickSpawn = true;
         }
-
 
         public override void PostDraw()
         {

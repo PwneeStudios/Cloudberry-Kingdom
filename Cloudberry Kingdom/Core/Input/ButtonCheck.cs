@@ -382,10 +382,29 @@ namespace CloudberryKingdom
 #if WINDOWS
         public static bool AnyKeyboardKey()
         {
-            var keys = Tools.Keyboard.GetPressedKeys();
-            bool AnyKeyDown = !(keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None));
+            int ValidKeysPressed = 0;
 
-            return AnyKeyDown;
+            var keys = Tools.Keyboard.GetPressedKeys();
+            for (int i = 0; i < keys.Length; i++)
+                if (keys[i] != Keys.Left &&
+                    keys[i] != Keys.Right &&
+                    keys[i] != Keys.Up &&
+                    keys[i] != Keys.Down &&
+                    keys[i] != Keys.LeftShift &&
+                    keys[i] != Keys.RightShift &&
+                    keys[i] != Keys.LeftAlt &&
+                    keys[i] != Keys.RightAlt &&
+                    keys[i] != Keys.LeftControl &&
+                    keys[i] != Keys.RightControl &&
+                    keys[i] != Keys.Tab)
+                {
+                    ValidKeysPressed++;
+                }
+
+            return ValidKeysPressed > 0;
+
+            //bool AnyKeyDown = !(keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None));
+            //return AnyKeyDown;
         }
 #endif
 

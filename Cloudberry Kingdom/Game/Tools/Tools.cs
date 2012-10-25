@@ -1054,7 +1054,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// </summary>
         public static List<string> GetBitsFromLine(String line)
         {
-            line = Tools.RemoveComment(line);
+            line = Tools.RemoveComment_SlashStyle(line);
 
             var bits = line.Split(' ', '\t').ToList();
             bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
@@ -1594,9 +1594,17 @@ public static Thread EasyThread(int affinity, string name, Action action)
             else return false;
         }
 
-        public static string RemoveComment(String str)
+        public static string RemoveComment_SlashStyle(String str)
         {
             int CommentIndex = str.IndexOf("//");
+            if (CommentIndex >= 0)
+                str = str.Substring(0, CommentIndex);
+            return str;
+        }
+
+        public static string RemoveComment_DashStyle(String str)
+        {
+            int CommentIndex = str.IndexOf("--");
             if (CommentIndex >= 0)
                 str = str.Substring(0, CommentIndex);
             return str;

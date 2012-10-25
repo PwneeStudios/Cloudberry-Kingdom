@@ -25,15 +25,25 @@ namespace CloudberryKingdom
         static DateTime StartTime;
 
         static bool CanSkip;
+        static float LengthUntilUserCanSkip;
 
         public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
-            CanSkip = UserPowers.WatchedVideo[MovieName];
-            StartVideo(MovieName, CanSkip);
+            bool CanSkip = UserPowers.WatchedVideo[MovieName];
+            StartVideo(MovieName, CanSkip, 100000);
         }
 
-        public static void StartVideo(string MovieName, bool CanSkipVideo)
+        public static void StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(string MovieName, float LengthUntilCanSkip)
         {
+            bool CanSkip = UserPowers.WatchedVideo[MovieName];
+            StartVideo(MovieName, CanSkip, LengthUntilCanSkip);
+        }
+
+        private static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
+        {
+            CanSkip = CanSkipVideo;
+            LengthUntilUserCanSkip = LengthUntilCanSkip;
+
             UserPowers.WatchedVideo += MovieName;
             UserPowers.SetToSave();
 
@@ -62,8 +72,8 @@ namespace CloudberryKingdom
         public static void UserInput()
         {
             // End the video if the user presses a key
-            //Playing = false;
-            if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f)
+            if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f ||
+                ElapsedTime() > LengthUntilUserCanSkip)
             {
                 ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
 

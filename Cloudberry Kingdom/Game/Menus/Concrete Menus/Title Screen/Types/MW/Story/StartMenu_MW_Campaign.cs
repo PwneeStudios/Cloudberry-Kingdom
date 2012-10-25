@@ -3,14 +3,14 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    class CampaignLevelItem : MenuItem
+    class CampaignChapterItem : MenuItem
     {
-        public int StartLevel = 0;
+        public int Chapter = 0;
 
-        public CampaignLevelItem(EzText Text, int StartLevel)
+        public CampaignChapterItem(EzText Text, int Chapter)
             : base(Text)
         {
-            this.StartLevel = StartLevel;
+            this.Chapter = Chapter;
         }
     }
 
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             item.MySelectedText.MyFloatColor = new Color(73, 255, 86).ToVector4(); 
             item.MySelectedText.OutlineColor = new Color(0, 0, 0, 0).ToVector4();
 
-            item.MyOscillateParams.Set(1f, 1.01f, .005f);
+            //item.MyOscillateParams.Set(1f, 1.01f, .005f);
         }
 
         public override void OnAdd()
@@ -78,44 +78,44 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Chapter 1
-            item = new CampaignLevelItem(new EzText("The Beginning", ItemFont), 1);
+            item = new CampaignChapterItem(new EzText("The Beginning", ItemFont), 1);
             item.Name = "MainCampaign";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 2
-            item = new CampaignLevelItem(new EzText("The Next Ninety-Nine", ItemFont), 100);
+            item = new CampaignChapterItem(new EzText("The Next Ninety-Nine", ItemFont), 2);
             item.Name = "Easy";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 3
-            item = new CampaignLevelItem(new EzText("A Gauntlet of Doom", ItemFont), 200);
+            item = new CampaignChapterItem(new EzText("A Gauntlet of Doom", ItemFont), 3);
             item.Name = "Hard";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 4
-            item = new CampaignLevelItem(new EzText("Almost Hero", ItemFont), 300);
+            item = new CampaignChapterItem(new EzText("Almost Hero", ItemFont), 4);
             item.Name = "Hardcore";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 5
-            item = new CampaignLevelItem(new EzText("The Masochist", ItemFont), 400);
+            item = new CampaignChapterItem(new EzText("The Masochist", ItemFont), 5);
             item.Name = "Maso";
             item.Go = Go;
             AddItem(item);
 
-            // Cinematics
-            item = new MenuItem(new EzText("Cinematics", ItemFont));
-            item.Name = "Cine";
-            item.Go = null;
-            AddItem(item);
-            item.MyText.MyFloatColor = new Color(241, 32, 117).ToVector4();
-            item.MySelectedText.MyFloatColor = new Color(251, 52, 137).ToVector4();
+            //// Cinematics
+            //item = new MenuItem(new EzText("Cinematics", ItemFont));
+            //item.Name = "Cine";
+            //item.Go = null;
+            //AddItem(item);
+            //item.MyText.MyFloatColor = new Color(241, 32, 117).ToVector4();
+            //item.MySelectedText.MyFloatColor = new Color(251, 52, 137).ToVector4();
 
-            MyMenu.SelectItem(1);
+            MyMenu.SelectItem(0);
 
             //SetPos_NoCinematic();
             SetPos_WithCinematic();
@@ -135,10 +135,10 @@ namespace CloudberryKingdom
 
         void Go(MenuItem item)
         {
-            CampaignLevelItem c_item = item as CampaignLevelItem;
+            CampaignChapterItem c_item = item as CampaignChapterItem;
             if (null == c_item) return;
 
-            Go(c_item.StartLevel);
+            Go(c_item.Chapter);
         }
 
         void Go(int StartLevel)

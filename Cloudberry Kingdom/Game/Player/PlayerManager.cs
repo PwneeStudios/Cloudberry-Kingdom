@@ -25,7 +25,7 @@ namespace CloudberryKingdom
         public static bool CanSkipScreensaver = false;
 
         /// <summary>
-        /// Whether the user can skip the logo salad.
+        /// Whether the user can skip a movie.
         /// </summary>
         public static Set<string> WatchedVideo = new Set<string>();
 

@@ -170,6 +170,7 @@ namespace CloudberryKingdom
         
         /// <summary>
         /// Called to end the game and return to parent game.
+        /// Return true if the game should be replayed.
         /// </summary>
         public Action<bool> EndGame;
 
@@ -1036,7 +1037,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void UpdateBobs()
+        public virtual void UpdateBobs()
         {
             foreach (Bob bob in MyLevel.Bobs)
                 bob.Release();
@@ -1584,35 +1585,26 @@ namespace CloudberryKingdom
 
             LockLevelStart = true;
 
-            //if (LevelSeed.SeedAction != null)
-            //{
-            //    LevelSeed.SeedAction();
-            //    return null;
-            //}
-            //else
+            LevelSeed.LoadingBegun = true;
+
+            LevelSeed.Init();
+
+            if (!MakeInBackground)
             {
-                LevelSeed.LoadingBegun = true;
-
-                LevelSeed.Init();
-
-                if (!MakeInBackground)
+                Tools.CurGameType = LevelSeed.MyGameType;
+                if (Tools.CurGameData != null)
                 {
-                    Tools.CurGameType = LevelSeed.MyGameType;
-                    if (Tools.CurGameData != null)
-                    {
-                        Tools.CurGameData.DefaultHeroType = LevelSeed.DefaultHeroType;
-                    }
-                    //MyLevel.Rnd.Rnd = new Random(LevelSeed.Seed);
+                    Tools.CurGameData.DefaultHeroType = LevelSeed.DefaultHeroType;
                 }
-
-                GameData MadeGame = null;
-                MadeGame = LevelSeed.MyGameType(LevelSeed, MakeInBackground);
-
-                if (!MakeInBackground)
-                    Tools.CurGameData = MadeGame;
-
-                return MadeGame;
             }
+
+            GameData MadeGame = null;
+            MadeGame = LevelSeed.MyGameType(LevelSeed, MakeInBackground);
+
+            if (!MakeInBackground)
+                Tools.CurGameData = MadeGame;
+
+            return MadeGame;
         }
 
         public bool ModdedBlobGrace = false;
