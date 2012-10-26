@@ -63,7 +63,7 @@ namespace CloudberryKingdom.Levels
                     break;
 
                 case LadderType.FinalPlat:
-                    FinalPlat = block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
+                    block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                     block.Init(TR, Vector2.Zero, MyTileSetInfo);
                     block.Extend(Side.Left, LeftCenter.X);
                     block.Extend(Side.Right, LeftCenter.X + 5000);

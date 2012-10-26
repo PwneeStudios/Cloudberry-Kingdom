@@ -25,8 +25,6 @@ namespace CloudberryKingdom
             p.MyColor = new Vector4(1f, 1f, 1f, 1f);
             p.ColorVel = new Vector4(0, 0, 0, 0);
 
-
-
             return p;
         }
 
@@ -46,6 +44,7 @@ namespace CloudberryKingdom
             Init_DustCloud();
             Init_Flame();
             Init_Thrust();
+            Init_Pop();
         }
 
         public static void Init_Coalesce()
@@ -459,7 +458,6 @@ namespace CloudberryKingdom
             }
         }
 
-
         /// <summary>
         /// Create an explosion of pieces at the specified location, plus a fart sound.
         /// </summary>
@@ -468,6 +466,39 @@ namespace CloudberryKingdom
             Tools.SoundWad.FindByName("Piece Explosion Small").Play(1f);
             for (int i = 0; i < 4; i++)
                 PieceExplosion(level, pos, 0, 1);
+        }
+
+        static Particle PopTemplate;
+        public static void AddPop(Level level, Vector2 pos)
+        {
+            AddPop(level, pos, 85, PopTemplate.MyQuad.MyTexture);
+        }
+        public static void AddPop(Level level, Vector2 pos, float size)
+        {
+            AddPop(level, pos, size, PopTemplate.MyQuad.MyTexture);
+        }
+        public static void AddPop(Level level, Vector2 pos, float size, EzTexture tex)
+        {
+            if (level.NoParticles) return;
+
+            var p = level.MainEmitter.GetNewParticle(PopTemplate);
+            p.Data.Position = pos;
+            p.SetSize(size);
+            p.MyQuad.MyTexture = tex;
+        }
+
+        static void Init_Pop()
+        {
+            PopTemplate = new Particle();
+            PopTemplate.MyQuad.Init();
+            PopTemplate.MyQuad.MyEffect = Tools.EffectWad.FindByName("Shell");
+            PopTemplate.MyQuad.MyTexture = Tools.TextureWad.FindByName("White");
+            PopTemplate.SetSize(85);
+            PopTemplate.SizeSpeed = new Vector2(10, 10);
+            PopTemplate.AngleSpeed = 0;
+            PopTemplate.Life = 20;
+            PopTemplate.MyColor = new Vector4(1f, 1f, 1f, .75f);
+            PopTemplate.ColorVel = new Vector4(0, 0, 0, -.065f);
         }
     }
 }

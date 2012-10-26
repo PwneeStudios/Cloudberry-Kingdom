@@ -63,7 +63,7 @@ namespace CloudberryKingdom
         {
             if (Core.MyLevel.PlayMode != 0) return;
 
-            Core.MyLevel.AddPop(Pos);
+            ParticleEffects.AddPop(Core.MyLevel, Pos);
 
             Popped = true;
             SetTexture();

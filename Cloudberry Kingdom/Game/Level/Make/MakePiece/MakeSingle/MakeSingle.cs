@@ -146,8 +146,6 @@ namespace CloudberryKingdom.Levels
             }
             HaveTimeLimit = false;
 
-            if (FinishedLevel != null) FinishedLevel();
-
             // Prevent additional deaths/replays/resets
             foreach (Bob bob in Bobs)
             {
@@ -964,9 +962,6 @@ namespace CloudberryKingdom.Levels
 
             // Continue making Final Platform
             if (MakeFinalPlat != null) MakeFinalPlat.Phase2();
-
-            //Console.WriteLine("Stage 1 finished at " + LastStep.ToString());
-            LastPoint = Bobs[0].Core.Data.Position + new Vector2(10, 0);
 
             // Update the level's par time
             CurPiece.Par = LastStep;

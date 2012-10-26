@@ -18,7 +18,6 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom.Levels
 {
-    public delegate void FinishedLevelHandler();
     public partial class Level : ViewReadWrite
     {
         public override string[] GetViewables()
@@ -63,10 +62,8 @@ namespace CloudberryKingdom.Levels
         public bool SuppressReplayButtons = false;
 
         public bool LevelReleased;
-        public event FinishedLevelHandler FinishedLevel;
 
-        public bool PieceAtEnd;
-        public int MaxAttempts, NumAttempts, PieceAttempts;
+        public int NumAttempts, PieceAttempts;
 
         public BobPhsx DefaultHeroType;
 
@@ -89,7 +86,7 @@ namespace CloudberryKingdom.Levels
         /// If true the player can watch the computer replay.
         /// Use the External bool if suppressing watch from outside the level class.
         /// </summary>
-        public bool CanWatchComputer, CanWatchComputer_External = true;
+        public bool CanWatchComputer;
 
         /// <summary>
         /// Whether the computer replay can be watched once the player is far from the spawn point.
@@ -101,7 +98,7 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool WatchComputerEnabled()
         {
-            return CanWatchComputer && CanWatchComputer_External && CanWatchComputerFromAfar_External;
+            return CanWatchComputer && CanWatchComputerFromAfar_External;
         }
 
         public void CountReset()
@@ -144,6 +141,9 @@ namespace CloudberryKingdom.Levels
             return !PreventReset;
         }
 
+        /// <summary>
+        /// Make sure the lava in this level (if it exists) is pushed below the given y-coordinate.
+        /// </summary>
         public void PushLava(float y)
         {
             BlockBase lava = Blocks.Find(match => match is LavaBlock);
@@ -204,23 +204,12 @@ namespace CloudberryKingdom.Levels
 
         public int Par;
 
-        public BlockBase FinalPlat;
         public CameraZone FinalCamZone;
-        public bool LevelCleared;
-
-        public float ScrollSpeed;
 
         public List<LevelPiece> LevelPieces;
         public LevelPiece CurPiece;
 
-        public bool Popping;
-
-        public Vector2 LastPoint;
-
-        public int RndSeed;
-
         public ParticleEmitter MainEmitter;
-        public Particle PopTemplate;
 
         public int CurPhsxStep, StartPhsxStep;
         public int DelayReset;
@@ -247,31 +236,33 @@ namespace CloudberryKingdom.Levels
 
         public static int NumDrawLayers = 12 + 1;
         public bool[] ShowDrawLayer;        
-        const int FirstSecondDrawLayer = 6;
+        
+        /// <summary>
+        /// This is the layer the player replays are drawn on.
+        /// </summary>
+        const int ReplayDrawLayer = 6;
+        
         /// <summary>
         /// This is the layer drawn immediately after the last particles.
         /// </summary>
         public static int AfterParticlesDrawLayer = 10;
+        
         /// <summary>
         /// This is the last draw layer drawn as part of the actual, physical level.
         /// </summary>
         public static int LastInLevelDrawLayer = 10;
+        
         /// <summary>
         /// This draw layer is drawn after the Game class's post draw method.
         /// </summary>
         public static int AfterPostDrawLayer = 12;
+        
         List<ObjectBase>[] DrawLayer = new List<ObjectBase>[NumDrawLayers];
         public ParticleEmitter[] ParticleEmitters = new ParticleEmitter[NumDrawLayers];
-
-        public void ShuffleLayer(int i)
-        {
-            DrawLayer[i] = Rnd.Shuffle(DrawLayer[i]);
-        }
 
         public List<BlockBase> Blocks, AddedBlocks;
         public List<Bob> Bobs, HoldPlayerBobs;
         public Vector2 HoldCamPos;
-
 
         public bool ShowCoinsInReplay = true;
         public bool Watching, Replay, SuppressCheckpoints, GhostCheckpoints, MainReplayOnly, ReplayPaused;
@@ -322,18 +313,6 @@ namespace CloudberryKingdom.Levels
             if (!NoParticles)
                 MainEmitter =
                     ParticleEmitter.Pool.Get();
-            
-            PopTemplate = new Particle();
-            PopTemplate.MyQuad.Init();
-            PopTemplate.MyQuad.MyEffect = Tools.EffectWad.FindByName("Shell");//Basic");
-            PopTemplate.MyQuad.MyTexture = Tools.TextureWad.FindByName("White");//Pop");
-            PopTemplate.SetSize(85);
-            PopTemplate.SizeSpeed = new Vector2(10, 10);
-            PopTemplate.AngleSpeed = 0;// .013f;
-            PopTemplate.Life = 20;
-            PopTemplate.MyColor = new Vector4(1f, 1f, 1f, .75f);
-            PopTemplate.ColorVel = new Vector4(0, 0, 0, -.065f);
-
 
             Blocks = new List<BlockBase>(2000);
 
@@ -443,17 +422,25 @@ namespace CloudberryKingdom.Levels
             OnCameraChange = null;
         }
 
-
+        /// <summary>
+        /// Get the final door of this level (the exit).
+        /// </summary>
         public Door FinalDoor
         {
             get { return FindIObject(LevelConnector.EndOfLevelCode) as Door; }
         }
 
+        /// <summary>
+        /// Get the first door of this level (the entrance).
+        /// </summary>
         public Door StartDoor
         {
             get { return FindIObject(LevelConnector.StartOfLevelCode) as Door; }
         }
 
+        /// <summary>
+        /// Find an object in this level by its code number.
+        /// </summary>
         public ObjectBase FindIObject(string Code1)
         {
             foreach (ObjectBase obj in Objects)
@@ -463,71 +450,8 @@ namespace CloudberryKingdom.Levels
             return null;
         }
 
-        public ObjectBase FindIObject(string Code1, string Code2)
-        {
-            foreach (ObjectBase obj in Objects)
-                if (string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0 &&
-                    string.Compare(obj.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0)
-                    return obj;
-
-            return null;
-        }
-
-        public ObjectBase FindIObject(string Code1, string Code2, string Code3)
-        {
-            foreach (ObjectBase obj in Objects)
-                if ((Code1.Length == 0 || string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (Code2.Length == 0 || string.Compare(obj.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (Code3.Length == 0 || string.Compare(obj.Core.EditorCode3, Code3, StringComparison.OrdinalIgnoreCase) == 0))
-                    return obj;
-
-            return null;
-        }
-
-        public void HideAll(string Code1)
-        {
-            foreach (BlockBase block in Blocks)
-                if (block.Core == Code1)
-                    block.Core.Show = false;
-        }
-
-        public BlockBase FindBlock(string Code1)
-        {
-            foreach (BlockBase block in Blocks)
-                if (string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0)
-                    return block;
-
-            return null;
-        }
-
-        public BlockBase FindBlock(string Code1, string Code2)
-        {
-            foreach (BlockBase block in Blocks)
-                if ((Code1.Length == 0 || string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (Code2.Length == 0 || string.Compare(block.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0))
-                    return block;
-
-            return null;
-        }
-
-        public BlockBase FindBlock(string Code1, string Code2, string Code3)
-        {
-            foreach (BlockBase block in Blocks)
-                if ((Code1.Length == 0 || string.Compare(block.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (Code2.Length == 0 || string.Compare(block.Core.EditorCode2, Code2, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (Code3.Length == 0 || string.Compare(block.Core.EditorCode3, Code3, StringComparison.OrdinalIgnoreCase) == 0))
-                    return block;
-
-            return null;
-        }
-
         public int GetPhsxStep() { return CurPhsxStep + 1; }
         public float GetIndependentPhsxStep() { return IndependentPhsxStep + 1; }
-
-        /// <summary>
-        /// The file this level was loaded from.
-        /// </summary>
-        public string SourceFile;
 
         /// <summary>
         /// Returns the current working directory for where .lvl files are stored.
@@ -652,6 +576,10 @@ namespace CloudberryKingdom.Levels
                 MyBackground.Move(shift);
         }
 
+        /// <summary>
+        /// After calling this function all coins that have been collected will no longer respawn when this level resets.
+        /// This is used after a checkpoint is reached.
+        /// </summary>
         public void KeepCoinsDead()
         {
             foreach (ObjectBase obj in Objects)
@@ -664,35 +592,7 @@ namespace CloudberryKingdom.Levels
                 }
             }
         }
-
-
-
-                
-        public void AddPop(Vector2 pos)
-        {
-            AddPop(pos, 85, PopTemplate.MyQuad.MyTexture);
-        }
-        public void AddPop(Vector2 pos, float size)
-        {
-            AddPop(pos, size, PopTemplate.MyQuad.MyTexture);
-        }
-        public void AddPop(Vector2 pos, float size, EzTexture tex)
-        {
-            if (NoParticles) return;
-
-            var p = MainEmitter.GetNewParticle(PopTemplate);
-            p.Data.Position = pos;
-            p.SetSize(size);
-            p.MyQuad.MyTexture = tex;
-        }
-        public void AddPop(Vector2 pos, ref Particle Template)
-        {
-            if (NoParticles) return;
-
-            var p = MainEmitter.GetNewParticle(Template);
-            p.Data.Position = pos;
-        }
-
+        
 
 
         public void StopRecording()
@@ -851,12 +751,6 @@ namespace CloudberryKingdom.Levels
                 // The player's all died, so increment the number of attempts made on the level.
                 PieceAttempts++;
                 NumAttempts++;
-
-                if (MaxAttempts > 0 && NumAttempts >= MaxAttempts)
-                {
-                    Tools.WorldMap.ReturnTo(-1);
-                    return;
-                }
 
                 // Activate the game's retry event
                 if (MyGame != null) MyGame.LevelRetryEvent();
@@ -1218,7 +1112,7 @@ namespace CloudberryKingdom.Levels
             if (i == CharacterSelectManager.DrawLayer + 1)
                 CharacterSelectManager.Draw();
 
-            if (i == FirstSecondDrawLayer)
+            if (i == ReplayDrawLayer)
             {
                 if (Replay && !MainReplayOnly)
                     MySwarmBundle.Draw(CurPhsxStep, this);
@@ -1869,7 +1763,10 @@ namespace CloudberryKingdom.Levels
                 UpdateActiveObjectList();
 
             // Update the camera
-            if (LevelCleared && !Replay && !Watching) MainCamera.MyZone = FinalCamZone;
+            //if (false && !Replay && !Watching) MainCamera.MyZone = FinalCamZone;
+            //if (!Replay && !Watching)
+            //MainCamera.MyZone = FinalCamZone;
+
             if (!FreezeCamera)
                 MainCamera.PhsxStep();
             else

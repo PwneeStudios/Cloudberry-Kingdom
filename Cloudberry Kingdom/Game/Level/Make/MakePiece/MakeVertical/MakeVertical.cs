@@ -343,10 +343,6 @@ namespace CloudberryKingdom.Levels
             // Continue making Final Platform
             if (MakeFinalPlat != null) MakeFinalPlat.Phase2();
 
-            //int t2 = System.Environment.TickCount;
-            //Console.WriteLine("Stage 1 finished at {0}, Time = {1}", LastStep, t2 - t1);
-            LastPoint = Bobs[0].Core.Data.Position + new Vector2(10, 0);
-
             // Update the level's par time
             CurPiece.Par = LastStep;
             Par += CurPiece.Par;

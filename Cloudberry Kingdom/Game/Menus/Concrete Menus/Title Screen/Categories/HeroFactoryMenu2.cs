@@ -77,8 +77,7 @@ namespace CloudberryKingdom
 
             foreach (Bob bob in MyGame.MyLevel.Bobs)
             {
-                //bob.CodeControl = true;
-                MyGame.MyLevel.AddPop(bob.Pos);
+                ParticleEffects.AddPop(MyGame.MyLevel, bob.Pos);
                 bob.CollectSelf();
             }
 

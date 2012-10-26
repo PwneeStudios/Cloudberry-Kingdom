@@ -372,14 +372,6 @@ namespace CloudberryKingdom
         public Level MyLevel;
 
         /// <summary>
-        /// Position of a block in the level with a given code.
-        /// </summary>
-        public Vector2 Pos(string code)
-        {
-            return MyLevel.FindBlock(code).Pos;
-        }
-
-        /// <summary>
         /// The position of the main camera.
         /// </summary>
         public Vector2 CamPos
@@ -926,7 +918,7 @@ namespace CloudberryKingdom
                     bob.Init(false, bob.MyPiece.StartData[bob.MyPieceIndex], this);
                     bob.Move(CheckpointBob.Core.Data.Position - bob.Core.Data.Position);
 
-                    MyLevel.AddPop(bob.Core.Data.Position, 155);
+                    ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position, 155);
                 }
             }
 
@@ -972,7 +964,7 @@ namespace CloudberryKingdom
                 {
                     if (!PlayerManager.Get((int)bob.MyPlayerIndex).Exists)
                     {
-                        MyLevel.AddPop(bob.Core.Data.Position);
+                        ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position);
                         Tools.SoundWad.FindByName("Pop 2").Play();
 
                         return true;
@@ -1032,7 +1024,7 @@ namespace CloudberryKingdom
 
             if (Pop)
             {
-                MyLevel.AddPop(Player.Core.Data.Position);
+                ParticleEffects.AddPop(MyLevel, Player.Core.Data.Position);
                 Tools.SoundWad.FindByName("Pop 2").Play();
             }
         }

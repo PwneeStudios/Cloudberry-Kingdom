@@ -123,7 +123,7 @@ namespace CloudberryKingdom.Levels
                         {
                             if (Recordings[i].GetAlive(Step - 1))
                             {
-                                level.AddPop(Recordings[i].GetBoxCenter(Step));
+                                ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Step));
                             }
                             continue;
                         }
@@ -144,7 +144,7 @@ namespace CloudberryKingdom.Levels
                 }
                 else
                     if (Step == Length - 1 && !level.ReplayPaused && !(level.DefaultHeroType is BobPhsxSpaceship && !Recordings[i].GetAlive(Length - 1)))
-                        level.AddPop(Recordings[i].GetBoxCenter(Length - 1));
+                        ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Length - 1));
             }
         }
 

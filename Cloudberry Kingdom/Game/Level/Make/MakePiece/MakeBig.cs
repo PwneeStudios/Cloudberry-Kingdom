@@ -98,7 +98,6 @@ namespace CloudberryKingdom.Levels
             int LastStep = CurPhsxStep;
 
             Console.WriteLine("Stage 1 finished at " + LastStep.ToString());
-            LastPoint = Bobs[0].Core.Data.Position + new Vector2(10, 0);
 
             // Update the level's par time
             CurPiece.Par = LastStep;

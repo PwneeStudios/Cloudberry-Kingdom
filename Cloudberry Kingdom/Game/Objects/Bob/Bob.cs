@@ -840,7 +840,7 @@ namespace CloudberryKingdom.Bobs
                             Destination = HighestBob.Core.Data.Position;
                         }
                         Move(Destination - Core.Data.Position);
-                        Core.MyLevel.AddPop(Core.Data.Position);
+                        ParticleEffects.AddPop(Core.MyLevel, Core.Data.Position);
                     }
                 }
                 else

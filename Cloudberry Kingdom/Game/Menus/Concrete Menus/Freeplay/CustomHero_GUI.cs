@@ -104,7 +104,7 @@ namespace CloudberryKingdom
 
             foreach (Bob bob in MyGame.MyLevel.Bobs)
             {
-                MyGame.MyLevel.AddPop(bob.Pos);
+                ParticleEffects.AddPop(MyGame.MyLevel, bob.Pos);
                 bob.CollectSelf();
             }
 
