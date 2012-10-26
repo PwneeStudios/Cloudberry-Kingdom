@@ -101,7 +101,7 @@ namespace CloudberryKingdom
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            data.PieceLength = 9000;
+            data.PieceLength = 90000;
             //data.PieceLength = 15000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;

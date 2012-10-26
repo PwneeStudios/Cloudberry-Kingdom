@@ -1763,10 +1763,6 @@ namespace CloudberryKingdom.Levels
                 UpdateActiveObjectList();
 
             // Update the camera
-            //if (false && !Replay && !Watching) MainCamera.MyZone = FinalCamZone;
-            //if (!Replay && !Watching)
-            //MainCamera.MyZone = FinalCamZone;
-
             if (!FreezeCamera)
                 MainCamera.PhsxStep();
             else

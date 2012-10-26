@@ -491,8 +491,10 @@ namespace CloudberryKingdom
             b.MyCollection.Lists.Add(__25);
 
             b.Light = 1f;
-            b.BL = new Vector2(-4900f, -4500f);
-            b.TR = new Vector2(28677.74f, 2055.556f);
+            //b.BL = new Vector2(-4900f, -4500f);
+            //b.TR = new Vector2(28677.74f, 2055.556f);
+            b.BL = new Vector2(-100000, -10000);
+            b.TR = new Vector2(100000, 10000);
         }
     }
 }
