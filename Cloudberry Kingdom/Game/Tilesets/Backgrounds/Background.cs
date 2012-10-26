@@ -182,9 +182,6 @@ namespace CloudberryKingdom
 
         public Vector2 Wind = Vector2.Zero;
 
-        //public static string[] BackgroundName = { "None", "Castle", "Dungeon", "Terrace", "Space", "Seed world" };
-        //public static bool[] AllowInCustomGame = { false, true    , true     , true     , false  , false };
-
         public Level MyLevel;
         public Rand Rnd { get { return MyLevel.Rnd; } }
 
@@ -291,37 +288,10 @@ namespace CloudberryKingdom
                 MyCollection.Clear(Area);
         }
 
-        public virtual void ExtendRight(float RightBound)
-        {
-            if (RightBound > TR.X + 3500)
-                AddSpan(new Vector2(TR.X + 1000, BL.X), new Vector2(TR.X + RightBound, TR.Y));
-        }
-
-        public virtual void ExtendLeft(float LeftBound)
-        {
-            if (LeftBound < BL.X - 3500)
-                AddSpan(new Vector2(LeftBound, BL.X), new Vector2(BL.X - 1000, TR.Y));
-        }
-
-        public virtual void AddSpan(Vector2 BL, Vector2 TR)
-        {
-            if (TR == BL)
-            {
-                this.TR = TR;
-                this.BL = BL;
-            }
-            else
-            {
-                this.TR = Vector2.Max(this.TR, TR);
-                this.BL = Vector2.Min(this.BL, BL);
-            }
-        }
-        
         public static bool GreenScreen = false;
         static QuadClass TestQuad = new QuadClass();
         public static EzTexture TestTexture = null;
 
-//#if DEBUG
         public static void DrawTest()
         {
             Camera Cam = Tools.CurCamera;
@@ -335,10 +305,6 @@ namespace CloudberryKingdom
             else
             {
                 TestQuad.Quad.SetColor(new Color(new Vector3(1, 1, 1) * 1));
-                //TestQuad.TextureName = "BGPlain";
-                //TestQuad.TextureName = "tigar_inside_castle";
-                //TestTexture = Tools.Texture("BGPlain");
-                //TestTexture = Tools.Texture("11 hill_4");
 
                 if (TestTexture == null)
                 {
@@ -356,7 +322,6 @@ namespace CloudberryKingdom
 
             TestQuad.Draw();
         }
-//#endif
 
         public virtual void Draw()
         {
@@ -391,7 +356,6 @@ namespace CloudberryKingdom
             SetBackground(this);
             Reset();
         }
-
 
         public void Save(string path)
         {

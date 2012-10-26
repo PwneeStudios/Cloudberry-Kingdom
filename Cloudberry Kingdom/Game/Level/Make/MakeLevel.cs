@@ -102,10 +102,6 @@ namespace CloudberryKingdom
                 makeData.Index = PieceSeeds.IndexOf(Piece);
                 makeData.OutOf = PieceSeeds.Count;
 
-                
-
-                //makeData.FinalPlats = false;                
-
                 int ReturnEarly = SetReturnEarly(Piece);
 
                 level.Geometry = Piece.GeometryType;
@@ -240,33 +236,12 @@ namespace CloudberryKingdom
         private void MakeTheBackground(Level NewLevel, float Height)
         {
             NewLevel.MyBackground.Init(NewLevel);
-            if (MyGeometry == LevelGeometry.Up || MyGeometry == LevelGeometry.Down)
-            {
-                NewLevel.MyBackground.AddSpan(NewLevel.BL + new Vector2(0, -3500), NewLevel.TR + new Vector2(0, 3500));
-                if (MyGeometry == LevelGeometry.Up)
-                    //NewLevel.MyBackground.Move(new Vector2(0, 7500));
-                    NewLevel.MyBackground.Move(new Vector2(0, Height));
-                if (MyGeometry == LevelGeometry.Down)
-                    NewLevel.MyBackground.Move(new Vector2(0, -3500));
-            }
-            else
-                NewLevel.MyBackground.AddSpan(NewLevel.BL + new Vector2(-4500, 0), NewLevel.TR + new Vector2(4500, 0));
         }
 
         public static int ForcedReturnEarly = 0;
         private int SetReturnEarly(PieceSeedData Piece)
         {
             int ReturnEarly = ForcedReturnEarly;
-
-            //Tools.StepControl = true;
-
-            //if (PieceSeeds.IndexOf(Piece) == 2)
-            //    ReturnEarly = 0;
-
-            //if (PieceSeeds.IndexOf(Piece) == PieceSeeds.Count - 2)
-            //  ReturnEarly = 0;
-
-            //ReturnEarly = 0;
 
             return ReturnEarly;
         }
