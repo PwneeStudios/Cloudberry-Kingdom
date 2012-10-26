@@ -63,11 +63,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxMeat instance = new BobPhsxMeat();
         public static new BobPhsxMeat Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Jetpack();
-        }
-
         // Instancable class
         public BobPhsxMeat()
         {

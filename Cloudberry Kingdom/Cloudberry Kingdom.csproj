@@ -404,12 +404,6 @@
     <Compile Include="Game\Objects\In Game Objects\Grab\Coin__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Grab\BerryBubble.cs" />
     <Compile Include="Game\Objects\In Game Objects\BaseClasses\_CircleDeath.cs" />
-    <Compile Include="Game\Objects\Powerups\Powerup_DoubleJump.cs" />
-    <Compile Include="Game\Objects\Powerups\Powerup_Jetpack.cs" />
-    <Compile Include="Game\Objects\Powerups\Powerup_Bouncy.cs" />
-    <Compile Include="Game\Objects\Powerups\Powerup_Wheelie.cs" />
-    <Compile Include="Game\Objects\Powerups\Powerup_Cart.cs" />
-    <Compile Include="Game\Objects\Powerups\InteractWithBlocks.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Firesnake__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Firesnake.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\SpikeyLine.cs" />

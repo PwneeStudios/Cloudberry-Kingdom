@@ -70,37 +70,10 @@ namespace CloudberryKingdom.Levels
 
         public BobPhsx DefaultHeroType;
 
-        bool ShouldSwitch = false;
-        public void SwitchHeroType(Bob bob, BobPhsx hero)
-        {
-            // Switch the given player
-            if (bob != null)
-            {
-                bob.SwitchHero(hero);
-                DefaultHeroType = hero;
-            }
-
-            // On reset make sure EVERY player has been switched
-            if (MyGame != null)
-            {
-                ShouldSwitch = true;
-                MyGame.ToDoOnReset.Add(() =>
-                {
-                    foreach (Bob b in Bobs)
-                        b.SwitchHero(hero);
-
-                    // Make sure we don't do this again
-                    ShouldSwitch = false;
-                    if (!ShouldSwitch) return;
-                });
-            }
-        }
-
         /// <summary>
         /// True if the level generation algorithm returned early.
         /// </summary>
         public bool ReturnedEarly;
-
 
         /// <summary>
         /// If true the user can load other levels from the start menu in this level.
@@ -128,11 +101,7 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool WatchComputerEnabled()
         {
-            // Check if players are close to the start
-//            if (CloseToStart())
-//                return CanWatchComputer && CanWatchComputer_External;
-//            else
-                return CanWatchComputer && CanWatchComputer_External && CanWatchComputerFromAfar_External;
+            return CanWatchComputer && CanWatchComputer_External && CanWatchComputerFromAfar_External;
         }
 
         public void CountReset()
@@ -214,7 +183,6 @@ namespace CloudberryKingdom.Levels
         public LevelSeedData MyLevelSeed;
 
         public Vector2 ModZoom = Vector2.One;
-        //public Vector2 ModZoom = new Vector2(-1, 1);
 
         EzTexture LightTexture;
         RenderTarget2D LightRenderTarget;
@@ -866,9 +834,6 @@ namespace CloudberryKingdom.Levels
             if (MyGame != null) MyGame.FreeReset = FreeReset;
             FreeReset = false;
 
-            // Don't automatically prevent resets. Every call to reset must itself check if resets are allowed.
-            //if (PreventReset) return;
-
             // Clean up the particle emitters
             if (!NoParticles)
             {
@@ -907,7 +872,6 @@ namespace CloudberryKingdom.Levels
             CurPhsxStep = StartPhsxStep = CurPiece.StartPhsxStep;
             IndependentStepSetOnce = false;
 
-
             // Save sub draw layers
             for (int i = 0; i < NumDrawLayers; i++)
             {
@@ -919,9 +883,7 @@ namespace CloudberryKingdom.Levels
                 }
             }
 
-
-
-            Vector2 BobsCenter = new Vector2(0, 0);
+            // Reset Bobs
             foreach (Bob bob in Bobs)
             {
                 PhsxData StartData;
@@ -936,47 +898,36 @@ namespace CloudberryKingdom.Levels
                     bob.Init(BoxesOnly, StartData, MyGame);
                 else
                     bob.Init(BoxesOnly, StartData, MySourceGame);
-                BobsCenter += bob.Core.Data.Position;
+
+                // Start Bob's box off as tiny, so we can properly collide with ground if the start position is slightly off.
+                bob.Box.Current.Size = Vector2.One;
+                bob.Box.Target.Size = Vector2.One;
+                bob.Box.Current.CalcBounds();
+                bob.Box.Target.CalcBounds();
+                bob.Box.CalcBounds();
 
                 bob.PlayerObject.BoxesOnly = BoxesOnly;
                 bob.BoxesOnly = BoxesOnly;
             }
-            if (Bobs.Count > 0)
-                BobsCenter /= Bobs.Count;
 
-
-
-
+            // Clean blocks
             foreach (BlockBase block in Blocks) if (block.Core.RemoveOnReset) Recycle.CollectObject(block);
             CleanBlockList();
             
+            // Reset blocks
             foreach (BlockBase block in Blocks)
             {
                 block.Reset(BoxesOnly);
                 if (block.BlockCore.Objects != null)
                     block.BlockCore.Objects.Clear();
             }
-            /*
-            List<Block> NewBlocks = new List<Block>();
-            foreach (Block block in Blocks)
-            {
-                Block newblock = (Block)Recycle.GetObject(block.Core.MyType, BoxesOnly);
-                newblock.Clone(block);
-                newblock.Reset(BoxesOnly);
-                if (newblock.BlockCore.Objects != null)
-                    newblock.BlockCore.Objects.Clear();
-
-                NewBlocks.Add(newblock);
-                Recycle.CollectObject(block);
-            }
-            foreach (Block block in NewBlocks) AddBlock(block);
-            */
             
+            // Clean objects
             foreach (ObjectBase obj in Objects) if (obj.Core.RemoveOnReset) Recycle.CollectObject(obj);
             CleanAllObjectLists();
             List<ObjectBase> NewObjects = new List<ObjectBase>();
 
-            
+            // Reset objects
             foreach (ObjectBase obj in Objects)
             {
                 obj.Reset(BoxesOnly);         
@@ -1000,18 +951,16 @@ namespace CloudberryKingdom.Levels
             {
                 if (obj.Core.ParentObject != null)
                 {
-                    obj.Core.ParentObject = NewObjects.Find(_obj =>
-                        _obj.Core.MyGuid == obj.Core.ParentObjId);
+                    ObjectBase parent = FindParentObjectById(NewObjects, obj);
+
+                    obj.Core.ParentObject = parent;
                 }
             }
 
-
-
+            // Re-add all objects 
             ClearAllObjectLists();
             foreach (ObjectBase obj in NewObjects)
-            {
                 AddObject(obj, false);
-            }
             foreach (ObjectBase block in Blocks)
                 ReAddObject(block);
 
@@ -1020,15 +969,18 @@ namespace CloudberryKingdom.Levels
             // Create new active object list
             CreateActiveObjectList();
 
-
+            // Reset camera
             MainCamera.Target = MainCamera.Data.Position = CurPiece.CamStartPos;
 
+            // Reset game
             if (AdditionalReset && MyGame != null)
                 MyGame.AdditionalReset();
 
+            // Start recording (for player replays)
             if (PlayMode == 0 && !Watching && Recording)
                 CurrentRecording.Record(this);
 
+            // Burn a few phsx steps
             if (PlayMode != 0)
                 for (int i = 0; i < CurPiece.DelayStart; i++)
                     PhsxStep(false);
@@ -1036,6 +988,14 @@ namespace CloudberryKingdom.Levels
             {
                 PhsxStep(false, false);
             }
+        }
+
+        private static ObjectBase FindParentObjectById(List<ObjectBase> ObjectList, ObjectBase obj)
+        {
+            ObjectBase FoundObj = ObjectList.Find(_obj =>
+                _obj.Core.MyGuid == obj.Core.ParentObjId);
+
+            return FoundObj;
         }
 
         public void SynchObject(ObjectBase obj)
@@ -1898,8 +1858,6 @@ namespace CloudberryKingdom.Levels
             AddedObjects.Clear();
 
             int CleanPeriod = 20;
-            //CleanAllObjectLists();
-            //if (BoxesOnly) Tools.RemoveAll(ActiveObjectList, obj => obj.Core.MarkedForDeletion);
             if (!BoxesOnly || CurPhsxStep % CleanPeriod == 0)
             {
                 // Remove deleted objects

@@ -24,14 +24,8 @@ namespace CloudberryKingdom
         public static new BobPhsxRocketbox Instance { get { return instance; } }
 
         // Instancable class
-
         public BobPhsxRocketbox()
         {
-        }
-
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Cart();
         }
 
         public override void Init(Bob bob)

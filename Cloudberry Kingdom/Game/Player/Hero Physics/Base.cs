@@ -234,11 +234,6 @@ namespace CloudberryKingdom
             return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), GetPhsx(Special));
         }
         
-        public virtual InteractWithBlocks MakePowerup()
-        {
-            return null;
-        }
-
         public enum CustomData
         {
             gravity, accel, maxspeed, maxfall, jumplength, jumplength2, jumpaccel, jumpaccel2,

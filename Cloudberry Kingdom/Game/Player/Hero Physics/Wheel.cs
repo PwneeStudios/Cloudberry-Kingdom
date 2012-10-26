@@ -28,11 +28,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxWheel instance = new BobPhsxWheel();
         new public static BobPhsxWheel Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Wheelie();
-        }
-
         // Instancable class
         new EzSound LandSound;
 

@@ -20,11 +20,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxBouncy instance = new BobPhsxBouncy();
         public static new BobPhsxBouncy Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Bouncy();
-        }
-
         // Instancable class
         bool InitializedAnim;
 

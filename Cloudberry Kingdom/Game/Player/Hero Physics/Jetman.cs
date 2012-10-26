@@ -68,11 +68,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxJetman instance = new BobPhsxJetman();
         public static new BobPhsxJetman Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Jetpack();
-        }
-
         // Instancable class
         public BobPhsxJetman()
         {

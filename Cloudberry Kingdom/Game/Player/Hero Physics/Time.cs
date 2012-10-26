@@ -22,11 +22,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxTime instance = new BobPhsxTime();
         public static new BobPhsxTime Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Jetpack();
-        }
-
         // Instancable class
         public BobPhsxTime()
         {

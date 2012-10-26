@@ -25,11 +25,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxInvert instance = new BobPhsxInvert();
         public static new BobPhsxInvert Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_Jetpack();
-        }
-
         // Instancable class
         public BobPhsxInvert()
         {

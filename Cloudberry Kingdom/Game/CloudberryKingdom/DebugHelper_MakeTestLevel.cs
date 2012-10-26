@@ -68,10 +68,10 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
-            //data.DefaultHeroType = BobPhsxTime.Instance;
+            data.DefaultHeroType = BobPhsxTime.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;

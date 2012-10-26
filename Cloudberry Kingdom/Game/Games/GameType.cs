@@ -1618,36 +1618,6 @@ namespace CloudberryKingdom
             lvl.UseLighting = true; lvl.StickmanLighting = true; lvl.SetBobLightRadius(difficulty);
             Tools.SongWad.SuppressNextInfoDisplay = true;
         }
-
-        public void AddPowerups(BobPhsx Powerup, string Title, Vector2 Pos, Vector2 Add, Vector2 Vel, Vector2 VelAdd, Action OnGrab, Action<InteractWithBlocks> ModPowerup)
-        {
-            bool Grabbed = false;
-
-            foreach (Bob bob in MyLevel.Bobs)
-            {
-                var powerup = Powerup.MakePowerup();
-
-                powerup.OnTouched += () =>
-                {
-                    if (!Grabbed)
-                    {
-                        if (OnGrab != null) OnGrab();
-                        if (Title != null)
-                            WaitThenDo(3, () => AddGameObject(LevelTitle.HeroTitle(Title)));
-                    }
-                    Grabbed = true;
-                };
-
-                Tools.MoveTo(powerup, Pos);
-                powerup.Core.Data.Velocity = Vel;
-                MyLevel.AddObject(powerup);
-
-                if (ModPowerup != null) ModPowerup(powerup);
-
-                Pos += Add;
-                Vel += VelAdd;
-            }
-        }
         #endregion
 
         #region Helper functions for mini-games
@@ -1658,40 +1628,8 @@ namespace CloudberryKingdom
                     gameobj.Release();
         }
 
-        public void ReturnToWorldMap(Door d)
-        {
-            d.SetLock(true, true, true);
-
-            WaitThenDo(25, () =>
-            {
-                Tools.CurrentAftermath = new AftermathData();
-                Tools.CurrentAftermath.Success = true;
-                d.Game.ParentGame.SetToReturnTo(0);
-            });
-        }
-
-        public void ReturnToWorldMap_Slow(Door d)
-        {
-            d.SetLock(true, true, true);
-
-            WaitThenDo(20, Tools.SongWad.FadeOut);
-
-            WaitThenDo(95, () =>
-            {
-                Tools.CurrentAftermath = new AftermathData();
-                Tools.CurrentAftermath.Success = true;
-                d.Game.ParentGame.SetToReturnTo(0);
-            });
-        }
-
-        public void ReturnToWorldMap_Immediate()
-        {
-            Tools.CurrentAftermath = new AftermathData();
-            Tools.CurrentAftermath.Success = true;
-            ParentGame.SetToReturnTo(0);
-        }
-
         public enum DeathTime { FOREVER, SuperSlow, Slow, Normal, Fast, SuperFast };
+
         /// <summary>
         /// Make deaths quicker.
         /// </summary>

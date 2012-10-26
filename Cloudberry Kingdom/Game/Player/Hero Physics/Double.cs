@@ -63,11 +63,6 @@ namespace CloudberryKingdom
         static readonly BobPhsxDouble instance = new BobPhsxDouble();
         public static new BobPhsxDouble Instance { get { return instance; } }
 
-        public override InteractWithBlocks MakePowerup()
-        {
-            return new Powerup_DoubleJump();
-        }
-
         // Instancable class
         public BobPhsxDouble()
         {
