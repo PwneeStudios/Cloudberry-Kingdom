@@ -28,21 +28,21 @@ namespace CloudberryKingdom.Awards
             if (Style == 0)
             {
                 if (award.Unlockable == null)
-                    Title = new EzText("", Tools.Font_Grobold42_2, 1800, false, false, .575f);
+                    Title = new EzText("", Resources.Font_Grobold42_2, 1800, false, false, .575f);
                 else
-                    Title = new EzText("Awardment unlocked:", Tools.Font_Grobold42_2, 1800, false, false, .575f);
+                    Title = new EzText("Awardment unlocked:", Resources.Font_Grobold42_2, 1800, false, false, .575f);
                 Title.Pos = new Vector2(-1726.192f, 369.0475f);
                 Title.Scale *= .79f;
                 MyPile.Add(Title);
             }
             else
             {
-                Title = new EzText("Awardment", Tools.Font_Grobold42_2, 1800, false, false, .575f);
+                Title = new EzText("Awardment", Resources.Font_Grobold42_2, 1800, false, false, .575f);
                 Title.Pos = new Vector2(-1690.476f, 468.254f);
                 Title.Scale *= .82f;
                 MyPile.Add(Title);
 
-                Title = new EzText("unlocked:", Tools.Font_Grobold42_2, 1800, false, false, .575f);
+                Title = new EzText("unlocked:", Resources.Font_Grobold42_2, 1800, false, false, .575f);
                 Title.Pos = new Vector2(-1448.412f, 214.2857f);
                 Title.Scale *= .82f;
                 MyPile.Add(Title);

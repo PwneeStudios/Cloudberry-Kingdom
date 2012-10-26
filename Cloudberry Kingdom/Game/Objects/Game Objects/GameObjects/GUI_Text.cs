@@ -32,17 +32,17 @@ namespace CloudberryKingdom
 
         public GUI_Text(string text, Vector2 pos)
         {
-            Init(text, pos, true, Style.Bubble, Tools.Font_Grobold42);
+            Init(text, pos, true, Style.Bubble, Resources.Font_Grobold42);
         }
 
         public GUI_Text(string text, Vector2 pos, Style style)
         {
-            Init(text, pos, true, style, Tools.Font_Grobold42);
+            Init(text, pos, true, style, Resources.Font_Grobold42);
         }
 
         public GUI_Text(string text, Vector2 pos, bool centered)
         {
-            Init(text, pos, centered, Style.Bubble, Tools.Font_Grobold42);
+            Init(text, pos, centered, Style.Bubble, Resources.Font_Grobold42);
         }
 
         public GUI_Text(string text, Vector2 pos, bool centered, EzFont font)

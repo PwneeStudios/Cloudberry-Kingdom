@@ -188,15 +188,15 @@ namespace CloudberryKingdom
             }
 
             // Fade
-            if (LoadingPercent > 97.6f && Accelerate || !Tools.TheGame.LoadingResources.MyBool)
+            if (LoadingPercent > 97.6f && Accelerate || !Resources.LoadingResources.MyBool)
             {
                 BlackQuad.Alpha += .0223f;
                 if (BlackQuad.Alpha >= 1)
                     DoneCount++;
             }
 
-            if (!Tools.TheGame.LoadingResources.MyBool && DoneCount > 1)
-            //if (!Tools.TheGame.LoadingResources.MyBool)
+            if (!Resources.LoadingResources.MyBool && DoneCount > 1)
+            //if (!Resources.LoadingResources.MyBool)
                 IsDone = true;
         }
 

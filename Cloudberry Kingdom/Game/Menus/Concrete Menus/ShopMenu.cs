@@ -275,7 +275,7 @@ namespace CloudberryKingdom.Awards
             MyMenu.OnB = MenuReturnToCaller;
 
             // Header
-            MenuItem Header = new MenuItem(new EzText("Hats for sale!", Tools.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new EzText("Hats for sale!", Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(-1608.809f, 951.508f);
@@ -360,7 +360,7 @@ namespace CloudberryKingdom.Awards
 
         void MakeHeader(MenuItem Header, string str)
         {
-            Header = new MenuItem(new EzText(str, Tools.Font_Grobold42_2));
+            Header = new MenuItem(new EzText(str, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             ItemPos.Y -= 40;
             Header.Pos = ItemPos + new Vector2(-130, 40);
@@ -397,13 +397,13 @@ namespace CloudberryKingdom.Awards
             shop.Pos = new Vector2(800, -200);
             MyPile.Add(shop);
 
-            Bank = new EzText("Bank", Tools.Font_Grobold42);
+            Bank = new EzText("Bank", Resources.Font_Grobold42);
             Bank.Scale *= 1.1f;
             CkColorHelper.UnpleasantColor(Bank);
             MyPile.Add(Bank);
             Bank.Pos = new Vector2(100f, 919.0476f);
 
-            BankAmount = new EzText("xx", Tools.Font_Grobold42);
+            BankAmount = new EzText("xx", Resources.Font_Grobold42);
             BankAmount.Scale *= .935f;
             MyPile.Add(BankAmount);
             BankAmount.Pos = new Vector2(855f, 877.5f);

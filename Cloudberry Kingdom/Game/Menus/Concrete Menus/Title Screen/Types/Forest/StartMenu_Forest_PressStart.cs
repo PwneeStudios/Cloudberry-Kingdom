@@ -41,7 +41,7 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
-            Text = new EzText("Press any key to start", Tools.Font_Grobold42, true);
+            Text = new EzText("Press any key to start", Resources.Font_Grobold42, true);
             Text.MyFloatColor = new Color(213, 200, 227).ToVector4();
             Text.OutlineColor = Color.Black.ToVector4();
             MyPile.Add(Text, "Press");

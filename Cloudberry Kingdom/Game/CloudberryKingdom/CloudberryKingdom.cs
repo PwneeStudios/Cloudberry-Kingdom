@@ -76,7 +76,7 @@ namespace CloudberryKingdom
         public ResolutionGroup[] Resolutions = new ResolutionGroup[4];
 
 #if WINDOWS
-        QuadClass MousePointer, MouseBack;
+        public QuadClass MousePointer, MouseBack;
         bool _DrawMouseBackIcon = false;
         public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
 #endif
@@ -99,14 +99,6 @@ namespace CloudberryKingdom
         public bool LogoScreenPropUp;
 
         /// <summary>
-        /// True when we are still loading resources during the game's initial load.
-        /// This is wrapped in a class so that it can be used as a lock.
-        /// </summary>
-        public WrappedBool LoadingResources;
-        public int LoadingOffset;
-        public WrappedFloat ResourceLoadedCountRef;
-
-        /// <summary>
         /// The game's initial loading screen. Different than the in-game loading screens seen before levels.
         /// </summary>
         public InitialLoadingScreen LoadingScreen;
@@ -115,11 +107,6 @@ namespace CloudberryKingdom
         public GraphicsDeviceManager MyGraphicsDeviceManager;
 
         int ScreenWidth, ScreenHeight;
-
-        /// <summary>
-        /// Font used to display debug info on the screen.
-        /// </summary>
-        SpriteFont DebugFont;
 
         Camera MainCamera;
 
@@ -196,8 +183,6 @@ namespace CloudberryKingdom
 
         public CloudberryKingdomGame()
         {
-            ResourceLoadedCountRef = new WrappedFloat();
-
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
@@ -375,201 +360,10 @@ namespace CloudberryKingdom
         }
 #endif
 
-        public void LoadInfo()
-        {
-            Tools.Write("Starting to load info...");
-            var t = new System.Diagnostics.Stopwatch();
-            t.Start();
-
-            PieceQuad c;
-
-            // Moving block
-            c = PieceQuad.MovingBlock = new PieceQuad();
-            c.Center.MyTexture = "blue_small";
-
-            // Falling block
-            var Fall = new AnimationData_Texture("FallingBlock", 1, 4);
-            PieceQuad.FallingBlock = new PieceQuad();
-            PieceQuad.FallingBlock.Center.SetTextureAnim(Fall);
-            PieceQuad.FallGroup = new BlockGroup();
-            PieceQuad.FallGroup.Add(100, PieceQuad.FallingBlock);
-            PieceQuad.FallGroup.SortWidths();
-
-            // Bouncy block
-            var Bouncy = new AnimationData_Texture("BouncyBlock", 1, 2);
-            PieceQuad.BouncyBlock = new PieceQuad();
-            PieceQuad.BouncyBlock.Center.SetTextureAnim(Bouncy);
-            PieceQuad.BouncyGroup = new BlockGroup();
-            PieceQuad.BouncyGroup.Add(100, PieceQuad.BouncyBlock);
-            PieceQuad.BouncyGroup.SortWidths();
-
-            // Moving block
-            PieceQuad.MovingGroup = new BlockGroup();
-            PieceQuad.MovingGroup.Add(100, PieceQuad.MovingBlock);
-            PieceQuad.MovingGroup.SortWidths();
-
-            // Elevator
-            PieceQuad.Elevator = new PieceQuad();
-            PieceQuad.Elevator.Center.Set("palette");
-            PieceQuad.Elevator.Center.SetColor(new Color(210, 210, 210));
-            PieceQuad.ElevatorGroup = new BlockGroup();
-            PieceQuad.ElevatorGroup.Add(100, PieceQuad.Elevator);
-            PieceQuad.ElevatorGroup.SortWidths();
-
-
-//#if INCLUDE_EDITOR
-            //if (LoadDynamic)
-            {
-                //if (!AlwaysSkipDynamicArt)
-                //    Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
-            }
-//#endif
-
-            t.Stop();
-            Tools.Write("... done loading info!");
-            Tools.Write("Total seconds: {0}", t.Elapsed.TotalSeconds);
-        }
-
-        protected void LoadMusic(bool CreateNewWad)
-        {
-            if (CreateNewWad)
-                Tools.SongWad = new EzSongWad();
-
-            Tools.SongWad.PlayerControl = Tools.SongWad.DisplayInfo = true;
-
-            string path = Path.Combine(Globals.ContentDirectory, "Music");
-            string[] files = Directory.GetFiles(path);
-
-            foreach (String file in files)
-            {
-                int i = file.IndexOf("Music") + 5 + 1;
-                if (i < 0) continue;
-                int j = file.IndexOf(".", i);
-                if (j <= i) continue;
-                String name = file.Substring(i, j - i);
-                String extension = file.Substring(j + 1);
-
-                if (extension == "xnb")
-                {
-                    if (CreateNewWad)
-                        Tools.SongWad.AddSong(Tools.GameClass.Content.Load<Song>("Music\\" + name), name);
-                    else
-                        Tools.SongWad.FindByName(name).song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
-                }
-
-                ResourceLoadedCountRef.MyFloat++;
-            }
-
-
-            Tools.Song_Happy = Tools.SongWad.FindByName("Happy");
-            Tools.Song_Happy.DisplayInfo = false;
-
-            Tools.Song_140mph = Tools.SongWad.FindByName("140 Mph in the Fog^Blind Digital");
-            Tools.Song_140mph.Volume = .7f;
-
-            Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue Chair^Blind Digital");
-            Tools.Song_BlueChair.Volume = .7f;
-
-            Tools.Song_Evidence = Tools.SongWad.FindByName("Evidence^Blind Digital");
-            Tools.Song_Evidence.Volume = .7f;
-
-            Tools.Song_GetaGrip = Tools.SongWad.FindByName("Get a Grip^Peacemaker");
-            Tools.Song_GetaGrip.Volume = 1f;
-
-            Tools.Song_House = Tools.SongWad.FindByName("House^Blind Digital");
-            Tools.Song_House.Volume = .7f;
-
-            Tools.Song_Nero = Tools.SongWad.FindByName("Nero's Law^Peacemaker");
-            Tools.Song_Nero.Volume = 1f;
-
-            Tools.Song_Ripcurl = Tools.SongWad.FindByName("Ripcurl^Blind Digital");
-            Tools.Song_Ripcurl.Volume = .7f;
-
-            Tools.Song_FatInFire = Tools.SongWad.FindByName("The Fat is in the Fire^Peacemaker");
-            Tools.Song_FatInFire.Volume = .9f;
-
-            Tools.Song_Heavens = Tools.SongWad.FindByName("The Heavens Opened^Peacemaker");
-            Tools.Song_Heavens.Volume = 1f;
-
-            Tools.Song_TidyUp = Tools.SongWad.FindByName("Tidy Up^Peacemaker");
-            Tools.Song_TidyUp.Volume = 1f;
-
-            Tools.Song_WritersBlock = Tools.SongWad.FindByName("Writer's Block^Peacemaker");
-            Tools.Song_WritersBlock.Volume = 1f;
-
-            // Create the standard playlist
-            Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
-            Tools.SongList_Standard.Remove(Tools.Song_Happy);
-            Tools.SongList_Standard.Remove(Tools.Song_140mph);
-        }
-
-        protected void LoadSound(bool CreateNewWad)
-        {
-            ContentManager manager = new ContentManager(Tools.GameClass.Content.ServiceProvider, Tools.GameClass.Content.RootDirectory);
-
-            if (CreateNewWad)
-            {
-                Tools.SoundWad = new EzSoundWad(4);
-                Tools.PrivateSoundWad = new EzSoundWad(4);
-            }
-
-            string path = Path.Combine(Globals.ContentDirectory, "Sound");
-            string[] files = Directory.GetFiles(path);
-            foreach (String file in files)
-            {
-                int i = file.IndexOf("Sound") + 5 + 1;
-                if (i < 0) continue;
-                int j = file.IndexOf(".", i);
-                if (j <= i) continue;
-                String name = file.Substring(i, j - i);
-                String extension = file.Substring(j + 1);
-
-                if (extension == "xnb")
-                {
-                    if (CreateNewWad)
-                        Tools.SoundWad.AddSound(manager.Load<SoundEffect>("Sound\\" + name), name);
-                    else
-                    {
-                        SoundEffect NewSound = manager.Load<SoundEffect>("Sound\\" + name);
-
-                        EzSound CurSound = Tools.SoundWad.FindByName(name);
-                        foreach (EzSound ezsound in Tools.PrivateSoundWad.SoundList)
-                            if (ezsound.sound == CurSound.sound)
-                                ezsound.sound = NewSound;
-                        CurSound.sound = NewSound;
-                    }
-                }
-
-                ResourceLoadedCountRef.MyFloat++;
-            }
-
-            if (Tools.SoundContentManager != null)
-            {
-                Tools.SoundContentManager.Unload();
-                Tools.SoundContentManager.Dispose();
-            }
-
-            Tools.SoundContentManager = manager;
-        }
-
-        protected void LoadAssets(bool CreateNewWads)
-        {
-            // Load the art!
-            PreloadArt();
-
-            // Load the music!
-            LoadMusic(CreateNewWads);
-
-            // Load the sound!
-            LoadSound(CreateNewWads);
-        }
-
-        Thread LoadThread;
         public void LoadContent()
         {
+            var Ck = Tools.TheGame;
+
             //BenchmarkLoadSize();
             //Tools.Warning();
 
@@ -586,8 +380,6 @@ namespace CloudberryKingdom
             Tools.Device = MyGraphicsDevice;
             Tools.t = 0;
 
-            LoadingResources = new WrappedBool(false);
-            LoadingResources.MyBool = true;
             LogoScreenUp = true;
 
             Tools.Render.MySpriteBatch = new SpriteBatch(MyGraphicsDevice);
@@ -600,7 +392,7 @@ namespace CloudberryKingdom
             MainCamera.Update();
 
             // Pre load. This happens before anything appears.
-            LoadAssets(true);
+            Resources.LoadAssets(true);
 
             // Initialize players
             PlayerManager.Init();
@@ -616,107 +408,20 @@ namespace CloudberryKingdom
             //PreprocessArt();
             //BenchmarkAll();
             //Tools.Warning(); return;
-            
+
             //_LoadThread(); return;
 
             // Create the initial loading screen
-            FontLoad();
-            LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, ResourceLoadedCountRef);
+            LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
 
             // Load resource thread
+            Resources.LoadResources();
+
 #if !DEBUG
             MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
 #endif
             //MainVideo.Load(true);
-            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
-
-            LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
-        }
-
-        private void _LoadThread()
-        {
-            Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
-
-            Thread.SpinWait(100);
-
-            Tools.Write("Start");
-
-            // Initialize the Gamepads
-            Tools.GamepadState = new GamePadState[4];
-            Tools.PrevGamepadState = new GamePadState[4];
-
-            // Fireball texture
-            Fireball.PreInit();
-
-            // Load art
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
-            //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
-            Tools.Write("ArtMusic done...");
-
-            // Load the tile info
-            LoadInfo();
-            TileSets.Init();
-
-            Fireball.InitRenderTargets(MyGraphicsDevice, MyGraphicsDevice.PresentationParameters, 300, 200);
-
-            ParticleEffects.Init();
-            
-            Awardments.Init();
-
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
-#endif
-
-
-#if PC_VERSION
-            // Mouse pointer
-            MousePointer = new QuadClass();
-            MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
-            MousePointer.ScaleYToMatchRatio(70);
-
-            // Mouse back icon
-            MouseBack = new QuadClass();
-            MouseBack.Quad.MyTexture = Tools.TextureWad.FindByName("charmenu_larrow_1");
-            MouseBack.ScaleYToMatchRatio(40);
-            MouseBack.Quad.SetColor(new Color(255, 150, 150, 100));
-#endif
-
-            Prototypes.LoadObjects();
-            ObjectIcon.InitIcons();
-
-            Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
-
-            // Note that we are done loading.
-            LoadingResources.MyBool = false;
-            Tools.Write("Loading done!");
-
-            Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
-        }
-
-        /// <summary>
-        /// Load the necessary fonts.
-        /// </summary>
-        private void FontLoad()
-        {
-            Tools.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
-            Tools.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
-
-            Tools.LilFont = new EzFont("Fonts/LilFont");
-
-            Tools.TheGame.DebugFont = Tools.LilFont.Font;
-
-            Tools.Write("Fonts done...");
+            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");            
         }
 
         protected void UnloadContent()
@@ -940,7 +645,7 @@ namespace CloudberryKingdom
 
             // Accelerate asset loading
             if (LogoScreenUp)
-                LoadThread.Join(1);
+                Resources.LoadThread.Join(1);
 
             // Prepare to draw
             Tools.DrawCount++;

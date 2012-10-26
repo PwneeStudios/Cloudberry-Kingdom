@@ -85,14 +85,14 @@ namespace CloudberryKingdom
 
             if (false)
             {
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 scale = .5f;
                 c = Color.White;
                 o = Color.Black;
             }
             else
             {
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 scale = .5f;
                 c = new Color(228, 0, 69);
                 o = Color.White;
@@ -100,7 +100,7 @@ namespace CloudberryKingdom
 
             if (Style == 0)
             {
-                MultiplierText = new EzText(ToString(), Tools.Font_Grobold42, 950, false, true);
+                MultiplierText = new EzText(ToString(), Resources.Font_Grobold42, 950, false, true);
                 MultiplierText.Scale = .95f;
                 MultiplierText.Pos = new Vector2(187, 130);
                 MultiplierText.MyFloatColor = new Color(255, 255, 255).ToVector4();

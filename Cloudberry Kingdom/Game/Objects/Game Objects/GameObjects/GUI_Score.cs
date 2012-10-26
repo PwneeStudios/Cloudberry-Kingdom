@@ -94,7 +94,7 @@ namespace CloudberryKingdom
             float scale;
             Color c, o;
 
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 scale = .5f;
                 c = new Color(228, 0, 69);
                 o = Color.White;

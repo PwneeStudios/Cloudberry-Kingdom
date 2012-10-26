@@ -58,39 +58,39 @@ namespace CloudberryKingdom
             EzText text;
 
 #if PC_VERSION
-            text = new EzText("quick spawn", Tools.Font_Grobold42);
+            text = new EzText("quick spawn", Resources.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-404.7632f, 626.9842f);
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText("power ups", Tools.Font_Grobold42);
+            text = new EzText("power ups", Resources.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-380.9531f, 380.9523f);
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText("menu", Tools.Font_Grobold42);
+            text = new EzText("menu", Resources.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-396.8247f, 976.1902f);
             text.MyFloatColor = CampaignHelper.DifficultyColor[1].ToVector4();
 
-            text = new EzText("accept", Tools.Font_Grobold42);
+            text = new EzText("accept", Resources.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-388.8873f, 182.5395f);
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
-            text = new EzText("back", Tools.Font_Grobold42);
+            text = new EzText("back", Resources.Font_Grobold42);
             text.Scale = 1.06f;
             MyPile.Add(text);
             text.Pos = new Vector2(-380.9512f, -71.42798f);
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
-            text = new EzText("b", Tools.Font_Grobold42);
+            text = new EzText("b", Resources.Font_Grobold42);
             text.SubstituteText("<");
             text.Scale = 1.46f;
             MyPile.Add(text);

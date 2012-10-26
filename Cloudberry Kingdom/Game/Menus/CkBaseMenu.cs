@@ -25,7 +25,7 @@ namespace CloudberryKingdom
         public Vector2 ItemPos = new Vector2(-808, 110);
         protected Vector2 PosAdd = new Vector2(0, -151) * 1.181f;
 
-        protected EzFont ItemFont = Tools.Font_Grobold42;
+        protected EzFont ItemFont = Resources.Font_Grobold42;
         protected float FontScale = .75f;
 
         protected virtual void SetItemProperties(MenuItem item)

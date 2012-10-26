@@ -68,12 +68,12 @@ namespace CloudberryKingdom
             if (MyCharacterSelect.Player.Exists)
             {
                 string name = MyCharacterSelect.Player.GetName();
-                Text = new EzText(name, Tools.Font_Grobold42, true, true);
+                Text = new EzText(name, Resources.Font_Grobold42, true, true);
                 ScaleGamerTag(Text);
             }
             else
             {
-                Text = new EzText("ERROR", Tools.LilFont, true, true);
+                Text = new EzText("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;

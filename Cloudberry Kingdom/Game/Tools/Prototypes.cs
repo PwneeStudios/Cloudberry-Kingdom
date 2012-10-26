@@ -547,7 +547,7 @@ namespace CloudberryKingdom
             // Place bob
             //PlaceBob = LoadObject(Path.Combine(Globals.ContentDirectory, "Objects\\place_bob.smo"));
 
-            Tools.TheGame.ResourceLoadedCountRef.MyFloat++;
+            Resources.ResourceLoadedCountRef.MyFloat++;
         }
     }
 }

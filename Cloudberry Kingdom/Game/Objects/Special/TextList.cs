@@ -44,7 +44,7 @@ namespace CloudberryKingdom
 
         public void AddLine(String s)
         {
-            Text.Add(new EzText(s, Tools.Font_Grobold42, true));
+            Text.Add(new EzText(s, Resources.Font_Grobold42, true));
         }
 
         public override void PhsxStep()

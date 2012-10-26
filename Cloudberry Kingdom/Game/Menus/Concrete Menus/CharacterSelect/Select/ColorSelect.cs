@@ -89,7 +89,7 @@ namespace CloudberryKingdom
             BackButton.Go = Cast.ToItem(Back);
             AddItem(BackButton);
 
-            MyPile.Add(new EzText(Header, Tools.Font_Grobold42, true), "Header");
+            MyPile.Add(new EzText(Header, Resources.Font_Grobold42, true), "Header");
             
             CharacterSelect.Shift(this);
         }

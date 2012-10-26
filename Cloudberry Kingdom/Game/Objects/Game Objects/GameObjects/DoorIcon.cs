@@ -100,7 +100,7 @@ namespace CloudberryKingdom
             float scale = .72f;
             if (text.Length == 2) scale = .55f;
             
-            EzText eztext = new EzText(text, Tools.Font_Grobold42, 1000, true, false);
+            EzText eztext = new EzText(text, Resources.Font_Grobold42, 1000, true, false);
             eztext.Scale = scale;
 
             return eztext;

@@ -1,12 +1,11 @@
-﻿#define EMBEDDEDLOAD
-
-using System.Reflection;
+﻿using System.Reflection;
 using System;
 using System.Threading;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -672,9 +671,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
         }
         public static GameData WorldMap, TitleGame;
-
-        public static EzFont Font_Grobold42, Font_Grobold42_2;
-        public static EzFont LilFont;
 
         public static int[] VibrateTimes = { 0, 0, 0, 0 };
 

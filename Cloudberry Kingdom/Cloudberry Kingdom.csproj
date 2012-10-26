@@ -299,6 +299,7 @@
     <Compile Include="Core\Graphics\Draw\Simple\SimpleQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleBox.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleVector.cs" />
+    <Compile Include="Game\Tools\Resources.cs" />
     <Compile Include="Game\Video.cs" />
     <Compile Include="MainClass\XboxPC\MainClass.cs" />
     <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />

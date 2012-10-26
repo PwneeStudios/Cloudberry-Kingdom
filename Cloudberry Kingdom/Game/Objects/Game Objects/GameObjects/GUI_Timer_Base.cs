@@ -147,14 +147,14 @@ namespace CloudberryKingdom
 
             if (false)
             {
-                font = Tools.Font_Grobold42_2;
+                font = Resources.Font_Grobold42_2;
                 scale = .55f;
                 c = Color.White;
                 o = Color.Black;
             }
             else
             {
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 scale = .75f;
                 c = new Color(228, 0, 69);
                 o = Color.White;

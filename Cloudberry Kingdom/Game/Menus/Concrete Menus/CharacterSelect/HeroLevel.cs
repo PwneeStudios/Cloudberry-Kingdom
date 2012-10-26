@@ -59,11 +59,11 @@ namespace CloudberryKingdom
             {
                 //string name = MyCharacterSelect.Player.GetName();
                 string name = "Level 56";
-                Text = new EzText(name, Tools.Font_Grobold42, true, true);
+                Text = new EzText(name, Resources.Font_Grobold42, true, true);
             }
             else
             {
-                Text = new EzText("ERROR", Tools.LilFont, true, true);
+                Text = new EzText("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;

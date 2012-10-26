@@ -65,7 +65,7 @@ namespace CloudberryKingdom
             float YSpacing = 200;
 
             MenuItem item;
-            EzFont font = Tools.Font_Grobold42;
+            EzFont font = Resources.Font_Grobold42;
             float FontScale = .775f;
 
             item = new MenuItem(new EzText("Sign in?", font));

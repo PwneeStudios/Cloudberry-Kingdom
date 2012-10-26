@@ -87,7 +87,7 @@ namespace CloudberryKingdom
 
         protected virtual EzText MakeText(string text, bool centered)
         {
-            return new EzText(text, Tools.Font_Grobold42, 1000, true, true, .525f);
+            return new EzText(text, Resources.Font_Grobold42, 1000, true, true, .525f);
         }
 
         public void Kill() { Kill(true); }

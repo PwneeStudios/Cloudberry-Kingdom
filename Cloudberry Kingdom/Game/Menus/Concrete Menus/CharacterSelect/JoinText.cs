@@ -46,9 +46,9 @@ namespace CloudberryKingdom
 
             // Press A to join
 #if PC_VERSION
-            Text = new EzText("Press\n" + ButtonString.Go_Controller(89) + "\nto join!", Tools.Font_Grobold42, 1000, true, true, .65f);
+            Text = new EzText("Press\n" + ButtonString.Go_Controller(89) + "\nto join!", Resources.Font_Grobold42, 1000, true, true, .65f);
 #else
-            Text = new EzText("Press\n{pXbox_A,72,?}\nto join!", Tools.Font_Grobold42, true, true);
+            Text = new EzText("Press\n{pXbox_A,72,?}\nto join!", Resources.Font_Grobold42, true, true);
 #endif
             Text.Scale = .7765f;
 
@@ -77,12 +77,12 @@ namespace CloudberryKingdom
             if (MyCharacterSelect.Player.Exists)
             {
                 string name = MyCharacterSelect.Player.GetName();
-                Text = new EzText(name, Tools.Font_Grobold42, true, true);
+                Text = new EzText(name, Resources.Font_Grobold42, true, true);
                 ScaleGamerTag(Text);
             }
             else
             {
-                Text = new EzText("ERROR", Tools.LilFont, true, true);
+                Text = new EzText("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;

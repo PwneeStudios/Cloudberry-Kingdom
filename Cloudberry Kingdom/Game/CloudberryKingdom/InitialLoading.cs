@@ -21,9 +21,9 @@ namespace CloudberryKingdom
                 return;
             }
 
-            if (!LoadingResources.MyBool)
+            if (!Resources.LoadingResources.MyBool)
             {
-                if (LoadingScreen.IsDone || !LoadingResources.MyBool)
+                if (LoadingScreen.IsDone || !Resources.LoadingResources.MyBool)
                 {
                     DoInnerLogoPhsx = false;
                     if (LoadingScreen.IsDone)

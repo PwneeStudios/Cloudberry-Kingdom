@@ -138,7 +138,7 @@ namespace CloudberryKingdom
                 int MenuIndex = i;
                 bool Locked = i >= IndexCutoff;
 
-                var item = new LevelItem(new EzText(Names[i], Tools.Font_Grobold42), StartLevel, MenuIndex, Locked);
+                var item = new LevelItem(new EzText(Names[i], Resources.Font_Grobold42), StartLevel, MenuIndex, Locked);
                 if (!Locked) item.Go = Launch;
 
                 AddItem(item);
@@ -166,7 +166,7 @@ namespace CloudberryKingdom
             BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
 
             // Header
-            var Header = new EzText(HeaderText, Tools.Font_Grobold42);
+            var Header = new EzText(HeaderText, Resources.Font_Grobold42);
             MyPile.Add(Header);
             SetHeaderProperties(Header);
 

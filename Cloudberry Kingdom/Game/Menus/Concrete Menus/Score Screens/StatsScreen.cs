@@ -129,14 +129,14 @@ namespace CloudberryKingdom.Stats
             // Header
             MenuItem Header;
             if (group == StatGroup.Lifetime)
-                Header = new MenuItem(new EzText("Statistics", Tools.Font_Grobold42_2));
+                Header = new MenuItem(new EzText("Statistics", Resources.Font_Grobold42_2));
             else if (group == StatGroup.Campaign)
             {
-                Header = new MenuItem(new EzText("Campaign!", Tools.Font_Grobold42_2));
+                Header = new MenuItem(new EzText("Campaign!", Resources.Font_Grobold42_2));
                 Header.MyText.Scale *= .725f;
             }
             else
-                Header = new MenuItem(new EzText("Stats!", Tools.Font_Grobold42_2));
+                Header = new MenuItem(new EzText("Stats!", Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(HeaderPos, ItemPos.Y - 40);
@@ -203,7 +203,7 @@ namespace CloudberryKingdom.Stats
             //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
 
             // Deaths
-            Header = new MenuItem(new EzText("Deaths", Tools.Font_Grobold42_2));
+            Header = new MenuItem(new EzText("Deaths", Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(HeaderPos, ItemPos.Y - 40);

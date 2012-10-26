@@ -14,7 +14,7 @@ namespace CloudberryKingdom
     {
         public GUI_EnterName() : base(PlayerManager.DefaultName, Vector2.Zero)
         {
-            EzText Text = new EzText("New high score!", Tools.Font_Grobold42);
+            EzText Text = new EzText("New high score!", Resources.Font_Grobold42);
 
             Text.Pos = new Vector2(-579.365f, 253.9681f);
             Text.Scale *= .7f;
@@ -156,7 +156,7 @@ namespace CloudberryKingdom
 
             string clipboard = System.Windows.Forms.Clipboard.GetText();
 
-            clipboard = Tools.SantitizeOneLineString(clipboard, Tools.LilFont);
+            clipboard = Tools.SantitizeOneLineString(clipboard, Resources.LilFont);
 
             Text += Tools.SantitizeOneLineString(clipboard, MyText.MyFont);
         }
@@ -185,20 +185,20 @@ namespace CloudberryKingdom
         EzText Caret;
 
         public GUI_TextBox(string InitialText, Vector2 pos)
-            : base(Tools.SantitizeOneLineString(InitialText, Tools.Font_Grobold42), pos, false)
+            : base(Tools.SantitizeOneLineString(InitialText, Resources.Font_Grobold42), pos, false)
         {
             Init(InitialText, pos, Vector2.One, 1f);
         }
 
         public GUI_TextBox(string InitialText, Vector2 pos, Vector2 scale, float fontscale)
-            : base(InitialText, pos, false, Tools.LilFont)
+            : base(InitialText, pos, false, Resources.LilFont)
         {
             Init(InitialText, pos, scale, fontscale);
         }
 
         void Init(string InitialText, Vector2 pos, Vector2 scale, float fontscale)
         {
-            InitialText = Tools.SantitizeOneLineString(InitialText, Tools.LilFont);
+            InitialText = Tools.SantitizeOneLineString(InitialText, Resources.LilFont);
 
             FixedToCamera = true;
             NoPosMod = true;
@@ -214,8 +214,8 @@ namespace CloudberryKingdom
             //MyPile.Insert(0, Backdrop);
 
             // Caret
-            //var font = Tools.Font_Grobold42;
-            var font = Tools.LilFont;
+            //var font = Resources.Font_Grobold42;
+            var font = Resources.LilFont;
             Caret = new EzText("_", font, 1000, false, true, .575f);
             Caret.MyFloatColor = Color.Black.ToVector4();
             Caret.Pos = MyText.Pos;

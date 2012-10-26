@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'Game Over' text
-            EzText Text = new EzText("Game Over", Tools.Font_Grobold42_2, 1450, false, true, .6f);
+            EzText Text = new EzText("Game Over", Resources.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = 1f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();

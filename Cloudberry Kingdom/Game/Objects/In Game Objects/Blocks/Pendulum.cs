@@ -6,15 +6,6 @@ using Microsoft.Xna.Framework;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Levels
-{
-    public partial class Level
-    {
-        public float BlockTime = 0;
-        public float BlockTimeVel = 0;
-    }
-}
-
 namespace CloudberryKingdom.Blocks
 {
     public enum PendulumMoveType { Line, Square }
@@ -34,9 +25,6 @@ namespace CloudberryKingdom.Blocks
         public override void LandedOn(Bob bob)
         {
             base.LandedOn(bob);
-
-            //MyLevel.BlockTimeVel = 1;
-            //MyLevel.BlockTime += 1;
         }
 
         public override void MakeNew()

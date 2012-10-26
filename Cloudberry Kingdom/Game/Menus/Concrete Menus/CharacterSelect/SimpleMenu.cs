@@ -266,7 +266,7 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
 
-            ItemFont = Tools.Font_Grobold42;
+            ItemFont = Resources.Font_Grobold42;
             FontScale = .66f;
 
             int ButtonSize = 95;

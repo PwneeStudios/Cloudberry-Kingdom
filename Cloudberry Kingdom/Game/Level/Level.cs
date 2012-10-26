@@ -828,7 +828,6 @@ namespace CloudberryKingdom.Levels
         void __Reset(bool BoxesOnly, bool AdditionalReset)
         {
             this.BoxesOnly = BoxesOnly;
-            BlockTimeVel = BlockTime = 0;
             NonLambdaReset();
 
             if (MyGame != null) MyGame.FreeReset = FreeReset;
@@ -1789,9 +1788,6 @@ namespace CloudberryKingdom.Levels
         public void PhsxStep(bool NotDrawing) { PhsxStep(NotDrawing, true); }
         public void PhsxStep(bool NotDrawing, bool GUIPhsx)
         {
-            BlockTime += BlockTimeVel;
-            BlockTimeVel *= .95f;
-
             if (!IndependentStepSetOnce)
                 SetIndependentStep();
 

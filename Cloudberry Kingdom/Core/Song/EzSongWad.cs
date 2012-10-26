@@ -65,7 +65,7 @@ namespace CoreEngine
             if (!DisplayInfo) return;
             if (!song.DisplayInfo) return;
 
-            SongInfoText = new EzText(song.SongName + "\n" + song.ArtistName, Tools.LilFont, true, true);
+            SongInfoText = new EzText(song.SongName + "\n" + song.ArtistName, Resources.LilFont, true, true);
             SongInfoText._Pos = new Vector2(-850, -790);
             SongInfoText.MyFloatColor = new Vector4(1, 1, 1, 4.5f);
             SongInfoText.Alpha = -.45f;

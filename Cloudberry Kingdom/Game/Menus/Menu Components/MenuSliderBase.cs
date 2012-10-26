@@ -70,7 +70,7 @@ namespace CloudberryKingdom
 
         public MenuSliderBase()
         {
-            EzText NoText = new EzText("", Tools.Font_Grobold42);
+            EzText NoText = new EzText("", Resources.Font_Grobold42);
             Init(NoText, NoText.Clone());
             InitializeSlider();
         }

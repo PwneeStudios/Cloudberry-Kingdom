@@ -79,7 +79,7 @@ namespace CoreEngine
 
 #if EDITOR
 #else
-                    Tools.TheGame.ResourceLoadedCountRef.Val++;
+                    Resources.ResourceLoadedCountRef.Val++;
 #endif
                 }
             }

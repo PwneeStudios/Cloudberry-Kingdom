@@ -118,7 +118,7 @@ namespace CloudberryKingdom
             Backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'High Score' text
-            EzText Text = new EzText(MyScoreList.GetHeader(), Tools.Font_Grobold42_2, 1450, false, true, .6f);
+            EzText Text = new EzText(MyScoreList.GetHeader(), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = .8f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
@@ -134,7 +134,7 @@ namespace CloudberryKingdom
             Vector2 pos = new Vector2(-973, 322);
             foreach (ScoreEntry score in MyScoreList.Scores)
             {
-                Text = new EzText(MyScoreList.ScoreString(score, DesiredLength), Tools.Font_Grobold42);
+                Text = new EzText(MyScoreList.ScoreString(score, DesiredLength), Resources.Font_Grobold42);
                 SetHeaderProperties(Text);
                 Text.Scale *= .55f;
 
@@ -167,10 +167,10 @@ namespace CloudberryKingdom
         void MakeSwapText()
         {
 #if PC_VERSION
-            //SwapText = new EzText(ButtonString.Enter(200), Tools.Font_Grobold42_2, 1450, false, true, .6f);
+            //SwapText = new EzText(ButtonString.Enter(200), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             //SwapText.Pos = new Vector2(-1169.281f, 602.9366f);
 #else
-            SwapText = new EzText(ButtonString.Go(130), Tools.Font_Grobold42_2, 1450, false, true, .6f);
+            SwapText = new EzText(ButtonString.Go(130), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             SwapText.Pos = new Vector2(-1014.837f, 597.3811f);
 #endif
 

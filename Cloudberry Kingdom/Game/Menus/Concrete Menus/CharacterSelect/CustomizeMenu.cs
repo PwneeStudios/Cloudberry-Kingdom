@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             PosAdd = new Vector2(0, -160);
             SelectedItemShift = new Vector2(0, 0);
             FontScale = .5835f;
-            ItemFont = Tools.Font_Grobold42;
+            ItemFont = Resources.Font_Grobold42;
 
             AddMenuItem("Color", "Color");
             AddMenuItem("Beard", "Beard");
@@ -133,7 +133,7 @@ namespace CloudberryKingdom
                 foreach (Hat hat in CharacterSelectManager.AvailableHats)
                 {
                     int hat_index = ColorSchemeManager.HatInfo.IndexOf(hat);
-                    var item = new MenuItem(new EzText(hat.Name, Tools.Font_Grobold42, false, true));
+                    var item = new MenuItem(new EzText(hat.Name, Resources.Font_Grobold42, false, true));
                     item.ScaleText(.375f);
                     item.MyObject = hat_index;
 
@@ -150,7 +150,7 @@ namespace CloudberryKingdom
                 foreach (Hat beard in CharacterSelectManager.AvailableBeards)
                 {
                     int beard_index = ColorSchemeManager.BeardInfo.IndexOf(beard);
-                    var item = new MenuItem(new EzText(beard.Name, Tools.Font_Grobold42, false, true));
+                    var item = new MenuItem(new EzText(beard.Name, Resources.Font_Grobold42, false, true));
                     item.ScaleText(.375f);
                     item.MyObject = beard_index;
                     
@@ -174,7 +174,7 @@ namespace CloudberryKingdom
                         if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
 
                     int clr_index = list.IndexOf(item);
-                    var _item = new MenuItem(new EzText(data.Name, Tools.Font_Grobold42, false, true));
+                    var _item = new MenuItem(new EzText(data.Name, Resources.Font_Grobold42, false, true));
                     _item.ScaleText(.375f);
                     _item.MyObject = clr_index;
 

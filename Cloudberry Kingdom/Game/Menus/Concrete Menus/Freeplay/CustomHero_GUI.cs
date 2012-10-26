@@ -286,7 +286,7 @@ namespace CloudberryKingdom
             SelectedItemShift = new Vector2(0, 0);
 
             // Header
-            EzText HeaderText = new EzText("Hero Factory!", Tools.Font_Grobold42);
+            EzText HeaderText = new EzText("Hero Factory!", Resources.Font_Grobold42);
             HeaderText.Name = "Header";
             SetSuperHeader(HeaderText);
             HeaderText.Pos = new Vector2(-1169.842f, 985.7144f);

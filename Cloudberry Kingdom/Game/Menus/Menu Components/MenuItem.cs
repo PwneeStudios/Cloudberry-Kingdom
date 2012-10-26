@@ -203,8 +203,8 @@ namespace CloudberryKingdom
             MySelectedColor = new Color(255, 255, 255, 255).ToVector4();
             MyColor = new Color(220, 220, 220, 200).ToVector4();
 
-            MySelectedFont = Tools.Font_Grobold42;
-            MyFont = Tools.Font_Grobold42;
+            MySelectedFont = Resources.Font_Grobold42;
+            MyFont = Resources.Font_Grobold42;
         }
 
         public virtual Vector2 Size()

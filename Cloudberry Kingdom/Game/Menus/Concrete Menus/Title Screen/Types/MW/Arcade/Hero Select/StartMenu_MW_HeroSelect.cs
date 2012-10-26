@@ -10,7 +10,7 @@ namespace CloudberryKingdom
         public bool Locked;
 
         public HeroItem(BobPhsx Hero)
-            : base(new EzText(Hero.Name, Tools.Font_Grobold42_2))
+            : base(new EzText(Hero.Name, Resources.Font_Grobold42_2))
         {
             this.Hero = Hero;
 
@@ -111,8 +111,8 @@ namespace CloudberryKingdom
 
             CallDelay = ReturnToCallerDelay = 0;
 
-            Score = new EzText("0", Tools.Font_Grobold42_2);
-            Level = new EzText("0", Tools.Font_Grobold42_2);
+            Score = new EzText("0", Resources.Font_Grobold42_2);
+            Level = new EzText("0", Resources.Font_Grobold42_2);
 
             // Heroes
             BobPhsxNormal.Instance.Id = 0;
@@ -193,13 +193,13 @@ namespace CloudberryKingdom
             MyPile.Add(BackBox, "BoxRight");
 
             // Score, level
-            var ScoreHeader = new EzText("High Score", Tools.Font_Grobold42_2);
+            var ScoreHeader = new EzText("High Score", Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(ScoreHeader, true);
             MyPile.Add(ScoreHeader, "ScoreHeader");
 
             MyPile.Add(Score, "Score");
 
-            var LevelHeader = new EzText("Best Level", Tools.Font_Grobold42_2);
+            var LevelHeader = new EzText("Best Level", Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(LevelHeader, true);
             MyPile.Add(LevelHeader, "LevelHeader");
             

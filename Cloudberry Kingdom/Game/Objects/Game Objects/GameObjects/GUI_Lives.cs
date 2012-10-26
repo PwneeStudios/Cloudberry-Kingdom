@@ -94,7 +94,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            Text = new EzText(BuildString().ToString(), Tools.Font_Grobold42, 450, false, false);
+            Text = new EzText(BuildString().ToString(), Resources.Font_Grobold42, 450, false, false);
             Text.Scale = .625f;
             Text.Pos = new Vector2(-67.22302f, 83.26669f);
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();

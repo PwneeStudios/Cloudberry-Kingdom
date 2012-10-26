@@ -124,7 +124,7 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             // Header
-            MenuItem Header = new MenuItem(new EzText("The Arcade", Tools.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new EzText("The Arcade", Resources.Font_Grobold42_2));
             Header.Name = "Header";
             MyMenu.Add(Header);
             SetItemProperties(Header);

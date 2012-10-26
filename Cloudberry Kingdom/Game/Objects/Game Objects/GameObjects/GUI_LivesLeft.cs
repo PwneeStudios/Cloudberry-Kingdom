@@ -52,7 +52,7 @@ namespace CloudberryKingdom
 
             MyPile.Add(new QuadClass("Bob_Stand_0001", 130, true), "Bob");
 
-            LivesLeftText = new EzText(ToString(), Tools.Font_Grobold42, 450, false, true);
+            LivesLeftText = new EzText(ToString(), Resources.Font_Grobold42, 450, false, true);
             LivesLeftText.Name = "Text";
             LivesLeftText.Scale = .53f;
             LivesLeftText.Pos = new Vector2(187, -16);

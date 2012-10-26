@@ -230,7 +230,7 @@ namespace CloudberryKingdom
             Coin.Pos = new Vector2(-873.1558f, 770.5778f);
             MyPile.Add(Coin, "Coin");
 
-            CoinsText = new EzText("x", Tools.Font_Grobold42, 450, false, true);
+            CoinsText = new EzText("x", Resources.Font_Grobold42, 450, false, true);
             CoinsText.Name = "Coins";
             CoinsText.Scale = .8f;
             CoinsText.Pos = new Vector2(-910.2224f, 717.3333f);

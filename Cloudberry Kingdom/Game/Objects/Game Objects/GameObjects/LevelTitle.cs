@@ -56,7 +56,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyPile.Pos += shift;
 
-            text = new EzText(str, Tools.Font_Grobold42, true, true);
+            text = new EzText(str, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 
             text.MyFloatColor = new Color(26, 188, 241).ToVector4();

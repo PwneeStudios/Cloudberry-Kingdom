@@ -99,7 +99,7 @@ namespace CloudberryKingdom
 
             if (false)
             {
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 coin = "CoinBlue";
                 scale = .625f;
                 c = Color.White;
@@ -107,7 +107,7 @@ namespace CloudberryKingdom
             }
             else
             {
-                font = Tools.Font_Grobold42;
+                font = Resources.Font_Grobold42;
                 coin = "coin_blue";
                 scale = .55f;
                 c = new Color(228, 0, 69);

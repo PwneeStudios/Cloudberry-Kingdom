@@ -51,13 +51,6 @@ namespace CloudberryKingdom
 
             Tools.Write("ArtMusic done...");
 
-            // Load the infowad and boxes
-            Start();
-            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-            LoadInfo();
-            long Info = Stop();
-            Tools.Write("Infowad done...");
-
             Start();
             TileSets.Init();
             long Tiles = Stop();
@@ -102,7 +95,6 @@ namespace CloudberryKingdom
             Console.WriteLine("Load effects   {0}", LoadEffects);
             Console.WriteLine("Load menus     {0}", LoadMenus);
             Console.WriteLine("Load rest      {0}", LoadRest);
-            Console.WriteLine("Load info      {0}", Info);
             Console.WriteLine("Load tiles     {0}", Tiles);
             Console.WriteLine("Load particles {0}", Particle);
             Console.WriteLine("Load players   {0}", Players);
