@@ -318,7 +318,7 @@
     <Compile Include="Game\Player\Hero Physics\Rocketbox.cs" />
     <Compile Include="Game\Player\Hero Physics\Invert.cs" />
     <Compile Include="Game\Player\Hero Physics\Meat.cs" />
-    <Compile Include="Game\Player\Hero Physics\Braid.cs" />
+    <Compile Include="Game\Player\Hero Physics\Time.cs" />
     <Compile Include="Core\Animation\AnimationData_Integer.cs" />
     <Compile Include="Core\Animation\AnimQueue.cs" />
     <Compile Include="Core\PhsxData.cs" />

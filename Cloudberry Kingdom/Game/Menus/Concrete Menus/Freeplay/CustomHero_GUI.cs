@@ -10,6 +10,8 @@ namespace CloudberryKingdom
 {
     public class CustomHero_GUI : CkBaseMenu
     {
+        public static BobPhsx.CustomPhsxData HeroPhsxData;
+
         public static BobPhsx Hero;
         BobPhsxNormal NormalHero { get { return Hero as BobPhsxNormal; } }
 
@@ -56,7 +58,7 @@ namespace CloudberryKingdom
             JumpLengthSlider = new PhsxSlider("Jump length", BobPhsx.CustomData.jumplength);
             JumpAccelSlider = new PhsxSlider("Jump accel", BobPhsx.CustomData.jumpaccel);
 
-            NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps);
+            NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps); NumJumpsSlider.Discrete = true;
             DoubleJumpLengthSlider = new PhsxSlider("Double jump length", BobPhsx.CustomData.jumplength2);
             DoubleJumpAccelSlider = new PhsxSlider("Doule jump accel", BobPhsx.CustomData.jumpaccel2);
 
@@ -138,9 +140,9 @@ namespace CloudberryKingdom
             // Make the hero
             Hero = MyGame.MyLevel.DefaultHeroType = BobPhsx.MakeCustom(Base, Size, Jump, BobPhsxNormal.Instance);
 
-            var data = new BobPhsx.CustomPhsxData();
-            data.Init(GravitySlider.Val, AccelSlider.Val, MaxSpeedSlider.Val, MaxFallSpeedSlider.Val, JumpLengthSlider.Val, DoubleJumpLengthSlider.Val, JumpAccelSlider.Val, DoubleJumpAccelSlider.Val, JetPackSlider.Val, JetPackFuelSlider.Val, NumJumpsSlider.Val, SizeSlider.Val, PhasedSizeSlider.Val, PhasedGravitySlider.Val, PhasePeriodSlider.Val, FrictionSlider.Val);
-            Hero.SetCustomPhsx(data);
+            //var data = new BobPhsx.CustomPhsxData();
+            //data.Init(GravitySlider.Val, AccelSlider.Val, MaxSpeedSlider.Val, MaxFallSpeedSlider.Val, JumpLengthSlider.Val, DoubleJumpLengthSlider.Val, JumpAccelSlider.Val, DoubleJumpAccelSlider.Val, JetPackSlider.Val, JetPackFuelSlider.Val, NumJumpsSlider.Val, SizeSlider.Val, PhasedSizeSlider.Val, PhasedGravitySlider.Val, PhasePeriodSlider.Val, FrictionSlider.Val);
+            Hero.SetCustomPhsx(HeroPhsxData);
         }
 
 
@@ -226,6 +228,8 @@ namespace CloudberryKingdom
         {
             var list = new MenuList();
 
+            list.GrayOutOnUnselectable = true;
+
             return list;
         }
 
@@ -251,6 +255,10 @@ namespace CloudberryKingdom
         {
             SetItemProperties(item);
         }
+
+        static int BaseListIndex = 0;
+        static int SizeListIndex = 0;
+        static int JumpListIndex = 0;
 
         public override void Init()
         {
@@ -288,8 +296,6 @@ namespace CloudberryKingdom
             var backdrop = new QuadClass("Backplate_1500x900", 1500, true);
             backdrop.Name = "Backdrop";
             MyPile.Add(backdrop);
-            backdrop.Pos =
-                new Vector2(0, 0);
 
             MenuItem item;
 
@@ -349,9 +355,10 @@ namespace CloudberryKingdom
             AddItem(SizeList);
 
             SetListActions();
-            BaseList.SetIndex(0);
-            SizeList.SetIndex(0);
-            JumpList.SetIndex(0);
+
+            BaseList.SetIndex(BaseListIndex);
+            SizeList.SetIndex(SizeListIndex);
+            JumpList.SetIndex(JumpListIndex);
 
             FontScale = 1f;
 
@@ -364,14 +371,142 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
             MyMenu.OnB = MenuReturnToCaller;
 
+            UpdateSliders();
+
             SetPos();
         }
 
         private void SetListActions()
         {
-            BaseList.OnIndexSelect = () => Base = BaseList.CurObj as BobPhsx;
-            SizeList.OnIndexSelect = () => Size = SizeList.CurObj as BobPhsx;
-            JumpList.OnIndexSelect = () => Jump = JumpList.CurObj as BobPhsx;
+            BaseList.OnIndexSelect = UpdateBaseHero;
+            SizeList.OnIndexSelect = UpdateSizeHero;
+            JumpList.OnIndexSelect = UpdateJumpHero;
+        }
+
+        void UpdateSliders()
+        {
+            if (GravitySlider == null) return;
+
+            BaseList.Selectable = true;
+            JumpList.Selectable = true;
+            SizeList.Selectable = true;
+
+            GravitySlider.Selectable = true;
+            MaxSpeedSlider.Selectable = true;
+            AccelSlider.Selectable = true;
+            MaxFallSpeedSlider.Selectable = true;
+            JumpLengthSlider.Selectable = true;
+            JumpAccelSlider.Selectable = true;
+            DoubleJumpLengthSlider.Selectable = true;
+            DoubleJumpAccelSlider.Selectable = true;
+            FrictionSlider.Selectable = true;
+            JetPackSlider.Selectable = true;
+            JetPackFuelSlider.Selectable = true;
+            NumJumpsSlider.Selectable = true;
+            SizeSlider.Selectable = true;
+            PhasedSizeSlider.Selectable = true;
+            PhasedGravitySlider.Selectable = true;
+            PhasePeriodSlider.Selectable = true;
+
+            // Base
+            if (Base == BobPhsxNormal.Instance ||
+                Base == BobPhsxWheel.Instance ||
+                Base == BobPhsxBox.Instance ||
+                Base == BobPhsxBouncy.Instance ||
+                Base == BobPhsxMeat.Instance ||
+                Base == BobPhsxRocketbox.Instance)
+            {
+
+            }
+            else if (Base == BobPhsxSpaceship.Instance)
+            {
+                GravitySlider.Selectable &= false;
+                MaxFallSpeedSlider.Selectable &= false;
+                JumpLengthSlider.Selectable &= false;
+                JumpAccelSlider.Selectable &= false;
+                DoubleJumpLengthSlider.Selectable &= false;
+                DoubleJumpAccelSlider.Selectable &= false;
+                JetPackSlider.Selectable &= false;
+                JetPackFuelSlider.Selectable &= false;
+                NumJumpsSlider.Selectable &= false;
+
+                JumpList.Selectable &= false;
+            }
+            else if (Base == BobPhsxMeat.Instance)
+            {
+
+            }
+
+            // Jump 
+            if (Jump == BobPhsxNormal.Instance)
+            {
+                DoubleJumpLengthSlider.Selectable &= false;
+                DoubleJumpAccelSlider.Selectable &= false;
+                NumJumpsSlider.Selectable &= false;
+                JetPackSlider.Selectable &= false;
+                JetPackFuelSlider.Selectable &= false;
+            }
+            else if (Jump == BobPhsxDouble.Instance)
+            {
+                JetPackSlider.Selectable &= false;
+                JetPackFuelSlider.Selectable &= false;
+            }
+            else if (Jump == BobPhsxJetman.Instance)
+            {
+                DoubleJumpLengthSlider.Selectable &= false;
+                DoubleJumpAccelSlider.Selectable &= false;
+                NumJumpsSlider.Selectable &= false;
+            }
+            else if (Jump == BobPhsxInvert.Instance)
+            {
+                DoubleJumpLengthSlider.Selectable &= false;
+                DoubleJumpAccelSlider.Selectable &= false;
+                NumJumpsSlider.Selectable &= false;
+                JetPackSlider.Selectable &= false;
+                JetPackFuelSlider.Selectable &= false;
+            }
+
+            // Shape
+            if (Size == BobPhsxNormal.Instance ||
+                Size == BobPhsxBig.Instance ||
+                Size == BobPhsxSmall.Instance)
+            {
+                PhasedSizeSlider.Selectable &= false;
+                PhasedGravitySlider.Selectable &= false;
+                PhasePeriodSlider.Selectable &= false;
+            }
+            else if (Size == BobPhsxScale.Instance)
+            {
+
+            }
+        }
+
+        //PhsxSlider GravitySlider, MaxSpeedSlider, AccelSlider;
+        //PhsxSlider MaxFallSpeedSlider, JumpLengthSlider, JumpAccelSlider, DoubleJumpLengthSlider, DoubleJumpAccelSlider, FrictionSlider, JetPackSlider, JetPackFuelSlider, NumJumpsSlider;
+        //PhsxSlider SizeSlider, PhasedSizeSlider, PhasedGravitySlider, PhasePeriodSlider;
+
+        void UpdateBaseHero()
+        {
+            Base = BaseList.CurObj as BobPhsx;
+            BaseListIndex = BaseList.ListIndex;
+
+            UpdateSliders();
+        }
+
+        void UpdateSizeHero()
+        {
+            Size = SizeList.CurObj as BobPhsx;
+            SizeListIndex = SizeList.ListIndex;
+
+            UpdateSliders();
+        }
+
+        void UpdateJumpHero()
+        {
+            Jump = JumpList.CurObj as BobPhsx;
+            JumpListIndex = JumpList.ListIndex;
+
+            UpdateSliders();
         }
 
         void SetPos()

@@ -1957,6 +1957,8 @@ namespace CloudberryKingdom.Levels
                             {
                                 NumAlive++;
                                 Pos += bob.Pos;
+                                //Pos.X += bob.Core.Data.Velocity.X + bob.GroundSpeed;
+                                //Pos.X += bob.GroundSpeed / 4;
                             }
                         }
 

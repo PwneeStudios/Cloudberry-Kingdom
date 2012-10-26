@@ -123,7 +123,7 @@ namespace CloudberryKingdom
             BobPhsxBouncy.Instance.Id = 5;
             BobPhsxBox.Instance.Id = 6;
             BobPhsxScale.Instance.Id = 7;
-            BobPhsxBraid.Instance.Id = 8;
+            BobPhsxTime.Instance.Id = 8;
             BobPhsxSmall.Instance.Id = 9;
             BobPhsxSpaceship.Instance.Id = 10;
             BobPhsxWheel.Instance.Id = 11;
@@ -143,7 +143,7 @@ namespace CloudberryKingdom
                                        BobPhsxBouncy.Instance,
                                        BobPhsxBox.Instance,
                                        BobPhsxScale.Instance,
-                                       BobPhsxBraid.Instance,
+                                       BobPhsxTime.Instance,
                                        BobPhsxSmall.Instance,
                                        BobPhsxSpaceship.Instance,
                                        BobPhsxWheel.Instance,

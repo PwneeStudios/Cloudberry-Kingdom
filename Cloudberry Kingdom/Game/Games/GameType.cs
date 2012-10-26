@@ -1316,6 +1316,8 @@ namespace CloudberryKingdom
                     
                     CalculateForceZoom();
 
+                    Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
+
                     MyLevel.Draw();
                 }
         }

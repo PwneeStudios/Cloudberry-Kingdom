@@ -7,7 +7,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public class BobPhsxBraid : BobPhsxNormal
+    public class BobPhsxTime : BobPhsxNormal
     {
         // Singleton
         protected override void InitSingleton()
@@ -19,8 +19,8 @@ namespace CloudberryKingdom
             Adjective = "Chrono";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, 1.2f * DefaultIconWidth);
         }
-        static readonly BobPhsxBraid instance = new BobPhsxBraid();
-        public static new BobPhsxBraid Instance { get { return instance; } }
+        static readonly BobPhsxTime instance = new BobPhsxTime();
+        public static new BobPhsxTime Instance { get { return instance; } }
 
         public override InteractWithBlocks MakePowerup()
         {
@@ -28,7 +28,7 @@ namespace CloudberryKingdom
         }
 
         // Instancable class
-        public BobPhsxBraid()
+        public BobPhsxTime()
         {
             Set(this);
         }
@@ -53,10 +53,6 @@ namespace CloudberryKingdom
         public override void PhsxStep()
         {
             base.PhsxStep();
-        }
-
-        public void Braid()
-        {
         }
 
         public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)

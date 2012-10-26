@@ -13,14 +13,24 @@ namespace CloudberryKingdom.Menus
         public static EzFont Font;
         public static Action<MenuItem> Process;
 
+        BobPhsx.CustomData MyType;
+
         public PhsxSlider(string text, BobPhsx.CustomData type)
             : base(new EzText(text, Font))
         {
-            MyFloat = new WrappedFloat(BobPhsx.CustomPhsxData.Bounds(type).DefaultValue,
+            MyType = type;
+
+            MyFloat = new WrappedFloat(
+                                       //CustomHero_GUI.Hero.MyCustomPhsxData[type],
+                                       //BobPhsx.CustomPhsxData.Bounds(type).DefaultValue,
+                                       CustomHero_GUI.HeroPhsxData[MyType],
+
                                        BobPhsx.CustomPhsxData.Bounds(type).MinValue,
                                        BobPhsx.CustomPhsxData.Bounds(type).MaxValue);
             Process(this);
             ScaleText(.33f);
+
+            MyFloat.SetCallback = () => CustomHero_GUI.HeroPhsxData[MyType] = MyFloat.Val;
 
             SliderShift = new Vector2(-296.6946f, -57.77405f);
 
@@ -28,6 +38,8 @@ namespace CloudberryKingdom.Menus
             SliderBack.Scale(.73f);
             Start *= .8f;
             End *= .8f;
+
+            GrayOutOnUnselectable = true;
         }
 
         bool _State = true;

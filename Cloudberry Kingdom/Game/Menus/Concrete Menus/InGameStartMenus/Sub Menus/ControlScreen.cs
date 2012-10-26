@@ -35,26 +35,23 @@ namespace CloudberryKingdom
             SlideLength = 29;
             DestinationScale *= 1.02f;
 
-            BackgroundQuad = new QuadClass();
-            BackgroundQuad.SetToDefault();
-            
-//#if PC_VERSION
-//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen_PC");
-//#else
-//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen");
-//#endif
+            MyPile = new DrawPile();
+            EnsureFancy();
 
             var Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
 
-
-            MyPile = new DrawPile();
-            EnsureFancy();
-
-            BackgroundQuad.FullScreen(Tools.CurLevel.MainCamera);
-            MyPile.Add(BackgroundQuad);
-            BackgroundQuad.Pos = Vector2.Zero;
+//            BackgroundQuad = new QuadClass();
+//            BackgroundQuad.SetToDefault();
+//#if PC_VERSION
+//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen_PC");
+//#else
+//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen");
+//#endif
+//            BackgroundQuad.FullScreen(Tools.CurLevel.MainCamera);
+//            MyPile.Add(BackgroundQuad);
+//            BackgroundQuad.Pos = Vector2.Zero;
 
             ReturnToCallerDelay = 10;
 

@@ -1055,6 +1055,18 @@ namespace CloudberryKingdom
                     }
                 }
 
+                if (CurJump < NumJumps && NumJumps > 2)
+                {
+                    if (JumpCount > 1 && CurJump > 1)
+                        MyBob.CurInput.A_Button = true;
+
+                    if (yVel < -6)
+                        MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = MyBob.WantsToLand;
+
+                    if (MyBob.CurInput.A_Button)
+                        MyBob.WantsToLand = false;
+                }
+
                 if (CurJump > 0 && Pos.Y > MyBob.TargetPosition.Y - 200)
                     MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = false;
             }

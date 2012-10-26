@@ -18,7 +18,6 @@ namespace CloudberryKingdom
             Name = "Viridian";
             Adjective = "Anti-Grav";
             
-            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, -1.2f * DefaultIconWidth);
             Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * -1.2f);
 
             HeroDollShift = new Vector2(0, 100);
@@ -104,7 +103,6 @@ namespace CloudberryKingdom
 
             Gravity *= -1;
             ForceDown *= -1;
-            //BobMaxFallSpeed *= -1;
 
             BobInitialJumpSpeed *= -1;
         }
@@ -115,7 +113,6 @@ namespace CloudberryKingdom
 
             Gravity *= -1;
             ForceDown *= -1;
-            //BobMaxFallSpeed *= -1;
 
             BobInitialJumpSpeed *= -1;
         }
@@ -175,7 +172,6 @@ namespace CloudberryKingdom
                     {
                         CurBehavior = Behavior.Pause;
                         BehaviorLength = MyLevel.Rnd.RndInt(3, 10);
-                        //BehaviorLength = MyLevel.Rnd.RndInt(5, 40);
                     }
                     else
                     {
@@ -197,8 +193,6 @@ namespace CloudberryKingdom
                     break;
             }
 
-            //if (Pos.Y > 700 && Gravity < 0 ||
-            //    Pos.Y < -650 && Gravity > 0)
             if (Pos.Y > 600 && Gravity < 0 ||
                 Pos.Y < -550 && Gravity > 0)
             {
@@ -221,27 +215,14 @@ namespace CloudberryKingdom
             if (Count <= 0 || Math.Abs(MyBob.TargetPosition.Y - Pos.Y) < 200)
             {
                 Count = MyLevel.Rnd.RndInt(30, 60);
-                //MyBob.TargetPosition.Y = MyLevel.Rnd.RndFloat(MyBob.MoveData.MinTargetY, MyBob.MoveData.MaxTargetY);
 
                 if (Pos.Y > Cam.Pos.Y)
                     MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY;
                 else
                     MyBob.TargetPosition.Y = MyBob.MoveData.MaxTargetY - MyLevel.Rnd.RndFloat(400, 900);
-                    //MyBob.TargetPosition.Y = MyBob.MoveData.MaxTargetY - MyLevel.Rnd.RndFloat(600, 1000);
-
-                //if (MyLevel.Rnd.RndFloat() > .85f)
-                //{
-                //    CurBehavior = Behavior.Pause;
-                //    BehaviorLength = MyLevel.Rnd.RndInt(15, 30);
-                //}
-
-                //MyLevel.Rnd.RndFloat(Cam.Pos.Y, MyBob.MoveData.MaxTargetY);
             }
             else
                 Count--;
-
-            //if (MyBob.TargetPosition.Y > Cam.Pos.Y)
-            //    MyBob.TargetPosition.Y -= 900;
         }
 
         protected override void PreventEarlyLandings(Levels.RichLevelGenData GenData)
@@ -281,7 +262,6 @@ namespace CloudberryKingdom
 
         public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)
         {
-            //return base.IsBottomCollision(Col, box, block);
             return Col == ColType.Bottom ||
                 Col != ColType.Bottom && Core.Data.Velocity.X != 0 && Math.Min(MyBob.Box.Current.TR.Y, MyBob.Box.Target.TR.Y) < box.Target.BL.Y + Math.Max(1.35 * Core.Data.Velocity.Y, 7);
         }

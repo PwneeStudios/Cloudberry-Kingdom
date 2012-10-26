@@ -8,6 +8,7 @@ using CoreEngine;
 using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
+using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
@@ -30,6 +31,33 @@ namespace CloudberryKingdom
     public partial class LevelSeedData
     {
         public bool Saveable = true;
+
+        /// <summary>
+        /// These special flags add additional properties to levels made by this seed.
+        /// </summary>
+        #region Special flags
+        public bool HasWall = false;
+        const string WallFlag = "Wall";
+        public void ProcessSpecial()
+        {
+            if (HasWall)
+            {
+                //p.Style.ComputerWaitLengthRange = new Vector2(4, 23);
+                var p = PieceSeeds[0];
+                p.Style.MyModParams =
+                    (level, piece) =>
+                    {
+                        var Params = (NormalBlock_Parameters)piece.Style.FindParams(NormalBlock_AutoGen.Instance);
+                        Wall wall = Params.SetWall(LevelGeometry.Right);
+                        wall.Space = 20; wall.MyBufferType = Wall.BufferType.Space;
+                        p.CamZoneStartAdd.X = -2000;
+                        wall.StartOffset = -600;
+                        wall.Speed = 17.5f;
+                        wall.InitialDelay = 72;
+                    };
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Set default parameters for this LevelSeedData assuming we are about to read in parameters from a string.
@@ -85,9 +113,21 @@ namespace CloudberryKingdom
 
             for (int i = 0; i < bits.Length; i++)
             {
-                int index = bits[i].IndexOf(":"); if (index <= 0) continue;
-                string identifier = bits[i].Substring(0, index);
-                string data = bits[i].Substring(index + 1);
+                string identifier, data;
+
+                int index = bits[i].IndexOf(":");
+
+                if (index <= 0)
+                {
+                    identifier = bits[i];
+                    data = "";
+                }
+                else
+                {
+                    identifier = bits[i].Substring(0, index);
+                    data = bits[i].Substring(index + 1);
+                }
+                
                 string[] terms;
 
                 switch (identifier)
@@ -195,6 +235,11 @@ namespace CloudberryKingdom
                         UpgradeStrs.Add(data);
                         break;
 
+                    // Wall
+                    case WallFlag:
+                        HasWall = true;
+                        break;
+
                     default: break;
                 }
             }
@@ -213,6 +258,8 @@ namespace CloudberryKingdom
             {
                 Initialize(ModPieceViaString);
             }
+
+            ProcessSpecial();
         }
 
         public override string ToString()
@@ -278,6 +325,9 @@ namespace CloudberryKingdom
 
             // Build final string
             string str = version + seed + game + geometry + hero + customphsx + tileset + pieces + length + upgrades;
+
+            // Add special flags
+            if (HasWall) str += WallFlag + ";";
 
             return str;
         }        

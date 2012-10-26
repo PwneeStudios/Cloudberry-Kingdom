@@ -109,6 +109,12 @@ namespace CoreEngine
 
             if (t >= TextureAnim.Anims[anim].Data.Length)
                 t = 0;
+            else if (t < 0)
+            {
+                t += TextureAnim.Anims[anim].Data.Length;
+                if (t < 0)
+                    t = TextureAnim.Anims[anim].Data.Length - 1;
+            }
 
             var data = TextureAnim.Calc(anim, t);
             MyTexture = data;

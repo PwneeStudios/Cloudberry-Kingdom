@@ -57,7 +57,7 @@ namespace CloudberryKingdom
     public enum Hero_BaseType { Classic, Box, Wheel, Bouncy, Spaceship, Meat, RocketBox };
     public enum Hero_Shape { Classic, Small, Oscillate, Big };
     public enum Hero_MoveMod { Classic, Double, Jetpack, Invert };
-    public enum Hero_Special { Classic, Braid };
+    public enum Hero_Special { Classic, Time };
 
     public class BobPhsx
     {
@@ -125,7 +125,7 @@ namespace CloudberryKingdom
             switch (Special)
             {
                 case Hero_Special.Classic: return BobPhsxNormal.Instance;
-                case Hero_Special.Braid: return BobPhsxBraid.Instance;
+                case Hero_Special.Time: return BobPhsxTime.Instance;
             }
 
             return null;
@@ -153,17 +153,26 @@ namespace CloudberryKingdom
                 MoveMod = BobPhsxNormal.Instance;
             }
 
+            // Error catch. Time Master must be classic, and must be the base class.
+            if (Special is BobPhsxTime)
+            {
+                BaseType = BobPhsxTime.Instance;
+                Special = BobPhsxNormal.Instance;
+            }
+
             // Make the phsx
             BobPhsx custom = BaseType.Clone();
             Shape.Set(custom);
             MoveMod.Set(custom);
+            Special.Set(custom);
 
             // Set the name
-            if (BaseType is BobPhsxNormal && Shape is BobPhsxNormal && MoveMod is BobPhsxNormal)
+            if (BaseType == BobPhsxNormal.Instance && Shape == BobPhsxNormal.Instance && MoveMod == BobPhsxNormal.Instance)
                 custom.Name = "Classic";
             else
             {
-                string template = BaseType.NameTemplate;
+                //string template = BaseType.NameTemplate;
+                string template = BaseType.Name;
                 string adjective = Shape.Adjective;
                 string adjective2 = MoveMod.Adjective;
 
@@ -201,7 +210,8 @@ namespace CloudberryKingdom
             _MoveMod = CoreMath.Restrict(0, Tools.Length<Hero_MoveMod>() - 1, _MoveMod);
             _Special = CoreMath.Restrict(0, Tools.Length<Hero_Special>() - 1, _Special);
 
-            return MakeCustom(_BaseType, _Shape, _MoveMod);
+            //return MakeCustom(_BaseType, _Shape, _MoveMod);
+            return MakeCustom(_BaseType, _Shape, _MoveMod, _Special);
         }
 
         public static BobPhsx MakeCustom(int BaseType, int Shape, int MoveMod)
@@ -268,7 +278,7 @@ namespace CloudberryKingdom
             }
 
             static bool BoundsSet = false;
-            static void InitBounds()
+            public static void InitBounds()
             {
                 if (BoundsSet) return;
                 BoundsSet = true;
@@ -277,13 +287,13 @@ namespace CloudberryKingdom
                 _Bounds[(int)CustomData.accel] =        new DataBounds(1f, .5f, 2f);
                 _Bounds[(int)CustomData.maxspeed] =     new DataBounds(1f, .5f, 2f);
                 _Bounds[(int)CustomData.maxfall] =      new DataBounds(1f, .33f, 3f);
-                _Bounds[(int)CustomData.jumplength] =   new DataBounds(1f, .5f, 2f);
-                _Bounds[(int)CustomData.jumplength2] =  new DataBounds(1f, .5f, 2f);
-                _Bounds[(int)CustomData.jumpaccel] =    new DataBounds(1f, .5f, 2f);
-                _Bounds[(int)CustomData.jumpaccel2] =   new DataBounds(1f, .5f, 2f);
+                _Bounds[(int)CustomData.jumplength] =   new DataBounds(1f, .65f, 1.65f);
+                _Bounds[(int)CustomData.jumplength2] =  new DataBounds(1f, .5f, 1.65f);
+                _Bounds[(int)CustomData.jumpaccel] =    new DataBounds(1f, .5f, 1.65f);
+                _Bounds[(int)CustomData.jumpaccel2] =   new DataBounds(1f, .5f, 1.65f);
                 _Bounds[(int)CustomData.jetpackaccel] = new DataBounds(1f, .75f, 2f);
-                _Bounds[(int)CustomData.jetpackfuel] =  new DataBounds(1f, .5f, 3f);
-                _Bounds[(int)CustomData.numjumps] =     new DataBounds(1f, 2f, 4f);
+                _Bounds[(int)CustomData.jetpackfuel] =  new DataBounds(1f, .5f, 4f);
+                _Bounds[(int)CustomData.numjumps] =     new DataBounds(2f, 1f, 8f);
                 _Bounds[(int)CustomData.size] =         new DataBounds(1f, .2f, 2.1f);
                 _Bounds[(int)CustomData.size2] =        new DataBounds(2.08f, .2f, 2.1f);
                 _Bounds[(int)CustomData.gravity2] =     new DataBounds(1f, .5f, 2f);
@@ -298,6 +308,9 @@ namespace CloudberryKingdom
             public void Init()
             {
                 data = new float[Length];
+
+                for (int i = 0; i < Length; i++)
+                    data[i] = _Bounds[i].DefaultValue;
             }
 
             public void Init(params float[] vals)
@@ -616,9 +629,9 @@ namespace CloudberryKingdom
         public virtual void Integrate()
         {
             GroundSpeed *= .925f;
-            //if (Math.Abs(MyBob.GroundSpeed) > Math.Abs(GroundSpeed))
-            if (OnGround || PrevOnGround)
-                GroundSpeed = MyBob.GroundSpeed;
+
+            //if (OnGround || PrevOnGround)
+            //    GroundSpeed = MyBob.GroundSpeed;
 
             Pos += Vel + new Vector2(GroundSpeed, 0);
         }

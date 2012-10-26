@@ -71,11 +71,11 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
-            //data.DefaultHeroType = BobPhsxBraid.Instance;
+            //data.DefaultHeroType = BobPhsxTime.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
-            data.DefaultHeroType = BobPhsxSpaceship.Instance;
+            //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
@@ -83,9 +83,15 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
 
+            data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Double);
+            var d = new BobPhsx.CustomPhsxData();
+            d.Init();
+            d[BobPhsx.CustomData.numjumps] = 8;
+            data.DefaultHeroType.SetCustomPhsx(d);
+
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            data.PieceLength = 4000;
+            data.PieceLength = 9000;
             //data.PieceLength = 15000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;
@@ -182,7 +188,7 @@ namespace CloudberryKingdom
 
             __Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
-            piece.Style.Masochistic = true;
+            //piece.Style.Masochistic = true;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

@@ -29,6 +29,11 @@ namespace CloudberryKingdom
         
         public CustomLevel_GUI()
         {
+            BobPhsx.CustomPhsxData.InitBounds();
+
+            CustomHero_GUI.HeroPhsxData = new BobPhsx.CustomPhsxData();
+            CustomHero_GUI.HeroPhsxData.Init();
+
             NoBackIfNoCaller = true;
 
             SeedStringToLoad = null;
@@ -82,22 +87,9 @@ namespace CloudberryKingdom
             }
 
             // Wall
-            if (HasWall)
-            {
-                //p.Style.ComputerWaitLengthRange = new Vector2(4, 23);
-                var p = data.PieceSeeds[0];
-                p.Style.MyModParams =
-                    (level, piece) =>
-                    {
-                        var Params = (NormalBlock_Parameters)piece.Style.FindParams(NormalBlock_AutoGen.Instance);
-                        Wall wall = Params.SetWall(LevelGeometry.Right);
-                        wall.Space = 20; wall.MyBufferType = Wall.BufferType.Space;
-                        p.CamZoneStartAdd.X = -2000;
-                        wall.StartOffset = -600;
-                        wall.Speed = 17.5f;
-                        wall.InitialDelay = 72;
-                    };
-            }
+            if (HasWall) data.HasWall = true;
+
+            data.ProcessSpecial();
 
             // Dark bottom
             if (data.MyGeometry == LevelGeometry.Down)
