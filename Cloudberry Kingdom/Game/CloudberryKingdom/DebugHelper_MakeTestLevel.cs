@@ -42,8 +42,8 @@ namespace CloudberryKingdom
             //GameData.StartLevel(data);
             //return;
 
-            //data.Seed = Tools.GlobalRnd.Rnd.Next();
-            data.Seed = 1106040853;
+            data.Seed = Tools.GlobalRnd.Rnd.Next();
+            //data.Seed = 110040853;
             Console.WriteLine("Seed chosen = {0}", data.Seed);
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxTime.Instance;
@@ -83,11 +83,21 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
 
-            data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Double);
-            var d = new BobPhsx.CustomPhsxData();
-            d.Init();
-            d[BobPhsx.CustomData.numjumps] = 8;
-            data.DefaultHeroType.SetCustomPhsx(d);
+            // 8-jumps
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Double);
+            //var d = new BobPhsx.CustomPhsxData();
+            //d.Init();
+            //d[BobPhsx.CustomData.numjumps] = 2;
+            //data.DefaultHeroType.SetCustomPhsx(d);
+
+            // Long jetpack
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
+            //var d = new BobPhsx.CustomPhsxData();
+            //d.Init();
+            //d[BobPhsx.CustomData.jetpackfuel] *= 2;
+            //d[BobPhsx.CustomData.jetpackaccel] *= 2;
+            //data.DefaultHeroType.SetCustomPhsx(d);
+
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
@@ -164,14 +174,7 @@ namespace CloudberryKingdom
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-            //piece.MyUpgrades1[Upgrade.LavaDrip] = 6;
-            //piece.MyUpgrades1[Upgrade.Serpent] = 6f;
-            //piece.MyUpgrades1[Upgrade.Pendulum] = 6;
 
-            //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
-
-            //piece.MyUpgrades1[Upgrade.Jump] = 8;
-            //piece.MyUpgrades1[Upgrade.Speed] = 9;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
             ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
@@ -189,6 +192,15 @@ namespace CloudberryKingdom
             __Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
             //piece.Style.Masochistic = true;
+
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
+            //piece.MyUpgrades1[Upgrade.LavaDrip] = 9;
+            //piece.MyUpgrades1[Upgrade.Serpent] = 9;
+            //piece.MyUpgrades1[Upgrade.Pendulum] = 9;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
+            //piece.MyUpgrades1[Upgrade.Jump] = 8;
+            //piece.MyUpgrades1[Upgrade.Speed] = 9;
+
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

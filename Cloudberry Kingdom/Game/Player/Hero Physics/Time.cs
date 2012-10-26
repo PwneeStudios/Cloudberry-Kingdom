@@ -39,6 +39,8 @@ namespace CloudberryKingdom
         }
         public void Set(BobPhsx phsx, Vector2 modsize)
         {
+            phsx.UseGroundSpeed = false;
+
             BobPhsxNormal normal = phsx as BobPhsxNormal;
             if (null != normal)
             {

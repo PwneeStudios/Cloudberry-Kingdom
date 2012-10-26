@@ -1072,7 +1072,7 @@ namespace CloudberryKingdom
 
                     if (Pos.Y < MyBob.TargetPosition.Y && CurJump < NumJumps)
                     {
-                        MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = false;
+                        MyBob.CurInput.A_Button = AutoAllowComputerToJumpOnLand = true;
                         MyBob.WantsToLand = false;
                     }
                 }

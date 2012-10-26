@@ -88,6 +88,8 @@ namespace CloudberryKingdom
         {
             if (!Playing) { Finish(); return false; }
 
+            Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
+
             UserInput();
 
             if (ElapsedTime() > Duration)

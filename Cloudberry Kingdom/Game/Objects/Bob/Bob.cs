@@ -1570,7 +1570,9 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.PhsxStep();
 
             // Integrate velocity
-            Core.Data.Position += Core.Data.Velocity;// +new Vector2(GroundSpeed, 0);
+            Core.Data.Position += Core.Data.Velocity;
+            if (MyPhsx.UseGroundSpeed)
+                Core.Data.Position += new Vector2(GroundSpeed, 0);
 
             // Cape
             if (Core.MyLevel.PlayMode == 0 && MyCape != null)

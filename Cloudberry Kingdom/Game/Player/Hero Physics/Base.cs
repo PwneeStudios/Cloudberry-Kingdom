@@ -532,6 +532,8 @@ namespace CloudberryKingdom
         public bool OnGround, PrevOnGround, Jumped;
         public int AirTime = 0;
 
+        public bool UseGroundSpeed = true;
+
         public Vector2 JumpStartPos;
         public bool ApexReached;
 
@@ -630,8 +632,8 @@ namespace CloudberryKingdom
         {
             GroundSpeed *= .925f;
 
-            //if (OnGround || PrevOnGround)
-            //    GroundSpeed = MyBob.GroundSpeed;
+            if (UseGroundSpeed && (OnGround || PrevOnGround))
+                GroundSpeed = MyBob.GroundSpeed;
 
             Pos += Vel + new Vector2(GroundSpeed, 0);
         }
