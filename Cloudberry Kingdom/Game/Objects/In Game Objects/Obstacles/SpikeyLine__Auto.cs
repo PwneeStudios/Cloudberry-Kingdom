@@ -71,7 +71,6 @@ namespace CloudberryKingdom.Levels
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupSpinFloaters(BL, TR);
         }
 
         public void CreateLine(Level level, Vector2 pos, Action<SpikeyLine> process)
@@ -179,29 +178,6 @@ namespace CloudberryKingdom.Levels
                     loc.Y += step;
                 }
             }
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupSpikeyLines(Vector2 BL, Vector2 TR)
-        {
-            // Get Floater parameters
-            SpikeyLine_Parameters Params = (SpikeyLine_Parameters)Style.FindParams(SpikeyLine_AutoGen.Instance);
-/*
-            Cleanup(ObjectType.SpikeyLine,
-            delegate(Vector2 pos)
-            {
-                float dist = Params.FloaterMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL + new Vector2(400, 0), TR - new Vector2(500, 0),
-            delegate(IObject A, IObject B)
-            {
-                SpikeyLine floater_A = A as SpikeyLine;
-                SpikeyLine floater_B = B as SpikeyLine;
-                return Tools.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
-            }
-            );*/
         }
     }
 }

@@ -95,13 +95,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoNormalBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupNormalBlocks(BL, TR);
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos)
@@ -310,20 +308,6 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(block);
 
             return block;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupNormalBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get NormalBlock parameters
-            NormalBlock_Parameters Params = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
-        }
-        public void AutoNormalBlocks()
-        {
-            // Get NormalBlock parameters
-            NormalBlock_Parameters Params = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
         }
     }
 }

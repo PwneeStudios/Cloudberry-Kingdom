@@ -97,13 +97,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoMovingBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupMovingBlocks(BL, TR);
         }
 
         public void SetMoveType(MovingBlock mblock, float Displacement, MovingBlock_Parameters.MotionType mtype, Rand Rnd)
@@ -205,20 +203,6 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(mblock);
 
             return mblock;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupMovingBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get MovingBlock parameters
-            MovingBlock_Parameters Params = (MovingBlock_Parameters)Style.FindParams(MovingBlock_AutoGen.Instance);
-        }
-        public void AutoMovingBlocks()
-        {
-            // Get MovingBlock parameters
-            MovingBlock_Parameters Params = (MovingBlock_Parameters)Style.FindParams(MovingBlock_AutoGen.Instance);
         }
     }
 }

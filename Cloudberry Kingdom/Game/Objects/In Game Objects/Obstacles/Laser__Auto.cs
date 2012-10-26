@@ -65,61 +65,39 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoLasers(BL + new Vector2(-400, 0), TR + new Vector2(350, 0));
-        }
 
-        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
-        {
-            base.Cleanup_2(level, BL, TR);
-            level.CleanupLasers(BL, TR);
-        }
-    }
+            BL += new Vector2(-400, 0);
+            TR += new Vector2(350, 0);
 
-    public partial class Level
-    {
-        public void CleanupLasers(Vector2 BL, Vector2 TR)
-        {
             // Get Laser parameters
-            Laser_Parameters Params = (Laser_Parameters)Style.FindParams(Laser_AutoGen.Instance);
-
-            /*
-            Cleanup(ObjectType.Laser, delegate(Vector2 pos)
-            {
-                float dist = Params.LaserMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL, TR); */
-        }
-        public void AutoLasers(Vector2 BL, Vector2 TR)
-        {
-            // Get Laser parameters
-            Laser_Parameters Params = (Laser_Parameters)Style.FindParams(Laser_AutoGen.Instance);
+            Laser_Parameters Params = (Laser_Parameters)level.Style.FindParams(Laser_AutoGen.Instance);
 
             float step = 5;
-            //Vector2 loc = (BL + TR) / 2;
+
             Vector2 loc;
-            if (PieceSeed.GeometryType == LevelGeometry.Right)
+            if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                 loc = new Vector2(BL.X + 600, (TR.Y + BL.Y) / 2);
             else
                 loc = new Vector2((TR.X + BL.X) / 2, BL.Y + 600);
 
-            while (loc.X < TR.X && PieceSeed.GeometryType == LevelGeometry.Right ||
-                   loc.Y < TR.Y && (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down))
+            while (loc.X < TR.X && level.PieceSeed.GeometryType == LevelGeometry.Right ||
+                   loc.Y < TR.Y && (level.PieceSeed.GeometryType == LevelGeometry.Up || level.PieceSeed.GeometryType == LevelGeometry.Down))
             {
-                step = Rnd.RndFloat(Params.LaserStep.GetVal(loc),
+                step = level.Rnd.RndFloat(Params.LaserStep.GetVal(loc),
                                       Params.LaserStep.GetVal(loc));
 
-                Vector2 CamSize = MainCamera.GetSize();
+                Vector2 CamSize = level.MainCamera.GetSize();
 
                 if (step < Params.LaserStepCutoff)
                 {
-                    Laser laser = (Laser)Recycle.GetObject(ObjectType.Laser, true);
-                    laser.Init(Vector2.Zero, this);
+                    Laser laser = (Laser)level.Recycle.GetObject(ObjectType.Laser, true);
+                    laser.Init(Vector2.Zero, level);
 
                     laser.Core.Data.Position = loc;
-                    float shift = Rnd.RndFloat(-800, 800);
+                    float shift = level.Rnd.RndFloat(-800, 800);
 
                     Vector2 p1, p2;
-                    if (PieceSeed.GeometryType == LevelGeometry.Right)
+                    if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                     {
                         p1 = loc + new Vector2(shift, CamSize.Y / 2 + 300);
                         p2 = loc - new Vector2(shift, CamSize.Y / 2 + 300);
@@ -132,7 +110,7 @@ namespace CloudberryKingdom.Levels
 
                     laser.SetLine(p1, p2);
                     laser.Period = (int)Params.LaserPeriod.GetVal(loc);
-                    laser.Offset = Rnd.Rnd.Next(laser.Period);
+                    laser.Offset = level.Rnd.Rnd.Next(laser.Period);
                     laser.WarnDuration = (int)(laser.Period * .35f);
                     laser.Duration = (int)(laser.Period * .2f);
 
@@ -141,14 +119,19 @@ namespace CloudberryKingdom.Levels
                     // Make sure we stay in bounds
                     Tools.EnsureBounds_X(laser, TR, BL);
 
-                    AddObject(laser);
+                    level.AddObject(laser);
                 }
 
-                if (PieceSeed.GeometryType == LevelGeometry.Right)
+                if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                     loc.X += step;
                 else
                     loc.Y += step;
             }
+        }
+
+        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
+        {
+            base.Cleanup_2(level, BL, TR);
         }
     }
 }

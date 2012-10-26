@@ -117,13 +117,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoBouncyBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupBouncyBlocks(BL, TR);
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)        
@@ -165,20 +163,6 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(bblock);
 
             return bblock;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupBouncyBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get BouncyBlock parameters
-            BouncyBlock_Parameters Params = (BouncyBlock_Parameters)Style.FindParams(BouncyBlock_AutoGen.Instance);
-        }
-        public void AutoBouncyBlocks()
-        {
-            // Get BouncyBlock parameters
-            BouncyBlock_Parameters Params = (BouncyBlock_Parameters)Style.FindParams(BouncyBlock_AutoGen.Instance);
         }
     }
 }

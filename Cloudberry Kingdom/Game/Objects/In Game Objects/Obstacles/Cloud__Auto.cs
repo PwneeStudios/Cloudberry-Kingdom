@@ -55,13 +55,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoClouds();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupClouds(BL, TR);
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
@@ -75,9 +73,6 @@ namespace CloudberryKingdom.Levels
             pos += new Vector2(level.Rnd.Rnd.Next(0, 70), level.Rnd.Rnd.Next(0, 70));
             Cloud NewCloud = (Cloud)level.MySourceGame.Recycle.GetObject(ObjectType.Cloud, true);
             
-            //float size = Params.Size.GetVal(pos);
-            //NewCloud.Size = new Vector2(120f * size, 50);
-
             NewCloud.Shiftiness = Params.Shiftiness.GetVal(pos);
             NewCloud.Init(pos, level);
 
@@ -89,20 +84,6 @@ namespace CloudberryKingdom.Levels
             level.AddObject(NewCloud);
 
             return NewCloud;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupClouds(Vector2 BL, Vector2 TR)
-        {
-            // Get Cloud parameters
-            Cloud_Parameters Params = (Cloud_Parameters)Style.FindParams(Cloud_AutoGen.Instance);
-        }
-        public void AutoClouds()
-        {
-            // Get Cloud parameters
-            Cloud_Parameters Params = (Cloud_Parameters)Style.FindParams(Cloud_AutoGen.Instance);
         }
     }
 }

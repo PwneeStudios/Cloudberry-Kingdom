@@ -98,17 +98,14 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < level.CurMakeData.NumInitialBobs; i++)
                 MaxStartY = Math.Max(MaxStartY, level.CurMakeData.Start[i].Position.Y);
 
-            level.MakeCeiling(BL, TR, MaxStartY);
+            MakeCeiling(level, BL, TR, MaxStartY);
         }
-    }
 
-    public partial class Level
-    {
-        public void MakeCeiling(Vector2 BL, Vector2 TR, float MaxStartY)
+        public void MakeCeiling(Level level, Vector2 BL, Vector2 TR, float MaxStartY)
         {
-            if (!MyTileSet.HasCeiling) return;
+            if (!level.MyTileSet.HasCeiling) return;
 
-            Ceiling_Parameters Params = (Ceiling_Parameters)Style.FindParams(Ceiling_AutoGen.Instance);
+            Ceiling_Parameters Params = (Ceiling_Parameters)level.Style.FindParams(Ceiling_AutoGen.Instance);
 
             if (!Params.Make) return;
 
@@ -118,11 +115,11 @@ namespace CloudberryKingdom.Levels
             while (Pos.X < TR.X)
             {
                 Vector2 size = new Vector2(
-                        Params.WidthRange.RndFloat(Pos, Rnd),
-                        Params.HeightRange.RndFloat(Pos, Rnd));
+                        Params.WidthRange.RndFloat(Pos, level.Rnd),
+                        Params.HeightRange.RndFloat(Pos, level.Rnd));
 
-                cblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                cblock.Init(Vector2.Zero, size, MyTileSetInfo);
+                cblock = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                cblock.Init(Vector2.Zero, size, level.MyTileSetInfo);
                 size = cblock.Box.Current.Size;
 
                 Vector2 offset = new Vector2(size.X, 0);
@@ -136,7 +133,7 @@ namespace CloudberryKingdom.Levels
                 offset = new Vector2(size.X, 0);
 
                 // Initialize the size, make sure to modify it's width, since it's a ceiling block
-                cblock.Init(Pos + offset, size, MyTileSetInfo);
+                cblock.Init(Pos + offset, size, level.MyTileSetInfo);
                 cblock.Core.GenData.RemoveIfUnused = false;
                 cblock.Core.GenData.KeepIfUnused = true;
                 cblock.BlockCore.CeilingDraw = cblock.BlockCore.Ceiling = true;
@@ -148,10 +145,10 @@ namespace CloudberryKingdom.Levels
                 if (Pos.X < BL.X + 900)
                     cblock.Extend(Side.Bottom, Math.Max(cblock.Box.Current.BL.Y, MaxStartY + 250));
                 if (cblock.Box.Current.Size.X < 40) { Pos.X += 100; continue; }
-                cblock.Extend(Side.Top, TR.Y + 600 + CurMakeData.PieceSeed.ExtraBlockLength + 1000);
-                
+                cblock.Extend(Side.Top, TR.Y + 600 + level.CurMakeData.PieceSeed.ExtraBlockLength + 1000);
+
                 if (cblock.Box.Current.Size.X > 35)
-                    AddBlock(cblock);
+                    level.AddBlock(cblock);
 
                 switch (Params.MyStyle)
                 {
@@ -162,10 +159,10 @@ namespace CloudberryKingdom.Levels
                         Pos.X += 2 * 2 * cblock.Box.Current.Size.X;
                         break;
                     case Ceiling_Parameters.Style.Sparse:
-                        Pos.X += Rnd.RndInt(7, 8) * cblock.Box.Current.Size.X;
+                        Pos.X += level.Rnd.RndInt(7, 8) * cblock.Box.Current.Size.X;
                         break;
                     case Ceiling_Parameters.Style.Random:
-                        Pos.X += Rnd.RndInt(2, 8) * cblock.Box.Current.Size.X;
+                        Pos.X += level.Rnd.RndInt(2, 8) * cblock.Box.Current.Size.X;
                         break;
                 }
                 Pos.X += 20;

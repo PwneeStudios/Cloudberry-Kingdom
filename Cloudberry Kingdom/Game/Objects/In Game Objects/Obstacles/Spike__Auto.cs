@@ -113,42 +113,18 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoSpikes();
-        }
 
-        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
-        {
-            base.Cleanup_2(level, BL, TR);
-            level.CleanupSpikes(BL, TR);
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupSpikes(Vector2 BL, Vector2 TR)
-        {
             // Get Spike parameters
-            Spike_Parameters Params = (Spike_Parameters)Style.FindParams(Spike_AutoGen.Instance);
-            
-            Cleanup(ObjectType.Spike, pos =>
-            {
-                float dist = Params.SpikeMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL, TR);
-        }
-        public void AutoSpikes()
-        {
-            // Get Spike parameters
-            Spike_Parameters Params = (Spike_Parameters)Style.FindParams(Spike_AutoGen.Instance);
+            Spike_Parameters Params = (Spike_Parameters)level.Style.FindParams(Spike_AutoGen.Instance);
 
             if (Params.MinSpikeDensity.Val <= 0)
                 return;
 
-            float SpikeTopOffset = Info.Spikes.TopOffset;
-            float SpikeBottomOffset = Info.Spikes.BottomOffset;
-            float SpikeSideOffset = Info.Spikes.SideOffset;
+            float SpikeTopOffset = level.Info.Spikes.TopOffset;
+            float SpikeBottomOffset = level.Info.Spikes.BottomOffset;
+            float SpikeSideOffset = level.Info.Spikes.SideOffset;
 
-            foreach (BlockBase block in Blocks)
+            foreach (BlockBase block in level.Blocks)
             {
                 if (block.Core.Placed) continue;
 
@@ -162,7 +138,7 @@ namespace CloudberryKingdom.Levels
 
                 // Add spikes
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 110;
-                float density = Rnd.RndFloat(Params.MinSpikeDensity.GetVal(block.Core.Data.Position),
+                float density = level.Rnd.RndFloat(Params.MinSpikeDensity.GetVal(block.Core.Data.Position),
                                                Params.MaxSpikeDensity.GetVal(block.Core.Data.Position));
                 float average = (int)(xdif * (float)density / 2000f);
                 int n = (int)average;
@@ -173,10 +149,10 @@ namespace CloudberryKingdom.Levels
                 {
                     //if (xdif > 15)
                     {
-                        Spike spike = (Spike)Recycle.GetObject(ObjectType.Spike, true);//false);
-                        spike.Init(Vector2.Zero, this);
+                        Spike spike = (Spike)level.Recycle.GetObject(ObjectType.Spike, true);//false);
+                        spike.Init(Vector2.Zero, level);
 
-                        float x = (float)Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 55;
+                        float x = (float)level.Rnd.Rnd.NextDouble() * xdif + block.Box.Target.BL.X + 55;
                         float y;
 
                         if (block.BlockCore.BlobsOnTop)
@@ -192,11 +168,11 @@ namespace CloudberryKingdom.Levels
 
                         Vector2 pos = new Vector2(x, y);
                         Tools.MoveTo(spike, pos);
-                        
-                        Params.SetPeriod(spike, Rnd);
+
+                        Params.SetPeriod(spike, level.Rnd);
 
                         spike.SetParentBlock(block);
-                        AddObject(spike);
+                        level.AddObject(spike);
                     }
                 }
 
@@ -205,23 +181,23 @@ namespace CloudberryKingdom.Levels
                     float ydif = block.Box.Current.TR.Y - block.Box.Current.BL.Y - 110;
                     average = (int)(ydif * (float)density / 2000f);
                     n = (int)average;
-                    if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;
+                    if (average < 1) if (level.Rnd.Rnd.NextDouble() < average) n = 1;
                     n = 4;
                     for (int i = 0; i < n; i++)
                     {
                         // Side spikes
-                        if (ydif > 15)// && xdif > 15)
+                        if (ydif > 15)
                         {
-                            float y = (float)Rnd.Rnd.NextDouble() * ydif + block.Box.Target.BL.Y + 55;
+                            float y = (float)level.Rnd.Rnd.NextDouble() * ydif + block.Box.Target.BL.Y + 55;
                             float x;
 
-                            if (y < block.Box.TR.Y - Info.ObstacleCutoff)
+                            if (y < block.Box.TR.Y - level.Info.ObstacleCutoff)
                                 continue;
 
-                            Spike spike = (Spike)Recycle.GetObject(ObjectType.Spike, true);//false);
-                            spike.Init(Vector2.Zero, this);
+                            Spike spike = (Spike)level.Recycle.GetObject(ObjectType.Spike, true);//false);
+                            spike.Init(Vector2.Zero, level);
 
-                            if (Rnd.Rnd.Next(0, 2) == 0)
+                            if (level.Rnd.Rnd.Next(0, 2) == 0)
                             {
                                 x = block.Box.Target.TR.X + SpikeSideOffset;
                                 spike.SetDir(3);
@@ -234,15 +210,29 @@ namespace CloudberryKingdom.Levels
                             }
 
                             Tools.MoveTo(spike, new Vector2(x, y));
-                            
-                            Params.SetPeriod(spike, Rnd);
+
+                            Params.SetPeriod(spike, level.Rnd);
 
                             spike.SetParentBlock(block);
-                            AddObject(spike);
+                            level.AddObject(spike);
                         }
                     }
                 }
             }
+        }
+
+        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
+        {
+            base.Cleanup_2(level, BL, TR);
+
+            // Get Spike parameters
+            Spike_Parameters Params = (Spike_Parameters)level.Style.FindParams(Spike_AutoGen.Instance);
+
+            level.Cleanup(ObjectType.Spike, pos =>
+            {
+                float dist = Params.SpikeMinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }, BL, TR);
         }
     }
 }

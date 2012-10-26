@@ -255,16 +255,6 @@ namespace CloudberryKingdom.Levels
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupBlockEmitters(BL, TR);
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupBlockEmitters(Vector2 BL, Vector2 TR)
-        {
-            // Get BlockEmitter parameters
-            BlockEmitter_Parameters Params = (BlockEmitter_Parameters)Style.FindParams(BlockEmitter_AutoGen.Instance);
         }
     }
 }

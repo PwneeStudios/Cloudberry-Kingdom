@@ -78,13 +78,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoGhostBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupGhostBlocks(BL, TR);
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
@@ -179,20 +177,6 @@ namespace CloudberryKingdom.Levels
             }
 
             return gblock;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupGhostBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get GhostBlock parameters
-            GhostBlock_Parameters Params = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
-        }
-        public void AutoGhostBlocks()
-        {
-            // Get GhostBlock parameters
-            GhostBlock_Parameters Params = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
         }
     }
 }

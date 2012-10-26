@@ -5,7 +5,6 @@ namespace CloudberryKingdom.Levels
 {
     public partial class Level
     {
-
         public enum LadderType { None, FinalPlat, FinalBouncy, Simple, Simple2, Double, SimpleMoving, DoubleMoving, MakePlat };
         public static Vector2 GetLadderSize(LadderType Type)
         {

@@ -65,75 +65,55 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoLavaDrips(BL + new Vector2(-400, 0), TR + new Vector2(350, 0));
+
+            BL += new Vector2(-400, 0);
+            TR += new Vector2(350, 0);
+
+            // Get LavaDrip parameters
+            LavaDrip_Parameters Params = (LavaDrip_Parameters)level.Style.FindParams(LavaDrip_AutoGen.Instance);
+
+            float step = 5;
+
+            Vector2 loc;
+            if (level.PieceSeed.GeometryType == LevelGeometry.Right)
+                loc = new Vector2(BL.X + 600, (TR.Y + BL.Y) / 2);
+            else
+                loc = new Vector2((TR.X + BL.X) / 2, BL.Y + 600);
+
+            while (loc.X < TR.X && level.PieceSeed.GeometryType == LevelGeometry.Right ||
+                   loc.Y < TR.Y && (level.PieceSeed.GeometryType == LevelGeometry.Up || level.PieceSeed.GeometryType == LevelGeometry.Down))
+            {
+                step = level.Rnd.RndFloat(Params.LavaDripStep.GetVal(loc),
+                                      Params.LavaDripStep.GetVal(loc));
+
+                Vector2 CamSize = level.MainCamera.GetSize();
+
+                if (step < Params.LavaDripStepCutoff)
+                {
+                    LavaDrip LavaDrip = (LavaDrip)level.Recycle.GetObject(ObjectType.LavaDrip, true);
+                    LavaDrip.BoxSize.Y = Params.Length.RndFloat(loc, level.Rnd);
+                    LavaDrip.Init(loc, level);
+
+                    int speed = (int)Params.Speed.GetVal(loc);
+                    LavaDrip.SetPeriod(speed);
+
+                    LavaDrip.Offset = level.Rnd.Rnd.Next(LavaDrip.Period);
+
+                    LavaDrip.Core.GenData.LimitGeneralDensity = false;
+
+                    level.AddObject(LavaDrip);
+                }
+
+                if (level.PieceSeed.GeometryType == LevelGeometry.Right)
+                    loc.X += step;
+                else
+                    loc.Y += step;
+            }
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupLavaDrips(BL, TR);
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupLavaDrips(Vector2 BL, Vector2 TR)
-        {
-            // Get LavaDrip parameters
-            LavaDrip_Parameters Params = (LavaDrip_Parameters)Style.FindParams(LavaDrip_AutoGen.Instance);
-
-            /*
-            Cleanup(ObjectType.LavaDrip, delegate(Vector2 pos)
-            {
-                float dist = Params.LavaDripMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL, TR); */
-        }
-        public void AutoLavaDrips(Vector2 BL, Vector2 TR)
-        {
-            // Get LavaDrip parameters
-            LavaDrip_Parameters Params = (LavaDrip_Parameters)Style.FindParams(LavaDrip_AutoGen.Instance);
-
-            float step = 5;
-
-            Vector2 loc;
-            if (PieceSeed.GeometryType == LevelGeometry.Right)
-                loc = new Vector2(BL.X + 600, (TR.Y + BL.Y) / 2);
-            else
-                loc = new Vector2((TR.X + BL.X) / 2, BL.Y + 600);
-
-            while (loc.X < TR.X && PieceSeed.GeometryType == LevelGeometry.Right ||
-                   loc.Y < TR.Y && (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down))
-            {
-                step = Rnd.RndFloat(Params.LavaDripStep.GetVal(loc),
-                                      Params.LavaDripStep.GetVal(loc));
-
-                Vector2 CamSize = MainCamera.GetSize();
-
-                if (step < Params.LavaDripStepCutoff)
-                {
-                    LavaDrip LavaDrip = (LavaDrip)Recycle.GetObject(ObjectType.LavaDrip, true);
-                    LavaDrip.BoxSize.Y = Params.Length.RndFloat(loc, this.Rnd);
-                    LavaDrip.Init(loc, this);
-
-                    int speed = (int)Params.Speed.GetVal(loc);
-                    LavaDrip.SetPeriod(speed);
-
-                    LavaDrip.Offset = Rnd.Rnd.Next(LavaDrip.Period);
-
-                    LavaDrip.Core.GenData.LimitGeneralDensity = false;
-
-                    // Make sure we stay in bounds
-                    //Tools.EnsureBounds_X(LavaDrip, TR, BL);
-
-                    AddObject(LavaDrip);
-                }
-
-                if (PieceSeed.GeometryType == LevelGeometry.Right)
-                    loc.X += step;
-                else
-                    loc.Y += step;
-            }
         }
     }
 }

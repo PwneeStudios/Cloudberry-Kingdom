@@ -53,13 +53,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoConveyorBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupConveyorBlocks(BL, TR);
         }
 
         public ConveyorBlock_Parameters GetParams(Level level)
@@ -101,20 +99,6 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(conveyblock);
 
             return conveyblock;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupConveyorBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get ConveyorBlock parameters
-            ConveyorBlock_Parameters Params = (ConveyorBlock_Parameters)Style.FindParams(ConveyorBlock_AutoGen.Instance);
-        }
-        public void AutoConveyorBlocks()
-        {
-            // Get ConveyorBlock parameters
-            ConveyorBlock_Parameters Params = (ConveyorBlock_Parameters)Style.FindParams(ConveyorBlock_AutoGen.Instance);
         }
     }
 }

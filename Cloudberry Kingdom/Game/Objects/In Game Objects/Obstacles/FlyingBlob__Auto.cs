@@ -319,13 +319,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoGoombas();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupGoombas(BL, TR);
         }
 
         public void SetMoveType(FlyingBlob fblob, float Displacement, FlyingBlob_Parameters.MotionType mtype, Rand Rnd)
@@ -455,20 +453,6 @@ namespace CloudberryKingdom.Levels
             NewBlob.Core.GenData.EdgeSafety = Params.EdgeSafety.GetVal(pos);
 
             return NewBlob;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupGoombas(Vector2 BL, Vector2 TR)
-        {
-            // Get Goomba parameters
-            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)Style.FindParams(FlyingBlob_AutoGen.Instance);
-        }
-        public void AutoGoombas()
-        {
-            // Get Goomba parameters
-            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)Style.FindParams(FlyingBlob_AutoGen.Instance);
         }
     }
 }

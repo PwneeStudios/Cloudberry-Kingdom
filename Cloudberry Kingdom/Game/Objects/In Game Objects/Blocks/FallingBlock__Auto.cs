@@ -80,13 +80,11 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoFallingBlocks();
         }
 
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupFallingBlocks(BL, TR);
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos, Vector2 BL, Vector2 TR)
@@ -127,20 +125,6 @@ namespace CloudberryKingdom.Levels
             level.AddBlock(fblock);
 
             return fblock;
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupFallingBlocks(Vector2 BL, Vector2 TR)
-        {
-            // Get FallingBlock parameters
-            FallingBlock_Parameters Params = (FallingBlock_Parameters)Style.FindParams(FallingBlock_AutoGen.Instance);
-        }
-        public void AutoFallingBlocks()
-        {
-            // Get FallingBlock parameters
-            FallingBlock_Parameters Params = (FallingBlock_Parameters)Style.FindParams(FallingBlock_AutoGen.Instance);
         }
     }
 }

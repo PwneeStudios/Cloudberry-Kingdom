@@ -96,7 +96,23 @@ namespace CloudberryKingdom.Levels
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
-            level.CleanupSpinFloaters(BL, TR);
+
+            // Get Floater parameters
+            SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)level.Style.FindParams(SpikeyGuy_AutoGen.Instance);
+
+            level.Cleanup(ObjectType.SpikeyGuy,
+            pos =>
+            {
+                float dist = Params.FloaterMinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }, BL + new Vector2(400, 0), TR - new Vector2(500, 0),
+            (A, B) =>
+            {
+                SpikeyGuy floater_A = A as SpikeyGuy;
+                SpikeyGuy floater_B = B as SpikeyGuy;
+                return CoreMath.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
+            }
+            );
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos)
@@ -228,29 +244,6 @@ namespace CloudberryKingdom.Levels
                     }
                 }
             }
-        }
-    }
-
-    public partial class Level
-    {
-        public void CleanupSpinFloaters(Vector2 BL, Vector2 TR)
-        {
-            // Get Floater parameters
-            SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)Style.FindParams(SpikeyGuy_AutoGen.Instance);
-
-            Cleanup(ObjectType.SpikeyGuy,
-            pos =>
-            {
-                float dist = Params.FloaterMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL + new Vector2(400, 0), TR - new Vector2(500, 0),
-            (A, B) =>
-            {
-                SpikeyGuy floater_A = A as SpikeyGuy;
-                SpikeyGuy floater_B = B as SpikeyGuy;
-                return CoreMath.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
-            }
-            );
         }
     }
 }

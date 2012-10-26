@@ -54,64 +54,41 @@ namespace CloudberryKingdom.Levels
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.PreFill_2(level, BL, TR);
-            level.AutoSerpents(BL + new Vector2(-400, 0), TR + new Vector2(350, 0));
-        }
 
-        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
-        {
-            base.Cleanup_2(level, BL, TR);
-            level.CleanupSerpents(BL + new Vector2(0, -5000), TR);
-        }
-    }
+            BL += new Vector2(-400, 0);
+            TR += new Vector2(350, 0);
 
-    public partial class Level
-    {
-        public void CleanupSerpents(Vector2 BL, Vector2 TR)
-        {
             // Get Serpent parameters
-            Serpent_Parameters Params = (Serpent_Parameters)Style.FindParams(Serpent_AutoGen.Instance);
-
-            Cleanup_xCoord(ObjectType.Serpent, 10);
-            /*
-            Cleanup(ObjectType.Serpent, delegate(Vector2 pos)
-            {
-                float dist = Params.SerpentMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL, TR); */
-        }
-        public void AutoSerpents(Vector2 BL, Vector2 TR)
-        {
-            // Get Serpent parameters
-            Serpent_Parameters Params = (Serpent_Parameters)Style.FindParams(Serpent_AutoGen.Instance);
+            Serpent_Parameters Params = (Serpent_Parameters)level.Style.FindParams(Serpent_AutoGen.Instance);
 
             float step = 5;
 
             Vector2 loc;
-            if (PieceSeed.GeometryType == LevelGeometry.Right)
+            if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                 loc = new Vector2(BL.X + 600, (TR.Y + BL.Y) / 2);
             else
                 loc = new Vector2((TR.X + BL.X) / 2, BL.Y + 600);
 
-            while (loc.X < TR.X && PieceSeed.GeometryType == LevelGeometry.Right ||
-                   loc.Y < TR.Y && (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down))
+            while (loc.X < TR.X && level.PieceSeed.GeometryType == LevelGeometry.Right ||
+                   loc.Y < TR.Y && (level.PieceSeed.GeometryType == LevelGeometry.Up || level.PieceSeed.GeometryType == LevelGeometry.Down))
             {
-                step = Rnd.RndFloat(Params.SerpentStep.GetVal(loc),
+                step = level.Rnd.RndFloat(Params.SerpentStep.GetVal(loc),
                                       Params.SerpentStep.GetVal(loc));
 
-                Vector2 CamSize = MainCamera.GetSize();
+                Vector2 CamSize = level.MainCamera.GetSize();
 
                 if (step < Params.SerpentStepCutoff)
                 {
                     int period = (int)Params.SerpentPeriod.GetVal(loc);
-                    int offset = Rnd.Rnd.Next(period);
+                    int offset = level.Rnd.Rnd.Next(period);
                     int num = (int)Params.NumToMake.GetVal(loc);
 
                     // Create 2 serpents in this location, with offset perios.
                     for (int i = 0; i < num; i++)
                     {
-                        Serpent serpent = (Serpent)Recycle.GetObject(ObjectType.Serpent, true);
-                        serpent.Init(loc, this);
-                        
+                        Serpent serpent = (Serpent)level.Recycle.GetObject(ObjectType.Serpent, true);
+                        serpent.Init(loc, level);
+
                         serpent.SetPeriod(period);
 
                         serpent.Offset = (int)(offset + i * period / (float)num);
@@ -121,15 +98,22 @@ namespace CloudberryKingdom.Levels
                         // Make sure we stay in bounds
                         //Tools.EnsureBounds_X(serpent, TR, BL);
 
-                        AddObject(serpent);
+                        level.AddObject(serpent);
                     }
                 }
 
-                if (PieceSeed.GeometryType == LevelGeometry.Right)
+                if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                     loc.X += step;
                 else
                     loc.Y += step;
             }
+        }
+
+        public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
+        {
+            base.Cleanup_2(level, BL, TR);
+
+            level.Cleanup_xCoord(ObjectType.Serpent, 10);
         }
     }
 }
