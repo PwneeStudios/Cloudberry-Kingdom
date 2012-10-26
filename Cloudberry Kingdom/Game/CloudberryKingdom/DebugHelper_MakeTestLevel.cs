@@ -42,8 +42,8 @@ namespace CloudberryKingdom
             //GameData.StartLevel(data);
             //return;
 
-            data.Seed = Tools.GlobalRnd.Rnd.Next();
-            //data.Seed = 1106040853;
+            //data.Seed = Tools.GlobalRnd.Rnd.Next();
+            data.Seed = 1106040853;
             Console.WriteLine("Seed chosen = {0}", data.Seed);
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
