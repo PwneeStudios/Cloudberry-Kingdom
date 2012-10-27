@@ -225,13 +225,7 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\JoinText.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Select\ColorSelect.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Select\GridSelect.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Select\QuadSelect.cs">
+    <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\ColorSelect.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\SignInChoiceMenu.cs">
@@ -243,35 +237,28 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Waiting.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\CustomHero_GUI.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\PhsxSlider.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomHero_GUI.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\PhsxSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Help\HelpBlurb.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\AlertBase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreDatabase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreEntry.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\StartLevelMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\HeroSelectOptions.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\Doll.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_CustomLevel.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Arcade\StartMenu_MW_Arcade.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Exit.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Options.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_Title.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_PressStart.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\StartMenu_Forest_Campaign.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Forest\TitleGame_Forest.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Black.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Story\StartMenu_MW_Cinematics.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\Story\StartMenu_MW_Campaign.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_PressStart.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\StartMenu_MW_Backpanel.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\MW\TitleGame_MW.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\StartMenu_Intense_Backpanel.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Types\Intense\TitleGame_Intense.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\StartLevelMenu.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\HeroSelectOptions.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\Doll.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_CustomLevel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\StartMenu_MW_Arcade.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Exit.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Options.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Black.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Cinematics.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Campaign.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_PressStart.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
     <Compile Include="Game\Menus\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />
@@ -343,9 +330,7 @@
     <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Hero Rush\HeroRush_Tutorial.cs" />
     <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Hero Rush\HeroRush.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld_Timed.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Help\HintBlurb2.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Help\HintBlurb.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Help\HelpBlurb.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Help\HelpMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Help\HintGiver.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Sub Menus\LoadSeedAs.cs" />
@@ -354,7 +339,6 @@
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Sub Menus\CustomControls.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Sub Menus\SaveLoadSeedMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\VerifyDeleteSeeds.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\VerifyQuitCampaign.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Conveyor.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Conveyor__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Pendulum__Auto.cs" />
@@ -441,14 +425,11 @@
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreScreen.cs" />
     <Compile Include="Game\Player\Awardments\Awardment.cs" />
     <Compile Include="Game\Games\CampaignHelper.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\ArcadeMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\SavedSeedsGUI.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Categories\HeroFactoryMenu2.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\LengthSlider.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\CustomLevel_GUI.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\Upgrades\CustomUpgrades_GUI.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeSelect.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Freeplay\UpgradeBar.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\ArcadeMenu.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\SavedSeedsGUI.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\LengthSlider.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomLevel_GUI.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomUpgrades_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\SoundMenu.cs" />
     <Compile Include="Game\Menus\CkBaseMenu.cs" />

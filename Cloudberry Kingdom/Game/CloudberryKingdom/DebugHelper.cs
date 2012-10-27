@@ -41,18 +41,6 @@ namespace CloudberryKingdom
                     return true;
                 }
 
-                // Test title screen
-                if (Tools.Keyboard.IsKeyDown(Keys.H) && !Tools.PrevKeyboard.IsKeyDown(Keys.H))
-                {
-                    //TitleGameFactory = TitleGameData_Intense.Factory;
-                    //TitleGameFactory = TitleGameData_MW.Factory;
-                    TitleGameFactory = TitleGameData_Forest.Factory;
-
-                    Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                    return true;
-                }
-
                 if (Tools.Keyboard.IsKeyDown(Keys.J) && !Tools.PrevKeyboard.IsKeyDown(Keys.J))
                 {
                     Tools.CurGameData.FadeToBlack();

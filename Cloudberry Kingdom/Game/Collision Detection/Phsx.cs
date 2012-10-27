@@ -34,22 +34,6 @@ namespace CloudberryKingdom
             return Inside(p, BL - padding, TR + padding);
         }
 
-        public static float OverlapRatio(AABox A, AABox B)
-        {
-            A.CalcBounds(); B.CalcBounds();
-
-            Vector2 Shift = new Vector2(1);
-            Vector2 BL = Vector2.Max(A.RealBL() - Shift, B.RealBL() - Shift);
-            Vector2 TR = Vector2.Min(A.RealTR() + Shift, B.RealTR() + Shift);
-
-            if (BL.X > TR.X) return 0;
-            if (BL.Y > TR.Y) return 0;
-
-            TR.Y += 1;
-            BL.Y -= 1;
-            return Tools.BoxSize(TR, BL) / Math.Max(A.BoxSize(), B.BoxSize());
-        }
-
         /// <summary>
         /// Performs a collision detection between Box and a list of tiered boxes associated with the Bob.
         /// </summary>

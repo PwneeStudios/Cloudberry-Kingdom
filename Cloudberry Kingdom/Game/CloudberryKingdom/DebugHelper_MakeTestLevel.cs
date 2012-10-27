@@ -51,9 +51,9 @@ namespace CloudberryKingdom
             //TileSetToTest = "sea";
             //TileSetToTest = "hills";
             //TileSetToTest = "forest";
-            //TileSetToTest = "cloud";
+            TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            TileSetToTest = "castle";
+            //TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet("castle");
@@ -71,11 +71,11 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
-            data.DefaultHeroType = BobPhsxTime.Instance;
+            //data.DefaultHeroType = BobPhsxTime.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
-            //data.DefaultHeroType = BobPhsxSpaceship.Instance;
+            data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;

@@ -61,7 +61,7 @@ namespace CloudberryKingdom
 
                 MyGame.WaitThenDo(5, () =>
                 {
-                    HintBlurb2 hint = new HintBlurb2();
+                    HintBlurb hint = new HintBlurb();
                     hint.SetText(QuickSpawnHint);
 
                     /*
@@ -119,7 +119,7 @@ namespace CloudberryKingdom
                 {
                     if (Hints.YForHelpNum > 10) return;
 
-                    HintBlurb2 hint = new HintBlurb2();
+                    HintBlurb hint = new HintBlurb();
                     hint.SetText(PowerupHint);
 
                     /*

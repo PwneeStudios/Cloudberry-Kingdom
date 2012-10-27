@@ -4,46 +4,89 @@ namespace CloudberryKingdom
 {
     public class HintBlurb : CkBaseMenu
     {
+        protected QuadClass Backdrop;
+
         public HintBlurb()
         {
             PauseOnPause = false;
-            PauseLevel = true;
+            PauseLevel = false;
+            FixedToCamera = true;
             Core.RemoveOnReset = false;
 
             MyPile = new DrawPile();
-            
-            QuadClass Berry = new QuadClass();
-            Berry.SetToDefault();
-            Berry.TextureName = "cb_surprised";
-            Berry.Scale(625);
-            Berry.ScaleYToMatchRatio();
 
-            Berry.Pos = new Vector2(1422, -468);
-            MyPile.Add(Berry);
+            MakeBackdrop();
 
             SetText("Hold {pXbox_A,85,?} to jump higher!");
         }
 
-        public override void Init()
+        protected virtual void MakeBackdrop()
         {
-            base.Init();
+            Backdrop = new QuadClass(null, true, false);
+            Backdrop.TextureName = "WidePlaque";
+            Backdrop.Size = new Vector2(1250, 138);
+            Backdrop.Pos = new Vector2(0, 0);
 
-            SlideInFrom = SlideOutTo = PresetPos.Right;
+            MyPile.Add(Backdrop);
+            MyPile.Pos = new Vector2(0, -800);
         }
 
+        public override void OnAdd()
+        {
+            base.OnAdd();
+
+            // Remove all other hints
+            foreach (GameObject obj in MyGame.MyGameObjects)
+            {
+                if (obj == this) continue;
+
+                HintBlurb blurb = obj as HintBlurb;
+                if (null != blurb)
+                    blurb.Kill();
+            }
+        }
+
+        public override void SlideIn(int Frames)
+        {
+            Pos.RelVal = new Vector2(0, 0);
+            Active = true;
+            MyPile.BubbleUp(true);
+        }
+
+        public override void SlideOut(PresetPos Preset, int Frames)
+        {
+            if (Frames == 0) return;
+
+            Kill(true);
+            Active = false;
+        }
+
+        protected EzText Text;
         public void SetText(string text)
         {
             // Erase previous text
             MyPile.MyTextList.Clear();
 
             // Add the new text
-            EzText Text = new EzText(text, ItemFont, 800, false, false, .575f);
-            Text.Pos = new Vector2(-600.5554f, 55.55573f);
+            Text = new EzText(text, ItemFont, 1800, false, false, .575f);
             Text.Scale *= .74f;
+            
             MyPile.Add(Text);
+            SizeAndPosition();
         }
 
-        int Step = 0;
+        protected virtual void SizeAndPosition()
+        {
+            Vector2 size = Text.GetWorldSize();
+            float MaxSize = Backdrop.Size.X - 100;
+            if (size.X / 2 > MaxSize)
+                Backdrop.SizeX = size.X / 2 + 100;
+                //Text.Scale *= MaxSize / (size.X / 2);
+
+            Text.Pos = new Vector2(-size.X / 2, size.Y * .85f);
+        }
+
+        protected int Step = 0;
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
@@ -53,11 +96,26 @@ namespace CloudberryKingdom
             Step++;
             if (Step < 40) return;
 
-            if (ButtonCheck.AllState(-1).Down)
+            if (ShouldDie())
             {
+                ReturnToCaller(false);
                 PauseLevel = false;
-                ReturnToCaller();
             }
+        }
+
+        protected virtual bool ShouldDie()
+        {
+            return ButtonCheck.AllState(-1).Down && Step > 95 ||
+                   ButtonCheck.GetDir(-1).Length() > .5 && Step > 140 ||
+                   ButtonCheck.State(ControllerButtons.B, -2).Pressed;
+        }
+
+        public void Kill() { Kill(true); }
+        public void Kill(bool sound)
+        {
+            MyPile.BubbleDownAndFade(sound);
+            ReleaseWhenDone = false;
+            ReleaseWhenDoneScaling = true;
         }
     }
 }
