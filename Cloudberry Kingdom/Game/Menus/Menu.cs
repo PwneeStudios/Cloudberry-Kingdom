@@ -46,11 +46,11 @@ namespace CloudberryKingdom
             public static Vector4 UnselectedNextColor = new Color(40, 180, 40, 255).ToVector4();
             public static Vector4 UnselectedBackColor = new Color(180, 40, 40, 255).ToVector4();
 
-            public static EzSound Menu_UpDown_Sound = Tools.NewSound("Menu Hover", .7f);
-            public static EzSound Menu_Select_Sound = Tools.NewSound("Menu Select", .6f);
-            public static EzSound Menu_Slide_Sound = Tools.NewSound("Menu Tick", .3f);
-            public static EzSound Menu_ListScroll_Sound = Tools.NewSound("Menu Hover", .5f);
-            public static EzSound Menu_Back_Sound = Tools.NewSound("Menu Back", .8f);
+            public static EzSound Menu_UpDown_Sound = Tools.NewSound("Menu_Hover", .7f);
+            public static EzSound Menu_Select_Sound = Tools.NewSound("Menu_Select", .6f);
+            public static EzSound Menu_Slide_Sound = Tools.NewSound("Menu_Tick", .3f);
+            public static EzSound Menu_ListScroll_Sound = Tools.NewSound("Menu_Hover", .5f);
+            public static EzSound Menu_Back_Sound = Tools.NewSound("Menu_Back", .8f);
             public static int Menu_Slide_SoundDelay = 8;
 
             public static EzTexture MenuRightArrow_Texture = Tools.Texture("ListRightArrow");

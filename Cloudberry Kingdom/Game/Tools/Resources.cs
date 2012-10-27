@@ -145,37 +145,37 @@ namespace CloudberryKingdom
             Tools.Song_Happy = Tools.SongWad.FindByName("Happy");
             Tools.Song_Happy.DisplayInfo = false;
 
-            Tools.Song_140mph = Tools.SongWad.FindByName("140 Mph in the Fog^Blind Digital");
+            Tools.Song_140mph = Tools.SongWad.FindByName("140_Mph_in_the_Fog^Blind_Digital");
             Tools.Song_140mph.Volume = .7f;
 
-            Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue Chair^Blind Digital");
+            Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue_Chair^Blind_Digital");
             Tools.Song_BlueChair.Volume = .7f;
 
-            Tools.Song_Evidence = Tools.SongWad.FindByName("Evidence^Blind Digital");
+            Tools.Song_Evidence = Tools.SongWad.FindByName("Evidence^Blind_Digital");
             Tools.Song_Evidence.Volume = .7f;
 
-            Tools.Song_GetaGrip = Tools.SongWad.FindByName("Get a Grip^Peacemaker");
+            Tools.Song_GetaGrip = Tools.SongWad.FindByName("Get_a_Grip^Peacemaker");
             Tools.Song_GetaGrip.Volume = 1f;
 
-            Tools.Song_House = Tools.SongWad.FindByName("House^Blind Digital");
+            Tools.Song_House = Tools.SongWad.FindByName("House^Blind_Digital");
             Tools.Song_House.Volume = .7f;
 
-            Tools.Song_Nero = Tools.SongWad.FindByName("Nero's Law^Peacemaker");
+            Tools.Song_Nero = Tools.SongWad.FindByName("Nero's_Law^Peacemaker");
             Tools.Song_Nero.Volume = 1f;
 
-            Tools.Song_Ripcurl = Tools.SongWad.FindByName("Ripcurl^Blind Digital");
+            Tools.Song_Ripcurl = Tools.SongWad.FindByName("Ripcurl^Blind_Digital");
             Tools.Song_Ripcurl.Volume = .7f;
 
-            Tools.Song_FatInFire = Tools.SongWad.FindByName("The Fat is in the Fire^Peacemaker");
+            Tools.Song_FatInFire = Tools.SongWad.FindByName("The_Fat_is_in_the_Fire^Peacemaker");
             Tools.Song_FatInFire.Volume = .9f;
 
-            Tools.Song_Heavens = Tools.SongWad.FindByName("The Heavens Opened^Peacemaker");
+            Tools.Song_Heavens = Tools.SongWad.FindByName("The_Heavens_Opened^Peacemaker");
             Tools.Song_Heavens.Volume = 1f;
 
-            Tools.Song_TidyUp = Tools.SongWad.FindByName("Tidy Up^Peacemaker");
+            Tools.Song_TidyUp = Tools.SongWad.FindByName("Tidy_Up^Peacemaker");
             Tools.Song_TidyUp.Volume = 1f;
 
-            Tools.Song_WritersBlock = Tools.SongWad.FindByName("Writer's Block^Peacemaker");
+            Tools.Song_WritersBlock = Tools.SongWad.FindByName("Writer's_Block^Peacemaker");
             Tools.Song_WritersBlock.Volume = 1f;
 
             // Create the standard playlist

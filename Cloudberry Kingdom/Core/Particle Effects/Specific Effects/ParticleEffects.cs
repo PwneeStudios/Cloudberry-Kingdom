@@ -463,7 +463,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static void PiecePopFart(Level level, Vector2 pos)
         {
-            Tools.SoundWad.FindByName("Piece Explosion Small").Play(1f);
+            Tools.SoundWad.FindByName("Piece_Explosion_Small").Play(1f);
             for (int i = 0; i < 4; i++)
                 PieceExplosion(level, pos, 0, 1);
         }

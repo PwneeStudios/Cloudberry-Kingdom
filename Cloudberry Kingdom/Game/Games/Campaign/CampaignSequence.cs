@@ -31,7 +31,7 @@ namespace CloudberryKingdom
             Seeds.Add(null);
 
             Tools.UseInvariantCulture();
-            FileStream stream = File.Open("Content\\Campaign\\Campaign.txt", FileMode.Open, FileAccess.Read, FileShare.None);
+            FileStream stream = File.Open("Content\\Campaign\\CampaignList.txt", FileMode.Open, FileAccess.Read, FileShare.None);
             StreamReader reader = new StreamReader(stream);
 
             String line;
@@ -48,30 +48,42 @@ namespace CloudberryKingdom
                     continue;
                 }
 
-                var bits = line.Split(' ');
-                switch (bits[0])
+                int space = line.IndexOf(' ');
+                string identifier, data;
+                if (space > 0)
+                {
+                    identifier = line.Substring(0, space);
+                    data = line.Substring(space + 1);
+                }
+                else
+                {
+                    identifier = line;
+                    data = "";
+                }
+
+                switch (identifier)
                 {
                     case "chapter":
-                        var chapter = int.Parse(bits[1]);
+                        var chapter = int.Parse(data);
                         ChapterStart.AddOrOverwrite(chapter, count);
                         break;
 
                     case "movie":
-                        SpecialLevel.AddOrOverwrite(count, new Tuple<string,string>(bits[0], bits[1]));
+                        SpecialLevel.AddOrOverwrite(count, new Tuple<string,string>(identifier, data));
                         Seeds.Add(null);
                         count++;
 
                         break;
 
                     case "end":
-                        SpecialLevel.AddOrOverwrite(count, new Tuple<string, string>(bits[0], null));
+                        SpecialLevel.AddOrOverwrite(count, new Tuple<string, string>(identifier, null));
                         Seeds.Add(null);
                         count++;
 
                         break;
 
                     case "seed":
-                        var seed = bits[1];
+                        var seed = data;
                         seed += string.Format("level:{0};", level);
 
                         Seeds.Add(seed);

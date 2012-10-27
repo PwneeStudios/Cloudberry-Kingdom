@@ -121,7 +121,7 @@ namespace CloudberryKingdom.Awards
             if (PlayerManager.CombinedBank() >= Price)
                 Call(new VerifyPurchaseMenu(-1, buyable), 6);
             else
-                Tools.Sound("Menu Tick").Play();
+                Tools.Sound("Menu_Tick").Play();
         }
 
         protected override void SetItemProperties(MenuItem item)

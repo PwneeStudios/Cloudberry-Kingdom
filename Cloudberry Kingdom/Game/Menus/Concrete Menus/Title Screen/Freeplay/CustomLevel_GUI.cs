@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             if (data.MyGeometry == LevelGeometry.Down)
                 data.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
 
-            data.PostMake = data.PostMake_StandardLoad;
+            data.PostMake += data.PostMake_StandardLoad;
 
             StartLevel(data);
         }

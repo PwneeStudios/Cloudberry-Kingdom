@@ -236,8 +236,8 @@ namespace CloudberryKingdom
                         lvl.MyGame.WaitThenDo(KillCapeDelay + InitialDarkness, () => wind_t.LerpTo(1f, 40));
 
                         lvl.MyGame.WaitThenDo(zoomout_start - 3 - 3, () =>
-                            Tools.SoundWad.FindByName("Record Scratch").Play());
-                        Tools.SongWad.SetPlayList("Ripcurl^Blind Digital");
+                            Tools.SoundWad.FindByName("Record_Scratch").Play());
+                        Tools.SongWad.SetPlayList("Ripcurl^Blind_Digital");
                         Tools.SongWad.Restart(true, false);
                         Tools.SongWad.Pause();
                         lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>

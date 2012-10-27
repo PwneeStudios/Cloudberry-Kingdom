@@ -363,7 +363,7 @@ namespace CloudberryKingdom
         {
             FancyScale.LerpTo(new Vector2(.1f), Length + 1);
             MyFancyColor.LerpTo(new Vector4(1f, 1f, 1f, 0f), Length);
-            if (sound) Tools.SoundWad.FindByName("Pop 2").Play();
+            if (sound) Tools.SoundWad.FindByName("Pop_2").Play();
         }
         static Vector2[] JiggleScale = { new Vector2(1.15f), new Vector2(.94f), new Vector2(1.05f), new Vector2(1f) };
         public void Jiggle(bool sound) { Jiggle(sound, 5, 1f); }
@@ -373,7 +373,7 @@ namespace CloudberryKingdom
             MyFancyColor.LerpTo(new Vector4(1f, 1f, 1f, 1f), Length);
             if (sound)
                 Tools.CurGameData.WaitThenDo(2, () =>
-                    Tools.SoundWad.FindByName("Pop 2").Play());
+                    Tools.SoundWad.FindByName("Pop_2").Play());
         }
     }
 }

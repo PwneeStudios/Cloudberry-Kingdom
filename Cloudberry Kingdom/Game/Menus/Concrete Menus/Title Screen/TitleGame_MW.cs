@@ -29,6 +29,9 @@ namespace CloudberryKingdom
 
         public override void ReturnTo(int code)
         {
+            Tools.SongWad.SetPlayList(Tools.Song_Heavens);
+            Tools.SongWad.Restart(true, false);
+
             base.ReturnTo(code);
         }
       

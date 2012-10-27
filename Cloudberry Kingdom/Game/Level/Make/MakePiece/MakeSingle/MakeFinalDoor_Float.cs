@@ -131,7 +131,10 @@ namespace CloudberryKingdom.Levels
             {
                 StringWorldGameData stringworld = Tools.WorldMap as StringWorldGameData;
                 if (stringworld != null)
+                {
                     door.OnOpen = stringworld.EOL_StringWorldDoorAction;
+                    door.OnEnter = stringworld.EOL_StringWorldDoorEndAction;
+                }
             }
         }
 

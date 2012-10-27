@@ -76,7 +76,7 @@ namespace CloudberryKingdom
             var seed = new LevelSeedData();
             seed.ReadString(Seeds[Index]);
 
-            seed.PostMake = null;
+            //seed.PostMake = null;
 
             return seed;
         }

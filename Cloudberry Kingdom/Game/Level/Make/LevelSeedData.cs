@@ -9,6 +9,7 @@ using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
@@ -36,25 +37,69 @@ namespace CloudberryKingdom
         /// These special flags add additional properties to levels made by this seed.
         /// </summary>
         #region Special flags
-        public bool HasWall = false;
-        const string WallFlag = "Wall";
+        public bool HasWall = false; const string WallFlag = "wall";
+        public bool FadeIn  = false; const string FadeInFlag = "fadein";
+        public bool FadeOut = false; const string FadeOutFlag = "fadeout";
+
+        /// <summary>
+        /// How long to wait before opening the initial door.
+        /// </summary>
+        public int WaitLengthToOpenDoor = 6; const string WaitLengthToOpenDoorString = "opendoor";
+        public bool OpenDoorSound = false; const string OpenDoorSoundFlag = "opendoorsound";
+
+        /// <summary>
+        /// How long to wait before opening the initial door.
+        /// </summary>
+        public EzSong MySong = null; const string SongString = "song";
+
         public void ProcessSpecial()
         {
             if (HasWall)
             {
-                //p.Style.ComputerWaitLengthRange = new Vector2(4, 23);
                 var p = PieceSeeds[0];
-                p.Style.MyModParams =
-                    (level, piece) =>
-                    {
-                        var Params = (NormalBlock_Parameters)piece.Style.FindParams(NormalBlock_AutoGen.Instance);
-                        Wall wall = Params.SetWall(LevelGeometry.Right);
-                        wall.Space = 20; wall.MyBufferType = Wall.BufferType.Space;
-                        p.CamZoneStartAdd.X = -2000;
-                        wall.StartOffset = -600;
-                        wall.Speed = 17.5f;
-                        wall.InitialDelay = 72;
-                    };
+                //p.Style.ComputerWaitLengthRange = new Vector2(4, 23);
+                
+                p.Style.MyModParams = _HasWall_Process;
+            }
+
+            if (FadeIn) PostMake += _FadeIn_Process;
+
+            if (FadeOut) PostMake += _FadeOut_Process;
+
+            if (MySong != null) PostMake += _StartSong;
+        }
+
+        private void _StartSong(Level level)
+        {
+            Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+            Tools.SongWad.Next(MySong);
+        }
+
+        private static void _HasWall_Process(Level level, PieceSeedData piece)
+        {
+            var Params = (NormalBlock_Parameters)piece.Style.FindParams(NormalBlock_AutoGen.Instance);
+            Wall wall = Params.SetWall(LevelGeometry.Right);
+            wall.Space = 20; wall.MyBufferType = Wall.BufferType.Space;
+            piece.CamZoneStartAdd.X = -2000;
+            wall.StartOffset = -600;
+            wall.Speed = 17.5f;
+            wall.InitialDelay = 72;
+        }
+
+        private static void _FadeIn_Process(Level level)
+        {
+            level.MyGame.PhsxStepsToDo += 2;
+            level.MyGame.AddGameObject(new FadeInObject());
+        }
+
+        private static void _FadeOut_Process(Level level)
+        {
+            StringWorldGameData stringworld = Tools.WorldMap as StringWorldGameData;
+            var door = level.FindIObject(LevelConnector.EndOfLevelCode) as Door;
+
+            if (null != stringworld && null != door)
+            {
+                door.OnEnter = stringworld.EOL_StringWorldDoorEndAction_WithFade;
             }
         }
         #endregion
@@ -95,8 +140,6 @@ namespace CloudberryKingdom
             // Seed
             Seed = i % 7777777;
 
-            PostMake = PostMake_StandardLoad;
-            
             PieceHash = i * Seed;
         }
 
@@ -130,7 +173,7 @@ namespace CloudberryKingdom
                 
                 string[] terms;
 
-                switch (identifier)
+                switch (identifier.ToLower())
                 {
                     // Seed [This must come first]
                     case "s":
@@ -236,9 +279,40 @@ namespace CloudberryKingdom
                         break;
 
                     // Wall
-                    case WallFlag:
-                        HasWall = true;
+                    case WallFlag: HasWall = true; break;
+
+                    // Fade In
+                    case FadeInFlag: FadeIn = true; break;
+
+                    // Fade Out
+                    case FadeOutFlag: FadeOut = true; break;
+
+                    // Wait length to open door
+                    case WaitLengthToOpenDoorString:
+                        try
+                        {
+                            WaitLengthToOpenDoor = int.Parse(data);
+                        }
+                        catch
+                        {
+                            WaitLengthToOpenDoor = 6;
+                        }
                         break;
+
+                    // Song to play at beginning of level
+                    case SongString:
+                        try
+                        {
+                            MySong = Tools.SongWad.FindByName(data);
+                        }
+                        catch
+                        {
+                            MySong = null;
+                        }
+                        break;
+
+                    // Open door sound
+                    case OpenDoorSoundFlag: OpenDoorSound = true; break;
 
                     default: break;
                 }
@@ -556,7 +630,7 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
-        /// Prevent the user from being able to load different levels from the menu within this level.
+        /// Allow the user to load different levels from the menu within this level.
         /// </summary>
         /// <param name="level"></param>
         public void PostMake_EnableLoad(Level level)
@@ -578,7 +652,7 @@ namespace CloudberryKingdom
                 level.MyGame.WaitThenDo(8, BOL_StartMusic);
 
             ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
-            door.OnOpen = d => GameData.EOL_DoorAction(d);//, StatGroup.Level);
+            door.OnOpen = d => GameData.EOL_DoorAction(d);
 
             level.StartRecording();
         }

@@ -32,8 +32,12 @@ namespace CoreEngine
         {
             foreach (EzSound Snd in SoundList)
                 if (String.Compare(Snd.Name, name, StringComparison.OrdinalIgnoreCase) == 0)
-                    //if (Snd.Name.CompareTo(name) == 0)
                     return Snd;
+
+#if DEBUG
+            Tools.Break();
+#endif
+
             return SoundList[0];
         }
 

@@ -449,7 +449,7 @@ namespace CloudberryKingdom.Bobs
             JumpSound.DefaultVolume = .1f;
             JumpSound.DelayTillNextSoundCanPlay = 10;
 
-            DieSound = DieSound_Default = Tools.Sound("Death Chime");
+            DieSound = DieSound_Default = Tools.Sound("Death_Chime");
 
             PlayerObject.Read(0, 0);
             PlayerObject.Play = true;

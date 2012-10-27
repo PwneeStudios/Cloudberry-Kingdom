@@ -21,5 +21,6 @@ namespace CloudberryKingdom
     {
         LevelSeedData NextLevelSeedData { get; set; }
         DoorAction OnOpen { get; set; }
+        DoorAction OnEnter { get; set; }
     }
 }

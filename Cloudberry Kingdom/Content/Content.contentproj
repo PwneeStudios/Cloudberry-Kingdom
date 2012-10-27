@@ -224,18 +224,18 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Death Chime.wav">
-      <Name>Death Chime</Name>
+    <Compile Include="Sound\Death_Chime.wav">
+      <Name>Death_Chime</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Door Opening.wav">
-      <Name>Door Opening</Name>
+    <Compile Include="Sound\Door_Opening.wav">
+      <Name>Door_Opening</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Door Slamming.wav">
-      <Name>Door Slamming</Name>
+    <Compile Include="Sound\Door_Slamming.wav">
+      <Name>Door_Slamming</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -249,18 +249,18 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Menu Back.wav">
-      <Name>Menu Back</Name>
+    <Compile Include="Sound\Menu_Back.wav">
+      <Name>Menu_Back</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Menu Hover.wav">
-      <Name>Menu Hover</Name>
+    <Compile Include="Sound\Menu_Hover.wav">
+      <Name>Menu_Hover</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Menu Tick.wav">
-      <Name>Menu Tick</Name>
+    <Compile Include="Sound\Menu_Tick.wav">
+      <Name>Menu_Tick</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -269,13 +269,13 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Menu Select.wav">
-      <Name>Menu Select</Name>
+    <Compile Include="Sound\Menu_Select.wav">
+      <Name>Menu_Select</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Record Scratch.wav">
-      <Name>Record Scratch</Name>
+    <Compile Include="Sound\Record_Scratch.wav">
+      <Name>Record_Scratch</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -293,18 +293,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Pop 1.wav">
-      <Name>Pop 1</Name>
+    <Compile Include="Sound\Pop_1.wav">
+      <Name>Pop_1</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Pop 2.wav">
-      <Name>Pop 2</Name>
+    <Compile Include="Sound\Pop_2.wav">
+      <Name>Pop_2</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\Pop 3.wav">
-      <Name>Pop 3</Name>
+    <Compile Include="Sound\Pop_3.wav">
+      <Name>Pop_3</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -346,50 +346,50 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\140 Mph in the Fog^Blind Digital.wma">
-      <Name>140 Mph in the Fog^Blind Digital</Name>
+    <Compile Include="Music\140_Mph_in_the_Fog^Blind_Digital.wma">
+      <Name>140_Mph_in_the_Fog^Blind_Digital</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\Blue Chair^Blind Digital.wma">
-      <Name>Blue Chair^Blind Digital</Name>
+    <Compile Include="Music\Blue_Chair^Blind_Digital.wma">
+      <Name>Blue_Chair^Blind_Digital</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\Evidence^Blind Digital.wma">
-      <Name>Evidence^Blind Digital</Name>
+    <Compile Include="Music\Evidence^Blind_Digital.wma">
+      <Name>Evidence^Blind_Digital</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\Get a Grip^Peacemaker.wma">
-      <Name>Get a Grip^Peacemaker</Name>
+    <Compile Include="Music\Get_a_Grip^Peacemaker.wma">
+      <Name>Get_a_Grip^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\Nero%27s Law^Peacemaker.wma">
-      <Name>Nero%27s Law^Peacemaker</Name>
+    <Compile Include="Music\Nero%27s_Law^Peacemaker.wma">
+      <Name>Nero%27s_Law^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\Ripcurl^Blind Digital.wma">
-      <Name>Ripcurl^Blind Digital</Name>
+    <Compile Include="Music\Ripcurl^Blind_Digital.wma">
+      <Name>Ripcurl^Blind_Digital</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\The Fat is in the Fire^Peacemaker.wma">
-      <Name>The Fat is in the Fire^Peacemaker</Name>
+    <Compile Include="Music\The_Fat_is_in_the_Fire^Peacemaker.wma">
+      <Name>The_Fat_is_in_the_Fire^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
-    <Compile Include="Music\The Heavens Opened^Peacemaker.wma">
-      <Name>The Heavens Opened^Peacemaker</Name>
+    <Compile Include="Music\The_Heavens_Opened^Peacemaker.wma">
+      <Name>The_Heavens_Opened^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Piece Explosion Small.wav">
-      <Name>Piece Explosion Small</Name>
+    <Compile Include="Sound\Piece_Explosion_Small.wav">
+      <Name>Piece_Explosion_Small</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -484,22 +484,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\Tidy Up^Peacemaker.wma">
-      <Name>Tidy Up^Peacemaker</Name>
+    <Compile Include="Music\Tidy_Up^Peacemaker.wma">
+      <Name>Tidy_Up^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\Writer%27s Block^Peacemaker.wma">
-      <Name>Writer%27s Block^Peacemaker</Name>
+    <Compile Include="Music\Writer%27s_Block^Peacemaker.wma">
+      <Name>Writer%27s_Block^Peacemaker</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\House^Blind Digital.wma">
-      <Name>House^Blind Digital</Name>
+    <Compile Include="Music\House^Blind_Digital.wma">
+      <Name>House^Blind_Digital</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
@@ -4368,8 +4368,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Campaign\Campaign.txt">
-      <Name>Campaign</Name>
+    <None Include="Campaign\CampaignList.txt">
+      <Name>CampaignList</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

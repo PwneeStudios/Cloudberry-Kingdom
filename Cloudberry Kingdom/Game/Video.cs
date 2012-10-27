@@ -75,6 +75,10 @@ namespace CloudberryKingdom
             if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f ||
                 ElapsedTime() > LengthUntilUserCanSkip)
             {
+                // Update songs
+                if (Tools.SongWad != null)
+                    Tools.SongWad.PhsxStep();
+
                 ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
 
                 if (ButtonCheck.AnyKey())

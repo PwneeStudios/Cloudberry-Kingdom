@@ -965,7 +965,7 @@ namespace CloudberryKingdom
                     if (!PlayerManager.Get((int)bob.MyPlayerIndex).Exists)
                     {
                         ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position);
-                        Tools.SoundWad.FindByName("Pop 2").Play();
+                        Tools.SoundWad.FindByName("Pop_2").Play();
 
                         return true;
                     }
@@ -1025,7 +1025,7 @@ namespace CloudberryKingdom
             if (Pop)
             {
                 ParticleEffects.AddPop(MyLevel, Player.Core.Data.Position);
-                Tools.SoundWad.FindByName("Pop 2").Play();
+                Tools.SoundWad.FindByName("Pop_2").Play();
             }
         }
 
@@ -1276,7 +1276,15 @@ namespace CloudberryKingdom
             FadingToBlack = false;
         }
 
+        /// <summary>
+        /// Black out the entire screen.
+        /// </summary>
         public void Black() { FadeIn(0); }
+        
+        /// <summary>
+        /// Fade in, starting from pure black.
+        /// </summary>
+        /// <param name="FadeInSpeed"></param>
         public void FadeIn(float FadeInSpeed)
         {
             BlackAlpha = 1f;
@@ -1285,6 +1293,9 @@ namespace CloudberryKingdom
             this.FadeInSpeed = FadeInSpeed;
         }
 
+        /// <summary>
+        /// Fade out to black, starting with no black.
+        /// </summary>
         public void FadeToBlack() { FadeToBlack(.01f); }
         public void FadeToBlack(float FadeOutSpeed)
         {
@@ -1292,6 +1303,11 @@ namespace CloudberryKingdom
             FadingToBlack = true;
             FadingIn = false;
             BlackAlpha = 0;
+        }
+
+        public void FadeToBlack(float FadeOutSpeed, int Delay)
+        {
+            WaitThenDo(Delay, () => FadeToBlack(FadeOutSpeed));
         }
 
         public virtual void Draw()

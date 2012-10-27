@@ -141,9 +141,22 @@ namespace CloudberryKingdom
             Go(c_item.Chapter);
         }
 
+        int _StartLevel;
         void Go(int StartLevel)
         {
-            CampaignSequence.Instance.Start(StartLevel);
+            Tools.SongWad.FadeOut();
+            MyGame.FadeToBlack(.0225f, 20);
+            Active = false;
+
+            _StartLevel = StartLevel;
+            MyGame.WaitThenDo(75, _Go);
+        }
+
+        private void _Go()
+        {
+            Active = true;
+            MyGame.FadeIn(.05f);
+            CampaignSequence.Instance.Start(_StartLevel);
         }
 
         void SetPos_NoCinematic()

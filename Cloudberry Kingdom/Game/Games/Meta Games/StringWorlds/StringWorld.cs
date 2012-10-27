@@ -81,11 +81,6 @@ namespace CloudberryKingdom
         public Func<Level, bool> OnLevelBegin;
 
         /// <summary>
-        /// How long to wait before opening the initial door.
-        /// </summary>
-        int WaitLengthToOpenDoor = 6;
-
-        /// <summary>
         /// How long to wait before opening the initial door on the first level.
         /// </summary>
         protected int WaitLengthToOpenDoor_FirstLevel = 6;
@@ -180,15 +175,15 @@ namespace CloudberryKingdom
             int Wait = WaitLengthToOpenDoor_FirstLevel;
 
             if (CurLevelIndex > 0)
-                Wait = WaitLengthToOpenDoor;
-            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door));
+                Wait = CurLevelSeed.WaitLengthToOpenDoor;
+            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
         }
 
-        private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door)
+        private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door, bool OpenDoorSound)
         {
             // Whether to play a sound for the door opening
             bool sound = false;
-            if (CurLevelIndex == StartIndex)
+            if (CurLevelIndex == StartIndex || OpenDoorSound)
                 sound = true;
 
             level.Finished = false;
@@ -526,9 +521,36 @@ namespace CloudberryKingdom
                         PlayerManager.AbsorbLevelStats();
                     });
 
-                // Tell the current Game to perform the following
-                TellGameToBringNext(13, game);
+                if (door.OnEnter != null) door.OnEnter(door);
             }
+        }
+
+        /// <summary>
+        /// Attached to each door at the end of a level, executed after the door is closed.
+        /// This sets the next level to be switched to.
+        /// </summary>
+        public void EOL_StringWorldDoorEndAction(Door door)
+        {
+            GameData game = door.Core.MyLevel.MyGame;
+
+            // Tell the current Game to perform the following
+            TellGameToBringNext(13, game);
+        }
+
+        /// <summary>
+        /// Attached to each door at the end of a level, executed after the door is closed.
+        /// This sets the next level to be switched to, but first fades the current level to black.
+        /// </summary>
+        public void EOL_StringWorldDoorEndAction_WithFade(Door door)
+        {
+            GameData game = door.Core.MyLevel.MyGame;
+
+            Tools.SongWad.FadeOut();
+            game.FadeToBlack(.02f, 47);
+
+            // Tell the current Game to perform the following
+            //TellGameToBringNext(98, game);
+            TellGameToBringNext(165, game);
         }
 
         bool WaitingForNext = false;

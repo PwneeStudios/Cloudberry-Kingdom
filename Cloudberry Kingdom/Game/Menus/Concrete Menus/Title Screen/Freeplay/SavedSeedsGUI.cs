@@ -75,6 +75,7 @@ namespace CloudberryKingdom
         {
             var seed = new LevelSeedData();
             seed.ReadString(seedstr);
+            seed.PostMake += seed.PostMake_StandardLoad;
 
             simple.MyGame.PlayGame(() =>
                 {
@@ -83,6 +84,7 @@ namespace CloudberryKingdom
                     // Randomize the seed for the next level, if the player chooses to continue using this LevelSeedData.
                     seed = new LevelSeedData();
                     seed.ReadString(seedstr);
+                    seed.PostMake += seed.PostMake_StandardLoad;
                     seed.Seed = Tools.GlobalRnd.Rnd.Next();
                 });
 

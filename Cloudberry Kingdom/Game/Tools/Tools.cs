@@ -853,7 +853,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static EzTexture Texture(string name) { return TextureWad.FindByName(name); }
         public static EzSound Sound(string name) { return SoundWad.FindByName(name); }
         public static void Pop() { Pop(2); }
-        public static void Pop(int Pitch) { Sound("Pop " + CoreMath.Restrict(1, 3, Pitch).ToString()).Play(); }
+        public static void Pop(int Pitch) { Sound("Pop_" + CoreMath.Restrict(1, 3, Pitch).ToString()).Play(); }
 
         public static GameTime gameTime;
 

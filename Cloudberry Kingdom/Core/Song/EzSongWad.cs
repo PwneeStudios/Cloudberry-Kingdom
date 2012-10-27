@@ -167,6 +167,14 @@ namespace CoreEngine
                 return false;
         }
 
+        public void Next(EzSong song)
+        {
+            CurIndex = PlayList.IndexOf(song);
+            if (CurIndex < 0) CurIndex = 0;
+
+            SetSong(CurIndex);
+        }
+
         public void Next()
         {
             CurIndex++;
@@ -326,6 +334,10 @@ namespace CoreEngine
             foreach (EzSong Sng in SongList)
                 if (String.Compare(Sng.Name, name, StringComparison.OrdinalIgnoreCase) == 0)
                     return Sng;
+
+#if DEBUG
+            Tools.Break();
+#endif
 
             return SongList[0];
         }
