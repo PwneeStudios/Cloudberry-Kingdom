@@ -259,7 +259,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
-    <Compile Include="Game\Menus\CkColorHelper.cs" />
+    <Compile Include="Game\Tools\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\MultiplierUp.cs" />
@@ -470,7 +470,6 @@
     <Compile Include="__Steam_Wrapper\SteamManager.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Game\Player\Hero Physics\Special\BobPhsxCharSelect.cs" />
-    <Compile Include="Game\Player\Hero Physics\Special\BobPhsxCinematic.cs" />
     <Compile Include="Game\Player\Hero Physics\Wheel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\CharSelectManager.cs" />
     <Compile Include="Core\Text\EzFont.cs" />

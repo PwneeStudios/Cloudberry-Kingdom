@@ -469,37 +469,6 @@ namespace CloudberryKingdom.Bobs
             SetColorScheme(ColorSchemeManager.ColorSchemes[0]);
         }
 
-        public void SetToCinematic()
-        {
-            Cinematic = true;
-            if (MyPhsx != null) MyPhsx.Release();
-            MyPhsx = new BobPhsxCinematic();
-            MyPhsx.Init(this);
-            if (MyCape == null)
-                MakeCape(Cape.CapeType.Normal);
-
-            ControlCount = 0;
-            ControlFunc = null;
-        }
-
-        public void EndCinematic()
-        {
-            if (!Cinematic) return;
-
-            Move(new Vector2(0, 1));
-
-            Cinematic = false;
-            if (MyPhsx != null) MyPhsx.Release();
-            SetHeroPhsx(MyHeroType);
-
-            AffectsCamera = true;
-
-            UpdateObject();
-            InitBoxesForCollisionDetect();
-            Box.SwapToCurrent();
-            Box2.SwapToCurrent();
-        }
-
         public void SwitchHero(BobPhsx hero)
         {
             Vector2 HoldVel = MyPhsx.Vel;
@@ -566,8 +535,6 @@ namespace CloudberryKingdom.Bobs
                 MyPhsx.Init(this);
                 MakeCape(Cape.CapeType.Normal);
             }
-            else if (Cinematic)
-                SetToCinematic();
             else
                 SetHeroPhsx(type);
 
