@@ -274,16 +274,16 @@ namespace CloudberryKingdom
             __16.Fixed = false;
             CloudberryKingdom.BackgroundFloater __17 = new CloudberryKingdom.BackgroundFloater();
             __17.Name = "Snow";
-            __17.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-16817f, 4586.932f), new Vector2(21.61522f, -10.28082f), new Color(88, 88, 88, 88));
+            __17.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-16817f, 4586.932f), 1f * new Vector2(21.61522f, -10.28082f), new Color(88, 88, 88, 88));
             __17.MyQuad.Quad.v0.Pos = new Vector2(-1f, 1f);
 
-            __17.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(310331.8f, 4586.932f), new Vector2(41.61494f, -10.28082f), new Color(88, 88, 88, 88));
+            __17.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(310331.8f, 4586.932f), 1f * new Vector2(41.61494f, -10.28082f), new Color(88, 88, 88, 88));
             __17.MyQuad.Quad.v1.Pos = new Vector2(1f, 1f);
 
-            __17.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-16817f, -4614.128f), new Vector2(21.61522f, -9.277841f), new Color(88, 88, 88, 88));
+            __17.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-16817f, -4614.128f), 1f * new Vector2(21.61522f, -9.277841f), new Color(88, 88, 88, 88));
             __17.MyQuad.Quad.v2.Pos = new Vector2(-1f, -1f);
 
-            __17.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(310331.8f, -4614.128f), new Vector2(41.61494f, -9.277841f), new Color(88, 88, 88, 88));
+            __17.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(310331.8f, -4614.128f), 1f * new Vector2(41.61494f, -9.277841f), new Color(88, 88, 88, 88));
             __17.MyQuad.Quad.v3.Pos = new Vector2(1f, -1f);
 
             __17.MyQuad.Quad.MyEffect = Tools.BasicEffect;
@@ -293,10 +293,11 @@ namespace CloudberryKingdom
             __17.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 89);
             __17.MyQuad.Quad.PremultipliedColor = new Color(88, 88, 88, 88);
             __17.MyQuad.Quad.BlendAddRatio = 0f;
+            __17.MyQuad.Alpha = .7f;
 
             __17.MyQuad.Base = new CoreEngine.BasePoint(163574.4f, 0f, 0f, 4600.53f, 146757.4f, -13.5979f);
 
-            __17.uv_speed = new Vector2(0.001f, -0.0009f);
+            __17.uv_speed = 1.25f * new Vector2(0.001f, -0.0009f);
             __17.uv_offset = new Vector2(18.35001f, -7.339994f);
             __17.Data = new PhsxData(146757.4f, -13.5979f, 0f, 0f, 0f, 0f);
             __17.StartData = new PhsxData(146757.4f, -13.5979f, 0f, 0f, 0f, 0f);

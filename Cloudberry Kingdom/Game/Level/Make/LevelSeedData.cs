@@ -40,6 +40,7 @@ namespace CloudberryKingdom
         public bool HasWall = false; const string WallFlag = "wall";
         public bool FadeIn  = false; const string FadeInFlag = "fadein";
         public bool FadeOut = false; const string FadeOutFlag = "fadeout";
+        public float WeatherIntensity = 1; const string WeatherIntensityFlag = "weather";
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -66,6 +67,8 @@ namespace CloudberryKingdom
 
             if (FadeOut) PostMake += _FadeOut_Process;
 
+            if (WeatherIntensity != 1) PostMake += _SetWeather_Process;
+
             if (MySong != null) PostMake += _StartSong;
         }
 
@@ -84,6 +87,11 @@ namespace CloudberryKingdom
             wall.StartOffset = -600;
             wall.Speed = 17.5f;
             wall.InitialDelay = 72;
+        }
+
+        private static void _SetWeather_Process(Level level)
+        {
+            level.MyBackground.SetWeatherIntensity(level.MyLevelSeed.WeatherIntensity);
         }
 
         private static void _FadeIn_Process(Level level)
@@ -286,6 +294,18 @@ namespace CloudberryKingdom
 
                     // Fade Out
                     case FadeOutFlag: FadeOut = true; break;
+
+                    // Weather intensity
+                    case WeatherIntensityFlag:
+                        try
+                        {
+                            WeatherIntensity = float.Parse(data);
+                        }
+                        catch
+                        {
+                            WeatherIntensity = 1;
+                        }
+                        break;
 
                     // Wait length to open door
                     case WaitLengthToOpenDoorString:
@@ -774,7 +794,7 @@ namespace CloudberryKingdom
 
         public LevelSeedData()
         {
-            MyBackgroundType = BackgroundType.Dungeon;
+            MyBackgroundType = BackgroundType.Random;
 
             MyGameType = null;
             Seed = Tools.GlobalRnd.Rnd.Next();

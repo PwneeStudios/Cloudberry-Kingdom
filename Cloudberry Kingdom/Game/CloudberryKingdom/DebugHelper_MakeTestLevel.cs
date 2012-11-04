@@ -38,9 +38,11 @@ namespace CloudberryKingdom
 
             LevelSeedData data = new LevelSeedData();
 
+
             //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
-            //GameData.StartLevel(data);
-            //return;
+            data.ReadString("seed 0;s:305632318;h:0,0,0,0;t:hills_rain;n:2;l:5110;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;fadein;opendoor:30;opendoorsound;song:Writer's_Block^Peacemaker;weather:1;");
+            GameData.StartLevel(data);
+            return;
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             //data.Seed = 110040853;
@@ -49,9 +51,9 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
-            //TileSetToTest = "hills";
-            //TileSetToTest = "forest";
-            TileSetToTest = "cloud";
+            //TileSetToTest = "hills_rain";
+            TileSetToTest = "forest_snow";
+            //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
             //TileSetToTest = "castle";
 
@@ -68,14 +70,14 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxTime.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
-            data.DefaultHeroType = BobPhsxSpaceship.Instance;
+            //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
@@ -101,8 +103,8 @@ namespace CloudberryKingdom
 
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
-            data.PieceLength = 90000;
-            //data.PieceLength = 15000;
+            //data.PieceLength = 90000;
+            data.PieceLength = 15000;
             //data.PieceLength = 37000;
             data.NumPieces = 1;
 

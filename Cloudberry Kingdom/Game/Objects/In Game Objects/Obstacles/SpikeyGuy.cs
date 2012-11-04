@@ -115,7 +115,7 @@ namespace CloudberryKingdom.Obstacles
             if (Core.ParentBlock != null)
                 PivotPoint = Core.GetPosFromParentOffset();
 
-            float PhsxCutoff = Length + 1300;
+            float PhsxCutoff = Length + 1800;
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = Length + 100;
             
             if (!Core.MyLevel.MainCamera.OnScreen(PivotPoint, PhsxCutoff))

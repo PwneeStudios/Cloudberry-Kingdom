@@ -140,7 +140,7 @@ namespace CloudberryKingdom.Blocks
                 Core.Data.Position = CalcPosition((float)Step / Period);
             }
 
-            Vector2 PhsxCutoff = new Vector2(900);
+            Vector2 PhsxCutoff = new Vector2(1250);
             if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
             {

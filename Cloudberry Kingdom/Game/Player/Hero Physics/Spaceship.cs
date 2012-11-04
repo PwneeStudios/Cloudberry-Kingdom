@@ -57,7 +57,7 @@ namespace CloudberryKingdom
         {
             base.Init(bob);
 
-            bob.DieSound = Tools.SoundWad.FindByName("Spaceship_Explode");
+            bob.DieSound = Tools.SoundWad.FindByName("DustCloud_Explode");
 
             OnGround = false;
         }

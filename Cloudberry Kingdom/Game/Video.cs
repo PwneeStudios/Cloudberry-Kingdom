@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
@@ -14,6 +15,8 @@ namespace CloudberryKingdom
 {
     class MainVideo
     {
+        static ContentManager Content = null;
+
         public static bool Playing = false;
 
         static Video CurrentVideo;
@@ -26,6 +29,10 @@ namespace CloudberryKingdom
 
         static bool CanSkip;
         static float LengthUntilUserCanSkip;
+
+        static List<Localization.SubtitleAction> Subtitles;
+        static int SubtitleIndex;
+        static QuadClass SubtitleQuad = new QuadClass();
 
         public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
@@ -41,6 +48,15 @@ namespace CloudberryKingdom
 
         private static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
         {
+            Subtitles = Localization.GetSubtitles();
+            SubtitleIndex = 0;
+            SubtitleQuad.Show = false;
+
+            if (Content == null)
+            {
+                Content = new ContentManager(Tools.GameClass.Services, "Content");
+            }
+
             CanSkip = CanSkipVideo;
             LengthUntilUserCanSkip = LengthUntilCanSkip;
 
@@ -50,7 +66,8 @@ namespace CloudberryKingdom
             Playing = true;
             Cleaned = false;
 
-            CurrentVideo = Tools.GameClass.Content.Load<Video>(Path.Combine("Movies", MovieName));
+            //CurrentVideo = Tools.GameClass.Content.Load<Video>(Path.Combine("Movies", MovieName));
+            CurrentVideo = Content.Load<Video>(Path.Combine("Movies", MovieName));
 
             VPlayer = new VideoPlayer();
             VPlayer.IsLooped = false;
@@ -69,7 +86,7 @@ namespace CloudberryKingdom
             return (DateTime.Now - StartTime).TotalSeconds;
         }
 
-        public static void UserInput()
+        static void UserInput()
         {
             // End the video if the user presses a key
             if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f ||
@@ -85,6 +102,38 @@ namespace CloudberryKingdom
                     Playing = false;
 
                 ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Tools.TheGame.Resolution);
+            }
+        }
+
+        static void Subtitle()
+        {
+            if (Subtitles == null) return;
+
+            SubtitleQuad.Draw();
+            Tools.QDrawer.Flush();
+
+            if (SubtitleIndex >= Subtitles.Count) return;
+
+            var NextSubtitle = Subtitles[SubtitleIndex];
+            if (ElapsedTime() > NextSubtitle.Time)
+            {
+                switch (NextSubtitle.MyAction)
+                {
+                    case Localization.SubtitleAction.ActionType.Show:
+                        SubtitleQuad.Show = true;
+                        SubtitleQuad.Quad.MyTexture = NextSubtitle.MyTexture;
+                        SubtitleQuad.ScaleToTextureSize();
+                        SubtitleQuad.Scale(1.666f);
+                        SubtitleQuad.Update();
+                        SubtitleQuad.Pos = new Vector2(0, -700 - SubtitleQuad.Quad.Height / 2);
+                        break;
+
+                    case Localization.SubtitleAction.ActionType.Hide:
+                        SubtitleQuad.Show = false;
+                        break;
+                }
+
+                SubtitleIndex++;
             }
         }
 
@@ -106,6 +155,8 @@ namespace CloudberryKingdom
             Vector2 Pos = Tools.CurCamera.Pos;
             Tools.QDrawer.DrawToScaleQuad(Pos, Color.White, 3580, VEZTexture, Tools.BasicEffect);
             Tools.QDrawer.Flush();
+
+            Subtitle();
 
             return true;
         }

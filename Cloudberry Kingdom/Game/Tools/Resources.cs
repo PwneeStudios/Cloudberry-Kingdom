@@ -302,6 +302,7 @@ namespace CloudberryKingdom
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
             Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
+            
             Tools.Write("ArtMusic done...");
 
             // Load the tile info

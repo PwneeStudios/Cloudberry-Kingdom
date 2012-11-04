@@ -35,7 +35,8 @@ namespace CloudberryKingdom
 
             __47.MyQuad.Base = new CoreEngine.BasePoint(24818.6f, 0f, 0f, 1378.841f, 22120.88f, 57.79195f);
 
-            __47.uv_speed = new Vector2(0.0037f, -0.01f);
+            __47.uv_speed = 1.05f * new Vector2(0.0037f, -0.01f);
+
             __47.uv_offset = new Vector2(0f, 0f);
             __47.Data = new PhsxData(22120.88f, 57.79195f, 0f, 0f, 0f, 0f);
             __47.StartData = new PhsxData(22120.88f, 57.79195f, 0f, 0f, 0f, 0f);

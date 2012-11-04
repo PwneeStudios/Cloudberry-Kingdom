@@ -195,13 +195,25 @@ namespace CloudberryKingdom
                     DoneCount++;
             }
 
-            if (!Resources.LoadingResources.MyBool && DoneCount > 1)
-            //if (!Resources.LoadingResources.MyBool)
-                IsDone = true;
+            if (NoShow)
+            {
+                if (!Resources.LoadingResources.MyBool)
+                    IsDone = true;
+            }
+            else
+            {
+                if (!Resources.LoadingResources.MyBool && DoneCount > 1)
+                    //if (!Resources.LoadingResources.MyBool)
+                    IsDone = true;
+            }
         }
+
+        const bool NoShow = true;
 
         public void Draw()
         {
+            if (NoShow) return;
+
             MyProgressBar.Pos = new Vector2(1100, -800);
 
             MyPile.Draw(0);

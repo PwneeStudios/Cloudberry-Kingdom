@@ -20,18 +20,6 @@ namespace CloudberryKingdom
         public static BackgroundTemplate
             None = new BackgroundTemplate(),
             Random = new BackgroundTemplate(),
-            Castle = new BackgroundTemplate(),
-            Dungeon = new BackgroundTemplate(),
-            Outside = new BackgroundTemplate(),
-            Space = new BackgroundTemplate(),
-            Gray = new BackgroundTemplate(),
-            Construct = new BackgroundTemplate(),
-            Dark = new BackgroundTemplate(),
-            Sky = new BackgroundTemplate(),
-            MarioSky = new BackgroundTemplate(),
-            Night = new BackgroundTemplate(),
-            NightSky = new BackgroundTemplate(),
-            Chaos = new BackgroundTemplate(),
             
             _Sea = new BackgroundTemplate("sea", Background._code_Sea),
             _Sea_Rain = new BackgroundTemplate("sea_rain", Background._code_Sea, Background.AddRainLayer),
@@ -378,6 +366,33 @@ namespace CloudberryKingdom
 
             reader.Close();
             stream.Close();
+        }
+
+        public void SetWeatherIntensity(float Intensity)
+        {
+            // Mod snow
+            foreach (var l in MyCollection.Lists)
+                if (l.Name.Contains("Snow"))
+                {
+                    l.Show = true;
+                    foreach (var f in l.Floaters)
+                    {
+                        f.MyQuad.Alpha *= Intensity;
+                        f.uv_speed *= 1;
+                    }
+                }
+
+            // Mod rain
+            foreach (var l in MyCollection.Lists)
+                if (l.Name.Contains("Rain"))
+                {
+                    l.Show = true;
+                    foreach (var f in l.Floaters)
+                    {
+                        f.MyQuad.Alpha *= Intensity;
+                        f.uv_speed *= 1;
+                    }
+                }
         }
     }
 }

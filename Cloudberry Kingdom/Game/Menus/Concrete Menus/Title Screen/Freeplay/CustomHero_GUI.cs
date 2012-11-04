@@ -60,7 +60,7 @@ namespace CloudberryKingdom
 
             NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps); NumJumpsSlider.Discrete = true;
             DoubleJumpLengthSlider = new PhsxSlider("Double jump length", BobPhsx.CustomData.jumplength2);
-            DoubleJumpAccelSlider = new PhsxSlider("Doule jump accel", BobPhsx.CustomData.jumpaccel2);
+            DoubleJumpAccelSlider = new PhsxSlider("Double jump accel", BobPhsx.CustomData.jumpaccel2);
 
             JetPackSlider = new PhsxSlider("Jetpack accel", BobPhsx.CustomData.jetpackaccel);
             JetPackFuelSlider = new PhsxSlider("Jetpack fuel", BobPhsx.CustomData.jetpackfuel);

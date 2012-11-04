@@ -325,6 +325,10 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             MyGraphicsDeviceManager.IsFullScreen = false;
 #endif
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+            MyGraphicsDeviceManager.IsFullScreen = false;
+
 
 #if WINDOWS
             Tools.GameClass.SetBorder(Tools.WindowBorder);
@@ -404,6 +408,9 @@ namespace CloudberryKingdom
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             SaveGroup.Initialize();
 
+            // Localization
+            Localization.SetLanguage(Localization.Language.English);
+
             // Benchmarking and preprocessing
             //PreprocessArt();
             //BenchmarkAll();
@@ -417,11 +424,11 @@ namespace CloudberryKingdom
             // Load resource thread
             Resources.LoadResources();
 
-#if !DEBUG
-            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+#if WINDOWS
+            Thread.Sleep(2);
 #endif
-            //MainVideo.Load(true);
-            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");            
+
+            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
         }
 
         protected void UnloadContent()

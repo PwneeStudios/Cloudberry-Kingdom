@@ -156,7 +156,7 @@ namespace CloudberryKingdom
 
             ScreenshotString = "";
 
-            MyBackgroundType = BackgroundType.Dungeon;
+            MyBackgroundType = BackgroundType.Random;
 
             CoinScoreColor = new Color(220, 255, 255);
         }
@@ -367,7 +367,7 @@ namespace CloudberryKingdom
 
             FixedWidths = true;
             ProvidesTemplates = true;
-            MyBackgroundType = BackgroundType.MarioSky;
+            MyBackgroundType = BackgroundType.None;
 
             MyTileSetInfo.Pendulums.Group = new BlockGroup();
             MyTileSetInfo.Elevators.Group = new BlockGroup();

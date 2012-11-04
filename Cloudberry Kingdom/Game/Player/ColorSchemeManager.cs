@@ -330,7 +330,7 @@ float DefaultShiftX = -.35f;
 
             Hat.Rasta = 
             hat = new Hat("Hat_Rasta");
-            hat.Name = "Pastafarian";
+            hat.Name = "Reggae";
             hat.Price = Hat.Mid;
             hat.Guid = 2;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -402,7 +402,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Arrow = 
             hat = new Hat("Hat_Arrow");
-            hat.Name = "Custard";
+            hat.Name = "Custer";
             hat.Price = Hat.Expensive;
             hat.Guid = 10;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -589,20 +589,20 @@ float DefaultShiftX = -.35f;
             ClrTextFx fx;
             Vector2 fx_scale = new Vector2(.875f, 1.195f) * .98f;
 
-            fx = new ClrTextFx(3526, 500, Color.White, "FallingBlock2", false, "FallingBlock2");
-            fx.Name = "Concern";
-            fx.PicScale = fx_scale;
-            CapeColorList.Add(new MenuListItem(fx, "ConcernedCape"));
+            //fx = new ClrTextFx(3526, 500, Color.White, "FallingBlock2", false, "FallingBlock2");
+            //fx.Name = "Concern";
+            //fx.PicScale = fx_scale;
+            //CapeColorList.Add(new MenuListItem(fx, "ConcernedCape"));
 
-            fx = new ClrTextFx(3527, 500, Color.White, "FallingBlock3", false, "FallingBlock3");
-            fx.Name = "AAAaahhh!";
-            fx.PicScale = fx_scale;
-            CapeColorList.Add(new MenuListItem(fx, "ScreamingCape"));
+            //fx = new ClrTextFx(3527, 500, Color.White, "FallingBlock3", false, "FallingBlock3");
+            //fx.Name = "AAAaahhh!";
+            //fx.PicScale = fx_scale;
+            //CapeColorList.Add(new MenuListItem(fx, "ScreamingCape"));
 
-            fx = new ClrTextFx(3528, 500, Color.White, "Capes\\FallingBlock4Cape", false, "FallingBlock4");
-            fx.Name = "Anger";
-            fx.PicScale = fx_scale * new Vector2(1.022f, 1.028f);
-            CapeColorList.Add(new MenuListItem(fx, "AngryCape"));
+            //fx = new ClrTextFx(3528, 500, Color.White, "Capes\\FallingBlock4Cape", false, "FallingBlock4");
+            //fx.Name = "Anger";
+            //fx.PicScale = fx_scale * new Vector2(1.022f, 1.028f);
+            //CapeColorList.Add(new MenuListItem(fx, "AngryCape"));
 
             // Wings and cape mod functions
             List<MenuListItem> NewCapeList = new List<MenuListItem>();

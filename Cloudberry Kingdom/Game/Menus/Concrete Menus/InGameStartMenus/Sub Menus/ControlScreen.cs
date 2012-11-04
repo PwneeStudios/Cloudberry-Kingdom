@@ -42,79 +42,76 @@ namespace CloudberryKingdom
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
 
-//            BackgroundQuad = new QuadClass();
-//            BackgroundQuad.SetToDefault();
-//#if PC_VERSION
-//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen_PC");
-//#else
-//            BackgroundQuad.Quad.MyTexture = Tools.TextureWad.FindByName("ControllerScreen");
-//#endif
-//            BackgroundQuad.FullScreen(Tools.CurLevel.MainCamera);
-//            MyPile.Add(BackgroundQuad);
-//            BackgroundQuad.Pos = Vector2.Zero;
-
             ReturnToCallerDelay = 10;
 
             EzText text;
 
 #if PC_VERSION
             text = new EzText("quick spawn", Resources.Font_Grobold42);
-            text.Scale = 1.06f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-404.7632f, 626.9842f);
+            MyPile.Add(text, "quickspawn");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
             text = new EzText("power ups", Resources.Font_Grobold42);
-            text.Scale = 1.06f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-380.9531f, 380.9523f);
+            MyPile.Add(text, "powerups");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
             text = new EzText("menu", Resources.Font_Grobold42);
-            text.Scale = 1.06f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-396.8247f, 976.1902f);
+            MyPile.Add(text, "menu");
             text.MyFloatColor = CampaignHelper.DifficultyColor[1].ToVector4();
 
             text = new EzText("accept", Resources.Font_Grobold42);
-            text.Scale = 1.06f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-388.8873f, 182.5395f);
+            MyPile.Add(text, "accept");
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
             text = new EzText("back", Resources.Font_Grobold42);
-            text.Scale = 1.06f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-380.9512f, -71.42798f);
+            MyPile.Add(text, "back");
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
             text = new EzText("b", Resources.Font_Grobold42);
             text.SubstituteText("<");
-            text.Scale = 1.46f;
-            MyPile.Add(text);
-            text.Pos = new Vector2(-603.1748f, 325.397f);
+            MyPile.Add(text, "split");
 
             QuadClass q;
 
             q = new QuadClass("Enter_Key"); q.ScaleXToMatchRatio(130);
-            MyPile.Add(q);
-            q.Pos = new Vector2(-793.6509f, 87.30127f);
+            MyPile.Add(q, "enter");
 
             q = new QuadClass("Esc_Key"); q.ScaleXToMatchRatio(130);
-            MyPile.Add(q);
-            q.Pos = new Vector2(-666.6665f, 761.9049f);
+            MyPile.Add(q, "esc");
 
             q = new QuadClass("Backspace_Key"); q.ScaleXToMatchRatio(130);
-            MyPile.Add(q);
-            q.Pos = new Vector2(-801.5879f, -261.9048f);
+            MyPile.Add(q, "backspace");
 
             q = new QuadClass("Space_Key"); q.ScaleXToMatchRatio(130);
-            MyPile.Add(q);
-            q.Pos = new Vector2(-793.6523f, 436.5077f);
+            MyPile.Add(q, "space");
+
+            SetPos();
 #endif
         }
+
+#if PC_VERSION
+        void SetPos()
+        {
+            EzText _t;
+            _t = MyPile.FindEzText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-288.0965f, 435.3178f); _t.Scale = 1.06f; }
+            _t = MyPile.FindEzText("powerups"); if (_t != null) { _t.Pos = new Vector2(-267.0644f, 133.7302f); _t.Scale = 1.06f; }
+            _t = MyPile.FindEzText("menu"); if (_t != null) { _t.Pos = new Vector2(-280.1582f, 731.7462f); _t.Scale = 1.06f; }
+            _t = MyPile.FindEzText("accept"); if (_t != null) { _t.Pos = new Vector2(-286.109f, -156.3493f); _t.Scale = 1.06f; }
+            _t = MyPile.FindEzText("back"); if (_t != null) { _t.Pos = new Vector2(-264.2847f, -432.5391f); _t.Scale = 1.06f; }
+            _t = MyPile.FindEzText("split"); if (_t != null) { _t.Pos = new Vector2(-536.5085f, 14.28584f); _t.Scale = 1.46f; }
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
+            _q = MyPile.FindQuad("enter"); if (_q != null) { _q.Pos = new Vector2(-771.4287f, -234.9209f); _q.Size = new Vector2(271.0638f, 130f); }
+            _q = MyPile.FindQuad("esc"); if (_q != null) { _q.Pos = new Vector2(-638.8887f, 520.2384f); _q.Size = new Vector2(138.2979f, 130f); }
+            _q = MyPile.FindQuad("backspace"); if (_q != null) { _q.Pos = new Vector2(-773.8103f, -603.5712f); _q.Size = new Vector2(271.0638f, 130f); }
+            _q = MyPile.FindQuad("space"); if (_q != null) { _q.Pos = new Vector2(-768.6523f, 205.9521f); _q.Size = new Vector2(271.0638f, 130f); }
+
+            MyPile.Pos = new Vector2(0f, 0f);
+        }
+#endif
 
         protected override void MyPhsxStep()
         {
