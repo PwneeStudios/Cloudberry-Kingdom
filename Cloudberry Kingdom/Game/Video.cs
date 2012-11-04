@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
@@ -48,7 +49,7 @@ namespace CloudberryKingdom
 
         private static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
         {
-            Subtitles = Localization.GetSubtitles();
+            Subtitles = Localization.GetSubtitles(MovieName);
             SubtitleIndex = 0;
             SubtitleQuad.Show = false;
 
@@ -86,8 +87,25 @@ namespace CloudberryKingdom
             return (DateTime.Now - StartTime).TotalSeconds;
         }
 
+        static bool Paused = false;
         static void UserInput()
         {
+            ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+
+//#if WINDOWS && DEBUG
+//            if (ButtonCheck.State(Keys.P).Pressed)
+//            {
+//                if (Paused)
+//                    VPlayer.Resume();
+//                else
+//                    VPlayer.Pause();
+                
+//                Paused = !Paused;
+//            }
+
+//            if (!(ButtonCheck.State(Keys.P).Down))
+//#endif
+
             // End the video if the user presses a key
             if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f ||
                 ElapsedTime() > LengthUntilUserCanSkip)
@@ -96,13 +114,11 @@ namespace CloudberryKingdom
                 if (Tools.SongWad != null)
                     Tools.SongWad.PhsxStep();
 
-                ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-
                 if (ButtonCheck.AnyKey())
                     Playing = false;
-
-                ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Tools.TheGame.Resolution);
             }
+
+            ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Tools.TheGame.Resolution);
         }
 
         static void Subtitle()
@@ -123,7 +139,7 @@ namespace CloudberryKingdom
                         SubtitleQuad.Show = true;
                         SubtitleQuad.Quad.MyTexture = NextSubtitle.MyTexture;
                         SubtitleQuad.ScaleToTextureSize();
-                        SubtitleQuad.Scale(1.666f);
+                        SubtitleQuad.Scale(1.445f);
                         SubtitleQuad.Update();
                         SubtitleQuad.Pos = new Vector2(0, -700 - SubtitleQuad.Quad.Height / 2);
                         break;
@@ -157,6 +173,15 @@ namespace CloudberryKingdom
             Tools.QDrawer.Flush();
 
             Subtitle();
+
+//#if WINDOWS && DEBUG
+//                Tools.StartSpriteBatch();
+//                Tools.Render.MySpriteBatch.DrawString(Resources.LilFont.Font,
+//                        ElapsedTime().ToString(),
+//                        Tools.CurCamera.Pos + new Vector2(900, 100),
+//                        Color.Orange, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
+//                Tools.Render.EndSpriteBatch();
+//#endif
 
             return true;
         }

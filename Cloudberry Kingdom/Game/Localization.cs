@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 
             CurrentLanguage = Languages[SelectedLanguage];
 
-            String path = Path.Combine(Content.RootDirectory, "Cinematics", CurrentLanguage.MyDirectory);
+            String path = Path.Combine(Content.RootDirectory, "Subtitles", CurrentLanguage.MyDirectory);
             string[] files = Tools.GetFiles(path, false);
 
             foreach (String file in files)
@@ -61,8 +61,6 @@ namespace CloudberryKingdom
                     texture.Load();
                 }
             }
-
-            ReadSubtitleInfo();
         }
 
         private static void Initialize()
@@ -81,10 +79,10 @@ namespace CloudberryKingdom
             Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "English"));
         }
 
-        private static void ReadSubtitleInfo()
+        private static void ReadSubtitleInfo(string VideoName)
         {
-            // Not language specific
-            string path = Path.Combine("Content", "Localization", "Cinematics", "Cinematic_1.txt");
+            string path = Path.Combine("Content", "Localization", "Subtitles", VideoName) + ".txt";
+
             ReadSubtitles(path);
         }
 
@@ -108,8 +106,11 @@ namespace CloudberryKingdom
             }
         }
 
-        public static List<SubtitleAction> GetSubtitles()
+        public static List<SubtitleAction> GetSubtitles(string VideoName)
         {
+            Subtitles = null;
+            ReadSubtitleInfo(VideoName);
+
             return Subtitles;
         }
 
@@ -117,6 +118,8 @@ namespace CloudberryKingdom
 
         private static void ReadSubtitles(string path)
         {
+            if (!File.Exists(path)) return;
+
             Subtitles = new List<SubtitleAction>(50);
 
             Tools.UseInvariantCulture();
