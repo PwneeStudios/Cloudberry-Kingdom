@@ -11,6 +11,13 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
+    public class BakedText
+    {
+        public BakedText(Localization.Words Word)
+        {
+        }
+    }
+
     public class ButtonTexture
     {
 #if PC_VERSION
