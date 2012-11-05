@@ -11,6 +11,14 @@ namespace CloudberryKingdom
             : base(Text)
         {
             this.Chapter = Chapter;
+
+#if !DEBUG
+            if (PlayerManager.PlayerMax(p => p.CampaignLevel) < (Chapter - 1) * 100)
+            {
+                this.GrayOutOnUnselectable = true;
+                this.Selectable = false;
+            }
+#endif
         }
     }
 

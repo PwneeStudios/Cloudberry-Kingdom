@@ -41,6 +41,8 @@ namespace CloudberryKingdom
         public bool FadeIn  = false; const string FadeInFlag = "fadein";
         public bool FadeOut = false; const string FadeOutFlag = "fadeout";
         public float WeatherIntensity = 1; const string WeatherIntensityFlag = "weather";
+        public bool NoStartDoor = false; const string NoStartDoorFlag = "nostartdoor";
+        public int LevelNum = -1; const string LevelFlag = "level";
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -49,7 +51,7 @@ namespace CloudberryKingdom
         public bool OpenDoorSound = false; const string OpenDoorSoundFlag = "opendoorsound";
 
         /// <summary>
-        /// How long to wait before opening the initial door.
+        /// Song to play when this level starts. Regular sound track will resume on completion.
         /// </summary>
         public EzSong MySong = null; const string SongString = "song";
 
@@ -62,6 +64,8 @@ namespace CloudberryKingdom
                 
                 p.Style.MyModParams = _HasWall_Process;
             }
+
+            if (NoStartDoor) PostMake += _NoStartDoor;
 
             if (FadeIn) PostMake += _FadeIn_Process;
 
@@ -76,6 +80,7 @@ namespace CloudberryKingdom
         {
             Tools.SongWad.SetPlayList(Tools.SongList_Standard);
             Tools.SongWad.Next(MySong);
+            Tools.SongWad.PlayNext = true;
         }
 
         private static void _HasWall_Process(Level level, PieceSeedData piece)
@@ -92,6 +97,12 @@ namespace CloudberryKingdom
         private static void _SetWeather_Process(Level level)
         {
             level.MyBackground.SetWeatherIntensity(level.MyLevelSeed.WeatherIntensity);
+        }
+
+        private static void _NoStartDoor(Level level)
+        {
+            var door = level.StartDoor; if (door == null) return;
+            door.CollectSelf();
         }
 
         private static void _FadeIn_Process(Level level)
@@ -294,6 +305,12 @@ namespace CloudberryKingdom
 
                     // Fade Out
                     case FadeOutFlag: FadeOut = true; break;
+
+                    // No start door
+                    case NoStartDoorFlag: NoStartDoor = true; break;
+
+                    // Level number
+                    case LevelFlag: LevelNum = int.Parse(data); break;
 
                     // Weather intensity
                     case WeatherIntensityFlag:
@@ -544,75 +561,6 @@ namespace CloudberryKingdom
             PostMake += lvl => lvl.MyGame.WaitThenDo(delay, () => Tools.SongWad.LoopSong(song));
         }
 
-        public static int Title_WorldNum, Title_LevelNum;
-        public static string GetTitle() { return string.Format("World {0}-{1}", Title_WorldNum, Title_LevelNum); }
-        public static void NewWorld() { Title_WorldNum++; Title_LevelNum = 1; }
-        public static void FirstWorld() { Title_WorldNum = Title_LevelNum = 1; }
-        /// <summary>
-        /// The created level will show the given title
-        /// </summary>
-        //public void SetToShowLevelTitle(int delay = 20, string title = null, bool show = true)
-        public void SetToShowLevelTitle()
-        {
-            SetToShowLevelTitle(20, null, true);
-        }
-        public void SetToShowLevelTitle(int delay)
-        {
-            SetToShowLevelTitle(delay, null, true);
-        }
-        public void SetToShowLevelTitle(string title)
-        {
-            SetToShowLevelTitle(20, title, true);
-        }
-        public void SetToShowLevelTitle(bool show)
-        {
-            SetToShowLevelTitle(20, null, show);
-        }
-        public void SetToShowLevelTitle(int delay, string title, bool show)
-        {
-            if (title == null) title = GetTitle();
-
-            Name = title;
-            
-            if (show)
-                PostMake += lvl => lvl.MyGame.WaitThenDo(delay, () => lvl.MyGame.AddGameObject(new LevelTitle(title, new Vector2(0, -100), 1, false)), true);
-            
-            Title_LevelNum++;
-        }
-
-        public void DelayEntrance()
-        {
-            //int Wait = 35;
-            int Wait = 38;
-
-            PostMake += lvl => {
-                GameData game = lvl.MyGame;
-
-                lvl.PreventReset = true;
-                game.AddToDo(() =>
-                {
-                    game.HideBobs();
-
-                    // If there's a start door then enter through it
-                    if (lvl.StartDoor != null)
-                    {
-                        game.EnterFrom(lvl.StartDoor, Wait);
-                        game.CinematicToDo(Wait + 20,
-                            () => lvl.PreventReset = false);
-                    }
-                });
-
-                game.PhsxStepsToDo += 2;
-            };
-
-            SetBackFirstAttempt(Wait);
-        }
-
-        public void SetBackFirstAttempt(int Steps)
-        {
-            PostMake += lvl => lvl.SetBack(Steps);
-        }
-
         public string Name = "";
 
         public Action<Level> PostMake;
@@ -652,7 +600,6 @@ namespace CloudberryKingdom
         /// <summary>
         /// Allow the user to load different levels from the menu within this level.
         /// </summary>
-        /// <param name="level"></param>
         public void PostMake_EnableLoad(Level level)
         {
             level.CanLoadLevels = true;

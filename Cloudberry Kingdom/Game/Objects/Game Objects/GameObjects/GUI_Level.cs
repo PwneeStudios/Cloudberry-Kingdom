@@ -33,7 +33,7 @@ namespace CloudberryKingdom
         public override string ToString()
         {
             Tools.Warning();
-            return Localization.WordString(Prefix) + Level.ToString();
+            return Localization.WordString(Prefix) + " " + Level.ToString();
         }
 
         bool DoSlideIn = true;
@@ -84,6 +84,14 @@ namespace CloudberryKingdom
 
         public GUI_Level() { DoInit(false); }
         public GUI_Level(bool SlideIn) { DoInit(SlideIn); }
+
+        public GUI_Level(int LevelNum)
+        {
+            DoInit(false);
+            PreventRelease = false;
+
+            SetLevel(LevelNum);
+        }
 
         void DoInit(bool SlideIn)
         {

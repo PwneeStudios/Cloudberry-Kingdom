@@ -32,7 +32,7 @@ namespace CloudberryKingdom
                 Time = MaxTime;
         }
 
-        public void OnCompleteLevel()
+        public void OnCompleteLevel(Levels.Level level)
         {
             MinLevelStartTimeValue = 124;
             Time = CoreMath.Restrict(MinLevelStartTimeValue, MaxTime, Time);

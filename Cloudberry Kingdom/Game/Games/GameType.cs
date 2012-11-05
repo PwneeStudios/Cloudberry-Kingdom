@@ -549,7 +549,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when a level is completed.
         /// </summary>
-        public event Action OnCompleteLevel;
+        public event Action<Level> OnCompleteLevel;
         /// <summary>
         /// Call this when level is completed to activate the level complete event handler.
         /// </summary>
@@ -557,7 +557,7 @@ namespace CloudberryKingdom
         {
             HasBeenCompleted = true;
             if (OnCompleteLevel != null)
-                OnCompleteLevel();
+                OnCompleteLevel(MyLevel);
         }
 
         /// <summary>
@@ -745,6 +745,9 @@ namespace CloudberryKingdom
         }
 
         public static GameData Factory(LevelSeedData data, bool MakeInBackground) { return null; }
+
+        public enum BankType { Campaign, Infinite };
+        public BankType MyBankType = BankType.Infinite;
 
         public int CreationTime = 0;
         public GameData()

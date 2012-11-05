@@ -127,7 +127,40 @@ namespace CloudberryKingdom
                 }
             }
             else
-                return base.GetSeed(Index);
+            {
+                var seed = base.GetSeed(Index);
+
+                seed.PostMake += PostMakeCampaign;
+
+                return seed;
+            }
+        }
+
+        static void PostMakeCampaign(Level level)
+        {
+            if (level.MyLevelSeed.MyGameType == ActionGameData.Factory) return;
+
+            level.MyGame.OnCoinGrab += OnCoinGrab;
+            level.MyGame.OnCompleteLevel += OnCompleteLevel;
+
+            var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
+            level.MyGame.AddGameObject(title);
+
+            level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum));
+
+            level.MyGame.MyBankType = GameData.BankType.Campaign;
+        }
+
+        static void OnCoinGrab(ObjectBase obj)
+        {
+            foreach (var player in PlayerManager.ExistingPlayers)
+                player.CampaignCoins++;
+        }
+
+        static void OnCompleteLevel(Level level)
+        {
+            foreach (var player in PlayerManager.ExistingPlayers)
+                player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
         }
 
         static Action<Level> MakeWatchMovieAction(string movie)

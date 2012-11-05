@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 
         public Dictionary<int, ScoreEntry> HighScores;
 
-
+        public int CampaignLevel = 0, CampaignCoins = 0;
 
         public int MyIndex;
 
@@ -84,6 +84,10 @@ namespace CloudberryKingdom
 
             // Save seed
             MySavedSeeds.WriteChunk_5(writer);
+
+            // Campaign (Chunks 100 and up)
+            Chunk.WriteSingle(writer, 100, CampaignCoins);
+            Chunk.WriteSingle(writer, 101, CampaignLevel);
         }
 
         protected override void FailLoad()
@@ -129,6 +133,10 @@ namespace CloudberryKingdom
 
                     // Saved Seeds
                     case 5: MySavedSeeds.ReadChunk_5(chunk); break;
+
+                    // Campaign (Chunks 100 and up)
+                    case 100: CampaignCoins = chunk.ReadInt(); break;
+                    case 101: CampaignLevel = chunk.ReadInt(); break;
                 }
             }
         }

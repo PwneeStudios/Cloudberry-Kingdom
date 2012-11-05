@@ -10,18 +10,41 @@ namespace CloudberryKingdom
     {
         int Bank()
         {
-            return
-                PlayerManager.PlayerSum(p => p.CampaignStats.Coins) +
-                PlayerManager.PlayerSum(p => p.GameStats.Coins) +
-                PlayerManager.PlayerSum(p => p.LevelStats.Coins)
-                - PlayerManager.CoinsSpent;
-        }
-        void Buy(int Cost)
-        {
-            PlayerManager.CoinsSpent += Cost;
-            SetCoins(Bank());
+            switch (MyGame.MyBankType)
+            {
+                case GameData.BankType.Infinite:
+                    return 99;
+
+                case GameData.BankType.Campaign:
+                    return PlayerManager.PlayerMax(p => p.CampaignCoins);
+            }
+
+            return 0;
+
+            //return
+            //    PlayerManager.PlayerSum(p => p.CampaignStats.Coins) +
+            //    PlayerManager.PlayerSum(p => p.GameStats.Coins) +
+            //    PlayerManager.PlayerSum(p => p.LevelStats.Coins)
+            //    - PlayerManager.CoinsSpent;
         }
 
+        void Buy(int Cost)
+        {
+            switch (MyGame.MyBankType)
+            {
+                case GameData.BankType.Campaign:
+                    foreach (var p in PlayerManager.ExistingPlayers)
+                        p.CampaignCoins = System.Math.Max(p.CampaignCoins - Cost, 0);
+                    break;
+
+                case GameData.BankType.Infinite:
+                    break;
+            }
+
+            //PlayerManager.CoinsSpent += Cost;
+
+            SetCoins(Bank());
+        }
 
         void SetCoins(int Coins)
         {

@@ -11,7 +11,6 @@ namespace CloudberryKingdom
             MyGame.OnCoinGrab += OnCoinGrab;
             MyGame.OnLevelRetry += OnLevelRetry;
 
-            //UpdateGameMultiplier();
             MyGame.OnCalculateCoinScoreMultiplier += game => game.CoinScoreMultiplier *= _CoinScoreMultiplier;
         }
 

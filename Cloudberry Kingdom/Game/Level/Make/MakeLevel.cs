@@ -94,7 +94,6 @@ namespace CloudberryKingdom
                 cam.Update();
 
 
-
                 Level.MakeData makeData = new Level.MakeData();
                 makeData.LevelSeed = this;
                 makeData.PieceSeed = Piece;

@@ -29,14 +29,6 @@ namespace CloudberryKingdom
                 foreach (Bob bob in MyGame.MyLevel.Bobs)
                     bob.Core.Show = false;
             }
-
-            //// Start the music
-            //MyGame.WaitThenDo(20, () =>
-            //    {
-            //        Tools.SongWad.SuppressNextInfoDisplay = true;
-            //        Tools.SongWad.SetPlayList(Tools.Song_140mph);
-            //        Tools.SongWad.Restart(true);
-            //    });
             
             MyGame.WaitThenDo(1, Ready);
         }

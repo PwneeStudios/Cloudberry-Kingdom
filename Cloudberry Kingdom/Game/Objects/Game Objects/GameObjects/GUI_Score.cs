@@ -4,7 +4,11 @@ namespace CloudberryKingdom
 {
     public class GUI_CampaignScore : GUI_Score
     {
-        public GUI_CampaignScore() : base(false) { }
+        public GUI_CampaignScore() : base(false)
+        {
+            PreventRelease = false;
+            UpdateAfterLevelFinish = true;
+        }
 
         protected override int GetScore()
         {
@@ -118,15 +122,14 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
+        protected bool UpdateAfterLevelFinish = false;
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
 
-            //this.ScoreText.MyFloatColor = new Color(100, 100, 200).ToVector4();
-
             if (Hid || !Active) return;
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (Core.MyLevel.Watching || (Core.MyLevel.Finished && !UpdateAfterLevelFinish)) return;
 
             if (MyGame.AlwaysGiveCoinScore)
                 SetScore(PlayerManager.GetGameScore());
