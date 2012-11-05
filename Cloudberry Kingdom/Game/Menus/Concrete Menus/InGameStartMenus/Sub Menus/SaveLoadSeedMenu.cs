@@ -42,8 +42,7 @@ namespace CloudberryKingdom
             player = MenuItem.GetActivatingPlayerData();
 
             // Header
-            string Text = "Random Seed";
-            HeaderText = new EzText(Text, ItemFont);
+            HeaderText = new EzText(Localization.Words.RandomSeed, ItemFont);
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
@@ -54,7 +53,7 @@ namespace CloudberryKingdom
             if (CanSave)
             {
                 // Save seed
-                item = new MenuItem(new EzText("Save Seed", ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
                 item.Name = "Save";
                 item.Go = MakeSave(this, player);
                 AddItem(item);
@@ -63,7 +62,7 @@ namespace CloudberryKingdom
             if (CanLoad)
             {
                 // Load seed
-                item = new MenuItem(new EzText("Load Seed", ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
                 item.Name = "Load";
                 item.Go = Load;
                 AddItem(item);
@@ -73,7 +72,7 @@ namespace CloudberryKingdom
             if (CanSave)
             {
                 // Copy seed
-                item = new MenuItem(new EzText("Copy to clipboard", ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.CopyToClipboard, ItemFont));
                 item.Name = "Copy";
                 item.Go = Copy;
                 AddItem(item);
@@ -82,7 +81,7 @@ namespace CloudberryKingdom
             if (CanLoad)
             {
                 // Load seed from string
-                item = new MenuItem(new EzText("Load from clipboard", ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.LoadFromClipboard, ItemFont));
                 item.Name = "LoadString";
                 item.Go = LoadString;
                 AddItem(item);

@@ -59,7 +59,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 2, 0);
-            Name = "Jetman";
+            Name = Localization.Words.Jetman;
             Adjective = "jetman";
 
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Jetman"), Color.White, 1.1f * DefaultIconWidth);

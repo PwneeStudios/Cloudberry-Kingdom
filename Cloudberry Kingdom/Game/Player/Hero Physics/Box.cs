@@ -14,7 +14,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(1, 0, 0, 0);
-            Name = "Hero in a Box";
+            Name = Localization.Words.HeroInABox;
             NameTemplate = "hero in a box";
             
             //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Box"), Color.White, DefaultIconWidth * 1.125f);

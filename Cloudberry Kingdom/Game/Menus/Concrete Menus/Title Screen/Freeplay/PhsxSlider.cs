@@ -15,8 +15,8 @@ namespace CloudberryKingdom.Menus
 
         BobPhsx.CustomData MyType;
 
-        public PhsxSlider(string text, BobPhsx.CustomData type)
-            : base(new EzText(text, Font))
+        public PhsxSlider(Localization.Words word, BobPhsx.CustomData type)
+            : base(new EzText(word, Font))
         {
             MyType = type;
 

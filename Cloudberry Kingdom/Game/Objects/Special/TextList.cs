@@ -42,10 +42,10 @@ namespace CloudberryKingdom
             ContinuousIndex = Index = index;
         }
 
-        public void AddLine(String s)
-        {
-            Text.Add(new EzText(s, Resources.Font_Grobold42, true));
-        }
+        //public void AddLine(String s)
+        //{
+        //    Text.Add(new EzText(s, Resources.Font_Grobold42, true));
+        //}
 
         public override void PhsxStep()
         {

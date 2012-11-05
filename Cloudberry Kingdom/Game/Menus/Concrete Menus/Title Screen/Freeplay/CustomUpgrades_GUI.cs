@@ -24,9 +24,9 @@ namespace CloudberryKingdom
             StartGame();
         }
 
-        protected override string HeaderText()
+        protected override Localization.Words HeaderText()
         {
-            return "Aggressive";
+            return Localization.Words.Aggressive;
         }
     }
 
@@ -50,9 +50,9 @@ namespace CloudberryKingdom
             this.SlideInFrom = PresetPos.Left;
         }
 
-        protected override string HeaderText()
+        protected override Localization.Words HeaderText()
         {
-            return "Passive";
+            return Localization.Words.Passive;
         }
     }
 
@@ -243,9 +243,9 @@ namespace CloudberryKingdom
             SetPos();
         }
 
-        protected virtual string HeaderText()
+        protected virtual Localization.Words HeaderText()
         {
-            return "";
+            return Localization.Words.None;
         }
 
         void SetPos()
@@ -311,7 +311,7 @@ namespace CloudberryKingdom
             // Start
             MenuItem item;
             //MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
-            MenuItem Start = item = new MenuItem(new EzText("Start", ItemFont));
+            MenuItem Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             item.Name = "Start";
             item.Go = Cast.ToItem(Go);
             item.JiggleOnGo = false;
@@ -326,7 +326,7 @@ namespace CloudberryKingdom
 
             // Random
             //item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
-            item = new MenuItem(new EzText("Random", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
             item.Name = "Random";
             item.Go = Cast.ToItem(Randomize);
             AddItem(item);
@@ -338,7 +338,7 @@ namespace CloudberryKingdom
 
             // Zero
             //item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
-            item = new MenuItem(new EzText("Reset", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
             item.Go = Cast.ToItem(Zero);
             AddItem(item);
@@ -352,7 +352,7 @@ namespace CloudberryKingdom
 
             // Back
             //item = new MenuItem(new EzText(ButtonString.Back(82) + " Back", ItemFont));
-            item = new MenuItem(new EzText("Back", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             item.Go = null;
             AddItem(item);

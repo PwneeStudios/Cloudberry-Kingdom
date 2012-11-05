@@ -635,26 +635,25 @@ namespace CloudberryKingdom.Bobs
             unnamed1, unnamed2, unnamed3, unnamed4, unnamed5, unnamed6, unnamed7, unnamed8, unnamed9, unnamed10, unnamed11, unnamed12, unnamed13, unnamed14, unnamed15, unnamed16, unnamed17, unnamed18, unnamed19, unnamed20, unnamed21, unnamed22, unnamed23, unnamed24, unnamed25, unnamed26, unnamed27, unnamed28, unnamed29, unnamed30, 
             Time,         LeftBehind,    Other,   Total };
 
-        public static Dictionary<BobDeathType, string> BobDeathNames = new Dictionary<BobDeathType, string>
+        public static Dictionary<BobDeathType, Localization.Words> BobDeathNames = new Dictionary<BobDeathType, Localization.Words>
         {
-            { BobDeathType.None, "none" },
-            { BobDeathType.Fireball, "fireball" },
-            { BobDeathType.Firesnake, "fire snake" },
-            { BobDeathType.FireSpinner, "fire spinner" },
-            { BobDeathType.Boulder, "boulder" },
-            { BobDeathType.SpikeyGuy, "spikey guy" },
-            { BobDeathType.Spike, "spike" },
-            { BobDeathType.Fall, "falling" },
-            { BobDeathType.Lava, "lava" },
-            { BobDeathType.Blob, "blob" },
-            { BobDeathType.Laser, "laser" },
-            { BobDeathType.LavaFlow, "lava flow" },
-            { BobDeathType.FallingSpike, "falling spikey" },
+            { BobDeathType.None, Localization.Words.None },
+            { BobDeathType.Fireball, Localization.Words.Fireball },
+            { BobDeathType.FireSpinner, Localization.Words.Firespinner },
+            { BobDeathType.Boulder, Localization.Words.Boulder },
+            { BobDeathType.SpikeyGuy, Localization.Words.SpikeyGuy },
+            { BobDeathType.Spike, Localization.Words.Spike },
+            { BobDeathType.Fall, Localization.Words.Falling },
+            { BobDeathType.Lava, Localization.Words.Lava },
+            { BobDeathType.Blob, Localization.Words.FlyingBlobs },
+            { BobDeathType.Laser, Localization.Words.Laser },
+            { BobDeathType.LavaFlow, Localization.Words.Sludge },
+            { BobDeathType.FallingSpike, Localization.Words.FallingSpikey },
             
-            { BobDeathType.Time, "time limit" },
-            { BobDeathType.LeftBehind, "left behind" },
-            { BobDeathType.Other, "other" },
-            { BobDeathType.Total, "Total" },
+            { BobDeathType.Time, Localization.Words.TimeLimit },
+            { BobDeathType.LeftBehind, Localization.Words.LeftBehind },
+            { BobDeathType.Other, Localization.Words.Other },
+            { BobDeathType.Total, Localization.Words.Total },
         };
         
         /// <summary>

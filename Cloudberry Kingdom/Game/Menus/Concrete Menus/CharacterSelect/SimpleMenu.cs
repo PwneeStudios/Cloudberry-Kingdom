@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Customize
-            item = new MenuItem(new EzText("Custom", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Custom, ItemFont));
             item.Name = "Custom";
             item.Go = Cast.ToItem(SimpleToCustom);
             ItemPos = new Vector2(-523, -174);
@@ -199,13 +199,13 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Random
-            item = new MenuItem(new EzText("Random", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
             item.Name = "Random";
             item.Go = Cast.ToItem(MyCharacterSelect.Randomize);
             AddItem(item);
 
             // Confirm
-            item = new MenuItem(new EzText("Done", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
             item.Name = "Done";
             item.Go = Cast.ToItem(SimpleToDone);
             AddItem(item);

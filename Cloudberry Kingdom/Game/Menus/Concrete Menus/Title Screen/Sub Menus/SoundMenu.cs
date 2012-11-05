@@ -26,8 +26,7 @@ namespace CloudberryKingdom
             this.FontScale *= .9f;
 
             // Header
-            string Text = "Options";
-            HeaderText = new EzText(Text, ItemFont);
+            HeaderText = new EzText(Localization.Words.Options, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
             HeaderText.Pos = HeaderPos;
@@ -38,14 +37,14 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(555.5547f, 402.6666f);
             PosAdd.Y *= .97f;
 
-            MenuSlider FxSlider = new MenuSlider(new EzText("fx:", ItemFont));
+            MenuSlider FxSlider = new MenuSlider(new EzText(Localization.Words.SoundVolume, ItemFont));
             FxSlider.MyFloat = Tools.SoundVolume;
             AddItem(FxSlider);
 #if PC_VERSION
             FxSlider.SetPos = new Vector2(603.174f, 759.8094f);
 #endif
 
-            MenuSlider MusicSlider = new MenuSlider(new EzText("Music:", ItemFont));
+            MenuSlider MusicSlider = new MenuSlider(new EzText(Localization.Words.MusicVolume, ItemFont));
             MusicSlider.MyFloat = Tools.MusicVolume;
             AddItem(MusicSlider);
             MusicSlider.Pos.X = MusicSlider.SelectedPos.X = MusicSlider.Pos.X - 300;
@@ -58,7 +57,7 @@ namespace CloudberryKingdom
 //#if PC_VERSION
             if (Centered)
             {
-                MenuItem item = new MenuItem(new EzText("Controls", ItemFont));
+                MenuItem item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
                 item.Go = _item =>
                     {
                         Hide();
@@ -74,14 +73,14 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
             // Custom controls
-            var mitem = new MenuItem(new EzText("Edit controls", ItemFont));
+            var mitem = new MenuItem(new EzText(Localization.Words.EditControls, ItemFont));
             mitem.Go = menuitem => Call(new CustomControlsMenu(), 10);
             AddItem(mitem);
             mitem.SetPos = new Vector2(591.6658f, 133.6347f);
 
 
             // Full screen resolutions
-            var RezText = new EzText("Resolution:", ItemFont);
+            var RezText = new EzText(Localization.Words.Resolution, ItemFont);
             SetHeaderProperties(RezText);
             MyPile.Add(RezText);
             RezText.Pos = new Vector2(-1173.81f, -174.9373f);
@@ -137,7 +136,7 @@ namespace CloudberryKingdom
             };
 
             // Full screen toggle
-            var FullScreenText = new EzText("Full screen:", ItemFont);
+            var FullScreenText = new EzText(Localization.Words.FullScreen, ItemFont);
             SetHeaderProperties(FullScreenText);
             MyPile.Add(FullScreenText);
             FullScreenText.Pos = new Vector2(-1190.475f, -338.825f);
@@ -152,7 +151,7 @@ namespace CloudberryKingdom
                 PlayerManager.SaveRezAndKeys();
             };
             toggle.Toggle(Tools.Fullscreen);
-            toggle.PrefixText = "";
+
             AddItem(toggle);
             toggle.SetPos = new Vector2(1245.634f, -281.9681f);
 
@@ -194,37 +193,37 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-        private void AddToggle_FixedTimestep()
-        {
-            // Header
-            var Text = new EzText("Fixed time step:", ItemFont);
-            SetHeaderProperties(Text);
-            MyPile.Add(Text);
-            Text.Pos = new Vector2(-1232.142f, -499.9359f);
-            Text.Scale *= .9f;
+        //private void AddToggle_FixedTimestep()
+        //{
+        //    // Header
+        //    var Text = new EzText(Localization.Words.FixedTimeStep, ItemFont);
+        //    SetHeaderProperties(Text);
+        //    MyPile.Add(Text);
+        //    Text.Pos = new Vector2(-1232.142f, -499.9359f);
+        //    Text.Scale *= .9f;
 
-            // Menu item
-            var Toggle = new MenuToggle(ItemFont);
-            Toggle.OnToggle = Toggle_FixedTimestep;
+        //    // Menu item
+        //    var Toggle = new MenuToggle(ItemFont);
+        //    Toggle.OnToggle = Toggle_FixedTimestep;
 
-            Toggle.Toggle(Tools.FixedTimeStep);
-            Toggle.PrefixText = "";
-            AddItem(Toggle);
-            Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
-        }
+        //    Toggle.Toggle(Tools.FixedTimeStep);
+        //    Toggle.PrefixText = "";
+        //    AddItem(Toggle);
+        //    Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
+        //}
 
-        private void Toggle_FixedTimestep(bool state)
-        {
-            PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-            Tools.FixedTimeStep = state;
-            SaveGroup.SaveAll();
-            PlayerManager.SaveRezAndKeys();
-        }
+        //private void Toggle_FixedTimestep(bool state)
+        //{
+        //    PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+        //    Tools.FixedTimeStep = state;
+        //    SaveGroup.SaveAll();
+        //    PlayerManager.SaveRezAndKeys();
+        //}
 
         private void AddToggle_Borderless()
         {
             // Menu
-            var Text = new EzText("Window border:", ItemFont);
+            var Text = new EzText(Localization.Words.WindowBorder, ItemFont);
             SetHeaderProperties(Text);
             MyPile.Add(Text);
             Text.Pos = new Vector2(-1232.142f, -499.9359f);
@@ -234,7 +233,7 @@ namespace CloudberryKingdom
             var Toggle = new MenuToggle(ItemFont);
             Toggle.OnToggle = Toggle_Borderless;
             Toggle.Toggle(Tools.WindowBorder);
-            Toggle.PrefixText = "";
+
             AddItem(Toggle);
             Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
         }

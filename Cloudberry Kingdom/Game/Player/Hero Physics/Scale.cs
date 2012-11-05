@@ -21,7 +21,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 2, 0, 0);
-            Name = "Phase Bob";
+            Name = Localization.Words.PhaseBob;
             Adjective = "phasing";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Phase"), Color.White, 1.1f * DefaultIconWidth);
         }

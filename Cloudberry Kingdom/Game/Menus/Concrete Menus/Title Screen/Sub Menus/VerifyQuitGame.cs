@@ -65,8 +65,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            string Text = "Exit Game?";
-            EzText HeaderText = new EzText(Text, ItemFont);
+            EzText HeaderText = new EzText(Localization.Words.ExitGame, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
             if (Version == 0)
@@ -75,14 +74,14 @@ namespace CloudberryKingdom
                 HeaderText.Pos = new Vector2(-701.1883f, 816.7295f);
 
             // Yes
-            item = new MenuItem(new EzText("Yes", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Name = "Yes";
             item.Go = Cast.ToItem(Tools.TheGame.Exit);
             item.AdditionalOnSelect = () => Berry.TextureName = "cb_crying";
             AddItem(item);
 
             // No
-            item = new MenuItem(new EzText("No", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Name = "No";
             item.Go = ItemReturnToCaller;
             item.AdditionalOnSelect = () => Berry.TextureName = "cb_enthusiastic";

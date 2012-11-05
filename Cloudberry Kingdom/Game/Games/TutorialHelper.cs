@@ -12,7 +12,7 @@ namespace CloudberryKingdom
         public static Vector2 ReadyGoPos = new Vector2(0, 80);
         public static void ReadyGo(GameData game, Action End)
         {
-            GUI_Text text = new GUI_Text("Ready?", ReadyGoPos);
+            GUI_Text text = new GUI_Text(Localization.Words.Ready, ReadyGoPos);
             text.FixedToCamera = true;
             game.AddGameObject(text);
 
@@ -22,7 +22,7 @@ namespace CloudberryKingdom
 
         public static void ReadyGo_Go(GameData game, Action End)
         {
-            GUI_Text text = new GUI_Text("Go!", ReadyGoPos);
+            GUI_Text text = new GUI_Text(Localization.Words.Go, ReadyGoPos);
             text.MyPile.MyPopPitch = 3;
             text.FixedToCamera = true;
             game.AddGameObject(text);

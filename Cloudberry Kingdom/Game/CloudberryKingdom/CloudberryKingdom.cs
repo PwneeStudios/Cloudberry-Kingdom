@@ -410,6 +410,7 @@ namespace CloudberryKingdom
 
             // Localization
             Localization.SetLanguage(Localization.Language.English);
+            //Localization.SetLanguage(Localization.Language.Portuguese);
 
             // Benchmarking and preprocessing
             //PreprocessArt();

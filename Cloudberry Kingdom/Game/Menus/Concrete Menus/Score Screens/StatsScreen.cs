@@ -129,14 +129,14 @@ namespace CloudberryKingdom.Stats
             // Header
             MenuItem Header;
             if (group == StatGroup.Lifetime)
-                Header = new MenuItem(new EzText("Statistics", Resources.Font_Grobold42_2));
+                Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             else if (group == StatGroup.Campaign)
             {
-                Header = new MenuItem(new EzText("Campaign!", Resources.Font_Grobold42_2));
+                Header = new MenuItem(new EzText(Localization.Words.StoryMode, Resources.Font_Grobold42_2));
                 Header.MyText.Scale *= .725f;
             }
             else
-                Header = new MenuItem(new EzText("Stats!", Resources.Font_Grobold42_2));
+                Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(HeaderPos, ItemPos.Y - 40);
@@ -180,30 +180,30 @@ namespace CloudberryKingdom.Stats
                 }
             }
 #endif
-            AddRow(new MenuItem(new EzText("Levels beat", ItemFont)), j => Stats[j].Levels);
-            AddRow(new MenuItem(new EzText("Jumps", ItemFont)), j => Stats[j].Jumps);
-            AddRow(new MenuItem(new EzText("Score", ItemFont)), j => Stats[j].Score);
+            AddRow(new MenuItem(new EzText(Localization.Words.LevelsBeat, ItemFont)), j => Stats[j].Levels);
+            AddRow(new MenuItem(new EzText(Localization.Words.Jumps, ItemFont)), j => Stats[j].Jumps);
+            AddRow(new MenuItem(new EzText(Localization.Words.Score, ItemFont)), j => Stats[j].Score);
 
 
             // Coins
-            var coinitem = new MenuItem(new EzText("Coins", ItemFont));
+            var coinitem = new MenuItem(new EzText(Localization.Words.Coins, ItemFont));
             coinitem.Selectable = false;
             AddItem(coinitem);
 
-            AddRow(new MenuItem(new EzText("    grabbed", ItemFont)), j => Stats[j].Coins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText("    out of", ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText("    (percent)", ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
+            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), j => Stats[j].Coins);//.Selectable = false;
+            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
+            AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
             //AddRow(new MenuItem(new EzText("Coins (Percent)", ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
             //AddRow(new MenuItem(new EzText("Coins (Total)", ItemFont)), j => Stats[j].Coins).Selectable = false;
 
-            AddRow(new MenuItem(new EzText("Blobs", ItemFont)), j => Stats[j].Blobs);
-            AddRow(new MenuItem(new EzText("Checkpoints", ItemFont)), j => Stats[j].Checkpoints);
-            AddRow(new MenuItem(new EzText("Average Life", ItemFont)), j => Stats[j].LifeExpectancy);
+            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
+            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
+            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
             
             //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
 
             // Deaths
-            Header = new MenuItem(new EzText("Deaths", Resources.Font_Grobold42_2));
+            Header = new MenuItem(new EzText(Localization.Words.Deaths, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(HeaderPos, ItemPos.Y - 40);
@@ -219,9 +219,9 @@ namespace CloudberryKingdom.Stats
 
                 if (Bob.BobDeathNames.ContainsKey(type))
                 {
-                    string name = Bob.BobDeathNames[type];
+                    Localization.Words word = Bob.BobDeathNames[type];
 
-                    AddRow(new MenuItem(new EzText(name, ItemFont)), j => Stats[j].DeathsBy[i]);
+                    AddRow(new MenuItem(new EzText(word, ItemFont)), j => Stats[j].DeathsBy[i]);
                 }
             }
 

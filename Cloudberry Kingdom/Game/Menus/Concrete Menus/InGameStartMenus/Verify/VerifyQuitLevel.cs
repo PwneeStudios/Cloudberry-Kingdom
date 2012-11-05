@@ -7,16 +7,6 @@ namespace CloudberryKingdom
         public VerifyQuitLevelMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { }
         public VerifyQuitLevelMenu(int Control) : base(Control) { }
 
-        public string VerifyString = "Exit level?";
-        public VerifyQuitLevelMenu(int Control, string VerifyString)
-            : base(false)
-        {
-            this.VerifyString = VerifyString;
-            this.Control = Control;
-
-            Constructor();
-        }
-
         public override void Init()
         {
             base.Init();
@@ -25,13 +15,13 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            EzText HeaderText = new EzText(VerifyString, ItemFont);
+            EzText HeaderText = new EzText(Localization.Words.ExitLevelQuestion, ItemFont);
             SetHeaderProperties(HeaderText);
             HeaderText.Name = "Header";
             MyPile.Add(HeaderText);
 
             // Ok
-            item = new MenuItem(new EzText("Yes", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Go = _item =>
                 {
                     Tools.CurrentAftermath = new AftermathData();
@@ -44,7 +34,7 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // No
-            item = new MenuItem(new EzText("No", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Go = Cast.ToItem(ReturnToCaller);
             item.Name = "No";
             AddItem(item);

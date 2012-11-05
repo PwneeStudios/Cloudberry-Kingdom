@@ -32,7 +32,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 3, 0, 0);
-            Name = "Fat Bob";
+            Name = Localization.Words.FatBob;
             Adjective = "Fatty";
 
             Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * 1.55f);

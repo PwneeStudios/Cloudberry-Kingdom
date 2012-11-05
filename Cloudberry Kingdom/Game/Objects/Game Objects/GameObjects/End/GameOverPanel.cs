@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'Game Over' text
-            EzText Text = new EzText("Game Over", Resources.Font_Grobold42_2, 1450, false, true, .6f);
+            EzText Text = new EzText(Localization.Words.GameOver, Resources.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = 1f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
@@ -107,13 +107,15 @@ namespace CloudberryKingdom
 
 
             // 'Levels' text
-            Text = new EzText(string.Format("Level {0}", Levels), ItemFont);
+            MyPile.Add(new EzText(Localization.Words.Level, ItemFont, "Level"));
+            Text = new EzText(string.Format("{0}", Levels), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-893.4177f, 378.9999f);
             MyPile.Add(Text, "Level");
 
             // 'Score' text
-            Text = new EzText(string.Format("Score {0}", Score), ItemFont);
+            MyPile.Add(new EzText(Localization.Words.Score, ItemFont, "Score"));
+            Text = new EzText(string.Format("{0}", Score), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-873.9723f, 147.8889f);
             MyPile.Add(Text, "Score");
@@ -226,15 +228,15 @@ namespace CloudberryKingdom
             MenuItem item;
             FontScale *= .89f * 1.16f;
 
-            item = new MenuItem(new EzText("Play again", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
             item.Go = Cast.ToItem(Action_PlayAgain);
             AddItem(item);
 
-            item = new MenuItem(new EzText("High Scores", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
             item.Go = Cast.ToItem(Action_ShowHighScores);
             AddItem(item);
 
-            item = new MenuItem(new EzText("Done", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
             item.Go = Cast.ToItem(Action_Done);
             AddItem(item);
         }

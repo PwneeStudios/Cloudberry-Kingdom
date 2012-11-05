@@ -88,7 +88,7 @@ namespace CloudberryKingdom
         {
             ShowTitle = false;
 
-            GUI_Text text = GUI_Text.SimpleTitle("Hero\n  Rush");
+            GUI_Text text = GUI_Text.SimpleTitle(Localization.Words.HeroRush);
 
             MyGame.AddGameObject(text);
 
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
             arrow.PointTo(endpos);
             MyGame.AddGameObject(arrow);
 
-            GUI_Text text = new GUI_Text("Get to the exit", arrow.Core.Data.Position + new Vector2(-200, 400));
+            GUI_Text text = new GUI_Text(Localization.Words.GetToTheExit, arrow.Core.Data.Position + new Vector2(-200, 400));
             MyGame.AddGameObject(text);
 
             // On (A) go to next part of the tutorial
@@ -144,11 +144,17 @@ namespace CloudberryKingdom
             arrow.PointTo(timerpos);
             MyGame.AddGameObject(arrow);
 
+
             GUI_Text text = new GUI_Text(
-                string.Format("{0} seconds\n   on the clock!", HeroRush.Timer.Seconds),
+                Localization.Words.SecondsOnTheClock,
                 arrow.Core.Data.Position + new Vector2(830, -130));
-            
+
+            GUI_Text text2 = new GUI_Text(
+                HeroRush.Timer.Seconds.ToString(),
+                arrow.Core.Data.Position + new Vector2(830, -130) + new Vector2(-150, 0));
+
             MyGame.AddGameObject(text);
+            MyGame.AddGameObject(text2);
             
             // On (A) go to next part of the tutorial
             MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
@@ -156,6 +162,7 @@ namespace CloudberryKingdom
                 PointAtCoins();
                 arrow.Release();
                 text.Kill(SoundOnKill);
+                text2.Kill(false);
             }));
         }
 
@@ -175,7 +182,7 @@ namespace CloudberryKingdom
                 arrows.Add(arrow);
             }
 
-            GUI_Text text = new GUI_Text("Coins add seconds to the clock",
+            GUI_Text text = new GUI_Text(Localization.Words.CoinsAddSeconds,
                 Tools.CurLevel.MainCamera.Data.Position + new Vector2(0, -750));
             MyGame.AddGameObject(text);
 
@@ -201,7 +208,7 @@ namespace CloudberryKingdom
             arrow.PointTo(scorepos);
             MyGame.AddGameObject(arrow);
 
-            GUI_Text text = new GUI_Text("Get a high score!",
+            GUI_Text text = new GUI_Text(Localization.Words.GetAHighScore,
                 arrow.Core.Data.Position + new Vector2(-500, -100) + new Vector2(-38.88892f, -150f));
             MyGame.AddGameObject(text);
 

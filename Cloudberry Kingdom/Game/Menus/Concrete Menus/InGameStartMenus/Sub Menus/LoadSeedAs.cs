@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Load seed
-            item = new MenuItem(new EzText("Load Seed", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
             item.Name = "Load";
             item.Go = Load;
             AddItem(item);

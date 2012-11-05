@@ -118,6 +118,12 @@ namespace CloudberryKingdom
             return this;
         }
 
+        public TileSet SetNameInGame(Localization.Words Name)
+        {
+            this.NameInGame = Name;
+            return this;
+        }
+
         public TileSet SetBackground(string background)
         {
             MyBackgroundType = BackgroundType.NameLookup[background];
@@ -527,6 +533,8 @@ namespace CloudberryKingdom
         public bool FlexibleHeight;
         public bool HasCeiling;
 
+        public Localization.Words NameInGame;
+
         public string Name, MyPath;
         public int Guid;
 
@@ -583,16 +591,16 @@ namespace CloudberryKingdom
 
         public static void LoadCode()
         {
-            AddTileSet(Load_Sea().SetBackground("sea"));
-            AddTileSet(Load_Sea().SetBackground("sea_rain").SetName("sea_rain"));
-            AddTileSet(Load_Hills().SetBackground("hills"));
-            AddTileSet(Load_Hills().SetBackground("hills_rain").SetName("hills_rain"));
-            AddTileSet(Load_Forest().SetBackground("forest"));
-            AddTileSet(Load_Forest().SetBackground("forest_snow").SetName("forest_snow"));
-            AddTileSet(Load_Cloud().SetBackground("cloud"));
-            AddTileSet(Load_Cloud().SetBackground("cloud_rain").SetName("cloud_rain"));
-            AddTileSet(Load_Cave().SetBackground("cave")); 
-            AddTileSet(Load_Castle().SetBackground("castle"));
+            AddTileSet(Load_Sea().SetBackground("sea").SetNameInGame(Localization.Words.Sea));
+            AddTileSet(Load_Sea().SetBackground("sea_rain").SetName("sea_rain").SetNameInGame(Localization.Words.Sea));
+            AddTileSet(Load_Hills().SetBackground("hills").SetNameInGame(Localization.Words.Hills));
+            AddTileSet(Load_Hills().SetBackground("hills_rain").SetName("hills_rain").SetNameInGame(Localization.Words.Hills));
+            AddTileSet(Load_Forest().SetBackground("forest").SetNameInGame(Localization.Words.Forest));
+            AddTileSet(Load_Forest().SetBackground("forest_snow").SetName("forest_snow").SetNameInGame(Localization.Words.Forest));
+            AddTileSet(Load_Cloud().SetBackground("cloud").SetNameInGame(Localization.Words.Cloud));
+            AddTileSet(Load_Cloud().SetBackground("cloud_rain").SetName("cloud_rain").SetNameInGame(Localization.Words.Cloud));
+            AddTileSet(Load_Cave().SetBackground("cave").SetNameInGame(Localization.Words.Cave)); 
+            AddTileSet(Load_Castle().SetBackground("castle").SetNameInGame(Localization.Words.Castle));
         }
 
         public static void LoadTileSet(string path)

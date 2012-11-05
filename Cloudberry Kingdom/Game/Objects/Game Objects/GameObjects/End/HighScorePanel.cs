@@ -210,15 +210,15 @@ namespace CloudberryKingdom
             MenuItem item;
             FontScale *= .89f * 1.16f;
 
-            item = new MenuItem(new EzText("Play again", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
             item.Go = _item => Action_PlayAgain();
             AddItem(item);
 
-            item = new MenuItem(new EzText("High Scores", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
             item.Go = null;
             AddItem(item);
 
-            item = new MenuItem(new EzText("Done", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
             item.Go = _item => Action_Done();
             AddItem(item);
         }

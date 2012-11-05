@@ -90,6 +90,12 @@ namespace CloudberryKingdom
             Icon.FancyPos.SetCenter(FancyPos);
         }
 
+        public void SubstituteText(Localization.Words text)
+        {
+            MyText.SubstituteText(text);
+            MySelectedText.SubstituteText(text);
+        }
+
         public void SubstituteText(string text)
         {
             MyText.SubstituteText(text);

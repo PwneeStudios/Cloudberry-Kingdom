@@ -50,7 +50,7 @@ namespace CloudberryKingdom
             MyGame.RemoveLastCoinText();
 
             // Add text
-            TextFloat text = new TextFloat("+1 Life", Coin.PosOfLastCoinGrabbed + new Vector2(21, 22.5f));
+            TextFloat text = new TextFloat(Localization.Words.ExtraLife, Coin.PosOfLastCoinGrabbed + new Vector2(21, 22.5f));
             text.MyText.Scale *= 1.33f;
             text.Core.DrawLayer = 8;
             text.MyText.MyFloatColor = new Color(0, 195, 17).ToVector4();

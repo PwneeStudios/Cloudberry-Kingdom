@@ -129,7 +129,6 @@ namespace CloudberryKingdom
 
             Vector2 shift = new Vector2(-200, 40);
 
-            string HeaderText = "Level";
             string[] Names = GetNames();
 
             for (int i = 0; i < Names.Length; i++)
@@ -166,7 +165,7 @@ namespace CloudberryKingdom
             BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
 
             // Header
-            var Header = new EzText(HeaderText, Resources.Font_Grobold42);
+            var Header = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
             MyPile.Add(Header);
             SetHeaderProperties(Header);
 

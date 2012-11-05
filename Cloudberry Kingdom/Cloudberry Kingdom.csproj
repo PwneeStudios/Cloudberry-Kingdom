@@ -358,7 +358,6 @@
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Blobs.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\Rumble.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\DoorIcon.cs" />
-    <Compile Include="Game\Objects\Game Objects\GameObjects\HelpBubble.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Timer_Simple.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Timer_Base.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_TextBox.cs" />

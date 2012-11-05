@@ -26,8 +26,9 @@ namespace CloudberryKingdom
 
         public AlertBaseMenu() { }
 
-        string Message, OkText;
-        public AlertBaseMenu(int Control, string Message, string OkText) : base(false)
+        Localization.Words Message, OkText;
+        public AlertBaseMenu(int Control, Localization.Words Message, Localization.Words OkText)
+            : base(false)
         {
             this.Control = Control;
             this.Message = Message;

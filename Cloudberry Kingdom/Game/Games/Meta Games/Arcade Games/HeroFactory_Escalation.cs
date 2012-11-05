@@ -17,7 +17,7 @@ namespace CloudberryKingdom
         protected Challenge_HeroFactoryEscalation()
         {
             GameTypeId = 10;
-            Name = "Hero Factory";
+            Name = Localization.Words.Custom;
         }
 
         protected override BobPhsx GetHero(int i)

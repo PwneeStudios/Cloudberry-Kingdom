@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
         public int[] StartLevels = { 1, 50, 100, 150 };
 
-        public string Name, MenuName;
+        public Localization.Words Name, MenuName;
         
         public int GameId_Score, GameId_Level;
         protected int GameTypeId;

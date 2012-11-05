@@ -32,7 +32,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 1, 0, 0);
-            Name = "Tiny Bob";
+            Name = Localization.Words.TinyBob;
             Adjective = "tiny";
             //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Tiny"), Color.White, DefaultIconWidth);
             //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, DefaultIconWidth * .6f);

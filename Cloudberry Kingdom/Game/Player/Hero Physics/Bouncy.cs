@@ -11,7 +11,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(3, 0, 0, 0);
-            Name = "Bouncy";
+            Name = Localization.Words.Bouncy;
             NameTemplate = "bouncey bounce";
             
             Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Horse_0000"), Color.White, 1.35875f * DefaultIconWidth);

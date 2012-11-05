@@ -209,15 +209,13 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Arcade
-            string arcade = "The Arcade";
-            item = new MenuItem(new EzText(arcade, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont));
             item.Name = "Arcade";
             item.Go = MenuGo_Arcade;
             AddItem(item);
 
             // Campaign
-            string campaign = "Story Mode";
-            item = new MenuItem(new EzText(campaign, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont));
             item.Name = "Campaign";
             AddItem(item);
             item.Go = MenuGo_Campaign;
@@ -229,7 +227,7 @@ namespace CloudberryKingdom
             //AddItem(item);
 
             // Free Play
-            item = new MenuItem(new EzText("Free Play", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont));
             item.Name = "Freeplay";
             item.Go = MenuGo_Freeplay;
             AddItem(item);
@@ -241,7 +239,7 @@ namespace CloudberryKingdom
             //AddItem(item);
 
             // Options
-            item = new MenuItem(new EzText("Options", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
             item.Name = "Options";
             item.Go = MenuGo_Options;
             AddItem(item);
@@ -252,7 +250,7 @@ namespace CloudberryKingdom
             //AddItem(item);
 
             // Exit
-            item = new MenuItem(new EzText("Exit", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont));
             item.Name = "Exit";
             item.Go = MenuGo_Exit;
             AddItem(item);

@@ -11,13 +11,13 @@ namespace CloudberryKingdom
 
         public ScoreEntry.Format MyFormat = ScoreEntry.Format.Score;
 
-        public string GetHeader()
+        public Localization.Words GetHeader()
         {
             switch (MyFormat)
             {
-                case ScoreEntry.Format.Score: return "High Scores";
-                case ScoreEntry.Format.Level: return "Best Level";
-                default: return "Nothing";
+                case ScoreEntry.Format.Score: return Localization.Words.HighScores;
+                case ScoreEntry.Format.Level: return Localization.Words.BestLevel;
+                default: return Localization.Words.None;
             }
         }
 

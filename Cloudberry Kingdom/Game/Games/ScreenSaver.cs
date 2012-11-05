@@ -139,10 +139,10 @@ namespace CloudberryKingdom
                             UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
 #if PC_VERSION
-                            PressA = new GUI_Text("Press " + ButtonString.Go_Controller(97) + " to start",
+                            PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #else
-                            PressA = new GUI_Text("Press " + ButtonString.Go(97) + " to start",
+                            PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #endif
                             PressA.MyText.Scale *= .68f;

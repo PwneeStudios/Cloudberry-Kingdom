@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(6, 0, 0, 0);
-            Name = "Rocketbox!";
+            Name = Localization.Words.Rocketbox;
             NameTemplate = "rocketbox";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Cart"), Color.White, DefaultIconWidth);
             ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, -.485f));

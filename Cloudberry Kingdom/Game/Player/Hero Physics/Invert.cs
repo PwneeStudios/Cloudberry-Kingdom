@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 3, 0);
-            Name = "Viridian";
+            Name = Localization.Words.Viridian;
             Adjective = "Anti-Grav";
             
             Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * -1.2f);

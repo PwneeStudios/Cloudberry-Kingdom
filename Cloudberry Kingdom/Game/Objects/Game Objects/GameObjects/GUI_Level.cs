@@ -25,14 +25,15 @@ namespace CloudberryKingdom
 
     public class GUI_Level : GUI_Panel
     {
-        public string Prefix = "Level ";
+        public Localization.Words Prefix = Localization.Words.Level;
 
         /// <summary>
         /// Return a string representation of the Level
         /// </summary>
         public override string ToString()
         {
-            return Prefix + Level.ToString();
+            Tools.Warning();
+            return Localization.WordString(Prefix) + Level.ToString();
         }
 
         bool DoSlideIn = true;

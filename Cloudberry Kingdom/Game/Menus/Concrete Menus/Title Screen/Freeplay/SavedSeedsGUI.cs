@@ -189,7 +189,7 @@ namespace CloudberryKingdom
             FontScale = .666f;
 
             // Header
-            MenuItem item = new MenuItem(new EzText("Saved seeds", ItemFont));
+            MenuItem item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
             item.Name = "Header";
             item.Selectable = false;
             SetHeaderProperties(item.MySelectedText);

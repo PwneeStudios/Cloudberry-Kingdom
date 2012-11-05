@@ -129,7 +129,7 @@ namespace CloudberryKingdom
             BobPhsxWheel.Instance.Id = 11;
 
             BobPhsx JetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
-            JetpackWheelie.Name = "Flaming Vomit";
+            JetpackWheelie.Name = Localization.Words.JetpackWheelie;
             JetpackWheelie.Id = 12;
 
             //BobPhsxMeat.Instance =
@@ -193,13 +193,13 @@ namespace CloudberryKingdom
             MyPile.Add(BackBox, "BoxRight");
 
             // Score, level
-            var ScoreHeader = new EzText("High Score", Resources.Font_Grobold42_2);
+            var ScoreHeader = new EzText(Localization.Words.HighScore, Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(ScoreHeader, true);
             MyPile.Add(ScoreHeader, "ScoreHeader");
 
             MyPile.Add(Score, "Score");
 
-            var LevelHeader = new EzText("Best Level", Resources.Font_Grobold42_2);
+            var LevelHeader = new EzText(Localization.Words.BestLevel, Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(LevelHeader, true);
             MyPile.Add(LevelHeader, "LevelHeader");
             

@@ -31,13 +31,13 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            HeaderText = new EzText("Save Random Seed as...", ItemFont);
+            HeaderText = new EzText(Localization.Words.SaveRandomSeedAs, ItemFont);
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
 
             // Save seed
-            item = new MenuItem(new EzText("Save Seed", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
             item.Name = "Save";
             item.Go = Save;
             AddItem(item);
@@ -60,14 +60,14 @@ namespace CloudberryKingdom
                 Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
 
                 // Success!
-                var ok = new AlertBaseMenu(Control, "Seed saved successfully!", "Hooray!");
+                var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
                 ok.OnOk = OnOk;
                 Call(ok);
             }
             else
             {
                 // Failure!
-                var ok = new AlertBaseMenu(Control, "No name given, seed was not saved.", "Oh.");
+                var ok = new AlertBaseMenu(Control, Localization.Words.NoNameGiven, Localization.Words.Oh);
                 ok.OnOk = OnOk;
                 Call(ok);
             }

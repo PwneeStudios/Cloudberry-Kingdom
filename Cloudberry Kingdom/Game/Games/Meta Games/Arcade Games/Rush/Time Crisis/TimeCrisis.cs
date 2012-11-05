@@ -15,8 +15,7 @@ namespace CloudberryKingdom
         protected Challenge_TimeCrisis()
         {
             GameTypeId = 1;
-            MenuName = "Time Crisis";
-            Name = MenuName;
+            MenuName = Name = Localization.Words.TimeCrisis;
         }
 
         protected override BobPhsx GetHero(int i)

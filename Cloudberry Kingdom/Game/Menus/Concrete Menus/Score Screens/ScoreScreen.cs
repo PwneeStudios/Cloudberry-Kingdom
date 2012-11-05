@@ -24,8 +24,7 @@ namespace CloudberryKingdom
 
                 MenuItem item;
 
-                string BringNextText = "Keep settings";
-                item = new MenuItem(new EzText(BringNextText, ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.KeepSettings, ItemFont));
                 item.Name = "Continue";
                 item.Go = MenuGo_NewLevel;
                 AddItem(item);
@@ -36,7 +35,7 @@ namespace CloudberryKingdom
 
                 if (_Add_Watch)
                 {
-                    item = new MenuItem(new EzText("Watch Replay", ItemFont));
+                    item = new MenuItem(new EzText(Localization.Words.WatchReplay, ItemFont));
                     item.Name = "Replay";
                     item.Go = MenuGo_WatchReplay;
                     AddItem(item);
@@ -44,13 +43,13 @@ namespace CloudberryKingdom
 
                 if (_Add_Save)
                 {
-                    item = new MenuItem(new EzText("Save Seed", ItemFont));
+                    item = new MenuItem(new EzText(Localization.Words.SavedSeeds, ItemFont));
                     item.Name = "Save";
                     item.Go = MenuGo_Save;
                     AddItem(item);
                 }
 
-                MakeBackButton("Back to Freeplay");
+                MakeBackButton(Localization.Words.BackToFreeplay);
                 MyMenu.OnB = Cast.ToMenu(MenuGo_Continue);
 
                 EnsureFancy();
@@ -58,7 +57,13 @@ namespace CloudberryKingdom
             }
             else
             {
-                EzText ContinueText = new EzText(ButtonString.Go(90) + " Continue", ItemFont);
+                QuadClass ContinueButton = new QuadClass(ButtonTexture.Go, 90, false);
+                ContinueButton.Name = "GoButton";
+                MyPile.Add(ContinueButton);
+                ContinueButton.Pos = new Vector2(180f, -477.7778f) + ShiftAll;
+
+                EzText ContinueText = new EzText(Localization.Words.Continue, ItemFont);
+                ContinueText.Name = "Continue";
                 SetHeaderProperties(ContinueText);
                 ContinueText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
                 MyPile.Add(ContinueText);
@@ -66,7 +71,12 @@ namespace CloudberryKingdom
 
                 if (MyGame.MyLevel.ReplayAvailable)
                 {
-                    EzText ReplayText = new EzText(ButtonString.X(90) + " Watch Replay", ItemFont);
+                    QuadClass XButton = new QuadClass(ButtonTexture.X, 90, false);
+                    XButton.Name = "XButton";
+                    MyPile.Add(XButton);
+                    XButton.Pos = new Vector2(180f, -325.3333f) + ShiftAll;
+
+                    EzText ReplayText = new EzText(Localization.Words.WatchReplay, ItemFont);
                     SetHeaderProperties(ReplayText);
                     ReplayText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
                     ReplayText.MyFloatColor = new Color(184, 231, 231).ToVector4();

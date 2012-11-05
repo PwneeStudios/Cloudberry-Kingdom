@@ -151,6 +151,10 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <None Include="Localization\Localization.tsv">
+      <Name>Localization</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Objects\FlyingCoin_v2.smo">
       <Name>FlyingCoin_v2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

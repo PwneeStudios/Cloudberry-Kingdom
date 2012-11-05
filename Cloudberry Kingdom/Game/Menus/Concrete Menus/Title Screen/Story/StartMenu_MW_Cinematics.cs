@@ -120,7 +120,7 @@ namespace CloudberryKingdom
 
         protected void MakeHeader()
         {
-            var Header = new EzText("STORY MODE", ItemFont);
+            var Header = new EzText(Localization.Words.StoryMode, ItemFont);
             Header.Name = "Header";
             Header.Scale *= 1.3f;
             SetText(Header);

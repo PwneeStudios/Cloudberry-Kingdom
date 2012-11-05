@@ -10,8 +10,6 @@ namespace CloudberryKingdom
             base.Init(text, text.Clone());
         }
 
-        public string PrefixText = "";
-
         bool MyState = false;
         public void Toggle(bool state)
         {
@@ -19,13 +17,13 @@ namespace CloudberryKingdom
 
             if (state)
             {
-                MyText.SubstituteText(PrefixText + "On");
-                MySelectedText.SubstituteText(PrefixText + "On");
+                MyText.SubstituteText(Localization.Words.On);
+                MySelectedText.SubstituteText(Localization.Words.On);
             }
             else
             {
-                MyText.SubstituteText(PrefixText + "Off");
-                MySelectedText.SubstituteText(PrefixText + "Off");
+                MyText.SubstituteText(Localization.Words.Off);
+                MySelectedText.SubstituteText(Localization.Words.Off);
             }
         }
 

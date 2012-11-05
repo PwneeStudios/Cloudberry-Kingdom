@@ -21,9 +21,9 @@ namespace CloudberryKingdom
             // Header
             string Text;
             if (NumSeeds == 1)
-                Text = "Delete " + NumSeeds + " seed?";
+                Text = string.Format(Localization.WordString(Localization.Words.DeleteSeeds), NumSeeds);
             else
-                Text = "Delete " + NumSeeds + " seeds?";
+                Text = string.Format(Localization.WordString(Localization.Words.DeleteSeedsPlural), NumSeeds);
             EzText HeaderText = new EzText(Text, ItemFont, "Header");
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
 
             // Yes
-            item = new MenuItem(new EzText("Yes", ItemFont, "Yes"));
+            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont, "Yes"));
             item.Go = _item =>
             {
                 DoSelect(true);
@@ -41,7 +41,7 @@ namespace CloudberryKingdom
             item.SelectSound = null;
 
             // No
-            item = new MenuItem(new EzText("No", ItemFont, "No"));
+            item = new MenuItem(new EzText(Localization.Words.No, ItemFont, "No"));
             item.Go = _item =>
             {
                 DoSelect(false);

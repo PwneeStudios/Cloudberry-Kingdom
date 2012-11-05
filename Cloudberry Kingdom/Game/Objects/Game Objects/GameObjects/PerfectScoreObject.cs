@@ -159,10 +159,14 @@ namespace CloudberryKingdom
             pos += new Vector2(110, 70);
 
             // Text float
-            TextFloat text = new TextFloat("perfect!\n+" + BonusValue().ToString(), pos + new Vector2(21, 22.5f));
-            //text.MyText.MyFloatColor = MyGame.MyLevel.MyTileSetInfo.CoinScoreColor.ToVector4();
+            TextFloat text = new TextFloat(Localization.Words.Perfect, pos + new Vector2(21, 22.5f));
+            TextFloat text2 = new TextFloat(BonusValue().ToString(), pos + new Vector2(21, -42.5f));
+
             text.MyText.Scale *= 1.5f;
             MyGame.AddGameObject(text);
+
+            text2.MyText.Scale *= 1.5f;
+            MyGame.AddGameObject(text2);
 
             //ParticleEffects.CoinExplosion(MyGame.MyLevel, pos);
         }

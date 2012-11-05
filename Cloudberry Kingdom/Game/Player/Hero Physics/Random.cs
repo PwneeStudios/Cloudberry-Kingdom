@@ -9,7 +9,7 @@ namespace CloudberryKingdom
         {
             base.InitSingleton();
 
-            Name = "Random";
+            Name = Localization.Words.Random;
             Icon = ObjectIcon.RandomIcon;
         }
         static readonly BobPhsxRandom instance = new BobPhsxRandom();

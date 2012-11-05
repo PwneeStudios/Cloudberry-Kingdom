@@ -46,29 +46,30 @@ namespace CloudberryKingdom
             }
         }
 
-        public static string UpgradeName(Upgrade upgrade)
+        public static Localization.Words UpgradeName(Upgrade upgrade)
         {
             switch (upgrade)
             {
-                case Upgrade.BouncyBlock: return "Bouncy blocks";
-                case Upgrade.Cloud: return "Clouds";
-                case Upgrade.Elevator: return "Elevators";
-                case Upgrade.FallingBlock: return "Falling blocks";
-                case Upgrade.FireSpinner: return "Fire spinners";
-                case Upgrade.SpikeyGuy: return "Boulders";
-                case Upgrade.Pinky: return "Spikey guys";
-                case Upgrade.FlyBlob: return "Flying blobs";
-                case Upgrade.GhostBlock: return "Ghost blocks";
-                case Upgrade.Laser: return "Lasers";
-                case Upgrade.MovingBlock: return "Moving blocks";
-                case Upgrade.Spike: return "Spikes";
-                case Upgrade.Fireball: return "Fireballs";
-                case Upgrade.Firesnake: return "Firesnake";
-                case Upgrade.SpikeyLine: return "Spikey line";
-                case Upgrade.Serpent: return "Serpent";
-                case Upgrade.LavaDrip: return "Sludge";
-                case Upgrade.Pendulum: return "Pendulum";
-                default: return "";
+                case Upgrade.BouncyBlock: return Localization.Words.BouncyBlocks;
+                case Upgrade.Cloud: return Localization.Words.Clouds;
+                case Upgrade.Elevator: return Localization.Words.Elevators;
+                case Upgrade.FallingBlock: return Localization.Words.FallingBlocks;
+                case Upgrade.FireSpinner: return Localization.Words.Firespinners;
+                case Upgrade.SpikeyGuy: return Localization.Words.Boulders;
+                case Upgrade.Pinky: return Localization.Words.SpikeyGuys;
+                case Upgrade.FlyBlob: return Localization.Words.FlyingBlobs;
+                case Upgrade.GhostBlock: return Localization.Words.GhostBlocks;
+                case Upgrade.Laser: return Localization.Words.Lasers;
+                case Upgrade.MovingBlock: return Localization.Words.MovingBlocks;
+                case Upgrade.Spike: return Localization.Words.Spikes;
+                case Upgrade.Fireball: return Localization.Words.Fireballs;
+                case Upgrade.Firesnake: return Localization.Words.None;
+                case Upgrade.SpikeyLine: return Localization.Words.SpikeyLines;
+                case Upgrade.Serpent: return Localization.Words.Serpent;
+                case Upgrade.LavaDrip: return Localization.Words.Sludge;
+                case Upgrade.Pendulum: return Localization.Words.Pendulums;
+
+                default: return Localization.Words.None;
             }
         }
 
@@ -108,9 +109,9 @@ namespace CloudberryKingdom
             //UpgradeIcons.Add(Upgrade.Firesnake, new PictureIcon("Firesnake", "Icon_Firesnake", Color.Orange, StandardWidth * .905f));
             //UpgradeIcons.Add(Upgrade.SpikeyLine, new PictureIcon("Spikey line", "Icon_SpikeyLine", Color.Orange, StandardWidth * .905f));
 
-            UpgradeIcons.Add(Upgrade.Jump, new PictureIcon("Jump difficulty", "Jump", Color.Orange, StandardWidth * 1.07f));
-            UpgradeIcons.Add(Upgrade.Speed, new PictureIcon("Level speed", "SpeedIcon", Color.Orange, StandardWidth * 1.036f));
-            UpgradeIcons.Add(Upgrade.Ceiling, new PictureIcon("Ceilings", "CeilingIcon", Color.Orange, StandardWidth * .9f));
+            UpgradeIcons.Add(Upgrade.Jump, new PictureIcon(Localization.Words.JumpDifficulty, "Jump", Color.Orange, StandardWidth * 1.07f));
+            UpgradeIcons.Add(Upgrade.Speed, new PictureIcon(Localization.Words.LevelSpeed, "SpeedIcon", Color.Orange, StandardWidth * 1.036f));
+            UpgradeIcons.Add(Upgrade.Ceiling, new PictureIcon(Localization.Words.Ceilings, "CeilingIcon", Color.Orange, StandardWidth * .9f));
 
             ObjIcons = new Dictionary<ObjectType,ObjectIcon>();
             //ObjIcons.Add(ObjectType.FallingBlock, UpgradeIcons[Upgrade.FallingBlock]);
@@ -139,7 +140,7 @@ namespace CloudberryKingdom
         public QuadClass Backdrop;
         public Color BarColor;
 
-        public string DisplayText;
+        public Localization.Words DisplayText;
 
         public FancyVector2 FancyPos = new FancyVector2();
 
@@ -228,16 +229,16 @@ namespace CloudberryKingdom
             else
                 IconTexture = IconQuad.Quad.TextureAnim.Anims[0].Data[0];
 
-            this.DisplayText = "";
+            this.DisplayText = Localization.Words.None;
             this.NormalWidth = 161 * 1.31f * info.Size.X / 62f;
         }
 
-        public PictureIcon(string DisplayText, string IconTextureString, Color BarColor, float Width)
+        public PictureIcon(Localization.Words DisplayText, string IconTextureString, Color BarColor, float Width)
         {
             this.DisplayText = DisplayText;
             Init(Tools.TextureWad.FindByName(IconTextureString), BarColor, Width);
         }
-        public PictureIcon(string DisplayText, string IconTextureString, Color BarColor, float Width, Vector2 HitPadding)
+        public PictureIcon(Localization.Words DisplayText, string IconTextureString, Color BarColor, float Width, Vector2 HitPadding)
         {
             this.DisplayText = DisplayText;
             this.HitPadding = HitPadding;

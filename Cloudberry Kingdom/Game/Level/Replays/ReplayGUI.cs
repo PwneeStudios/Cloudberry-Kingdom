@@ -74,11 +74,13 @@ namespace CloudberryKingdom
             Vector2 AdditionalAdd = Vector2.Zero;
 #if PC_VERSION
             AdditionalAdd = new Vector2(-2, 0);
-            Play = new EzText(ButtonString.Enter(140) + " Play", ItemFont, true);
+            MyPile.Add(new QuadClass(ButtonTexture.Go, 140, "Button_Go"));
+            Play = new EzText(Localization.Words.Play, ItemFont, true);
             Play.Name = "Play";
             SetGrayHeaderProperties(Play);
 #else
-            Play = new EzText(ButtonString.Go(90) + " Play", ItemFont, true);
+            MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_Go"));
+            Play = new EzText(Localization.Words.Play, ItemFont, true);
             Play.MyFloatColor = new Color(67, 198, 48, 255).ToVector4();
             Play.Name = "Play";
             SetHeaderProperties(Play);
@@ -86,11 +88,13 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
             AdditionalAdd = new Vector2(-2, 0);
-            End = new EzText(ButtonString.Backspace(140) + " Done", ItemFont, true);
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 140, "Button_Back"));
+            End = new EzText(Localization.Words.Done, ItemFont, true);
             End.Name = "Back";
             SetGrayHeaderProperties(End);
 #else
-            End = new EzText(ButtonString.Back(85) + " Done", ItemFont, true);
+            MyPile.Add(new QuadClass(ButtonTexture.Go, 85, "Button_Back"));
+            End = new EzText(Localization.Words.Done, ItemFont, true);
             End.MyFloatColor = new Color(239, 41, 41, 255).ToVector4();
             End.Name = "Back";
             SetHeaderProperties(End);
@@ -98,7 +102,8 @@ namespace CloudberryKingdom
 
             if (Type == ReplayGUIType.Replay)
             {
-                Toggle = new EzText(ButtonString.X(90) + " Solo", ItemFont, true);
+                MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
+                Toggle = new EzText(Localization.Words.Single, ItemFont, true);
                 Toggle.Name = "Toggle";
 #if PC_VERSION
                 SetGrayHeaderProperties(Toggle);
@@ -109,23 +114,27 @@ namespace CloudberryKingdom
                 SetToggleText();
             }
 
-            Speed = new EzText(ButtonString.LeftRight(85) + " Speed x 1", ItemFont, true);
+            MyPile.Add(new QuadClass(ButtonTexture.LeftRight, 85, "Button_LR"));
+            Speed = new EzText(Localization.Words.Speed, ItemFont);
             Speed.Name = "Speed";
             SetGrayHeaderProperties(Speed);
 
             if (Type == ReplayGUIType.Computer)
             {
-                LB = new EzText(ButtonString.LeftBumper(85) + " Reset", ItemFont, true);
+                MyPile.Add(new QuadClass(ButtonTexture.LeftBumper, 85, "Button_LB"));
+                LB = new EzText(Localization.Words.Reset, ItemFont, true);
                 LB.Name = "Reset";
                 SetGrayHeaderProperties(LB);
             }
             else
             {
-                LB = new EzText(ButtonString.LeftBumper(85) + " Prev", ItemFont, true);
+                MyPile.Add(new QuadClass(ButtonTexture.LeftBumper, 85, "Button_LB"));
+                LB = new EzText(Localization.Words.Previous, ItemFont, true);
                 LB.Name = "Prev";
                 SetGrayHeaderProperties(LB);
 
-                RB = new EzText(ButtonString.RightBumper(85) + " Next", ItemFont, true);
+                MyPile.Add(new QuadClass(ButtonTexture.RightBumper, 85, "Button_RB"));
+                RB = new EzText(Localization.Words.Next, ItemFont, true);
                 RB.Name = "Next";
                 SetGrayHeaderProperties(RB);
             }
@@ -204,21 +213,21 @@ namespace CloudberryKingdom
         void SetToggleText()
         {
             if (MyGame.MyLevel.SingleOnly)
-                Toggle.SubstituteText(" All");
+                Toggle.SubstituteText(Localization.Words.All);
             else
-                Toggle.SubstituteText(" Single");
+                Toggle.SubstituteText(Localization.Words.Single);
         }
 
         void SetPlayText()
         {
             if (StepControl)
-                Play.SubstituteText(" Step");
+                Play.SubstituteText(Localization.Words.Step);
             else
             {
                 if (PauseSelected)
-                    Play.SubstituteText(" Play");
+                    Play.SubstituteText(Localization.Words.Play);
                 else
-                    Play.SubstituteText(" Pause");
+                    Play.SubstituteText(Localization.Words.Pause);
             }
         }
 
@@ -228,12 +237,12 @@ namespace CloudberryKingdom
             {
                 case 0:
                     StepControl = true; // Start step control
-                    Tools.PhsxSpeed = 1; Speed.SubstituteText(" Speed x 0");
+                    Tools.PhsxSpeed = 1; Speed.SubstituteText("x 0");
                     break;
-                case 1: Tools.PhsxSpeed = 0; Speed.SubstituteText(" Speed x .5"); break;
-                case 2: Tools.PhsxSpeed = 1; Speed.SubstituteText(" Speed x 1"); break;
-                case 3: Tools.PhsxSpeed = 2; Speed.SubstituteText(" Speed x 2"); break;
-                case 4: Tools.PhsxSpeed = 3; Speed.SubstituteText(" Speed x 4"); break;
+                case 1: Tools.PhsxSpeed = 0; Speed.SubstituteText("x .5"); break;
+                case 2: Tools.PhsxSpeed = 1; Speed.SubstituteText("x 1"); break;
+                case 3: Tools.PhsxSpeed = 2; Speed.SubstituteText("x 2"); break;
+                case 4: Tools.PhsxSpeed = 3; Speed.SubstituteText("x 4"); break;
             }
 
             // Ensure the game is unpaused if we aren't step controlling and we aren't soliciting a pause

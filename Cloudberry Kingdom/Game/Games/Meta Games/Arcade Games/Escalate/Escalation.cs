@@ -20,7 +20,7 @@ namespace CloudberryKingdom
         protected Challenge_Escalation()
         {
             GameTypeId = 0;
-            MenuName = Name = "Escalation";
+            MenuName = Name = Localization.Words.Escalation;
         }
 
         protected void OnOutOfLives(GUI_LivesLeft Lives)
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
         {
             // Multiplier increase text
             if ((levelindex + 1) % LevelsPerDifficulty == 0)
-                Tools.CurGameData.AddGameObject(new MultiplierUp(string.Format("Multiplier Increased!", levelindex + 1)));
+                Tools.CurGameData.AddGameObject(new MultiplierUp());
 
             // Mod number of coins
 
@@ -131,12 +131,12 @@ namespace CloudberryKingdom
 
             if (levelindex > StartIndex)
             {
-                var title = new LevelTitle(string.Format("Level {0}", levelindex + 1));
+                Tools.Warning();
+                var title = new LevelTitle(string.Format("{1} {0}", levelindex + 1, Localization.WordString(Localization.Words.Level)));
                 Tools.CurGameData.AddGameObject(title);
 
                 if ((levelindex + 1) % LevelsPerDifficulty == 0)
                     CkColorHelper._x_x_Red(title.text);
-
             }
 
             // Hero title

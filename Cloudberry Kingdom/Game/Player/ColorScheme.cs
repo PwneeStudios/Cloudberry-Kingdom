@@ -12,12 +12,12 @@ namespace CloudberryKingdom.Bobs
     public class MenuListItem
     {
         public Object obj;
-        public String str;
+        public Localization.Words word;
 
-        public MenuListItem(Object obj, String str)
+        public MenuListItem(Object obj, Localization.Words word)
         {
             this.obj = obj;
-            this.str = str;
+            this.word = word;
         }
     }
 
@@ -46,7 +46,7 @@ namespace CloudberryKingdom.Bobs
 
         public bool AllowsFacialHair = true;
 
-        public string Name = null;
+        public Localization.Words Name = Localization.Words.None;
 
         public Awardment AssociatedAward;
 
@@ -215,13 +215,13 @@ namespace CloudberryKingdom.Bobs
             BeardData = Hat.None;
         }
 
-        public ColorScheme(string skincolor, string capecolor, string capeoutlinecolor, string hatname, string beardname)
+        public ColorScheme(Localization.Words skincolor, Localization.Words capecolor, Localization.Words capeoutlinecolor, Localization.Words hatname, Localization.Words beardname)
         {
-            SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => string.Compare(item.str, skincolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => string.Compare(item.str, capecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => string.Compare(item.str, capeoutlinecolor, StringComparison.OrdinalIgnoreCase) == 0).obj;
-            HatData = ColorSchemeManager.HatInfo.Find(hat => string.Compare(hat.Name, hatname, StringComparison.OrdinalIgnoreCase) == 0);
-            BeardData = ColorSchemeManager.BeardInfo.Find(beard => string.Compare(beard.Name, beardname, StringComparison.OrdinalIgnoreCase) == 0);
+            SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => item.word == skincolor).obj;
+            CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => item.word == capecolor).obj;
+            CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => item.word == capeoutlinecolor).obj;
+            HatData = ColorSchemeManager.HatInfo.Find(hat => hat.Name == hatname);
+            BeardData = ColorSchemeManager.BeardInfo.Find(beard => beard.Name == beardname);
 
             if (HatData == null) HatData = Hat.None;
             if (BeardData == null) BeardData = Hat.Vandyke;

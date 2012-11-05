@@ -18,7 +18,7 @@ namespace CloudberryKingdom
         public int GetGuid() { return Guid; }
         public int GetPrice() { return Price; }
 
-        public string Name;
+        public Localization.Words Name;
 
         /// <summary>
         /// A function that may modify the player object.
@@ -32,7 +32,7 @@ namespace CloudberryKingdom
 
         public bool Equals(ClrTextFx a)
         {
-            if (string.Compare(a.Name, Name) == 0)
+            if (a.Name == Name)
                 return true;
             else
                 return false;
@@ -60,14 +60,14 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             Texture = Tools.TextureWad.TextureList[0];
             Effect = Tools.BasicEffect;;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, Matrix M, string Name)
+        public ClrTextFx(int Guid, int Price, Color color, Matrix M, Localization.Words Name)
         {
             this.M = M;
             this.Name = Name;
@@ -75,14 +75,14 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             Texture = Tools.TextureWad.TextureList[0];
             Effect = Tools.BasicEffect; ;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, Color DetailColor, Matrix M, string Name)
+        public ClrTextFx(int Guid, int Price, Color color, Color DetailColor, Matrix M, Localization.Words Name)
         {
             this.M = M;
             this.Name = Name;
@@ -90,7 +90,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = color;
             this.DetailColor = DetailColor;
@@ -105,7 +105,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             this.Texture = texture;
@@ -119,7 +119,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
@@ -133,7 +133,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             this.UsePaintTexture = UsePaintTexture;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
@@ -148,7 +148,7 @@ namespace CloudberryKingdom
             this.UsePaintTexture = UsePaintTexture;
             this.PicTexture = PicTexture;
 
-            ModObject = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
@@ -163,7 +163,7 @@ namespace CloudberryKingdom
             this.UsePaintTexture = UsePaintTexture;
             this.PicTexture = Tools.TextureWad.FindByName(PicTextureName);
 
-            ModObject = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = this.DetailColor = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
@@ -177,7 +177,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = color;
             this.Texture = Tools.TextureWad.FindByName(texture);
@@ -192,7 +192,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = color;
             this.Texture = texture;
@@ -207,7 +207,7 @@ namespace CloudberryKingdom
             this.Guid = Guid; this.Price = Price;
             UsePaintTexture = true;
 
-            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = "";
+            ModObject = null; PicTexture = null; PicScale = Vector2.One; Name = Localization.Words.None;
 
             this.Clr = color;
             this.Texture = Tools.TextureWad.FindByName(texture);

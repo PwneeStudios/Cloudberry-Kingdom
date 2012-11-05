@@ -20,23 +20,16 @@ namespace CloudberryKingdom
         {
             ShowTitle = false;
 
-            GUI_Text text = GUI_Text.SimpleTitle("Hero Rush 2");
-            GUI_Text text2 = GUI_Text.SimpleTitle("Revenge of the Double Jump");
+            GUI_Text text = GUI_Text.SimpleTitle(Localization.Words.HybridRush);
             text.MyText.Pos += new Vector2(0, -110);
-            text2.MyText.Pos += new Vector2(0, 300);
-            CkColorHelper.AbusiveColor(text2.MyText);
 
             MyGame.AddGameObject(text);
             MyGame.WaitThenDo(0, () => {
-                MyGame.AddGameObject(text2);
-
                 // On (A) go to next part of the tutorial
                 MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
                 {
                     MyGame.WaitThenDo(12, () => TutorialOrSkip());
-
                     text.Kill(SoundOnKill);
-                    MyGame.WaitThenDo(6, () => text2.Kill(SoundOnKill));
                 }));
             });
         }

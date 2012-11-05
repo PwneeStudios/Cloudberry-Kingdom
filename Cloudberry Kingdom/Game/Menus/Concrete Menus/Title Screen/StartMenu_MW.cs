@@ -90,7 +90,7 @@ namespace CloudberryKingdom
             CallDelay = ReturnToCallerDelay = 0;
             MyMenu.OnB = MenuReturnToCaller;
 
-            var Header = new MenuItem(new EzText("Menu", ItemFont));
+            var Header = new MenuItem(new EzText(Localization.Words.Menu, ItemFont));
             Header.ScaleText(1.3f);
             SetItemProperties(Header);
             Header.Selectable = false;

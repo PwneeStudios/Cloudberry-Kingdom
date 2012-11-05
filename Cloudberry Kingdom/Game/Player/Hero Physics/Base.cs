@@ -168,19 +168,19 @@ namespace CloudberryKingdom
 
             // Set the name
             if (BaseType == BobPhsxNormal.Instance && Shape == BobPhsxNormal.Instance && MoveMod == BobPhsxNormal.Instance)
-                custom.Name = "Classic";
+                custom.Name = Localization.Words.ClassicHero;
             else
             {
-                //string template = BaseType.NameTemplate;
-                string template = BaseType.Name;
-                string adjective = Shape.Adjective;
-                string adjective2 = MoveMod.Adjective;
+                custom.Name = Localization.Words.Custom;
+                //string template = BaseType.Name;
+                //string adjective = Shape.Adjective;
+                //string adjective2 = MoveMod.Adjective;
 
-                if (adjective.Length > 0) adjective += " ";
-                if (adjective2.Length > 0) adjective2 += " ";
+                //if (adjective.Length > 0) adjective += " ";
+                //if (adjective2.Length > 0) adjective2 += " ";
 
-                custom.Name = adjective + adjective2 + template;
-                custom.Name = custom.Name.Capitalize();
+                //custom.Name = adjective + adjective2 + template;
+                //custom.Name = custom.Name.Capitalize();
             }
 
             // Set the specificaiton for this hero.
@@ -442,7 +442,7 @@ namespace CloudberryKingdom
         }
 
         public HeroSpec Specification;
-        public string Name = "None";
+        public Localization.Words Name = Localization.Words.None;
         public int Id = -1;
 
         public string Adjective = "";

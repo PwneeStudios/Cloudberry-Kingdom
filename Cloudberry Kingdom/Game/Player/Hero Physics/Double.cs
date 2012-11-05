@@ -54,7 +54,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 1, 0);
-            Name = "Double Jump";
+            Name = Localization.Words.DoubleJump;
             Adjective = "double jump";
             
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Double"), Color.White, 1.1f * DefaultIconWidth * 286f / 240f);

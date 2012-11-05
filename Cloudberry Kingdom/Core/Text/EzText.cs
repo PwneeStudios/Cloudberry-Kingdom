@@ -11,22 +11,22 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public class BakedText
-    {
-        public BakedText(Localization.Words Word)
-        {
-        }
-    }
-
     public class ButtonTexture
     {
 #if PC_VERSION
-        //public static EzTexture Go { get { return Tools.TextureWad.FindByName("Z_Key"); } }
         public static EzTexture Go { get { return Tools.TextureWad.FindByName("EnterKey"); } }
         public static EzTexture Back { get { return Tools.TextureWad.FindByName("Esc_Key"); } }
+        public static EzTexture X { get { return Tools.TextureWad.FindByName("Xbox_X"); } }
+        public static EzTexture LeftRight { get { return Tools.TextureWad.FindByName("LeftRight_Key"); } }
+        public static EzTexture LeftBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
+        public static EzTexture RightBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
 #else
         public static EzTexture Go { get { return Tools.TextureWad.FindByName("Xbox_A"); } }
         public static EzTexture Back { get { return Tools.TextureWad.FindByName("Xbox_B"); } }
+        public static EzTexture X { get { return Tools.TextureWad.FindByName("Xbox_X"); } }
+        public static EzTexture LeftRight { get { return Tools.TextureWad.FindByName("Xbox_Dir"); } }
+        public static EzTexture LeftBumper { get { return Tools.TextureWad.FindByName("Xbox_LB"); } }
+        public static EzTexture RightBumper { get { return Tools.TextureWad.FindByName("Xbox_RB"); } }
 #endif
     }
 
@@ -249,16 +249,10 @@ namespace CloudberryKingdom
             return str;
         }
 
-        public static EzText FindText(List<EzText> list, string Name)
-        {
-            return list.Find(text => string.Compare(text.Name, Name, StringComparison.OrdinalIgnoreCase) == 0);
-        }
-
         /// <summary>
         /// Name of the text, used in DrawPiles
         /// </summary>
         public string Name = "";
-
 
         /// <summary>
         /// Layer of the text, used in DrawPiles
@@ -313,6 +307,11 @@ namespace CloudberryKingdom
             TextWidth -= Bits[0].size.X;
             Bits[0].size = MyFont.Font.MeasureString(text);
             TextWidth += Bits[0].size.X;
+        }
+        public void SubstituteText(Localization.Words word)
+        {
+            Tools.Warning();
+            SubstituteText(Localization.WordString(word));
         }
 
         /// <summary>
@@ -442,7 +441,7 @@ namespace CloudberryKingdom
         public float _Scale = 1;
         public float Scale
         {
-            set { _Scale = value; } //if (Centered) Center(); }
+            set { _Scale = value; }
             get { return _Scale; }
         }
 
@@ -451,7 +450,7 @@ namespace CloudberryKingdom
             if (FancyPos != null) FancyPos.Release(); FancyPos = null;
         }
 
-        public EzText Clone()
+        public virtual EzText Clone()
         {
             EzText clone = new EzText(MyString, MyFont,TextBoxWidth, Centered, YCentered, LineHeightMod);
             clone.MyFloatColor = MyFloatColor;
@@ -463,6 +462,15 @@ namespace CloudberryKingdom
         public bool RightJustify = false;
         public bool Centered, YCentered;
 
+        public EzText(Localization.Words word) { MyFont = Resources.Font_Grobold42; Init(Localization.WordString(word)); }
+        public EzText(Localization.Words word, EzFont font) { MyFont = font; Init(Localization.WordString(word)); }
+        public EzText(Localization.Words word, EzFont font, string Name) { this.Name = Name; MyFont = font; Init(Localization.WordString(word)); }
+        public EzText(Localization.Words word, EzFont font, bool Centered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, false, 1); }
+        public EzText(Localization.Words word, EzFont font, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, YCentered, 1); }
+        public EzText(Localization.Words word, EzFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, 1); }
+        public EzText(Localization.Words word, EzFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, LineHeightMod); }
+
+        public EzText(String str) { MyFont = Resources.Font_Grobold42; Init(str); }
         public EzText(String str, EzFont font) { MyFont = font; Init(str); }
         public EzText(String str, EzFont font, string Name) { this.Name = Name; MyFont = font; Init(str); }
         public EzText(String str, EzFont font, bool Centered) { MyFont = font; Init(str, 10000, Centered, false, 1); }
@@ -875,7 +883,7 @@ namespace CloudberryKingdom
 
         public bool Show = true;
         public void Draw(Camera cam) { Draw(cam, true); }
-        public void Draw(Camera cam, bool EndBatch)
+        public virtual void Draw(Camera cam, bool EndBatch)
         {
             Alpha += AlphaVel;
 

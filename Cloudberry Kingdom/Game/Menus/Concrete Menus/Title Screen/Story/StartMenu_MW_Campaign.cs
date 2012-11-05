@@ -78,31 +78,31 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Chapter 1
-            item = new CampaignChapterItem(new EzText("The Beginning", ItemFont), 1);
+            item = new CampaignChapterItem(new EzText(Localization.Words.TheBeginning, ItemFont), 1);
             item.Name = "MainCampaign";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 2
-            item = new CampaignChapterItem(new EzText("The Next Ninety-Nine", ItemFont), 2);
+            item = new CampaignChapterItem(new EzText(Localization.Words.TheNextNinetyNine, ItemFont), 2);
             item.Name = "Easy";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 3
-            item = new CampaignChapterItem(new EzText("A Gauntlet of Doom", ItemFont), 3);
+            item = new CampaignChapterItem(new EzText(Localization.Words.AGauntletOfDoom, ItemFont), 3);
             item.Name = "Hard";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 4
-            item = new CampaignChapterItem(new EzText("Almost Hero", ItemFont), 4);
+            item = new CampaignChapterItem(new EzText(Localization.Words.AlmostHero, ItemFont), 4);
             item.Name = "Hardcore";
             item.Go = Go;
             AddItem(item);
 
             // Chapter 5
-            item = new CampaignChapterItem(new EzText("The Masochist", ItemFont), 5);
+            item = new CampaignChapterItem(new EzText(Localization.Words.TheMasochist, ItemFont), 5);
             item.Name = "Maso";
             item.Go = Go;
             AddItem(item);
@@ -123,7 +123,7 @@ namespace CloudberryKingdom
 
         protected void MakeHeader()
         {
-            var Header = new EzText("STORY MODE", ItemFont);
+            var Header = new EzText(Localization.Words.StoryMode, ItemFont);
             Header.Name = "Header";
             Header.Scale *= 1.3f;
             SetText(Header);

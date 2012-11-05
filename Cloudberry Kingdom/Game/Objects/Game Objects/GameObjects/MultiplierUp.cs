@@ -29,11 +29,11 @@ namespace CloudberryKingdom
         }
 
         EzText text;
-        public MultiplierUp(string str) { Init(str, Vector2.Zero, 1f, false); }
-        public MultiplierUp(string str, Vector2 shift, float scale, bool perma) { Init(str, shift, scale, perma); }
+        public MultiplierUp() { Init(Vector2.Zero, 1f, false); }
+        public MultiplierUp(Vector2 shift, float scale, bool perma) { Init(shift, scale, perma); }
 
         bool Perma;
-        void Init(string str, Vector2 shift, float scale, bool perma)
+        void Init(Vector2 shift, float scale, bool perma)
         {
             SlideInLength = 84;
 
@@ -46,7 +46,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyPile.Pos += shift;
 
-            text = new EzText(str, Resources.Font_Grobold42, true, true);
+            text = new EzText(Localization.Words.MultiplierIncreased, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 
             //// Happy Blue

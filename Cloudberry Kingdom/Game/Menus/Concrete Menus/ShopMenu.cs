@@ -84,13 +84,13 @@ namespace CloudberryKingdom.Awards
             HeaderText.Pos = HeaderPos + new Vector2(-200, 200);
 
             // Yes
-            item = new MenuItem(new EzText("Yes", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Go = Yes;
             AddItem(item);
             item.SelectSound = null;
 
             // No
-            item = new MenuItem(new EzText("No", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Go = No;
             AddItem(item);
             item.SelectSound = null;
@@ -275,7 +275,7 @@ namespace CloudberryKingdom.Awards
             MyMenu.OnB = MenuReturnToCaller;
 
             // Header
-            MenuItem Header = new MenuItem(new EzText("Hats for sale!", Resources.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new EzText(Localization.Words.HatsForSale, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(-1608.809f, 951.508f);
@@ -397,7 +397,7 @@ namespace CloudberryKingdom.Awards
             shop.Pos = new Vector2(800, -200);
             MyPile.Add(shop);
 
-            Bank = new EzText("Bank", Resources.Font_Grobold42);
+            Bank = new EzText(Localization.Words.Bank, Resources.Font_Grobold42);
             Bank.Scale *= 1.1f;
             CkColorHelper.UnpleasantColor(Bank);
             MyPile.Add(Bank);
@@ -420,21 +420,23 @@ namespace CloudberryKingdom.Awards
             MenuItem item;
 
             ItemPos = new Vector2(-1257.38f, -5900f);
-#if PC_VERSION
-            // Customize
-            ItemPos.Y -= 5;
-            item = new MenuItem(new EzText("Customize", ItemFont));
-            item.Go = MenuGo_Customize;
-            //AddItem(item);
-            item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
-            //item.ScaleText(1.12f);
-            ItemPos.Y -= 60;
 
-            ItemPos = new Vector2(1175.161f, 773.0161f);
-            item.UnaffectedByScroll = true;
-            AddItem(item);
-            item.ScaleText(.5f);
-#endif
+//#if PC_VERSION
+//            // Customize
+//            ItemPos.Y -= 5;
+//            item = new MenuItem(new EzText(Localization.Words.Customize, ItemFont));
+//            item.Go = MenuGo_Customize;
+//            //AddItem(item);
+//            item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
+//            //item.ScaleText(1.12f);
+//            ItemPos.Y -= 60;
+
+//            ItemPos = new Vector2(1175.161f, 773.0161f);
+//            item.UnaffectedByScroll = true;
+//            AddItem(item);
+//            item.ScaleText(.5f);
+//#endif
+
             this.DestinationScale *= 1.05f;
 
             // Back

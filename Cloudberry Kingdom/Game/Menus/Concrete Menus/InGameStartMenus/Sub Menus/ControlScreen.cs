@@ -47,24 +47,24 @@ namespace CloudberryKingdom
             EzText text;
 
 #if PC_VERSION
-            text = new EzText("quick spawn", Resources.Font_Grobold42);
+            text = new EzText(Localization.Words.QuickSpawn, Resources.Font_Grobold42);
             MyPile.Add(text, "quickspawn");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText("power ups", Resources.Font_Grobold42);
+            text = new EzText(Localization.Words.PowerUpMenu, Resources.Font_Grobold42);
             MyPile.Add(text, "powerups");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText("menu", Resources.Font_Grobold42);
+            text = new EzText(Localization.Words.Menu, Resources.Font_Grobold42);
             MyPile.Add(text, "menu");
             text.MyFloatColor = CampaignHelper.DifficultyColor[1].ToVector4();
 
-            text = new EzText("accept", Resources.Font_Grobold42);
+            text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42);
             MyPile.Add(text, "accept");
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
-            text = new EzText("back", Resources.Font_Grobold42);
+            text = new EzText(Localization.Words.Back, Resources.Font_Grobold42);
             MyPile.Add(text, "back");
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;

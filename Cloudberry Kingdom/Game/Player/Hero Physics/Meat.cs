@@ -56,7 +56,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(5, 0, 0, 0);
-            Name = "Meat";
+            Name = Localization.Words.Meatboy;
             Adjective = "Meat";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Meat"), Color.White, 1.2f * DefaultIconWidth);
         }

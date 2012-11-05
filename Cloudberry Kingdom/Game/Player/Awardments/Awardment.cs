@@ -189,10 +189,10 @@ namespace CloudberryKingdom
                     p.Awardments += award.Guid;
 
                 // Show a note saying the reward was given
-                //AwardmentMessage.Style = (AwardmentMessage.Style + 1) % 2;
-                AwardmentMessage.Style = 0;
                 AwardmentMessage msg = new AwardmentMessage(award);
-                Tools.CurGameData.AddGameObject(msg);
+                // Don't add any awardments!
+                //Tools.CurGameData.AddGameObject(msg);
+                Tools.Warning();
                 
                 // Remove all other hints
                 foreach (GameObject obj in Tools.CurGameData.MyGameObjects)

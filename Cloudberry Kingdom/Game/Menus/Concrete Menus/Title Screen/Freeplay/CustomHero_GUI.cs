@@ -49,25 +49,25 @@ namespace CloudberryKingdom
             PhsxSlider.Font = ItemFont;
             PhsxSlider.Process = AddItem;
 
-            AccelSlider = new PhsxSlider("Accel", BobPhsx.CustomData.accel);
-            MaxSpeedSlider = new PhsxSlider("Max vel", BobPhsx.CustomData.maxspeed);
-            SizeSlider = new PhsxSlider("Size", BobPhsx.CustomData.size);
-            GravitySlider = new PhsxSlider("Gravity", BobPhsx.CustomData.gravity);
-            MaxFallSpeedSlider = new PhsxSlider("Max fall", BobPhsx.CustomData.maxfall);
-            FrictionSlider = new PhsxSlider("Friction", BobPhsx.CustomData.friction);
-            JumpLengthSlider = new PhsxSlider("Jump length", BobPhsx.CustomData.jumplength);
-            JumpAccelSlider = new PhsxSlider("Jump accel", BobPhsx.CustomData.jumpaccel);
+            AccelSlider = new PhsxSlider(Localization.Words.Acceleration, BobPhsx.CustomData.accel);
+            MaxSpeedSlider = new PhsxSlider(Localization.Words.MaxVelocity, BobPhsx.CustomData.maxspeed);
+            SizeSlider = new PhsxSlider(Localization.Words.Size, BobPhsx.CustomData.size);
+            GravitySlider = new PhsxSlider(Localization.Words.Gravity, BobPhsx.CustomData.gravity);
+            MaxFallSpeedSlider = new PhsxSlider(Localization.Words.MaxFallSpeed, BobPhsx.CustomData.maxfall);
+            FrictionSlider = new PhsxSlider(Localization.Words.Friction, BobPhsx.CustomData.friction);
+            JumpLengthSlider = new PhsxSlider(Localization.Words.JumpLength, BobPhsx.CustomData.jumplength);
+            JumpAccelSlider = new PhsxSlider(Localization.Words.JumpAcc, BobPhsx.CustomData.jumpaccel);
 
-            NumJumpsSlider = new PhsxSlider("Num jump", BobPhsx.CustomData.numjumps); NumJumpsSlider.Discrete = true;
-            DoubleJumpLengthSlider = new PhsxSlider("Double jump length", BobPhsx.CustomData.jumplength2);
-            DoubleJumpAccelSlider = new PhsxSlider("Double jump accel", BobPhsx.CustomData.jumpaccel2);
+            NumJumpsSlider = new PhsxSlider(Localization.Words.NumJumps, BobPhsx.CustomData.numjumps); NumJumpsSlider.Discrete = true;
+            DoubleJumpLengthSlider = new PhsxSlider(Localization.Words.DoubleJumpLength, BobPhsx.CustomData.jumplength2);
+            DoubleJumpAccelSlider = new PhsxSlider(Localization.Words.DoubleJumpAccel, BobPhsx.CustomData.jumpaccel2);
 
-            JetPackSlider = new PhsxSlider("Jetpack accel", BobPhsx.CustomData.jetpackaccel);
-            JetPackFuelSlider = new PhsxSlider("Jetpack fuel", BobPhsx.CustomData.jetpackfuel);
+            JetPackSlider = new PhsxSlider(Localization.Words.JetpackAcc, BobPhsx.CustomData.jetpackaccel);
+            JetPackFuelSlider = new PhsxSlider(Localization.Words.JetpackFuel, BobPhsx.CustomData.jetpackfuel);
 
-            PhasedSizeSlider = new PhsxSlider("Phased size", BobPhsx.CustomData.size2);
-            PhasedGravitySlider = new PhsxSlider("Phased gravity", BobPhsx.CustomData.gravity2);
-            PhasePeriodSlider = new PhsxSlider("Phase period", BobPhsx.CustomData.phaseperiod);
+            PhasedSizeSlider = new PhsxSlider(Localization.Words.PhasedSize, BobPhsx.CustomData.size2);
+            PhasedGravitySlider = new PhsxSlider(Localization.Words.PhasedGravity, BobPhsx.CustomData.gravity2);
+            PhasePeriodSlider = new PhsxSlider(Localization.Words.PhasePeriod, BobPhsx.CustomData.phaseperiod);
         }
 
         public void StartTest()
@@ -286,7 +286,7 @@ namespace CloudberryKingdom
             SelectedItemShift = new Vector2(0, 0);
 
             // Header
-            EzText HeaderText = new EzText("Hero Factory!", Resources.Font_Grobold42);
+            EzText HeaderText = new EzText(Localization.Words.HeroFactory, Resources.Font_Grobold42);
             HeaderText.Name = "Header";
             SetSuperHeader(HeaderText);
             HeaderText.Pos = new Vector2(-1169.842f, 985.7144f);
@@ -300,7 +300,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Hero lists
-            BaseHeader = HeroText = new EzText("base:", ItemFont);
+            BaseHeader = HeroText = new EzText(Localization.Words.Base, ItemFont);
             HeroText.Name = "base";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -318,7 +318,7 @@ namespace CloudberryKingdom
             AddItem(BaseList);
 
             // Hero jump
-            JumpHeader = HeroText = new EzText("jump:", ItemFont);
+            JumpHeader = HeroText = new EzText(Localization.Words.Jump, ItemFont);
             HeroText.Name = "jump";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -336,7 +336,7 @@ namespace CloudberryKingdom
             AddItem(JumpList);
 
             // Hero shape
-            SizeHeader = HeroText = new EzText("size:", ItemFont);
+            SizeHeader = HeroText = new EzText(Localization.Words.Shape, ItemFont);
             HeroText.Name = "size";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -550,9 +550,12 @@ namespace CloudberryKingdom
 
             // Start
             if (WithButtonPics)
-                A = Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " test", ItemFont));
+            {
+                MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
+                A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
+            }
             else
-                A = Start = item = new MenuItem(new EzText("Test", ItemFont));
+                A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
             item.Name = "test";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -569,9 +572,12 @@ namespace CloudberryKingdom
 
             // Back
             if (WithButtonPics)
-                B = Back = item = new MenuItem(new EzText(ButtonString.Back(90) + " back", ItemFont));
+            {
+                MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+                B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            }
             else
-                B = Back = item = new MenuItem(new EzText("Back", ItemFont));
+                B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "back";
             AddItem(item);
             item.SelectSound = null;
@@ -583,14 +589,14 @@ namespace CloudberryKingdom
 #endif
 
             // Continue
-#if NOT_PC
-            X = item = new MenuItem(new EzText(ButtonString.X(90) + " Continue", ItemFont));
-#else
             if (WithButtonPics)
-                X = item = new MenuItem(new EzText(ButtonString.X(90) + " play", ItemFont));
+            {
+                MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
+                X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
+            }
             else
-                X = item = new MenuItem(new EzText("Play", ItemFont));
-#endif
+                X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
+
             item.Name = "continue";
             AddItem(item);
             item.SelectSound = null;
@@ -603,7 +609,7 @@ namespace CloudberryKingdom
             item.Go = Cast.ToItem(Next);
 
             // Reset
-            item = ResetButton = new MenuItem(new EzText("Reset", ItemFont));
+            item = ResetButton = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "reset";
             AddItem(item);
             item.Go = Cast.ToItem(ResetSliders);

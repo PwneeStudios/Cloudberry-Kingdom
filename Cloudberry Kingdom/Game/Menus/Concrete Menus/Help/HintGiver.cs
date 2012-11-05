@@ -78,6 +78,7 @@ namespace CloudberryKingdom
         {
             get
             {
+                Tools.Warning();
 #if NOT_PC
                 return "Hold " + ButtonString.LeftBumper(85) + " and " + ButtonString.RightBumper(85) + " to respawn quickly!";
 #else
@@ -91,6 +92,7 @@ namespace CloudberryKingdom
         {
             get
             {
+                Tools.Warning();
 #if NOT_PC
                 return "Press " + ButtonString.Y(85) + " for powerups!";
 #else

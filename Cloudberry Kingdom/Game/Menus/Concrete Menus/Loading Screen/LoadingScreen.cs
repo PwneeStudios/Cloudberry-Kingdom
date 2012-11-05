@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             BlackQuad.SetToDefault();
             BlackQuad.Quad.SetColor(new Color(0, 0, 0, 0));
              
-            LoadingText = new EzText("Loading...", Resources.Font_Grobold42, true, true);
+            LoadingText = new EzText(Localization.Words.Loading, Resources.Font_Grobold42, true, true);
             LoadingText.Scale *= .445f;
             LoadingText.FixedToCamera = true;
             LoadingText._Pos = new Vector2(21, -106);

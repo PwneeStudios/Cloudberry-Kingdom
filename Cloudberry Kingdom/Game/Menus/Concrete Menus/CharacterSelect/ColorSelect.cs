@@ -34,10 +34,10 @@ namespace CloudberryKingdom
             return (int)MyList.CurObj;
         }
 
-        string Header;
+        Localization.Words Header;
         int HoldIndex;
 
-        public ListSelectPanel(int Control, string Header, CharacterSelect Parent, int ClrSelectIndex)
+        public ListSelectPanel(int Control, Localization.Words Header, CharacterSelect Parent, int ClrSelectIndex)
             : base(false)
         {
             this.MyCharacterSelect = Parent;
@@ -78,13 +78,15 @@ namespace CloudberryKingdom
             MyList.Go = Cast.ToItem(Select);
             MyMenu.Add(MyList);
 
-            var Done = new MenuItem(new EzText("Use", ItemFont));
+            //var Done = new MenuItem(new EzText("Use", ItemFont));
+            var Done = new MenuItem(new EzText(Localization.Words.Use, ItemFont));
             Done.Name = "Done";
             Done.Go = Cast.ToItem(Select);
             AddItem(Done);
 
             //var BackButton = new MenuItem(new EzText("{pBackArrow2,80,?}", ItemFont));
-            var BackButton = new MenuItem(new EzText("Cancel", ItemFont));
+            //var BackButton = new MenuItem(new EzText("Cancel", ItemFont));
+            var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
             BackButton.Name = "Cancel";
             BackButton.Go = Cast.ToItem(Back);
             AddItem(BackButton);

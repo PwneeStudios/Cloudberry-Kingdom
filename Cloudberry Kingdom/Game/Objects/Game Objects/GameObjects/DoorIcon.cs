@@ -9,8 +9,6 @@ namespace CloudberryKingdom
     public enum IconType { Number, Boss, Obstacle, Hero, Place, Bungee };
     public class DoorIcon : GUI_Panel
     {
-        public EzText MyText;
-
         int Level;
         public DoorIcon(int Level)
         {
@@ -39,34 +37,7 @@ namespace CloudberryKingdom
             MyPile.Clear();
             QuadClass Backdrop = null;
 
-            float NormalSize = 110;// 90;
             switch (type) {
-                case IconType.Number:
-                    MyText = MakeText(s);
-                    MyText.ZoomWithCam = true;
-                    MyText.MyFloatColor = Color.CadetBlue.ToVector4();
-                    MyText.OutlineColor = Color.AliceBlue.ToVector4();
-                    MyPile.Add(MyText);
-                    MyText.Pos = new Vector2(0, .5f * MyText.GetWorldHeight() - 24);
-
-                    if (s.Length == 1) MyText.Y -= 4;
-                    if (s.CompareTo("7") == 0) MyText.Pos += new Vector2(8, -12);
-
-                    Backdrop = new QuadClass("levelicon", NormalSize, true);
-                    break;
-
-                case IconType.Boss:
-                    Backdrop = new QuadClass("levelicon_boss", NormalSize, true);
-                    break;
-
-                case IconType.Bungee:
-                    Backdrop = new QuadClass("levelicon_bungee", NormalSize, true);
-                    break;
-
-                case IconType.Place:
-                    Backdrop = new QuadClass("levelicon_buildghost", NormalSize, true);
-                    break;
-
                 case IconType.Obstacle:
                     icon = ObjectIcon.CreateIcon(upgrade);
                     break;
@@ -93,17 +64,6 @@ namespace CloudberryKingdom
             //MyPile.BubbleUp(true);
             Active = true;
             Hid = false;
-        }
-
-        protected virtual EzText MakeText(string text)
-        {
-            float scale = .72f;
-            if (text.Length == 2) scale = .55f;
-            
-            EzText eztext = new EzText(text, Resources.Font_Grobold42, 1000, true, false);
-            eztext.Scale = scale;
-
-            return eztext;
         }
 
         public void Kill() { Kill(true); }

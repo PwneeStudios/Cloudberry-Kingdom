@@ -4,13 +4,10 @@ namespace CloudberryKingdom.Awards
 {
     public class AwardmentMessage : CkBaseMenu
     {
-        public static int Style = 0;
-
         protected QuadClass Backdrop;
 
         public AwardmentMessage(Awardment award)
         {
-            //Core.DrawLayer++;
             Core.DrawLayer += 2;
 
             PauseOnPause = false;
@@ -25,46 +22,13 @@ namespace CloudberryKingdom.Awards
             SetText(award);
 
             EzText Title;
-            if (Style == 0)
-            {
-                if (award.Unlockable == null)
-                    Title = new EzText("", Resources.Font_Grobold42_2, 1800, false, false, .575f);
-                else
-                    Title = new EzText("Awardment unlocked:", Resources.Font_Grobold42_2, 1800, false, false, .575f);
-                Title.Pos = new Vector2(-1726.192f, 369.0475f);
-                Title.Scale *= .79f;
-                MyPile.Add(Title);
-            }
+            if (award.Unlockable == null)
+                Title = new EzText("", Resources.Font_Grobold42_2, 1800, false, false, .575f);
             else
-            {
-                Title = new EzText("Awardment", Resources.Font_Grobold42_2, 1800, false, false, .575f);
-                Title.Pos = new Vector2(-1690.476f, 468.254f);
-                Title.Scale *= .82f;
-                MyPile.Add(Title);
-
-                Title = new EzText("unlocked:", Resources.Font_Grobold42_2, 1800, false, false, .575f);
-                Title.Pos = new Vector2(-1448.412f, 214.2857f);
-                Title.Scale *= .82f;
-                MyPile.Add(Title);
-            }
-
-            //QuadClass cloud = new QuadClass("cloud1", 250, true);
-            //cloud.Pos = new Vector2(1293.431f, 86.64027f);
-            //cloud.Size = new Vector2(586.4189f, 551.6953f);
-            //MyPile.Add(cloud);
-
-            //if (award.Unlockable == null)
-            //{
-            //    QuadClass HatQuad = new QuadClass("Stickman", 263);
-            //    HatQuad.Pos += new Vector2(1383.016f, 157.0794f);
-            //    MyPile.Add(HatQuad);
-            //}
-            //else
-            //{
-            //    QuadClass HatQuad = AwardmentMenu.MakeHatQuad(award.Unlockable);
-            //    HatQuad.Pos += new Vector2(1373.016f, 115.0794f);
-            //    MyPile.Add(HatQuad);
-            //}
+                Title = new EzText(award.Name, Resources.Font_Grobold42_2, 1800, false, false, .575f);
+            Title.Pos = new Vector2(-1726.192f, 369.0475f);
+            Title.Scale *= .79f;
+            MyPile.Add(Title);
         }
 
         protected virtual void MakeBackdrop()
@@ -130,10 +94,7 @@ namespace CloudberryKingdom.Awards
             size = Text.GetWorldSize();
             Text.Pos = new Vector2(-size.X / 2 - 350, size.Y * .85f);
 
-            if (Style == 0)
-                Text.Pos += new Vector2(0, -42);
-            else
-                Text.Pos += new Vector2(790, -7);
+            Text.Pos += new Vector2(0, -42);
         }
 
         protected int Step = 0;

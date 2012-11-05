@@ -19,7 +19,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(2, 0, 0, 0);
-            Name = "Wheelie";
+            Name = Localization.Words.Wheelie;
             NameTemplate = "wheelie";
 
             //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Wheel"), Color.White, 1.4f * DefaultIconWidth);

@@ -80,9 +80,10 @@ namespace CloudberryKingdom
             Hide();
         }
 
-        void AddMenuItem(string Text, string Name)
+        //void AddMenuItem(string Text, string Name)
+        void AddMenuItem(Localization.Words Word, string Name)
         {
-            MenuItem item = new MenuItem(new EzText(Text, ItemFont));
+            MenuItem item = new MenuItem(new EzText(Word, ItemFont));
             item.Name = Name;
             item.Go = Cast.ToItem(CreateColorSelect);
             
@@ -97,13 +98,13 @@ namespace CloudberryKingdom
             FontScale = .5835f;
             ItemFont = Resources.Font_Grobold42;
 
-            AddMenuItem("Color", "Color");
-            AddMenuItem("Beard", "Beard");
-            AddMenuItem("Hat", "Hat");
-            AddMenuItem("Cape", "Cape");
-            AddMenuItem("Lining", "Lining");
+            AddMenuItem(Localization.Words.Color, "Color");
+            AddMenuItem(Localization.Words.Beard, "Beard");
+            AddMenuItem(Localization.Words.Hat, "Hat");
+            AddMenuItem(Localization.Words.Cape, "Cape");
+            AddMenuItem(Localization.Words.Lining, "Lining");
 
-            MenuItem back = new MenuItem(new EzText("Done", ItemFont), "Done");
+            MenuItem back = new MenuItem(new EzText(Localization.Words.Done, ItemFont), "Done");
             AddItem(back);
             back.Go = Go;
         }
@@ -127,7 +128,7 @@ namespace CloudberryKingdom
             // Make the hat select
             if (MyMenu.CurIndex == 2)
             {
-                var list = new ListSelectPanel(Control, "Hat", MyCharacterSelect, MyMenu.CurIndex);
+                var list = new ListSelectPanel(Control, Localization.Words.Hat, MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = list;
 
                 foreach (Hat hat in CharacterSelectManager.AvailableHats)
@@ -144,7 +145,7 @@ namespace CloudberryKingdom
             // Make the beard select
             else if (MyMenu.CurIndex == 1)
             {
-                var list = new ListSelectPanel(Control, "Beard", MyCharacterSelect, MyMenu.CurIndex);
+                var list = new ListSelectPanel(Control, Localization.Words.Beard, MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = list;
 
                 foreach (Hat beard in CharacterSelectManager.AvailableBeards)
@@ -162,7 +163,7 @@ namespace CloudberryKingdom
             else
             {
                 var list = MyCharacterSelect.ItemList[MyMenu.CurIndex];
-                var select = new ListSelectPanel(Control, "Color", MyCharacterSelect, MyMenu.CurIndex);
+                var select = new ListSelectPanel(Control, Localization.Words.Color, MyCharacterSelect, MyMenu.CurIndex);
                 ClrSelect = select;
 
                 foreach (MenuListItem item in list)

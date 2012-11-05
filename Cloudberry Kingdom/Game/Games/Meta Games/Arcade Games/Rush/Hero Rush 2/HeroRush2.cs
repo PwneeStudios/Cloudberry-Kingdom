@@ -74,8 +74,7 @@ namespace CloudberryKingdom
         protected Challenge_HeroRush2()
         {
             GameTypeId = 1;
-            MenuName = "Hybrid Rush";
-            Name = "Hybrid Rush";
+            MenuName = Name = Localization.Words.HybridRush;
             
             // Create the list of custom heros
             Hero_BaseType[] BaseTypes = new Hero_BaseType[]

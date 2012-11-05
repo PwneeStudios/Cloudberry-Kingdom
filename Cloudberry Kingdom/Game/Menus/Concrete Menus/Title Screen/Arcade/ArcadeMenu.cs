@@ -124,7 +124,7 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             // Header
-            MenuItem Header = new MenuItem(new EzText("The Arcade", Resources.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new EzText(Localization.Words.TheArcade, Resources.Font_Grobold42_2));
             Header.Name = "Header";
             MyMenu.Add(Header);
             SetItemProperties(Header);
@@ -188,9 +188,9 @@ namespace CloudberryKingdom
         private MenuItem AddChallenge(Challenge challenge, Awardment prereq, Awardment goal, string itemname)
         {
             ArcadeItem item;
-            string name = challenge.MenuName != null ? challenge.MenuName : challenge.Name;
+            Localization.Words word = challenge.MenuName != null ? challenge.MenuName : challenge.Name;
             
-            item = new ArcadeItem(new EzText(name, ItemFont), challenge, prereq);
+            item = new ArcadeItem(new EzText(word, ItemFont), challenge, prereq);
 
             item.Name = itemname;
             AddItem(item);

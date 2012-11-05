@@ -15,8 +15,7 @@ namespace CloudberryKingdom
         protected Challenge_HeroRush()
         {
             GameTypeId = 1;
-            MenuName = "Hero Rush";
-            Name = "Hero Rush";            
+            MenuName = Name = Localization.Words.HeroRush;
         }
 
         // The progression of max time and start time for increasing difficulty
@@ -105,7 +104,7 @@ namespace CloudberryKingdom
         {
             // Multiplier increase text
             if ((levelindex + 1) % LevelsPerDifficulty == 0)
-                Tools.CurGameData.AddGameObject(new MultiplierUp(string.Format("Multiplier Increased!", levelindex + 1)));
+                Tools.CurGameData.AddGameObject(new MultiplierUp());
 
             // Cheering berries (20, 40, 60, ...)
             if ((levelindex + 1) % LevelsPerDifficulty == 0 && levelindex != StartIndex)

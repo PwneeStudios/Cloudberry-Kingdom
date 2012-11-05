@@ -56,6 +56,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyPile.Pos += shift;
 
+            Tools.Warning(); // May be text, rather than Localization.Words
             text = new EzText(str, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 

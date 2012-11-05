@@ -24,8 +24,7 @@ namespace CloudberryKingdom
 
         public ObjectIcon HeroIcon, MiniCheckpoint;
 
-        //static string CustomHeroString = "Custom";
-        static string CustomHeroString = "Factory";
+        static Localization.Words CustomHeroString = Localization.Words.Factory;
         
         public CustomLevel_GUI()
         {
@@ -336,7 +335,7 @@ namespace CloudberryKingdom
             //Screenshot.SetDefaultShadow(15);
 
             // Location
-            EzText LocationText = new EzText("Location:", ItemFont);
+            EzText LocationText = new EzText(Localization.Words.Location, ItemFont);
             LocationText.Name = "Location";
             SetHeaderProperties(LocationText);
             MyPile.Add(LocationText);
@@ -348,7 +347,7 @@ namespace CloudberryKingdom
             LocationList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
             foreach (TileSet tileset in FreeplayTilesets)
             {
-                item = new MenuItem(new EzText(tileset.Name, ItemFont, false, true));
+                item = new MenuItem(new EzText(tileset.NameInGame, ItemFont, false, true));
                 SetItemProperties(item);
                 LocationList.AddItem(item, tileset);
             }
@@ -370,7 +369,7 @@ namespace CloudberryKingdom
             LocationList.SetIndex(0);
 
             // Game type
-            EzText GameText = new EzText("Game:", ItemFont);
+            EzText GameText = new EzText(Localization.Words.Game, ItemFont);
             GameText.Name = "Game";
             SetHeaderProperties(GameText);
             MyPile.Add(GameText);
@@ -380,14 +379,12 @@ namespace CloudberryKingdom
             GameList.Name = "Game";
             GameList.MyExpandPos = new Vector2(-580, 500.873f);
             GameList.Center = !LeftJustify;
-            string[] GameNames;
+            Localization.Words[] GameNames;
             if (PlayerManager.NumPlayers <= 1)
-                //GameNames = new string[] { "Classic", "Build", "Up Level", "Down Level", "Wall Level" };
-                GameNames = new string[] { "Classic", "Wall Level" };
+                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.WallLevel };
             else
-                //GameNames = new string[] { "Classic", "Build", "Bungee", "Up Level", "Down Level", "Wall Level" };
-                GameNames = new string[] { "Classic", "Bungee", "Wall Level" };
-            foreach (string name in GameNames)
+                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.Bungee, Localization.Words.WallLevel };
+            foreach (Localization.Words name in GameNames)
             {
                 item = new MenuItem(new EzText(name, ItemFont, false, true));
                 SetItemProperties(item);
@@ -402,29 +399,29 @@ namespace CloudberryKingdom
                 {
                     LevelSeed.MyGameFlags.SetToDefault();
 
-                    string gamename = GameList.CurObj as string;
-                    if (gamename.CompareTo("Classic") == 0)
+                    Localization.Words gamename = (Localization.Words)GameList.CurObj;
+                    if (gamename == Localization.Words.ClassicGame)
                     {
                         LevelSeed.MyGameType = NormalGameData.Factory;
                         LevelSeed.MyGeometry = LevelGeometry.Right;
                         SelectNormal();
                     }
-                    else if (gamename.CompareTo("Bungee") == 0)
+                    else if (gamename == Localization.Words.Bungee)
                     {
                         LevelSeed.MyGameType = NormalGameData.Factory;
                         LevelSeed.MyGeometry = LevelGeometry.Right;
                         LevelSeed.MyGameFlags.IsTethered = true;
                         SelectBungee();
                     }
-                    else if (gamename.CompareTo("Up Level") == 0)
-                    {
-                        SelectUpLevel();
-                    }
-                    else if (gamename.CompareTo("Down Level") == 0)
-                    {
-                        SelectDownLevel();
-                    }
-                    else if (gamename.CompareTo("Wall Level") == 0)
+                    //else if (gamename.CompareTo("Up Level") == 0)
+                    //{
+                    //    SelectUpLevel();
+                    //}
+                    //else if (gamename.CompareTo("Down Level") == 0)
+                    //{
+                    //    SelectDownLevel();
+                    //}
+                    else if (gamename == Localization.Words.WallLevel)
                     {
                         LevelSeed.MyGameType = NormalGameData.Factory;
                         LevelSeed.MyGeometry = LevelGeometry.Right;
@@ -436,7 +433,7 @@ namespace CloudberryKingdom
                 };
             
             // Hero
-            HeroText = new EzText("Hero:", ItemFont);
+            HeroText = new EzText(Localization.Words.Hero, ItemFont);
             HeroText.Name = "Hero";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -450,7 +447,7 @@ namespace CloudberryKingdom
                 AddHeroItem(hero);
 
             // Random
-            item = new MenuItem(new EzText("Random", ItemFont, false, true));
+            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont, false, true));
             SetItemProperties(item);
             HeroList.AddItem(item, BobPhsxRandom.Instance);
             // Custom
@@ -467,13 +464,13 @@ namespace CloudberryKingdom
             HeroList.SetIndex(0);
 
             // Difficulty
-            EzText DiffText = new EzText("Difficulty:", ItemFont);
+            EzText DiffText = new EzText(Localization.Words.Difficulty, ItemFont);
             DiffText.Name = "Diff";
             SetHeaderProperties(DiffText);
             MyPile.Add(DiffText);
             DiffText.Pos = new Vector2(-1233.889f, 40.55557f);
 
-            string[] Names = CampaignHelper.DifficultyNames;
+            Localization.Words[] Names = CampaignHelper.DifficultyNames;
             DiffList = new MenuList();
             DiffList.Name = "Diff";
             DiffList.Center = !LeftJustify;
@@ -496,7 +493,7 @@ namespace CloudberryKingdom
 
 
             // Length
-            EzText LengthText = new EzText("Length:", ItemFont);
+            EzText LengthText = new EzText(Localization.Words.Length, ItemFont);
             LengthText.Name = "Length";
             SetHeaderProperties(LengthText);
             MyPile.Add(LengthText);
@@ -540,7 +537,7 @@ namespace CloudberryKingdom
             MiniCheckpoint.SetShadow(false);
 
             // Checkpoints
-            CheckpointsText = new EzText("Checkpoints:", ItemFont);
+            CheckpointsText = new EzText(Localization.Words.Checkpoints, ItemFont);
             CheckpointsText.Name = "Checkpoints";
             SetHeaderProperties(CheckpointsText);
             MyPile.Add(CheckpointsText);
@@ -587,7 +584,8 @@ namespace CloudberryKingdom
             FontScale = 1f;
 
             // Start
-            Start = item = new MenuItem(new EzText(ButtonString.Go(90) + " Start Level", ItemFont));
+            MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
+            Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             Start.Name = "Start";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -607,7 +605,7 @@ namespace CloudberryKingdom
             // Load
             MenuItem Load;
 #if PC_VERSION
-            Load = item = new MenuItem(new EzText("Load Level", ItemFont));
+            Load = item = new MenuItem(new EzText(Localization.Words.LoadLevel, ItemFont));
 #else
             Load = item = new MenuItem(new EzText(ButtonString.Y(90) + " Load", ItemFont));
 #endif
@@ -625,7 +623,8 @@ namespace CloudberryKingdom
             item.ScaleText(.92f);
 
             // Back
-            item = new MenuItem(new EzText(ButtonString.Back(90) + " Back", ItemFont));
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             AddItem(item);
             item.SelectSound = null;
@@ -664,9 +663,9 @@ namespace CloudberryKingdom
         private void DiffList_OnIndex()
         {
             if (DiffList.ListIndex == 0)
-                Start.SubstituteText(" Continue");
+                Start.SubstituteText(Localization.Words.Continue);
             else
-                Start.SubstituteText(" Start");
+                Start.SubstituteText(Localization.Words.Start);
         }
 
         void StartLevel()
@@ -703,7 +702,7 @@ namespace CloudberryKingdom
 
         private bool IsCustomHero()
         {
-            return (string.Compare(HeroList.CurMenuItem.MyString, CustomHeroString) == 0);
+            return ((BobPhsx)HeroList.CurMenuItem.MyObject) == null;
         }
 
         public bool IsCustomDifficulty()

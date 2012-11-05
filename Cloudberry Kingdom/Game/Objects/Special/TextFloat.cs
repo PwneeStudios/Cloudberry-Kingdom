@@ -7,6 +7,21 @@ namespace CloudberryKingdom
     {
         public EzText MyText;
 
+        public TextFloat(Localization.Words Text, Vector2 pos)
+        {
+            Core.DrawLayer = Level.LastInLevelDrawLayer - 1;
+
+            Core.Data.Position = pos;
+            Core.Data.Velocity = new Vector2(0, 8);
+
+            MyText = new EzText(Text, Resources.Font_Grobold42, 1000, true, true);
+            MyText.Scale = .5f;
+            MyText.MyFloatColor = new Color(228, 0, 69).ToVector4();
+            MyText.OutlineColor = Color.White.ToVector4();
+
+            MyText.ZoomWithCam = true;
+        }
+
         public TextFloat(string Text, Vector2 pos)
         {
             Core.DrawLayer = Level.LastInLevelDrawLayer - 1;
@@ -14,10 +29,6 @@ namespace CloudberryKingdom
             Core.Data.Position = pos;
             Core.Data.Velocity = new Vector2(0, 8);
 
-            //MyText = new EzText(Text, Resources.Font_Grobold42, 1000, true, true);
-            //MyText.Scale = 1.1f;
-            //MyText.MyFloatColor = new Vector4(.9f, 1f, 1f, 1f);
-            
             MyText = new EzText(Text, Resources.Font_Grobold42, 1000, true, true);
             MyText.Scale = .5f;
             MyText.MyFloatColor = new Color(228, 0, 69).ToVector4();

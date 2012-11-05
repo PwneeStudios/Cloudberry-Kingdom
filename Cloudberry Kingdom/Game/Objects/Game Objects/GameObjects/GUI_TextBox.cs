@@ -14,7 +14,7 @@ namespace CloudberryKingdom
     {
         public GUI_EnterName() : base(PlayerManager.DefaultName, Vector2.Zero)
         {
-            EzText Text = new EzText("New high score!", Resources.Font_Grobold42);
+            EzText Text = new EzText(Localization.Words.NewHighScore, Resources.Font_Grobold42);
 
             Text.Pos = new Vector2(-579.365f, 253.9681f);
             Text.Scale *= .7f;

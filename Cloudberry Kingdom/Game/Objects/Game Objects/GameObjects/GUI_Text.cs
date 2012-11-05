@@ -13,16 +13,16 @@ namespace CloudberryKingdom
 
         public EzText MyText;
 
-        public static GUI_Text SimpleTitle(string str)
+        public static GUI_Text SimpleTitle(Localization.Words word)
         {
-            return SimpleTitle(str, Style.Bubble);
+            return SimpleTitle(word, Style.Bubble);
         }
-        public static GUI_Text SimpleTitle(string str, Style style)
+        public static GUI_Text SimpleTitle(Localization.Words word, Style style)
         {
             Vector2 pos1 = new Vector2(-23, -23);
             Vector2 pos2 = new Vector2(23, 23);
 
-            GUI_Text text = new GUI_Text(str, pos1, style);
+            GUI_Text text = new GUI_Text(word, pos1, style);
             text.FixedToCamera = true;
             
             text.MyPile.FancyPos.LerpTo(pos1, pos2, 70, CoreEngine.LerpStyle.Linear);
@@ -30,14 +30,24 @@ namespace CloudberryKingdom
             return text;
         }
 
+        public GUI_Text(Localization.Words word, Vector2 pos)
+        {
+            Init(word, pos, true, Style.Bubble, Resources.Font_Grobold42);
+        }
+
+        public GUI_Text(Localization.Words word, Vector2 pos, bool centered)
+        {
+            Init(word, pos, centered, Style.Bubble, Resources.Font_Grobold42);
+        }
+
+        public GUI_Text(Localization.Words word, Vector2 pos, Style style)
+        {
+            Init(word, pos, true, style, Resources.Font_Grobold42);
+        }
+
         public GUI_Text(string text, Vector2 pos)
         {
             Init(text, pos, true, Style.Bubble, Resources.Font_Grobold42);
-        }
-
-        public GUI_Text(string text, Vector2 pos, Style style)
-        {
-            Init(text, pos, true, style, Resources.Font_Grobold42);
         }
 
         public GUI_Text(string text, Vector2 pos, bool centered)
@@ -48,6 +58,25 @@ namespace CloudberryKingdom
         public GUI_Text(string text, Vector2 pos, bool centered, EzFont font)
         {
             Init(text, pos, centered, Style.Bubble, font);
+        }
+
+        public void Init(Localization.Words word, Vector2 pos, bool centered, Style style, EzFont font)
+        {
+            MyStyle = style;
+            FixedToCamera = false;
+
+            MyPile = new DrawPile();
+            MyText = MakeText(word, centered, font);
+            MyPile.Add(MyText);
+
+            MyPile.Pos = pos + new Vector2(0, MyText.GetWorldHeight() / 2);
+
+            if (MyStyle == Style.Bubble)
+                MyPile.BubbleUp(true);
+            if (MyStyle == Style.Fade)
+                MyPile.FadeIn(.0175f);
+            Active = true;
+            Hid = false;
         }
 
         public void Init(string text, Vector2 pos, bool centered, Style style, EzFont font)
@@ -67,6 +96,11 @@ namespace CloudberryKingdom
                 MyPile.FadeIn(.0175f);
             Active = true;
             Hid = false;
+        }
+
+        protected virtual EzText MakeText(Localization.Words word, bool centered, EzFont font)
+        {
+            return new EzText(word, font, 1900, true, true, .575f);
         }
 
         protected virtual EzText MakeText(string text, bool centered, EzFont font)

@@ -306,17 +306,19 @@ namespace CloudberryKingdom
                 this.SlideOut(pos, frames);
         }
 
-        protected MenuItem MakeBackButton() { return MakeBackButton("Back"); }
-        protected MenuItem MakeBackButton(string text)
+        protected MenuItem MakeBackButton() { return MakeBackButton(Localization.Words.Back); }
+        protected MenuItem MakeBackButton(Localization.Words Word)
         {
             MenuItem item;
 
 #if PC_VERSION
-            item = new MenuItem(new EzText(ButtonString.Back(86) + text, ItemFont));
+            //item = new MenuItem(new EzText(ButtonString.Back(86) + text, ItemFont));
+            item = new MenuItem(new EzText(ButtonString.Back(86) + Localization.WordString(Word), ItemFont));
 #else
-            item = new MenuItem(new EzText(ButtonString.Back(86) + " " + text, ItemFont));
+            //item = new MenuItem(new EzText(ButtonString.Back(86) + " " + text, ItemFont));
+            item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
 #endif
-            
+
             item.Go = menuitem => MyMenu.OnB(MyMenu);
             item.Name = "Back";
             AddItem(item);

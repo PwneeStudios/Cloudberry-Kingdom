@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(0, 0, 0, 1);
-            Name = "Time Master";
+            Name = Localization.Words.TimeMaster;
             Adjective = "Chrono";
             Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, 1.2f * DefaultIconWidth);
         }

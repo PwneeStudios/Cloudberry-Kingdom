@@ -100,8 +100,9 @@ namespace CloudberryKingdom
 #if PC_VERSION
             MenuItem item;
 
-            string Space = "{s34,0}";
-            item = new MenuItem(new EzText(ButtonString.X(80) + Space + "{c150,189,244,255} Leaderboard", ItemFont, false, true));
+            MyPile.Add(new QuadClass(ButtonTexture.X, 80, "Button_X"));
+            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, false, true));
+
             item.Name = "Leaderboard";
             item.Go = Cast.ToItem(BringLeaderboard);
             AddItem(item);

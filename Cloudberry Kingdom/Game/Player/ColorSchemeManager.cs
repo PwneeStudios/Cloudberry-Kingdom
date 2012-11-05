@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
         public static ClrTextFx None;
 
-        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, string Name)
+        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, Localization.Words Name)
         {
             return new MenuListItem
                 (
@@ -40,7 +40,7 @@ namespace CloudberryKingdom
                 );
         }
 
-        static MenuListItem _i(int Guid, int Price, Color Clr, Color HighlightClr, Matrix M, string Name)
+        static MenuListItem _i(int Guid, int Price, Color Clr, Color HighlightClr, Matrix M, Localization.Words Name)
         {
             return new MenuListItem
                 (
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
                 );
         }
 
-        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, EzEffect Effect, string Name)
+        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, EzEffect Effect, Localization.Words Name)
         {
             var ctf = new ClrTextFx(Guid, Price, Clr, M, Name);
             ctf.Effect = Effect;
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
 
             Hat.Vandyke =
             beard = new Hat("None");
-            beard.Name = "Vandyke";
+            beard.Name = Localization.Words.Vandyke;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259001;
             beard.HatPicShift = Vector2.Zero;
@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 
             Hat.Beard = 
             beard = new Hat("Facial_Beard");
-            beard.Name = "Rugged";
+            beard.Name = Localization.Words.Rugged;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259002;
             beard.HatPicShift = Vector2.Zero;
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
 
             Hat.Mustache = 
             beard = new Hat("Facial_Moustache");
-            beard.Name = "Manhattan";
+            beard.Name = Localization.Words.Manhattan;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259003;
             beard.HatPicShift = Vector2.Zero;
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
 
             Hat.BigBeard = 
             beard = new Hat("Facial_BigBeard");
-            beard.Name = "Lumberjack";
+            beard.Name = Localization.Words.Lumberjack;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259004;
             beard.HatPicShift = Vector2.Zero;
@@ -130,7 +130,7 @@ namespace CloudberryKingdom
 
             Hat.Goatee = 
             beard = new Hat("Facial_Goatee");
-            beard.Name = "Goatee";
+            beard.Name = Localization.Words.Goatee;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259005;
             beard.HatPicShift = Vector2.Zero;
@@ -140,35 +140,35 @@ namespace CloudberryKingdom
             // Fill the hat list
             Hat hat;
             hat = new Hat("None");
-            hat.Name = "None";
+            hat.Name = Localization.Words.None;
             hat.Guid = 19;
                 HatInfo.Add(hat);
                 Hat.None = hat;
 
 
             hat = new Hat("Hat_Viking");
-            hat.Name = "Viking";
+            hat.Name = Localization.Words.Viking;
             hat.Price = Hat.Expensive;
             hat.Guid = 20;
                 hat.HatPicShift = new Vector2(-.02f, .075f);
 				HatInfo.Add(hat);
 				Hat.Viking = hat;
             hat = new Hat("Hat_Fedora");
-            hat.Name = "Fedora";
+            hat.Name = Localization.Words.Fedora;
             hat.Price = Hat.Cheap;
             hat.Guid = 21;
                 hat.HatPicScale *= 1.075f;
 				HatInfo.Add(hat);                
 				Hat.Fedora = hat;
             hat = new Hat("Hat_Afro");
-            hat.Name = "Afro";
+            hat.Name = Localization.Words.Afro;
             hat.Price = Hat.Mid;
             hat.Guid = 22;
                 hat.HatPicScale *= 1.065f;
                 HatInfo.Add(hat);
                 Hat.Afro = hat;
             hat = new Hat("Hat_Halo");
-            hat.Name = "Halo";
+            hat.Name = Localization.Words.Halo;
             hat.Price = Hat.Mid;
             hat.Guid = 23;
                 hat.HatPicScale *= 1.07f;
@@ -176,7 +176,7 @@ namespace CloudberryKingdom
                 HatInfo.Add(hat);
                 Hat.Halo = hat;
             hat = new Hat("Hat_FireHead", false);
-            hat.Name = "Firehead";
+            hat.Name = Localization.Words.Firehead;
             hat.Price = Hat.Expensive;
             hat.Guid = 24;
                 hat.HatPicTexture = Fireball.FlameTexture;
@@ -184,7 +184,7 @@ namespace CloudberryKingdom
                 HatInfo.Add(hat);
                 Hat.FireHead = hat;
             //hat = new Hat("Hat_Ghost");
-            //hat.Name = "Ghost";
+            //hat.Name = Localization.Words.Ghost;
             //hat.Price = Hat.Cheap;
             //hat.Guid = 25;
             //    hat.HatPicScale *= .8f;
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
             //    HatInfo.Add(hat);
             //    Hat.CheckpointHead = hat;
             hat = new Hat("Hat_Horns", true, false);
-            hat.Name = "Horns";
+            hat.Name = Localization.Words.Horns;
             hat.Price = Hat.Mid;
             hat.Guid = 27;
                 hat.HatPicTexture = Tools.TextureWad.FindByName("HatPic_Horns");
@@ -254,7 +254,7 @@ namespace CloudberryKingdom
             //    HatInfo.Add(hat);
             //    Hat.Pink = hat;
             hat = new Hat("Hat_Bubble", true);
-            hat.Name = "Bubble";
+            hat.Name = Localization.Words.Bubble;
             hat.DrawHead = false;
             hat.Price = Hat.Mid;
             hat.Guid = 36;
@@ -266,7 +266,7 @@ float ScaleNew = 1.35f;
 float DefaultShiftX = -.35f;
 
             hat = new Hat("Hat_TopHat");
-            hat.Name = "Mmm, yes, indeed.";
+            hat.Name = Localization.Words.TopHat;
             hat.Price = Hat.Expensive;
             hat.Guid = 37;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -274,7 +274,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.TopHat = hat;
             hat = new Hat("Hat_Knight", false);
-            hat.Name = "Sir Arthur";
+            hat.Name = Localization.Words.KnightHelmet;
             hat.Price = Hat.Expensive;
             hat.Guid = 38;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .105f);
@@ -282,7 +282,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.Knight = hat;
             hat = new Hat("Hat_Toad");
-            hat.Name = "Trippy";
+            hat.Name = Localization.Words.MushroomHat;
             hat.Price = Hat.Expensive;
             hat.Guid = 39;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -290,7 +290,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.Toad = hat;
             hat = new Hat("Hat_BubbleBobble");
-            hat.Name = "Om Nom Nom";
+            hat.Name = Localization.Words.OmNomNom;
             hat.Price = Hat.Expensive;
             hat.Guid = 40;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -299,7 +299,7 @@ float DefaultShiftX = -.35f;
 				Hat.BubbleBobble = hat;
             hat = new Hat("Hat_Brain");
             hat.DrawHead = false;
-            hat.Name = "BRAAAINS";
+            hat.Name = Localization.Words.BrainHat;
             hat.Price = Hat.Expensive;
             hat.Guid = 41;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -308,7 +308,7 @@ float DefaultShiftX = -.35f;
 				HatInfo.Add(hat);
 				Hat.Brain = hat;
             hat = new Hat("Hat_Gosu");
-            hat.Name = "Gosu";
+            hat.Name = Localization.Words.Gosu;
             hat.Price = Hat.Expensive;
             hat.Guid = 42;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -321,7 +321,7 @@ float DefaultShiftX = -.35f;
             // Buyables
             Hat.RobinHood = 
             hat = new Hat("Hat_RobinHood");
-            hat.Name = "Bob in Tights";
+            hat.Name = Localization.Words.RobinHood;
             hat.Price = Hat.Mid;
             hat.Guid = 1;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -330,7 +330,7 @@ float DefaultShiftX = -.35f;
 
             Hat.Rasta = 
             hat = new Hat("Hat_Rasta");
-            hat.Name = "Reggae";
+            hat.Name = Localization.Words.Reggae;
             hat.Price = Hat.Mid;
             hat.Guid = 2;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -340,7 +340,7 @@ float DefaultShiftX = -.35f;
             Hat.Pumpkin = 
             hat = new Hat("Hat_Pumpkin");
             hat.DrawHead = false;
-            hat.Name = "Pumpkin";
+            hat.Name = Localization.Words.Pumpkin;
             hat.Price = Hat.Mid;
             hat.Guid = 3;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -350,7 +350,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Pirate = 
             hat = new Hat("Hat_Pirate");
-            hat.Name = "ARRRGGG";
+            hat.Name = Localization.Words.PirateHat;
             hat.Price = Hat.Expensive;
             hat.Guid = 4;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -359,7 +359,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Miner = 
             hat = new Hat("Hat_Miner");
-            hat.Name = "Men at Work";
+            hat.Name = Localization.Words.HardHat;
             hat.Price = Hat.Cheap;
             hat.Guid = 5;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -368,7 +368,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Glasses = 
             hat = new Hat("Hat_Glasses");
-            hat.Name = "Four Eyes";
+            hat.Name = Localization.Words.FourEyes;
             hat.Price = Hat.Mid;
             hat.Guid = 6;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .1f);
@@ -377,7 +377,7 @@ float DefaultShiftX = -.35f;
 			
             Hat.BunnyEars = 
             hat = new Hat("Hat_BunnyEars");
-            hat.Name = "Bunny Ears";
+            hat.Name = Localization.Words.BunnyEars;
             hat.Price = Hat.Mid;
             hat.Guid = 7;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
@@ -393,7 +393,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Antlers = 
             hat = new Hat("Hat_Antlers");
-            hat.Name = "The Great Stag";
+            hat.Name = Localization.Words.Antlers;
             hat.Price = Hat.Mid;
             hat.Guid = 9;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
@@ -402,7 +402,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Arrow = 
             hat = new Hat("Hat_Arrow");
-            hat.Name = "Custer";
+            hat.Name = Localization.Words.ArrowThroughHead;
             hat.Price = Hat.Expensive;
             hat.Guid = 10;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -411,7 +411,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Bag = 
             hat = new Hat("Hat_Bag");
-            hat.Name = "Brown Bag";
+            hat.Name = Localization.Words.BrownBag;
             hat.DrawHead = false;
             hat.Price = Hat.Cheap;
             hat.Guid = 11;
@@ -422,7 +422,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Cone = 
             hat = new Hat("Hat_Cone");
-            hat.Name = "Traffic Cone";
+            hat.Name = Localization.Words.TrafficCone;
             hat.Price = Hat.Cheap;
             hat.Guid = 12;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -431,7 +431,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Pope = 
             hat = new Hat("Hat_Pope");
-            hat.Name = "Pope Hat";
+            hat.Name = Localization.Words.PopeHat;
             hat.Price = Hat.Expensive;
             hat.Guid = 13;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -440,7 +440,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Rice = 
             hat = new Hat("Hat_Rice");
-            hat.Name = "Rice Hat";
+            hat.Name = Localization.Words.RiceHat;
             hat.Price = Hat.Cheap;
             hat.Guid = 14;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -449,7 +449,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Santa = 
             hat = new Hat("Hat_Santa");
-            hat.Name = "Santa Claus";
+            hat.Name = Localization.Words.SantaClaus;
             hat.Price = Hat.Expensive;
             hat.Guid = 15;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -458,7 +458,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Sombrero = 
             hat = new Hat("Hat_Sombrero");
-            hat.Name = "Sombrero";
+            hat.Name = Localization.Words.Sombrero;
             hat.Price = Hat.Cheap;
             hat.Guid = 16;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -468,7 +468,7 @@ float DefaultShiftX = -.35f;
             Hat.Tiki = 
             hat = new Hat("Hat_Tiki");
             hat.DrawHead = false;
-            hat.Name = "Tiki Mask";
+            hat.Name = Localization.Words.TikiMask;
             hat.Price = Hat.Mid;
             hat.Guid = 17;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -477,7 +477,7 @@ float DefaultShiftX = -.35f;
 				
             Hat.Wizard = 
             hat = new Hat("Hat_Wizard");
-            hat.Name = "Wizard";
+            hat.Name = Localization.Words.Wizard;
             hat.Price = Hat.Mid;
             hat.Guid = 18;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.015f);
@@ -491,7 +491,7 @@ float DefaultShiftX = -.35f;
 #endif
 
             for (int i = 0; i < HatInfo.Count; i++)
-                HatList.Add(new MenuListItem(i, ""));
+                HatList.Add(new MenuListItem(i, Localization.Words.None));
 
             
             //hat = new Hat("Hat_Cattails", true, false);
@@ -515,30 +515,30 @@ float DefaultShiftX = -.35f;
             //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
 
             // Fill the skin color list
-            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),  "White"));    // 0
-            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),   "Silver"));   // 1
-            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),   "Gray"));     // 2
+            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),  Localization.Words.White));    // 0
+            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),   Localization.Words.Silver));   // 1
+            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),   Localization.Words.Gray));     // 2
             ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
-                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),    "Black"));    // 3
+                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),    Localization.Words.Black));    // 3
 
-            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      "Cyan"));     // 4  
-            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     "Blue"));     // 5
-            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      "Teal"));     // 6
-            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  "Indigo"));   // 7
-            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), "Purple"));  // 8
-            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),"Brown"));        // 9
+            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      Localization.Words.Cyan));     // 4  
+            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     Localization.Words.Blue));     // 5
+            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      Localization.Words.Teal));     // 6
+            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  Localization.Words.Indigo));   // 7
+            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), Localization.Words.Purple));  // 8
+            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80), Localization.Words.Brown));        // 9
             ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
-                                      ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), "Red")); // 10
-            ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), "Hot Pink"));     // 11
-            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110),  "Orange"));        // 12
-            ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), "Gold"));         // 13
-            ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), "Yellow"));       // 14
-            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0),       "Green"));              // 15
-            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), "Lime Green"));    // 16
-            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0),    "Forest Green"));     // 17
+                                      ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), Localization.Words.Red)); // 10
+            ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), Localization.Words.HotPink));     // 11
+            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110),  Localization.Words.Orange));        // 12
+            ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), Localization.Words.Gold));         // 13
+            ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), Localization.Words.Yellow));       // 14
+            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0),       Localization.Words.Green));              // 15
+            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), Localization.Words.LimeGreen));    // 16
+            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0),    Localization.Words.ForestGreen));     // 17
             
-            ColorList.Add(_i(3518, 0, ColorHelper.GrayColor(.2f), ColorHelper.HsvTransform(0, 0, 1),     "Ninja"));     // 18
-            ColorList.Add(_i(3519, 0, Color.White,                ColorHelper.HsvTransform(1.75f, 0, 1), "Bright White"));     // 19
+            ColorList.Add(_i(3518, 0, ColorHelper.GrayColor(.2f), ColorHelper.HsvTransform(0, 0, 1),     Localization.Words.Ninja));     // 18
+            ColorList.Add(_i(3519, 0, Color.White,                ColorHelper.HsvTransform(1.75f, 0, 1), Localization.Words.BrightWhite));     // 19
 
             
 
@@ -555,15 +555,15 @@ float DefaultShiftX = -.35f;
 
              */
             var m = new Matrix(); m.M11 = m.M12 = m.M13 = m.M14 = m.M21 = m.M22 = m.M23 = m.M24 = m.M31 = m.M32 = m.M33 = m.M34 = m.M41 = m.M42 = m.M43 = m.M44 = 0;
-            MenuListItem NoTexture = _i(3524, 0, Color.Transparent, m, "Clear"); // 6
+            MenuListItem NoTexture = _i(3524, 0, Color.Transparent, m, Localization.Words.Clear); // 6
             TextureList.Add(NoTexture);
 
 
             // Fill the cape color list
             ClrTextFx cape;
             None = new ClrTextFx(3525, 0, new Color(1f, 1f, 1f, 0f), Matrix.Identity);
-            None.Name = "None";
-            CapeColorList.Add(new MenuListItem(None, "None"));
+            None.Name = Localization.Words.None;
+            CapeColorList.Add(new MenuListItem(None, Localization.Words.None));
             CapeColorList.AddRange(ColorList);
 
             // Fill the outline color list
@@ -578,7 +578,7 @@ float DefaultShiftX = -.35f;
                 color.A = clr.A;
                 ClrTextFx capeoutline = (ClrTextFx)item.obj;
                 capeoutline.Clr = color;
-                CapeOutlineColorList.Add(new MenuListItem(capeoutline, item.str));
+                CapeOutlineColorList.Add(new MenuListItem(capeoutline, item.word));
             }
 
             // Add textures to skin color list and cape color list
@@ -590,17 +590,17 @@ float DefaultShiftX = -.35f;
             Vector2 fx_scale = new Vector2(.875f, 1.195f) * .98f;
 
             //fx = new ClrTextFx(3526, 500, Color.White, "FallingBlock2", false, "FallingBlock2");
-            //fx.Name = "Concern";
+            //fx.Name = "Concern;
             //fx.PicScale = fx_scale;
             //CapeColorList.Add(new MenuListItem(fx, "ConcernedCape"));
 
             //fx = new ClrTextFx(3527, 500, Color.White, "FallingBlock3", false, "FallingBlock3");
-            //fx.Name = "AAAaahhh!";
+            //fx.Name = "AAAaahhh!;
             //fx.PicScale = fx_scale;
             //CapeColorList.Add(new MenuListItem(fx, "ScreamingCape"));
 
             //fx = new ClrTextFx(3528, 500, Color.White, "Capes\\FallingBlock4Cape", false, "FallingBlock4");
-            //fx.Name = "Anger";
+            //fx.Name = "Anger;
             //fx.PicScale = fx_scale * new Vector2(1.022f, 1.028f);
             //CapeColorList.Add(new MenuListItem(fx, "AngryCape"));
 
@@ -610,7 +610,7 @@ float DefaultShiftX = -.35f;
             {
                 cape = (ClrTextFx)item.obj;
                 cape.ModObject = CapeOn;
-                NewCapeList.Add(new MenuListItem(cape, item.str));
+                NewCapeList.Add(new MenuListItem(cape, item.word));
             }
             CapeColorList = NewCapeList;
 
@@ -659,13 +659,13 @@ float DefaultShiftX = -.35f;
             // Create the default color schemes
             ColorScheme scheme;
 
-            AddScheme(new ColorScheme("Green", "Red", "Black", "", ""), true);
-            AddScheme(new ColorScheme("Gray", "Red", "Black", "", Hat.Mustache.Name), false);
-            AddScheme(new ColorScheme("Hot Pink", "Hot Pink", "Hot Pink", Hat.BunnyEars.Name, Hat.Beard.Name), false);
-            AddScheme(new ColorScheme("Gold", "Gold", "Gold", "", ""), false);
-            AddScheme(new ColorScheme("Purple", "Indigo", "Hot Pink", "None", "Vandyke"), false);
-            AddScheme(new ColorScheme("Forest Green", "Yellow", "Gold", "Rice Hat", "Rugged"), false);
-            AddScheme(new ColorScheme("Red", "None", "None", "The Great Stag", "Vandyke"), false);
+            AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
+            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
+            AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
+            AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
+            AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
+            AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
         }
     }
 }

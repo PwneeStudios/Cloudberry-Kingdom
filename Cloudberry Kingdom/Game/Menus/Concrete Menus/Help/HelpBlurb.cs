@@ -26,18 +26,18 @@ namespace CloudberryKingdom
             SlideInFrom = SlideOutTo = PresetPos.Right;
         }
 
-        public Action SetText_Action(string text)
+        public Action SetText_Action(Localization.Words Word)
         {
-            return () => SetText(text);
+            return () => SetText(Word);
         }
 
-        public void SetText(string text)
+        public void SetText(Localization.Words Word)
         {
             // Erase previous text
             MyPile.MyTextList.Clear();
 
             // Add the new text
-            EzText Text = new EzText(text, ItemFont, 800, false, false, .575f);
+            EzText Text = new EzText(Word, ItemFont, 800, false, false, .575f);
             Text.Pos = new Vector2(-139.4445f, 536.1113f);
             Text.Scale *= .74f;
             MyPile.Add(Text);

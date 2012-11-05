@@ -12,17 +12,18 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            string Text = "Remove " + PlayerManager.Get(Control).GetName() + "?";
-            EzText HeaderText = new EzText(Text, ItemFont);
+            EzText HeaderText = new EzText(Localization.Words.RemovePlayerQuestion, ItemFont, true);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
             HeaderText.Pos = HeaderPos;
 
+            string PlayerName = PlayerManager.Get(Control).GetName();
+            var PlayerText = new EzText(PlayerName, ItemFont, true);
+            SetHeaderProperties(PlayerText);
+            MyPile.Add(PlayerText);
 
             // Yes
-            item = new MenuItem(new EzText("Yes", ItemFont));
-            //item.SetIcon(ObjectIcon.RobotIcon.Clone());
-            //item.Icon.Pos = IconOffset;
+            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Go = _item =>
             {
                 if (PlayerManager.GetNumPlayers() > 1)
@@ -37,9 +38,7 @@ namespace CloudberryKingdom
             item.SelectSound = null;
 
             // No
-            item = new MenuItem(new EzText("No", ItemFont));
-            //item.SetIcon(ObjectIcon.RobotIcon.Clone());
-            //item.Icon.Pos = IconOffset;
+            item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Go = menuitem => ReturnToCaller();
             AddItem(item);
             item.SelectSound = null;

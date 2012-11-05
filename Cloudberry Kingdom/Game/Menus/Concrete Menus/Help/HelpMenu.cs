@@ -255,7 +255,7 @@ namespace CloudberryKingdom
             MenuToggle toggle;
 
             // Header
-            EzText HeaderText = new EzText("Coins", ItemFont);
+            EzText HeaderText = new EzText(Localization.Words.Coins, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText, "Header");
             HeaderText.Pos = new Vector2(-1663.889f, 971.8889f);
@@ -275,7 +275,7 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-1033.333f, 429.4446f);
             PosAdd = new Vector2(0, -520);
             AddItem(item);
-            item.AdditionalOnSelect = Blurb.SetText_Action("Watch the computer to see how it's done!");
+            item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.WatchComputer);
 
             // Show path
             if (On_ShowPath())
@@ -293,7 +293,7 @@ namespace CloudberryKingdom
             item.SetIcon(ObjectIcon.PathIcon.Clone());
             item.Icon.Pos = IconOffset + new Vector2(-20, -75);
             AddItem(item);
-            item.AdditionalOnSelect = Blurb.SetText_Action("Show a path through the level while you play.");
+            item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.ShowPath);
             Item_ShowPath = item;
 
             // Slow mo
@@ -312,7 +312,7 @@ namespace CloudberryKingdom
             item.SetIcon(ObjectIcon.SlowMoIcon.Clone());
             item.Icon.Pos = IconOffset + new Vector2(-20, -55);
             AddItem(item);
-            item.AdditionalOnSelect = Blurb.SetText_Action(Text_SlowMo());
+            item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.ActivateSlowMo);
             Item_SlowMo = item;
 
             MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
@@ -343,11 +343,6 @@ namespace CloudberryKingdom
             _q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-798.1558f, 634.4669f); _q.Size = new Vector2(110.5714f, 110.5714f); }
 
             MyPile.Pos = new Vector2(0f, 0f);
-        }
-
-        private static string Text_SlowMo()
-        {
-            return string.Format("Activate {0}Slow\nMotion{1}! Toggle\n with {2}.", EzText.ColorToMarkup(205, 10, 10, -35, null), EzText.ColorToMarkup(Color.White, -35, null), ButtonString.X(86));
         }
 
         protected override void AddItem(MenuItem item)

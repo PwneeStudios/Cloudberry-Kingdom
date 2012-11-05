@@ -20,7 +20,8 @@ namespace CloudberryKingdom
         /// </summary>
         public override string ToString()
         {
-            return "Score " +
+            Tools.Warning();
+            return Localization.WordString(Localization.Words.Score) + " " +
                 GetScore().ToString();
         }
 
