@@ -7,6 +7,44 @@ using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
+    class EOL_StringWorldDoorActionProxy : Lambda_1<Door>
+    {
+        StringWorldGameData gameData;
+
+        public EOL_StringWorldDoorActionProxy(StringWorldGameData gameData)
+        {
+            this.gameData = gameData;
+        }
+
+        public void Apply(Door door)
+        {
+            gameData.EOL_StringWorldDoorAction(door);
+        }
+    }
+
+    class EOL_StringWorldDoorEndActionProxy : Lambda_1<Door>
+    {
+        StringWorldGameData gameData;
+
+        public EOL_StringWorldDoorEndActionProxy(StringWorldGameData gameData)
+        {
+            this.gameData = gameData;
+        }
+
+        public void Apply(Door door)
+        {
+            gameData.EOL_StringWorldDoorEndAction(door);
+        }
+    }
+
+    class EOG_StandardDoorActionProxy : Lambda_1<Door>
+    {
+        public void Apply(Door door)
+        {
+            StringWorldGameData.EOG_StandardDoorAction(door);
+        }
+    }
+    
     public class StringWorldGameData : GameData
     {
         public static new GameData Factory(LevelSeedData data, bool MakeInBackground)
@@ -217,7 +255,7 @@ namespace CloudberryKingdom
 
                     Door door = obj as Door;
                     if (null != door)
-                        door.OnOpen = EOG_DoorAction;
+                        door.OnOpen = new EOG_StandardDoorActionProxy();
                 }
 
                 // Replace all Bobs with new Bobs (to handle newly joined players)
@@ -480,16 +518,6 @@ namespace CloudberryKingdom
         /// <summary>
         /// Attached to the last door of the last level.
         /// </summary>
-        public Lambda_1<Door> EOG_DoorAction = EOG_StandardDoorAction;
-
-        class EOG_StandardDoorActionHandler : Lambda_1<Door>
-        {
-            public void Apply(Door t)
-            {
-                throw new NotImplementedException();
-            }
-        };
-
         public static void EOG_StandardDoorAction(Door door)
         {
             Tools.CurrentAftermath = new AftermathData();
@@ -530,7 +558,7 @@ namespace CloudberryKingdom
                         PlayerManager.AbsorbLevelStats();
                     });
 
-                if (door.OnEnter != null) door.OnEnter(door);
+                if (door.OnEnter != null) door.OnEnter.Apply(door);
             }
         }
 

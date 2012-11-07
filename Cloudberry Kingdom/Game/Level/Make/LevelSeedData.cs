@@ -111,6 +111,21 @@ namespace CloudberryKingdom
             level.MyGame.AddGameObject(new FadeInObject());
         }
 
+        class EOL_StringWorldDoorEndAction_WithFadeProxy : Lambda_1<Door>
+        {
+            StringWorldGameData gameData;
+
+            public EOL_StringWorldDoorEndAction_WithFadeProxy(StringWorldGameData gameData)
+            {
+                this.gameData = gameData;
+            }
+
+            public void Apply(Door door)
+            {
+                gameData.EOL_StringWorldDoorEndAction_WithFade(door);
+            }
+        }
+
         private static void _FadeOut_Process(Level level)
         {
             StringWorldGameData stringworld = Tools.WorldMap as StringWorldGameData;
@@ -118,7 +133,7 @@ namespace CloudberryKingdom
 
             if (null != stringworld && null != door)
             {
-                door.OnEnter = stringworld.EOL_StringWorldDoorEndAction_WithFade;
+                door.OnEnter = new EOL_StringWorldDoorEndAction_WithFadeProxy(stringworld);
             }
         }
         #endregion
@@ -611,6 +626,14 @@ namespace CloudberryKingdom
             level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
         }
 
+        class EOL_DoorActionProxy : Lambda_1<Door>
+        {
+            public void Apply(Door door)
+            {
+                GameData.EOL_DoorAction(door);
+            }
+        }
+
         public static void PostMake_Standard(Level level, bool StartMusic, bool ShowMultiplier)
         {
             AddGameObjects_Default(level, false, ShowMultiplier);
@@ -619,7 +642,7 @@ namespace CloudberryKingdom
                 level.MyGame.WaitThenDo(8, BOL_StartMusic);
 
             ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
-            door.OnOpen = d => GameData.EOL_DoorAction(d);
+            door.OnOpen = new EOL_DoorActionProxy();
 
             level.StartRecording();
         }
