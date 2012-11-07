@@ -7,12 +7,45 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Particles
 {
+    public class ParticleEmitterBin
+    {
+        Stack<ParticleEmitter> MyStack;
+
+        public ParticleEmitterBin()
+        {
+            const int capacity = 20;
+            MyStack = new Stack<ParticleEmitter>(capacity);
+            for (int i = 0; i < capacity; ++i)
+                MyStack.Push(new ParticleEmitter(300));
+        }
+
+        public ParticleEmitter Get()
+        {
+            ParticleEmitter item = null;
+
+            lock (MyStack)
+            {
+                if (MyStack.Count == 0)
+                    return new ParticleEmitter(300);
+
+                item = MyStack.Pop();
+            }
+
+            return item;
+        }
+
+        public void ReturnItem(ParticleEmitter item)
+        {
+            lock (MyStack)
+            {
+                MyStack.Push(item);
+            }
+        }
+    }
+
     public class ParticleEmitter
     {
-        public static Bin<ParticleEmitter> Pool = new Bin<ParticleEmitter>(
-            () => new ParticleEmitter(300),
-            emitter => { },
-            20);
+        public static ParticleEmitterBin Pool = new ParticleEmitterBin();
 
         public EzTexture MyTexture;
 

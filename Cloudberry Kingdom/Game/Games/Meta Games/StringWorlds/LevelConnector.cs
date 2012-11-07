@@ -20,7 +20,7 @@ namespace CloudberryKingdom
     public interface ILevelConnector
     {
         LevelSeedData NextLevelSeedData { get; set; }
-        DoorAction OnOpen { get; set; }
-        DoorAction OnEnter { get; set; }
+        Lambda_1<Door> OnOpen { get; set; }
+        Lambda_1<Door> OnEnter { get; set; }
     }
 }

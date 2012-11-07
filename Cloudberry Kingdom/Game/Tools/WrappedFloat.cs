@@ -36,7 +36,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public Action SetCallback;
+        public Lambda SetCallback;
         public Func<float> GetCallback;
 
         public WrappedFloat() { }
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
         {
             MyFloat = Math.Min(MaxVal, Math.Max(MinVal, val));
             if (SetCallback != null)
-                SetCallback();
+                SetCallback.Apply();
         }
 
         public float Spread { get { return MaxVal - MinVal; } }

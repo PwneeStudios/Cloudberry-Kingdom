@@ -35,6 +35,21 @@ namespace CloudberryKingdom
             Constructor();
         }
 
+        class SliderSetProxy : Lambda
+        {
+            ScrollBar Sb;
+
+            public SliderSetProxy(ScrollBar sb)
+            {
+                Sb = sb;
+            }
+
+            public void Apply()
+            {
+                Sb.SliderSet();
+            }
+        }
+
         MenuSlider slider;
         public override void Init()
         {
@@ -68,7 +83,7 @@ namespace CloudberryKingdom
 
             Height = AttachedMenu.Height();
             slider.MyFloat.GetCallback = SliderGet;
-            slider.MyFloat.SetCallback = SliderSet;
+            slider.MyFloat.SetCallback = new SliderSetProxy(this);
             slider.MyFloat.MaxVal = Height;
             slider.MyFloat.MinVal = 0;
 

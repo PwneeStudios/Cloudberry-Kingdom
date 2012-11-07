@@ -5,7 +5,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    interface Lambda
+    public interface Lambda
     {
         void Apply();
     }

@@ -10,6 +10,24 @@ namespace CloudberryKingdom.Levels
 {
     public partial class Level
     {
+        class DoorLocker : Lambda_1<Door>
+        {
+            int Length;
+
+            public DoorLocker(int Length)
+            {
+                this.Length = Length;
+            }
+
+            public void Apply(Door me)
+            {
+                if (me.Core.GetPhsxStep() > Length)
+                    me.SetLock(false);
+                else
+                    me.SetLock(true);
+            }
+        }
+
         public bool MakeOneScreen(int Length, int ReturnEarly, MakeData makeData)
         {
             CurMakeData = makeData;
@@ -65,13 +83,7 @@ namespace CloudberryKingdom.Levels
             pos = new Vector2(MainPlatform.Box.TR.X - 300, 0);
             door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSets.None);
             MakeFinalDoor.SetFinalDoor(door, this, pos);
-            door.ExtraPhsx = me =>
-                {
-                    if (me.Core.GetPhsxStep() > Length)
-                        me.SetLock(false);
-                    else
-                        me.SetLock(true);
-                };
+            door.ExtraPhsx = new DoorLocker(Length);
 
             door.MyBackblock.Core.MyTileSet = "castle";
             door.MyBackblock.Extend(Side.Right, MainPlatform.Box.TR.X - 30);

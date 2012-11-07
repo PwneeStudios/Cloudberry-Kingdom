@@ -177,45 +177,6 @@ namespace CloudberryKingdom
         }
     }
 
-    public class Bin<T> where T : class
-    {
-        Func<T> CreateNew;
-        Action<T> MakeNew;
-        Stack<T> MyStack;
-        public Bin(Func<T> CreateNew, Action<T> MakeNew, int capacity)
-        {
-            this.CreateNew = CreateNew;
-            this.MakeNew = MakeNew;
-            MyStack = new Stack<T>(capacity);
-
-            for (int i = 0; i < capacity; i++)
-                MyStack.Push(CreateNew());
-        }
-
-        public T Get()
-        {
-            T item = null;
-
-            lock (MyStack)
-            {
-                if (MyStack.Count == 0)
-                    return CreateNew();
-
-                item = MyStack.Pop();
-                MakeNew(item);
-            }
-
-            return item;
-        }
-        public void ReturnItem(T T)
-        {
-            lock (MyStack)
-            {
-                MyStack.Push(T);
-            }
-        }
-    }
-
     public class Recycler
     {
         static int MetaCount = 0;

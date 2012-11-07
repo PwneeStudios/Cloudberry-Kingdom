@@ -200,6 +200,13 @@ namespace CloudberryKingdom
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
+        class UpdateVolumeProxy : Lambda
+        {
+            public void Apply()
+            {
+                Tools.UpdateVolume();
+            }
+        }
 
         public void Initialize()
         {
@@ -223,7 +230,7 @@ namespace CloudberryKingdom
             Tools.MusicVolume.MinVal = 0;
             Tools.MusicVolume.MaxVal = 1;
             Tools.MusicVolume.Val = 1;
-            Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
+            Tools.MusicVolume.SetCallback = new UpdateVolumeProxy();
 
 #if DEBUG || INCLUDE_EDITOR
             Tools.SoundVolume.Val = 0;

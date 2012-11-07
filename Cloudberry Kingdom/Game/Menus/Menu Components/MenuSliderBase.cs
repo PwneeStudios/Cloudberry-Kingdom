@@ -47,6 +47,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class SetCallbackProxy : Lambda
+        {
+            MenuSliderBase Msb;
+
+            public SetCallbackProxy(MenuSliderBase msb)
+            {
+                Msb = msb;
+            }
+
+            public void Apply()
+            {
+                Msb.SetCallback();
+            }
+        }
+
         public WrappedFloat _MyFloat;
         public WrappedFloat MyFloat
         {
@@ -54,7 +69,7 @@ namespace CloudberryKingdom
             set
             {
                 _MyFloat = value;
-                _MyFloat.SetCallback = SetCallback;
+                _MyFloat.SetCallback = new SetCallbackProxy(this);
                 SetCallback();
             }
         }

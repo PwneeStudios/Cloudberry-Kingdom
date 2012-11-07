@@ -7,12 +7,45 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Particles
 {
+    public class ParticleBin
+    {
+        Stack<Particle> MyStack;
+
+        public ParticleBin()
+        {
+            MyStack = new Stack<Particle>(1000);
+
+            for (int i = 0; i < 1000; i++)
+                MyStack.Push(new Particle());
+        }
+
+        public Particle Get()
+        {
+            Particle item = null;
+
+            lock (MyStack)
+            {
+                if (MyStack.Count == 0)
+                    return new Particle();
+
+                item = MyStack.Pop();
+            }
+
+            return item;
+        }
+
+        public void ReturnItem(Particle item)
+        {
+            lock (MyStack)
+            {
+                MyStack.Push(item);
+            }
+        }
+    }
+
     public class Particle
     {
-        public static Bin<Particle> Pool = new Bin<Particle>(
-            () => new Particle(),
-            particle => { },
-            1000);
+        public static ParticleBin Pool = new ParticleBin();
 
         public void Recycle()
         {

@@ -5,7 +5,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    interface Lambda_2<T1, T2>
+    public interface Lambda_2<T1, T2>
     {
         void Apply(T1 t1, T2 t2);
     }

@@ -37,7 +37,11 @@ namespace CloudberryKingdom
 
         public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
+#if DEBUG
+            bool CanSkip = true;
+#else
             bool CanSkip = UserPowers.WatchedVideo[MovieName];
+#endif
             StartVideo(MovieName, CanSkip, 100000);
         }
 

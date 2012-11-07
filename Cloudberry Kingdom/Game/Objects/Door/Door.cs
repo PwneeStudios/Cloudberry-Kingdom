@@ -11,7 +11,6 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.InGameObjects
 {
-    public delegate void DoorAction(Door door);
     public class Door : ObjectBase, ILevelConnector
     {
         public class DoorTileInfo : TileInfoBase
@@ -58,12 +57,12 @@ namespace CloudberryKingdom.InGameObjects
 
         public QuadClass MyQuad;
 
-        DoorAction _OnOpen;
-        public DoorAction OnOpen { get { return _OnOpen; } set { _OnOpen = value; } }
+        Lambda_1<Door> _OnOpen;
+        public Lambda_1<Door> OnOpen { get { return _OnOpen; } set { _OnOpen = value; } }
 
-        DoorAction _OnEnter;
-        public DoorAction OnEnter { get { return _OnEnter; } set { _OnEnter = value; } }
-        public DoorAction ExtraPhsx;
+        Lambda_1<Door> _OnEnter;
+        public Lambda_1<Door> OnEnter { get { return _OnEnter; } set { _OnEnter = value; } }
+        public Lambda_1<Door> ExtraPhsx;
 
         PressNote MyPressNote;
 
@@ -289,7 +288,7 @@ namespace CloudberryKingdom.InGameObjects
             DoShake();
 
             if (ExtraPhsx != null)
-                ExtraPhsx(this);
+                ExtraPhsx.Apply(this);
         }
 
         bool OnScreen()
@@ -483,7 +482,7 @@ namespace CloudberryKingdom.InGameObjects
                 TemporaryBlock = false;
         }
 
-        public void Do() { OnOpen(this); }
+        public void Do() { OnOpen.Apply(this); }
 
         public void HaveBobUseDoor(Bob bob)
         {
@@ -492,7 +491,7 @@ namespace CloudberryKingdom.InGameObjects
 
             if (!TemporaryBlock)
             {
-                OnOpen(this);
+                OnOpen.Apply(this);
                 DoorOperated++;
             }
         }

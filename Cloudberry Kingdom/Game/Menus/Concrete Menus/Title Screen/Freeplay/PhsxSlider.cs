@@ -15,6 +15,23 @@ namespace CloudberryKingdom.Menus
 
         BobPhsx.CustomData MyType;
 
+        class PhsxDataSetter : Lambda
+        {
+            BobPhsx.CustomData MyType;
+            WrappedFloat MyFloat;
+
+            public PhsxDataSetter(BobPhsx.CustomData MyType, WrappedFloat MyFloat)
+            {
+                this.MyType = MyType;
+                this.MyFloat = MyFloat;
+            }
+
+            public void Apply()
+            {
+                CustomHero_GUI.HeroPhsxData[MyType] = MyFloat.Val;
+            }
+        }
+
         public PhsxSlider(Localization.Words word, BobPhsx.CustomData type)
             : base(new EzText(word, Font))
         {
@@ -30,7 +47,7 @@ namespace CloudberryKingdom.Menus
             Process(this);
             ScaleText(.33f);
 
-            MyFloat.SetCallback = () => CustomHero_GUI.HeroPhsxData[MyType] = MyFloat.Val;
+            MyFloat.SetCallback = new PhsxDataSetter(MyType, MyFloat);
 
             SliderShift = new Vector2(-296.6946f, -57.77405f);
 

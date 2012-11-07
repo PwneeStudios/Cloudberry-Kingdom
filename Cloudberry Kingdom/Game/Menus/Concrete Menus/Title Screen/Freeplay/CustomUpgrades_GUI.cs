@@ -90,6 +90,54 @@ namespace CloudberryKingdom
             item.MySelectedText.Shadow = item.MyText.Shadow = false;
         }
 
+        class BlockPieceSeedSetter : Lambda
+        {
+            CustomUpgrades_GUI gui;
+            Upgrade upgrade;
+            MenuSlider slider;
+
+            public BlockPieceSeedSetter(CustomUpgrades_GUI gui, Upgrade upgrade,
+                MenuSlider slider)
+            {
+                this.gui = gui;
+                this.upgrade = upgrade;
+                this.slider = slider;
+            }
+
+            public void Apply()
+            {
+                gui.PieceSeed.MyUpgrades1[upgrade] = slider.MyFloat.MyFloat;
+
+                // Set the Fallingblock to an O-face when maxed out
+                if (slider == gui.MyMenu.CurItem)
+                {
+                    PictureIcon pic = gui.BigIcon as PictureIcon;
+                    if (slider.MyFloat.Val > 7.6f) pic.IconQuad.TextureName = "fblock_castle_3";
+                    else if (slider.MyFloat.Val > 3.2f) pic.IconQuad.TextureName = "fblock_castle_2";
+                    else pic.IconQuad.TextureName = "fblock_castle_1";
+                }
+            }
+        }
+
+        class PieceSeedSetter : Lambda
+        {
+            CustomUpgrades_GUI gui;
+            Upgrade upgrade;
+            MenuSlider slider;
+
+            public PieceSeedSetter(CustomUpgrades_GUI gui, Upgrade upgrade, MenuSlider slider)
+            {
+                this.gui = gui;
+                this.upgrade = upgrade;
+                this.slider = slider;
+            }
+
+            public void Apply()
+            {
+                gui.PieceSeed.MyUpgrades1[upgrade] = slider.MyFloat.MyFloat;
+            }
+        }
+
         public ObjectIcon BigIcon;
         void AddUpgrade(Upgrade upgrade)
         {
@@ -106,22 +154,12 @@ namespace CloudberryKingdom
             // Keep the PieceSeed up to date when the slider changes
             if (upgrade == Upgrade.FallingBlock)
             {
-                slider.MyFloat.SetCallback = () =>
-                {
-                    PieceSeed.MyUpgrades1[upgrade] = slider.MyFloat.MyFloat;
-
-                    // Set the Fallingblock to an O-face when maxed out
-                    if (slider == MyMenu.CurItem)
-                    {
-                        PictureIcon pic = BigIcon as PictureIcon;
-                        if (slider.MyFloat.Val > 7.6f) pic.IconQuad.TextureName = "fblock_castle_3";
-                        else if (slider.MyFloat.Val > 3.2f) pic.IconQuad.TextureName = "fblock_castle_2";
-                        else pic.IconQuad.TextureName = "fblock_castle_1";
-                    }
-                };
+                slider.MyFloat.SetCallback = new BlockPieceSeedSetter(
+                    this, upgrade, slider
+                );
             }
             else
-                slider.MyFloat.SetCallback = () => PieceSeed.MyUpgrades1[upgrade] = slider.MyFloat.MyFloat;
+                slider.MyFloat.SetCallback = new PieceSeedSetter(this, upgrade, slider);
 
             slider.AdditionalOnSelect = () =>
                 {

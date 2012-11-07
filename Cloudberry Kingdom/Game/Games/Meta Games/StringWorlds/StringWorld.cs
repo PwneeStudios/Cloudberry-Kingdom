@@ -480,7 +480,16 @@ namespace CloudberryKingdom
         /// <summary>
         /// Attached to the last door of the last level.
         /// </summary>
-        public DoorAction EOG_DoorAction = EOG_StandardDoorAction;
+        public Lambda_1<Door> EOG_DoorAction = EOG_StandardDoorAction;
+
+        class EOG_StandardDoorActionHandler : Lambda_1<Door>
+        {
+            public void Apply(Door t)
+            {
+                throw new NotImplementedException();
+            }
+        };
+
         public static void EOG_StandardDoorAction(Door door)
         {
             Tools.CurrentAftermath = new AftermathData();
