@@ -14,9 +14,13 @@ namespace CloudberryKingdom
     public class ButtonTexture
     {
 #if PC_VERSION
-        public static EzTexture Go { get { return Tools.TextureWad.FindByName("EnterKey"); } }
+        public static EzTexture Go { get { return Tools.TextureWad.FindByName("Enter_Key"); } }
         public static EzTexture Back { get { return Tools.TextureWad.FindByName("Esc_Key"); } }
-        public static EzTexture X { get { return Tools.TextureWad.FindByName("Xbox_X"); } }
+        public static EzTexture X { get 
+        {
+            return ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary);
+            //return Tools.TextureWad.FindByName("Xbox_X");
+        } }
         public static EzTexture LeftRight { get { return Tools.TextureWad.FindByName("LeftRight_Key"); } }
         public static EzTexture LeftBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
         public static EzTexture RightBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }

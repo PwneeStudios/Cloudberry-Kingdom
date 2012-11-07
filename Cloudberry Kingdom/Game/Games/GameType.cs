@@ -264,10 +264,12 @@ namespace CloudberryKingdom
         {
             WaitThenDo(WaitLength, f, "");
         }
+        
         public void WaitThenDo(int WaitLength, Action f, string Name)
         {
             WaitThenDo(WaitLength, f, Name, false, false);
         }
+        
         public void WaitThenDo(int WaitLength, Action f, bool PauseOnPause)
         {
             WaitThenDo(WaitLength, f, "", PauseOnPause, false);
@@ -276,6 +278,7 @@ namespace CloudberryKingdom
         {
             WaitThenDo(WaitLength, f, "", true, false);
         }
+        
         public void CinematicToDo(int WaitLength, Action f)
         {
             WaitThenDo(WaitLength, f, "", true, true);

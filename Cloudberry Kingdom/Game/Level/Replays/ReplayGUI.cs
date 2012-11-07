@@ -138,6 +138,7 @@ namespace CloudberryKingdom
                 RB.Name = "Next";
                 SetGrayHeaderProperties(RB);
             }
+            SetSpeed();
 
             BigPaused = new QuadClass();
             BigPaused.SetToDefault();
@@ -166,30 +167,40 @@ namespace CloudberryKingdom
             if (Type == ReplayGUIType.Computer)
             {
                 EzText _t;
-                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-773.9557f, -832.2222f); _t.Scale = 0.44f; }
-                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-192.2225f, -829.4445f); _t.Scale = 0.44f; }
-                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(366.7781f, -835f); _t.Scale = 0.44f; }
-                _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(934.8892f, -835f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-723.9557f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2223f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(344.5559f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(1051.556f, -840.5555f); _t.Scale = 0.44f; }
 
                 QuadClass _q;
                 _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
                 _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(52.77765f, -2058.333f); _q.Size = new Vector2(1219.997f, 1219.997f); }
+                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-986.1118f, -908.3335f); _q.Size = new Vector2(129.5745f, 62.14285f); }
+                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-358.3335f, -911.1112f); _q.Size = new Vector2(71.56027f, 67.26665f); }
+                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(233.3336f, -913.8889f); _q.Size = new Vector2(72.85456f, 68.48328f); }
+                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(786.1108f, -916.6666f); _q.Size = new Vector2(74.98224f, 70.48331f); }
 
                 MyPile.Pos = new Vector2(0f, 0f);
             }
             else
             {
                 EzText _t;
-                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1083.334f, -827.778f); _t.Scale = 0.4145834f; }
-                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-549.9999f, -830.5555f); _t.Scale = 0.4147499f; }
-                _t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-138.8893f, -830.5555f); _t.Scale = 0.4139166f; }
-                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(419.4443f, -836.1107f); _t.Scale = 0.3873335f; }
-                _t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(933.3335f, -827.7777f); _t.Scale = 0.4208333f; }
-                _t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1341.666f, -824.9999f); _t.Scale = 0.4238334f; }
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4145834f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-472.2223f, -838.8888f); _t.Scale = 0.4147499f; }
+                _t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(11.11071f, -836.1111f); _t.Scale = 0.4139166f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(436.1108f, -836.1108f); _t.Scale = 0.3873335f; }
+                _t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(941.667f, -830.5555f); _t.Scale = 0.4208333f; }
+                _t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1361.11f, -833.3332f); _t.Scale = 0.4238334f; }
 
                 QuadClass _q;
                 _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
                 _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(108.3335f, -2330.556f); _q.Size = new Vector2(1500f, 1500f); }
+                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-1244.444f, -908.3333f); _q.Size = new Vector2(116.7162f, 55.97613f); }
+                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-688.8887f, -911.111f); _q.Size = new Vector2(66.06374f, 62.09991f); }
+                _q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(-213.8887f, -908.3332f); _q.Size = new Vector2(64.18431f, 60.33325f); }
+                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(352.7776f, -905.5555f); _q.Size = new Vector2(69.04251f, 64.89996f); }
+                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(727.7779f, -902.7776f); _q.Size = new Vector2(63.90063f, 60.0666f); }
+                _q = MyPile.FindQuad("Button_RB"); if (_q != null) { _q.Pos = new Vector2(1155.556f, -902.7778f); _q.Size = new Vector2(64.96447f, 61.0666f); }
 
                 MyPile.Pos = new Vector2(0f, 0f);
             }

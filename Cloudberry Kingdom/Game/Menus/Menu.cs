@@ -87,16 +87,7 @@ namespace CloudberryKingdom
             if (Items.Count > 0) s += "MenuItem _item;\n";
             foreach (MenuItem item in Items)
             {
-                string SelectedPos = "";
-                if (item.SelectedPos != item.Pos)
-                {
-                    var spos = item.SelectedPos;
-                    if (spos.Y == item.Pos.Y) spos.Y = -1;
-
-                    SelectedPos = string.Format("_item.SetSelectedPos({0});", Tools.ToCode(spos));
-                }
-
-                s += string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}\n", suffix, item.Name, Tools.ToCode(item.Pos), item.MyText.Scale, item.MySelectedText.Scale, Tools.ToCode(item.SelectIconOffset), SelectedPos);
+                s += item.ToCode(suffix) + "\n";
             }
 
             if (Items.Count > 0) s += "\n";

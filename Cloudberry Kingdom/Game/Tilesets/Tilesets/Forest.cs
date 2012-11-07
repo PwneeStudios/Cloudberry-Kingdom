@@ -7,7 +7,7 @@ namespace CloudberryKingdom
     {
         static TileSet Load_Forest()
         {
-            var t = GetOrMakeTileset("Cloud");
+            var t = GetOrMakeTileset("Forest");
             var info = t.MyTileSetInfo;
 
             t._Start();

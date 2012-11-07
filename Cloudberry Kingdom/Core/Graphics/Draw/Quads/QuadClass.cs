@@ -506,7 +506,7 @@ namespace CloudberryKingdom
         public QuadClass(EzTexture Texture, float Width, string Name)
         {
             Initialize(null, false, false);
-            Set(TextureName, Width);
+            Set(Texture, Width);
             this.Name = Name;
         }
         public QuadClass(EzTexture Texture, float Width, bool Fancy)

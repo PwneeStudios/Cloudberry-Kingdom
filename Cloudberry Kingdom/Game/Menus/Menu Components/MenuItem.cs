@@ -37,6 +37,20 @@ namespace CloudberryKingdom
                 SetPos += shift;
         }
 
+        public virtual string ToCode(string suffix)
+        {
+            string SelectedPosStr = "";
+            if (SelectedPos != Pos)
+            {
+                var spos = SelectedPos;
+                if (spos.Y == Pos.Y) spos.Y = -1;
+
+                SelectedPosStr = string.Format("_SetSelectedPos({0});", Tools.ToCode(spos));
+            }
+
+            return string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}", suffix, Name, Tools.ToCode(Pos), MyText.Scale, MySelectedText.Scale, Tools.ToCode(SelectIconOffset), SelectedPosStr);
+        }
+
         public MenuItem Clone()
         {
             MenuItem clone = new MenuItem(MyText.Clone(), MySelectedText.Clone());

@@ -656,6 +656,7 @@ namespace CloudberryKingdom
             // None
             DefaultTileSet = None = info = new TileSet();
             info.Name = "None";
+            info.NameInGame = Localization.Words.None;
             info.Guid = 5551;
             AddTileSet(info);
             info.MyBackgroundType = BackgroundType.None;
@@ -669,6 +670,7 @@ namespace CloudberryKingdom
             // Random
             Random = info = new TileSet();
             info.Name = "Random";
+            info.NameInGame = Localization.Words.Random;
             info.Guid = 5552;
             AddTileSet(info);
             info.MyBackgroundType = BackgroundType.Random;

@@ -200,15 +200,13 @@ namespace CloudberryKingdom
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
+
         public void Initialize()
         {
 #if WINDOWS
             KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
-
-
-            
 
             Tools.LoadEffects(Tools.GameClass.Content, true);
 

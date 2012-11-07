@@ -7,7 +7,7 @@ namespace CloudberryKingdom
     {
         static TileSet Load_Sea()
         {
-            var t = GetOrMakeTileset("Cloud");
+            var t = GetOrMakeTileset("Sea");
             var info = t.MyTileSetInfo;
 
             t._Start();

@@ -59,8 +59,8 @@ namespace CloudberryKingdom
         public static string WordString(Words Word)
         {
             //return Text[Language.Portuguese][Word];
-            //return Text[CurrentLanguage.MyLanguage][Word];
-            return "boob";
+            return Text[CurrentLanguage.MyLanguage][Word];
+            //return "boob";
         }
 
         public static string WordToTextureName(Words Word)

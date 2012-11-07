@@ -7,11 +7,9 @@ namespace CloudberryKingdom
 {
     public class SoundMenu : VerifyBaseMenu
     {
-        bool Centered = false;
-        public SoundMenu(int Control, bool Centered) : base(false)
+        public SoundMenu(int Control) : base(false)
         {
             this.Control = Control;
-            this.Centered = Centered;
             FixedToCamera = true;
 
             Constructor();
@@ -27,71 +25,48 @@ namespace CloudberryKingdom
 
             // Header
             HeaderText = new EzText(Localization.Words.Options, ItemFont);
+            HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
-            HeaderText.Pos = HeaderPos;
-#if PC_VERSION
-            HeaderText.Pos = new Vector2(-967.064f, 951.6506f);
-#endif
-
-            ItemPos = new Vector2(555.5547f, 402.6666f);
-            PosAdd.Y *= .97f;
 
             MenuSlider FxSlider = new MenuSlider(new EzText(Localization.Words.SoundVolume, ItemFont));
             FxSlider.MyFloat = Tools.SoundVolume;
+            FxSlider.Name = "Sound";
             AddItem(FxSlider);
-#if PC_VERSION
-            FxSlider.SetPos = new Vector2(603.174f, 759.8094f);
-#endif
 
             MenuSlider MusicSlider = new MenuSlider(new EzText(Localization.Words.MusicVolume, ItemFont));
             MusicSlider.MyFloat = Tools.MusicVolume;
+            MusicSlider.Name = "Music";
             AddItem(MusicSlider);
-            MusicSlider.Pos.X = MusicSlider.SelectedPos.X = MusicSlider.Pos.X - 300;
-#if PC_VERSION
-            MusicSlider.SetPos = new Vector2(358.7296f, 548.1749f);
-#endif
-            MusicSlider.SliderShift.X += 300;
 
-#if true
-//#if PC_VERSION
-            if (Centered)
-            {
-                MenuItem item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
-                item.Go = _item =>
-                    {
-                        Hide();
-                        Call(new ControlScreen(Control), 10);
-                    };
-                AddItem(item);
-#if PC_VERSION
-                item.SetPos = new Vector2(596.8245f, 325.825f);
-#else
-                item.SetPos = new Vector2(511.9037f, -169.0948f);
-#endif
-            }
+            MenuItem item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
+            item.Go = _item =>
+                {
+                    Hide();
+                    Call(new ControlScreen(Control), 10);
+                };
+            item.Name = "Controls";
+            AddItem(item);
 
 #if PC_VERSION
             // Custom controls
             var mitem = new MenuItem(new EzText(Localization.Words.EditControls, ItemFont));
             mitem.Go = menuitem => Call(new CustomControlsMenu(), 10);
+            mitem.Name = "Custom";
             AddItem(mitem);
-            mitem.SetPos = new Vector2(591.6658f, 133.6347f);
-
 
             // Full screen resolutions
             var RezText = new EzText(Localization.Words.Resolution, ItemFont);
             SetHeaderProperties(RezText);
+            RezText.Name = "RezText";
             MyPile.Add(RezText);
-            RezText.Pos = new Vector2(-1173.81f, -174.9373f);
-            RezText.Scale *= .9f;
 
             MenuList FsRezList = new MenuList();
+            FsRezList.Name = "RezList";
             FsRezList.Center = false;
             FsRezList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
             int i = 0;
             int CurRez = 0;
-
 
             // Get viable resolutions
             List<DisplayMode> modes = new List<DisplayMode>();
@@ -109,7 +84,7 @@ namespace CloudberryKingdom
             {
                 string str = mode.Width + " x " + mode.Height;
                 Tools.Write(str);
-                var item = new MenuItem(new EzText(str, ItemFont, false, true));
+                item = new MenuItem(new EzText(str, ItemFont, false, true));
                 SetItemProperties(item);
                 FsRezList.AddItem(item, mode);
 
@@ -125,7 +100,6 @@ namespace CloudberryKingdom
                 i++;
             }
             AddItem(FsRezList);
-            FsRezList.SetPos = new Vector2(1019.047f, -256.5245f);
             FsRezList.SetIndex(CurRez);
             FsRezList.OnConfirmedIndexSelect = () =>
             {
@@ -138,9 +112,8 @@ namespace CloudberryKingdom
             // Full screen toggle
             var FullScreenText = new EzText(Localization.Words.FullScreen, ItemFont);
             SetHeaderProperties(FullScreenText);
+            FullScreenText.Name = "Fullscreen";
             MyPile.Add(FullScreenText);
-            FullScreenText.Pos = new Vector2(-1190.475f, -338.825f);
-            FullScreenText.Scale *= .9f;
 
             var toggle = new MenuToggle(ItemFont);
             toggle.OnToggle = (state) =>
@@ -150,42 +123,18 @@ namespace CloudberryKingdom
                 SaveGroup.SaveAll();
                 PlayerManager.SaveRezAndKeys();
             };
+            toggle.Name = "FullscreenToggle";
             toggle.Toggle(Tools.Fullscreen);
 
             AddItem(toggle);
-            toggle.SetPos = new Vector2(1245.634f, -281.9681f);
 
             //AddToggle_FixedTimestep();
             AddToggle_Borderless();
 #endif
 
-
-            ////// Resolution
-            ////MenuList ResolutionList = new MenuList();
-            ////ResolutionList.Center = false;
-            ////ResolutionList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
-            ////foreach (ResolutionGroup rez in Tools.TheGame.Resolutions)
-            ////{
-            ////    var item = new MenuItem(new EzText(rez.ToString(), ItemFont, false, true));
-            ////    SetItemProperties(item);
-            ////    ResolutionList.AddItem(item, rez);
-            ////}
-            ////AddItem(ResolutionList);
-            ////ResolutionList.Pos = new Vector2(0, 828f);
-            ////ResolutionList.OnConfirmedIndexSelect = () =>
-            ////{
-            ////    ResolutionGroup rez = Tools.TheGame.Resolutions[ResolutionList.ListIndex];
-            ////    rez.Use();
-            ////};
-            ////ResolutionList.SetIndex(0);
-#endif
+            MakeBackButton();
             SetPosition();
 
-#if PC_VERSION
-            MakeBackButton().SetPos = new Vector2(1603.173f, -621.111f);
-#else
-            MakeBackButton();
-#endif
             MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
 
             // Select the first item in the menu to start
@@ -222,9 +171,10 @@ namespace CloudberryKingdom
 
         private void AddToggle_Borderless()
         {
-            // Menu
+            // Text
             var Text = new EzText(Localization.Words.WindowBorder, ItemFont);
             SetHeaderProperties(Text);
+            Text.Name = "WindowBorder";
             MyPile.Add(Text);
             Text.Pos = new Vector2(-1232.142f, -499.9359f);
             Text.Scale *= .9f;
@@ -233,7 +183,7 @@ namespace CloudberryKingdom
             var Toggle = new MenuToggle(ItemFont);
             Toggle.OnToggle = Toggle_Borderless;
             Toggle.Toggle(Tools.WindowBorder);
-
+            Toggle.Name = "WindowBorderToggle";
             AddItem(Toggle);
             Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
         }
@@ -260,26 +210,28 @@ namespace CloudberryKingdom
 
         private void SetPosition()
         {
-            if (Centered)
-            {
-                MyPile.Pos = new Vector2(29.76172f, 21.82541f);
-                MyMenu.FancyPos.RelVal = new Vector2(-1007.934f, -43.651f);
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+            _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+            _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 325.825f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(591.6658f, 133.6347f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("RezList"); if (_item != null) { _item.SetPos = new Vector2(1019.047f, -256.5245f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("FullscreenToggle"); if (_item != null) { _item.SetPos = new Vector2(1245.634f, -281.9681f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("WindowBorderToggle"); if (_item != null) { _item.SetPos = new Vector2(1315.078f, -451.4125f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1603.173f, -621.111f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-#if PC_VERSION
-                Backdrop.Size = new Vector2(1376.984f, 1077.035f);
-                Backdrop.Pos = new Vector2(-18.6521f, -10.31725f);
-#else
-                HeaderText.Pos = new Vector2(-506.746f, 729.4285f);
+            MyMenu.Pos = new Vector2(-1007.934f, -43.651f);
 
-                Backdrop.Size = new Vector2(1380.952f, 1029.416f);
-                Backdrop.Pos = new Vector2(18.55249f, -8.333206f);
-#endif
-            }
-            else
-            {
-                HeaderText.Pos = new Vector2(416.6666f, 824.6663f);
-                MyMenu.FancyPos.RelVal = new Vector2(-1125.001f, -241.6667f);
-            }
+            EzText _t;
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-967.064f, 951.6506f); _t.Scale = 0.864f; }
+            _t = MyPile.FindEzText("RezText"); if (_t != null) { _t.Pos = new Vector2(-1173.81f, -174.9373f); _t.Scale = 0.7776f; }
+            _t = MyPile.FindEzText("Fullscreen"); if (_t != null) { _t.Pos = new Vector2(-1190.475f, -338.825f); _t.Scale = 0.7776f; }
+            _t = MyPile.FindEzText("WindowBorder"); if (_t != null) { _t.Pos = new Vector2(-1232.142f, -499.9359f); _t.Scale = 0.7776f; }
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+
+            MyPile.Pos = new Vector2(29.76172f, 21.82541f);
         }
 
         public override void OnAdd()

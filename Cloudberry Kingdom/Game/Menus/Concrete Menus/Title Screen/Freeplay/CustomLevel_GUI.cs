@@ -584,7 +584,9 @@ namespace CloudberryKingdom
             FontScale = 1f;
 
             // Start
+#if XBOX
             MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
+#endif
             Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             Start.Name = "Start";
             item.JiggleOnGo = false;
@@ -623,7 +625,9 @@ namespace CloudberryKingdom
             item.ScaleText(.92f);
 
             // Back
+#if XBOX
             MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+#endif
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             AddItem(item);

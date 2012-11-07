@@ -43,19 +43,6 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public int[] this[params Upgrade[] u]
-        {
-            get { return null; }
-            set
-            {
-                if (u.Length != value.Length)
-                    throw(new Exception("List length mismatch"));
-
-                for (int i = 0; i < u.Length; i++)
-                    this[u[i]] = value[i];
-            }
-        }
-
         /// <summary>
         /// Set every upgrade to level 0
         /// </summary>

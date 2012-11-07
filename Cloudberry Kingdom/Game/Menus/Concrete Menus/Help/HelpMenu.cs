@@ -196,6 +196,8 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+            Initialization();
+
             base.OnAdd();
 
             InGameStartMenu.PreventMenu = true;
@@ -218,13 +220,10 @@ namespace CloudberryKingdom
 
         EzText CoinsText;
 
-        QuadClass DarkBack;
-
         HelpBlurb Blurb;
-        public override void Init()
-        {
-            base.Init();
 
+        void Initialization()
+        {
             GameData game = Tools.CurGameData;
 
             PauseGame = true;

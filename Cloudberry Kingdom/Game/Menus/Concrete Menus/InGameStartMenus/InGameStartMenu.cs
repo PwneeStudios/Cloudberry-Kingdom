@@ -187,11 +187,8 @@ namespace CloudberryKingdom
 
         private void GoOptions()
         {
-#if PC_VERSION
-            Call(new SoundMenu(Control, true), 0);
-#else
-            Call(new SoundMenu(Control, false), 0);
-#endif
+            Call(new SoundMenu(Control), 0);
+
             Hide(PresetPos.Left);
             PauseGame = true;
         }

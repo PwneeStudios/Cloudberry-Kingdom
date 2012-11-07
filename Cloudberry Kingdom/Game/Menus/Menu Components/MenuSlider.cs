@@ -9,6 +9,11 @@ namespace CloudberryKingdom
             return new string[] { "Pos", "SelectedPos", "!MyMenu", "SliderShift" };
         }
 
+        public override string ToCode(string suffix)
+        {
+            return string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; ((MenuSlider)_item).SliderShift = {6}; }}", suffix, Name, Tools.ToCode(Pos), MyText.Scale, MySelectedText.Scale, Tools.ToCode(SelectIconOffset), Tools.ToCode(SliderShift));
+        }
+
         public Vector2 SliderShift = new Vector2(716.666f, -172.2223f),
                        TabOffset = new Vector2(0, 0);
         
