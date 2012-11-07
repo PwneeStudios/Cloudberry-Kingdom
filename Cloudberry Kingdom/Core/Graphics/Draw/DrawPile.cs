@@ -177,7 +177,11 @@ namespace CloudberryKingdom
 
         public EzText FindEzText(string Name)
         {
-            return MyTextList.Find(text => string.Compare(text.Name, Name, System.StringComparison.InvariantCultureIgnoreCase) == 0);
+            foreach (var text in MyTextList)
+                if (string.Compare(text.Name, Name, System.StringComparison.InvariantCultureIgnoreCase) == 0)
+                    return text;
+            
+            return null;
         }
 
         public float AlphaVel = 0;
@@ -346,14 +350,32 @@ namespace CloudberryKingdom
             if (Intensity == 1)
                 scales = BubbleScale;
             else
-                scales = BubbleScale.Map(v => (v - Vector2.One) * Intensity + Vector2.One);
+            {
+                scales = new Vector2[BubbleScale.Length];
+                for (int i = 0; i < BubbleScale.Length; i++)
+                    scales[i] = (BubbleScale[i] - Vector2.One) * Intensity + Vector2.One;
+            }
 
             FancyScale.MultiLerp(Length, scales);
             MyFancyColor.LerpTo(new Vector4(1f, 1f, 1f, 1f), Length);
             if (sound)
-                Tools.CurGameData.WaitThenDo(2, () =>
-                    Tools.Pop(MyPopPitch));
+                Tools.CurGameData.WaitThenDo(2, new WaitThenPop(this));
         }
+
+        class WaitThenPop : Lambda
+        {
+            DrawPile MyDrawPile_;
+            WaitThenPop(DrawPile MyDrawPile)
+            {
+                MyDrawPile_ = MyDrawPile;
+            }
+
+            public void Apply()
+            {
+                Tools.Pop(MyDrawPile_.MyPopPitch);
+            }
+        }
+
         /// <summary>
         /// The pitch of the pop noise when the draw pile is popped. Must be 1, 2, 3.
         /// </summary>
@@ -369,11 +391,25 @@ namespace CloudberryKingdom
         public void Jiggle(bool sound) { Jiggle(sound, 5, 1f); }
         public void Jiggle(bool sound, int Length, float Intensity)
         {
-            FancyScale.MultiLerp(Length, JiggleScale.Map(v => (v - Vector2.One) * Intensity + Vector2.One));
+            var mapped = new Vector2[JiggleScale.Length];
+            for (int i = 0; i < JiggleScale.Length; i++)
+                mapped[i] = (JiggleScale[i] - Vector2.One) * Intensity + Vector2.One;
+
+            FancyScale.MultiLerp(Length, mapped);
+
             MyFancyColor.LerpTo(new Vector4(1f, 1f, 1f, 1f), Length);
             if (sound)
-                Tools.CurGameData.WaitThenDo(2, () =>
-                    Tools.SoundWad.FindByName("Pop_2").Play());
+                Tools.CurGameData.WaitThenDo(2, new WaitThenPop2());
+        }
+
+        class WaitThenPop2 : Lambda
+        {
+            WaitThenPop2() { }
+
+            public void Apply()
+            {
+                Tools.SoundWad.FindByName("Pop_2").Play();
+            }
         }
     }
 }

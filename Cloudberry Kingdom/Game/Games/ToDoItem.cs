@@ -8,7 +8,7 @@ namespace CloudberryKingdom
 {
     public class ToDoItem
     {
-        public Func<bool> MyFunc;
+        public LambdaFunc<bool> MyFunc;
         public string Name;
 
         public int Step = 0;
@@ -30,7 +30,7 @@ namespace CloudberryKingdom
 
         public bool RemoveOnReset;
 
-        public ToDoItem(Func<bool> FuncToDo, string Name, bool PauseOnPause, bool RemoveOnReset)
+        public ToDoItem(LambdaFunc<bool> FuncToDo, string Name, bool PauseOnPause, bool RemoveOnReset)
         {
             MyFunc = FuncToDo;
             this.Name = Name;

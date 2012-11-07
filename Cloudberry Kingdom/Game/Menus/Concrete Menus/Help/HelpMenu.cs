@@ -143,6 +143,9 @@ namespace CloudberryKingdom
             }
             else
             {
+                foreach (var obj in MyGame.MyGameObjects)
+                    if (obj is ShowGuide)
+                        obj.Release();
                 MyGame.AddToDo(() => MyGame.RemoveAllGameObjects(match => match is ShowGuide));
             }
         }

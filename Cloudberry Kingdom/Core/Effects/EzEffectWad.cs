@@ -54,35 +54,37 @@ namespace CoreEngine
 
         public void AddEffect(Effect effect, string Name)
         {
-            if (EffectList.Exists(match => string.Compare(match.Name, Name, StringComparison.OrdinalIgnoreCase) == 0))
+            foreach (var e in EffectList)
             {
-                FindByName(Name).effect = effect;
+                if (string.Compare(Name, e.Name, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    e.effect = effect;
+                    return;
+                }
             }
-            else
-            {
-                EzEffect Neweffect = new EzEffect();
-                Neweffect.Name = Name;
-                Neweffect.effect = effect;
 
-                Neweffect.FlipVector = effect.Parameters["FlipVector"];
-                Neweffect.FlipCenter = effect.Parameters["FlipCenter"];
-                Neweffect.xTexture = effect.Parameters["xTexture"];
-                Neweffect.Illumination = effect.Parameters["Illumination"];
-                Neweffect.t = effect.Parameters["t"];
-                Neweffect.xCameraAspect = effect.Parameters["xCameraAspect"];
-                Neweffect.xCameraPos = effect.Parameters["xCameraPos"];
+            EzEffect Neweffect = new EzEffect();
+            Neweffect.Name = Name;
+            Neweffect.effect = effect;
 
-                Neweffect.ExtraTexture1_Param = effect.Parameters["ExtraTexture1"];
-                Neweffect.ExtraTexture2_Param = effect.Parameters["ExtraTexture2"];
+            Neweffect.FlipVector = effect.Parameters["FlipVector"];
+            Neweffect.FlipCenter = effect.Parameters["FlipCenter"];
+            Neweffect.xTexture = effect.Parameters["xTexture"];
+            Neweffect.Illumination = effect.Parameters["Illumination"];
+            Neweffect.t = effect.Parameters["t"];
+            Neweffect.xCameraAspect = effect.Parameters["xCameraAspect"];
+            Neweffect.xCameraPos = effect.Parameters["xCameraPos"];
 
-                Neweffect.Hsl = effect.Parameters["ColorMatrix"];
+            Neweffect.ExtraTexture1_Param = effect.Parameters["ExtraTexture1"];
+            Neweffect.ExtraTexture2_Param = effect.Parameters["ExtraTexture2"];
 
-                Neweffect.Simplest = effect.Techniques["Simplest"];
+            Neweffect.Hsl = effect.Parameters["ColorMatrix"];
 
-                Neweffect.MyWad = this;
+            Neweffect.Simplest = effect.Techniques["Simplest"];
 
-                EffectList.Add(Neweffect);
-            }
+            Neweffect.MyWad = this;
+
+            EffectList.Add(Neweffect);
         }
     }
 }

@@ -265,6 +265,26 @@ namespace CloudberryKingdom.InGameObjects
                 Tools.SoundWad.FindByName("Bash").Play(1f);
         }
 
+        public class ShakeLambda : Lambda
+        {
+            int Length_, Intensity_;
+            bool Sound_;
+            Door Door_;
+
+            public ShakeLambda(Door door, int Length, int Intensity, bool Sound)
+            {
+                Length_ = Length;
+                Intensity_ = Intensity;
+                Sound_ = Sound;
+                Door_ = door;
+            }
+
+            public void Apply()
+            {
+                Door_.Shake(Length_, Intensity_, Sound_);
+            }
+        }
+
         void DoShake()
         {
             if (ShakeStep > 0)
