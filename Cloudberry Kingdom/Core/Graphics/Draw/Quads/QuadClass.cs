@@ -83,7 +83,11 @@ namespace CloudberryKingdom
 
         public static QuadClass FindQuad(List<QuadClass> list, string Name)
         {
-            return list.Find(quad => string.Compare(quad.Name, Name, StringComparison.OrdinalIgnoreCase) == 0);
+            foreach (var quad in list)
+                if (string.Compare(quad.Name, Name, StringComparison.OrdinalIgnoreCase) == 0)
+                    return quad;
+
+            return null;
         }
 
         public bool HitTest(Vector2 pos) { return HitTest(pos, Vector2.Zero); }

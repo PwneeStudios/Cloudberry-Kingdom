@@ -172,7 +172,7 @@ namespace CloudberryKingdom
         /// Called to end the game and return to parent game.
         /// Return true if the game should be replayed.
         /// </summary>
-        public Action<bool> EndGame;
+        public Lambda_1<bool> EndGame;
 
         /// <summary>
         /// Call to finish the metagame and return to the game that created it.
@@ -183,11 +183,21 @@ namespace CloudberryKingdom
 
             // Start the world map music
             ParentGame.KillToDo("StartMusic");
-            ParentGame.WaitThenDo(50, () =>
+            ParentGame.WaitThenDo(50, new PlayWorldMapMusicLambda(), "StartMusic");
+        }
+
+        class PlayWorldMapMusicLambda : Lambda
+        {
+            public PlayWorldMapMusicLambda()
+            {
+            }
+
+            public void Apply()
             {
                 Tools.PlayHappyMusic();
-            }, "StartMusic");
+            }
         }
+
 
         public bool EndMusicOnFinish = true;
         public virtual void StandardFinish(bool Replay)
@@ -209,13 +219,13 @@ namespace CloudberryKingdom
             ParentGame.SetToReturnTo(0);
 
             // Release this game
-            ParentGame.AddToDo(() => this.Release());
+            ParentGame.AddToDo(new ReleaseThisLambda(this));
 
             // Check if we should replay the current game
             if (Replay)
             {
                 GameData parentgame = ParentGame;
-                ParentGame.AddToDo(() => parentgame.PlayAgain());
+                ParentGame.AddToDo(new PlayAgainLambda(parentgame));
             }
 
             // Save everything
@@ -223,10 +233,38 @@ namespace CloudberryKingdom
             SaveGroup.SaveAll();
         }
 
+        class PlayAgainLambda : Lambda
+        {
+            GameData parentgame;
+            public PlayAgainLambda(GameData parentgame)
+            {
+                this.parentgame = parentgame;
+            }
+
+            public void Apply()
+            {
+                parentgame.PlayAgain();
+            }
+        }
+
+        class ReleaseThisLambda : Lambda
+        {
+            GameData game;
+            
+            public ReleaseThisLambda(GameData game)
+            {
+                this.game = game;
+            }
+
+            public void Apply()
+            {
+            }
+        }
+
         /// <summary>
         /// The previous action fed to PlayGame (typically a call to load a game)
         /// </summary>
-        Action PreviousLoadFunction = null;
+        Lambda PreviousLoadFunction = null;
 
         public void ClearPreviousLoadFunction()
         {
@@ -236,11 +274,11 @@ namespace CloudberryKingdom
         /// <summary>
         /// Does the specified action and saves the action for the ability to replay it later.
         /// </summary>
-        public void PlayGame(Action LoadFunction)
+        public void PlayGame(Lambda LoadFunction)
         {
             PreviousLoadFunction = LoadFunction;
 
-            if (LoadFunction != null) LoadFunction();
+            if (LoadFunction != null) LoadFunction.Apply();
         }
 
         /// <summary>
@@ -250,7 +288,7 @@ namespace CloudberryKingdom
         {
             ExecutingPreviousLoadFunction = true;
             if (PreviousLoadFunction != null)
-                PreviousLoadFunction();
+                PreviousLoadFunction.Apply();
             ExecutingPreviousLoadFunction = false;
         }
         public bool ExecutingPreviousLoadFunction = false;
@@ -260,62 +298,93 @@ namespace CloudberryKingdom
         /// </summary>
         /// <param name="WaitLength">Number of frames to wait.</param>
         /// <param name="Func">Function to execute.</param>
-        public void WaitThenDo(int WaitLength, Action f)
+        public void WaitThenDo(int WaitLength, Lambda f)
         {
             WaitThenDo(WaitLength, f, "");
         }
         
-        public void WaitThenDo(int WaitLength, Action f, string Name)
+        public void WaitThenDo(int WaitLength, Lambda f, string Name)
         {
             WaitThenDo(WaitLength, f, Name, false, false);
         }
-        
-        public void WaitThenDo(int WaitLength, Action f, bool PauseOnPause)
+
+        public void WaitThenDo(int WaitLength, Lambda f, bool PauseOnPause)
         {
             WaitThenDo(WaitLength, f, "", PauseOnPause, false);
         }
-        public void WaitThenDo_Pausable(int WaitLength, Action f)
+        public void WaitThenDo_Pausable(int WaitLength, Lambda f)
         {
             WaitThenDo(WaitLength, f, "", true, false);
         }
-        
-        public void CinematicToDo(int WaitLength, Action f)
+
+        public void CinematicToDo(int WaitLength, Lambda f)
         {
             WaitThenDo(WaitLength, f, "", true, true);
         }
-        public void CinematicToDo(Func<bool> f)
-        {
-            AddToDo(f, "", true, true);
-        }
-        public void CinematicToDo(int WaitLength, Func<bool> f)
-        {
-            CinematicToDo(WaitLength, () => CinematicToDo(f));
-        }
-        public void WaitThenDo(int WaitLength, Action f, string Name, bool PauseOnPause, bool RemoveOnReset)
+        //public void CinematicToDo(LambdaFunc<bool> f)
+        //{
+        //    AddToDo(f, "", true, true);
+        //}
+        //public void CinematicToDo(int WaitLength, LambdaFunc<bool> f)
+        //{
+        //    CinematicToDo(WaitLength, () => CinematicToDo(f));
+        //}
+        public void WaitThenDo(int WaitLength, Lambda f, string Name, bool PauseOnPause, bool RemoveOnReset)
         {
             if (WaitLength < 0)
                 return;
 
-            int Count = 0;
+            AddToDo(new WaitThenDoCoversion(WaitLength, f), Name, PauseOnPause, RemoveOnReset);
+        }
 
-            AddToDo(() =>
+        class WaitThenDoCoversion : LambdaFunc<bool>
+        {
+            int WaitLength_, Count_;
+            Lambda f_;
+
+            public WaitThenDoCoversion(int WaitLength, Lambda f)
             {
-                if (Count >= WaitLength)
+                WaitLength_ = WaitLength;
+                f_ = f;
+                Count_ = 0;
+            }
+
+            public bool Apply()
+            {
+                if (Count_ >= WaitLength_)
                 {
-                    f();
+                    f_.Apply();
                     return true;
                 }
                 else
                 {
-                    Count++;
+                    Count_++;
                     return false;
                 }
-            }, Name, PauseOnPause, RemoveOnReset);
+            }
         }
-        public void WaitThenAddToToDo(int WaitLength, Func<bool> f)
+
+        public void WaitThenAddToToDo(int WaitLength, LambdaFunc<bool> f)
         {
             // Create a function that after the specified time will add f to the ToDo list
-            WaitThenDo(WaitLength, () => AddToDo(f));
+            WaitThenDo(WaitLength, new WaitThenAddToToDoLambda(this, f));
+        }
+
+        class WaitThenAddToToDoLambda : Lambda
+        {
+            GameData game;
+            LambdaFunc<bool> f;
+
+            public WaitThenAddToToDoLambda(GameData game, LambdaFunc<bool> f)
+            {
+                this.game = game;
+                this.f = f;
+            }
+
+            public void Apply()
+            {
+                game.AddToDo(f);
+            }
         }
 
         public GameFlags MyGameFlags;
@@ -402,45 +471,94 @@ namespace CloudberryKingdom
         /// <summary>
         /// Fade partially to black, do some action, then fade back in.
         /// </summary>
-        public void PartialFade_InAndOut(int Delay, float TargetOpaqueness, int FadeOutLength, int FadeInLength, Action OnBlack)
+        public void PartialFade_InAndOut(int Delay, float TargetOpaqueness, int FadeOutLength, int FadeInLength, Lambda OnBlack)
         {
             // Wait then screen partially fade to black.
-            WaitThenDo(Delay, () => FadeToBlack(TargetOpaqueness / FadeOutLength));
+            WaitThenDo(Delay, new FadeToBlackLambda(this, TargetOpaqueness / FadeOutLength));
 
             // Wait for the apex of blackness, trigger the action and fade back in.
             WaitThenDo(Delay + FadeOutLength,
-                () =>
-                {
-                    // Fade in and do action.
-                    FadeIn(TargetOpaqueness / FadeOutLength);
-                    BlackAlpha = TargetOpaqueness;
-                    if (OnBlack != null) OnBlack();
-                });
+                new FadeInAndDoAction(this, OnBlack, TargetOpaqueness / FadeOutLength, TargetOpaqueness));
+        }
+
+        class FadeInAndDoAction : Lambda
+        {
+            GameData game;
+            Lambda OnBlack;
+            float speed;
+            float TargetOpaqueness;
+
+            public FadeInAndDoAction(GameData game, Lambda OnBlack, float speed, float TargetOpaqueness)
+            {
+                this.game = game;
+                this.OnBlack = OnBlack;
+                this.speed = speed;
+                this.TargetOpaqueness = TargetOpaqueness;
+            }
+
+            public void Apply()
+            {
+                // Fade in and do action.
+                game.FadeIn(speed);
+                game.BlackAlpha = TargetOpaqueness;
+                if (OnBlack != null) OnBlack.Apply();
+            }
         }
 
         /// <summary>
         /// Transition to a black screen via a right-to-left screen swipe, then fade back in.
         /// When the screen is completely dark, just before fading back in, the OnBlack action is called.
         /// </summary>
-        public void SlideOut_FadeIn(int Delay, Action OnBlack)
+        public void SlideOut_FadeIn(int Delay, Lambda OnBlack)
         {
             var black = new StartMenu_MW_Black();
             AddGameObject(black);
 
             // Wait then screen swipe to black.
-            WaitThenDo(Delay, black.SlideFromRight, "SlideOut_FadeIn");
+            WaitThenDo(Delay, new SlideInLambda(black), "SlideOut_FadeIn");
 
             // Wait for screen to be completely black, then fade in.
             WaitThenDo(Delay + 17,
-                () =>
-                {
-                    // Get rid of black screen swipe.
-                    black.MyPile.Alpha = 0; black.CollectSelf();
+                new FadeInAfterBlack(black, OnBlack, this), "SlideOut_FadeIn");
+        }
 
-                    // Fade in and do action.
-                    FadeIn(.025f);
-                    if (OnBlack != null) OnBlack();
-                }, "SlideOut_FadeIn");
+        class SlideInLambda : Lambda
+        {
+            StartMenu_MW_Black black;
+
+            public SlideInLambda(StartMenu_MW_Black black)
+            {
+                this.black = black;
+            }
+
+            public void Apply()
+            {
+                black.SlideFromRight();
+            }
+        }
+
+        class FadeInAfterBlack : Lambda
+        {
+            StartMenu_MW_Black black;
+            Lambda OnBlack;
+            GameData game;
+
+            public FadeInAfterBlack(StartMenu_MW_Black black, Lambda OnBlack, GameData game)
+            {
+                this.black = black;
+                this.OnBlack = OnBlack;
+                this.game = game;
+            }
+
+            public void Apply()
+            {
+                // Get rid of black screen swipe.
+                black.MyPile.Alpha = 0; black.CollectSelf();
+
+                // Fade in and do action.
+                game.FadeIn(.025f);
+                if (OnBlack != null) OnBlack.Apply();
+            }
         }
 
         public Door CurDoor;
@@ -461,29 +579,6 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
-        /// Remove all game objects satisfying a restraint
-        /// </summary>
-        public void RemoveAllGameObjects(Func<ObjectBase, bool> func)
-        {
-            foreach (GameObject obj in MyGameObjects)
-                if (func(obj))
-                    obj.Release();
-        }
-
-        /// <summary>
-        /// Remove all game objects satisfying a restraint, even if those objects request not to be removed.
-        /// </summary>
-        public void SudoRemoveAllGameObjects(Func<ObjectBase, bool> func)
-        {
-            foreach (GameObject obj in MyGameObjects)
-                if (func(obj))
-                {
-                    obj.PreventRelease = false;
-                    obj.Release();
-                }
-        }
-
-        /// <summary>
         /// If true coins can be taken only once and are not respawned on a level reset.
         /// </summary>
         public bool TakeOnce = false;
@@ -501,7 +596,7 @@ namespace CloudberryKingdom
         /// Event handler. Activates when this game recalculates it's coin score multiplier.
         /// The multiplier is first reset to 1, then each registered callback can modify it.
         /// </summary>
-        public event Action<GameData> OnCalculateCoinScoreMultiplier;
+        public Multicaster_1<GameData> OnCalculateCoinScoreMultiplier;
         /// <summary>
         /// Called at the beginning over every time step to calculate the coin score multiplier
         /// </summary>
@@ -509,7 +604,7 @@ namespace CloudberryKingdom
         {
             CoinScoreMultiplier = 1;
             if (OnCalculateCoinScoreMultiplier != null)
-                OnCalculateCoinScoreMultiplier(this);
+                OnCalculateCoinScoreMultiplier.Apply(this);
         }
 
         /// <summary>
@@ -520,7 +615,7 @@ namespace CloudberryKingdom
         /// Event handler. Activates when this game recalculates it's score multiplier.
         /// The multiplier is first reset to 1, then each registered callback can modify it.
         /// </summary>
-        public event Action<GameData> OnCalculateScoreMultiplier;
+        public Multicaster_1<GameData> OnCalculateScoreMultiplier;
         /// <summary>
         /// Called at the beginning over every time step to calculate the score multiplier
         /// </summary>
@@ -528,31 +623,31 @@ namespace CloudberryKingdom
         {
             ScoreMultiplier = 1;
             if (OnCalculateScoreMultiplier != null)
-                OnCalculateScoreMultiplier(this);
+                OnCalculateScoreMultiplier.Apply(this);
         }
 
         /// <summary>
         /// Event handler. Activates when a Checkpoint is grabbed. Argument is the IObject that is a Checkpoint.
         /// </summary>
-        public event Action<ObjectBase> OnCheckpointGrab;
+        public Multicaster_1<ObjectBase> OnCheckpointGrab;
         /// <summary>
         /// Call this when a Checkpoint is grabbed to activate the Checkpoint grabbed event handler.
         /// </summary>
-        public void CheckpointGrabEvent(ObjectBase Checkpoint) { if (OnCheckpointGrab != null) OnCheckpointGrab(Checkpoint); }
+        public void CheckpointGrabEvent(ObjectBase Checkpoint) { if (OnCheckpointGrab != null) OnCheckpointGrab.Apply(Checkpoint); }
 
         /// <summary>
         /// Event handler. Activates when a coin is grabbed. Argument is the IObject that is a coin.
         /// </summary>
-        public event Action<ObjectBase> OnCoinGrab;
+        public Multicaster_1<ObjectBase> OnCoinGrab;
         /// <summary>
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
-        public void CoinGrabEvent(ObjectBase coin) { if (OnCoinGrab != null) OnCoinGrab(coin); }
+        public void CoinGrabEvent(ObjectBase coin) { if (OnCoinGrab != null) OnCoinGrab.Apply(coin); }
 
         /// <summary>
         /// Event handler. Activates when a level is completed.
         /// </summary>
-        public event Action<Level> OnCompleteLevel;
+        public Multicaster_1<Level> OnCompleteLevel;
         /// <summary>
         /// Call this when level is completed to activate the level complete event handler.
         /// </summary>
@@ -560,37 +655,37 @@ namespace CloudberryKingdom
         {
             HasBeenCompleted = true;
             if (OnCompleteLevel != null)
-                OnCompleteLevel(MyLevel);
+                OnCompleteLevel.Apply(MyLevel);
         }
 
         /// <summary>
         /// Event handler. Activates when all players die and the level is reset.
         /// </summary>
-        public event Action OnLevelRetry;
+        public Multicaster OnLevelRetry;
         /// <summary>
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
-        public void LevelRetryEvent() { if (OnLevelRetry != null) OnLevelRetry(); }
+        public void LevelRetryEvent() { if (OnLevelRetry != null) OnLevelRetry.Apply(); }
 
         /// <summary>
         /// Event handler. Activates when this game is returned to from another game.
         /// </summary>
-        public event Action OnReturnTo;
-        public event Action OnReturnTo_OneOff;
+        public Multicaster OnReturnTo;
+        public Multicaster OnReturnTo_OneOff;
         /// <summary>
         /// Call this when the game is returned to.
         /// </summary>
         public void ReturnToEvent()
         {
-            if (OnReturnTo != null) OnReturnTo();
-            if (OnReturnTo_OneOff != null) OnReturnTo_OneOff(); OnReturnTo_OneOff = null;
+            if (OnReturnTo != null) OnReturnTo.Apply();
+            if (OnReturnTo_OneOff != null) OnReturnTo_OneOff.Apply(); OnReturnTo_OneOff = null;
         }
 
         /// <summary>
         /// Add a nameless function to the to do list.
         /// The function should return true if it wishes to be removed from the queue after execution.
         /// </summary>
-        public void AddToDo(Func<bool> FuncToDo)
+        public void AddToDo(LambdaFunc<bool> FuncToDo)
         {
             ToDo.Add(new ToDoItem(FuncToDo, "", false, false));
         }
@@ -598,7 +693,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Add a nameless function to the to do list.
         /// </summary>
-        public void AddToDo(Action FuncToDo)
+        public void AddToDo(Lambda FuncToDo)
         {
             AddToDo(FuncToDo, "", false, false);
         }
@@ -607,14 +702,29 @@ namespace CloudberryKingdom
         /// Add a named function to the to do list.
         /// The function should return true if it wishes to be removed from the queue after execution.
         /// </summary>
-        public void AddToDo(Func<bool> FuncToDo, string name, bool PauseOnPause, bool RemoveOnReset)
+        public void AddToDo(LambdaFunc<bool> FuncToDo, string name, bool PauseOnPause, bool RemoveOnReset)
         {
             ToDo.Add(new ToDoItem(FuncToDo, name, PauseOnPause, RemoveOnReset));
         }
 
-        public void AddToDo(Action FuncToDo, string name, bool PauseOnPause, bool RemoveOnReset)
+        public void AddToDo(Lambda FuncToDo, string name, bool PauseOnPause, bool RemoveOnReset)
         {
-            ToDo.Add(new ToDoItem(() => { FuncToDo(); return true; }, name, PauseOnPause, RemoveOnReset));
+            ToDo.Add(new ToDoItem(new ConvertLambdaToLambdaFuncTrue(FuncToDo), name, PauseOnPause, RemoveOnReset));
+        }
+
+        class ConvertLambdaToLambdaFuncTrue : LambdaFunc<bool>
+        {
+            Lambda f_;
+            public ConvertLambdaToLambdaFuncTrue(Lambda f)
+            {
+                f_ = f;
+            }
+
+            bool Apply()
+            {
+                f_.Apply();
+                return true;
+            }
         }
 
         public List<ToDoItem> ToDo
@@ -625,14 +735,14 @@ namespace CloudberryKingdom
             }
         }
 
-        public List<Action> ToDoOnReset = new List<Action>();
+        public List<Lambda> ToDoOnReset = new List<Lambda>();
         void DoToDoOnResetList()
         {
-            List<Action> list = new List<Action>(ToDoOnReset);
+            List<Lambda> list = new List<Lambda>(ToDoOnReset);
             ToDoOnReset.Clear();
 
-            foreach (Action f in list)
-                f();
+            foreach (Lambda f in list)
+                f.Apply();
 
             list.Clear();
         }
@@ -657,7 +767,7 @@ namespace CloudberryKingdom
                     {
                         // Execute the function
                         CurItemStep = item.Step;
-                        Keep = !item.MyFunc();
+                        Keep = !item.MyFunc.Apply();
                         item.Step++;
                     }
 
@@ -1313,7 +1423,24 @@ namespace CloudberryKingdom
 
         public void FadeToBlack(float FadeOutSpeed, int Delay)
         {
-            WaitThenDo(Delay, () => FadeToBlack(FadeOutSpeed));
+            WaitThenDo(Delay, new FadeToBlackLambda(this, FadeOutSpeed));
+        }
+
+        class FadeToBlackLambda : Lambda
+        {
+            GameData game_;
+            float FadeOutSpeed_;
+
+            public FadeToBlackLambda(GameData game, float FadeOutSpeed)
+            {
+                game_ = game;
+                FadeOutSpeed_ = FadeOutSpeed;
+            }
+
+            public void Apply()
+            {
+                game_.FadeToBlack(FadeOutSpeed_);
+            }
         }
 
         public virtual void Draw()
@@ -1393,14 +1520,14 @@ namespace CloudberryKingdom
         /// <summary>
         /// A list of actions to take immediately after the last player alive dies.
         /// </summary>
-        public List<Action> ToDoOnDeath = new List<Action>();
+        public List<Lambda> ToDoOnDeath = new List<Lambda>();
         void DoToDoOnDeathList()
         {
-            List<Action> list = new List<Action>(ToDoOnDeath);
+            List<Lambda> list = new List<Lambda>(ToDoOnDeath);
             ToDoOnDeath.Clear();
 
-            foreach (Action f in list)
-                f();
+            foreach (Lambda f in list)
+                f.Apply();
 
             list.Clear();
         }
@@ -1425,30 +1552,19 @@ namespace CloudberryKingdom
             }
         }
 
-        public List<Action> ToDoOnDoneDying = new List<Action>();
+        public List<Lambda> ToDoOnDoneDying = new List<Lambda>();
         void DoToDoOnDoneDyingList()
         {
-            List<Action> list = new List<Action>(ToDoOnDoneDying);
+            List<Lambda> list = new List<Lambda>(ToDoOnDoneDying);
             ToDoOnDoneDying.Clear();
 
-            foreach (Action f in list)
-                f();
+            foreach (Lambda f in list)
+                f.Apply();
 
             list.Clear();
         }
 
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
-        /*
-        public virtual void OnSignIn(SignedInEventArgs e)
-        {
-            if (AllowQuickJoin)
-            {
-                int i = (int)e.Gamer.PlayerIndex;
-                CreateBob(i, true);
-            }
-        }*/
-
+#if XBOX || XBOX_SIGNIN
         public virtual void OnSignOut(SignedOutEventArgs e)
         {
         }
@@ -1694,16 +1810,32 @@ namespace CloudberryKingdom
             door.MoveBobs();
 
             // Open the door and show the bobs
-            CinematicToDo(Wait, () =>
-            {
-                MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
-                door.SetLock(false, false, true);
-                door.MoveBobs();
-                door.ShowBobs();
+            CinematicToDo(Wait, new OpenDoorAndShowBobsLambda(MyLevel, door, this));
+        }
 
-                MoveAndUpdateBobs();
-                door.MoveBobs();
-            });
+        class OpenDoorAndShowBobsLambda : Lambda
+        {
+            Level MyLevel_;
+            Door Door_;
+            GameData Game_;
+
+            public OpenDoorAndShowBobsLambda(Level MyLevel, Door door, GameData game)
+            {
+                MyLevel_ = MyLevel;
+                Door_ = door;
+                Game_ = game;
+            }
+
+            public void Apply()
+            {
+                MyLevel_.Bobs.ForEach(bob => bob.Core.Show = false);
+                Door_.SetLock(false, false, true);
+                Door_.MoveBobs();
+                Door_.ShowBobs();
+
+                Game_.MoveAndUpdateBobs();
+                Door_.MoveBobs();
+            }
         }
 
         static int[] DramaticEntryWait;
@@ -1713,23 +1845,51 @@ namespace CloudberryKingdom
         {
             SetDramaticEntryParams();
 
-            WaitThenDo(1, () =>
-            {
-                EnterFrom(door, DramaticEntryWait[0] + Wait);
-                CinematicToDo(DramaticEntryWait[1] + Wait, () => door.Shake(19, 11, true));
-                CinematicToDo(DramaticEntryWait[2] + Wait, () => door.Shake(19, 11, true));
-                CinematicToDo(DramaticEntryWait[3] + Wait, () =>
-                {
-                    door.Shake(19, 11, true);
-                    foreach (Bob bob in door.Core.MyLevel.Bobs)
-                    {
-                        bob.PlayerObject.EnqueueAnimation(2, 0, false, true, false, 10);
-                        bob.Core.Data.Velocity += DramaticEntryVel;
-                    }
-                });
-            });
+            WaitThenDo(1, new DramaticEntryLambda(this, Wait, door));
 
             return DramaticEntryWait[0] + Wait;
+        }
+
+        class DramaticEntryLambda : Lambda
+        {
+            GameData Game_;
+            int Wait_;
+            Door Door_;
+
+            public DramaticEntryLambda(GameData game, int Wait, Door door)
+            {
+                Game_ = game;
+                Wait_ = Wait;
+                Door_ = door;
+            }
+
+            public void Apply()
+            {
+                Game_.EnterFrom(Door_, DramaticEntryWait[0] + Wait_);
+                Game_.CinematicToDo(DramaticEntryWait[1] + Wait_, new Door.ShakeLambda(Door_, 19, 11, true));
+                Game_.CinematicToDo(DramaticEntryWait[2] + Wait_, new Door.ShakeLambda(Door_, 19, 11, true));
+                Game_.CinematicToDo(DramaticEntryWait[3] + Wait_, new DramaticEntryEnterLambda(Door_));
+            }
+        }
+
+        class DramaticEntryEnterLambda : Lambda
+        {
+            Door Door_;
+
+            public DramaticEntryEnterLambda(Door door)
+            {
+                Door_ = door;
+            }
+
+            public void Apply()
+            {
+                Door_.Shake(19, 11, true);
+                foreach (Bob bob in Door_.Core.MyLevel.Bobs)
+                {
+                    bob.PlayerObject.EnqueueAnimation(2, 0, false, true, false, 10);
+                    bob.Core.Data.Velocity += DramaticEntryVel;
+                }
+            }
         }
 
         void MoveAndUpdateBobs()

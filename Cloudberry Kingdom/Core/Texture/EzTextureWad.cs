@@ -178,21 +178,28 @@ namespace CoreEngine
         {
             EzTexture NewTex = null;
 
-            if (TextureList.Exists(match => string.Compare(match.Path, Name, StringComparison.OrdinalIgnoreCase) == 0))
+            bool OneFound = false;
+            foreach (var texture in TextureList)
             {
-                NewTex = FindByName(Name);
-
-                // Override pre-existing texture?
-                if (Tex != null)
+                if (string.Compare(texture.Path, Name, StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    // Get rid of old texture if it was dynamic.
-                    if (NewTex.Dynamic && NewTex.Tex != null && !NewTex.Tex.IsDisposed)
-                        NewTex.Tex.Dispose();
+                    OneFound = true;
 
-                    NewTex.Tex = Tex;
+                    NewTex = FindByName(Name);
+
+                    // Override pre-existing texture?
+                    if (Tex != null)
+                    {
+                        // Get rid of old texture if it was dynamic.
+                        if (NewTex.Dynamic && NewTex.Tex != null && !NewTex.Tex.IsDisposed)
+                            NewTex.Tex.Dispose();
+
+                        NewTex.Tex = Tex;
+                    }
                 }
             }
-            else
+
+            if (!OneFound)
             {
                 NewTex = new EzTexture();
                 NewTex.Path = Name;
