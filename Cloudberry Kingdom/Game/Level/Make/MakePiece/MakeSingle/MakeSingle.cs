@@ -130,6 +130,13 @@ namespace CloudberryKingdom.Levels
                 MyGame.AllowQuickJoin = false;
             }
 
+            foreach (var player in PlayerManager.ExistingPlayers)
+            {
+                CoinsCountInStats = true;
+                player.Stats.TotalCoins += NumCoins;
+                player.Stats.TotalBlobs += NumBlobs;
+            }
+
             PlayerManager.ExistingPlayers.ForEach(player =>
             {
                 CoinsCountInStats = true;
@@ -1106,20 +1113,20 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        //class GeneralMinDistLambda : LambdaFunc<Vector2>
-        //{
-        //    Level level;
-        //    public GeneralMinDistLambda(Level level)
-        //    {
-        //        this.level = level;
-        //    }
+        class GeneralMinDistLambda : LambdaFunc_1<Vector2, Vector2>
+        {
+            Level level;
+            public GeneralMinDistLambda(Level level)
+            {
+                this.level = level;
+            }
 
-        //    public Vector2 Apply()
-        //    {
-        //        float dist = level.CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
-        //        return new Vector2(dist, dist);
-        //    }
-        //}
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = level.CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
+                return new Vector2(dist, dist);
+            }
+        }
 
         void Stage2Cleanup(Vector2 BL_Bound, Vector2 TR_Bound)
         {
@@ -1128,21 +1135,20 @@ namespace CloudberryKingdom.Levels
             Sleep();
 
             // Limit general density of all obstacles.
-            //List<ObjectBase> ObjsToClean = new List<ObjectBase>();
-            //foreach (var obj in Objects)
-            //    if (obj.Core.GenData.LimitGeneralDensity)
-            //        ObjsToClean.Add(obj);
+            List<ObjectBase> ObjsToClean = new List<ObjectBase>();
+            foreach (var obj in Objects)
+                if (obj.Core.GenData.LimitGeneralDensity)
+                    ObjsToClean.Add(obj);
 
-            //Cleanup(ObjsToClean, delegate(Vector2 pos)
-            //{
-            //}, true, BL_Bound, TR_Bound);
-
-            Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
-            {
-                float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
-                return new Vector2(dist, dist);
-            }, true, BL_Bound, TR_Bound);
+            Cleanup(ObjsToClean, new GeneralMinDistLambda(this), true, BL_Bound, TR_Bound);
             Sleep();
+
+            //Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
+            //{
+            //    float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
+            //    return new Vector2(dist, dist);
+            //}, true, BL_Bound, TR_Bound);
+            //Sleep();
 
             foreach (ObjectBase obj in Objects)
             {
@@ -1159,10 +1165,10 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
         }
 
-        public void SortBlocks()
-        {
-            Blocks.Sort(delegate(BlockBase A, BlockBase B) { return A.BlockCore.Layer.CompareTo(B.BlockCore.Layer); });
-        }
+        //public void SortBlocks()
+        //{
+        //    Blocks.Sort(delegate(BlockBase A, BlockBase B) { return A.BlockCore.Layer.CompareTo(B.BlockCore.Layer); });
+        //}
 
         public void OverlapCleanup()
         {

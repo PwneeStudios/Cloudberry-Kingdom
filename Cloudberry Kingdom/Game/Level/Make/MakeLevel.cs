@@ -118,13 +118,13 @@ namespace CloudberryKingdom
                         Height += Math.Abs(Piece.End.Y - Piece.Start.Y);
                         break;
 
-                    case LevelGeometry.Big:
-                        level.MakeBig(this.Length, 0, ReturnEarly, makeData);
-                        break;
+                    //case LevelGeometry.Big:
+                    //    level.MakeBig(this.Length, 0, ReturnEarly, makeData);
+                    //    break;
 
-                    case LevelGeometry.OneScreen:
-                        level.MakeOneScreen(this.Length, ReturnEarly, makeData);
-                        break;
+                    //case LevelGeometry.OneScreen:
+                    //    level.MakeOneScreen(this.Length, ReturnEarly, makeData);
+                    //    break;
                 }
 
                 TestNumber = Rnd.RndInt(0, 1000);

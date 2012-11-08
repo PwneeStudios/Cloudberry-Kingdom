@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Lambdas\LambdaFunc_1.cs" />
     <Compile Include="Core\Lambdas\LambdaFunc.cs" />
     <Compile Include="Core\Lambdas\Multicaster_2.cs" />
     <Compile Include="Core\Lambdas\Lambda_2.cs" />
@@ -464,10 +465,8 @@
     <Compile Include="Game\Level\Make\MakePiece\MakeSingle\MakeFinalDoor.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeThing.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeData.cs" />
-    <Compile Include="Game\Level\Make\MakePiece\MakeOneScreen\MakeOneScreen.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeVertical\MakeFinalDoor.cs" />
     <Compile Include="Game\Level\Make\MakePiece\MakeVertical\MakeVertical.cs" />
-    <Compile Include="Game\Level\Make\MakePiece\MakeBig.cs" />
     <Compile Include="Game\Level\Make\Parameters\PresetDifficulties.cs" />
     <Compile Include="Game\Level\Make\Parameters\StyleData\BigData.cs" />
     <Compile Include="Game\Level\Make\Parameters\StyleData\SingleData.cs" />
