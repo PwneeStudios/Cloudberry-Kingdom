@@ -31,6 +31,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             if (PieceSeed.MyUpgrades1[Upgrade.Pinky] > 0 ||
                 PieceSeed.MyUpgrades2[Upgrade.Pinky] > 0)
                 Make = true;
@@ -42,35 +44,17 @@ namespace CloudberryKingdom.Levels
             if (FloaterLevel > 6) NumOffsets = 8;
             else NumOffsets = 4;
             
-            BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.Pinky];
-            });
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.Pinky]);
 
-            FloaterMinDist = new Param(PieceSeed);
-            FloaterMinDist.SetVal(u =>
+            FloaterMinDist = new Param(PieceSeed,
                 DifficultyHelper.Interp159(700, 320, 100, u[Upgrade.Pinky]));
 
-            FloaterScale = new Param(PieceSeed);
-            FloaterScale.SetVal(u =>
+            FloaterScale = new Param(PieceSeed,
                 Math.Min(160, 90 + 7 * u[Upgrade.Pinky]));
 
-            FloaterPeriod = new Param(PieceSeed);
-            FloaterPeriod.SetVal(u =>
-            {
-                return Math.Max(84, 274 - 10 * u[Upgrade.Speed]);
-            });
+            FloaterPeriod = new Param(PieceSeed, Math.Max(84, 274 - 10 * u[Upgrade.Speed]));
 
-            Density = new Param(PieceSeed);
-            Density.SetVal(u =>
-            {
-                //return 29 * u[Upgrade.Floater_Spin];
-                if (u[Upgrade.Pinky] == 0)
-                    return 0;
-
-                return DifficultyHelper.Interp(40, 73, u[Upgrade.Pinky]);
-            });
+            Density = new Param(PieceSeed, u[Upgrade.Pinky] == 0 ? 0 : DifficultyHelper.Interp(40, 73, u[Upgrade.Pinky]));
         }
     }
 

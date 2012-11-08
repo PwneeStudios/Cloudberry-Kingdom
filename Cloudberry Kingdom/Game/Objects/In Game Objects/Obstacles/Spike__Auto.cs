@@ -20,6 +20,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             float lvl = PieceSeed.u[Upgrade.Spike];
 
             // General difficulty
@@ -29,39 +31,18 @@ namespace CloudberryKingdom.Levels
 
             OffsetStyle = (OffsetStyles)level.Rnd.RndEnum<OffsetStyles>();
 
-            BobWidthLevel = new Param(PieceSeed, u => u[Upgrade.Spike]);
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.Spike]);
 
-            SpikeMinDist = new Param(PieceSeed);
-            SpikeMinDist.SetVal(u =>
-            {
-                float dist = 400 - u[Upgrade.Spike] * 40;// 23;
-                if (dist < 35) dist = 35;
-                return dist;
-            });
+            float dist = 400 - u[Upgrade.Spike] * 40;
+            if (dist < 35) dist = 35;
 
-            MinSpikeDensity = new Param(PieceSeed);
-            MinSpikeDensity.SetVal(u =>
-            {
-                if (u[Upgrade.Spike] == 0)
-                    return 0;
+            SpikeMinDist = new Param(PieceSeed, dist);
 
-                return DifficultyHelper.Interp(6, 50, u[Upgrade.Spike]);
-            });
+            MinSpikeDensity = new Param(PieceSeed, u[Upgrade.Spike] == 0 ? 0 : DifficultyHelper.Interp(6, 50, u[Upgrade.Spike]));
 
-            MaxSpikeDensity = new Param(PieceSeed);
-            MaxSpikeDensity.SetVal(u =>
-            {
-                if (u[Upgrade.Spike] == 0)
-                    return 0;
+            MaxSpikeDensity = new Param(PieceSeed, u[Upgrade.Spike] == 0 ? 0 : DifficultyHelper.Interp(9, 80, u[Upgrade.Spike]));
 
-                return DifficultyHelper.Interp(9, 80, u[Upgrade.Spike]);
-            });
-
-            SpikePeriod = new Param(PieceSeed);
-            SpikePeriod.SetVal(u =>
-            {
-                return Math.Max(60, 240 - 20 * u[Upgrade.Speed]);
-            });            
+            SpikePeriod = new Param(PieceSeed, Math.Max(60, 240 - 20 * u[Upgrade.Speed]));
         }
 
         /// <summary>

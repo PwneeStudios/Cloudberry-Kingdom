@@ -11,49 +11,31 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.FallingBlock]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.FallingBlock]));
             }
 
             FillWeight = new Param(PieceSeed);
-            FillWeight.SetVal(u =>
-            {
-                return u[Upgrade.FallingBlock];
-            });
+            FillWeight.SetVal(u[Upgrade.FallingBlock]);
 
             Delay = new Param(PieceSeed);
-            Delay.SetVal(u =>
-            {
-                return Math.Max(1, 60 - 7 * u[Upgrade.FallingBlock]);
-            });
+            Delay.SetVal(Math.Max(1, 60 - 7 * u[Upgrade.FallingBlock]));
 
             Width = new Param(PieceSeed);
-            Width.SetVal(u =>
-            {
-                return Math.Max(70, 113 - .1f * (110 - 70) * u[Upgrade.FallingBlock]);
-            });
+            Width.SetVal(Math.Max(70, 113 - .1f * (110 - 70) * u[Upgrade.FallingBlock]));
 
             AngryAccel = new Param(PieceSeed);
-            AngryAccel.SetVal(u =>
-            {
-                return DifficultyHelper.Interp(-70, 320, u[Upgrade.BouncyBlock]);
-                //return -70 + 40 * u[Upgrade.FallingBlock];
-            });
+            AngryAccel.SetVal(DifficultyHelper.Interp(-70, 320, u[Upgrade.BouncyBlock]));
 
             AngryRatio = new Param(PieceSeed);
-            AngryRatio.SetVal(u =>
-            {
-                return DifficultyHelper.Interp(-27, 35, u[Upgrade.BouncyBlock]);
-                //return -40 + 10 * u[Upgrade.FallingBlock];
-            });
+            AngryRatio.SetVal(DifficultyHelper.Interp(-27, 35, u[Upgrade.BouncyBlock]));
 
             AngrySpeed = new Param(PieceSeed);
-            AngrySpeed.SetVal(u =>
-            {
-                return 4 * u[Upgrade.FallingBlock];
-            });
+            AngrySpeed.SetVal(4 * u[Upgrade.FallingBlock]);
         }
     }
 

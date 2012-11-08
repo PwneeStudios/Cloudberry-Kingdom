@@ -11,22 +11,22 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.Conveyor]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.Conveyor]));
             }
 
-            FillWeight = new Param(PieceSeed, u =>
+            FillWeight = new Param(PieceSeed, 
                 u[Upgrade.Conveyor] * (.5f + .5f * u[Upgrade.Conveyor] / 10f));
 
-            Speed = new Param(PieceSeed, u =>
-            {
-                return DifficultyHelper.Interp(.04175f, .16f, u[Upgrade.Conveyor]) *
-                    DifficultyHelper.Interp(1f, 1.55f, u[Upgrade.Speed]);
-            });
+            Speed = new Param(PieceSeed, 
+                DifficultyHelper.Interp(.04175f, .16f, u[Upgrade.Conveyor]) *
+                    DifficultyHelper.Interp(1f, 1.55f, u[Upgrade.Speed]));
 
-            Width = new Param(PieceSeed, u =>
+            Width = new Param(PieceSeed, 
                 DifficultyHelper.InterpRestrict19(240, 60, u[Upgrade.Conveyor]));
         }
     }

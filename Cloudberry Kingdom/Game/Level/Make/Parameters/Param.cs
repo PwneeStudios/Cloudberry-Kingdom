@@ -17,19 +17,34 @@ namespace CloudberryKingdom
             Y = new Param(PieceSeed);
         }
 
-        public VectorParam(PieceSeedData PieceSeed, VectorParamFunc f)
+        //public VectorParam(PieceSeedData PieceSeed, VectorParamFunc f)
+        //{
+        //    X = new Param(PieceSeed);
+        //    Y = new Param(PieceSeed);
+
+        //    if (f != null)
+        //        SetVal(f);
+        //}
+
+        public VectorParam(PieceSeedData PieceSeed, Vector2 v)
         {
             X = new Param(PieceSeed);
             Y = new Param(PieceSeed);
 
-            if (f != null)
-                SetVal(f);
+            if (v != null)
+                SetVal(v);
         }
-    
-        public void SetVal(VectorParamFunc f)
+
+        //public void SetVal(VectorParamFunc f)
+        //{
+        //    X.SetVal(u => f(u).X);
+        //    Y.SetVal(u => f(u).Y);
+        //}
+
+        public void SetVal(Vector2 v)
         {
-            X.SetVal(u => f(u).X);
-            Y.SetVal(u => f(u).Y);
+            X.SetVal(v.X);
+            Y.SetVal(v.Y);
         }
 
         public Vector2 GetVal()
@@ -89,27 +104,51 @@ namespace CloudberryKingdom
             this.PieceSeed = PieceSeed;
         }
 
-        public Param(PieceSeedData PieceSeed, ParamFunc f)
+        //public Param(PieceSeedData PieceSeed, ParamFunc f)
+        //{
+        //    val1 = val2 = 0;
+        //    val1_IsSet = val2_IsSet = false;
+
+        //    this.PieceSeed = PieceSeed;
+
+        //    if (f != null)
+        //        SetVal(f);
+        //}
+
+        //public void SetVal(ParamFunc f)
+        //{
+        //    if (PieceSeed.MyUpgrades1 != null)
+        //    {
+        //        val1 = f(PieceSeed.MyUpgrades1);
+        //        val1_IsSet = true;
+        //    }
+        //    if (PieceSeed.MyUpgrades2 != null && PieceSeed.Start != PieceSeed.End)
+        //    {
+        //        val2 = f(PieceSeed.MyUpgrades2);
+        //        val2_IsSet = true;
+        //    }
+        //}
+
+        public Param(PieceSeedData PieceSeed, float v)
         {
             val1 = val2 = 0;
             val1_IsSet = val2_IsSet = false;
 
             this.PieceSeed = PieceSeed;
 
-            if (f != null)
-                SetVal(f);
+            SetVal(v);
         }
-    
-        public void SetVal(ParamFunc f)
+
+        public void SetVal(float v)
         {
             if (PieceSeed.MyUpgrades1 != null)
             {
-                val1 = f(PieceSeed.MyUpgrades1);
+                val1 = v;
                 val1_IsSet = true;
             }
             if (PieceSeed.MyUpgrades2 != null && PieceSeed.Start != PieceSeed.End)
             {
-                val2 = f(PieceSeed.MyUpgrades2);
+                val2 = v;
                 val2_IsSet = true;
             }
         }
@@ -141,9 +180,9 @@ namespace CloudberryKingdom
             return (1 - t) * val1 + t * val2;
         }
 
-        public static implicit operator Param(float val)
-        {
-            return new Param(val);
-        }
+        //public static implicit operator Param(float val)
+        //{
+        //    return new Param(val);
+        //}
     }
 }

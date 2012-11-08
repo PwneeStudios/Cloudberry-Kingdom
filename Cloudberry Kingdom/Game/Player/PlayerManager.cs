@@ -445,7 +445,10 @@ namespace CloudberryKingdom
         {
             int sum = 0;
             foreach (PlayerData player in ExistingPlayers)
-                sum += f(player);
+            {
+                if (player != null)
+                    sum += f(player);
+            }
 
             return sum;
         }
@@ -454,7 +457,10 @@ namespace CloudberryKingdom
         {
             int max = int.MinValue;
             foreach (PlayerData player in ExistingPlayers)
-                max = Math.Max(max, f(player));
+            {
+                if (player != null)
+                    max = Math.Max(max, f(player));
+            }
 
             return max;
         }
@@ -497,7 +503,7 @@ namespace CloudberryKingdom
             {
                 _ExistingPlayers.Clear();
                 foreach (PlayerData data in Players)
-                    if (data.Exists)
+                    if (data != null && data.Exists)
                         _ExistingPlayers.Add(data);
 
                 return _ExistingPlayers;

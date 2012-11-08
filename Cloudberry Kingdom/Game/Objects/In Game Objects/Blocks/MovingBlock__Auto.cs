@@ -22,55 +22,32 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             float MovingBlockLevel = PieceSeed.MyUpgrades1[Upgrade.MovingBlock];
 
-            /*
-            // If this is a multi-path level then always use thin blocks
-            if (PieceSeed.Paths > 1)
-                Aspect = AspectType.Thin;
-            // otherwise randomize the aspect ratio
-            else
-                Aspect = (AspectType)level.Rnd.Choose(AspectTypeRatio);
-            
-            // No tall blocks on vertical levels
-            if (PieceSeed.GeometryType == LevelGeometry.Up || PieceSeed.GeometryType == LevelGeometry.Down)
-                if (Aspect == AspectType.Tall)
-                    Aspect = AspectType.Thin;
-            */
             Aspect = AspectType.Square;
 
             Size = new Param(PieceSeed);
-            Size.SetVal(u =>
-            {
-                return 230 - (230 - 50)/10f * u[Upgrade.MovingBlock];
-            });
+            Size.SetVal(230 - (230 - 50)/10f * u[Upgrade.MovingBlock]);
 
             Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)MovingBlockLevel);
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.MovingBlock]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.MovingBlock]));
             }
 
             FillWeight = new Param(PieceSeed);
-            FillWeight.SetVal(u =>
-            {
-                return u[Upgrade.MovingBlock];
-            });
+            FillWeight.SetVal(u[Upgrade.MovingBlock]);
 
             Range = new Param(PieceSeed);
-            Range.SetVal(u =>
-            {
-                return DifficultyHelper.Interp(240, 600, .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]));
-            });
+            Range.SetVal(DifficultyHelper.Interp(240, 600, .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock])));
 
+            float speed = 280 - 32 * u[Upgrade.Speed] + 40 * .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]);
             Period = new Param(PieceSeed);
-            Period.SetVal(u =>
-            {
-                float speed = 280 - 32 * u[Upgrade.Speed] + 40 * .5f * (u[Upgrade.Jump] + u[Upgrade.MovingBlock]);
-                return CoreMath.Restrict(40, 1000, speed);
-            });
+            Period.SetVal(CoreMath.Restrict(40, 1000, speed));
         }
     }
 

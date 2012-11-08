@@ -17,30 +17,29 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             float lvl = PieceSeed.MyUpgrades1[Upgrade.Pendulum];
 
             Size = new Param(PieceSeed);
-            Size.SetVal(u => 230 - (230 - 50)/10f * u[Upgrade.Pendulum]);
+            Size.SetVal(230 - (230 - 50)/10f * u[Upgrade.Pendulum]);
 
             Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)lvl);
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.Pendulum]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.Pendulum]));
             }
 
             FillWeight = new Param(PieceSeed);
-            FillWeight.SetVal(u => u[Upgrade.Pendulum]);
+            FillWeight.SetVal(u[Upgrade.Pendulum]);
 
+            float speed = 300 - 30 * u[Upgrade.Speed] + 45 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum]);
             Period = new Param(PieceSeed);
-            Period.SetVal(u =>
-            {
-                float speed = 300 - 30 * u[Upgrade.Speed] + 45 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum]);
-                return CoreMath.Restrict(40, 1000, speed);
-            });
+            Period.SetVal(CoreMath.Restrict(40, 1000, speed));
 
-            MaxAngle = new Param(PieceSeed, u => Math.Min(750, 30 + 64 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum])));
+            MaxAngle = new Param(PieceSeed, Math.Min(750, 30 + 64 * .5f * (u[Upgrade.Jump] + u[Upgrade.Pendulum])));
         }
     }
 

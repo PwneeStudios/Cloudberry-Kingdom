@@ -457,9 +457,9 @@ namespace CloudberryKingdom
 
             if (ModSize)
             {
-                BParams.Size = size;
-                GhParams.Width = size;
-                FParams.Width = size;
+                BParams.Size.SetVal(size);
+                GhParams.Width.SetVal(size);
+                FParams.Width.SetVal(size);
             }
         }
     }

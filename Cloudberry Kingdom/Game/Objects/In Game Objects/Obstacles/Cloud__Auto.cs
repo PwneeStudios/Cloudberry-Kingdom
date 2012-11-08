@@ -12,23 +12,16 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             FillWeight = new Param(PieceSeed);
-            FillWeight.SetVal(u =>
-            {
-                return .62f * u[Upgrade.Cloud];
-            });
+            FillWeight.SetVal(.62f * u[Upgrade.Cloud]);
 
             Shiftiness = new Param(PieceSeed);
-            Shiftiness.SetVal(u =>
-            {
-                return 1 + .33f * u[Upgrade.Cloud];
-            });
+            Shiftiness.SetVal(1 + .33f * u[Upgrade.Cloud]);
 
             Size = new Param(PieceSeed);
-            Size.SetVal(u =>
-            {
-                return 2f - .1f * u[Upgrade.Cloud];
-            });
+            Size.SetVal(2f - .1f * u[Upgrade.Cloud]);
         }
     }
 

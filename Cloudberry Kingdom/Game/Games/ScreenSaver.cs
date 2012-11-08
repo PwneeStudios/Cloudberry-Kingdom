@@ -404,10 +404,10 @@ namespace CloudberryKingdom
             piece.Style.MyModParams = (level, p) =>
             {
                 FlyingBlob_Parameters GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
-                GParams.KeepUnused = MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f);
-                GParams.FillWeight = 100;
-                GParams.Period = 115;
-                GParams.Range = 600;
+                GParams.KeepUnused.SetVal(MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f));
+                GParams.FillWeight.SetVal(100);
+                GParams.Period.SetVal(115);
+                GParams.Range.SetVal(600);
             };
 
             /*

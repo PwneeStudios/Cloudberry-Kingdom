@@ -24,64 +24,50 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             MyStyle = (Style)level.Rnd.RndEnum<Style>();
 
-            FillWeight = new Param(PieceSeed, u => .5f * u[Upgrade.Elevator]);
+            FillWeight = new Param(PieceSeed, .5f * u[Upgrade.Elevator]);
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.GhostBlock]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.GhostBlock]));
             }
 
+            float D;
+            if (u[Upgrade.Elevator] > 0)
+                D = .105f * DifficultyHelper.Interp19(5000, 500, u[Upgrade.Elevator]);
+            else
+                D = 1400;
+
             Dist = new Param(PieceSeed);
-            Dist.SetVal(u =>
-            {
-                if (u[Upgrade.Elevator] > 0)
-                    //return .105f * DifficultyHelper.Interp19(3000, 500, u[Upgrade.Elevator]);
-                    return .105f * DifficultyHelper.Interp19(5000, 500, u[Upgrade.Elevator]);
-                else
-                    return 1400;
-            });
+            Dist.SetVal(D);
 
             DistAdd = new Param(PieceSeed);
-            //DistAdd.SetVal(u => .105f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
-            //DistAdd.SetVal(u => .385f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
-            DistAdd.SetVal(u => DifficultyHelper.Interp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
+            DistAdd.SetVal(DifficultyHelper.Interp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
 
             Amp = new Param(PieceSeed);
-            Amp.SetVal(u =>
-            {
-                return Math.Min(450, 0 + 30 * u[Upgrade.Elevator]);
-            });
+            Amp.SetVal(Math.Min(450, 0 + 30 * u[Upgrade.Elevator]));
 
             Types = new Param(PieceSeed);
-            Types.SetVal(u =>
-            {
-                return Math.Min(2, u[Upgrade.Elevator] / 4);
-            });
+            Types.SetVal(Math.Min(2, u[Upgrade.Elevator] / 4));
 
             Delay = new Param(PieceSeed);
-            Delay.SetVal(u =>
-            {
-                return Math.Max(60, 120 - 6 * u[Upgrade.Speed]);
-            });
+            Delay.SetVal(Math.Max(60, 120 - 6 * u[Upgrade.Speed]));
 
             Speed = new Param(PieceSeed);
-            Speed.SetVal(u => DifficultyHelper.Interp19(5.6f, 16f, u[Upgrade.Speed]));
+            Speed.SetVal(DifficultyHelper.Interp19(5.6f, 16f, u[Upgrade.Speed]));
 
-            //Width = new Param(PieceSeed, u => 150);
-            Width = new Param(PieceSeed, u => DifficultyHelper.Interp159(150, 120, 75, u[Upgrade.Elevator]));
+            Width = new Param(PieceSeed, DifficultyHelper.Interp159(150, 120, 75, u[Upgrade.Elevator]));
 
             SpeedAdd = new Param(PieceSeed);
-            SpeedAdd.SetVal(u => DifficultyHelper.Interp19(5.6f, 13f, u[Upgrade.Speed])
+            SpeedAdd.SetVal(DifficultyHelper.Interp19(5.6f, 13f, u[Upgrade.Speed])
                              * .025f * u[Upgrade.Elevator]);
 
             WidthAdd = new Param(PieceSeed);
-            WidthAdd.SetVal(u =>
-            {
-                return 0;
-            });
+            WidthAdd.SetVal(0);
         }
     }
 
