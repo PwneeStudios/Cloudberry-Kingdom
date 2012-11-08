@@ -34,6 +34,7 @@ namespace CloudberryKingdom
 
             // Set lava
             if (NewLevel.Info.AllowLava)
+            //switch (LavaMakeTypes.NeverMake)
             switch (LavaMake)
             {
                 case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
@@ -117,13 +118,13 @@ namespace CloudberryKingdom
                         Height += Math.Abs(Piece.End.Y - Piece.Start.Y);
                         break;
 
-                    case LevelGeometry.Big:
-                        level.MakeBig(this.Length, 0, ReturnEarly, makeData);
-                        break;
+                    //case LevelGeometry.Big:
+                    //    level.MakeBig(this.Length, 0, ReturnEarly, makeData);
+                    //    break;
 
-                    case LevelGeometry.OneScreen:
-                        level.MakeOneScreen(this.Length, ReturnEarly, makeData);
-                        break;
+                    //case LevelGeometry.OneScreen:
+                    //    level.MakeOneScreen(this.Length, ReturnEarly, makeData);
+                    //    break;
                 }
 
                 TestNumber = Rnd.RndInt(0, 1000);
@@ -179,7 +180,7 @@ namespace CloudberryKingdom
                 }
 
                 
-                level.Cleanup(ObjectType.Checkpoint, pos => new Vector2(900, 900));
+                level.Cleanup(ObjectType.Checkpoint, new Vector2(900, 900));
                 level.CleanAllObjectLists();
 
                 // Add initial start data
@@ -202,11 +203,19 @@ namespace CloudberryKingdom
             }
 
             // Cleanup lava
-            List<BlockBase> Lavas = NewLevel.Blocks.FindAll(block => block.Core.MyType == ObjectType.LavaBlock);
+            List<BlockBase> Lavas = new List<BlockBase>();
+            foreach (var block in NewLevel.Blocks)
+                if (block.Core.MyType == ObjectType.LavaBlock)
+                    Lavas.Add(block);
+
             if (Lavas.Count > 0)
             {
                 // Find the lowest watermark
-                BlockBase Lowest = Lavas.ArgMin(lava => lava.Box.TR.Y);
+                BlockBase Lowest = null;
+                foreach (var lava in Lavas)
+                    if (Lowest == null || lava.Box.TR.Y < Lowest.Box.TR.Y)
+                        Lowest = lava;
+                //Lavas.ArgMin(lava => lava.Box.TR.Y);
 
                 // Extend left and right to cover whole level
                 Lowest.Extend(Side.Left, NewLevel.BL.X - 5000);
@@ -217,7 +226,10 @@ namespace CloudberryKingdom
                 if (Lowest.Box.TR.Y < -840) Lowest.CollectSelf();
 
                 // Remove extra lava blocks
-                Lavas.ForEach(lava => { if (lava != Lowest) lava.CollectSelf(); });
+                foreach (var lava in Lavas)
+                    if (lava != Lowest)
+                        lava.CollectSelf();
+                //Lavas.ForEach(lava => { if (lava != Lowest) lava.CollectSelf(); });
             }
 
             if (MakeBackground)

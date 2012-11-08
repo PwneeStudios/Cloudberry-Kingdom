@@ -62,6 +62,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             float FlyingBlobLevel = PieceSeed.MyUpgrades1[Upgrade.FlyBlob];
 
             Motion = (MotionType)level.Rnd.Choose(MotionLevel, (int)FlyingBlobLevel);
@@ -69,34 +71,24 @@ namespace CloudberryKingdom.Levels
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.FlyBlob]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.FlyBlob]));
             }
 
             FillWeight = new Param(PieceSeed,
-                u => u[Upgrade.FlyBlob]);
+                u[Upgrade.FlyBlob]);
 
-            Range = new Param(PieceSeed, u =>
-            {
-                float val = DifficultyHelper.Interp(40, 500, .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]));
-                if (val < 80)
-                    val = 0;
-                return val;
-            });
+            float val = DifficultyHelper.Interp(40, 500, .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]));
+            if (val < 80)
+                val = 0;
+            Range = new Param(PieceSeed, val);
 
-            Period = new Param(PieceSeed, u =>
-            {
-                float speed = 200 - 20 * u[Upgrade.Speed] + 25 * .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]);
-                return CoreMath.Restrict(40, 1000, speed);
-            });
+            float speed = 200 - 20 * u[Upgrade.Speed] + 25 * .5f * (u[Upgrade.Jump] + u[Upgrade.FlyBlob]);
+            Period = new Param(PieceSeed, CoreMath.Restrict(40, 1000, speed));
 
             EdgeSafety = new Param(PieceSeed);
-            EdgeSafety.SetVal(u =>
-            {
-                return Math.Max(6f, DifficultyHelper.Interp(45f, 6f, u[Upgrade.FlyBlob]));
-            });
+            EdgeSafety.SetVal(Math.Max(6f, DifficultyHelper.Interp(45f, 6f, u[Upgrade.FlyBlob])));
 
-            Size = new Param(PieceSeed);
-            Size = 1;
+            Size = new Param(PieceSeed, 1);
         }
     }
 

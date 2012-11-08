@@ -1439,32 +1439,55 @@ namespace CloudberryKingdom.Levels
                 Math.Abs(A.Core.Data.Position.X - B.Core.Data.Position.X),
                 Math.Abs(A.Core.Data.Position.Y - B.Core.Data.Position.Y));
         }
-        public delegate Vector2 CleanupCallback(Vector2 pos);
-        public void Cleanup(ObjectType type, CleanupCallback MinDistFunc)
+
+        public void Cleanup(ObjectType type, Vector2 v)
+        {
+            Cleanup(type, v, new Vector2(-100000000, -100000000), new Vector2(100000000, 100000000));
+        }
+        public void Cleanup(ObjectType type, Vector2 v, Vector2 BL, Vector2 TR)
+        {
+            Cleanup(type, new ConstLambda(v), BL, TR, DefaultMetric);
+        }
+
+        class ConstLambda : LambdaFunc_1<Vector2, Vector2>
+        {
+            Vector2 c;
+            public ConstLambda(Vector2 c)
+            {
+                this.c = c;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                return c;
+            }
+        }
+
+        public void Cleanup(ObjectType type, LambdaFunc_1<Vector2, Vector2> MinDistFunc)
         {
             Cleanup(type, MinDistFunc, new Vector2(-100000000, -100000000), new Vector2(100000000, 100000000));
         }
-        public void Cleanup(ObjectType type, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR)
+        public void Cleanup(ObjectType type, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Vector2 BL, Vector2 TR)
         {
             Cleanup(type, MinDistFunc, BL, TR, DefaultMetric);
         }
-        public void Cleanup(ObjectType type, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR, Metric metric)
+        public void Cleanup(ObjectType type, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Vector2 BL, Vector2 TR, Metric metric)
         {
             List<ObjectBase> CleanupList = GetObjectList(type);
 
             Cleanup(CleanupList, MinDistFunc, false, BL, TR, metric);
         }
 
-        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, Vector2 BL, Vector2 TR)
+        public void Cleanup(List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Vector2 BL, Vector2 TR)
         {
             Cleanup(ObjList, MinDistFunc, false, BL, TR);
         }
         // If MustBeDifferent is set, then only two objects of different types can force a deletion
-        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR)
+        public void Cleanup(List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR)
         {
             Cleanup(ObjList, MinDistFunc, MustBeDifferent, BL, TR, DefaultMetric);
         }
-        public void Cleanup(List<ObjectBase> ObjList, CleanupCallback MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, Metric metric)
+        public void Cleanup(List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, Metric metric)
         {
             if (ObjList == null) return;
 
@@ -1499,7 +1522,7 @@ namespace CloudberryKingdom.Levels
         }
 
 
-        void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, CleanupCallback MinDistFunc, Metric metric, bool MustBeDifferent)
+        void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Metric metric, bool MustBeDifferent)
         {
             foreach (ObjectBase obj2 in ObjList)
             {
@@ -1516,7 +1539,7 @@ namespace CloudberryKingdom.Levels
                     obj != obj2 &&
                     !(MustBeDifferent && obj.Core.MyType == obj2.Core.MyType))
                 {
-                    Vector2 MinDist = (MinDistFunc(obj.Core.Data.Position) + MinDistFunc(obj2.Core.Data.Position)) / 2;
+                    Vector2 MinDist = (MinDistFunc.Apply(obj.Core.Data.Position) + MinDistFunc.Apply(obj2.Core.Data.Position)) / 2;
 
                     Vector2 d = metric(obj, obj2);
 
@@ -1910,10 +1933,27 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        class SetBackLambda : Lambda
+        {
+            Level level;
+            int Steps;
+
+            public SetBackLambda(Level level, int Steps)
+            {
+                this.level = level;
+                this.Steps = Steps;
+            }
+
+            public void Apply()
+            {
+                level.CurPiece.StartPhsxStep += Steps;
+            }
+        }
+
         public void SetBack(int Steps)
         {
             CurPiece.StartPhsxStep -= Steps;
-            MyGame.WaitThenDo(2, () => CurPiece.StartPhsxStep += Steps);
+            MyGame.WaitThenDo(2, new SetBackLambda(this, Steps));
         }
     }
 }

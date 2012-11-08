@@ -15,30 +15,15 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             // General difficulty
-            BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.Laser];
-            });
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.Laser]);
 
-            LaserStep = new Param(PieceSeed);
-            LaserStep.SetVal(u =>
-            {
-                //return Math.Max(60, 550 - 38 * u[Upgrade.Laser]);
+            LaserStep = new Param(PieceSeed,
+                u[Upgrade.Laser] == 0 ? LaserStepCutoff + 1 : DifficultyHelper.Interp159(1450, 400, 60, u[Upgrade.Laser]));
 
-                float LaserLevel = u[Upgrade.Laser];
-                if (LaserLevel == 0) return LaserStepCutoff + 1;
-                else
-                    //return DifficultyHelper.Interp159(1200, 400, 60, LaserLevel);
-                    return DifficultyHelper.Interp159(1450, 400, 60, LaserLevel);
-            });
-
-            LaserPeriod = new Param(PieceSeed);
-            LaserPeriod.SetVal(u =>
-            {
-                return Math.Max(70, 200 - 11 * u[Upgrade.Speed]);
-            });
+            LaserPeriod = new Param(PieceSeed, Math.Max(70, 200 - 11 * u[Upgrade.Speed]));
         }
     }
 

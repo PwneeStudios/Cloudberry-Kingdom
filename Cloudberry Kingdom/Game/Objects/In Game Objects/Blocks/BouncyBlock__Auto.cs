@@ -23,38 +23,27 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.BouncyBlock]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.BouncyBlock]));
             }
 
-            FillWeight = new Param(PieceSeed, u => u[Upgrade.BouncyBlock]);
+            FillWeight = new Param(PieceSeed, u[Upgrade.BouncyBlock]);
 
             Speed = new Param(PieceSeed);
-            Speed.SetVal(u =>
-            {
-                return DifficultyHelper.Interp(45, 60, u[Upgrade.BouncyBlock]);
-                //return DifficultyHelper.Interp(45, 70, u[Upgrade.BouncyBlock]);
-            });
+            Speed.SetVal(DifficultyHelper.Interp(45, 60, u[Upgrade.BouncyBlock]));
 
             SideDampening = new Param(PieceSeed);
-            SideDampening.SetVal(u =>
-            {
-                return DifficultyHelper.Interp159(.55f, .83f, 1.2f, u[Upgrade.BouncyBlock]);
-            });
+            SideDampening.SetVal(DifficultyHelper.Interp159(.55f, .83f, 1.2f, u[Upgrade.BouncyBlock]));
 
             Size = new Param(PieceSeed);
-            Size.SetVal(u =>
-            {
-                return Math.Max(75, 105 - 1.85f * u[Upgrade.BouncyBlock]);
-            });
+            Size.SetVal(Math.Max(75, 105 - 1.85f * u[Upgrade.BouncyBlock]));
 
             EdgeSafety = new Param(PieceSeed);
-            EdgeSafety.SetVal(u =>
-            {
-                return Math.Max(.01f, DifficultyHelper.Interp159(.4f, .3f, .05f, u[Upgrade.BouncyBlock]));
-            });
+            EdgeSafety.SetVal(Math.Max(.01f, DifficultyHelper.Interp159(.4f, .3f, .05f, u[Upgrade.BouncyBlock])));
         }
     }
 

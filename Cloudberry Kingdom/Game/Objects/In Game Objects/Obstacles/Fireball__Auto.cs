@@ -31,6 +31,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             NumAngles = PieceSeed.Style.Masochistic ? 100 : 4;
             NumPeriods = PieceSeed.Style.Masochistic ? 2 : 1;
             NumOffsets = PieceSeed.Style.Masochistic ? 100 : 16;
@@ -38,39 +40,36 @@ namespace CloudberryKingdom.Levels
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.Fireball]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.Fireball]));
             }
 
-            FillWeight = new Param(PieceSeed, u => u[Upgrade.Fireball]);
+            FillWeight = new Param(PieceSeed, u[Upgrade.Fireball]);
 
-            SetVal(ref SurvivalHallwaySpeed, u => DifficultyHelper.Interp19(20, 45, u[Upgrade.Speed]));
+            SetVal(ref SurvivalHallwaySpeed, DifficultyHelper.Interp19(20, 45, u[Upgrade.Speed]));
 
-            SetVal(ref BorderFillStep, u =>
-            {
-                if (u[Upgrade.Fireball] > 0)
-                    DoFill = true;
+            if (u[Upgrade.Fireball] > 0)
+                DoFill = true;
 
-                float v = DifficultyHelper.Interp159(800, 500, 200, u[Upgrade.Fireball]);
-                if (PieceSeed.Style.Masochistic) v *= .7f;
+            float v = DifficultyHelper.Interp159(800, 500, 200, u[Upgrade.Fireball]);
+            if (PieceSeed.Style.Masochistic) v *= .7f;
 
-                return v;
-            });
+            BorderFillStep = v;
 
             // General difficulty
             BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u => u[Upgrade.Fireball]);
+            BobWidthLevel.SetVal(u[Upgrade.Fireball]);
 
             FireballMaxAngle = new Param(PieceSeed);
-            FireballMaxAngle.SetVal(u => DifficultyHelper.Interp159(.01f, .3f, .75f, u[Upgrade.Fireball]));
+            FireballMaxAngle.SetVal(DifficultyHelper.Interp159(.01f, .3f, .75f, u[Upgrade.Fireball]));
 
             FireballMinDist = new Param(PieceSeed);
-            FireballMinDist.SetVal(u => DifficultyHelper.Interp159(700, 340, 120, u[Upgrade.Fireball]));
+            FireballMinDist.SetVal(DifficultyHelper.Interp159(700, 340, 120, u[Upgrade.Fireball]));
 
             MaxFireballDensity = new Param(PieceSeed);
-            MaxFireballDensity.SetVal(u => 4 * u[Upgrade.Fireball]);
+            MaxFireballDensity.SetVal(4 * u[Upgrade.Fireball]);
 
             Period = new Param(PieceSeed);
-            Period.SetVal(u => DifficultyHelper.InterpRestrict159(240, 195, 148, .7f * u[Upgrade.Speed] + .3f * u[Upgrade.Fireball]));
+            Period.SetVal(DifficultyHelper.InterpRestrict159(240, 195, 148, .7f * u[Upgrade.Speed] + .3f * u[Upgrade.Fireball]));
         }
     }
 
