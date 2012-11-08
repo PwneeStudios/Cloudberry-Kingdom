@@ -55,21 +55,12 @@ namespace CloudberryKingdom.Levels
             base.SetParameters(PieceSeed, level);
 
             MinDist = new Param(PieceSeed);
-            MinDist.SetVal(u =>
-            {
-                //return 0;
-                return 200;
-            });
+            MinDist.SetVal(200);
 
             PlaceDelay = new Param(PieceSeed);
-            PlaceDelay.SetVal(u =>
-            {
-                //return 1;
-                return 15;
-            });
+            PlaceDelay.SetVal(15);
 
-            StartFrame = 60;//35;
-            //StartFrame = 90;
+            StartFrame = 60;
 
             Grid = true;
 

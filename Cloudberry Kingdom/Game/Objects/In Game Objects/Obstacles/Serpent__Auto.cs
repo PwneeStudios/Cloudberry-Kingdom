@@ -14,21 +14,16 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             // General difficulty
-            BobWidthLevel = new Param(PieceSeed, u => u[Upgrade.Serpent]);
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.Serpent]);
 
-            NumToMake = new Param(PieceSeed, u => u[Upgrade.Serpent] < 4 ? 3 : 2);
+            NumToMake = new Param(PieceSeed, u[Upgrade.Serpent] < 4 ? 3 : 2);
 
-            SerpentStep = new Param(PieceSeed, u =>
-            {
-                float SerpentLevel = u[Upgrade.Serpent];
-                if (SerpentLevel == 0)
-                    return SerpentStepCutoff + 1;
-                else
-                    return DifficultyHelper.Interp159(1650, 860, 350, SerpentLevel);
-            });
+            SerpentStep = new Param(PieceSeed, u[Upgrade.Serpent] == 0 ? SerpentStepCutoff + 1 : DifficultyHelper.Interp159(1650, 860, 350, u[Upgrade.Serpent]));
 
-            SerpentPeriod = new Param(PieceSeed, u => Math.Max(70, 200 - 9 * u[Upgrade.Speed]));
+            SerpentPeriod = new Param(PieceSeed, Math.Max(70, 200 - 9 * u[Upgrade.Speed]));
         }
     }
 

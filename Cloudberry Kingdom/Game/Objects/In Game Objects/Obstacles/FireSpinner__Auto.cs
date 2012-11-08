@@ -59,50 +59,30 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             // General difficulty
             float FirespinnerLevel = PieceSeed.MyUpgrades1[Upgrade.FireSpinner];
             if (FirespinnerLevel > 6) NumOffsets = 8;
             else NumOffsets = 4;
 
             BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.FireSpinner];
-            });
+            BobWidthLevel.SetVal(u[Upgrade.FireSpinner]);
 
             MinDist = new Param(PieceSeed);
-            MinDist.SetVal(u =>
-                DifficultyHelper.Interp159(650, 270, 110, u[Upgrade.FireSpinner]));
+            MinDist.SetVal(DifficultyHelper.Interp159(650, 270, 110, u[Upgrade.FireSpinner]));
 
             Length = new Param(PieceSeed);
-            Length.SetVal(u =>
-            {
-                return 240 + 36 * u[Upgrade.FireSpinner];
-            });
+            Length.SetVal(240 + 36 * u[Upgrade.FireSpinner]);
 
             Period = new Param(PieceSeed);
-            Period.SetVal(u =>
-            {
-                return Math.Max(38, 150 + 13 * u[Upgrade.FireSpinner] - 13 * u[Upgrade.Speed]);
-            });
+            Period.SetVal(Math.Max(38, 150 + 13 * u[Upgrade.FireSpinner] - 13 * u[Upgrade.Speed]));
 
             MinDensity = new Param(PieceSeed);
-            MinDensity.SetVal(u =>
-            {
-                if (u[Upgrade.FireSpinner] == 0)
-                    return 0;
-
-                return DifficultyHelper.Interp(50, 80, u[Upgrade.FireSpinner]);
-            });
+            MinDensity.SetVal(u[Upgrade.FireSpinner] == 0 ? 0 : DifficultyHelper.Interp(50, 80, u[Upgrade.FireSpinner]));
 
             MaxDensity = new Param(PieceSeed);
-            MaxDensity.SetVal(u =>
-            {
-                if (u[Upgrade.FireSpinner] == 0)
-                    return 0;
-
-                return DifficultyHelper.Interp(50, 150, u[Upgrade.FireSpinner]);
-            });
+            MaxDensity.SetVal(u[Upgrade.FireSpinner] == 0 ? 0 : DifficultyHelper.Interp(50, 150, u[Upgrade.FireSpinner]));
         }
     }
 

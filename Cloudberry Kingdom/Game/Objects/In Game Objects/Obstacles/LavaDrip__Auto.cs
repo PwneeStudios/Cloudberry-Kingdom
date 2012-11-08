@@ -15,31 +15,18 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            // General difficulty
-            BobWidthLevel = new Param(PieceSeed);
-            BobWidthLevel.SetVal(u =>
-            {
-                return u[Upgrade.LavaDrip];
-            });
+            var u = PieceSeed.u;
 
-            LavaDripStep = new Param(PieceSeed);
-            LavaDripStep.SetVal(u =>
-            {
-                float LavaDripLevel = u[Upgrade.LavaDrip];
-                if (LavaDripLevel == 0)
-                    return LavaDripStepCutoff + 1;
-                else
-                    return DifficultyHelper.Interp159(1450, 550, 250, LavaDripLevel);
-            });
+            // General difficulty
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.LavaDrip]);
+
+            LavaDripStep = new Param(PieceSeed,
+                u[Upgrade.LavaDrip] == 0 ? LavaDripStepCutoff + 1 : DifficultyHelper.Interp159(1450, 550, 250, u[Upgrade.LavaDrip]));
 
             Length = new VectorParam(PieceSeed,
-                u => new Vector2(1400 - 100 * u[Upgrade.LavaDrip], 1400 + 80 * u[Upgrade.LavaDrip]));
+                new Vector2(1400 - 100 * u[Upgrade.LavaDrip], 1400 + 80 * u[Upgrade.LavaDrip]));
 
-            Speed = new Param(PieceSeed);
-            Speed.SetVal(u =>
-            {
-                return Math.Min(3, 1 + .043f * u[Upgrade.Speed] + .017f * u[Upgrade.LavaDrip]);
-            });
+            Speed = new Param(PieceSeed, Math.Min(3, 1 + .043f * u[Upgrade.Speed] + .017f * u[Upgrade.LavaDrip]));
         }
     }
 

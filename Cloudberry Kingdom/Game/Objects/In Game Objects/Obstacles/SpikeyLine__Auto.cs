@@ -22,6 +22,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             if (PieceSeed.MyUpgrades1[Upgrade.SpikeyLine] > 0 ||
                 PieceSeed.MyUpgrades2[Upgrade.SpikeyLine] > 0)
                 Make = true;
@@ -33,18 +35,11 @@ namespace CloudberryKingdom.Levels
             if (FloaterLevel > 6) NumOffsets = 8;
             else NumOffsets = 4;
             
-            BobWidthLevel = new Param(PieceSeed, u =>
-                u[Upgrade.SpikeyLine]);
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.SpikeyLine]);
 
-            LineStep = new Param(PieceSeed, u =>
-            {
-                float LineLevel = u[Upgrade.SpikeyLine];
-                
-                //return DifficultyHelper.Interp159(1200, 800, 340, LineLevel);
-                return DifficultyHelper.Interp159(1550, 800, 340, LineLevel);
-            });
+            LineStep = new Param(PieceSeed, DifficultyHelper.Interp159(1550, 800, 340, u[Upgrade.SpikeyLine]));
 
-            LinePeriod = new Param(PieceSeed, u =>
+            LinePeriod = new Param(PieceSeed, 
                 Math.Max(70, 200 - 11 * u[Upgrade.Speed]));
         }
     }

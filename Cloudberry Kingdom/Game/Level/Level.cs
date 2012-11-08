@@ -1440,6 +1440,15 @@ namespace CloudberryKingdom.Levels
                 Math.Abs(A.Core.Data.Position.Y - B.Core.Data.Position.Y));
         }
         public delegate Vector2 CleanupCallback(Vector2 pos);
+        public void Cleanup(ObjectType type, Vector2 v)
+        {
+            Cleanup(type, pos => v, new Vector2(-100000000, -100000000), new Vector2(100000000, 100000000));
+        }
+        public void Cleanup(ObjectType type, Vector2 v, Vector2 BL, Vector2 TR)
+        {
+            Cleanup(type, pos => v, BL, TR, DefaultMetric);
+        }
+
         public void Cleanup(ObjectType type, CleanupCallback MinDistFunc)
         {
             Cleanup(type, MinDistFunc, new Vector2(-100000000, -100000000), new Vector2(100000000, 100000000));

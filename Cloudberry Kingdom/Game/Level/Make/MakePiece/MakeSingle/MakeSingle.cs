@@ -1106,6 +1106,21 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        //class GeneralMinDistLambda : LambdaFunc<Vector2>
+        //{
+        //    Level level;
+        //    public GeneralMinDistLambda(Level level)
+        //    {
+        //        this.level = level;
+        //    }
+
+        //    public Vector2 Apply()
+        //    {
+        //        float dist = level.CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
+        //        return new Vector2(dist, dist);
+        //    }
+        //}
+
         void Stage2Cleanup(Vector2 BL_Bound, Vector2 TR_Bound)
         {
             OverlapCleanup();
@@ -1113,6 +1128,15 @@ namespace CloudberryKingdom.Levels
             Sleep();
 
             // Limit general density of all obstacles.
+            //List<ObjectBase> ObjsToClean = new List<ObjectBase>();
+            //foreach (var obj in Objects)
+            //    if (obj.Core.GenData.LimitGeneralDensity)
+            //        ObjsToClean.Add(obj);
+
+            //Cleanup(ObjsToClean, delegate(Vector2 pos)
+            //{
+            //}, true, BL_Bound, TR_Bound);
+
             Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
             {
                 float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);

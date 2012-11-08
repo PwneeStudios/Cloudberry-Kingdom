@@ -307,13 +307,13 @@ namespace CloudberryKingdom
 
             float size = 90;
             var FParams = (FallingBlock_Parameters)p.Style.FindParams(FallingBlock_AutoGen.Instance);
-            FParams.Width = size;
+            FParams.Width.SetVal(size);
             var MParams = (MovingBlock_Parameters)p.Style.FindParams(MovingBlock_AutoGen.Instance);
-            MParams.Size = size;
+            MParams.Size.SetVal(size);
             MParams.Aspect = MovingBlock_Parameters.AspectType.Square;
             MParams.Motion = MovingBlock_Parameters.MotionType.Vertical;
             var BParams = (BouncyBlock_Parameters)p.Style.FindParams(BouncyBlock_AutoGen.Instance);
-            BParams.Size = size;
+            BParams.Size.SetVal(size);
             var GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
             //GParams.Counter
             var NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);

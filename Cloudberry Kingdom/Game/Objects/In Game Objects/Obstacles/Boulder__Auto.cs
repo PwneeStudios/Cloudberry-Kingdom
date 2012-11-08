@@ -31,11 +31,13 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             Tunnel = new TunnelFill();
-            SetVal(ref HallwaySpacing, u =>
+            HallwaySpacing =
                 new Vector2(
                     300 - 5 * u[Upgrade.SpikeyGuy],
-                    DifficultyHelper.Interp19(220, 80, u[Upgrade.SpikeyGuy])));
+                    DifficultyHelper.Interp19(220, 80, u[Upgrade.SpikeyGuy]));
 
             if (PieceSeed.MyUpgrades1[Upgrade.SpikeyGuy] > 0 ||
                 PieceSeed.MyUpgrades2[Upgrade.SpikeyGuy] > 0)
@@ -44,38 +46,21 @@ namespace CloudberryKingdom.Levels
                 DoStage2Fill = false;
 
             // General difficulty
-            BobWidthLevel = new Param(PieceSeed, u =>
-            {
-                return u[Upgrade.SpikeyGuy];
-            });
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.SpikeyGuy]);
 
-            FloaterMinDist = new Param(PieceSeed, u =>
-            {
-                return Math.Max(80, 800 - 63.5f * u[Upgrade.SpikeyGuy]);
-            });
+            FloaterMinDist = new Param(PieceSeed, Math.Max(80, 800 - 63.5f * u[Upgrade.SpikeyGuy]));
 
-            FloaterPeriod = new Param(PieceSeed, u =>
-            {
-                return Math.Max(84, 274 - 10 * u[Upgrade.Speed]);
-            });
+            FloaterPeriod = new Param(PieceSeed, Math.Max(84, 274 - 10 * u[Upgrade.Speed]));
 
-            FloaterPlaceDelay = new Param(PieceSeed, u =>
-            {
-                return .705f * Math.Max(4.75f, 9 - u[Upgrade.SpikeyGuy] / 2f);
-            });
+            FloaterPlaceDelay = new Param(PieceSeed, .705f * Math.Max(4.75f, 9 - u[Upgrade.SpikeyGuy] / 2f));
 
-            FloaterMaxAngle = new Param(PieceSeed, u =>
-            {
-                return Math.Min(750, 30 + 64 * u[Upgrade.SpikeyGuy]);
-            });
+            FloaterMaxAngle = new Param(PieceSeed, Math.Min(750, 30 + 64 * u[Upgrade.SpikeyGuy]));
 
-            FloaterSparsity = new Param(PieceSeed, u =>
-            {
-                float sparsity = Math.Max(10, 10 - 0 * u[Upgrade.SpikeyGuy]);
-                if (u[Upgrade.SpikeyGuy] <= 0)
-                    sparsity = -1;
-                return sparsity;
-            });
+            float sparsity = Math.Max(10, 10 - 0 * u[Upgrade.SpikeyGuy]);
+            if (u[Upgrade.SpikeyGuy] <= 0)
+                sparsity = -1;
+
+            FloaterSparsity = new Param(PieceSeed, sparsity);
         }
     }
 

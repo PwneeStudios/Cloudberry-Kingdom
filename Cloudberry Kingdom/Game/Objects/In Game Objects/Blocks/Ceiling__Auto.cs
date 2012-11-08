@@ -39,18 +39,20 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             MyStyle = (Style)level.Rnd.RndEnum<Style>();
 
             if (PieceSeed.u[Upgrade.Ceiling] <= 0)
                 Make = false;
 
-            HeightRange = new VectorParam(PieceSeed, u =>
+            HeightRange = new VectorParam(PieceSeed, 
                 DifficultyHelper.InterpRestrict19(new Vector2(100, 900), new Vector2(500, 1300), u[Upgrade.Ceiling]));
 
-            WidthRange = new VectorParam(PieceSeed, u =>
+            WidthRange = new VectorParam(PieceSeed, 
                 DifficultyHelper.InterpRestrict19(new Vector2(450, 1450), new Vector2(80, 80), u[Upgrade.Ceiling]));
 
-            BufferSize = new Param(PieceSeed, u =>
+            BufferSize = new Param(PieceSeed, 
                 DifficultyHelper.InterpRestrict19(150, 10, u[Upgrade.Ceiling]));
         }
     }

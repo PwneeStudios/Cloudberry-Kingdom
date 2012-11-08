@@ -32,18 +32,16 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                //KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.]));
-                KeepUnused.SetVal(u => .7f);
+                KeepUnused.SetVal(.7f);
             }
 
             FillWeight = new Param(PieceSeed);
-            FillWeight.SetVal(u =>
-            {
-                return 1; // u[Upgrade.Fall];
-            });
+            FillWeight.SetVal(1);
         }
     }
 

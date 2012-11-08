@@ -25,6 +25,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             if (PieceSeed.MyUpgrades1[Upgrade.Firesnake] > 0 ||
                 PieceSeed.MyUpgrades2[Upgrade.Firesnake] > 0)
                 Make = true;
@@ -36,23 +38,16 @@ namespace CloudberryKingdom.Levels
             if (FloaterLevel > 6) NumOffsets = 8;
             else NumOffsets = 4;
             
-            BobWidthLevel = new Param(PieceSeed, u =>
-                u[Upgrade.Firesnake]);
+            BobWidthLevel = new Param(PieceSeed, u[Upgrade.Firesnake]);
 
-            Step = new Param(PieceSeed, u =>
-            {
-                float LineLevel = u[Upgrade.Firesnake];
-                
-                return DifficultyHelper.Interp159(1340, 830, 340, LineLevel);
-            });
+            Step = new Param(PieceSeed, DifficultyHelper.Interp159(1340, 830, 340, u[Upgrade.Firesnake]));
 
-            Period = new Param(PieceSeed, u =>
+            Period = new Param(PieceSeed, 
                 DifficultyHelper.Interp(290, 150, u[Upgrade.Firesnake]) *
                 DifficultyHelper.Interp(1.7f, 1.0f, u[Upgrade.Speed]));
-                //Math.Max(70, 200 - 11 * u[Upgrade.Speed]));
 
-            RadiiX = new VectorParam(PieceSeed, u => new Vector2(400, 1000));
-            RadiiY = new VectorParam(PieceSeed, u => new Vector2(1550, 1850));
+            RadiiX = new VectorParam(PieceSeed, new Vector2(400, 1000));
+            RadiiY = new VectorParam(PieceSeed, new Vector2(1550, 1850));
         }
     }
 

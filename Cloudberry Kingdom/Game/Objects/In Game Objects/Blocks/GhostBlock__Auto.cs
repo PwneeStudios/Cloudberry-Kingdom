@@ -17,37 +17,27 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
+            var u = PieceSeed.u;
+
             BoxType = BoxTypes.TopOnly;
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
             {
-                KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.GhostBlock]));
+                KeepUnused.SetVal(BobPhsxSpaceship.KeepUnused(u[Upgrade.GhostBlock]));
             }
 
-            FillWeight = new Param(PieceSeed, u => u[Upgrade.GhostBlock]);
+            FillWeight = new Param(PieceSeed, u[Upgrade.GhostBlock]);
 
-            InLength = new Param(PieceSeed, u =>
-            {
-                return DifficultyHelper.Interp(147, 75, u[Upgrade.Speed]) *
-                    DifficultyHelper.Interp(1.275f, .275f, u[Upgrade.GhostBlock]);
-            });
+            InLength = new Param(PieceSeed, DifficultyHelper.Interp(147, 75, u[Upgrade.Speed]) *
+                    DifficultyHelper.Interp(1.275f, .275f, u[Upgrade.GhostBlock]));
 
-            OutLength = new Param(PieceSeed, u =>
-            {
-                return Math.Max(60, 110 - 4 * u[Upgrade.Speed]);
-            });
+            OutLength = new Param(PieceSeed, Math.Max(60, 110 - 4 * u[Upgrade.Speed]));
 
-            Width = new Param(PieceSeed, u =>
-            {
-                return Math.Max(40, 93 - 2 * u[Upgrade.GhostBlock]);
-            });
+            Width = new Param(PieceSeed, Math.Max(40, 93 - 2 * u[Upgrade.GhostBlock]));
 
             TimeSafety = new Param(PieceSeed);
-            TimeSafety.SetVal(u =>
-            {
-                return Math.Max(0f, DifficultyHelper.Interp(1f, 0f, u[Upgrade.GhostBlock]));
-            });
+            TimeSafety.SetVal(Math.Max(0f, DifficultyHelper.Interp(1f, 0f, u[Upgrade.GhostBlock])));
 
             // Masochistic
             if (PieceSeed.u[Upgrade.GhostBlock] == 10)
