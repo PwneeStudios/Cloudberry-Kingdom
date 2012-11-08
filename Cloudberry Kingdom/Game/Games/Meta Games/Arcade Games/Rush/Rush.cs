@@ -9,6 +9,41 @@ namespace CloudberryKingdom
 {
     public abstract class Rush : Challenge
     {
+        class KillAllPlayersHelper : LambdaFunc<bool>
+        {
+            Rush rush;
+            GameData game;
+
+            public KillAllPlayersHelper(Rush rush, GameData game)
+            {
+                this.rush = rush;
+                this.game = game;
+            }
+
+            public bool Apply()
+            {
+                Level level = game.MyLevel;
+
+                // Kill all the players
+                foreach (Bob bob in level.Bobs)
+                {
+                    if (bob.IsVisible())
+                    {
+                        ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
+                        bob.Core.Show = false;
+                    }
+
+                    if (!bob.Dead && !bob.Dying)
+                        bob.Die(Bob.BobDeathType.None, true, false);
+                }
+
+                // Add the Game Over panel, check for Awardments
+                game.WaitThenDo(105, new ShowEndScreenProxy(rush));
+
+                return true;
+            }
+        }
+
         public GUI_Timer Timer;
         protected void OnTimeExpired(GUI_Timer_Base Timer)
         {
@@ -26,26 +61,7 @@ namespace CloudberryKingdom
             if (level.FinalDoor != null)
                 level.FinalDoor.OnOpen = null;
 
-            game.AddToDo(() =>
-            {
-                // Kill all the players
-                foreach (Bob bob in level.Bobs)
-                {
-                    if (bob.IsVisible())
-                    {
-                        ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
-                        bob.Core.Show = false;
-                    }
-
-                    if (!bob.Dead && !bob.Dying)
-                        bob.Die(Bob.BobDeathType.None, true, false);
-                }
-
-                // Add the Game Over panel, check for Awardments
-                game.WaitThenDo(105, ShowEndScreen);
-
-                return true;
-            });
+            game.AddToDo(new KillAllPlayersHelper(this, game));
         }
 
         protected int StartIndex = 0;

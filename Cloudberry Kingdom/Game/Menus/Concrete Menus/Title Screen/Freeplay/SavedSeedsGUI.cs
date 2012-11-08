@@ -50,7 +50,7 @@ namespace CloudberryKingdom
                     Tools.CurrentAftermath.EarlyExit = true;
 
                     CustomLevel_GUI.SeedStringToLoad = seedstr;
-                    Tools.CurGameData.EndGame(false);
+                    Tools.CurGameData.EndGame.Apply(false);
                 }
                 else
                     CustomLevel_GUI.SeedStringToLoad = seedstr;

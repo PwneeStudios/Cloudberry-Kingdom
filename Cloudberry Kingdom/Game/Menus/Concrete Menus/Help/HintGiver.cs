@@ -45,6 +45,29 @@ namespace CloudberryKingdom
             Check_QuickSpawn();
         }
 
+        class Check_QuickSpawnHelper : Lambda
+        {
+            HintGiver hg;
+
+            public Check_QuickSpawnHelper(HintGiver hg)
+            {
+                this.hg = hg;
+            }
+
+            public void Apply()
+            {
+                HintBlurb hint = new HintBlurb();
+                hint.SetText(HintGiver.QuickSpawnHint);
+
+                /*
+                hint.MyPile.BackdropShift = new Vector2(166.6668f, -152.2223f);
+                hint.MyPile.Backdrop.CalcQuads(new Vector2(855, 330));
+                */
+
+                hg.Call(hint);
+            }
+        }
+
         public void Check_QuickSpawn()
         {
             Level level = Core.MyLevel;
@@ -59,18 +82,7 @@ namespace CloudberryKingdom
             {
                 Hints.IncrQuickSpawnNum();
 
-                MyGame.WaitThenDo(5, () =>
-                {
-                    HintBlurb hint = new HintBlurb();
-                    hint.SetText(QuickSpawnHint);
-
-                    /*
-                    hint.MyPile.BackdropShift = new Vector2(166.6668f, -152.2223f);
-                    hint.MyPile.Backdrop.CalcQuads(new Vector2(855, 330));
-                */
-
-                    Call(hint);
-                });
+                MyGame.WaitThenDo(5, new Check_QuickSpawnHelper(this));
             }
         }
 
@@ -102,6 +114,31 @@ namespace CloudberryKingdom
             }
         }
 
+        class Check_YForHelpHelper : Lambda
+        {
+            HintGiver hg;
+
+            public Check_YForHelpHelper(HintGiver hg)
+            {
+                this.hg = hg;
+            }
+
+            public void Apply()
+            {
+                if (Hints.YForHelpNum > 10) return;
+
+                HintBlurb hint = new HintBlurb();
+                hint.SetText(HintGiver.PowerupHint);
+
+                /*
+                hint.MyPile.BackdropShift = new Vector2(169.4445f, -102.2223f);
+                hint.MyPile.Backdrop.CalcQuads(new Vector2(855, 230));
+                */
+
+                hg.Call(hint);
+            }
+        }
+
         public void Check_YForHelp()
         {
             Level level = Core.MyLevel;
@@ -117,20 +154,7 @@ namespace CloudberryKingdom
                 Hints.IncrYForHelpNum();
 
                 //MyGame.ToDoOnReset.Add(() =>
-                MyGame.WaitThenDo(5, () =>
-                {
-                    if (Hints.YForHelpNum > 10) return;
-
-                    HintBlurb hint = new HintBlurb();
-                    hint.SetText(PowerupHint);
-
-                    /*
-                    hint.MyPile.BackdropShift = new Vector2(169.4445f, -102.2223f);
-                    hint.MyPile.Backdrop.CalcQuads(new Vector2(855, 230));
-                    */
-
-                    Call(hint);
-                });
+                MyGame.WaitThenDo(5, new Check_YForHelpHelper(this));
             }
         }
     }

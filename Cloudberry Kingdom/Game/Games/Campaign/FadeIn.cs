@@ -30,12 +30,42 @@ namespace CloudberryKingdom
                     bob.Core.Show = false;
             }
             
-            MyGame.WaitThenDo(1, Ready);
+            MyGame.WaitThenDo(1, new ReadyProxy(this));
+        }
+
+        class ReadyProxy : Lambda
+        {
+            FadeInObject fio;
+
+            public ReadyProxy(FadeInObject fio)
+            {
+                this.fio = fio;
+            }
+
+            public void Apply()
+            {
+                fio.Ready();
+            }
         }
 
         void Ready()
         {
-            MyGame.WaitThenDo(20, End);
+            MyGame.WaitThenDo(20, new EndProxy(this));
+        }
+
+        class EndProxy : Lambda
+        {
+            FadeInObject fio;
+
+            public EndProxy(FadeInObject fio)
+            {
+                this.fio = fio;
+            }
+
+            public void Apply()
+            {
+                fio.End();
+            }
         }
 
         void End()

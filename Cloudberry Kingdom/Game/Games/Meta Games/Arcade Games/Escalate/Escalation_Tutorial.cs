@@ -28,6 +28,17 @@ namespace CloudberryKingdom
             this.Escalation = Escalation;
         }
 
+        class ConfigureSongsHelper : Lambda
+        {
+            public void Apply()
+            {
+                Tools.SongWad.SuppressNextInfoDisplay = true;
+                Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+                //Tools.SongWad.SetPlayList(Tools.Song_140mph);
+                Tools.SongWad.Restart(true);
+            }
+        }
+
         public override void OnAdd()
         {
             base.OnAdd();
@@ -50,19 +61,30 @@ namespace CloudberryKingdom
             MyGame.PhsxStepsToDo += 2;
             
             // Start the music
-            MyGame.WaitThenDo(20, () =>
-                {
-                    Tools.SongWad.SuppressNextInfoDisplay = true;
-                    Tools.SongWad.SetPlayList(Tools.SongList_Standard);
-                    //Tools.SongWad.SetPlayList(Tools.Song_140mph);
-                    Tools.SongWad.Restart(true);
-                });
+            MyGame.WaitThenDo(20, new ConfigureSongsHelper());
 
             if (HeroRush_Tutorial.ShowTitle || !WatchedOnce)
             //if (ShowTitle || !WatchedOnce)
-                MyGame.WaitThenDo(27, () => Title());
+                MyGame.WaitThenDo(27, new TitleProxy(this));
             else
-                MyGame.WaitThenDo(20, () => Ready());
+                MyGame.WaitThenDo(20, new ReadyProxy(this));
+        }
+
+        class PreventThingsHelper : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public PreventThingsHelper(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                et.MyGame.MyLevel.PreventHelp = false;
+                et.MyGame.MyLevel.PreventReset = false;
+                et.MyGame.MyLevel.Finished = false;
+            }
         }
 
         protected void TutorialOrSkip()
@@ -73,17 +95,78 @@ namespace CloudberryKingdom
 
                 int wait = MyGame.DramaticEntry(MyGame.MyLevel.StartDoor, 90);
                 MyGame.MyLevel.SetBack(wait + 90);
-                MyGame.WaitThenDo(wait, () =>
-                {
-                    MyGame.MyLevel.PreventHelp = false;
-                    MyGame.MyLevel.PreventReset = false;
-                    MyGame.MyLevel.Finished = false;
-                });
+                MyGame.WaitThenDo(wait, new PreventThingsHelper(this));
             }
             else
                 Ready();
 
             WatchedOnce = true;
+        }
+
+        class TitleProxy : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public TitleProxy(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                et.Title();
+            }
+        }
+
+        class TutorialOrSkipProxy : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public TutorialOrSkipProxy(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                et.TutorialOrSkip();
+            }
+        }
+
+        class NextTutorialHelper : Lambda
+        {
+            Escalation_Tutorial et;
+            GUI_Text text;
+
+            public NextTutorialHelper(Escalation_Tutorial et, GUI_Text text)
+            {
+                this.et = et;
+                this.text = text;
+            }
+
+            public void Apply()
+            {
+                //MyGame.WaitThenDo(18, () => PointAtDoor());
+                et.MyGame.WaitThenDo(12, new TutorialOrSkipProxy(et));
+                text.Kill(et.SoundOnKill);
+            }
+        }
+
+        class TextKillHelper : Lambda
+        {
+            Escalation_Tutorial et;
+            GUI_Text text;
+
+            public TextKillHelper(Escalation_Tutorial et, GUI_Text text)
+            {
+                this.et = et;
+                this.text = text;
+            }
+
+            public void Apply()
+            {
+                text.Kill(et.SoundOnKill);
+            }
         }
 
         protected virtual void Title()
@@ -98,12 +181,7 @@ namespace CloudberryKingdom
                 MyGame.AddGameObject(text);
 
                 // On (A) go to next part of the tutorial
-                MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
-                {
-                    //MyGame.WaitThenDo(18, () => PointAtDoor());
-                    MyGame.WaitThenDo(12, () => TutorialOrSkip());
-                    text.Kill(SoundOnKill);
-                }));
+                MyGame.AddGameObject(new Listener(ControllerButtons.A, new NextTutorialHelper(this, text)));
             }
             else
             {
@@ -113,8 +191,38 @@ namespace CloudberryKingdom
 
                 MyGame.AddGameObject(text);
 
-                MyGame.WaitThenDo(120, () => text.Kill(SoundOnKill));
-                MyGame.WaitThenDo(40, () => TutorialOrSkip());
+                MyGame.WaitThenDo(120, new TextKillHelper(this, text));
+                MyGame.WaitThenDo(40, new TutorialOrSkipProxy(this));
+            }
+        }
+
+        class ReadyProxy : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public ReadyProxy(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                et.Ready();
+            }
+        }
+
+        class TutorialHelperReadyGo : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public TutorialHelperReadyGo(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                TutorialHelper.ReadyGo(et.MyGame, new EndProxy(et));
             }
         }
 
@@ -122,8 +230,22 @@ namespace CloudberryKingdom
         {
             int Wait = 5 + 22;
 
-            MyGame.WaitThenDo(Wait, () =>
-                TutorialHelper.ReadyGo(MyGame, End));
+            MyGame.WaitThenDo(Wait, new TutorialHelperReadyGo(this));
+        }
+
+        class EndProxy : Lambda
+        {
+            Escalation_Tutorial et;
+
+            public EndProxy(Escalation_Tutorial et)
+            {
+                this.et = et;
+            }
+
+            public void Apply()
+            {
+                et.End();
+            }
         }
 
         void End()

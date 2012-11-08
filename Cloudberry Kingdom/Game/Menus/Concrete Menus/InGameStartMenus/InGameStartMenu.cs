@@ -21,6 +21,24 @@ namespace CloudberryKingdom
                 new InGameStartMenu(listener.TriggeringPlayerIndex));
         }
 
+        class PreventMenuHelper : Lambda
+        {
+            Listener listener;
+            Func<Listener, GUI_Panel> Make;
+
+            public PreventMenuHelper(Listener listener, Func<Listener, GUI_Panel> Make)
+            {
+                this.listener = listener;
+                this.Make = Make;
+            }
+
+            public void Apply()
+            {
+                if (!InGameStartMenu.PreventMenu)
+                    listener.Call(Make(listener));
+            }
+        }
+
         public static GameObject MakeListener_Base(Func<Listener, GUI_Panel> Make)
         {
             Listener listener = new Listener();
@@ -28,11 +46,7 @@ namespace CloudberryKingdom
 
             listener.Tags += GameObject.Tag.RemoveOnLevelFinish;
 
-            listener.MyAction = () =>
-            {
-                if (!PreventMenu)
-                    listener.Call(Make(listener));
-            };
+            listener.MyAction = new PreventMenuHelper(listener, Make);
 
             return listener;
         }

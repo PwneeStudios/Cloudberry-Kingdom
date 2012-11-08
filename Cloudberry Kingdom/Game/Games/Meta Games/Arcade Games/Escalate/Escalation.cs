@@ -39,7 +39,7 @@ namespace CloudberryKingdom
                 ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
 
             // Add the Game Over panel, check for Awardments
-            game.WaitThenDo(50, ShowEndScreen);
+            game.WaitThenDo(50, new ShowEndScreenProxy(this));
         }
 
         protected int i = 0;

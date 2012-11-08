@@ -2,24 +2,66 @@ namespace CloudberryKingdom
 {
     public class CoinScoreMultiplierObject : GameObject
     {
+        class OnCoinGrabProxy : Lambda_1<ObjectBase>
+        {
+            CoinScoreMultiplierObject csmo;
+            public OnCoinGrabProxy(CoinScoreMultiplierObject csmo)
+            {
+                this.csmo = csmo;
+            }
+
+            public void Apply(ObjectBase obj)
+            {
+                csmo.OnCoinGrab(obj);
+            }
+        }
+
+        class OnLevelRetryProxy : Lambda
+        {
+            CoinScoreMultiplierObject csmo;
+            public OnLevelRetryProxy(CoinScoreMultiplierObject csmo)
+            {
+                this.csmo = csmo;
+            }
+
+            public void Apply()
+            {
+                csmo.OnLevelRetry();
+            }
+        }
+
+        class OnCalculateCoinScoreMultiplierProxy : Lambda_1<GameData>
+        {
+            CoinScoreMultiplierObject csmo;
+            public OnCalculateCoinScoreMultiplierProxy(CoinScoreMultiplierObject csmo)
+            {
+                this.csmo = csmo;
+            }
+
+            public void Apply(GameData obj)
+            {
+                obj.CoinScoreMultiplier *= csmo._CoinScoreMultiplier;
+            }
+        }
+
         public override void OnAdd()
         {
             base.OnAdd();
 
             ResetMultiplier();
-            
-            MyGame.OnCoinGrab += OnCoinGrab;
-            MyGame.OnLevelRetry += OnLevelRetry;
 
-            MyGame.OnCalculateCoinScoreMultiplier += game => game.CoinScoreMultiplier *= _CoinScoreMultiplier;
+            MyGame.OnCoinGrab.Add(new OnCoinGrabProxy(this));
+            MyGame.OnLevelRetry.Add(new OnLevelRetryProxy(this));
+
+            MyGame.OnCalculateCoinScoreMultiplier.Add(new OnCalculateCoinScoreMultiplierProxy(this));
         }
 
         protected override void ReleaseBody()
         {
             base.ReleaseBody();
-
-            MyGame.OnCoinGrab -= OnCoinGrab;
-            MyGame.OnLevelRetry -= OnLevelRetry;
+            
+            //MyGame.OnCoinGrab -= OnCoinGrab;
+            //MyGame.OnLevelRetry -= OnLevelRetry;
         }
 
         float _CoinScoreMultiplier = 1f;

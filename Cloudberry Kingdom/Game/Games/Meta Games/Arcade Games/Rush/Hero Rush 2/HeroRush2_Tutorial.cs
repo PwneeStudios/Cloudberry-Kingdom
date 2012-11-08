@@ -24,14 +24,7 @@ namespace CloudberryKingdom
             text.MyText.Pos += new Vector2(0, -110);
 
             MyGame.AddGameObject(text);
-            MyGame.WaitThenDo(0, () => {
-                // On (A) go to next part of the tutorial
-                MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
-                {
-                    MyGame.WaitThenDo(12, () => TutorialOrSkip());
-                    text.Kill(SoundOnKill);
-                }));
-            });
+            MyGame.WaitThenDo(0, new AddGameObjectHelper(this, text));
         }
     }
 }

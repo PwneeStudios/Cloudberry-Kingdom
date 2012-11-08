@@ -720,7 +720,7 @@ namespace CloudberryKingdom
                 f_ = f;
             }
 
-            bool Apply()
+            public bool Apply()
             {
                 f_.Apply();
                 return true;

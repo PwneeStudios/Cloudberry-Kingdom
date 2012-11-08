@@ -20,10 +20,27 @@ namespace CloudberryKingdom
             MyGame.Recycle.CollectObject(this);
         }
 
+        class CheerHelper : Lambda
+        {
+            GameData mygame;
+            Vector2 pos;
+
+            public CheerHelper(GameData mygame, Vector2 pos)
+            {
+                this.mygame = mygame;
+                this.pos = pos;
+            }
+
+            public void Apply()
+            {
+                Cheer cheer = new Cheer();
+                cheer.Berry.Pos += pos;
+                mygame.AddGameObject(cheer);
+            }
+        }
+
         void AddWave(int Delay)
         {
-            Cheer cheer;
-
             float Spread = 3400;
             int Num = 13;
             float Step = Spread / (Num - 1);
@@ -35,12 +52,7 @@ namespace CloudberryKingdom
                 Vector2 pos = new Vector2(x, y - 130);
 
                 GameData mygame = MyGame;
-                MyGame.WaitThenDo(i * 6 + Delay, () =>
-                {
-                    cheer = new Cheer();
-                    cheer.Berry.Pos += pos;
-                    mygame.AddGameObject(cheer);
-                });
+                MyGame.WaitThenDo(i * 6 + Delay, new CheerHelper(mygame, pos));
             }
         }
     }

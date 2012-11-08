@@ -34,6 +34,21 @@ namespace CloudberryKingdom
             //DoneWithCharSelect();
         }
 
+        class CharacterSelectProxy : Lambda
+        {
+            StartMenu startMenu;
+
+            public CharacterSelectProxy(StartMenu startMenu)
+            {
+                this.startMenu = startMenu;
+            }
+
+            public void Apply()
+            {
+                startMenu.CharacterSelect();
+            }
+        }
+
         /// <summary>
         /// When true the user can not selected back.
         /// </summary>
@@ -42,7 +57,7 @@ namespace CloudberryKingdom
         protected virtual void BringCharacterSelect()
         {
             NoBack = true;
-            MyGame.SlideOut_FadeIn(20, CharacterSelect);
+            MyGame.SlideOut_FadeIn(20, new CharacterSelectProxy(this));
         }
 
         public override void Show()

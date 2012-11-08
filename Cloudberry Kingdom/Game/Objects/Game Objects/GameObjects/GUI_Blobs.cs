@@ -38,6 +38,21 @@ namespace CloudberryKingdom
             base.Reset(BoxesOnly);
         }
 
+        class MyPhsxStepHelper : Lambda
+        {
+            GUI_BlobQuota blobQuota;
+
+            public MyPhsxStepHelper(GUI_BlobQuota blobQuota)
+            {
+                this.blobQuota = blobQuota;
+            }
+
+            public void Apply()
+            {
+                blobQuota.SlideOut(PresetPos.Top, 26);
+            }
+        }
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
@@ -56,7 +71,7 @@ namespace CloudberryKingdom
                     MyPile.BubbleUp(true);
 
                     // Hide
-                    MyGame.WaitThenDo(28, () => SlideOut(PresetPos.Top, 26), "", true, true);
+                    MyGame.WaitThenDo(28, new MyPhsxStepHelper(this), "", true, true);
 
                     //FinalDoor.SetLock(false);
 

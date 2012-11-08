@@ -40,19 +40,47 @@ namespace CloudberryKingdom
         public Action<LevelItem> StartFunc;
         public Action ReturnFunc;
 
+        class GameReturnProxy : LambdaFunc<bool>
+        {
+            StartLevelMenu slm;
+
+            public GameReturnProxy(StartLevelMenu slm)
+            {
+                this.slm = slm;
+            }
+
+            public bool Apply()
+            {
+                return slm.GameReturn();
+            }
+        }
+
+        class LaunchHelper : Lambda
+        {
+            StartLevelMenu slm;
+            LevelItem litem;
+
+            public LaunchHelper(StartLevelMenu slm, LevelItem litem)
+            {
+                this.slm = slm;
+                this.litem = litem;
+            }
+
+            public void Apply()
+            {
+                // Executed once the game exits back to this menu
+                slm.MyGame.AddToDo(new GameReturnProxy(slm));
+
+                slm.StartFunc(litem);
+            }
+        }
+
         protected virtual void Launch(MenuItem item)
         {
             LevelItem litem = item as LevelItem;
             if (null == litem) return;
 
-            MyGame.WaitThenDo(CallDelay, () =>
-            {
-                // Executed once the game exits back to this menu
-                MyGame.AddToDo((Func<bool>)GameReturn);
-
-                StartFunc(litem);
-                
-            }, "StartGame");
+            MyGame.WaitThenDo(CallDelay, new LaunchHelper(this, litem), "StartGame");
         }
 
         protected virtual bool GameReturn()

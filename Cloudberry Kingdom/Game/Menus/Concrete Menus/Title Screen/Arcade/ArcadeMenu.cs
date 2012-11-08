@@ -31,6 +31,21 @@ namespace CloudberryKingdom
             MyGame.ClearPreviousLoadFunction();
         }
 
+        class PlayGameProxy : Lambda
+        {
+            ArcadeBaseMenu abm;
+
+            public PlayGameProxy(ArcadeBaseMenu abm)
+            {
+                this.abm = abm;
+            }
+
+            public void Apply()
+            {
+                abm.PlayGame();
+            }
+        }
+
         protected virtual void StartFunc(LevelItem item)
         {
             SelectedItem = item;
@@ -39,7 +54,7 @@ namespace CloudberryKingdom
             StartLevelMenu.PreviousMenuIndex = item.MenuIndex;
 
             // Start the game
-            MyGame.PlayGame(PlayGame);
+            MyGame.PlayGame(new PlayGameProxy(this));
         }
 
         protected virtual void PlayGame()

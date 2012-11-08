@@ -28,7 +28,7 @@ namespace CloudberryKingdom
                     Tools.CurrentAftermath.Success = false;
                     Tools.CurrentAftermath.EarlyExit = true;
 
-                    Tools.CurGameData.EndGame(false);
+                    Tools.CurGameData.EndGame.Apply(false);
                 };
             item.Name = "Yes";
             AddItem(item);

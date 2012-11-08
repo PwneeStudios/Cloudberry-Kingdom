@@ -13,7 +13,7 @@ namespace CloudberryKingdom
             Core.Show = false;
         }
 
-        public Listener(ControllerButtons button, Action action)
+        public Listener(ControllerButtons button, Lambda action)
         {
             if (button == ControllerButtons.A)
             {
@@ -34,7 +34,7 @@ namespace CloudberryKingdom
         public enum Type { OnDown, OnPressed };
         public Type MyType = Type.OnPressed;
 
-        public Action MyAction;
+        public Lambda MyAction;
         public int TriggeringPlayerIndex;
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
         public virtual void Activate()
         {
             if (MyAction != null)
-                MyAction();
+                MyAction.Apply();
 
             if (RemoveAfterActivation)
                 Release();

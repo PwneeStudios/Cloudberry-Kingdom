@@ -21,6 +21,23 @@ namespace CloudberryKingdom.Awards
             Constructor();
         }
 
+        class CoinSoundPlayer : Lambda
+        {
+            float pitch;
+            EzSound sound;
+
+            public CoinSoundPlayer(float pitch)
+            {
+                this.pitch = pitch;
+                sound = Tools.Sound("Coin");
+            }
+
+            public void Apply()
+            {
+                sound.Play(1, pitch, 0);
+            }
+        }
+
         void Yes(MenuItem item)
         {
             var sound = Tools.Sound("Coin");
@@ -28,10 +45,7 @@ namespace CloudberryKingdom.Awards
             float pitch = 0;
             for (int i = 0; i < Cost; i += 150)
             {
-                MyGame.WaitThenDo(wait, () =>
-                    //sound.Play(MyLevel.Rnd.RndFloat(.8f, 1f), MyLevel.Rnd.RndFloat(-.05f, .05f), 0));
-                    //sound.Play(1, 0, pitch));
-                    sound.Play(1, pitch, 0));
+                MyGame.WaitThenDo(wait, new CoinSoundPlayer(pitch));
                 wait += 5;
                 pitch += .05f;
             }

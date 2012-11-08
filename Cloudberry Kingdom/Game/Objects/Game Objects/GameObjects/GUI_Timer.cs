@@ -7,17 +7,48 @@ namespace CloudberryKingdom
 {
     public class GUI_Timer : GUI_Timer_Base
     {
+        class OnCoinGrabProxy : Lambda_1<ObjectBase>
+        {
+            GUI_Timer timer;
+
+            public OnCoinGrabProxy(GUI_Timer timer)
+            {
+                this.timer = timer;
+            }
+
+            public void Apply(ObjectBase obj)
+            {
+                timer.OnCoinGrab(obj);
+            }
+        }
+
+        class OnCompleteLevelProxy : Lambda_1<Levels.Level>
+        {
+            GUI_Timer timer;
+
+            public OnCompleteLevelProxy(GUI_Timer timer)
+            {
+                this.timer = timer;
+            }
+
+            public void Apply(Levels.Level level)
+            {
+                timer.OnCompleteLevel(level);
+            }
+        }
+
+
         public override void OnAdd()
         {
             base.OnAdd();
             
-            MyGame.OnCoinGrab += OnCoinGrab;
-            MyGame.OnCompleteLevel += OnCompleteLevel;
+            MyGame.OnCoinGrab.Add(new OnCoinGrabProxy(this));
+            MyGame.OnCompleteLevel.Add(new OnCompleteLevelProxy(this));
         }
 
         protected override void ReleaseBody()
         {
-            MyGame.OnCoinGrab -= OnCoinGrab; 
+            //MyGame.OnCoinGrab -= OnCoinGrab; 
             
             base.ReleaseBody();            
         }

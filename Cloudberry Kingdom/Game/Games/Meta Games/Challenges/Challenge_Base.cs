@@ -69,6 +69,21 @@ namespace CloudberryKingdom
             return PlayerManager.MaxPlayerHighScore(GameId_Level);
         }
 
+        protected class ShowEndScreenProxy : Lambda
+        {
+            Challenge challenge;
+
+            public ShowEndScreenProxy(Challenge challenge)
+            {
+                this.challenge = challenge;
+            }
+
+            public void Apply()
+            {
+                challenge.ShowEndScreen();
+            }
+        }
+
         protected virtual void ShowEndScreen()
         {
             var MyGameOverPanel = new GameOverPanel(GameId_Score, GameId_Level);

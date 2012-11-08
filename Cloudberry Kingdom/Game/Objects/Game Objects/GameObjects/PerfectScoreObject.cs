@@ -47,8 +47,8 @@ namespace CloudberryKingdom
 
             Eligible = true;
 
-            MyGame.OnCoinGrab += OnCoinGrab;
-            MyGame.OnLevelRetry += OnLevelRetry;
+            MyGame.OnCoinGrab.Add(new OnCoinGrabProxy(this));
+            MyGame.OnLevelRetry.Add(new OnLevelRetryProxy(this));
 
             OnAdd_GUI();
         }
@@ -57,8 +57,8 @@ namespace CloudberryKingdom
         {
             base.ReleaseBody();
 
-            MyGame.OnCoinGrab -= OnCoinGrab;
-            MyGame.OnLevelRetry -= OnLevelRetry;
+            //MyGame.OnCoinGrab -= OnCoinGrab;
+            //MyGame.OnLevelRetry -= OnLevelRetry;
         }
 
         /// <summary>
@@ -100,6 +100,21 @@ namespace CloudberryKingdom
         }
         int _NextBonus;
 
+
+        class OnCoinGrabProxy : Lambda_1<ObjectBase>
+        {
+            PerfectScoreObject pso;
+
+            public OnCoinGrabProxy(PerfectScoreObject pso)
+            {
+                this.pso = pso;
+            }
+
+            public void Apply(ObjectBase obj)
+            {
+                pso.OnCoinGrab(obj);
+            }
+        }
 
         /// <summary>
         /// How many times a bonus has been gotten in a row
@@ -169,6 +184,21 @@ namespace CloudberryKingdom
             MyGame.AddGameObject(text2);
 
             //ParticleEffects.CoinExplosion(MyGame.MyLevel, pos);
+        }
+
+        class OnLevelRetryProxy : Lambda
+        {
+            PerfectScoreObject pso;
+
+            public OnLevelRetryProxy(PerfectScoreObject pso)
+            {
+                this.pso = pso;
+            }
+
+            public void Apply()
+            {
+                pso.OnLevelRetry();
+            }
         }
 
         /// <summary>

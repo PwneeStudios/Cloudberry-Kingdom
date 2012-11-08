@@ -16,6 +16,21 @@ namespace CloudberryKingdom
 {
     public class GameObject : ObjectBase
     {
+        public class AddGameObjectToCoreHelper : Lambda
+        {
+            GameObject obj;
+
+            public AddGameObjectToCoreHelper(GameObject obj)
+            {
+                this.obj = obj;
+            }
+
+            public void Apply()
+            {
+                obj.Core.MyLevel.MyGame.AddGameObject(obj);
+            }
+        }
+
         /// <summary>
         /// Tries to add the game object to the game object's level's game.
         /// Returns true if failed.
@@ -24,8 +39,7 @@ namespace CloudberryKingdom
         {
             if (MyGame == null)
                 if (Core.MyLevel.MyGame != null)
-                    Core.MyLevel.MyGame.WaitThenDo(0, () =>
-                        Core.MyLevel.MyGame.AddGameObject(this));
+                    Core.MyLevel.MyGame.WaitThenDo(0, new AddGameObjectToCoreHelper(this));
 
             return MyGame == null;
         }

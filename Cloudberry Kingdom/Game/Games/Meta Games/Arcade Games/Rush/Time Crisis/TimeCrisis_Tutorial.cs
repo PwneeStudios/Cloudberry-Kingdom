@@ -27,18 +27,7 @@ namespace CloudberryKingdom
             //CampaignHelper.AbusiveColor(text2.MyText);
 
             MyGame.AddGameObject(text);
-            MyGame.WaitThenDo(0, () => {
-                //MyGame.AddGameObject(text2);
-
-                // On (A) go to next part of the tutorial
-                MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
-                {
-                    MyGame.WaitThenDo(12, () => TutorialOrSkip());
-
-                    text.Kill(SoundOnKill);
-                    //MyGame.WaitThenDo(6, () => text2.Kill(SoundOnKill));
-                }));
-            });
+            MyGame.WaitThenDo(0, new AddGameObjectHelper(this, text));
         }
     }
 }
