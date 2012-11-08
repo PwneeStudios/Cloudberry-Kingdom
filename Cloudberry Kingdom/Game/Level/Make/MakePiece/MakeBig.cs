@@ -168,10 +168,7 @@ namespace CloudberryKingdom.Levels
             }, true, BL_Bound, TR_Bound);
             Sleep();
 
-            Cleanup(ObjectType.Coin, delegate(Vector2 pos)
-            {
-                return new Vector2(180, 180);
-            }, BL_Bound, TR_Bound + new Vector2(500, 0));
+            Cleanup(ObjectType.Coin, new Vector2(180, 180), BL_Bound, TR_Bound + new Vector2(500, 0));
             Sleep();
 
 
