@@ -89,7 +89,22 @@ namespace CloudberryKingdom
 
             // Fade in
             FadeIn(.0175f);
-            WaitThenDo(18, _Init);
+            WaitThenDo(18, new _InitProxy(this));
+        }
+
+        class _InitProxy : Lambda
+        {
+            TitleGameData_MW tgdmw;
+
+            public _InitProxy(TitleGameData_MW tgdmw)
+            {
+                this.tgdmw = tgdmw;
+            }
+
+            public void Apply()
+            {
+                tgdmw._Init();
+            }
         }
 
         void _Init()

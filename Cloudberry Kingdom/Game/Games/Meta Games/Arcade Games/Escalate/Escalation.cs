@@ -99,6 +99,21 @@ namespace CloudberryKingdom
         
         protected int LevelsPerTileset = 5;
 
+        class ScoreMultiplierHelper : Lambda_1<GameData>
+        {
+            float multiplier;
+
+            public ScoreMultiplierHelper(float multiplier)
+            {
+                this.multiplier = multiplier;
+            }
+
+            public void Apply(GameData game)
+            {
+                game.ScoreMultiplier *= multiplier;
+            }
+        }
+
         protected virtual void AdditionalPreStart()
         {
             // Tutorial
@@ -111,8 +126,7 @@ namespace CloudberryKingdom
 
                 // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
                 float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
-                Tools.CurGameData.OnCalculateScoreMultiplier +=
-                    game => game.ScoreMultiplier *= multiplier;
+                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
 
                 OnSwapTo_GUI(levelindex);
             };

@@ -77,6 +77,48 @@ namespace CloudberryKingdom
             if (ForTrailer) ForTrailerParams();
             Constructor();
         }
+
+        class ConstructorPressAListenerHelper : Lambda
+        {
+            ScreenSaver ss;
+            Listener PressA_Listener;
+
+            public ConstructorPressAListenerHelper(ScreenSaver ss, Listener PressA_Listener)
+            {
+                this.ss = ss;
+                this.PressA_Listener = PressA_Listener;
+            }
+
+            public void Apply()
+            {
+                Tools.CurGameData.FadeToBlack(.0275f);
+                Tools.SongWad.FadeOut();
+                ss.DoBackgroundPhsx = false;
+
+                Tools.CurGameData.WaitThenDo(55, new ConstructorPressAListenerHelperHelper(ss));
+
+                PressA_Listener.Release();
+                if (ss.PressA != null) ss.PressA.Kill(true);
+            }
+        }
+
+        class ConstructorPressAListenerHelperHelper : Lambda
+        {
+            ScreenSaver ss;
+
+            public ConstructorPressAListenerHelperHelper(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                Tools.CurGameData.FadeIn(.0275f);
+                Tools.AddToDo(() => ss.Release());
+            }
+        }
+
         void Constructor()
         {
             WaitLengthToOpenDoor_FirstLevel = 10 + InitialDarkness - 3;
@@ -156,22 +198,7 @@ namespace CloudberryKingdom
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>
                         {
                             Listener PressA_Listener = null;
-                            PressA_Listener = new Listener(ControllerButtons.A, () =>
-                                 {
-                                     Tools.CurGameData.FadeToBlack(.0275f);
-                                     Tools.SongWad.FadeOut();
-                                     DoBackgroundPhsx = false;
-
-                                     Tools.CurGameData.WaitThenDo(55, () =>
-                                         {
-                                             Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                                             Tools.CurGameData.FadeIn(.0275f);
-                                             Tools.AddToDo(() => this.Release());
-                                         });
-
-                                     PressA_Listener.Release();
-                                     if (PressA != null) PressA.Kill(true);
-                                 });
+                            PressA_Listener = new Listener(ControllerButtons.A, new ConstructorPressAListenerHelper(this, PressA_Listener));
                             PressA_Listener.PreventRelease = true;
                             PressA_Listener.Control = -2;
                             Tools.CurGameData.AddGameObject(PressA_Listener);

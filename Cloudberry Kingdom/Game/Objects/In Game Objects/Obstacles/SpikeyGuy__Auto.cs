@@ -77,6 +77,22 @@ namespace CloudberryKingdom.Levels
             return (AutoGen_Parameters)Params;
         }
 
+        class MinDistHelper : LambdaFunc_1<Vector2, Vector2>
+        {
+            SpikeyGuy_Parameters Params;
+
+            public MinDistHelper(SpikeyGuy_Parameters Params)
+            {
+                this.Params = Params;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = Params.FloaterMinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }
+        }
+
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
@@ -85,11 +101,8 @@ namespace CloudberryKingdom.Levels
             SpikeyGuy_Parameters Params = (SpikeyGuy_Parameters)level.Style.FindParams(SpikeyGuy_AutoGen.Instance);
 
             level.Cleanup(ObjectType.SpikeyGuy,
-            pos =>
-            {
-                float dist = Params.FloaterMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL + new Vector2(400, 0), TR - new Vector2(500, 0),
+            new MinDistHelper(Params),
+            BL + new Vector2(400, 0), TR - new Vector2(500, 0),
             (A, B) =>
             {
                 SpikeyGuy floater_A = A as SpikeyGuy;

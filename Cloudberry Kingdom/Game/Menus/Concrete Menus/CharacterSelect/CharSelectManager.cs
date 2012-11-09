@@ -112,8 +112,17 @@ namespace CloudberryKingdom
             Parent.MyGame.AddGameObject(Backdrop);
 
             // Start the selects for each player
-            Parent.MyGame.WaitThenDo(0, _StartAll, "StartCharSelect");
+            Parent.MyGame.WaitThenDo(0, new _StartAllProxy(), "StartCharSelect");
         }
+
+        class _StartAllProxy : Lambda
+        {
+            public void Apply()
+            {
+                CharacterSelectManager._StartAll();
+            }
+        }
+
         static void _StartAll()
         {
             for (int i = 0; i < 4; i++)
@@ -243,6 +252,14 @@ namespace CloudberryKingdom
             cam.SetVertexCamera();
         }
 
+        class AfterFinishedHelper : Lambda
+        {
+            public void Apply()
+            {
+                CharacterSelectManager.AfterFinished();
+            }
+        }
+
         static void AfterFinished()
         {
             IsShowing = false;
@@ -266,7 +283,7 @@ namespace CloudberryKingdom
             if (AllFinished() && IsShowing)
             {
                 Active = false;
-                Tools.CurGameData.SlideOut_FadeIn(0, AfterFinished);
+                Tools.CurGameData.SlideOut_FadeIn(0, new AfterFinishedHelper());
             }
 
             // Check for ready to exit from character selection

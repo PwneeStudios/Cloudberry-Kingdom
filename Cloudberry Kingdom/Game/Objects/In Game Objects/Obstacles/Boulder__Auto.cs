@@ -85,6 +85,22 @@ namespace CloudberryKingdom.Levels
             return (AutoGen_Parameters)Params;
         }
 
+        class Cleanup_2Helper : LambdaFunc_1<Vector2, Vector2>
+        {
+            Boulder_Parameters Params;
+
+            public Cleanup_2Helper(Boulder_Parameters Params)
+            {
+                this.Params = Params;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = Params.FloaterMinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }
+        }
+
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
@@ -92,11 +108,8 @@ namespace CloudberryKingdom.Levels
             // Get Boulder parameters
             Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
-            level.Cleanup(ObjectType.Boulder, delegate(Vector2 pos)
-            {
-                float dist = Params.FloaterMinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL + new Vector2(400, 0), TR - new Vector2(500, 0));
+            level.Cleanup(ObjectType.Boulder, new Cleanup_2Helper(Params),
+                BL + new Vector2(400, 0), TR - new Vector2(500, 0));
 
             if (Params.Special.Hallway)
                 Params.Tunnel.CleanupTunnel(level);

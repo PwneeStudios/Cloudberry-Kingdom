@@ -66,22 +66,49 @@ namespace CloudberryKingdom
             Hints.SetYForHelpNum(999);
         }
 
+        class MakeListenerHelper : Lambda
+        {
+            Listener listener;
+
+            public MakeListenerHelper(Listener listener)
+            {
+                this.listener = listener;
+            }
+
+            public void Apply()
+            {
+                if (Tools.StepControl) return;
+
+                Level level = Tools.CurLevel;
+                if (!level.Replay && !level.Watching && !level.Finished && !level.PreventHelp)
+                    listener.Call(new HelpMenu());
+            }
+        }
+
         public static GameObject MakeListener()
         {
             Listener listener = new Listener();
             //listener.MyType = Listener.Type.OnDown;
             listener.MyButton = ControllerButtons.Y;
             listener.MyButton2 = ButtonCheck.Help_KeyboardKey;
-            listener.MyAction = () =>
-                {
-                    if (Tools.StepControl) return;
-
-                    Level level = Tools.CurLevel;
-                    if (!level.Replay && !level.Watching && !level.Finished && !level.PreventHelp)
-                        listener.Call(new HelpMenu());
-                };
+            listener.MyAction = new MakeListenerHelper(listener);
 
             return listener;
+        }
+
+        class ReturnToCallerProxy : Lambda
+        {
+            HelpMenu hm;
+
+            public ReturnToCallerProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.ReturnToCaller();
+            }
         }
 
         int DelayExit = 29;
@@ -92,7 +119,7 @@ namespace CloudberryKingdom
             if (Active)
             {
                 Active = false;
-                MyGame.WaitThenDo(DelayExit, () => ReturnToCaller());
+                MyGame.WaitThenDo(DelayExit, new ReturnToCallerProxy(this));
             }
             else
                 base.ReturnToCaller();    
@@ -110,6 +137,22 @@ namespace CloudberryKingdom
         {
             return MyGame.MyLevel.WatchComputerEnabled() && Bank() >= Cost_Watch;
         }
+
+        class WatchComputerHelper : Lambda
+        {
+            HelpMenu hm;
+
+            public WatchComputerHelper(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.MyGame.MyLevel.WatchComputer();
+            }
+        }
+
         void WatchComputer()
         {
             if (!Allowed_WatchComputer())
@@ -118,7 +161,7 @@ namespace CloudberryKingdom
             Buy(Cost_Watch);
 
             ReturnToCaller();
-            MyGame.WaitThenDo(DelayExit - 10, () => MyGame.MyLevel.WatchComputer());
+            MyGame.WaitThenDo(DelayExit - 10, new WatchComputerHelper(this));
         }
 
         bool On_ShowPath()
@@ -133,6 +176,44 @@ namespace CloudberryKingdom
             return MyGame.MyLevel.CanWatchComputer && Bank() >= Cost_Path;
 #endif
         }
+
+        class Toggle_ShowPathHelper : Lambda
+        {
+            HelpMenu hm;
+
+            public Toggle_ShowPathHelper(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                //hm.MyGame.RemoveAllGameObjects(match => match is ShowGuide);
+                foreach(GameObject go in hm.MyGame.MyGameObjects)
+                {
+                    if(go is ShowGuide)
+                        go.Release();
+                }
+            }
+        }
+
+        class Toggle_ShowPathProxy : Lambda
+        {
+            HelpMenu hm;
+            bool state;
+
+            public Toggle_ShowPathProxy(HelpMenu hm, bool state)
+            {
+                this.hm = hm;
+                this.state = state;
+            }
+
+            public void Apply()
+            {
+                hm.Toggle_ShowPath(state);
+            }
+        }
+
         void Toggle_ShowPath(bool state)
         {
             if (state)
@@ -146,7 +227,7 @@ namespace CloudberryKingdom
                 foreach (var obj in MyGame.MyGameObjects)
                     if (obj is ShowGuide)
                         obj.Release();
-                MyGame.AddToDo(() => MyGame.RemoveAllGameObjects(match => match is ShowGuide));
+                MyGame.AddToDo(new Toggle_ShowPathHelper(this));
             }
         }
         void ShowPath()
@@ -157,11 +238,7 @@ namespace CloudberryKingdom
             Buy(Cost_Path);
 
             ReturnToCaller();
-            MyGame.WaitThenDo(DelayExit - 10, () =>
-                {
-                    //MyGame.MyLevel.SetToReset = true;
-                    Toggle_ShowPath(true);
-                });
+            MyGame.WaitThenDo(DelayExit - 10, new Toggle_ShowPathProxy(this, true));
         }
 
         bool On_SlowMo()
@@ -172,6 +249,22 @@ namespace CloudberryKingdom
         {
             return true && Bank() >= Cost_Slow;
         }
+
+        class Toggle_SloMoHelper : Lambda
+        {
+            HelpMenu hm;
+
+            public Toggle_SloMoHelper(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.MyGame.MyGameObjects.RemoveAll(match => match is SlowMo);
+            }
+        }
+
         void Toggle_SlowMo(bool state)
         {
             if (state)
@@ -183,9 +276,10 @@ namespace CloudberryKingdom
             }
             else
             {
-                MyGame.AddToDo(() => MyGame.MyGameObjects.RemoveAll(match => match is SlowMo));
+                MyGame.AddToDo(new Toggle_SloMoHelper(this));
             }
         }
+
         void SlowMo()
         {
             if (!Allowed_SlowMo())

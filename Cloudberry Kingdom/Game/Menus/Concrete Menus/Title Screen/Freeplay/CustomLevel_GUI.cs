@@ -123,7 +123,7 @@ namespace CloudberryKingdom
             MyMenu.FancyPos.RelVal += RightPanelCenter;
 
             // Register for when the created level ends
-            MyGame.OnReturnTo += OnReturnFromLevel;
+            MyGame.OnReturnTo.Add(new OnReturnFromLevelProxy(this));
 
             SetPos();
         }
@@ -131,9 +131,24 @@ namespace CloudberryKingdom
         protected override void ReleaseBody()
         {
             // Unregister 
-            MyGame.OnReturnTo -= OnReturnFromLevel;
+            //MyGame.OnReturnTo -= OnReturnFromLevel;
 
             base.ReleaseBody();
+        }
+
+        class OnReturnFromLevelProxy : Lambda
+        {
+            CustomLevel_GUI clGui;
+
+            public OnReturnFromLevelProxy(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply()
+            {
+                clGui.OnReturnFromLevel();
+            }
         }
 
         void OnReturnFromLevel()

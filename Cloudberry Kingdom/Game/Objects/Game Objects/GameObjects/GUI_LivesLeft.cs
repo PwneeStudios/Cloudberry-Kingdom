@@ -98,6 +98,57 @@ namespace CloudberryKingdom
             StartDelay = 30;
         }
 
+        class BringStartDelayHelper : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public BringStartDelayHelper(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                if (guiLl.PauseOnShow)
+                {
+                    guiLl.PauseLevel = false;
+                    guiLl.MyGame.MyLevel.PreventReset = false;
+                }
+            }
+        }
+
+        class BringShowLengthHelper : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public BringShowLengthHelper(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                guiLl.MyPile.AlphaVel = guiLl.FadeOutVel;
+                guiLl.MyGame.CinematicToDo(guiLl.StartDelay, new BringStartDelayHelper(guiLl));
+            }
+        }
+
+        class BringInitialDelayHelper : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public BringInitialDelayHelper(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                guiLl.MyPile.AlphaVel = guiLl.FadeInVel;
+                guiLl.MyGame.CinematicToDo(guiLl.ShowLength, new BringShowLengthHelper(guiLl));
+            }
+        }
+
         bool PauseOnShow = false;
         public void Bring()
         {
@@ -109,19 +160,8 @@ namespace CloudberryKingdom
 
             // Fade in and out
             MyPile.Alpha = 0;
-            MyGame.WaitThenDo(InitialDelay, () => {
-                MyPile.AlphaVel = FadeInVel;
-                MyGame.CinematicToDo(ShowLength, () => {
-                    MyPile.AlphaVel = FadeOutVel;
-                    MyGame.CinematicToDo(StartDelay, () => {
-                        if (PauseOnShow)
-                        {
-                            PauseLevel = false;
-                            MyGame.MyLevel.PreventReset = false;
-                        }
-                    });
-                });
-            }, "Start lives left bring", true, false);
+            MyGame.WaitThenDo(InitialDelay, new BringInitialDelayHelper(this),
+                "Start lives left bring", true, false);
         }
 
 
@@ -147,18 +187,33 @@ namespace CloudberryKingdom
                 MyPile.Insert(0, Black);
             }
 
-            MyGame.ToDoOnReset.Add(OnReset);
+            MyGame.ToDoOnReset.Add(new OnResetProxy(this));
             //MyGame.ToDoOnDoneDying.Add(OnDoneDying);
-            MyGame.ToDoOnDeath.Add(OnDeath);
+            MyGame.ToDoOnDeath.Add(new OnDeathProxy(this));
 
             if (MyGame.MyLevel != null)
                 PreventResetOnLastLife(MyGame.MyLevel);
         }
 
+        class OnResetProxy : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public OnResetProxy(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                guiLl.OnReset();
+            }
+        }
+
         int LastLife = 0;
         void OnReset()
         {
-            MyGame.ToDoOnReset.Add(OnReset);
+            MyGame.ToDoOnReset.Add(new OnResetProxy(this));
 
             Level level = Core.MyLevel;
 
@@ -184,9 +239,24 @@ namespace CloudberryKingdom
             }
         }
 
+        class OnDoneDyingProxy : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public OnDoneDyingProxy(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                guiLl.OnDoneDying();
+            }
+        }
+
         void OnDoneDying()
         {
-            MyGame.ToDoOnDoneDying.Add(OnDoneDying);
+            MyGame.ToDoOnDoneDying.Add(new OnDoneDyingProxy(this));
 
             if (NumLives == LastLife)
             {
@@ -198,9 +268,25 @@ namespace CloudberryKingdom
                 return;
             }
         }
+
+        class OnDeathProxy : Lambda
+        {
+            GUI_LivesLeft guiLl;
+
+            public OnDeathProxy(GUI_LivesLeft guiLl)
+            {
+                this.guiLl = guiLl;
+            }
+
+            public void Apply()
+            {
+                guiLl.OnDeath();
+            }
+        }
+
         void OnDeath()
         {
-            MyGame.ToDoOnDeath.Add(OnDeath);
+            MyGame.ToDoOnDeath.Add(new OnDeathProxy(this));
 
             if (NumLives == LastLife)
             {

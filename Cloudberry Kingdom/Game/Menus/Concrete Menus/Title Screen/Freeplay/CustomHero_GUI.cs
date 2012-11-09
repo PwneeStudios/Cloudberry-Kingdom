@@ -108,7 +108,22 @@ namespace CloudberryKingdom
                 bob.CollectSelf();
             }
 
-            MyGame.AddToDo((Func<bool>)MoveBlockAndKill, "MoveOut", true, true);
+            MyGame.AddToDo(new MoveBlockAndKillProxy(this), "MoveOut", true, true);
+        }
+
+        class MoveBlockAndKillProxy : LambdaFunc<bool>
+        {
+            CustomHero_GUI chGui;
+
+            public MoveBlockAndKillProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public bool Apply()
+            {
+                return chGui.MoveBlockAndKill();
+            }
         }
 
         bool MoveBlockAndKill()
@@ -120,13 +135,25 @@ namespace CloudberryKingdom
             return false;
         }
 
+        class KillBobsHelper : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public KillBobsHelper(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                foreach (Bob bob in chGui.MyGame.MyLevel.Bobs)
+                    bob.Die(Bob.BobDeathType.None);
+            }
+        }
+
         void KillBobs()
         {
-            MyGame.WaitThenDo(20, () =>
-            {
-                foreach (Bob bob in MyGame.MyLevel.Bobs)
-                    bob.Die(Bob.BobDeathType.None);
-            }, "RemoveBobs", false, true);
+            MyGame.WaitThenDo(20, new KillBobsHelper(this), "RemoveBobs", false, true);
         }
 
         void MakeBobPhsx()
@@ -652,7 +679,22 @@ namespace CloudberryKingdom
             }
             else
             {
-                MyGame.PlayGame(StartLevel);
+                MyGame.PlayGame(new StartLevelProxy(this));
+            }
+        }
+
+        class StartLevelProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public StartLevelProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.StartLevel();
             }
         }
 

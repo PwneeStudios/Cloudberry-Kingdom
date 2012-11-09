@@ -71,22 +71,38 @@ namespace CloudberryKingdom
             }
         }
 
+        class LoadFromFreeplayMenuHelper : Lambda
+        {
+            LevelSeedData seed;
+            string seedstr;
+            CustomLevel_GUI simple;
+
+            public LoadFromFreeplayMenuHelper(LevelSeedData seed, string seedstr, CustomLevel_GUI simple)
+            {
+                this.seed = seed;
+                this.seedstr = seedstr;
+                this.simple = simple;
+            }
+
+            public void Apply()
+            {
+                simple.StartLevel(seed);
+
+                // Randomize the seed for the next level, if the player chooses to continue using this LevelSeedData.
+                seed = new LevelSeedData();
+                seed.ReadString(seedstr);
+                seed.PostMake += seed.PostMake_StandardLoad;
+                seed.Seed = Tools.GlobalRnd.Rnd.Next();
+            }
+        }
+
         private static void LoadFromFreeplayMenu(string seedstr, CustomLevel_GUI simple)
         {
             var seed = new LevelSeedData();
             seed.ReadString(seedstr);
             seed.PostMake += seed.PostMake_StandardLoad;
 
-            simple.MyGame.PlayGame(() =>
-                {
-                    simple.StartLevel(seed);
-
-                    // Randomize the seed for the next level, if the player chooses to continue using this LevelSeedData.
-                    seed = new LevelSeedData();
-                    seed.ReadString(seedstr);
-                    seed.PostMake += seed.PostMake_StandardLoad;
-                    seed.Seed = Tools.GlobalRnd.Rnd.Next();
-                });
+            simple.MyGame.PlayGame(new LoadFromFreeplayMenuHelper(seed, seedstr, simple));
 
         }
 
@@ -118,6 +134,21 @@ namespace CloudberryKingdom
             return true;
         }
 
+        class ReturnToCallerProxy : Lambda
+        {
+            SavedSeedsGUI ssGui;
+
+            public ReturnToCallerProxy(SavedSeedsGUI ssGui)
+            {
+                this.ssGui = ssGui;
+            }
+
+            public void Apply()
+            {
+                ssGui.ReturnToCaller();
+            }
+        }
+
         /// <summary>
         /// Delete the items marked for deletion, if the user selected "Yes"
         /// </summary>
@@ -128,7 +159,7 @@ namespace CloudberryKingdom
             // If "No", do not delete any seeds.
             if (!choice)
             {
-                MyGame.WaitThenDo(10, ReturnToCaller);
+                MyGame.WaitThenDo(10, new ReturnToCallerProxy(this));
                 return;
             }
 
@@ -147,7 +178,7 @@ namespace CloudberryKingdom
 
             SaveGroup.SaveAll();
 
-            MyGame.WaitThenDo(10, ReturnToCaller);
+            MyGame.WaitThenDo(10, new ReturnToCallerProxy(this));
         }
 
         void Sort()

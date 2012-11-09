@@ -30,6 +30,64 @@ namespace CloudberryKingdom
             Fast();
         }
 
+        class MenuActiveHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public MenuActiveHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.MyMenu.Active = true;
+            }
+        }
+
+        class TextBoxActiveHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public TextBoxActiveHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.MyTextBox.Active = true;
+            }
+        }
+
+        class OnAddHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public OnAddHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                // Slow Rise
+                gop.SlideInFrom = PresetPos.Bottom;
+                gop.SlideOut(PresetPos.Bottom, 0);
+                gop.SlideIn(70);
+
+                // Prevent menu interactions for a second
+                gop.MyMenu.Active = false;
+                gop.MyGame.WaitThenDo(gop.DelayPhsx, new MenuActiveHelper(gop));
+
+#if PC_VERSION
+                if (gop.MyTextBox != null)
+                    gop.MyGame.WaitThenDo(gop.DelayPhsx, new TextBoxActiveHelper(gop));
+                //MyMenu.Show = MyMenu.Active = false;
+#endif
+            }
+        }
+
         public override void OnAdd()
         {
             base.OnAdd();
@@ -65,23 +123,7 @@ namespace CloudberryKingdom
             // Initially hide the score screen
             this.SlideOut(PresetPos.Top, 0);
 
-            MyGame.WaitThenDo(Awardments.AwardDelay(), () =>
-                {
-                    // Slow Rise
-                    SlideInFrom = PresetPos.Bottom;
-                    SlideOut(PresetPos.Bottom, 0);
-                    SlideIn(70);
-
-                    // Prevent menu interactions for a second
-                    MyMenu.Active = false;
-                    MyGame.WaitThenDo(DelayPhsx, () => MyMenu.Active = true);
-
-#if PC_VERSION
-                    if (MyTextBox != null)
-                        MyGame.WaitThenDo(DelayPhsx, () => MyTextBox.Active = true);
-                        //MyMenu.Show = MyMenu.Active = false;
-#endif
-                });
+            MyGame.WaitThenDo(Awardments.AwardDelay(), new OnAddHelper(this));
         }
         
         void Create()
@@ -150,6 +192,25 @@ namespace CloudberryKingdom
             if (MyTextBox != null) MyTextBox.Release(); MyTextBox = null;
         }
 
+        class MakeTextBoxHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public MakeTextBoxHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                float width = gop.MyGame.Cam.GetWidth();
+
+                gop.MyMenu.Show = gop.MyMenu.Active = true;
+                gop.MyMenu.FancyPos.LerpTo(gop.MenuPos + new Vector2(width, 0), gop.MenuPos, 20);
+                gop.MyTextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
+            }
+        }
+        
         void MakeTextBox()
         {
             // Do nothing if the score doesn't qualify for the high score list
@@ -180,14 +241,7 @@ namespace CloudberryKingdom
                     // Add the high score
                     AddScore();
 
-                    MyGame.WaitThenDo(35, () =>
-                        {
-                            float width = MyGame.Cam.GetWidth();
-
-                            MyMenu.Show = MyMenu.Active = true;
-                            MyMenu.FancyPos.LerpTo(MenuPos + new Vector2(width, 0), MenuPos, 20);
-                            MyTextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
-                        });
+                    MyGame.WaitThenDo(35, new MakeTextBoxHelper(this));
                 };
         }
 #else
@@ -249,15 +303,45 @@ namespace CloudberryKingdom
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
         }
 
+        class Action_DoneHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public Action_DoneHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.MyGame.EndGame.Apply(false);
+            }
+        }
+
         void Action_Done()
         {
             SlideOut(PresetPos.Top, 13);
             Active = false;
 
             Tools.SongWad.FadeOut();
-            MyGame.WaitThenDo(36, () => MyGame.EndGame(false));
+            MyGame.WaitThenDo(36, new Action_DoneHelper(this));
 
             return;
+        }
+
+        class Action_PlayAgainHelper : Lambda
+        {
+            GameOverPanel gop;
+
+            public Action_PlayAgainHelper(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.MyGame.EndGame.Apply(true);
+            }
         }
 
         void Action_PlayAgain()
@@ -267,7 +351,7 @@ namespace CloudberryKingdom
 
             Tools.SongWad.FadeOut();
 
-            MyGame.WaitThenDo(36, () => MyGame.EndGame(true));
+            MyGame.WaitThenDo(36, new Action_PlayAgainHelper(this));
             return;
         }
 

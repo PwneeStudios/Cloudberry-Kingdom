@@ -86,6 +86,21 @@ namespace CloudberryKingdom
         /// </summary>
         public bool NoBackIfNoCaller = false;
 
+        class ReturnToCallerHelper : Lambda
+        {
+            GUI_Panel panel;
+
+            public ReturnToCallerHelper(GUI_Panel panel)
+            {
+                this.panel = panel;
+            }
+
+            public void Apply()
+            {
+                panel.Caller.OnReturnTo();
+            }
+        }
+
         /// <summary>
         /// Hide the panel and return to its parent.
         /// </summary>
@@ -98,7 +113,7 @@ namespace CloudberryKingdom
             Hide();
 
             if (Caller != null)
-                MyGame.WaitThenDo(ReturnToCallerDelay, Caller.OnReturnTo);
+                MyGame.WaitThenDo(ReturnToCallerDelay, new ReturnToCallerHelper(this));
         }
 
         /// <summary>
@@ -136,6 +151,23 @@ namespace CloudberryKingdom
             Show();
         }
 
+        class CallHelper : Lambda
+        {
+            GUI_Panel panel;
+            GUI_Panel child;
+
+            public CallHelper(GUI_Panel panel, GUI_Panel child)
+            {
+                this.panel = panel;
+                this.child = child;
+            }
+
+            public void Apply()
+            {
+                panel.MyGame.AddGameObject(child);
+            }
+        }
+
         /// <summary>
         /// Called to deactivate this panel and bring a child panel.
         /// </summary>
@@ -146,7 +178,7 @@ namespace CloudberryKingdom
 
             SetChildControl(child);
 
-            MyGame.WaitThenDo(Delay, () => MyGame.AddGameObject(child));
+            MyGame.WaitThenDo(Delay, new CallHelper(this, child));
 
             Active = false;
         }
