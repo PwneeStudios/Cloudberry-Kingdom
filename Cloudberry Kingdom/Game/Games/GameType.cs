@@ -625,7 +625,7 @@ namespace CloudberryKingdom
         /// Event handler. Activates when this game recalculates it's coin score multiplier.
         /// The multiplier is first reset to 1, then each registered callback can modify it.
         /// </summary>
-        public Multicaster_1<GameData> OnCalculateCoinScoreMultiplier;
+        public Multicaster_1<GameData> OnCalculateCoinScoreMultiplier = new Multicaster_1<GameData>();
         /// <summary>
         /// Called at the beginning over every time step to calculate the coin score multiplier
         /// </summary>
@@ -644,7 +644,7 @@ namespace CloudberryKingdom
         /// Event handler. Activates when this game recalculates it's score multiplier.
         /// The multiplier is first reset to 1, then each registered callback can modify it.
         /// </summary>
-        public Multicaster_1<GameData> OnCalculateScoreMultiplier;
+        public Multicaster_1<GameData> OnCalculateScoreMultiplier = new Multicaster_1<GameData>();
         /// <summary>
         /// Called at the beginning over every time step to calculate the score multiplier
         /// </summary>
@@ -658,7 +658,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when a Checkpoint is grabbed. Argument is the IObject that is a Checkpoint.
         /// </summary>
-        public Multicaster_1<ObjectBase> OnCheckpointGrab;
+        public Multicaster_1<ObjectBase> OnCheckpointGrab = new Multicaster_1<ObjectBase>();
         /// <summary>
         /// Call this when a Checkpoint is grabbed to activate the Checkpoint grabbed event handler.
         /// </summary>
@@ -667,7 +667,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when a coin is grabbed. Argument is the IObject that is a coin.
         /// </summary>
-        public Multicaster_1<ObjectBase> OnCoinGrab;
+        public Multicaster_1<ObjectBase> OnCoinGrab = new Multicaster_1<ObjectBase>();
         /// <summary>
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
@@ -676,7 +676,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when a level is completed.
         /// </summary>
-        public Multicaster_1<Level> OnCompleteLevel;
+        public Multicaster_1<Level> OnCompleteLevel = new Multicaster_1<Level>();
         /// <summary>
         /// Call this when level is completed to activate the level complete event handler.
         /// </summary>
@@ -690,7 +690,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when all players die and the level is reset.
         /// </summary>
-        public Multicaster OnLevelRetry;
+        public Multicaster OnLevelRetry = new Multicaster();
         /// <summary>
         /// Call this when a coin is grabbed to activate the coin grabbed event handler.
         /// </summary>
@@ -699,8 +699,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activates when this game is returned to from another game.
         /// </summary>
-        public Multicaster OnReturnTo;
-        public Multicaster OnReturnTo_OneOff;
+        public Multicaster OnReturnTo = new Multicaster();
+        public Multicaster OnReturnTo_OneOff = new Multicaster();
         /// <summary>
         /// Call this when the game is returned to.
         /// </summary>
