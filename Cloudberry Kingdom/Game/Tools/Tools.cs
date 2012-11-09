@@ -210,23 +210,23 @@ namespace CloudberryKingdom
             return list.IndexOf(list.Find(match));
         }
 
-        public static int IndexMax<T>(this List<T> list, Func<T, float> val) where T : class
-        {
-            if (list.Count == 0) return 0;
-            return list.IndexOf(Tools.ArgMax(list, val));
-        }
+        //public static int IndexMax<T>(this List<T> list, Func<T, float> val) where T : class
+        //{
+        //    if (list.Count == 0) return 0;
+        //    return list.IndexOf(Tools.ArgMax(list, val));
+        //}
 
-        public static T ArgMax<T>(this List<T> list, Func<T, float> val) where T : class
-        {
-            if (list.Count == 0) return null;
-            return Tools.ArgMax(list, val);
-        }
+        //public static T ArgMax<T>(this List<T> list, Func<T, float> val) where T : class
+        //{
+        //    if (list.Count == 0) return null;
+        //    return Tools.ArgMax(list, val);
+        //}
 
-        public static T ArgMin<T>(this List<T> list, Func<T, float> val) where T : class
-        {
-            if (list.Count == 0) return null;
-            return Tools.ArgMin(list, val);
-        }
+        //public static T ArgMin<T>(this List<T> list, Func<T, float> val) where T : class
+        //{
+        //    if (list.Count == 0) return null;
+        //    return Tools.ArgMin(list, val);
+        //}
 
 #if XBOX
         /// <summary>
@@ -542,6 +542,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 if (predicate.Apply(obj))
                     return obj;
             return default(TSource);
+        }
+
+        public static List<TSource> FindAll<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
+        {
+            List<TSource> newlist = new List<TSource>();
+            foreach (TSource obj in list)
+                if (predicate.Apply(obj))
+                    newlist.Add(obj);
+            return newlist;
         }
 
         public static bool All<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
