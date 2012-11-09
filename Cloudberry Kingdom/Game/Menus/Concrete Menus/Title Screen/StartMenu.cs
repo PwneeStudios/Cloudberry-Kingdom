@@ -364,10 +364,25 @@ namespace CloudberryKingdom
 
         private void DoneWithCharSelect()
         {
-            MyGame.WaitThenDo(0, BringNextMenu);
+            MyGame.WaitThenDo(0, new BringNextMenuLambda(this));
         }
 
-        protected virtual void BringNextMenu()
+        class BringNextMenuLambda : Lambda
+        {
+            StartMenu sm;
+
+            public BringNextMenuLambda(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply()
+            {
+                sm.BringNextMenu();
+            }
+        }
+
+        public virtual void BringNextMenu()
         {
             switch (MyNextMenu)
             {

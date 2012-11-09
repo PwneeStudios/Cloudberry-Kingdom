@@ -157,14 +157,23 @@ namespace CloudberryKingdom
             Active = false;
 
             _StartLevel = StartLevel;
-            MyGame.WaitThenDo(75, _Go);
+            MyGame.WaitThenDo(75, new GoLambda(this));
         }
 
-        private void _Go()
+        class GoLambda : Lambda
         {
-            Active = true;
-            MyGame.FadeIn(.05f);
-            CampaignSequence.Instance.Start(_StartLevel);
+            StartMenu_MW_Campaign sm;
+            public GoLambda(StartMenu_MW_Campaign sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply()
+            {
+                sm.Active = true;
+                sm.MyGame.FadeIn(.05f);
+                CampaignSequence.Instance.Start(sm._StartLevel);
+            }
         }
 
         void SetPos_NoCinematic()

@@ -209,11 +209,23 @@ namespace CloudberryKingdom.Levels
             // Get Spike parameters
             Spike_Parameters Params = (Spike_Parameters)level.Style.FindParams(Spike_AutoGen.Instance);
 
-            level.Cleanup(ObjectType.Spike, pos =>
+            level.Cleanup(ObjectType.Spike, new SpikeCleanup(Params), BL, TR);
+        }
+
+        class SpikeCleanup : LambdaFunc_1<Vector2, Vector2>
+        {
+            Spike_Parameters Params;
+
+            public SpikeCleanup(Spike_Parameters Params)
+            {
+                this.Params = Params;
+            }
+
+            public Vector2 Apply(Vector2 pos)
             {
                 float dist = Params.SpikeMinDist.GetVal(pos);
                 return new Vector2(dist, dist);
-            }, BL, TR);
+            }
         }
     }
 }

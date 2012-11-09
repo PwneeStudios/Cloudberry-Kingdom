@@ -132,7 +132,7 @@ namespace CloudberryKingdom
 
             if (OnLevelBegin != null)
             {
-                bool result = OnLevelBegin(level);
+                bool result = OnLevelBegin.Apply(level);
                 if (result)
                 {
                     return;
@@ -144,25 +144,41 @@ namespace CloudberryKingdom
             bool Hold_FirstLevelHasBegun = FirstLevelHasBegun;
             if (level.MyGame != null)
             {
-                level.MyGame.AddToDo(() =>
-                    {
-                        if (level.MyGame.PauseGame)
-                            return false;
-
-                        if (FirstDoorAction || Hold_FirstLevelHasBegun)
-                            StartOfLevelDoorAction(level);
-
-                        // Start music
-                        if (StartLevelMusic != null)
-                            StartLevelMusic(this);
-
-                        return true;
-                    });
+                level.MyGame.AddToDo(new StartOfLevelLambda(this, level, Hold_FirstLevelHasBegun));
 
                 level.MyGame.PhsxStepsToDo += 2;
             }
 
             FirstLevelHasBegun = true;
+        }
+
+        class StartOfLevelLambda : LambdaFunc<bool>
+        {
+            StringWorldGameData g;
+            Level level;
+            bool Hold_FirstLevelHasBegun;
+
+            public StartOfLevelLambda(StringWorldGameData g, Level level, bool Hold_FirstLevelHasBegun)
+            {
+                this.g = g;
+                this.level = level;
+                this.Hold_FirstLevelHasBegun = Hold_FirstLevelHasBegun;
+            }
+
+            public bool Apply()
+            {
+                if (level.MyGame.PauseGame)
+                    return false;
+
+                if (g.FirstDoorAction || Hold_FirstLevelHasBegun)
+                    g.StartOfLevelDoorAction(level);
+
+                // Start music
+                if (g.StartLevelMusic != null)
+                    g.StartLevelMusic(g);
+
+                return true;
+            }
         }
 
         /// <summary>
@@ -214,10 +230,30 @@ namespace CloudberryKingdom
 
             if (CurLevelIndex > 0)
                 Wait = CurLevelSeed.WaitLengthToOpenDoor;
-            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
+            game.WaitThenDo(Wait, new OpenAndShowLambda(this, level, door, CurLevelSeed));
         }
 
-        private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door, bool OpenDoorSound)
+        class OpenAndShowLambda : Lambda
+        {
+            StringWorldGameData g;
+            Level level;
+            Door door;
+            LevelSeedData CurLevelSeed;
+            public OpenAndShowLambda(StringWorldGameData g, Level level, Door door, LevelSeedData CurLevelSeed)
+            {
+                this.g = g;
+                this.level = level;
+                this.door = door;
+                this.CurLevelSeed = CurLevelSeed;
+            }
+
+            public void Apply()
+            {
+                g._StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound);
+            }
+        }
+
+        public void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door, bool OpenDoorSound)
         {
             // Whether to play a sound for the door opening
             bool sound = false;
@@ -360,7 +396,7 @@ namespace CloudberryKingdom
             //Tools.CurLevel = CurLevelSeed.MyGame.MyLevel;
 
             // Set end of game function
-            Tools.CurGameData.EndGame = this.Finish;
+            Tools.CurGameData.EndGame = new FinishLambda(this);
 
             // Add the saved objects
             foreach (GameObject obj in ObjectsToSave)
@@ -373,6 +409,20 @@ namespace CloudberryKingdom
 
             // Burn one frame
             Tools.CurGameData.MyLevel.PhsxStep(true);
+        }
+
+        class FinishLambda : Lambda_1<bool>
+        {
+            StringWorldGameData g;
+            public FinishLambda(StringWorldGameData g)
+            {
+                this.g = g;
+            }
+
+            public void Apply(bool val)
+            {
+                g.Finish(val);
+            }
         }
 
         public virtual void AdditionalSwapToLevelProcessing(GameData game)
@@ -515,7 +565,7 @@ namespace CloudberryKingdom
         {
             base.ReturnTo(code);
 
-            EndGame(false);
+            EndGame.Apply(false);
         }
 
         /// <summary>

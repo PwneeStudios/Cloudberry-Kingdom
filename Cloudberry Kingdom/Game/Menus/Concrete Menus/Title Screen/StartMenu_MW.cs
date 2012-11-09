@@ -18,7 +18,7 @@ namespace CloudberryKingdom
             Call(new StartMenu_MW_Exit(Control), 0);
         }
 
-        protected override void BringNextMenu()
+        public override void BringNextMenu()
         {
             base.BringNextMenu();
 

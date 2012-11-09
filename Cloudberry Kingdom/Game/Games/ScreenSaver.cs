@@ -119,6 +119,20 @@ namespace CloudberryKingdom
             }
         }
 
+        class OnSwapLambda : Lambda_1<LevelSeedData>
+        {
+            public OnSwapLambda()
+            {
+            }
+
+            public void Apply(LevelSeedData data)
+            {
+                Tools.ShowLoadingScreen = false;
+                Tools.TheGame.LogoScreenPropUp = false;
+                Tools.Write("+++++++++++++++++++ Ending screensave load...");
+            }
+        }
+
         void Constructor()
         {
             WaitLengthToOpenDoor_FirstLevel = 10 + InitialDarkness - 3;
@@ -136,7 +150,7 @@ namespace CloudberryKingdom
             //        Tools.Write("+++++++++++++++++++ Ending screensave load...");
             //    };
 
-            OnSwapToFirstLevel.Add(new OnSwapLambda(this));
+            OnSwapToFirstLevel.Add(new OnSwapLambda());
 
             OnSwapToLevel += index =>
                 {
@@ -178,35 +192,60 @@ namespace CloudberryKingdom
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, () =>
-                        {
-                            UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
+                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, new MakePressALambda(PressA, ForTrailer), true);
+
+                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, new AddListenerLambda(this), true);
+                    }
+                };
+        }
+
+        class MakePressALambda : Lambda
+        {
+            GUI_Text PressA;
+            bool ForTrailer;
+
+            public MakePressALambda(GUI_Text PressA, bool ForTrailer)
+            {
+                this.PressA = PressA;
+                this.ForTrailer = ForTrailer;
+            }
+
+            public void Apply()
+            {
+                UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
 #if PC_VERSION
-                            PressA = new GUI_Text(Localization.Words.PressAnyKey,
-                                                           new Vector2(0, -865), true);
+                PressA = new GUI_Text(Localization.Words.PressAnyKey,
+                                               new Vector2(0, -865), true);
 #else
                             PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #endif
-                            PressA.MyText.Scale *= .68f;
-                            PressA.PreventRelease = true;
-                            PressA.FixedToCamera = true;
-                            PressA.Oscillate = true;
-                            if (!ForTrailer)
-                                Tools.CurGameData.AddGameObject(PressA);
-                        }, true);
+                PressA.MyText.Scale *= .68f;
+                PressA.PreventRelease = true;
+                PressA.FixedToCamera = true;
+                PressA.Oscillate = true;
+                if (!ForTrailer)
+                    Tools.CurGameData.AddGameObject(PressA);
+            }
+        }
 
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>
-                        {
-                            Listener PressA_Listener = null;
-                            PressA_Listener = new Listener(ControllerButtons.A, new ConstructorPressAListenerHelper(this, PressA_Listener));
-                            PressA_Listener.PreventRelease = true;
-                            PressA_Listener.Control = -2;
-                            Tools.CurGameData.AddGameObject(PressA_Listener);
-                        }, true);
-                    }
-                };
+        class AddListenerLambda : Lambda
+        {
+            ScreenSaver ss;
+            public AddListenerLambda(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                Listener PressA_Listener = null;
+                PressA_Listener = new Listener(ControllerButtons.A, new ConstructorPressAListenerHelper(ss, PressA_Listener));
+                PressA_Listener.PreventRelease = true;
+                PressA_Listener.Control = -2;
+                Tools.CurGameData.AddGameObject(PressA_Listener);
+            }
         }
 
         int PhsxCount = 0;
@@ -246,35 +285,22 @@ namespace CloudberryKingdom
                     wind_t = new FancyVector2();
                     wind_t.Val = 0f;
 
-                    lvl.MyGame.WaitThenDo(InitialDarkness, ()
-                        => lvl.MyGame.FadeIn(InitialFadeInSpeed));
+                    lvl.MyGame.WaitThenDo(InitialDarkness, new FadeInLambda(lvl, InitialFadeInSpeed));
 
-                    //if (ForTrailer)
-                    //{
-                    //    lvl.MyGame.WaitThenDo(240, () => zoom_t.LerpTo(InitialZoom, 1f, 100, LerpStyle.Linear));
-                    //}
-                    //else
-                    {
-                        lvl.MyGame.WaitThenDo(PartialZoomOut, () => zoom_t.LerpTo(.6f, 90, LerpStyle.Sigmoid));
-                        int zoomout_length = 21;
-                        int zoomout_start = FullZoomOut + InitialDarkness - 3;
-                        LerpStyle style = LerpStyle.Sigmoid;
-                        lvl.MyGame.WaitThenDo(zoomout_start, () => zoom_t.LerpTo(1f, zoomout_length, style));
-                        lvl.MyGame.WaitThenDo(zoomout_start, () => pos_t.LerpTo(1f, zoomout_length + 6, style));
+                    lvl.MyGame.WaitThenDo(PartialZoomOut, new SigmoidLambda(zoom_t));
+                    int zoomout_length = 21;
+                    int zoomout_start = FullZoomOut + InitialDarkness - 3;
+                    LerpStyle style = LerpStyle.Sigmoid;
+                    lvl.MyGame.WaitThenDo(zoomout_start, new ZoomLerpToLambda(zoom_t, zoomout_length, style));
+                    lvl.MyGame.WaitThenDo(zoomout_start, new PosLerpToLambda(pos_t, zoomout_length, style));
 
-                        lvl.MyGame.WaitThenDo(KillCapeDelay + InitialDarkness, () => wind_t.LerpTo(1f, 40));
+                    lvl.MyGame.WaitThenDo(KillCapeDelay + InitialDarkness, new WindLambda(wind_t));
 
-                        lvl.MyGame.WaitThenDo(zoomout_start - 3 - 3, () =>
-                            Tools.SoundWad.FindByName("Record_Scratch").Play());
-                        Tools.SongWad.SetPlayList("Ripcurl^Blind_Digital");
-                        Tools.SongWad.Restart(true, false);
-                        Tools.SongWad.Pause();
-                        lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>
-                        {
-                            // Start the music
-                            Tools.SongWad.Unpause();
-                        });
-                    }
+                    lvl.MyGame.WaitThenDo(zoomout_start - 3 - 3, new RecordScratchLambda());
+                    Tools.SongWad.SetPlayList("Ripcurl^Blind_Digital");
+                    Tools.SongWad.Restart(true, false);
+                    Tools.SongWad.Pause();
+                    lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, new StartMusicLambda());
                 }
 
                 lvl.Bobs[0].CapeWind = CoreMath.LerpRestrict(2.7f, 0, wind_t.Val) *
@@ -297,6 +323,111 @@ namespace CloudberryKingdom
             {
                 SetLevel();
                 Recycler.DumpMetaBin();
+            }
+        }
+
+        class StartMusicLambda : Lambda
+        {
+            public StartMusicLambda()
+            {
+            }
+
+            public void Apply()
+            {
+                // Start the music
+                Tools.SongWad.Unpause();
+            }
+        }
+
+        class RecordScratchLambda : Lambda
+        {
+            public RecordScratchLambda()
+            {
+            }
+
+            public void Apply()
+            {
+                Tools.SoundWad.FindByName("Record_Scratch").Play();
+            }
+        }
+
+        class WindLambda : Lambda
+        {
+            FancyVector2 wind_t;
+            public WindLambda(FancyVector2 wind_t)
+            {
+                this.wind_t = wind_t;
+            }
+
+            public void Apply()
+            {
+                wind_t.LerpTo(1f, 40);
+            }
+        }
+
+        class PosLerpToLambda : Lambda
+        {
+            FancyVector2 pos_t;
+            int zoomout_length;
+            LerpStyle style;
+            public PosLerpToLambda(FancyVector2 pos_t, int zoomout_length, LerpStyle style)
+            {
+                this.pos_t = pos_t;
+                this.zoomout_length = zoomout_length;
+                this.style = style;
+            }
+
+            public void Apply()
+            {
+                pos_t.LerpTo(1f, zoomout_length + 6, style);
+            }
+        }
+
+        class ZoomLerpToLambda : Lambda
+        {
+            FancyVector2 zoom_t;
+            int zoomout_length;
+            LerpStyle style;
+            public ZoomLerpToLambda(FancyVector2 zoom_t, int zoomout_length, LerpStyle style)
+            {
+                this.zoom_t = zoom_t;
+                this.zoomout_length = zoomout_length;
+                this.style = style;
+            }
+
+            public void Apply()
+            {
+                zoom_t.LerpTo(1f, zoomout_length, style);
+            }
+        }
+
+        class SigmoidLambda : Lambda
+        {
+            FancyVector2 zoom_t;
+            public SigmoidLambda(FancyVector2 zoom_t)
+            {
+                this.zoom_t = zoom_t;
+            }
+
+            public void Apply()
+            {
+                zoom_t.LerpTo(.6f, 90, LerpStyle.Sigmoid);
+            }
+        }
+
+        class FadeInLambda : Lambda
+        {
+            Level lvl;
+            float InitialFadeInSpeed;
+            public FadeInLambda(Level lvl, float InitialFadeInSpeed)
+            {
+                this.lvl = lvl;
+                this.InitialFadeInSpeed = InitialFadeInSpeed;
+            }
+
+            public void Apply()
+            {
+                lvl.MyGame.FadeIn(InitialFadeInSpeed);
             }
         }
 
