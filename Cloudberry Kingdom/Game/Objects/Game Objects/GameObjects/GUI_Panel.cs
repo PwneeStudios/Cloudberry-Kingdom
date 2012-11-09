@@ -113,7 +113,7 @@ namespace CloudberryKingdom
             Hide();
 
             if (Caller != null)
-                MyGame.WaitThenDo(ReturnToCallerDelay, new ReturnToCallerHelper(this));
+                MyGame.WaitThenDo(ReturnToCallerDelay, new ReturnToCallerHelper(this.Caller));
         }
 
         /// <summary>
