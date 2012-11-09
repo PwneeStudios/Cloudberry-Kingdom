@@ -116,7 +116,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called during LevelBegin, adds relevant GameObjects to the level's game.
         /// </summary>
-        public Func<Level, bool> OnLevelBegin;
+        public LambdaFunc_1<Level, bool> OnLevelBegin;
 
         /// <summary>
         /// How long to wait before opening the initial door on the first level.
@@ -294,17 +294,20 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the first level is swapped in.
         /// </summary>
-        public event Action<LevelSeedData> OnSwapToFirstLevel;
+        //public event Action<LevelSeedData> OnSwapToFirstLevel;
+        public Multicaster_1<LevelSeedData> OnSwapToFirstLevel;
 
         /// <summary>
         /// Called when the last level is swapped in.
         /// </summary>
         public event Action<LevelSeedData> OnSwapToLastLevel;
+        //public Multicaster_1<LevelSeedData> OnSwapToLastLevel;
 
         /// <summary>
         /// Called when a level is swapped to. The parameter is the current level index.
         /// </summary>
         public event Action<int> OnSwapToLevel;
+        //public Multicaster_1<LevelSeedData> OnSwapToLevel;
 
         /// <summary>
         /// True after the first level has been swapped in (and always true thereafter)
@@ -322,7 +325,7 @@ namespace CloudberryKingdom
             if (!FirstLevelSwappedIn)
             {
                 if (OnSwapToFirstLevel != null)
-                    OnSwapToFirstLevel(NextLevelSeed);
+                    OnSwapToFirstLevel.Apply(NextLevelSeed);
                 FirstLevelSwappedIn = true;
             }
 

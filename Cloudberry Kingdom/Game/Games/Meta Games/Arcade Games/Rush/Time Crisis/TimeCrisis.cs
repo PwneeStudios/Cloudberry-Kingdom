@@ -26,7 +26,21 @@ namespace CloudberryKingdom
         protected override void PreStart_Tutorial(bool TemporarySkip)
         {
             HeroRush_Tutorial.TemporarySkip = TemporarySkip;
-            MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new TimeCrisis_Tutorial(this));
+            MyStringWorld.OnSwapToFirstLevel.Add(new OnSwapLambda(this));
+        }
+
+        class OnSwapLambda : Lambda_1<LevelSeedData>
+        {
+            Challenge_TimeCrisis ch;
+            public OnSwapLambda(Challenge_TimeCrisis ch)
+            {
+                this.ch = ch;
+            }
+
+            public void Apply(LevelSeedData data)
+            {
+                data.MyGame.AddGameObject(new TimeCrisis_Tutorial(ch));
+            }
         }
     }
 }

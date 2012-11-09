@@ -287,30 +287,30 @@ namespace CloudberryKingdom
             return false;
         }
 
-        /// <summary>
-        /// Remove matching elements of a list.
-        /// </summary>
-        public static void RemoveAll<T>(this List<T> list, Predicate<T> func)
-        {
-            int OpenSlot = 0;
-            int i = 0;
-            int N = list.Count;
+        ///// <summary>
+        ///// Remove matching elements of a list.
+        ///// </summary>
+        //public static void RemoveAll<T>(this List<T> list, Predicate<T> func)
+        //{
+        //    int OpenSlot = 0;
+        //    int i = 0;
+        //    int N = list.Count;
 
-            while (i < N)
-            {
-                if (func(list[i]))
-                    i++;
-                else
-                {
-                    list[OpenSlot] = list[i];
+        //    while (i < N)
+        //    {
+        //        if (func(list[i]))
+        //            i++;
+        //        else
+        //        {
+        //            list[OpenSlot] = list[i];
 
-                    i++;
-                    OpenSlot++;
-                }
-            }
+        //            i++;
+        //            OpenSlot++;
+        //        }
+        //    }
 
-            list.RemoveRange(OpenSlot, N - OpenSlot);
-        }
+        //    list.RemoveRange(OpenSlot, N - OpenSlot);
+        //}
 #endif
         //public static void DeleteAll<T>(this List<T> list, Func<IObject, bool> func)
         //{
@@ -536,20 +536,53 @@ public static Thread EasyThread(int affinity, string name, Action action)
             b = temp;
         }
 
-
-        public static void RemoveAll<TSource>(List<TSource> source, Func<TSource, bool> remove)
+        public static TSource Find<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
         {
-            source.RemoveAll(match => remove(match));
-            return;
+            foreach (TSource obj in list)
+                if (predicate.Apply(obj))
+                    return obj;
+            return default(TSource);
         }
-        public static void RemoveAll<TSource>(List<TSource> source, Func<TSource, int, bool> remove)
+
+        public static bool All<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
+        {
+            bool all = true;
+            foreach (TSource obj in list)
+                if (!predicate.Apply(obj))
+                    all = false;
+            return all;
+        }
+
+        public static void RemoveAll<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
+        {
+            int OpenSlot = 0;
+            int i = 0;
+            int N = list.Count;
+
+            while (i < N)
+            {
+                if (predicate.Apply(list[i]))
+                    i++;
+                else
+                {
+                    list[OpenSlot] = list[i];
+
+                    i++;
+                    OpenSlot++;
+                }
+            }
+
+            //    list.RemoveRange(OpenSlot, N - OpenSlot);            
+            //source.RemoveAll(match => remove(match));
+        }
+        public static void RemoveAll<TSource>(List<TSource> source, LambdaFunc_2<TSource, int, bool> predicate)
         {
             int i = 0;
             int j = 0;
             int N = source.Count;
             while (i < N)
             {
-                while (j < N && remove(source[j], j))
+                while (j < N && predicate.Apply(source[j], j))
                     j++;
 
                 if (j == N) break;
@@ -566,18 +599,40 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// <summary>
         /// Return the smallest element.
         /// </summary>
-        public static TSource ArgMin<TSource>(IEnumerable<TSource> source, Func<TSource, float> val)
+        public static TSource ArgMin<TSource>(IEnumerable<TSource> source, LambdaFunc_1<TSource, float> val)
         {
-            float min = source.Min(val);
-            return source.First(element => val(element) == min);
+            TSource min = default(TSource);
+            float minval = 0;
+            foreach (var item in source)
+                if (item == null || val.Apply(item) < minval)
+                {
+                    minval = val.Apply(item);
+                    min = item;
+                }
+
+            return min;
+
+            //float min = source.Min(val);
+            //return source.First(element => val(element) == min);
         }
         /// <summary>
         /// Return the largest element.
         /// </summary>
-        public static TSource ArgMax<TSource>(IEnumerable<TSource> source, Func<TSource, float> val)
+        public static TSource ArgMax<TSource>(IEnumerable<TSource> source, LambdaFunc_1<TSource, float> val)
         {
-            float max = source.Max(val);
-            return source.First(element => val(element) == max);
+            TSource max = default(TSource);
+            float maxval = 0;
+            foreach (var item in source)
+                if (item == null || val.Apply(item) > maxval)
+                {
+                    maxval = val.Apply(item);
+                    max = item;
+                }
+
+            return max;
+
+            //float max = source.Max(val);
+            //return source.First(element => val(element) == max);
         }
 
         public static SimpleObject LoadSimpleObject(string file)
@@ -1053,10 +1108,26 @@ public static Thread EasyThread(int affinity, string name, Action action)
             line = Tools.RemoveComment_SlashStyle(line);
 
             var bits = line.Split(' ', '\t').ToList();
-            bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
+
+            //bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
+            Tools.RemoveAll(bits, new RemoveBitsLambda());
 
             return bits;
         }
+
+        class RemoveBitsLambda : LambdaFunc_1<string, bool>
+        {
+            public RemoveBitsLambda()
+            {
+            }
+
+            public bool Apply(string bit)
+            {
+                return bit == "" || bit == " " || bit == "\t";
+            }
+        }
+
+
 
         public static List<string> GetBitsFromReader(StreamReader reader)
         {

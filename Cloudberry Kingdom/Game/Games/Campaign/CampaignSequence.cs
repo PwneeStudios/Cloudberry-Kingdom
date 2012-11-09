@@ -163,19 +163,34 @@ namespace CloudberryKingdom
                 player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
         }
 
-        static Action<Level> MakeWatchMovieAction(string movie)
+        class WatchMovieLambda : Lambda_1<Level>
         {
-            return level =>
+            string movie;
+            public WatchMovieLambda(string movie)
+            {
+                this.movie = movie;
+            }
+
+            public void Apply(Level level)
             {
                 MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
-
                 ((ActionGameData)level.MyGame).Done = true;
-            };
+            }
+        }
+
+        static Lambda_1<Level> MakeWatchMovieAction(string movie)
+        {
+            return new WatchMovieLambda(movie);
+            //return level =>
+            //{
+            //    MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
+            //    ((ActionGameData)level.MyGame).Done = true;
+            //};
         }
 
         static void EndAction(Level level)
         {
-            level.MyGame.EndGame(false);
+            level.MyGame.EndGame.Apply(false);
         }
 
         protected CampaignSequence()

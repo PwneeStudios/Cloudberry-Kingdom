@@ -128,13 +128,15 @@ namespace CloudberryKingdom
 
             this.GetSeedFunc = Make;
             
-            OnSwapToFirstLevel += (data) =>
-                {
-                    //Tools.TextureWad.LoadThread.Join();
-                    Tools.ShowLoadingScreen = false;
-                    Tools.TheGame.LogoScreenPropUp = false;
-                    Tools.Write("+++++++++++++++++++ Ending screensave load...");
-                };
+            //OnSwapToFirstLevel += (data) =>
+            //    {
+            //        //Tools.TextureWad.LoadThread.Join();
+            //        Tools.ShowLoadingScreen = false;
+            //        Tools.TheGame.LogoScreenPropUp = false;
+            //        Tools.Write("+++++++++++++++++++ Ending screensave load...");
+            //    };
+
+            OnSwapToFirstLevel.Add(new OnSwapLambda(this));
 
             OnSwapToLevel += index =>
                 {
