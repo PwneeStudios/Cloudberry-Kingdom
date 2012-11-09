@@ -1118,20 +1118,22 @@ namespace CloudberryKingdom.Levels
                 //        obj.Core.MarkedForDeletion ||
                 //        (obj.Core.DrawLayer != i && obj.Core.DrawLayer2 != i && obj.Core.DrawLayer3 != i));
 
-                Tools.RemoveAll(DrawLayer[i], new CleanDrawLayerLambda());
+                Tools.RemoveAll(DrawLayer[i], new CleanDrawLayerLambda(i));
             }
         }
 
-        class CleanDrawLayerLambda : LambdaFunc_2<ObjectBase, int, bool>
+        class CleanDrawLayerLambda : LambdaFunc_1<ObjectBase, bool>
         {
-            public CleanDrawLayerLambda()
+            int layer;
+            public CleanDrawLayerLambda(int layer)
             {
+                this.layer = layer;
             }
 
-            public bool Apply(ObjectBase obj, int i)
+            public bool Apply(ObjectBase obj)
             {
                 return obj.Core.MarkedForDeletion ||
-                       (obj.Core.DrawLayer != i && obj.Core.DrawLayer2 != i && obj.Core.DrawLayer3 != i);
+                       (obj.Core.DrawLayer != layer && obj.Core.DrawLayer2 != layer && obj.Core.DrawLayer3 != layer);
             }
         }
 
