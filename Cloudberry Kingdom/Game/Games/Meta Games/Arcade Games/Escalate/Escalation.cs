@@ -66,15 +66,16 @@ namespace CloudberryKingdom
             if (!Escalation_Tutorial.WatchedOnce)
                 MyStringWorld.FirstDoorAction = false;
 
-            MyStringWorld.StartLevelMusic = game => { };
+            MyStringWorld.StartLevelMusic = null;
 
             // Start menu
-            MyStringWorld.OnLevelBegin += level =>
-            {
-                level.MyGame.AddGameObject(HelpMenu.MakeListener());
-                level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
-                return false;
-            };
+            //MyStringWorld.OnLevelBegin += level =>
+            //{
+            //    level.MyGame.AddGameObject(HelpMenu.MakeListener());
+            //    level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            //    return false;
+            //};
+            MyStringWorld.OnLevelBegin
 
             // Additional preprocessing
             SetGameParent(MyStringWorld);
@@ -84,9 +85,38 @@ namespace CloudberryKingdom
             MyStringWorld.Init(StartLevel);
         }
 
+        class OnBeginLambda : LambdaFunc_1<Level, bool>
+        {
+            public OnBeginLambda()
+            {
+            }
+
+            public bool Apply(Level level)
+            {
+                level.MyGame.AddGameObject(HelpMenu.MakeListener());
+                level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+                return false;
+            }
+        }
+
         protected virtual void PreStart_Tutorial()
         {
-            MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new Escalation_Tutorial(this));
+            //MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new Escalation_Tutorial(this));
+            MyStringWorld.OnSwapToFirstLevel.Add(new OnSwapLambda(this));
+        }
+
+        class OnSwapLambda : Lambda_1<LevelSeedData>
+        {
+            Challenge_Escalation ch;
+            public OnSwapLambda(Challenge_Escalation ch)
+            {
+                this.ch = ch;
+            }
+
+            public void Apply(LevelSeedData data)
+            {
+                data.MyGame.AddGameObject(new Escalation_Tutorial(ch));
+            }
         }
 
         int GetLives()

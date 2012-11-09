@@ -79,14 +79,16 @@ namespace CloudberryKingdom
 
             // Create the string world, and add the relevant game objects
             MyStringWorld = new StringWorldTimed(GetSeed, Timer);
-            MyStringWorld.StartLevelMusic = game => { };
+            MyStringWorld.StartLevelMusic = null;
 
             // Start menu
-            MyStringWorld.OnLevelBegin += level =>
-                {
-                    level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
-                    return false;
-                };
+            //MyStringWorld.OnLevelBegin += level =>
+            //    {
+            //        level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            //        return false;
+            //    };
+            MyStringWorld.OnLevelBegin = new OnLevelBeginLambda();
+
 
             // Invert level
 
@@ -96,6 +98,19 @@ namespace CloudberryKingdom
 
             // Start
             MyStringWorld.Init(StartLevel);
+        }
+
+        class OnLevelBeginLambda : LambdaFunc_1<Level, bool>
+        {
+            public OnLevelBeginLambda()
+            {
+            }
+
+            public bool Apply(Level level)
+            {
+                level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+                return false;
+            }
         }
 
         protected virtual void AdditionalPreStart()

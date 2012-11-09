@@ -41,13 +41,18 @@ namespace CloudberryKingdom
             }
         }
 
-        public Action OnDone;
+        public Lambda OnDone;
         void Finish()
         {
             if (OnDone != null)
-                OnDone();
+                OnDone.Apply();
 
             Release();
+        }
+
+        int CompareBobs(Bob A, Bob B)
+        {
+            return A.Core.Data.Position.X.CompareTo(B.Core.Data.Position.X);
         }
 
         int Count = 0;
@@ -75,11 +80,12 @@ namespace CloudberryKingdom
             // Afterward blow up a bob periodicially
             if ((Count - InitialDelay) % Delay == 0)
             {
-                List<Bob> bobs = Core.MyLevel.Bobs.FindAll(bob => bob.Core.Show && bob.GetPlayerData().IsAlive);
-                bobs.Sort(delegate(Bob A, Bob B)
-                {
-                    return A.Core.Data.Position.X.CompareTo(B.Core.Data.Position.X);
-                });
+                List<Bob> bobs = new List<Bob>();
+                foreach (var bob in Core.MyLevel.Bobs)
+                    if (bob.Core.Show && bob.GetPlayerData().IsAlive)
+                        bobs.Add(bob);
+                //List<Bob> bobs = Core.MyLevel.Bobs.FindAll(bob => bob.Core.Show && bob.GetPlayerData().IsAlive);
+                bobs.Sort(CompareBobs);
 
                 if (bobs.Count == 0)
                     Finish();

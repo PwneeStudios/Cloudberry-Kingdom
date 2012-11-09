@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Lambdas\LambdaFunc_2.cs" />
     <Compile Include="Core\Lambdas\LambdaFunc_1.cs" />
     <Compile Include="Core\Lambdas\LambdaFunc.cs" />
     <Compile Include="Core\Lambdas\Multicaster_2.cs" />

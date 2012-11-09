@@ -33,11 +33,27 @@ namespace CloudberryKingdom
             MyCoinScoreMultiplier = new CoinScoreMultiplierObject();
 
             // Add 'Perfect' watcher
-            OnSwapToFirstLevel += (data) =>
-                {
-                    data.MyGame.AddGameObject(MyGUI_Timer, Warning, MyGUI_Score, MyGUI_Level,
-                        MyCoinScoreMultiplier, new PerfectScoreObject(false, true));
-                };
+            //OnSwapToFirstLevel += (data) =>
+            //    {
+            //        data.MyGame.AddGameObject(MyGUI_Timer, Warning, MyGUI_Score, MyGUI_Level,
+            //            MyCoinScoreMultiplier, new PerfectScoreObject(false, true));
+            //    };
+            OnSwapToFirstLevel.Add(new OnSwapLambda(this));
+        }
+
+        class OnSwapLambda : Lambda_1<LevelSeedData>
+        {
+            StringWorldTimed ch;
+            public OnSwapLambda(StringWorldTimed ch)
+            {
+                this.ch = ch;
+            }
+
+            public void Apply(LevelSeedData data)
+            {
+                data.MyGame.AddGameObject(ch.MyGUI_Timer, ch.Warning, ch.MyGUI_Score, ch.MyGUI_Level,
+                    ch.MyCoinScoreMultiplier, new PerfectScoreObject(false, true));
+            }
         }
 
         public override void Release()

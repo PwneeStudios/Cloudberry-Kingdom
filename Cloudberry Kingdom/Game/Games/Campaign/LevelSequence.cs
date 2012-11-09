@@ -38,7 +38,8 @@ namespace CloudberryKingdom
             MyStringWorld.StartLevelMusic = null;
 
             // OnLevelBegin preprocessing for each level.
-            MyStringWorld.OnLevelBegin += OnLevelBegin;
+            //MyStringWorld.OnLevelBegin += OnLevelBegin;
+            MyStringWorld.OnLevelBegin = new OnLevelBeginLambda(this);
 
             // Additional preprocessing
             SetGameParent(MyStringWorld);
@@ -46,6 +47,20 @@ namespace CloudberryKingdom
 
             // Start
             MyStringWorld.Init(StartLevel);
+        }
+
+        class OnLevelBeginLambda : LambdaFunc_1<Level, bool>
+        {
+            LevelSequence ls;
+            public OnLevelBeginLambda(LevelSequence ls)
+            {
+                this.ls = ls;
+            }
+
+            public bool Apply(Level level)
+            {
+                return ls.OnLevelBegin(level);
+            }
         }
 
         /// <summary>

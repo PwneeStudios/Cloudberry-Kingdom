@@ -137,12 +137,12 @@ namespace CloudberryKingdom.Levels
                 player.Stats.TotalBlobs += NumBlobs;
             }
 
-            PlayerManager.ExistingPlayers.ForEach(player =>
-            {
-                CoinsCountInStats = true;
-                player.Stats.TotalCoins += NumCoins;
-                player.Stats.TotalBlobs += NumBlobs;
-            });
+            //PlayerManager.ExistingPlayers.ForEach(player =>
+            //{
+            //    CoinsCountInStats = true;
+            //    player.Stats.TotalCoins += NumCoins;
+            //    player.Stats.TotalBlobs += NumBlobs;
+            //});
 
             KeepCoinsDead();
 
