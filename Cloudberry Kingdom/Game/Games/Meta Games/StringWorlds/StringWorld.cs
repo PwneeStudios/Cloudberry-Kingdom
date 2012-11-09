@@ -537,6 +537,25 @@ namespace CloudberryKingdom
             PlayerManager.AbsorbGameStats();
         }
 
+        class CloseDoorAndAbsorbLambda : Lambda
+        {
+            Door door;
+            public CloseDoorAndAbsorbLambda(Door door)
+            {
+                this.door = door;
+            }
+
+            public void Apply()
+            {
+                // Close the door
+                door.SetLock(true, false, true);
+
+                // Absorb level stats
+                PlayerManager.AbsorbTempStats();
+                PlayerManager.AbsorbLevelStats();
+            }
+        }
+
         /// <summary>
         /// Attached to each door at the end of a level, and used to link that door to the next level in the string.
         /// </summary>
@@ -551,15 +570,7 @@ namespace CloudberryKingdom
                 BaseDoorAction(door);
 
                 // Close the door
-                game.AddToDo(() =>
-                    {
-                        // Close the door
-                        door.SetLock(true, false, true);
-
-                        // Absorb level stats
-                        PlayerManager.AbsorbTempStats();
-                        PlayerManager.AbsorbLevelStats();
-                    });
+                game.AddToDo(new CloseDoorAndAbsorbLambda(door));
 
                 if (door.OnEnter != null) door.OnEnter.Apply(door);
             }
@@ -593,6 +604,34 @@ namespace CloudberryKingdom
             TellGameToBringNext(165, game);
         }
 
+
+        class StartNextLevelLambda : LambdaFunc<bool>
+        {
+            StringWorldGameData g;
+
+            public StartNextLevelLambda(StringWorldGameData g)
+            {
+                this.g = g;
+            }
+
+            public bool Apply()
+            {
+                // If the next level is loaded, start the level
+                if (g.NextIsReady())
+                {
+                    g.WaitingForNext = false;
+
+                    g.SetLevel();
+                    g.LevelBegin(Tools.CurLevel);
+
+                    return true;
+                }
+                // Otherwise wait
+                else
+                    return false;
+            }
+        }
+
         bool WaitingForNext = false;
         private void TellGameToBringNext(int delay, GameData game)
         {
@@ -600,22 +639,7 @@ namespace CloudberryKingdom
 
             WaitingForNext = true;
 
-            game.WaitThenAddToToDo(delay, () =>
-            {
-                // If the next level is loaded, start the level
-                if (NextIsReady())
-                {
-                    WaitingForNext = false;
-
-                    SetLevel();
-                    LevelBegin(Tools.CurLevel);
-
-                    return true;
-                }
-                // Otherwise wait
-                else
-                    return false;
-            });
+            game.WaitThenAddToToDo(delay, new StartNextLevelLambda(this));
         }
 
         public static void BaseDoorAction(Door door)
