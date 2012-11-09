@@ -188,6 +188,21 @@ namespace CloudberryKingdom
         /// </summary>
         public Lambda_1<bool> EndGame;
 
+        class FinishProxy : Lambda_1<bool>
+        {
+            GameData gt;
+
+            public FinishProxy(GameData gt)
+            {
+                this.gt = gt;
+            }
+
+            public void Apply(bool Replay)
+            {
+                gt.Finish(Replay);
+            }
+        }
+
         /// <summary>
         /// Call to finish the metagame and return to the game that created it.
         /// </summary>
@@ -896,7 +911,7 @@ namespace CloudberryKingdom
 
             Recycle = Recycler.GetRecycler();
 
-            EndGame = this.Finish;
+            EndGame = new FinishProxy(this);
 
             Loading = false;
 

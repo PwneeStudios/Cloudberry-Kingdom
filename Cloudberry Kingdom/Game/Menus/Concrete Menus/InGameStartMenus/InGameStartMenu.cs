@@ -188,13 +188,25 @@ namespace CloudberryKingdom
             PauseGame = true;
         }
 
+        class GoControlsHelper : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoControlsHelper(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.Hide(PresetPos.Left, 40);
+                igsm.PauseGame = true;
+            }
+        }
+
         private void GoControls()
         {
-            MyGame.WaitThenDo(4, () =>
-            {
-                Hide(PresetPos.Left, 40);
-                PauseGame = true;
-            });
+            MyGame.WaitThenDo(4, new GoControlsHelper(this));
             ControlScreen screen = new ControlScreen(Control);
             Call(screen, 22);
         }

@@ -48,6 +48,21 @@ namespace CloudberryKingdom.Levels
             return CamZone;
         }
 
+        class ElementDistanceSquared : LambdaFunc_1<BlockBase, float>
+        {
+            Vector2 pos;
+
+            public ElementDistanceSquared(Vector2 pos)
+            {
+                this.pos = pos;
+            }
+
+            public float Apply(BlockBase element)
+            {
+                return (element.Core.Data.Position - pos).LengthSquared();
+            }
+        }
+
         /// <summary>
         /// Create the initial platforms the players start on.
         /// </summary>
@@ -60,7 +75,7 @@ namespace CloudberryKingdom.Levels
             // Find the closest block to pos on first row
             startblock = (NormalBlock)Tools.ArgMin(
                 Blocks.FindAll(match => match.Core == "FirstRow"),
-                element => (element.Core.Data.Position - pos).LengthSquared());
+                new ElementDistanceSquared(pos));
 
             switch (Style.MyInitialPlatsType)
             {
@@ -108,6 +123,21 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        class MakeVerticalCleanupHelper : LambdaFunc_1<Vector2, Vector2>
+        {
+            Level level;
+
+            public MakeVerticalCleanupHelper(Level level)
+            {
+                this.level = level;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = level.CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
+                return new Vector2(dist, dist);
+            }
+        }
 
         public bool MakeVertical(int Length, float Height, int StartPhsxStep, int ReturnEarly, MakeData makeData)
         {
@@ -408,11 +438,7 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
             Sleep();
 
-            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
-            {
-                float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
-                return new Vector2(dist, dist);
-            }, true, BL_Bound, TR_Bound);
+            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), new MakeVerticalCleanupHelper(this), true, BL_Bound, TR_Bound);
             Sleep();
 
             Cleanup(ObjectType.Coin, new Vector2(180, 180), BL_Bound, TR_Bound + new Vector2(500, 0));

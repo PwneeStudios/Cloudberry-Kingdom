@@ -231,12 +231,29 @@ namespace CloudberryKingdom
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
         }
 
+        class HighScorePanelEndGameHelper : Lambda
+        {
+            HighScorePanel hsp;
+            bool param;
+
+            public HighScorePanelEndGameHelper(HighScorePanel hsp, bool param)
+            {
+                this.hsp = hsp;
+                this.param = param;
+            }
+
+            public void Apply()
+            {
+                hsp.MyGame.EndGame.Apply(param);
+            }
+        }
+
         void Action_Done()
         {
             SlideOut(PresetPos.Top, 13);
             Active = false;
-
-            MyGame.WaitThenDo(36, () => MyGame.EndGame(false));
+            
+            MyGame.WaitThenDo(36, new HighScorePanelEndGameHelper(this, false));
             return;
         }
 
@@ -245,7 +262,7 @@ namespace CloudberryKingdom
             SlideOut(PresetPos.Top, 13);
             Active = false;
 
-            MyGame.WaitThenDo(36, () => MyGame.EndGame(true));
+            MyGame.WaitThenDo(36, new HighScorePanelEndGameHelper(this, true));
             return;
         }
 

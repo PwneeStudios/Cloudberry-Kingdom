@@ -280,6 +280,14 @@ namespace CloudberryKingdom
         public static int NumPlayers = 1;
         public static PlayerData[] Players;
 
+        class GetGroupGamerTagNameLength : LambdaFunc_1<StringBuilder, float>
+        {
+            public float Apply(StringBuilder name)
+            {
+                return name.Length;
+            }
+        }
+
         /// <summary>
         /// Return a string representing the names of all players playing
         /// </summary>
@@ -306,9 +314,10 @@ namespace CloudberryKingdom
                 };
 
             // Remove one character from the longest name until the total length is small enough
+            GetGroupGamerTagNameLength groupNameLengthGetter = new GetGroupGamerTagNameLength();
             while (length() > CharLength)
             {
-                StringBuilder str = Tools.ArgMax(names, name => name.Length);
+                StringBuilder str = Tools.ArgMax(names, groupNameLengthGetter);
                 str.Remove(str.Length - 1, 1);
             }
 

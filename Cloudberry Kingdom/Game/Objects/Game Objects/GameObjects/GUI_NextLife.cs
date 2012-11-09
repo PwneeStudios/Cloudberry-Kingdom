@@ -70,6 +70,21 @@ namespace CloudberryKingdom
             return str;
         }
 
+        class OnCoinGrabProxy : Lambda_1<ObjectBase>
+        {
+            GUI_NextLife guiNl;
+
+            public OnCoinGrabProxy(GUI_NextLife guiNl)
+            {
+                this.guiNl = guiNl;
+            }
+
+            public void Apply(ObjectBase obj)
+            {
+                guiNl.OnCoinGrab(obj);
+            }
+        }
+
         public void OnCoinGrab(ObjectBase obj)
         {
             Coins++;
@@ -151,13 +166,13 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
-            MyGame.OnCoinGrab += OnCoinGrab;
+            MyGame.OnCoinGrab.Add(new OnCoinGrabProxy(this));;
         }
 
         protected override void ReleaseBody()
         {
-            if (MyGame != null)
-                MyGame.OnCoinGrab -= OnCoinGrab;
+            /*if (MyGame != null)
+                MyGame.OnCoinGrab -= OnCoinGrab;*/
 
             base.ReleaseBody();
         }

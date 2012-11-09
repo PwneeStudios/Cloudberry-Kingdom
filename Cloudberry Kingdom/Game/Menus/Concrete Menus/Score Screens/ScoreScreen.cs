@@ -183,6 +183,21 @@ namespace CloudberryKingdom
         FancyVector2 zoom = new FancyVector2();
         public static bool UseZoomIn = true;
 
+        class OnAddHelper : Lambda
+        {
+            ScoreScreen ss;
+
+            public OnAddHelper(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                ss.MyMenu.Active = true;
+            }
+        }
+
         protected StatGroup MyStatGroup = StatGroup.Level;
         public override void OnAdd()
         {
@@ -216,7 +231,7 @@ namespace CloudberryKingdom
             SetPos();
             MyMenu.SortByHeight();
 
-            MyGame.WaitThenDo(DelayPhsx, () => MyMenu.Active = true);
+            MyGame.WaitThenDo(DelayPhsx, new OnAddHelper(this));
         }
 
         protected override void MyDraw()
@@ -273,6 +288,23 @@ namespace CloudberryKingdom
             }
         }
 
+        class ScoreScreenEndGameHelper : Lambda
+        {
+            ScoreScreen ss;
+            bool parameter;
+
+            public ScoreScreenEndGameHelper(ScoreScreen ss, bool parameter)
+            {
+                this.ss = ss;
+                this.parameter = parameter;
+            }
+
+            public void Apply()
+            {
+                ss.MyGame.EndGame.Apply(parameter);
+            }
+        }
+
         /// <summary>
         /// Play another level with the same seed
         /// </summary>
@@ -284,7 +316,7 @@ namespace CloudberryKingdom
 
             Tools.SongWad.FadeOut();
 
-            MyGame.WaitThenDo(36, () => MyGame.EndGame(true));
+            MyGame.WaitThenDo(36, new ScoreScreenEndGameHelper(this, true));
             return;
         }
 
@@ -296,7 +328,7 @@ namespace CloudberryKingdom
         {
             SlideOut(PresetPos.Left);
 
-            MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
+            MyGame.WaitThenDo(SlideOutLength + 2, new ScoreScreenEndGameHelper(this, false));
         }
 
         /// <summary>
@@ -312,7 +344,7 @@ namespace CloudberryKingdom
                 CustomLevel_GUI.ExitFreeplay = true;
             }
 
-            MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
+            MyGame.WaitThenDo(SlideOutLength + 2, new ScoreScreenEndGameHelper(this, false));
 
             return true;
         }
@@ -320,6 +352,22 @@ namespace CloudberryKingdom
         protected void MenuGo_Stats(MenuItem item)
         {
             Call(new StatsMenu(MyStatGroup), 19);
+        }
+
+        class MenuGo_WatchReplayHelper : Lambda
+        {
+            ScoreScreen ss;
+
+            public MenuGo_WatchReplayHelper(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                ss.OnReturnTo(); // Re-activate the Score Screen object
+                ss.Core.MyLevel.WatchReplay(true); // Start the replay
+            }
         }
 
         /// <summary>
@@ -332,11 +380,7 @@ namespace CloudberryKingdom
             {
                 Active = false;
 
-                MyGame.WaitThenDo(35, () =>
-                    {
-                        OnReturnTo(); // Re-activate the Score Screen object
-                        Core.MyLevel.WatchReplay(true); // Start the replay
-                    });
+                MyGame.WaitThenDo(35, new MenuGo_WatchReplayHelper(this));
             }
             else
             {

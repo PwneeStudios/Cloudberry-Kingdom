@@ -566,6 +566,21 @@ namespace CloudberryKingdom
         /// </summary>
         public bool NoMusicStart = false;
 
+        class SetToStartSongHelper : Lambda
+        {
+            EzSong song;
+
+            public SetToStartSongHelper(EzSong song)
+            {
+                this.song = song;
+            }
+
+            public void Apply()
+            {
+                Tools.SongWad.LoopSong(song);
+            }
+        }
+
         /// <summary>
         /// The created level will loop the given song, starting once the level loads.
         /// </summary>
@@ -573,7 +588,7 @@ namespace CloudberryKingdom
         public void SetToStartSong(EzSong song, int delay)
         {
             NoMusicStart = true;
-            PostMake += lvl => lvl.MyGame.WaitThenDo(delay, () => Tools.SongWad.LoopSong(song));
+            PostMake += lvl => lvl.MyGame.WaitThenDo(delay, new SetToStartSongHelper(song));
         }
 
         public string Name = "";
@@ -599,6 +614,14 @@ namespace CloudberryKingdom
         {
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener(),
                                        new PerfectScoreObject(global, true));
+        }
+
+        class BOL_StartMusicProxy : Lambda
+        {
+            public void Apply()
+            {
+                LevelSeedData.BOL_StartMusic();
+            }
         }
 
         /// <summary>
@@ -639,7 +662,7 @@ namespace CloudberryKingdom
             AddGameObjects_Default(level, false, ShowMultiplier);
 
             if (StartMusic)
-                level.MyGame.WaitThenDo(8, BOL_StartMusic);
+                level.MyGame.WaitThenDo(8, new BOL_StartMusicProxy());
 
             ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
             door.OnOpen = new EOL_DoorActionProxy();
@@ -647,11 +670,9 @@ namespace CloudberryKingdom
             level.StartRecording();
         }
 
-        public static void PostMake_StringWorldStandard(Level level)
+        class PostMake_StringWorldStandardHelper : Lambda
         {
-            AddGameObjects_Default(level, false, true);
-
-            level.MyGame.WaitThenDo(8, () =>
+            public void Apply()
             {
                 if (!Tools.SongWad.IsPlaying())
                 {
@@ -659,7 +680,14 @@ namespace CloudberryKingdom
                     Tools.SongWad.Shuffle();
                     Tools.SongWad.Start(true);
                 }
-            });
+            }
+        }
+
+        public static void PostMake_StringWorldStandard(Level level)
+        {
+            AddGameObjects_Default(level, false, true);
+
+            level.MyGame.WaitThenDo(8, new PostMake_StringWorldStandardHelper());
         }
         
         public bool ReleaseWhenLoaded = false;

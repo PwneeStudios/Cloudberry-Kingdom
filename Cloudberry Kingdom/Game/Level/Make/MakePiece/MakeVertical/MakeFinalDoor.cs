@@ -30,6 +30,14 @@ namespace CloudberryKingdom.Levels
             base.Phase1();
         }
 
+        class ElementPositionProjectY : LambdaFunc_1<BlockBase, float>
+        {
+            public float Apply(BlockBase element)
+            {
+                return element.Core.Data.Position.Y;
+            }
+        }
+
         public override void Phase2()
         {
             base.Phase2();
@@ -37,9 +45,9 @@ namespace CloudberryKingdom.Levels
             // Find a final block that was used by the computer.
             //FinalBlock = MyLevel.Blocks.Find(match => match.Core == "LastRow" && match.Core.GenData.Used);
             if (MyLevel.CurMakeData.PieceSeed.GeometryType == LevelGeometry.Down)
-                FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
+                FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), new ElementPositionProjectY());
             else
-                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
+                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), new ElementPositionProjectY());
 
             FinalPos = FinalBlock.Core.Data.Position;
 
