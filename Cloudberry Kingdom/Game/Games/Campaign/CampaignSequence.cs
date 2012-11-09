@@ -140,8 +140,8 @@ namespace CloudberryKingdom
         {
             if (level.MyLevelSeed.MyGameType == ActionGameData.Factory) return;
 
-            level.MyGame.OnCoinGrab += OnCoinGrab;
-            level.MyGame.OnCompleteLevel += OnCompleteLevel;
+            level.MyGame.OnCoinGrab.Add(new OnCoinGrabProxy());
+            level.MyGame.OnCompleteLevel.Add(new OnCompleteLevelProxy());
 
             var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
             level.MyGame.AddGameObject(title);
@@ -151,10 +151,26 @@ namespace CloudberryKingdom
             level.MyGame.MyBankType = GameData.BankType.Campaign;
         }
 
+        class OnCoinGrabProxy : Lambda_1<ObjectBase>
+        {
+            public void Apply(ObjectBase obj)
+            {
+                CampaignSequence.OnCoinGrab(obj);
+            }
+        }
+
         static void OnCoinGrab(ObjectBase obj)
         {
             foreach (var player in PlayerManager.ExistingPlayers)
                 player.CampaignCoins++;
+        }
+
+        class OnCompleteLevelProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                CampaignSequence.OnCompleteLevel(level);
+            }
         }
 
         static void OnCompleteLevel(Level level)
@@ -178,14 +194,14 @@ namespace CloudberryKingdom
             }
         }
 
-        static Lambda_1<Level> MakeWatchMovieAction(string movie)
+        static Action<Level>/*Lambda_1<Level>*/ MakeWatchMovieAction(string movie)
         {
-            return new WatchMovieLambda(movie);
-            //return level =>
-            //{
-            //    MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
-            //    ((ActionGameData)level.MyGame).Done = true;
-            //};
+            //return new WatchMovieLambda(movie);
+            return level =>
+            {
+                MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
+                ((ActionGameData)level.MyGame).Done = true;
+            };
         }
 
         static void EndAction(Level level)

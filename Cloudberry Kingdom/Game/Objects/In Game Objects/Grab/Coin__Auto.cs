@@ -217,6 +217,22 @@ namespace CloudberryKingdom.Levels
 
     public partial class Level
     {
+        class CleanupCoinsHelper : LambdaFunc_1<Vector2, Vector2>
+        {
+            Coin_Parameters Params;
+
+            public CleanupCoinsHelper(Coin_Parameters Params)
+            {
+                this.Params = Params;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = Params.MinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }
+        }
+
         public void CleanupCoins(Vector2 BL, Vector2 TR)
         {
             // Get Coin parameters
@@ -238,13 +254,9 @@ namespace CloudberryKingdom.Levels
                         Recycle.CollectObject(obj);
             }
 
-
             // General cleanup
-            Cleanup(ObjectType.Coin, pos =>
-            {
-                float dist = Params.MinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL + Params.BL_Bound_Mod, TR + Params.TR_Bound_Mod);
+            Cleanup(ObjectType.Coin, new CleanupCoinsHelper(Params),
+                BL + Params.BL_Bound_Mod, TR + Params.TR_Bound_Mod);
         }
     }
 }

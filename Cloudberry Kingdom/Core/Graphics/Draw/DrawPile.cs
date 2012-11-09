@@ -365,7 +365,7 @@ namespace CloudberryKingdom
         class WaitThenPop : Lambda
         {
             DrawPile MyDrawPile_;
-            WaitThenPop(DrawPile MyDrawPile)
+            public WaitThenPop(DrawPile MyDrawPile)
             {
                 MyDrawPile_ = MyDrawPile;
             }
@@ -404,8 +404,6 @@ namespace CloudberryKingdom
 
         class WaitThenPop2 : Lambda
         {
-            WaitThenPop2() { }
-
             public void Apply()
             {
                 Tools.SoundWad.FindByName("Pop_2").Play();

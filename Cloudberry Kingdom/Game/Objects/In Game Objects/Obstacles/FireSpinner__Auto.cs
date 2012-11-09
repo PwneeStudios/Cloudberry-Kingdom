@@ -172,6 +172,22 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        class Cleanup_2Proxy : LambdaFunc_1<Vector2, Vector2>
+        {
+            FireSpinner_Parameters Params;
+
+            public Cleanup_2Proxy(FireSpinner_Parameters Params)
+            {
+                this.Params = Params;
+            }
+
+            public Vector2 Apply(Vector2 pos)
+            {
+                float dist = Params.MinDist.GetVal(pos);
+                return new Vector2(dist, dist);
+            }
+        }
+
         public override void Cleanup_2(Level level, Vector2 BL, Vector2 TR)
         {
             base.Cleanup_2(level, BL, TR);
@@ -179,11 +195,8 @@ namespace CloudberryKingdom.Levels
             // Get FireSpinner parameters
             FireSpinner_Parameters Params = (FireSpinner_Parameters)level.Style.FindParams(FireSpinner_AutoGen.Instance);
 
-            level.Cleanup(ObjectType.FireSpinner, pos =>
-            {
-                float dist = Params.MinDist.GetVal(pos);
-                return new Vector2(dist, dist);
-            }, BL, TR);
+            level.Cleanup(ObjectType.FireSpinner, new Cleanup_2Proxy(Params),
+                BL, TR);
         }
     }
 

@@ -178,6 +178,21 @@ namespace CloudberryKingdom
             AddItem(slider);
         }
 
+        class StartLevelProxy : Lambda
+        {
+            CustomUpgrades_GUI cuGui;
+
+            public StartLevelProxy(CustomUpgrades_GUI cuGui)
+            {
+                this.cuGui = cuGui;
+            }
+
+            public void Apply()
+            {
+                cuGui.StartLevel();
+            }
+        }
+
         void StartLevel()
         {
             CustomLevel.StartLevelFromMenuData();
@@ -338,7 +353,7 @@ namespace CloudberryKingdom
 
         protected void StartGame()
         {
-            MyGame.PlayGame(() => StartLevel());
+            MyGame.PlayGame(new StartLevelProxy(this));
         }
 
         private void MakeOptions()
