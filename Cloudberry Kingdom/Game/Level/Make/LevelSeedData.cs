@@ -38,11 +38,12 @@ namespace CloudberryKingdom
         /// </summary>
         #region Special flags
         public bool HasWall = false; const string WallFlag = "wall";
-        public bool FadeIn  = false; const string FadeInFlag = "fadein";
-        public bool FadeOut = false; const string FadeOutFlag = "fadeout";
+        public bool FadeIn = false; public float FadeInSpeed = .032f; const string FadeInFlag = "fadein";
+        public bool FadeOut = false; public float FadeOutSpeed = .02f; const string FadeOutFlag = "fadeout";
         public float WeatherIntensity = 1; const string WeatherIntensityFlag = "weather";
         public bool NoStartDoor = false; const string NoStartDoorFlag = "nostartdoor";
         public int LevelNum = -1; const string LevelFlag = "level";
+        public bool NewHero = false; const string NewHeroFlag = "newhero";
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -64,6 +65,9 @@ namespace CloudberryKingdom
                 
                 p.Style.MyModParams = _HasWall_Process;
             }
+
+            if (NewHero)
+                PostMake += _NewHero;
 
             if (NoStartDoor) PostMake += _NoStartDoor;
 
@@ -103,6 +107,11 @@ namespace CloudberryKingdom
         {
             var door = level.StartDoor; if (door == null) return;
             door.CollectSelf();
+        }
+
+        private static void _NewHero(Level level)
+        {
+            level.MyGame.AddGameObject(new NewHero(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
         }
 
         private static void _FadeIn_Process(Level level)
@@ -301,10 +310,35 @@ namespace CloudberryKingdom
                     case WallFlag: HasWall = true; break;
 
                     // Fade In
-                    case FadeInFlag: FadeIn = true; break;
+                    case FadeInFlag:
+                        FadeIn = true;
+                        float DefaultFadeInSpeed = FadeInSpeed;
+                        try
+                        {
+                            FadeInSpeed = float.Parse(data);
+                        }
+                        catch
+                        {
+                            FadeInSpeed = DefaultFadeInSpeed;
+                        }
+                        break;
 
                     // Fade Out
-                    case FadeOutFlag: FadeOut = true; break;
+                    case FadeOutFlag:
+                        FadeOut = true;
+                        float DefaultFadeOutSpeed = FadeOutSpeed;
+                        try
+                        {
+                            FadeOutSpeed = float.Parse(data);
+                        }
+                        catch
+                        {
+                            FadeOutSpeed = DefaultFadeOutSpeed;
+                        }
+                        break;
+
+                    // NewHero
+                    case NewHeroFlag: NewHero = true; break;
 
                     // No start door
                     case NoStartDoorFlag: NoStartDoor = true; break;

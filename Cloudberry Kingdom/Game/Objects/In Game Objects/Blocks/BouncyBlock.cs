@@ -103,6 +103,9 @@ namespace CloudberryKingdom.Blocks
             //SizeOffset = new Vector2(18);
 
             SetState(BouncyBlockState.SuperStiff);
+
+            if (MyLevel.PlayMode == 0 && Info.BouncyBlocks.BounceSound != null)
+                Info.BouncyBlocks.BounceSound.Play();
         }
 
         public override void SideHit(Bob bob)

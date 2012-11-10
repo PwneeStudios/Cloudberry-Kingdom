@@ -143,8 +143,19 @@ namespace CloudberryKingdom
             level.MyGame.OnCoinGrab += OnCoinGrab;
             level.MyGame.OnCompleteLevel += OnCompleteLevel;
 
+            // Level Title only
+            //var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
+            
+            // Level Title plus Hero Name
             var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
             level.MyGame.AddGameObject(title);
+
+            if (!level.MyLevelSeed.NewHero)
+            {
+                var hero_title = new LevelTitle(string.Format("{0}", Localization.WordString(level.DefaultHeroType.Name)));
+                hero_title.Shift(new Vector2(0, -180));
+                level.MyGame.AddGameObject(hero_title);
+            }
 
             level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum));
 

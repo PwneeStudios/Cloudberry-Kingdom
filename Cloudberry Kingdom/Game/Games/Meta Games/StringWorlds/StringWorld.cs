@@ -546,11 +546,13 @@ namespace CloudberryKingdom
             GameData game = door.Core.MyLevel.MyGame;
 
             Tools.SongWad.FadeOut();
-            game.FadeToBlack(.02f, 47);
+            float fadespeed = door.MyLevel.MyLevelSeed == null ? .02f : door.MyLevel.MyLevelSeed.FadeOutSpeed;
+            game.FadeToBlack(fadespeed, 47);
 
             // Tell the current Game to perform the following
             //TellGameToBringNext(98, game);
-            TellGameToBringNext(165, game);
+            //TellGameToBringNext(165, game);
+            TellGameToBringNext(115 + (int)(1f / fadespeed), game);
         }
 
         bool WaitingForNext = false;

@@ -28,8 +28,6 @@ namespace CloudberryKingdom
                 this.SlideIn(0);
         }
 
-
-
         public EzText text;
         public LevelTitle(string str) { Init(str, Vector2.Zero, 1f, false); }
         public LevelTitle(string str, Vector2 shift, float scale, bool perma) { Init(str, shift, scale, perma); }

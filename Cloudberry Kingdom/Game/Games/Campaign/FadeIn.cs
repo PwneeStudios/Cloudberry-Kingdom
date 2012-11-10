@@ -40,7 +40,8 @@ namespace CloudberryKingdom
 
         void End()
         {
-            MyGame.FadeIn(.032f);
+            //MyGame.FadeIn(.032f);
+            MyGame.FadeIn(MyLevel.MyLevelSeed == null ? .032f : MyLevel.MyLevelSeed.FadeInSpeed);
 
             PauseGame = false;
 

@@ -1,4 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+
+using CoreEngine;
+
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
@@ -33,7 +36,11 @@ namespace CloudberryKingdom
 
             InitializedAnim = false;
             MyBob.PlayerObject.Read(24, 0);
+
+            MyBob.JumpSound = Tools.SoundWad.FindByName("BouncyJump");
+            DullSound = Tools.SoundWad.FindByName("BouncyJump_Dull");
         }
+        protected EzSound DullSound = null;
 
         public override void DefaultValues()
         {
@@ -66,6 +73,11 @@ namespace CloudberryKingdom
                 ReadyToJump = true;
         }
 
+        protected override void PlayJumpSound()
+        {
+            //base.PlayJumpSound();
+        }
+
         //float FakeVel = 0;
         float SuperBounce = 18;
         int SuperBounceGraceCount = 0;
@@ -80,7 +92,7 @@ namespace CloudberryKingdom
                 {
                     if (MyBob.CurInput.A_Button && SuperBounceGraceCount > 0)
                     {
-                        //Tools.Write("Delayed super bounce!");
+                        if (MyLevel.PlayMode == 0 && !MyBob.CharacterSelect) MyBob.JumpSound.Play();
                         yVel += SuperBounce;
                         SuperBounceGraceCount = 0;
                     }
@@ -99,12 +111,15 @@ namespace CloudberryKingdom
                     DoJump();
 
                     if (MyBob.CurInput.A_Button)
+                    {
                         yVel += SuperBounce;
+                        if (MyLevel.PlayMode == 0 && !MyBob.CharacterSelect) MyBob.JumpSound.Play();
+                    }
                     else
                     {
-                        if (MyLevel.PlayMode == 0)
+                        if (MyLevel.PlayMode == 0 && !MyBob.CharacterSelect)
                         {
-                            //FakeVel = yVel + SuperBounce;
+                            DullSound.Play();
                             SuperBounceGraceCount = SuperBounceGrace;
                         }
                     }

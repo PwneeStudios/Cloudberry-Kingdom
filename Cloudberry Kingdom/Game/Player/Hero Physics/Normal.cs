@@ -430,15 +430,7 @@ namespace CloudberryKingdom
 
             if (MyBob.Core.MyLevel.PlayMode == 0 && !MyBob.CharacterSelect)
             {
-                if (CurJump > 1)
-                    DoubleJump.Play();
-                else
-                {
-                    if (MyBob.JumpSound == null)
-                        Bob.JumpSound_Default.Play();
-                    else
-                        MyBob.JumpSound.Play();
-                }
+                PlayJumpSound();
             }
 
             if (Gravity > 0 && yVel > 0 && CurJump == 1
@@ -458,6 +450,19 @@ namespace CloudberryKingdom
             ApexY = -20000000;
 
             IncrementJumpCounter();
+        }
+
+        protected virtual void PlayJumpSound()
+        {
+            if (CurJump > 1)
+                DoubleJump.Play();
+            else
+            {
+                if (MyBob.JumpSound == null)
+                    Bob.JumpSound_Default.Play();
+                else
+                    MyBob.JumpSound.Play();
+            }
         }
 
         public virtual float GetXAccel()

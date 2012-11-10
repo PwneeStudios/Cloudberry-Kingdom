@@ -8,7 +8,7 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
-            Vector2 shift = new Vector2(0, -.5f * 2000 + 380);
+            Vector2 shift = new Vector2(0, -.5f * 2000 + 380 + 500);
 
             // Add the text
             text.Pos = shift;
@@ -22,6 +22,9 @@ namespace CloudberryKingdom
 
             // Slide out
             this.SlideOut(PresetPos.Left, 0);
+
+            // Sound
+            Tools.SoundWad.FindByName("HeroUnlockedSound").Play();
 
             if (Perma)
                 this.SlideIn(0);
@@ -81,7 +84,11 @@ namespace CloudberryKingdom
 
             // Otherwise show and hide
             if (Count == 4)
-                SlideIn();
+            {
+                //SlideIn();
+                SlideIn(0);
+                MyPile.BubbleUp(false);
+            }
 
             if (Count == 180)
             {
