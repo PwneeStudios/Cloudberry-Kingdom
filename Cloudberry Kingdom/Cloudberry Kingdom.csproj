@@ -184,12 +184,6 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
-    <Compile Include="Core\Lambdas\Multicaster_2.cs" />
-    <Compile Include="Core\Lambdas\Lambda_2.cs" />
-    <Compile Include="Core\Lambdas\Multicaster_1.cs" />
-    <Compile Include="Core\Lambdas\Lambda_1.cs" />
-    <Compile Include="Core\Lambdas\Multicaster.cs" />
-    <Compile Include="Core\Lambdas\Lambda.cs" />
     <Compile Include="Core\Tools\Set.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />
     <Compile Include="Core\ResolutionGroup.cs" />
