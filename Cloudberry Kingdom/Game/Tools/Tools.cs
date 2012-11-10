@@ -581,6 +581,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 }
             }
 
+            list.RemoveRange(OpenSlot, N - OpenSlot);
             //    list.RemoveRange(OpenSlot, N - OpenSlot);            
             //source.RemoveAll(match => remove(match));
         }
