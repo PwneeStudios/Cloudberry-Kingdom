@@ -97,7 +97,7 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                panel.Caller.OnReturnTo();
+                panel.OnReturnTo();
             }
         }
 
