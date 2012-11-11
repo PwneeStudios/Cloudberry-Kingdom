@@ -614,7 +614,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TSource min = default(TSource);
             float minval = 0;
             foreach (var item in source)
-                if (item == null || val.Apply(item) < minval)
+                if (min == null || val.Apply(item) < minval)
                 {
                     minval = val.Apply(item);
                     min = item;
@@ -633,7 +633,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TSource max = default(TSource);
             float maxval = 0;
             foreach (var item in source)
-                if (item == null || val.Apply(item) > maxval)
+                if (max == null || val.Apply(item) > maxval)
                 {
                     maxval = val.Apply(item);
                     max = item;

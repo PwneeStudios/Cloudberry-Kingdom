@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             Tools.CurLevel = this.MyLevel;
         }
 
-        GUI_Text PressA;
+        public GUI_Text PressA;
 
         public static int MandatoryWatchLength
         {
@@ -81,12 +81,10 @@ namespace CloudberryKingdom
         class ConstructorPressAListenerHelper : Lambda
         {
             ScreenSaver ss;
-            Listener PressA_Listener;
 
-            public ConstructorPressAListenerHelper(ScreenSaver ss, Listener PressA_Listener)
+            public ConstructorPressAListenerHelper(ScreenSaver ss)
             {
                 this.ss = ss;
-                this.PressA_Listener = PressA_Listener;
             }
 
             public void Apply()
@@ -97,7 +95,7 @@ namespace CloudberryKingdom
 
                 Tools.CurGameData.WaitThenDo(55, new ConstructorPressAListenerHelperHelper(ss));
 
-                PressA_Listener.Release();
+                ss.PressA_Listener.Release();
                 if (ss.PressA != null) ss.PressA.Kill(true);
             }
         }
@@ -192,7 +190,7 @@ namespace CloudberryKingdom
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, new MakePressALambda(PressA, ForTrailer), true);
+                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, new MakePressALambda(this, ForTrailer), true);
 
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, new AddListenerLambda(this), true);
                     }
@@ -201,12 +199,12 @@ namespace CloudberryKingdom
 
         class MakePressALambda : Lambda
         {
-            GUI_Text PressA;
+            ScreenSaver ss;
             bool ForTrailer;
 
-            public MakePressALambda(GUI_Text PressA, bool ForTrailer)
+            public MakePressALambda(ScreenSaver ss, bool ForTrailer)
             {
-                this.PressA = PressA;
+                this.ss = ss;
                 this.ForTrailer = ForTrailer;
             }
 
@@ -215,18 +213,18 @@ namespace CloudberryKingdom
                 UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
 #if PC_VERSION
-                PressA = new GUI_Text(Localization.Words.PressAnyKey,
+                ss.PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                new Vector2(0, -865), true);
 #else
                             PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #endif
-                PressA.MyText.Scale *= .68f;
-                PressA.PreventRelease = true;
-                PressA.FixedToCamera = true;
-                PressA.Oscillate = true;
+                ss.PressA.MyText.Scale *= .68f;
+                ss.PressA.PreventRelease = true;
+                ss.PressA.FixedToCamera = true;
+                ss.PressA.Oscillate = true;
                 if (!ForTrailer)
-                    Tools.CurGameData.AddGameObject(PressA);
+                    Tools.CurGameData.AddGameObject(ss.PressA);
             }
         }
 
@@ -240,12 +238,20 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                Listener PressA_Listener = null;
-                PressA_Listener = new Listener(ControllerButtons.A, new ConstructorPressAListenerHelper(ss, PressA_Listener));
-                PressA_Listener.PreventRelease = true;
-                PressA_Listener.Control = -2;
-                Tools.CurGameData.AddGameObject(PressA_Listener);
+                ss.PressA_Listener = new Listener(ControllerButtons.A, new ConstructorPressAListenerHelper(ss));
+                ss.PressA_Listener.PreventRelease = true;
+                ss.PressA_Listener.Control = -2;
+                Tools.CurGameData.AddGameObject(ss.PressA_Listener);
             }
+        }
+        public Listener PressA_Listener = null;
+
+        public override void Release()
+        {
+            base.Release();
+
+            PressA_Listener = null;
+            PressA = null;
         }
 
         int PhsxCount = 0;

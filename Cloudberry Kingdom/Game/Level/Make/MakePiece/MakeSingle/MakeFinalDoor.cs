@@ -116,12 +116,13 @@ namespace CloudberryKingdom.Levels
             base.Phase2();
 
             // Find the highest final block that was used by the computer.
-            //FinalBlock = MyLevel.Blocks
-            //    .FindAll(match => match.Core.GenData.Used && match.Core == "FinalBlock")
-            //    .ArgMax(block => block.Box.TR.Y);
-
-            List<BlockBase> FinalBlocks = Tools.FindAll(MyLevel.Blocks, new FindFinalBlockLambda());
-            FinalBlock = Tools.ArgMax(FinalBlocks, new BoxTRyLambda()); 
+            //var FinalBlock = MyLevel.Blocks
+            //    .FindAll(match => match.Core.GenData.Used && match.Core == "FinalBlock");
+                //.ArgMax(block => block.Box.TR.Y);
+            //Tools.Write(OldFinalBlock.Count);       
+          
+            List<BlockBase> _FinalBlocks = Tools.FindAll(MyLevel.Blocks, new FindFinalBlockLambda());
+            FinalBlock = Tools.ArgMax(_FinalBlocks, new BoxTRyLambda()); 
 
             // If none exist use the lowest block
             if (FinalBlock == null)

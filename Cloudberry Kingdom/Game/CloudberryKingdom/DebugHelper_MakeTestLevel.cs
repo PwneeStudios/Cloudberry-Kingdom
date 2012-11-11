@@ -39,8 +39,7 @@ namespace CloudberryKingdom
             LevelSeedData data = new LevelSeedData();
 
 
-            //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
-            data.ReadString("seed 0;s:305632318;h:0,0,0,0;t:hills_rain;n:2;l:5110;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;fadein;opendoor:30;opendoorsound;song:Writer's_Block^Peacemaker;weather:1;");
+            data.ReadString("0;s:1830873138;h:2,0,2,0;t:sea;n:1;l:2150;u:0,0,0,0,0,2,4.625,0,0,0,0,0,3.75,6.375,0,0,0,0,0,0,0,7.75,0,6.625;");
             GameData.StartLevel(data);
             return;
 
