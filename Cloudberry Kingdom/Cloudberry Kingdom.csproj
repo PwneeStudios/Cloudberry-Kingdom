@@ -720,7 +720,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BobIcon.ico" />
     <Content Include="BobIcon.png" />
     <Content Include="Cloudberry.ico" />
   </ItemGroup>

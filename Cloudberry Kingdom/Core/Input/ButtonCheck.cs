@@ -165,6 +165,7 @@ namespace CloudberryKingdom
 
         public static void UpdateControllerAndKeyboard_EndOfStep(ResolutionGroup Resolution)
         {
+#if WINDOWS
             // Determine if the mouse is in the window or not.
             Tools.MouseInWindow =
                 Tools.Mouse.X > 0 && Tools.Mouse.X < Resolution.Backbuffer.X &&
@@ -182,7 +183,7 @@ namespace CloudberryKingdom
 
             Tools.PrevKeyboard = Tools.Keyboard;
             Tools.PrevMouse = Tools.Mouse;
-
+#endif
             // Store the previous states of the Xbox controllers.
             for (int i = 0; i < 4; i++)
                 if (Tools.PrevGamepadState[i] != null)

@@ -90,14 +90,14 @@ namespace CloudberryKingdom
 
             CallDelay = ReturnToCallerDelay = 0;
 
+            // Options. Menu for PC, graphics only for consoles.
+#if PC_VERSION
             // Menu
             MyMenu = new Menu();
             MyMenu.OnB = null;
 
             EnsureFancy();
 
-            // Options. Menu for PC, graphics only for consoles.
-#if PC_VERSION
             MenuItem item;
 
             MyPile.Add(new QuadClass(ButtonTexture.X, 80, "Button_X"));
@@ -111,6 +111,8 @@ namespace CloudberryKingdom
             MyMenu.MouseOnly = true;
             MyMenu.NoneSelected = true;
 #else
+            EnsureFancy();
+
             string Space = "{s34,0}";
             EzText StartText = new EzText(ButtonString.Go(80) + Space + "{c122,209,39,255} Start", ItemFont, true, true);
             MyPile.Add(StartText, "Go");

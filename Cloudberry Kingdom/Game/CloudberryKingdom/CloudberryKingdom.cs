@@ -420,6 +420,12 @@ namespace CloudberryKingdom
             // Create the initial loading screen
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
 
+
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
+            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+             SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+#endif
+
             // Load resource thread
             Resources.LoadResources();
 

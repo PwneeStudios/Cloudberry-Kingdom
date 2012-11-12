@@ -113,18 +113,18 @@ namespace CloudberryKingdom
 
             CurrentLanguage = Languages[SelectedLanguage];
 
-            String path = Path.Combine(Content.RootDirectory, "Subtitles", CurrentLanguage.MyDirectory);
-            string[] files = Tools.GetFiles(path, false);
+            // This loads the subtitle textures.
+            //String path = Path.Combine(Content.RootDirectory, Path.Combine("Subtitles", CurrentLanguage.MyDirectory));
+            //string[] files = Tools.GetFiles(path, false);
 
-            foreach (String file in files)
-            {
-                if (Tools.GetFileExt(path, file) == "xnb")
-                {
-                    //var texture = Tools.TextureWad.AddTexture(null, Tools.GetFileName(path, file));
-                    var texture = Tools.TextureWad.AddTexture(null, Tools.GetFileName("Content", file));
-                    texture.Load();
-                }
-            }
+            //foreach (String file in files)
+            //{
+            //    if (Tools.GetFileExt(path, file) == "xnb")
+            //    {
+            //        var texture = Tools.TextureWad.AddTexture(null, Tools.GetFileName("Content", file));
+            //        texture.Load();
+            //    }
+            //}
         }
 
         private static void Initialize()
@@ -148,7 +148,7 @@ namespace CloudberryKingdom
 
         private static void ReadSubtitleInfo(string VideoName)
         {
-            string path = Path.Combine("Content", "Localization", "Subtitles", VideoName) + ".txt";
+            string path = Path.Combine("Content", Path.Combine("Localization", Path.Combine("Subtitles", VideoName))) + ".txt";
 
             ReadSubtitles(path);
         }

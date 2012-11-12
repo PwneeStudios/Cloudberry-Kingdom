@@ -315,12 +315,6 @@ namespace CloudberryKingdom
 
             Awardments.Init();
 
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
-#endif
-
-
 #if PC_VERSION
             // Mouse pointer
             Ck.MousePointer = new QuadClass();

@@ -701,6 +701,8 @@ namespace CloudberryKingdom
 
         public void DrawNonText(int Layer)
         {
+            if (Items.Count == 0) return;
+
             MyCameraZoom = Tools.CurCamera.Zoom;
             if (!Show) return;
 
@@ -746,6 +748,8 @@ namespace CloudberryKingdom
 
         public void DrawNonText2()
         {
+            if (Items.Count == 0) return;
+
             MyCameraZoom = Tools.CurCamera.Zoom;
             if (!Show) return;
 
@@ -832,7 +836,7 @@ namespace CloudberryKingdom
         {
             MyCameraZoom = Tools.CurCamera.Zoom;
 
-            if (!Show) return;
+            if (!Show || Items.Count == 0) return;
 
             DrawNonText(0);
             DrawText(0);
