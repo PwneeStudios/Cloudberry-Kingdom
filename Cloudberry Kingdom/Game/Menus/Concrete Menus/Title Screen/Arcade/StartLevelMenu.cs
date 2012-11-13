@@ -37,7 +37,7 @@ namespace CloudberryKingdom
             text.Shadow = false;
         }
 
-        public Action<LevelItem> StartFunc;
+        public Lambda_1<LevelItem> StartFunc;
         public Action ReturnFunc;
 
         class GameReturnProxy : LambdaFunc<bool>
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
                 // Executed once the game exits back to this menu
                 slm.MyGame.AddToDo(new GameReturnProxy(slm));
 
-                slm.StartFunc(litem);
+                slm.StartFunc.Apply(litem);
             }
         }
 

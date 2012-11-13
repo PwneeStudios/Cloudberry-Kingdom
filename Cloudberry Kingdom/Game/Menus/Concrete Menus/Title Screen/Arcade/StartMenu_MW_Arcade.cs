@@ -50,7 +50,7 @@ namespace CloudberryKingdom
                 StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopLevel());
 
                 levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
-                levelmenu.StartFunc = StartFunc;
+                levelmenu.StartFunc = new StartFuncProxy(this);
                 levelmenu.ReturnFunc = null;
 
                 Call(levelmenu);

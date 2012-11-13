@@ -46,6 +46,21 @@ namespace CloudberryKingdom
             }
         }
 
+        protected class StartFuncProxy : Lambda_1<LevelItem>
+        {
+            ArcadeBaseMenu abm;
+
+            public StartFuncProxy(ArcadeBaseMenu abm)
+            {
+                this.abm = abm;
+            }
+
+            public void Apply(LevelItem levelitem)
+            {
+                abm.StartFunc(levelitem);
+            }
+        }
+
         protected virtual void StartFunc(LevelItem item)
         {
             SelectedItem = item;
