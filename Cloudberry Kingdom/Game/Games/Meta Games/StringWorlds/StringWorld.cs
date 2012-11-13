@@ -344,8 +344,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the last level is swapped in.
         /// </summary>
-        public event Action<LevelSeedData> OnSwapToLastLevel;
-        //public Multicaster_1<LevelSeedData> OnSwapToLastLevel;
+        //public event Action<LevelSeedData> OnSwapToLastLevel;
+        public Multicaster_1<LevelSeedData> OnSwapToLastLevel = new Multicaster_1<LevelSeedData>();
 
         /// <summary>
         /// Called when a level is swapped to. The parameter is the current level index.
@@ -377,7 +377,7 @@ namespace CloudberryKingdom
             if (NextIsLast())
             {
                 if (OnSwapToLastLevel != null)
-                    OnSwapToLastLevel(NextLevelSeed);
+                    OnSwapToLastLevel.Apply(NextLevelSeed);
             }
 
             // Stores the GameObjects in the current game marked as 'PreventRelease'
