@@ -68,7 +68,7 @@ namespace CloudberryKingdom.Levels
             base.Cleanup_2(level, BL, TR);
         }
 
-        public void CreateLine(Level level, Vector2 pos, Action<SpikeyLine> process)
+        public void CreateLine(Level level, Vector2 pos)
         {
             // Get Floater parameters
             SpikeyLine_Parameters Params = (SpikeyLine_Parameters)level.Style.FindParams(SpikeyLine_AutoGen.Instance);
@@ -154,7 +154,7 @@ namespace CloudberryKingdom.Levels
                     step = level.Rnd.RndFloat(Params.LineStep.GetVal(loc),
                                           Params.LineStep.GetVal(loc));
 
-                    CreateLine(level, loc, spikey => { });
+                    CreateLine(level, loc);
 
                     loc.X += step;
                 }
@@ -168,7 +168,7 @@ namespace CloudberryKingdom.Levels
                     step = level.Rnd.RndFloat(Params.LineStep.GetVal(loc),
                                           Params.LineStep.GetVal(loc));
 
-                    CreateLine(level, loc, spikey => { });
+                    CreateLine(level, loc);
 
                     loc.Y += step;
                 }
