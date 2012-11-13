@@ -144,22 +144,34 @@ namespace CloudberryKingdom
             }
         }
 
+        class AdditionalPreStartOnSwapToLevelHelper : Lambda_1<int>
+        {
+            Challenge_Escalation ce;
+
+            public AdditionalPreStartOnSwapToLevelHelper(Challenge_Escalation ce)
+            {
+                this.ce = ce;
+            }
+
+            public void Apply(int levelindex)
+            {
+                Awardments.CheckForAward_Escalation_Level(levelindex - ce.StartIndex);
+
+                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
+                float multiplier = 1 + ((levelindex + 1) / ce.LevelsPerDifficulty) * .5f;
+                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
+
+                ce.OnSwapTo_GUI(levelindex);
+            }
+        }
+
         protected virtual void AdditionalPreStart()
         {
             // Tutorial
             PreStart_Tutorial();
 
             // When a new level is swapped to...
-            MyStringWorld.OnSwapToLevel += levelindex =>
-            {
-                Awardments.CheckForAward_Escalation_Level(levelindex - StartIndex);
-
-                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
-                float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
-                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
-
-                OnSwapTo_GUI(levelindex);
-            };
+            MyStringWorld.OnSwapToLevel.Add(new AdditionalPreStartOnSwapToLevelHelper(this));
         }
 
         private void OnSwapTo_GUI(int levelindex)

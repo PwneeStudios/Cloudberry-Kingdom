@@ -83,6 +83,43 @@ namespace CloudberryKingdom
             }
         }
 
+        class AdditionalPreStartOnSwapToLevelHelper : Lambda_1<int>
+        {
+            Challenge_HeroRush chr;
+
+            public AdditionalPreStartOnSwapToLevelHelper(Challenge_HeroRush chr)
+            {
+                this.chr = chr;
+            }
+
+            public void Apply(int levelindex)
+            {
+                Awardments.CheckForAward_HeroRush2Unlock(levelindex - chr.StartIndex);
+
+                // Add hero icon to exit door
+                chr.MakeExitDoorIcon(levelindex);
+
+                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
+                float multiplier = 1 + ((levelindex + 1) / chr.LevelsPerDifficulty) * .5f;
+                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
+
+                // Mod number of coins
+                CoinMod mod = new CoinMod(chr.Timer);
+                mod.LevelMax = 17;
+                mod.ParMultiplier_Start = 1.6f;
+                mod.ParMultiplier_End = 1f;
+                mod.CoinControl(Tools.CurGameData.MyLevel, (levelindex + 1) % chr.LevelsPerDifficulty);
+
+                // Reset sooner after death
+                Tools.CurGameData.SetDeathTime(GameData.DeathTime.Fast);
+
+                // Modify the timer
+                chr.SetTimerProperties(levelindex / chr.LevelsPerDifficulty);
+
+                chr.OnSwapTo_GUI(levelindex);
+            }
+        }
+
         int LevelsPerDifficulty = 20;
         protected override void AdditionalPreStart()
         {
@@ -101,32 +138,7 @@ namespace CloudberryKingdom
             PreStart_Tutorial(StartIndex > 0);
 
             // When a new level is swapped to...
-            MyStringWorld.OnSwapToLevel += levelindex =>
-            {
-                Awardments.CheckForAward_HeroRush2Unlock(levelindex - StartIndex);
-
-                // Add hero icon to exit door
-                MakeExitDoorIcon(levelindex);
-
-                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
-                float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
-                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
-
-                // Mod number of coins
-                CoinMod mod = new CoinMod(Timer);
-                mod.LevelMax = 17;
-                mod.ParMultiplier_Start = 1.6f;
-                mod.ParMultiplier_End = 1f;
-                mod.CoinControl(Tools.CurGameData.MyLevel, (levelindex + 1) % LevelsPerDifficulty);
-
-                // Reset sooner after death
-                Tools.CurGameData.SetDeathTime(GameData.DeathTime.Fast);
-
-                // Modify the timer
-                SetTimerProperties(levelindex / LevelsPerDifficulty);
-
-                OnSwapTo_GUI(levelindex);
-            };
+            MyStringWorld.OnSwapToLevel.Add(new AdditionalPreStartOnSwapToLevelHelper(this));
         }
 
         private void OnSwapTo_GUI(int levelindex)

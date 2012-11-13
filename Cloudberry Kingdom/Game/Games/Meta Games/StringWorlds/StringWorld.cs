@@ -342,8 +342,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when a level is swapped to. The parameter is the current level index.
         /// </summary>
-        public event Action<int> OnSwapToLevel;
-        //public Multicaster_1<LevelSeedData> OnSwapToLevel;
+        //public event Action<int> OnSwapToLevel;
+        public Multicaster_1<int> OnSwapToLevel = new Multicaster_1<int>();
 
         /// <summary>
         /// True after the first level has been swapped in (and always true thereafter)
@@ -405,7 +405,7 @@ namespace CloudberryKingdom
             // Additional processing
             AdditionalSwapToLevelProcessing(Tools.CurGameData);
 
-            if (OnSwapToLevel != null) OnSwapToLevel(CurLevelIndex);
+            if (OnSwapToLevel != null) OnSwapToLevel.Apply(CurLevelIndex);
 
             // Burn one frame
             Tools.CurGameData.MyLevel.PhsxStep(true);

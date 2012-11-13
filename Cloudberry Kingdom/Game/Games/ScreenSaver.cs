@@ -131,6 +131,62 @@ namespace CloudberryKingdom
             }
         }
 
+        class ConstructorOnSwapToLevelHelper : Lambda_1<int>
+        {
+            ScreenSaver ss;
+
+            public ConstructorOnSwapToLevelHelper(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(int index)
+            {
+                // Hide the 'Press A to start' text after the first level
+                if (index > 0)
+                    ss.PressA.Hid = true;
+
+                Tools.CurLevel.SuppressSounds = true;
+
+                Tools.CurLevel.WatchComputer(false);  // Watch the computer
+                Tools.CurGameData.PhsxStepsToDo += 1; // Skip beginning 
+                Tools.CurGameData.SuppressSoundForExtraSteps = true;
+                ss.Duration = 10000;
+
+                bool First = index == 0;
+                //bool First = true;
+
+                if (ss.ForTrailer)
+                {
+                    var Bobs = Tools.CurLevel.Bobs;
+                    for (int i = 0; i < 4; i++)
+                        if (Bobs.Count > i) Bobs[i].SetColorScheme(ColorSchemeManager.ColorSchemes[i]);
+                }
+
+                if (First)
+                {
+                    Tools.CurGameData.SuppressSongInfo = true;
+
+                    Tools.SongWad.FadeOut();
+
+                    Tools.CurLevel.Bobs[0].SetColorScheme(ColorSchemeManager.ComputerColorSchemes[0]);
+
+                    Tools.CurLevel.Bobs[0].PlayerObject.EnqueueAnimation(0, 0, true, true, false, 100);
+
+                    ss.pos_t = ss.zoom_t = null;
+                    Tools.CurGameData.FadeIn(0);
+                }
+
+                // Add 'Press (A) to start' text
+                if (index == 0)
+                {
+                    Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, new MakePressALambda(ss, ss.ForTrailer), true);
+
+                    Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, new AddListenerLambda(ss), true);
+                }
+            }
+        }
+
         void Constructor()
         {
             WaitLengthToOpenDoor_FirstLevel = 10 + InitialDarkness - 3;
@@ -150,51 +206,7 @@ namespace CloudberryKingdom
 
             OnSwapToFirstLevel.Add(new OnSwapLambda());
 
-            OnSwapToLevel += index =>
-                {
-                    // Hide the 'Press A to start' text after the first level
-                    if (index > 0)
-                        PressA.Hid = true;
-
-                    Tools.CurLevel.SuppressSounds = true;
-
-                    Tools.CurLevel.WatchComputer(false);  // Watch the computer
-                    Tools.CurGameData.PhsxStepsToDo += 1; // Skip beginning 
-                    Tools.CurGameData.SuppressSoundForExtraSteps = true;
-                    Duration = 10000;
-
-                    bool First = index == 0;
-                    //bool First = true;
-
-                    if (ForTrailer)
-                    {
-                        var Bobs = Tools.CurLevel.Bobs;
-                        for (int i = 0; i < 4; i++)
-                            if (Bobs.Count > i) Bobs[i].SetColorScheme(ColorSchemeManager.ColorSchemes[i]);
-                    }
-
-                    if (First)
-                    {
-                        Tools.CurGameData.SuppressSongInfo = true;
-
-                        Tools.SongWad.FadeOut();
-
-                        Tools.CurLevel.Bobs[0].SetColorScheme(ColorSchemeManager.ComputerColorSchemes[0]);
-
-                        Tools.CurLevel.Bobs[0].PlayerObject.EnqueueAnimation(0, 0, true, true, false, 100);
-
-                        pos_t = zoom_t = null;
-                        Tools.CurGameData.FadeIn(0);
-                    }
-
-                    // Add 'Press (A) to start' text
-                    if (index == 0)
-                    {
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, new MakePressALambda(this, ForTrailer), true);
-
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, new AddListenerLambda(this), true);
-                    }
-                };
+            OnSwapToLevel.Add(new ConstructorOnSwapToLevelHelper(this));
         }
 
         class MakePressALambda : Lambda
