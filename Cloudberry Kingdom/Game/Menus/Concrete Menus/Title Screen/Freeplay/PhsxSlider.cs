@@ -11,7 +11,7 @@ namespace CloudberryKingdom.Menus
         }
 
         public static EzFont Font;
-        public static Action<MenuItem> Process;
+        public static Lambda_1<MenuItem> Process;
 
         BobPhsx.CustomData MyType;
 
@@ -44,7 +44,7 @@ namespace CloudberryKingdom.Menus
 
                                        BobPhsx.CustomPhsxData.Bounds(type).MinValue,
                                        BobPhsx.CustomPhsxData.Bounds(type).MaxValue);
-            Process(this);
+            Process.Apply(this);
             ScaleText(.33f);
 
             MyFloat.SetCallback = new PhsxDataSetter(MyType, MyFloat);

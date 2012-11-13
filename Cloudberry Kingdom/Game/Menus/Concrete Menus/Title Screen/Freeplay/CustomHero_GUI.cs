@@ -47,7 +47,7 @@ namespace CloudberryKingdom
             PosAdd = new Vector2(0, -93.45f);
 
             PhsxSlider.Font = ItemFont;
-            PhsxSlider.Process = AddItem;
+            PhsxSlider.Process = new AddItemProxy(this);
 
             AccelSlider = new PhsxSlider(Localization.Words.Acceleration, BobPhsx.CustomData.accel);
             MaxSpeedSlider = new PhsxSlider(Localization.Words.MaxVelocity, BobPhsx.CustomData.maxspeed);
@@ -258,6 +258,21 @@ namespace CloudberryKingdom
             list.GrayOutOnUnselectable = true;
 
             return list;
+        }
+
+        class AddItemProxy : Lambda_1<MenuItem>
+        {
+            CustomHero_GUI chGui;
+
+            public AddItemProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                chGui.AddItem(item);
+            }
         }
 
         protected override void AddItem(MenuItem item)

@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
         public MenuListExpand MyMenuListExpand;
         public Vector2 MyExpandPos = Vector2.Zero;
-        public Action<MenuListExpand,MenuItem> AdditionalExpandProcessing;
+        public Lambda_2<MenuListExpand,MenuItem> AdditionalExpandProcessing;
         public void Expand()
         {
             if (MyMenuListExpand == null || MyMenuListExpand.Core.Released)

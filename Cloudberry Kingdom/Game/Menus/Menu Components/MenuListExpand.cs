@@ -103,7 +103,7 @@ namespace CloudberryKingdom
                 Width = Math.Max(size.X, Width);
 
                 if (MyMenuList.AdditionalExpandProcessing != null)
-                    MyMenuList.AdditionalExpandProcessing(this, clone);
+                    MyMenuList.AdditionalExpandProcessing.Apply(this, clone);
             }
 
             // Backdrop
