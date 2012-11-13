@@ -175,7 +175,7 @@ namespace CloudberryKingdom
 
                 // Start music
                 if (g.StartLevelMusic != null)
-                    g.StartLevelMusic(g);
+                    g.StartLevelMusic.Apply(g);
 
                 return true;
             }
@@ -184,7 +184,15 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called at the start of a level to begin music.
         /// </summary>
-        public Action<StringWorldGameData> StartLevelMusic = DefaultStartLevelMusic;
+        public Lambda_1<StringWorldGameData> StartLevelMusic = new DefaultStartLevelMusicProxy();
+
+        class DefaultStartLevelMusicProxy : Lambda_1<StringWorldGameData>
+        {
+            public void Apply(StringWorldGameData stringworld)
+            {
+                StringWorldGameData.DefaultStartLevelMusic(stringworld);
+            }
+        }
 
         static void DefaultStartLevelMusic(StringWorldGameData stringworld)
         {
