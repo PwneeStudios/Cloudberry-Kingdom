@@ -10,7 +10,7 @@ namespace CloudberryKingdom
         public QuadClass MyQuad;
         public Keys MyKey;
         public Lambda_1<Keys> SetSecondaryKey;
-        public Action<ControlItem> Reset;
+        public Lambda_1<ControlItem> Reset;
 
         public ControlItem(Localization.Words description, Keys key)
             : base(new EzText(description, Resources.Font_Grobold42, 2000, false, false, .65f))
@@ -117,7 +117,7 @@ namespace CloudberryKingdom
                 ControlItem c = item as ControlItem;
                 if (null == c) continue;
 
-                c.Reset(c);
+                c.Reset.Apply(c);
             }
         }
 
@@ -143,7 +143,7 @@ namespace CloudberryKingdom
             item.ScaleText(.5f);
         }
 
-        class KeyQuickspawn_KeyboardKeyHelper : Lambda_1<Keys>
+        class KeyQuickspawn_KeyboardKey : Lambda_1<Keys>
         {
             public void Apply(Keys key)
             {
@@ -223,6 +223,88 @@ namespace CloudberryKingdom
             }
         }
 
+
+
+        class ResetQuickspawn_KeyboardKey : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+            }
+        }
+
+        class ResetHelp_KeyboardKey : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Help_KeyboardKey.KeyboardKey);
+            }
+        }
+
+        class ResetLeft_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Left_Secondary);
+            }
+        }
+
+        class ResetRight_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Right_Secondary);
+            }
+        }
+
+        class ResetUp_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Up_Secondary);
+            }
+        }
+
+        class ResetDown_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.Down_Secondary);
+            }
+        }
+
+        class ResetReplayPrev_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.ReplayPrev_Secondary);
+            }
+        }
+
+        class ResetReplayNext_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.ReplayNext_Secondary);
+            }
+        }
+
+        class ResetReplayToggle_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+            }
+        }
+
+        class ResetSlowMoToggle_Secondary : Lambda_1<ControlItem>
+        {
+            public void Apply(ControlItem _item)
+            {
+                _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+            }
+        }
+
         public override void Init()
         {
             base.Init();
@@ -256,62 +338,62 @@ namespace CloudberryKingdom
 
             item = new ControlItem(Localization.Words.QuickSpawn, ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
             item.Name = "quickspawn";
-            item.SetSecondaryKey = new KeyQuickspawn_KeyboardKeyHelper();
-			item.Reset = _item => _item.SetKey(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+            item.SetSecondaryKey = new KeyQuickspawn_KeyboardKey();
+			item.Reset = new ResetQuickspawn_KeyboardKey();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.PowerUpMenu, ButtonCheck.Help_KeyboardKey.KeyboardKey);
             item.Name = "powerup";
             item.SetSecondaryKey = new KeyHelp_KeyboardKey();
-            item.Reset = _item => _item.SetKey(ButtonCheck.Help_KeyboardKey.KeyboardKey);
+            item.Reset = new ResetHelp_KeyboardKey();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.Left, ButtonCheck.Left_Secondary);
             item.Name = "left";
             item.SetSecondaryKey = new KeyLeft_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.Left_Secondary);
+			item.Reset = new ResetLeft_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.Right, ButtonCheck.Right_Secondary);
             item.Name = "right";
             item.SetSecondaryKey = new KeyRight_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.Right_Secondary);
+			item.Reset = new ResetRight_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.Up, ButtonCheck.Up_Secondary);
             item.Name = "up";
             item.SetSecondaryKey = new KeyUp_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.Up_Secondary);
+			item.Reset = new ResetUp_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.Down, ButtonCheck.Down_Secondary);
             item.Name = "down";
             item.SetSecondaryKey = new KeyDown_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.Down_Secondary);
+			item.Reset = new ResetDown_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.ReplayPrev, ButtonCheck.ReplayPrev_Secondary);
             item.Name = "replayprev";
             item.SetSecondaryKey = new KeyReplayPrev_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.ReplayPrev_Secondary);
+			item.Reset = new ResetReplayPrev_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.ReplayNext, ButtonCheck.ReplayNext_Secondary);
             item.Name = "replaynext";
             item.SetSecondaryKey = new KeyReplayNext_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.ReplayNext_Secondary);
+			item.Reset = new ResetReplayNext_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.ReplayToggle, ButtonCheck.SlowMoToggle_Secondary);
             item.Name = "replaytoggle";
             item.SetSecondaryKey = new KeyReplayToggle_Secondary();
-			item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+			item.Reset = new ResetSlowMoToggle_Secondary();
             AddItem(item);
 
             item = new ControlItem(Localization.Words.ActivateSlowMo, ButtonCheck.SlowMoToggle_Secondary);
             item.Name = "toggleslowmo";
             item.SetSecondaryKey = new KeySlowMoToggle_Secondary();
-            item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+            item.Reset = new ResetSlowMoToggle_Secondary();
             AddItem(item);
 
             ButtonCheck.KillSecondary();
