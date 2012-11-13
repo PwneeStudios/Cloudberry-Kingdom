@@ -210,24 +210,6 @@ namespace CloudberryKingdom
             return list.IndexOf(list.Find(match));
         }
 
-        //public static int IndexMax<T>(this List<T> list, Func<T, float> val) where T : class
-        //{
-        //    if (list.Count == 0) return 0;
-        //    return list.IndexOf(Tools.ArgMax(list, val));
-        //}
-
-        //public static T ArgMax<T>(this List<T> list, Func<T, float> val) where T : class
-        //{
-        //    if (list.Count == 0) return null;
-        //    return Tools.ArgMax(list, val);
-        //}
-
-        //public static T ArgMin<T>(this List<T> list, Func<T, float> val) where T : class
-        //{
-        //    if (list.Count == 0) return null;
-        //    return Tools.ArgMin(list, val);
-        //}
-
 #if XBOX
         /// <summary>
         /// Find an element of a list.
@@ -286,54 +268,7 @@ namespace CloudberryKingdom
 
             return false;
         }
-
-        ///// <summary>
-        ///// Remove matching elements of a list.
-        ///// </summary>
-        //public static void RemoveAll<T>(this List<T> list, Predicate<T> func)
-        //{
-        //    int OpenSlot = 0;
-        //    int i = 0;
-        //    int N = list.Count;
-
-        //    while (i < N)
-        //    {
-        //        if (func(list[i]))
-        //            i++;
-        //        else
-        //        {
-        //            list[OpenSlot] = list[i];
-
-        //            i++;
-        //            OpenSlot++;
-        //        }
-        //    }
-
-        //    list.RemoveRange(OpenSlot, N - OpenSlot);
-        //}
 #endif
-        //public static void DeleteAll<T>(this List<T> list, Func<IObject, bool> func)
-        //{
-        //    foreach (T t in list)
-        //    {
-        //        IObject obj = t as IObject;
-
-        //        if (null != obj && func(obj))
-        //            obj.Core.MarkedForDeletion = true;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Loop through a list, knowing both the element and its index.
-        ///// </summary>
-        //public static void ForEach<T>(this List<T> list, Action<T, int> func)
-        //{
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        T item = list[i];
-        //        func(item, i);
-        //    }
-        //}
 
         public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range) where T : class
                                                                                where S : class

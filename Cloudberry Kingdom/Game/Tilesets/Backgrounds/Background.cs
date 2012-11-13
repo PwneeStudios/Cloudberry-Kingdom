@@ -79,8 +79,6 @@ namespace CloudberryKingdom
         public bool MadeOfText = false;
         public string File = null;
 
-        //public Action<Background> Code;
-
         public virtual void Code(Background b)
         {
         }

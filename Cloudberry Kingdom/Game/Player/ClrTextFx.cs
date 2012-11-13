@@ -23,7 +23,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// A function that may modify the player object.
         /// </summary>
-        public Action<Bob> ModObject;
+        public Lambda_1<Bob> ModObject;
 
         public EzTexture PicTexture;
         public Vector2 PicScale;
