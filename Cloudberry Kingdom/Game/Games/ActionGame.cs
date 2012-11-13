@@ -44,7 +44,7 @@ namespace CloudberryKingdom
             if (!ActionTaken)
             {
                 if (Seed.PostMake != null)
-                    Seed.PostMake(MyLevel);
+                    Seed.PostMake.Apply(MyLevel);
 
                 ActionTaken = true;
             }

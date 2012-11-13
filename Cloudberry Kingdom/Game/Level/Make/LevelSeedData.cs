@@ -65,15 +65,30 @@ namespace CloudberryKingdom
                 p.Style.MyModParams = _HasWall_Process;
             }
 
-            if (NoStartDoor) PostMake += _NoStartDoor;
+            if (NoStartDoor) PostMake.Add(new _NoStartDoorProxy());
 
-            if (FadeIn) PostMake += _FadeIn_Process;
+            if (FadeIn) PostMake.Add(new _FadeIn_ProcessProxy());
 
-            if (FadeOut) PostMake += _FadeOut_Process;
+            if (FadeOut) PostMake.Add(new _FadeOut_ProcessProxy());
 
-            if (WeatherIntensity != 1) PostMake += _SetWeather_Process;
+            if (WeatherIntensity != 1) PostMake.Add(new _SetWeather_ProcessProxy());
 
-            if (MySong != null) PostMake += _StartSong;
+            if (MySong != null) PostMake.Add(new _StartSongProxy(this));
+        }
+
+        class _StartSongProxy : Lambda_1<Level>
+        {
+            LevelSeedData lsd;
+
+            public _StartSongProxy(LevelSeedData lsd)
+            {
+                this.lsd = lsd;
+            }
+
+            public void Apply(Level level)
+            {
+                lsd._StartSong(level);
+            }
         }
 
         private void _StartSong(Level level)
@@ -94,15 +109,39 @@ namespace CloudberryKingdom
             wall.InitialDelay = 72;
         }
 
+        class _SetWeather_ProcessProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                LevelSeedData._SetWeather_Process(level);
+            }
+        }
+
         private static void _SetWeather_Process(Level level)
         {
             level.MyBackground.SetWeatherIntensity(level.MyLevelSeed.WeatherIntensity);
+        }
+
+        class _NoStartDoorProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                LevelSeedData._NoStartDoor(level);
+            }
         }
 
         private static void _NoStartDoor(Level level)
         {
             var door = level.StartDoor; if (door == null) return;
             door.CollectSelf();
+        }
+
+        class _FadeIn_ProcessProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                LevelSeedData._FadeIn_Process(level);
+            }
         }
 
         private static void _FadeIn_Process(Level level)
@@ -123,6 +162,14 @@ namespace CloudberryKingdom
             public void Apply(Door door)
             {
                 gameData.EOL_StringWorldDoorEndAction_WithFade(door);
+            }
+        }
+
+        class _FadeOut_ProcessProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                LevelSeedData._FadeOut_Process(level);
             }
         }
 
@@ -581,6 +628,23 @@ namespace CloudberryKingdom
             }
         }
 
+        class SetToStartSongPostMakeHelper : Lambda_1<Level>
+        {
+            int delay;
+            Lambda songHelper;
+
+            public SetToStartSongPostMakeHelper(int delay, Lambda songHelper)
+            {
+                this.delay = delay;
+                this.songHelper = songHelper;
+            }
+
+            public void Apply(Level lvl)
+            {
+                lvl.MyGame.WaitThenDo(delay, songHelper);
+            }
+        }
+
         /// <summary>
         /// The created level will loop the given song, starting once the level loads.
         /// </summary>
@@ -588,12 +652,12 @@ namespace CloudberryKingdom
         public void SetToStartSong(EzSong song, int delay)
         {
             NoMusicStart = true;
-            PostMake += lvl => lvl.MyGame.WaitThenDo(delay, new SetToStartSongHelper(song));
+            PostMake.Add(new SetToStartSongPostMakeHelper(delay, new SetToStartSongHelper(song)));
         }
 
         public string Name = "";
 
-        public Action<Level> PostMake;
+        public Multicaster_1<Level> PostMake = new Multicaster_1<Level>();
 
         /// <summary>
         /// Adds the default GameObjects to a level.

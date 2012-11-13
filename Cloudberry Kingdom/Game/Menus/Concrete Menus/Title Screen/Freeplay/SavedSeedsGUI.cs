@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -71,6 +72,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class PostMakeStandardLoadHelper : Lambda_1<Level>
+        {
+            LevelSeedData seed;
+
+            public PostMakeStandardLoadHelper(LevelSeedData seed)
+            {
+                this.seed = seed;
+            }
+
+            public void Apply(Level level)
+            {
+                seed.PostMake_StandardLoad(level);
+            }
+        }
+
         class LoadFromFreeplayMenuHelper : Lambda
         {
             LevelSeedData seed;
@@ -91,7 +107,7 @@ namespace CloudberryKingdom
                 // Randomize the seed for the next level, if the player chooses to continue using this LevelSeedData.
                 seed = new LevelSeedData();
                 seed.ReadString(seedstr);
-                seed.PostMake += seed.PostMake_StandardLoad;
+                seed.PostMake.Add(new PostMakeStandardLoadHelper(seed));
                 seed.Seed = Tools.GlobalRnd.Rnd.Next();
             }
         }
@@ -100,7 +116,7 @@ namespace CloudberryKingdom
         {
             var seed = new LevelSeedData();
             seed.ReadString(seedstr);
-            seed.PostMake += seed.PostMake_StandardLoad;
+            seed.PostMake.Add(new PostMakeStandardLoadHelper(seed));
 
             simple.MyGame.PlayGame(new LoadFromFreeplayMenuHelper(seed, seedstr, simple));
 

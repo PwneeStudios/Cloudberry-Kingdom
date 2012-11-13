@@ -99,12 +99,12 @@ namespace CloudberryKingdom
             stream.Close();            
         }
 
-        static LevelSeedData MakeActionSeed(Action<Level> SeedAction)
+        static LevelSeedData MakeActionSeed(Lambda_1<Level> SeedAction)
         {
             var seed = new LevelSeedData();
             seed.MyGameType = ActionGameData.Factory;
 
-            seed.PostMake = SeedAction;
+            seed.PostMake.Add(SeedAction);
 
             return seed;
         }
@@ -117,10 +117,11 @@ namespace CloudberryKingdom
                 switch (data.Item1)
                 {
                     case "end":
-                        return MakeActionSeed(EndAction);
+                        return MakeActionSeed(new EndActionProxy());
 
                     case "movie":
-                        return MakeActionSeed(MakeWatchMovieAction(data.Item2));
+                        Lambda_1<Level> temp = MakeWatchMovieAction(data.Item2);
+                        return MakeActionSeed(temp);
 
                     default:
                         return null;
@@ -130,9 +131,17 @@ namespace CloudberryKingdom
             {
                 var seed = base.GetSeed(Index);
 
-                seed.PostMake += PostMakeCampaign;
+                seed.PostMake.Add(new PostMakeCampaignProxy());
 
                 return seed;
+            }
+        }
+
+        class PostMakeCampaignProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                CampaignSequence.PostMakeCampaign(level);
             }
         }
 
@@ -194,14 +203,22 @@ namespace CloudberryKingdom
             }
         }
 
-        static Action<Level>/*Lambda_1<Level>*/ MakeWatchMovieAction(string movie)
+        static Lambda_1<Level> MakeWatchMovieAction(string movie)
         {
-            //return new WatchMovieLambda(movie);
-            return level =>
+            return new WatchMovieLambda(movie);
+            /*return level =>
             {
                 MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
                 ((ActionGameData)level.MyGame).Done = true;
-            };
+            };*/
+        }
+
+        class EndActionProxy : Lambda_1<Level>
+        {
+            public void Apply(Level level)
+            {
+                CampaignSequence.EndAction(level);
+            }
         }
 
         static void EndAction(Level level)

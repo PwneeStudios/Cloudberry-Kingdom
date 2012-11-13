@@ -39,6 +39,21 @@ namespace CloudberryKingdom
             ExitFreeplay = false;
         }
 
+        class StartLevelFromMenDataStandardLoadProxy : Lambda_1<Level>
+        {
+            LevelSeedData data;
+
+            public StartLevelFromMenDataStandardLoadProxy(LevelSeedData data)
+            {
+                this.data = data;
+            }
+
+            public void Apply(Level level)
+            {
+                data.PostMake_StandardLoad(level);
+            }
+        }
+
         public void StartLevelFromMenuData()
         {
             LevelSeedData data = new LevelSeedData(LevelSeed);
@@ -94,14 +109,29 @@ namespace CloudberryKingdom
             if (data.MyGeometry == LevelGeometry.Down)
                 data.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
 
-            data.PostMake += data.PostMake_StandardLoad;
+            data.PostMake.Add(new StartLevelFromMenDataStandardLoadProxy(data));
 
             StartLevel(data);
         }
 
+        class StartLevelEnableLoadProxy : Lambda_1<Level>
+        {
+            LevelSeedData data;
+
+            public StartLevelEnableLoadProxy(LevelSeedData data)
+            {
+                this.data = data;
+            }
+
+            public void Apply(Level level)
+            {
+                data.PostMake_EnableLoad(level);
+            }
+        }
+
         public void StartLevel(LevelSeedData data)
         {
-            data.PostMake += data.PostMake_EnableLoad;
+            data.PostMake.Add(new StartLevelEnableLoadProxy(data));
 
             PlayerManager.CoinsSpent = -999;
 

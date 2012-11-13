@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 
                         // Post process the level
                         if (LevelSeed.PostMake != null)
-                            LevelSeed.PostMake(MyLevel);
+                            LevelSeed.PostMake.Apply(MyLevel);
 
                         // Final level reset
                         MyLevel.PlayMode = 0;
