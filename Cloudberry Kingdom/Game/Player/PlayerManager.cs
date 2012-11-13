@@ -102,7 +102,19 @@ namespace CloudberryKingdom
 #if PC_VERSION
         public static void SaveRezAndKeys()
         {
-            EzStorage.Save("Settings", "Custom", _SaveRezAndKeys, null);
+            EzStorage.Save("Settings", "Custom", new SaveRezAndKeysLambda(), null);
+        }
+
+        class SaveRezAndKeysLambda : Lambda_1<BinaryWriter>
+        {
+            public SaveRezAndKeysLambda()
+            {
+            }
+
+            public void Apply(BinaryWriter writer)
+            {
+                PlayerManager._SaveRezAndKeys(writer);
+            }
         }
 
         static void _SaveRezAndKeys(BinaryWriter writer)
@@ -151,9 +163,21 @@ namespace CloudberryKingdom
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-            EzStorage.Load("Settings", "Custom", _LoadRezAndKeys, null);
+            EzStorage.Load("Settings", "Custom", new LoadRezAndKeysLambda(), null);
 
             return d;
+        }
+
+        class LoadRezAndKeysLambda : Lambda_1<byte[]>
+        {
+            public LoadRezAndKeysLambda()
+            {
+            }
+
+            public void Apply(byte[] Data)
+            {
+                PlayerManager._LoadRezAndKeys(Data);
+            }
         }
 
         static void _LoadRezAndKeys(byte[] Data)
