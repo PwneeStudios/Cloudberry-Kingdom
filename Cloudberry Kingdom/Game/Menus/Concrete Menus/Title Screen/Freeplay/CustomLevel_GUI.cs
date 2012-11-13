@@ -39,6 +39,38 @@ namespace CloudberryKingdom
             ExitFreeplay = false;
         }
 
+        class StartLevelFromMenDataStandardLoadProxy : Lambda_1<Level>
+        {
+            LevelSeedData data;
+
+            public StartLevelFromMenDataStandardLoadProxy(LevelSeedData data)
+            {
+                this.data = data;
+            }
+
+            public void Apply(Level level)
+            {
+                data.PostMake_StandardLoad(level);
+            }
+        }
+
+        class StartLevelFromMenuDataInitializeHelper : Lambda_1<PieceSeedData>
+        {
+            CustomLevel_GUI clGui;
+
+            public StartLevelFromMenuDataInitializeHelper(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                piece.CopyUpgrades(clGui.PieceSeed);
+
+                piece.StandardClose();
+            }
+        }
+
         public void StartLevelFromMenuData()
         {
             LevelSeedData data = new LevelSeedData(LevelSeed);
@@ -57,18 +89,14 @@ namespace CloudberryKingdom
             // Custom difficulty
             if (IsCustomDifficulty())
             {
-                data.Initialize(piece =>
-                {
-                    piece.CopyUpgrades(PieceSeed);
-
-                    piece.StandardClose();
-                });
+                data.Initialize(new StartLevelFromMenuDataInitializeHelper(this));
             }
             // Preset difficulty
             else
             {
                 //int diff = new int[] { 0, 2, 4, 6, 9 }[DiffList.ListIndex];
-                LevelSeedData.CustomDifficulty custom;
+                //LevelSeedData.CustomDifficulty custom;
+                Lambda_1<PieceSeedData> custom;
 
                 //if (data.DefaultHeroType is BobPhsxSpaceship)
                 //    custom = SpaceshipLevel.StandardPieceMod(diff, data);
@@ -78,7 +106,7 @@ namespace CloudberryKingdom
 
                 LevelSeedData.CustomDifficulty modcustom = p =>
                 {
-                    custom(p);
+                    custom.Apply(p);
 
                     p.StandardClose();
                 };
@@ -95,14 +123,29 @@ namespace CloudberryKingdom
             if (data.MyGeometry == LevelGeometry.Down)
                 data.PieceSeeds[0].Style.MyFinalPlatsType = StyleData.FinalPlatsType.DarkBottom;
 
-            data.PostMake += data.PostMake_StandardLoad;
+            data.PostMake.Add(new StartLevelFromMenDataStandardLoadProxy(data));
 
             StartLevel(data);
         }
 
+        class StartLevelEnableLoadProxy : Lambda_1<Level>
+        {
+            LevelSeedData data;
+
+            public StartLevelEnableLoadProxy(LevelSeedData data)
+            {
+                this.data = data;
+            }
+
+            public void Apply(Level level)
+            {
+                data.PostMake_EnableLoad(level);
+            }
+        }
+
         public void StartLevel(LevelSeedData data)
         {
-            data.PostMake += data.PostMake_EnableLoad;
+            data.PostMake.Add(new StartLevelEnableLoadProxy(data));
 
             PlayerManager.CoinsSpent = -999;
 
@@ -521,7 +564,6 @@ namespace CloudberryKingdom
             AddItem(length);
             length.Pos = new Vector2(-283f, -556.1017f);
 
-            //length.OnSetValue = () => LevelSeed.PieceLength = (int)(length.MyFloat.Val / LevelSeed.NumPieces);
             length.OnSetValue = () =>
                 {
                     LevelSeed.Length = (int)(length.MyFloat.Val);

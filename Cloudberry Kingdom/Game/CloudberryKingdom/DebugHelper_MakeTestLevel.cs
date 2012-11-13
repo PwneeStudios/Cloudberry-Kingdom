@@ -29,6 +29,21 @@ namespace CloudberryKingdom
             Tools.CurGameData.MyLevel = Tools.CurLevel = level;
         }
 
+        class MakeTestLevelInitializeHelper : Lambda_1<PieceSeedData>
+        {
+            CloudberryKingdomGame ckg;
+
+            public MakeTestLevelInitializeHelper(CloudberryKingdomGame ckg)
+            {
+                this.ckg = ckg;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                ckg.TestLevelInit(piece);
+            }
+        }
+
         void MakeTestLevel()
         {
             //PlayerManager.Players[0].Exists = true;
@@ -114,12 +129,12 @@ namespace CloudberryKingdom
             //data.MyGameFlags.IsDoppleganger = true;
             //data.MyGameFlags.IsDopplegangerInvert = true;
 
-            data.Initialize(TestLevelInit);
+            data.Initialize(new MakeTestLevelInitializeHelper(this));
 
             // Add Landing Zone
             //data.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.LandingZone;
 
-            data.PostMake = TestLevelPostMake;
+            data.PostMake.Add(new TestLevelPostMakeProxy(this));
 
             //Campaign.CarryPrinces(data);
 
@@ -131,6 +146,20 @@ namespace CloudberryKingdom
             data.LavaMake = LevelSeedData.LavaMakeTypes.AlwaysMake;
 
             GameData.StartLevel(data);
+        }
+
+        class TestLevelPostMakeProxy : Lambda_1<Level>
+        {
+            CloudberryKingdomGame ckg;
+            public TestLevelPostMakeProxy(CloudberryKingdomGame ckg)
+            {
+                this.ckg = ckg;
+            }
+
+            public void Apply(Level level)
+            {
+                ckg.TestLevelPostMake(level);
+            }
         }
 
         void TestLevelPostMake(Level level)
@@ -159,17 +188,6 @@ namespace CloudberryKingdom
 
             //piece.ZoomType = LevelZoom.Big;
             piece.ExtraBlockLength = 1000;
-
-
-            //piece.PreStage2 = level =>
-            //{
-            //    foreach (Bob bob in level.Bobs)
-            //    {
-            //        PrincessBubble princess = new PrincessBubble(Vector2.Zero);
-            //        level.AddObject(princess);
-            //        princess.PickUp(bob);
-            //    }
-            //};
 
             //piece.Paths = RndDifficulty.ChoosePaths(piece);
             //piece.Style.AlwaysCurvyMove = true;

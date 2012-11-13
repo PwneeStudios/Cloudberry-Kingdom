@@ -20,12 +20,6 @@ namespace CloudberryKingdom
             }
 
             return 0;
-
-            //return
-            //    PlayerManager.PlayerSum(p => p.CampaignStats.Coins) +
-            //    PlayerManager.PlayerSum(p => p.GameStats.Coins) +
-            //    PlayerManager.PlayerSum(p => p.LevelStats.Coins)
-            //    - PlayerManager.CoinsSpent;
         }
 
         void Buy(int Cost)
@@ -188,7 +182,6 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                //hm.MyGame.RemoveAllGameObjects(match => match is ShowGuide);
                 foreach(GameObject go in hm.MyGame.MyGameObjects)
                 {
                     if(go is ShowGuide)

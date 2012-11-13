@@ -215,7 +215,6 @@ namespace CloudberryKingdom
                 foreach (var lava in Lavas)
                     if (Lowest == null || lava.Box.TR.Y < Lowest.Box.TR.Y)
                         Lowest = lava;
-                //Lavas.ArgMin(lava => lava.Box.TR.Y);
 
                 // Extend left and right to cover whole level
                 Lowest.Extend(Side.Left, NewLevel.BL.X - 5000);
@@ -229,7 +228,6 @@ namespace CloudberryKingdom
                 foreach (var lava in Lavas)
                     if (lava != Lowest)
                         lava.CollectSelf();
-                //Lavas.ForEach(lava => { if (lava != Lowest) lava.CollectSelf(); });
             }
 
             if (MakeBackground)

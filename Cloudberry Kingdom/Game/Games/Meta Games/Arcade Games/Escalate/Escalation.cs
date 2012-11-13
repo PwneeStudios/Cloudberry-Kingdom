@@ -69,12 +69,6 @@ namespace CloudberryKingdom
             MyStringWorld.StartLevelMusic = null;
 
             // Start menu
-            //MyStringWorld.OnLevelBegin += level =>
-            //{
-            //    level.MyGame.AddGameObject(HelpMenu.MakeListener());
-            //    level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
-            //    return false;
-            //};
             MyStringWorld.OnLevelBegin = new OnBeginLambda();
 
             // Additional preprocessing
@@ -101,7 +95,6 @@ namespace CloudberryKingdom
 
         protected virtual void PreStart_Tutorial()
         {
-            //MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new Escalation_Tutorial(this));
             MyStringWorld.OnSwapToFirstLevel.Add(new OnSwapLambda(this));
         }
 
@@ -144,22 +137,34 @@ namespace CloudberryKingdom
             }
         }
 
+        class AdditionalPreStartOnSwapToLevelHelper : Lambda_1<int>
+        {
+            Challenge_Escalation ce;
+
+            public AdditionalPreStartOnSwapToLevelHelper(Challenge_Escalation ce)
+            {
+                this.ce = ce;
+            }
+
+            public void Apply(int levelindex)
+            {
+                Awardments.CheckForAward_Escalation_Level(levelindex - ce.StartIndex);
+
+                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
+                float multiplier = 1 + ((levelindex + 1) / ce.LevelsPerDifficulty) * .5f;
+                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
+
+                ce.OnSwapTo_GUI(levelindex);
+            }
+        }
+
         protected virtual void AdditionalPreStart()
         {
             // Tutorial
             PreStart_Tutorial();
 
             // When a new level is swapped to...
-            MyStringWorld.OnSwapToLevel += levelindex =>
-            {
-                Awardments.CheckForAward_Escalation_Level(levelindex - StartIndex);
-
-                // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
-                float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
-                Tools.CurGameData.OnCalculateScoreMultiplier.Add(new ScoreMultiplierHelper(multiplier));
-
-                OnSwapTo_GUI(levelindex);
-            };
+            MyStringWorld.OnSwapToLevel.Add(new AdditionalPreStartOnSwapToLevelHelper(this));
         }
 
         private void OnSwapTo_GUI(int levelindex)
@@ -211,6 +216,16 @@ namespace CloudberryKingdom
             return Challenge.ChosenHero;
         }
 
+        class MakeMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData p)
+            {
+                Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                Params.StartFrame = 90;
+                Params.FillType = Coin_Parameters.FillTypes.Regular;
+            }
+        }
+
         protected virtual LevelSeedData Make(int Index, float Difficulty)
         {
             BobPhsx hero = GetHero(Index);
@@ -233,12 +248,7 @@ namespace CloudberryKingdom
                 // Shorten the initial computer delay
                 piece.Style.ComputerWaitLengthRange = new Vector2(8, 35);//38);
 
-                piece.Style.MyModParams = (level, p) =>
-                {
-                    Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-                    Params.StartFrame = 90;
-                    Params.FillType = Coin_Parameters.FillTypes.Regular;
-                };
+                piece.Style.MyModParams.Add(new MakeMyModParamsHelper());
             }
 
             return data;

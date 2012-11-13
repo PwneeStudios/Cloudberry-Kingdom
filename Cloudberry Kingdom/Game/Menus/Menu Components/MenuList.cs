@@ -20,7 +20,6 @@ namespace CloudberryKingdom
             {
                 _ExpandOnGo = value;
                 if (_ExpandOnGo)
-                    //Go = item => Expand();
                     OnClick = item => Expand();
                 else
                     OnClick = null;

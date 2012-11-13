@@ -29,14 +29,6 @@ namespace CloudberryKingdom
             MyGUI_Level = new GUI_Level();
 
             // Add game objects, including 'Perfect' watcher
-            //OnSwapToFirstLevel += (data) =>
-            //{
-            //    data.MyGame.AddGameObject(Gui_LivesLeft, Gui_NextLife, Gui_Lives,
-            //        MyCoinScoreMultiplier, new PerfectScoreObject(false, true)
-            //        , MyGUI_Score
-            //        //, MyGUI_Level
-            //        );
-            //};
             OnSwapToFirstLevel.Add(new OnSwapLambda(this));
         }
 

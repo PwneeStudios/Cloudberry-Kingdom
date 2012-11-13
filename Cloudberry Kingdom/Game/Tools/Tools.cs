@@ -582,8 +582,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
 
             list.RemoveRange(OpenSlot, N - OpenSlot);
-            //    list.RemoveRange(OpenSlot, N - OpenSlot);            
-            //source.RemoveAll(match => remove(match));
         }
         public static void RemoveAll<TSource>(List<TSource> source, LambdaFunc_2<TSource, int, bool> predicate)
         {
@@ -621,9 +619,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 }
 
             return min;
-
-            //float min = source.Min(val);
-            //return source.First(element => val(element) == min);
         }
         /// <summary>
         /// Return the largest element.
@@ -640,9 +635,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 }
 
             return max;
-
-            //float max = source.Max(val);
-            //return source.First(element => val(element) == max);
         }
 
         public static SimpleObject LoadSimpleObject(string file)
@@ -1119,7 +1111,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             var bits = line.Split(' ', '\t').ToList();
 
-            //bits.RemoveAll(bit => bit == "" || bit == " " || bit == "\t");
             Tools.RemoveAll(bits, new RemoveBitsLambda());
 
             return bits;

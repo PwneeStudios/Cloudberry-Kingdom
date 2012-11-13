@@ -153,7 +153,6 @@ namespace CloudberryKingdom
             {
                 Hints.IncrYForHelpNum();
 
-                //MyGame.ToDoOnReset.Add(() =>
                 MyGame.WaitThenDo(5, new Check_YForHelpHelper(this));
             }
         }

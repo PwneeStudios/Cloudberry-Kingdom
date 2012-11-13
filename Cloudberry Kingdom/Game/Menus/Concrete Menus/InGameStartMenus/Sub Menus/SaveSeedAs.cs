@@ -140,11 +140,6 @@ namespace CloudberryKingdom
                 return;
 
             Save(null);
-            //MyGame.WaitThenDo(35, () =>
-            //{
-            //    float width = MyGame.Cam.GetWidth();
-            //    TextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
-            //});
         }
     }
 }

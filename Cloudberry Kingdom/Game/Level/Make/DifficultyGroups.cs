@@ -7,13 +7,31 @@ namespace CloudberryKingdom
 {
     public class DifficultyGroups
     {
+        class FixedPieceModHelper : Lambda_1<PieceSeedData>
+        {
+            float Difficulty;
+            LevelSeedData LevelSeed;
+
+            public FixedPieceModHelper(float Difficulty, LevelSeedData LevelSeed)
+            {
+                this.Difficulty = Difficulty;
+                this.LevelSeed = LevelSeed;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                DifficultyGroups.FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
+            }
+        }
+
         /// <summary>
         /// Returns a function that modifies a PieceSeed's difficulty
         /// </summary>
-        public static LevelSeedData.CustomDifficulty FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
+        public static Lambda_1<PieceSeedData> FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
         {
             //if (Difficulty < 0) Difficulty = 0;
-            return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
+            //return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
+            return new FixedPieceModHelper(Difficulty, LevelSeed);
         }
 
         public static float HeroDifficultyMod(float Difficulty, BobPhsx hero)

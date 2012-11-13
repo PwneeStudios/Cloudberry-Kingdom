@@ -82,11 +82,6 @@ namespace CloudberryKingdom
             MyStringWorld.StartLevelMusic = null;
 
             // Start menu
-            //MyStringWorld.OnLevelBegin += level =>
-            //    {
-            //        level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
-            //        return false;
-            //    };
             MyStringWorld.OnLevelBegin = new OnLevelBeginLambda();
 
 

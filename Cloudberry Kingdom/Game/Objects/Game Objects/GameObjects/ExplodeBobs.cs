@@ -84,7 +84,6 @@ namespace CloudberryKingdom
                 foreach (var bob in Core.MyLevel.Bobs)
                     if (bob.Core.Show && bob.GetPlayerData().IsAlive)
                         bobs.Add(bob);
-                //List<Bob> bobs = Core.MyLevel.Bobs.FindAll(bob => bob.Core.Show && bob.GetPlayerData().IsAlive);
                 bobs.Sort(CompareBobs);
 
                 if (bobs.Count == 0)

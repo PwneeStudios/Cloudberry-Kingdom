@@ -31,8 +31,8 @@ namespace CloudberryKingdom
 
             data.DefaultHeroType = Hero;
 
-            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
-
+            //LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
+            Lambda_1<PieceSeedData> custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
             data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 1, Length, custom);
 
             return data;

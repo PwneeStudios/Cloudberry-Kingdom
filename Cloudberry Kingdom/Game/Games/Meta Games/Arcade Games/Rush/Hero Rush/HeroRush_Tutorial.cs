@@ -169,7 +169,6 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                //MyGame.WaitThenDo(18, () => PointAtDoor());
                 hrt.MyGame.WaitThenDo(12, new TutorialOrSkipProxy(hrt));
                 text.Kill(hrt.SoundOnKill);
             }
@@ -449,25 +448,7 @@ namespace CloudberryKingdom
             HeroRush.Timer.PauseOnPause = false; // Start the timer
 
             MyGame.WaitThenDo(Wait, new ReadyTutorialHelper(this));
-
-            //MyGame.WaitThenDo(Wait, () =>
-            //{
-            //    GUI_Text text = new GUI_Text("Ready?", MyGame.CamPos + ReadyGoPos);
-            //    MyGame.AddGameObject(text);
-
-            //    MyGame.WaitThenDo(36, () => text.Kill(false));
-            //    MyGame.WaitThenDo(40, () => LetsGo());
-            //});
         }
-
-        //void LetsGo()
-        //{
-        //    GUI_Text text = new GUI_Text("Go!", MyGame.CamPos + ReadyGoPos);
-        //    MyGame.AddGameObject(text);
-
-        //    MyGame.WaitThenDo(20, () => End());
-        //    MyGame.WaitThenDo(30, () => text.Kill(false));
-        //}
 
         class PauseHeroRushTimerHelper : Lambda
         {

@@ -35,12 +35,6 @@ namespace CloudberryKingdom
                 SetVal(v);
         }
 
-        //public void SetVal(VectorParamFunc f)
-        //{
-        //    X.SetVal(u => f(u).X);
-        //    Y.SetVal(u => f(u).Y);
-        //}
-
         public void SetVal(Vector2 v)
         {
             X.SetVal(v.X);

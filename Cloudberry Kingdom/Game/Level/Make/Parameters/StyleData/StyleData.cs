@@ -9,21 +9,14 @@ namespace CloudberryKingdom.Levels
 {
     public class StyleData
     {
-        public delegate void ModParams(Level level, PieceSeedData data);
-
         /// <summary>
         /// A callback to modify AutoGen parameters after they have been set
         /// </summary>
-        public ModParams MyModParams
-        {
-            set { ModParamList.Add(value); }
-        }
-
-        public List<ModParams> ModParamList = new List<ModParams>();
+        public Multicaster_2<Level, PieceSeedData> MyModParams = new Multicaster_2<Level, PieceSeedData>();
 
         public void Release()
         {
-            ModParamList = null;
+            MyModParams.Clear();
             GenParams = null;
         }
 
@@ -34,8 +27,7 @@ namespace CloudberryKingdom.Levels
             foreach (AutoGen gen in Generators.Gens)
                 GenParams.Add(gen, gen.SetParameters(SeedData, level));
 
-            foreach (ModParams mod in ModParamList)
-                mod(level, SeedData);
+            MyModParams.Apply(level, SeedData);
 
             // Change data depending on hero type
             level.DefaultHeroType.ModData(ref level.CurMakeData, this);

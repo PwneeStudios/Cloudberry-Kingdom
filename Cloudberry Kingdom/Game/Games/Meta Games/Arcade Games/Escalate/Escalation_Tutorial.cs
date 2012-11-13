@@ -146,7 +146,6 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                //MyGame.WaitThenDo(18, () => PointAtDoor());
                 et.MyGame.WaitThenDo(12, new TutorialOrSkipProxy(et));
                 text.Kill(et.SoundOnKill);
             }
