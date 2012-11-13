@@ -338,19 +338,16 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the first level is swapped in.
         /// </summary>
-        //public event Action<LevelSeedData> OnSwapToFirstLevel;
         public Multicaster_1<LevelSeedData> OnSwapToFirstLevel = new Multicaster_1<LevelSeedData>();
 
         /// <summary>
         /// Called when the last level is swapped in.
         /// </summary>
-        //public event Action<LevelSeedData> OnSwapToLastLevel;
         public Multicaster_1<LevelSeedData> OnSwapToLastLevel = new Multicaster_1<LevelSeedData>();
 
         /// <summary>
         /// Called when a level is swapped to. The parameter is the current level index.
         /// </summary>
-        //public event Action<int> OnSwapToLevel;
         public Multicaster_1<int> OnSwapToLevel = new Multicaster_1<int>();
 
         /// <summary>
