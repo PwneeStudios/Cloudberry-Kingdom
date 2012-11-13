@@ -153,7 +153,7 @@ namespace CloudberryKingdom.Levels
             Params.Snakes = null;
         }
 
-        public void CreateLine(Level level, Vector2 pos, Action<Firesnake> process)
+        public void CreateLine(Level level, Vector2 pos)
         {
             Firesnake_Parameters Params = GetParams(level);
 
@@ -230,7 +230,7 @@ namespace CloudberryKingdom.Levels
 
                 float shift = level.Rnd.RndFloat(-800, 800);
 
-                CreateLine(level, loc, spikey => { });
+                CreateLine(level, loc);
 
                 loc.X += step;
             }
