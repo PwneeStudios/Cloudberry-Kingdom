@@ -20,17 +20,28 @@ namespace CloudberryKingdom
         public static BackgroundTemplate
             None = new BackgroundTemplate(),
             Random = new BackgroundTemplate(),
-            
-            _Sea = new BackgroundTemplate("sea", Background._code_Sea),
-            _Sea_Rain = new BackgroundTemplate("sea_rain", Background._code_Sea, Background.AddRainLayer),
-            _Hills = new BackgroundTemplate("hills", Background._code_Hills),
-            _Hills_Rain = new BackgroundTemplate("hills_rain", Background._code_Hills, Background.AddRainLayer),
-            _Forest = new BackgroundTemplate("forest", Background._code_Forest, Background.TurnOffSnow),
-            _Forest_Snow = new BackgroundTemplate("forest_snow", Background._code_Forest, Background.TurnOnSnow),
-            _Cloud = new BackgroundTemplate("cloud", Background._code_Cloud),
-            _Cloud_Rain = new BackgroundTemplate("cloud_rain", Background._code_Cloud, Background.AddRainLayer),
-            _Cave = new BackgroundTemplate("cave", Background._code_Cave),
-            _Castle = new BackgroundTemplate("castle", Background._code_Castle);
+
+            _Sea = new Background_Sea("sea"),
+            _Sea_Rain = new Background_SeaRain("sea_rain"),
+            _Hills = new Background_Hills("hills"),
+            _Hills_Rain = new Background_HillsRain("hills_rain"),
+            _Forest = new Background_Forest("forest"),
+            _Forest_Rain = new Background_ForestSnow("forest_snow"),
+            _Cloud = new Background_Cloud("cloud"),
+            _Cloud_Rain = new Background_CloudRain("cloud_rain"),
+            _Cave = new Background_Cave("cave"),
+            _Castle = new Background_Castle("castle");
+
+            //_Sea = new BackgroundTemplate("sea", Background._code_Sea),
+            //_Sea_Rain = new BackgroundTemplate("sea_rain", Background._code_Sea, Background.AddRainLayer),
+            //_Hills = new BackgroundTemplate("hills", Background._code_Hills),
+            //_Hills_Rain = new BackgroundTemplate("hills_rain", Background._code_Hills, Background.AddRainLayer),
+            //_Forest = new BackgroundTemplate("forest", Background._code_Forest, Background.TurnOffSnow),
+            //_Forest_Snow = new BackgroundTemplate("forest_snow", Background._code_Forest, Background.TurnOnSnow),
+            //_Cloud = new BackgroundTemplate("cloud", Background._code_Cloud),
+            //_Cloud_Rain = new BackgroundTemplate("cloud_rain", Background._code_Cloud, Background.AddRainLayer),
+            //_Cave = new BackgroundTemplate("cave", Background._code_Cave),
+            //_Castle = new BackgroundTemplate("castle", Background._code_Castle);
         
         public static void AddTemplate(BackgroundTemplate template)
         {
@@ -68,21 +79,22 @@ namespace CloudberryKingdom
         public bool MadeOfText = false;
         public string File = null;
 
-        public Action<Background> Code;
+        //public Action<Background> Code;
+
+        public virtual void Code(Background b)
+        {
+        }
 
         public BackgroundTemplate()
         {
         }
 
-        public BackgroundTemplate(string Name, params Action<Background>[] Codes)
+        public BackgroundTemplate(string Name)
         {
             this.Name = this.File = Name;
             this.MadeOfCode = true;
             this.MadeOfText = false;
             
-            foreach (var code in Codes)
-                this.Code += code;
-
             BackgroundType.AddTemplate(this);
         }
 
