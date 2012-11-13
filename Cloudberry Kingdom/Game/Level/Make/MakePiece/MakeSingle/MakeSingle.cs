@@ -937,7 +937,7 @@ namespace CloudberryKingdom.Levels
             PlayMode = 2;
             RecordPosition = true;
             
-            if (PieceSeed.PreStage1 != null) PieceSeed.PreStage1(this);
+            if (PieceSeed.PreStage1 != null) PieceSeed.PreStage1.Apply(this);
             ResetAll(true);
 
             DEBUG("Pre stage 1, about to run through");
@@ -1000,7 +1000,7 @@ namespace CloudberryKingdom.Levels
 
             PlayMode = 1;
             RecordPosition = false;
-            if (PieceSeed.PreStage2 != null) PieceSeed.PreStage2(this);
+            if (PieceSeed.PreStage2 != null) PieceSeed.PreStage2.Apply(this);
             ResetAll(true);
             Sleep();
 

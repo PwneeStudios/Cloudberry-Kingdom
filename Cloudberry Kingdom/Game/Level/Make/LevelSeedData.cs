@@ -976,16 +976,16 @@ namespace CloudberryKingdom
 
         class StandardInitHelper : Lambda_1<PieceSeedData>
         {
-            Action<PieceSeedData, Upgrades> CustomDiff;
+            Lambda_2<PieceSeedData, Upgrades> CustomDiff;
 
-            public StandardInitHelper(Action<PieceSeedData, Upgrades> CustomDiff)
+            public StandardInitHelper(Lambda_2<PieceSeedData, Upgrades> CustomDiff)
             {
                 this.CustomDiff = CustomDiff;
             }
 
             public void Apply(PieceSeedData p)
             {
-                CustomDiff(p, p.u);
+                CustomDiff.Apply(p, p.u);
                 p.MyUpgrades1.CalcGenData(p.MyGenData.gen1, p.Style);
 
                 RndDifficulty.ZeroUpgrades(p.MyUpgrades2);
@@ -997,7 +997,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public void StandardInit(Action<PieceSeedData, Upgrades> CustomDiff)
+        public void StandardInit(Lambda_2<PieceSeedData, Upgrades> CustomDiff)
         {
             Initialize(new StandardInitHelper(CustomDiff));
 

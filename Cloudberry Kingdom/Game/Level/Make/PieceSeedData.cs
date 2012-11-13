@@ -27,7 +27,7 @@ namespace CloudberryKingdom
             MyUpgrades2.CalcGenData(MyGenData.gen2, Style);
         }
 
-        public Action<Level> PreStage1, PreStage2;
+        public Lambda_1<Level> PreStage1, PreStage2;
 
         public AutoGen_Parameters this[AutoGen gen]
         {

@@ -175,7 +175,7 @@ namespace CloudberryKingdom
 
                 // Start music
                 if (g.StartLevelMusic != null)
-                    g.StartLevelMusic(g);
+                    g.StartLevelMusic.Apply(g);
 
                 return true;
             }
@@ -184,7 +184,15 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called at the start of a level to begin music.
         /// </summary>
-        public Action<StringWorldGameData> StartLevelMusic = DefaultStartLevelMusic;
+        public Lambda_1<StringWorldGameData> StartLevelMusic = new DefaultStartLevelMusicProxy();
+
+        class DefaultStartLevelMusicProxy : Lambda_1<StringWorldGameData>
+        {
+            public void Apply(StringWorldGameData stringworld)
+            {
+                StringWorldGameData.DefaultStartLevelMusic(stringworld);
+            }
+        }
 
         static void DefaultStartLevelMusic(StringWorldGameData stringworld)
         {
@@ -330,19 +338,16 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the first level is swapped in.
         /// </summary>
-        //public event Action<LevelSeedData> OnSwapToFirstLevel;
         public Multicaster_1<LevelSeedData> OnSwapToFirstLevel = new Multicaster_1<LevelSeedData>();
 
         /// <summary>
         /// Called when the last level is swapped in.
         /// </summary>
-        public event Action<LevelSeedData> OnSwapToLastLevel;
-        //public Multicaster_1<LevelSeedData> OnSwapToLastLevel;
+        public Multicaster_1<LevelSeedData> OnSwapToLastLevel = new Multicaster_1<LevelSeedData>();
 
         /// <summary>
         /// Called when a level is swapped to. The parameter is the current level index.
         /// </summary>
-        //public event Action<int> OnSwapToLevel;
         public Multicaster_1<int> OnSwapToLevel = new Multicaster_1<int>();
 
         /// <summary>
@@ -369,7 +374,7 @@ namespace CloudberryKingdom
             if (NextIsLast())
             {
                 if (OnSwapToLastLevel != null)
-                    OnSwapToLastLevel(NextLevelSeed);
+                    OnSwapToLastLevel.Apply(NextLevelSeed);
             }
 
             // Stores the GameObjects in the current game marked as 'PreventRelease'
