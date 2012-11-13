@@ -9,11 +9,11 @@ namespace CloudberryKingdom
         /// Called when the user chooses yes/no.
         /// Bool is set to the user's choice.
         /// </summary>
-        public Action<bool> OnSelect;
+        public Multicaster_1<bool> OnSelect = new Multicaster_1<bool>();
 
         protected void DoSelect(bool choice)
         {
-            if (OnSelect != null) OnSelect(choice);
+            if (OnSelect != null) OnSelect.Apply(choice);
         }
 
         protected override void ReleaseBody()
