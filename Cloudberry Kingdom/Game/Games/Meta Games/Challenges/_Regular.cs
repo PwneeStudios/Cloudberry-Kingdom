@@ -31,8 +31,8 @@ namespace CloudberryKingdom
 
             data.DefaultHeroType = Hero;
 
-            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
-
+            //LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
+            Lambda_1<PieceSeedData> custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
             data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 1, Length, custom);
 
             return data;
@@ -44,16 +44,31 @@ namespace CloudberryKingdom
 
             StandardInit(data);
 
-            LevelSeedData.CustomDifficulty custom = FixedPieceMod(Difficulty, data);
-
+            //LevelSeedData.CustomDifficulty custom = FixedPieceMod(Difficulty, data);
+            Lambda_1<PieceSeedData> custom = FixedPieceMod(Difficulty, data);
             data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 2, 4500, custom);
 
             return data;
         }
 
-        public static LevelSeedData.CustomDifficulty FixedPieceMod(int Difficulty, LevelSeedData LevelSeed)
+        class FixedPieceModHelper : Lambda_1<PieceSeedData>
         {
-            return piece => FixedPieceSeed(piece, Difficulty);
+            int Difficulty;
+
+            public FixedPieceModHelper(int Difficulty)
+            {
+                this.Difficulty = Difficulty;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                RegularLevel.FixedPieceSeed(piece, Difficulty);
+            }
+        }
+
+        public static Lambda_1<PieceSeedData> FixedPieceMod(int Difficulty, LevelSeedData LevelSeed)
+        {
+            return new FixedPieceModHelper(Difficulty);
         }
 
         static void FixedPieceSeed(PieceSeedData piece, int Difficulty)

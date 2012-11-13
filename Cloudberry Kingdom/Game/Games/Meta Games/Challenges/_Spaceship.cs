@@ -56,7 +56,32 @@ namespace CloudberryKingdom
             piece.StandardClose();
         }
 
-        public static LevelSeedData.CustomDifficulty StandardPieceMod(int Difficulty, LevelSeedData LevelSeed)
+        class StandardPieceModHelper : Lambda_1<PieceSeedData>
+        {
+            LevelSeedData LevelSeed;
+            int BlockLevel;
+            int ObjectLevel;
+            int Speed;
+            int BlockComplexity;
+            int ObjectComplexity;
+
+            public StandardPieceModHelper(LevelSeedData LevelSeed, int BlockLevel, int ObjectLevel, int Speed, int BlockComplexity, int ObjectComplexity)
+            {
+                this.LevelSeed = LevelSeed;
+                this.BlockLevel = BlockLevel;
+                this.ObjectLevel = ObjectLevel;
+                this.Speed = Speed;
+                this.BlockComplexity = BlockComplexity;
+                this.ObjectComplexity = ObjectComplexity;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                SpaceshipLevel.SetPieceSeed(piece, LevelSeed.MyTileSet, BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity);
+            }
+        }
+
+        public static Lambda_1<PieceSeedData> StandardPieceMod(int Difficulty, LevelSeedData LevelSeed)
         {
             int BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity;
 
@@ -71,8 +96,7 @@ namespace CloudberryKingdom
                     break;
             }
 
-            return
-                piece => SetPieceSeed(piece, LevelSeed.MyTileSet, BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity);
+            return new StandardPieceModHelper(LevelSeed, BlockLevel, ObjectLevel, Speed, BlockComplexity, ObjectComplexity);
         }
     }
 }

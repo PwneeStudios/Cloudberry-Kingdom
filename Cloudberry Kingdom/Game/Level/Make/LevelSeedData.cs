@@ -433,11 +433,11 @@ namespace CloudberryKingdom
             if (UpgradeStrs.Count == 0)
             {
                 UpgradeStrs.Add("");
-                Initialize(ModPieceViaHash);
+                Initialize(new ModPieceViaHashProxy(this));
             }
             else
             {
-                Initialize(ModPieceViaString);
+                Initialize(new ModPieceViaStringProxy(this));
             }
 
             ProcessSpecial();
@@ -518,6 +518,21 @@ namespace CloudberryKingdom
         /// </summary>
         List<string> UpgradeStrs = new List<string>();
 
+        class ModPieceViaStringProxy : Lambda_1<PieceSeedData>
+        {
+            LevelSeedData lsd;
+
+            public ModPieceViaStringProxy(LevelSeedData lsd)
+            {
+                this.lsd = lsd;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                lsd.ModPieceViaString(piece);
+            }
+        }
+
         /// <summary>
         /// Modify a PieceSeedData to conform to the upgrade data stored in UpgradeStr.
         /// </summary>
@@ -540,6 +555,21 @@ namespace CloudberryKingdom
             }
 
             piece.StandardClose();
+        }
+
+        class ModPieceViaHashProxy : Lambda_1<PieceSeedData>
+        {
+            LevelSeedData lsd;
+
+            public ModPieceViaHashProxy(LevelSeedData lsd)
+            {
+                this.lsd = lsd;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                lsd.ModPieceViaHash(piece);
+            }
         }
 
         /// <summary>
@@ -880,8 +910,8 @@ namespace CloudberryKingdom
         }
 
         public int Difficulty, NumPieces, Length;
-        CustomDifficulty MyCustomDifficulty;
-        public void PreInitialize(GameFactory Type, int Difficulty, int NumPieces, int Length, CustomDifficulty CustomDiff)
+        Lambda_1<PieceSeedData> MyCustomDifficulty;
+        public void PreInitialize(GameFactory Type, int Difficulty, int NumPieces, int Length, Lambda_1<PieceSeedData> CustomDiff)
         {
             this.MyGameType = Type;
             this.Difficulty = Difficulty;
@@ -944,27 +974,39 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Post-sanitize: {0}", TestNumber));
         }
 
+        class StandardInitHelper : Lambda_1<PieceSeedData>
+        {
+            Action<PieceSeedData, Upgrades> CustomDiff;
+
+            public StandardInitHelper(Action<PieceSeedData, Upgrades> CustomDiff)
+            {
+                this.CustomDiff = CustomDiff;
+            }
+
+            public void Apply(PieceSeedData p)
+            {
+                CustomDiff(p, p.u);
+                p.MyUpgrades1.CalcGenData(p.MyGenData.gen1, p.Style);
+
+                RndDifficulty.ZeroUpgrades(p.MyUpgrades2);
+                p.MyUpgrades1.UpgradeLevels.CopyTo(p.MyUpgrades2.UpgradeLevels, 0);
+                p.MyUpgrades2.CalcGenData(p.MyGenData.gen2, p.Style);
+
+                p.Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
+                p.Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
+            }
+        }
+
         public void StandardInit(Action<PieceSeedData, Upgrades> CustomDiff)
         {
-            Initialize((CustomDifficulty)(p => 
-                {
-                    CustomDiff(p, p.u);
-                    p.MyUpgrades1.CalcGenData(p.MyGenData.gen1, p.Style);
-
-                    RndDifficulty.ZeroUpgrades(p.MyUpgrades2);
-                    p.MyUpgrades1.UpgradeLevels.CopyTo(p.MyUpgrades2.UpgradeLevels, 0);
-                    p.MyUpgrades2.CalcGenData(p.MyGenData.gen2, p.Style);
-
-                    p.Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
-                    p.Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
-                }));
+            Initialize(new StandardInitHelper(CustomDiff));
 
         }
-        public void Initialize(CustomDifficulty CustomDiff)
+        public void Initialize(Lambda_1<PieceSeedData> CustomDiff)
         {
             Initialize(MyGameType, MyGeometry, NumPieces, PieceLength, CustomDiff);
         }
-        public void Initialize(GameFactory factory, LevelGeometry geometry, int NumPieces, int Length, CustomDifficulty CustomDiff)
+        public void Initialize(GameFactory factory, LevelGeometry geometry, int NumPieces, int Length, Lambda_1<PieceSeedData> CustomDiff)
         {
             Initialized = true;
 
@@ -999,7 +1041,7 @@ namespace CloudberryKingdom
         }
 
         public delegate void CustomDifficulty(PieceSeedData piece);
-        public void InitNormal(bool Place, CustomDifficulty CustomDiff)
+        public void InitNormal(bool Place, Lambda_1<PieceSeedData> CustomDiff)
         { 
             PieceSeedData Piece;
 
@@ -1019,7 +1061,7 @@ namespace CloudberryKingdom
                 }
                 
                 if (CustomDiff != null)
-                    CustomDiff(Piece);
+                    CustomDiff.Apply(Piece);
                 else
                     RndDifficulty.IntToDifficulty(Piece, MyTileSet);
                 if (Piece.Paths == -1)
@@ -1061,7 +1103,7 @@ namespace CloudberryKingdom
             }          
         }
 
-        public void InitPlace(CustomDifficulty CustomDiff)
+        public void InitPlace(Lambda_1<PieceSeedData> CustomDiff)
         {
             InitNormal(true, CustomDiff);
         }

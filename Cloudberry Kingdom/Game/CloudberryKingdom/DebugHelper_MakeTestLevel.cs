@@ -29,6 +29,21 @@ namespace CloudberryKingdom
             Tools.CurGameData.MyLevel = Tools.CurLevel = level;
         }
 
+        class MakeTestLevelInitializeHelper : Lambda_1<PieceSeedData>
+        {
+            CloudberryKingdomGame ckg;
+
+            public MakeTestLevelInitializeHelper(CloudberryKingdomGame ckg)
+            {
+                this.ckg = ckg;
+            }
+
+            public void Apply(PieceSeedData piece)
+            {
+                ckg.TestLevelInit(piece);
+            }
+        }
+
         void MakeTestLevel()
         {
             //PlayerManager.Players[0].Exists = true;
@@ -114,7 +129,7 @@ namespace CloudberryKingdom
             //data.MyGameFlags.IsDoppleganger = true;
             //data.MyGameFlags.IsDopplegangerInvert = true;
 
-            data.Initialize(TestLevelInit);
+            data.Initialize(new MakeTestLevelInitializeHelper(this));
 
             // Add Landing Zone
             //data.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.LandingZone;
