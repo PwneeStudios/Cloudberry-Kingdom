@@ -148,41 +148,84 @@ namespace CloudberryKingdom
             }
         }
 
+        class SaveLambda : Lambda_1<BinaryWriter>
+        {
+            SaveLoad sl;
+            public SaveLambda(SaveLoad sl)
+            {
+                this.sl = sl;
+            }
+
+            public void Apply(BinaryWriter writer)
+            {
+                sl.Serialize(writer);
+                sl.Changed = false;
+                SaveGroup.Decr();
+            }
+        }
+
+        class SaveFailLambda : Lambda
+        {
+            SaveLoad sl;
+            public SaveFailLambda(SaveLoad sl)
+            {
+                this.sl = sl;
+            }
+
+            public void Apply()
+            {
+                SaveGroup.Decr();
+                sl.Changed = false;
+            }
+        }
+
         public void Save()
         {
             if (Changed || AlwaysSave)
             {
-                EzStorage.Save(ActualContainerName, FileName, writer =>
-                    {
-                        Serialize(writer);
-                        Changed = false;
-                        SaveGroup.Decr();
-                    },
-                    () =>
-                    {
-                        SaveGroup.Decr();
-                        Changed = false;
-                    });
+                EzStorage.Save(ActualContainerName, FileName, new SaveLambda(this), new SaveFailLambda(this));
             }
             else
                 SaveGroup.Decr();
         }
 
+        class LoadLambda : Lambda_1<byte[]>
+        {
+            SaveLoad sl;
+
+            public LoadLambda(SaveLoad sl)
+            {
+                this.sl = sl;
+            }
+
+            public void Apply(byte[] data)
+            {
+                sl.Deserialize(data);
+                sl.Changed = false;
+                SaveGroup.Decr();
+            }
+        }
+
+        class LoadFailLambda : Lambda
+        {
+            SaveLoad sl;
+
+            public LoadFailLambda(SaveLoad sl)
+            {
+                this.sl = sl;
+            }
+
+            public void Apply()
+            {
+                sl.FailLoad();
+                SaveGroup.Decr();
+                sl.Changed = false;
+            }
+        }
+
         public void Load()
         {
-            EzStorage.Load(ActualContainerName, FileName,
-                reader =>
-                {
-                    Deserialize(reader);
-                    Changed = false;
-                    SaveGroup.Decr();
-                },
-                () =>
-                {
-                    FailLoad();
-                    SaveGroup.Decr();
-                    Changed = false;
-                });
+            EzStorage.Load(ActualContainerName, FileName, new LoadLambda(this), new LoadFailLambda(this));
         }
 
         protected virtual void Serialize(BinaryWriter writer) { }
@@ -210,14 +253,14 @@ namespace CloudberryKingdom
             result.AsyncWaitHandle.Close();
         }
 
-        public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
+        public static void Save(string ContainerName, string FileName, Lambda_1<BinaryWriter> SaveLogic, Lambda Fail)
         {
             if (!DeviceOK())
                 GetDevice();
 
             if (!DeviceOK())
             {
-                if (Fail != null) Fail();
+                if (Fail != null) Fail.Apply();
                 return;
             }
 
@@ -227,7 +270,7 @@ namespace CloudberryKingdom
             {
                 Thread.Sleep(1);
             }
-            if (InUse.MyBool) { if (Fail != null) Fail(); return; }
+            if (InUse.MyBool) { if (Fail != null) Fail.Apply(); return; }
 
             lock (InUse)
             {
@@ -240,7 +283,7 @@ namespace CloudberryKingdom
             IAsyncResult result = Device.BeginOpenContainer(ContainerName,
                 ContainerResult =>
                 {
-                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
+                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail.Apply(); return; }
 
                     StorageContainer container = Device.EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();
@@ -250,7 +293,7 @@ namespace CloudberryKingdom
                 }, null);
         }
 
-        static void SaveToContainer(StorageContainer container, string FileName, Action<BinaryWriter> SaveLogic) 
+        static void SaveToContainer(StorageContainer container, string FileName, Lambda_1<BinaryWriter> SaveLogic) 
         {
             // Check to see whether the save exists.
             if (container.FileExists(FileName))
@@ -264,7 +307,7 @@ namespace CloudberryKingdom
             if (SaveLogic != null)
             {
                 BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
-                SaveLogic(writer);
+                SaveLogic.Apply(writer);
                 writer.Close();
             }
 
@@ -280,14 +323,14 @@ namespace CloudberryKingdom
             }
         }
 
-        public static void Load(string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
+        public static void Load(string ContainerName, string FileName, Lambda_1<byte[]> LoadLogic, Lambda Fail)
         {
             if (!DeviceOK())
                 GetDevice();
 
             if (!DeviceOK())
             {
-                if (Fail != null) Fail();
+                if (Fail != null) Fail.Apply();
                 return;
             }
 
@@ -297,7 +340,7 @@ namespace CloudberryKingdom
             {
                 Thread.Sleep(1);
             }
-            if (InUse.MyBool) { if (Fail != null) Fail(); return; }
+            if (InUse.MyBool) { if (Fail != null) Fail.Apply(); return; }
 
             lock (InUse)
             {
@@ -310,7 +353,7 @@ namespace CloudberryKingdom
             IAsyncResult result = Device.BeginOpenContainer(ContainerName,
                 ContainerResult =>
                 {
-                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
+                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail.Apply(); return; }
                     //if (Fail != null) Fail(); return;
 
                     StorageContainer container = Device.EndOpenContainer(ContainerResult);
@@ -321,7 +364,7 @@ namespace CloudberryKingdom
                 }, null);
         }
 
-        static void LoadFromContainer(StorageContainer container, string FileName, Action<byte[]> LoadLogic, Action FailLogic)
+        static void LoadFromContainer(StorageContainer container, string FileName, Lambda_1<byte[]> LoadLogic, Lambda FailLogic)
         {
             // Fallback action if file doesn't exist
             if (!container.FileExists(FileName))
@@ -334,7 +377,7 @@ namespace CloudberryKingdom
                 }
 
                 if (FailLogic != null)
-                    FailLogic();
+                    FailLogic.Apply();
 
                 return;
             }
@@ -348,11 +391,11 @@ namespace CloudberryKingdom
                     byte[] Data = new byte[s.Length];
                     s.Read(Data, 0, (int)s.Length);
 
-                    LoadLogic(Data);
+                    LoadLogic.Apply(Data);
                 }
                 catch
                 {
-                    FailLogic();
+                    FailLogic.Apply();
                 }
             }
 

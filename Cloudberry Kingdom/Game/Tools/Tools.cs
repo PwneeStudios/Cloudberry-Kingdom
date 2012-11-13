@@ -323,18 +323,17 @@ namespace CloudberryKingdom
         //    }
         //}
 
-        /// <summary>
-        /// Loop through a list, knowing both the element and its index.
-        /// </summary>
-        public static void ForEach<T>(this List<T> list, Action<T, int> func)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                T item = list[i];
-                func(item, i);
-            }
-        }
-
+        ///// <summary>
+        ///// Loop through a list, knowing both the element and its index.
+        ///// </summary>
+        //public static void ForEach<T>(this List<T> list, Action<T, int> func)
+        //{
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+        //        T item = list[i];
+        //        func(item, i);
+        //    }
+        //}
 
         public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range) where T : class
                                                                                where S : class
