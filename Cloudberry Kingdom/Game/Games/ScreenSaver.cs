@@ -529,6 +529,25 @@ namespace CloudberryKingdom
             piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
         }
 
+        class MultiplayerBlobsMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            ScreenSaver ss;
+
+            public MultiplayerBlobsMyModParamsHelper(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(Level level, PieceSeedData p)
+            {
+                FlyingBlob_Parameters GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
+                GParams.KeepUnused.SetVal(ss.MyLevel.Rnd.RndBool(.5f) ? 0f : ss.MyLevel.Rnd.RndFloat(0, .06f));
+                GParams.FillWeight.SetVal(100);
+                GParams.Period.SetVal(115);
+                GParams.Range.SetVal(600);
+            }
+        }
+
         private void MultiplayerBlobs(int index, PieceSeedData piece)
         {
             //// Easy/Masochistic
@@ -571,14 +590,7 @@ namespace CloudberryKingdom
             piece.MyUpgrades1.UpgradeLevels.CopyTo(piece.MyUpgrades2.UpgradeLevels, 0);
             piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen2, piece.Style);
 
-            piece.Style.MyModParams = (level, p) =>
-            {
-                FlyingBlob_Parameters GParams = (FlyingBlob_Parameters)p.Style.FindParams(FlyingBlob_AutoGen.Instance);
-                GParams.KeepUnused.SetVal(MyLevel.Rnd.RndBool(.5f) ? 0f : MyLevel.Rnd.RndFloat(0, .06f));
-                GParams.FillWeight.SetVal(100);
-                GParams.Period.SetVal(115);
-                GParams.Range.SetVal(600);
-            };
+            piece.Style.MyModParams.Add(new MultiplayerBlobsMyModParamsHelper(this));
 
             /*
             bool Custom = MyLevel.Rnd.RndBool();

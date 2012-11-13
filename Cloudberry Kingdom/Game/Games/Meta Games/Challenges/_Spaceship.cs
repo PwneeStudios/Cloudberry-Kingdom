@@ -17,6 +17,14 @@ namespace CloudberryKingdom
             }
         }
 
+        class SetPieceSeedMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData p)
+            {
+                NormalBlock_Parameters NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);
+            }
+        }
+
         static List<Upgrade> Picks1, Picks2;
         static void SetPieceSeed(PieceSeedData piece, TileSet tileset, int BlockLevel, int ObjectLevel, int Speed, int BlockComplexity, int ObjectComplexity)
         {
@@ -43,10 +51,7 @@ namespace CloudberryKingdom
             piece.MyUpgrades1[Upgrade.General] = ObjectLevel;
             piece.MyUpgrades1[Upgrade.Speed] = Speed;
 
-            piece.Style.MyModParams = (level, p) =>
-            {
-                NormalBlock_Parameters NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);
-            };
+            piece.Style.MyModParams.Add(new SetPieceSeedMyModParamsHelper());
 
             piece.StandardClose();
         }

@@ -178,6 +178,15 @@ namespace CloudberryKingdom
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 
+        class MakeMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData p)
+            {
+                Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                Params.FillType = Coin_Parameters.FillTypes.Rush;
+            }
+        }
+
         int LevelLength_Short = 2150;
         int LevelLength_Long = 3900;
         protected virtual LevelSeedData Make(int Index, float Difficulty)
@@ -207,11 +216,7 @@ namespace CloudberryKingdom
                 // Only one path
                 piece.Paths = 1; piece.LockNumOfPaths = true;
 
-                piece.Style.MyModParams = (level, p) =>
-                    {
-                        Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-                        Params.FillType = Coin_Parameters.FillTypes.Rush;
-                    };
+                piece.Style.MyModParams.Add(new MakeMyModParamsHelper());
             }
 
             return data;

@@ -61,8 +61,8 @@ namespace CloudberryKingdom
             {
                 var p = PieceSeeds[0];
                 //p.Style.ComputerWaitLengthRange = new Vector2(4, 23);
-                
-                p.Style.MyModParams = _HasWall_Process;
+
+                p.Style.MyModParams.Add(new _HasWall_ProcessProxy());
             }
 
             if (NoStartDoor) PostMake.Add(new _NoStartDoorProxy());
@@ -96,6 +96,14 @@ namespace CloudberryKingdom
             Tools.SongWad.SetPlayList(Tools.SongList_Standard);
             Tools.SongWad.Next(MySong);
             Tools.SongWad.PlayNext = true;
+        }
+
+        class _HasWall_ProcessProxy : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData piece)
+            {
+                LevelSeedData._HasWall_Process(level, piece);
+            }
         }
 
         private static void _HasWall_Process(Level level, PieceSeedData piece)
@@ -981,6 +989,15 @@ namespace CloudberryKingdom
             return 0;
         }
 
+        class InitNormalMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData p)
+            {
+                p.Style.FillxStep *= 3.1f;
+                p.Style.FillyStep *= 1.7f;
+            }
+        }
+
         public delegate void CustomDifficulty(PieceSeedData piece);
         public void InitNormal(bool Place, CustomDifficulty CustomDiff)
         { 
@@ -998,14 +1015,7 @@ namespace CloudberryKingdom
                 {
                     Piece.Style.JumpType = StyleData._JumpType.Always;
 
-                    Piece.Style.MyModParams = (level, p) =>
-                        {
-                            //NormalBlock_Parameters NParams = (NormalBlock_Parameters)p.Style.FindParams(NormalBlock_AutoGen.Instance);
-                            //NParams.DoStage1Fill = false;
-
-                            p.Style.FillxStep *= 3.1f;
-                            p.Style.FillyStep *= 1.7f;
-                        };
+                    Piece.Style.MyModParams.Add(new InitNormalMyModParamsHelper());
                 }
                 
                 if (CustomDiff != null)

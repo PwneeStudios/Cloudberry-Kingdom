@@ -216,6 +216,16 @@ namespace CloudberryKingdom
             return Challenge.ChosenHero;
         }
 
+        class MakeMyModParamsHelper : Lambda_2<Level, PieceSeedData>
+        {
+            public void Apply(Level level, PieceSeedData p)
+            {
+                Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                Params.StartFrame = 90;
+                Params.FillType = Coin_Parameters.FillTypes.Regular;
+            }
+        }
+
         protected virtual LevelSeedData Make(int Index, float Difficulty)
         {
             BobPhsx hero = GetHero(Index);
@@ -238,12 +248,7 @@ namespace CloudberryKingdom
                 // Shorten the initial computer delay
                 piece.Style.ComputerWaitLengthRange = new Vector2(8, 35);//38);
 
-                piece.Style.MyModParams = (level, p) =>
-                {
-                    Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-                    Params.StartFrame = 90;
-                    Params.FillType = Coin_Parameters.FillTypes.Regular;
-                };
+                piece.Style.MyModParams.Add(new MakeMyModParamsHelper());
             }
 
             return data;
