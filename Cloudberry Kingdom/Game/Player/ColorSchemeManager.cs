@@ -13,6 +13,29 @@ namespace CloudberryKingdom
 {
     public struct ColorSchemeManager
     {
+        class CapeOnLambda : Lambda_1<Bob>
+        {
+            public CapeOnLambda()
+            {
+            }
+
+            public void Apply(Bob bob)
+            {
+                bob.ShowCape = false;
+
+                ObjectClass obj = bob.PlayerObject;
+                obj.FindQuad("Wing1").Show = false;
+                obj.FindQuad("Wing2").Show = false;
+                obj.FindQuad("DWing1").Show = false;
+                obj.FindQuad("DWing2").Show = false;
+
+                bob.ShowCape = true;
+            }
+        }
+
+        static CapeOnLambda CapeOn = new CapeOnLambda();
+
+
         public static List<ColorScheme> ColorSchemes, ComputerColorSchemes;
 
         static void AddScheme(ColorScheme scheme, bool ValidComputerScheme)
@@ -75,23 +98,6 @@ namespace CloudberryKingdom
 
             HatInfo = new List<Hat>();
             BeardInfo = new List<Hat>();
-
-            // Mod cape functions
-            Action<Bob> Reset = bob =>
-            {
-                bob.ShowCape = false;
-
-                ObjectClass obj = bob.PlayerObject;
-                obj.FindQuad("Wing1").Show = false;
-                obj.FindQuad("Wing2").Show = false;
-                obj.FindQuad("DWing1").Show = false;
-                obj.FindQuad("DWing2").Show = false;
-            };
-            Action<Bob> CapeOn = bob =>
-            {
-                Reset(bob);
-                bob.ShowCape = true;
-            };   
 
             // Fill the beard list
             Hat beard;

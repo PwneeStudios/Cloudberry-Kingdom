@@ -185,7 +185,7 @@ namespace CloudberryKingdom.Bobs
                 MyCape.MyQuad.Quad.MyEffect = scheme.CapeColor.Effect;
 
                 if (scheme.CapeColor.ModObject != null)
-                    scheme.CapeColor.ModObject(this);
+                    scheme.CapeColor.ModObject.Apply(this);
 
                 if (scheme.CapeColor.Clr.A == 0 || scheme.CapeOutlineColor.Clr.A == 0)
                     ShowCape = false;

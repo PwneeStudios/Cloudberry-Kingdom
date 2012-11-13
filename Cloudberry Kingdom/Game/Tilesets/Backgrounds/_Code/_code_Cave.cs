@@ -3,6 +3,18 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
+    public class Background_Cave : BackgroundTemplate
+    {
+        public Background_Cave(string Name) : base(Name) { }
+
+        public override void Code(Background b)
+        {
+            base.Code(b);
+
+            Background._code_Cave(b);
+        }
+    }
+
     public partial class Background : ViewReadWrite
     {
         public static void _code_Cave(Background b)

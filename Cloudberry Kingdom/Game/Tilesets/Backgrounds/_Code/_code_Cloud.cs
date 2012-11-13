@@ -3,6 +3,31 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
+    public class Background_Cloud : BackgroundTemplate
+    {
+        public Background_Cloud(string Name) : base(Name) { }
+
+        public override void Code(Background b)
+        {
+            base.Code(b);
+
+            Background._code_Cloud(b);
+        }
+    }
+
+    public class Background_CloudRain : BackgroundTemplate
+    {
+        public Background_CloudRain(string Name) : base(Name) { }
+
+        public override void Code(Background b)
+        {
+            base.Code(b);
+
+            Background._code_Cloud(b);
+            Background.AddRainLayer(b);
+        }
+    }
+
     public partial class Background : ViewReadWrite
     {
         public static void _code_Cloud(Background b)

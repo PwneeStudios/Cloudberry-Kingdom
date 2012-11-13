@@ -54,9 +54,9 @@ namespace CloudberryKingdom
             LevelSeedData data = new LevelSeedData();
 
 
-            data.ReadString("0;s:1830873138;h:2,0,2,0;t:sea;n:1;l:2150;u:0,0,0,0,0,2,4.625,0,0,0,0,0,3.75,6.375,0,0,0,0,0,0,0,7.75,0,6.625;");
-            GameData.StartLevel(data);
-            return;
+            //data.ReadString("0;s:1830873138;h:2,0,2,0;t:sea;n:1;l:2150;u:0,0,0,0,0,2,4.625,0,0,0,0,0,3.75,6.375,0,0,0,0,0,0,0,7.75,0,6.625;");
+            //GameData.StartLevel(data);
+            //return;
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             //data.Seed = 110040853;
@@ -64,10 +64,10 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            //TileSetToTest = "sea";
-            //TileSetToTest = "hills_rain";
-            TileSetToTest = "forest_snow";
-            //TileSetToTest = "cloud";
+            //TileSetToTest = "sea_rain";
+            //TileSetToTest = "hills";
+            //TileSetToTest = "forest";
+            TileSetToTest = "cloud";
             //TileSetToTest = "cave";
             //TileSetToTest = "castle";
 
