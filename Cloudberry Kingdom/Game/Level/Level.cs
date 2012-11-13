@@ -121,7 +121,6 @@ namespace CloudberryKingdom.Levels
             if (Bobs == null)
                 return true;
 
-            //return Bobs.All(bob => (bob.Core.Data.Position - bob.Core.StartData.Position).Length() < 500 && !bob.Dead);
             return Tools.All(Bobs, new CloseToStartLambda());
         }
 
@@ -171,7 +170,6 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public void PushLava(float y)
         {
-            //BlockBase lava = Blocks.Find(match => match is LavaBlock);
             BlockBase lava = Tools.Find(Blocks, new IsLavaLambda());
 
             if (null != lava)
@@ -529,7 +527,6 @@ namespace CloudberryKingdom.Levels
         void SortDrawLayers()
         {
             for (int i = 0; i < NumDrawLayers; i++)
-                //DrawLayer[i].Sort((A, B) => A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer));
                 DrawLayer[i].Sort(DrawLayerSortFunc);
         }
 
@@ -736,7 +733,6 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public ObjectBase LookupGUID(UInt64 guid)
         {
-            //ObjectBase FoundObj = Objects.Find(obj => obj.Core.MyGuid == guid);
             ObjectBase FoundObj = Tools.Find(Objects, new FindGuidLambda(guid));
             if (FoundObj != null)
                 return FoundObj;
@@ -933,9 +929,6 @@ namespace CloudberryKingdom.Levels
 
         private static ObjectBase FindParentObjectById(List<ObjectBase> ObjectList, ObjectBase obj)
         {
-            //ObjectBase FoundObj = ObjectList.Find(_obj =>
-            //    _obj.Core.MyGuid == obj.Core.ParentObjId);
-
             ObjectBase FoundObj = Tools.Find(ObjectList, new FindGuidLambda(obj.Core.ParentObjId));
 
             return FoundObj;
@@ -1094,7 +1087,6 @@ namespace CloudberryKingdom.Levels
         public void CleanObjectList()
         {
             Tools.RemoveAll(Objects, new CleanObjectListLambda());
-            //Tools.RemoveAll(Objects, obj => obj.Core.MarkedForDeletion);
         }
 
         class CleanObjectListLambda : LambdaFunc_1<ObjectBase, bool>
@@ -1113,11 +1105,6 @@ namespace CloudberryKingdom.Levels
         {
             for (int i = 0; i < NumDrawLayers; i++)
             {
-                //Tools.RemoveAll(DrawLayer[i],
-                //    (obj, index) =>
-                //        obj.Core.MarkedForDeletion ||
-                //        (obj.Core.DrawLayer != i && obj.Core.DrawLayer2 != i && obj.Core.DrawLayer3 != i));
-
                 Tools.RemoveAll(DrawLayer[i], new CleanDrawLayerLambda(i));
             }
         }
@@ -1140,7 +1127,6 @@ namespace CloudberryKingdom.Levels
         public void CleanBlockList()
         {
             Tools.RemoveAll(Blocks, new CleanBlockListLambda());
-            //Tools.RemoveAll(Blocks, block => block.Core.MarkedForDeletion);
         }
 
         class CleanBlockListLambda : LambdaFunc_1<BlockBase, bool>
@@ -1536,11 +1522,6 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < NumDrawLayers; i++)
                 Tools.RemoveAll(DrawLayer[i], new RemoveForeignLambda(this));
             Tools.RemoveAll(Blocks, new RemoveForeignBlockLambda(this));
-
-            //Objects.RemoveAll(obj => obj.Core.MyLevel != this);
-            //for (int i = 0; i < NumDrawLayers; i++)
-            //    DrawLayer[i].RemoveAll(obj => obj.Core.MyLevel != this);
-            //Blocks.RemoveAll(obj => obj.Core.MyLevel != this);
         }
 
 

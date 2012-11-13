@@ -174,17 +174,6 @@ namespace CloudberryKingdom
             //piece.ZoomType = LevelZoom.Big;
             piece.ExtraBlockLength = 1000;
 
-
-            //piece.PreStage2 = level =>
-            //{
-            //    foreach (Bob bob in level.Bobs)
-            //    {
-            //        PrincessBubble princess = new PrincessBubble(Vector2.Zero);
-            //        level.AddObject(princess);
-            //        princess.PickUp(bob);
-            //    }
-            //};
-
             //piece.Paths = RndDifficulty.ChoosePaths(piece);
             //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);

@@ -550,7 +550,6 @@ namespace CloudberryKingdom
             AddItem(length);
             length.Pos = new Vector2(-283f, -556.1017f);
 
-            //length.OnSetValue = () => LevelSeed.PieceLength = (int)(length.MyFloat.Val / LevelSeed.NumPieces);
             length.OnSetValue = () =>
                 {
                     LevelSeed.Length = (int)(length.MyFloat.Val);

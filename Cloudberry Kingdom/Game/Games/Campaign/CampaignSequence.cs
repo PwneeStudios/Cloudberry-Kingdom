@@ -206,11 +206,6 @@ namespace CloudberryKingdom
         static Lambda_1<Level> MakeWatchMovieAction(string movie)
         {
             return new WatchMovieLambda(movie);
-            /*return level =>
-            {
-                MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
-                ((ActionGameData)level.MyGame).Done = true;
-            };*/
         }
 
         class EndActionProxy : Lambda_1<Level>

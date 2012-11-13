@@ -37,7 +37,6 @@ namespace CloudberryKingdom
         protected virtual void PreStart_Tutorial(bool TemporarySkip)
         {
             HeroRush_Tutorial.TemporarySkip = TemporarySkip;
-            //MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new HeroRush_Tutorial(this));
             MyStringWorld.OnSwapToFirstLevel.Add(new OnSwapLambda(this));
         }
 

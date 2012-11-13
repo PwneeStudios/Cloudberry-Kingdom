@@ -69,12 +69,6 @@ namespace CloudberryKingdom
             MyStringWorld.StartLevelMusic = null;
 
             // Start menu
-            //MyStringWorld.OnLevelBegin += level =>
-            //{
-            //    level.MyGame.AddGameObject(HelpMenu.MakeListener());
-            //    level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
-            //    return false;
-            //};
             MyStringWorld.OnLevelBegin = new OnBeginLambda();
 
             // Additional preprocessing
@@ -101,7 +95,6 @@ namespace CloudberryKingdom
 
         protected virtual void PreStart_Tutorial()
         {
-            //MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new Escalation_Tutorial(this));
             MyStringWorld.OnSwapToFirstLevel.Add(new OnSwapLambda(this));
         }
 

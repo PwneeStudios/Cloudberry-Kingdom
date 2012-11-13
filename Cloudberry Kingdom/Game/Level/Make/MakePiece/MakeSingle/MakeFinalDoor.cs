@@ -113,13 +113,7 @@ namespace CloudberryKingdom.Levels
 
         public override void Phase2()
         {
-            base.Phase2();
-
-            // Find the highest final block that was used by the computer.
-            //var FinalBlock = MyLevel.Blocks
-            //    .FindAll(match => match.Core.GenData.Used && match.Core == "FinalBlock");
-                //.ArgMax(block => block.Box.TR.Y);
-            //Tools.Write(OldFinalBlock.Count);       
+            base.Phase2();    
           
             List<BlockBase> _FinalBlocks = Tools.FindAll(MyLevel.Blocks, new FindFinalBlockLambda());
             FinalBlock = Tools.ArgMax(_FinalBlocks, new BoxTRyLambda()); 

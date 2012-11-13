@@ -137,13 +137,6 @@ namespace CloudberryKingdom.Levels
                 player.Stats.TotalBlobs += NumBlobs;
             }
 
-            //PlayerManager.ExistingPlayers.ForEach(player =>
-            //{
-            //    CoinsCountInStats = true;
-            //    player.Stats.TotalCoins += NumCoins;
-            //    player.Stats.TotalBlobs += NumBlobs;
-            //});
-
             KeepCoinsDead();
 
             if (Recording)
@@ -1142,13 +1135,6 @@ namespace CloudberryKingdom.Levels
 
             Cleanup(ObjsToClean, new GeneralMinDistLambda(this), true, BL_Bound, TR_Bound);
             Sleep();
-
-            //Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
-            //{
-            //    float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
-            //    return new Vector2(dist, dist);
-            //}, true, BL_Bound, TR_Bound);
-            //Sleep();
 
             foreach (ObjectBase obj in Objects)
             {

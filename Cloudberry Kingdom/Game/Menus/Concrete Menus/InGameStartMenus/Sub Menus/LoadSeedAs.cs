@@ -136,12 +136,6 @@ namespace CloudberryKingdom
             SavedSeedsGUI.LoadSeed(TextBox.Text, this);
             Active = false;
             ReturnToCaller();
-
-            //MyGame.WaitThenDo(35, () =>
-            //{
-            //    float width = MyGame.Cam.GetWidth();
-            //    TextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
-            //});
         }
     }
 }

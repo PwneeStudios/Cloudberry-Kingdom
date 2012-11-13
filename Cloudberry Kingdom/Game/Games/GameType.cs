@@ -354,10 +354,6 @@ namespace CloudberryKingdom
         //{
         //    AddToDo(f, "", true, true);
         //}
-        //public void CinematicToDo(int WaitLength, LambdaFunc<bool> f)
-        //{
-        //    CinematicToDo(WaitLength, () => CinematicToDo(f));
-        //}
         public void WaitThenDo(int WaitLength, Lambda f, string Name, bool PauseOnPause, bool RemoveOnReset)
         {
             if (WaitLength < 0)
@@ -834,8 +830,6 @@ namespace CloudberryKingdom
                     l.Add(todo);
 
             return l;
-
-            //return ToDo.FindAll(match => string.Compare(match.Name, name, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
         bool DoingToDoList = false;
@@ -1001,8 +995,6 @@ namespace CloudberryKingdom
                         NewBobList.Add(bob);
                 }
                 MyLevel.Bobs = NewBobList;
-
-                //MyLevel.Bobs.RemoveAll(bob => !PlayerManager.Get((int)bob.MyPlayerIndex).Exists);
             }
 
             // Create new players
@@ -1014,9 +1006,6 @@ namespace CloudberryKingdom
                         All = false;
                 if (All)
                     CreateBob(i, false);
-
-                //if (PlayerManager.Get(i).Exists && MyLevel.Bobs.All(bob => (int)bob.MyPlayerIndex != i))
-                //    CreateBob(i, false);
             }
 
             // Revive all players
@@ -1124,9 +1113,6 @@ namespace CloudberryKingdom
                     todo.MarkedForDeletion = true;
             }
 
-            //ToDo.ForEach(todo => { if (todo.RemoveOnReset) todo.MarkedForDeletion = true; });
-            //NextToDo.ForEach(todo => { if (todo.RemoveOnReset) todo.MarkedForDeletion = true; });
-
             // Perform additional actions
             DoToDoOnResetList();
 
@@ -1159,19 +1145,6 @@ namespace CloudberryKingdom
                         NewBobList.Add(bob);
                 }
                 MyLevel.Bobs = NewBobList;
-
-                //MyLevel.Bobs.RemoveAll(bob =>
-                //{
-                //    if (!PlayerManager.Get((int)bob.MyPlayerIndex).Exists)
-                //    {
-                //        ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position);
-                //        Tools.SoundWad.FindByName("Pop_2").Play();
-
-                //        return true;
-                //    }
-                //    else
-                //        return false;
-                //});
             }
 
             if (PlayerManager.AllDead() && !MyLevel.PreventReset)
@@ -1281,7 +1254,6 @@ namespace CloudberryKingdom
 
         public virtual void UpdateGamePause()
         {
-            //PauseGame = MyGameObjects.Any(obj => obj.PauseGame);
             PauseGame = false;
             foreach (var obj in MyGameObjects)
                 if (obj.PauseGame)
@@ -1297,7 +1269,6 @@ namespace CloudberryKingdom
 
         public void UpdateLevelPause()
         {
-            //PauseLevel = MyGameObjects.Any(obj => obj.PauseLevel);
             PauseLevel = false;
             foreach (var obj in MyGameObjects)
                 if (obj.PauseLevel)
@@ -1311,7 +1282,6 @@ namespace CloudberryKingdom
 
         public void UpdateSoftPause()
         {
-            //SoftPause = MyGameObjects.Any(obj => obj.SoftPause);
             SoftPause = false;
             foreach (var obj in MyGameObjects)
                 if (obj.SoftPause)
@@ -1483,8 +1453,6 @@ namespace CloudberryKingdom
         private void CleanGameObjects()
         {
             Tools.RemoveAll(MyGameObjects, new RemoveMarkedLambda());
-
-            //MyGameObjects.RemoveAll(match => match.Core.MarkedForDeletion);
         }
 
         public virtual void Move(Vector2 shift)
@@ -1724,7 +1692,6 @@ namespace CloudberryKingdom
             }
         }
 
-        //public PlayerData Mvp { get { return PlayerManager.ExistingPlayers.ArgMax(p => p.CampaignStats.Score); } }
         public PlayerData Mvp { get { return Tools.ArgMax(PlayerManager.ExistingPlayers, new GetCampaignStatsScoreLambda()); } }
 
         public Bob MvpBob
@@ -1810,12 +1777,6 @@ namespace CloudberryKingdom
         {
             // Hide corpses
             Bob.ShowCorpseAfterExplode = false;
-
-            //// Set Doppleganger
-            //if (MyGameFlags.IsDoppleganger)
-            //{
-            //    Bobs.ForEach(bob => bob.Dopple = true);
-            //}
 
             if (MyGameFlags.IsTethered)
             {
@@ -1956,7 +1917,6 @@ namespace CloudberryKingdom
             {
                 foreach (var bob in MyLevel_.Bobs)
                     bob.Core.Show = false;
-                //MyLevel_.Bobs.ForEach(bob => bob.Core.Show = false);
 
                 Door_.SetLock(false, false, true);
                 Door_.MoveBobs();
@@ -2041,14 +2001,12 @@ namespace CloudberryKingdom
         {
             foreach (var bob in MyLevel.Bobs)
                 bob.Core.Show = false;
-            //MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
         }
 
         public void ShowBobs()
         {
             foreach (var bob in MyLevel.Bobs)
                 bob.Core.Show = true;
-            //MyLevel.Bobs.ForEach(bob => bob.Core.Show = true);
         }
         #endregion
 

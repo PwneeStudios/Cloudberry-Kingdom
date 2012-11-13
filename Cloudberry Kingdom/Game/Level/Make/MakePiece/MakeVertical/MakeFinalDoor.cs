@@ -43,7 +43,6 @@ namespace CloudberryKingdom.Levels
             base.Phase2();
 
             // Find a final block that was used by the computer.
-            //FinalBlock = MyLevel.Blocks.Find(match => match.Core == "LastRow" && match.Core.GenData.Used);
             if (MyLevel.CurMakeData.PieceSeed.GeometryType == LevelGeometry.Down)
                 FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), new ElementPositionProjectY());
             else

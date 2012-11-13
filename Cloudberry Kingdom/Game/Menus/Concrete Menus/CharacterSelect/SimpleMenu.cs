@@ -229,9 +229,6 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyMenu.FancyPos.RelVal = new Vector2(163.8887f, -55.55554f + 55 - 27);
 
-            // Don't draw mouse back icon if we are over the arrow menu
-            //MyMenu.AdditionalCheckForOutsideClick += () => MyCharacterSelect.Arrows.MyMenu.HitTest();
-
             SetPos();
         }
 
