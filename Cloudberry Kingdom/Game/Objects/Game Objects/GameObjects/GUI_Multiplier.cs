@@ -121,6 +121,9 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
+            // Skip completely
+            //return;
+
             if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
 
             base.MyDraw();

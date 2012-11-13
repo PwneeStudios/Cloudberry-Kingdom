@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             End.Name = "Back";
             SetGrayHeaderProperties(End);
 #else
-            MyPile.Add(new QuadClass(ButtonTexture.Go, 85, "Button_Back"));
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 85, "Button_Back"));
             End = new EzText(Localization.Words.Done, ItemFont, true);
             End.MyFloatColor = new Color(239, 41, 41, 255).ToVector4();
             End.Name = "Back";
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
             if (Type == ReplayGUIType.Computer)
             {
                 EzText _t;
-                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-723.9557f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
                 _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2223f); _t.Scale = 0.44f; }
                 _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(344.5559f, -832.2222f); _t.Scale = 0.44f; }
                 _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(1051.556f, -840.5555f); _t.Scale = 0.44f; }
@@ -175,12 +175,13 @@ namespace CloudberryKingdom
                 QuadClass _q;
                 _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
                 _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(52.77765f, -2058.333f); _q.Size = new Vector2(1219.997f, 1219.997f); }
-                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-986.1118f, -908.3335f); _q.Size = new Vector2(129.5745f, 62.14285f); }
-                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-358.3335f, -911.1112f); _q.Size = new Vector2(71.56027f, 67.26665f); }
-                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(233.3336f, -913.8889f); _q.Size = new Vector2(72.85456f, 68.48328f); }
-                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(786.1108f, -916.6666f); _q.Size = new Vector2(74.98224f, 70.48331f); }
+                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-930.5562f, -911.1113f); _q.Size = new Vector2(69.64276f, 69.64276f); }
+                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-347.2227f, -911.1112f); _q.Size = new Vector2(71.76664f, 71.76664f); }
+                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(241.6666f, -908.3334f); _q.Size = new Vector2(77.89992f, 77.89992f); }
+                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(774.9999f, -905.5555f); _q.Size = new Vector2(143.6498f, 143.6498f); }
 
                 MyPile.Pos = new Vector2(0f, 0f);
+
             }
             else
             {

@@ -111,14 +111,14 @@ namespace CloudberryKingdom
             Text = new EzText(string.Format("{0}", Levels), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-893.4177f, 378.9999f);
-            MyPile.Add(Text, "Level");
+            MyPile.Add(Text, "LevelVal");
 
             // 'Score' text
             MyPile.Add(new EzText(Localization.Words.Score, ItemFont, "Score"));
             Text = new EzText(string.Format("{0}", Score), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-873.9723f, 147.8889f);
-            MyPile.Add(Text, "Score");
+            MyPile.Add(Text, "ScoreVal");
 
             // 'Distance' text
             //Text = new EzText("Distance: " + Distance.ToString() + " feet", ItemFont);
@@ -140,6 +140,24 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
+            //MenuItem _item;
+            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, 110f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, -68.33099f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, -246.662f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+            MyMenu.Pos = new Vector2(400f, -240f);
+
+            EzText _t;
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
+            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-857.3064f, 384.5554f); _t.Scale = 0.999f; }
+            _t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(-26.75146f, 376.2222f); _t.Scale = 0.999f; }
+            _t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-871.1947f, 159f); _t.Scale = 0.999f; }
+            _t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(-12.86145f, 150.6666f); _t.Scale = 0.999f; }
+
+            QuadClass _q;
+            //_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(22.2233f, 10.55567f); _q.Size = new Vector2(1440f, 900f); }
+
+            MyPile.Pos = new Vector2(0f, 0f);
         }
 
 #if PC_VERSION
