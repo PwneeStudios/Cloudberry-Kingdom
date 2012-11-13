@@ -165,6 +165,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class DoDeletionProxy : Lambda_1<bool>
+        {
+            SavedSeedsGUI ssGui;
+
+            public DoDeletionProxy(SavedSeedsGUI ssGui)
+            {
+                this.ssGui = ssGui;
+            }
+
+            public void Apply(bool choice)
+            {
+                ssGui.DoDeletion(choice);
+            }
+        }
+
         /// <summary>
         /// Delete the items marked for deletion, if the user selected "Yes"
         /// </summary>
@@ -287,7 +302,7 @@ namespace CloudberryKingdom
             if (num > 0)
             {
                 var verify = new VerifyDeleteSeeds(Control, num);
-                verify.OnSelect += DoDeletion;
+                verify.OnSelect.Add(new DoDeletionProxy(this));
 
                 Call(verify, 0);
             }
