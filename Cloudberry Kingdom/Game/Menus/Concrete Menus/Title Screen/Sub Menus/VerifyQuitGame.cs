@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             // Yes
             item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Name = "Yes";
-            item.Go = Cast.ToItem(Tools.TheGame.Exit);
+            item.Go = Cast.ToItem(new CloudberryKingdomGame.ExitProxy(Tools.TheGame));
             item.AdditionalOnSelect = new InitTextureNameSetter(Berry, "cb_crying");
             AddItem(item);
 

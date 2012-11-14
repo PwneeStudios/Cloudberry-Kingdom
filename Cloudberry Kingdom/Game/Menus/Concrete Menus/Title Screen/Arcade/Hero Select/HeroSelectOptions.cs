@@ -48,6 +48,21 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
+        class BringLeaderboardProxy : Lambda
+        {
+            HeroSelectOptions hso;
+
+            public BringLeaderboardProxy(HeroSelectOptions hso)
+            {
+                this.hso = hso;
+            }
+
+            public void Apply()
+            {
+                hso.BringLeaderboard();
+            }
+        }
+
         void BringLeaderboard()
         {
             var item = HeroSelect.MyMenu.CurItem as HeroItem;
@@ -104,7 +119,7 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, false, true));
 
             item.Name = "Leaderboard";
-            item.Go = Cast.ToItem(BringLeaderboard);
+            item.Go = Cast.ToItem(new BringLeaderboardProxy(this));
             AddItem(item);
             StartMenu_MW_HeroSelect.SetItemProperties_FadedOnUnselect(item);
 

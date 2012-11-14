@@ -122,6 +122,21 @@ namespace CloudberryKingdom
             }
         }
 
+        public class ExitProxy : Lambda
+        {
+            CloudberryKingdomGame ckg;
+
+            public ExitProxy(CloudberryKingdomGame ckg)
+            {
+                this.ckg = ckg;
+            }
+
+            public void Apply()
+            {
+                ckg.Exit();
+            }
+        }
+
         public void Exit()
         {
             Tools.GameClass.Exit();

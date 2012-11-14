@@ -118,7 +118,7 @@ namespace CloudberryKingdom
             // Resume
             item = new MenuItem(new EzText(Localization.Words.Resume, ItemFont));
             item.Name = "Resume";
-            item.Go = Cast.ToItem(ReturnToCaller);
+            item.Go = Cast.ToItem(new ReturnToCallerProxy(this));
             item.MyText.Scale *= 1.1f;
             item.MySelectedText.Scale *= 1.1f;
             AddItem(item);
@@ -128,14 +128,14 @@ namespace CloudberryKingdom
             // Statistics
             item = new MenuItem(new EzText(Localization.Words.Statistics, ItemFont));
             item.Name = "Stats";
-            item.Go = Cast.ToItem(GoStats);
+            item.Go = Cast.ToItem(new GoStatsProxy(this));
             AddItem(item);
 
             // SaveLoadSeed
             Localization.Words word = Tools.CurLevel.CanLoadLevels ? Localization.Words.SaveLoad : Localization.Words.SaveSeed;
             item = new MenuItem(new EzText(word, ItemFont));
             item.Name = "SaveLoadSeed";
-            item.Go = Cast.ToItem(GoSaveLoad);
+            item.Go = Cast.ToItem(new GoSaveLoadProxy(this));
             if (!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
             {
                 item.Selectable = false;
@@ -146,13 +146,13 @@ namespace CloudberryKingdom
             // Options
             item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
             item.Name = "Options";
-            item.Go = Cast.ToItem(GoOptions);
+            item.Go = Cast.ToItem(new GoOptionsProxy(this));
             AddItem(item);
 
             // Controls
             item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
             item.Name = "Controls";
-            item.Go = Cast.ToItem(GoControls);
+            item.Go = Cast.ToItem(new GoControlsProxy(this));
             AddItem(item);
 
             // Remove player
@@ -160,7 +160,7 @@ namespace CloudberryKingdom
             {
                 item = new MenuItem(new EzText(Localization.Words.RemoveMe, ItemFont));
                 item.Name = "Remove";
-                item.Go = Cast.ToItem(GoRemove);
+                item.Go = Cast.ToItem(new GoRemoveProxy(this));
                 AddItem(item);
                 RemoveMe = item;
             }
@@ -178,6 +178,21 @@ namespace CloudberryKingdom
             SetPos();
             MyMenu.SortByHeight();
             MyMenu.SelectItem(0);
+        }
+
+        class GoRemoveProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoRemoveProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.GoRemove();
+            }
         }
 
         private void GoRemove()
@@ -204,11 +219,41 @@ namespace CloudberryKingdom
             }
         }
 
+        class GoControlsProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoControlsProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.GoControls();
+            }
+        }
+
         private void GoControls()
         {
             MyGame.WaitThenDo(4, new GoControlsHelper(this));
             ControlScreen screen = new ControlScreen(Control);
             Call(screen, 22);
+        }
+
+        class GoOptionsProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoOptionsProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.GoOptions();
+            }
         }
 
         private void GoOptions()
@@ -217,6 +262,21 @@ namespace CloudberryKingdom
 
             Hide(PresetPos.Left);
             PauseGame = true;
+        }
+
+        class GoSaveLoadProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoSaveLoadProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.GoSaveLoad();
+            }
         }
 
         private void GoSaveLoad()
@@ -239,6 +299,21 @@ namespace CloudberryKingdom
             Hide(PresetPos.Left);
             PauseGame = true;
 
+        }
+
+        class GoStatsProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public GoStatsProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.GoStats();
+            }
         }
 
         private void GoStats()
@@ -272,9 +347,24 @@ namespace CloudberryKingdom
         protected virtual void MakeExitItem()
         {
             MenuItem item = new MenuItem(new EzText(Localization.Words.ExitLevel, ItemFont));
-            item.Go = Cast.ToItem(VerifyExit);
+            item.Go = Cast.ToItem(new VerifyExitProxy(this));
 
             AddItem(item);
+        }
+
+        class VerifyExitProxy : Lambda
+        {
+            InGameStartMenu igsm;
+
+            public VerifyExitProxy(InGameStartMenu igsm)
+            {
+                this.igsm = igsm;
+            }
+
+            public void Apply()
+            {
+                igsm.VerifyExit();
+            }
         }
 
         private void VerifyExit()

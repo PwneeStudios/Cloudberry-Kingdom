@@ -120,6 +120,21 @@ namespace CloudberryKingdom
                 SetIndex(Player.ColorSchemeIndex);
         }
 
+        public class RandomizeProxy : Lambda
+        {
+            CharacterSelect cs;
+
+            public RandomizeProxy(CharacterSelect cs)
+            {
+                this.cs = cs;
+            }
+
+            public void Apply()
+            {
+                cs.Randomize();
+            }
+        }
+
         public void Randomize()
         {
             for (int i = 0; i < 5; i++)

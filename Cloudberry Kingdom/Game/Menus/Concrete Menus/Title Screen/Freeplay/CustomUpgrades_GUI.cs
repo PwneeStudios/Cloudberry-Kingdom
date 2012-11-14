@@ -214,6 +214,21 @@ namespace CloudberryKingdom
             CustomLevel.StartLevelFromMenuData();
         }
 
+        class ZeroProxy : Lambda
+        {
+            CustomUpgrades_GUI cuGui;
+
+            public ZeroProxy(CustomUpgrades_GUI cuGui)
+            {
+                this.cuGui = cuGui;
+            }
+
+            public void Apply()
+            {
+                cuGui.Zero();
+            }
+        }
+
         void Zero()
         {
             foreach (MenuItem item in MyMenu.Items)
@@ -412,7 +427,7 @@ namespace CloudberryKingdom
             //MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
             MenuItem Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             item.Name = "Start";
-            item.Go = Cast.ToItem(Go);
+            item.Go = Cast.ToItem(new GoProxy(this));
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
@@ -421,13 +436,13 @@ namespace CloudberryKingdom
             //item.AdditionalOnSelect = () => SetBerry("cb_enthusiastic");
 
             // Select 'Start Level' when the user presses (A)
-            MyMenu.OnA = Cast.ToMenu(Go);
+            MyMenu.OnA = Cast.ToMenu(new GoProxy(this));
 
             // Random
             //item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
             item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
             item.Name = "Random";
-            item.Go = Cast.ToItem(Randomize);
+            item.Go = Cast.ToItem(new RandomizeProxy(this));
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(511.8408f, -302.6506f);
@@ -439,7 +454,7 @@ namespace CloudberryKingdom
             //item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
             item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
-            item.Go = Cast.ToItem(Zero);
+            item.Go = Cast.ToItem(new ZeroProxy(this));
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(599.1416f, -501.0634f);

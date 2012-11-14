@@ -37,16 +37,61 @@ namespace CloudberryKingdom
         int NoMoveCount;
         static int NoMoveDuration = 20;
 
+        protected class SimpleToCustomProxy : Lambda
+        {
+            SimpleMenuBase smb;
+
+            public SimpleToCustomProxy(SimpleMenuBase smb)
+            {
+                this.smb = smb;
+            }
+
+            public void Apply()
+            {
+                smb.SimpleToCustom();
+            }
+        }
+
         public void SimpleToCustom()
         {
             Call(new CustomizeMenu(Control, MyCharacterSelect));
             Hide();
         }
 
+        protected class SimpleToDoneProxy : Lambda
+        {
+            SimpleMenuBase smb;
+
+            public SimpleToDoneProxy(SimpleMenuBase smb)
+            {
+                this.smb = smb;
+            }
+
+            public void Apply()
+            {
+                smb.SimpleToDone();
+            }
+        }
+
         public void SimpleToDone()
         {
             Call(new Waiting(Control, MyCharacterSelect));
             Hide();
+        }
+
+        protected class SimpleToBackProxy : Lambda
+        {
+            SimpleMenuBase smb;
+
+            public SimpleToBackProxy(SimpleMenuBase smb)
+            {
+                this.smb = smb;
+            }
+
+            public void Apply()
+            {
+                smb.SimpleToBack();
+            }
         }
 
         public void SimpleToBack()
@@ -223,7 +268,7 @@ namespace CloudberryKingdom
             // Customize
             item = new MenuItem(new EzText(Localization.Words.Custom, ItemFont));
             item.Name = "Custom";
-            item.Go = Cast.ToItem(SimpleToCustom);
+            item.Go = Cast.ToItem(new SimpleToCustomProxy(this));
             ItemPos = new Vector2(-523, -174);
             PosAdd = new Vector2(0, -220);
             AddItem(item);
@@ -231,19 +276,19 @@ namespace CloudberryKingdom
             // Random
             item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
             item.Name = "Random";
-            item.Go = Cast.ToItem(MyCharacterSelect.Randomize);
+            item.Go = Cast.ToItem(new CharacterSelect.RandomizeProxy(MyCharacterSelect));
             AddItem(item);
 
             // Confirm
             item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
             item.Name = "Done";
-            item.Go = Cast.ToItem(SimpleToDone);
+            item.Go = Cast.ToItem(new SimpleToDoneProxy(this));
             AddItem(item);
 
             // Select "Confirm" to start with
             MyMenu.SelectItem(item);
 
-            MyMenu.OnB = Cast.ToMenu(SimpleToBack);
+            MyMenu.OnB = Cast.ToMenu(new SimpleToBackProxy(this));
 
             // Backdrop
             QuadClass backdrop = new QuadClass("Score_Screen", 485);

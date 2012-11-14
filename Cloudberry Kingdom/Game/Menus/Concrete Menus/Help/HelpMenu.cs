@@ -147,6 +147,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class WatchComputerProxy : Lambda
+        {
+            HelpMenu hm;
+
+            public WatchComputerProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.WatchComputer();
+            }
+        }
+
         void WatchComputer()
         {
             if (!Allowed_WatchComputer())
@@ -238,6 +253,22 @@ namespace CloudberryKingdom
                 MyGame.AddToDo(new Toggle_ShowPathHelper(this));
             }
         }
+
+        class ShowPathProxy : Lambda
+        {
+            HelpMenu hm;
+
+            public ShowPathProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.ShowPath();
+            }
+        }
+
         void ShowPath()
         {
             if (!Allowed_ShowPath())
@@ -300,6 +331,21 @@ namespace CloudberryKingdom
             else
             {
                 MyGame.AddToDo(new Toggle_SloMoHelper(this));
+            }
+        }
+
+        class SlowMoProxy : Lambda
+        {
+            HelpMenu hm;
+
+            public SlowMoProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply()
+            {
+                hm.SlowMo();
             }
         }
 
@@ -413,7 +459,7 @@ namespace CloudberryKingdom
             Item_WatchComputer = item;
             item.SetIcon(ObjectIcon.RobotIcon.Clone());
             item.Icon.Pos = IconOffset + new Vector2(-10, 0);
-            item.Go = Cast.ToItem(WatchComputer);
+            item.Go = Cast.ToItem(new WatchComputerProxy(this));
             ItemPos = new Vector2(-1033.333f, 429.4446f);
             PosAdd = new Vector2(0, -520);
             AddItem(item);
@@ -429,7 +475,7 @@ namespace CloudberryKingdom
             else
             {
                 item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Path.ToString(), ItemFont));
-                item.Go = Cast.ToItem(ShowPath);
+                item.Go = Cast.ToItem(new ShowPathProxy(this));
             }
             item.Name = "ShowPath";
             item.SetIcon(ObjectIcon.PathIcon.Clone());
@@ -448,7 +494,7 @@ namespace CloudberryKingdom
             else
             {
                 item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Slow.ToString(), ItemFont));
-                item.Go = Cast.ToItem(SlowMo);
+                item.Go = Cast.ToItem(new SlowMoProxy(this));
             }
             item.Name = "SlowMo";
             item.SetIcon(ObjectIcon.SlowMoIcon.Clone());

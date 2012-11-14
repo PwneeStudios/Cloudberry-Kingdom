@@ -296,15 +296,15 @@ namespace CloudberryKingdom
             FontScale *= .89f * 1.16f;
 
             item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
-            item.Go = Cast.ToItem(Action_PlayAgain);
+            item.Go = Cast.ToItem(new Action_PlayAgainProxy(this));
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
-            item.Go = Cast.ToItem(Action_ShowHighScores);
+            item.Go = Cast.ToItem(new Action_ShowHighScoresProxy(this));
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
-            item.Go = Cast.ToItem(Action_Done);
+            item.Go = Cast.ToItem(new Action_DoneProxy(this));
             AddItem(item);
         }
 
@@ -328,6 +328,21 @@ namespace CloudberryKingdom
             public void Apply()
             {
                 gop.MyGame.EndGame.Apply(false);
+            }
+        }
+
+        class Action_DoneProxy : Lambda
+        {
+            GameOverPanel gop;
+
+            public Action_DoneProxy(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.Action_Done();
             }
         }
 
@@ -357,6 +372,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class Action_PlayAgainProxy : Lambda
+        {
+            GameOverPanel gop;
+
+            public Action_PlayAgainProxy(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.Action_PlayAgain();
+            }
+        }
+
         void Action_PlayAgain()
         {
             SlideOut(PresetPos.Top, 13);
@@ -366,6 +396,21 @@ namespace CloudberryKingdom
 
             MyGame.WaitThenDo(36, new Action_PlayAgainHelper(this));
             return;
+        }
+
+        class Action_ShowHighScoresProxy : Lambda
+        {
+            GameOverPanel gop;
+
+            public Action_ShowHighScoresProxy(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                gop.Action_ShowHighScores();
+            }
         }
 
         void Action_ShowHighScores()
