@@ -113,7 +113,22 @@ namespace CloudberryKingdom
             {
                 Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                 Tools.CurGameData.FadeIn(.0275f);
-                Tools.AddToDo(() => ss.Release());
+                Tools.AddToDo(new _ssReleaseLambda(ss));
+            }
+        }
+
+        class _ssReleaseLambda : Lambda
+        {
+            ScreenSaver ss;
+
+            public _ssReleaseLambda(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                ss.Release();
             }
         }
 

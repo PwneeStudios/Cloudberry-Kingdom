@@ -83,7 +83,21 @@ namespace CloudberryKingdom
         {
             ScreenSaver Intro = new ScreenSaver(); Intro.Init();
             Tools.TheGame.LogoScreenPropUp = false;
-            Tools.AddToDo(() => MyGame.Release());
+            Tools.AddToDo(new MyGameReleaseLambda(MyGame));
+        }
+
+        class MyGameReleaseLambda : Lambda
+        {
+            GameData MyGame;
+            public MyGameReleaseLambda(GameData MyGame)
+            {
+                this.MyGame = MyGame;
+            }
+
+            public void Apply()
+            {
+                MyGame.Release();
+            }
         }
 
         protected virtual void MenuGo_Controls(MenuItem item)

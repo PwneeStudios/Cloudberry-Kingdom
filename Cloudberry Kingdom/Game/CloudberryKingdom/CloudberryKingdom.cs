@@ -492,12 +492,11 @@ namespace CloudberryKingdom
         /// <summary>
         /// A list of actions to perform. Each time an action is peformed it is removed from the list.
         /// </summary>
-        public List<Action> ToDo = new List<Action>();
+        public Multicaster ToDo = new Multicaster();
 
         private void DoToDoList()
         {
-            foreach (Action todo in ToDo)
-                todo();
+            ToDo.Apply();
             ToDo.Clear();
         }
 

@@ -638,7 +638,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static CloudberryKingdomGame TheGame;
         public static Version GameVersion { get { return CloudberryKingdomGame.GameVersion; } }
-        public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
+        public static void AddToDo(Lambda todo) { TheGame.ToDo.Add(todo); }
 
         public static String[] ButtonNames = { "A", "B", "X", "Y", "RS", "LS", "RT", "LT", "RJ", "RJ", "LJ", "LJ", "DPad", "Start" };
         public static String[] DirNames = { "right", "up", "left", "down" };
