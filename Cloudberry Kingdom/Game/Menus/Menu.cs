@@ -10,9 +10,9 @@ namespace CloudberryKingdom
 {
     public static class Cast
     {
-        public static MenuB ToMenu(Action a)
+        public static MenuB ToMenu(Lambda a)
         {
-            return menu => { a(); return true; };
+            return menu => { a.Apply(); return true; };
         }
 
         public static MenuB ToMenu(MenuItemGo a)
@@ -20,9 +20,9 @@ namespace CloudberryKingdom
             return menu => { a(null); return true; };
         }
 
-        public static MenuItemGo ToItem(Action a)
+        public static MenuItemGo ToItem(Lambda a)
         {
-            return item => a();
+            return item => a.Apply();
         }
 
         public static Action ToAction(MenuItemGo a)

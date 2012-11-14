@@ -204,6 +204,21 @@ namespace CloudberryKingdom
                 base.OnReturnTo();
         }
 
+        protected class ReturnToCallerProxy : Lambda
+        {
+            CkBaseMenu cbm;
+
+            public ReturnToCallerProxy(CkBaseMenu cbm)
+            {
+                this.cbm = cbm;
+            }
+
+            public void Apply()
+            {
+                cbm.ReturnToCaller();
+            }
+        }
+
         public override void ReturnToCaller() { ReturnToCaller(true); }
         public virtual void ReturnToCaller(bool PlaySound)
         {

@@ -35,7 +35,7 @@ namespace CloudberryKingdom
 
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
-            item.Go = Cast.ToItem(ReturnToCaller);
+            item.Go = Cast.ToItem(new ReturnToCallerProxy(this));
             item.Name = "No";
             AddItem(item);
 
