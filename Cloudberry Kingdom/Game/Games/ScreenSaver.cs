@@ -100,6 +100,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class ScreenSaverReleaseHelper : Lambda
+        {
+            ScreenSaver ss;
+
+            public ScreenSaverReleaseHelper(ScreenSaver ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply()
+            {
+                ss.Release();
+            }
+        }
+
         class ConstructorPressAListenerHelperHelper : Lambda
         {
             ScreenSaver ss;
@@ -113,22 +128,7 @@ namespace CloudberryKingdom
             {
                 Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                 Tools.CurGameData.FadeIn(.0275f);
-                Tools.AddToDo(new _ssReleaseLambda(ss));
-            }
-        }
-
-        class _ssReleaseLambda : Lambda
-        {
-            ScreenSaver ss;
-
-            public _ssReleaseLambda(ScreenSaver ss)
-            {
-                this.ss = ss;
-            }
-
-            public void Apply()
-            {
-                ss.Release();
+                Tools.AddToDo(new ScreenSaverReleaseHelper(ss));
             }
         }
 
