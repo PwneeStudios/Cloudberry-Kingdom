@@ -332,6 +332,101 @@ namespace CloudberryKingdom
         bool LeftJustify = true;
         float LeftJustifyAddX = -400;
 
+        class InitOnSetValueHelper : Lambda
+        {
+            CustomLevel_GUI clGui;
+            LengthSlider length;
+
+            public InitOnSetValueHelper(CustomLevel_GUI clGui, LengthSlider length)
+            {
+                this.clGui = clGui;
+                this.length = length;
+            }
+
+            public void Apply()
+            {
+                clGui.LevelSeed.Length = (int)(length.MyFloat.Val);
+                switch (clGui.LevelSeed.NumPieces)
+                {
+                    case 1: clGui.LevelSeed.PieceLength = (int)(length.MyFloat.Val); break;
+                    case 2: clGui.LevelSeed.PieceLength = (int)(length.MyFloat.Val * .7f); break;
+                    case 3: clGui.LevelSeed.PieceLength = (int)(length.MyFloat.Val * .5f); break;
+                    case 4: clGui.LevelSeed.PieceLength = (int)(length.MyFloat.Val * .4f); break;
+
+                    default:
+                        clGui.LevelSeed.PieceLength = (int)(length.MyFloat.Val / clGui.LevelSeed.NumPieces); break;
+                }
+            }
+        }
+
+        class InitOnSlideHelper : Lambda
+        {
+            CustomLevel_GUI clGui;
+            LengthSlider length;
+
+            public InitOnSlideHelper(CustomLevel_GUI clGui, LengthSlider length)
+            {
+                this.clGui = clGui;
+                this.length = length;
+            }
+
+            public void Apply()
+            {
+                clGui.DesiredLength = length.MyFloat.Val;
+
+                int MaxCheckpoints = Math.Min(4, (int)(length.MyFloat.Percent / 20));
+
+                float currentcheckpoints = clGui.checkpoints.MyFloat.Val;
+                currentcheckpoints = Math.Max(currentcheckpoints, clGui.DesiredNumCheckpoints);
+                currentcheckpoints = Math.Min(currentcheckpoints, MaxCheckpoints);
+                clGui.checkpoints.MyFloat.Val = currentcheckpoints;
+            }
+        }
+
+        class InitOnSlideHelper2 : Lambda
+        {
+            CustomLevel_GUI clGui;
+            LengthSlider length;
+            
+            public InitOnSlideHelper2(CustomLevel_GUI clGui, LengthSlider length)
+            {
+                this.clGui = clGui;
+                this.length = length;
+            }
+
+            public void Apply()
+            {
+                clGui.DesiredNumCheckpoints = (int)clGui.checkpoints.MyFloat.Val;
+
+                float MinLength = (.11f + .2f * (clGui.checkpoints.MyFloat.Val + 1)) * length.MyFloat.Spread;
+                length.MyFloat.Val = Math.Min(length.MyFloat.Val, clGui.DesiredLength);
+                length.MyFloat.Val = Math.Max(length.MyFloat.Val, MinLength);
+            }
+        }
+
+        class InitOnSetValueHelper2 : Lambda
+        {
+            CustomLevel_GUI clGui;
+            LengthSlider length;
+
+            public InitOnSetValueHelper2(CustomLevel_GUI clGui, LengthSlider length)
+            {
+                this.clGui = clGui;
+                this.length = length;
+            }
+
+            public void Apply()
+            {
+                int PrevNumPieces = clGui.LevelSeed.NumPieces;
+
+                clGui.LevelSeed.NumPieces = 1 + (int)clGui.checkpoints.MyFloat.Val;
+                length.Val = clGui.LevelSeed.Length;
+
+                if (PrevNumPieces != clGui.LevelSeed.NumPieces)
+                    clGui.MiniCheckpoint.SetScale(.01f);
+            }
+        }
+
         //static Vector2 RightPanelCenter = new Vector2(-410, 75);
         static Vector2 RightPanelCenter = new Vector2(-285, 0);
         LengthSlider length;
@@ -564,31 +659,8 @@ namespace CloudberryKingdom
             AddItem(length);
             length.Pos = new Vector2(-283f, -556.1017f);
 
-            length.OnSetValue = () =>
-                {
-                    LevelSeed.Length = (int)(length.MyFloat.Val);
-                    switch (LevelSeed.NumPieces)
-                    {
-                        case 1: LevelSeed.PieceLength = (int)(length.MyFloat.Val); break;
-                        case 2: LevelSeed.PieceLength = (int)(length.MyFloat.Val * .7f); break;
-                        case 3: LevelSeed.PieceLength = (int)(length.MyFloat.Val * .5f); break;
-                        case 4: LevelSeed.PieceLength = (int)(length.MyFloat.Val * .4f); break;
-
-                        default:
-                            LevelSeed.PieceLength = (int)(length.MyFloat.Val / LevelSeed.NumPieces); break;
-                    }
-                };
-            length.OnSlide = () =>
-                {
-                    DesiredLength = length.MyFloat.Val;
-
-                    int MaxCheckpoints = Math.Min(4, (int)(length.MyFloat.Percent / 20));
-
-                    float currentcheckpoints = checkpoints.MyFloat.Val;
-                    currentcheckpoints = Math.Max(currentcheckpoints, DesiredNumCheckpoints);
-                    currentcheckpoints = Math.Min(currentcheckpoints, MaxCheckpoints);
-                    checkpoints.MyFloat.Val = currentcheckpoints;
-                };
+            length.OnSetValue = new InitOnSetValueHelper(this, length);
+            length.OnSlide = new InitOnSlideHelper(this, length);
 
             // Mini checkpoints
             MiniCheckpoint = ObjectIcon.CheckpointIcon.Clone(ObjectIcon.IconScale.Widget);
@@ -615,25 +687,9 @@ namespace CloudberryKingdom
             AddItem(checkpoints);
             checkpoints.Pos = checkpoints.SelectedPos = new Vector2(267f, -680.549f);
             checkpoints.Icon.Pos = new Vector2(-22.22266f, -41.66666f);
-            checkpoints.OnSlide = () =>
-                {
-                    DesiredNumCheckpoints = (int)checkpoints.MyFloat.Val;
+            checkpoints.OnSlide = new InitOnSlideHelper2(this, length);
 
-                    float MinLength = (.11f + .2f * (checkpoints.MyFloat.Val + 1)) * length.MyFloat.Spread;
-                    length.MyFloat.Val = Math.Min(length.MyFloat.Val, DesiredLength);
-                    length.MyFloat.Val = Math.Max(length.MyFloat.Val, MinLength);
-                };
-
-            checkpoints.OnSetValue = () =>
-                {
-                    int PrevNumPieces = LevelSeed.NumPieces;
-
-                    LevelSeed.NumPieces = 1 + (int)checkpoints.MyFloat.Val;
-                    length.Val = LevelSeed.Length;
-
-                    if (PrevNumPieces != LevelSeed.NumPieces)
-                        MiniCheckpoint.SetScale(.01f);
-                };
+            checkpoints.OnSetValue = new InitOnSetValueHelper2(this, length);
 
             checkpoints.Val = DesiredNumCheckpoints = 1;
             length.Val = 8000;

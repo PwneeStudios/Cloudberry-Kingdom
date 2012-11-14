@@ -61,14 +61,14 @@ namespace CloudberryKingdom
 
                 // Success!
                 var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
-                ok.OnOk = OnOk;
+                ok.OnOk = new OnOkProxy(this);
                 Call(ok);
             }
             else
             {
                 // Failure!
                 var ok = new AlertBaseMenu(Control, Localization.Words.NoNameGiven, Localization.Words.Oh);
-                ok.OnOk = OnOk;
+                ok.OnOk = new OnOkProxy(this);
                 Call(ok);
             }
 
@@ -79,6 +79,21 @@ namespace CloudberryKingdom
         public override void OnReturnTo()
         {
             // Do nothing
+        }
+
+        class OnOkProxy : Lambda
+        {
+            SaveSeedAs ssa;
+
+            public OnOkProxy(SaveSeedAs ssa)
+            {
+                this.ssa = ssa;
+            }
+
+            public void Apply()
+            {
+                ssa.OnOk();
+            }
         }
 
         void OnOk()
