@@ -11,7 +11,7 @@ namespace CloudberryKingdom
     /// </summary>
     public class GUI_LivesLeft : GUI_Panel
     {
-        public Action<GUI_LivesLeft> OnOutOfLives;
+        public Multicaster_1<GUI_LivesLeft> OnOutOfLives = new Multicaster_1<GUI_LivesLeft>();
 
         int _NumLives = 2;
         public int NumLives
@@ -262,7 +262,7 @@ namespace CloudberryKingdom
             {
                 //Core.MyLevel.MyGame.AddGameObject(new GameOverPanel());
                 if (OnOutOfLives != null)
-                    OnOutOfLives(this);
+                    OnOutOfLives.Apply(this);
 
                 Release();
                 return;
@@ -292,7 +292,7 @@ namespace CloudberryKingdom
             {
                 //Core.MyLevel.MyGame.AddGameObject(new GameOverPanel());
                 if (OnOutOfLives != null)
-                    OnOutOfLives(this);
+                    OnOutOfLives.Apply(this);
 
                 Release();
                 return;

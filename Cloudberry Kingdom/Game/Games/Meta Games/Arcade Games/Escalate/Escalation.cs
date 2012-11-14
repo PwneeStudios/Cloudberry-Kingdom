@@ -23,23 +23,33 @@ namespace CloudberryKingdom
             MenuName = Name = Localization.Words.Escalation;
         }
 
-        protected void OnOutOfLives(GUI_LivesLeft Lives)
+        class OnOutOfLivesLambda : Lambda_1<GUI_LivesLeft>
         {
-            GameData game = Lives.MyGame;
-            Level level = game.MyLevel;
+            Challenge challenge;
 
-            level.PreventReset = true;
-            level.SetToReset = false;
+            public OnOutOfLivesLambda(Challenge challenge)
+            {
+                this.challenge = challenge;
+            }
 
-            // End the level
-            level.EndLevel();
+            public void Apply(GUI_LivesLeft Lives)
+            {
+                GameData game = Lives.MyGame;
+                Level level = game.MyLevel;
 
-            // Special explode
-            foreach (Bob bob in level.Bobs)
-                ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
+                level.PreventReset = true;
+                level.SetToReset = false;
 
-            // Add the Game Over panel, check for Awardments
-            game.WaitThenDo(50, new ShowEndScreenProxy(this));
+                // End the level
+                level.EndLevel();
+
+                // Special explode
+                foreach (Bob bob in level.Bobs)
+                    ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
+
+                // Add the Game Over panel, check for Awardments
+                game.WaitThenDo(50, new ShowEndScreenProxy(challenge));
+            }
         }
 
         protected int i = 0;
@@ -57,7 +67,7 @@ namespace CloudberryKingdom
             Gui_LivesLeft = new GUI_LivesLeft(GetLives());
 
             // Set the time expired function
-            Gui_LivesLeft.OnOutOfLives += OnOutOfLives;
+            Gui_LivesLeft.OnOutOfLives.Add(new OnOutOfLivesLambda(this));
 
             // Create the string world, and add the relevant game objects
             MyStringWorld = new StringWorldEndurance(GetSeed, Gui_LivesLeft, 25);
