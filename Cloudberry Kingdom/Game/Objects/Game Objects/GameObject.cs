@@ -152,13 +152,13 @@ namespace CloudberryKingdom
                 ReleaseBody();
         }
 
-        public event Action OnRelease;
+        public Multicaster OnRelease = new Multicaster();
         protected virtual void ReleaseBody()
         {
             base.Release();
 
             if (OnRelease != null)
-                OnRelease();
+                OnRelease.Apply();
             OnRelease = null;
 
             MyGame = null;

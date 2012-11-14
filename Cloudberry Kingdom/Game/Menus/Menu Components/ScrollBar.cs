@@ -30,9 +30,23 @@ namespace CloudberryKingdom
         {
             this.AttachedMenu = AttachedMenu;
             this.Parent = Parent;
-            this.Parent.OnRelease += Release;
+            this.Parent.OnRelease.Add(new ScrollBarReleaseLambda(this));
 
             Constructor();
+        }
+
+        class ScrollBarReleaseLambda : Lambda
+        {
+            ScrollBar sb;
+            public ScrollBarReleaseLambda(ScrollBar sb)
+            {
+                this.sb = sb;
+            }
+
+            public void Apply()
+            {
+                sb.Release();
+            }
         }
 
         class SliderSetProxy : Lambda
