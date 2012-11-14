@@ -90,7 +90,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when a level begins loading
         /// </summary>
-        public Action OnBeginLoad;
+        public Lambda OnBeginLoad;
 
         public LevelSeedData GetSeed(int Index)
         {
@@ -446,7 +446,7 @@ namespace CloudberryKingdom
             if (CurLevelSeed == null) CurLevelSeed = NextLevelSeed;
 
             if (OnBeginLoad != null)
-                OnBeginLoad();
+                OnBeginLoad.Apply();
 
             GameData.StartLevel(NextLevelSeed, true);
         }
