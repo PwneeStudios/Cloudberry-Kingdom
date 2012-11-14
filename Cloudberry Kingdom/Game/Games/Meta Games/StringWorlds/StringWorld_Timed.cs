@@ -23,17 +23,34 @@ namespace CloudberryKingdom
             Warning = new TimerWarning();
             Warning.MyTimer = Timer;
 
-            Timer.OnTimeExpired += (timer) => MyGUI_Score.SlideOut(GUI_Panel.PresetPos.Top);
-            Timer.OnTimeExpired += (timer) => MyGUI_Level.SlideOut(GUI_Panel.PresetPos.Top);
-
             MyGUI_Score = new GUI_Score();
             MyGUI_Level = new GUI_Level();
+
+            Timer.OnTimeExpired.Add(new StringWorldOnTimerExpiredLambda(MyGUI_Score, MyGUI_Level));
 
             // Coin score multiplier
             MyCoinScoreMultiplier = new CoinScoreMultiplierObject();
 
             // Add 'Perfect' watcher
             OnSwapToFirstLevel.Add(new OnSwapLambda(this));
+        }
+
+        class StringWorldOnTimerExpiredLambda : Lambda_1<GUI_Timer_Base>
+        {
+            GUI_Score MyGUI_Score;
+            GUI_Level MyGUI_Level;
+
+            public StringWorldOnTimerExpiredLambda(GUI_Score MyGUI_Score, GUI_Level MyGUI_Level)
+            {
+                this.MyGUI_Score = MyGUI_Score;
+                this.MyGUI_Level = MyGUI_Level;
+            }
+
+            public void Apply(GUI_Timer_Base timer)
+            {
+                MyGUI_Score.SlideOut(GUI_Panel.PresetPos.Top);
+                MyGUI_Level.SlideOut(GUI_Panel.PresetPos.Top);
+            }
         }
 
         class OnSwapLambda : Lambda_1<LevelSeedData>

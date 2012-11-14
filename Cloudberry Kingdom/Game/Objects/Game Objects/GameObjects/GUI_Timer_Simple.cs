@@ -17,13 +17,28 @@ namespace CloudberryKingdom
 
             this.Time = Time;
 
-            OnTimeExpired += OnExpire;
+            OnTimeExpired.Add(new SimpleOnExpireLambda(this));
         }
 
-        void OnExpire(GUI_Timer_Base timer)
+        class SimpleOnExpireLambda : Lambda_1<GUI_Timer_Base>
         {
-            Hide();
-            ReleaseWhenDone = true;
+            GUI_Timer_Simple timer;
+            public SimpleOnExpireLambda(GUI_Timer_Simple timer)
+            {
+                this.timer = timer;
+            }
+
+            public void Apply(GUI_Timer_Base timer)
+            {
+                timer.Hide();
+                timer.ReleaseWhenDone = true;
+            }
         }
+
+        //void OnExpire(GUI_Timer_Base timer)
+        //{
+        //    Hide();
+        //    ReleaseWhenDone = true;
+        //}
     }
 }

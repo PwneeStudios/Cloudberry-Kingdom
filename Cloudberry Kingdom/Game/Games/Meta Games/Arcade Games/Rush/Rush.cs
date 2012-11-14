@@ -47,21 +47,35 @@ namespace CloudberryKingdom
         public GUI_Timer Timer;
         protected void OnTimeExpired(GUI_Timer_Base Timer)
         {
-            GameData game = Timer.MyGame;
-            Level level = game.MyLevel;
+        }
 
-            // Remove the timer
-            Timer.SlideOut(GUI_Panel.PresetPos.Top);
-            Timer.Active = false;
+        class RushOnTimeExpiredLambda : Lambda_1<GUI_Timer_Base>
+        {
+            Rush rush;
 
-            // End the level
-            level.EndLevel();
+            public RushOnTimeExpiredLambda(Rush rush)
+            {
+                this.rush = rush;
+            }
 
-            // Void the final door
-            if (level.FinalDoor != null)
-                level.FinalDoor.OnOpen = null;
+            public void Apply(GUI_Timer_Base Timer)
+            {
+                GameData game = Timer.MyGame;
+                Level level = game.MyLevel;
 
-            game.AddToDo(new KillAllPlayersHelper(this, game));
+                // Remove the timer
+                Timer.SlideOut(GUI_Panel.PresetPos.Top);
+                Timer.Active = false;
+
+                // End the level
+                level.EndLevel();
+
+                // Void the final door
+                if (level.FinalDoor != null)
+                    level.FinalDoor.OnOpen = null;
+
+                game.AddToDo(new KillAllPlayersHelper(rush, game));
+            }
         }
 
         protected int StartIndex = 0;
@@ -75,7 +89,7 @@ namespace CloudberryKingdom
             Timer = new GUI_Timer();
 
             // Set the time expired function
-            Timer.OnTimeExpired += OnTimeExpired;
+            Timer.OnTimeExpired.Add(new RushOnTimeExpiredLambda(this));
 
             // Create the string world, and add the relevant game objects
             MyStringWorld = new StringWorldTimed(GetSeed, Timer);

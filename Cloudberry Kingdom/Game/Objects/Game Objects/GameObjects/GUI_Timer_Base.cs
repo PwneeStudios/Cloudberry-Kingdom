@@ -175,7 +175,7 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
-        public Action<GUI_Timer_Base> OnTimeExpired;
+        public Multicaster_1<GUI_Timer_Base> OnTimeExpired = new Multicaster_1<GUI_Timer_Base>();
 
         /// <summary>
         /// When true the timer will continue to count down even when every player is dead.
@@ -195,7 +195,7 @@ namespace CloudberryKingdom
             if (Time == 0)
             {
                 if (OnTimeExpired != null)
-                    OnTimeExpired(this);
+                    OnTimeExpired.Apply(this);
 
                 return;
             }
