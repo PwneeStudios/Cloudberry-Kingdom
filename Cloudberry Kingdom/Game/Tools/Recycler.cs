@@ -275,13 +275,11 @@ namespace CloudberryKingdom
             if (obj == null || obj.Core.MarkedForDeletion)
                 return;
 
-            //if (obj is Serpent) Tools.Write("!");
-
             // Actions to be taken when the object is deleted
             if (!obj.Core.OnDeletionCodeRan)
             {
                 if (obj.Core.GenData.OnMarkedForDeletion != null)
-                    obj.Core.GenData.OnMarkedForDeletion();
+                    obj.Core.GenData.OnMarkedForDeletion.Apply();
                 obj.OnMarkedForDeletion();
 
                 obj.Core.OnDeletionCodeRan = true;

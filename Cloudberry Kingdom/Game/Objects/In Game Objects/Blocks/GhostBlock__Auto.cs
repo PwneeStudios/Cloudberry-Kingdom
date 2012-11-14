@@ -132,19 +132,7 @@ namespace CloudberryKingdom.Levels
                 //if (i == 2) gblock.Offset = Offset + (int)((InLength + OutLength) * .666f);
 
                 GhostBlock block = gblock;
-                block.Core.GenData.OnUsed += () =>
-                {
-                    if (block.Core.GenData.Used) return;
-
-                    // Ghost was just used, change its Offset so that it is Phased In at this point in time
-                    /*if (Params.Masochistic)
-                        block.ModOffset(MyLevel.Rnd.RndInt(0 - GhostBlock.LengthOfPhaseChange, block.InLength));
-                    else*/
-                    {
-                        int max = block.InLength - GhostBlock.LengthOfPhaseChange;
-                        block.ModOffset(level.Rnd.RndInt((int)(.25f * max), (int)(.75f * max)));
-                    }
-                };
+                block.Core.GenData.OnUsed = new OnGhostUsedLambda(block, level);
 
                 // Box type
                 if (Params.BoxType == GhostBlock_Parameters.BoxTypes.TopOnly)
@@ -167,6 +155,26 @@ namespace CloudberryKingdom.Levels
             }
 
             return gblock;
+        }
+
+        class OnGhostUsedLambda : Lambda
+        {
+            GhostBlock block;
+            Level level;
+
+            public OnGhostUsedLambda(GhostBlock block, Level level)
+            {
+                this.block = block;
+                this.level = level;
+            }
+
+            public void Apply()
+            {
+                if (block.Core.GenData.Used) return;
+
+                int max = block.InLength - GhostBlock.LengthOfPhaseChange;
+                block.ModOffset(level.Rnd.RndInt((int)(.25f * max), (int)(.75f * max)));
+            }
         }
     }
 }

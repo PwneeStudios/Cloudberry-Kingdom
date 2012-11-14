@@ -169,15 +169,14 @@ namespace CloudberryKingdom
         public bool NoBottomShift;
         public bool NoMakingTopOnly;
 
-        public delegate void UsedCallback();
-        public UsedCallback OnUsed, OnMarkedForDeletion;
+        public Lambda OnUsed, OnMarkedForDeletion;
         public void __StampAsUsed(int Step)
         {
             if (Used)
                 return;
 
             if (OnUsed != null)
-                OnUsed();
+                OnUsed.Apply();
 
             Used = true;
             UsedTimeStamp = Step;
@@ -586,7 +585,10 @@ namespace CloudberryKingdom
 
         public AssociatedObjData GetAssociationData(ObjectBase obj)
         {
-            return Associations.First(delegate(AssociatedObjData data) { return data.Guid == obj.Core.MyGuid; });
+            foreach (var objdata in Associations)
+                if (objdata.Guid == obj.Core.MyGuid)
+                    return objdata;
+            return Associations[Associations.Length - 1];
         }
 
         public bool Released = false;

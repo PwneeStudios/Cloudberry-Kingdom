@@ -490,51 +490,6 @@ namespace CloudberryKingdom.Levels
             else return block.Box.TR.X;
         }
 
-        delegate void MakeAt(Vector2 Pos);
-        public void Stage1FinalPlats(Vector2 BL, Vector2 TR, ObjectType Type, ref MakeData makeData)
-        {
-            TR.X += 400;
-
-            List<BouncyBlock> bouncys = new List<BouncyBlock>();
-            GenerationData.UsedCallback UsedCallback = delegate()
-            {
-                foreach (BouncyBlock block in bouncys)
-                    if (!block.Core.GenData.Used)
-                        block.Core.MarkedForDeletion = true;
-            };
-
-            MakeAt MakeBouncy = delegate(Vector2 Pos)
-            {
-                BouncyBlock bouncy = (BouncyBlock)Recycle.GetObject(ObjectType.BouncyBlock, false);
-                bouncy.Init(Pos, new Vector2(170, 170), 90, this);
-                bouncy.Core.DrawLayer = 9;
-
-                bouncy.Core.GenData.RemoveIfUnused = true;
-                bouncy.BlockCore.BlobsOnTop = false;
-                bouncy.Core.GenData.AlwaysLandOn = true;
-
-                bouncy.Core.GenData.OnUsed = UsedCallback;
-
-                AddBlock(bouncy);
-                bouncys.Add(bouncy);
-            };
-
-            float Top;
-            
-            Top = -750;
-            while (Top > BL.Y - 250)
-            {
-                MakeBouncy(new Vector2(TR.X - 250, Top));
-                Top -= 100;
-            }
-            Top = 0;
-            while (Top > BL.Y - 250)
-            {                
-                MakeBouncy(new Vector2(TR.X, Top));
-                Top -= 100;
-            }            
-        }
-
         public delegate void ModBlockCallback(BlockBase block);
         public float VanillaFill(Vector2 BL, Vector2 TR, float width)
         {

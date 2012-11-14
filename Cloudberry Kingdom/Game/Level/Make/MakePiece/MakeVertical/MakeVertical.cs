@@ -139,6 +139,7 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        bool EndReached = false;
         public bool MakeVertical(int Length, float Height, int StartPhsxStep, int ReturnEarly, MakeData makeData)
         {
             CurMakeData = makeData;
@@ -279,9 +280,8 @@ namespace CloudberryKingdom.Levels
             }
 
             // Set flag when a block on the last row is used.
-            bool EndReached = false;
             foreach (BlockBase block in Blocks.FindAll(match => match.Core == "LastRow"))
-                block.Core.GenData.OnUsed = () => EndReached = true;
+                block.Core.GenData.OnUsed = new EndReachedLambda(this);
 
             // Initial platform
             if (CurMakeData.InitialPlats && VStyle.MakeInitialPlats)
@@ -467,6 +467,20 @@ namespace CloudberryKingdom.Levels
             }
 
             return false;
+        }
+
+        class EndReachedLambda : Lambda
+        {
+            Level level;
+            public EndReachedLambda(Level level)
+            {
+                this.level = level;
+            }
+
+            public void Apply()
+            {
+                level.EndReached = true;
+            }
         }
 
         private float SetStepMultiplier(ref Vector2 Size, ref Vector2 Step)
