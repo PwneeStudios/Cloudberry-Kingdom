@@ -64,7 +64,7 @@ namespace CloudberryKingdom
 
                 if (!QuotaMet)
                 {
-                    // Action
+                    // On Quoate Met
                     if (OnQuotaMet != null) OnQuotaMet.Apply(this);
 
                     // Emphasize
