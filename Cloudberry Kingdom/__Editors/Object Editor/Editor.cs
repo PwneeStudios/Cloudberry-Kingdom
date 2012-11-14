@@ -1,5 +1,4 @@
-﻿//#define EDITOR
-#if EDITOR
+﻿#if EDITOR
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

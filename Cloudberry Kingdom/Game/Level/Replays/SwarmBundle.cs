@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using CloudberryKingdom.Bobs;
 using CoreEngine;
 
@@ -60,10 +61,24 @@ namespace CloudberryKingdom.Levels
             foreach (Bob bob in level.Bobs)
             {
                 AnimGroup[count] = new SpriteAnimGroup();
-                AnimGroup[count].Init(bob.PlayerObject, bob.MyPhsx.SpritePadding, bob.MyPhsx.ToSprites);
+                AnimGroup[count].Init(bob.PlayerObject, bob.MyPhsx.SpritePadding, new BobToSpritesLambda(bob));
                 count++;
             }
             Initialized = true;
+        }
+
+        class BobToSpritesLambda : Lambda_2<Dictionary<int, SpriteAnim>, Vector2>
+        {
+            Bob bob;
+            public BobToSpritesLambda(Bob bob)
+            {
+                this.bob = bob;
+            }
+
+            public void Apply(Dictionary<int, SpriteAnim> dict, Vector2 pos)
+            {
+                bob.MyPhsx.ToSprites(dict, pos);
+            }
         }
 
         public void SetSwarm(Level level, int i)

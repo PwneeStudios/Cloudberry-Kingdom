@@ -33,8 +33,7 @@ namespace CoreEngine
             SpriteAnims = new Dictionary<int, SpriteAnim>();
         }
 
-        public delegate void ToSpriteFunc(Dictionary<int, SpriteAnim> SpriteAnims, Vector2 Padding);
-        public void Init(ObjectClass Obj, Vector2 ExtraPadding, ToSpriteFunc SpriteFunc)
+        public void Init(ObjectClass Obj, Vector2 ExtraPadding, CloudberryKingdom.Lambda_2<Dictionary<int, SpriteAnim>, Vector2> SpriteFunc)
         {
             // Make sure stickman is oriented correctly            
             Obj.xFlip = false;
@@ -43,8 +42,7 @@ namespace CoreEngine
 
             Vector2 Padding = new Vector2(10, 90) + ExtraPadding;
 
-            SpriteFunc(SpriteAnims, Padding);
-
+            SpriteFunc.Apply(SpriteAnims, Padding);
 
             foreach (SpriteAnim sprite in SpriteAnims.Values)
                 sprite.Padding = Padding;
