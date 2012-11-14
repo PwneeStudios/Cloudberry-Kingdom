@@ -52,14 +52,14 @@ namespace CloudberryKingdom
             // Left arrow
             item = new MenuItem(new EzText("{pcharmenu_larrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
-            item.Go = Cast.ToItem(MySimple.SimpleSelect_Left);
+            item.Go = Cast.ToItem(new SimpleMenuBase.SimpleSelect_LeftProxy(MySimple));
             ItemPos = new Vector2(-SeparationWidth, 250f);
             AddItem(item);
 
             // Right arrow
             item = new MenuItem(new EzText("{pcharmenu_rarrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
-            item.Go = Cast.ToItem(MySimple.SimpleSelect_Right);
+            item.Go = Cast.ToItem(new SimpleMenuBase.SimpleSelect_RightProxy(MySimple));
             ItemPos = new Vector2(SeparationWidth, 250f);
             AddItem(item);
 

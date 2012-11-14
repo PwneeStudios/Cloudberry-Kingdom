@@ -224,6 +224,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class RandomizeProxy : Lambda
+        {
+            CustomUpgrades_GUI cuGui;
+
+            public RandomizeProxy(CustomUpgrades_GUI cuGui)
+            {
+                this.cuGui = cuGui;
+            }
+
+            public void Apply()
+            {
+                cuGui.Randomize();
+            }
+        }
+
         void Randomize()
         {
             if (MyLevel.Rnd.RndFloat() < .25f)
@@ -356,11 +371,26 @@ namespace CloudberryKingdom
         private void MakeMenu()
         {
             MyMenu = new Menu(false);
-            MyMenu.OnA = Cast.ToMenu(Go);
+            MyMenu.OnA = Cast.ToMenu(new GoProxy(this));
             MyMenu.OnB = MenuReturnToCaller;
-            MyMenu.OnX = Cast.ToMenu(Randomize);
+            MyMenu.OnX = Cast.ToMenu(new RandomizeProxy(this));
             MyMenu.OnY = Zero;
             MyMenu.SelectDelay = 11;
+        }
+
+        class GoProxy : Lambda
+        {
+            CustomUpgrades_GUI cuGui;
+
+            public GoProxy(CustomUpgrades_GUI cuGui)
+            {
+                this.cuGui = cuGui;
+            }
+
+            public void Apply()
+            {
+                cuGui.Go();
+            }
         }
 
         protected virtual void Go()

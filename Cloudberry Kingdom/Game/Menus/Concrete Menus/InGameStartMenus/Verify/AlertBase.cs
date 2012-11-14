@@ -10,6 +10,21 @@ namespace CloudberryKingdom
         /// </summary>
         public Lambda OnOk;
 
+        class OkProxy : Lambda
+        {
+            AlertBaseMenu abm;
+
+            public OkProxy(AlertBaseMenu abm)
+            {
+                this.abm = abm;
+            }
+
+            public void Apply()
+            {
+                abm.Ok();
+            }
+        }
+
         protected void Ok()
         {
             ReturnToCaller();
@@ -83,11 +98,11 @@ namespace CloudberryKingdom
             MyMenu.Control = Control;
 
             var OkItem = new MenuItem(new EzText(OkText, ItemFont, true, true), "Message");
-            OkItem.Go = Cast.ToItem(Ok);
+            OkItem.Go = Cast.ToItem(new OkProxy(this));
             AddItem(OkItem);
             OkItem.SelectSound = null;
 
-            MyMenu.OnA = MyMenu.OnX = MyMenu.OnB = Cast.ToMenu(Ok);
+            MyMenu.OnA = MyMenu.OnX = MyMenu.OnB = Cast.ToMenu(new OkProxy(this));
 
             EnsureFancy();
 

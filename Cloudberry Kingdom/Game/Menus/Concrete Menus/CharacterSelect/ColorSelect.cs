@@ -68,27 +68,27 @@ namespace CloudberryKingdom
             MyMenu = new Menu(false);
             EnsureFancy();
 
-            MyMenu.OnB = Cast.ToMenu(Back);
-            MyMenu.OnA = Cast.ToMenu(Select);
+            MyMenu.OnB = Cast.ToMenu(new BackProxy(this));
+            MyMenu.OnA = Cast.ToMenu(new SelectProxy(this));
 
             MyList = new MenuList();
             MyList.Name = "list";
             MyList.Center = true;
             MyList.OnIndexSelect = OnSelect;
-            MyList.Go = Cast.ToItem(Select);
+            MyList.Go = Cast.ToItem(new SelectProxy(this));
             MyMenu.Add(MyList);
 
             //var Done = new MenuItem(new EzText("Use", ItemFont));
             var Done = new MenuItem(new EzText(Localization.Words.Use, ItemFont));
             Done.Name = "Done";
-            Done.Go = Cast.ToItem(Select);
+            Done.Go = Cast.ToItem(new SelectProxy(this));
             AddItem(Done);
 
             //var BackButton = new MenuItem(new EzText("{pBackArrow2,80,?}", ItemFont));
             //var BackButton = new MenuItem(new EzText("Cancel", ItemFont));
             var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
             BackButton.Name = "Cancel";
-            BackButton.Go = Cast.ToItem(Back);
+            BackButton.Go = Cast.ToItem(new BackProxy(this));
             AddItem(BackButton);
 
             MyPile.Add(new EzText(Header, Resources.Font_Grobold42, true), "Header");
@@ -112,6 +112,21 @@ namespace CloudberryKingdom
             MyPile.Pos = new Vector2(-1414.604f, -492.0635f);
         }
 
+        class BackProxy : Lambda
+        {
+            ListSelectPanel lsp;
+
+            public BackProxy(ListSelectPanel lsp)
+            {
+                this.lsp = lsp;
+            }
+
+            public void Apply()
+            {
+                lsp.Back();
+            }
+        }
+
         void Back()
         {
             MyCharacterSelect.ItemIndex[ClrSelectIndex] = HoldIndex;
@@ -119,6 +134,21 @@ namespace CloudberryKingdom
 
             //MyMenu.BackSound.Play();
             ReturnToCaller();
+        }
+
+        class SelectProxy : Lambda
+        {
+            ListSelectPanel lsp;
+
+            public SelectProxy(ListSelectPanel lsp)
+            {
+                this.lsp = lsp;
+            }
+
+            public void Apply()
+            {
+                lsp.Select();
+            }
         }
 
         void Select()

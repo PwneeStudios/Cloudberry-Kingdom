@@ -72,6 +72,21 @@ namespace CloudberryKingdom
             }
         }
 
+        public class SimpleSelect_RightProxy : Lambda
+        {
+            SimpleMenuBase smb;
+
+            public SimpleSelect_RightProxy(SimpleMenuBase smb)
+            {
+                this.smb = smb;
+            }
+
+            public void Apply()
+            {
+                smb.SimpleSelect_Right();
+            }
+        }
+
         /// <summary>
         /// Select the next premade stickman to the right
         /// </summary>    
@@ -98,6 +113,21 @@ namespace CloudberryKingdom
             Arrows.MyMenu.Items[1].DoActivationAnimation();
 
             MyCharacterSelect.SetIndex(MyCharacterSelect.Player.ColorSchemeIndex);
+        }
+
+        public class SimpleSelect_LeftProxy : Lambda
+        {
+            SimpleMenuBase smb;
+
+            public SimpleSelect_LeftProxy(SimpleMenuBase smb)
+            {
+                this.smb = smb;
+            }
+
+            public void Apply()
+            {
+                smb.SimpleSelect_Left();
+            }
         }
 
         /// <summary>

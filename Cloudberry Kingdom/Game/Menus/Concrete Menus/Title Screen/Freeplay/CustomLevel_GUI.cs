@@ -712,7 +712,7 @@ namespace CloudberryKingdom
             item.Selectable = false;
             item.Pos = new Vector2(721.8262f, -226.9048f);
 #endif
-            item.Go = Cast.ToItem(BringNext);
+            item.Go = Cast.ToItem(new BringNextProxy(this));
             item.ScaleText(.92f);
 
             // Select 'Start Level' when the user presses (A)
@@ -920,6 +920,21 @@ namespace CloudberryKingdom
         /// The panel that actually starts the level, when it is started.
         /// </summary>
         public GUI_Panel CallingPanel;
+
+        class BringNextProxy : Lambda
+        {
+            CustomLevel_GUI clGui;
+
+            public BringNextProxy(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply()
+            {
+                clGui.BringNext();
+            }
+        }
 
         void BringNext()
         {

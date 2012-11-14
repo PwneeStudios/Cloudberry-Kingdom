@@ -70,6 +70,21 @@ namespace CloudberryKingdom
             PhasePeriodSlider = new PhsxSlider(Localization.Words.PhasePeriod, BobPhsx.CustomData.phaseperiod);
         }
 
+        class StartTestProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public StartTestProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.StartTest();
+            }
+        }
+
         public void StartTest()
         {
             Hide();
@@ -601,7 +616,7 @@ namespace CloudberryKingdom
             item.Name = "test";
             item.JiggleOnGo = false;
             AddItem(item);
-            item.Go = Cast.ToItem(StartTest);
+            item.Go = Cast.ToItem(new StartTestProxy(this));
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #if NOT_PC
@@ -623,7 +638,7 @@ namespace CloudberryKingdom
             item.Name = "back";
             AddItem(item);
             item.SelectSound = null;
-            item.Go = Cast.ToItem(ReturnToCaller);
+            item.Go = Cast.ToItem(new ReturnToCallerProxy(this));
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
 #if NOT_PC
@@ -648,13 +663,13 @@ namespace CloudberryKingdom
             item.Selectable = false;
             MyMenu.OnX = Cast.ToMenu(X.Go);
 #endif
-            item.Go = Cast.ToItem(Next);
+            item.Go = Cast.ToItem(new NextProxy(this));
 
             // Reset
             item = ResetButton = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "reset";
             AddItem(item);
-            item.Go = Cast.ToItem(ResetSliders);
+            item.Go = Cast.ToItem(new ResetSlidersProxy(this));
         }
 
         bool AdvancedAvailable()
@@ -679,6 +694,21 @@ namespace CloudberryKingdom
         }
 
         MenuItem ResetButton;
+
+        class NextProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public NextProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.Next();
+            }
+        }
 
         void Next()
         {
@@ -718,6 +748,21 @@ namespace CloudberryKingdom
             MakeBobPhsx();
             CustomLevel.LevelSeed.DefaultHeroType = Hero;
             CustomLevel.StartLevelFromMenuData();
+        }
+
+        class ResetSlidersProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public ResetSlidersProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.ResetSliders();
+            }
         }
 
         void ResetSliders()

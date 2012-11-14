@@ -85,7 +85,7 @@ namespace CloudberryKingdom
         {
             MenuItem item = new MenuItem(new EzText(Word, ItemFont));
             item.Name = Name;
-            item.Go = Cast.ToItem(CreateColorSelect);
+            item.Go = Cast.ToItem(new CreateColorSelectProxy(this));
             
             AddItem(item);
         }
@@ -117,6 +117,21 @@ namespace CloudberryKingdom
         protected override void MyDraw()
         {
             base.MyDraw();
+        }
+
+        class CreateColorSelectProxy : Lambda
+        {
+            CustomizeMenu cm;
+
+            public CreateColorSelectProxy(CustomizeMenu cm)
+            {
+                this.cm = cm;
+            }
+
+            public void Apply()
+            {
+                cm.CreateColorSelect();
+            }
         }
 
         public void CreateColorSelect()
