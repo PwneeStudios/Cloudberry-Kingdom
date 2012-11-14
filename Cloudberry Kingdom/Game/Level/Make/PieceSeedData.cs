@@ -7,9 +7,6 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public delegate void ModifyPieceSeedData(PieceSeedData Piece);
-    public delegate void ModifyMakeData(ref Level.MakeData makeData);
-
     public enum LevelGeometry { Right, Up, OneScreen, Down, Big }
     public enum LevelZoom { Normal, Big }
 

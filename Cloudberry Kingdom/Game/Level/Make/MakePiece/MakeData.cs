@@ -70,11 +70,6 @@ namespace CloudberryKingdom.Levels
             /// </summary>
             public int OutOf;
 
-            /// <summary>
-            /// Called after data has been initialized, immediately before level piece is made.
-            /// </summary>
-            public ModifyMakeData ModData;
-
             public void Release()
             {
                 LevelSeed = null;

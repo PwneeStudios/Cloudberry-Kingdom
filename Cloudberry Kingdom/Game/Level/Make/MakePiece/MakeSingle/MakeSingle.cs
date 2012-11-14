@@ -281,7 +281,7 @@ namespace CloudberryKingdom.Levels
                 NormalBlock block;
 
                 block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
-                block.Core.AlwaysBoxesOnly = level.BoxesOnly;
+                block.Core.AlwaysBoxesOnly = BoxesOnly;
                 block.Init(pos + new Vector2(0, -size.Y), size, level.MyTileSetInfo);
                 block.Core.GenData.RemoveIfUnused = true;
                 block.BlockCore.BlobsOnTop = true;
@@ -1303,9 +1303,6 @@ namespace CloudberryKingdom.Levels
             }
 
             makeData.CamStartPos = MainCamera.Data.Position;
-
-            if (makeData.ModData != null)
-                makeData.ModData(ref makeData);
         }
     }
 }

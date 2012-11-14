@@ -6,7 +6,6 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Blocks
 {
-    public delegate void BlockExtendCallback(NormalBlock block);
     public class NormalBlock : BlockBase
     {
         public bool Invert = false;
