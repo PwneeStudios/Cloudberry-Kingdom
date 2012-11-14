@@ -438,7 +438,7 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
             Sleep();
 
-            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), new MakeVerticalCleanupHelper(this), true, BL_Bound, TR_Bound);
+            Cleanup(Tools.FindAll(Objects, new FindLimitGeneralDensityLambda()), new MakeVerticalCleanupHelper(this), true, BL_Bound, TR_Bound);
             Sleep();
 
             Cleanup(ObjectType.Coin, new Vector2(180, 180), BL_Bound, TR_Bound + new Vector2(500, 0));
@@ -467,6 +467,18 @@ namespace CloudberryKingdom.Levels
             }
 
             return false;
+        }
+
+        class FindLimitGeneralDensityLambda : LambdaFunc_1<ObjectBase, bool>
+        {
+            public FindLimitGeneralDensityLambda()
+            {
+            }
+
+            public bool Apply(ObjectBase obj)
+            {
+                return obj.Core.GenData.LimitGeneralDensity;
+            }
         }
 
         class EndReachedLambda : Lambda

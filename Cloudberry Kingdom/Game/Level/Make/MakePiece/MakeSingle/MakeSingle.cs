@@ -537,12 +537,11 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public delegate void ModBlockCallback(BlockBase block);
         public float VanillaFill(Vector2 BL, Vector2 TR, float width)
         {
             return VanillaFill(BL, TR, width, 200, null, null);
         }
-        public float VanillaFill(Vector2 BL, Vector2 TR, float width, float ystep, ModBlockCallback PreInit, ModBlockCallback PostInit)
+        public float VanillaFill(Vector2 BL, Vector2 TR, float width, float ystep, Lambda_1<BlockBase> PreInit, Lambda_1<BlockBase> PostInit)
         {
             Vector2 Pos = BL;
 
@@ -556,7 +555,7 @@ namespace CloudberryKingdom.Levels
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
 
                     if (PreInit != null)
-                        PreInit(block);
+                        PreInit.Apply(block);
 
                     block.Init(Pos + new Vector2(width, -200), new Vector2(width, 200), MyTileSetInfo);
                     block.Extend(Side.Bottom, BL.Y - 300 - CurMakeData.PieceSeed.ExtraBlockLength);
@@ -571,7 +570,7 @@ namespace CloudberryKingdom.Levels
                         block.Core.GenData.EdgeJumpOnly = true;
 
                     if (PostInit != null)
-                        PostInit(block);
+                        PostInit.Apply(block);
 
                     AddBlock(block);
 
@@ -1168,11 +1167,6 @@ namespace CloudberryKingdom.Levels
             // Clean up deleted objects
             CleanAllObjectLists();
         }
-
-        //public void SortBlocks()
-        //{
-        //    Blocks.Sort(delegate(BlockBase A, BlockBase B) { return A.BlockCore.Layer.CompareTo(B.BlockCore.Layer); });
-        //}
 
         public void OverlapCleanup()
         {

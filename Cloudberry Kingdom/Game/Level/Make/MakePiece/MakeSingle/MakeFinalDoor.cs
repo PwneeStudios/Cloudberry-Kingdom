@@ -28,6 +28,18 @@ namespace CloudberryKingdom.Levels
             MyLevel = level;
         }
 
+        class VanillaFillEndPieceLambda : Lambda_1<BlockBase>
+        {
+            public VanillaFillEndPieceLambda()
+            {
+            }
+
+            public void Apply(BlockBase block)
+            {
+                block.BlockCore.EndPiece = true;
+            }
+        }
+
         public override void Phase1()
         {
             base.Phase1();
@@ -47,7 +59,7 @@ namespace CloudberryKingdom.Levels
             Vector2 TR = new Vector2(MyLevel.MaxRight + 1000, MyLevel.MainCamera.TR.Y - 850);
 
             float NewRight = MyLevel.VanillaFill(BL, TR, 400, Spacing,
-            block => block.BlockCore.EndPiece = true, ModBlock);
+                new VanillaFillEndPieceLambda(), new ModBlockLambda(this));
 
             // Make lowest block a safety (we'll place the door here if no other block is used)
             FinalBlocks[0].Core.GenData.KeepIfUnused = true;
@@ -70,7 +82,21 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        void ModBlock(BlockBase block)
+        class ModBlockLambda : Lambda_1<BlockBase>
+        {
+            MakeFinalDoor mfd;
+            public ModBlockLambda(MakeFinalDoor mfd)
+            {
+                this.mfd = mfd;
+            }
+
+            public void Apply(BlockBase block)
+            {
+                mfd.ModBlock(block);
+            }
+        }
+
+        public void ModBlock(BlockBase block)
         {
             block.BlockCore.DisableFlexibleHeight = true;
             block.BlockCore.DeleteIfTopOnly = true;
