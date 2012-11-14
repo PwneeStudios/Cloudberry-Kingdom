@@ -81,14 +81,6 @@ namespace CloudberryKingdom.Levels
             val = newval;
         }
 
-        public void SetVal(ref Vector2 val, Func<Upgrades, Vector2> f)
-        {
-            if (val != Unset.Vector) return;
-
-            if (PieceSeed.MyUpgrades1 != null)
-                val = f(PieceSeed.MyUpgrades1);
-        }
-
         public void SetVal(ref float val, float newval)
         {
             if (val != Unset.Float) return;
@@ -96,27 +88,11 @@ namespace CloudberryKingdom.Levels
             val = newval;
         }
 
-        public void SetVal(ref float val, ParamFunc f)
-        {
-            if (val != Unset.Float) return;
-
-            if (PieceSeed.MyUpgrades1 != null)
-                val = f(PieceSeed.MyUpgrades1);
-        }
-
         public void SetVal(ref int val, int newval)
         {
             if (val != Unset.Int) return;
 
             val = newval;
-        }
-
-        public void SetVal(ref int val, ParamFunc f)
-        {
-            if (val != Unset.Int) return;
-
-            if (PieceSeed.MyUpgrades1 != null)
-                val = (int)f(PieceSeed.MyUpgrades1);
         }
     }
 

@@ -9,14 +9,12 @@ namespace CloudberryKingdom.Levels
     public class ParamInfo
     {
         public float MinValue, MaxValue, DefaultValue;
-        public ParamFunc Func;
 
-        public ParamInfo(float MinValue, float MaxValue, float DefaultValue, ParamFunc Func)
+        public ParamInfo(float MinValue, float MaxValue, float DefaultValue)
         {
             this.MinValue = MinValue;
             this.MaxValue = MaxValue;
             this.DefaultValue = DefaultValue;
-            this.Func = Func;
         }
     }
 

@@ -62,7 +62,6 @@ namespace CloudberryKingdom
         }
     }
 
-    public delegate float ParamFunc(Upgrades upgrades);
     public struct Param
     {
         PieceSeedData PieceSeed;
