@@ -245,19 +245,35 @@ namespace CloudberryKingdom.Levels
             Vector2 FillTR = new Vector2(TR.X, y + level.MainCamera.GetHeight() / 2 - 350);
 
             int Sparsity = (int)Params.FloaterSparsity.Val;
-            level.Fill(FillBL, FillTR, 225 * Sparsity, 250,
-                (Level.FillCallback)delegate(Vector2 pos)
-                {
-                    Boulder floater = (Boulder)CreateAt(level, pos);
-                    Vector2 Padding = new Vector2(200, 375);
+            level.Fill(FillBL, FillTR, 225 * Sparsity, 250, new BoulderFillLambda(level, TR, BL, this));
+        }
 
-                    if (level.PieceSeed.GeometryType == LevelGeometry.Right)
-                        Tools.EnsureBounds_X(floater, TR - Padding,
-                                                      BL + Padding);
-                    else
-                        Tools.EnsureBounds_Y(floater, TR - Padding,
-                                                      BL + Padding);
-                });
+        class BoulderFillLambda : Lambda_1<Vector2>
+        {
+            Level level;
+            Vector2 TR, BL;
+            Boulder_AutoGen autogen;
+
+            public BoulderFillLambda(Level level, Vector2 TR, Vector2 BL, Boulder_AutoGen autogen)
+            {
+                this.level = level;
+                this.TR = TR;
+                this.BL = BL;
+                this.autogen = autogen;
+            }
+
+            public void Apply(Vector2 pos)
+            {
+                Boulder floater = (Boulder)autogen.CreateAt(level, pos);
+                Vector2 Padding = new Vector2(200, 375);
+
+                if (level.PieceSeed.GeometryType == LevelGeometry.Right)
+                    Tools.EnsureBounds_X(floater, TR - Padding,
+                                                  BL + Padding);
+                else
+                    Tools.EnsureBounds_Y(floater, TR - Padding,
+                                                  BL + Padding);
+            }
         }
     }
 }

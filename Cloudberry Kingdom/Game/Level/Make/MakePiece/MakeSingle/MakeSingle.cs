@@ -60,12 +60,11 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public delegate void FillCallback(Vector2 pos);
-        public void Fill(Vector2 BL, Vector2 TR, float xstep, float ystep, FillCallback FillFunc)
+        public void Fill(Vector2 BL, Vector2 TR, float xstep, float ystep, Lambda_1<Vector2> FillFunc)
         {
             Fill(BL, TR, new Vector2(xstep, xstep), ystep, FillFunc);
         }
-        public void Fill(Vector2 BL, Vector2 TR, Vector2 xstep, float ystep, FillCallback FillFunc)
+        public void Fill(Vector2 BL, Vector2 TR, Vector2 xstep, float ystep, Lambda_1<Vector2> FillFunc)
         {
             if (Math.Sign(TR.X - BL.X) != Math.Sign(xstep.X)) return;
             if (Math.Sign(TR.Y - BL.Y) != Math.Sign(ystep)) return;
@@ -76,13 +75,13 @@ namespace CloudberryKingdom.Levels
                 pos.X = BL.X;
                 while (pos.X <= TR.X)
                 {
-                    FillFunc(pos);
+                    FillFunc.Apply(pos);
                     pos.X += Rnd.RndFloat(xstep);
                 }
                 if (TR.X - (pos.X - xstep.X) > .5f * xstep.X)
                 {
                     pos.X = TR.X;
-                    FillFunc(pos);
+                    FillFunc.Apply(pos);
                 }
 
                 pos.Y += ystep;
@@ -233,37 +232,71 @@ namespace CloudberryKingdom.Levels
             }
 
             // Safety net
-            BlockBase LastBlock = null;
-            Fill(BL + new Vector2(0, SafetyNetHeight), new Vector2(TR.X, BL.Y + SafetyNetHeight + 1), xstep, 50,
-                pos =>
+            __LastBlock = null;
+            Fill(BL + new Vector2(0, SafetyNetHeight), new Vector2(TR.X, BL.Y + SafetyNetHeight + 1), xstep, 50, new SafetyNetLambda(this, BL, TR, size, xstep, Type, Virgin, Used, BoxesOnly, InvertDraw, Invert));
+
+            return __LastBlock;
+        }
+        public BlockBase __LastBlock;
+        
+        class SafetyNetLambda : Lambda_1<Vector2>
+        {
+            Level level;
+            Vector2 BL;
+            Vector2 TR;
+            Vector2 size;
+            float xstep;
+            StyleData.GroundType Type;
+
+            bool Virgin = false;
+            bool Used = false;
+            bool BoxesOnly = false;
+            bool InvertDraw = false;
+            bool Invert = false;
+
+            public SafetyNetLambda(Level level, Vector2 BL, Vector2 TR, Vector2 size, float xstep, StyleData.GroundType Type,
+                bool Virgin, bool Used, bool BoxesOnly, bool InvertDraw, bool Invert)
+            {
+                this.level = level;
+                this.BL = BL;
+                this.TR = TR;
+                this.size = size;
+                this.xstep = xstep;
+                this.Type = Type;
+                this.Virgin = Virgin;
+                this.Used = Used;
+                this.BoxesOnly = BoxesOnly;
+                this.InvertDraw = InvertDraw;
+                this.Invert = Invert;
+            }
+
+            public void Apply(Vector2 pos)
+            {
+                if (Type == StyleData.GroundType.SafetyNet)
                 {
-                    if (Type == StyleData.GroundType.SafetyNet)
-                    {
-                        // Don't make an extra block at the end to fill out the fill
-                        if (pos.X == TR.X) return;
-                    }
+                    // Don't make an extra block at the end to fill out the fill
+                    if (pos.X == TR.X) return;
+                }
 
-                    NormalBlock block;
+                NormalBlock block;
 
-                    block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Core.AlwaysBoxesOnly = BoxesOnly;
-                    block.Init(pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
-                    block.Core.GenData.RemoveIfUnused = true;
-                    block.BlockCore.BlobsOnTop = true;
-                    //block.Core.GenData.AlwaysLandOn = true;
-                    block.Core.GenData.AlwaysUse = true;
-                    block.BlockCore.NonTopUsed = true;
-                    block.Invert = Invert; 
-                    block.BlockCore.Virgin = Virgin;
-                    block.BlockCore.GenData.Used = Used;
-                    block.BlockCore.MyOrientation = InvertDraw ? PieceQuad.Orientation.UpsideDown : PieceQuad.Orientation.Normal;
+                block = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                block.Core.AlwaysBoxesOnly = level.BoxesOnly;
+                block.Init(pos + new Vector2(0, -size.Y), size, level.MyTileSetInfo);
+                block.Core.GenData.RemoveIfUnused = true;
+                block.BlockCore.BlobsOnTop = true;
+                //block.Core.GenData.AlwaysLandOn = true;
+                block.Core.GenData.AlwaysUse = true;
+                block.BlockCore.NonTopUsed = true;
+                block.Invert = Invert;
+                block.BlockCore.Virgin = Virgin;
+                block.BlockCore.GenData.Used = Used;
+                block.BlockCore.MyOrientation = InvertDraw ? PieceQuad.Orientation.UpsideDown : PieceQuad.Orientation.Normal;
 
-                    AddBlock(block);
+                level.AddBlock(block);
 
-                    LastBlock = block;
-                });
-
-            return LastBlock;
+                level.__LastBlock = block;
+            }
         }
 
         public BlockBase MadeBackBlock;
@@ -473,21 +506,35 @@ namespace CloudberryKingdom.Levels
 
         private float MakeInitial_Normal(Vector2 BL, Vector2 TR, Vector2 size)
         {
-            NormalBlock block = null;
+            __block_fromlambda = null;
 
-            Fill(BL, new Vector2(BL.X + 10, TR.Y), 200, 250,
-                _pos =>
-                {
-                    block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Init(_pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
-                    block.Core.GenData.RemoveIfUnused = true;
-                    block.BlockCore.BlobsOnTop = false;
-                    block.Core.GenData.AlwaysLandOn = true;
-                    AddBlock(block);
-                });
+            Fill(BL, new Vector2(BL.X + 10, TR.Y), 200, 250, new MakeInitialLambda(this, size));
 
-            if (block == null) return 0;
-            else return block.Box.TR.X;
+            if (__block_fromlambda == null) return 0;
+            else return __block_fromlambda.Box.TR.X;
+        }
+
+        NormalBlock __block_fromlambda = null;
+
+        class MakeInitialLambda : Lambda_1<Vector2>
+        {
+            Level level;
+            Vector2 size;
+            public MakeInitialLambda(Level level, Vector2 size)
+            {
+                this.level = level;
+                this.size = size;
+            }
+
+            public void Apply(Vector2 pos)
+            {
+                level.__block_fromlambda = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
+                level.__block_fromlambda.Init(pos + new Vector2(0, -size.Y), size, level.MyTileSetInfo);
+                level.__block_fromlambda.Core.GenData.RemoveIfUnused = true;
+                level.__block_fromlambda.BlockCore.BlobsOnTop = false;
+                level.__block_fromlambda.Core.GenData.AlwaysLandOn = true;
+                level.AddBlock(level.__block_fromlambda);
+            }
         }
 
         public delegate void ModBlockCallback(BlockBase block);
@@ -585,60 +632,76 @@ namespace CloudberryKingdom.Levels
             //    Sleep();
             //}
         }
-        
+
+        class Stage1RndFillLambda : Lambda_1<Vector2>
+        {
+            Level level;
+            Vector2 BL;
+            Vector2 TR;
+            Vector2 BL_Cutoff;
+
+            public Stage1RndFillLambda(Level level, Vector2 BL, Vector2 TR, Vector2 BL_Cutoff)
+            {
+                this.level = level;
+                this.BL = BL;
+                this.TR = TR;
+                this.BL_Cutoff = BL_Cutoff;
+            }
+
+            public void Apply(Vector2 pos)
+            {
+                var NParams = (NormalBlock_Parameters)level.Style.FindParams(NormalBlock_AutoGen.Instance);
+                float[] Weights = new float[Generators.WeightedPreFill_1_Gens.Count];
+
+                float MaxWeight = 0;
+
+                // Find the relative weights of all the obstacles we wish to fill with 
+                for (int i = 0; i < Generators.WeightedPreFill_1_Gens.Count; i++)
+                {
+                    AutoGen gen = Generators.WeightedPreFill_1_Gens[i];
+
+                    if (gen != NormalBlock_AutoGen.Instance)
+                    {
+                        float weight = level.Style.FindParams(gen).FillWeight.GetVal(pos);
+
+                        Weights[i] = weight;
+                        MaxWeight = Math.Max(MaxWeight, weight);
+                    }
+                }
+
+                float NormalBlockTotal = Math.Max(0, 3f - MaxWeight / 3f);
+
+                Weights[Generators.WeightedPreFill_1_Gens.IndexOf(NormalBlock_AutoGen.Instance)] =
+                    NParams.CustomWeight ?
+                        NParams.FillWeight.GetVal(pos)
+                        :
+                        NormalBlockTotal * level.Style.ModNormalBlockWeight;
+
+
+                // Choose a random generator and make a new obstacle with it
+                int choice = level.Rnd.Choose(Weights);
+                AutoGen chosen_gen = Generators.WeightedPreFill_1_Gens[choice];
+                ObjectBase NewObj = chosen_gen.CreateAt(level, pos, BL_Cutoff, TR);
+
+                if (NewObj == null) return;
+
+                // Keep new object if it's unused?
+                if (level.Rnd.RndFloat(0, 1) < level.CurMakeData.PieceSeed.Style.ChanceToKeepUnused
+                    && pos.Y > BL.Y + 400) // Don't keep unused blocks that are too low
+                {
+                    NewObj.Core.GenData.RemoveIfUnused = false;
+                    NewObj.Core.GenData.RemoveIfOverlap = true;
+                }
+
+                CheckToSleep();
+            }
+        }
+
         public void Stage1RndFill(Vector2 BL, Vector2 TR, Vector2 BL_Cutoff, float Sparsity)
         {
-            var NParams = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
-
-            float[] Weights = new float[Generators.WeightedPreFill_1_Gens.Count];
-
             Vector2 xstep = new Vector2(CurMakeData.PieceSeed.Style.FillxStep * Sparsity, 0);
             xstep.Y = xstep.X;
-            Fill(BL, TR, xstep, CurMakeData.PieceSeed.Style.FillyStep,
-                pos =>
-                {
-                    float MaxWeight = 0;
-                    
-                    // Find the relative weights of all the obstacles we wish to fill with 
-                    for (int i = 0; i < Generators.WeightedPreFill_1_Gens.Count; i++)
-                    {
-                        AutoGen gen = Generators.WeightedPreFill_1_Gens[i];
-
-                        if (gen != NormalBlock_AutoGen.Instance)
-                        {                            
-                            float weight = Style.FindParams(gen).FillWeight.GetVal(pos);
-                            
-                            Weights[i] = weight;
-                            MaxWeight = Math.Max(MaxWeight, weight);
-                        }
-                    }
-
-                    float NormalBlockTotal = Math.Max(0, 3f - MaxWeight / 3f);
-
-                    Weights[Generators.WeightedPreFill_1_Gens.IndexOf(NormalBlock_AutoGen.Instance)] =
-                        NParams.CustomWeight ?
-                            NParams.FillWeight.GetVal(pos)
-                            :
-                            NormalBlockTotal * Style.ModNormalBlockWeight;
-                            
-
-                    // Choose a random generator and make a new obstacle with it
-                    int choice = Rnd.Choose(Weights);
-                    AutoGen chosen_gen = Generators.WeightedPreFill_1_Gens[choice];
-                    ObjectBase NewObj = chosen_gen.CreateAt(this, pos, BL_Cutoff, TR);
-
-                    if (NewObj == null) return;
-
-                    // Keep new object if it's unused?
-                    if (Rnd.RndFloat(0, 1) < CurMakeData.PieceSeed.Style.ChanceToKeepUnused
-                        && pos.Y > BL.Y + 400) // Don't keep unused blocks that are too low
-                    {
-                        NewObj.Core.GenData.RemoveIfUnused = false;
-                        NewObj.Core.GenData.RemoveIfOverlap = true;
-                    }
-
-                    CheckToSleep();
-                });
+            Fill(BL, TR, xstep, CurMakeData.PieceSeed.Style.FillyStep, new Stage1RndFillLambda(this, BL, TR, BL_Cutoff));
         }
 
 
