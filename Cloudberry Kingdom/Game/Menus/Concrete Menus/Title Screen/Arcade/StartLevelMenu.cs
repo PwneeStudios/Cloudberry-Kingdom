@@ -38,7 +38,7 @@ namespace CloudberryKingdom
         }
 
         public Lambda_1<LevelItem> StartFunc;
-        public Action ReturnFunc;
+        public Lambda ReturnFunc;
 
         class GameReturnProxy : LambdaFunc<bool>
         {
@@ -85,7 +85,7 @@ namespace CloudberryKingdom
 
         protected virtual bool GameReturn()
         {
-            if (ReturnFunc != null) ReturnFunc();
+            if (ReturnFunc != null) ReturnFunc.Apply();
 
             // Return to the parent menu
             MyMenu.OnB(null);

@@ -12,12 +12,12 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the user explicitly manipulates the slider.
         /// </summary>
-        public Action OnSlide;
+        public Lambda OnSlide;
 
         /// <summary>
         /// Called whenever the slider value is set.
         /// </summary>
-        public Action OnSetValue;
+        public Lambda OnSetValue;
 
         public bool IsMaxed
         {
@@ -27,7 +27,7 @@ namespace CloudberryKingdom
         protected void Slide()
         {
             if (OnSlide != null)
-                OnSlide();
+                OnSlide.Apply();
         }
 
         public int DelayToSlideSound = Menu.DefaultMenuInfo.Menu_Slide_SoundDelay;
@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             set
             {
                 MyFloat.Val = value;
-                if (OnSetValue != null) OnSetValue();
+                if (OnSetValue != null) OnSetValue.Apply();
             }
         }
 
@@ -116,7 +116,7 @@ namespace CloudberryKingdom
                 UpdateText();
 
             if (OnSetValue != null)
-                OnSetValue();
+                OnSetValue.Apply();
         }
 
         public override void Release()

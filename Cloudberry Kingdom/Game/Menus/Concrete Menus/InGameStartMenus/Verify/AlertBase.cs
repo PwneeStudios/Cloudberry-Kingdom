@@ -8,13 +8,13 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the user presses OK.
         /// </summary>
-        public Action OnOk;
+        public Lambda OnOk;
 
         protected void Ok()
         {
             ReturnToCaller();
 
-            if (OnOk != null) OnOk();
+            if (OnOk != null) OnOk.Apply();
         }
 
         protected override void ReleaseBody()
