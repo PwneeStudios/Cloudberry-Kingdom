@@ -74,6 +74,21 @@ namespace CloudberryKingdom
             MyPile.Pos = new Vector2(-1320f, 0f);
         }
 
+        class GoProxy : Lambda_1<MenuItem>
+        {
+            CustomizeMenu cm;
+
+            public GoProxy(CustomizeMenu cm)
+            {
+                this.cm = cm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                cm.Go(item);
+            }
+        }
+
         void Go(MenuItem item)
         {
             Call(new Waiting(Control, MyCharacterSelect));
@@ -106,7 +121,7 @@ namespace CloudberryKingdom
 
             MenuItem back = new MenuItem(new EzText(Localization.Words.Done, ItemFont), "Done");
             AddItem(back);
-            back.Go = Go;
+            back.Go = new GoProxy(this);
         }
 
         public override void OnAdd()

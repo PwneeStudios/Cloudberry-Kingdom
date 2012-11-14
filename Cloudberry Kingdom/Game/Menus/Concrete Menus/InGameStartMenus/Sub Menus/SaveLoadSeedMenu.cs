@@ -64,7 +64,7 @@ namespace CloudberryKingdom
                 // Load seed
                 item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
                 item.Name = "Load";
-                item.Go = Load;
+                item.Go = new LoadProxy(this);
                 AddItem(item);
             }
 
@@ -172,7 +172,7 @@ namespace CloudberryKingdom
         }
 
 #if WINDOWS
-        public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
+        public static Lambda_1<MenuItem> MakeSave(GUI_Panel panel, PlayerData player)
         {
             return _item => Save(_item, panel, player);
         }
@@ -215,6 +215,21 @@ namespace CloudberryKingdom
             _player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), input);
         }
 #endif
+
+        class LoadProxy : Lambda_1<MenuItem>
+        {
+            SaveLoadSeedMenu slsm;
+
+            public LoadProxy(SaveLoadSeedMenu slsm)
+            {
+                this.slsm = slsm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                slsm.Load(_item);
+            }
+        }
 
         void Load(MenuItem _item)
         {

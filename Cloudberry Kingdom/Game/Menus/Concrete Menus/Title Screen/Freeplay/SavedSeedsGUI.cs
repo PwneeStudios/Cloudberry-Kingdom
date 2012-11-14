@@ -212,6 +212,21 @@ namespace CloudberryKingdom
             MyGame.WaitThenDo(10, new ReturnToCallerProxy(this));
         }
 
+        class SortProxy : Lambda
+        {
+            SavedSeedsGUI ssGui;
+
+            public SortProxy(SavedSeedsGUI ssGui)
+            {
+                this.ssGui = ssGui;
+            }
+
+            public void Apply()
+            {
+                ssGui.Sort();
+            }
+        }
+
         void Sort()
         {
             if (!Active) return;
@@ -242,7 +257,7 @@ namespace CloudberryKingdom
             MyMenu.OnA = null;
             MyMenu.OnB = Back;
             MyMenu.OnX = Delete;
-            MyMenu.OnY = Sort;
+            MyMenu.OnY = new SortProxy(this);
             MyMenu.SelectDelay = 11;
 
             ItemPos = new Vector2(80.5547f, 756.1112f);
@@ -380,6 +395,23 @@ namespace CloudberryKingdom
             }
         }
 
+        class StartLevelProxy1 : Lambda_1<MenuItem>
+        {
+            SavedSeedsGUI ssGui;
+            string _seed;
+
+            public StartLevelProxy1(SavedSeedsGUI ssGui, string _seed)
+            {
+                this.ssGui = ssGui;
+                this._seed = _seed;
+            }
+
+            public void Apply(MenuItem _menu)
+            {
+                ssGui.StartLevel(_seed);
+            }
+        }
+
         private void MakeList()
         {
             foreach (string seed in player.MySavedSeeds.SeedStrings)
@@ -389,7 +421,7 @@ namespace CloudberryKingdom
 
                 // Get name of seed
                 MenuItem seeditem = new SeedItem(name, seed, ItemFont);
-                seeditem.Go = _menu => StartLevel(_seed);
+                seeditem.Go = new StartLevelProxy1(this, _seed);
                 AddItem(seeditem);
             }
         }

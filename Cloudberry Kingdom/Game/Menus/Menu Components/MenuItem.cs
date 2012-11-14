@@ -6,7 +6,7 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    public delegate void MenuItemGo(MenuItem item);
+    //public delegate void MenuItemGo(MenuItem item);
     public class MenuItem : ViewReadWrite
     {
         public int Code = 0;
@@ -119,10 +119,10 @@ namespace CloudberryKingdom
         public int TextWidth;
         public EzText MyText, MySelectedText;
 
-        public MenuItemGo OnClick;
+        public Lambda_1<MenuItem> OnClick;
 
-        MenuItemGo _Go;
-        public MenuItemGo Go
+        Lambda_1<MenuItem> _Go;
+        public Lambda_1<MenuItem> Go
         {
             set
             {
@@ -621,7 +621,7 @@ namespace CloudberryKingdom
             // Mouse down over the item
 #if PC_VERSION
             if (OnClick != null && ButtonCheck.MouseInUse && Tools.CurMouseDown() && HitTest())
-                OnClick(this);
+                OnClick.Apply(this);
 #endif
             // Go function
             if (Activate && Go != null)
@@ -630,7 +630,7 @@ namespace CloudberryKingdom
 
                 if (SelectSound != null)
                     SelectSound.Play();
-                Go(this);
+                Go.Apply(this);
                 MyMenu.LastActivatedItem = MyMenu.Items.IndexOf(this);
                 ButtonCheck.PreventInput();
             }

@@ -225,9 +225,24 @@ namespace CloudberryKingdom
             item.Name = itemname;
             AddItem(item);
 
-            item.Go = Go;
+            item.Go = new GoProxy(this);
 
             return item;
+        }
+
+        class GoProxy : Lambda_1<MenuItem>
+        {
+            ArcadeMenu am;
+
+            public GoProxy(ArcadeMenu am)
+            {
+                this.am = am;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                am.Go(item);
+            }
         }
 
         protected virtual void Go(MenuItem item)

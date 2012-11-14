@@ -389,7 +389,7 @@ namespace CloudberryKingdom
             MyMenu.OnA = Cast.ToMenu(new GoProxy(this));
             MyMenu.OnB = MenuReturnToCaller;
             MyMenu.OnX = Cast.ToMenu(new RandomizeProxy(this));
-            MyMenu.OnY = Zero;
+            MyMenu.OnY = new ZeroProxy(this);
             MyMenu.SelectDelay = 11;
         }
 
@@ -471,7 +471,7 @@ namespace CloudberryKingdom
             item.Go = null;
             AddItem(item);
             item.SelectSound = null;
-            item.Go = ItemReturnToCaller;
+            item.Go = new ItemReturnToCallerProxy(this);
             item.Pos = item.SelectedPos = new Vector2(702.3179f, -689.9683f);
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;

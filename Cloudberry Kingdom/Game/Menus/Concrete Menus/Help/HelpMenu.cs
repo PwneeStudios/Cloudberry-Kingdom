@@ -504,7 +504,7 @@ namespace CloudberryKingdom
             Item_SlowMo = item;
 
             MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
-            MyMenu.OnY = Cast.ToAction(MenuReturnToCaller);
+            MyMenu.OnY = Cast.ToAction(new MenuReturnToCallerProxy(this));
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
