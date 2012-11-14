@@ -471,9 +471,9 @@ namespace CoreEngine
         }
         public override void FinishLoading(GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad, bool UseNames)
         {
-            Center.ModifiedEventCallback = UpdateCenter;
-            xAxis.ModifiedEventCallback = UpdatexAxis;
-            yAxis.ModifiedEventCallback = UpdateyAxis;
+            Center.ModifiedEventCallback = new UpdateCenterLambda(this);
+            xAxis.ModifiedEventCallback = new UpdatexAxisLambda(this);
+            yAxis.ModifiedEventCallback = new UpdateyAxisLambda(this);
 
 #if EDITOR
             ParentPoint.ClickEventCallback = ClickOnParentButton;
@@ -503,15 +503,15 @@ namespace CoreEngine
             Vertices[3].uv = new Vector2(1, 1);
 
             Center = new ObjectVector();
-            Center.ModifiedEventCallback = UpdateCenter;
+            Center.ModifiedEventCallback = new UpdateCenterLambda(this);
             xAxis = new ObjectVector();
             yAxis = new ObjectVector();
             xAxis.CenterPoint = Center;
             yAxis.CenterPoint = Center;
             xAxis.Move(new Vector2(1f, 0));
             yAxis.Move(new Vector2(0, 1f));
-            xAxis.ModifiedEventCallback = UpdatexAxis;
-            yAxis.ModifiedEventCallback = UpdateyAxis;
+            xAxis.ModifiedEventCallback = new UpdatexAxisLambda(this);
+            yAxis.ModifiedEventCallback = new UpdateyAxisLambda(this);
 
 #if EDITOR
             ParentPoint = new ObjectVector();
@@ -577,10 +577,19 @@ namespace CoreEngine
         }
 
 
-        public void UpdateCenter(Vector2 NewPos)
+        class UpdateCenterLambda : Lambda_1<Vector2>
         {
-            Center.Pos = NewPos;
-            Center.RelPosFromPos();
+            Quad quad;
+            public UpdateCenterLambda(Quad quad)
+            {
+                this.quad = quad;
+            }
+
+            public void Apply(Vector2 NewPos)
+            {
+                quad.Center.Pos = NewPos;
+                quad.Center.RelPosFromPos();
+            }
         }
 
         public Vector2 Size
@@ -616,44 +625,54 @@ namespace CoreEngine
             yAxis.PosFromRelPos();
         }
 
-        public void UpdatexAxis(Vector2 NewPos)
+        class UpdatexAxisLambda : Lambda_1<Vector2>
         {
-            float l = (NewPos - Center.Pos).Length();
-            Vector2 axis = NewPos - Center.Pos;
-            axis.Normalize();
-            xAxis.Pos = Math.Max(l, .0125f) * axis + Center.Pos;
-            //float l = Vector2.Dot(NewPos - Center.Pos, axis);
-            //if (l > .0125f)
+            Quad quad;
+            public UpdatexAxisLambda(Quad quad)
             {
-                //xAxis.Pos = l * axis + Center.Pos;
-                //xAxis.Pos = NewPos;
-                //yAxis.Pos = yAxis.Pos - (xAxis.Pos - Center.Pos) * Vector2.Dot(yAxis.Pos - Center.Pos, xAxis.Pos - Center.Pos) / (xAxis.Pos - Center.Pos).LengthSquared();
-                yAxis.Pos.X = -(NewPos.Y - Center.Pos.Y); yAxis.Pos.Y = NewPos.X - Center.Pos.X;
-                yAxis.Pos += Center.Pos;
+                this.quad = quad;
+            }
 
-                xAxis.RelPosFromPos();
-                yAxis.RelPosFromPos();
+            public void Apply(Vector2 NewPos)
+            {
+                float l = (NewPos - quad.Center.Pos).Length();
+                Vector2 axis = NewPos - quad.Center.Pos;
+                axis.Normalize();
+                quad.xAxis.Pos = Math.Max(l, .0125f) * axis + quad.Center.Pos;
+
+                quad.yAxis.Pos.X = -(NewPos.Y - quad.Center.Pos.Y); quad.yAxis.Pos.Y = NewPos.X - quad.Center.Pos.X;
+                quad.yAxis.Pos += quad.Center.Pos;
+
+                quad.xAxis.RelPosFromPos();
+                quad.yAxis.RelPosFromPos();
             }
         }
 
-        public void UpdateyAxis(Vector2 NewPos)
+        class UpdateyAxisLambda : Lambda_1<Vector2>
         {
-            float L = Vector2.Distance(yAxis.Pos, Center.Pos);//yAxis.RelPos.LengthSquared();
-            if (true)//(NewPos - Center.Pos).LengthSquared() > .001f)
+            Quad quad;
+            public UpdateyAxisLambda(Quad quad)
             {
-                yAxis.Pos = NewPos - Center.Pos;
-                yAxis.Pos.Normalize();
-                yAxis.Pos *= L;
-                yAxis.Pos += Center.Pos;
+                this.quad = quad;
+            }
 
-                xAxis.Pos = xAxis.Pos - (yAxis.Pos - Center.Pos) * Vector2.Dot(xAxis.Pos - Center.Pos, yAxis.Pos - Center.Pos) / (yAxis.Pos - Center.Pos).LengthSquared();
-                xAxis.Pos = xAxis.Pos - Center.Pos;
-                xAxis.Pos.Normalize();
-                xAxis.Pos *= L;
-                xAxis.Pos += Center.Pos;
+            public void Apply(Vector2 NewPos)
+            {
+                float L = Vector2.Distance(quad.yAxis.Pos, quad.Center.Pos);
 
-                xAxis.RelPosFromPos();
-                yAxis.RelPosFromPos();
+                quad.yAxis.Pos = NewPos - quad.Center.Pos;
+                quad.yAxis.Pos.Normalize();
+                quad.yAxis.Pos *= L;
+                quad.yAxis.Pos += quad.Center.Pos;
+
+                quad.xAxis.Pos = quad.xAxis.Pos - (quad.yAxis.Pos - quad.Center.Pos) * Vector2.Dot(quad.xAxis.Pos - quad.Center.Pos, quad.yAxis.Pos - quad.Center.Pos) / (quad.yAxis.Pos - quad.Center.Pos).LengthSquared();
+                quad.xAxis.Pos = quad.xAxis.Pos - quad.Center.Pos;
+                quad.xAxis.Pos.Normalize();
+                quad.xAxis.Pos *= L;
+                quad.xAxis.Pos += quad.Center.Pos;
+
+                quad.xAxis.RelPosFromPos();
+                quad.yAxis.RelPosFromPos();
             }
         }
 

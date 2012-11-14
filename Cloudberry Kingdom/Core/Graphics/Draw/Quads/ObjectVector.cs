@@ -10,12 +10,10 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 
 using CoreEngine;
+using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public delegate void MoveCallback(Vector2 Pos);
-    public delegate void ClickCallback();
-
     public class ObjectVector
     {
         public AnimationData AnimData;
@@ -23,7 +21,7 @@ namespace CoreEngine
         public Vector2 Pos, RelPos;
         public BaseQuad ParentQuad;
         public ObjectVector CenterPoint;
-        public MoveCallback ModifiedEventCallback;
+        public Lambda_1<Vector2> ModifiedEventCallback;
 
         public void Release()
         {
@@ -102,7 +100,7 @@ namespace CoreEngine
             AnimData.Init();// = new AnimationData();
 
             Pos = new Vector2();
-            ModifiedEventCallback = DefaultCallback;
+            ModifiedEventCallback = new DefaultCallbackLambda(this);
 
 #if EDITOR
             ClickEventCallback = DefaultClickCallback;
@@ -122,14 +120,23 @@ namespace CoreEngine
         public void Move(Vector2 NewPos)
         {
             if (ModifiedEventCallback != null)
-                ModifiedEventCallback(NewPos);
+                ModifiedEventCallback.Apply(NewPos);
         }
 
-        public void DefaultCallback(Vector2 NewPos)
+        class DefaultCallbackLambda : Lambda_1<Vector2>
         {
-            Pos = NewPos;
+            ObjectVector v;
+            public DefaultCallbackLambda(ObjectVector v)
+            {
+                this.v = v;
+            }
 
-            RelPosFromPos();
+            public void Apply(Vector2 NewPos)
+            {
+                v.Pos = NewPos;
+
+                v.RelPosFromPos();
+            }
         }
 
 #if EDITOR
