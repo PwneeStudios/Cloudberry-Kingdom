@@ -66,20 +66,44 @@ namespace CloudberryKingdom
                 });
 
             bool Reqs = CustomLevel_GUI.IsMaxLength && CustomLevel_GUI.Difficulty >= 1 &&
-                        PlayerManager.PlayerSum(p => p.GetStats(StatGroup.Level).Checkpoints) == 0 &&
+                        PlayerManager.PlayerSum(new CheckpointsStatsLambda()) == 0 &&
                         Tools.CurGameData.Freeplay && Tools.CurGameData.DefaultHeroType == BobPhsxNormal.Instance;
 
             if (Ran && Reqs)
                 GiveAward(HoldForwardFreeplay);
         }
 
+        class CheckpointsStatsLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(StatGroup.Level).Checkpoints;
+            }
+        }
+
+        class CoinsStatsLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(StatGroup.Level).Coins;
+            }
+        }
+
+        class TotalCoinsStatsLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(StatGroup.Level).TotalCoins;
+            }
+        }
+
         public static void CheckForAward_NoCoins()
         {
-            bool NoCoins = PlayerManager.PlayerSum(p => p.GetStats(StatGroup.Level).Coins) == 0 &&
-                           PlayerManager.PlayerMax(p => p.GetStats(StatGroup.Level).TotalCoins) > 5;
+            bool NoCoins = PlayerManager.PlayerSum(new CoinsStatsLambda()) == 0 &&
+                           PlayerManager.PlayerMax(new TotalCoinsStatsLambda()) > 5;
 
             bool Reqs = CustomLevel_GUI.IsMaxLength && CustomLevel_GUI.Difficulty >= 1 &&
-                        PlayerManager.PlayerSum(p => p.GetStats(StatGroup.Level).Checkpoints) == 0 &&
+                        PlayerManager.PlayerSum(new CheckpointsStatsLambda()) == 0 &&
                         Tools.CurGameData.Freeplay && Tools.CurGameData.DefaultHeroType == BobPhsxNormal.Instance;
 
             if (NoCoins && Reqs)

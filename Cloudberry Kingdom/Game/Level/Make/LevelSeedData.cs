@@ -457,8 +457,14 @@ namespace CloudberryKingdom
             {
                 try
                 {
-                    game = "g:" + GameData.FactoryDict.Keys.Where(k => GameData.FactoryDict[k] == MyGameType).First();
-                    game += ";";
+                    foreach (var kv in GameData.FactoryDict)
+                    {
+                        if (kv.Value == MyGameType)
+                        {
+                            game = "g:" + kv.Key;
+                            break;
+                        }
+                    }
                 }
                 catch
                 {
@@ -748,7 +754,24 @@ namespace CloudberryKingdom
         public void PostMake_StandardLoad(Level level)
         {
             LevelSeedData.PostMake_Standard(level, true, false);
-            level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
+            level.MyGame.MakeScore = new ScoreScreenLambda(StatGroup.Level, level);
+        }
+
+        class ScoreScreenLambda : LambdaFunc<GameObject>
+        {
+            StatGroup stats;
+            Level level;
+
+            public ScoreScreenLambda(StatGroup stats, Level level)
+            {
+                this.stats = stats;
+                this.level = level;
+            }
+
+            public GameObject Apply()
+            {
+                return new ScoreScreen(stats, level.MyGame);
+            }
         }
 
         class EOL_DoorActionProxy : Lambda_1<Door>

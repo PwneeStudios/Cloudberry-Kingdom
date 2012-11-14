@@ -12,8 +12,16 @@ namespace CloudberryKingdom
 
         protected override int GetScore()
         {
-            int Score = PlayerManager.PlayerSum(p => p.RunningCampaignScore());
+            int Score = PlayerManager.PlayerSum(new RunningCampaignScoreLambda());
             return Score;
+        }
+
+        class RunningCampaignScoreLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.RunningCampaignScore();
+            }
         }
     }
 

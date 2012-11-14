@@ -38,15 +38,27 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        class MatchUsedLambda : LambdaFunc_1<BlockBase, bool>
+        {
+            public MatchUsedLambda()
+            {
+            }
+
+            public bool Apply(BlockBase match)
+            {
+                return match.Core.GenData.Used;
+            }
+        }
+
         public override void Phase2()
         {
             base.Phase2();
 
             // Find a final block that was used by the computer.
             if (MyLevel.CurMakeData.PieceSeed.GeometryType == LevelGeometry.Down)
-                FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), new ElementPositionProjectY());
+                FinalBlock = Tools.ArgMin(Tools.FindAll(MyLevel.Blocks, new MatchUsedLambda()), new ElementPositionProjectY());
             else
-                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), new ElementPositionProjectY());
+                FinalBlock = Tools.ArgMax(Tools.FindAll(MyLevel.Blocks, new MatchUsedLambda()), new ElementPositionProjectY());
 
             FinalPos = FinalBlock.Core.Data.Position;
 

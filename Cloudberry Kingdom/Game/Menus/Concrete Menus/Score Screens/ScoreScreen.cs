@@ -198,6 +198,59 @@ namespace CloudberryKingdom
             }
         }
 
+        class VariableCoinsLambda : PlayerIntLambda
+        {
+            StatGroup MyStats;
+            public VariableCoinsLambda(StatGroup MyStats)
+            {
+                this.MyStats = MyStats;
+            }
+
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(MyStats).Coins;
+            }
+        }
+        class VariableTotalCoinsLambda : PlayerIntLambda
+        {
+            StatGroup MyStats;
+            public VariableTotalCoinsLambda(StatGroup MyStats)
+            {
+                this.MyStats = MyStats;
+            }
+
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(MyStats).TotalCoins;
+            }
+        }
+        class VariableBlobsLambda : PlayerIntLambda
+        {
+            StatGroup MyStats;
+            public VariableBlobsLambda(StatGroup MyStats)
+            {
+                this.MyStats = MyStats;
+            }
+
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(MyStats).Blobs;
+            }
+        }
+        class VariableTotalBlobsLambda : PlayerIntLambda
+        {
+            StatGroup MyStats;
+            public VariableTotalBlobsLambda(StatGroup MyStats)
+            {
+                this.MyStats = MyStats;
+            }
+
+            public override int Apply(PlayerData p)
+            {
+                return p.GetStats(MyStats).TotalBlobs;
+            }
+        }
+
         protected StatGroup MyStatGroup = StatGroup.Level;
         public override void OnAdd()
         {
@@ -212,10 +265,10 @@ namespace CloudberryKingdom
             // Calculate scores
             PlayerManager.CalcScore(MyStatGroup);
 
-            int Coins = PlayerManager.PlayerSum(p => p.GetStats(MyStatGroup).Coins);
-            int CoinTotal = PlayerManager.PlayerMax(p => p.GetStats(MyStatGroup).TotalCoins);
-            int Blobs = PlayerManager.PlayerSum(p => p.GetStats(MyStatGroup).Blobs);
-            int BlobTotal = PlayerManager.PlayerMax(p => p.GetStats(MyStatGroup).TotalBlobs);
+            int Coins = PlayerManager.PlayerSum(new VariableCoinsLambda(MyStatGroup));
+            int CoinTotal = PlayerManager.PlayerMax(new VariableTotalBlobsLambda(MyStatGroup));
+            int Blobs = PlayerManager.PlayerSum(new VariableBlobsLambda(MyStatGroup));
+            int BlobTotal = PlayerManager.PlayerMax(new VariableTotalBlobsLambda(MyStatGroup));
 
             MyPile.Add(new EzText(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins"));
             MyPile.Add(new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs"));

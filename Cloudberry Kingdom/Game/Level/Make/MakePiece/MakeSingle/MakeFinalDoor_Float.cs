@@ -146,8 +146,7 @@ namespace CloudberryKingdom.Levels
             AttachDoorAction(door);
 
             // Mod CameraZone
-            CameraZone camzone = (CameraZone)level.Objects.Find(obj =>
-                obj.Core.MyType == ObjectType.CameraZone);
+            CameraZone camzone = (CameraZone)Tools.Find(level.Objects, FindCamZoneLambda.FindCamZoneLambda_Static);
 
             camzone.End.X = FinalPos.X - level.MainCamera.GetWidth() / 2 + 420;
 

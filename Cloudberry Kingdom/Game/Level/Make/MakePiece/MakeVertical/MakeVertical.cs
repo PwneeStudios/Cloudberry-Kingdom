@@ -63,6 +63,18 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        class FindFirstRowLambda : LambdaFunc_1<BlockBase, bool>
+        {
+            public FindFirstRowLambda()
+            {
+            }
+
+            public bool Apply(BlockBase match)
+            {
+                return match.Core == "FirstRow";
+            }
+        }
+
         /// <summary>
         /// Create the initial platforms the players start on.
         /// </summary>
@@ -73,9 +85,7 @@ namespace CloudberryKingdom.Levels
             NormalBlock block = null, startblock = null;
 
             // Find the closest block to pos on first row
-            startblock = (NormalBlock)Tools.ArgMin(
-                Blocks.FindAll(match => match.Core == "FirstRow"),
-                new ElementDistanceSquared(pos));
+            startblock = (NormalBlock)Tools.ArgMin(Tools.FindAll(Blocks, new FindFirstRowLambda()), new ElementDistanceSquared(pos));
 
             switch (Style.MyInitialPlatsType)
             {
@@ -86,10 +96,12 @@ namespace CloudberryKingdom.Levels
                     // Tiled bottom
                     if (Style.MyInitialPlatsType == StyleData.InitialPlatsType.Up_TiledFloor)
                     {
-                            Blocks.FindAll(match => match.Core == "FirstRow").ForEach(
-                                element => element.CollectSelf());
-                            FinalCamZone.End.Y += 400;
-                            FinalCamZone.Start.Y -= 100;
+                        foreach (BlockBase _block in Blocks)
+                            if (_block.Core == "FirstRow")
+                                _block.CollectSelf();
+
+                        FinalCamZone.End.Y += 400;
+                        FinalCamZone.Start.Y -= 100;
 
                         block.Core.DrawLayer = 2;
                         block.Init(startblock.Pos, Vector2.One, MyTileSetInfo);
@@ -280,8 +292,9 @@ namespace CloudberryKingdom.Levels
             }
 
             // Set flag when a block on the last row is used.
-            foreach (BlockBase block in Blocks.FindAll(match => match.Core == "LastRow"))
-                block.Core.GenData.OnUsed = new EndReachedLambda(this);
+            foreach (BlockBase block in Blocks)
+                if (block.Core == "LastRow")
+                    block.Core.GenData.OnUsed = new EndReachedLambda(this);
 
             // Initial platform
             if (CurMakeData.InitialPlats && VStyle.MakeInitialPlats)
@@ -350,17 +363,7 @@ namespace CloudberryKingdom.Levels
             while (CurPhsxStep - Bobs[0].IndexOffset < CurPiece.PieceLength)
             {
                 if (EndReached) OneFinishedCount += 15;
-                /*
-                // End if all bobs have arrived
-                if (Geometry == LevelGeometry.Up   && !Bobs.Any(bob => bob.Core.Data.Position.Y < TR_Bound.Y) ||
-                    Geometry == LevelGeometry.Down && !Bobs.Any(bob => bob.Core.Data.Position.Y > BL_Bound.Y + 300))
-                    OneFinishedCount += 8;
 
-                // End after first computer arrives at end
-                if (Geometry == LevelGeometry.Up   && Bobs.Any(bob => bob.Core.Data.Position.Y > TR_Bound.Y - 100) ||
-                    Geometry == LevelGeometry.Down && Bobs.Any(bob => bob.Core.Data.Position.Y < BL_Bound.Y + 280))
-                    OneFinishedCount++;
-                */
                 if (OneFinishedCount > 200)
                     break;
 

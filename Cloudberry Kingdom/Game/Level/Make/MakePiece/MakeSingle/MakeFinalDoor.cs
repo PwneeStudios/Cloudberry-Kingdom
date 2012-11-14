@@ -239,13 +239,26 @@ namespace CloudberryKingdom.Levels
             AttachDoorAction(door);
 
             // Mod CameraZone
-            CameraZone camzone = (CameraZone)level.Objects.Find(obj =>
-                obj.Core.MyType == ObjectType.CameraZone);
+            CameraZone camzone = (CameraZone)Tools.Find(level.Objects, FindCamZoneLambda.FindCamZoneLambda_Static);
 
             camzone.End.X = FinalPos.X - level.MainCamera.GetWidth() / 2 + 500;
 
             if (level.PieceSeed.ZoomType == LevelZoom.Big)
                 camzone.End.X -= 150;
+        }
+    }
+
+    public class FindCamZoneLambda : LambdaFunc_1<ObjectBase, bool>
+    {
+        public static FindCamZoneLambda FindCamZoneLambda_Static = new FindCamZoneLambda();
+
+        public FindCamZoneLambda()
+        {
+        }
+
+        public bool Apply(ObjectBase obj)
+        {
+            return obj.Core.MyType == ObjectType.CameraZone;
         }
     }
 }

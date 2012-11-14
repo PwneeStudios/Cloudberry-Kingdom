@@ -1054,19 +1054,11 @@ namespace CloudberryKingdom.Levels
         void Stage1(Vector2 BL_Bound, Vector2 TR_Bound, int Length)
         {
             int OneFinishedCount = 0; // Number of frames since at least one player finished
-            int AdditionalSteps = 10;//200; // Steps to take after computer reaches end
-            while (CurPhsxStep - Bobs[0].IndexOffset < Length)// CurPiece.PieceLength)
+            int AdditionalSteps = 10; // Steps to take after computer reaches end
+            while (CurPhsxStep - Bobs[0].IndexOffset < Length)
             {
                 Step1 = CurPhsxStep;
-                /*
-                // End if all bobs have arrived
-                if (!Bobs.Any(bob => bob.Core.Data.Position.X < MaxRight + EndBuffer))
-                    OneFinishedCount += 8;
 
-                // End after first computer arrives at end
-                if (Bobs.Any(bob => bob.Core.Data.Position.X > MaxRight + EndBuffer - 100))
-                    OneFinishedCount++;
-                */
                 // Do the above without delegates
                 bool Any;
                 Any = false; foreach (Bob bob in Bobs) if (bob.Core.Data.Position.X < MaxRight + EndBuffer) Any = true;
@@ -1080,7 +1072,6 @@ namespace CloudberryKingdom.Levels
 
                 PhsxStep(true);
                 foreach (AutoGen gen in Generators.ActiveFill_1_Gens)
-                    //gen.ActiveFill_1(this, BL_Bound, TR_Bound);
                     gen.ActiveFill_1(this, FillBL, TR_Bound);
             }
             LastStep = CurPhsxStep;

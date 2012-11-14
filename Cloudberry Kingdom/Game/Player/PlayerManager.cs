@@ -17,6 +17,18 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
+    public class PlayerIntLambda : LambdaFunc_1<PlayerData, int>
+    {
+        public PlayerIntLambda()
+        {
+        }
+
+        public virtual int Apply(PlayerData p)
+        {
+            return 0;
+        }
+    }
+
     public static class UserPowers
     {
         /// <summary>
@@ -405,7 +417,15 @@ namespace CloudberryKingdom
         /// </summary>
         public static int CombinedBank()
         {
-            return PlayerSum(p => p.Bank());
+            return PlayerSum(new BankLambda());
+        }
+
+        class BankLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.Bank();
+            }
         }
 
         public static void DeductCost(int Cost)
@@ -474,25 +494,25 @@ namespace CloudberryKingdom
             return score;
         }
 
-        public static int PlayerSum(Func<PlayerData, int> f)
+        public static int PlayerSum(LambdaFunc_1<PlayerData, int> f)
         {
             int sum = 0;
             foreach (PlayerData player in ExistingPlayers)
             {
                 if (player != null)
-                    sum += f(player);
+                    sum += f.Apply(player);
             }
 
             return sum;
         }
 
-        public static int PlayerMax(Func<PlayerData, int> f)
+        public static int PlayerMax(LambdaFunc_1<PlayerData, int> f)
         {
             int max = int.MinValue;
             foreach (PlayerData player in ExistingPlayers)
             {
                 if (player != null)
-                    max = Math.Max(max, f(player));
+                    max = Math.Max(max, f.Apply(player));
             }
 
             return max;

@@ -56,7 +56,18 @@ namespace CloudberryKingdom
             UpdateAvailableHats();
 
             // Get the signed in player's saved color scheme and set the character select accordingly
-            Tools.CurGameData.AddToDo(() =>
+            Tools.CurGameData.AddToDo(new SignInGamerLambda(e));
+        }
+
+        class SignInGamerLambda : Lambda
+        {
+            SignedInEventArgs e;
+            public SignInGamerLambda(SignedInEventArgs e)
+            {
+                this.e = e;
+            }
+
+            public void Apply()
             {
                 int index = (int)e.Gamer.PlayerIndex;
                 CharacterSelect select = CharSelect[index];
@@ -64,7 +75,7 @@ namespace CloudberryKingdom
                 {
                     select.InitColorScheme(index);
                 }
-            });
+            }
         }
 #endif
 
@@ -212,7 +223,20 @@ namespace CloudberryKingdom
 
         static bool AllNull()
         {
-            return CharSelect.All<CharacterSelect>(select => select == null);
+            return Tools.All(CharSelect, NullLambda_static);
+        }
+
+        static NullLambda NullLambda_static = new NullLambda();
+        class NullLambda : LambdaFunc_1<CharacterSelect, bool>
+        {
+            public NullLambda()
+            {
+            }
+
+            public bool Apply(CharacterSelect select)
+            {
+                return select == null;
+            }
         }
 
         public static int DrawLayer = 10;

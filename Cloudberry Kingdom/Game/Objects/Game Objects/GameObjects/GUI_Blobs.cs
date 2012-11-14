@@ -211,10 +211,18 @@ namespace CloudberryKingdom
 
             if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
 
-            Blobs = PlayerManager.PlayerSum(p => p.TempStats.Blobs);
+            Blobs = PlayerManager.PlayerSum(new TempStatsLambda());
 
             //CoinText.Pos = new Vector2(CoinText.GetWorldWidth(), CoinText.Pos.Y);
             UpdateCoinText();
+        }
+
+        class TempStatsLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.TempStats.Blobs;
+            }
         }
 
         public override void Reset(bool BoxesOnly)

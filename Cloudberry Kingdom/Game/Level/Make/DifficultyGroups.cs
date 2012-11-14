@@ -29,8 +29,6 @@ namespace CloudberryKingdom
         /// </summary>
         public static Lambda_1<PieceSeedData> FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
         {
-            //if (Difficulty < 0) Difficulty = 0;
-            //return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
             return new FixedPieceModHelper(Difficulty, LevelSeed);
         }
 
