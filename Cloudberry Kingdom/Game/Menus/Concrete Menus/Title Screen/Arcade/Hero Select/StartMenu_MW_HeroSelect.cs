@@ -44,6 +44,21 @@ namespace CloudberryKingdom
             Arcade = null;
         }
 
+        class OnSelectProxy : Lambda
+        {
+            StartMenu_MW_HeroSelect smmwhs;
+
+            public OnSelectProxy(StartMenu_MW_HeroSelect smmwhs)
+            {
+                this.smmwhs = smmwhs;
+            }
+
+            public void Apply()
+            {
+                smmwhs.OnSelect();
+            }
+        }
+
         void OnSelect()
         {
             var item = MyMenu.CurItem as HeroItem;
@@ -165,7 +180,7 @@ namespace CloudberryKingdom
             foreach (var phsx in list)
             {
                 var item = new HeroItem(phsx);
-                item.AdditionalOnSelect = OnSelect;
+                item.AdditionalOnSelect = new OnSelectProxy(this);
                 AddItem(item);
                 item.Go = Go;
             }

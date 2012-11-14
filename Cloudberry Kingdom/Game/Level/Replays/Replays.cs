@@ -99,7 +99,7 @@ namespace CloudberryKingdom.Levels
             SetToReset = true;
         }
 
-        public Action OnWatchComputer;
+        public Lambda OnWatchComputer;
 
         public void WatchComputer() { WatchComputer(true); }
         public void WatchComputer(bool GUI)
@@ -167,7 +167,7 @@ namespace CloudberryKingdom.Levels
             MySourceGame.SetAdditionalBobParameters(Bobs);
 
             // Additional actions
-            if (OnWatchComputer != null) OnWatchComputer();
+            if (OnWatchComputer != null) OnWatchComputer.Apply();
 
             SetToReset = true;
         }
@@ -177,7 +177,7 @@ namespace CloudberryKingdom.Levels
             return CurPhsxStep >= CurPiece.PieceLength;
         }
 
-        public Action OnEndReplay;
+        public Lambda OnEndReplay;
         public void EndReplay()
         {
             SuppressCheckpoints = false;
@@ -202,7 +202,7 @@ namespace CloudberryKingdom.Levels
                 bob.PlayerObject.DequeueTransfers();
             }
 
-            if (OnEndReplay != null) OnEndReplay();
+            if (OnEndReplay != null) OnEndReplay.Apply();
         }
 
 
@@ -213,7 +213,7 @@ namespace CloudberryKingdom.Levels
             ReplayPaused = false;
             StartPlayerPlay();
 
-            if (OnEndReplay != null) OnEndReplay();
+            if (OnEndReplay != null) OnEndReplay.Apply();
         }
     }
 }

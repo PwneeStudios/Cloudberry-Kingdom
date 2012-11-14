@@ -133,7 +133,7 @@ namespace CloudberryKingdom
             get { return _Go; }
         }
 
-        public Action AdditionalOnSelect;
+        public Lambda AdditionalOnSelect;
 
         public int Control;
 
@@ -445,7 +445,7 @@ namespace CloudberryKingdom
         public void OnSelect()
         {
             if (AdditionalOnSelect != null)
-                AdditionalOnSelect();
+                AdditionalOnSelect.Apply();
 
             // Stop jiggling
             if (JiggleOnGo)

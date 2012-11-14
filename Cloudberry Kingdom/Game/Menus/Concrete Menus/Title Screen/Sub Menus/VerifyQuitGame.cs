@@ -54,6 +54,23 @@ namespace CloudberryKingdom
             text.Scale *= 1.15f;
         }
 
+        class InitTextureNameSetter : Lambda
+        {
+            QuadClass Berry;
+            string textureName;
+
+            public InitTextureNameSetter(QuadClass Berry, string textureName)
+            {
+                this.Berry = Berry;
+                this.textureName = textureName;
+            }
+
+            public void Apply()
+            {
+                Berry.TextureName = textureName;
+            }
+        }
+
         public override void Init()
         {
             base.Init();
@@ -77,14 +94,14 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
             item.Name = "Yes";
             item.Go = Cast.ToItem(Tools.TheGame.Exit);
-            item.AdditionalOnSelect = () => Berry.TextureName = "cb_crying";
+            item.AdditionalOnSelect = new InitTextureNameSetter(Berry, "cb_crying");
             AddItem(item);
 
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Name = "No";
             item.Go = ItemReturnToCaller;
-            item.AdditionalOnSelect = () => Berry.TextureName = "cb_enthusiastic";
+            item.AdditionalOnSelect = new InitTextureNameSetter(Berry, "cb_enthusiastic");
             item.SelectSound = null;
             BackSound = null;
             AddItem(item);

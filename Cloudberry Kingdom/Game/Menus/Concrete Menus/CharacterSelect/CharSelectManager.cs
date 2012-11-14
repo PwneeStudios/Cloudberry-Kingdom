@@ -14,7 +14,7 @@ namespace CloudberryKingdom
 {
     public class CharacterSelectManager : ViewReadWrite
     {
-        public static Action OnBack, OnDone;
+        public static Lambda OnBack, OnDone;
 
         public static GUI_Panel ParentPanel;
 
@@ -265,7 +265,7 @@ namespace CloudberryKingdom
             IsShowing = false;
             
             Cleanup();
-            if (OnDone != null) OnDone();
+            if (OnDone != null) OnDone.Apply();
         }
 
         static bool Active = false;

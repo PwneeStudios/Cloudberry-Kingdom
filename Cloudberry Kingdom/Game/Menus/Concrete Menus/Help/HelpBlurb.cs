@@ -26,9 +26,26 @@ namespace CloudberryKingdom
             SlideInFrom = SlideOutTo = PresetPos.Right;
         }
 
-        public Action SetText_Action(Localization.Words Word)
+        class SetText_ActionHelper : Lambda
         {
-            return () => SetText(Word);
+            HelpBlurb hb;
+            Localization.Words Word;
+
+            public SetText_ActionHelper(HelpBlurb hb, Localization.Words Word)
+            {
+                this.hb = hb;
+                this.Word = Word;
+            }
+
+            public void Apply()
+            {
+                hb.SetText(Word);
+            }
+        }
+
+        public Lambda SetText_Action(Localization.Words Word)
+        {
+            return new SetText_ActionHelper(this, Word);
         }
 
         public void SetText(Localization.Words Word)

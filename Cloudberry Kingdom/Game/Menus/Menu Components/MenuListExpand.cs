@@ -53,6 +53,21 @@ namespace CloudberryKingdom
 #endif
         }
 
+        class OnSelectProxy : Lambda
+        {
+            MenuListExpand mle;
+
+            public OnSelectProxy(MenuListExpand mle)
+            {
+                this.mle = mle;
+            }
+
+            public void Apply()
+            {
+                mle.OnSelect();
+            }
+        }
+
         void OnSelect()
         {
             //MyMenuList.SetIndex(MyMenu.CurIndex);
@@ -95,7 +110,7 @@ namespace CloudberryKingdom
 
                 MenuItem clone = item.Clone();
                 clone.MyInt = index - 1;
-                clone.AdditionalOnSelect = OnSelect;
+                clone.AdditionalOnSelect = new OnSelectProxy(this);
                 AddItem(clone);
                 clone.ScaleText(.85f);
                 Vector2 size = clone.MyText.GetWorldSize();

@@ -138,6 +138,35 @@ namespace CloudberryKingdom
             }
         }
 
+        class AddUpgradeAdditionalOnSelect : Lambda
+        {
+            CustomUpgrades_GUI cuGui;
+            MenuSlider slider;
+            Upgrade upgrade;
+
+            public AddUpgradeAdditionalOnSelect(CustomUpgrades_GUI cuGui, MenuSlider slider, Upgrade upgrade)
+            {
+                this.cuGui = cuGui;
+                this.slider = slider;
+                this.upgrade = upgrade;
+            }
+
+            public void Apply()
+            {
+                cuGui.TopText.SubstituteText(slider.Icon.DisplayText);
+                cuGui.TopText.Pos = new Vector2(761 + 280, -46 + 771);
+                cuGui.TopText.Center();
+
+                cuGui.BigIcon = ObjectIcon.CreateIcon(upgrade, true);
+                cuGui.BigIcon.SetScale(2f);
+                cuGui.BigIcon.FancyPos.SetCenter(cuGui.Pos);
+                cuGui.BigIcon.Pos = new Vector2(731f + 500 * (1 - cuGui.ScaleList), 198f);
+                cuGui.BigIcon.MyOscillateParams.max_addition *= .25f;
+
+                cuGui.TopText.Show = true;
+            }
+        }
+
         public ObjectIcon BigIcon;
         void AddUpgrade(Upgrade upgrade)
         {
@@ -161,20 +190,7 @@ namespace CloudberryKingdom
             else
                 slider.MyFloat.SetCallback = new PieceSeedSetter(this, upgrade, slider);
 
-            slider.AdditionalOnSelect = () =>
-                {
-                    TopText.SubstituteText(slider.Icon.DisplayText);
-                    TopText.Pos = new Vector2(761 + 280, -46 + 771);
-                    TopText.Center();
-
-                    BigIcon = ObjectIcon.CreateIcon(upgrade, true);
-                    BigIcon.SetScale(2f);
-                    BigIcon.FancyPos.SetCenter(Pos);
-                    BigIcon.Pos = new Vector2(731f + 500 * (1 - ScaleList), 198f);
-                    BigIcon.MyOscillateParams.max_addition *= .25f;
-
-                    TopText.Show = true;
-                };
+            slider.AdditionalOnSelect = new AddUpgradeAdditionalOnSelect(this, slider, upgrade);
             AddItem(slider);
         }
 

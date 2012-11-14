@@ -75,7 +75,7 @@ namespace CloudberryKingdom
         {
             Hide();
             CharacterSelectManager.Start(this);
-            CharacterSelectManager.OnDone = DoneWithCharSelect;
+            CharacterSelectManager.OnDone = new DoneWithCharSelectProxy(this);
             CharacterSelectManager.OnBack = null;
         }
 
@@ -375,6 +375,21 @@ namespace CloudberryKingdom
 
             if (Active)
                 ButtonCheck.PreLogIn = true;
+        }
+
+        class DoneWithCharSelectProxy : Lambda
+        {
+            StartMenu sm;
+
+            public DoneWithCharSelectProxy(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply()
+            {
+                sm.DoneWithCharSelect();
+            }
         }
 
         private void DoneWithCharSelect()
