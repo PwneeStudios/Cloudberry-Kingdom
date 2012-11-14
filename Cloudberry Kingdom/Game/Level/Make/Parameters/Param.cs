@@ -6,7 +6,6 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
-    public delegate Vector2 VectorParamFunc(Upgrades upgrades);
     public struct VectorParam
     {
         public Param X, Y;
@@ -16,15 +15,6 @@ namespace CloudberryKingdom
             X = new Param(PieceSeed);
             Y = new Param(PieceSeed);
         }
-
-        //public VectorParam(PieceSeedData PieceSeed, VectorParamFunc f)
-        //{
-        //    X = new Param(PieceSeed);
-        //    Y = new Param(PieceSeed);
-
-        //    if (f != null)
-        //        SetVal(f);
-        //}
 
         public VectorParam(PieceSeedData PieceSeed, Vector2 v)
         {
