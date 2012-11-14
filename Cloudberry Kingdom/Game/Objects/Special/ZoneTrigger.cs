@@ -4,10 +4,9 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
-    public delegate void ZoneTriggerEvent(ZoneTrigger trig);
     public class ZoneTrigger : ObjectBase
     {
-        public ZoneTriggerEvent MyContainsEvent;
+        public Lambda_1<ZoneTrigger> MyContainsEvent;
 
         AABox Box;
 
@@ -15,7 +14,6 @@ namespace CloudberryKingdom
         {
             Core.Init();
             Core.MyType = ObjectType.ZoneTrigger;
-            //Core.Show = false;
         }
 
         public ZoneTrigger()
@@ -53,7 +51,7 @@ namespace CloudberryKingdom
             if (!Core.Active) return;
             bool Overlap = Phsx.BoxBoxOverlap(bob.Box, Box);
             if (Overlap)
-                MyContainsEvent(this);
+                MyContainsEvent.Apply(this);
         }
 
 

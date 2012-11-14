@@ -53,7 +53,18 @@ namespace CloudberryKingdom
         {
             base.Init(center, size);
 
-            MyContainsEvent = delegate(ZoneTrigger trig)
+            MyContainsEvent = new ZoneTriggerLambda(this);
+        }    
+
+        class ZoneTriggerLambda : Lambda_1<ZoneTrigger>
+        {
+            CameraZone zt;
+            public ZoneTriggerLambda(CameraZone zt)
+            {
+                this.zt = zt;
+            }
+
+            public void Apply(ZoneTrigger trig)
             {
                 CameraZone CamZone = trig as CameraZone;
 
@@ -65,11 +76,11 @@ namespace CloudberryKingdom
                     !cam.MyZone.Activated ||
                     cam.MyZone.Priority < CamZone.Priority)
                 {
-                    switch (CameraType)
+                    switch (zt.CameraType)
                     {
                         case Camera.PhsxType.Center:
-                            if (cam.MyPhsxType != CameraType)
-                                cam.Target = Core.Data.Position;
+                            if (cam.MyPhsxType != zt.CameraType)
+                                cam.Target = zt.Core.Data.Position;
                             break;
                     }
 
@@ -78,17 +89,14 @@ namespace CloudberryKingdom
                     if (cam.MyZone == null)
                         CamZone.SnapNext = true;
 
-                    //cam.TargetSpeed = CameraTargetSpeed;
-                    //cam.SpeedVel = CameraSpeedVel;
-                    //cam.Speed = cam.CurVel().Length();
-                    if (SetCameraSpeed)
-                        cam.Speed = CameraSpeed;
-                        
-                    cam.MyPhsxType = CameraType;
+                    if (zt.SetCameraSpeed)
+                        cam.Speed = zt.CameraSpeed;
+
+                    cam.MyPhsxType = zt.CameraType;
 
                     cam.MyZone = CamZone;
                 }
-            };
+            }
         }
 
         public override void PhsxStep()
