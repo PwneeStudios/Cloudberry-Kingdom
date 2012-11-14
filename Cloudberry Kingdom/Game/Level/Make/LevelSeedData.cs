@@ -639,7 +639,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called when the loading screen is created, just before the level creation algorithm starts.
         /// </summary>
-        public Action OnBeginLoad;
+        public Lambda OnBeginLoad;
 
         /// <summary>
         /// When true the campaign manager does not add a default PostMake action to this seed.

@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             {
                 Tools.BeginLoadingScreen(!LevelSeed.NoMusicStart);
                 if (LevelSeed.OnBeginLoad != null)
-                    LevelSeed.OnBeginLoad();
+                    LevelSeed.OnBeginLoad.Apply();
             }
 
             Thread MakeThread = new Thread(

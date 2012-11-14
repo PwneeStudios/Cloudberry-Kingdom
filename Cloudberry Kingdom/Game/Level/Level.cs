@@ -301,14 +301,14 @@ namespace CloudberryKingdom.Levels
             {
                 MyCamera = value;
                 MyCamera.MyLevel = this;
-                if (OnCameraChange != null) OnCameraChange();
+                if (OnCameraChange != null) OnCameraChange.Apply();
             }
         }
 
         /// <summary>
         /// Event handler. Activates when the main camera is set to another camera instance.
         /// </summary>
-        public event Action OnCameraChange;
+        public Multicaster OnCameraChange = new Multicaster();
 
         public Vector2 BL, TR;
 

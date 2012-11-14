@@ -250,7 +250,23 @@ namespace CloudberryKingdom
             AffectGamePause();
 
             if (Core.MyLevel != null)
-                Core.MyLevel.OnCameraChange += this.OnCameraChange;
+                Core.MyLevel.OnCameraChange.Add(new OnCameraChangeProxy(this));
+        }
+
+
+        class OnCameraChangeProxy : Lambda
+        {
+            GameObject go;
+
+            public OnCameraChangeProxy(GameObject go)
+            {
+                this.go = go;
+            }
+
+            public void Apply()
+            {
+                go.OnCameraChange();
+            }
         }
 
         /// <summary>
