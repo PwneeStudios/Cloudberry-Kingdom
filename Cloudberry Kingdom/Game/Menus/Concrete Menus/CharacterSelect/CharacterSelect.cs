@@ -248,9 +248,16 @@ namespace CloudberryKingdom
             CopyIndicesFromColorScheme();
         }
 
-        Predicate<MenuListItem> Match(ClrTextFx obj)
+        int FindIndex(List<MenuListItem> list, ClrTextFx obj)
         {
-            return _match => ((ClrTextFx)_match.obj).Guid == obj.Guid;
+            int index = 0;
+            foreach (var item in list)
+            {
+                if (((ClrTextFx)item.obj).Guid == obj.Guid)
+                    return index;
+                index++;
+            }
+            return 0;
         }
 
         /// <summary>
@@ -258,11 +265,11 @@ namespace CloudberryKingdom
         /// </summary>
         void CopyIndicesFromColorScheme()
         {
-            ItemIndex[0] = ItemList[0].IndexOf(Match(Player.ColorScheme.SkinColor));
+            ItemIndex[0] = FindIndex(ItemList[0], Player.ColorScheme.SkinColor);
             ItemIndex[1] = ColorSchemeManager.BeardInfo.IndexOf(Player.ColorScheme.BeardData);
             ItemIndex[2] = ColorSchemeManager.HatInfo.IndexOf(Player.ColorScheme.HatData);
-            ItemIndex[3] = ItemList[3].IndexOf(Match(Player.ColorScheme.CapeColor));
-            ItemIndex[4] = ItemList[4].IndexOf(Match(Player.ColorScheme.CapeOutlineColor));
+            ItemIndex[3] = FindIndex(ItemList[3], Player.ColorScheme.CapeColor);
+            ItemIndex[4] = FindIndex(ItemList[4], Player.ColorScheme.CapeOutlineColor);
 
             for (int i = 0; i <= 4; i++)
                 if (ItemIndex[i] < 0)

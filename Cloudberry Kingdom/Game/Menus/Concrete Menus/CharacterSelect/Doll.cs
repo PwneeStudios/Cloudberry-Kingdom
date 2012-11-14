@@ -81,15 +81,39 @@ namespace CloudberryKingdom
             MyDoll.SetColorScheme(MyCharacterSelect.Player.ColorScheme);
         }
 
+        int FindClrIndex(List<MenuListItem> list, ClrTextFx clr)
+        {
+            int Index = 0;
+            foreach (var item in list)
+            {
+                if ((ClrTextFx)item.obj == clr)
+                    return Index;
+                Index++;
+            }
+            return 0;
+        }
+
+        int FindHatIndex(List<Hat> list, Hat hat)
+        {
+            int Index = 0;
+            foreach (var item in list)
+            {
+                if (item == hat)
+                    return Index;
+                Index++;
+            }
+            return 0;
+        }
+
         public void GetIndices(int[] ItemIndex, List<MenuListItem>[] ItemList)
         {
-            ItemIndex[0] = ItemList[0].FindIndex(item => (ClrTextFx)item.obj == MyDoll.MyColorScheme.SkinColor);
+            ItemIndex[0] = FindClrIndex(ItemList[0], MyDoll.MyColorScheme.SkinColor);
 
-            ItemIndex[1] = ColorSchemeManager.BeardInfo.FindIndex(hat => hat == MyDoll.MyColorScheme.BeardData);
-            ItemIndex[2] = ColorSchemeManager.HatInfo.FindIndex(hat => hat == MyDoll.MyColorScheme.HatData);
+            ItemIndex[1] = FindHatIndex(ColorSchemeManager.BeardInfo, MyDoll.MyColorScheme.BeardData);
+            ItemIndex[2] = FindHatIndex(ColorSchemeManager.HatInfo, MyDoll.MyColorScheme.HatData);
 
-            ItemIndex[3] = ItemList[3].FindIndex(item => (ClrTextFx)item.obj == MyDoll.MyColorScheme.CapeColor);
-            ItemIndex[4] = ItemList[4].FindIndex(item => (ClrTextFx)item.obj == MyDoll.MyColorScheme.CapeOutlineColor);
+            ItemIndex[3] = FindClrIndex(ItemList[3], MyDoll.MyColorScheme.CapeColor);
+            ItemIndex[4] = FindClrIndex(ItemList[4], MyDoll.MyColorScheme.CapeOutlineColor);
 
             for (int i = 0; i < 5; i++)
                 if (ItemIndex[i] < 0)

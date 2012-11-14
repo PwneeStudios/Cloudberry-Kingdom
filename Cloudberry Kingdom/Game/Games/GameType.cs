@@ -101,7 +101,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Function to be called that makes the game's score screen.
         /// </summary>
-        public Func<GameObject> MakeScore;
+        public LambdaFunc<GameObject> MakeScore;
 
         /// <summary>
         /// The statistics associated with this game.
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
             {
                 if (game.MakeScore == null) return;
 
-                GameObject ScoreObj = game.MakeScore();
+                GameObject ScoreObj = game.MakeScore.Apply();
                 if (ScoreObj == null) return;
                 door.Core.MyLevel.MyGame.AddGameObject(ScoreObj);
 

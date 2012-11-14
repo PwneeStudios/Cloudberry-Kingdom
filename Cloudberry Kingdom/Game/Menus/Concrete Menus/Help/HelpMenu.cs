@@ -8,6 +8,14 @@ namespace CloudberryKingdom
 {
     public class HelpMenu : CkBaseMenu
     {
+        class CampaignCoinsLambda : PlayerIntLambda
+        {
+            public override int Apply(PlayerData p)
+            {
+                return p.CampaignCoins;
+            }
+        }
+
         int Bank()
         {
             switch (MyGame.MyBankType)
@@ -16,7 +24,7 @@ namespace CloudberryKingdom
                     return 99;
 
                 case GameData.BankType.Campaign:
-                    return PlayerManager.PlayerMax(p => p.CampaignCoins);
+                    return PlayerManager.PlayerMax(new CampaignCoinsLambda());
             }
 
             return 0;

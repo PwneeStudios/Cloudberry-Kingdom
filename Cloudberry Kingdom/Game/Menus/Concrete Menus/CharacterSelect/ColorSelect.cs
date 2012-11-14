@@ -24,7 +24,15 @@ namespace CloudberryKingdom
 
         public void SetIndexViaAssociated(int index)
         {
-            int CorrespondingIndex = MyList.MyList.FindIndex(item => (int)(item.MyObject) == index);
+            int FindIndex = 0;
+            foreach (MenuItem item in MyList.MyList)
+            {
+                if ((int)(item.MyObject) == index)
+                    break;
+                FindIndex++;
+            }
+            int CorrespondingIndex = FindIndex;
+
             if (CorrespondingIndex < 0) CorrespondingIndex = 0;
             MyList.SetIndex(CorrespondingIndex);
         }
