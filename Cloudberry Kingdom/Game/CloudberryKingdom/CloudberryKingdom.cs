@@ -492,12 +492,12 @@ namespace CloudberryKingdom
         /// <summary>
         /// A list of actions to perform. Each time an action is peformed it is removed from the list.
         /// </summary>
-        public List<Action> ToDo = new List<Action>();
+        public List<Lambda> ToDo = new List<Lambda>();
 
         private void DoToDoList()
         {
-            foreach (Action todo in ToDo)
-                todo();
+            foreach (Lambda todo in ToDo)
+                todo.Apply();
             ToDo.Clear();
         }
 

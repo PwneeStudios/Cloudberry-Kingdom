@@ -79,11 +79,26 @@ namespace CloudberryKingdom
             CharacterSelectManager.OnBack = null;
         }
 
+        class MenuGo_ScreenSaverHelper : Lambda
+        {
+            StartMenu sm;
+
+            public MenuGo_ScreenSaverHelper(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply()
+            {
+                sm.MyGame.Release();
+            }
+        }
+
         protected virtual void MenuGo_ScreenSaver(MenuItem item)
         {
             ScreenSaver Intro = new ScreenSaver(); Intro.Init();
             Tools.TheGame.LogoScreenPropUp = false;
-            Tools.AddToDo(() => MyGame.Release());
+            Tools.AddToDo(new MenuGo_ScreenSaverHelper(this));
         }
 
         protected virtual void MenuGo_Controls(MenuItem item)
