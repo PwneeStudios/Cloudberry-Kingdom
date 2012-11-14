@@ -107,17 +107,42 @@ namespace CloudberryKingdom
             TextBox.FixedToCamera = false;
             TextBox.Pos.SetCenter(MyPile.FancyPos);
             TextBox.Pos.RelVal = new Vector2(1175.001f, 277.7778f);
-            TextBox.OnEnter += OnEnter;
-            TextBox.OnEscape += Back;
+            TextBox.OnEnter.Add(new LoadSeedAsOnEnterLambda(this));
+            TextBox.OnEscape.Add(new LoadSeedAsBackLambda(this));
             MyGame.AddGameObject(TextBox);
 
             SetPosition();
         }
 
-        void Back()
+        class LoadSeedAsOnEnterLambda : Lambda
         {
-            TextBox.Active = false;
-            ReturnToCaller();
+            LoadSeedAs lsa;
+            public LoadSeedAsOnEnterLambda(LoadSeedAs lsa)
+            {
+                this.lsa = lsa;
+            }
+
+            public void Apply()
+            {
+                SavedSeedsGUI.LoadSeed(lsa.TextBox.Text, lsa);
+                lsa.Active = false;
+                lsa.ReturnToCaller();
+            }
+        }
+
+        class LoadSeedAsBackLambda : Lambda
+        {
+            LoadSeedAs lsa;
+            public LoadSeedAsBackLambda(LoadSeedAs lsa)
+            {
+                this.lsa = lsa;
+            }
+
+            public void Apply()
+            {
+                lsa.TextBox.Active = false;
+                lsa.ReturnToCaller();
+            }
         }
 
         void Load(MenuItem _item)
@@ -129,13 +154,6 @@ namespace CloudberryKingdom
             }
 
             SavedSeedsGUI.LoadSeed(TextBox.Text, this);
-        }
-
-        void OnEnter()
-        {
-            SavedSeedsGUI.LoadSeed(TextBox.Text, this);
-            Active = false;
-            ReturnToCaller();
         }
     }
 }
