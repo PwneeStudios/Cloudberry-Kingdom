@@ -1540,13 +1540,18 @@ namespace CloudberryKingdom.Levels
             return list;
         }
 
-        public delegate Vector2 Metric(ObjectBase A, ObjectBase B);
-        static Vector2 DefaultMetric(ObjectBase A, ObjectBase B)
+        public class BaseMetric : LambdaFunc_2<ObjectBase, ObjectBase, Vector2>
         {
-            return new Vector2(
-                Math.Abs(A.Core.Data.Position.X - B.Core.Data.Position.X),
-                Math.Abs(A.Core.Data.Position.Y - B.Core.Data.Position.Y));
+            public BaseMetric() { }
+
+            public Vector2 Apply(ObjectBase A, ObjectBase B)
+            {
+                return new Vector2(
+                    Math.Abs(A.Core.Data.Position.X - B.Core.Data.Position.X),
+                    Math.Abs(A.Core.Data.Position.Y - B.Core.Data.Position.Y));
+            }
         }
+        static BaseMetric DefaultMetric = new BaseMetric();
 
         public void Cleanup(ObjectType type, Vector2 v)
         {
@@ -1579,7 +1584,7 @@ namespace CloudberryKingdom.Levels
         {
             Cleanup(type, MinDistFunc, BL, TR, DefaultMetric);
         }
-        public void Cleanup(ObjectType type, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Vector2 BL, Vector2 TR, Metric metric)
+        public void Cleanup(ObjectType type, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Vector2 BL, Vector2 TR, LambdaFunc_2<ObjectBase, ObjectBase, Vector2> metric)
         {
             List<ObjectBase> CleanupList = GetObjectList(type);
 
@@ -1595,7 +1600,7 @@ namespace CloudberryKingdom.Levels
         {
             Cleanup(ObjList, MinDistFunc, MustBeDifferent, BL, TR, DefaultMetric);
         }
-        public void Cleanup(List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, Metric metric)
+        public void Cleanup(List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, bool MustBeDifferent, Vector2 BL, Vector2 TR, LambdaFunc_2<ObjectBase, ObjectBase, Vector2> metric)
         {
             if (ObjList == null) return;
 
@@ -1630,7 +1635,7 @@ namespace CloudberryKingdom.Levels
         }
 
 
-        void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, Metric metric, bool MustBeDifferent)
+        void CheckAgainst(ObjectBase obj, List<ObjectBase> ObjList, LambdaFunc_1<Vector2, Vector2> MinDistFunc, LambdaFunc_2<ObjectBase, ObjectBase, Vector2> metric, bool MustBeDifferent)
         {
             foreach (ObjectBase obj2 in ObjList)
             {
@@ -1649,7 +1654,7 @@ namespace CloudberryKingdom.Levels
                 {
                     Vector2 MinDist = (MinDistFunc.Apply(obj.Core.Data.Position) + MinDistFunc.Apply(obj2.Core.Data.Position)) / 2;
 
-                    Vector2 d = metric(obj, obj2);
+                    Vector2 d = metric.Apply(obj, obj2);
 
                     if (d.X < MinDist.X && d.Y < MinDist.Y)
                     {

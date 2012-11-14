@@ -102,14 +102,21 @@ namespace CloudberryKingdom.Levels
 
             level.Cleanup(ObjectType.SpikeyGuy,
             new MinDistHelper(Params),
-            BL + new Vector2(400, 0), TR - new Vector2(500, 0),
-            (A, B) =>
+            BL + new Vector2(400, 0), TR - new Vector2(500, 0), new SpikeyGuyCleanupMetricLambda());
+        }
+
+        class SpikeyGuyCleanupMetricLambda : LambdaFunc_2<ObjectBase, ObjectBase, Vector2>
+        {
+            public SpikeyGuyCleanupMetricLambda()
+            {
+            }
+
+            public Vector2 Apply(ObjectBase A, ObjectBase B)
             {
                 SpikeyGuy floater_A = A as SpikeyGuy;
                 SpikeyGuy floater_B = B as SpikeyGuy;
                 return CoreMath.Abs(floater_A.PivotPoint - floater_B.PivotPoint);
             }
-            );
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos)
