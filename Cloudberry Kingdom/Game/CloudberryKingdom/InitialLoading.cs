@@ -55,13 +55,13 @@ namespace CloudberryKingdom
                     }
                     else if (StartAsFreeplay)
                     {
-                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                        Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory.Make();
                         return;
                     }
 
 #if DEBUG
                     // Start at Title Screen
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory.Make(); return;
 #else
                     // Start at Screen Saver
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;

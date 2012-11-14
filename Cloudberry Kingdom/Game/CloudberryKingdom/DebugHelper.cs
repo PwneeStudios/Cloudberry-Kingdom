@@ -37,7 +37,7 @@ namespace CloudberryKingdom
                     //TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory.Make();
                     return true;
                 }
 

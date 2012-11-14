@@ -126,7 +126,7 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory.Make();
                 Tools.CurGameData.FadeIn(.0275f);
                 Tools.AddToDo(new ScreenSaverReleaseHelper(ss));
             }

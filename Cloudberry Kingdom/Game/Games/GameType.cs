@@ -18,11 +18,21 @@ using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
-    /// <summary>
-    /// A GameFactory takes in seed information (a LevelSeedData instance), and creates an actual game.
-    /// </summary>
-    public delegate GameData GameFactory(LevelSeedData data, bool MakeInBackground);
-    public delegate GameData SimpleGameFactory();
+    public class GameFactory
+    {
+        public virtual GameData Make(LevelSeedData data, bool MakeInBackground)
+        {
+            return null;
+        }
+    }
+
+    public class SimpleGameFactory
+    {
+        public virtual GameData Make()
+        {
+            return null;
+        }
+    }
 
     public struct GameFlags
     {
@@ -1190,6 +1200,7 @@ namespace CloudberryKingdom
             int _i = Math.Min(i, MyLevel.CurPiece.StartData.Length - 1);
             PhsxData StartData = MyLevel.CurPiece.StartData[_i];
             Player.Init(false, MyLevel.CurPiece.StartData[0], this);
+            Tools.Find(MyLevel.Bobs, new FindTargetBobLambda(Player));
             Bob TargetBob = MyLevel.Bobs.Find(delegate(Bob bob) { return bob != Player && !bob.Dying; });
             if (TargetBob != null)
                 Player.Move(new Vector2(20, 450) + TargetBob.Core.Data.Position - Player.Core.Data.Position);
@@ -1200,6 +1211,20 @@ namespace CloudberryKingdom
             {
                 ParticleEffects.AddPop(MyLevel, Player.Core.Data.Position);
                 Tools.SoundWad.FindByName("Pop_2").Play();
+            }
+        }
+
+        class FindTargetBobLambda : LambdaFunc_1<Bob, bool>
+        {
+            Bob Player;
+            public FindTargetBobLambda(Bob Player)
+            {
+                this.Player = Player;
+            }
+
+            public bool Apply(Bob bob)
+            {
+                return bob != Player && !bob.Dying;
             }
         }
 
@@ -1818,7 +1843,7 @@ namespace CloudberryKingdom
             }
 
             GameData MadeGame = null;
-            MadeGame = LevelSeed.MyGameType(LevelSeed, MakeInBackground);
+            MadeGame = LevelSeed.MyGameType.Make(LevelSeed, MakeInBackground);
 
             if (!MakeInBackground)
                 Tools.CurGameData = MadeGame;

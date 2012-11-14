@@ -6,12 +6,17 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class TitleGameData_MW : TitleGameData
+    public class TitleGameData_MW_Factory : SimpleGameFactory
     {
-        public static GameData Factory()
+        public override GameData Make()
         {
             return new TitleGameData_MW();
         }
+    }
+
+    public class TitleGameData_MW : TitleGameData
+    {
+        public static new SimpleGameFactory Factory = new TitleGameData_MW_Factory();
 
         public override void Release()
         {
@@ -69,7 +74,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            Tools.CurGameType = TitleGameData_MW.Factory;
+            Tools.CurGameType = TitleGameData.Factory;
             
             Tools.TitleGame = this;
 

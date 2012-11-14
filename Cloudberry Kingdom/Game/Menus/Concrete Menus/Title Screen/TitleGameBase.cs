@@ -6,12 +6,17 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class TitleGameData : GameData
+    public class TitleFactory : GameFactory
     {
-        public new static GameData Factory(LevelSeedData data, bool MakeInBackground)
+        public override GameData Make(LevelSeedData data, bool MakeInBackground)
         {
             return null;
         }
+    }
+
+    public class TitleGameData : GameData
+    {
+        public new static GameFactory Factory = new TitleFactory();
 
         public override void Release()
         {

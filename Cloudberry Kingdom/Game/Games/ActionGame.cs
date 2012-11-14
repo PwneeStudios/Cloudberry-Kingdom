@@ -3,13 +3,18 @@ using Microsoft.Xna.Framework;
 using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
-{    
-    public class ActionGameData : GameData
+{
+    public class ActionFactory : GameFactory
     {
-        public static new GameData Factory(LevelSeedData data, bool MakeInBackground)
+        public override GameData Make(LevelSeedData data, bool MakeInBackground)
         {
             return new ActionGameData(data, MakeInBackground);
         }
+    }
+
+    public class ActionGameData : GameData
+    {
+        public static new GameFactory Factory = new ActionFactory();
 
         public ActionGameData() { }
 

@@ -1137,7 +1137,7 @@ namespace CloudberryKingdom
         public GameData Create() { return Create(false); }
         public GameData Create(bool MakeInBackground)
         {
-            GameData game = MyGameType(this, MakeInBackground);
+            GameData game = MyGameType.Make(this, MakeInBackground);
             game.EndMusicOnFinish = !NoMusicStart;
 
             return game;

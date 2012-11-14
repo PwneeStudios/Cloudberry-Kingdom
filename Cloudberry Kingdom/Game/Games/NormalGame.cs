@@ -5,7 +5,15 @@ using CloudberryKingdom.Bobs;
 using System.Threading;
 
 namespace CloudberryKingdom
-{    
+{
+    public class NormalFactory : GameFactory
+    {
+        public override GameData Make(LevelSeedData data, bool MakeInBackground)
+        {
+            return new NormalGameData(data, MakeInBackground);
+        }
+    }
+
     public class NormalGameData : GameData
     {
         public override void SetCreatedBobParameters(Bob bob)
@@ -20,10 +28,7 @@ namespace CloudberryKingdom
             MyLevel.AllowRecording = true;
         }
 
-        public static new GameData Factory(LevelSeedData data, bool MakeInBackground)
-        {
-            return new NormalGameData(data, MakeInBackground);
-        }
+        public static new GameFactory Factory = new NormalFactory();
 
         public NormalGameData() { }
 
