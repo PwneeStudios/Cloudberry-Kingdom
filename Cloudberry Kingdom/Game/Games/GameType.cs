@@ -1200,8 +1200,8 @@ namespace CloudberryKingdom
             int _i = Math.Min(i, MyLevel.CurPiece.StartData.Length - 1);
             PhsxData StartData = MyLevel.CurPiece.StartData[_i];
             Player.Init(false, MyLevel.CurPiece.StartData[0], this);
-            Tools.Find(MyLevel.Bobs, new FindTargetBobLambda(Player));
-            Bob TargetBob = MyLevel.Bobs.Find(delegate(Bob bob) { return bob != Player && !bob.Dying; });
+            Bob TargetBob = Tools.Find(MyLevel.Bobs, new FindTargetBobLambda(Player));
+
             if (TargetBob != null)
                 Player.Move(new Vector2(20, 450) + TargetBob.Core.Data.Position - Player.Core.Data.Position);
             else

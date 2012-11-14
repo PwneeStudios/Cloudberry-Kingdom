@@ -268,7 +268,7 @@ namespace CloudberryKingdom
 
         public static void LoadResources()
         {
-            LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
+            LoadThread = ThreadHelper.EasyThread(5, "LoadThread", _LoadThread);
         }
 
         public static Thread LoadThread;
