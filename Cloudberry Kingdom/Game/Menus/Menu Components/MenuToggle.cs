@@ -27,7 +27,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public Action<bool> OnToggle;
+        public Lambda_1<bool> OnToggle;
         public override void PhsxStep(bool Selected)
         {
             base.PhsxStep(Selected);
@@ -39,7 +39,7 @@ namespace CloudberryKingdom
                 Toggle(!MyState);
 
                 if (OnToggle != null)
-                    OnToggle(MyState);
+                    OnToggle.Apply(MyState);
             }
         }
     }

@@ -190,18 +190,33 @@ namespace CloudberryKingdom
             }
         }
 
-        class Toggle_ShowPathProxy : Lambda
+        class Toggle_ShowPathSetter : Lambda
         {
             HelpMenu hm;
             bool state;
 
-            public Toggle_ShowPathProxy(HelpMenu hm, bool state)
+            public Toggle_ShowPathSetter(HelpMenu hm, bool state)
             {
                 this.hm = hm;
                 this.state = state;
             }
 
             public void Apply()
+            {
+                hm.Toggle_ShowPath(state);
+            }
+        }
+
+        class Toggle_ShowPathProxy : Lambda_1<bool>
+        {
+            HelpMenu hm;
+
+            public Toggle_ShowPathProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply(bool state)
             {
                 hm.Toggle_ShowPath(state);
             }
@@ -231,7 +246,7 @@ namespace CloudberryKingdom
             Buy(Cost_Path);
 
             ReturnToCaller();
-            MyGame.WaitThenDo(DelayExit - 10, new Toggle_ShowPathProxy(this, true));
+            MyGame.WaitThenDo(DelayExit - 10, new Toggle_ShowPathSetter(this, true));
         }
 
         bool On_SlowMo()
@@ -255,6 +270,21 @@ namespace CloudberryKingdom
             public void Apply()
             {
                 hm.MyGame.MyGameObjects.RemoveAll(match => match is SlowMo);
+            }
+        }
+
+        class Toggle_SlowMoProxy : Lambda_1<bool>
+        {
+            HelpMenu hm;
+
+            public Toggle_SlowMoProxy(HelpMenu hm)
+            {
+                this.hm = hm;
+            }
+
+            public void Apply(bool state)
+            {
+                hm.Toggle_SlowMo(state);
             }
         }
 
@@ -393,7 +423,7 @@ namespace CloudberryKingdom
             if (On_ShowPath())
             {
                 item = toggle = new MenuToggle(ItemFont);
-                toggle.OnToggle = Toggle_ShowPath;
+                toggle.OnToggle = new Toggle_ShowPathProxy(this);
                 toggle.Toggle(true);
             }
             else
@@ -412,7 +442,7 @@ namespace CloudberryKingdom
             if (On_SlowMo())
             {
                 item = toggle = new MenuToggle(ItemFont);
-                toggle.OnToggle = Toggle_SlowMo;
+                toggle.OnToggle = new Toggle_SlowMoProxy(this);
                 toggle.Toggle(true);
             }
             else

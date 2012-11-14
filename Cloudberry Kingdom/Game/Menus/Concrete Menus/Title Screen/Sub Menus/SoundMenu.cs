@@ -15,6 +15,17 @@ namespace CloudberryKingdom
             Constructor();
         }
 
+        class InitOnToggleHelper : Lambda_1<bool>
+        {
+            public void Apply(bool state)
+            {
+                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+                Tools.Fullscreen = state;
+                SaveGroup.SaveAll();
+                PlayerManager.SaveRezAndKeys();
+            }
+        }
+
         EzText HeaderText;
         public override void Init()
         {
@@ -116,13 +127,7 @@ namespace CloudberryKingdom
             MyPile.Add(FullScreenText);
 
             var toggle = new MenuToggle(ItemFont);
-            toggle.OnToggle = (state) =>
-            {
-                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                Tools.Fullscreen = state;
-                SaveGroup.SaveAll();
-                PlayerManager.SaveRezAndKeys();
-            };
+            toggle.OnToggle = new InitOnToggleHelper();
             toggle.Name = "FullscreenToggle";
             toggle.Toggle(Tools.Fullscreen);
 
@@ -181,11 +186,26 @@ namespace CloudberryKingdom
 
             // Toggle
             var Toggle = new MenuToggle(ItemFont);
-            Toggle.OnToggle = Toggle_Borderless;
+            Toggle.OnToggle = new Toggle_BorderlessProxy(this);
             Toggle.Toggle(Tools.WindowBorder);
             Toggle.Name = "WindowBorderToggle";
             AddItem(Toggle);
             Toggle.SetPos = new Vector2(1315.078f, -451.4125f);
+        }
+
+        class Toggle_BorderlessProxy : Lambda_1<bool>
+        {
+            SoundMenu sm;
+
+            public Toggle_BorderlessProxy(SoundMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(bool state)
+            {
+                sm.Toggle_Borderless(state);
+            }
         }
 
         private void Toggle_Borderless(bool state)

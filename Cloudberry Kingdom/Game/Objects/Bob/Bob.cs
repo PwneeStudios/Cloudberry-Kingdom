@@ -280,8 +280,8 @@ namespace CloudberryKingdom.Bobs
         
 
         public bool CodeControl = false;
-        public Action<int> ControlFunc;
-        public Action<int> CinematicFunc;
+        public Lambda_1<int> ControlFunc;
+        public Lambda_1<int> CinematicFunc;
         public Action OnAnimFinish;
 
         public void SetCodeControl()
@@ -1633,7 +1633,7 @@ namespace CloudberryKingdom.Bobs
                                     if (ControlFunc != null)
                                     {
                                         ControlCount++;
-                                        ControlFunc(ControlCount);
+                                        ControlFunc.Apply(ControlCount);
                                     }
                                 }
                                 else
@@ -1715,7 +1715,7 @@ namespace CloudberryKingdom.Bobs
             {
                 AnimAndUpdate();
                 ControlCount++;
-                if (CinematicFunc != null) CinematicFunc(ControlCount);
+                if (CinematicFunc != null) CinematicFunc.Apply(ControlCount);
 
                 return;
             }
