@@ -21,7 +21,7 @@ namespace CloudberryKingdom
             return Quota;
         }
 
-        public Action<GUI_Blobs> OnQuotaMet;
+        public Lambda_1<GUI_Blobs> OnQuotaMet;
         public bool QuotaMet = false;
 
         Door FinalDoor;
@@ -65,7 +65,7 @@ namespace CloudberryKingdom
                 if (!QuotaMet)
                 {
                     // Action
-                    if (OnQuotaMet != null) OnQuotaMet(this);
+                    if (OnQuotaMet != null) OnQuotaMet.Apply(this);
 
                     // Emphasize
                     MyPile.BubbleUp(true);
