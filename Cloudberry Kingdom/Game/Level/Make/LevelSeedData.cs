@@ -1040,7 +1040,6 @@ namespace CloudberryKingdom
             }
         }
 
-        public delegate void CustomDifficulty(PieceSeedData piece);
         public void InitNormal(bool Place, Lambda_1<PieceSeedData> CustomDiff)
         { 
             PieceSeedData Piece;

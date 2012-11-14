@@ -104,12 +104,12 @@ namespace CloudberryKingdom
                     //custom = RegularLevel.FixedPieceMod(DiffList.ListIndex - 1, data);
                 custom = DifficultyGroups.FixedPieceMod(DiffList.ListIndex - 1, data);
 
-                LevelSeedData.CustomDifficulty modcustom = p =>
-                {
-                    custom.Apply(p);
+                //LevelSeedData.CustomDifficulty modcustom = p =>
+                //{
+                //    custom.Apply(p);
 
-                    p.StandardClose();
-                };
+                //    p.StandardClose();
+                //};
 
                 data.Initialize(custom);
             }
