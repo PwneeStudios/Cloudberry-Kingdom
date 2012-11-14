@@ -121,25 +121,43 @@ namespace CloudberryKingdom
             TextBox.FixedToCamera = false;
             TextBox.Pos.SetCenter(MyPile.FancyPos);
             TextBox.Pos.RelVal = new Vector2(1175.001f, 277.7778f);
-            TextBox.OnEnter += OnEnter;
-            TextBox.OnEscape += OnEscape;
+            TextBox.OnEnter.Add(new SaveSeedAsOnEnterLambda(this));
+            TextBox.OnEscape.Add(new SaveSeedAsOnEscapeLambda(this));
             MyGame.AddGameObject(TextBox);
 
             SetPosition();
         }
 
-        void OnEscape()
+        class SaveSeedAsOnEscapeLambda : Lambda
         {
-            TextBox.Active = false;
-            ReturnToCaller();
+            SaveSeedAs ssa;
+            public SaveSeedAsOnEscapeLambda(SaveSeedAs ssa)
+            {
+                this.ssa = ssa;
+            }
+
+            public void Apply()
+            {
+                ssa.TextBox.Active = false;
+                ssa.ReturnToCaller();
+            }
         }
 
-        void OnEnter()
+        class SaveSeedAsOnEnterLambda : Lambda
         {
-            if (TextBox.Text.Length <= 0)
-                return;
+            SaveSeedAs ssa;
+            public SaveSeedAsOnEnterLambda(SaveSeedAs ssa)
+            {
+                this.ssa = ssa;
+            }
 
-            Save(null);
+            public void Apply()
+            {
+                if (ssa.TextBox.Text.Length <= 0)
+                    return;
+
+                ssa.Save(null);
+            }
         }
     }
 }

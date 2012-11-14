@@ -38,7 +38,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// Event handler. Activated when the the user presses Enter while the textbox has focus.
         /// </summary>
-        public event Action OnEnter, OnEscape;
+        public Multicaster OnEnter = new Multicaster();
+        public Multicaster OnEscape = new Multicaster();
 
         public override void OnAdd()
         {
@@ -121,7 +122,7 @@ namespace CloudberryKingdom
         void Cancel()
         {
             if (Canceled) return;
-            if (OnEscape != null) OnEscape();
+            if (OnEscape != null) OnEscape.Apply();
         }
 
         void GamepadInteract()
@@ -371,7 +372,7 @@ namespace CloudberryKingdom
             // Change the backdrop color
             Backdrop.TextureName = "Score\\Score_Screen_grey";
 
-            if (OnEnter != null) OnEnter();
+            if (OnEnter != null) OnEnter.Apply();
         }
 
         protected int Length { get { return Text.Length; } }

@@ -38,6 +38,20 @@ namespace CloudberryKingdom
         }
 
 
+        class HighScoreReturnToCallerLambda : Lambda
+        {
+            HighScorePanel hsp;
+            public HighScoreReturnToCallerLambda(HighScorePanel hsp)
+            {
+                this.hsp = hsp;
+            }
+
+            public void Apply()
+            {
+                hsp.ReturnToCaller();
+            }
+        }
+
         static string[] TextureName = { "score_screen_grey", "score_screen_grey", "score_screen_grey" };
         HighScorePanel[] Panels;
 
@@ -47,7 +61,7 @@ namespace CloudberryKingdom
         {
             this.Instant = Instant;
 
-            OnOutsideClick = ReturnToCaller;
+            OnOutsideClick = new HighScoreReturnToCallerLambda(this);
             CheckForOutsideClick = true;
 
             Constructor(Scores[0]);

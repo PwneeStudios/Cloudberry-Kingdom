@@ -505,7 +505,7 @@ namespace CloudberryKingdom
 
         public bool CheckForOutsideClick = false;
         bool outside = false;
-        public Action OnOutsideClick;
+        public Lambda OnOutsideClick;
         void CheckForBackFromOutsideClick()
         {
             if (!CheckForOutsideClick) return;
@@ -528,7 +528,7 @@ namespace CloudberryKingdom
 
             // If so then perfom the designated action
             if (ClickBack)
-                OnOutsideClick();
+                OnOutsideClick.Apply();
 #endif
         }
 

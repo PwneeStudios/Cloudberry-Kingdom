@@ -233,17 +233,30 @@ namespace CloudberryKingdom
             MyMenu.Show = MyMenu.Active = false;
 
             // Show the menu when the user is done entering their name
-            MyTextBox.OnEnter += () =>
-                {
-                    // Use the entered text as the GamerTag
-                    HighScoreEntry.GamerTag = HighLevelEntry.GamerTag = MyTextBox.Text;
-
-                    // Add the high score
-                    AddScore();
-
-                    MyGame.WaitThenDo(35, new MakeTextBoxHelper(this));
-                };
+            MyTextBox.OnEnter.Add(new OnEnterLambda(this));
         }
+
+        class OnEnterLambda : Lambda
+        {
+            GameOverPanel gop;
+
+            public OnEnterLambda(GameOverPanel gop)
+            {
+                this.gop = gop;
+            }
+
+            public void Apply()
+            {
+                // Use the entered text as the GamerTag
+                gop.HighScoreEntry.GamerTag = gop.HighLevelEntry.GamerTag = gop.MyTextBox.Text;
+
+                // Add the high score
+                gop.AddScore();
+
+                gop.MyGame.WaitThenDo(35, new MakeTextBoxHelper(gop));
+            }
+        }
+
 #else
         protected override void ReleaseBody()
         {
