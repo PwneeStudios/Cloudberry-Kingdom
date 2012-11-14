@@ -573,7 +573,7 @@ namespace CloudberryKingdom
 
                 if (Math.Sign(HoldVel) != Math.Sign(yVel))
                 {
-                    if (MyBob.OnApexReached != null) MyBob.OnApexReached(); MyBob.OnApexReached = null;
+                    if (MyBob.OnApexReached != null) MyBob.OnApexReached.Apply(); MyBob.OnApexReached = null;
 
                     ApexReached = true;
                     ApexY = Pos.Y;

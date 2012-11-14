@@ -814,7 +814,7 @@ namespace CloudberryKingdom
         {
             if (Obj.DonePlaying && MyBob.OnAnimFinish != null)
             {
-                MyBob.OnAnimFinish();
+                MyBob.OnAnimFinish.Apply();
                 MyBob.OnAnimFinish = null;
             }
         }

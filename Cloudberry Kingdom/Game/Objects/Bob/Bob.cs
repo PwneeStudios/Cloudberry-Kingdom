@@ -271,18 +271,18 @@ namespace CloudberryKingdom.Bobs
         /// <summary>
         /// A callback called when the Bob lands on something.
         /// </summary>
-        public Action OnLand;
+        public Lambda OnLand;
 
         /// <summary>
         /// A callback called when the Bob reaches his jump apex.
         /// </summary>
-        public Action OnApexReached;
+        public Lambda OnApexReached;
         
 
         public bool CodeControl = false;
         public Lambda_1<int> ControlFunc;
         public Lambda_1<int> CinematicFunc;
-        public Action OnAnimFinish;
+        public Lambda OnAnimFinish;
 
         public void SetCodeControl()
         {
@@ -1313,7 +1313,7 @@ namespace CloudberryKingdom.Bobs
                         //MyPhsx.ObjectLandedOn = block;
                         MyPhsx.LandOnSomething(false, block);
                         
-                        if (OnLand != null) OnLand(); OnLand = null;
+                        if (OnLand != null) OnLand.Apply(); OnLand = null;
                     }
                 }
             }
