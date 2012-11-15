@@ -157,9 +157,23 @@ namespace CloudberryKingdom
             Pos += shift;
         }
 
+        class FindItemByNameLambda : LambdaFunc_1<MenuItem, bool>
+        {
+            string name;
+            public FindItemByNameLambda(string name)
+            {
+                this.name = name;
+            }
+
+            public bool Apply(MenuItem item)
+            {
+                return item.Name == name;
+            }
+        }
+
         public MenuItem FindItemByName(string name)
         {
-            return Items.Find(match => match.Name == name);
+            return Tools.Find(Items, new FindItemByNameLambda(name));
         }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)
@@ -333,7 +347,11 @@ namespace CloudberryKingdom
             HasSelectedThisStep = true;
 
             // If no items are selectable, return
-            if (Items.All(item => !item.Selectable))
+            bool All = true;
+            foreach (MenuItem item in Items)
+                if (item.Selectable)
+                    All = false;
+            if (All)
                 return;
 
             // Play a selection sound
@@ -743,9 +761,14 @@ namespace CloudberryKingdom
             }
         }
 
+        static int SortByHeightMethod(MenuItem item1, MenuItem item2)
+        {
+            return -item1.Pos.Y.CompareTo(item2.Pos.Y);
+        }
+
         public void SortByHeight()
         {
-            Items.Sort((item1, item2) => -item1.Pos.Y.CompareTo(item2.Pos.Y));
+            Items.Sort(SortByHeightMethod);
         }
 
         public void ResetPieces()

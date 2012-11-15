@@ -424,7 +424,6 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Start
             MenuItem item;
-            //MenuItem Start = item = new MenuItem(new EzText(ButtonString.Go(82) + " Start", ItemFont));
             MenuItem Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             item.Name = "Start";
             item.Go = Cast.ToItem(new GoProxy(this));
@@ -433,13 +432,11 @@ namespace CloudberryKingdom
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
-            //item.AdditionalOnSelect = () => SetBerry("cb_enthusiastic");
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = Cast.ToMenu(new GoProxy(this));
 
             // Random
-            //item = new MenuItem(new EzText(ButtonString.X(82) + " Random", ItemFont));
             item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
             item.Name = "Random";
             item.Go = Cast.ToItem(new RandomizeProxy(this));
@@ -448,24 +445,18 @@ namespace CloudberryKingdom
             item.Pos = item.SelectedPos = new Vector2(511.8408f, -302.6506f);
             item.MyText.MyFloatColor = new Color(204, 220, 255).ToVector4() * .93f;
             item.MySelectedText.MyFloatColor = new Color(204, 220, 255).ToVector4();
-            //item.AdditionalOnSelect = () => SetBerry("cb_surprised");
 
             // Zero
-            //item = new MenuItem(new EzText(ButtonString.Y(82) + " Zero", ItemFont));
             item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
             item.Go = Cast.ToItem(new ZeroProxy(this));
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(599.1416f, -501.0634f);
-            //item.MyText.MyFloatColor = new Color(204, 220, 255).ToVector4() * .93f;
-            //item.MySelectedText.MyFloatColor = new Color(204, 220, 255).ToVector4();
             item.MyText.MyFloatColor = new Color(235, 255, 80).ToVector4() * .93f;
             item.MySelectedText.MyFloatColor = new Color(235, 255, 80).ToVector4();
-            //item.AdditionalOnSelect = () => SetBerry("cb_surprised");
 
             // Back
-            //item = new MenuItem(new EzText(ButtonString.Back(82) + " Back", ItemFont));
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             item.Go = null;
@@ -475,7 +466,6 @@ namespace CloudberryKingdom
             item.Pos = item.SelectedPos = new Vector2(702.3179f, -689.9683f);
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
-            //item.AdditionalOnSelect = () => SetBerry("cb_crying");
 #else
             EzText text;
             text = new EzText(ButtonString.Go(90) + " Start", ItemFont);

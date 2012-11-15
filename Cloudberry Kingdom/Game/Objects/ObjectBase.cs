@@ -464,7 +464,14 @@ namespace CloudberryKingdom
             if (Associations == null || obj.Core.Associations == null)
                 return false;
             else
-                return Associations.Any(data => data.Guid == obj.Core.MyGuid);
+            {
+                foreach (AssociatedObjData data in Associations)
+                {
+                    if (data.Guid == obj.Core.MyGuid)
+                        return true;
+                }
+                return false;
+            }
         }
 
         public int GetAssociatedIndex(ObjectBase obj)

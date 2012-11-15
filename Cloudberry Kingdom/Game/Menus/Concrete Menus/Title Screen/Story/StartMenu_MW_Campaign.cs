@@ -13,12 +13,24 @@ namespace CloudberryKingdom
             this.Chapter = Chapter;
 
 #if !DEBUG
-            if (PlayerManager.PlayerMax(p => p.CampaignLevel) < (Chapter - 1) * 100)
+            if (PlayerManager.PlayerMax(new CampaignLevelsLambda()) < (Chapter - 1) * 100)
             {
                 this.GrayOutOnUnselectable = true;
                 this.Selectable = false;
             }
 #endif
+        }
+
+        class CampaignLevelsLambda : PlayerIntLambda
+        {
+            public CampaignLevelsLambda()
+            {
+            }
+
+            public override int Apply(PlayerData p)
+            {
+                return p.CampaignLevel;
+            }
         }
     }
 

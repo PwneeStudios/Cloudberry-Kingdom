@@ -171,12 +171,14 @@ namespace CloudberryKingdom.InGameObjects
 
         public void HideBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
+            foreach (Bob bob in Core.MyLevel.Bobs)
+                bob.Core.Show = false;
         }
 
         public void ShowBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => bob.Core.Show = true);
+            foreach (Bob bob in Core.MyLevel.Bobs)
+                bob.Core.Show = true;
         }
 
         public bool SuppressSound = false;
@@ -373,7 +375,8 @@ namespace CloudberryKingdom.InGameObjects
 
         public void MoveBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => MoveBobToHere(bob));
+            foreach (Bob bob in Core.MyLevel.Bobs)
+                MoveBobToHere(bob);
         }
 
         public bool MoveFeet = false;

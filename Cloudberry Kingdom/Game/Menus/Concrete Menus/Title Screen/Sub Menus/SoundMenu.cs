@@ -110,7 +110,14 @@ namespace CloudberryKingdom
             List<DisplayMode> modes = new List<DisplayMode>();
             foreach (DisplayMode mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
-                if (modes.Any(existing => existing.Width == mode.Width && existing.Height == mode.Height))
+                bool Any = false;
+                foreach (DisplayMode existing in modes)
+                {
+                    if (existing.Width == mode.Width && existing.Height == mode.Height)
+                        Any = true;
+                }
+
+                if (Any)
                     continue;
                 else
                     modes.Add(mode);

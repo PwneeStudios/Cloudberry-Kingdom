@@ -99,23 +99,8 @@ namespace CloudberryKingdom
         public override void OnAdd()
         {
             base.OnAdd();
-
-            //Create();
-
-            /*
-            // Initially hide the score screen
-            this.SlideOut(PresetPos.Top, 0);
-
-            // Slow Rise
-            SlideOut(PresetPos.Bottom, 0);
-            SlideIn(70);
-
-            // Prevent menu interactions for a second
-            MyMenu.Active = false;
-            MyGame.WaitThenDo(60, () => MyMenu.Active = true);*/
         }
 
-        //public static Vector4 ScoreColor = new Color(22, 22, 22).ToVector4();
         public static Vector4 ScoreColor = new Color(255, 255, 255).ToVector4();
         public static Vector4 CurrentScoreColor = new Color(22, 22, 222).ToVector4();
         public QuadClass Backdrop;

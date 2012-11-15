@@ -36,7 +36,13 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool MessageOnScreen()
         {
-            return Tools.CurGameData.MyGameObjects.Exists(obj => obj is AwardmentMessage);
+            foreach (GameObject obj in Tools.CurGameData.MyGameObjects)
+            {
+                if (obj is AwardmentMessage)
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -54,16 +60,14 @@ namespace CloudberryKingdom
 
         public static void CheckForAward_HoldForward()
         {
-            bool Ran = 
-                PlayerManager.ExistingPlayers.Exists(p =>
-                {
-                    PlayerStats stats = p.GetStats(StatGroup.Level);
-                    float ratio = stats.FinalTimeSpentNotMoving / (float)stats.FinalTimeSpent;
-                    if (ratio < .05f && stats.FinalTimeSpentNotMoving < 35)
-                        return true;
-                    else
-                        return false;
-                });
+            bool Ran = false;
+            foreach (PlayerData p in PlayerManager.ExistingPlayers)
+            {
+                PlayerStats stats = p.GetStats(StatGroup.Level);
+                float ratio = stats.FinalTimeSpentNotMoving / (float)stats.FinalTimeSpent;
+                if (ratio < .05f && stats.FinalTimeSpentNotMoving < 35)
+                    Ran = true;
+            }
 
             bool Reqs = CustomLevel_GUI.IsMaxLength && CustomLevel_GUI.Difficulty >= 1 &&
                         PlayerManager.PlayerSum(new CheckpointsStatsLambda()) == 0 &&

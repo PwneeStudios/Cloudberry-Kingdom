@@ -32,7 +32,8 @@ namespace CloudberryKingdom
 
         public override void OnUsed()
         {
-            Platforms.ForEach(platform => platform.Core.GenData.Used = true);
+            foreach (BlockBase platform in Platforms)
+                platform.Core.GenData.Used = true;
         }
 
         public override void OnMarkedForDeletion()
