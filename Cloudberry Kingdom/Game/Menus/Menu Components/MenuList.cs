@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public delegate void MenuListSelect();
     public class MenuList : MenuItem
     {
         public override string[] GetViewables()
@@ -74,7 +73,7 @@ namespace CloudberryKingdom
         public Vector2 LeftArrowOffset, RightArrowOffset;
         //public Vector2 LeftArrow_SelectedOffset, RightArrow_SelectedOffset;
 
-        public MenuListSelect OnIndexSelect, OnConfirmedIndexSelect;
+        public Lambda OnIndexSelect, OnConfirmedIndexSelect;
 
         /// <summary>
         /// Whether to draw the list's arrows when the list isn't currently selected
@@ -247,10 +246,10 @@ namespace CloudberryKingdom
             MySelectedText = CurMenuItem.MySelectedText;
 
             if (OnIndexSelect != null)
-                OnIndexSelect();
+                OnIndexSelect.Apply();
 
             if (MyMenuListExpand == null && OnConfirmedIndexSelect != null)
-                OnConfirmedIndexSelect();
+                OnConfirmedIndexSelect.Apply();
 
             CurMenuItem.OnSelect();
         }

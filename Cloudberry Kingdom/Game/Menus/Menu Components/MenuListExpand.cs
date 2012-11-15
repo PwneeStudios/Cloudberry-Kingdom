@@ -17,7 +17,7 @@ namespace CloudberryKingdom
             MyMenuList.MyMenu.PhsxStep();
 
             if (MyMenuList.OnConfirmedIndexSelect != null)
-                MyMenuList.OnConfirmedIndexSelect();
+                MyMenuList.OnConfirmedIndexSelect.Apply();
         }
 
         MenuList MyMenuList;

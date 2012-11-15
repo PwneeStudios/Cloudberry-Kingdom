@@ -314,6 +314,11 @@ namespace CloudberryKingdom.Awards
             CharacterSelectManager.Start(this);
         }
 
+        static int HatCompare(Hat h1, Hat h2)
+        {
+            return h1.Price.CompareTo(h2.Price);
+        }
+
         EzText Bank, BankAmount;
         public ShopMenu()
         {
@@ -349,7 +354,7 @@ namespace CloudberryKingdom.Awards
             // Format the list of hats into a menu
             MenuItem item;
             List<Hat> hats = new List<Hat>(ColorSchemeManager.HatInfo);
-            hats.Sort((h1, h2) => h1.Price.CompareTo(h2.Price));
+            hats.Sort(HatCompare);
             
             //foreach (Hat hat in ColorSchemeManager.HatInfo)
             foreach (Hat hat in hats)
@@ -393,7 +398,18 @@ namespace CloudberryKingdom.Awards
             {
                 ClrTextFx clr = (ClrTextFx)clr_item.obj;
 
-                if (ColorSchemeManager.ColorList.Exists(match => ((Buyable)match.obj).GetGuid() == clr.Guid)) continue;
+                bool found = false;
+                foreach (MenuListItem match in ColorSchemeManager.ColorList)
+                {
+                    if (clr.Guid == ((Buyable)match.obj).GetGuid())
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                    continue;
 
                 if (clr.Price <= 0) continue;
 

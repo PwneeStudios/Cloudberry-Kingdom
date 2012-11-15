@@ -59,6 +59,21 @@ namespace CloudberryKingdom
             Constructor();
         }
 
+        class OnSelectProxy : Lambda
+        {
+            ListSelectPanel lsp;
+
+            public OnSelectProxy(ListSelectPanel lsp)
+            {
+                this.lsp = lsp;
+            }
+
+            public void Apply()
+            {
+                lsp.OnSelect();
+            }
+        }
+
         void OnSelect()
         {
             MyCharacterSelect.ItemIndex[ClrSelectIndex] = GetAssociatedIndex();
@@ -82,7 +97,7 @@ namespace CloudberryKingdom
             MyList = new MenuList();
             MyList.Name = "list";
             MyList.Center = true;
-            MyList.OnIndexSelect = OnSelect;
+            MyList.OnIndexSelect = new OnSelectProxy(this);
             MyList.Go = Cast.ToItem(new SelectProxy(this));
             MyMenu.Add(MyList);
 

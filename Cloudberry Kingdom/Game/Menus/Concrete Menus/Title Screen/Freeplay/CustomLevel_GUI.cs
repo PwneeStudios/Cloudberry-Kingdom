@@ -443,6 +443,78 @@ namespace CloudberryKingdom
             }
         }
 
+        class InitOnIndexSelectHelper : Lambda
+        {
+            CustomLevel_GUI clGui;
+            MenuList LocationList;
+
+            public InitOnIndexSelectHelper(CustomLevel_GUI clGui, MenuList LocationList)
+            {
+                this.clGui = clGui;
+                this.LocationList = LocationList;
+            }
+
+            public void Apply()
+            {
+                TileSet tileset = LocationList.CurObj as TileSet;
+
+                //Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
+                //Screenshot.TextureName = tileset.ScreenshotString;
+                //Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Width);
+
+                clGui.LevelSeed.SetTileSet(tileset);
+            }
+        }
+
+        class InitOnIndexSelect : Lambda
+        {
+            CustomLevel_GUI clGui;
+            MenuList GameList;
+
+            public InitOnIndexSelect(CustomLevel_GUI clGui, MenuList GameList)
+            {
+                this.clGui = clGui;
+                this.GameList = GameList;
+            }
+
+            public void Apply()
+            {
+                clGui.LevelSeed.MyGameFlags.SetToDefault();
+
+                Localization.Words gamename = (Localization.Words)GameList.CurObj;
+                if (gamename == Localization.Words.ClassicGame)
+                {
+                    clGui.LevelSeed.MyGameType = NormalGameData.Factory;
+                    clGui.LevelSeed.MyGeometry = LevelGeometry.Right;
+                    clGui.SelectNormal();
+                }
+                else if (gamename == Localization.Words.Bungee)
+                {
+                    clGui.LevelSeed.MyGameType = NormalGameData.Factory;
+                    clGui.LevelSeed.MyGeometry = LevelGeometry.Right;
+                    clGui.LevelSeed.MyGameFlags.IsTethered = true;
+                    clGui.SelectBungee();
+                }
+                //else if (gamename.CompareTo("Up Level") == 0)
+                //{
+                //    SelectUpLevel();
+                //}
+                //else if (gamename.CompareTo("Down Level") == 0)
+                //{
+                //    SelectDownLevel();
+                //}
+                else if (gamename == Localization.Words.WallLevel)
+                {
+                    clGui.LevelSeed.MyGameType = NormalGameData.Factory;
+                    clGui.LevelSeed.MyGeometry = LevelGeometry.Right;
+                    clGui.SelectNormal();
+                    clGui.ShowHeros(true);
+                    clGui.ShowCheckpoints(false);
+                    clGui.HasWall = true;
+                }
+            }
+        }
+
         //static Vector2 RightPanelCenter = new Vector2(-410, 75);
         static Vector2 RightPanelCenter = new Vector2(-285, 0);
         LengthSlider length;
@@ -526,16 +598,7 @@ namespace CloudberryKingdom
                 LocationList.Pos = new Vector2(200f + LeftJustifyAddX, 828f);
             else
                 LocationList.Pos = new Vector2(200f, 828f);
-            LocationList.OnIndexSelect = () =>
-                {
-                    TileSet tileset = LocationList.CurObj as TileSet;
-
-                    //Vector2 HoldRelativeSize = Screenshot.GetTextureScaling();
-                    //Screenshot.TextureName = tileset.ScreenshotString;
-                    //Screenshot.ScaleYToMatchRatio(HoldRelativeSize.X * Screenshot.Quad.MyTexture.Width);
-
-                    LevelSeed.SetTileSet(tileset);
-                };
+            LocationList.OnIndexSelect = new InitOnIndexSelectHelper(this, LocationList);
             LocationList.SetIndex(0);
 
             // Game type
@@ -565,42 +628,7 @@ namespace CloudberryKingdom
                 GameList.Pos = new Vector2(117 + LeftJustifyAddX, 828f - 222f);
             else
                 GameList.Pos = new Vector2(117, 828f - 222f);
-            GameList.OnIndexSelect = () =>
-                {
-                    LevelSeed.MyGameFlags.SetToDefault();
-
-                    Localization.Words gamename = (Localization.Words)GameList.CurObj;
-                    if (gamename == Localization.Words.ClassicGame)
-                    {
-                        LevelSeed.MyGameType = NormalGameData.Factory;
-                        LevelSeed.MyGeometry = LevelGeometry.Right;
-                        SelectNormal();
-                    }
-                    else if (gamename == Localization.Words.Bungee)
-                    {
-                        LevelSeed.MyGameType = NormalGameData.Factory;
-                        LevelSeed.MyGeometry = LevelGeometry.Right;
-                        LevelSeed.MyGameFlags.IsTethered = true;
-                        SelectBungee();
-                    }
-                    //else if (gamename.CompareTo("Up Level") == 0)
-                    //{
-                    //    SelectUpLevel();
-                    //}
-                    //else if (gamename.CompareTo("Down Level") == 0)
-                    //{
-                    //    SelectDownLevel();
-                    //}
-                    else if (gamename == Localization.Words.WallLevel)
-                    {
-                        LevelSeed.MyGameType = NormalGameData.Factory;
-                        LevelSeed.MyGeometry = LevelGeometry.Right;
-                        SelectNormal();
-                        ShowHeros(true);
-                        ShowCheckpoints(false);
-                        HasWall = true;
-                    }
-                };
+            GameList.OnIndexSelect = new InitOnIndexSelect(this, GameList);
             
             // Hero
             HeroText = new EzText(Localization.Words.Hero, ItemFont);
@@ -630,7 +658,7 @@ namespace CloudberryKingdom
                 HeroList.Pos = new Vector2(117.2227f + LeftJustifyAddX - 150, 828f - 2 * 222f);
             else
                 HeroList.Pos = new Vector2(117.2227f, 828f - 2 * 222f);
-            HeroList.OnIndexSelect = HeroList_OnIndex;
+            HeroList.OnIndexSelect = new HeroList_OnIndexProxy(this);
             HeroList.SetIndex(0);
 
             // Difficulty
@@ -657,9 +685,7 @@ namespace CloudberryKingdom
                 DiffList.Pos = new Vector2(242.2246f + LeftJustifyAddX, -73.11105f);
             else
                 DiffList.Pos = new Vector2(242.2246f, -73.11105f);
-            DiffList.OnIndexSelect = () => { };
-
-            DiffList.OnIndexSelect = DiffList_OnIndex;
+            DiffList.OnIndexSelect = new DiffList_OnIndexProxy(this);
 
 
             // Length
@@ -794,6 +820,21 @@ namespace CloudberryKingdom
             return item;
         }
 
+        class DiffList_OnIndexProxy : Lambda
+        {
+            CustomLevel_GUI clGui;
+
+            public DiffList_OnIndexProxy(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply()
+            {
+                clGui.DiffList_OnIndex();
+            }
+        }
+
         private void DiffList_OnIndex()
         {
             if (DiffList.ListIndex == 0)
@@ -806,6 +847,21 @@ namespace CloudberryKingdom
         {
             CallingPanel = null;
             StartLevelFromMenuData();
+        }
+
+        class HeroList_OnIndexProxy : Lambda
+        {
+            CustomLevel_GUI clGui;
+
+            public HeroList_OnIndexProxy(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply()
+            {
+                clGui.HeroList_OnIndex();
+            }
         }
 
         private void HeroList_OnIndex()
