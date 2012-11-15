@@ -387,7 +387,7 @@ namespace CloudberryKingdom
         {
             MyMenu = new Menu(false);
             MyMenu.OnA = Cast.ToMenu(new GoProxy(this));
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
             MyMenu.OnX = Cast.ToMenu(new RandomizeProxy(this));
             MyMenu.OnY = new ZeroProxy(this);
             MyMenu.SelectDelay = 11;

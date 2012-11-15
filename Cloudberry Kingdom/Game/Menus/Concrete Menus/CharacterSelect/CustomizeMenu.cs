@@ -48,7 +48,7 @@ namespace CloudberryKingdom
             // Make the menu
             MyMenu = new Menu(false);
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             MakeItems();
 

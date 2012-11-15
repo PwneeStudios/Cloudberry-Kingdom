@@ -169,7 +169,7 @@ namespace CloudberryKingdom
             MakeExitItem();
 
             // Button interactions
-            MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Shift everything
             EnsureFancy();

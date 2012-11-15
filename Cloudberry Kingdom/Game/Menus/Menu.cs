@@ -294,10 +294,18 @@ namespace CloudberryKingdom
             Items = new List<MenuItem>();
             CurIndex = 0;
 
-            OnB = DefaultOnB;
+            OnB = new DefaultOnBProxy();
 
             MyPieceQuadTemplate = null;
             MyPieceQuadTemplate2 = null;
+        }
+
+        class DefaultOnBProxy : LambdaFunc_1<Menu, bool>
+        {
+            public bool Apply(Menu menu)
+            {
+                return Menu.DefaultOnB(menu);
+            }
         }
 
         public static bool DefaultOnB(Menu menu)
@@ -525,14 +533,14 @@ namespace CloudberryKingdom
             if (OnStart != null && ButtonCheck.State(ControllerButtons.Start, Control).Pressed)
             {
                 ButtonCheck.PreventInput();
-                OnStart(this);
+                OnStart.Apply(this);
             }
 
             // X button action
             if (OnX != null && ButtonCheck.State(ControllerButtons.X, Control).Pressed)
             {
                 ButtonCheck.PreventInput();
-                OnX(this);
+                OnX.Apply(this);
             }
 
             // Y button action
@@ -551,7 +559,7 @@ namespace CloudberryKingdom
                 OnA_AutoTimerCount--;
                 if (OnA_AutoTimerCount == 0)
                     if (OnA != null)
-                        if (OnA(this))
+                        if (OnA.Apply(this))
                             return;
             }
 
@@ -578,7 +586,7 @@ namespace CloudberryKingdom
                 if (OnA != null && !(CheckForOverride && Items[CurIndex].OverrideA))
                 {
                     //ButtonCheck.PreventInput();
-                    if (OnA(this))
+                    if (OnA.Apply(this))
                         return;
                 }
             }
@@ -619,7 +627,7 @@ namespace CloudberryKingdom
                     if (BackSound != null)
                         BackSound.Play();
 
-                    if (OnB(this))
+                    if (OnB.Apply(this))
                         return;
 
                     ButtonCheck.PreventInput();

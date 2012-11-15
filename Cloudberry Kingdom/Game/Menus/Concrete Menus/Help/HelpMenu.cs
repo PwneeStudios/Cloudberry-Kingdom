@@ -535,7 +535,7 @@ namespace CloudberryKingdom
             item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.ActivateSlowMo);
             Item_SlowMo = item;
 
-            MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
             MyMenu.OnY = Cast.ToAction(new MenuReturnToCallerProxy(this));
 
             // Select the first item in the menu to start

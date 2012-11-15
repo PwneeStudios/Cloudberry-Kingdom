@@ -74,6 +74,22 @@ namespace CloudberryKingdom
             MyMenuList.SetIndex(MyMenu.CurItem.MyInt);
         }
 
+        class InitOnBMenuHelper : LambdaFunc_1<Menu, bool>
+        {
+            MenuListExpand mle;
+
+            public InitOnBMenuHelper(MenuListExpand mle)
+            {
+                this.mle = mle;
+            }
+
+            public bool Apply(Menu menu)
+            {
+                mle.Back();
+                return true;
+            }
+        }
+
         QuadClass backdrop;
         Vector2 DefaultBackdropSize;
         public override void Init()
@@ -93,7 +109,7 @@ namespace CloudberryKingdom
 
             MyMenu.OnB = null;
 
-            MyMenu.OnB = menu => { Back(); return true; };
+            MyMenu.OnB = new InitOnBMenuHelper(this);
 
             ItemPos = new Vector2(0, 0);
             PosAdd = new Vector2(0, -168 - 3);

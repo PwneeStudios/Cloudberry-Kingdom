@@ -427,6 +427,22 @@ namespace CloudberryKingdom
             }
         }
 
+        class InitOnAStartHelper : LambdaFunc_1<Menu, bool>
+        {
+            CustomLevel_GUI clGui;
+
+            public InitOnAStartHelper(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public bool Apply(Menu dummy)
+            {
+                clGui.Start.Go.Apply(null);
+                return true;
+            }
+        }
+
         //static Vector2 RightPanelCenter = new Vector2(-410, 75);
         static Vector2 RightPanelCenter = new Vector2(-285, 0);
         LengthSlider length;
@@ -716,7 +732,7 @@ namespace CloudberryKingdom
             item.ScaleText(.92f);
 
             // Select 'Start Level' when the user presses (A)
-            MyMenu.OnA = menu => { Start.Go.Apply(null); return true; };
+            MyMenu.OnA = new InitOnAStartHelper(this);
 
             // Load
             MenuItem Load;
@@ -760,7 +776,7 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
             GameList.SetIndex(0);
             DiffList.SetIndex(0);
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
             MyMenu.OnY = new BringLoadProxy(this);
         }
 
