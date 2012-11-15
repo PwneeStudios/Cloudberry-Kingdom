@@ -321,6 +321,14 @@ namespace CloudberryKingdom
             return true && Bank() >= Cost_Slow;
         }
 
+        class Toggle_SloMoHelperPredicate : LambdaFunc_1<GameObject, bool>
+        {
+            public bool Apply(GameObject match)
+            {
+                return match is SlowMo;
+            }
+        }
+
         class Toggle_SloMoHelper : Lambda
         {
             HelpMenu hm;
@@ -332,7 +340,7 @@ namespace CloudberryKingdom
 
             public void Apply()
             {
-                hm.MyGame.MyGameObjects.RemoveAll(match => match is SlowMo);
+                Tools.RemoveAll(hm.MyGame.MyGameObjects, new Toggle_SloMoHelperPredicate());
             }
         }
 

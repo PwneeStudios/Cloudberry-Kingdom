@@ -15,18 +15,25 @@ namespace CloudberryKingdom
             Constructor();
         }
 
+        class MakeListenerHelper : LambdaFunc_1<Listener, GUI_Panel>
+        {
+            public GUI_Panel Apply(Listener listener)
+            {
+                return new InGameStartMenu(listener.TriggeringPlayerIndex);
+            }
+        }
+
         public static GameObject MakeListener()
         {
-            return MakeListener_Base(listener => 
-                new InGameStartMenu(listener.TriggeringPlayerIndex));
+            return MakeListener_Base(new MakeListenerHelper());
         }
 
         class PreventMenuHelper : Lambda
         {
             Listener listener;
-            Func<Listener, GUI_Panel> Make;
+            LambdaFunc_1<Listener, GUI_Panel> Make;
 
-            public PreventMenuHelper(Listener listener, Func<Listener, GUI_Panel> Make)
+            public PreventMenuHelper(Listener listener, LambdaFunc_1<Listener, GUI_Panel> Make)
             {
                 this.listener = listener;
                 this.Make = Make;
@@ -35,11 +42,11 @@ namespace CloudberryKingdom
             public void Apply()
             {
                 if (!InGameStartMenu.PreventMenu)
-                    listener.Call(Make(listener));
+                    listener.Call(Make.Apply(listener));
             }
         }
 
-        public static GameObject MakeListener_Base(Func<Listener, GUI_Panel> Make)
+        public static GameObject MakeListener_Base(LambdaFunc_1<Listener, GUI_Panel> Make)
         {
             Listener listener = new Listener();
             listener.MyButton = ControllerButtons.Start;

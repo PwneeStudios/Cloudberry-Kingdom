@@ -259,7 +259,12 @@ namespace CloudberryKingdom
             if (UseZoomIn)
             {
                 SlideIn(0);
-                zoom.MultiLerp(6, DrawPile.BubbleScale.Map(v => (v - Vector2.One) * .3f + Vector2.One));
+                Vector2[] copy = new Vector2[DrawPile.BubbleScale.Length];
+                for (int i = 0; i < DrawPile.BubbleScale.Length; ++i)
+                {
+                    copy[i] = (DrawPile.BubbleScale[i] - Vector2.One) * .3f + Vector2.One;
+                }
+                zoom.MultiLerp(6, copy);
             }
 
             // Calculate scores

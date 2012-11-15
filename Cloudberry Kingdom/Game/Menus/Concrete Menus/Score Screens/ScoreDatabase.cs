@@ -157,12 +157,17 @@ namespace CloudberryKingdom
                 Scores.RemoveRange(Scores.Count - 1, Scores.Count - Capacity);
         }
 
+        static int ScoreCompare(ScoreEntry score1, ScoreEntry score2)
+        {
+            return score2.Value - score1.Value;
+        }
+
         /// <summary>
         /// Sort the list by value.
         /// </summary>
         static void Sort(List<ScoreEntry> Scores)
         {
-            Scores.Sort((score1, score2) => (score2.Value - score1.Value));
+            Scores.Sort(ScoreCompare);
         }
     }
 }

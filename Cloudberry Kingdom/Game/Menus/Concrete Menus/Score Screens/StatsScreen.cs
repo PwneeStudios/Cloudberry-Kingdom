@@ -38,11 +38,26 @@ namespace CloudberryKingdom.Stats
         static float[][] x = { null, x1, x2, x3, x4 };
         static Vector2[][] name_pos = { null, x1_name, x2_name, x3_name, x4_name };
 
-        MenuItem AddRow(MenuItem Item, Func<int, int> f)
+        class StringificationWrapper : LambdaFunc_1<int, string>
         {
-            return AddRow(Item, i => f(i).ToString());
+            LambdaFunc_1<int, int> f;
+
+            public StringificationWrapper(LambdaFunc_1<int, int> f)
+            {
+                this.f = f;
+            }
+
+            public string Apply(int i)
+            {
+                return f.Apply(i).ToString();
+            }
         }
-        MenuItem AddRow(MenuItem Item, Func<int, string> f)
+
+        MenuItem AddRow(MenuItem Item, LambdaFunc_1<int, int> f)
+        {
+            return AddRow(Item, new StringificationWrapper(f));
+        }
+        MenuItem AddRow(MenuItem Item, LambdaFunc_1<int, string> f)
         {
             AddItem(Item);
 
@@ -52,7 +67,7 @@ namespace CloudberryKingdom.Stats
             {
                 if (PlayerManager.Get(j).Exists)
                 {
-                    string val = f(j).ToString();
+                    string val = f.Apply(j).ToString();
 
                     Text = new EzText(val, ItemFont, false, true);
                     Text.Layer = 1;
@@ -88,6 +103,158 @@ namespace CloudberryKingdom.Stats
 #if PC_VERSION
         ScrollBar bar;
 #endif
+
+        class StatsLevels : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsLevels(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+        
+            public int Apply(int j)
+            {
+ 	            return Stats[j].Levels;
+            }
+        }
+
+        class StatsJumps : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsJumps(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].Jumps;
+            }
+        }
+
+        class StatsScore : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsScore(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].Score;
+            }
+        }
+
+        class StatsCoins : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsCoins(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].Coins;
+            }
+        }
+
+        class StatsTotalCoins : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsTotalCoins(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].TotalCoins;
+            }
+        }
+
+        class StatsCoinPercentGotten : LambdaFunc_1<int, string>
+        {
+            PlayerStats[] Stats;
+
+            public StatsCoinPercentGotten(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public string Apply(int j)
+            {
+                return Stats[j].CoinPercentGotten.ToString() + '%';
+            }
+        }
+
+        class StatsBlobs : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsBlobs(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].Blobs;
+            }
+        }
+
+        class StatsCheckpoints : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+
+            public StatsCheckpoints(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].Checkpoints;
+            }
+        }
+
+        class StatsLifeExpectancy : LambdaFunc_1<int, string>
+        {
+            PlayerStats[] Stats;
+
+            public StatsLifeExpectancy(PlayerStats[] Stats)
+            {
+                this.Stats = Stats;
+            }
+
+            public string Apply(int j)
+            {
+                return Stats[j].LifeExpectancy;
+            }
+        }
+
+        class StatsDeathsBy : LambdaFunc_1<int, int>
+        {
+            PlayerStats[] Stats;
+            int i;
+
+            public StatsDeathsBy(PlayerStats[] Stats, int i)
+            {
+                this.Stats = Stats;
+                this.i = i;
+            }
+
+            public int Apply(int j)
+            {
+                return Stats[j].DeathsBy[i];
+            }
+        }
 
         int n;
         float HeaderPos = -1595f;
@@ -180,9 +347,9 @@ namespace CloudberryKingdom.Stats
                 }
             }
 #endif
-            AddRow(new MenuItem(new EzText(Localization.Words.LevelsBeat, ItemFont)), j => Stats[j].Levels);
-            AddRow(new MenuItem(new EzText(Localization.Words.Jumps, ItemFont)), j => Stats[j].Jumps);
-            AddRow(new MenuItem(new EzText(Localization.Words.Score, ItemFont)), j => Stats[j].Score);
+            AddRow(new MenuItem(new EzText(Localization.Words.LevelsBeat, ItemFont)), new StatsLevels(Stats));
+            AddRow(new MenuItem(new EzText(Localization.Words.Jumps, ItemFont)), new StatsJumps(Stats));
+            AddRow(new MenuItem(new EzText(Localization.Words.Score, ItemFont)), new StatsScore(Stats));
 
 
             // Coins
@@ -190,15 +357,15 @@ namespace CloudberryKingdom.Stats
             coinitem.Selectable = false;
             AddItem(coinitem);
 
-            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), j => Stats[j].Coins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
+            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), new StatsCoins(Stats));//.Selectable = false;
+            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), new StatsTotalCoins(Stats));//.Selectable = false;
+            AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), new StatsCoinPercentGotten(Stats));
             //AddRow(new MenuItem(new EzText("Coins (Percent)", ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
             //AddRow(new MenuItem(new EzText("Coins (Total)", ItemFont)), j => Stats[j].Coins).Selectable = false;
 
-            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
-            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
-            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
+            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), new StatsBlobs(Stats));
+            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), new StatsCheckpoints(Stats));
+            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), new StatsLifeExpectancy(Stats));
             
             //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
 
@@ -221,7 +388,7 @@ namespace CloudberryKingdom.Stats
                 {
                     Localization.Words word = Bob.BobDeathNames[type];
 
-                    AddRow(new MenuItem(new EzText(word, ItemFont)), j => Stats[j].DeathsBy[i]);
+                    AddRow(new MenuItem(new EzText(word, ItemFont)), new StatsDeathsBy(Stats, i));
                 }
             }
 
