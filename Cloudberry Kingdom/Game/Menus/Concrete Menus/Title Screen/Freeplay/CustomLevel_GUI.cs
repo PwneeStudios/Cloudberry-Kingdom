@@ -716,7 +716,7 @@ namespace CloudberryKingdom
             item.ScaleText(.92f);
 
             // Select 'Start Level' when the user presses (A)
-            MyMenu.OnA = menu => { Start.Go(null); return true; };
+            MyMenu.OnA = menu => { Start.Go.Apply(null); return true; };
 
             // Load
             MenuItem Load;
@@ -726,7 +726,7 @@ namespace CloudberryKingdom
             Load = item = new MenuItem(new EzText(ButtonString.Y(90) + " Load", ItemFont));
 #endif
             Load.Name = "Load";
-            Load.Go = me => BringLoad();
+            Load.Go = new BringLoadProxy1(this);
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
@@ -746,7 +746,7 @@ namespace CloudberryKingdom
             item.Name = "Back";
             AddItem(item);
             item.SelectSound = null;
-            item.Go = me => ReturnToCaller();
+            item.Go = new ReturnToCallerProxy1(this);
             item.Pos = item.SelectedPos = new Vector2(922.9375f, -523.8096f);
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
@@ -761,7 +761,7 @@ namespace CloudberryKingdom
             GameList.SetIndex(0);
             DiffList.SetIndex(0);
             MyMenu.OnB = MenuReturnToCaller;
-            MyMenu.OnY = BringLoad;
+            MyMenu.OnY = new BringLoadProxy(this);
         }
 
         private MenuItem AddHeroItem(BobPhsx hero)
@@ -966,6 +966,36 @@ namespace CloudberryKingdom
             Call(CallingPanel, 0);
             Hide(PresetPos.Left);
             this.SlideInFrom = PresetPos.Left;
+        }
+
+        class BringLoadProxy : Lambda
+        {
+            CustomLevel_GUI clGui;
+
+            public BringLoadProxy(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply()
+            {
+                clGui.BringLoad();
+            }
+        }
+
+        class BringLoadProxy1 : Lambda_1<MenuItem>
+        {
+            CustomLevel_GUI clGui;
+
+            public BringLoadProxy1(CustomLevel_GUI clGui)
+            {
+                this.clGui = clGui;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                clGui.BringLoad();
+            }
         }
 
         void BringLoad()

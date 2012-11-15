@@ -225,7 +225,7 @@ namespace CloudberryKingdom
             FontScale *= .89f * 1.16f;
 
             item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
-            item.Go = _item => Action_PlayAgain();
+            item.Go = new Action_PlayAgainProxy1(this);
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
@@ -233,7 +233,7 @@ namespace CloudberryKingdom
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
-            item.Go = _item => Action_Done();
+            item.Go = new Action_DoneProxy1(this);
             AddItem(item);
         }
 
@@ -262,6 +262,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class Action_DoneProxy1 : Lambda_1<MenuItem>
+        {
+            HighScorePanel hsp;
+
+            public Action_DoneProxy1(HighScorePanel hsp)
+            {
+                this.hsp = hsp;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                hsp.Action_Done();
+            }
+        }
+
         void Action_Done()
         {
             SlideOut(PresetPos.Top, 13);
@@ -269,6 +284,21 @@ namespace CloudberryKingdom
             
             MyGame.WaitThenDo(36, new HighScorePanelEndGameHelper(this, false));
             return;
+        }
+
+        class Action_PlayAgainProxy1 : Lambda_1<MenuItem>
+        {
+            HighScorePanel hsp;
+
+            public Action_PlayAgainProxy1(HighScorePanel hsp)
+            {
+                this.hsp = hsp;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                hsp.Action_PlayAgain();
+            }
         }
 
         void Action_PlayAgain()

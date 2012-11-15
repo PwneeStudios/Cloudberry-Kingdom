@@ -20,12 +20,27 @@ namespace CloudberryKingdom
             {
                 _ExpandOnGo = value;
                 if (_ExpandOnGo)
-                    OnClick = item => Expand();
+                    OnClick = new ExpandProxy1(this);
                 else
                     OnClick = null;
             }
         }
         bool _ExpandOnGo = false;
+
+        class ExpandProxy1 : Lambda_1<MenuItem>
+        {
+            MenuList ml;
+
+            public ExpandProxy1(MenuList ml)
+            {
+                this.ml = ml;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                ml.Expand();
+            }
+        }
 
         public MenuListExpand MyMenuListExpand;
         public Vector2 MyExpandPos = Vector2.Zero;

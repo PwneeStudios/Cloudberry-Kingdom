@@ -39,7 +39,7 @@ namespace CloudberryKingdom
             // Save seed
             item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
             item.Name = "Save";
-            item.Go = Save;
+            item.Go = new SaveProxy(this);
             AddItem(item);
 
 
@@ -50,6 +50,21 @@ namespace CloudberryKingdom
             SetPosition();
             MyMenu.SortByHeight();
             MyMenu.SelectItem(0);
+        }
+
+        class SaveProxy : Lambda_1<MenuItem>
+        {
+            SaveSeedAs ssa;
+
+            public SaveProxy(SaveSeedAs ssa)
+            {
+                this.ssa = ssa;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                ssa.Save(_item);
+            }
         }
 
         void Save(MenuItem _item)

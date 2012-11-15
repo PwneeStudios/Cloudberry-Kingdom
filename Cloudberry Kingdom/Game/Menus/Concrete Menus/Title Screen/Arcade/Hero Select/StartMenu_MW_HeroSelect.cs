@@ -171,7 +171,7 @@ namespace CloudberryKingdom
             MiniMenu mini = new MiniMenu();
             MyMenu = mini;
 
-            MyMenu.OnSelect = UpdateScore;
+            MyMenu.OnSelect = new UpdateScoreProxy(this);
 
             mini.WrapSelect = false;
             mini.Shift = new Vector2(0, -135);
@@ -239,6 +239,21 @@ namespace CloudberryKingdom
             base.OnReturnTo();
 
             UpdateScore();
+        }
+
+        class UpdateScoreProxy : Lambda
+        {
+            StartMenu_MW_HeroSelect smmwhs;
+
+            public UpdateScoreProxy(StartMenu_MW_HeroSelect smmwhs)
+            {
+                this.smmwhs = smmwhs;
+            }
+
+            public void Apply()
+            {
+                smmwhs.UpdateScore();
+            }
         }
 
         void UpdateScore()

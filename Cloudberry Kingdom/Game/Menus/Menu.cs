@@ -15,19 +15,49 @@ namespace CloudberryKingdom
             return menu => { a.Apply(); return true; };
         }
 
-        public static MenuB ToMenu(MenuItemGo a)
+        public static MenuB ToMenu(Lambda_1<MenuItem> a)
         {
-            return menu => { a(null); return true; };
+            return menu => { a.Apply(null); return true; };
         }
 
-        public static MenuItemGo ToItem(Lambda a)
+        class LambdaWrapper : Lambda_1<MenuItem>
         {
-            return item => a.Apply();
+            Lambda a;
+
+            public LambdaWrapper(Lambda a)
+            {
+                this.a = a;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                a.Apply();
+            }
         }
 
-        public static Action ToAction(MenuItemGo a)
+        public static Lambda_1<MenuItem> ToItem(Lambda a)
         {
-            return () => a(null);
+            return new LambdaWrapper(a);
+        }
+
+        class Lambda_1Wrapper : Lambda
+        {
+            Lambda_1<Menu> a;
+
+            public Lambda_1Wrapper(Lambda_1<Menu> a)
+            {
+                this.a = a;
+            }
+
+            public void Apply()
+            {
+                a.Apply(null);
+            }
+        }
+
+        public static Lambda ToAction(Lambda_1<Menu> a)
+        {
+            return new Lambda_1Wrapper(a);// () => a(null);
         }
 
         public static Action ToAction(Func<Menu, bool> a)
@@ -172,7 +202,7 @@ namespace CloudberryKingdom
         /// </summary>
         public MenuB OnB;
         public MenuB OnA, OnX, OnStart;
-        public Action OnSelect, OnY;
+        public Lambda OnSelect, OnY;
 
         public Vector2 TR, BL;
 
@@ -319,7 +349,7 @@ namespace CloudberryKingdom
             }
 
             if (OnSelect != null)
-                OnSelect();
+                OnSelect.Apply();
 
             SkipPhsx = true;
         }
@@ -479,7 +509,7 @@ namespace CloudberryKingdom
             if (OnY != null && ButtonCheck.State(ControllerButtons.Y, Control).Pressed)
             {
                 ButtonCheck.PreventInput();
-                OnY();
+                OnY.Apply();
             }
 
             // Allow for a new item to be selected if the user has stopped holding down A (or LeftMouseButton)

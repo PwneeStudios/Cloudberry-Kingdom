@@ -126,9 +126,39 @@ namespace CloudberryKingdom
         /// </summary>
         protected bool ReleaseWhenDoneScaling = false;
 
+        protected class ItemReturnToCallerProxy : Lambda_1<MenuItem>
+        {
+            GUI_Panel guiPanel;
+
+            public ItemReturnToCallerProxy(GUI_Panel guiPanel)
+            {
+                this.guiPanel = guiPanel;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                guiPanel.ItemReturnToCaller(item);
+            }
+        }
+
         public virtual void ItemReturnToCaller(MenuItem item)
         {
             ReturnToCaller();
+        }
+
+        protected class MenuReturnToCallerProxy : Lambda_1<Menu>
+        {
+            GUI_Panel guiPanel;
+
+            public MenuReturnToCallerProxy(GUI_Panel guiPanel)
+            {
+                this.guiPanel = guiPanel;
+            }
+
+            public void Apply(Menu menu)
+            {
+                guiPanel.MenuReturnToCaller(menu);
+            }
         }
 
         public virtual bool MenuReturnToCaller(Menu menu)

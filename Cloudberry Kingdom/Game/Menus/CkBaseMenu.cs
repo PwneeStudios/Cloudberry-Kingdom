@@ -219,6 +219,21 @@ namespace CloudberryKingdom
             }
         }
 
+        protected class ReturnToCallerProxy1 : Lambda_1<MenuItem>
+        {
+            CkBaseMenu cbm;
+
+            public ReturnToCallerProxy1(CkBaseMenu cbm)
+            {
+                this.cbm = cbm;
+            }
+
+            public void Apply(MenuItem dummy)
+            {
+                cbm.ReturnToCaller();
+            }
+        }
+
         public override void ReturnToCaller() { ReturnToCaller(true); }
         public virtual void ReturnToCaller(bool PlaySound)
         {
@@ -321,6 +336,21 @@ namespace CloudberryKingdom
                 this.SlideOut(pos, frames);
         }
 
+        class MakeBackButtonHelper : Lambda_1<MenuItem>
+        {
+            CkBaseMenu bm;
+
+            public MakeBackButtonHelper(CkBaseMenu bm)
+            {
+                this.bm = bm;
+            }
+
+            public void Apply(MenuItem menuitem)
+            {
+                bm.MyMenu.OnB(bm.MyMenu);
+            }
+        }
+
         protected MenuItem MakeBackButton() { return MakeBackButton(Localization.Words.Back); }
         protected MenuItem MakeBackButton(Localization.Words Word)
         {
@@ -334,7 +364,7 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
 #endif
 
-            item.Go = menuitem => MyMenu.OnB(MyMenu);
+            item.Go = new MakeBackButtonHelper(this);
             item.Name = "Back";
             AddItem(item);
             item.SelectSound = null;

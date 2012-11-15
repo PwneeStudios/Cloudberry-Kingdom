@@ -46,7 +46,7 @@ namespace CloudberryKingdom
             // Load seed
             item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
             item.Name = "Load";
-            item.Go = Load;
+            item.Go = new LoadProxy1(this);
             AddItem(item);
 
 
@@ -142,6 +142,21 @@ namespace CloudberryKingdom
             {
                 lsa.TextBox.Active = false;
                 lsa.ReturnToCaller();
+            }
+        }
+
+        class LoadProxy1 : Lambda_1<MenuItem>
+        {
+            LoadSeedAs lsa;
+
+            public LoadProxy1(LoadSeedAs lsa)
+            {
+                this.lsa = lsa;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                lsa.Load(_item);
             }
         }
 

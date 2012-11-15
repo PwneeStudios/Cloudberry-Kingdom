@@ -109,6 +109,21 @@ namespace CloudberryKingdom
             //MyPile.Add(text, "instructions");
         }
 
+        class ResetProxy : Lambda_1<MenuItem>
+        {
+            CustomControlsMenu ccm;
+
+            public ResetProxy(CustomControlsMenu ccm)
+            {
+                this.ccm = ccm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                ccm.Reset(_item);
+            }
+        }
+
         void Reset(MenuItem _item)
         {
             ButtonCheck.Reset();
@@ -128,7 +143,7 @@ namespace CloudberryKingdom
             // Customize
             item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
-            item.Go = Reset;
+            item.Go = new ResetProxy(this);
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
 
             ItemPos = new Vector2(698.9696f, 892.0638f);
