@@ -75,6 +75,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class LaunchProxy : Lambda_1<MenuItem>
+        {
+            StartLevelMenu slm;
+
+            public LaunchProxy(StartLevelMenu slm)
+            {
+                this.slm = slm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                slm.Launch(item);
+            }
+        }
+
         protected virtual void Launch(MenuItem item)
         {
             LevelItem litem = item as LevelItem;
@@ -166,7 +181,7 @@ namespace CloudberryKingdom
                 bool Locked = i >= IndexCutoff;
 
                 var item = new LevelItem(new EzText(Names[i], Resources.Font_Grobold42), StartLevel, MenuIndex, Locked);
-                if (!Locked) item.Go = Launch;
+                if (!Locked) item.Go = new LaunchProxy(this);
 
                 AddItem(item);
                 item.SelectedPos.X -= 25;

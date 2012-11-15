@@ -158,6 +158,21 @@ namespace CloudberryKingdom.Awards
             SaveGroup.SaveAll();
         }
 
+        class VerifyPurchaseProxy : Lambda_1<MenuItem>
+        {
+            ShopMenu sm;
+
+            public VerifyPurchaseProxy(ShopMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.VerifyPurchase(item);
+            }
+        }
+
         void VerifyPurchase(MenuItem item)
         {
             Buyable buyable = item.MyObject as Buyable;
@@ -254,7 +269,7 @@ namespace CloudberryKingdom.Awards
                 item.Go = null;
             else
             {
-                item.Go = VerifyPurchase;
+                item.Go = new VerifyPurchaseProxy(this);
                 item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
             }
         }
