@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 #endif
             MakeBackButton();
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             SetPosition();
             MyMenu.SortByHeight();

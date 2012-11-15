@@ -139,7 +139,7 @@ namespace CloudberryKingdom.Awards
             AddItem(item);
             item.SelectSound = null;
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
@@ -331,7 +331,7 @@ namespace CloudberryKingdom.Awards
 
             MyMenu.Control = -1;
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Header
             MenuItem Header = new MenuItem(new EzText(Localization.Words.HatsForSale, Resources.Font_Grobold42_2));
