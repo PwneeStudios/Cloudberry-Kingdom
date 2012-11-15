@@ -182,10 +182,10 @@ namespace CloudberryKingdom
                 var item = new HeroItem(phsx);
                 item.AdditionalOnSelect = new OnSelectProxy(this);
                 AddItem(item);
-                item.Go = Go;
+                item.Go = new StartMenuGoLambda(this);
             }
-            
-            MyMenu.OnB = MenuReturnToCaller;
+
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
             EnsureFancy();
 
             /// <summary>
@@ -289,7 +289,21 @@ namespace CloudberryKingdom
 
         }
 
-        protected virtual void Go(MenuItem item)
+        class StartMenuGoLambda : Lambda_1<MenuItem>
+        {
+            StartMenu_MW_HeroSelect hs;
+            public StartMenuGoLambda(StartMenu_MW_HeroSelect hs)
+            {
+                this.hs = hs;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                hs.Go(item);
+            }
+        }
+
+        public virtual void Go(MenuItem item)
         {
             StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopLevel());
 

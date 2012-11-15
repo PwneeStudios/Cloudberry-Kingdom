@@ -115,7 +115,7 @@ namespace CloudberryKingdom.Stats
 
             MyMenu.Control = -1;
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             MakeBack();
 

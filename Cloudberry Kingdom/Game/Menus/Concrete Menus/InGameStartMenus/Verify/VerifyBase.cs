@@ -80,7 +80,7 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(800f, 361f);
             PosAdd = new Vector2(0, -300);
             
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Shift everything
             EnsureFancy();

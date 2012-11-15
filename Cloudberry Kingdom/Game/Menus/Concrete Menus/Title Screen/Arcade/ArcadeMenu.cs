@@ -245,7 +245,7 @@ namespace CloudberryKingdom
             }
         }
 
-        protected virtual void Go(MenuItem item)
+        public virtual void Go(MenuItem item)
         {
         }
 

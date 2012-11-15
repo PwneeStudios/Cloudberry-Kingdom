@@ -34,7 +34,7 @@ namespace CloudberryKingdom
             item.MyText.Scale = item.MySelectedText.Scale = 1;
         }
 
-        protected override void Go(MenuItem item)
+        public override void Go(MenuItem item)
         {
             MyArcadeItem = item as ArcadeItem;
             if (MyArcadeItem.Locked) return;

@@ -106,7 +106,7 @@ namespace CloudberryKingdom
             BackSound = null;
             AddItem(item);
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);

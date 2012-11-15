@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             CallDelay = 0;
             ReturnToCallerDelay = 0;
             //ReturnToCallerDelay = 10;
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
         }
 
         public override void ReturnToCaller()

@@ -64,7 +64,7 @@ namespace CloudberryKingdom
  	        base.Init();
 
             CallDelay = ReturnToCallerDelay = 0;
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             MyMenu.ClearList();
 
@@ -80,37 +80,37 @@ namespace CloudberryKingdom
             // Chapter 1
             item = new CinematicsLevelItem(new EzText("Over the Edge", ItemFont), "Cutscene_1");
             item.Name = "1";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             // Chapter 2
             item = new CinematicsLevelItem(new EzText("Into the Forest", ItemFont), "Cutscene_2");
             item.Name = "2";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             // Chapter 3
             item = new CinematicsLevelItem(new EzText("Woes of a Kidnapper", ItemFont), "Cutscene_3");
             item.Name = "3";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             // Chapter 4
             item = new CinematicsLevelItem(new EzText("Welterweight", ItemFont), "Cutscene_4");
             item.Name = "4";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             // Chapter 5
             item = new CinematicsLevelItem(new EzText("Cloudberry Pie", ItemFont), "Cutscene_5");
             item.Name = "5";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             // Chapter 6
             item = new CinematicsLevelItem(new EzText("I Always Told You", ItemFont), "Cutscene_6");
             item.Name = "6";
-            item.Go = Go;
+            item.Go = new CinematicsGoLambda(this);
             AddItem(item);
 
             MyMenu.SelectItem(0);
@@ -130,7 +130,21 @@ namespace CloudberryKingdom
             Header.Pos = new Vector2(-800.0029f, 863.8889f);
         }
 
-        void Go(MenuItem item)
+        class CinematicsGoLambda : Lambda_1<MenuItem>
+        {
+            StartMenu_MW_Cinematics cine;
+            public CinematicsGoLambda(StartMenu_MW_Cinematics cine)
+            {
+                this.cine = cine;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                cine.Go(item);
+            }
+        }
+
+        public void Go(MenuItem item)
         {
             CinematicsLevelItem c_item = item as CinematicsLevelItem;
             if (null == c_item) return;

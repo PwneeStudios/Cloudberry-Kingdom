@@ -72,7 +72,7 @@ namespace CloudberryKingdom
  	        base.Init();
 
             CallDelay = ReturnToCallerDelay = 0;
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             MyMenu.ClearList();
 
@@ -88,31 +88,31 @@ namespace CloudberryKingdom
             // Chapter 1
             item = new CampaignChapterItem(new EzText(Localization.Words.TheBeginning, ItemFont), 1);
             item.Name = "MainCampaign";
-            item.Go = Go;
+            item.Go = new CampaignGoLambda(this);
             AddItem(item);
 
             // Chapter 2
             item = new CampaignChapterItem(new EzText(Localization.Words.TheNextNinetyNine, ItemFont), 2);
             item.Name = "Easy";
-            item.Go = Go;
+            item.Go = new CampaignGoLambda(this);
             AddItem(item);
 
             // Chapter 3
             item = new CampaignChapterItem(new EzText(Localization.Words.AGauntletOfDoom, ItemFont), 3);
             item.Name = "Hard";
-            item.Go = Go;
+            item.Go = new CampaignGoLambda(this);
             AddItem(item);
 
             // Chapter 4
             item = new CampaignChapterItem(new EzText(Localization.Words.AlmostHero, ItemFont), 4);
             item.Name = "Hardcore";
-            item.Go = Go;
+            item.Go = new CampaignGoLambda(this);
             AddItem(item);
 
             // Chapter 5
             item = new CampaignChapterItem(new EzText(Localization.Words.TheMasochist, ItemFont), 5);
             item.Name = "Maso";
-            item.Go = Go;
+            item.Go = new CampaignGoLambda(this);
             AddItem(item);
 
             //// Cinematics
@@ -139,6 +139,20 @@ namespace CloudberryKingdom
             MyPile.Add(Header);
             
             Header.Pos = new Vector2(-800.0029f, 863.8889f);
+        }
+
+        class CampaignGoLambda : Lambda_1<MenuItem>
+        {
+            StartMenu_MW_Campaign cine;
+            public CampaignGoLambda(StartMenu_MW_Campaign cine)
+            {
+                this.cine = cine;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                cine.Go(item);
+            }
         }
 
         void Go(MenuItem item)
