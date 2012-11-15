@@ -103,7 +103,7 @@ namespace CloudberryKingdom
             if (ReturnFunc != null) ReturnFunc.Apply();
 
             // Return to the parent menu
-            MyMenu.OnB(null);
+            MyMenu.OnB.Apply(null);
 
             return true;
         }
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
 
             MyMenu.Control = -1;
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
 
             Vector2 shift = new Vector2(-200, 40);

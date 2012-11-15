@@ -14,10 +14,38 @@ namespace CloudberryKingdom
         public enum Next { Campaign, Arcade, Freeplay };
         public Next MyNextMenu;
 
+        class StartMenuLambda_Campaign : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Campaign(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Campaign(item);
+            }
+        }
+
         protected virtual void MenuGo_Campaign(MenuItem item)
         {
             MyNextMenu = Next.Campaign;
             BringCharacterSelect();
+        }
+
+        class StartMenuLambda_Arcade : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Arcade(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Arcade(item);
+            }
         }
 
         protected virtual void MenuGo_Arcade(MenuItem item)
@@ -25,6 +53,20 @@ namespace CloudberryKingdom
             MyNextMenu = Next.Arcade;
             BringCharacterSelect();
             //DoneWithCharSelect();StartMenu_MW_HeroSelect
+        }
+
+        class StartMenuLambda_Freeplay : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Freeplay(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Freeplay(item);
+            }
         }
 
         protected virtual void MenuGo_Freeplay(MenuItem item)
@@ -101,6 +143,20 @@ namespace CloudberryKingdom
             Tools.AddToDo(new MenuGo_ScreenSaverHelper(this));
         }
 
+        class StartMenuLambda_Controls : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Controls(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Controls(item);
+            }
+        }
+
         protected virtual void MenuGo_Controls(MenuItem item)
         {
             Call(new ControlScreen(Control), 0);
@@ -111,9 +167,37 @@ namespace CloudberryKingdom
             Call(new StatsMenu(StatGroup.Lifetime), 0);
         }
 
+        class StartMenuLambda_Options : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Options(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Options(item);
+            }
+        }
+
         protected virtual void MenuGo_Options(MenuItem item)
         {
             Call(new SoundMenu(Control), 0);
+        }
+
+        class StartMenuLambda_Exit : Lambda_1<MenuItem>
+        {
+            StartMenu sm;
+            public StartMenuLambda_Exit(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sm.MenuGo_Exit(item);
+            }
         }
 
         protected virtual void MenuGo_Exit(MenuItem item)
@@ -218,14 +302,27 @@ namespace CloudberryKingdom
             MyMenu.Control = -2;
 
             MyMenu.CheckForOutsideClick = false;
-            MyMenu.OnB = menu =>
-                { Exit(); return false; };
+            MyMenu.OnB = new StartMenuExitLambda(this);
 
             FontScale *= .88f;
             PosAdd = new Vector2(0, -117);
 
             // Make the start menu
             MakeMenu();
+        }
+
+        class StartMenuExitLambda : LambdaFunc_1<Menu, bool>
+        {
+            StartMenu sm;
+            public StartMenuExitLambda(StartMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public bool Apply(Menu menu)
+            {
+                sm.Exit(); return false;
+            }
         }
 
         private static void GrayItem(MenuItem item)
@@ -241,14 +338,14 @@ namespace CloudberryKingdom
             // Arcade
             item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont));
             item.Name = "Arcade";
-            item.Go = MenuGo_Arcade;
+            item.Go = new StartMenuLambda_Arcade(this);
             AddItem(item);
 
             // Campaign
             item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont));
             item.Name = "Campaign";
             AddItem(item);
-            item.Go = MenuGo_Campaign;
+            item.Go = new StartMenuLambda_Campaign(this);
 
             //// Extra
             //item = new MenuItem(new EzText("Extras", ItemFont));
@@ -259,7 +356,7 @@ namespace CloudberryKingdom
             // Free Play
             item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont));
             item.Name = "Freeplay";
-            item.Go = MenuGo_Freeplay;
+            item.Go = new StartMenuLambda_Freeplay(this);
             AddItem(item);
 
             //// Jukebox
@@ -271,18 +368,18 @@ namespace CloudberryKingdom
             // Options
             item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
             item.Name = "Options";
-            item.Go = MenuGo_Options;
+            item.Go = new StartMenuLambda_Options(this);
             AddItem(item);
 
             // Stats
             //item = new MenuItem(new EzText("Stats", ItemFont));
-            //item.Go = MenuGo_Stats;
+            //item.Go = new StartMenuLambda_Stats(this);
             //AddItem(item);
 
             // Exit
             item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont));
             item.Name = "Exit";
-            item.Go = MenuGo_Exit;
+            item.Go = new StartMenuLambda_Exit(this);
             AddItem(item);
 
             EnsureFancy();

@@ -88,7 +88,7 @@ namespace CloudberryKingdom
  	        base.Init();
 
             CallDelay = ReturnToCallerDelay = 0;
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             var Header = new MenuItem(new EzText(Localization.Words.Menu, ItemFont));
             Header.ScaleText(1.3f);

@@ -137,6 +137,20 @@ namespace CloudberryKingdom
             return count;
         }
 
+        class SaveSeedsDeleteLambda : LambdaFunc_1<Menu, bool>
+        {
+            SavedSeedsGUI gui;
+            public SaveSeedsDeleteLambda(SavedSeedsGUI gui)
+            {
+                this.gui = gui;
+            }
+
+            public bool Apply(Menu menu)
+            {
+                return gui.Delete(menu);
+            }
+        }
+
         /// <summary>
         /// Mark the current item to be deleted
         /// </summary>
@@ -255,8 +269,8 @@ namespace CloudberryKingdom
             MyMenu = new LongMenu(); MyMenu.FixedToCamera = false; MyMenu.WrapSelect = false; ((LongMenu)MyMenu).OffsetStep = 30;
             EnsureFancy();
             MyMenu.OnA = null;
-            MyMenu.OnB = Back;
-            MyMenu.OnX = Delete;
+            MyMenu.OnB = new SaveSeedsBackLambda(this);
+            MyMenu.OnX = new SaveSeedsDeleteLambda(this);
             MyMenu.OnY = new SortProxy(this);
             MyMenu.SelectDelay = 11;
 
@@ -307,6 +321,20 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(Microsoft.Xna.Framework.Input.Keys.Delete).Pressed)
                 Delete(MyMenu);
 #endif
+        }
+
+        class SaveSeedsBackLambda : LambdaFunc_1<Menu, bool>
+        {
+            SavedSeedsGUI gui;
+            public SaveSeedsBackLambda(SavedSeedsGUI gui)
+            {
+                this.gui = gui;
+            }
+
+            public bool Apply(Menu menu)
+            {
+                return gui.Back(menu);
+            }
         }
 
         bool Back(Menu menu)
