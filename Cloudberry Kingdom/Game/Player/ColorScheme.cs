@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
@@ -128,6 +129,31 @@ namespace CloudberryKingdom.Bobs
             return string.Format("\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\"", SkinColor.Name, CapeColor.Name, CapeOutlineColor.Name, HatData.Name, BeardData.Name);
         }
 
+        int IndexOf(List<MenuListItem> list, ClrTextFx clr)
+        {
+            int index = 0;
+            foreach (var item in list)
+            {
+                if ((ClrTextFx)(item.obj) == clr)
+                    return index;
+                index++;
+            }
+            return -1;
+        }
+
+        int IndexOf(List<Hat> list, Hat hat)
+        {
+            int index = 0;
+            foreach (var _hat in list)
+            {
+                if (_hat == hat)
+                    return index;
+                index++;
+            }
+            return -1;
+        }
+
+
         public void WriteChunk_0(BinaryWriter writer)
         {
             var chunk = new Chunk();
@@ -135,18 +161,18 @@ namespace CloudberryKingdom.Bobs
 
             ClrTextFx clr;
 
-            chunk.Write(Math.Abs(ColorSchemeManager.BeardInfo.IndexOf(BeardData)));
+            chunk.Write(Math.Abs(IndexOf(ColorSchemeManager.BeardInfo, BeardData)));
             
             clr = SkinColor;
-            chunk.Write(Math.Abs(ColorSchemeManager.ColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
+            chunk.Write(Math.Abs(IndexOf(ColorSchemeManager.ColorList, clr)));
 
             clr = CapeColor;
-            chunk.Write(Math.Abs(ColorSchemeManager.CapeColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
+            chunk.Write(Math.Abs(IndexOf(ColorSchemeManager.CapeColorList, clr)));
 
             clr = CapeOutlineColor;
-            chunk.Write(Math.Abs(ColorSchemeManager.CapeOutlineColorList.IndexOf(item => (ClrTextFx)(item.obj) == clr)));
+            chunk.Write(Math.Abs(IndexOf(ColorSchemeManager.CapeOutlineColorList, clr)));
 
-            chunk.Write(Math.Abs(ColorSchemeManager.HatInfo.IndexOf(HatData)));
+            chunk.Write(Math.Abs(IndexOf(ColorSchemeManager.HatInfo, HatData)));
 
             chunk.Finish(writer);
         }
