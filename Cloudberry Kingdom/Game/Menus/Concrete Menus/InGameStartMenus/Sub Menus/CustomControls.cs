@@ -320,6 +320,22 @@ namespace CloudberryKingdom
             }
         }
 
+        class InitOnButtonHelper : LambdaFunc_1<Menu, bool>
+        {
+            CustomControlsMenu ccm;
+
+            public InitOnButtonHelper(CustomControlsMenu ccm)
+            {
+                this.ccm = ccm;
+            }
+
+            public bool Apply(Menu _m)
+            {
+                ccm.Save();
+                return ccm.MenuReturnToCaller(_m);
+            }
+        }
+
         public override void Init()
         {
             base.Init();
@@ -412,12 +428,7 @@ namespace CloudberryKingdom
             AddItem(item);
 
             ButtonCheck.KillSecondary();
-            MyMenu.OnX = MyMenu.OnB =
-                _m =>
-                {
-                    Save();
-                    return MenuReturnToCaller(_m);
-                };
+            MyMenu.OnX = MyMenu.OnB = new InitOnButtonHelper(this);
 
             // Shift everything
             EnsureFancy();

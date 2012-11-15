@@ -10,14 +10,46 @@ namespace CloudberryKingdom
 {
     public static class Cast
     {
-        public static MenuB ToMenu(Lambda a)
+        class ToMenuHelper : LambdaFunc_1<Menu, bool>
         {
-            return menu => { a.Apply(); return true; };
+            Lambda a;
+
+            public ToMenuHelper(Lambda a)
+            {
+                this.a = a;
+            }
+
+            public bool Apply(Menu dummy)
+            {
+                a.Apply();
+                return true;
+            }
         }
 
-        public static MenuB ToMenu(Lambda_1<MenuItem> a)
+        public static LambdaFunc_1<Menu, bool> ToMenu(Lambda a)
         {
-            return menu => { a.Apply(null); return true; };
+            return new ToMenuHelper(a);
+        }
+
+        class ToMenuHelper1 : LambdaFunc_1<Menu, bool>
+        {
+            Lambda_1<MenuItem> a;
+
+            public ToMenuHelper1(Lambda_1<MenuItem> a)
+            {
+                this.a = a;
+            }
+
+            public bool Apply(Menu dummy)
+            {
+                a.Apply(null);
+                return true;
+            }
+        }
+
+        public static LambdaFunc_1<Menu, bool> ToMenu(Lambda_1<MenuItem> a)
+        {
+            return new ToMenuHelper1(a);
         }
 
         class LambdaWrapper : Lambda_1<MenuItem>
@@ -66,7 +98,6 @@ namespace CloudberryKingdom
         }
     }
 
-    public delegate bool MenuB(Menu menu);
     public class Menu : ViewReadWrite, IViewableList
     {
         public static class DefaultMenuInfo

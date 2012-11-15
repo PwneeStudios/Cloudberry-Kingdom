@@ -347,7 +347,7 @@ namespace CloudberryKingdom
 
             public void Apply(MenuItem menuitem)
             {
-                bm.MyMenu.OnB(bm.MyMenu);
+                bm.MyMenu.OnB.Apply(bm.MyMenu);
             }
         }
 

@@ -151,7 +151,7 @@ namespace CloudberryKingdom
 
             MyMenu.Control = -1;
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Header
             MenuItem Header = new MenuItem(new EzText(Localization.Words.TheArcade, Resources.Font_Grobold42_2));

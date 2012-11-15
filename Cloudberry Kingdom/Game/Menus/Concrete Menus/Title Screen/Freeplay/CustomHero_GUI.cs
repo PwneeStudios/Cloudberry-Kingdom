@@ -426,7 +426,7 @@ namespace CloudberryKingdom
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             UpdateSliders();
 
