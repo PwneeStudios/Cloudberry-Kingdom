@@ -26,7 +26,7 @@ namespace CloudberryKingdom
             get
             {
                 if (GetCallback != null)
-                    MyFloat = GetCallback();
+                    MyFloat = GetCallback.Apply();
 
                 return MyFloat;
             }
@@ -37,7 +37,7 @@ namespace CloudberryKingdom
         }
 
         public Lambda SetCallback;
-        public Func<float> GetCallback;
+        public LambdaFunc<float> GetCallback;
 
         public WrappedFloat() { }
 

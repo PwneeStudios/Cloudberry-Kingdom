@@ -357,18 +357,14 @@ namespace CloudberryKingdom.Stats
             coinitem.Selectable = false;
             AddItem(coinitem);
 
-            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), new StatsCoins(Stats));//.Selectable = false;
-            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), new StatsTotalCoins(Stats));//.Selectable = false;
+            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), new StatsCoins(Stats));
+            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), new StatsTotalCoins(Stats));
             AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), new StatsCoinPercentGotten(Stats));
-            //AddRow(new MenuItem(new EzText("Coins (Percent)", ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
-            //AddRow(new MenuItem(new EzText("Coins (Total)", ItemFont)), j => Stats[j].Coins).Selectable = false;
 
             AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), new StatsBlobs(Stats));
             AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), new StatsCheckpoints(Stats));
             AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), new StatsLifeExpectancy(Stats));
             
-            //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
-
             // Deaths
             Header = new MenuItem(new EzText(Localization.Words.Deaths, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);

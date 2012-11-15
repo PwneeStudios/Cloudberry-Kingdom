@@ -167,6 +167,22 @@ namespace CloudberryKingdom
             }
         }
 
+        class UpgradesSliderLambda : LambdaFunc<float>
+        {
+            CustomUpgrades_GUI cu;
+            Upgrade upgrade;
+            public UpgradesSliderLambda(CustomUpgrades_GUI cu, Upgrade upgrade)
+            {
+                this.cu = cu;
+                this.upgrade = upgrade;
+            }
+
+            public float Apply()
+            {
+                return cu.PieceSeed.MyUpgrades1[upgrade];
+            }
+        }
+
         public ObjectIcon BigIcon;
         void AddUpgrade(Upgrade upgrade)
         {
@@ -178,7 +194,7 @@ namespace CloudberryKingdom
             slider.InitialSlideSpeed *= 9;
             slider.MaxSlideSpeed *= 9;
             slider.Icon.Pos += new Vector2(110, -123.5f);
-            slider.MyFloat.GetCallback = () => PieceSeed.MyUpgrades1[upgrade];
+            slider.MyFloat.GetCallback = new UpgradesSliderLambda(this, upgrade);
             
             // Keep the PieceSeed up to date when the slider changes
             if (upgrade == Upgrade.FallingBlock)

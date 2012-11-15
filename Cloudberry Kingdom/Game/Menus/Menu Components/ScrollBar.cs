@@ -96,7 +96,7 @@ namespace CloudberryKingdom
             slider.MyFloat = new WrappedFloat(0, 0, 9);
 
             Height = AttachedMenu.Height();
-            slider.MyFloat.GetCallback = SliderGet;
+            slider.MyFloat.GetCallback = new SliderGetLambda(this);
             slider.MyFloat.SetCallback = new SliderSetProxy(this);
             slider.MyFloat.MaxVal = Height;
             slider.MyFloat.MinVal = 0;
@@ -107,6 +107,20 @@ namespace CloudberryKingdom
         }
 
         float Height;
+
+        class SliderGetLambda : LambdaFunc<float>
+        {
+            ScrollBar sb;
+            public SliderGetLambda(ScrollBar sb)
+            {
+                this.sb = sb;
+            }
+
+            public float Apply()
+            {
+                return sb.SliderGet();
+            }
+        }
 
         float SliderGet()
         {

@@ -94,22 +94,9 @@ namespace CloudberryKingdom
             // Preset difficulty
             else
             {
-                //int diff = new int[] { 0, 2, 4, 6, 9 }[DiffList.ListIndex];
-                //LevelSeedData.CustomDifficulty custom;
                 Lambda_1<PieceSeedData> custom;
 
-                //if (data.DefaultHeroType is BobPhsxSpaceship)
-                //    custom = SpaceshipLevel.StandardPieceMod(diff, data);
-                //else
-                    //custom = RegularLevel.FixedPieceMod(DiffList.ListIndex - 1, data);
                 custom = DifficultyGroups.FixedPieceMod(DiffList.ListIndex - 1, data);
-
-                //LevelSeedData.CustomDifficulty modcustom = p =>
-                //{
-                //    custom.Apply(p);
-
-                //    p.StandardClose();
-                //};
 
                 data.Initialize(custom);
             }
