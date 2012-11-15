@@ -26,6 +26,37 @@ namespace CloudberryKingdom
             }
         }
 
+        class InitHideHelper : Lambda_1<MenuItem>
+        {
+            SoundMenu sm;
+
+            public InitHideHelper(SoundMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                sm.Hide();
+                sm.Call(new ControlScreen(sm.Control), 10);
+            }
+        }
+
+        class InitCallCustomControlsHelper : Lambda_1<MenuItem>
+        {
+            SoundMenu sm;
+
+            public InitCallCustomControlsHelper(SoundMenu sm)
+            {
+                this.sm = sm;
+            }
+
+            public void Apply(MenuItem menuitem)
+            {
+                sm.Call(new CustomControlsMenu(), 10);
+            }
+        }
+
         EzText HeaderText;
         public override void Init()
         {
@@ -51,18 +82,14 @@ namespace CloudberryKingdom
             AddItem(MusicSlider);
 
             MenuItem item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
-            item.Go = _item =>
-                {
-                    Hide();
-                    Call(new ControlScreen(Control), 10);
-                };
+            item.Go = new InitHideHelper(this);
             item.Name = "Controls";
             AddItem(item);
 
 #if PC_VERSION
             // Custom controls
             var mitem = new MenuItem(new EzText(Localization.Words.EditControls, ItemFont));
-            mitem.Go = menuitem => Call(new CustomControlsMenu(), 10);
+            mitem.Go = new InitCallCustomControlsHelper(this);
             mitem.Name = "Custom";
             AddItem(mitem);
 
