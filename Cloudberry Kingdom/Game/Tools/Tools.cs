@@ -496,6 +496,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return all;
         }
 
+        public static bool Any<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
+        {
+            foreach (TSource obj in list)
+                if (predicate.Apply(obj))
+                    return true;
+            return false;
+        }
+
         public static void RemoveAll<TSource>(List<TSource> list, LambdaFunc_1<TSource, bool> predicate)
         {
             int OpenSlot = 0;

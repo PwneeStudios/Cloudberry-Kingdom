@@ -564,14 +564,6 @@ namespace CloudberryKingdom
         public static Dictionary<int, TileSet> GuidLookup = new Dictionary<int, TileSet>();
         public static Dictionary<string, TileSet> NameLookup = new Dictionary<string, TileSet>(), PathLookup = new Dictionary<string,TileSet>();
 
-        public static void KillDynamic()
-        {
-            TileList.RemoveAll(tile => tile.IsLoaded);
-            GuidLookup.RemoveAll(pair => pair.Value.IsLoaded);
-            NameLookup.RemoveAll(pair => pair.Value.IsLoaded);
-            PathLookup.RemoveAll(pair => pair.Value.IsLoaded);
-        }
-
         public static void AddTileSet(TileSet tileset)
         {
             TileList.Add(tileset);

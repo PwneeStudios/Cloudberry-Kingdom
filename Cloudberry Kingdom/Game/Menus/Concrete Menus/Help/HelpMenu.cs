@@ -181,9 +181,33 @@ namespace CloudberryKingdom
             MyGame.WaitThenDo(DelayExit - 10, new WatchComputerHelper(this));
         }
 
+        class IsShowGuidLambda : LambdaFunc_1<GameObject, bool>
+        {
+            public IsShowGuidLambda()
+            {
+            }
+
+            public bool Apply(GameObject obj)
+            {
+                return obj is ShowGuide;
+            }
+        }
+
+        class IsSlowMoLambda : LambdaFunc_1<GameObject, bool>
+        {
+            public IsSlowMoLambda()
+            {
+            }
+
+            public bool Apply(GameObject obj)
+            {
+                return obj is SlowMo;
+            }
+        }
+
         bool On_ShowPath()
         {
-            return Tools.CurGameData.MyGameObjects.Any(obj => obj is ShowGuide);
+            return Tools.Any(Tools.CurGameData.MyGameObjects, new IsShowGuidLambda());
         }
         bool Allowed_ShowPath()
         {
@@ -290,7 +314,7 @@ namespace CloudberryKingdom
 
         bool On_SlowMo()
         {
-            return Tools.CurGameData.MyGameObjects.Any(obj => obj is SlowMo);
+            return Tools.Any(Tools.CurGameData.MyGameObjects, new IsSlowMoLambda());
         }
         bool Allowed_SlowMo()
         {
