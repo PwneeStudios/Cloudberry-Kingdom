@@ -324,6 +324,14 @@ namespace CloudberryKingdom
             }
         }
 
+        static int length(List<StringBuilder> names)
+        {
+            int count = 0;
+            foreach (StringBuilder name in names)
+                count += name.Length;
+            return count;
+        }
+
         /// <summary>
         /// Return a string representing the names of all players playing
         /// </summary>
@@ -339,19 +347,12 @@ namespace CloudberryKingdom
 
             // Get a list of all names
             List<StringBuilder> names = new List<StringBuilder>();
-            players.ForEach(player => names.Add(new StringBuilder(player.GetName())));
-
-            // A function to calculate the length of all names combined
-            Func<int> length = () =>
-                {
-                    int count = 0;
-                    names.ForEach(name => count += name.Length);
-                    return count;
-                };
+            foreach (PlayerData player in players)
+                names.Add(new StringBuilder(player.GetName()));
 
             // Remove one character from the longest name until the total length is small enough
             GetGroupGamerTagNameLength groupNameLengthGetter = new GetGroupGamerTagNameLength();
-            while (length() > CharLength)
+            while (length(names) > CharLength)
             {
                 StringBuilder str = Tools.ArgMax(names, groupNameLengthGetter);
                 str.Remove(str.Length - 1, 1);
@@ -393,7 +394,21 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool Awarded(Awardment award)
         {
-            return ExistingPlayers.Any(player => player.Awardments[award.Guid]);
+            return Tools.Any(ExistingPlayers, new AnyAwardmentLambda(award));
+        }
+
+        class AnyAwardmentLambda : LambdaFunc_1<PlayerData, bool>
+        {
+            Awardment award;
+            public AnyAwardmentLambda(Awardment award)
+            {
+                this.award = award;
+            }
+
+            public bool Apply(PlayerData player)
+            {
+                return player.Awardments[award.Guid];
+            }
         }
 
         /// <summary>
@@ -401,7 +416,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool Bought(Buyable item)
         {
-            return ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
+            return Tools.Any(ExistingPlayers, new AnyBoughtLambda(item));
         }
 
         /// <summary>
@@ -409,7 +424,21 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool BoughtOrFree(Buyable item)
         {
-            return item.GetPrice() == 0 || ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
+            return item.GetPrice() == 0 || Bought(item);
+        }
+
+        class AnyBoughtLambda : LambdaFunc_1<PlayerData, bool>
+        {
+            Buyable item;
+            public AnyBoughtLambda(Buyable item)
+            {
+                this.item = item;
+            }
+
+            public bool Apply(PlayerData player)
+            {
+                return player.Purchases[item.GetGuid()];
+            }
         }
 
         /// <summary>
@@ -467,7 +496,21 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool NotAllAwarded(Awardment award)
         {
-            return ExistingPlayers.Any(player => !player.Awardments[award.Guid]);
+            return Tools.Any(ExistingPlayers, new NotAllAwardedLambda(award));
+        }
+
+        class NotAllAwardedLambda : LambdaFunc_1<PlayerData, bool>
+        {
+            Awardment award;
+            public NotAllAwardedLambda(Awardment award)
+            {
+                this.award = award;
+            }
+
+            public bool Apply(PlayerData player)
+            {
+                return !player.Awardments[award.Guid];
+            }
         }
 
         /// <summary>
@@ -540,13 +583,26 @@ namespace CloudberryKingdom
 #if PC_VERSION
                 return ExistingPlayers;
 #elif XBOX || XBOX_SIGNIN
-                return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
+                Tools.FindAll(ExistingPlayers, new ExistingPlayerFindLambda());
 #else
                 return ExistingPlayers;
 #endif
             }
         }
 
+#if XBOX || XBOX_SIGNIN
+        class ExistingPlayerFindLambda : LambdaFunc_1<PlayerData, bool>
+        {
+            public ExistingPlayerFindLambda()
+            {
+            }
+
+            public bool Apply(PlayerData player)
+            {
+                return player.MyGamer != null || player.StoredName.Length > 0;
+            }
+        }
+#endif
         /// <summary>
         /// A list of all players currently existing.
         /// </summary>

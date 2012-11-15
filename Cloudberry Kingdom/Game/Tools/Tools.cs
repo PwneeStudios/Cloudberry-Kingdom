@@ -341,38 +341,6 @@ namespace CloudberryKingdom
         public static void Nothing() { }
         public static void Warning() { }
 
-        public static bool AllUnique<T>(List<T> list, Func<T, int> transform)
-        {
-            Set<int> guids = new Set<int>();
-            foreach (T item in list)
-            {
-                int guid = transform(item);
-                if (guids.Contains(guid))
-                    return false;
-                else
-                    guids += guid;
-            }
-
-            return true;
-        }
-
-        public static List<T> MakeUnique<T>(List<T> list, Func<T, int> transform)
-        {
-            Set<int> guids = new Set<int>();
-            List<T> uniques = new List<T>();
-
-            foreach (T item in list)
-            {
-                int guid = transform(item);
-                if (guids.Contains(guid))
-                    continue;
-                else
-                    uniques.Add(item);
-            }
-
-            return uniques;
-        }
-
         public static void LevelIsFinished()
         {
             Tools.Write("Level made!");

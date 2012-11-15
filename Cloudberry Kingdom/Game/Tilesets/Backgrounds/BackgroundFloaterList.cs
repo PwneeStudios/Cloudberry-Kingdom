@@ -95,7 +95,18 @@ namespace CloudberryKingdom
 
         public void Clear(FloatRectangle Area)
         {
-            Floaters.RemoveAll(floater =>
+            Tools.RemoveAll(Floaters, new ClearBackgroundListLambda(Area));
+        }
+
+        class ClearBackgroundListLambda : LambdaFunc_1<BackgroundFloater, bool>
+        {
+            FloatRectangle Area;
+            public ClearBackgroundListLambda(FloatRectangle Area)
+            {
+                this.Area = Area;
+            }
+
+            public bool Apply(BackgroundFloater floater)
             {
                 if (floater.Data.Position.X > Area.TR.X ||
                     floater.Data.Position.X < Area.BL.X ||
@@ -104,7 +115,7 @@ namespace CloudberryKingdom
                     return false;
                 else
                     return true;
-            });
+            }
         }
 
         public void Absorb(BackgroundFloaterList list)

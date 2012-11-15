@@ -490,12 +490,6 @@ float DefaultShiftX = -.35f;
                 hat.HatPicScale *= ScaleNew * 1.145f;
 				HatInfo.Add(hat);
 				
-#if DEBUG
-            // Check GUID uniqueness
-            if (!Tools.AllUnique(HatInfo, h => h.GetGuid()))
-                Tools.Write("Duplicate hat guid!");
-#endif
-
             for (int i = 0; i < HatInfo.Count; i++)
                 HatList.Add(new MenuListItem(i, Localization.Words.None));
 
@@ -620,38 +614,6 @@ float DefaultShiftX = -.35f;
             }
             CapeColorList = NewCapeList;
 
-            //cape = (ClrTextFx)CapeColorList[1].obj;
-            //cape.ModObject = bob =>
-            //{
-            //    Reset(bob);
-            //    bob.PlayerObject.FindQuad("Wing1").Show = true;
-            //    bob.PlayerObject.FindQuad("Wing2").Show = true;
-            //};
-            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_Wings");
-            //cape.Guid = 5000;
-            //cape.Price = 5000;
-            //CapeColorList.Add(new MenuListItem(cape, "Wings"));
-            
-            //cape = (ClrTextFx)CapeColorList[1].obj;
-            //cape.ModObject = bob =>
-            //{
-            //    Reset(bob);
-            //    bob.PlayerObject.FindQuad("DWing1").Show = true;
-            //    bob.PlayerObject.FindQuad("DWing2").Show = true;
-            //};
-            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_DWings");
-            //cape.Guid = 5001;
-            //cape.Price = 5000;
-            //CapeColorList.Add(new MenuListItem(cape, "DWings"));
-
-
-            //// Add solid colors
-            //ColorList.Add(_i(77001, 0, Color.Red, ColorHelper.PureColor(Color.Red), Tools.HslEffect, "Solid Red"));
-            //ColorList.Add(_i(77002, 0, Color.Green, ColorHelper.PureColor(Color.Green), Tools.HslEffect, "Solid Green"));
-            //ColorList.Add(_i(77003, 0, Color.Blue, ColorHelper.PureColor(Color.Blue), Tools.HslEffect, "Solid Blue"));
-            //ColorList.Add(_i(77004, 0, Color.Purple, ColorHelper.PureColor(Color.Purple), Tools.HslEffect, "Solid Purple"));
-            //ColorList.Add(_i(77005, 0, Color.Orange, ColorHelper.PureColor(Color.Orange), Tools.HslEffect, "Solid Orange"));
-
             // Combine all colors
             List<MenuListItem> temp;
             temp = new List<MenuListItem>();
@@ -659,12 +621,9 @@ float DefaultShiftX = -.35f;
             temp.AddRange(CapeColorList);
             temp.AddRange(CapeOutlineColorList);
             temp.AddRange(OutlineList);
-            ClrList = Tools.MakeUnique(temp, item => ((ClrTextFx)item.obj).Guid);
-
+            ClrList = MakeUnique(temp);
 
             // Create the default color schemes
-            ColorScheme scheme;
-
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
             AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
             AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
@@ -672,6 +631,24 @@ float DefaultShiftX = -.35f;
             AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
             AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
             AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
+        }
+
+        public static List<MenuListItem> MakeUnique(List<MenuListItem> list)
+        {
+            Set<int> guids = new Set<int>();
+            List<MenuListItem> uniques = new List<MenuListItem>();
+
+            foreach (MenuListItem item in list)
+            {
+                int guid = ((ClrTextFx)item.obj).Guid;
+
+                if (guids.Contains(guid))
+                    continue;
+                else
+                    uniques.Add(item);
+            }
+
+            return uniques;
         }
     }
 }
