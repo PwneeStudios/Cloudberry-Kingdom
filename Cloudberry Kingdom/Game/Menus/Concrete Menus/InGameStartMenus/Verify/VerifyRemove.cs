@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
-            item.Go = menuitem => ReturnToCaller();
+            item.Go = new MenuReturnToCallerLambda(this);
             AddItem(item);
             item.SelectSound = null;
 
