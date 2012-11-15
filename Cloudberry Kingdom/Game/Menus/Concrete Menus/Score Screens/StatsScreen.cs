@@ -428,6 +428,21 @@ namespace CloudberryKingdom.Stats
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
 
+        class OnAddHelper : LambdaFunc<bool>
+        {
+            ScrollBar bar;
+
+            public OnAddHelper(ScrollBar bar)
+            {
+                this.bar = bar;
+            }
+
+            public bool Apply()
+            {
+                return bar.MyMenu.HitTest();
+            }
+        }
+
         Vector2 BarPos;
         public override void OnAdd()
         {
@@ -438,7 +453,7 @@ namespace CloudberryKingdom.Stats
             bar = new ScrollBar((LongMenu)MyMenu, this);
             bar.BarPos = BarPos;
             MyGame.AddGameObject(bar);
-            MyMenu.AdditionalCheckForOutsideClick += () => bar.MyMenu.HitTest();
+            MyMenu.AdditionalCheckForOutsideClick = new OnAddHelper(bar);
 #endif
         }
 

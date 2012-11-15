@@ -508,6 +508,21 @@ namespace CloudberryKingdom.Awards
             item.ScaleText(.5f);
         }
 
+        class OnAddHelper : LambdaFunc<bool>
+        {
+            ScrollBar bar;
+
+            public OnAddHelper(ScrollBar bar)
+            {
+                this.bar = bar;
+            }
+
+            public bool Apply()
+            {
+                return bar.MyMenu.HitTest();
+            }
+        }
+
         public override void OnAdd()
         {
             SlideInFrom = PresetPos.Right;
@@ -521,7 +536,7 @@ namespace CloudberryKingdom.Awards
                 ScrollBar bar = new ScrollBar((LongMenu)MyMenu, this);
                 bar.BarPos = new Vector2(-2384.921f, 135);
                 MyGame.AddGameObject(bar);
-                MyMenu.AdditionalCheckForOutsideClick += () => bar.MyMenu.HitTest();
+                MyMenu.AdditionalCheckForOutsideClick = new OnAddHelper(bar);
             }
 #endif
         }

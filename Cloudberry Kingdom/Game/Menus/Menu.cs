@@ -89,12 +89,7 @@ namespace CloudberryKingdom
 
         public static Lambda ToAction(Lambda_1<Menu> a)
         {
-            return new Lambda_1Wrapper(a);// () => a(null);
-        }
-
-        public static Action ToAction(Func<Menu, bool> a)
-        {
-            return () => a(null);
+            return new Lambda_1Wrapper(a);
         }
     }
 
@@ -440,7 +435,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Add a delegate that should return true if this menu should NOT go back when the user clicks
         /// </summary>
-        public Func<bool> AdditionalCheckForOutsideClick;
+        public LambdaFunc<bool> AdditionalCheckForOutsideClick;
 
         bool CheckForBackFromOutsideClick()
         {
@@ -450,8 +445,9 @@ namespace CloudberryKingdom
             bool Hit = HitTest();
 
             if (!Hit && AdditionalCheckForOutsideClick != null)
-                foreach (Func<bool> f in AdditionalCheckForOutsideClick.GetInvocationList())
-                    Hit |= f();
+                Hit |= AdditionalCheckForOutsideClick.Apply();
+                /*foreach (Func<bool> f in AdditionalCheckForOutsideClick.GetInvocationList())
+                    Hit |= f();*/
 
             // Update the mouse icon to reflect whether clicking will go back or not
             Tools.TheGame.DrawMouseBackIcon = !Hit;
