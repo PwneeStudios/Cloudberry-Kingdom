@@ -100,7 +100,7 @@ namespace CloudberryKingdom
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
             item.Name = "No";
-            item.Go = ItemReturnToCaller;
+            item.Go = new MenuReturnToCallerLambda(this);
             item.AdditionalOnSelect = new InitTextureNameSetter(Berry, "cb_enthusiastic");
             item.SelectSound = null;
             BackSound = null;

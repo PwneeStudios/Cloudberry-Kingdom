@@ -24,16 +24,7 @@ namespace CloudberryKingdom
 
             // Yes
             item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
-            item.Go = _item =>
-            {
-                if (PlayerManager.GetNumPlayers() > 1)
-                {
-                    if (Control >= 0)
-                        Tools.CurGameData.RemovePlayer(Control);
-                }
-
-                ReturnToCaller();
-            };
+            item.Go = new VerifyRemoveYesLambda(this);
             AddItem(item);
             item.SelectSound = null;
 
@@ -43,10 +34,30 @@ namespace CloudberryKingdom
             AddItem(item);
             item.SelectSound = null;
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
+        }
+
+        class VerifyRemoveYesLambda : Lambda_1<MenuItem>
+        {
+            VerifyRemoveMenu vrm;
+            public VerifyRemoveYesLambda(VerifyRemoveMenu vrm)
+            {
+                this.vrm = vrm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                if (PlayerManager.GetNumPlayers() > 1)
+                {
+                    if (vrm.Control >= 0)
+                        Tools.CurGameData.RemovePlayer(vrm.Control);
+                }
+
+                vrm.ReturnToCaller();
+            }
         }
     }
 }

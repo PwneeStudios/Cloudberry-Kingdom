@@ -200,8 +200,7 @@ namespace CloudberryKingdom
         /// Called when the player presses (B) while the menu is active.
         /// Should return true if the menu phsx step should be ended immediately after executing the delegate.
         /// </summary>
-        public MenuB OnB;
-        public MenuB OnA, OnX, OnStart;
+        public LambdaFunc_1<Menu, bool> OnA, OnB, OnX, OnStart;
         public Lambda OnSelect, OnY;
 
         public Vector2 TR, BL;

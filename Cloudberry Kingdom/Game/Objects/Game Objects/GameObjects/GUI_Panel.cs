@@ -175,6 +175,20 @@ namespace CloudberryKingdom
             }
         }
 
+        public class MenuReturnToCallerLambdaFunc : LambdaFunc_1<Menu, bool>
+        {
+            GUI_Panel panel;
+            public MenuReturnToCallerLambdaFunc(GUI_Panel panel)
+            {
+                this.panel = panel;
+            }
+
+            public bool Apply(Menu menu)
+            {
+                return panel.MenuReturnToCaller(menu);
+            }
+        }
+
         public virtual bool MenuReturnToCaller(Menu menu)
         {
             ReturnToCaller();

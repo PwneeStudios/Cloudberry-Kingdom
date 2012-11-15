@@ -22,14 +22,7 @@ namespace CloudberryKingdom
 
             // Ok
             item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
-            item.Go = _item =>
-                {
-                    Tools.CurrentAftermath = new AftermathData();
-                    Tools.CurrentAftermath.Success = false;
-                    Tools.CurrentAftermath.EarlyExit = true;
-
-                    Tools.CurGameData.EndGame.Apply(false);
-                };
+            item.Go = new VerifyQuitOkLambda();
             item.Name = "Yes";
             AddItem(item);
 
@@ -39,12 +32,28 @@ namespace CloudberryKingdom
             item.Name = "No";
             AddItem(item);
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnX = MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
 
             SetPos();
+        }
+
+        class VerifyQuitOkLambda : Lambda_1<MenuItem>
+        {
+            public VerifyQuitOkLambda()
+            {
+            }
+
+            public void Apply(MenuItem item)
+            {
+                Tools.CurrentAftermath = new AftermathData();
+                Tools.CurrentAftermath.Success = false;
+                Tools.CurrentAftermath.EarlyExit = true;
+
+                Tools.CurGameData.EndGame.Apply(false);
+            }
         }
 
         void SetPos()

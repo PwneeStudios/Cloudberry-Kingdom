@@ -42,23 +42,45 @@ namespace CloudberryKingdom
 
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont, "No"));
-            item.Go = _item =>
-            {
-                DoSelect(false);
-                ReturnToCaller();
-            };
+            item.Go = new VerifyDeleteGoLambda(this);
             AddItem(item);
             item.SelectSound = null;
 
-            MyMenu.OnX = MyMenu.OnB = _menu =>
-            {
-                DoSelect(false);
-                ReturnToCaller();
-                return true;
-            };
+            MyMenu.OnX = MyMenu.OnB = new VerifyDeleteOnXLambda(this);
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
+        }
+
+        class VerifyDeleteOnXLambda : LambdaFunc_1<MenuItem, bool>
+        {
+            VerifyDeleteSeeds vds;
+            public VerifyDeleteOnXLambda(VerifyDeleteSeeds vds)
+            {
+                this.vds = vds;
+            }
+
+            public bool Apply(MenuItem item)
+            {
+                vds.DoSelect(false);
+                vds.ReturnToCaller();
+                return true;
+            }
+        }
+
+        class VerifyDeleteGoLambda : Lambda_1<MenuItem>
+        {
+            VerifyDeleteSeeds vds;
+            public VerifyDeleteGoLambda(VerifyDeleteSeeds vds)
+            {
+                this.vds = vds;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                vds.DoSelect(false);
+                vds.ReturnToCaller();
+            }
         }
     }
 }
