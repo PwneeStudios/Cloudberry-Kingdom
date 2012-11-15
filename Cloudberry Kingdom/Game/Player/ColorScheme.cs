@@ -215,13 +215,41 @@ namespace CloudberryKingdom.Bobs
             BeardData = Hat.None;
         }
 
+        class FindColorLambda : LambdaFunc_1<MenuListItem, bool>
+        {
+            Localization.Words word;
+            public FindColorLambda(Localization.Words word)
+            {
+                this.word = word;
+            }
+
+            public bool Apply(MenuListItem item)
+            {
+                return item.word == word;
+            }
+        }
+
+        class FindHatLambda : LambdaFunc_1<Hat, bool>
+        {
+            Localization.Words word;
+            public FindHatLambda(Localization.Words word)
+            {
+                this.word = word;
+            }
+
+            public bool Apply(Hat item)
+            {
+                return item.Name == word;
+            }
+        }
+
         public ColorScheme(Localization.Words skincolor, Localization.Words capecolor, Localization.Words capeoutlinecolor, Localization.Words hatname, Localization.Words beardname)
         {
-            SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => item.word == skincolor).obj;
-            CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => item.word == capecolor).obj;
-            CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => item.word == capeoutlinecolor).obj;
-            HatData = ColorSchemeManager.HatInfo.Find(hat => hat.Name == hatname);
-            BeardData = ColorSchemeManager.BeardInfo.Find(beard => beard.Name == beardname);
+            SkinColor = (ClrTextFx)Tools.Find(ColorSchemeManager.ColorList, new FindColorLambda(skincolor)).obj;
+            CapeColor = (ClrTextFx)Tools.Find(ColorSchemeManager.CapeColorList, new FindColorLambda(capecolor)).obj;
+            CapeOutlineColor = (ClrTextFx)Tools.Find(ColorSchemeManager.CapeOutlineColorList, new FindColorLambda(capeoutlinecolor)).obj;
+            HatData = Tools.Find(ColorSchemeManager.HatInfo, new FindHatLambda(hatname));
+            BeardData = Tools.Find(ColorSchemeManager.BeardInfo, new FindHatLambda(beardname));
 
             if (HatData == null) HatData = Hat.None;
             if (BeardData == null) BeardData = Hat.Vandyke;

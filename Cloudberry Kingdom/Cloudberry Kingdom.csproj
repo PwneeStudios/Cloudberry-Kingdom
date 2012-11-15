@@ -635,7 +635,6 @@
     <Compile Include="Game\Objects\Door\Door.cs" />
     <Compile Include="Game\Tools\Tools.cs" />
     <Compile Include="Game\Tools\Unset.cs" />
-    <Compile Include="Game\Tools\WaitAndDo.cs" />
     <Compile Include="Game\Tools\WrappedFloat.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
     <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
