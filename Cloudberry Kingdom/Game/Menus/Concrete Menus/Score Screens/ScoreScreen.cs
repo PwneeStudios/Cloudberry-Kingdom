@@ -26,7 +26,7 @@ namespace CloudberryKingdom
 
                 item = new MenuItem(new EzText(Localization.Words.KeepSettings, ItemFont));
                 item.Name = "Continue";
-                item.Go = MenuGo_NewLevel;
+                item.Go = new MenuGo_NewLevelProxy(this);
                 AddItem(item);
                 item.MyText.Scale =
                 item.MySelectedText.Scale *= 1.3f;
@@ -37,7 +37,7 @@ namespace CloudberryKingdom
                 {
                     item = new MenuItem(new EzText(Localization.Words.WatchReplay, ItemFont));
                     item.Name = "Replay";
-                    item.Go = MenuGo_WatchReplay;
+                    item.Go = new MenuGo_WatchReplayProxy(this);
                     AddItem(item);
                 }
 
@@ -358,6 +358,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class MenuGo_NewLevelProxy : Lambda_1<MenuItem>
+        {
+            ScoreScreen ss;
+
+            public MenuGo_NewLevelProxy(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                ss.MenuGo_NewLevel(item);
+            }
+        }
+
         /// <summary>
         /// Play another level with the same seed
         /// </summary>
@@ -420,6 +435,21 @@ namespace CloudberryKingdom
             {
                 ss.OnReturnTo(); // Re-activate the Score Screen object
                 ss.Core.MyLevel.WatchReplay(true); // Start the replay
+            }
+        }
+
+        class MenuGo_WatchReplayProxy : Lambda_1<MenuItem>
+        {
+            ScoreScreen ss;
+
+            public MenuGo_WatchReplayProxy(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                ss.MenuGo_WatchReplay(item);
             }
         }
 

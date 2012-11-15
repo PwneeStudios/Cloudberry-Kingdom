@@ -74,7 +74,7 @@ namespace CloudberryKingdom
                 // Copy seed
                 item = new MenuItem(new EzText(Localization.Words.CopyToClipboard, ItemFont));
                 item.Name = "Copy";
-                item.Go = Copy;
+                item.Go = new CopyProxy(this);
                 AddItem(item);
             }
 
@@ -83,7 +83,7 @@ namespace CloudberryKingdom
                 // Load seed from string
                 item = new MenuItem(new EzText(Localization.Words.LoadFromClipboard, ItemFont));
                 item.Name = "LoadString";
-                item.Go = LoadString;
+                item.Go = new LoadStringProxy(this);
                 AddItem(item);
             }
 #endif
@@ -172,9 +172,26 @@ namespace CloudberryKingdom
         }
 
 #if WINDOWS
+        class MakeSaveHelper : Lambda_1<MenuItem>
+        {
+            GUI_Panel panel;
+            PlayerData player;
+
+            public MakeSaveHelper(GUI_Panel panel, PlayerData player)
+            {
+                this.panel = panel;
+                this.player = player;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                SaveLoadSeedMenu.Save(_item, panel, player);
+            }
+        }
+
         public static Lambda_1<MenuItem> MakeSave(GUI_Panel panel, PlayerData player)
         {
-            return _item => Save(_item, panel, player);
+            return new MakeSaveHelper(panel, player);
         }
 
         IAsyncResult kyar;
@@ -238,12 +255,43 @@ namespace CloudberryKingdom
         }
 
 #if WINDOWS
+
+        class CopyProxy : Lambda_1<MenuItem>
+        {
+            SaveLoadSeedMenu slsm;
+
+            public CopyProxy(SaveLoadSeedMenu slsm)
+            {
+                this.slsm = slsm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                slsm.Copy(_item);
+            }
+        }
+
         void Copy(MenuItem _item)
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();
             System.Windows.Forms.Clipboard.SetText(seed);
         }
 #endif
+
+        class LoadStringProxy : Lambda_1<MenuItem>
+        {
+            SaveLoadSeedMenu slsm;
+
+            public LoadStringProxy(SaveLoadSeedMenu slsm)
+            {
+                this.slsm = slsm;
+            }
+
+            public void Apply(MenuItem _item)
+            {
+                slsm.LoadString(_item);
+            }
+        }
 
         void LoadString(MenuItem _item)
         {
