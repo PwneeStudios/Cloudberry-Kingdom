@@ -57,6 +57,24 @@ namespace CloudberryKingdom
             }
         }
 
+        class InitOnConfirmedIndexSelect : Lambda
+        {
+            MenuList FsRezList;
+
+            public InitOnConfirmedIndexSelect(MenuList FsRezList)
+            {
+                this.FsRezList = FsRezList;
+            }
+
+            public void Apply()
+            {
+                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+                ResolutionGroup.Use(FsRezList.CurObj as DisplayMode);
+                SaveGroup.SaveAll();
+                PlayerManager.SaveRezAndKeys();
+            }
+        }
+
         EzText HeaderText;
         public override void Init()
         {
@@ -146,13 +164,7 @@ namespace CloudberryKingdom
             }
             AddItem(FsRezList);
             FsRezList.SetIndex(CurRez);
-            FsRezList.OnConfirmedIndexSelect = () =>
-            {
-                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                ResolutionGroup.Use(FsRezList.CurObj as DisplayMode);
-                SaveGroup.SaveAll();
-                PlayerManager.SaveRezAndKeys();
-            };
+            FsRezList.OnConfirmedIndexSelect = new InitOnConfirmedIndexSelect(FsRezList);
 
             // Full screen toggle
             var FullScreenText = new EzText(Localization.Words.FullScreen, ItemFont);

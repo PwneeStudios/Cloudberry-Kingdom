@@ -435,9 +435,9 @@ namespace CloudberryKingdom
 
         private void SetListActions()
         {
-            BaseList.OnIndexSelect = UpdateBaseHero;
-            SizeList.OnIndexSelect = UpdateSizeHero;
-            JumpList.OnIndexSelect = UpdateJumpHero;
+            BaseList.OnIndexSelect = new UpdateBaseHeroProxy(this);
+            SizeList.OnIndexSelect = new UpdateSizeHeroProxy(this);
+            JumpList.OnIndexSelect = new UpdateJumpHeroProxy(this);
         }
 
         void UpdateSliders()
@@ -542,6 +542,21 @@ namespace CloudberryKingdom
         //PhsxSlider MaxFallSpeedSlider, JumpLengthSlider, JumpAccelSlider, DoubleJumpLengthSlider, DoubleJumpAccelSlider, FrictionSlider, JetPackSlider, JetPackFuelSlider, NumJumpsSlider;
         //PhsxSlider SizeSlider, PhasedSizeSlider, PhasedGravitySlider, PhasePeriodSlider;
 
+        class UpdateBaseHeroProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public UpdateBaseHeroProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.UpdateBaseHero();
+            }
+        }
+
         void UpdateBaseHero()
         {
             Base = BaseList.CurObj as BobPhsx;
@@ -550,12 +565,42 @@ namespace CloudberryKingdom
             UpdateSliders();
         }
 
+        class UpdateSizeHeroProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public UpdateSizeHeroProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.UpdateSizeHero();
+            }
+        }
+
         void UpdateSizeHero()
         {
             Size = SizeList.CurObj as BobPhsx;
             SizeListIndex = SizeList.ListIndex;
 
             UpdateSliders();
+        }
+
+        class UpdateJumpHeroProxy : Lambda
+        {
+            CustomHero_GUI chGui;
+
+            public UpdateJumpHeroProxy(CustomHero_GUI chGui)
+            {
+                this.chGui = chGui;
+            }
+
+            public void Apply()
+            {
+                chGui.UpdateJumpHero();
+            }
         }
 
         void UpdateJumpHero()
