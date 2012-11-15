@@ -32,8 +32,6 @@ t.Ceilings.Add(new PieceQuad(300, "pillar_castle_300", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(600, "pillar_castle_600", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(1000, "pillar_castle_1000", -20, 20, 0, true));
 
-//t.StartBlock.Add(new PieceQuad(400, "wall_castle", -670, 15, 1407));
-//t.EndBlock.Add(new PieceQuad(400, "wall_castle", -15, 670, 1407));
 t.StartBlock.Add(new PieceQuad(400, "wall_castle", -950, 15, 1670));
 t.EndBlock.Add(new PieceQuad(400, "wall_castle", -45, 920, 1670));
 
@@ -113,7 +111,6 @@ info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1));
 info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1));
-//info.Pendulums.Icon.Sprite = "Elevator_Castle_80";
 info.Pendulums.Icon.Sprite = "Pendulum_Icon_Castle";
 
 sprite_anim("Serpent_Castle", "Serpent_Castle", 1, 2, 8);

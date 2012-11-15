@@ -87,7 +87,7 @@ namespace CloudberryKingdom.Blocks
 
         public void Init(Vector2 center, Vector2 size, Level level)
         {
-            base.Init(ref center, ref size, level, level.Info.MovingBlocks.Group);
+            base.Init(ref center, ref size, level, level.Info.MovingBlocks.Group);            
         }
 
         public void MoveToBounded(Vector2 shift)

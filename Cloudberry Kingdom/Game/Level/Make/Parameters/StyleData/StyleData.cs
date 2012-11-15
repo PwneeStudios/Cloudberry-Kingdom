@@ -9,6 +9,12 @@ namespace CloudberryKingdom.Levels
 {
     public class StyleData
     {
+        /// <summary>
+        /// When true, blocks have a lower lip than usual. This is used for InvertHero, so he is standing on the bottom of blocks properly.
+        /// (Otherwise you want the lips to be higher, so your head doesn't hit them as easily).
+        /// </summary>
+        public bool UseLowerBlockBounds = false;
+
         public delegate void ModParams(Level level, PieceSeedData data);
 
         /// <summary>

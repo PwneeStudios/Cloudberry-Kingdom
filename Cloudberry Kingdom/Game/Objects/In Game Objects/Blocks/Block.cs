@@ -265,11 +265,19 @@ namespace CloudberryKingdom.Blocks
         {
             size *= level.Info.ScaleAll * level.Info.ScaleAllBlocks;
 
-            //if (Core.MyTileSet.FixedWidths)
             if (level.MyTileSet.FixedWidths)
                 group.SnapWidthUp(ref size);
             MyBox.Initialize(center, size);
             MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
+
+            if (level != null && level.CurMakeData != null && level.Style.UseLowerBlockBounds)
+            {
+                float newsizey = MyDraw.MyTemplate.AbsoluteLowerBlockBound;
+                float shift = (newsizey - size.Y);
+                center.Y -= shift / 2;
+                size.Y += shift;
+                MyBox.Initialize(center, size);
+            }
 
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 

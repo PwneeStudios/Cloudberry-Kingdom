@@ -111,7 +111,7 @@ namespace CloudberryKingdom
                     ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
                     //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
                     //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
-                    TileSets.LoadSpriteEffects();
+                    //TileSets.LoadSpriteEffects();
                     TileSets.LoadCode();
                 }
 #endif

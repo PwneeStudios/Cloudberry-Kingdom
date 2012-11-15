@@ -51,10 +51,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_cloud", "fblock_cloud", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cloud", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cloud", -3, 3, 2, false, 103 + 3));
 
 sprite_anim("Bouncy_cloud", "Bouncy_cloud", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cloud", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cloud", -6, 6, 13, false, 124));
 
 sprite_anim("flame_cloud", "firespinner_flame_cloud", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_cloud";
@@ -69,11 +69,12 @@ info.Spinners.SpaceFromBase = 55;
 
 info.GhostBlocks.Sprite = "ghostblock_cloud";
 info.GhostBlocks.Shift = new Vector2(0, -15);
+//info.GhostBlocks.AbsoluteLowerBlockBound = 200;
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cloud_190", -4, 13, 10));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cloud_135", -4, 4, 10));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cloud_80", -1, 1, 2));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cloud_40", -1, 1, 2));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cloud_190", -4, 13, 10, false, 190 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cloud_135", -4, 4, 10, false, 135 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cloud_80", -1, 1, 2, false, 80 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cloud_40", -1, 1, 2, false, 40 + 3));
 
 info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Cloud_40", -1, 1, 1));
 info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Cloud_80", -1, 1, 1));
