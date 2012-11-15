@@ -38,6 +38,21 @@ namespace CloudberryKingdom.Awards
             }
         }
 
+        class YesProxy : Lambda_1<MenuItem>
+        {
+            VerifyPurchaseMenu vpm;
+
+            public YesProxy(VerifyPurchaseMenu vpm)
+            {
+                this.vpm = vpm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                vpm.Yes(item);
+            }
+        }
+
         void Yes(MenuItem item)
         {
             var sound = Tools.Sound("Coin");
@@ -56,6 +71,21 @@ namespace CloudberryKingdom.Awards
             ShopMenu.ActiveShop.UpdateAll();
 
             ReturnToCaller();
+        }
+
+        class NoProxy : Lambda_1<MenuItem>
+        {
+            VerifyPurchaseMenu vpm;
+
+            public NoProxy(VerifyPurchaseMenu vpm)
+            {
+                this.vpm = vpm;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                vpm.No(item);
+            }
         }
 
         void No(MenuItem item)
@@ -99,13 +129,13 @@ namespace CloudberryKingdom.Awards
 
             // Yes
             item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
-            item.Go = Yes;
+            item.Go = new YesProxy(this);
             AddItem(item);
             item.SelectSound = null;
 
             // No
             item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
-            item.Go = No;
+            item.Go = new NoProxy(this);
             AddItem(item);
             item.SelectSound = null;
 

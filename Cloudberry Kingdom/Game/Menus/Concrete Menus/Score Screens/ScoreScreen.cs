@@ -45,12 +45,12 @@ namespace CloudberryKingdom
                 {
                     item = new MenuItem(new EzText(Localization.Words.SavedSeeds, ItemFont));
                     item.Name = "Save";
-                    item.Go = MenuGo_Save;
+                    item.Go = new MenuGo_SaveProxy(this);
                     AddItem(item);
                 }
 
                 MakeBackButton(Localization.Words.BackToFreeplay);
-                MyMenu.OnB = Cast.ToMenu(MenuGo_Continue);
+                MyMenu.OnB = Cast.ToMenu(new MenuGo_ContinueProxy(this));
 
                 EnsureFancy();
                 MyMenu.FancyPos.RelVal = new Vector2(869.0476f, -241.6667f);
@@ -388,6 +388,21 @@ namespace CloudberryKingdom
             return;
         }
 
+        class MenuGo_ContinueProxy : Lambda_1<MenuItem>
+        {
+            ScoreScreen ss;
+
+            public MenuGo_ContinueProxy(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                ss.MenuGo_Continue(item);
+            }
+        }
+
         /// <summary>
         /// Called when 'Continue' is selected from the menu.
         /// The Score Screen slides out and the current game's EndGame function is called.
@@ -471,10 +486,25 @@ namespace CloudberryKingdom
             }
         }
 
+        class MenuGo_SaveProxy : Lambda_1<MenuItem>
+        {
+            ScoreScreen ss;
+
+            public MenuGo_SaveProxy(ScoreScreen ss)
+            {
+                this.ss = ss;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                ss.MenuGo_Save(item);
+            }
+        }
+
         protected void MenuGo_Save(MenuItem item)
         {
             PlayerData player = MenuItem.GetActivatingPlayerData();
-            SaveLoadSeedMenu.MakeSave(this, player)(item);
+            SaveLoadSeedMenu.MakeSave(this, player).Apply(item);
             Hide(PresetPos.Left);
         }
 
