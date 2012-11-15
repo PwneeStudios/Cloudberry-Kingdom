@@ -454,6 +454,21 @@ namespace CloudberryKingdom
             }
         }
 
+        class OnAddHelper : LambdaFunc<bool>
+        {
+            ScrollBar bar;
+
+            public OnAddHelper(ScrollBar bar)
+            {
+                this.bar = bar;
+            }
+
+            public bool Apply()
+            {
+                return bar.MyMenu.HitTest();
+            }
+        }
+
         ScrollBar bar;
         public override void OnAdd()
         {
@@ -468,7 +483,7 @@ namespace CloudberryKingdom
                 bar.BarPos = new Vector2(-1860f, 102.7778f);
                 MyGame.AddGameObject(bar);
 #if PC_VERSION
-                MyMenu.AdditionalCheckForOutsideClick += bar.MyMenu.HitTest;
+                MyMenu.AdditionalCheckForOutsideClick = new OnAddHelper(bar);
 #endif
             }
 #endif
