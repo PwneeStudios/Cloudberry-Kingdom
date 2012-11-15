@@ -454,6 +454,7 @@ namespace CloudberryKingdom
             }
         }
 
+#if PC_VERSION
         class OnAddHelper : LambdaFunc<bool>
         {
             ScrollBar bar;
@@ -468,6 +469,7 @@ namespace CloudberryKingdom
                 return bar.MyMenu.HitTest();
             }
         }
+#endif
 
         ScrollBar bar;
         public override void OnAdd()

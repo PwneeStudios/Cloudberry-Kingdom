@@ -583,7 +583,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
                 return ExistingPlayers;
 #elif XBOX || XBOX_SIGNIN
-                Tools.FindAll(ExistingPlayers, new ExistingPlayerFindLambda());
+                return Tools.FindAll(ExistingPlayers, new ExistingPlayerFindLambda());
 #else
                 return ExistingPlayers;
 #endif

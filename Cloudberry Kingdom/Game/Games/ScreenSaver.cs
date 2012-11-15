@@ -235,8 +235,8 @@ namespace CloudberryKingdom
                 ss.PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                new Vector2(0, -865), true);
 #else
-                            PressA = new GUI_Text(Localization.Words.PressAnyKey,
-                                                           new Vector2(0, -865), true);
+                ss.PressA = new GUI_Text(Localization.Words.PressAnyKey,
+                                                new Vector2(0, -865), true);
 #endif
                 ss.PressA.MyText.Scale *= .68f;
                 ss.PressA.PreventRelease = true;

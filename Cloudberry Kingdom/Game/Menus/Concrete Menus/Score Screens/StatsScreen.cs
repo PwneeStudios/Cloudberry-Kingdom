@@ -428,6 +428,7 @@ namespace CloudberryKingdom.Stats
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
 
+#if PC_VERSION
         class OnAddHelper : LambdaFunc<bool>
         {
             ScrollBar bar;
@@ -442,6 +443,7 @@ namespace CloudberryKingdom.Stats
                 return bar.MyMenu.HitTest();
             }
         }
+#endif
 
         Vector2 BarPos;
         public override void OnAdd()

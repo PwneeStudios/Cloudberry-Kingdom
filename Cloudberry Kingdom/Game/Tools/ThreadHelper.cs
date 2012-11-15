@@ -11,7 +11,7 @@ namespace CloudberryKingdom
                 new ThreadStart(
                     delegate
                     {
-#if XBOX
+#if XBOX && !WINDOWS
                     Thread.CurrentThread.SetProcessorAffinity(new[] { affinity });
 #endif
                         var ThisThread = Thread.CurrentThread;

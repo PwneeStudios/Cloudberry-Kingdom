@@ -50,7 +50,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS GAME NOT_PC XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS GAME NOT_PC XBOX XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -62,7 +62,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS GAME NOT_PC !XBOX_SIGNIN</DefineConstants>
+    <DefineConstants>TRACE;GAME NOT_PC XBOX XBOX_SIGNIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>

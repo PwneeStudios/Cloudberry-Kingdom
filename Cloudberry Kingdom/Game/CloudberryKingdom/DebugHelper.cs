@@ -17,7 +17,7 @@ namespace CloudberryKingdom
     {
         bool ShowFPS = false;
 
-#if !XBOX
+#if DEBUG
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
         /// </summary>

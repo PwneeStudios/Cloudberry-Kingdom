@@ -201,9 +201,23 @@ namespace CloudberryKingdom
             panel.Call(SaveAs, 0);
         }
 #else
-        public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
+        public static Lambda_1<MenuItem> MakeSave(GUI_Panel panel, PlayerData player)
         {
-            return _item => Save(_item, player);
+            return new SaveLoadSeedsMakeSaveLambda(player);
+        }
+
+        class SaveLoadSeedsMakeSaveLambda : Lambda_1<MenuItem>
+        {
+            PlayerData player;
+            public SaveLoadSeedsMakeSaveLambda(PlayerData player)
+            {
+                this.player = player;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                SaveLoadSeedMenu.Save(item, player);
+            }
         }
 
         static IAsyncResult kyar;

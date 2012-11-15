@@ -77,7 +77,7 @@ namespace CloudberryKingdom
             LevelSeedData LevelSeed = _MakeThreadLevelSeed;
             bool MakeInBackground = _MakeThreadMakeInBackground;
 
-#if XBOX
+#if XBOX && !WINDOWS
             Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
 #endif
             Tools.TheGame.Exiting += KillThread;

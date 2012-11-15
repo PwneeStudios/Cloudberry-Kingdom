@@ -22,7 +22,9 @@ namespace CloudberryKingdom
                 PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
                 Tools.Fullscreen = state;
                 SaveGroup.SaveAll();
+#if PC_VERSION
                 PlayerManager.SaveRezAndKeys();
+#endif
             }
         }
 
@@ -42,6 +44,7 @@ namespace CloudberryKingdom
             }
         }
 
+#if PC_VERSION
         class InitCallCustomControlsHelper : Lambda_1<MenuItem>
         {
             SoundMenu sm;
@@ -74,6 +77,7 @@ namespace CloudberryKingdom
                 PlayerManager.SaveRezAndKeys();
             }
         }
+#endif
 
         EzText HeaderText;
         public override void Init()

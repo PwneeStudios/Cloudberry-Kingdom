@@ -59,7 +59,7 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
-            MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = new MenuReturnToCallerLambdaFunc(this);
 
             Vector2 pos = new Vector2(0, 0);
             float YSpacing = 200;
@@ -91,35 +91,55 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(1);
 
             MyMenu.Items[1].Name = "Yes";
-            MyMenu.Items[1].Go =
-                _item =>
-                {
-                    if (!Guide.IsVisible)
-                    {
-#if XBOX
-                        if (!Guide.IsVisible)
-                            Guide.ShowSignIn(4, false);
-#else
-                        Guide.ShowSignIn(1, false);
-#endif
-                    }
-
-                    GamerGuideUp = true;
-                };
+            MyMenu.Items[1].Go = new SignInYesLambda(this);
 
             MyMenu.Items[2].Name = "No";
-            MyMenu.Items[2].Go =
-                _item =>
-                {
-                    MyCharacterSelect.Player.StoredName = "";
-                    MyCharacterSelect.Player.Init();
-                    Call(new SimpleMenu(Control, MyCharacterSelect));
-                    Hide();
-                };
+            MyMenu.Items[2].Go = new SignInNoLambda(this);
 
             MyMenu.MyPieceQuadTemplate = null;
 
             SetPos();
+        }
+
+        class SignInNoLambda : Lambda_1<MenuItem>
+        {
+            SignInMenu sim;
+            public SignInNoLambda(SignInMenu sim)
+            {
+                this.sim = sim;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                sim.MyCharacterSelect.Player.StoredName = "";
+                sim.MyCharacterSelect.Player.Init();
+                sim.Call(new SimpleMenu(sim.Control, sim.MyCharacterSelect));
+                sim.Hide();
+            }
+        }
+
+        class SignInYesLambda : Lambda_1<MenuItem>
+        {
+            SignInMenu sim;
+            public SignInYesLambda(SignInMenu sim)
+            {
+                this.sim = sim;
+            }
+
+            public void Apply(MenuItem item)
+            {
+                if (!Guide.IsVisible)
+                {
+#if XBOX
+                    if (!Guide.IsVisible)
+                        Guide.ShowSignIn(4, false);
+#else
+                    Guide.ShowSignIn(1, false);
+#endif
+                }
+
+                sim.GamerGuideUp = true;
+            }
         }
 
         void SetPos()

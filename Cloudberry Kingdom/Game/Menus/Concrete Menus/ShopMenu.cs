@@ -524,6 +524,7 @@ namespace CloudberryKingdom.Awards
             item.ScaleText(.5f);
         }
 
+#if PC_VERSION
         class OnAddHelper : LambdaFunc<bool>
         {
             ScrollBar bar;
@@ -538,6 +539,7 @@ namespace CloudberryKingdom.Awards
                 return bar.MyMenu.HitTest();
             }
         }
+#endif
 
         public override void OnAdd()
         {

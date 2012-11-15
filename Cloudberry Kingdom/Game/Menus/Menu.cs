@@ -814,7 +814,7 @@ namespace CloudberryKingdom
                 if (SelectedIndex < 0 || item != Items[SelectedIndex])
                     item.DrawBackdrop(false);
             }
-            if (SelectedIndex >= 0)
+            if (SelectedIndex >= 0 && Items.Count > 0)
                 Items[SelectedIndex].DrawBackdrop(true);
 
             // Draw item non-text

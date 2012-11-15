@@ -449,6 +449,11 @@ namespace CloudberryKingdom
             Thread.Sleep(2);
 #endif
 
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
+            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+#endif
+
             MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
         }
 
