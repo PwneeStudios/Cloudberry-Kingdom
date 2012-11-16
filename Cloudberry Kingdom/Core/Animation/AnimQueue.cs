@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     public enum AnimQueueEntryType { Play, PlayUntil, Transfer };
     public class AnimQueueEntry

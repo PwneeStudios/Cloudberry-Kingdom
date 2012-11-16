@@ -2,9 +2,9 @@
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class BouncyBlock_Parameters : AutoGen_Parameters
     {

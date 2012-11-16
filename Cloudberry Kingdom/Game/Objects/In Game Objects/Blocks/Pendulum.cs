@@ -3,10 +3,10 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Blocks
+
+
+namespace CloudberryKingdom
 {
     public enum PendulumMoveType { Line, Square }
     public class Pendulum : BlockBase, IBound

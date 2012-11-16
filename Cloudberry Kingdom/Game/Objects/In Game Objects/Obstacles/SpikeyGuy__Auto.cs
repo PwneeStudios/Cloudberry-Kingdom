@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+
+
+namespace CloudberryKingdom
 {
     public class SpikeyGuy_Parameters : AutoGen_Parameters
     {

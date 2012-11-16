@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework;
 using XnaInput = Microsoft.Xna.Framework.Input;
 using Forms = System.Windows.Forms;
 using Xna = Microsoft.Xna.Framework;
-using CoreEngine;
 
-namespace CloudberryKingdom.Viewer
+
+namespace CloudberryKingdom
 {
     public partial class BackgroundViewer : Form
     {

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     public struct OneAnim { public Vector2[] Data; }
     public struct AnimationData

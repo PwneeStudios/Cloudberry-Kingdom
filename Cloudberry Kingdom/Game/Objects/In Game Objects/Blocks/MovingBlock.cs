@@ -3,10 +3,10 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Blocks
+
+
+namespace CloudberryKingdom
 {
     public enum MovingBlockMoveType { Line, Circle, FigureEight }
     public class MovingBlock : BlockBase, IBound

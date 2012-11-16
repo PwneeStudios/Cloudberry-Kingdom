@@ -2,12 +2,12 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Obstacles
+
+
+
+namespace CloudberryKingdom
 {
     public partial class Firesnake : _CircleDeath
     {

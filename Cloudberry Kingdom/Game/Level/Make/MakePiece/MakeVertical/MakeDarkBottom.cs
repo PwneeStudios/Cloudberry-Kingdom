@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class MakeDarkBottom : MakeFinalDoorVertical
     {

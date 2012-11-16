@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace CloudberryKingdom.Menus
+namespace CloudberryKingdom
 {
     public class PhsxSlider : MenuSlider
     {

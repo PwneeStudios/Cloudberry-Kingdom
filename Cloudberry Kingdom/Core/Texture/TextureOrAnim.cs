@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     /// <summary>
     /// Wraps either an EzTexture or an AnimationData_Texture.

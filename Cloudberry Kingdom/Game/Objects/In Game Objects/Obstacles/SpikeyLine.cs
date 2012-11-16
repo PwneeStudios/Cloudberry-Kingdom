@@ -1,11 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Obstacles
+
+
+namespace CloudberryKingdom
 {
     public class SpikeyLine : _CircleDeath, IBound
     {

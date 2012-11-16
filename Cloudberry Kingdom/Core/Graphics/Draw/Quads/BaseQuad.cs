@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 using System.IO;
 
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public enum ObjectDrawOrder { WithOutline, BeforeOutline, AfterOutline, All, None };
     public enum ChangeMode { SingleFrame, SingleAnim, All };

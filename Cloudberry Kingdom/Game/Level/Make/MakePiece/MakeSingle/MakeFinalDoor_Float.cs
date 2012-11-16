@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class MakeFinalDoor_Float : MakeThing
     {

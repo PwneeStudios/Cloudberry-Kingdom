@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using CoreEngine;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public class ObjectBox
     {

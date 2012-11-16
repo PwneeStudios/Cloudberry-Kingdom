@@ -1,5 +1,5 @@
 ﻿#if WINDOWS
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     partial class ImportQuads
     {

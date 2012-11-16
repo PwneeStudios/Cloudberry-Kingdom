@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace CloudberryKingdom.Blocks
+namespace CloudberryKingdom
 {
     public class NormalBlockDraw
     {

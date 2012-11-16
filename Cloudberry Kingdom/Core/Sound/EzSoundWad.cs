@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public class EzSoundWad
     {

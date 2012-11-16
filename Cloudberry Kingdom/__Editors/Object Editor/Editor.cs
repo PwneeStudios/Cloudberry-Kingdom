@@ -16,10 +16,10 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
 //using Drawing;
-using CloudberryKingdom;
-using CloudberryKingdom;
 
-namespace Drawing
+
+
+namespace CloudberryKingdom
 {
     public class Game_Editor : Microsoft.Xna.Framework.Game
     {

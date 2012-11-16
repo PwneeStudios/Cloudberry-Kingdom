@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace CloudberryKingdom.Awards
+namespace CloudberryKingdom
 {
     public class AwardmentMessage : CkBaseMenu
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class Serpent_Parameters : AutoGen_Parameters
     {

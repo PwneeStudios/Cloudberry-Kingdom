@@ -1,5 +1,5 @@
 ﻿#if WINDOWS
-namespace CloudberryKingdom.Viewer
+namespace CloudberryKingdom
 {
     public partial class GameObjViewer
     {

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 #endif
 
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     public partial class Toolbox : Form
     {

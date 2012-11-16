@@ -2,12 +2,12 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Blocks
+
+
+
+
+namespace CloudberryKingdom
 {
     public enum BouncyBlockState { Regular, SuperStiff };
     public class BouncyBlock : BlockBase

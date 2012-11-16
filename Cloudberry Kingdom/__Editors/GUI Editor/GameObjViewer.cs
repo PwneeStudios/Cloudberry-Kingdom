@@ -6,11 +6,11 @@ using System.Windows.Forms;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom;
+
 
 using System.Reflection;
 
-namespace CloudberryKingdom.Viewer
+namespace CloudberryKingdom
 {
     public partial class GameObjViewer : Form
     {

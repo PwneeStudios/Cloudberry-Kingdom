@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     public class FancyColor
     {

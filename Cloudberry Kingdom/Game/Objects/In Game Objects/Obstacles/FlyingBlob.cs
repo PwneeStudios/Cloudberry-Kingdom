@@ -4,13 +4,13 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Particles;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
 
-namespace CloudberryKingdom.Obstacles
+
+
+
+
+namespace CloudberryKingdom
 {
     public class FlyingBlob : _Obstacle, IBound
     {

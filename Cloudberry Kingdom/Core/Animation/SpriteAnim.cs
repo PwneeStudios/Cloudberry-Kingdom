@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using CoreEngine;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     /// <summary>
     /// Should be replaced. Right now this is used for drawing the players in the replays, but replays should instead be reusing the same draw code for the player as the normal draw code.

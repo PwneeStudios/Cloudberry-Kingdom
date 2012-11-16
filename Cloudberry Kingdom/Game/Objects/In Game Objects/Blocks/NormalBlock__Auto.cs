@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class NormalBlock_Parameters : AutoGen_Parameters
     {

@@ -2,11 +2,11 @@
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Levels
+
+
+
+namespace CloudberryKingdom
 {
     public partial class Level
     {

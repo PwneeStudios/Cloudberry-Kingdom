@@ -7,16 +7,16 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using CoreEngine;
-using CoreEngine.Random;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Obstacles;
-using CloudberryKingdom.Particles;
-using CloudberryKingdom.InGameObjects;
-using CloudberryKingdom.Blocks;
 
-namespace CloudberryKingdom.Levels
+
+
+
+
+
+
+
+namespace CloudberryKingdom
 {
     public partial class Level : ViewReadWrite
     {

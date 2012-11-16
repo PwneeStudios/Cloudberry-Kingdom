@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CoreEngine.Random;
 
-using CloudberryKingdom.Blocks;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class MovingBlock_Parameters : AutoGen_Parameters
     {

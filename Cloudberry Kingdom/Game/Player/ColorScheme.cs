@@ -3,12 +3,12 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Awards;
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Bobs
+
+
+
+namespace CloudberryKingdom
 {
     public class MenuListItem
     {

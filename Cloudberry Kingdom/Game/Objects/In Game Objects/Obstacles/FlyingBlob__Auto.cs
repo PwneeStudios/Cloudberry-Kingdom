@@ -2,13 +2,13 @@
 
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
-using CoreEngine.Random;
 
-using CloudberryKingdom;
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+
+
+
+namespace CloudberryKingdom
 {
     public class FlyingBlob_Parameters : AutoGen_Parameters
     {

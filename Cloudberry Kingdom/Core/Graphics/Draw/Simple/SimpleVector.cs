@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.IO;
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public struct SimpleVector : IReadWrite
     {

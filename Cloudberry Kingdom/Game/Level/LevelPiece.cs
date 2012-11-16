@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class LevelPiece
     {

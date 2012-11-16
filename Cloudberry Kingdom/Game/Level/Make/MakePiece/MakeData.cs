@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public partial class Level
     {

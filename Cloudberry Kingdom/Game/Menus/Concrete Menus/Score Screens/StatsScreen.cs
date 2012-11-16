@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Stats
+
+namespace CloudberryKingdom
 {
     public class StatsMenu : CkBaseMenu
     {

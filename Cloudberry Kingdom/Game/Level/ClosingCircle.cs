@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class ClosingCircle
     {

@@ -1,12 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Obstacles
+
+
+
+namespace CloudberryKingdom
 {
     public class Boulder : _CircleDeath, IBound
     {

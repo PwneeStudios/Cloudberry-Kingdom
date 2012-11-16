@@ -9,12 +9,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-using CoreEngine;
-using CoreEngine.Random;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.InGameObjects;
+
+
+
+
+
 
 namespace CloudberryKingdom
 {

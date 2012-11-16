@@ -12,15 +12,15 @@ using Microsoft.Xna.Framework.Graphics;
 using XnaInput = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using CoreEngine;
-using CoreEngine.Random;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
+
+
+
+
 
 #if WINDOWS
-using CloudberryKingdom;
-using CloudberryKingdom.Viewer;
+
+
 #if INCLUDE_EDITOR
 using Forms = System.Windows.Forms;
 #endif

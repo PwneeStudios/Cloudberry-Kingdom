@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class Firesnake_Parameters : AutoGen_Parameters
     {

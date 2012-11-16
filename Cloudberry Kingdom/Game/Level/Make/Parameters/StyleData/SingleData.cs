@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CoreEngine;
-using CoreEngine.Random;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class SingleData : StyleData
     {

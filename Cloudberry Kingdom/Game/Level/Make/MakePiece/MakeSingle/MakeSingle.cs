@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Obstacles;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Levels
+
+
+
+
+namespace CloudberryKingdom
 {
     public partial class Level
     {

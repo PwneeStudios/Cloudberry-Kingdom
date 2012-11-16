@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Particles;
+
+
 
 namespace CloudberryKingdom
 {

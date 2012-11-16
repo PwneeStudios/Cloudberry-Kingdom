@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System;
-using CloudberryKingdom.Bobs;
-using CoreEngine;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class SwarmRecord
     {

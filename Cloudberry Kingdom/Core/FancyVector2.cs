@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public interface IPos
     {

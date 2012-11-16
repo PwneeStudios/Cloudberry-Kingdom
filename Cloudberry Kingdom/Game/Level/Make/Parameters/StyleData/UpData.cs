@@ -1,6 +1,6 @@
-﻿using CoreEngine.Random;
+﻿
 
-namespace CloudberryKingdom.Levels
+namespace CloudberryKingdom
 {
     public class VerticalData : StyleData
     {

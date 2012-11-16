@@ -2,12 +2,12 @@
 
 using Microsoft.Xna.Framework;
 
-using CoreEngine.Random;
 
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+
+
+namespace CloudberryKingdom
 {
     public class Spike_Parameters : AutoGen_Parameters
     {

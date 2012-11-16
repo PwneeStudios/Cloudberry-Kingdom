@@ -6,9 +6,9 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-using CoreEngine.Random;
 
-namespace CoreEngine
+
+namespace CloudberryKingdom
 {
     public class Set<T> : IEnumerable, IEnumerable<T>
     {

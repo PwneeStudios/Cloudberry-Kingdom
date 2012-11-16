@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
-using CoreEngine.Random;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Particles;
 
-namespace CloudberryKingdom.Obstacles
+
+
+
+
+namespace CloudberryKingdom
 {
     public partial class Fireball : _CircleDeath
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class ParamInfo
     {

@@ -2,9 +2,9 @@
 
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Obstacles;
 
-namespace CloudberryKingdom.Levels
+
+namespace CloudberryKingdom
 {
     public class Laser_Parameters : AutoGen_Parameters
     {

@@ -14,17 +14,17 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-using CoreEngine;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Awards;
-using CloudberryKingdom.InGameObjects;
-using CloudberryKingdom.Obstacles;
+
+
+
+
+
+
+
 
 #if WINDOWS && DEBUG
-using CloudberryKingdom.Viewer;
+
 using Forms = System.Windows.Forms;
 #endif
 

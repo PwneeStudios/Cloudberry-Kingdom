@@ -3,10 +3,10 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Bobs;
-using CoreEngine;
 
-namespace CloudberryKingdom.Levels
+
+
+namespace CloudberryKingdom
 {
     public class ComputerRecording
     {

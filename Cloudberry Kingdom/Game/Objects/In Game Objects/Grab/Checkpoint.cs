@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
-using System.IO;
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Particles;
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.InGameObjects
+using System.IO;
+
+
+
+
+namespace CloudberryKingdom
 {
     public class Checkpoint : ObjectBase
     {

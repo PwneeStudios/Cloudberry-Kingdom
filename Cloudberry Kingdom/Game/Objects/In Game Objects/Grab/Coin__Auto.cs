@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Obstacles;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Levels
+
+
+
+namespace CloudberryKingdom
 {
     public class Coin_Parameters : AutoGen_Parameters
     {

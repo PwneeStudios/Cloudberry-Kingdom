@@ -1,4 +1,4 @@
-﻿namespace CloudberryKingdom.Levels
+﻿namespace CloudberryKingdom
 {
     public class MakeThing
     {

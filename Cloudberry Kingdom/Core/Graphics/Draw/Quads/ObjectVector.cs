@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-using CoreEngine;
-using CloudberryKingdom;
 
-namespace CoreEngine
+
+
+namespace CloudberryKingdom
 {
     public class ObjectVector
     {

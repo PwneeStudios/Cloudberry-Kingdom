@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CloudberryKingdom.Levels
+namespace CloudberryKingdom
 {
     public sealed class Generators
     {

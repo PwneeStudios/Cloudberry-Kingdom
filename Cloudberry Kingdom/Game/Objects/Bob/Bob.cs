@@ -5,14 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Obstacles;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
-namespace CloudberryKingdom.Bobs
+
+
+
+
+
+namespace CloudberryKingdom
 {
     public class Bob : ObjectBase
     {

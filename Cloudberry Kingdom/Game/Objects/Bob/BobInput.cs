@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-using CoreEngine;
 
-namespace CloudberryKingdom.Bobs
+
+namespace CloudberryKingdom
 {
     public struct BobInput
     {

@@ -6,10 +6,10 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using CloudberryKingdom;
+
 #endif
 
-namespace CoreEngine
+namespace CloudberryKingdom
 {
     public partial class ImportQuads : Form
     {

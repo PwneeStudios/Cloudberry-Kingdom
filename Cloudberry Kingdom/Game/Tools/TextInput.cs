@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace KeyboardHandler
+namespace CloudberryKingdom
 {
     public class CharacterEventArgs : EventArgs
     {

@@ -2,9 +2,9 @@
 using System;
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
 
-namespace CloudberryKingdom.Blocks
+
+namespace CloudberryKingdom
 {
     public class NormalBlock : BlockBase
     {

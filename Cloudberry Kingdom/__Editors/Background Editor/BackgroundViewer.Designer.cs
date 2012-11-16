@@ -1,5 +1,5 @@
 ﻿#if WINDOWS && INCLUDE_EDITOR
-namespace CloudberryKingdom.Viewer
+namespace CloudberryKingdom
 {
     public partial class BackgroundViewer
     {

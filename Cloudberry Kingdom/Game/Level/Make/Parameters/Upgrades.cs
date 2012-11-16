@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudberryKingdom.Levels
+namespace CloudberryKingdom
 {
     // Stores the level of each obstacles
     // CalcGenData translates this into actual parameters

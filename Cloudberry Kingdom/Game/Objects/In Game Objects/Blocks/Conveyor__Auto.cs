@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace CloudberryKingdom.Levels
+namespace CloudberryKingdom
 {
     public class ConveyorBlock_Parameters : AutoGen_Parameters
     {

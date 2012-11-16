@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Stats;
-using CloudberryKingdom;
-using CoreEngine;
 
-namespace CloudberryKingdom.Awards
+
+
+
+
+namespace CloudberryKingdom
 {
     public class VerifyPurchaseMenu : VerifyBaseMenu
     {
