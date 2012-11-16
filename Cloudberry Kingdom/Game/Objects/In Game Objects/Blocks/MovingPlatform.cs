@@ -127,6 +127,10 @@ namespace CloudberryKingdom.Blocks
             BlockCore.Layer = .3f;
 
             base.Init(ref center, ref size, level, level.Info.Elevators.Group);
+
+            if (Parent.MyLevel.CurMakeData != null && Parent.MyLevel.Style.UseLowerBlockBounds)
+                base.AdditionalInit(ref center, ref size, level, Parent.MyLevel.Style.UseLowerBlockBounds);
+
             Reset(level.BoxesOnly);
 
             Core.RemoveOnReset = true;

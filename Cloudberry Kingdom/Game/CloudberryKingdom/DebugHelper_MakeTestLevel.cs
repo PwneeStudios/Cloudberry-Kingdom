@@ -50,10 +50,10 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            //TileSetToTest = "sea";
-            //TileSetToTest = "hills_rain";
-            //TileSetToTest = "forest_snow";
-            TileSetToTest = "cloud";
+            TileSetToTest = "sea";
+            //TileSetToTest = "hills";
+            //TileSetToTest = "forest";
+            //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
             //TileSetToTest = "castle";
 
@@ -186,11 +186,11 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Pinky] = 5;
             //piece.MyUpgrades1[Upgrade.Fireball] = 3;
             piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
-            piece.MyUpgrades1[Upgrade.Pendulum] = 3;
-            piece.MyUpgrades1[Upgrade.Elevator] = 3;
-            piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 5;
+            piece.MyUpgrades1[Upgrade.Pendulum] = 7;
+            //piece.MyUpgrades1[Upgrade.Elevator] = ;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = ;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
 
             //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);

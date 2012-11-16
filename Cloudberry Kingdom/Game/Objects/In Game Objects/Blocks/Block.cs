@@ -270,16 +270,33 @@ namespace CloudberryKingdom.Blocks
             MyBox.Initialize(center, size);
             MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
 
-            if (level != null && level.CurMakeData != null && level.Style.UseLowerBlockBounds)
+            bool UseLowerBlockBounds = false;
+            if (level != null && level.CurMakeData != null)
+                UseLowerBlockBounds = level.Style.UseLowerBlockBounds;
+            
+            AdditionalInit(ref center, ref size, level, UseLowerBlockBounds);
+        }
+
+        public void AdditionalInit(ref Vector2 center, ref Vector2 size, Level level, bool UseLowerBlockBounds)
+        {
+            float newsizey = MyDraw.MyTemplate.ModLowerBlockBound;
+            if (newsizey != 0)
             {
-                float newsizey = MyDraw.MyTemplate.AbsoluteLowerBlockBound;
-                if (newsizey != 0)
+                float shift;
+
+                if (MyDraw.MyTemplate.RelativeLowerLip)
                 {
-                    float shift = (newsizey - size.Y);
+                    shift = newsizey;
                     center.Y -= shift / 2;
                     size.Y += shift;
-                    MyBox.Initialize(center, size);
                 }
+                else
+                {
+                    shift = (newsizey - size.Y);
+                    center.Y -= shift / 2;
+                    size.Y += shift;
+                }
+                MyBox.Initialize(center, size);
             }
 
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;

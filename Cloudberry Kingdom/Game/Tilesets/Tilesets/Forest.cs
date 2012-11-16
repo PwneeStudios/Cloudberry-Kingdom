@@ -51,10 +51,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_forest", "fblock_forest", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_forest", -3, 3, 2, false, 103 + 3));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_forest", -3, 3, 2, false, 103 + 3, false));
 
 sprite_anim("Bouncy_Forest", "Bouncy_Forest", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_Forest", -6, 6, 13, false, 124));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_Forest", -6, 6, 13, false, 124, false));
 
 sprite_anim("flame_forest", "firespinner_flame_forest", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_forest";
@@ -70,21 +70,21 @@ info.Spinners.TopOffset = -40;
 info.GhostBlocks.Sprite = "ghostblock_forest_1";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_forest_190_v2", -1, 1, 1, false, 190 + 3));
-info.MovingBlocks.Group.Add(new PieceQuad(150, "movingblock_forest_150", -1, 1, 1, false, 150 + 3));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_forest_135_v2", -1, 1, 1, false, 135 + 3));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_forest_80_v2", -1, 1, 1, false, 80 + 3));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_forest_40_v2", -1, 1, 1, false, 40 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_forest_190_v2", -1, 1, 1, false, 190 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(150, "movingblock_forest_150", -1, 1, 1, false, 150 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_forest_135_v2", -1, 1, 1, false, 135 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_forest_80_v2", -1, 1, 1, false, 80 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_forest_40_v2", -1, 1, 1, false, 40 + 3, false));
 
-info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Forest_40", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Forest_80", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Forest_135", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Forest_190", -1, 1, 1));
+info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Forest_40", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Forest_80", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Forest_135", -1, 1, 3, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Forest_190", -1, 1, 1, false, -1.5f, true));
 
-info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Forest_40", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Forest_80", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Forest_135", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Forest_190", -1, 1, 1));
+info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Forest_40", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Forest_80", -1, 1, -2, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Forest_135", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Forest_190", -1, 1, 1, false, -1.5f, true));
 
 sprite_anim("Serpent_Forest", "Serpent_Forest", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Forest";
