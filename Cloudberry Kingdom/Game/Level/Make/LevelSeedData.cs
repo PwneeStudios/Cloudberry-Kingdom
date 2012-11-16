@@ -44,6 +44,7 @@ namespace CloudberryKingdom
         public bool NoStartDoor = false; const string NoStartDoorFlag = "nostartdoor";
         public int LevelNum = -1; const string LevelFlag = "level";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
+        public bool Darkness = false; const string DarknessFlag = "darkness";
 
         /// <summary>
         /// How long to wait before opening the initial door.

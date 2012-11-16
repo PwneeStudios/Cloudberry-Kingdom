@@ -171,6 +171,12 @@ namespace CloudberryKingdom
                 level.MyGame.AddGameObject(hero_title);
             }
 
+            if (!level.MyLevelSeed.Darkness)
+            {
+                GameData.UseBobLighting(level, 0);
+                Background.AddDarkLayer(level.MyBackground);
+            }
+
             level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum));
 
             level.MyGame.MyBankType = GameData.BankType.Campaign;

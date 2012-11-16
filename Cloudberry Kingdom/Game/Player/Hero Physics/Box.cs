@@ -75,37 +75,19 @@ namespace CloudberryKingdom
             MyBob.PlayerObject.Read(6, 1);
         }
 
+        protected string ExtraQuadString = "MainQuad";
+        protected string ExtraTextureString = "BoxAlone";
+
         public override void DuckingPhsx()
         {
-            bool HoldDucking = Ducking;
-
             base.DuckingPhsx();
-
-            //if (DuckingCount == 2)
-            //{
-            //    Vector2 shift = new Vector2(0, -30);
-
-            //    Pos += shift;
-
-            //    MyBob.Box.Target.Center += shift;
-            //    MyBob.Box2.Target.Center += shift;
-            //    MyBob.Box.Target.CalcBounds();
-            //    MyBob.Box2.Target.CalcBounds();
-
-            //    Obj.ParentQuad.Center.Move(Obj.ParentQuad.Center.Pos + shift);
-            //    Obj.ParentQuad.Update();
-            //    Obj.Update(null, ObjectDrawOrder.WithOutline);
-
-            //    if (MyBob.MyCape != null)
-            //        MyBob.MyCape.Move(shift);
-            //}
 
             if (Ducking)
             {
                 var p = MyBob.PlayerObject;
                 p.DrawExtraQuad = true;
-                p.ExtraQuadToDraw = (Quad)p.FindQuad("MainQuad");
-                p.ExtraQuadToDrawTexture = Tools.Texture("BoxAlone");
+                p.ExtraQuadToDraw = (Quad)p.FindQuad(ExtraQuadString);
+                p.ExtraQuadToDrawTexture = Tools.Texture(ExtraTextureString);
             }
             else
             {
@@ -158,7 +140,7 @@ namespace CloudberryKingdom
             }
 
             // Ducking animation
-            int DuckAnim = 8;
+            //int DuckAnim = 8;
             if (Ducking && MyBob.PlayerObject.DestinationAnim() != DuckAnim)
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
@@ -173,9 +155,9 @@ namespace CloudberryKingdom
 
                 MyBob.PlayerObject.AnimQueue.Clear();
                 if (yVel > 0)
-                    MyBob.PlayerObject.EnqueueAnimation(6, .8f, false);
+                    MyBob.PlayerObject.EnqueueAnimation(StandAnim, .8f, false);
                 else
-                    MyBob.PlayerObject.EnqueueAnimation(7, .8f, false);
+                    MyBob.PlayerObject.EnqueueAnimation(JumpAnim, .8f, false);
                 MyBob.PlayerObject.DequeueTransfers();
                 MyBob.PlayerObject.LastAnimEntry.AnimSpeed *= 200f;
             }

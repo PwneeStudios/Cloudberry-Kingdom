@@ -50,11 +50,11 @@ namespace CloudberryKingdom
 
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
-            TileSetToTest = "sea";
+            //TileSetToTest = "sea";
             //TileSetToTest = "hills";
-            //TileSetToTest = "forest";
+            //TileSetToTest = "forest_snow";
             //TileSetToTest = "cloud";
-            //TileSetToTest = "cave";
+            TileSetToTest = "cave";
             //TileSetToTest = "castle";
 
             if (TileSetToTest == null)
@@ -141,6 +141,9 @@ namespace CloudberryKingdom
             level.MyGame.AddGameObject(new HintGiver());
             level.MyGame.AddGameObject(HelpMenu.MakeListener());
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+
+            GameData.UseBobLighting(level, 0);
+            Background.AddDarkLayer(level.MyBackground);
 
             //level.MyGame.AddGameObject(new LevelTitle(data.DefaultHeroType.Name));
             //level.MyGame.AddGameObject(new GUI_Quota(15));

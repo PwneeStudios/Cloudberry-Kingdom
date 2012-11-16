@@ -1485,7 +1485,7 @@ namespace CloudberryKingdom.Bobs
                 temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else
                 temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;
-                
+
 
             MyCape.Gravity = MyPhsx.CapeGravity;
 

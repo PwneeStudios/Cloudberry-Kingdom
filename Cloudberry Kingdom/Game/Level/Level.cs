@@ -1212,7 +1212,7 @@ namespace CloudberryKingdom.Levels
 
 
         float BobLightRadius = 700; //670
-        static float[] BobLightRadiusByDifficulty = new float[] { 800, 70, 690, 630, 500 };
+        static float[] BobLightRadiusByDifficulty = new float[] { 800, 740, 690, 630, 500 };
         public void SetBobLightRadius(int Difficulty)
         {
             BobLightRadius = BobLightRadiusByDifficulty[Difficulty];
