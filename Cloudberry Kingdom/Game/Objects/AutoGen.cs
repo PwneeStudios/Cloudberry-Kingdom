@@ -2,9 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
-
 namespace CloudberryKingdom
 {
     // Would be nice to get rid of this, and just rely on ...__AutoGen.instances, and have dictionaries with instances as keys

@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-
-
-
 namespace CloudberryKingdom
 {
     class TutorialHelper

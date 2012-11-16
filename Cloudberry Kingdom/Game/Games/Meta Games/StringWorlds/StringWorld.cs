@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     class EOL_StringWorldDoorActionProxy : Lambda_1<Door>

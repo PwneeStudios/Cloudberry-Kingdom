@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
 
-
-
 namespace CloudberryKingdom
 {
     public class GUI_Panel : GameObject

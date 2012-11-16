@@ -2,12 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public class Boulder_Parameters : AutoGen_Parameters

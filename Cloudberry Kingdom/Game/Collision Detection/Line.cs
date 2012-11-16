@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public struct Line { public Vector2 p1, p2; }

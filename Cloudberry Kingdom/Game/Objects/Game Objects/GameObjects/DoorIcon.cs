@@ -2,8 +2,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-
-
 namespace CloudberryKingdom
 {
     public enum IconType { Number, Boss, Obstacle, Hero, Place, Bungee };

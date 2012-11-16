@@ -2,11 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public class Sign : ObjectBase

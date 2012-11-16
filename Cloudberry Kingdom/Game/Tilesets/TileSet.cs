@@ -5,14 +5,6 @@ using System.Linq;
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public abstract class TileInfoBase

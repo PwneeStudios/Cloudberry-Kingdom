@@ -1,7 +1,5 @@
 using System;
 
-
-
 namespace CloudberryKingdom
 {
     public class Listener : GUI_Panel

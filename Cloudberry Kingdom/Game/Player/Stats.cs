@@ -3,8 +3,6 @@ using System;
 using System.IO;
 using System.Reflection;
 
-
-
 namespace CloudberryKingdom
 {
     public enum StatGroup { Lifetime, Game, Level, Temp, Campaign };

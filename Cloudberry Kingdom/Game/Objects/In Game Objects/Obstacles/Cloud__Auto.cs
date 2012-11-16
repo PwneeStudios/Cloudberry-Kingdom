@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public class Cloud_Parameters : AutoGen_Parameters

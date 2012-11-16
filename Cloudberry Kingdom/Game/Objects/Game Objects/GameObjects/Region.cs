@@ -2,10 +2,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public class Region : GUI_Panel

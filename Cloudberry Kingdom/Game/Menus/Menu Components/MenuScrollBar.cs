@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace CloudberryKingdom
 {
     public class MenuScrollBar : MenuSlider

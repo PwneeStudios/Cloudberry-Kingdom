@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-
 namespace CloudberryKingdom
 {
     public struct OneAnim_Texture

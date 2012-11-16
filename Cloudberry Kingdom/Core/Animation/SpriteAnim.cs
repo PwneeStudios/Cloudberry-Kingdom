@@ -9,8 +9,6 @@ using Microsoft.Xna.Framework.Input;
 
 using System.IO;
 
-
-
 namespace CloudberryKingdom
 {
     /// <summary>

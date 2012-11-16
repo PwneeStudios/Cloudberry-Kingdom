@@ -1,10 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework;
 
-
 using System;
-
-
 
 namespace CloudberryKingdom
 {

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-
 namespace CloudberryKingdom
 {
     class CinematicsLevelItem : MenuItem

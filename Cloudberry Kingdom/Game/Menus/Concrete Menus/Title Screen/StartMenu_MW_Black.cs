@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-
 namespace CloudberryKingdom
 {
     public class StartMenu_MW_Black : CkBaseMenu

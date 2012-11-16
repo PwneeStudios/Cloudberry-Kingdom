@@ -2,12 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public class FlyingBlob_Parameters : AutoGen_Parameters

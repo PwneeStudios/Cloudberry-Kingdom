@@ -4,8 +4,6 @@ using System.Linq;
 
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public static class Cast

@@ -3,8 +3,6 @@
 using System.Threading;
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public class ScreenSaver : StringWorldGameData

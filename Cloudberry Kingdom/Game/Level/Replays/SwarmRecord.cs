@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
 
-
-
 namespace CloudberryKingdom
 {
     public class SwarmRecord

@@ -6,8 +6,6 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public class Set<T> : IEnumerable, IEnumerable<T>

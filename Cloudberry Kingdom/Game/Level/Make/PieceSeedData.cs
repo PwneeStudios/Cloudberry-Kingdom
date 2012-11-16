@@ -1,10 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public enum LevelGeometry { Right, Up, OneScreen, Down, Big }

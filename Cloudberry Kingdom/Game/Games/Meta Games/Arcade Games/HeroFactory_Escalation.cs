@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-
-
-
 namespace CloudberryKingdom
 {
     public class Challenge_HeroFactoryEscalation : Challenge_Escalation

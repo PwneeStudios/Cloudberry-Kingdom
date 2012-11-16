@@ -2,9 +2,6 @@
 
 using System;
 
-
-
-
 namespace CloudberryKingdom
 {
     public class BobPhsxInvert : BobPhsxNormal

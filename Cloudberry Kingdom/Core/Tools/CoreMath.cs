@@ -3,8 +3,6 @@ using System.IO;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public static class CoreMath

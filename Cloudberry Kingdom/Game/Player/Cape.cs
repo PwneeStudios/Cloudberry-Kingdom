@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-
-
-
 namespace CloudberryKingdom
 {
     public struct CapeNode

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 
-
-
 namespace CloudberryKingdom
 {
     public class Chunks : IEnumerable<Chunk>

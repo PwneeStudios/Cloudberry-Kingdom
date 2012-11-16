@@ -2,10 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public partial class Level

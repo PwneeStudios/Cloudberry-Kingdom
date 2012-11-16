@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using System.IO;
 
-
-
 namespace CloudberryKingdom
 {
     public class Quad : BaseQuad

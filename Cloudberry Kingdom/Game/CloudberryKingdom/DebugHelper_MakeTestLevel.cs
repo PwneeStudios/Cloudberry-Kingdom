@@ -6,7 +6,6 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-
 namespace CloudberryKingdom
 {
     partial class CloudberryKingdomGame

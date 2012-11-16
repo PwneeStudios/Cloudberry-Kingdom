@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public class BlockEmitter_Parameters : AutoGen_Parameters

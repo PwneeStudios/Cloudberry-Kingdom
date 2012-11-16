@@ -1,11 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public partial class Fireball : _CircleDeath

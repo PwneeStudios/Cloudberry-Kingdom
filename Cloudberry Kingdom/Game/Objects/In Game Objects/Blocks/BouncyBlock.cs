@@ -2,11 +2,6 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public enum BouncyBlockState { Regular, SuperStiff };

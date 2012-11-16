@@ -2,8 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     //public delegate void MenuItemGo(MenuItem item);

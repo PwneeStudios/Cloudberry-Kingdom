@@ -1,11 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public class Boulder : _CircleDeath, IBound

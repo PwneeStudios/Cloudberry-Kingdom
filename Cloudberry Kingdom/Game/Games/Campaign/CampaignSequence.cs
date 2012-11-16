@@ -4,11 +4,6 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public class CampaignSequence : LevelSequence

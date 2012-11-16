@@ -2,10 +2,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public class HeroRush_Tutorial : GameObject

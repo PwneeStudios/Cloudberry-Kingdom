@@ -2,11 +2,6 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
-
 namespace CloudberryKingdom
 {
     public abstract class _Obstacle : ObjectBase

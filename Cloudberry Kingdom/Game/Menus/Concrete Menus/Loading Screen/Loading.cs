@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
-
 namespace CloudberryKingdom
 {
     public class ProgressBar : ViewReadWrite

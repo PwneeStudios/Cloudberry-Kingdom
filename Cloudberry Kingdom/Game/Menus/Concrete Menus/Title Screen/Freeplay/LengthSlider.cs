@@ -6,10 +6,6 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public class LengthSlider : MenuSliderBase

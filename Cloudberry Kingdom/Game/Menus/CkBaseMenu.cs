@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 
-
-
 namespace CloudberryKingdom
 {
     public class CkBaseMenu : GUI_Panel

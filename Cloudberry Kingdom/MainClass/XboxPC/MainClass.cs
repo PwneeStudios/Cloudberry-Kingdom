@@ -1,6 +1,5 @@
 using System;
 
-
 namespace CloudberryKingdom
 {
     static class MainClass

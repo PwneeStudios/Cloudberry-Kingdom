@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
-
 namespace CloudberryKingdom
 {
     public class TunnelFill

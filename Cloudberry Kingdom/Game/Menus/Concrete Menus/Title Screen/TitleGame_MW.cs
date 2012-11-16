@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-
-
-
 namespace CloudberryKingdom
 {
     public class TitleGameData_MW_Factory : SimpleGameFactory

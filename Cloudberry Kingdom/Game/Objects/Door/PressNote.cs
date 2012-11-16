@@ -3,10 +3,6 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public class PressNote : GUI_Text

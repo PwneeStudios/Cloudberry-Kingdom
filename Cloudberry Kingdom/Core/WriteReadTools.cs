@@ -2,8 +2,6 @@
 
 using System.IO;
 
-
-
 namespace CloudberryKingdom
 {
     public static class WriteReadTools

@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-
-
-
-
 namespace CloudberryKingdom
 {
     public class BobPhsxRocketbox : BobPhsxBox

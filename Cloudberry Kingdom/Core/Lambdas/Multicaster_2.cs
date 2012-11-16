@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
-
 namespace CloudberryKingdom
 {
     public class Multicaster_2<T1, T2> : Lambda_2<T1, T2>

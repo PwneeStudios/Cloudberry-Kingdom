@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using System.IO;
 
-
-
 namespace CloudberryKingdom
 {
     public enum ObjectDrawOrder { WithOutline, BeforeOutline, AfterOutline, All, None };
