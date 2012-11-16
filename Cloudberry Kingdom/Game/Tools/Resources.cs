@@ -271,7 +271,62 @@ namespace CloudberryKingdom
             LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
         }
 
+        public static void LoadResources_ImmediateForeground()
+        {
+            _LoadThread();
+        }
+
         public static Thread LoadThread;
+#if EDITOR
+        static void _LoadThread()
+        {
+            var Ck = Tools.GameClass;
+
+            Tools.Render = new MainRender(Ck.GraphicsDevice);
+
+            Tools.QDrawer = new QuadDrawer(Ck.GraphicsDevice, 1000);
+            Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
+            Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
+
+            Tools.Device = Ck.GraphicsDevice;
+            Tools.t = 0;
+
+            Tools.Render.MySpriteBatch = new SpriteBatch(Ck.GraphicsDevice);
+
+
+
+
+
+
+            Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
+
+            Tools.Write("Start");
+
+            // Load art
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
+            //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
+            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
+            
+            Tools.Write("ArtMusic done...");
+
+            Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
+
+            // Note that we are done loading.
+            LoadingResources.MyBool = false;
+            Tools.Write("Loading done!");
+
+            Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
+        }
+#else
         static void _LoadThread()
         {
             var Ck = Tools.TheGame;
@@ -309,7 +364,9 @@ namespace CloudberryKingdom
             LoadInfo();
             TileSets.Init();
 
+#if !EDITOR
             Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 300, 200);
+#endif
 
             ParticleEffects.Init();
 
@@ -339,5 +396,6 @@ namespace CloudberryKingdom
 
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
         }
+#endif
     }
 }

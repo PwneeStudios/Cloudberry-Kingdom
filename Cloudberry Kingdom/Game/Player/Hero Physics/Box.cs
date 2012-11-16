@@ -132,8 +132,7 @@ namespace CloudberryKingdom
                 MyBob.CurInput.A_Button = true;
         }
 
-        int StandAnim = 6, JumpAnim = 7, DuckAnim = 8;
-        //int StandAnim = 0, JumpAnim = 2, DuckAnim = 3;
+        protected int StandAnim = 6, JumpAnim = 7, DuckAnim = 8;
 
         public override void AnimStep()
         {

@@ -30,7 +30,10 @@ namespace CloudberryKingdom
 
         public override void Init(Bob bob)
         {
+            StandAnim = 6; JumpAnim = 7; DuckAnim = 8;
+
             base.Init(bob);
+            
             //if (MyBob.Core.MyLevel.PlayMode == 0)
             if (Prototype != null && MyBob.PlayerObject != null && MyBob.PlayerObject.QuadList != null)
             {

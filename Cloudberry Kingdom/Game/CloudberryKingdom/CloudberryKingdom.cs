@@ -331,7 +331,7 @@ namespace CloudberryKingdom
             //MyGraphicsDeviceManager.IsFullScreen = true;
 
 
-#if WINDOWS
+#if WINDOWS && !EDITOR
             Tools.GameClass.SetBorder(Tools.WindowBorder);
 #endif
 

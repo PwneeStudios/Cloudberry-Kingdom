@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -16,22 +17,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-//using Drawing;
-using CloudberryKingdom;
 using CloudberryKingdom;
 
-namespace Drawing
+namespace CoreEngine
 {
     public class Game_Editor : Microsoft.Xna.Framework.Game
     {
-        void ChangeScreenshotMode()
-        {
-            Tools.ScreenshotMode = !Tools.ScreenshotMode;
-            if (Tools.ScreenshotMode) Tools.DestinationRenderTarget = ScreenShotRenderTarget;
-            else Tools.DestinationRenderTarget = null;
-        }
-        RenderTarget2D ScreenShotRenderTarget;
-
         public static System.Windows.Forms.Control MainWindow;
 
         string TestString;
@@ -106,8 +97,8 @@ namespace Drawing
         EzEffectWad EffectWad;
         EzTextureWad TextureWad;
 
-        Spline TestSpline;
-        BendableQuad TestQuad;
+        //Spline TestSpline;
+        //BendableQuad TestQuad;
 
         string CurrentFileName = "", CurrentFileLocation = "";
 
@@ -136,6 +127,8 @@ namespace Drawing
 
         public Game_Editor()
         {
+            Tools.GameClass = this;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -176,28 +169,10 @@ namespace Drawing
 
         protected void LoadArtMusicSound(bool CreateNewWads)
         {
-            // Load the art!
-            Tools.PreloadArt(Content);
-            Tools.TextureWad.LoadAllDirect(Content);
-
-            /*
-            if (Tools.DebugConvenience)
-                Tools.TextureWad.LoadAll(.2f, Content, ResourceLoadedCountRef);
-            else
-            {
-                if (SimpleLoad)
-                    Tools.TextureWad.LoadAll(.1f, Content, ResourceLoadedCountRef);
-                else
-                    Tools.TextureWad.LoadAll(0f, Content, ResourceLoadedCountRef);
-            }*/
-
-            ////LoadPacked();
-
+            Resources.LoadAssets(true);
+            Resources.LoadResources_ImmediateForeground();
 
             Tools.Write("Art done...");
-
-
-            //Tools.ScoreTextFont = new EzFont("Fonts/ScoreTextFont");
         }
 
         protected override void LoadContent()
@@ -243,20 +218,7 @@ namespace Drawing
             QDrawer.DefaultEffect = EffectWad.FindByName("NoTexture");
             QDrawer.DefaultTexture = TextureWad.FindByName("WhiteTexture");
 
-
-
-
-
-
-
             SetUpCamera();
-            //vertexDeclaration = new VertexDeclaration(device, MyOwnVertexFormat.VertexElements);
-
-            PresentationParameters pp = Tools.Device.PresentationParameters;
-            ScreenShotRenderTarget = new RenderTarget2D(Tools.Device,
-            pp.BackBufferWidth, pp.BackBufferHeight, false,
-                                   pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
-                                   RenderTargetUsage.DiscardContents);
         }
 
         bool MouseOnScreen(MouseState State)
@@ -412,70 +374,30 @@ namespace Drawing
                     if (SelectedQuads.Count > 0)
                     {
                         CopiedParentQuad = SelectedQuads[0].ParentQuad;
-                        if (SelectedQuads[0] is Quad)
-                            CopyQuad = new Quad((Quad)SelectedQuads[0], true);
-                        else
-                            CopyQuad = new BendableQuad((BendableQuad)SelectedQuads[0], true);
+                        CopyQuad = new Quad((Quad)SelectedQuads[0], true);
                     }
                 }
                 if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.RightControl) && KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.V))
                 {
                     if (CopyQuad != null)
                     {
-                        if (CopyQuad is Quad)
-                        {
-                            Quad NewQuad = new Quad((Quad)CopyQuad, true);
+                        Quad NewQuad = new Quad((Quad)CopyQuad, true);
 
-                            NewQuad.Center.Move(MousePos);
+                        NewQuad.Center.Move(MousePos);
 
-                            NewQuad.Center.RelPosFromPos();
+                        NewQuad.Center.RelPosFromPos();
                             
-                            MainObject.AddQuad(NewQuad);
-                            UpdateQuadList = true;
+                        MainObject.AddQuad(NewQuad);
+                        UpdateQuadList = true;
 
-                            // Add to same parent quad
-                            // Make sure no one is set to be a child
-                            foreach (BaseQuad quad in MainObject.QuadList)
-                                quad.SetToBeChild = false;
+                        // Add to same parent quad
+                        // Make sure no one is set to be a child
+                        foreach (BaseQuad quad in MainObject.QuadList)
+                            quad.SetToBeChild = false;
 
-                            NewQuad.ChildPoint.Click();
-                            CopiedParentQuad.ParentPoint.Click();
-                            // Update object
-                            //foreach (BaseQuad quad in SelectedQuads)
-                            //{
-                            //    quad.ChildPoint.Click();
-                            //    if (CurNodeDestination == QuadNode)
-                            //        quad.ReleasePoint.Click();
-                            //    else
-                            //        quad.ChildPoint.Click();
-                            //}
-                            //if (CurNodeDestination != QuadNode)
-                            //    GetNodeQuad(CurNodeDestination, MainObject).ParentPoint.Click();
-                        }
-                        else
-                        {
-                            BendableQuad NewQuad = new BendableQuad((BendableQuad)CopyQuad, true);
-
-                            List<ObjectVector> L = NewQuad.MySpline.GetObjectVectors();
-                            Vector2 Start = L[0].Pos;
-                            foreach (ObjectVector point in L)
-                            {
-                                point.Pos += MousePos - Start;
-                                point.RelPosFromPos();
-                            }
-
-                            MainObject.AddBendableQuad(NewQuad);
-                            UpdateQuadList = true;
-                        }
+                        NewQuad.ChildPoint.Click();
+                        CopiedParentQuad.ParentPoint.Click();
                     }
-                }
-
-                // Rotate bendable quad UV coordinates
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.Tab) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.Tab))
-                {
-                    foreach (BaseQuad quad in SelectedQuads)
-                        if (quad is BendableQuad)
-                            ((BendableQuad)quad).RotateUV();
                 }
 
                 // Box
@@ -685,13 +607,6 @@ namespace Drawing
                     UpdateQuadList = true;
                 }
 
-                // Screenshot mode
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.W) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.W))
-                {
-                    ChangeScreenshotMode();
-                }
-
-
                 // Save
                 if (!DialogUp)
                 if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.S) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.S))
@@ -759,7 +674,6 @@ namespace Drawing
                         BinaryReader reader = new BinaryReader(stream, Encoding.UTF8);
                         MainObject = new ObjectClass(QDrawer, graphics.GraphicsDevice, device.PresentationParameters, 400, 400, EffectWad.FindByName("BasicEffect"), TextureWad.FindByName("White"));
                         MainObject.ReadFile(reader, EffectWad, TextureWad);
-                        MainObject.RefinedOutline = true;
                         reader.Close();
                         stream.Close();
                         MainObject.FinishLoading(QDrawer, device, TextureWad, EffectWad, device.PresentationParameters, 400, 400);
@@ -816,26 +730,6 @@ namespace Drawing
 
             if (!ShowTextureSelection)
             {
-                // Glue points to a bendable quad
-                if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.G) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.G))
-                {
-                    BendableQuad BQuad = null;
-                    foreach (ObjectClass obj in ObjectList)
-                        foreach (BaseQuad quad in obj.QuadList)
-                            if (quad is BendableQuad && quad.SetToBeParent)
-                                BQuad = (BendableQuad)quad;
-
-                    if (BQuad != null)
-                    {
-                        foreach (ObjectVector point in SelectedPoints)
-                        {
-                            point.ParentQuad = BQuad;
-                            point.RelPos = new Vector2(0, 0);
-                            //point.RelPosFromPos();                        
-                        }
-                    }
-                }
-
                 if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.H) && !PrevKeyboardState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.H))
                 {
                     foreach (ObjectVector point in SelectedPoints)
@@ -950,23 +844,6 @@ namespace Drawing
 
                 if (SelectedPoints.Count == 0 && SelectedQuads.Count == 0)
                 {
-                    // Create bendable quad
-                    for (int i = 2; i <= 9; i++)
-                    {
-                        if (anim == 0 && frame == 0 && KeybState.IsKeyDownCustom((Microsoft.Xna.Framework.Input.Keys)((int)Microsoft.Xna.Framework.Input.Keys.D0 + i)) && !PrevKeyboardState.IsKeyDownCustom((Microsoft.Xna.Framework.Input.Keys)((int)Microsoft.Xna.Framework.Input.Keys.D0 + i)))
-                        {
-                            Spline NewSpline = new Spline(i, MousePos);
-                            BendableQuad NewQuad = new BendableQuad(device, 50, NewSpline);
-
-                            NewQuad.SetEffect("Basic", EffectWad);
-                            NewQuad.SetTexture("Blob", TextureWad);
-                            //NewQuad.Center.Move(MousePos);
-                            //NewQuad.Scale(new Vector2(.25f, .25f));
-
-                            MainObject.AddBendableQuad(NewQuad);
-                            UpdateQuadList = true;
-                        }
-                    }
                 }
                 else
                 {
@@ -1127,17 +1004,6 @@ namespace Drawing
                                     flag = true;
                                     if (TripleClick)
                                     {
-                                        BendableQuad bquad = quad as BendableQuad;
-                                        if (null != bquad)
-                                        {
-                                            for (int i = 0; i < bquad.MySpline.Nodes; i++)
-                                            {
-                                                SelectedPoints.Add(bquad.MySpline.Node[i]);
-                                                SelectedPoints.Add(bquad.MySpline.Control[i]);
-                                                bquad.MySpline.Node[i].Click();
-                                                bquad.MySpline.Control[i].Click();
-                                            }
-                                        }
                                     }
                                     else
                                         if (DoubleClick)
@@ -1149,20 +1015,6 @@ namespace Drawing
                                                     SelectedPoints.Add(_quad.Corner[i]);
                                                     _quad.Corner[i].Click();
                                                 }
-                                            BendableQuad bquad = quad as BendableQuad;
-                                            if (null != bquad)
-                                            {
-                                                for (int i = 0; i < bquad.MySpline.Nodes; i++)
-                                                {
-                                                    if (point == bquad.MySpline.Node[i] || point == bquad.MySpline.Control[i])
-                                                    {
-                                                        SelectedPoints.Add(bquad.MySpline.Node[i]);
-                                                        SelectedPoints.Add(bquad.MySpline.Control[i]);
-                                                        bquad.MySpline.Node[i].Click();
-                                                        bquad.MySpline.Control[i].Click();
-                                                    }
-                                                }
-                                            }
                                         }
                                         else
                                         {
@@ -1324,22 +1176,6 @@ namespace Drawing
                                     quad.yAxis.Pos = mod(quad.yAxis.Pos, RotationPoint, 4.5f * MouseDelta.Y);
                                     quad.yAxis.RelPosFromPos();
                                 }
-                                BendableQuad bquad = _quad as BendableQuad;
-                                if (bquad != null)
-                                {
-                                    foreach (ObjectVector point in bquad.MySpline.GetObjectVectors())
-                                    {
-                                        point.Pos = mod(point.Pos, RotationPoint, 4.5f * MouseDelta.Y);
-                                        point.RelPosFromPos();
-                                    }
-
-                                    // Scale the quad
-                                    if (KeybState.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.LeftShift))
-                                    {
-                                        bquad.Width *= (1 + 4.5f * MouseDelta.Y);
-                                        bquad.UpdateWidthControl();
-                                    }
-                                }
                             }
 
 
@@ -1393,10 +1229,6 @@ namespace Drawing
                             Quad quad = _quad as Quad;
                             if (quad != null)
                                 quad.Center.Move(quad.Center.Pos + delta);
-                            BendableQuad bquad = _quad as BendableQuad;
-                            if (bquad != null)
-                                foreach (ObjectVector point in bquad.MySpline.GetObjectVectors())
-                                    point.Move(point.Pos + delta);
                         }
                     }
                     else
@@ -1411,8 +1243,6 @@ namespace Drawing
                     if (LeftMouseButtonState == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                         foreach (ObjectVector point in SelectedPoints)
                         {
-                            if (point.ParentQuad is BendableQuad)
-                                point.RelPos = ((BendableQuad)point.ParentQuad).MySpline.ClosestPoint(point.Pos + MouseDelta, point.RelPos);
                             if (SelectedPoints.Count == 1 || point.ModifiedEventCallback == point.DefaultCallback)
                                 point.Move(point.Pos + MouseDelta);
                         }
@@ -1574,13 +1404,7 @@ namespace Drawing
 
                     // If quad isn't from MainObject, add it
                     if (DraggingSource != MainObject)
-                        MainObject.AddBaseQuad(GetNodeQuad(DraggedNode, DraggingSource), true);
-
-                    // Remove Original Nodes
-                    //DraggedNode.Remove();
-
-                    //CurNodeDestination.Nodes.Add(DraggedNode);
-                    //CurNodeDestination.Expand();
+                        MainObject.AddQuad(GetNodeQuad(DraggedNode, DraggingSource) as Quad, true);
 
                     // Make sure no one is set to be a child
                     foreach (BaseQuad quad in MainObject.QuadList)
@@ -1937,22 +1761,6 @@ namespace Drawing
 
         private void DrawScene()
         {
-            MainObject.OutlineColor = Color.Black;
-            MainObject.InsideColor = Color.White;
-
-            /*
-            if (MainObject.BoxList.Count > 0)
-            {
-                ObjectBox obox = MainObject.BoxList[0];
-                float scalex = (obox.TR.Pos.X - obox.BL.Pos.X) / 2;
-                float scaley = (obox.TR.Pos.Y - obox.BL.Pos.Y) / 2;
-
-                foreach (EzEffect fx in EffectWad.EffectList)
-                    fx.effect.Parameters["OutlineScale"].SetValue(new Vector2(1 / scalex, 1 / scaley) * MainObject.OutlineWidth);
-                //EffectWad.FindByName("BasicEffect").effect.Parameters["OutlineColor"].SetValue(Color.Black.ToVector4());
-                //EffectWad.FindByName("BasicEffect").effect.Parameters["InsideColor"].SetValue(Color.White.ToVector4());
-            }*/
-
             // set the viewport to the whole screen
             GraphicsDevice.Viewport = new Viewport
             {
@@ -1970,38 +1778,16 @@ namespace Drawing
             Tools.Device.BlendState = BlendState.AlphaBlend;
             Tools.Device.DepthStencilState = DepthStencilState.DepthRead;
 
-
             Tools.QDrawer.SetInitialState();
             Tools.Device.RasterizerState = RasterizerState.CullNone;
             Tools.Device.BlendState = BlendState.AlphaBlend;
             Tools.Device.DepthStencilState = DepthStencilState.DepthRead;
 
-            /*
-            device.VertexDeclaration = vertexDeclaration;
-            device.RenderState.AlphaBlendEnable = true;
-            device.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
-            device.RenderState.SourceBlend = Blend.SourceAlpha;
-            //device.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
-            device.RasterizerState = RasterizerState.CullNone;
-            */
-
-
-
-
-
-            // Get object rendering
-            if (Render)
-                MainObject.PreDraw(device, EffectWad);
-
             Tools.EffectWad.SetCameraPosition(cameraPos);
             Tools.SetDefaultEffectParams(AspectRatio);
 
             device.SetRenderTarget(Tools.DestinationRenderTarget);
-            if (Tools.ScreenshotMode)
-                device.Clear(Color.Transparent);
-            else
                 device.Clear(Color.Gray);
-            
             
             if (ShowTextureSelection)
             {
@@ -2064,18 +1850,16 @@ namespace Drawing
             else
                 if (!Render)
                 {
-                    if (!Tools.ScreenshotMode)
                     {
                         QDrawer.DrawLine(new Vector2(-2, 0), new Vector2(2, 0), Color.Bisque, .01f / cameraPos.W);
                         QDrawer.DrawLine(new Vector2(0, -2), new Vector2(0, 2), Color.Bisque, .01f / cameraPos.W);
                     }
 
                     foreach (ObjectClass obj in ObjectList)
-                        obj.Draw(EffectWad, true);
+                        obj.Draw(true);
 
-                    MainObject.Draw(EffectWad, true);
+                    MainObject.Draw(true);
 
-                    if (!Tools.ScreenshotMode)
                         foreach (BaseQuad quad in SelectedQuads)
                         {
                             quad.ColoredDraw(QDrawer, new Color(100, 100, 255, 255));
@@ -2084,35 +1868,12 @@ namespace Drawing
                         }
                 }
 
-
-
-
-
-
-
-
-
-
-            // Draw scene
-            //MainObject.ParentQuad.Center.Move(new Vector2(1f, .8f));
-            //MainObject.ParentQuad.Scale(new Vector2(.25f, .25f));
-            //            MainObject.ParentQuad.Update();
             MainObject.Update(null);
 
             if (Render)
                 MainObject.ContainedDraw();
-            //            if (MainObject.BoxList.Count > 0)
-            //                MainObject.FlipCenter = MainObject.BoxList[0].Center();
-            //MainObject.FlipCenter = MainObject.ParentQuad.Center.Pos;
 
-
-            //MainObject.PreDraw(device, EffectWad);
-
-
-
-            if (!Tools.ScreenshotMode)
             {
-
                 if (QuadNode.Checked)
                     foreach (BaseQuad quad in SelectedQuads)
                         quad.DrawExtra(QDrawer, Additional, 1 / cameraPos.W);
@@ -2130,37 +1891,10 @@ namespace Drawing
 
             }
 
-
-
-            /*
-            MainObject.ParentQuad.Center.Move(new Vector2(.5f, -.5f));
-            MainObject.ParentQuad.Scale(new Vector2(.5f, .5f));
-            MainObject.ParentQuad.Update();
-            //MainObject.Draw();
-            MainObject.ContainedDraw();
-            MainObject.ParentQuad.Center.Move(new Vector2(0f, 0f));
-            MainObject.ParentQuad.Scale(new Vector2(2f, 2f));
-            MainObject.ParentQuad.Update();
-            MainObject.Update(null);*/
-
-
-
-
-
-
-            //MainObject.ContainedDraw();
-            //MainObject.ParentQuad.Center.Move(Vector2.Zero);
-            //MainObject.ParentQuad.Scale(new Vector2(4f, 4f));
             MainObject.ParentQuad.Update();
             MainObject.Update(null);
             MainObject.Update(null);
 
-
-
-            //            if (MainObject.BoxList.Count > 0)
-            //                MainObject.FlipCenter = MainObject.BoxList[0].Center();
-
-            if (!Tools.ScreenshotMode)
             {
                 // Draw the selection box
                 if (Dragging)

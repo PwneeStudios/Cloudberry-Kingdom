@@ -107,12 +107,12 @@ namespace CloudberryKingdom
 #if INCLUDE_EDITOR
                 if (LoadDynamic)
                 {
-                    ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-                    ////Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
+                    //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
+                    //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
                     //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
-                    //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
+                    Tools.TextureWad.LoadAllDynamic(Tools.GameClass.Content, CoreEngine.EzTextureWad.WhatToLoad.Animations);
                     //TileSets.LoadSpriteEffects();
-                    TileSets.LoadCode();
+                    //TileSets.LoadCode();
                 }
 #endif
 

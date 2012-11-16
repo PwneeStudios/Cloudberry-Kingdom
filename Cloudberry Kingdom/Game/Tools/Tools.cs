@@ -643,9 +643,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(GameClass.Window.Handle); } }
 #endif
 
+#if EDITOR
+        public static Game GameClass;
+#else
         public static XnaGameClass GameClass;
+#endif
 
         public static CloudberryKingdomGame TheGame;
+
+
         public static Version GameVersion { get { return CloudberryKingdomGame.GameVersion; } }
         public static void AddToDo(Action todo) { TheGame.ToDo.Add(todo); }
 
