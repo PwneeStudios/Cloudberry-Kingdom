@@ -458,14 +458,10 @@ namespace CloudberryKingdom
         bool CheckForBackFromOutsideClick()
         {
 #if PC_VERSION
-            if (Tools.ViewerIsUp) return false;
-
             bool Hit = HitTest();
 
             if (!Hit && AdditionalCheckForOutsideClick != null)
                 Hit |= AdditionalCheckForOutsideClick.Apply();
-                /*foreach (Func<bool> f in AdditionalCheckForOutsideClick.GetInvocationList())
-                    Hit |= f();*/
 
             // Update the mouse icon to reflect whether clicking will go back or not
             Tools.TheGame.DrawMouseBackIcon = !Hit;

@@ -103,9 +103,6 @@ namespace CloudberryKingdom
 
         public void PhsxStep()
         {
-#if INCLUDE_EDITOR
-            if (Tools.EditorPause) return;
-#endif
             foreach (BackgroundFloaterList list in Lists)
                 list.PhsxStep();
         }

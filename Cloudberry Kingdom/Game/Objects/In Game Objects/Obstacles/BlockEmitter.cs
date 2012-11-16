@@ -189,7 +189,7 @@ namespace CloudberryKingdom
         }
 
         BlockEmitter_Parameters.BoxStyle MyBoxStyle;
-        public void Init(Vector2 pos, Levels.Level level, BlockEmitter_Parameters.BoxStyle MyBoxStyle)
+        public void Init(Vector2 pos, Level level, BlockEmitter_Parameters.BoxStyle MyBoxStyle)
         {
             base.Init(pos, level);
 

@@ -22,7 +22,7 @@ namespace CloudberryKingdom
             }
         }
 
-        class OnCompleteLevelProxy : Lambda_1<Levels.Level>
+        class OnCompleteLevelProxy : Lambda_1<Level>
         {
             GUI_Timer timer;
 
@@ -31,7 +31,7 @@ namespace CloudberryKingdom
                 this.timer = timer;
             }
 
-            public void Apply(Levels.Level level)
+            public void Apply(Level level)
             {
                 timer.OnCompleteLevel(level);
             }
@@ -63,7 +63,7 @@ namespace CloudberryKingdom
                 Time = MaxTime;
         }
 
-        public void OnCompleteLevel(Levels.Level level)
+        public void OnCompleteLevel(Level level)
         {
             MinLevelStartTimeValue = 124;
             Time = CoreMath.Restrict(MinLevelStartTimeValue, MaxTime, Time);

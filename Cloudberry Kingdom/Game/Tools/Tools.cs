@@ -12,20 +12,6 @@ using Microsoft.Xna.Framework.Graphics;
 using XnaInput = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
-
-
-
-
-
-#if WINDOWS
-
-
-#if INCLUDE_EDITOR
-using Forms = System.Windows.Forms;
-#endif
-#endif
-
 namespace CloudberryKingdom
 {
     public static class StringExtension
@@ -527,33 +513,6 @@ public static string SourceTextureDirectory()
             return new SimpleObject(SourceObject);
         }
       
-#if WINDOWS
-#if INCLUDE_EDITOR
-        public static bool EditorPause
-        {
-            get
-            {
-                if (!ViewerIsUp) return false;
-                if (background_viewer != null)
-                    return !background_viewer.PlayCheckbox.Checked;
-                return false;
-            }
-        }
-        public static bool ViewerIsUp { get { return gameobj_viewer != null || background_viewer != null; } }
-        public static Viewer.GameObjViewer gameobj_viewer;
-        public static Viewer.BackgroundViewer background_viewer;
-#else
-        public const bool EditorPause = false;
-        public static bool ViewerIsUp { get { return false; } }
-#endif
-
-        public static BlockDialog Dlg;
-        static bool _DialogUp = false;
-        public static bool DialogUp { get { return _DialogUp; } set { _DialogUp = value; } }
-#else
-        public const bool ViewerIsUp = false;
-#endif
-
         static float _VolumeFade;
         public static float VolumeFade
         {
@@ -570,10 +529,6 @@ public static string SourceTextureDirectory()
         public static bool FixedTimeStep = false;
         public static bool WindowBorder = true;
 
-#if INCLUDE_EDITOR && WINDOWS
-        public static Forms.Form WinForm { get { return (Forms.Form)Forms.Form.FromHandle(GameClass.Window.Handle); } }
-#endif
-
         public static XnaGameClass GameClass;
 
         public static CloudberryKingdomGame TheGame;
@@ -582,8 +537,6 @@ public static string SourceTextureDirectory()
 
         public static String[] ButtonNames = { "A", "B", "X", "Y", "RS", "LS", "RT", "LT", "RJ", "RJ", "LJ", "LJ", "DPad", "Start" };
         public static String[] DirNames = { "right", "up", "left", "down" };
-
-        //public static Recycler Recycle = new Recycler();
 
         public static GameFactory CurGameType;
         public static GameData CurGameData;
@@ -1374,7 +1327,7 @@ public static string SourceTextureDirectory()
                     else if (info.FieldType == typeof(BasePoint))
                     {
                         var b = (BasePoint)(info.GetValue(obj));
-                        line = string.Format("new CoreEngine.BasePoint({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+                        line = string.Format("new BasePoint({0}f, {1}f, {2}f, {3}f, {4}f, {5}f)", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
                     }
                     else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
                     {

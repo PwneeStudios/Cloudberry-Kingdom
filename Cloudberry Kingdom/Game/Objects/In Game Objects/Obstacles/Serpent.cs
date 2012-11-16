@@ -34,7 +34,7 @@ namespace CloudberryKingdom
 
             AutoGenSingleton = Serpent_AutoGen.Instance;
             Core.MyType = ObjectType.Serpent;
-            DeathType = Bobs.Bob.BobDeathType.None;
+            DeathType = Bob.BobDeathType.None;
             Core.DrawLayer = 8;
 
             PhsxCutoff_Playing = new Vector2(200, 4000);

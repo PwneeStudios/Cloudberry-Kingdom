@@ -25,7 +25,7 @@ namespace CloudberryKingdom
             GUI_Text text = new GUI_Text(word, pos1, style);
             text.FixedToCamera = true;
             
-            text.MyPile.FancyPos.LerpTo(pos1, pos2, 70, CoreEngine.LerpStyle.Linear);
+            text.MyPile.FancyPos.LerpTo(pos1, pos2, 70, LerpStyle.Linear);
             text.MyPile.FancyPos.Loop = true;
             return text;
         }

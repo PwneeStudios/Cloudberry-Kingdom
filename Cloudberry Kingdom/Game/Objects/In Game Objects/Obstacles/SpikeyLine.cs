@@ -30,7 +30,7 @@ namespace CloudberryKingdom
 
             AutoGenSingleton = Boulder_AutoGen.Instance;
             Core.MyType = ObjectType.SpikeyLine;
-            DeathType = Bobs.Bob.BobDeathType.FallingSpike;
+            DeathType = Bob.BobDeathType.FallingSpike;
 
             Core.ContinuousEnabled = true;
 

@@ -27,7 +27,7 @@ namespace CloudberryKingdom
 
             Core.MyType = ObjectType.Fireball;
             AutoGenSingleton = Fireball_AutoGen.Instance;
-            DeathType = Bobs.Bob.BobDeathType.Fireball;
+            DeathType = Bob.BobDeathType.Fireball;
 
             PhsxCutoff_Playing = new Vector2(10000);
             PhsxCutoff_BoxesOnly = new Vector2(10000);

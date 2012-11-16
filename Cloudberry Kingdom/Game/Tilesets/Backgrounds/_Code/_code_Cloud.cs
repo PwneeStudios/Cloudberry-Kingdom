@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             __2.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __2.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __2.MyQuad.Base = new CoreEngine.BasePoint(23579.31f, 0f, 0f, 10479.69f, 5485.83f, -9.382813f);
+            __2.MyQuad.Base = new BasePoint(23579.31f, 0f, 0f, 10479.69f, 5485.83f, -9.382813f);
 
             __2.uv_speed = new Vector2(0f, 0f);
             __2.uv_offset = new Vector2(0f, 0f);
@@ -67,7 +67,7 @@ namespace CloudberryKingdom
             __3.MyQuad.Quad.ExtraTexture1 = null;
             __3.MyQuad.Quad.ExtraTexture2 = null;
 
-            __3.MyQuad.Base = new CoreEngine.BasePoint(23579.31f, 0f, 0f, 10479.69f, 52644.45f, -9.382813f);
+            __3.MyQuad.Base = new BasePoint(23579.31f, 0f, 0f, 10479.69f, 52644.45f, -9.382813f);
 
             __3.uv_speed = new Vector2(0f, 0f);
             __3.uv_offset = new Vector2(0f, 0f);
@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             __5.MyQuad.Quad.ExtraTexture1 = null;
             __5.MyQuad.Quad.ExtraTexture2 = null;
 
-            __5.MyQuad.Base = new CoreEngine.BasePoint(13583.82f, 0f, 0f, 6025.19f, 3683.155f, -164.6855f);
+            __5.MyQuad.Base = new BasePoint(13583.82f, 0f, 0f, 6025.19f, 3683.155f, -164.6855f);
 
             __5.uv_speed = new Vector2(0f, 0f);
             __5.uv_offset = new Vector2(0f, 0f);
@@ -111,7 +111,7 @@ namespace CloudberryKingdom
             __6.MyQuad.Quad.ExtraTexture1 = null;
             __6.MyQuad.Quad.ExtraTexture2 = null;
 
-            __6.MyQuad.Base = new CoreEngine.BasePoint(13583.82f, 0f, 0f, 6025.19f, 30850.79f, -164.6855f);
+            __6.MyQuad.Base = new BasePoint(13583.82f, 0f, 0f, 6025.19f, 30850.79f, -164.6855f);
 
             __6.uv_speed = new Vector2(0f, 0f);
             __6.uv_offset = new Vector2(0f, 0f);
@@ -137,7 +137,7 @@ namespace CloudberryKingdom
             __8.MyQuad.Quad.ExtraTexture1 = null;
             __8.MyQuad.Quad.ExtraTexture2 = null;
 
-            __8.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 813.913f, -7449.813f, 713.1904f);
+            __8.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 813.913f, -7449.813f, 713.1904f);
 
             __8.uv_speed = new Vector2(0f, 0f);
             __8.uv_offset = new Vector2(0f, 0f);
@@ -155,7 +155,7 @@ namespace CloudberryKingdom
             __9.MyQuad.Quad.ExtraTexture1 = null;
             __9.MyQuad.Quad.ExtraTexture2 = null;
 
-            __9.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 872.7272f, -2406.215f, 935.2354f);
+            __9.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 872.7272f, -2406.215f, 935.2354f);
 
             __9.uv_speed = new Vector2(0f, 0f);
             __9.uv_offset = new Vector2(0f, 0f);
@@ -173,7 +173,7 @@ namespace CloudberryKingdom
             __10.MyQuad.Quad.ExtraTexture1 = null;
             __10.MyQuad.Quad.ExtraTexture2 = null;
 
-            __10.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 804.7058f, 2447.061f, 205.6582f);
+            __10.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 804.7058f, 2447.061f, 205.6582f);
 
             __10.uv_speed = new Vector2(0f, 0f);
             __10.uv_offset = new Vector2(0f, 0f);
@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             __11.MyQuad.Quad.ExtraTexture1 = null;
             __11.MyQuad.Quad.ExtraTexture2 = null;
 
-            __11.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 854.9999f, 5904.623f, 78.77539f);
+            __11.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 854.9999f, 5904.623f, 78.77539f);
 
             __11.uv_speed = new Vector2(0f, 0f);
             __11.uv_offset = new Vector2(0f, 0f);
@@ -209,7 +209,7 @@ namespace CloudberryKingdom
             __12.MyQuad.Quad.ExtraTexture1 = null;
             __12.MyQuad.Quad.ExtraTexture2 = null;
 
-            __12.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 606.8827f, 9330.461f, 522.8662f);
+            __12.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 606.8827f, 9330.461f, 522.8662f);
 
             __12.uv_speed = new Vector2(0f, 0f);
             __12.uv_offset = new Vector2(0f, 0f);
@@ -227,7 +227,7 @@ namespace CloudberryKingdom
             __13.MyQuad.Quad.ExtraTexture1 = null;
             __13.MyQuad.Quad.ExtraTexture2 = null;
 
-            __13.MyQuad.Base = new CoreEngine.BasePoint(1440f, 0f, 0f, 1008f, 12312.21f, 15.33398f);
+            __13.MyQuad.Base = new BasePoint(1440f, 0f, 0f, 1008f, 12312.21f, 15.33398f);
 
             __13.uv_speed = new Vector2(0f, 0f);
             __13.uv_offset = new Vector2(0f, 0f);
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
             __15.MyQuad.Quad.ExtraTexture1 = null;
             __15.MyQuad.Quad.ExtraTexture2 = null;
 
-            __15.MyQuad.Base = new CoreEngine.BasePoint(1619.587f, 0f, 0f, 1574.057f, -3419.336f, -1515.219f);
+            __15.MyQuad.Base = new BasePoint(1619.587f, 0f, 0f, 1574.057f, -3419.336f, -1515.219f);
 
             __15.uv_speed = new Vector2(0f, 0f);
             __15.uv_offset = new Vector2(0f, 0f);
@@ -271,7 +271,7 @@ namespace CloudberryKingdom
             __16.MyQuad.Quad.ExtraTexture1 = null;
             __16.MyQuad.Quad.ExtraTexture2 = null;
 
-            __16.MyQuad.Base = new CoreEngine.BasePoint(1090.909f, 0f, 0f, 1556.735f, 6745.723f, -1731.496f);
+            __16.MyQuad.Base = new BasePoint(1090.909f, 0f, 0f, 1556.735f, 6745.723f, -1731.496f);
 
             __16.uv_speed = new Vector2(0f, 0f);
             __16.uv_offset = new Vector2(0f, 0f);
@@ -289,7 +289,7 @@ namespace CloudberryKingdom
             __17.MyQuad.Quad.ExtraTexture1 = null;
             __17.MyQuad.Quad.ExtraTexture2 = null;
 
-            __17.MyQuad.Base = new CoreEngine.BasePoint(1114.938f, 0f, 0f, 2341.099f, 10662.76f, -1642.704f);
+            __17.MyQuad.Base = new BasePoint(1114.938f, 0f, 0f, 2341.099f, 10662.76f, -1642.704f);
 
             __17.uv_speed = new Vector2(0f, 0f);
             __17.uv_offset = new Vector2(0f, 0f);
@@ -307,7 +307,7 @@ namespace CloudberryKingdom
             __18.MyQuad.Quad.ExtraTexture1 = null;
             __18.MyQuad.Quad.ExtraTexture2 = null;
 
-            __18.MyQuad.Base = new CoreEngine.BasePoint(1619.587f, 0f, 0f, 1574.057f, 18973.14f, -1646.107f);
+            __18.MyQuad.Base = new BasePoint(1619.587f, 0f, 0f, 1574.057f, 18973.14f, -1646.107f);
 
             __18.uv_speed = new Vector2(0f, 0f);
             __18.uv_offset = new Vector2(0f, 0f);
@@ -325,7 +325,7 @@ namespace CloudberryKingdom
             __19.MyQuad.Quad.ExtraTexture1 = null;
             __19.MyQuad.Quad.ExtraTexture2 = null;
 
-            __19.MyQuad.Base = new CoreEngine.BasePoint(1090.909f, 0f, 0f, 1556.735f, 24460.43f, -1646.107f);
+            __19.MyQuad.Base = new BasePoint(1090.909f, 0f, 0f, 1556.735f, 24460.43f, -1646.107f);
 
             __19.uv_speed = new Vector2(0f, 0f);
             __19.uv_offset = new Vector2(0f, 0f);
@@ -343,7 +343,7 @@ namespace CloudberryKingdom
             __20.MyQuad.Quad.ExtraTexture1 = null;
             __20.MyQuad.Quad.ExtraTexture2 = null;
 
-            __20.MyQuad.Base = new CoreEngine.BasePoint(1114.938f, 0f, 0f, 2341.099f, 27066.12f, -1891.348f);
+            __20.MyQuad.Base = new BasePoint(1114.938f, 0f, 0f, 2341.099f, 27066.12f, -1891.348f);
 
             __20.uv_speed = new Vector2(0f, 0f);
             __20.uv_offset = new Vector2(0f, 0f);
@@ -369,7 +369,7 @@ namespace CloudberryKingdom
             __22.MyQuad.Quad.ExtraTexture1 = null;
             __22.MyQuad.Quad.ExtraTexture2 = null;
 
-            __22.MyQuad.Base = new CoreEngine.BasePoint(4429.467f, 0f, 0f, 1100.83f, 1758.984f, 54.01685f);
+            __22.MyQuad.Base = new BasePoint(4429.467f, 0f, 0f, 1100.83f, 1758.984f, 54.01685f);
 
             __22.uv_speed = new Vector2(0f, 0f);
             __22.uv_offset = new Vector2(0f, 0f);
@@ -387,7 +387,7 @@ namespace CloudberryKingdom
             __23.MyQuad.Quad.ExtraTexture1 = null;
             __23.MyQuad.Quad.ExtraTexture2 = null;
 
-            __23.MyQuad.Base = new CoreEngine.BasePoint(4429.467f, 0f, 0f, 1100.83f, 15294.52f, 3.80072f);
+            __23.MyQuad.Base = new BasePoint(4429.467f, 0f, 0f, 1100.83f, 15294.52f, 3.80072f);
 
             __23.uv_speed = new Vector2(0f, 0f);
             __23.uv_offset = new Vector2(0f, 0f);
@@ -405,7 +405,7 @@ namespace CloudberryKingdom
             __24.MyQuad.Quad.ExtraTexture1 = null;
             __24.MyQuad.Quad.ExtraTexture2 = null;
 
-            __24.MyQuad.Base = new CoreEngine.BasePoint(4429.467f, 0f, 0f, 1100.83f, 26639.14f, -429.751f);
+            __24.MyQuad.Base = new BasePoint(4429.467f, 0f, 0f, 1100.83f, 26639.14f, -429.751f);
 
             __24.uv_speed = new Vector2(0f, 0f);
             __24.uv_offset = new Vector2(0f, 0f);
@@ -423,7 +423,7 @@ namespace CloudberryKingdom
             __25.MyQuad.Quad.ExtraTexture1 = null;
             __25.MyQuad.Quad.ExtraTexture2 = null;
 
-            __25.MyQuad.Base = new CoreEngine.BasePoint(4429.467f, 0f, 0f, 1100.83f, 38561.82f, -502.0099f);
+            __25.MyQuad.Base = new BasePoint(4429.467f, 0f, 0f, 1100.83f, 38561.82f, -502.0099f);
 
             __25.uv_speed = new Vector2(0f, 0f);
             __25.uv_offset = new Vector2(0f, 0f);
@@ -449,7 +449,7 @@ namespace CloudberryKingdom
             __27.MyQuad.Quad.ExtraTexture1 = null;
             __27.MyQuad.Quad.ExtraTexture2 = null;
 
-            __27.MyQuad.Base = new CoreEngine.BasePoint(1350.048f, 0f, 0f, 2798.974f, -2574.793f, -1026.896f);
+            __27.MyQuad.Base = new BasePoint(1350.048f, 0f, 0f, 2798.974f, -2574.793f, -1026.896f);
 
             __27.uv_speed = new Vector2(0f, 0f);
             __27.uv_offset = new Vector2(0f, 0f);
@@ -467,7 +467,7 @@ namespace CloudberryKingdom
             __28.MyQuad.Quad.ExtraTexture1 = null;
             __28.MyQuad.Quad.ExtraTexture2 = null;
 
-            __28.MyQuad.Base = new CoreEngine.BasePoint(1415.46f, 0f, 0f, 2348.253f, 4617.543f, -726.7338f);
+            __28.MyQuad.Base = new BasePoint(1415.46f, 0f, 0f, 2348.253f, 4617.543f, -726.7338f);
 
             __28.uv_speed = new Vector2(0f, 0f);
             __28.uv_offset = new Vector2(0f, 0f);
@@ -485,7 +485,7 @@ namespace CloudberryKingdom
             __29.MyQuad.Quad.ExtraTexture1 = null;
             __29.MyQuad.Quad.ExtraTexture2 = null;
 
-            __29.MyQuad.Base = new CoreEngine.BasePoint(1256.856f, 0f, 0f, 2094.533f, 13222.73f, -543.1658f);
+            __29.MyQuad.Base = new BasePoint(1256.856f, 0f, 0f, 2094.533f, 13222.73f, -543.1658f);
 
             __29.uv_speed = new Vector2(0f, 0f);
             __29.uv_offset = new Vector2(0f, 0f);
@@ -503,7 +503,7 @@ namespace CloudberryKingdom
             __30.MyQuad.Quad.ExtraTexture1 = null;
             __30.MyQuad.Quad.ExtraTexture2 = null;
 
-            __30.MyQuad.Base = new CoreEngine.BasePoint(1350.048f, 0f, 0f, 2798.974f, 17024.4f, -1760.757f);
+            __30.MyQuad.Base = new BasePoint(1350.048f, 0f, 0f, 2798.974f, 17024.4f, -1760.757f);
 
             __30.uv_speed = new Vector2(0f, 0f);
             __30.uv_offset = new Vector2(0f, 0f);
@@ -521,7 +521,7 @@ namespace CloudberryKingdom
             __31.MyQuad.Quad.ExtraTexture1 = null;
             __31.MyQuad.Quad.ExtraTexture2 = null;
 
-            __31.MyQuad.Base = new CoreEngine.BasePoint(1415.46f, 0f, 0f, 2348.253f, 21905.47f, -1027.331f);
+            __31.MyQuad.Base = new BasePoint(1415.46f, 0f, 0f, 2348.253f, 21905.47f, -1027.331f);
 
             __31.uv_speed = new Vector2(0f, 0f);
             __31.uv_offset = new Vector2(0f, 0f);
@@ -539,7 +539,7 @@ namespace CloudberryKingdom
             __32.MyQuad.Quad.ExtraTexture1 = null;
             __32.MyQuad.Quad.ExtraTexture2 = null;
 
-            __32.MyQuad.Base = new CoreEngine.BasePoint(1590.616f, 0f, 0f, 2662.089f, 29651.78f, -1127.46f);
+            __32.MyQuad.Base = new BasePoint(1590.616f, 0f, 0f, 2662.089f, 29651.78f, -1127.46f);
 
             __32.uv_speed = new Vector2(0f, 0f);
             __32.uv_offset = new Vector2(0f, 0f);
@@ -557,7 +557,7 @@ namespace CloudberryKingdom
             __33.MyQuad.Quad.ExtraTexture1 = null;
             __33.MyQuad.Quad.ExtraTexture2 = null;
 
-            __33.MyQuad.Base = new CoreEngine.BasePoint(882.7829f, 0f, 0f, 1830.22f, 33324.57f, -2302.971f);
+            __33.MyQuad.Base = new BasePoint(882.7829f, 0f, 0f, 1830.22f, 33324.57f, -2302.971f);
 
             __33.uv_speed = new Vector2(0f, 0f);
             __33.uv_offset = new Vector2(0f, 0f);
@@ -575,7 +575,7 @@ namespace CloudberryKingdom
             __34.MyQuad.Quad.ExtraTexture1 = null;
             __34.MyQuad.Quad.ExtraTexture2 = null;
 
-            __34.MyQuad.Base = new CoreEngine.BasePoint(1415.46f, 0f, 0f, 2348.253f, 37953.88f, -2136.087f);
+            __34.MyQuad.Base = new BasePoint(1415.46f, 0f, 0f, 2348.253f, 37953.88f, -2136.087f);
 
             __34.uv_speed = new Vector2(0f, 0f);
             __34.uv_offset = new Vector2(0f, 0f);
@@ -601,7 +601,7 @@ namespace CloudberryKingdom
             __36.MyQuad.Quad.ExtraTexture1 = null;
             __36.MyQuad.Quad.ExtraTexture2 = null;
 
-            __36.MyQuad.Base = new CoreEngine.BasePoint(1286.25f, 0f, 0f, 706.0881f, -106.0938f, -291.884f);
+            __36.MyQuad.Base = new BasePoint(1286.25f, 0f, 0f, 706.0881f, -106.0938f, -291.884f);
 
             __36.uv_speed = new Vector2(0f, 0f);
             __36.uv_offset = new Vector2(0f, 0f);
@@ -619,7 +619,7 @@ namespace CloudberryKingdom
             __37.MyQuad.Quad.ExtraTexture1 = null;
             __37.MyQuad.Quad.ExtraTexture2 = null;
 
-            __37.MyQuad.Base = new CoreEngine.BasePoint(1153.097f, 0f, 0f, 600.9785f, 4506.916f, -181.2072f);
+            __37.MyQuad.Base = new BasePoint(1153.097f, 0f, 0f, 600.9785f, 4506.916f, -181.2072f);
 
             __37.uv_speed = new Vector2(0f, 0f);
             __37.uv_offset = new Vector2(0f, 0f);
@@ -637,7 +637,7 @@ namespace CloudberryKingdom
             __38.MyQuad.Quad.ExtraTexture1 = null;
             __38.MyQuad.Quad.ExtraTexture2 = null;
 
-            __38.MyQuad.Base = new CoreEngine.BasePoint(1163.339f, 0f, 0f, 451.3339f, 7103.76f, -501.3638f);
+            __38.MyQuad.Base = new BasePoint(1163.339f, 0f, 0f, 451.3339f, 7103.76f, -501.3638f);
 
             __38.uv_speed = new Vector2(0f, 0f);
             __38.uv_offset = new Vector2(0f, 0f);
@@ -655,7 +655,7 @@ namespace CloudberryKingdom
             __39.MyQuad.Quad.ExtraTexture1 = null;
             __39.MyQuad.Quad.ExtraTexture2 = null;
 
-            __39.MyQuad.Base = new CoreEngine.BasePoint(978.9733f, 0f, 0f, 644.0235f, 10113.27f, -203.6833f);
+            __39.MyQuad.Base = new BasePoint(978.9733f, 0f, 0f, 644.0235f, 10113.27f, -203.6833f);
 
             __39.uv_speed = new Vector2(0f, 0f);
             __39.uv_offset = new Vector2(0f, 0f);
@@ -673,7 +673,7 @@ namespace CloudberryKingdom
             __40.MyQuad.Quad.ExtraTexture1 = null;
             __40.MyQuad.Quad.ExtraTexture2 = null;
 
-            __40.MyQuad.Base = new CoreEngine.BasePoint(1286.25f, 0f, 0f, 706.0881f, 14141.27f, -125.3017f);
+            __40.MyQuad.Base = new BasePoint(1286.25f, 0f, 0f, 706.0881f, 14141.27f, -125.3017f);
 
             __40.uv_speed = new Vector2(0f, 0f);
             __40.uv_offset = new Vector2(0f, 0f);
@@ -691,7 +691,7 @@ namespace CloudberryKingdom
             __41.MyQuad.Quad.ExtraTexture1 = null;
             __41.MyQuad.Quad.ExtraTexture2 = null;
 
-            __41.MyQuad.Base = new CoreEngine.BasePoint(1153.097f, 0f, 0f, 600.9785f, 17429.04f, -327.6263f);
+            __41.MyQuad.Base = new BasePoint(1153.097f, 0f, 0f, 600.9785f, 17429.04f, -327.6263f);
 
             __41.uv_speed = new Vector2(0f, 0f);
             __41.uv_offset = new Vector2(0f, 0f);
@@ -709,7 +709,7 @@ namespace CloudberryKingdom
             __42.MyQuad.Quad.ExtraTexture1 = null;
             __42.MyQuad.Quad.ExtraTexture2 = null;
 
-            __42.MyQuad.Base = new CoreEngine.BasePoint(1163.339f, 0f, 0f, 451.3339f, 20784.25f, -445.6487f);
+            __42.MyQuad.Base = new BasePoint(1163.339f, 0f, 0f, 451.3339f, 20784.25f, -445.6487f);
 
             __42.uv_speed = new Vector2(0f, 0f);
             __42.uv_offset = new Vector2(0f, 0f);
@@ -727,7 +727,7 @@ namespace CloudberryKingdom
             __43.MyQuad.Quad.ExtraTexture1 = null;
             __43.MyQuad.Quad.ExtraTexture2 = null;
 
-            __43.MyQuad.Base = new CoreEngine.BasePoint(978.9733f, 0f, 0f, 644.0235f, 24527.25f, 110.7433f);
+            __43.MyQuad.Base = new BasePoint(978.9733f, 0f, 0f, 644.0235f, 24527.25f, 110.7433f);
 
             __43.uv_speed = new Vector2(0f, 0f);
             __43.uv_offset = new Vector2(0f, 0f);
@@ -753,7 +753,7 @@ namespace CloudberryKingdom
             __45.MyQuad.Quad.ExtraTexture1 = null;
             __45.MyQuad.Quad.ExtraTexture2 = null;
 
-            __45.MyQuad.Base = new CoreEngine.BasePoint(1231.156f, 0f, 0f, 2231.931f, 761.7891f, 296.3109f);
+            __45.MyQuad.Base = new BasePoint(1231.156f, 0f, 0f, 2231.931f, 761.7891f, 296.3109f);
 
             __45.uv_speed = new Vector2(0f, 0f);
             __45.uv_offset = new Vector2(0f, 0f);

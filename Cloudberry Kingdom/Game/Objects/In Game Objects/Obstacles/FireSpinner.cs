@@ -58,7 +58,7 @@ namespace CloudberryKingdom
 
             AutoGenSingleton = FireSpinner_AutoGen.Instance;
             Core.MyType = ObjectType.FireSpinner;
-            DeathType = Bobs.Bob.BobDeathType.FireSpinner;
+            DeathType = Bob.BobDeathType.FireSpinner;
             Core.DrawLayer = 3;
 
             PhsxCutoff_Playing = new Vector2(1000, 1000);

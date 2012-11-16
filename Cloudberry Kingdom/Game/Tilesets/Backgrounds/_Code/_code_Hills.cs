@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             __2.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __2.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __2.MyQuad.Base = new CoreEngine.BasePoint(81277.7f, 0f, 0f, 34106.41f, -4469.054f, 784.0586f);
+            __2.MyQuad.Base = new BasePoint(81277.7f, 0f, 0f, 34106.41f, -4469.054f, 784.0586f);
 
             __2.uv_speed = new Vector2(0f, 0f);
             __2.uv_offset = new Vector2(0f, 0f);
@@ -67,7 +67,7 @@ namespace CloudberryKingdom
             __3.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __3.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __3.MyQuad.Base = new CoreEngine.BasePoint(81277.7f, 0f, 0f, 34106.41f, 158086.3f, 784.0586f);
+            __3.MyQuad.Base = new BasePoint(81277.7f, 0f, 0f, 34106.41f, 158086.3f, 784.0586f);
 
             __3.uv_speed = new Vector2(0f, 0f);
             __3.uv_offset = new Vector2(0f, 0f);
@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             __5.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __5.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __5.MyQuad.Base = new CoreEngine.BasePoint(19649.94f, 0f, 0f, 6075.512f, 3557.881f, 4444.444f);
+            __5.MyQuad.Base = new BasePoint(19649.94f, 0f, 0f, 6075.512f, 3557.881f, 4444.444f);
 
             __5.uv_speed = new Vector2(0f, 0f);
             __5.uv_offset = new Vector2(0f, 0f);
@@ -111,7 +111,7 @@ namespace CloudberryKingdom
             __6.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __6.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __6.MyQuad.Base = new CoreEngine.BasePoint(21693.85f, 0f, 0f, 6280.27f, 44884.28f, 4316.639f);
+            __6.MyQuad.Base = new BasePoint(21693.85f, 0f, 0f, 6280.27f, 44884.28f, 4316.639f);
 
             __6.uv_speed = new Vector2(0f, 0f);
             __6.uv_offset = new Vector2(0f, 0f);
@@ -137,7 +137,7 @@ namespace CloudberryKingdom
             __8.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __8.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __8.MyQuad.Base = new CoreEngine.BasePoint(10593.01f, 0f, 0f, 4445.094f, 2926.976f, 102.2695f);
+            __8.MyQuad.Base = new BasePoint(10593.01f, 0f, 0f, 4445.094f, 2926.976f, 102.2695f);
 
             __8.uv_speed = new Vector2(0f, 0f);
             __8.uv_offset = new Vector2(0f, 0f);
@@ -155,7 +155,7 @@ namespace CloudberryKingdom
             __9.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __9.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __9.MyQuad.Base = new CoreEngine.BasePoint(10593.01f, 0f, 0f, 4445.094f, 24113f, 102.2695f);
+            __9.MyQuad.Base = new BasePoint(10593.01f, 0f, 0f, 4445.094f, 24113f, 102.2695f);
 
             __9.uv_speed = new Vector2(0f, 0f);
             __9.uv_offset = new Vector2(0f, 0f);
@@ -173,7 +173,7 @@ namespace CloudberryKingdom
             __10.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __10.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __10.MyQuad.Base = new CoreEngine.BasePoint(10593.01f, 0f, 0f, 4445.094f, 39921.59f, 451.0566f);
+            __10.MyQuad.Base = new BasePoint(10593.01f, 0f, 0f, 4445.094f, 39921.59f, 451.0566f);
 
             __10.uv_speed = new Vector2(0f, 0f);
             __10.uv_offset = new Vector2(0f, 0f);
@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             __11.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __11.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __11.MyQuad.Base = new CoreEngine.BasePoint(10593.01f, 0f, 0f, 4445.094f, 61107.63f, 451.0566f);
+            __11.MyQuad.Base = new BasePoint(10593.01f, 0f, 0f, 4445.094f, 61107.63f, 451.0566f);
 
             __11.uv_speed = new Vector2(0f, 0f);
             __11.uv_offset = new Vector2(0f, 0f);
@@ -217,7 +217,7 @@ namespace CloudberryKingdom
             __13.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __13.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __13.MyQuad.Base = new CoreEngine.BasePoint(5887f, 0f, 0f, 1970.189f, 4186.129f, -1231.915f);
+            __13.MyQuad.Base = new BasePoint(5887f, 0f, 0f, 1970.189f, 4186.129f, -1231.915f);
 
             __13.uv_speed = new Vector2(0f, 0f);
             __13.uv_offset = new Vector2(0f, 0f);
@@ -247,7 +247,7 @@ namespace CloudberryKingdom
             __14.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __14.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __14.MyQuad.Base = new CoreEngine.BasePoint(7820.432f, 0f, 0f, 1508.179f, 17893.56f, -1699.611f);
+            __14.MyQuad.Base = new BasePoint(7820.432f, 0f, 0f, 1508.179f, 17893.56f, -1699.611f);
 
             __14.uv_speed = new Vector2(0f, 0f);
             __14.uv_offset = new Vector2(0f, 0f);
@@ -265,7 +265,7 @@ namespace CloudberryKingdom
             __15.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __15.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __15.MyQuad.Base = new CoreEngine.BasePoint(5887f, 0f, 0f, 1970.189f, 32150.93f, -1535.743f);
+            __15.MyQuad.Base = new BasePoint(5887f, 0f, 0f, 1970.189f, 32150.93f, -1535.743f);
 
             __15.uv_speed = new Vector2(0f, 0f);
             __15.uv_offset = new Vector2(0f, 0f);
@@ -283,7 +283,7 @@ namespace CloudberryKingdom
             __16.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __16.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __16.MyQuad.Base = new CoreEngine.BasePoint(7820.432f, 0f, 0f, 1508.179f, 45858.36f, -1998.595f);
+            __16.MyQuad.Base = new BasePoint(7820.432f, 0f, 0f, 1508.179f, 45858.36f, -1998.595f);
 
             __16.uv_speed = new Vector2(0f, 0f);
             __16.uv_offset = new Vector2(0f, 0f);
@@ -321,7 +321,7 @@ namespace CloudberryKingdom
             __18.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __18.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __18.MyQuad.Base = new CoreEngine.BasePoint(22567.94f, 0f, 0f, 1803.504f, 18396.24f, 510.7676f);
+            __18.MyQuad.Base = new BasePoint(22567.94f, 0f, 0f, 1803.504f, 18396.24f, 510.7676f);
 
             __18.uv_speed = new Vector2(0.0008f, 0f);
             __18.uv_offset = new Vector2(0f, 0f);
@@ -347,7 +347,7 @@ namespace CloudberryKingdom
             __20.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __20.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __20.MyQuad.Base = new CoreEngine.BasePoint(5711.815f, 0f, 0f, 1410.282f, 8635.98f, -926.418f);
+            __20.MyQuad.Base = new BasePoint(5711.815f, 0f, 0f, 1410.282f, 8635.98f, -926.418f);
 
             __20.uv_speed = new Vector2(0f, 0f);
             __20.uv_offset = new Vector2(0f, 0f);
@@ -365,7 +365,7 @@ namespace CloudberryKingdom
             __21.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __21.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __21.MyQuad.Base = new CoreEngine.BasePoint(5250.666f, 0f, 0f, 1960.848f, 34.27734f, -34.0918f);
+            __21.MyQuad.Base = new BasePoint(5250.666f, 0f, 0f, 1960.848f, 34.27734f, -34.0918f);
 
             __21.uv_speed = new Vector2(0f, 0f);
             __21.uv_offset = new Vector2(0f, 0f);
@@ -383,7 +383,7 @@ namespace CloudberryKingdom
             __22.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __22.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __22.MyQuad.Base = new CoreEngine.BasePoint(5250.666f, 0f, 0f, 1960.848f, 17604.08f, -34.0918f);
+            __22.MyQuad.Base = new BasePoint(5250.666f, 0f, 0f, 1960.848f, 17604.08f, -34.0918f);
 
             __22.uv_speed = new Vector2(0f, 0f);
             __22.uv_offset = new Vector2(0f, 0f);
@@ -401,7 +401,7 @@ namespace CloudberryKingdom
             __23.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __23.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __23.MyQuad.Base = new CoreEngine.BasePoint(4082.421f, 0f, 0f, 1469.273f, 10419.8f, -1173.33f);
+            __23.MyQuad.Base = new BasePoint(4082.421f, 0f, 0f, 1469.273f, 10419.8f, -1173.33f);
 
             __23.uv_speed = new Vector2(0f, 0f);
             __23.uv_offset = new Vector2(0f, 0f);
@@ -419,7 +419,7 @@ namespace CloudberryKingdom
             __24.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __24.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __24.MyQuad.Base = new CoreEngine.BasePoint(5711.815f, 0f, 0f, 1410.282f, 27956.91f, -438.7754f);
+            __24.MyQuad.Base = new BasePoint(5711.815f, 0f, 0f, 1410.282f, 27956.91f, -438.7754f);
 
             __24.uv_speed = new Vector2(0f, 0f);
             __24.uv_offset = new Vector2(0f, 0f);
@@ -437,7 +437,7 @@ namespace CloudberryKingdom
             __25.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __25.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __25.MyQuad.Base = new CoreEngine.BasePoint(5250.666f, 0f, 0f, 1960.848f, 34432.56f, -336.752f);
+            __25.MyQuad.Base = new BasePoint(5250.666f, 0f, 0f, 1960.848f, 34432.56f, -336.752f);
 
             __25.uv_speed = new Vector2(0f, 0f);
             __25.uv_offset = new Vector2(0f, 0f);
@@ -455,7 +455,7 @@ namespace CloudberryKingdom
             __26.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __26.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __26.MyQuad.Base = new CoreEngine.BasePoint(5711.815f, 0f, 0f, 1410.282f, 43620.78f, -565.0293f);
+            __26.MyQuad.Base = new BasePoint(5711.815f, 0f, 0f, 1410.282f, 43620.78f, -565.0293f);
 
             __26.uv_speed = new Vector2(0f, 0f);
             __26.uv_offset = new Vector2(0f, 0f);
@@ -481,7 +481,7 @@ namespace CloudberryKingdom
             __28.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __28.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __28.MyQuad.Base = new CoreEngine.BasePoint(646.1251f, 0f, 0f, 486.9349f, -8483.381f, -959.5684f);
+            __28.MyQuad.Base = new BasePoint(646.1251f, 0f, 0f, 486.9349f, -8483.381f, -959.5684f);
 
             __28.uv_speed = new Vector2(0f, 0f);
             __28.uv_offset = new Vector2(0f, 0f);
@@ -499,7 +499,7 @@ namespace CloudberryKingdom
             __29.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __29.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __29.MyQuad.Base = new CoreEngine.BasePoint(974.2943f, 0f, 0f, 843.0762f, -6522.574f, -951.364f);
+            __29.MyQuad.Base = new BasePoint(974.2943f, 0f, 0f, 843.0762f, -6522.574f, -951.364f);
 
             __29.uv_speed = new Vector2(0f, 0f);
             __29.uv_offset = new Vector2(0f, 0f);
@@ -517,7 +517,7 @@ namespace CloudberryKingdom
             __30.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __30.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __30.MyQuad.Base = new CoreEngine.BasePoint(892.2518f, 0f, 0f, 804.9318f, -4241.8f, -1058.019f);
+            __30.MyQuad.Base = new BasePoint(892.2518f, 0f, 0f, 804.9318f, -4241.8f, -1058.019f);
 
             __30.uv_speed = new Vector2(0f, 0f);
             __30.uv_offset = new Vector2(0f, 0f);
@@ -535,7 +535,7 @@ namespace CloudberryKingdom
             __31.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __31.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __31.MyQuad.Base = new CoreEngine.BasePoint(957.8854f, 0f, 0f, 524.0001f, -2026.664f, -1213.899f);
+            __31.MyQuad.Base = new BasePoint(957.8854f, 0f, 0f, 524.0001f, -2026.664f, -1213.899f);
 
             __31.uv_speed = new Vector2(0f, 0f);
             __31.uv_offset = new Vector2(0f, 0f);
@@ -553,7 +553,7 @@ namespace CloudberryKingdom
             __32.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __32.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __32.MyQuad.Base = new CoreEngine.BasePoint(695.9648f, 0f, 0f, 565.1686f, -4.105469f, -1058.24f);
+            __32.MyQuad.Base = new BasePoint(695.9648f, 0f, 0f, 565.1686f, -4.105469f, -1058.24f);
 
             __32.uv_speed = new Vector2(0f, 0f);
             __32.uv_offset = new Vector2(0f, 0f);
@@ -571,7 +571,7 @@ namespace CloudberryKingdom
             __33.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __33.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __33.MyQuad.Base = new CoreEngine.BasePoint(1266.809f, 0f, 0f, 1009.208f, 2359.654f, -917.8555f);
+            __33.MyQuad.Base = new BasePoint(1266.809f, 0f, 0f, 1009.208f, 2359.654f, -917.8555f);
 
             __33.uv_speed = new Vector2(0f, 0f);
             __33.uv_offset = new Vector2(0f, 0f);
@@ -589,7 +589,7 @@ namespace CloudberryKingdom
             __34.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __34.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __34.MyQuad.Base = new CoreEngine.BasePoint(646.1251f, 0f, 0f, 486.9349f, 4476.271f, -1029.628f);
+            __34.MyQuad.Base = new BasePoint(646.1251f, 0f, 0f, 486.9349f, 4476.271f, -1029.628f);
 
             __34.uv_speed = new Vector2(0f, 0f);
             __34.uv_offset = new Vector2(0f, 0f);
@@ -607,7 +607,7 @@ namespace CloudberryKingdom
             __35.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __35.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __35.MyQuad.Base = new CoreEngine.BasePoint(974.2943f, 0f, 0f, 843.0762f, 6329.44f, -981.4927f);
+            __35.MyQuad.Base = new BasePoint(974.2943f, 0f, 0f, 843.0762f, 6329.44f, -981.4927f);
 
             __35.uv_speed = new Vector2(0f, 0f);
             __35.uv_offset = new Vector2(0f, 0f);
@@ -625,7 +625,7 @@ namespace CloudberryKingdom
             __36.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __36.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __36.MyQuad.Base = new CoreEngine.BasePoint(892.2518f, 0f, 0f, 804.9318f, 8591.752f, -933.3588f);
+            __36.MyQuad.Base = new BasePoint(892.2518f, 0f, 0f, 804.9318f, 8591.752f, -933.3588f);
 
             __36.uv_speed = new Vector2(0f, 0f);
             __36.uv_offset = new Vector2(0f, 0f);
@@ -643,7 +643,7 @@ namespace CloudberryKingdom
             __37.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __37.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __37.MyQuad.Base = new CoreEngine.BasePoint(957.8854f, 0f, 0f, 524.0001f, 10830f, -1125.896f);
+            __37.MyQuad.Base = new BasePoint(957.8854f, 0f, 0f, 524.0001f, 10830f, -1125.896f);
 
             __37.uv_speed = new Vector2(0f, 0f);
             __37.uv_offset = new Vector2(0f, 0f);
@@ -661,7 +661,7 @@ namespace CloudberryKingdom
             __38.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __38.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __38.MyQuad.Base = new CoreEngine.BasePoint(695.9648f, 0f, 0f, 565.1686f, 13020.1f, -1053.695f);
+            __38.MyQuad.Base = new BasePoint(695.9648f, 0f, 0f, 565.1686f, 13020.1f, -1053.695f);
 
             __38.uv_speed = new Vector2(0f, 0f);
             __38.uv_offset = new Vector2(0f, 0f);
@@ -679,7 +679,7 @@ namespace CloudberryKingdom
             __39.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __39.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __39.MyQuad.Base = new CoreEngine.BasePoint(1266.809f, 0f, 0f, 1009.208f, 15234.28f, -933.358f);
+            __39.MyQuad.Base = new BasePoint(1266.809f, 0f, 0f, 1009.208f, 15234.28f, -933.358f);
 
             __39.uv_speed = new Vector2(0f, 0f);
             __39.uv_offset = new Vector2(0f, 0f);
@@ -697,7 +697,7 @@ namespace CloudberryKingdom
             __40.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __40.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __40.MyQuad.Base = new CoreEngine.BasePoint(646.1251f, 0f, 0f, 486.9349f, 17219.33f, -986.3066f);
+            __40.MyQuad.Base = new BasePoint(646.1251f, 0f, 0f, 486.9349f, 17219.33f, -986.3066f);
 
             __40.uv_speed = new Vector2(0f, 0f);
             __40.uv_offset = new Vector2(0f, 0f);
@@ -715,7 +715,7 @@ namespace CloudberryKingdom
             __41.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __41.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __41.MyQuad.Base = new CoreEngine.BasePoint(974.2943f, 0f, 0f, 843.0762f, 19203.91f, -1006.042f);
+            __41.MyQuad.Base = new BasePoint(974.2943f, 0f, 0f, 843.0762f, 19203.91f, -1006.042f);
 
             __41.uv_speed = new Vector2(0f, 0f);
             __41.uv_offset = new Vector2(0f, 0f);
@@ -733,7 +733,7 @@ namespace CloudberryKingdom
             __42.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __42.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __42.MyQuad.Base = new CoreEngine.BasePoint(892.2518f, 0f, 0f, 804.9318f, 21566.81f, -1132.153f);
+            __42.MyQuad.Base = new BasePoint(892.2518f, 0f, 0f, 804.9318f, 21566.81f, -1132.153f);
 
             __42.uv_speed = new Vector2(0f, 0f);
             __42.uv_offset = new Vector2(0f, 0f);
@@ -751,7 +751,7 @@ namespace CloudberryKingdom
             __43.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __43.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __43.MyQuad.Base = new CoreEngine.BasePoint(957.8854f, 0f, 0f, 524.0001f, 23854.63f, -1173.068f);
+            __43.MyQuad.Base = new BasePoint(957.8854f, 0f, 0f, 524.0001f, 23854.63f, -1173.068f);
 
             __43.uv_speed = new Vector2(0f, 0f);
             __43.uv_offset = new Vector2(0f, 0f);
@@ -769,7 +769,7 @@ namespace CloudberryKingdom
             __44.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __44.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __44.MyQuad.Base = new CoreEngine.BasePoint(695.9648f, 0f, 0f, 565.1686f, 25828.14f, -1124.934f);
+            __44.MyQuad.Base = new BasePoint(695.9648f, 0f, 0f, 565.1686f, 25828.14f, -1124.934f);
 
             __44.uv_speed = new Vector2(0f, 0f);
             __44.uv_offset = new Vector2(0f, 0f);
@@ -787,7 +787,7 @@ namespace CloudberryKingdom
             __45.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
             __45.MyQuad.Quad.BlendAddRatio = 0f;
 
-            __45.MyQuad.Base = new CoreEngine.BasePoint(1266.809f, 0f, 0f, 1009.208f, 28090.46f, -860.1955f);
+            __45.MyQuad.Base = new BasePoint(1266.809f, 0f, 0f, 1009.208f, 28090.46f, -860.1955f);
 
             __45.uv_speed = new Vector2(0f, 0f);
             __45.uv_offset = new Vector2(0f, 0f);

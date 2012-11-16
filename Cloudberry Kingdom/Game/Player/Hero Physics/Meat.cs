@@ -69,7 +69,7 @@ namespace CloudberryKingdom
             Set(this);
         }
 
-        public override void Init(Bobs.Bob bob)
+        public override void Init(Bob bob)
         {
             base.Init(bob);
 
@@ -267,12 +267,9 @@ namespace CloudberryKingdom
             return StartJumpAnim;
         }
 
-        protected override void SetTarget(Levels.RichLevelGenData GenData)
+        protected override void SetTarget(RichLevelGenData GenData)
         {
             base.SetTarget(GenData);
-
-            //if (MyBob.TargetPosition.Y > Cam.Pos.Y)
-            //    MyBob.TargetPosition.Y -= 900;
         }
 
         Vector2 PrefferedDir;

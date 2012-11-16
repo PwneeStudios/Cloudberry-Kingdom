@@ -42,7 +42,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public override void Init(Bobs.Bob bob)
+        public override void Init(Bob bob)
         {
             base.Init(bob);
         }

@@ -370,10 +370,6 @@ namespace CloudberryKingdom
         float t;
         public void PhsxStep()
         {
-#if INCLUDE_EDITOR
-            if (Tools.ViewerIsUp) return;
-#endif
-
             Vector2 CurPos = Data.Position;
             Vector2 CurZoom = Zoom;
             if (Shaking)

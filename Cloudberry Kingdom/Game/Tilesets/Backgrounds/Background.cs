@@ -137,14 +137,6 @@ namespace CloudberryKingdom
             Camera Cam = MyLevel.MainCamera;
             Cam.SetVertexCamera();
 
-#if DEBUG && INCLUDE_EDITOR
-            if (Tools.background_viewer != null)
-            {
-                Tools.background_viewer.PreDraw();
-                Tools.QDrawer.Flush();
-            }
-#endif
-
             if (MyLevel.IndependentDeltaT > 0)
                 MyCollection.PhsxStep();
 

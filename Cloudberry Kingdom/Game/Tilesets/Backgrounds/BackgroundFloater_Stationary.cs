@@ -20,10 +20,6 @@ namespace CloudberryKingdom
         public override void Draw()
         {
             Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
-
-#if DEBUG && INCLUDE_EDITOR
-            Draw_DebugExtra();
-#endif
         }
     }
 }

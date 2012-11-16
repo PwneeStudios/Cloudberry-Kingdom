@@ -50,7 +50,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public override void Init(Bobs.Bob bob)
+        public override void Init(Bob bob)
         {
             base.Init(bob);
 
@@ -203,10 +203,8 @@ namespace CloudberryKingdom
         }
 
         int Count = 0;
-        protected override void SetTarget(Levels.RichLevelGenData GenData)
+        protected override void SetTarget(RichLevelGenData GenData)
         {
-            //base.SetTarget(GenData);
-
             if (Count <= 0 || Math.Abs(MyBob.TargetPosition.Y - Pos.Y) < 200)
             {
                 Count = MyLevel.Rnd.RndInt(30, 60);
@@ -220,7 +218,7 @@ namespace CloudberryKingdom
                 Count--;
         }
 
-        protected override void PreventEarlyLandings(Levels.RichLevelGenData GenData)
+        protected override void PreventEarlyLandings(RichLevelGenData GenData)
         {
             // Do nothing
         }

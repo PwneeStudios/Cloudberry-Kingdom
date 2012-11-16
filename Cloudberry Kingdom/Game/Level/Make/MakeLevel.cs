@@ -133,13 +133,9 @@ namespace CloudberryKingdom
                 
                 if (ReturnEarly > 0)
                 {
-                    //Tools.StepControl = true;
                     Tools.DrawBoxes = true;
 
-                    //Bob Player = level.Bobs[0];
-                    //NewLevel.Bobs.Clear();
-                    //NewLevel.AddBob(Player);
-                    level.MainEmitter = new CloudberryKingdom.Particles.ParticleEmitter(1000);
+                    level.MainEmitter = new ParticleEmitter(1000);
                     foreach (Bob bob in level.Bobs)
                         bob.SetColorScheme(ColorSchemeManager.ColorSchemes[0]);
                     level.SetToWatchMake = true;

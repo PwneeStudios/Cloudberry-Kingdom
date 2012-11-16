@@ -396,8 +396,7 @@ namespace CloudberryKingdom
             piecequad.SetAlpha(.7f);
         }
 
-        //public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer + 1;
-        public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer;
+        public static int DefaultMenuLayer = Level.LastInLevelDrawLayer;
 
         public CkBaseMenu() { Core.DrawLayer = DefaultMenuLayer; }
         public CkBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { Core.DrawLayer = DefaultMenuLayer; }

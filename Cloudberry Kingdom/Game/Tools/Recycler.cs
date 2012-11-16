@@ -166,9 +166,9 @@ namespace CloudberryKingdom
                 case ObjectType.Pendulum:
                     return new Pendulum(BoxesOnly);
                 case ObjectType.Serpent:
-                    return new Obstacles.Serpent(BoxesOnly);
+                    return new Serpent(BoxesOnly);
                 case ObjectType.LavaDrip:
-                    return new Obstacles.LavaDrip(BoxesOnly);
+                    return new LavaDrip(BoxesOnly);
 
                 default:
                     return null;

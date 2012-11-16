@@ -3,51 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.IO;
 
-
-
-#if INCLUDE_EDITOR
-
-#endif
-
 namespace CloudberryKingdom
 {
     public class BackgroundFloater : ViewReadWrite
     {
-#if INCLUDE_EDITOR
-        public bool Selected = false, SoftSelected = false, FixedAspectPreference = true;
-
-        public bool Editable
-        {
-            get
-            {
-                if (Parent == null) return false;
-
-                return Parent.Show && !Parent.Lock;
-            }
-        }
-
-        /// <summary>
-        /// Get the list a floater belongs to.
-        /// Note, this is expensive and should not exist in Release mode.
-        /// There is no need for a floater to track who it's parent is, and only complicates the GC graph.
-        /// </summary>
-        public BackgroundFloaterList Parent
-        {
-            get
-            {
-                if (MyLevel == null) return null;
-                if (MyLevel.MyBackground == null) return null;
-
-                foreach (var list in MyLevel.MyBackground.MyCollection.Lists)
-                    if (list.Floaters.Contains(this))
-                        return list;
-                return null;
-            }
-        }
-
-        public BackgroundViewer.TreeNode_Floater Node = null;
-#endif
-
         float _SpinVelocity;
         public float SpinVelocity
         {
@@ -55,7 +14,7 @@ namespace CloudberryKingdom
             set
             {
                 if (MyQuad != null && MyQuad.FancyAngle == null)
-                    MyQuad.FancyAngle = new CoreEngine.FancyVector2();
+                    MyQuad.FancyAngle = new FancyVector2();
                 _SpinVelocity = value;
             }
         }
@@ -137,9 +96,6 @@ namespace CloudberryKingdom
         {
             this.Data = source.Data;
             this.StartData = source.StartData;
-#if DEBUG && INCLUDE_EDITOR
-            this.FixedAspectPreference = source.FixedAspectPreference;
-#endif
             this.MyLevel = source.MyLevel;
             this.MyQuad = new QuadClass(source.MyQuad);
             this.Name = source.Name;
@@ -203,37 +159,9 @@ namespace CloudberryKingdom
             }
         }
 
-#if DEBUG && INCLUDE_EDITOR
-        protected void Draw_DebugExtra()
-        {
-            if (Tools.background_viewer == null || Tools.background_viewer.PlayCheckbox.Checked) return;
-
-            if (Selected || SoftSelected)
-            {
-                var HoldTexture = MyQuad.Quad.MyTexture;
-                var HoldColor = MyQuad.Quad.MySetColor;
-
-                MyQuad.Quad.MyTexture = Tools.TextureWad.DefaultTexture;
-                if (Selected)
-                    MyQuad.Quad.SetColor(new Color(200, 200, 255, 135));
-                else
-                    MyQuad.Quad.SetColor(new Color(200, 200, 255, 45));
-
-                Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
-
-                MyQuad.Quad.MyTexture = HoldTexture;
-                MyQuad.Quad.SetColor(HoldColor);
-            }
-        }
-#endif
-
         public virtual void Draw()
         {
             Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
-
-#if DEBUG && INCLUDE_EDITOR
-            Draw_DebugExtra();
-#endif
         }
 
         static string[] _bits_to_save = new string[] { "Name", "MyQuad", "uv_speed", "uv_offset", "Data", "StartData" };

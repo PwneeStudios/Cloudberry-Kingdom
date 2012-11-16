@@ -37,7 +37,7 @@ namespace CloudberryKingdom
             return Pos;
         }
 
-        public override void Init(Vector2 pos, Levels.Level level)
+        public override void Init(Vector2 pos, Level level)
         {
             base.Init(pos, level);
 

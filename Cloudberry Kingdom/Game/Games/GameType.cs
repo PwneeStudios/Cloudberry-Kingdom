@@ -1334,7 +1334,7 @@ namespace CloudberryKingdom
             CalculateCoinScoreMultiplier();
 
             // GameObject physics
-            if (MyLevel != null && !Tools.ViewerIsUp)
+            if (MyLevel != null)
             {
                 LockGameObjects(true);
 

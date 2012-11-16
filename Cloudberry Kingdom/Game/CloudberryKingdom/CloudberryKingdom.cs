@@ -226,7 +226,7 @@ namespace CloudberryKingdom
         public void Initialize()
         {
 #if WINDOWS
-            KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
+            EventInput.Initialize(Tools.GameClass.Window);
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
@@ -490,9 +490,6 @@ namespace CloudberryKingdom
         /// </summary>
         void DoGameDataPhsx()
         {
-#if INCLUDE_EDITOR
-            if (Tools.EditorPause) return;
-#endif
             Tools.PhsxCount++;
 
             if (Tools.WorldMap != null)
@@ -562,7 +559,7 @@ namespace CloudberryKingdom
             // Should implement a GameObject that marshalls quickspawns instead.
             Tools.Warning();
 
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() &&
+            if (!KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() &&
                 Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 DoQuickSpawn();
         }
@@ -725,10 +722,6 @@ namespace CloudberryKingdom
                 DrawDebugInfo();
 #endif
 
-#if DEBUG && INCLUDE_EDITOR
-            if (Tools.background_viewer != null)
-                Tools.background_viewer.Draw();
-#endif
             Tools.Nothing();
         }
 
@@ -782,11 +775,6 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         private void GameUpdate(GameTime gameTime)
         {
-#if WINDOWS
-            // Do nothing if editors are open.
-            if (Tools.Dlg != null || Tools.DialogUp) return;
-#endif
-
             // Update controller/keyboard states
             ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
 
@@ -941,10 +929,6 @@ namespace CloudberryKingdom
                 }
 
                 FirstInactiveFrame = true;
-
-                // If we are editing the background show the mouse
-                if (Tools.ViewerIsUp)
-                    Tools.GameClass.IsMouseVisible = true;
 
                 return true;
             }

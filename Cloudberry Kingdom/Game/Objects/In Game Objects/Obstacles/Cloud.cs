@@ -48,7 +48,7 @@ namespace CloudberryKingdom
             Core.WakeUpRequirements = true;
         }
 
-        public override void Init(Vector2 pos, Levels.Level level)
+        public override void Init(Vector2 pos, Level level)
         {
             CloudTileInfo info = level.Info.Clouds;
 

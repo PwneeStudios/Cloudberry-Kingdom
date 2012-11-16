@@ -85,7 +85,7 @@ namespace CloudberryKingdom
             public Serpent.SerpentTileInfo Serpents = new Serpent.SerpentTileInfo();
             public Firesnake.FiresnakeTileInfo Firesnakes = new Firesnake.FiresnakeTileInfo();
 
-            public Cloud.CloudTileInfo Clouds = new Obstacles.Cloud.CloudTileInfo();
+            public Cloud.CloudTileInfo Clouds = new Cloud.CloudTileInfo();
             public MovingPlatform.ElevatorTileInfo Elevators = new MovingPlatform.ElevatorTileInfo();
             public MovingBlock.MovingBlockTileInfo MovingBlocks = new MovingBlock.MovingBlockTileInfo();
             public BouncyBlock.BouncyBlockTileInfo BouncyBlocks = new BouncyBlock.BouncyBlockTileInfo();
@@ -97,7 +97,7 @@ namespace CloudberryKingdom
             public SpikeyLine.SpikeyLineTileInfo SpikeyLines = new SpikeyLine.SpikeyLineTileInfo();
             public SpikeyGuy.SpikeyGuyTileInfo SpikeyGuys = new SpikeyGuy.SpikeyGuyTileInfo();
             public Boulder.BoulderTileInfo Boulders = new Boulder.BoulderTileInfo();
-            public Spike.SpikeTileInfo Spikes = new Obstacles.Spike.SpikeTileInfo();
+            public Spike.SpikeTileInfo Spikes = new Spike.SpikeTileInfo();
             public FireSpinner.FireSpinnerTileInfo Spinners = new FireSpinner.FireSpinnerTileInfo();
             public Fireball.FireballTileInfo Fireballs = new Fireball.FireballTileInfo();
 

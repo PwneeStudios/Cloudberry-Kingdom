@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework.Input;
 
 using System;
 
-#if WINDOWS
-using KeyboardHandler;
-#endif
-
 namespace CloudberryKingdom
 {
 #if PC_VERSION

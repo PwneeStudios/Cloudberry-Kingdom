@@ -24,10 +24,8 @@ namespace CloudberryKingdom
         /// <returns>Return true if the calling method should return.</returns>
         private bool DebugModePhsx()
         {
-            //if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze) return;
-
 #if WINDOWS
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
+            if (!KeyboardExtension.Freeze)
             {
                 // Test title screen
                 if (Tools.Keyboard.IsKeyDown(Keys.G) && !Tools.PrevKeyboard.IsKeyDown(Keys.G))
@@ -53,37 +51,7 @@ namespace CloudberryKingdom
             //    Awardments.GiveAward(Awardments.UnlockHeroRush2);
             //}
 
-            // Game Obj Viewer
-            if (!Tools.ViewerIsUp && (!KeyboardExtension.Freeze || Tools.CntrlDown()) && (Tools.gameobj_viewer == null || Tools.gameobj_viewer.IsDisposed)
-                && Tools.Keyboard.IsKeyDown(Keys.B) && !Tools.PrevKeyboard.IsKeyDown(Keys.B))
-            {
-                Tools.gameobj_viewer = new Viewer.GameObjViewer();
-                Tools.gameobj_viewer.Show();
-            }
-            if (Tools.gameobj_viewer != null)
-            {
-                if (Tools.gameobj_viewer.IsDisposed)
-                    Tools.gameobj_viewer = null;
-                else
-                    Tools.gameobj_viewer.Input();
-            }
-
-            // Background viewer
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && (Tools.background_viewer == null || Tools.background_viewer.IsDisposed)
-                && Tools.Keyboard.IsKeyDown(Keys.V) && !Tools.PrevKeyboard.IsKeyDown(Keys.V))
-            {
-                Tools.background_viewer = new Viewer.BackgroundViewer();
-                Tools.background_viewer.Show();
-            }
-            if (Tools.background_viewer != null)
-            {
-                if (Tools.background_viewer.IsDisposed)
-                    Tools.background_viewer = null;
-                else
-                    Tools.background_viewer.Input();
-            }
-
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.Keyboard.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.F))
+            if (!KeyboardExtension.Freeze && Tools.Keyboard.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.F))
                 ShowFPS = !ShowFPS;
 #endif
 
@@ -134,7 +102,7 @@ namespace CloudberryKingdom
                 foreach (var hero in Bob.HeroTypes)
                     hero.ResetInfo();
 
-                //Tools.TextureWad.LoadAllDynamic(Tools.GameClass.Content, CoreEngine.EzTextureWad.WhatToLoad.Animations);
+                //Tools.TextureWad.LoadAllDynamic(Tools.GameClass.Content, EzTextureWad.WhatToLoad.Animations);
 
                 //LoadInfo();
 
@@ -195,7 +163,7 @@ namespace CloudberryKingdom
             }
 
             // Don't do any of the following if a control box is up.
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
+            if (!KeyboardExtension.Freeze)
             {
                 // Watch the computer make a level during Stage 1 of construction.
                 if (Tools.Keyboard.IsKeyDownCustom(Keys.D3) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D3))

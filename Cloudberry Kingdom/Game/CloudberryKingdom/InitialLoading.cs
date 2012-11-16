@@ -40,10 +40,6 @@ namespace CloudberryKingdom
 #if DEBUG
                         MakeEmptyLevel();
 #endif
-#if INCLUDE_EDITOR
-                        Tools.background_viewer = new Viewer.BackgroundViewer();
-                        Tools.background_viewer.Show();
-#endif
                         return;
                     }
                     else if (StartAsTestLevel)

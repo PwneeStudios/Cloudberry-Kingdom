@@ -301,12 +301,6 @@
     <Compile Include="Game\Video.cs" />
     <Compile Include="MainClass\XboxPC\MainClass.cs" />
     <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
-    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Background Editor\BackgroundViewer.Designer.cs">
-      <DependentUpon>BackgroundViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game\Player\Hero Physics\Jetman.cs" />
     <Compile Include="Game\Player\Hero Physics\Double.cs" />
     <Compile Include="Game\Player\Hero Physics\Bouncy.cs" />
@@ -475,7 +469,6 @@
     <Compile Include="Game\Level\Make\Parameters\StyleData\UpData.cs" />
     <Compile Include="Game\Menus\LongMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
-    <Compile Include="__Steam_Wrapper\SteamManager.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Game\Player\Hero Physics\BobPhsxCharSelect.cs" />
     <Compile Include="Game\Player\Hero Physics\Wheel.cs" />
@@ -488,43 +481,6 @@
     <Compile Include="Core\Animation\SpriteAnim.cs" />
     <Compile Include="Core\Graphics\Draw\Object\ObjectBox.cs" />
     <Compile Include="Core\Graphics\Draw\Quads\ObjectVector.cs" />
-    <Compile Include="__Editors\Object Editor\AnimationToolbox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\AnimationToolbox.Designer.cs">
-      <DependentUpon>AnimationToolbox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\BlockDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\BlockDialog.Designer.cs">
-      <DependentUpon>BlockDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\Editor.cs" />
-    <Compile Include="__Editors\Object Editor\ImportQuads.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\ImportQuads.Designer.cs">
-      <DependentUpon>ImportQuads.cs</DependentUpon>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\SetNameDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\SetNameDialog.Designer.cs">
-      <DependentUpon>SetNameDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\Toolbox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\Toolbox.Designer.cs">
-      <DependentUpon>Toolbox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\VerifySave.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\Object Editor\VerifySave.designer.cs">
-      <DependentUpon>VerifySave.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game\Objects\In Game Objects\Blocks\BouncyBlock__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\NormalBlock__Auto.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\NormalBlock.cs" />
@@ -639,12 +595,6 @@
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
     <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
     <Compile Include="Core\IViewable.cs" />
-    <Compile Include="__Editors\GUI Editor\GameObjViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="__Editors\GUI Editor\GameObjViewer.Designer.cs">
-      <DependentUpon>GameObjViewer.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
@@ -695,33 +645,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="__Editors\Background Editor\BackgroundViewer.resx">
-      <DependentUpon>BackgroundViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\AnimationToolbox.resx">
-      <DependentUpon>AnimationToolbox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\BlockDialog.resx">
-      <DependentUpon>BlockDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\ImportQuads.resx">
-      <DependentUpon>ImportQuads.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\SetNameDialog.resx">
-      <DependentUpon>SetNameDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\Toolbox.resx">
-      <DependentUpon>Toolbox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\Object Editor\VerifySave.resx">
-      <DependentUpon>VerifySave.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="__Editors\GUI Editor\GameObjViewer.resx">
-      <DependentUpon>GameObjViewer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
