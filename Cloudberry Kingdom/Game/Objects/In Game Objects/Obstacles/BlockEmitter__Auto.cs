@@ -7,7 +7,7 @@ namespace CloudberryKingdom.Levels
 {
     public class BlockEmitter_Parameters : AutoGen_Parameters
     {
-        public enum BoxStyle { TopOnly, FullBox };
+        public enum BoxStyle { TopOnly, FullBox, NoSides };
 
         public enum Style { Full, Separated }
         public Style MyStyle;

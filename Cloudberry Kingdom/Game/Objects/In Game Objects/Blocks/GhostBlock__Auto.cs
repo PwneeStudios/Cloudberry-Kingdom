@@ -116,12 +116,14 @@ namespace CloudberryKingdom.Levels
                 if (i == 1) offset = new Vector2(50, 0);
 
                 gblock = (GhostBlock)level.Recycle.GetObject(ObjectType.GhostBlock, false);
-                
+
                 // Box type
-                if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Long)
-                    gblock.TallBox = true;
-                else
+                if (Params.BoxType == GhostBlock_Parameters.BoxTypes.TopOnly)
                     gblock.TallBox = false;
+                else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Full)
+                    gblock.TallBox = true;
+                else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Long)
+                    gblock.TallInvertBox = true;
 
                 gblock.Init(pos + offset, size, level);
 
@@ -165,12 +167,12 @@ namespace CloudberryKingdom.Levels
                 else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Full)
                 {
                     gblock.Box.TopOnly = false;
-                    gblock.TallBox = false;
+                    gblock.TallBox = true;
                 }
                 else if (Params.BoxType == GhostBlock_Parameters.BoxTypes.Long)
                 {
                     gblock.Box.TopOnly = false;
-                    gblock.TallBox = true;
+                    gblock.TallInvertBox = true;
                 }
 
                 level.AddBlock(gblock);

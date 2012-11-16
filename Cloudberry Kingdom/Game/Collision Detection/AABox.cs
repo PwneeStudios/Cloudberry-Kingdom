@@ -14,7 +14,7 @@ namespace CloudberryKingdom
 
         public Vector2 BL, TR;
         public FloatRectangle Current, Target;
-        public bool TopOnly;
+        public bool TopOnly, NoSides;
 
         public Vector2 RealTR() { return Vector2.Max(TR, BL); }
         public Vector2 RealBL() { return Vector2.Min(TR, BL); }
@@ -22,6 +22,7 @@ namespace CloudberryKingdom
         public void MakeNew()
         {
             TopOnly = false;
+            NoSides = false;
             Invalidated = true;
         }
 
@@ -33,6 +34,7 @@ namespace CloudberryKingdom
         public AABox(Vector2 center, Vector2 size)
         {
             TopOnly = false;
+            NoSides = false;
             Initialize(center, size);
         }
 
@@ -52,6 +54,7 @@ namespace CloudberryKingdom
             Current.Clone(A.Current);
             Target.Clone(A.Target);
             TopOnly = A.TopOnly;
+            NoSides = A.NoSides;
         }
 
         public void Write(BinaryWriter writer)

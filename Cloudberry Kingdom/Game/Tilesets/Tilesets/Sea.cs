@@ -51,10 +51,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_sea", "fblock_sea", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_sea", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_sea", -3, 3, 2, false, 103 + 3));
 
 sprite_anim("Bouncy_sea", "Bouncy_Cloud", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_sea", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_sea", -6, 6, 13, false, 124));
 
 sprite_anim("flame_Sea", "firespinner_flame_Sea", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_Sea";
@@ -70,10 +70,10 @@ info.Spinners.SpaceFromBase = 55;
 info.GhostBlocks.Sprite = "ghostblock_sea";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_sea_190", -1, 1, 12));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_sea_135", -1, 1, 12));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_sea_80", -1, 1, 4));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_sea_40", -1, 1, 4));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_sea_190", -1, 1, 12, false, 190 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_sea_135", -1, 1, 12, false, 135 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_sea_80", -1, 1, 4, false, 80 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_sea_40", -1, 1, 4, false, 40 + 3));
 
 info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Sea_40", -1, 1, 1));
 info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Sea_80", -1, 1, 1));

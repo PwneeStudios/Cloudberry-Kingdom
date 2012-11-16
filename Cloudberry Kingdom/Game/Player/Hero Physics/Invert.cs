@@ -253,7 +253,7 @@ namespace CloudberryKingdom
         {
             base.ModLadderPiece(piece);
 
-            piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.FullBox;
+            piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.NoSides;
         }
 
         public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)

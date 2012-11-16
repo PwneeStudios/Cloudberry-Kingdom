@@ -108,6 +108,11 @@ namespace CloudberryKingdom.Blocks
 
             if (boxstyle == BlockEmitter_Parameters.BoxStyle.FullBox)
                 Box.TopOnly = false;
+            else if (boxstyle == BlockEmitter_Parameters.BoxStyle.NoSides)
+            {
+                Box.TopOnly = false;
+                Box.NoSides = true;
+            }
 
             //// Not TopOnly if hero is a spaceship.
             //if (Parent != null && Parent.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Box.TopOnly)

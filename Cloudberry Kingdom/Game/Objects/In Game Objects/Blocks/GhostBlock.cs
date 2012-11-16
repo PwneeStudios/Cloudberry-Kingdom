@@ -45,6 +45,7 @@ namespace CloudberryKingdom.Blocks
         public override void MakeNew()
         {
             TallBox = false;
+            TallInvertBox = false;
 
             MyAnimSpeed = .1666f;
 
@@ -103,7 +104,7 @@ namespace CloudberryKingdom.Blocks
         }
 
         public static float TallScale = 1.45f;
-        public static float TallInvertScale = 1.6f;
+        public static float TallInvertScale = 1.635f;
         public bool TallBox, TallInvertBox;
         public void Init(Vector2 center, Vector2 size, Level level)
         {
@@ -266,7 +267,7 @@ namespace CloudberryKingdom.Blocks
 
             if (TallBox)
                 MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center - new Vector2(0, MyBox.Current.Size.Y * (TallScale - 1) / 2);
-            else if (TallBox)
+            else if (TallInvertBox)
                 MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center - new Vector2(0, MyBox.Current.Size.Y * (TallInvertScale - 1) / 2);
             else
                 MyObject.Base.Origin -= MyObject.Boxes[0].Center() - MyBox.Current.Center;
@@ -278,9 +279,11 @@ namespace CloudberryKingdom.Blocks
 
             Vector2 CurSize = MyObject.Boxes[0].Size() / 2;
             Vector2 Scale = MyBox.Current.Size / CurSize;
-             
+
             if (TallBox)
                 Scale.Y /= TallScale;
+            else if (TallInvertBox)
+                Scale.Y /= TallInvertScale;
 
             MyObject.Base.e1.X = Scale.X;
             MyObject.Base.e2.Y = Scale.Y;

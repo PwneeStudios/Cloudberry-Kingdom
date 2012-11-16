@@ -179,15 +179,15 @@ namespace CloudberryKingdom
 
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
-            ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
             //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
             //piece.MyUpgrades1[Upgrade.Serpent] = 5;
             //piece.MyUpgrades1[Upgrade.Cloud] = 5;
             //piece.MyUpgrades1[Upgrade.Pinky] = 5;
             //piece.MyUpgrades1[Upgrade.Fireball] = 3;
-            //piece.MyUpgrades1[Upgrade.Pendulum] = 3;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
+            piece.MyUpgrades1[Upgrade.Pendulum] = 3;
+            piece.MyUpgrades1[Upgrade.Elevator] = 3;
             piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
             piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
             piece.MyUpgrades1[Upgrade.MovingBlock] = 5;

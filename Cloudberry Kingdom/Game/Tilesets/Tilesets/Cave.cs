@@ -78,10 +78,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_cave", "fblock_cave", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cave", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cave", -3, 3, 2, false, 103 + 3));
 
 sprite_anim("Bouncy_cave", "Bouncy_cave", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cave", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cave", -6, 6, 13, false, 124));
 
 sprite_anim("flame_cave", "firespinner_flame_cloud", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_cave";
@@ -97,10 +97,10 @@ info.Spinners.SpaceFromBase = 55;
 info.GhostBlocks.Sprite = "ghostblock_cave";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cave_190", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cave_135", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cave_80", -1, 1, 3));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cave_40", -1, 1, 3));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cave_190", -1, 1, 7, false, 190 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cave_135", -1, 1, 7, false, 135 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cave_80", -1, 1, 3, false, 80 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cave_40", -1, 1, 3, false, 40 + 3));
 
 info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Cave_40", -1, 1, 1));
 info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Cave_80", -1, 1, 1));

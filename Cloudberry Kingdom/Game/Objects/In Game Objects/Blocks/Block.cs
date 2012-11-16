@@ -273,10 +273,13 @@ namespace CloudberryKingdom.Blocks
             if (level != null && level.CurMakeData != null && level.Style.UseLowerBlockBounds)
             {
                 float newsizey = MyDraw.MyTemplate.AbsoluteLowerBlockBound;
-                float shift = (newsizey - size.Y);
-                center.Y -= shift / 2;
-                size.Y += shift;
-                MyBox.Initialize(center, size);
+                if (newsizey != 0)
+                {
+                    float shift = (newsizey - size.Y);
+                    center.Y -= shift / 2;
+                    size.Y += shift;
+                    MyBox.Initialize(center, size);
+                }
             }
 
             Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;

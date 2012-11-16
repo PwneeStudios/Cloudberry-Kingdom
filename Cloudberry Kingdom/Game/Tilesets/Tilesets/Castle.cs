@@ -66,12 +66,12 @@ info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 info.Lasers.Icon.Sprite = "Icon_Laser";
 
 sprite_anim("fblock_castle", "fblock_castle", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_castle", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_castle", -3, 3, 2, false, 103 + 3));
 info.FallingBlocks.Icon.Sprite = "fblock_castle";
 info.FallingBlocks.Icon.Size = new Vector2(40, -1);
 
 sprite_anim("Bouncy_castle", "Bouncy_castle", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_castle", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_castle", -6, 6, 13, false, 124));
 info.BouncyBlocks.Icon.Sprite = "Bouncy_Castle";
 
 sprite_anim("flame_castle", "firespinner_flame_castle_v1", 1, 4, 6);
@@ -91,10 +91,10 @@ info.GhostBlocks.Shift = new Vector2(0, -15);
 info.GhostBlocks.Icon.Sprite = "Ghostblock_Castle";
 info.GhostBlocks.Icon.Size = new Vector2(40, -1);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_castle_190", -1, 1, 25));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_castle_135", -1, 1, 25));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_castle_80", -1, 1, 5));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_castle_40", -1, 1, 5));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_castle_190", -1, 1, 25, false, 190 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_castle_135", -1, 1, 25, false, 135 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_castle_80", -1, 1, 5, false, 80 + 3));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_castle_40", -1, 1, 5, false, 40 + 3));
 info.MovingBlocks.Icon.Sprite = "MovingBlock_Castle_40";
 info.MovingBlocks.Icon.Size = new Vector2(40, -1);
 info.MovingBlocks.Icon_Big = new SpriteInfo(null);

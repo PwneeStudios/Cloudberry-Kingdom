@@ -69,7 +69,6 @@ info.Spinners.SpaceFromBase = 55;
 
 info.GhostBlocks.Sprite = "ghostblock_cloud";
 info.GhostBlocks.Shift = new Vector2(0, -15);
-//info.GhostBlocks.AbsoluteLowerBlockBound = 200;
 
 info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cloud_190", -4, 13, 10, false, 190 + 3));
 info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cloud_135", -4, 4, 10, false, 135 + 3));
