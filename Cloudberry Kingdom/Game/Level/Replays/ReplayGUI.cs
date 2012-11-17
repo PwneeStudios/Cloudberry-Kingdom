@@ -166,6 +166,23 @@ namespace CloudberryKingdom
 
             if (Type == ReplayGUIType.Computer)
             {
+#if PC_VERSION
+                EzText _t;
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-662.845f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-103.3335f, -835.0001f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(344.5559f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(1051.556f, -840.5555f); _t.Scale = 0.44f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(52.77765f, -2058.333f); _q.Size = new Vector2(1219.997f, 1219.997f); }
+                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-930.5562f, -911.1113f); _q.Size = new Vector2(130.9643f, 62.80939f); }
+                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-325.0003f, -911.1112f); _q.Size = new Vector2(73.5106f, 69.09996f); }
+                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(244.4444f, -913.8889f); _q.Size = new Vector2(73.20911f, 68.81656f); }
+                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(783.3331f, -913.8888f); _q.Size = new Vector2(76.22305f, 71.64967f); }
+
+                MyPile.Pos = new Vector2(0f, 0f);
+#else
                 EzText _t;
                 _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
                 _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2223f); _t.Scale = 0.44f; }
@@ -181,7 +198,7 @@ namespace CloudberryKingdom
                 _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(774.9999f, -905.5555f); _q.Size = new Vector2(143.6498f, 143.6498f); }
 
                 MyPile.Pos = new Vector2(0f, 0f);
-
+#endif
             }
             else
             {

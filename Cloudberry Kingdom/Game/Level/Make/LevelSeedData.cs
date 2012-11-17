@@ -67,8 +67,7 @@ namespace CloudberryKingdom
                 p.Style.MyModParams = _HasWall_Process;
             }
 
-            if (NewHero)
-                PostMake += _NewHero;
+            if (NewHero) PostMake += _NewHero;
 
             if (NoStartDoor) PostMake += _NoStartDoor;
 
@@ -340,6 +339,9 @@ namespace CloudberryKingdom
 
                     // NewHero
                     case NewHeroFlag: NewHero = true; break;
+
+                    // Darkness
+                    case DarknessFlag: Darkness = true; break;
 
                     // No start door
                     case NoStartDoorFlag: NoStartDoor = true; break;

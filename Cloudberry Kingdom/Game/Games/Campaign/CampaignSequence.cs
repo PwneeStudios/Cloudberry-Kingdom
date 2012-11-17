@@ -171,7 +171,7 @@ namespace CloudberryKingdom
                 level.MyGame.AddGameObject(hero_title);
             }
 
-            if (!level.MyLevelSeed.Darkness)
+            if (level.MyLevelSeed.Darkness)
             {
                 GameData.UseBobLighting(level, 0);
                 Background.AddDarkLayer(level.MyBackground);

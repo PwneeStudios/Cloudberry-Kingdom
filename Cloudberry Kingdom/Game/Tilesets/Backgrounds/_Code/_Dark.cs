@@ -52,8 +52,8 @@ namespace CloudberryKingdom
 
             b.SetLevel(b.MyLevel);
 
-            __47.MyQuad.Quad.SetColor(new Color(0, 0, 0, 125));
-            __47.MyQuad.Alpha = .5f;
+            __47.MyQuad.Quad.SetColor(new Color(0, 0, 0, 100));
+            __47.MyQuad.Alpha = .4f;
             __47.InitialUpdate();
         }
     }

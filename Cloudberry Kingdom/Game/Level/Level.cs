@@ -1215,7 +1215,8 @@ namespace CloudberryKingdom.Levels
         static float[] BobLightRadiusByDifficulty = new float[] { 800, 740, 690, 630, 500 };
         public void SetBobLightRadius(int Difficulty)
         {
-            BobLightRadius = BobLightRadiusByDifficulty[Difficulty];
+            //BobLightRadius = BobLightRadiusByDifficulty[Difficulty];
+            BobLightRadius = 900;
         }
 
         public void FadeBobLightSourcesIn()
