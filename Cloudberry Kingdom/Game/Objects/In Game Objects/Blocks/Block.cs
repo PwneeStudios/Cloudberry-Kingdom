@@ -280,7 +280,7 @@ namespace CloudberryKingdom.Blocks
         public void AdditionalInit(ref Vector2 center, ref Vector2 size, Level level, bool UseLowerBlockBounds)
         {
             float newsizey = MyDraw.MyTemplate.ModLowerBlockBound;
-            if (newsizey != 0)
+            if (UseLowerBlockBounds && newsizey != 0)
             {
                 float shift;
 

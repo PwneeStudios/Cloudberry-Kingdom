@@ -727,8 +727,16 @@ namespace CloudberryKingdom
                     }
                     else //if (MyPhsxType == PhsxType.SideLevel_Right)
                     {
-                        BoxSize = new Vector2(450, 250);//1000);
-                        BoxShift = new Vector2(250, 250);
+                        if (MovingCamera)
+                        {
+                            BoxSize = new Vector2(450, 250);
+                            BoxShift = new Vector2(600, 250);
+                        }
+                        else
+                        {
+                            BoxSize = new Vector2(450, 250);
+                            BoxShift = new Vector2(250, 250);
+                        }
                     }
 
                     if (FollowCenter && Count > 1) BoxSize.X = 50;
@@ -777,8 +785,16 @@ namespace CloudberryKingdom
                         {
                             Lead = TR;
 
-                            BoxSize = new Vector2(650, 0);
-                            BoxShift = new Vector2(0, 0);
+                            if (MovingCamera)
+                            {
+                                BoxSize = new Vector2(750, 0);
+                                BoxShift = new Vector2(400, 0);
+                            }
+                            else
+                            {
+                                BoxSize = new Vector2(650, 0);
+                                BoxShift = new Vector2(0, 0);
+                            }
                         }
 
                         if (MyPhsxType == PhsxType.SideLevel_Right)
@@ -795,7 +811,6 @@ namespace CloudberryKingdom
                 {
                     if (MyZone.FreeY)
                     {
-                        //BoxSize = new Vector2(650, 300);
                         BoxSize = new Vector2(650, 100);
                         if (FollowCenter && Count > 1) BoxSize.Y = 50;
                         if (Data.Position.Y < Pos.Y - BoxSize.Y)
@@ -808,9 +823,6 @@ namespace CloudberryKingdom
                 }
             }
 
-            //float CurMaxSpeed = Math.Max(Speed, 1.05f * MaxPlayerSpeed);
-            //CurMaxSpeed = Math.Max(CurMaxSpeed, CurVel().X);
-
             Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
             CurMaxSpeed = Vector2.Max(CurMaxSpeed, CurVel());
 
@@ -820,7 +832,7 @@ namespace CloudberryKingdom
                 if (MyZone != null && Data.Position.X > MyZone.End.X)
                     Retard = CoreMath.LerpRestrict(1, 0, (Data.Position.X - MyZone.End.X) / 200);
                 Data.Position.X += Math.Max(
-                                        Retard * Math.Min(MyLevel.CurPhsxStep * .1f, 15),
+                                        Retard * Math.Min(MyLevel.CurPhsxStep * .1f, 16),
                                         Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X));
             }
             else

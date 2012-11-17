@@ -235,6 +235,7 @@ namespace CloudberryKingdom.Bobs
 
         public int Count_ButtonA;
         public BobInput CurInput, PrevInput;
+        public bool InputFromKeyboard = false;
         public BobPhsx MyPhsx;
 
         /// <summary>
@@ -848,13 +849,15 @@ namespace CloudberryKingdom.Bobs
 
         public void GetPlayerInput()
         {
-//#elif XBOX
             CurInput.Clean();
 
             if (Immobile) return;
 
             GamePadState pad = Tools.GamepadState[(int)MyPlayerIndex];
-            //pad = Tools.padState[0];
+
+#if WINDOWS
+            bool GamepadUsed = false;
+#endif
 
             if (pad.IsConnected)
             {
@@ -879,45 +882,45 @@ namespace CloudberryKingdom.Bobs
                 if (pad.DPad.Down == ButtonState.Pressed)
                     CurInput.xVec.Y = -1;
 
-
                 CurInput.B_Button = (pad.Buttons.LeftShoulder == ButtonState.Pressed
                             || pad.Buttons.RightShoulder == ButtonState.Pressed);
-                //PrevB_Button = (Tools.prevPadState[(int)MyPlayerIndex].Buttons.A == ButtonState.Pressed);
+
+#if WINDOWS
+                if (CurInput.xVec != Vector2.Zero || CurInput.A_Button || CurInput.B_Button)
+                {
+                    GamepadUsed = true;
+                    InputFromKeyboard = false;
+                }
+#endif
             }
-//#endif
 
 #if WINDOWS
             Vector2 KeyboardDir = Vector2.Zero;
 
-            //if (MyPlayerIndex == PlayerIndex.One)
-            {
-                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(Keys.Up);
-                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary);
-                KeyboardDir.X = KeyboardDir.Y = 0;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
-                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
-                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
-                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
-                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
-                //CurInput.B_Button |= Tools.keybState.IsKeyDownCustom(Keys.C);
-                CurInput.B_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Back_Secondary);
-            }
+            CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(Keys.Up);
+            CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary);
+            KeyboardDir.X = KeyboardDir.Y = 0;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
+            if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
+            if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
+            if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
+            if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
 
-            //if (MyPlayerIndex == PlayerIndex.Two)
-            //{
-            //    CurInput.A_Button |= Tools.keybState.IsKeyDownCustom(Keys.Y);
-            //    KeyboardDir.X = KeyboardDir.Y = 0;
-            //    if (Tools.keybState.IsKeyDownCustom(Keys.Y)) KeyboardDir.Y = 1;
-            //    if (Tools.keybState.IsKeyDownCustom(Keys.H)) KeyboardDir.Y = -1;
-            //    if (Tools.keybState.IsKeyDownCustom(Keys.J)) KeyboardDir.X = 1;
-            //    if (Tools.keybState.IsKeyDownCustom(Keys.G)) KeyboardDir.X = -1;
-            //}
+            CurInput.B_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Back_Secondary);
 
             if (KeyboardDir.LengthSquared() > CurInput.xVec.LengthSquared())
                 CurInput.xVec = KeyboardDir;
+
+#if WINDOWS
+            if (!GamepadUsed && (CurInput.xVec != Vector2.Zero || CurInput.A_Button || CurInput.B_Button))
+            {
+                InputFromKeyboard = true;
+            }
+#endif
+
 #endif        
 
             // Invert left-right for inverted levels
