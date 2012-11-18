@@ -324,7 +324,7 @@ namespace CloudberryKingdom
             if (MyBob.Core.Data.Position.Y > MyBob.TargetPosition.Y)
                 MyBob.CurInput.xVec.Y = -1;
             MyBob.CurInput.xVec.Y *= Math.Min(1, Math.Abs(MyBob.TargetPosition.Y - MyBob.Core.Data.Position.Y) / 100);
-
+            
             if (Pos.X > CurPhsxStep * 1.1f * (4000f / 600f))
             {
                 if (Pos.Y > MyBob.TargetPosition.Y && (CurPhsxStep / 40) % 3 == 0)

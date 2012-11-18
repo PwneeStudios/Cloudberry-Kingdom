@@ -13,7 +13,6 @@ namespace CloudberryKingdom.InGameObjects
     {
         public class CoinTileInfo : TileInfoBase
         {
-            //public SpriteInfo Sprite = new SpriteInfo("CoinBlue2", new Vector2(105, -1));
             public SpriteInfo Sprite = new SpriteInfo("CoinShimmer", new Vector2(105, -1));
 
             public Vector2 BoxSize = new Vector2(52.5f, 65);
@@ -57,6 +56,14 @@ namespace CloudberryKingdom.InGameObjects
             Core.DrawLayer = 5;
 
             Box.Initialize(Vector2.Zero, Vector2.One);
+
+            if (MyQuad != null)
+            {
+                MyQuad.Quad.t = 0;
+                MyQuad.Quad.Playing = false;
+                MyQuad.Quad.Loop = false;
+
+            }
         }
 
         public override void Release()
@@ -132,6 +139,8 @@ namespace CloudberryKingdom.InGameObjects
                 case CoinType.Blue:
                     AlwaysActive = false;
                     MyQuad.Set(Info  .Coins.Sprite);
+                    MyQuad.Quad.Playing = false;
+                    MyQuad.Quad.Loop = false;
                     break;
                 default: break;
                 //case CoinType.Red:
@@ -156,13 +165,26 @@ namespace CloudberryKingdom.InGameObjects
             if (!AlwaysActive)
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 200))
             {
+                if (!MyLevel.BoxesOnly)
+                {
+                    MyQuad.Quad.Playing = false;
+                    MyQuad.Quad.Loop = false;
+                    MyQuad.Quad.t = 0;
+                }
+
                 Core.SkippedPhsx = true;
                 Core.WakeUpRequirements = true;
                 return;
             }
             Core.SkippedPhsx = false;
 
-            //MyQuad.Quad.Playing = true;
+            // Shimmer
+            if (!MyLevel.BoxesOnly)
+            {
+                MyQuad.Quad.Playing = true;
+                MyQuad.Quad.Loop = false;
+                MyQuad.Quad.t = MyLevel.CurPhsxStep % 110;
+            }
 
             if (MyType == CoinType.Red)
                 Core.Data.Position = GetPos();

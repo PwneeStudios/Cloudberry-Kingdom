@@ -40,6 +40,7 @@ namespace CoreEngine
             t = 0;
             anim = 0;
             Playing = true;
+            Loop = true;
             speed = 1;
         }
         public void Set(TextureOrAnim t_or_a)
@@ -56,6 +57,7 @@ namespace CoreEngine
         public int anim;
         public bool Playing;
         public float speed;
+        public bool Loop;
 
         public void UpdateTextureAnim()
         {
@@ -108,7 +110,10 @@ namespace CoreEngine
             this.t = frame;
 
             if (t >= TextureAnim.Anims[anim].Data.Length)
+            {
                 t = 0;
+                if (!Loop) Playing = false;
+            }
             else if (t < 0)
             {
                 t += TextureAnim.Anims[anim].Data.Length;
@@ -151,7 +156,7 @@ namespace CoreEngine
 
             Animated = quad.Animated;
             TextureAnim = quad.TextureAnim;
-            t = quad.t; anim = quad.anim; Playing = quad.Playing; speed = quad.speed;
+            t = quad.t; anim = quad.anim; Playing = quad.Playing; speed = quad.speed; Loop = quad.Loop;
 
             Hide = false;
 
@@ -231,7 +236,7 @@ namespace CoreEngine
             UseGlobalIllumination = true;
             Illumination = 1f;
 
-            t = anim = 0; Playing = false; speed = 1;
+            t = anim = 0; Playing = false; speed = 1; Loop = true;
             
             MyTexture = quad.MyTexture;
         }

@@ -147,7 +147,8 @@ info.Clouds.Sprite.Sprite = "cloud_forest";
 
 info.Fireballs.Sprite.ColorMatrix = ColorHelper.HsvTransform(1, 1, 192.5f);
 
-info.Coins.Sprite.Sprite = "coin_blue";
+//info.Coins.Sprite.Sprite = "coin_blue";
+info.Coins.Sprite.Sprite = "CoinShimmer";
 info.Coins.Sprite.Size = new Vector2(105, -1);
 info.Coins.ShowCoin = true;
 info.Coins.ShowEffect = true;
