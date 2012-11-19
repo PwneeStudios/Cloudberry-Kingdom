@@ -51,10 +51,10 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
-            //TileSetToTest = "hills";
+            TileSetToTest = "hills";
             //TileSetToTest = "forest_snow";
             //TileSetToTest = "cloud";
-            TileSetToTest = "cave";
+            //TileSetToTest = "cave";
             //TileSetToTest = "castle";
 
             if (TileSetToTest == null)
@@ -70,7 +70,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            //data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxTime.Instance;
@@ -78,7 +78,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
-            data.DefaultHeroType = BobPhsxRocketbox.Instance;
+            //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
@@ -142,8 +142,8 @@ namespace CloudberryKingdom
             level.MyGame.AddGameObject(HelpMenu.MakeListener());
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
 
-            GameData.UseBobLighting(level, 0);
-            Background.AddDarkLayer(level.MyBackground);
+            //GameData.UseBobLighting(level, 0);
+            //Background.AddDarkLayer(level.MyBackground);
 
             //level.MyGame.AddGameObject(new LevelTitle(data.DefaultHeroType.Name));
             //level.MyGame.AddGameObject(new GUI_Quota(15));
