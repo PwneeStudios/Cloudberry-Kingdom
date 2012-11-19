@@ -80,6 +80,18 @@ namespace CloudberryKingdom
         // Some pillar info
         public float BoxHeight = -1;
 
+        /// <summary>
+        /// Used when Style.UseLowerBlockBounds == true. Block will have a lower lip than usual.
+        /// This is used for InvertHero, so he is standing on the bottom of blocks properly.
+        /// (Otherwise you want the lips to be higher, so your head doesn't hit them as easily).
+        /// </summary>
+        public float ModLowerBlockBound = 0;
+
+        /// <summary>
+        /// When ModLowerBlockBound is used, this says whether ModLowerBlockBound is an offset from the normal bound, or an absolute bound.
+        /// </summary>
+        public bool RelativeLowerLip = false;
+
         public void CalcTexture(int anim, float t)
         {
             Center.CalcTexture(anim, t);
@@ -141,14 +153,21 @@ namespace CloudberryKingdom
 
         public PieceQuad(int width, string texture, float left, float right, float top)
         {
-            _Constructor(width, texture, left, right, top, false);
+            _Constructor(width, texture, left, right, top, false, 0, false);
         }
         public PieceQuad(int width, string texture, float left, float right, float top, bool upside_down)
         {
-            _Constructor(width, texture, left, right, top, upside_down);
+            _Constructor(width, texture, left, right, top, upside_down, 0, false);
         }
-        void _Constructor(int width, string texture, float left, float right, float top, bool upside_down)
+        public PieceQuad(int width, string texture, float left, float right, float top, bool upside_down, float lowerlip, bool relativelowerlip)
         {
+            _Constructor(width, texture, left, right, top, upside_down, lowerlip, relativelowerlip);
+        }
+        void _Constructor(int width, string texture, float left, float right, float top, bool upside_down, float lowerlip, bool relativelowerlip)
+        {
+            ModLowerBlockBound = lowerlip;
+            RelativeLowerLip = relativelowerlip;
+
             InitAll();
             Init(null, Tools.BasicEffect);
             Pillar_Width = width;

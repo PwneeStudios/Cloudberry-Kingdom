@@ -44,6 +44,7 @@ namespace CloudberryKingdom
         public bool NoStartDoor = false; const string NoStartDoorFlag = "nostartdoor";
         public int LevelNum = -1; const string LevelFlag = "level";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
+        public bool Darkness = false; const string DarknessFlag = "darkness";
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -66,8 +67,7 @@ namespace CloudberryKingdom
                 p.Style.MyModParams = _HasWall_Process;
             }
 
-            if (NewHero)
-                PostMake += _NewHero;
+            if (NewHero) PostMake += _NewHero;
 
             if (NoStartDoor) PostMake += _NoStartDoor;
 
@@ -339,6 +339,9 @@ namespace CloudberryKingdom
 
                     // NewHero
                     case NewHeroFlag: NewHero = true; break;
+
+                    // Darkness
+                    case DarknessFlag: Darkness = true; break;
 
                     // No start door
                     case NoStartDoorFlag: NoStartDoor = true; break;

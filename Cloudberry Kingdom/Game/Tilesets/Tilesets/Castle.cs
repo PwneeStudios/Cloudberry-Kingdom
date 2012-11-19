@@ -32,8 +32,6 @@ t.Ceilings.Add(new PieceQuad(300, "pillar_castle_300", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(600, "pillar_castle_600", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(1000, "pillar_castle_1000", -20, 20, 0, true));
 
-//t.StartBlock.Add(new PieceQuad(400, "wall_castle", -670, 15, 1407));
-//t.EndBlock.Add(new PieceQuad(400, "wall_castle", -15, 670, 1407));
 t.StartBlock.Add(new PieceQuad(400, "wall_castle", -950, 15, 1670));
 t.EndBlock.Add(new PieceQuad(400, "wall_castle", -45, 920, 1670));
 
@@ -68,12 +66,12 @@ info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 info.Lasers.Icon.Sprite = "Icon_Laser";
 
 sprite_anim("fblock_castle", "fblock_castle", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_castle", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_castle", -3, 3, 2, false, 103 + 3, false));
 info.FallingBlocks.Icon.Sprite = "fblock_castle";
 info.FallingBlocks.Icon.Size = new Vector2(40, -1);
 
 sprite_anim("Bouncy_castle", "Bouncy_castle", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_castle", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_castle", -6, 6, 13, false, 124, false));
 info.BouncyBlocks.Icon.Sprite = "Bouncy_Castle";
 
 sprite_anim("flame_castle", "firespinner_flame_castle_v1", 1, 4, 6);
@@ -93,27 +91,26 @@ info.GhostBlocks.Shift = new Vector2(0, -15);
 info.GhostBlocks.Icon.Sprite = "Ghostblock_Castle";
 info.GhostBlocks.Icon.Size = new Vector2(40, -1);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_castle_190", -1, 1, 25));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_castle_135", -1, 1, 25));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_castle_80", -1, 1, 5));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_castle_40", -1, 1, 5));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_castle_190", -1, 1, 25, false, 190 - 21, false));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_castle_135", -1, 1, 19, false, 135 - 15.5f, false));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_castle_80", -1, 1, 5, false, 80 - 5, false));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_castle_40", -1, 1, 5, false, 40 - 1, false));
 info.MovingBlocks.Icon.Sprite = "MovingBlock_Castle_40";
 info.MovingBlocks.Icon.Size = new Vector2(40, -1);
 info.MovingBlocks.Icon_Big = new SpriteInfo(null);
 info.MovingBlocks.Icon_Big.Sprite = "MovingBlock_Castle_135";
 info.MovingBlocks.Icon_Big.Size = new Vector2(40, -1);
 
-info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1));
+info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1, false, -1.5f, true));
 info.Elevators.Icon.Sprite = "Elevator_Castle_80";
 
-info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1));
-//info.Pendulums.Icon.Sprite = "Elevator_Castle_80";
+info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Castle_40", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Castle_80", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Castle_135", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Castle_190", -1, 1, 1, false, -1.5f, true));
 info.Pendulums.Icon.Sprite = "Pendulum_Icon_Castle";
 
 sprite_anim("Serpent_Castle", "Serpent_Castle", 1, 2, 8);
@@ -177,7 +174,8 @@ info.Clouds.Icon.Sprite = "Cloud_Castle";
 info.Fireballs.Sprite.ColorMatrix = ColorHelper.HsvTransform(1, 1, 355);
 info.Fireballs.Icon.Sprite = "Icon_Fireball";
 
-info.Coins.Sprite.Sprite = "coin_blue";
+//info.Coins.Sprite.Sprite = "coin_blue";
+info.Coins.Sprite.Sprite = "CoinShimmer";
 info.Coins.Sprite.Size = new Vector2(105, -1);
 info.Coins.ShowCoin = true;
 info.Coins.ShowEffect = true;

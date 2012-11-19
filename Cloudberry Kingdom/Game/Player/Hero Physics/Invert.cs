@@ -236,6 +236,7 @@ namespace CloudberryKingdom
             Ceiling_Params.Make = false;
 
             Style.BlockFillType = StyleData._BlockFillType.Invertable;
+            Style.UseLowerBlockBounds = true;
             Style.OverlapCleanupType = StyleData._OverlapCleanupType.Sophisticated;
 
             Style.TopSpace = 50;
@@ -245,14 +246,14 @@ namespace CloudberryKingdom
                 MParams.Aspect = MovingBlock_Parameters.AspectType.Thin;
 
             var GhParams = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
-            GhParams.BoxType = GhostBlock_Parameters.BoxTypes.Full;
+            GhParams.BoxType = GhostBlock_Parameters.BoxTypes.Long;
         }
 
         public override void ModLadderPiece(PieceSeedData piece)
         {
             base.ModLadderPiece(piece);
 
-            piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.FullBox;
+            piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.NoSides;
         }
 
         public override bool IsBottomCollision(ColType Col, AABox box, BlockBase block)

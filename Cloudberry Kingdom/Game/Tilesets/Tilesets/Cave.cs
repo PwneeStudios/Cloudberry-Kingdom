@@ -78,10 +78,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_cave", "fblock_cave", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cave", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_cave", -3, 3, 2, false, 103 + 3, false));
 
 sprite_anim("Bouncy_cave", "Bouncy_cave", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cave", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_cave", -6, 6, 13, false, 124, false));
 
 sprite_anim("flame_cave", "firespinner_flame_cloud", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_cave";
@@ -97,24 +97,20 @@ info.Spinners.SpaceFromBase = 55;
 info.GhostBlocks.Sprite = "ghostblock_cave";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cave_190", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cave_135", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cave_80", -1, 1, 3));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cave_40", -1, 1, 3));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_cave_190", -1, 1, 7, false, 190 + 0, false));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_cave_135", -1, 1, 13, false, 135 - 9, false));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_cave_80", -1, 1, 3, false, 80 + 0, false));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_cave_40", -1, 1, 3, false, 40 + 0, false));
 
-info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Cave_40", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Cave_80", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Cave_135", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Cave_190", -1, 1, 1));
-//info.Elevators.Group.Add(40, "Cave_40_v2", -1, 1, 1));
-//info.Elevators.Group.Add(80, "Cave_80_v2", -1, 1, 1));
-//info.Elevators.Group.Add(135, "Cave_135_v2", -1, 1, 1));
-//info.Elevators.Group.Add(190, "Cave_190_v2", -1, 1, 1));
+info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Cave_40", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Cave_80", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Cave_135", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Cave_190", -1, 1, 1, false, -1.5f, true));
 
-info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Cave_40", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Cave_80", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Cave_135", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Cave_190", -1, 1, 1));
+info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Cave_40", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Cave_80", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Cave_135", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Cave_190", -1, 1, 1, false, -1.5f, true));
 
 sprite_anim("Serpent_Cave", "Serpent_Cloud", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Cave";
@@ -179,7 +175,8 @@ info.Clouds.Sprite.Sprite = "cloud_cave";
 
 info.Fireballs.Sprite.ColorMatrix = ColorHelper.HsvTransform(1, 1, 104);
 
-info.Coins.Sprite.Sprite = "coin_blue";
+//info.Coins.Sprite.Sprite = "coin_blue";
+info.Coins.Sprite.Sprite = "CoinShimmer";
 info.Coins.Sprite.Size = new Vector2(105, -1);
 info.Coins.ShowCoin = true;
 info.Coins.ShowEffect = true;

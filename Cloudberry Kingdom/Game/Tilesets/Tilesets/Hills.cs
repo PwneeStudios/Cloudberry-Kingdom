@@ -51,10 +51,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_hills", "fblock_hills", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_hills", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_hills", -3, 3, 2, false, 103 + 10, false));
 
 sprite_anim("Bouncy_hills", "Bouncy_hills", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_hills", -15, 15, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_hills", -15, 15, 13, false, 124, false));
 
 sprite_anim("flame_Hills", "firespinner_flame_Hills", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_Hills";
@@ -70,20 +70,20 @@ info.Spinners.SpaceFromBase = 55;
 info.GhostBlocks.Sprite = "ghostblock_hills";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_hills_190", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_hills_135", -1, 1, 7));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_hills_80", -1, 1, 3));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_hills_40", -1, 1, 3));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_hills_190", -1, 1, 7, false, 190 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_hills_135", -1, 1, 6, false, 135 - 1, false));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_hills_80", -1, 1, 1, false, 80 + 3, false));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_hills_40", -1, 1, 1, false, 40 + 3, false));
 
-info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Hills_40", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Hills_80", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Hills_135", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Hills_190", -1, 1, 1));
+info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Hills_40", -1, 1, 1, false, -3f, true));
+info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Hills_80", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Hills_135", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Hills_190", -1, 1, 1, false, -1.5f, true));
 
-info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Hills_40", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Hills_80", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Hills_135", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Hills_190", -1, 1, 1));
+info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Hills_40", -1, 1, 1, false, -3f, true));
+info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Hills_80", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Hills_135", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Hills_190", -1, 1, 1, false, -1.5f, true));
 
 sprite_anim("Serpent_Hills", "Serpent_Castle", 1, 2, 5);
 info.Serpents.Serpent.Sprite = "Serpent_Hills";
@@ -135,7 +135,8 @@ info.Clouds.Sprite.Sprite = "cloud_hills";
 
 info.Fireballs.Sprite.ColorMatrix = ColorHelper.HsvTransform(1, 1, 0);
 
-info.Coins.Sprite.Sprite = "coin_blue";
+//info.Coins.Sprite.Sprite = "coin_blue";
+info.Coins.Sprite.Sprite = "CoinShimmer";
 info.Coins.Sprite.Size = new Vector2(105, -1);
 info.Coins.ShowCoin = true;
 info.Coins.ShowEffect = true;

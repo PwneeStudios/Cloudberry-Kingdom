@@ -40,9 +40,9 @@ namespace CloudberryKingdom
 
 
             //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
-            data.ReadString("seed 0;s:305632318;h:0,0,0,0;t:hills_rain;n:2;l:5110;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;fadein;opendoor:30;opendoorsound;song:Writer's_Block^Peacemaker;weather:1;");
-            GameData.StartLevel(data);
-            return;
+            //data.ReadString("seed 0;s:305632318;h:0,0,0,0;t:hills_rain;n:2;l:5110;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;fadein;opendoor:30;opendoorsound;song:Writer's_Block^Peacemaker;weather:1;");
+            //GameData.StartLevel(data);
+            //return;
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             //data.Seed = 110040853;
@@ -51,8 +51,8 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
-            //TileSetToTest = "hills_rain";
-            TileSetToTest = "forest_snow";
+            TileSetToTest = "hills";
+            //TileSetToTest = "forest_snow";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
             //TileSetToTest = "castle";
@@ -142,6 +142,9 @@ namespace CloudberryKingdom
             level.MyGame.AddGameObject(HelpMenu.MakeListener());
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
 
+            //GameData.UseBobLighting(level, 0);
+            //Background.AddDarkLayer(level.MyBackground);
+
             //level.MyGame.AddGameObject(new LevelTitle(data.DefaultHeroType.Name));
             //level.MyGame.AddGameObject(new GUI_Quota(15));
 
@@ -179,23 +182,24 @@ namespace CloudberryKingdom
 
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
-            ////piece.MyUpgrades1[Upgrade.Elevator] = 11;
             //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
             //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
             //piece.MyUpgrades1[Upgrade.Serpent] = 5;
             //piece.MyUpgrades1[Upgrade.Cloud] = 5;
             //piece.MyUpgrades1[Upgrade.Pinky] = 5;
             //piece.MyUpgrades1[Upgrade.Fireball] = 3;
-            //piece.MyUpgrades1[Upgrade.Pendulum] = 3;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = 5;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
+            piece.MyUpgrades1[Upgrade.Pendulum] = 7;
+            //piece.MyUpgrades1[Upgrade.Elevator] = ;
+            //piece.MyUpgrades1[Upgrade.BouncyBlock] = ;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
 
-            __Roughly_Abusive(piece);
+            //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
             //piece.Style.Masochistic = true;
 
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
             //piece.MyUpgrades1[Upgrade.LavaDrip] = 9;
             //piece.MyUpgrades1[Upgrade.Serpent] = 9;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 9;

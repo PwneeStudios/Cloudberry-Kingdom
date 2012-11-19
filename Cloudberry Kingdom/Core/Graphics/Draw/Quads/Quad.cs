@@ -757,15 +757,6 @@ namespace CoreEngine
         {
             if (!Show) return;
 
-            foreach (ObjectVector point in GetObjectVectors())
-            {
-                if (point.ParentQuad is BendableQuad)
-                {
-                    Vector2 SplineLoc = ((BendableQuad)point.ParentQuad).MySpline.GetVector(point.RelPos.X, 0);
-                    Drawer.DrawSquareDot(SplineLoc, new Color(.2f, .8f, .9f), .03f * ScaleLines);
-                }
-            }
-
             if (Additional)
                 if (ParentQuad != null)
                 {

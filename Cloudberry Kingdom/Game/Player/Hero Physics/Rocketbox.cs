@@ -30,12 +30,26 @@ namespace CloudberryKingdom
 
         public override void Init(Bob bob)
         {
+            StandAnim = 17; JumpAnim = 18; DuckAnim = 19;
+
+            ExtraQuadString = "MainQuad";
+            ExtraTextureString = "CartAlone";
+
+            CapeOffset += new Vector2(-50, 50);
+            CapeOffset_Ducking += new Vector2(-50, 50);
+
             base.Init(bob);
-            //if (MyBob.Core.MyLevel.PlayMode == 0)
+            
             if (Prototype != null && MyBob.PlayerObject != null && MyBob.PlayerObject.QuadList != null)
             {
                 LeftWheel = MyBob.PlayerObject.FindQuad("Wheel_Left") as Quad;
+                LeftWheel.Show = true;
+                LeftWheel.SetColor(ColorHelper.GrayColor(.5f));
+                LeftWheel.MyEffect = Tools.HslGreenEffect;
                 RightWheel = MyBob.PlayerObject.FindQuad("Wheel_Right") as Quad;
+                RightWheel.Show = true;
+                RightWheel.MyEffect = Tools.HslGreenEffect;
+                RightWheel.SetColor(ColorHelper.GrayColor(.5f));
             }
         }
 
@@ -57,8 +71,11 @@ namespace CloudberryKingdom
 
         public override void DoXAccel()
         {
+            bool HoldDucking = Ducking;
+            Ducking = false;
             MyBob.CurInput.xVec.X = 1;
             base.ParentDoXAccel();
+            Ducking = HoldDucking;
         }
 
         Quad LeftWheel, RightWheel;
@@ -69,8 +86,10 @@ namespace CloudberryKingdom
 
             if (MyBob.Core.MyLevel.PlayMode == 0)
             {
-                WheelAngle -= xVel * .33f / 60f;
+                WheelAngle -= xVel * 1f / 60f;
 
+                LeftWheel.MyEffect = Tools.HslEffect;
+                RightWheel.MyEffect = Tools.HslEffect;
                 LeftWheel.PointxAxisTo(CoreMath.AngleToDir(WheelAngle));
                 RightWheel.PointxAxisTo(CoreMath.AngleToDir(WheelAngle));
             }
@@ -92,20 +111,23 @@ namespace CloudberryKingdom
             // Rocketman thrust
             if (MyBob.Core.MyLevel.PlayMode == 0)
             {
-                Vector2 pos = new Vector2(-45f, -30);
-                pos.Y -= 40;
-                Vector2 dir = new Vector2(-1.115f, -.025f);
+                //Vector2 pos = new Vector2(-45f, -30);
+                //pos.Y -= 40;
+                //Vector2 dir = new Vector2(-1.115f, -.025f);
 
-                if (MyBob.PlayerObject.xFlip)
-                {
-                    pos.X *= -1;
-                    dir.X *= -1;
-                }
-                pos += Pos;
+                //if (MyBob.PlayerObject.xFlip)
+                //{
+                //    pos.X *= -1;
+                //    dir.X *= -1;
+                //}
+                //pos += Pos;
+
+                //int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
+                //ParticleEffects.CartThrust(MyBob.Core.MyLevel, layer, pos, dir, Vector2.Zero);
 
                 int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
-                ParticleEffects.CartThrust(MyBob.Core.MyLevel, layer, pos, dir, Vector2.Zero);
-                //ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, pos, dir, Vel / 1.5f);
+                float intensity = 1.3f * Math.Min(.3f + (MyBob.CurInput.xVec.X + .3f), 1f);
+                ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + new Vector2(0, -20), new Vector2(-1, 0), new Vector2(-4, yVel), intensity);
             }
         }
     }

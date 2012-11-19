@@ -11,6 +11,20 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
+#if XBOX
+    public class Tuple<T1, T2> 
+    { 
+       public T1 Item1 { get; set; } 
+       public T2 Item2 { get; set; } 
+
+       public Tuple(T1 item1, T2 item2) 
+       { 
+          Item1 = item1; 
+          Item2 = item2; 
+       } 
+    }
+#endif
+
     public class CampaignSequence : LevelSequence
     {
         static readonly CampaignSequence instance = new CampaignSequence();
@@ -155,6 +169,12 @@ namespace CloudberryKingdom
                 var hero_title = new LevelTitle(string.Format("{0}", Localization.WordString(level.DefaultHeroType.Name)));
                 hero_title.Shift(new Vector2(0, -180));
                 level.MyGame.AddGameObject(hero_title);
+            }
+
+            if (level.MyLevelSeed.Darkness)
+            {
+                GameData.UseBobLighting(level, 0);
+                Background.AddDarkLayer(level.MyBackground);
             }
 
             level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum));

@@ -13,7 +13,6 @@ namespace CloudberryKingdom.InGameObjects
     {
         public class CoinTileInfo : TileInfoBase
         {
-            //public SpriteInfo Sprite = new SpriteInfo("CoinBlue2", new Vector2(105, -1));
             public SpriteInfo Sprite = new SpriteInfo("CoinShimmer", new Vector2(105, -1));
 
             public Vector2 BoxSize = new Vector2(52.5f, 65);
@@ -21,22 +20,6 @@ namespace CloudberryKingdom.InGameObjects
             public bool ShowEffect = true, ShowText = true, ShowCoin = true;
 
             public EzSound MySound = Tools.NewSound("Coin", .75f);
-
-            public Particle DieTemplate;
-            public CoinTileInfo()
-            {
-                DieTemplate = new Particle();
-                DieTemplate.MyQuad.Init();
-                DieTemplate.MyQuad.MyEffect = Tools.BasicEffect;
-                DieTemplate.MyQuad.MyTexture = Tools.TextureWad.FindByName("Coin");
-
-                DieTemplate.SetSize(45);
-                DieTemplate.SizeSpeed = new Vector2(10, 10);
-                DieTemplate.AngleSpeed = .013f;
-                DieTemplate.Life = 20;
-                DieTemplate.MyColor = new Vector4(1f, 1f, 1f, .75f);
-                DieTemplate.ColorVel = new Vector4(0, 0, 0, -.065f);
-            }
         }
 
         public bool Touched;
@@ -57,6 +40,14 @@ namespace CloudberryKingdom.InGameObjects
             Core.DrawLayer = 5;
 
             Box.Initialize(Vector2.Zero, Vector2.One);
+
+            if (MyQuad != null)
+            {
+                MyQuad.Quad.t = 0;
+                MyQuad.Quad.Playing = false;
+                MyQuad.Quad.Loop = false;
+
+            }
         }
 
         public override void Release()
@@ -92,12 +83,8 @@ namespace CloudberryKingdom.InGameObjects
             // Effect
             if (Info.Coins.ShowEffect)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    var p = Core.MyLevel.MainEmitter.GetNewParticle(Info.Coins.DieTemplate);
-                    p.Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
-                }
+                ParticleEffects.CoinDie_New(MyLevel, Pos);
+                ParticleEffects.CoinDie_Old(MyLevel, Pos);
             }
 
             // Text float
@@ -132,6 +119,8 @@ namespace CloudberryKingdom.InGameObjects
                 case CoinType.Blue:
                     AlwaysActive = false;
                     MyQuad.Set(Info  .Coins.Sprite);
+                    MyQuad.Quad.Playing = false;
+                    MyQuad.Quad.Loop = false;
                     break;
                 default: break;
                 //case CoinType.Red:
@@ -156,13 +145,26 @@ namespace CloudberryKingdom.InGameObjects
             if (!AlwaysActive)
             if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 200))
             {
+                if (!MyLevel.BoxesOnly)
+                {
+                    MyQuad.Quad.Playing = false;
+                    MyQuad.Quad.Loop = false;
+                    MyQuad.Quad.t = 0;
+                }
+
                 Core.SkippedPhsx = true;
                 Core.WakeUpRequirements = true;
                 return;
             }
             Core.SkippedPhsx = false;
 
-            //MyQuad.Quad.Playing = true;
+            // Shimmer
+            if (!MyLevel.BoxesOnly)
+            {
+                MyQuad.Quad.Playing = true;
+                MyQuad.Quad.Loop = false;
+                MyQuad.Quad.t = MyLevel.CurPhsxStep % 110;
+            }
 
             if (MyType == CoinType.Red)
                 Core.Data.Position = GetPos();

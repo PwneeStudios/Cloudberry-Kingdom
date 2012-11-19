@@ -319,16 +319,19 @@ namespace CloudberryKingdom
             //MyGraphicsDeviceManager.PreferredBackBufferWidth = 640;
             //MyGraphicsDeviceManager.PreferredBackBufferHeight = 480;
             //// 1280x720
-            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-            MyGraphicsDeviceManager.IsFullScreen = false;
+            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+            //MyGraphicsDeviceManager.IsFullScreen = false;
 #endif
             MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             MyGraphicsDeviceManager.IsFullScreen = false;
+            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1920;
+            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 1080;
+            //MyGraphicsDeviceManager.IsFullScreen = true;
 
 
-#if WINDOWS
+#if WINDOWS && !EDITOR
             Tools.GameClass.SetBorder(Tools.WindowBorder);
 #endif
 
@@ -419,6 +422,12 @@ namespace CloudberryKingdom
 
             // Create the initial loading screen
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
+
+
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
+            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+             SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+#endif
 
             // Load resource thread
             Resources.LoadResources();
@@ -687,6 +696,10 @@ namespace CloudberryKingdom
                 DrawNothing();
 
             DrawExtra();
+
+#if DEBUG
+            SaveScreenshotCode();
+#endif
         }
 
         /// <summary>

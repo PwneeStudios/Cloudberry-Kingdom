@@ -118,6 +118,10 @@ namespace CloudberryKingdom
             ToAnim.Add("Box_Jump", 7);
             ToAnim.Add("Box_Duck", 8);
 
+            ToAnim.Add("Cart_Stand", 17);
+            ToAnim.Add("Cart_Jump", 18);
+            ToAnim.Add("Cart_Duck", 19);
+
             LoadAnimObj = p;
 
             StreamReader reader = new StreamReader(stream);
@@ -300,8 +304,6 @@ namespace CloudberryKingdom
             }
             else
                 Hero = p;
-
-
 
             ////return;
 

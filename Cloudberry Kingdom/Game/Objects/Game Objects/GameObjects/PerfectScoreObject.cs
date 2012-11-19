@@ -159,8 +159,8 @@ namespace CloudberryKingdom
             pos += new Vector2(110, 70);
 
             // Text float
-            TextFloat text = new TextFloat(Localization.Words.Perfect, pos + new Vector2(21, 22.5f));
-            TextFloat text2 = new TextFloat(BonusValue().ToString(), pos + new Vector2(21, -42.5f));
+            TextFloat text = new TextFloat(Localization.Words.Perfect, pos + new Vector2(21, 76.5f));
+            TextFloat text2 = new TextFloat(BonusValue().ToString(), pos + new Vector2(21, -93.5f));
 
             text.MyText.Scale *= 1.5f;
             MyGame.AddGameObject(text);
@@ -168,7 +168,8 @@ namespace CloudberryKingdom
             text2.MyText.Scale *= 1.5f;
             MyGame.AddGameObject(text2);
 
-            //ParticleEffects.CoinExplosion(MyGame.MyLevel, pos);
+            ParticleEffects.CoinDie_Perfect(MyGame.MyLevel, pos);
+            ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, pos);
 
             var sound = Tools.SoundWad.FindByName("PerfectSound");
             if (sound != null) sound.Play();

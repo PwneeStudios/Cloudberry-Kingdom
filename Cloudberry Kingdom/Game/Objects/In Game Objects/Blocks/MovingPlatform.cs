@@ -108,6 +108,11 @@ namespace CloudberryKingdom.Blocks
 
             if (boxstyle == BlockEmitter_Parameters.BoxStyle.FullBox)
                 Box.TopOnly = false;
+            else if (boxstyle == BlockEmitter_Parameters.BoxStyle.NoSides)
+            {
+                Box.TopOnly = false;
+                Box.NoSides = true;
+            }
 
             //// Not TopOnly if hero is a spaceship.
             //if (Parent != null && Parent.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Box.TopOnly)
@@ -122,6 +127,10 @@ namespace CloudberryKingdom.Blocks
             BlockCore.Layer = .3f;
 
             base.Init(ref center, ref size, level, level.Info.Elevators.Group);
+
+            if (Parent.MyLevel.CurMakeData != null && Parent.MyLevel.Style.UseLowerBlockBounds)
+                base.AdditionalInit(ref center, ref size, level, Parent.MyLevel.Style.UseLowerBlockBounds);
+
             Reset(level.BoxesOnly);
 
             Core.RemoveOnReset = true;

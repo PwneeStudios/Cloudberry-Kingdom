@@ -234,21 +234,6 @@ namespace CloudberryKingdom
 
         public static ColType CollisionTest(AABox A, AABox B)
         {
-            /*
-            A.Current.CalcReal();
-            A.Target.CalcReal();
-            B.Current.CalcReal();
-            B.Target.CalcReal();
-
-            Vector2 A_BL = Vector2.Min(A.Current.RealBL, A.Target.RealBL);
-            Vector2 B_TR = Vector2.Max(B.Current.RealTR, B.Target.RealTR);
-            if (A_BL.X > B_TR.X || A_BL.Y > B_TR.Y) return ColType.NoCol;
-
-            Vector2 A_TR = Vector2.Max(A.Current.RealTR, A.Target.RealTR);
-            Vector2 B_BL = Vector2.Min(B.Current.RealBL, B.Target.RealBL);
-            if (A_TR.X < B_BL.X || A_TR.Y < B_BL.Y) return ColType.NoCol;
-            */
-
             A.Validate();
             B.Validate();
             if (A.BL.X > B.TR.X || A.BL.Y > B.TR.Y) return ColType.NoCol;
@@ -272,7 +257,7 @@ namespace CloudberryKingdom
                         type = ColType.Bottom;
             }
 
-            if (!A.TopOnly && !B.TopOnly)
+            if (!A.TopOnly && !B.TopOnly && !A.NoSides && !B.NoSides)
             {
                 // A right to B left
                 if (A.Current.TR.X <= B.Current.BL.X && A.Target.TR.X - A.Current.TR.X >= B.Target.BL.X - B.Current.BL.X)

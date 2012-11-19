@@ -56,7 +56,9 @@ namespace CloudberryKingdom
             text.MyText.MyFloatColor = new Color(0, 195, 17).ToVector4();
             text.MyText.OutlineColor = new Color(0, 80, 8).ToVector4();
             Core.MyLevel.MyGame.AddGameObject(text);
-            
+
+            ParticleEffects.CoinDie_ExtraLife(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
+
             var sound = Tools.SoundWad.FindByName("ExtraLifeSound");
             if (sound != null) sound.Play();
         }

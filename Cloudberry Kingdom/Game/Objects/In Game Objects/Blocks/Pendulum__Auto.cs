@@ -78,7 +78,7 @@ namespace CloudberryKingdom.Levels
             Vector2 offset = new Vector2(0, -300);
 
             Pendulum p = (Pendulum)level.Recycle.GetObject(ObjectType.Pendulum, true);
-            p.Init(pos + offset, size, level);
+            p.Init(pos + offset, size, level, level.CurMakeData.PieceSeed.ElevatorBoxStyle);
 
             if (level.PieceSeed.GeometryType == LevelGeometry.Right)
                 p.PivotPoint.Y = p.Pos.Y + 2000;

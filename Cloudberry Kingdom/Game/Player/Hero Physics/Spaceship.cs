@@ -68,19 +68,29 @@ namespace CloudberryKingdom
 
             if (MyBob.CharacterSelect2) return;
 
+            if (MyBob.MyLevel.PlayMode == 0 && !MyBob.InputFromKeyboard && !MyBob.MyLevel.Watching)
+            {
+                if (MyBob.CurInput.A_Button)
+                    MyBob.CurInput.xVec.X = 1;
+                else if (MyBob.CurInput.xVec.X > .5f)
+                    MyBob.CurInput.xVec.X = .5f;
+            }
 
             MyLevel.MyCamera.MovingCamera = true;
 
             MyBob.Core.Data.Velocity *= .86f;
-            //MyBob.Core.Data.Velocity.X += 2.8f;
             MyBob.Core.Data.Velocity.X += 2.3f;
 
             if (MyBob.CurInput.xVec.Length() > .2f)
             {
-                MyBob.Core.Data.Velocity += XAccel * MyBob.CurInput.xVec;
+                float boost = 1;
+                if (MyBob.CurInput.xVec.X == 1)
+                    boost = 1.2f;
+
+                MyBob.Core.Data.Velocity += boost * XAccel * MyBob.CurInput.xVec;
 
                 float Magnitude = MyBob.Core.Data.Velocity.Length();
-                if (Magnitude > MaxSpeed)
+                if (Magnitude > boost * MaxSpeed)
                 {
                     MyBob.Core.Data.Velocity.Normalize();
                     MyBob.Core.Data.Velocity *= MaxSpeed;
@@ -105,6 +115,9 @@ namespace CloudberryKingdom
             if (MyBob.Core.MyLevel.PlayMode == 0 && MyBob.CurInput.xVec.X > -.3f)
             {
                 float intensity = Math.Min(.3f + (MyBob.CurInput.xVec.X + .3f), 1f);
+                if (MyBob.CurInput.xVec.X <= .5f)
+                    intensity = Math.Min(intensity, .3f + (.1f + .3f));
+
                 int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
                 ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + new Vector2(0, 10), new Vector2(-1, 0), new Vector2(-10, yVel), intensity);
             }
@@ -311,8 +324,8 @@ namespace CloudberryKingdom
             if (MyBob.Core.Data.Position.Y > MyBob.TargetPosition.Y)
                 MyBob.CurInput.xVec.Y = -1;
             MyBob.CurInput.xVec.Y *= Math.Min(1, Math.Abs(MyBob.TargetPosition.Y - MyBob.Core.Data.Position.Y) / 100);
-
-            if (Pos.X > CurPhsxStep * (4000f / 600f))
+            
+            if (Pos.X > CurPhsxStep * 1.1f * (4000f / 600f))
             {
                 if (Pos.Y > MyBob.TargetPosition.Y && (CurPhsxStep / 40) % 3 == 0)
                     MyBob.CurInput.xVec.X = -1;
@@ -323,6 +336,11 @@ namespace CloudberryKingdom
             {
                 MyBob.CurInput.xVec.X = 1;
             }
+
+            if (Pos.X < MyLevel.MainCamera.BL.X + 400)
+                MyBob.CurInput.xVec.X = 1;
+            if (Pos.X > MyLevel.MainCamera.TR.X - 500 && MyBob.CurInput.xVec.X > 0)
+                MyBob.CurInput.xVec.X /= 2;
 
             if (Pos.X > MyLevel.Fill_TR.X - 1200)
             {

@@ -80,8 +80,21 @@ namespace CloudberryKingdom.Blocks
             return min;
         }
 
-        public void Init(Vector2 center, Vector2 size, Level level)
+        BlockEmitter_Parameters.BoxStyle MyBoxStyle;
+        public void Init(Vector2 center, Vector2 size, Level level, BlockEmitter_Parameters.BoxStyle MyBoxStyle)
         {
+            this.MyBoxStyle = MyBoxStyle;
+
+            if (MyBoxStyle == BlockEmitter_Parameters.BoxStyle.NoSides)
+            {
+                Box.TopOnly = false;
+                Box.NoSides = true;
+            }
+            else if (MyBoxStyle == BlockEmitter_Parameters.BoxStyle.FullBox)
+            {
+                Box.TopOnly = false;
+            }
+
             base.Init(ref center, ref size, level, level.Info.Pendulums.Group);
 
             Core.Data.Position = Core.StartData.Position = PivotPoint = center;
@@ -121,28 +134,6 @@ namespace CloudberryKingdom.Blocks
         float CorrespondingAngle;
         Vector2 CalcPosition(float t)
         {
-            /*
-            Vector2 Top, Bottom;
-            if (Core.MyLevel == null)
-            {
-                Top = new Vector2(PivotPoint.X, 0);
-                Bottom = new Vector2(PivotPoint.X, 0);
-            }
-            else
-            {
-                Top = new Vector2(PivotPoint.X, Cam.TR.Y);
-                Bottom = new Vector2(PivotPoint.X, Cam.BL.Y);
-            }
-
-            float s;
-            if (t < .25f)
-                s = t / .25f;
-            else
-                s = 1 - (t - .25f) / .75f;
-            //return Vector2.Lerp(Bottom, Top, s);
-            return Vector2.Lerp(Top, Bottom, s);
-            */
-
             switch (MoveType)
             {
                 default:
@@ -286,7 +277,7 @@ namespace CloudberryKingdom.Blocks
         {
             Pendulum BlockA = A as Pendulum;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.MyLevel);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.MyLevel, MyBoxStyle);
 
             Core.Clone(A.Core);
 

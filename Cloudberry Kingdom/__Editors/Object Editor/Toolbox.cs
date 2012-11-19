@@ -60,11 +60,6 @@ namespace CoreEngine
 
         private void WidthBar_Scroll(object sender, EventArgs e)
         {
-#if EDITOR
-            TrackBar trackbar = (System.Windows.Forms.TrackBar)sender;
-            Game_Editor.MainObject.OutlineWidth = new Vector2(trackbar.Value) / 100f;
-            this.WidthText.Text = string.Format("{0:0.00}", Game_Editor.MainObject.OutlineWidth.X);
-#endif
         }
     }
 }

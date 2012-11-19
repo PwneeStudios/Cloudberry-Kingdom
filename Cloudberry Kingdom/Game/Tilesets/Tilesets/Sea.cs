@@ -51,10 +51,10 @@ info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_sea", "fblock_sea", 1, 3, 2);
-info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_sea", -3, 3, 2));
+info.FallingBlocks.Group.Add(new PieceQuad(110, "fblock_sea", -3, 3, 2, false, 103 + 10, false));
 
 sprite_anim("Bouncy_sea", "Bouncy_Cloud", 1, 3, 2);
-info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_sea", -6, 6, 13));
+info.BouncyBlocks.Group.Add(new PieceQuad(124, "bouncy_sea", -6, 6, 13, false, 124, false));
 
 sprite_anim("flame_Sea", "firespinner_flame_Sea", 1, 4, 6);
 info.Spinners.Flame.Sprite = "flame_Sea";
@@ -70,20 +70,20 @@ info.Spinners.SpaceFromBase = 55;
 info.GhostBlocks.Sprite = "ghostblock_sea";
 info.GhostBlocks.Shift = new Vector2(0, -15);
 
-info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_sea_190", -1, 1, 12));
-info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_sea_135", -1, 1, 12));
-info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_sea_80", -1, 1, 4));
-info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_sea_40", -1, 1, 4));
+info.MovingBlocks.Group.Add(new PieceQuad(190, "movingblock_sea_190", -1, 1, 12, false, 190 - 4, false));
+info.MovingBlocks.Group.Add(new PieceQuad(135, "movingblock_sea_135", -1, 1, 7f, false, 135 - 1.5f, false));
+info.MovingBlocks.Group.Add(new PieceQuad(80, "movingblock_sea_80", -1, 1, 4, false, 80 - 4, false));
+info.MovingBlocks.Group.Add(new PieceQuad(40, "movingblock_sea_40", -1, 1, 0, false, 40 + 2, false));
 
-info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Sea_40", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Sea_80", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Sea_135", -1, 1, 1));
-info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Sea_190", -1, 1, 1));
+info.Elevators.Group.Add(new PieceQuad(40, "Elevator_Sea_40", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(80, "Elevator_Sea_80", -1, 1, 1, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(135, "Elevator_Sea_135", -1, 1, 0, false, -1.5f, true));
+info.Elevators.Group.Add(new PieceQuad(190, "Elevator_Sea_190", -1, 1, 1, false, -1.5f, true));
 
-info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Sea_40", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Sea_80", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Sea_135", -1, 1, 1));
-info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Sea_190", -1, 1, 1));
+info.Pendulums.Group.Add(new PieceQuad(40, "Elevator_Sea_40", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Sea_80", -1, 1, 1, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Sea_135", -1, 1, 0, false, -1.5f, true));
+info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Sea_190", -1, 1, 1, false, -1.5f, true));
 
 sprite_anim("Serpent_Sea", "Serpent_Sea", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Sea";
