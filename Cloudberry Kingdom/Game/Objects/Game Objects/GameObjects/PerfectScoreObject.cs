@@ -168,7 +168,8 @@ namespace CloudberryKingdom
             text2.MyText.Scale *= 1.5f;
             MyGame.AddGameObject(text2);
 
-            //ParticleEffects.CoinExplosion(MyGame.MyLevel, pos);
+            ParticleEffects.CoinDie_Perfect(MyGame.MyLevel, pos);
+            ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, pos);
 
             var sound = Tools.SoundWad.FindByName("PerfectSound");
             if (sound != null) sound.Play();

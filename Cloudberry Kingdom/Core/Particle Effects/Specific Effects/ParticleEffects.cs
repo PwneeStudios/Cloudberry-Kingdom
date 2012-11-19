@@ -38,6 +38,7 @@ namespace CloudberryKingdom
 
         public static void Init()
         {
+            Init_CoinTemplate();
             Init_Coalesce();
             Init_PieceExplosion();
             Init_CoinExplosion();

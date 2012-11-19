@@ -20,22 +20,6 @@ namespace CloudberryKingdom.InGameObjects
             public bool ShowEffect = true, ShowText = true, ShowCoin = true;
 
             public EzSound MySound = Tools.NewSound("Coin", .75f);
-
-            public Particle DieTemplate;
-            public CoinTileInfo()
-            {
-                DieTemplate = new Particle();
-                DieTemplate.MyQuad.Init();
-                DieTemplate.MyQuad.MyEffect = Tools.BasicEffect;
-                DieTemplate.MyQuad.MyTexture = Tools.TextureWad.FindByName("Coin");
-
-                DieTemplate.SetSize(45);
-                DieTemplate.SizeSpeed = new Vector2(10, 10);
-                DieTemplate.AngleSpeed = .013f;
-                DieTemplate.Life = 20;
-                DieTemplate.MyColor = new Vector4(1f, 1f, 1f, .75f);
-                DieTemplate.ColorVel = new Vector4(0, 0, 0, -.065f);
-            }
         }
 
         public bool Touched;
@@ -99,12 +83,8 @@ namespace CloudberryKingdom.InGameObjects
             // Effect
             if (Info.Coins.ShowEffect)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    var p = Core.MyLevel.MainEmitter.GetNewParticle(Info.Coins.DieTemplate);
-                    p.Data.Position = Core.Data.Position + MyLevel.Rnd.RndDir(35);
-                    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Pop");
-                }
+                ParticleEffects.CoinDie_New(MyLevel, Pos);
+                ParticleEffects.CoinDie_Old(MyLevel, Pos);
             }
 
             // Text float

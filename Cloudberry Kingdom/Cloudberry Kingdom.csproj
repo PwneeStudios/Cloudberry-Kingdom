@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Tools\Set.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />
     <Compile Include="Core\ResolutionGroup.cs" />
