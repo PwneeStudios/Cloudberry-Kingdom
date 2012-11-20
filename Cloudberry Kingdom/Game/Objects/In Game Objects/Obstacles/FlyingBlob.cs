@@ -159,7 +159,6 @@ namespace CloudberryKingdom.Obstacles
             Offset = 0;
             Period = 1;
 
-
             Core.WakeUpRequirements = true;
             NeverSkip = false;
 

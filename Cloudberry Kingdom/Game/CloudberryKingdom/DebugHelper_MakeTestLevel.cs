@@ -55,7 +55,7 @@ namespace CloudberryKingdom
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            //TileSetToTest = "castle";
+            TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet("castle");
@@ -179,6 +179,7 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
 
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 5f;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
             //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
@@ -203,7 +204,7 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Serpent] = 9;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 9;
             //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
-            piece.MyUpgrades1[Upgrade.Jump] = 10;
+            //piece.MyUpgrades1[Upgrade.Jump] = 10;
             //piece.MyUpgrades1[Upgrade.Speed] = 9;
 
 

@@ -136,7 +136,7 @@ sprite_anim("blob_cloud", "blob_cloud", 1, 4, 2);
 info.Blobs.Body.Sprite = "blob_cloud";
 info.Blobs.Body.Size = new Vector2(130, -1);
 info.Blobs.Body.Offset = new Vector2(20, 20);
-info.Blobs.GooSprite = "BlobGoo5";
+info.Blobs.GooSprite = "BlobGoo2";
 
 info.Clouds.Sprite.Sprite = "cloud_cloud";
 

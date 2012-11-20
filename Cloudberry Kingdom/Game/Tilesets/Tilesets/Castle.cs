@@ -170,7 +170,7 @@ sprite_anim("blob_castle", "blob_castle_v1", 1, 4, 2);
 info.Blobs.Body.Sprite = "blob_castle";
 info.Blobs.Body.Size = new Vector2(137, -1);
 info.Blobs.Body.Offset = new Vector2(20, 20);
-info.Blobs.GooSprite = "BlobGoo5";
+info.Blobs.GooSprite = "BlobGoo8";
 info.Blobs.Icon.Sprite = "Blob_Castle";
 
 info.Clouds.Sprite.Sprite = "cloud_castle";
