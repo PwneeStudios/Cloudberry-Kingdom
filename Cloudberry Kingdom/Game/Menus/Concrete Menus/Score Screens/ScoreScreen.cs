@@ -43,7 +43,7 @@ namespace CloudberryKingdom
 
                 if (_Add_Save)
                 {
-                    item = new MenuItem(new EzText(Localization.Words.SavedSeeds, ItemFont));
+                    item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
                     item.Name = "Save";
                     item.Go = MenuGo_Save;
                     AddItem(item);
