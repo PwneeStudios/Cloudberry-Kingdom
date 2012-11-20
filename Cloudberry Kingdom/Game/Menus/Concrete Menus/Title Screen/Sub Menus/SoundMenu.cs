@@ -18,6 +18,12 @@ namespace CloudberryKingdom
         EzText HeaderText;
         public override void Init()
         {
+#if PC_VERSION
+            bool ConsoleVersion = false;
+#else
+            bool ConsoleVersion = true;
+#endif
+
             base.Init();
             this.CallToLeft = true;
 
@@ -133,7 +139,11 @@ namespace CloudberryKingdom
 #endif
 
             MakeBackButton();
-            SetPosition();
+
+            if (ConsoleVersion)
+                SetPosition_Console();
+            else
+                SetPosition_PC();
 
             MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
 
@@ -208,7 +218,26 @@ namespace CloudberryKingdom
             return base.MenuReturnToCaller(menu);
         }
 
-        private void SetPosition()
+        private void SetPosition_Console()
+        {
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+            _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+            _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 317.4917f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+            MyMenu.Pos = new Vector2(-980.1562f, -338.0954f);
+
+            EzText _t;
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-978.1751f, 734.984f); _t.Scale = 0.864f; }
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -7.539473f); _q.Size = new Vector2(1223.651f, 922.9517f); }
+
+            MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+        }
+
+        private void SetPosition_PC()
         {
             MenuItem _item;
             _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
@@ -237,8 +266,6 @@ namespace CloudberryKingdom
         public override void OnAdd()
         {
  	        base.OnAdd();
-
-            SetPosition();
         }
     }
 }
