@@ -282,7 +282,8 @@ namespace CloudberryKingdom
 
             Active = false;
 
-            Tools.SongWad.FadeOut();
+            //Tools.SongWad.FadeOut();
+            MyGame.EndMusicOnFinish = false;
 
             MyGame.WaitThenDo(36, () => MyGame.EndGame(true));
             return;

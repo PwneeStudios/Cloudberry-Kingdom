@@ -145,7 +145,8 @@ namespace CloudberryKingdom.Bobs
                     if (quad.Name.Contains("Facial_"))
                     {
                         Quad _Quad = quad as Quad;
-                        if (!(scheme.HatData != null && !scheme.HatData.DrawHead) &&
+                        if (scheme.SkinColor.Clr.A != 0 && 
+                            !(scheme.HatData != null && !scheme.HatData.DrawHead) &&
                             string.Compare(quad.Name, scheme.BeardData.QuadName, StringComparison.OrdinalIgnoreCase) == 0)
                         {
                             quad.Show = scheme.BeardData.DrawSelf;
@@ -166,6 +167,17 @@ namespace CloudberryKingdom.Bobs
             if (q != null)
             {
                 q.MyMatrix = scheme.SkinColor.M;
+
+                if (scheme.SkinColor.Clr.A == 0)
+                {
+                    q.MyEffect = Tools.BasicEffect;
+                    q.SetColor(Color.Transparent);
+                }
+                else
+                {
+                    q.MyEffect = Tools.HslGreenEffect;
+                    q.SetColor(Color.White);
+                }
 
                 var wf = PlayerObject.FindQuad("Wings_Front"); if (wf != null) wf.MyMatrix = scheme.SkinColor.M;
                 var wb = PlayerObject.FindQuad("Wings_Back"); if (wb != null) wb.MyMatrix = scheme.SkinColor.M;

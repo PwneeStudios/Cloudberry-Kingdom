@@ -61,6 +61,7 @@ namespace CloudberryKingdom
         {
             base.BringFreeplay();
 
+            SkipCallSound = true;
             Call(new StartMenu_MW_CustomLevel(Title));
         }
 

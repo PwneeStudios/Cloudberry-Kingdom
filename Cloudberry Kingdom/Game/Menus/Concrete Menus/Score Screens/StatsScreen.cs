@@ -38,9 +38,15 @@ namespace CloudberryKingdom.Stats
         static float[][] x = { null, x1, x2, x3, x4 };
         static Vector2[][] name_pos = { null, x1_name, x2_name, x3_name, x4_name };
 
+        string FormatFunc(int n)
+        {
+            return string.Format("{0:n0}", n);
+        }
+
         MenuItem AddRow(MenuItem Item, Func<int, int> f)
         {
-            return AddRow(Item, i => f(i).ToString());
+            //return AddRow(Item, i => f(i).ToString());
+            return AddRow(Item, i => FormatFunc(f(i)));
         }
         MenuItem AddRow(MenuItem Item, Func<int, string> f)
         {

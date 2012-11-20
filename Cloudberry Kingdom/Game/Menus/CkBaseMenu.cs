@@ -176,14 +176,17 @@ namespace CloudberryKingdom
         {
             base.Call(child, Delay);
 
-            if (SelectSound != null)
+            if (SelectSound != null && !SkipCallSound)
                 SelectSound.Play();
+            SkipCallSound = false;
 
             if (CallToLeft)
             {
                 Hide(PresetPos.Left);
             }
         }
+
+        public bool SkipCallSound = false;
 
         public override void OnReturnTo()
         {

@@ -51,11 +51,11 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
-            TileSetToTest = "hills";
+            //TileSetToTest = "hills";
             //TileSetToTest = "forest_snow";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            //TileSetToTest = "castle";
+            TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet("castle");
@@ -104,8 +104,8 @@ namespace CloudberryKingdom
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
             //data.PieceLength = 90000;
-            data.PieceLength = 15000;
-            //data.PieceLength = 37000;
+            //data.PieceLength = 15000;
+            data.PieceLength = 4000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;

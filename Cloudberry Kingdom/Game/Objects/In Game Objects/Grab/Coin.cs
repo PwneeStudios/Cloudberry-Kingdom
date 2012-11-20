@@ -78,7 +78,7 @@ namespace CloudberryKingdom.InGameObjects
 
             Core.Active = false;
 
-            Info.Coins.MySound.Play(.65f, .1f, 0);
+            Info.Coins.MySound.Play(.4f, .1f, 0);
 
             // Effect
             if (Info.Coins.ShowEffect)

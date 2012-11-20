@@ -48,8 +48,8 @@ t.Ceilings.Add(new PieceQuad(1000, "pillar_cave_1000", -20, 20, 0, true));
 //t.Ceilings.Add(new PieceQuad(600, "pillar_cave_600_v3", -20, 20, 0, true));
 //t.Ceilings.Add(new PieceQuad(1000, "pillar_cave_1000_v3", -20, 20, 0, true));
 
-t.StartBlock.Add(new PieceQuad(400, "wall_cave", -650, 120, 1548));
-t.EndBlock.Add(new PieceQuad(400, "wall_cave", -34, 736, 1548));
+t.StartBlock.Add(new PieceQuad(900, "wall_cave", -650 + 1000, 120, 1548));
+t.EndBlock.Add(new PieceQuad(900, "wall_cave", -34, 736 - 1000, 1548));
 
 info.ShiftStartDoor = -180;
 info.ShiftStartBlock = new Vector2(300, 0);

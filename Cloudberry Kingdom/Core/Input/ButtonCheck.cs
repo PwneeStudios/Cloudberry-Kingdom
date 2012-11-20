@@ -422,7 +422,8 @@ namespace CloudberryKingdom
         {
             return State(iPlayerIndex, ControllerButtons.A, ControllerButtons.B,
                                        ControllerButtons.X, ControllerButtons.Y,
-                                       ControllerButtons.LS, ControllerButtons.RS);
+                                       ControllerButtons.LS, ControllerButtons.RS,
+                                       ControllerButtons.Start);
         }
 
 #if WINDOWS

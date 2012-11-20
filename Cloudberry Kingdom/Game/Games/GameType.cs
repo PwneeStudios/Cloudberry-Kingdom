@@ -189,6 +189,7 @@ namespace CloudberryKingdom
             }, "StartMusic");
         }
 
+        public bool SetToRepaly = false;
         public bool EndMusicOnFinish = true;
         public virtual void StandardFinish(bool Replay)
         {
@@ -252,6 +253,8 @@ namespace CloudberryKingdom
             if (PreviousLoadFunction != null)
                 PreviousLoadFunction();
             ExecutingPreviousLoadFunction = false;
+
+            SetToRepaly = false;
         }
         public bool ExecutingPreviousLoadFunction = false;
 

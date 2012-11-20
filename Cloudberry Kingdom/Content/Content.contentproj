@@ -704,11 +704,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\HeroItems\Hats\hat_bobble.png">
-      <Name>hat_bobble</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_brain.png">
       <Name>hat_brain</Name>
       <Importer>TextureImporter</Importer>
@@ -786,11 +781,6 @@
     </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_tiki.png">
       <Name>hat_tiki</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\HeroItems\Hats\hat_toad.png">
-      <Name>hat_toad</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1001,11 +991,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Cart.png">
-      <Name>HeroIcon_Cart</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Double.png">
       <Name>HeroIcon_Double</Name>
       <Importer>TextureImporter</Importer>
@@ -2944,13 +2929,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Custom.png">
-      <Name>HeroIcon_Custom</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Jetman.png">
       <Name>HeroIcon_Jetman</Name>
       <Importer>TextureImporter</Importer>
@@ -4765,6 +4743,27 @@
   <ItemGroup>
     <Compile Include="Art\Effects\CoinCollect.png">
       <Name>CoinCollect</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\Cart\CartIcon.png">
+      <Name>CartIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Menu\Icons\Upgrades\SpikeIcon.png">
+      <Name>SpikeIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Custom.png">
+      <Name>HeroIcon_Custom</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

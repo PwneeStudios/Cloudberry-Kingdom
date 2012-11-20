@@ -22,8 +22,8 @@ t.Pillars.Add(new PieceQuad(300, "pillar_sea_300", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(600, "pillar_sea_600", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(1000, "pillar_sea_1000", -15, 15, 3));
 
-t.StartBlock.Add(new PieceQuad(400, "wall_sea", -670, 15, 1420));
-t.EndBlock.Add(new PieceQuad(400, "wall_sea", -55, 630, 1420));
+t.StartBlock.Add(new PieceQuad(900, "wall_sea", -670 + 1000, 15, 1420));
+t.EndBlock.Add(new PieceQuad(900, "wall_sea", -55, 630 - 1000, 1420));
 
 info.ShiftStartDoor = -140;
 info.ShiftStartBlock = new Vector2(320, 0);

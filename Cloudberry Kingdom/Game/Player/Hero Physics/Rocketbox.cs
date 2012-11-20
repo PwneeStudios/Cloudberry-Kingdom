@@ -17,8 +17,9 @@ namespace CloudberryKingdom
             Specification = new HeroSpec(6, 0, 0, 0);
             Name = Localization.Words.Rocketbox;
             NameTemplate = "rocketbox";
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Cart"), Color.White, DefaultIconWidth);
-            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, -.485f));
+            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Cart"), Color.White, DefaultIconWidth);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("CartIcon"), Color.White, DefaultIconWidth * 1.315f);
+            ((PictureIcon)Icon).IconQuad.Quad.Shift(new Vector2(0, 0));
         }
         static readonly BobPhsxRocketbox instance = new BobPhsxRocketbox();
         public static new BobPhsxRocketbox Instance { get { return instance; } }
