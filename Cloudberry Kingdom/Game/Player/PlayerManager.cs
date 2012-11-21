@@ -522,6 +522,16 @@ namespace CloudberryKingdom
         }
         public static List<PlayerData> _AlivePlayers = new List<PlayerData>();
 
+        public static int NumAlivePlayers()
+        {
+            int Num = 0;
+            foreach (PlayerData data in Players)
+                if (data.Exists && data.IsAlive)
+                    Num++;
+            
+            return Num;
+        }
+
 #if PC_VERSION
         public static PlayerData Player { get { return Players[0]; } }
 #endif

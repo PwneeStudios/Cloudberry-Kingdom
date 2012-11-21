@@ -68,13 +68,14 @@ namespace CloudberryKingdom.Obstacles
 
         public AABox Box, Box2;
 
-        public int Life, StartLife;
+        public float Life, StartLife;
 
         public int Direction;
 
         public bool NeverSkip = false;
 
         Bob KillingBob;
+        int KillBobTimeStamp;
 
         public void SetColor(BlobColor color)
         {
@@ -166,6 +167,9 @@ namespace CloudberryKingdom.Obstacles
             Direction = -1;
 
             GiveVelocity = false;
+
+            KillingBob = null;
+            KillBobTimeStamp = 0;
         }
 
         public override void Init(Vector2 pos, Level level)
@@ -278,6 +282,12 @@ namespace CloudberryKingdom.Obstacles
 
         public void Death()
         {
+            // Don't die if we were just recently squished but still have life left.
+            if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay && Life > 0 && MyLevel.CurPhsxStep - KillBobTimeStamp < 40)
+            {
+                return;
+            }
+
             Core.Active = false;
             if (DeleteOnDeath) Core.Recycle.CollectObject(this);
             if (Core.MyLevel.PlayMode != 0) return;
@@ -286,7 +296,8 @@ namespace CloudberryKingdom.Obstacles
             if (KillingBob != null && KillingBob.GiveStats())
                 KillingBob.MyTempStats.Blobs++;
 
-            Squish(Vector2.Zero);
+            if (Life < .1f)
+                Squish(Vector2.Zero);
         }
 
         public void Squish(Vector2 vel)
@@ -486,7 +497,7 @@ namespace CloudberryKingdom.Obstacles
             if (!Core.Active) return;
             if (Core.SkippedPhsx) return;
 
-            if (Life <= 0) Death();
+            if (Life < 1) Death();
 
             Box.SwapToCurrent();
             Box2.SwapToCurrent();
@@ -519,6 +530,8 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawGraphics()
         {
+            if (Life < 1) return;
+
             if (!Core.Held)
             {
                 if (!Core.Active || Core.SkippedPhsx) return;
@@ -669,12 +682,24 @@ namespace CloudberryKingdom.Obstacles
 
                 if (DoInteraction && (UnderFoot || SideHit))
                 {
+                    if (bob == KillingBob)
+                        return;
+
                     if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship)
                         UnderFoot = false;
 
                     if (UnderFoot)
                     {
-                        Life--;
+                        //if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay)
+                        if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay && PlayerManager.NumAlivePlayers() > 1)
+                        {
+                            Life -= .5f;
+                            KillBobTimeStamp = MyLevel.CurPhsxStep;
+                            Squish(Vector2.Zero);
+                        }
+                        else
+                            Life--;
+
                         KillingBob = bob;
                         if (bob.GiveStats())
                             bob.MyTempStats.Score += 50;
@@ -695,20 +720,13 @@ namespace CloudberryKingdom.Obstacles
                             bob.MyPhsx.LandOnSomething(true, this);
                         }
 
-                        // This code is to modify the player's velocity rather than override it.
-                        // (For when the velocity is large)
-                        ////else
-                        ////{
-                        ////    bob.MyPhsx.JumpLengthModifier = (30f - (bob.Core.Data.Velocity.Y - 4)) / 30f;
-                        ////    if (bob.MyPhsx.JumpLengthModifier > 0)
-                        ////        bob.MyPhsx.JumpLengthModifier = (float)Math.Pow(bob.MyPhsx.JumpLengthModifier, .385f);
-                        ////}
-
-                        //bob.MyPhsx.JumpLengthModifier = 1.1f;
                         bob.MyPhsx.MaxJumpAccelMultiple = 1 + .8f * bob.MyPhsx.BlobMod;
                     }
                     else
-                        bob.Die(Bob.BobDeathType.Blob, this);
+                    {
+                        if (Life >= 1)
+                            bob.Die(Bob.BobDeathType.Blob, this);
+                    }
                 }
             }
         }
