@@ -81,7 +81,11 @@ namespace CloudberryKingdom.Levels
             p.Init(pos + offset, size, level, level.CurMakeData.PieceSeed.ElevatorBoxStyle);
 
             if (level.PieceSeed.GeometryType == LevelGeometry.Right)
+            {
                 p.PivotPoint.Y = p.Pos.Y + 2000;
+                if (p.PivotPoint.Y < level.MainCamera.TR.Y)
+                    p.PivotPoint.Y = level.MainCamera.TR.Y;
+            }
             else
             {
                 p.PivotPoint.X = level.MainCamera.BL.X - 160;
