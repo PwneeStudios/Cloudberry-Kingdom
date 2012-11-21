@@ -158,12 +158,22 @@ namespace CloudberryKingdom
             MyProgressBar = new ProgressBar();
             MyProgressBar.Pos = new Vector2(900, -400);
 
-            BlackQuad = new QuadClass("White", 1400);
+            BlackQuad = new QuadClass("White", 2000);
             BlackQuad.Quad.SetColor(new Color(0, 0, 0, 255));
             BlackQuad.Alpha = 0;
             BlackQuad.Layer = 1;
             MyPile.Add(BlackQuad);
+
+            Legal = new EzText(
+@"{pCopyRightSymbol,78,?} 2012 by Pwnee Studios, Corp. All Rights Reserved.Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.", Resources.Font_Grobold42, 10000, false, false, .66f);
+
+            Legal.MyFloatColor = ColorHelper.Gray(.9f);
+
+            BlackQuad.Alpha = 1;
+
+            MyPile.Add(Legal);
         }
+        EzText Legal;
 
         public static int TotalResources = 805;
 
@@ -190,35 +200,38 @@ namespace CloudberryKingdom
             // Fade
             if (LoadingPercent > 97.6f && Accelerate || !Resources.LoadingResources.MyBool)
             {
-                BlackQuad.Alpha += .0223f;
-                if (BlackQuad.Alpha >= 1)
-                    DoneCount++;
+                if (ReadyToFade)
+                {
+                    BlackQuad.Alpha += .0223f;
+                    if (BlackQuad.Alpha >= 1)
+                        DoneCount++;
+                }
             }
 
-            if (NoShow)
-            {
-                if (!Resources.LoadingResources.MyBool)
-                    IsDone = true;
-            }
-            else
-            {
-                if (!Resources.LoadingResources.MyBool && DoneCount > 1)
-                    //if (!Resources.LoadingResources.MyBool)
-                    IsDone = true;
-            }
+            if (!Resources.LoadingResources.MyBool && ReadyToFade && BlackQuad.Alpha >= 1 && DoneCount > 25)
+                IsDone = true;
+
+            //IsDone = false;
         }
 
-        const bool NoShow = true;
-
+        int DrawCount = 0;
+        bool ReadyToFade = false;
         public void Draw()
         {
-            if (NoShow) return;
+            Legal.Scale = .25f;
+            Legal.Pos = new Vector2(-1500, -500);
+
+            DrawCount++;
+            if (!ReadyToFade && DrawCount > 2)
+                BlackQuad.Alpha -= .0633f;
+            if (DrawCount > 68)
+                ReadyToFade = true;
 
             MyProgressBar.Pos = new Vector2(1100, -800);
 
             MyPile.Draw(0);
 
-            MyProgressBar.Draw();
+            //MyProgressBar.Draw();
             
             MyPile.Draw(1);
         }
