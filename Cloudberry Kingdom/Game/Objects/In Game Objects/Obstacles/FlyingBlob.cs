@@ -74,7 +74,8 @@ namespace CloudberryKingdom.Obstacles
 
         public bool NeverSkip = false;
 
-        Bob KillingBob;
+        Vector2 KilledLocation;
+        Bob KillingBob, KillingBob2, KillingBob3;
         int KillBobTimeStamp;
 
         public void SetColor(BlobColor color)
@@ -168,7 +169,7 @@ namespace CloudberryKingdom.Obstacles
 
             GiveVelocity = false;
 
-            KillingBob = null;
+            KillingBob = KillingBob2 = KillingBob3 = null;
             KillBobTimeStamp = 0;
         }
 
@@ -407,6 +408,12 @@ namespace CloudberryKingdom.Obstacles
 
         void UpdatePos()
         {
+            if (MyLevel.PlayMode == 0 && KillingBob != null && !MyLevel.Watching && !MyLevel.Replay)
+            {
+                Core.Data.Position = KilledLocation;
+                return;
+            }
+
             switch (MyPhsxType)
             {
                 case PhsxType.Prescribed:
@@ -682,7 +689,7 @@ namespace CloudberryKingdom.Obstacles
 
                 if (DoInteraction && (UnderFoot || SideHit))
                 {
-                    if (bob == KillingBob)
+                    if (bob == KillingBob || bob == KillingBob2 || bob == KillingBob3)
                         return;
 
                     if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship)
@@ -690,8 +697,8 @@ namespace CloudberryKingdom.Obstacles
 
                     if (UnderFoot)
                     {
-                        //if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay)
-                        if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay && PlayerManager.NumAlivePlayers() > 1)
+                        if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay)
+                        //if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay && PlayerManager.NumAlivePlayers() > 1)
                         {
                             Life -= .5f;
                             KillBobTimeStamp = MyLevel.CurPhsxStep;
@@ -700,7 +707,10 @@ namespace CloudberryKingdom.Obstacles
                         else
                             Life--;
 
-                        KillingBob = bob;
+                        if (KillingBob == null) { KillingBob = bob; KilledLocation = Pos; }
+                        else if (KillingBob2 == null) KillingBob2 = bob;
+                        else if (KillingBob3 == null) KillingBob3 = bob;
+
                         if (bob.GiveStats())
                             bob.MyTempStats.Score += 50;
 

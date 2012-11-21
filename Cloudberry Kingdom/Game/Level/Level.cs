@@ -1799,14 +1799,14 @@ namespace CloudberryKingdom.Levels
                     {
                         int NumAlive = 0;
                         Vector2 Pos = Vector2.Zero;
+                        //Pos.X = -1000000;
                         foreach (var bob in Bobs)
                         {
                             if (bob.MyPlayerData.IsAlive)
                             {
                                 NumAlive++;
+                                //Pos.X = (float)Math.Max(Pos.X, bob.Pos.X);
                                 Pos += bob.Pos;
-                                //Pos.X += bob.Core.Data.Velocity.X + bob.GroundSpeed;
-                                //Pos.X += bob.GroundSpeed / 4;
                             }
                         }
 
@@ -1815,6 +1815,7 @@ namespace CloudberryKingdom.Levels
 
                         //float New = Bobs[0].Pos.X / 10;
                         float New = (Pos.X / NumAlive) / 10;
+                        //float New = (Pos.X) / 10;
 
                         if (!IndependentStepSetOnce)
                             Prev = New;
