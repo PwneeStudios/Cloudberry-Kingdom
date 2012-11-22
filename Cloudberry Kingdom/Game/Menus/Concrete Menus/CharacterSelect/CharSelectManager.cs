@@ -106,6 +106,7 @@ namespace CloudberryKingdom
         static bool QuickJoin = false;
         public static void Start(GUI_Panel Parent, bool QuickJoin)
         {
+            FakeHide = false;
             CharacterSelectManager.QuickJoin = QuickJoin;
 
             GameData game = null;
@@ -146,12 +147,12 @@ namespace CloudberryKingdom
         {
             for (int i = 0; i < 4; i++)
                 if (CharSelect[i] != null)
-                    Finish(i, false);
+                    Finish(i, QuickJoin);
         }
 
         public static void Finish(int PlayerIndex, bool Join)
         {
-            if (Join)
+            if (Join && !CharSelect[PlayerIndex].Fake && CharSelect[PlayerIndex].MyState == CharacterSelect.SelectState.Waiting)
             {
                 Tools.CurGameData.CreateBob(PlayerIndex, true);
             }
@@ -223,6 +224,9 @@ namespace CloudberryKingdom
         public static float ZoomMod = 1.1f;
         public static void Draw()
         {
+            if (FakeHide)
+                return;
+
             if (!IsShowing)
                 return;
 
@@ -255,12 +259,15 @@ namespace CloudberryKingdom
             cam.SetVertexCamera();
         }
 
+        public static bool FakeHide = false;
         static void AfterFinished()
         {
             IsShowing = false;
+            FakeHide = false;
             
             Cleanup();
-            if (OnDone != null) OnDone();
+            if (OnDone != null) OnDone(); OnDone = null;
+            CharacterSelectManager.ParentPanel = null;
         }
 
         static bool Active = false;
@@ -278,7 +285,12 @@ namespace CloudberryKingdom
             if (AllFinished() && IsShowing)
             {
                 Active = false;
-                Tools.CurGameData.SlideOut_FadeIn(0, AfterFinished);
+                
+                if (QuickJoin)
+                    Tools.CurGameData.SlideOut_FadeIn(0, QuickJoinFinish);
+                    //Tools.CurGameData.WaitThenDo(0, AfterFinished);
+                else
+                    Tools.CurGameData.SlideOut_FadeIn(0, AfterFinished);
             }
 
             // Check for ready to exit from character selection
@@ -291,6 +303,12 @@ namespace CloudberryKingdom
                     EndCharSelect(0, 0);
                 }
             }
+        }
+
+        static void QuickJoinFinish()
+        {
+            FakeHide = true;
+            Tools.CurGameData.WaitThenDo(12, AfterFinished);
         }
     }
 }

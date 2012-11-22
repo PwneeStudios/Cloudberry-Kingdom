@@ -106,6 +106,14 @@ namespace CloudberryKingdom
             MyDoll.MyPhsx.OnGround = true;
         }
 
+        protected override void MyDraw()
+        {
+            if (CharacterSelectManager.FakeHide)
+                return;
+
+            base.MyDraw();
+        }
+
         public bool ShowBob = false;
         public void DrawBob()
         {

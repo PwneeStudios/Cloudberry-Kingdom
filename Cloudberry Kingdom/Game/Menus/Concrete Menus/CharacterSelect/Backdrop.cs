@@ -57,5 +57,13 @@ namespace CloudberryKingdom
         void SetPos()
         {
         }
+
+        protected override void MyDraw()
+        {
+            if (CharacterSelectManager.FakeHide)
+                return;
+
+            base.MyDraw();
+        }
     }
 }

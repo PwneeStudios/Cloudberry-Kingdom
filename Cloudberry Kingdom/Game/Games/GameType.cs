@@ -1050,6 +1050,7 @@ namespace CloudberryKingdom
 
         public void QuickJoinPhsx()
         {
+            if (CharacterSelectManager.FakeHide) return;
             if (MyLevel == null) return;
             if (MyLevel.Watching || MyLevel.Replay) return;
             if (PauseGame) return;
