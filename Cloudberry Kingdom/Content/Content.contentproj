@@ -944,48 +944,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Black.png">
-      <Name>Goatee_Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Blonde.png">
-      <Name>Goatee_Blonde</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Grey.png">
-      <Name>Goatee_Grey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Red.png">
-      <Name>Goatee_Red</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Black.png">
-      <Name>Moustache_Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Blonde.png">
-      <Name>Moustache_Blonde</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Bob\FacialHair\Moustache_Brown.png">
       <Name>Moustache_Brown</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Grey.png">
-      <Name>Moustache_Grey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Red.png">
-      <Name>Moustache_Red</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1111,13 +1071,6 @@
     </Compile>
     <Compile Include="Art\Menu\Backplates\backplate_1500x900.png">
       <Name>backplate_1500x900</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Brown.png">
-      <Name>Goatee_Brown</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4792,6 +4745,13 @@
   <ItemGroup>
     <Compile Include="Art\Title\CopyRightSymbol.png">
       <Name>CopyRightSymbol</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\FacialHair\Goatee_Black.png">
+      <Name>Goatee_Black</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -10,12 +10,14 @@ namespace CloudberryKingdom
     public class Waiting : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
-        public Waiting(int Control, CharacterSelect MyCharacterSelect)
+        bool CanGoBack;
+        public Waiting(int Control, CharacterSelect MyCharacterSelect, bool CanGoBack)
             : base(false)
         {
             this.Tags += Tag.CharSelect;
             this.Control = Control;
             this.MyCharacterSelect = MyCharacterSelect;
+            this.CanGoBack = CanGoBack;
 
             Constructor();
         }
@@ -56,7 +58,7 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyHeroLevel.ShowHeroLevel = true;
 
             // Check for back.
-            if (ButtonCheck.State(ControllerButtons.B, MyCharacterSelect.PlayerIndex).Pressed)
+            if (CanGoBack && ButtonCheck.State(ControllerButtons.B, MyCharacterSelect.PlayerIndex).Pressed)
             {
                 ReturnToCaller();
             }

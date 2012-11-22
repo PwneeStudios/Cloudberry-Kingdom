@@ -1060,7 +1060,7 @@ namespace CloudberryKingdom
                 if (!PlayerManager.Get(i).Exists &&
                     ButtonCheck.State(ControllerButtons.A, i).Pressed)
                 {
-                    CharacterSelectManager.Start(null);
+                    CharacterSelectManager.Start(null, true);
                 }
         }
 

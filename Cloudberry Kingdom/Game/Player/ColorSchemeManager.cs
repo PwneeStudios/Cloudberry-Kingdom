@@ -663,15 +663,17 @@ float DefaultShiftX = -.35f;
 
 
             // Create the default color schemes
-            ColorScheme scheme;
-
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
-            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
             AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
             AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
             AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
             AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
             AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
+            AddScheme(new ColorScheme(Localization.Words.Indigo, Localization.Words.Cyan, Localization.Words.Silver, Localization.Words.Wizard, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Ninja, Localization.Words.White, Localization.Words.Black, Localization.Words.Pumpkin, Localization.Words.Manhattan), false);
+            AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.RobinHood, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Silver, Localization.Words.Gray, Localization.Words.Gray, Localization.Words.KnightHelmet, Localization.Words.Lumberjack), false);
         }
     }
 }

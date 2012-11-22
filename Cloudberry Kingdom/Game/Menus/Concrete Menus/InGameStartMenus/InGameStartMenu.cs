@@ -30,11 +30,29 @@ namespace CloudberryKingdom
 
             listener.MyAction = () =>
             {
-                if (!PreventMenu)
+                PlayerData Player = null;
+                if (listener.TriggeringPlayerIndex >= 0)
+                    Player = PlayerManager.Get(listener.TriggeringPlayerIndex);
+
+                bool PlayerExists = false;
+                if (Player != null && Player.Exists) PlayerExists = true;
+
+                if (!PlayerExists && PlayerManager.NumExistingPlayers() == 0)
+                    PlayerExists = true;
+
+                //if (!PreventMenu)
+                if (!PreventMenu && PlayerExists)
                     listener.Call(Make(listener));
             };
 
             return listener;
+        }
+
+        public override void OnAdd()
+        {
+            base.OnAdd();
+
+            MyMenu.Control = Control;
         }
 
         protected override void SetHeaderProperties(EzText text)
@@ -48,7 +66,7 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
 
-            if (MyMenu.CurItem == RemoveMe)
+            if (MyMenu.CurItem == RemoveMe && VerifyRemoveMenu.YesChosen)
                 ReturnToCaller(false);
         }
 
@@ -253,10 +271,10 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Stats"); if (_item != null) { _item.SetPos = new Vector2(-1504.778f, 469.9999f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
             _item = MyMenu.FindItemByName("SaveLoadSeed"); if (_item != null) { _item.SetPos = new Vector2(-1504.777f, 231.6667f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
             _item = MyMenu.FindItemByName("Options"); if (_item != null) { _item.SetPos = new Vector2(-1496.443f, -3.88887f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(-1493.666f, -258.3333f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Remove"); if (_item != null) { _item.SetPos = new Vector2(-1496.444f, -499.4445f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(-1488.11f, -488.8888f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Remove"); if (_item != null) { _item.SetPos = new Vector2(-1488.11f, -249.4445f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(1114.583f, 50.69439f);
+            MyMenu.Pos = new Vector2(1106.25f, 50.69439f);
 
             EzText _t;
             _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1463.89f, 1474.667f); _t.Scale = 1.12375f; }

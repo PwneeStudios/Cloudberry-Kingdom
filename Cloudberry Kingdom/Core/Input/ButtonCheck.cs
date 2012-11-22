@@ -461,10 +461,6 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool PreLogIn = true;
 
-        public static ButtonData State(ButtonClass Button, PlayerIndex Index)
-        {
-            return State(Button, -2);
-        }
         public static ButtonData State(ButtonClass Button, int iPlayerIndex)
         {
             if (Button == null)

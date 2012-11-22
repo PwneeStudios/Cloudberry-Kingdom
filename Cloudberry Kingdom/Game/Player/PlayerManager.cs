@@ -532,6 +532,16 @@ namespace CloudberryKingdom
             return Num;
         }
 
+        public static int NumExistingPlayers()
+        {
+            int Num = 0;
+            foreach (PlayerData data in Players)
+                if (data.Exists && data.Exists)
+                    Num++;
+
+            return Num;
+        }
+
 #if PC_VERSION
         public static PlayerData Player { get { return Players[0]; } }
 #endif

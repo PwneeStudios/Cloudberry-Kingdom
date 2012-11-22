@@ -91,25 +91,26 @@ namespace CloudberryKingdom
             BackButton.Go = Cast.ToItem(Back);
             AddItem(BackButton);
 
-            MyPile.Add(new EzText(Header, Resources.Font_Grobold42, true), "Header");
-            
+            var header = new EzText(Header, Resources.Font_Grobold42, true);
+            MyPile.Add(header, "Header");
+
             CharacterSelect.Shift(this);
         }
 
         public override void OnAdd()
         {
  	        base.OnAdd();
-        
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("list"); if (_item != null) { _item.SetPos = new Vector2(83.33337f, 153.1746f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-177.4444f, 46.11105f); _item.MyText.Scale = 0.5535835f; _item.MySelectedText.Scale = 0.5535835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Cancel"); if (_item != null) { _item.SetPos = new Vector2(-183.0001f, -79.44217f); _item.MyText.Scale = 0.5352504f; _item.MySelectedText.Scale = 0.5352504f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(-1418.571f, -484.127f);
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("list"); if (_item != null) { _item.SetPos = new Vector2(-2.77784f, 153.1746f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-227.4442f, 51.66659f); _item.MyText.Scale = 0.5535835f; _item.MySelectedText.Scale = 0.5535835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Cancel"); if (_item != null) { _item.SetPos = new Vector2(-230.2225f, -82.21997f); _item.MyText.Scale = 0.5352504f; _item.MySelectedText.Scale = 0.5352504f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+            MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(87.69827f, 534.1268f); _t.Scale = 1f; }
-            MyPile.Pos = new Vector2(-1414.604f, -492.0635f);
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+            MyPile.Pos = new Vector2(MyPile.Pos.X, -492.0635f);
         }
 
         void Back()

@@ -252,7 +252,7 @@ namespace CloudberryKingdom.Awards
         }
         void CharSelect()
         {
-            CharacterSelectManager.Start(this);
+            CharacterSelectManager.Start(this, false);
         }
 
         EzText Bank, BankAmount;
