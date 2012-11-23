@@ -122,6 +122,8 @@ namespace CloudberryKingdom
             ToAnim.Add("Cart_Jump", 18);
             ToAnim.Add("Cart_Duck", 19);
 
+            ToAnim.Add("Dead", 9);
+
             LoadAnimObj = p;
 
             StreamReader reader = new StreamReader(stream);

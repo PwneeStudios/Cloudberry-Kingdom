@@ -1496,7 +1496,9 @@ namespace CloudberryKingdom.Bobs
             if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
             temp.Pos = Head.Center.Pos;
 
-            if (MyPhsx.Ducking)
+            if (Dead)
+                temp.Pos += new Vector2(60, 100) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+            else if (MyPhsx.Ducking)
                 temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else
                 temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;
