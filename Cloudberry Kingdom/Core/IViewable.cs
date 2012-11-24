@@ -32,12 +32,12 @@ namespace CloudberryKingdom
 
         public virtual void Write(StreamWriter writer)
         {
-            Tools.WriteFields(this, writer, GetViewables());
+            //Tools.WriteFields(this, writer, GetViewables());
         }
 
         public virtual void Read(StreamReader reader)
         {
-            Tools.ReadFields(this, reader);
+            //Tools.ReadFields(this, reader);
         }
 
         public virtual void WriteCode(string prefix, StreamWriter writer)

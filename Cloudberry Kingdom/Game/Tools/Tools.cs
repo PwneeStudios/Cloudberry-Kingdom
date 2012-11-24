@@ -44,18 +44,16 @@ namespace CloudberryKingdom
         }
 
 
-        public static Vector2[] Map(this Vector2[] list, Func<Vector2, Vector2> map)
-        {
-            Vector2[] product = new Vector2[list.Length];
-            list.CopyTo(product, 0);
+        //public static Vector2[] Map(this Vector2[] list, Func<Vector2, Vector2> map)
+        //{
+        //    Vector2[] product = new Vector2[list.Length];
+        //    list.CopyTo(product, 0);
 
-            for (int i = 0; i < list.Length; i++)
-                product[i] = map(product[i]);
+        //    for (int i = 0; i < list.Length; i++)
+        //        product[i] = map(product[i]);
 
-            return product;
-        }
-
-
+        //    return product;
+        //}
 
         /// <summary>
         /// Whether the vector is less than or equal to another vector in both components
@@ -162,14 +160,14 @@ namespace CloudberryKingdom
 
     public static class ListExtension
     {
-        public static Vector2 Sum<T>(this List<T> list, Func<T, Vector2> map)
-        {
-            Vector2 sum = Vector2.Zero;
-            foreach (T item in list)
-                sum += map(item);
+        //public static Vector2 Sum<T>(this List<T> list, Func<T, Vector2> map)
+        //{
+        //    Vector2 sum = Vector2.Zero;
+        //    foreach (T item in list)
+        //        sum += map(item);
 
-            return sum;
-        }
+        //    return sum;
+        //}
 
         /// <summary>
         /// Returns a single randomly chosen item from the list
@@ -191,10 +189,10 @@ namespace CloudberryKingdom
                 return list[rnd.RndInt(0, list.Count - 1)];
         }
 
-        public static int IndexOf<T>(this List<T> list, Predicate<T> match)
-        {
-            return list.IndexOf(list.Find(match));
-        }
+        //public static int IndexOf<T>(this List<T> list, Predicate<T> match)
+        //{
+        //    return list.IndexOf(list.Find(match));
+        //}
 
 #if XBOX
         /// <summary>
@@ -256,44 +254,44 @@ namespace CloudberryKingdom
         }
 #endif
 
-        public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range) where T : class
-                                                                               where S : class
-        {
-            foreach (S s in range)
-                list.Add(s as T);
-        }
+        //public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range) where T : class
+        //                                                                       where S : class
+        //{
+        //    foreach (S s in range)
+        //        list.Add(s as T);
+        //}
     }
 
-    public static class ArrayExtension
-    {
-        /// <summary>
-        /// Returns a subarray of a given array.
-        /// </summary>
-        public static T[] Range<T>(this T[] array, int StartIndex, int EndIndex)
-        {
-            // Make sure we don't extend past the end of the array
-            EndIndex = Math.Min(EndIndex, array.Length - 1);
+    //public static class ArrayExtension
+    //{
+    //    /// <summary>
+    //    /// Returns a subarray of a given array.
+    //    /// </summary>
+    //    public static T[] Range<T>(this T[] array, int StartIndex, int EndIndex)
+    //    {
+    //        // Make sure we don't extend past the end of the array
+    //        EndIndex = Math.Min(EndIndex, array.Length - 1);
 
-            // Create a new array to store the range
-            T[] range = new T[EndIndex - StartIndex + 1];
+    //        // Create a new array to store the range
+    //        T[] range = new T[EndIndex - StartIndex + 1];
 
-            for (int i = StartIndex; i <= EndIndex; i++)
-                range[i - StartIndex] = array[i];
+    //        for (int i = StartIndex; i <= EndIndex; i++)
+    //            range[i - StartIndex] = array[i];
 
-            return range;
-        }
-    }
+    //        return range;
+    //    }
+    //}
 
     public static class DictionaryExtension
     {
-        public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict,
-                                             Func<KeyValuePair<TKey, TValue>, bool> condition)
-        {
-            foreach (var cur in dict.Where(condition).ToList())
-            {
-                dict.Remove(cur.Key);
-            }
-        }
+        //public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict,
+        //                                     Func<KeyValuePair<TKey, TValue>, bool> condition)
+        //{
+        //    foreach (var cur in dict.Where(condition).ToList())
+        //    {
+        //        dict.Remove(cur.Key);
+        //    }
+        //}
 
         public static void AddOrOverwrite<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
         {
@@ -464,6 +462,7 @@ public static string SourceTextureDirectory()
 
             source.RemoveRange(i, N - i);
         }
+
         /// <summary>
         /// Return the smallest element.
         /// </summary>
@@ -480,6 +479,7 @@ public static string SourceTextureDirectory()
 
             return min;
         }
+
         /// <summary>
         /// Return the largest element.
         /// </summary>
@@ -962,241 +962,240 @@ public static string SourceTextureDirectory()
             return GetBitsFromLine(reader.ReadLine());
         }
 
-
-        public static object ReadFields(object obj, StreamReader reader)
-        {
-            var line = reader.ReadLine();
-            while (line != null)
-            {
-                var bits = Tools.GetBitsFromLine(line);
+        //public static object ReadFields(object obj, StreamReader reader)
+        //{
+        //    var line = reader.ReadLine();
+        //    while (line != null)
+        //    {
+        //        var bits = Tools.GetBitsFromLine(line);
                 
-                if (bits.Count > 0)
-                {
-                    var first = bits[0];
+        //        if (bits.Count > 0)
+        //        {
+        //            var first = bits[0];
 
-                    bool WasReadable = false;
-                    var info = obj.GetType().GetField(first);
-                    //try
-                    if (info != null)
-                    {
-                        info = obj.GetType().GetField(first);
-                        if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
-                        {
-                            WasReadable = true;
-                            var rw = (IReadWrite)(info.GetValue(obj));
-                            rw.Read(reader);
-                            info.SetValue(obj, rw);
-                        }
-                        else
-                        // List of IReadWrites
-                        {
-                            Type type = info.FieldType;
-                            if (type.IsGenericType && type.GetGenericTypeDefinition()
-                                    == typeof(List<>))
-                            {
-                                WasReadable = true;
+        //            bool WasReadable = false;
+        //            var info = obj.GetType().GetField(first);
+        //            //try
+        //            if (info != null)
+        //            {
+        //                info = obj.GetType().GetField(first);
+        //                if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
+        //                {
+        //                    WasReadable = true;
+        //                    var rw = (IReadWrite)(info.GetValue(obj));
+        //                    rw.Read(reader);
+        //                    info.SetValue(obj, rw);
+        //                }
+        //                else
+        //                // List of IReadWrites
+        //                {
+        //                    Type type = info.FieldType;
+        //                    if (type.IsGenericType && type.GetGenericTypeDefinition()
+        //                            == typeof(List<>))
+        //                    {
+        //                        WasReadable = true;
 
-                                var list = info.GetValue(obj) as System.Collections.IList;
+        //                        var list = info.GetValue(obj) as System.Collections.IList;
 
-                                Type itemType = type.GetGenericArguments()[0];
-                                if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
-                                    ReadList(reader, list, itemType);
-                            }
-                        }
-                    }
-                    //catch
-                    else
-                    {
-                        WasReadable = false;
-                    }
+        //                        Type itemType = type.GetGenericArguments()[0];
+        //                        if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
+        //                            ReadList(reader, list, itemType);
+        //                    }
+        //                }
+        //            }
+        //            //catch
+        //            else
+        //            {
+        //                WasReadable = false;
+        //            }
 
-                    if (!WasReadable)
-                        switch (first)
-                        {
-                            case "End":
-                                return obj;
+        //            if (!WasReadable)
+        //                switch (first)
+        //                {
+        //                    case "End":
+        //                        return obj;
 
-                            case "_MyTexture":
-                                Tools.ReadLineToObj(obj, bits);
-                                break;
+        //                    case "_MyTexture":
+        //                        Tools.ReadLineToObj(obj, bits);
+        //                        break;
 
-                            default:
-                                Tools.ReadLineToObj(obj, bits);
-                                break;
-                        }
-                }
+        //                    default:
+        //                        Tools.ReadLineToObj(obj, bits);
+        //                        break;
+        //                }
+        //        }
 
-                line = reader.ReadLine();
-            }
+        //        line = reader.ReadLine();
+        //    }
 
-            return obj;
-        }
+        //    return obj;
+        //}
 
-        private static void ReadList(StreamReader reader, System.Collections.IList list, Type itemType)
-        {
-            var line = reader.ReadLine();
-            bool ReadingList = true;
+        //private static void ReadList(StreamReader reader, System.Collections.IList list, Type itemType)
+        //{
+        //    var line = reader.ReadLine();
+        //    bool ReadingList = true;
 
-            while (line != null && ReadingList)
-            {
-                line = reader.ReadLine();
-                var bits = Tools.GetBitsFromLine(line);
+        //    while (line != null && ReadingList)
+        //    {
+        //        line = reader.ReadLine();
+        //        var bits = Tools.GetBitsFromLine(line);
 
-                switch (bits[0])
-                {
-                    case "Add":
-                        ConstructorInfo constructor;
-                        if (bits.Count > 1)
-                        {
-                            //var type = Type.GetType("CloudberryKingdom." + bits[1]);
-                            var type = Type.GetType(bits[1]);
-                            constructor = type.GetConstructor(Type.EmptyTypes);
-                        }
-                        else
-                            constructor = itemType.GetConstructor(Type.EmptyTypes);
+        //        switch (bits[0])
+        //        {
+        //            case "Add":
+        //                ConstructorInfo constructor;
+        //                if (bits.Count > 1)
+        //                {
+        //                    //var type = Type.GetType("CloudberryKingdom." + bits[1]);
+        //                    var type = Type.GetType(bits[1]);
+        //                    constructor = type.GetConstructor(Type.EmptyTypes);
+        //                }
+        //                else
+        //                    constructor = itemType.GetConstructor(Type.EmptyTypes);
 
-                        var newobj = constructor.Invoke(Type.EmptyTypes);
-                        //ReadFields(newobj, reader);
-                        if (newobj is IReadWrite) ((IReadWrite)newobj).Read(reader);
-                        else ReadFields(newobj, reader);
-                        list.Add(newobj);
+        //                var newobj = constructor.Invoke(Type.EmptyTypes);
+        //                //ReadFields(newobj, reader);
+        //                if (newobj is IReadWrite) ((IReadWrite)newobj).Read(reader);
+        //                else ReadFields(newobj, reader);
+        //                list.Add(newobj);
 
-                        break;
-                    case "EndList":
-                        ReadingList = false;
-                        break;
-                    case "End":
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        //                break;
+        //            case "EndList":
+        //                ReadingList = false;
+        //                break;
+        //            case "End":
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
         static int WriteRecursiveDepth = 0;
         static int WriteObjId = 0;
-        public static void WriteFields(object obj, StreamWriter writer, params string[] VariableNames)
-        {
-            WriteRecursiveDepth++;
-            string WhiteSpace = "";
-            for (int i = 1; i < WriteRecursiveDepth; i++)
-                WhiteSpace += "  ";
+        //public static void WriteFields(object obj, StreamWriter writer, params string[] VariableNames)
+        //{
+        //    WriteRecursiveDepth++;
+        //    string WhiteSpace = "";
+        //    for (int i = 1; i < WriteRecursiveDepth; i++)
+        //        WhiteSpace += "  ";
 
-            foreach (FieldInfo info in obj.GetType().GetFields())
-            {
-                // Check if field is listed as a variable to be written.
-                if (VariableNames.Contains(info.Name))
-                {
-                    string line = null;
-                    // int
-                    if (info.FieldType == typeof(int))
-                        line = ((int)info.GetValue(obj)).ToString();
-                    // float
-                    else if (info.FieldType == typeof(float))
-                        line = ((float)info.GetValue(obj)).ToString();
-                    // Vector2
-                    else if (info.FieldType == typeof(Vector2))
-                    {
-                        var v = (Vector2)(info.GetValue(obj));
-                        line = string.Format("{0} {1}", v.X, v.Y);
-                    }
-                    // Vector3
-                    else if (info.FieldType == typeof(Vector3))
-                    {
-                        var v = (Vector3)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2}", v.X, v.Y, v.Z);
-                    }
-                    // Vector4
-                    else if (info.FieldType == typeof(Vector4))
-                    {
-                        var v = (Vector4)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2} {3}", v.X, v.Y, v.Z, v.W);
-                    }
-                    // Color
-                    else if (info.FieldType == typeof(Color))
-                    {
-                        var c = (Color)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2} {3}", c.R, c.G, c.B, c.A);
-                    }
-                    // bool
-                    else if (info.FieldType == typeof(bool))
-                    {
-                        var b = (bool)(info.GetValue(obj));
-                        line = string.Format("{0}", b);
-                    }
-                    // string
-                    else if (info.FieldType == typeof(string))
-                        line = ((string)info.GetValue(obj)).ToString();
-                    // EzTexture
-                    else if (info.FieldType == typeof(EzTexture))
-                    {
-                        EzTexture texture = (EzTexture)info.GetValue(obj);
-                        if (texture == null) continue;
-                        else line = texture.Name.ToString();
-                    }
-                    // EzEffect
-                    else if (info.FieldType == typeof(EzEffect))
-                    {
-                        EzEffect effect = (EzEffect)info.GetValue(obj);
-                        if (effect == null) continue;
-                        else line = effect.Name.ToString();
-                    }
-                    // PhsxData
-                    else if (info.FieldType == typeof(PhsxData))
-                    {
-                        var d = (PhsxData)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2} {3} {4} {5}", d.Position.X, d.Position.Y, d.Velocity.X, d.Velocity.Y, d.Acceleration.X, d.Acceleration.Y);
-                    }
-                    // BasePoint
-                    else if (info.FieldType == typeof(BasePoint))
-                    {
-                        var b = (BasePoint)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2} {3} {4} {5}", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
-                    }
-                    // MyOwnVertexFormat
-                    else if (info.FieldType == typeof(MyOwnVertexFormat))
-                    {
-                        var v = (MyOwnVertexFormat)(info.GetValue(obj));
-                        line = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}", v.xy.X, v.xy.Y, v.uv.X, v.uv.Y, v.Color.R, v.Color.G, v.Color.B, v.Color.A);
-                    }
-                    else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
-                    {
-                        var rw = (IReadWrite)(info.GetValue(obj));
-                        writer.WriteLine(WhiteSpace + info.Name);
-                        rw.Write(writer);
-                        writer.WriteLine(WhiteSpace + "End");
-                        writer.WriteLine();
-                    }
-                    else
-                    {
-                        // List of IReadWrites
-                        Type type = info.FieldType;
-                        if (type.IsGenericType && type.GetGenericTypeDefinition()
-                                == typeof(List<>))
-                        {
-                            Type itemType = type.GetGenericArguments()[0];
-                            if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
-                            {
-                                writer.WriteLine(WhiteSpace + info.Name);
-                                writer.WriteLine(WhiteSpace + "StartList");
-                                foreach (var rw in (IEnumerable<IReadWrite>)info.GetValue(obj))
-                                {
-                                    writer.WriteLine(WhiteSpace + "Add " + rw.GetType().Namespace + "." + rw.GetType().Name);
-                                    rw.Write(writer);
-                                    writer.WriteLine(WhiteSpace + "End");
-                                }
-                                writer.WriteLine(WhiteSpace + "EndList");
-                                writer.WriteLine();
-                            }
-                        }
-                    }
+        //    foreach (FieldInfo info in obj.GetType().GetFields())
+        //    {
+        //        // Check if field is listed as a variable to be written.
+        //        if (VariableNames.Contains(info.Name))
+        //        {
+        //            string line = null;
+        //            // int
+        //            if (info.FieldType == typeof(int))
+        //                line = ((int)info.GetValue(obj)).ToString();
+        //            // float
+        //            else if (info.FieldType == typeof(float))
+        //                line = ((float)info.GetValue(obj)).ToString();
+        //            // Vector2
+        //            else if (info.FieldType == typeof(Vector2))
+        //            {
+        //                var v = (Vector2)(info.GetValue(obj));
+        //                line = string.Format("{0} {1}", v.X, v.Y);
+        //            }
+        //            // Vector3
+        //            else if (info.FieldType == typeof(Vector3))
+        //            {
+        //                var v = (Vector3)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2}", v.X, v.Y, v.Z);
+        //            }
+        //            // Vector4
+        //            else if (info.FieldType == typeof(Vector4))
+        //            {
+        //                var v = (Vector4)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2} {3}", v.X, v.Y, v.Z, v.W);
+        //            }
+        //            // Color
+        //            else if (info.FieldType == typeof(Color))
+        //            {
+        //                var c = (Color)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2} {3}", c.R, c.G, c.B, c.A);
+        //            }
+        //            // bool
+        //            else if (info.FieldType == typeof(bool))
+        //            {
+        //                var b = (bool)(info.GetValue(obj));
+        //                line = string.Format("{0}", b);
+        //            }
+        //            // string
+        //            else if (info.FieldType == typeof(string))
+        //                line = ((string)info.GetValue(obj)).ToString();
+        //            // EzTexture
+        //            else if (info.FieldType == typeof(EzTexture))
+        //            {
+        //                EzTexture texture = (EzTexture)info.GetValue(obj);
+        //                if (texture == null) continue;
+        //                else line = texture.Name.ToString();
+        //            }
+        //            // EzEffect
+        //            else if (info.FieldType == typeof(EzEffect))
+        //            {
+        //                EzEffect effect = (EzEffect)info.GetValue(obj);
+        //                if (effect == null) continue;
+        //                else line = effect.Name.ToString();
+        //            }
+        //            // PhsxData
+        //            else if (info.FieldType == typeof(PhsxData))
+        //            {
+        //                var d = (PhsxData)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2} {3} {4} {5}", d.Position.X, d.Position.Y, d.Velocity.X, d.Velocity.Y, d.Acceleration.X, d.Acceleration.Y);
+        //            }
+        //            // BasePoint
+        //            else if (info.FieldType == typeof(BasePoint))
+        //            {
+        //                var b = (BasePoint)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2} {3} {4} {5}", b.e1.X, b.e1.Y, b.e2.X, b.e2.Y, b.Origin.X, b.Origin.Y);
+        //            }
+        //            // MyOwnVertexFormat
+        //            else if (info.FieldType == typeof(MyOwnVertexFormat))
+        //            {
+        //                var v = (MyOwnVertexFormat)(info.GetValue(obj));
+        //                line = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}", v.xy.X, v.xy.Y, v.uv.X, v.uv.Y, v.Color.R, v.Color.G, v.Color.B, v.Color.A);
+        //            }
+        //            else if (info.FieldType.GetInterfaces().Contains(typeof(IReadWrite)))
+        //            {
+        //                var rw = (IReadWrite)(info.GetValue(obj));
+        //                writer.WriteLine(WhiteSpace + info.Name);
+        //                rw.Write(writer);
+        //                writer.WriteLine(WhiteSpace + "End");
+        //                writer.WriteLine();
+        //            }
+        //            else
+        //            {
+        //                // List of IReadWrites
+        //                Type type = info.FieldType;
+        //                if (type.IsGenericType && type.GetGenericTypeDefinition()
+        //                        == typeof(List<>))
+        //                {
+        //                    Type itemType = type.GetGenericArguments()[0];
+        //                    if (itemType.GetInterfaces().Contains(typeof(IReadWrite)))
+        //                    {
+        //                        writer.WriteLine(WhiteSpace + info.Name);
+        //                        writer.WriteLine(WhiteSpace + "StartList");
+        //                        foreach (var rw in (IEnumerable<IReadWrite>)info.GetValue(obj))
+        //                        {
+        //                            writer.WriteLine(WhiteSpace + "Add " + rw.GetType().Namespace + "." + rw.GetType().Name);
+        //                            rw.Write(writer);
+        //                            writer.WriteLine(WhiteSpace + "End");
+        //                        }
+        //                        writer.WriteLine(WhiteSpace + "EndList");
+        //                        writer.WriteLine();
+        //                    }
+        //                }
+        //            }
 
-                    if (line != null)
-                        writer.WriteLine(WhiteSpace + string.Format("{0} {1}", info.Name, line));
-                }
-            }
+        //            if (line != null)
+        //                writer.WriteLine(WhiteSpace + string.Format("{0} {1}", info.Name, line));
+        //        }
+        //    }
 
-            WriteRecursiveDepth--;
-        }
+        //    WriteRecursiveDepth--;
+        //}
 
         static void ResetWrite()
         {

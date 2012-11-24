@@ -16,12 +16,12 @@ namespace CloudberryKingdom
         }
         public void Write(StreamWriter writer)
         {
-            Tools.WriteFields(this, writer, _bits_to_save);
+            //Tools.WriteFields(this, writer, _bits_to_save);
         }
         public void Read(StreamReader reader)
         {
-            this = (SimpleQuad)Tools.ReadFields(this, reader);
-            SetColor(MySetColor, true);
+            //this = (SimpleQuad)Tools.ReadFields(this, reader);
+            //SetColor(MySetColor, true);
         }
 
         public bool Animated;
