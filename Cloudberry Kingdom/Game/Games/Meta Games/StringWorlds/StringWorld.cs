@@ -174,7 +174,7 @@ namespace CloudberryKingdom
             // Open the door and show players
             int Wait = WaitLengthToOpenDoor_FirstLevel;
 
-            if (CurLevelIndex > 0)
+            if (CurLevelIndex > 0 || CurLevelSeed.AlwaysOverrideWaitDoorLength)
                 Wait = CurLevelSeed.WaitLengthToOpenDoor;
             game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
         }

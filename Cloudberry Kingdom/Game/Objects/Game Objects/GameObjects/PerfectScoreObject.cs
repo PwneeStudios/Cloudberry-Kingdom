@@ -131,7 +131,8 @@ namespace CloudberryKingdom
                 Effect(obj.Core.Data.Position);
 
                 // Increase the bonus
-                NextBonus += BonusIncrement;
+                MyGame.WaitThenDo(2, TextEffect);
+                //NextBonus += BonusIncrement;
             }
 
             UpdateScoreText();
@@ -180,7 +181,8 @@ namespace CloudberryKingdom
             //ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, TextPos + new Vector2(40, 0));
 
             //MyGame.OnCompleteLevel += new Action<Levels.Level>(MyGame_OnCompleteLevel);
-            MyGame.WaitThenDo(1, TextEffect);
+            //MyGame.WaitThenDo(1, TextEffect);
+            //TextEffect();
 
             var sound = Tools.SoundWad.FindByName("PerfectSound");
             if (sound != null) sound.Play();
@@ -193,6 +195,9 @@ namespace CloudberryKingdom
 
         void TextEffect()
         {
+            NextBonus += BonusIncrement;
+            UpdateScoreText();
+
             if (MyGame.ScoreMultiplier <= 2)
             {
                 Text.MyFloatColor = .77f * Color.White.ToVector4() + .23f * new Color(228, 0, 69).ToVector4();
@@ -316,6 +321,8 @@ namespace CloudberryKingdom
             }
 
             AddedOnce = true;
+
+            if (MyLevel.NumCoins == 0) Obtained = true;
         }
 
         EzText Text;
@@ -372,6 +379,11 @@ namespace CloudberryKingdom
             EzText _t;
             _t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
             MyPile.Pos = new Vector2(1569.445f, -772.2226f);
+        }
+
+        public override void Release()
+        {
+            base.Release();
         }
 
         protected override void MyDraw()

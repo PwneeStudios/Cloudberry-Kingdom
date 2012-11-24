@@ -83,7 +83,7 @@ namespace CloudberryKingdom
             if (Perma) return;
 
             // Otherwise show and hide
-            if (Count == 4)
+            if (Count == 24)
             {
                 //SlideIn();
                 SlideIn(0);
@@ -92,8 +92,11 @@ namespace CloudberryKingdom
 
             if (Count == 180)
             {
-                SlideOut(PresetPos.Right, 160);
-                ReleaseWhenDone = true;
+                //SlideOut(PresetPos.Right, 160);
+                //ReleaseWhenDone = true;
+
+                MyPile.BubbleDownAndFade(true);
+                ReleaseWhenDoneScaling = true;
             }
         }
     }

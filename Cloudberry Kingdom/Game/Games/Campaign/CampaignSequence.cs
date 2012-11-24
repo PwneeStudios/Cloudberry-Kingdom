@@ -33,11 +33,27 @@ namespace CloudberryKingdom
         Dictionary<int, int> ChapterStart = new Dictionary<int, int>();
         Dictionary<int, Tuple<string, string>> SpecialLevel = new Dictionary<int, Tuple<string, string>>();
 
+        static PerfectScoreObject MyPerfectScoreObject;
+
         public override void Start(int Chapter)
         {
+            MyPerfectScoreObject = new PerfectScoreObject(false, true);
+
             int StartLevel = ChapterStart[Chapter];
 
             base.Start(StartLevel);
+        }
+
+        protected override void AdditionalPreStart()
+        {
+            MyStringWorld.OnSwapToFirstLevel += new Action<LevelSeedData>(MyStringWorld_OnSwapToFirstLevel);
+        }
+
+        void MyStringWorld_OnSwapToFirstLevel(LevelSeedData data)
+        {
+            MyPerfectScoreObject.PreventRelease = true;
+            data.MyGame.AddGameObject(MyPerfectScoreObject);
+            //data.MyGame.AddGameObject(new PerfectScoreObject(false, true));
         }
 
         protected override void MakeSeedList()
@@ -161,15 +177,19 @@ namespace CloudberryKingdom
             //var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
             
             // Level Title plus Hero Name
-            var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
-            level.MyGame.AddGameObject(title);
-
             if (!level.MyLevelSeed.NewHero)
             {
-                var hero_title = new LevelTitle(string.Format("{0}", Localization.WordString(level.DefaultHeroType.Name)));
-                hero_title.Shift(new Vector2(0, -180));
-                level.MyGame.AddGameObject(hero_title);
+                var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
+                title.Shift(new Vector2(0, -45));
+                level.MyGame.AddGameObject(title);
             }
+
+            //if (!level.MyLevelSeed.NewHero)
+            //{
+            //    var hero_title = new LevelTitle(string.Format("{0}", Localization.WordString(level.DefaultHeroType.Name)));
+            //    hero_title.Shift(new Vector2(0, -180));
+            //    level.MyGame.AddGameObject(hero_title);
+            //}
 
             if (level.MyLevelSeed.Darkness)
             {
@@ -177,7 +197,11 @@ namespace CloudberryKingdom
                 Background.AddDarkLayer(level.MyBackground);
             }
 
-            level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum), new PerfectScoreObject(false, true));
+            var CScore = new GUI_CampaignScore();
+            CScore.PreventRelease = false;
+            var CLevel = new GUI_Level(level.MyLevelSeed.LevelNum);
+            CLevel.PreventRelease = false;
+            level.MyGame.AddGameObject(CScore, CLevel);//, MyPerfectScoreObject);
 
             level.MyGame.MyBankType = GameData.BankType.Campaign;
         }
