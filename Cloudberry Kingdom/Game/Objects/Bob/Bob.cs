@@ -701,7 +701,7 @@ namespace CloudberryKingdom.Bobs
 
             DeathCount = 0;
 
-            Core.DrawLayer = 9;
+            //Core.DrawLayer = 9;
 
             FlamingCorpse = false;
 
@@ -1497,7 +1497,7 @@ namespace CloudberryKingdom.Bobs
             temp.Pos = Head.Center.Pos;
 
             if (Dead)
-                temp.Pos += new Vector2(60, 100) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+                temp.Pos += new Vector2(60, -50) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else if (MyPhsx.Ducking)
                 temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else

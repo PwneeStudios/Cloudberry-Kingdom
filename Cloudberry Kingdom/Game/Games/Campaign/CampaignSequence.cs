@@ -177,7 +177,7 @@ namespace CloudberryKingdom
                 Background.AddDarkLayer(level.MyBackground);
             }
 
-            level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum));
+            level.MyGame.AddGameObject(new GUI_CampaignScore(), new GUI_Level(level.MyLevelSeed.LevelNum), new PerfectScoreObject(false, true));
 
             level.MyGame.MyBankType = GameData.BankType.Campaign;
         }
