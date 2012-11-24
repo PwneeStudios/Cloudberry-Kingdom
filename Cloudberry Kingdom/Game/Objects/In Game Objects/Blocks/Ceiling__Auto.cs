@@ -76,7 +76,8 @@ namespace CloudberryKingdom.Levels
 
         public void MakeLongCeiling(Level level, Vector2 BL, Vector2 TR)
         {
-            NormalBlock cblock = (NormalBlock)level.Recycle[ObjectType.NormalBlock, true];
+            //NormalBlock cblock = (NormalBlock)level.Recycle[ObjectType.NormalBlock, true];
+            NormalBlock cblock = (NormalBlock)level.Recycle.GetObject(ObjectType.NormalBlock, true);
             Vector2 size = TR - BL + new Vector2(4000, 0);
             Vector2 pos = (TR + BL) / 2 + new Vector2(0, 500);
             cblock.Init(pos, size, level.MyTileSetInfo);

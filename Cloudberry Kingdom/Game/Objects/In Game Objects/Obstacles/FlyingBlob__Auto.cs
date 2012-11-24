@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Levels
             /// <summary>
             /// A special fill type. Creates a tunnel of flying blobs.
             /// </summary>
-            public bool Tunnel;
+            //public bool Tunnel;
 
             /// <summary>
             /// A special fill type. One giant circle. All blobs orbit the same point.
@@ -204,93 +204,94 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        void Clean(ObjectBase[,] array)
-        {
-            for (int i = 0; i < array.GetLength(0); i++)
-                for (int j = 0; j < array.GetLength(1); j++)
-                    if (array[i,j] != null && array[i,j].Core.MarkedForDeletion)
-                        array[i, j] = null;
-        }
-        void Clean(ObjectBase[,] array, int i, int j)
-        {
-            if (array[i, j] == null) return;
-            array[i, j].CollectSelf();
-            array[i, j] = null;
-        }
-        void CleanupTunnel(Level level)
-        {
-            // Get Goomba parameters
-            FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
+        //void Clean(ObjectBase[,] array)
+        //{
+        //    for (int i = 0; i < array.GetLength(0); i++)
+        //        for (int j = 0; j < array.GetLength(1); j++)
+        //            if (array[i,j] != null && array[i,j].Core.MarkedForDeletion)
+        //                array[i, j] = null;
+        //}
+        //void Clean(ObjectBase[,] array, int i, int j)
+        //{
+        //    if (array[i, j] == null) return;
+        //    array[i, j].CollectSelf();
+        //    array[i, j] = null;
+        //}
+        
+        //void CleanupTunnel(Level level)
+        //{
+        //    // Get Goomba parameters
+        //    FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
-            ulong[,] GUIDs = Params.TunnelGUIDs;
-            ObjectBase[,] Blobs = new ObjectBase[GUIDs.GetLength(0), GUIDs.GetLength(1)];
+        //    ulong[,] GUIDs = Params.TunnelGUIDs;
+        //    ObjectBase[,] Blobs = new ObjectBase[GUIDs.GetLength(0), GUIDs.GetLength(1)];
 
-            for (int i = 0; i < Blobs.GetLength(0); i++)
-                for (int j = 0; j < Blobs.GetLength(1); j++)
-                    Blobs[i,j] = level.GuidToObj(GUIDs[i,j]);
+        //    for (int i = 0; i < Blobs.GetLength(0); i++)
+        //        for (int j = 0; j < Blobs.GetLength(1); j++)
+        //            Blobs[i,j] = level.GuidToObj(GUIDs[i,j]);
 
-            // Head room
-            for (int i = 0; i < Blobs.GetLength(0); i++)
-            {
-                for (int j = Blobs.GetLength(1) - 1; j >= 1;  j--)
-                {
-                    if (Blobs[i, j] == null) continue;
-                    if (Blobs[i, j].Core.GenData.Used) continue;
+        //    // Head room
+        //    for (int i = 0; i < Blobs.GetLength(0); i++)
+        //    {
+        //        for (int j = Blobs.GetLength(1) - 1; j >= 1;  j--)
+        //        {
+        //            if (Blobs[i, j] == null) continue;
+        //            if (Blobs[i, j].Core.GenData.Used) continue;
 
-                    if (Blobs[i, j - 1] == null)
-                        Clean(Blobs, i, j);
-                }
-            }
+        //            if (Blobs[i, j - 1] == null)
+        //                Clean(Blobs, i, j);
+        //        }
+        //    }
 
-            // Remove ceiling
-            if (!Params.TunnelCeiling)
-            {
-                for (int i = 0; i < Blobs.GetLength(0); i++)
-                {
-                    int j;
-                    for (j = Blobs.GetLength(1) - 1; j >= 1; j--)
-                        if (Blobs[i, j] == null) break;
+        //    // Remove ceiling
+        //    if (!Params.TunnelCeiling)
+        //    {
+        //        for (int i = 0; i < Blobs.GetLength(0); i++)
+        //        {
+        //            int j;
+        //            for (j = Blobs.GetLength(1) - 1; j >= 1; j--)
+        //                if (Blobs[i, j] == null) break;
 
-                    for (; j < Blobs.GetLength(1); j++)
-                        Clean(Blobs, i, j);
-                }
-            }
+        //            for (; j < Blobs.GetLength(1); j++)
+        //                Clean(Blobs, i, j);
+        //        }
+        //    }
 
-            for (int i = 0; i < Blobs.GetLength(0); i++)
-            {
-                for (int j = 0; j < Blobs.GetLength(1); j++)
-                {
-                    if (Blobs[i,j] == null) continue;
-                    if (Blobs[i, j].Core.GenData.Used) continue;
+        //    for (int i = 0; i < Blobs.GetLength(0); i++)
+        //    {
+        //        for (int j = 0; j < Blobs.GetLength(1); j++)
+        //        {
+        //            if (Blobs[i,j] == null) continue;
+        //            if (Blobs[i, j].Core.GenData.Used) continue;
                     
-                    if (j - 1 >= 0 && Blobs[i, j - 1] == null) continue;
-                    if (j + 1 < Blobs.GetLength(1) && Blobs[i, j + 1] == null) continue;
-                    if (j - 2 >= 0 && Blobs[i, j - 2] == null) continue;
-                    if (j + 2 < Blobs.GetLength(1) && Blobs[i, j + 2] == null) continue;
-                    if (j - 3 >= 0 && Blobs[i, j - 3] == null) continue;
-                    if (j + 3 < Blobs.GetLength(1) && Blobs[i, j + 3] == null) continue;
+        //            if (j - 1 >= 0 && Blobs[i, j - 1] == null) continue;
+        //            if (j + 1 < Blobs.GetLength(1) && Blobs[i, j + 1] == null) continue;
+        //            if (j - 2 >= 0 && Blobs[i, j - 2] == null) continue;
+        //            if (j + 2 < Blobs.GetLength(1) && Blobs[i, j + 2] == null) continue;
+        //            if (j - 3 >= 0 && Blobs[i, j - 3] == null) continue;
+        //            if (j + 3 < Blobs.GetLength(1) && Blobs[i, j + 3] == null) continue;
 
-                    Blobs[i, j].CollectSelf();
-                }
-            }
-            Clean(Blobs);
+        //            Blobs[i, j].CollectSelf();
+        //        }
+        //    }
+        //    Clean(Blobs);
 
-            // Remove warts
-            for (int i = 1; i < Blobs.GetLength(0) - 1; i++)
-            {
-                for (int j = 1; j < Blobs.GetLength(1); j++)
-                {
-                    if (Blobs[i, j] == null) continue;
-                    if (Blobs[i, j].Core.GenData.Used) continue;
+        //    // Remove warts
+        //    for (int i = 1; i < Blobs.GetLength(0) - 1; i++)
+        //    {
+        //        for (int j = 1; j < Blobs.GetLength(1); j++)
+        //        {
+        //            if (Blobs[i, j] == null) continue;
+        //            if (Blobs[i, j].Core.GenData.Used) continue;
 
-                    if (Blobs[i - 1, j] == null && Blobs[i + 1, j] == null && Blobs[i, j - 1] == null)
-                        Clean(Blobs, i, j);
-                }
-            }
+        //            if (Blobs[i - 1, j] == null && Blobs[i + 1, j] == null && Blobs[i, j - 1] == null)
+        //                Clean(Blobs, i, j);
+        //        }
+        //    }
 
-            GUIDs = Params.TunnelGUIDs = null;
-            Blobs = null;
-        }
+        //    GUIDs = Params.TunnelGUIDs = null;
+        //    Blobs = null;
+        //}
         
         public override void PreFill_1(Level level, Vector2 BL, Vector2 TR)
         {
@@ -299,8 +300,8 @@ namespace CloudberryKingdom.Levels
             // Get Goomba parameters
             FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
-            if (Params.Special.Tunnel)
-                Tunnel(level, BL, TR);
+            //if (Params.Special.Tunnel)
+            //    Tunnel(level, BL, TR);
             if (Params.Special.Pinwheel)
                 Pinwheel(level, BL, TR);
         }
@@ -312,8 +313,8 @@ namespace CloudberryKingdom.Levels
             // Get Goomba parameters
             FlyingBlob_Parameters Params = (FlyingBlob_Parameters)level.Style.FindParams(FlyingBlob_AutoGen.Instance);
 
-            if (Params.Special.Tunnel)
-                CleanupTunnel(level);
+            //if (Params.Special.Tunnel)
+            //    CleanupTunnel(level);
         }
 
         public override void PreFill_2(Level level, Vector2 BL, Vector2 TR)

@@ -282,10 +282,10 @@ namespace CloudberryKingdom
             return obj;
         }
 
-        public ObjectBase this[ObjectType type, bool BoxesOnly]
-        {
-            get { return GetObject(type, BoxesOnly); }
-        }
+        //public ObjectBase this[ObjectType type, bool BoxesOnly]
+        //{
+        //    get { return GetObject(type, BoxesOnly); }
+        //}
 
         public ObjectBase GetObject(ObjectType type, bool BoxesOnly)
         {
