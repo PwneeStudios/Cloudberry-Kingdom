@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace CloudberryKingdom
 {
     //public delegate void MenuItemGo(MenuItem item);
-    public class MenuItem : ViewReadWrite
+    public class MenuItem
     {
         public int Code = 0;
         public string Name = "";
@@ -17,37 +17,6 @@ namespace CloudberryKingdom
         /// </summary>
         public object MyObject = null;
         public int MyInt = 0;
-
-        public override string[] GetViewables()
-        {
-            return new string[] { "Pos", "SelectedPos", "MyText", "MySelectedText", "!MyMenu", "SelectIconOffset" };
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            if (ShiftDown)
-            {
-                var scale = (shift.X + shift.Y) * .00003f;
-                MyText.Scale += scale;
-                MySelectedText.Scale += scale;
-            }
-            else
-                SetPos += shift;
-        }
-
-        public virtual string ToCode(string suffix)
-        {
-            string SelectedPosStr = "";
-            if (SelectedPos != Pos)
-            {
-                var spos = SelectedPos;
-                if (spos.Y == Pos.Y) spos.Y = -1;
-
-                SelectedPosStr = string.Format("_SetSelectedPos({0});", Tools.ToCode(spos));
-            }
-
-            return string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}", suffix, Name, Tools.ToCode(Pos), MyText.Scale, MySelectedText.Scale, Tools.ToCode(SelectIconOffset), SelectedPosStr);
-        }
 
         public MenuItem Clone()
         {

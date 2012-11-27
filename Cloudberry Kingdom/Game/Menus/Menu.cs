@@ -91,7 +91,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public class Menu : ViewReadWrite, IViewableList
+    public class Menu
     {
         public static class DefaultMenuInfo
         {
@@ -129,32 +129,6 @@ namespace CloudberryKingdom
             public static Vector2 Slider_Size = new Vector2(28, 55);
         }
 
-        public override string[] GetViewables()
-        {
-            return new string[] { "BackdropShift", "Items" };
-        }
-
-        public override string CopyToClipboard(string suffix)
-        {
-            string s = "";
-
-            if (Items.Count > 0) s += "MenuItem _item;\n";
-            foreach (MenuItem item in Items)
-            {
-                s += item.ToCode(suffix) + "\n";
-            }
-
-            if (Items.Count > 0) s += "\n";
-            s += string.Format("{0}Pos = {1};\n", suffix, Tools.ToCode(Pos));
-
-            return s;
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            Pos += shift;
-        }
-
         class FindItemByNameLambda : LambdaFunc_1<MenuItem, bool>
         {
             string name;
@@ -172,16 +146,6 @@ namespace CloudberryKingdom
         public MenuItem FindItemByName(string name)
         {
             return Tools.Find(Items, new FindItemByNameLambda(name));
-        }
-
-        public void GetChildren(List<InstancePlusName> ViewableChildren)
-        {
-            if (Items != null)
-                foreach (MenuItem item in Items)
-                {
-                    string name = item.MyText.MyString;
-                    ViewableChildren.Add(new InstancePlusName(item, name));
-                }
         }
 
         /// <summary>

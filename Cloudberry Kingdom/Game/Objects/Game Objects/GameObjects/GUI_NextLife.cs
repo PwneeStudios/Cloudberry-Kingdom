@@ -4,11 +4,6 @@ namespace CloudberryKingdom
 {
     public class GUI_NextLife : GameObject
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
-
         public DrawPile MyPile = new DrawPile();
 
         GUI_LivesLeft GUI_Lives;

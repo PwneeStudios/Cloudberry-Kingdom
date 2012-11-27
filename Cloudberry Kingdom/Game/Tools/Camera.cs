@@ -3,13 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class Camera : ViewReadWrite, IPos
+    public class Camera : IPos
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "!MyLevel" };
-        }
-
         /// <summary>
         /// When true the camera uses its EffectivePos and EffectiveZoom when drawing.
         /// The camera's TR, BL, width, and height are unaffected and are updated normally.

@@ -27,7 +27,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public partial class Background : ViewReadWrite
+    public partial class Background
     {
         public static void _code_Hills(Background b)
         {

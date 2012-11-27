@@ -121,8 +121,6 @@ namespace CloudberryKingdom
             {
                 if (MyTemplate.MadeOfCode)
                     UseCode(MyTemplate, this);
-                else if (MyTemplate.MadeOfText)
-                    Load(MyTemplate.File);
             }
         }
 
@@ -152,7 +150,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public partial class Background : ViewReadWrite
+    public partial class Background
     {
         public int GuidCounter = 0;
         public int GetGuid()
@@ -325,44 +323,6 @@ namespace CloudberryKingdom
                     clr.W = fl.MyQuad.Quad.MySetColor.ToVector4().W;
                     fl.MyQuad.Quad.SetColor(clr);
                 }
-        }
-
-        public override string[] GetViewables()
-        {
-            return new string[] { "MyGlobalIllumination", "AllowLava", "Light", "BL", "TR", "MyCollection", "GuidCounter" };
-        }
-        public override void Read(StreamReader reader)
-        {
-            MyCollection.Lists.Clear();
-
-            base.Read(reader);
-
-            SetLevel(MyLevel);
-            SetBackground(this);
-            Reset();
-        }
-
-        public void Save(string path)
-        {
-            var stream = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
-            var writer = new StreamWriter(stream);
-
-            Write(writer);
-
-            writer.Close();
-            stream.Close();
-        }
-
-        public void Load(string path)
-        {
-            Tools.UseInvariantCulture();
-            var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
-            var reader = new StreamReader(stream);
-
-            Read(reader);
-
-            reader.Close();
-            stream.Close();
         }
 
         public void SetWeatherIntensity(float Intensity)

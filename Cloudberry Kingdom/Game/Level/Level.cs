@@ -9,13 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CloudberryKingdom
 {
-    public partial class Level : ViewReadWrite
+    public partial class Level
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
-
         public Recycler Recycle
         {
             get

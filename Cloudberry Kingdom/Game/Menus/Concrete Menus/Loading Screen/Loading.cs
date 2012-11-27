@@ -4,15 +4,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace CloudberryKingdom
 {
-    public class ProgressBar : ViewReadWrite
+    public class ProgressBar
     {
         public enum BarType { Scale, Reveal };
         public BarType MyType = BarType.Scale;
-
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
 
         public Vector2 Full_BL { get { return Outline.BL; } }
         public Vector2 Full_TR { get { return Outline.TR; } }

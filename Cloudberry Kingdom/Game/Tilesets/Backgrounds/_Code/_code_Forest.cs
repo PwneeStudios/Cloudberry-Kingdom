@@ -28,7 +28,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public partial class Background : ViewReadWrite
+    public partial class Background
     {
         public static void TurnOnSnow(Background b)
         {

@@ -193,27 +193,8 @@ namespace CloudberryKingdom
 #endif
     }
 
-    public class EzText : ViewReadWrite
+    public class EzText
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "Name", "MyString", "Code", "FancyPos", "_Pos", "Shadow", "PicShadow", "ShadowOffset", "ShadowColor", "ShadowScale",
-                "Alpha", "MyColor", "MyFloatColor" };
-        }
-
-        public override string GetConstructorString()
-        {
-            return string.Format("new EzText(\"{0}\", ItemFont)", MyString);
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            if (ShiftDown)
-                Scale += (shift.X + shift.Y) * .00003f;
-            else
-                Pos += shift;
-        }
-
         public static string ColorToMarkup(int r, int g, int b)
         {
             return ColorToMarkup(r, g, b, 0, null);

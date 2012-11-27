@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class ObjectBase : ViewReadWrite
+    public class ObjectBase
     {
         public GameData Game { get { return Core.MyLevel.MyGame; } }
         public Level MyLevel { get { return Core.MyLevel; } }

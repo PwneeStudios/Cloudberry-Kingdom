@@ -3,72 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class DrawPile : ViewReadWrite, IViewableList
+    public class DrawPile
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "MyQuadList", "MyTextList" };
-        }
-
-        public override string CopyToClipboard(string suffix)
-        {
-            if (suffix == null || suffix == "") suffix = "MyPile.";
-
-            string s = "";
-
-            if (MyTextList != null)
-            {
-                if (MyTextList.Count > 0) s += "EzText _t;\n";
-                foreach (EzText text in MyTextList)
-                    s += string.Format("_t = {0}FindEzText(\"{1}\"); if (_t != null) {{ _t.Pos = {2}; _t.Scale = {3}f; }}\n", suffix, text.Name, Tools.ToCode(text.Pos), text.Scale);
-            }
-
-            if (MyQuadList != null && MyQuadList.Count > 0)
-            {
-                if (MyTextList.Count > 0) s += "\n";
-
-                if (MyQuadList.Count > 0) s += "QuadClass _q;\n";
-                foreach (QuadClass quad in MyQuadList)
-                {
-                    s += string.Format("_q = {0}FindQuad(\"{1}\"); if (_q != null) {{ _q.Pos = {2}; _q.Size = {3}; }}\n",
-                        suffix, quad.Name, Tools.ToCode(quad.Pos), Tools.ToCode(quad.Size));
-                }
-
-                s += "\n";
-            }
-
-            s += string.Format("{0}Pos = {1};\n", suffix, Tools.ToCode(Pos));
-
-            return s;
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            if (ShiftDown)
-                Scale((shift.X + shift.Y) * .00003f);
-            else
-                Pos += shift;
-        }
-
-        public void GetChildren(List<InstancePlusName> ViewableChildren)
-        {
-            if (MyQuadList != null)
-                foreach (QuadClass quad in MyQuadList)
-                {
-                    string name = quad.Name;
-                    if (name.Length == 0)
-                        name = quad.TextureName;
-                    ViewableChildren.Add(new InstancePlusName(quad, name));
-                }
-
-            if (MyTextList != null)
-                foreach (EzText text in MyTextList)
-                {
-                    string name = text.MyString;
-                    ViewableChildren.Add(new InstancePlusName(text, name));
-                }
-        }
-
         public FancyVector2 FancyScale;
         public Vector2 Size
         {

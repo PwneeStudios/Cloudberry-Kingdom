@@ -48,37 +48,8 @@ namespace CloudberryKingdom
         }
     }
     
-    public class QuadClass : ViewReadWrite
+    public class QuadClass
     {
-#if WINDOWS
-        public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            if (ShiftDown)
-            {
-                if (Tools.CntrlDown())
-                {
-                    if (FancyAngle != null)
-                        Angle += shift.X * .001f;
-                }
-                else
-                {
-                    // Only rescale the quad to the proper aspect ratio if we are using Left Shift.
-                    if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
-                    {
-                        Size += new Vector2((shift.X + shift.Y) * .03f);
-                        ScaleXToMatchRatio(Size.Y);
-                    }
-                    else
-                        Size += .03f * new Vector2(shift.X, shift.Y);
-                }
-            }
-            else
-                Pos += shift;
-        }
-#endif
-
         public static QuadClass FindQuad(List<QuadClass> list, string Name)
         {
             foreach (var quad in list)

@@ -7,11 +7,6 @@ namespace CloudberryKingdom
 {
     public class MenuList : MenuItem
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "RightArrowOffset", "LeftArrowOffset", "Pos", "SelectedPos", "!MyMenu" };
-        }
-
         public bool ExpandOnGo
         {
             get { return _ExpandOnGo; }

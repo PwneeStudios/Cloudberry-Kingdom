@@ -594,7 +594,6 @@
     <Compile Include="Game\Tools\WrappedFloat.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
     <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
-    <Compile Include="Core\IViewable.cs" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">

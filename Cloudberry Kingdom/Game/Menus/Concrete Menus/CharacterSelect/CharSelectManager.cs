@@ -12,16 +12,11 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace CloudberryKingdom
 {
-    public class CharacterSelectManager : ViewReadWrite
+    public class CharacterSelectManager
     {
         public static Lambda OnBack, OnDone;
 
         public static GUI_Panel ParentPanel;
-
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
 
         static readonly CharacterSelectManager instance = new CharacterSelectManager();
         public static CharacterSelectManager Instance { get { return instance; } }

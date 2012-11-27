@@ -5,7 +5,7 @@ using System.IO;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundFloaterList : ViewReadWrite
+    public class BackgroundFloaterList
     {
         public string Name = null;
 
@@ -157,7 +157,5 @@ namespace CloudberryKingdom
         }
 
         public bool DoPreDraw = false;
-
-        public override string[] GetViewables() { return new string[] { "Name", "Parallax", "Floaters", "Fixed", "Foreground", "DoPreDraw" }; }
     }
 }

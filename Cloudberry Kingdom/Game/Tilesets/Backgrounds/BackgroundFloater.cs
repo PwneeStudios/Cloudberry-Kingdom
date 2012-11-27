@@ -5,7 +5,7 @@ using System.IO;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundFloater : ViewReadWrite
+    public class BackgroundFloater
     {
         float _SpinVelocity;
         public float SpinVelocity
@@ -162,15 +162,6 @@ namespace CloudberryKingdom
         public virtual void Draw()
         {
             Tools.QDrawer.DrawQuad(ref MyQuad.Quad);
-        }
-
-        static string[] _bits_to_save = new string[] { "Name", "MyQuad", "uv_speed", "uv_offset", "Data", "StartData" };
-        public override string[] GetViewables() { return _bits_to_save; }
-
-        public override void Read(StreamReader reader)
-        {
-            base.Read(reader);
-            InitialUpdate();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.IO;
 
 namespace CloudberryKingdom
 {
-    public class BackgroundCollection : ViewReadWrite
+    public class BackgroundCollection
     {
         public Level MyLevel;
 
@@ -104,7 +104,5 @@ namespace CloudberryKingdom
             foreach (BackgroundFloaterList list in Lists)
                 list.PhsxStep();
         }
-
-        public override string[] GetViewables() { return new string[] { "Lists" }; }
     }
 }

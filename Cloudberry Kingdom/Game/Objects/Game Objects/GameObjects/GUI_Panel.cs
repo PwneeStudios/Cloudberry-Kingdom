@@ -5,11 +5,6 @@ namespace CloudberryKingdom
 {
     public class GUI_Panel : GameObject
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "MyMenu", "MyPile" };
-        }
-
         int _Control = -2; // MUST be initialized to something negative
         public int Control
         {
@@ -26,22 +21,6 @@ namespace CloudberryKingdom
 
         public Menu MyMenu;
         public DrawPile MyPile;
-
-        public override string CopyToClipboard(string suffix)
-        {
-            string s = "";
-
-            if (MyMenu != null) s += MyMenu.CopyToClipboard("MyMenu.") + "\n";
-            if (MyPile != null) s += MyPile.CopyToClipboard("MyPile.");
-
-            return s;
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            if (MyMenu != null) MyMenu.ProcessMouseInput(shift, ShiftDown);
-            if (MyPile != null) MyPile.ProcessMouseInput(shift, ShiftDown);
-        }
 
         /// <summary>
         /// The accumulation of all shifts

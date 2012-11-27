@@ -12,13 +12,8 @@ namespace CloudberryKingdom
     }
 
     public enum LerpStyle { Linear, SmallOvershoot, DecayPlusSmallOvershoot, DecayNoOvershoot, Sigmoid }
-    public class FancyVector2 : ViewReadWrite, IPos
+    public class FancyVector2 : IPos
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "RelVal" };
-        }
-
         public AnimationData AnimData;
 
         public Vector2[] HoldVecs = new Vector2[5];

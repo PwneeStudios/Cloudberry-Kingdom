@@ -5,25 +5,8 @@ using System.IO;
 
 namespace CloudberryKingdom
 {
-    public struct SimpleQuad : IReadWrite
+    public struct SimpleQuad
     {
-        string[] _bits_to_save { get { return IsDefault() ? _bits_to_save_simple : _bits_to_save_full; } }
-        static string[] _bits_to_save_full = new string[] { "v0", "v1", "v2", "v3", "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture", "ExtraTexture1", "ExtraTexture2", "MyEffect" };
-        static string[] _bits_to_save_simple = new string[] { "MySetColor", "PremultipliedColor", "BlendAddRatio", "_MyTexture", "ExtraTexture1", "ExtraTexture2", "MyEffect" };
-        public void WriteCode(string prefix, StreamWriter writer)
-        {
-            Tools.WriteFieldsToCode(this, prefix, writer, _bits_to_save);
-        }
-        public void Write(StreamWriter writer)
-        {
-            //Tools.WriteFields(this, writer, _bits_to_save);
-        }
-        public void Read(StreamReader reader)
-        {
-            //this = (SimpleQuad)Tools.ReadFields(this, reader);
-            //SetColor(MySetColor, true);
-        }
-
         public bool Animated;
 
         public void NextKeyFrame()

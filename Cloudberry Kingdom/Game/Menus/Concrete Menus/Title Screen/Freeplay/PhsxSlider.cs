@@ -5,11 +5,6 @@ namespace CloudberryKingdom
 {
     public class PhsxSlider : MenuSlider
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { "Pos", "SelectedPos", "!MyMenu", "SliderShift", "!MenuToAddTo" };
-        }
-
         public static EzFont Font;
         public static Lambda_1<MenuItem> Process;
 

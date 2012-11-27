@@ -7,16 +7,6 @@ namespace CloudberryKingdom
         LongMenu AttachedMenu;
         GUI_Panel Parent;
 
-        public override string CopyToClipboard(string suffix)
-        {
-            return string.Format("{0}BarPos = {1}", suffix, Tools.ToCode(BarPos));
-        }
-
-        public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
-        {
-            BarPos += shift;
-        }
-
         protected override void ReleaseBody()
         {
             base.ReleaseBody();

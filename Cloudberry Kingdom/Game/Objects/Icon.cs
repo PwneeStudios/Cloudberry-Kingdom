@@ -3,13 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class ObjectIcon : ViewReadWrite
+    public class ObjectIcon
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
-
         public bool Flipped = false;
 
         public static ObjectIcon RobotIcon, PathIcon, SlowMoIcon;
@@ -203,11 +198,6 @@ namespace CloudberryKingdom
 
     public class PictureIcon : ObjectIcon
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
-
         public QuadClass IconQuad;
 
         public EzTexture IconTexture;
@@ -354,11 +344,6 @@ namespace CloudberryKingdom
 
     public class CustomHoverIcon : ObjectIcon
     {
-        public override string[] GetViewables()
-        {
-            return new string[] { };
-        }
-
         public QuadClass GearQuad, YQuad;
 
         public CustomHoverIcon()
