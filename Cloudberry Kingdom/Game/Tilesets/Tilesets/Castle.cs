@@ -32,8 +32,8 @@ t.Ceilings.Add(new PieceQuad(300, "pillar_castle_300", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(600, "pillar_castle_600", -20, 20, 0, true));
 t.Ceilings.Add(new PieceQuad(1000, "pillar_castle_1000", -20, 20, 0, true));
 
-t.StartBlock.Add(new PieceQuad(400, "wall_castle", -950, 15, 1670));
-t.EndBlock.Add(new PieceQuad(400, "wall_castle", -45, 920, 1670));
+t.StartBlock.Add(new PieceQuad(900, "wall_castle", -950 + 1000, 15, 1670));
+t.EndBlock.Add(new PieceQuad(900, "wall_castle", -45, 920 - 1000, 1670));
 
 info.ShiftStartDoor = 0;
 info.ShiftStartBlock = new Vector2(100, 0);
@@ -64,6 +64,7 @@ info.Lasers.Scale = 1;
 info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 info.Lasers.Icon.Sprite = "Icon_Laser";
+info.Lasers.Icon.Offset = new Vector2(0, -8);
 
 sprite_anim("fblock_castle", "fblock_castle", 1, 3, 2);
 info.FallingBlocks.Group.Add(new PieceQuad(103, "fblock_castle", -3, 3, 2, false, 103 + 3, false));
@@ -129,8 +130,11 @@ info.Spikes.Spike.RelativeOffset = true;
 info.Spikes.Base.Sprite = "spike_base_castle";
 info.Spikes.Base.Size = new Vector2(54, -1);
 info.Spikes.PeakHeight = .335f;
-info.Spikes.Icon.Sprite = "Spike_Castle";
-info.Spikes.Icon.Size = new Vector2(25, -1);
+//info.Spikes.Icon.Sprite = "Spike_Castle";
+//info.Spikes.Icon.Size = new Vector2(18, -1);
+info.Spikes.Icon.Sprite = "SpikeIcon";
+info.Spikes.Icon.Offset = new Vector2(0, 5.5f);
+info.Spikes.Icon.Size = new Vector2(29, -1);
 
 info.Boulders.Ball.Sprite = "Floater_Spikey_castle_v1";
 info.Boulders.Ball.Size = new Vector2(150, -1);
@@ -152,6 +156,7 @@ info.SpikeyGuys.Chain.Sprite = "floater_chain_castle";
 info.SpikeyGuys.Chain.Width = 55;
 info.SpikeyGuys.Chain.RepeatWidth = 1900;
 info.SpikeyGuys.Icon.Sprite = "Floater_Buzzsaw_Yellow_Castle";
+info.SpikeyGuys.Icon.Offset = new Vector2(0, -16);
 
 info.SpikeyLines.Ball.Sprite = "Floater_Spikey_Castle_v2";
 info.SpikeyLines.Ball.Size = new Vector2(150, -1);
@@ -165,7 +170,7 @@ sprite_anim("blob_castle", "blob_castle_v1", 1, 4, 2);
 info.Blobs.Body.Sprite = "blob_castle";
 info.Blobs.Body.Size = new Vector2(137, -1);
 info.Blobs.Body.Offset = new Vector2(20, 20);
-info.Blobs.GooSprite = "BlobGoo5";
+info.Blobs.GooSprite = "BlobGoo8";
 info.Blobs.Icon.Sprite = "Blob_Castle";
 
 info.Clouds.Sprite.Sprite = "cloud_castle";

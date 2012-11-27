@@ -92,6 +92,14 @@ namespace CloudberryKingdom
             Tools.EndGUIDraw();
         }
 
+        protected override void MyDraw()
+        {
+            if (CharacterSelectManager.FakeHide)
+                return;
+
+            base.MyDraw();
+        }
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();

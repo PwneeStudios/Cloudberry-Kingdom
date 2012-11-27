@@ -145,7 +145,8 @@ namespace CloudberryKingdom.Bobs
                     if (quad.Name.Contains("Facial_"))
                     {
                         Quad _Quad = quad as Quad;
-                        if (!(scheme.HatData != null && !scheme.HatData.DrawHead) &&
+                        if (scheme.SkinColor.Clr.A != 0 && 
+                            !(scheme.HatData != null && !scheme.HatData.DrawHead) &&
                             string.Compare(quad.Name, scheme.BeardData.QuadName, StringComparison.OrdinalIgnoreCase) == 0)
                         {
                             quad.Show = scheme.BeardData.DrawSelf;
@@ -166,6 +167,17 @@ namespace CloudberryKingdom.Bobs
             if (q != null)
             {
                 q.MyMatrix = scheme.SkinColor.M;
+
+                if (scheme.SkinColor.Clr.A == 0)
+                {
+                    q.MyEffect = Tools.BasicEffect;
+                    q.SetColor(Color.Transparent);
+                }
+                else
+                {
+                    q.MyEffect = Tools.HslGreenEffect;
+                    q.SetColor(Color.White);
+                }
 
                 var wf = PlayerObject.FindQuad("Wings_Front"); if (wf != null) wf.MyMatrix = scheme.SkinColor.M;
                 var wb = PlayerObject.FindQuad("Wings_Back"); if (wb != null) wb.MyMatrix = scheme.SkinColor.M;
@@ -689,7 +701,7 @@ namespace CloudberryKingdom.Bobs
 
             DeathCount = 0;
 
-            Core.DrawLayer = 9;
+            //Core.DrawLayer = 9;
 
             FlamingCorpse = false;
 
@@ -1484,7 +1496,9 @@ namespace CloudberryKingdom.Bobs
             if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
             temp.Pos = Head.Center.Pos;
 
-            if (MyPhsx.Ducking)
+            if (Dead)
+                temp.Pos += new Vector2(60, -50) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+            else if (MyPhsx.Ducking)
                 temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else
                 temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;

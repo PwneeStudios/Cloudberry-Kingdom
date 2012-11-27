@@ -116,16 +116,22 @@ namespace CloudberryKingdom.Blocks
                     tile.StartBlock.SnapWidthUp(ref size);
                 else
                     tile.Pillars.SnapWidthUp(ref size);
-                    
-                //size.Y = 170;
-                //Extend(Side.Bottom, Box.TR.Y - 170);
+            }
+
+            if (BlockCore.StartPiece)
+            {
+                center.X -= 500;
+            }
+            if (BlockCore.EndPiece)
+            {
+                center.X += 500;
             }
 
             MyBox.Initialize(center, size);
 
             if (!Core.BoxesOnly)
                 MyDraw.Init(this, GetPieceTemplate(), Invert);
-                        
+            
             Update();
 
             Box.Validate();

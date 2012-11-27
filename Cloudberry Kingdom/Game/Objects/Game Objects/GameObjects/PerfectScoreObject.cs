@@ -131,7 +131,8 @@ namespace CloudberryKingdom
                 Effect(obj.Core.Data.Position);
 
                 // Increase the bonus
-                NextBonus += BonusIncrement;
+                MyGame.WaitThenDo(2, TextEffect);
+                //NextBonus += BonusIncrement;
             }
 
             UpdateScoreText();
@@ -171,8 +172,42 @@ namespace CloudberryKingdom
             ParticleEffects.CoinDie_Perfect(MyGame.MyLevel, pos);
             ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, pos);
 
+            //Vector2 TextPos = MyGame.CamPos + MyPile.Pos;
+            ////ParticleEffects.CoinDie_Perfect(MyGame.MyLevel, TextPos + new Vector2(-260, 0));
+            ////ParticleEffects.CoinDie_Perfect(MyGame.MyLevel, TextPos + new Vector2(60, 0));
+            //ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, TextPos + new Vector2(-260, 0));
+            //ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, TextPos + new Vector2(-160, 0));
+            //ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, TextPos + new Vector2(-60, 0));
+            //ParticleEffects.CoinDie_Spritely(MyGame.MyLevel, TextPos + new Vector2(40, 0));
+
+            //MyGame.OnCompleteLevel += new Action<Levels.Level>(MyGame_OnCompleteLevel);
+            //MyGame.WaitThenDo(1, TextEffect);
+            //TextEffect();
+
             var sound = Tools.SoundWad.FindByName("PerfectSound");
             if (sound != null) sound.Play();
+        }
+
+        void MyGame_OnCompleteLevel(Levels.Level obj)
+        {
+            TextEffect();
+        }
+
+        void TextEffect()
+        {
+            NextBonus += BonusIncrement;
+            UpdateScoreText();
+
+            if (MyGame.ScoreMultiplier <= 2)
+            {
+                Text.MyFloatColor = .77f * Color.White.ToVector4() + .23f * new Color(228, 0, 69).ToVector4();
+                Text.Scale = 1.18f;
+            }
+            else
+            {
+                Text.MyFloatColor = .6f * Color.White.ToVector4() + .4f * new Color(228, 0, 69).ToVector4();
+                Text.Scale = 1.115f;
+            }
         }
 
         /// <summary>
@@ -197,9 +232,18 @@ namespace CloudberryKingdom
 
         void ResetMultiplier()
         {
+            bool LostStreak = BonusCount > 0;
+
             NextBonus = BaseBonus;
             BonusCount = 0;
-            
+
+            if (LostStreak)
+            {
+                Text.MyFloatColor = .8f * Color.Black.ToVector4() + .2f * new Color(228, 0, 69).ToVector4();
+                Text.Scale = 1.185f;
+                Text.Angle = -1;
+            }
+
             UpdateScoreText();
         }
 
@@ -257,7 +301,12 @@ namespace CloudberryKingdom
         /// </summary>
         public override string ToString()
         {
-            return "x" + string.Format("{0:0.0}", Multiplier);
+            //return "Streak x" + string.Format("{0:0.0}", Multiplier);
+            //return "Perfect +" + ((int)(Multiplier * 1000)).ToString();
+            //return "Next Bonus x " + string.Format("{0:0.0}", Multiplier);
+            //return "Perfect x " + string.Format("{0:0}", Multiplier);
+            //return "Bonus x " + string.Format("{0:0}", Multiplier);
+            return "x " + string.Format("{0:0}", Multiplier);
         }
 
         bool AddedOnce = false;
@@ -267,14 +316,13 @@ namespace CloudberryKingdom
 
             if (!AddedOnce)
             {
-                //SlideOut(PresetPos.Top, 0);
-                //SlideIn();
-                //Show();
                 SlideIn(0);
                 Show();
             }
 
             AddedOnce = true;
+
+            if (MyLevel.NumCoins == 0) Obtained = true;
         }
 
         EzText Text;
@@ -306,11 +354,14 @@ namespace CloudberryKingdom
             Color c, o;
 
             font = Resources.Font_Grobold42;
-            scale = .666f;
+            //scale = .666f;
+            scale = .5f;
+            //c = new Color(228, 0, 69);
             c = new Color(228, 0, 69);
             o = Color.White;
 
             Text = new EzText(ToString(), font, 950, false, true);
+            Text.Name = "Text";
             Text.Scale = scale;
             Text.Pos = new Vector2(0, 0);
             Text.MyFloatColor = c.ToVector4();
@@ -319,10 +370,32 @@ namespace CloudberryKingdom
             Text.RightJustify = true;
 
             MyPile.Add(Text);
+
+            SetPos();
+        }
+
+        void SetPos()
+        {
+            EzText _t;
+            _t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
+            MyPile.Pos = new Vector2(1569.445f, -772.2226f);
+        }
+
+        public override void Release()
+        {
+            base.Release();
         }
 
         protected override void MyDraw()
         {
+            Text.MyFloatColor += .05f * (new Color(228, 0, 69).ToVector4() - Text.MyFloatColor);
+            Text.Scale += .05f * (.8f - Text.Scale);
+            Text.Angle += .2f * (0 - Text.Angle);
+
+
+            //Text.Scale = 1.285f; // Jordan likes
+            //Text.Scale = 0.8f; // TJ is a faggot
+
             if (!Core.Show || Core.MyLevel.SuppressCheckpoints || !ShowMultiplier) return;
 
             base.MyDraw();

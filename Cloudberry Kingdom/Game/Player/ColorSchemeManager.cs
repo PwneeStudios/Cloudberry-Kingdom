@@ -281,6 +281,9 @@ float DefaultShiftX = -.35f;
                 hat.HatPicScale *= ScaleNew * 1.145f;
 				HatInfo.Add(hat);
 				Hat.Knight = hat;
+            
+            // Removed due to infringement issues.
+            /*
             hat = new Hat("Hat_Toad");
             hat.Name = Localization.Words.MushroomHat;
             hat.Price = Hat.Expensive;
@@ -289,6 +292,7 @@ float DefaultShiftX = -.35f;
                 hat.HatPicScale *= ScaleNew * 1.115f;
 				HatInfo.Add(hat);
 				Hat.Toad = hat;
+
             hat = new Hat("Hat_BubbleBobble");
             hat.Name = Localization.Words.OmNomNom;
             hat.Price = Hat.Expensive;
@@ -297,6 +301,8 @@ float DefaultShiftX = -.35f;
                 hat.HatPicScale *= ScaleNew * 1.105f;
 				HatInfo.Add(hat);
 				Hat.BubbleBobble = hat;
+            */
+
             hat = new Hat("Hat_Brain");
             hat.DrawHead = false;
             hat.Name = Localization.Words.BrainHat;
@@ -515,18 +521,18 @@ float DefaultShiftX = -.35f;
             //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
 
             // Fill the skin color list
-            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),  Localization.Words.White));    // 0
-            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),   Localization.Words.Silver));   // 1
-            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),   Localization.Words.Gray));     // 2
+            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),    Localization.Words.White));    // 0
+            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),     Localization.Words.Silver));   // 1
+            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),    Localization.Words.Gray));     // 2
             ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
-                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),    Localization.Words.Black));    // 3
+                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),      Localization.Words.Black));    // 3
 
             ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      Localization.Words.Cyan));     // 4  
             ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     Localization.Words.Blue));     // 5
             ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      Localization.Words.Teal));     // 6
             ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  Localization.Words.Indigo));   // 7
             ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), Localization.Words.Purple));  // 8
-            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80), Localization.Words.Brown));        // 9
+            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),      Localization.Words.Brown));        // 9
             ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
                                       ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), Localization.Words.Red)); // 10
             ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), Localization.Words.HotPink));     // 11
@@ -657,15 +663,17 @@ float DefaultShiftX = -.35f;
 
 
             // Create the default color schemes
-            ColorScheme scheme;
-
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
-            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
             AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
             AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
             AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
             AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
             AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
+            AddScheme(new ColorScheme(Localization.Words.Indigo, Localization.Words.Cyan, Localization.Words.Silver, Localization.Words.Wizard, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Ninja, Localization.Words.White, Localization.Words.Black, Localization.Words.Pumpkin, Localization.Words.Manhattan), false);
+            AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.RobinHood, Localization.Words.Vandyke), false);
+            AddScheme(new ColorScheme(Localization.Words.Silver, Localization.Words.Gray, Localization.Words.Gray, Localization.Words.KnightHelmet, Localization.Words.Lumberjack), false);
         }
     }
 }

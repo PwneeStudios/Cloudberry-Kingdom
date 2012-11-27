@@ -53,6 +53,7 @@ namespace CloudberryKingdom
             MakeItems();
 
             EnsureFancy();
+            MyMenu.Control = Control;
 
             CharacterSelect.Shift(this);
 
@@ -69,14 +70,12 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Lining"); if (_item != null) { _item.SetPos = new Vector2(-191.6665f, -501.1112f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
             _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-177.7778f, -672.2223f); _item.MyText.Scale = 0.5835f; _item.MySelectedText.Scale = 0.5835f; _item.SelectIconOffset = new Vector2(0f, -160f); }
 
-            MyMenu.Pos = new Vector2(-1320f, -22.22222f);
-
-            MyPile.Pos = new Vector2(-1320f, 0f);
+            MyMenu.Pos = new Vector2(MyMenu.Pos.X, -22.22222f);
         }
 
         void Go(MenuItem item)
         {
-            Call(new Waiting(Control, MyCharacterSelect));
+            Call(new Waiting(Control, MyCharacterSelect, true));
             Hide();
         }
 
@@ -187,6 +186,9 @@ namespace CloudberryKingdom
             ClrSelect.SetIndexViaAssociated(MyCharacterSelect.ItemIndex[MyMenu.CurIndex]);
 
             Call(ClrSelect);
+            ClrSelect.Control = ClrSelect.MyMenu.Control = Control;
+            //CharacterSelect.Shift(ClrSelect);
+
             Hide();
         }
 

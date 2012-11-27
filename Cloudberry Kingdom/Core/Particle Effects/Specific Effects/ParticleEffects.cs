@@ -232,7 +232,7 @@ namespace CloudberryKingdom
                 }
             }
 
-            DustCloudSound.Play();
+            DustCloudSound.Play(.2f);
         }
 
         public static void Flame(Level level, Vector2 pos, int frame, float intensity, int life, bool ModFade)

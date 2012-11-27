@@ -61,6 +61,7 @@ namespace CloudberryKingdom
             MyDoll.Release();
         }
 
+        public bool Fake = false;
         public CharacterSelect(int PlayerIndex, bool QuickJoin)
         {
             GameData game = Tools.CurGameData;
@@ -83,7 +84,16 @@ namespace CloudberryKingdom
 
             InitColorScheme(PlayerIndex);
 
-            game.AddGameObject(new JoinText(PlayerIndex, this));
+            if (QuickJoin && PlayerIndex >= 0 && PlayerManager.Get(PlayerIndex) != null && PlayerManager.Get(PlayerIndex).Exists)
+            {
+                Fake = true;
+                game.AddGameObject(new Waiting(PlayerIndex, this, false));
+            }
+            else
+            {
+                Fake = false;
+                game.AddGameObject(new JoinText(PlayerIndex, this));
+            }
             
             /*
             if (QuickJoin)

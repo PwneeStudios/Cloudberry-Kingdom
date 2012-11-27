@@ -142,9 +142,12 @@ namespace CloudberryKingdom
         void SetPos_PC()
         {
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-808f, 110f); _item.MyText.Scale = 0.75f; _item.MySelectedText.Scale = 0.75f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-638.5557f, 110f); _item.MyText.Scale = 0.75f; _item.MySelectedText.Scale = 0.75f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(947.2223f, -608.3333f);
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(113.8889f, -624.9999f); _q.Size = new Vector2(80f, 75.2f); }
 
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }

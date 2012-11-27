@@ -22,8 +22,8 @@ t.Pillars.Add(new PieceQuad(300, "pillar_hills_300", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(600, "pillar_hills_600", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(1000, "pillar_hills_1000", -15, 15, 3));
 
-t.StartBlock.Add(new PieceQuad(400, "wall_hills", -880, 40, 1650));
-t.EndBlock.Add(new PieceQuad(400, "wall_hills", -40, 880, 1650));
+t.StartBlock.Add(new PieceQuad(900, "wall_hills", -880 + 1000, 40 - 0, 1650));
+t.EndBlock.Add(new PieceQuad(900, "wall_hills", -40, 880 - 1000, 1650));
 
 info.ShiftStartDoor = -140;
 info.ShiftStartBlock = new Vector2(200, 0);
@@ -129,7 +129,7 @@ sprite_anim("blob_hills", "blob_hills", 1, 4, 2);
 info.Blobs.Body.Sprite = "blob_hills";
 info.Blobs.Body.Size = new Vector2(130, -1);
 info.Blobs.Body.Offset = new Vector2(20, 20);
-info.Blobs.GooSprite = "BlobGoo5";
+info.Blobs.GooSprite = "BlobGoo7";
 
 info.Clouds.Sprite.Sprite = "cloud_hills";
 

@@ -76,13 +76,13 @@ namespace CloudberryKingdom
             // Determine which hats are availabe
             AvailableHats = new Set<Hat>();
             foreach (Hat hat in ColorSchemeManager.HatInfo)
-                if (hat == Hat.None
-                    ||
-                    hat.AssociatedAward == null && PlayerManager.Bought(hat)
-                    ||
-                    hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
-                    ||
-                    CloudberryKingdomGame.UnlockAll)
+                //if (hat == Hat.None
+                //    ||
+                //    hat.AssociatedAward == null && PlayerManager.Bought(hat)
+                //    ||
+                //    hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
+                //    ||
+                //    CloudberryKingdomGame.UnlockAll)
                     AvailableHats += hat;
         }
 
@@ -92,32 +92,42 @@ namespace CloudberryKingdom
             // Determine which Beards are availabe
             AvailableBeards = new Set<Hat>();
             foreach (Hat Beard in ColorSchemeManager.BeardInfo)
-                if (Beard == Hat.None
-                    ||
-                    Beard.AssociatedAward == null && PlayerManager.Bought(Beard)
-                    ||
-                    Beard.AssociatedAward != null && PlayerManager.Awarded(Beard.AssociatedAward)
-                    ||
-                    CloudberryKingdomGame.UnlockAll)
+                //if (Beard == Hat.None
+                //    ||
+                //    Beard.AssociatedAward == null && PlayerManager.Bought(Beard)
+                //    ||
+                //    Beard.AssociatedAward != null && PlayerManager.Awarded(Beard.AssociatedAward)
+                //    ||
+                //    CloudberryKingdomGame.UnlockAll)
                     AvailableBeards += Beard;
         }
 
         static CharSelectBackdrop Backdrop;
-        public static void Start(GUI_Panel Parent)
+        static bool QuickJoin = false;
+        public static void Start(GUI_Panel Parent, bool QuickJoin)
         {
+            FakeHide = false;
+            CharacterSelectManager.QuickJoin = QuickJoin;
+
+            GameData game = null;
+            if (Parent == null)
+                game = Tools.CurGameData;
+            else
+                game = Parent.MyGame;
+
             ParentPanel = Parent;
             
             // Add the backdrop
             Backdrop = new CharSelectBackdrop();
-            Parent.MyGame.AddGameObject(Backdrop);
+            game.AddGameObject(Backdrop);
 
             // Start the selects for each player
-            Parent.MyGame.WaitThenDo(0, _StartAll, "StartCharSelect");
+            game.WaitThenDo(0, _StartAll, "StartCharSelect");
         }
         static void _StartAll()
         {
             for (int i = 0; i < 4; i++)
-                Start(i, false);
+                Start(i, CharacterSelectManager.QuickJoin);
         }
 
         static void Start(int PlayerIndex, bool QuickJoin)
@@ -137,12 +147,12 @@ namespace CloudberryKingdom
         {
             for (int i = 0; i < 4; i++)
                 if (CharSelect[i] != null)
-                    Finish(i, false);
+                    Finish(i, QuickJoin);
         }
 
         public static void Finish(int PlayerIndex, bool Join)
         {
-            if (Join)
+            if (Join && !CharSelect[PlayerIndex].Fake && CharSelect[PlayerIndex].MyState == CharacterSelect.SelectState.Waiting)
             {
                 Tools.CurGameData.CreateBob(PlayerIndex, true);
             }
@@ -157,6 +167,8 @@ namespace CloudberryKingdom
 
             if (CharacterSelectManager.ParentPanel != null)
                 CharacterSelectManager.ParentPanel.Show();
+
+            CharacterSelectManager.ParentPanel = null;
         }
 
         static void Cleanup()
@@ -175,7 +187,7 @@ namespace CloudberryKingdom
         {
             bool All = true;
             for (int i = 0; i < 4; i++)
-                if (CharSelect[i] != null && CharSelect[i].MyState != CharacterSelect.SelectState.Beginning)
+                if (CharSelect[i] != null && !CharSelect[i].Fake && CharSelect[i].MyState != CharacterSelect.SelectState.Beginning)
                     All = false;
             return All;
         }
@@ -186,6 +198,7 @@ namespace CloudberryKingdom
             bool SomeOneIsHere = false;
             for (int i = 0; i < 4; i++)
                 if (CharSelect[i] != null &&
+                    !(CharSelect[i].QuickJoin && CharSelect[i].Fake) &&
                     CharSelect[i].MyState != CharacterSelect.SelectState.Beginning)
                     SomeOneIsHere = true;
             
@@ -211,6 +224,9 @@ namespace CloudberryKingdom
         public static float ZoomMod = 1.1f;
         public static void Draw()
         {
+            if (FakeHide)
+                return;
+
             if (!IsShowing)
                 return;
 
@@ -243,12 +259,15 @@ namespace CloudberryKingdom
             cam.SetVertexCamera();
         }
 
+        public static bool FakeHide = false;
         static void AfterFinished()
         {
             IsShowing = false;
+            FakeHide = false;
             
             Cleanup();
-            if (OnDone != null) OnDone();
+            if (OnDone != null) OnDone(); OnDone = null;
+            CharacterSelectManager.ParentPanel = null;
         }
 
         static bool Active = false;
@@ -266,7 +285,12 @@ namespace CloudberryKingdom
             if (AllFinished() && IsShowing)
             {
                 Active = false;
-                Tools.CurGameData.SlideOut_FadeIn(0, AfterFinished);
+                
+                if (QuickJoin)
+                    Tools.CurGameData.SlideOut_FadeIn(0, QuickJoinFinish);
+                    //Tools.CurGameData.WaitThenDo(0, AfterFinished);
+                else
+                    Tools.CurGameData.SlideOut_FadeIn(0, AfterFinished);
             }
 
             // Check for ready to exit from character selection
@@ -275,9 +299,16 @@ namespace CloudberryKingdom
                 if (ButtonCheck.State(ControllerButtons.B, -2).Pressed)
                 {
                     Active = false;
+                    IsShowing = false;
                     EndCharSelect(0, 0);
                 }
             }
+        }
+
+        static void QuickJoinFinish()
+        {
+            FakeHide = true;
+            Tools.CurGameData.WaitThenDo(12, AfterFinished);
         }
     }
 }

@@ -35,7 +35,13 @@ namespace CloudberryKingdom
             Name = Localization.Words.FatBob;
             Adjective = "Fatty";
 
-            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * 1.55f);
+            Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * 1.45f);
+
+            float scale = 1.57f / 1.4f;
+            ((PictureIcon)Icon).IconQuad.Quad.v0.Pos.X *= scale;
+            ((PictureIcon)Icon).IconQuad.Quad.v1.Pos.X *= scale;
+            ((PictureIcon)Icon).IconQuad.Quad.v2.Pos.X *= scale;
+            ((PictureIcon)Icon).IconQuad.Quad.v3.Pos.X *= scale;
         }
         static readonly BobPhsxBig instance = new BobPhsxBig();
         public static new BobPhsxBig Instance { get { return instance; } }

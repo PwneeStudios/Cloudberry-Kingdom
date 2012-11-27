@@ -608,7 +608,7 @@ namespace CloudberryKingdom
             {
                 BracketIndex = str.IndexOf("}", EndIndex);
                 SpaceIndex = str.IndexOf(" ", EndIndex);
-                DelimiterIndex = str.IndexOf('\n', EndIndex);
+                DelimiterIndex = Math.Max(str.IndexOf('\r', EndIndex), str.IndexOf('\n', EndIndex));
                 if (BracketIndex == -1 && SpaceIndex == -1) { NewEndIndex = str.Length; ReachedEnd = true; }
                 else if (BracketIndex == -1) NewEndIndex = SpaceIndex + 1;
                 else if (SpaceIndex == -1) NewEndIndex = BracketIndex + 1;
@@ -853,7 +853,7 @@ namespace CloudberryKingdom
 
                 str = str.Remove(0, i);
                 if (str.Length > 0 && str[0] == ' ') str = str.Remove(0, 1);
-                if (str.Length > 0 && str[0] == '\n') str = str.Remove(0, 1);
+                if (str.Length > 0 && (str[0] == '\n' || str[0] == '\r')) str = str.Remove(0, 1);
 
                 LineNumber++;
             }

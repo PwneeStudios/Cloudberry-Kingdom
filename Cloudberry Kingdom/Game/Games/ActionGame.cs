@@ -62,8 +62,7 @@ namespace CloudberryKingdom
         public override void Draw()
         {
             Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
-
-            base.Draw();
+            //base.Draw();
         }
 
         public override void Release()

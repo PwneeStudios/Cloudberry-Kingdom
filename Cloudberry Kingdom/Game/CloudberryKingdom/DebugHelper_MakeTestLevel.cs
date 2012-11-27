@@ -51,11 +51,11 @@ namespace CloudberryKingdom
             //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
-            TileSetToTest = "hills";
-            //TileSetToTest = "forest_snow";
+            //TileSetToTest = "hills";
+            //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            //TileSetToTest = "castle";
+            TileSetToTest = "castle";
 
             if (TileSetToTest == null)
                 data.SetTileSet("castle");
@@ -104,8 +104,8 @@ namespace CloudberryKingdom
             data.MyGeometry = LevelGeometry.Right;
             //data.MyGeometry = LevelGeometry.Up;
             //data.PieceLength = 90000;
-            data.PieceLength = 15000;
-            //data.PieceLength = 37000;
+            //data.PieceLength = 15000;
+            data.PieceLength = 40000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
@@ -164,7 +164,6 @@ namespace CloudberryKingdom
             //piece.ZoomType = LevelZoom.Big;
             piece.ExtraBlockLength = 1000;
 
-
             //piece.PreStage2 = level =>
             //{
             //    foreach (Bob bob in level.Bobs)
@@ -180,6 +179,7 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
 
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 5f;
             //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
             //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
@@ -188,12 +188,12 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Cloud] = 5;
             //piece.MyUpgrades1[Upgrade.Pinky] = 5;
             //piece.MyUpgrades1[Upgrade.Fireball] = 3;
-            piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
-            piece.MyUpgrades1[Upgrade.Pendulum] = 7;
-            //piece.MyUpgrades1[Upgrade.Elevator] = ;
-            //piece.MyUpgrades1[Upgrade.BouncyBlock] = ;
-            piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
+            //piece.MyUpgrades1[Upgrade.Pendulum] = 7;
+            ////piece.MyUpgrades1[Upgrade.Elevator] = ;
+            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = ;
+            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
 
             //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
@@ -204,7 +204,7 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1[Upgrade.Serpent] = 9;
             //piece.MyUpgrades1[Upgrade.Pendulum] = 9;
             //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
-            //piece.MyUpgrades1[Upgrade.Jump] = 8;
+            //piece.MyUpgrades1[Upgrade.Jump] = 10;
             //piece.MyUpgrades1[Upgrade.Speed] = 9;
 
 

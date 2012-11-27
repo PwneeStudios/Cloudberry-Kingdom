@@ -59,7 +59,7 @@ namespace CloudberryKingdom
         protected virtual void CharacterSelect()
         {
             Hide();
-            CharacterSelectManager.Start(this);
+            CharacterSelectManager.Start(this, false);
             CharacterSelectManager.OnDone = DoneWithCharSelect;
             CharacterSelectManager.OnBack = null;
         }

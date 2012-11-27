@@ -1608,9 +1608,7 @@ private void HighThrusts(int CurPhsxStep)
             SetDeathVel(DeathType);            
 
             obj.AnimQueue.Clear();
-            obj.EnqueueAnimation(5, 0, false, true);
-            //obj.EnqueueAnimation("ToPieces", 0, false, true);
-            //obj.EnqueueAnimation("ToPieces", 0, false, true);
+            obj.EnqueueAnimation(9, 0, false, true);
             obj.DequeueTransfers();
             obj.DestAnim().AnimSpeed *= 1.85f;
 

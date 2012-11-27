@@ -189,6 +189,7 @@ namespace CloudberryKingdom
             }, "StartMusic");
         }
 
+        public bool SetToRepaly = false;
         public bool EndMusicOnFinish = true;
         public virtual void StandardFinish(bool Replay)
         {
@@ -252,6 +253,8 @@ namespace CloudberryKingdom
             if (PreviousLoadFunction != null)
                 PreviousLoadFunction();
             ExecutingPreviousLoadFunction = false;
+
+            SetToRepaly = false;
         }
         public bool ExecutingPreviousLoadFunction = false;
 
@@ -1047,6 +1050,7 @@ namespace CloudberryKingdom
 
         public void QuickJoinPhsx()
         {
+            if (CharacterSelectManager.FakeHide) return;
             if (MyLevel == null) return;
             if (MyLevel.Watching || MyLevel.Replay) return;
             if (PauseGame) return;
@@ -1057,7 +1061,7 @@ namespace CloudberryKingdom
                 if (!PlayerManager.Get(i).Exists &&
                     ButtonCheck.State(ControllerButtons.A, i).Pressed)
                 {
-                    CharacterSelectManager.Start(null);
+                    CharacterSelectManager.Start(null, true);
                 }
         }
 

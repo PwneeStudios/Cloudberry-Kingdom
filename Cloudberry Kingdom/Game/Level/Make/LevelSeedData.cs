@@ -50,6 +50,7 @@ namespace CloudberryKingdom
         /// How long to wait before opening the initial door.
         /// </summary>
         public int WaitLengthToOpenDoor = 6; const string WaitLengthToOpenDoorString = "opendoor";
+        public bool AlwaysOverrideWaitDoorLength = false;
         public bool OpenDoorSound = false; const string OpenDoorSoundFlag = "opendoorsound";
 
         /// <summary>
@@ -112,6 +113,8 @@ namespace CloudberryKingdom
         private static void _NewHero(Level level)
         {
             level.MyGame.AddGameObject(new NewHero(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
+            level.MyLevelSeed.WaitLengthToOpenDoor = 150;
+            level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
         }
 
         private static void _FadeIn_Process(Level level)

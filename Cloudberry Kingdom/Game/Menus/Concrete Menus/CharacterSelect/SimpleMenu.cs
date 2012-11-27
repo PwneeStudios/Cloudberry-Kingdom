@@ -45,7 +45,8 @@ namespace CloudberryKingdom
 
         public void SimpleToDone()
         {
-            Call(new Waiting(Control, MyCharacterSelect));
+            SkipCallSound = true;
+            Call(new Waiting(Control, MyCharacterSelect, true));
             Hide();
         }
 

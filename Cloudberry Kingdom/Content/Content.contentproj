@@ -704,11 +704,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\HeroItems\Hats\hat_bobble.png">
-      <Name>hat_bobble</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_brain.png">
       <Name>hat_brain</Name>
       <Importer>TextureImporter</Importer>
@@ -786,11 +781,6 @@
     </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_tiki.png">
       <Name>hat_tiki</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\HeroItems\Hats\hat_toad.png">
-      <Name>hat_toad</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -954,58 +944,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Black.png">
-      <Name>Goatee_Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Blonde.png">
-      <Name>Goatee_Blonde</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Grey.png">
-      <Name>Goatee_Grey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Red.png">
-      <Name>Goatee_Red</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Black.png">
-      <Name>Moustache_Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Blonde.png">
-      <Name>Moustache_Blonde</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Bob\FacialHair\Moustache_Brown.png">
       <Name>Moustache_Brown</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Grey.png">
-      <Name>Moustache_Grey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Red.png">
-      <Name>Moustache_Red</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Cart.png">
-      <Name>HeroIcon_Cart</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Double.png">
       <Name>HeroIcon_Double</Name>
       <Importer>TextureImporter</Importer>
@@ -1126,13 +1071,6 @@
     </Compile>
     <Compile Include="Art\Menu\Backplates\backplate_1500x900.png">
       <Name>backplate_1500x900</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Bob\FacialHair\Goatee_Brown.png">
-      <Name>Goatee_Brown</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2939,13 +2877,6 @@
   <ItemGroup>
     <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Random.png">
       <Name>HeroIcon_Random</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Custom.png">
-      <Name>HeroIcon_Custom</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4765,6 +4696,69 @@
   <ItemGroup>
     <Compile Include="Art\Effects\CoinCollect.png">
       <Name>CoinCollect</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\Cart\CartIcon.png">
+      <Name>CartIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Menu\Icons\Upgrades\SpikeIcon.png">
+      <Name>SpikeIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Custom.png">
+      <Name>HeroIcon_Custom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo6.png">
+      <Name>BlobGoo6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo7.png">
+      <Name>BlobGoo7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Old_Art_Holdover\BlobGoo8.png">
+      <Name>BlobGoo8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Title\CopyRightSymbol.png">
+      <Name>CopyRightSymbol</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\FacialHair\Goatee_Black.png">
+      <Name>Goatee_Black</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Bob\Bob_Trimmed\Bob_Dead_0001.png">
+      <Name>Bob_Dead_0001</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

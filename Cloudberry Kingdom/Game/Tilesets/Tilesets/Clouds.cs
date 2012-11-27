@@ -22,8 +22,8 @@ t.Pillars.Add(new PieceQuad(300, "pillar_cloud_300", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(600, "pillar_cloud_600", -15, 15, 3));
 t.Pillars.Add(new PieceQuad(1000, "pillar_cloud_1000", -15, 15, 3));
 
-t.StartBlock.Add(new PieceQuad(400, "wall_cloud", -550, 135, 1450));
-t.EndBlock.Add(new PieceQuad(400, "wall_cloud", -15, 670, 1450));
+t.StartBlock.Add(new PieceQuad(900, "wall_cloud", -550 + 1000, 135, 1450));
+t.EndBlock.Add(new PieceQuad(900, "wall_cloud", -15, 670 - 1000, 1450));
 
 info.ShiftStartDoor = 30;
 info.ShiftStartBlock = new Vector2(120, 0);
@@ -136,7 +136,7 @@ sprite_anim("blob_cloud", "blob_cloud", 1, 4, 2);
 info.Blobs.Body.Sprite = "blob_cloud";
 info.Blobs.Body.Size = new Vector2(130, -1);
 info.Blobs.Body.Offset = new Vector2(20, 20);
-info.Blobs.GooSprite = "BlobGoo5";
+info.Blobs.GooSprite = "BlobGoo2";
 
 info.Clouds.Sprite.Sprite = "cloud_cloud";
 
