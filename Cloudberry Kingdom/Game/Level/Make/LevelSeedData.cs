@@ -271,15 +271,17 @@ namespace CloudberryKingdom
 
                     // Game type
                     case "g":
-                        try
-                        {
-                            MyGameType = GameData.FactoryDict[data];
-                        }
-                        catch
-                        {
-                            MyGameType = NormalGameData.Factory;
-                        }
+                        MyGameType = NormalGameData.Factory;
                         break;
+                        //try
+                        //{
+                        //    MyGameType = GameData.FactoryDict[data];
+                        //}
+                        //catch
+                        //{
+                        //    MyGameType = NormalGameData.Factory;
+                        //}
+                        //break;
 
                     // Geometry
                     case "geo":
@@ -448,21 +450,7 @@ namespace CloudberryKingdom
             string game = "";
             if (MyGameType != NormalGameData.Factory)
             {
-                try
-                {
-                    foreach (var kv in GameData.FactoryDict)
-                    {
-                        if (kv.Value == MyGameType)
-                        {
-                            game = "g:" + kv.Key;
-                            break;
-                        }
-                    }
-                }
-                catch
-                {
-                    return "!This level can not be saved!";
-                }
+                return "!This level can not be saved!";
             }
 
             // Geometry

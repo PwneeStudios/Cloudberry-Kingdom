@@ -70,14 +70,14 @@ namespace CloudberryKingdom
         /// <summary>
         /// Dictionary to get a game factory from a string.
         /// </summary>
-        public static Dictionary<string, GameFactory> FactoryDict = new Dictionary<string, GameFactory> { 
-            { "normal", NormalGameData.Factory } };
+        //public static Dictionary<string, GameFactory> FactoryDict = new Dictionary<string, GameFactory> { 
+        //    { "normal", NormalGameData.Factory } };
 
-        /// <summary>
-        /// Used in the Background Editor to assign GUID to objects.
-        /// </summary>
-        public static int DataCounter = 0;
-        public int MyDataNumber = DataCounter++;
+        ///// <summary>
+        ///// Used in the Background Editor to assign GUID to objects.
+        ///// </summary>
+        //public static int DataCounter = 0;
+        //public int MyDataNumber = DataCounter++;
 
         /// <summary>
         /// Whether the game has lava.
