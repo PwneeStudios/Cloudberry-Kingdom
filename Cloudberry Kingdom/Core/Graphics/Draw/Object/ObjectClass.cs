@@ -19,7 +19,6 @@ namespace CoreEngine
         public Vector2 p1_Right = new Vector2(63, -45);
         public Vector2 p2_Right = new Vector2(27, 0);
 
-
         public static int ObjectClassVersionNumber = 54;
         public int VersionNumber;
 
@@ -818,13 +817,13 @@ namespace CoreEngine
                 pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
         }
 
-        public List<BaseQuad> FindQuads(params string[] names)
-        {
-            List<BaseQuad> list = new List<BaseQuad>();
-            foreach (string name in names)
-                list.Add(FindQuad(name));
-            return list;
-        }
+        //public List<BaseQuad> FindQuads(params string[] names)
+        //{
+        //    List<BaseQuad> list = new List<BaseQuad>();
+        //    foreach (string name in names)
+        //        list.Add(FindQuad(name));
+        //    return list;
+        //}
         public BaseQuad FindQuad(string name)
         {
             foreach (BaseQuad quad in QuadList)

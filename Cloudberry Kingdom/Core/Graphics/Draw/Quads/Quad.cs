@@ -241,7 +241,6 @@ namespace CoreEngine
             }
         }
 
-
         public override void Write(BinaryWriter writer)
         {
             base.Write(writer);

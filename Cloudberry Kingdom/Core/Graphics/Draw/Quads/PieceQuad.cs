@@ -34,47 +34,6 @@ namespace CloudberryKingdom
         public bool Mirror;
     }
 
-    public class PieceQuadGroup : List<PieceQuad>
-    {
-        public PieceQuadGroup() : base(5) { }
-
-        static string[] suffixes = new string[] { "xxsmall", "xsmall", "small", "smallmedium", "medium", "large", "xlarge" };
-        public void InitPillars(string root) { InitPillars(root, suffixes); }
-        public void InitPillars(string root, string[] suffixes)
-        {
-            PieceQuad c;
-
-            foreach (string suffix in suffixes)
-            {
-                c = new PieceQuad();
-                c.Init(null, Tools.BasicEffect);
-                c.Data.RepeatWidth = 1000;
-                c.Data.RepeatHeight = 2000;
-                c.Center.TextureName = root + "_" + suffix;
-                c.Data.UV_Multiples = new Vector2(1, 0);
-                
-                Add(c);
-            }
-        }
-
-        public void SetCutoffs(params float[] cutoffs)
-        {
-            for (int i = 0; i < cutoffs.Length; i++)
-                this[i].Group_CutoffWidth = cutoffs[i];
-        }
-
-        public PieceQuad Get(float width)
-        {
-            foreach (PieceQuad piece in this)
-            {
-                if (width < piece.Group_CutoffWidth)
-                    return piece;
-            }
-
-            return this[this.Count - 1];
-        }
-    }
-
     public class PieceQuad
     {
         // Some pillar info
