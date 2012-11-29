@@ -38,10 +38,10 @@ namespace CloudberryKingdom
             return GenParams[gen];
         }
 
-        public StyleData Clone()
-        {
-            return (StyleData)this.MemberwiseClone();
-        }
+        //public StyleData Clone()
+        //{
+        //    return (StyleData)this.MemberwiseClone();
+        //}
 
         public float Zoom = 1;
         public Level.TimeTypes TimeType = Level.TimeTypes.Regular;
