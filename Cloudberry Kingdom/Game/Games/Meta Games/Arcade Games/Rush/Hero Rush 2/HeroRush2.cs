@@ -15,18 +15,18 @@ namespace CloudberryKingdom
         public static new Challenge_HeroRush2 Instance { get { return instance; } }
 
         static Vector2[][] IconPos = new Vector2[][] { 
-            new Vector2[] { new Vector2(240, 400) },
-            new Vector2[] { new Vector2(255, 310), new Vector2(255, 650) },
-            new Vector2[] { new Vector2(255, 310), new Vector2(255, 650), new Vector2(10, 512) } };
+            new Vector2[] { new Vector2(0, 470) },
+            new Vector2[] { new Vector2(0, 450), new Vector2(255, 630) },
+            new Vector2[] { new Vector2(-10, 350), new Vector2(-10, 690), new Vector2(235, 552) } };
 
         static float[] IconScale = new float[] { .8f, .8f, .8f };
 
         protected override void MakeExitDoorIcon(int levelindex)
         {
-            IconPos = new Vector2[][] { 
-            new Vector2[] { new Vector2(0, 470) },
-            new Vector2[] { new Vector2(0, 450), new Vector2(255, 630) },
-            new Vector2[] { new Vector2(-10, 350), new Vector2(-10, 690), new Vector2(235, 552) } };
+            //IconPos = new Vector2[][] { 
+            //new Vector2[] { new Vector2(0, 470) },
+            //new Vector2[] { new Vector2(0, 450), new Vector2(255, 630) },
+            //new Vector2[] { new Vector2(-10, 350), new Vector2(-10, 690), new Vector2(235, 552) } };
 
 
             HeroSpec spec = HeroList[(levelindex + 1 - StartIndex) % HeroList.Count];

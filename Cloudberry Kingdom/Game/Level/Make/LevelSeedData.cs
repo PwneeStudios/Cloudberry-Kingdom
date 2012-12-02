@@ -147,7 +147,7 @@ namespace CloudberryKingdom
 
             // Tileset
             i /= 2;
-            var tilesets = TileSets.NameLookup.Keys.ToList();
+            //var tilesets = TileSets.NameLookup.Keys.ToList();
             var tileset = CustomLevel_GUI.FreeplayTilesets[(i + 23) % CustomLevel_GUI.FreeplayTilesets.Count];
             if (tileset == TileSets.Random)
                 tileset = CustomLevel_GUI.FreeplayTilesets[(i + 2323) % CustomLevel_GUI.FreeplayTilesets.Count];

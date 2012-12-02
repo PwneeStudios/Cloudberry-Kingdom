@@ -221,7 +221,7 @@ namespace CloudberryKingdom.Levels
             int TestNumber;
 
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Pre-style: {0}", TestNumber));
+            Tools.Write(string.Format("Pre-style: {0}, {1}", TestNumber, Rnd.MySeed));
 
             FillxStep = 225;
             FillyStep = 200;
@@ -276,7 +276,7 @@ namespace CloudberryKingdom.Levels
             TriplePathType = (_TriplePathType)Rnd.Rnd.Next(0, Tools.Length<_TriplePathType>());
 
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Post-style: {0}", TestNumber));
+            Tools.Write(string.Format("Post-style: {0}, {1}", TestNumber, Rnd.MySeed));
         }
 
         public float GetSparsity()

@@ -83,10 +83,15 @@ namespace CloudberryKingdom
 
                 switch ((int)Difficulty)
                 {
-                    case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
-                    case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
-                    case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
-                    default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
+                    case 0: Tools.GlobalRnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
+                    case 1: Tools.GlobalRnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
+                    case 2: Tools.GlobalRnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
+                    default: Tools.GlobalRnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
+
+                    //case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
+                    //case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
+                    //case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
+                    //default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
                 }
             }
 

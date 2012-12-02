@@ -57,6 +57,8 @@ namespace CloudberryKingdom.Levels
         {
             Style.Calculate(this);
 
+            Tools.Write(string.Format("CalcGenData a: {0}, {1}", Style.Rnd.RndInt(0, 1000), Style.Rnd.MySeed));
+
             float JumpLevel = this[Upgrade.Jump];
             JumpLevel = 3.75f + .625f * JumpLevel;
 
@@ -212,6 +214,8 @@ namespace CloudberryKingdom.Levels
                 GenData[BehaviorParam.SitLengthBase] = Math.Max(1, GenData[BehaviorParam.SitLengthBase] / 2);
                 GenData[BehaviorParam.SitLengthAdd] = Math.Max(1, GenData[BehaviorParam.SitLengthAdd] / 2);
             }
+
+            Tools.Write(string.Format("CalcGenData b: {0}, {1}", Style.Rnd.RndInt(0, 1000), Style.Rnd.MySeed));
         }
     }
 }

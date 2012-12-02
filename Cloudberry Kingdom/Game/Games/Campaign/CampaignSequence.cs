@@ -44,6 +44,14 @@ namespace CloudberryKingdom
             base.Start(StartLevel);
         }
 
+        protected override bool OnLevelBegin(Level level)
+        {
+            if (base.OnLevelBegin(level)) return true;
+
+            level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            return false;
+        }
+
         protected override void AdditionalPreStart()
         {
             MyStringWorld.OnSwapToFirstLevel += new Action<LevelSeedData>(MyStringWorld_OnSwapToFirstLevel);
@@ -53,7 +61,6 @@ namespace CloudberryKingdom
         {
             MyPerfectScoreObject.PreventRelease = true;
             data.MyGame.AddGameObject(MyPerfectScoreObject);
-            //data.MyGame.AddGameObject(new PerfectScoreObject(false, true));
         }
 
         protected override void MakeSeedList()

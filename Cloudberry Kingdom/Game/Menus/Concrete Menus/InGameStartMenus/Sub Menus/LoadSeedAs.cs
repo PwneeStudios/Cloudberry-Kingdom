@@ -102,6 +102,7 @@ namespace CloudberryKingdom
             if (clipboard == null || clipboard.Length == 0)
                 clipboard = "Type in a seed!";
 
+            clipboard = Tools.SantitizeOneLineString(clipboard, Resources.LilFont);
             TextBox = new GUI_TextBox(clipboard, Vector2.Zero, new Vector2(1.85f, .65f), .95f);
             TextBox.MaxLength = 80;
             TextBox.FixedToCamera = false;

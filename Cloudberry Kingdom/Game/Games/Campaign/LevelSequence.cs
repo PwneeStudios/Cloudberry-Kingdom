@@ -52,7 +52,7 @@ namespace CloudberryKingdom
         /// Returns true if the standard StringWorld processing should be skipped.
         /// Special levels (such as watching a movie) do not need the normal processing (and would crash the game if they happened).
         /// </summary>
-        bool OnLevelBegin(Level level)
+        protected virtual bool OnLevelBegin(Level level)
         {
             if (level.MyGame is ActionGameData) return true;
 
