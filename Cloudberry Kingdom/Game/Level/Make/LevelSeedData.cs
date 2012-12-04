@@ -58,6 +58,8 @@ namespace CloudberryKingdom
         /// </summary>
         public EzSong MySong = null; const string SongString = "song";
 
+        MetaGameType MyMetaGameType = MetaGameType.None;
+
         public void ProcessSpecial()
         {
             if (HasWall)
@@ -309,6 +311,18 @@ namespace CloudberryKingdom
                         UpgradeStrs.Add(data);
                         break;
 
+                    // Meta
+                    case "m":
+                        try
+                        {
+                            MyMetaGameType = (MetaGameType)int.Parse(data);
+                        }
+                        catch
+                        {
+                            MyMetaGameType = MetaGameType.None;
+                        }
+                        break;
+
                     // Wall
                     case WallFlag: HasWall = true; break;
 
@@ -474,8 +488,11 @@ namespace CloudberryKingdom
                 upgrades += ";";
             }
 
+            // Metagame origin
+            string meta = "m:" + (int)PieceSeeds[0].MyMetaGameType + ";";
+
             // Build final string
-            string str = version + seed + game + geometry + hero + customphsx + tileset + pieces + length + upgrades;
+            string str = version + seed + game + geometry + hero + customphsx + tileset + pieces + length + upgrades + meta;
 
             // Add special flags
             if (HasWall) str += WallFlag + ";";
@@ -916,6 +933,9 @@ namespace CloudberryKingdom
             for (int i = 0; i < NumPieces; i++)
             {
                 Piece = new PieceSeedData(i, MyGeometry, this);
+                if (MyMetaGameType != MetaGameType.None)
+                    Piece.MyMetaGameType = MyMetaGameType;
+
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades1);
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades2);
 

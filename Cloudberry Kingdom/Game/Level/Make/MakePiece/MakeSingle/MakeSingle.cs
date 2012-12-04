@@ -776,9 +776,10 @@ namespace CloudberryKingdom.Levels
             PREFILL();
             DEBUG("Pre stage 1, about to fill");
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Test: {0}, {1}", TestNumber, Rnd.MySeed));
+            Tools.Write(string.Format("Test: {0}", TestNumber));
 
-            CurMakeData = makeData;            
+            CurMakeData = makeData;
+            CurMakeData.PieceSeed.ApplyMetaGameStyling();
             InitMakeData(CurMakeData);
             SingleData Style = (SingleData)CurMakeData.PieceSeed.Style;
 
@@ -903,7 +904,6 @@ namespace CloudberryKingdom.Levels
 
 
             // Stage 1 Random fill
-            Tools.Write(string.Format("Test a--: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
             if (BlockParams.DoStage1Fill)
             {
                 BL_Cutoff = new Vector2(Left + Style.SafeStartPadding, MainCamera.BL.Y);
@@ -929,12 +929,11 @@ namespace CloudberryKingdom.Levels
                     Stage1RndFill(Fill_BL, Fill_TR, BL_Cutoff, 1 * CurMakeData.SparsityMultiplier);
                 }
             }
-            Tools.Write(string.Format("Test a-: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
 
             Pre1 += 'C';
             DEBUG("Pre stage 1, about to reset");
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Test: {0}, {1}", TestNumber, Rnd.MySeed));
+            Tools.Write(string.Format("Test: {0}", TestNumber));
 
             PlayMode = 2;
             RecordPosition = true;
@@ -952,10 +951,7 @@ namespace CloudberryKingdom.Levels
             if (ReturnEarly == 1) return false;
 
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Test a: {0}, {1}", TestNumber, Rnd.MySeed));
-            Tools.Write(Style.MoveTypeInnerPeriod);
-            Tools.Write(Style.MoveTypePeriod);
-            Tools.Write(Style.AlwaysCurvyMove);
+            Tools.Write(string.Format("Test a: {0}", TestNumber));
             
             // Stage 1 Run through
             Pre1 += 'D';
@@ -963,7 +959,7 @@ namespace CloudberryKingdom.Levels
             Pre2 += 'A';
 
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Test b: {0}, {1}", TestNumber, Rnd.MySeed));
+            Tools.Write(string.Format("Test b: {0}", TestNumber));
 
             // Continue making Final Platform
             if (MakeFinalPlat != null) MakeFinalPlat.Phase2();
@@ -973,7 +969,7 @@ namespace CloudberryKingdom.Levels
             Par += CurPiece.Par;
 
             TestNumber = Rnd.RndInt(0, 1000);
-            Tools.Write(string.Format("Test c: {0}, {1}", TestNumber, Rnd.MySeed));
+            Tools.Write(string.Format("Test c: {0}", TestNumber));
 
             DEBUG("Done with stage 1 run through, about to cleanup");
 
@@ -1000,16 +996,14 @@ namespace CloudberryKingdom.Levels
 
             Pre2 += 'C';
             DEBUG("Pre stage 2, about to reset");
-            Tools.Write(string.Format("Test d: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
+            TestNumber = Rnd.RndInt(0, 1000);
+            Tools.Write(string.Format("Test d: {0}", TestNumber));
 
             PlayMode = 1;
             RecordPosition = false;
             if (PieceSeed.PreStage2 != null) PieceSeed.PreStage2(this);
-            Tools.Write(string.Format("Test e: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
             ResetAll(true);
             Sleep();
-
-            Tools.Write(string.Format("Test f: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
 
             MySourceGame.SetAdditionalBobParameters(Computers);
 
@@ -1021,8 +1015,6 @@ namespace CloudberryKingdom.Levels
             // Stage 2 Run through
             Stage2();
             Post += 'A';
-
-            Tools.Write(string.Format("Test g: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
 
             DEBUG("Done with stage 2 run through, about to cleanup");
             showdebug = true;
@@ -1045,16 +1037,10 @@ namespace CloudberryKingdom.Levels
 
         void Stage1(Vector2 BL_Bound, Vector2 TR_Bound, int Length)
         {
-            Tools.Write("Start: {0}, Length: {1}", CurPhsxStep - Bobs[0].IndexOffset, Length);
-            Tools.Write(string.Format("Test a+: {0}, {1}", Rnd.RndInt(0, 1000), Rnd.MySeed));
-
             int OneFinishedCount = 0; // Number of frames since at least one player finished
             int AdditionalSteps = 10;//200; // Steps to take after computer reaches end
             while (CurPhsxStep - Bobs[0].IndexOffset < Length)// CurPiece.PieceLength)
             {
-                //if (CurPhsxStep < 5)
-                //Tools.Write("   {1} : {0}, {2}, {3}, {4}", Rnd.RndInt(0, 1000), CurPhsxStep, Bobs[0].CurInput.xVec.X, Bobs[0].PrevInput.xVec.X, Bobs[0].Pos);
-
                 Step1 = CurPhsxStep;
                 /*
                 // End if all bobs have arrived
@@ -1083,7 +1069,7 @@ namespace CloudberryKingdom.Levels
             }
             LastStep = CurPhsxStep;
 
-            Tools.Write(string.Format("Last step: {0}", LastStep));
+            Tools.Write("Last step {0}", LastStep);
         }
 
         void Stage1Cleanup(Vector2 BL_Bound, Vector2 TR_Bound)

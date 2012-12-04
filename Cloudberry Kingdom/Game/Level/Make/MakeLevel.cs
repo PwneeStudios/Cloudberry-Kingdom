@@ -33,17 +33,21 @@ namespace CloudberryKingdom
             Camera cam = NewLevel.MainCamera;
 
             // Set lava
+            //if (NewLevel.Info.AllowLava)
+            //switch (LavaMake)
+            //{
+            //    case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
+            //    case LavaMakeTypes.Random: game.HasLava = Rnd.RndBool(.38f); break;
+            //    default: game.HasLava = false; break;
+            //}
             if (NewLevel.Info.AllowLava)
                 game.HasLava = true;
-                //switch (LavaMake)
-                //{
-                //    case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
-                //    case LavaMakeTypes.Random: game.HasLava = Rnd.RndBool(.38f); break;
-                //    default: game.HasLava = false; break;
-                //}
-            
+
             if (!NewLevel.MyBackground.AllowLava)
                 game.HasLava = false;
+
+
+
 
             NewLevel.MyLevelSeed = this;
 
@@ -81,7 +85,7 @@ namespace CloudberryKingdom
                 }
 
                 TestNumber = Rnd.RndInt(0, 1000);
-                Tools.Write("Test 1 ---> {0}, {1}", TestNumber, Rnd.MySeed);
+                Tools.Write("Test 1 ---> {0}", TestNumber);
                 
 
 
@@ -129,7 +133,7 @@ namespace CloudberryKingdom
                 }
 
                 TestNumber = Rnd.RndInt(0, 1000);
-                Tools.Write("Test 1.5 ---> {0}, {1}", TestNumber, Rnd.MySeed);
+                Tools.Write("Test 1.5 ---> {0}", TestNumber);
                     
                 
                 if (ReturnEarly > 0)
@@ -200,7 +204,7 @@ namespace CloudberryKingdom
                 NewLevel.Par += level.Par; // Add the level's par to the big level's par
 
                 TestNumber = Rnd.RndInt(0, 1000);
-                Tools.Write("Test 2 ---> {0}, {1}", TestNumber, Rnd.MySeed);
+                Tools.Write("Test 2 ---> {0}", TestNumber);
             }
 
             // Cleanup lava

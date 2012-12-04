@@ -184,18 +184,10 @@ namespace CloudberryKingdom
             data.SetTileSet(GetTileSet(Index - StartIndex));
 
             // Adjust the piece seed data
-            //foreach (PieceSeedData piece in data.PieceSeeds)
-            //{
-            //    // Shorten the initial computer delay
-            //    piece.Style.ComputerWaitLengthRange = new Vector2(8, 35);//38);
-
-            //    piece.Style.MyModParams = (level, p) =>
-            //    {
-            //        Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
-            //        Params.StartFrame = 90;
-            //        Params.FillType = Coin_Parameters.FillTypes.Regular;
-            //    };
-            //}
+            foreach (PieceSeedData piece in data.PieceSeeds)
+            {
+                piece.MyMetaGameType = MetaGameType.Escalation;
+            }
 
             return data;
         }

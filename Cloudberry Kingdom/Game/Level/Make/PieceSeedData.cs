@@ -13,10 +13,51 @@ namespace CloudberryKingdom
     public enum LevelGeometry { Right, Up, OneScreen, Down, Big }
     public enum LevelZoom { Normal, Big }
 
+    public enum MetaGameType { None, Escalation, TimeCrisis };
+
     public class PieceSeedData
     {
+        public MetaGameType MyMetaGameType = MetaGameType.None;
+
+        public void ApplyMetaGameStyling()
+        {
+            switch (MyMetaGameType)
+            {
+                case MetaGameType.Escalation:
+                    // Shorten the initial computer delay
+                    Style.ComputerWaitLengthRange = new Vector2(8, 35);
+
+                    Style.MyModParams = (level, p) =>
+                    {
+                        Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                        Params.StartFrame = 90;
+                        Params.FillType = Coin_Parameters.FillTypes.Regular;
+                    };
+
+                    break;
+
+                case MetaGameType.TimeCrisis:
+                    // Shorten the initial computer delay
+                    Style.ComputerWaitLengthRange = new Vector2(4, 23);
+
+                    // Only one path
+                    Paths = 1; LockNumOfPaths = true;
+
+                    Style.MyModParams = (level, p) =>
+                    {
+                        Coin_Parameters Params = (Coin_Parameters)p.Style.FindParams(Coin_AutoGen.Instance);
+                        Params.FillType = Coin_Parameters.FillTypes.Rush;
+                    };
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
-        /// Uses the upgrade data inMyUpgrades1 to calculate the level gen data.
+        /// Uses the upgrade data in MyUpgrades1 to calculate the level gen data.
         /// </summary>
         public void CalculateSimple()
         {

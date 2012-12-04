@@ -83,9 +83,9 @@ namespace CloudberryKingdom
 
                     // Randomize the seed for the next level, if the player chooses to continue using this LevelSeedData.
                     seed = new LevelSeedData();
-                    //seed.ReadString(seedstr);
+                    seed.ReadString(seedstr);
                     seed.PostMake += seed.PostMake_StandardLoad;
-                    //seed.Seed = Tools.GlobalRnd.Rnd.Next();
+                    seed.Seed = Tools.GlobalRnd.Rnd.Next();
                 });
         }
 
