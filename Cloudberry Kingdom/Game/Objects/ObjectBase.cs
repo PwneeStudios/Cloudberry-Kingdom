@@ -851,7 +851,7 @@ namespace CloudberryKingdom
             EditorCode1 = reader.ReadString();
             EditorCode2 = reader.ReadString();
             EditorCode3 = reader.ReadString();
-
+            
             MyGuid = reader.ReadUInt64();
             ParentObjId = reader.ReadUInt64();
 

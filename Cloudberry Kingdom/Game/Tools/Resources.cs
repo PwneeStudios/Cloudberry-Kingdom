@@ -121,6 +121,12 @@ namespace CloudberryKingdom
             string path = Path.Combine(Globals.ContentDirectory, "Music");
             string[] files = Directory.GetFiles(path);
 
+#if DEBUG
+            Tools.Write("");
+            foreach (var file in files)
+                Tools.Write("v.push_back( _T( \"" + file.Replace("/", "//") + "\" ) );");
+#endif
+
             foreach (String file in files)
             {
                 int i = file.IndexOf("Music") + 5 + 1;
@@ -196,6 +202,13 @@ namespace CloudberryKingdom
 
             string path = Path.Combine(Globals.ContentDirectory, "Sound");
             string[] files = Directory.GetFiles(path);
+
+#if DEBUG
+            Tools.Write("");
+            foreach (var file in files)
+                Tools.Write( "v.push_back( _T( \"" + file.Replace( "/", "//" ) + "\" ) );" );
+#endif
+
             foreach (String file in files)
             {
                 int i = file.IndexOf("Sound") + 5 + 1;
@@ -256,6 +269,12 @@ namespace CloudberryKingdom
         {
             String path = Path.Combine(Globals.ContentDirectory, "Art");
             string[] files = Tools.GetFiles(path, true);
+
+#if DEBUG
+            Tools.Write("");
+            foreach (var file in files)
+                Tools.Write( "v.push_back( _T( \"" + file.Replace( "/", "//" ) + "\" ) );" );
+#endif
 
             foreach (String file in files)
             {
