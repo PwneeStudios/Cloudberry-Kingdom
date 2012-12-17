@@ -15,7 +15,9 @@ namespace CoreEngine.Random
         public int MySeed;
         public Rand(int seed)
         {
+            // WARNING: testing 0 seed only
             MySeed = seed;
+            //MySeed = 0;
             Rnd = new System.Random(MySeed);
         }
 

@@ -61,7 +61,9 @@ namespace CloudberryKingdom
 
 #if DEBUG
                     // Start at Title Screen
-                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
+                    // WARNING
+                    ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                    //Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
 #else
                     // Start at Screen Saver
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;

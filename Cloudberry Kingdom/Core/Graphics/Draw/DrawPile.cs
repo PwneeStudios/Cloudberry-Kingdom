@@ -124,10 +124,10 @@ namespace CloudberryKingdom
         {
             Add(quad, false, name);
         }
-        public void Add(QuadClass quad, bool KeepFancyCenter)
-        {
-            Add(quad, KeepFancyCenter, null);
-        }
+        //public void Add(QuadClass quad, bool KeepFancyCenter)
+        //{
+        //    Add(quad, KeepFancyCenter, null);
+        //}
         public void Add(QuadClass quad, bool KeepFancyCenter, string name)
         {
             if (name != null) quad.Name = name;
@@ -186,7 +186,7 @@ namespace CloudberryKingdom
         public float Alpha
         {
             get { return MyFancyColor.A; }
-            set { MyFancyColor.Color = new Color(255, 255, 255, value); }
+            set { MyFancyColor.Color = new Color(1f, 1f, 1f, value); }
         }
 
         public void Scale(float scale)

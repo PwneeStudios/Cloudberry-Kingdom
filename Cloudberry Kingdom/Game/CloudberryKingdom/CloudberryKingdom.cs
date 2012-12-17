@@ -64,6 +64,10 @@ namespace CloudberryKingdom
         public static bool HideForeground = false;
         public static bool UseNewBob = false;
 
+#if DEBUG
+        public static bool OutputLoadingInfo = false;
+#endif
+
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Intense.Factory;
         public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;

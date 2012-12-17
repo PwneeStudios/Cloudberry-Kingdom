@@ -49,6 +49,7 @@ namespace CloudberryKingdom
             if (base.OnLevelBegin(level)) return true;
 
             //level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
+            level.MyGame.AddGameObject(HelpMenu.MakeListener());
             return false;
         }
 

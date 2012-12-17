@@ -45,6 +45,7 @@ namespace CloudberryKingdom
         public int LevelNum = -1; const string LevelFlag = "level";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
         public bool Darkness = false; const string DarknessFlag = "darkness";
+        public bool Masochistic = false; const string MasochistFlag = "masochist";
 
         /// <summary>
         /// How long to wait before opening the initial door.
@@ -359,6 +360,9 @@ namespace CloudberryKingdom
 
                     // Darkness
                     case DarknessFlag: Darkness = true; break;
+
+                    // Masochist
+                    case MasochistFlag: Masochistic = true; break;
 
                     // No start door
                     case NoStartDoorFlag: NoStartDoor = true; break;
@@ -793,6 +797,8 @@ namespace CloudberryKingdom
 
             MyGeometry = data.MyGeometry;
 
+            Masochistic = data.Masochistic;
+
             BaseInit();
         }
 
@@ -935,6 +941,8 @@ namespace CloudberryKingdom
                 Piece = new PieceSeedData(i, MyGeometry, this);
                 if (MyMetaGameType != MetaGameType.None)
                     Piece.MyMetaGameType = MyMetaGameType;
+
+                Piece.Style.Masochistic = Masochistic;
 
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades1);
                 RndDifficulty.ZeroUpgrades(Piece.MyUpgrades2);

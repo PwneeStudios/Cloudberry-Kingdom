@@ -645,7 +645,7 @@ namespace CloudberryKingdom.Bobs
 
         public ObjectBase KillingObject = null;
         public enum BobDeathType                { None,   Fireball,   Firesnake,    FireSpinner,    Boulder,      SpikeyGuy,   Spike,   Fall,      Lava,   Blob,   Laser,   LavaFlow,    FallingSpike,
-            unnamed1, unnamed2, unnamed3, unnamed4, unnamed5, unnamed6, unnamed7, unnamed8, unnamed9, unnamed10, unnamed11, unnamed12, unnamed13, unnamed14, unnamed15, unnamed16, unnamed17, unnamed18, unnamed19, unnamed20, unnamed21, unnamed22, unnamed23, unnamed24, unnamed25, unnamed26, unnamed27, unnamed28, unnamed29, unnamed30, 
+            Serpent, unnamed2, unnamed3, unnamed4, unnamed5, unnamed6, unnamed7, unnamed8, unnamed9, unnamed10, unnamed11, unnamed12, unnamed13, unnamed14, unnamed15, unnamed16, unnamed17, unnamed18, unnamed19, unnamed20, unnamed21, unnamed22, unnamed23, unnamed24, unnamed25, unnamed26, unnamed27, unnamed28, unnamed29, unnamed30, 
             Time,         LeftBehind,    Other,   Total };
 
         public static Dictionary<BobDeathType, Localization.Words> BobDeathNames = new Dictionary<BobDeathType, Localization.Words>
@@ -662,6 +662,7 @@ namespace CloudberryKingdom.Bobs
             { BobDeathType.Laser, Localization.Words.Laser },
             { BobDeathType.LavaFlow, Localization.Words.Sludge },
             { BobDeathType.FallingSpike, Localization.Words.FallingSpikey },
+            { BobDeathType.Serpent, Localization.Words.Serpent },
             
             { BobDeathType.Time, Localization.Words.TimeLimit },
             { BobDeathType.LeftBehind, Localization.Words.LeftBehind },

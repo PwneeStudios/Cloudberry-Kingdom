@@ -381,9 +381,9 @@ namespace CloudberryKingdom
             GameList.Center = !LeftJustify;
             Localization.Words[] GameNames;
             if (PlayerManager.NumPlayers <= 1)
-                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.WallLevel };
+                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.WallLevel, Localization.Words.Masochistic };
             else
-                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.Bungee, Localization.Words.WallLevel };
+                GameNames = new Localization.Words[] { Localization.Words.ClassicGame, Localization.Words.Bungee, Localization.Words.WallLevel, Localization.Words.Masochistic };
             foreach (Localization.Words name in GameNames)
             {
                 item = new MenuItem(new EzText(name, ItemFont, false, true));
@@ -398,6 +398,7 @@ namespace CloudberryKingdom
             GameList.OnIndexSelect = () =>
                 {
                     LevelSeed.MyGameFlags.SetToDefault();
+                    LevelSeed.Masochistic = false;
 
                     Localization.Words gamename = (Localization.Words)GameList.CurObj;
                     if (gamename == Localization.Words.ClassicGame)
@@ -429,6 +430,13 @@ namespace CloudberryKingdom
                         ShowHeros(true);
                         ShowCheckpoints(false);
                         HasWall = true;
+                    }
+                    else if (gamename == Localization.Words.Masochistic)
+                    {
+                        LevelSeed.MyGameType = NormalGameData.Factory;
+                        LevelSeed.MyGeometry = LevelGeometry.Right;
+                        LevelSeed.Masochistic = true;
+                        SelectNormal();
                     }
                 };
             

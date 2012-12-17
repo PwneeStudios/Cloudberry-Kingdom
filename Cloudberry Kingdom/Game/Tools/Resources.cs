@@ -122,9 +122,12 @@ namespace CloudberryKingdom
             string[] files = Directory.GetFiles(path);
 
 #if DEBUG
-            Tools.Write("");
-            foreach (var file in files)
-                Tools.Write("v.push_back( _T( \"" + file.Replace("/", "//") + "\" ) );");
+            if (CloudberryKingdomGame.OutputLoadingInfo)
+            {
+                Tools.Write("");
+                foreach (var file in files)
+                    Tools.Write("v.push_back( _T( \"" + file.Replace("/", "//") + "\" ) );");
+            }
 #endif
 
             foreach (String file in files)
@@ -204,9 +207,12 @@ namespace CloudberryKingdom
             string[] files = Directory.GetFiles(path);
 
 #if DEBUG
-            Tools.Write("");
-            foreach (var file in files)
-                Tools.Write( "v.push_back( _T( \"" + file.Replace( "/", "//" ) + "\" ) );" );
+            if (CloudberryKingdomGame.OutputLoadingInfo)
+            {
+                Tools.Write("");
+                foreach (var file in files)
+                    Tools.Write("v.push_back( _T( \"" + file.Replace("/", "//") + "\" ) );");
+            }
 #endif
 
             foreach (String file in files)
@@ -271,9 +277,33 @@ namespace CloudberryKingdom
             string[] files = Tools.GetFiles(path, true);
 
 #if DEBUG
-            Tools.Write("");
-            foreach (var file in files)
-                Tools.Write( "v.push_back( _T( \"" + file.Replace( "/", "//" ) + "\" ) );" );
+            if (CloudberryKingdomGame.OutputLoadingInfo)
+            {
+                string names = "", widths = "", heights = "";
+                
+                Tools.Write("");
+                foreach (var file in files)
+                {
+                    var ezt = Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
+                    ezt.Load();
+                    int width = ezt.Width;
+                    int height = ezt.Height;
+
+                    string name = "L\"" + file.Replace("\\", "/") + "\"";
+                    names += name + ",\n";
+
+                    widths += width.ToString() + ",\n";
+                    heights += height.ToString() + ",\n";
+                }
+
+                Console.WriteLine();
+                Console.Write(names);
+                Console.WriteLine();
+                Console.Write(widths);
+                Console.WriteLine();
+                Console.Write(heights);
+                Console.WriteLine();
+            }
 #endif
 
             foreach (String file in files)

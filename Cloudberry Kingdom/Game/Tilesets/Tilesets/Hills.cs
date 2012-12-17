@@ -85,9 +85,9 @@ info.Pendulums.Group.Add(new PieceQuad(80, "Elevator_Hills_80", -1, 1, 1, false,
 info.Pendulums.Group.Add(new PieceQuad(135, "Elevator_Hills_135", -1, 1, 1, false, -1.5f, true));
 info.Pendulums.Group.Add(new PieceQuad(190, "Elevator_Hills_190", -1, 1, 1, false, -1.5f, true));
 
-sprite_anim("Serpent_Hills", "Serpent_Castle", 1, 2, 5);
+sprite_anim("Serpent_Hills", "Serpent_Castle", 1, 2, 8);
 info.Serpents.Serpent.Sprite = "Serpent_Hills";
-sprite_anim("Serpent_Fish_Hills", "Serpent_Fish_Castle", 1, 2, 8);
+sprite_anim("Serpent_Fish_Hills", "Serpent_Fish_Castle", 1, 2, 5);
 info.Serpents.Fish.Sprite = "Serpent_Fish_Hills";
 info.Serpents.Fish.Size = new Vector2(60, -1);
 info.Serpents.Fish.Offset = new Vector2(55, 0);
