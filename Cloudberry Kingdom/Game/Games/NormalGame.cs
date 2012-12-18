@@ -111,12 +111,11 @@ namespace CloudberryKingdom
 
                         Tools.TheGame.Exiting -= KillThread;
 
-                        /*
                         if (LevelSeed.ReleaseWhenLoaded)
                         {
                             Release();
                             LevelSeed.Release();
-                        }*/
+                        }
                     }))
             {
                 Name = "MakeLevelThread",
