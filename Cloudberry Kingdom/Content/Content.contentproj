@@ -1566,31 +1566,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Fire Spinner\Firespinner_Base_Cloud.png">
-      <Name>Firespinner_Base_Cloud</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Fire Spinner\Firespinner_Flame_Cloud_1.png">
-      <Name>Firespinner_Flame_Cloud_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Fire Spinner\Firespinner_Flame_Cloud_2.png">
-      <Name>Firespinner_Flame_Cloud_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Fire Spinner\Firespinner_Flame_Cloud_3.png">
-      <Name>Firespinner_Flame_Cloud_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Obstacles\Fire Spinner\Firespinner_Flame_Cloud_4.png">
-      <Name>Firespinner_Flame_Cloud_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Floater\Cloud_Chain.png">
       <Name>Cloud_Chain</Name>
       <Importer>TextureImporter</Importer>
@@ -4759,6 +4734,33 @@
   <ItemGroup>
     <Compile Include="Art\Bob\Bob_Trimmed\Bob_Dead_0001.png">
       <Name>Bob_Dead_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Base_Cloud.PNG">
+      <Name>Firespinner_Base_Cloud</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Flame_Cloud_1.png">
+      <Name>Firespinner_Flame_Cloud_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Flame_Cloud_2.png">
+      <Name>Firespinner_Flame_Cloud_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Flame_Cloud_3.png">
+      <Name>Firespinner_Flame_Cloud_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Flame_Cloud_4.png">
+      <Name>Firespinner_Flame_Cloud_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

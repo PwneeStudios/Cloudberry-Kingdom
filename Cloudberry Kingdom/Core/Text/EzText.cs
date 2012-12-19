@@ -989,6 +989,8 @@ namespace CloudberryKingdom
                 else
                     Tools.Render.MySpriteBatch.DrawString(font, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
                          Angle, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod, SpriteEffects.None, 1);
+
+                //Tools.QDrawer.DrawSquareDot( Position, new Color( 255, 255, 255 ), 5 );
             }
             if (DrawPics)
                 foreach (EzTextPic pic in Pics)
