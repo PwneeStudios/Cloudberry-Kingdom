@@ -500,6 +500,7 @@ namespace CloudberryKingdom
 
             // Add special flags
             if (HasWall) str += WallFlag + ";";
+            if (Masochistic) str += MasochistFlag + ";";
 
             return str;
         }        
