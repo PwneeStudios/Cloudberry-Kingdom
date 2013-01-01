@@ -10,6 +10,8 @@ namespace CloudberryKingdom
         {
             base.Init();
 
+            VerifyRemoveMenu.YesChosen = false;
+
             // Make the menu
             MenuItem item;
 
@@ -78,7 +80,7 @@ namespace CloudberryKingdom
                     Tools.CurGameData.RemovePlayer(Control);
             }
 
-            YesChosen = true;
+            VerifyRemoveMenu.YesChosen = true;
 
             ReturnToCaller();
         }

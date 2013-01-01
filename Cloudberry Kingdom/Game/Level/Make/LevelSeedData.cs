@@ -115,7 +115,7 @@ namespace CloudberryKingdom
 
         private static void _NewHero(Level level)
         {
-            level.MyGame.AddGameObject(new NewHero(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
+            level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
             level.MyLevelSeed.WaitLengthToOpenDoor = 150;
             level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
         }

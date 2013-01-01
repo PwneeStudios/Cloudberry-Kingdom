@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class NewHero : GUI_Panel
+    public class NewHero_GUI : GUI_Panel
     {
         public override void OnAdd()
         {
@@ -31,12 +31,12 @@ namespace CloudberryKingdom
         }
 
         public EzText text;
-        public NewHero(string str) { Init(str, Vector2.Zero, 1f, false); }
-        public NewHero(string str, Vector2 shift, float scale, bool perma) { Init(str, shift, scale, perma); }
+        public NewHero_GUI(string str) { Init(str, Vector2.Zero, 1f, false); }
+        public NewHero_GUI(string str, Vector2 shift, float scale, bool perma) { Init(str, shift, scale, perma); }
 
-        public static NewHero HeroTitle(string str)
+        public static NewHero_GUI HeroTitle(string str)
         {
-            var title = new NewHero(str, new Vector2(150, -130), 1f, false);
+            var title = new NewHero_GUI(str, new Vector2(150, -130), 1f, false);
             title.SlideInLength = 55;
 
             return title;

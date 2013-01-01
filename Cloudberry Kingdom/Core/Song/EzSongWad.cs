@@ -65,9 +65,15 @@ namespace CoreEngine
             if (!DisplayInfo) return;
             if (!song.DisplayInfo) return;
 
-            SongInfoText = new EzText(song.SongName + "\n" + song.ArtistName, Resources.LilFont, true, true);
+            string songname = song.SongName;
+            songname = songname.Replace('_', ' ');
+            string artistname = song.ArtistName;
+            artistname = song.ArtistName.Replace('_', ' ');
+            //SongInfoText = new EzText(songname + "\n" + artistname, Resources.LilFont, true, true);
+            SongInfoText = new EzText(songname + "\n" + artistname, Resources.Font_Grobold42_2, true, true);
             SongInfoText._Pos = new Vector2(-850, -790);
-            SongInfoText.MyFloatColor = new Vector4(1, 1, 1, 4.5f);
+            SongInfoText.MyFloatColor = new Vector4(.9f, .9f, .9f, 4.5f);
+            SongInfoText.Scale = .3f;
             SongInfoText.Alpha = -.45f;
             SongInfoText.FixedToCamera = true;
 
@@ -116,6 +122,10 @@ namespace CoreEngine
             if (DisplayingInfo && SongInfoText != null)
             {
                 SongInfoText.MyFloatColor.W -= .02f;
+                SongInfoText.OutlineColor.W = SongInfoText.MyFloatColor.W;
+                SongInfoText.OutlineColor = new Vector4(0, 0, 0, SongInfoText.OutlineColor.W);
+                if (SongInfoText.MyFloatColor.W < 1)
+                    SongInfoText.MyFloatColor = new Vector4(.9f * SongInfoText.MyFloatColor.W);
 
                 if (SongInfoText.Alpha < 1) SongInfoText.Alpha += .03f;
                 if (SongInfoText.MyFloatColor.W <= 0)

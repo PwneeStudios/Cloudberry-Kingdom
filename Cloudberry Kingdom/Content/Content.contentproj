@@ -2516,11 +2516,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Environments\Forest\Background\v2\forest_sky.jpg">
-      <Name>forest_sky</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Art\Environments\Hills\Background\v3\hills_backdrop.png">
@@ -2602,16 +2597,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Environments\Sea\Background\v2\sea_backdrop.jpg">
-      <Name>sea_backdrop</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Environments\Sea\Background\v2\sea_backdrop_p2.jpg">
-      <Name>sea_backdrop_p2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Environments\Sea\Background\v2\sea_behind_water_1.png">
       <Name>sea_behind_water_1</Name>
       <Importer>TextureImporter</Importer>
@@ -2859,28 +2844,6 @@
   <ItemGroup>
     <Compile Include="Art\Menu\Icons\Hero\HeroIcon_Jetman.png">
       <Name>HeroIcon_Jetman</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Environments\Rain.jpg">
-      <Name>Rain</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Title\Title_Blur.jpg">
-      <Name>Title_Blur</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Title\Title_Screen.jpg">
-      <Name>Title_Screen</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -3152,17 +3115,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Title\Categories\Arcade\Scene_Kobbler.jpg">
-      <Name>Scene_Kobbler</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Title\Categories\Arcade\Scene_Kobbler_Blur.jpg">
-      <Name>Scene_Kobbler_Blur</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
-    </Compile>
     <Compile Include="Art\Title\Categories\Arcade\Arcade_Box.png">
       <Name>Arcade_Box</Name>
       <Importer>TextureImporter</Importer>
@@ -3174,13 +3126,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Title\Categories\Story\Scene_Princess.jpg">
-      <Name>Scene_Princess</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3388,13 +3333,6 @@
     </Compile>
     <Compile Include="Art\Environments\Cave\Background\v3\cave_bottom_1_trim2.png">
       <Name>cave_bottom_1_trim2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\Menu\CharacterMenu\CharSelect.jpg">
-      <Name>CharSelect</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -4761,6 +4699,70 @@
     </Compile>
     <Compile Include="Art\Environments\Cloud\Obstacles\Fire_Spinner\Firespinner_Flame_Cloud_4.png">
       <Name>Firespinner_Flame_Cloud_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Environments\Forest\Background\v2\forest_sky.png">
+      <Name>forest_sky</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Environments\Rain.png">
+      <Name>Rain</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Title\Title_Blur.png">
+      <Name>Title_Blur</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Title\Title_Screen.png">
+      <Name>Title_Screen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Environments\Sea\Background\v2\sea_backdrop.png">
+      <Name>sea_backdrop</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Sea\Background\v2\sea_backdrop_p2.png">
+      <Name>sea_backdrop_p2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Title\Categories\Arcade\Scene_Kobbler.png">
+      <Name>Scene_Kobbler</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Title\Categories\Arcade\Scene_Kobbler_Blur.png">
+      <Name>Scene_Kobbler_Blur</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Title\Categories\Story\Scene_Princess.png">
+      <Name>Scene_Princess</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Menu\CharacterMenu\CharSelect.png">
+      <Name>CharSelect</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
