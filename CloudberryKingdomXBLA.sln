@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudberryKingdomXBLA", "Cloudberry Kingdom\CloudberryKingdomXBLA.csproj", "{D5EA29E7-D329-463B-A839-8BB7B4602BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Cloudberry Kingdom\Content\Content.contentproj", "{CE0C1B81-ECEF-490F-933A-E4E696B5E486}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Debug|XDK = Debug|XDK
+		Editor|Any CPU = Editor|Any CPU
+		Editor|x86 = Editor|x86
+		Editor|XDK = Editor|XDK
+		Profile|Any CPU = Profile|Any CPU
+		Profile|x86 = Profile|x86
+		Profile|XDK = Profile|XDK
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+		Release|XDK = Release|XDK
+		Submission|Any CPU = Submission|Any CPU
+		Submission|x86 = Submission|x86
+		Submission|XDK = Submission|XDK
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Debug|Any CPU.ActiveCfg = Debug|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Debug|x86.ActiveCfg = Debug|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Debug|XDK.ActiveCfg = Debug|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Debug|XDK.Build.0 = Debug|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Debug|XDK.Deploy.0 = Debug|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Editor|Any CPU.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Editor|x86.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Editor|XDK.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Editor|XDK.Build.0 = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Profile|Any CPU.ActiveCfg = Profile|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Profile|x86.ActiveCfg = Profile|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Profile|XDK.ActiveCfg = Profile|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Profile|XDK.Build.0 = Profile|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Profile|XDK.Deploy.0 = Profile|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Release|Any CPU.ActiveCfg = Release|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Release|x86.ActiveCfg = Release|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Release|XDK.ActiveCfg = Release|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Release|XDK.Build.0 = Release|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Release|XDK.Deploy.0 = Release|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Submission|Any CPU.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Submission|x86.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Submission|XDK.ActiveCfg = Submission|XDK
+		{D5EA29E7-D329-463B-A839-8BB7B4602BFC}.Submission|XDK.Build.0 = Submission|XDK
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Debug|XDK.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Editor|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Editor|x86.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Editor|XDK.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Profile|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Profile|x86.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Profile|XDK.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Release|x86.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Release|XDK.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Submission|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Submission|x86.ActiveCfg = Debug|Any CPU
+		{E88ADE6A-3260-457A-A92E-EB27AA593B84}.Submission|XDK.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
