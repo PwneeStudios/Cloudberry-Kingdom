@@ -701,7 +701,7 @@ namespace CloudberryKingdom
 
             DrawExtra();
 
-#if DEBUG
+#if DEBUG && !XDK
             SaveScreenshotCode();
 #endif
         }

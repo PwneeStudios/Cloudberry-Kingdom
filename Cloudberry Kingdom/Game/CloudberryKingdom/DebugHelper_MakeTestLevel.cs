@@ -70,7 +70,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-            data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxNormal.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxTime.Instance;
@@ -78,6 +78,7 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsxMeat.Instance;
             //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
+            data.DefaultHeroType = BobPhsxTimeship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
             //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
@@ -105,7 +106,7 @@ namespace CloudberryKingdom
             //data.MyGeometry = LevelGeometry.Up;
             //data.PieceLength = 90000;
             //data.PieceLength = 15000;
-            data.PieceLength = 40000;
+            data.PieceLength = 20000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
@@ -179,34 +180,29 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
 
-            piece.MyUpgrades1[Upgrade.FlyBlob] = 5f;
-            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 5f;
+            //piece.MyUpgrades1[Upgrade.FlyBlob] = 9f;
+            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 9f;
             //piece.MyUpgrades1[Upgrade.Ceiling] = 10;
-            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 5;
-            //piece.MyUpgrades1[Upgrade.FireSpinner] = 6;
-            //piece.MyUpgrades1[Upgrade.Serpent] = 5;
-            //piece.MyUpgrades1[Upgrade.Cloud] = 5;
-            //piece.MyUpgrades1[Upgrade.Pinky] = 5;
-            //piece.MyUpgrades1[Upgrade.Fireball] = 3;
-            //piece.MyUpgrades1[Upgrade.GhostBlock] = 6;
-            //piece.MyUpgrades1[Upgrade.Pendulum] = 7;
-            ////piece.MyUpgrades1[Upgrade.Elevator] = ;
-            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = ;
-            //piece.MyUpgrades1[Upgrade.FallingBlock] = 7;
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 7;
+            //piece.MyUpgrades1[Upgrade.SpikeyGuy] = 9;
+            //piece.MyUpgrades1[Upgrade.FireSpinner] = 9;
+            //piece.MyUpgrades1[Upgrade.GhostBlock] = 8;
+            //piece.MyUpgrades1[Upgrade.Pendulum] = 8;
+            //piece.MyUpgrades1[Upgrade.Elevator] = 4;
+            //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
+            //piece.MyUpgrades1[Upgrade.Pinky] = 9f;
+
+            piece.MyUpgrades1[Upgrade.FlyBlob] = 0f;
+            piece.MyUpgrades1[Upgrade.SpikeyLine] = 4f;
+            piece.MyUpgrades1[Upgrade.Ceiling] = 5;
+            piece.MyUpgrades1[Upgrade.SpikeyGuy] = 4;
+            piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
+            piece.MyUpgrades1[Upgrade.GhostBlock] = 5;
+            piece.MyUpgrades1[Upgrade.Pendulum] = 5;
+            piece.MyUpgrades1[Upgrade.Pinky] = 2f;
 
             //__Roughly_Abusive(piece);
             //__Roughly_Maso(piece);
             //piece.Style.Masochistic = true;
-
-            //piece.MyUpgrades1[Upgrade.MovingBlock] = 8;
-            //piece.MyUpgrades1[Upgrade.LavaDrip] = 9;
-            //piece.MyUpgrades1[Upgrade.Serpent] = 9;
-            //piece.MyUpgrades1[Upgrade.Pendulum] = 9;
-            //piece.MyUpgrades1[Upgrade.Fireball] = 9f;
-            //piece.MyUpgrades1[Upgrade.Jump] = 10;
-            //piece.MyUpgrades1[Upgrade.Speed] = 9;
-
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

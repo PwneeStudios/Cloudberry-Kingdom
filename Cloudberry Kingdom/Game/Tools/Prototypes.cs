@@ -522,6 +522,9 @@ namespace CloudberryKingdom
             BobPhsxSpaceship.Instance.Prototype = NewBob;
             bob.Add(BobPhsxSpaceship.Instance, NewBob);
 
+            BobPhsxTimeship.Instance.Prototype = NewBob;
+            bob.Add(BobPhsxTimeship.Instance, NewBob);
+
 
             // Meat
             NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\MeatBoy.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxMeat.Instance, true);

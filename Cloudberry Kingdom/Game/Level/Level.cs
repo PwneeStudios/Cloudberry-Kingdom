@@ -1794,6 +1794,7 @@ namespace CloudberryKingdom.Levels
                         PrevIndependentPhsxStep = IndependentPhsxStep - 1;
                     break;
 
+                case TimeTypes.ySync:
                 case TimeTypes.xSync:
                     if (Bobs.Count > 0 && Bobs[0] != null)
                     {
@@ -1813,9 +1814,11 @@ namespace CloudberryKingdom.Levels
                         if (NumAlive == 0)
                             break;
 
-                        //float New = Bobs[0].Pos.X / 10;
-                        float New = (Pos.X / NumAlive) / 10;
-                        //float New = (Pos.X) / 10;
+                        float New = 0;
+                        if (TimeType == TimeTypes.xSync)
+                            New = (Pos.X / NumAlive) / 10;
+                        else
+                            New = (Pos.Y / NumAlive) / 4.5f;
 
                         if (!IndependentStepSetOnce)
                             Prev = New;
@@ -1837,7 +1840,7 @@ namespace CloudberryKingdom.Levels
         public float IndependentPhsxStep = 0, IndependentDeltaT = 0;
         float Prev = 0;
 
-        public enum TimeTypes { Unset, Regular, xSync };
+        public enum TimeTypes { Unset, Regular, xSync, ySync };
         public TimeTypes TimeType = TimeTypes.Regular;
 
         public List<ObjectBase> ActiveObjectList;

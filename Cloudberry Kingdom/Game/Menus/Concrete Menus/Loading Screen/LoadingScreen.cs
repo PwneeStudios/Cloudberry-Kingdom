@@ -144,6 +144,7 @@ namespace CloudberryKingdom
         {
             Tools.Device.Clear(Color.Black);
             BackgroundQuad.FullScreen(cam);
+                Tools.Write(cam.Pos + " : " + BackgroundQuad.Pos);
             BackgroundQuad.Scale(1.25f);
             BlackQuad.FullScreen(cam);
             BlackQuad.Scale(1.25f);
