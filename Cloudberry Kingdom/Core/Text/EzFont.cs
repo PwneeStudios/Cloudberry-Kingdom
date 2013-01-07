@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
     public class EzFont
     {
         public SpriteFont Font, OutlineFont;
+        public HackSpriteFont HFont, HOutlineFont;
+
         public float CharacterSpacing;
         public int LineSpacing;
 

@@ -213,7 +213,7 @@ namespace CloudberryKingdom
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
             // FIXME WARNING
-            Fail(); return;
+            if (Fail != null) Fail(); return;
 
             if (!DeviceOK())
                 GetDevice();
@@ -286,7 +286,7 @@ namespace CloudberryKingdom
         public static void Load(string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
             // FIXME WARNING
-            Fail(); return;
+            if (Fail != null) Fail(); return;
 
             if (!DeviceOK())
                 GetDevice();

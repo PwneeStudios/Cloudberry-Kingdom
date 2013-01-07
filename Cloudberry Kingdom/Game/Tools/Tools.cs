@@ -396,11 +396,13 @@ namespace CloudberryKingdom
 
         public static void Log(string dump)
         {
+#if !XDK && !XBOX && WINDOWS
             var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
             var writer = new StreamWriter(stream);
             writer.Write(dump);
             writer.Close();
             stream.Close();
+#endif
         }
 
 
@@ -866,6 +868,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static Rand GlobalRnd = new Rand(0);
         public static EzEffectWad EffectWad;
         public static EzEffect BasicEffect, NoTexture, CircleEffect, LightSourceEffect, HslEffect, HslGreenEffect, WindowEffect;
+        public static EzEffect Text_NoOutline, Text_ThinOutline, Text_ThickOutline;
         public static Effect PaintEffect_SpriteBatch;
         public static EzTextureWad TextureWad;
         public static ContentManager SoundContentManager;
@@ -983,6 +986,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl_Green"), "Hsl_Green");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl"), "Hsl");
             EffectWad.AddEffect(Content.Load<Effect>("Effects\\Window"), "Window");
+
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_NoOutline"), "Text_NoOutline");
+            Text_NoOutline = EffectWad.FindByName("Text_NoOutline");
+
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_ThinOutline"), "Text_ThinOutline");
+            Text_ThinOutline = EffectWad.FindByName("Text_ThinOutline");
+
+            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_ThickOutline"), "Text_ThickOutline");
+            Text_ThickOutline = EffectWad.FindByName("Text_ThickOutline");
 
             BasicEffect = EffectWad.EffectList[0];
             NoTexture = EffectWad.EffectList[1];
@@ -1897,6 +1909,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             Tools.QDrawer.GlobalIllumination = HoldIllumination;
         }
 
+#if OLD_TEXT
         /// <summary>
         /// Starts the SpriteBatch if it isn't started already. The quad drawer is flushed first.
         /// </summary>
@@ -1933,6 +1946,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             Tools.Render.MySpriteBatch.DrawString(font, str, loc, Color.Azure, 0, Vector2.Zero, new Vector2(.5f, .5f), SpriteEffects.None, 0);
         }
+#endif
 
         public static void SetDefaultEffectParams(float AspectRatio)
         {

@@ -22,7 +22,11 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether the user can skip the beginning of the screen saver.
         /// </summary>
+#if DEBUG
+        public static bool CanSkipScreensaver = true;
+#else
         public static bool CanSkipScreensaver = false;
+#endif
 
         /// <summary>
         /// Whether the user can skip a movie.

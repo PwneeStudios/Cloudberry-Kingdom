@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,6 +10,99 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
+    public class HackSpriteFont
+    {
+        public HackFont font;
+        public int thickness;
+
+        public SpriteFont sfont;
+
+        public HackSpriteFont(HackFont font_, int thickness_)
+        {
+            font = font_;
+            thickness = thickness_;
+        }
+    }
+
+    public class HackFont
+    {
+        public struct GlyphData
+        {
+            public Vector4 TextureCoordinates;
+            public Vector2 Size;
+            public Vector2 Offset;
+
+            public GlyphData(Vector4 TextureCoordinates_, Vector2 Size_, Vector2 Offset_)
+            {
+                TextureCoordinates = TextureCoordinates_;
+                Size = Size_;
+                Offset = Offset_;
+            }
+        }
+
+        Dictionary<int, GlyphData> Data = new Dictionary<int, GlyphData>(5000);
+
+        /// Texture path.
+        string texturePath_;
+
+        /// Spacing offset between characters.
+        int charSpacing_;
+
+        public EzTexture MyTexture;
+
+        public GlyphData GetData(char c)
+        {
+            if (Data.ContainsKey(c))
+                return Data[c];
+            else
+            {
+#if DEBUG
+                return Data['#'];
+#else
+                return Data[' '];
+#endif
+            }
+        }
+
+        public float CharSpacing;
+
+        public HackFont(string name)
+        {
+            MyTexture = new EzTexture();
+            MyTexture.Tex = Tools.GameClass.Content.Load<Texture2D>("Fonts/" + name);
+
+            var file = new StreamReader(File.OpenRead("Content/Fonts/" + name + ".fnt"));
+
+            file.ReadLine();
+
+            var line = file.ReadLine();
+            int Char, X, Y, Width, Height, Xoffset, Yoffset, OrigW, OrigH;
+            while (line != null)
+            {
+                int additional = 19;
+                var data = line.Split('\t');
+                Char = int.Parse(data[0]);
+                X = int.Parse(data[1]);
+                Y = int.Parse(data[2]);
+                Width = int.Parse(data[3]) + additional;
+                Height = int.Parse(data[4]) + additional;
+                Xoffset = int.Parse(data[5]);
+                Yoffset = int.Parse(data[6]);
+                OrigW = int.Parse(data[7]) + additional;
+                OrigH = int.Parse(data[8]) + additional;
+
+                if (Char == (int)'!') { OrigW -= 20; Xoffset -= 20; }
+
+                Data.Add(Char, new GlyphData(
+                    new Vector4(X, Y, Width, Height),
+                    new Vector2(OrigW, OrigH),
+                    new Vector2(Xoffset, Yoffset)));
+
+                line = file.ReadLine();
+            }
+        }
+    }
+
     public class QuadDrawer
     {
         GraphicsDevice Device;
@@ -591,6 +688,192 @@ namespace CoreEngine
 
             TrianglesInBuffer = 0;
             i = 0;
+        }
+
+        public void DrawPic(Vector2 pos, Vector2 pos2, EzTexture texture)
+        {
+            if (CurrentTexture != texture || CurrentEffect != Tools.BasicEffect)
+                Flush();
+
+            CurrentTexture = texture;
+            CurrentEffect = Tools.BasicEffect;
+
+            Vertices[i].xy = new Vector2(pos.X, pos.Y);
+            Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(pos.X, pos2.Y);
+            Vertices[i + 4].xy = Vertices[i + 2].xy = new Vector2(pos2.X, pos.Y);
+            Vertices[i + 3].xy = new Vector2(pos2.X, pos2.Y);
+
+            Vertices[i].uv = new Vector2(0, 0);
+            Vertices[i + 5].uv = Vertices[i + 1].uv = new Vector2(0, 1);
+            Vertices[i + 4].uv = Vertices[i + 2].uv = new Vector2(1, 0);
+            Vertices[i + 3].uv = new Vector2(1, 1);
+
+            i += 6;
+            TrianglesInBuffer += 2;
+        }
+
+        public void DrawString(HackSpriteFont spritefont, string s, Vector2 position, Vector4 color, Vector2 scale)
+        {
+            HackFont font = spritefont.font;
+
+            scale *= 1.12f;
+
+            EzEffect fx = null;
+            switch (spritefont.thickness)
+            {
+                case 0: fx = Tools.Text_NoOutline; break;
+                case 1: fx = Tools.Text_ThinOutline; break;
+                case 2: fx = Tools.Text_ThickOutline; break;
+                default: fx = null; return;
+            }
+
+            if (CurrentTexture != font.MyTexture || i > 1000 || fx != CurrentEffect)
+                Flush();
+
+            CurrentTexture = font.MyTexture;
+            CurrentEffect = fx;
+
+            Vector2 p = position + new Vector2(35, -25);
+	        for (int j = 0; j < s.Length; ++j)
+	        {
+                HackFont.GlyphData data = font.GetData( s[j] );
+
+                Vector4 tq = data.TextureCoordinates;
+                Vector2 d = data.Size;
+                Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;
+
+                Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
+
+                Vertices[i].Color =
+                Vertices[i + 5].Color = Vertices[i + 1].Color =
+                Vertices[i + 4].Color = Vertices[i + 2].Color =
+                Vertices[i + 3].Color = new Color(color);
+
+                Vertices[ i     ].xy = new Vector2( l.X, l.Y );
+                Vertices[ i + 5 ].xy = Vertices[ i + 1 ].xy = new Vector2( l.X, l.Y - tq.W * scale.Y );
+                Vertices[ i + 4 ].xy = Vertices[ i + 2 ].xy = new Vector2( l.X + tq.Z * scale.X, l.Y );
+                Vertices[ i + 3 ].xy = new Vector2( l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y );
+
+		        Vertices[ i     ].uv = new Vector2( tq.X, tq.Y ) * inv_size;
+		        Vertices[ i + 5 ].uv = Vertices[ i + 1 ].uv = new Vector2( tq.X, tq.Y + tq.W ) * inv_size;
+		        Vertices[ i + 4 ].uv = Vertices[ i + 2 ].uv = new Vector2( tq.X + tq.Z, tq.Y ) * inv_size;
+		        Vertices[ i + 3 ].uv = new Vector2( tq.X + tq.Z, tq.Y + tq.W ) * inv_size;
+
+                i += 6;
+                TrianglesInBuffer += 2;
+
+		        p += new Vector2( d.X + font.CharSpacing - 18, 0 ) * scale;
+
+                //Flush();
+	        }
+        }
+
+        public void DrawString(HackSpriteFont spritefont, StringBuilder s, Vector2 position, Vector4 color, Vector2 scale)
+        {
+            HackFont font = spritefont.font;
+
+            scale *= 1.12f;
+
+            if (CurrentTexture != font.MyTexture || i > 1000)
+                Flush();
+
+            CurrentTexture = font.MyTexture;
+
+            switch (spritefont.thickness)
+            {
+                case 0: CurrentEffect = Tools.Text_NoOutline; break;
+                case 1: CurrentEffect = Tools.Text_ThinOutline; break;
+                case 2: CurrentEffect = Tools.Text_ThickOutline; break;
+                default: return;
+            }
+
+            Vector2 p = position + new Vector2(35, -25);
+            for (int j = 0; j < s.Length; ++j)
+            {
+                HackFont.GlyphData data = font.GetData(s[j]);
+
+                Vector4 tq = data.TextureCoordinates;
+                Vector2 d = data.Size;
+                Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;
+
+                Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
+
+                Vertices[i].Color =
+                Vertices[i + 5].Color = Vertices[i + 1].Color =
+                Vertices[i + 4].Color = Vertices[i + 2].Color =
+                Vertices[i + 3].Color = Color.White;// new Color(color);
+
+                Vertices[i].xy = new Vector2(l.X, l.Y);
+                Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(l.X, l.Y - tq.W * scale.Y);
+                Vertices[i + 4].xy = Vertices[i + 2].xy = new Vector2(l.X + tq.Z * scale.X, l.Y);
+                Vertices[i + 3].xy = new Vector2(l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y);
+
+                Vertices[i].uv = new Vector2(tq.X, tq.Y) * inv_size;
+                Vertices[i + 5].uv = Vertices[i + 1].uv = new Vector2(tq.X, tq.Y + tq.W) * inv_size;
+                Vertices[i + 4].uv = Vertices[i + 2].uv = new Vector2(tq.X + tq.Z, tq.Y) * inv_size;
+                Vertices[i + 3].uv = new Vector2(tq.X + tq.Z, tq.Y + tq.W) * inv_size;
+
+                i += 6;
+                TrianglesInBuffer += 2;
+
+                p += new Vector2(d.X + font.CharSpacing - 18, 0) * scale;
+
+                //Flush();
+            }
+        }
+
+        public Vector2 MeasureString(HackSpriteFont spritefont, string s)
+        {
+            HackFont font = spritefont.font;
+
+	        Vector2 size = Vector2.Zero;
+
+	        if ( s.Length == 0 ) return Vector2.Zero;
+
+	        for( int j = 0; j < s.Length; ++j )
+	        {
+                HackFont.GlyphData data = font.GetData( s[j] );
+                Vector2 dim = data.Size;
+
+		        size.X += dim.X + (float)( font.CharSpacing - 18 );
+		        size.Y = Math.Max( size.Y, dim.Y );
+	        }
+
+            size.Y = Math.Max( size.Y, 133 );
+
+	        size = size - new Vector2( (float)( font.CharSpacing ), 0 ) + new Vector2(50, 0);
+            size *= 1.12f;
+
+            if (size.X < 0) Tools.Nothing();
+
+            return size;
+        }
+
+        public Vector2 MeasureString(HackSpriteFont spritefont, StringBuilder s)
+        {
+            HackFont font = spritefont.font;
+
+	        Vector2 size = Vector2.Zero;
+
+	        if ( s.Length == 0 ) return Vector2.Zero;
+
+	        for( int j = 0; j < s.Length; ++j )
+	        {
+                HackFont.GlyphData data = font.GetData( s[j] );
+                Vector2 dim = data.Size;
+
+		        size.X += dim.X + (float)( font.CharSpacing - 18 );
+		        size.Y = Math.Max( size.Y, dim.Y );
+	        }
+
+            size.Y = Math.Max( size.Y, 133 );
+
+	        size = size - new Vector2( (float)( font.CharSpacing ), 0 ) + new Vector2(50, 0);
+            size *= 1.12f;
+
+            if (size.X < 0) Tools.Nothing();
+
+            return size;
         }
     }
 }

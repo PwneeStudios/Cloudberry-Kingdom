@@ -49,6 +49,10 @@ namespace CloudberryKingdom
 
         private static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
         {
+#if DEBUG
+            CanSkipVideo = true;
+#endif
+
             Subtitles = Localization.GetSubtitles(MovieName);
             SubtitleIndex = 0;
             SubtitleQuad.Show = false;

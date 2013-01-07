@@ -215,7 +215,8 @@ namespace CloudberryKingdom
 
             // Caret
             //var font = Resources.Font_Grobold42;
-            var font = Resources.LilFont;
+            //var font = Resources.LilFont;
+            var font = Resources.Font_Grobold42;
             Caret = new EzText("_", font, 1000, false, true, .575f);
             Caret.MyFloatColor = Color.Black.ToVector4();
             Caret.Pos = MyText.Pos;

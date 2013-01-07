@@ -40,14 +40,25 @@ namespace CloudberryKingdom
         public static EzFont Font_Grobold42, Font_Grobold42_2;
         public static EzFont LilFont;
 
+        public static HackFont hf;
         /// <summary>
         /// Load the necessary fonts.
         /// </summary>
         static void FontLoad()
         {
-            Resources.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
-            Resources.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
+            hf = new HackFont("Grobold_Japanese");
 
+            Resources.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
+            Resources.Font_Grobold42.HFont = new HackSpriteFont(hf, 0);
+            Resources.Font_Grobold42.HOutlineFont = new HackSpriteFont(hf, 1);
+            Resources.Font_Grobold42.HFont.sfont = Resources.Font_Grobold42.Font;
+            Resources.Font_Grobold42.HOutlineFont.sfont = Resources.Font_Grobold42.OutlineFont;
+
+            Resources.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
+            Resources.Font_Grobold42_2.HFont = new HackSpriteFont(hf, 0);
+            Resources.Font_Grobold42_2.HOutlineFont = new HackSpriteFont(hf, 2);
+            Resources.Font_Grobold42_2.HFont.sfont = Resources.Font_Grobold42_2.Font;
+            Resources.Font_Grobold42_2.HOutlineFont.sfont = Resources.Font_Grobold42_2.OutlineFont;
             Resources.LilFont = new EzFont("Fonts/LilFont");
 
             Tools.Write("Fonts done...");

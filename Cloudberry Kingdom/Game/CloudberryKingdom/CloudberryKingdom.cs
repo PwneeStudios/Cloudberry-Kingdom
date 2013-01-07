@@ -382,7 +382,7 @@ namespace CloudberryKingdom
 
             Tools.Render = new MainRender(MyGraphicsDevice);
 
-            Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 1000);
+            Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 2000);
             Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
             Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
 
@@ -415,6 +415,7 @@ namespace CloudberryKingdom
 
             // Localization
             Localization.SetLanguage(Localization.Language.English);
+            //Localization.SetLanguage(Localization.Language.Japanese);
             //Localization.SetLanguage(Localization.Language.Portuguese);
 
             // Benchmarking and preprocessing

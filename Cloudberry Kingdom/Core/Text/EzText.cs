@@ -294,6 +294,23 @@ namespace CloudberryKingdom
         List<EzTextBit> Bits;
         List<EzTextPic> Pics;
 
+        Vector2 MeasureString(string text)
+        {
+            Vector2 val;
+            
+            //val = MyFont.Font.MeasureString(text);
+            //return val;
+
+            val = Tools.QDrawer.MeasureString(MyFont.HFont, text);
+            return val;
+        }
+
+        Vector2 MeasureString(StringBuilder text)
+        {
+            return Tools.QDrawer.MeasureString(MyFont.HFont, text);
+            //return MyFont.Font.MeasureString(text);
+        }
+
         /// <summary>
         /// Replaces the first bit of text, with no reformatting
         /// </summary>
@@ -302,14 +319,14 @@ namespace CloudberryKingdom
             Bits[0].str = text;
             Bits[0].builder_str = null;
             TextWidth -= Bits[0].size.X;
-            Bits[0].size = MyFont.Font.MeasureString(text);
+            Bits[0].size = MeasureString(text);
             TextWidth += Bits[0].size.X;
         }
         public void SubstituteText(StringBuilder text)
         {
             Bits[0].builder_str = text;
             TextWidth -= Bits[0].size.X;
-            Bits[0].size = MyFont.Font.MeasureString(text);
+            Bits[0].size = MeasureString(text);
             TextWidth += Bits[0].size.X;
         }
         public void SubstituteText(Localization.Words word)
@@ -652,7 +669,7 @@ namespace CloudberryKingdom
                     flag = true;
             }
 
-            Vector2 TextSize = MyFont.Font.MeasureString(str);
+            Vector2 TextSize = MeasureString(str);
             TextSize.Y *= Tools.TheGame.Resolution.LineHeightMod;
 
             Size.X += TextSize.X;
@@ -667,7 +684,7 @@ namespace CloudberryKingdom
             MyFont.FixFont();
 
             Vector2 loc = new Vector2(StartX, 0);
-            float LineHeight = MyFont.Font.MeasureString(" ").Y;
+            float LineHeight = MeasureString(" ").Y;
             int BeginBracketIndex, EndBracketIndex;
 
             bool FirstElement = true;
@@ -722,7 +739,7 @@ namespace CloudberryKingdom
                     bit.str = str.Substring(0, i);
                     str = str.Remove(0, i);
 
-                    bit.size = MyFont.Font.MeasureString(bit.str);
+                    bit.size = MeasureString(bit.str);
                     bit.size.Y *= Tools.TheGame.Resolution.LineHeightMod;
                     
                     bit.loc = loc + new Vector2(0, StartY);
@@ -764,7 +781,7 @@ namespace CloudberryKingdom
 
         public float GetWorldWidth(string str)
         {
-            return Scale * GetWorldFloat(MyFont.Font.MeasureString(str).X);
+            return Scale * GetWorldFloat(MeasureString(str).X);
         }
 
         Vector2 _MyCameraZoom = new Vector2(.001f, .001f);
@@ -922,8 +939,8 @@ namespace CloudberryKingdom
 
                 _Pos -= ShadowOffset;
                 if (MyFont.OutlineFont != null || OutlineColor.W == 0)
-                    _Draw(cam, false, PicShadow, MyFont.OutlineFont, ShadowColor.ToVector4());
-                _Draw(cam, false, false, MyFont.Font, ShadowColor.ToVector4());
+                    _Draw(cam, false, PicShadow, MyFont.HOutlineFont, ShadowColor.ToVector4());
+                _Draw(cam, false, false, MyFont.HFont, ShadowColor.ToVector4());
                 _Pos += ShadowOffset;
 
                 Scale = _HoldScale;
@@ -936,8 +953,8 @@ namespace CloudberryKingdom
             }
 
             if (MyFont.OutlineFont != null && OutlineColor.W != 0)
-                _Draw(cam, false, true, MyFont.OutlineFont, OutlineColor); 
-            _Draw(cam, EndBatch, true, MyFont.Font, MyFloatColor);
+                _Draw(cam, false, true, MyFont.HOutlineFont, OutlineColor); 
+            _Draw(cam, EndBatch, true, MyFont.HFont, MyFloatColor);
 
             // Draw box outline
             if (Tools.DrawBoxes)
@@ -959,7 +976,7 @@ namespace CloudberryKingdom
 
         public static bool ZoomWithCamera_Override = false;
         public bool ZoomWithCam = false;
-        public void _Draw(Camera cam, bool EndBatch, bool DrawPics, SpriteFont font, Vector4 color)
+        public void _Draw(Camera cam, bool EndBatch, bool DrawPics, HackSpriteFont font, Vector4 color)
         {
             if (MyFloatColor.W <= 0) return;
 
@@ -978,19 +995,35 @@ namespace CloudberryKingdom
             if (FixedToCamera) Position += cam.Data.Position;
             Vector2 Loc = Tools.ToScreenCoordinates(Position, cam, Tools.EffectWad.ModZoom);
 
+#if OLD_TEXT
             Tools.StartSpriteBatch();
+#endif
             foreach (EzTextBit bit in Bits)
             {
                 Color textcolor = ColorHelper.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
 
+			    Vector2 _pos = Scale * bit.loc * ZoomMod + Loc;
+			    _pos = Tools.ToWorldCoordinates( _pos, cam, MyCameraZoom * Tools.EffectWad.ModZoom.X );
+
+#if OLD_TEXT
+                Tools.Render.EndSpriteBatch();
+#endif
                 if (bit.builder_str != null)
-                    Tools.Render.MySpriteBatch.DrawString(font, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
+                    Tools.QDrawer.DrawString(font, bit.builder_str, _pos, textcolor.ToVector4(), new Vector2(Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod * (1000f / 360f));
+                else
+                    Tools.QDrawer.DrawString(font, bit.str, _pos, textcolor.ToVector4(), new Vector2(Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod * (1000f / 360f));
+
+#if OLD_TEXT
+                Tools.QDrawer.Flush();
+                Tools.QDrawer.DrawSquareDot(Position, new Color(255, 0, 0), 15);
+                Tools.StartSpriteBatch();
+                if (bit.builder_str != null)
+                    Tools.Render.MySpriteBatch.DrawString(font.sfont, bit.builder_str, Scale * bit.loc*ZoomMod + Loc, textcolor,
                         0, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale*ZoomMod, SpriteEffects.None, 1);
                 else
-                    Tools.Render.MySpriteBatch.DrawString(font, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
+                    Tools.Render.MySpriteBatch.DrawString(font.sfont, bit.str, Scale * bit.loc * ZoomMod + Loc, textcolor,
                          Angle, bit.size * Tools.TheGame.Resolution.TextOrigin, new Vector2(Tools.TheGame.Resolution.LineHeightMod, Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod, SpriteEffects.None, 1);
-
-                //Tools.QDrawer.DrawSquareDot( Position, new Color( 255, 255, 255 ), 5 );
+#endif
             }
             if (DrawPics)
                 foreach (EzTextPic pic in Pics)
@@ -1000,9 +1033,12 @@ namespace CloudberryKingdom
 
                     piccolor = ColorHelper.PremultiplyAlpha(piccolor);
 
-                    Vector2 pos = Loc + Scale * ZoomMod * new Vector2(pic.rect.X, pic.rect.Y);
-                    Vector2 scale = Scale * ZoomMod * new Vector2(pic.rect.Width / (float)pic.tex.Width, pic.rect.Height / (float)pic.tex.Height);
+                    Vector2 pos, scale;
 
+                    pos = Loc + Scale * ZoomMod * new Vector2(pic.rect.X, pic.rect.Y);
+                    scale = Scale * ZoomMod * new Vector2(pic.rect.Width / (float)pic.tex.Width, pic.rect.Height / (float)pic.tex.Height);
+
+#if OLD_TEXT
                     if (pic.AsPaint)
                     {
                         Tools.Render.EndSpriteBatch();
@@ -1014,10 +1050,22 @@ namespace CloudberryKingdom
                         Tools.Render.EndSpriteBatch();
                         Tools.StartSpriteBatch();
                     }
+#endif
+
+                    pos = Loc + Scale * ZoomMod * new Vector2(pic.rect.X, pic.rect.Y);
+                    scale = Scale * ZoomMod * new Vector2(pic.rect.Width, pic.rect.Height);
+
+				    Vector2 pos2 = pos + scale;
+				    pos = Tools.ToWorldCoordinates( pos, cam, MyCameraZoom * Tools.EffectWad.ModZoom.X );
+				    pos2 = Tools.ToWorldCoordinates( pos2, cam, MyCameraZoom * Tools.EffectWad.ModZoom.X );
+
+                    Tools.QDrawer.DrawPic(pos, pos2, pic.tex);
                 }
 
+#if OLD_TEXT
             if (EndBatch)
                 Tools.Render.EndSpriteBatch();
+#endif
         }
 
         public void CalcBounds()

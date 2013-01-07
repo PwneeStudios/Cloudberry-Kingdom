@@ -251,18 +251,11 @@ namespace CloudberryKingdom
         /// </summary>
         void DrawDebugInfo()
         {
-            Tools.StartSpriteBatch();
-
             if (Tools.ShowNums)
             {
                 string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
 
-                Tools.StartSpriteBatch();
-                Tools.Render.MySpriteBatch.DrawString(Resources.LilFont.Font,
-                        nums,
-                        new Vector2(0, 100),
-                        Color.Orange, 0, Vector2.Zero, .4f, SpriteEffects.None, 0);
-                Tools.Render.EndSpriteBatch();
+                Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, nums, new Vector2(0, 100), Color.Orange.ToVector4(), new Vector2(.4f));
                 return;
             }
 
@@ -324,12 +317,7 @@ namespace CloudberryKingdom
 
             //str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
 
-
-            Tools.Render.MySpriteBatch.DrawString(Resources.LilFont.Font,
-                    str,
-                    new Vector2(0, 100),
-                    Color.Orange, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-            Tools.Render.EndSpriteBatch();
+            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, str, new Vector2(0, 100), Color.Orange.ToVector4(), Vector2.One);
         }
     }
 }

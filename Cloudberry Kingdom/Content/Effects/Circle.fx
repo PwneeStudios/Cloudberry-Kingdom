@@ -30,12 +30,3 @@ technique Simplest
         PixelShader = compile PIXEL_SHADER CirclePixelShader();
     }
 }
-
-technique PivotTechnique
-{
-    pass Pass0
-    {
-        VertexShader = compile VERTEX_SHADER PivotVertexShader();
-        PixelShader = compile PIXEL_SHADER CirclePixelShader();
-    }
-}

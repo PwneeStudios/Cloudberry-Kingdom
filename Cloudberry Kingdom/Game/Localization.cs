@@ -32,7 +32,8 @@ namespace CloudberryKingdom
             // Open the giant translation file
             Tools.UseInvariantCulture();
             FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
-            StreamReader reader = new StreamReader(stream);
+            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+            
 
             String line;
 
