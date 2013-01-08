@@ -156,6 +156,9 @@ namespace CloudberryKingdom
         {
             if (Hid) return;
 
+            //this.Pos.Update();
+            //MyPile.FancyPos.Update();
+
             base.MyDraw();
         }
     }

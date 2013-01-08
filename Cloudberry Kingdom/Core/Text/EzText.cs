@@ -991,8 +991,11 @@ namespace CloudberryKingdom
             if (ZoomWithCam || ZoomWithCamera_Override)
                 ZoomMod = MyCameraZoom.X / .001f;
 
+            //Tools.Write(new Vector2(Tools.EffectWad.CameraPosition.X, Tools.EffectWad.CameraPosition.Y));
+
             Vector2 Position = _Pos + JustificationShift;
-            if (FixedToCamera) Position += cam.Data.Position;
+            //if (FixedToCamera) Position += cam.Data.Position;
+            if (FixedToCamera) Position += new Vector2(Tools.EffectWad.CameraPosition.X, Tools.EffectWad.CameraPosition.Y);
             Vector2 Loc = Tools.ToScreenCoordinates(Position, cam, Tools.EffectWad.ModZoom);
 
 #if OLD_TEXT

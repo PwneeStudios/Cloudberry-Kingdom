@@ -192,9 +192,9 @@ namespace CloudberryKingdom
 
         public virtual void Constructor()
         {
-            Tools.StartGUIDraw();
+            Tools.StartGUIDraw_Fake();
             Init();
-            Tools.EndGUIDraw();
+            Tools.EndGUIDraw_Fake();
         }
 
         public override void Init()

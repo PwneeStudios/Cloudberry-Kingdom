@@ -59,7 +59,9 @@ namespace CloudberryKingdom
             Resources.Font_Grobold42_2.HOutlineFont = new HackSpriteFont(hf, 2);
             Resources.Font_Grobold42_2.HFont.sfont = Resources.Font_Grobold42_2.Font;
             Resources.Font_Grobold42_2.HOutlineFont.sfont = Resources.Font_Grobold42_2.OutlineFont;
-            Resources.LilFont = new EzFont("Fonts/LilFont");
+            
+            //Resources.LilFont = new EzFont("Fonts/LilFont");
+            Resources.LilFont = Resources.Font_Grobold42;
 
             Tools.Write("Fonts done...");
         }

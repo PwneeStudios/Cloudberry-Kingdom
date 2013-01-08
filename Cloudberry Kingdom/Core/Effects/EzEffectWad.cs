@@ -17,6 +17,8 @@ namespace CoreEngine
         public Vector4 CameraPosition { get { return _CameraPosition; } set { _CameraPosition = value; } }
         public void SetCameraPosition(Vector4 CameraPosition)
         {
+            if (Tools.ShowLoadingScreen && CameraPosition.X != 0) Tools.Nothing();
+
             //CameraPosition.Z *= -1;
             CameraPosition.Z *= ModZoom.X;
             CameraPosition.W *= ModZoom.Y;

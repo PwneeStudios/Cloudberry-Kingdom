@@ -147,10 +147,11 @@ namespace CloudberryKingdom
 #endif
                             PressA.MyText.Scale *= .68f;
                             PressA.PreventRelease = true;
-                            PressA.FixedToCamera = true;
                             PressA.Oscillate = true;
                             if (!ForTrailer)
                                 Tools.CurGameData.AddGameObject(PressA);
+                            PressA.MyText.FixedToCamera = true;
+                            PressA.FixedToCamera = true;
                         }, true);
 
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>

@@ -733,7 +733,7 @@ namespace CoreEngine
             CurrentTexture = font.MyTexture;
             CurrentEffect = fx;
 
-            Vector2 p = position + new Vector2(35, -25);
+            Vector2 p = position + new Vector2(35, -25) * scale / 2.0533333f;
 	        for (int j = 0; j < s.Length; ++j)
 	        {
                 HackFont.GlyphData data = font.GetData( s[j] );
@@ -774,20 +774,22 @@ namespace CoreEngine
 
             scale *= 1.12f;
 
-            if (CurrentTexture != font.MyTexture || i > 1000)
+            EzEffect fx = null;
+            switch (spritefont.thickness)
+            {
+                case 0: fx = Tools.Text_NoOutline; break;
+                case 1: fx = Tools.Text_ThinOutline; break;
+                case 2: fx = Tools.Text_ThickOutline; break;
+                default: fx = null; return;
+            }
+
+            if (CurrentTexture != font.MyTexture || i > 1000 || fx != CurrentEffect)
                 Flush();
 
             CurrentTexture = font.MyTexture;
+            CurrentEffect = fx;
 
-            switch (spritefont.thickness)
-            {
-                case 0: CurrentEffect = Tools.Text_NoOutline; break;
-                case 1: CurrentEffect = Tools.Text_ThinOutline; break;
-                case 2: CurrentEffect = Tools.Text_ThickOutline; break;
-                default: return;
-            }
-
-            Vector2 p = position + new Vector2(35, -25);
+            Vector2 p = position + new Vector2(35, -25) * scale / 2.0533333f;
             for (int j = 0; j < s.Length; ++j)
             {
                 HackFont.GlyphData data = font.GetData(s[j]);
@@ -801,7 +803,7 @@ namespace CoreEngine
                 Vertices[i].Color =
                 Vertices[i + 5].Color = Vertices[i + 1].Color =
                 Vertices[i + 4].Color = Vertices[i + 2].Color =
-                Vertices[i + 3].Color = Color.White;// new Color(color);
+                Vertices[i + 3].Color = new Color(color);
 
                 Vertices[i].xy = new Vector2(l.X, l.Y);
                 Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(l.X, l.Y - tq.W * scale.Y);

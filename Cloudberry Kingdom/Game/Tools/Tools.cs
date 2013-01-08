@@ -1878,6 +1878,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         static int GUIDraws = 0;
 
         static float HoldIllumination;
+        
         /// <summary>
         /// Call before drawing GUI elements unaffected by the camera.
         /// </summary>
@@ -1904,6 +1905,42 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             // End the GUI drawing if this is the last call to GUIDraw
             Tools.CurLevel.MainCamera.RevertZoom();
+
+            // Restor global illumination level
+            Tools.QDrawer.GlobalIllumination = HoldIllumination;
+        }
+
+        /// <summary>
+        /// Call before drawing GUI elements unaffected by the camera.
+        /// Does not affect the current drawing camera ("fake").
+        /// </summary>
+        public static void StartGUIDraw_Fake()
+        {
+            GUIDraws++;
+            if (GUIDraws > 1) return;
+
+            // Start the GUI drawing if this is the first call to GUIDraw
+            Tools.CurLevel.MainCamera.HoldZoom = Tools.CurLevel.MainCamera.Zoom;
+            Tools.CurLevel.MainCamera.Zoom = new Vector2(.001f, .001f);
+            Tools.CurLevel.MainCamera.Update();
+
+            // Save global illumination level
+            HoldIllumination = Tools.QDrawer.GlobalIllumination;
+            Tools.QDrawer.GlobalIllumination = 1f;
+        }
+
+        /// <summary>
+        /// Call after finishing drawing GUI elements unaffected by the camera.
+        /// Does not affect the current drawing camera ("fake").
+        /// </summary>
+        public static void EndGUIDraw_Fake()
+        {
+            GUIDraws--;
+            if (GUIDraws > 0) return;
+
+            // End the GUI drawing if this is the last call to GUIDraw
+            Tools.CurLevel.MainCamera.Zoom = Tools.CurLevel.MainCamera.HoldZoom;
+            Tools.CurLevel.MainCamera.Update();
 
             // Restor global illumination level
             Tools.QDrawer.GlobalIllumination = HoldIllumination;
