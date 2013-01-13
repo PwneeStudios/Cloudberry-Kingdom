@@ -46,20 +46,23 @@ namespace CloudberryKingdom
         /// </summary>
         static void FontLoad()
         {
-            hf = new HackFont("Grobold_Japanese");
+            hf = new HackFont("Grobold_" + Localization.CurrentLanguage.FontSuffix);
 
             Resources.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
             Resources.Font_Grobold42.HFont = new HackSpriteFont(hf, 0);
             Resources.Font_Grobold42.HOutlineFont = new HackSpriteFont(hf, 1);
+#if OLD_TEXT
             Resources.Font_Grobold42.HFont.sfont = Resources.Font_Grobold42.Font;
             Resources.Font_Grobold42.HOutlineFont.sfont = Resources.Font_Grobold42.OutlineFont;
+#endif
 
             Resources.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
             Resources.Font_Grobold42_2.HFont = new HackSpriteFont(hf, 0);
             Resources.Font_Grobold42_2.HOutlineFont = new HackSpriteFont(hf, 2);
+#if OLD_TEXT
             Resources.Font_Grobold42_2.HFont.sfont = Resources.Font_Grobold42_2.Font;
             Resources.Font_Grobold42_2.HOutlineFont.sfont = Resources.Font_Grobold42_2.OutlineFont;
-            
+#endif
             //Resources.LilFont = new EzFont("Fonts/LilFont");
             Resources.LilFont = Resources.Font_Grobold42;
 
@@ -270,6 +273,12 @@ namespace CloudberryKingdom
             ResourceLoadedCountRef = new WrappedFloat();
             LoadingResources = new WrappedBool(false);
             LoadingResources.MyBool = true;
+
+            // Localization
+            Localization.SetLanguage(Localization.Language.English);
+            //Localization.SetLanguage(Localization.Language.Japanese);
+            //Localization.SetLanguage(Localization.Language.Portuguese);
+            //Localization.SetLanguage(Localization.Language.Russian);
 
             // Fonts
             FontLoad();

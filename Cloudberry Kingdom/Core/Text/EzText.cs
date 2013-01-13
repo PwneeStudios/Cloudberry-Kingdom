@@ -643,7 +643,9 @@ namespace CloudberryKingdom
 
         Vector2 StringSize(String str)
         {
+#if OLD_TEXT
             MyFont.FixFont();
+#endif
 
             Vector2 Size = Vector2.Zero;
             int BeginBracketIndex, EndBracketIndex;
@@ -681,7 +683,9 @@ namespace CloudberryKingdom
         Color CurColor = Color.White;
         float AddLine(String str, float StartX, float StartY, int LineNumber)
         {
+#if OLD_TEXT
             MyFont.FixFont();
+#endif
 
             Vector2 loc = new Vector2(StartX, 0);
             float LineHeight = MeasureString(" ").Y;
@@ -938,7 +942,7 @@ namespace CloudberryKingdom
                 Scale *= ShadowScale;
 
                 _Pos -= ShadowOffset;
-                if (MyFont.OutlineFont != null || OutlineColor.W == 0)
+                if (MyFont.HOutlineFont != null || OutlineColor.W == 0)
                     _Draw(cam, false, PicShadow, MyFont.HOutlineFont, ShadowColor.ToVector4());
                 _Draw(cam, false, false, MyFont.HFont, ShadowColor.ToVector4());
                 _Pos += ShadowOffset;
@@ -952,7 +956,7 @@ namespace CloudberryKingdom
                 PicColor = Color.White;
             }
 
-            if (MyFont.OutlineFont != null && OutlineColor.W != 0)
+            if (MyFont.HOutlineFont != null && OutlineColor.W != 0)
                 _Draw(cam, false, true, MyFont.HOutlineFont, OutlineColor); 
             _Draw(cam, EndBatch, true, MyFont.HFont, MyFloatColor);
 
@@ -980,7 +984,9 @@ namespace CloudberryKingdom
         {
             if (MyFloatColor.W <= 0) return;
 
+#if OLD_TEXT
             MyFont.FixFont();
+#endif
 
             MyColor.R = Tools.FloatToByte(color.X);
             MyColor.G = Tools.FloatToByte(color.Y);

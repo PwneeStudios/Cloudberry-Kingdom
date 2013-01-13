@@ -16,6 +16,8 @@ namespace CloudberryKingdom
 
         protected virtual void MenuGo_Campaign(MenuItem item)
         {
+            if (CloudberryKingdomGame.IsDemo) return;
+
             MyNextMenu = Next.Campaign;
             BringCharacterSelect();
         }

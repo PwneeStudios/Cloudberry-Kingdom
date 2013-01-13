@@ -71,6 +71,8 @@ namespace CloudberryKingdom
             // Start menu and help menu
             MyStringWorld.OnLevelBegin += level =>
             {
+                level.MyGame.MyBankType = GameData.BankType.Campaign;
+                level.MyGame.OnCoinGrab += Challenge.OnCoinGrab;
                 level.MyGame.AddGameObject(HelpMenu.MakeListener());
                 level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
                 return false;
@@ -107,7 +109,11 @@ namespace CloudberryKingdom
             // When a new level is swapped to...
             MyStringWorld.OnSwapToLevel += levelindex =>
             {
-                Awardments.CheckForAward_Escalation_Level(levelindex - StartIndex);
+                int score = PlayerManager.GetGameScore();
+                Awardments.CheckForAward_ArcadeScore(score);
+                Awardments.CheckForAward_ArcadeScore2(score);
+                Awardments.CheckForAward_Invisible(levelindex - StartIndex);
+                
 
                 // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
                 float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;

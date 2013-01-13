@@ -47,6 +47,13 @@ namespace CloudberryKingdom
             }
         }
 
+        public override void Release()
+        {
+            base.Release();
+
+            MyMenuListExpand = null;
+        }
+
         public List<MenuItem> MyList;
         public int ListIndex;
 
@@ -288,6 +295,9 @@ namespace CloudberryKingdom
         public override void PhsxStep(bool Selected)
         {
             base.PhsxStep(Selected);
+
+            if (MyMenuListExpand != null && MyMenuListExpand.Core.Released)
+                MyMenuListExpand = null;
 
             HoldSelected = Selected;
             int CurIndex = ListIndex;

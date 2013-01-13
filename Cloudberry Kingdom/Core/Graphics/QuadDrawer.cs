@@ -15,7 +15,9 @@ namespace CoreEngine
         public HackFont font;
         public int thickness;
 
+#if OLD_TEXT
         public SpriteFont sfont;
+#endif
 
         public HackSpriteFont(HackFont font_, int thickness_)
         {
@@ -73,7 +75,8 @@ namespace CoreEngine
 
             var file = new StreamReader(File.OpenRead("Content/Fonts/" + name + ".fnt"));
 
-            file.ReadLine();
+            file.ReadLine(); // Burn one line
+            file.ReadLine(); // Burn one line
 
             var line = file.ReadLine();
             int Char, X, Y, Width, Height, Xoffset, Yoffset, OrigW, OrigH;

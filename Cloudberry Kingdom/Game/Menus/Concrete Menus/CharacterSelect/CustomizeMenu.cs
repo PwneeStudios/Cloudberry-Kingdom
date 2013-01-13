@@ -170,7 +170,7 @@ namespace CloudberryKingdom
                     ClrTextFx data = (ClrTextFx)item.obj;
 
                     // Check if color is available
-                    if (!CloudberryKingdomGame.UnlockAll)
+                    if (!CloudberryKingdomGame.Unlock_Customization)
                         if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
 
                     int clr_index = list.IndexOf(item);

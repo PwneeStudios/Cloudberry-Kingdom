@@ -555,6 +555,8 @@ namespace CloudberryKingdom
             //PlaceBob = LoadObject(Path.Combine(Globals.ContentDirectory, "Objects\\place_bob.smo"));
 
             Resources.ResourceLoadedCountRef.MyFloat++;
+
+            ArcadeMenu.StaticInit();
         }
     }
 }

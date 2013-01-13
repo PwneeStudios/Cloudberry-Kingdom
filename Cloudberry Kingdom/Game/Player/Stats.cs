@@ -26,6 +26,7 @@ namespace CloudberryKingdom
             chunk.WriteSingle(7, Checkpoints);
             chunk.WriteSingle(8, Jumps);
             chunk.WriteSingle(10, TimeAlive);
+            chunk.WriteSingle(11, ObstaclesSeen);
 
             for (int i = 0; i < DeathsBy.Length; i++)
                 WriteDeathChunk_9(chunk, i);
@@ -49,6 +50,7 @@ namespace CloudberryKingdom
                     case 7: chunk.ReadSingle(ref Checkpoints); break;
                     case 8: chunk.ReadSingle(ref Jumps); break;
                     case 10: chunk.ReadSingle(ref TimeAlive); break;
+                    case 11: chunk.ReadSingle(ref ObstaclesSeen); break;
 
                     case 9: ReadDeathChunk_9(chunk); break;
                 }
@@ -83,6 +85,7 @@ namespace CloudberryKingdom
         public int[] DeathsBy;
 
         public int TimeAlive;
+        public int ObstaclesSeen;
         #endregion
 
         // Add all fields and elements of arrays to the corresponding field in this instance.

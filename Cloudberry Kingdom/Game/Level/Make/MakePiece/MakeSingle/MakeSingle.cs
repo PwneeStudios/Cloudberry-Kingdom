@@ -115,7 +115,7 @@ namespace CloudberryKingdom.Levels
         }
 
         public bool CoinsCountInStats = false;
-        public int NumCoins, NumBlobs, TotalCoinScore;
+        public int NumCoins, NumBlobs, TotalCoinScore, NumObstacles;
         public bool Finished = false;
         /// <summary>
         /// Ends the playable level: players can no longer die, scores are finalized

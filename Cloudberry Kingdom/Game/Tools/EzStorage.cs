@@ -63,6 +63,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static void SaveAll()
         {
+            if (CloudberryKingdomGame.IsDemo) return;
+
             foreach (SaveLoad ThingToSave in ThingsToSave)
             {
                 //if (!(ThingToSave is ScoreList)) Tools.Write("!");

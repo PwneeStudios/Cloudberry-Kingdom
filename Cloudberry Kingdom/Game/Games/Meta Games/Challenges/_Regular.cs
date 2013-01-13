@@ -25,6 +25,12 @@ namespace CloudberryKingdom
         // -------------------------
         public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length)
         {
+            if (Hero == ArcadeMenu.Ultimate)
+            {
+                Length *= 2;
+                Difficulty *= 2;
+            }
+
             LevelSeedData data = new LevelSeedData();
 
             StandardInit(data);

@@ -21,6 +21,11 @@ namespace CloudberryKingdom
 
         static float[] IconScale = new float[] { .8f, .8f, .8f };
 
+        protected override void AdditionalSwap(int levelindex)
+        {
+            Awardments.CheckForAward_HeroRush2_Level(levelindex - StartIndex);
+        }
+        
         protected override void MakeExitDoorIcon(int levelindex)
         {
             //IconPos = new Vector2[][] { 
@@ -74,39 +79,53 @@ namespace CloudberryKingdom
         protected Challenge_HeroRush2()
         {
             GameTypeId = 1;
-            MenuName = Name = Localization.Words.HybridRush;
-            
+            MenuName = Name = Localization.Words.HybridRush;            
+        }
+
+        void MakeHeroList()
+        {
+            HeroList.Clear();
+
             // Create the list of custom heros
             Hero_BaseType[] BaseTypes = new Hero_BaseType[]
                 { Hero_BaseType.Bouncy, Hero_BaseType.Box, Hero_BaseType.Classic, Hero_BaseType.Spaceship,
                   Hero_BaseType.Wheel };
 
-            Hero_MoveMod[] MoveTypes = new Hero_MoveMod[]
-                { Hero_MoveMod.Classic, Hero_MoveMod.Double, Hero_MoveMod.Jetpack };
+            Hero_MoveMod[] MoveTypes = new Hero_MoveMod[] { Hero_MoveMod.Classic, Hero_MoveMod.Double, Hero_MoveMod.Jetpack };
 
-            foreach (Hero_BaseType basetype in BaseTypes)
-                foreach (Hero_Shape shape in Tools.GetValues<Hero_Shape>())
-                    foreach (Hero_MoveMod move in MoveTypes)
-                    {
-                        // Spaceships can only have their shape modified
-                        if (basetype == Hero_BaseType.Spaceship && move != Hero_MoveMod.Classic)
-                            continue;
+            for (int i = 0; i < 2; i++)
+            {
+                foreach (Hero_BaseType basetype in BaseTypes)
+                    foreach (Hero_Shape shape in Tools.GetValues<Hero_Shape>())
+                        foreach (Hero_MoveMod move in MoveTypes)
+                        {
+                            if (i == 0 && basetype == Hero_BaseType.Box) continue;
 
-                        // Normal bob is added later (to make sure it is first)
-                        if (basetype == Hero_BaseType.Classic && shape == Hero_Shape.Classic && move == Hero_MoveMod.Classic)
-                            continue;
+                            // Spaceships can only have their shape modified
+                            if (basetype == Hero_BaseType.Spaceship && move != Hero_MoveMod.Classic)
+                                continue;
 
-                        // Bouncey can not be double jump
-                        if (basetype == Hero_BaseType.Bouncy && move == Hero_MoveMod.Double)
-                            continue;
+                            // Normal bob is added later (to make sure it is first)
+                            if (basetype == Hero_BaseType.Classic && shape == Hero_Shape.Classic && move == Hero_MoveMod.Classic)
+                                continue;
 
-                        //HeroList[NumHeros++] = new HeroSpec(basetype, shape, move);
-                        HeroList.Add(new HeroSpec(basetype, shape, move));
-                    }
+                            // Bouncey can not be double jump
+                            if (basetype == Hero_BaseType.Bouncy && move == Hero_MoveMod.Double)
+                                continue;
+
+                            //HeroList[NumHeros++] = new HeroSpec(basetype, shape, move);
+                            HeroList.Add(new HeroSpec(basetype, shape, move));
+                        }
+            }
         }
 
         void ShuffleHeros()
         {
+            MakeHeroList();
+
+            HeroList.Insert(0, new HeroSpec(Hero_BaseType.RocketBox, Hero_Shape.Classic, Hero_MoveMod.Classic));
+            HeroList.Insert(0, new HeroSpec(Hero_BaseType.RocketBox, Hero_Shape.Classic, Hero_MoveMod.Classic));
+
             // Shuffle the non-classic heros
             HeroList = Tools.GlobalRnd.Shuffle(HeroList);
 

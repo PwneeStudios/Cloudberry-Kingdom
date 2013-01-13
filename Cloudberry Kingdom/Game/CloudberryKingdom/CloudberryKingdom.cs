@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Media;
 #if XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
+using Microsoft.Xna.Framework.GamerServices;
 
 using CoreEngine;
 
@@ -39,6 +40,58 @@ namespace CloudberryKingdom
         /// SubVersion increases with any pushed change.
         /// </summary>
         public static Version GameVersion = new Version(0, 2, 4);
+
+        public static bool GodMode = true;
+
+        //public static bool ForFrapsRecording = true;
+        public static bool ForFrapsRecording = false;
+
+#if DEBUG
+        public static bool AlwaysGiveTutorials = true;
+        public static bool Unlock_Customization = true;
+        public static bool Unlock_Levels = true;
+#else
+        public static bool AlwaysGiveTutorials = false;
+        public static bool Unlock_Customization = true;
+        public static bool Unlock_Levels = false;
+#endif
+
+        public static bool FakeDemo = false;
+        public static bool IsDemo
+        {
+            get
+            {
+#if XBOX
+                return Guide.IsTrialMode;
+#endif
+                return false;
+            }
+        }
+
+        public static void OfferToBuy(SignedInGamer gamer)
+        {
+#if XBOX
+            if (gamer.Privileges.AllowPurchaseContent)
+            {
+                Guide.ShowMarketplace(gamer.PlayerIndex);
+                return;
+            }
+
+            foreach (SignedInGamer _gamer in Gamer.SignedInGamers)
+            {
+                if (_gamer.Privileges.AllowPurchaseContent)
+                {
+                    Guide.ShowMarketplace(_gamer.PlayerIndex);
+                    return;
+                }
+            }
+#endif
+        }
+
+
+
+
+
 
         /// <summary>
         /// The command line arguments.
@@ -83,16 +136,6 @@ namespace CloudberryKingdom
         public QuadClass MousePointer, MouseBack;
         bool _DrawMouseBackIcon = false;
         public bool DrawMouseBackIcon { get { return _DrawMouseBackIcon; } set { _DrawMouseBackIcon = value; } }
-#endif
-
-#if DEBUG || INCLUDE_EDITOR
-        public static bool AlwaysGiveTutorials = true;
-        public static bool UnlockAll = true;
-        public static bool SimpleAiColors = false;
-#else
-        public static bool AlwaysGiveTutorials = false;
-        public static bool UnlockAll = true;
-        public static bool SimpleAiColors = false;
 #endif
 
         bool LogoScreenUp;
@@ -187,6 +230,13 @@ namespace CloudberryKingdom
 
         public CloudberryKingdomGame()
         {
+            if (FakeDemo)
+            {
+#if XBOX || XBOX_SIGNIN
+                Guide.SimulateTrialMode = true;
+#endif
+            }
+
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
@@ -234,6 +284,21 @@ namespace CloudberryKingdom
             Tools.MusicVolume.Val = 0;
 #endif
 
+            if (ForFrapsRecording)
+            {
+                Tools.SoundVolume.Val = .7f;
+                Tools.MusicVolume.Val = 1f;
+            }
+
+ 
+            // Fill the pools
+            ComputerRecording.InitPool();
+
+            //InitialResolution();
+        }
+
+        public void InitialResolution()
+        {
 #if PC_VERSION
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
@@ -330,19 +395,22 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             MyGraphicsDeviceManager.IsFullScreen = false;
-            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1920;
-            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 1080;
-            //MyGraphicsDeviceManager.IsFullScreen = true;
+            
+            
+            // For recording
+            if (ForFrapsRecording)
+            {
+                MyGraphicsDeviceManager.PreferredBackBufferWidth = 1920;
+                MyGraphicsDeviceManager.PreferredBackBufferHeight = 1080;
+                MyGraphicsDeviceManager.IsFullScreen = true;
+            }
 
 
 #if WINDOWS && !EDITOR
             Tools.GameClass.SetBorder(Tools.WindowBorder);
 #endif
 
-            MyGraphicsDeviceManager.ApplyChanges();
-
-            // Fill the pools
-            ComputerRecording.InitPool();
+            //MyGraphicsDeviceManager.ApplyChanges();
 
             fps = 0;
         }
@@ -412,11 +480,6 @@ namespace CloudberryKingdom
             // Load saved files
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             SaveGroup.Initialize();
-
-            // Localization
-            Localization.SetLanguage(Localization.Language.English);
-            //Localization.SetLanguage(Localization.Language.Japanese);
-            //Localization.SetLanguage(Localization.Language.Portuguese);
 
             // Benchmarking and preprocessing
             //PreprocessArt();
@@ -508,6 +571,62 @@ namespace CloudberryKingdom
             ToDo.Clear();
         }
 
+        protected void GodModePhxs()
+        {
+#if !DEBUG
+            // Turn on/off immortality.
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
+            {
+                foreach (Bob bob in Tools.CurLevel.Bobs)
+                {
+                    bob.Immortal = !bob.Immortal;
+                }
+            }
+#endif
+
+            // Turn on/off flying.
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
+            {
+                foreach (Bob bob in Tools.CurLevel.Bobs)
+                {
+                    bob.Flying = !bob.Flying;
+                }
+            }
+
+            // Go to last door
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
+            {
+                // Find last door
+                if (Tools.CurLevel != null)
+                {
+                    Door door = Tools.CurLevel.FindIObject(LevelConnector.EndOfLevelCode) as Door;
+
+                    if (null != door)
+                    {
+                        foreach (Bob bob in Tools.CurLevel.Bobs)
+                        {
+                            bob.Immortal = true;
+                            Tools.MoveTo(bob, door.Pos);
+                        }
+
+                        foreach (ObjectBase obj in Tools.CurLevel.Objects)
+                        {
+                            CameraZone zone = obj as CameraZone;
+                            if (null != zone)
+                            {
+                                if (Tools.CurLevel.MainCamera.MyZone == null ||
+                                    Tools.CurLevel.MainCamera.MyZone.Box.Current.BL.X <= zone.Box.Current.BL.X)
+                                {
+                                    Tools.CurLevel.MainCamera.MyZone = zone;
+                                    Tools.CurLevel.MainCamera.Pos = zone.End;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         protected void PhsxStep()
         {
             DoToDoList();
@@ -516,6 +635,13 @@ namespace CloudberryKingdom
             // Debug tools
             if (DebugModePhsx())
                 return;
+#endif
+
+#if DEBUG
+            GodModePhxs();
+#else
+            if (GodMode)
+                GodModePhxs();
 #endif
 
             // Do game update.

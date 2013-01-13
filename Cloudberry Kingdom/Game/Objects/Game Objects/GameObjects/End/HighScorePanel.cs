@@ -38,7 +38,6 @@ namespace CloudberryKingdom
         }
 
 
-        static string[] TextureName = { "score_screen_grey", "score_screen_grey", "score_screen_grey" };
         HighScorePanel[] Panels;
 
         public HighScorePanel(params ScoreList[] Scores) { MultiInit(false, Scores); }

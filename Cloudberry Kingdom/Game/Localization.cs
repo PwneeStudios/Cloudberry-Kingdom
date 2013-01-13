@@ -16,7 +16,12 @@ namespace CloudberryKingdom
 {
     public static class Localization
     {
-        public enum Words { Identifier, PressStart, PressAnyKey, TheArcade, StoryMode, FreePlay, Options, Exit, ExitGame, Yes, No, Language, SoundVolume, MusicVolume, Controls, EditControls, Resolution, FullScreen, WindowBorder, On, Off, QuickSpawn, PowerUpMenu, Left, Right, Up, Down, ReplayPrev, ReplayNext, ReplayToggle, ToggleSlowMo, Accept, Back, Menu, Reset, PressToJoin, Custom, Random, Done, Color, Beard, Hat, Cape, Lining, Use, Cancel, White, Silver, Gray, Black, Cyan, Blue, Teal, Indigo, Purple, Brown, Red, HotPink, Orange, Gold, Yellow, Green, LimeGreen, ForestGreen, Ninja, BrightWhite, Clear, Rugged, Manhattan, Lumberjack, Goatee, Vandyke, None, Viking, Fedora, Afro, Halo, Firehead, Horns, Bubble, TopHat, KnightHelmet, MushroomHat, OmNomNom, BrainHat, Gosu, RobinHood, Reggae, Pumpkin, PirateHat, HardHat, FourEyes, BunnyEars, Antlers, ArrowThroughHead, BrownBag, TrafficCone, PopeHat, RiceHat, SantaClaus, Sombrero, TikiMask, Wizard, Location, Game, ClassicGame, WallLevel, Bungee, Hero, Difficulty, Training, Unpleasant, Abusive, Hardcore, Masochistic, Length, Checkpoints, Start, Continue, LoadLevel, HeroFactory, Base, Jump, Shape, Play, Test, Passive, Aggressive, Next, JumpDifficulty, LevelSpeed, Ceilings, MovingBlocks, GhostBlocks, FallingBlocks, Elevators, Clouds, BouncyBlocks, Pendulums, FlyingBlobs, Firespinners, Boulders, SpikeyGuys, Lasers, Spikes, Sludge, Serpent, SpikeyLines, Fireballs, Acceleration, MaxVelocity, Size, Gravity, MaxFallSpeed, Friction, JumpLength, JumpAcc, NumJumps, DoubleJumpLength, DoubleJumpAccel, JetpackAcc, JetpackFuel, PhasedSize, PhasedGravity, PhasePeriod, ClassicHero, Jetman, DoubleJump, TinyBob, Wheelie, Spaceship, HeroInABox, Bouncy, Rocketbox, FatBob, PhaseBob, Viridian, TimeMaster, Meatboy, JetpackWheelie, Factory, Sea, Hills, Forest, Cloud, Cave, Castle, TheBeginning, TheNextNinetyNine, AGauntletOfDoom, AlmostHero, TheMasochist, Escalation, TimeCrisis, HeroRush, HybridRush, HighScore, BestLevel, Leaderboard, Score, Level, Ready, Go, GetToTheExit, SecondsOnTheClock, CoinsAddSeconds, GetAHighScore, Perfect, ExtraLife, Press, Resume, Statistics, SaveLoad, RemoveMe, ExitLevel, RandomSeed, SaveSeed, LoadSeed, CopyToClipboard, LoadFromClipboard, RemovePlayerQuestion, ExitLevelQuestion, SaveRandomSeedAs, SavedSeeds, LoadTheFollowingSeedQuestion, SeedSavedSuccessfully, Hooray, NoNameGiven, Oh, LevelsBeat, Jumps, Coins, Grabbed, CoinsOutOf, Percent, AverageLife, Deaths, Fireball, Firespinner, Boulder, SpikeyGuy, Spike, Falling, Lava, Blob, Laser, FallingSpikey, TimeLimit, LeftBehind, Other, Total, GameOver, NewHighScore, PlayAgain, HighScores, Local, Global, WatchComputer, ShowPath, ActivateSlowMo, Paused, Speed, Step, LevelCleared, KeepSettings, WatchReplay, BackToFreeplay, Pause, Single, Previous, All, End, Loading, HeroUnlocked, NewHeroUnlocked, Buy, HatsForSale, Bank, Achievement, AchievementUnlocked, DeleteSeeds, DeleteSeedsPlural, MultiplierIncreased, JumpHigherNote, RespawnNoteGamepad, RespawnNoteKeyboard, PowerupNote };
+        public enum Words { Identifier, PressStart, PressAnyKey, TheArcade, StoryMode, FreePlay, Options, Exit, ExitGame, Yes, No, Language, SoundVolume, MusicVolume, Controls, EditControls, Resolution, FullScreen, WindowBorder, On, Off, QuickSpawn, PowerUpMenu, Left, Right, Up, Down, ReplayPrev, ReplayNext, ReplayToggle, ToggleSlowMo, Accept, Back, Menu, Reset, PressToJoin, Custom, Random, Done, Color, Beard, Hat, Cape, Lining, Use, Cancel, White, Silver, Gray, Black, Cyan, Blue, Teal, Indigo, Purple, Brown, Red, HotPink, Orange, Gold, Yellow, Green, LimeGreen, ForestGreen, Ninja, BrightWhite, Clear, Rugged, Manhattan, Lumberjack, Goatee, Vandyke, None, Viking, Fedora, Afro, Halo, Firehead, Horns, Bubble, TopHat, KnightHelmet, MushroomHat, OmNomNom, BrainHat, Gosu, RobinHood, Reggae, Pumpkin, PirateHat, HardHat, FourEyes, BunnyEars, Antlers, ArrowThroughHead, BrownBag, TrafficCone, PopeHat, RiceHat, SantaClaus, Sombrero, TikiMask, Wizard, Location, Game, ClassicGame, WallLevel, Bungee, Hero, Difficulty, Training, Unpleasant, Abusive, Hardcore, Masochistic, Length, Checkpoints, Start, Continue, LoadLevel, HeroFactory, Base, Jump, Shape, Play, Test, Passive, Aggressive, Next, JumpDifficulty, LevelSpeed, Ceilings, MovingBlocks, GhostBlocks, FallingBlocks, Elevators, Clouds, BouncyBlocks, Pendulums, FlyingBlobs, Firespinners, Boulders, SpikeyGuys, Lasers, Spikes, Sludge, Serpent, SpikeyLines, Fireballs, Acceleration, MaxVelocity, Size, Gravity, MaxFallSpeed, Friction, JumpLength, JumpAcc, NumJumps, DoubleJumpLength, DoubleJumpAccel, JetpackAcc, JetpackFuel, PhasedSize, PhasedGravity, PhasePeriod, ClassicHero, Jetman, DoubleJump, TinyBob, Wheelie, Spaceship, HeroInABox, Bouncy, Rocketbox, FatBob, PhaseBob, Viridian, TimeMaster, Meatboy, JetpackWheelie, Factory, Sea, Hills, Forest, Cloud, Cave, Castle, TheBeginning, TheNextNinetyNine, AGauntletOfDoom, AlmostHero, TheMasochist, Escalation, TimeCrisis, HeroRush, HybridRush, HighScore, BestLevel, Leaderboard, Score, Level, Ready, Go, GetToTheExit, SecondsOnTheClock, CoinsAddSeconds, GetAHighScore, Perfect, ExtraLife, Press, Resume, Statistics, SaveLoad, RemoveMe, ExitLevel, RandomSeed, SaveSeed, LoadSeed, CopyToClipboard, LoadFromClipboard, RemovePlayerQuestion, ExitLevelQuestion, SaveRandomSeedAs, SavedSeeds, LoadTheFollowingSeedQuestion, SeedSavedSuccessfully, Hooray, NoNameGiven, Oh, LevelsBeat, Jumps, Coins, Grabbed, CoinsOutOf, Percent, AverageLife, Deaths, Fireball, Firespinner, Boulder, SpikeyGuy, Spike, Falling, Lava, Blob, Laser, FallingSpikey, TimeLimit, LeftBehind, Other, Total, GameOver, NewHighScore, PlayAgain, HighScores, Local, Global, WatchComputer, ShowPath, ActivateSlowMo, Paused, Speed, Step, LevelCleared, KeepSettings, WatchReplay, BackToFreeplay, Pause, Single, Previous, All, End, Loading, HeroUnlocked, NewHeroUnlocked, Buy, HatsForSale, Bank, Achievement, AchievementUnlocked, DeleteSeeds, DeleteSeedsPlural, MultiplierIncreased, JumpHigherNote, RespawnNoteGamepad, RespawnNoteKeyboard, PowerupNote,
+                AwardTitle_Campaign1, AwardText_Campaign1, AwardTitle_ArcadeHighScore, AwardText_ArcadeHighScore, AwardTitle_Bungee, AwardText_Bungee, AwardTitle_ArcadeHighScore2, AwardText_ArcadeHighScore2, AwardTitle_Die, AwardText_Die, AwardTitle_Campaign3, AwardText_Campaign3, AwardTitle_Invisible, AwardText_Invisible, AwardTitle_Hats, AwardText_Hats, AwardTitle_Campaign2, AwardText_Campaign2, AwardTitle_UnlockAllArcade, AwardText_UnlockAllArcade, AwardTitle_NoDeath, AwardText_NoDeath, AwardTitle_Save, AwardText_Save, AwardTitle_Obstacles, AwardText_Obstacles, AwardTitle_Buy, AwardText_Buy, AwardTitle_Campaign4, AwardText_Campaign4, AwardTitle_BuyHat, AwardText_BuyHat, AwardTitle_HeroRush2Level, AwardText_HeroRush2Level, AwardTitle_Replay, AwardText_Replay, AwardTitle_Campaign5, AwardText_Campaign5, 
+                
+                // New words
+                Required,
+        };
 
         static Dictionary<Language, Dictionary<Words, string>> Text;
 
@@ -87,11 +92,13 @@ namespace CloudberryKingdom
         {
             public Language MyLanguage;
             public string MyDirectory;
+            public string FontSuffix;
 
-            public LanguageInfo(Language MyLanguage, string MyDirectory)
+            public LanguageInfo(Language MyLanguage, string MyDirectory, string FontSuffix)
             {
                 this.MyLanguage = MyLanguage;
                 this.MyDirectory = MyDirectory;
+                this.FontSuffix = FontSuffix;
             }
         }
 
@@ -132,16 +139,16 @@ namespace CloudberryKingdom
         {
             Content = new ContentManager(Tools.GameClass.Services, Path.Combine("Content", "Localization"));
 
-            Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese"));
-            Languages.Add(Language.English, new LanguageInfo(Language.English, "English"));
-            Languages.Add(Language.French, new LanguageInfo(Language.French, "French"));
-            Languages.Add(Language.German, new LanguageInfo(Language.German, "German"));
-            Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian"));
-            Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese"));
-            Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean"));
-            Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese"));
-            Languages.Add(Language.Russian, new LanguageInfo(Language.Portuguese, "Russian"));
-            Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "English"));
+            Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
+            Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
+            Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
+            Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
+            Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
+            Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese", "Japanese"));
+            Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean", "Korean"));
+            Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
+            Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
+            Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
 
             string path = Path.Combine(Content.RootDirectory, "Localization.tsv");
             ReadTranslationGrid(path);

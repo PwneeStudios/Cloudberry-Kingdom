@@ -43,13 +43,15 @@ namespace CloudberryKingdom
         public XnaGameClass()
         {
             Tools.GameClass = this;
-            MyGame = new CloudberryKingdomGame();
 
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
             Components.Add(new GamerServicesComponent(this));
 #endif
             Content.RootDirectory = "Content";
+
+            MyGame = new CloudberryKingdomGame();
+            MyGame.InitialResolution();
         }
 
         protected override void Initialize()

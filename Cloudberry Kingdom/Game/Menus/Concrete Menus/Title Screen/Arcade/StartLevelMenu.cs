@@ -12,12 +12,6 @@ namespace CloudberryKingdom
         {
             this.StartLevel = StartLevel - 1;
             this.MenuIndex = MenuIndex;
-
-            if (Locked)
-            {
-                MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
-                MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
-            }
         }
     }
 
@@ -100,7 +94,7 @@ namespace CloudberryKingdom
             // assuming they have previously gotten to that level.
             IndexCutoff = 1;
             for (int i = 0; i < Levels.Length; i++)
-                if (HighestLevel >= Levels[i] || CloudberryKingdomGame.UnlockAll) IndexCutoff = i + 1;
+                if (HighestLevel >= Levels[i] || CloudberryKingdomGame.Unlock_Levels) IndexCutoff = i + 1;
 
             Initialize();
         }
@@ -142,6 +136,20 @@ namespace CloudberryKingdom
 
                 AddItem(item);
                 item.SelectedPos.X -= 25;
+
+                if (Locked)
+                {
+                    item.MyText.Alpha = .4f;
+                    item.MySelectedText.Alpha = .4f;
+
+                    //item.MyText.MyFloatColor.X *= .8f;
+                    //item.MySelectedText.MyFloatColor.X *= .8f;
+                    //item.MyText.MyFloatColor *= .8f;
+                    //item.MySelectedText.MyFloatColor *= .8f;
+
+                    //item.MyText.MyFloatColor =         new Color(255, 100, 100).ToVector4();
+                    //item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
+                }
             }
             ItemPos += PosAdd * .3f;
 

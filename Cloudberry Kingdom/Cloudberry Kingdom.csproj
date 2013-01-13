@@ -264,6 +264,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
+    <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
     <Compile Include="Game\Tools\CkColorHelper.cs" />

@@ -13,7 +13,10 @@ namespace CloudberryKingdom
             switch (MyGame.MyBankType)
             {
                 case GameData.BankType.Infinite:
-                    return 99;
+                    return 999;
+
+                case GameData.BankType.Escalation:
+                    return Challenge.Coins;
 
                 case GameData.BankType.Campaign:
                     return PlayerManager.PlayerMax(p => p.CampaignCoins);
@@ -32,6 +35,10 @@ namespace CloudberryKingdom
         {
             switch (MyGame.MyBankType)
             {
+                case GameData.BankType.Escalation:
+                    Challenge.Coins -= Cost;
+                    break;
+
                 case GameData.BankType.Campaign:
                     foreach (var p in PlayerManager.ExistingPlayers)
                         p.CampaignCoins = System.Math.Max(p.CampaignCoins - Cost, 0);
@@ -41,6 +48,7 @@ namespace CloudberryKingdom
                     break;
             }
 
+            Awardments.CheckForAward_Buy();
             //PlayerManager.CoinsSpent += Cost;
 
             SetCoins(Bank());
@@ -300,6 +308,7 @@ namespace CloudberryKingdom
             item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.WatchComputer);
 
             // Show path
+            MenuItem PathItem = null;
             if (On_ShowPath())
             {
                 item = toggle = new MenuToggle(ItemFont);
@@ -308,8 +317,11 @@ namespace CloudberryKingdom
             }
             else
             {
-                item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Path.ToString(), ItemFont));
-                item.Go = Cast.ToItem(ShowPath);
+                PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Path.ToString(), ItemFont));
+                if (Bank() >= Cost_Path)
+                    item.Go = Cast.ToItem(ShowPath);
+                else
+                    item.Go = null;
             }
             item.Name = "ShowPath";
             item.SetIcon(ObjectIcon.PathIcon.Clone());
@@ -319,6 +331,7 @@ namespace CloudberryKingdom
             Item_ShowPath = item;
 
             // Slow mo
+            MenuItem SlowItem = null;
             if (On_SlowMo())
             {
                 item = toggle = new MenuToggle(ItemFont);
@@ -327,8 +340,11 @@ namespace CloudberryKingdom
             }
             else
             {
-                item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Slow.ToString(), ItemFont));
-                item.Go = Cast.ToItem(SlowMo);
+                SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Slow.ToString(), ItemFont));
+                if (Bank() >= Cost_Slow)
+                    item.Go = Cast.ToItem(SlowMo);
+                else
+                    item.Go = null;
             }
             item.Name = "SlowMo";
             item.SetIcon(ObjectIcon.SlowMoIcon.Clone());
@@ -336,6 +352,20 @@ namespace CloudberryKingdom
             AddItem(item);
             item.AdditionalOnSelect = Blurb.SetText_Action(Localization.Words.ActivateSlowMo);
             Item_SlowMo = item;
+
+            // Fade if not usable
+            if (PathItem != null && PathItem.Go == null)
+            {
+                PathItem.MyText.Alpha = .6f;
+                PathItem.MySelectedText.Alpha = .6f;
+            }
+
+            if (SlowItem != null && SlowItem.Go == null)
+            {
+                SlowItem.MyText.Alpha = .6f;
+                SlowItem.MySelectedText.Alpha = .6f;
+            }
+
 
             MyMenu.OnStart = MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
             MyMenu.OnY = Cast.ToAction(MenuReturnToCaller);

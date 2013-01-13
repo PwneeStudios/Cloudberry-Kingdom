@@ -142,6 +142,43 @@ namespace CloudberryKingdom
         }
         #endregion
 
+        public int GetTotalLevel()
+        {
+            return GetTotalArcadeLevel() + GetTotalCampaignLevel();
+        }
+
+        public int GetTotalCampaignLevel()
+        {
+            return CampaignLevel;
+        }
+
+        public int GetTotalArcadeLevel()
+        {
+            int level = 0;
+            int id;
+
+            foreach (var game in ArcadeMenu.HeroArcadeList)
+            {
+                id = Challenge_Escalation.Instance.CalcGameId_Level(game.Key);
+                if (HighScores.ContainsKey(id))
+                    level += HighScores[id].Value;
+
+                id = Challenge_TimeCrisis.Instance.CalcGameId_Level(game.Key);
+                if (HighScores.ContainsKey(id))
+                    level += HighScores[id].Value;
+
+                id = Challenge_HeroRush.Instance.CalcGameId_Level(game.Key);
+                if (HighScores.ContainsKey(id))
+                    level += HighScores[id].Value;
+
+                id = Challenge_HeroRush2.Instance.CalcGameId_Level(game.Key);
+                if (HighScores.ContainsKey(id))
+                    level += HighScores[id].Value;
+            }
+
+            return level;
+        }
+
         public int GetHighScore(int GameId)
         {
             if (HighScores.ContainsKey(GameId))

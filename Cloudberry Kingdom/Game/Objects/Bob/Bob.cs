@@ -271,6 +271,7 @@ namespace CloudberryKingdom.Bobs
         public int PlaceDelay = 23;
         public int PlaceTimer;
 
+        public bool Flying = false;
         public bool Immortal, DoNotTrackOffScreen = false;
 
         public bool TopCol, BottomCol;
@@ -319,6 +320,8 @@ namespace CloudberryKingdom.Bobs
 
 
         public bool Dying, Dead, FlamingCorpse;
+
+        public int DeadCount;
 
         public bool BoxesOnly;
 
@@ -559,6 +562,7 @@ namespace CloudberryKingdom.Bobs
             GroundSpeed = 0;
 
             Dead = Dying = false;
+            DeadCount = 0;
                         
             Move(StartData.Position - Core.Data.Position);
             Core.StartData = Core.Data = StartData;
@@ -780,6 +784,7 @@ namespace CloudberryKingdom.Bobs
                 (!IsVisible() && DeathCount > Game.DoneDyingCount)))
             {
                 Tools.CurGameData.BobDoneDying(Core.MyLevel, this);
+                if (!Dead && !Dying) DeadCount = 0;
                 Dead = true;
             }
 
@@ -1570,6 +1575,13 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public bool DoObjectInteractions = true;
 
+        void FlyingPhsx()
+        {
+            MyPhsx.Vel *= .985f;
+
+            MyPhsx.Vel += CurInput.xVec;
+        }
+
         public override void PhsxStep()
         {
             DoLightSourceFade();
@@ -1602,6 +1614,8 @@ namespace CloudberryKingdom.Bobs
             if (MyBobLinks != null)
                 foreach (BobLink link in MyBobLinks)
                     link.PhsxStep(this);
+
+            if (Dead || Dying) DeadCount++;
 
             if (Dying)
             {
@@ -1687,7 +1701,10 @@ namespace CloudberryKingdom.Bobs
             float Windx = Wind.X;
             if (MyPhsx.OnGround) Windx /= 2;
             Core.Data.Velocity.X -= Windx;
-            MyPhsx.PhsxStep();
+            if (Flying)
+                FlyingPhsx();
+            else
+                MyPhsx.PhsxStep();
             Core.Data.Velocity.X += Windx;
             MyPhsx.CopyPrev();
             if (MoveData.InvertDirX) CurInput.xVec.X *= -1;

@@ -34,23 +34,32 @@ namespace CloudberryKingdom
         {
             Initialize(FontName, OutlineFontName, CharacterSpacing, LineSpacing);
             LineSpacing = (int)(LineSpacing * LineSpacingMod);
+
+#if OLD_TEXT
             FixFont();
+#endif
         }
 
+#if OLD_TEXT
         public void FixFont()
         {
             Font.Spacing = CharacterSpacing;
             Font.LineSpacing = LineSpacing;
         }
+#endif
 
         void Initialize(string FontName, string OutlineFontName, float CharacterSpacing, int LineSpacing)
         {
             this.CharacterSpacing = CharacterSpacing;
             this.LineSpacing = LineSpacing;
 
+#if OLD_TEXT
             Font = Tools.GameClass.Content.Load<SpriteFont>(FontName);
-            FixFont();
 
+            FixFont();
+#endif
+
+#if OLD_TEXT
             if (OutlineFontName.Length > 1)
             {
                 OutlineFont = Tools.GameClass.Content.Load<SpriteFont>(OutlineFontName);
@@ -61,6 +70,9 @@ namespace CloudberryKingdom
                 OutlineFont = null;
 
             this.LineSpacing = (int)Font.MeasureString("abc").Y;
+#else
+            this.LineSpacing = 133;
+#endif
         }
     }
 }

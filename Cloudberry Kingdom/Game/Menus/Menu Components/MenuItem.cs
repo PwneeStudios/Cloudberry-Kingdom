@@ -45,7 +45,7 @@ namespace CloudberryKingdom
                 var spos = SelectedPos;
                 if (spos.Y == Pos.Y) spos.Y = -1;
 
-                SelectedPosStr = string.Format("_SetSelectedPos({0});", Tools.ToCode(spos));
+                SelectedPosStr = string.Format("_item.SetSelectedPos({0});", Tools.ToCode(spos));
             }
 
             return string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}", suffix, Name, Tools.ToCode(Pos), MyText.Scale, MySelectedText.Scale, Tools.ToCode(SelectIconOffset), SelectedPosStr);

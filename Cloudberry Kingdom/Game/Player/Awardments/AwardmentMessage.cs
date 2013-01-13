@@ -19,16 +19,17 @@ namespace CloudberryKingdom.Awards
 
             MakeBackdrop();
 
-            SetText(award);
+            EzText Title, Description;
 
-            EzText Title;
-            if (award.Unlockable == null)
-                Title = new EzText("", Resources.Font_Grobold42_2, 1800, false, false, .575f);
-            else
-                Title = new EzText(award.Name, Resources.Font_Grobold42_2, 1800, false, false, .575f);
-            Title.Pos = new Vector2(-1726.192f, 369.0475f);
-            Title.Scale *= .79f;
+            Title = new EzText(award.TitleType, Resources.Font_Grobold42_2, 1800, false, false, .575f);
+            Title.Pos = new Vector2(-1726.192f, 300);
+            Title.Scale *= .6f;
             MyPile.Add(Title);
+
+            Description = new EzText(award.Description, Resources.Font_Grobold42_2, 1800, true, true, .575f);
+            Description.Pos = new Vector2(0, 100);
+            Description.Scale *= .6f;
+            MyPile.Add(Description);
         }
 
         protected virtual void MakeBackdrop()
@@ -55,46 +56,6 @@ namespace CloudberryKingdom.Awards
 
             Kill(true);
             Active = false;
-        }
-
-        protected EzText Text;
-        public void SetText(Awardment award)
-        {
-            string text = award.Name;
-
-            // Erase previous text
-            MyPile.MyTextList.Clear();
-
-            // Add the new text
-            Text = new EzText(text, ItemFont, 1800, false, false, .575f);
-
-            if (award.Unlockable == null)
-            {
-                Text.Scale *= 1.15f;
-                MyPile.Add(Text);
-
-                Vector2 size = Text.GetWorldSize();
-                Text.Pos = new Vector2(-size.X / 2 - 350, size.Y * .85f) + new Vector2(38, 32);
-            }
-            else
-            {
-                Text.Scale *= .74f;
-                MyPile.Add(Text);
-                SizeAndPosition();
-            }
-        }
-
-        protected virtual void SizeAndPosition()
-        {
-            Vector2 size = Text.GetWorldSize();
-            float MaxSize = 1200;
-            if (size.X > MaxSize)
-                Text.Scale *= MaxSize / size.X;
-
-            size = Text.GetWorldSize();
-            Text.Pos = new Vector2(-size.X / 2 - 350, size.Y * .85f);
-
-            Text.Pos += new Vector2(0, -42);
         }
 
         protected int Step = 0;

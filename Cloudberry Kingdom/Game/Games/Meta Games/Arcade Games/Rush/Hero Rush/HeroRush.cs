@@ -53,6 +53,10 @@ namespace CloudberryKingdom
                     obj.Core.MarkedForDeletion = true;
         }
 
+        protected virtual void AdditionalSwap(int levelindex)
+        {
+        }
+
         int LevelsPerDifficulty = 20;
         protected override void AdditionalPreStart()
         {
@@ -73,7 +77,9 @@ namespace CloudberryKingdom
             // When a new level is swapped to...
             MyStringWorld.OnSwapToLevel += levelindex =>
             {
-                Awardments.CheckForAward_HeroRush2Unlock(levelindex - StartIndex);
+                AdditionalSwap(levelindex);
+
+                //Awardments.CheckForAward_HeroRush2Unlock(levelindex - StartIndex);
 
                 // Add hero icon to exit door
                 MakeExitDoorIcon(levelindex);
@@ -119,10 +125,42 @@ namespace CloudberryKingdom
             return seed;
         }
 
-        static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
-            { BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance,
+        static List<BobPhsx> _HeroTypes = new List<BobPhsx>(new BobPhsx[]
+            { BobPhsxJetman.Instance, BobPhsxDouble.Instance,
               BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance,
               BobPhsxBouncy.Instance, BobPhsxBig.Instance });
+
+        static List<BobPhsx> HeroTypes = new List<BobPhsx>(200);
+
+        void ShuffleHeros()
+        {
+            HeroTypes.Clear();
+
+            for (int i = 0; i < 5; i++)
+            {
+                HeroTypes.Add(BobPhsxNormal.Instance);
+                
+                _HeroTypes = Tools.GlobalRnd.Shuffle(_HeroTypes);
+                HeroTypes.AddRange(_HeroTypes);
+
+                HeroTypes.Add(BobPhsxBox.Instance);
+
+                _HeroTypes = Tools.GlobalRnd.Shuffle(_HeroTypes);
+                HeroTypes.AddRange(_HeroTypes);
+
+                HeroTypes.Add(BobPhsxRocketbox.Instance);
+
+                _HeroTypes = Tools.GlobalRnd.Shuffle(_HeroTypes);
+                HeroTypes.AddRange(_HeroTypes);
+            }
+        }
+
+        public override void Start(int StartLevel)
+        {
+            ShuffleHeros();
+
+            base.Start(StartLevel);
+        }
 
         protected virtual BobPhsx GetHero(int i)
         {

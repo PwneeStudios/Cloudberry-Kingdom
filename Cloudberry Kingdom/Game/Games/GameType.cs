@@ -752,7 +752,7 @@ namespace CloudberryKingdom
 
         public static GameData Factory(LevelSeedData data, bool MakeInBackground) { return null; }
 
-        public enum BankType { Campaign, Infinite };
+        public enum BankType { Campaign, Escalation, Infinite };
         public BankType MyBankType = BankType.Infinite;
 
         public int CreationTime = 0;
@@ -923,6 +923,7 @@ namespace CloudberryKingdom
                 {
                     PlayerManager.RevivePlayer(bob.MyPlayerIndex);
                     bob.Dead = bob.Dying = false;
+                    bob.DeadCount = 0;
 
                     bob.Init(false, bob.MyPiece.StartData[bob.MyPieceIndex], this);
                     bob.Move(CheckpointBob.Core.Data.Position - bob.Core.Data.Position);

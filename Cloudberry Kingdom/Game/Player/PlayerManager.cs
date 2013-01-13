@@ -347,6 +347,33 @@ namespace CloudberryKingdom
             return max;
         }
 
+        public static int MaxPlayerTotalArcadeLevel()
+        {
+            int max = 0;
+            foreach (PlayerData player in ExistingPlayers)
+                max = Math.Max(max, player.GetTotalArcadeLevel());
+
+            return max;
+        }
+
+        public static int MaxPlayerTotalCampaignLevel()
+        {
+            int max = 0;
+            foreach (PlayerData player in ExistingPlayers)
+                max = Math.Max(max, player.GetTotalCampaignLevel());
+
+            return max;
+        }
+
+        public static int MaxPlayerTotalLevel()
+        {
+            int max = 0;
+            foreach (PlayerData player in ExistingPlayers)
+                max = Math.Max(max, player.GetTotalLevel());
+
+            return max;
+        }
+
         /// <summary>
         /// Returns true if any of the current players has been awarded the specified awardment.
         /// </summary>
@@ -642,6 +669,7 @@ namespace CloudberryKingdom
 
         public static void ReviveBob(Bob bob)
         {
+            bob.DeadCount = 0;
             bob.Dead = bob.Dying = false;
 
             RevivePlayer(bob.MyPlayerIndex);

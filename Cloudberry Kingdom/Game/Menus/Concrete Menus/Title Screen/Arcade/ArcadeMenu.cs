@@ -1,6 +1,8 @@
+using System;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Awards;
-using CloudberryKingdom.Stats;
+
 
 namespace CloudberryKingdom
 {
@@ -8,14 +10,15 @@ namespace CloudberryKingdom
     {
         public Challenge MyChallenge;
         public Awardment MyPrereq;
-        public bool Locked;
+        public bool IsLocked()
+        {
+            return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels;
+        }
 
         public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq) : base(Text)
         {
             this.MyChallenge = MyChallenge;
             this.MyPrereq = MyPrereq;
-
-            Locked = MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.UnlockAll;
         }
     }
 
@@ -64,6 +67,84 @@ namespace CloudberryKingdom
 
     public class ArcadeMenu : ArcadeBaseMenu
     {
+        public static BobPhsx JetpackWheelie;
+        public static BobPhsx BigBouncy;
+        public static BobPhsx Ultimate;
+
+        public static Dictionary<BobPhsx, Tuple<BobPhsx, int>> HeroArcadeList;
+
+        public static void StaticInit()
+        {
+            // Heroes
+            BobPhsxNormal.Instance.Id = 0;
+            BobPhsxBig.Instance.Id = 1;
+            BobPhsxInvert.Instance.Id = 2;
+            BobPhsxDouble.Instance.Id = 3;
+            BobPhsxJetman.Instance.Id = 4;
+            BobPhsxBouncy.Instance.Id = 5;
+            BobPhsxBox.Instance.Id = 6;
+            BobPhsxScale.Instance.Id = 7;
+            BobPhsxTime.Instance.Id = 8;
+            BobPhsxSmall.Instance.Id = 9;
+            BobPhsxSpaceship.Instance.Id = 10;
+            BobPhsxWheel.Instance.Id = 11;
+
+            ArcadeMenu.JetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
+            ArcadeMenu.JetpackWheelie.Name = Localization.Words.JetpackWheelie;
+            ArcadeMenu.JetpackWheelie.Id = 12;
+
+            ArcadeMenu.BigBouncy = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Big, Hero_MoveMod.Jetpack);
+            ArcadeMenu.BigBouncy.Name = Localization.Words.Hero;
+            ArcadeMenu.BigBouncy.Id = 13;
+
+            ArcadeMenu.Ultimate = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic);
+            ArcadeMenu.Ultimate.Name = Localization.Words.Masochistic;
+            BobPhsx.CustomPhsxData UltimatePhsx = new BobPhsx.CustomPhsxData();
+            UltimatePhsx.Init();
+            UltimatePhsx[BobPhsx.CustomData.accel] = 2.2f;
+            UltimatePhsx[BobPhsx.CustomData.friction] = 2.2f;
+            UltimatePhsx[BobPhsx.CustomData.maxspeed] = 2.35f;
+            UltimatePhsx[BobPhsx.CustomData.gravity] = .575f;
+            UltimatePhsx[BobPhsx.CustomData.jumplength] = 1.51f;
+            UltimatePhsx[BobPhsx.CustomData.jumplength2] = 1.5212f;
+            UltimatePhsx[BobPhsx.CustomData.jumpaccel] = .8f;
+            UltimatePhsx[BobPhsx.CustomData.jumpaccel2] = .8f;
+            UltimatePhsx[BobPhsx.CustomData.maxfall] = 2.2f;
+            UltimatePhsx[BobPhsx.CustomData.numjumps] = 1;
+            UltimatePhsx[BobPhsx.CustomData.size] = .2f;
+            ArcadeMenu.Ultimate.SetCustomPhsx(UltimatePhsx);
+            ArcadeMenu.Ultimate.Id = 14;
+
+            HeroArcadeList = new Dictionary<BobPhsx, Tuple<BobPhsx, int>>()
+            {
+                { BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) },
+                { BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 30) },
+                { BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 30) },
+                { BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 40) },
+                { BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 40) },
+                { BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) },
+                { BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) },
+                { BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) },
+                { BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 70) },
+                { BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(BobPhsxWheel.Instance, 80) },
+                
+                { JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxSmall.Instance, 100) },
+                { BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) },
+                { Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) },
+            };
+        }
+
+        public static void CheckForArcadeUnlocks()
+        {
+            foreach (PlayerData player in PlayerManager.ExistingPlayers)
+            {
+                int TotalArcadeLevel = player.GetTotalArcadeLevel();
+                Awardments.CheckForAward_TimeCrisisUnlock(TotalArcadeLevel, player);
+                Awardments.CheckForAward_HeroRushUnlock(TotalArcadeLevel, player);
+                Awardments.CheckForAward_HeroRush2Unlock(TotalArcadeLevel, player);
+            }
+        }
+
         bool Long = false;
 
         protected override void SetItemProperties(MenuItem item)
@@ -77,6 +158,8 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
             SetLockColors();
+
+            UpdateAfterPlaying();
         }
 
         void SetLockColors()
@@ -84,7 +167,7 @@ namespace CloudberryKingdom
             foreach (MenuItem item in MyMenu.Items)
             {
                 Awardment award = item.MyObject as Awardment;
-                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.UnlockAll)
+                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.Unlock_Levels)
                 {
                     item.MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
                     item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
@@ -101,6 +184,8 @@ namespace CloudberryKingdom
         {
         }
 
+        EzText RequiredText, RequiredText2;
+        QuadClass TextBack;
         public override void  Init()
         {
  	        base.Init();
@@ -123,6 +208,38 @@ namespace CloudberryKingdom
 
             MyMenu.OnB = MenuReturnToCaller;
 
+            // Level
+            var LevelText = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
+            LevelText.Scale *= .72f;
+            StartMenu.SetText_Green(LevelText, true);
+            MyPile.Add(LevelText, "Level");
+            LevelText.Show = false;
+
+            var LevelNum = new EzText("Garbage", Resources.Font_Grobold42);
+            LevelNum.Scale *= 1.1f;
+            StartMenu.SetText_Green(LevelNum, true);
+            MyPile.Add(LevelNum, "LevelNum");
+            LevelNum.Show = false;
+
+            // Requirement
+            RequiredText = new EzText(Localization.Words.Required, Resources.Font_Grobold42);
+            RequiredText.Scale *= 1f;
+            StartMenu.SetText_Green(RequiredText, true);
+            MyPile.Add(RequiredText, "Requirement");
+            RequiredText.Alpha = 0;
+
+            RequiredText2 = new EzText("Garbage", Resources.Font_Grobold42);
+            RequiredText2.Scale *= 1f;
+            StartMenu.SetText_Green(RequiredText2, true);
+            MyPile.Add(RequiredText2, "Requirement2");
+            RequiredText2.Alpha = 0;
+
+            TextBack = new QuadClass("Arcade_BoxLeft", 100, true);
+            TextBack.Alpha = 1f;
+            TextBack.Degrees = 90;
+            MyPile.Add(TextBack, "BoxLeft");
+
+
             // Header
             MenuItem Header = new MenuItem(new EzText(Localization.Words.TheArcade, Resources.Font_Grobold42_2));
             Header.Name = "Header";
@@ -136,16 +253,16 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-1689.523f, 520.4127f);
 
             // Escalation
-            item = AddChallenge(Challenge_Escalation.Instance, null, null, "Escalation");
+            item = AddChallenge(Challenge_Escalation.Instance, null, "Escalation");
 
             // Time Crisis
-            item = AddChallenge(Challenge_TimeCrisis.Instance, null, Awardments.UnlockHeroRush2, "Time Crisis");
+            item = AddChallenge(Challenge_TimeCrisis.Instance, Awardments.UnlockTimeCrisis, "Time Crisis");
 
             // Hero Rush
-            item = AddChallenge(Challenge_HeroRush.Instance, null, Awardments.UnlockHeroRush2, "Hero Rush");
+            item = AddChallenge(Challenge_HeroRush.Instance, Awardments.UnlockHeroRush, "Hero Rush");
 
             // Hero Rush 2
-            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Hero Rush 2");
+            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2");
 
             // Bungee Co-op
             //item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
@@ -167,6 +284,8 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(1);
 
             SetLockColors();
+
+            UpdateAfterPlaying();
         }
 
         private void SetParams()
@@ -185,12 +304,14 @@ namespace CloudberryKingdom
             return new Vector2(-174.6031f, -603.1746f);
         }
 
-        private MenuItem AddChallenge(Challenge challenge, Awardment prereq, Awardment goal, string itemname)
+        private MenuItem AddChallenge(Challenge challenge, Awardment prereq, string itemname)
         {
             ArcadeItem item;
-            Localization.Words word = challenge.MenuName != null ? challenge.MenuName : challenge.Name;
+            Localization.Words word = challenge.MenuName;
             
             item = new ArcadeItem(new EzText(word, ItemFont), challenge, prereq);
+
+            item.AdditionalOnSelect += OnSelect;
 
             item.Name = itemname;
             AddItem(item);
@@ -200,12 +321,85 @@ namespace CloudberryKingdom
             return item;
         }
 
+        void UpdateAfterPlaying()
+        {
+            int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
+            bool ShowLevel = Level > 0;
+
+            if (ShowLevel)
+            {
+                MyPile.FindEzText("Level").Show = true;
+                
+                EzText _t = MyPile.FindEzText("LevelNum");
+                _t.Show = true;
+                _t.SubstituteText(Level.ToString());
+            }
+            else
+            {
+                MyPile.FindEzText("Level").Show = false;
+                MyPile.FindEzText("LevelNum").Show = false;
+            }
+
+            foreach (MenuItem _item in MyMenu.Items)
+            {
+                var item = _item as ArcadeItem;
+                if (null == item) continue;
+
+                if (item.IsLocked())
+                {
+                    item.MyText.Alpha = .4f;
+                    item.MySelectedText.Alpha = .4f;
+                }
+                else
+                {
+                    item.MyText.Alpha = 1f;
+                    item.MySelectedText.Alpha = 1f;
+                }
+            }
+        }
+
+        bool Lock = false;
+        void OnSelect()
+        {
+            var item = MyMenu.CurItem as ArcadeItem;
+            if (null == item) return;
+
+            Lock = item.IsLocked();
+
+            if (Lock)
+            {
+                EzText _t;
+                _t = MyPile.FindEzText("Requirement2");
+                //_t.Show = true;
+                //_t.SubstituteText(Localization.WordString(Localization.Words.Required) + " " +
+                //                  Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
+                _t.SubstituteText(Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
+            }
+            else
+            {
+                //MyPile.FindEzText("Requirement").Show = false;
+            }
+        }
+
         protected virtual void Go(MenuItem item)
         {
         }
 
         protected override void MyPhsxStep()
         {
+            if (Lock)
+            {
+                RequiredText.Alpha += .2f;
+                if (RequiredText.Alpha > 1) RequiredText.Alpha = 1;
+            }
+            else
+            {
+                RequiredText.Alpha -= .2f;
+                if (RequiredText.Alpha < 0) RequiredText.Alpha = 0;
+            }
+            TextBack.Alpha = RequiredText.Alpha;
+            RequiredText2.Alpha = RequiredText.Alpha;
+
             base.MyPhsxStep();
         }
     }

@@ -1,20 +1,23 @@
+using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Stats;
+
 
 namespace CloudberryKingdom
 {
     public class HeroItem : MenuItem
     {
         public BobPhsx Hero;
-        public bool Locked;
+        public BobPhsx RequiredHero;
+        public int RequiredHeroLevel;
 
-        public HeroItem(BobPhsx Hero)
-            : base(new EzText(Hero.Name, Resources.Font_Grobold42_2))
+        public HeroItem(KeyValuePair<BobPhsx, Tuple<BobPhsx, int>> pair)
+            : base(new EzText(pair.Key.Name, Resources.Font_Grobold42_2))
         {
-            this.Hero = Hero;
-
-            Locked = false;
+            this.Hero = pair.Key;
+            this.RequiredHero = pair.Value.Item1;
+            this.RequiredHeroLevel = pair.Value.Item2;
         }
     }
 
@@ -44,10 +47,66 @@ namespace CloudberryKingdom
             Arcade = null;
         }
 
+        bool Lock = false;
+        public bool Locked()
+        {
+            var item = MyMenu.CurItem as HeroItem;
+            if (null == item) return false;
+
+            return Locked(item);
+        }
+
+        public bool Locked(HeroItem item)
+        {
+            if (item.RequiredHero == null) return false;
+
+            int level = MyArcadeItem.MyChallenge.CalcTopGameLevel(item.RequiredHero);
+            return level < item.RequiredHeroLevel && !CloudberryKingdomGame.Unlock_Levels;
+        }
+
+        public bool Invisible(HeroItem item)
+        {
+            if (item.RequiredHero == null) return false;
+
+            int level = MyArcadeItem.MyChallenge.CalcTopGameLevel(item.RequiredHero);
+            return level < item.RequiredHeroLevel && !CloudberryKingdomGame.Unlock_Levels && item.RequiredHeroLevel >= 100;
+        }
+
         void OnSelect()
         {
             var item = MyMenu.CurItem as HeroItem;
             if (null == item) return;
+
+            Lock = Locked();
+
+            if (Lock)
+            {
+                int level = item.RequiredHeroLevel;
+                string name = Localization.WordString(item.RequiredHero.Name);
+                string m = Localization.WordString(Localization.Words.Level) + " " + level.ToString();
+
+                EzText _t;
+                MyPile.FindEzText("LockedHeader").Show = true;
+                _t = MyPile.FindEzText("RequiredHero"); _t.Show = true; _t.SubstituteText(name);
+                _t = MyPile.FindEzText("RequiredLevel"); _t.Show = true; _t.SubstituteText(m);
+                
+
+                MyPile.FindEzText("ScoreHeader").Show = false;
+                MyPile.FindEzText("Score").Show = false;
+                MyPile.FindEzText("LevelHeader").Show = false;
+                MyPile.FindEzText("Level").Show = false;
+            }
+            else
+            {
+                MyPile.FindEzText("LockedHeader").Show = false;
+                MyPile.FindEzText("RequiredHero").Show = false;
+                MyPile.FindEzText("RequiredLevel").Show = false;
+
+                MyPile.FindEzText("ScoreHeader").Show = true;
+                MyPile.FindEzText("Score").Show = true;
+                MyPile.FindEzText("LevelHeader").Show = true;
+                MyPile.FindEzText("Level").Show = true;
+            }
 
             Challenge.ChosenHero = item.Hero;
             MyHeroDoll.MakeHeroDoll(item.Hero);
@@ -100,6 +159,8 @@ namespace CloudberryKingdom
             // Options. Menu for PC, graphics only for consoles.
             Options = new HeroSelectOptions(this);
             MyGame.AddGameObject(Options);
+
+            Update();
         }
 
         public HeroDoll MyHeroDoll;
@@ -113,44 +174,6 @@ namespace CloudberryKingdom
 
             Score = new EzText("0", Resources.Font_Grobold42_2);
             Level = new EzText("0", Resources.Font_Grobold42_2);
-
-            // Heroes
-            BobPhsxNormal.Instance.Id = 0;
-            BobPhsxBig.Instance.Id = 1;
-            BobPhsxInvert.Instance.Id = 2;                                    
-            BobPhsxDouble.Instance.Id = 3;
-            BobPhsxJetman.Instance.Id = 4;
-            BobPhsxBouncy.Instance.Id = 5;
-            BobPhsxBox.Instance.Id = 6;
-            BobPhsxScale.Instance.Id = 7;
-            BobPhsxTime.Instance.Id = 8;
-            BobPhsxSmall.Instance.Id = 9;
-            BobPhsxSpaceship.Instance.Id = 10;
-            BobPhsxWheel.Instance.Id = 11;
-
-            BobPhsx JetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
-            JetpackWheelie.Name = Localization.Words.JetpackWheelie;
-            JetpackWheelie.Id = 12;
-
-            //BobPhsxMeat.Instance =
-            //BobPhsxRocketbox.Instance =
-
-            var list = new BobPhsx[] { BobPhsxNormal.Instance,
-                                       BobPhsxBig.Instance,
-                                       BobPhsxInvert.Instance,                                       
-                                       BobPhsxDouble.Instance,
-                                       BobPhsxJetman.Instance,
-                                       BobPhsxBouncy.Instance,
-                                       BobPhsxBox.Instance,
-                                       BobPhsxScale.Instance,
-                                       BobPhsxTime.Instance,
-                                       BobPhsxSmall.Instance,
-                                       BobPhsxSpaceship.Instance,
-                                       BobPhsxWheel.Instance,
-                                       JetpackWheelie,
-                                       //BobPhsxRocketbox.Instance,
-                                       //BobPhsxMeat.Instance,
-                                     };
                                         
             // Menu
             MiniMenu mini = new MiniMenu();
@@ -162,7 +185,7 @@ namespace CloudberryKingdom
             mini.Shift = new Vector2(0, -135);
             mini.ItemsToShow = 6;
             FontScale *= .75f;
-            foreach (var phsx in list)
+            foreach (var phsx in ArcadeMenu.HeroArcadeList)
             {
                 var item = new HeroItem(phsx);
                 item.AdditionalOnSelect = OnSelect;
@@ -204,6 +227,26 @@ namespace CloudberryKingdom
             MyPile.Add(LevelHeader, "LevelHeader");
             
             MyPile.Add(Level, "Level");
+
+            // Locked
+            var LockedHeader = new EzText(Localization.Words.Required, Resources.Font_Grobold42);
+            LockedHeader.Scale *= .9f;
+            StartMenu.SetText_Green(LockedHeader, true);
+            MyPile.Add(LockedHeader, "LockedHeader");
+            LockedHeader.Show = false;
+
+            var RequiredHero = new EzText("Garbage", Resources.Font_Grobold42);
+            RequiredHero.Scale *= .72f;
+            StartMenu.SetText_Green(RequiredHero, true);
+            MyPile.Add(RequiredHero, "RequiredHero");
+            RequiredHero.Show = false;
+
+            var RequiredLevel = new EzText("Garbage", Resources.Font_Grobold42);
+            RequiredLevel.Scale *= .72f;
+            StartMenu.SetText_Green(RequiredLevel, true);
+            MyPile.Add(RequiredLevel, "RequiredLevel");
+            RequiredLevel.Show = false;
+
             #endregion
 
             /// <summary>
@@ -224,6 +267,7 @@ namespace CloudberryKingdom
             base.OnReturnTo();
 
             UpdateScore();
+            Update();
         }
 
         void UpdateScore()
@@ -239,6 +283,35 @@ namespace CloudberryKingdom
             Level.SubstituteText(TopLevel.ToString());
         }
 
+        void Update()
+        {
+            foreach (MenuItem _item in MyMenu.Items)
+            {
+                HeroItem item = _item as HeroItem;
+                if (null != item)
+                {
+                    if (Locked(item))
+                    {
+                        item.MyText.Alpha = .4f;
+                        item.MySelectedText.Alpha = .4f;
+
+                        if (Invisible(item))
+                        {
+                            item.Selectable = false;
+                            item.MyText.Alpha = 0;
+                            item.MySelectedText.Alpha = 0;
+                        }
+
+                    }
+                    else
+                    {
+                        item.MyText.Alpha = 1f;
+                        item.MySelectedText.Alpha = 1f;
+                    }
+                }
+            }
+        }
+
         void SetPos()
         {
             MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
@@ -248,20 +321,26 @@ namespace CloudberryKingdom
             _t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1161.11f, 366.6667f); _t.Scale = 1f; }
             _t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-2.779297f, 105.5556f); _t.Scale = 1f; }
             _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1163.887f, -155.5555f); _t.Scale = 1f; }
+            _t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+            _t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+            _t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
 
             QuadClass _q;
-            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5467f, 1004.329f); }
+            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5466f, 1004.329f); }
             _q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
             _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
             _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
 
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
-
         }
 
         protected virtual void Go(MenuItem item)
         {
-            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopLevel());
+            if (Lock) return;
+
+            int TopLevelForHero = MyArcadeItem.MyChallenge.TopLevel();
+
+            StartLevelMenu levelmenu = new StartLevelMenu(TopLevelForHero);
 
             levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
             levelmenu.StartFunc = StartFunc;

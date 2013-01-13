@@ -1246,8 +1246,11 @@ namespace CloudberryKingdom.Levels
             {
                 foreach (Bob bob in Bobs)
                 {
-                    Color c = new Color(1f, 1f, 1f, bob.LightSourceFade);
-                    Tools.QDrawer.DrawLightSource(bob.Pos, 670, 5f, c);//new Color(.75f, .75f, .75f, .75f));
+                    int DeadCount = CoreMath.Restrict(0, 1000, bob.DeadCount - 3);
+                    float fade = CoreMath.Restrict(0f, 1f, bob.LightSourceFade - DeadCount * .0175f);
+                    Color c = new Color(1f, 1f, 1f, fade);
+                    int radius = (int)CoreMath.Restrict(0.0f, 1000.0f, 860.0f + DeadCount * 27.0f + CoreMath.Periodic(-30, 30, 40, CurPhsxStep));
+                    Tools.QDrawer.DrawLightSource(bob.Pos, radius, 5f, c);//new Color(.75f, .75f, .75f, .75f));
                 }
                 Tools.QDrawer.Flush();
             }
@@ -1680,6 +1683,15 @@ namespace CloudberryKingdom.Levels
             }
         }
 
+        void CalcObstaclsSeen()
+        {
+            foreach (PlayerData player in PlayerManager.ExistingPlayers)
+                player.Stats.ObstaclesSeen = NumObstacles;
+
+            foreach (Bob bob in Bobs)
+                Awardments.CheckForAward_Obstacles(bob);
+        }
+
         public void PhsxStep(bool NotDrawing) { PhsxStep(NotDrawing, true); }
         public void PhsxStep(bool NotDrawing, bool GUIPhsx)
         {
@@ -1720,6 +1732,9 @@ namespace CloudberryKingdom.Levels
             }
 
             if (ReplayPaused) return;
+
+            if (CurPhsxStep == 300)
+                CalcObstaclsSeen();
 
             EvolveParticles();
 
@@ -1898,6 +1913,7 @@ namespace CloudberryKingdom.Levels
         {
             NumCoins = 0;
             TotalCoinScore = 0;
+            NumObstacles = 0;
             foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;
@@ -1912,6 +1928,9 @@ namespace CloudberryKingdom.Levels
                 {
                     NumBlobs++;
                 }
+
+                if (obj is _Death)
+                    NumObstacles++;
             }
         }
 

@@ -9,7 +9,7 @@ namespace CloudberryKingdom
     {
         public ZoneTriggerEvent MyContainsEvent;
 
-        AABox Box;
+        public AABox Box;
 
         public override void MakeNew()
         {

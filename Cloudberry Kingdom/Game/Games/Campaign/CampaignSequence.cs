@@ -31,22 +31,61 @@ namespace CloudberryKingdom
         public static CampaignSequence Instance { get { return instance; } }
 
         Dictionary<int, int> ChapterStart = new Dictionary<int, int>();
+        static Dictionary<int, int> ChapterEnd = new Dictionary<int, int>();
         Dictionary<int, Tuple<string, string>> SpecialLevel = new Dictionary<int, Tuple<string, string>>();
 
         static PerfectScoreObject MyPerfectScoreObject;
 
+        public static void OnChapterFinished(int chapter)
+        {
+            // Clean campaign stats
+            foreach (PlayerData player in PlayerManager.ExistingPlayers)
+                player.CampaignStats.Clean();
+
+            // Didn't die during the chapter?
+            foreach (PlayerData player in PlayerManager.AlivePlayers)
+                Awardments.CheckForAward_NoDeath(player);
+
+            // Give beat chapter award
+            Awardment award = null;
+            switch (chapter)
+            {
+                case 1: award = Awardments.Award_Campaign1; break;
+                case 2: award = Awardments.Award_Campaign2; break;
+                case 3: award = Awardments.Award_Campaign3; break;
+                case 4: award = Awardments.Award_Campaign4; break;
+                case 5: award = Awardments.Award_Campaign5; break;
+                default: Tools.Break(); break;
+            }
+            Awardments.GiveAward(award);
+        }
+
+        int StartLevel = 0;
         public override void Start(int Chapter)
         {
             MyPerfectScoreObject = new PerfectScoreObject(false, true);
 
-            int StartLevel = ChapterStart[Chapter];
+            StartLevel = ChapterStart[Chapter];
 
             base.Start(StartLevel);
         }
 
+        static int ChapterFinishing;
+        public static void CheckForFinishedChapter()
+        {
+            if (ChapterFinishing >= 0)
+            {
+                OnChapterFinished(ChapterFinishing);
+                ChapterFinishing = -1;
+            }
+        }
+
         protected override bool OnLevelBegin(Level level)
         {
+            // Base OnLevelBegin
             if (base.OnLevelBegin(level)) return true;
+
+            CheckForFinishedChapter();
 
             //level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
             level.MyGame.AddGameObject(HelpMenu.MakeListener());
@@ -66,6 +105,10 @@ namespace CloudberryKingdom
 
         protected override void MakeSeedList()
         {
+            int LastRealLevelIndex = -1;
+            int LastSetChapter = -1;
+            ChapterEnd = new Dictionary<int, int>();
+
             Seeds.Add(null);
 
             Tools.UseInvariantCulture();
@@ -102,8 +145,17 @@ namespace CloudberryKingdom
                 switch (identifier)
                 {
                     case "chapter":
+                        // Mark end of chapter
+                        if (LastRealLevelIndex > 0)
+                        {
+                            ChapterEnd.AddOrOverwrite(LastSetChapter, LastRealLevelIndex);
+                            LastRealLevelIndex = -1;
+                        }
+
                         var chapter = int.Parse(data);
                         ChapterStart.AddOrOverwrite(chapter, count);
+                        LastSetChapter = chapter;
+                            
                         break;
 
                     case "movie":
@@ -123,6 +175,7 @@ namespace CloudberryKingdom
                     case "seed":
                         var seed = data;
                         seed += string.Format("level:{0};", level);
+                        LastRealLevelIndex = level;
 
                         Seeds.Add(seed);
                         count++; level++;
@@ -132,7 +185,14 @@ namespace CloudberryKingdom
 
                 line = reader.ReadLine();
             }
-            
+
+            // Mark end of last chapter
+            if (LastRealLevelIndex > 0)
+            {
+                ChapterEnd.AddOrOverwrite(LastSetChapter, LastRealLevelIndex);
+                LastRealLevelIndex = -1;
+            }
+
             reader.Close();
             stream.Close();            
         }
@@ -224,6 +284,15 @@ namespace CloudberryKingdom
         {
             foreach (var player in PlayerManager.ExistingPlayers)
                 player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
+
+            // Check for end of chapter
+            foreach (KeyValuePair<int, int> key in ChapterEnd)
+                if (key.Value == level.MyLevelSeed.LevelNum)
+                {
+                    ChapterFinishing = key.Key;
+                    if (ChapterFinishing == 0) ChapterFinishing = -1;
+                    break;
+                }
         }
 
         static Action<Level> MakeWatchMovieAction(string movie)
@@ -239,10 +308,13 @@ namespace CloudberryKingdom
         static void EndAction(Level level)
         {
             level.MyGame.EndGame(false);
+
+            CheckForFinishedChapter();
         }
 
         protected CampaignSequence()
         {
+            ChapterFinishing = -1;
         }
     }
 }

@@ -225,9 +225,9 @@ namespace CloudberryKingdom
                     Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
                 }
 
-                // Turn on/off FreeCam, which allows the user to pan the camera through the level freely.
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
-                    Tools.FreeCam = !Tools.FreeCam;
+                //// Turn on/off FreeCam, which allows the user to pan the camera through the level freely.
+                //if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
+                //    Tools.FreeCam = !Tools.FreeCam;
             }
 
             // Allow Back to exit the game if we are in test mode

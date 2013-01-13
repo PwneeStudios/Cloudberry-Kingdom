@@ -59,6 +59,8 @@ namespace CloudberryKingdom.Levels
 
         public void WatchReplay(bool SaveCurInfo)
         {
+            Awardments.CheckForAward_Replay(PlayerManager.Score_Attempts);
+
             Tools.PhsxSpeed = 1;
 
             SuppressCheckpoints = true;

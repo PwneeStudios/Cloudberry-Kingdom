@@ -93,6 +93,7 @@ namespace CloudberryKingdom
 
                     targetbob.Core.Show = false;
                     targetbob.Dead = true;
+                    if (!targetbob.Dead && !targetbob.Dying) targetbob.DeadCount = 0;
                 }
             }
         }

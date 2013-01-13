@@ -834,9 +834,6 @@ namespace CloudberryKingdom
             if (!MyBob.CompControl && !MyBob.Core.MyLevel.Watching && MyBob.Core.MyLevel.PlayMode == 0)
             {
                 MyBob.MyStats.Jumps++;
-
-                // Check for Lots of Jumps awardment
-                Awardments.CheckForAward_JumpAlot(MyBob);
             }
         }
 
@@ -847,6 +844,8 @@ namespace CloudberryKingdom
 
         public virtual void Die(Bob.BobDeathType DeathType)
         {
+            // Check for lots of deaths
+            Awardments.CheckForAward_Die(MyBob);
         }
 
         public bool SkipInteraction(BlockBase block)

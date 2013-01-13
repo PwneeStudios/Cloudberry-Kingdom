@@ -6,24 +6,80 @@ namespace CloudberryKingdom
     class CampaignChapterItem : MenuItem
     {
         public int Chapter = 0;
+        public bool Locked = false;
 
         public CampaignChapterItem(EzText Text, int Chapter)
             : base(Text)
         {
             this.Chapter = Chapter;
 
-#if !DEBUG
-            if (PlayerManager.PlayerMax(p => p.CampaignLevel) < (Chapter - 1) * 100)
+            UpdateLock();
+        }
+
+        public void UpdateLock()
+        {
+            Locked = false;
+            if (!CloudberryKingdomGame.Unlock_Levels)
             {
-                this.GrayOutOnUnselectable = true;
-                this.Selectable = false;
+                if (PlayerManager.PlayerMax(p => p.CampaignLevel) < (Chapter - 1) * 100)
+                    Locked = true;
             }
-#endif
         }
     }
 
     public class StartMenu_MW_Campaign : StartMenu
     {
+        public override void OnReturnTo()
+        {
+            base.OnReturnTo();
+
+            Update();
+        }
+
+        void Update()
+        {
+            // Update level text
+            int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
+            bool ShowLevel = Level > 0;
+
+            //if (ShowLevel)
+            if (true)
+            {
+                MyPile.FindEzText("Level").Show = true;
+
+                EzText _t = MyPile.FindEzText("LevelNum");
+                _t.Show = true;
+                _t.SubstituteText(Level.ToString());
+            }
+            else
+            {
+                MyPile.FindEzText("Level").Show = false;
+                MyPile.FindEzText("LevelNum").Show = false;
+            }
+
+
+            // Update menu items (faded if locked)
+            foreach (MenuItem _item in MyMenu.Items)
+            {
+                CampaignChapterItem item = _item as CampaignChapterItem;
+                if (null != item)
+                {
+                    item.UpdateLock();
+
+                    if (item.Locked)
+                    {
+                        item.MyText.Alpha = .4f;
+                        item.MySelectedText.Alpha = .4f;
+                    }
+                    else
+                    {
+                        item.MyText.Alpha = 1f;
+                        item.MySelectedText.Alpha = 1f;
+                    }
+                }
+            }
+        }
+
         public TitleGameData_MW Title;
         public StartMenu_MW_Campaign(TitleGameData_MW Title)
             : base()
@@ -79,6 +135,8 @@ namespace CloudberryKingdom
             MakeHeader();
 
             CreateMenu();
+
+            Update();
         }
 
         protected virtual void CreateMenu()
@@ -125,6 +183,25 @@ namespace CloudberryKingdom
 
             MyMenu.SelectItem(0);
 
+
+            // Level
+            var TextBack = new QuadClass("Arcade_BoxLeft", 100, true);
+            TextBack.Alpha = 1f;
+            TextBack.Degrees = 90;
+            MyPile.Add(TextBack, "BoxLeft");
+
+            var LevelText = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
+            LevelText.Scale *= .72f;
+            StartMenu.SetText_Green(LevelText, true);
+            MyPile.Add(LevelText, "Level");
+            LevelText.Show = false;
+
+            var LevelNum = new EzText("Garbage", Resources.Font_Grobold42);
+            LevelNum.Scale *= 1.1f;
+            StartMenu.SetText_Green(LevelNum, true);
+            MyPile.Add(LevelNum, "LevelNum");
+            LevelNum.Show = false;
+
             //SetPos_NoCinematic();
             SetPos_WithCinematic();
         }
@@ -145,6 +222,8 @@ namespace CloudberryKingdom
         {
             CampaignChapterItem c_item = item as CampaignChapterItem;
             if (null == c_item) return;
+
+            if (c_item.Locked) return;
 
             Go(c_item.Chapter);
         }
@@ -187,12 +266,17 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Hard"); if (_item != null) { _item.SetPos = new Vector2(711.4443f, -239.5557f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
             _item = MyMenu.FindItemByName("Hardcore"); if (_item != null) { _item.SetPos = new Vector2(714.2227f, -437.111f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
             _item = MyMenu.FindItemByName("Maso"); if (_item != null) { _item.SetPos = new Vector2(730.8906f, -656.889f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
-            _item = MyMenu.FindItemByName("Cine"); if (_item != null) { _item.SetPos = new Vector2(733.6666f, -876.6666f); _item.MyText.Scale = 0.7373331f; _item.MySelectedText.Scale = 0.7373331f; _item.SetSelectedPos(new Vector2(622.5566f, -1f)); }
 
             MyMenu.Pos = new Vector2(-783.3339f, 227.7778f);
 
             EzText _t;
             _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-800.0029f, 863.8889f); _t.Scale = 1.3f; }
+            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-1241.667f, -577.7778f); _t.Scale = 0.7490832f; }
+            _t = MyPile.FindEzText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(-775.0001f, -513.8888f); _t.Scale = 1.001751f; }
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-755.5557f, -702.7777f); _q.Size = new Vector2(172.6158f, 503.8864f); }
+
             MyPile.Pos = new Vector2(0f, 0f);
         }
     }

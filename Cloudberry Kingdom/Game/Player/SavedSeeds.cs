@@ -16,13 +16,15 @@ namespace CloudberryKingdom
         {
             if (IsSeedValue(seed))
             {
+                Awardments.CheckForAward_Save();
+
                 SeedStrings.Add(seed + "name:" + name + ";");
                 SaveGroup.SaveAll();
             }
         }
 
         /// <summary>
-        /// A rough heuristic fo determining if a string is a seed.
+        /// A rough heuristic for determining if a string is a seed.
         /// Heuristic has no false negatives, but many false positives.
         /// </summary>
         /// <param name="seed">The string to check.</param>
