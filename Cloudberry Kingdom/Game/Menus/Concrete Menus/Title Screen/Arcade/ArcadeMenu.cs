@@ -136,7 +136,8 @@ namespace CloudberryKingdom
 
         public static void CheckForArcadeUnlocks()
         {
-            foreach (PlayerData player in PlayerManager.ExistingPlayers)
+            List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+            foreach (PlayerData player in CopyOfExistingPlayers)
             {
                 int TotalArcadeLevel = player.GetTotalArcadeLevel();
                 Awardments.CheckForAward_TimeCrisisUnlock(TotalArcadeLevel, player);

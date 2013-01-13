@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = true;
+        public static bool Unlock_Levels = false;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
@@ -583,6 +583,12 @@ namespace CloudberryKingdom
                 }
             }
 #endif
+            // Give 100,000 points to each player
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.I))
+            {
+                foreach (Bob bob in Tools.CurLevel.Bobs)
+                    bob.MyStats.Score += 100000;
+            }
 
             // Kill everyone but Player One
             if (Tools.Keyboard.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.U))

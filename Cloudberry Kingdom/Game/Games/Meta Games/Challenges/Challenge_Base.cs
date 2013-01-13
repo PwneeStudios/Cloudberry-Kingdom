@@ -113,6 +113,9 @@ namespace CloudberryKingdom
         public bool NonCampaign = true;
         public virtual void Start(int Difficulty)
         {
+            PlayerManager.PartiallyInvisible = true;
+            PlayerManager.TotallyInvisible = true;
+
             Coins = 0;
 
             if (NonCampaign)

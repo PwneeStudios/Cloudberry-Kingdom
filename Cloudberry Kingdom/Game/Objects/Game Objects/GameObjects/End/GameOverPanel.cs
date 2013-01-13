@@ -16,7 +16,7 @@ namespace CloudberryKingdom
         GUI_TextBox MyTextBox;
         Vector2 MenuPos;
 
-        ScoreEntry HighScoreEntry, HighLevelEntry;
+        public ScoreEntry HighScoreEntry, HighLevelEntry;
         public int Score, Levels, Attempts, Time, Date;
 
         public int DelayPhsx = 42;

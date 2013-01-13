@@ -158,6 +158,14 @@ namespace CloudberryKingdom
             return seed;
         }
 
+        protected override void ShowEndScreen()
+        {
+            Awardments.CheckForAward_ArcadeScore(score);
+            Awardments.CheckForAward_ArcadeScore2(score);
+
+            base.ShowEndScreen();
+        }
+
         int LevelLength_Short = 5500;
         int LevelLength_Long = 7500;
 
