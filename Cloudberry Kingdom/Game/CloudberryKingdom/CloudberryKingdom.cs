@@ -584,6 +584,24 @@ namespace CloudberryKingdom
             }
 #endif
 
+            // Kill everyone but Player One
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.U))
+            {
+                foreach (Bob bob in Tools.CurLevel.Bobs)
+                {
+                    if (bob.MyPlayerIndex != 0 && !(bob.Dead || bob.Dying))
+                    {
+                        //Fireball.Explosion(bob.Core.Data.Position, bob.Core.MyLevel);
+                        //Fireball.ExplodeSound.Play();
+
+                        //bob.Core.Show = false;
+                        //bob.Dead = true;
+
+                        bob.Die(Bob.BobDeathType.Other, true, false);
+                    }
+                }
+            }
+
             // Turn on/off flying.
             if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
             {

@@ -492,6 +492,8 @@ namespace CloudberryKingdom.InGameObjects
 
             if (!TemporaryBlock)
             {
+                Awardments.CheckForAward_Bungee(MyLevel.MyGame);
+
                 OnOpen(this);
                 DoorOperated++;
             }

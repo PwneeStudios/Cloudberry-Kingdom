@@ -61,6 +61,12 @@ namespace CloudberryKingdom
         {
             base.BringFreeplay();
 
+            PlayerManager.Players[0].Exists = true;
+            PlayerManager.Players[1].Exists = true;
+            PlayerManager.Players[2].Exists = true;
+            PlayerManager.Players[3].Exists = true;
+            PlayerManager.GetNumPlayers();
+
             SkipCallSound = true;
             Call(new StartMenu_MW_CustomLevel(Title));
         }

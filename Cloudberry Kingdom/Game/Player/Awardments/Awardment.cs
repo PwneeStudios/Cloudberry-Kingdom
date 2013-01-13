@@ -245,10 +245,21 @@ namespace CloudberryKingdom
             if (game.MyLevel == null) return;
             if (game.MyLevel.MyLevelSeed == null) return;
 
-            if (game.MyLevel.MyLevelSeed.MyGameFlags.IsTethered && PlayerManager.NumPlayers > 3)
+            if (game.MyLevel.MyLevelSeed.MyGameFlags.IsTethered &&
+                PlayerManager.NumPlayers > 3)
             {
-                foreach (PlayerData player in PlayerManager.AlivePlayers)
-                    GiveAward(Award_Bungee, player);
+                int AliveCount = 0;
+                foreach (Bob bob in game.MyLevel.Bobs)
+                {
+                    if (!bob.Dead && !bob.Dying)
+                        AliveCount++;
+                }
+
+                if (AliveCount != 1) return;
+
+                foreach (Bob bob in game.MyLevel.Bobs)
+                    if (!bob.Dead && !bob.Dying)
+                        GiveAward(Award_Bungee, bob.MyPlayerData);
             }
         }
 

@@ -206,9 +206,6 @@ namespace CloudberryKingdom
             MyPile.Add(new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs"));
             MyPile.Add(new EzText(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths"));
 
-            // Awardments
-            Awardments.CheckForAward_Bungee(MyGame);
-
             // Prevent menu interactions for a second
             MyMenu.Active = false;
 

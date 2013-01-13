@@ -700,7 +700,7 @@ namespace CloudberryKingdom.Obstacles
                         if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay)
                         //if (MyLevel.PlayMode == 0 && !MyLevel.Watching && !MyLevel.Replay && PlayerManager.NumAlivePlayers() > 1)
                         {
-                            Life -= .5f;
+                            Life -= .25f;
                             KillBobTimeStamp = MyLevel.CurPhsxStep;
                             Squish(Vector2.Zero);
                         }
