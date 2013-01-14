@@ -94,7 +94,7 @@ namespace CoreEngine
                 OrigW = int.Parse(data[7]) + additional;
                 OrigH = int.Parse(data[8]) + additional;
 
-                if (Char == (int)'!') { OrigW -= 20; Xoffset -= 20; }
+                //if (Char == (int)'!') { OrigW -= 20; Xoffset -= 20; }
 
                 Data.Add(Char, new GlyphData(
                     new Vector4(X, Y, Width, Height),
@@ -745,25 +745,28 @@ namespace CoreEngine
                 Vector2 d = data.Size;
                 Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;
 
-                Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
+                if (s[j] != ' ')
+                {
+                    Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
 
-                Vertices[i].Color =
-                Vertices[i + 5].Color = Vertices[i + 1].Color =
-                Vertices[i + 4].Color = Vertices[i + 2].Color =
-                Vertices[i + 3].Color = new Color(color);
+                    Vertices[i].Color =
+                    Vertices[i + 5].Color = Vertices[i + 1].Color =
+                    Vertices[i + 4].Color = Vertices[i + 2].Color =
+                    Vertices[i + 3].Color = new Color(color);
 
-                Vertices[ i     ].xy = new Vector2( l.X, l.Y );
-                Vertices[ i + 5 ].xy = Vertices[ i + 1 ].xy = new Vector2( l.X, l.Y - tq.W * scale.Y );
-                Vertices[ i + 4 ].xy = Vertices[ i + 2 ].xy = new Vector2( l.X + tq.Z * scale.X, l.Y );
-                Vertices[ i + 3 ].xy = new Vector2( l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y );
+                    Vertices[i].xy = new Vector2(l.X, l.Y);
+                    Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(l.X, l.Y - tq.W * scale.Y);
+                    Vertices[i + 4].xy = Vertices[i + 2].xy = new Vector2(l.X + tq.Z * scale.X, l.Y);
+                    Vertices[i + 3].xy = new Vector2(l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y);
 
-		        Vertices[ i     ].uv = new Vector2( tq.X, tq.Y ) * inv_size;
-		        Vertices[ i + 5 ].uv = Vertices[ i + 1 ].uv = new Vector2( tq.X, tq.Y + tq.W ) * inv_size;
-		        Vertices[ i + 4 ].uv = Vertices[ i + 2 ].uv = new Vector2( tq.X + tq.Z, tq.Y ) * inv_size;
-		        Vertices[ i + 3 ].uv = new Vector2( tq.X + tq.Z, tq.Y + tq.W ) * inv_size;
+                    Vertices[i].uv = new Vector2(tq.X, tq.Y) * inv_size;
+                    Vertices[i + 5].uv = Vertices[i + 1].uv = new Vector2(tq.X, tq.Y + tq.W) * inv_size;
+                    Vertices[i + 4].uv = Vertices[i + 2].uv = new Vector2(tq.X + tq.Z, tq.Y) * inv_size;
+                    Vertices[i + 3].uv = new Vector2(tq.X + tq.Z, tq.Y + tq.W) * inv_size;
 
-                i += 6;
-                TrianglesInBuffer += 2;
+                    i += 6;
+                    TrianglesInBuffer += 2;
+                }
 
 		        p += new Vector2( d.X + font.CharSpacing - 18, 0 ) * scale;
 
@@ -801,25 +804,28 @@ namespace CoreEngine
                 Vector2 d = data.Size;
                 Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;
 
-                Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
+                if (s[j] != ' ')
+                {
+                    Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
 
-                Vertices[i].Color =
-                Vertices[i + 5].Color = Vertices[i + 1].Color =
-                Vertices[i + 4].Color = Vertices[i + 2].Color =
-                Vertices[i + 3].Color = new Color(color);
+                    Vertices[i].Color =
+                    Vertices[i + 5].Color = Vertices[i + 1].Color =
+                    Vertices[i + 4].Color = Vertices[i + 2].Color =
+                    Vertices[i + 3].Color = new Color(color);
 
-                Vertices[i].xy = new Vector2(l.X, l.Y);
-                Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(l.X, l.Y - tq.W * scale.Y);
-                Vertices[i + 4].xy = Vertices[i + 2].xy = new Vector2(l.X + tq.Z * scale.X, l.Y);
-                Vertices[i + 3].xy = new Vector2(l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y);
+                    Vertices[i].xy = new Vector2(l.X, l.Y);
+                    Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(l.X, l.Y - tq.W * scale.Y);
+                    Vertices[i + 4].xy = Vertices[i + 2].xy = new Vector2(l.X + tq.Z * scale.X, l.Y);
+                    Vertices[i + 3].xy = new Vector2(l.X + tq.Z * scale.X, l.Y - tq.W * scale.Y);
 
-                Vertices[i].uv = new Vector2(tq.X, tq.Y) * inv_size;
-                Vertices[i + 5].uv = Vertices[i + 1].uv = new Vector2(tq.X, tq.Y + tq.W) * inv_size;
-                Vertices[i + 4].uv = Vertices[i + 2].uv = new Vector2(tq.X + tq.Z, tq.Y) * inv_size;
-                Vertices[i + 3].uv = new Vector2(tq.X + tq.Z, tq.Y + tq.W) * inv_size;
+                    Vertices[i].uv = new Vector2(tq.X, tq.Y) * inv_size;
+                    Vertices[i + 5].uv = Vertices[i + 1].uv = new Vector2(tq.X, tq.Y + tq.W) * inv_size;
+                    Vertices[i + 4].uv = Vertices[i + 2].uv = new Vector2(tq.X + tq.Z, tq.Y) * inv_size;
+                    Vertices[i + 3].uv = new Vector2(tq.X + tq.Z, tq.Y + tq.W) * inv_size;
 
-                i += 6;
-                TrianglesInBuffer += 2;
+                    i += 6;
+                    TrianglesInBuffer += 2;
+                }
 
                 p += new Vector2(d.X + font.CharSpacing - 18, 0) * scale;
 

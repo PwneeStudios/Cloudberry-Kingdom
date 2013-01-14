@@ -224,7 +224,7 @@ namespace CloudberryKingdom
             Leaderboard.WriteToLeaderboard(HighScoreEntry);
             Leaderboard.WriteToLeaderboard(HighLevelEntry);
 
-            ArcadeMenu.CheckForArcadeUnlocks();
+            ArcadeMenu.CheckForArcadeUnlocks(HighScoreEntry);
         }
 
         protected override void SetHeaderProperties(EzText text)

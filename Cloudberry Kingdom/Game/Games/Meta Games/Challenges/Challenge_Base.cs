@@ -107,12 +107,16 @@ namespace CloudberryKingdom
             Tools.CurGameData.AddGameObject(MyGameOverPanel);
         }
 
+        public Challenge CurrentChallenge;
+
         /// <summary>
         /// If true then this meta-game is not part of the campaign.
         /// </summary>
         public bool NonCampaign = true;
         public virtual void Start(int Difficulty)
         {
+            CurrentChallenge = this;
+
             PlayerManager.PartiallyInvisible = true;
             PlayerManager.TotallyInvisible = true;
 

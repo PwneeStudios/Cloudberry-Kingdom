@@ -134,7 +134,7 @@ namespace CloudberryKingdom
             };
         }
 
-        public static void CheckForArcadeUnlocks()
+        public static void CheckForArcadeUnlocks(ScoreEntry score)
         {
             List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
             foreach (PlayerData player in CopyOfExistingPlayers)
@@ -144,6 +144,9 @@ namespace CloudberryKingdom
                 Awardments.CheckForAward_HeroRushUnlock(TotalArcadeLevel, player);
                 Awardments.CheckForAward_HeroRush2Unlock(TotalArcadeLevel, player);
             }
+
+            Awardments.CheckForAward_ArcadeScore(score.Value);
+            Awardments.CheckForAward_ArcadeScore2(score.Value);
         }
 
         bool Long = false;

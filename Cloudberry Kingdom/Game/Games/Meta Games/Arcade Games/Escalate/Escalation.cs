@@ -160,9 +160,6 @@ namespace CloudberryKingdom
 
         protected override void ShowEndScreen()
         {
-            Awardments.CheckForAward_ArcadeScore(score);
-            Awardments.CheckForAward_ArcadeScore2(score);
-
             base.ShowEndScreen();
         }
 
