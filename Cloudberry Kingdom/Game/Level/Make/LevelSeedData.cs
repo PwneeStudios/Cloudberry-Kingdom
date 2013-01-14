@@ -43,6 +43,7 @@ namespace CloudberryKingdom
         public float WeatherIntensity = 1; const string WeatherIntensityFlag = "weather";
         public bool NoStartDoor = false; const string NoStartDoorFlag = "nostartdoor";
         public int LevelNum = -1; const string LevelFlag = "level";
+        public int LevelIndex = -1; const string IndexFlag = "index";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
         public bool Darkness = false; const string DarknessFlag = "darkness";
         public bool Masochistic = false; const string MasochistFlag = "masochist";
@@ -369,6 +370,9 @@ namespace CloudberryKingdom
 
                     // Level number
                     case LevelFlag: LevelNum = int.Parse(data); break;
+
+                    // Index number
+                    case IndexFlag: LevelIndex = int.Parse(data); break;
 
                     // Weather intensity
                     case WeatherIntensityFlag:

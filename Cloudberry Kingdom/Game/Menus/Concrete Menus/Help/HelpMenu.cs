@@ -56,7 +56,7 @@ namespace CloudberryKingdom
 
         void SetCoins(int Coins)
         {
-            if (Coins > 99) Coins = 99;
+            //if (Coins > 99) Coins = 99;
             CoinsText.SubstituteText("x" + Coins.ToString());
         }
 

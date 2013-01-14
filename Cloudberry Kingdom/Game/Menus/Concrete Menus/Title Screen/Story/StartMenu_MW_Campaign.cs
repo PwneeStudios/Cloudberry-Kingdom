@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
@@ -21,8 +24,15 @@ namespace CloudberryKingdom
             Locked = false;
             if (!CloudberryKingdomGame.Unlock_Levels)
             {
-                if (PlayerManager.PlayerMax(p => p.CampaignLevel) < (Chapter - 1) * 100)
-                    Locked = true;
+                switch (Chapter)
+                {
+                    case 1: Locked = false; break;
+                    case 2: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign1); break;
+                    case 3: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign2); break;
+                    case 4: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign3); break;
+                    case 5: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign4); break;
+                    default: Locked = false; break;
+                }
             }
         }
     }
@@ -39,13 +49,14 @@ namespace CloudberryKingdom
         void Update()
         {
             // Update level text
-            int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
+            int Level = PlayerManager.MaxPlayerTotalCampaignIndex();
             bool ShowLevel = Level > 0;
 
-            //if (ShowLevel)
-            if (true)
+            if (ShowLevel)
+            //if (true)
             {
                 MyPile.FindEzText("Level").Show = true;
+                MyPile.FindQuad("BoxLeft").Show = true;
 
                 EzText _t = MyPile.FindEzText("LevelNum");
                 _t.Show = true;
@@ -55,6 +66,7 @@ namespace CloudberryKingdom
             {
                 MyPile.FindEzText("Level").Show = false;
                 MyPile.FindEzText("LevelNum").Show = false;
+                MyPile.FindQuad("BoxLeft").Show = false;
             }
 
 
@@ -244,6 +256,13 @@ namespace CloudberryKingdom
             Active = true;
             MyGame.FadeIn(.05f);
             CampaignSequence.Instance.Start(_StartLevel);
+            MyGame.WaitThenDo(0, OnReturnFromGame);
+        }
+
+        public void OnReturnFromGame()
+        {
+            Update();
+            SaveGroup.SaveAll();
         }
 
         void SetPos_NoCinematic()

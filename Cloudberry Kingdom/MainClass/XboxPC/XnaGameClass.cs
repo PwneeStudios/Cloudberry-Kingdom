@@ -50,6 +50,24 @@ namespace CloudberryKingdom
 #endif
             Content.RootDirectory = "Content";
 
+            
+            // Volume control
+            Tools.SoundVolume = new WrappedFloat();
+            Tools.SoundVolume.MinVal = 0;
+            Tools.SoundVolume.MaxVal = 1;
+            Tools.SoundVolume.Val = .7f;
+
+            Tools.MusicVolume = new WrappedFloat();
+            Tools.MusicVolume.MinVal = 0;
+            Tools.MusicVolume.MaxVal = 1;
+            Tools.MusicVolume.Val = 1;
+            Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
+
+#if DEBUG || INCLUDE_EDITOR
+            Tools.SoundVolume.Val = 0;
+            Tools.MusicVolume.Val = 0;
+#endif
+
             MyGame = new CloudberryKingdomGame();
             MyGame.InitialResolution();
         }

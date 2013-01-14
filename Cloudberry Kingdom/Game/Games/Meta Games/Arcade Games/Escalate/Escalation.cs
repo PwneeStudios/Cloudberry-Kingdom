@@ -71,7 +71,7 @@ namespace CloudberryKingdom
             // Start menu and help menu
             MyStringWorld.OnLevelBegin += level =>
             {
-                level.MyGame.MyBankType = GameData.BankType.Campaign;
+                level.MyGame.MyBankType = GameData.BankType.Escalation;
                 level.MyGame.OnCoinGrab += Challenge.OnCoinGrab;
                 level.MyGame.AddGameObject(HelpMenu.MakeListener());
                 level.MyGame.AddGameObject(InGameStartMenu.MakeListener());

@@ -155,9 +155,15 @@ namespace CloudberryKingdom
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-            EzStorage.Load("Settings", "Custom", _LoadRezAndKeys, null);
+            EzStorage.Load("Settings", "Custom", _LoadRezAndKeys, _Fail);
 
             return d;
+        }
+
+        static void _Fail()
+        {
+            d = new PlayerManager.RezData();
+            d.Custom = false;
         }
 
         static void _LoadRezAndKeys(byte[] Data)
@@ -361,6 +367,15 @@ namespace CloudberryKingdom
             int max = 0;
             foreach (PlayerData player in ExistingPlayers)
                 max = Math.Max(max, player.GetTotalCampaignLevel());
+
+            return max;
+        }
+
+        public static int MaxPlayerTotalCampaignIndex()
+        {
+            int max = 0;
+            foreach (PlayerData player in ExistingPlayers)
+                max = Math.Max(max, player.GetTotalCampaignIndex());
 
             return max;
         }

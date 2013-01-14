@@ -30,8 +30,8 @@ namespace CloudberryKingdom
         static readonly CampaignSequence instance = new CampaignSequence();
         public static CampaignSequence Instance { get { return instance; } }
 
-        Dictionary<int, int> ChapterStart = new Dictionary<int, int>();
-        static Dictionary<int, int> ChapterEnd = new Dictionary<int, int>();
+        public Dictionary<int, int> ChapterStart = new Dictionary<int, int>();
+        public Dictionary<int, int> ChapterEnd = new Dictionary<int, int>();
         Dictionary<int, Tuple<string, string>> SpecialLevel = new Dictionary<int, Tuple<string, string>>();
 
         static PerfectScoreObject MyPerfectScoreObject;
@@ -66,6 +66,12 @@ namespace CloudberryKingdom
             MyPerfectScoreObject = new PerfectScoreObject(false, true);
 
             StartLevel = ChapterStart[Chapter];
+
+            int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
+            int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
+
+            if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
+                StartLevel = MaxLevelAttained;
 
             base.Start(StartLevel);
         }
@@ -107,6 +113,7 @@ namespace CloudberryKingdom
         {
             int LastRealLevelIndex = -1;
             int LastSetChapter = -1;
+            ChapterStart = new Dictionary<int, int>();
             ChapterEnd = new Dictionary<int, int>();
 
             Seeds.Add(null);
@@ -174,7 +181,7 @@ namespace CloudberryKingdom
 
                     case "seed":
                         var seed = data;
-                        seed += string.Format("level:{0};", level);
+                        seed += string.Format("level:{0};index:{1};", level, count);
                         LastRealLevelIndex = level;
 
                         Seeds.Add(seed);
@@ -283,10 +290,14 @@ namespace CloudberryKingdom
         static void OnCompleteLevel(Level level)
         {
             foreach (var player in PlayerManager.ExistingPlayers)
+            {
                 player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
+                player.CampaignIndex = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelIndex);
+                player.Changed = true;
+            }
 
             // Check for end of chapter
-            foreach (KeyValuePair<int, int> key in ChapterEnd)
+            foreach (KeyValuePair<int, int> key in Instance.ChapterEnd)
                 if (key.Value == level.MyLevelSeed.LevelNum)
                 {
                     ChapterFinishing = key.Key;

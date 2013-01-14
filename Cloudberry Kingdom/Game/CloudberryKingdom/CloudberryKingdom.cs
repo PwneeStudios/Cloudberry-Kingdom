@@ -266,35 +266,9 @@ namespace CloudberryKingdom
 
             ButtonString.Init();
             ButtonCheck.Reset();
-
-            // Volume control
-            Tools.SoundVolume = new WrappedFloat();
-            Tools.SoundVolume.MinVal = 0;
-            Tools.SoundVolume.MaxVal = 1;
-            Tools.SoundVolume.Val = .7f;
-
-            Tools.MusicVolume = new WrappedFloat();
-            Tools.MusicVolume.MinVal = 0;
-            Tools.MusicVolume.MaxVal = 1;
-            Tools.MusicVolume.Val = 1;
-            Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
-
-#if DEBUG || INCLUDE_EDITOR
-            Tools.SoundVolume.Val = 0;
-            Tools.MusicVolume.Val = 0;
-#endif
-
-            if (ForFrapsRecording)
-            {
-                Tools.SoundVolume.Val = .7f;
-                Tools.MusicVolume.Val = 1f;
-            }
-
  
             // Fill the pools
             ComputerRecording.InitPool();
-
-            //InitialResolution();
         }
 
         public void InitialResolution()
@@ -310,15 +284,7 @@ namespace CloudberryKingdom
             //PlayerManager.SaveRezAndKeys();
             //rez = PlayerManager.LoadRezAndKeys();
             //Tools.Warning();
-            try
-            {
-                rez = PlayerManager.LoadRezAndKeys();
-            }
-            catch
-            {
-                rez = new PlayerManager.RezData();
-                rez.Custom = false;
-            }
+            rez = PlayerManager.LoadRezAndKeys();
 #elif WINDOWS
             PlayerManager.RezData rez = new PlayerManager.RezData();
             rez.Custom = true;

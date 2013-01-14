@@ -214,8 +214,9 @@ namespace CloudberryKingdom
 
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
-            // FIXME WARNING
-            if (Fail != null) Fail(); return;
+            // FIXME WARNING DOES NOT WORK ON XBOX
+            Tools.Warning();
+            //if (Fail != null) Fail(); return;
 
             if (!DeviceOK())
                 GetDevice();
@@ -287,8 +288,9 @@ namespace CloudberryKingdom
 
         public static void Load(string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
-            // FIXME WARNING
-            if (Fail != null) Fail(); return;
+            // FIXME WARNING DOES NOT WORK ON XBOX
+            Tools.Warning();
+            //if (Fail != null) Fail(); return;
 
             if (!DeviceOK())
                 GetDevice();
@@ -360,7 +362,8 @@ namespace CloudberryKingdom
                 }
                 catch
                 {
-                    FailLogic();
+                    if (FailLogic != null)
+                        FailLogic();
                 }
             }
 

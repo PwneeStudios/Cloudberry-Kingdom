@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 
         public Dictionary<int, ScoreEntry> HighScores;
 
-        public int CampaignLevel = 0, CampaignCoins = 0;
+        public int CampaignLevel = 0, CampaignCoins = 0, CampaignIndex = 0;
 
         public int MyIndex;
 
@@ -88,6 +88,7 @@ namespace CloudberryKingdom
             // Campaign (Chunks 100 and up)
             Chunk.WriteSingle(writer, 100, CampaignCoins);
             Chunk.WriteSingle(writer, 101, CampaignLevel);
+            Chunk.WriteSingle(writer, 102, CampaignIndex);
         }
 
         protected override void FailLoad()
@@ -137,6 +138,7 @@ namespace CloudberryKingdom
                     // Campaign (Chunks 100 and up)
                     case 100: CampaignCoins = chunk.ReadInt(); break;
                     case 101: CampaignLevel = chunk.ReadInt(); break;
+                    case 102: CampaignIndex = chunk.ReadInt(); break;
                 }
             }
         }
@@ -150,6 +152,11 @@ namespace CloudberryKingdom
         public int GetTotalCampaignLevel()
         {
             return CampaignLevel;
+        }
+
+        public int GetTotalCampaignIndex()
+        {
+            return CampaignIndex;
         }
 
         public int GetTotalArcadeLevel()
