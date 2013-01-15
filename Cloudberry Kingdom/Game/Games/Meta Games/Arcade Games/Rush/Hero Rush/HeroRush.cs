@@ -14,7 +14,7 @@ namespace CloudberryKingdom
 
         protected Challenge_HeroRush()
         {
-            GameTypeId = 1;
+            GameTypeId = 2;
             MenuName = Name = Localization.Words.HeroRush;
         }
 

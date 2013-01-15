@@ -78,7 +78,7 @@ namespace CloudberryKingdom
 
         protected Challenge_HeroRush2()
         {
-            GameTypeId = 1;
+            GameTypeId = 3;
             MenuName = Name = Localization.Words.HybridRush;            
         }
 

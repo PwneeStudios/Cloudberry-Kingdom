@@ -166,8 +166,32 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <Compile Include="Fonts\Grobold_Chinese.dds">
+      <Name>Grobold_Chinese</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+    </Compile>
+    <None Include="Fonts\Grobold_Chinese.fnt">
+      <Name>Grobold_Chinese</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Fonts\Grobold_Japanese.fnt">
       <Name>Grobold_Japanese</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Fonts\Grobold_Korean.dds">
+      <Name>Grobold_Korean</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
+    </Compile>
+    <None Include="Fonts\Grobold_Korean.fnt">
+      <Name>Grobold_Korean</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Fonts\Grobold_Western.fnt">

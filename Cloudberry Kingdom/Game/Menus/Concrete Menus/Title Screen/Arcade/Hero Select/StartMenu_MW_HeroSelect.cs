@@ -338,7 +338,11 @@ namespace CloudberryKingdom
         {
             if (Lock) return;
 
-            int TopLevelForHero = MyArcadeItem.MyChallenge.TopLevel();
+            var _item = MyMenu.CurItem as HeroItem;
+            if (null == _item) return;
+            int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
+
+            //int TopLevelForHero = MyArcadeItem.MyChallenge.TopLevel();
 
             StartLevelMenu levelmenu = new StartLevelMenu(TopLevelForHero);
 

@@ -59,11 +59,14 @@ namespace CloudberryKingdom
             stream.Close();
         }
 
+        public static string LanguageName(Language language)
+        {
+            return Text[language][Words.Identifier];
+        }
+
         public static string WordString(Words Word)
         {
-            //return Text[Language.Portuguese][Word];
             return Text[CurrentLanguage.MyLanguage][Word];
-            //return "boob";
         }
 
         public static string WordToTextureName(Words Word)
@@ -105,6 +108,23 @@ namespace CloudberryKingdom
         
         public static LanguageInfo CurrentLanguage;
 
+        static void LoadFont()
+        {
+            string name = "Grobold_" + Localization.CurrentLanguage.FontSuffix;
+            FontTexture = Content.Load<Texture2D>(Path.Combine("Fonts", name));
+
+            Resources.hf = new HackFont(name);
+            
+            if (Resources.Font_Grobold42 != null)
+            {
+                Resources.Font_Grobold42.HFont.font = Resources.hf;
+                Resources.Font_Grobold42.HOutlineFont.font = Resources.hf;
+                Resources.Font_Grobold42_2.HFont.font = Resources.hf;
+                Resources.Font_Grobold42_2.HOutlineFont.font = Resources.hf;
+            }
+        }
+
+        public static Texture2D FontTexture;
         public static void SetLanguage(Language SelectedLanguage)
         {
             if (Content == null)
@@ -119,22 +139,26 @@ namespace CloudberryKingdom
             CurrentLanguage = Languages[SelectedLanguage];
 
             // This loads the subtitle textures.
-            //String path = Path.Combine(Content.RootDirectory, Path.Combine("Subtitles", CurrentLanguage.MyDirectory));
+            //String path = Path.Combine(Content.RootDirectory, Path.Combine("Localization", Path.Combine("Subtitles", CurrentLanguage.MyDirectory)));
             //string[] files = Tools.GetFiles(path, false);
 
-            //foreach (String file in files)
-            //{
-            //    if (Tools.GetFileExt(path, file) == "xnb")
-            //    {
-            //        var texture = Tools.TextureWad.AddTexture(null, Tools.GetFileName("Content", file));
-            //        texture.Load();
-            //    }
-            //}
+            // Load font. Lock first if it alread exists.
+            if (Resources.hf == null)
+            {
+                LoadFont();
+            }
+            else
+            {
+                lock (Resources.hf)
+                {
+                    LoadFont();
+                }
+            }
         }
 
         private static void Initialize()
         {
-            Content = new ContentManager(Tools.GameClass.Services, Path.Combine("Content", "Localization"));
+            Content = new ContentManager(Tools.GameClass.Services, "Content");
 
             Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
             Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
@@ -147,7 +171,7 @@ namespace CloudberryKingdom
             Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
             Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
 
-            string path = Path.Combine(Content.RootDirectory, "Localization.tsv");
+            string path = Path.Combine(Content.RootDirectory, Path.Combine("Localization", "Localization.tsv"));
             ReadTranslationGrid(path);
         }
 

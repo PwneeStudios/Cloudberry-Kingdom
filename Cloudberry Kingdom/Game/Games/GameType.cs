@@ -453,6 +453,16 @@ namespace CloudberryKingdom
         /// </summary>
         public List<GameObject> MyGameObjects = new List<GameObject>(), NewGameObjects = new List<GameObject>();
 
+        public void ReInitGameObjects()
+        {
+            Tools.StartGUIDraw_Fake();
+
+            foreach (GameObject obj in MyGameObjects)
+                obj.Init();
+
+            Tools.EndGUIDraw_Fake();
+        }
+
         /// <summary>
         /// Remove all GameObjects with a specified tag.
         /// </summary>

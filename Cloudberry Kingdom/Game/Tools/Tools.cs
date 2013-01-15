@@ -813,7 +813,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             try
             {
-                font.Font.MeasureString(s);
+                Tools.QDrawer.MeasureString(font.HFont, s);
             }
             catch
             {
@@ -1945,45 +1945,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             // Restor global illumination level
             Tools.QDrawer.GlobalIllumination = HoldIllumination;
         }
-
-#if OLD_TEXT
-        /// <summary>
-        /// Starts the SpriteBatch if it isn't started already. The quad drawer is flushed first.
-        /// </summary>
-        public static void StartSpriteBatch() { StartSpriteBatch(false); }
-        public static void StartSpriteBatch(bool AsPaint)
-        {
-            if (!Tools.Render.UsingSpriteBatch)
-            {
-                Tools.QDrawer.Flush();
-                //Tools.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                //float scale = 1440f / 1280f;
-                //float scale = 800f / 1280f;
-                float scale = Tools.Render.SpriteScaling;
-
-                if (AsPaint)
-                {
-                    PaintEffect_SpriteBatch.Parameters["xTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex);
-                    //PaintEffect_SpriteBatch.Parameters["SceneTexture"].SetValue(Tools.TextureWad.FindByName("PaintSplotch").Tex); 
-                    Tools.Render.MySpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, Tools.PaintEffect_SpriteBatch, Matrix.CreateScale(scale, scale, 1f));
-                }
-                else
-                    Tools.Render.MySpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Matrix.CreateScale(scale, scale, 1f));
-
-                Tools.Render.UsingSpriteBatch = true;
-            }
-        }
-
-        /// <summary>
-        /// Core wrapper for drawing text. Assumes SpriteBatch is started.
-        /// </summary>
-        public static void DrawText(Vector2 pos, Camera cam, string str, SpriteFont font)
-        {
-            Vector2 loc = ToScreenCoordinates(pos, cam, Vector2.One);
-
-            Tools.Render.MySpriteBatch.DrawString(font, str, loc, Color.Azure, 0, Vector2.Zero, new Vector2(.5f, .5f), SpriteEffects.None, 0);
-        }
-#endif
 
         public static void SetDefaultEffectParams(float AspectRatio)
         {

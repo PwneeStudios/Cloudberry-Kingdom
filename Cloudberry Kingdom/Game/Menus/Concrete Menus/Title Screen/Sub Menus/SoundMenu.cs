@@ -7,17 +7,24 @@ namespace CloudberryKingdom
 {
     public class SoundMenu : VerifyBaseMenu
     {
-        public SoundMenu(int Control) : base(false)
+        public bool LanguageOption;
+        public SoundMenu(int Control, bool LanguageOption)
+            : base(false)
         {
+            this.LanguageOption = LanguageOption;
             this.Control = Control;
             FixedToCamera = true;
 
             Constructor();
         }
 
+        Localization.Language ChosenLanguage;
+
         EzText HeaderText;
         public override void Init()
         {
+            ChosenLanguage = Localization.CurrentLanguage.MyLanguage;
+
 #if PC_VERSION
             bool ConsoleVersion = false;
 #else
@@ -53,6 +60,42 @@ namespace CloudberryKingdom
                 };
             item.Name = "Controls";
             AddItem(item);
+
+            if (LanguageOption)
+            {
+                // Language
+                var LanguageText = new EzText(Localization.Words.Language, ItemFont);
+                SetHeaderProperties(LanguageText);
+                LanguageText.Name = "Language";
+                MyPile.Add(LanguageText);
+
+                MenuList LanguageList = new MenuList();
+                LanguageList.Go = ItemReturnToCaller;
+                LanguageList.Name = "LanguageList";
+                LanguageList.Center = false;
+                LanguageList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
+
+                // Add languages to the language list
+                for (int j = 0; j < Localization.NumLanguages; j++)
+                {
+                    Localization.Language l = (Localization.Language)j;
+
+                    string str = Localization.LanguageName(l);
+                    item = new MenuItem(new EzText(str, ItemFont, false, true));
+                    SetItemProperties(item);
+                    LanguageList.AddItem(item, l);
+                }
+                AddItem(LanguageList);
+                LanguageList.SetIndex((int)Localization.CurrentLanguage.MyLanguage);
+                LanguageList.OnConfirmedIndexSelect = () =>
+                {
+                    ChosenLanguage = (Localization.Language)LanguageList.ListIndex;
+                    //PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+                    //ResolutionGroup.Use(LanguageList.CurObj as DisplayMode);
+                    //SaveGroup.SaveAll();
+                    //PlayerManager.SaveRezAndKeys();
+                };
+            }
 
 #if PC_VERSION
             // Custom controls
@@ -145,10 +188,28 @@ namespace CloudberryKingdom
             else
                 SetPosition_PC();
 
+            MyMenu.SortByHeight();
+
             MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
+        }
+
+        public override void ReturnToCaller()
+        {
+            if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
+            {
+                Localization.SetLanguage(ChosenLanguage);
+                MyGame.ReInitGameObjects();
+                
+                MyGame.PhsxStepsToDo += 20;
+
+                ButtonCheck.PreventInput();
+                ButtonCheck.PreventTimeStamp += 20;
+            }
+
+            base.ReturnToCaller();
         }
 
 #if PC_VERSION
@@ -220,47 +281,100 @@ namespace CloudberryKingdom
 
         private void SetPosition_Console()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
-            _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
-            _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 317.4917f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            if (LanguageOption)
+            {
+                MenuItem _item;
+                _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+                _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+                _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(280.1578f, 50.82506f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("LanguageList"); if (_item != null) { _item.SetPos = new Vector2(1236.111f, 116.5555f); _item.MyText.Scale = 0.7108332f; _item.MySelectedText.Scale = 0.7108332f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(-980.1562f, -338.0954f);
+                MyMenu.Pos = new Vector2(-980.1562f, -338.0954f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-978.1751f, 734.984f); _t.Scale = 0.864f; }
+                EzText _t;
+                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-978.1751f, 734.984f); _t.Scale = 0.864f; }
+                _t = MyPile.FindEzText("Language"); if (_t != null) { _t.Pos = new Vector2(-824.9998f, -44.44439f); _t.Scale = 0.8185834f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -7.539473f); _q.Size = new Vector2(1223.651f, 922.9517f); }
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -7.539473f); _q.Size = new Vector2(1223.651f, 922.9517f); }
 
-            MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+                MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+            }
+            else
+            {
+                MenuItem _item;
+                _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+                _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+                _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 317.4917f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+                MyMenu.Pos = new Vector2(-980.1562f, -338.0954f);
+
+                EzText _t;
+                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-978.1751f, 734.984f); _t.Scale = 0.864f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -7.539473f); _q.Size = new Vector2(1223.651f, 922.9517f); }
+
+                MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+            }
         }
 
         private void SetPosition_PC()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
-            _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
-            _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 325.825f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(591.6658f, 133.6347f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("RezList"); if (_item != null) { _item.SetPos = new Vector2(1019.047f, -256.5245f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("FullscreenToggle"); if (_item != null) { _item.SetPos = new Vector2(1245.634f, -281.9681f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("WindowBorderToggle"); if (_item != null) { _item.SetPos = new Vector2(1315.078f, -451.4125f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1603.173f, -621.111f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            if (LanguageOption)
+            {
+                MenuItem _item;
+                _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+                _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+                _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(538.491f, -410.2862f); _item.MyText.Scale = 0.6705834f; _item.MySelectedText.Scale = 0.6705834f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(413.8881f, -599.6987f); _item.MyText.Scale = 0.6581671f; _item.MySelectedText.Scale = 0.6581671f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("RezList"); if (_item != null) { _item.SetPos = new Vector2(1077.38f, 151.8088f); _item.MyText.Scale = 0.6119168f; _item.MySelectedText.Scale = 0.6119168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("LanguageList"); if (_item != null) { _item.SetPos = new Vector2(1105.555f, -347.3336f); _item.MyText.Scale = 0.6166669f; _item.MySelectedText.Scale = 0.6166669f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("FullscreenToggle"); if (_item != null) { _item.SetPos = new Vector2(1090.078f, 101.3653f); _item.MyText.Scale = 0.6095002f; _item.MySelectedText.Scale = 0.6095002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("WindowBorderToggle"); if (_item != null) { _item.SetPos = new Vector2(1092.856f, -59.74591f); _item.MyText.Scale = 0.6086668f; _item.MySelectedText.Scale = 0.6086668f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1603.173f, -621.111f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(-1007.934f, -43.651f);
+                MyMenu.Pos = new Vector2(-1007.934f, -43.651f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-967.064f, 951.6506f); _t.Scale = 0.864f; }
-            _t = MyPile.FindEzText("RezText"); if (_t != null) { _t.Pos = new Vector2(-1173.81f, -174.9373f); _t.Scale = 0.7776f; }
-            _t = MyPile.FindEzText("Fullscreen"); if (_t != null) { _t.Pos = new Vector2(-1190.475f, -338.825f); _t.Scale = 0.7776f; }
-            _t = MyPile.FindEzText("WindowBorder"); if (_t != null) { _t.Pos = new Vector2(-1232.142f, -499.9359f); _t.Scale = 0.7776f; }
+                EzText _t;
+                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-967.064f, 951.6506f); _t.Scale = 0.864f; }
+                _t = MyPile.FindEzText("RezText"); if (_t != null) { _t.Pos = new Vector2(-1032.143f, 236.1738f); _t.Scale = 0.6868508f; }
+                _t = MyPile.FindEzText("Language"); if (_t != null) { _t.Pos = new Vector2(-1027.777f, -280.5559f); _t.Scale = 0.6748332f; }
+                _t = MyPile.FindEzText("Fullscreen"); if (_t != null) { _t.Pos = new Vector2(-1040.475f, 63.95281f); _t.Scale = 0.7051834f; }
+                _t = MyPile.FindEzText("WindowBorder"); if (_t != null) { _t.Pos = new Vector2(-1043.253f, -124.9359f); _t.Scale = 0.6186832f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
 
-            MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+                MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+            }
+            else
+            {
+                MenuItem _item;
+                _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(3.173767f, 751.4761f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1611.11f, -152.7778f); }
+                _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(64.28528f, 534.286f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1552.777f, -150.0001f); }
+                _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(596.8245f, 325.825f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(591.6658f, 133.6347f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("RezList"); if (_item != null) { _item.SetPos = new Vector2(1019.047f, -256.5245f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("FullscreenToggle"); if (_item != null) { _item.SetPos = new Vector2(1245.634f, -281.9681f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("WindowBorderToggle"); if (_item != null) { _item.SetPos = new Vector2(1315.078f, -451.4125f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1603.173f, -621.111f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+                MyMenu.Pos = new Vector2(-1007.934f, -43.651f);
+
+                EzText _t;
+                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-967.064f, 951.6506f); _t.Scale = 0.864f; }
+                _t = MyPile.FindEzText("RezText"); if (_t != null) { _t.Pos = new Vector2(-1173.81f, -174.9373f); _t.Scale = 0.7776f; }
+                _t = MyPile.FindEzText("Fullscreen"); if (_t != null) { _t.Pos = new Vector2(-1190.475f, -338.825f); _t.Scale = 0.7776f; }
+                _t = MyPile.FindEzText("WindowBorder"); if (_t != null) { _t.Pos = new Vector2(-1232.142f, -499.9359f); _t.Scale = 0.7776f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+
+                MyPile.Pos = new Vector2(29.76172f, 21.82541f);
+            }
         }
 
         public override void OnAdd()

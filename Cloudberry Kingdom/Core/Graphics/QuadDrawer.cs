@@ -15,10 +15,6 @@ namespace CoreEngine
         public HackFont font;
         public int thickness;
 
-#if OLD_TEXT
-        public SpriteFont sfont;
-#endif
-
         public HackSpriteFont(HackFont font_, int thickness_)
         {
             font = font_;
@@ -71,7 +67,7 @@ namespace CoreEngine
         public HackFont(string name)
         {
             MyTexture = new EzTexture();
-            MyTexture.Tex = Tools.GameClass.Content.Load<Texture2D>("Fonts/" + name);
+            MyTexture.Tex = Localization.FontTexture;
 
             var file = new StreamReader(File.OpenRead("Content/Fonts/" + name + ".fnt"));
 
@@ -693,13 +689,18 @@ namespace CoreEngine
             i = 0;
         }
 
-        public void DrawPic(Vector2 pos, Vector2 pos2, EzTexture texture)
+        public void DrawPic(Vector2 pos, Vector2 pos2, EzTexture texture, Color color)
         {
             if (CurrentTexture != texture || CurrentEffect != Tools.BasicEffect)
                 Flush();
 
             CurrentTexture = texture;
             CurrentEffect = Tools.BasicEffect;
+
+            Vertices[i].Color =
+            Vertices[i + 5].Color = Vertices[i + 1].Color =
+            Vertices[i + 4].Color = Vertices[i + 2].Color =
+            Vertices[i + 3].Color = color;
 
             Vertices[i].xy = new Vector2(pos.X, pos.Y);
             Vertices[i + 5].xy = Vertices[i + 1].xy = new Vector2(pos.X, pos2.Y);

@@ -209,7 +209,7 @@ namespace CloudberryKingdom
 
         private void GoOptions()
         {
-            Call(new SoundMenu(Control), 0);
+            Call(new SoundMenu(Control, false), 0);
 
             Hide(PresetPos.Left);
             PauseGame = true;

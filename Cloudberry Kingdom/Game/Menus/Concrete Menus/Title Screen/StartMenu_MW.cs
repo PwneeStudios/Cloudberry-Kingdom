@@ -5,10 +5,12 @@ namespace CloudberryKingdom
 {
     public class StartMenu_MW : StartMenu
     {
+        bool CallingOptionsMenu;
         protected override void MenuGo_Options(MenuItem item)
         {
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
             Call(new StartMenu_MW_Options(Control, true), 0);
+            CallingOptionsMenu = true;
         }
 
         protected override void Exit()
@@ -29,6 +31,7 @@ namespace CloudberryKingdom
         public StartMenu_MW(TitleGameData_MW Title) : base()
         {
             this.Title = Title;
+            CallingOptionsMenu = false;
         }
 
         public override void SlideIn(int Frames)
@@ -75,6 +78,17 @@ namespace CloudberryKingdom
         public override void OnAdd()
         {
             base.OnAdd();
+        }
+
+        public override void OnReturnTo()
+        {
+            if (CallingOptionsMenu)
+            {
+                MyMenu.SelectItem(4);
+                CallingOptionsMenu = false;
+            }
+
+            base.OnReturnTo();
         }
 
         public override bool MenuReturnToCaller(Menu menu)

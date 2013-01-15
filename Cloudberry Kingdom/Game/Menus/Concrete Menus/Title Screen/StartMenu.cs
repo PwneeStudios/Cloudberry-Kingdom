@@ -85,7 +85,7 @@ namespace CloudberryKingdom
 
         protected virtual void MenuGo_Options(MenuItem item)
         {
-            Call(new SoundMenu(Control), 0);
+            Call(new SoundMenu(Control, false), 0);
         }
 
         protected virtual void MenuGo_Exit(MenuItem item)

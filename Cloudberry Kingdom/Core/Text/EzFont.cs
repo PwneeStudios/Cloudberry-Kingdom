@@ -5,20 +5,10 @@ namespace CloudberryKingdom
 {
     public class EzFont
     {
-        public SpriteFont Font, OutlineFont;
         public HackSpriteFont HFont, HOutlineFont;
 
         public float CharacterSpacing;
         public int LineSpacing;
-
-        public EzFont(string FontName)
-        {
-            Font = Tools.GameClass.Content.Load<SpriteFont>(FontName);
-            CharacterSpacing = Font.Spacing;
-            
-            //LineSpacing = Font.LineSpacing;
-            LineSpacing = (int)Font.MeasureString("abc").Y;
-        }
 
         public EzFont(string FontName, float CharacterSpacing, int LineSpacing)
         {
@@ -34,45 +24,14 @@ namespace CloudberryKingdom
         {
             Initialize(FontName, OutlineFontName, CharacterSpacing, LineSpacing);
             LineSpacing = (int)(LineSpacing * LineSpacingMod);
-
-#if OLD_TEXT
-            FixFont();
-#endif
         }
-
-#if OLD_TEXT
-        public void FixFont()
-        {
-            Font.Spacing = CharacterSpacing;
-            Font.LineSpacing = LineSpacing;
-        }
-#endif
 
         void Initialize(string FontName, string OutlineFontName, float CharacterSpacing, int LineSpacing)
         {
             this.CharacterSpacing = CharacterSpacing;
             this.LineSpacing = LineSpacing;
 
-#if OLD_TEXT
-            Font = Tools.GameClass.Content.Load<SpriteFont>(FontName);
-
-            FixFont();
-#endif
-
-#if OLD_TEXT
-            if (OutlineFontName.Length > 1)
-            {
-                OutlineFont = Tools.GameClass.Content.Load<SpriteFont>(OutlineFontName);
-                OutlineFont.Spacing = CharacterSpacing;
-                OutlineFont.LineSpacing = LineSpacing;
-            }
-            else
-                OutlineFont = null;
-
-            this.LineSpacing = (int)Font.MeasureString("abc").Y;
-#else
             this.LineSpacing = 133;
-#endif
         }
     }
 }

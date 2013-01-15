@@ -154,7 +154,12 @@ namespace CloudberryKingdom
 
         protected virtual void Go(MenuItem item)
         {
-            StartLevelMenu levelmenu = new StartLevelMenu(MyArcadeItem.MyChallenge.TopPlayerLevel());
+            var _item = HeroSelect.MyMenu.CurItem as HeroItem;
+            if (null == _item) return;
+            int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
+            //int TopLevelForHero = MyArcadeItem.MyChallenge.TopPlayerLevel();
+            
+            StartLevelMenu levelmenu = new StartLevelMenu(TopLevelForHero);
 
             levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
             levelmenu.StartFunc = StartFunc;
