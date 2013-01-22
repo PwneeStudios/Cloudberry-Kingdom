@@ -12,12 +12,12 @@ namespace CloudberryKingdom
         public BobPhsx RequiredHero;
         public int RequiredHeroLevel;
 
-        public HeroItem(KeyValuePair<BobPhsx, Tuple<BobPhsx, int>> pair)
-            : base(new EzText(pair.Key.Name, Resources.Font_Grobold42_2))
+        public HeroItem(Tuple<BobPhsx, Tuple<BobPhsx, int>> pair)
+            : base(new EzText(pair.Item1.Name, Resources.Font_Grobold42_2))
         {
-            this.Hero = pair.Key;
-            this.RequiredHero = pair.Value.Item1;
-            this.RequiredHeroLevel = pair.Value.Item2;
+            this.Hero = pair.Item1;
+            this.RequiredHero = pair.Item2.Item1;
+            this.RequiredHeroLevel = pair.Item2.Item2;
         }
     }
 

@@ -973,27 +973,27 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (CreateNewWad)
                 EffectWad = new EzEffectWad();
 
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\BasicEffect"), "Basic");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\NoTexture"), "NoTexture");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Circle"), "Circle");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Shell"), "Shell");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\FireballEffect"), "Fireball");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Paint"), "Paint");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Lava"), "Lava");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\LightMap"), "LightMap");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\LightSource"), "LightSource");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\BwEffect"), "BW");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl_Green"), "Hsl_Green");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Hsl"), "Hsl");
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Window"), "Window");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BasicEffect"), "Basic");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\NoTexture"), "NoTexture");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Circle"), "Circle");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Shell"), "Shell");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\FireballEffect"), "Fireball");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Paint"), "Paint");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Lava"), "Lava");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\LightMap"), "LightMap");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\LightSource"), "LightSource");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BwEffect"), "BW");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Hsl_Green"), "Hsl_Green");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Hsl"), "Hsl");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Window"), "Window");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_NoOutline"), "Text_NoOutline");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_NoOutline"), "Text_NoOutline");
             Text_NoOutline = EffectWad.FindByName("Text_NoOutline");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_ThinOutline"), "Text_ThinOutline");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_ThinOutline"), "Text_ThinOutline");
             Text_ThinOutline = EffectWad.FindByName("Text_ThinOutline");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Effects\\Text_ThickOutline"), "Text_ThickOutline");
+            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_ThickOutline"), "Text_ThickOutline");
             Text_ThickOutline = EffectWad.FindByName("Text_ThickOutline");
 
             BasicEffect = EffectWad.EffectList[0];
@@ -1004,7 +1004,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             HslGreenEffect = EffectWad.FindByName("Hsl_Green");
             WindowEffect = EffectWad.FindByName("Window");
 
-            PaintEffect_SpriteBatch = Content.Load<Effect>("Effects\\Paint_SpriteBatch");
+            PaintEffect_SpriteBatch = Content.Load<Effect>("Shaders\\Paint_SpriteBatch");
         }
 
         public static float BoxSize(Vector2 TR, Vector2 BL)

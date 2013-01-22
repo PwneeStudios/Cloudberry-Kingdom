@@ -210,6 +210,12 @@ namespace CloudberryKingdom
         {
             MenuItem item;
 
+            // Buy Game
+            item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
+            item.Name = "Play";
+            item.Go = MenuGo_Options;
+            AddItem(item);
+
             // Arcade
             item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont));
             item.Name = "Arcade";
@@ -222,23 +228,17 @@ namespace CloudberryKingdom
             AddItem(item);
             item.Go = MenuGo_Campaign;
 
-            //// Extra
-            //item = new MenuItem(new EzText("Extras", ItemFont));
-            //item.Name = "Freeplay";
-            //item.Go = null;
-            //AddItem(item);
-
             // Free Play
             item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont));
             item.Name = "Freeplay";
             item.Go = MenuGo_Freeplay;
             AddItem(item);
 
-            //// Jukebox
-            //item = new MenuItem(new EzText("Jukebox", ItemFont));
-            //item.Name = "Jukebox";
-            //item.Go = MenuGo_ScreenSaver;
-            //AddItem(item);
+            // Free Play
+            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont));
+            item.Name = "Leaderboard";
+            item.Go = MenuGo_Freeplay;
+            AddItem(item);
 
             // Options
             item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
@@ -246,10 +246,11 @@ namespace CloudberryKingdom
             item.Go = MenuGo_Options;
             AddItem(item);
 
-            // Stats
-            //item = new MenuItem(new EzText("Stats", ItemFont));
-            //item.Go = MenuGo_Stats;
-            //AddItem(item);
+            // Buy Game
+            item = new MenuItem(new EzText(Localization.Words.Buy, ItemFont));
+            item.Name = "Buy";
+            item.Go = MenuGo_Options;
+            AddItem(item);
 
             // Exit
             item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont));

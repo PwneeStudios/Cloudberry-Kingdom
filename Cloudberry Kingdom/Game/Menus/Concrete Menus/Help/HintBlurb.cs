@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
             MakeBackdrop();
 
-            SetText("Hold {pXbox_A,85,?} to jump higher!");
+            SetText(string.Format(Localization.WordString(Localization.Words.JumpHigherNote), ButtonString.Go(85)));
         }
 
         protected virtual void MakeBackdrop()

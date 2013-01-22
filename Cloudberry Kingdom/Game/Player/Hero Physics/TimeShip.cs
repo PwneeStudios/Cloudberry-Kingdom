@@ -24,7 +24,7 @@ namespace CloudberryKingdom
         {
             base.InitSingleton();
 
-            Specification = new HeroSpec(4, 0, 0, 0);
+            Specification = new HeroSpec(5, 0, 0, 0);
             Name = Localization.Words.Spaceship;
             NameTemplate = "time ship";
             Icon = new PictureIcon(Tools.Texture("Spaceship_Paper"), Color.White, 1.15f * DefaultIconWidth);

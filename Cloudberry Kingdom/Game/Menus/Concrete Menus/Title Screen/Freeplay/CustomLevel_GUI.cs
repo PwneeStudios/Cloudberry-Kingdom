@@ -592,9 +592,6 @@ namespace CloudberryKingdom
             FontScale = 1f;
 
             // Start
-#if XBOX
-            MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
-#endif
             Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
             Start.Name = "Start";
             item.JiggleOnGo = false;
@@ -603,8 +600,8 @@ namespace CloudberryKingdom
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #if NOT_PC
+            MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
             item.Selectable = false;
-            item.Pos = new Vector2(721.8262f, -226.9048f);
 #endif
             item.Go = Cast.ToItem(BringNext);
             item.ScaleText(.92f);
@@ -614,28 +611,19 @@ namespace CloudberryKingdom
 
             // Load
             MenuItem Load;
-#if PC_VERSION
             Load = item = new MenuItem(new EzText(Localization.Words.LoadLevel, ItemFont));
-#else
-            Load = item = new MenuItem(new EzText(ButtonString.Y(90) + " Load", ItemFont));
-#endif
             Load.Name = "Load";
             Load.Go = me => BringLoad();
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-            //item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
-            //item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #if NOT_PC
+            MyPile.Add(new QuadClass(ButtonTexture.Y, 90, "Button_Y"));
             item.Selectable = false;
-            item.Pos = new Vector2(721.8262f, -226.9048f);
 #endif
             item.ScaleText(.92f);
 
             // Back
-#if XBOX
-            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
-#endif
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             AddItem(item);
@@ -645,8 +633,8 @@ namespace CloudberryKingdom
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
             item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
 #if NOT_PC
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
             item.Selectable = false;
-            item.Pos = new Vector2(958.6523f, -468.254f);
 #endif
             item.ScaleText(.92f);
 
@@ -754,29 +742,31 @@ namespace CloudberryKingdom
 
 #else
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Location"); if (_item != null) { _item.SetPos = new Vector2(-66.66797f, 677.9999f); }
-            _item = MyMenu.FindItemByName("Game"); if (_item != null) { _item.SetPos = new Vector2(-24.66602f, 475.4443f); }
-            _item = MyMenu.FindItemByName("Hero"); if (_item != null) { _item.SetPos = new Vector2(-4.999969f, 284f); }
-            _item = MyMenu.FindItemByName("Diff"); if (_item != null) { _item.SetPos = new Vector2(-41.10744f, 79.66678f); }
-            _item = MyMenu.FindItemByName("Length"); if (_item != null) { _item.SetPos = new Vector2(-221.8892f, -342.2129f); }
-            _item = MyMenu.FindItemByName("Checkpoints"); if (_item != null) { _item.SetPos = new Vector2(150.3331f, -602.7712f); }
-            _item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(708.3351f, 4.047569f); }
-            _item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(839.6832f, -241.5872f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(975.7158f, -483.7302f); }
+            _item = MyMenu.FindItemByName("Location"); if (_item != null) { _item.SetPos = new Vector2(-66.66797f, 677.9999f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Game"); if (_item != null) { _item.SetPos = new Vector2(-24.66602f, 475.4443f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Hero"); if (_item != null) { _item.SetPos = new Vector2(-4.999969f, 284f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Diff"); if (_item != null) { _item.SetPos = new Vector2(-41.10744f, 79.66678f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Length"); if (_item != null) { _item.SetPos = new Vector2(-221.8892f, -342.2129f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Checkpoints"); if (_item != null) { _item.SetPos = new Vector2(150.3331f, -602.7712f); _item.MyText.Scale = 0.73f; _item.MySelectedText.Scale = 0.73f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(877.7795f, -45.95242f); _item.MyText.Scale = 0.7502491f; _item.MySelectedText.Scale = 0.7502491f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(898.0163f, -255.4761f); _item.MyText.Scale = 0.7280834f; _item.MySelectedText.Scale = 0.7280834f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(900.7158f, -464.2858f); _item.MyText.Scale = 0.7764169f; _item.MySelectedText.Scale = 0.7764169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(-285f, 0f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Location"); if (_t != null) { _t.Pos = new Vector2(-1002.89f, 802.4446f); }
-            _t = MyPile.FindEzText("Game"); if (_t != null) { _t.Pos = new Vector2(-844.444f, 619.3334f); }
-            _t = MyPile.FindEzText("Hero"); if (_t != null) { _t.Pos = new Vector2(-780.5543f, 419.5557f); }
-            _t = MyPile.FindEzText("Diff"); if (_t != null) { _t.Pos = new Vector2(-1033.889f, 212.7778f); }
-            _t = MyPile.FindEzText("Length"); if (_t != null) { _t.Pos = new Vector2(-1166.665f, 36.11107f); }
-            _t = MyPile.FindEzText("Checkpoints"); if (_t != null) { _t.Pos = new Vector2(-1177.774f, -463.8889f); }
+            _t = MyPile.FindEzText("Location"); if (_t != null) { _t.Pos = new Vector2(-1002.89f, 802.4446f); _t.Scale = 0.657f; }
+            _t = MyPile.FindEzText("Game"); if (_t != null) { _t.Pos = new Vector2(-844.444f, 619.3334f); _t.Scale = 0.657f; }
+            _t = MyPile.FindEzText("Hero"); if (_t != null) { _t.Pos = new Vector2(-780.5543f, 419.5557f); _t.Scale = 0.657f; }
+            _t = MyPile.FindEzText("Diff"); if (_t != null) { _t.Pos = new Vector2(-1033.889f, 212.7778f); _t.Scale = 0.657f; }
+            _t = MyPile.FindEzText("Length"); if (_t != null) { _t.Pos = new Vector2(-1166.665f, 36.11107f); _t.Scale = 0.657f; }
+            _t = MyPile.FindEzText("Checkpoints"); if (_t != null) { _t.Pos = new Vector2(-1177.774f, -463.8889f); _t.Scale = 0.657f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
-            _q = MyPile.FindQuad("Screenshot"); if (_q != null) { _q.Pos = new Vector2(1340.002f, 497.2222f); _q.Size = new Vector2(10.81731f, 13.22116f); }
+            _q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(808.3335f, -180.5555f); _q.Size = new Vector2(91.00001f, 91.00001f); }
+            _q = MyPile.FindQuad("Button_Y"); if (_q != null) { _q.Pos = new Vector2(813.8889f, -397.2222f); _q.Size = new Vector2(91.99997f, 91.99997f); }
+            _q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(819.4445f, -602.7778f); _q.Size = new Vector2(90f, 90f); }
 
             MyPile.Pos = new Vector2(-285f, 0f);
 #endif

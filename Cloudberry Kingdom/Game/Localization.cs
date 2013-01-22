@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 
             while (line != null)
             {
-                //var bits = line.Split('|');
+                line = line.Replace("\\n", "\n");
                 var bits = line.Split('\t');
 
                 for (int i = 0; i < NumLanguages; i++)

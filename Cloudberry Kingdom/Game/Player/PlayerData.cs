@@ -166,19 +166,19 @@ namespace CloudberryKingdom
 
             foreach (var game in ArcadeMenu.HeroArcadeList)
             {
-                id = Challenge_Escalation.Instance.CalcGameId_Level(game.Key);
+                id = Challenge_Escalation.Instance.CalcGameId_Level(game.Item1);
                 if (HighScores.ContainsKey(id))
                     level += HighScores[id].Value;
 
-                id = Challenge_TimeCrisis.Instance.CalcGameId_Level(game.Key);
+                id = Challenge_TimeCrisis.Instance.CalcGameId_Level(game.Item1);
                 if (HighScores.ContainsKey(id))
                     level += HighScores[id].Value;
 
-                id = Challenge_HeroRush.Instance.CalcGameId_Level(game.Key);
+                id = Challenge_HeroRush.Instance.CalcGameId_Level(game.Item1);
                 if (HighScores.ContainsKey(id))
                     level += HighScores[id].Value;
 
-                id = Challenge_HeroRush2.Instance.CalcGameId_Level(game.Key);
+                id = Challenge_HeroRush2.Instance.CalcGameId_Level(game.Item1);
                 if (HighScores.ContainsKey(id))
                     level += HighScores[id].Value;
             }

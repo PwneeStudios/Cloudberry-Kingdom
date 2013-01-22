@@ -71,7 +71,7 @@ namespace CloudberryKingdom
         public static BobPhsx BigBouncy;
         public static BobPhsx Ultimate;
 
-        public static Dictionary<BobPhsx, Tuple<BobPhsx, int>> HeroArcadeList;
+        public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
 
         public static void StaticInit()
         {
@@ -115,22 +115,22 @@ namespace CloudberryKingdom
             ArcadeMenu.Ultimate.SetCustomPhsx(UltimatePhsx);
             ArcadeMenu.Ultimate.Id = 14;
 
-            HeroArcadeList = new Dictionary<BobPhsx, Tuple<BobPhsx, int>>()
+            HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
             {
-                { BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) },
-                { BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 30) },
-                { BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 30) },
-                { BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 40) },
-                { BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 40) },
-                { BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) },
-                { BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) },
-                { BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) },
-                { BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 70) },
-                { BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(BobPhsxWheel.Instance, 80) },
-                
-                { JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxSmall.Instance, 100) },
-                { BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) },
-                { Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) },
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 30) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 30) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 40) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 40) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 70) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(BobPhsxWheel.Instance, 80) ),
+                         
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxSmall.Instance, 100) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) ),
             };
         }
 

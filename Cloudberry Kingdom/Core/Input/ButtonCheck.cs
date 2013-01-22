@@ -792,29 +792,6 @@ if (
 
         public ButtonCheck() { }
 
-        public String GetString()
-        {
-            String s;
-
-            switch (MyType)
-            {
-                case MashType.Hold: s = "Hold {p"; break;
-                case MashType.Tap: s = "Tap {p"; break;
-                case MashType.HoldDir: s = "Hold {p"; break;
-                default: s = ""; break;
-            }
-
-            s += "Big_Button_" + Tools.ButtonNames[(int)MyButton1] + ",75,75}";
-
-            switch (MyType)
-            {
-                case MashType.HoldDir: s += " " + Tools.DirNames[Dir]; break;
-                default: break;
-            }
-
-            return s;
-        }
-
         public void Phsx()
         {
             Satisfied = false;

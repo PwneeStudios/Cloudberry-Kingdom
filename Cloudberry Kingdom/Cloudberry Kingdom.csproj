@@ -50,7 +50,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS GAME NOT_PC XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CAFE !PS3 WINDOWS GAME NOT_PC XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>

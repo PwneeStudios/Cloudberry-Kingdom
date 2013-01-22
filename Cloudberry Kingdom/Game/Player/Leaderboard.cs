@@ -10,7 +10,7 @@ namespace CloudberryKingdom
     {
         public static void WriteToLeaderboard(ScoreEntry score)
         {
-            if (CloudberryKingdomGame.IsDemo) return;
+              
 
 #if XDK
             // Write

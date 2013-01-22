@@ -47,10 +47,11 @@ namespace CloudberryKingdom
             // Press A to join
             Tools.Warning();
 #if PC_VERSION
-            Text = new EzText("Press\n" + ButtonString.Go_Controller(89) + "\nto join!", Resources.Font_Grobold42, 1000, true, true, .65f);
+            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(89));
 #else
-            Text = new EzText("Press\n{pXbox_A,72,?}\nto join!", Resources.Font_Grobold42, true, true);
+            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(89));
 #endif
+            Text = new EzText(pressa, Resources.Font_Grobold42, true, true);
             Text.Scale = .7765f;
 
             Text.ShadowOffset = new Vector2(7.5f, 7.5f);

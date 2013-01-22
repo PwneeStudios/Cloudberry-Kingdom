@@ -14,23 +14,39 @@ namespace CloudberryKingdom
     public class ButtonTexture
     {
 #if PC_VERSION
-        public static EzTexture Go { get { return Tools.TextureWad.FindByName("Enter_Key"); } }
-        public static EzTexture Back { get { return Tools.TextureWad.FindByName("Esc_Key"); } }
-        public static EzTexture X { get 
-        {
-            return ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary);
-            //return Tools.TextureWad.FindByName("Xbox_X");
-        } }
-        public static EzTexture LeftRight { get { return Tools.TextureWad.FindByName("LeftRight_Key"); } }
-        public static EzTexture LeftBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
-        public static EzTexture RightBumper { get { return ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
+        public static bool UseGamepadButtons = true;
+        public static EzTexture Go { get { return Tools.Texture( UseGamepadButtons ? "Xbox_A" : "Enter_Key" ); } }
+        public static EzTexture Back { get { return Tools.Texture( UseGamepadButtons ? "Xbox_B" : "Esc_Key" ); } }
+        public static EzTexture X { get { return UseGamepadButtons ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
+        public static EzTexture Y { get { return UseGamepadButtons ? Tools.Texture( "Xbox_Y" ) : ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey); } }
+        public static EzTexture LeftRight { get { return Tools.Texture( UseGamepadButtons ? "Xbox_Dir" : "LeftRight_Key"); } }
+        public static EzTexture LeftBumper { get { return UseGamepadButtons ? Tools.Texture("Xbox_LB") : ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
+        public static EzTexture RightBumper { get { return UseGamepadButtons ? Tools.Texture("Xbox_RB") : ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
+#elif PS3
+        public static EzTexture Go { get { return Tools.Texture("PS3_X"); } }
+        public static EzTexture Back { get { return Tools.Texture("PS3_Circle"); } }
+        public static EzTexture X { get { return Tools.Texture("PS3_Square"); } }
+        public static EzTexture Y { get { return Tools.Texture("PS3_Triangle"); } }
+        public static EzTexture LeftRight { get { return Tools.Texture("PS3_Dir"); } }
+        public static EzTexture LeftBumper { get { return Tools.Texture("PS3_1"); } }
+        public static EzTexture RightBumper { get { return Tools.Texture("PS3_1"); } }
+#elif CAFE
+        public static bool UseGamepad = true;
+        public static EzTexture Go { get { return Tools.Texture( UseGamepad ? "WiiU_B" : "WiiU_2" ); } }
+        public static EzTexture Back { get { return Tools.Texture( UseGamepad ? "WiiU_A" : "WiiU_1" ); } }
+        public static EzTexture X { get { return Tools.Texture( UseGamepad ? "WiiU_Y" : "WiiU_1" ); } }
+        public static EzTexture Y { get { return Tools.Texture( UseGamepad ? "WiiU_X" : "WiiU_Dash" ); } }
+        public static EzTexture LeftRight { get { return Tools.Texture( UseGamepad ? "WiiU_Dir" : "WiiU_Dir" ); } }
+        public static EzTexture LeftBumper { get { return Tools.Texture( UseGamepad ? "WiiU_R" : "WiiU_R" ); } }
+        public static EzTexture RightBumper { get { return Tools.Texture( UseGamepad ? "WiiU_L" : "WiiU_L" ); } }
 #else
-        public static EzTexture Go { get { return Tools.TextureWad.FindByName("Xbox_A"); } }
-        public static EzTexture Back { get { return Tools.TextureWad.FindByName("Xbox_B"); } }
-        public static EzTexture X { get { return Tools.TextureWad.FindByName("Xbox_X"); } }
-        public static EzTexture LeftRight { get { return Tools.TextureWad.FindByName("Xbox_Dir"); } }
-        public static EzTexture LeftBumper { get { return Tools.TextureWad.FindByName("Xbox_LB"); } }
-        public static EzTexture RightBumper { get { return Tools.TextureWad.FindByName("Xbox_RB"); } }
+        public static EzTexture Go { get { return Tools.Texture("Xbox_A"); } }
+        public static EzTexture Back { get { return Tools.Texture("Xbox_B"); } }
+        public static EzTexture X { get { return Tools.Texture("Xbox_X"); } }
+        public static EzTexture Y { get { return Tools.Texture("Xbox_Y"); } }
+        public static EzTexture LeftRight { get { return Tools.Texture("Xbox_Dir"); } }
+        public static EzTexture LeftBumper { get { return Tools.Texture("Xbox_LB"); } }
+        public static EzTexture RightBumper { get { return Tools.Texture("Xbox_RB"); } }
 #endif
     }
 
@@ -117,29 +133,14 @@ namespace CloudberryKingdom
 
             return str;
         }
-
-        // Go/Back small keys
-        //public static string Back(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Back_Secondary)); }
-        //public static string Go(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Go_Secondary)); }
-
-        // Go/Back big keys
-        //public static string Back(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(Keys.Back)); }
-        //public static string Go(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(Keys.Enter)); }
         
         // Go/Back no keys
-        public static string Back(int size) { return ""; }
-        public static string Go(int size) { return ""; }
+        //public static string Back(int size) { return ""; }
+        //public static string Go(int size) { return ""; }
+        public static string Up(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
 
         public static string Backspace(int size) { return string.Format("{{p{1},{0},?}}{{s70,0}}", size, KeyToTexture(Keys.Back)); }
         public static string Enter(int size) { return string.Format("{{p{1},{0},?}}{{s70,0}}", size, KeyToTexture(Keys.Enter)); }        
-
-        public static string X(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.SlowMoToggle_Secondary)); }
-        public static string Y(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey)); }
-        public static string LeftRight(int size) { return string.Format("{{pLeftRight_Key,{0},?}}{{s15,0}}", size); }
-        public static string LeftBumper(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.ReplayPrev_Secondary)); }
-        public static string RightBumper(int size) { return string.Format("{{p{1},{0},?}}{{s15,0}}", size, KeyToTexture(ButtonCheck.ReplayNext_Secondary)); }
-        public static string Up(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
-        public static string Jump(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
 
         // Regular keys
         public static string KeyStr(Keys key, int size)
@@ -147,52 +148,24 @@ namespace CloudberryKingdom
             if (key == Keys.Enter || key == Keys.Space)
                 size = (int)(2.0083f * size);
 
-            switch (key)
-            {
-                //case Keys.Space:
-                //    return string.Format("{{pSpace_Key,{0},?}}{{s15,0}}", size * BackScale);
-                //case Keys.Enter:
-                //    return string.Format("{{pEnter_Key,{0},?}}{{s15,0}}", size * BackScale);
-                default:
-                    return string.Format("{{p{0},{1},?}}{{s15,0}}", ButtonString.KeyToTexture(key), size);
-            }
+            return string.Format("{{p{0},{1},?}}{{s15,0}}", ButtonString.KeyToTexture(key), size);
         }
-
-        // Sane
-        //public static float BackScale = 1.3f;
-        //public static string Back(int size) { return string.Format("{{pBackspace_Key,{0},?}}{{s15,0}}", size * BackScale); }
-        //public static string Go(int size) { return string.Format("{{pEnterKey,{0},?}}{{s15,0}}", size * BackScale); }
-        //public static string X(int size) { return string.Format("{{pC_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Y(int size) { return string.Format("{{pV_Key,{0},?}}{{s15,0}}", size); }
-        //public static string LeftRight(int size) { return string.Format("{{pLeftRight_Key,{0},?}}{{s15,0}}", size); }
-        //public static string LeftBumper(int size) { return string.Format("{{pSpaceKey,{0},?}}{{s15,0}}", size * BackScale); }
-        //public static string RightBumper(int size) { return string.Format("{{pD_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Up(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Jump(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
-
-        // Old school
-        //public static string Back(int size) { return string.Format("{{pX_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Go(int size) { return string.Format("{{pZ_Key,{0},?}}{{s15,0}}", size); }
-        //public static string X(int size) { return string.Format("{{pC_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Y(int size) { return string.Format("{{pV_Key,{0},?}}{{s15,0}}", size); }
-        //public static string LeftRight(int size) { return string.Format("{{pLeftRight_Key,{0},?}}{{s15,0}}", size); }
-        //public static string LeftBumper(int size) { return string.Format("{{pA_Key,{0},?}}{{s15,0}}", size); }
-        //public static string RightBumper(int size) { return string.Format("{{pD_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Up(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
-        //public static string Jump(int size) { return string.Format("{{pUp_Key,{0},?}}{{s15,0}}", size); }
 
         public static string Go_Controller(int size) { return string.Format("{{pXbox_A,{0},?}}", size); }
 #else
         public static void Init() { }
-        public static string Back(int size) { return string.Format("{{pXbox_B,{0},?}}", size); }
-        public static string Go(int size) { return string.Format("{{pXbox_A,{0},?}}", size); }
-        public static string X(int size) { return string.Format("{{pXbox_X,{0},?}}", size); }
-        public static string Y(int size) { return string.Format("{{pXbox_Y,{0},?}}", size); }
-        public static string LeftRight(int size) { return string.Format("{{pXbox_Dir,{0},?}}", size); }
-        public static string LeftBumper(int size) { return string.Format("{{pXbox_LB,{0},?}}", size); }
-        public static string RightBumper(int size) { return string.Format("{{pXbox_RB,{0},?}}", size); }
-        public static string Jump(int size) { return string.Format("{{pXbox_A,{0},?}}", size); }
 #endif
+
+        public static string Back(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Back.Name); }
+        public static string Go(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Go.Name); }
+        public static string X(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.X.Name); }
+        public static string Y(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Back.Name); }
+        public static string LeftRight(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.LeftRight.Name); }
+        public static string LeftBumper(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.LeftBumper.Name); }
+        public static string RightBumper(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.RightBumper.Name); }
+        public static string Jump(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Go.Name); }
+
+
     }
 
     public class EzText : ViewReadWrite
@@ -559,7 +532,7 @@ namespace CloudberryKingdom
                         Parse_PicShift = Vector2.Zero;
 
                     Vector2 size;
-                    EzTexture texture = Tools.TextureWad.FindByName(Parse_PicName);
+                    EzTexture texture = Tools.Texture(Parse_PicName);
                     float ratio = (float)texture.Width / (float)texture.Height;
 
                     // 's' scale the texture
@@ -703,7 +676,7 @@ namespace CloudberryKingdom
 
                         if (!FirstElement) Parse_PicShift.X -= .25f * Parse_PicSize.X;
 
-                        pic.tex = Tools.TextureWad.FindByName(Parse_PicName);
+                        pic.tex = Tools.Texture(Parse_PicName);
 
                         float y = .5f * Tools.TheGame.Resolution.LineHeightMod * MyFont.LineSpacing - .5f * Parse_PicSize.Y + StartY;
                         pic.rect = new Rectangle((int)(loc.X + Parse_PicShift.X), (int)(y + loc.Y + Parse_PicShift.Y), (int)Parse_PicSize.X, (int)Parse_PicSize.Y);

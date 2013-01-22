@@ -20,12 +20,6 @@ namespace CloudberryKingdom
             Initialize(FontName, OutlineFontName, CharacterSpacing, LineSpacing);
         }
 
-        public EzFont(string FontName, string OutlineFontName, float CharacterSpacing, float LineSpacingMod)
-        {
-            Initialize(FontName, OutlineFontName, CharacterSpacing, LineSpacing);
-            LineSpacing = (int)(LineSpacing * LineSpacingMod);
-        }
-
         void Initialize(string FontName, string OutlineFontName, float CharacterSpacing, int LineSpacing)
         {
             this.CharacterSpacing = CharacterSpacing;
