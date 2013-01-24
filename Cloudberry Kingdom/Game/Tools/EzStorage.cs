@@ -3,6 +3,8 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Storage;
 
 namespace CloudberryKingdom
@@ -118,6 +120,7 @@ namespace CloudberryKingdom
             {
                 Incr();
                 ThingToLoad.Load();
+                return; Tools.Warning();
                 Wait();
             }
         }
@@ -202,14 +205,19 @@ namespace CloudberryKingdom
             return Device != null && Device.IsConnected;
         }
 
+        static void GetDeviceCallback(IAsyncResult result)
+        {
+            Tools.Write("!");
+        }
+
         public static void GetDevice()
         {
-            IAsyncResult result = StorageDevice.BeginShowSelector(null, null);
-            result.AsyncWaitHandle.WaitOne();
+            IAsyncResult result = StorageDevice.BeginShowSelector(GetDeviceCallback, null);
+            //result.AsyncWaitHandle.WaitOne();
 
-            Device = StorageDevice.EndShowSelector(result);
+            //Device = StorageDevice.EndShowSelector(result);
 
-            result.AsyncWaitHandle.Close();
+            //result.AsyncWaitHandle.Close();
         }
 
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
@@ -294,6 +302,8 @@ namespace CloudberryKingdom
 
             if (!DeviceOK())
                 GetDevice();
+
+            return;
 
             if (!DeviceOK())
             {

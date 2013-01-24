@@ -17,7 +17,7 @@ namespace CloudberryKingdom
     {
         bool ShowFPS = false;
 
-#if !XBOX
+#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
         /// <summary>
         /// Extra functions that allow a user to better debug/test/
         /// </summary>
@@ -171,6 +171,7 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(Keys.D7).Pressed) HideForeground = !HideForeground;
 
             // Turn on/off immortality.
+            if (!GodMode)
             if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)

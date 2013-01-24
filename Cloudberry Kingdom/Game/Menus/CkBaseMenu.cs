@@ -64,7 +64,7 @@ namespace CloudberryKingdom
             text.ShadowOffset = new Vector2(12, 12);
         }
 
-        protected void SetSelectedTextProperties(EzText text)
+        protected virtual void SetSelectedTextProperties(EzText text)
         {
             text.MyFloatColor = new Color(246, 214, 33).ToVector4();
             //text.MyFloatColor = new Color(50, 220, 50).ToVector4();

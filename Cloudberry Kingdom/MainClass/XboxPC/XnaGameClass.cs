@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
+#if XBOX
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using Microsoft.Xna.Framework.Graphics;
@@ -44,8 +43,7 @@ namespace CloudberryKingdom
         {
             Tools.GameClass = this;
 
-#if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
+#if XBOX
             Components.Add(new GamerServicesComponent(this));
 #endif
             Content.RootDirectory = "Content";

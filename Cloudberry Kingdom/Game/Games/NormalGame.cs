@@ -56,7 +56,7 @@ namespace CloudberryKingdom
                 new ThreadStart(
                     delegate
                     {
-#if XBOX
+#if XBOX && !WINDOWS
                         Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
 #endif
                         Tools.TheGame.Exiting += KillThread;

@@ -76,8 +76,8 @@ namespace CloudberryKingdom
             {
                 DelayToAllowInput = 10;
 
-                //Tools.Nothing();
-                Call(new StartMenu_MW(Title));
+                //Call(new StartMenu_MW(Title));
+                Call(new StartMenu_MW_Pre(Title));
                 Hide();
             }
         }

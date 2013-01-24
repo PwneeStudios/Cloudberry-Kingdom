@@ -5,7 +5,7 @@ The Arcade	TheArcade	The Arcade	アーケード	Der Arcade	O Arcade	The Arcade	T
 Story Mode	StoryMode	Story Mode	ストーリーモード	Story-Modus	Story Mode	Story Mode	Mode Histoire	Story Mode	Story Mode	스토리 모드	故事模式
 Free Play	FreePlay	Free Play	フリープレイ	Free Play	Free Play	Free Play	Free Play	Juego Gratis	Free Play	무료 플레이	免费玩
 Options	Options	Options	オプション	Optionen	Opções	Opzioni	Options de	Opciones	Опции	옵션	选项
-Exit	Exit	Exit	終了する	Verlassen	Sair	Uscita	Sortie	Salida	Выход	출구	出口
+Exit	Exit	Exit Game	終了する	Verlassen	Sair	Uscita	Sortie	Salida	Выход	출구	出口
 Exit game?	ExitGame	Exit game?	ゲームを終了しますか？	Verlassen Spiel?	Saia jogo?	Uscire gioco?	Quittez jeu?	Salir de juego?	Выход игры?	게임을 종료?	退出游戏吗？
 Yes	Yes	Yes	はい	Ja	Sim	Sì	Oui	Sí	Да	예	是
 No	No	No	ノー	Nicht	Não	No	Aucun	No	Нет	아니	没有
@@ -196,7 +196,7 @@ Hero Rush	HeroRush	Hero Rush	ヒーローラッシュ	Held Rush	Corrida herói	E
 Hybrid Rush	HybridRush	Hybrid Rush	ハイブリッドラッシュ	Hybrid Rush	Corrida híbrido	Rush Hybrid	Rush hybride	Fiebre del híbrido	Гибридный Rush	하이브리드 러쉬	混合拉什
 High Score	HighScore	High Score	高得点	High Score	Pontuação alta	High Score	Score élevé	High Score	Высокая оценка	높은 점수	高分数
 Best Level	BestLevel	Best Level	最高レベル	Beste Niveau	Melhor nível	Miglior livello	Meilleur niveau	Mejor nivel	Лучший уровень	최고 수준	最好的水平
-Leaderboard	Leaderboard	Leaderboard	リーダーボード	Rangliste	Leaderboard	Leaderboard	Leaderboard	Tabla de Posiciones	Leaderboard	리더	排行榜
+Leaderboard	Leaderboard	Leaderboards	リーダーボード	Rangliste	Leaderboard	Leaderboard	Leaderboard	Tabla de Posiciones	Leaderboard	리더	排行榜
 Score	Score	Score	スコア	Partitur	Contagem	Punteggio	Score	Puntuación	Счет	점수	得分
 Level	Level	Level	レベル	Ebene	Nível	Livello	Niveau	Nivel	Уровень	레벨	水平
 Ready?	Ready	Ready?	準備はできましたか？	Ready?	Pronto?	Pronti?	Prêt?	Ready?	Готовы?	준비가 되셨습니까?	准备好了？
@@ -276,7 +276,7 @@ End	End	End	終わり	Ende	Final	Fine	Fin	Final	Конец	끝	结束
 Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy
 Hats for sale!	HatsForSale	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!
 Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank
-Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement
+Achievement	Achievement	Achievements	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement
 Achievement Unlocked	AchievementUnlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked
 Delete ____ seed? (Singular)	DeleteSeeds	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?
 Delete ____ seeds? (Plural)	DeleteSeedsPlural	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?

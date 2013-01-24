@@ -692,8 +692,14 @@ namespace CloudberryKingdom
                         Data.Squeeze = Pad.Triggers.Right;
                         break;
                     }
-                case ControllerButtons.LJ: Data.Dir = Pad.ThumbSticks.Left; break;
-                case ControllerButtons.RJ: Data.Dir = Pad.ThumbSticks.Right; break;
+                case ControllerButtons.LJ:
+                    Data.Dir = Pad.ThumbSticks.Left;
+                    Data.Down = (Pad.Buttons.LeftStick == ButtonState.Pressed);
+                    break;
+                case ControllerButtons.RJ:
+                    Data.Dir = Pad.ThumbSticks.Right;
+                    Data.Down = (Pad.Buttons.RightStick == ButtonState.Pressed);
+                    break;
                 case ControllerButtons.DPad:
                     {
                         Data.Dir = Vector2.Zero;

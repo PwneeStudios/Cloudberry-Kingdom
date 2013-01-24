@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.GamerServices;
+
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Awards;
 
@@ -15,6 +19,8 @@ namespace CloudberryKingdom
         public string TitleType;
         public Hat Unlockable;
         public int Guid;
+
+        public string Key;
 
         /// <summary>
         /// An associated integer, usually representing a number the player must surpass to achieve the awardment.
@@ -33,7 +39,7 @@ namespace CloudberryKingdom
         /// </summary>
         public bool ShowWhenAwarded;
 
-        public Awardment(int Guid, Localization.Words Name, Localization.Words Description)
+        public Awardment(int Guid, string Key, Localization.Words Name, Localization.Words Description)
         {
             Official = true;
 #if XBOX
@@ -42,9 +48,9 @@ namespace CloudberryKingdom
             ShowWhenAwarded = true;
 #endif
 
+            this.Key = Key;
             this.Name = Name;
             this.Description = Description;
-            this.Unlockable = Unlockable;
             this.Guid = Guid;
             this.TitleType = Default;
 
@@ -64,7 +70,11 @@ namespace CloudberryKingdom
             this.Name = Localization.Words.None;
             this.Description = Localization.Words.None;
 
+#if XBOX
+            ShowWhenAwarded = false;
+#else
             this.Unlockable = Unlockable;
+#endif
             this.Guid = Guid;
             this.TitleType = TitleType;
             this.ShowWhenAwarded = ShowWhenAwarded;
@@ -103,6 +113,16 @@ namespace CloudberryKingdom
                 return 0;
         }
 
+#if XBOX
+        static void GiveAchievementCallback(IAsyncResult result)
+        {
+            SignedInGamer gamer = result.AsyncState as SignedInGamer;
+            if (null == gamer) return;
+
+            gamer.EndAwardAchievement(result);
+        }
+#endif
+
         public static float CurShift = 0, Shift = 520;
         public static void GiveAward(Awardment award)
         {
@@ -125,6 +145,17 @@ namespace CloudberryKingdom
                 }
                 else
                     player.Awardments += award.Guid;
+
+#if XBOX
+                if (award.Official)
+                {
+                    foreach (var gamer in Gamer.SignedInGamers)
+                    {
+                        SignedInGamer AwardedGamer = gamer;
+                        gamer.BeginAwardAchievement(award.Key, GiveAchievementCallback, AwardedGamer);
+                    }
+                }
+#endif
 
                 // Show a note saying the reward was given
                 if (award.ShowWhenAwarded)
@@ -265,25 +296,25 @@ namespace CloudberryKingdom
 
         #endregion
 
-        public static Awardment Award_Campaign1 = new Awardment(1, Localization.Words.AwardTitle_Campaign1, Localization.Words.AwardText_Campaign1);
-        public static Awardment Award_ArcadeHighScore = new Awardment(2, Localization.Words.AwardTitle_ArcadeHighScore, Localization.Words.AwardText_ArcadeHighScore);
-        public static Awardment Award_Bungee = new Awardment(3, Localization.Words.AwardTitle_Bungee, Localization.Words.AwardText_Bungee);
-        public static Awardment Award_ArcadeHighScore2 = new Awardment(4, Localization.Words.AwardTitle_ArcadeHighScore2, Localization.Words.AwardText_ArcadeHighScore2);
-        public static Awardment Award_Die = new Awardment(5, Localization.Words.AwardTitle_Die, Localization.Words.AwardText_Die);
-        public static Awardment Award_Campaign3 = new Awardment(6, Localization.Words.AwardTitle_Campaign3, Localization.Words.AwardText_Campaign3);
-        public static Awardment Award_Invisible = new Awardment(7, Localization.Words.AwardTitle_Invisible, Localization.Words.AwardText_Invisible);
-        public static Awardment Award_Hats = new Awardment(8, Localization.Words.AwardTitle_Hats, Localization.Words.AwardText_Hats);
-        public static Awardment Award_Campaign2 = new Awardment(9, Localization.Words.AwardTitle_Campaign2, Localization.Words.AwardText_Campaign2);
-        public static Awardment Award_UnlockAllArcade = new Awardment(10, Localization.Words.AwardTitle_UnlockAllArcade, Localization.Words.AwardText_UnlockAllArcade);
-        public static Awardment Award_NoDeath = new Awardment(11, Localization.Words.AwardTitle_NoDeath, Localization.Words.AwardText_NoDeath);
-        public static Awardment Award_Save = new Awardment(12, Localization.Words.AwardTitle_Save, Localization.Words.AwardText_Save);
-        public static Awardment Award_Obstacles = new Awardment(13, Localization.Words.AwardTitle_Obstacles, Localization.Words.AwardText_Obstacles);
-        public static Awardment Award_Buy = new Awardment(14, Localization.Words.AwardTitle_Buy, Localization.Words.AwardText_Buy);
-        public static Awardment Award_Campaign4 = new Awardment(15, Localization.Words.AwardTitle_Campaign4, Localization.Words.AwardText_Campaign4);
-        public static Awardment Award_BuyHat = new Awardment(16, Localization.Words.AwardTitle_BuyHat, Localization.Words.AwardText_BuyHat);
-        public static Awardment Award_HeroRush2Level = new Awardment(17, Localization.Words.AwardTitle_HeroRush2Level, Localization.Words.AwardText_HeroRush2Level);
-        public static Awardment Award_Replay = new Awardment(18, Localization.Words.AwardTitle_Replay, Localization.Words.AwardText_Replay);
-        public static Awardment Award_Campaign5 = new Awardment(19, Localization.Words.AwardTitle_Campaign5, Localization.Words.AwardText_Campaign5);
+        public static Awardment Award_Campaign1 = new Awardment(1, "Award_Campaign1", Localization.Words.AwardTitle_Campaign1, Localization.Words.AwardText_Campaign1);
+        public static Awardment Award_ArcadeHighScore = new Awardment(2, "Award_ArcadeHighScore", Localization.Words.AwardTitle_ArcadeHighScore, Localization.Words.AwardText_ArcadeHighScore);
+        public static Awardment Award_Bungee = new Awardment(3, "Award_Bungee", Localization.Words.AwardTitle_Bungee, Localization.Words.AwardText_Bungee);
+        public static Awardment Award_ArcadeHighScore2 = new Awardment(4, "Award_ArcadeHighScore2", Localization.Words.AwardTitle_ArcadeHighScore2, Localization.Words.AwardText_ArcadeHighScore2);
+        public static Awardment Award_Die = new Awardment(5, "Award_Die", Localization.Words.AwardTitle_Die, Localization.Words.AwardText_Die);
+        public static Awardment Award_Campaign3 = new Awardment(6, "Award_Campaign3", Localization.Words.AwardTitle_Campaign3, Localization.Words.AwardText_Campaign3);
+        public static Awardment Award_Invisible = new Awardment(7, "Award_Invisible", Localization.Words.AwardTitle_Invisible, Localization.Words.AwardText_Invisible);
+        public static Awardment Award_Hats = new Awardment(8, "Award_Hats", Localization.Words.AwardTitle_Hats, Localization.Words.AwardText_Hats);
+        public static Awardment Award_Campaign2 = new Awardment(9, "Award_Campaign2", Localization.Words.AwardTitle_Campaign2, Localization.Words.AwardText_Campaign2);
+        public static Awardment Award_UnlockAllArcade = new Awardment(10, "Award_UnlockAllArcade", Localization.Words.AwardTitle_UnlockAllArcade, Localization.Words.AwardText_UnlockAllArcade);
+        public static Awardment Award_NoDeath = new Awardment(11, "Award_NoDeath", Localization.Words.AwardTitle_NoDeath, Localization.Words.AwardText_NoDeath);
+        public static Awardment Award_Save = new Awardment(12, "Award_Save", Localization.Words.AwardTitle_Save, Localization.Words.AwardText_Save);
+        public static Awardment Award_Obstacles = new Awardment(13, "Award_Obstacles", Localization.Words.AwardTitle_Obstacles, Localization.Words.AwardText_Obstacles);
+        public static Awardment Award_Buy = new Awardment(14, "Award_Buy", Localization.Words.AwardTitle_Buy, Localization.Words.AwardText_Buy);
+        public static Awardment Award_Campaign4 = new Awardment(15, "Award_Campaign4", Localization.Words.AwardTitle_Campaign4, Localization.Words.AwardText_Campaign4);
+        public static Awardment Award_BuyHat = new Awardment(16, "Award_BuyHat", Localization.Words.AwardTitle_BuyHat, Localization.Words.AwardText_BuyHat);
+        public static Awardment Award_HeroRush2Level = new Awardment(17, "Award_HeroRush2Level", Localization.Words.AwardTitle_HeroRush2Level, Localization.Words.AwardText_HeroRush2Level);
+        public static Awardment Award_Replay = new Awardment(18, "Award_Replay", Localization.Words.AwardTitle_Replay, Localization.Words.AwardText_Replay);
+        public static Awardment Award_Campaign5 = new Awardment(19, "Award_Campaign5", Localization.Words.AwardTitle_Campaign5, Localization.Words.AwardText_Campaign5);
         
         // Arcade Unlocks
         public static Awardment UnlockTimeCrisis = new Awardment(100, "Time Crisis Unlocked!", 

@@ -98,7 +98,15 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
-            Pos += shift;
+            if (!ShiftDown)
+            {
+                Pos += shift;
+            }
+            else
+            {
+                foreach (MenuItem item in Items)
+                    item.ProcessMouseInput(shift, ShiftDown);
+            }
         }
 
         public MenuItem FindItemByName(string name)

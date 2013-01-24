@@ -198,6 +198,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Exit.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Options.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Black.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Pre.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Cinematics.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Campaign.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_PressStart.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
+    <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
     <Compile Include="Game\Tools\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
@@ -594,26 +596,6 @@
     </TitleGameConfig>
   </ItemGroup>
   <ItemGroup>
-    <XdkLiveFile Include="LiveFiles\Achievement01.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement02.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement03.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement04.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement05.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement06.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement07.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement08.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement09.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement10.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement11.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement12.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement13.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement14.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement15.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement16.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement17.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement18.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement19.png" />
-    <XdkLiveFile Include="LiveFiles\Achievement20.png" />
     <XdkLiveFile Include="LiveFiles\DashboardIcon.png" />
     <XdkLiveFile Include="LiveFiles\GameIcon.png" />
     <XdkLiveFile Include="LiveFiles\OfferBanner.png" />
@@ -625,6 +607,36 @@
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LiveFiles\100.png" />
+    <Content Include="LiveFiles\20.png" />
+    <Content Include="LiveFiles\ArcadeInfo.xml" />
+    <Content Include="LiveFiles\cali.png" />
+    <Content Include="LiveFiles\clutch.png" />
+    <Content Include="LiveFiles\cut_the_cord.png" />
+    <Content Include="LiveFiles\double_clutch.png" />
+    <Content Include="LiveFiles\fail.png" />
+    <Content Include="LiveFiles\fashionista.png" />
+    <Content Include="LiveFiles\hard to see man.png" />
+    <Content Include="LiveFiles\hat_em.png" />
+    <Content Include="LiveFiles\highfive.png" />
+    <Content Include="LiveFiles\infinity.png" />
+    <Content Include="LiveFiles\invincible.png" />
+    <Content Include="LiveFiles\journeyman.png" />
+    <Content Include="LiveFiles\leftovers.png" />
+    <Content Include="LiveFiles\robotic.png" />
+    <Content Include="LiveFiles\scrooge.png" />
+    <Content Include="LiveFiles\the edge of infinity.png" />
+    <Content Include="LiveFiles\Title.spa.h" />
+    <Content Include="LiveFiles\tophat.png" />
+    <Content Include="LiveFiles\veteran %282%29.png" />
+    <Content Include="LiveFiles\veteran.png" />
+    <Content Include="LiveFiles\worth-the_effort.png" />
+    <Content Include="LiveFiles\zombie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LiveFiles\Title.spa" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\XDK\Microsoft.Xna.GameStudio.Xdk.targets" />

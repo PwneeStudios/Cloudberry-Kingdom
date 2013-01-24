@@ -36,7 +36,6 @@ namespace CloudberryKingdom
 
         public override void SlideIn(int Frames)
         {
-            //Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
             base.SlideIn(0);
         }
@@ -105,29 +104,55 @@ namespace CloudberryKingdom
             CallDelay = ReturnToCallerDelay = 0;
             MyMenu.OnB = MenuReturnToCaller;
 
-            var Header = new MenuItem(new EzText(Localization.Words.Menu, ItemFont));
-            Header.ScaleText(1.3f);
-            SetItemProperties(Header);
-            Header.Selectable = false;
-            MyMenu.Add(Header, 0);
-            MyMenu.SelectItem(1);
-
             BackBox = new QuadClass("Title_Strip");
             BackBox.Alpha = .9f;
             MyPile.Add(BackBox, "Back");
 
-            MyPile.FadeIn(.33f);
+            //MyPile.FadeIn(.33f);
 
-            //BlackBox();
             SmallBlackBox();
         }
 
-        QuadClass BackBox;
-
-        void BlackBox()
+        protected override void MakeMenu()
         {
+            MenuItem item;
+
+            // Arcade
+            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont));
+            item.Name = "Arcade";
+            item.Go = MenuGo_Arcade;
+            AddItem(item);
+
+            // Campaign
+            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont));
+            item.Name = "Campaign";
+            AddItem(item);
+            item.Go = MenuGo_Campaign;
+
+            // Free Play
+            item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont));
+            item.Name = "Freeplay";
+            item.Go = MenuGo_Freeplay;
+            AddItem(item);
+
+            // Options
+            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
+            item.Name = "Options";
+            item.Go = MenuGo_Options;
+            AddItem(item);
+
+            // Exit
+            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            item.Name = "Exit";
+            item.Go = ItemReturnToCaller; //MenuGo_Exit;
+            AddItem(item);
+
             EnsureFancy();
+
+            this.CallToLeft = true;
         }
+
+        QuadClass BackBox;
 
         void SmallBlackBox()
         {
@@ -136,14 +161,13 @@ namespace CloudberryKingdom
             BackBox.Alpha = .73f;
 
             MenuItem _item;
-            _item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(255.5566f, -8.333374f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Arcade"); if (_item != null) { _item.SetPos = new Vector2(-2232.778f, 337.7501f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Campaign"); if (_item != null) { _item.SetPos = new Vector2(-2233.943f, 149.1946f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Freeplay"); if (_item != null) { _item.SetPos = new Vector2(-2156.22f, -34.80548f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Options"); if (_item != null) { _item.SetPos = new Vector2(-2090.221f, -213.25f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(-1950.778f, -413.5834f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Arcade"); if (_item != null) { _item.SetPos = new Vector2(-2246.667f, 365.5279f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Campaign"); if (_item != null) { _item.SetPos = new Vector2(-2247.832f, 160.3057f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Freeplay"); if (_item != null) { _item.SetPos = new Vector2(-2161.775f, -26.47217f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Options"); if (_item != null) { _item.SetPos = new Vector2(-2115.221f, -216.0278f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(-2014.667f, -419.1389f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(1709.92f, -246.1907f);
+            MyMenu.Pos = new Vector2(1707.142f, -218.4129f);
 
             QuadClass _q;
             _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(524.4158f, 524.4158f); }

@@ -539,25 +539,23 @@ namespace CloudberryKingdom
 
         protected void GodModePhxs()
         {
-#if !DEBUG
-            // Turn on/off immortality.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
-            {
-                foreach (Bob bob in Tools.CurLevel.Bobs)
-                {
-                    bob.Immortal = !bob.Immortal;
-                }
-            }
-#endif
             // Give 100,000 points to each player
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.I))
+#else
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.Y, -2).Down)
+#endif
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)
                     bob.MyStats.Score += 100000;
             }
 
             // Kill everyone but Player One
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.U) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.U))
+#else
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.X, -2).Down)
+#endif
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)
                 {
@@ -575,16 +573,25 @@ namespace CloudberryKingdom
             }
 
             // Turn on/off flying.
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
+#else
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.A, -2).Down)
+#endif
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)
                 {
                     bob.Flying = !bob.Flying;
+                    bob.Immortal = !bob.Immortal;
                 }
             }
 
             // Go to last door
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
+#else
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.B, -2).Down)
+#endif
             {
                 // Find last door
                 if (Tools.CurLevel != null)
@@ -774,6 +781,10 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
+            if (DrawCount == 60)
+                Leaderboard.WriteToLeaderboard(new ScoreEntry());
+
+
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
 #endif

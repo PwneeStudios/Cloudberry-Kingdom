@@ -268,8 +268,8 @@ namespace CloudberryKingdom
             LoadingResources.MyBool = true;
 
             // Localization
-            //Localization.SetLanguage(Localization.Language.English);
-            Localization.SetLanguage(Localization.Language.Japanese);
+            Localization.SetLanguage(Localization.Language.English);
+            //Localization.SetLanguage(Localization.Language.Japanese);
             //Localization.SetLanguage(Localization.Language.Portuguese);
             //Localization.SetLanguage(Localization.Language.Russian);
 

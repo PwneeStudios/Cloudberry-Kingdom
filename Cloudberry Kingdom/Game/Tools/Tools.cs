@@ -493,7 +493,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         new ThreadStart(
             delegate
             {
-#if XBOX
+#if XBOX && !WINDOWS
                 Thread.CurrentThread.SetProcessorAffinity(new[] { affinity });
 #endif
                 var ThisThread = Thread.CurrentThread;

@@ -50,7 +50,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CAFE !PS3 WINDOWS GAME NOT_PC XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;!CAFE !PS3 XBOX WINDOWS GAME NOT_PC XBOX_SIGNIN INCLUDE_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -241,6 +241,7 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Waiting.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Pre.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomHero_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\PhsxSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
+    <Compile Include="Game\Player\LeaderboardView.cs" />
     <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
