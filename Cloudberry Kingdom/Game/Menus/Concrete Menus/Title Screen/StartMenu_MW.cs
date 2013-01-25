@@ -83,7 +83,7 @@ namespace CloudberryKingdom
         {
             if (CallingOptionsMenu)
             {
-                MyMenu.SelectItem(4);
+                MyMenu.SelectItem(3);
                 CallingOptionsMenu = false;
             }
 

@@ -138,7 +138,7 @@ namespace CloudberryKingdom
             //AddItem(item);
 
             // Buy Game
-            item = new MenuItem(new EzText("Unlock Full Game", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont));
             item.Name = "Buy";
             item.Go = MenuGo_BuyGame;
             AddItem(item);

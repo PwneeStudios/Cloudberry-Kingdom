@@ -6,6 +6,46 @@ namespace CloudberryKingdom
 {
     public class CkBaseMenu : GUI_Panel
     {
+        public FancyVector2 zoom;
+        public float MasterAlpha;
+        public bool UseBounce;
+
+        public void EnableBounce()
+        {
+            MasterAlpha = 1;
+
+            zoom = new FancyVector2();
+            UseBounce = true;
+        }
+
+        void BouncDraw()
+        {
+            if (zoom != null)
+            {
+                Vector2 v = zoom.Update();
+                MasterAlpha = v.X * v.X;
+
+                MyGame.Cam.Zoom = .001f * v;
+                MyGame.Cam.SetVertexCamera();
+                EzText.ZoomWithCamera_Override = true;
+            }
+            else
+            {
+                MasterAlpha = 1f;
+            }
+
+            MyPile.Alpha = MasterAlpha;
+        }
+
+        protected override void MyDraw()
+        {
+            if (UseBounce)
+                BouncDraw();
+
+            base.MyDraw();
+        }
+
+
         QuadClass DarkBack;
         protected void MakeDarkBack()
         {
@@ -241,6 +281,17 @@ namespace CloudberryKingdom
             //SlideLength = 38;
 
             Show();
+
+            if (zoom != null)
+            {
+                SlideIn(0);
+                zoom.MultiLerp(5, new Vector2[] { new Vector2(0.98f), new Vector2(1.02f), new Vector2(.99f), new Vector2(1.005f), new Vector2(1f) });
+            }
+        }
+
+        protected void BubbleDown()
+        {
+            zoom.MultiLerp(5, new Vector2[] { new Vector2(1.0f), new Vector2(1.01f), new Vector2(.9f), new Vector2(.4f), new Vector2(0f) });
         }
 
         protected override void ReleaseBody()
@@ -283,7 +334,34 @@ namespace CloudberryKingdom
             RightPanel.SlideIn();
         }
 
-        public override void SlideOut(GUI_Panel.PresetPos Preset, int Frames)
+        public override void SlideOut(PresetPos Preset, int Frames)
+        {
+            if (UseBounce)
+                BounceSlideOut(Preset, Frames);
+            else
+                RegularSlideOut(Preset, Frames);
+        }
+
+        void BounceSlideOut(PresetPos Preset, int Frames)
+        {
+            ReturnToCallerDelay = 15;
+
+            if (Frames == 0)
+            {
+                RegularSlideOut(Preset, Frames);
+                return;
+            }
+
+            BubbleDown();
+            MyGame.WaitThenDo(15, Release);
+
+            Active = true;
+
+            ReleaseWhenDone = false;
+            ReleaseWhenDoneScaling = false;
+        }
+
+        void RegularSlideOut(PresetPos Preset, int Frames)
         {
             base.SlideOut(Preset, Frames);
 

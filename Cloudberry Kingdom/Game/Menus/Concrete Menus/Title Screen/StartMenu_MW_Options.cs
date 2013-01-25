@@ -15,12 +15,18 @@ namespace CloudberryKingdom
 
         public override void SlideIn(int Frames)
         {
-            base.SlideIn(0);
+            if (UseBounce)
+                base.SlideIn(Frames);
+            else
+                base.SlideIn(0);
         }
 
         public override void SlideOut(PresetPos Preset, int Frames)
         {
-            base.SlideOut(Preset, 0);
+            if (UseBounce)
+                base.SlideOut(Preset, Frames);
+            else
+                base.SlideOut(Preset, 0);
         }
     }
 }

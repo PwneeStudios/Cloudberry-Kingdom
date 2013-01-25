@@ -72,6 +72,7 @@ namespace CloudberryKingdom
         public static BobPhsx Ultimate;
 
         public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
+        public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
 
         public static void StaticInit()
         {
@@ -132,6 +133,15 @@ namespace CloudberryKingdom
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) ),
             };
+
+            // Compile a list of all leaderboards
+            LeaderboardList = new List<Tuple<Challenge, BobPhsx>>();
+            foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
+                LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_Escalation.Instance, hero.Item1));
+            foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
+                LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_TimeCrisis.Instance, hero.Item1));
+            LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush.Instance, null));
+            LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush2.Instance, null));
         }
 
         public static void CheckForArcadeUnlocks(ScoreEntry score)

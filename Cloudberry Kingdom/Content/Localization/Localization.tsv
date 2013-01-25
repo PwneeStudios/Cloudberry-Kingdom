@@ -196,7 +196,7 @@ Hero Rush	HeroRush	Hero Rush	ヒーローラッシュ	Held Rush	Corrida herói	E
 Hybrid Rush	HybridRush	Hybrid Rush	ハイブリッドラッシュ	Hybrid Rush	Corrida híbrido	Rush Hybrid	Rush hybride	Fiebre del híbrido	Гибридный Rush	하이브리드 러쉬	混合拉什
 High Score	HighScore	High Score	高得点	High Score	Pontuação alta	High Score	Score élevé	High Score	Высокая оценка	높은 점수	高分数
 Best Level	BestLevel	Best Level	最高レベル	Beste Niveau	Melhor nível	Miglior livello	Meilleur niveau	Mejor nivel	Лучший уровень	최고 수준	最好的水平
-Leaderboard	Leaderboard	Leaderboards	リーダーボード	Rangliste	Leaderboard	Leaderboard	Leaderboard	Tabla de Posiciones	Leaderboard	리더	排行榜
+Leaderboard	Leaderboard	Leaderboard	リーダーボード	Rangliste	Leaderboard	Leaderboard	Leaderboard	Tabla de Posiciones	Leaderboard	리더	排行榜
 Score	Score	Score	スコア	Partitur	Contagem	Punteggio	Score	Puntuación	Счет	점수	得分
 Level	Level	Level	レベル	Ebene	Nível	Livello	Niveau	Nivel	Уровень	레벨	水平
 Ready?	Ready	Ready?	準備はできましたか？	Ready?	Pronto?	Pronti?	Prêt?	Ready?	Готовы?	준비가 되셨습니까?	准备好了？
@@ -276,7 +276,7 @@ End	End	End	終わり	Ende	Final	Fine	Fin	Final	Конец	끝	结束
 Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy	Buy
 Hats for sale!	HatsForSale	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!	Hats for sale!
 Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank	Bank
-Achievement	Achievement	Achievements	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement
+Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement	Achievement
 Achievement Unlocked	AchievementUnlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked	Achievement Unlocked
 Delete ____ seed? (Singular)	DeleteSeeds	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?	Delete {0} seed?
 Delete ____ seeds? (Plural)	DeleteSeedsPlural	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?	Delete {0} seeds?
@@ -286,6 +286,13 @@ Hold (LB) and (RB) to respawn quickly!	RespawnNoteGamepad	Hold {0} and {0} to re
 Press (space) to respawn quickly!	RespawnNoteKeyboard	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!	Press {0} to respawn quickly!
 Press (Y) for powerups!	PowerupNote	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!	Press {0} for powerups!
 Required	Required	Required	Required	Required	Required	Required	Required	Required	Required	Required	Required
+FriendsScores	Friends Scores	Friends Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+TopScores	Top Scores	Top Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+MyScores	My Scores	My Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+SortLevel	Sort by Level	Sort by Level	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+SortScore	Sort by Score	Sort by Score	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+ViewProfile	View Gamer Card	View Gamer Card	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
+UnlockFullGame	Unlock Full Game	Unlock Full Game	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!
 Title	AwardTitle_Campaign1	Hero in the making	意思のヒーロー	Der werdende Held	Heroe en Proceso	Eroe in divenire	Héros dans la fabrication	Héroe en la toma de	Герой почти готов	제작의 영웅	在本作中的英雄
 Task	AwardText_Campaign1	Complete Chapter 1	第1章を完了	Kapitel 1 geschafft	Capitulo 1 Completo	Completa il capitolo 1	Compléter le chapitre 1	Completa el capítulo 1	Глава первая окончена	제 1 장 완료	完成第1章
 Title: Performed well under pressure	AwardTitle_ArcadeHighScore	Clutch	クラッチ	Performer	Clutch	Frizione	Embrayage	Embrague	Классно	클러치	离合器

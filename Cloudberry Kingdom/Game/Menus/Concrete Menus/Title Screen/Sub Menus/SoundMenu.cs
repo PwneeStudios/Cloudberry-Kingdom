@@ -11,6 +11,8 @@ namespace CloudberryKingdom
         public SoundMenu(int Control, bool LanguageOption)
             : base(false)
         {
+            EnableBounce();
+
             this.LanguageOption = LanguageOption;
             this.Control = Control;
             FixedToCamera = true;
@@ -196,19 +198,31 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
-        public override void ReturnToCaller()
+        public override void Release()
         {
             if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
             {
                 Localization.SetLanguage(ChosenLanguage);
                 MyGame.ReInitGameObjects();
-                
+
+                foreach (GameObject obj in MyGame.MyGameObjects)
+                {
+                    GUI_Panel panel = obj as GUI_Panel;
+                    if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart))
+                        panel.SlideOut(PresetPos.Left, 0);
+                }
+
                 MyGame.PhsxStepsToDo += 20;
 
                 ButtonCheck.PreventInput();
                 ButtonCheck.PreventTimeStamp += 20;
             }
 
+            base.Release();
+        }
+
+        public override void ReturnToCaller()
+        {
             base.ReturnToCaller();
         }
 

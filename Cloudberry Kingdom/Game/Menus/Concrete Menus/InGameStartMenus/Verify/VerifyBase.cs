@@ -23,7 +23,9 @@ namespace CloudberryKingdom
             OnSelect = null;
         }
 
-        public VerifyBaseMenu() { }
+        public VerifyBaseMenu()
+        {
+        }
 
         public VerifyBaseMenu(int Control) : base(false)
         {
@@ -44,7 +46,12 @@ namespace CloudberryKingdom
         protected QuadClass Backdrop;
         public virtual void MakeBackdrop()
         {
-            Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            QuadClass Backdrop;
+            if (UseBounce)
+                Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
             Backdrop.Pos =
@@ -59,9 +66,12 @@ namespace CloudberryKingdom
 
             PauseGame = true;
 
-            ReturnToCallerDelay = 10;
-            SlideInLength = 26;
-            SlideOutLength = 26;
+            if (!UseBounce)
+            {
+                ReturnToCallerDelay = 10;
+                SlideInLength = 26;
+                SlideOutLength = 26;
+            }
 
             this.SlideInFrom = PresetPos.Right;
             this.SlideOutTo = PresetPos.Right;

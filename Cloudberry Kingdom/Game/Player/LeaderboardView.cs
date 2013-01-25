@@ -12,19 +12,60 @@ namespace CloudberryKingdom
 {
     public class LeaderboardGUI : CkBaseMenu
     {
-        public static float MasterAlpha;
+        public enum LeaderboardType { FriendsScores, TopScores, MyScores, Length };
+        public enum LeaderboardSortType { Score, Level, Length };
 
-        LeaderboardView TestView;
+        LeaderboardType CurrentType;
+        LeaderboardSortType CurrentSort;
+
+        public static string LeaderboardType_ToString(LeaderboardType type)
+        {
+            switch (type)
+            {
+                case LeaderboardType.FriendsScores: return Localization.WordString(Localization.Words.FriendsScores);
+                case LeaderboardType.MyScores: return Localization.WordString(Localization.Words.MyScores);
+                case LeaderboardType.TopScores: return Localization.WordString(Localization.Words.TopScores);
+                default: return "";
+            }
+        }
+
+        public static string LeaderboardSortType_ToString(LeaderboardSortType type)
+        {
+            switch (type)
+            {
+                case LeaderboardSortType.Level: return Localization.WordString(Localization.Words.SortLevel);
+                case LeaderboardSortType.Score: return Localization.WordString(Localization.Words.SortScore);
+                default: return "";
+            }
+        }
+
+        LeaderboardView CurrentView;
+
+
+
+        int LeaderboardInex;
+        Challenge CurrentChallenge;
+        BobPhsx Hero;
+
+        int DelayCount_LeftRight, MotionCount_LeftRight;
+        const int SelectDelay = 18;
 
         public TitleGameData_MW Title;
         public LeaderboardGUI(TitleGameData_MW Title)
         {
-            MasterAlpha = 1;
+            EnableBounce();
+
+            SetIndex(0);
+
+            CurrentType = LeaderboardType.FriendsScores;
+            CurrentSort = LeaderboardSortType.Level;
+
+            DelayCount_LeftRight = MotionCount_LeftRight = 0;
 
             this.Title = Title;
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
 
-            TestView = new LeaderboardView();
+            UpdateView();
         }
 
         public override void Init()
@@ -32,8 +73,6 @@ namespace CloudberryKingdom
             base.Init();
 
             MyPile = new DrawPile();
-
-
 
             var BackBoxLeft = new QuadClass("Arcade_BoxLeft", 100, true);
             BackBoxLeft.Degrees = 90;
@@ -48,8 +87,14 @@ namespace CloudberryKingdom
             var Header = new EzText("Top Scores", ItemFont);
             MyPile.Add(Header, "Header");
 
+            var GameTitle = new EzText("Escalation, Classic", ItemFont);
+            MyPile.Add(GameTitle, "GameTitle");
+
             Highlight = new HsvQuad();
-            Highlight.TextureName = "WidePlaque"; Highlight.Show = false; MyPile.Add(Highlight, "Highlight");
+            Highlight.TextureName = "WidePlaque";
+            Highlight.TextureName = "Arcade_BoxLeft";
+            Highlight.Show = false;
+            MyPile.Add(Highlight, "Highlight");
             Highlight.Alpha = .3f;
             Highlight.Quad.MyEffect = Tools.HslEffect;
             Highlight.MyMatrix = ColorHelper.HsvTransform(1, 0, 1);
@@ -67,7 +112,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // View Gamer
-            item = new MenuItem(new EzText("View Profile", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.ViewProfile, ItemFont));
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -76,9 +121,10 @@ namespace CloudberryKingdom
             item.Selectable = false;
 #endif
             item.Go = Cast.ToItem(ViewGamer);
+            MyMenu.OnA = Cast.ToMenu(ViewGamer);
 
             // Switch View
-            item = new MenuItem(new EzText("Friends Scores", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.FriendsScores, ItemFont));
             item.Name = "SwitchView";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -87,9 +133,10 @@ namespace CloudberryKingdom
             item.Selectable = false;
 #endif
             item.Go = Cast.ToItem(SwitchView);
+            MyMenu.OnY = SwitchView;
 
             // Switch Sort
-            item = new MenuItem(new EzText("Sort Score", ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.SortScore, ItemFont));
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -98,6 +145,7 @@ namespace CloudberryKingdom
             item.Selectable = false;
 #endif
             item.Go = Cast.ToItem(SwitchSort);
+            MyMenu.OnX = Cast.ToMenu(SwitchSort);
 
             // Back
 #if NOT_PC
@@ -119,10 +167,44 @@ namespace CloudberryKingdom
 
         void SwitchView()
         {
+            CurrentType = (LeaderboardType)((((int)CurrentType + 1) + (int)LeaderboardType.Length) % (int)LeaderboardType.Length);
+            UpdateView();
         }
 
         void SwitchSort()
         {
+            CurrentSort = (LeaderboardSortType)((((int)CurrentSort + 1) + (int)LeaderboardSortType.Length) % (int)LeaderboardSortType.Length);
+            UpdateView();
+        }
+
+        void UpdateView()
+        {
+            MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(CurrentType));
+            MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
+            MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(CurrentSort));
+        }
+
+        public void SetIndex(int index)
+        {
+            LeaderboardInex = index;
+            CurrentChallenge = ArcadeMenu.LeaderboardList[index].Item1;
+            Hero = ArcadeMenu.LeaderboardList[index].Item2;
+
+            CurrentView = new LeaderboardView();
+
+            string Name;
+            if (Hero == null)
+                Name = Localization.WordString(CurrentChallenge.Name);
+            else
+                Name = Localization.WordString(CurrentChallenge.Name) + ", " + Localization.WordString(Hero.Name);
+
+            MyPile.FindEzText("GameTitle").SubstituteText(Name);
+        }
+
+        public void ChangeLeaderboard(int Direction)
+        {
+            int index = (LeaderboardInex + Direction + ArcadeMenu.LeaderboardList.Count) % ArcadeMenu.LeaderboardList.Count;
+            SetIndex(index);
         }
 
         protected override void SetItemProperties(MenuItem item)
@@ -141,47 +223,9 @@ namespace CloudberryKingdom
             base.SetSelectedTextProperties(text);
         }
 
-        FancyVector2 zoom = new FancyVector2();
         public override void OnAdd()
         {
             base.OnAdd();
-
-            SlideIn(0);
-            zoom.MultiLerp(5, new Vector2[] { new Vector2(0.98f), new Vector2(1.02f), new Vector2(.99f), new Vector2(1.005f), new Vector2(1f) } );
-        }
-
-        void BubbleDown()
-        {
-            zoom.MultiLerp(5, new Vector2[] { new Vector2(1.0f), new Vector2(1.01f), new Vector2(.9f), new Vector2(.4f), new Vector2(0f) });
-        }
-
-        public override void SlideOut(PresetPos Preset, int Frames)
-        {
-            ReturnToCallerDelay = 15;
-
-            if (Frames == 0)
-            {
-                base.SlideOut(Preset, Frames);
-                return;
-            }
-
-            BubbleDown();
-            MyGame.WaitThenDo(15, Return);
-
-            Active = true;
-
-            ReleaseWhenDone = false;
-            ReleaseWhenDoneScaling = false;
-        }
-
-        void Return()
-        {
-            Release();
-            //ReleaseWhenDone = false;
-            //ReleaseWhenDoneScaling = false;
-
-            //base.SlideOut(PresetPos.Left, 0);
-            //Active = false;
         }
 
         public override void Release()
@@ -202,32 +246,56 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-            TestView.PhsxStep(Control);
+            // Get direction input
+            Vector2 Dir = Vector2.Zero;
+            if (Control < 0)
+            {
+                Dir = ButtonCheck.GetMaxDir(Control == -1);
+            }
+            else
+                Dir = ButtonCheck.GetDir(Control);
+
+            if (DelayCount_LeftRight > 0)
+                DelayCount_LeftRight--;
+
+            if (Dir.Length() < .2f)
+                DelayCount_LeftRight = 0;
+
+            // Left and right
+            if (ButtonCheck.State(ControllerButtons.LS, Control).Pressed)
+            {
+                ChangeLeaderboard(-1);
+                MotionCount_LeftRight = 0;
+            }
+            else if (ButtonCheck.State(ControllerButtons.RS, Control).Pressed)
+            {
+                ChangeLeaderboard(1);
+                MotionCount_LeftRight = 0;
+            }
+            else if (Math.Abs(Dir.X) > .75f)//ButtonCheck.ThresholdSensitivity)
+            {
+                MotionCount_LeftRight++;
+                if (DelayCount_LeftRight <= 0)
+                {
+                    DelayCount_LeftRight = SelectDelay - 5;
+                    if (MotionCount_LeftRight > 1 * SelectDelay) DelayCount_LeftRight -= 4;
+                    if (MotionCount_LeftRight > 2 * SelectDelay) DelayCount_LeftRight -= 3;
+
+                    if (Dir.X > 0) ChangeLeaderboard(1);
+                    else ChangeLeaderboard(-1);
+                }
+            }
+            else
+                MotionCount_LeftRight = 0;
+
+            CurrentView.PhsxStep(Control);
         }
 
         protected override void MyDraw()
         {
-            if (zoom != null)
-            {
-                Vector2 v = zoom.Update();
-                MasterAlpha = v.X * v.X;
-                
-                MyGame.Cam.Zoom = .001f * v;
-                MyGame.Cam.SetVertexCamera();
-                EzText.ZoomWithCamera_Override = true;
-
-                Console.WriteLine("Alpha " + v.X.ToString());
-            }
-            else
-            {
-                MasterAlpha = 1f;
-            }
-
-            MyPile.Alpha = MasterAlpha;
-
             base.MyDraw();
 
-            TestView.Draw(TL.Pos + Pos.AbsVal);
+            CurrentView.Draw(TL.Pos + Pos.AbsVal, MasterAlpha);
         }
 
         void SetPos()
@@ -240,16 +308,17 @@ namespace CloudberryKingdom
             MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-999.9999f, 991.6661f); _t.Scale = 0.7420002f; }
+            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+            _t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
             _q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
-            _q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 196.111f); _q.Size = new Vector2(1005.176f, 53.3328f); }
-            _q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 777.778f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
+            _q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
+            _q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
             _q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
             _q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
-            _q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-852.7783f, -380.5554f); _q.Size = new Vector2(10.08327f, 10.08327f); }
+            _q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
             _q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(763.8883f, 705.5554f); _q.Size = new Vector2(90.83309f, 90.83309f); }
             _q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(777.7781f, 513.889f); _q.Size = new Vector2(70.41661f, 70.41661f); }
             _q = MyPile.FindQuad("Button_SwitchSort"); if (_q != null) { _q.Pos = new Vector2(777.7776f, 338.8888f); _q.Size = new Vector2(72.99996f, 72.99996f); }
@@ -276,7 +345,7 @@ namespace CloudberryKingdom
 
             if (Player == null)
             {
-                this.GamerTag = "Loading...";
+                this.GamerTag = Localization.WordString(Localization.Words.Loading) + "...";
                 this.Val = "...";
             }
             else
@@ -286,10 +355,21 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Draw(Vector2 Pos, bool Selected)
+        public void Draw(Vector2 Pos, bool Selected, float alpha)
         {
-            Vector4 color = (Selected ? Color.LimeGreen : ColorHelper.GrayColor(.9f)).ToVector4();
-            color *= LeaderboardGUI.MasterAlpha;
+            Vector4 color = ColorHelper.Gray(.9f);
+            Vector4 ocolor = Color.Black.ToVector4();
+
+            if (Selected)
+            {
+                //ocolor = new Color(191, 191, 191).ToVector4();
+                //color = new Color(175, 8, 64).ToVector4();
+
+                color = Color.LimeGreen.ToVector4();
+                ocolor = new Color(0, 0, 0).ToVector4();
+            }
+            
+            color *= alpha;
 
             Vector2 GamerTag_Offset = .1f * new Vector2(LeaderboardGUI.Offset_GamerTag.Pos.X, 0);
             Vector2 Val_Offset = .1f * new Vector2(LeaderboardGUI.Offset_Val.Pos.X, 0);
@@ -297,7 +377,6 @@ namespace CloudberryKingdom
 
             if (Selected)
             {
-                Vector4 ocolor = Color.Black.ToVector4();
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Rank, Pos, ocolor, Size);
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, Size);
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Val, Pos + Val_Offset, ocolor, Size);
@@ -311,8 +390,8 @@ namespace CloudberryKingdom
 
     public class LeaderboardView
     {
-        public int TotalEntries = 10000;
-        int EntriesPerPage = 20;
+        public int TotalEntries = 1000000;
+        int EntriesPerPage = 19;
 
         int Index = 0;
         int Start = 0;
@@ -342,13 +421,11 @@ namespace CloudberryKingdom
                 Start = Index;
         }
 
-        int DelayCount, MotionCount;
+        int DelayCount_UpDown, MotionCount_UpDown;
         const int SelectDelay = 11;
         public void PhsxStep(int Control)
         {
-            if (DelayCount > 0)
-                DelayCount--;
-
+            // Get direction input
             Vector2 Dir = Vector2.Zero;
             if (Control < 0)
             {
@@ -357,33 +434,57 @@ namespace CloudberryKingdom
             else
                 Dir = ButtonCheck.GetDir(Control);
 
-            if (Dir.Length() < .2f)
-                DelayCount = 0;
+            // Up and down
+            if (DelayCount_UpDown > 0)
+                DelayCount_UpDown--;
 
-            if (Math.Abs(Dir.Y) > ButtonCheck.ThresholdSensitivity)
+            if (Dir.Length() < .2f && !ButtonCheck.State(ControllerButtons.LT, Control).Down && !ButtonCheck.State(ControllerButtons.RT, Control).Down)
+                DelayCount_UpDown = 0;
+
+            int IncrMultiplier = 1;
+            if (MotionCount_UpDown > SelectDelay * 5) IncrMultiplier = 2 + (MotionCount_UpDown - SelectDelay * 5) / SelectDelay;
+
+            if (ButtonCheck.State(ControllerButtons.LT, Control).Down || ButtonCheck.State(ControllerButtons.RT, Control).Down)
             {
-                MotionCount++;
-                if (DelayCount <= 0)
+                int Incr = EntriesPerPage;
+
+                MotionCount_UpDown++;
+                if (DelayCount_UpDown <= 0)
                 {
-                    int Incr = 1;
-                    if (MotionCount > SelectDelay * 5) Incr = 2 + (MotionCount - SelectDelay * 5) / SelectDelay;
+                    if (ButtonCheck.State(ControllerButtons.LT, Control).Down)
+                        IncrIndex(-Incr * IncrMultiplier);
+                    else
+                        IncrIndex(Incr * IncrMultiplier);
+
+                    DelayCount_UpDown = SelectDelay;
+
+                    if (MotionCount_UpDown > SelectDelay * 1) DelayCount_UpDown -= 8;
+                    if (MotionCount_UpDown > SelectDelay * 3) DelayCount_UpDown -= 4;
+                }
+            }
+            else if (Math.Abs(Dir.Y) > ButtonCheck.ThresholdSensitivity)
+            {
+                MotionCount_UpDown++;
+                if (DelayCount_UpDown <= 0)
+                {
+                    int Incr = IncrMultiplier;
 
                     if (Dir.Y > 0) IncrIndex(-Incr);
                     else IncrIndex(Incr);
 
-                    DelayCount = SelectDelay;
-                    if (MotionCount > SelectDelay * 1) DelayCount -= 8;
-                    if (MotionCount > SelectDelay * 3) DelayCount -= 4;
-                    if (MotionCount > SelectDelay * 4) DelayCount -= 4;
-                    if (MotionCount > SelectDelay * 5) DelayCount -= 4;
-                    if (MotionCount > SelectDelay * 6) DelayCount -= 4;
+                    DelayCount_UpDown = SelectDelay;
+                    if (MotionCount_UpDown > SelectDelay * 1) DelayCount_UpDown -= 8;
+                    if (MotionCount_UpDown > SelectDelay * 3) DelayCount_UpDown -= 4;
+                    if (MotionCount_UpDown > SelectDelay * 4) DelayCount_UpDown -= 4;
+                    if (MotionCount_UpDown > SelectDelay * 5) DelayCount_UpDown -= 4;
+                    if (MotionCount_UpDown > SelectDelay * 6) DelayCount_UpDown -= 4;
                 }
             }
             else
-                MotionCount = 0;
+                MotionCount_UpDown = 0;
         }
 
-        public void Draw(Vector2 Pos)
+        public void Draw(Vector2 Pos, float alpha)
         {
             //int Start = Index;
             //int End = Math.Min(TotalEntries - 1, Start + EntriesPerPage);
@@ -405,14 +506,14 @@ namespace CloudberryKingdom
 
                 if (Items.ContainsKey(i))
                 {
-                    Items[i].Draw(CurPos, Selected);
+                    Items[i].Draw(CurPos, Selected, alpha);
                 }
                 else
                 {
                     LeaderboardItem Default = LeaderboardItem.DefaultItem;
                     Default.Rank = i.ToString();
 
-                    Default.Draw(CurPos, Selected);
+                    Default.Draw(CurPos, Selected, alpha);
                 }
 
                 CurPos.Y += Shift;
