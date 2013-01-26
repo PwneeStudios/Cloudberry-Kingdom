@@ -210,8 +210,11 @@ namespace CloudberryKingdom
 
             // Backdrop
             QuadClass backdrop;
+            if (UseBounce)
+                backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                backdrop = new QuadClass("Backplate_1500x900", 1500, true);
 
-            backdrop = new QuadClass("Backplate_1500x900", 1500, true);
             backdrop.Name = "Backdrop";
             MyPile.Add(backdrop);
 

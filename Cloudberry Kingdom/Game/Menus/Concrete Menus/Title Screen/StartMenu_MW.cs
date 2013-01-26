@@ -108,9 +108,7 @@ namespace CloudberryKingdom
             BackBox.Alpha = .9f;
             MyPile.Add(BackBox, "Back");
 
-            //MyPile.FadeIn(.33f);
-
-            SmallBlackBox();
+            SetPos();
         }
 
         protected override void MakeMenu()
@@ -118,31 +116,31 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Arcade
-            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont, true));
             item.Name = "Arcade";
             item.Go = MenuGo_Arcade;
             AddItem(item);
 
             // Campaign
-            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont, true));
             item.Name = "Campaign";
             AddItem(item);
             item.Go = MenuGo_Campaign;
 
             // Free Play
-            item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont, true));
             item.Name = "Freeplay";
             item.Go = MenuGo_Freeplay;
             AddItem(item);
 
             // Options
-            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, true));
             item.Name = "Options";
             item.Go = MenuGo_Options;
             AddItem(item);
 
             // Exit
-            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont, true));
             item.Name = "Exit";
             item.Go = ItemReturnToCaller; //MenuGo_Exit;
             AddItem(item);
@@ -154,7 +152,7 @@ namespace CloudberryKingdom
 
         protected QuadClass BackBox;
 
-        void SmallBlackBox()
+        protected virtual void SetPos()
         {
             BackBox.TextureName = "White";
             BackBox.Quad.SetColor(ColorHelper.Gray(.1f));

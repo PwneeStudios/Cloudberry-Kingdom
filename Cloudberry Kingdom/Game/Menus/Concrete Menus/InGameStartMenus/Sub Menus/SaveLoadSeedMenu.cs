@@ -93,7 +93,13 @@ namespace CloudberryKingdom
                 AddItem(item);
             }
 #endif
+
+#if PC_VERSION
             MakeBackButton();
+#else
+            MakeBackButton();
+            //MakeStaticBackButton();
+#endif
 
             MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
 

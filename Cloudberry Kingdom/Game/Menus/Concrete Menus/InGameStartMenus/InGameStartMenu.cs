@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
+
 using CloudberryKingdom.Stats;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
@@ -8,8 +10,11 @@ namespace CloudberryKingdom
     {
         public static bool PreventMenu = false;
 
+        bool CenterItems;
         public InGameStartMenu(int Control) : base(false)
         {
+            CenterItems = false;
+
             EnableBounce();
 
             this.Control = Control;
@@ -121,7 +126,7 @@ namespace CloudberryKingdom
             }
 
             // Resume
-            item = new MenuItem(new EzText(Localization.Words.Resume, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Resume, ItemFont, CenterItems));
             item.Name = "Resume";
             item.Go = Cast.ToItem(ReturnToCaller);
             item.MyText.Scale *= 1.1f;
@@ -130,14 +135,14 @@ namespace CloudberryKingdom
             item.SelectSound = null;
             
             // Statistics
-            item = new MenuItem(new EzText(Localization.Words.Statistics, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Statistics, ItemFont, CenterItems));
             item.Name = "Stats";
             item.Go = Cast.ToItem(GoStats);
             AddItem(item);
 
             // SaveLoadSeed
             Localization.Words word = Tools.CurLevel.CanLoadLevels ? Localization.Words.SaveLoad : Localization.Words.SaveSeed;
-            item = new MenuItem(new EzText(word, ItemFont));
+            item = new MenuItem(new EzText(word, ItemFont, CenterItems));
             item.Name = "SaveLoadSeed";
             item.Go = Cast.ToItem(GoSaveLoad);
             if (!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
@@ -148,13 +153,13 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Options
-            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, CenterItems));
             item.Name = "Options";
             item.Go = Cast.ToItem(GoOptions);
             AddItem(item);
 
             //// Controls
-            //item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
+            //item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont, CenterItems));
             //item.Name = "Controls";
             //item.Go = Cast.ToItem(GoControls);
             //AddItem(item);
@@ -162,7 +167,7 @@ namespace CloudberryKingdom
             // Remove player
             if (RemoveMeOption)
             {
-                item = new MenuItem(new EzText(Localization.Words.RemoveMe, ItemFont));
+                item = new MenuItem(new EzText(Localization.Words.RemoveMe, ItemFont, CenterItems));
                 item.Name = "Remove";
                 item.Go = Cast.ToItem(GoRemove);
                 AddItem(item);
@@ -186,6 +191,23 @@ namespace CloudberryKingdom
 
             MyMenu.SortByHeight();
             MyMenu.SelectItem(0);
+        }
+
+        public override bool MenuReturnToCaller(Menu menu)
+        {
+            MyLevel.ReplayPaused = true;
+
+            HoldLevel = MyLevel;
+            MyGame.WaitThenDo(7, Unpause);
+
+            return base.MenuReturnToCaller(menu);
+        }
+
+        Level HoldLevel;
+        void Unpause()
+        {
+            HoldLevel.ReplayPaused = false;
+            HoldLevel = null;
         }
 
         private void GoRemove()
@@ -333,7 +355,7 @@ namespace CloudberryKingdom
 
         protected virtual void MakeExitItem()
         {
-            MenuItem item = new MenuItem(new EzText(Localization.Words.ExitLevel, ItemFont));
+            MenuItem item = new MenuItem(new EzText(Localization.Words.ExitLevel, ItemFont, CenterItems));
             item.Go = Cast.ToItem(VerifyExit);
             item.Name = "Exit";
             AddItem(item);

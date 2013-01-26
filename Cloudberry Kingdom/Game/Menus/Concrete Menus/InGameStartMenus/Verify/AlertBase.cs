@@ -51,7 +51,11 @@ namespace CloudberryKingdom
         protected QuadClass Backdrop;
         public virtual void MakeBackdrop()
         {
-            Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            if (UseBounce)
+                Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
         }
@@ -76,7 +80,7 @@ namespace CloudberryKingdom
             // Make the backdrop
             MakeBackdrop();
 
-            var message = new EzText(Message, ItemFont, 700, true, true);
+            var message = new EzText(Message, ItemFont, 700, true, true, .75f);
             message.Name = "Message";
             MyPile.Add(message);
 
@@ -96,12 +100,12 @@ namespace CloudberryKingdom
 
 
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Message"); if (_item != null) { _item.SetPos = new Vector2(22.55518f, -626.111f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Message"); if (_item != null) { _item.SetPos = new Vector2(-2.44482f, -334.4445f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(0f, 0f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Message"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 1f; }
+            _t = MyPile.FindEzText("Message"); if (_t != null) { _t.Pos = new Vector2(-13.88892f, 375f); _t.Scale = 1f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.439f); }

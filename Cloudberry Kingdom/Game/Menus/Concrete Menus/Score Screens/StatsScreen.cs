@@ -29,11 +29,11 @@ namespace CloudberryKingdom.Stats
         static Vector2[] x2_name = { new Vector2(1217, -147), new Vector2(2056, -147) };
         static Vector2[] x3_name = { new Vector2(1225f, -295), new Vector2(1624f, -127.3015f), new Vector2(2116f, -295) };
         static Vector2[] x4_name = { new Vector2(1090f, -295), new Vector2(1445f, -127.3015f), new Vector2(1800f, -295), new Vector2(2155f, -127.3015f) };
-        
+
         static float[] x1 = { 1920 };
-        static float[] x2 = { 1722.699f, 2454.445f };
-        static float[] x3 = { 1650f, 2075f, 2505f };
-        static float[] x4 = { 1550f, 1905f, 2260f, 2615f};
+        static float[] x2 = { 1722.699f - 200, 2454.445f - 30 };
+        static float[] x3 = { 1650f - 200, 2075f - 140, 2505f - 80 };
+        static float[] x4 = { 1525f - 200, 1905f - 180, 2260f - 160, 2615f - 140 };
 
         static float[][] x = { null, x1, x2, x3, x4 };
         static Vector2[][] name_pos = { null, x1_name, x2_name, x3_name, x4_name };
@@ -51,6 +51,9 @@ namespace CloudberryKingdom.Stats
         MenuItem AddRow(MenuItem Item, Func<int, string> f)
         {
             AddItem(Item);
+
+            Item.MyText.Scale = .5f;
+            Item.MySelectedText.Scale = .5f;
 
             int index = 0;
             EzText Text;
@@ -74,7 +77,9 @@ namespace CloudberryKingdom.Stats
                         Text.Scale *= .6f;
                     else
                         Text.Scale *= .5f;
-                    
+
+                    Text.Scale *= .77f;
+
                     Text.RightJustify = true;
 
                     index++;
@@ -95,14 +100,35 @@ namespace CloudberryKingdom.Stats
         ScrollBar bar;
 #endif
 
+        Vector2 HeaderPosAdd;
+
+        void SetParams()
+        {
+        //float[] x1 = { 1920 };
+        //float[] x2 = { 1722.699f - 200, 2454.445f - 30 };
+        //float[] x3 = { 1650f - 200, 2075f - 140, 2505f - 80 };
+        //float[] x4 = { 1525f - 200, 1905f - 180, 2260f - 160, 2615f - 140};
+        //x = new float[][]{ null, x1, x2, x3, x4 };
+
+
+            PlayerManager.Players[1].Exists = true;
+            PlayerManager.Players[2].Exists = true;
+            PlayerManager.Players[3].Exists = false;
+            
+
+            ItemPos = new Vector2(-1225, 950);
+            PosAdd = new Vector2(0, -141) * 1.2f * 1.1f;
+            HeaderPosAdd = PosAdd + new Vector2(0, -120);
+
+            BarPos = new Vector2(340, 125);
+        }
+
         int n;
         float HeaderPos = -1595f;
         PlayerStats[] Stats = new PlayerStats[4];
         public StatsMenu(StatGroup group)
         {
             EnableBounce();
-
-            n = PlayerManager.GetNumPlayers();
 
             // Grab the stats for each player
             for (int i = 0; i < 4; i++)
@@ -125,17 +151,12 @@ namespace CloudberryKingdom.Stats
 
             MyMenu.OnB = MenuReturnToCaller;
 
-            MakeBack();
+            SetParams();
+            n = PlayerManager.GetNumPlayers();
 
-            ItemPos = new Vector2(-1305, 950);
-            PosAdd = new Vector2(0, -151) * 1.2f * 1.1f;
-            Vector2 HeaderPosAdd = PosAdd + new Vector2(0, -120);
-
-            BarPos = 
-                new Vector2(340, 125);
+            MenuItem Header;
 
             // Header
-            MenuItem Header;
             if (group == StatGroup.Lifetime)
                 Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             else if (group == StatGroup.Campaign)
@@ -146,8 +167,7 @@ namespace CloudberryKingdom.Stats
             else
                 Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
-            Header.Pos =
-                new Vector2(HeaderPos, ItemPos.Y - 40);
+            Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
             SetHeaderProperties(Header.MyText);
             Header.MyText.Scale *= 1.15f;
             Header.Selectable = false;
@@ -157,32 +177,16 @@ namespace CloudberryKingdom.Stats
             EzText Text;
             Header = new MenuItem(new EzText("", ItemFont));
             MyMenu.Add(Header);
-            Header.Pos =
-                new Vector2(-1138.889f, 988.0952f);
+            Header.Pos = new Vector2(-1138.889f, 988.0952f);
             Header.Selectable = false;
             int index = 0;
+            if (PlayerManager.NumPlayers > 1)
             for (int j = 0; j < 4; j++)
             {
                 if (PlayerManager.Get(j).Exists)
                 {
-                    //string val = "Hobabby!";
                     string val = PlayerManager.Get(j).GetName();
-                    Text = new EzText(val, ItemFont, true, true);
-                    Text.Layer = 1;
-                    MyPile.Add(Text);
-                    Text.FancyPos.SetCenter(Header.FancyPos);
-                    GamerTag.ScaleGamerTag(Text);
-
-                    //Text.Pos = new Vector2(1090 + xSpacing * j, -147.1428f);
-                    //if (j % 2 == 0) Text.FancyPos.RelVal.Y -= 150;
-                    //Text.Scale *= .85f;
-
-                    Text.Pos = name_pos[n][index];
-
-                    if (n == 1) Text.Scale *= 1.15f;
-                    else if (n == 2) Text.Scale *= 1.05f;
-                    else if (n == 3) Text.Scale *= .95f;
-                    else Text.Scale *= .85f;
+                    Text = MakeGamerTag(Header, index, val);
 
                     index++;
                 }
@@ -192,29 +196,33 @@ namespace CloudberryKingdom.Stats
             AddRow(new MenuItem(new EzText(Localization.Words.Jumps, ItemFont)), j => Stats[j].Jumps);
             AddRow(new MenuItem(new EzText(Localization.Words.Score, ItemFont)), j => Stats[j].Score);
 
+            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
+            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
+            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
 
             // Coins
-            var coinitem = new MenuItem(new EzText(Localization.Words.Coins, ItemFont));
-            coinitem.Selectable = false;
-            AddItem(coinitem);
+            Header = new MenuItem(new EzText(Localization.Words.Coins, Resources.Font_Grobold42_2));
+            MyMenu.Add(Header);
+            Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
+            SetHeaderProperties(Header.MyText);
+            Header.MyText.Scale *= 1.15f;
+            Header.Selectable = false;
+            ItemPos += HeaderPosAdd;
+
+            //var coinitem = new MenuItem(new EzText(Localization.Words.Coins, ItemFont));
+            //coinitem.Selectable = false;
+            //AddItem(coinitem);
 
             AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), j => Stats[j].Coins);//.Selectable = false;
             AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
             AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
-            //AddRow(new MenuItem(new EzText("Coins (Percent)", ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
-            //AddRow(new MenuItem(new EzText("Coins (Total)", ItemFont)), j => Stats[j].Coins).Selectable = false;
 
-            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
-            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
-            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
-            
-            //AddRow(new MenuItem(new EzText("Berries", ItemFont)), j => Stats[j].Berries);
+
 
             // Deaths
             Header = new MenuItem(new EzText(Localization.Words.Deaths, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
-            Header.Pos =
-                new Vector2(HeaderPos, ItemPos.Y - 40);
+            Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
             SetHeaderProperties(Header.MyText);
             Header.MyText.Scale *= 1.15f;
             Header.Selectable = false;
@@ -247,7 +255,10 @@ namespace CloudberryKingdom.Stats
             // Darker Backdrop
             QuadClass Backdrop;
             if (UseBounce)
+            {
                 Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+                Backdrop.Alpha *= .8f;
+            }
             else
                 Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
 
@@ -258,7 +269,27 @@ namespace CloudberryKingdom.Stats
             MyMenu.Pos = new Vector2(67.45706f, 0f);
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 
+            MakeBack();
+
             SetPos();
+        }
+
+        private EzText MakeGamerTag(MenuItem Header, int index, string val)
+        {
+            EzText Text;
+            Text = new EzText(val, ItemFont, true, true);
+            Text.Layer = 1;
+            MyPile.Add(Text);
+            Text.FancyPos.SetCenter(Header.FancyPos);
+            //GamerTag.ScaleGamerTag(Text);
+
+            Text.Pos = name_pos[n][index];
+
+            if (n == 1) Text.Scale *= .65f;
+            else if (n == 2) Text.Scale *= .5f;
+            else if (n == 3) Text.Scale *= .35f;
+            else Text.Scale *= .25f;
+            return Text;
         }
 
 
@@ -270,6 +301,8 @@ namespace CloudberryKingdom.Stats
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-91.66821f, -103.8888f); _q.Size = new Vector2(1907.893f, 1089.838f); }
+            _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1522.222f, -983.3331f); _q.Size = new Vector2(90f, 90f); }
+            _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1322.222f, -1008.333f); _q.Size = new Vector2(100f, 86f); }
 
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
@@ -293,9 +326,14 @@ namespace CloudberryKingdom.Stats
             MenuItem item;
 
             ItemPos = new Vector2(1230.718f, 975.2383f);
+            
+#if PC_VERSION
             item = MakeBackButton();
             item.UnaffectedByScroll = true;
             item.ScaleText(.5f);
+#else
+            MakeStaticBackButton();
+#endif
         }
 
         protected override void MyPhsxStep()

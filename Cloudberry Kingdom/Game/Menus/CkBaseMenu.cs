@@ -401,6 +401,12 @@ namespace CloudberryKingdom
                 this.SlideOut(pos, frames);
         }
 
+        protected void MakeStaticBackButton()
+        {
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_Back"));
+            MyPile.Add(new QuadClass("BackArrow2", "BackArrow"));
+        }
+
         protected MenuItem MakeBackButton() { return MakeBackButton(Localization.Words.Back); }
         protected MenuItem MakeBackButton(Localization.Words Word)
         {

@@ -88,7 +88,7 @@ namespace CloudberryKingdom
 
             MyPile.FadeIn(.33f);
 
-            SmallBlackBox();
+            SetPos();
         }
 
         void MenuGo_Play(MenuItem item)
@@ -114,37 +114,37 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Play
-            item = new MenuItem(new EzText("Play Game", ItemFont));
+            item = new MenuItem(new EzText("Play Game", ItemFont, true));
             item.Name = "Play";
             item.Go = MenuGo_Play;
             AddItem(item);
 
             // Leaderboard
-            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, true));
             item.Name = "Leaderboard";
             item.Go = MenuGo_Leaderboards;
             AddItem(item);
 
             // Achievements
-            item = new MenuItem(new EzText(Localization.Words.Achievement, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Achievement, ItemFont, true));
             item.Name = "Achievements";
             item.Go = MenuGo_Achievements;
             AddItem(item);
 
             //// Options
-            //item = new MenuItem(new EzText(Localization.Words.Options, ItemFont));
+            //item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, true));
             //item.Name = "Options";
             //item.Go = MenuGo_Options;
             //AddItem(item);
 
             // Buy Game
-            item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont, true));
             item.Name = "Buy";
             item.Go = MenuGo_BuyGame;
             AddItem(item);
 
             // Exit
-            item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont, true));
             item.Name = "Exit";
             item.Go = MenuGo_Exit;
             AddItem(item);
@@ -154,9 +154,9 @@ namespace CloudberryKingdom
             this.CallToLeft = true;
         }
 
-        QuadClass BackBox;
+        protected QuadClass BackBox;
 
-        void SmallBlackBox()
+        void SetPos()
         {
             BackBox.TextureName = "White";
             BackBox.Quad.SetColor(ColorHelper.Gray(.1f));
