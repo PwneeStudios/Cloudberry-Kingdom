@@ -69,10 +69,11 @@ namespace CloudberryKingdom
 
             foreach (SaveLoad ThingToSave in ThingsToSave)
             {
-                //if (!(ThingToSave is ScoreList)) Tools.Write("!");
-
                 Incr();
                 ThingToSave.Save();
+#if XDK
+                return; Tools.Warning();
+#endif
                 Wait();
             }
 
@@ -103,14 +104,6 @@ namespace CloudberryKingdom
         }
 #endif
 
-        //public static void LoadRes()
-        //{
-        //    Incr();
-        //    PlayerManager.SavePlayerData = new _SavePlayerData();
-        //    PlayerManager.SavePlayerData.Load();
-        //    Wait();
-        //}
-
         /// <summary>
         /// Load every item.
         /// </summary>
@@ -120,7 +113,9 @@ namespace CloudberryKingdom
             {
                 Incr();
                 ThingToLoad.Load();
+#if XDK
                 return; Tools.Warning();
+#endif
                 Wait();
             }
         }
@@ -205,6 +200,7 @@ namespace CloudberryKingdom
             return Device != null && Device.IsConnected;
         }
 
+#if XDK
         static void GetDeviceCallback(IAsyncResult result)
         {
             Tools.Write("!");
@@ -219,12 +215,25 @@ namespace CloudberryKingdom
 
             //result.AsyncWaitHandle.Close();
         }
+#endif
+
+        public static void GetDevice()
+        {
+            IAsyncResult result = StorageDevice.BeginShowSelector(null, null);
+            result.AsyncWaitHandle.WaitOne();
+
+            Device = StorageDevice.EndShowSelector(result);
+
+            result.AsyncWaitHandle.Close();
+        }
 
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
             // FIXME WARNING DOES NOT WORK ON XBOX
+#if XDK
             Tools.Warning();
-            //if (Fail != null) Fail(); return;
+            if (Fail != null) Fail(); return;
+#endif
 
             if (!DeviceOK())
                 GetDevice();
@@ -298,12 +307,13 @@ namespace CloudberryKingdom
         {
             // FIXME WARNING DOES NOT WORK ON XBOX
             Tools.Warning();
-            //if (Fail != null) Fail(); return;
 
             if (!DeviceOK())
                 GetDevice();
 
-            return;
+#if XDK
+            if (Fail != null) Fail(); return;
+#endif
 
             if (!DeviceOK())
             {

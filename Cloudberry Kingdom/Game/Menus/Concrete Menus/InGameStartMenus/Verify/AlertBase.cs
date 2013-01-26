@@ -30,6 +30,8 @@ namespace CloudberryKingdom
         public AlertBaseMenu(int Control, Localization.Words Message, Localization.Words OkText)
             : base(false)
         {
+            EnableBounce();
+
             this.Control = Control;
             this.Message = Message;
             this.OkText = OkText;

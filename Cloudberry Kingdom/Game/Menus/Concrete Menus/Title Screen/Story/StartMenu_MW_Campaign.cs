@@ -232,6 +232,8 @@ namespace CloudberryKingdom
 
         void Go(MenuItem item)
         {
+            if (CloudberryKingdomGame.LockCampaign) return;
+
             CampaignChapterItem c_item = item as CampaignChapterItem;
             if (null == c_item) return;
 

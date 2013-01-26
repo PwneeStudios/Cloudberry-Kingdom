@@ -14,9 +14,11 @@ namespace CloudberryKingdom
     {
         public enum LeaderboardType { FriendsScores, TopScores, MyScores, Length };
         public enum LeaderboardSortType { Score, Level, Length };
+        public enum Message { None, Loading, NotRanked, NotRankedFriends, Length };
 
         LeaderboardType CurrentType;
         LeaderboardSortType CurrentSort;
+        Message CurrentMessage;
 
         public static string LeaderboardType_ToString(LeaderboardType type)
         {
@@ -33,8 +35,8 @@ namespace CloudberryKingdom
         {
             switch (type)
             {
-                case LeaderboardSortType.Level: return Localization.WordString(Localization.Words.SortLevel);
-                case LeaderboardSortType.Score: return Localization.WordString(Localization.Words.SortScore);
+                case LeaderboardSortType.Level: return Localization.WordString(Localization.Words.SortByLevel);
+                case LeaderboardSortType.Score: return Localization.WordString(Localization.Words.SortByScore);
                 default: return "";
             }
         }
@@ -51,7 +53,7 @@ namespace CloudberryKingdom
         const int SelectDelay = 18;
 
         public TitleGameData_MW Title;
-        public LeaderboardGUI(TitleGameData_MW Title)
+        public LeaderboardGUI(TitleGameData_MW Title, int StartIndex)
         {
             EnableBounce();
 
@@ -59,11 +61,13 @@ namespace CloudberryKingdom
 
             CurrentType = LeaderboardType.FriendsScores;
             CurrentSort = LeaderboardSortType.Level;
+            CurrentMessage = Message.None;
 
             DelayCount_LeftRight = MotionCount_LeftRight = 0;
 
             this.Title = Title;
-            Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
+            if (Title != null)
+                Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
 
             UpdateView();
         }
@@ -105,6 +109,24 @@ namespace CloudberryKingdom
             Offset_Val = new QuadClass(); Offset_Val.Show = false; MyPile.Add(Offset_Val, "Offset_Val");
             ItemShift = new QuadClass(); ItemShift.Show = false; MyPile.Add(ItemShift, "Offset");
 
+            // Messages
+            CurrentMessage = Message.None;
+            NotRankedFriends = new EzText(Localization.Words.NotRankedFriends, ItemFont, 2000, true, true);
+            MyPile.Add(NotRankedFriends, "NotRankedFriends");
+
+            NotRanked = new EzText(Localization.Words.NotRanked, ItemFont, 2000, true, true);
+            MyPile.Add(NotRanked, "NotRanked");
+
+            LoadingStr0 = Localization.WordString(Localization.Words.Loading);
+            LoadingStr1 = Localization.WordString(Localization.Words.Loading) + ".";
+            LoadingStr2 = Localization.WordString(Localization.Words.Loading) + "..";
+            LoadingStr3 = Localization.WordString(Localization.Words.Loading) + "...";
+            LoadingCount = 0;
+
+            LoadingText = new EzText(LoadingStr1, ItemFont, 1000, true, true);
+            MyPile.Add(LoadingText, "Loading");
+
+
             MyMenu = new Menu();
             MyMenu.OnB = MenuReturnToCaller;
 
@@ -112,7 +134,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // View Gamer
-            item = new MenuItem(new EzText(Localization.Words.ViewProfile, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.ViewGamerCard, ItemFont));
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -136,7 +158,7 @@ namespace CloudberryKingdom
             MyMenu.OnY = SwitchView;
 
             // Switch Sort
-            item = new MenuItem(new EzText(Localization.Words.SortScore, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.SortByScore, ItemFont));
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -159,29 +181,95 @@ namespace CloudberryKingdom
 
             EnsureFancy();
             SetPos();
+
+            UpdateMessages();
+        }
+
+        EzText LoadingText, NotRanked, NotRankedFriends;
+        int LoadingCount;
+        string LoadingStr0, LoadingStr1, LoadingStr2, LoadingStr3;
+        void UpdateLoadingText()
+        {
+            if (CurrentMessage == Message.Loading)
+            {
+
+                LoadingText.Show = true;
+
+                LoadingCount++;
+
+                int Delay = 12;
+                int Total = 70;
+                if      (LoadingCount % Total == 0)         LoadingText.SubstituteText(LoadingStr0);
+                else if (LoadingCount % Total == 1 * Delay + 4) LoadingText.SubstituteText(LoadingStr1);
+                else if (LoadingCount % Total == 2 * Delay + 4) LoadingText.SubstituteText(LoadingStr2);
+                else if (LoadingCount % Total == 3 * Delay + 4) LoadingText.SubstituteText(LoadingStr3);
+
+                LoadingText.Scale = 0.351667f * CoreMath.Periodic(1f, 1.1f, 2*Total, LoadingCount + 2);
+            }
+            else
+            {
+                LoadingText.Show = false;
+
+                LoadingCount = 0;
+            }
+        }
+
+        void UpdateMessages()
+        {
+            if (CurrentView == null)
+            {
+                CurrentMessage = Message.Loading;
+            }
+            else
+            {
+                if (CurrentView.Loading)
+                    CurrentMessage = Message.Loading;
+                else if (CurrentView.TotalEntries == 0)
+                {
+                    if (CurrentType == LeaderboardType.FriendsScores)
+                        CurrentMessage = Message.NotRankedFriends;
+                    else
+                        CurrentMessage = Message.NotRanked;
+                }
+            }
+
+            UpdateLoadingText();
+
+            NotRanked.Show        = CurrentMessage == Message.NotRanked;
+            NotRankedFriends.Show = CurrentMessage == Message.NotRankedFriends;
         }
 
         void ViewGamer()
         {
         }
 
+        LeaderboardType Incr(LeaderboardType type)
+        {
+            return (LeaderboardType)((((int)type + 1) + (int)LeaderboardType.Length) % (int)LeaderboardType.Length);
+        }
+
+        LeaderboardSortType Incr(LeaderboardSortType type)
+        {
+            return (LeaderboardSortType)((((int)type + 1) + (int)LeaderboardSortType.Length) % (int)LeaderboardSortType.Length);
+        }
+
         void SwitchView()
         {
-            CurrentType = (LeaderboardType)((((int)CurrentType + 1) + (int)LeaderboardType.Length) % (int)LeaderboardType.Length);
+            CurrentType = Incr(CurrentType);
             UpdateView();
         }
 
         void SwitchSort()
         {
-            CurrentSort = (LeaderboardSortType)((((int)CurrentSort + 1) + (int)LeaderboardSortType.Length) % (int)LeaderboardSortType.Length);
+            CurrentSort = Incr(CurrentSort);
             UpdateView();
         }
 
         void UpdateView()
         {
-            MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(CurrentType));
+            MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
             MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
-            MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(CurrentSort));
+            MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
         public void SetIndex(int index)
@@ -193,10 +281,17 @@ namespace CloudberryKingdom
             CurrentView = new LeaderboardView();
 
             string Name;
-            if (Hero == null)
-                Name = Localization.WordString(CurrentChallenge.Name);
+            if (CurrentChallenge == null)
+            {
+                Name = Localization.WordString(Localization.Words.TotalArcade);
+            }
             else
-                Name = Localization.WordString(CurrentChallenge.Name) + ", " + Localization.WordString(Hero.Name);
+            {
+                if (Hero == null)
+                    Name = Localization.WordString(CurrentChallenge.Name);
+                else
+                    Name = Localization.WordString(CurrentChallenge.Name) + ", " + Localization.WordString(Hero.Name);
+            }
 
             MyPile.FindEzText("GameTitle").SubstituteText(Name);
         }
@@ -230,6 +325,10 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
+            LoadingText.Release();
+            NotRanked.Release();
+            NotRankedFriends.Release();
+
             TL.Release();
             Offset_GamerTag.Release();
             Offset_Val.Release();
@@ -295,7 +394,10 @@ namespace CloudberryKingdom
         {
             base.MyDraw();
 
-            CurrentView.Draw(TL.Pos + Pos.AbsVal, MasterAlpha);
+            UpdateMessages();
+            
+            if (CurrentMessage == Message.None)
+                CurrentView.Draw(TL.Pos + Pos.AbsVal, MasterAlpha);
         }
 
         void SetPos()
@@ -310,6 +412,9 @@ namespace CloudberryKingdom
             EzText _t;
             _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
             _t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+            _t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+            _t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+            _t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.351667f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -390,17 +495,25 @@ namespace CloudberryKingdom
 
     public class LeaderboardView
     {
-        public int TotalEntries = 1000000;
-        int EntriesPerPage = 19;
+        const int EntriesPerPage = 19;
+        public int TotalEntries;
 
-        int Index = 0;
-        int Start = 0;
+        public bool Loading;
+
+        int Index;
+        int Start;
         int End() { return CoreMath.Restrict(0, TotalEntries, Start + EntriesPerPage); }
 
         Dictionary<int, LeaderboardItem> Items;
 
         public LeaderboardView()
         {
+            TotalEntries = 0;// 1000000;
+            Index = 0;
+            Start = 0;
+
+            Loading = true;
+
             LeaderboardItem.DefaultItem = new LeaderboardItem(null, 0, 0);
 
             Items = new Dictionary<int, LeaderboardItem>();

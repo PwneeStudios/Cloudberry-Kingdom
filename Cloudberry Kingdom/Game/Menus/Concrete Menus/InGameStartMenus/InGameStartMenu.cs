@@ -10,6 +10,8 @@ namespace CloudberryKingdom
 
         public InGameStartMenu(int Control) : base(false)
         {
+            EnableBounce();
+
             this.Control = Control;
 
             Constructor();
@@ -90,7 +92,12 @@ namespace CloudberryKingdom
             MakeDarkBack();
 
             // Make the backdrop
-            QuadClass backdrop = new QuadClass("Backplate_1080x840", 1500, true);
+            QuadClass backdrop; 
+            if (UseBounce)
+                backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                backdrop = new QuadClass("Backplate_1080x840", 1500, true);
+
             backdrop.Name = "Backdrop";
 
             MyPile.Add(backdrop);
@@ -102,13 +109,6 @@ namespace CloudberryKingdom
             MyMenu.OnB = null;
 
             MenuItem item;
-
-            // Header
-            EzText HeaderText = new EzText(Localization.Words.Menu, ItemFont);
-            HeaderText.Name = "Header";
-            SetHeaderProperties(HeaderText);
-            MyPile.Add(HeaderText);
-            HeaderText.Pos = new Vector2(-1663.889f, 971.8889f);
 
             ItemPos = new Vector2(-1560.333f, 600f);
             PosAdd = new Vector2(0, -270);
@@ -192,17 +192,36 @@ namespace CloudberryKingdom
         {
             VerifyRemoveMenu verify = new VerifyRemoveMenu(Control);
             Call(verify);
-            Hide(PresetPos.Left);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+            }
+
             PauseGame = true;
         }
 
         private void GoControls()
         {
-            MyGame.WaitThenDo(4, () =>
+            if (UseBounce)
             {
-                Hide(PresetPos.Left, 40);
-                PauseGame = true;
-            });
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                MyGame.WaitThenDo(4, () =>
+                {
+                    Hide(PresetPos.Left, 40);
+                    PauseGame = true;
+                });
+            }
+
             ControlScreen screen = new ControlScreen(Control);
             Call(screen, 22);
         }
@@ -211,7 +230,16 @@ namespace CloudberryKingdom
         {
             Call(new SoundMenu(Control, false), 0);
 
-            Hide(PresetPos.Left);
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+            }
+
             PauseGame = true;
         }
 
@@ -232,15 +260,35 @@ namespace CloudberryKingdom
                 Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #endif
             }
-            Hide(PresetPos.Left);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+            }
+
             PauseGame = true;
 
         }
 
         private void GoStats()
         {
-            Call(new StatsMenu(StatGroup.Lifetime), 19);
-            Hide(PresetPos.Left);
+            Call(new StatsMenu(StatGroup.Lifetime), 0);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+            }
+
             PauseGame = true;
         }
 
@@ -254,9 +302,6 @@ namespace CloudberryKingdom
             _item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(-1496.444f, -252.7777f); _item.MyText.Scale = 0.775f; _item.MySelectedText.Scale = 0.775f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(1109.028f, -40.97224f);
-
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1463.89f, 1474.667f); _t.Scale = 1.12375f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-972.9169f, 29.86109f); _q.Size = new Vector2(1132.148f, 880.288f); }
@@ -297,7 +342,17 @@ namespace CloudberryKingdom
         private void VerifyExit()
         {
             Call(new VerifyQuitLevelMenu(Control), 0);
-            Hide(PresetPos.Left);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+            }
+
             PauseGame = true;
         }
 

@@ -98,7 +98,7 @@ namespace CloudberryKingdom
 
         void MenuGo_Leaderboards(MenuItem item)
         {
-            Call(new LeaderboardGUI(Title), 0);
+            Call(new LeaderboardGUI(Title, 0), 0);
         }
 
         void MenuGo_Achievements(MenuItem item)

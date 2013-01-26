@@ -171,7 +171,8 @@ namespace CloudberryKingdom
 
             BlackQuad.Alpha = 1;
 
-            MyPile.Add(Legal);
+            if (!CloudberryKingdomGame.HideLogos)
+                MyPile.Add(Legal);
         }
         EzText Legal;
 

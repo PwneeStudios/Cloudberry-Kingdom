@@ -276,7 +276,7 @@ namespace CloudberryKingdom
             float Shift = 25;
 
             // Press A to continue
-            EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + Space + "{c188,255,176,255} Select", ItemFont, true, true);
+            EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + Space + Localization.WordString(Localization.Words.Continue), ItemFont, true, true);
             ContinueText.Scale = this.FontScale;
             ContinueText.ShadowOffset = new Vector2(7.5f, 7.5f);
             ContinueText.ShadowColor = new Color(30, 30, 30);
@@ -286,7 +286,7 @@ namespace CloudberryKingdom
             MyPile.Add(ContinueText, "A");
 
             // Press Y to customize
-            EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + Space + "{c255,255,155,255} Custom", ItemFont, true, true);
+            EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + Space + Localization.WordString(Localization.Words.Custom), ItemFont, true, true);
             CustomizeText.Scale = this.FontScale;
             CustomizeText.ShadowOffset = new Vector2(7.5f, 7.5f);
             CustomizeText.ShadowColor = new Color(30, 30, 30);
@@ -296,7 +296,7 @@ namespace CloudberryKingdom
             MyPile.Add(CustomizeText, "Y");
 
             // Press X to randomize
-            EzText RandomText = new EzText(ButtonString.X(ButtonSize) + Space + "{c194,210,255,255} Random", ItemFont, true, true);
+            EzText RandomText = new EzText(ButtonString.X(ButtonSize) + Space + Localization.WordString(Localization.Words.Random), ItemFont, true, true);
             RandomText.Scale = this.FontScale;
             RandomText.ShadowOffset = new Vector2(7.5f, 7.5f);
             RandomText.ShadowColor = new Color(30, 30, 30);

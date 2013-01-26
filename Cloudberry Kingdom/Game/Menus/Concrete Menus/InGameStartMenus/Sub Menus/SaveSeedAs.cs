@@ -10,6 +10,8 @@ namespace CloudberryKingdom
         public SaveSeedAs(int Control, PlayerData Player)
             : base(false)
         {
+            EnableBounce();
+
             this.Control = Control;
             this.Player = Player;
             FixedToCamera = true;
@@ -72,8 +74,16 @@ namespace CloudberryKingdom
                 Call(ok);
             }
 
-            Hide(PresetPos.Left);
-            Active = false;
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+                Active = false;
+            }
         }
 
         public override void OnReturnTo()

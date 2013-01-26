@@ -3,114 +3,11 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class StartMenu_MW : StartMenu
+    public class StartMenu_MW_Simple : StartMenu_MW
     {
-        bool CallingOptionsMenu;
-        protected override void MenuGo_Options(MenuItem item)
+        public StartMenu_MW_Simple(TitleGameData_MW Title)
+            : base(Title)
         {
-            Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
-            Call(new StartMenu_MW_Options(Control, true), 0);
-            CallingOptionsMenu = true;
-        }
-
-        protected override void Exit()
-        {
-            SelectSound = null;
-            Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
-            Call(new StartMenu_MW_Exit(Control), 0);
-        }
-
-        protected override void BringNextMenu()
-        {
-            base.BringNextMenu();
-
-            Hide();
-        }
-
-        public TitleGameData_MW Title;
-        public StartMenu_MW(TitleGameData_MW Title) : base()
-        {
-            this.Title = Title;
-            CallingOptionsMenu = false;
-        }
-
-        public override void SlideIn(int Frames)
-        {
-            Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
-            base.SlideIn(0);
-        }
-
-        public override void SlideOut(PresetPos Preset, int Frames)
-        {
-            base.SlideOut(Preset, 0);
-        }
-
-        protected override void BringCampaign()
-        {
-            base.BringCampaign();
-
-            Call(new StartMenu_MW_Campaign(Title));
-        }
-
-        protected override void BringArcade()
-        {
-            base.BringArcade();
-
-            Call(new StartMenu_MW_Arcade(Title));
-        }
-
-        protected override void BringFreeplay()
-        {
-            base.BringFreeplay();
-
-            SkipCallSound = true;
-            Call(new StartMenu_MW_CustomLevel(Title));
-        }
-
-        protected override void SetItemProperties(MenuItem item)
-        {
-            base.SetItemProperties(item);
-
-            item.MySelectedText.Shadow = item.MyText.Shadow = false;
-        }
-
-        public override void OnAdd()
-        {
-            base.OnAdd();
-        }
-
-        public override void OnReturnTo()
-        {
-            if (CallingOptionsMenu)
-            {
-                MyMenu.SelectItem(3);
-                CallingOptionsMenu = false;
-            }
-
-            base.OnReturnTo();
-        }
-
-        public override bool MenuReturnToCaller(Menu menu)
-        {
-            if (NoBack) return false;
-
-            return base.MenuReturnToCaller(menu);
-        }
-
-        public override void Init()
-        {
- 	        base.Init();
-
-            CallDelay = ReturnToCallerDelay = 0;
-            MyMenu.OnB = MenuReturnToCaller;
-
-            BackBox = new QuadClass("Title_Strip");
-            BackBox.Alpha = .9f;
-            MyPile.Add(BackBox, "Back");
-
-            //MyPile.FadeIn(.33f);
-
-            SmallBlackBox();
         }
 
         protected override void MakeMenu()
@@ -142,17 +39,15 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Exit
-            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont));
             item.Name = "Exit";
-            item.Go = ItemReturnToCaller; //MenuGo_Exit;
+            item.Go = MenuGo_Exit;
             AddItem(item);
 
             EnsureFancy();
 
             this.CallToLeft = true;
         }
-
-        protected QuadClass BackBox;
 
         void SmallBlackBox()
         {

@@ -100,6 +100,8 @@ namespace CloudberryKingdom.Stats
         PlayerStats[] Stats = new PlayerStats[4];
         public StatsMenu(StatGroup group)
         {
+            EnableBounce();
+
             n = PlayerManager.GetNumPlayers();
 
             // Grab the stats for each player
@@ -243,7 +245,12 @@ namespace CloudberryKingdom.Stats
 
 
             // Darker Backdrop
-            QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
+            QuadClass Backdrop;
+            if (UseBounce)
+                Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
+
             MyPile.Add(Backdrop);
             MyPile.Add(Backdrop);
 

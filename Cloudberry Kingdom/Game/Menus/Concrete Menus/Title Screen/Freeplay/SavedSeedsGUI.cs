@@ -8,6 +8,7 @@ namespace CloudberryKingdom
     {
         public SavedSeedsGUI()
         {
+            EnableBounce();
         }
 
         protected override void SetHeaderProperties(EzText text)

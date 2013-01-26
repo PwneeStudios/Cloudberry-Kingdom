@@ -4,7 +4,7 @@ namespace CloudberryKingdom
 {
     public class VerifyRemoveMenu : VerifyBaseMenu
     {
-        public VerifyRemoveMenu(int Control) : base(Control) { }
+        public VerifyRemoveMenu(int Control) : base(Control, true) { }
 
         public override void Init()
         {

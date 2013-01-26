@@ -42,8 +42,11 @@ namespace CloudberryKingdom
         public static Version GameVersion = new Version(0, 2, 4);
 
         public static bool GodMode = true;
+        public static bool HideLogos = true;
+        public static bool LockCampaign = true;
+        public static bool SimpleMainMenu = true;
+        public static bool SimpleLeaderboards = true;
 
-        //public static bool ForFrapsRecording = true;
         public static bool ForFrapsRecording = false;
 
 #if DEBUG
@@ -470,7 +473,8 @@ namespace CloudberryKingdom
             Thread.Sleep(2);
 #endif
 
-            MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+            if (!HideLogos)
+                MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
         }
 
         protected void UnloadContent()

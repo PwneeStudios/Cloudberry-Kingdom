@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             EzFont font = Resources.Font_Grobold42;
             float FontScale = .775f;
 
-            item = new MenuItem(new EzText("Sign in?", font));
+            item = new MenuItem(new EzText(Localization.Words.SignIn, font));
             item.Name = "Header";
             item.MyText.Scale = .89f;
 
@@ -76,7 +76,7 @@ namespace CloudberryKingdom
             item.Selectable = false;
             pos.Y -= 1.35f * YSpacing;
 
-            string[] ItemString = { "Yes", "No" };
+            string[] ItemString = { Localization.WordString(Localization.Words.Yes), Localization.WordString(Localization.Words.No) };
             for (int i = 0; i < 2; i++)
             {
                 item = new MenuItem(new EzText(ItemString[i], font));

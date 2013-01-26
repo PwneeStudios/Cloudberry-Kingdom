@@ -9,6 +9,8 @@ namespace CloudberryKingdom
       
         public ControlScreen(int Control) : base(false)
         {
+            EnableBounce();
+
             this.Control = Control;
 
             Constructor();
@@ -32,17 +34,21 @@ namespace CloudberryKingdom
             SlideInFrom = SlideOutTo = PresetPos.Left;
 
             //ReturnToCallerDelay = SlideLength = 0;
-            SlideLength = 29;
+            SlideLength = 23;
             DestinationScale *= 1.02f;
 
             MyPile = new DrawPile();
             EnsureFancy();
 
-            var Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            QuadClass Backdrop;
+            if (UseBounce)
+                Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            else
+                Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
 
-            ReturnToCallerDelay = 10;
+            ReturnToCallerDelay = 7;
 
             EzText text;
 

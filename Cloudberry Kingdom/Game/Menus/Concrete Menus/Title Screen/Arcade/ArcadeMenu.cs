@@ -136,12 +136,29 @@ namespace CloudberryKingdom
 
             // Compile a list of all leaderboards
             LeaderboardList = new List<Tuple<Challenge, BobPhsx>>();
+            LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(null, null));
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
                 LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_Escalation.Instance, hero.Item1));
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
                 LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_TimeCrisis.Instance, hero.Item1));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush.Instance, null));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush2.Instance, null));
+        }
+
+        public static int LeaderboardIndex(Challenge challenge, BobPhsx phsx)
+        {
+            int index = 0;
+            foreach (Tuple<Challenge, BobPhsx> tuple in LeaderboardList)
+            {
+                if (tuple.Item1 == challenge && tuple.Item2 == phsx)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+
+            return 0;
         }
 
         public static void CheckForArcadeUnlocks(ScoreEntry score)

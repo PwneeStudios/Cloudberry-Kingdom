@@ -17,7 +17,13 @@ namespace CloudberryKingdom
         public SaveLoadSeedMenu(int Control, bool CanLoad, bool CanSave)
             : base(false)
         {
-            this.CallToLeft = true;
+            EnableBounce();
+
+            if (UseBounce)
+                CallToLeft = false;
+            else
+                CallToLeft = true;
+
             this.Control = Control;
             FixedToCamera = true;
 
@@ -182,6 +188,13 @@ namespace CloudberryKingdom
         {
             SaveSeedAs SaveAs = new SaveSeedAs(panel.Control, player);
             panel.Call(SaveAs, 0);
+
+            CkBaseMenu ckpanel = panel as CkBaseMenu;
+            if (null != ckpanel && ckpanel.UseBounce)
+            {
+                ckpanel.Hid = true;
+                ckpanel.RegularSlideOut(PresetPos.Right, 0);
+            }
         }
 #else
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
@@ -220,6 +233,12 @@ namespace CloudberryKingdom
         {
             SavedSeedsGUI LoadMenu = new SavedSeedsGUI();
             Call(LoadMenu, 0);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
         }
 
 #if WINDOWS
@@ -234,6 +253,12 @@ namespace CloudberryKingdom
         {
             LoadSeedAs LoadAs = new LoadSeedAs(Control, player);
             Call(LoadAs, 0);
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
         }
 
         public override void OnAdd()

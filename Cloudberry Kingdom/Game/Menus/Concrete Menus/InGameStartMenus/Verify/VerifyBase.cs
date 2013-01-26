@@ -27,8 +27,10 @@ namespace CloudberryKingdom
         {
         }
 
-        public VerifyBaseMenu(int Control) : base(false)
+        public VerifyBaseMenu(int Control, bool DoEnableBounce) : base(false)
         {
+            if (DoEnableBounce) EnableBounce();
+
             this.Control = Control;
 
             Constructor();

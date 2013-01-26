@@ -230,21 +230,30 @@ namespace CloudberryKingdom
 
         public override void OnReturnTo()
         {
-            if (CallToLeft)
+            if (UseBounce)
             {
-                // Reset the menu's selected item's oscillate
-                if (MyMenu != null) MyMenu.CurItem.OnSelect();
-
-                // Activate and show the panel
-                Active = true;
-
-                if (!Hid) return;
-                base.Show();
-                this.SlideOut(PresetPos.Left, 0);
-                this.SlideIn();
+                base.OnReturnTo();
+                RegularSlideOut(PresetPos.Right, 0);
+                BubbleUp();
             }
             else
-                base.OnReturnTo();
+            {
+                if (CallToLeft)
+                {
+                    // Reset the menu's selected item's oscillate
+                    if (MyMenu != null) MyMenu.CurItem.OnSelect();
+
+                    // Activate and show the panel
+                    Active = true;
+
+                    if (!Hid) return;
+                    base.Show();
+                    this.SlideOut(PresetPos.Left, 0);
+                    this.SlideIn();
+                }
+                else
+                    base.OnReturnTo();
+            }
         }
 
         public override void ReturnToCaller() { ReturnToCaller(true); }
@@ -282,6 +291,11 @@ namespace CloudberryKingdom
 
             Show();
 
+            BubbleUp();
+        }
+
+        protected void BubbleUp()
+        {
             if (zoom != null)
             {
                 SlideIn(0);
@@ -361,7 +375,7 @@ namespace CloudberryKingdom
             ReleaseWhenDoneScaling = false;
         }
 
-        void RegularSlideOut(PresetPos Preset, int Frames)
+        public void RegularSlideOut(PresetPos Preset, int Frames)
         {
             base.SlideOut(Preset, Frames);
 

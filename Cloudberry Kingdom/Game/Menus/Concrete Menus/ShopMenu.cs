@@ -275,7 +275,7 @@ namespace CloudberryKingdom.Awards
             MyMenu.OnB = MenuReturnToCaller;
 
             // Header
-            MenuItem Header = new MenuItem(new EzText(Localization.Words.HatsForSale, Resources.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new EzText(Localization.Words.None, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos =
                 new Vector2(-1608.809f, 951.508f);

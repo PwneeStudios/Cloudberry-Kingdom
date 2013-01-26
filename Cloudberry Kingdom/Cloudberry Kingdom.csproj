@@ -241,6 +241,7 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Waiting.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Simple.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Pre.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomHero_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\PhsxSlider.cs" />

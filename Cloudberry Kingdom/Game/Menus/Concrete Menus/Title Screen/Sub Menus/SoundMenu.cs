@@ -34,7 +34,11 @@ namespace CloudberryKingdom
 #endif
 
             base.Init();
-            this.CallToLeft = true;
+            
+            if (UseBounce)
+                CallToLeft = false;
+            else
+                CallToLeft = true;
 
             this.FontScale *= .9f;
 
@@ -55,11 +59,7 @@ namespace CloudberryKingdom
             AddItem(MusicSlider);
 
             MenuItem item = new MenuItem(new EzText(Localization.Words.Controls, ItemFont));
-            item.Go = _item =>
-                {
-                    Hide();
-                    Call(new ControlScreen(Control), 10);
-                };
+            item.Go = Cast.ToItem(Go_Controls);
             item.Name = "Controls";
             AddItem(item);
 
@@ -198,6 +198,22 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
+        void Go_Controls()
+        {
+            if (UseBounce)
+            {
+                PauseGame = false;
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide();
+            }
+
+            Call(new ControlScreen(Control), 0);
+        }
+
         public override void Release()
         {
             if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
@@ -208,7 +224,7 @@ namespace CloudberryKingdom
                 foreach (GameObject obj in MyGame.MyGameObjects)
                 {
                     GUI_Panel panel = obj as GUI_Panel;
-                    if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart))
+                    if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
                         panel.SlideOut(PresetPos.Left, 0);
                 }
 

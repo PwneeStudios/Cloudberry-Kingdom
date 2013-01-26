@@ -4,8 +4,14 @@ namespace CloudberryKingdom
 {
     public class VerifyQuitLevelMenu : VerifyBaseMenu
     {
-        public VerifyQuitLevelMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { }
-        public VerifyQuitLevelMenu(int Control) : base(Control) { }
+        public VerifyQuitLevelMenu(bool CallBaseConstructor) : base(CallBaseConstructor)
+        {
+            EnableBounce();
+        }
+        public VerifyQuitLevelMenu(int Control) : base(Control, true)
+        {
+            //EnableBounce();
+        }
 
         public override void Init()
         {

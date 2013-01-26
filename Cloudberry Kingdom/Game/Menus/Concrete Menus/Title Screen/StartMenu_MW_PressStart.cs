@@ -76,8 +76,10 @@ namespace CloudberryKingdom
             {
                 DelayToAllowInput = 10;
 
-                //Call(new StartMenu_MW(Title));
-                Call(new StartMenu_MW_Pre(Title));
+                if (CloudberryKingdomGame.SimpleMainMenu)
+                    Call(new StartMenu_MW_Simple(Title));
+                else
+                    Call(new StartMenu_MW_Pre(Title));
                 Hide();
             }
         }
