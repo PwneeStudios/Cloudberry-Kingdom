@@ -182,6 +182,22 @@ namespace CloudberryKingdom
                 _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(783.3331f, -913.8888f); _q.Size = new Vector2(76.22305f, 71.64967f); }
 
                 MyPile.Pos = new Vector2(0f, 0f);
+#elif XBOX
+                EzText _t;
+                _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2223f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(264.0002f, -832.2222f); _t.Scale = 0.44f; }
+                _t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(954.3328f, -846.1111f); _t.Scale = 0.3934999f; }
+
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(52.77765f, -2058.333f); _q.Size = new Vector2(1219.997f, 1219.997f); }
+                _q = MyPile.FindQuad("Button_Go"); if (_q != null) { _q.Pos = new Vector2(-930.5562f, -911.1113f); _q.Size = new Vector2(69.64276f, 69.64276f); }
+                _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(-347.2227f, -911.1112f); _q.Size = new Vector2(71.76664f, 71.76664f); }
+                _q = MyPile.FindQuad("Button_LR"); if (_q != null) { _q.Pos = new Vector2(186.1109f, -911.1112f); _q.Size = new Vector2(77.89992f, 77.89992f); }
+                _q = MyPile.FindQuad("Button_LB"); if (_q != null) { _q.Pos = new Vector2(655.555f, -908.3333f); _q.Size = new Vector2(152.0833f, 152.0833f); }
+
+                MyPile.Pos = new Vector2(0f, 0f);
 #else
                 EzText _t;
                 _t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
@@ -357,7 +373,7 @@ namespace CloudberryKingdom
                 }
             }
 
-            float Dir = ButtonCheck.State(ControllerButtons.LJ, -1).Dir.X;
+            float Dir = ButtonCheck.GetDir(-1).X;// ButtonCheck.State(ControllerButtons.LJ, -1).Dir.X;
             if (PrevDir != Math.Sign(Dir)) Delay = 0;
             if (Delay == 0)
             {

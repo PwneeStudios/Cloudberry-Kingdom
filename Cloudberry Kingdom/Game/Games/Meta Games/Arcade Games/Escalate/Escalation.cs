@@ -113,6 +113,7 @@ namespace CloudberryKingdom
                 Awardments.CheckForAward_ArcadeScore(score);
                 Awardments.CheckForAward_ArcadeScore2(score);
                 Awardments.CheckForAward_Invisible(levelindex - StartIndex);
+                ArcadeMenu.CheckForArcadeUnlocks_OnSwapIn(levelindex);
                 
 
                 // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...

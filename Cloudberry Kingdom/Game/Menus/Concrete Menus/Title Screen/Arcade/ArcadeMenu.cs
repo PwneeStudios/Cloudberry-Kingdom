@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using CloudberryKingdom.Awards;
 
 namespace CloudberryKingdom
 {
@@ -73,6 +74,7 @@ namespace CloudberryKingdom
 
         public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
         public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
+        public static Dictionary<int, int> ChallengeGoal;
 
         public static void StaticInit()
         {
@@ -119,8 +121,8 @@ namespace CloudberryKingdom
             HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
             {
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 30) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 30) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 5) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 5) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 40) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 40) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) ),
@@ -143,6 +145,15 @@ namespace CloudberryKingdom
                 LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_TimeCrisis.Instance, hero.Item1));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush.Instance, null));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush2.Instance, null));
+
+            // Goals
+            ChallengeGoal = new Dictionary<int, int>();
+            foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
+            {
+                if (hero.Item2.Item1 == null) continue;
+                ChallengeGoal.Add(Challenge_Escalation.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2);
+                ChallengeGoal.Add(Challenge_TimeCrisis.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2);
+            }
         }
 
         public static int LeaderboardIndex(Challenge challenge, BobPhsx phsx)
@@ -161,17 +172,47 @@ namespace CloudberryKingdom
             return 0;
         }
 
-        public static void CheckForArcadeUnlocks(ScoreEntry score)
+        public static void CheckForArcadeUnlocks_OnSwapIn(int level)
         {
+            // Always add new hero message (for testing)
+            //Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
+
+            bool DoSave = false;
+
+            Tools.Assert(Challenge.CurrentId >= 0);
+
             List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
             foreach (PlayerData player in CopyOfExistingPlayers)
             {
+                // Check for goals
+                if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+                {
+                    int Goal = ChallengeGoal[Challenge.CurrentId];
+                    int CurHighLevel = player.GetHighScore(Challenge.CurrentId);
+                    if (level + 1 >= Goal && CurHighLevel < Goal)
+                    {
+                        DoSave = true;
+                        player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId,                       level + 1,              Challenge.CurrentScore, level + 1, 0, 0, 0));
+                        player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId - Challenge.LevelMask, Challenge.CurrentScore, Challenge.CurrentScore, level + 1, 0, 0, 0));
+                    }
+                }
+
+                // Check for awards
                 int TotalArcadeLevel = player.GetTotalArcadeLevel();
                 Awardments.CheckForAward_TimeCrisisUnlock(TotalArcadeLevel, player);
                 Awardments.CheckForAward_HeroRushUnlock(TotalArcadeLevel, player);
                 Awardments.CheckForAward_HeroRush2Unlock(TotalArcadeLevel, player);
             }
 
+            if (DoSave)
+            {
+                SaveGroup.SaveAll();
+                Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
+            }
+        }
+
+        public static void CheckForArcadeUnlocks(ScoreEntry score)
+        {
             Awardments.CheckForAward_ArcadeScore(score.Value);
             Awardments.CheckForAward_ArcadeScore2(score.Value);
         }

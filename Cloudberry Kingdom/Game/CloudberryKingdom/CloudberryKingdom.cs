@@ -547,7 +547,7 @@ namespace CloudberryKingdom
 #if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.I))
 #else
-            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.Y, -2).Down)
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.RJ, -2).Pressed)
 #endif
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)
@@ -580,7 +580,7 @@ namespace CloudberryKingdom
 #if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.O) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.O))
 #else
-            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.A, -2).Down)
+            if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.A, -2).Pressed)
 #endif
             {
                 foreach (Bob bob in Tools.CurLevel.Bobs)

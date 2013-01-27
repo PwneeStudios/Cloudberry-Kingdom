@@ -1,0 +1,1 @@
+Localization.tsv should be UTF-8 without BOM

@@ -275,8 +275,8 @@ namespace CloudberryKingdom
             var item = MyMenu.CurItem as HeroItem;
             if (null == item) return;
 
-            var TopScore = MyArcadeItem.MyChallenge.TopScore();
-            var TopLevel = MyArcadeItem.MyChallenge.TopLevel();
+            var TopScore = Math.Max(MyArcadeItem.MyChallenge.TopScore(), PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Score(item.Hero)));
+            var TopLevel = Math.Max(MyArcadeItem.MyChallenge.TopLevel(), PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Level(item.Hero)));
 
             Score.RightJustify = Level.RightJustify = true;
             Score.SubstituteText(TopScore.ToString());

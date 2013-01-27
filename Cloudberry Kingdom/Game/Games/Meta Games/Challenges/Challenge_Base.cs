@@ -13,14 +13,17 @@ namespace CloudberryKingdom
     public abstract class Challenge
     {
         public static int Coins;
+        public static int CurrentScore;
 
         public static void OnCoinGrab(ObjectBase obj)
         {
             Coins++;
         }
 
+        public static int CurrentId;
+
         public static BobPhsx ChosenHero;
-        const int LevelMask = 10000;
+        public const int LevelMask = 10000;
 
         public int[] StartLevels = { 1, 50, 100, 150 };
 
@@ -33,6 +36,14 @@ namespace CloudberryKingdom
         {
             int id = CalcGameId_Level(hero);
             return PlayerManager.MaxPlayerHighScore(id);
+        }
+
+        public int CalcGameId_Score(BobPhsx hero)
+        {
+            int HeroId = hero == null ? 0 : hero.Id;
+
+            GameId_Level = 100 * HeroId + GameTypeId;
+            return GameId_Level;
         }
 
         public int CalcGameId_Level(BobPhsx hero)
@@ -113,6 +124,9 @@ namespace CloudberryKingdom
         public bool NonCampaign = true;
         public virtual void Start(int Difficulty)
         {
+            CurrentId = this.GameId_Level;
+            CurrentScore = 0;
+
             PlayerManager.PartiallyInvisible = true;
             PlayerManager.TotallyInvisible = true;
 
@@ -134,6 +148,8 @@ namespace CloudberryKingdom
         /// </summary>
         public void Aftermath()
         {
+            CurrentId = -1;
+            CurrentScore = -1;
             AftermathData data = Tools.CurrentAftermath;
         }
         

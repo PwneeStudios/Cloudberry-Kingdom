@@ -66,6 +66,8 @@ namespace CloudberryKingdom
             {
                 this.Score = Score;
                 UpdateScoreText();
+
+                Challenge.CurrentScore = Score;
             }
         }
 

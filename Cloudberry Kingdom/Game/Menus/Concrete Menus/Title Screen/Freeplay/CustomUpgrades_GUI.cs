@@ -222,7 +222,6 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
 
             FontScale = 1f;
-            MakeOptions();
 
             // Backdrop
             QuadClass backdrop;
@@ -232,6 +231,9 @@ namespace CloudberryKingdom
             MyPile.Add(backdrop, "Backdrop");
             backdrop.Size = new Vector2(1682.54f, 1107.681f);
             backdrop.Pos = new Vector2(347.2231f, 51.58749f);
+
+            // Options
+            MakeOptions();
 
             // Make the top text
             MakeTopText();

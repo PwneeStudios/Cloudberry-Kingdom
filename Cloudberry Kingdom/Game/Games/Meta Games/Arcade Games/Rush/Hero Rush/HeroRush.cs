@@ -79,7 +79,7 @@ namespace CloudberryKingdom
             {
                 AdditionalSwap(levelindex);
 
-                //Awardments.CheckForAward_HeroRush2Unlock(levelindex - StartIndex);
+                ArcadeMenu.CheckForArcadeUnlocks_OnSwapIn(levelindex);
 
                 // Add hero icon to exit door
                 MakeExitDoorIcon(levelindex);

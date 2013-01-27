@@ -4,3 +4,5 @@ bin/
 *.suo
 *.spa
 *.spa.h
+*WiiU*
+*LocalizationCpp*

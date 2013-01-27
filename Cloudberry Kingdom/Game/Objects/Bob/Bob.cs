@@ -1577,6 +1577,7 @@ namespace CloudberryKingdom.Bobs
 
         void FlyingPhsx()
         {
+            if (MyPhsx.OnGround && CurInput.xVec.Y > 0) MyPhsx.yVel += .7f;
             MyPhsx.Vel *= .985f;
 
             MyPhsx.Vel += CurInput.xVec;
