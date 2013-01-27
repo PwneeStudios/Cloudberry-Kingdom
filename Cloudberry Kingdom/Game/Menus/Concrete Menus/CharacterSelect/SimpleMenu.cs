@@ -275,8 +275,13 @@ namespace CloudberryKingdom
             string Space = "{s34,0}";
             float Shift = 25;
 
+            QuadClass q;
+
             // Press A to continue
-            EzText ContinueText = new EzText(ButtonString.Go(ButtonSize) + Space + Localization.WordString(Localization.Words.Continue), ItemFont, true, true);
+            q = new QuadClass(ButtonTexture.Go);
+            MyPile.Add(q, "go");
+
+            EzText ContinueText = new EzText(Localization.Words.Continue, ItemFont, true, true);
             ContinueText.Scale = this.FontScale;
             ContinueText.ShadowOffset = new Vector2(7.5f, 7.5f);
             ContinueText.ShadowColor = new Color(30, 30, 30);
@@ -286,7 +291,10 @@ namespace CloudberryKingdom
             MyPile.Add(ContinueText, "A");
 
             // Press Y to customize
-            EzText CustomizeText = new EzText(ButtonString.Y(ButtonSize) + Space + Localization.WordString(Localization.Words.Custom), ItemFont, true, true);
+            q = new QuadClass(ButtonTexture.Y);
+            MyPile.Add(q, "y");
+
+            EzText CustomizeText = new EzText(Localization.Words.Custom, ItemFont, true, true);
             CustomizeText.Scale = this.FontScale;
             CustomizeText.ShadowOffset = new Vector2(7.5f, 7.5f);
             CustomizeText.ShadowColor = new Color(30, 30, 30);
@@ -296,7 +304,10 @@ namespace CloudberryKingdom
             MyPile.Add(CustomizeText, "Y");
 
             // Press X to randomize
-            EzText RandomText = new EzText(ButtonString.X(ButtonSize) + Space + Localization.WordString(Localization.Words.Random), ItemFont, true, true);
+            q = new QuadClass(ButtonTexture.X);
+            MyPile.Add(q, "x");
+
+            EzText RandomText = new EzText(Localization.Words.Random, ItemFont, true, true);
             RandomText.Scale = this.FontScale;
             RandomText.ShadowOffset = new Vector2(7.5f, 7.5f);
             RandomText.ShadowColor = new Color(30, 30, 30);
@@ -311,9 +322,14 @@ namespace CloudberryKingdom
         void SetPos()
         {
             EzText _t;
-            _t = MyPile.FindEzText("A"); if (_t != null) { _t.Pos = new Vector2(45.31828f, -220.3175f); _t.Scale = 0.66f; }
-            _t = MyPile.FindEzText("Y"); if (_t != null) { _t.Pos = new Vector2(119.1274f, -400.7938f); _t.Scale = 0.66f; }
-            _t = MyPile.FindEzText("X"); if (_t != null) { _t.Pos = new Vector2(91.74666f, -599.6032f); _t.Scale = 0.66f; }
+            _t = MyPile.FindEzText("A"); if (_t != null) { _t.Pos = new Vector2(78.6516f, -159.2064f); _t.Scale = 0.5214169f; }
+            _t = MyPile.FindEzText("Y"); if (_t != null) { _t.Pos = new Vector2(80.23858f, -323.016f); _t.Scale = 0.5039168f; }
+            _t = MyPile.FindEzText("X"); if (_t != null) { _t.Pos = new Vector2(80.63551f, -471.8254f); _t.Scale = 0.5540001f; }
+
+            QuadClass _q;
+            _q = MyPile.FindQuad("go"); if (_q != null) { _q.Pos = new Vector2(-261.1109f, -141.6667f); _q.Size = new Vector2(67.83331f, 67.83331f); }
+            _q = MyPile.FindQuad("x"); if (_q != null) { _q.Pos = new Vector2(-261.1112f, -461.1111f); _q.Size = new Vector2(63.41657f, 63.41657f); }
+            _q = MyPile.FindQuad("y"); if (_q != null) { _q.Pos = new Vector2(-263.8887f, -308.3333f); _q.Size = new Vector2(67.6666f, 67.6666f); }
 
             CharacterSelect.Shift(this);
         }

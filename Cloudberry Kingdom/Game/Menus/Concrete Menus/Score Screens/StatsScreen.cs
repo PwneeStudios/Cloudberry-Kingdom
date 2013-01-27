@@ -111,8 +111,8 @@ namespace CloudberryKingdom.Stats
         //x = new float[][]{ null, x1, x2, x3, x4 };
 
 
-            PlayerManager.Players[1].Exists = true;
-            PlayerManager.Players[2].Exists = true;
+            PlayerManager.Players[1].Exists = false;
+            PlayerManager.Players[2].Exists = false;
             PlayerManager.Players[3].Exists = false;
             
 
@@ -287,8 +287,8 @@ namespace CloudberryKingdom.Stats
 
             if (n == 1) Text.Scale *= .65f;
             else if (n == 2) Text.Scale *= .5f;
-            else if (n == 3) Text.Scale *= .35f;
-            else Text.Scale *= .25f;
+            else if (n == 3) Text.Scale *= .4f;
+            else Text.Scale *= .4f;
             return Text;
         }
 

@@ -33,8 +33,8 @@ Accept	承認	Bestätigen	Aceitar	Accetta	Accepter	Aceptar	Принять	동의
 Back	戻る	Zurück	Voltar	Indietro	Retour	Atrás	Назад	뒤로	背面	
 Menu	メニュー	Menü	Menu	Menù	Menu	Menú	Меню	메뉴	菜单	
 Reset	リセット	Zurücksetzen	Resetar	Reset	Reset	Reset	Перезагрузить	재설정	复位	
-Press\n{0}\nto Join	{0}ボタン\nでゲーム\nに参加できます	Drücke\n{0}\num mitzuspielen	Aperte\n{0}\npara entrar	Premi\n{0}\nper partecipare	Appuie sur\n{0}\npour commencer !	Presione {0}	Нажмете\n{0}\nчтобы\nприсоединится	보도 \ n {0} \ n 인물 가입	按\ n {0} \ n要加入	
-Customize	カスタム	Anpassen	Personalizar	Costume	Personnaliser	Custom	Настроить	관습	习惯	
+Press\n{0}\nto Join	{0}ボタン\nでゲーム\nに参加できます	Drücke\n{0}\num mitzuspielen	Aperte\n{0}\npara entrar	Premi\n{0}\nper partecipare	Appuie sur\n{0}\npour commencer !	Presione {0}	Нажмите\n{0}\nчтобы\nприсоединится	보도 \ N {0} \ n 인물 가입	按\ n {0} \ n要加入	
+Customize	カスタム	Anpassen	Personalizar	Costume	Personnaliser	Custom	Настроить	사용자 정의	定制	
 Random	ランダム	Zufällig	Aleatório	Casuale	Aléatoire	Random	Наугад	무작위	随机	
 Done	完了	Fertig	Pronto!	Fatto	Ok/Valider	Listo	Готово	끝난	完成	
 Color	色	Farbe	Cor	Colore	Couleur	Color	Цвет	색	颜色	
@@ -103,7 +103,7 @@ Tiki Mask	魔女	Zaubererhut	Feiticeiro	Stregone	Sorcier	Mago	Маг	티키 마�
 Wizard	ロケーション	Ort	Locação	Location	Endroit	Lugar	Местность	마법사	巫师	
 Location	ゲーム	Spiel	Fase	Gioco	Jeu	Juego	Игра	위치	位置	
 Game	クラシック	klassisch	Clássica	Classico	Classique	Clásico	Классика	경기	游戏	
-Classic	バンジー	Bungee	Elástico	Bungee	Mode lié	Bungee	банджи-	고전적인	经典	
+Classic	バンジー	Bungee	Elástico	Bungee	Mode lié	Bungee	Банджи	고전적인	经典	
 Wall level	ウォールレベル	Wandlevel	Paredão	Livello muro	Le mur	Nivel Pared	Стена	벽 수준	长城水平	
 Bungee	ヒーロー	Held	Herói	Eroe	Héro	Héroe	Герой	번지	蹦极	
 Hero	ファクトリー	Fabrik	Fábrica	Fabbrica	La Fabrique	Casa	Завод	영웅	英雄	
@@ -114,7 +114,7 @@ Abusive	ハード	missbräuchlich	Abusivo	Abusivo	Violente	Abusivo	Издева�
 Hardcore	ハードコア	hardcore	Barra-pesada	Hardcore	Hardcore	Grosero	Жестоко	하드 코어	性交	
 Masochistic	マゾヒスチック	masochistisch	Masoquista	Masochista	Maso	Masoquista	Мазохизм	폭력에 복종하는 야망	受虐狂	
 Length	長さ	Länge	Tamanho	Lunghezza	Longueur	Duración	Длительность	길이	长度	
-Checkpoints	チェックポイント	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Котрольная точка	체크 포인트	检查点	
+Checkpoints	チェックポイント	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Контрольная точка	체크 포인트	检查点	
 Start	スタート	Start	Iniciar	Start	Commencer	Comenzar	Старт	출발	开始	
 Continue	続ける	Weiter	Continuar	Continua	Continuer	Continuar	Продолжить	계속	继续	
 Load Level	レベルを読み込む	Level laden 	Carregar nível	Carica livello	Charger un niveau	Cargar nivel	Загрузить уровень	수준을로드	负荷水平	
@@ -163,11 +163,11 @@ Jetpack Fuel	ジェットパック燃料	Treibstoff 	Foguete: Combustível	Carbu
 Phased Size	最大サイズ	Veränderliche Größe 	Volátil: Tamanho	Dimensione graduale	Diamètre	Tamano de fase	Фазированный размер	단계적 크기	相控尺寸	
 Phased Gravity	最大重力	Veränderliche Schwerkraft	Volátil: Gravidade	Gravità graduale	Rayon de gravité	Gravedad de fase	Фазированное притяжение	단계적으로 중력	相控重力	
 Phase period	変換期間	Wachstumsdauer	Volátil: Ritmo	Periodo graduale	Fréquence	Periodo de fase	Фазированный период	단계 기간	相期	
-Classic	クラシック	Klassisch	Clássico	Classic	Classique	Clásico	Классический [The default hero]	고전적인	经典	
+Classic	クラシック	Klassisch	Clássico	Classic	Classique	Clásico	Классический	고전적인	经典	
 Jetman	ジェットマン 	Jetman	Fogueteiro	Jetman	Jetman	Jetman	Джэтман	Jetman	Jetman	
 Double Jump	ダブルジャンプ	Double Jump-Bob	Salto Duplo	Doppio salto	Double saut	Brinco Doble	Двойной прыжок	이동 더블	双跳	
 Tiny Bob	小型ボブ	Winziger Bob	Mini Bob	Bob minuscolo	P'tit Bob	Tiny Bob	Боб Малютка	작은 밥	微小的鲍勃	
-Wheelie	車輪	Rollender Bob 	Potro Redondo	Wheelie	Roue libre	Wheelie	Колесом	가방	带轮	
+Wheelie	車輪	Rollender Bob 	Potro Redondo	Wheelie	Roue libre	Wheelie	С Колесом	가방	带轮	
 Spaceship	宇宙船	Raumschiff	Espaçonave	Astronave	Vaisseau Spatial	Astronave	Космический корабль	우주선	飞船	
 Hero in a Box	箱入りヒーロー	Held in der Box	Encaixotado	Eroe in scatola	Un Héro dans une boite	Héroe en caja	Герой в коробке	상자에 영웅	在一个盒子英雄	
 Bouncy	スプリング	Springender Bob 	Pula-pula	Palleggiante	Rebondissant	Rebote	Прыгучий	탄력	蹦蹦	
@@ -178,108 +178,108 @@ Viridian	ビリジアン	Schwereloser Bob	Cpt. Viridian	Viridian	Anti-gravitatio
 Time Master	タイムマスター	Master der Zeit	Mestre do Tempo	Maestro del tempo	Maître du temps	Maestro del Tiempo	Повелитель времени	시간 마스터	时间主	
 Meatboy	ミート・ボーイ	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	
 Jetpack Wheelie	ジェットパック車輪	Rollender Bob mit Düsenantrieb 	Potro Voador	Jetpack Wheelie	Roule Jetman !	Jetpack Wheelie	Реактивный 4	Jetpack 가방	Jetpack的四轮车	
-Tiny Double Jump	小型ダブルジャンプ	Winziger Double-Jump-Bob	Mini Salto Duplo	Doppio salto minuscolo	P'tit Bob Double Saut	Doble Salto 	Двойной прыжок Малютки	바다	海	
-Jetpack Hero in a Box	箱入りジェットマン	Held in der Box mit Düsenantrieb	Caixote Voador	Jetpack scatola	Un Jetman dans une boîte	Caja de Cohete	Реактивная коробка	언덕	丘陵	
-Double Jump Wheelie	ダブルジャンプ車輪	Double-Jump-Bob im Rollstuhl	Potro de Salto Duplo	Doppio salto Wheelie	Double saut roue libre	Wheelie Doble Salto	Двойной прыжок с колесом	숲	森林	
-Fat Bouncy	ファットスプリング	Fetter springender Bob	Banha Saltitante	Rimbalzo grasso	Gros Bob rebondissant	Gordo Saltón	Толстый и прыгучий	구름	云	
-Tiny Hero in a Box	箱入り小型ボブ	Winziger Bob in der Box	Mini-Caixote	Scatola minuscola	P'tit Bob dans une boîte	Mini Caja	Маленькая коробка	동굴	洞穴	
-Phasing Jetpack Hero	変形ジェットパック	Größenveränderbarer Bob mit Düsenantrieb	Foguete Volátil	Gradi Jetpack 	Jetman instable	Cohete en Fases	Колеблющийся Джэтман	성	城堡	
-Bouncy Jetpack Hero	スプリング・ジェットパック	Springender Bob mit Düsenantrieb	Mola Foguetada	Jetpack rimbalzante	Jetman rebondissant	Cohete Saltarín	Прыгучий Джэтман	초보	初	
-Fat Double Jump Hero	ファット・ダブルジャンプ	Fetter Double-Jump-Bob 	Gordo Salto Duplo	Doppio salto ciccione	Gros Bob Double Saut	Doble Salto Gordo	Толстый с двойным прыжком	다음 아흔 아홉	九十九	
-Sea	海	Meer	Mar	Mare	Mer	Mar	Море	둠의 도전	笞刑的末日	
-Hills	丘	Hügellandschaft	Montanha	Colline	Montagne	Montanas	Холмы	거의 영웅	几乎英雄	
-Forest	森	Wald	Floresta	Foresta	Forêt	Bosque	Лес	피학대 성 변태 성욕 자	受虐狂	
-Cloud	空	Wolken	Nuvens	Nuvola	Nuageux	Nube	Облако	단계적 확대	升级	
-Cave	洞窟	Höhle	Caverna	Grotta	Cave	Cueva	Пещера	시간 위기	时间危机	
-Castle	お城	Schloss	Castelo	Castello	Château	Castillo	Замок	영웅 러쉬	英雄火拼	
-The Beginning	始まり	Der Anfang 	O começo	L'inizio	Le Commencement	El Comienzo	Самое Начало	하이브리드 러쉬	混合拉什	
-The Next Ninety-Nine	続く９９	Die nächsten 99 	Os Próximos Noventa e Nove	I prossimi novantanove	Le prochain 99	El Siguiente Noventa y Nueve 	Следующие Девяносто-Девять	높은 점수	高分数	
-A Gauntlet of Doom	運命の挑戦	Ein Spießrutenlauf der Zerstörung	O Calabouço da Morte	Sfida aperta del fato	Un défi insurmontable	El Pozo de la Perdición	Роковое Испытание	최고 수준	最好的水平	
-Almost Hero	もう少しでヒーロー	Fast ein Held	Quase um Herói	Quasi-eroe	Quasiment un héro	Casi Héroe	Почти Герой	리더	排行榜	
-The Masochist	マゾヒスト	Der Masochist	O Masoquista	Il masochista	Le Masochiste	El Masoquista	Мазохист	점수	得分	
-Escalation	エスカレーション	Escalation	Escalada	Escalation	Escalade	Escalacion	Обострение	레벨	水平	
-Time Crisis	タイムトライアル	Wettlauf gegen die Zeit	Velocidade Máxima	Crisi del tempo	Contre-la-montre/Compte à rebours	Tiempo de Crisis	Кризис времени	준비가 되셨습니까?	准备好了？	
-Hero Rush	ヒーロ突進	Hero Rush	Revezamento Máximo	Corsa dell'eroe	Héro Rush	Héroe Rush	Геройский рывок	어서!	加油！	
-Hybrid Rush	ハイブリッド突撃	Hybrid Rush	Combinação Máxima	Corsa ibrida	Fusion/Hybride	Hibrido Rush	Смешанный рывок	출구를 찾아!	到出口！	
-High Score	ハイスコア	Höchstpunktzahl 	Recorde Atual	Punteggio più alto	High Score/Meilleur score	Puntaje	Рекорд	시계에 초!	秒的时钟！	
-Best Level	最高レベル	Bestes Level	Fase Recorde	Livello migliore	Meilleur niveau	Mejor Nivel	Лучший уровень	동전은 시계에 초를 추가	硬币秒的时钟	
-Leaderboard	ハイリスト	Rangliste	Placar Geral	Leaderboard	Tableau des scores	Tablas de Posiciones	Список лучших игроков	높은 점수를 잡아!	获得了很高的分数！	
-Score	スコア	Punktzahl	Pontuação	Punteggio	Score	Highscore	Счёт	완벽 해!	完美！	
-Level	レベル	Level	Nível	Livello	Niveau	Puntaje	Уровень	한 생활	+1生活	
-Ready?	Ready?	Bist du soweit? 	Prepara e...	Pronto?	Prêt ?	Listo?	Готов?	키를 눌러	按	
-Go!	Go!	Dann los! 	Vai!	Via!	Go !	Vamos!	Вперёд!	다시 시작하다	恢复	
-Get to the exit!	出口へ急げ！	Beweg dich in Richtung Ausgang ! 	Vá para a saída	Raggiungi l'uscita!	Rejoins la sortie!	Llega a la salida!	Быстрей на выход!	통계	统计	
-seconds on the clock!	残り{0}秒！	Noch {0} Sekunden! 	{0} segundos pra encerrar!	{0} secondi dell'orologio	Encore {0} secondes!	{0} segundos en el reloj!	Осталось {0} секунд!	저장 /로드	保存/载入	
-Coins add seconds to the clock	コインで時間を追加できる	Münzen kaufen dir Zeit	Moedas adicionam segundos ao relógio	I gettoni aggiungono secondi all'orologio	Gagne du temps!	Monedas agregan segundos al reloj 	Монеты добавляют время в отчёт	Me를 제거	删除我	
-Get a high score!	ハイスコアを狙え！	Hol' viele Punkte! 	Batalhe pelo Recorde!	Ottieni un punteggio alto!	Fais un gros score!	Vamos por el highscore!	Поставь рекорд!	수준을 종료	出口级	
-Perfect!	パーフェクト！	Super! 	Perfeito!	Ottimo!	Parfait!	Perfecto!	Идиально!	임의의 종자	随机种子	
-+1 Life	１ＵP	+1 Leben extra	+1 Vida!	Vita +1	1UP	+1 Vida	+1 Жизнь	종자를 저장	保存种子	
-Press	{0}ボタンを押す	Drücke {0} 	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	로드 씨	负载种子	
-Resume	続ける	Fortsetzen	Continuar	Riprendi	Reprendre	Reanudar	Продолжить	클립 보드에 복사	复制到剪贴板	
-Statistics	統計	Statistik	Estatísticas	Statistiche	Stats	Estadisticas	Статистика	클립 보드에서로드	负载从剪贴板	
-Save/Load	保存/ロード	Speichern/Laden	Salvar/Carregar	Salva/Carica	Sauvegarder/Charger	Guardar/Cargar	Сохранить/Загрузить	플레이어를 제거	删除播放器	
-Remove Me	外れる	Lösche mich	Abandonar	Eliminami	Partir	Salir de Partida	Убрать себя	레벨을 종료 하시겠습니까?	退出的水平呢？	
-Exit Level	レベルを中断する	Das Level beenden	Sair da Fase	Abbandona livello	Quitter le niveau	Salir del Nivel	Покинуть уровень	으로 무작위 씨앗을 저장 ...	随机种子另存为...	
-Random Seed	ランダムシード	Zufälliger Anlaufwert	Senha da Fase	Seme casuale	Code Aléatoire	Codigo Random	Наугад	저장된 씨앗	保存的种子	
-Save Seed	シードを保存	Anlaufwert speichern	Salvar Senha	Salva seme	Sauvegarder le code ?	Guardar Codigo	Сохранить	다음과 같은 씨앗을로드 ...?	加载下面的种子吗？	
-Load Seed	シードを読み込む	Anlaufwert laden 	Carregar Senha	Carica seme	Charger le code ?	Cargar Codigo	Загрузить	씨앗이 성공적으로 저장되었습니다!	种子保存成功！	
-Copy to clipboard	クリップボードにコピーする	In Zwischenablage kopieren	Copiar para Área de Transferência	Copia sugli appunti	Copier dans le presse-papiers	Copiar al clipboard	Copy to clipboard	만세!	万岁！	
-Load from clipboard	クリップボードから読み込む	Aus Zwischenablage laden	Carregar da Área de Transferência	Carica dagli appunti	Charger depuis le presse-papier	Cargar del clipboard	Load from clipboard	어떤 이름이 주어지지, 종자가 저장되지 않았습니다.	没有名字，种子没有被保存。	
-Remove Player	{0}を外す	Spieler {0} entfernen ? 	Remover Jogador {0}?	Elimina giocatore {0}?	Enlever le joueur {0} ?	Remover Jugador {0}?	Исключить игрока  {0}?	오.	哦。	
-Exit level?	レベルを中断しますか？	Das Level beenden? 	Sair da Fase?	Abbandonare il livello?	Quitter le niveau ?	Salir del Nivel?	Покинуть уровень?	레벨 이길	水平打	
-Save Random Seed as...	ランダムシードに名前をつけて保存する	Zufälligen Anlaufwert als …. speichern 	Salvar Senha de Fase como...	Salva seme casuale come...	Sauvegarder le code sous ...	Guardar código random como…	Сохранить как…	점프	跳转	
-Saved Seeds	保存されたシード	Anlaufwerte speichern	Senhas salvas	Semi salvati	Codes sauvegardés	Códigos Guardados	Сохранённые	동전	硬币	
-Load the following seed...?	このシードを読み込みますか？	Den nachfolgenden Anlaufwert ….. laden? 	Carregar a seguinte Senha...?	Caricare il seme seguente...?	Charger le code suivant…?	Cargar el siguiente código…?	Загрузить следующие…?	붙잡고	抓起	
-Seed saved successfully!	シードが保存されました！	Der Anlaufwert wurde gespeichert! 	Senha salva com sucesso!	Seme salvato con successo!	Code sauvegardé avec succès!	Codigo guardado!	Сохранение успешно!	나가는	出	
-Hooray!	やったー！	Hurra! 	Aêêê!	Urrà!	Youpi !	Hooray!	Ура!	(퍼센트)	（％）	
-No name given, seed was not saved.	名前がつけられていません。シードを保存できませんでした。	Kein Titel, Anlaufwert konnte nicht gespeichert werden. 	Nenhum nome dado. Senha não foi salva.	Nessun nome dato, seme non salvato	Aucun nom attribué, le code n'a pas été sauvegardé.	Sin nombre, código no guardado	Имя не дано, уровень не был сохранен.	평균 수명	平均寿命	
-Oh.	おぉ	Oh. 	Ah. Ops.	Oh.	oh oh...	Oh.	Хм.	사망	死亡	
-Levels beat	クリアしたレベル	Bewältigte Levels	Fases completadas	Livelli vinti	Niveaux complétés	Niveles ganados	Пройденные уровни	불 덩어리	火球	
-Jumps	ジャンプ数	Sprünge	Saltos	Salti	Sauts	Brincos totales	Прыжки	불 스피너	火微调	
-Coins	コイン	Münzen	Moedas:	Gettoni	Piéces	Monedas	Монеты	둥근 돌	漂砾	
-Grabbed	コイン取得数	gesammelt	Coletadas	Acchiappato	Collectées	Alcanzadas	Схвачено	스파이크 사람	spikey家伙	
-out of	／	von 	Avistadas	su 	 sur	de	из	스파이크	穗	
-(percent)	（％）	in Prozent	(percentil)	percento	(pourcentage)	(Porcentaje) 	процент	전도	落下	
-Blobs	ブロブ	Flatschen	Voadores esmagados	Esseri volanti	Créatures	Bichos	Кляксы	용암	岩浆	
-Average Life	平均ライフ	Mittlere Lebensdauer	Tempo de Vida Médio	Vita media	Durée de vie moyenne	Promedio de Vida 	Average Life	얼룩	BLOB	
-deaths	失敗回数	Tode 	Relatório de Óbitos	Morti	Morts	Muertes	смерти	레이저	激光	
-fireball	ファイヤーボール	Feuerball	por bola de fogo	Palla infuocata	Boules de feu	Bola de Fuego	огненный шар	스파이크를 넘어	下降spikey	
-fire spinner	ファイヤー・スピナー	Feuerwerfer	por barra de fogo	Spranga di fuoco	Barres de feu	Circulo de fuego	огненный круток	기일	时限	
-boulder	バルダー	Felsblock	por pedrada	Macigno	Boules hautes	roca	валун	남아	留下	
-spikey guy	スパイク・ガイ	Stacheliger Kerl	por estocada Pontiaguda	Essere appuntito	Boules basses	chico puntiagudo	колючий парень	다른	其他	
-spike	トゲトゲ	Stachel	por espinho	Spuntone	Pics	puntas	колючка	합계	总	
-falling	落下	fallend	por queda	Caduta	Chutes	caída	падая	이상 게임	游戏结束	
-lava	溶岩	Lava	por lava	Lava	Lave	lava	лава	최고 점수!	新的高得分！	
-blob	ブロブ	Flatschen	por Voadores	Essere	Créature	bicho	сгусток	다시 재생	重新播放	
-laser	レーザー	Laser	por lasers	Laser	Laser	laser	лазер	높은 점수	高分	
-falling spikey	落下トゲトゲ	fallender Stachel	por Chuva de Caras Pontiagudos	Spuntoni cadenti	Boules tombantes	caída de puntas	колючие падение	지방의	当地	
-time limit	タイムオーバー	Zeitlimit	por ficar sem tempo	Limite tempo	Limite de temps	limite de tiempo	временный лимит	글로벌	全球	
-left behind	置いてけぼり	zurückgelassen	por ficar pra trás	Abbandonato	Resté derriére	dejado atrás	брошен	어떻게하는지 확인하기 위해 컴퓨터를 조심해!	观看电脑，看看它是如何做的！	
-other	その他	andere	por causas misteriosas	Altro	Autres	otros	другие	네가 연주하는 동안 레벨을 통해 경로를 표시합니다.	通过电平显示的路径，当你玩。	
-Total	合計	Total	Total de óbitos	Totale	Total	Total	В сумме	느린 움직임을 활성화!	激活慢动作！	
-Game Over	ゲームオーバー	Game Over	Fim do Jogo	Game over	Game Over	Game Over	Игра окончена	일시 중지	暂停	
-New high score!	新記録！	Neuste Höchstpunktzahl! 	Novo Recorde!	Nuovo record!	Nouveau score élevé!	Nuevo highscore!	Новый рекорд!	속도	速度	
-Play again	リトライ	Erneut spielen	Jogar de novo!	Gioca ancora	Rejouer	Jugar de nuevo	Играть заново	단계	步骤	
-High Scores	ハイスコア	Höchste Punktzahlen	Placar	Records	Meilleurs scores	Highscores	Рекорды	수준 잡습니다!	级别清除！	
-Local	ローカル	Lokal	Local	Locale	Local	Local	Местный	설정을 유지	保存设置	
-Global	グローバル	Global	Global	Globale	Global	Global	Глобальный	재생보기	观看重播	
-Watch the computer to see how it's done!	お手本をみる	Zuschauen wie es der Computer macht	Ver o computador para saber como se joga	Guarda il computer per vedere come si fa.	Regarde comment fait l'ordinateur	Mira como se hace! 	Посмотрим как у компьютера дела	Freeplay로 돌아 가기	后以自由行动	
-Show a path through the level while you play.	道しるべを表示する	Pfad durch das Level anzeigen während du spielst	Traçar um caminho pra ser seguido durante a fase	Mostra un percorso lungo il livello mentre giochi.	Suis le chemin pendant le jeu	Mostrar mapa mientras juegas 	Указывай как пройти уровень во время игры	중지	暂停	
-Activate slow motion!	スローモーション！　交互に{0}を押す。	Zeitlupenmodus aktivieren! Umschalten mit {0}	Ativar câmera lenta! Liga / desliga com  {0}	Attiva slow motion, alterna con {0}	Bascule en slow motion ! Active et désactive avec {0}	Activar modo lento! Alternar con 	Замедлить! Включить	하나의	单	
-Paused	停止中	Pause	Pausa	Pausa	Pause	Pausado	Пауза	이전	上一页	
-Speed	スピード	Schnelligkeit	Velocidade do replay	Velocità	Vitesse	Velocidad	Скорость	모든	所有	
-Step	次へ	Nächster Schritt	Próximo frame	Passo	Suivant	Siguiente marco	Шаг вперед	끝	结束	
-Level Cleared!	レベルクリア！	Level geschafft 	Nível completo!	Livello completato!	Niveau Terminé !	Nivel terminado!	Уровень пройден!	로드	载入中	
-Keep Settings	設定をキープ	Einstellungen übernehmen	Repetir configuração	Mantieni le impostazioni	Garder les paramétres	Mantener Ajustes	Оставить настройки	영웅 잠금 해제!	英雄解锁！	
-Watch Replay	リプレイを見る	Wiedergabe 	Assistir Replay	Guarda il replay	Regarder le Replay	Mirar Replay	Начать перепросмотр	새로운 영웅 해제!	新英雄解锁！	
-Back to Freeplay	フリープレーに戻る	Zurück zum Freeplay 	Voltar pro menu	Torna al freeplay	Retour au Jeu Libre	Regresar a  Freeplay	Обратно к Свободному режиму	사기	购买	
-Pause	停止	Pause 	Pausa	Pausa	Pause	Pausa	Пауза	판매 모자!	帽子可以转让！	
-Single	シングル	Einzel 	Última	Singolo	Seul	Single	Одиночный	은행	银行	
-Prev	前回	Vorheriges 	Voltar	Precedente	Précédent	Previo	Предварительная	성취	成就	
-All	全部	Alle	Todas	Tutto	Tous	Todo	Все	성취 잠금 해제	成就解锁	
-End	終わる	Beenden	Sair	Fine	Terminer	Final	Конец	{0} 시드를 삭제 하시겠습니까?	删除{0}种子吗？	
-Loading	読み込み中	Wird geladen	Carregando	Caricamento	Chargement	Cargando	Грузится	{0} 종자를 삭제 하시겠습니까?	删除{0}种子？	
-Hero unlocked!	ヒーローが解除されました！	Held ist freigeschaltet!	Herói desbloqueado	Eroe sbloccato	Héro débloqué!	Héroe desbloqueado!	Герой открыт!	배율이 증가!	倍数增加！	
+Tiny Double Jump	小型ダブルジャンプ	Winziger Double-Jump-Bob	Mini Salto Duplo	Doppio salto minuscolo	P'tit Bob Double Saut	Doble Salto 	Двойной прыжок Малютки	작은 더블 점프	微型双跳	
+Jetpack Hero in a Box	箱入りジェットマン	Held in der Box mit Düsenantrieb	Caixote Voador	Jetpack scatola	Un Jetman dans une boîte	Caja de Cohete	Реактивная коробка	상자에 Jetpack 영웅	Jetpack的英雄在一个盒子	
+Double Jump Wheelie	ダブルジャンプ車輪	Double-Jump-Bob im Rollstuhl	Potro de Salto Duplo	Doppio salto Wheelie	Double saut roue libre	Wheelie Doble Salto	Двойной прыжок с колесом	더블 점프 가방	双跳带轮	
+Fat Bouncy	ファットスプリング	Fetter springender Bob	Banha Saltitante	Rimbalzo grasso	Gros Bob rebondissant	Gordo Saltón	Толстый и прыгучий	지방 탄력	发蹦蹦	
+Tiny Hero in a Box	箱入り小型ボブ	Winziger Bob in der Box	Mini-Caixote	Scatola minuscola	P'tit Bob dans une boîte	Mini Caja	Маленькая коробка	상자에 작은 영웅	在一个盒子微小的英雄	
+Phasing Jetpack Hero	変形ジェットパック	Größenveränderbarer Bob mit Düsenantrieb	Foguete Volátil	Gradi Jetpack 	Jetman instable	Cohete en Fases	Колеблющийся Джэтман	Jetpack 영웅 단계적으로	逐步Jetpack的英雄	
+Bouncy Jetpack Hero	スプリング・ジェットパック	Springender Bob mit Düsenantrieb	Mola Foguetada	Jetpack rimbalzante	Jetman rebondissant	Cohete Saltarín	Прыгучий Джэтман	탄력이 Jetpack 영웅	弹跳Jetpack的英雄	
+Fat Double Jump Hero	ファット・ダブルジャンプ	Fetter Double-Jump-Bob 	Gordo Salto Duplo	Doppio salto ciccione	Gros Bob Double Saut	Doble Salto Gordo	Толстый с двойным прыжком	지방 더블 점프 영웅	发双跳的英雄	
+Sea	海	Meer	Mar	Mare	Mer	Mar	Море	바다	海	
+Hills	丘	Hügellandschaft	Montanha	Colline	Montagne	Montanas	Холмы	언덕	丘陵	
+Forest	森	Wald	Floresta	Foresta	Forêt	Bosque	Лес	숲	森林	
+Cloud	空	Wolken	Nuvens	Nuvola	Nuageux	Nube	Облако	구름	云	
+Cave	洞窟	Höhle	Caverna	Grotta	Cave	Cueva	Пещера	동굴	洞穴	
+Castle	お城	Schloss	Castelo	Castello	Château	Castillo	Замок	성	城堡	
+The Beginning	始まり	Der Anfang 	O começo	L'inizio	Le Commencement	El Comienzo	Самое Начало	초보	初	
+The Next Ninety-Nine	続く９９	Die nächsten 99 	Os Próximos Noventa e Nove	I prossimi novantanove	Le prochain 99	El Siguiente Noventa y Nueve 	Следующие Девяносто-Девять	다음 아흔 아홉	九十九	
+A Gauntlet of Doom	運命の挑戦	Ein Spießrutenlauf der Zerstörung	O Calabouço da Morte	Sfida aperta del fato	Un défi insurmontable	El Pozo de la Perdición	Роковое Испытание	둠의 도전	笞刑的末日	
+Almost Hero	もう少しでヒーロー	Fast ein Held	Quase um Herói	Quasi-eroe	Quasiment un héro	Casi Héroe	Почти Герой	거의 영웅	几乎英雄	
+The Masochist	マゾヒスト	Der Masochist	O Masoquista	Il masochista	Le Masochiste	El Masoquista	Мазохист	피학대 성 변태 성욕 자	受虐狂	
+Escalation	エスカレーション	Escalation	Escalada	Escalation	Escalade	Escalacion	Обострение	단계적 확대	升级	
+Time Crisis	タイムトライアル	Wettlauf gegen die Zeit	Velocidade Máxima	Crisi del tempo	Contre-la-montre/Compte à rebours	Tiempo de Crisis	Кризис времени	시간 위기	时间危机	
+Hero Rush	ヒーロ突進	Hero Rush	Revezamento Máximo	Corsa dell'eroe	Héro Rush	Héroe Rush	Геройский рывок	영웅 러쉬	英雄火拼	
+Hybrid Rush	ハイブリッド突撃	Hybrid Rush	Combinação Máxima	Corsa ibrida	Fusion/Hybride	Hibrido Rush	Смешанный рывок	하이브리드 러쉬	混合拉什	
+High Score	ハイスコア	Höchstpunktzahl 	Recorde Atual	Punteggio più alto	High Score/Meilleur score	Puntaje	Рекорд	높은 점수	高分数	
+Best Level	最高レベル	Bestes Level	Fase Recorde	Livello migliore	Meilleur niveau	Mejor Nivel	Лучший уровень	최고 수준	最好的水平	
+Leaderboard	ハイリスト	Rangliste	Placar Geral	Leaderboard	Tableau des scores	Tablas de Posiciones	Список лучших игроков	리더	排行榜	
+Score	スコア	Punktzahl	Pontuação	Punteggio	Score	Highscore	Счёт	점수	得分	
+Level	レベル	Level	Nível	Livello	Niveau	Puntaje	Уровень	레벨	水平	
+Ready?	Ready?	Bist du soweit? 	Prepara e...	Pronto?	Prêt ?	Listo?	Готов?	준비가 되셨습니까?	准备好了？	
+Go!	Go!	Dann los! 	Vai!	Via!	Go !	Vamos!	Вперёд!	어서!	加油！	
+Get to the exit!	出口へ急げ！	Beweg dich in Richtung Ausgang ! 	Vá para a saída	Raggiungi l'uscita!	Rejoins la sortie!	Llega a la salida!	Быстрей на выход!	출구를 찾아!	到出口！	
+seconds on the clock!	残り{0}秒！	Noch {0} Sekunden! 	{0} segundos pra encerrar!	{0} secondi dell'orologio	Encore {0} secondes!	{0} segundos en el reloj!	Осталось {0} секунд!	시계에 초!	秒的时钟！	
+Coins add seconds to the clock	コインで時間を追加できる	Münzen kaufen dir Zeit	Moedas adicionam segundos ao relógio	I gettoni aggiungono secondi all'orologio	Gagne du temps!	Monedas agregan segundos al reloj 	Монеты добавляют время в отчёт	동전은 시계에 초를 추가	硬币秒的时钟	
+Get a high score!	ハイスコアを狙え！	Hol' viele Punkte! 	Batalhe pelo Recorde!	Ottieni un punteggio alto!	Fais un gros score!	Vamos por el highscore!	Поставь рекорд!	높은 점수를 잡아!	获得了很高的分数！	
+Perfect!	パーフェクト！	Super! 	Perfeito!	Ottimo!	Parfait!	Perfecto!	Идиально!	완벽 해!	完美！	
++1 Life	１ＵP	+1 Leben extra	+1 Vida!	Vita +1	1UP	+1 Vida	+1 Жизнь	한 생활	+1生活	
+Press	{0}ボタンを押す	Drücke {0} 	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	키를 눌러	按	
+Resume	続ける	Fortsetzen	Continuar	Riprendi	Reprendre	Reanudar	Продолжить	다시 시작하다	恢复	
+Statistics	統計	Statistik	Estatísticas	Statistiche	Stats	Estadisticas	Статистика	통계	统计	
+Save/Load	保存/ロード	Speichern/Laden	Salvar/Carregar	Salva/Carica	Sauvegarder/Charger	Guardar/Cargar	Сохранить/Загрузить	저장 /로드	保存/载入	
+Remove Me	外れる	Lösche mich	Abandonar	Eliminami	Partir	Salir de Partida	Убрать себя	Me를 제거	删除我	
+Exit Level	レベルを中断する	Das Level beenden	Sair da Fase	Abbandona livello	Quitter le niveau	Salir del Nivel	Покинуть уровень	수준을 종료	出口级	
+Random Seed	ランダムシード	Zufälliger Anlaufwert	Senha da Fase	Seme casuale	Code Aléatoire	Codigo Random	Наугад	임의의 종자	随机种子	
+Save Seed	シードを保存	Anlaufwert speichern	Salvar Senha	Salva seme	Sauvegarder le code ?	Guardar Codigo	Сохранить	종자를 저장	保存种子	
+Load Seed	シードを読み込む	Anlaufwert laden 	Carregar Senha	Carica seme	Charger le code ?	Cargar Codigo	Загрузить	로드 씨	负载种子	
+Copy to clipboard	クリップボードにコピーする	In Zwischenablage kopieren	Copiar para Área de Transferência	Copia sugli appunti	Copier dans le presse-papiers	Copiar al clipboard	Copy to clipboard	클립 보드에 복사	复制到剪贴板	
+Load from clipboard	クリップボードから読み込む	Aus Zwischenablage laden	Carregar da Área de Transferência	Carica dagli appunti	Charger depuis le presse-papier	Cargar del clipboard	Load from clipboard	클립 보드에서로드	负载从剪贴板	
+Remove Player	{0}を外す	Spieler {0} entfernen ? 	Remover Jogador {0}?	Elimina giocatore {0}?	Enlever le joueur {0} ?	Remover Jugador {0}?	Исключить игрока  {0}?	플레이어를 제거	删除播放器	
+Exit level?	レベルを中断しますか？	Das Level beenden? 	Sair da Fase?	Abbandonare il livello?	Quitter le niveau ?	Salir del Nivel?	Покинуть уровень?	레벨을 종료 하시겠습니까?	退出的水平呢？	
+Save Random Seed as...	ランダムシードに名前をつけて保存する	Zufälligen Anlaufwert als …. speichern 	Salvar Senha de Fase como...	Salva seme casuale come...	Sauvegarder le code sous ...	Guardar código random como…	Сохранить как…	으로 무작위 씨앗을 저장 ...	随机种子另存为...	
+Saved Seeds	保存されたシード	Anlaufwerte speichern	Senhas salvas	Semi salvati	Codes sauvegardés	Códigos Guardados	Сохранённые	저장된 씨앗	保存的种子	
+Load the following seed...?	このシードを読み込みますか？	Den nachfolgenden Anlaufwert ….. laden? 	Carregar a seguinte Senha...?	Caricare il seme seguente...?	Charger le code suivant…?	Cargar el siguiente código…?	Загрузить следующие…?	다음과 같은 씨앗을로드 ...?	加载下面的种子吗？	
+Seed saved successfully!	シードが保存されました！	Der Anlaufwert wurde gespeichert! 	Senha salva com sucesso!	Seme salvato con successo!	Code sauvegardé avec succès!	Codigo guardado!	Сохранение успешно!	씨앗이 성공적으로 저장되었습니다!	种子保存成功！	
+Hooray!	やったー！	Hurra! 	Aêêê!	Urrà!	Youpi !	Hooray!	Ура!	만세!	万岁！	
+No name given, seed was not saved.	名前がつけられていません。シードを保存できませんでした。	Kein Titel, Anlaufwert konnte nicht gespeichert werden. 	Nenhum nome dado. Senha não foi salva.	Nessun nome dato, seme non salvato	Aucun nom attribué, le code n'a pas été sauvegardé.	Sin nombre, código no guardado	Имя не дано, уровень не был сохранен.	어떤 이름이 주어지지, 종자가 저장되지 않았습니다.	没有名字，种子没有被保存。	
+Oh.	おぉ	Oh. 	Ah. Ops.	Oh.	oh oh...	Oh.	Хм.	오.	哦。	
+Levels beat	クリアしたレベル	Bewältigte Levels	Fases completadas	Livelli vinti	Niveaux complétés	Niveles ganados	Пройденные уровни	레벨 이길	水平打	
+Jumps	ジャンプ数	Sprünge	Saltos	Salti	Sauts	Brincos totales	Прыжки	점프	跳转	
+Coins	コイン	Münzen	Moedas:	Gettoni	Piéces	Monedas	Монеты	동전	硬币	
+Grabbed	コイン取得数	gesammelt	Coletadas	Acchiappato	Collectées	Alcanzadas	Схвачено	붙잡고	抓起	
+out of	／	von 	Avistadas	su 	 sur	de	из	나가는	出	
+(percent)	（％）	in Prozent	(percentil)	percento	(pourcentage)	(Porcentaje) 	процент	(퍼센트)	（％）	
+Blobs	ブロブ	Flatschen	Voadores esmagados	Esseri volanti	Créatures	Bichos	Кляксы	물방울	BLOBS	
+Average Life	平均ライフ	Mittlere Lebensdauer	Tempo de Vida Médio	Vita media	Durée de vie moyenne	Promedio de Vida 	Average Life	평균 수명	平均寿命	
+deaths	失敗回数	Tode 	Relatório de Óbitos	Morti	Morts	Muertes	смерти	사망	死亡	
+fireball	ファイヤーボール	Feuerball	por bola de fogo	Palla infuocata	Boules de feu	Bola de Fuego	огненный шар	불 덩어리	火球	
+fire spinner	ファイヤー・スピナー	Feuerwerfer	por barra de fogo	Spranga di fuoco	Barres de feu	Circulo de fuego	огненный круток	불 스피너	火微调	
+boulder	バルダー	Felsblock	por pedrada	Macigno	Boules hautes	roca	валун	둥근 돌	漂砾	
+spikey guy	スパイク・ガイ	Stacheliger Kerl	por estocada Pontiaguda	Essere appuntito	Boules basses	chico puntiagudo	колючий парень	스파이크 사람	spikey家伙	
+spike	トゲトゲ	Stachel	por espinho	Spuntone	Pics	puntas	колючка	스파이크	穗	
+falling	落下	fallend	por queda	Caduta	Chutes	caída	падая	전도	落下	
+lava	溶岩	Lava	por lava	Lava	Lave	lava	лава	용암	岩浆	
+blob	ブロブ	Flatschen	por Voadores	Essere	Créature	bicho	сгусток	얼룩	BLOB	
+laser	レーザー	Laser	por lasers	Laser	Laser	laser	лазер	레이저	激光	
+falling spikey	落下トゲトゲ	fallender Stachel	por Chuva de Caras Pontiagudos	Spuntoni cadenti	Boules tombantes	caída de puntas	колючие падение	스파이크를 넘어	下降spikey	
+time limit	タイムオーバー	Zeitlimit	por ficar sem tempo	Limite tempo	Limite de temps	limite de tiempo	временный лимит	기일	时限	
+left behind	置いてけぼり	zurückgelassen	por ficar pra trás	Abbandonato	Resté derriére	dejado atrás	брошен	남아	留下	
+other	その他	andere	por causas misteriosas	Altro	Autres	otros	другие	다른	其他	
+Total	合計	Total	Total de óbitos	Totale	Total	Total	В сумме	합계	总	
+Game Over	ゲームオーバー	Game Over	Fim do Jogo	Game over	Game Over	Game Over	Игра окончена	이상 게임	游戏结束	
+New high score!	新記録！	Neuste Höchstpunktzahl! 	Novo Recorde!	Nuovo record!	Nouveau score élevé!	Nuevo highscore!	Новый рекорд!	최고 점수!	新的高得分！	
+Play again	リトライ	Erneut spielen	Jogar de novo!	Gioca ancora	Rejouer	Jugar de nuevo	Играть заново	다시 재생	重新播放	
+High Scores	ハイスコア	Höchste Punktzahlen	Placar	Records	Meilleurs scores	Highscores	Рекорды	높은 점수	高分	
+Local	ローカル	Lokal	Local	Locale	Local	Local	Местный	지방의	当地	
+Global	グローバル	Global	Global	Globale	Global	Global	Глобальный	글로벌	全球	
+Watch the computer to see how it's done!	お手本をみる	Zuschauen wie es der Computer macht	Ver o computador para saber como se joga	Guarda il computer per vedere come si fa.	Regarde comment fait l'ordinateur	Mira como se hace! 	Посмотрим как у компьютера дела	어떻게하는지 확인하기 위해 컴퓨터를 조심해!	观看电脑，看看它是如何做的！	
+Show a path through the level while you play.	道しるべを表示する	Pfad durch das Level anzeigen während du spielst	Traçar um caminho pra ser seguido durante a fase	Mostra un percorso lungo il livello mentre giochi.	Suis le chemin pendant le jeu	Mostrar mapa mientras juegas 	Указывай как пройти уровень во время игры	네가 연주하는 동안 레벨을 통해 경로를 표시합니다.	通过电平显示的路径，当你玩。	
+Activate slow motion!	スローモーション！　交互に{0}を押す。	Zeitlupenmodus aktivieren! Umschalten mit {0}	Ativar câmera lenta! Liga / desliga com  {0}	Attiva slow motion, alterna con {0}	Bascule en slow motion ! Active et désactive avec {0}	Activar modo lento! Alternar con 	Замедлить! Включить	느린 움직임을 활성화!	激活慢动作！	
+Paused	停止中	Pause	Pausa	Pausa	Pause	Pausado	Пауза	일시 중지	暂停	
+Speed	スピード	Schnelligkeit	Velocidade do replay	Velocità	Vitesse	Velocidad	Скорость	속도	速度	
+Step	次へ	Nächster Schritt	Próximo frame	Passo	Suivant	Siguiente marco	Шаг вперед	단계	步骤	
+Level Cleared!	レベルクリア！	Level geschafft 	Nível completo!	Livello completato!	Niveau Terminé !	Nivel terminado!	Уровень пройден!	수준 잡습니다!	级别清除！	
+Keep Settings	設定をキープ	Einstellungen übernehmen	Repetir configuração	Mantieni le impostazioni	Garder les paramétres	Mantener Ajustes	Оставить настройки	설정을 유지	保存设置	
+Watch Replay	リプレイを見る	Wiedergabe 	Assistir Replay	Guarda il replay	Regarder le Replay	Mirar Replay	Начать перепросмотр	재생보기	观看重播	
+Back to Freeplay	フリープレーに戻る	Zurück zum Freeplay 	Voltar pro menu	Torna al freeplay	Retour au Jeu Libre	Regresar a  Freeplay	Обратно к Свободному режиму	Freeplay로 돌아 가기	后以自由行动	
+Pause	停止	Pause 	Pausa	Pausa	Pause	Pausa	Пауза	중지	暂停	
+Single	シングル	Einzel 	Última	Singolo	Seul	Single	Одиночный	하나의	单	
+Prev	前回	Vorheriges 	Voltar	Precedente	Précédent	Previo	Предварительная	이전	上一页	
+All	全部	Alle	Todas	Tutto	Tous	Todo	Все	모든	所有	
+End	終わる	Beenden	Sair	Fine	Terminer	Final	Конец	끝	结束	
+Loading	読み込み中	Wird geladen	Carregando	Caricamento	Chargement	Cargando	Грузится	로드	载入中	
+Hero unlocked!	ヒーローが解除されました！	Held ist freigeschaltet!	Herói desbloqueado	Eroe sbloccato	Héro débloqué!	Héroe desbloqueado!	Герой открыт!	영웅 잠금 해제!	英雄解锁！	
 New hero unlocked!	新しいヒーロが解除されました！	Neuer Held ist freigeschaltet	Novo herói desbloqueado!	Nuovo eroe sbloccato	Nouveau héro débloqué!	Nuevo héroe desbloqueado!	Новый герой открыт!	새로운 영웅 해제!	新英雄解锁！	
 Hero in the making	ヒーローへの道	Der werdende Held	Herói em processo	Eroe in formazione	Héro en construction	Heroe en Proceso	Герой почти готов	제작의 영웅	在本作中的英雄	
 Complete Chapter 1	チャプター１クリア	Kapitel 1 geschafft	Complete o Capítulo 1	Completa Capitolo 1	Complète le niveau 1	Capitulo 1 Completo	Глава первая окончена	제 1 장 완료	完成第1章	
@@ -327,22 +327,22 @@ Delete {0} seed?	{0}シードを削除しますか？	Anlaufwert {0} löschen? 	
 Delete {0} seeds?	{0}シードを削除しますか？	Anlaufwerte {0} löschen? 	Apagar {0} senhas?	Elimina {0} semi?	Annuler les codes ?	Borrar {0} códigos?	Удалить {0} уровньей?	{0} 종자를 삭제 하시겠습니까?	删除{0}种子？	
 Multiplier increased!	ポイント倍増数が増えました	Der Multiplikator ist größer geworden! 	Multiplicador aumentado!	Moltiplicatore aumentato!	Multiplicateur augmenté!	Multiplicador incrementado	Множитель увеличился!	배율이 증가!	倍数增加！	
 Hold {0} to jump higher!	{0}ボタンを長押しして高く飛べ！	Drehe den Kontroller um {0} Grad um höher zu springen! 	Segure {0} para pular alto!	Tieni premuto {0} per saltare più in alto!	Maintiens {0} pour sauter plus haut	Manten {0} para saltar más alto!	Держите {0} чтобы прыгать выше!	{0} 더 높이 점프 할 멈춰!	按住{0}跳得更高！	
-Hold {0} and {0} to respawn quickly!	{0}と{0}を長押しして素早く復活！	Drücke {0} und {1} um wieder von vorn anzufangen	Segure {0} e {1} para reiniciar!	Tieni premuto {0} e {1} per riapparire velocemente!	Maintiens {0} et {1} pour ressusciter plus vite	Manten presionado {0} y {1} para aparecer rápidamente!	Держите {0} и {1} чтобы возродится быстрее!	잡아 {0}과 {0} 빠르게 리젠 수 있습니다!	按住{0}{0}重生的很快！	
-Press {0} to respawn quickly!	スペースキーを押して素早く復活！	Drücke {0} um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur la barre d'Espace pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	빠르게 리젠 할 {0}를 눌러!	按{0}重生快！	
+Hold {0} and {0} to respawn quickly!	{0}と{0}を長押しして素早く復活！	Drücke {0} und {1} um wieder von vorn anzufangen	Segure {0} e {1} para reiniciar!	Tieni premuto {0} e {1} per riapparire velocemente!	Maintiens {0} et {1} pour ressusciter plus vite	Manten presionado {0} y {1} para aparecer rápidamente!	Держите {0} и {1} чтобы возродится быстрее!	잡아 {0}과 {0} 빠르게 리젠 수 있습니다!	按住{0} {0}重生的很快！	
+Press {0} to respawn quickly!	スペースキーを押して素早く復活！	Drücke {0} um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur la barre d'Espace pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	보도 {0}이 (가) 빠르게 리젠 수 있습니다!	按{0}重生快！	
 Press {0} for powerups!	{0}ボタンを押してパワーアップ！	Drücke {0} für die Bonusmenüs 	Pressione {0} para uma ajuda!	Premi {0} per potenziamenti!	Appuie sur {0} pour les power-up!	Presiona {0} para powerups	Нажмите {0} для бонусов!	powerups를 누르면 {0}!	按{0}通电！	
 trophy	トロフィー	Pokal	Troféu	Trofeo	Trophée	Trofeo	Трофей	트로피	杯	
 You have earned a trophy	トロフィーを獲得しました	Du hast einen Pokal gewonnen	Você mereceu um troféu.	Hai ottenuto un trofeo	Tu as remporté un trophée	Has recibido un trofeo	Вы заработали трофей	당신은 트로피를 적립	你赢得了一个冠军奖杯	
-Awardment	アチーブメント	Awardment	prêmio	Premi	Approbation	Logros	!LocalizeMe!	awardment	awardment	
+Awardment	アチーブメント	Awardment	prêmio	Premi	Approbation	Logros	!LocalizeMe!	Awardment	Awardment	
 Required	Required	Required	Required	Required	Required	Required	Required	필요	需要	
-Friends Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Top Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-My Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Sort by Level	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Sort by Score	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-View Gamer Card	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Unlock Full Game	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-You are not ranked\non this leaderboard.	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Your friends are\nnot ranked on this leaderboard.	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-The Arcade, Total	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Select	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
-Sign In?	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	
+Friends Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	친구 점수	朋友成绩	
+Top Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	최고 점수	最高分	
+My Scores	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	내 점수	我的分数	
+Sort by Level	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	레벨 순으로 정렬	排序级别	
+Sort by Score	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	점수 순으로 정렬	按分数排序	
+View Gamer Card	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	게이머 카드보기	玩家卡	
+Unlock Full Game	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	전체 게임 잠금 해제	全场比赛解锁	
+You are not ranked\non this leaderboard.	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	당신이 리더 \ 이외의 순위가 결정되는 것은 아닙니다.	你是不是\非本排行榜排名。	
+Your friends are\nnot ranked on this leaderboard.	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	친구들이 리더에 위를​​ 차지 \ nnot 있습니다.	你的朋友是\ n不是这个排行榜上的排名。	
+The Arcade, Total	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	아케이드, 총	商场，总	
+Select	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	선택	选择	
+Sign In?	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	!LocalizeMe!	로그인?	登录？	
