@@ -366,7 +366,7 @@ namespace CloudberryKingdom
             
             _q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -441.2393f); _q.Size = new Vector2(25.9999f, 106.8029f); }
             _q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
-            _q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -822.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+            _q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
