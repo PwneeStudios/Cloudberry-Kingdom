@@ -841,7 +841,7 @@ namespace CloudberryKingdom.Levels
             {
                 VoidHeight = 40;
                 LavaBlock lblock = (LavaBlock)Recycle.GetObject(ObjectType.LavaBlock, false);
-                lblock.Init(MainCamera.BL.Y + Rnd.RndFloat(300, 800) + Style.LowerSafetyNetOffset,
+                lblock.Init(MainCamera.BL.Y + Rnd.RndFloat(300, 550) + Style.LowerSafetyNetOffset,
                             MaxLeft - 1000, MaxRight + 1000, 5000);
                 lblock.StampAsUsed(0);
                 AddBlock(lblock);

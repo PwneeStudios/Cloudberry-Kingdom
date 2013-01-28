@@ -34,11 +34,15 @@ namespace CloudberryKingdom
             this.Title = Title;
             this.Arcade = Arcade;
             this.MyArcadeItem = MyArcadeItem;
+
+            NumSelectableItems = 0;
         }
 
         public override void Release()
         {
             base.Release();
+
+            Scroll = null;
 
             if (MyHeroDoll != null) MyHeroDoll.Release();
             if (Options != null) Options.Release();
@@ -163,6 +167,7 @@ namespace CloudberryKingdom
             Update();
         }
 
+        QuadClass Scroll, ScrollTop, ScrollBottom;
         public HeroDoll MyHeroDoll;
         public override void Init()
         {
@@ -174,7 +179,7 @@ namespace CloudberryKingdom
 
             Score = new EzText("0", Resources.Font_Grobold42_2);
             Level = new EzText("0", Resources.Font_Grobold42_2);
-                                        
+          
             // Menu
             MiniMenu mini = new MiniMenu();
             MyMenu = mini;
@@ -257,10 +262,34 @@ namespace CloudberryKingdom
 
             MyPile.FadeIn(.33f);
 
+            // Scroll bar
+            Scroll = new QuadClass("Arcade_BoxLeft", 100);
+            MyPile.Add(Scroll, "Scroll");
+
+            ScrollTop = new QuadClass("Arcade_BoxLeft", 100);
+            MyPile.Add(ScrollTop, "ScrollTop");
+            ScrollTop.Show = false;
+
+            ScrollBottom = new QuadClass("Arcade_BoxLeft", 100);
+            MyPile.Add(ScrollBottom, "ScrollBottom");
+            ScrollBottom.Show = false;
+
+
             SetPos();
         }
 
         EzText Score, Level;
+
+        protected override void MyPhsxStep()
+        {
+            base.MyPhsxStep();
+
+            if (Scroll != null)
+            {
+                float t = (float)MyMenu.CurIndex / (float)(NumSelectableItems - 1);
+                Scroll.PosY = (1 - t) * (ScrollTop.PosY - Scroll.SizeY) + (t) * ScrollBottom.PosY;
+            }
+        }
 
         public override void OnReturnTo()
         {
@@ -283,8 +312,10 @@ namespace CloudberryKingdom
             Level.SubstituteText(TopLevel.ToString());
         }
 
+        int NumSelectableItems;
         void Update()
         {
+            NumSelectableItems = 0;
             foreach (MenuItem _item in MyMenu.Items)
             {
                 HeroItem item = _item as HeroItem;
@@ -301,12 +332,14 @@ namespace CloudberryKingdom
                             item.MyText.Alpha = 0;
                             item.MySelectedText.Alpha = 0;
                         }
-
+                        else
+                            NumSelectableItems++;
                     }
                     else
                     {
                         item.MyText.Alpha = 1f;
                         item.MySelectedText.Alpha = 1f;
+                        NumSelectableItems++;
                     }
                 }
             }
@@ -326,10 +359,14 @@ namespace CloudberryKingdom
             _t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
 
             QuadClass _q;
-            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5466f, 1004.329f); }
+            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5465f, 1004.329f); }
             _q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
             _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
             _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+            
+            _q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -441.2393f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+            _q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+            _q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -822.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 
             MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }

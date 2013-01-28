@@ -121,10 +121,10 @@ namespace CloudberryKingdom
             HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
             {
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 5) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 5) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 40) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 40) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 35) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 35) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 45) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) ),
