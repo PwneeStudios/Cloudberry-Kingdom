@@ -413,14 +413,18 @@ namespace CloudberryKingdom
             MenuItem item;
 
 #if PC_VERSION
-            //item = new MenuItem(new EzText(ButtonString.Back(86) + text, ItemFont));
-            item = new MenuItem(new EzText(ButtonString.Back(86) + Localization.WordString(Word), ItemFont));
+            if (ButtonCheck.ControllerInUse)
+                item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
+            else
+            {
+                //item = new MenuItem(new EzText(ButtonString.Back(86) + Localization.WordString(Word), ItemFont));
+                item = new MenuItem(new EzText(Localization.WordString(Word), ItemFont));
+            }
 #else
-            //item = new MenuItem(new EzText(ButtonString.Back(86) + " " + text, ItemFont));
             item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
 #endif
 
-            item.Go = menuitem => MyMenu.OnB(MyMenu);
+            item.Go = _MakeBackGo;
             item.Name = "Back";
             AddItem(item);
             item.SelectSound = null;
@@ -428,6 +432,11 @@ namespace CloudberryKingdom
             item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
             return item;
+        }
+
+        void _MakeBackGo(MenuItem item)
+        {
+            item.MyMenu.OnB(item.MyMenu);
         }
 
         public static void MakeBackdrop(Menu menu, Vector2 TR, Vector2 BL)

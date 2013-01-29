@@ -113,13 +113,17 @@ namespace CloudberryKingdom
 
             text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42, true);
             MyPile.Add(text, "accept");
+#if XBOX
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
+#endif
 
             text = new EzText(Localization.Words.Back, Resources.Font_Grobold42, true);
             MyPile.Add(text, "back");
+#if XBOX
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+#endif
 
             QuadClass q;
 

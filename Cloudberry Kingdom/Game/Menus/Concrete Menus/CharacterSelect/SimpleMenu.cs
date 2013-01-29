@@ -192,7 +192,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Customize
-            item = new MenuItem(new EzText(Localization.Words.Custom, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Custom, ItemFont, true));
             item.Name = "Custom";
             item.Go = Cast.ToItem(SimpleToCustom);
             ItemPos = new Vector2(-523, -174);
@@ -200,13 +200,13 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Random
-            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont, true));
             item.Name = "Random";
             item.Go = Cast.ToItem(MyCharacterSelect.Randomize);
             AddItem(item);
 
             // Confirm
-            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont, true));
             item.Name = "Done";
             item.Go = Cast.ToItem(SimpleToDone);
             AddItem(item);
@@ -239,9 +239,9 @@ namespace CloudberryKingdom
         void SetPos()
         {
             MenuItem _item;
-            _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(-309.1112f, -87.88895f); _item.MyText.Scale = 0.6731667f; _item.MySelectedText.Scale = 0.6731667f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(-336.8889f, -263.4445f); _item.MyText.Scale = 0.6948333f; _item.MySelectedText.Scale = 0.6948333f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-239.6667f, -441.7778f); _item.MyText.Scale = 0.6962501f; _item.MySelectedText.Scale = 0.6962501f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Custom"); if (_item != null) { _item.SetPos = new Vector2(0, -87.88895f); _item.MyText.Scale = 0.6731667f; _item.MySelectedText.Scale = 0.6731667f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(0, -263.4445f); _item.MyText.Scale = 0.6948333f; _item.MySelectedText.Scale = 0.6948333f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            _item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(0, -441.7778f); _item.MyText.Scale = 0.6962501f; _item.MySelectedText.Scale = 0.6962501f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
             MyMenu.Pos = new Vector2(0, 0);
             MyPile.Pos = new Vector2(0, 0);

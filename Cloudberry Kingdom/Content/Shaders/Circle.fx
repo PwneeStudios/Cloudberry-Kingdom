@@ -11,13 +11,11 @@ PixelToFrame CirclePixelShader(VertexToPixel PSIn)
     float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
     
     Output.Color = PSIn.Color;
-    //Output.Color *= baseColor;
 	
-	Output.Color.a *= saturate(100*(.25 - d));
-    //Output.Color *= PSIn.Color;
+    Output.Color.a *= saturate(100*(.25 - d));
 
-	// Premultiply the alpha
-	Output.Color.rgb *= Output.Color.a;
+    // Premultiply the alpha
+    Output.Color.rgb *= Output.Color.a;
 	        
     return Output;
 }

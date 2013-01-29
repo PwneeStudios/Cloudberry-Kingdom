@@ -98,7 +98,10 @@ namespace CloudberryKingdom
                 Incr = false;
                 for (int i = 0; i < 4; i++)
                     if (Controller[i].DownCount(button) > 0)
+                    {
                         Incr = true;
+                        ButtonCheck.ControllerInUse = true;
+                    }
 
                 All.IncrCount(button, Incr);
             }
@@ -139,6 +142,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool MouseInUse = false;
         public static bool PrevMouseInUse = false;
+        public static bool ControllerInUse = false;
 
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
@@ -196,7 +200,12 @@ namespace CloudberryKingdom
         /// </summary>
         public static void UpdateMouseUse()
         {
-            if (ButtonCheck.AnyKeyboardKey() ||
+            bool AnyKey = ButtonCheck.AnyKeyboardKey();
+
+            if (AnyKey)
+                ButtonCheck.ControllerInUse = false;
+
+            if (AnyKey ||
 #if PC_VERSION
                 (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
 #else

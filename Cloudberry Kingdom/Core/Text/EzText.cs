@@ -13,18 +13,20 @@ namespace CloudberryKingdom
 {
     public class ButtonTexture
     {
+        public static EzTexture Go { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Back : _Go; } }
+        public static EzTexture Back { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Go : _Back; } }
+
 #if PC_VERSION
-        public static bool UseGamepadButtons = true;
-        public static EzTexture Go { get { return Tools.Texture( UseGamepadButtons ? "Xbox_A" : "Enter_Key" ); } }
-        public static EzTexture Back { get { return Tools.Texture( UseGamepadButtons ? "Xbox_B" : "Esc_Key" ); } }
-        public static EzTexture X { get { return UseGamepadButtons ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
-        public static EzTexture Y { get { return UseGamepadButtons ? Tools.Texture( "Xbox_Y" ) : ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey); } }
-        public static EzTexture LeftRight { get { return Tools.Texture( UseGamepadButtons ? "Xbox_Dir" : "LeftRight_Key"); } }
-        public static EzTexture LeftBumper { get { return UseGamepadButtons ? Tools.Texture("Xbox_LB") : ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
-        public static EzTexture RightBumper { get { return UseGamepadButtons ? Tools.Texture("Xbox_RB") : ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
+        public static EzTexture _Go { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_A" : "Enter_Key" ); } }
+        public static EzTexture _Back { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_B" : "Esc_Key" ); } }
+        public static EzTexture X { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
+        public static EzTexture Y { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_Y" ) : ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey); } }
+        public static EzTexture LeftRight { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_Dir" : "LeftRight_Key"); } }
+        public static EzTexture LeftBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_LB") : ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
+        public static EzTexture RightBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_RB") : ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
 #elif PS3
-        public static EzTexture Go { get { return Tools.Texture("PS3_X"); } }
-        public static EzTexture Back { get { return Tools.Texture("PS3_Circle"); } }
+        static EzTexture _Go { get { return Tools.Texture("PS3_X"); } }
+        static EzTexture _Back { get { return Tools.Texture("PS3_Circle"); } }
         public static EzTexture X { get { return Tools.Texture("PS3_Square"); } }
         public static EzTexture Y { get { return Tools.Texture("PS3_Triangle"); } }
         public static EzTexture LeftRight { get { return Tools.Texture("PS3_Dir"); } }
@@ -32,16 +34,16 @@ namespace CloudberryKingdom
         public static EzTexture RightBumper { get { return Tools.Texture("PS3_1"); } }
 #elif CAFE
         public static bool UseGamepad = true;
-        public static EzTexture Go { get { return Tools.Texture( UseGamepad ? "WiiU_B" : "WiiU_2" ); } }
-        public static EzTexture Back { get { return Tools.Texture( UseGamepad ? "WiiU_A" : "WiiU_1" ); } }
+        public static EzTexture _Go { get { return Tools.Texture( UseGamepad ? "WiiU_B" : "WiiU_2" ); } }
+        public static EzTexture _Back { get { return Tools.Texture( UseGamepad ? "WiiU_A" : "WiiU_1" ); } }
         public static EzTexture X { get { return Tools.Texture( UseGamepad ? "WiiU_Y" : "WiiU_1" ); } }
         public static EzTexture Y { get { return Tools.Texture( UseGamepad ? "WiiU_X" : "WiiU_Dash" ); } }
         public static EzTexture LeftRight { get { return Tools.Texture( UseGamepad ? "WiiU_Dir" : "WiiU_Dir" ); } }
         public static EzTexture LeftBumper { get { return Tools.Texture( UseGamepad ? "WiiU_R" : "WiiU_R" ); } }
         public static EzTexture RightBumper { get { return Tools.Texture( UseGamepad ? "WiiU_L" : "WiiU_L" ); } }
 #else
-        public static EzTexture Go { get { return Tools.Texture("Xbox_A"); } }
-        public static EzTexture Back { get { return Tools.Texture("Xbox_B"); } }
+        static EzTexture _Go { get { return Tools.Texture("Xbox_A"); } }
+        static EzTexture _Back { get { return Tools.Texture("Xbox_B"); } }
         public static EzTexture X { get { return Tools.Texture("Xbox_X"); } }
         public static EzTexture Y { get { return Tools.Texture("Xbox_Y"); } }
         public static EzTexture LeftRight { get { return Tools.Texture("Xbox_Dir"); } }

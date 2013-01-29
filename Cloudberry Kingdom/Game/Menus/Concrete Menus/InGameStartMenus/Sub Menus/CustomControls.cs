@@ -83,12 +83,25 @@ namespace CloudberryKingdom
             citem.MyQuad.Pos = item.Pos + new Vector2(-150, -132);
         }
 
-        public CustomControlsMenu() { }
+        public CustomControlsMenu() : base(false)
+        {
+            EnableBounce();
+
+            Constructor();
+        }
 
         protected QuadClass Backdrop;
         public virtual void MakeBackdrop()
         {
-            Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            if (UseBounce)
+            {
+                Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+            }
+            else
+            {
+                Backdrop = new QuadClass("Backplate_1230x740", 1500, true);
+            }
+   
             MyPile.Add(Backdrop);
             Backdrop.Size = new Vector2(1376.984f, 1077.035f);
             Backdrop.Pos = new Vector2(-18.6521f, -10.31725f);
