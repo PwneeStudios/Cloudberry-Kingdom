@@ -173,7 +173,9 @@ namespace CloudberryKingdom
 
         private static void ReadSubtitleInfo(string VideoName)
         {
-            string path = Path.Combine("Content", Path.Combine("Localization", Path.Combine("Subtitles", VideoName))) + ".txt";
+            string path = Path.Combine("Content", Path.Combine("Localization", Path.Combine("Subtitles", Path.Combine(CurrentLanguage.MyDirectory, VideoName)))) + ".tsv";
+
+            if (!File.Exists(path)) return;
 
             ReadSubtitles(path);
         }
@@ -188,13 +190,13 @@ namespace CloudberryKingdom
             public enum ActionType { Show, Hide };
             public ActionType MyAction;
 
-            public EzTexture MyTexture;
+            public string Text;
 
-            public SubtitleAction(ActionType MyAction, float Time, EzTexture MyTexture)
+            public SubtitleAction(ActionType MyAction, float Time, string Text)
             {
                 this.MyAction = MyAction;
                 this.Time = Time;
-                this.MyTexture = MyTexture;
+                this.Text = Text == null ? null : Text.Replace("\\n", "\n");
             }
         }
 
@@ -207,6 +209,16 @@ namespace CloudberryKingdom
         }
 
         static List<SubtitleAction> Subtitles;
+
+        static float ParseTime(string s)
+        {
+            var data = s.Split(':');
+
+            float seconds = float.Parse(data[2]);
+            float minutes = float.Parse(data[1]);
+
+            return seconds + minutes * 60;
+        }
 
         private static void ReadSubtitles(string path)
         {
@@ -232,31 +244,24 @@ namespace CloudberryKingdom
                     continue;
                 }
 
-                int space = line.IndexOf(' ');
-                string identifier, data;
-                if (space > 0)
-                {
-                    identifier = line.Substring(0, space);
-                    data = line.Substring(space + 1);
-                }
-                else
-                {
-                    identifier = line;
-                    data = "";
-                }
 
-                switch (identifier)
+                var data = line.Split('\t');
+
+                if (data.Length <= 1) continue;
+
+                switch (data[1])
                 {
-                    case "show":
-                        var SubtitleTexture = Tools.Texture(string.Format("Chunk_{0}", Index));
-                        Subtitles.Add(new SubtitleAction(SubtitleAction.ActionType.Show, float.Parse(data), SubtitleTexture));
+                    case "+":
+                        if (data.Length < 3) continue;
+
+                        Subtitles.Add(new SubtitleAction(SubtitleAction.ActionType.Show, ParseTime(data[0]), data[2]));
                         
                         Index++;
 
                         break;
 
-                    case "hide":
-                        Subtitles.Add(new SubtitleAction(SubtitleAction.ActionType.Hide, float.Parse(data), null));
+                    case "-":
+                        Subtitles.Add(new SubtitleAction(SubtitleAction.ActionType.Hide, ParseTime(data[0]), null));
                         break;
                 }
 

@@ -25,7 +25,7 @@ namespace CloudberryKingdom
         
         static EzTexture VEZTexture = new EzTexture();
 
-        static double Duration;
+        static double Duration, Elapsed;
         static DateTime StartTime;
 
         static bool CanSkip;
@@ -33,7 +33,7 @@ namespace CloudberryKingdom
 
         static List<Localization.SubtitleAction> Subtitles;
         static int SubtitleIndex;
-        static QuadClass SubtitleQuad = new QuadClass();
+        static EzText SubtitleText;
 
         public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
@@ -54,8 +54,17 @@ namespace CloudberryKingdom
 #endif
 
             Subtitles = Localization.GetSubtitles(MovieName);
-            SubtitleIndex = 0;
-            SubtitleQuad.Show = false;
+
+            if (Subtitles != null)
+            {
+                SubtitleIndex = 0;
+            }
+
+            if (SubtitleText != null)
+            {
+                SubtitleText.Release();
+                SubtitleText = null;
+            }
 
             if (Content == null)
             {
@@ -80,17 +89,14 @@ namespace CloudberryKingdom
 
             VPlayer.Volume = Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val);
 
+            Elapsed = 0;
             Duration = CurrentVideo.Duration.TotalSeconds;
             StartTime = DateTime.Now;
         }
 
-        /// <summary>
-        /// Returns the length of time the video has already been playing in seconds.
-        /// </summary>
-        /// <returns></returns>
-        static double ElapsedTime()
+        public static void UpdateElapsedTime()
         {
-            return (DateTime.Now - StartTime).TotalSeconds;
+            Elapsed += Tools.TheGame.DeltaT;
         }
 
         static bool Paused = false;
@@ -113,8 +119,8 @@ namespace CloudberryKingdom
 //#endif
 
             // End the video if the user presses a key
-            if (CanSkip && PlayerManager.Players != null && ElapsedTime() > .3f ||
-                ElapsedTime() > LengthUntilUserCanSkip)
+            if (CanSkip && PlayerManager.Players != null && Elapsed > .3f ||
+                Elapsed > LengthUntilUserCanSkip)
             {
                 // Update songs
                 if (Tools.SongWad != null)
@@ -131,27 +137,33 @@ namespace CloudberryKingdom
         {
             if (Subtitles == null) return;
 
-            SubtitleQuad.Draw();
-            Tools.QDrawer.Flush();
+            if (SubtitleText != null)
+            {
+                SubtitleText.Draw(Tools.CurCamera);
+                Tools.QDrawer.Flush();
+            }
 
             if (SubtitleIndex >= Subtitles.Count) return;
 
             var NextSubtitle = Subtitles[SubtitleIndex];
-            if (ElapsedTime() > NextSubtitle.Time)
+            if (Elapsed > NextSubtitle.Time)
             {
                 switch (NextSubtitle.MyAction)
                 {
                     case Localization.SubtitleAction.ActionType.Show:
-                        SubtitleQuad.Show = true;
-                        SubtitleQuad.Quad.MyTexture = NextSubtitle.MyTexture;
-                        SubtitleQuad.ScaleToTextureSize();
-                        SubtitleQuad.Scale(1.445f);
-                        SubtitleQuad.Update();
-                        SubtitleQuad.Pos = new Vector2(0, -700 - SubtitleQuad.Quad.Height / 2);
+                        SubtitleText = new EzText(NextSubtitle.Text, Resources.Font_Grobold42, 1433.333f, true, true, .666f);
+                        SubtitleText.Show = true;
+                        SubtitleText.Scale = .4000f;
+                        SubtitleText.Pos = new Vector2(0, -830 + SubtitleText.Height / 2);
+                        SubtitleText.MyFloatColor = ColorHelper.Gray(.925f);
+                        SubtitleText.OutlineColor = ColorHelper.Gray(.100f);
+                        
                         break;
 
                     case Localization.SubtitleAction.ActionType.Hide:
-                        SubtitleQuad.Show = false;
+                        SubtitleText.Show = false;
+                        SubtitleText.Release();
+
                         break;
                 }
 
@@ -165,9 +177,10 @@ namespace CloudberryKingdom
 
             Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
 
+            UpdateElapsedTime();
             UserInput();
 
-            if (ElapsedTime() > Duration)
+            if (Elapsed > Duration)
                 Playing = false;
 
             VEZTexture.Tex = VPlayer.GetTexture();

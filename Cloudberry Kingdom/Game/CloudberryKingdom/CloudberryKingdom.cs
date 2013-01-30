@@ -42,20 +42,20 @@ namespace CloudberryKingdom
         public static Version GameVersion = new Version(0, 2, 4);
 
         // Steam Beta
-        public static bool GodMode = false;
-        public static bool HideLogos = true;
-        public static bool LockCampaign = true;
-        public static bool SimpleMainMenu = true;
-        public static bool SimpleLeaderboards = true;
-        public static bool AsianButtonSwitch = false;
+        //public static bool GodMode = false;
+        //public static bool HideLogos = true;
+        //public static bool LockCampaign = true;
+        //public static bool SimpleMainMenu = true;
+        //public static bool SimpleLeaderboards = true;
+        //public static bool AsianButtonSwitch = false;
 
         //// Xbox Testing
-        //public static bool GodMode = true;
-        //public static bool HideLogos = false;
-        //public static bool LockCampaign = false;
-        //public static bool SimpleMainMenu = false;
-        //public static bool SimpleLeaderboards = false;
-        //public static bool AsianButtonSwitch = false;
+        public static bool GodMode = true;
+        public static bool HideLogos = false;
+        public static bool LockCampaign = false;
+        public static bool SimpleMainMenu = false;
+        public static bool SimpleLeaderboards = false;
+        public static bool AsianButtonSwitch = false;
 
         //// Xbox Release
         //public static bool GodMode = false;
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = false;
+        public static bool Unlock_Levels = true;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;

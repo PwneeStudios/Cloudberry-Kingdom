@@ -446,6 +446,246 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Chinese\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\English\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\French\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\German\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Italian\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Japanese\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Korean\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Portuguese\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Russian\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_1.tsv">
+      <Name>Cutscene_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_2.tsv">
+      <Name>Cutscene_2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_3.tsv">
+      <Name>Cutscene_3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_4.tsv">
+      <Name>Cutscene_4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_5.tsv">
+      <Name>Cutscene_5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Localization\Subtitles\Spanish\Cutscene_6.tsv">
+      <Name>Cutscene_6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Shaders\RootEffect.fx">
       <Name>RootEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -6300,48 +6540,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Movies\Cutscene_1.wmv">
-      <Name>Cutscene_1</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Movies\Cutscene_2.wmv">
-      <Name>Cutscene_2</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-    <Compile Include="Movies\Cutscene_3.wmv">
-      <Name>Cutscene_3</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-    <Compile Include="Movies\Cutscene_4.wmv">
-      <Name>Cutscene_4</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-    <Compile Include="Movies\Cutscene_5.wmv">
-      <Name>Cutscene_5</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-    <Compile Include="Movies\Cutscene_6.wmv">
-      <Name>Cutscene_6</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Campaign\CampaignList.txt">
       <Name>CampaignList</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Localization\Subtitles\Cutscene_1.txt">
-      <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -6685,6 +6885,38 @@
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Movies\Cutscene_1.wmv">
+      <Name>Cutscene_1</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_2.wmv">
+      <Name>Cutscene_2</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_3.wmv">
+      <Name>Cutscene_3</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_4.wmv">
+      <Name>Cutscene_4</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_5.wmv">
+      <Name>Cutscene_5</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_6.wmv">
+      <Name>Cutscene_6</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
