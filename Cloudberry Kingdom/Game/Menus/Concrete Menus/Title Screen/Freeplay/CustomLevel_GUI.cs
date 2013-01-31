@@ -101,6 +101,8 @@ namespace CloudberryKingdom
 
         public void StartLevel(LevelSeedData data)
         {
+			Tools.PlayHappyMusic(MyGame);
+
             data.PostMake += data.PostMake_EnableLoad;
 
             PlayerManager.CoinsSpent = -999;

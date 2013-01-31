@@ -45,6 +45,9 @@ namespace CloudberryKingdom
         public int LevelNum = -1; const string LevelFlag = "level";
         public int LevelIndex = -1; const string IndexFlag = "index";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
+			public bool RepeatHero = false; const string RepeatHeroFlag = "repeathero";
+			public bool ShowTilename = false; const string TilenameFlag = "tilename";
+			public bool GiveScoreScreen = false; const string ScoreScreenFlag = "scorescreen";
         public bool Darkness = false; const string DarknessFlag = "darkness";
         public bool Masochistic = false; const string MasochistFlag = "masochist";
 
@@ -74,6 +77,12 @@ namespace CloudberryKingdom
 
             if (NewHero) PostMake += _NewHero;
 
+			if (RepeatHero) PostMake += _RepeatHero;
+
+			if (ShowTilename) PostMake += _ShowTilename;
+
+			if (GiveScoreScreen) PostMake += _ScoreScreen;
+
             if (NoStartDoor) PostMake += _NoStartDoor;
 
             if (FadeIn) PostMake += _FadeIn_Process;
@@ -85,11 +94,30 @@ namespace CloudberryKingdom
             if (MySong != null) PostMake += _StartSong;
         }
 
+		public static void WaitThenPlay(GameData game, int wait, EzSong song)
+		{
+			game.WaitThenDo(wait, () =>
+				{
+					if (song == null)
+						Tools.SongWad.Next();
+					else
+						Tools.SongWad.Next(song);
+					Tools.SongWad.PlayNext = true;
+				});
+		}
+
         private void _StartSong(Level level)
         {
-            Tools.SongWad.SetPlayList(Tools.SongList_Standard);
-            Tools.SongWad.Next(MySong);
-            Tools.SongWad.PlayNext = true;
+			if (MySong == Tools.Song_Happy)
+			{
+				Tools.SongWad.SetPlayList(MySong);
+				WaitThenPlay(level.MyGame, 40, MySong);
+			}
+			else
+			{
+				Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+				WaitThenPlay(level.MyGame, 40, MySong);
+			}
         }
 
         private static void _HasWall_Process(Level level, PieceSeedData piece)
@@ -120,6 +148,32 @@ namespace CloudberryKingdom
             level.MyLevelSeed.WaitLengthToOpenDoor = 150;
             level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
         }
+
+		private static void _RepeatHero(Level level)
+		{
+			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.DefaultHeroType.Name)));
+		}
+
+		private static void _ShowTilename(Level level)
+		{
+			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.MyTileSet.NameInGame)));
+			level.MyLevelSeed.WaitLengthToOpenDoor = 150;
+			level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
+		}
+
+		private static void _ScoreScreen(Level level)
+		{
+			level.MyGame.MakeScore = () =>
+				{
+					CampaignSequence.MarkProgress(level);
+					return new ScoreScreen(StatGroup.Level, level.MyGame, true);
+				};
+
+			ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
+			door.OnOpen = d => GameData.EOL_DoorAction(d);
+
+			level.StartRecording();
+		}
 
         private static void _FadeIn_Process(Level level)
         {
@@ -358,6 +412,15 @@ namespace CloudberryKingdom
 
                     // NewHero
                     case NewHeroFlag: NewHero = true; break;
+
+					// RepeatHero
+					case RepeatHeroFlag: RepeatHero = true; break;
+
+					// Tileset
+					case TilenameFlag: ShowTilename = true; break;
+
+					// Tileset
+					case ScoreScreenFlag: GiveScoreScreen = true; break;
 
                     // Darkness
                     case DarknessFlag: Darkness = true; break;
@@ -674,7 +737,7 @@ namespace CloudberryKingdom
         public void PostMake_StandardLoad(Level level)
         {
             LevelSeedData.PostMake_Standard(level, true, false);
-            level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame);
+            level.MyGame.MakeScore = () => new ScoreScreen(StatGroup.Level, level.MyGame, false);
         }
 
         public static void PostMake_Standard(Level level, bool StartMusic, bool ShowMultiplier)

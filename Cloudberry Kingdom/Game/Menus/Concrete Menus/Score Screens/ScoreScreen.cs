@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Stats;
+using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom
 {
@@ -22,11 +23,19 @@ namespace CloudberryKingdom
                 _Add_Watch = MyGame.MyLevel.ReplayAvailable;
                 _Add_Save = MyGame.MyLevel.MyLevelSeed != null && MyGame.MyLevel.MyLevelSeed.Saveable;
 
-                MenuItem item;
+                MenuItem item, go;
 
-                item = new MenuItem(new EzText(Localization.Words.KeepSettings, ItemFont));
+				if (InCampaign)
+				{
+					go = item = new MenuItem(new EzText(Localization.Words.Continue, ItemFont));
+					item.Go = MenuGo_Continue;
+				}
+				else
+				{
+					go = item = new MenuItem(new EzText(Localization.Words.KeepSettings, ItemFont));
+					item.Go = MenuGo_NewLevel;
+				}
                 item.Name = "Continue";
-                item.Go = MenuGo_NewLevel;
                 AddItem(item);
                 item.MyText.Scale =
                 item.MySelectedText.Scale *= 1.3f;
@@ -49,8 +58,20 @@ namespace CloudberryKingdom
                     AddItem(item);
                 }
 
-                MakeBackButton(Localization.Words.BackToFreeplay);
-                MyMenu.OnB = Cast.ToMenu(MenuGo_Continue);
+				MenuItem back;
+				if (InCampaign)
+				{
+					back = MakeBackButton(Localization.Words.Back);
+					back.Go = MenuGo_ExitCampaign;
+				}
+				else
+				{
+					back = MakeBackButton(Localization.Words.BackToFreeplay);
+					back.Go = MenuGo_ExitFreeplay;
+				}
+
+                MyMenu.OnB = Cast.ToMenu(go.Go);
+				//MyMenu.OnB = Cast.ToMenu(back.Go);
 
                 EnsureFancy();
                 MyMenu.FancyPos.RelVal = new Vector2(869.0476f, -241.6667f);
@@ -92,8 +113,11 @@ namespace CloudberryKingdom
 
         public ScoreScreen(bool CallBaseConstructor) : base(CallBaseConstructor) { }
 
-        public ScoreScreen(StatGroup group, GameData game) : base(false)
+		bool InCampaign;
+        public ScoreScreen(StatGroup group, GameData game, bool InCampaign) : base(false)
         {
+			this.InCampaign = InCampaign;
+
             MyGame = game;
             MyStatGroup = group;
             FontScale = .6f;
@@ -293,14 +317,30 @@ namespace CloudberryKingdom
         {
             SlideOut(PresetPos.Left);
 
-            MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
+			if (InCampaign)
+			{
+				StringWorldGameData stringworld = Tools.WorldMap as StringWorldGameData;
+
+				Door door = (ILevelConnector)Tools.CurLevel.FindIObject(LevelConnector.EndOfLevelCode) as Door;
+				door.OnOpen = d => GameData.EOL_DoorAction(d);
+
+				if (stringworld != null)
+				{
+					door.OnEnter = stringworld.EOL_StringWorldDoorEndAction;
+					stringworld.EOL_StringWorldDoorAction(door);
+				}
+			}
+			else
+			{
+				MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
+			}
         }
 
         /// <summary>
         /// Called when 'Exit Freeplay' is selected from the menu.
         /// The Score Screen slides out and the current game's EndGame function is called.
         /// </summary>
-        protected virtual bool MenuGo_ExitFreeplay(Menu menu)
+        protected virtual void MenuGo_ExitFreeplay(MenuItem item)
         {
             SlideOut(PresetPos.Left);
 
@@ -310,9 +350,16 @@ namespace CloudberryKingdom
             }
 
             MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
-
-            return true;
         }
+
+		void MenuGo_ExitCampaign(MenuItem item)
+		{
+			Tools.CurrentAftermath = new AftermathData();
+			Tools.CurrentAftermath.Success = false;
+			Tools.CurrentAftermath.EarlyExit = true;
+
+			Tools.CurGameData.EndGame(false);
+		}
 
         protected void MenuGo_Stats(MenuItem item)
         {

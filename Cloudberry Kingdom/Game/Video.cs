@@ -26,7 +26,6 @@ namespace CloudberryKingdom
         static EzTexture VEZTexture = new EzTexture();
 
         static double Duration, Elapsed;
-        static DateTime StartTime;
 
         static bool CanSkip;
         static float LengthUntilUserCanSkip;
@@ -91,7 +90,6 @@ namespace CloudberryKingdom
 
             Elapsed = 0;
             Duration = CurrentVideo.Duration.TotalSeconds;
-            StartTime = DateTime.Now;
         }
 
         public static void UpdateElapsedTime()

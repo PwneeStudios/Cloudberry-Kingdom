@@ -44,6 +44,8 @@ namespace CloudberryKingdom
                 // Executed once the game exits back to this menu
                 MyGame.AddToDo((Func<bool>)GameReturn);
 
+				Tools.PlayHappyMusic(MyGame);
+
                 StartFunc(litem);
                 
             }, "StartGame");

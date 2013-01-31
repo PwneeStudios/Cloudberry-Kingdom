@@ -182,12 +182,8 @@ namespace CloudberryKingdom
             StandardFinish(Replay);
 
             // Start the world map music
-            ParentGame.KillToDo("StartMusic");
-            ParentGame.WaitThenDo(50, () =>
-            {
-                Tools.PlayHappyMusic();
-            }, "StartMusic");
-        }
+			//Tools.PlayHappyMusic(ParentGame, 50);
+		}
 
         public bool SetToRepaly = false;
         public bool EndMusicOnFinish = true;

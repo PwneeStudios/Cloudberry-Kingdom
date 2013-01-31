@@ -160,7 +160,7 @@ namespace CloudberryKingdom
             }
 
 
-            Tools.Song_Happy = Tools.SongWad.FindByName("Happy");
+            Tools.Song_Happy = Tools.SongWad.FindByName("Happy^James_Stant");
             Tools.Song_Happy.DisplayInfo = false;
 
             Tools.Song_140mph = Tools.SongWad.FindByName("140_Mph_in_the_Fog^Blind_Digital");

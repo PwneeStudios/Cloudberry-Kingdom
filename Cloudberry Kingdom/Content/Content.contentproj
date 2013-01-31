@@ -876,8 +876,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\Happy.wma">
-      <Name>Happy</Name>
+    <Compile Include="Music\Happy^James_Stant.wma">
+      <Name>Happy^James_Stant</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>

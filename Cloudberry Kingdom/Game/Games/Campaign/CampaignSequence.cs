@@ -63,15 +63,23 @@ namespace CloudberryKingdom
         int StartLevel = 0;
         public override void Start(int Chapter)
         {
+			MusicStarted = false;
+
             MyPerfectScoreObject = new PerfectScoreObject(false, true);
 
-            StartLevel = ChapterStart[Chapter];
+			// Continue at last level reached.
+			if (Chapter < 0)
+			{
+				int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
+				int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
 
-            int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
-            int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
-
-            if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
-                StartLevel = MaxLevelAttained;
+				if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
+					StartLevel = MaxLevelAttained;
+			}
+			else
+			{
+				StartLevel = ChapterStart[Chapter];
+			}
 
             base.Start(StartLevel);
         }
@@ -241,9 +249,26 @@ namespace CloudberryKingdom
             }
         }
 
+		static bool MusicStarted;
+
         static void PostMakeCampaign(Level level)
         {
             if (level.MyLevelSeed.MyGameType == ActionGameData.Factory) return;
+
+			if (level.MyLevelSeed.MySong == null)
+			{
+				if (!MusicStarted)
+				{
+					Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+					Tools.SongWad.Shuffle();
+					LevelSeedData.WaitThenPlay(level.MyGame, 40, null);
+				}
+			}
+			else
+			{
+				Tools.SongWad.SuppressNextInfoDisplay = true;
+			}
+			MusicStarted = true;
 
             level.MyGame.OnCoinGrab += OnCoinGrab;
             level.MyGame.OnCompleteLevel += OnCompleteLevel;
@@ -289,12 +314,7 @@ namespace CloudberryKingdom
 
         static void OnCompleteLevel(Level level)
         {
-            foreach (var player in PlayerManager.ExistingPlayers)
-            {
-                player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
-                player.CampaignIndex = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelIndex);
-                player.Changed = true;
-            }
+			MarkProgress(level);
 
             // Check for end of chapter
             foreach (KeyValuePair<int, int> key in Instance.ChapterEnd)
@@ -305,6 +325,16 @@ namespace CloudberryKingdom
                     break;
                 }
         }
+
+		public static void MarkProgress(Level level)
+		{
+			foreach (var player in PlayerManager.ExistingPlayers)
+			{
+				player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
+				player.CampaignIndex = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelIndex);
+				player.Changed = true;
+			}
+		}
 
         static Action<Level> MakeWatchMovieAction(string movie)
         {
@@ -325,6 +355,7 @@ namespace CloudberryKingdom
 
         protected CampaignSequence()
         {
+			MusicStarted = false;
             ChapterFinishing = -1;
         }
     }

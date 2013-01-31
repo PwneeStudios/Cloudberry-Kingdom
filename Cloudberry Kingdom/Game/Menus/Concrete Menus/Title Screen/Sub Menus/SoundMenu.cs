@@ -209,6 +209,7 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
+#if PC_VERSION
         void Go_CustomControls()
         {
             if (UseBounce)
@@ -224,6 +225,7 @@ namespace CloudberryKingdom
 
             Call(new CustomControlsMenu(), 0);
         }
+#endif
 
         void Go_Controls()
         {

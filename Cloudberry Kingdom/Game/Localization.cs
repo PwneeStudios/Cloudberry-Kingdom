@@ -622,6 +622,7 @@ NotRankedFriends,
 TotalArcade,
 Select,
 SignIn,
+Chapter,
         };
     }
 }

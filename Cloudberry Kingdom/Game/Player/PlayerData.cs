@@ -73,11 +73,11 @@ namespace CloudberryKingdom
 
             // Awardments
             foreach (int guid in Awardments)
-                Chunk.WriteSingle(writer, 2, ColorSchemeIndex);
+                Chunk.WriteSingle(writer, 2, guid);
 
             // Purchases
             foreach (int guid in Purchases)
-                Chunk.WriteSingle(writer, 3, ColorSchemeIndex);
+                Chunk.WriteSingle(writer, 3, guid);
 
             // Stats
             LifetimeStats.WriteChunk_4(writer);

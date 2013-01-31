@@ -1046,6 +1046,20 @@ public static Thread EasyThread(int affinity, string name, Action action)
             CurrentLoadingScreen.Start();
         }
 
+		public static void PlayHappyMusic(GameData game)
+		{
+			PlayHappyMusic(game, 120);
+		}
+
+		public static void PlayHappyMusic(GameData game, int Delay)
+		{
+			game.KillToDo("StartMusic");
+			game.WaitThenDo(Delay, () =>
+			{
+				Tools.PlayHappyMusic();
+			}, "StartMusic");
+		}
+
         public static void PlayHappyMusic()
         {
             Tools.SongWad.SuppressNextInfoDisplay = true;
