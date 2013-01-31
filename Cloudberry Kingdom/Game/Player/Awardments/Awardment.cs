@@ -314,7 +314,6 @@ namespace CloudberryKingdom
         public static Awardment Award_BuyHat = new Awardment(16, "Award_BuyHat", Localization.Words.AwardTitle_BuyHat, Localization.Words.AwardText_BuyHat);
         public static Awardment Award_HeroRush2Level = new Awardment(17, "Award_HeroRush2Level", Localization.Words.AwardTitle_HeroRush2Level, Localization.Words.AwardText_HeroRush2Level);
         public static Awardment Award_Replay = new Awardment(18, "Award_Replay", Localization.Words.AwardTitle_Replay, Localization.Words.AwardText_Replay);
-        public static Awardment Award_Campaign5 = new Awardment(19, "Award_Campaign5", Localization.Words.AwardTitle_Campaign5, Localization.Words.AwardText_Campaign5);
         
         // Arcade Unlocks
         public static Awardment UnlockTimeCrisis = new Awardment(100, "Time Crisis Unlocked!", 

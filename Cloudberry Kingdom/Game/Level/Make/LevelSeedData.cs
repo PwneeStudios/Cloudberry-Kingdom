@@ -99,9 +99,14 @@ namespace CloudberryKingdom
 			game.WaitThenDo(wait, () =>
 				{
 					if (song == null)
+					{
+						Tools.SongWad.Start(true);
 						Tools.SongWad.Next();
+					}
 					else
+					{
 						Tools.SongWad.Next(song);
+					}
 					Tools.SongWad.PlayNext = true;
 				});
 		}

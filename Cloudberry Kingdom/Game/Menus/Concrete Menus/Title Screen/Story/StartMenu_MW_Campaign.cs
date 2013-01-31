@@ -24,15 +24,9 @@ namespace CloudberryKingdom
             Locked = false;
             if (!CloudberryKingdomGame.Unlock_Levels)
             {
-                switch (Chapter)
-                {
-                    case 1: Locked = false; break;
-                    case 2: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign1); break;
-                    case 3: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign2); break;
-                    case 4: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign3); break;
-                    case 5: Locked = !PlayerManager.Awarded(Awardments.Award_Campaign4); break;
-                    default: Locked = false; break;
-                }
+				int level = PlayerManager.MaxPlayerTotalCampaignLevel();
+				if (CampaignSequence.Instance.ChapterEnd.ContainsKey(Chapter - 1))
+					Locked = level < CampaignSequence.Instance.ChapterEnd[Chapter - 1];
             }
         }
     }

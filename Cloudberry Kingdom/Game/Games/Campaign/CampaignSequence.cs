@@ -50,12 +50,11 @@ namespace CloudberryKingdom
             Awardment award = null;
             switch (chapter)
             {
-                case 1: award = Awardments.Award_Campaign1; break;
-                case 2: award = Awardments.Award_Campaign2; break;
-                case 3: award = Awardments.Award_Campaign3; break;
-                case 4: award = Awardments.Award_Campaign4; break;
-                case 5: award = Awardments.Award_Campaign5; break;
-                default: Tools.Break(); break;
+                case 2: award = Awardments.Award_Campaign1; break;
+                case 4: award = Awardments.Award_Campaign2; break;
+                case 6: award = Awardments.Award_Campaign3; break;
+                case 7: award = Awardments.Award_Campaign4; break;
+                default: break;
             }
             Awardments.GiveAward(award);
         }

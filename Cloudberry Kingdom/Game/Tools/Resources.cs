@@ -200,6 +200,7 @@ namespace CloudberryKingdom
             Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
             Tools.SongList_Standard.Remove(Tools.Song_Happy);
             Tools.SongList_Standard.Remove(Tools.Song_140mph);
+			Tools.SongList_Standard.Remove(Tools.Song_Heavens);
         }
 
         static void LoadSound(bool CreateNewWad)

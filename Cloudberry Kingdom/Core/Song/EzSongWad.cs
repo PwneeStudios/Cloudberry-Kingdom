@@ -179,6 +179,8 @@ namespace CoreEngine
 
         public void Next(EzSong song)
         {
+			Start(true);
+
             CurIndex = PlayList.IndexOf(song);
             if (CurIndex < 0) CurIndex = 0;
 

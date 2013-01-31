@@ -326,7 +326,12 @@ namespace CloudberryKingdom
 
 				if (stringworld != null)
 				{
-					door.OnEnter = stringworld.EOL_StringWorldDoorEndAction;
+					bool fade = door.MyLevel.MyLevelSeed != null && door.MyLevel.MyLevelSeed.FadeOut;
+					if (fade)
+						door.OnEnter = stringworld.EOL_StringWorldDoorEndAction_WithFade;
+					else
+						door.OnEnter = stringworld.EOL_StringWorldDoorEndAction;
+								   
 					stringworld.EOL_StringWorldDoorAction(door);
 				}
 			}
@@ -344,10 +349,10 @@ namespace CloudberryKingdom
         {
             SlideOut(PresetPos.Left);
 
-            if (MyGame.ParentGame != null)
-            {
-                CustomLevel_GUI.ExitFreeplay = true;
-            }
+			//if (MyGame.ParentGame != null)
+			//{
+			//    CustomLevel_GUI.ExitFreeplay = true;
+			//}
 
             MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
         }
