@@ -290,7 +290,8 @@ namespace CloudberryKingdom
             //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
             //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
             //    + debugstring;
-            string str = debugstring;
+			//string str = debugstring;
+			string str = PlayerManager.MaxPlayerTotalLevel().ToString();
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
@@ -318,7 +319,9 @@ namespace CloudberryKingdom
 
             //str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
 
-            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, str, new Vector2(0, 100), Color.Orange.ToVector4(), Vector2.One);
+			if (Tools.CurCamera == null) return;
+            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, str, Tools.CurCamera.Pos + new Vector2(-1300, 800), Color.Orange.ToVector4(), new Vector2(2));
+			Tools.QDrawer.Flush();
         }
     }
 }

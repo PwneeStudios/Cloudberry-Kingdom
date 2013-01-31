@@ -16,6 +16,8 @@ namespace CloudberryKingdom
         {
             GameTypeId = 2;
             MenuName = Name = Localization.Words.HeroRush;
+
+			SetGameId();
         }
 
         // The progression of max time and start time for increasing difficulty

@@ -42,16 +42,18 @@ namespace CloudberryKingdom
         {
             int HeroId = hero == null ? 0 : hero.Id;
 
-            GameId_Level = 100 * HeroId + GameTypeId;
-            return GameId_Level;
+			//GameId_Level = 100 * HeroId + GameTypeId;
+			//return GameId_Level;
+			return 100 * HeroId + GameTypeId;
         }
 
         public int CalcGameId_Level(BobPhsx hero)
         {
             int HeroId = hero == null ? 0 : hero.Id;
 
-            GameId_Level = 100 * HeroId + GameTypeId + LevelMask;
-            return GameId_Level;
+			//GameId_Level = 100 * HeroId + GameTypeId + LevelMask;
+			//return GameId_Level;
+			return 100 * HeroId + GameTypeId + LevelMask;
         }
 
         public int SetGameId()

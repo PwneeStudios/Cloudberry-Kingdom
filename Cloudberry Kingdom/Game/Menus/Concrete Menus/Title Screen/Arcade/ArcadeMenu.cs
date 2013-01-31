@@ -185,16 +185,26 @@ namespace CloudberryKingdom
             foreach (PlayerData player in CopyOfExistingPlayers)
             {
                 // Check for goals
-                if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+                //if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
                 {
-                    int Goal = ChallengeGoal[Challenge.CurrentId];
                     int CurHighLevel = player.GetHighScore(Challenge.CurrentId);
-                    if (level + 1 >= Goal && CurHighLevel < Goal)
+                    //if (level + 1 >= Goal && CurHighLevel < Goal)
+					if (level >= CurHighLevel)
                     {
-                        DoSave = true;
+						//DoSave = true;
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId,                       level + 1,              Challenge.CurrentScore, level + 1, 0, 0, 0));
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId - Challenge.LevelMask, Challenge.CurrentScore, Challenge.CurrentScore, level + 1, 0, 0, 0));
                     }
+
+					if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+					{
+						int Goal = ChallengeGoal[Challenge.CurrentId];
+
+						if (level + 1 >= Goal && CurHighLevel < Goal)
+						{
+							DoSave = true;
+						}
+					}
                 }
 
                 // Check for awards
