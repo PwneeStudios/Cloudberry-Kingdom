@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 				if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
 					StartLevel = MaxLevelAttained;
 				
-				StartLevel = 31;
+				//StartLevel = 31;
 			}
 			else
 			{

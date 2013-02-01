@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
@@ -73,13 +75,14 @@ namespace CloudberryKingdom
 
 
             // Scroll menu as needed
-            if (Items[CurIndex].MyText.Pos.Y < Tools.CurLevel.MainCamera.Pos.Y + 300)
+			float min = Math.Min(Items[CurIndex].MyText.Pos.Y, CurIndex > 0 ? Items[CurIndex].MyText.Pos.Y : 100000);
+            if (min < Tools.CurLevel.MainCamera.Pos.Y + 300)
             {
                 FancyPos.RelValY += OffsetStep;
                 if (LastItem.Pos.Y + FancyPos.RelVal.Y > -Tools.CurCamera.GetHeight() / 2 + MaxBottomSpace)
                     FancyPos.RelValY = -LastItem.Pos.Y - Tools.CurCamera.GetHeight() / 2 + MaxBottomSpace;
             }
-            if (Items[CurIndex].MyText.Pos.Y > Tools.CurLevel.MainCamera.Pos.Y - 300)
+            if (min > Tools.CurLevel.MainCamera.Pos.Y - 300)
                 FancyPos.RelValY -= OffsetStep;
 
             if (FancyPos.RelVal.Y < 0) FancyPos.RelValY = 0;
