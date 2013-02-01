@@ -179,7 +179,11 @@ namespace CoreEngine
 
         public void Next(EzSong song)
         {
+			bool HoldSuppress = SuppressNextInfoDisplay;
+
 			Start(true);
+
+			SuppressNextInfoDisplay = HoldSuppress;
 
             CurIndex = PlayList.IndexOf(song);
             if (CurIndex < 0) CurIndex = 0;
@@ -314,7 +318,16 @@ namespace CoreEngine
             SetSong(PlayList.IndexOf(song));
         }
 
-        public bool SuppressNextInfoDisplay = false;
+		public bool _SuppressNextInfoDisplay = false;
+		public bool SuppressNextInfoDisplay
+		{
+			get { return _SuppressNextInfoDisplay; }
+			set
+			{
+				_SuppressNextInfoDisplay = value;
+			}
+		}
+
         public void SetSong(int Index) { SetSong(Index, true); }
         public void SetSong(int Index, bool DisplayInfo)
         {

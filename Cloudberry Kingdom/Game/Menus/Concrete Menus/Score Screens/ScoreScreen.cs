@@ -330,7 +330,7 @@ namespace CloudberryKingdom
 					if (fade)
 						door.OnEnter = stringworld.EOL_StringWorldDoorEndAction_WithFade;
 					else
-						door.OnEnter = stringworld.EOL_StringWorldDoorEndAction;
+						door.OnEnter = EOL_WaitThenDoEndAction;
 								   
 					stringworld.EOL_StringWorldDoorAction(door);
 				}
@@ -340,6 +340,16 @@ namespace CloudberryKingdom
 				MyGame.WaitThenDo(SlideOutLength + 2, () => MyGame.EndGame(false));
 			}
         }
+
+		void EOL_WaitThenDoEndAction(Door door)
+		{
+			StringWorldGameData stringworld = Tools.WorldMap as StringWorldGameData;
+
+			if (stringworld != null)
+			{
+				door.Game.WaitThenDo(35, () => stringworld.EOL_StringWorldDoorEndAction(door));
+			}
+		}
 
         /// <summary>
         /// Called when 'Exit Freeplay' is selected from the menu.

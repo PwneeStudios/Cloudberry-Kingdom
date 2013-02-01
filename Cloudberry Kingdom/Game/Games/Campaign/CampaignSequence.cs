@@ -30,6 +30,10 @@ namespace CloudberryKingdom
         static readonly CampaignSequence instance = new CampaignSequence();
         public static CampaignSequence Instance { get { return instance; } }
 
+		public static Localization.Words[] ChapterName = {	Localization.Words.Chapter1, Localization.Words.Chapter2, Localization.Words.Chapter3,
+															Localization.Words.Chapter4, Localization.Words.Chapter5, Localization.Words.Chapter6,
+															Localization.Words.TheMasochist };
+
         public Dictionary<int, int> ChapterStart = new Dictionary<int, int>();
         public Dictionary<int, int> ChapterEnd = new Dictionary<int, int>();
         Dictionary<int, Tuple<string, string>> SpecialLevel = new Dictionary<int, Tuple<string, string>>();
@@ -74,6 +78,8 @@ namespace CloudberryKingdom
 
 				if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
 					StartLevel = MaxLevelAttained;
+				
+				StartLevel = 31;
 			}
 			else
 			{
@@ -276,7 +282,7 @@ namespace CloudberryKingdom
             //var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
             
             // Level Title plus Hero Name
-            if (!level.MyLevelSeed.NewHero)
+            if (!level.MyLevelSeed.NewHero && !level.MyLevelSeed.ShowChapterName)
             {
                 var title = new LevelTitle(string.Format("{1} {0}", level.MyLevelSeed.LevelNum, Localization.WordString(Localization.Words.Level)));
                 title.Shift(new Vector2(0, -45));

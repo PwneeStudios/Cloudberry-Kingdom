@@ -265,6 +265,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
+    <Compile Include="Game\Objects\Game Objects\GameObjects\ChapterTitle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
     <Compile Include="Game\Player\LeaderboardView.cs" />
     <Compile Include="Game\Player\Leaderboard.cs" />

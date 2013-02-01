@@ -21,7 +21,9 @@ namespace CloudberryKingdom
                 text.Scale *= max / size.X;
 
             // Slide out
-            this.SlideOut(PresetPos.Left, 0);
+			//this.SlideOut(PresetPos.Left, 0);
+			SlideIn(0);
+			MyPile.Alpha = 0;
 
             // Sound
             Tools.SoundWad.FindByName("HeroUnlockedSound").Play();
@@ -45,6 +47,8 @@ namespace CloudberryKingdom
         bool Perma;
         void Init(string str, Vector2 shift, float scale, bool perma)
         {
+			shift += new Vector2(0, -350);
+
             SlideInLength = 84;
 
             this.Perma = perma;
@@ -57,7 +61,7 @@ namespace CloudberryKingdom
             MyPile.Pos += shift;
 
             Tools.Warning(); // May be text, rather than Localization.Words
-            text = new EzText(str, Resources.Font_Grobold42, true, true);
+            text = new EzText(str, Resources.Font_Grobold42, 3000, true, true, .55f);
             text.Scale *= scale;
 
             text.MyFloatColor = new Color(26, 188, 241).ToVector4();
@@ -83,21 +87,28 @@ namespace CloudberryKingdom
             if (Perma) return;
 
             // Otherwise show and hide
-            if (Count == 24)
+			if (MyLevel.MyLevelSeed.ShowChapterName  && Count == 120 ||
+				!MyLevel.MyLevelSeed.ShowChapterName && Count == 40)
             {
                 //SlideIn();
-                SlideIn(0);
-                MyPile.BubbleUp(false);
+				//SlideIn(0);
+				//MyPile.BubbleUp(false);
+				MyPile.FadeIn(.02f);
             }
 
-            if (Count == 180)
+			if (MyLevel.MyLevelSeed.ShowChapterName && Count == 180 ||
+				!MyLevel.MyLevelSeed.ShowChapterName && Count == 150)
             {
                 //SlideOut(PresetPos.Right, 160);
                 //ReleaseWhenDone = true;
 
-                MyPile.BubbleDownAndFade(true);
-                ReleaseWhenDoneScaling = true;
+                //MyPile.BubbleDownAndFade(true);
+                //ReleaseWhenDoneScaling = true;
+				MyPile.FadeOut(.025f);
             }
+
+			if (Count == 400)
+				Release();
         }
     }
 }

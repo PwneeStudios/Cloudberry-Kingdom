@@ -49,13 +49,21 @@ namespace CloudberryKingdom
         //public static bool SimpleLeaderboards = true;
         //public static bool AsianButtonSwitch = false;
 
+		// PC Beta
+		public static bool GodMode = true;
+		public static bool HideLogos = false;
+		public static bool LockCampaign = false;
+		public static bool SimpleMainMenu = true;
+		public static bool SimpleLeaderboards = true;
+		public static bool AsianButtonSwitch = false;
+
         //// Xbox Testing
-        public static bool GodMode = true;
-        public static bool HideLogos = false;
-        public static bool LockCampaign = false;
-        public static bool SimpleMainMenu = false;
-        public static bool SimpleLeaderboards = false;
-        public static bool AsianButtonSwitch = false;
+		//public static bool GodMode = true;
+		//public static bool HideLogos = false;
+		//public static bool LockCampaign = false;
+		//public static bool SimpleMainMenu = false;
+		//public static bool SimpleLeaderboards = false;
+		//public static bool AsianButtonSwitch = false;
 
         //// Xbox Release
         //public static bool GodMode = false;

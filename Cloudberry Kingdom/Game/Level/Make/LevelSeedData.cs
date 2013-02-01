@@ -46,7 +46,7 @@ namespace CloudberryKingdom
         public int LevelIndex = -1; const string IndexFlag = "index";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
 			public bool RepeatHero = false; const string RepeatHeroFlag = "repeathero";
-			public bool ShowTilename = false; const string TilenameFlag = "tilename";
+			public int ChapterNameIndex = -1; public bool ShowChapterName = false; const string ChapterNameFlag = "chapter";
 			public bool GiveScoreScreen = false; const string ScoreScreenFlag = "scorescreen";
         public bool Darkness = false; const string DarknessFlag = "darkness";
         public bool Masochistic = false; const string MasochistFlag = "masochist";
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 
 			if (RepeatHero) PostMake += _RepeatHero;
 
-			if (ShowTilename) PostMake += _ShowTilename;
+			if (ShowChapterName) PostMake += _ShowChapterName;
 
 			if (GiveScoreScreen) PostMake += _ScoreScreen;
 
@@ -149,19 +149,27 @@ namespace CloudberryKingdom
 
         private static void _NewHero(Level level)
         {
-            level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
+            //level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
+			level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(level.DefaultHeroType.Name)));
             level.MyLevelSeed.WaitLengthToOpenDoor = 150;
             level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
         }
 
 		private static void _RepeatHero(Level level)
 		{
-			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.DefaultHeroType.Name)));
+			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.DefaultHeroType.Name), new Vector2(0, 200), 1, false));
 		}
 
-		private static void _ShowTilename(Level level)
+		private static void _ShowChapterName(Level level)
 		{
-			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.MyTileSet.NameInGame)));
+			if (level.MyLevelSeed.ChapterNameIndex < 0 || level.MyLevelSeed.ChapterNameIndex >= CampaignSequence.ChapterName.Length) return;
+
+			level.SetBack(27);
+
+			Tools.SongWad.SuppressNextInfoDisplay = true;
+			Tools.SongWad.DisplayingInfo = false;
+
+			level.MyGame.AddGameObject(new ChapterTitle(CampaignSequence.ChapterName[level.MyLevelSeed.ChapterNameIndex]));
 			level.MyLevelSeed.WaitLengthToOpenDoor = 150;
 			level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
 		}
@@ -421,10 +429,10 @@ namespace CloudberryKingdom
 					// RepeatHero
 					case RepeatHeroFlag: RepeatHero = true; break;
 
-					// Tileset
-					case TilenameFlag: ShowTilename = true; break;
+					// Chapter Name
+					case ChapterNameFlag: ShowChapterName = true; ChapterNameIndex = int.Parse(data) - 1; break;
 
-					// Tileset
+					// Score Screen
 					case ScoreScreenFlag: GiveScoreScreen = true; break;
 
                     // Darkness

@@ -1048,7 +1048,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
 		public static void PlayHappyMusic(GameData game)
 		{
-			PlayHappyMusic(game, 120);
+			PlayHappyMusic(game, 85);
 		}
 
 		public static void PlayHappyMusic(GameData game, int Delay)

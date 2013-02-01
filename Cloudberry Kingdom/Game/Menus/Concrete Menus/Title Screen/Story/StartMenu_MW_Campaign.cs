@@ -176,9 +176,6 @@ namespace CloudberryKingdom
         {
             MenuItem item;
 
-			//string template_chapter = Localization.WordString(Localization.Words.Chapter);
-			string template_chapter = Localization.WordString(Localization.Words.Chapter) + ", The {1}";
-
 			// Continue
 			int level = PlayerManager.MaxPlayerTotalCampaignIndex();
 			item = new CampaignChapterItem(new EzText("xxx", ItemFont), -1);
@@ -187,62 +184,13 @@ namespace CloudberryKingdom
 			AddItem(item);
 
             // Chapter 1
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 1), ItemFont), 1);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 1, Localization.Words.Sea), ItemFont), 1);
-            item.Name = "Chapter1";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 2
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 2), ItemFont), 2);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 2, Localization.Words.Hills), ItemFont), 2);
-            item.Name = "Chapter2";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 3
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 3), ItemFont), 3);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 3, Localization.Words.Forest), ItemFont), 3);
-            item.Name = "Chapter3";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 4
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 4), ItemFont), 4);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 4, Localization.Words.Cloud), ItemFont), 4);
-            item.Name = "Chapter4";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 5
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 5), ItemFont), 5);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 5, Localization.Words.Cave), ItemFont), 5);
-            item.Name = "Chapter5";
-            item.Go = Go;
-            AddItem(item);
-
-			// Chapter 6
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 6), ItemFont), 6);
-			item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 6, Localization.Words.Castle), ItemFont), 6);
-			item.Name = "Chapter6";
-			item.Go = Go;
-			AddItem(item);
-
-			// Chapter 7
-			//item = new CampaignChapterItem(new EzText(string.Format(template_chapter, 7), ItemFont), 7);
-			item = new CampaignChapterItem(new EzText(Localization.Words.TheMasochist, ItemFont), 7);
-			item.Name = "Chapter7";
-			item.Go = Go;
-			AddItem(item);
-
-
-            //// Cinematics
-            //item = new MenuItem(new EzText("Cinematics", ItemFont));
-            //item.Name = "Cine";
-            //item.Go = null;
-            //AddItem(item);
-            //item.MyText.MyFloatColor = new Color(241, 32, 117).ToVector4();
-            //item.MySelectedText.MyFloatColor = new Color(251, 52, 137).ToVector4();
+			for (int i = 1; i <= 7; i++)
+			{
+				item = new CampaignChapterItem(new EzText(CampaignSequence.ChapterName[i - 1], ItemFont), i);
+				item.Name = "Chapter" + i.ToString();
+				item.Go = Go;
+				AddItem(item);
+			}
 
             MyMenu.SelectItem(0);
 
@@ -296,7 +244,10 @@ namespace CloudberryKingdom
         int _StartLevel;
         void Go(int StartLevel)
         {
+			MyGame.KillToDo("StartMusic");
             Tools.SongWad.FadeOut();
+			Tools.SongWad.DisplayingInfo = false;
+			
             MyGame.FadeToBlack(.0225f, 20);
             Active = false;
 
@@ -308,6 +259,7 @@ namespace CloudberryKingdom
         {
             Active = true;
             MyGame.FadeIn(.05f);
+			MyGame.KillToDo("StartMusic");
             CampaignSequence.Instance.Start(_StartLevel);
             MyGame.WaitThenDo(0, OnReturnFromGame);
         }

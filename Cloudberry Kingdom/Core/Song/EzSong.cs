@@ -29,6 +29,9 @@ namespace CoreEngine
             MediaPlayer.Stop();
             MediaPlayer.Play(song);
 
+			if (Tools.SongWad.SuppressNextInfoDisplay)
+				Tools.SongWad.SuppressNextInfoDisplay = DisplayInfo = false;
+
             if (DisplayInfo)
                 Tools.SongWad.DisplaySongInfo(this);
 
