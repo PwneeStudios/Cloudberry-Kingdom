@@ -238,6 +238,8 @@ namespace CloudberryKingdom
 
             if (c_item.Locked) return;
 
+			//Call(new StartMenu_MW_Cinematics(Title));
+
             Go(c_item.Chapter);
         }
 

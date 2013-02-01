@@ -75,7 +75,7 @@ namespace CloudberryKingdom
 
 
             // Scroll menu as needed
-			float min = Math.Min(Items[CurIndex].MyText.Pos.Y, CurIndex > 0 ? Items[CurIndex].MyText.Pos.Y : 100000);
+			float min = Math.Min(Items[CurIndex].MyText.Pos.Y, CurIndex > 0 ? Items[CurIndex - 1].MyText.Pos.Y : 100000);
             if (min < Tools.CurLevel.MainCamera.Pos.Y + 300)
             {
                 FancyPos.RelValY += OffsetStep;

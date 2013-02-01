@@ -291,7 +291,8 @@ namespace CloudberryKingdom
             //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
             //    + debugstring;
 			//string str = debugstring;
-			string str = PlayerManager.MaxPlayerTotalLevel().ToString();
+			//string str = PlayerManager.MaxPlayerTotalLevel().ToString();
+			string str = Localization.WordString( Localization.Words.AwardTitle_Buy );
 
             // Phsx count
             //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);

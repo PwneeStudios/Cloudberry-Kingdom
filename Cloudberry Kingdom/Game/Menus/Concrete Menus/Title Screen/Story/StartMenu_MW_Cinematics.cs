@@ -77,41 +77,17 @@ namespace CloudberryKingdom
         {
             MenuItem item;
 
-            // Chapter 1
-            item = new CinematicsLevelItem(new EzText("Over the Edge", ItemFont), "Cutscene_1");
-            item.Name = "1";
-            item.Go = Go;
-            AddItem(item);
+			ItemPos = new Vector2(740f, 58.33334f) + new Vector2(-708.3339f, 216.6667f);
+			FontScale = 0.5883336f;
+			PosAdd = new Vector2(0, -140);
 
-            // Chapter 2
-            item = new CinematicsLevelItem(new EzText("Into the Forest", ItemFont), "Cutscene_2");
-            item.Name = "2";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 3
-            item = new CinematicsLevelItem(new EzText("Woes of a Kidnapper", ItemFont), "Cutscene_3");
-            item.Name = "3";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 4
-            item = new CinematicsLevelItem(new EzText("Welterweight", ItemFont), "Cutscene_4");
-            item.Name = "4";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 5
-            item = new CinematicsLevelItem(new EzText("Cloudberry Pie", ItemFont), "Cutscene_5");
-            item.Name = "5";
-            item.Go = Go;
-            AddItem(item);
-
-            // Chapter 6
-            item = new CinematicsLevelItem(new EzText("I Always Told You", ItemFont), "Cutscene_6");
-            item.Name = "6";
-            item.Go = Go;
-            AddItem(item);
+			for (int i = 0; i < 4; i++)
+			{
+				item = new CinematicsLevelItem(new EzText(Localization.WordString(Localization.Words.Level) + " " + (1 + 10 * i).ToString(), ItemFont), "Cutscene_1");
+				item.Name = "Subsection" + i.ToString();
+				item.Go = Go;
+				AddItem(item);
+			}
 
             MyMenu.SelectItem(0);
 
