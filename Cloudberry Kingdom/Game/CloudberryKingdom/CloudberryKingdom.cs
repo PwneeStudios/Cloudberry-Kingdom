@@ -41,8 +41,12 @@ namespace CloudberryKingdom
         /// </summary>
         public static Version GameVersion = new Version(0, 2, 4);
 
+
+		public static bool GodMode = true;
+		public static bool AsianButtonSwitch = false;
+
+#if PC_VERSION
         // Steam Beta
-		//public static bool GodMode = false;
 		//public static bool HideLogos = true;
 		//public static bool LockCampaign = true;
 		//public static bool SimpleMainMenu = true;
@@ -50,30 +54,26 @@ namespace CloudberryKingdom
 		//public static bool AsianButtonSwitch = false;
 
 		// PC Beta
-		public static bool GodMode = true;
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static bool SimpleLeaderboards = true;
-		public static bool AsianButtonSwitch = false;
-
-		// Xbox Testing
-		//public static bool GodMode = true;
-		//public static bool HideLogos = false;
-		//public static bool LockCampaign = false;
-		//public static bool SimpleMainMenu = false;
-		//public static bool SimpleLeaderboards = false;
-		//public static bool AsianButtonSwitch = false;
-
-		// Xbox Release
-        //public static bool GodMode = false;
-        //public static bool HideLogos = false;
-        //public static bool LockCampaign = false;
-        //public static bool SimpleMainMenu = false;
-        //public static bool SimpleLeaderboards = false;
-        //public static bool AsianButtonSwitch = false;
-        
-        
+#elif XBOX
+		public static bool HideLogos = false;
+		public static bool LockCampaign = false;
+		public static bool SimpleMainMenu = false;
+		public static bool SimpleLeaderboards = false;
+#elif CAFE
+		public static bool HideLogos = false;
+		public static bool LockCampaign = false;
+		public static bool SimpleMainMenu = true;
+		public static bool SimpleLeaderboards = true;
+#elif PS3
+		public static bool HideLogos = false;
+		public static bool LockCampaign = false;
+		public static bool SimpleMainMenu = false;
+		public static bool SimpleLeaderboards = false;
+#endif
 
 
 
@@ -82,7 +82,10 @@ namespace CloudberryKingdom
 
 
 
-        public static bool ForFrapsRecording = false;
+
+
+
+		public static bool ForFrapsRecording = false;
 
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
@@ -820,8 +823,8 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-            if (DrawCount == 60)
-                Leaderboard.WriteToLeaderboard(new ScoreEntry());
+			//if (DrawCount == 60)
+			//    Leaderboard.WriteToLeaderboard(new ScoreEntry());
 
 
 #if DEBUG_OBJDATA

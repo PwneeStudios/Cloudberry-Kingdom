@@ -299,7 +299,7 @@ namespace CloudberryKingdom
 
         private void GoStats()
         {
-            Call(new StatsMenu(StatGroup.Lifetime), 0);
+			Call(new StatsMenu(StatGroup.Lifetime), UseBounce ? 0 : 19 );
 
             if (UseBounce)
             {
