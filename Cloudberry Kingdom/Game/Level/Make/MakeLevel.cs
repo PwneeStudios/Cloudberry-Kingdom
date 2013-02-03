@@ -191,6 +191,7 @@ namespace CloudberryKingdom
                 // Add initial start data
                 if (Piece.InitialCheckpointsHere)
                 {
+					level.LevelPieces[0].MyLevel = NewLevel;
                     NewLevel.CurPiece = level.LevelPieces[0];
                 }
 

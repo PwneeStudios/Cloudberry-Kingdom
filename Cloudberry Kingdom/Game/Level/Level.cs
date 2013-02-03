@@ -207,7 +207,7 @@ namespace CloudberryKingdom.Levels
         public CameraZone FinalCamZone;
 
         public List<LevelPiece> LevelPieces;
-        public LevelPiece CurPiece;
+		public LevelPiece CurPiece;
 
         public ParticleEmitter MainEmitter;
 

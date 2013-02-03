@@ -12,7 +12,9 @@ namespace CloudberryKingdom.Levels
     {
         static Stack<ComputerRecording> Pool;
 
+		bool Released;
         bool IsFromPool;
+
         static void FillPool()
         {
             ComputerRecording record = new ComputerRecording();
@@ -41,6 +43,9 @@ namespace CloudberryKingdom.Levels
 
         public static void ToPool(ComputerRecording record)
         {
+			if (record.Released) return;
+
+			record.Released = true;
             Pool.Push(record);
         }
 
@@ -91,6 +96,8 @@ namespace CloudberryKingdom.Levels
 
         public void Clean()
         {
+			Released = false;
+
             for (int i = 0; i < Input.Length; i++) Input[i].Clean();
             for (int i = 0; i < AutoJump.Length; i++) AutoJump[i] = 0;
             for (int i = 0; i < AutoLocs.Length; i++) AutoLocs[i] = Vector2.Zero;

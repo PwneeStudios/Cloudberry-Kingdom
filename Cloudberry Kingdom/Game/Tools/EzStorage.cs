@@ -83,7 +83,7 @@ namespace CloudberryKingdom
             {
                 Incr();
                 player.ContainerName = "Gamers";
-                player.FileName = "___" + warning, should use something other than name here, that can't change player.GetName();
+                player.FileName = "___" + player.GetName();
                 player.Save();
                 Wait();
             }
