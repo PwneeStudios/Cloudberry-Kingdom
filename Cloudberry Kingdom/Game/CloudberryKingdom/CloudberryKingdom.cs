@@ -51,28 +51,32 @@ namespace CloudberryKingdom
 		//public static bool LockCampaign = true;
 		//public static bool SimpleMainMenu = true;
 		//public static bool SimpleLeaderboards = true;
-		//public static bool AsianButtonSwitch = false;
+		//public static bool FakeAwardments = false;
 
 		// PC Beta
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
-		public static bool SimpleLeaderboards = true;
+		public static bool SimpleLeaderboards = false;
+		public static bool FakeAwardments = false;
 #elif XBOX
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
 		public static bool SimpleLeaderboards = false;
+		public static bool FakeAwardments = false;
 #elif CAFE
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static bool SimpleLeaderboards = true;
+		public static bool FakeAwardments = false;
 #elif PS3
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
 		public static bool SimpleLeaderboards = false;
+		public static bool FakeAwardments = false;
 #endif
 
 

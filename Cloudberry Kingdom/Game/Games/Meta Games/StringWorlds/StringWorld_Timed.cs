@@ -26,8 +26,8 @@ namespace CloudberryKingdom
             Timer.OnTimeExpired += (timer) => MyGUI_Score.SlideOut(GUI_Panel.PresetPos.Top);
             Timer.OnTimeExpired += (timer) => MyGUI_Level.SlideOut(GUI_Panel.PresetPos.Top);
 
-            MyGUI_Score = new GUI_Score();
-            MyGUI_Level = new GUI_Level();
+            MyGUI_Score = new GUI_Score(true);
+            MyGUI_Level = new GUI_Level(true);
 
             // Coin score multiplier
             MyCoinScoreMultiplier = new CoinScoreMultiplierObject();

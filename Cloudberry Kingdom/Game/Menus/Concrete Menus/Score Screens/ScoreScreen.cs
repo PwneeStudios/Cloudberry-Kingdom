@@ -61,13 +61,12 @@ namespace CloudberryKingdom
 				MenuItem back;
 				if (InCampaign)
 				{
-					//back = MakeBackButton(Localization.Words.Back);
-					back = MakeBackButton(Localization.Words.Exit);
+					back = MakeBackButton(Localization.Words.Exit, true);
 					back.Go = MenuGo_ExitCampaign;
 				}
 				else
 				{
-					back = MakeBackButton(Localization.Words.BackToFreeplay);
+					back = MakeBackButton(Localization.Words.BackToFreeplay, true);
 					back.Go = MenuGo_ExitFreeplay;
 				}
 

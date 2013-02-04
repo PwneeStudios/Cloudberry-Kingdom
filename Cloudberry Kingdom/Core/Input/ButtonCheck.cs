@@ -142,7 +142,11 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool MouseInUse = false;
         public static bool PrevMouseInUse = false;
+#if PC_VERSION
         public static bool ControllerInUse = false;
+#else
+		public static bool ControllerInUse = true;
+#endif
 
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
@@ -200,7 +204,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static void UpdateMouseUse()
         {
-            bool AnyKey = ButtonCheck.AnyKeyboardKey();
+			//bool AnyKey = ButtonCheck.AnyKeyboardKey();
+			bool AnyKey = Tools.Keyboard.GetPressedKeys().Length > 0;
 
             if (AnyKey)
                 ButtonCheck.ControllerInUse = false;

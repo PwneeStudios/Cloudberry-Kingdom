@@ -9,6 +9,7 @@ namespace CloudberryKingdom
         public FancyVector2 zoom;
         public float MasterAlpha;
         public bool UseBounce;
+		public bool UseSimpleBackdrop;
 
         public void EnableBounce()
         {
@@ -16,6 +17,8 @@ namespace CloudberryKingdom
 
             zoom = new FancyVector2();
             UseBounce = true;
+
+			UseSimpleBackdrop = UseBounce && !(Tools.CurGameData is NormalGameData);
         }
 
         void BouncDraw()
@@ -146,6 +149,8 @@ namespace CloudberryKingdom
 
         public override void Init()
         {
+			UseSimpleBackdrop = UseBounce && !(Tools.CurGameData is NormalGameData);
+
             base.Init();
 
             // Sounds
@@ -407,22 +412,19 @@ namespace CloudberryKingdom
             MyPile.Add(new QuadClass("BackArrow2", "BackArrow"));
         }
 
-        protected MenuItem MakeBackButton() { return MakeBackButton(Localization.Words.Back); }
-        protected MenuItem MakeBackButton(Localization.Words Word)
+        protected MenuItem MakeBackButton() { return MakeBackButton(Localization.Words.Back, true); }
+        protected MenuItem MakeBackButton(Localization.Words Word, bool AddButtonTexture)
         {
             MenuItem item;
 
-#if PC_VERSION
-            if (ButtonCheck.ControllerInUse)
-                item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
-            else
-            {
-                //item = new MenuItem(new EzText(ButtonString.Back(86) + Localization.WordString(Word), ItemFont));
-                item = new MenuItem(new EzText(Localization.WordString(Word), ItemFont));
-            }
-#else
-            item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
-#endif
+			if (ButtonCheck.ControllerInUse && AddButtonTexture)
+			{
+				item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
+			}
+			else
+			{
+				item = new MenuItem(new EzText(Localization.WordString(Word), ItemFont));
+			}
 
             item.Go = _MakeBackGo;
             item.Name = "Back";

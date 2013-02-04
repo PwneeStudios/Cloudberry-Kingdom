@@ -42,11 +42,11 @@ namespace CloudberryKingdom
         public Awardment(int Guid, string Key, Localization.Words Name, Localization.Words Description)
         {
             Official = true;
-#if XBOX
-            ShowWhenAwarded = false;
-#else
-            ShowWhenAwarded = true;
-#endif
+
+			if (CloudberryKingdomGame.FakeAwardments)
+				ShowWhenAwarded = true;
+			else
+				ShowWhenAwarded = false;
 
             this.Key = Key;
             this.Name = Name;
@@ -69,12 +69,9 @@ namespace CloudberryKingdom
             //this.Description = Description;
             this.Name = Localization.Words.None;
             this.Description = Localization.Words.None;
+			
+			ShowWhenAwarded = false;
 
-#if XBOX
-            ShowWhenAwarded = false;
-#else
-            this.Unlockable = Unlockable;
-#endif
             this.Guid = Guid;
             this.TitleType = TitleType;
             this.ShowWhenAwarded = ShowWhenAwarded;
@@ -182,14 +179,20 @@ namespace CloudberryKingdom
         #region Awardment function checks
         public static void CheckForAward_TimeCrisisUnlock(int Level, PlayerData player)
         {
-            if (Level >= UnlockTimeCrisis.MyInt)
-                GiveAward(UnlockTimeCrisis, player);
+			if (Level >= UnlockTimeCrisis.MyInt)
+			{
+				GiveAward(UnlockTimeCrisis, player);
+				//Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
+			}
         }
 
         public static void CheckForAward_HeroRushUnlock(int Level, PlayerData player)
         {
-            if (Level >= UnlockHeroRush.MyInt)
-                GiveAward(UnlockHeroRush, player);
+			if (Level >= UnlockHeroRush.MyInt)
+			{
+				GiveAward(UnlockHeroRush, player);
+				//Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
+			}
         }
 
         public static void CheckForAward_HeroRush2Unlock(int Level, PlayerData player)
@@ -198,6 +201,7 @@ namespace CloudberryKingdom
             {
                 GiveAward(UnlockHeroRush2, player);
                 CheckForAward_UnlockAllArcade();
+				//Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
             }
         }
 

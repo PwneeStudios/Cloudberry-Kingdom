@@ -131,7 +131,7 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
             EnsureFancy();
 
-            MyPile.Pos = new Vector2(-90, 865);
+			MyPile.Pos = new Vector2(-115f, 803.8889f);
             SlideInLength = 0;
 
             // Object is carried over through multiple levels, so prevent it from being released.

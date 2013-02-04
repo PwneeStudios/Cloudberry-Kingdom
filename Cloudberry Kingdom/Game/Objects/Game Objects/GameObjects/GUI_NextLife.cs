@@ -43,6 +43,7 @@ namespace CloudberryKingdom
 
             // Give extra life
             GUI_Lives.NumLives++;
+			GUI_Lives.Bring(true);
 
             //MyGame.AddGameObject(new SuperCheer(2));
 
@@ -53,8 +54,11 @@ namespace CloudberryKingdom
             TextFloat text = new TextFloat(Localization.Words.ExtraLife, Coin.PosOfLastCoinGrabbed + new Vector2(21, 22.5f));
             text.MyText.Scale *= 1.33f;
             text.Core.DrawLayer = 8;
-            text.MyText.MyFloatColor = new Color(0, 195, 17).ToVector4();
-            text.MyText.OutlineColor = new Color(0, 80, 8).ToVector4();
+			//text.MyText.MyFloatColor = new Color(0, 195, 17).ToVector4();
+			//text.MyText.OutlineColor = new Color(0, 80, 8).ToVector4();
+			text.MyText.MyFloatColor = new Color(84, 232, 79).ToVector4();
+            text.MyText.OutlineColor = new Color(0, 0, 0).ToVector4();
+			CkColorHelper._x_x_HappyBlueColor(text.MyText);
             Core.MyLevel.MyGame.AddGameObject(text);
 
             ParticleEffects.CoinDie_ExtraLife(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
@@ -69,8 +73,9 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public override string ToString()
         {
-            //string str = string.Format("x{0}/{1}", Coins, Max);
-            string str = string.Format("{0}/{1}", Coins, Max);
+			//string str = string.Format("{0}/{1}", Coins, Max);
+			//string str = string.Format("{0}", Coins);
+			string str = string.Format("{0}", Max - Coins);
 
             return str;
         }
@@ -143,14 +148,14 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); }
+			EzText _t;
+			_t = MyPile.FindEzText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); _t.Scale = 0.55f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.ScaleYToMatchRatio(100); }
+			QuadClass _q;
+			_q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.Size = new Vector2(100f, 100f); }
 
-            Pos = new Vector2(1002.133f, 670.5443f);
-        }
+			MyPile.Pos = new Vector2(1232.689f, 762.2109f);
+		}
 
         public override void OnAdd()
         {

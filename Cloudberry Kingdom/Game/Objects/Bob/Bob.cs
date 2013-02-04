@@ -881,7 +881,8 @@ namespace CloudberryKingdom.Bobs
             {
                 if (pad.Buttons.A == ButtonState.Pressed)
                 {
-                    CurInput.A_Button = true;
+					//if (!MyLevel.ReplayPaused)
+						CurInput.A_Button = true;
                 }
                 else CurInput.A_Button = false;
 

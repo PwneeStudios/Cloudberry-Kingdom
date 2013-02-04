@@ -5,6 +5,8 @@ namespace CloudberryKingdom
         int NumSeeds;
         public VerifyDeleteSeeds(int Control, int NumSeeds) : base(false)
         {
+			EnableBounce();
+
             this.NumSeeds = NumSeeds;
             this.Control = Control;
 

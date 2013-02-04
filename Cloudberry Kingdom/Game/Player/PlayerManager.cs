@@ -460,7 +460,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool NotAllAwarded(Awardment award)
         {
-            return ExistingPlayers.Any(player => !player.Awardments[award.Guid]);
+			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+			return CopyOfExistingPlayers.Any(player => !player.Awardments[award.Guid]);
         }
 
         /// <summary>

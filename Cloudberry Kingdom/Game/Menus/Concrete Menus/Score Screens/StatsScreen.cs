@@ -254,7 +254,8 @@ namespace CloudberryKingdom.Stats
 
             // Darker Backdrop
             QuadClass Backdrop;
-            if (UseBounce)
+			//if (UseSimpleBackdrop)
+			if (true)
             {
                 Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
                 Backdrop.Alpha *= .8f;

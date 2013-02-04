@@ -41,7 +41,7 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             QuadClass Backdrop;
-            if (UseBounce)
+			if (UseSimpleBackdrop)
                 Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
             else
                 Backdrop = new QuadClass("Backplate_1230x740", 1500, true);

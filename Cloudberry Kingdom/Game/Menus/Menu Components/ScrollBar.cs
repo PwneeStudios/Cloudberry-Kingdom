@@ -60,9 +60,9 @@ namespace CloudberryKingdom
             slider.BL_HitPadding.X += 50;
             slider.TR_HitPadding.X += 50;
 #endif
-            slider.Slider.TextureName = "BouncyBlock_Castle";
+			slider.Slider.TextureName = "Floater_Spikey_Castle_v2";
             slider.Slider.ScaleYToMatchRatio(90);
-            slider.SliderBack.TextureName = "Chain_Tile";
+			slider.SliderBack.TextureName = "Floater_Chain_Forest";
             slider.TabOffset = new Vector2(0, 28);
             slider.MyFloat = new WrappedFloat(0, 0, 9);
 

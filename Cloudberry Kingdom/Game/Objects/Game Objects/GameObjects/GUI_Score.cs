@@ -78,10 +78,9 @@ namespace CloudberryKingdom
         }
 
         bool DoSlideIn = true;
-        public GUI_Score() { DoInit(false); }
-        public GUI_Score(bool SlideIn) { DoInit(SlideIn); }
+        public GUI_Score(bool TimeCrisis) { DoInit(false, TimeCrisis); }
         
-        void DoInit(bool SlideIn)
+        void DoInit(bool SlideIn, bool TimeCrisis)
         {
             DoSlideIn = SlideIn;
 
@@ -107,6 +106,7 @@ namespace CloudberryKingdom
                 o = Color.White;
 
                 ScoreText = new EzText(ToString(), font, 950, false, true);
+				ScoreText.Name = "Score";
                 ScoreText.Scale = scale;
                 ScoreText.Pos = new Vector2(381.4434f, 85.55492f);
                 ScoreText.MyFloatColor = c.ToVector4();
@@ -115,6 +115,20 @@ namespace CloudberryKingdom
             ScoreText.RightJustify = true;
 
             MyPile.Add(ScoreText);
+
+
+			if (TimeCrisis)
+			{
+				EzText _t;
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
+				MyPile.Pos = new Vector2(1240.555f, 756.1112f);
+			}
+			else
+			{
+				EzText _t;
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
+				MyPile.Pos = new Vector2(865.5554f, 781.1111f);
+			}
         }
 
         protected override void MyDraw()

@@ -291,8 +291,7 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             // Level
-            //var LevelText = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
-			var LevelText = new EzText(Localization.Words.TotalArcade, Resources.Font_Grobold42);
+			var LevelText = new EzText(Localization.Words.PlayerLevel, Resources.Font_Grobold42);
             LevelText.Scale *= .72f;
             StartMenu.SetText_Green(LevelText, true);
             MyPile.Add(LevelText, "Level");

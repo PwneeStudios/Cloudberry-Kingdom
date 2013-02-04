@@ -73,8 +73,8 @@ namespace CloudberryKingdom.Awards
 
 
             Backdrop = new QuadClass(null, true, true);
-            //Backdrop.TextureName = "WidePlaque";
-            Backdrop.TextureName = "MessageBoxThin";
+            Backdrop.TextureName = "WidePlaque";
+            //Backdrop.TextureName = "MessageBoxThin";
             Backdrop.Size = new Vector2(1750f, 284.8255f);
             Backdrop.Pos = new Vector2(-11.9043f, 59.52365f);
             Backdrop.Degrees = 0;

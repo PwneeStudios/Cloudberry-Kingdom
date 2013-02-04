@@ -99,8 +99,25 @@ namespace CloudberryKingdom
         }
 
         bool PauseOnShow = false;
-        public void Bring()
+		float FadeInMult;
+        public void Bring(bool PlusOne)
         {
+			if (PlusOne)
+			{
+				FadeInMult = 2;
+
+				LivesLeftText.MyFloatColor = new Color(84, 232, 79).ToVector4();
+				LivesLeftText.OutlineColor = new Color(0, 0, 0).ToVector4();
+				CkColorHelper._x_x_HappyBlueColor(LivesLeftText);
+			}
+			else
+			{
+				FadeInMult = 1;
+
+				LivesLeftText.MyFloatColor = new Color(255, 255, 255).ToVector4();
+				LivesLeftText.OutlineColor = new Color(0, 0, 0).ToVector4();
+			}
+
             if (PauseOnShow)
             {
                 PauseLevel = true;
@@ -110,7 +127,7 @@ namespace CloudberryKingdom
             // Fade in and out
             MyPile.Alpha = 0;
             MyGame.WaitThenDo(InitialDelay, () => {
-                MyPile.AlphaVel = FadeInVel;
+                MyPile.AlphaVel = FadeInVel * FadeInMult;
                 MyGame.CinematicToDo(ShowLength, () => {
                     MyPile.AlphaVel = FadeOutVel;
                     MyGame.CinematicToDo(StartDelay, () => {
@@ -130,7 +147,7 @@ namespace CloudberryKingdom
             base.Reset(BoxesOnly);
 
             if (!Core.MyLevel.Watching && Core.MyLevel.PlayMode == 0)
-                Bring();
+                Bring(false);
         }
 
         public override void OnAdd()

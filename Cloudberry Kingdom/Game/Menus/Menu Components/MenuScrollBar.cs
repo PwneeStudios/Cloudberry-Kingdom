@@ -13,11 +13,14 @@ namespace CloudberryKingdom
         {
             base.InitializeSlider();
 
-            Normal = Tools.TextureWad.FindByName("BouncyBlock1");
-            Held = Tools.TextureWad.FindByName("BouncyBlock2");
+			Normal = Tools.TextureWad.FindByName("Floater_Spikey_Forest");
+			Held = Tools.TextureWad.FindByName("Floater_Spikey_Forest");
 
-            EndQuad = new QuadClass("Joint", 85, true);
-            StartQuad = new QuadClass("Joint", 85, true);
+			
+			//EndQuad = new QuadClass("Floater_Buzzsaw_Forest", 85, true);
+			//StartQuad = new QuadClass("Floater_Buzzsaw_Forest", 85, true);
+			EndQuad = new QuadClass("Firespinner_Base_Forest_1", 73, true);
+			StartQuad = new QuadClass("Firespinner_Base_Forest_1", 73, true);
         }
 
         public Vector2 StartPlus = new Vector2(0, -600);
@@ -37,6 +40,7 @@ namespace CloudberryKingdom
                     Slider.Quad.MyTexture = Held;
                 else
                     Slider.Quad.MyTexture = Normal;
+				Slider.ScaleYToMatchRatio(100);
 #else
                 if (Selected)
                     Slider.Quad.MyTexture = Held;
@@ -45,10 +49,9 @@ namespace CloudberryKingdom
 #endif
 
                 Tools.QDrawer.DrawLine(Start + StartPlus, End + EndPlus,
-                            //new Color(255, 255, 255, 215),
                             new Color(255, 255, 255, 235),
                             85,
-                            SliderBack.Quad.MyTexture, Tools.BasicEffect, 85, 0, 0f);
+                            SliderBack.Quad.MyTexture, Tools.BasicEffect, 3000, 0, 0f);
                 StartQuad.Pos = Start;
                 EndQuad.Pos = End;
 

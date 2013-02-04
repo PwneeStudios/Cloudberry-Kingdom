@@ -1,5 +1,9 @@
-using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+
+using CoreEngine;
 
 namespace CloudberryKingdom
 {
@@ -56,6 +60,8 @@ namespace CloudberryKingdom
         protected override void ReleaseBody()
         {
             base.ReleaseBody();
+
+			Dots = null;
 
             MyGame.OnCoinGrab -= OnCoinGrab;
             MyGame.OnLevelRetry -= OnLevelRetry;
@@ -326,6 +332,8 @@ namespace CloudberryKingdom
         }
 
         EzText Text;
+		List<QuadClass> Dots;
+		EzTexture Full, Empty;
         void UpdateScoreText()
         {
             float Hold = Multiplier;
@@ -333,6 +341,16 @@ namespace CloudberryKingdom
 
             if (Hold != Multiplier)
                 MyPile.BubbleUp(false);
+
+			// Update dots
+			int NumDots = NextBonus / BaseBonus;
+			Dots[0].Size = new Vector2(19.9642f, 21.49991f) * CoreMath.Periodic(.96f, 1.03f, 1f, Tools.t);
+			for (int i = 0; i < 8; i++)
+			{
+				Dots[i].Quad.MyTexture = i < NumDots ? Full : Empty;
+				Dots[i].Pos = Dots[0].Pos + i * new Vector2(34, 0);
+				Dots[i].Size = Dots[0].Size;
+			}
         }
 
         void Init_GUI()
@@ -371,15 +389,30 @@ namespace CloudberryKingdom
 
             MyPile.Add(Text);
 
+			Full = Tools.Texture("Dot_Full");
+			Empty = Tools.Texture("Dot_Empty");
+			Dots = new List<QuadClass>();
+			for (int i = 0; i < 8; i++)
+			{
+				var dot = new QuadClass("White");
+				dot.Size = new Vector2(13.54166f, 14.58333f);
+
+				MyPile.Add(dot, "Dot" + i.ToString());
+				Dots.Add(dot);
+			}
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("Dot0"); if (_q != null) { _q.Pos = new Vector2(-302.7778f, -91.66668f); _q.Size = new Vector2(19.2969f, 20.78128f); }
+
             SetPos();
         }
 
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
-            MyPile.Pos = new Vector2(1569.445f, -772.2226f);
-        }
+			EzText _t;
+			_t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
+			MyPile.Pos = new Vector2(1569.445f, -772.2226f);
+		}
 
         public override void Release()
         {
@@ -388,6 +421,9 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
+			Tools.Warning();
+			UpdateScoreText();
+
             Text.MyFloatColor += .05f * (new Color(228, 0, 69).ToVector4() - Text.MyFloatColor);
             Text.Scale += .05f * (.8f - Text.Scale);
             Text.Angle += .2f * (0 - Text.Angle);

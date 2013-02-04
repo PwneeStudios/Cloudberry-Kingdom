@@ -93,7 +93,7 @@ namespace CloudberryKingdom
         protected QuadClass Backdrop;
         public virtual void MakeBackdrop()
         {
-            if (UseBounce)
+			if (UseSimpleBackdrop)
             {
                 Backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
             }

@@ -25,8 +25,8 @@ namespace CloudberryKingdom
             MyCoinScoreMultiplier = new CoinScoreMultiplierObject();
 
             // Level and Score
-            MyGUI_Score = new GUI_Score();
-            MyGUI_Level = new GUI_Level();
+            MyGUI_Score = new GUI_Score(false);
+            MyGUI_Level = new GUI_Level(false);
 
             // Add game objects, including 'Perfect' watcher
             OnSwapToFirstLevel += (data) =>

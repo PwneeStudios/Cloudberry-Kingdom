@@ -13,13 +13,19 @@ namespace CloudberryKingdom
             base.OnAdd();
 
             UpdateLevelText();
+
+
+			EzText _t;
+			_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
+			MyPile.Pos = new Vector2(1590.556f, 803.2224f);
         }
 
         public override string ToString()
         {
-            if (MyGame == null) return "   ";
+			return base.ToString();
+			//if (MyGame == null) return "   ";
 
-            return MyGame.MyLevel.Name;
+			//return MyGame.MyLevel.Name;
         }
     }
 
@@ -82,25 +88,26 @@ namespace CloudberryKingdom
             LevelText.SubstituteText(ToString());
         }
 
-        public GUI_Level() { DoInit(false); }
-        public GUI_Level(bool SlideIn) { DoInit(SlideIn); }
-
+        public GUI_Level(bool TimeCrisis) { DoInit(false, TimeCrisis); }
         public GUI_Level(int LevelNum)
         {
-            DoInit(false);
+            DoInit(false, false);
             PreventRelease = false;
 
             SetLevel(LevelNum);
         }
 
-        void DoInit(bool SlideIn)
+        void DoInit(bool SlideIn, bool TimeCrisis)
         {
             DoSlideIn = SlideIn;
 
             MyPile = new DrawPile();
             EnsureFancy();
 
-            MyPile.Pos = new Vector2(1590.556f, 803.2224f);
+			if (TimeCrisis)
+				MyPile.Pos = new Vector2(1621.112f, 711.5558f);
+			else
+				MyPile.Pos = new Vector2(1590.556f, 803.2224f);
 
             // Object is carried over through multiple levels, so prevent it from being released.
             PreventRelease = true;
@@ -137,7 +144,7 @@ namespace CloudberryKingdom
 
             LevelText.RightJustify = true;
 
-            MyPile.Add(LevelText);
+            MyPile.Add(LevelText, "Level");
         }
 
         protected override void MyDraw()

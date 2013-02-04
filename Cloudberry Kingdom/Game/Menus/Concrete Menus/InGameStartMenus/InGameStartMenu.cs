@@ -98,7 +98,7 @@ namespace CloudberryKingdom
 
             // Make the backdrop
             QuadClass backdrop; 
-            if (UseBounce)
+            if (UseSimpleBackdrop)
                 backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
             else
                 backdrop = new QuadClass("Backplate_1080x840", 1500, true);
