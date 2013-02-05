@@ -531,6 +531,8 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanis
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
 			_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5557f, 630.5551f); _q.Size = new Vector2(65.16659f, 65.16659f); }
 			_q = MyPile.FindQuad("Button_SwitchSort"); if (_q != null) { _q.Pos = new Vector2(711.1107f, 477.7777f); _q.Size = new Vector2(66.83328f, 66.83328f); }
+			_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
+			_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
 
 			MyPile.Pos = new Vector2(0f, 5.555542f);
 }

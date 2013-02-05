@@ -215,8 +215,7 @@ namespace CloudberryKingdom
 
             //result.AsyncWaitHandle.Close();
         }
-#endif
-
+#else
         public static void GetDevice()
         {
             IAsyncResult result = StorageDevice.BeginShowSelector(null, null);
@@ -226,6 +225,7 @@ namespace CloudberryKingdom
 
             result.AsyncWaitHandle.Close();
         }
+#endif
 
         public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
