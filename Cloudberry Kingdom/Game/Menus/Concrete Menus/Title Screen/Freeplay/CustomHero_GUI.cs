@@ -309,6 +309,8 @@ namespace CloudberryKingdom
             BaseList.Name = "base";
             foreach (Hero_BaseType _hero in Tools.GetValues<Hero_BaseType>())
             {
+				if (_hero == Hero_BaseType.Meat) continue;
+
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
                 item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));

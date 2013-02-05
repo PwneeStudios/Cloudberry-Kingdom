@@ -421,7 +421,7 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-			Tools.Warning();
+			//Tools.Warning();
 			UpdateScoreText();
 
             Text.MyFloatColor += .05f * (new Color(228, 0, 69).ToVector4() - Text.MyFloatColor);

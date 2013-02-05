@@ -628,8 +628,8 @@ Chapter4,
 Chapter5,
 Chapter6,
 Credits,
-Delete,
 PlayerLevel,
+Delete,
         };
     }
 }

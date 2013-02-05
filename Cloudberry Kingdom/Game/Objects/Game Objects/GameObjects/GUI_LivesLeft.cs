@@ -154,6 +154,9 @@ namespace CloudberryKingdom
         {
             base.OnAdd();
 
+			MyPile.AlphaVel = FadeOutVel;
+			MyPile.Alpha = 0;
+
             // Black background
             if (UseBlackBack)
             {

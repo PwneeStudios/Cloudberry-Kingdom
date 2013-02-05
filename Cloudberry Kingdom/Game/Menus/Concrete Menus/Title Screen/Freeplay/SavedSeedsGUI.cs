@@ -407,6 +407,8 @@ else
 			//MakeBackButton(Localization.Words.Back, false).UnaffectedByScroll = true;
 
             MenuItem item;
+if (ButtonCheck.ControllerInUse)
+{
 			// Load
 			item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
 			item.Name = "Load";
@@ -414,15 +416,13 @@ else
 			item.SelectSound = null;
 			item.Go = ItemReturnToCaller;
 			item.UnaffectedByScroll = true;
-if (ButtonCheck.ControllerInUse)
-{
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
 			item.Selectable = false;
-}
 #if XBOX
 			item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 			item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
 #endif
+}
 
 if (ButtonCheck.ControllerInUse)
 {

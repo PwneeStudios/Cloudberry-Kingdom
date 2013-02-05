@@ -40,13 +40,13 @@ namespace CloudberryKingdom
                     Slider.Quad.MyTexture = Held;
                 else
                     Slider.Quad.MyTexture = Normal;
-				Slider.ScaleYToMatchRatio(100);
 #else
                 if (Selected)
                     Slider.Quad.MyTexture = Held;
                 else
                     Slider.Quad.MyTexture = Normal;
 #endif
+				Slider.ScaleYToMatchRatio(100);
 
                 Tools.QDrawer.DrawLine(Start + StartPlus, End + EndPlus,
                             new Color(255, 255, 255, 235),
