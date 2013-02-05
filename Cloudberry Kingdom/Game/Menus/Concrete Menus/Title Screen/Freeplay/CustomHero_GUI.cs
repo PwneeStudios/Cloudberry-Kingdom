@@ -513,28 +513,32 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("base"); if (_item != null) { _item.SetPos = new Vector2(-1655.38f, 642.6317f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("jump"); if (_item != null) { _item.SetPos = new Vector2(-1653.446f, 451.6321f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("size"); if (_item != null) { _item.SetPos = new Vector2(-1656.223f, 256.2355f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("test"); if (_item != null) { _item.SetPos = new Vector2(-1914.311f, 134.3449f); _item.MyText.Scale = 0.7685415f; _item.MySelectedText.Scale = 0.7685415f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("back"); if (_item != null) { _item.SetPos = new Vector2(-1909.15f, -90.52583f); _item.MyText.Scale = 0.6955291f; _item.MySelectedText.Scale = 0.6955291f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("continue"); if (_item != null) { _item.SetPos = new Vector2(-1915.104f, -288.0107f); _item.MyText.Scale = 0.7520385f; _item.MySelectedText.Scale = 0.7520385f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("reset"); if (_item != null) { _item.SetPos = new Vector2(-1916.694f, -502.1649f); _item.MyText.Scale = 0.7f; _item.MySelectedText.Scale = 0.7f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			MenuItem _item;
+			_item = MyMenu.FindItemByName("base"); if (_item != null) { _item.SetPos = new Vector2(-1655.38f, 642.6317f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("jump"); if (_item != null) { _item.SetPos = new Vector2(-1653.446f, 451.6321f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("size"); if (_item != null) { _item.SetPos = new Vector2(-1656.223f, 256.2355f); _item.MyText.Scale = 0.5f; _item.MySelectedText.Scale = 0.5f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("test"); if (_item != null) { _item.SetPos = new Vector2(-1914.311f, 134.3449f); _item.MyText.Scale = 0.7685415f; _item.MySelectedText.Scale = 0.7685415f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("back"); if (_item != null) { _item.SetPos = new Vector2(-1909.15f, -90.52583f); _item.MyText.Scale = 0.6955291f; _item.MySelectedText.Scale = 0.6955291f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("continue"); if (_item != null) { _item.SetPos = new Vector2(-1915.104f, -288.0107f); _item.MyText.Scale = 0.7520385f; _item.MySelectedText.Scale = 0.7520385f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("reset"); if (_item != null) { _item.SetPos = new Vector2(-1916.694f, -502.1649f); _item.MyText.Scale = 0.7f; _item.MySelectedText.Scale = 0.7f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(1166.862f, -69.45605f);
+			MyMenu.Pos = new Vector2(1166.862f, -69.45605f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-664.2021f, 960.7101f); _t.Scale = 0.8010691f; }
-            _t = MyPile.FindEzText("base"); if (_t != null) { _t.Pos = new Vector2(-1269.655f, 708.4517f); _t.Scale = 0.6189448f; }
-            _t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-1270.534f, 507.2669f); _t.Scale = 0.5981081f; }
-            _t = MyPile.FindEzText("size"); if (_t != null) { _t.Pos = new Vector2(-1234.811f, 317.9383f); _t.Scale = 0.6634525f; }
+			EzText _t;
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-664.2021f, 960.7101f); _t.Scale = 0.8010691f; }
+			_t = MyPile.FindEzText("base"); if (_t != null) { _t.Pos = new Vector2(-1269.655f, 708.4517f); _t.Scale = 0.6189448f; }
+			_t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-1270.534f, 507.2669f); _t.Scale = 0.5981081f; }
+			_t = MyPile.FindEzText("size"); if (_t != null) { _t.Pos = new Vector2(-1234.811f, 317.9383f); _t.Scale = 0.6634525f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 1083.871f); }
+			QuadClass _q;
+			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 1083.871f); }
+			_q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(-830.694f, -77.78476f); _q.Size = new Vector2(84f, 84f); }
+			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(-830.694f, -297.2718f); _q.Size = new Vector2(84f, 84f); }
+			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(-830.694f, -505.6396f); _q.Size = new Vector2(84f, 84f); }
+			_q = MyPile.FindQuad("Button_Y"); if (_q != null) { _q.Pos = new Vector2(-830.694f, -702.895f); _q.Size = new Vector2(84f, 84f); }
 
-            MyPile.Pos = new Vector2(0f, 0f);
-        }
+			MyPile.Pos = new Vector2(0f, 0f);
+		}
 
         MenuItem A, B, X, Y;
         private void MakeOptionItems()
@@ -544,77 +548,80 @@ namespace CloudberryKingdom
             float bigscale = .52f;
             float scale = .52f;
 
-#if PC_VERSION
-            bool WithButtonPics = false;
-#else
-            bool WithButtonPics = true;
-#endif
+			bool WithButtonPics;
+if (ButtonCheck.ControllerInUse)
+{
+			WithButtonPics = true;
+}
+else
+{
+			WithButtonPics = false;            
+}
 
             // Start
-            if (WithButtonPics)
-            {
-                MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
-                A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
-            }
-            else
-                A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
+            A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
             item.Name = "test";
             item.JiggleOnGo = false;
             AddItem(item);
             item.Go = Cast.ToItem(StartTest);
-            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
-            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
-#if NOT_PC
-            item.Selectable = false;
+if (ButtonCheck.ControllerInUse)
+{
+#if XBOX || PC_VERSION
+			Menu.DefaultMenuInfo.SetNext(item);
 #endif
+			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
+            item.Selectable = false;
+}
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = Cast.ToMenu(Start.Go);
 
 
             // Back
-            if (WithButtonPics)
-            {
-                MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
-                B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
-            }
-            else
-                B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
             item.Name = "back";
             AddItem(item);
             item.SelectSound = null;
             item.Go = Cast.ToItem(ReturnToCaller);
-            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
-            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
-#if NOT_PC
-            item.Selectable = false;
+if (ButtonCheck.ControllerInUse)
+{
+#if XBOX || PC_VERSION
+			Menu.DefaultMenuInfo.SetBack(item);
 #endif
+			MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+            item.Selectable = false;
+}
 
             // Continue
-            if (WithButtonPics)
-            {
-                MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
-                X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
-            }
-            else
-                X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
-
+            X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
             item.Name = "continue";
             AddItem(item);
             item.SelectSound = null;
-            item.MyText.MyFloatColor = new Color(204, 220, 255).ToVector4() * .93f;
-            item.MySelectedText.MyFloatColor = new Color(204, 220, 255).ToVector4();
-#if NOT_PC
+			item.Go = Cast.ToItem(Next);
+if (ButtonCheck.ControllerInUse)
+{
+#if XBOX || PC_VERSION
+			Menu.DefaultMenuInfo.SetX(item);
+#endif
+			MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
             item.Selectable = false;
             MyMenu.OnX = Cast.ToMenu(X.Go);
-#endif
-            item.Go = Cast.ToItem(Next);
+}
 
             // Reset
             item = ResetButton = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
             item.Name = "reset";
             AddItem(item);
-            item.Go = Cast.ToItem(ResetSliders);
+			item.Go = Cast.ToItem(ResetSliders);
+if (ButtonCheck.ControllerInUse)
+{
+#if XBOX || PC_VERSION
+			Menu.DefaultMenuInfo.SetY(item);
+#endif
+			MyPile.Add(new QuadClass(ButtonTexture.Y, 90, "Button_Y"));
+            item.Selectable = false;
+            MyMenu.OnY = Cast.ToAction(item.Go);
+}
         }
 
         bool AdvancedAvailable()

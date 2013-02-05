@@ -42,9 +42,48 @@ namespace CloudberryKingdom
         public static class DefaultMenuInfo
         {
             public static Vector4 SelectedNextColor = new Color(100, 250, 100, 255).ToVector4();
-            public static Vector4 SelectedBackColor = new Color(250, 100, 100, 255).ToVector4();
-            public static Vector4 UnselectedNextColor = new Color(40, 180, 40, 255).ToVector4();
+			public static Vector4 UnselectedNextColor = new Color(40, 180, 40, 255).ToVector4();
+
+			public static Vector4 SelectedBackColor = new Color(250, 100, 100, 255).ToVector4();
             public static Vector4 UnselectedBackColor = new Color(180, 40, 40, 255).ToVector4();
+			
+			public static Vector4 SelectedXColor = new Color(75, 142, 240, 255).ToVector4();
+			public static Vector4 UnselectedXColor = new Color(55, 125, 229, 255).ToVector4();
+			
+			public static Vector4 SelectedYColor = new Color(255, 226, 155, 255).ToVector4();
+			public static Vector4 UnselectedYColor = new Color(255, 198, 55, 255).ToVector4();
+
+			public static void SetNext(MenuItem item)
+			{
+				item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+				item.MyText.OutlineColor = Color.Black.ToVector4();
+				item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
+				item.MySelectedText.OutlineColor = Color.Black.ToVector4();
+			}
+
+			public static void SetBack(MenuItem item)
+			{
+				item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+				item.MyText.OutlineColor = Color.Black.ToVector4();
+				item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
+				item.MySelectedText.OutlineColor = Color.Black.ToVector4();
+			}
+
+			public static void SetX(MenuItem item)
+			{
+				item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedXColor;
+				item.MyText.OutlineColor = Color.Black.ToVector4();
+				item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedXColor;
+				item.MySelectedText.OutlineColor = Color.Black.ToVector4();
+			}
+
+			public static void SetY(MenuItem item)
+			{
+				item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedYColor;
+				item.MyText.OutlineColor = Color.Black.ToVector4();
+				item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedYColor;
+				item.MySelectedText.OutlineColor = Color.Black.ToVector4();
+			}
 
             public static EzSound Menu_UpDown_Sound = Tools.NewSound("Menu_Hover", .7f);
             public static EzSound Menu_Select_Sound = Tools.NewSound("Menu_Select", .6f);

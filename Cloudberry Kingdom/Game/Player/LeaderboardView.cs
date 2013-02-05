@@ -268,8 +268,10 @@ namespace CloudberryKingdom
         void UpdateView()
         {
             MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
+			MyMenu.FindItemByName("SwitchView").MySelectedText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
             MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
             MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
+			MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
         public void SetIndex(int index)

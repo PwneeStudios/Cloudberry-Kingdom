@@ -452,10 +452,8 @@ namespace CloudberryKingdom
             {
                 EzText _t;
                 _t = MyPile.FindEzText("Requirement2");
-                //_t.Show = true;
-                //_t.SubstituteText(Localization.WordString(Localization.Words.Required) + " " +
-                //                  Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
-                _t.SubstituteText(Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
+                //_t.SubstituteText(Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
+				_t.SubstituteText(Localization.WordString(Localization.Words.PlayerLevel) + " " + item.MyPrereq.MyInt.ToString());
             }
             else
             {

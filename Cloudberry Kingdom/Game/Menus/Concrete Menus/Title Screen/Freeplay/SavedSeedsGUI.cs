@@ -244,8 +244,12 @@ else
 				else if (n == 1) GoString = string.Format(Localization.WordString(Localization.Words.DeleteSeeds), n);
 				else		     GoString = string.Format(Localization.WordString(Localization.Words.DeleteSeedsPlural), n);
 
-				MyMenu.FindItemByName("Load").MyText.SubstituteText(GoString);
-				MyMenu.FindItemByName("Load").MySelectedText.SubstituteText(GoString);
+				MenuItem _item = MyMenu.FindItemByName("Load");
+				if (_item != null)
+				{
+					_item.MyText.SubstituteText(GoString);
+					_item.MySelectedText.SubstituteText(GoString);
+				}
 			}
 
 #if WINDOWS
