@@ -422,7 +422,7 @@ namespace CloudberryKingdom
         protected override void MyDraw()
         {
 			//Tools.Warning();
-			UpdateScoreText();
+			//UpdateScoreText();
 
             Text.MyFloatColor += .05f * (new Color(228, 0, 69).ToVector4() - Text.MyFloatColor);
             Text.Scale += .05f * (.8f - Text.Scale);

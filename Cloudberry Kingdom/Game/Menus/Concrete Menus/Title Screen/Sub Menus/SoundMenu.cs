@@ -29,12 +29,6 @@ namespace CloudberryKingdom
         {
             ChosenLanguage = Localization.CurrentLanguage.MyLanguage;
 
-#if PC_VERSION
-            bool ConsoleVersion = false;
-#else
-            bool ConsoleVersion = true;
-#endif
-
             base.Init();
             
             if (UseBounce)
@@ -44,11 +38,7 @@ namespace CloudberryKingdom
 
             this.FontScale *= .9f;
 
-#if PC_VERSION
             bool CenterItems = false;
-#else
-            bool CenterItems = false;
-#endif
 
             // Header
             HeaderText = new EzText(Localization.Words.Options, ItemFont);
@@ -192,12 +182,22 @@ namespace CloudberryKingdom
 #endif
 
 			// Credits
+#if XBOX
+			if (true)
+#else
 			if (LanguageOption && !CloudberryKingdomGame.HideLogos)
+#endif
 			{
 				item = new MenuItem(new EzText(Localization.Words.Credits, ItemFont, CenterItems));
 				item.Go = Cast.ToItem(Go_Credits);
 				item.Name = "Credits";
 				AddItem(item);
+
+				// Black
+				Black = new QuadClass();
+				Black.FullScreen(Tools.CurCamera);
+				Black.Quad.SetColor(Color.Black);
+				Black.Alpha = 0;
 			}
 
 
@@ -209,10 +209,12 @@ namespace CloudberryKingdom
             //MakeStaticBackButton();
 #endif
 
-            if (ConsoleVersion)
-                SetPosition_Console();
-            else
-                SetPosition_PC();
+#if PC_VERSION
+			SetPosition_PC();
+#else
+			SetPosition_Console();
+#endif
+                
 
             MyMenu.SortByHeight();
 
@@ -277,7 +279,7 @@ namespace CloudberryKingdom
 		void StartCredits()
 		{
 			MyGame.WaitThenDo(20, AfterCredits);
-			MainVideo.StartVideo_CanSkipIfWatched("Credits");
+			MainVideo.StartVideo("Credits", false, 1.0f);
 		}
 
 		void AfterCredits()
@@ -415,7 +417,8 @@ namespace CloudberryKingdom
                 _item = MyMenu.FindItemByName("Sound"); if (_item != null) { _item.SetPos = new Vector2(-27.38177f, 745.9205f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1686.11f, -152.7778f); }
                 _item = MyMenu.FindItemByName("Music"); if (_item != null) { _item.SetPos = new Vector2(-27.38177f, 531.5082f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); ((MenuSlider)_item).SliderShift = new Vector2(1686.11f, -150.0001f); }
                 _item = MyMenu.FindItemByName("Controls"); if (_item != null) { _item.SetPos = new Vector2(-27.38177f, 306.3806f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Credits"); if (_item != null) { _item.SetPos = new Vector2(-27.38177f, 85.99994f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1344.84f, -129.4444f); _item.MyText.Scale = 0.6704169f; _item.MySelectedText.Scale = 0.6704169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
                 MyMenu.Pos = new Vector2(-980.1562f, -338.0954f);
 
@@ -542,15 +545,6 @@ else
         public override void OnAdd()
         {
  	        base.OnAdd();
-
-			if (LanguageOption)
-			{
-				// Black
-				Black = new QuadClass();
-				Black.FullScreen(Tools.CurCamera);
-				Black.Quad.SetColor(Color.Black);
-				Black.Alpha = 0;
-			}
         }
 
 		protected override void MyDraw()

@@ -46,7 +46,7 @@ namespace CloudberryKingdom
             StartVideo(MovieName, CanSkip, LengthUntilCanSkip);
         }
 
-        private static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
+        public static void StartVideo(string MovieName, bool CanSkipVideo, float LengthUntilCanSkip)
         {
 #if DEBUG
             CanSkipVideo = true;
@@ -173,6 +173,8 @@ namespace CloudberryKingdom
         {
             if (!Playing) { Finish(); return false; }
 
+			Tools.EffectWad.SetCameraPosition( new Vector4(0, 0, .001f, .001f) );
+
             Tools.TheGame.MyGraphicsDevice.Clear(Color.Black);
 
             UpdateElapsedTime();
@@ -185,7 +187,8 @@ namespace CloudberryKingdom
             VEZTexture.Width = VEZTexture.Tex.Width;
             VEZTexture.Height = VEZTexture.Tex.Height;
 
-            Vector2 Pos = Tools.CurCamera.Pos;
+            //Vector2 Pos = Tools.CurCamera.Pos;
+			Vector2 Pos = Vector2.Zero;
             Tools.QDrawer.DrawToScaleQuad(Pos, Color.White, 3580, VEZTexture, Tools.BasicEffect);
             Tools.QDrawer.Flush();
 
