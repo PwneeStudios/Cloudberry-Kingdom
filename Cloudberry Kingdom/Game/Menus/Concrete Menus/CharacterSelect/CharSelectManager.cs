@@ -180,7 +180,32 @@ namespace CloudberryKingdom
             game.KillToDo("StartCharSelect");
 
             game.RemoveGameObjects(GameObject.Tag.CharSelect);
-            Backdrop.Release();
+            if (Backdrop != null) Backdrop.Release();
+        }
+
+        public static void SuddenCleanup()
+        {
+            IsShowing = false;
+            FakeHide = false;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (CharSelect[i] != null)
+                {
+                    CharSelect[i].Release();
+                    CharSelect[i] = null;
+                }
+            }
+
+            var game = Tools.CurGameData;
+
+            game.KillToDo("StartCharSelect");
+
+            game.RemoveGameObjects(GameObject.Tag.CharSelect);
+            if (Backdrop != null) Backdrop.Release();
+
+            OnDone = null;
+            CharacterSelectManager.ParentPanel = null;
         }
 
         static bool AllExited()
@@ -260,7 +285,7 @@ namespace CloudberryKingdom
         }
 
         public static bool FakeHide = false;
-        static void AfterFinished()
+        public static void AfterFinished()
         {
             IsShowing = false;
             FakeHide = false;

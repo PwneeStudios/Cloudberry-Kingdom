@@ -161,7 +161,7 @@ namespace CloudberryKingdom
         public static string Back(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Back.Name); }
         public static string Go(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Go.Name); }
         public static string X(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.X.Name); }
-        public static string Y(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Back.Name); }
+        public static string Y(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.Y.Name); }
         public static string LeftRight(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.LeftRight.Name); }
         public static string LeftBumper(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.LeftBumper.Name); }
         public static string RightBumper(int size) { return string.Format("{{p{1},{0},?}}", size, ButtonTexture.RightBumper.Name); }

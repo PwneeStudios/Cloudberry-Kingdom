@@ -514,14 +514,34 @@ namespace CloudberryKingdom
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
-            SaveGroup.SaveAll();
+            int index = (int)e.Gamer.PlayerIndex;
+
+            if (EzStorage.Device[index] != null)
+            {
+                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
+                EzStorage.Device[index] = null;
+            }
 
             if (Tools.CurGameData != null)
                 Tools.CurGameData.OnSignOut(e);
+
+            var data = PlayerManager.Players[index] = new PlayerData();
+            data.Init(index);
+
+            if (Gamer.SignedInGamers.Count == 0)
+            {
+                Tools.SongWad.Stop();
+                CharacterSelectManager.SuddenCleanup();
+
+                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+            }
         }
 
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
+            if (EzStorage.Device[(int)e.Gamer.PlayerIndex] != null)
+                Tools.GameClass.Components.Remove(EzStorage.Device[(int)e.Gamer.PlayerIndex]);
+
             int Index = (int)e.Gamer.PlayerIndex;
             string Name = e.Gamer.Gamertag;
 
@@ -529,29 +549,14 @@ namespace CloudberryKingdom
             data.Init(Index);
             PlayerManager.Players[Index] = data;
 
-            data.NeedsToLoad = true;
-            data.ChoseNotToSave = false;
-			
-        }
-
-        void LoadGamersDataIfNeeded()
-        {
             if (!CanSave()) return;
 
-            foreach (PlayerData p in PlayerManager.Players)
-            {
-                if (p._MyGamer != null && p.NeedsToLoad)
-                {
-                    SaveGroup.LoadGamer(p);
-                }
-            }
+            SaveGroup.LoadGamer(data);
         }
 #endif
 
         public void LoadContent()
         {
-            var Ck = Tools.TheGame;
-
             //BenchmarkLoadSize();
             //Tools.Warning();
 
@@ -934,8 +939,6 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-            LoadGamersDataIfNeeded();
-
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
 #endif

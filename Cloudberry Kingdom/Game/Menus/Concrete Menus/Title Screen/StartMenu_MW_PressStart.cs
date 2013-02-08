@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
+
 using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
@@ -72,15 +74,25 @@ namespace CloudberryKingdom
                 return;
             }
 
-            if (ButtonCheck.AnyKey())
+            if (ButtonCheck.AnyKey() && !ButtonCheck.State(ControllerButtons.B, -2).Down)
             {
                 DelayToAllowInput = 10;
 
 #if XDK || XBOX
-				MyGame.WaitThenDo(5, CallMenu);
-#else
-				CallMenu();
+                if (Gamer.SignedInGamers.Count > 0)
+                {
+                    foreach (var gamer in Gamer.SignedInGamers)
+                    {
+                        if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
+                        {
+                            MyGame.WaitThenDo(5, CallMenu);
+                            return;
+                        }
+                    }
+                }
 #endif
+      
+                CallMenu();
             }
         }
 

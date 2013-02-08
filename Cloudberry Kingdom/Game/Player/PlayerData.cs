@@ -57,9 +57,6 @@ namespace CloudberryKingdom
 #elif XBOX || XBOX_SIGNIN
         public SignedInGamer _MyGamer;
         public SignedInGamer MyGamer { get { return CheckForMatchingGamer(); } }
-
-        public bool NeedsToLoad = false;
-        public bool ChoseNotToSave = false;
 #endif
 
         public PlayerData()

@@ -1462,6 +1462,7 @@ namespace CloudberryKingdom
 
         public virtual void OnSignOut(SignedOutEventArgs e)
         {
+            Tools.CurGameData.RemovePlayer((int)e.Gamer.PlayerIndex);
         }
 #endif
 

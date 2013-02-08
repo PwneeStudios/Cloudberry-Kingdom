@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
+using EasyStorage;
+
 namespace CloudberryKingdom
 {
     public class SaveGroup
@@ -33,22 +35,6 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
-        /// Wait until nothing is trying to be saved or loaded.
-        /// </summary>
-        public static void Wait()
-        {
-            while (true)
-            {
-                lock (Count)
-                {
-                    if (Count.MyInt == 0) return;
-                }
-
-                Thread.Sleep(1);
-            }
-        }
-
-        /// <summary>
         /// Add an item to group. The item will be saved whenever the group is saved.
         /// </summary>
         public static void Add(SaveLoad ThingToSave)
@@ -61,24 +47,23 @@ namespace CloudberryKingdom
         /// </summary>
         public static void SaveAll()
         {
-            if (CloudberryKingdomGame.CanSave()) return;
+            if (!CloudberryKingdomGame.CanSave()) return;
 
             foreach (SaveLoad ThingToSave in ThingsToSave)
             {
-                Incr();
                 ThingToSave.Save(PlayerIndex.One);
-                Wait();
             }
 
 #if NOT_PC
             // Save each player's info
             foreach (PlayerData player in PlayerManager.LoggedInPlayers)
             {
-                Incr();
+                var g = player.MyGamer;
+                if (g == null) continue;
+
 				player.ContainerName = "SaveData";
 				player.FileName = "SaveData.bam";
                 player.Save(player.MyPlayerIndex);
-                Wait();
             }
 #endif
         }
@@ -91,20 +76,32 @@ namespace CloudberryKingdom
 					LoadGamer(PlayerManager.Players[i]);
 		}
 
-        public static PlayerData LoadGamer(PlayerData player)
+        public static void LoadGamer(PlayerData player)
         {
-			IAsyncResult result = StorageDevice.BeginShowSelector(player.MyPlayerIndex, null, null);
+            if (EzStorage.Device[(int)player.MyPlayerIndex] == null)
+            {
+                var d = EzStorage.Device[(int)player.MyPlayerIndex] = new PlayerSaveDevice(player.MyPlayerIndex);
+                Tools.GameClass.Components.Add(d);
 
-            player.ContainerName = "SaveData";
-            player.FileName = "SaveData.bam";
+                // hook two event handlers to force the user to choose a new device if they cancel the
+                // device selector or if they disconnect the storage device after selecting it
+                d.DeviceSelectorCanceled +=
+                    (s, e) => e.Response = SaveDeviceEventResponse.Prompt;
+                d.DeviceDisconnected +=
+                    (s, e) => e.Response = SaveDeviceEventResponse.Prompt;
 
-            player.NeedsToLoad = false;
+                // prompt for a device on the first Update we can
+                d.PromptForDevice();
 
-            Incr();
-            player.Load(player.MyPlayerIndex);
-            Wait();
+                d.DeviceSelected +=
+                    (s, e) =>
+                    {
+                        player.ContainerName = "SaveData";
+                        player.FileName = "SaveData.bam";
 
-            return player;
+                        player.Load(player.MyPlayerIndex);
+                    };
+            }
         }
 #endif
 
@@ -115,15 +112,9 @@ namespace CloudberryKingdom
         {
             foreach (SaveLoad ThingToLoad in ThingsToSave)
             {
-                Incr();
                 ThingToLoad.Load(PlayerIndex.One);
-                Wait();
             }
         }
-
-        static WrappedInt Count = new WrappedInt(0);
-        static void Incr() { lock (Count) { Count.MyInt++; } }
-        public static void Decr() { lock (Count) { Count.MyInt--; } }
     }
 
     public class SaveLoad
@@ -157,16 +148,12 @@ namespace CloudberryKingdom
                     {
                         Serialize(writer);
                         Changed = false;
-                        SaveGroup.Decr();
                     },
                     () =>
                     {
-                        SaveGroup.Decr();
                         Changed = false;
                     });
             }
-            else
-                SaveGroup.Decr();
         }
 
 		public void Load(PlayerIndex index)
@@ -176,12 +163,10 @@ namespace CloudberryKingdom
                 {
                     Deserialize(reader);
                     Changed = false;
-                    SaveGroup.Decr();
                 },
                 () =>
                 {
                     FailLoad();
-                    SaveGroup.Decr();
                     Changed = false;
                 });
         }
@@ -193,191 +178,44 @@ namespace CloudberryKingdom
     
     public static class EzStorage
     {
-        static StorageDevice[] Device = new StorageDevice[4];
-        static WrappedBool InUse = new WrappedBool(false);
-
-		public static bool DeviceOK(PlayerIndex index)
-		{
-			return Device[(int)index] != null && Device[(int)index].IsConnected;
-		}
-
-        static void GetDeviceCallback(IAsyncResult result)
-        {
-        }
-
-        public static void GetDevice(PlayerIndex index)
-        {
-            if (Guide.IsVisible) return;
-
-            try
-            {
-                IAsyncResult result = StorageDevice.BeginShowSelector(index, GetDeviceCallback, null);
-                result.AsyncWaitHandle.WaitOne();
-
-                Device[(int)index] = StorageDevice.EndShowSelector(result);
-
-                result.AsyncWaitHandle.Close();
-            }
-            catch
-            {
-                Tools.Warning();
-            }
-        }
+        public static PlayerSaveDevice[] Device = new PlayerSaveDevice[4];
 
 		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
-            if (!DeviceOK(index))
-                GetDevice(index);
+            if (!Device[(int)index].IsReady) return;
 
-            if (!DeviceOK(index))
+            Device[(int)index].Save(ContainerName, FileName, stream =>
             {
-                if (Fail != null) Fail();
-                return;
-            }
-
-            // Check if we're already trying to use the device
-            int count = 0;
-            while (InUse.MyBool && count++ < 100)
-            {
-                Thread.Sleep(1);
-            }
-            if (InUse.MyBool) { if (Fail != null) Fail(); return; }
-
-            lock (InUse)
-            {
-                InUse.MyBool = true;
-            }
-
-            // Device is hooked up and ready for us to save to
-
-            // Open a container
-            IAsyncResult result = Device[(int)index].BeginOpenContainer(ContainerName,
-                ContainerResult =>
+                try
                 {
-                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
-
-					StorageContainer container = Device[(int)index].EndOpenContainer(ContainerResult);
-                    ContainerResult.AsyncWaitHandle.Close();
-
-                    if (SaveLogic != null)
-                        SaveToContainer(container, FileName, SaveLogic);
-                }, null);
-        }
-
-        static void SaveToContainer(StorageContainer container, string FileName, Action<BinaryWriter> SaveLogic) 
-        {
-            // Check to see whether the save exists.
-            if (container.FileExists(FileName))
-                // Delete it so that we can create one fresh.
-                container.DeleteFile(FileName);
-
-            // Create the file.
-            Stream stream = container.CreateFile(FileName);
-
-            // Save the data
-            if (SaveLogic != null)
-            {
-                BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
-                SaveLogic(writer);
-                writer.Close();
-            }
-
-            // Close the file.
-            stream.Close();
-
-            // Dispose the container, to commit changes.
-            container.Dispose();
-
-            lock (InUse)
-            {
-                InUse.MyBool = false;
-            }
+                    using (BinaryWriter w = new BinaryWriter(stream))
+                    {
+                        SaveLogic(w);
+                    }
+                }
+                catch
+                {
+                    Fail();
+                }
+            });
         }
 
         public static void Load(PlayerIndex index, string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
-            if (!DeviceOK(index))
-                GetDevice(index);
-
-            if (!DeviceOK(index))
-            {
-                if (Fail != null) Fail();
-                return;
-            }
-
-            // Check if we're already trying to use the device
-            int count = 0;
-            while (InUse.MyBool && count++ < 100)
-            {
-                Thread.Sleep(1);
-            }
-            if (InUse.MyBool) { if (Fail != null) Fail(); return; }
-
-            lock (InUse)
-            {
-                InUse.MyBool = true;
-            }
-
-            // Device is hooked up and ready for us to load from
-
-            // Open a container
-			IAsyncResult result = Device[(int)index].BeginOpenContainer(ContainerName,
-                ContainerResult =>
-                {
-                    if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
-                    //if (Fail != null) Fail(); return;
-
-					StorageContainer container = Device[(int)index].EndOpenContainer(ContainerResult);
-                    ContainerResult.AsyncWaitHandle.Close();
-
-                    if (LoadLogic != null)
-                        LoadFromContainer(container, FileName, LoadLogic, Fail);
-                }, null);
-        }
-
-        static void LoadFromContainer(StorageContainer container, string FileName, Action<byte[]> LoadLogic, Action FailLogic)
-        {
-            // Fallback action if file doesn't exist
-            if (!container.FileExists(FileName))
-            {
-                container.Dispose();
-
-                lock (InUse)
-                {
-                    InUse.MyBool = false;
-                }
-
-                if (FailLogic != null)
-                    FailLogic();
-
-                return;
-            }
-
-            // Load and process the data
-            if (LoadLogic != null)
+            Device[(int)index].Load(ContainerName, FileName, stream =>
             {
                 try
                 {
-                    Stream s = container.OpenFile(FileName, FileMode.Open);
-                    byte[] Data = new byte[s.Length];
-                    s.Read(Data, 0, (int)s.Length);
+                    byte[] Data = new byte[stream.Length];
+                    stream.Read(Data, 0, (int)stream.Length);
 
                     LoadLogic(Data);
                 }
                 catch
                 {
-                    if (FailLogic != null)
-                        FailLogic();
+                    Fail();
                 }
-            }
-
-            // Dispose the container, to commit changes.
-            container.Dispose();
-
-            lock (InUse)
-            {
-                InUse.MyBool = false;
-            }
+            });
         }
     }
 }
