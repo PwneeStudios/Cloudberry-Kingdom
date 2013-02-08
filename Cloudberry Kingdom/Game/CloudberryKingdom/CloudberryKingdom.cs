@@ -94,24 +94,109 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = false;
+        public static bool Unlock_Levels = true;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
         public static bool Unlock_Levels = false;
 #endif
 
+		public static bool ChoseNotToSave = false;
+		public static bool PastPressStart = false;
+		public static bool CanSave()
+		{
+			if (IsDemo) return false;
+
+			if (ChoseNotToSave) return false;
+
+			if (!PastPressStart) return false;
+
+			return true;
+		}
+
+		public static bool CanShowGlobalLeaderboard()
+		{
+			if (SimpleLeaderboards) return false;
+
+			if (!OnlineFunctionalityAvailable()) return false;
+
+			return true;
+		}
+
+		public static bool OnlineFunctionalityAvailable()
+		{
+#if XBOX
+			// Check if anyone is signed in to xbox live. If not then online functionality is not available.
+			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+			foreach (PlayerData player in CopyOfExistingPlayers)
+			{
+				if (!player.MyGamer.IsSignedInToLive)
+					return false;
+			}
+#endif
+
+			return true;
+		}
+
+		public static void ShowMarketplace(PlayerIndex index)
+		{
+#if XDK
+            Tools.Warning();
+            ulong offerID = 0;
+            GuideExtensions.ShowMarketplace(index, offerID);
+#endif
+		}
+
+		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign };
+		static Presence CurrentPresence = Presence.TitleScreen;
+		public static void SetPresence(Presence presence)
+		{
+			CurrentPresence = presence;
+
+#if XBOX
+			GamerPresenceMode Mode;
+
+			switch (CurrentPresence)
+			{
+				case Presence.TitleScreen: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.Escalation: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.TimeCrisis: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.HeroRush: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.HeroRush2: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.Campaign: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.Freeplay: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				default: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+			}
+
+			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+			foreach (PlayerData player in CopyOfExistingPlayers)
+			{
+				SignedInGamer sig = player.MyGamer;
+				if (sig != null && player.MyGamer.IsSignedInToLive)
+				{
+					player.MyGamer.Presence.PresenceMode = Mode;
+				}
+			}
+#endif
+		}
+
         public static bool FakeDemo = false;
         public static bool IsDemo
         {
             get
             {
+				if (FakeDemo) return true;
+
 #if XBOX
                 return Guide.IsTrialMode;
-#endif
+
+#else
                 return false;
+#endif
             }
         }
+		public static int Freeplay_Count = 0;
+		public static int Freeplay_Max = 3;
 
         public static void OfferToBuy(SignedInGamer gamer)
         {
@@ -444,7 +529,22 @@ namespace CloudberryKingdom
             data.Init(Index);
             PlayerManager.Players[Index] = data;
 
-            SaveGroup.LoadGamer(Name, data);
+            data.NeedsToLoad = true;
+            data.ChoseNotToSave = false;
+			
+        }
+
+        void LoadGamersDataIfNeeded()
+        {
+            if (!CanSave()) return;
+
+            foreach (PlayerData p in PlayerManager.Players)
+            {
+                if (p._MyGamer != null && p.NeedsToLoad)
+                {
+                    SaveGroup.LoadGamer(p);
+                }
+            }
         }
 #endif
 
@@ -674,18 +774,18 @@ namespace CloudberryKingdom
         {
             DoToDoList();
 #if WINDOWS
-#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
+	#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
             // Debug tools
             if (DebugModePhsx())
                 return;
-#endif
+	#endif
 
-#if DEBUG
+	#if DEBUG
             GodModePhxs();
-#else
+	#else
             if (GodMode)
                 GodModePhxs();
-#endif
+	#endif
 
             // Do game update.
             if (!Tools.StepControl || (Tools.Keyboard.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Enter)))
@@ -695,15 +795,22 @@ namespace CloudberryKingdom
             else if (Tools.CurLevel != null)
                 Tools.CurLevel.IndependentDeltaT = 0;
 
-#if WINDOWS
+	#if WINDOWS
             // Quick Spawn
             CheckForQuickSpawn_PC();
-#endif
+	#endif
 #else
+	#if DEBUG
+            GodModePhxs();
+	#else
+            if (GodMode)
+                GodModePhxs();
+	#endif
+
             DoGameDataPhsx();
 #endif
 
-            // Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
+			// Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
             CheckForQuickSpawn_Xbox();
 
             // Finish updating the controlls; swap current to previous.
@@ -827,9 +934,7 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-			//if (DrawCount == 60)
-			//    Leaderboard.WriteToLeaderboard(new ScoreEntry());
-
+            LoadGamersDataIfNeeded();
 
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();

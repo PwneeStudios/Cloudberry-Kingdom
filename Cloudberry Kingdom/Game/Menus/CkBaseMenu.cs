@@ -46,6 +46,13 @@ namespace CloudberryKingdom
                 BouncDraw();
 
             base.MyDraw();
+
+			if (UseBounce)
+			{
+				MyGame.Cam.Zoom = new Vector2(.001f);
+				MyGame.Cam.SetVertexCamera();
+				EzText.ZoomWithCamera_Override = false;
+			}
         }
 
 

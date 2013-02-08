@@ -295,6 +295,9 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
 
+			if (MyHeroDoll != null)
+				MyHeroDoll.AutoDraw = true;
+
             UpdateScore();
             Update();
         }
@@ -377,7 +380,20 @@ namespace CloudberryKingdom
 
             var _item = MyMenu.CurItem as HeroItem;
             if (null == _item) return;
-            int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
+
+			// Upsell
+			if (CloudberryKingdomGame.IsDemo && _item.Hero != BobPhsxNormal.Instance)
+			{
+				Call(new UpSellMenu(Localization.Words.UpSell_Hero, MenuItem.ActivatingPlayer));
+				Hide();
+				
+				if (MyHeroDoll != null)
+					MyHeroDoll.AutoDraw = false;
+				
+				return;
+			}
+
+			int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
 
             //int TopLevelForHero = MyArcadeItem.MyChallenge.TopLevel();
 

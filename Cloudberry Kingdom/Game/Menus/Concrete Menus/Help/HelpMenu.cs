@@ -113,17 +113,18 @@ namespace CloudberryKingdom
             return base.MenuReturnToCaller(menu);
         }
 
-        int Cost_Watch = 0, Cost_Path = 30, Cost_Slow = 10;
+		public static int CostMultiplier = 1;
+        int Cost_Watch = 5, Cost_Path = 40, Cost_Slow = 20;
         bool Allowed_WatchComputer()
         {
-            return MyGame.MyLevel.WatchComputerEnabled() && Bank() >= Cost_Watch;
+            return MyGame.MyLevel.WatchComputerEnabled() && Bank() >= Cost_Watch * CostMultiplier;
         }
         void WatchComputer()
         {
             if (!Allowed_WatchComputer())
                 return;
 
-            Buy(Cost_Watch);
+			Buy(Cost_Watch * CostMultiplier);
 
             ReturnToCaller();
             MyGame.WaitThenDo(DelayExit - 10, () => MyGame.MyLevel.WatchComputer());
@@ -159,7 +160,7 @@ namespace CloudberryKingdom
             if (!Allowed_ShowPath())
                 return;
 
-            Buy(Cost_Path);
+			Buy(Cost_Path * CostMultiplier);
 
             ReturnToCaller();
             MyGame.WaitThenDo(DelayExit - 10, () =>
@@ -175,7 +176,7 @@ namespace CloudberryKingdom
         }
         bool Allowed_SlowMo()
         {
-            return true && Bank() >= Cost_Slow;
+			return true && Bank() >= Cost_Slow * CostMultiplier;
         }
         void Toggle_SlowMo(bool state)
         {
@@ -196,7 +197,7 @@ namespace CloudberryKingdom
             if (!Allowed_SlowMo())
                 return;
 
-            Buy(Cost_Slow);
+			Buy(Cost_Slow * CostMultiplier);
 
             Toggle_SlowMo(true);
             ReturnToCaller();
@@ -296,7 +297,7 @@ namespace CloudberryKingdom
             string CoinPrefix = "{pCoin_Blue,68,?}";
 
             // Watch the computer
-            item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Watch.ToString(), ItemFont));
+            item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Watch  * CostMultiplier).ToString(), ItemFont));
             item.Name = "WatchComputer";
             Item_WatchComputer = item;
             item.SetIcon(ObjectIcon.RobotIcon.Clone());
@@ -317,8 +318,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Path.ToString(), ItemFont));
-                if (Bank() >= Cost_Path)
+                PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Path * CostMultiplier).ToString(), ItemFont));
+                if (Bank() >= Cost_Path * CostMultiplier)
                     item.Go = Cast.ToItem(ShowPath);
                 else
                     item.Go = null;
@@ -340,8 +341,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + Cost_Slow.ToString(), ItemFont));
-                if (Bank() >= Cost_Slow)
+                SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Slow * CostMultiplier).ToString(), ItemFont));
+                if (Bank() >= (Cost_Slow * CostMultiplier))
                     item.Go = Cast.ToItem(SlowMo);
                 else
                     item.Go = null;

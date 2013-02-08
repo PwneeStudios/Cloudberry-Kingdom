@@ -630,6 +630,9 @@ Chapter6,
 Credits,
 PlayerLevel,
 Delete,
+UpSell_Campaign,
+UpSell_Hero,
+UpSell_FreePlay,
         };
     }
 }

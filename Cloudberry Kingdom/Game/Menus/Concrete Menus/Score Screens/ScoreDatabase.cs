@@ -7,7 +7,7 @@ namespace CloudberryKingdom
 {
     public class ScoreDatabase : SaveLoad
     {
-        private static ScoreDatabase Instance;
+        public static ScoreDatabase Instance;
 
         public static int MostRecentScoreDate = 0;
         public static int CurrentDate()
@@ -31,30 +31,37 @@ namespace CloudberryKingdom
 
             MostRecentScoreDate = CurrentDate();
 
-            SaveGroup.Add(Instance);
+			if (CloudberryKingdomGame.SimpleLeaderboards)
+				SaveGroup.Add(Instance);
         }
 
         #region SaveLoad
-        protected override void Serialize(BinaryWriter writer)
+        public override void Serialize(BinaryWriter writer)
         {
             foreach (var list in Games)
                 foreach (var score in list.Value)
-                    score.WriteChunk_1000(writer);
+                    score.WriteChunk_2000(writer);
         }
         protected override void FailLoad()
         {
             Games = new Dictionary<int, List<ScoreEntry>>();
         }
-        protected override void Deserialize(byte[] Data)
+
+        public  override void Deserialize(byte[] Data)
         {
             foreach (Chunk chunk in Chunks.Get(Data))
             {
-                switch (chunk.Type)
-                {
-                    case 1000: var score = new ScoreEntry(); score.ReadChunk_1000(chunk); Add(score); break;
-                }
+				ProcessChunk(chunk);
             }
         }
+
+		public static void ProcessChunk(Chunk chunk)
+		{
+			switch (chunk.Type)
+			{
+				case 2000: var score = new ScoreEntry(); score.ReadChunk_1000(chunk); Add(score); break;
+			}
+		}
         #endregion
 
         public static void EnsureList(int Game)

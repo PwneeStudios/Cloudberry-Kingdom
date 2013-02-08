@@ -47,6 +47,8 @@ namespace CloudberryKingdom
         protected StringWorldEndurance MyStringWorld;
         public override void Start(int StartLevel)
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Escalation);
+
             base.Start(StartLevel);
 
             PlayerManager.CoinsSpent = -100;

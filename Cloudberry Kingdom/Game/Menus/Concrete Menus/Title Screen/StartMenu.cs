@@ -16,8 +16,6 @@ namespace CloudberryKingdom
 
         protected virtual void MenuGo_Campaign(MenuItem item)
         {
-            if (CloudberryKingdomGame.IsDemo) return;
-
             MyNextMenu = Next.Campaign;
             BringCharacterSelect();
         }
@@ -168,6 +166,8 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             base.OnAdd();
         }
 
@@ -257,6 +257,8 @@ namespace CloudberryKingdom
 
         public override void OnReturnTo()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             base.OnReturnTo();
             NoBack = false;
         }

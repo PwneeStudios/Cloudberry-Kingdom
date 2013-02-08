@@ -127,8 +127,17 @@ namespace CloudberryKingdom
 
                 PlayerData player = obj.Core.InteractingPlayer;
 
-                if (player != null)
-                    player.LevelStats.Score += BonusValue();
+				if (player != null)
+				{
+					if (Campaign)
+					{
+						player.CampaignCoins += BonusValue();
+					}
+					else
+					{
+						player.LevelStats.Score += BonusValue();
+					}
+				}
 
                 // Remove last coin score text
                 MyGame.RemoveLastCoinText();
@@ -167,7 +176,9 @@ namespace CloudberryKingdom
 
             // Text float
             TextFloat text = new TextFloat(Localization.Words.Perfect, pos + new Vector2(21, 76.5f));
-            TextFloat text2 = new TextFloat(BonusValue().ToString(), pos + new Vector2(21, -93.5f));
+			string s = BonusValue().ToString();
+			if (Campaign) s = "+" + s;
+            TextFloat text2 = new TextFloat(s, pos + new Vector2(21, -93.5f));
 
             text.MyText.Scale *= 1.5f;
             MyGame.AddGameObject(text);
@@ -257,16 +268,28 @@ namespace CloudberryKingdom
         public static int GlobalBonus;
         public bool Global = false;
         public bool ShowMultiplier = true;
-        public PerfectScoreObject(bool Global, bool ShowMultiplier)
+		public bool Campaign;
+        public PerfectScoreObject(bool Global, bool ShowMultiplier, bool Campaign)
         {
+			this.Campaign = Campaign;
+
             // Object is carried over through multiple levels, so prevent it from being released.
             PreventRelease = true;
 
             PauseOnPause = true;
 
-            BaseBonus = 1000;
-            BonusIncrement = 1000;
-            MaxBonus = 8000;
+			if (Campaign)
+			{
+				BaseBonus = 10;
+				BonusIncrement = 10;
+				MaxBonus = 10;
+			}
+			else
+			{
+				BaseBonus = 1000;
+				BonusIncrement = 1000;
+				MaxBonus = 8000;
+			}
 
             // Global modifer, keep track of multiplier across levels/games
             if (Global)
@@ -421,6 +444,8 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
+			if (Campaign) return;
+
 			//Tools.Warning();
 			//UpdateScoreText();
 

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-#elif XBOX || XBOX_SIGNIN
+#elif XDKX || XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Storage;
 #endif
 
 using CoreEngine;
@@ -15,6 +16,10 @@ namespace CloudberryKingdom
 {
     public class PlayerData : SaveLoad
     {
+#if XDK || XBOX
+		public StorageDevice Device;
+#endif
+
         public SavedSeeds MySavedSeeds;
 
         public PlayerIndex MyPlayerIndex;
@@ -50,8 +55,11 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
 #elif XBOX || XBOX_SIGNIN
-        public Gamer _MyGamer;
-        public Gamer MyGamer { get { return CheckForMatchingGamer(); } }
+        public SignedInGamer _MyGamer;
+        public SignedInGamer MyGamer { get { return CheckForMatchingGamer(); } }
+
+        public bool NeedsToLoad = false;
+        public bool ChoseNotToSave = false;
 #endif
 
         public PlayerData()
@@ -61,7 +69,7 @@ namespace CloudberryKingdom
         }
 
         #region WriteRead
-        protected override void Serialize(BinaryWriter writer)
+        public override void Serialize(BinaryWriter writer)
         {
             // Color scheme
             CustomColorScheme.WriteChunk_0(writer);
@@ -89,6 +97,12 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 100, CampaignCoins);
             Chunk.WriteSingle(writer, 101, CampaignLevel);
             Chunk.WriteSingle(writer, 102, CampaignIndex);
+
+#if CAFE
+#else
+			ScoreDatabase.Instance.Serialize(writer);
+			PlayerManager.SavePlayerData.Serialize(writer);
+#endif
         }
 
         protected override void FailLoad()
@@ -99,49 +113,60 @@ namespace CloudberryKingdom
             Awardments = new Set<int>();            
         }
 
-        protected override void Deserialize(byte[] Data)
+        public override void Deserialize(byte[] Data)
         {
             foreach (Chunk chunk in Chunks.Get(Data))
             {
-                switch (chunk.Type)
-                {
-                    // Color scheme
-                    case 0:
-                        CustomColorScheme.ReadChunk_0(chunk);
-                        ColorScheme = CustomColorScheme;
-                        break;
+				ProcessChunk(chunk);
 
-                    case 1:
-                        chunk.ReadSingle(ref ColorSchemeIndex);
-
-                        if (ColorSchemeIndex == Unset.Int) ColorSchemeIndex = 0;
-                        if (ColorSchemeIndex >= 0)
-                            ColorScheme = ColorSchemeManager.ColorSchemes[ColorSchemeIndex];
-
-                        break;
-
-                    // High Scores
-                    case 1000: var score = new ScoreEntry(); score.ReadChunk_1000(chunk); AddHighScore(score); break;
-
-                    // Awardments
-                    case 2: Awardments += chunk.ReadInt(); break;
-
-                    // Purchases
-                    case 3: Purchases += chunk.ReadInt(); break;
-
-                    // Stats
-                    case 4: LifetimeStats.ReadChunk_4(chunk); break;
-
-                    // Saved Seeds
-                    case 5: MySavedSeeds.ReadChunk_5(chunk); break;
-
-                    // Campaign (Chunks 100 and up)
-                    case 100: CampaignCoins = chunk.ReadInt(); break;
-                    case 101: CampaignLevel = chunk.ReadInt(); break;
-                    case 102: CampaignIndex = chunk.ReadInt(); break;
-                }
+#if CAFE
+#else
+				ScoreDatabase.ProcessChunk(chunk);
+				_SavePlayerData.ProcessChunk(chunk);
+#endif
             }
         }
+
+		private void ProcessChunk(Chunk chunk)
+		{
+			switch (chunk.Type)
+			{
+				// Color scheme
+				case 0:
+					CustomColorScheme.ReadChunk_0(chunk);
+					ColorScheme = CustomColorScheme;
+					break;
+
+				case 1:
+					chunk.ReadSingle(ref ColorSchemeIndex);
+
+					if (ColorSchemeIndex == Unset.Int) ColorSchemeIndex = 0;
+					if (ColorSchemeIndex >= 0)
+						ColorScheme = ColorSchemeManager.ColorSchemes[ColorSchemeIndex];
+
+					break;
+
+				// High Scores
+				case 1000: var score = new ScoreEntry(); score.ReadChunk_1000(chunk); AddHighScore(score); break;
+
+				// Awardments
+				case 2: Awardments += chunk.ReadInt(); break;
+
+				// Purchases
+				case 3: Purchases += chunk.ReadInt(); break;
+
+				// Stats
+				case 4: LifetimeStats.ReadChunk_4(chunk); break;
+
+				// Saved Seeds
+				case 5: MySavedSeeds.ReadChunk_5(chunk); break;
+
+				// Campaign (Chunks 100 and up)
+				case 100: CampaignCoins = chunk.ReadInt(); break;
+				case 101: CampaignLevel = chunk.ReadInt(); break;
+				case 102: CampaignIndex = chunk.ReadInt(); break;
+			}
+		}
         #endregion
 
         public int GetTotalLevel()
@@ -267,10 +292,9 @@ namespace CloudberryKingdom
         }
 
 #if XBOX || XBOX_SIGNIN
-        public Gamer CheckForMatchingGamer()
+		public SignedInGamer CheckForMatchingGamer()
         {
             _MyGamer = null;
-            //return _MyGamer;
 
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)
                 if ((int)gamer.PlayerIndex == MyIndex)

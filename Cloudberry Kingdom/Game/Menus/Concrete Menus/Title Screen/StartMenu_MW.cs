@@ -6,6 +6,22 @@ namespace CloudberryKingdom
     public class StartMenu_MW : StartMenu
     {
         bool CallingOptionsMenu;
+
+		protected override void MenuGo_Campaign(MenuItem item)
+		{
+			// Upsell
+			if (CloudberryKingdomGame.IsDemo)
+			{
+				Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
+				CallingOptionsMenu = true;
+				Call(new UpSellMenu(Localization.Words.UpSell_Campaign, MenuItem.ActivatingPlayer));
+
+				return;
+			}
+
+			base.MenuGo_Campaign(item);
+		}
+
         protected override void MenuGo_Options(MenuItem item)
         {
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
@@ -76,11 +92,15 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             base.OnAdd();
         }
 
         public override void OnReturnTo()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             if (CallingOptionsMenu)
             {
                 MyMenu.SelectItem(3);

@@ -201,7 +201,7 @@ namespace CoreEngine
         public void Copy(byte[] Bytes, int StartIndex, int BytesToCopy)
         {
             Position = 0;
-            EnsureRoom(BytesToCopy);
+            //EnsureRoom(BytesToCopy);
 
             Position = 8;
 

@@ -46,13 +46,30 @@ namespace CloudberryKingdom
 
             // Press A to join
             Tools.Warning();
+
+			int ButtonSize = 89;
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+			{
+				ButtonSize = 75;
+			}
+
 #if PC_VERSION
-            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(89));
+			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
 #else
-            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(89));
+            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
 #endif
-            Text = new EzText(pressa, Resources.Font_Grobold42, true, true);
-            Text.Scale = .7765f;
+
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+			{
+				Text = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+
+				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.9542501f;
+			}
+			else
+			{
+				Text = new EzText(pressa, Resources.Font_Grobold42, true, true);
+				Text.Scale = .7765f;
+			}
 
             Text.ShadowOffset = new Vector2(7.5f, 7.5f);
             Text.ShadowColor = new Color(30, 30, 30);
@@ -116,14 +133,17 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
-#if XBOX || XBOX_SIGNIN
-                if (MyCharacterSelect.Player.MyGamer != null)
-                    Call(new SimpleMenu(Control, MyCharacterSelect));
-                else
-                    Call(new SignInMenu(Control, MyCharacterSelect));
-#else
+//#if XBOX || XBOX_SIGNIN
+//                if (MyCharacterSelect.Player.MyGamer != null)
+//                    Call(new SimpleMenu(Control, MyCharacterSelect));
+//                else
+//                    Call(new SignInMenu(Control, MyCharacterSelect));
+//#else
+//                Call(new SimpleMenu(Control, MyCharacterSelect));
+//#endif
+
                 Call(new SimpleMenu(Control, MyCharacterSelect));
-#endif
+
                 Hide();
             }
         }

@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 			EzText _t;
 
             // Update level text
-            int Level = PlayerManager.MaxPlayerTotalCampaignIndex();
+            int Level = PlayerManager.MaxPlayerTotalCampaignLevel() + 1;
 			bool ShowLevel = Level > 0;
 			//bool ShowLevel = false;
 
@@ -232,6 +232,14 @@ namespace CloudberryKingdom
         void Go(MenuItem item)
         {
             if (CloudberryKingdomGame.LockCampaign) return;
+
+			// Upsell
+			if (CloudberryKingdomGame.IsDemo)
+			{
+				Call(new UpSellMenu(Localization.Words.UpSell_Campaign, MenuItem.ActivatingPlayer));
+
+				return;
+			}
 
             CampaignChapterItem c_item = item as CampaignChapterItem;
             if (null == c_item) return;

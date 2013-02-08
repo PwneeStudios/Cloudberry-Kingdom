@@ -7,6 +7,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Storage;
 
+#if PC_VERSION
+#elif XDKX || XBOX || XBOX_SIGNIN
+using Microsoft.Xna.Framework.GamerServices;
+#endif
+
 namespace CloudberryKingdom
 {
     public class SaveGroup
@@ -16,24 +21,15 @@ namespace CloudberryKingdom
         public static void Initialize()
         {
             ScoreDatabase.Initialize();
-
-            // Player data
             PlayerManager.SavePlayerData = new _SavePlayerData();
-            PlayerManager.SavePlayerData.ContainerName = "PlayerData";
-            PlayerManager.SavePlayerData.FileName = "PlayerData.hsc";
-            Add(PlayerManager.SavePlayerData);
 
 #if PC_VERSION
             PlayerManager.Player.ContainerName = "PlayerData";
             PlayerManager.Player.FileName = "MainPlayer";
             Add(PlayerManager.Player);
+
+			LoadAll();
 #endif
-
-            LoadAll();
-
-            //PlayerManager.Player.LifetimeStats.Coins += 1000;
-            //PlayerManager.Player.Awardments += 4;
-            //PlayerManager.Player.Awardments += 7;
         }
 
         /// <summary>
@@ -65,15 +61,12 @@ namespace CloudberryKingdom
         /// </summary>
         public static void SaveAll()
         {
-            if (CloudberryKingdomGame.IsDemo) return;
+            if (CloudberryKingdomGame.CanSave()) return;
 
             foreach (SaveLoad ThingToSave in ThingsToSave)
             {
                 Incr();
-                ThingToSave.Save();
-#if XDK
-                return; Tools.Warning();
-#endif
+                ThingToSave.Save(PlayerIndex.One);
                 Wait();
             }
 
@@ -82,25 +75,36 @@ namespace CloudberryKingdom
             foreach (PlayerData player in PlayerManager.LoggedInPlayers)
             {
                 Incr();
-                player.ContainerName = "Gamers";
-                player.FileName = "___" + player.GetName();
-                player.Save();
+				player.ContainerName = "SaveData";
+				player.FileName = "SaveData.bam";
+                player.Save(player.MyPlayerIndex);
                 Wait();
             }
 #endif
         }
 
 #if NOT_PC
-        public static PlayerData LoadGamer(string GamerName, PlayerData Data)
+		public static void LoadGamers()
+		{
+			for (int i = 0; i < 4; i++)
+				if (PlayerManager.Players[i].MyGamer != null)
+					LoadGamer(PlayerManager.Players[i]);
+		}
+
+        public static PlayerData LoadGamer(PlayerData player)
         {
-            Data.ContainerName = "Gamers";
-            Data.FileName = "___" + GamerName;
+			IAsyncResult result = StorageDevice.BeginShowSelector(player.MyPlayerIndex, null, null);
+
+            player.ContainerName = "SaveData";
+            player.FileName = "SaveData.bam";
+
+            player.NeedsToLoad = false;
 
             Incr();
-            Data.Load();
+            player.Load(player.MyPlayerIndex);
             Wait();
 
-            return Data;
+            return player;
         }
 #endif
 
@@ -112,10 +116,7 @@ namespace CloudberryKingdom
             foreach (SaveLoad ThingToLoad in ThingsToSave)
             {
                 Incr();
-                ThingToLoad.Load();
-#if XDK
-                return; Tools.Warning();
-#endif
+                ThingToLoad.Load(PlayerIndex.One);
                 Wait();
             }
         }
@@ -148,11 +149,11 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Save()
+        public void Save(PlayerIndex index)
         {
             if (Changed || AlwaysSave)
             {
-                EzStorage.Save(ActualContainerName, FileName, writer =>
+                EzStorage.Save(index, ActualContainerName, FileName, writer =>
                     {
                         Serialize(writer);
                         Changed = false;
@@ -168,9 +169,9 @@ namespace CloudberryKingdom
                 SaveGroup.Decr();
         }
 
-        public void Load()
+		public void Load(PlayerIndex index)
         {
-            EzStorage.Load(ActualContainerName, FileName,
+            EzStorage.Load(index, ActualContainerName, FileName,
                 reader =>
                 {
                     Deserialize(reader);
@@ -185,60 +186,50 @@ namespace CloudberryKingdom
                 });
         }
 
-        protected virtual void Serialize(BinaryWriter writer) { }
-        protected virtual void Deserialize(byte[] Data) { }
+        public virtual void Serialize(BinaryWriter writer) { }
+        public virtual void Deserialize(byte[] Data) { }
         protected virtual void FailLoad() { }
     }
     
     public static class EzStorage
     {
-        static StorageDevice Device;
+        static StorageDevice[] Device = new StorageDevice[4];
         static WrappedBool InUse = new WrappedBool(false);
 
-        public static bool DeviceOK()
-        {
-            return Device != null && Device.IsConnected;
-        }
+		public static bool DeviceOK(PlayerIndex index)
+		{
+			return Device[(int)index] != null && Device[(int)index].IsConnected;
+		}
 
-#if XDK
         static void GetDeviceCallback(IAsyncResult result)
         {
-            Tools.Write("!");
         }
 
-        public static void GetDevice()
+        public static void GetDevice(PlayerIndex index)
         {
-            IAsyncResult result = StorageDevice.BeginShowSelector(GetDeviceCallback, null);
-            //result.AsyncWaitHandle.WaitOne();
+            if (Guide.IsVisible) return;
 
-            //Device = StorageDevice.EndShowSelector(result);
+            try
+            {
+                IAsyncResult result = StorageDevice.BeginShowSelector(index, GetDeviceCallback, null);
+                result.AsyncWaitHandle.WaitOne();
 
-            //result.AsyncWaitHandle.Close();
+                Device[(int)index] = StorageDevice.EndShowSelector(result);
+
+                result.AsyncWaitHandle.Close();
+            }
+            catch
+            {
+                Tools.Warning();
+            }
         }
-#else
-        public static void GetDevice()
+
+		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
-            IAsyncResult result = StorageDevice.BeginShowSelector(null, null);
-            result.AsyncWaitHandle.WaitOne();
+            if (!DeviceOK(index))
+                GetDevice(index);
 
-            Device = StorageDevice.EndShowSelector(result);
-
-            result.AsyncWaitHandle.Close();
-        }
-#endif
-
-        public static void Save(string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
-        {
-            // FIXME WARNING DOES NOT WORK ON XBOX
-#if XDK
-            Tools.Warning();
-            if (Fail != null) Fail(); return;
-#endif
-
-            if (!DeviceOK())
-                GetDevice();
-
-            if (!DeviceOK())
+            if (!DeviceOK(index))
             {
                 if (Fail != null) Fail();
                 return;
@@ -260,12 +251,12 @@ namespace CloudberryKingdom
             // Device is hooked up and ready for us to save to
 
             // Open a container
-            IAsyncResult result = Device.BeginOpenContainer(ContainerName,
+            IAsyncResult result = Device[(int)index].BeginOpenContainer(ContainerName,
                 ContainerResult =>
                 {
                     if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
 
-                    StorageContainer container = Device.EndOpenContainer(ContainerResult);
+					StorageContainer container = Device[(int)index].EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();
 
                     if (SaveLogic != null)
@@ -303,19 +294,12 @@ namespace CloudberryKingdom
             }
         }
 
-        public static void Load(string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
+        public static void Load(PlayerIndex index, string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
-            // FIXME WARNING DOES NOT WORK ON XBOX
-            Tools.Warning();
+            if (!DeviceOK(index))
+                GetDevice(index);
 
-            if (!DeviceOK())
-                GetDevice();
-
-#if XDK
-            if (Fail != null) Fail(); return;
-#endif
-
-            if (!DeviceOK())
+            if (!DeviceOK(index))
             {
                 if (Fail != null) Fail();
                 return;
@@ -337,13 +321,13 @@ namespace CloudberryKingdom
             // Device is hooked up and ready for us to load from
 
             // Open a container
-            IAsyncResult result = Device.BeginOpenContainer(ContainerName,
+			IAsyncResult result = Device[(int)index].BeginOpenContainer(ContainerName,
                 ContainerResult =>
                 {
                     if (!ContainerResult.IsCompleted) { if (Fail != null) Fail(); return; }
                     //if (Fail != null) Fail(); return;
 
-                    StorageContainer container = Device.EndOpenContainer(ContainerResult);
+					StorageContainer container = Device[(int)index].EndOpenContainer(ContainerResult);
                     ContainerResult.AsyncWaitHandle.Close();
 
                     if (LoadLogic != null)

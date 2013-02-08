@@ -54,11 +54,15 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             base.OnAdd();
         }
 
         public override void OnReturnTo()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+
             if (CallingOptionsMenu)
             {
                 MyMenu.SelectItem(4);

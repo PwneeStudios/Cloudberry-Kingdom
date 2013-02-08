@@ -159,6 +159,8 @@ namespace CloudberryKingdom
 
         public override void Start(int StartLevel)
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.HeroRush);
+
             ShuffleHeros();
 
             base.Start(StartLevel);

@@ -36,7 +36,7 @@ namespace CloudberryKingdom
             OnSwapToFirstLevel += (data) =>
                 {
                     data.MyGame.AddGameObject(MyGUI_Timer, Warning, MyGUI_Score, MyGUI_Level,
-                        MyCoinScoreMultiplier, new PerfectScoreObject(false, true));
+                        MyCoinScoreMultiplier, new PerfectScoreObject(false, true, false));
                 };
         }
 

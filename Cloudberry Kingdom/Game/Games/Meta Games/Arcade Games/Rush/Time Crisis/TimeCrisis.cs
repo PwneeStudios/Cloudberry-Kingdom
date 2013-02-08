@@ -28,5 +28,12 @@ namespace CloudberryKingdom
             HeroRush_Tutorial.TemporarySkip = TemporarySkip;
             MyStringWorld.OnSwapToFirstLevel += data => data.MyGame.AddGameObject(new TimeCrisis_Tutorial(this));
         }
+
+		public override void Start(int StartLevel)
+		{
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TimeCrisis);
+
+			base.Start(StartLevel);
+		}
     }
 }

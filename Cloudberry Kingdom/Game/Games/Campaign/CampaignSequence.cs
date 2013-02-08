@@ -66,19 +66,23 @@ namespace CloudberryKingdom
         int StartLevel = 0;
         public override void Start(int Chapter)
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Campaign);
+
 			MusicStarted = false;
 
-            MyPerfectScoreObject = new PerfectScoreObject(false, true);
+            MyPerfectScoreObject = new PerfectScoreObject(false, true, true);
 
 			// Continue at last level reached.
 			if (Chapter < 0)
 			{
-				int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
-				int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
+				//int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
+				//int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
 
-				if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
-					StartLevel = MaxLevelAttained;
-				
+				//if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
+				//    StartLevel = MaxLevelAttained;
+
+				StartLevel = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
+
 				//StartLevel = 225;
 			}
 			else
@@ -101,6 +105,23 @@ namespace CloudberryKingdom
 
         protected override bool OnLevelBegin(Level level)
         {
+			HelpMenu.CostMultiplier = 1;
+
+			if (level.MyLevelSeed != null)
+			{
+				int Num = level.MyLevelSeed.LevelNum;
+				if (Num >= 0)
+				{
+					foreach (var pair in ChapterStart)
+					{
+						if (pair.Value < Num)
+						{
+							HelpMenu.CostMultiplier = Math.Max(pair.Key + 1, HelpMenu.CostMultiplier);
+						}
+					}
+				}
+			}
+
             // Base OnLevelBegin
             if (base.OnLevelBegin(level)) return true;
 

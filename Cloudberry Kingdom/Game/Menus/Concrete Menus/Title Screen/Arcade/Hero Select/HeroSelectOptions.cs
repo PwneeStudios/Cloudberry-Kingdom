@@ -50,34 +50,34 @@ namespace CloudberryKingdom
 
         void BringLeaderboard()
         {
-            if (CloudberryKingdomGame.SimpleLeaderboards)
+			if (CloudberryKingdomGame.CanShowGlobalLeaderboard())
             {
-                var item = HeroSelect.MyMenu.CurItem as HeroItem;
-                if (null == item) return;
-
-                var challenge = HeroSelect.MyArcadeItem.MyChallenge;
-                challenge.SetGameId();
-
-                int GameId_Score = HeroSelect.MyArcadeItem.MyChallenge.GameId_Score;
-                int GameId_Level = HeroSelect.MyArcadeItem.MyChallenge.GameId_Level;
-
-                var MyHighScoreList = ScoreDatabase.GetList(GameId_Score);
-                MyHighScoreList.MyFormat = ScoreEntry.Format.Score;
-
-                var MyHighLevelList = ScoreDatabase.GetList(GameId_Level);
-                MyHighLevelList.MyFormat = ScoreEntry.Format.Level;
-
-                var panel = new HighScorePanel(true, MyHighScoreList, MyHighLevelList);
-                panel.NoDelays();
-                HeroSelect.Call(panel);
-                HeroSelect.Hide();
-                HeroSelect.MyHeroDoll.Hide();
+				HeroSelect.Call(new LeaderboardGUI(null, 0), 0);
+				HeroSelect.Hide();
+				HeroSelect.MyHeroDoll.Hide();
             }
             else
             {
-                HeroSelect.Call(new LeaderboardGUI(null, 0), 0);
-                HeroSelect.Hide();
-                HeroSelect.MyHeroDoll.Hide();
+				var item = HeroSelect.MyMenu.CurItem as HeroItem;
+				if (null == item) return;
+
+				var challenge = HeroSelect.MyArcadeItem.MyChallenge;
+				challenge.SetGameId();
+
+				int GameId_Score = HeroSelect.MyArcadeItem.MyChallenge.GameId_Score;
+				int GameId_Level = HeroSelect.MyArcadeItem.MyChallenge.GameId_Level;
+
+				var MyHighScoreList = ScoreDatabase.GetList(GameId_Score);
+				MyHighScoreList.MyFormat = ScoreEntry.Format.Score;
+
+				var MyHighLevelList = ScoreDatabase.GetList(GameId_Level);
+				MyHighLevelList.MyFormat = ScoreEntry.Format.Level;
+
+				var panel = new HighScorePanel(true, MyHighScoreList, MyHighLevelList);
+				panel.NoDelays();
+				HeroSelect.Call(panel);
+				HeroSelect.Hide();
+				HeroSelect.MyHeroDoll.Hide();
             }
         }
 

@@ -18,9 +18,20 @@ namespace CloudberryKingdom
         {
             return new List<Upgrade>(new Upgrade[] { Upgrade.FlyBlob, Upgrade.FireSpinner, Upgrade.SpikeyGuy, Upgrade.Pinky, Upgrade.Laser, Upgrade.Spike, Upgrade.LavaDrip, Upgrade.Serpent, Upgrade.SpikeyLine, Upgrade.Fireball });
         }
-
+		
         protected override void Go()
         {
+			CloudberryKingdomGame.Freeplay_Count++;
+			if (CloudberryKingdomGame.IsDemo && CloudberryKingdomGame.Freeplay_Count >= CloudberryKingdomGame.Freeplay_Max)
+			{
+				int HoldDelay = CallDelay;
+				CallDelay = 0;
+				Call(new UpSellMenu(Localization.Words.UpSell_FreePlay, MenuItem.ActivatingPlayer));
+				Hide(PresetPos.Right, 0);
+				CallDelay = HoldDelay;
+				return;
+			}
+
             StartGame();
         }
 

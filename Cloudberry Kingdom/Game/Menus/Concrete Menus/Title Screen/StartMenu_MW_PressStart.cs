@@ -76,13 +76,32 @@ namespace CloudberryKingdom
             {
                 DelayToAllowInput = 10;
 
-                if (CloudberryKingdomGame.SimpleMainMenu)
-                    Call(new StartMenu_MW_Simple(Title));
-                else
-                    Call(new StartMenu_MW_Pre(Title));
-                Hide();
+#if XDK || XBOX
+				MyGame.WaitThenDo(5, CallMenu);
+#else
+				CallMenu();
+#endif
             }
         }
+
+		void CallMenu()
+		{
+			CloudberryKingdomGame.PastPressStart = true;
+
+#if XDK || XBOX
+			if (!CloudberryKingdomGame.IsDemo)
+			{
+				SaveGroup.LoadGamers();
+				//SaveGroup.LoadAll();
+			}
+#endif
+
+			if (CloudberryKingdomGame.SimpleMainMenu)
+				Call(new StartMenu_MW_Simple(Title));
+			else
+				Call(new StartMenu_MW_Pre(Title));
+			Hide();
+		}
 
         float t = 0;
         protected override void MyDraw()

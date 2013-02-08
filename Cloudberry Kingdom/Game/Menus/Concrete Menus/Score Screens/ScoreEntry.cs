@@ -46,18 +46,33 @@ namespace CloudberryKingdom
             var chunk = new Chunk();
             chunk.Type = 1000;
 
-            chunk.Write(Fake);
-            chunk.Write(GamerTag);
-            chunk.Write(GameId);
-            chunk.Write(Value);
-            chunk.Write(Score);
-            chunk.Write(Level);
-            chunk.Write(Attempts);
-            chunk.Write(Time);
-            chunk.Write(Date);
+			WriteMeat(chunk);
             
             chunk.Finish(writer);
         }
+
+		public void WriteChunk_2000(BinaryWriter writer)
+		{
+			var chunk = new Chunk();
+			chunk.Type = 2000;
+
+			WriteMeat(chunk);
+
+			chunk.Finish(writer);
+		}
+
+		private void WriteMeat(Chunk chunk)
+		{
+			chunk.Write(Fake);
+			chunk.Write(GamerTag);
+			chunk.Write(GameId);
+			chunk.Write(Value);
+			chunk.Write(Score);
+			chunk.Write(Level);
+			chunk.Write(Attempts);
+			chunk.Write(Time);
+			chunk.Write(Date);
+		}
 
         public void ReadChunk_1000(Chunk chunk)
         {

@@ -296,7 +296,16 @@ namespace CloudberryKingdom
         void Action_ShowHighScores()
         {
             Hide(PresetPos.Bottom);
-            Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
+
+			if (CloudberryKingdomGame.CanShowGlobalLeaderboard())
+			{
+				Call(new LeaderboardGUI(null, 0), 0);
+				Hide();
+			}
+			else
+			{
+				Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
+			}
         }
 
         public GameOverPanel() { }

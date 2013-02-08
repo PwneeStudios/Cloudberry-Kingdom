@@ -161,7 +161,7 @@ namespace CloudberryKingdom
 
 
             Tools.Song_Happy = Tools.SongWad.FindByName("Happy^James_Stant");
-            Tools.Song_Happy.DisplayInfo = false;
+			Tools.Song_Happy.Volume = .9f;
 
             Tools.Song_140mph = Tools.SongWad.FindByName("140_Mph_in_the_Fog^Blind_Digital");
             Tools.Song_140mph.Volume = .7f;
@@ -189,6 +189,7 @@ namespace CloudberryKingdom
 
             Tools.Song_Heavens = Tools.SongWad.FindByName("The_Heavens_Opened^Peacemaker");
             Tools.Song_Heavens.Volume = 1f;
+			Tools.Song_Heavens.DisplayInfo = false;
 
             Tools.Song_TidyUp = Tools.SongWad.FindByName("Tidy_Up^Peacemaker");
             Tools.Song_TidyUp.Volume = 1f;

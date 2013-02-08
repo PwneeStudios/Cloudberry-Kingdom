@@ -101,6 +101,8 @@ namespace CloudberryKingdom
 
         public void StartLevel(LevelSeedData data)
         {
+			HelpMenu.CostMultiplier = 1;
+
 			Tools.PlayHappyMusic(MyGame);
 
             data.PostMake += data.PostMake_EnableLoad;
@@ -117,6 +119,8 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Freeplay);
+
             base.OnAdd();
 
             MyGame.ClearPreviousLoadFunction();
@@ -860,10 +864,21 @@ else
         {
             if (IsCustomHero())
                 BringHero();
-            else if (IsCustomDifficulty())
-                BringUpgrades();
-            else
-                StartLevel();
+			else if (IsCustomDifficulty())
+				BringUpgrades();
+			else
+			{
+				CloudberryKingdomGame.Freeplay_Count++;
+				if (CloudberryKingdomGame.IsDemo && CloudberryKingdomGame.Freeplay_Count >= CloudberryKingdomGame.Freeplay_Max)
+				{
+					Call(new UpSellMenu(Localization.Words.UpSell_FreePlay, MenuItem.ActivatingPlayer));
+					Hide(PresetPos.Right, 0);
+
+					return;
+				}
+
+				StartLevel();
+			}
         }
 
         public override void Show()
@@ -927,6 +942,8 @@ else
                 length.PosOffset = MyMenu.PosOffset;
                 length.Draw();
             }
+
+			if (CloudberryKingdomGame.IsDemo && Hid && !Pos.Playing) return;
 
             if (HeroIcon != null)
                 HeroIcon.Draw(false);

@@ -714,7 +714,7 @@ namespace CloudberryKingdom
         {
             level.MyGame.AddGameObject(new HintGiver(),
                                        HelpMenu.MakeListener(),
-                                       new PerfectScoreObject(global, ShowMultiplier));
+                                       new PerfectScoreObject(global, ShowMultiplier, false));
 
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
         }
@@ -725,7 +725,7 @@ namespace CloudberryKingdom
         public static void AddGameObjects_BareBones(Level level, bool global)
         {
             level.MyGame.AddGameObject(InGameStartMenu.MakeListener(),
-                                       new PerfectScoreObject(global, true));
+                                       new PerfectScoreObject(global, true, false));
         }
 
         /// <summary>

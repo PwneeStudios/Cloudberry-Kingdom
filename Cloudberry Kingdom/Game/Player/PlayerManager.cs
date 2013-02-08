@@ -62,40 +62,45 @@ namespace CloudberryKingdom
         /// </summary>
         public bool ResolutionPreferenceSet = false;
 
-        protected override void Serialize(BinaryWriter writer)
+        public override void Serialize(BinaryWriter writer)
         {
             base.Serialize(writer);
-            
-            Chunk.WriteSingle(writer, 0, UserPowers.CanSkipScreensaver);
-            Chunk.WriteSingle(writer, 1, HeroRush_Tutorial.HasWatchedOnce);
-            Chunk.WriteSingle(writer, 2, Hints.QuickSpawnNum);
-            Chunk.WriteSingle(writer, 3, Hints.YForHelpNum);
+
+			Chunk.WriteSingle(writer, 23000, UserPowers.CanSkipScreensaver);
+			Chunk.WriteSingle(writer, 23001, HeroRush_Tutorial.HasWatchedOnce);
+			Chunk.WriteSingle(writer, 23002, Hints.QuickSpawnNum);
+			Chunk.WriteSingle(writer, 23003, Hints.YForHelpNum);
             
             // Save the names of videos the user has already watched.
             foreach (var video in UserPowers.WatchedVideo)
-                Chunk.WriteSingle(writer, 5, video);
+				Chunk.WriteSingle(writer, 23005, video);
         }
 
-        protected override void Deserialize(byte[] Data)
+        public override void Deserialize(byte[] Data)
         {
             foreach (Chunk chunk in Chunks.Get(Data))
             {
-                switch (chunk.Type)
-                {
-                    case 0: chunk.ReadSingle(ref UserPowers.CanSkipScreensaver); break;
-                    case 1: chunk.ReadSingle(ref HeroRush_Tutorial.HasWatchedOnce); break;
-                    case 2: chunk.ReadSingle(ref Hints.QuickSpawnNum); break;
-                    case 3: chunk.ReadSingle(ref Hints.YForHelpNum); break;
-                    
-                    // Load the names of videos the user has already watched.
-                    case 5:
-                        string VideoName = null;
-                        chunk.ReadSingle(ref VideoName);
-                        UserPowers.WatchedVideo += VideoName;
-                        break;
-                }
+				ProcessChunk(chunk);
             }
         }
+
+		public static void ProcessChunk(Chunk chunk)
+		{
+			switch (chunk.Type)
+			{
+				case 23000: chunk.ReadSingle(ref UserPowers.CanSkipScreensaver); break;
+				case 23001: chunk.ReadSingle(ref HeroRush_Tutorial.HasWatchedOnce); break;
+				case 23002: chunk.ReadSingle(ref Hints.QuickSpawnNum); break;
+				case 23003: chunk.ReadSingle(ref Hints.YForHelpNum); break;
+
+				// Load the names of videos the user has already watched.
+				case 23005:
+					string VideoName = null;
+					chunk.ReadSingle(ref VideoName);
+					UserPowers.WatchedVideo += VideoName;
+					break;
+			}
+		}
     }
 
     public struct PlayerManager

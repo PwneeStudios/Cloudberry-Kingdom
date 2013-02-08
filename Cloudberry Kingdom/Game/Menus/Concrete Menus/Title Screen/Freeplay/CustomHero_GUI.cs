@@ -661,6 +661,15 @@ if (ButtonCheck.ControllerInUse)
             }
             else
             {
+				CloudberryKingdomGame.Freeplay_Count++;
+				if (CloudberryKingdomGame.IsDemo && CloudberryKingdomGame.Freeplay_Count >= CloudberryKingdomGame.Freeplay_Max)
+				{
+					Call(new UpSellMenu(Localization.Words.UpSell_FreePlay, MenuItem.ActivatingPlayer));
+					Hide(PresetPos.Right, 0);
+
+					return;
+				}
+
                 MyGame.PlayGame(StartLevel);
             }
         }
