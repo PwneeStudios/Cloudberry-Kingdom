@@ -961,6 +961,10 @@ namespace CloudberryKingdom
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
             if (Guide.IsVisible) return;
+            if (SaveLoadSeedMenu.ShowKeyboard)
+            {
+                SaveLoadSeedMenu.BeginShowKeyboard();
+            }
 #endif
 
             // What to do

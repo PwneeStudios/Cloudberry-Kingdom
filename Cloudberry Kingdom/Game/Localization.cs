@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 
 using CoreEngine;
 
+using EasyStorage;
+
 namespace CloudberryKingdom
 {
     public static class Localization
@@ -149,6 +151,26 @@ namespace CloudberryKingdom
                 {
                     LoadFont();
                 }
+            }
+
+            EasyStorageSettings.ResetSaveDeviceStrings();
+        }
+
+        public static Language IsoCodeToLanguage(string code)
+        {
+            switch (code)
+            {
+                case "en": return Language.English;
+                case "fr": return Language.French;
+                case "it": return Language.Italian;
+                case "de": return Language.German;
+                case "es": return Language.Spanish;
+                case "pt": return Language.Portuguese;
+                case "ko": return Language.Korean;
+                case "zh": return Language.Chinese;
+                case "ja": return Language.Japanese;
+                case "ru": return Language.Russian;
+                default: return Language.English;
             }
         }
 
@@ -632,7 +654,17 @@ PlayerLevel,
 Delete,
 UpSell_Campaign,
 UpSell_Hero,
+UpSell_SaveLoad,
 UpSell_FreePlay,
+Err_Ok,
+Err_YesSelectNewDevice,
+Err_NoContinueWithoutDevice,
+Err_ReselectStorageDevice,
+Err_StorageDeviceRequired,
+Err_ForceDisconnectedReselectionMessage,
+Err_PromptForDisconnectedMessage,
+Err_ForceCancelledReselectionMessage,
+Err_PromptForCancelledMessage,
         };
     }
 }

@@ -405,9 +405,22 @@ namespace CloudberryKingdom
 
         protected void MenuGo_Save(MenuItem item)
         {
-            PlayerData player = MenuItem.GetActivatingPlayerData();
-            SaveLoadSeedMenu.MakeSave(this, player)(item);
-            Hide(PresetPos.Left);
+            if (CloudberryKingdomGame.IsDemo)
+            {
+                Call(new UpSellMenu(Localization.Words.UpSell_SaveLoad, MenuItem.ActivatingPlayer), 0);
+                Hide(PresetPos.Left, 0);
+            }
+            else
+            {
+#if PC_VERSION
+                PlayerData player = MenuItem.GetActivatingPlayerData();
+                SaveLoadSeedMenu.MakeSave(this, player)(item);
+                Hide(PresetPos.Left);
+#else
+				PlayerData player = MenuItem.GetActivatingPlayerData();
+				SaveLoadSeedMenu.MakeSave(this, player)(item);
+#endif
+            }
         }
 
         int LastActive;

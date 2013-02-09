@@ -267,20 +267,27 @@ namespace CloudberryKingdom
 
         private void GoSaveLoad()
         {
-            // If this isn't a PC, and we can't load seeds right now, then go directly to the SaveAs menu.
-#if !PC_VERSION
-            if (!MyLevel.CanLoadLevels)
+            if (CloudberryKingdomGame.IsDemo)
             {
-                Call(new SaveSeedAs(Control, MenuItem.GetActivatingPlayerData()), 0);
+                Call(new UpSellMenu(Localization.Words.UpSell_SaveLoad, MenuItem.ActivatingPlayer), 0);
             }
             else
-#endif
             {
+                // If this isn't a PC, and we can't load seeds right now, then go directly to the SaveAs menu.
+#if !PC_VERSION
+                if (!MyLevel.CanLoadLevels)
+                {
+                    Call(new SaveSeedAs(Control, MenuItem.GetActivatingPlayerData()), 0);
+                }
+                else
+#endif
+                {
 #if PC_VERSION
                 Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #else
-                Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
+                    Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #endif
+                }
             }
 
             if (UseBounce)

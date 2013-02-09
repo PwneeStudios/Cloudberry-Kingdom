@@ -345,8 +345,6 @@ namespace CloudberryKingdom.Stats
         protected override void MyDraw()
         {
             base.MyDraw();
-
-            MyPile.Draw(1);
         }
     }
 }

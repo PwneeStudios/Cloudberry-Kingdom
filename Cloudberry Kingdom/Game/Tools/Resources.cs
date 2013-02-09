@@ -1,5 +1,6 @@
-﻿using System.Reflection;
-using System;
+﻿using System;
+using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using System.IO;
 using System.Text;
@@ -270,7 +271,10 @@ namespace CloudberryKingdom
             LoadingResources.MyBool = true;
 
             // Localization
-            Localization.SetLanguage(Localization.Language.English);
+            Localization.Language default_language = Localization.IsoCodeToLanguage(CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Localization.SetLanguage(default_language);
+
+            //Localization.SetLanguage(Localization.Language.English);
             //Localization.SetLanguage(Localization.Language.Japanese);
             //Localization.SetLanguage(Localization.Language.Portuguese);
             //Localization.SetLanguage(Localization.Language.Russian);

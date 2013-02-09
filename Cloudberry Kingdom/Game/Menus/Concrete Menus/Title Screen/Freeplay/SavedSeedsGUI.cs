@@ -402,6 +402,12 @@ else
 #endif
             }
 #endif
+
+			if (Caller is CustomLevel_GUI)
+			{
+				RegularSlideOut(PresetPos.Right, 0);
+				SlideIn(30);
+			}
         }
 
         private void MakeOptions()
@@ -423,8 +429,7 @@ if (ButtonCheck.ControllerInUse)
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
 			item.Selectable = false;
 #if XBOX
-			item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
-			item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
+			Menu.DefaultMenuInfo.SetNext(item);
 #endif
 }
 
@@ -441,8 +446,7 @@ if (ButtonCheck.ControllerInUse)
 			MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
 			item.Selectable = false;
 #if XBOX
-			item.MyText.MyFloatColor = new Color(204, 220, 255).ToVector4();
-			item.MySelectedText.MyFloatColor = new Color(204, 220, 255).ToVector4();
+			Menu.DefaultMenuInfo.SetX(item);
 #endif
 }
 

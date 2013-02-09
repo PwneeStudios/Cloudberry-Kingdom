@@ -4,6 +4,7 @@ using System.Threading;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
@@ -32,7 +33,7 @@ namespace CloudberryKingdom
     {
         public static string Capitalize(this string s)
         {
-            return char.ToUpper(s[0]) + s.Substring(1);
+            return char.ToUpper(s[0], CultureInfo.InvariantCulture) + s.Substring(1);
         }
     }
 

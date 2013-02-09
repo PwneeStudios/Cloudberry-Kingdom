@@ -905,11 +905,23 @@ else
 
         void BringLoad()
         {
+            if (CloudberryKingdomGame.IsDemo)
+            {
+                Call(new UpSellMenu(Localization.Words.UpSell_SaveLoad, MenuItem.ActivatingPlayer));
+                Hide(PresetPos.Left, 0);
+
+                return;
+            }
+
             // Create the load menu
-            //SavedSeedsGUI LoadMenu = new SavedSeedsGUI();
-            //Call(LoadMenu, 0);
+#if PC_VERSION
             SaveLoadSeedMenu menu = new SaveLoadSeedMenu(MenuItem.ActivatingPlayer, true, false);
             Call(menu, 0);
+#else
+            SavedSeedsGUI LoadMenu = new SavedSeedsGUI();
+			LoadMenu.UseBounce = false;
+            Call(LoadMenu, 16);
+#endif
 
             Hide(PresetPos.Left);
             this.SlideInFrom = PresetPos.Left;

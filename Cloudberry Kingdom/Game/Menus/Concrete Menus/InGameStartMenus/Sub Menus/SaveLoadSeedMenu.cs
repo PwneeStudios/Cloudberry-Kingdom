@@ -183,7 +183,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-#if WINDOWS
+#if PC_VERSION
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
         {
             return _item => Save(_item, panel, player);
@@ -208,17 +208,32 @@ namespace CloudberryKingdom
             return _item => Save(_item, player);
         }
 
+        public static bool ShowKeyboard = false;
+        public static bool KeyboardIsDone = false;
+
+        public static void BeginShowKeyboard()
+        {
+            ShowKeyboard = false;
+            KeyboardIsDone = false;
+
+            kyar = Guide.BeginShowKeyboardInput(_player.MyPlayerIndex, 
+                    Localization.WordString(Localization.Words.SaveRandomSeedAs),"Choose a name to save this level as.",
+                    Tools.CurLevel.MyLevelSeed.SuggestedName(), OnKeyboardComplete, null);
+        }
+
         static IAsyncResult kyar;
         static PlayerData _player;
         static void Save(MenuItem _item, PlayerData activeplayer)
         {
+            ShowKeyboard = true;
+
             _player = activeplayer;
-            kyar = Guide.BeginShowKeyboardInput(_player.MyPlayerIndex, "Save random seed as...", "Choose a name to save this level as.",
-                    Tools.CurLevel.MyLevelSeed.SuggestedName(), OnKeyboardComplete, null);
         }
 
         static void OnKeyboardComplete(IAsyncResult ar)
         {
+            KeyboardIsDone = true;
+
             // Get the input from the virtual keyboard
             string input = Guide.EndShowKeyboardInput(kyar);
 
@@ -232,6 +247,27 @@ namespace CloudberryKingdom
 
             // Save the seed
             _player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), input);
+        }
+
+        protected override void MyPhsxStep()
+        {
+            if (KeyboardIsDone)
+            {
+                KeyboardIsDone = false;
+				//ReturnToCaller();
+				kyar = null;
+				//return;
+            }
+
+            if (kyar != null && kyar.IsCompleted)
+            {
+				KeyboardIsDone = false;
+				//ReturnToCaller();
+				kyar = null;
+				//return;
+            }
+
+            base.MyPhsxStep();
         }
 #endif
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
@@ -156,14 +157,14 @@ namespace CoreEngine
         {
             TextureList.Add(NewTex);
 
-            string name = NewTex.Name.ToLower();
+            string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
             if (!NameDict.ContainsKey(name))
                 NameDict.AddOrOverwrite(name, NewTex);
 
             if (NewTex.Path != null)
             {
-                PathDict.AddOrOverwrite(NewTex.Path.ToLower(), NewTex);
-                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
+                PathDict.AddOrOverwrite(NewTex.Path.ToLower(CultureInfo.InvariantCulture), NewTex);
+                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(CultureInfo.InvariantCulture), NewTex);
             }
         }
 
@@ -202,12 +203,12 @@ namespace CoreEngine
 
                 TextureList.Add(NewTex);
 
-                string name = NewTex.Name.ToLower();
+                string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
                 if (!NameDict.ContainsKey(name))
                     NameDict.AddOrOverwrite(name, NewTex);
-                PathDict.AddOrOverwrite(NewTex.Path.ToLower(), NewTex);
+                PathDict.AddOrOverwrite(NewTex.Path.ToLower(CultureInfo.InvariantCulture), NewTex);
 
-                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(), NewTex);
+                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(CultureInfo.InvariantCulture), NewTex);
 
                 // Add to folder
                 string folder = Tools.FirstFolder(Name, "Art\\");

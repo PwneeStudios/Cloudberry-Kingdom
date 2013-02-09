@@ -85,6 +85,12 @@ namespace CloudberryKingdom
                     {
                         if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
                         {
+#if XDK || XBOX
+                            if (!CloudberryKingdomGame.IsDemo)
+                            {
+                                SaveGroup.LoadGamers();
+                            }
+#endif
                             MyGame.WaitThenDo(5, CallMenu);
                             return;
                         }
@@ -99,14 +105,6 @@ namespace CloudberryKingdom
 		void CallMenu()
 		{
 			CloudberryKingdomGame.PastPressStart = true;
-
-#if XDK || XBOX
-			if (!CloudberryKingdomGame.IsDemo)
-			{
-				SaveGroup.LoadGamers();
-				//SaveGroup.LoadAll();
-			}
-#endif
 
 			if (CloudberryKingdomGame.SimpleMainMenu)
 				Call(new StartMenu_MW_Simple(Title));

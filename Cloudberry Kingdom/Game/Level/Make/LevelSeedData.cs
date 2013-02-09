@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -275,7 +276,7 @@ namespace CloudberryKingdom
                 
                 string[] terms;
 
-                switch (identifier.ToLower())
+                switch (identifier.ToLower(CultureInfo.InvariantCulture))
                 {
                     // Seed [This must come first]
                     case "s":

@@ -32,6 +32,13 @@ namespace CloudberryKingdom
             this.Parent = Parent;
             this.Parent.OnRelease += Release;
 
+			CkBaseMenu ck = Parent as CkBaseMenu;
+			if (null != ck && ck.UseBounce)
+			{
+				EnableBounce();
+				zoom = ck.zoom;
+			}
+
             Constructor();
         }
 
