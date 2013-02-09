@@ -41,6 +41,9 @@ namespace CloudberryKingdom
 
         protected virtual void BringCharacterSelect()
         {
+			UseBounce = false;
+			ReturnToCallerDelay = 0;
+
             NoBack = true;
             MyGame.SlideOut_FadeIn(20, CharacterSelect);
         }

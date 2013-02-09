@@ -10,10 +10,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 #if XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Net;
 #endif
-using Microsoft.Xna.Framework.GamerServices;
 
 using CoreEngine;
 
@@ -130,7 +131,8 @@ namespace CloudberryKingdom
 			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
 			foreach (PlayerData player in CopyOfExistingPlayers)
 			{
-				if (!player.MyGamer.IsSignedInToLive)
+				var gamer = player.MyGamer;
+				if (gamer != null && !gamer.IsSignedInToLive)
 					return false;
 			}
 #endif
@@ -138,12 +140,12 @@ namespace CloudberryKingdom
 			return true;
 		}
 
-		public static void ShowMarketplace(PlayerIndex index)
+		public static void BeginShowMarketplace()
 		{
 #if XDK
             Tools.Warning();
             ulong offerID = 0;
-            GuideExtensions.ShowMarketplace(index, offerID);
+            GuideExtensions.ShowMarketplace(ShowFor, offerID);
 #endif
 		}
 
@@ -931,6 +933,22 @@ namespace CloudberryKingdom
             //Tools.GameClass.IsFixedTimeStep = true;
         }
 
+#if XBOX
+        public static bool ShowKeyboard = false;
+        public static bool KeyboardIsDone = false;
+		public static bool ShowAchievements = false;
+        public static PlayerIndex ShowFor = PlayerIndex.One;
+        public static bool ShowMarketplace = false;
+
+		static void BeginShowAchievements()
+		{
+			ShowAchievements = false;
+#if XDK
+            GuideExtensions.ShowAchievements(ShowFor);
+#endif
+		}
+#endif
+        
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -961,9 +979,17 @@ namespace CloudberryKingdom
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
             if (Guide.IsVisible) return;
-            if (SaveLoadSeedMenu.ShowKeyboard)
+            if (ShowKeyboard)
             {
                 SaveLoadSeedMenu.BeginShowKeyboard();
+            }
+			else if (ShowAchievements)
+			{
+				BeginShowAchievements();
+			}
+            else if (ShowMarketplace)
+            {
+                BeginShowMarketplace();
             }
 #endif
 

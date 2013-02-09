@@ -46,6 +46,10 @@ namespace CloudberryKingdom
         public TitleGameData_MW Title;
         public StartMenu_MW(TitleGameData_MW Title) : base()
         {
+			EnableBounce();
+			ReturnToCallerDelay = 0;
+
+
             this.Title = Title;
             CallingOptionsMenu = false;
         }
@@ -58,7 +62,9 @@ namespace CloudberryKingdom
 
         public override void SlideOut(PresetPos Preset, int Frames)
         {
-            base.SlideOut(Preset, 0);
+			base.SlideOut(Preset, 0);
+			
+			base.SlideOut(Preset, Frames);
         }
 
         protected override void BringCampaign()
@@ -97,8 +103,19 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
+		public override void Call(GUI_Panel child, int Delay)
+		{
+			UseBounce = false;
+			ReturnToCallerDelay = 0;
+
+			base.Call(child, Delay);
+		}
+
         public override void OnReturnTo()
         {
+			UseBounce = false;
+			ReturnToCallerDelay = 0;
+
 			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
 
             if (CallingOptionsMenu)
@@ -113,6 +130,9 @@ namespace CloudberryKingdom
         public override bool MenuReturnToCaller(Menu menu)
         {
             if (NoBack) return false;
+
+			UseBounce = false;
+			ReturnToCallerDelay = 0;
 
             return base.MenuReturnToCaller(menu);
         }

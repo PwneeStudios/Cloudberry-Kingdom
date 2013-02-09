@@ -145,17 +145,13 @@ namespace CloudberryKingdom
             arrow.PointTo(timerpos);
             MyGame.AddGameObject(arrow);
 
-
             GUI_Text text = new GUI_Text(
-                Localization.Words.SecondsOnTheClock,
-                arrow.Core.Data.Position + new Vector2(830, -130));
-
-            GUI_Text text2 = new GUI_Text(
-                HeroRush.Timer.Seconds.ToString(),
-                arrow.Core.Data.Position + new Vector2(830, -130) + new Vector2(-150, 0));
+                string.Format(Localization.WordString(Localization.Words.SecondsOnTheClock), HeroRush.Timer.Seconds),
+                arrow.Core.Data.Position +
+                    //new Vector2(830, -130));
+                    new Vector2(0, -530));
 
             MyGame.AddGameObject(text);
-            MyGame.AddGameObject(text2);
             
             // On (A) go to next part of the tutorial
             MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
@@ -163,7 +159,6 @@ namespace CloudberryKingdom
                 PointAtCoins();
                 arrow.Release();
                 text.Kill(SoundOnKill);
-                text2.Kill(false);
             }));
         }
 

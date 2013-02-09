@@ -208,13 +208,10 @@ namespace CloudberryKingdom
             return _item => Save(_item, player);
         }
 
-        public static bool ShowKeyboard = false;
-        public static bool KeyboardIsDone = false;
-
         public static void BeginShowKeyboard()
         {
-            ShowKeyboard = false;
-            KeyboardIsDone = false;
+            CloudberryKingdomGame.ShowKeyboard = false;
+			CloudberryKingdomGame.KeyboardIsDone = false;
 
             kyar = Guide.BeginShowKeyboardInput(_player.MyPlayerIndex, 
                     Localization.WordString(Localization.Words.SaveRandomSeedAs),"Choose a name to save this level as.",
@@ -225,14 +222,14 @@ namespace CloudberryKingdom
         static PlayerData _player;
         static void Save(MenuItem _item, PlayerData activeplayer)
         {
-            ShowKeyboard = true;
+			CloudberryKingdomGame.ShowKeyboard = true;
 
             _player = activeplayer;
         }
 
         static void OnKeyboardComplete(IAsyncResult ar)
         {
-            KeyboardIsDone = true;
+			CloudberryKingdomGame.KeyboardIsDone = true;
 
             // Get the input from the virtual keyboard
             string input = Guide.EndShowKeyboardInput(kyar);
@@ -251,20 +248,16 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
-            if (KeyboardIsDone)
+			if (CloudberryKingdomGame.KeyboardIsDone)
             {
-                KeyboardIsDone = false;
-				//ReturnToCaller();
+				CloudberryKingdomGame.KeyboardIsDone = false;
 				kyar = null;
-				//return;
             }
 
             if (kyar != null && kyar.IsCompleted)
             {
-				KeyboardIsDone = false;
-				//ReturnToCaller();
+				CloudberryKingdomGame.KeyboardIsDone = false;
 				kyar = null;
-				//return;
             }
 
             base.MyPhsxStep();

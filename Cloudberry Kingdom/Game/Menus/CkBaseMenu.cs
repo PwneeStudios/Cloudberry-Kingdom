@@ -37,7 +37,7 @@ namespace CloudberryKingdom
                 MasterAlpha = 1f;
             }
 
-            MyPile.Alpha = MasterAlpha;
+			if (MyPile != null) MyPile.Alpha = MasterAlpha;
         }
 
         protected override void MyDraw()

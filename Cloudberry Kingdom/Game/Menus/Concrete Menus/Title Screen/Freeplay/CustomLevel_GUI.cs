@@ -919,8 +919,7 @@ else
             Call(menu, 0);
 #else
             SavedSeedsGUI LoadMenu = new SavedSeedsGUI();
-			LoadMenu.UseBounce = false;
-            Call(LoadMenu, 16);
+            Call(LoadMenu, 11);
 #endif
 
             Hide(PresetPos.Left);
