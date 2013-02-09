@@ -10,6 +10,8 @@ namespace CloudberryKingdom
 {
     public class StartMenu_MW_Pre : StartMenu
     {
+        bool GameIsDemo;
+
         bool CallingOptionsMenu;
         protected override void MenuGo_Options(MenuItem item)
         {
@@ -37,6 +39,30 @@ namespace CloudberryKingdom
         {
             this.Title = Title;
             CallingOptionsMenu = false;
+        }
+
+        protected override void MyPhsxStep()
+        {
+            if (GameIsDemo && !CloudberryKingdomGame.IsDemo)
+            {
+                GameIsDemo = false;
+
+                // Hide 'Buy' option
+                var _item = MyMenu.FindItemByName("Buy");
+                if (_item != null)
+                {
+                    _item.Show = false;
+                    _item.Selectable = false;
+                    _item.SetPos = new Vector2(200000f, -200000);
+                }
+
+				MyMenu.SelectItem(0);
+
+                // Reset position of items
+                SetPos();
+            }
+
+            base.MyPhsxStep();
         }
 
         public override void SlideIn(int Frames)
@@ -124,6 +150,8 @@ namespace CloudberryKingdom
 
         protected override void MakeMenu()
         {
+			GameIsDemo = CloudberryKingdomGame.IsDemo;
+
             MenuItem item;
 
             // Play
@@ -150,11 +178,14 @@ namespace CloudberryKingdom
             //item.Go = MenuGo_Options;
             //AddItem(item);
 
-            // Buy Game
-			//item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont, true));
-			//item.Name = "Buy";
-			//item.Go = MenuGo_BuyGame;
-			//AddItem(item);
+			if (GameIsDemo)
+			{
+				// Buy Game
+				item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont, true));
+				item.Name = "Buy";
+				item.Go = MenuGo_BuyGame;
+				AddItem(item);
+			}
 
 			// Credits
 			//item = new MenuItem(new EzText(Localization.Words.Credits, ItemFont, true));
@@ -181,7 +212,7 @@ namespace CloudberryKingdom
             BackBox.Quad.SetColor(ColorHelper.Gray(.1f));
             BackBox.Alpha = .73f;
 
-			if (CloudberryKingdomGame.IsDemo)
+			if (GameIsDemo)
 			{
 				MenuItem _item;
 				_item = MyMenu.FindItemByName("Play"); if (_item != null) { _item.SetPos = new Vector2(0f, 168.3334f); _item.MyText.Scale = 0.605f; _item.MySelectedText.Scale = 0.605f; _item.SelectIconOffset = new Vector2(0f, 0f); }

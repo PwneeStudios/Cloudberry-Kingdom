@@ -182,7 +182,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-        public static bool FakeDemo = false;
+        public static bool FakeDemo = true;
         public static bool IsDemo
         {
             get
