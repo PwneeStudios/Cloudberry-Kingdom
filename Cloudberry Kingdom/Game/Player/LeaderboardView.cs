@@ -284,22 +284,30 @@ if (ButtonCheck.ControllerInUse)
             CurrentChallenge = ArcadeMenu.LeaderboardList[index].Item1;
             Hero = ArcadeMenu.LeaderboardList[index].Item2;
 
-            CurrentView = new LeaderboardView();
-
             string Name;
+            int Id;
             if (CurrentChallenge == null)
             {
                 Name = Localization.WordString(Localization.Words.TotalArcade);
+                Id = 0;
             }
             else
             {
                 if (Hero == null)
+                {
                     Name = Localization.WordString(CurrentChallenge.Name);
+                    Id = CurrentChallenge.GameId_Level;
+                }
                 else
+                {
                     Name = Localization.WordString(CurrentChallenge.Name) + ", " + Localization.WordString(Hero.Name);
+                    Id = CurrentChallenge.CalcGameId_Level(Hero);
+                }
             }
 
             MyPile.FindEzText("GameTitle").SubstituteText(Name);
+
+            CurrentView = new LeaderboardView(Id);
         }
 
         public void ChangeLeaderboard(int Direction)
@@ -643,7 +651,9 @@ else
 
         Dictionary<int, LeaderboardItem> Items;
 
-        public LeaderboardView()
+        Leaderboard MyLeaderboard;
+
+        public LeaderboardView(int Id)
         {
             TotalEntries = 0;// 1000000;
             Index = 0;
@@ -654,6 +664,8 @@ else
             LeaderboardItem.DefaultItem = new LeaderboardItem(null, 0, 0);
 
             Items = new Dictionary<int, LeaderboardItem>();
+
+            MyLeaderboard = new Leaderboard(Id);
         }
 
         void IncrIndex(int change)

@@ -210,12 +210,21 @@ namespace CloudberryKingdom
 
         public static void BeginShowKeyboard()
         {
-            CloudberryKingdomGame.ShowKeyboard = false;
-			CloudberryKingdomGame.KeyboardIsDone = false;
+            try
+            {
+                CloudberryKingdomGame.ShowKeyboard = false;
+                CloudberryKingdomGame.KeyboardIsDone = false;
 
-            kyar = Guide.BeginShowKeyboardInput(_player.MyPlayerIndex, 
-                    Localization.WordString(Localization.Words.SaveRandomSeedAs),"Choose a name to save this level as.",
-                    Tools.CurLevel.MyLevelSeed.SuggestedName(), OnKeyboardComplete, null);
+                kyar = Guide.BeginShowKeyboardInput(_player.MyPlayerIndex,
+                        Localization.WordString(Localization.Words.SaveRandomSeedAs), "Choose a name to save this level as.",
+                        Tools.CurLevel.MyLevelSeed.SuggestedName(), OnKeyboardComplete, null);
+            }
+            catch
+            {
+                CloudberryKingdomGame.ShowKeyboard = false;
+                CloudberryKingdomGame.KeyboardIsDone = false;
+                kyar = null;
+            }
         }
 
         static IAsyncResult kyar;

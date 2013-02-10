@@ -297,14 +297,21 @@ namespace CloudberryKingdom
         {
             Hide(PresetPos.Bottom);
 
-			if (CloudberryKingdomGame.CanShowGlobalLeaderboard())
+			if (CloudberryKingdomGame.SimpleLeaderboards)
 			{
-				Call(new LeaderboardGUI(null, 0), 0);
-				Hide();
+                Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
 			}
 			else
 			{
-				Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
+                if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+                {
+                    Call(new LeaderboardGUI(null, 0), 0);
+                    Hide();
+                }
+                else
+                {
+                    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+                }
 			}
         }
 

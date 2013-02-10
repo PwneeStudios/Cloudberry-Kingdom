@@ -877,7 +877,7 @@ else
 					return;
 				}
 
-				StartLevel();
+				MyGame.PlayGame(StartLevel);
 			}
         }
 

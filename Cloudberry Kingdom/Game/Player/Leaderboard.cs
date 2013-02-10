@@ -15,7 +15,7 @@ namespace CloudberryKingdom
 
         public static void WriteToLeaderboard(ScoreEntry score)
         {
-//#if XDK
+#if XDK
             if (Gamer.SignedInGamers.Count == 0) return;
 
             // Write
@@ -43,7 +43,7 @@ namespace CloudberryKingdom
 
             networkSession.EndGame();
             networkSession.Update();
-//#endif
+#endif
         }
 
         public static int GetLeaderboardId(int game_id)
@@ -62,16 +62,23 @@ namespace CloudberryKingdom
                 return Above[index];
         }
 
+        IAsyncResult result;
         public Leaderboard(int game_id)
         {
             MyId = GetLeaderboardId(game_id);
             Above = new List<ScoreEntry>();
             Below = new List<ScoreEntry>();
 
-            LeaderboardIdentity Identity = GetIdentity(GetLeaderboardId(game_id));
-            leaderboardReader = LeaderboardReader.Read(Identity, 0, 10);
+            LeaderboardIdentity Identity = GetIdentity(MyId);
+            //leaderboardReader
+            result = LeaderboardReader.BeginRead(Identity, 0, 10, OnInfo, null);
             
             //leaderboardReader.BeginPageDown(AsyncCallback, null);
+        }
+
+        void OnInfo(IAsyncResult ar)
+        {
+            Tools.Warning();
         }
 
         void AsyncCallback(IAsyncResult ar)
@@ -81,9 +88,16 @@ namespace CloudberryKingdom
 
         void Update()
         {
-            foreach (var item in leaderboardReader.Entries)
+            if (result == null || !result.IsCompleted) return;
+
+            result = null;
+
+            foreach (LeaderboardEntry entry in leaderboardReader.Entries)
             {
-                //Below.Add(new LeaderboardEnt(
+                int val = (int)entry.Rating;
+                Gamer gamer = entry.Gamer;
+                
+                //entry.Columns["key"];
             }
         }
 
@@ -92,12 +106,5 @@ namespace CloudberryKingdom
         {
             return LeaderboardIdentity.Create(LeaderboardKey.BestScoreLifeTime, id);
         }
-
-        //foreach (LeaderboardEntry entry in leaderboardReader.Entries)
-        //{
-        //    entry.Rating;
-        //    entry.Gamer.Gamertag;
-        //    entry.Columns["key"]; // FIX KEY
-        //}
     }
 }

@@ -115,37 +115,47 @@ namespace CloudberryKingdom
 			return true;
 		}
 
-		public static bool CanShowGlobalLeaderboard()
-		{
-			if (SimpleLeaderboards) return false;
-
-			if (!OnlineFunctionalityAvailable()) return false;
-
-			return true;
-		}
-
 		public static bool OnlineFunctionalityAvailable()
-		{
-#if XBOX
-			// Check if anyone is signed in to xbox live. If not then online functionality is not available.
-			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
-			foreach (PlayerData player in CopyOfExistingPlayers)
-			{
-				var gamer = player.MyGamer;
-				if (gamer != null && !gamer.IsSignedInToLive)
-					return false;
-			}
-#endif
+        {
+#if XDK
+            var gamers = Gamer.SignedInGamers;
 
+            if (gamers.Count == 0) return false;
+
+            foreach (var gamer in gamers)
+            {
+                if (gamer.IsSignedInToLive) return true;
+            }
+
+            //// Check if anyone is signed in to xbox live. If not then online functionality is not available.
+            //List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+            //foreach (PlayerData player in CopyOfExistingPlayers)
+            //{
+            //    var gamer = player.MyGamer;
+            //    if (gamer != null && !gamer.IsSignedInToLive)
+            //        return false;
+            //}
+
+			return false;
+#else
 			return true;
+#endif
 		}
 
 		public static void BeginShowMarketplace()
 		{
+            ShowMarketplace = false;
 #if XDK
-            Tools.Warning();
-            ulong offerID = 0;
-            GuideExtensions.ShowMarketplace(ShowFor, offerID);
+            if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+            {
+                Tools.Warning();
+                ulong offerID = 0;
+                GuideExtensions.ShowMarketplace(ShowFor, offerID);
+            }
+            else
+            {
+                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+            }
 #endif
 		}
 
@@ -182,7 +192,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-        public static bool FakeDemo = true;
+        public static bool FakeDemo = false;
         public static bool IsDemo
         {
             get
@@ -205,7 +215,13 @@ namespace CloudberryKingdom
 #if XBOX
             if (gamer.Privileges.AllowPurchaseContent)
             {
-                Guide.ShowMarketplace(gamer.PlayerIndex);
+                try
+                {
+                    Guide.ShowMarketplace(gamer.PlayerIndex);
+                }
+                catch
+                {
+                }
                 return;
             }
 
@@ -213,7 +229,13 @@ namespace CloudberryKingdom
             {
                 if (_gamer.Privileges.AllowPurchaseContent)
                 {
-                    Guide.ShowMarketplace(_gamer.PlayerIndex);
+                    try
+                    {
+                        Guide.ShowMarketplace(_gamer.PlayerIndex);
+                    }
+                    catch
+                    {
+                    }
                     return;
                 }
             }
@@ -944,11 +966,54 @@ namespace CloudberryKingdom
 		{
 			ShowAchievements = false;
 #if XDK
-            GuideExtensions.ShowAchievements(ShowFor);
+            try
+            {
+                GuideExtensions.ShowAchievements(ShowFor);
+            }
+            catch
+            {
+            }
 #endif
 		}
 #endif
-        
+
+        static bool ShowErrorMessage;
+
+        public static void ShowError_MustBeSignedIn(Localization.Words word)
+        {
+            ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
+        }
+
+        static void ShowError(Localization.Words Header, Localization.Words Text, Localization.Words Option1, AsyncCallback callback)
+        {
+            ShowErrorMessage = true;
+
+            Err_Header = Header;
+            Err_Text = Text;
+            Err_Callback = callback;
+            Err_Options = new string[] { Localization.WordString(Option1) };
+        }
+
+        static Localization.Words Err_Header, Err_Text;
+        static string[] Err_Options;
+        static AsyncCallback Err_Callback;
+
+        static void _ShowError()
+        {
+            ShowErrorMessage = false;
+
+#if XDK
+            try
+            {
+                Guide.BeginShowMessageBox(Localization.WordString(Err_Header), Localization.WordString(Err_Text), Err_Options,
+                    0, MessageBoxIcon.None, Err_Callback, null);
+            }
+            catch (Exception e)
+            {
+            }
+#endif
+        }
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -990,6 +1055,10 @@ namespace CloudberryKingdom
             else if (ShowMarketplace)
             {
                 BeginShowMarketplace();
+            }
+            else if (ShowErrorMessage)
+            {
+                _ShowError();
             }
 #endif
 

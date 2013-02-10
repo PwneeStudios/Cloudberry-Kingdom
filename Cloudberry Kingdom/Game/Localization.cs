@@ -665,6 +665,12 @@ Err_ForceDisconnectedReselectionMessage,
 Err_PromptForDisconnectedMessage,
 Err_ForceCancelledReselectionMessage,
 Err_PromptForCancelledMessage,
+Options_Xbox,
+Err_MustBeSignedIn,
+Err_MustBeSignedInToPlay,
+Err_MustBeSignedIn_Header,
+
+EnumLength
         };
     }
 }
