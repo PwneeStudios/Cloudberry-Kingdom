@@ -160,7 +160,7 @@ namespace CloudberryKingdom
             MyPile.Add(Backdrop);
             MyPile.Add(Backdrop);
 
-            LevelCleared = new QuadClass("Score\\LevelCleared", "Header");
+            LevelCleared = new QuadClass("LevelCleared", "Header");
             LevelCleared.Scale(.9f);
             MyPile.Add(LevelCleared);
             LevelCleared.Pos = new Vector2(10, 655) + ShiftAll;

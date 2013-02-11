@@ -187,6 +187,11 @@ if (ButtonCheck.ControllerInUse)
             SetPos();
 
             UpdateMessages();
+
+if (ButtonCheck.ControllerInUse)
+{
+			MyMenu.NoneSelected = true;
+}
         }
 
         EzText LoadingText, NotRanked, NotRankedFriends;

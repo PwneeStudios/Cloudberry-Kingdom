@@ -65,13 +65,17 @@ namespace CloudberryKingdom
         IAsyncResult result;
         public Leaderboard(int game_id)
         {
+#if !XDK
+			return;
+#endif
+
             MyId = GetLeaderboardId(game_id);
             Above = new List<ScoreEntry>();
             Below = new List<ScoreEntry>();
 
             LeaderboardIdentity Identity = GetIdentity(MyId);
             //leaderboardReader
-            result = LeaderboardReader.BeginRead(Identity, 0, 10, OnInfo, null);
+			result = LeaderboardReader.BeginRead(Identity, 0, 10, OnInfo, null);
             
             //leaderboardReader.BeginPageDown(AsyncCallback, null);
         }

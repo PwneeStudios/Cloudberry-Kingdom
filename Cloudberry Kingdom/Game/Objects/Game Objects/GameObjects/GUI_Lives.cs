@@ -101,7 +101,7 @@ namespace CloudberryKingdom
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
             MyPile.Add(Text);
 
-            Bob = new QuadClass("Score\\Stickman", 64, true);
+            Bob = new QuadClass("Stickman", 64, true);
             Bob.Pos = new Vector2(200.5664f, -42.03058f) + shift;
             MyPile.Add(Bob);
         }

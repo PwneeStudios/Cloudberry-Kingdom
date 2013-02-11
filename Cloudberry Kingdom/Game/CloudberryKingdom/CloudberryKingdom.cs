@@ -115,6 +115,11 @@ namespace CloudberryKingdom
 			return true;
 		}
 
+		public static bool ProfilesAvailable()
+		{
+			return Gamer.SignedInGamers.Count > 0;
+		}
+
 		public static bool OnlineFunctionalityAvailable()
         {
 #if XDK
@@ -634,7 +639,7 @@ namespace CloudberryKingdom
 
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
             SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-             SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
 #endif
 
             // Load resource thread
@@ -979,9 +984,14 @@ namespace CloudberryKingdom
 
         static bool ShowErrorMessage;
 
-        public static void ShowError_MustBeSignedIn(Localization.Words word)
+		public static void ShowError_MustBeSignedIn(Localization.Words word)
+		{
+			ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
+		}
+
+        public static void ShowError_MustBeSignedInToLive(Localization.Words word)
         {
-            ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
+            ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, word, Localization.Words.Err_Ok, null);
         }
 
         static void ShowError(Localization.Words Header, Localization.Words Text, Localization.Words Option1, AsyncCallback callback)

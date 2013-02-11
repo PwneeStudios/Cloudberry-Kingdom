@@ -989,6 +989,8 @@ namespace CloudberryKingdom
                         return false;
                 });
 
+			SetAdditionalBobParameters(MyLevel.Bobs);
+
             if (PlayerManager.AllDead() && !MyLevel.PreventReset)
                 MyLevel.ResetAll(false);
         }

@@ -242,6 +242,7 @@
     <Compile Include="Core\Graphics\Draw\Simple\SimpleBox.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleVector.cs" />
     <Compile Include="Game\Tools\Resources.cs" />
+    <Compile Include="Game\Tools\Resources_Art.cs" />
     <Compile Include="Game\Video.cs" />
     <Compile Include="IAsyncSaveDevice.cs" />
     <Compile Include="ISaveDevice.cs" />

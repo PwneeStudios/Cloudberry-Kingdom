@@ -172,7 +172,7 @@ namespace CloudberryKingdom
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
             MyPile.Add(Text);
 
-            Blob = new QuadClass("Score\\Blob", 150, true);
+            Blob = new QuadClass("Blob", 150, true);
             Blob.Pos = new Vector2(-26.84131f, 11.98175f);
             Blob.Size = new Vector2(122.2223f, 193.6508f);
             Blob.ScaleXToMatchRatio();

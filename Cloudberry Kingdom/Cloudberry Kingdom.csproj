@@ -273,6 +273,7 @@
     <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
+    <Compile Include="Game\Tools\Resources_Art.cs" />
     <Compile Include="Game\Tools\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />

@@ -21,10 +21,7 @@ namespace CoreEngine
                     texture.Tex.Dispose();
 
             TextureList.RemoveAll(t => t.Dynamic);
-            BigNameDict.RemoveAll(kp => kp.Value.Dynamic);
             NameDict.RemoveAll(kp => kp.Value.Dynamic);
-            //PackedDict.RemoveAll(kp => kp.Value.Dynamic);
-            PathDict.RemoveAll(kp => kp.Value.Dynamic);
         }
 
         public enum WhatToLoad { Art, Backgrounds, Animations, Tilesets };

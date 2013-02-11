@@ -201,7 +201,7 @@ namespace CloudberryKingdom
             // Create the standard playlist
             Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
             Tools.SongList_Standard.Remove(Tools.Song_Happy);
-            Tools.SongList_Standard.Remove(Tools.Song_140mph);
+            //Tools.SongList_Standard.Remove(Tools.Song_140mph);
 			Tools.SongList_Standard.Remove(Tools.Song_Heavens);
         }
 
@@ -274,11 +274,6 @@ namespace CloudberryKingdom
             Localization.Language default_language = Localization.IsoCodeToLanguage(CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Localization.SetLanguage(default_language);
 
-            //Localization.SetLanguage(Localization.Language.English);
-            //Localization.SetLanguage(Localization.Language.Japanese);
-            //Localization.SetLanguage(Localization.Language.Portuguese);
-            //Localization.SetLanguage(Localization.Language.Russian);
-
             // Fonts
             FontLoad();
 
@@ -295,45 +290,23 @@ namespace CloudberryKingdom
         static void PreloadArt()
         {
             String path = Path.Combine(Globals.ContentDirectory, "Art");
-            string[] files = Tools.GetFiles(path, true);
 
-#if DEBUG
-            if (CloudberryKingdomGame.OutputLoadingInfo)
-            {
-                string names = "", widths = "", heights = "";
-                
-                Tools.Write("");
-                foreach (var file in files)
-                {
-                    var ezt = Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-                    ezt.Load();
-                    int width = ezt.Width;
-                    int height = ezt.Height;
+			//string[] files = Tools.GetFiles(path, true);
+			//foreach (String file in files)
+			//{
+			//    if (Tools.GetFileExt(path, file) == "xnb")
+			//    {
+			//        Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
+			//    }
+			//}
 
-                    string name = "L\"" + file.Replace("\\", "/") + "\"";
-                    names += name + ",\n";
+			//string[] files = ArtList.ArtFiles;
+			//foreach (String file in files)
+			//{
+			//    Tools.TextureWad.AddTexture(null, file);
+			//}
 
-                    widths += width.ToString() + ",\n";
-                    heights += height.ToString() + ",\n";
-                }
-
-                Console.WriteLine();
-                Console.Write(names);
-                Console.WriteLine();
-                Console.Write(widths);
-                Console.WriteLine();
-                Console.Write(heights);
-                Console.WriteLine();
-            }
-#endif
-
-            foreach (String file in files)
-            {
-                if (Tools.GetFileExt(path, file) == "xnb")
-                {
-                    Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-                }
-            }
+			ArtList.PreloadArtFiles();
         }
 
         public static void LoadResources()

@@ -83,7 +83,7 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+                    CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);
                 }
             }
         }

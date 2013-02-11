@@ -128,14 +128,27 @@ namespace CloudberryKingdom
 
         void MenuGo_Play(MenuItem item)
         {
-            if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
-            {
-                Call(new StartMenu_MW(Title), 0);
-            }
-            else
-            {
-                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToPlay);
-            }
+#if PC_VERSION || WINDOWS
+			Call(new StartMenu_MW(Title), 0);
+#else
+			if (CloudberryKingdomGame.ProfilesAvailable())
+			{
+				Call(new StartMenu_MW(Title), 0);
+			}
+			else
+			{
+				CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToPlay);
+			}
+
+			//if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+			//{
+			//    Call(new StartMenu_MW(Title), 0);
+			//}
+			//else
+			//{
+			//    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToPlay);
+			//}
+#endif
         }
 
         void MenuGo_Leaderboards(MenuItem item)
@@ -146,21 +159,31 @@ namespace CloudberryKingdom
             }
             else
             {
-                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+                CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);
             }
         }
 
         void MenuGo_Achievements(MenuItem item)
         {
-            if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
-            {
-                CloudberryKingdomGame.ShowAchievements = true;
-                CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
-            }
-            else
-            {
-                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
-            }
+			if (CloudberryKingdomGame.ProfilesAvailable())
+			{
+				CloudberryKingdomGame.ShowAchievements = true;
+				CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
+			}
+			else
+			{
+				CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+			}
+
+			//if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+			//{
+			//    CloudberryKingdomGame.ShowAchievements = true;
+			//    CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
+			//}
+			//else
+			//{
+			//    CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedIn);
+			//}
         }
 
         void MenuGo_BuyGame(MenuItem item)

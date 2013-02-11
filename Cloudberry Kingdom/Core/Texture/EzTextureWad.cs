@@ -37,7 +37,7 @@ namespace CoreEngine
         }
 
 
-        public Dictionary<string, EzTexture> PathDict, NameDict, BigNameDict;
+        public Dictionary<string, EzTexture> NameDict;
         public void Add(PackedTexture packed)
         {
             foreach (PackedTexture.SubTexture sub in packed.SubTextures)
@@ -62,9 +62,7 @@ namespace CoreEngine
 
             AnimationDict = new Dictionary<string, AnimationData_Texture>(Size, StringComparer.CurrentCultureIgnoreCase);
 
-            PathDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
             NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
-            BigNameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
         }
 
         public void LoadFolder(ContentManager Content, string Folder)
@@ -143,11 +141,15 @@ namespace CoreEngine
 
         public EzTexture Find(string name)
         {
-            if (name.Contains("\\") && BigNameDict.ContainsKey(name))
-                return BigNameDict[name];
-            else if (PathDict.ContainsKey(name))
-                return PathDict[name];
-            else if (NameDict.ContainsKey(name))
+			if (string.Compare(name, "white", true) == 0)
+				Tools.Write("!");
+
+			//if (name.Contains("\\") && BigNameDict.ContainsKey(name))
+			//    return BigNameDict[name];
+			//else if (PathDict.ContainsKey(name))
+			//    return PathDict[name];
+            //else
+			if (NameDict.ContainsKey(name))
                 return NameDict[name];
             
             return DefaultTexture;
@@ -160,12 +162,6 @@ namespace CoreEngine
             string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
             if (!NameDict.ContainsKey(name))
                 NameDict.AddOrOverwrite(name, NewTex);
-
-            if (NewTex.Path != null)
-            {
-                PathDict.AddOrOverwrite(NewTex.Path.ToLower(CultureInfo.InvariantCulture), NewTex);
-                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(CultureInfo.InvariantCulture), NewTex);
-            }
         }
 
         public EzTexture AddTexture(Texture2D Tex, string Name)
@@ -179,21 +175,21 @@ namespace CoreEngine
         {
             EzTexture NewTex = null;
 
-            if (TextureList.Exists(match => string.Compare(match.Path, Name, StringComparison.OrdinalIgnoreCase) == 0))
-            {
-                NewTex = FindByName(Name);
+			if (TextureList.Exists(match => string.Compare(match.Path, Name, StringComparison.OrdinalIgnoreCase) == 0))
+			{
+			    NewTex = FindByName(Name);
 
-                // Override pre-existing texture?
-                if (Tex != null)
-                {
-                    // Get rid of old texture if it was dynamic.
-                    if (NewTex.Dynamic && NewTex.Tex != null && !NewTex.Tex.IsDisposed)
-                        NewTex.Tex.Dispose();
+			    // Override pre-existing texture?
+			    if (Tex != null)
+			    {
+			        // Get rid of old texture if it was dynamic.
+			        if (NewTex.Dynamic && NewTex.Tex != null && !NewTex.Tex.IsDisposed)
+			            NewTex.Tex.Dispose();
 
-                    NewTex.Tex = Tex;
-                }
-            }
-            else
+			        NewTex.Tex = Tex;
+			    }
+			}
+			else
             {
                 NewTex = new EzTexture();
                 NewTex.Path = Name;
@@ -206,9 +202,6 @@ namespace CoreEngine
                 string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
                 if (!NameDict.ContainsKey(name))
                     NameDict.AddOrOverwrite(name, NewTex);
-                PathDict.AddOrOverwrite(NewTex.Path.ToLower(CultureInfo.InvariantCulture), NewTex);
-
-                BigNameDict.AddOrOverwrite(Tools.GetFileBigName(NewTex.Path).ToLower(CultureInfo.InvariantCulture), NewTex);
 
                 // Add to folder
                 string folder = Tools.FirstFolder(Name, "Art\\");
@@ -229,7 +222,7 @@ namespace CoreEngine
         }
 
         public EzTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height,
-                                         string StrippedName, string LowerName, string LowerPath, string BigName, string Folder)
+                                         string StrippedName, string LowerName, string Folder)
         {
             EzTexture NewTex = null;
 
@@ -242,9 +235,6 @@ namespace CoreEngine
             TextureList.Add(NewTex);
 
             NameDict.Add(LowerName, NewTex);
-            PathDict.Add(LowerPath, NewTex);
-
-            BigNameDict.Add(BigName, NewTex);
 
             // Add to folder
             if (!TextureListByFolder.ContainsKey(Folder))
