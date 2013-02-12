@@ -146,8 +146,8 @@ namespace CloudberryKingdom
 
             Whinney = Content.Load<SoundEffect>("Whinney");
 
-            Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadOutline");
-            Tools.TextureWad.FindOrLoad(Content, "Art\\LoadScreen_Initial\\LoadFill");
+            Tools.TextureWad.FindOrLoad(Content, "LoadOutline", "Art\\LoadScreen_Initial\\LoadOutline");
+            Tools.TextureWad.FindOrLoad(Content, "LoadFill", "Art\\LoadScreen_Initial\\LoadFill");
 
             MyPile = new DrawPile();
 

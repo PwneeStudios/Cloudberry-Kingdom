@@ -84,13 +84,13 @@ namespace CoreEngine
             }
         }
 
-        public EzTexture FindOrLoad(ContentManager Content, string name)
+        public EzTexture FindOrLoad(ContentManager Content, string name, string path)
         {
             EzTexture texture = FindByName(name);
 
             if (texture != Tools.TextureWad.DefaultTexture) return texture;
 
-            return Tools.TextureWad.AddTexture(Content.Load<Texture2D>(name), name);
+            return Tools.TextureWad.AddTexture(Content.Load<Texture2D>(path), name);
         }
 
         /// <summary>
@@ -141,9 +141,6 @@ namespace CoreEngine
 
         public EzTexture Find(string name)
         {
-			if (string.Compare(name, "white", true) == 0)
-				Tools.Write("!");
-
 			//if (name.Contains("\\") && BigNameDict.ContainsKey(name))
 			//    return BigNameDict[name];
 			//else if (PathDict.ContainsKey(name))

@@ -408,7 +408,8 @@ namespace CloudberryKingdom
             TileSets.Init();
 
 #if !EDITOR
-            Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 300, 200);
+			//Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 300, 200);
+			Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 360, 260);
 #endif
 
             ParticleEffects.Init();

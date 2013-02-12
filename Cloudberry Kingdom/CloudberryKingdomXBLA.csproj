@@ -613,10 +613,18 @@
     </TitleGameConfig>
   </ItemGroup>
   <ItemGroup>
-    <XdkLiveFile Include="LiveFiles\DashboardIcon.png" />
-    <XdkLiveFile Include="LiveFiles\GameIcon.png" />
-    <XdkLiveFile Include="LiveFiles\OfferBanner.png" />
-    <XdkLiveFile Include="LiveFiles\TitleImage.png" />
+    <XdkLiveFile Include="LiveFiles\DashboardIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </XdkLiveFile>
+    <XdkLiveFile Include="LiveFiles\GameIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </XdkLiveFile>
+    <XdkLiveFile Include="LiveFiles\OfferBanner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </XdkLiveFile>
+    <XdkLiveFile Include="LiveFiles\TitleImage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </XdkLiveFile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Content\Content.contentproj">
@@ -626,31 +634,77 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LiveFiles\100.png" />
-    <Content Include="LiveFiles\20.png" />
+    <Content Include="LiveFiles\100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LiveFiles\ArcadeInfo.xml" />
-    <Content Include="LiveFiles\cali.png" />
-    <Content Include="LiveFiles\clutch.png" />
-    <Content Include="LiveFiles\cut_the_cord.png" />
-    <Content Include="LiveFiles\double_clutch.png" />
-    <Content Include="LiveFiles\fail.png" />
-    <Content Include="LiveFiles\fashionista.png" />
-    <Content Include="LiveFiles\hard to see man.png" />
-    <Content Include="LiveFiles\hat_em.png" />
-    <Content Include="LiveFiles\highfive.png" />
-    <Content Include="LiveFiles\infinity.png" />
-    <Content Include="LiveFiles\invincible.png" />
-    <Content Include="LiveFiles\journeyman.png" />
-    <Content Include="LiveFiles\leftovers.png" />
-    <Content Include="LiveFiles\robotic.png" />
-    <Content Include="LiveFiles\scrooge.png" />
-    <Content Include="LiveFiles\the edge of infinity.png" />
+    <Content Include="LiveFiles\cali.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\clutch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\cut_the_cord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\double_clutch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\fail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\fashionista.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\hard to see man.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\hat_em.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\highfive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\infinity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\invincible.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\journeyman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\leftovers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\robotic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\scrooge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\the edge of infinity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LiveFiles\Title.spa.h" />
-    <Content Include="LiveFiles\tophat.png" />
-    <Content Include="LiveFiles\veteran %282%29.png" />
-    <Content Include="LiveFiles\veteran.png" />
-    <Content Include="LiveFiles\worth-the_effort.png" />
-    <Content Include="LiveFiles\zombie.png" />
+    <Content Include="LiveFiles\tophat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\veteran %282%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\veteran.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\worth-the_effort.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LiveFiles\zombie.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="LiveFiles\Title.spa" />

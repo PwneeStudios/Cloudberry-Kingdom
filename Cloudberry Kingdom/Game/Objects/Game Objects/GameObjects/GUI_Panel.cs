@@ -428,10 +428,13 @@ namespace CloudberryKingdom
 
         protected override void ReleaseBody()
         {
-            base.ReleaseBody();
+			base.ReleaseBody();
 
-            Caller = null;
-        }
+			if (MyMenu != null) MyMenu.Release(); MyMenu = null;
+			MyPile = null;
+
+			Caller = null;
+		}
 
         public void PauseAnimation() { Pos.Playing = false; }
         public void UnpauseAnimation() { Pos.Playing = true; }

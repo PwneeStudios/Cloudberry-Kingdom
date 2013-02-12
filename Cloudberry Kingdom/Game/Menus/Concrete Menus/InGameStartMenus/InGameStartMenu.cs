@@ -206,9 +206,16 @@ namespace CloudberryKingdom
         Level HoldLevel;
         void Unpause()
         {
-            HoldLevel.ReplayPaused = false;
+            if (HoldLevel != null) HoldLevel.ReplayPaused = false;
             HoldLevel = null;
         }
+
+		protected override void ReleaseBody()
+		{
+			base.ReleaseBody();
+
+			HoldLevel = null;
+		}
 
         private void GoRemove()
         {

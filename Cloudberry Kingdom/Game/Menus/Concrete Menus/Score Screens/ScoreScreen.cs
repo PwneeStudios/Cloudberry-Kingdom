@@ -61,16 +61,21 @@ namespace CloudberryKingdom
 				MenuItem back;
 				if (InCampaign)
 				{
-					back = MakeBackButton(Localization.Words.Exit, true);
+					//back = MakeBackButton(Localization.Words.Exit, true);
+					back = new MenuItem(new EzText(Localization.WordString(Localization.Words.Exit), ItemFont));
+					AddItem(back);
 					back.Go = MenuGo_ExitCampaign;
 				}
 				else
 				{
-					back = MakeBackButton(Localization.Words.BackToFreeplay, true);
+					//back = MakeBackButton(Localization.Words.BackToFreeplay, true);
+					back = new MenuItem(new EzText(Localization.WordString(Localization.Words.BackToFreeplay), ItemFont));
+					AddItem(back);
 					back.Go = MenuGo_ExitFreeplay;
 				}
 
-                MyMenu.OnB = Cast.ToMenu(go.Go);
+				MyMenu.OnB = null;
+                //MyMenu.OnB = Cast.ToMenu(go.Go);
 				//MyMenu.OnB = Cast.ToMenu(back.Go);
 
                 EnsureFancy();

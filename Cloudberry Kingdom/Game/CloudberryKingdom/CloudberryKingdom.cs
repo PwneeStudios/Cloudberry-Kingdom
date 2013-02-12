@@ -520,6 +520,7 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
             MyGraphicsDeviceManager.IsFullScreen = false;
+
             
             
             // For recording
@@ -590,6 +591,15 @@ namespace CloudberryKingdom
             //Tools.Warning();
 
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
+
+			AdditiveColor_NormalAlpha = new BlendState();
+			AdditiveColor_NormalAlpha.ColorBlendFunction = BlendFunction.Add;
+			AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.One;
+			AdditiveColor_NormalAlpha.ColorSourceBlend = Blend.One;
+			AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
+			AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
+			AdditiveColor_NormalAlpha.AlphaSourceBlend = Blend.One;
+
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
 
@@ -1257,6 +1267,7 @@ namespace CloudberryKingdom
             return false;
         }
 
+		BlendState AdditiveColor_NormalAlpha;
         /// <summary>
         /// Draw the fireball textures to memory.
         /// </summary>
@@ -1267,7 +1278,8 @@ namespace CloudberryKingdom
                 if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
                 {
                     // Compute fireballs textures
-                    MyGraphicsDevice.BlendState = BlendState.Additive;
+					MyGraphicsDevice.BlendState = AdditiveColor_NormalAlpha;
+
                     Fireball.DrawFireballTexture(MyGraphicsDevice, Tools.EffectWad);
                     Fireball.DrawEmitterTexture(MyGraphicsDevice, Tools.EffectWad);
                     
