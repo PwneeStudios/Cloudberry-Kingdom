@@ -939,7 +939,7 @@ else
         int DesiredHeroIndex = 0;
         protected override void MyDraw()
         {
-            if (!Active && CallingPanel != null && !CallingPanel.Pos.Playing)
+            if (!Active && CallingPanel != null && CallingPanel.Pos != null && !CallingPanel.Pos.Playing)
                 MyMenu.Show = false;
             else
                 MyMenu.Show = true;

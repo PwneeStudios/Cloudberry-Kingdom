@@ -160,8 +160,8 @@ namespace CloudberryKingdom.Obstacles
 
             device.SetRenderTarget(FireballRenderTarget);
             device.Clear(Color.Transparent);
-            float scalex = 350;
-            float scaley = 150;
+			float scalex = 350 * 1.05f;
+			float scaley = 150 * 1.05f;
 
             ShadeQuad.MyEffect.effect.CurrentTechnique = ShadeQuad.MyEffect.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));
@@ -202,8 +202,8 @@ namespace CloudberryKingdom.Obstacles
 
             device.SetRenderTarget(FlameRenderTarget);
             device.Clear(Color.Transparent);
-            float scalex = 175;
-            float scaley = 175;
+            float scalex = 175 * 1.05f;
+            float scaley = 175 * 1.05f;
 
             EzEffect fx = Tools.BasicEffect;;
 
@@ -241,10 +241,10 @@ namespace CloudberryKingdom.Obstacles
                 
                 Vector2 Dir = Rnd.RndDir();
 
-                p.Data.Position = pos + 23 * Dir * Scale;
+                p.Data.Position = pos + Tools.GlobalRnd.RndFloat(27, 50) * Dir * Scale;
                 p.Data.Velocity = Scale * 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
                 p.Data.Acceleration = -.045f * p.Data.Velocity;
-                p.Data.Velocity += vel;
+				p.Data.Velocity += vel * Tools.GlobalRnd.RndFloat(.75f, .85f);
 
                 p.Size *= ScaleQuad;
 

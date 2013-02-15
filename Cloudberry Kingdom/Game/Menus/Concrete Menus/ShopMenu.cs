@@ -11,6 +11,68 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
+	public class SmallErrorMenu : VerifyBaseMenu
+	{
+		Localization.Words Word;
+		public SmallErrorMenu(Localization.Words Word, int Control)
+			: base(false)
+		{
+			this.Word = Word;
+
+			EnableBounce();
+
+			this.Control = Control;
+
+			Constructor();
+		}
+
+		public override void MakeBackdrop()
+		{
+			Backdrop = new QuadClass(null, true, true);
+			Backdrop.TextureName = "WidePlaque";
+			Backdrop.Size = new Vector2(1750f, 284.8255f);
+			Backdrop.Pos = new Vector2(-11.9043f, 59.52365f);
+			Backdrop.Degrees = 0;
+
+			MyPile.Add(Backdrop, "ArcadeBox");
+			MyPile.Pos = new Vector2(0, -800);
+
+			base.MakeBackdrop();
+		}
+
+		QuadClass Black;
+		public override void Init()
+		{
+			base.Init();
+
+			// Make the menu
+			MenuItem item;
+
+			var Description = new EzText("Reconnect controller to continue!", Resources.Font_Grobold42_2, 1800, true, true, .575f);
+			Description.Pos = new Vector2(0, 100);
+			Description.Scale *= .6f;
+			MyPile.Add(Description, "Description");
+
+			SetPos();
+		}
+
+		protected override void MyPhsxStep()
+		{
+			base.MyPhsxStep();
+		}
+
+		void SetPos()
+		{
+			EzText _t;
+			_t = MyPile.FindEzText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("ArcadeBox"); if (_q != null) { _q.Pos = new Vector2(4.763306f, 0f); _q.Size = new Vector2(919.4252f, 163.4914f); }
+
+			MyPile.Pos = new Vector2(36.11108f, 827.7778f);
+		}
+	}
+	
     public class UpSellMenu : VerifyBaseMenu
     {
 		Localization.Words Word;

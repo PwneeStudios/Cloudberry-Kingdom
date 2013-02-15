@@ -365,7 +365,7 @@ namespace CloudberryKingdom.Levels
             LevelPieces = null;
             CurPiece = null;
 
-            MyBackground = null;
+			if (MyBackground != null) MyBackground.Release(); MyBackground = null;
 
             if (MainEmitter != null)
             {

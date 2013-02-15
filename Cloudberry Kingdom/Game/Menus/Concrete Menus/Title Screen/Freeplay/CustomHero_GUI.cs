@@ -559,11 +559,11 @@ else
 }
 
             // Start
-            A = Start = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
+            A = Start = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
             item.Name = "test";
             item.JiggleOnGo = false;
             AddItem(item);
-            item.Go = Cast.ToItem(StartTest);
+			item.Go = Cast.ToItem(Next);
 if (ButtonCheck.ControllerInUse)
 {
 #if XBOX || PC_VERSION
@@ -593,11 +593,11 @@ if (ButtonCheck.ControllerInUse)
 }
 
             // Continue
-            X = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
+            X = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
             item.Name = "continue";
             AddItem(item);
             item.SelectSound = null;
-			item.Go = Cast.ToItem(Next);
+			item.Go = Cast.ToItem(StartTest);
 if (ButtonCheck.ControllerInUse)
 {
 #if XBOX || PC_VERSION

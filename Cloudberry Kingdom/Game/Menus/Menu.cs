@@ -238,8 +238,7 @@ namespace CloudberryKingdom
             if (SelectIcon != null) SelectIcon.Release(); SelectIcon = null;
             if (FancyPos != null) FancyPos.Release(); FancyPos = null;
 
-            if (ReleaseParents && ParentMenu != null) ParentMenu.Release(true);
-            ParentMenu = null;
+            if (ReleaseParents && ParentMenu != null) ParentMenu.Release(true); ParentMenu = null;
 
             if (Items != null)
                 foreach (MenuItem item in Items)
@@ -247,6 +246,11 @@ namespace CloudberryKingdom
             Items = null;
 
             OnStart = OnX = OnA = OnB = null;
+			OnSelect = null; OnY = null;
+
+			UpDownSound = null; SelectSound = null; BackSound = null; SlideSound = null; ListScrollSound = null;
+			MyPieceQuad = null; MyPieceQuadTemplate = null;
+			MyPieceQuad2 = null; MyPieceQuadTemplate2 = null;
 
             AdditionalCheckForOutsideClick = null;
         }

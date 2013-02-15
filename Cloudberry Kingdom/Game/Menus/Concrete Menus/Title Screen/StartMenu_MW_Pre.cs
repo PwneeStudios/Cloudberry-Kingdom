@@ -199,19 +199,19 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Play
-            item = new MenuItem(new EzText("Play Game", ItemFont, true));
+            item = new MenuItem(new EzText(Localization.Words.PlayGame, ItemFont, true));
             item.Name = "Play";
             item.Go = MenuGo_Play;
             AddItem(item);
 
             // Leaderboard
-            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, true));
+            item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, true));
             item.Name = "Leaderboard";
             item.Go = MenuGo_Leaderboards;
             AddItem(item);
 
             // Achievements
-            item = new MenuItem(new EzText(Localization.Words.Achievement, ItemFont, true));
+            item = new MenuItem(new EzText(Localization.Words.Achievements, ItemFont, true));
             item.Name = "Achievements";
             item.Go = MenuGo_Achievements;
             AddItem(item);

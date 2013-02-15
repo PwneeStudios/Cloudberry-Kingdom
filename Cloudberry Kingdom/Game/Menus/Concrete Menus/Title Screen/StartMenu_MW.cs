@@ -174,7 +174,13 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // Options
-            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, true));
+            item = new MenuItem(new EzText(
+#if XBOX
+				Localization.Words.Options_Xbox
+#else		
+				Localization.Words.Options
+#endif
+				, ItemFont, true));
             item.Name = "Options";
             item.Go = MenuGo_Options;
             AddItem(item);

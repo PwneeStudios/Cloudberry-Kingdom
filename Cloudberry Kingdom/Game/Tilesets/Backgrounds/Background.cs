@@ -186,6 +186,12 @@ namespace CloudberryKingdom
 
         public void Release()
         {
+			MyCollection.Release();
+			MyCollection = null;
+
+			MyType = null;
+			MyTileSet = null;
+
             MyLevel = null;
         }
 

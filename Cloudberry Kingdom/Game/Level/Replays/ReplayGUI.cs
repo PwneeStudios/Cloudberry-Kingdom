@@ -142,16 +142,16 @@ namespace CloudberryKingdom
 
             BigPaused = new QuadClass();
             BigPaused.SetToDefault();
-            BigPaused.Quad.MyTexture = Tools.TextureWad.FindByName("Replay_GUI\\Paused");
+            BigPaused.Quad.MyTexture = Tools.TextureWad.FindByName("Paused");
             BigPaused.ScaleYToMatchRatio(355);
             MyPile.Add(BigPaused);
             BigPaused.Pos = new Vector2(1210.557f, 791.1111f);
 
             BigEnd = new QuadClass();
             BigEnd.SetToDefault();
-            BigEnd.Quad.MyTexture = Tools.TextureWad.FindByName("Replay_GUI\\End");
+            BigEnd.Quad.MyTexture = Tools.TextureWad.FindByName("End");
             BigEnd.ScaleYToMatchRatio(255);
-            BigPaused.ScaleYToMatchRatio(300);
+			//BigPaused.ScaleYToMatchRatio(300);
             MyPile.Add(BigEnd);
             BigEnd.Pos = new Vector2(1277.222f, 774.4444f);
 
@@ -528,8 +528,11 @@ else
             }
             else
             {
-                if (PauseSelected)
-                    BigPaused.Show = true;
+				if (PauseSelected)
+				{
+					BigPaused.ScaleYToMatchRatio(300);
+					BigPaused.Show = true;
+				}
             }
         }
 

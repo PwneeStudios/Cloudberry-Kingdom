@@ -253,6 +253,7 @@ namespace CloudberryKingdom
             for (int i = 0; i < 4; i++)
             {
                 Get(i).GameStats.Absorb(Get(i).LevelStats);
+				Get(i).CampaignStats.Absorb(Get(i).LevelStats);
                 Get(i).LevelStats.Clean();
             }
         }
@@ -262,7 +263,6 @@ namespace CloudberryKingdom
             for (int i = 0; i < 4; i++)
             {
                 Get(i).LifetimeStats.Absorb(Get(i).GameStats);
-                Get(i).CampaignStats.Absorb(Get(i).GameStats);
                 Get(i).GameStats.Clean();
             }
         }

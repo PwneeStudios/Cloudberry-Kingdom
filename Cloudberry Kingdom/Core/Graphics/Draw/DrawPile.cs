@@ -94,6 +94,23 @@ namespace CloudberryKingdom
         public List<EzText> MyTextList = new List<EzText>();
         public List<QuadClass> MyQuadList = new List<QuadClass>();
 
+		public void Release()
+		{
+			if (MyTextList != null)
+			{
+				foreach (EzText t in MyTextList)
+					t.Release();
+			}
+			MyTextList = null;
+
+			if (MyQuadList != null)
+			{
+				foreach (QuadClass q in MyQuadList)
+					q.Release();
+			}
+			MyQuadList = null;
+		}
+
         public DrawPile()
         {
             FancyPos = new FancyVector2();

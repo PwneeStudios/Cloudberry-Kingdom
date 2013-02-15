@@ -42,10 +42,6 @@ namespace CloudberryKingdom
 
         public static void OnChapterFinished(int chapter)
         {
-            // Clean campaign stats
-            foreach (PlayerData player in PlayerManager.ExistingPlayers)
-                player.CampaignStats.Clean();
-
             // Didn't die during the chapter?
             foreach (PlayerData player in PlayerManager.AlivePlayers)
                 Awardments.CheckForAward_NoDeath(player);
@@ -61,6 +57,10 @@ namespace CloudberryKingdom
                 default: break;
             }
             Awardments.GiveAward(award);
+
+			// Clean campaign stats
+			foreach (PlayerData player in PlayerManager.ExistingPlayers)
+				player.CampaignStats.Clean();
         }
 
         int StartLevel = 0;

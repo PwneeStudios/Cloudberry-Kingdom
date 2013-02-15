@@ -39,6 +39,14 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Art\Bob\FacialHair\Moustache_Brown.dds">
+      <Name>Moustache_Brown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
+    </Compile>
     <Compile Include="Art\Characters\Berries\Poses\cb_surprised.dds">
       <Name>cb_surprised</Name>
       <Importer>TextureImporter</Importer>
@@ -166,11 +174,6 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-    </Compile>
-    <Compile Include="Art\Bob\FacialHair\Moustache_Grey.dds">
-      <Name>Moustache_Grey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
@@ -1101,14 +1104,6 @@
     </Compile>
     <Compile Include="Art\Menu\Replay_GUI\Paused.dds">
       <Name>Paused</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Menu\Score\LevelCleared.dds">
-      <Name>LevelCleared</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>

@@ -161,14 +161,24 @@ namespace CloudberryKingdom
 
             //MakeDarkBack();
 
-            QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
-            MyPile.Add(Backdrop);
-            MyPile.Add(Backdrop);
 
-            LevelCleared = new QuadClass("LevelCleared", "Header");
-            LevelCleared.Scale(.9f);
-            MyPile.Add(LevelCleared);
-            LevelCleared.Pos = new Vector2(10, 655) + ShiftAll;
+			
+			//QuadClass Backdrop = new QuadClass("Score_Screen", "Backdrop");
+			//MyPile.Add(Backdrop);
+			QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
+			MyPile.Add(Backdrop);
+            MyPile.Add(Backdrop);
+			EpilepsySafe();
+
+			//LevelCleared = new QuadClass("LevelCleared", "Header");
+			//LevelCleared.Scale(.9f);
+			//MyPile.Add(LevelCleared);
+			//LevelCleared.Pos = new Vector2(10, 655) + ShiftAll;
+			var lc = new EzText(Localization.Words.LevelCleared, Resources.Font_Grobold42_2, "LevelCleared");
+			lc.Shadow = true;
+			lc.ShadowOffset = new Vector2(20, 20);
+			lc.ShadowColor = new Color(.36f, .36f, .36f, .86f);
+			MyPile.Add(lc);
 
             MyPile.Add(new QuadClass("Coin_Blue", "Coin"));
             MyPile.Add(new QuadClass("Stopwatch_Black", "Stopwatch"));
@@ -194,6 +204,7 @@ namespace CloudberryKingdom
             MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
             EzText _t;
+			_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
             _t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
             _t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
             _t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }

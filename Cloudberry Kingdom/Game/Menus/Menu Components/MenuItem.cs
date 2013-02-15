@@ -183,6 +183,13 @@ namespace CloudberryKingdom
             if (MyText != null) MyText.Release(); MyText = null;
             if (MySelectedText != null) MySelectedText.Release(); MySelectedText = null;
 
+			SelectSound = null; SlideSound = null; ListScrollSound = null;
+			if (FancyPos != null) FancyPos.Release(); FancyPos = null;
+			Icon = null;
+			OnClick = null;
+			AdditionalOnSelect = null;
+			MySelectedFont = null; MyFont = null;
+
             Go = null;
         }
 

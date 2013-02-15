@@ -89,6 +89,7 @@ namespace CloudberryKingdom
         public virtual void Release()
         {
             MyLevel = null;
+
             MyQuad.Release();
         }
 

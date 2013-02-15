@@ -5,14 +5,14 @@ The Arcade	アーケードモード	Minispiele	O Fliperama	Arcade	Arcade	Arcade	
 Story Mode	ストーリーモード	Abenteuer	A História	Modalità Storia	Histoire	Modo Historia	Повесть	스토리 모드	故事模式	
 Free Play	フリーモード	Freies Spiel	Free Play	Free Play	Jeu Libre	Modo Libre	Свободная игра	무료 플레이	免费玩	
 Options	オプション	Optionen	Opções	Opzioni	Options	Opciones	Настройки	옵션	选项	
-Exit Game	ゲーム中断	Beenden	Sair	Uscita	Quitter	Salir	Выход	게임을 종료	退出游戏	
+Exit Game	ゲームを終了	Spiel verlassen	Sair do Jogo	Esci dal gioco	Quitter le jeu	Salir del juego	Выйти из игры	게임 나가기	退出游戏	
 Exit game?	ゲームを中断しますか?	Spiel Beenden? 	Deseja Sair do Jogo?	Uscire dal Gioco?	Quitter le Jeu ?	Salir del Juego?	Выйти из игры?	게임을 종료?	退出游戏吗？	
 Yes	はい	Ja	Sim	Si	Oui	Yes	Да	예	是	
 No	いいえ	Nein	Não	No	Non	No	Нет	아니	没有	
 Language	言語	Sprache	Idioma	Lingua	Langue	Idioma	Выбор языка	언어	语	
 Sound Volume	サウンド	Soundeffekte 	Volume do Som	Volume Audio	FX	Sonido	Громкость  звуков 	사운드 볼륨	音量	
 Music Volume	ミュージック	Musiklautstärke	Volume da Música	Volume Musica	Musique	Música	Громкость музыки	음악 볼륨	音乐音量	
-Controls	コントローラー	Steuerung	Controles	Controlli	Commandes	Controles	Управление	컨트롤	控制	
+Controls	操作方法	Steuerung	Controles	Comandi	Commandes	Controles	Элементы управления	컨트롤	控制	
 Edit Controls	コントローラーの編集	Steuerung Bearbeiten	Editar Controles	Controlli di Modifica	Modifier les Commandes	Editar Controles	Настройка управления	편집 컨트롤	编辑控件	
 Resolution	画質	Auflösung	Resolução	Risoluzione	Résolution	Resolución	Разрешение 	해결	决议	
 Full screen	フル画面	Vollbild	Tela Cheia	Schermo Intero	Plein Écran	Pantalla Completa	Полный экран	전체 화면	全屏幕	
@@ -203,7 +203,7 @@ Hero Rush	ヒーロ突進	Helden Hetzjagd	Revezamento Máximo	Corsa Dell'Eroe	H�
 Hybrid Rush	ハイブリッド突撃	Hektische Mischung	Combinação Máxima	Corsa Ibrida	Hybride Rush	Hibrido Rush	Смешанный рывок	하이브리드 러쉬	混合拉什	
 High Score	ハイスコア	Höchstpunktzahl 	Recorde Atual	Punteggio Più Alto	High Score	Puntaje	Рекорд	높은 점수	高分数	
 Best Level	最高レベル	Höchstes Level	Fase Recorde	Livello Migliore	Meilleur Niveau	Mejor Nivel	Лучший уровень	최고 수준	最好的水平	
-Leaderboard	ハイリスト	Bestenliste	Placar Geral	Leaderboard	Tableau des Scores	Tablas de Posiciones	Список лучших игроков	리더	排行榜	
+Leaderboard	ランキング	Bestenliste	Placar de Líderes	Classifica	Classement 	Marcador	список лидеров	순위표	排行榜	
 Score	スコア	Punkte	Pontos	Punteggio	Score	Highscore	Счёт	점수	得分	
 Level	レベル	Level	Nível	Livello	Niveau	Puntaje	Уровень	레벨	水平	
 Ready?	Ready?	Bist du Soweit? 	Prepara e...	Pronto?	Prêt ?	Listo?	Готов?	준비가 되셨습니까?	准备好了？	
@@ -319,7 +319,7 @@ Look What You Have Done!	こんなことも達成しました	Sieh Was du Angeri
 Watch a replay with 50+ attempts	５０回以上失敗し、リプレイをみる	Sieh dir Eine Wiederholung mit 50+ Versuchen an	Assista um replay com mais de 50 tentativas	Guarda un replay con 50+ tentativi	Regarde un Replay avec au Moins 50 Tentatives	Mira un Replay con Mas de 50 Intentos 	Просмотрел запись с 50+ попытками	50 + 시도와 재생보기	观看回放录像时，50 +的尝试	
 Buy	購入	Kaufen	Comprar	Compra	Acheter	Compra	Купить	사기	购买	
 Bank	銀行	Bank	Banco	Banca	Banque	Banco	Банк	은행	银行	
-Achievement	アチーブメント	Errungenschaften	Conquista	Conquiste	Réalisation	Logro	Достижение	성취	成就	
+Achievement	実績	Erfolg	Conquista	Obiettivo	Succès	Logro	достижение	도전 과제	成就	
 Achievement Unlocked	アチーブメントが解除されました	Errungenschaft freigeschaltet	Conquista Desbloqueada	Conquista Sbloccata	Réalisation Débloquée	Logro Desbloqueado	Достижение Достигнуто	성취 잠금 해제	成就解锁	
 Delete {0} Level?	{0}シードを削除しますか？	Level {0} Löschen?	Apagar {0} senha?	Elimina {0} Seme?	Annuler {0} Code ?	Borrar {0} Código?	Удалить {0} уровень?	{0} 시드를 삭제 하시겠습니까?	删除{0}种子吗？	
 Delete {0} Levels?	{0}シードを削除しますか？	Level {0} Löschen?	Apagar {0} senhas?	Elimina {0} Semi?	Annuler les Codes ?	Borrar {0} Códigos?	Удалить {0} уровньей?	{0} 종자를 삭제 하시겠습니까?	删除{0}种子？	
@@ -337,8 +337,8 @@ Top Scores	!LocalizeMe!	Höchste Punkte	Placar Global	Punteggi migliori	Meilleur
 My Scores	!LocalizeMe!	Meine Punkte	Meu Placar	Il mio punteggio	Mes Scores	Mis Puntajes	!LocalizeMe!	내 점수	我的分数	
 Sort by Level	!LocalizeMe!	Nach Level Sortieren	por Nível	Ordina per livello	Classer par Niveau	Ordenar por Nivel	!LocalizeMe!	레벨 순으로 정렬	排序级别	
 Sort by Score	!LocalizeMe!	Nach Punkten Sortieren	por Pontos	Ordina per punteggio	Classer par Score	Ordenar por Puntaje	!LocalizeMe!	점수 순으로 정렬	按分数排序	
-View Gamer Card	!LocalizeMe!	Gamer Card Angucken	Ver Cartão 	Vedi Profilo	Voir la Carte du Joueur	Mirar Gamer Card	!LocalizeMe!	게이머 카드보기	玩家卡	
-Unlock Full Game	!LocalizeMe!	Komplettes Spiel Freischalten	Versão Completa 	Sblocca Gioco Intero	Débloquer le Jeu au Complet	Desbloquear Juego Completo	!LocalizeMe!	전체 게임 잠금 해제	全场比赛解锁	
+View Gamer Card	ゲーマー カード	Spielerkarte Angucken	Ver Cartão de Jogador	Vedi Profilo	Voir la Carte du Joueur	Mirar Gamer Card	!LocalizeMe!	게이머 카드보기	玩家卡	
+Unlock Full Game	完全版を購入	Vollständiges Spiel freischalten	Desbloquear Jogo Completo	Sblocca gioco completo	Déverrouiller le jeu complet	Desbloquear juego completo	Разблокировать игру	정식 버전 게임 구매	解除完整游戏锁定	
 You are not yet ranked on this leaderboard.	!LocalizeMe!	Du stehst noch nicht auf dieser Rangliste.	Você não tem uma pontuação neste placar.	Non sei ancora classificato su questa leaderboard.	Tu n'es pas encore au rang de ce classement	Aun no estas en este Leaderboard	!LocalizeMe!	당신이 리더 \ 이외의 순위가 결정되는 것은 아닙니다.	你是不是\非本排行榜排名。	
 Your friends are not yet ranked on this leaderboard.	!LocalizeMe!	Deine Freunde stehen noch nicht auf dieser Rangliste.	Seus amigos não têm uma pontuação neste placar.	I tuoi amici non sono ancora classificati su questa leaderboard.	Tes amis ne sont pas encore au rang de ce classement	Tus amigos aun no estan en este Leaderboard	!LocalizeMe!	친구들이 리더에 위를​​ 차지있습니다.	你的朋友是\n不是这个排行榜上的排名。	
 The Arcade, Total	!LocalizeMe!	Minispiele, Total	Fliperama, Somatório	Arcade, totale. 	L'Arcade, Total	El Arcade, Total	!LocalizeMe!	아케이드, 총	商场，总	
@@ -374,3 +374,8 @@ Xbox Live Account Needed	Xbox Live Account Needed	Xbox Live Account Needed	Xbox 
 You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	You must be signed in to access this feature.	
 You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	You must be be signed in to play.	
 Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	Sign In Required	
+Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	Are you sure you want to quit? Any unsaved progress will be lost.	
+Achievements	実績	Erfolge	Conquistas	Obiettivi	Succès	Logros	Достижения	도전 과제	成就 (achievement)	
+Leaderboards	ランキング	Bestenlisten	Placares de Líderes	Classifiche	Classements	Marcadores	Списки лидеров	순위표	排行榜	
+Resume Game	ゲームに戻る	Spiel fortsetzen	Continuar Jogo	Riprendi gioco	Reprendre le jeu	Reanudar juego	Продолжить игру	게임 계속하기	继续游戏	
+Play Game	スタート	Start	Iniciar	Start	Commencer	Comenzar	Старт	출발	开始	

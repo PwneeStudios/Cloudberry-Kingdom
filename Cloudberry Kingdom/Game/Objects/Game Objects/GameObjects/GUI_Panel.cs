@@ -431,9 +431,12 @@ namespace CloudberryKingdom
 			base.ReleaseBody();
 
 			if (MyMenu != null) MyMenu.Release(); MyMenu = null;
-			MyPile = null;
+			if (MyPile != null) MyPile.Release(); MyPile = null;
 
 			Caller = null;
+
+			if (Pos != null) Pos.Release(); Pos = null;
+			OnOutsideClick = null;
 		}
 
         public void PauseAnimation() { Pos.Playing = false; }

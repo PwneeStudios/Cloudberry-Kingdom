@@ -15,6 +15,9 @@ namespace CloudberryKingdom
 
         public static void WriteToLeaderboard(ScoreEntry score)
         {
+            Tools.Warning();
+            return;
+
 #if XDK
             if (Gamer.SignedInGamers.Count == 0) return;
 
@@ -36,7 +39,7 @@ namespace CloudberryKingdom
                 if (leaderboardWriter != null)
                 {
                     LeaderboardEntry leaderboardEntry =
-                        leaderboardWriter.GetLeaderboard(LeaderboardIdentity.Create(LeaderboardKey.BestScoreLifeTime, GetLeaderboardId(score.GameId)));
+                        leaderboardWriter.GetLeaderboard(LeaderboardIdentity.Create( LeaderboardKey.BestScoreLifeTime, GetLeaderboardId(score.GameId)));
                     leaderboardEntry.Rating = score.Value;
                 }
             }
@@ -68,6 +71,10 @@ namespace CloudberryKingdom
 #if !XDK
 			return;
 #endif
+
+            Tools.Warning();
+            return;
+
 
             MyId = GetLeaderboardId(game_id);
             Above = new List<ScoreEntry>();
@@ -108,6 +115,7 @@ namespace CloudberryKingdom
         LeaderboardReader leaderboardReader;
         LeaderboardIdentity GetIdentity(int id)
         {
+            //return LeaderboardIdentity.Create((LeaderboardKey)STATS_VIEW_ESCALATION_CLASSIC, id);
             return LeaderboardIdentity.Create(LeaderboardKey.BestScoreLifeTime, id);
         }
     }

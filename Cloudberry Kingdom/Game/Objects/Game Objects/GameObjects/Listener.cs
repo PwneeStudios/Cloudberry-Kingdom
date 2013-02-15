@@ -15,11 +15,13 @@ namespace CloudberryKingdom
 
         public Listener(ControllerButtons button, Action action)
         {
-            if (button == ControllerButtons.A)
+#if PC_VERSION
+            if (button == ControllerButtons.A || button == ControllerButtons.Any)
             {
                 if (MyButton2 == null) MyButton2 = new ButtonClass();
                 MyButton2.Set(ControllerButtons.Enter);
             }
+#endif
 
             Active = true;
             PauseOnPause = false;
@@ -41,6 +43,13 @@ namespace CloudberryKingdom
         /// If true the listener is removed immediately after it activates
         /// </summary>
         public bool RemoveAfterActivation = false;
+
+		protected override void ReleaseBody()
+		{
+			base.ReleaseBody();
+
+			MyAction = null;
+		}
 
         public virtual void Activate()
         {
@@ -64,7 +73,9 @@ namespace CloudberryKingdom
             // Listen
              //WARNING
             //if (true)
-            if (MyType == Type.OnDown &&
+            if (MyButton == ControllerButtons.Any && MyType == Type.OnPressed && ButtonCheck.AnyKey()
+				||
+				MyType == Type.OnDown &&
                     (ButtonCheck.State(MyButton, Control).Down || ButtonCheck.State(MyButton2, Control).Down)
                 ||
                (MyType == Type.OnPressed &&

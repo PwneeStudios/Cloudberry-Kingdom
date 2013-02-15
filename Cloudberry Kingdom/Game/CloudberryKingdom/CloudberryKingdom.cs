@@ -95,7 +95,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = true;
+        public static bool Unlock_Levels = false;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
@@ -169,6 +169,9 @@ namespace CloudberryKingdom
 		public static void SetPresence(Presence presence)
 		{
 			CurrentPresence = presence;
+
+            Tools.Warning();
+            return;
 
 #if XBOX
 			GamerPresenceMode Mode;
@@ -1034,13 +1037,26 @@ namespace CloudberryKingdom
 #endif
         }
 
-        /// <summary>
-        /// The main draw loop.
-        /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
-        /// Also updates the game logic. TODO: Seperate this from the draw function?
-        /// </summary>
-        /// <param name="gameTime"></param>
-        public void Draw(GameTime gameTime)
+		bool DisconnectedController()
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !Tools.GamepadState[i].IsConnected)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// The main draw loop.
+		/// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
+		/// Also updates the game logic. TODO: Seperate this from the draw function?
+		/// </summary>
+		/// <param name="gameTime"></param>
+		public void Draw(GameTime gameTime)
         {
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
@@ -1080,6 +1096,10 @@ namespace CloudberryKingdom
             {
                 _ShowError();
             }
+			else if (DisconnectedController())
+			{
+				return;
+			}
 #endif
 
             // What to do

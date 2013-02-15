@@ -672,6 +672,11 @@ Err_MustBeSignedInToLive_Header,
 Err_MustBeSignedIn,
 Err_MustBeSignedInToPlay,
 Err_MustBeSignedIn_Header,
+Err_QuitForSure,
+Achievements,
+Leaderboards,
+ResumeGame,
+PlayGame,
 
 EnumLength
         };

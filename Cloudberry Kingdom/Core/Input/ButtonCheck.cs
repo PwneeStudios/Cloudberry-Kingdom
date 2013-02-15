@@ -126,7 +126,7 @@ namespace CloudberryKingdom
         }
     }
 
-    public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None };
+    public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any };
 
     public enum MashType { Hold, Tap, Alternate, HoldDir };
 

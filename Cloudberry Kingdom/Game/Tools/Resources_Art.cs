@@ -1,4 +1,4 @@
-﻿
+
 namespace CloudberryKingdom
 {
 	public class ArtList
@@ -163,7 +163,7 @@ Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartIcon", 0, 0, "CartIc
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartWheel", 0, 0, "CartWheel", "cartwheel", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Beard_Super", 0, 0, "Beard_Super", "beard_super", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Goatee_Black", 0, 0, "Goatee_Black", "goatee_black", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Moustache_Grey", 0, 0, "Moustache_Grey", "moustache_grey", "Bob");
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Moustache_Brown", 0, 0, "Moustache_Brown", "moustache_brown", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Wheelie\\Bob_Wheel_0000", 0, 0, "Bob_Wheel_0000", "bob_wheel_0000", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_A", 0, 0, "Xbox_A", "xbox_a", "Buttons");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_B", 0, 0, "Xbox_B", "xbox_b", "Buttons");
@@ -669,7 +669,6 @@ Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Slowmo", 0,
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\End", 0, 0, "End", "end", "Menu");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\Paused", 0, 0, "Paused", "paused", "Menu");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Bob_Dead", 0, 0, "Bob_Dead", "bob_dead", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\LevelCleared", 0, 0, "LevelCleared", "levelcleared", "Menu");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Score_Screen", 0, 0, "Score_Screen", "score_screen", "Menu");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Stopwatch_Black", 0, 0, "Stopwatch_Black", "stopwatch_black", "Menu");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\WidePlaque", 0, 0, "WidePlaque", "wideplaque", "Menu");

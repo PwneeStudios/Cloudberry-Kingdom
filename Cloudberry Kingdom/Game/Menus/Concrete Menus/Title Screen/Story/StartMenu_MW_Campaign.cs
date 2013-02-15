@@ -46,28 +46,25 @@ namespace CloudberryKingdom
 
             // Update level text
             int Level = PlayerManager.MaxPlayerTotalCampaignLevel() + 1;
-			bool ShowLevel = Level > 0;
-			//bool ShowLevel = false;
+			bool ShowLevel = Level > 1;
 
-			//string template_level = Localization.WordString(Localization.Words.Continue) + ", " +
-			//              Localization.WordString(Localization.Words.Level) + " {0}";
 			string template_level = Localization.WordString(Localization.Words.Continue);
 
 
 			MenuItem __item = MyMenu.FindItemByName("Continue");
 			if (__item != null)
 			{
-				if (Level < 1)
+				if (ShowLevel)
+				{
+					__item.Selectable = true;
+					__item.Show = true;
+				}
+				else
 				{
 					Level = 1;
 					__item.Selectable = false;
 					__item.Show = false;
 					MyMenu.SelectItem(1);
-				}
-				else
-				{
-					__item.Selectable = true;
-					__item.Show = true;
 				}
 
 				__item.MyText.SubstituteText(string.Format(template_level, Level));
@@ -170,6 +167,13 @@ namespace CloudberryKingdom
             CreateMenu();
 
             Update();
+
+			int Level = PlayerManager.MaxPlayerTotalCampaignLevel() + 1;
+			bool ShowLevel = Level > 1;
+			if (ShowLevel)
+				MyMenu.SelectItem(0);
+			else
+				MyMenu.SelectItem(1);
         }
 
         protected virtual void CreateMenu()
@@ -192,7 +196,7 @@ namespace CloudberryKingdom
 				AddItem(item);
 			}
 
-            MyMenu.SelectItem(0);
+			//MyMenu.SelectItem(0);
 
 
             // Level

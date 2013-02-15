@@ -157,7 +157,7 @@ namespace CloudberryKingdom
                         Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>
                         {
                             Listener PressA_Listener = null;
-                            PressA_Listener = new Listener(ControllerButtons.A, () =>
+                            PressA_Listener = new Listener(ControllerButtons.Any, () =>
                                  {
                                      Tools.CurGameData.FadeToBlack(.0275f);
                                      Tools.SongWad.FadeOut();
@@ -171,6 +171,7 @@ namespace CloudberryKingdom
                                          });
 
                                      PressA_Listener.Release();
+									 PressA_Listener.MyAction = null;
                                      if (PressA != null) PressA.Kill(true);
                                  });
                             PressA_Listener.PreventRelease = true;

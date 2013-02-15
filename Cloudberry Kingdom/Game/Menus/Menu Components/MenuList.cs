@@ -52,6 +52,20 @@ namespace CloudberryKingdom
             base.Release();
 
             MyMenuListExpand = null;
+
+			foreach (var _item in MyList)
+			{
+				_item.Release();
+			}
+			MyList = null;
+
+			AdditionalExpandProcessing = null;
+
+			RightArrow = null; LeftArrow = null;;
+			RightArrow_Selected = null; LeftArrow_Selected = null;;
+			OnIndexSelect = null; OnConfirmedIndexSelect = null;;
+			ObjDict = null;
+			CurMenuItem = null;
         }
 
         public List<MenuItem> MyList;

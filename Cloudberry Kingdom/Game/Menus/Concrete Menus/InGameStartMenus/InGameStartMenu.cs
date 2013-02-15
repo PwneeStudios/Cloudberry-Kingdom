@@ -97,11 +97,14 @@ namespace CloudberryKingdom
             MakeDarkBack();
 
             // Make the backdrop
-            QuadClass backdrop; 
-            if (UseSimpleBackdrop)
-                backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
-            else
-                backdrop = new QuadClass("Backplate_1080x840", 1500, true);
+            QuadClass backdrop;
+			if (UseSimpleBackdrop)
+				backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+			else
+			{
+				backdrop = new QuadClass("Backplate_1080x840", 1500, true);
+				EpilepsySafe();
+			}
 
             backdrop.Name = "Backdrop";
 
@@ -126,7 +129,14 @@ namespace CloudberryKingdom
             }
 
             // Resume
-            item = new MenuItem(new EzText(Localization.Words.Resume, ItemFont, CenterItems));
+            item = new MenuItem(new EzText(
+#if XBOX
+				Localization.Words.ResumeGame
+#else	
+				Localization.Words.Resume
+#endif
+				, ItemFont, CenterItems));
+
             item.Name = "Resume";
             item.Go = Cast.ToItem(ReturnToCaller);
             item.MyText.Scale *= 1.1f;
@@ -195,10 +205,13 @@ namespace CloudberryKingdom
 
         public override bool MenuReturnToCaller(Menu menu)
         {
-            MyLevel.ReplayPaused = true;
+			//if (Active)
+			//{
+			//    MyLevel.ReplayPaused = true;
 
-            HoldLevel = MyLevel;
-            MyGame.WaitThenDo(7, Unpause);
+			//    HoldLevel = MyLevel;
+			//    MyGame.WaitThenDo(17, Unpause);
+			//}
 
             return base.MenuReturnToCaller(menu);
         }

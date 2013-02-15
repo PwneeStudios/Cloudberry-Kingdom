@@ -56,7 +56,14 @@ namespace CloudberryKingdom
         }
 
 
-        QuadClass DarkBack;
+		protected void EpilepsySafe()
+		{
+			QuadClass _q;
+			_q = MyPile.FindQuad("Backdrop");	if (_q != null) { _q.Alpha = .8f; }
+			_q = DarkBack;						if (_q != null) { _q.Quad.SetColor(ColorHelper.GrayColor(.1f)); }
+		}
+
+        protected QuadClass DarkBack;
         protected void MakeDarkBack()
         {
             // Make the dark back
@@ -326,6 +333,14 @@ namespace CloudberryKingdom
 
             if (TopPanel != null) TopPanel.Release();
             if (RightPanel != null) RightPanel.Release();
+
+			if (zoom != null) zoom.Release(); zoom = null;
+			if (DarkBack != null) DarkBack.Release(); DarkBack = null;
+
+			SelectSound = null; BackSound = null;
+			ItemFont = null;
+			_RightPanel = null; _TopPanel = null;
+			MenuTemplate = null;
         }
 
         public PresetPos SlideInFrom = PresetPos.Left;
