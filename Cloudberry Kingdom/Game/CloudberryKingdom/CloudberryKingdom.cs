@@ -115,10 +115,56 @@ namespace CloudberryKingdom
 			return true;
 		}
 
+		public static bool CanSave(PlayerIndex index)
+		{
+			if (!CanSave()) return false;
+
+			if (EzStorage.Device[(int)index] == null) return false;
+
+			if (EzStorage.Device[(int)index].IsReady) return true;
+
+			return false;
+		}
+
+		public static void ShowError_CanNotSaveNoDevice()
+		{
+			ShowError(Localization.Words.Err_StorageDeviceRequired, Localization.Words.Err_NoSaveDevice, Localization.Words.Err_Ok, null);
+		}
+
+
 		public static bool ProfilesAvailable()
 		{
 			return Gamer.SignedInGamers.Count > 0;
 		}
+
+#if XBOX
+        public static SignedInGamer IndexToSignedInGamer(PlayerIndex index)
+        {
+            var gamers = Gamer.SignedInGamers;
+
+            if (gamers.Count == 0) return null;
+
+            foreach (var gamer in gamers)
+            {
+                if (gamer.IsSignedInToLive && gamer.PlayerIndex == index) return gamer;
+            }
+
+            return null;
+        }
+#endif
+
+        public static bool OnlineFunctionalityAvailable(PlayerIndex index)
+        {
+#if XDK
+            var gamer = IndexToSignedInGamer(index);
+
+            if (gamer == null) return false;
+
+            return true;
+#else
+			return true;
+#endif
+        }
 
 		public static bool OnlineFunctionalityAvailable()
         {
@@ -131,15 +177,6 @@ namespace CloudberryKingdom
             {
                 if (gamer.IsSignedInToLive) return true;
             }
-
-            //// Check if anyone is signed in to xbox live. If not then online functionality is not available.
-            //List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
-            //foreach (PlayerData player in CopyOfExistingPlayers)
-            //{
-            //    var gamer = player.MyGamer;
-            //    if (gamer != null && !gamer.IsSignedInToLive)
-            //        return false;
-            //}
 
 			return false;
 #else
@@ -170,22 +207,19 @@ namespace CloudberryKingdom
 		{
 			CurrentPresence = presence;
 
-            Tools.Warning();
-            return;
-
-#if XBOX
-			GamerPresenceMode Mode;
+#if XDK
+			string Mode;
 
 			switch (CurrentPresence)
 			{
-				case Presence.TitleScreen: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.Escalation: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.TimeCrisis: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.HeroRush: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.HeroRush2: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.Campaign: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				case Presence.Freeplay: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
-				default: Mode = Microsoft.Xna.Framework.GamerServices.GamerPresenceMode.AtMenu; break;
+				case Presence.TitleScreen: Mode = "TitleScreen"; break;
+				case Presence.Escalation: Mode = "Escalation"; break;
+				case Presence.TimeCrisis: Mode = "TimeCrisis"; break;
+				case Presence.HeroRush: Mode = "HeroRush"; break;
+				case Presence.HeroRush2: Mode = "HeroRush2"; break;
+				case Presence.Campaign: Mode = "Campaign"; break;
+				case Presence.Freeplay: Mode = "Freeplay"; break;
+				default: Mode = "TitleScreen"; break;
 			}
 
 			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
@@ -194,12 +228,19 @@ namespace CloudberryKingdom
 				SignedInGamer sig = player.MyGamer;
 				if (sig != null && player.MyGamer.IsSignedInToLive)
 				{
-					player.MyGamer.Presence.PresenceMode = Mode;
+                    player.MyGamer.Presence.SetPresenceModeString(Mode);
 				}
 			}
+#else
+            Tools.Warning();
+            return;
 #endif
 		}
 
+#if XBOX
+		static bool GuideTrialStateRetrieved = false;
+		static bool IsTrial = false;
+#endif
         public static bool FakeDemo = false;
         public static bool IsDemo
         {
@@ -208,8 +249,10 @@ namespace CloudberryKingdom
 				if (FakeDemo) return true;
 
 #if XBOX
-                return Guide.IsTrialMode;
+				if (!GuideTrialStateRetrieved)
+					IsTrial = Guide.IsTrialMode;
 
+				return IsTrial;
 #else
                 return false;
 #endif
@@ -547,6 +590,8 @@ namespace CloudberryKingdom
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
+            if (Tools.CurGameData == null) return;
+
             int index = (int)e.Gamer.PlayerIndex;
 
             if (EzStorage.Device[index] != null)
@@ -572,6 +617,8 @@ namespace CloudberryKingdom
 
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
+            if (Tools.CurGameData == null) return;
+
             if (EzStorage.Device[(int)e.Gamer.PlayerIndex] != null)
                 Tools.GameClass.Components.Remove(EzStorage.Device[(int)e.Gamer.PlayerIndex]);
 
@@ -580,11 +627,22 @@ namespace CloudberryKingdom
 
             PlayerData data = new PlayerData();
             data.Init(Index);
+            data.Exists = true;
             PlayerManager.Players[Index] = data;
 
             if (!CanSave()) return;
 
             SaveGroup.LoadGamer(data);
+
+            if (CurrentPresence == Presence.TitleScreen)
+            {
+                // Nothing extra to do
+            }
+            else
+            {
+                // Otherwise we're in a game and should return to the title screen
+                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+            }
         }
 #endif
 
@@ -650,10 +708,7 @@ namespace CloudberryKingdom
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
 
 
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
-#endif
+            HookSignInAndOut();
 
             // Load resource thread
             Resources.LoadResources();
@@ -664,6 +719,14 @@ namespace CloudberryKingdom
 
             if (!HideLogos)
                 MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+        }
+
+        void HookSignInAndOut()
+        {
+#if NOT_PC && (XBOX || XBOX_SIGNIN)
+            SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+            SignedInGamer.SignedOut += new EventHandler<SignedOutEventArgs>(SignedInGamer_SignedOut);
+#endif
         }
 
         protected void UnloadContent()
@@ -732,6 +795,15 @@ namespace CloudberryKingdom
 
         protected void GodModePhxs()
         {
+            // Write to leaderboard
+            Tools.Warning();
+            if (ButtonCheck.State(ControllerButtons.RJ, -2).Down && ButtonCheck.State(ControllerButtons.LS, -2).Pressed)
+            {
+                var se = new ScoreEntry(null, 0, 100, 200, 300, 400, 500, 600);
+                Leaderboard.WriteToLeaderboard(se);
+            }
+
+
             // Give 100,000 points to each player
 #if PC
             if (Tools.Keyboard.IsKeyDownCustom(Keys.I) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.I))
@@ -997,6 +1069,11 @@ namespace CloudberryKingdom
 
         static bool ShowErrorMessage;
 
+		public static void ShowError_LoadError()
+		{
+			ShowError(Localization.Words.Err_CorruptLoadHeader, Localization.Words.Err_CorruptLoad, Localization.Words.Err_Ok, null);
+		}
+
 		public static void ShowError_MustBeSignedIn(Localization.Words word)
 		{
 			ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
@@ -1025,7 +1102,7 @@ namespace CloudberryKingdom
         {
             ShowErrorMessage = false;
 
-#if XDK
+#if XDK || XBOX
             try
             {
                 Guide.BeginShowMessageBox(Localization.WordString(Err_Header), Localization.WordString(Err_Text), Err_Options,
@@ -1049,6 +1126,41 @@ namespace CloudberryKingdom
 
 			return false;
 		}
+
+        static bool ShowGamer;
+        static PlayerIndex ShowGamer_Index;
+        static Gamer ShowGamer_Gamer;
+        public static void ShowGamerCard(PlayerIndex player, Gamer gamer)
+        {
+            ShowGamer = true;
+            ShowGamer_Index = player;
+            ShowGamer_Gamer = gamer;
+        }
+
+        void BeginShowGamer()
+        {
+            ShowGamer = false;
+            if (ShowGamer_Gamer == null) return;
+
+            Guide.ShowGamerCard(ShowGamer_Index, ShowGamer_Gamer);
+        }
+
+		public static bool SuperPause
+		{
+			get
+			{
+				return SmallErrorMessage != null;
+			}
+		}
+        static SmallErrorMenu SmallErrorMessage;
+        static void ShowSmallError()
+        {
+            if (SmallErrorMessage != null) return;
+			if (Tools.CurGameData == null) return;
+
+            SmallErrorMessage = new SmallErrorMenu(Localization.Words.KnightHelmet);
+			Tools.CurGameData.AddGameObject(SmallErrorMessage);
+        }
 
 		/// <summary>
 		/// The main draw loop.
@@ -1096,10 +1208,24 @@ namespace CloudberryKingdom
             {
                 _ShowError();
             }
-			else if (DisconnectedController())
-			{
-				return;
-			}
+            else if (ShowGamer)
+            {
+                BeginShowGamer();
+            }
+            else if (DisconnectedController())
+            {
+                ShowSmallError();
+                //ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+                //return;
+            }
+            else
+            {
+                if (SmallErrorMessage != null)
+                {
+                    SmallErrorMessage.ReturnToCaller(true);
+                    SmallErrorMessage = null;
+                }
+            }
 #endif
 
             // What to do

@@ -165,7 +165,10 @@ namespace CloudberryKingdom
             MyPile.Add(BlackQuad);
 
             Legal = new EzText(
-@"{pCopyRightSymbol,78,?} 2013 by Pwnee Studios, Corp. All Rights Reserved.Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.", Resources.Font_Grobold42, 10000, false, false, .66f);
+@"{pCopyRightSymbol,78,?} 2013 by Pwnee Studios, Corp. All Rights Reserved.
+Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.
+Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.
+Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.", Resources.Font_Grobold42, 10000, false, false, .66f);
 
             Legal.MyFloatColor = ColorHelper.Gray(.9f);
 

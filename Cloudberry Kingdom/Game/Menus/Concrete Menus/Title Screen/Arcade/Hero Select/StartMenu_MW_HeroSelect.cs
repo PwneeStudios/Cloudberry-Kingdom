@@ -340,6 +340,7 @@ namespace CloudberryKingdom
                     }
                     else
                     {
+						item.Selectable = true;
                         item.MyText.Alpha = 1f;
                         item.MySelectedText.Alpha = 1f;
                         NumSelectableItems++;

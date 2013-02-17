@@ -63,15 +63,15 @@ namespace CloudberryKingdom
             else
                 type = Tools.CurGameData.DefaultHeroType;
 
-            if (type is BobPhsxSpaceship)
-            {
-                TextObject = new EzText("?", Resources.Font_Grobold42, true, true);
-                CkColorHelper._x_x_HappyBlueColor(TextObject);
-                TextObject.Scale *= 1.25f;
-                TextObject.FixedToCamera = true;
-                TextObject._Pos = new Vector2(11, 170);
-            }
-            else
+            //if (type is BobPhsxSpaceship)
+            //{
+            //    TextObject = new EzText("?", Resources.Font_Grobold42, true, true);
+            //    CkColorHelper._x_x_HappyBlueColor(TextObject);
+            //    TextObject.Scale *= 1.25f;
+            //    TextObject.FixedToCamera = true;
+            //    TextObject._Pos = new Vector2(11, 170);
+            //}
+            //else
             {
                 CenterObject = new ObjectClass(type.Prototype.PlayerObject, false, false);
 

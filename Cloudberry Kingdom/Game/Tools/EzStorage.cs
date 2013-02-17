@@ -214,6 +214,7 @@ namespace CloudberryKingdom
                 catch
                 {
                     Fail();
+					CloudberryKingdomGame.ShowError_LoadError();
                 }
             });
         }

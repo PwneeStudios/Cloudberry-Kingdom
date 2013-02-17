@@ -477,6 +477,8 @@ namespace CloudberryKingdom
 
         public static ButtonData State(ButtonClass Button, int iPlayerIndex)
         {
+			if (CloudberryKingdomGame.SuperPause) return new ButtonData();
+
             if (Button == null)
                 return State(ControllerButtons.None, iPlayerIndex);
 
@@ -536,6 +538,8 @@ namespace CloudberryKingdom
         public static ButtonData State(ControllerButtons Button, int iPlayerIndex, bool UseKeyboardMapping) { return GetState(Button, iPlayerIndex, false, UseKeyboardMapping); }
         static ButtonData GetState(ControllerButtons Button, int iPlayerIndex, bool Prev, bool UseKeyboardMapping)
         {
+			if (CloudberryKingdomGame.SuperPause) return new ButtonData();
+
             // Debug tool: Use this to set the keyboard for use by player 1/2/3/4
             bool SingleOutPlayer = false;
             int ThisPlayerOnly = 1;

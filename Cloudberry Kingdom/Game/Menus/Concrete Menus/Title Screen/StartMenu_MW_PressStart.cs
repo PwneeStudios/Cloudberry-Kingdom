@@ -91,6 +91,7 @@ namespace CloudberryKingdom
                                 SaveGroup.LoadGamers();
                             }
 #endif
+                            Hide();
                             MyGame.WaitThenDo(5, CallMenu);
                             return;
                         }

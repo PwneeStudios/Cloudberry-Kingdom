@@ -31,9 +31,9 @@ namespace CloudberryKingdom
 
 		public override void Start(int StartLevel)
 		{
-			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TimeCrisis);
-
 			base.Start(StartLevel);
+
+            CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TimeCrisis);
 		}
     }
 }

@@ -122,6 +122,7 @@ namespace CloudberryKingdom
 			else
 			{
 				Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+				Tools.SongWad.Shuffle();
 				WaitThenPlay(level.MyGame, 40, MySong);
 			}
         }

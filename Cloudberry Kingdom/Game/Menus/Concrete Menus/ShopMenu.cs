@@ -14,16 +14,23 @@ namespace CloudberryKingdom
 	public class SmallErrorMenu : VerifyBaseMenu
 	{
 		Localization.Words Word;
-		public SmallErrorMenu(Localization.Words Word, int Control)
+		public SmallErrorMenu(Localization.Words Word)
 			: base(false)
 		{
 			this.Word = Word;
 
 			EnableBounce();
 
-			this.Control = Control;
+			this.Control = -1;
+
+            PauseLevel = true;
+            PauseGame = true;
 
 			Constructor();
+
+			MyMenu.OnB = null;
+
+			Core.DrawLayer++;
 		}
 
 		public override void MakeBackdrop()
@@ -37,7 +44,7 @@ namespace CloudberryKingdom
 			MyPile.Add(Backdrop, "ArcadeBox");
 			MyPile.Pos = new Vector2(0, -800);
 
-			base.MakeBackdrop();
+			//base.MakeBackdrop();
 		}
 
 		QuadClass Black;
@@ -63,13 +70,15 @@ namespace CloudberryKingdom
 
 		void SetPos()
 		{
+			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
+
 			EzText _t;
 			_t = MyPile.FindEzText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
 
 			QuadClass _q;
-			_q = MyPile.FindQuad("ArcadeBox"); if (_q != null) { _q.Pos = new Vector2(4.763306f, 0f); _q.Size = new Vector2(919.4252f, 163.4914f); }
+			_q = MyPile.FindQuad("ArcadeBox"); if (_q != null) { _q.Pos = new Vector2(10.31873f, -11.11108f); _q.Size = new Vector2(1123.342f, 176.4081f); }
 
-			MyPile.Pos = new Vector2(36.11108f, 827.7778f);
+			MyPile.Pos = new Vector2(72.22217f, 36.11115f);
 		}
 	}
 	

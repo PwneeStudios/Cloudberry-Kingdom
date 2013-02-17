@@ -153,9 +153,13 @@ namespace CloudberryKingdom
 
         void MenuGo_Leaderboards(MenuItem item)
         {
-            if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+            if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
             {
-                Call(new LeaderboardGUI(Title, 0), 0);
+                var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
+                if (gamer != null)
+                {
+                    Call(new LeaderboardGUI(Title, gamer), 0);
+                }
             }
             else
             {
@@ -165,7 +169,9 @@ namespace CloudberryKingdom
 
         void MenuGo_Achievements(MenuItem item)
         {
-			if (CloudberryKingdomGame.ProfilesAvailable())
+            if (MenuItem.ActivatingPlayer < 0 || MenuItem.ActivatingPlayer > 3) return;
+
+            if (PlayerManager.Get(MenuItem.ActivatingPlayer).MyGamer != null)
 			{
 				CloudberryKingdomGame.ShowAchievements = true;
 				CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
@@ -174,16 +180,6 @@ namespace CloudberryKingdom
 			{
 				CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
 			}
-
-			//if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
-			//{
-			//    CloudberryKingdomGame.ShowAchievements = true;
-			//    CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
-			//}
-			//else
-			//{
-			//    CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedIn);
-			//}
         }
 
         void MenuGo_BuyGame(MenuItem item)

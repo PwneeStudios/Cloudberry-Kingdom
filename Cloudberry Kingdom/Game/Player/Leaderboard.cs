@@ -11,43 +11,62 @@ namespace CloudberryKingdom
 {
     public class Leaderboard
     {
-        public const int EntriesPerPage = 20;
+        public static SignedInGamer LeaderboardGamer;
+        public static List<Gamer> LeaderboardFriends;
 
+        //public const int EntriesPerPage = 20;
+        public const int EntriesPerPage = 4;
+
+        static NetworkSession WritingNetworkSession;
+        static ScoreEntry ScoreToWrite;
         public static void WriteToLeaderboard(ScoreEntry score)
         {
-            Tools.Warning();
-            return;
+            if (WritingNetworkSession != null) return;
+            if (WritingInProgress) return;
 
 #if XDK
             if (Gamer.SignedInGamers.Count == 0) return;
 
-            // Write
-            NetworkSession networkSession = NetworkSession.Create(
-                NetworkSessionType.LocalWithLeaderboards, 4, 4);
+            ScoreToWrite = score;
 
-            networkSession.StartGame();
-            while (networkSession.SessionState == NetworkSessionState.Lobby)
-                networkSession.Update();
+            // Async write
+            WritingInProgress = true;
+            NetworkSession.BeginCreate(NetworkSessionType.LocalWithLeaderboards, 4, 4, OnSessionCreate, null);
+#endif
+        }
 
-            foreach (LocalNetworkGamer localNetworkGamer in networkSession.LocalGamers)
+        static bool WritingInProgress = true;
+        static void OnSessionCreate(IAsyncResult ar)
+        {
+            WritingNetworkSession = NetworkSession.EndCreate(ar);
+
+            if (WritingNetworkSession == null) { WritingInProgress = false; return; }
+
+            WritingNetworkSession.StartGame();
+            while (WritingNetworkSession.SessionState == NetworkSessionState.Lobby)
+                WritingNetworkSession.Update();
+
+            foreach (LocalNetworkGamer localNetworkGamer in WritingNetworkSession.LocalGamers)
             {
                 if (localNetworkGamer.SignedInGamer == null || !localNetworkGamer.SignedInGamer.IsSignedInToLive) continue;
 
-                LeaderboardWriter leaderboardWriter =
-                    localNetworkGamer.LeaderboardWriter;
+                LeaderboardWriter leaderboardWriter = localNetworkGamer.LeaderboardWriter;
 
                 if (leaderboardWriter != null)
                 {
-                    LeaderboardEntry leaderboardEntry =
-                        leaderboardWriter.GetLeaderboard(LeaderboardIdentity.Create( LeaderboardKey.BestScoreLifeTime, GetLeaderboardId(score.GameId)));
-                    leaderboardEntry.Rating = score.Value;
+                    LeaderboardEntry leaderboardEntry = leaderboardWriter.GetLeaderboard(GetIdentity(ScoreToWrite.GameId));
+                    leaderboardEntry.Rating = ScoreToWrite.Value;
                 }
             }
 
-            networkSession.EndGame();
-            networkSession.Update();
-#endif
+            WritingNetworkSession.EndGame();
+            WritingNetworkSession.Update();
+            WritingNetworkSession.Dispose();
+            
+            WritingNetworkSession = null;
+            WritingInProgress = false;
         }
+        
 
         public static int GetLeaderboardId(int game_id)
         {
@@ -55,68 +74,173 @@ namespace CloudberryKingdom
         }
 
         int MyId;
-        List<ScoreEntry> Above, Below;
 
-        public ScoreEntry GetEntry(int index)
-        {
-            if (index > 0)
-                return Below[index];
-            else
-                return Above[index];
-        }
-
-        IAsyncResult result;
+        static IAsyncResult result;
+        public LeaderboardGUI.LeaderboardType MySortType;
         public Leaderboard(int game_id)
         {
-#if !XDK
-			return;
-#endif
-
-            Tools.Warning();
-            return;
-
+#if XDK
+            Items = new Dictionary<int, LeaderboardItem>();
+            FriendItems = new List<LeaderboardItem>();
 
             MyId = GetLeaderboardId(game_id);
-            Above = new List<ScoreEntry>();
-            Below = new List<ScoreEntry>();
+#else
+			// Test
+			Items = new Dictionary<int, LeaderboardItem>();
+			FriendItems = new List<LeaderboardItem>();
+			MyId = GetLeaderboardId(game_id);
+			MoreRequested = false;
+			Updated = true;
+			result = null;
+			TotalSize = 10000;
+			StartIndex = 1;
+#endif
+        }
+
+        public void SetType(LeaderboardGUI.LeaderboardType type)
+        {
+            MySortType = type;
+
+            if (result != null) return;
+
+#if XDK
+            LeaderboardIdentity Identity = GetIdentity(MyId);
+
+            try
+            {
+                switch (MySortType)
+                {
+                    case LeaderboardGUI.LeaderboardType.TopScores:
+                        result = LeaderboardReader.BeginRead(Identity, 0, EntriesPerPage, OnInfo_TopScores, null);
+                        break;
+
+                    case LeaderboardGUI.LeaderboardType.MyScores:
+                        result = LeaderboardReader.BeginRead(Identity, LeaderboardGamer, EntriesPerPage, OnInfo_MyScores, null);
+                        break;
+
+                    case LeaderboardGUI.LeaderboardType.FriendsScores:
+                        if (FriendItems.Count == 0)
+                        {
+                            result = LeaderboardReader.BeginRead(Identity, LeaderboardFriends, LeaderboardGamer, 100, OnInfo_FriendScores, null);
+                        }
+                        break;
+                }
+            }
+            catch
+            {
+                Tools.Warning();
+            }
+#endif
+        }
+
+        void OnInfo_TopScores(IAsyncResult ar)
+        {
+            Update(LeaderboardGUI.LeaderboardType.TopScores, ar);
+        }
+
+        void OnInfo_MyScores(IAsyncResult ar)
+        {
+            Update(LeaderboardGUI.LeaderboardType.MyScores, ar);
+        }
+
+        void OnInfo_FriendScores(IAsyncResult ar)
+        {
+            Update(LeaderboardGUI.LeaderboardType.FriendsScores, ar);
+        }
+
+        bool MoreRequested = false;
+        int RequestPage;
+        public void RequestMore(int RequestPage)
+        {
+            if (MoreRequested || result != null) return;
+
+            this.MoreRequested = true;
+            this.RequestPage = RequestPage;
 
             LeaderboardIdentity Identity = GetIdentity(MyId);
-            //leaderboardReader
-			result = LeaderboardReader.BeginRead(Identity, 0, 10, OnInfo, null);
-            
-            //leaderboardReader.BeginPageDown(AsyncCallback, null);
+#if XDK
+			result = LeaderboardReader.BeginRead(Identity, RequestPage, EntriesPerPage, OnInfo_TopScores, null);
+#endif
         }
 
-        void OnInfo(IAsyncResult ar)
+        public bool Updated = false;
+        public int StartIndex = -1;
+        public int TotalSize = -1;
+
+        void Update(LeaderboardGUI.LeaderboardType Type, IAsyncResult ar)
         {
-            Tools.Warning();
-        }
-
-        void AsyncCallback(IAsyncResult ar)
-        {
-            leaderboardReader.EndPageDown(ar);
-        }
-
-        void Update()
-        {
-            if (result == null || !result.IsCompleted) return;
-
-            result = null;
-
-            foreach (LeaderboardEntry entry in leaderboardReader.Entries)
+#if XDK
+            //var reader = LeaderboardReader.EndRead(result);
+            LeaderboardReader reader;
+            try
             {
-                int val = (int)entry.Rating;
-                Gamer gamer = entry.Gamer;
-                
-                //entry.Columns["key"];
+                reader = LeaderboardReader.EndRead(ar);
             }
+            catch
+            {
+                result = null; return;
+            }
+
+            //if (result == null || !result.IsCompleted) return;
+            if (reader == null) { result = null; return; }
+
+            TotalSize = reader.TotalLeaderboardSize;
+
+            lock (Items)
+            {
+                int gamer_rank = -1;
+                foreach (LeaderboardEntry entry in reader.Entries)
+                {
+                    int rank = entry.GetRank();
+                    int val = (int)entry.Rating;
+                    Gamer gamer = entry.Gamer;
+                    var item = new LeaderboardItem(gamer, val, rank);
+
+                    if (Type == LeaderboardGUI.LeaderboardType.FriendsScores)
+                    {
+                        FriendItems.Add(item);
+                    }
+                    else
+                    {
+                        Items.AddOrOverwrite(rank, item);
+                    }
+
+                    if (gamer_rank == -1 || gamer.Gamertag == LeaderboardGamer.Gamertag)
+                        gamer_rank = rank;
+                }
+
+                MoreRequested = false;
+
+                Updated = true;
+
+                result = null;
+
+                switch (Type)
+                {
+                    case LeaderboardGUI.LeaderboardType.TopScores:
+                        StartIndex = 1;
+                        break;
+                    case LeaderboardGUI.LeaderboardType.MyScores:
+                        StartIndex = gamer_rank;
+                        break;
+                    case LeaderboardGUI.LeaderboardType.FriendsScores: 
+                        StartIndex = 1;
+                        TotalSize = FriendItems.Count;
+                        break;
+                    default: break;
+                }
+            }
+#endif
         }
 
-        LeaderboardReader leaderboardReader;
-        LeaderboardIdentity GetIdentity(int id)
+        public Dictionary<int, LeaderboardItem> Items;
+        public List<LeaderboardItem> FriendItems;
+
+        static LeaderboardIdentity GetIdentity(int id)
         {
-            //return LeaderboardIdentity.Create((LeaderboardKey)STATS_VIEW_ESCALATION_CLASSIC, id);
-            return LeaderboardIdentity.Create(LeaderboardKey.BestScoreLifeTime, id);
+            LeaderboardIdentity LID = new LeaderboardIdentity() { Key = "Escalation_Classic" };
+
+            return LID;
         }
     }
 }

@@ -137,11 +137,11 @@ namespace CloudberryKingdom
 
         public override void Start(int StartLevel)
         {
-			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.HeroRush2);
-
             ShuffleHeros();
 
             base.Start(StartLevel);
+
+            CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.HeroRush2);
         }
 
         protected override BobPhsx GetHero(int i)

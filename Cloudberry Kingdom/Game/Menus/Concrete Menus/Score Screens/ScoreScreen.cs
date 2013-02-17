@@ -55,6 +55,7 @@ namespace CloudberryKingdom
                     item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
                     item.Name = "Save";
                     item.Go = MenuGo_Save;
+					item.Selectable = CloudberryKingdomGame.CanSave();
                     AddItem(item);
                 }
 
@@ -432,6 +433,16 @@ namespace CloudberryKingdom
                 PlayerData player = MenuItem.GetActivatingPlayerData();
                 SaveLoadSeedMenu.MakeSave(this, player)(item);
                 Hide(PresetPos.Left);
+#elif XBOX
+				PlayerData player = MenuItem.GetActivatingPlayerData();
+				if (CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
+				{
+					SaveLoadSeedMenu.MakeSave(this, player)(item);
+				}
+				else
+				{
+					CloudberryKingdomGame.ShowError_CanNotSaveNoDevice();
+				}
 #else
 				PlayerData player = MenuItem.GetActivatingPlayerData();
 				SaveLoadSeedMenu.MakeSave(this, player)(item);

@@ -36,7 +36,8 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            AllowQuickJoin = true;
+            //AllowQuickJoin = true;
+            AllowQuickJoin = false;
             DefaultHeroType = LevelSeed.DefaultHeroType;
 
             if (!MakeInBackground)

@@ -303,10 +303,14 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-                if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+                if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
                 {
-                    Call(new LeaderboardGUI(null, 0), 0);
-                    Hide();
+                    var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
+                    if (gamer != null)
+                    {
+                        Call(new LeaderboardGUI(null, gamer), 0);
+                        Hide();
+                    }
                 }
                 else
                 {

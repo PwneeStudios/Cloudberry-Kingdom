@@ -293,17 +293,27 @@ namespace CloudberryKingdom
             }
             else
             {
+#if XBOX
+				PlayerData player = MenuItem.GetActivatingPlayerData();
+				if (!CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
+				{
+					CloudberryKingdomGame.ShowError_CanNotSaveNoDevice();
+					return;
+				}
+#endif
+
                 // If this isn't a PC, and we can't load seeds right now, then go directly to the SaveAs menu.
 #if !PC_VERSION
                 if (!MyLevel.CanLoadLevels)
                 {
-                    Call(new SaveSeedAs(Control, MenuItem.GetActivatingPlayerData()), 0);
+                    SaveLoadSeedMenu.MakeSave(this, player)(null);
+                    //Call(new SaveSeedAs(Control, MenuItem.GetActivatingPlayerData()), 0);
                 }
                 else
 #endif
                 {
 #if PC_VERSION
-                Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
+					Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #else
                     Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #endif

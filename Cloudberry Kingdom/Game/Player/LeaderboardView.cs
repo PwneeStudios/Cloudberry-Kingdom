@@ -16,7 +16,7 @@ namespace CloudberryKingdom
         public enum LeaderboardSortType { Score, Level, Length };
         public enum Message { None, Loading, NotRanked, NotRankedFriends, Length };
 
-        LeaderboardType CurrentType;
+        LeaderboardType CurrentType = LeaderboardType.TopScores;
         LeaderboardSortType CurrentSort;
         Message CurrentMessage;
 
@@ -53,14 +53,27 @@ namespace CloudberryKingdom
         const int SelectDelay = 18;
 
         public TitleGameData_MW Title;
-        public LeaderboardGUI(TitleGameData_MW Title, int StartIndex)
+        public LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer)
         {
+            ToMake_Id = -1;
+            DelayToMake = 0;
+
+            Leaderboard.LeaderboardGamer = LeaderboardGamer;
+            if (Leaderboard.LeaderboardGamer != null)
+            {
+                Leaderboard.LeaderboardFriends = new List<Gamer>();
+                Leaderboard.LeaderboardFriends.Add(LeaderboardGamer);
+                Leaderboard.LeaderboardFriends.AddRange(Leaderboard.LeaderboardGamer.GetFriends());
+            }
+
+            Control = -1;
+
             EnableBounce();
 
             SetIndex(0);
 
-            CurrentType = LeaderboardType.FriendsScores;
-            CurrentSort = LeaderboardSortType.Level;
+            CurrentType = LeaderboardType.TopScores;
+            CurrentSort = LeaderboardSortType.Score;
             CurrentMessage = Message.None;
 
             DelayCount_LeftRight = MotionCount_LeftRight = 0;
@@ -88,10 +101,10 @@ namespace CloudberryKingdom
             Right.Alpha = 1f;
             MyPile.Add(Right, "BoxRight");
 
-            var Header = new EzText("Top Scores", ItemFont);
+            var Header = new EzText("__Dummy__", ItemFont);
             MyPile.Add(Header, "Header");
 
-            var GameTitle = new EzText("Escalation, Classic", ItemFont);
+            var GameTitle = new EzText("__Dummy__", ItemFont);
             MyPile.Add(GameTitle, "GameTitle");
 
             Highlight = new HsvQuad();
@@ -143,11 +156,14 @@ if (ButtonCheck.ControllerInUse)
             MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_ViewGamer"));
             item.Selectable = false;
 }
+else
+{
             item.Go = Cast.ToItem(ViewGamer);
+}
             MyMenu.OnA = Cast.ToMenu(ViewGamer);
 
             // Switch View
-            item = new MenuItem(new EzText(Localization.Words.FriendsScores, ItemFont));
+            item = new MenuItem(new EzText("__Dummy__", ItemFont));
             item.Name = "SwitchView";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -160,17 +176,25 @@ if (ButtonCheck.ControllerInUse)
             MyMenu.OnY = SwitchView;
 
             // Switch Sort
-            item = new MenuItem(new EzText(Localization.Words.SortByScore, ItemFont));
+			bool ShowSortOption = false;
+            item = new MenuItem(new EzText("__Dummy__", ItemFont));
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
 if (ButtonCheck.ControllerInUse)
 {
-            MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchSort"));
+			if (ShowSortOption)
+			{
+				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchSort"));
+			}
             item.Selectable = false;
 }
-            item.Go = Cast.ToItem(SwitchSort);
+            item.Go = Cast.ToItem(ViewGamer);
             MyMenu.OnX = Cast.ToMenu(SwitchSort);
+			if (!ShowSortOption)
+			{
+				item.Show = false; item.Selectable = false;
+			}
 
             // Back
 if (ButtonCheck.ControllerInUse)
@@ -192,6 +216,8 @@ if (ButtonCheck.ControllerInUse)
 {
 			MyMenu.NoneSelected = true;
 }
+
+            UpdateView();
         }
 
         EzText LoadingText, NotRanked, NotRankedFriends;
@@ -208,7 +234,7 @@ if (ButtonCheck.ControllerInUse)
 
                 int Delay = 12;
                 int Total = 70;
-                if      (LoadingCount % Total == 0)         LoadingText.SubstituteText(LoadingStr0);
+                if      (LoadingCount % Total == 0)             LoadingText.SubstituteText(LoadingStr0);
                 else if (LoadingCount % Total == 1 * Delay + 4) LoadingText.SubstituteText(LoadingStr1);
                 else if (LoadingCount % Total == 2 * Delay + 4) LoadingText.SubstituteText(LoadingStr2);
                 else if (LoadingCount % Total == 3 * Delay + 4) LoadingText.SubstituteText(LoadingStr3);
@@ -240,6 +266,8 @@ if (ButtonCheck.ControllerInUse)
                     else
                         CurrentMessage = Message.NotRanked;
                 }
+                else
+                    CurrentMessage = Message.None;
             }
 
             UpdateLoadingText();
@@ -250,6 +278,7 @@ if (ButtonCheck.ControllerInUse)
 
         void ViewGamer()
         {
+            CurrentView.ViewGamer();
         }
 
         LeaderboardType Incr(LeaderboardType type)
@@ -264,8 +293,12 @@ if (ButtonCheck.ControllerInUse)
 
         void SwitchView()
         {
+            if (CurrentView != null && CurrentView.Loading) return;
+
             CurrentType = Incr(CurrentType);
             UpdateView();
+
+            CurrentView.SetType(CurrentType);
         }
 
         void SwitchSort()
@@ -312,7 +345,11 @@ if (ButtonCheck.ControllerInUse)
 
             MyPile.FindEzText("GameTitle").SubstituteText(Name);
 
-            CurrentView = new LeaderboardView(Id);
+            if (CurrentView == null)
+                CurrentView = new LeaderboardView(Id, CurrentType);
+            else
+                ToMake_Id = Id;
+
         }
 
         public void ChangeLeaderboard(int Direction)
@@ -360,9 +397,23 @@ if (ButtonCheck.ControllerInUse)
         public static QuadClass TL, Offset_GamerTag, Offset_Val, ItemShift;
         public static HsvQuad Highlight;
 
+        int ToMake_Id = -1;
+        int DelayToMake = 0;
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
+
+            if (DelayToMake > 0)
+            {
+                DelayToMake--;
+            }
+            else if (ToMake_Id >= 0)
+            {
+                CurrentView = new LeaderboardView(ToMake_Id, CurrentType);
+                ToMake_Id = -1;
+                DelayToMake = 25;
+            }
 
             // Get direction input
             Vector2 Dir = Vector2.Zero;
@@ -378,6 +429,9 @@ if (ButtonCheck.ControllerInUse)
 
             if (Dir.Length() < .2f)
                 DelayCount_LeftRight = 0;
+
+            if (Math.Abs(Dir.X) < .75f)
+                Dir.X = 0;
 
             // Left and right
             if (ButtonCheck.State(ControllerButtons.LS, Control).Pressed)
@@ -414,9 +468,26 @@ if (ButtonCheck.ControllerInUse)
             base.MyDraw();
 
             UpdateMessages();
-            
+
             if (CurrentMessage == Message.None)
+            {
+                // Zoom camera as needed for bounce effect
+                Vector2 v = zoom.Update();
+                MasterAlpha = v.X * v.X;
+
+                MyGame.Cam.Zoom = .001f * v;
+                MyGame.Cam.SetVertexCamera();
+
+                // Draw the scores
                 CurrentView.Draw(TL.Pos + Pos.AbsVal, MasterAlpha);
+
+                Tools.QDrawer.Flush();
+
+                // Revert camera
+                MyGame.Cam.Zoom = new Vector2(.001f);
+                MyGame.Cam.SetVertexCamera();
+                EzText.ZoomWithCamera_Override = false;
+            }
         }
 
         void SetPos()
@@ -442,7 +513,7 @@ if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
 			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
 			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
-			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
@@ -474,7 +545,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italia
 			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
 			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
 			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
-			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
@@ -506,7 +577,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French
 			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
 			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
 			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
-			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
@@ -538,7 +609,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanis
 			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
 			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
 			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
-			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
@@ -570,7 +641,7 @@ else
 			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
 			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, -921.1119f); _q.Size = new Vector2(1005.093f, 49.08278f); }
 			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
-			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(5697.219f, -580.5558f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 			_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
@@ -590,6 +661,7 @@ else
         public string GamerTag;
         public string Val;
         public string Rank;
+		public float scale;
 
         public static LeaderboardItem DefaultItem = new LeaderboardItem(null, 0, 0);
 
@@ -600,13 +672,21 @@ else
 
             if (Player == null)
             {
-                this.GamerTag = Localization.WordString(Localization.Words.Loading) + "...";
+				this.GamerTag = Localization.WordString(Localization.Words.Loading) + "...";
                 this.Val = "...";
+
+                scale = 1;
             }
             else
             {
                 this.GamerTag = Player.Gamertag;
                 this.Val = Val.ToString();
+
+                float width = Tools.QDrawer.MeasureString(Resources.Font_Grobold42.HFont, GamerTag).X;
+                if (width > 850)
+                    scale = 850 / width;
+                else
+                    scale = 1;
             }
         }
 
@@ -626,26 +706,28 @@ else
             
             color *= alpha;
 
-            Vector2 GamerTag_Offset = .1f * new Vector2(LeaderboardGUI.Offset_GamerTag.Pos.X, 0);
+            Vector2 GamerTag_Offset = .1f * new Vector2(LeaderboardGUI.Offset_GamerTag.Pos.X,
+										-(1 - scale) * 1000);
             Vector2 Val_Offset = .1f * new Vector2(LeaderboardGUI.Offset_Val.Pos.X, 0);
             Vector2 Size = .1f * new Vector2(LeaderboardGUI.ItemShift.SizeX);
 
             if (Selected)
             {
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Rank, Pos, ocolor, Size);
-                Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, Size);
+				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, scale * Size);
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Val, Pos + Val_Offset, ocolor, Size);
             }
 
             Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, Rank, Pos, color, Size);
-            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, GamerTag, Pos + GamerTag_Offset, color, Size);
+			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, GamerTag, Pos + GamerTag_Offset, color, scale * Size);
             Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, Val, Pos + Val_Offset, color, Size);
         }
     }
 
     public class LeaderboardView
     {
-        const int EntriesPerPage = 19;
+        //const int EntriesPerPage = 19;
+        const int EntriesPerPage = 3;
         public int TotalEntries;
 
         public bool Loading;
@@ -654,28 +736,34 @@ else
         int Start;
         int End() { return CoreMath.Restrict(0, TotalEntries, Start + EntriesPerPage); }
 
-        Dictionary<int, LeaderboardItem> Items;
+        Dictionary<int, LeaderboardItem> Items
+        {
+            get
+            {
+                return MyLeaderboard.Items;
+            }
+        }
 
-        Leaderboard MyLeaderboard;
+        public Leaderboard MyLeaderboard;
 
-        public LeaderboardView(int Id)
+        public LeaderboardView(int Id, LeaderboardGUI.LeaderboardType CurrentType)
         {
             TotalEntries = 0;// 1000000;
-            Index = 0;
-            Start = 0;
+            Index = 1;
+            Start = 1;
 
             Loading = true;
 
             LeaderboardItem.DefaultItem = new LeaderboardItem(null, 0, 0);
 
-            Items = new Dictionary<int, LeaderboardItem>();
-
             MyLeaderboard = new Leaderboard(Id);
+
+            MyLeaderboard.SetType(CurrentType);
         }
 
         void IncrIndex(int change)
         {
-            Index = CoreMath.Restrict(0, TotalEntries - 1, Index + change);
+            Index = CoreMath.Restrict(1, TotalEntries, Index + change);
 
             UpdateBounds();
         }
@@ -683,15 +771,41 @@ else
         void UpdateBounds()
         {
             if (Index >= End())
-                Start = Index - EntriesPerPage + 1;
+                //Start = Index - EntriesPerPage + 1;
+                Start = Index - EntriesPerPage;
             if (Index < Start)
                 Start = Index;
+            Start = CoreMath.Restrict(1, TotalEntries, Start);
         }
 
         int DelayCount_UpDown, MotionCount_UpDown;
         const int SelectDelay = 11;
         public void PhsxStep(int Control)
         {
+            // Try reloading board again if we haven't gotten results yet.
+            if (Loading && MyLeaderboard != null && !MyLeaderboard.Updated)
+            {
+                MyLeaderboard.SetType(MyLeaderboard.MySortType);
+            }
+
+            // If the board has been updated then take information in
+            if (MyLeaderboard != null && MyLeaderboard.Updated)
+            {
+                lock (Items)
+                {
+                    if (Loading)
+                    {
+                        Index = MyLeaderboard.StartIndex;
+                        Start = Index - EntriesPerPage / 2 + 1;
+                        TotalEntries = MyLeaderboard.TotalSize;
+                        UpdateBounds();
+                    }
+
+                    MyLeaderboard.Updated = false;
+                    Loading = false;
+                }
+            }
+
             // Get direction input
             Vector2 Dir = Vector2.Zero;
             if (Control < 0)
@@ -751,15 +865,90 @@ else
                 MotionCount_UpDown = 0;
         }
 
+        public void ViewGamer()
+        {
+            lock (Items)
+            {
+                if (Items.Count > 0)
+                {
+                    if (Items.ContainsKey(Index))
+                    {
+                        Gamer gamer = Items[Index].Player;
+                        if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3) 
+                        {
+                            CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SetType(LeaderboardGUI.LeaderboardType type)
+        {
+            if (type == LeaderboardGUI.LeaderboardType.FriendsScores && MyLeaderboard.FriendItems.Count > 0)
+            {
+                Loading = false;
+                Start = Index = 1;
+                TotalEntries = MyLeaderboard.FriendItems.Count;
+                UpdateBounds();
+            }
+            else
+            {
+                Loading = true;
+            }
+
+            MyLeaderboard.SetType(type);
+        }
+
         public void Draw(Vector2 Pos, float alpha)
         {
-            //int Start = Index;
-            //int End = Math.Min(TotalEntries - 1, Start + EntriesPerPage);
+            lock (Items)
+            {
+                Vector2 CurPos = Pos;
+                float Shift = .1f * LeaderboardGUI.ItemShift.X;
 
-            Vector2 CurPos = Pos;
-            float Shift = .1f * LeaderboardGUI.ItemShift.X;
+                if (MyLeaderboard == null) return;
 
-            for (int i = Start; i < End(); i++)
+                if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
+                {
+                    DrawList(alpha, CurPos, Shift);
+                }
+                else
+                {
+                    DrawDict(alpha, CurPos, Shift);
+                }
+            }
+        }
+
+        void DrawList(float alpha, Vector2 CurPos, float Shift)
+        {
+            for (int i = Start; i <= End(); i++)
+            {
+                bool Selected = i == Index;
+
+                if (Selected)
+                {
+                    LeaderboardGUI.Highlight.PosY = CurPos.Y - 70;
+                    LeaderboardGUI.Highlight.Show = true;
+                    LeaderboardGUI.Highlight.Draw();
+                    LeaderboardGUI.Highlight.Show = false;
+                }
+
+                if (i-1 < MyLeaderboard.FriendItems.Count)
+                {
+                    MyLeaderboard.FriendItems[i-1].Draw(CurPos, Selected, alpha);
+                }
+
+                CurPos.Y += Shift;
+            }
+        }
+
+        void DrawDict(float alpha, Vector2 CurPos, float Shift)
+        {
+            bool RequestMore = false;
+            int MinExisting = Start, MaxExisting = Start, MinMissing = -1, MaxMissing = -1;
+
+            for (int i = Start; i <= End(); i++)
             {
                 bool Selected = i == Index;
 
@@ -774,9 +963,17 @@ else
                 if (Items.ContainsKey(i))
                 {
                     Items[i].Draw(CurPos, Selected, alpha);
+
+                    MaxExisting = Math.Max(MaxExisting, i);
+                    MinExisting = Math.Min(MinExisting, i);
                 }
                 else
                 {
+                    RequestMore = true;
+
+                    MaxMissing = MaxMissing == -1 ? i : Math.Max(MaxMissing, i);
+                    MinMissing = MinMissing == -1 ? i : Math.Min(MinMissing, i);
+
                     LeaderboardItem Default = LeaderboardItem.DefaultItem;
                     Default.Rank = i.ToString();
 
@@ -784,6 +981,23 @@ else
                 }
 
                 CurPos.Y += Shift;
+            }
+
+
+            if (RequestMore)
+            {
+                int PageToRequest;
+
+                if (MinMissing >= MaxExisting)
+                {
+                    PageToRequest = CoreMath.Restrict(0, TotalEntries, MinMissing - 1);
+                }
+                else
+                {
+                    PageToRequest = CoreMath.Restrict(0, TotalEntries, MaxMissing - 1);
+                }
+
+                MyLeaderboard.RequestMore(PageToRequest);
             }
         }
     }

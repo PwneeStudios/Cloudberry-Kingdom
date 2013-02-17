@@ -462,6 +462,7 @@ namespace CloudberryKingdom
         public virtual void PhsxStep()
         {
             if (!Active || !Show) return;
+			if (CloudberryKingdomGame.SuperPause) return;
 
             if (SkipPhsx)
             {
@@ -520,17 +521,27 @@ namespace CloudberryKingdom
             }
 
             // X button action
-            if (OnX != null && ButtonCheck.State(ControllerButtons.X, Control).Pressed)
+            if (OnX != null)
             {
-                ButtonCheck.PreventInput();
-                OnX(this);
+                ButtonData data = ButtonCheck.State(ControllerButtons.X, Control);
+                if (data.Pressed)
+                {
+                    MenuItem.ActivatingPlayer = data.PressingPlayer;
+                    ButtonCheck.PreventInput();
+                    OnX(this);
+                }
             }
 
             // Y button action
-            if (OnY != null && ButtonCheck.State(ControllerButtons.Y, Control).Pressed)
+            if (OnY != null)
             {
-                ButtonCheck.PreventInput();
-                OnY();
+                ButtonData data = ButtonCheck.State(ControllerButtons.Y, Control);
+                if (data.Pressed)
+                {
+                    MenuItem.ActivatingPlayer = data.PressingPlayer;
+                    ButtonCheck.PreventInput();
+                    OnY();
+                }
             }
 
             // Allow for a new item to be selected if the user has stopped holding down A (or LeftMouseButton)
@@ -547,8 +558,12 @@ namespace CloudberryKingdom
             }
 
             bool ActivateOnA = false;
-            if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
+            ButtonData _data = ButtonCheck.State(ControllerButtons.A, Control);
+            if (_data.Pressed)
+            {
+                MenuItem.ActivatingPlayer = _data.PressingPlayer;
                 ActivateOnA = true;
+            }
 
             // Don't activate the item if it isn't being drawn as selected
             //if (NoneSelected)

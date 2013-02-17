@@ -56,6 +56,8 @@ namespace CloudberryKingdom
             UpdateAvailableHats();
 
             // Get the signed in player's saved color scheme and set the character select accordingly
+            if (Tools.CurGameData == null) return;
+
             Tools.CurGameData.AddToDo(() =>
             {
                 int index = (int)e.Gamer.PlayerIndex;
@@ -106,6 +108,11 @@ namespace CloudberryKingdom
         static bool QuickJoin = false;
         public static void Start(GUI_Panel Parent, bool QuickJoin)
         {
+            if (!QuickJoin)
+            {
+                CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.TitleScreen);
+            }
+
             FakeHide = false;
             CharacterSelectManager.QuickJoin = QuickJoin;
 

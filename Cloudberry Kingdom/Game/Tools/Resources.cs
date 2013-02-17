@@ -165,7 +165,7 @@ namespace CloudberryKingdom
 			Tools.Song_Happy.Volume = .9f;
 
             Tools.Song_140mph = Tools.SongWad.FindByName("140_Mph_in_the_Fog^Blind_Digital");
-            Tools.Song_140mph.Volume = .7f;
+            Tools.Song_140mph.Volume = .6f;
 
             Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue_Chair^Blind_Digital");
             Tools.Song_BlueChair.Volume = .7f;
@@ -201,7 +201,7 @@ namespace CloudberryKingdom
             // Create the standard playlist
             Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
             Tools.SongList_Standard.Remove(Tools.Song_Happy);
-            //Tools.SongList_Standard.Remove(Tools.Song_140mph);
+			Tools.SongList_Standard.Remove(Tools.Song_140mph); Tools.SongList_Standard.Add(Tools.Song_140mph);
 			Tools.SongList_Standard.Remove(Tools.Song_Heavens);
         }
 

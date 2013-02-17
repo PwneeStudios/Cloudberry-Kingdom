@@ -558,6 +558,13 @@ namespace CloudberryKingdom
 #endif
 
         public static int ActivatingPlayer = -1;
+        public static PlayerIndex ActivatingPlayerIndex()
+        {
+            int p = MenuItem.ActivatingPlayer;
+            if (p < 0) return PlayerIndex.One;
+
+            return (PlayerIndex)p;
+        }
         public static PlayerData GetActivatingPlayerData()
         {
             int p = MenuItem.ActivatingPlayer;

@@ -75,11 +75,15 @@ namespace CloudberryKingdom
             }
             else
             {
-                if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+                if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
                 {
-                    HeroSelect.Call(new LeaderboardGUI(null, 0), 0);
-                    HeroSelect.Hide();
-                    HeroSelect.MyHeroDoll.Hide();
+                    var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
+                    if (gamer != null)
+                    {
+                        HeroSelect.Call(new LeaderboardGUI(null, gamer), 0);
+                        HeroSelect.Hide();
+                        HeroSelect.MyHeroDoll.Hide();
+                    }
                 }
                 else
                 {

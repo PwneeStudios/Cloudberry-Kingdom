@@ -799,6 +799,8 @@ namespace CoreEngine
             Vector2 p = position + new Vector2(35, -25) * scale / 2.0533333f;
             for (int j = 0; j < s.Length; ++j)
             {
+				if (i + 10 > N) Flush();
+
                 HackFont.GlyphData data = font.GetData(s[j]);
 
                 Vector4 tq = data.TextureCoordinates;

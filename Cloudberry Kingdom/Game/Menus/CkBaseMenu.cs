@@ -394,7 +394,7 @@ namespace CloudberryKingdom
             }
 
             BubbleDown();
-            MyGame.WaitThenDo(15, Release);
+            if (MyGame != null) MyGame.WaitThenDo(15, Release);
 
             Active = true;
 

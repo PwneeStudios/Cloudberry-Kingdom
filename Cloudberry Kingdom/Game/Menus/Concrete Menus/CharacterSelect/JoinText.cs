@@ -133,16 +133,30 @@ namespace CloudberryKingdom
 
             if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
-//#if XBOX || XBOX_SIGNIN
-//                if (MyCharacterSelect.Player.MyGamer != null)
-//                    Call(new SimpleMenu(Control, MyCharacterSelect));
-//                else
-//                    Call(new SignInMenu(Control, MyCharacterSelect));
-//#else
-//                Call(new SimpleMenu(Control, MyCharacterSelect));
-//#endif
-
+#if XDK
+                if (MyCharacterSelect.Player.MyGamer != null)
+                    Call(new SimpleMenu(Control, MyCharacterSelect));
+                else
+                {
+                    //Call(new SignInMenu(Control, MyCharacterSelect));
+                    if (!Guide.IsVisible)
+                    {
+                        try
+                        {
+                            Guide.ShowSignIn(4, false);
+                            return;
+                        }
+                        catch
+                        {
+                            return;
+                        }
+                    }
+                }
+#else
                 Call(new SimpleMenu(Control, MyCharacterSelect));
+#endif
+
+                //Call(new SimpleMenu(Control, MyCharacterSelect));
 
                 Hide();
             }
