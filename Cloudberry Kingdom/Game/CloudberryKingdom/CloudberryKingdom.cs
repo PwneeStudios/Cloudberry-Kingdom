@@ -95,7 +95,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = false;
+        public static bool Unlock_Levels = true;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;

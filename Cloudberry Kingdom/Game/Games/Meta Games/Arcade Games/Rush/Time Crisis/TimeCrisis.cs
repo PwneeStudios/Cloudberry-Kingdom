@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
 			if (Challenge.ChosenHero == BobPhsxRocketbox.Instance)
 			{
-				Length = (int)(Length * CoreMath.LerpRestrict(1.0f, 10.0f, Index / 250.0f));
+				Length = (int)(Length * CoreMath.LerpRestrict(1.0f, 10.0f, Index / 1000.0f));
 			}
 
 			return Length;
@@ -37,6 +37,7 @@ namespace CloudberryKingdom
 
 		protected override LevelSeedData Make(int Index, float Difficulty)
 		{
+			float difficulty = CoreMath.MultiLerpRestrict(Index / 20.0f, -.5f, 0f, 1.5f, 2.75f, 3.5f, 4.25f, 5.0f, 5.5f, 6.5f);
 			LevelSeedData data = base.Make(Index, Difficulty);
 
 			return data;

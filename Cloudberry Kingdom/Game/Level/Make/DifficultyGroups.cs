@@ -14,7 +14,6 @@ namespace CloudberryKingdom
         /// </summary>
         public static LevelSeedData.CustomDifficulty FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
         {
-            //if (Difficulty < 0) Difficulty = 0;
             return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
         }
 
@@ -100,6 +99,32 @@ namespace CloudberryKingdom
             //piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
             //piece.MyUpgrades2[Upgrade.Elevator] = 5;
             //piece.MyUpgrades2.CalcGenData(piece.MyGenData.gen1, piece.Style);
+
+			// Extra masochistic
+			if (Difficulty > 4.5f)
+			{
+				float s = CoreMath.Restrict(0, 1, (Difficulty - 4.5f) / 1.5f);
+
+				float rnd = Tools.GlobalRnd.RndFloat(0, 100);
+				if (rnd > 80)
+					piece.MyUpgrades1[Upgrade.Serpent] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Serpent], 10.0f, s);
+				else if (rnd > 60)
+					piece.MyUpgrades1[Upgrade.LavaDrip] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.LavaDrip], 10.0f, s);
+				else if (rnd > 40)
+					piece.MyUpgrades1[Upgrade.Fireball] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Fireball], 10.0f, s);
+
+				rnd = Tools.GlobalRnd.RndFloat(0, 100);
+				if (rnd > 50)
+					piece.MyUpgrades1[Upgrade.Ceiling] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Ceiling], 10.0f, s);
+
+				piece.MyUpgrades1[Upgrade.SpikeyGuy] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.SpikeyGuy], 10.0f, s);
+				piece.MyUpgrades1[Upgrade.Pinky] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Pinky], 10.0f, s);
+				piece.MyUpgrades1[Upgrade.SpikeyLine] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.SpikeyLine], 10.0f, s);
+				piece.MyUpgrades1[Upgrade.Spike] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Spike], 10.0f, s);
+				
+				piece.MyUpgrades1[Upgrade.Speed] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Speed], 10.0f, s);
+			}
+
 
             piece.StandardClose();
         }
@@ -230,10 +255,34 @@ namespace CloudberryKingdom
         {
             List<Action<Upgrades, DifficultyFunc>> f = EasyUpgrades;
 
+			// Pendulum!
+			f.Add((u, D) =>
+			{
+				if (Tools.GlobalRnd.RndFloat(0, 100) > 50)
+				{
+					u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+					u[Upgrade.Speed] = D(1, 2, 3, 5, 9);
+					u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+					u[Upgrade.Pendulum] = D(2, 4, 6, 8, 10);
+					u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 9);
+					u[Upgrade.SpikeyLine] = D(0, 3, 5, 7, 9);
+				}
+				else
+				{
+					u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+					u[Upgrade.Speed] = D(1, 2, 3, 5, 9);
+					u[Upgrade.Pendulum] = D(2, 4, 6, 8, 10);
+					u[Upgrade.FlyBlob] = D(1, 3, 5, 6, 7);
+					u[Upgrade.Spike] = D(0, 3, 5, 7, 9.2);
+					u[Upgrade.Ceiling] = D(0, 3, 5, 7, 10);
+				}
+			});
+
+
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
-                u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+                u[Upgrade.Speed] = D(1, 2, 3, 5, 9);
                 u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
                 u[Upgrade.FallingBlock] = D(1, 1, 2.2, 3, 3);
                 u[Upgrade.FlyBlob] = D(1, 1, 2.2, 2.2, 2.2);
@@ -244,10 +293,10 @@ namespace CloudberryKingdom
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
-                u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+                u[Upgrade.Speed] = D(1, 2, 3, 5, 9);
                 u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
                 u[Upgrade.FallingBlock] = D(1, 1, 2.2, 3, 3);
-                u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 10);
+                u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 9);
                 u[Upgrade.Spike] = D(1, 3, 5, 7, 10);
                 u[Upgrade.Laser] = D(0, 0, 0, 3, 6);
             });
@@ -306,19 +355,19 @@ namespace CloudberryKingdom
 
             f.Add((u, D) =>
             {
-                u[Upgrade.SpikeyGuy] = D(2, 4, 5.2, 8, 10);
+                u[Upgrade.SpikeyGuy] = D(2, 4, 5.2, 8, 9);
                 u[Upgrade.Jump] = D(3, 2.5, 2, 4, 4.5);
                 u[Upgrade.Spike] = D(0, 3, 7.5, 9, 10);
-                u[Upgrade.Speed] = D(0, 2, 5.5, 8.8, 10);
+                u[Upgrade.Speed] = D(0, 2, 5.5, 8.8, 9.5);
             });
 
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(3.5f, 1, 0, 0, 0);
-                u[Upgrade.SpikeyGuy] = D(0, 3.2, 5.5, 8, 10);
-                u[Upgrade.Pinky] = D(1.2f, 3, 5.5, 8, 10);
+                u[Upgrade.SpikeyGuy] = D(0, 3.2, 5.5, 6, 8);
+                u[Upgrade.Pinky] = D(1.2f, 3, 5.5, 7, 9);
                 u[Upgrade.Spike] = D(0, 0, 0, 4, 10);
-                u[Upgrade.Speed] = D(2, 3, 4, 8.8, 10);
+                u[Upgrade.Speed] = D(2, 3, 4, 8.8, 9);
                 u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
             });
 
@@ -337,7 +386,7 @@ namespace CloudberryKingdom
                 u[Upgrade.Pinky] = D(0, 1.5, 3.6, 5.7, 8);
                 u[Upgrade.FallingBlock] = D(0, 1, 4, 6, 8);
                 u[Upgrade.Cloud] = D(2, 2.5, 4, 6, 9);
-                u[Upgrade.SpikeyGuy] = D(2, 3, 3.5, 5.6, 10);
+                u[Upgrade.SpikeyGuy] = D(2, 3, 3.5, 5.6, 8.5);
                 u[Upgrade.BouncyBlock] = D(0, 0, 4, 6, 8);
             });
 
@@ -364,9 +413,9 @@ namespace CloudberryKingdom
 
             f.Add((u, D) =>
             {
-                u[Upgrade.SpikeyGuy] = D(.7f, 3, 4.5, 7.6, 9.5);
-                u[Upgrade.Speed] = D(.7f, 3, 3.5, 8, 10);
-                u[Upgrade.Elevator] = D(3f, 6, 7, 9, 9);
+                u[Upgrade.SpikeyGuy] = D(.7f, 3, 4.5, 7.2, 9);
+                u[Upgrade.Speed] = D(.7f, 3, 3.5, 7.5, 9.5);
+                u[Upgrade.Elevator] = D(3f, 6, 7, 8, 9);
                 u[Upgrade.Laser] = D(0, 0, 0, 0, 4);
                 u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
             });
@@ -376,7 +425,7 @@ namespace CloudberryKingdom
                 u[Upgrade.BouncyBlock] = D(3.6f, 8.2, 9, 9, 10);
                 u[Upgrade.Spike] = D(2, 7.5, 8.5, 9, 10);
                 u[Upgrade.FallingBlock] = D(4f, 2, 2, 3, 4);
-                u[Upgrade.Speed] = D(0, 0, 2, 5, 10);
+                u[Upgrade.Speed] = D(0, 0, 2, 5, 9);
                 u[Upgrade.FireSpinner] = D(0, 1, 3, 6, 9);
                 u[Upgrade.Pinky] = D(0, 0, 0, 0, 6);
             });
@@ -387,6 +436,7 @@ namespace CloudberryKingdom
                 u[Upgrade.Speed] = D(0, 0, 0, 1, 3);
                 u[Upgrade.FireSpinner] = D(1, 3, 6, 9, 9);
                 u[Upgrade.Jump] = D(3, 4, 4, 0, 0);
+				u[Upgrade.Ceiling] = D(0, 1, 2, 4, 8);
             });
 
             f.Add((u, D) =>
@@ -429,10 +479,10 @@ namespace CloudberryKingdom
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(-1, 4, 4, 4, 4);
-                u[Upgrade.Speed] = D(-1, 2, 2, 5, 10);
-                u[Upgrade.MovingBlock] = D(-1, 2, 4, 7, 10);
+                u[Upgrade.Speed] = D(-1, 2, 2, 5, 9);
+                u[Upgrade.MovingBlock] = D(-1, 2, 4, 7, 9);
                 u[Upgrade.BouncyBlock] = D(-1, 2, 4, 7, 10);
-                u[Upgrade.FireSpinner] = D(-1, 2, 4, 8, 10);
+                u[Upgrade.FireSpinner] = D(-1, 2, 4, 6, 9.5);
                 u[Upgrade.Laser] = D(-1, 0, 0, 0, 5.5);
             });
 
@@ -450,9 +500,9 @@ namespace CloudberryKingdom
             {
                 u[Upgrade.MovingBlock] = D(-1, 6, 8.5, 9, 10);
                 u[Upgrade.Jump] = D(-1, 4, 2, 0, 0);
-                u[Upgrade.Speed] = D(-1, 3, 5.5, 9, 9);
-                u[Upgrade.FireSpinner] = D(-1, 0, 5, 9, 9);
-                u[Upgrade.Spike] = D(-1, 0, 0, 3, 9);
+                u[Upgrade.Speed] = D(-1, 3, 5.5, 7, 8.5);
+                u[Upgrade.FireSpinner] = D(-1, 0, 5, 7.5, 9);
+                u[Upgrade.Spike] = D(-1, 0, 0, 3, 8.5);
                 u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
             });
 
@@ -470,9 +520,9 @@ namespace CloudberryKingdom
                 u[Upgrade.MovingBlock] = D(-1, 2, 4, 7, 10);
                 u[Upgrade.FlyBlob] = D(-1, 2, 4, 7, 10);
                 u[Upgrade.FallingBlock] = D(-1, 2, 4, 7, 10);
-                u[Upgrade.SpikeyGuy] = D(-1, 1, 3, 6, 10);
+                u[Upgrade.SpikeyGuy] = D(-1, 1, 3, 6, 7);
                 u[Upgrade.FireSpinner] = D(-1, 1, 4, 7, 10);
-                u[Upgrade.Pinky] = D(-1, 1, 3, 6, 10);
+                u[Upgrade.Pinky] = D(-1, 1, 3, 6, 8);
                 u[Upgrade.Speed] = D(-1, 0, 0, 2, 9);
             });
 
@@ -506,7 +556,7 @@ namespace CloudberryKingdom
                 u[Upgrade.Jump] = D(-1, 2, 4, 7, 10);
                 u[Upgrade.Speed] = D(-1, 2, 3, 5, 10);
                 u[Upgrade.MovingBlock] = D(-1, 4, 5, 7, 10);
-                u[Upgrade.SpikeyGuy] = D(-1, 1.2, 2.7, 6, 10);
+                u[Upgrade.SpikeyGuy] = D(-1, 1.2, 2.7, 5, 7);
                 u[Upgrade.FireSpinner] = D(-1, 1.5, 4, 8, 10);
             });
             /*
@@ -581,7 +631,7 @@ namespace CloudberryKingdom
             {
                 u[Upgrade.Jump] = D(-1, -1, 7, 9, 9);
                 u[Upgrade.Speed] = D(-1, -1, 4, 8, 9);
-                u[Upgrade.SpikeyGuy] = D(-1, -1, 5.4, 8.5, 10);
+                u[Upgrade.SpikeyGuy] = D(-1, -1, 5.4, 7.2, 9);
                 u[Upgrade.FallingBlock] = D(-1, -1, 9, 9, 9);
                 u[Upgrade.FlyBlob] = D(-1, -1, 2, 6, 9);
             });
@@ -589,11 +639,11 @@ namespace CloudberryKingdom
             f.Add((u, D) =>
             {
                 u[Upgrade.Jump] = D(-1, -1, 7, 9, 10);
-                u[Upgrade.Speed] = D(-1, -1, 4, 6, 9);
+                u[Upgrade.Speed] = D(-1, -1, 4, 6, 8);
                 u[Upgrade.FallingBlock] = D(-1, -1, 9, 9, 9);
                 u[Upgrade.BouncyBlock] = D(-1, -1, 8, 9, 9);
-                u[Upgrade.SpikeyGuy] = D(-1, -1, 3, 6, 10);
-                u[Upgrade.Pinky] = D(-1, -1, 4, 7, 10);
+                u[Upgrade.SpikeyGuy] = D(-1, -1, 3, 6, 9);
+                u[Upgrade.Pinky] = D(-1, -1, 4, 6.8, 9);
             });
 
             f.Add((u, D) =>
@@ -619,6 +669,38 @@ namespace CloudberryKingdom
                 u[Upgrade.Speed] = D(-1, -1, -1, 5, 8);
                 u[Upgrade.MovingBlock] = D(-1, -1, -1, 2, 2);
             });
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Pendulum] = D(-1, -1, -1, 9, 10);
+				u[Upgrade.Speed] = D(-1, -1, -1, 6, 8);
+				u[Upgrade.MovingBlock] = D(-1, -1, -1, 4, 2);
+				u[Upgrade.Spike] = D(-1, 0, 0, 0, 7);
+				u[Upgrade.Pinky] = D(-1, 0, 0, 0, 9);
+			});
+
+			// Serpent!
+			f.Add((u, D) =>
+			{
+				if (Tools.GlobalRnd.RndFloat(0, 100) > 50)
+				{
+					u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+					u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+					u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+					u[Upgrade.FlyBlob] = D(2, 4, 6, 8, 10);
+					u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 9);
+					u[Upgrade.Serpent] = D(0, 3, 5, 7, 9);
+				}
+				else
+				{
+					u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+					u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+					u[Upgrade.Pendulum] = D(2, 4, 6, 8, 10);
+					u[Upgrade.Serpent] = D(1, 3, 5, 6.5, 9);
+					u[Upgrade.Spike] = D(0, 3, 5, 7, 10);
+				}
+			});
+
         }
     }
 }

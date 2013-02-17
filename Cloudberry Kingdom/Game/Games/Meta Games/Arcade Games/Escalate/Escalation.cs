@@ -155,7 +155,7 @@ namespace CloudberryKingdom
 
         public override LevelSeedData GetSeed(int Index)
         {
-            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f);
+            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 5.0f, 6.0f);
             var seed = Make(Index, difficulty);
 
             return seed;
