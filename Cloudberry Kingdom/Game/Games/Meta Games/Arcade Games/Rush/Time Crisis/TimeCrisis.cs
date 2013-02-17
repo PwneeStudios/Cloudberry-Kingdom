@@ -23,6 +23,25 @@ namespace CloudberryKingdom
             return Challenge.ChosenHero;
         }
 
+		protected override int GetLength(int Index, float Difficulty)
+		{
+			int Length = base.GetLength(Index, Difficulty);
+
+			if (Challenge.ChosenHero == BobPhsxRocketbox.Instance)
+			{
+				Length = (int)(Length * CoreMath.LerpRestrict(1.0f, 10.0f, Index / 250.0f));
+			}
+
+			return Length;
+		}
+
+		protected override LevelSeedData Make(int Index, float Difficulty)
+		{
+			LevelSeedData data = base.Make(Index, Difficulty);
+
+			return data;
+		}
+
         protected override void PreStart_Tutorial(bool TemporarySkip)
         {
             HeroRush_Tutorial.TemporarySkip = TemporarySkip;

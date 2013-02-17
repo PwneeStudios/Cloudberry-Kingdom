@@ -180,6 +180,21 @@ namespace CloudberryKingdom
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 
+		protected virtual int GetLength(int Index, float Difficulty)
+		{
+			int Length;
+
+			if (Index == 0 || (Index + 1) % LevelsPerDifficulty == 0)
+				Length = LevelLength_Short;
+			else
+			{
+				float t = (((Index + 1) % LevelsPerDifficulty) / 5 + 1) / 5f;
+				Length = CoreMath.LerpRestrict(LevelLength_Short, LevelLength_Long, t);
+			}
+
+			return Length;
+		}
+
         int LevelLength_Short = 2150;
         int LevelLength_Long = 3900;
         protected virtual LevelSeedData Make(int Index, float Difficulty)
@@ -187,14 +202,7 @@ namespace CloudberryKingdom
             BobPhsx hero = GetHero(Index - StartIndex);
 
             // Adjust the length. Longer for higher levels.
-            int Length;
-            if (Index == 0 || (Index + 1) % LevelsPerDifficulty == 0)
-                Length = LevelLength_Short;
-            else
-            {
-                float t = (((Index + 1) % LevelsPerDifficulty) / 5 + 1) / 5f;
-                Length = CoreMath.LerpRestrict(LevelLength_Short, LevelLength_Long, t);
-            }
+            int Length = GetLength(Index, Difficulty);
 
             // Create the LevelSeedData
             LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);
