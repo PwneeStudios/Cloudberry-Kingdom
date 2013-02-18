@@ -222,7 +222,7 @@ namespace CloudberryKingdom
             ScoreDatabase.Add(HighScoreEntry);
             ScoreDatabase.Add(HighLevelEntry);
             Leaderboard.WriteToLeaderboard(HighScoreEntry);
-            Leaderboard.WriteToLeaderboard(HighLevelEntry);
+            //Leaderboard.WriteToLeaderboard(HighLevelEntry);
 
             ArcadeMenu.CheckForArcadeUnlocks(HighScoreEntry);
         }

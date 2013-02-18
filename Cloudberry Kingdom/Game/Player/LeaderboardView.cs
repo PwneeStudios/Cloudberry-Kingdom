@@ -326,8 +326,9 @@ if (ButtonCheck.ControllerInUse)
             int Id;
             if (CurrentChallenge == null)
             {
-                Name = Localization.WordString(Localization.Words.TotalArcade);
-                Id = 0;
+                Name = Localization.WordString(Localization.Words.PlayerLevel) + " (" +
+                        Localization.WordString(Localization.Words.TheArcade) + " + " + Localization.WordString(Localization.Words.StoryMode) + ")";
+                Id = 9999;
             }
             else
             {
@@ -419,7 +420,8 @@ if (ButtonCheck.ControllerInUse)
             Vector2 Dir = Vector2.Zero;
             if (Control < 0)
             {
-                Dir = ButtonCheck.GetMaxDir(Control == -1);
+                //Dir = ButtonCheck.GetMaxDir(Control == -1);
+                Dir = ButtonCheck.GetMaxDir(false);
             }
             else
                 Dir = ButtonCheck.GetDir(Control);
@@ -430,7 +432,7 @@ if (ButtonCheck.ControllerInUse)
             if (Dir.Length() < .2f)
                 DelayCount_LeftRight = 0;
 
-            if (Math.Abs(Dir.X) < .75f)
+            if (Math.Abs(Dir.X) < .875f)
                 Dir.X = 0;
 
             // Left and right

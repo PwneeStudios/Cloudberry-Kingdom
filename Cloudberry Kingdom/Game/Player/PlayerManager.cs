@@ -233,6 +233,54 @@ namespace CloudberryKingdom
         }
 #endif
 
+        public static void UploadCampaignLevels()
+        {
+            ScoreEntry[] ScoresToWrite = new ScoreEntry[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (Players[i].Exists)
+                {
+                    int level = Players[i].GetTotalCampaignLevel();
+                    //if (level != Players[i].LastPlayerLevelUpload)
+                    {
+                        ScoresToWrite[i] = new ScoreEntry(null, 7777, level, level, level, 0, 0, 0);
+                    }
+                }
+            }
+
+            //if (ShouldUpdate)
+            {
+                Leaderboard.WriteToLeaderboard(ScoresToWrite);
+            }
+        }
+
+        public static void UploadPlayerLevels()
+        {
+            bool ShouldUpdate = false;
+            ScoreEntry[] ScoresToWrite = new ScoreEntry[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (Players[i].Exists)
+                {
+                    int level = Players[i].GetTotalLevel();
+                    if (level != Players[i].LastPlayerLevelUpload)
+                    {
+                        ScoresToWrite[i] = new ScoreEntry(null, 9999, level, level, level, 0, 0, 0);
+                        Players[i].LastPlayerLevelUpload = level;
+                        ShouldUpdate = true;
+                    }
+                }
+            }
+
+            if (ShouldUpdate)
+            {
+                Leaderboard.WriteToLeaderboard(ScoresToWrite);
+            }
+        }
+
+
         public static void CleanTempStats()
         {
             for (int i = 0; i < 4; i++)
@@ -367,22 +415,28 @@ namespace CloudberryKingdom
             return max;
         }
 
-        public static int MaxPlayerTotalCampaignLevel()
+        public static int MinPlayerTotalCampaignLevel()
         {
-            int max = 0;
+            int min = 0;
             foreach (PlayerData player in ExistingPlayers)
-                max = Math.Max(max, player.GetTotalCampaignLevel());
+            {
+                int level = player.GetTotalCampaignLevel();
+                min = min == 0 ? level : Math.Min(min, level);
+            }
 
-            return max;
+            return min;
         }
 
-        public static int MaxPlayerTotalCampaignIndex()
+        public static int MinPlayerTotalCampaignIndex()
         {
-            int max = 0;
+            int min = 0;
             foreach (PlayerData player in ExistingPlayers)
-                max = Math.Max(max, player.GetTotalCampaignIndex());
+            {
+                int level = player.GetTotalCampaignIndex();
+                min = min == 0 ? level : Math.Min(min, level);
+            }
 
-            return max;
+            return min;
         }
 
         public static int MaxPlayerTotalLevel()

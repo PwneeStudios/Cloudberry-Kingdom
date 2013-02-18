@@ -14,6 +14,8 @@ namespace CloudberryKingdom
 
         public override void SlideIn(int Frames)
         {
+            PlayerManager.UploadPlayerLevels();
+
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Kobbler);
             base.SlideIn(0);
         }

@@ -95,6 +95,9 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 101, CampaignLevel);
             Chunk.WriteSingle(writer, 102, CampaignIndex);
 
+            // Player Level
+            Chunk.WriteSingle(writer, 23023, LastPlayerLevelUpload);
+
 #if CAFE
 #else
 			ScoreDatabase.Instance.Serialize(writer);
@@ -162,9 +165,14 @@ namespace CloudberryKingdom
 				case 100: CampaignCoins = chunk.ReadInt(); break;
 				case 101: CampaignLevel = chunk.ReadInt(); break;
 				case 102: CampaignIndex = chunk.ReadInt(); break;
+
+                 // Player Level
+                case 23023: LastPlayerLevelUpload = chunk.ReadInt(); break;
 			}
 		}
         #endregion
+
+        public int LastPlayerLevelUpload = -1;
 
         public int GetTotalLevel()
         {

@@ -308,6 +308,7 @@ namespace CloudberryKingdom
                 {
                     SaveLoadSeedMenu.MakeSave(this, player)(null);
                     //Call(new SaveSeedAs(Control, MenuItem.GetActivatingPlayerData()), 0);
+                    return;
                 }
                 else
 #endif
@@ -331,7 +332,6 @@ namespace CloudberryKingdom
             }
 
             PauseGame = true;
-
         }
 
         private void GoStats()

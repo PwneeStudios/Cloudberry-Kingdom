@@ -91,6 +91,7 @@ namespace CloudberryKingdom
             BobPhsxSmall.Instance.Id = 9;
             BobPhsxSpaceship.Instance.Id = 10;
             BobPhsxWheel.Instance.Id = 11;
+            BobPhsxRocketbox.Instance.Id = 15;
 
             ArcadeMenu.JetpackWheelie = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
             ArcadeMenu.JetpackWheelie.Name = Localization.Words.JetpackWheelie;
@@ -139,6 +140,7 @@ namespace CloudberryKingdom
             // Compile a list of all leaderboards
             LeaderboardList = new List<Tuple<Challenge, BobPhsx>>();
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(null, null));
+            LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_StoryMode.Instance, null));
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
                 LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_Escalation.Instance, hero.Item1));
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
@@ -405,7 +407,8 @@ namespace CloudberryKingdom
 
         void UpdateAfterPlaying()
         {
-            int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
+            int Level = PlayerManager.MaxPlayerTotalLevel();
+            //int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
             bool ShowLevel = Level > 0;
 
             if (ShowLevel)

@@ -19,7 +19,17 @@ namespace CloudberryKingdom
 
         static NetworkSession WritingNetworkSession;
         static ScoreEntry ScoreToWrite;
+        static ScoreEntry[] ScoreToWrite_Separate;
+        public static void WriteToLeaderboard(ScoreEntry[] scores)
+        {
+            _WriteToLeaderboard(null, scores);
+        }
         public static void WriteToLeaderboard(ScoreEntry score)
+        {
+            score.GameId += Challenge.LevelMask;
+            _WriteToLeaderboard(score, null);
+        }
+        static void _WriteToLeaderboard(ScoreEntry score, ScoreEntry[] scores)
         {
             if (WritingNetworkSession != null) return;
             if (WritingInProgress) return;
@@ -28,6 +38,7 @@ namespace CloudberryKingdom
             if (Gamer.SignedInGamers.Count == 0) return;
 
             ScoreToWrite = score;
+            ScoreToWrite_Separate = scores;
 
             // Async write
             WritingInProgress = true;
@@ -35,7 +46,7 @@ namespace CloudberryKingdom
 #endif
         }
 
-        static bool WritingInProgress = true;
+        static bool WritingInProgress = false;
         static void OnSessionCreate(IAsyncResult ar)
         {
             WritingNetworkSession = NetworkSession.EndCreate(ar);
@@ -54,8 +65,14 @@ namespace CloudberryKingdom
 
                 if (leaderboardWriter != null)
                 {
-                    LeaderboardEntry leaderboardEntry = leaderboardWriter.GetLeaderboard(GetIdentity(ScoreToWrite.GameId));
-                    leaderboardEntry.Rating = ScoreToWrite.Value;
+                    ScoreEntry score = ScoreToWrite;
+                    if (ScoreToWrite_Separate != null)
+                    {
+                        score = ScoreToWrite_Separate[(int)localNetworkGamer.SignedInGamer.PlayerIndex];
+                    }
+
+                    LeaderboardEntry leaderboardEntry = leaderboardWriter.GetLeaderboard(GetIdentity(score.GameId));
+                    leaderboardEntry.Rating = score.Value;
                 }
             }
 
@@ -126,8 +143,10 @@ namespace CloudberryKingdom
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Tools.Write(e.Message);
+                Tools.Write(e.InnerException);
                 Tools.Warning();
             }
 #endif
@@ -198,7 +217,8 @@ namespace CloudberryKingdom
 
                     if (Type == LeaderboardGUI.LeaderboardType.FriendsScores)
                     {
-                        FriendItems.Add(item);
+                        if (rank > 0 && val > 0)
+                            FriendItems.Add(item);
                     }
                     else
                     {
@@ -238,7 +258,43 @@ namespace CloudberryKingdom
 
         static LeaderboardIdentity GetIdentity(int id)
         {
-            LeaderboardIdentity LID = new LeaderboardIdentity() { Key = "Escalation_Classic" };
+            string key;
+            switch (id)
+            {
+                case 7777: key = "StoryMode"; break;
+                case 9999: key = "PlayerLevel"; break;
+                case 10000: key = "Escalation_Normal"; break;
+                case 10100: key = "Escalation_Big"; break;
+                case 11500: key = "Escalation_Rocketbox"; break;
+                case 10200: key = "Escalation_Inverse"; break;
+                case 10400: key = "Escalation_Jetman"; break;
+                case 10500: key = "Escalation_Bouncy"; break;
+                case 11000: key = "Escalation_Spaceship"; break;
+                case 10300: key = "Escalation_Double"; break;
+                case 11100: key = "Escalation_Wheel"; break;
+                case 10900: key = "Escalation_Small"; break;
+                case 11200: key = "Escalation_JetpackWheelie"; break;
+                case 11300: key = "Escalation_BigBouncy"; break;
+                case 11400: key = "Escalation_Ultimate"; break;
+                case 10001: key = "TimeCrisis_Normal"; break;
+                case 10101: key = "TimeCrisis_Big"; break;
+                case 11501: key = "TimeCrisis_Rocketbox"; break;
+                case 10201: key = "TimeCrisis_Invert"; break;
+                case 10401: key = "TimeCrisis_Jetman"; break;
+                case 10501: key = "TimeCrisis_Bouncy"; break;
+                case 11001: key = "TimeCrisis_Spaceship"; break;
+                case 10301: key = "TimeCrisis_Double"; break;
+                case 11101: key = "TimeCrisis_Wheel"; break;
+                case 10901: key = "TimeCrisis_Small"; break;
+                case 11201: key = "TimeCrisis_JetpackWheelie"; break;
+                case 11301: key = "TimeCrisis_BigBouncy"; break;
+                case 11401: key = "TimeCrisis_Ultimate"; break;
+                case 10002: key = "HeroRush"; break;
+                case 10003: key = "HeroRush2"; break;
+                default: key = "PlayerLevel"; break;
+            }
+
+            LeaderboardIdentity LID = new LeaderboardIdentity() { Key = key };
 
             return LID;
         }

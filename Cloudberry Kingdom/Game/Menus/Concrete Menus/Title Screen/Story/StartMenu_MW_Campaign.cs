@@ -24,7 +24,7 @@ namespace CloudberryKingdom
             Locked = false;
             if (!CloudberryKingdomGame.Unlock_Levels)
             {
-				int level = PlayerManager.MaxPlayerTotalCampaignLevel();
+				int level = PlayerManager.MinPlayerTotalCampaignLevel();
 				if (CampaignSequence.Instance.ChapterEnd.ContainsKey(Chapter - 1))
 					Locked = level < CampaignSequence.Instance.ChapterEnd[Chapter - 1];
             }
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 			EzText _t;
 
             // Update level text
-            int Level = PlayerManager.MaxPlayerTotalCampaignLevel() + 1;
+            int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;
 			bool ShowLevel = Level > 1;
 
 			string template_level = Localization.WordString(Localization.Words.Continue);
@@ -168,7 +168,7 @@ namespace CloudberryKingdom
 
             Update();
 
-			int Level = PlayerManager.MaxPlayerTotalCampaignLevel() + 1;
+			int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;
 			bool ShowLevel = Level > 1;
 			if (ShowLevel)
 				MyMenu.SelectItem(0);
@@ -181,7 +181,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
 			// Continue
-			int level = PlayerManager.MaxPlayerTotalCampaignIndex();
+			int level = PlayerManager.MinPlayerTotalCampaignIndex();
 			item = new CampaignChapterItem(new EzText("xxx", ItemFont), -1);
 			item.Name = "Continue";
 			item.Go = Go;
@@ -282,6 +282,8 @@ namespace CloudberryKingdom
         {
             Update();
             SaveGroup.SaveAll();
+
+            PlayerManager.UploadCampaignLevels();
 
 			Tools.PlayHappyMusic(MyGame);
         }

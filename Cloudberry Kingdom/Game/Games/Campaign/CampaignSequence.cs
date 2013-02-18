@@ -25,6 +25,23 @@ namespace CloudberryKingdom
     }
 #endif
 
+    public class Challenge_StoryMode : Challenge
+    {
+        static readonly Challenge_StoryMode instance = new Challenge_StoryMode();
+        public static Challenge_StoryMode Instance { get { return instance; } }
+
+        protected Challenge_StoryMode()
+        {
+            GameId_Level = GameTypeId = 7777;
+            MenuName = Name = Localization.Words.StoryMode;
+        }
+
+        public override LevelSeedData GetSeed(int Index)
+        {
+            return null;
+        }
+    }
+
     public class CampaignSequence : LevelSequence
     {
         static readonly CampaignSequence instance = new CampaignSequence();
@@ -81,7 +98,7 @@ namespace CloudberryKingdom
 				//if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
 				//    StartLevel = MaxLevelAttained;
 
-				StartLevel = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
+				StartLevel = PlayerManager.MinPlayerTotalCampaignIndex() + 1;
 
 				//StartLevel = 225;
 			}
