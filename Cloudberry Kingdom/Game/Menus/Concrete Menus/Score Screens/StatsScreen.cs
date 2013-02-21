@@ -110,10 +110,9 @@ namespace CloudberryKingdom.Stats
         //float[] x4 = { 1525f - 200, 1905f - 180, 2260f - 160, 2615f - 140};
         //x = new float[][]{ null, x1, x2, x3, x4 };
 
-
-            PlayerManager.Players[1].Exists = false;
-            PlayerManager.Players[2].Exists = false;
-            PlayerManager.Players[3].Exists = false;
+			//PlayerManager.Players[1].Exists = true;
+			//PlayerManager.Players[2].Exists = true;
+			//PlayerManager.Players[3].Exists = true;
             
 
             ItemPos = new Vector2(-1225, 950);

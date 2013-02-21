@@ -24,7 +24,15 @@ namespace CloudberryKingdom
         {
             SelectSound = null;
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
-            Call(new StartMenu_MW_Exit(Control), 0);
+
+			if (CloudberryKingdomGame.IsDemo)
+			{
+				Call(new UpSellMenu(Localization.Words.UpSell_Exit, MenuItem.ActivatingPlayer));
+			}
+			else
+			{
+				Call(new StartMenu_MW_Exit(Control), 0);
+			}
         }
 
         protected override void BringNextMenu()
@@ -158,7 +166,7 @@ namespace CloudberryKingdom
                 var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                 if (gamer != null)
                 {
-                    Call(new LeaderboardGUI(Title, gamer), 0);
+                    Call(new LeaderboardGUI(Title, gamer, MenuItem.ActivatingPlayer), 0);
                 }
             }
             else

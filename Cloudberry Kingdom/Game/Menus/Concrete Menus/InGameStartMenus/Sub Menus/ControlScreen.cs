@@ -48,6 +48,11 @@ namespace CloudberryKingdom
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
 
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
+
             ReturnToCallerDelay = 7;
 
             EzText text;

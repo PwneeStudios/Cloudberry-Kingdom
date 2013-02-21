@@ -103,6 +103,12 @@ namespace CloudberryKingdom
             }
    
             MyPile.Add(Backdrop);
+
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
+
             Backdrop.Size = new Vector2(1376.984f, 1077.035f);
             Backdrop.Pos = new Vector2(-18.6521f, -10.31725f);
         }

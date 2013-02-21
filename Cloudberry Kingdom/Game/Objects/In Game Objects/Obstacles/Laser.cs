@@ -11,6 +11,9 @@ namespace CloudberryKingdom.Obstacles
     public enum LaserState { Off, Warn, On };
     public class Laser : _LineDeath, IBound
     {
+		//public static Vector4 Laser_DefaultTint_Full = new Vector4(1.0f, 1.0f, 1.0f, .95f);
+		public static Vector4 Laser_DefaultTint_Full = new Vector4(.95f, .95f, .95f, .90f);
+
         public class LaserTileInfo : TileInfoBase
         {
             public LineSpriteInfo Line = new LineSpriteInfo("Laser", 100, 60, 1, Vector4.One);

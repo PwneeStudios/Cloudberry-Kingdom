@@ -76,6 +76,9 @@ namespace CloudberryKingdom
         public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
         public static Dictionary<int, int> ChallengeGoal;
 
+		public const int HighestLevelNeeded = 80;
+		public static BobPhsx HighestHero = BobPhsxWheel.Instance;
+
         public static void StaticInit()
         {
             // Heroes
@@ -130,7 +133,7 @@ namespace CloudberryKingdom
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 70) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(BobPhsxWheel.Instance, 80) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(HighestHero, HighestLevelNeeded) ),
                          
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxSmall.Instance, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) ),

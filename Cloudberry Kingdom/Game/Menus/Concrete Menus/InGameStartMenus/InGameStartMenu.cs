@@ -99,17 +99,23 @@ namespace CloudberryKingdom
             // Make the backdrop
             QuadClass backdrop;
 			if (UseSimpleBackdrop)
+			{
 				backdrop = new QuadClass("Arcade_BoxLeft", 1500, true);
+				backdrop.Name = "Backdrop";
+			}
 			else
 			{
 				backdrop = new QuadClass("Backplate_1080x840", 1500, true);
-				EpilepsySafe();
+				backdrop.Name = "Backdrop";
 			}
 
-            backdrop.Name = "Backdrop";
-
             MyPile.Add(backdrop);
-            backdrop.Pos = new Vector2(-975.6945f, 54.86111f);
+
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
+			backdrop.Pos = new Vector2(-975.6945f, 54.86111f);
 
             // Make the menu
             MyMenu = new Menu(false);
@@ -295,11 +301,19 @@ namespace CloudberryKingdom
             {
 #if XBOX
 				PlayerData player = MenuItem.GetActivatingPlayerData();
-				if (!CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
-				{
-					CloudberryKingdomGame.ShowError_CanNotSaveNoDevice();
-					return;
-				}
+
+                //if (CloudberryKingdomGame.CanSave() && EzStorage.Device[(int)player.MyIndex] != null &&
+                //    !EzStorage.Device[(int)player.MyIndex].IsReady)
+                //{
+                //    EzStorage.Device[(int)player.MyIndex].state = EasyStorage.SaveDevicePromptState.PromptForCanceled;
+                //    return;
+                //}
+
+                if (!CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
+                {
+                    CloudberryKingdomGame.ShowError_CanNotSaveNoDevice();
+                    return;
+                }
 #endif
 
                 // If this isn't a PC, and we can't load seeds right now, then go directly to the SaveAs menu.

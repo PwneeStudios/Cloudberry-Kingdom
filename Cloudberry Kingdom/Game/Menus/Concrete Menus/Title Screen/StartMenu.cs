@@ -161,11 +161,29 @@ namespace CloudberryKingdom
         public static void SetItemProperties_Red(MenuItem item)
         {
             if (item.MyText == null) return;
-            item.MyText.OutlineColor = new Color(191, 191, 191).ToVector4();
-            item.MyText.MyFloatColor = new Color(175, 8, 64).ToVector4();
-            item.MySelectedText.OutlineColor = new Color(205, 205, 205).ToVector4();
-            item.MySelectedText.MyFloatColor = new Color(242, 12, 85).ToVector4(); 
+			//item.MyText.OutlineColor = new Color(191, 191, 191).ToVector4();
+			//item.MyText.MyFloatColor = new Color(175, 8, 64).ToVector4();
+			//item.MySelectedText.OutlineColor = new Color(205, 205, 205).ToVector4();
+			//item.MySelectedText.MyFloatColor = new Color(242, 12, 85).ToVector4(); 
+
+			SetTextUnselected_Red(item.MyText);
+			SetTextSelected_Red(item.MySelectedText);
         }
+
+		public static void SetTextSelected_Red(EzText text)
+		{
+			text.OutlineColor = new Color(205, 205, 205).ToVector4() * .95f;
+			text.OutlineColor.W = 1.0f;
+			text.MyFloatColor = new Color(242, 12, 85).ToVector4() * .96f;
+			text.MyFloatColor.W = 1.0f;
+		}
+
+		public static void SetTextUnselected_Red(EzText text)
+		{
+			text.OutlineColor = new Color(191, 191, 191).ToVector4() * .97f;
+			text.OutlineColor.W = 1.0f;
+			text.MyFloatColor = new Color(175, 8, 64).ToVector4();
+		}
 
         public override void OnAdd()
         {

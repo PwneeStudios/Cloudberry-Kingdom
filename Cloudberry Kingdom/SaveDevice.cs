@@ -170,7 +170,7 @@ namespace EasyStorage
 		private bool deviceWasConnected;
 
 		// the current state of the SaveDevice
-		private SaveDevicePromptState state = SaveDevicePromptState.None;
+		public SaveDevicePromptState state = SaveDevicePromptState.None;
 
 		// we store the callbacks as fields to reduce run-time allocation and garbage
 		private readonly AsyncCallback storageDeviceSelectorCallback;
@@ -353,8 +353,8 @@ namespace EasyStorage
 						{
 							// show the normal storage device selector
 							case SaveDevicePromptState.ShowSelector:
-								state = SaveDevicePromptState.None;
 								GetStorageDevice(storageDeviceSelectorCallback);
+                                state = SaveDevicePromptState.None;
 								break;
 // these actions don't apply anywhere but Xbox so we compile them out for Windows to prevent 
 // issues with gamer services in redistributed games.

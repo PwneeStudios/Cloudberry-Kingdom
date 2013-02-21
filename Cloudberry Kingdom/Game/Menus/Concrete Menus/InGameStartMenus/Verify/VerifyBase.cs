@@ -56,9 +56,12 @@ namespace CloudberryKingdom
             
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
-            Backdrop.Pos =
-                //new Vector2(1525.001f, 200.0001f);
-                new Vector2(1181.251f, 241.6668f);
+            Backdrop.Pos = new Vector2(1181.251f, 241.6668f);
+
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
         }
 
         protected Vector2 HeaderPos = new Vector2(413.8888f, 713.5555f);

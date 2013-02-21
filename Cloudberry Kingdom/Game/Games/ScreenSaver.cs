@@ -13,7 +13,7 @@ namespace CloudberryKingdom
 
         bool Bungee = false;
         bool AllHeroes = false;
-        int Difficulty = 4;
+        float Difficulty = 4f;
         int Paths = 1;
         BobPhsx FixedHero = BobPhsxNormal.Instance;
         TileSet FixedTileSet = null;
@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 
             Bungee = false;
             AllHeroes = true;
-            Difficulty = 4;
+            Difficulty = 5;
             Paths = 1;
             FixedHero = BobPhsxNormal.Instance;
             FixedTileSet = "sea";
@@ -303,9 +303,9 @@ namespace CloudberryKingdom
             // Create the LevelSeedData
             LevelSeedData data;
             if (Difficulty >= 0)
-                data = RegularLevel.HeroLevel(Difficulty, hero, Length);
+                data = RegularLevel.HeroLevel(Difficulty, hero, Length, true);
             else
-                data = RegularLevel.HeroLevel(index % 5, hero, Length);
+                data = RegularLevel.HeroLevel(index % 5, hero, Length, true);
 
             if (Bungee)
             {

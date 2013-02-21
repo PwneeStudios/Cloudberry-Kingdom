@@ -102,7 +102,11 @@ namespace CloudberryKingdom
 
         void No(MenuItem item)
         {
-			if (Word == Localization.Words.FreePlay)
+			if (Word == Localization.Words.UpSell_Exit)
+			{
+				Tools.TheGame.Exit();
+			}
+			else if (Word == Localization.Words.FreePlay)
 			{
 				UseBounce = false;
 				SlideOutTo = PresetPos.Right;
@@ -203,6 +207,24 @@ namespace CloudberryKingdom
 
 				EzText _t;
 				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1169.444f, 1119.111f); _t.Scale = 0.6118331f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1178.473f, 250.0002f); _q.Size = new Vector2(1500f, 2454.545f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(1455.556f, -11.11105f); _q.Size = new Vector2(266.1786f, 358.9999f); }
+
+				MyPile.Pos = new Vector2(-1125.001f, -319.4444f);
+			}
+			else if (Word == Localization.Words.UpSell_Exit)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(1091.667f, 230.4445f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(1091.667f, -47.33334f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-1319.446f, -333.3333f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1194.444f, 991.3332f); _t.Scale = 0.6118331f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }

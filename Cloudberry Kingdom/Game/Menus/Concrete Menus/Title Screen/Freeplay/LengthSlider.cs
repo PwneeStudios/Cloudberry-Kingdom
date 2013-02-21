@@ -40,7 +40,8 @@ namespace CloudberryKingdom
             LengthBar.MyType = ProgressBar.BarType.Reveal;
 
             LengthBar.Outline.Shadow = false;
-            LengthBar.MyPile.MyOscillateParams.Set(2f, .99f, .05f);
+			//LengthBar.MyPile.MyOscillateParams.Set(2f, .99f, .05f);
+			LengthBar.MyPile.MyOscillateParams.Set(1.85f, .99f, .0205f);
 
             MyFloat = new WrappedFloat(8000, 3000, 15000);
             PerceivedMin = 500;

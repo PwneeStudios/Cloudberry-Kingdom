@@ -80,7 +80,7 @@ namespace CloudberryKingdom
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
-                        HeroSelect.Call(new LeaderboardGUI(null, gamer), 0);
+                        HeroSelect.Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
                         HeroSelect.Hide();
                         HeroSelect.MyHeroDoll.Hide();
                     }

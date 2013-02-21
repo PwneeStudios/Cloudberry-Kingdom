@@ -205,7 +205,7 @@ namespace CloudberryKingdom
             int Length = GetLength(Index, Difficulty);
 
             // Create the LevelSeedData
-            LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length);
+            LevelSeedData data = RegularLevel.HeroLevel(Difficulty, hero, Length, false);
             data.SetTileSet(GetTileSet(Index - StartIndex));
 
             // Adjust the piece seed data

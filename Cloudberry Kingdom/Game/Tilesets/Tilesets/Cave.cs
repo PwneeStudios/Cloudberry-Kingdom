@@ -1,5 +1,8 @@
 ﻿using System;
+
 using Microsoft.Xna.Framework;
+
+using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {
@@ -74,7 +77,7 @@ info.Lasers.Line.Sprite = "Laser_Cave";
 info.Lasers.Line.RepeatWidth = 135;
 info.Lasers.Line.Dir = 0;
 info.Lasers.Scale = 1;
-info.Lasers.Tint_Full = new Vector4(1, 1, 1, .95f);
+info.Lasers.Tint_Full = Laser.Laser_DefaultTint_Full;
 info.Lasers.Tint_Half = new Vector4(1, 1, 1, .4f);
 
 sprite_anim("fblock_cave", "fblock_cave", 1, 3, 2);

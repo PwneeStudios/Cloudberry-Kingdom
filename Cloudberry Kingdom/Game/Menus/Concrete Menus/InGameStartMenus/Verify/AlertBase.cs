@@ -58,6 +58,11 @@ namespace CloudberryKingdom
 
             Backdrop.Name = "Backdrop";
             MyPile.Add(Backdrop);
+
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
         }
 
         public override void Init()

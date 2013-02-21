@@ -126,6 +126,8 @@ namespace CloudberryKingdom
         public bool NonCampaign = true;
         public virtual void Start(int Difficulty)
         {
+            CloudberryKingdomGame.PromptForDeviceIfNoneSelected();
+
 			HelpMenu.CostMultiplier = 1;
 
             CurrentId = this.GameId_Level;

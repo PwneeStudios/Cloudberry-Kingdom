@@ -23,7 +23,7 @@ namespace CloudberryKingdom
         // -------------------------
         // Fixed upgrade lists
         // -------------------------
-        public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length)
+        public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length, bool ScreenSaver)
         {
             if (Hero == ArcadeMenu.Ultimate)
             {
@@ -37,7 +37,7 @@ namespace CloudberryKingdom
 
             data.DefaultHeroType = Hero;
 
-            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data);
+            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data, ScreenSaver);
 
             data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 1, Length, custom);
 

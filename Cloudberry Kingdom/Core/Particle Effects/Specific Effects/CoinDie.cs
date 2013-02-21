@@ -80,7 +80,6 @@ namespace CloudberryKingdom
             for (int j = 0; j < 10; j++)
             {
                 var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DieTemplate);
-                //var p = level.MainEmitter.GetNewParticle(ParticleEffects.DieTemplate);
 
                 p.Data.Position = pos;
                 p.MyQuad.MyTexture = Tools.TextureWad.FindByName("CoinCollect");
@@ -91,6 +90,43 @@ namespace CloudberryKingdom
                 p.ColorVel.W /= 1.25f;
             }
         }
+
+
+		public static void CoinDie_Campaign(Level level, Vector2 pos)
+		{
+			bool LighterBackground = false;
+			if (level.MyTileSet.NameInGame == Localization.Words.Sea ||
+				level.MyTileSet.NameInGame == Localization.Words.Cloud)
+				LighterBackground = true;
+
+			// Spritely
+			for (int j = 0; j < 10; j++)
+			{
+				var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DieTemplate);
+
+				p.Data.Position = pos;
+				p.MyQuad.MyTexture = Tools.TextureWad.FindByName("CoinCollect");
+				p.Data.Velocity = Tools.GlobalRnd.RndDir() * (Tools.GlobalRnd.RndFloat(7, 10));
+				p.Size *= 5f;
+				p.SizeSpeed = new Vector2(0);
+				p.Life = (int)(p.Life * 1.25f);
+				p.ColorVel.W /= 1.25f;
+
+				p.Size /= 2.95f;
+				p.Data.Velocity *= .435f;
+				p.MyColor.W *= .9f;
+
+				if (LighterBackground)
+				{
+					p.MyColor.X *= .75f;
+					p.MyColor.Y *= .75f;
+					p.MyColor.Z *= .75f;
+					p.MyColor.W *= .75f;
+					p.Size *= 1.235f;
+					p.Data.Velocity *= 1.1f;
+				}
+			}
+		}
 
         public static void CoinDie_New(Level level, Vector2 pos)
         {

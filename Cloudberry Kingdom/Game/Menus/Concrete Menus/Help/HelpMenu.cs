@@ -77,7 +77,7 @@ namespace CloudberryKingdom
         public static GameObject MakeListener()
         {
             Listener listener = new Listener();
-            //listener.MyType = Listener.Type.OnDown;
+            listener.Control = -1;
             listener.MyButton = ControllerButtons.Y;
             listener.MyButton2 = ButtonCheck.Help_KeyboardKey;
             listener.MyAction = () =>

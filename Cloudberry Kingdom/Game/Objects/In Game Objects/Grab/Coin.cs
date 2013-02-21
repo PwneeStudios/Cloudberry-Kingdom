@@ -88,13 +88,17 @@ namespace CloudberryKingdom.InGameObjects
             }
 
             // Text float
-            if (Info.Coins.ShowText)
+            if (Info.Coins.ShowText && Core.MyLevel.MyGame.MyBankType != GameData.BankType.Campaign)
             {
                 int val = CalcScoreValue();
                 TextFloat text = new TextFloat("+" + val.ToString(), Core.Data.Position + new Vector2(21, 22.5f));
                 text.Core.DrawLayer = 8;
                 Core.MyLevel.MyGame.AddGameObject(text);
             }
+			else if (Core.MyLevel.MyGame.MyBankType == GameData.BankType.Campaign)
+			{
+				ParticleEffects.CoinDie_Campaign(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
+			}
         }
 
         GameData MyGame { get { return Core.MyLevel.MyGame; } }

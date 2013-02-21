@@ -135,7 +135,8 @@ namespace CloudberryKingdom
         {
             base.SetItemProperties(item);
 
-            CkColorHelper.GreenItem(item);
+			StartMenu.SetItemProperties_Red(item);	
+            //CkColorHelper.GreenItem(item);
         }
 
         protected override void SetHeaderProperties(EzText text)
@@ -143,6 +144,15 @@ namespace CloudberryKingdom
             base.SetHeaderProperties(text);
 
             text.Shadow = false;
+
+			text.MyFloatColor = ColorHelper.Gray(.85f);
+			text.OutlineColor = ColorHelper.Gray(.05f);
+
+			text.Shadow = true;
+			text.ShadowColor = new Color(.2f, .2f, .2f, .5f);
+			text.ShadowOffset = new Vector2(12, 12);
+
+			text.Scale = FontScale * .9f;
         }
 
 // Whether to make a menu, or a static text with key bindings
@@ -163,19 +173,23 @@ namespace CloudberryKingdom
             //MakeDarkBack();
 
 
-			
+			MakeDarkBack();
+
 			//QuadClass Backdrop = new QuadClass("Score_Screen", "Backdrop");
 			//MyPile.Add(Backdrop);
 			QuadClass Backdrop = new QuadClass("Backplate_1230x740", "Backdrop");
 			MyPile.Add(Backdrop);
-            MyPile.Add(Backdrop);
+			//MyPile.Add(Backdrop);
+			
 			EpilepsySafe();
+			
 
 			//LevelCleared = new QuadClass("LevelCleared", "Header");
 			//LevelCleared.Scale(.9f);
 			//MyPile.Add(LevelCleared);
 			//LevelCleared.Pos = new Vector2(10, 655) + ShiftAll;
 			var lc = new EzText(Localization.Words.LevelCleared, Resources.Font_Grobold42_2, "LevelCleared");
+			SetHeaderProperties(lc);
 			lc.Shadow = true;
 			lc.ShadowOffset = new Vector2(20, 20);
 			lc.ShadowColor = new Color(.36f, .36f, .36f, .86f);
@@ -196,6 +210,12 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
+			//SetHeaderProperties(MyPile.FindEzText("Coins"));
+			//SetHeaderProperties(MyPile.FindEzText("Bobs"));
+			//SetHeaderProperties(MyPile.FindEzText("Deaths"));
+
+
+
             MenuItem _item;
             _item = MyMenu.FindItemByName("Continue"); if (_item != null) { _item.SetPos = new Vector2(-871.7776f, 516.6667f); _item.MyText.Scale = 0.78f; _item.MySelectedText.Scale = 0.78f; _item.SelectIconOffset = new Vector2(0f, 0f); }
             _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(-646.8889f, 266.6737f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
@@ -243,9 +263,21 @@ namespace CloudberryKingdom
             int Blobs = PlayerManager.PlayerSum(p => p.GetStats(MyStatGroup).Blobs);
             int BlobTotal = PlayerManager.PlayerMax(p => p.GetStats(MyStatGroup).TotalBlobs);
 
-            MyPile.Add(new EzText(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins"));
-            MyPile.Add(new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs"));
-            MyPile.Add(new EzText(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths"));
+			
+			EzText text;
+			
+			text = new EzText(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins");
+			SetHeaderProperties(text);
+            MyPile.Add(text);
+
+            text = new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs");
+			SetHeaderProperties(text);
+			MyPile.Add(text);
+
+            text = new EzText(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths");
+			SetHeaderProperties(text);
+			MyPile.Add(text);
+
 
             // Prevent menu interactions for a second
             MyMenu.Active = false;

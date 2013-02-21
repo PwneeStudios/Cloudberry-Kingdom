@@ -199,6 +199,11 @@ namespace CloudberryKingdom
 			backdrop.Name = "Backdrop";
 			MyPile.Add(backdrop);
 
+			if (!UseSimpleBackdrop)
+			{
+				EpilepsySafe();
+			}
+
             // Header
             MenuItem item = new MenuItem(new EzText(Localization.Words.SavedSeeds, ItemFont));
             item.Name = "Header";

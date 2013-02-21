@@ -74,6 +74,8 @@ namespace CloudberryKingdom
 
             this.Width = Width;
             InitCustomBar(FillName, OutlineName, Width);
+			Fill.Quad.SetColor(ColorHelper.GrayColor(.92435f));
+			Outline.Quad.SetColor(ColorHelper.GrayColor(.9435f));
         }
 
         public void InitCustomBar(string FillName, string OutlineName, float Width)

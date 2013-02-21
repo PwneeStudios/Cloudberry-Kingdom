@@ -14,8 +14,8 @@ namespace CloudberryKingdom
         public static SignedInGamer LeaderboardGamer;
         public static List<Gamer> LeaderboardFriends;
 
-        //public const int EntriesPerPage = 20;
-        public const int EntriesPerPage = 4;
+        public const int EntriesPerPage = 20;
+        //public const int EntriesPerPage = 4;
 
         static NetworkSession WritingNetworkSession;
         static ScoreEntry ScoreToWrite;
@@ -26,8 +26,10 @@ namespace CloudberryKingdom
         }
         public static void WriteToLeaderboard(ScoreEntry score)
         {
-            score.GameId += Challenge.LevelMask;
-            _WriteToLeaderboard(score, null);
+			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, score.Value, score.Score, score.Level, score.Attempts, score.Time, score.Date);
+            
+			copy.GameId += Challenge.LevelMask;
+            _WriteToLeaderboard(copy, null);
         }
         static void _WriteToLeaderboard(ScoreEntry score, ScoreEntry[] scores)
         {
@@ -61,6 +63,11 @@ namespace CloudberryKingdom
             {
                 if (localNetworkGamer.SignedInGamer == null || !localNetworkGamer.SignedInGamer.IsSignedInToLive) continue;
 
+                // Make sure the gamer is in the game
+                if (PlayerManager.Players[(int)localNetworkGamer.SignedInGamer.PlayerIndex] == null) return;
+                if (!PlayerManager.Players[(int)localNetworkGamer.SignedInGamer.PlayerIndex].Exists) continue;
+
+                // Write the score
                 LeaderboardWriter leaderboardWriter = localNetworkGamer.LeaderboardWriter;
 
                 if (leaderboardWriter != null)
@@ -70,6 +77,8 @@ namespace CloudberryKingdom
                     {
                         score = ScoreToWrite_Separate[(int)localNetworkGamer.SignedInGamer.PlayerIndex];
                     }
+
+                    if (score == null) continue;
 
                     LeaderboardEntry leaderboardEntry = leaderboardWriter.GetLeaderboard(GetIdentity(score.GameId));
                     leaderboardEntry.Rating = score.Value;

@@ -83,6 +83,8 @@ namespace CloudberryKingdom
         int StartLevel = 0;
         public override void Start(int Chapter)
         {
+            CloudberryKingdomGame.PromptForDeviceIfNoneSelected();
+
 			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Campaign);
 
 			MusicStarted = false;

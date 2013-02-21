@@ -12,9 +12,9 @@ namespace CloudberryKingdom
         /// <summary>
         /// Returns a function that modifies a PieceSeed's difficulty
         /// </summary>
-        public static LevelSeedData.CustomDifficulty FixedPieceMod(float Difficulty, LevelSeedData LevelSeed)
+        public static LevelSeedData.CustomDifficulty FixedPieceMod(float Difficulty, LevelSeedData LevelSeed, bool ScreenSaver)
         {
-            return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType);
+            return piece => FixedPieceSeed(piece, Difficulty, LevelSeed.DefaultHeroType, ScreenSaver);
         }
 
         public static DifficultyFunc GetFunc(float Difficulty)
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
         /// Modify the upgrades for a PieceSeed.
         /// Difficulty should range from 0 (Easy) to 4 (Masochistic)
         /// </summary>
-        public static void FixedPieceSeed(PieceSeedData piece, float Difficulty, BobPhsx hero)
+        public static void FixedPieceSeed(PieceSeedData piece, float Difficulty, BobPhsx hero, bool ScreenSaver)
         {
             InitFixedUpgrades();
 
@@ -80,18 +80,26 @@ namespace CloudberryKingdom
 
                 D = GetFunc(Difficulty);
 
-                switch ((int)Difficulty)
-                {
-                    case 0: Tools.GlobalRnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
-                    case 1: Tools.GlobalRnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
-                    case 2: Tools.GlobalRnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
-                    default: Tools.GlobalRnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
-
-                    //case 0: piece.Rnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
-                    //case 1: piece.Rnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
-                    //case 2: piece.Rnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
-                    //default: piece.Rnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
-                }
+				if (ScreenSaver)
+				{
+					switch ((int)Difficulty)
+					{
+						case 0: Tools.GlobalRnd.Choose(EasyUpgrades_SS)(piece.MyUpgrades1, D); break;
+						case 1: Tools.GlobalRnd.Choose(NormalUpgrades_SS)(piece.MyUpgrades1, D); break;
+						case 2: Tools.GlobalRnd.Choose(AbusiveUpgrades_SS)(piece.MyUpgrades1, D); break;
+						default: Tools.GlobalRnd.Choose(HardcoreUpgrades_SS)(piece.MyUpgrades1, D); break;
+					}
+				}
+				else
+				{
+					switch ((int)Difficulty)
+					{
+						case 0: Tools.GlobalRnd.Choose(EasyUpgrades)(piece.MyUpgrades1, D); break;
+						case 1: Tools.GlobalRnd.Choose(NormalUpgrades)(piece.MyUpgrades1, D); break;
+						case 2: Tools.GlobalRnd.Choose(AbusiveUpgrades)(piece.MyUpgrades1, D); break;
+						default: Tools.GlobalRnd.Choose(HardcoreUpgrades)(piece.MyUpgrades1, D); break;
+					}
+				}
             }
 
             // Mod upgrades to test things here
@@ -135,12 +143,19 @@ namespace CloudberryKingdom
                 return;
 
             EasyUpgrades = new List<Action<Upgrades, DifficultyFunc>>();
+			EasyUpgrades_SS = new List<Action<Upgrades, DifficultyFunc>>();
 
             // Difficulties
             MakeEasyUpgrades();
             MakeNormalUpgrades();
             MakeAbusiveUpgrades();
             MakeHardcoreUpgrades();
+
+			MakeEasyUpgrades_SS();
+			MakeNormalUpgrades_SS();
+			MakeAbusiveUpgrades_SS();
+			MakeHardcoreUpgrades_SS();
+
 
             // Special hero overrides
             MakeCartUpgrades();
@@ -150,7 +165,8 @@ namespace CloudberryKingdom
             MakeDownUpgrades();
         }
 
-        static List<Action<Upgrades, DifficultyFunc>> UpUpgrades = new List<Action<Upgrades, DifficultyFunc>>();
+		#region Upgrades
+		static List<Action<Upgrades, DifficultyFunc>> UpUpgrades = new List<Action<Upgrades, DifficultyFunc>>();
         static void MakeUpUpgrades()
         {
             List<Action<Upgrades, DifficultyFunc>> f = UpUpgrades;
@@ -701,8 +717,407 @@ namespace CloudberryKingdom
 				}
 			});
 
-        }
-    }
+		}
+		#endregion
+
+		#region ScreenSaver upgrades (Old Escalation upgrades)
+		static List<Action<Upgrades, DifficultyFunc>> EasyUpgrades_SS;
+		static void MakeEasyUpgrades_SS()
+		{
+			List<Action<Upgrades, DifficultyFunc>> f = EasyUpgrades_SS;
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+				u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FallingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FlyBlob] = D(1, 1, 2.2, 2.2, 2.2);
+				u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 9);
+				u[Upgrade.SpikeyLine] = D(0, 3, 5, 7, 9);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+				u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FallingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FireSpinner] = D(1, 3, 5, 7, 10);
+				u[Upgrade.Spike] = D(1, 3, 5, 7, 10);
+				u[Upgrade.Laser] = D(0, 0, 0, 3, 6);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+				u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FallingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.FlyBlob] = D(1, 1, 2.2, 2.2, 2.2);
+				u[Upgrade.Pinky] = D(.75f, 3, 5, 7, 9);
+				u[Upgrade.Spike] = D(1, 3, 5, 7, 9);
+				u[Upgrade.FireSpinner] = D(0, 2, 3, 4, 7);
+			});
+
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+				u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.BouncyBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.GhostBlock] = D(1, 1, 2.2, 2.2, 2.2);
+				u[Upgrade.Pinky] = D(.75f, 3, 5, 7, 9);
+				u[Upgrade.Spike] = D(1, 3, 5, 7, 9);
+				u[Upgrade.FireSpinner] = D(0, 2, 3, 4, 7);
+			});
+
+
+
+
+			// Older
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 5, 5, 5, 5);
+				u[Upgrade.Speed] = D(1, 2, 3, 5, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.BouncyBlock] = D(1, 1, 2.2, 3, 3);
+				u[Upgrade.Elevator] = D(1, 1, 2.2, 2.2, 2.2);
+				u[Upgrade.Pinky] = D(.8f, 3, 5, 7, 9);
+				u[Upgrade.Spike] = D(1, 3, 5, 7, 9);
+				u[Upgrade.Laser] = D(0, 2, 3, 4, 7);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(2, 4.8, 7.0, 8.4, 10);
+				u[Upgrade.Speed] = D(1, 2, 8.2, 9.1, 11);
+				u[Upgrade.MovingBlock] = D(1, 1, 2.2, 8, 10);
+				u[Upgrade.FallingBlock] = D(1, 1, 2.2, 7, 10);
+				u[Upgrade.FlyBlob] = D(1, 1, 2.2, 7, 10);
+				//u[Upgrade.Fireball] =       D(0,   0,   0,   0,   4);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.SpikeyGuy] = D(2, 4, 5.2, 8, 10);
+				u[Upgrade.Jump] = D(3, 2.5, 2, 4, 4.5);
+				u[Upgrade.Spike] = D(0, 3, 7.5, 9, 10);
+				u[Upgrade.Speed] = D(0, 2, 5.5, 8.8, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(3.5f, 1, 0, 0, 0);
+				u[Upgrade.SpikeyGuy] = D(0, 3.2, 5.5, 8, 10);
+				u[Upgrade.Pinky] = D(1.2f, 3, 5.5, 8, 10);
+				u[Upgrade.Spike] = D(0, 0, 0, 4, 10);
+				u[Upgrade.Speed] = D(2, 3, 4, 8.8, 10);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Laser] = D(2.5, 4, 5.5, 7.9, 10);
+				u[Upgrade.Speed] = D(0, 0, 0, 1, 5);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 4, 4);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(3.6, 2, 0, 0, 0);
+				u[Upgrade.Speed] = D(0, 0, 0, 1, 3);
+				u[Upgrade.FireSpinner] = D(0, 1.5, 4, 6, 9);
+				u[Upgrade.Pinky] = D(0, 1.5, 3.6, 5.7, 8);
+				u[Upgrade.FallingBlock] = D(0, 1, 4, 6, 8);
+				u[Upgrade.Cloud] = D(2, 2.5, 4, 6, 9);
+				u[Upgrade.SpikeyGuy] = D(2, 3, 3.5, 5.6, 10);
+				u[Upgrade.BouncyBlock] = D(0, 0, 4, 6, 8);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Laser] = D(2, 3.5, 4.2, 6, 9);
+				u[Upgrade.Speed] = D(0, 1, 1.7, 3, 3);
+				u[Upgrade.Elevator] = D(2.8f, 5, 7, 9, 9);
+				u[Upgrade.MovingBlock] = D(1.8f, 3, 3, 3, 3);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.SpikeyLine] = D(.7f, 2, 4, 8.4, 9.5);
+				u[Upgrade.Speed] = D(0, 2, 3, 4.5, 10);
+				u[Upgrade.Elevator] = D(2, 3, 3, 4, 10);
+				u[Upgrade.MovingBlock] = D(0, 2, 4, 4, 4);
+				u[Upgrade.FlyBlob] = D(0, 2, 4, 4, 4);
+				u[Upgrade.FireSpinner] = D(0, 2, 4, 4, 4);
+				u[Upgrade.Jump] = D(1, 3, 4, 4, 4);
+				u[Upgrade.Cloud] = D(0, 1, 2, 3, 4);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.SpikeyGuy] = D(.7f, 3, 4.5, 7.6, 9.5);
+				u[Upgrade.Speed] = D(.7f, 3, 3.5, 8, 10);
+				u[Upgrade.Elevator] = D(3f, 6, 7, 9, 9);
+				u[Upgrade.Laser] = D(0, 0, 0, 0, 4);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.BouncyBlock] = D(3.6f, 8.2, 9, 9, 10);
+				u[Upgrade.Spike] = D(2, 7.5, 8.5, 9, 10);
+				u[Upgrade.FallingBlock] = D(4f, 2, 2, 3, 4);
+				u[Upgrade.Speed] = D(0, 0, 2, 5, 10);
+				u[Upgrade.FireSpinner] = D(0, 1, 3, 6, 9);
+				u[Upgrade.Pinky] = D(0, 0, 0, 0, 6);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Laser] = D(1.8f, 3, 4, 6, 9.5);
+				u[Upgrade.Speed] = D(0, 0, 0, 1, 3);
+				u[Upgrade.FireSpinner] = D(1, 3, 6, 9, 9);
+				u[Upgrade.Jump] = D(3, 4, 4, 0, 0);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.BouncyBlock] = D(4, 8.2, 9, 9, 10);
+				u[Upgrade.Spike] = D(0, 7.5, 8.5, 9, 10);
+				u[Upgrade.MovingBlock] = D(0, 2, 2, 4, 9);
+				u[Upgrade.Speed] = D(0, 0, 2, 6, 10);
+				u[Upgrade.SpikeyLine] = D(0, 0, 0, 0, 4);
+				//u[Upgrade.Fireball] =       D(0,   0,   0,  .5,   4);
+			});
+
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.FireSpinner] = D(1, 1.5, 2.5, 4, 8);
+				u[Upgrade.Pinky] = D(1, 2, 3.5, 6, 10);
+				u[Upgrade.MovingBlock] = D(1, 3, 4, 9, 10);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
+			});
+		}
+
+		static List<Action<Upgrades, DifficultyFunc>> NormalUpgrades_SS = new List<Action<Upgrades, DifficultyFunc>>();
+		static void MakeNormalUpgrades_SS()
+		{
+			List<Action<Upgrades, DifficultyFunc>> f = NormalUpgrades_SS;
+			f.AddRange(EasyUpgrades_SS);
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 4.8, 7.5, 9, 10);
+				u[Upgrade.Speed] = D(-1, 0, 6, 9, 10);
+				u[Upgrade.MovingBlock] = D(-1, 2, 2, 6, 10);
+				u[Upgrade.GhostBlock] = D(-1, 2, 2, 6, 10);
+				u[Upgrade.BouncyBlock] = D(-1, 2, 2, 4, 10);
+				u[Upgrade.FlyBlob] = D(-1, 2, 2, 4, 10);
+				u[Upgrade.Spike] = D(-1, 2, 2, 9, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 4, 4, 4, 4);
+				u[Upgrade.Speed] = D(-1, 2, 2, 5, 10);
+				u[Upgrade.MovingBlock] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.BouncyBlock] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.FireSpinner] = D(-1, 2, 4, 8, 10);
+				u[Upgrade.Laser] = D(-1, 0, 0, 0, 5.5);
+			});
+
+			/*
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Speed] =       D(-1, 2, 4, 7, 10);
+				u[Upgrade.Fireball] =    D(-1, 2, 4, 7, 10);
+				u[Upgrade.Laser] =       D(-1, 2, 3, 4, 8);
+				u[Upgrade.FireSpinner] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.Spike] =       D(-1, 2, 4, 7, 10);
+			});*/
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.MovingBlock] = D(-1, 6, 8.5, 9, 10);
+				u[Upgrade.Jump] = D(-1, 4, 2, 0, 0);
+				u[Upgrade.Speed] = D(-1, 3, 5.5, 9, 9);
+				u[Upgrade.FireSpinner] = D(-1, 0, 5, 9, 9);
+				u[Upgrade.Spike] = D(-1, 0, 0, 3, 9);
+				u[Upgrade.Ceiling] = D(1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 0, 0, 5, 8);
+				u[Upgrade.FlyBlob] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.FallingBlock] = D(-1, 2, 3, 4, 10);
+				u[Upgrade.Speed] = D(-1, 4, 6, 9, 10);
+				u[Upgrade.GhostBlock] = D(-1, 5, 6, 9, 10);
+				//u[Upgrade.Fireball] =       D(-1, 0, 0, 0, 5);
+			});
+			f.Add((u, D) =>
+			{
+				u[Upgrade.MovingBlock] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.FlyBlob] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.FallingBlock] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.SpikeyGuy] = D(-1, 1, 3, 6, 10);
+				u[Upgrade.FireSpinner] = D(-1, 1, 4, 7, 10);
+				u[Upgrade.Pinky] = D(-1, 1, 3, 6, 10);
+				u[Upgrade.Speed] = D(-1, 0, 0, 2, 9);
+			});
+
+			/*
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Speed] =       D(-1, 0, 1, 3, 10);
+				u[Upgrade.Jump] =        D(-1, 3, 5, 8, 10);
+				u[Upgrade.Fireball] =    D(-1, 2, 4, 7, 10);
+				u[Upgrade.Pinky] =       D(-1, 2, 4, 8, 10);
+				u[Upgrade.FlyBlob] =     D(-1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Speed] =       D(-1, 0, 1, 3, 10);
+				u[Upgrade.Fireball] =    D(-1, 2, 4, 7, 10);
+				u[Upgrade.Pinky] =       D(-1, 2, 4, 8, 10);
+				u[Upgrade.BouncyBlock] = D(-1, 2, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Speed] =       D(-1, 3, 4, 7, 10);
+				u[Upgrade.Fireball] =    D(-1, 5, 7, 9, 10);
+				u[Upgrade.Spike] =       D(-1, 0, 0, 0, 10);
+			});*/
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.Speed] = D(-1, 2, 3, 5, 10);
+				u[Upgrade.MovingBlock] = D(-1, 4, 5, 7, 10);
+				u[Upgrade.SpikeyGuy] = D(-1, 1.2, 2.7, 6, 10);
+				u[Upgrade.FireSpinner] = D(-1, 1.5, 4, 8, 10);
+			});
+			/*
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Fireball] =    D(-1, 2,   4,   7,   10);
+				u[Upgrade.FireSpinner] = D(-1, 2,   3,   7,   10);
+				u[Upgrade.FlyBlob] =     D(-1, 2,   4,   7,   10);
+				u[Upgrade.MovingBlock] = D(-1, 4,   6,   9,   10);
+				u[Upgrade.Speed] =       D(-1, 0,   1,   3.5,  7);
+			});*/
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 5.1, 7.5, 9, 10);
+				u[Upgrade.GhostBlock] = D(-1, 2, 7, 9, 10);
+				u[Upgrade.Speed] = D(-1, 0, 2, 3.5, 10);
+				//u[Upgrade.Fireball] =   D(-1,   0, 0,     4,   7);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, 5, 7.5, 9, 10);
+				u[Upgrade.Speed] = D(-1, 2, 4, 6, 7);
+				u[Upgrade.Laser] = D(-1, 1, 4, 6, 8.5);
+				u[Upgrade.FallingBlock] = D(-1, 6.5, 9, 9, 10);
+				u[Upgrade.FlyBlob] = D(-1, 2, 2, 9, 10);
+				u[Upgrade.Ceiling] = D(1, 2, 3, 3, 4);
+			});
+
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.BouncyBlock] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.FlyBlob] = D(-1, 2, 4, 7, 10);
+				u[Upgrade.Spike] = D(-1, 2, 4, 9, 10);
+				u[Upgrade.Speed] = D(-1, 0, 0, 6, 10);
+				u[Upgrade.FireSpinner] = D(-1, 0, 0, 4, 10);
+				u[Upgrade.SpikeyLine] = D(-1, 0, 0, 3, 6);
+			});
+		}
+
+		static List<Action<Upgrades, DifficultyFunc>> AbusiveUpgrades_SS = new List<Action<Upgrades, DifficultyFunc>>();
+		static void MakeAbusiveUpgrades_SS()
+		{
+			List<Action<Upgrades, DifficultyFunc>> f = AbusiveUpgrades_SS;
+			f.AddRange(NormalUpgrades_SS);
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, -1, 4, 6, 9);
+				u[Upgrade.Speed] = D(-1, -1, 4, 6, 9);
+				u[Upgrade.MovingBlock] = D(-1, -1, 4, 4, 4);
+				u[Upgrade.GhostBlock] = D(-1, -1, 3, 4, 4);
+				u[Upgrade.FlyBlob] = D(-1, -1, 4, 4, 4);
+				u[Upgrade.Pinky] = D(-1, -1, 2, 4, 7);
+				u[Upgrade.Laser] = D(-1, -1, 2, 4, 5.5);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Cloud] = D(-1, -1, 2, 2, 4);
+				u[Upgrade.FireSpinner] = D(-1, -1, 4, 8, 10);
+				u[Upgrade.FlyBlob] = D(-1, -1, 5, 8, 10);
+				u[Upgrade.Jump] = D(-1, -1, 4, 6, 9);
+				u[Upgrade.Speed] = D(-1, -1, 2, 4, 6);
+				u[Upgrade.MovingBlock] = D(-1, -1, 4, 4, 4);
+				u[Upgrade.Ceiling] = D(-1, -1, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, -1, 7, 9, 9);
+				u[Upgrade.Speed] = D(-1, -1, 4, 8, 9);
+				u[Upgrade.SpikeyGuy] = D(-1, -1, 5.4, 8.5, 10);
+				u[Upgrade.FallingBlock] = D(-1, -1, 9, 9, 9);
+				u[Upgrade.FlyBlob] = D(-1, -1, 2, 6, 9);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.Jump] = D(-1, -1, 7, 9, 10);
+				u[Upgrade.Speed] = D(-1, -1, 4, 6, 9);
+				u[Upgrade.FallingBlock] = D(-1, -1, 9, 9, 9);
+				u[Upgrade.BouncyBlock] = D(-1, -1, 8, 9, 9);
+				u[Upgrade.SpikeyGuy] = D(-1, -1, 3, 6, 10);
+				u[Upgrade.Pinky] = D(-1, -1, 4, 7, 10);
+			});
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.FireSpinner] = D(-1, -1, 2, 5, 9);
+				u[Upgrade.FlyBlob] = D(-1, -1, 2, 2, 2);
+				u[Upgrade.Laser] = D(-1, -1, 2, 4, 6);
+				u[Upgrade.GhostBlock] = D(-1, -1, 2, 7, 9);
+				u[Upgrade.Speed] = D(-1, -1, 6, 8, 9);
+				u[Upgrade.Ceiling] = D(-1, -1, 4, 7, 10);
+			});
+		}
+
+		static List<Action<Upgrades, DifficultyFunc>> HardcoreUpgrades_SS = new List<Action<Upgrades, DifficultyFunc>>();
+		static void MakeHardcoreUpgrades_SS()
+		{
+			List<Action<Upgrades, DifficultyFunc>> f = HardcoreUpgrades_SS;
+			f.AddRange(AbusiveUpgrades_SS);
+
+			f.Add((u, D) =>
+			{
+				u[Upgrade.FireSpinner] = D(-1, -1, -1, 9, 10);
+				u[Upgrade.Speed] = D(-1, -1, -1, 5, 8);
+				u[Upgrade.MovingBlock] = D(-1, -1, -1, 2, 2);
+			});
+		}
+		#endregion
+	}
 }
 
 #if FALSE

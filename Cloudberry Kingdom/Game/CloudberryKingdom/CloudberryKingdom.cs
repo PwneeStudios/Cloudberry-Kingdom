@@ -201,7 +201,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign };
+		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade };
 		static Presence CurrentPresence = Presence.TitleScreen;
 		public static void SetPresence(Presence presence)
 		{
@@ -219,6 +219,7 @@ namespace CloudberryKingdom
 				case Presence.HeroRush2: Mode = "HeroRush2"; break;
 				case Presence.Campaign: Mode = "Campaign"; break;
 				case Presence.Freeplay: Mode = "Freeplay"; break;
+                case Presence.Arcade: Mode = "Arcade"; break;
 				default: Mode = "TitleScreen"; break;
 			}
 
@@ -231,6 +232,15 @@ namespace CloudberryKingdom
                     player.MyGamer.Presence.SetPresenceModeString(Mode);
 				}
 			}
+
+            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            {
+                int index = (int)gamer.PlayerIndex;
+                if (PlayerManager.Players[index] != null || !PlayerManager.Players[index].Exists)
+                {
+                    gamer.Presence.SetPresenceModeString("Idle");
+                }
+            }
 #else
             Tools.Warning();
             return;
@@ -606,7 +616,7 @@ namespace CloudberryKingdom
             var data = PlayerManager.Players[index] = new PlayerData();
             data.Init(index);
 
-            if (Gamer.SignedInGamers.Count == 0)
+            if (PlayerManager.NumExistingPlayers() == 0)
             {
                 Tools.SongWad.Stop();
                 CharacterSelectManager.SuddenCleanup();
@@ -634,15 +644,16 @@ namespace CloudberryKingdom
 
             SaveGroup.LoadGamer(data);
 
-            if (CurrentPresence == Presence.TitleScreen)
-            {
-                // Nothing extra to do
-            }
-            else
-            {
-                // Otherwise we're in a game and should return to the title screen
-                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-            }
+            // Used to go back to main menu on signin, but not needed anymore now that Quick Join is disabled.
+            //if (CurrentPresence == Presence.TitleScreen)
+            //{
+            //    // Nothing extra to do
+            //}
+            //else
+            //{
+            //    // Otherwise we're in a game and should return to the title screen
+            //    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+            //}
         }
 #endif
 
@@ -718,7 +729,20 @@ namespace CloudberryKingdom
 #endif
 
             if (!HideLogos)
-                MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+            {
+#if XDK
+                if (GuideExtensions.ConsoleRegion == ConsoleRegion.NorthAmerica)
+                {
+                    MainVideo.StartVideo_CanSkipIfWatched("LogoSalad_ESRB");
+                }
+                else
+                {
+                    MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+                }
+#else
+				MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+#endif
+            }
         }
 
         void HookSignInAndOut()
@@ -1039,10 +1063,11 @@ namespace CloudberryKingdom
         public bool RunningSlowly = false;
         public void Update()
         {
-            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+			//var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+			//var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 24f));
             //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 10f));
-            //Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
-            //Tools.GameClass.IsFixedTimeStep = true;
+			//Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
+			//Tools.GameClass.IsFixedTimeStep = true;
         }
 
 #if XBOX
@@ -1116,6 +1141,9 @@ namespace CloudberryKingdom
 
 		bool DisconnectedController()
 		{
+#if PC_VERSION
+			return false;
+#endif
 			for (int i = 0; i < 4; i++)
 			{
 				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !Tools.GamepadState[i].IsConnected)
@@ -1162,13 +1190,49 @@ namespace CloudberryKingdom
 			Tools.CurGameData.AddGameObject(SmallErrorMessage);
         }
 
-		/// <summary>
-		/// The main draw loop.
-		/// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
-		/// Also updates the game logic. TODO: Seperate this from the draw function?
-		/// </summary>
-		/// <param name="gameTime"></param>
-		public void Draw(GameTime gameTime)
+        bool CustomMusicPlaying = false;
+        void UpdateCustomMusic()
+        {
+#if XDK
+            if (MediaPlayer.GameHasControl)
+            {
+                CustomMusicPlaying = true;
+            }
+            else
+            {
+                if (CustomMusicPlaying)
+                {
+                    if (Tools.SongWad != null)
+                        Tools.SongWad.Restart(true, false);
+                }
+            }
+#endif
+        }
+
+        /// <summary>
+        /// If a gamer has no save device selected, ask them to select one.
+        /// </summary>
+        public static void PromptForDeviceIfNoneSelected()
+        {
+            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            {
+                int index = (int)gamer.PlayerIndex;
+                if (PlayerManager.Players[index] != null && PlayerManager.Players[index].Exists &&
+                    !EzStorage.Device[index].IsReady)
+                {
+                    //EzStorage.Device[index].PromptForDevice();
+                    EzStorage.Device[index].state = EasyStorage.SaveDevicePromptState.PromptForCanceled;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The main draw loop.
+        /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
+        /// Also updates the game logic. TODO: Seperate this from the draw function?
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Draw(GameTime gameTime)
         {
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
@@ -1227,6 +1291,8 @@ namespace CloudberryKingdom
                 }
             }
 #endif
+
+            UpdateCustomMusic();
 
             // What to do
             if (LogoScreenUp)

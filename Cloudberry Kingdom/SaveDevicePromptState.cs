@@ -3,7 +3,7 @@ namespace EasyStorage
 	/// <summary>
 	/// The various states of the SaveDevice.
 	/// </summary>
-	internal enum SaveDevicePromptState
+	public enum SaveDevicePromptState
 	{
 		/// <summary>
 		/// The SaveDevice is doing nothing.

@@ -308,7 +308,7 @@ namespace CloudberryKingdom
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
-                        Call(new LeaderboardGUI(null, gamer), 0);
+                        Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
                         Hide();
                     }
                 }

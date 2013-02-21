@@ -72,8 +72,24 @@ namespace CloudberryKingdom
 		public static void LoadGamers()
 		{
 			for (int i = 0; i < 4; i++)
-				if (PlayerManager.Players[i].MyGamer != null)
-					LoadGamer(PlayerManager.Players[i]);
+			{
+				if (PlayerManager.Players[i] != null)
+					PlayerManager.Players[i].Exists = false;
+			}
+
+			foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+			{
+				if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
+				{
+					var data = PlayerManager.Players[(int)gamer.PlayerIndex] = new PlayerData();
+                    data.Init((int)gamer.PlayerIndex);
+					LoadGamer(PlayerManager.Players[(int)gamer.PlayerIndex]);
+				}
+			}
+
+			//for (int i = 0; i < 4; i++)
+			//    if (PlayerManager.Players[i].MyGamer != null)
+			//        LoadGamer(PlayerManager.Players[i]);
 		}
 
         public static void LoadGamer(PlayerData player)
@@ -211,8 +227,11 @@ namespace CloudberryKingdom
 
                     LoadLogic(Data);
                 }
-                catch
+                catch (Exception e)
                 {
+#if DEBUG
+                    Tools.Write(e.Message);
+#endif
                     Fail();
 					CloudberryKingdomGame.ShowError_LoadError();
                 }

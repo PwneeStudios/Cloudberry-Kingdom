@@ -318,6 +318,7 @@ namespace CloudberryKingdom
 
         public override void ReturnToCaller()
         {
+            SaveGroup.SaveAll();
             base.ReturnToCaller();
         }
 

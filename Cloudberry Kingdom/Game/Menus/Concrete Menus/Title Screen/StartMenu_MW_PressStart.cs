@@ -81,24 +81,40 @@ namespace CloudberryKingdom
 #if XDK || XBOX
                 if (Gamer.SignedInGamers.Count > 0)
                 {
+                    bool LoadNeeded = false;
+
                     foreach (var gamer in Gamer.SignedInGamers)
                     {
-                        if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
+                        int index = (int)gamer.PlayerIndex;
+
+                        if (EzStorage.Device[index] == null ||
+                            !EzStorage.Device[index].IsReady)
                         {
 #if XDK || XBOX
                             if (!CloudberryKingdomGame.IsDemo)
                             {
-                                SaveGroup.LoadGamers();
+                                if (EzStorage.Device[index] != null)
+                                {
+                                    Tools.GameClass.Components.Remove(EzStorage.Device[index]);
+                                    EzStorage.Device[index] = null;
+                                }
+
+                                LoadNeeded = true;
                             }
 #endif
-                            Hide();
-                            MyGame.WaitThenDo(5, CallMenu);
-                            return;
                         }
+                    }
+
+                    if (LoadNeeded)
+                    {
+                        SaveGroup.LoadGamers();
+                        Hide();
+                        MyGame.WaitThenDo(5, CallMenu);
+                        return;
                     }
                 }
 #endif
-      
+
                 CallMenu();
             }
         }

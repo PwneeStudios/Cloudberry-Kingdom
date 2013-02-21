@@ -59,7 +59,7 @@ namespace CloudberryKingdom
 		protected void EpilepsySafe()
 		{
 			QuadClass _q;
-			_q = MyPile.FindQuad("Backdrop");	if (_q != null) { _q.Alpha = .8f; }
+			_q = MyPile.FindQuad("Backdrop");	if (_q != null) { _q.Alpha = .7f; _q.Quad.SetColor(ColorHelper.GrayColor(.8735f)); }
 			_q = DarkBack;						if (_q != null) { _q.Quad.SetColor(ColorHelper.GrayColor(.1f)); }
 		}
 
@@ -68,9 +68,9 @@ namespace CloudberryKingdom
         {
             // Make the dark back
             DarkBack = new QuadClass("White");
-            DarkBack.Quad.SetColor(ColorHelper.GrayColor(.25f));
+            DarkBack.Quad.SetColor(ColorHelper.GrayColor(.2f));
             DarkBack.Alpha = 0f;
-            DarkBack.Fade(.1f); DarkBack.MaxAlpha = .5f;
+            DarkBack.Fade(.135f); DarkBack.MaxAlpha = .7125f;
             DarkBack.FullScreen(Tools.CurCamera);
             DarkBack.Pos = Vector2.Zero;
             DarkBack.Scale(5);
@@ -123,8 +123,9 @@ namespace CloudberryKingdom
 
         protected virtual void SetSelectedTextProperties(EzText text)
         {
-            text.MyFloatColor = new Color(246, 214, 33).ToVector4();
-            //text.MyFloatColor = new Color(50, 220, 50).ToVector4();
+			//text.MyFloatColor = new Color(246, 214, 33).ToVector4();
+			text.MyFloatColor = new Color(246, 214, 33).ToVector4() * .9735f;
+			text.MyFloatColor.W = 1.0f;
 
             text.Scale = FontScale;
 

@@ -67,6 +67,8 @@ namespace CloudberryKingdom
 
         public override void OnAdd()
         {
+            CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Arcade);
+
             base.OnAdd();
         }
 

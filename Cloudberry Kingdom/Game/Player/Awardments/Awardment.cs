@@ -143,7 +143,7 @@ namespace CloudberryKingdom
                 else
                     player.Awardments += award.Guid;
 
-#if XBOX
+#if XDK
                 if (award.Official)
                 {
                     foreach (var gamer in Gamer.SignedInGamers)
@@ -200,7 +200,24 @@ namespace CloudberryKingdom
             if (Level >= UnlockHeroRush2.MyInt)
             {
                 GiveAward(UnlockHeroRush2, player);
-                CheckForAward_UnlockAllArcade();
+
+				int id, level;
+
+				// Check we've gotten all Escalation heroes
+				id = Challenge_Escalation.Instance.CalcGameId_Level(ArcadeMenu.HighestHero);
+				level = PlayerManager.MaxPlayerHighScore(id);
+				bool escalation_complete = level >= ArcadeMenu.HighestLevelNeeded;
+
+				// Check we've gotten all Time Crisis heroes
+				id = Challenge_TimeCrisis.Instance.CalcGameId_Level(ArcadeMenu.HighestHero);
+				level = PlayerManager.MaxPlayerHighScore(id);
+				bool timecrisis_complete = level >= ArcadeMenu.HighestLevelNeeded;
+
+				// Give award for unlocking everything
+				if (escalation_complete && timecrisis_complete)
+					GiveAward(Award_UnlockAllArcade, player);
+                
+				//CheckForAward_UnlockAllArcade();
 				//Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
             }
         }
@@ -235,7 +252,7 @@ namespace CloudberryKingdom
         {
             int deaths = bob.MyStats.TotalDeaths + PlayerManager.Get(bob).GameStats.TotalDeaths + PlayerManager.Get(bob).LifetimeStats.TotalDeaths;
             if (deaths >= 1337)
-                GiveAward(Award_Die);
+                GiveAward(Award_Die, bob.MyPlayerData);
         }
 
         public static void CheckForAward_NoDeath(PlayerData player)
@@ -260,7 +277,7 @@ namespace CloudberryKingdom
             int obstacles = bob.MyStats.ObstaclesSeen + PlayerManager.Get(bob).GameStats.ObstaclesSeen + PlayerManager.Get(bob).LifetimeStats.ObstaclesSeen;
 
             if (obstacles >= 1000)
-                GiveAward(Award_Obstacles);
+                GiveAward(Award_Obstacles, bob.MyPlayerData);
         }
 
         public static void CheckForAward_Buy()
