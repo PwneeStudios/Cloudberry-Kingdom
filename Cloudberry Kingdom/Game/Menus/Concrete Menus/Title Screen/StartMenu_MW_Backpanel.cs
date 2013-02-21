@@ -34,7 +34,7 @@ namespace CloudberryKingdom
             Scene.FancyScale.LerpTo(1.025f * size, size, 120, CoreEngine.LerpStyle.DecayNoOvershoot);
         }
 
-        QuadClass Scene, Title, Title_Trim, Scene_NoBob_Blur, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten,
+        QuadClass Scene, Title, TM, Title_Trim, Scene_NoBob_Blur, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten,
                     Scene_Kobbler, Scene_Kobbler_Blur;
         public override void Init()
         {
@@ -47,8 +47,10 @@ namespace CloudberryKingdom
             Scene = new QuadClass("Title_Screen", 1778);
             MyPile.Add(Scene, "Scene");
 
+			TM = new QuadClass("TradeMarkSymbol");
+			MyPile.Add(TM, "TM");
+
             Title = new QuadClass("Title", 1778);
-            //MyPile.Add(Title, "Title");
 
             Title_Trim = new QuadClass("Title_Trim", 1778 * 783f / 1280f);
             MyPile.Add(Title_Trim, "Title_Trim");
@@ -88,11 +90,11 @@ namespace CloudberryKingdom
             switch (state)
             {
                 case State.None:
-                    Title.Show = Scene.Show = Scene_Princess.Show = Scene_Kobbler.Show = false;
+                    TM.Show = Title.Show = Scene.Show = Scene_Princess.Show = Scene_Kobbler.Show = false;
                     break;
 
                 case State.Scene_Title:
-                    Title.Show = Scene.Show = true; break;
+                    TM.Show = Title.Show = Scene.Show = true; break;
 
                 case State.Scene:
                     Scene.Show = true; break;
@@ -150,26 +152,25 @@ namespace CloudberryKingdom
             }
             MyState = state;
 
-            Title_Trim.Show = Title.Show;
+            TM.Show = Title_Trim.Show = Title.Show;
         }
         State MyState;
 
         void BlackBox()
         {
-            QuadClass _q;
-            _q = MyPile.FindQuad("Scene"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
-            _q = MyPile.FindQuad("Title"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
-            _q = MyPile.FindQuad("Title_Trim"); if (_q != null) { _q.Pos = new Vector2(-155.5557f, 536.1109f); _q.Size = new Vector2(1087.636f, 373.6578f); }
-            _q = MyPile.FindQuad("Scene_NoBob_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1778f); }
-            _q = MyPile.FindQuad("Scene_NoBob_Brighten"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1778f); }
-            _q = MyPile.FindQuad("Scene_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
-            _q = MyPile.FindQuad("Scene_Princess"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
-            _q = MyPile.FindQuad("Scene_Kobbler"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
-            _q = MyPile.FindQuad("Scene_Kobbler_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
+			QuadClass _q;
+			_q = MyPile.FindQuad("Scene"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
+			_q = MyPile.FindQuad("TM"); if (_q != null) { _q.Pos = new Vector2(574.9999f, 469.4444f); _q.Size = new Vector2(42.55546f, 31.9166f); }
+			_q = MyPile.FindQuad("Title_Trim"); if (_q != null) { _q.Pos = new Vector2(-155.5557f, 536.1109f); _q.Size = new Vector2(1087.636f, 373.6578f); }
+			_q = MyPile.FindQuad("Scene_NoBob_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1778f); }
+			_q = MyPile.FindQuad("Scene_NoBob_Brighten"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1778f); }
+			_q = MyPile.FindQuad("Scene_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
+			_q = MyPile.FindQuad("Scene_Princess"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
+			_q = MyPile.FindQuad("Scene_Kobbler"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
+			_q = MyPile.FindQuad("Scene_Kobbler_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
 
-            MyPile.Pos = new Vector2(0f, 0f);
-
-        }
+			MyPile.Pos = new Vector2(0f, 0f);
+		}
 
         protected override void MyPhsxStep()
         {

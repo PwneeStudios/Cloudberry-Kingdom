@@ -706,6 +706,7 @@ Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Scene_Ko
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Story\\Scene_Princess", 0, 0, "Scene_Princess", "scene_princess", "Title");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\CopyRightSymbol", 0, 0, "CopyRightSymbol", "copyrightsymbol", "Title");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Blur", 0, 0, "Title_Blur", "title_blur", "Title");
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\TradeMarkSymbol", 0, 0, "TradeMarkSymbol", "trademarksymbol", "Title");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Screen", 0, 0, "Title_Screen", "title_screen", "Title");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Trim", 0, 0, "Title_Trim", "title_trim", "Title");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Transparent", 0, 0, "Transparent", "transparent", "Transparent");
