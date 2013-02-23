@@ -1220,8 +1220,7 @@ namespace CloudberryKingdom
                 if (PlayerManager.Players[index] != null && PlayerManager.Players[index].Exists &&
                     !EzStorage.Device[index].IsReady)
                 {
-                    //EzStorage.Device[index].PromptForDevice();
-                    EzStorage.Device[index].state = EasyStorage.SaveDevicePromptState.PromptForCanceled;
+                    EzStorage.Device[index].PromptForDevice();
                 }
             }
         }
@@ -1255,7 +1254,7 @@ namespace CloudberryKingdom
 
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
-            if (Guide.IsVisible) return;
+			if (Guide.IsVisible) { DrawNothing(); return; }
             if (ShowKeyboard)
             {
                 SaveLoadSeedMenu.BeginShowKeyboard();

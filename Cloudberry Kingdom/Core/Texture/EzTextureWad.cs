@@ -72,9 +72,12 @@ namespace CoreEngine
                 // If texture hasn't been loaded yet, load it
                 if (Tex.Tex == null && !Tex.FromCode)
                 {
-                    Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-                    Tex.Width = Tex.Tex.Width;
-                    Tex.Height = Tex.Tex.Height;
+					Tex.Tex = Tools.Transparent.Tex;
+					//Tex.Tex = TextureList[0].Tex;
+
+					//Tex.Tex = Content.Load<Texture2D>(Tex.Path);
+                    //Tex.Width = Tex.Tex.Width;
+                    //Tex.Height = Tex.Tex.Height;
 
 #if EDITOR
 #else
@@ -83,6 +86,27 @@ namespace CoreEngine
                 }
             }
         }
+
+		public void LoadFolder_Real(ContentManager Content, string Folder)
+		{
+			Texture2D transparent = Tools.Transparent.Tex;
+
+			foreach (EzTexture Tex in TextureListByFolder[Folder])
+			{
+				// If texture hasn't been loaded yet, load it
+				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
+				{
+					Tex.Tex = Content.Load<Texture2D>(Tex.Path);
+					//Tex.Width = Tex.Tex.Width;
+					//Tex.Height = Tex.Tex.Height;
+
+#if EDITOR
+#else
+					Resources.ResourceLoadedCountRef.Val++;
+#endif
+				}
+			}
+		}
 
         public EzTexture FindOrLoad(ContentManager Content, string name, string path)
         {

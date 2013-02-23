@@ -364,6 +364,8 @@ namespace CloudberryKingdom
         /// </summary>
         protected virtual void MenuGo_Continue(MenuItem item)
         {
+			SaveGroup.SaveAll();
+
             SlideOut(PresetPos.Left);
 
 			if (InCampaign)

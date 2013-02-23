@@ -644,7 +644,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Transparent.dds">
+    <Compile Include="Transparent.dds">
       <Name>Transparent</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

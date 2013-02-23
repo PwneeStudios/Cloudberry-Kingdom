@@ -32,6 +32,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static WrappedBool LoadingResources;
 
+		public static bool FinalLoadDone = false;
+
         /// <summary>
         /// Tracks how many resources have been loaded.
         /// This is wrapped in a class so that it can be used as a lock.
@@ -439,6 +441,27 @@ namespace CloudberryKingdom
             Tools.Write("Loading done!");
 
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
+
+
+			Thread.Sleep(20000);
+			Tools.Write("Sleeping done!");
+
+
+			// Load art
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Environments");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Coins");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Bob");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Title");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Buttons");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "HeroItems");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Level");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Menu");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Characters");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Old_Art_Holdover");
+			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Initial");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Effects");
+
+			FinalLoadDone = true;
         }
 #endif
     }

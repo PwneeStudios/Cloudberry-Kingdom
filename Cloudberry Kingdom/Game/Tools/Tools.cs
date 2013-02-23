@@ -897,12 +897,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool ShowLoadingScreen;
         public static ILoadingScreen CurrentLoadingScreen;
 
+		public static EzTexture Transparent;
         public static void LoadBasicArt(ContentManager Content)
         {
             TextureWad = new EzTextureWad();
             TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
             TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
             TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
+
+			Transparent = TextureWad.AddTexture(Content.Load<Texture2D>("Transparent"), "Transparent");
 
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
         }
