@@ -55,9 +55,18 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
+        public override void OnReturnTo()
+        {
+            base.OnReturnTo();
+
+            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+        }
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
+
+            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
             if (!Active) return;
             MyCharacterSelect.MyState = CharacterSelect.SelectState.Waiting;

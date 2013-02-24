@@ -66,6 +66,8 @@ namespace CloudberryKingdom
         /// </summary>
         public bool Active;
 
+        public bool BubblingOut = false;
+
         /// <summary>
         /// The GUI_Panel that called up this GUI_Panel, if it exists.
         /// </summary>
@@ -456,7 +458,7 @@ namespace CloudberryKingdom
             if (MyPile != null && MyPile.FancyScale != null)
                 if (ReleaseWhenDoneScaling && !MyPile.FancyScale.Playing) Release();
 
-            if (!Active) return;
+            if (!Active || BubblingOut) return;
 
             if (MyMenu != null && !MyMenu.Released)
                 MyMenu.PhsxStep();

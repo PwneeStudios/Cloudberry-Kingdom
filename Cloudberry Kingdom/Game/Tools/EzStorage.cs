@@ -195,8 +195,8 @@ namespace CloudberryKingdom
 							byte[] bytes = ms.GetBuffer();
 
 							int length = (int)ms.Length;
-							writer.Write(length);
-							writer.Write(Checksum(bytes, length));
+                            writer.Write(BitConverter.GetBytes(length));
+							writer.Write(BitConverter.GetBytes(Checksum(bytes, length)));
 							writer.Write(bytes, 0, length);
 
 							ms.Dispose();

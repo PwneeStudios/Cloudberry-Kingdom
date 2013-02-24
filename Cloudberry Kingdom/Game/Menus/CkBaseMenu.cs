@@ -325,6 +325,7 @@ namespace CloudberryKingdom
 
         protected void BubbleDown()
         {
+            BubblingOut = true;
             zoom.MultiLerp(5, new Vector2[] { new Vector2(1.0f), new Vector2(1.01f), new Vector2(.9f), new Vector2(.4f), new Vector2(0f) });
         }
 

@@ -137,6 +137,8 @@ namespace CloudberryKingdom
         protected override void MyPhsxStep()
         {
  	        base.MyPhsxStep();
+
+            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
         }
     }
 }

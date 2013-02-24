@@ -159,7 +159,7 @@ namespace CloudberryKingdom
 
         public static bool OnlineFunctionalityAvailable(PlayerIndex index)
         {
-#if XDK
+#if XBOX
             var gamer = IndexToSignedInGamer(index);
 
             if (gamer == null) return false;
@@ -654,7 +654,7 @@ public static void OfferToBuy(SignedInGamer gamer)
                 EzStorage.Device[index] = null;
             }
 
-            if (Tools.CurGameData != null)
+            if (Tools.CurGameData != null && !CharacterSelectManager.IsShowing)
                 Tools.CurGameData.OnSignOut(e);
 
             var data = PlayerManager.Players[index] = new PlayerData();
@@ -692,7 +692,7 @@ public static void OfferToBuy(SignedInGamer gamer)
 
             PlayerData data = new PlayerData();
             data.Init(Index);
-            data.Exists = true;
+            //data.Exists = true;
             PlayerManager.Players[Index] = data;
 
             if (!CanSave()) return;

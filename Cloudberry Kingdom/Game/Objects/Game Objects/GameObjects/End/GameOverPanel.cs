@@ -235,6 +235,7 @@ namespace CloudberryKingdom
                     scores[i] = copy;                    
                 }
             }
+            Leaderboard.WriteToLeaderboard(scores);
 
             //Leaderboard.WriteToLeaderboard(HighScoreEntry);
             //Leaderboard.WriteToLeaderboard(HighLevelEntry);
@@ -315,10 +316,9 @@ namespace CloudberryKingdom
 
         void Action_ShowHighScores()
         {
-            Hide(PresetPos.Bottom);
-
 			if (CloudberryKingdomGame.SimpleLeaderboards)
 			{
+				Hide(PresetPos.Bottom);
                 Call(new HighScorePanel(MyHighScoreList, MyHighLevelList));
 			}
 			else
@@ -329,14 +329,16 @@ namespace CloudberryKingdom
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
+						Hide(PresetPos.Bottom);
                         Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
                         Hide();
                     }
 #else
+					Hide(PresetPos.Bottom);
 					Call(new LeaderboardGUI(null, null, MenuItem.ActivatingPlayer), 0);
 					Hide();
 #endif
-                }
+				}
                 else
                 {
                     CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);

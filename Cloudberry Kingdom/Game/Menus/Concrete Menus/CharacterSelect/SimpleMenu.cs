@@ -126,16 +126,31 @@ namespace CloudberryKingdom
             MyCharacterSelect.SetIndex(MyCharacterSelect.Player.ColorSchemeIndex);
         }
 
+        public override void OnReturnTo()
+        {
+            base.OnReturnTo();
+
+            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+        }
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
 
             if (!Active) return;
+            
+            if (MyCharacterSelect.MyState != CharacterSelect.SelectState.Selecting)
+            {
+                MyCharacterSelect.Player.Exists = true;
+            }
+
             MyCharacterSelect.MyState = CharacterSelect.SelectState.Selecting;
             MyCharacterSelect.MyDoll.ShowBob = true;
             MyCharacterSelect.MyGamerTag.ShowGamerTag = true;
             MyCharacterSelect.MyHeroLevel.ShowHeroLevel = true;
-            MyCharacterSelect.Player.Exists = true;
+
+
+            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
             // Buttons
             ButtonPhsx();

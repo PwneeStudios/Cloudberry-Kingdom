@@ -416,7 +416,9 @@ if (ButtonCheck.ControllerInUse)
         {
             base.MyPhsxStep();
 
-            if (CloudberryKingdomGame.IsNetworkCableUnplugged())
+            if (!Active || BubblingOut) return;
+
+            if (!CloudberryKingdomGame.OnlineFunctionalityAvailable())
             {
                 ReturnToCaller();
                 CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);
