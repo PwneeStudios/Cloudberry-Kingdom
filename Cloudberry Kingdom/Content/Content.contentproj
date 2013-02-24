@@ -755,6 +755,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Art\Environments\Cave\Obstacles\Firespinner\" />
+    <Folder Include="Art\LoadScreen_Initial\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sound\Bash.wav">
@@ -1041,24 +1042,6 @@
     </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_wizard.dds">
       <Name>hat_wizard</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Art\LoadScreen_Initial\LoadFill.dds">
-      <Name>LoadFill</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\LoadScreen_Initial\LoadOutline.dds">
-      <Name>LoadOutline</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>

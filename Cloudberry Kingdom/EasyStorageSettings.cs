@@ -39,6 +39,8 @@ namespace EasyStorage
 		/// </summary>
 		public static void ResetSaveDeviceStrings()
 		{
+			if (!Localization.IsLoaded()) return;
+
             SaveDevice.Err_Ok = Localization.WordString(Localization.Words.Err_Ok);
             SaveDevice.Err_YesSelectNewDevice = Localization.WordString(Localization.Words.Err_YesSelectNewDevice);
             SaveDevice.Err_NoContinueWithoutDevice = Localization.WordString(Localization.Words.Err_NoContinueWithoutDevice);

@@ -35,13 +35,13 @@ namespace CloudberryKingdom
 
             Tools.PhsxSpeed = Speed;
 
-            // On (B)
-            if (ButtonCheck.State(ControllerButtons.X, Control).Pressed)
-            {
-                // Change the speed
-                if (Speed == 1) Speed = 0;
-                else Speed = 1;
-            }
+			//// On (B)
+			//if (ButtonCheck.State(ControllerButtons.X, Control).Pressed)
+			//{
+			//    // Change the speed
+			//    if (Speed == 1) Speed = 0;
+			//    else Speed = 1;
+			//}
         }
     }
 }

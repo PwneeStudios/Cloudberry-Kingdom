@@ -10,7 +10,11 @@ namespace CloudberryKingdom
         public static int MinLoadLength;
 
         public bool Fake = false;
-        public void MakeFake() { Fake = true; }
+        public void MakeFake()
+		{
+			Fake = true;
+			FadeAlpha = 1.2f;
+		}
 
         QuadClass BackgroundQuad, BlackQuad;
         ObjectClass CenterObject;
@@ -102,9 +106,14 @@ namespace CloudberryKingdom
         }
 
         int MinLoading;
+		
+		int DrawCount = 0;
+		const int DrawCount_Max = 60 * 60 - 300; // 60 seconds, minus fade time and safety margin
+
+
         public void Start()
         {
-            //MinLoadLength = 10000;
+			DrawCount = 0;
 
             MinLoading = MinLoadLength;
             MinLoadLength = DefaultMinLoadLength;
@@ -122,13 +131,19 @@ namespace CloudberryKingdom
         {
             MinLoading--;
 
-            if (Fake && MinLoading == 0)
+            if (Fake && MinLoading <= 0 && (Resources.FinalLoadDone || DrawCount > DrawCount_Max))
                 End();
+
+			if (Fake && FadeAlpha > -.1f && !Fade)
+			{
+				FadeAlpha -= .07f;
+			}
 
             if (Fade && MinLoading <= 0)
             {
                 FadeAlpha += .07f;
-                if (FadeAlpha > 1.2f)
+                if ( Fake && FadeAlpha > 1.4f ||
+					!Fake && FadeAlpha > 1.2f)
                     Tools.ShowLoadingScreen = false;
             }
             BlackQuad.Quad.SetColor(new Color(0f, 0f, 0f, FadeAlpha));
@@ -142,6 +157,8 @@ namespace CloudberryKingdom
 
         public void Draw(Camera cam)
         {
+			DrawCount++;
+
             Tools.Device.Clear(Color.Black);
             BackgroundQuad.FullScreen(cam);
 

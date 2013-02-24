@@ -33,6 +33,8 @@ namespace CloudberryKingdom
         }
         static void _WriteToLeaderboard(ScoreEntry score, ScoreEntry[] scores)
         {
+            if (!CloudberryKingdomGame.OnlineFunctionalityAvailable()) return;
+
             if (WritingNetworkSession != null) return;
             if (WritingInProgress) return;
 
@@ -51,7 +53,14 @@ namespace CloudberryKingdom
         static bool WritingInProgress = false;
         static void OnSessionCreate(IAsyncResult ar)
         {
-            WritingNetworkSession = NetworkSession.EndCreate(ar);
+            try
+            {
+                WritingNetworkSession = NetworkSession.EndCreate(ar);
+            }
+            catch
+            {
+                return;
+            }
 
             if (WritingNetworkSession == null) { WritingInProgress = false; return; }
 

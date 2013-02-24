@@ -20,6 +20,11 @@ namespace CloudberryKingdom
     {
         static Dictionary<Language, Dictionary<Words, string>> Text;
 
+		public static bool IsLoaded()
+		{
+			return Text != null;
+		}
+
         private static void ReadTranslationGrid(string path)
         {
             if (!File.Exists(path)) return;
@@ -676,6 +681,7 @@ Err_MustBeSignedIn_Header,
 Err_QuitForSure,
 Err_CorruptLoadHeader,
 Err_CorruptLoad,
+Err_MustBeSignedInToLiveForLeaderboards,
 Err_NoSaveDevice,
 Achievements,
 Leaderboards,

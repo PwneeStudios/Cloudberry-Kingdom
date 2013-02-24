@@ -221,10 +221,30 @@ namespace CloudberryKingdom
             MyHighLevelList.Add(HighLevelEntry);
             ScoreDatabase.Add(HighScoreEntry);
             ScoreDatabase.Add(HighLevelEntry);
-            Leaderboard.WriteToLeaderboard(HighScoreEntry);
+
+            var score = HighScoreEntry;
+            ScoreEntry[] scores = { null, null, null, null };
+            for (int i = 0; i < 4; i++)
+            {
+                if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists)
+                {
+                    int highscore = Math.Max(score.Score, PlayerManager.MaxPlayerHighScore(score.GameId));
+                    ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, highscore, highscore, score.Level, score.Attempts, score.Time, score.Date);
+                    copy.GameId += Challenge.LevelMask;
+
+                    scores[i] = copy;                    
+                }
+            }
+
+            //Leaderboard.WriteToLeaderboard(HighScoreEntry);
             //Leaderboard.WriteToLeaderboard(HighLevelEntry);
 
             ArcadeMenu.CheckForArcadeUnlocks(HighScoreEntry);
+
+            if (!CloudberryKingdomGame.OnlineFunctionalityAvailable())
+            {
+                CloudberryKingdomGame.ShowError_MustBeSignedInToLiveForLeaderboard();
+            }
         }
 
         protected override void SetHeaderProperties(EzText text)
@@ -305,12 +325,17 @@ namespace CloudberryKingdom
 			{
                 if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
                 {
+#if XBOX
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
                         Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
                         Hide();
                     }
+#else
+					Call(new LeaderboardGUI(null, null, MenuItem.ActivatingPlayer), 0);
+					Hide();
+#endif
                 }
                 else
                 {

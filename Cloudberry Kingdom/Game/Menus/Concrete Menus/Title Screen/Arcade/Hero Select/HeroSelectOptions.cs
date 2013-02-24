@@ -77,6 +77,7 @@ namespace CloudberryKingdom
             {
                 if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
                 {
+#if XBOX
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
@@ -84,6 +85,11 @@ namespace CloudberryKingdom
                         HeroSelect.Hide();
                         HeroSelect.MyHeroDoll.Hide();
                     }
+#else
+                    HeroSelect.Call(new LeaderboardGUI(null, null, MenuItem.ActivatingPlayer), 0);
+                    HeroSelect.Hide();
+                    HeroSelect.MyHeroDoll.Hide();
+#endif
                 }
                 else
                 {

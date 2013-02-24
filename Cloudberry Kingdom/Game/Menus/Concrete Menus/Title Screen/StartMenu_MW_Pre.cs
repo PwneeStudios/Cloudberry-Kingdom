@@ -163,11 +163,15 @@ namespace CloudberryKingdom
         {
             if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
             {
+#if XBOX
                 var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                 if (gamer != null)
                 {
                     Call(new LeaderboardGUI(Title, gamer, MenuItem.ActivatingPlayer), 0);
                 }
+#else
+				Call(new LeaderboardGUI(Title, null, MenuItem.ActivatingPlayer), 0);
+#endif
             }
             else
             {
@@ -179,6 +183,7 @@ namespace CloudberryKingdom
         {
             if (MenuItem.ActivatingPlayer < 0 || MenuItem.ActivatingPlayer > 3) return;
 
+#if XBOX
             if (PlayerManager.Get(MenuItem.ActivatingPlayer).MyGamer != null)
 			{
 				CloudberryKingdomGame.ShowAchievements = true;
@@ -188,12 +193,16 @@ namespace CloudberryKingdom
 			{
 				CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
 			}
+#endif
         }
 
         void MenuGo_BuyGame(MenuItem item)
         {
             CloudberryKingdomGame.ShowMarketplace = true;
+#if PC_VERSION
+#else
             CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
+#endif
         }
 
         protected override void MakeMenu()

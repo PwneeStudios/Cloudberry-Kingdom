@@ -142,7 +142,7 @@ namespace CloudberryKingdom
                             PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #else
-                            PressA = new GUI_Text(Localization.Words.PressAnyKey,
+                            PressA = new GUI_Text(Localization.Words.PressStart,
                                                            new Vector2(0, -865), true);
 #endif
                             PressA.MyText.Scale *= .68f;
@@ -165,6 +165,13 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
+											 // Bring up a loading screen if we aren't done loading assets
+											 if (!Resources.FinalLoadDone)
+											 {
+												 Tools.BeginLoadingScreen(false);
+												 Tools.CurrentLoadingScreen.MakeFake();
+											 }
+
                                              Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);
                                              Tools.AddToDo(() => this.Release());
@@ -312,11 +319,22 @@ namespace CloudberryKingdom
                 data.MyGameFlags.IsTethered = true;
             }
 
-            if (FixedTileSet == null)
-                data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "cloud", "hills", "sea"));
-            else
-                data.SetTileSet(FixedTileSet);
-            
+			switch (index)
+			{
+				case 0: data.SetTileSet("cave"); break;
+				case 1: data.SetTileSet("castle"); break;
+				case 2: data.SetTileSet("forest"); break;
+				case 3: data.SetTileSet("hills"); break;
+				case 4: data.SetTileSet("cloud"); break;
+				
+				default:
+					if (FixedTileSet == null)
+						data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "cloud", "hills", "sea"));
+					else
+						data.SetTileSet(FixedTileSet);
+					break;
+			}
+
             //data.SetTileSet(Tools.GlobalRnd.ChooseOne("sea", "forest", "cave", "castle", "cloud", "hills",
             //                                          "sea_rain", "forest_snow", "hills_rain"));
 

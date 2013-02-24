@@ -138,6 +138,7 @@ namespace CloudberryKingdom
         ProgressBar MyProgressBar;
 
         int LogoCount = 0;
+		int LogoCount_Max = 60 * 5 - 50; // 5 seconds, minus 50 frames to fade out
         WrappedFloat ResourceCount;
 
         QuadClass BlackQuad, Splash;
@@ -148,8 +149,8 @@ namespace CloudberryKingdom
 
             Whinney = Content.Load<SoundEffect>("Whinney");
 
-            Tools.TextureWad.FindOrLoad(Content, "LoadOutline", "Art\\LoadScreen_Initial\\LoadOutline");
-            Tools.TextureWad.FindOrLoad(Content, "LoadFill", "Art\\LoadScreen_Initial\\LoadFill");
+			//Tools.TextureWad.FindOrLoad(Content, "LoadOutline", "Art\\LoadScreen_Initial\\LoadOutline");
+			//Tools.TextureWad.FindOrLoad(Content, "LoadFill", "Art\\LoadScreen_Initial\\LoadFill");
 
             MyPile = new DrawPile();
 
@@ -206,7 +207,8 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
             }
 
             // Fade
-            if (LoadingPercent > 97.6f && Accelerate || !Resources.LoadingResources.MyBool)
+			//if (LoadingPercent > 97.6f && Accelerate || !Resources.LoadingResources.MyBool || LogoCount > LogoCount_Max)
+			if (Resources.FinalLoadDone || LogoCount > LogoCount_Max)
             {
                 if (ReadyToFade)
                 {

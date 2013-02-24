@@ -142,19 +142,24 @@ namespace CloudberryKingdom
                 }
                 else
                     player.Awardments += award.Guid;
-
+				
 #if XDK
                 if (award.Official)
                 {
                     foreach (var gamer in Gamer.SignedInGamers)
                     {
-                        SignedInGamer AwardedGamer = gamer;
-                        gamer.BeginAwardAchievement(award.Key, GiveAchievementCallback, AwardedGamer);
+						if (PlayerManager.Players[(int)gamer.PlayerIndex] != null
+							&& PlayerManager.Players[(int)gamer.PlayerIndex].Exists			   // Check player exists
+							&& (player == null || gamer.PlayerIndex == player.MyPlayerIndex))  // Check this is the right player
+						{
+							SignedInGamer AwardedGamer = gamer;
+							gamer.BeginAwardAchievement(award.Key, GiveAchievementCallback, AwardedGamer);
+						}
                     }
                 }
 #endif
 
-                // Show a note saying the reward was given
+				// Show a note saying the reward was given
                 if (award.ShowWhenAwarded)
                 {
                     AwardmentMessage msg = new AwardmentMessage(award);

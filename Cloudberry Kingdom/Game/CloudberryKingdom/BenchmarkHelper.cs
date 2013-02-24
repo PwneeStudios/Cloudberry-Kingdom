@@ -19,6 +19,7 @@ namespace CloudberryKingdom
     {
         private void BenchmarkAll()
         {
+			/*
             // Load art
             Start2();
             
@@ -105,6 +106,7 @@ namespace CloudberryKingdom
             Console.WriteLine("-----------------------", GamePads);
             Console.WriteLine("Total          {0}", Total);
             Console.WriteLine("");
+			 */
         }
 
         static System.Diagnostics.Stopwatch stopwatch;

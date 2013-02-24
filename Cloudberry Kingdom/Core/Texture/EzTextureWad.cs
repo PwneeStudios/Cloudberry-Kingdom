@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
 
@@ -65,48 +66,43 @@ namespace CoreEngine
             NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
         }
 
-        public void LoadFolder(ContentManager Content, string Folder)
-        {
-            foreach (EzTexture Tex in TextureListByFolder[Folder])
-            {
-                // If texture hasn't been loaded yet, load it
-                if (Tex.Tex == null && !Tex.FromCode)
-                {
-					Tex.Tex = Tools.Transparent.Tex;
-					//Tex.Tex = TextureList[0].Tex;
+//        public void LoadFolder(ContentManager Content, string Folder)
+//        {
+//            foreach (EzTexture Tex in TextureListByFolder[Folder])
+//            {
+//                // If texture hasn't been loaded yet, load it
+//                if (Tex.Tex == null && !Tex.FromCode)
+//                {
+//                    Tex.Tex = Tools.Transparent.Tex;
+//                    //Tex.Tex = TextureList[0].Tex;
 
-					//Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-                    //Tex.Width = Tex.Tex.Width;
-                    //Tex.Height = Tex.Tex.Height;
+//                    //Tex.Tex = Content.Load<Texture2D>(Tex.Path);
+//                    //Tex.Width = Tex.Tex.Width;
+//                    //Tex.Height = Tex.Tex.Height;
 
-#if EDITOR
-#else
-                    Resources.ResourceLoadedCountRef.Val++;
-#endif
-                }
-            }
-        }
+//#if EDITOR
+//#else
+//                    Resources.ResourceLoadedCountRef.Val++;
+//#endif
+//                }
+//            }
+//        }
 
-		public void LoadFolder_Real(ContentManager Content, string Folder)
-		{
-			Texture2D transparent = Tools.Transparent.Tex;
+		//public void LoadFolder_Real(ContentManager Content, string Folder)
+		//{
+		//    Texture2D transparent = Tools.Transparent.Tex;
 
-			foreach (EzTexture Tex in TextureListByFolder[Folder])
-			{
-				// If texture hasn't been loaded yet, load it
-				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
-				{
-					Tex.Tex = Content.Load<Texture2D>(Tex.Path);
-					//Tex.Width = Tex.Tex.Width;
-					//Tex.Height = Tex.Tex.Height;
+		//    foreach (EzTexture Tex in TextureListByFolder[Folder])
+		//    {
+		//        // If texture hasn't been loaded yet, load it
+		//        if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
+		//        {
+		//            Tex.Tex = Content.Load<Texture2D>(Tex.Path);
 
-#if EDITOR
-#else
-					Resources.ResourceLoadedCountRef.Val++;
-#endif
-				}
-			}
-		}
+		//            Thread.Sleep(100);
+		//        }
+		//    }
+		//}
 
         public EzTexture FindOrLoad(ContentManager Content, string name, string path)
         {

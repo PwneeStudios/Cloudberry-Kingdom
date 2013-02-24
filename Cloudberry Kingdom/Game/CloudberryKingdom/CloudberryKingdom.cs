@@ -134,7 +134,11 @@ namespace CloudberryKingdom
 
 		public static bool ProfilesAvailable()
 		{
+#if XBOX
 			return Gamer.SignedInGamers.Count > 0;
+#else
+			return true;
+#endif
 		}
 
 #if XBOX
@@ -173,6 +177,8 @@ namespace CloudberryKingdom
 
             if (gamers.Count == 0) return false;
 
+            if (GuideExtensions.IsNetworkCableUnplugged) return false;
+
             foreach (var gamer in gamers)
             {
                 if (gamer.IsSignedInToLive) return true;
@@ -186,8 +192,9 @@ namespace CloudberryKingdom
 
 		public static void BeginShowMarketplace()
 		{
-            ShowMarketplace = false;
 #if XDK
+            ShowMarketplace = false;
+
             if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
             {
                 Tools.Warning();
@@ -202,7 +209,7 @@ namespace CloudberryKingdom
 		}
 
 		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade };
-		static Presence CurrentPresence = Presence.TitleScreen;
+		public static Presence CurrentPresence = Presence.TitleScreen;
 		public static void SetPresence(Presence presence)
 		{
 			CurrentPresence = presence;
@@ -271,9 +278,9 @@ namespace CloudberryKingdom
 		public static int Freeplay_Count = 0;
 		public static int Freeplay_Max = 3;
 
-        public static void OfferToBuy(SignedInGamer gamer)
-        {
 #if XBOX
+public static void OfferToBuy(SignedInGamer gamer)
+        {
             if (gamer.Privileges.AllowPurchaseContent)
             {
                 try
@@ -300,15 +307,19 @@ namespace CloudberryKingdom
                     return;
                 }
             }
-#endif
         }
+#else
+		public static void OfferToBuy()
+		{
+		}
+#endif
 
 
 
 
 
 
-        /// <summary>
+		/// <summary>
         /// The command line arguments.
         /// </summary>
         public static string[] args;
@@ -499,6 +510,32 @@ namespace CloudberryKingdom
             //PlayerManager.SaveRezAndKeys();
             //rez = PlayerManager.LoadRezAndKeys();
             //Tools.Warning();
+#if PC_VERSION
+			// FUCK THIS IS BROKEN NOW
+			EzStorage.Device[0] = new EasyStorage.PlayerSaveDevice(PlayerIndex.One);
+
+			var d = EzStorage.Device[0];
+			Tools.GameClass.Components.Add(d);
+
+			// hook two event handlers to force the user to choose a new device if they cancel the
+			// device selector or if they disconnect the storage device after selecting it
+			//d.DeviceSelectorCanceled +=
+			//    (s, e) => e.Response = EasyStorage.SaveDeviceEventResponse.Prompt;
+			//d.DeviceDisconnected +=
+			//    (s, e) => e.Response = EasyStorage.SaveDeviceEventResponse.Prompt;
+
+			// prompt for a device on the first Update we can
+			d.PromptForDevice();
+
+			//d.DeviceSelected +=
+			//    (s, e) =>
+				{
+					PlayerManager.Player.ContainerName = "SaveData";
+					PlayerManager.Player.FileName = "SaveData.bam";
+
+					PlayerManager.Player.Load(PlayerManager.Player.MyPlayerIndex);
+				};
+#endif
             rez = PlayerManager.LoadRezAndKeys();
 #elif WINDOWS
             PlayerManager.RezData rez = new PlayerManager.RezData();
@@ -602,6 +639,13 @@ namespace CloudberryKingdom
         {
             if (Tools.CurGameData == null) return;
 
+            // If the gamer is still signed in this was a mis-fire.
+            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            {
+                if (gamer.Gamertag == e.Gamer.Gamertag)
+                    return;
+            }
+
             int index = (int)e.Gamer.PlayerIndex;
 
             if (EzStorage.Device[index] != null)
@@ -628,6 +672,17 @@ namespace CloudberryKingdom
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
             if (Tools.CurGameData == null) return;
+
+            // If the gamer is already signed in this was a mis-fire.
+            for (int i = 0; i < 4; i++)
+            {
+                if (PlayerManager.Players[i] != null &&
+                    PlayerManager.Players[i]._MyGamer != null &&
+                    PlayerManager.Players[i]._MyGamer.Gamertag == e.Gamer.Gamertag)
+                {
+                    return;
+                }
+            }
 
             if (EzStorage.Device[(int)e.Gamer.PlayerIndex] != null)
                 Tools.GameClass.Components.Remove(EzStorage.Device[(int)e.Gamer.PlayerIndex]);
@@ -1070,12 +1125,13 @@ namespace CloudberryKingdom
 			//Tools.GameClass.IsFixedTimeStep = true;
         }
 
+		public static bool ShowMarketplace = false;
+
 #if XBOX
         public static bool ShowKeyboard = false;
         public static bool KeyboardIsDone = false;
 		public static bool ShowAchievements = false;
         public static PlayerIndex ShowFor = PlayerIndex.One;
-        public static bool ShowMarketplace = false;
 
 		static void BeginShowAchievements()
 		{
@@ -1107,6 +1163,20 @@ namespace CloudberryKingdom
         public static void ShowError_MustBeSignedInToLive(Localization.Words word)
         {
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, word, Localization.Words.Err_Ok, null);
+        }
+
+        public static void ShowError_MustBeSignedInToLiveForLeaderboard()
+        {
+            ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, Localization.Words.Err_MustBeSignedInToLiveForLeaderboards, Localization.Words.Err_Ok, null);
+        }
+
+        public static bool IsNetworkCableUnplugged()
+        {
+#if XDK
+            return GuideExtensions.IsNetworkCableUnplugged;
+#else
+            return true;
+#endif
         }
 
         static void ShowError(Localization.Words Header, Localization.Words Text, Localization.Words Option1, AsyncCallback callback)
@@ -1155,6 +1225,7 @@ namespace CloudberryKingdom
 			return false;
 		}
 
+#if XBOX
         static bool ShowGamer;
         static PlayerIndex ShowGamer_Index;
         static Gamer ShowGamer_Gamer;
@@ -1172,6 +1243,7 @@ namespace CloudberryKingdom
 
             Guide.ShowGamerCard(ShowGamer_Index, ShowGamer_Gamer);
         }
+#endif
 
 		public static bool SuperPause
 		{
@@ -1214,6 +1286,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static void PromptForDeviceIfNoneSelected()
         {
+#if XBOX
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)
             {
                 int index = (int)gamer.PlayerIndex;
@@ -1223,6 +1296,7 @@ namespace CloudberryKingdom
                     EzStorage.Device[index].PromptForDevice();
                 }
             }
+#endif
         }
 
         /// <summary>

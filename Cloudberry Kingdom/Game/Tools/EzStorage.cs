@@ -56,7 +56,20 @@ namespace CloudberryKingdom
 
 #if NOT_PC
             // Save each player's info
-            foreach (PlayerData player in PlayerManager.LoggedInPlayers)
+			List<PlayerData> player_list;
+			
+			// If we're on the title screen save all players who are signed in
+			if (CloudberryKingdomGame.CurrentPresence == CloudberryKingdomGame.Presence.TitleScreen)
+			{
+				player_list = new List<PlayerData>(PlayerManager.Players);
+			}
+			// otherwise only logged in players
+			else
+			{
+				player_list = PlayerManager.LoggedInPlayers;
+			}
+
+            foreach (PlayerData player in player_list)
             {
                 var g = player.MyGamer;
                 if (g == null) continue;
@@ -156,13 +169,39 @@ namespace CloudberryKingdom
             }
         }
 
-        public void Save(PlayerIndex index)
+		public static int Checksum(byte[] buffer, int length)
+		{
+			int val = 0;
+			for (int i = 0; i < length; i++)
+			{
+				val += ((int)buffer[i] + 13) * (i + 10);
+			}
+
+			return val;
+		}
+
+		public void Save(PlayerIndex index)
         {
             if (Changed || AlwaysSave)
             {
                 EzStorage.Save(index, ActualContainerName, FileName, writer =>
                     {
-                        Serialize(writer);
+						var ms = new MemoryStream();
+
+						using (BinaryWriter buffer_writer = new BinaryWriter(ms))
+						{
+							Serialize(buffer_writer);
+
+							byte[] bytes = ms.GetBuffer();
+
+							int length = (int)ms.Length;
+							writer.Write(length);
+							writer.Write(Checksum(bytes, length));
+							writer.Write(bytes, 0, length);
+
+							ms.Dispose();
+						}
+
                         Changed = false;
                     },
                     () =>
@@ -220,21 +259,52 @@ namespace CloudberryKingdom
         {
             Device[(int)index].Load(ContainerName, FileName, stream =>
             {
+				bool Failed = false;
+
                 try
                 {
-                    byte[] Data = new byte[stream.Length];
-                    stream.Read(Data, 0, (int)stream.Length);
+					// Get all the bytes
+                    byte[] RawData = new byte[stream.Length];
+                    stream.Read(RawData, 0, (int)stream.Length);
 
-                    LoadLogic(Data);
+					if (RawData.Length <= 8)
+					{
+						Failed = true;
+					}
+					else
+					{
+						byte[] Data = RawData.Range(8, RawData.Length);
+
+						// Get the length and checksum (first and second integers encoded in byte stream)
+						int length = BitConverter.ToInt32(RawData, 0);
+						int checksum = BitConverter.ToInt32(RawData, 4);
+
+						int actual_checksum = SaveLoad.Checksum(Data, Data.Length);
+
+						// Check for errors
+						if (length != Data.Length || checksum != actual_checksum)
+						{
+							Failed = true;
+						}
+						else
+						{
+							LoadLogic(Data);
+						}
+					}
                 }
                 catch (Exception e)
                 {
 #if DEBUG
                     Tools.Write(e.Message);
 #endif
-                    Fail();
-					CloudberryKingdomGame.ShowError_LoadError();
+					Failed = true;
                 }
+
+				if (Failed)
+				{
+					Fail();
+					CloudberryKingdomGame.ShowError_LoadError();
+				}
             });
         }
     }

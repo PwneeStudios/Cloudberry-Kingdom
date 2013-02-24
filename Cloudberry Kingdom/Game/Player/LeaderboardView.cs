@@ -173,7 +173,7 @@ if (ButtonCheck.ControllerInUse)
             item.Selectable = false;
 }
             item.Go = Cast.ToItem(SwitchView);
-            MyMenu.OnY = SwitchView;
+			//MyMenu.OnY = SwitchView;
 			MyMenu.OnX = Cast.ToMenu(SwitchView);
 
             // Switch Sort
@@ -415,6 +415,13 @@ if (ButtonCheck.ControllerInUse)
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
+
+            if (CloudberryKingdomGame.IsNetworkCableUnplugged())
+            {
+                ReturnToCaller();
+                CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);
+                return;
+            }
 
             if (DelayToMake > 0)
             {
@@ -928,7 +935,9 @@ else
                         Gamer gamer = Items[Index].Player;
                         if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3) 
                         {
+#if XBOX
                             CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
+#endif
                         }
                     }
                 }

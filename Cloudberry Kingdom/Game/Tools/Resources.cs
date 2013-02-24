@@ -389,19 +389,27 @@ namespace CloudberryKingdom
             // Fireball texture
             Fireball.PreInit();
 
-            // Load art
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
-            //Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
-            Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
+            // Set textures to be transparent until loaded.
+			for (int i = 0; i < Tools.TextureWad.TextureList.Count; i++)
+			{
+				var tex = Tools.TextureWad.TextureList[i];
+				tex.Tex = Tools.Transparent.Tex;
+
+                Resources.ResourceLoadedCountRef.Val++;
+			}
+
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
+			////Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
+			////Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
+			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             
             Tools.Write("ArtMusic done...");
 
@@ -443,23 +451,36 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
 
 
-			Thread.Sleep(20000);
-			Tools.Write("Sleeping done!");
+			//Thread.Sleep(20000);
+			//Tools.Write("Sleeping done!");
 
 
 			// Load art
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Environments");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Coins");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Bob");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Title");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Buttons");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "HeroItems");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Level");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Menu");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Characters");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Old_Art_Holdover");
-			Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Initial");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Effects");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Environments");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Coins");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Bob");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Title");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Buttons");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "HeroItems");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Level");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Menu");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Characters");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Old_Art_Holdover");
+			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Initial");
+			////Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Effects");
+
+			Texture2D transparent = Tools.Transparent.Tex;
+
+			foreach (EzTexture Tex in Tools.TextureWad.TextureList)
+			{
+				// If texture hasn't been loaded yet, load it
+				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
+				{
+					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
+
+					//Thread.Sleep(50);
+				}
+			}
 
 			FinalLoadDone = true;
         }

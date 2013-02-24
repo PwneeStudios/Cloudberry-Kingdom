@@ -1685,7 +1685,8 @@ namespace CloudberryKingdom.Levels
 
         void CalcObstaclsSeen()
         {
-            foreach (PlayerData player in PlayerManager.ExistingPlayers)
+            var players = PlayerManager.ExistingPlayers;
+            foreach (PlayerData player in players)
                 player.Stats.ObstaclesSeen = NumObstacles;
 
             foreach (Bob bob in Bobs)
