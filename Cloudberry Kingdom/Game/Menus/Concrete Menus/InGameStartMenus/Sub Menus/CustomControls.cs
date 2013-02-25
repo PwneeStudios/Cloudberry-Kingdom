@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 
 			if (!UseSimpleBackdrop)
 			{
-				EpilepsySafe();
+				EpilepsySafe(.9f);
 			}
 
             Backdrop.Size = new Vector2(1376.984f, 1077.035f);

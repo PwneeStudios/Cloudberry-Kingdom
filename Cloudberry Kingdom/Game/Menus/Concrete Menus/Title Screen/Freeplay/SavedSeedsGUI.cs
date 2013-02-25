@@ -201,7 +201,7 @@ namespace CloudberryKingdom
 
 			if (!UseSimpleBackdrop)
 			{
-				EpilepsySafe();
+				EpilepsySafe(.9f);
 			}
 
             // Header

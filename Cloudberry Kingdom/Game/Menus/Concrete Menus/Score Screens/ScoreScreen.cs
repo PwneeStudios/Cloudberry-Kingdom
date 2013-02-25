@@ -145,7 +145,9 @@ namespace CloudberryKingdom
 
             text.Shadow = false;
 
-			text.MyFloatColor = ColorHelper.Gray(.85f);
+			//text.MyFloatColor = ColorHelper.Gray(.85f);
+			//text.OutlineColor = ColorHelper.Gray(.05f);
+			text.MyFloatColor = ColorHelper.Gray(.925f);
 			text.OutlineColor = ColorHelper.Gray(.05f);
 
 			text.Shadow = true;
@@ -181,7 +183,7 @@ namespace CloudberryKingdom
 			MyPile.Add(Backdrop);
 			//MyPile.Add(Backdrop);
 			
-			EpilepsySafe();
+			EpilepsySafe(.5f);
 			
 
 			//LevelCleared = new QuadClass("LevelCleared", "Header");

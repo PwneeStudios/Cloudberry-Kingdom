@@ -377,7 +377,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             SetPos();
 
-			EpilepsySafe();
+			EpilepsySafe(.75f);
         }
 
         void SetPos()

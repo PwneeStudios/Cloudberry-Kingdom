@@ -50,7 +50,7 @@ namespace CloudberryKingdom
 
 			if (!UseSimpleBackdrop)
 			{
-				EpilepsySafe();
+				EpilepsySafe(.9f);
 			}
 
             ReturnToCallerDelay = 7;

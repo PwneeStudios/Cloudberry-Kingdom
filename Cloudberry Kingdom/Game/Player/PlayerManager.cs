@@ -761,14 +761,18 @@ namespace CloudberryKingdom
         {
 #if PC_VERSION
             _DefaultName = PlayerManager.RandomNames.Choose(Tools.GlobalRnd);
+#else
+            Players = new PlayerData[4];
 #endif
 
-            Players = new PlayerData[4];
             ColorSchemeManager.InitColorSchemes();
 
             // Player templates
             for (int i = 0; i < 4; i++)
             {
+#if PC_VERSION
+				if (Players[i] != null) continue;
+#endif
                 Players[i] = new PlayerData();
                 Players[i].Init(i);
             }

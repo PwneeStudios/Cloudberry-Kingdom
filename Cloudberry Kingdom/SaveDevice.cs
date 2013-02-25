@@ -182,7 +182,7 @@ namespace EasyStorage
 		private readonly SaveDeviceEventArgs eventArgs = new SaveDeviceEventArgs();
 
 		// the actual storage device
-		private StorageDevice storageDevice;
+		protected StorageDevice storageDevice;
 
 		/// <summary>
 		/// Gets whether or not the device is in a state to receive file operation method calls.
@@ -284,10 +284,14 @@ namespace EasyStorage
 		/// </summary>
 		public void PromptForDevice()
 		{
+#if PC_VERSION
+			GetStorageDevice(null);
+#else
 			// we only let the programmer show the selector if the 
 			// SaveDevice isn't busy doing something else.
 			if (state == SaveDevicePromptState.None)
 				state = SaveDevicePromptState.ShowSelector;
+#endif
 		}
 
 		/// <summary>

@@ -113,7 +113,7 @@ namespace CloudberryKingdom
 
 			if (!UseSimpleBackdrop)
 			{
-				EpilepsySafe();
+				EpilepsySafe(.9f);
 			}
 			backdrop.Pos = new Vector2(-975.6945f, 54.86111f);
 

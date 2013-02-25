@@ -56,11 +56,14 @@ namespace CloudberryKingdom
         }
 
 
-		protected void EpilepsySafe()
+		protected void EpilepsySafe(float SafetyLevel)
 		{
+			float gray_color = CoreMath.Lerp(1f,  .8735f, SafetyLevel);
+			float dark_color = CoreMath.Lerp(.1f, .1f,	  SafetyLevel);
+
 			QuadClass _q;
-			_q = MyPile.FindQuad("Backdrop");	if (_q != null) { _q.Alpha = .7f; _q.Quad.SetColor(ColorHelper.GrayColor(.8735f)); }
-			_q = DarkBack;						if (_q != null) { _q.Quad.SetColor(ColorHelper.GrayColor(.1f)); }
+			_q = MyPile.FindQuad("Backdrop");	if (_q != null) { _q.Alpha = .7f; _q.Quad.SetColor(ColorHelper.GrayColor(gray_color)); }
+			_q = DarkBack;						if (_q != null) { _q.Quad.SetColor(ColorHelper.GrayColor(dark_color)); }
 		}
 
         protected QuadClass DarkBack;

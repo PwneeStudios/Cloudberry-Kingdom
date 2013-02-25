@@ -258,6 +258,7 @@ namespace CloudberryKingdom
 		static bool GuideTrialStateRetrieved = false;
 		static bool IsTrial = false;
 #endif
+
         public static bool FakeDemo = false;
         public static bool IsDemo
         {
@@ -511,30 +512,28 @@ public static void OfferToBuy(SignedInGamer gamer)
             //rez = PlayerManager.LoadRezAndKeys();
             //Tools.Warning();
 #if PC_VERSION
-			// FUCK THIS IS BROKEN NOW
+
 			EzStorage.Device[0] = new EasyStorage.PlayerSaveDevice(PlayerIndex.One);
 
 			var d = EzStorage.Device[0];
 			Tools.GameClass.Components.Add(d);
 
-			// hook two event handlers to force the user to choose a new device if they cancel the
-			// device selector or if they disconnect the storage device after selecting it
-			//d.DeviceSelectorCanceled +=
-			//    (s, e) => e.Response = EasyStorage.SaveDeviceEventResponse.Prompt;
-			//d.DeviceDisconnected +=
-			//    (s, e) => e.Response = EasyStorage.SaveDeviceEventResponse.Prompt;
-
-			// prompt for a device on the first Update we can
 			d.PromptForDevice();
 
-			//d.DeviceSelected +=
-			//    (s, e) =>
-				{
-					PlayerManager.Player.ContainerName = "SaveData";
-					PlayerManager.Player.FileName = "SaveData.bam";
+#if PC_VERSION
+			PlayerManager.Players = new PlayerData[4];
+			PlayerManager.Players[0] = new PlayerData();
+			PlayerManager.Players[0].Init();
+#else
+#endif
 
-					PlayerManager.Player.Load(PlayerManager.Player.MyPlayerIndex);
-				};
+			PlayerManager.Player.ContainerName = "SaveData";
+			PlayerManager.Player.FileName = "SaveData.bam";
+			PlayerManager.Player.Load(PlayerManager.Player.MyPlayerIndex);
+
+			SaveGroup.LoadAll();
+			PlayerManager.Player.Load(PlayerIndex.One);
+
 #endif
             rez = PlayerManager.LoadRezAndKeys();
 #elif WINDOWS
@@ -1152,22 +1151,34 @@ public static void OfferToBuy(SignedInGamer gamer)
 
 		public static void ShowError_LoadError()
 		{
+#if PC_VERSION
+#else
 			ShowError(Localization.Words.Err_CorruptLoadHeader, Localization.Words.Err_CorruptLoad, Localization.Words.Err_Ok, null);
+#endif
 		}
 
 		public static void ShowError_MustBeSignedIn(Localization.Words word)
 		{
+#if PC_VERSION
+#else
 			ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
+#endif
 		}
 
         public static void ShowError_MustBeSignedInToLive(Localization.Words word)
         {
+#if PC_VERSION
+#else
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, word, Localization.Words.Err_Ok, null);
+#endif
         }
 
         public static void ShowError_MustBeSignedInToLiveForLeaderboard()
         {
+#if PC_VERSION
+#else
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, Localization.Words.Err_MustBeSignedInToLiveForLeaderboards, Localization.Words.Err_Ok, null);
+#endif
         }
 
         public static bool IsNetworkCableUnplugged()
@@ -1288,7 +1299,7 @@ public static void OfferToBuy(SignedInGamer gamer)
         /// </summary>
         public static void PromptForDeviceIfNoneSelected()
         {
-            if (CloudberryKingdomGame.IsTrial) return;
+            if (CloudberryKingdomGame.IsDemo) return;
 
 #if XBOX
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)

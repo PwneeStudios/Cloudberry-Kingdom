@@ -240,7 +240,7 @@ namespace CloudberryKingdom
             backdrop = new QuadClass("Backplate_1500x900", 1500, true);
             backdrop.Name = "Backdrop";
             MyPile.Add(backdrop, "Backdrop");
-			EpilepsySafe();
+			EpilepsySafe(.5f);
             backdrop.Size = new Vector2(1682.54f, 1107.681f);
             backdrop.Pos = new Vector2(347.2231f, 51.58749f);
 

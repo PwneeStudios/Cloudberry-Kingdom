@@ -296,7 +296,7 @@ namespace CloudberryKingdom
             var backdrop = new QuadClass("Backplate_1500x900", 1500, true);
             backdrop.Name = "Backdrop";
             MyPile.Add(backdrop);
-			EpilepsySafe();
+			EpilepsySafe(.5f);
 
             MenuItem item;
 
