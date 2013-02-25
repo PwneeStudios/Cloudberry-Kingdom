@@ -98,6 +98,11 @@ namespace CloudberryKingdom
             // Player Level
             Chunk.WriteSingle(writer, 23023, LastPlayerLevelUpload);
 
+            // Sound settings
+            Chunk.WriteSingle(writer, 84001, Tools.MusicVolume.Val);
+            Chunk.WriteSingle(writer, 84002, Tools.SoundVolume.Val);
+            Chunk.WriteSingle(writer, 84003, (int)Localization.CurrentLanguage.MyLanguage);
+
 #if CAFE
 #else
 			ScoreDatabase.Instance.Serialize(writer);
@@ -168,6 +173,15 @@ namespace CloudberryKingdom
 
                  // Player Level
                 case 23023: LastPlayerLevelUpload = chunk.ReadInt(); break;
+
+                // Sound settings
+                case 84001: Tools.MusicVolume.Val = chunk.ReadFloat(); break;
+                case 84002: Tools.SoundVolume.Val = chunk.ReadFloat(); break;
+                case 84003:
+                    int _language = chunk.ReadInt();
+                    Localization.Language language = (Localization.Language)_language;
+                    Localization.SetLanguage(language);
+                    break;
 			}
 		}
 

@@ -313,12 +313,14 @@ namespace CloudberryKingdom
                 ButtonCheck.PreventTimeStamp += 20;
             }
 
+            SaveGroup.SaveAll();
+
             base.Release();
         }
 
         public override void ReturnToCaller()
         {
-            SaveGroup.SaveAll();
+            //SaveGroup.SaveAll();
             base.ReturnToCaller();
         }
 

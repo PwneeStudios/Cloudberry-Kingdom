@@ -59,14 +59,14 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
 
-            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+			if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
         }
 
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
 
-            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+			if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
             if (!Active) return;
             MyCharacterSelect.MyState = CharacterSelect.SelectState.Waiting;

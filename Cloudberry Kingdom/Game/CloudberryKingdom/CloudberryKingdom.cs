@@ -243,7 +243,7 @@ namespace CloudberryKingdom
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)
             {
                 int index = (int)gamer.PlayerIndex;
-                if (PlayerManager.Players[index] != null || !PlayerManager.Players[index].Exists)
+                if (PlayerManager.Players[index] == null || !PlayerManager.Players[index].Exists)
                 {
                     gamer.Presence.SetPresenceModeString("Idle");
                 }
@@ -1266,7 +1266,7 @@ public static void OfferToBuy(SignedInGamer gamer)
         void UpdateCustomMusic()
         {
 #if XDK
-            if (MediaPlayer.GameHasControl)
+            if (!MediaPlayer.GameHasControl)
             {
                 CustomMusicPlaying = true;
             }
@@ -1276,6 +1276,8 @@ public static void OfferToBuy(SignedInGamer gamer)
                 {
                     if (Tools.SongWad != null)
                         Tools.SongWad.Restart(true, false);
+
+                    CustomMusicPlaying = false;
                 }
             }
 #endif
@@ -1286,12 +1288,14 @@ public static void OfferToBuy(SignedInGamer gamer)
         /// </summary>
         public static void PromptForDeviceIfNoneSelected()
         {
+            if (CloudberryKingdomGame.IsTrial) return;
+
 #if XBOX
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)
             {
                 int index = (int)gamer.PlayerIndex;
                 if (PlayerManager.Players[index] != null && PlayerManager.Players[index].Exists &&
-                    !EzStorage.Device[index].IsReady)
+                    EzStorage.Device[index] != null && !EzStorage.Device[index].IsReady)
                 {
                     EzStorage.Device[index].PromptForDevice();
                 }
@@ -1494,6 +1498,11 @@ public static void OfferToBuy(SignedInGamer gamer)
 
         private void UpdateFps(GameTime gameTime)
         {
+            if (!MediaPlayer.GameHasControl)
+            {
+                CustomMusicPlaying = true;
+            }
+
             // Track time, changes in time, and FPS
             Tools.gameTime = gameTime;
             DrawCount++;

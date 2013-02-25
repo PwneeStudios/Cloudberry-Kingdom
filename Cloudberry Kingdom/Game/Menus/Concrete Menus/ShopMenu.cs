@@ -98,6 +98,7 @@ namespace CloudberryKingdom
 
         void Yes(MenuItem item)
         {
+            CloudberryKingdomGame.ShowMarketplace = true;
         }
 
         void No(MenuItem item)

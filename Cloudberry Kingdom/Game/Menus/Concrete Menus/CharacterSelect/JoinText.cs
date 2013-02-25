@@ -118,6 +118,13 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
+		public override void OnReturnTo()
+		{
+			base.OnReturnTo();
+
+			MyCharacterSelect.InitColorScheme(MyCharacterSelect.PlayerIndex);
+		}
+
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();

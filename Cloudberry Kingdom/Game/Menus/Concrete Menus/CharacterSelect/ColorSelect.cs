@@ -138,7 +138,7 @@ namespace CloudberryKingdom
         {
  	        base.MyPhsxStep();
 
-            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+            if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
         }
     }
 }

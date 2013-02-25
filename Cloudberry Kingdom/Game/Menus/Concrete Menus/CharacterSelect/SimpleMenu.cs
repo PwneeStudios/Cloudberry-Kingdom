@@ -130,7 +130,7 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
 
-            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+			if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
         }
 
         protected override void MyPhsxStep()
@@ -150,7 +150,7 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyHeroLevel.ShowHeroLevel = true;
 
 
-            if (!MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+			if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
             // Buttons
             ButtonPhsx();
