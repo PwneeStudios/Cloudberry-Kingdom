@@ -538,6 +538,15 @@ namespace CloudberryKingdom
             ScoreMultiplier = 1;
             if (OnCalculateScoreMultiplier != null)
                 OnCalculateScoreMultiplier(this);
+
+			foreach (GameObject obj in MyGameObjects)
+			{
+				PerfectScoreObject pso = obj as PerfectScoreObject;
+				if (null != pso)
+				{
+					pso.UpdateScoreText();
+				}
+			}
         }
 
         /// <summary>
@@ -1083,13 +1092,25 @@ namespace CloudberryKingdom
             if (PauseGame) return;
             if (PauseLevel) return;
 
-            foreach (PlayerData player in PlayerManager.ExistingPlayers)
-                if (player.StoredName.Length > 0 && player.MyGamer == null)
+            //foreach (PlayerData player in PlayerManager.ExistingPlayers)
+            try
+            {
+                for (int i = 0; i < 4; i++)
                 {
-                    PlayerManager.GetNumPlayers();
-                    if (PlayerManager.NumPlayers > 1)
-                        RemovePlayer(player.MyIndex);
+                    var player = PlayerManager.Players[i];
+
+                    if (player != null && player.Exists && player.StoredName.Length > 0 && player.MyGamer == null)
+                    {
+                        PlayerManager.GetNumPlayers();
+                        if (PlayerManager.NumPlayers > 1)
+                            RemovePlayer(player.MyIndex);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Tools.Write(e.Message);
+            }
         }
 #endif
         /// <summary>
@@ -1498,7 +1519,14 @@ namespace CloudberryKingdom
                 return false;
         }
 
-        public PlayerData Mvp { get { return PlayerManager.ExistingPlayers.ArgMax(p => p.CampaignStats.Score); } }
+        public PlayerData Mvp
+        {
+            get
+            {
+                var list = new List<PlayerData>(PlayerManager.ExistingPlayers);
+                return list.ArgMax(p => p.CampaignStats.Score);
+            }
+        }
         public Bob MvpBob
         {
             get

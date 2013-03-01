@@ -273,7 +273,6 @@
     <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
-    <Compile Include="Game\Tools\Resources_Art.cs" />
     <Compile Include="Game\Tools\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />
@@ -302,6 +301,7 @@
     <Compile Include="Core\Graphics\Draw\Simple\SimpleBox.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleVector.cs" />
     <Compile Include="Game\Tools\Resources.cs" />
+    <Compile Include="Game\Tools\Resources_Art_PC.cs" />
     <Compile Include="Game\Video.cs" />
     <Compile Include="IAsyncSaveDevice.cs" />
     <Compile Include="ISaveDevice.cs" />

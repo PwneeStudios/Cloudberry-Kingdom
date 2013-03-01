@@ -137,8 +137,13 @@ namespace CloudberryKingdom
 
         public static void Add(ScoreEntry score)
         {
-            foreach (var player in PlayerManager.ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 player.AddHighScore(score);
+            }
 
             EnsureList(score.GameId);
 

@@ -865,6 +865,7 @@ namespace CloudberryKingdom.Bobs
         }
         public float CameraWeight = 1, CameraWeightSpeed;
 
+		public bool Prevent_A_Button = false;
         public void GetPlayerInput()
         {
             CurInput.Clean();
@@ -911,6 +912,14 @@ namespace CloudberryKingdom.Bobs
                     InputFromKeyboard = false;
                 }
 #endif
+
+				if (Prevent_A_Button)
+				{
+					if (CurInput.A_Button)
+						CurInput.A_Button = false;
+					else
+						Prevent_A_Button = false;
+				}
             }
 
 #if WINDOWS

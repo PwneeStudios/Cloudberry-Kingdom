@@ -92,7 +92,7 @@ namespace CloudberryKingdom
                 {
                     if (MyBob.CurInput.A_Button && SuperBounceGraceCount > 0)
                     {
-                        if (MyLevel.PlayMode == 0 && !MyBob.CharacterSelect) MyBob.JumpSound.Play();
+						//if (MyLevel.PlayMode == 0 && !MyBob.CharacterSelect) MyBob.JumpSound.Play();
                         yVel += SuperBounce;
                         SuperBounceGraceCount = 0;
                     }

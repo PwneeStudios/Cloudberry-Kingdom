@@ -58,24 +58,28 @@ namespace CloudberryKingdom
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
+		public static bool PS3MainMenu = true;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #elif XBOX
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
+		public static bool PS3MainMenu = false;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #elif CAFE
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
+		public static bool PS3MainMenu = false;
 		public static bool SimpleLeaderboards = true;
 		public static bool FakeAwardments = false;
 #elif PS3
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
+		public static bool PS3MainMenu = true;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #endif
@@ -1273,7 +1277,7 @@ public static void OfferToBuy(SignedInGamer gamer)
 			Tools.CurGameData.AddGameObject(SmallErrorMessage);
         }
 
-        bool CustomMusicPlaying = false;
+        public static bool CustomMusicPlaying = false;
         void UpdateCustomMusic()
         {
 #if XDK

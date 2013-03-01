@@ -281,7 +281,7 @@ namespace CloudberryKingdom
         public void OnReturnFromGame()
         {
             Update();
-            SaveGroup.SaveAll();
+			//SaveGroup.SaveAll();
 
             PlayerManager.UploadCampaignLevels();
 

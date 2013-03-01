@@ -76,8 +76,13 @@ namespace CloudberryKingdom
             Awardments.GiveAward(award);
 
 			// Clean campaign stats
-			foreach (PlayerData player in PlayerManager.ExistingPlayers)
-				player.CampaignStats.Clean();
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
+                player.CampaignStats.Clean();
+            }
         }
 
         int StartLevel = 0;
@@ -359,8 +364,13 @@ namespace CloudberryKingdom
 
         static void OnCoinGrab(ObjectBase obj)
         {
-            foreach (var player in PlayerManager.ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 player.CampaignCoins++;
+            }
         }
 
         static void OnCompleteLevel(Level level)
@@ -379,8 +389,11 @@ namespace CloudberryKingdom
 
 		public static void MarkProgress(Level level)
 		{
-			foreach (var player in PlayerManager.ExistingPlayers)
-			{
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
 				player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
 				player.CampaignIndex = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelIndex);
 				player.Changed = true;

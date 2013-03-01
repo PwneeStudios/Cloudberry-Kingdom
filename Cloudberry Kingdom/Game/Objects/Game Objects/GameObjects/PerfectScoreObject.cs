@@ -357,7 +357,7 @@ namespace CloudberryKingdom
         EzText Text;
 		List<QuadClass> Dots;
 		EzTexture Full, Empty;
-        void UpdateScoreText()
+        public void UpdateScoreText()
         {
             float Hold = Multiplier;
             Text.SubstituteText(ToString());

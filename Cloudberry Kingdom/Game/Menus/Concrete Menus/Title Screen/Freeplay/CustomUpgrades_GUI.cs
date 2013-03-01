@@ -94,12 +94,11 @@ namespace CloudberryKingdom
             text.Shadow = false;
         }
 
-        protected override void SetItemProperties(MenuItem item)
-        {
-            base.SetItemProperties(item);
-
-            item.MySelectedText.Shadow = item.MyText.Shadow = false;
-        }
+		protected override void SetItemProperties(MenuItem item)
+		{
+			base.SetItemProperties(item);
+			StartMenu.SetItemProperties_Red(item);
+		}
 
         public ObjectIcon BigIcon;
         void AddUpgrade(Upgrade upgrade)
@@ -343,11 +342,11 @@ else
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
-            item.MyText.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
-            item.MySelectedText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
-			Menu.DefaultMenuInfo.SetNext(item);
 if (ButtonCheck.ControllerInUse)
 {
+#if PC_VERSION || XBOX
+			Menu.DefaultMenuInfo.SetNext(item);
+#endif
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
 			item.Selectable = false;
 }
@@ -378,8 +377,8 @@ if (ButtonCheck.ControllerInUse)
             AddItem(item);
             item.SelectSound = null;
             item.Pos = item.SelectedPos = new Vector2(599.1416f, -501.0634f);
-            item.MyText.MyFloatColor = new Color(235, 255, 80).ToVector4() * .93f;
-            item.MySelectedText.MyFloatColor = new Color(235, 255, 80).ToVector4();
+			//item.MyText.MyFloatColor = new Color(235, 255, 80).ToVector4() * .93f;
+			//item.MySelectedText.MyFloatColor = new Color(235, 255, 80).ToVector4();
 if (ButtonCheck.ControllerInUse)
 {
 #if XBOX || PC_VERSION
@@ -398,9 +397,11 @@ if (ButtonCheck.ControllerInUse)
             item.SelectSound = null;
             item.Go = ItemReturnToCaller;
             item.Pos = item.SelectedPos = new Vector2(702.3179f, -689.9683f);
-			Menu.DefaultMenuInfo.SetBack(item);
 if (ButtonCheck.ControllerInUse)
 {
+#if PC_VERSION || XBOX
+			Menu.DefaultMenuInfo.SetBack(item);
+#endif
             MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));            
             item.Selectable = false;
 }

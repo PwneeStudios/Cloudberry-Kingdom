@@ -74,9 +74,9 @@ namespace CloudberryKingdom
 
         public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
         public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
-        public static Dictionary<int, int> ChallengeGoal;
+		public static List<Tuple<int, int>> ChallengeGoal;
 
-		public const int HighestLevelNeeded = 80;
+		public const int HighestLevelNeeded = 75;
 		public static BobPhsx HighestHero = BobPhsxWheel.Instance;
 
         public static void StaticInit()
@@ -125,17 +125,17 @@ namespace CloudberryKingdom
             HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
             {
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,       new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 25) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance, new Tuple<BobPhsx, int>(BobPhsxBig.Instance, 35) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,    new Tuple<BobPhsx, int>(BobPhsxRocketbox.Instance, 35) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxInvert.Instance, 45) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBouncy.Instance,    new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 50) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 60) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxSpaceship.Instance, 70) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 70) ),
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSmall.Instance,     new Tuple<BobPhsx, int>(HighestHero, HighestLevelNeeded) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxJetman.Instance,    new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBouncy.Instance,	new Tuple<BobPhsx, int>(BobPhsxJetman.Instance, 25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSpaceship.Instance, new Tuple<BobPhsx, int>(BobPhsxBouncy.Instance, 25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBig.Instance,		new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 50) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxSmall.Instance,		new Tuple<BobPhsx, int>(BobPhsxBig.Instance,	50) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxInvert.Instance,	new Tuple<BobPhsx, int>(BobPhsxSmall.Instance,	50) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxDouble.Instance,    new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 75) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 75) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance,	new Tuple<BobPhsx, int>(HighestHero, HighestLevelNeeded) ),
                          
-                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxSmall.Instance, 100) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) ),
             };
@@ -152,12 +152,12 @@ namespace CloudberryKingdom
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush2.Instance, null));
 
             // Goals
-            ChallengeGoal = new Dictionary<int, int>();
+            ChallengeGoal = new List<Tuple<int, int>>();
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
             {
                 if (hero.Item2.Item1 == null) continue;
-                ChallengeGoal.Add(Challenge_Escalation.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2);
-                ChallengeGoal.Add(Challenge_TimeCrisis.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2);
+                ChallengeGoal.Add(new Tuple<int, int>(Challenge_Escalation.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2));
+                ChallengeGoal.Add(new Tuple<int, int>(Challenge_TimeCrisis.Instance.CalcGameId_Level(hero.Item2.Item1), hero.Item2.Item2));
             }
         }
 
@@ -201,9 +201,18 @@ namespace CloudberryKingdom
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId - Challenge.LevelMask, Challenge.CurrentScore, Challenge.CurrentScore, level + 1, 0, 0, 0));
                     }
 
-					if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+					bool contains = false;
+					int Goal = 0;
+					for (int i = 0; i < ChallengeGoal.Count; i++)
+						if (ChallengeGoal[i].Item1 == Challenge.CurrentId)
+						{
+							contains = true;
+							Goal = ChallengeGoal[i].Item2;
+						}
+					//if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+					if (contains)
 					{
-						int Goal = ChallengeGoal[Challenge.CurrentId];
+						//int Goal = ChallengeGoal[Challenge.CurrentId];
 
 						if (level + 1 >= Goal && CurHighLevel < Goal)
 						{

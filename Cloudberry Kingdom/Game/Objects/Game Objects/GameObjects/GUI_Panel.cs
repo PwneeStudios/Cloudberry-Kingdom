@@ -93,6 +93,8 @@ namespace CloudberryKingdom
         /// </summary>
         public virtual void ReturnToCaller()
         {
+			ButtonCheck.PreventInput();
+
             if (NoBackIfNoCaller && Caller == null) return;
 
             ReleaseWhenDone = true;

@@ -32,7 +32,7 @@ namespace CoreEngine
 			if (Tools.SongWad.SuppressNextInfoDisplay)
 				Tools.SongWad.SuppressNextInfoDisplay = DisplayInfo = false;
 
-            if (DisplayInfo)
+			if (DisplayInfo && !CloudberryKingdomGame.CustomMusicPlaying)
                 Tools.SongWad.DisplaySongInfo(this);
 
             return song.Duration.TotalSeconds;

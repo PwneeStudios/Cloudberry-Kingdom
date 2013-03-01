@@ -340,6 +340,16 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Art\Cursor\hand_closed.dds">
+      <Name>hand_closed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Cursor\hand_open.dds">
+      <Name>hand_open</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

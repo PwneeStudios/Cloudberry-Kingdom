@@ -18,6 +18,15 @@ namespace CloudberryKingdom
         {
             if (Released) return;
 
+			if (CurLevelSeed != null)
+			{
+				if (CurLevelSeed.MyGame != null)
+				{
+					CurLevelSeed.MyGame.Release();
+					CurLevelSeed.Release();
+				}
+			}
+
             if (NextLevelSeed != null)
             {
                 if (LevelIsLoaded(NextLevelSeed))
@@ -48,7 +57,7 @@ namespace CloudberryKingdom
         public int Count;
 
         protected Func<int, LevelSeedData> GetSeedFunc;
-        LevelSeedData NextLevelSeed, CurLevelSeed;
+        protected LevelSeedData NextLevelSeed, CurLevelSeed;
 
         public int NextLevelIndex = 0, CurLevelIndex = 0;
         public bool FirstLevelHasLoaded = false;
@@ -182,7 +191,7 @@ namespace CloudberryKingdom
 
             if (CurLevelIndex > 0 || CurLevelSeed.AlwaysOverrideWaitDoorLength)
                 Wait = CurLevelSeed.WaitLengthToOpenDoor;
-            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
+			game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
         }
 
         private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door, bool OpenDoorSound)
@@ -208,6 +217,10 @@ namespace CloudberryKingdom
             }                
         }
 
+		protected virtual void AdditionalSetLevel()
+		{
+		}
+
         /// <summary>
         /// Assuming a level is loaded, set that level as current.
         /// Begin loading next level.
@@ -227,6 +240,7 @@ namespace CloudberryKingdom
                 }
 
                 // Replace all Bobs with new Bobs (to handle newly joined players)
+				AdditionalSetLevel();
                 NextLevelSeed.MyGame.UpdateBobs();
                 NextLevelSeed.MyGame.Reset();
             }

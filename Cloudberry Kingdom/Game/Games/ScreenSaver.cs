@@ -248,13 +248,13 @@ namespace CloudberryKingdom
                             Tools.SoundWad.FindByName("Record_Scratch").Play());
 						
 						Tools.SongWad.PlayList = Tools.SongList_Standard;
-                        //Tools.SongWad.SetPlayList("Ripcurl^Blind_Digital");
 						Tools.SongWad.Next(Tools.Song_Ripcurl);
+						//Tools.SongWad.CurIndex = Tools.SongWad.PlayList.IndexOf(Tools.Song_Ripcurl);
 						Tools.SongWad.PlayNext = true;
-
-                        Tools.SongWad.Restart(true, false);
+						Tools.SongWad.Restart(true, false);
                         Tools.SongWad.Pause();
-                        lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>
+						//lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>
+                        lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 26, () =>
                         {
                             // Start the music
                             Tools.SongWad.Unpause();

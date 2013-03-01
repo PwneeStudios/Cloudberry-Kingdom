@@ -137,7 +137,8 @@ namespace CloudberryKingdom
                 // Give the award to each player, or to the specified player
                 if (player == null)
                 {
-                    foreach (PlayerData p in PlayerManager.ExistingPlayers)
+                    var list = new List<PlayerData>(PlayerManager.ExistingPlayers);
+                    foreach (PlayerData p in list)
                         p.Awardments += award.Guid;
                 }
                 else

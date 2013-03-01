@@ -70,11 +70,11 @@ namespace CloudberryKingdom
 
             EnableBounce();
 
-            SetIndex(0);
-
             CurrentType = LeaderboardType.TopScores;
             CurrentSort = LeaderboardSortType.Score;
             CurrentMessage = Message.None;
+
+            SetIndex(0);
 
             DelayCount_LeftRight = MotionCount_LeftRight = 0;
 

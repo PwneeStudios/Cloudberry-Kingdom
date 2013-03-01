@@ -101,7 +101,9 @@ namespace CloudberryKingdom
 				{
 					if (song == null)
 					{
-						Tools.SongWad.Start(true);
+						//Tools.SongWad.Start(true);
+						Tools.SongWad.Shuffle();
+						Tools.SongWad.PlayNext = true;
 						Tools.SongWad.Next();
 					}
 					else

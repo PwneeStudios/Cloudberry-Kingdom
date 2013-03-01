@@ -355,6 +355,11 @@ namespace CloudberryKingdom
 
             PreventNextInput = true;
             PreventTimeStamp = Tools.TheGame.DrawCount;
+
+			if (Tools.CurLevel == null) return;
+
+			foreach (Bobs.Bob bob in Tools.CurLevel.Bobs)
+				bob.Prevent_A_Button = true;
         }
 
         /// <summary>

@@ -224,7 +224,7 @@ namespace CloudberryKingdom
             if (HeroRush.Timer.Hid) Wait = 28 + 12;
 
             HeroRush.Timer.Show();
-            HeroRush.Timer.PauseOnPause = false; // Start the timer
+			//HeroRush.Timer.PauseOnPause = false; // Start the timer
 
             MyGame.WaitThenDo(Wait, () =>
                 TutorialHelper.ReadyGo(MyGame, End));

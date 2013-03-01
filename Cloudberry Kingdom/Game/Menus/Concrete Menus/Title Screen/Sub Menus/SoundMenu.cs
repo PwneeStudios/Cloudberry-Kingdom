@@ -293,6 +293,8 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
+			if (Core.Released) return;
+
 			if (Black != null) Black.Release();
 
             if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)

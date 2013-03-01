@@ -119,16 +119,6 @@ namespace CloudberryKingdom
             FriendItems = new List<LeaderboardItem>();
 
             MyId = GetLeaderboardId(game_id);
-#else
-			// Test
-			Items = new Dictionary<int, LeaderboardItem>();
-			FriendItems = new List<LeaderboardItem>();
-			MyId = GetLeaderboardId(game_id);
-			MoreRequested = false;
-			Updated = true;
-			result = null;
-			TotalSize = 10000;
-			StartIndex = 1;
 #endif
         }
 

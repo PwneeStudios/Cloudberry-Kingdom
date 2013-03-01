@@ -135,7 +135,7 @@ namespace CloudberryKingdom
         {
             base.SetItemProperties(item);
 
-			StartMenu.SetItemProperties_Red(item);	
+			//StartMenu.SetItemProperties_Red(item);	
             //CkColorHelper.GreenItem(item);
         }
 
@@ -151,7 +151,7 @@ namespace CloudberryKingdom
 			text.OutlineColor = ColorHelper.Gray(.05f);
 
 			text.Shadow = true;
-			text.ShadowColor = new Color(.2f, .2f, .2f, .5f);
+			text.ShadowColor = new Color(.2f, .2f, .2f, .25f);
 			text.ShadowOffset = new Vector2(12, 12);
 
 			text.Scale = FontScale * .9f;

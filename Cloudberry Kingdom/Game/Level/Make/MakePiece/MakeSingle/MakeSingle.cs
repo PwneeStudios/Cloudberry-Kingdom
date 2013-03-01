@@ -130,12 +130,13 @@ namespace CloudberryKingdom.Levels
                 MyGame.AllowQuickJoin = false;
             }
 
-            PlayerManager.ExistingPlayers.ForEach(player =>
+            var list = new List<PlayerData>(PlayerManager.ExistingPlayers);
+            foreach (var player in list)
             {
                 CoinsCountInStats = true;
                 player.Stats.TotalCoins += NumCoins;
                 player.Stats.TotalBlobs += NumBlobs;
-            });
+            }
 
             KeepCoinsDead();
 

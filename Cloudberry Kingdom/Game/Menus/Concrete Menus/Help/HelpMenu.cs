@@ -40,8 +40,13 @@ namespace CloudberryKingdom
                     break;
 
                 case GameData.BankType.Campaign:
-                    foreach (var p in PlayerManager.ExistingPlayers)
-                        p.CampaignCoins = System.Math.Max(p.CampaignCoins - Cost, 0);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        var player = PlayerManager.Players[i];
+                        if (player == null || !player.Exists) continue;
+
+                        player.CampaignCoins = System.Math.Max(player.CampaignCoins - Cost, 0);
+                    }
                     break;
 
                 case GameData.BankType.Infinite:

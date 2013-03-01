@@ -185,10 +185,10 @@ namespace CloudberryKingdom
             item.Go = MenuGo_Options;
             AddItem(item);
 
-            // Exit
+			// Exit
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont, true));
             item.Name = "Exit";
-            item.Go = ItemReturnToCaller; //MenuGo_Exit;
+            item.Go = ItemReturnToCaller;
             AddItem(item);
 
             EnsureFancy();

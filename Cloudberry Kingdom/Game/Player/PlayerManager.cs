@@ -351,7 +351,7 @@ namespace CloudberryKingdom
         {
             List<PlayerData> players = LoggedInPlayers;
             if (players.Count == 0)
-                players = ExistingPlayers;
+                players = new List<PlayerData>(ExistingPlayers);
 
             int N = players.Count;
             int CharLength = MaxLength - (N - 1); // The max number of characters, exlucing slashes
@@ -400,8 +400,13 @@ namespace CloudberryKingdom
         public static int MaxPlayerHighScore(int GameId)
         {
             int max = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 max = Math.Max(max, player.GetHighScore(GameId));
+            }
 
             return max;
         }
@@ -409,8 +414,13 @@ namespace CloudberryKingdom
         public static int MaxPlayerTotalArcadeLevel()
         {
             int max = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 max = Math.Max(max, player.GetTotalArcadeLevel());
+            }
 
             return max;
         }
@@ -418,8 +428,11 @@ namespace CloudberryKingdom
         public static int MinPlayerTotalCampaignLevel()
         {
             int min = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
             {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue; 
+                
                 int level = player.GetTotalCampaignLevel();
                 min = min == 0 ? level : Math.Min(min, level);
             }
@@ -430,8 +443,11 @@ namespace CloudberryKingdom
         public static int MinPlayerTotalCampaignIndex()
         {
             int min = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
             {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 int level = player.GetTotalCampaignIndex();
                 min = min == 0 ? level : Math.Min(min, level);
             }
@@ -442,8 +458,13 @@ namespace CloudberryKingdom
         public static int MaxPlayerTotalLevel()
         {
             int max = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 max = Math.Max(max, player.GetTotalLevel());
+            }
 
             return max;
         }
@@ -453,7 +474,16 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool Awarded(Awardment award)
         {
-            return ExistingPlayers.Any(player => player.Awardments[award.Guid]);
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
+                if (player.Awardments[award.Guid]) return true;
+            }
+
+            return false;
+            //return ExistingPlayers.Any(player => player.Awardments[award.Guid]);
         }
 
         /// <summary>
@@ -461,7 +491,16 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool Bought(Buyable item)
         {
-            return ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
+                if (player.Purchases[item.GetGuid()]) return true;
+            }
+
+            return false;
+            //return ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
         }
 
         /// <summary>
@@ -469,7 +508,18 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool BoughtOrFree(Buyable item)
         {
-            return item.GetPrice() == 0 || ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
+            bool any = false;
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
+                if (player.Purchases[item.GetGuid()])
+                    any = true;
+            }
+
+            return item.GetPrice() == 0 || any;
+            //return item.GetPrice() == 0 || ExistingPlayers.Any(player => player.Purchases[item.GetGuid()]);
         }
 
         /// <summary>
@@ -508,8 +558,13 @@ namespace CloudberryKingdom
             if (buyable == null) return;
 
             // Give the hat to each player
-            foreach (PlayerData p in ExistingPlayers)
-                p.Purchases += buyable.GetGuid();
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
+                player.Purchases += buyable.GetGuid();
+            }
 
             SavePlayerData.Changed = true;
         }
@@ -529,8 +584,13 @@ namespace CloudberryKingdom
         public static int GetGameScore()
         {
             int score = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 score += player.GetGameScore();
+            }
 
             return score;
         }
@@ -541,8 +601,13 @@ namespace CloudberryKingdom
         public static int GetGameScore_WithTemporary()
         {
             int score = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 score += player.GetGameScore() + player.TempStats.Score;
+            }
 
             return score;
         }
@@ -550,8 +615,13 @@ namespace CloudberryKingdom
         public static int PlayerSum(Func<PlayerData, int> f)
         {
             int sum = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 sum += f(player);
+            }
 
             return sum;
         }
@@ -559,8 +629,13 @@ namespace CloudberryKingdom
         public static int PlayerMax(Func<PlayerData, int> f)
         {
             int max = int.MinValue;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 max = Math.Max(max, f(player));
+            }
 
             return max;
         }
@@ -571,8 +646,13 @@ namespace CloudberryKingdom
         public static int GetLevelCoins()
         {
             int coins = 0;
-            foreach (PlayerData player in ExistingPlayers)
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null || !player.Exists) continue;
+
                 coins += player.GetLevelCoins();
+            }
 
             return coins;
         }
@@ -587,7 +667,19 @@ namespace CloudberryKingdom
 #if PC_VERSION
                 return ExistingPlayers;
 #elif XBOX || XBOX_SIGNIN
-                return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
+                List<PlayerData> list = new List<PlayerData>();
+                for (int i = 0; i < 4; i++)
+                {
+                    var player = PlayerManager.Players[i];
+                    if (player == null || !player.Exists) continue;
+
+                    if (player.MyGamer != null || player.StoredName.Length > 0)
+                    {
+                        list.Add(player);
+                    }
+                }
+                return list;
+                //return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
 #else
                 return ExistingPlayers;
 #endif

@@ -10,6 +10,26 @@ namespace CloudberryKingdom
         {
         }
 
+		void MenuGo_Leaderboards(MenuItem item)
+		{
+			if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
+			{
+#if XBOX
+                var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
+                if (gamer != null)
+                {
+                    Call(new LeaderboardGUI(Title, gamer, MenuItem.ActivatingPlayer), 0);
+                }
+#else
+				Call(new LeaderboardGUI(Title, null, MenuItem.ActivatingPlayer), 0);
+#endif
+			}
+			else
+			{
+				CloudberryKingdomGame.ShowError_MustBeSignedInToLive(Localization.Words.Err_MustBeSignedInToLive);
+			}
+		}
+
         protected override void MakeMenu()
         {
             MenuItem item;
@@ -38,11 +58,22 @@ namespace CloudberryKingdom
             item.Go = MenuGo_Options;
             AddItem(item);
 
+if (CloudberryKingdomGame.PS3MainMenu)
+{
+			// Leaderboard
+            item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, true));
+            item.Name = "Leaderboards";
+			item.Go = MenuGo_Leaderboards;
+            AddItem(item);
+}
+else
+{
             // Exit
             item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont, true));
             item.Name = "Exit";
             item.Go = MenuGo_Exit;
             AddItem(item);
+}
 
             EnsureFancy();
 
@@ -51,10 +82,28 @@ namespace CloudberryKingdom
 
         protected override void SetPos()
         {
-            BackBox.TextureName = "White";
-            BackBox.Quad.SetColor(ColorHelper.Gray(.1f));
-            BackBox.Alpha = .73f;
+			BackBox.TextureName = "White";
+			BackBox.Quad.SetColor(ColorHelper.Gray(.1f));
+			BackBox.Alpha = .73f;
 
+if (CloudberryKingdomGame.PS3MainMenu)
+{
+			MenuItem _item;
+			_item = MyMenu.FindItemByName("Arcade"); if (_item != null) { _item.SetPos = new Vector2(0f, 365.5279f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("Campaign"); if (_item != null) { _item.SetPos = new Vector2(-8.333496f, 165.8613f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("Freeplay"); if (_item != null) { _item.SetPos = new Vector2(0f, -26.47217f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("Options"); if (_item != null) { _item.SetPos = new Vector2(0f, -405.25f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("Leaderboards"); if (_item != null) { _item.SetPos = new Vector2(0f, -216.0278f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+			MyMenu.Pos = new Vector2(-80.55566f, -216.6667f);
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(524.4158f, 524.4158f); }
+
+			MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+}
+else
+{
             MenuItem _item;
             _item = MyMenu.FindItemByName("Arcade"); if (_item != null) { _item.SetPos = new Vector2(0f, 365.5279f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
             _item = MyMenu.FindItemByName("Campaign"); if (_item != null) { _item.SetPos = new Vector2(0f, 160.3057f); _item.MyText.Scale = 0.66f; _item.MySelectedText.Scale = 0.66f; _item.SelectIconOffset = new Vector2(0f, 0f); }
@@ -68,6 +117,9 @@ namespace CloudberryKingdom
             _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(524.4158f, 524.4158f); }
 
             MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+}
+
+			MyMenu.SortByHeight();
         }
     }
 }

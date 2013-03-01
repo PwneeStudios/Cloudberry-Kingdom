@@ -604,9 +604,11 @@ namespace CloudberryKingdom
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-			Menu.DefaultMenuInfo.SetNext(item);
 if (ButtonCheck.ControllerInUse)
 {
+#if PC_VERSION || XBOX
+			Menu.DefaultMenuInfo.SetNext(item);
+#endif
             MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
             item.Selectable = false;
 }
@@ -642,9 +644,11 @@ if (ButtonCheck.ControllerInUse)
             item.SelectSound = null;
             item.Go = me => ReturnToCaller();
             item.Pos = item.SelectedPos = new Vector2(922.9375f, -523.8096f);
-			Menu.DefaultMenuInfo.SetBack(item);
 if (ButtonCheck.ControllerInUse)
 {
+#if XBOX || PC_VERSION
+			Menu.DefaultMenuInfo.SetBack(item);
+#endif
             MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
             item.Selectable = false;
 }

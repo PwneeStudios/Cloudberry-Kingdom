@@ -40,6 +40,13 @@ namespace CloudberryKingdom
                 };
         }
 
+		protected override void AdditionalSetLevel()
+		{
+			base.AdditionalSetLevel();
+
+			NextLevelSeed.MyGame.MyLevel.SetBack(3);
+		}
+
         public override void Release()
         {
             base.Release();
