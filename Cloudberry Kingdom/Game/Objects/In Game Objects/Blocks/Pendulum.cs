@@ -239,7 +239,9 @@ namespace CloudberryKingdom.Blocks
                     //Tools.QDrawer.DrawLine(Core.Data.Position + add, PivotPoint + add, Info.SpikeyGuys.Chain);
                     //Tools.QDrawer.DrawLine(Core.Data.Position - add, PivotPoint - add, Info.SpikeyGuys.Chain);
 
-                    Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.Boulders.Chain);
+					int RepeatWidth = 1900;
+					if (Core.Data.Position.Y < -1200) RepeatWidth = 2150;
+					Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint + (PivotPoint - Pos), Info.Boulders.Chain, RepeatWidth);
 
                     MyDraw.Update();
                     MyDraw.Draw();

@@ -495,6 +495,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             delegate
             {
 #if XBOX && !WINDOWS
+                //Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
                 Thread.CurrentThread.SetProcessorAffinity(new[] { affinity });
 #endif
                 var ThisThread = Thread.CurrentThread;

@@ -81,7 +81,7 @@ namespace CloudberryKingdom
                     var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                     if (gamer != null)
                     {
-                        HeroSelect.Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
+						HeroSelect.Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
                         HeroSelect.Hide();
                         HeroSelect.MyHeroDoll.Hide();
                     }
@@ -140,17 +140,23 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             string Space = "{s34,0}";
-            EzText StartText = new EzText(ButtonString.Go(80) + Space + "{c122,209,39,255} Start", ItemFont, true, true);
+            EzText StartText = new EzText(ButtonString.Go(80) + Space + " Start", ItemFont, true, true);
             MyPile.Add(StartText, "Go");
 
-            EzText LeaderText = new EzText(ButtonString.X(80) + Space + "{c150,189,244,255} Leaderboard", ItemFont, true, true);
+            EzText LeaderText = new EzText(ButtonString.X(80) + Space + " Leaderboard", ItemFont, true, true);
             MyPile.Add(LeaderText, "Leaderboard");
+
+#if PS3
+			StartText.MyFloatColor = ColorHelper.Gray(.9f);
+			LeaderText.MyFloatColor = ColorHelper.Gray(.9f);			
+#endif
+
 #endif
 
 #if PC_VERSION
             SetPos_PC();
 #else
-            SetPos_Console();
+			SetPos_Console();
 #endif
         }
 

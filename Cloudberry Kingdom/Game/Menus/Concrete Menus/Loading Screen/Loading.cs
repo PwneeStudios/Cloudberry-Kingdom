@@ -234,7 +234,8 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
             DrawCount++;
             if (!ReadyToFade && DrawCount > 2)
                 BlackQuad.Alpha -= .0633f;
-            if (DrawCount > 68)
+            //if (DrawCount > 68)
+            if (DrawCount > 90)
                 ReadyToFade = true;
 
             MyProgressBar.Pos = new Vector2(1100, -800);

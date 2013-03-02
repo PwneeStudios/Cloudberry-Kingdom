@@ -127,14 +127,15 @@ namespace CloudberryKingdom
             base.OnReturnTo();
         }
 
-        public override bool MenuReturnToCaller(Menu menu)
-        {
-            if (NoBack) return false;
+
+		public override void ReturnToCaller()
+		{
+            if (NoBack) return;
 
 			UseBounce = false;
 			ReturnToCallerDelay = 0;
 
-            return base.MenuReturnToCaller(menu);
+            base.ReturnToCaller();
         }
 
         public override void Init()

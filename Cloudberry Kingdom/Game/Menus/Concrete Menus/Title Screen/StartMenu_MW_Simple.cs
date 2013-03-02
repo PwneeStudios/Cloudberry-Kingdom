@@ -18,6 +18,7 @@ namespace CloudberryKingdom
                 var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                 if (gamer != null)
                 {
+					Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(null, null);
                     Call(new LeaderboardGUI(Title, gamer, MenuItem.ActivatingPlayer), 0);
                 }
 #else

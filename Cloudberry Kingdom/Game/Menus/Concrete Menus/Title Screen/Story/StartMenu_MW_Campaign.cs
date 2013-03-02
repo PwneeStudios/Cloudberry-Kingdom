@@ -166,6 +166,8 @@ namespace CloudberryKingdom
 
             CreateMenu();
 
+			MyMenu.Control = -1;
+
             Update();
 
 			int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;

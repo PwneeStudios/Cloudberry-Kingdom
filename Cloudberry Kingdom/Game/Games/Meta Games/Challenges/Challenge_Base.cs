@@ -22,6 +22,7 @@ namespace CloudberryKingdom
 
         public static int CurrentId;
 
+		public static int LeaderboardIndex = 0;
         public static BobPhsx ChosenHero;
         public const int LevelMask = 10000;
 

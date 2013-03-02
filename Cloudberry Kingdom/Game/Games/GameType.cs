@@ -1122,6 +1122,7 @@ namespace CloudberryKingdom
         {
             PauseGame = MyGameObjects.Any(obj => obj.PauseGame);
             PauseGame |= CharacterSelectManager.IsShowing;
+            PauseGame |= CloudberryKingdomGame.SuperPause;
         }
 
         /// <summary>

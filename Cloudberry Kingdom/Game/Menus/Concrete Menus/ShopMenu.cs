@@ -52,10 +52,8 @@ namespace CloudberryKingdom
 		{
 			base.Init();
 
-			// Make the menu
-			MenuItem item;
-
-			var Description = new EzText("Reconnect controller to continue!", Resources.Font_Grobold42_2, 1800, true, true, .575f);
+			// Make the message
+			var Description = new EzText(Word, Resources.Font_Grobold42_2, 1800, true, true, .575f);
 			Description.Pos = new Vector2(0, 100);
 			Description.Scale *= .6f;
 			MyPile.Add(Description, "Description");

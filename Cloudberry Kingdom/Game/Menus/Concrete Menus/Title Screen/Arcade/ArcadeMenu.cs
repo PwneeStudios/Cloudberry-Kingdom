@@ -455,6 +455,8 @@ namespace CloudberryKingdom
             }
         }
 
+		public static Challenge SelectedChallenge = null;
+
         bool Lock = false;
         void OnSelect()
         {
@@ -462,6 +464,10 @@ namespace CloudberryKingdom
             if (null == item) return;
 
             Lock = item.IsLocked();
+
+			// Store the selected challenge
+			ArcadeMenu.SelectedChallenge = item.MyChallenge;
+			Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, null);
 
             if (Lock)
             {

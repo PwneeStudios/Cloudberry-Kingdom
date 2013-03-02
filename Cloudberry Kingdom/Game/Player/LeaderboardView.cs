@@ -74,7 +74,8 @@ namespace CloudberryKingdom
             CurrentSort = LeaderboardSortType.Score;
             CurrentMessage = Message.None;
 
-            SetIndex(0);
+			SetIndex(Challenge.LeaderboardIndex);
+            //SetIndex(0);
 
             DelayCount_LeftRight = MotionCount_LeftRight = 0;
 
@@ -140,7 +141,8 @@ namespace CloudberryKingdom
             MyPile.Add(LoadingText, "Loading");
 
 
-            MyMenu = new Menu();
+			MyMenu = new Menu(false);
+			//MyMenu = new Menu();
             MyMenu.OnB = MenuReturnToCaller;
 
             // Buttons
@@ -278,7 +280,12 @@ if (ButtonCheck.ControllerInUse)
                         CurrentMessage = Message.NotRanked;
                 }
                 else
-                    CurrentMessage = Message.None;
+                {
+                    if (CurrentType == LeaderboardType.MyScores && CurrentView.MyLeaderboard.gamer_rank < 0)
+                        CurrentMessage = Message.NotRanked;
+                    else
+                        CurrentMessage = Message.None;
+                }
             }
 
             UpdateLoadingText();
@@ -320,10 +327,10 @@ if (ButtonCheck.ControllerInUse)
 
         void UpdateView()
         {
-            MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
+			MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
 			MyMenu.FindItemByName("SwitchView").MySelectedText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
-            MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
-            MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
+			MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
+			MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
 			MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
@@ -722,7 +729,16 @@ else
         public string Val;
         public string Rank;
 		public float scale;
+		public bool Special;
 
+		static Dictionary<string, bool> SpecialNames = new Dictionary<string,bool> {
+			{ "Tewth Brush", true },
+			{ "TewthDecay", true },
+			{ "PwneeStudios", true },
+			{ "PwneeJordan", true },
+			{ "PwneeTJ", true },
+			{ "Pwnee", true },
+																				   };
         public static LeaderboardItem DefaultItem = new LeaderboardItem(null, 0, 0);
 
         public LeaderboardItem(Gamer Player, int Val, int Rank)
@@ -748,6 +764,10 @@ else
                 else
                     scale = 1;
             }
+
+			Special = false;
+			if (SpecialNames.ContainsKey(GamerTag))
+				Special = true;
         }
 
         public void Draw(Vector2 Pos, bool Selected, float alpha)
@@ -756,15 +776,18 @@ else
             Vector4 ocolor = Color.Black.ToVector4();
 
             if (Selected)
-            {
-                //ocolor = new Color(191, 191, 191).ToVector4();
-                //color = new Color(175, 8, 64).ToVector4();
-
-                color = Color.LimeGreen.ToVector4();
-                ocolor = new Color(0, 0, 0).ToVector4();
-            }
+			{
+				color = Color.LimeGreen.ToVector4();
+				ocolor = new Color(0, 0, 0).ToVector4();
+			}
+			else if (Special)
+			{
+				color = Color.Gold.ToVector4();
+				ocolor = new Color(0, 0, 0).ToVector4();
+			}
             
-            color *= alpha;
+			
+			color *= alpha;
 
             Vector2 GamerTag_Offset = .1f * new Vector2(LeaderboardGUI.Offset_GamerTag.Pos.X,
 										-(1 - scale) * 1000);
@@ -796,7 +819,7 @@ else
         int Start;
         int End() { return CoreMath.Restrict(0, TotalEntries, Start + EntriesPerPage); }
 
-        Dictionary<int, LeaderboardItem> Items
+        public Dictionary<int, LeaderboardItem> Items
         {
             get
             {

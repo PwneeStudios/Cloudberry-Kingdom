@@ -376,6 +376,14 @@ namespace CoreEngine
             DrawQuad(ref LineQuad);
         }
 
+
+		public void DrawLine(Vector2 x1, Vector2 x2, LineSpriteInfo info, int RepeatWidth)
+		{
+			if (info.DrawEndPoints)
+				DrawLineAndEndPoints(x1, x2, new Color(info.Tint), info.Width, info.End1.MyTexture, info.Sprite.MyTexture, info.End2.MyTexture, Tools.BasicEffect, RepeatWidth, info.Dir, 0, 0);
+			else
+				DrawLine(x1, x2, new Color(info.Tint), info.Width, info.Sprite.MyTexture, Tools.BasicEffect, RepeatWidth, info.Dir, 0, 0, info.Wrap);
+		}
         public void DrawLine(Vector2 x1, Vector2 x2, LineSpriteInfo info)
         {
             if (info.DrawEndPoints)

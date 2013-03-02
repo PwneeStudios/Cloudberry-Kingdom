@@ -6,12 +6,12 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cloudberry Kingdom!")]
+[assembly: AssemblyTitle("Cloudberry Kingdom")]
 [assembly: AssemblyProduct("Cloudberry Kingdom")]
 [assembly: AssemblyDescription("You’ve never seen a platformer like this. Infinite random levels of any difficulty, at your disposal and ready to satisfy your every need. We guarantee you’ll never master this game.")]
-[assembly: AssemblyCompany("pwnee Studios")]
+[assembly: AssemblyCompany("Pwnee Studios")]
 
-[assembly: AssemblyCopyright("Copyright ©  2008")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

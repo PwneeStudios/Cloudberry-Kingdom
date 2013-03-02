@@ -1273,7 +1273,7 @@ public static void OfferToBuy(SignedInGamer gamer)
             if (SmallErrorMessage != null) return;
 			if (Tools.CurGameData == null) return;
 
-            SmallErrorMessage = new SmallErrorMenu(Localization.Words.KnightHelmet);
+			SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
 			Tools.CurGameData.AddGameObject(SmallErrorMessage);
         }
 

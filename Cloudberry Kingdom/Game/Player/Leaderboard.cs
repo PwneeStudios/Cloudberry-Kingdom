@@ -194,6 +194,8 @@ namespace CloudberryKingdom
         public int StartIndex = -1;
         public int TotalSize = -1;
 
+        public int gamer_rank = -1;
+
         void Update(LeaderboardGUI.LeaderboardType Type, IAsyncResult ar)
         {
 #if XDK
@@ -215,7 +217,6 @@ namespace CloudberryKingdom
 
             lock (Items)
             {
-                int gamer_rank = -1;
                 foreach (LeaderboardEntry entry in reader.Entries)
                 {
                     int rank = entry.GetRank();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-
 namespace CloudberryKingdom
 {
     public class HeroItem : MenuItem
@@ -113,6 +112,7 @@ namespace CloudberryKingdom
             }
 
             Challenge.ChosenHero = item.Hero;
+			Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, Challenge.ChosenHero);
             MyHeroDoll.MakeHeroDoll(item.Hero);
 
             UpdateScore();
@@ -180,7 +180,13 @@ namespace CloudberryKingdom
             Score = new EzText("0", Resources.Font_Grobold42_2);
             Level = new EzText("0", Resources.Font_Grobold42_2);
           
-            // Menu
+#if PS3
+			float Brightness = .945f;
+			Score.MyFloatColor = ColorHelper.Gray(Brightness);
+			Level.MyFloatColor = ColorHelper.Gray(Brightness);
+#endif
+
+			// Menu
             MiniMenu mini = new MiniMenu();
             MyMenu = mini;
 
