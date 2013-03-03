@@ -189,7 +189,7 @@ namespace CloudberryKingdom
 			item.Go = Go;
 			AddItem(item);
 
-            // Chapter 1
+            // Chapters
 			for (int i = 1; i <= 7; i++)
 			{
 				item = new CampaignChapterItem(new EzText(CampaignSequence.ChapterName[i - 1], ItemFont), i);

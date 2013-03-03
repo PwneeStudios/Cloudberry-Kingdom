@@ -78,12 +78,13 @@ namespace CloudberryKingdom
         {
             get
             {
-                Tools.Warning();
-#if NOT_PC
-                return "Hold " + ButtonString.LeftBumper(85) + " and " + ButtonString.RightBumper(85) + " to respawn quickly!";
+#if PC_VERSION
+                return string.Format(Localization.WordString(Localization.Words.RespawnNoteKeyboard), ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Space, 85));
+                //return "Press " + ButtonString.KeyStr(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, 85) + " or " +
+                //    ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Space, 85) + " to respawn quickly!";
 #else
-                return "Press " + ButtonString.KeyStr(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, 85) + " or " +
-                    ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Space, 85) + " to respawn quickly!";
+                return string.Format(Localization.WordString(Localization.Words.RespawnNoteGamepad), ButtonString.LeftBumper(85), ButtonString.RightBumper(85));
+                //return "Hold " + ButtonString.LeftBumper(85) + " and " + ButtonString.RightBumper(85) + " to respawn quickly!";
 #endif
             }
         }
@@ -92,12 +93,13 @@ namespace CloudberryKingdom
         {
             get
             {
-                Tools.Warning();
-#if NOT_PC
-                return "Press " + ButtonString.Y(85) + " for powerups!";
+#if PC_VERSION
+                //return "Press " + ButtonString.Y(85) + " or " +
+                //    ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Enter, 85) + " for powerups!";
+                return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Enter, 85));
 #else
-                return "Press " + ButtonString.Y(85) + " or " +
-                    ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Enter, 85) + " for powerups!";
+                //return "Press " + ButtonString.Y(85) + " for powerups!";
+                return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.Y(85));
 #endif
             }
         }

@@ -45,8 +45,6 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             // Press A to join
-            Tools.Warning();
-
 			int ButtonSize = 89;
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{

@@ -140,7 +140,6 @@ namespace CloudberryKingdom
 
             if (levelindex > StartIndex)
             {
-                Tools.Warning();
                 var title = new LevelTitle(string.Format("{1} {0}", levelindex + 1, Localization.WordString(Localization.Words.Level)));
                 Tools.CurGameData.AddGameObject(title);
 

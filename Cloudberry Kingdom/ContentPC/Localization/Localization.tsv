@@ -174,7 +174,7 @@ Bouncy	スプリング	Springpferd	Pula-Pula	Palleggiante	Rebondissant	Rebote	П
 Rocketbox	ロケットBOX	Raketenlore	Carro-Fogueteiro	Scatola da Razzo	Super Chariot !	Caja de Cohete	Рокеткороб	Rocketbox	助推器	
 Fat Bob	ファット・ボブ	Fetter Bob	Bob Gordo	Bob Ciccione	Gros Bob	Gordo Bob	Толстый Боб	지방 밥	大个子	
 Phase Bob	変形ボブ	Phasen Bob	Bob Volátil	Bob Graduale	Un Bob Instable	Bob en Fases	Колеблющийся Боб	단계 밥	伸缩型	
-Viridian	ビリジアン	Schwereloser Bob	Cpt. Viridian	Viridian	Anti-Gravitation	Viridian	Виридиан	비리 디언	重力	
+Gravity Bob	反重力	Schwereloser Bob	Antigravidade.	Antigravità	Anti-Gravitation	Antigravedad	Антигравитации	반 중력	反重力	
 Time Master	タイムマスター	Meister der Zeit	Mestre do Tempo	Maestro del Tempo	Maître du Temps	Maestro del Tiempo	Повелитель времени	시간 마스터	掌控时间	
 Meatboy	ミート・ボーイ	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	Meatboy	肉	
 Jetpack Wheelie	ジェットパック車輪	Jetman Wheelie	Potro Voador	Jetpack Wheelie	Roule Jetman !	Jetpack Wheelie	Реактивный 4	Jetpack 가방	喷气机车轮	
@@ -325,9 +325,9 @@ Delete {0} Level?	{0}シードを削除しますか？	Level {0} Löschen?	Apaga
 Delete {0} Levels?	{0}シードを削除しますか？	Level {0} Löschen?	Apagar {0} senhas?	Elimina {0} Semi?	Annuler les Codes ?	Borrar {0} Códigos?	Удалить {0} уровньей?	{0} 종자를 삭제 하시겠습니까?	要删除 {0} 关卡吗?	
 Multiplier Increased!	ポイント倍増数が増えました	Multiplikator Erhöht!	Multiplicador aumentado!	Moltiplicatore Aumentato!	Multiplicateur Augmenté!	Multiplicador Incrementado	Множитель увеличился!	배율이 증가!	得分增加了!	
 Hold {0} to jump higher!	{0}ボタンを長押しして高く飛べ！	Halte {0} gedrückt, um höher zu springen!	Segure {0} para pular alto!	Tieni premuto {0} per saltare più in alto!	Maintiens {0} pour sauter plus haut	Manten {0} para saltar más alto!	Держите {0} чтобы прыгать выше!	{0} 더 높이 점프 할 멈춰!	按住 {0} 就能跳得更高!	
-Hold {0} and {1} to respawn quickly!	{0}と{0}を長押しして素早く復活！	Halte {0} und {1} gedrückt, um sofort neuzustarten!	Segure {0} e {1} para reiniciar!	Tieni premuto {0} e {1} per riapparire velocemente!	Maintiens {0} et {1} pour ressusciter plus vite	Manten presionado {0} y {1} para aparecer rápidamente!	Держите {0} и {1} чтобы возродится быстрее!	잡아 {0}과 {0} 빠르게 리젠 수 있습니다!	按住 {0} 和 {1} 复活!	
-Press {0} to respawn quickly!	スペースキーを押して素早く復活！	Drücke {0}um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur la barre d'Espace pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	보도 {0}이 (가) 빠르게 리젠 수 있습니다!	按{0}复活!	
-Press {0} for powerups!	{0}ボタンを押してパワーアップ！	Drücke {0} für Hilfsmittel	Pressione {0} para uma ajuda!	Premi {0} per potenziamenti!	Appuie sur {0} pour les power-up!	Presiona {0} para powerups	Нажмите {0} для бонусов!	powerups를 누르면 {0}!	按 {0} 来增加力量!	
+Hold {0} and {1} to respawn quickly!	{0}と{1}を長押しして素早く復活！	Halte {0} und {1} gedrückt, um sofort neuzustarten!	Segure {0} e {1} para reiniciar!	Tieni premuto {0} e {1} per riapparire velocemente!	Maintiens {0} et {1} pour ressusciter plus vite	Manten presionado {0} y {1} para aparecer rápidamente!	Держите {0} и {1} чтобы возродится быстрее!	잡아 {0}과 {1} 빠르게 리젠 수 있습니다!	按住 {0} 和 {1} 复活!	
+Press {0} to respawn quickly!	スペースキーを押して素早く復活！	Drücke {0} um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur {0} pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	보도 {0}이 (가) 빠르게 리젠 수 있습니다!	按{0}复活!	
+Press {0} for powerups!	{0}ボタンを押してパワーアップ！	Drücke {0} für Hilfsmittel	Pressione {0} para uma ajuda!	Premi {0} per potenziamenti!	Appuie sur {0} pour les power-up!	Presiona {0} para powerups	Нажмите {0} для бонусов!	를 누르면 {0}!	按 {0} 来增加力量!	
 Trophy	トロフィー	Trophäe	Troféu	Trofeo	Trophée	Trofeo	Трофей	트로피	奖杯	
 You Have Earned a Trophy	トロフィーを獲得しました	Du Hast Eine Trophäe Erhalten	Você Mereceu um Troféu.	Hai Ottenuto un Trofeo	Tu as Remporté un Trophée	Has Recibido un Trofeo	Вы заработали трофей	당신은 트로피를 적립	已获得奖杯	
 Awardment	アチーブメント	Errungenschaft	prêmio	Premi	Approbation	Logros	Награждение	포상	奖励	

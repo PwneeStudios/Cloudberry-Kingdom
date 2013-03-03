@@ -306,7 +306,6 @@ namespace CloudberryKingdom
         }
         public void SubstituteText(Localization.Words word)
         {
-            Tools.Warning();
             SubstituteText(Localization.WordString(word));
         }
 

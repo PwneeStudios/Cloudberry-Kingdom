@@ -1229,6 +1229,35 @@ namespace CloudberryKingdom.Levels
         }
 
 
+        public void SetSinglePathType_Arcade(Level.MakeData makeData, Level level, PieceSeedData Piece)
+        {
+            switch (Piece.Style.SinglePathType)
+            {
+                case StyleData._SinglePathType.Normal:
+                    //makeData.MoveData[0].MaxTargetY = 875;
+                    makeData.MoveData[0].MaxTargetY = 625;
+                    makeData.MoveData[0].MinTargetY = -625;
+                    break;
+
+                case StyleData._SinglePathType.High:
+                    //makeData.MoveData[0].MaxTargetY = 950;
+                    makeData.MoveData[0].MaxTargetY = 750;
+                    makeData.MoveData[0].MinTargetY = 100;
+                    break;
+
+                case StyleData._SinglePathType.Mid:
+                    makeData.MoveData[0].MaxTargetY = 450;
+                    //makeData.MoveData[0].MinTargetY = -100;
+                    makeData.MoveData[0].MinTargetY = -250;
+                    break;
+
+                case StyleData._SinglePathType.Low:
+                    makeData.MoveData[0].MaxTargetY = 300;
+                    makeData.MoveData[0].MinTargetY = -500;
+                    break;
+            }
+        }
+
         void InitMakeData(MakeData makeData)
         {
             PieceSeedData Piece = makeData.PieceSeed;
@@ -1239,6 +1268,12 @@ namespace CloudberryKingdom.Levels
             {
                 case 1:
                     makeData.PieceSeed.Style.SetSinglePathType(makeData, this, Piece);
+
+                    Tools.Warning(); // This is for making the levels fit on screen better. Do we want it?
+                    if (Piece.MyMetaGameType == MetaGameType.Escalation || Piece.MyMetaGameType == MetaGameType.TimeCrisis)
+                    {
+                        SetSinglePathType_Arcade(makeData, this, Piece);
+                    }
 
                     break;
 
