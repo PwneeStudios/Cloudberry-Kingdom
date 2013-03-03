@@ -70,6 +70,8 @@ namespace CloudberryKingdom
                 var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
                 ok.OnOk = OnOk;
                 Call(ok);
+
+				SavedSeedsGUI.RefreshList = true;
             }
             else
             {

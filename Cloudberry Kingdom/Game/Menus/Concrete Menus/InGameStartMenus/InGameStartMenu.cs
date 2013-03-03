@@ -302,13 +302,6 @@ namespace CloudberryKingdom
 #if XBOX
 				PlayerData player = MenuItem.GetActivatingPlayerData();
 
-                //if (CloudberryKingdomGame.CanSave() && EzStorage.Device[(int)player.MyIndex] != null &&
-                //    !EzStorage.Device[(int)player.MyIndex].IsReady)
-                //{
-                //    EzStorage.Device[(int)player.MyIndex].state = EasyStorage.SaveDevicePromptState.PromptForCanceled;
-                //    return;
-                //}
-
                 if (!CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
                 {
                     CloudberryKingdomGame.ShowError_CanNotSaveNoDevice();

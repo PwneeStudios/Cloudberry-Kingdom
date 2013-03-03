@@ -4,7 +4,7 @@ namespace CloudberryKingdom
 {
     public class ScrollBar : CkBaseMenu
     {
-        LongMenu AttachedMenu;
+        public LongMenu AttachedMenu;
         GUI_Panel Parent;
 
         public override string CopyToClipboard(string suffix)

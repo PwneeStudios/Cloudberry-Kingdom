@@ -17,7 +17,10 @@ namespace CloudberryKingdom
         public SaveLoadSeedMenu(int Control, bool CanLoad, bool CanSave)
             : base(false)
         {
-            EnableBounce();
+			if (Tools.CurGameData is NormalGameData)
+			{
+				EnableBounce();
+			}
 
             if (UseBounce)
                 CallToLeft = false;
@@ -101,12 +104,32 @@ namespace CloudberryKingdom
             //MakeStaticBackButton();
 #endif
 
-            MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
+            MyMenu.OnB = MenuReturnToCaller;
 
             SetPosition();
             MyMenu.SortByHeight();
             MyMenu.SelectItem(0);
+
+			//if (!(Tools.CurGameData is NormalGameData))
+			//{
+			//    zoom = null;
+			//    UseBounce = false;
+			//}
         }
+
+		public override void ReturnToCaller()
+		{
+			//if (!UseBounce) EnableBounce();
+
+			base.ReturnToCaller();
+		}
+
+		public override void Call(GUI_Panel child, int Delay)
+		{
+			//if (!UseBounce) EnableBounce();
+
+			base.Call(child, Delay);
+		}
 
         private void SetPosition()
         {

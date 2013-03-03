@@ -8,7 +8,7 @@ namespace CloudberryKingdom
     {
         public SavedSeedsGUI()
         {
-            EnableBounce();
+			//EnableBounce();
         }
 
         protected override void SetHeaderProperties(EzText text)
@@ -25,6 +25,7 @@ namespace CloudberryKingdom
             item.MySelectedText.Shadow = item.MyText.Shadow = false;
         }
 
+		public static bool RefreshList = false;
         void StartLevel(string seedstr)
         {
             LoadSeed(seedstr, this);
@@ -128,7 +129,7 @@ namespace CloudberryKingdom
             // If "No", do not delete any seeds.
             if (!choice)
             {
-                MyGame.WaitThenDo(10, ReturnToCaller);
+				//MyGame.WaitThenDo(10, ReturnToCaller);
                 return;
             }
 
@@ -147,8 +148,26 @@ namespace CloudberryKingdom
 
             SaveGroup.SaveAll();
 
-            MyGame.WaitThenDo(10, ReturnToCaller);
+			ReInit();
+			SlideOut(PresetPos.Left, 0);
+			SlideInFrom = SlideOutTo = PresetPos.Left;
         }
+
+		void ReInit()
+		{
+			Init();
+			if (bar != null)
+			{
+				bar.Release();
+
+				bar = new ScrollBar((LongMenu)MyMenu, this);
+				bar.BarPos = new Vector2(-1860f, 102.7778f);
+				MyGame.AddGameObject(bar);
+#if PC_VERSION
+				MyMenu.AdditionalCheckForOutsideClick += bar.MyMenu.HitTest;
+#endif
+			}
+		}
 
         void Sort()
         {
@@ -158,8 +177,14 @@ namespace CloudberryKingdom
         PlayerData player;
         public override void Init()
         {
-			EnableBounce();
-            base.Init();
+			if (Tools.CurGameData is NormalGameData)
+			{
+				EnableBounce();
+			}
+
+			RefreshList = false;
+
+			base.Init();
 
             Control = -1;
             MyPile = new DrawPile();
@@ -237,6 +262,14 @@ else
         {
             base.MyPhsxStep();
 
+			if (Core.Released || !Active) return;
+
+			if (RefreshList)
+			{
+				ReInit();
+				RefreshList = false;
+			}
+
 			// Update "Confirm"
 			//if (ButtonCheck.State(ControllerButtons.A, -2).Pressed)
 			{
@@ -267,12 +300,16 @@ else
         {
             if (!Active) return true;
 
+			SlideOutTo = SlideInFrom = PresetPos.Right;
+
             int num = NumSeedsToDelete();
             if (num > 0)
             {
                 var verify = new VerifyDeleteSeeds(Control, num);
                 verify.OnSelect += DoDeletion;
 
+				SlideOutTo = PresetPos.Left;
+				SlideInFrom = PresetPos.Left;
                 Call(verify, 0);
 
 				if (UseBounce)
@@ -293,11 +330,19 @@ else
 
         public override void OnReturnTo()
         {
-            Hid = false;
-			CallToLeft = false;
-			UseBounce = false;
-			SlideOutLength = 0;
-			ReturnToCallerDelay = 0;
+			// Clear the pre-deleted items
+			foreach (MenuItem item in MyMenu.Items)
+			{
+				SeedItem sitem = item as SeedItem;
+				if (null != sitem && sitem.MarkedForDeletion)
+					sitem.ToggleDeletion();
+			}
+
+			//Hid = false;
+			//CallToLeft = false;
+			//UseBounce = false;
+			//SlideOutLength = 0;
+			//ReturnToCallerDelay = 0;
             base.OnReturnTo();
         }
 

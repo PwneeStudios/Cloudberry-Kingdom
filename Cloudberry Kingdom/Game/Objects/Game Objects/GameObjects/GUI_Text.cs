@@ -81,6 +81,8 @@ namespace CloudberryKingdom
 
         public void Init(string text, Vector2 pos, bool centered, Style style, EzFont font)
         {
+			if (text.Length == 0) text = "_";
+
             MyStyle = style;
             FixedToCamera = false;
 

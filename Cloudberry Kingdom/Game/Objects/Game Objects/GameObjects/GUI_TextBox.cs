@@ -200,6 +200,9 @@ namespace CloudberryKingdom
         {
             InitialText = Tools.SantitizeOneLineString(InitialText, Resources.LilFont);
 
+			if (InitialText.Length == 0)
+				InitialText = "_";
+
             FixedToCamera = true;
             NoPosMod = true;
 

@@ -918,15 +918,21 @@ else
             }
 
             // Create the load menu
+			CkBaseMenu seed_panel;
 #if PC_VERSION
-            SaveLoadSeedMenu menu = new SaveLoadSeedMenu(MenuItem.ActivatingPlayer, true, false);
-            Call(menu, 0);
+            seed_panel = new SaveLoadSeedMenu(MenuItem.ActivatingPlayer, true, false);
+            Call(seed_panel, 0);
 #else
-            SavedSeedsGUI LoadMenu = new SavedSeedsGUI();
-            Call(LoadMenu, 11);
+            seed_panel = new SavedSeedsGUI();
+            Call(seed_panel, 0);
 #endif
+			//seed_panel.UseBounce = false;
+			//seed_panel.zoom = null;
+			//MyGame.WaitThenDo(13, () => seed_panel.EnableBounce());
+			//seed_panel.RegularSlideOut(PresetPos.Right, 0);
+			//seed_panel.SlideIn(12);
 
-            Hide(PresetPos.Left);
+			Hide(PresetPos.Left);
             this.SlideInFrom = PresetPos.Left;
         }
 

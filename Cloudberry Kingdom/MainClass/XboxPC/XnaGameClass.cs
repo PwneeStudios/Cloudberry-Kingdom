@@ -104,16 +104,17 @@ namespace CloudberryKingdom
 
         protected override void Draw(GameTime gameTime)
         {
-            //MyGame.Draw(gameTime);
+			//Tools.Warning();
+			//MyGame.Draw(gameTime);
 
-            try
-            {
-                MyGame.Draw(gameTime);
-            }
-            catch (Exception e)
-            {
-                Tools.Write(e.Message);
-            }
+			try
+			{
+				MyGame.Draw(gameTime);
+			}
+			catch (Exception e)
+			{
+				Tools.Write(e.Message);
+			}
 
             base.Draw(gameTime);
         }

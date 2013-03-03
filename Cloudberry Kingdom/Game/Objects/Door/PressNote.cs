@@ -23,6 +23,13 @@ namespace CloudberryKingdom
             base("Press " + ButtonString.X(ButtonScale), Parent.Pos, true)
 #endif
         {
+#if CAFE
+#endif
+			MyText.Shadow = true;
+			MyText.ShadowOffset = new Vector2(15);
+			MyText.ShadowColor = ColorHelper.GrayColor(.5f);
+			MyText.ShadowColor.A = 30;
+
             this.Parent = Parent;
             Oscillate = true;
             OscillationSpeed = .0125f;
@@ -36,20 +43,22 @@ namespace CloudberryKingdom
             Core.ParentObject = Parent;
 
             QuadClass backdrop;
-            backdrop = new QuadClass("Cloud1", 300, true);
+			backdrop = new QuadClass("WidePlaque", 300, true);
             MyPile.Add(backdrop);
-            backdrop.Pos = new Vector2(-189.0432f, -27.00623f);
-            backdrop.Size = new Vector2(303.8582f, 157.471f);
-            backdrop = new QuadClass("Cloud1", 300, true);
-            MyPile.Add(backdrop);
-            backdrop.Pos = new Vector2(106.59253f, -69.44446f);
-            backdrop.Size = new Vector2(288.4258f, 149.755f);
 
             Pos.RelVal = Parent.Pos;
 
-            MyPile.FancyPos.RelVal = new Vector2(33, 340);
-
             Active = true;
+
+
+
+			EzText _t;
+			_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.6342857f; }
+
+			QuadClass _q;
+			_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
+
+			MyPile.Pos = new Vector2(33f, 340f);
         }
 
         int Life = 255;
@@ -76,12 +85,22 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
-            // Fade out if we haven't been activated in a while.
-            if (Count > DelayToFadeOut ||
-                Count > 1 && Life < 255)
-                FadeOut();
-            else
-                Count++;
+			if (Parent == null || Parent.OnOpen == null)
+			{
+				Life = Math.Min(Life, 90);
+				FadeOut();
+				//Kill();
+				//Active = false;
+			}
+			else
+			{
+				// Fade out if we haven't been activated in a while.
+				if (Count > DelayToFadeOut ||
+					Count > 1 && Life < 255)
+					FadeOut();
+				else
+					Count++;
+			}
         }
 
         public override void Draw()

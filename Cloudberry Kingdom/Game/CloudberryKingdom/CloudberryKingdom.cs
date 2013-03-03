@@ -32,6 +32,8 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
+	public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };
+
     public partial class CloudberryKingdomGame
     {
         /// <summary>
@@ -51,6 +53,8 @@ namespace CloudberryKingdom
 		//public static bool HideLogos = true;
 		//public static bool LockCampaign = true;
 		//public static bool SimpleMainMenu = true;
+		//public static bool PS3MainMenu = false;
+		//public static bool PS3MainMenu = false;
 		//public static bool SimpleLeaderboards = true;
 		//public static bool FakeAwardments = false;
 
@@ -58,28 +62,28 @@ namespace CloudberryKingdom
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
-		public static bool PS3MainMenu = true;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #elif XBOX
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
-		public static bool PS3MainMenu = false;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #elif CAFE
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
-		public static bool PS3MainMenu = false;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
 		public static bool SimpleLeaderboards = true;
 		public static bool FakeAwardments = false;
 #elif PS3
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
-		public static bool PS3MainMenu = true;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.PS3;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 #endif
