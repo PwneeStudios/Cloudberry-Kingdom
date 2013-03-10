@@ -31,7 +31,10 @@ namespace CloudberryKingdom
             {
                 if (LevelIsLoaded(NextLevelSeed))
                 {
-                    NextLevelSeed.MyGame.Release();
+					if (NextLevelSeed.MyGame != null)
+					{
+						NextLevelSeed.MyGame.Release();
+					}
                     NextLevelSeed.Release();
                 }
                 else

@@ -25,7 +25,8 @@ namespace CloudberryKingdom
             item.MySelectedText.Shadow = item.MyText.Shadow = false;
         }
 
-		public static bool RefreshList = false;
+		public static int LastSeedSave_TimeStamp = 0;
+
         void StartLevel(string seedstr)
         {
             LoadSeed(seedstr, this);
@@ -148,14 +149,21 @@ namespace CloudberryKingdom
 
             SaveGroup.SaveAll();
 
+			LastSeedSave_TimeStamp = Tools.DrawCount;
 			ReInit();
+
 			SlideOut(PresetPos.Left, 0);
 			SlideInFrom = SlideOutTo = PresetPos.Left;
         }
 
 		void ReInit()
 		{
+			MyInit_TimeStamp = Tools.DrawCount;
+
+			CoreEngine.FancyVector2 HoldPos = Pos;
 			Init();
+			Pos = HoldPos;
+
 			if (bar != null)
 			{
 				bar.Release();
@@ -175,6 +183,7 @@ namespace CloudberryKingdom
         }
 
         PlayerData player;
+		int MyInit_TimeStamp = 0;
         public override void Init()
         {
 			if (Tools.CurGameData is NormalGameData)
@@ -182,7 +191,7 @@ namespace CloudberryKingdom
 				EnableBounce();
 			}
 
-			RefreshList = false;
+			MyInit_TimeStamp = Tools.DrawCount;
 
 			base.Init();
 
@@ -264,10 +273,9 @@ else
 
 			if (Core.Released || !Active) return;
 
-			if (RefreshList)
+			if (MyInit_TimeStamp + 10 < LastSeedSave_TimeStamp)
 			{
 				ReInit();
-				RefreshList = false;
 			}
 
 			// Update "Confirm"
@@ -305,7 +313,7 @@ else
             int num = NumSeedsToDelete();
             if (num > 0)
             {
-                var verify = new VerifyDeleteSeeds(Control, num);
+                var verify = new VerifyDeleteSeeds(Control, num, UseBounce);
                 verify.OnSelect += DoDeletion;
 
 				SlideOutTo = PresetPos.Left;

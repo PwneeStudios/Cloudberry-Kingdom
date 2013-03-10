@@ -696,15 +696,12 @@ Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_000
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0002", 200, 200, "Bob_Box_Stand_0002", "bob_box_stand_0002", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Duck_0001", 290, 383, "Bob_Cart_Duck_0001", "bob_cart_duck_0001", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0003", 140, 181, "Bob_StandtoDuck_0003", "bob_standtoduck_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0002", 140, 181, "Bob_StandtoDuck_0002", "bob_standtoduck_0002", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartAlone", 290, 383, "CartAlone", "cartalone", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Stand_0001", 290, 383, "Bob_Cart_Stand_0001", "bob_cart_stand_0001", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Jump_0001", 290, 383, "Bob_Cart_Jump_0001", "bob_cart_jump_0001", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_1", 150, 149, "Flow_Castle_1", "flow_castle_1", "Environments");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_2", 150, 148, "Flow_Castle_2", "flow_castle_2", "Environments");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_3", 150, 149, "Flow_Castle_3", "flow_castle_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0001", 140, 181, "Bob_StandtoDuck_0001", "bob_standtoduck_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0000", 140, 181, "Bob_StandtoDuck_0000", "bob_standtoduck_0000", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0002", 200, 271, "Bob_Horse_0002", "bob_horse_0002", "Bob");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_2", 164, 1000, "Serpent_Sea_2", "serpent_sea_2", "Environments");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_1", 164, 1000, "Serpent_Sea_1", "serpent_sea_1", "Environments");

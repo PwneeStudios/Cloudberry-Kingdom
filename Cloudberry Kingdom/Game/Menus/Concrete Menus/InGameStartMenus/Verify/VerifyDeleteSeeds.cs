@@ -3,9 +3,12 @@ namespace CloudberryKingdom
     public class VerifyDeleteSeeds : VerifyBaseMenu
     {
         int NumSeeds;
-        public VerifyDeleteSeeds(int Control, int NumSeeds) : base(false)
+        public VerifyDeleteSeeds(int Control, int NumSeeds, bool DoEnableBounce) : base(false)
         {
-			//EnableBounce();
+			if (DoEnableBounce)
+			{
+				EnableBounce();
+			}
 
             this.NumSeeds = NumSeeds;
             this.Control = Control;

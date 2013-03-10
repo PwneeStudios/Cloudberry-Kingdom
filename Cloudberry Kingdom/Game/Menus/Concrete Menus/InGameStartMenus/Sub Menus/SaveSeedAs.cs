@@ -71,7 +71,7 @@ namespace CloudberryKingdom
                 ok.OnOk = OnOk;
                 Call(ok);
 
-				SavedSeedsGUI.RefreshList = true;
+				SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
             }
             else
             {
@@ -134,13 +134,16 @@ namespace CloudberryKingdom
             base.OnAdd();
 
             TextBox = new GUI_TextBox(Tools.CurLevel.MyLevelSeed.SuggestedName(), Vector2.Zero, new Vector2(1.85f, .65f), .95f);
-            TextBox.MaxLength = 50;
+            TextBox.MaxLength = 40;
             TextBox.FixedToCamera = false;
             TextBox.Pos.SetCenter(MyPile.FancyPos);
-            TextBox.Pos.RelVal = new Vector2(1175.001f, 277.7778f);
+            TextBox.Pos.RelVal = new Vector2(830, 277.7778f);
+			TextBox.MyText.X -= 0;
             TextBox.OnEnter += OnEnter;
             TextBox.OnEscape += OnEscape;
             MyGame.AddGameObject(TextBox);
+
+			MyMenu.Active = false;
 
             SetPosition();
         }

@@ -734,9 +734,7 @@ namespace CloudberryKingdom
             ParentGame = null;
             EndGame = null;
 
-            if (MyLevel != null)
-                MyLevel.Release();
-            MyLevel = null;
+            if (MyLevel != null) MyLevel.Release(); MyLevel = null;
 
             foreach (GameObject obj in MyGameObjects)
                 obj.Release();
@@ -896,8 +894,16 @@ namespace CloudberryKingdom
 
             IsSetToReturnTo = false;
 
-            if (PrevLevel != null) PrevLevel.Release();
-            else Tools.Nothing();
+			if (PrevLevel != null)
+			{
+				if (PrevLevel.MyLevelSeed != null)
+				{
+					PrevLevel.MyLevelSeed.Release();
+					PrevLevel.MyLevelSeed = null;
+				}
+				PrevLevel.Release();
+			}
+			else Tools.Nothing();
 
             Tools.PhsxSpeed = 1;
             LockLevelStart = false;

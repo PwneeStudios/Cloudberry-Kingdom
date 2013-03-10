@@ -786,6 +786,7 @@ namespace CloudberryKingdom
         }
         
         public bool ReleaseWhenLoaded = false;
+	
 
         public LockableBool Loaded;
         public bool LoadingBegun = false;
@@ -848,6 +849,16 @@ namespace CloudberryKingdom
 
         public void Release()
         {
+			MySong = null;
+			OnBeginLoad = null;
+			Loaded = null;
+			DefaultHeroType = null;
+			Rnd = null;
+			MyBackgroundType = null;
+			MyTileSet = null;
+			MyCustomDifficulty = null;
+
+
             ReleasePieces();
             PieceSeeds = null;
             MyGame = null; MyGameType = null;

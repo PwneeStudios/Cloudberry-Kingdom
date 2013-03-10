@@ -61,12 +61,12 @@ namespace CloudberryKingdom
         {
             HasFocus = true;
 
-#if WINDOWS
-            KeyboardExtension.FreezeInput();
+//#if WINDOWS
+//            KeyboardExtension.FreezeInput();
 
-            EventInput.CharEntered += CharEntered;
-            EventInput.KeyDown += KeyDown;
-#endif
+//            EventInput.CharEntered += CharEntered;
+//            EventInput.KeyDown += KeyDown;
+//#endif
         }
 
         public void ReleaseFocus()
@@ -88,6 +88,14 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
+			MyText.Scale = .8f;
+			float w = MyText.GetWorldWidth();
+			float MaxWidth = 2400.0f;
+			if (w > MaxWidth)
+			{
+				MyText.Scale *= MaxWidth / w;
+			}
+
             // Decide if we should draw the caret
             if (HasFocus)
             {
@@ -97,7 +105,8 @@ namespace CloudberryKingdom
                 else
                 {
                     // Draw the caret every other half second
-                    Caret.Show = Tools.TheGame.DrawCount / 30 % 2 == 0;
+					//Caret.Show = Tools.TheGame.DrawCount / 30 % 2 == 0;
+					Caret.Show = Tools.TheGame.DrawCount % 65 > 23;
                 }
 
 #if WINDOWS
@@ -137,6 +146,7 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(ControllerButtons.X, -1).Pressed) { Backspace(); return; }
             if (ButtonCheck.State(ControllerButtons.Y, -1).Pressed) { Cancel(); return; }
             if (ButtonCheck.State(ControllerButtons.Start, -1).Pressed) { Enter(); return; }
+			if (ButtonCheck.State(ControllerButtons.B, -1).Pressed) { Cancel(); return; }
 
             var dir = ButtonCheck.GetDir(-1);
 
@@ -264,7 +274,8 @@ namespace CloudberryKingdom
 
         void DeleteSelected()
         {
-            Text = Text.Remove(SelectIndex_Start, SelectIndex_End - SelectIndex_Start);
+			//Text = Text.Remove(SelectIndex_Start, SelectIndex_End - SelectIndex_Start);
+			Text = "A";
             Unselect();
         }
 
@@ -275,6 +286,7 @@ namespace CloudberryKingdom
 
             SelectQuad.Size = new Vector2(width / 2, SelectQuad.Size.Y);
             SelectQuad.Left = MyText.Pos.X + pos;
+			SelectQuad.Pos = MyText.Pos + new Vector2(MyText.GetWorldWidth() / 2, -MyText.GetWorldHeight() / 4);
         }
 
         protected override EzText MakeText(string text, bool centered, EzFont font)
@@ -329,7 +341,10 @@ namespace CloudberryKingdom
         void Recenter()
         {
             // Position the caret at the end of the text
-            Caret.X = MyText.Pos.X + MyText.GetWorldWidth();
+			float width = MyText.GetWorldWidth();
+			if (width == 0) width = 90;
+            Caret.X = MyText.Pos.X + width - 120;
+			Caret.Y = MyText.Pos.Y + 5;
 
             // If we're selecting move the caret one character to the left
             if (SelectIndex_End - SelectIndex_Start > 0)
@@ -357,7 +372,7 @@ namespace CloudberryKingdom
             else
             {
                 // Otherwise delete one character
-                if (Length == 0) return;
+                if (Length <= 1) return;
 
                 Text = Text.Substring(0, Length - 1);
             }

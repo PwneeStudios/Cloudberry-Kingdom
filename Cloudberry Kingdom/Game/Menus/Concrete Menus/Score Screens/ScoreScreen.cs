@@ -212,35 +212,57 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-			//SetHeaderProperties(MyPile.FindEzText("Coins"));
-			//SetHeaderProperties(MyPile.FindEzText("Bobs"));
-			//SetHeaderProperties(MyPile.FindEzText("Deaths"));
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Continue"); if (_item != null) { _item.SetPos = new Vector2(-1018.999f, 508.3333f); _item.MyText.Scale = 0.6360832f; _item.MySelectedText.Scale = 0.6360832f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(-646.8889f, 266.6737f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Replay"); if (_item != null) { _item.SetPos = new Vector2(-641.3332f, 91.67379f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, -424.993f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
+				MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
+				EzText _t;
+				_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+				_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
 
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Continue"); if (_item != null) { _item.SetPos = new Vector2(-871.7776f, 516.6667f); _item.MyText.Scale = 0.78f; _item.MySelectedText.Scale = 0.78f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(-646.8889f, 266.6737f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Replay"); if (_item != null) { _item.SetPos = new Vector2(-641.3332f, 91.67379f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(-755.2222f, -75.5462f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
+				_q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-955.5555f, -141.6665f); _q.Size = new Vector2(168.1188f, 168.1188f); }
+				_q = MyPile.FindQuad("Stopwatch"); if (_q != null) { _q.Pos = new Vector2(-886.1108f, -513.8888f); _q.Size = new Vector2(180.9532f, 211.6065f); }
+				_q = MyPile.FindQuad("Death"); if (_q != null) { _q.Pos = new Vector2(-983.3334f, 230.5556f); _q.Size = new Vector2(321.4366f, 235.7202f); }
 
-            MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
+				MyPile.Pos = new Vector2(0f, 0f);
+			}
+			else
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Continue"); if (_item != null) { _item.SetPos = new Vector2(-871.7776f, 516.6667f); _item.MyText.Scale = 0.78f; _item.MySelectedText.Scale = 0.78f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(-646.8889f, 266.6737f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Replay"); if (_item != null) { _item.SetPos = new Vector2(-641.3332f, 91.67379f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(-755.2222f, -75.5462f); _item.MyText.Scale = 0.6f; _item.MySelectedText.Scale = 0.6f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            EzText _t;
-			_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-            _t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
+				MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
-            _q = MyPile.FindQuad("Header"); if (_q != null) { _q.Pos = new Vector2(16.66687f, 615.5555f); _q.Size = new Vector2(937.8f, 147.6f); }
-            _q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-955.5555f, -141.6665f); _q.Size = new Vector2(168.1188f, 168.1188f); }
-            _q = MyPile.FindQuad("Stopwatch"); if (_q != null) { _q.Pos = new Vector2(-886.1108f, -513.8888f); _q.Size = new Vector2(180.9532f, 211.6065f); }
-            _q = MyPile.FindQuad("Death"); if (_q != null) { _q.Pos = new Vector2(-983.3334f, 230.5556f); _q.Size = new Vector2(321.4366f, 235.7202f); }
+				EzText _t;
+				_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+				_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
 
-            MyPile.Pos = new Vector2(0f, 0f);
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(27.77808f, -6.666618f); _q.Size = new Vector2(1509.489f, 943.4307f); }
+				_q = MyPile.FindQuad("Header"); if (_q != null) { _q.Pos = new Vector2(16.66687f, 615.5555f); _q.Size = new Vector2(937.8f, 147.6f); }
+				_q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-955.5555f, -141.6665f); _q.Size = new Vector2(168.1188f, 168.1188f); }
+				_q = MyPile.FindQuad("Stopwatch"); if (_q != null) { _q.Pos = new Vector2(-886.1108f, -513.8888f); _q.Size = new Vector2(180.9532f, 211.6065f); }
+				_q = MyPile.FindQuad("Death"); if (_q != null) { _q.Pos = new Vector2(-983.3334f, 230.5556f); _q.Size = new Vector2(321.4366f, 235.7202f); }
+
+				MyPile.Pos = new Vector2(0f, 0f);
+			}
         }
 
         FancyVector2 zoom = new FancyVector2();

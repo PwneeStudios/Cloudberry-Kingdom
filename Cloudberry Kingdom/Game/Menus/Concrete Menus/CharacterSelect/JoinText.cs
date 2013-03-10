@@ -33,28 +33,31 @@ namespace CloudberryKingdom
 
         EzText Text;
         public override void Init()
-        {
-            base.Init();
+		{
+			base.Init();
 
-            SlideInLength = 0;
-            SlideOutLength = 0;
-            CallDelay = 0;
-            ReturnToCallerDelay = 0;
+			SlideInLength = 0;
+			SlideOutLength = 0;
+			CallDelay = 0;
+			ReturnToCallerDelay = 0;
 
-            MyPile = new DrawPile();
-            EnsureFancy();
+			MyPile = new DrawPile();
+			EnsureFancy();
 
-            // Press A to join
+			// Press A to join
 			int ButtonSize = 89;
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
 				ButtonSize = 75;
 			}
-
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				ButtonSize = 94;
+			}
 #if PC_VERSION
 			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
 #else
-            string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
+			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
 #endif
 
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
@@ -69,14 +72,37 @@ namespace CloudberryKingdom
 				Text.Scale = .7765f;
 			}
 
-            Text.ShadowOffset = new Vector2(7.5f, 7.5f);
-            Text.ShadowColor = new Color(30, 30, 30);
-            Text.ColorizePics = true;
+			Text.ShadowOffset = new Vector2(7.5f, 7.5f);
+			Text.ShadowColor = new Color(30, 30, 30);
+			Text.ColorizePics = true;
 
-            MyPile.Add(Text);
+			MyPile.Add(Text);
 
-            CharacterSelect.Shift(this);
-        }
+			CharacterSelect.Shift(this);
+
+
+			// SetPos
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
+			{
+				Text.Pos = new Vector2(0f, 0f);
+				Text.Scale = 0.5720017f;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
+			{
+				Text.Pos = new Vector2(0f, 0f);
+				Text.Scale = 0.570833f;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				Text.Pos = new Vector2(0f, 0f);
+				Text.Scale = 0.575f;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
+			{
+				Text.Pos = new Vector2(0f, 0f);
+				Text.Scale = 0.5195001f;
+			}
+		}
 
         public static void ScaleGamerTag(EzText GamerTag)
         {

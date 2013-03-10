@@ -94,35 +94,159 @@ namespace CloudberryKingdom
 
         void SetPosition()
         {
-            //MenuItem _item;
-            //_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(800f, 361f); _item.MyText.Scale = 0.92f; _item.MySelectedText.Scale = 1.04f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            //_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(800f, 61f); _item.MyText.Scale = 0.92f; _item.MySelectedText.Scale = 1.04f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.9183335f; _item.MySelectedText.Scale = 0.9183335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(680.5556f, 138.7778f); _item.MyText.Scale = 0.8952501f; _item.MySelectedText.Scale = 0.8952501f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            //MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
+				MyMenu.Pos = new Vector2(-463.4936f, -274.2063f);
 
-            //EzText _t;
-            //_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-442.855f, 605.6183f); _t.Scale = 0.7911667f; }
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-101.1874f, 450.0627f); _t.Scale = 0.8553333f; }
 
-            //QuadClass _q;
-            //_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(1065.378f, 640.9592f); }
-            //_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(16.6665f, -25f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
 
-            //MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7120835f; _item.MySelectedText.Scale = 0.7120835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.6890001f; _item.MySelectedText.Scale = 0.6890001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
 
-            MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-140.0763f, 383.3961f); _t.Scale = 0.6214168f; }
 
-            EzText _t;
-            _t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
-            _q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+				MyMenu.Pos = new Vector2(-452.3822f, -257.5397f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-137.2986f, 441.7294f); _t.Scale = 0.6013337f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-419.049f, -268.6508f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-151.1877f, 383.3961f); _t.Scale = 0.6100834f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.8590001f; _item.MySelectedText.Scale = 0.8590001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.8359166f; _item.MySelectedText.Scale = 0.8359166f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-538.4935f, -157.5397f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-670.6317f, 663.9516f); _t.Scale = 0.7720002f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-396.8268f, -268.6508f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-715.0768f, 666.7294f); _t.Scale = 0.7095835f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-369.049f, -290.873f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-123.41f, 380.6181f); _t.Scale = 0.6072503f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-538.4934f, -276.9841f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-756.743f, 680.6182f); _t.Scale = 0.8351667f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
+			else
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.7628335f; _item.MySelectedText.Scale = 0.7628335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.73975f; _item.MySelectedText.Scale = 0.73975f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
         }
     }
 }

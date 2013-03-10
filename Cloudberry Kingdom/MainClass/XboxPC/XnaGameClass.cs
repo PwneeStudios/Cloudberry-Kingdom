@@ -104,9 +104,18 @@ namespace CloudberryKingdom
 
         protected override void Draw(GameTime gameTime)
         {
-			//Tools.Warning();
-			//MyGame.Draw(gameTime);
+#if DEBUG
+			MyGame.Draw(gameTime);
 
+			//try
+			//{
+			//    MyGame.Draw(gameTime);
+			//}
+			//catch (Exception e)
+			//{
+			//    Tools.Write(e.Message);
+			//}
+#else
 			try
 			{
 				MyGame.Draw(gameTime);
@@ -115,6 +124,7 @@ namespace CloudberryKingdom
 			{
 				Tools.Write(e.Message);
 			}
+#endif
 
             base.Draw(gameTime);
         }

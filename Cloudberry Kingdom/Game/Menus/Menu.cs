@@ -137,7 +137,23 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
-            if (!ShiftDown)
+			// Redistribute distances evenly
+			if (Tools.CntrlDown() && ShiftDown)
+			{
+				float Distance = Items[1].Pos.Y - Items[0].Pos.Y;
+				Distance += shift.Y;
+
+				for (int i = 1; i < Items.Count; i++)
+				{
+					if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+						Items[i].Pos = new Vector2(Items[0].Pos.X, Items[i - 1].Pos.Y + Distance);
+					else
+						Items[i].Pos = new Vector2(Items[i].Pos.X, Items[i - 1].Pos.Y + Distance);
+
+					Items[i].SelectedPos = Items[i].Pos;
+				}
+			}
+            else if (!ShiftDown)
             {
                 Pos += shift;
             }

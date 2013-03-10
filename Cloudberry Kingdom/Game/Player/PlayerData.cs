@@ -180,7 +180,8 @@ namespace CloudberryKingdom
                 case 84003:
                     int _language = chunk.ReadInt();
                     Localization.Language language = (Localization.Language)_language;
-                    Localization.SetLanguage(language);
+                    //Localization.SetLanguage(language);
+                    Tools.AddToDo(() => Localization.SetLanguage(language));
                     break;
 			}
 		}
@@ -359,9 +360,17 @@ namespace CloudberryKingdom
                 return StoredName;
             else
             {
-                if (RandomNameIndex == -1)
-                    RandomNameIndex = Tools.GlobalRnd.RndInt(0, PlayerManager.RandomNames.Length - 1);
-                return PlayerManager.RandomNames[RandomNameIndex];
+				//if (RandomNameIndex == -1)
+				//    RandomNameIndex = Tools.GlobalRnd.RndInt(0, PlayerManager.RandomNames.Length - 1);
+				//return PlayerManager.RandomNames[RandomNameIndex];
+				switch ( MyIndex )
+				{
+					case 0: return "Player 1";
+					case 1: return "Player 2";
+					case 2: return "Player 3";
+					case 3: return "Player 4";
+					default: return "Players";
+				}
             }
         }
 

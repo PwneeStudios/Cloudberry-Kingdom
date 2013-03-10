@@ -177,8 +177,8 @@ namespace CloudberryKingdom
 
             CallDelay = ReturnToCallerDelay = 0;
 
-            Score = new EzText("0", Resources.Font_Grobold42_2);
-            Level = new EzText("0", Resources.Font_Grobold42_2);
+			Score = new EzText("0", Resources.Font_Grobold42_2);
+			Level = new EzText("0", Resources.Font_Grobold42_2);
           
 #if PS3
 			float Brightness = .945f;
@@ -313,12 +313,29 @@ namespace CloudberryKingdom
             var item = MyMenu.CurItem as HeroItem;
             if (null == item) return;
 
+			Challenge.ChosenHero = item.Hero;
+
             var TopScore = Math.Max(MyArcadeItem.MyChallenge.TopScore(), PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Score(item.Hero)));
             var TopLevel = Math.Max(MyArcadeItem.MyChallenge.TopLevel(), PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Level(item.Hero)));
 
-            Score.RightJustify = Level.RightJustify = true;
+			bool Center = false;
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+			{
+				Center = true;
+			}
+
+			if (!Center)
+			{
+				Score.RightJustify = Level.RightJustify = true;
+			}
+			else
+			{
+				SetPos();
+			}
             Score.SubstituteText(TopScore.ToString());
+			if (Center) Score.Center();
             Level.SubstituteText(TopLevel.ToString());
+			if (Center) Level.Center();
         }
 
         int NumSelectableItems;
@@ -356,30 +373,201 @@ namespace CloudberryKingdom
         }
 
         void SetPos()
-        {
-            MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+		{
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-22.22266f, 636.1111f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1161.11f, 366.6667f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-2.779297f, 105.5556f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1163.887f, -155.5555f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
-            _t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
-            _t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-19.44507f, 647.2222f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1161.11f, 402.7777f); _t.Scale = 0.9414999f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-19.4458f, 133.3334f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1166.665f, -133.3333f); _t.Scale = 0.9644167f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5465f, 1004.329f); }
-            _q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
-            _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-            _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
-            
-            _q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -441.2393f); _q.Size = new Vector2(25.9999f, 106.8029f); }
-            _q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
-            _q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 
-            MyPile.Pos = new Vector2(83.33417f, 130.9524f);
-        }
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(8.332886f, 655.5555f); _t.Scale = 0.9532502f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1249.999f, 405.5555f); _t.Scale = 0.90625f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-19.44611f, 127.7778f); _t.Scale = 0.9073337f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1249.998f, -127.7777f); _t.Scale = 0.9306669f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(249.9997f, 630.5557f); _t.Scale = 0.8089167f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1236.11f, 411.1112f); _t.Scale = 0.9160833f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-22.22363f, 136.1111f); _t.Scale = 0.7519999f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1236.109f, -61.11107f); _t.Scale = 0.9373333f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-5.555912f, 608.3333f); _t.Scale = 0.6490834f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1255.555f, 425.0001f); _t.Scale = 0.865916f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-0.001403809f, 130.5556f); _t.Scale = 0.6412507f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1274.998f, -47.22218f); _t.Scale = 0.8700836f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-33.33374f, 622.2222f); _t.Scale = 0.8630002f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1158.332f, 402.7778f); _t.Scale = 0.8790836f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-16.66821f, 108.3334f); _t.Scale = 0.8452501f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1166.665f, -105.5555f); _t.Scale = 0.8682501f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-30.55597f, 608.3334f); _t.Scale = 0.7484168f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1158.332f, 433.3333f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-27.7793f, 108.3334f); _t.Scale = 0.7689999f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1166.665f, -97.22215f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(297.2219f, 658.3333f); _t.Scale = 0.8626668f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(680, 391.6665f); _t.Scale = 0.6997502f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-36.11264f, 80.55562f); _t.Scale = 0.8034166f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(680, -175f); _t.Scale = 0.8029999f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -434.0609f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+			else
+			{
+				MyMenu.Pos = new Vector2(-1340.222f, 104.4444f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-22.22266f, 636.1111f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1161.11f, 366.6667f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-2.779297f, 105.5556f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1163.887f, -155.5555f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
+				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5465f, 1004.329f); }
+				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+
+				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -441.2393f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
+
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
+		}
 
         protected virtual void Go(MenuItem item)
         {

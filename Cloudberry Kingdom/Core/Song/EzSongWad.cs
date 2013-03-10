@@ -70,7 +70,7 @@ namespace CoreEngine
             string artistname = song.ArtistName;
             artistname = song.ArtistName.Replace('_', ' ');
             //SongInfoText = new EzText(songname + "\n" + artistname, Resources.LilFont, true, true);
-            SongInfoText = new EzText(songname + "\n" + artistname, Resources.Font_Grobold42_2, true, true);
+            SongInfoText = new EzText(songname + "\n" + artistname, Resources.Font_Grobold42_2, 1000.0f, true, true, .85f);
             SongInfoText._Pos = new Vector2(-850, -790);
             SongInfoText.MyFloatColor = new Vector4(.9f, .9f, .9f, 4.5f);
             SongInfoText.Scale = .3f;

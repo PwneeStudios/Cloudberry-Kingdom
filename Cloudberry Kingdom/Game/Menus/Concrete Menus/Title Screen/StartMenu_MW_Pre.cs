@@ -51,6 +51,7 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
+			// Check to see if we just unlocked the full game (was demo, now it isn't)
             if (GameIsDemo && !CloudberryKingdomGame.IsDemo)
             {
                 GameIsDemo = false;
@@ -104,8 +105,11 @@ namespace CloudberryKingdom
 
             if (CallingOptionsMenu)
             {
+				MyMenu.ReadyToPlaySound = false;
                 MyMenu.SelectItem(4);
-                CallingOptionsMenu = false;
+				MyMenu.ReadyToPlaySound = true;
+                
+				CallingOptionsMenu = false;
             }
 
             base.OnReturnTo();
@@ -288,18 +292,51 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-				MenuItem _item;
-				_item = MyMenu.FindItemByName("Play"); if (_item != null) { _item.SetPos = new Vector2(0f, 168.3334f); _item.MyText.Scale = 0.605f; _item.MySelectedText.Scale = 0.605f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(0f, -29.22231f); _item.MyText.Scale = 0.605f; _item.MySelectedText.Scale = 0.605f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Achievements"); if (_item != null) { _item.SetPos = new Vector2(-11.11157f, -226.7778f); _item.MyText.Scale = 0.605f; _item.MySelectedText.Scale = 0.605f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(5.55542f, -438.8887f); _item.MyText.Scale = 0.605f; _item.MySelectedText.Scale = 0.605f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
+				{
+					MenuItem _item;
+					_item = MyMenu.FindItemByName("Play"); if (_item != null) { _item.SetPos = new Vector2(0f, 168.3334f); _item.MyText.Scale = 0.7549162f; _item.MySelectedText.Scale = 0.7549162f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(0f, -54.22218f); _item.MyText.Scale = 0.7549162f; _item.MySelectedText.Scale = 0.7549162f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Achievements"); if (_item != null) { _item.SetPos = new Vector2(0f, -276.7778f); _item.MyText.Scale = 0.7549162f; _item.MySelectedText.Scale = 0.7549162f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(0f, -499.3334f); _item.MyText.Scale = 0.7549162f; _item.MySelectedText.Scale = 0.7549162f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-				MyMenu.Pos = new Vector2(-88.88914f, -116.6667f);
+					MyMenu.Pos = new Vector2(-80.55576f, -44.44453f);
 
-				QuadClass _q;
-				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(541.4985f, 466.9143f); }
+					QuadClass _q;
+					_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(541.4985f, 466.9143f); }
 
-				MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+					MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+				}
+				else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+				{
+					MenuItem _item;
+					_item = MyMenu.FindItemByName("Play"); if (_item != null) { _item.SetPos = new Vector2(0f, 168.3334f); _item.MyText.Scale = 0.7559164f; _item.MySelectedText.Scale = 0.7559164f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(0f, -54.22218f); _item.MyText.Scale = 0.7559164f; _item.MySelectedText.Scale = 0.7559164f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Achievements"); if (_item != null) { _item.SetPos = new Vector2(0f, -276.7778f); _item.MyText.Scale = 0.7559164f; _item.MySelectedText.Scale = 0.7559164f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(0f, -499.3334f); _item.MyText.Scale = 0.7559164f; _item.MySelectedText.Scale = 0.7559164f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+					MyMenu.Pos = new Vector2(-77.77793f, -38.88896f);
+
+					QuadClass _q;
+					_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(541.4985f, 466.9143f); }
+
+					MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+				}
+				else
+				{
+					MenuItem _item;
+					_item = MyMenu.FindItemByName("Play"); if (_item != null) { _item.SetPos = new Vector2(0f, 168.3334f); _item.MyText.Scale = 0.6669163f; _item.MySelectedText.Scale = 0.6669163f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(0f, -54.22218f); _item.MyText.Scale = 0.6669163f; _item.MySelectedText.Scale = 0.6669163f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Achievements"); if (_item != null) { _item.SetPos = new Vector2(0f, -276.7778f); _item.MyText.Scale = 0.6669163f; _item.MySelectedText.Scale = 0.6669163f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+					_item = MyMenu.FindItemByName("Exit"); if (_item != null) { _item.SetPos = new Vector2(0f, -499.3334f); _item.MyText.Scale = 0.6669163f; _item.MySelectedText.Scale = 0.6669163f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+					MyMenu.Pos = new Vector2(-80.55576f, -83.33342f);
+
+					QuadClass _q;
+					_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-61.11133f, -336.1111f); _q.Size = new Vector2(541.4985f, 466.9143f); }
+
+					MyPile.Pos = new Vector2(-27.77734f, -33.33337f);
+				}
 			}
         }
     }

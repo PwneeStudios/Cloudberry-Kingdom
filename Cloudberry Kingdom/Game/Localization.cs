@@ -689,6 +689,12 @@ Leaderboards,
 ResumeGame,
 PlayGame,
 
+Err_PS3_CorruptLoad,
+Err_PS3_NoGamePadDetected,
+Err_PS3_PsnRequired_AskToSignIn,
+Err_PS3_PsnRequired_WillUploadLater,
+Err_PS3_NotEnoughSpace,
+
 EnumLength
         };
     }
