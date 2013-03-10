@@ -750,6 +750,18 @@ namespace CoreEngine
 	        {
                 HackFont.GlyphData data = font.GetData( s[j] );
 
+				// Correct for initial offset
+				if (j == 0)
+				{
+					switch (s[0])
+					{
+						case 'C': p.X -= 3.25f * scale.X; break;
+						case 'L': p.X += 1.00f * scale.X; break;
+						case 'P': p.X -= 1.00f * scale.X; break;
+						default: break;
+					}
+				}
+
                 Vector4 tq = data.TextureCoordinates;
                 Vector2 d = data.Size;
                 Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;

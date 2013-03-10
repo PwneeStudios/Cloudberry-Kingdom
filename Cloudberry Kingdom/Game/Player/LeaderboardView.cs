@@ -201,8 +201,17 @@ if (ButtonCheck.ControllerInUse)
 
 			// Left/Right
 			MyPile.Add(new QuadClass(ButtonTexture.LeftRight, 90, "Button_LeftRight"));
-			EzText text = new EzText(Localization.WordString(Localization.Words.Previous) + " / " +
-									 Localization.WordString(Localization.Words.Next), ItemFont);
+			
+			string prevback = "";
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+			{
+				prevback = Localization.WordString(Localization.Words.Previous) + " /\n" + Localization.WordString(Localization.Words.Next);
+			}
+			else
+			{
+				prevback = Localization.WordString(Localization.Words.Previous) + " / " + Localization.WordString(Localization.Words.Next);
+			}
+			EzText text = new EzText(prevback, ItemFont, 1000.0f, false, false, .75f);
 			StartMenu.SetTextUnselected_Red(text);
 			MyPile.Add(text, "LeftRight");
 
@@ -558,7 +567,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italia
 {
 	MenuItem _item;
 	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-888.5557f, 176.6667f); _item.MyText.Scale = 0.3826668f; _item.MySelectedText.Scale = 0.3826668f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-877.4443f, 31.66899f); _item.MyText.Scale = 0.4059168f; _item.MySelectedText.Scale = 0.4059168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-877.4443f, 23.33566f); _item.MyText.Scale = 0.4059168f; _item.MySelectedText.Scale = 0.4059168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-880.2222f, -116.1065f); _item.MyText.Scale = 0.4625835f; _item.MySelectedText.Scale = 0.4625835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
 	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
@@ -568,7 +577,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italia
 	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1297.222f, 855.5557f); _t.Scale = 0.3989167f; }
 	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
 	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3739281f; }
 	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 538.8887f); _t.Scale = 0.3720834f; }
 
 	QuadClass _q;
@@ -580,8 +589,41 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italia
 	_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 	_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 	_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
-	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5557f, 630.5551f); _q.Size = new Vector2(65.16659f, 65.16659f); }
+	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5557f, 624.9996f); _q.Size = new Vector2(65.16659f, 65.16659f); }
 	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(713.8888f, 480.5554f); _q.Size = new Vector2(73.74999f, 73.74999f); }
+	_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
+	_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
+
+	MyPile.Pos = new Vector2(0f, 5.555542f);
+}
+else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+{
+	MenuItem _item;
+	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-908f, 182.2224f); _item.MyText.Scale = 0.414917f; _item.MySelectedText.Scale = 0.414917f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-899.6663f, 31.66904f); _item.MyText.Scale = 0.4285002f; _item.MySelectedText.Scale = 0.4285002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-874.6667f, -116.1065f); _item.MyText.Scale = 0.5009168f; _item.MySelectedText.Scale = 0.5009168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
+
+	EzText _t;
+	_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3795856f; }
+	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(780.5557f, 555.5554f); _t.Scale = 0.4296669f; }
+
+	QuadClass _q;
+	_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
+	_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
+	_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 643.8893f); _q.Size = new Vector2(1005.093f, 49.08278f); }
+	_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
+	_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
+	_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
+	_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
+	_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
+	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 627.7772f); _q.Size = new Vector2(65.16659f, 65.16659f); }
+	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 472.2213f); _q.Size = new Vector2(73.74999f, 73.74999f); }
 	_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
 	_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
 
@@ -623,8 +665,8 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French
 else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 {
 	MenuItem _item;
-	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-883.0004f, 171.1111f); _item.MyText.Scale = 0.4280001f; _item.MySelectedText.Scale = 0.4280001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-874.6668f, 20.55785f); _item.MyText.Scale = 0.4208333f; _item.MySelectedText.Scale = 0.4208333f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-894.1116f, 182.2222f); _item.MyText.Scale = 0.4066668f; _item.MySelectedText.Scale = 0.4066668f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-888.5558f, 15.00228f); _item.MyText.Scale = 0.3995f; _item.MySelectedText.Scale = 0.3995f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-869.1111f, -127.2176f); _item.MyText.Scale = 0.43025f; _item.MySelectedText.Scale = 0.43025f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
 	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
@@ -634,8 +676,8 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanis
 	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1291.667f, 861.1112f); _t.Scale = 0.3976667f; }
 	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
 	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3824919f; }
-	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(799.9999f, 555.5553f); _t.Scale = 0.4340833f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.376161f; }
+	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(788.888f, 547.222f); _t.Scale = 0.4083332f; }
 
 	QuadClass _q;
 	_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -646,8 +688,8 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanis
 	_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 	_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 	_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
-	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5557f, 616.6663f); _q.Size = new Vector2(65.16659f, 65.16659f); }
-	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(713.8888f, 474.9998f); _q.Size = new Vector2(73.74999f, 73.74999f); }
+	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 616.6663f); _q.Size = new Vector2(65.16659f, 65.16659f); }
+	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(708.3333f, 469.4439f); _q.Size = new Vector2(73.74999f, 73.74999f); }
 	_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
 	_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
 
@@ -657,7 +699,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portug
 {
 	MenuItem _item;
 	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-908.0002f, 168.3334f); _item.MyText.Scale = 0.3748334f; _item.MySelectedText.Scale = 0.3748334f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-908f, 17.78011f); _item.MyText.Scale = 0.3670003f; _item.MySelectedText.Scale = 0.3670003f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-905.2222f, 17.78011f); _item.MyText.Scale = 0.3670003f; _item.MySelectedText.Scale = 0.3670003f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-874.6667f, -116.1065f); _item.MyText.Scale = 0.5009168f; _item.MySelectedText.Scale = 0.5009168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
 	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
@@ -667,7 +709,7 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portug
 	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
 	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
 	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3595637f; }
 	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(769.4445f, 552.7775f); _t.Scale = 0.3768338f; }
 
 	QuadClass _q;
@@ -686,22 +728,22 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portug
 
 	MyPile.Pos = new Vector2(0f, 5.555542f);
 }
-else
+else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 {
 	MenuItem _item;
-	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-874.6669f, 190.5556f); _item.MyText.Scale = 0.4512501f; _item.MySelectedText.Scale = 0.4512501f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-880.2222f, 37.22455f); _item.MyText.Scale = 0.5009168f; _item.MySelectedText.Scale = 0.5009168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-885.778f, 185.0001f); _item.MyText.Scale = 0.4655002f; _item.MySelectedText.Scale = 0.4655002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-877.4442f, 34.44678f); _item.MyText.Scale = 0.4790835f; _item.MySelectedText.Scale = 0.4790835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-874.6667f, -116.1065f); _item.MyText.Scale = 0.5009168f; _item.MySelectedText.Scale = 0.5009168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
 	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
 	EzText _t;
-	_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
-	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
-	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 583.3331f); _t.Scale = 0.5539168f; }
+	_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1350f, 988.8883f); _t.Scale = 0.5240005f; }
+	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1344.445f, 858.3334f); _t.Scale = 0.4432501f; }
+	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-402.7775f, -16.66664f); _t.Scale = 0.4863335f; }
+	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4925002f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3746839f; }
+	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(794.4443f, 563.8887f); _t.Scale = 0.4802502f; }
 
 	QuadClass _q;
 	_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -712,8 +754,41 @@ else
 	_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 	_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
 	_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
-	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5557f, 630.5551f); _q.Size = new Vector2(65.16659f, 65.16659f); }
-	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(713.8888f, 480.5554f); _q.Size = new Vector2(73.74999f, 73.74999f); }
+	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 619.4439f); _q.Size = new Vector2(65.16659f, 65.16659f); }
+	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 472.2213f); _q.Size = new Vector2(73.74999f, 73.74999f); }
+	_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
+	_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
+
+	MyPile.Pos = new Vector2(0f, 5.555542f);
+}
+else
+{
+	MenuItem _item;
+	_item = MyMenu.FindItemByName("ViewGamer"); if (_item != null) { _item.SetPos = new Vector2(-885.778f, 185.0001f); _item.MyText.Scale = 0.4655002f; _item.MySelectedText.Scale = 0.4655002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchView"); if (_item != null) { _item.SetPos = new Vector2(-877.4442f, 34.44678f); _item.MyText.Scale = 0.4790835f; _item.MySelectedText.Scale = 0.4790835f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+	_item = MyMenu.FindItemByName("SwitchSort"); if (_item != null) { _item.SetPos = new Vector2(-874.6667f, -116.1065f); _item.MyText.Scale = 0.5009168f; _item.MySelectedText.Scale = 0.5009168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+	MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
+
+	EzText _t;
+	_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+	_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+	_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+	_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+	_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3850924f; }
+	_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(802.7778f, 558.3332f); _t.Scale = 0.4802502f; }
+
+	QuadClass _q;
+	_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
+	_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1266.665f, 519.4443f); _q.Size = new Vector2(418.2869f, 684.4695f); }
+	_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 643.8893f); _q.Size = new Vector2(1005.093f, 49.08278f); }
+	_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
+	_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
+	_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
+	_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
+	_q = MyPile.FindQuad("Button_ViewGamer"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 783.3331f); _q.Size = new Vector2(67.25001f, 67.25001f); }
+	_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 619.4439f); _q.Size = new Vector2(65.16659f, 65.16659f); }
+	_q = MyPile.FindQuad("Button_LeftRight"); if (_q != null) { _q.Pos = new Vector2(705.5554f, 472.2213f); _q.Size = new Vector2(73.74999f, 73.74999f); }
 	_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1536.111f, 227.7776f); _q.Size = new Vector2(67.99999f, 67.99999f); }
 	_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1369.444f, 216.6666f); _q.Size = new Vector2(77.71317f, 66.83332f); }
 

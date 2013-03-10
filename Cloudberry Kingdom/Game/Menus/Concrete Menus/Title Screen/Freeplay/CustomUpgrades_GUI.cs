@@ -267,48 +267,48 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-if (ButtonCheck.ControllerInUse)
-{
-			MenuItem _item;
-			_item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, 22.30127f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-			_item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -149.8718f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-			_item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -326.0634f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-			_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -501.08f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			if (ButtonCheck.ControllerInUse)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, 22.30127f); _item.MyText.Scale = 0.7698284f; _item.MySelectedText.Scale = 0.7698284f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -152.6501f); _item.MyText.Scale = 0.7698284f; _item.MySelectedText.Scale = 0.7698284f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -327.6014f); _item.MyText.Scale = 0.7698284f; _item.MySelectedText.Scale = 0.7698284f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, -502.5527f); _item.MyText.Scale = 0.7698284f; _item.MySelectedText.Scale = 0.7698284f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-			MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
+				MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(532.3334f, 0f); _t.Scale = 0.5f; }
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
+				EzText _t;
+				_t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(569.6667f, 0f); _t.Scale = 0.5f; }
+				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
 
-			QuadClass _q;
-			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
-			_q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -252.8199f); _q.Size = new Vector2(90f, 90f); }
-			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -427.8491f); _q.Size = new Vector2(90f, 90f); }
-			_q = MyPile.FindQuad("Button_Y"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -600.0999f); _q.Size = new Vector2(90f, 90f); }
-			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -758.4598f); _q.Size = new Vector2(90f, 90f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
+				_q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -252.8199f); _q.Size = new Vector2(82.41537f, 82.41537f); }
+				_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -427.8491f); _q.Size = new Vector2(82.41537f, 82.41537f); }
+				_q = MyPile.FindQuad("Button_Y"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -602.8783f); _q.Size = new Vector2(82.41537f, 82.41537f); }
+				_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(463.9663f, -777.9075f); _q.Size = new Vector2(82.41537f, 82.41537f); }
 
-			MyPile.Pos = new Vector2(-285f, 0f);
-}
-else
-{
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(317.0639f, 22.30127f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(325.7295f, -155.4283f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(324.1416f, -326.0634f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(327.3179f, -498.3018f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				MyPile.Pos = new Vector2(-285f, 0f);
+			}
+			else
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(317.0639f, 22.30127f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Random"); if (_item != null) { _item.SetPos = new Vector2(325.7295f, -155.4283f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(324.1416f, -326.0634f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(327.3179f, -498.3018f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
+				MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8778f, 725f); _t.Scale = 0.664f; }
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
+				EzText _t;
+				_t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8778f, 725f); _t.Scale = 0.664f; }
+				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
 
-            MyPile.Pos = new Vector2(-285f, 0f);
-}        
+				MyPile.Pos = new Vector2(-285f, 0f);
+			}
 		}
 
         private void MakeMenu()

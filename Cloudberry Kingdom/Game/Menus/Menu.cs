@@ -140,17 +140,21 @@ namespace CloudberryKingdom
 			// Redistribute distances evenly
 			if (Tools.CntrlDown() && ShiftDown)
 			{
-				float Distance = Items[1].Pos.Y - Items[0].Pos.Y;
-				Distance += shift.Y;
-
-				for (int i = 1; i < Items.Count; i++)
+				var items = Viewer.GameObjViewer.SelectedMenuItems;
+				if (items.Count > 1)
 				{
-					if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
-						Items[i].Pos = new Vector2(Items[0].Pos.X, Items[i - 1].Pos.Y + Distance);
-					else
-						Items[i].Pos = new Vector2(Items[i].Pos.X, Items[i - 1].Pos.Y + Distance);
+					float Distance = items[1].Pos.Y - items[0].Pos.Y;
+					Distance += shift.Y;
 
-					Items[i].SelectedPos = Items[i].Pos;
+					for (int i = 1; i < items.Count; i++)
+					{
+						if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+							items[i].Pos = new Vector2(items[0].Pos.X, items[i - 1].Pos.Y + Distance);
+						else
+							items[i].Pos = new Vector2(items[i].Pos.X, items[i - 1].Pos.Y + Distance);
+
+						items[i].SelectedPos = items[i].Pos;
+					}
 				}
 			}
             else if (!ShiftDown)

@@ -62,7 +62,7 @@ namespace CloudberryKingdom
         void SetCoins(int Coins)
         {
             //if (Coins > 99) Coins = 99;
-            CoinsText.SubstituteText("x" + Coins.ToString());
+            CoinsText.SubstituteText("x" + Coins.ToString());			
         }
 
         protected override void SetItemProperties(MenuItem item)
@@ -299,7 +299,7 @@ namespace CloudberryKingdom
 
             Vector2 IconOffset = new Vector2(-150, 0);
 
-            string CoinPrefix = "{pCoin_Blue,68,?}";
+            string CoinPrefix = "{pCoin_Blue,100,?}";
 
             // Watch the computer
             item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Watch  * CostMultiplier).ToString(), ItemFont));
@@ -395,7 +395,7 @@ namespace CloudberryKingdom
             MyMenu.Pos = new Vector2(0f, 0f);
 
             EzText _t;
-            _t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-771.3337f, 622.889f); _t.Scale = 0.6593335f; }
+			_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 615.889f); _t.Scale = 0.6593335f; }
             _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 816.3335f); _t.Scale = 0.9640832f; }
 
             QuadClass _q;
@@ -403,6 +403,13 @@ namespace CloudberryKingdom
             _q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(-798.1558f, 634.4669f); _q.Size = new Vector2(110.5714f, 110.5714f); }
 
             MyPile.Pos = new Vector2(0f, 0f);
+
+
+			// Position coins
+			float x = 0;
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.CalcBounds(); x = CoinsText.Pos.X + _t.GetWorldWidth(); }
+			CoinsText.Pos = new Vector2(x, CoinsText.Pos.Y);
+			_q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(x + 10, _q.Pos.Y); }
         }
 
         protected override void AddItem(MenuItem item)

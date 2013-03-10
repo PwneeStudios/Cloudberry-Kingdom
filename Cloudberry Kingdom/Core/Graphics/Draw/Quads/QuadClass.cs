@@ -57,6 +57,9 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
+			if (Tools.CntrlDown() && ShiftDown)
+				return;
+
             if (ShiftDown)
             {
                 if (Tools.CntrlDown())

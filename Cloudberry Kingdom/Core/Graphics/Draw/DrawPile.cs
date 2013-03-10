@@ -46,7 +46,79 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
-            if (ShiftDown)
+			bool horizontal = false;
+
+			// Redistribute distances evenly
+			if (Tools.CntrlDown() && ShiftDown)
+			{
+				if (horizontal)
+				{
+					List<QuadClass> qitems = Viewer.GameObjViewer.SelectedQuads;
+					if (qitems.Count > 1)
+					{
+						float Distance = qitems[1].Pos.Y - qitems[0].Pos.Y;
+						Distance += shift.Y;
+
+						for (int i = 1; i < qitems.Count; i++)
+						{
+							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+								qitems[i].Pos = new Vector2(qitems[i - 1].Pos.X + Distance, qitems[0].Pos.Y);
+							else
+								//qitems[i].Pos = new Vector2(qitems[i - 1].Pos.X + Distance, qitems[i].Pos.Y);
+								qitems[i].Pos = new Vector2(qitems[i].Pos.X, qitems[0].Pos.Y);
+						}
+					}
+
+					List<EzText> titems = Viewer.GameObjViewer.SelectedTexts;
+					if (titems.Count > 1)
+					{
+						float Distance = titems[1].Pos.Y - titems[0].Pos.Y;
+						Distance += shift.Y;
+
+						for (int i = 1; i < titems.Count; i++)
+						{
+							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+								titems[i].Pos = new Vector2(titems[i - 1].Pos.X + Distance, titems[0].Pos.Y);
+							else
+								//titems[i].Pos = new Vector2(titems[i - 1].Pos.X + Distance, titems[i].Pos.Y);
+								titems[i].Pos = new Vector2(titems[i].Pos.X, titems[0].Pos.Y);
+						}
+					}
+				}
+				else
+				{
+					List<QuadClass> qitems = Viewer.GameObjViewer.SelectedQuads;
+					if (qitems.Count > 1)
+					{
+						float Distance = qitems[1].Pos.Y - qitems[0].Pos.Y;
+						Distance += shift.Y;
+
+						for (int i = 1; i < qitems.Count; i++)
+						{
+							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+								qitems[i].Pos = new Vector2(qitems[0].Pos.X, qitems[i - 1].Pos.Y + Distance);
+							else
+								qitems[i].Pos = new Vector2(qitems[i].Pos.X, qitems[i - 1].Pos.Y + Distance);
+						}
+					}
+
+					List<EzText> titems = Viewer.GameObjViewer.SelectedTexts;
+					if (titems.Count > 1)
+					{
+						float Distance = titems[1].Pos.Y - titems[0].Pos.Y;
+						Distance += shift.Y;
+
+						for (int i = 1; i < titems.Count; i++)
+						{
+							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+								titems[i].Pos = new Vector2(titems[0].Pos.X, titems[i - 1].Pos.Y + Distance);
+							else
+								titems[i].Pos = new Vector2(titems[i].Pos.X, titems[i - 1].Pos.Y + Distance);
+						}
+					}
+				}
+			}
+            else if (ShiftDown)
                 Scale((shift.X + shift.Y) * .00003f);
             else
                 Pos += shift;

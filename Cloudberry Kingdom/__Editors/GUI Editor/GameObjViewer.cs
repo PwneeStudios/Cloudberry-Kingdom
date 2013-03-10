@@ -18,8 +18,71 @@ namespace CloudberryKingdom.Viewer
         {
             InitializeComponent();
 
+			this.ObjTree.MouseClick += new MouseEventHandler(ObjTree_MouseClick);
+
             FillTree();
         }
+
+		System.Drawing.Point LastRightClick;
+		void ObjTree_MouseClick(object sender, MouseEventArgs e)
+		{
+			var tree_node = this.ObjTree.GetNodeAt(e.Location);
+			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			{
+				FieldNode node = tree_node as FieldNode;
+				if (null != node)
+				{
+					//SelectedFieldNode = node;
+					//node.SetClipboard();
+				}
+				else
+				{
+					ViewableNode vnode = tree_node as ViewableNode;
+					if (null != vnode)
+					{
+						//vnode.SetClipboard();
+
+						if (MultiSelected.Contains(vnode))
+						{
+							vnode.BackColor = System.Drawing.Color.White;
+							MultiSelected.Remove(vnode);
+						}
+						else
+						{
+							vnode.BackColor = System.Drawing.Color.Honeydew;
+							MultiSelected.Add(vnode);
+
+							// Loop through all intermediate points between last right click and this right click.
+							if (Tools.ShiftDown())
+							{
+								System.Drawing.Point point = LastRightClick;
+								while (point.Y != e.Location.Y)
+								{
+									var _tree_node = this.ObjTree.GetNodeAt(point);
+									ViewableNode _vnode = _tree_node as ViewableNode;
+
+									if (null != _vnode)
+									{
+										if (!MultiSelected.Contains(_vnode))
+										{
+											_vnode.BackColor = System.Drawing.Color.Honeydew;
+											MultiSelected.Add(_vnode);
+										}
+									}
+
+									if (point.Y > e.Location.Y)
+										point.Y--;
+									else
+										point.Y++;
+								}
+							}
+
+							LastRightClick = e.Location;
+						}
+					}
+				}
+			}
+		}
 
         void SetFloatBoxProperties(NumericUpDown box)
         {
@@ -27,9 +90,41 @@ namespace CloudberryKingdom.Viewer
             box.Minimum = -100000;
         }
 
+		public static List<MenuItem> SelectedMenuItems = new List<MenuItem>();
+		public static List<QuadClass> SelectedQuads = new List<QuadClass>();
+		public static List<EzText> SelectedTexts = new List<EzText>();
+
         bool PositionSet = false;
         public void Input()
         {
+			Vector2 delta = Tools.DeltaMouse;
+			//delta.X = 0;
+			//delta.Y = 0;
+
+			SelectedMenuItems.Clear();
+			foreach (var item in MultiSelected)
+			{
+				MenuItem mitem = item.MyItem as MenuItem;
+				if (null != mitem)
+					SelectedMenuItems.Add(mitem);
+			}
+
+			SelectedQuads.Clear();
+			foreach (var item in MultiSelected)
+			{
+				QuadClass qitem = item.MyItem as QuadClass;
+				if (null != qitem)
+					SelectedQuads.Add(qitem);
+			}
+
+			SelectedTexts.Clear();
+			foreach (var item in MultiSelected)
+			{
+				EzText titem = item.MyItem as EzText;
+				if (null != titem)
+					SelectedTexts.Add(titem);
+			}
+
             if (!PositionSet)
             {
                 this.Location = new System.Drawing.Point(1460, 194);
@@ -71,7 +166,9 @@ namespace CloudberryKingdom.Viewer
                 if (vnode != null &&
                     (Tools.CntrlDown() || Tools.ShiftDown()))
                 {
-                    vnode.MyItem.ProcessMouseInput(Tools.DeltaMouse, Tools.ShiftDown());
+                    //vnode.MyItem.ProcessMouseInput(Tools.DeltaMouse, Tools.ShiftDown());
+					foreach (ViewableNode vn in MultiSelected)
+						vn.MyItem.ProcessMouseInput(delta, Tools.ShiftDown());
                 }
             }
         }
@@ -232,6 +329,8 @@ namespace CloudberryKingdom.Viewer
             ObjTree.Nodes.Add(ViewableToNode(CharacterSelectManager.Instance, 0));
         }
 
+		List<ViewableNode> MultiSelected = new List<ViewableNode>();
+
         FieldNode SelectedFieldNode = null;
         [STAThread]
         private void ViewerTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -246,7 +345,18 @@ namespace CloudberryKingdom.Viewer
             else
             {
                 ViewableNode vnode = e.Node as ViewableNode;
-                if (null != vnode) vnode.SetClipboard();
+				if (null != vnode)
+				{
+					vnode.SetClipboard();
+
+					// Clear multi-select
+					foreach (ViewableNode vn in MultiSelected)
+						vn.BackColor = System.Drawing.Color.White;
+					MultiSelected.Clear();
+
+					vnode.BackColor = System.Drawing.Color.Honeydew;
+					MultiSelected.Add(vnode);
+				}
             }
         }
 
