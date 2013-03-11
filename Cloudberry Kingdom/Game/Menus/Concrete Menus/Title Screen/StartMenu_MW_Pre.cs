@@ -167,7 +167,9 @@ namespace CloudberryKingdom
         {
             if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
             {
-#if XBOX
+#if DEBUG && WINDOWS && XBOX
+				Call(new LeaderboardGUI(Title, null, MenuItem.ActivatingPlayer), 0);
+#elif XBOX
                 var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
                 if (gamer != null)
                 {

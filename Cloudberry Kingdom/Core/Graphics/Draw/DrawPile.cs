@@ -46,6 +46,7 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
+#if WINDOWS && DEBUG
 			bool horizontal = false;
 
 			// Redistribute distances evenly
@@ -122,10 +123,12 @@ namespace CloudberryKingdom
                 Scale((shift.X + shift.Y) * .00003f);
             else
                 Pos += shift;
+#endif
         }
 
         public void GetChildren(List<InstancePlusName> ViewableChildren)
         {
+#if WINDOWS && DEBUG
             if (MyQuadList != null)
                 foreach (QuadClass quad in MyQuadList)
                 {
@@ -141,6 +144,7 @@ namespace CloudberryKingdom
                     string name = text.MyString;
                     ViewableChildren.Add(new InstancePlusName(text, name));
                 }
+#endif
         }
 
         public FancyVector2 FancyScale;

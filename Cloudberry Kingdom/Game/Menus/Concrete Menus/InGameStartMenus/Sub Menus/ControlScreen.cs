@@ -104,26 +104,27 @@ namespace CloudberryKingdom
             MyPile.Add(text, "plus");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.QuickSpawn, Resources.Font_Grobold42, true);
+			bool center = false;
+            text = new EzText(Localization.Words.QuickSpawn, Resources.Font_Grobold42, center);
             MyPile.Add(text, "quickspawn");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.Jump, Resources.Font_Grobold42, true);
+            text = new EzText(Localization.Words.Jump, Resources.Font_Grobold42, center);
             MyPile.Add(text, "jump");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.PowerUpMenu, Resources.Font_Grobold42, true);
+            text = new EzText(Localization.Words.PowerUpMenu, Resources.Font_Grobold42, center);
             MyPile.Add(text, "powerups");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42, true);
+            text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42, center);
             MyPile.Add(text, "accept");
 #if XBOX
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 #endif
 
-            text = new EzText(Localization.Words.Back, Resources.Font_Grobold42, true);
+            text = new EzText(Localization.Words.Back, Resources.Font_Grobold42, center);
             MyPile.Add(text, "back");
 #if XBOX
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
@@ -137,6 +138,15 @@ namespace CloudberryKingdom
 
             q = new QuadClass("door_castle_1"); q.ScaleXToMatchRatio(130);
             MyPile.Add(q, "door");
+
+			q = new QuadClass("door_cave_1"); q.ScaleXToMatchRatio(130);
+			MyPile.Add(q, "door_cave");
+
+			q = new QuadClass("door_cloud_1"); q.ScaleXToMatchRatio(130);
+			MyPile.Add(q, "door_cloud");
+
+			q = new QuadClass("door_forest_1"); q.ScaleXToMatchRatio(130);
+			MyPile.Add(q, "door_forest");
 
             q = new QuadClass(ButtonTexture.Y); q.ScaleXToMatchRatio(130);
             MyPile.Add(q, "y");
@@ -183,27 +193,30 @@ namespace CloudberryKingdom
 #else
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText("plus"); if (_t != null) { _t.Pos = new Vector2(-913.889f, 483.3333f); _t.Scale = 0.5140832f; }
-            _t = MyPile.FindEzText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(209.1257f, 546.4289f); _t.Scale = 0.7971667f; }
-            _t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(211.1111f, 800f); _t.Scale = 0.7969999f; }
-            _t = MyPile.FindEzText("powerups"); if (_t != null) { _t.Pos = new Vector2(224.6023f, 292.0634f); _t.Scale = 0.7926666f; }
-            _t = MyPile.FindEzText("accept"); if (_t != null) { _t.Pos = new Vector2(-380.5535f, -145.2382f); _t.Scale = 0.7982503f; }
-            _t = MyPile.FindEzText("back"); if (_t != null) { _t.Pos = new Vector2(-380.9515f, -407.539f); _t.Scale = 0.7832497f; }
+			EzText _t;
+			_t = MyPile.FindEzText("plus"); if (_t != null) { _t.Pos = new Vector2(-911.1111f, 500f); _t.Scale = 0.5140832f; }
+			_t = MyPile.FindEzText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 571.4288f); _t.Scale = 0.7971667f; }
+			_t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 824.9998f); _t.Scale = 0.7969999f; }
+			_t = MyPile.FindEzText("powerups"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 317.8578f); _t.Scale = 0.7926666f; }
+			_t = MyPile.FindEzText("accept"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 64.28687f); _t.Scale = 0.7982503f; }
+			_t = MyPile.FindEzText("back"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, -189.2841f); _t.Scale = 0.7832497f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
-            _q = MyPile.FindQuad("x"); if (_q != null) { _q.Pos = new Vector2(291.6663f, -577.7776f); _q.Size = new Vector2(91.58332f, 91.58332f); }
-            _q = MyPile.FindQuad("door"); if (_q != null) { _q.Pos = new Vector2(758.3333f, -649.9999f); _q.Size = new Vector2(337.3586f, 240.4165f); }
-            _q = MyPile.FindQuad("y"); if (_q != null) { _q.Pos = new Vector2(-911.1113f, 141.6666f); _q.Size = new Vector2(97.74995f, 97.74995f); }
-            _q = MyPile.FindQuad("lb"); if (_q != null) { _q.Pos = new Vector2(-1141.667f, 397.2222f); _q.Size = new Vector2(175.4162f, 175.4162f); }
-            _q = MyPile.FindQuad("rb"); if (_q != null) { _q.Pos = new Vector2(-700.0002f, 411.1111f); _q.Size = new Vector2(179.2496f, 179.2496f); }
-            _q = MyPile.FindQuad("jump"); if (_q != null) { _q.Pos = new Vector2(-913.889f, 661.1106f); _q.Size = new Vector2(102.0832f, 102.0832f); }
-            _q = MyPile.FindQuad("accep"); if (_q != null) { _q.Pos = new Vector2(-955.5557f, -288.8888f); _q.Size = new Vector2(99.49992f, 99.49992f); }
-            _q = MyPile.FindQuad("back"); if (_q != null) { _q.Pos = new Vector2(-949.9999f, -552.7778f); _q.Size = new Vector2(95.41663f, 95.41663f); }
+			QuadClass _q;
+			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
+			_q = MyPile.FindQuad("x"); if (_q != null) { _q.Pos = new Vector2(-908.3336f, -630.5556f); _q.Size = new Vector2(91.58332f, 91.58332f); }
+			_q = MyPile.FindQuad("door"); if (_q != null) { _q.Pos = new Vector2(-205.5555f, -630.5555f); _q.Size = new Vector2(177.7416f, 126.6664f); }
+			_q = MyPile.FindQuad("door_cave"); if (_q != null) { _q.Pos = new Vector2(225f, -622.2222f); _q.Size = new Vector2(183.0986f, 130f); }
+			_q = MyPile.FindQuad("door_cloud"); if (_q != null) { _q.Pos = new Vector2(600f, -630.5555f); _q.Size = new Vector2(155f, 130f); }
+			_q = MyPile.FindQuad("door_forest"); if (_q != null) { _q.Pos = new Vector2(969.4446f, -619.4445f); _q.Size = new Vector2(164.4898f, 130f); }
+			_q = MyPile.FindQuad("y"); if (_q != null) { _q.Pos = new Vector2(-913.8889f, 149.9999f); _q.Size = new Vector2(97.74995f, 97.74995f); }
+			_q = MyPile.FindQuad("lb"); if (_q != null) { _q.Pos = new Vector2(-1138.889f, 413.8889f); _q.Size = new Vector2(175.4162f, 175.4162f); }
+			_q = MyPile.FindQuad("rb"); if (_q != null) { _q.Pos = new Vector2(-697.2224f, 427.7777f); _q.Size = new Vector2(179.2496f, 179.2496f); }
+			_q = MyPile.FindQuad("jump"); if (_q != null) { _q.Pos = new Vector2(-922.222f, 661.1106f); _q.Size = new Vector2(102.0832f, 102.0832f); }
+			_q = MyPile.FindQuad("accep"); if (_q != null) { _q.Pos = new Vector2(-913.8892f, -105.5554f); _q.Size = new Vector2(99.49992f, 99.49992f); }
+			_q = MyPile.FindQuad("back"); if (_q != null) { _q.Pos = new Vector2(-913.889f, -355.5558f); _q.Size = new Vector2(95.41663f, 95.41663f); }
 
-            MyPile.Pos = new Vector2(0f, 0f);
-        }
+			MyPile.Pos = new Vector2(0f, 0f);
+		}
 #endif
 
         protected override void MyPhsxStep()

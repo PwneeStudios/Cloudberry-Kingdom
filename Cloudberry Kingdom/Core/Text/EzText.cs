@@ -185,6 +185,7 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
+#if WINDOWS && DEBUG
 			if (Tools.CntrlDown() && ShiftDown)
 				return;
 
@@ -192,6 +193,7 @@ namespace CloudberryKingdom
                 Scale += (shift.X + shift.Y) * .00003f;
             else
                 Pos += shift;
+#endif
         }
 
         public static string ColorToMarkup(int r, int g, int b)

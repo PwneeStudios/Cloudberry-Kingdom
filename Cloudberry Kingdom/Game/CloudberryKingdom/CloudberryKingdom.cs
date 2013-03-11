@@ -65,6 +65,7 @@ namespace CloudberryKingdom
 		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = 0;
 #elif XBOX
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
@@ -72,6 +73,7 @@ namespace CloudberryKingdom
 		public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = .3f;
 #elif CAFE
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
@@ -79,6 +81,7 @@ namespace CloudberryKingdom
 		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
 		public static bool SimpleLeaderboards = true;
 		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = 1f;
 #elif PS3
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
@@ -86,6 +89,7 @@ namespace CloudberryKingdom
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PS3;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = 1f;
 #endif
 
 
@@ -103,7 +107,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = true;
+        public static bool Unlock_Levels = false;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
@@ -167,7 +171,9 @@ namespace CloudberryKingdom
 
         public static bool OnlineFunctionalityAvailable(PlayerIndex index)
         {
-#if XBOX
+#if DEBUG && WINDOWS && XBOX
+			return true;
+#elif XBOX
             var gamer = IndexToSignedInGamer(index);
 
             if (gamer == null) return false;
@@ -793,7 +799,7 @@ public static void OfferToBuy(SignedInGamer gamer)
             if (!HideLogos)
             {
 #if XDK
-                if (GuideExtensions.ConsoleRegion == ConsoleRegion.NorthAmerica)
+                if (IsDemo && GuideExtensions.ConsoleRegion == ConsoleRegion.NorthAmerica)
                 {
                     MainVideo.StartVideo_CanSkipIfWatched("LogoSalad_ESRB");
                 }
@@ -1230,7 +1236,7 @@ public static void OfferToBuy(SignedInGamer gamer)
 
 		bool DisconnectedController()
 		{
-#if PC_VERSION
+#if PC_VERSION || DEBUG && WINDOWS
 			return false;
 #endif
 			for (int i = 0; i < 4; i++)
@@ -1403,7 +1409,7 @@ public static void OfferToBuy(SignedInGamer gamer)
                 LoadingScreen.Draw();
             else if (Tools.ShowLoadingScreen)
                 DrawLoading();
-            else if (Tools.CurGameData != null)
+            else if (Tools.CurGameData != null && !MainVideo.Playing)
                 DrawGame();
             else
                 DrawNothing();

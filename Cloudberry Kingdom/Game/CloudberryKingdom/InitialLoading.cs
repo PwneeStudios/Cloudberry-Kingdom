@@ -31,7 +31,9 @@ namespace CloudberryKingdom
 
                     DrawCount = PhsxCount = 0;
 
-                    PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
+
+					// Warning, should not exist, but need to test without.
+					PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
 
 
                     // Now that everything is loaded, start the real game, dependent on the command line arguments.

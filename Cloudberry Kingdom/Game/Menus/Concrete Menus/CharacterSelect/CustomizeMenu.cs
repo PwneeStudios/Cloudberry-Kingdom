@@ -174,6 +174,20 @@ namespace CloudberryKingdom
 
 				MyPile.Pos = new Vector2(-1320f, 0f);
 			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Color"); if (_item != null) { _item.SetPos = new Vector2(-219.4443f, 8.333324f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+				_item = MyMenu.FindItemByName("Beard"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, -123.8889f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+				_item = MyMenu.FindItemByName("Hat"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, -250.5555f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+				_item = MyMenu.FindItemByName("Cape"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, -377.2222f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+				_item = MyMenu.FindItemByName("Lining"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, -501.1112f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+				_item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-208.3333f, -672.2223f); _item.MyText.Scale = 0.5408335f; _item.MySelectedText.Scale = 0.5408335f; _item.SelectIconOffset = new Vector2(0f, -160f); }
+
+				MyMenu.Pos = new Vector2(-1275.556f, -5.555534f);
+
+				MyPile.Pos = new Vector2(-1320f, 0f);
+			}
 			else
 			{
 				MenuItem _item;

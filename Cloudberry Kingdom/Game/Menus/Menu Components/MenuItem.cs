@@ -27,6 +27,7 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
+#if WINDOWS && DEBUG
 			if (Tools.CntrlDown() && ShiftDown)
 				return;
 
@@ -38,10 +39,12 @@ namespace CloudberryKingdom
             }
             else
                 SetPos += shift;
+#endif
         }
 
         public virtual string ToCode(string suffix)
         {
+#if WINDOWS && DEBUG
             string SelectedPosStr = "";
             if (SelectedPos != Pos)
             {
@@ -52,6 +55,9 @@ namespace CloudberryKingdom
             }
 
             return string.Format("_item = {0}FindItemByName(\"{1}\"); if (_item != null) {{ _item.SetPos = {2}; _item.MyText.Scale = {3}f; _item.MySelectedText.Scale = {4}f; _item.SelectIconOffset = {5}; {6} }}", suffix, Name, Tools.ToCode(Pos), MyText.Scale, MySelectedText.Scale, Tools.ToCode(SelectIconOffset), SelectedPosStr);
+#else
+            return "";
+#endif
         }
 
         public MenuItem Clone()

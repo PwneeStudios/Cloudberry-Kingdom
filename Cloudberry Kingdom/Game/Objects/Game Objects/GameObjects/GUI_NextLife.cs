@@ -154,7 +154,12 @@ namespace CloudberryKingdom
 			QuadClass _q;
 			_q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.Size = new Vector2(100f, 100f); }
 
-			MyPile.Pos = new Vector2(1232.689f, 762.2109f);
+			MyPile.Pos = new Vector2(1232.689f, 758.2109f);
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(-15, -15) * CloudberryKingdomGame.GuiSqueeze;
+
+			MyPile.Pos += squeeze;
 		}
 
         public override void OnAdd()

@@ -363,9 +363,11 @@ else
 
         void SetPos()
         {
+			MenuItem _item;
+			QuadClass _q;
+
 if (ButtonCheck.ControllerInUse)
 {
-			MenuItem _item;
 			_item = MyMenu.FindItemByName("Header"); if (_item != null) { _item.SetPos = new Vector2(69.44482f, 955.5558f); _item.MyText.Scale = 0.666f; _item.MySelectedText.Scale = 0.666f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 			_item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(736.1101f, 983.3332f); _item.MyText.Scale = 0.4186335f; _item.MySelectedText.Scale = 0.4186335f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 			_item = MyMenu.FindItemByName("Delete"); if (_item != null) { _item.SetPos = new Vector2(741.6659f, 860.5553f); _item.MyText.Scale = 0.3892168f; _item.MySelectedText.Scale = 0.3892168f; _item.SelectIconOffset = new Vector2(0f, 0f); }
@@ -373,7 +375,6 @@ if (ButtonCheck.ControllerInUse)
 
 			MyMenu.Pos = new Vector2(-1016.667f, 0f);
 
-			QuadClass _q;
 			_q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(658.3345f, 911.1108f); _q.Size = new Vector2(56.16665f, 56.16665f); }
 			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(661.1113f, 794.4444f); _q.Size = new Vector2(57.66665f, 57.66665f); }
 			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(663.8892f, 677.7778f); _q.Size = new Vector2(56.41664f, 56.41664f); }
@@ -382,19 +383,28 @@ if (ButtonCheck.ControllerInUse)
 			MyPile.Pos = new Vector2(0f, 0f);
 }
 else
-{
-			MenuItem _item;
+{	
 			_item = MyMenu.FindItemByName("Header"); if (_item != null) { _item.SetPos = new Vector2(88.88916f, 941.6669f); _item.MyText.Scale = 0.666f; _item.MySelectedText.Scale = 0.666f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 			_item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(591.6653f, 988.889f); _item.MyText.Scale = 0.3920501f; _item.MySelectedText.Scale = 0.3920501f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 			_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(591.6661f, 893.8889f); _item.MyText.Scale = 0.3935499f; _item.MySelectedText.Scale = 0.3935499f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
 			MyMenu.Pos = new Vector2(-1016.667f, 0f);
 
-			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(2.77771f, 22.22221f); _q.Size = new Vector2(1572.44f, 1572.44f); }
 
 			MyPile.Pos = new Vector2(0f, 0f);
 }
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(-15, -18) * CloudberryKingdomGame.GuiSqueeze;
+
+			_item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = _item.Pos + squeeze; }
+			_item = MyMenu.FindItemByName("Delete"); if (_item != null) { _item.SetPos = _item.Pos + squeeze; }
+			_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = _item.Pos + squeeze; }
+
+			_q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos += squeeze; }
+			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos += squeeze; }
+			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos += squeeze; }
         }
 
         class SeedItem : MenuItem

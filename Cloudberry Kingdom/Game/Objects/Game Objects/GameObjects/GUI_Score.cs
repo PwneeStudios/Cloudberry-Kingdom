@@ -120,7 +120,7 @@ namespace CloudberryKingdom
 			if (TimeCrisis)
 			{
 				EzText _t;
-				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(396.5f, 85.55492f); _t.Scale = 0.5f; }
 				MyPile.Pos = new Vector2(1240.555f, 756.1112f);
 			}
 			else
@@ -129,6 +129,11 @@ namespace CloudberryKingdom
 				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
 				MyPile.Pos = new Vector2(865.5554f, 781.1111f);
 			}
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(-15, -15) * CloudberryKingdomGame.GuiSqueeze;
+
+			MyPile.Pos += squeeze;
         }
 
         protected override void MyDraw()

@@ -181,7 +181,7 @@ namespace CloudberryKingdom
 			{
 				EzText _t;
 				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(697.2224f, -525.0001f); _t.Scale = 0.7423338f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(755.5554f, -711.111f); _t.Scale = 0.7660002f; }
+				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(683.3337f, -711.111f); _t.Scale = 0.7547504f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
@@ -205,6 +205,13 @@ namespace CloudberryKingdom
 				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(658.3333f, -708.3331f); _t.Scale = 0.7660002f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				EzText _t;
+				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(427.7773f, -522.2224f); _t.Scale = 0.7423338f; }
+				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(513.8887f, -711.111f); _t.Scale = 0.7660002f; }
+				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
 				EzText _t;
@@ -215,8 +222,8 @@ namespace CloudberryKingdom
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 			{
 				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(391.6665f, -525.0002f); _t.Scale = 0.6573337f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(736.111f, -691.6666f); _t.Scale = 0.6805836f; }
+				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(395.6355f, -525.0002f); _t.Scale = 0.6706704f; }
+				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(748.0187f, -687.6974f); _t.Scale = 0.6805836f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else

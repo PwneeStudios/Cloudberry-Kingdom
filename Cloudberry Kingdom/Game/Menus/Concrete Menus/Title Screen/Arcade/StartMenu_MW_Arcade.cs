@@ -212,12 +212,12 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russia
 
 			EzText _t;
 			_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-188.8888f, -752.7773f); _t.Scale = 0.72f; }
-			_t = MyPile.FindEzText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(1016.667f, -677.7777f); _t.Scale = 0.9744995f; }
-			_t = MyPile.FindEzText("Requirement"); if (_t != null) { _t.Pos = new Vector2(301.6447f, 7.530289f); _t.Scale = 0.6619421f; }
-			_t = MyPile.FindEzText("Requirement2"); if (_t != null) { _t.Pos = new Vector2(86.4729f, -193.2597f); _t.Scale = 0.6619265f; }
+			_t = MyPile.FindEzText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(1016.667f, -686.111f); _t.Scale = 0.9744995f; }
+			_t = MyPile.FindEzText("Requirement"); if (_t != null) { _t.Pos = new Vector2(82.20013f, 576.9747f); _t.Scale = 0.6619421f; }
+			_t = MyPile.FindEzText("Requirement2"); if (_t != null) { _t.Pos = new Vector2(89.25061f, 359.518f); _t.Scale = 0.5714267f; }
 
 			QuadClass _q;
-			_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(672.2224f, -219.4444f); _q.Size = new Vector2(290.9718f, 690.6484f); }
+			_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(719.4446f, 338.8889f); _q.Size = new Vector2(290.9718f, 690.6484f); }
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-290.4752f, -2200.793f); _q.Size = new Vector2(1234.721f, 740.8326f); }
 
 			MyPile.Pos = new Vector2(83.33417f, 130.9524f);

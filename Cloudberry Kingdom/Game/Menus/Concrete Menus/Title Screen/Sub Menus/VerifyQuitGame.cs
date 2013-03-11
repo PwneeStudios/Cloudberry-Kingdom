@@ -213,6 +213,23 @@ namespace CloudberryKingdom
 
 				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
 			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Yes"); if (_item != null) { _item.SetPos = new Vector2(677.7778f, 430.4445f); _item.MyText.Scale = 0.8525003f; _item.MySelectedText.Scale = 0.8525003f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("No"); if (_item != null) { _item.SetPos = new Vector2(702.7778f, 197.1111f); _item.MyText.Scale = 0.8294169f; _item.MySelectedText.Scale = 0.8294169f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+				MyMenu.Pos = new Vector2(-538.4935f, -171.4286f);
+
+				EzText _t;
+				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-776.1881f, 711.1738f); _t.Scale = 0.9946669f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
+				_q = MyPile.FindQuad("Berry"); if (_q != null) { _q.Pos = new Vector2(-416.6666f, -13.8889f); _q.Size = new Vector2(398.1559f, 537.0001f); }
+
+				MyPile.Pos = new Vector2(13.8877f, -1.984146f);
+			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
 				MenuItem _item;

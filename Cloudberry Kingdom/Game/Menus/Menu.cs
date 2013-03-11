@@ -137,6 +137,7 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
+#if WINDOWS && DEBUG
 			// Redistribute distances evenly
 			if (Tools.CntrlDown() && ShiftDown)
 			{
@@ -166,6 +167,7 @@ namespace CloudberryKingdom
                 foreach (MenuItem item in Items)
                     item.ProcessMouseInput(shift, ShiftDown);
             }
+#endif
         }
 
         public MenuItem FindItemByName(string name)

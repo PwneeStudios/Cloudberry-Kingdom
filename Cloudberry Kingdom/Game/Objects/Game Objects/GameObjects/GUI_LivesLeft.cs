@@ -79,6 +79,11 @@ namespace CloudberryKingdom
             _q = MyPile.FindQuad("Bob"); if (_q != null) { _q.Pos = new Vector2(133.3333f, -27.77774f); _q.ScaleYToMatchRatio(82.5f); }
 
             MyPile.Pos = new Vector2(-222.2232f, 897.222f);
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(0, -15) * CloudberryKingdomGame.GuiSqueeze;
+
+			MyPile.Pos += squeeze;
         }
 
         bool UseBlackBack = false;

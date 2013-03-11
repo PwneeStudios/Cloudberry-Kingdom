@@ -435,6 +435,11 @@ namespace CloudberryKingdom
 			EzText _t;
 			_t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
 			MyPile.Pos = new Vector2(1569.445f, -772.2226f);
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(-15, 15) * CloudberryKingdomGame.GuiSqueeze;
+
+			MyPile.Pos += squeeze;
 		}
 
         public override void Release()

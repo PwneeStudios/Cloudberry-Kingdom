@@ -295,16 +295,25 @@ namespace CloudberryKingdom.Stats
 
         void SetPos()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1230.718f, 975.2383f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            MyMenu.Pos = new Vector2(67.45706f, 0f);
+			//MenuItem _item;
+			//_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1230.718f, 975.2383f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			//MyMenu.Pos = new Vector2(67.45706f, 0f);
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-91.66821f, -103.8888f); _q.Size = new Vector2(1907.893f, 1089.838f); }
-            _q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1522.222f, -983.3331f); _q.Size = new Vector2(90f, 90f); }
-            _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1322.222f, -1008.333f); _q.Size = new Vector2(100f, 86f); }
+			//QuadClass _q;
+			//_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-91.66821f, -103.8888f); _q.Size = new Vector2(1907.893f, 1089.838f); }
+			//_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1522.222f, -983.3331f); _q.Size = new Vector2(90f, 90f); }
+			//_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1322.222f, -1008.333f); _q.Size = new Vector2(100f, 86f); }
 
-            MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+			//MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+
+			MyMenu.Pos = new Vector2(67.45706f, 0f);
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1338.889f, -986.1112f); _q.Size = new Vector2(65.49991f, 65.49991f); }
+			_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1188.889f, -994.4443f); _q.Size = new Vector2(78.29454f, 67.33331f); }
+
+			MyPile.Pos = new Vector2(83.33417f, 130.9524f);
+
         }
 
         Vector2 BarPos;

@@ -561,8 +561,6 @@ Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_A", 128, 12
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Icon_Castle", 166, 150, "Flow_Icon_Castle", "flow_icon_castle", "Environments");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_B", 128, 128, "Xbox_B", "xbox_b", "Buttons");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_RB", 128, 128, "Xbox_RB", "xbox_rb", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_LT", 128, 128, "Xbox_LT", "xbox_lt", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_RT", 128, 128, "Xbox_RT", "xbox_rt", "Buttons");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_LB", 128, 128, "Xbox_LB", "xbox_lb", "Buttons");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_Dir", 128, 128, "Xbox_Dir", "xbox_dir", "Buttons");
 Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Moustache_Brown", 89, 32, "Moustache_Brown", "moustache_brown", "Bob");

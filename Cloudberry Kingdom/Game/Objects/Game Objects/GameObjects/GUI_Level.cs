@@ -14,10 +14,15 @@ namespace CloudberryKingdom
 
             UpdateLevelText();
 
-
+			// SetPos()
 			EzText _t;
 			_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
 			MyPile.Pos = new Vector2(1590.556f, 803.2224f);
+
+			// Extra squeeze
+			Vector2 squeeze = new Vector2(-15, -15) * CloudberryKingdomGame.GuiSqueeze;
+
+			MyPile.Pos += squeeze;
         }
 
         public override string ToString()

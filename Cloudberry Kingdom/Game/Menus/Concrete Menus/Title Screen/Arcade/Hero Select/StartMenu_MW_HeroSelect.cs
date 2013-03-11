@@ -503,7 +503,7 @@ namespace CloudberryKingdom
 				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(1158.332f, 433.3333f); _t.Scale = 1f; }
 				_t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-27.7793f, 108.3334f); _t.Scale = 0.7689999f; }
 				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(1166.665f, -97.22215f); _t.Scale = 1f; }
-				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(33.33325f, 441.6666f); _t.Scale = 0.9f; }
+				_t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(27.33325f, 441.6666f); _t.Scale = 0.88f; }
 				_t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(280.5552f, 163.8889f); _t.Scale = 0.72f; }
 				_t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(277.7778f, -44.44443f); _t.Scale = 0.72f; }
 

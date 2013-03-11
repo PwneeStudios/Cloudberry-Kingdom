@@ -69,6 +69,11 @@ namespace CloudberryKingdom
             {
                 Content = new ContentManager(Tools.GameClass.Services, "Content");
             }
+            else
+            {
+                Content.Unload();
+                Content = new ContentManager(Tools.GameClass.Services, "Content");
+            }
 
             CanSkip = CanSkipVideo;
             LengthUntilUserCanSkip = LengthUntilCanSkip;

@@ -408,6 +408,18 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("y"); if (_q != null) { _q.Pos = new Vector2(-169.4444f, -327.7777f); _q.Size = new Vector2(72.24997f, 72.24997f); }
 				_q = MyPile.FindQuad("x"); if (_q != null) { _q.Pos = new Vector2(-169.4445f, -491.6667f); _q.Size = new Vector2(72.24997f, 72.24997f); }
 			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				EzText _t;
+				_t = MyPile.FindEzText("A"); if (_t != null) { _t.Pos = new Vector2(34.20727f, -161.9842f); _t.Scale = 0.535f; }
+				_t = MyPile.FindEzText("Y"); if (_t != null) { _t.Pos = new Vector2(84.20727f, -336.9049f); _t.Scale = 0.535f; }
+				_t = MyPile.FindEzText("X"); if (_t != null) { _t.Pos = new Vector2(36.98534f, -497.9367f); _t.Scale = 0.535f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("go"); if (_q != null) { _q.Pos = new Vector2(-169.4442f, -161.1112f); _q.Size = new Vector2(72.24997f, 72.24997f); }
+				_q = MyPile.FindQuad("y"); if (_q != null) { _q.Pos = new Vector2(-169.4444f, -327.7777f); _q.Size = new Vector2(72.24997f, 72.24997f); }
+				_q = MyPile.FindQuad("x"); if (_q != null) { _q.Pos = new Vector2(-169.4445f, -491.6667f); _q.Size = new Vector2(72.24997f, 72.24997f); }
+			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 			{
 				EzText _t;
