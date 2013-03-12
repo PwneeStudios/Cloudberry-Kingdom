@@ -149,7 +149,11 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // View Gamer
-            item = new MenuItem(new EzText(Localization.Words.ViewGamerCard, ItemFont));
+#if PS3
+            item = new MenuItem(new EzText(Localization.Words.Profile, ItemFont));
+#else
+			item = new MenuItem(new EzText(Localization.Words.ViewGamerCard, ItemFont));
+#endif
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
             AddItem(item);

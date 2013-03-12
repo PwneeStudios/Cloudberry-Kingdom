@@ -33,7 +33,7 @@ namespace CloudberryKingdom
 
 
 					// Warning, should not exist, but need to test without.
-					PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
+					// PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
 
 
                     // Now that everything is loaded, start the real game, dependent on the command line arguments.

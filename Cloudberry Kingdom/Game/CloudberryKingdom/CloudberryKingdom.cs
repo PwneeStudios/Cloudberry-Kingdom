@@ -1237,8 +1237,10 @@ public static void OfferToBuy(SignedInGamer gamer)
 		bool DisconnectedController()
 		{
 #if PC_VERSION || DEBUG && WINDOWS
-			return false;
+			if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
+			//return false;
 #endif
+			// True if an existing player is disconnected.
 			for (int i = 0; i < 4; i++)
 			{
 				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !Tools.GamepadState[i].IsConnected)
@@ -1247,7 +1249,16 @@ public static void OfferToBuy(SignedInGamer gamer)
 				}
 			}
 
-			return false;
+			// True if no one is connected
+			for (int i = 0; i < 4; i++)
+			{
+				if (Tools.GamepadState[i].IsConnected)
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 #if XBOX

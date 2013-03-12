@@ -694,6 +694,10 @@ Err_PS3_NoGamePadDetected,
 Err_PS3_PsnRequired_AskToSignIn,
 Err_PS3_PsnRequired_WillUploadLater,
 Err_PS3_NotEnoughSpace,
+Err_PS3_SaveDataNotUsed,
+Err_PS3_PsnLoggedOut,
+PS3_Profile,
+PS3_OnlinePermission,
 
 EnumLength
         };

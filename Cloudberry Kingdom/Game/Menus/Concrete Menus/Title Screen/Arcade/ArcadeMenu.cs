@@ -201,22 +201,17 @@ namespace CloudberryKingdom
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId - Challenge.LevelMask, Challenge.CurrentScore, Challenge.CurrentScore, level + 1, 0, 0, 0));
                     }
 
-					bool contains = false;
 					int Goal = 0;
 					for (int i = 0; i < ChallengeGoal.Count; i++)
+					{
 						if (ChallengeGoal[i].Item1 == Challenge.CurrentId)
 						{
-							contains = true;
 							Goal = ChallengeGoal[i].Item2;
-						}
-					//if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
-					if (contains)
-					{
-						//int Goal = ChallengeGoal[Challenge.CurrentId];
 
-						if (level + 1 >= Goal && CurHighLevel < Goal)
-						{
-							DoSave = true;
+							if (level + 1 >= Goal && CurHighLevel < Goal)
+							{
+								DoSave = true;
+							}
 						}
 					}
                 }

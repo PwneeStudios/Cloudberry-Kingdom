@@ -61,12 +61,12 @@ namespace CloudberryKingdom
         {
             HasFocus = true;
 
-//#if WINDOWS
-//            KeyboardExtension.FreezeInput();
+#if WINDOWS && !XBOX
+			KeyboardExtension.FreezeInput();
 
-//            EventInput.CharEntered += CharEntered;
-//            EventInput.KeyDown += KeyDown;
-//#endif
+			EventInput.CharEntered += CharEntered;
+			EventInput.KeyDown += KeyDown;
+#endif
         }
 
         public void ReleaseFocus()
