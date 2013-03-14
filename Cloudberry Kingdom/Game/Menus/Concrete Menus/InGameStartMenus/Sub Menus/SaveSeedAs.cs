@@ -39,18 +39,26 @@ namespace CloudberryKingdom
             MyPile.Add(HeaderText);
 
             // Save seed
-            item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
-            item.Name = "Save";
-            item.Go = Save;
-            AddItem(item);
+			//item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
+			//item.Name = "Save";
+			//item.Go = Save;
+			//AddItem(item);
+			
+			// Console version: Start to save
+			MyPile.Add(new EzText(Localization.Words.PressStart, ItemFont), "Start");
 
 
-#if PC_VERSION
-            MakeBackButton();
-#else
-            MakeBackButton();
-            //MakeStaticBackButton();
-#endif
+            MyPile.Add(new EzText(Localization.Words.Delete, ItemFont), "Delete");
+			MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
+
+			MyPile.Add(new EzText(Localization.Words.Back, ItemFont), "Back");
+			MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+
+//#if PC_VERSION
+//            MakeBackButton();
+//#else
+//            MakeBackButton();
+//#endif
 
             MyMenu.OnX = MyMenu.OnB = MenuReturnToCaller;
 
@@ -116,18 +124,21 @@ namespace CloudberryKingdom
 
         private void SetPosition()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(1269.445f, 161f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(1338.89f, -52.8888f); }
+			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
-            MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
+			EzText _t;
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(558.3326f, 913.5556f); _t.Scale = 0.8019168f; }
+			_t = MyPile.FindEzText("Start"); if (_t != null) { _t.Pos = new Vector2(705.5557f, -125f); _t.Scale = 0.6350001f; }
+			_t = MyPile.FindEzText("Delete"); if (_t != null) { _t.Pos = new Vector2(2080.556f, 102.7779f); _t.Scale = 0.4135835f; }
+			_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(2080.554f, -5.340576E-05f); _t.Scale = 0.4390834f; }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1175.696f, 233.3334f); _q.Size = new Vector2(1500f, 803.2258f); }
-            MyPile.FindEzText("Header").Pos = new Vector2(61.11098f, 821.8887f);
+			QuadClass _q;
+			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1175.696f, 233.3334f); _q.Size = new Vector2(1500f, 803.2258f); }
+			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(2033.333f, 27.77777f); _q.Size = new Vector2(46.08334f, 46.08334f); }
+			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(2033.333f, -83.33337f); _q.Size = new Vector2(45.91659f, 45.91659f); }
 
-            MyPile.Pos = new Vector2(-1125.001f, -319.4444f);
-        }
+			MyPile.Pos = new Vector2(-1125.001f, -319.4444f);
+		}
 
         public override void OnAdd()
         {
@@ -142,6 +153,10 @@ namespace CloudberryKingdom
             TextBox.OnEnter += OnEnter;
             TextBox.OnEscape += OnEscape;
             MyGame.AddGameObject(TextBox);
+
+			//TextBox.MyText.MyFloatColor = 
+			TextBox.MyText.OutlineColor = ColorHelper.Gray(.1f);
+			StartMenu.SetTextSelected_Red(TextBox.MyText);
 
 			MyMenu.Active = false;
 

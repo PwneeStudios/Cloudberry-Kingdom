@@ -192,7 +192,7 @@ namespace CloudberryKingdom
 
         public int GetTotalLevel()
         {
-            return GetTotalArcadeLevel() + GetTotalCampaignLevel();
+            return GetTotalArcadeLevel() + GetTotalCampaignLevel() + 1;
         }
 
         public int GetTotalCampaignLevel()

@@ -696,8 +696,15 @@ Err_PS3_PsnRequired_WillUploadLater,
 Err_PS3_NotEnoughSpace,
 Err_PS3_SaveDataNotUsed,
 Err_PS3_PsnLoggedOut,
-PS3_Profile,
-PS3_OnlinePermission,
+Err_PS3_NotEnoughSpaceForTrophy,
+ViewProfile_PS3,
+OnlinePermission_PS3,
+NotRanked_PS3,
+FriendsScores_PS3,
+PressStart_PS3,
+
+PressStart_WiiU,
+PressToJoin_WiiU,
 
 EnumLength
         };

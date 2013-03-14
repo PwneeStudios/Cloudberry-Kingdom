@@ -58,8 +58,11 @@ namespace CloudberryKingdom
 			{
 				ButtonSize = 94;
 			}
+
 #if PC_VERSION
 			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
+#elif CAFE
+			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin_WiiU), ButtonString.Go(ButtonSize));
 #else
 			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
 #endif
@@ -68,13 +71,21 @@ namespace CloudberryKingdom
 			{
 				Text = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 
+#if CAFE
+				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.8230838f;
+#else
 				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.9542501f;
+#endif			
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 			{
 				Text = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 
+#if CAFE
+				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.8842503f;
+#else
 				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.9542501f;
+#endif			
 			}
 			else
 			{

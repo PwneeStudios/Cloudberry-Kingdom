@@ -66,6 +66,12 @@ namespace CloudberryKingdom
 			base.MyPhsxStep();
 		}
 
+        protected override void MyDraw()
+        {
+            return;
+            //base.MyDraw();
+        }
+
 		void SetPos()
 		{
 			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);

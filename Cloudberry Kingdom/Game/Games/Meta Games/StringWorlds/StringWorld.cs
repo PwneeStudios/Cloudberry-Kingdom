@@ -27,7 +27,7 @@ namespace CloudberryKingdom
 				}
 			}
 
-            if (NextLevelSeed != null)
+            if (NextLevelSeed != null && NextLevelSeed.Loaded != null)
             {
                 if (LevelIsLoaded(NextLevelSeed))
                 {

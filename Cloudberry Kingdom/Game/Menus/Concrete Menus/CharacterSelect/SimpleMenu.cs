@@ -458,6 +458,10 @@ namespace CloudberryKingdom
 			}
 
 			CharacterSelect.Shift(this);
+
+			// Squeeze
+			//MyPile.Pos += new Vector2(-8, 0);
+			//MyPile.Scale(.65f);
 		}
 
         protected override void MyPhsxStep()

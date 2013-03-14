@@ -225,7 +225,7 @@ Save Level	シードを保存	Level Speichern	Salvar Senha	Salva Seme	Sauvegarde
 Load Level	シードを読み込む	Level Laden	Carregar Senha	Carica Seme	Charger le Code ?	Cargar Codigo	Загрузить	시드로드	读取关卡	
 Copy to Clipboard	クリップボードにコピーする	In Zwischenablage Kopieren	Copiar para Área de Transferência	Copia Sugli Appunti	Copier dans le Presse-Papiers	Copiar al Clipboard	Copy to clipboard	클립보드에 복사	拷贝到剪贴板	
 Load from Clipboard	クリップボードから読み込む	Aus Zwischenablage Laden	Carregar da Área de Transferência	Carica Dagli Appunti	Charger Depuis le Presse-Papier	Cargar del Clipboard	Load from clipboard	클럽보드에서 로드	从剪贴板读取	
-Remove Player	{0}を外す	Spieler {0} Entfernen ? 	Remover Jogador {0}?	Elimina Giocatore {0}?	Enlever le Joueur {0} ?	Remover Jugador {0}?	Исключить игрока  {0}?	_____제거	要删除玩家吗?	
+Remove Player	を外す	Spieler Entfernen	Remover Jogador	Elimina Giocatore	Enlever le Joueur	Remover Jugador	Исключить игрока	제거	要删除玩家吗	
 Exit Level?	レベルを中断しますか？	Level Verlassen?	Sair da Fase?	Abbandonare il Livello?	Quitter le Niveau ?	Salir del Nivel?	Покинуть уровень?	레벨을중단합니까?	要退出关卡吗?	
 Save Level As	ランダムシードに名前をつけて保存する	Level Speichern als	Salvar Senha de Fase como...	Salva Seme Casuale Come...	Sauvegarder le Code Sous ...	Guardar Código Random Como…	Сохранить как…	렌덤시드에 이름을붙여 보존	另存关卡	
 Saved Levels	保存されたシード	Gespeichertes Level	Senhas Salvas	Semi Salvati	Codes Sauvegardés	Códigos Guardados	Сохранённые	보존된 시드	已保存的随机关卡	
@@ -344,7 +344,7 @@ Your friends are not yet ranked on this leaderboard.	あなたのフレンドは
 The Arcade, Total	アーケード、合計	Minispiele, Total	Fliperama, Somatório	Arcade, totale. 	L'Arcade, Total	El Arcade, Total	Аркада, Всего	아케이드, 총	街机，总	
 Select	セレクト	Auswählen	Selecionar	Seleziona	Sélectionner	Select	Выбрать	선택	选择	
 Sign In?	サインインしますか？	Einloggen?	Entrar?	Accedi?	Connexion ?	Sign in	Войти?	로그인?	登录？	
-Chapter {0}	第{0}章	Kapitel {0}	O Capítulo {0}	Capitolo (0)	Chapitre {0}	Capítulo {0}	Глава {0}	{0} 장	第{0}章	
+Chapter {0}	第{0}章	Kapitel {0}	O Capítulo {0}	Capitolo {0}	Chapitre {0}	Capítulo {0}	Глава {0}	{0} 장	第{0}章	
 Chapter 1, The Sea	第1章、海	Kapitel 1, Das Meer	Capítulo 1, O Mar	Capitolo 1, Il mare	Chapitre 1, la Mer	Capítulo 1 - El Mar	Глава 1, Море	1 장: 바다	第1章，大海	
 Chapter 2, The Hills	第2章、丘	Kapitel 2, Die Berge	Capítulo 2, As Colinas	Capitolo 2, Le colline	Chapitre 2, les Montagnes	Capítulo 2 - Las Colinas	Глава 2, Холмы	2 장: 언덕	第2章，高山	
 Chapter 3, The Forest	第3章、森	Kapitel 3, Der Wald	Capítulo 3, As Florestas	Capitolo 3, La foresta	Chapitre 3, la Forêt	Capítulo 3 - El Bosque	Глава 3, Лес	3 장: 숲	第3章，森林	
@@ -398,4 +398,6 @@ You do not have permissions to access online functionality. Please check the par
 Your friends are not yet ranked on this leaderboard.	あなたのフレンドはまだこのランキングにはランクインしていません	Deine Freunde stehen noch nicht auf dieser Bestenliste.	Seus amigos não têm uma pontuação neste Placar de Líderes.	I tuoi amici non sono ancora classificati in questa Classifica.	Tes amis ne sont pas encore au rang de ce classement.	Tus amigos aún no están en este marcador	Счет ваших друзей отсутствует на этом списке лидеров.	친구들이 아직 순위표에 등록되지 않았습니다.	你的朋友还没有进入到排行榜。	
 Friends Scores	フレンドのスコア	Punkte Freunde	Placar dos Amigos	Punteggio amici	Scores des amis	Puntuaciones de amigos	Счет Друзей	친구 점수	朋友成绩	
 Press START	STARTを押してください	Drücke START	Pressione START	Premi START	Appuie sur START	Presione START	Нажмите START	START를 누르십시오	按下 START	
-{0} Press START	{0} STARTを押してください	{0} Drücke START	{0} Pressione START	{0} Premi START	{0} Appuie sur START	{0} Presione START	{0} Нажмите START	{0} START를 누르십시오	{0} 按下 START	
+Press {0}	{0}を押す	Drücke {0}	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажмите {0}	{0} 를 누르세요	按{0}	
+Press\n{0}\nto Join	{0}\nを\n押\nし\nて\n参\n加\nし\nま\nす	Drücke {0}	Aperte\n{0}\npara entrar	Premi\n{0}	Appuie sur\n{0}	Presione {0}	Нажмите\n{0}	{0}\n를 \n눌\n러\n서\n참\n가\n하\n기	按\n{0}\n参加	
+Press {0}	{0}を押す	Drücke {0}	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажмите {0}	{0} 를 누르세요	按{0}	

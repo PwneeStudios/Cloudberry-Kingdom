@@ -41,10 +41,10 @@ namespace CloudberryKingdom
                     return true;
                 }
 
-                if (Tools.Keyboard.IsKeyDown(Keys.J) && !Tools.PrevKeyboard.IsKeyDown(Keys.J))
-                {
-                    Tools.CurGameData.FadeToBlack();
-                }
+				//if (Tools.Keyboard.IsKeyDown(Keys.J) && !Tools.PrevKeyboard.IsKeyDown(Keys.J))
+				//{
+				//    Tools.CurGameData.FadeToBlack();
+				//}
             }
 
             //// Give award

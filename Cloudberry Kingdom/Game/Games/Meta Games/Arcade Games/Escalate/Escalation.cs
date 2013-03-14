@@ -21,6 +21,8 @@ namespace CloudberryKingdom
         {
             GameTypeId = 0;
             MenuName = Name = Localization.Words.Escalation;
+
+            SetGameId();
         }
 
         protected void OnOutOfLives(GUI_LivesLeft Lives)

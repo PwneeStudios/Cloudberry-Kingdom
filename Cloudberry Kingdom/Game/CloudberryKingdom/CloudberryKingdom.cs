@@ -62,7 +62,7 @@ namespace CloudberryKingdom
 		public static bool HideLogos = false;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 		public static float GuiSqueeze = 0;
@@ -107,7 +107,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = false;
+        public static bool Unlock_Levels = true;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
@@ -130,6 +130,10 @@ namespace CloudberryKingdom
 		public static bool CanSave(PlayerIndex index)
 		{
 			if (!CanSave()) return false;
+
+#if WINDOWS
+			return true;
+#endif
 
 			if (EzStorage.Device[(int)index] == null) return false;
 
@@ -1249,16 +1253,18 @@ public static void OfferToBuy(SignedInGamer gamer)
 				}
 			}
 
-			// True if no one is connected
-			for (int i = 0; i < 4; i++)
-			{
-				if (Tools.GamepadState[i].IsConnected)
-				{
-					return false;
-				}
-			}
+            //// True if no one is connected
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (Tools.GamepadState[i].IsConnected)
+            //    {
+            //        return false;
+            //    }
+            //}
 
-			return true;
+            //return true;
+
+            return false;
 		}
 
 #if XBOX
