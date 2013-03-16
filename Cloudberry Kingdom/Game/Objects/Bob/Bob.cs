@@ -109,7 +109,7 @@ namespace CloudberryKingdom.Bobs
         }
 
 
-		public int StoredRecordPosition_BL, StoredRecordPosition_TR;
+		public int StoredRecord_BL, StoredRecord_QuadSize;
 		public int StoredRecordTexture = 0;
 
 		BaseQuad MainQuad;
@@ -118,24 +118,44 @@ namespace CloudberryKingdom.Bobs
 			if (MainQuad == null)
 			{
 				if (PlayerObject != null && PlayerObject.QuadList != null)
-					MainQuad = PlayerObject.FindQuad("MainQuad");
+				{
+					if (MyPhsx is BobPhsxSpaceship)
+						MainQuad = PlayerObject.QuadList[1];
+					else
+						MainQuad = PlayerObject.FindQuad("MainQuad");
+				}
 				else
 					MainQuad = null;
 			}
 
 			if (MainQuad == null)
 			{
-				StoredRecordPosition_BL = 0;
-				StoredRecordPosition_TR = 0;
+				StoredRecord_BL = 0;
+				StoredRecord_QuadSize = 0;
 				StoredRecordTexture = 0;
 			}
 			else
 			{
-				Vector2 _BL = MainQuad.BL();
-				StoredRecordPosition_BL = PackVectorIntoInt(_BL);
+				if (PlayerObject.xFlip)
+				{
+					Vector2 _BL = MainQuad.BL();
+					Vector2 _Size = MainQuad.TR() - _BL;
 
-				Vector2 _TR = MainQuad.TR();
-				StoredRecordPosition_TR = PackVectorIntoInt(_TR);
+					_BL.X += _Size.X;
+					_Size.X *= -1;
+
+					StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
+					StoredRecord_QuadSize = PackVectorIntoInt_Size(_Size);
+				}
+				else
+				{
+					Vector2 _BL = MainQuad.BL();
+					Vector2 _Size = MainQuad.TR() - _BL;
+
+					StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
+					StoredRecord_QuadSize = PackVectorIntoInt_Size(_Size);
+				}
+
 
 				if (Game != null)
 				{
@@ -152,7 +172,7 @@ namespace CloudberryKingdom.Bobs
 			}
 		}
 
-		public static int PackVectorIntoInt(Vector2 v)
+		public static int PackVectorIntoInt_Pos(Vector2 v)
 		{
 			v.X += 400;
 			v.Y += 1000;
@@ -166,7 +186,7 @@ namespace CloudberryKingdom.Bobs
 			return i;
 		}
 
-		public static Vector2 UnpackIntIntoVector(int i)
+		public static Vector2 UnpackIntIntoVector_Pos(int i)
 		{
 			int _x = i >> 14;
 			int _y = i - (_x << 14);
@@ -177,6 +197,32 @@ namespace CloudberryKingdom.Bobs
 			x -= 400;
 			y -= 1000;
 			
+			return new Vector2(x, y);
+		}
+
+		public static int PackVectorIntoInt_Size(Vector2 v)
+		{
+			v.X += 400;
+
+			int x = (int)(v.X * 4.0f) << 16;
+			int y = (int)(v.Y * 4.0f);
+			int i = x + y;
+
+			//Vector2 _v = UnpackIntIntoVector(i);
+
+			return i;
+		}
+
+		public static Vector2 UnpackIntIntoVector_Size(int i)
+		{
+			int _x = i >> 16;
+			int _y = i - (_x << 16);
+
+			float x = (float)(_x) / 4.0f;
+			float y = (float)(_y) / 4.0f;
+
+			x -= 400;
+
 			return new Vector2(x, y);
 		}
 

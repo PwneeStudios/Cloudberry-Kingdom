@@ -61,11 +61,12 @@ namespace CloudberryKingdom
             TextObject = null;
 
             BobPhsx type;
-            //if (Tools.WorldMap != null)
-            if (Tools.CurGameData == null || Tools.CurGameData.DefaultHeroType == null)
-                type = Tools.WorldMap.DefaultHeroType;
-            else
-                type = Tools.CurGameData.DefaultHeroType;
+			////if (Tools.WorldMap != null)
+			//if (Tools.CurGameData == null || Tools.CurGameData.DefaultHeroType == null)
+			//    type = Tools.WorldMap.DefaultHeroType;
+			//else
+			//    type = Tools.CurGameData.DefaultHeroType;
+			type = BobPhsxNormal.Instance;
 
             //if (type is BobPhsxSpaceship)
             //{
@@ -97,11 +98,17 @@ namespace CloudberryKingdom
                             quad.Show = false;
                 }
 
-                if (type is BobPhsxSpaceship)
-                {
-                    foreach (BaseQuad quad in CenterObject.QuadList)
-                        quad.MyDrawOrder = ObjectDrawOrder.WithOutline;
-                }
+				//if (type is BobPhsxSpaceship)
+				//{
+				//    //CenterObject.QuadList[1].SetColor(Color.White);
+				//    //CenterObject.QuadList[1].MyMatrix = Matrix.Identity;
+				//    //CenterObject.QuadList[1].MyEffect = Tools.HslGreenEffect;
+				//    //CenterObject.QuadList[0].Show = false;
+				//    //CenterObject.QuadList[2].Show = false;
+
+				//    //foreach (BaseQuad quad in CenterObject.QuadList)
+				//    //    quad.MyDrawOrder = ObjectDrawOrder.WithOutline;
+				//}
             }
         }
 

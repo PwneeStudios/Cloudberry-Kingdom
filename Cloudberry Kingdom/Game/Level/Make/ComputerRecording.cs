@@ -57,12 +57,10 @@ namespace CloudberryKingdom.Levels
         public BobInput[] Input;
         public int[] AutoJump;
         public Vector2[] AutoLocs, AutoVel;
-		public int[] BoxCenter_BL;
-		public int[] BoxCenter_TR;
+		public int[] Box_BL;
+		public int[] Box_Size;
         public bool[] AutoOnGround;
-        public byte[] Anim;
         public int[] t;
-        public bool[] Alive;
 
         public void Shift(Vector2 shift)
         {
@@ -104,28 +102,10 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < AutoJump.Length; i++) AutoJump[i] = 0;
             for (int i = 0; i < AutoLocs.Length; i++) AutoLocs[i] = Vector2.Zero;
             for (int i = 0; i < AutoVel.Length; i++) AutoVel[i] = Vector2.Zero;
-            for (int i = 0; i < BoxCenter_BL.Length; i++) BoxCenter_BL[i] = 0;
-			for (int i = 0; i < BoxCenter_TR.Length; i++) BoxCenter_TR[i] = 0;
+            for (int i = 0; i < Box_BL.Length; i++) Box_BL[i] = 0;
+			for (int i = 0; i < Box_Size.Length; i++) Box_Size[i] = 0;
             for (int i = 0; i < AutoOnGround.Length; i++) AutoOnGround[i] = false;
-            for (int i = 0; i < Anim.Length; i++) Anim[i] = 0;
             for (int i = 0; i < t.Length; i++) t[i] = 0;
-            for (int i = 0; i < Alive.Length; i++) Alive[i] = false;
-        }
-
-        public bool GetAlive(int Step)
-        {
-            //if (!SuperSparse)
-                return Alive[Step];
-            //else
-            //    return Alive[Step / PareDivider];
-        }
-
-        public byte GetAnim(int Step)
-        {
-            if (!SuperSparse)
-                return Anim[Step];
-            else
-                return Anim[Step / PareDivider];
         }
 
         public int Gett(int Step)
@@ -138,28 +118,13 @@ namespace CloudberryKingdom.Levels
 
         public Vector2 GetBoxCenter(int Step)
         {
-			return Bob.UnpackIntIntoVector(BoxCenter_BL[Step]);
-
-            //if (!SuperSparse)
-			//if (true)
-				//return BoxCenter[Step];
-			//else
-			//{
-			//    //return BoxCenter[Step / PareDivider];
-
-			//    int i1 = Step / PareDivider;
-			//    int i2 = i1 + 1;
-			//    if (i2 >= BoxCenter.Length) i2 = i1;
-
-			//    Vector2 p1 = BoxCenter[i1];
-			//    Vector2 p2 = BoxCenter[i2];
-
-			//    float t = (float)(i1 * PareDivider - Step) / (float)PareDivider;
-			//    return Vector2.Lerp(p2, p1, t);
-			//}
+			return Bob.UnpackIntIntoVector_Pos(Box_BL[Step]) + GetBoxSize(Step) / 2.0f;
         }
 
-
+		public Vector2 GetBoxSize(int Step)
+		{
+			return Bob.UnpackIntIntoVector_Size(Box_Size[Step]);
+		}
 
         public T[] PareDown<T>(T[] SourceArray)
         {
@@ -200,14 +165,12 @@ namespace CloudberryKingdom.Levels
                 return;
             }
 
-            Alive = null;
-            Anim = null;
             AutoJump = null;
             AutoLocs = null;
             AutoOnGround = null;
             AutoVel = null;
-            BoxCenter_TR = null;
-			BoxCenter_BL = null;
+            Box_Size = null;
+			Box_BL = null;
             Input = null;
             t = null;
         }
@@ -217,16 +180,13 @@ namespace CloudberryKingdom.Levels
         {
             this.Sparse = Sparse;
 
-            BoxCenter_BL = new int[length];
-			BoxCenter_TR = new int[length];
+            Box_BL = new int[length];
+			Box_Size = new int[length];
             AutoLocs = new Vector2[length];
             AutoVel = new Vector2[length];
             Input = new BobInput[length];
 
-            Anim = new byte[length];
             t = new int[length];
-
-            Alive = new bool[length];
 
             if (!Sparse)
             {                

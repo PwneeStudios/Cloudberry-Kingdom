@@ -98,8 +98,6 @@ namespace CloudberryKingdom.Levels
         public ComputerRecording[] Recordings;
         public int Length;
 
-        public Vector2 BoxSize;
-
         public void Draw(QuadClass BobQuad, int Step, Level level, SpriteAnimGroup[] AnimGroup, List<BobLink> BobLinks)
         {
             if (level.MyGame.MyGameFlags.IsTethered && Step < Length - 1)
@@ -107,7 +105,7 @@ namespace CloudberryKingdom.Levels
                 foreach (BobLink link in BobLinks)
                 {
                     if (level.DefaultHeroType is BobPhsxSpaceship &&
-                        (!Recordings[link._j].GetAlive(Step) || !Recordings[link._k].GetAlive(Step)))
+                        (Recordings[link._j].Gett(Step) == 0 || Recordings[link._k].Gett(Step) == 0))
                         continue;
                     link.Draw(Recordings[link._j].GetBoxCenter(Step), Recordings[link._k].GetBoxCenter(Step));
                 }
@@ -118,10 +116,10 @@ namespace CloudberryKingdom.Levels
                 if (i >= level.Bobs.Count) continue;
                 if (Step < Length - 1)
                 {
-                    if (level.DefaultHeroType is BobPhsxSpaceship)
-                        if (Step > 0 && !Recordings[i].GetAlive(Step))
+					//if (level.DefaultHeroType is BobPhsxSpaceship)
+                        if (Step > 0 && Recordings[i].Gett(Step) <= 0)
                         {
-                            if (Recordings[i].GetAlive(Step - 1))
+                            if (Recordings[i].Gett(Step - 1) > 0)
                             {
                                 ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Step));
                             }
@@ -129,25 +127,24 @@ namespace CloudberryKingdom.Levels
                         }
 
                     Vector2 padding = Vector2.Zero;
-                    int anim = (int)Recordings[i].GetAnim(Step);
-                    if (anim > 200) continue;
 
 					//BobQuad.Quad.MyTexture.Tex = AnimGroup[i].Get(anim, Recordings[i].Gett(Step), ref padding);
 					int texture_index = Recordings[i].Gett(Step);
 					if (texture_index == 0) continue;
 					BobQuad.Quad.MyTexture.Tex = Tools.TextureWad.TextureList[texture_index].Tex;
 
-                    BobQuad.Base.e1 = new Vector2(BoxSize.X + padding.X, 0);
-                    BobQuad.Base.e2 = new Vector2(0, BoxSize.Y + padding.Y);
+					Vector2 size = Recordings[i].GetBoxSize(Step) / 2.0f;
+                    BobQuad.Base.e1 = new Vector2(size.X, 0);
+                    BobQuad.Base.e2 = new Vector2(0, size.Y);
                     BobQuad.Base.Origin = Recordings[i].GetBoxCenter(Step);
                     if (BobQuad.Base.Origin == Vector2.Zero) continue;
 
                     BobQuad.Draw();
                     Tools.QDrawer.Flush();
                 }
-                else
-                    if (Step == Length - 1 && !level.ReplayPaused && !(level.DefaultHeroType is BobPhsxSpaceship && !Recordings[i].GetAlive(Length - 1)))
-                        ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Length - 1));
+				//else
+				//    if (Step == Length - 1 && !level.ReplayPaused && !(level.DefaultHeroType is BobPhsxSpaceship && Recordings[i].Gett(Length - 1) == 0))
+				//        ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Length - 1));
             }
         }
 
@@ -188,30 +185,26 @@ namespace CloudberryKingdom.Levels
             if (level.PlayMode != 0 || level.Watching) return;
             if (level.CurPhsxStep < 0) return;
 
-            BoxSize = level.Bobs[0].PlayerObject.BoxList[0].Size() / 2;
-
             Length = level.CurPhsxStep;
             for (int i = 0; i < NumBobs; i++)
             {
                 if (i >= level.Bobs.Count) continue;
 
-                Recordings[i].Anim[level.CurPhsxStep] = (byte)level.Bobs[i].PlayerObject.anim;
-
 				//Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].PlayerObject.t;
 				Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].StoredRecordTexture;
 					
                 //Recordings[i].BoxCenter[level.CurPhsxStep] = level.Bobs[i].PlayerObject.BoxList[0].Center();
-				Recordings[i].BoxCenter_BL[level.CurPhsxStep] = level.Bobs[i].StoredRecordPosition_BL;
+				Recordings[i].Box_BL[level.CurPhsxStep] = level.Bobs[i].StoredRecord_BL;
+				Recordings[i].Box_Size[level.CurPhsxStep] = level.Bobs[i].StoredRecord_QuadSize;
 
                 Recordings[i].AutoLocs[level.CurPhsxStep] = level.Bobs[i].Core.Data.Position;
                 Recordings[i].AutoVel[level.CurPhsxStep] = level.Bobs[i].Core.Data.Velocity;
                 Recordings[i].Input[level.CurPhsxStep] = level.Bobs[i].CurInput;
-                Recordings[i].Alive[level.CurPhsxStep] = !(level.Bobs[i].Dead || level.Bobs[i].Dying);
 
                 if (!level.Bobs[i].Core.Show)
                 {
-                    Recordings[i].Anim[level.CurPhsxStep] = (byte)(255);
-					Recordings[i].BoxCenter_BL[level.CurPhsxStep] = 0;
+					Recordings[i].t[level.CurPhsxStep] = 0;
+					Recordings[i].Box_BL[level.CurPhsxStep] = 0;
                     Recordings[i].AutoLocs[level.CurPhsxStep] = level.MainCamera.Data.Position;
                 }
             }
