@@ -434,6 +434,8 @@ namespace CloudberryKingdom.InGameObjects
         /// </summary>
         public bool AutoOpen = false;
 
+		int FramesSinceInteractedWith = 0;
+
         public static bool AllowCompControl = false;
         public override void Interact(Bob bob)
         {
@@ -457,6 +459,8 @@ namespace CloudberryKingdom.InGameObjects
                  Math.Abs(bob.Pos.Y - Pos.Y) < y_pad)) &&
                 (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
             {
+				FramesSinceInteractedWith = 0;
+
                 NearCount++;
                 //if (NearCount > 10 || MyPressNote != null) // For debugging purposes, always have the note show up.
                 if (NearCount > DelayToShowNote || MyPressNote != null)
@@ -475,8 +479,11 @@ namespace CloudberryKingdom.InGameObjects
             }
             else
             {
-                NearCount = CoreMath.Restrict(0, 30, NearCount);
-                NearCount--;
+				if (FramesSinceInteractedWith > 3)
+				{
+					NearCount = CoreMath.Restrict(0, 30, NearCount);
+					NearCount--;
+				}
             }
 
             if (!InteractedWith)

@@ -1345,6 +1345,21 @@ public static void OfferToBuy(SignedInGamer gamer)
 #endif
         }
 
+		void DrawWatermark()
+		{
+			if (Tools.QDrawer == null) return;
+			if (Resources.Font_Grobold42 == null) return;
+			if (Resources.Font_Grobold42.HFont == null) return;
+			if (Resources.Font_Grobold42.HOutlineFont == null) return;
+			if (Tools.CurCamera == null) return;
+
+			Camera cam = new Camera();
+			cam.SetVertexCamera();
+			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, "Version 0.9.0", new Vector2(1200, 870), Color.Black.ToVector4(),   new Vector2(.8f));
+			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, "Version 0.9.0", new Vector2(1200, 870), Color.SkyBlue.ToVector4(), new Vector2(.8f));
+			Tools.QDrawer.Flush();
+		}
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -1364,17 +1379,17 @@ public static void OfferToBuy(SignedInGamer gamer)
 
             // Prepare to draw
             Tools.DrawCount++;
-            if (SetupToRender()) return;
+			if (SetupToRender()) { DrawWatermark(); return; }
 
             // Main Video
-            if (MainVideo.Draw()) return;
+			if (MainVideo.Draw()) { DrawWatermark(); return; }
 
             // Fps
             UpdateFps(gameTime);
 
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
-			if (Guide.IsVisible) { DrawNothing(); return; }
+			if (Guide.IsVisible) { DrawNothing(); DrawWatermark(); return; }
             if (ShowKeyboard)
             {
                 SaveLoadSeedMenu.BeginShowKeyboard();
@@ -1411,7 +1426,7 @@ public static void OfferToBuy(SignedInGamer gamer)
             }
 #endif
 
-            UpdateCustomMusic();
+			UpdateCustomMusic();
 
             // What to do
             if (LogoScreenUp)
@@ -1436,6 +1451,8 @@ public static void OfferToBuy(SignedInGamer gamer)
 #if DEBUG && !XDK
             SaveScreenshotCode();
 #endif
+
+			DrawWatermark();
         }
 
         /// <summary>

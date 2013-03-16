@@ -21,7 +21,7 @@ namespace CoreEngine
 
         public EzText SongInfoText;
         public bool DisplayingInfo;
-        Camera DefaultCam;
+        public Camera DefaultCam;
 
         public EzSongWad()
         {
