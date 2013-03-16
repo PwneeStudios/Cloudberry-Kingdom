@@ -56,10 +56,12 @@ namespace CloudberryKingdom.Levels
 
         public BobInput[] Input;
         public int[] AutoJump;
-        public Vector2[] AutoLocs, AutoVel, BoxCenter;
+        public Vector2[] AutoLocs, AutoVel;
+		public int[] BoxCenter_BL;
+		public int[] BoxCenter_TR;
         public bool[] AutoOnGround;
         public byte[] Anim;
-        public float[] t;
+        public int[] t;
         public bool[] Alive;
 
         public void Shift(Vector2 shift)
@@ -102,7 +104,8 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < AutoJump.Length; i++) AutoJump[i] = 0;
             for (int i = 0; i < AutoLocs.Length; i++) AutoLocs[i] = Vector2.Zero;
             for (int i = 0; i < AutoVel.Length; i++) AutoVel[i] = Vector2.Zero;
-            for (int i = 0; i < BoxCenter.Length; i++) BoxCenter[i] = Vector2.Zero;
+            for (int i = 0; i < BoxCenter_BL.Length; i++) BoxCenter_BL[i] = 0;
+			for (int i = 0; i < BoxCenter_TR.Length; i++) BoxCenter_TR[i] = 0;
             for (int i = 0; i < AutoOnGround.Length; i++) AutoOnGround[i] = false;
             for (int i = 0; i < Anim.Length; i++) Anim[i] = 0;
             for (int i = 0; i < t.Length; i++) t[i] = 0;
@@ -125,7 +128,7 @@ namespace CloudberryKingdom.Levels
                 return Anim[Step / PareDivider];
         }
 
-        public float Gett(int Step)
+        public int Gett(int Step)
         {
             if (!SuperSparse)
                 return t[Step];
@@ -135,23 +138,25 @@ namespace CloudberryKingdom.Levels
 
         public Vector2 GetBoxCenter(int Step)
         {
+			return Bob.UnpackIntIntoVector(BoxCenter_BL[Step]);
+
             //if (!SuperSparse)
-            if (true)
-                return BoxCenter[Step];
-            else
-            {                
-                //return BoxCenter[Step / PareDivider];
+			//if (true)
+				//return BoxCenter[Step];
+			//else
+			//{
+			//    //return BoxCenter[Step / PareDivider];
 
-                int i1 = Step / PareDivider;
-                int i2 = i1 + 1;
-                if (i2 >= BoxCenter.Length) i2 = i1;
+			//    int i1 = Step / PareDivider;
+			//    int i2 = i1 + 1;
+			//    if (i2 >= BoxCenter.Length) i2 = i1;
 
-                Vector2 p1 = BoxCenter[i1];
-                Vector2 p2 = BoxCenter[i2];
+			//    Vector2 p1 = BoxCenter[i1];
+			//    Vector2 p2 = BoxCenter[i2];
 
-                float t = (float)(i1 * PareDivider - Step) / (float)PareDivider;
-                return Vector2.Lerp(p2, p1, t);
-            }
+			//    float t = (float)(i1 * PareDivider - Step) / (float)PareDivider;
+			//    return Vector2.Lerp(p2, p1, t);
+			//}
         }
 
 
@@ -178,12 +183,12 @@ namespace CloudberryKingdom.Levels
 
             if (!SuperSparse)
             {
-                //BoxCenter = PareDown<Vector2>(BoxCenter);
-                //Alive = PareDown<bool>(Alive);
-                t = PareDown<float>(t);
-                Anim = PareDown<byte>(Anim);
+				////BoxCenter = PareDown<Vector2>(BoxCenter);
+				////Alive = PareDown<bool>(Alive);
+				//t = PareDown<int>(t);
+				//Anim = PareDown<byte>(Anim);
 
-                SuperSparse = true;
+				//SuperSparse = true;
             }
         }
 
@@ -201,7 +206,8 @@ namespace CloudberryKingdom.Levels
             AutoLocs = null;
             AutoOnGround = null;
             AutoVel = null;
-            BoxCenter = null;
+            BoxCenter_TR = null;
+			BoxCenter_BL = null;
             Input = null;
             t = null;
         }
@@ -211,13 +217,14 @@ namespace CloudberryKingdom.Levels
         {
             this.Sparse = Sparse;
 
-            BoxCenter = new Vector2[length];
+            BoxCenter_BL = new int[length];
+			BoxCenter_TR = new int[length];
             AutoLocs = new Vector2[length];
             AutoVel = new Vector2[length];
             Input = new BobInput[length];
 
             Anim = new byte[length];
-            t = new float[length];
+            t = new int[length];
 
             Alive = new bool[length];
 

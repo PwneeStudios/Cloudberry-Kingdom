@@ -108,6 +108,78 @@ namespace CloudberryKingdom.Bobs
             Head = null;
         }
 
+
+		public int StoredRecordPosition_BL, StoredRecordPosition_TR;
+		public int StoredRecordTexture = 0;
+
+		BaseQuad MainQuad;
+		public void SetRecordingInfo()
+		{
+			if (MainQuad == null)
+			{
+				if (PlayerObject != null && PlayerObject.QuadList != null)
+					MainQuad = PlayerObject.FindQuad("MainQuad");
+				else
+					MainQuad = null;
+			}
+
+			if (MainQuad == null)
+			{
+				StoredRecordPosition_BL = 0;
+				StoredRecordPosition_TR = 0;
+				StoredRecordTexture = 0;
+			}
+			else
+			{
+				Vector2 _BL = MainQuad.BL();
+				StoredRecordPosition_BL = PackVectorIntoInt(_BL);
+
+				Vector2 _TR = MainQuad.TR();
+				StoredRecordPosition_TR = PackVectorIntoInt(_TR);
+
+				if (Game != null)
+				{
+					if ((Dead || Dying) && !Game.MyGameFlags.IsTethered)
+					{
+						StoredRecordTexture = 0;
+					}
+					else
+					{
+						StoredRecordTexture = CoreMath.Restrict(0, Tools.TextureWad.TextureList.Count - 1,
+															   Tools.TextureWad.TextureList.IndexOf(MainQuad.MyTexture));						
+					}
+				}
+			}
+		}
+
+		public static int PackVectorIntoInt(Vector2 v)
+		{
+			v.X += 400;
+			v.Y += 1000;
+
+			int x = (int)(v.X * 4.0f) << 14;
+			int y = (int)(v.Y * 4.0f);
+			int i = x + y;
+
+			//Vector2 _v = UnpackIntIntoVector(i);
+
+			return i;
+		}
+
+		public static Vector2 UnpackIntIntoVector(int i)
+		{
+			int _x = i >> 14;
+			int _y = i - (_x << 14);
+
+			float x = (float)(_x) / 4.0f;
+			float y = (float)(_y) / 4.0f;
+
+			x -= 400;
+			y -= 1000;
+			
+			return new Vector2(x, y);
+		}
+
         public void SetColorScheme(ColorScheme scheme)
         {
             //scheme = ColorSchemeManager.ColorSchemes[2];
@@ -1597,12 +1669,16 @@ namespace CloudberryKingdom.Bobs
         {
             DoLightSourceFade();
 
-            if (!Core.Show)
-                return;
+			if (!Core.Show)
+			{
+				SetRecordingInfo();
+				return;
+			}
 
             if (CharacterSelect2)
             {
                 DollPhsxStep();
+				SetRecordingInfo();
                 return;
             }
 
@@ -1636,6 +1712,7 @@ namespace CloudberryKingdom.Bobs
                 if (Core.MyLevel.PlayMode == 0 && MyCape != null)
                     UpdateCape();
 
+				SetRecordingInfo();
                 return;
             }
 
@@ -1763,6 +1840,7 @@ namespace CloudberryKingdom.Bobs
                 ControlCount++;
                 if (CinematicFunc != null) CinematicFunc(ControlCount);
 
+				SetRecordingInfo();
                 return;
             }
 
@@ -1822,6 +1900,7 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.PhsxStep2();
 
             PrevInput = CurInput;
+			SetRecordingInfo();
         }
 
         /// <summary>

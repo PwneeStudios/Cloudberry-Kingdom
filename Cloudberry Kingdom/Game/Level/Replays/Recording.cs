@@ -132,7 +132,10 @@ namespace CloudberryKingdom.Levels
                     int anim = (int)Recordings[i].GetAnim(Step);
                     if (anim > 200) continue;
 
-                    BobQuad.Quad.MyTexture.Tex = AnimGroup[i].Get(anim, Recordings[i].Gett(Step), ref padding);
+					//BobQuad.Quad.MyTexture.Tex = AnimGroup[i].Get(anim, Recordings[i].Gett(Step), ref padding);
+					int texture_index = Recordings[i].Gett(Step);
+					if (texture_index == 0) continue;
+					BobQuad.Quad.MyTexture.Tex = Tools.TextureWad.TextureList[texture_index].Tex;
 
                     BobQuad.Base.e1 = new Vector2(BoxSize.X + padding.X, 0);
                     BobQuad.Base.e2 = new Vector2(0, BoxSize.Y + padding.Y);
@@ -194,8 +197,12 @@ namespace CloudberryKingdom.Levels
 
                 Recordings[i].Anim[level.CurPhsxStep] = (byte)level.Bobs[i].PlayerObject.anim;
 
-                Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].PlayerObject.t;
-                Recordings[i].BoxCenter[level.CurPhsxStep] = level.Bobs[i].PlayerObject.BoxList[0].Center();
+				//Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].PlayerObject.t;
+				Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].StoredRecordTexture;
+					
+                //Recordings[i].BoxCenter[level.CurPhsxStep] = level.Bobs[i].PlayerObject.BoxList[0].Center();
+				Recordings[i].BoxCenter_BL[level.CurPhsxStep] = level.Bobs[i].StoredRecordPosition_BL;
+
                 Recordings[i].AutoLocs[level.CurPhsxStep] = level.Bobs[i].Core.Data.Position;
                 Recordings[i].AutoVel[level.CurPhsxStep] = level.Bobs[i].Core.Data.Velocity;
                 Recordings[i].Input[level.CurPhsxStep] = level.Bobs[i].CurInput;
@@ -204,7 +211,7 @@ namespace CloudberryKingdom.Levels
                 if (!level.Bobs[i].Core.Show)
                 {
                     Recordings[i].Anim[level.CurPhsxStep] = (byte)(255);
-                    Recordings[i].BoxCenter[level.CurPhsxStep] =
+					Recordings[i].BoxCenter_BL[level.CurPhsxStep] = 0;
                     Recordings[i].AutoLocs[level.CurPhsxStep] = level.MainCamera.Data.Position;
                 }
             }

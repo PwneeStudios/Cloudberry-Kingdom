@@ -16,6 +16,13 @@ namespace CloudberryKingdom.Levels
 
         public void Release()
         {
+			if (BobLinks != null)
+			{
+				foreach (BobLink link in BobLinks)
+				{
+					link.j = link.k = null;
+				}
+			}
             BobLinks = null;
 
             foreach (SwarmRecord swarm in Swarms)
