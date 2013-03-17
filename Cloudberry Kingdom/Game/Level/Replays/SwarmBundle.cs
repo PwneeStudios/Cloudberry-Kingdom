@@ -61,15 +61,15 @@ namespace CloudberryKingdom.Levels
                 }
             }
 
-            AnimGroup = new SpriteAnimGroup[4];
+			//AnimGroup = new SpriteAnimGroup[4];
 
-            int count = 0;
-            foreach (Bob bob in level.Bobs)
-            {
-                AnimGroup[count] = new SpriteAnimGroup();
-                AnimGroup[count].Init(bob.PlayerObject, bob.MyPhsx.SpritePadding, bob.MyPhsx.ToSprites);
-                count++;
-            }
+			//int count = 0;
+			//foreach (Bob bob in level.Bobs)
+			//{
+			//    AnimGroup[count] = new SpriteAnimGroup();
+			//    AnimGroup[count].Init(bob.PlayerObject, bob.MyPhsx.SpritePadding, bob.MyPhsx.ToSprites);
+			//    count++;
+			//}
             Initialized = true;
         }
 

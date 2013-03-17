@@ -114,7 +114,7 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < NumBobs; i++)
             {
                 if (i >= level.Bobs.Count) continue;
-				if (Step > 2 && Step == Recordings[i].Box_BL.Length - 2) ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Step - 2));
+				if (Step > 1 && Step == Recordings[i].Box_BL.Length - 1) ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Step - 1));
 				if (Step >= Recordings[i].Box_BL.Length) continue;
                 if (Step < Length - 1)
                 {

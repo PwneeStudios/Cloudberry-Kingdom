@@ -195,7 +195,13 @@ namespace CloudberryKingdom.Levels
             //FreezeCamera = true;
             MainCamera.Update();
 
+			foreach (Bob bob in Bobs)
+			{
+				bob.MyRecord = null;
+				bob.Release();
+			}
             Bobs.Clear();
+
             Bobs.AddRange(HoldPlayerBobs);
             foreach (Bob bob in Bobs)
             {

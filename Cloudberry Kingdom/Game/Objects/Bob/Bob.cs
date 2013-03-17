@@ -69,7 +69,7 @@ namespace CloudberryKingdom.Bobs
 
         public override void Release()
         {
-            base.Release();
+			base.Release();
 
             ControlFunc = null;
             OnLand = null;
