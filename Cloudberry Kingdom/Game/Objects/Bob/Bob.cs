@@ -109,10 +109,10 @@ namespace CloudberryKingdom.Bobs
         }
 
 
-		public int StoredRecord_BL, StoredRecord_QuadSize;
+		public uint StoredRecord_BL, StoredRecord_QuadSize;
 		public int StoredRecordTexture = 0;
 
-		BaseQuad MainQuad;
+		Quad MainQuad;
 		public void SetRecordingInfo()
 		{
 			if (MainQuad == null)
@@ -120,9 +120,9 @@ namespace CloudberryKingdom.Bobs
 				if (PlayerObject != null && PlayerObject.QuadList != null)
 				{
 					if (MyPhsx is BobPhsxSpaceship)
-						MainQuad = PlayerObject.QuadList[1];
+						MainQuad = PlayerObject.QuadList[1] as Quad;
 					else
-						MainQuad = PlayerObject.FindQuad("MainQuad");
+						MainQuad = PlayerObject.FindQuad("MainQuad") as Quad;
 				}
 				else
 					MainQuad = null;
@@ -136,25 +136,22 @@ namespace CloudberryKingdom.Bobs
 			}
 			else
 			{
+				Vector2 _BL = MainQuad.BL();
+				Vector2 _Size = MainQuad.TR() - _BL;
+
 				if (PlayerObject.xFlip)
 				{
-					Vector2 _BL = MainQuad.BL();
-					Vector2 _Size = MainQuad.TR() - _BL;
-
 					_BL.X += _Size.X;
 					_Size.X *= -1;
-
-					StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
-					StoredRecord_QuadSize = PackVectorIntoInt_Size(_Size);
 				}
-				else
-				{
-					Vector2 _BL = MainQuad.BL();
-					Vector2 _Size = MainQuad.TR() - _BL;
 
-					StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
-					StoredRecord_QuadSize = PackVectorIntoInt_Size(_Size);
-				}
+				StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
+				StoredRecord_QuadSize = PackVectorIntoInt_SizeAngle(_Size, PlayerObject.ContainedQuadAngle);
+
+				//Vector2 BL = MainQuad.Corner[2].Pos;
+				//Vector2 TR = MainQuad.Corner[1].Pos;
+				//StoredRecord_BL = PackVectorIntoInt_Pos(BL);
+				//StoredRecord_QuadSize = PackVectorIntoInt_Size(TR - BL);
 
 
 				if (Game != null)
@@ -172,24 +169,24 @@ namespace CloudberryKingdom.Bobs
 			}
 		}
 
-		public static int PackVectorIntoInt_Pos(Vector2 v)
+		public static uint PackVectorIntoInt_Pos(Vector2 v)
 		{
 			v.X += 400;
 			v.Y += 1000;
 
-			int x = (int)(v.X * 4.0f) << 14;
-			int y = (int)(v.Y * 4.0f);
-			int i = x + y;
+			uint x = (uint)(v.X * 4.0f) << 14;
+			uint y = (uint)(v.Y * 4.0f);
+			uint i = x + y;
 
-			//Vector2 _v = UnpackIntIntoVector(i);
+			Vector2 _v = UnpackIntIntoVector_Pos(i);
 
 			return i;
 		}
 
-		public static Vector2 UnpackIntIntoVector_Pos(int i)
+		public static Vector2 UnpackIntIntoVector_Pos(uint i)
 		{
-			int _x = i >> 14;
-			int _y = i - (_x << 14);
+			uint _x = i >> 14;
+			uint _y = i - (_x << 14);
 
 			float x = (float)(_x) / 4.0f;
 			float y = (float)(_y) / 4.0f;
@@ -200,30 +197,52 @@ namespace CloudberryKingdom.Bobs
 			return new Vector2(x, y);
 		}
 
-		public static int PackVectorIntoInt_Size(Vector2 v)
+		public static uint PackVectorIntoInt_SizeAngle(Vector2 v, float angle)
 		{
-			v.X += 400;
+			float tau = (float)(2 * Math.PI);
+			float revs = angle / tau;
+			angle -= (int)revs * tau;
+			if (angle < 0)
+				angle += tau;
 
-			int x = (int)(v.X * 4.0f) << 16;
-			int y = (int)(v.Y * 4.0f);
-			int i = x + y;
+			uint x = (uint)(Math.Abs(v.X) * 0.7f) << 20;
+			x += v.X > (uint)0 ? (uint)0 : (((uint)1) << 31);
+			uint y = ((uint)(v.Y * 1.0f) << 20) >> 12;
+			uint a = ((uint)(angle * 32.0f) << 24) >> 24;
+			uint i = x + y + a;
 
-			//Vector2 _v = UnpackIntIntoVector(i);
+			Vector2 _v = UnpackIntIntoVector_Size(i);
+			float _a  = UnpackIntIntoVector_Angle(i);
 
 			return i;
 		}
 
-		public static Vector2 UnpackIntIntoVector_Size(int i)
+		public static Vector2 UnpackIntIntoVector_Size(uint i)
 		{
-			int _x = i >> 16;
-			int _y = i - (_x << 16);
+			bool sign = (i & (((uint)1) << 31)) == (((uint)1) << 31);
+			if (sign)
+				i -= (((uint)1) << 31);
 
-			float x = (float)(_x) / 4.0f;
-			float y = (float)(_y) / 4.0f;
+			uint _x = i >> 20;
+			uint _y = (i - (_x << 20)) >> 8;
+			
+			float x = (float)(_x) / 0.7f;
+			float y = (float)(_y) / 1.0f;
 
-			x -= 400;
+			if (sign) x = -x;
 
 			return new Vector2(x, y);
+		}
+
+		public static float UnpackIntIntoVector_Angle(uint i)
+		{
+			uint _x = i >> 20;
+			uint _y = (i - (_x << 20)) >> 8;
+			uint _a = (i - (_x << 20) - (_y << 8));
+
+			float a = (float)(_a) / 32.0f;
+
+			return a;
 		}
 
         public void SetColorScheme(ColorScheme scheme)

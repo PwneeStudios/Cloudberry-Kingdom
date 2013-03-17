@@ -57,8 +57,7 @@ namespace CloudberryKingdom.Levels
         public BobInput[] Input;
         public int[] AutoJump;
         public Vector2[] AutoLocs, AutoVel;
-		public int[] Box_BL;
-		public int[] Box_Size;
+		public uint[] Box_BL, Box_Size;
         public bool[] AutoOnGround;
         public int[] t;
 
@@ -180,8 +179,8 @@ namespace CloudberryKingdom.Levels
         {
             this.Sparse = Sparse;
 
-            Box_BL = new int[length];
-			Box_Size = new int[length];
+            Box_BL = new uint[length];
+			Box_Size = new uint[length];
             AutoLocs = new Vector2[length];
             AutoVel = new Vector2[length];
             Input = new BobInput[length];

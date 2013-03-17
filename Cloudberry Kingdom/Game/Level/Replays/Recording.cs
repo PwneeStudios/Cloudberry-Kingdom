@@ -136,6 +136,9 @@ namespace CloudberryKingdom.Levels
 					Vector2 size = Recordings[i].GetBoxSize(Step) / 2.0f;
                     BobQuad.Base.e1 = new Vector2(size.X, 0);
                     BobQuad.Base.e2 = new Vector2(0, size.Y);
+					float a = Bob.UnpackIntIntoVector_Angle(Recordings[i].Box_Size[Step]);
+					if (a != 0)
+						CoreMath.PointxAxisToAngle(ref BobQuad.Base, a);
                     BobQuad.Base.Origin = Recordings[i].GetBoxCenter(Step);
                     if (BobQuad.Base.Origin == Vector2.Zero) continue;
 
