@@ -60,7 +60,7 @@ info.ShiftStartBlock = new Vector2(300, 0);
 sprite_anim("door_cave", "door_cave", 1, 2, 2);
 info.Doors.Sprite.Sprite = "door_cave";
 info.Doors.Sprite.Size = new Vector2(500, -1);
-info.Doors.Sprite.Offset = new Vector2(-250, 135);
+info.Doors.Sprite.Offset = new Vector2(-250, 138f);
 info.Doors.ShiftStart = new Vector2(0, 190);
 info.Doors.SizePadding = new Vector2(25, 0);
 

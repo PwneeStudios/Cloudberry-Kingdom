@@ -52,7 +52,7 @@ namespace CloudberryKingdom.Levels
 
 
 
-        public bool Sparse, SuperSparse;
+        public bool CanBeSparse, SuperSparse;
 
         public BobInput[] Input;
         public int[] AutoJump;
@@ -124,6 +124,7 @@ namespace CloudberryKingdom.Levels
 
         public void ConvertToSuperSparse(int Step)
         {
+			if (!CanBeSparse) return;
 			if (SuperSparse) return;
 
             Input = null;
@@ -170,10 +171,10 @@ namespace CloudberryKingdom.Levels
             t = null;
         }
 
-        public void Init(int length) { Init(length, false); }
-        public void Init(int length, bool Sparse)
+        public void Init(int length) { Init(length, true); }
+        public void Init(int length, bool CanBeSparse)
         {
-            this.Sparse = Sparse;
+            this.CanBeSparse = CanBeSparse;
 
 			Box_BL = new uint[length];
 			Box_Size = new uint[length];
@@ -186,7 +187,7 @@ namespace CloudberryKingdom.Levels
 
             t = new int[length];
 
-            if (!Sparse)
+            if (!CanBeSparse)
             {                
                 AutoJump = new int[length];                
                 AutoOnGround = new bool[length];

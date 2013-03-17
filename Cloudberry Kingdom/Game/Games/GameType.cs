@@ -936,6 +936,12 @@ namespace CloudberryKingdom
 
         public virtual void GotCheckpoint(Bob CheckpointBob)
         {
+			// Don't let this last recording be sparse (since it is the 'real' bob)
+			for (int i = 0; i < MyLevel.CurrentRecording.Recordings.Length; i++)
+			{
+				MyLevel.CurrentRecording.Recordings[i].CanBeSparse = false;
+			}
+
             MyLevel.PieceAttempts = 0;
 
             foreach (Bob bob in MyLevel.Bobs)
