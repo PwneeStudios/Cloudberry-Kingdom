@@ -18,7 +18,7 @@ namespace CloudberryKingdom.Levels
         static void FillPool()
         {
             ComputerRecording record = new ComputerRecording();
-            record.Init(7000, false);
+			record.Init(7000, false);
             record.IsFromPool = true;
             Pool.Push(record);
         }
@@ -109,10 +109,7 @@ namespace CloudberryKingdom.Levels
 
         public int Gett(int Step)
         {
-            if (!SuperSparse)
-                return t[Step];
-            else
-                return t[Step / PareDivider];
+            return t[Step];
         }
 
         public Vector2 GetBoxCenter(int Step)
@@ -125,38 +122,37 @@ namespace CloudberryKingdom.Levels
 			return Bob.UnpackIntIntoVector_Size(Box_Size[Step]);
 		}
 
-        public T[] PareDown<T>(T[] SourceArray)
+        public void ConvertToSuperSparse(int Step)
         {
-            int n = SourceArray.Length;
-            int m = n / PareDivider;
-            T[] ParedArray = new T[m];
+			if (SuperSparse) return;
 
-            for (int i = 0; i < m; i++)
-                ParedArray[i] = SourceArray[i * PareDivider];
-
-            return ParedArray;
-        }
-
-        public void ConvertToSuperSparse()
-        {
             Input = null;
             AutoJump = null;
             AutoLocs = null;
             AutoVel = null;
             AutoOnGround = null;
 
-            if (!SuperSparse)
-            {
-				////BoxCenter = PareDown<Vector2>(BoxCenter);
-				////Alive = PareDown<bool>(Alive);
-				//t = PareDown<int>(t);
-				//Anim = PareDown<byte>(Anim);
+			uint[] _Box_BL   = new uint[Step + 1];
+			uint[] _Box_Size = new uint[Step + 1];
+			int[]  _t	     = new  int[Step + 1];
+			for (int i = 0; i < Step; i++)
+			{
+				_Box_BL[i]   = Box_BL[i];
+				_Box_Size[i] = Box_Size[i];
+				_t[i]		 = t[i];
+			}
+			_Box_BL[Step] = 0;
+			_Box_Size[Step] = 0;
+			_t[Step] = 0;
 
-				//SuperSparse = true;
-            }
+			Box_BL = _Box_BL;
+			Box_Size = _Box_Size;
+			t = _t;
+
+			SuperSparse = true;
         }
 
-        public void Release()
+		public void Release()
         {
             if (IsFromPool)
             {
@@ -179,8 +175,11 @@ namespace CloudberryKingdom.Levels
         {
             this.Sparse = Sparse;
 
-            Box_BL = new uint[length];
+			Box_BL = new uint[length];
 			Box_Size = new uint[length];
+			//Box_BL = new uint[200];
+			//Box_Size = new uint[200];
+
             AutoLocs = new Vector2[length];
             AutoVel = new Vector2[length];
             Input = new BobInput[length];

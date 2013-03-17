@@ -646,8 +646,11 @@ namespace CloudberryKingdom.Levels
 
             PrepareBundleToAddRecording();
 
-            if (CurrentRecording != null)
-                MySwarmBundle.CurrentSwarm.AddRecord(CurrentRecording, CurPhsxStep);
+			if (CurrentRecording != null)
+			{
+				CurrentRecording.ConvertToSuperSparse(CurPhsxStep);
+				MySwarmBundle.CurrentSwarm.AddRecord(CurrentRecording, CurPhsxStep);
+			}
 
             if (MySwarmBundle.CurrentSwarm.MyLevelPiece != CurPiece)
             {

@@ -53,14 +53,20 @@ namespace CloudberryKingdom
 
         public static int MandatoryWatchLength
         {
-            get 
-            {
+			get
+			{
+#if DEBUG
+				return 0;
+#elif PC_VERSION
                 if (UserPowers.CanSkipScreensaver)
                     return 0;
                 else
                     return MandatoryWatchLength_Initial;
-            }
-        }
+#else
+				return MandatoryWatchLength_Initial;
+#endif
+			}
+		}
         const int MandatoryWatchLength_Initial = 400;
 
         float InitialFadeInSpeed = .01f;

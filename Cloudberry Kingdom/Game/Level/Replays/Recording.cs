@@ -114,6 +114,8 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < NumBobs; i++)
             {
                 if (i >= level.Bobs.Count) continue;
+				if (Step > 2 && Step == Recordings[i].Box_BL.Length - 2) ParticleEffects.AddPop(level, Recordings[i].GetBoxCenter(Step - 2));
+				if (Step >= Recordings[i].Box_BL.Length) continue;
                 if (Step < Length - 1)
                 {
 					//if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -151,11 +153,11 @@ namespace CloudberryKingdom.Levels
             }
         }
 
-        public void ConvertToSuperSparse()
+        public void ConvertToSuperSparse(int Step)
         {
             for (int i = 0; i < Recordings.Length; i++)
             {
-                Recordings[i].ConvertToSuperSparse();
+                Recordings[i].ConvertToSuperSparse(this.Length);
             }
         }
 
@@ -193,12 +195,13 @@ namespace CloudberryKingdom.Levels
             {
                 if (i >= level.Bobs.Count) continue;
 
-				//Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].PlayerObject.t;
 				Recordings[i].t[level.CurPhsxStep] = level.Bobs[i].StoredRecordTexture;
-					
-                //Recordings[i].BoxCenter[level.CurPhsxStep] = level.Bobs[i].PlayerObject.BoxList[0].Center();
-				Recordings[i].Box_BL[level.CurPhsxStep] = level.Bobs[i].StoredRecord_BL;
-				Recordings[i].Box_Size[level.CurPhsxStep] = level.Bobs[i].StoredRecord_QuadSize;
+
+				if (level.CurPhsxStep < Recordings[i].Box_BL.Length)
+				{
+					Recordings[i].Box_BL[level.CurPhsxStep] = level.Bobs[i].StoredRecord_BL;
+					Recordings[i].Box_Size[level.CurPhsxStep] = level.Bobs[i].StoredRecord_QuadSize;
+				}
 
                 Recordings[i].AutoLocs[level.CurPhsxStep] = level.Bobs[i].Core.Data.Position;
                 Recordings[i].AutoVel[level.CurPhsxStep] = level.Bobs[i].Core.Data.Velocity;

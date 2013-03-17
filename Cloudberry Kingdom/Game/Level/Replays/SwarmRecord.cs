@@ -62,9 +62,9 @@ namespace CloudberryKingdom.Levels
                 DequeuedRecord.Release();
             }
 
-            foreach (Recording record in Records)
-                if (record != MainRecord)
-                    record.ConvertToSuperSparse();
+			//foreach (Recording record in Records)
+			//    if (record != MainRecord)
+			//        record.ConvertToSuperSparse(Step);
 
             Records.Enqueue(Record);
         }
