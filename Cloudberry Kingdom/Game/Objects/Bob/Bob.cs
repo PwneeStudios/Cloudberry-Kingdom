@@ -171,14 +171,14 @@ namespace CloudberryKingdom.Bobs
 
 		public static uint PackVectorIntoInt_Pos(Vector2 v)
 		{
-			v.X += 400;
+			v.X += 600;
 			v.Y += 1000;
 
 			uint x = (uint)(v.X * 4.0f) << 14;
 			uint y = (uint)(v.Y * 4.0f);
 			uint i = x + y;
 
-			Vector2 _v = UnpackIntIntoVector_Pos(i);
+			//Vector2 _v = UnpackIntIntoVector_Pos(i);
 
 			return i;
 		}
@@ -191,7 +191,7 @@ namespace CloudberryKingdom.Bobs
 			float x = (float)(_x) / 4.0f;
 			float y = (float)(_y) / 4.0f;
 
-			x -= 400;
+			x -= 600;
 			y -= 1000;
 			
 			return new Vector2(x, y);
@@ -211,8 +211,8 @@ namespace CloudberryKingdom.Bobs
 			uint a = ((uint)(angle * 32.0f) << 24) >> 24;
 			uint i = x + y + a;
 
-			Vector2 _v = UnpackIntIntoVector_Size(i);
-			float _a  = UnpackIntIntoVector_Angle(i);
+			//Vector2 _v = UnpackIntIntoVector_Size(i);
+			//float _a  = UnpackIntIntoVector_Angle(i);
 
 			return i;
 		}
