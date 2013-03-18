@@ -242,6 +242,8 @@ namespace CloudberryKingdom
         int HoldDesiredNumCheckpoints;
         void ShowCheckpoints(bool Show)
         {
+			Show = !NoCheckpoints_Rocketbox && !NoCheckpoints_WallLevel;
+
             if (Show)
             {
                 if (!checkpoints.Show)
@@ -252,10 +254,13 @@ namespace CloudberryKingdom
             }
             else
             {
-                HoldNumCheckpoints = checkpoints.Val;
-                HoldDesiredNumCheckpoints = DesiredNumCheckpoints;
-                checkpoints.Val = 0;
-                DesiredNumCheckpoints = 0;
+				if (checkpoints.Show)
+				{
+					HoldNumCheckpoints = checkpoints.Val;
+					HoldDesiredNumCheckpoints = DesiredNumCheckpoints;
+					checkpoints.Val = 0;
+					DesiredNumCheckpoints = 0;
+				}
             }
 
             checkpoints.Show = Show;
@@ -420,6 +425,8 @@ namespace CloudberryKingdom
                 GameList.Pos = new Vector2(117, 828f - 222f);
             GameList.OnIndexSelect = () =>
                 {
+					NoCheckpoints_WallLevel = false;
+
                     LevelSeed.MyGameFlags.SetToDefault();
                     LevelSeed.Masochistic = false;
 
@@ -447,6 +454,8 @@ namespace CloudberryKingdom
                     //}
                     else if (gamename == Localization.Words.WallLevel)
                     {
+						NoCheckpoints_WallLevel = true;
+
                         LevelSeed.MyGameType = NormalGameData.Factory;
                         LevelSeed.MyGeometry = LevelGeometry.Right;
                         SelectNormal();
@@ -707,6 +716,9 @@ if (ButtonCheck.ControllerInUse)
             StartLevelFromMenuData();
         }
 
+		static bool NoCheckpoints_Rocketbox = false;
+		static bool NoCheckpoints_WallLevel = false;
+
         private void HeroList_OnIndex()
         {
             DesiredHeroIndex = HeroList.ListIndex;
@@ -734,6 +746,20 @@ if (ButtonCheck.ControllerInUse)
 				case Localization.Language.German: HeroIcon.Pos = new Vector2(952.7809f, 525.0001f); break;
 				case Localization.Language.Chinese: HeroIcon.Pos = new Vector2(713.8889f, 383.3333f); break;
 				default: HeroIcon.Pos = new Vector2(1050.003f, 383.3334f); break;
+			}
+
+			if (checkpoints != null)
+			{
+				if (Hero == BobPhsxRocketbox.Instance)
+				{
+					NoCheckpoints_Rocketbox = true;
+					ShowCheckpoints(false);
+				}
+				else
+				{
+					NoCheckpoints_Rocketbox = false;
+					ShowCheckpoints(true);
+				}
 			}
         }
 
