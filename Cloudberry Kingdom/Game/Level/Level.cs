@@ -1184,23 +1184,27 @@ namespace CloudberryKingdom.Levels
             }
             set
             {
-                _UseLighting = value;
+				_UseLighting = false;
 
-                if (_UseLighting)
-                {
-                    if (LightRenderTarget == null)
-                        InitializeLighting();
-                }
-                else
-                {
-                    LightRenderTarget = null;
-                    LightTexture = null;
-                }
+				//_UseLighting = value;
+
+				//if (_UseLighting)
+				//{
+				//    if (LightRenderTarget == null)
+				//        InitializeLighting();
+				//}
+				//else
+				//{
+				//    LightRenderTarget = null;
+				//    LightTexture = null;
+				//}
             }
         }
 
         public void InitializeLighting()
         {
+			return;
+
             LightTexture = new EzTexture(); LightTexture.Name = "LightTexture";
 
             PresentationParameters pp = Tools.Device.PresentationParameters;

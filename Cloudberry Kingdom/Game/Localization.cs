@@ -705,6 +705,8 @@ PressStart_PS3,
 
 PressStart_WiiU,
 PressToJoin_WiiU,
+Press_WiiU,
+Press_PS3,
 
 EnumLength
         };

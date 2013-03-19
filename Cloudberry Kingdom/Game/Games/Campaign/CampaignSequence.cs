@@ -395,7 +395,7 @@ namespace CloudberryKingdom
                 if (player == null || !player.Exists) continue;
 
 				player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
-				player.CampaignIndex = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelIndex);
+				player.CampaignIndex = Math.Max(player.CampaignIndex, level.MyLevelSeed.LevelIndex);
 				player.Changed = true;
 			}
 		}

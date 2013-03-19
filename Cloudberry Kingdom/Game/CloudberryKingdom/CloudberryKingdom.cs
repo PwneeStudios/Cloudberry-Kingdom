@@ -1355,8 +1355,8 @@ public static void OfferToBuy(SignedInGamer gamer)
 
 			Camera cam = new Camera();
 			cam.SetVertexCamera();
-			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, "Version 0.9.7", new Vector2(1200, 870), Color.Black.ToVector4(),   new Vector2(.8f));
-			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, "Version 0.9.7", new Vector2(1200, 870), Color.SkyBlue.ToVector4(), new Vector2(.8f));
+			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, "Version 0.9.9", new Vector2(1200, 870), Color.Black.ToVector4(),   new Vector2(.8f));
+			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, "Version 0.9.9", new Vector2(1200, 870), Color.SkyBlue.ToVector4(), new Vector2(.8f));
 			Tools.QDrawer.Flush();
 		}
 
