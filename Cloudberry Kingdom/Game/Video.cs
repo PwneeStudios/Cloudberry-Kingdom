@@ -91,7 +91,7 @@ namespace CloudberryKingdom
             VPlayer.IsLooped = false;
             VPlayer.Play(CurrentVideo);
 
-            VPlayer.Volume = Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val);
+            VPlayer.Volume = CoreMath.Restrict(0, 1, Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val));
 
             Elapsed = 0;
             Duration = CurrentVideo.Duration.TotalSeconds;

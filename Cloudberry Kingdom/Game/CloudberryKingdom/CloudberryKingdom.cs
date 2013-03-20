@@ -36,6 +36,8 @@ namespace CloudberryKingdom
 
     public partial class CloudberryKingdomGame
     {
+        public const bool FinalRelease = true;
+
         /// <summary>
         /// The version of the game we are working on now (+1 over the last version uploaded to Steam).
         /// MajorVersion is 0 for beta, 1 for release.
@@ -45,7 +47,7 @@ namespace CloudberryKingdom
         public static Version GameVersion = new Version(0, 2, 4);
 
 
-		public static bool GodMode = true;
+        public static bool GodMode = !FinalRelease;
 		public static bool AsianButtonSwitch = false;
 
 #if PC_VERSION
@@ -215,9 +217,37 @@ namespace CloudberryKingdom
 
             if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
             {
-                Tools.Warning();
-                ulong offerID = 0;
-                GuideExtensions.ShowMarketplace(ShowFor, offerID);
+                //Tools.Warning();
+                //ulong offerID = 0;
+                //GuideExtensions.ShowMarketplace(ShowFor, offerID);
+
+                try
+                {
+                    SignedInGamer gamer = null;
+                    foreach (SignedInGamer _gamer in Gamer.SignedInGamers)
+                    {
+                        if (_gamer.PlayerIndex == ShowFor)
+                            gamer = _gamer;
+                    }
+
+                    if (gamer != null)
+                    {
+                        if (gamer.Privileges.AllowPurchaseContent)
+                        {
+                            //Guide.ShowMarketplace(ShowFor);
+                            //GuideExtensions.ShowMarketplace(ShowFor, 0); // Use 0 for the offer id. This should show all Cloudberry offers, which is just the main game, until DLC comes out.
+                            GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
+                        }
+                        else
+                        {
+                            CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Xbox_NoPermissionToBuy);
+                        }
+                    }
+                }
+                catch
+                {
+                    // Already shown.
+                }
             }
             else
             {
@@ -277,19 +307,25 @@ namespace CloudberryKingdom
 		static bool IsTrial = false;
 #endif
 
-        public static bool FakeDemo = false;
+		public static bool WasNotDemoOnce = false;
+        public static bool FakeDemo = false && !FinalRelease;
         public static bool IsDemo
         {
             get
             {
+				if (WasNotDemoOnce) return false;
 				if (FakeDemo) return true;
 
 #if XBOX
 				if (!GuideTrialStateRetrieved)
 					IsTrial = Guide.IsTrialMode;
 
+                if (!IsTrial)
+                    WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
+
 				return IsTrial;
 #else
+				WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
                 return false;
 #endif
             }
@@ -298,7 +334,7 @@ namespace CloudberryKingdom
 		public static int Freeplay_Max = 3;
 
 #if XBOX
-public static void OfferToBuy(SignedInGamer gamer)
+        public static void OfferToBuy(SignedInGamer gamer)
         {
             if (gamer.Privileges.AllowPurchaseContent)
             {
@@ -1347,6 +1383,7 @@ public static void OfferToBuy(SignedInGamer gamer)
 
 		void DrawWatermark()
 		{
+            if (FinalRelease) return;
 			if (Tools.QDrawer == null) return;
 			if (Resources.Font_Grobold42 == null) return;
 			if (Resources.Font_Grobold42.HFont == null) return;

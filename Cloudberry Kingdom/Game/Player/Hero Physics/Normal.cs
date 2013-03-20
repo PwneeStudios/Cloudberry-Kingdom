@@ -538,7 +538,7 @@ namespace CloudberryKingdom
                     {
                         if (ThrustSoundCount <= 0 && ThrustSound != null)
                         {
-                            ThrustSoundCount = ThrustSoundDelay;
+							ThrustSoundCount = ThrustSoundDelay + 3;// Tools.GlobalRnd.RndInt(-1, 2);
                             ThrustSound.PlayModulated(.02f);
                         }
                         ThrustSoundCount--;

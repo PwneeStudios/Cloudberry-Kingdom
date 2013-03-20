@@ -1,2 +1,0 @@
-Fixedsys Excelsior 2.00
-Size = 90

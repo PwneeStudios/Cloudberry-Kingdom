@@ -34,7 +34,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\XDK\Release</OutputPath>
-    <DefineConstants>TRACE;XDK;XBOX;XBOX360;NOT_PC;GAME</DefineConstants>
+    <DefineConstants>XDK;XBOX;XBOX360;NOT_PC;GAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>

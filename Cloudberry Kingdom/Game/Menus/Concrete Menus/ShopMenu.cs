@@ -102,6 +102,7 @@ namespace CloudberryKingdom
 
         void Yes(MenuItem item)
         {
+            CloudberryKingdomGame.ShowFor = (PlayerIndex)CoreMath.Restrict(0, 3, MenuItem.ActivatingPlayer);
             CloudberryKingdomGame.ShowMarketplace = true;
         }
 

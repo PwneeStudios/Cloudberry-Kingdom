@@ -708,6 +708,8 @@ PressToJoin_WiiU,
 Press_WiiU,
 Press_PS3,
 
+Xbox_NoPermissionToBuy,
+
 EnumLength
         };
     }

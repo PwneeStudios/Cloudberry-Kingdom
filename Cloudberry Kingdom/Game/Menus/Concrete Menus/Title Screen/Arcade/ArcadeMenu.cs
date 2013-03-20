@@ -13,6 +13,8 @@ namespace CloudberryKingdom
         public Awardment MyPrereq;
         public bool IsLocked()
         {
+            if (MyPrereq != null && CloudberryKingdomGame.IsDemo) return true;
+
             return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels;
         }
 

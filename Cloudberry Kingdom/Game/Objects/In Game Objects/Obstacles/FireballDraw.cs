@@ -202,8 +202,10 @@ namespace CloudberryKingdom.Obstacles
 
             device.SetRenderTarget(FlameRenderTarget);
             device.Clear(Color.Transparent);
-            float scalex = 175 * 1.05f;
-            float scaley = 175 * 1.05f;
+            //float scalex = 175 * 1.05f;
+            //float scaley = 175 * 1.05f;
+            float scalex = 190;
+            float scaley = 190;
 
             EzEffect fx = Tools.BasicEffect;;
 
