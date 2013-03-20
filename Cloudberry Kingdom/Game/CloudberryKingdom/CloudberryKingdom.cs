@@ -1368,6 +1368,11 @@ public static void OfferToBuy(SignedInGamer gamer)
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
+			//Tools.Warning();
+			//PlayerManager.Players[0].Exists = true;
+			//PlayerManager.Players[1].Exists = true;
+			//PlayerManager.Players[2].Exists = true;
+
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
 #endif

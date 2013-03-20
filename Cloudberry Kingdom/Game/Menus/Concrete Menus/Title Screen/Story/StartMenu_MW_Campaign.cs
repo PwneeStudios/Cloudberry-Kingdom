@@ -255,6 +255,8 @@ namespace CloudberryKingdom
 			//Call(new StartMenu_MW_Cinematics(Title));
 
             Go(c_item.Chapter);
+
+			ButtonCheck.PreLogIn = false;
         }
 
         int _StartLevel;

@@ -854,8 +854,8 @@ namespace CloudberryKingdom.Levels
                             new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
                             new Vector2(SafetyWidth, 500), 2 * SafetyWidth + ExtraSpace, Style.MyTopType);
             else if (CurMakeData.TopLikeBottom_Thin)
-                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 215 - Style.LowerSafetyNetOffset + 1000 + Style.UpperSafetyNetOffset),
-                            new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 65 - Style.LowerSafetyNetOffset + 1000),
+                Stage1SafetyNet(new Vector2(MaxLeft - 7500, MainCamera.TR.Y - VoidHeight - 415 - Style.LowerSafetyNetOffset + 1000 + Style.UpperSafetyNetOffset),
+                            new Vector2(MaxRight + 1500, MainCamera.TR.Y - VoidHeight - 565 - Style.LowerSafetyNetOffset + 1000),
                             new Vector2(100, 500), 2 * 150 + 50, Style.MyTopType);
 
             LastSafetyBlock = Stage1SafetyNet(new Vector2(MaxLeft, MainCamera.BL.Y + VoidHeight + 65 + Style.LowerSafetyNetOffset),

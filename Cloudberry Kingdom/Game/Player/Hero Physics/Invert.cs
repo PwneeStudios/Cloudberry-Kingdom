@@ -46,7 +46,8 @@ namespace CloudberryKingdom
                 normal.BobJumpAccel = 0;
                 normal.BobInitialJumpSpeed = 0;
                 normal.Gravity = 4;
-                normal.BobMaxFallSpeed = -30;
+				//normal.BobMaxFallSpeed = -30;
+				normal.BobMaxFallSpeed = -33;
             }
         }
 
@@ -78,8 +79,8 @@ namespace CloudberryKingdom
 
             // If we are falling (and not falling too fast already),
             // accelerate if the player is pressing (A).
-            if (!OnGround && MyBob.CurInput.A_Button && AirTime > 7 && DynamicGreaterThan(yVel, BobMaxFallSpeed * 2))
-                yVel -= Gravity;
+			//if (!OnGround && MyBob.CurInput.A_Button && AirTime > 7 && DynamicGreaterThan(yVel, BobMaxFallSpeed * 2))
+			//    yVel -= Gravity;
         }
 
         public override void UpdateReadyToJump()
@@ -122,10 +123,15 @@ namespace CloudberryKingdom
 
         public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            if (Gravity < 0)
-                base.HitHeadOnSomething(ThingLandedOn);
-            else
-                base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
+			if (Gravity < 0)
+				base.HitHeadOnSomething(ThingLandedOn);
+			else
+			{
+				if (ThingLandedOn is Obstacles.FlyingBlob)
+					MyBob.Count_ButtonA = 0;
+
+				base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
+			}
         }
 
         public override void HitHeadOnSomething(ObjectBase ThingHit)

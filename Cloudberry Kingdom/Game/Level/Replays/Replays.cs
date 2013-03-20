@@ -47,7 +47,7 @@ namespace CloudberryKingdom.Levels
 
                 //Bob Comp = new Bob(Prototypes.bob[DefaultHeroType], false);
                 Bob Comp = new Bob(DefaultHeroType, false);
-                Comp.SetColorScheme(PlayerManager.Get(i).ColorScheme);
+                Comp.SetColorScheme(PlayerManager.Get(NumBobs - i - 1).ColorScheme);
 
                 //Comp.MyRecord = CurrentRecording.Recordings[i];
                 Comp.MyRecord = MySwarmBundle.CurrentSwarm.MainRecord.Recordings[i];
