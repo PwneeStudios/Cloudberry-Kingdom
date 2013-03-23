@@ -18,6 +18,12 @@ namespace CloudberryKingdom
             {
                 Awardments.CheckForAward_Save();
 
+				// Prevent strings from being too long
+				if (name.Length > 36)
+				{
+					name = name.Substring(0, 36);
+				}
+
                 SeedStrings.Add(seed + "name:" + name + ";");
                 SaveGroup.SaveAll();
             }

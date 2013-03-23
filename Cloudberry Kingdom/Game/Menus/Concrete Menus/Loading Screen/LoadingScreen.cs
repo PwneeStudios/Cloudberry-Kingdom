@@ -115,7 +115,8 @@ namespace CloudberryKingdom
         int MinLoading;
 		
 		int DrawCount = 0;
-		const int DrawCount_Max = 60 * 60 - 300; // 60 seconds, minus fade time and safety margin
+        //const int DrawCount_Max = 60 * 60 - 300; // 60 seconds, minus fade time and safety margin
+        const int DrawCount_Max = 60 * 11 - 90; // 11 seconds, minus fade time and safety margin. 11 seconds = 30 seconds (total allowed) - 9 seconds (screen saver)
 
 
         public void Start()

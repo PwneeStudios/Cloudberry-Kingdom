@@ -235,10 +235,12 @@ namespace CloudberryKingdom
                     scores[i] = copy;                    
                 }
             }
-            Leaderboard.WriteToLeaderboard(scores);
 
-            //Leaderboard.WriteToLeaderboard(HighScoreEntry);
-            //Leaderboard.WriteToLeaderboard(HighLevelEntry);
+			// Write to Leaderboard if not in trial mode
+			if (!CloudberryKingdomGame.IsDemo)
+			{
+				Leaderboard.WriteToLeaderboard(scores);
+			}
 
             ArcadeMenu.CheckForArcadeUnlocks(HighScoreEntry);
 

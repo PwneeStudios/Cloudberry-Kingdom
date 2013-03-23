@@ -37,6 +37,7 @@ namespace CloudberryKingdom
     public partial class CloudberryKingdomGame
     {
         public const bool FinalRelease = true;
+        public const bool PropTest = false;
 
         /// <summary>
         /// The version of the game we are working on now (+1 over the last version uploaded to Steam).
@@ -69,7 +70,7 @@ namespace CloudberryKingdom
 		public static bool FakeAwardments = false;
 		public static float GuiSqueeze = 0;
 #elif XBOX
-		public static bool HideLogos = false;
+        public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = false;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
@@ -215,7 +216,7 @@ namespace CloudberryKingdom
 #if XDK
             ShowMarketplace = false;
 
-            if (CloudberryKingdomGame.OnlineFunctionalityAvailable())
+            if (CloudberryKingdomGame.OnlineFunctionalityAvailable(ShowFor))
             {
                 //Tools.Warning();
                 //ulong offerID = 0;
@@ -234,8 +235,6 @@ namespace CloudberryKingdom
                     {
                         if (gamer.Privileges.AllowPurchaseContent)
                         {
-                            //Guide.ShowMarketplace(ShowFor);
-                            //GuideExtensions.ShowMarketplace(ShowFor, 0); // Use 0 for the offer id. This should show all Cloudberry offers, which is just the main game, until DLC comes out.
                             GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
                         }
                         else
@@ -251,7 +250,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+                //CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
+                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToLive);
             }
 #endif
 		}
@@ -303,7 +303,6 @@ namespace CloudberryKingdom
 		}
 
 #if XBOX
-		static bool GuideTrialStateRetrieved = false;
 		static bool IsTrial = false;
 #endif
 
@@ -317,8 +316,7 @@ namespace CloudberryKingdom
 				if (FakeDemo) return true;
 
 #if XBOX
-				if (!GuideTrialStateRetrieved)
-					IsTrial = Guide.IsTrialMode;
+				IsTrial = Guide.IsTrialMode;
 
                 if (!IsTrial)
                     WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
@@ -719,6 +717,10 @@ namespace CloudberryKingdom
                 CharacterSelectManager.SuddenCleanup();
 
                 Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                if (Tools.CurrentLoadingScreen != null)
+                {
+                    Tools.EndLoadingScreen();
+                }
             }
         }
 
@@ -828,6 +830,30 @@ namespace CloudberryKingdom
 
 
             HookSignInAndOut();
+
+            // Initialize the Gamepads
+            Tools.GamepadState = new GamePadState[4];
+            Tools.PrevGamepadState = new GamePadState[4];
+
+            // Fireball texture
+            Fireball.PreInit();
+
+            // Set textures to be transparent until loaded.
+            for (int i = 0; i < Tools.TextureWad.TextureList.Count; i++)
+            {
+                var tex = Tools.TextureWad.TextureList[i];
+
+                if (CloudberryKingdomGame.PropTest)
+                {
+                    tex.Tex = Tools.TextureWad.DefaultTexture.Tex;
+                }
+                else
+                {
+                    tex.Tex = Tools.Transparent.Tex;
+                }
+
+                Resources.ResourceLoadedCountRef.Val++;
+            }
 
             // Load resource thread
             Resources.LoadResources();
@@ -967,6 +993,16 @@ namespace CloudberryKingdom
                         bob.Die(Bob.BobDeathType.Other, true, false);
                     }
                 }
+            }
+
+            // Turn on/off trial.
+#if PC
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.D) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D))
+#else
+            if (ButtonCheck.State(ControllerButtons.RJ, -2).Down && ButtonCheck.State(ControllerButtons.LS, -2).Pressed)
+#endif
+            {
+                FakeDemo = !FakeDemo;
             }
 
             // Turn on/off flying.
@@ -1231,6 +1267,8 @@ namespace CloudberryKingdom
         {
 #if PC_VERSION
 #else
+			if (CloudberryKingdomGame.IsDemo) return;
+			
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, Localization.Words.Err_MustBeSignedInToLiveForLeaderboards, Localization.Words.Err_Ok, null);
 #endif
         }

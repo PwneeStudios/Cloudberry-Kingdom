@@ -1662,7 +1662,7 @@ namespace CloudberryKingdom.Bobs
             Vector2 vel = MyPhsx.ApparentVelocity;
             MyCape.AnchorPoint[0] = temp.Pos + (vel);
 
-            //Console.WriteLine("{0} {1} {2}", Core.Data.Position, MyCape.AnchorPoint[0], MyCape.AnchorPoint[1]);
+            //Tools.Write("{0} {1} {2}", Core.Data.Position, MyCape.AnchorPoint[0], MyCape.AnchorPoint[1]);
 
             if (Core.MyLevel != null)
             {

@@ -252,7 +252,7 @@ namespace CloudberryKingdom
         {
             base.PhsxStep();
 
-            //Console.WriteLine("{0}  {1}", Pos, Vel);
+            //Tools.Write("{0}  {1}", Pos, Vel);
 
             if (NoStickPeriod > 0)
                 NoStickPeriod--;

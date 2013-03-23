@@ -27,7 +27,7 @@ namespace CloudberryKingdom
         public float AngryMaxSpeed;
 
         public int StartLife, Life;
-        //public int StartLife { get { return _StartLife; } set { _StartLife = value; if (value > 20) Console.WriteLine("!");  } }
+        //public int StartLife { get { return _StartLife; } set { _StartLife = value; if (value > 20) Tools.Write("!");  } }
 
         FallingBlockState State;
         bool EmittedExplosion;

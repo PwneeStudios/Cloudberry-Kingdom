@@ -68,8 +68,7 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            return;
-            //base.MyDraw();
+            base.MyDraw();
         }
 
 		void SetPos()

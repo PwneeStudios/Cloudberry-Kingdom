@@ -402,7 +402,7 @@ namespace CloudberryKingdom.Levels
                 PhsxStep(true);
             }
             //int t4 = System.Environment.TickCount;
-            //Console.WriteLine("Stage 2 finished at {0}, Time = {1}", CurPhsxStep, t4 - t3);
+            //Tools.Write("Stage 2 finished at {0}, Time = {1}", CurPhsxStep, t4 - t3);
 
             OverlapCleanup();
             CleanAllObjectLists();

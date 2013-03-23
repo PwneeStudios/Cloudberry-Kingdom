@@ -90,22 +90,22 @@ namespace CloudberryKingdom
 
             Tools.Write("Textures done...");
 
-            //Console.WriteLine("Pre load       {0}", PreLoad);
-            Console.WriteLine("Load Bob       {0}", LoadBob);
-            Console.WriteLine("Load enviros   {0}", LoadEnviros);
-            Console.WriteLine("Load effects   {0}", LoadEffects);
-            Console.WriteLine("Load menus     {0}", LoadMenus);
-            Console.WriteLine("Load rest      {0}", LoadRest);
-            Console.WriteLine("Load tiles     {0}", Tiles);
-            Console.WriteLine("Load particles {0}", Particle);
-            Console.WriteLine("Load players   {0}", Players);
-            Console.WriteLine("Load saves     {0}", LoadSaves);
-            Console.WriteLine("Load Protos    {0}", Protos);
-            Console.WriteLine("Load Icons     {0}", Icons);
-            Console.WriteLine("Load Small     {0}", GamePads);
-            Console.WriteLine("-----------------------", GamePads);
-            Console.WriteLine("Total          {0}", Total);
-            Console.WriteLine("");
+            //Tools.Write("Pre load       {0}", PreLoad);
+            Tools.Write("Load Bob       {0}", LoadBob);
+            Tools.Write("Load enviros   {0}", LoadEnviros);
+            Tools.Write("Load effects   {0}", LoadEffects);
+            Tools.Write("Load menus     {0}", LoadMenus);
+            Tools.Write("Load rest      {0}", LoadRest);
+            Tools.Write("Load tiles     {0}", Tiles);
+            Tools.Write("Load particles {0}", Particle);
+            Tools.Write("Load players   {0}", Players);
+            Tools.Write("Load saves     {0}", LoadSaves);
+            Tools.Write("Load Protos    {0}", Protos);
+            Tools.Write("Load Icons     {0}", Icons);
+            Tools.Write("Load Small     {0}", GamePads);
+            Tools.Write("-----------------------", GamePads);
+            Tools.Write("Total          {0}", Total);
+            Tools.Write("");
 			 */
         }
 
@@ -136,7 +136,7 @@ namespace CloudberryKingdom
 
         private static void BenchmarkLoadSize()
         {
-            Console.WriteLine(Tools.GameClass.Content.RootDirectory);
+            Tools.Write(Tools.GameClass.Content.RootDirectory);
 
             Tools.GameClass.Content.Load<Texture>("Art\\Environments\\Snow");
 
@@ -163,9 +163,9 @@ namespace CloudberryKingdom
             }
             big = Stop();
 
-            Console.WriteLine("big took {0}", big);
-            Console.WriteLine("small took {0}", small);
-            Console.WriteLine("");
+            Tools.Write("big took {0}", big);
+            Tools.Write("small took {0}", small);
+            Tools.Write("");
         }
     }
 }

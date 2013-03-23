@@ -107,7 +107,7 @@ namespace CloudberryKingdom.Levels
             {
                 PhsxStep(true);
             }
-            Console.WriteLine("Stage 2 finished at " + CurPhsxStep.ToString());
+            Tools.Write("Stage 2 finished at " + CurPhsxStep.ToString());
             RecordPosition = false;
 
             // Cleanup

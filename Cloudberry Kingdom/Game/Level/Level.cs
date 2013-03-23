@@ -1682,7 +1682,7 @@ namespace CloudberryKingdom.Levels
                                     //bob.Core.Data.Position = a;
                                     bob.Move(a - bob.Core.Data.Position);
                                     bob.Core.Data.Velocity = bob.MyPiece.Recording[i].AutoVel[index];
-                                    //Console.WriteLine("Bob[{0}]---> {1}/{2}:  {3}, {4}, {5}, {6}", Bobs.IndexOf(bob), GetPhsxStep(), bob.MyPiece.PieceLength, a, b, A, B);
+                                    //Tools.Write("Bob[{0}]---> {1}/{2}:  {3}, {4}, {5}, {6}", Bobs.IndexOf(bob), GetPhsxStep(), bob.MyPiece.PieceLength, a, b, A, B);
                                 }
                             }
                         }

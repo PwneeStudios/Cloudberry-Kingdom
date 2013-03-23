@@ -97,7 +97,7 @@ namespace CloudberryKingdom.Levels
             }
             int LastStep = CurPhsxStep;
 
-            Console.WriteLine("Stage 1 finished at " + LastStep.ToString());
+            Tools.Write("Stage 1 finished at " + LastStep.ToString());
 
             // Update the level's par time
             CurPiece.Par = LastStep;
@@ -155,7 +155,7 @@ namespace CloudberryKingdom.Levels
             {
                 PhsxStep(true);
             }
-            Console.WriteLine("Stage 2 finished at " + CurPhsxStep.ToString());
+            Tools.Write("Stage 2 finished at " + CurPhsxStep.ToString());
 
             OverlapCleanup();
             CleanAllObjectLists();

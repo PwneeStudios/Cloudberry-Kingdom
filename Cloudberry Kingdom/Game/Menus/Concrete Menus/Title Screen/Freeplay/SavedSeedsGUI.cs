@@ -449,6 +449,8 @@ else
 						StartLevel(_seed);
 				};
                 AddItem(seeditem);
+				float w = seeditem.MyText.GetWorldWidth();
+				if (w > 1900) seeditem.ScaleText(1900.0f / w);
             }
         }
 

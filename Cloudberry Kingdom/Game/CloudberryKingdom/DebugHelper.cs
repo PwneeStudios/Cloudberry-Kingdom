@@ -282,7 +282,7 @@ namespace CloudberryKingdom
             //if (VPlayer1 != null)
             //{
             //    str = VPlayer1.PlayPosition.Ticks.ToString();
-            //    //Console.WriteLine(str);
+            //    //Tools.Write(str);
             //}
 
 

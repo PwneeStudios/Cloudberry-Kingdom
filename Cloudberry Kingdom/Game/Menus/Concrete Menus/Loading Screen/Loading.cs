@@ -138,7 +138,7 @@ namespace CloudberryKingdom
         ProgressBar MyProgressBar;
 
         int LogoCount = 0;
-		int LogoCount_Max = 60 * 5 - 50; // 5 seconds, minus 50 frames to fade out
+		int LogoCount_Max = 60 * 5 - 50 - 93; // 5 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
         WrappedFloat ResourceCount;
 
         QuadClass BlackQuad, Splash;

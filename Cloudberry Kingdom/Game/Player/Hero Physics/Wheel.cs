@@ -116,7 +116,7 @@ namespace CloudberryKingdom
                 MyBob.Core.Data.Velocity.X += 1f * (DesiredSpeed - MyBob.Core.Data.Velocity.X);
             }
 
-            //Console.WriteLine("angle speed {0}, max {1}", AngleSpeed, MaxAngleSpeed);
+            //Tools.Write("angle speed {0}, max {1}", AngleSpeed, MaxAngleSpeed);
         }
 
         float AngleToDist(float Angle)

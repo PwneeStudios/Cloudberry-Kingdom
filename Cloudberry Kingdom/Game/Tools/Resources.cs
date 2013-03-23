@@ -365,7 +365,7 @@ namespace CloudberryKingdom
             
             Tools.Write("ArtMusic done...");
 
-            Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
+            Tools.Write("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
 
             // Note that we are done loading.
             LoadingResources.MyBool = false;
@@ -383,22 +383,6 @@ namespace CloudberryKingdom
 			//Thread.SpinWait(100);
 
             Tools.Write("Start");
-
-            // Initialize the Gamepads
-            Tools.GamepadState = new GamePadState[4];
-            Tools.PrevGamepadState = new GamePadState[4];
-
-            // Fireball texture
-            Fireball.PreInit();
-
-            // Set textures to be transparent until loaded.
-			for (int i = 0; i < Tools.TextureWad.TextureList.Count; i++)
-			{
-				var tex = Tools.TextureWad.TextureList[i];
-				tex.Tex = Tools.Transparent.Tex;
-
-                Resources.ResourceLoadedCountRef.Val++;
-			}
 
 			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
 			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
@@ -444,7 +428,7 @@ namespace CloudberryKingdom
             Prototypes.LoadObjects();
             ObjectIcon.InitIcons();
 
-            Console.WriteLine("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
+            Tools.Write("Total resources: {0}", ResourceLoadedCountRef.MyFloat);
 
             // Note that we are done loading.
             LoadingResources.MyBool = false;
@@ -452,35 +436,26 @@ namespace CloudberryKingdom
 
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
 
-
-			//Thread.Sleep(20000);
-			//Tools.Write("Sleeping done!");
-
-
-			// Load art
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Environments");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Coins");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Bob");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Title");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Buttons");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "HeroItems");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Level");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Menu");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Characters");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Old_Art_Holdover");
-			//Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "LoadScreen_Initial");
-			////Tools.TextureWad.LoadFolder_Real(Tools.GameClass.Content, "Effects");
-
 			Texture2D transparent = Tools.Transparent.Tex;
 
+            if (CloudberryKingdomGame.PropTest)
+            {
+                FinalLoadDone = true;
+                return;
+            }
+
+            int count = 0;
 			foreach (EzTexture Tex in Tools.TextureWad.TextureList)
 			{
 				// If texture hasn't been loaded yet, load it
 				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
 				{
 					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
+                    count++;
 
-					//Thread.Sleep(50);
+                    if (count > 500)
+                        FinalLoadDone = true;
+                    //Thread.Sleep(50);
 				}
 			}
 

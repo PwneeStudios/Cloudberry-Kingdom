@@ -127,7 +127,7 @@ namespace CloudberryKingdom
             {
                 float n = Vector2.Dot(p1 - LC1, t1);
                 if (n > 0 && n < Length)
-                    //Console.WriteLine("!!!!!!!!!!!!!!!");
+                    //Tools.Write("!!!!!!!!!!!!!!!");
                     return true;
             }
 

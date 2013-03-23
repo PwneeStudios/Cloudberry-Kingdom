@@ -101,7 +101,7 @@ namespace CloudberryKingdom
                 else
                 {
 //                    if (FullObject.Contains(obj))
-  //                      Console.WriteLine("@@@@@@ Double recyled!");
+  //                      Tools.Write("@@@@@@ Double recyled!");
                     FullObject.Push(obj);
                 }
             }

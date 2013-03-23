@@ -452,13 +452,13 @@ namespace CloudberryKingdom
 public static void Break()
 {
 #if DEBUG
-    Console.WriteLine("!");
+	Console.WriteLine("!");
 #endif
 }
 public static void Write(object obj)
 {
 #if DEBUG
-    Console.WriteLine("{0}", obj);
+	Console.WriteLine("{0}", obj);
 #endif
 }
 public static void Write(string str, params object[] objs)
@@ -466,7 +466,7 @@ public static void Write(string str, params object[] objs)
 #if DEBUG
 #if WINDOWS
     if (objs.Length == 0) Console.WriteLine(str);
-    else Console.WriteLine(str, objs);
+	else Console.WriteLine(str, objs);
 #else
     if (objs.Length == 0) System.Diagnostics.Debug.WriteLine(str);
     else System.Diagnostics.Debug.WriteLine(str, objs);

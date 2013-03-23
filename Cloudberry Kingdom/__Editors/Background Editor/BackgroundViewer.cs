@@ -1146,7 +1146,7 @@ namespace CloudberryKingdom.Viewer
                     if (Math.Abs(BL_to_TR.X) < epsilon) f.Move(new Vector2(BL_to_TR.X, 0));
                     if (Math.Abs(BL_to_TR.Y) < epsilon) f.Move(new Vector2(0, BL_to_TR.Y));
 
-                    Console.WriteLine("!" + Math.Abs(TR_to_BL.X));
+                    Tools.Write("!" + Math.Abs(TR_to_BL.X));
                 }
             }
         }
