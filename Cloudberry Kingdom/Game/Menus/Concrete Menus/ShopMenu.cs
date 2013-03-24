@@ -101,7 +101,10 @@ namespace CloudberryKingdom
 
         void Yes(MenuItem item)
         {
-            CloudberryKingdomGame.ShowFor = (PlayerIndex)CoreMath.Restrict(0, 3, MenuItem.ActivatingPlayer);
+#if XBOX
+			CloudberryKingdomGame.ShowFor = (PlayerIndex)CoreMath.Restrict(0, 3, MenuItem.ActivatingPlayer);
+#else
+#endif
             CloudberryKingdomGame.ShowMarketplace = true;
         }
 

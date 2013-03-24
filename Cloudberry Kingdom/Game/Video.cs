@@ -52,7 +52,8 @@ namespace CloudberryKingdom
             CanSkipVideo = true;
 #endif
 
-            Subtitles = Localization.GetSubtitles(MovieName);
+            if (Localization.CurrentLanguage != null)
+                Subtitles = Localization.GetSubtitles(MovieName);
 
             if (Subtitles != null)
             {
@@ -84,7 +85,6 @@ namespace CloudberryKingdom
             Playing = true;
             Cleaned = false;
 
-            //CurrentVideo = Tools.GameClass.Content.Load<Video>(Path.Combine("Movies", MovieName));
             CurrentVideo = Content.Load<Video>(Path.Combine("Movies", MovieName));
 
             VPlayer = new VideoPlayer();
@@ -186,7 +186,10 @@ namespace CloudberryKingdom
             UserInput();
 
             if (Elapsed > Duration)
+            {
                 Playing = false;
+                return true;
+            }
 
             VEZTexture.Tex = VPlayer.GetTexture();
             VEZTexture.Width = VEZTexture.Tex.Width;

@@ -413,16 +413,30 @@ namespace EasyStorage
 			//get the storage device
 			storageDevice = StorageDevice.EndShowSelector(result);
 
+            bool invalid = true;
+
 			// if we got a valid device, fire off the DeviceSelected event so
 			// that the game knows we have a device
 			if (storageDevice != null && storageDevice.IsConnected)
 			{
-				if (DeviceSelected != null)
-					DeviceSelected(this, null);
+                invalid = false;
+
+                if (DeviceSelected != null)
+                {
+                    try
+                    {
+                        DeviceSelected(this, null);
+                    }
+                    catch
+                    {
+                        invalid = true;
+                    }
+                }
 			}
 
 			// if we don't have a valid device
-			else
+			//else
+            if (invalid)
 			{
 				// prepare our event arguments for use
 				PrepareEventArgs(eventArgs);

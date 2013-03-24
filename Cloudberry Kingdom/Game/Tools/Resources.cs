@@ -274,10 +274,6 @@ namespace CloudberryKingdom
             LoadingResources = new WrappedBool(false);
             LoadingResources.MyBool = true;
 
-            // Localization
-            Localization.Language default_language = Localization.IsoCodeToLanguage(CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-            Localization.SetLanguage(default_language);
-
             // Fonts
             FontLoad();
 
@@ -378,6 +374,7 @@ namespace CloudberryKingdom
         {
             var Ck = Tools.TheGame;
 
+            Thread.CurrentThread.Priority = ThreadPriority.Lowest;
             Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
 
 			//Thread.SpinWait(100);
@@ -455,7 +452,8 @@ namespace CloudberryKingdom
 
                     if (count > 500)
                         FinalLoadDone = true;
-                    //Thread.Sleep(50);
+                    
+                    Thread.Sleep(1);
 				}
 			}
 

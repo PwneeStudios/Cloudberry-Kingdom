@@ -769,9 +769,6 @@ namespace CloudberryKingdom
 
         public void LoadContent()
         {
-            //BenchmarkLoadSize();
-            //Tools.Warning();
-
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
 
 			AdditiveColor_NormalAlpha = new BlendState();
@@ -781,7 +778,6 @@ namespace CloudberryKingdom
 			AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
 			AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
 			AdditiveColor_NormalAlpha.AlphaSourceBlend = Blend.One;
-
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
 
@@ -805,35 +801,44 @@ namespace CloudberryKingdom
 
             MainCamera.Update();
 
+			Tools.EasyThread(5, "PreLoad", Preload);
+		}
+
+		void Preload()
+		{
+            //Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
+
+			// Initialize the Gamepads
+			Tools.GamepadState = new GamePadState[4];
+			Tools.PrevGamepadState = new GamePadState[4];
+
+			// Initialize players
+			PlayerManager.Init();
+
+			// Load saved files
+			Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+			SaveGroup.Initialize();
+
+			StartLogoSalad();
+
+            // Localization
+            Localization.Language default_language = Localization.IsoCodeToLanguage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Localization.SetLanguage(default_language);
+
             // Pre load. This happens before anything appears.
             Resources.LoadAssets(true);
 
-            // Initialize players
-            PlayerManager.Init();
+			// Create the initial loading screen
+			LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
 
             // Initialize heroes
             BobPhsx.CustomPhsxData.InitStatic();
 
-            // Load saved files
-            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-            SaveGroup.Initialize();
 
-            // Benchmarking and preprocessing
-            //PreprocessArt();
-            //BenchmarkAll();
-            //Tools.Warning(); return;
-
-            //_LoadThread(); return;
-
-            // Create the initial loading screen
-            LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
-
+            //Tools.Warning();
+            //Thread.Sleep(5000);
 
             HookSignInAndOut();
-
-            // Initialize the Gamepads
-            Tools.GamepadState = new GamePadState[4];
-            Tools.PrevGamepadState = new GamePadState[4];
 
             // Fireball texture
             Fireball.PreInit();
@@ -857,13 +862,12 @@ namespace CloudberryKingdom
 
             // Load resource thread
             Resources.LoadResources();
+        }
 
-#if WINDOWS
-            Thread.Sleep(2);
-#endif
-
-            if (!HideLogos)
-            {
+		private void StartLogoSalad()
+		{
+			if (!HideLogos)
+			{
 #if XDK
                 if (IsDemo && GuideExtensions.ConsoleRegion == ConsoleRegion.NorthAmerica)
                 {
@@ -876,8 +880,12 @@ namespace CloudberryKingdom
 #else
 				MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
 #endif
-            }
-        }
+			}
+
+			PreloadDone = true;
+		}
+
+		public static bool PreloadDone = false;
 
         void HookSignInAndOut()
         {
@@ -1454,8 +1462,16 @@ namespace CloudberryKingdom
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
 
             // Accelerate asset loading
-            if (LogoScreenUp)
-                Resources.LoadThread.Join(1);
+            //if (LogoScreenUp)
+            //{
+            //    if (Resources.LoadThread != null)
+            //    {
+            //        Resources.LoadThread.Join(1);
+            //    }
+            //}
+
+			// Stop now if the initial preload (and logosalad) hasn't started yet.
+			if (!PreloadDone) { SetupToRender(); return; }
 
             // Prepare to draw
             Tools.DrawCount++;
@@ -1463,6 +1479,9 @@ namespace CloudberryKingdom
 
             // Main Video
 			if (MainVideo.Draw()) { DrawWatermark(); return; }
+
+            // Do not proceed if players do not exist yet.
+            if (PlayerManager.Players == null) return;
 
             // Fps
             UpdateFps(gameTime);
@@ -1510,7 +1529,10 @@ namespace CloudberryKingdom
 
             // What to do
             if (LogoScreenUp)
+            {
+                if (LoadingScreen == null) return;
                 LogoPhsx();
+            }
             else if (LogoScreenPropUp)
                 LoadingScreen.PhsxStep();
             if (!LogoScreenUp && !Tools.CurGameData.Loading)

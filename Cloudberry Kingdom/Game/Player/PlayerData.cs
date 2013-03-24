@@ -180,8 +180,8 @@ namespace CloudberryKingdom
                 case 84003:
                     int _language = chunk.ReadInt();
                     Localization.Language language = (Localization.Language)_language;
-                    //Localization.SetLanguage(language);
-                    Tools.AddToDo(() => Localization.SetLanguage(language));
+					// This sets the language upon load, which causes a lot of confusion.
+                    //Tools.AddToDo(() => Localization.SetLanguage(language));
                     break;
 			}
 		}

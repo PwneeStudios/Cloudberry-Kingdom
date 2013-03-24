@@ -285,10 +285,21 @@ namespace CloudberryKingdom.Stats
 
             Text.Pos = name_pos[n][index];
 
-            if (n == 1) Text.Scale *= .65f;
-            else if (n == 2) Text.Scale *= .5f;
-            else if (n == 3) Text.Scale *= .4f;
-            else Text.Scale *= .4f;
+			//if (n == 1) Text.Scale *= .65f;
+			//else if (n == 2) Text.Scale *= .5f;
+			//else if (n == 3) Text.Scale *= .4f;
+			//else Text.Scale *= .4f;
+
+			float MaxWidth = 100;
+			if (n == 1) MaxWidth = 900;
+			else if (n == 2) MaxWidth = 700;
+			else if (n == 3) MaxWidth = 700;
+			else MaxWidth = 600;
+
+			float w = Text.GetWorldWidth();
+			if (w > MaxWidth)
+				Text.Scale *= MaxWidth / w;
+
             return Text;
         }
 
