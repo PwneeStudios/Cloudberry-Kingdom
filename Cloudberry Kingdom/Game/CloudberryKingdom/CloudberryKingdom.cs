@@ -101,9 +101,45 @@ namespace CloudberryKingdom
 #endif
 
 
+        public static EzText SavingText = null;
+        public static int ShowSavingDuration = 0;
+        const int ShowSavingLength = 80;
 
+        public static void ShowSaving()
+        {
+            //if (PlayerManager.GetNumPlayers() > 2)
+            {
+                ShowSavingDuration = ShowSavingLength;
 
+				SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
+				SavingText.FixedToCamera = true;
+				SavingText.Pos = new Vector2(1150, -750);
+				SavingText.Scale = .4f;
+				StartMenu.SetTextSelected_Red(SavingText);
+            }
+        }
 
+        void DrawSavingText()
+        {
+            if (ShowSavingDuration > 0)
+            {
+                ShowSavingDuration--;
+
+                if (Tools.CurCamera != null)
+                {
+					const float FadeInLength = 6;
+					const float FadeOutLength = 9;
+
+                    if (ShowSavingDuration < FadeOutLength)
+						SavingText.Alpha = 1f - (FadeOutLength - ShowSavingDuration) / FadeOutLength;
+					else if (ShowSavingDuration > ShowSavingLength - FadeInLength)
+						SavingText.Alpha = 1f - (FadeInLength - (ShowSavingLength - ShowSavingDuration)) / FadeInLength;
+
+                    SavingText.Draw(Tools.CurCamera);
+					Tools.QDrawer.Flush();
+                }
+            }
+        }
 
 
 
@@ -1583,6 +1619,7 @@ namespace CloudberryKingdom
 #endif
 
 			DrawWatermark();
+			DrawSavingText();
         }
 
         /// <summary>

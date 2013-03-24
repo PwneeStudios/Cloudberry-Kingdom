@@ -453,7 +453,8 @@ namespace CloudberryKingdom
                     if (count > 500)
                         FinalLoadDone = true;
                     
-                    Thread.Sleep(1);
+					//Thread.Sleep(1);
+					//Thread.Sleep(50);
 				}
 			}
 

@@ -709,6 +709,9 @@ Press_WiiU,
 Press_PS3,
 
 Xbox_NoPermissionToBuy,
+Err_Xbox_MustBeSignedInToLiveToPlay,
+
+Saving,
 
 EnumLength
         };
