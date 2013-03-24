@@ -548,6 +548,8 @@ namespace CloudberryKingdom
  
             // Fill the pools
             ComputerRecording.InitPool();
+
+            EzStorage.StartAsyncUpdate();
         }
 
         public void InitialResolution()

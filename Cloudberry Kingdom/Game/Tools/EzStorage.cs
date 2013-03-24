@@ -235,79 +235,112 @@ namespace CloudberryKingdom
     
     public static class EzStorage
     {
+        static WrappedBool AsyncUpdateLock = new WrappedBool(false);
+        public static void AsyncUpdate()
+        {
+            while (true)
+            {
+                if (Guide.IsVisible) { Thread.Sleep(50); continue; }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    lock (AsyncUpdateLock)
+                    {
+                        if (Device[i] != null)
+                        {
+                            Device[i].AysnchUpdate();
+                        }
+                    }
+
+                    Thread.Sleep(50);
+                }
+            }
+        }
+
+        public static void StartAsyncUpdate()
+        {
+            Tools.EasyThread(5, "Async SaveDevice Updates", AsyncUpdate);
+        }
+
         public static PlayerSaveDevice[] Device = new PlayerSaveDevice[4];
 
 		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
-            if (!Device[(int)index].IsReady) return;
-
-            Device[(int)index].Save(ContainerName, FileName, stream =>
+            lock (AsyncUpdateLock)
             {
-                try
+                if (!Device[(int)index].IsReady) return;
+
+                Device[(int)index].Save(ContainerName, FileName, stream =>
                 {
-                    using (BinaryWriter w = new BinaryWriter(stream))
+                    try
                     {
-                        SaveLogic(w);
+                        using (BinaryWriter w = new BinaryWriter(stream))
+                        {
+                            SaveLogic(w);
+                        }
                     }
-                }
-                catch
-                {
-                    Fail();
-                }
-            });
+                    catch
+                    {
+                        Fail();
+                    }
+                });
+            }
         }
 
         public static void Load(PlayerIndex index, string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
-            Device[(int)index].Load(ContainerName, FileName, stream =>
+            lock (AsyncUpdateLock)
             {
-				bool Failed = false;
-
-                try
+                Device[(int)index].Load(ContainerName, FileName, stream =>
                 {
-					// Get all the bytes
-                    byte[] RawData = new byte[stream.Length];
-                    stream.Read(RawData, 0, (int)stream.Length);
+                    bool Failed = false;
 
-					if (RawData.Length <= 8)
-					{
-						Failed = true;
-					}
-					else
-					{
-						byte[] Data = RawData.Range(8, RawData.Length);
+                    try
+                    {
+                        // Get all the bytes
+                        byte[] RawData = new byte[stream.Length];
+                        stream.Read(RawData, 0, (int)stream.Length);
 
-						// Get the length and checksum (first and second integers encoded in byte stream)
-						int length = BitConverter.ToInt32(RawData, 0);
-						int checksum = BitConverter.ToInt32(RawData, 4);
+                        if (RawData.Length <= 8)
+                        {
+                            Failed = true;
+                        }
+                        else
+                        {
+                            byte[] Data = RawData.Range(8, RawData.Length);
 
-						int actual_checksum = SaveLoad.Checksum(Data, Data.Length);
+                            // Get the length and checksum (first and second integers encoded in byte stream)
+                            int length = BitConverter.ToInt32(RawData, 0);
+                            int checksum = BitConverter.ToInt32(RawData, 4);
 
-						// Check for errors
-						if (length != Data.Length || checksum != actual_checksum)
-						{
-							Failed = true;
-						}
-						else
-						{
-							LoadLogic(Data);
-						}
-					}
-                }
-                catch (Exception e)
-                {
+                            int actual_checksum = SaveLoad.Checksum(Data, Data.Length);
+
+                            // Check for errors
+                            if (length != Data.Length || checksum != actual_checksum)
+                            {
+                                Failed = true;
+                            }
+                            else
+                            {
+                                LoadLogic(Data);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
 #if DEBUG
-                    Tools.Write(e.Message);
+                        Tools.Write(e.Message);
 #endif
-					Failed = true;
-                }
+                        Failed = true;
+                    }
 
-				if (Failed)
-				{
-					Fail();
-					CloudberryKingdomGame.ShowError_LoadError();
-				}
-            });
+                    if (Failed)
+                    {
+                        Fail();
+                        CloudberryKingdomGame.ShowError_LoadError();
+                    }
+                });
+            }
         }
     }
 }

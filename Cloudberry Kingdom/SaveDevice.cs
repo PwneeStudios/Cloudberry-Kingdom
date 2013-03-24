@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
+using System.Threading;
 
 namespace EasyStorage
 {
@@ -318,6 +319,21 @@ namespace EasyStorage
 			args.PlayerToPrompt = null;
 		}
 
+        bool StorageDeviceIsConnected = false;
+        public void AysnchUpdate()
+        {
+#if XBOX
+            // make sure gamer services are available for all of our Guide methods we use			
+            if (!GamerServicesDispatcher.IsInitialized)
+                throw new InvalidOperationException("SaveDevice requries gamer services to operate. Add the GamerServicesComponent to your game.");
+#endif
+
+            if (storageDevice == null)
+                StorageDeviceIsConnected = false;
+            else
+                StorageDeviceIsConnected = storageDevice.IsConnected;
+        }
+
 		/// <summary>
 		/// Allows the component to update itself.
 		/// </summary>
@@ -330,7 +346,8 @@ namespace EasyStorage
 				throw new InvalidOperationException("SaveDevice requries gamer services to operate. Add the GamerServicesComponent to your game.");
 #endif
 
-			bool deviceIsConnected = storageDevice != null && storageDevice.IsConnected;
+            //bool deviceIsConnected = storageDevice != null && storageDevice.IsConnected;
+            bool deviceIsConnected = storageDevice != null && StorageDeviceIsConnected;
 			if (!deviceIsConnected && deviceWasConnected)
 			{
 				// if the device was disconnected, fire off the event and handle result
