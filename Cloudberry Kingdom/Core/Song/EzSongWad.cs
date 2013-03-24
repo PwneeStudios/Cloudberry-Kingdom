@@ -158,14 +158,20 @@ namespace CoreEngine
                     if (PlayList == null || PlayList.Count <= 1)
                         CanControl = false;
 
-                if (CanControl && ButtonCheck.State(ControllerButtons.RT, -1).Pressed)
-                    Next();
-                else if (CanControl && ButtonCheck.State(ControllerButtons.LT, -1).Pressed)
-                    Prev();
+				// With player song switching enabled
+				//if (CanControl && ButtonCheck.State(ControllerButtons.RT, -1).Pressed)
+				//    Next();
+				//else if (CanControl && ButtonCheck.State(ControllerButtons.LT, -1).Pressed)
+				//    Prev();
                 
-                // Switch to the next song if the current song is over
-                else if (PlayNext && Elapsed > Duration)
-                    Next();
+				//// Switch to the next song if the current song is over
+				//else if (PlayNext && Elapsed > Duration)
+				//    Next();
+
+				// WITHOUT player song switching enabled
+				// Switch to the next song if the current song is over
+				if (PlayNext && Elapsed > Duration)
+					Next();
             }
         }
 

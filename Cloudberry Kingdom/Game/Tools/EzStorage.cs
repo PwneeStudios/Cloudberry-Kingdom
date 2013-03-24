@@ -240,8 +240,12 @@ namespace CloudberryKingdom
         {
             while (true)
             {
+#if XBOX
+#if WINDOWS
+#else
                 if (Guide.IsVisible) { Thread.Sleep(50); continue; }
-
+#endif
+#endif
                 for (int i = 0; i < 4; i++)
                 {
                     lock (AsyncUpdateLock)

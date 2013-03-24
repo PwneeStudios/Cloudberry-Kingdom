@@ -186,11 +186,8 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
 #if XDK
-                if (MyCharacterSelect.Player.MyGamer != null)
-                    Call(new SimpleMenu(Control, MyCharacterSelect));
-                else
+                if (MyCharacterSelect.Player.MyGamer == null)
                 {
-                    //Call(new SignInMenu(Control, MyCharacterSelect));
                     if (!Guide.IsVisible)
                     {
                         try
@@ -204,11 +201,24 @@ namespace CloudberryKingdom
                         }
                     }
                 }
+                else
+                {
+                    if (EzStorage.Device[MyCharacterSelect.PlayerIndex] != null &&
+                        !EzStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection)
+                    {
+                        // Once the gamer presses a button they should be prompted to select a storage device.
+                        EzStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection = true;
+                        return;
+                    }
+                    else
+                    {
+                        MyCharacterSelect.InitColorScheme(MyCharacterSelect.PlayerIndex);
+                        Call(new SimpleMenu(Control, MyCharacterSelect));
+                    }
+                }
 #else
                 Call(new SimpleMenu(Control, MyCharacterSelect));
 #endif
-
-                //Call(new SimpleMenu(Control, MyCharacterSelect));
 
                 Hide();
             }

@@ -755,6 +755,10 @@ namespace CloudberryKingdom
             if (!CanSave()) return;
 
             SaveGroup.LoadGamer(data);
+            
+            // Gamers that signin after the game launches should always be immediately prompted to select a storage device.
+            if (EzStorage.Device[Index] != null)
+                EzStorage.Device[Index].NeedsConnection = true;
 
             // Used to go back to main menu on signin, but not needed anymore now that Quick Join is disabled.
             //if (CurrentPresence == Presence.TitleScreen)
@@ -1325,8 +1329,8 @@ namespace CloudberryKingdom
 		bool DisconnectedController()
 		{
 #if PC_VERSION || DEBUG && WINDOWS
+			return false;
 			if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
-			//return false;
 #endif
 			// True if an existing player is disconnected.
 			for (int i = 0; i < 4; i++)

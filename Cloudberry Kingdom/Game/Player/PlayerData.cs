@@ -16,10 +16,6 @@ namespace CloudberryKingdom
 {
     public class PlayerData : SaveLoad
     {
-#if XDK || XBOX
-		public StorageDevice Device;
-#endif
-
         public SavedSeeds MySavedSeeds;
 
         public PlayerIndex MyPlayerIndex;
@@ -351,6 +347,7 @@ namespace CloudberryKingdom
 
         public String GetName()
         {
+			return "The Ez Ezra";
 #if XBOX || XBOX_SIGNIN
             if (MyGamer != null)
                 return MyGamer.Gamertag;

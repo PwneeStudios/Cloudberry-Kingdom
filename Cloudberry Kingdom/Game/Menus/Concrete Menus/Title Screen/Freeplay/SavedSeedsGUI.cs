@@ -304,21 +304,21 @@ else
 #endif
         }
 
-        bool Back(Menu menu)
-        {
-            if (!Active) return true;
+		void VerifyDelete()
+		{
+			if (!Active) return;
 
 			SlideOutTo = SlideInFrom = PresetPos.Right;
 
-            int num = NumSeedsToDelete();
-            if (num > 0)
-            {
-                var verify = new VerifyDeleteSeeds(Control, num, UseBounce);
-                verify.OnSelect += DoDeletion;
+			int num = NumSeedsToDelete();
+			if (num > 0)
+			{
+				var verify = new VerifyDeleteSeeds(Control, num, UseBounce);
+				verify.OnSelect += DoDeletion;
 
 				SlideOutTo = PresetPos.Left;
 				SlideInFrom = PresetPos.Left;
-                Call(verify, 0);
+				Call(verify, 0);
 
 				if (UseBounce)
 				{
@@ -329,8 +329,38 @@ else
 				{
 					Hide(PresetPos.Left);
 				}
-            }
-            else
+			}
+			else
+				ReturnToCaller();
+		}
+
+        bool Back(Menu menu)
+        {
+            if (!Active) return true;
+
+			SlideOutTo = SlideInFrom = PresetPos.Right;
+
+			//int num = NumSeedsToDelete();
+			//if (num > 0)
+			//{
+			//    var verify = new VerifyDeleteSeeds(Control, num, UseBounce);
+			//    verify.OnSelect += DoDeletion;
+
+			//    SlideOutTo = PresetPos.Left;
+			//    SlideInFrom = PresetPos.Left;
+			//    Call(verify, 0);
+
+			//    if (UseBounce)
+			//    {
+			//        Hid = true;
+			//        RegularSlideOut(PresetPos.Right, 0);
+			//    }
+			//    else
+			//    {
+			//        Hide(PresetPos.Left);
+			//    }
+			//}
+			//else
                 ReturnToCaller();
 
             return true;
@@ -444,7 +474,7 @@ else
 					int n = NumSeedsToDelete();
 
 					if (n > 0)
-						Back(MyMenu);
+						VerifyDelete();
 					else
 						StartLevel(_seed);
 				};

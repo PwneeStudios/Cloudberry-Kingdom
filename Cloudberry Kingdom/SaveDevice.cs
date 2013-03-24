@@ -334,12 +334,19 @@ namespace EasyStorage
                 StorageDeviceIsConnected = storageDevice.IsConnected;
         }
 
+        /// <summary>
+        /// This is false until a player exists, preventing the system from presenting a device selector for a non-existant signed-in player.
+        /// </summary>
+        public bool NeedsConnection = false;
+
 		/// <summary>
 		/// Allows the component to update itself.
 		/// </summary>
 		/// <param name="gameTime">The current game timestamp.</param>
 		public void Update(GameTime gameTime)
 		{
+            if (!NeedsConnection) return;
+
 #if XBOX
 			// make sure gamer services are available for all of our Guide methods we use			
 			if (!GamerServicesDispatcher.IsInitialized)
