@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using CloudberryKingdom;
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Stats;
+using CloudberryKingdom.Levels;
 
 using CoreEngine;
 
@@ -30,7 +31,7 @@ namespace CloudberryKingdom
 
 			MyMenu.OnB = null;
 
-			Core.DrawLayer++;
+            //Core.DrawLayer++;
 		}
 
 		public override void MakeBackdrop()
@@ -59,6 +60,17 @@ namespace CloudberryKingdom
 			MyPile.Add(Description, "Description");
 
 			SetPos();
+
+			EzText _t;
+			_t = MyPile.FindEzText("Description");
+			if (_t != null)
+			{
+				float w = _t.GetWorldWidth();
+				if (w > 2100)
+					_t.Scale *= 2100 / w;
+			}
+
+            Core.DrawLayer = Level.AfterPostDrawLayer;
 		}
 
 		protected override void MyPhsxStep()
@@ -182,6 +194,12 @@ namespace CloudberryKingdom
 		protected override void MyPhsxStep()
 		{
 			base.MyPhsxStep();
+
+			if (!CloudberryKingdomGame.IsDemo)
+			{
+				ReturnToCaller(false);
+				return;
+			}
 
 			if (MyMenu.CurIndex == 1)
 				MyPile.FindQuad("Berry").TextureName = "cb_crying";

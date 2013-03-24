@@ -234,7 +234,8 @@ namespace CloudberryKingdom
                         Items.AddOrOverwrite(rank, item);
                     }
 
-                    if (gamer_rank == -1 || gamer.Gamertag == LeaderboardGamer.Gamertag)
+                    //if (gamer_rank == -1 || gamer.Gamertag == LeaderboardGamer.Gamertag)
+                    if (gamer_rank == -1 && gamer.Gamertag == LeaderboardGamer.Gamertag && rank > 0)
                         gamer_rank = rank;
                 }
 

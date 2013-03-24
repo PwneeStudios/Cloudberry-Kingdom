@@ -1261,7 +1261,10 @@ namespace CloudberryKingdom
                 // Return and skip further actions, unless the character select is showing
                 if (!CharacterSelectManager.IsShowing)
                 {
-                    MyLevel.IndependentDeltaT = 0;
+                    if (MyLevel != null)
+                    {
+                        MyLevel.IndependentDeltaT = 0;
+                    }
                     return;
                 }
             }

@@ -36,7 +36,12 @@ namespace CloudberryKingdom
 
     public partial class CloudberryKingdomGame
     {
-        public const bool FinalRelease = true;
+#if DEBUG
+        public const bool FinalRelease = false;
+#else
+		public const bool FinalRelease = true;
+#endif
+
         public const bool PropTest = false;
 
         /// <summary>
@@ -312,6 +317,10 @@ namespace CloudberryKingdom
         {
             get
             {
+#if DEBUG
+				return FakeDemo;
+#endif
+
 				if (WasNotDemoOnce) return false;
 				if (FakeDemo) return true;
 
@@ -1329,7 +1338,7 @@ namespace CloudberryKingdom
 		bool DisconnectedController()
 		{
 #if PC_VERSION || DEBUG && WINDOWS
-			return false;
+			//return false;
 			if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
 #endif
 			// True if an existing player is disconnected.
@@ -1385,7 +1394,20 @@ namespace CloudberryKingdom
         static SmallErrorMenu SmallErrorMessage;
         static void ShowSmallError()
         {
-            if (SmallErrorMessage != null) return;
+            if (SmallErrorMessage != null)
+            {
+                if (SmallErrorMessage.Core.Released)
+                {
+                    SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
+                }
+
+                if (SmallErrorMessage.MyGame == null && Tools.CurGameData != null)
+                {
+                    Tools.CurGameData.AddGameObject(SmallErrorMessage);
+                }
+
+                return;
+            }
 			if (Tools.CurGameData == null) return;
 
 			SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
