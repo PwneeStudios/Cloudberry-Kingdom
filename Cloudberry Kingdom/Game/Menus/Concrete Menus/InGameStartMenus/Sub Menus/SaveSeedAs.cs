@@ -33,7 +33,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            HeaderText = new EzText(Localization.Words.SaveRandomSeedAs, ItemFont);
+            HeaderText = new EzText(Localization.Words.SaveRandomSeedAs, ItemFont, true, false);
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
@@ -127,7 +127,14 @@ namespace CloudberryKingdom
 			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
 			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(558.3326f, 913.5556f); _t.Scale = 0.8019168f; }
+			_t = MyPile.FindEzText("Header"); if (_t != null)
+			{
+				_t.Pos = new Vector2(1130.555f, 813.5558f);
+				_t.Scale = 0.8019168f;
+				float w = _t.GetWorldWidth();
+				if (w > 1900)
+					_t.Scale *= 1900.0f / w;
+			}
 			_t = MyPile.FindEzText("Start"); if (_t != null) { _t.Pos = new Vector2(705.5557f, -125f); _t.Scale = 0.6350001f; }
 			_t = MyPile.FindEzText("Delete"); if (_t != null) { _t.Pos = new Vector2(2080.556f, 102.7779f); _t.Scale = 0.4135835f; }
 			_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(2080.554f, -5.340576E-05f); _t.Scale = 0.4390834f; }

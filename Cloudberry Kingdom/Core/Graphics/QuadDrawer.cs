@@ -54,11 +54,12 @@ namespace CoreEngine
                 return Data[c];
             else
             {
-#if DEBUG
-                return Data['#'];
-#else
-                return Data[' '];
-#endif
+				return Data['#'];
+//#if DEBUG
+//                return Data['#'];
+//#else
+//                return Data[' '];
+//#endif
             }
         }
 

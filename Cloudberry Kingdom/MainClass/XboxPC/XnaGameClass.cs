@@ -25,6 +25,8 @@ namespace CloudberryKingdom
         {
             Tools.GameClass = this;
 
+            Tools.Write("XnaGameClass Constructor");
+
 #if XBOX
             Components.Add(new GamerServicesComponent(this));
 #endif
@@ -54,6 +56,8 @@ namespace CloudberryKingdom
 
         protected override void Initialize()
         {
+            Tools.Write("XnaGameClass Initialize");
+
             MyGame.Initialize();
 
             Window.Title = "Cloudberry Kingdom ";
@@ -63,6 +67,8 @@ namespace CloudberryKingdom
 
         protected override void LoadContent()
         {
+            Tools.Write("XnaGameClass LoadContent");
+
             MyGame.LoadContent();
 
             base.LoadContent();

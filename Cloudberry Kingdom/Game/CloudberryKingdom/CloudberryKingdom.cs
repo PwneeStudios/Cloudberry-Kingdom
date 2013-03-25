@@ -348,7 +348,7 @@ namespace CloudberryKingdom
 #endif
 
 		public static bool WasNotDemoOnce = false;
-        public static bool FakeDemo = true && !FinalRelease;
+        public static bool FakeDemo = false && !FinalRelease;
         public static bool IsDemo
         {
             get

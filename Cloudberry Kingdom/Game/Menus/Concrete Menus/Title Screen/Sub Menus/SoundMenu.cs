@@ -336,6 +336,7 @@ namespace CloudberryKingdom
 				{
 					panel.SlideOut(PresetPos.Left, 0);
 
+					// FIXME on PC the menu is not a StartMenu_MW_Pre
 					if (panel is StartMenu_MW_Pre)
 						((StartMenu_MW_Pre)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
 				}
