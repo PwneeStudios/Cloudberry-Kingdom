@@ -670,7 +670,7 @@ namespace CloudberryKingdom
 
         public string SuggestedName()
         {
-            return DefaultHeroType.Name + "_" + Seed.ToString();
+            return Localization.WordString(DefaultHeroType.Name) + "_" + Seed.ToString();
         }
 
         public static string GetNameFromSeedStr(string seed)

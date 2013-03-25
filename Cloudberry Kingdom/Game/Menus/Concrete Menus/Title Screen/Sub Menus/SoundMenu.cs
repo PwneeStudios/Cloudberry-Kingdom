@@ -315,6 +315,7 @@ namespace CloudberryKingdom
 			if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
 			{
 				CloudberryKingdomGame.ForceSuperPause = true;
+                Tools.Write("ForceSuperPause <-- true");
 
 				Localization.SetLanguage(ChosenLanguage);
 				HoldGame.AddToDo((System.Action)AfterSetLanguage);
@@ -348,6 +349,7 @@ namespace CloudberryKingdom
 			ButtonCheck.PreventTimeStamp += 20;
 
 			CloudberryKingdomGame.ForceSuperPause = false;
+            Tools.Write("ForceSuperPause <-- false");
 
 			Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
 		}

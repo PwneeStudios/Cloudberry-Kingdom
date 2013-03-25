@@ -446,7 +446,7 @@
     </Compile>
     <None Include="Fonts\Grobold_Chinese.fnt">
       <Name>Grobold_Chinese</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Fonts\Grobold_Japanese.fnt">
       <Name>Grobold_Japanese</Name>

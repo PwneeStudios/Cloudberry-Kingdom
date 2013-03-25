@@ -599,6 +599,7 @@ namespace CloudberryKingdom
 
         public void InitialResolution()
         {
+            Tools.Write("InitialResolution");
 #if PC_VERSION
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
@@ -647,6 +648,8 @@ namespace CloudberryKingdom
             rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 #endif
 
+#if XBOX
+#if WINDOWS
             // Some possible resolutions.
             Resolutions[0] = new ResolutionGroup();
             Resolutions[0].Backbuffer = new IntVector2(1280, 800);
@@ -728,13 +731,20 @@ namespace CloudberryKingdom
 #endif
 
             //MyGraphicsDeviceManager.ApplyChanges();
-
+#else
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+#endif
+#endif
             fps = 0;
+            Tools.Write("BackBuffer set");
         }
 
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
+            Tools.Write("Signout event");
+
             if (Tools.CurGameData == null) return;
 
             // If the gamer is still signed in this was a mis-fire.
@@ -773,6 +783,8 @@ namespace CloudberryKingdom
 
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
+            Tools.Write("Signin event");
+
             if (Tools.CurGameData == null) return;
 
             // If the gamer is already signed in this was a mis-fire.
@@ -820,7 +832,10 @@ namespace CloudberryKingdom
 
         public void LoadContent()
         {
+            Tools.Write("Inside LoadContent");
+            
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
+            Tools.Write("MyGraphicsDevice set");
 
 			AdditiveColor_NormalAlpha = new BlendState();
 			AdditiveColor_NormalAlpha.ColorBlendFunction = BlendFunction.Add;
@@ -829,34 +844,44 @@ namespace CloudberryKingdom
 			AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
 			AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
 			AdditiveColor_NormalAlpha.AlphaSourceBlend = Blend.One;
+            Tools.Write("BlendState made");
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
+            Tools.Write("LoadBasicArt done");
 
             Tools.Render = new MainRender(MyGraphicsDevice);
+            Tools.Write("Render made");
 
             Tools.QDrawer = new QuadDrawer(MyGraphicsDevice, 2000);
             Tools.QDrawer.DefaultEffect = Tools.EffectWad.FindByName("NoTexture");
             Tools.QDrawer.DefaultTexture = Tools.TextureWad.FindByName("White");
+            Tools.Write("QDrawer made");
 
             Tools.Device = MyGraphicsDevice;
             Tools.t = 0;
 
             LogoScreenUp = true;
 
-            //Tools.Render.MySpriteBatch = new SpriteBatch(MyGraphicsDevice);
-
             ScreenWidth = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
             ScreenHeight = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
 
             MainCamera = new Camera(ScreenWidth, ScreenHeight);
+            Tools.Write("Camera made");
 
             MainCamera.Update();
+            Tools.Write("Camera updated");
+
+            // Initialize the Gamepads
+            Tools.GamepadState = new GamePadState[4];
+            Tools.PrevGamepadState = new GamePadState[4];
+            Tools.Write("Gamepads made");
 
 			Tools.EasyThread(5, "PreLoad", Preload);
 		}
 
 		void Preload()
 		{
+            Tools.Write("Preload");
 
             //Tools.LoadEffects(Tools.GameClass.Content, true);
 
@@ -865,14 +890,6 @@ namespace CloudberryKingdom
 
             // Fill the pools
             ComputerRecording.InitPool();
-
-
-
-            //Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
-
-			// Initialize the Gamepads
-			Tools.GamepadState = new GamePadState[4];
-			Tools.PrevGamepadState = new GamePadState[4];
 
 			// Initialize players
 			PlayerManager.Init();
@@ -884,11 +901,15 @@ namespace CloudberryKingdom
 			StartLogoSalad();
 
             // Localization
+            Tools.Write("Language ISO code : " + System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Localization.Language default_language = Localization.IsoCodeToLanguage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Tools.Write("Default language is " + default_language);
             Localization.SetLanguage(default_language);
+            Tools.Write("Language loaded");
 
             // Pre load. This happens before anything appears.
             Resources.LoadAssets(true);
+            Tools.Write("Asset preload complete.");
 
 			// Create the initial loading screen
 			LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
@@ -896,16 +917,14 @@ namespace CloudberryKingdom
             // Initialize heroes
             BobPhsx.CustomPhsxData.InitStatic();
 
-
-            //Tools.Warning();
-            //Thread.Sleep(5000);
-
             HookSignInAndOut();
+            Tools.Write("Sign in and out now hooked.");
 
             // Fireball texture
             Fireball.PreInit();
 
             // Set textures to be transparent until loaded.
+            Tools.Write("Dump dummy texture into each texture.");
             for (int i = 0; i < Tools.TextureWad.TextureList.Count; i++)
             {
                 var tex = Tools.TextureWad.TextureList[i];
@@ -921,6 +940,7 @@ namespace CloudberryKingdom
 
                 Resources.ResourceLoadedCountRef.Val++;
             }
+            Tools.Write("Dummy fill complete.");
 
             // Load resource thread
             Resources.LoadResources();

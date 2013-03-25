@@ -29,6 +29,7 @@ namespace CloudberryKingdom
 
 #if XBOX
             Components.Add(new GamerServicesComponent(this));
+            Tools.Write("GamerService added");
 #endif
             Content.RootDirectory = "Content";
 
@@ -44,6 +45,7 @@ namespace CloudberryKingdom
             Tools.MusicVolume.MaxVal = 1;
             Tools.MusicVolume.Val = 1;
             Tools.MusicVolume.SetCallback = () => Tools.UpdateVolume();
+            Tools.Write("Volume created");
 
 #if DEBUG || INCLUDE_EDITOR
             Tools.SoundVolume.Val = 0;
@@ -51,13 +53,17 @@ namespace CloudberryKingdom
 #endif
 
             MyGame = new CloudberryKingdomGame();
+            Tools.Write("MyGame created");
+
             MyGame.InitialResolution();
+            Tools.Write("InitialResolutions created.");
+
         }
 
         protected override void Initialize()
         {
             Tools.Write("XnaGameClass Initialize");
-
+            Tools.Write("MyGame is null? " + (MyGame == null));
             MyGame.Initialize();
 
             Window.Title = "Cloudberry Kingdom ";
@@ -68,8 +74,10 @@ namespace CloudberryKingdom
         protected override void LoadContent()
         {
             Tools.Write("XnaGameClass LoadContent");
-
+            Tools.Write("MyGame is null? " + (MyGame == null));
             MyGame.LoadContent();
+
+            Tools.Write("XnaGameClass LoadContent Done");
 
             base.LoadContent();
         }
@@ -81,6 +89,7 @@ namespace CloudberryKingdom
 
         protected override void Update(GameTime gameTime)
         {
+            Tools.Write("Update");
             this.IsFixedTimeStep = Tools.FixedTimeStep;
 
             MyGame.RunningSlowly = gameTime.IsRunningSlowly;

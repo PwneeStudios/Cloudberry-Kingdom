@@ -14,8 +14,12 @@ namespace CloudberryKingdom
         [STAThread]
 #endif
 
+        static float dummy_t;
         static void Main(string[] args)
         {
+            dummy_t = Tools.t;
+            Tools.Write("Main Constructor");
+
             CloudberryKingdomGame.ProcessArgs(args);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);

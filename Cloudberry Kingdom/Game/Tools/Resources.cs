@@ -377,22 +377,7 @@ namespace CloudberryKingdom
             Thread.CurrentThread.Priority = ThreadPriority.Lowest;
             Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
 
-			//Thread.SpinWait(100);
-
             Tools.Write("Start");
-
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Environments");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Bob");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Buttons");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Characters");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Coins");
-			////Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Effects");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "HeroItems");
-			////Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Initial");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "LoadScreen_Level");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Menu");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Old_Art_Holdover");
-			//Tools.TextureWad.LoadFolder(Tools.GameClass.Content, "Title");
             
             Tools.Write("ArtMusic done...");
 
@@ -401,7 +386,6 @@ namespace CloudberryKingdom
             TileSets.Init();
 
 #if !EDITOR
-			//Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 300, 200);
 			Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 360, 260);
 #endif
 

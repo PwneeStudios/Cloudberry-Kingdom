@@ -457,12 +457,15 @@ public static void Break()
 }
 public static void Write(object obj)
 {
+    Console.WriteLine("  -- ck debug -- " + obj);
 #if DEBUG
 	Console.WriteLine("{0}", obj);
 #endif
 }
 public static void Write(string str, params object[] objs)
 {
+    Console.WriteLine("  -- ck debug -- " + str, objs);
+    
 #if DEBUG
 #if WINDOWS
     if (objs.Length == 0) Console.WriteLine(str);
@@ -901,14 +904,25 @@ public static Thread EasyThread(int affinity, string name, Action action)
 		public static EzTexture Transparent;
         public static void LoadBasicArt(ContentManager Content)
         {
+            Tools.Write("LoadBasicArt");
+            
             TextureWad = new EzTextureWad();
+            Tools.Write("TextureWad made");
+
             TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
+            Tools.Write("White loaded");
+
             TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
+            Tools.Write("Circle loaded");
+
             TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
+            Tools.Write("Smooth loaded");
 
 			Transparent = TextureWad.AddTexture(Content.Load<Texture2D>("Transparent"), "Transparent");
+            Tools.Write("Transparent loaded");
 
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
+            Tools.Write("LoadBasicArt done");
         }
 
         public static string GetFileName(String FilePath)
