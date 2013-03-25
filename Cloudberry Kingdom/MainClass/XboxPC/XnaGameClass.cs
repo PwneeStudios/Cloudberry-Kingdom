@@ -1,36 +1,18 @@
 using System;
-using System.IO;
-using System.Threading;
-using System.Text;
-using System.Collections.Generic;
+
 #if WINDOWS
 using System.Windows.Forms;
 #endif
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+
 #if XBOX
 using Microsoft.Xna.Framework.GamerServices;
 #endif
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
-using CoreEngine;
-
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Awards;
 
 #if XBOX
 #else
 using CloudberryKingdom.Viewer;
-#endif
-
-#if WINDOWS
-using Forms = System.Windows.Forms;
 #endif
 
 namespace CloudberryKingdom

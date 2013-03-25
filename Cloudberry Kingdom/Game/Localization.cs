@@ -130,13 +130,17 @@ namespace CloudberryKingdom
         public static Texture2D FontTexture;
         public static void SetLanguage(Language SelectedLanguage)
         {
+			var HoldContent = Content;
+
             if (Content == null)
             {
+				Content = new ContentManager(Tools.GameClass.Services, "Content");
                 Initialize();
             }
             else
             {
-                Content.Unload();
+				Content = new ContentManager(Tools.GameClass.Services, "Content");
+				//Content.Unload();
             }
 
             CurrentLanguage = Languages[SelectedLanguage];
@@ -154,7 +158,11 @@ namespace CloudberryKingdom
             {
                 lock (Resources.hf)
                 {
-                    LoadFont();
+					//LoadFont();
+
+					LoadFont();
+					HoldContent.Unload();
+					HoldContent = null;
                 }
             }
 
@@ -181,8 +189,6 @@ namespace CloudberryKingdom
 
         private static void Initialize()
         {
-            Content = new ContentManager(Tools.GameClass.Services, "Content");
-
             Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
             Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
             Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));

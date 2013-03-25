@@ -453,8 +453,12 @@ namespace CloudberryKingdom
         {
             Tools.StartGUIDraw_Fake();
 
-            foreach (GameObject obj in MyGameObjects)
-                obj.Init();
+			foreach (GameObject obj in MyGameObjects)
+			{
+				if (obj is SoundMenu) continue;
+
+				obj.Init();
+			}
 
             Tools.EndGUIDraw_Fake();
         }

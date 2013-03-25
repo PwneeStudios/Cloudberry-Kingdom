@@ -726,6 +726,8 @@ namespace CoreEngine
 
         public void DrawString(HackSpriteFont spritefont, string s, Vector2 position, Vector4 color, Vector2 scale)
         {
+			if (CloudberryKingdomGame.ForceSuperPause) return;
+
             HackFont font = spritefont.font;
 
             scale *= 1.12f;

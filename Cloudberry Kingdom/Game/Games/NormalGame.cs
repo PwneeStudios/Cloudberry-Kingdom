@@ -32,6 +32,9 @@ namespace CloudberryKingdom
             Init(LevelSeed, MakeInBackground);
         }
 
+		public static bool MakingLevel = false;
+		public static bool AlwaysLoad = false;
+
         public virtual void Init(LevelSeedData LevelSeed, bool MakeInBackground)
         {
             base.Init();
@@ -53,6 +56,7 @@ namespace CloudberryKingdom
                     LevelSeed.OnBeginLoad();
             }
 
+			MakingLevel = true;
             Thread MakeThread = new Thread(
                 new ThreadStart(
                     delegate
@@ -118,6 +122,9 @@ namespace CloudberryKingdom
                             Release();
                             LevelSeed.Release();
                         }
+
+						MakingLevel = false;
+						AlwaysLoad = true;
                     }))
             {
                 Name = "MakeLevelThread",

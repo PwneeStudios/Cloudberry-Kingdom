@@ -294,37 +294,78 @@ namespace CloudberryKingdom
 			Tools.SongWad.Restart(true, false);
 		}
 
+		GameData HoldGame;
         public override void Release()
         {
 			if (Core.Released) return;
 
 			if (Black != null) Black.Release();
 
-            if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
-            {
-                Localization.SetLanguage(ChosenLanguage);
-                MyGame.ReInitGameObjects();
-
-                foreach (GameObject obj in MyGame.MyGameObjects)
-                {
-                    GUI_Panel panel = obj as GUI_Panel;
-                    if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
-                        panel.SlideOut(PresetPos.Left, 0);
-                }
-
-                MyGame.PhsxStepsToDo += 20;
-
-                ButtonCheck.PreventInput();
-                ButtonCheck.PreventTimeStamp += 20;
-            }
-
-            SaveGroup.SaveAll();
+			HoldGame = MyGame;
+			Tools.EasyThread(5, "LoadTexture", SetLanguageIfDifferent);
+			
+			//SetLanguageIfDifferent();
+            //SaveGroup.SaveAll();
 
             base.Release();
         }
 
+		private void SetLanguageIfDifferent()
+		{
+			if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
+			{
+				CloudberryKingdomGame.ForceSuperPause = true;
+
+				Localization.SetLanguage(ChosenLanguage);
+				HoldGame.AddToDo((System.Action)AfterSetLanguage);
+			}
+			else
+			{
+				Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+			}
+		}
+
+		private void AfterSetLanguage()
+		{
+			HoldGame.ReInitGameObjects();
+
+			foreach (GameObject obj in HoldGame.MyGameObjects)
+			{
+				GUI_Panel panel = obj as GUI_Panel;
+				if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
+				{
+					panel.SlideOut(PresetPos.Left, 0);
+
+					if (panel is StartMenu_MW_Pre)
+						((StartMenu_MW_Pre)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+				}
+			}
+
+			HoldGame.PhsxStepsToDo += 20;
+
+			ButtonCheck.PreventInput();
+			ButtonCheck.PreventTimeStamp += 20;
+
+			CloudberryKingdomGame.ForceSuperPause = false;
+
+			Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+		}
+
+		public override void SlideOut(PresetPos Preset, int Frames)
+		{
+			base.SlideOut(Preset, Frames);
+			ReturnToCallerDelay = SetDelay;
+		}
+
+		static int SetDelay = 15;
         public override void ReturnToCaller()
         {
+			SetDelay = 15;
+			if (ChosenLanguage != Localization.CurrentLanguage.MyLanguage)
+			{
+				SetDelay = 30;
+			}
+
             //SaveGroup.SaveAll();
             base.ReturnToCaller();
         }

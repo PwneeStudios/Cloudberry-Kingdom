@@ -113,8 +113,8 @@ namespace CloudberryKingdom
 
 				SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
 				SavingText.FixedToCamera = true;
-				SavingText.Pos = new Vector2(1150, -750);
-				SavingText.Scale = .4f;
+				SavingText.Pos = new Vector2(1110, -750);
+				SavingText.Scale = .37f;
 				StartMenu.SetTextSelected_Red(SavingText);
             }
         }
@@ -348,7 +348,7 @@ namespace CloudberryKingdom
 #endif
 
 		public static bool WasNotDemoOnce = false;
-        public static bool FakeDemo = false && !FinalRelease;
+        public static bool FakeDemo = true && !FinalRelease;
         public static bool IsDemo
         {
             get
@@ -588,11 +588,11 @@ namespace CloudberryKingdom
 
             Tools.LoadEffects(Tools.GameClass.Content, true);
 
-            ButtonString.Init();
-            ButtonCheck.Reset();
+            //ButtonString.Init();
+            //ButtonCheck.Reset();
  
-            // Fill the pools
-            ComputerRecording.InitPool();
+            //// Fill the pools
+            //ComputerRecording.InitPool();
 
             EzStorage.StartAsyncUpdate();
         }
@@ -843,7 +843,7 @@ namespace CloudberryKingdom
 
             LogoScreenUp = true;
 
-            Tools.Render.MySpriteBatch = new SpriteBatch(MyGraphicsDevice);
+            //Tools.Render.MySpriteBatch = new SpriteBatch(MyGraphicsDevice);
 
             ScreenWidth = MyGraphicsDevice.PresentationParameters.BackBufferWidth;
             ScreenHeight = MyGraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -857,6 +857,17 @@ namespace CloudberryKingdom
 
 		void Preload()
 		{
+
+            //Tools.LoadEffects(Tools.GameClass.Content, true);
+
+            ButtonString.Init();
+            ButtonCheck.Reset();
+
+            // Fill the pools
+            ComputerRecording.InitPool();
+
+
+
             //Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
 
 			// Initialize the Gamepads
@@ -1420,11 +1431,12 @@ namespace CloudberryKingdom
         }
 #endif
 
+		public static bool ForceSuperPause = false;
 		public static bool SuperPause
 		{
 			get
 			{
-				return SmallErrorMessage != null;
+				return SmallErrorMessage != null || ForceSuperPause;
 			}
 		}
         static SmallErrorMenu SmallErrorMessage;

@@ -14,7 +14,7 @@ namespace CoreEngine
         public Viewport MainViewport;
 
         public bool UsingSpriteBatch = false;
-        public SpriteBatch MySpriteBatch;
+        //public SpriteBatch MySpriteBatch;
 
 
         public MainRender(GraphicsDevice Device)
@@ -78,7 +78,7 @@ namespace CoreEngine
             {
                 UsingSpriteBatch = false;
 
-                MySpriteBatch.End();
+                //MySpriteBatch.End();
 
                 Tools.Render.SetStandardRenderStates();
             }

@@ -447,14 +447,21 @@ namespace CloudberryKingdom
 				// If texture hasn't been loaded yet, load it
 				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
 				{
-					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
-                    count++;
+					//if (NormalGameData.MakingLevel && !NormalGameData.AlwaysLoad && count > 100)
+					//{
+					//    Thread.Sleep(300);
+					//}
+					//else
+					{
+						Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
+						count++;
 
-                    if (count > 500)
-                        FinalLoadDone = true;
-                    
-					//Thread.Sleep(1);
-					//Thread.Sleep(50);
+						if (count > 500)
+							FinalLoadDone = true;
+
+						//Thread.Sleep(1);
+						//Thread.Sleep(50);
+					}
 				}
 			}
 
