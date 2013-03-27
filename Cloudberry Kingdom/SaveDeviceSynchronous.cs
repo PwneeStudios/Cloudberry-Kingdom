@@ -14,7 +14,12 @@ namespace EasyStorage
 		{
 			// open the container from the device. while this is normally an async process, we
 			// block until completion which makes it a synchronous operation for our uses.
+            bool isTransferredFromOtherPlayer;
+#if XDK
+			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, false, out isTransferredFromOtherPlayer, null, null);
+#else
 			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, null, null);
+#endif
 			asyncResult.AsyncWaitHandle.WaitOne();
 			return storageDevice.EndOpenContainer(asyncResult);
 		}

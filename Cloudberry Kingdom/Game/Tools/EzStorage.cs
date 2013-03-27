@@ -57,7 +57,6 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			PlayerManager.Player.Save(PlayerIndex.One);
 #else
-			CloudberryKingdomGame.ShowSaving();
 
             // Save each player's info
 			List<PlayerData> player_list;
@@ -263,9 +262,18 @@ namespace CloudberryKingdom
             }
         }
 
+        static bool AsyncUpdateStarted = false;
         public static void StartAsyncUpdate()
         {
-            Tools.EasyThread(5, "Async SaveDevice Updates", AsyncUpdate);
+            if (AsyncUpdateStarted)
+            {
+                return;
+            }
+            else
+            {
+                AsyncUpdateStarted = true;
+                Tools.EasyThread(5, "Async SaveDevice Updates", AsyncUpdate);
+            }
         }
 
         public static PlayerSaveDevice[] Device = new PlayerSaveDevice[4];
@@ -275,6 +283,8 @@ namespace CloudberryKingdom
             lock (AsyncUpdateLock)
             {
                 if (!Device[(int)index].IsReady) return;
+
+                CloudberryKingdomGame.ShowSaving();
 
                 Device[(int)index].Save(ContainerName, FileName, stream =>
                 {

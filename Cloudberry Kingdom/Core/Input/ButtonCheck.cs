@@ -428,12 +428,16 @@ namespace CloudberryKingdom
         }
 #endif
 
+        public static int AnyKeyPlayer = -1;
         public static bool AnyKey()
         {
 #if WINDOWS
             return AnyKeyboardKey() || AnyMouseKey() || AllState(-2).Down;
 #else
-            return AllState(-2).Down;
+            AnyKeyPlayer = -23; // Undefined
+            ButtonData data = AllState(-2);
+
+            return data.Down;
 #endif
         }
 
@@ -464,6 +468,8 @@ namespace CloudberryKingdom
             foreach (ControllerButtons button in ButtonList)
             {
                 ButtonData newdata = State(button, iPlayerIndex);
+
+                if (newdata.Down) AnyKeyPlayer = newdata.PressingPlayer;
 
                 data.Down |= newdata.Down;
                 data.Pressed |= newdata.Pressed;

@@ -292,7 +292,8 @@ namespace CloudberryKingdom
             else
             {
                 //CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedIn);
-                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToLive);
+                //CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToLive);
+                CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToLiveToAccess);
             }
 #endif
 		}
@@ -348,7 +349,7 @@ namespace CloudberryKingdom
 #endif
 
 		public static bool WasNotDemoOnce = false;
-        public static bool FakeDemo = false && !FinalRelease;
+        public static bool FakeDemo = true && !FinalRelease;
         public static bool IsDemo
         {
             get
@@ -453,8 +454,12 @@ namespace CloudberryKingdom
 
         public int DrawCount, PhsxCount;
 
+#if XBOX
+        public ResolutionGroup Resolution;
+#else
         public ResolutionGroup Resolution;
         public ResolutionGroup[] Resolutions = new ResolutionGroup[4];
+#endif
 
 #if WINDOWS
         public QuadClass MousePointer, MouseBack;
@@ -594,7 +599,7 @@ namespace CloudberryKingdom
             //// Fill the pools
             //ComputerRecording.InitPool();
 
-            EzStorage.StartAsyncUpdate();
+            //EzStorage.StartAsyncUpdate();
         }
 
         public void InitialResolution()
@@ -611,7 +616,6 @@ namespace CloudberryKingdom
             //PlayerManager.SaveRezAndKeys();
             //rez = PlayerManager.LoadRezAndKeys();
             //Tools.Warning();
-#if PC_VERSION
 
 			EzStorage.Device[0] = new EasyStorage.PlayerSaveDevice(PlayerIndex.One);
 
@@ -620,12 +624,9 @@ namespace CloudberryKingdom
 
 			d.PromptForDevice();
 
-#if PC_VERSION
 			PlayerManager.Players = new PlayerData[4];
 			PlayerManager.Players[0] = new PlayerData();
 			PlayerManager.Players[0].Init();
-#else
-#endif
 
 			PlayerManager.Player.ContainerName = "SaveData";
 			PlayerManager.Player.FileName = "SaveData.bam";
@@ -634,90 +635,16 @@ namespace CloudberryKingdom
 			SaveGroup.LoadAll();
 			PlayerManager.Player.Load(PlayerIndex.One);
 
-#endif
             rez = PlayerManager.LoadRezAndKeys();
-#elif WINDOWS
+
             PlayerManager.RezData rez = new PlayerManager.RezData();
             rez.Custom = true;
-#if DEBUG || INCLUDE_EDITOR
+	#if DEBUG || INCLUDE_EDITOR
             rez.Fullscreen = false;
-#else
+	#else
             rez.Fullscreen = true;
-#endif
-            rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-#endif
 
-#if XBOX
-#if WINDOWS
-            // Some possible resolutions.
-            Resolutions[0] = new ResolutionGroup();
-            Resolutions[0].Backbuffer = new IntVector2(1280, 800);
-            Resolutions[0].Bob = new IntVector2(135, 0);
-            Resolutions[0].TextOrigin = Vector2.Zero;
-            Resolutions[0].LineHeightMod = 1f;
-
-            Resolutions[0].CopyTo(ref Resolutions[1]);
-            Resolutions[1].Backbuffer = new IntVector2(1280, 786);
-
-            Resolutions[0].CopyTo(ref Resolutions[2]);
-            Resolutions[2].Backbuffer = new IntVector2(1280, 720);
-
-            Resolutions[0].CopyTo(ref Resolutions[3]);
-            Resolutions[3].Backbuffer = new IntVector2(640, 360);
-
-            // Set the default resolution
-            Resolution = Resolutions[2];
-
-            MyGraphicsDeviceManager.PreferredBackBufferWidth = Resolution.Backbuffer.X;
-            MyGraphicsDeviceManager.PreferredBackBufferHeight = Resolution.Backbuffer.Y;
-            MyGraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
-
-            // Set the actual graphics device,
-            // based on the resolution preferences established above.
-#if PC_VERSION || WINDOWS
-            if (rez.Custom)
-            {
-                if (!rez.Fullscreen)
-                {
-                    rez.Height = (int)((720f / 1280f) * rez.Width);
-                }
-
-                MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
-                MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
-                MyGraphicsDeviceManager.IsFullScreen = rez.Fullscreen;
-            }
-            else
-            {
-                MyGraphicsDeviceManager.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                MyGraphicsDeviceManager.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                MyGraphicsDeviceManager.IsFullScreen = false;
-            }
-#if DEBUG || INCLUDE_EDITOR
-            if (!MyGraphicsDeviceManager.IsFullScreen)
-            {
-                MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-                MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-            }
-#endif
-#endif
-
-#if DEBUG
-            //// 640x480
-            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 640;
-            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 480;
-            //// 1280x720
-            //MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-            //MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-            //MyGraphicsDeviceManager.IsFullScreen = false;
-#endif
-            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-            MyGraphicsDeviceManager.IsFullScreen = false;
-
-            
-            
-            // For recording
+			// For recording
             if (ForFrapsRecording)
             {
                 MyGraphicsDeviceManager.PreferredBackBufferWidth = 1920;
@@ -725,22 +652,32 @@ namespace CloudberryKingdom
                 MyGraphicsDeviceManager.IsFullScreen = true;
             }
 
+            rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-#if WINDOWS && !EDITOR
-            Tools.GameClass.SetBorder(Tools.WindowBorder);
+	#endif
+
+#elif XBOX
+			// Some possible resolutions.
+			Resolution = new ResolutionGroup();
+			Resolution.Backbuffer = new IntVector2(1280, 720);
+			Resolution.Bob = new IntVector2(135, 0);
+			Resolution.TextOrigin = Vector2.Zero;
+			Resolution.LineHeightMod = 1f;
+
+			MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+			MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+	#if WINDOWS
+			MyGraphicsDeviceManager.IsFullScreen = false;
+	#endif
 #endif
 
-            //MyGraphicsDeviceManager.ApplyChanges();
-#else
-            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-#endif
-#endif
             fps = 0;
             Tools.Write("BackBuffer set");
         }
 
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
+        /*
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
             Tools.Write("Signout event");
@@ -827,6 +764,93 @@ namespace CloudberryKingdom
             //    // Otherwise we're in a game and should return to the title screen
             //    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
             //}
+        }*/
+
+        static int[] SignInCount = new int[] { 0, 0, 0, 0 };
+        static bool[] SignInStated = new bool[] { false, false, false, false };
+        void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
+        {
+            int index = (int)e.Gamer.PlayerIndex;
+            SignInCount[index] = -1;
+        }
+
+        void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
+        {
+            int index = (int)e.Gamer.PlayerIndex;
+            SignInCount[index] =  1;
+        }
+
+        void CheckForSignInState()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (SignInCount[i] > 0) SignInCount[i]++;
+                else if (SignInCount[i] < 0) SignInCount[i]--;
+
+                if /**/ (SignInStated[i] == true && SignInCount[i] < -2)
+                {
+                    SignInStated[i] = false;
+                    SignedInGamer_SignedOut_ManualEvent(i);
+                }
+                else if (SignInStated[i] == false && SignInCount[i] > 2)
+                {
+                    SignInStated[i] = true;
+                    SignedInGamer_SignedIn_ManualEvent(i);
+                }
+            }
+        }
+
+        void SignedInGamer_SignedOut_ManualEvent(int index)
+        {
+            Tools.Write("Signout event (custom)");
+
+            if (Tools.CurGameData == null) return;
+
+            if (EzStorage.Device[index] != null)
+            {
+                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
+                EzStorage.Device[index] = null;
+            }
+
+            if (Tools.CurGameData != null && !CharacterSelectManager.IsShowing)
+                Tools.CurGameData.OnSignOut_ManualEvent(index);
+
+            var data = PlayerManager.Players[index] = new PlayerData();
+            data.Init(index);
+
+            if (PlayerManager.NumExistingPlayers() == 0)
+            {
+                Tools.SongWad.Stop();
+                CharacterSelectManager.SuddenCleanup();
+
+                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+                if (Tools.CurrentLoadingScreen != null)
+                {
+                    Tools.EndLoadingScreen();
+                }
+            }
+        }
+
+        void SignedInGamer_SignedIn_ManualEvent(int index)
+        {
+            Tools.Write("Signin event (custom)");
+
+            if (Tools.CurGameData == null) return;
+
+            if (EzStorage.Device[index] != null)
+                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
+
+            PlayerData data = new PlayerData();
+            data.Init(index);
+            PlayerManager.Players[index] = data;
+
+            if (!CanSave()) return;
+
+            SaveGroup.LoadGamer(data);
+
+            // Gamers that signin after the game launches should always be immediately prompted to select a storage device.
+            if (EzStorage.Device[index] != null)
+                EzStorage.Device[index].NeedsConnection = true;
         }
 #endif
 
@@ -894,18 +918,18 @@ namespace CloudberryKingdom
 			// Initialize players
 			PlayerManager.Init();
 
-			// Load saved files
-			Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-			SaveGroup.Initialize();
-
-			StartLogoSalad();
-
             // Localization
             Tools.Write("Language ISO code : " + System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Localization.Language default_language = Localization.IsoCodeToLanguage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Tools.Write("Default language is " + default_language);
             Localization.SetLanguage(default_language);
             Tools.Write("Language loaded");
+
+			// Load saved files
+			Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+			SaveGroup.Initialize();
+
+			StartLogoSalad();
 
             // Pre load. This happens before anything appears.
             Resources.LoadAssets(true);
@@ -1621,6 +1645,7 @@ namespace CloudberryKingdom
             }
 #endif
 
+            CheckForSignInState();
 			UpdateCustomMusic();
 
             // What to do

@@ -61,6 +61,7 @@ namespace CloudberryKingdom
                         return;
                     }
 
+                    EzStorage.StartAsyncUpdate();
 #if DEBUG
                     // Start at Title Screen
                     // WARNING

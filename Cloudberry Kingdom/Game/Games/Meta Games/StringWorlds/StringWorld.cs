@@ -19,6 +19,12 @@ namespace CloudberryKingdom
         }
 
 #if XBOX || XBOX_SIGNIN
+        public override void OnSignOut_ManualEvent(int index)
+        {
+            // Do nothing. No player to remove, this is a stringworldgame not a normalgame.
+            //Tools.CurGameData.RemovePlayer((int)e.Gamer.PlayerIndex);
+        }
+
         public override void OnSignOut(SignedOutEventArgs e)
         {
             // Do nothing. No player to remove, this is a stringworldgame not a normalgame.

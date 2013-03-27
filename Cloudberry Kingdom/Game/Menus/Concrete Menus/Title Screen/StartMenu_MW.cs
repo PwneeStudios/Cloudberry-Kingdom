@@ -24,6 +24,12 @@ namespace CloudberryKingdom
 
         protected override void MenuGo_Options(MenuItem item)
         {
+            // Player needs a storage device
+            if (MenuItem.ActivatingPlayer >= 0 && EzStorage.Device[MenuItem.ActivatingPlayer] != null)
+            {
+                EzStorage.Device[MenuItem.ActivatingPlayer].NeedsConnection = true;
+            }
+
             Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
             Call(new StartMenu_MW_Options(Control, true), 0);
             CallingOptionsMenu = true;

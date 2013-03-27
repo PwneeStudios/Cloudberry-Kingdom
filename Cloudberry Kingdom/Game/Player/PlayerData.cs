@@ -176,7 +176,7 @@ namespace CloudberryKingdom
                 case 84003:
                     int _language = chunk.ReadInt();
                     Localization.Language language = (Localization.Language)_language;
-					// This sets the language upon load, which causes a lot of confusion.
+					// // This sets the language upon load, which causes a lot of confusion.
                     //Tools.AddToDo(() => Localization.SetLanguage(language));
                     break;
 			}

@@ -1506,6 +1506,11 @@ namespace CloudberryKingdom
             }
         }*/
 
+        public virtual void OnSignOut_ManualEvent(int index)
+        {
+            Tools.CurGameData.RemovePlayer(index);
+        }
+
         public virtual void OnSignOut(SignedOutEventArgs e)
         {
             Tools.CurGameData.RemovePlayer((int)e.Gamer.PlayerIndex);

@@ -232,7 +232,13 @@ namespace CloudberryKingdom
         {
             ListSelectPanel ClrSelect;
 
-            Vector2 ShiftSelect = Vector2.Zero;            
+            Vector2 ShiftSelect = Vector2.Zero;
+
+			float item_width = .375f;
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
+				item_width = .305f;
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
+				item_width = .305f;
 
             // Make the hat select
             if (MyMenu.CurIndex == 2)
@@ -244,7 +250,7 @@ namespace CloudberryKingdom
                 {
                     int hat_index = ColorSchemeManager.HatInfo.IndexOf(hat);
                     var item = new MenuItem(new EzText(hat.Name, Resources.Font_Grobold42, false, true));
-                    item.ScaleText(.375f);
+					item.ScaleText(item_width);
                     item.MyObject = hat_index;
 
                     list.MyList.AddItem(item, hat_index);
@@ -261,7 +267,7 @@ namespace CloudberryKingdom
                 {
                     int beard_index = ColorSchemeManager.BeardInfo.IndexOf(beard);
                     var item = new MenuItem(new EzText(beard.Name, Resources.Font_Grobold42, false, true));
-                    item.ScaleText(.375f);
+					item.ScaleText(item_width);
                     item.MyObject = beard_index;
                     
                     list.MyList.AddItem(item, beard_index);
@@ -285,7 +291,7 @@ namespace CloudberryKingdom
 
                     int clr_index = list.IndexOf(item);
                     var _item = new MenuItem(new EzText(data.Name, Resources.Font_Grobold42, false, true));
-                    _item.ScaleText(.375f);
+					_item.ScaleText(item_width);
                     _item.MyObject = clr_index;
 
                     select.MyList.AddItem(_item, clr_index);

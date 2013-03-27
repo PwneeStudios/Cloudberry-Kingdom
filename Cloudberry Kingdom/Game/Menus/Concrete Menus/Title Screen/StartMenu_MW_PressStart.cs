@@ -108,13 +108,19 @@ namespace CloudberryKingdom
                     if (LoadNeeded)
                     {
                         SaveGroup.LoadGamers();
+
+                        // Player needs a storage device
+                        if (ButtonCheck.AnyKeyPlayer >= 0 && EzStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
+                        {
+                            EzStorage.Device[ButtonCheck.AnyKeyPlayer].NeedsConnection = true;
+                        }
+
                         Hide();
                         MyGame.WaitThenDo(5, CallMenu);
                         return;
                     }
                 }
 #endif
-
                 CallMenu();
             }
         }

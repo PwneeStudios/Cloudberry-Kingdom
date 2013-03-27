@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
 			MyMenu.OnB = null;
 
-            //Core.DrawLayer++;
+			//Core.DrawLayer = Level.AfterPostDrawLayer;
 		}
 
 		public override void MakeBackdrop()
@@ -107,6 +107,8 @@ namespace CloudberryKingdom
 			EnableBounce();
 
             this.Control = Control;
+
+			Core.DrawLayer = Level.AfterPostDrawLayer;
 
             Constructor();
         }

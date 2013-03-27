@@ -5,6 +5,12 @@ namespace CloudberryKingdom
 {
     static class MainClass
     {
+		/// <summary>
+		/// Put this in to make sure Tools static constructor is called immediately.
+		/// Probably not needed, but there is not time to test removing it.
+		/// </summary>
+		static float dummy_t;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -13,8 +19,6 @@ namespace CloudberryKingdom
 #endif
         [STAThread]
 #endif
-
-        static float dummy_t;
         static void Main(string[] args)
         {
             dummy_t = Tools.t;
