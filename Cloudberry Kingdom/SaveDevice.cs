@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 using System.Threading;
 
+using CloudberryKingdom;
+
 namespace EasyStorage
 {
 	/// <summary>
@@ -542,14 +544,21 @@ namespace EasyStorage
 		// helper method for showing guide messages
 		private static void ShowMessageBox(PlayerIndex? player, string title, string text, IEnumerable<string> buttons, AsyncCallback callback)
 		{
-			if (player.HasValue)
-			{
-				Guide.BeginShowMessageBox(player.Value, title, text, buttons, 0, MessageBoxIcon.None, callback, null);
-			}
-			else
-			{
-				Guide.BeginShowMessageBox(title, text, buttons, 0, MessageBoxIcon.None, callback, null);
-			}
+            try
+            {
+                if (player.HasValue)
+                {
+                    Guide.BeginShowMessageBox(player.Value, title, text, buttons, 0, MessageBoxIcon.None, callback, null);
+                }
+                else
+                {
+                    Guide.BeginShowMessageBox(title, text, buttons, 0, MessageBoxIcon.None, callback, null);
+                }
+            }
+            catch (Exception e)
+            {
+                Tools.Write(e.Message);
+            }
 		}
 	}
 }

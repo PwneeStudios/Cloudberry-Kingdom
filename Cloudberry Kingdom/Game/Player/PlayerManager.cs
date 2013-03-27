@@ -239,7 +239,7 @@ namespace CloudberryKingdom
 
             for (int i = 0; i < 4; i++)
             {
-                if (Players[i].Exists)
+                if (Players[i].Exists && CloudberryKingdomGame.OnlineFunctionalityAvailable((PlayerIndex)i))
                 {
                     int level = Players[i].GetTotalCampaignLevel();
                     //if (level != Players[i].LastPlayerLevelUpload)
@@ -262,7 +262,7 @@ namespace CloudberryKingdom
 
             for (int i = 0; i < 4; i++)
             {
-                if (Players[i].Exists)
+                if (Players[i].Exists && CloudberryKingdomGame.OnlineFunctionalityAvailable((PlayerIndex)i))
                 {
                     int level = Players[i].GetTotalLevel();
                     if (level != Players[i].LastPlayerLevelUpload)

@@ -45,13 +45,22 @@ namespace CloudberryKingdom
 			//AddItem(item);
 			
 			// Console version: Start to save
-			MyPile.Add(new EzText(Localization.Words.PressStart, ItemFont), "Start");
+			var start = new EzText(Localization.Words.PressStart, ItemFont);
+			MyPile.Add(start, "Start");
+			SetHeaderProperties(start);
 
+			var x = new EzText(Localization.Words.Delete, ItemFont);
+            MyPile.Add(x, "Delete");
+			x.MyFloatColor = Menu.DefaultMenuInfo.UnselectedXColor;
+			x.OutlineColor = Color.Black.ToVector4();
 
-            MyPile.Add(new EzText(Localization.Words.Delete, ItemFont), "Delete");
 			MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
 
-			MyPile.Add(new EzText(Localization.Words.Back, ItemFont), "Back");
+			var back = new EzText(Localization.Words.Back, ItemFont);
+			MyPile.Add(back, "Back");
+			back.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
+			back.OutlineColor = Color.Black.ToVector4();
+
 			MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
 
 //#if PC_VERSION

@@ -223,7 +223,9 @@ namespace CloudberryKingdom
 #endif
 		}
 
-#if PC_VERSION
+#if PC_VERSION || XBOX
+        // This shows our custom virtual keyboard, instead of the Xbox keyboard.
+
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
         {
             return _item => Save(_item, panel, player);

@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public const bool FinalRelease = false;
 #else
-		public const bool FinalRelease = true;
+		public const bool FinalRelease = false;
 #endif
 
         public const bool PropTest = false;
@@ -105,11 +105,17 @@ namespace CloudberryKingdom
         public static int ShowSavingDuration = 0;
         const int ShowSavingLength = 80;
 
+        const float ShowSaving_FadeInLength = 6;
+        const float ShowSaving_FadeOutLength = 9;
+
         public static void ShowSaving()
         {
             //if (PlayerManager.GetNumPlayers() > 2)
             {
-                ShowSavingDuration = ShowSavingLength;
+                if (ShowSavingDuration > 0)
+                    ShowSavingDuration = (int)(ShowSavingLength - ShowSaving_FadeInLength);
+                else
+                    ShowSavingDuration = ShowSavingLength;
 
 				SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
 				SavingText.FixedToCamera = true;
@@ -127,13 +133,10 @@ namespace CloudberryKingdom
 
                 if (Tools.CurCamera != null)
                 {
-					const float FadeInLength = 6;
-					const float FadeOutLength = 9;
-
-                    if (ShowSavingDuration < FadeOutLength)
-						SavingText.Alpha = 1f - (FadeOutLength - ShowSavingDuration) / FadeOutLength;
-					else if (ShowSavingDuration > ShowSavingLength - FadeInLength)
-						SavingText.Alpha = 1f - (FadeInLength - (ShowSavingLength - ShowSavingDuration)) / FadeInLength;
+                    if (ShowSavingDuration < ShowSaving_FadeOutLength)
+						SavingText.Alpha = 1f - (ShowSaving_FadeOutLength - ShowSavingDuration) / ShowSaving_FadeOutLength;
+					else if (ShowSavingDuration > ShowSavingLength - ShowSaving_FadeInLength)
+						SavingText.Alpha = 1f - (ShowSaving_FadeInLength - (ShowSavingLength - ShowSavingDuration)) / ShowSaving_FadeInLength;
 
                     SavingText.Draw(Tools.CurCamera);
 					Tools.QDrawer.Flush();
@@ -349,7 +352,7 @@ namespace CloudberryKingdom
 #endif
 
 		public static bool WasNotDemoOnce = false;
-        public static bool FakeDemo = true && !FinalRelease;
+        public static bool FakeDemo = false && !FinalRelease;
         public static bool IsDemo
         {
             get
@@ -1417,11 +1420,15 @@ namespace CloudberryKingdom
 #if XDK || XBOX
             try
             {
-                Guide.BeginShowMessageBox(Localization.WordString(Err_Header), Localization.WordString(Err_Text), Err_Options,
+                var _Err_Header = Localization.WordString(Err_Header);
+                var _Err_Text = Localization.WordString(Err_Text);
+
+                Guide.BeginShowMessageBox(_Err_Header, _Err_Text, Err_Options,
                     0, MessageBoxIcon.None, Err_Callback, null);
             }
             catch (Exception e)
             {
+                Tools.Write(e.Message);
             }
 #endif
         }
@@ -1549,6 +1556,8 @@ namespace CloudberryKingdom
 
 		void DrawWatermark()
 		{
+            return;
+
             if (FinalRelease) return;
 			if (Tools.QDrawer == null) return;
 			if (Resources.Font_Grobold42 == null) return;
@@ -1609,10 +1618,10 @@ namespace CloudberryKingdom
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
 			if (Guide.IsVisible) { DrawNothing(); DrawWatermark(); return; }
-            if (ShowKeyboard)
-            {
-                SaveLoadSeedMenu.BeginShowKeyboard();
-            }
+			//if (ShowKeyboard)
+			//{
+			//    SaveLoadSeedMenu.BeginShowKeyboard();
+			//}
 			else if (ShowAchievements)
 			{
 				BeginShowAchievements();

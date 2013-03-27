@@ -48,8 +48,13 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
-        void BringLeaderboard()
+        void BringLeaderboard(int PressingPlayer)
         {
+            if (PressingPlayer < 0 || PressingPlayer > 3) 
+                return;
+
+            PlayerIndex ActivatingPlayer = (PlayerIndex)PressingPlayer;
+
             if (CloudberryKingdomGame.SimpleLeaderboards)
             {
                 var item = HeroSelect.MyMenu.CurItem as HeroItem;
@@ -75,18 +80,18 @@ namespace CloudberryKingdom
             }
             else
             {
-                if (CloudberryKingdomGame.OnlineFunctionalityAvailable(MenuItem.ActivatingPlayerIndex()))
+                if (CloudberryKingdomGame.OnlineFunctionalityAvailable(ActivatingPlayer))
                 {
 #if XBOX
-                    var gamer = CloudberryKingdomGame.IndexToSignedInGamer(MenuItem.ActivatingPlayerIndex());
+                    var gamer = CloudberryKingdomGame.IndexToSignedInGamer(ActivatingPlayer);
                     if (gamer != null)
                     {
-						HeroSelect.Call(new LeaderboardGUI(null, gamer, MenuItem.ActivatingPlayer), 0);
+						HeroSelect.Call(new LeaderboardGUI(null, gamer, (int)ActivatingPlayer), 0);
                         HeroSelect.Hide();
                         HeroSelect.MyHeroDoll.Hide();
                     }
 #else
-                    HeroSelect.Call(new LeaderboardGUI(null, null, MenuItem.ActivatingPlayer), 0);
+                    HeroSelect.Call(new LeaderboardGUI(null, null, (int)ActivatingPlayer), 0);
                     HeroSelect.Hide();
                     HeroSelect.MyHeroDoll.Hide();
 #endif
@@ -104,8 +109,9 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
-            if (ButtonCheck.State(ControllerButtons.X, Control).Pressed)
-                BringLeaderboard();
+            var data = ButtonCheck.State(ControllerButtons.X, Control);
+            if (data.Pressed)
+                BringLeaderboard(data.PressingPlayer);
         }
 
         public override void Init()

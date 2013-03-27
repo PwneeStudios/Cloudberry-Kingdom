@@ -99,6 +99,12 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 84002, Tools.SoundVolume.Val);
             Chunk.WriteSingle(writer, 84003, (int)Localization.CurrentLanguage.MyLanguage);
 
+            //// Player ID
+            //if (MyGamer != null)
+            //{
+            //    Chunk.WriteSingle(writer, 12001, MyGamer.GetXuid());
+            //}
+
 #if CAFE
 #else
 			ScoreDatabase.Instance.Serialize(writer);
@@ -179,6 +185,8 @@ namespace CloudberryKingdom
 					// // This sets the language upon load, which causes a lot of confusion.
                     //Tools.AddToDo(() => Localization.SetLanguage(language));
                     break;
+
+
 			}
 		}
 

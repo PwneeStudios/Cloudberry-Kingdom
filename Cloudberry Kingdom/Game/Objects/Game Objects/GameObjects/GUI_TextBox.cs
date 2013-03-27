@@ -326,12 +326,14 @@ namespace CloudberryKingdom
 
         void UpdateSelectQuad()
         {
+			float shift = 420;
             float width = MyText.GetWorldWidth(Text.Substring(SelectIndex_Start, SelectIndex_End - SelectIndex_Start));
+			width += shift;
             float pos = MyText.GetWorldWidth(Text.Substring(0, SelectIndex_Start));
 
             SelectQuad.Size = new Vector2(width / 2 + 50, SelectQuad.Size.Y + 30);
             SelectQuad.Left = MyText.Pos.X + pos;
-			SelectQuad.Pos = MyText.Pos + new Vector2(MyText.GetWorldWidth() / 2 + 50, -MyText.GetWorldHeight() / 4);
+			SelectQuad.Pos = MyText.Pos + new Vector2(MyText.GetWorldWidth() / 2 + 50 + shift / 2, -MyText.GetWorldHeight() / 4);
         }
 
         protected override EzText MakeText(string text, bool centered, EzFont font)

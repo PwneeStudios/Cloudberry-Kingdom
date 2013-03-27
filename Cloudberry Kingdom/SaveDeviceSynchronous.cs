@@ -14,14 +14,20 @@ namespace EasyStorage
 		{
 			// open the container from the device. while this is normally an async process, we
 			// block until completion which makes it a synchronous operation for our uses.
-            bool isTransferredFromOtherPlayer;
+            bool isTransferredFromOtherPlayer = false;
 #if XDK
 			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, false, out isTransferredFromOtherPlayer, null, null);
 #else
 			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, null, null);
 #endif
+
 			asyncResult.AsyncWaitHandle.WaitOne();
-			return storageDevice.EndOpenContainer(asyncResult);
+			var container = storageDevice.EndOpenContainer(asyncResult);
+
+            // Return a null if the container was transferred from another player.
+            if (isTransferredFromOtherPlayer) return null;
+
+            return container;
 		}
 
 		/// <summary>
@@ -49,6 +55,8 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
+                    if (currentContainer == null) return;
+
 					// attempt the save
 					using (var stream = currentContainer.CreateFile(fileName))
 					{
@@ -74,6 +82,8 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
+                    if (currentContainer == null) return;
+
                     if (currentContainer.FileExists(fileName))
                     {
                         // attempt the load
@@ -101,6 +111,8 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
+                    if (currentContainer == null) return;
+
 					// attempt to delete the file
 					if (currentContainer.FileExists(fileName))
 					{
@@ -126,6 +138,8 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
+                    if (currentContainer == null) return false;
+
 					return currentContainer.FileExists(fileName);
 				}
 			}
@@ -157,6 +171,8 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
+                    if (currentContainer == null) return;
+
 					return string.IsNullOrEmpty(pattern) ? currentContainer.GetFileNames() : currentContainer.GetFileNames(pattern);
 				}
 			}
