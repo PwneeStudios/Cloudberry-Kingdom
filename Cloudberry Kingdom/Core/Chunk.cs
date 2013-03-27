@@ -221,6 +221,10 @@ namespace CoreEngine
         {
             Write(BitConverter.GetBytes(val));
         }
+        public void Write(ulong val)
+        {
+            Write(BitConverter.GetBytes(val));
+        }
         public void Write(string val)
         {
             int StringLength = System.Text.Encoding.UTF8.GetByteCount(val);
@@ -240,6 +244,13 @@ namespace CoreEngine
         {
             int val = BitConverter.ToInt32(Buffer, Position);
             Position += 4;
+
+            return val;
+        }
+        public ulong ReadULong()
+        {
+            ulong val = BitConverter.ToUInt64(Buffer, Position);
+            Position += 8;
 
             return val;
         }
@@ -300,6 +311,15 @@ namespace CoreEngine
             chunk.Finish(writer);
         }
         public static void WriteSingle(BinaryWriter writer, int type, float val)
+        {
+            var chunk = new Chunk();
+            chunk.Type = type;
+
+            chunk.Write(val);
+
+            chunk.Finish(writer);
+        }
+        public static void WriteSingle(BinaryWriter writer, int type, ulong val)
         {
             var chunk = new Chunk();
             chunk.Type = type;

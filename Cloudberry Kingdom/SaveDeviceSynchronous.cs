@@ -2,6 +2,8 @@
 using System.IO;
 using Microsoft.Xna.Framework.Storage;
 
+using CloudberryKingdom;
+
 namespace EasyStorage
 {
 	// implements the synchronous file operations for the SaveDevice.
@@ -15,19 +17,32 @@ namespace EasyStorage
 			// open the container from the device. while this is normally an async process, we
 			// block until completion which makes it a synchronous operation for our uses.
             bool isTransferredFromOtherPlayer = false;
+            try
+            {
 #if XDK
-			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, false, out isTransferredFromOtherPlayer, null, null);
+                IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, null, null);
+
+                // Can't use this ovveride without causing problems with unreasonable exceptions being thrown.
+                //IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, false, out isTransferredFromOtherPlayer, null, null);
 #else
-			IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, null, null);
+			    IAsyncResult asyncResult = storageDevice.BeginOpenContainer(containerName, null, null);
 #endif
+                asyncResult.AsyncWaitHandle.WaitOne();
+                var container = storageDevice.EndOpenContainer(asyncResult);
 
-			asyncResult.AsyncWaitHandle.WaitOne();
-			var container = storageDevice.EndOpenContainer(asyncResult);
+                // Return a null if the container was transferred from another player.
+                // (This is now always false, since we do not use the BeginOpenContainer override.
+                if (isTransferredFromOtherPlayer) return null;
 
-            // Return a null if the container was transferred from another player.
-            if (isTransferredFromOtherPlayer) return null;
+                return container;
+            }
+            catch (Exception e)
+            {
+                Tools.Write(e.Message);
 
-            return container;
+                // Assume the data was loaded from a different user
+                return null;
+            }
 		}
 
 		/// <summary>
@@ -171,7 +186,7 @@ namespace EasyStorage
 				// open a container
 				using (StorageContainer currentContainer = OpenContainer(containerName))
 				{
-                    if (currentContainer == null) return;
+                    if (currentContainer == null) return new string[] { };
 
 					return string.IsNullOrEmpty(pattern) ? currentContainer.GetFileNames() : currentContainer.GetFileNames(pattern);
 				}

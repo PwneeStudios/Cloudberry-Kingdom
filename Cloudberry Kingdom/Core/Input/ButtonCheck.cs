@@ -157,6 +157,7 @@ namespace CloudberryKingdom
 
             Tools.Mouse = Mouse.GetState();
 #endif
+
             Tools.GamepadState[0] = GamePad.GetState(PlayerIndex.One);
             Tools.GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
             Tools.GamepadState[2] = GamePad.GetState(PlayerIndex.Three);

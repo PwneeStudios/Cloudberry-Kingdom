@@ -99,11 +99,23 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 84002, Tools.SoundVolume.Val);
             Chunk.WriteSingle(writer, 84003, (int)Localization.CurrentLanguage.MyLanguage);
 
-            //// Player ID
-            //if (MyGamer != null)
-            //{
-            //    Chunk.WriteSingle(writer, 12001, MyGamer.GetXuid());
-            //}
+            // Player ID
+            if (MyGamer != null)
+            {
+                ulong xuid = MyGamer.GetXuid();
+                string gamertag = MyGamer.Gamertag;
+
+                Tools.Write("Saving xuid " + xuid);
+                Tools.Write("Saving gamertag " + gamertag);
+
+                Chunk.WriteSingle(writer, 12001, xuid);
+                Chunk.WriteSingle(writer, 12002, gamertag);
+            }
+            else
+            {
+                // This should never happen
+                Tools.Nothing();
+            }
 
 #if CAFE
 #else
@@ -131,6 +143,37 @@ namespace CloudberryKingdom
 				ScoreDatabase.ProcessChunk(chunk);
 				_SavePlayerData.ProcessChunk(chunk);
 #endif
+            }
+
+            // If this loaded data belongs to another user, silently reset the data to defaults.
+            if (BelongsToAnotherPlayer())
+            {
+                FailLoad();
+            }
+        }
+
+        bool BelongsToAnotherPlayer()
+        {
+            if (MyGamer == null)
+            {
+                // Should never happen
+                Tools.Nothing();
+                return false;
+            }
+            else
+            {
+                ulong Actual_Xuid = MyGamer.GetXuid();
+                string Actual_Gamertag = MyGamer.Gamertag;
+
+                // If both Xuid and Gamertag are different, assume this data belongs to another user.
+                if (Actual_Xuid != LoadedId_Xuid && Actual_Gamertag != LoadedId_Gamertag)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -186,9 +229,13 @@ namespace CloudberryKingdom
                     //Tools.AddToDo(() => Localization.SetLanguage(language));
                     break;
 
-
+                case 12001: LoadedId_Xuid = chunk.ReadULong(); break;
+                case 12002: LoadedId_Gamertag = chunk.ReadString(); break;
 			}
 		}
+
+        ulong LoadedId_Xuid = 0;
+        string LoadedId_Gamertag = null;
 
         #endregion
 
