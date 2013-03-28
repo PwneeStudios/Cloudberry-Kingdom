@@ -668,9 +668,65 @@ namespace CloudberryKingdom
             Hero.MyCustomPhsxData.Init(vals);
         }
 
+        string HeroName(Localization.Words word)
+        {
+            switch (word)
+            {
+                case Localization.Words.ClassicHero:
+                    return "cls";
+                case Localization.Words.Jetman:
+                    return "jtm";
+                case Localization.Words.DoubleJump:
+                    return "dbj";
+                case Localization.Words.TinyBob:
+                    return "tny";
+                case Localization.Words.Wheelie:
+                    return "whl";
+                case Localization.Words.Spaceship:
+                    return "spc";
+                case Localization.Words.HeroInABox:
+                    return "box";
+                case Localization.Words.Bouncy:
+                    return "bnc";
+                case Localization.Words.Rocketbox:
+                    return "rck";
+                case Localization.Words.FatBob:
+                    return "hero";
+                case Localization.Words.PhaseBob:
+                    return "phs";
+                case Localization.Words.Viridian:
+                    return "grv";
+                case Localization.Words.TimeMaster:
+                    return "tma";
+                case Localization.Words.Meatboy:
+                    return "mtb";
+                case Localization.Words.JetpackWheelie:
+                    return "jpw";
+                case Localization.Words.TinyDoubleJump:
+                    return "tdj";
+                case Localization.Words.BoxJetpack:
+                    return "bjp";
+                case Localization.Words.DoubleJumpWheelie:
+                    return "djw";
+                case Localization.Words.FatBouncy:
+                    return "fbn";
+                case Localization.Words.TinyBox:
+                    return "tnb";
+                case Localization.Words.PhasingJetpack:
+                    return "phj";
+                case Localization.Words.BouncyJetpack:
+                    return "bcj";
+                case Localization.Words.FatDoubleJump:
+                    return "fdj";
+                default:
+                    return "hero";
+            }
+        }
+
         public string SuggestedName()
         {
-            return Localization.WordString(DefaultHeroType.Name) + "_" + Seed.ToString();
+            string hero = HeroName(DefaultHeroType.Name);
+            return hero + "_" + Seed.ToString();
         }
 
         public static string GetNameFromSeedStr(string seed)

@@ -104,7 +104,7 @@ namespace CloudberryKingdom
 
             clipboard = Tools.SantitizeOneLineString(clipboard, Resources.LilFont);
             TextBox = new GUI_TextBox(clipboard, Vector2.Zero, new Vector2(1.85f, .65f), .95f);
-            TextBox.MaxLength = 40;
+            TextBox.MaxLength = 36;
             TextBox.FixedToCamera = false;
             TextBox.Pos.SetCenter(MyPile.FancyPos);
             TextBox.Pos.RelVal = new Vector2(830, 277.7778f);

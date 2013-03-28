@@ -11,6 +11,8 @@ namespace CloudberryKingdom
         public StartMenu_MW_PressStart(TitleGameData_MW Title)
             : base()
         {
+            CloudberryKingdomGame.PastPressStart = false;
+
             this.Title = Title;
         }
 
@@ -78,6 +80,8 @@ namespace CloudberryKingdom
             {
                 DelayToAllowInput = 10;
 
+                CloudberryKingdomGame.PastPressStart = true;
+
 #if XDK || XBOX
                 if (Gamer.SignedInGamers.Count > 0)
                 {
@@ -107,6 +111,12 @@ namespace CloudberryKingdom
 
                     if (LoadNeeded)
                     {
+                        // Player needs a storage device
+                        if (ButtonCheck.AnyKeyPlayer >= 0 && EzStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
+                        {
+                            EzStorage.Device[ButtonCheck.AnyKeyPlayer].ChoseNotToSelectDevice = false;
+                        }
+
                         SaveGroup.LoadGamers();
 
                         // Player needs a storage device
@@ -127,8 +137,6 @@ namespace CloudberryKingdom
 
 		void CallMenu()
 		{
-			CloudberryKingdomGame.PastPressStart = true;
-
 			if (CloudberryKingdomGame.SimpleMainMenu)
 				Call(new StartMenu_MW_Simple(Title));
 			else
@@ -154,6 +162,8 @@ namespace CloudberryKingdom
 
         public override void OnReturnTo()
         {
+            CloudberryKingdomGame.PastPressStart = false;
+
             base.OnReturnTo();
         }
     }

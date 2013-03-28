@@ -102,9 +102,13 @@ namespace CloudberryKingdom
             // Player ID
             if (MyGamer != null)
             {
+#if XDK
                 ulong xuid = MyGamer.GetXuid();
                 string gamertag = MyGamer.Gamertag;
-
+#else
+				ulong xuid = 0;
+				string gamertag = "";
+#endif
                 Tools.Write("Saving xuid " + xuid);
                 Tools.Write("Saving gamertag " + gamertag);
 
@@ -127,9 +131,19 @@ namespace CloudberryKingdom
         protected override void FailLoad()
         {
             MySavedSeeds = new SavedSeeds();
+            
             HighScores = new Dictionary<int, ScoreEntry>();
+            
             Purchases = new Set<int>();
-            Awardments = new Set<int>();            
+            Awardments = new Set<int>();
+            
+            CampaignIndex = CampaignLevel = CampaignCoins = 0;
+
+            if (TempStats != null) TempStats.Clean();
+            if (LevelStats != null) LevelStats.Clean();
+            if (GameStats != null) GameStats.Clean();
+            if (LifetimeStats != null) LifetimeStats.Clean();
+            if (CampaignStats != null) CampaignStats.Clean();
         }
 
         public override void Deserialize(byte[] Data)
@@ -150,6 +164,20 @@ namespace CloudberryKingdom
             {
                 FailLoad();
             }
+
+            // Cheat: Give all unlocks to player
+            int[] l = new int[] { 7777, 9999, 10000, 10100, 11500, 10200, 10400, 10500, 11000, 10300, 11100, 10900, 11200, 11300, 11400, 10001, 10101, 11501, 10201, 10401, 10501, 11001, 10301, 11101, 10901, 11201, 11301, 11401, 10002, 10003 };
+            foreach (int id in l)
+            {
+                AddHighScore(new ScoreEntry(MyGamer.Gamertag, id, 100000, 100000, 100000, 100000, 100000, 100000));
+            }
+
+            CampaignIndex = 326;
+            CampaignLevel = 321;
+            CampaignCoins = 10000;
+            Awardments += 100;
+            Awardments += 101;
+            Awardments += 102;
         }
 
         bool BelongsToAnotherPlayer()
@@ -162,8 +190,13 @@ namespace CloudberryKingdom
             }
             else
             {
+#if XDK
                 ulong Actual_Xuid = MyGamer.GetXuid();
                 string Actual_Gamertag = MyGamer.Gamertag;
+#else
+                ulong Actual_Xuid = 0;
+                string Actual_Gamertag = "";
+#endif
 
                 // If both Xuid and Gamertag are different, assume this data belongs to another user.
                 if (Actual_Xuid != LoadedId_Xuid && Actual_Gamertag != LoadedId_Gamertag)

@@ -122,8 +122,11 @@ namespace CloudberryKingdom
                 d.DeviceDisconnected +=
                     (s, e) => e.Response = SaveDeviceEventResponse.Prompt;
 
-                // prompt for a device on the first Update we can
-                d.PromptForDevice();
+                // Prompt for a device on the first Update we can, assuming we are past the IIS "Press Start" phase.
+                if (CloudberryKingdomGame.PastPressStart)
+                {
+                    d.PromptForDevice();
+                }
 
                 d.DeviceSelected +=
                     (s, e) =>

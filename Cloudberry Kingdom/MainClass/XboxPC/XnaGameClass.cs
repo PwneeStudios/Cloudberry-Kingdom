@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 
         protected override void Update(GameTime gameTime)
         {
-            Tools.Write("Update");
+			//Tools.Write("Update");
             this.IsFixedTimeStep = Tools.FixedTimeStep;
 
             MyGame.RunningSlowly = gameTime.IsRunningSlowly;

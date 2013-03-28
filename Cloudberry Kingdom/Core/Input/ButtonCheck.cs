@@ -151,10 +151,18 @@ namespace CloudberryKingdom
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
             // Update controller/keyboard states
-#if WINDOWS
+
             Tools.Keyboard = Keyboard.GetState();
             if (Tools.PrevKeyboard == null) Tools.PrevKeyboard = Tools.Keyboard;
 
+#if XBOX
+            for (int i = 0; i < 4; i++)
+            {
+                Tools.PlayerKeyboard[i] = Keyboard.GetState((PlayerIndex)i);
+            }
+#endif
+
+#if WINDOWS
             Tools.Mouse = Mouse.GetState();
 #endif
 
@@ -174,6 +182,7 @@ namespace CloudberryKingdom
 
         public static void UpdateControllerAndKeyboard_EndOfStep(ResolutionGroup Resolution)
         {
+            // Mouse Upate. Windows only.
 #if WINDOWS
             // Determine if the mouse is in the window or not.
             Tools.MouseInWindow =
@@ -190,9 +199,20 @@ namespace CloudberryKingdom
             Tools.RawDeltaMouse = new Vector2(Tools.Mouse.X, Tools.Mouse.Y) -
                                   new Vector2(Tools.PrevMouse.X, Tools.PrevMouse.Y);
 
-            Tools.PrevKeyboard = Tools.Keyboard;
             Tools.PrevMouse = Tools.Mouse;
 #endif
+
+            // Keyboard 
+            Tools.PrevKeyboard = Tools.Keyboard;
+
+            // Player Keyboards
+#if XBOX
+            // Store the previous states of the Xbox chatpads
+            for (int i = 0; i < 4; i++)
+                if (Tools.PrevPlayerKeyboard[i] != null)
+                    Tools.PrevPlayerKeyboard[i] = Tools.PlayerKeyboard[i];
+#endif
+
             // Store the previous states of the Xbox controllers.
             for (int i = 0; i < 4; i++)
                 if (Tools.PrevGamepadState[i] != null)

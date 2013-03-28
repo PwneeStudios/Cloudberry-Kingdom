@@ -11,6 +11,9 @@ namespace CloudberryKingdom
     {
         public bool ForTrailer = false;
 
+        public static bool GamePlayInAction = false;
+        public static bool ScreenSaverStarted = false;
+
         bool Bungee = false;
         bool AllHeroes = false;
         float Difficulty = 4f;
@@ -98,6 +101,8 @@ namespace CloudberryKingdom
                     Tools.ShowLoadingScreen = false;
                     Tools.TheGame.LogoScreenPropUp = false;
                     Tools.Write("+++++++++++++++++++ Ending screensave load...");
+
+                    ScreenSaverStarted = true;
                 };
 
             OnSwapToLevel += index =>
@@ -140,7 +145,7 @@ namespace CloudberryKingdom
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial + InitialDarkness - 3, () =>
+                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial - 120 + InitialDarkness - 3, () =>
                         {
                             UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
@@ -160,7 +165,7 @@ namespace CloudberryKingdom
                             PressA.FixedToCamera = true;
                         }, true);
 
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength + InitialDarkness - 3, () =>
+                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength - 120 + InitialDarkness - 3, () =>
                         {
                             Listener PressA_Listener = null;
                             PressA_Listener = new Listener(ControllerButtons.Any, () =>
@@ -171,8 +176,8 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
-											 // Bring up a loading screen if we aren't done loading assets
-											 if (!Resources.FinalLoadDone)
+											 // Bring up a loading screen if we aren't done loading title screen assets
+											 if (!Resources.FakeFinalLoadDone)
 											 {
 												 Tools.BeginLoadingScreen(false);
 												 Tools.CurrentLoadingScreen.MakeFake();
@@ -245,7 +250,7 @@ namespace CloudberryKingdom
                         int zoomout_length = 21;
                         int zoomout_start = FullZoomOut + InitialDarkness - 3;
                         LerpStyle style = LerpStyle.Sigmoid;
-                        lvl.MyGame.WaitThenDo(zoomout_start, () => zoom_t.LerpTo(1f, zoomout_length, style));
+                        lvl.MyGame.WaitThenDo(zoomout_start, () => { zoom_t.LerpTo(1f, zoomout_length, style); GamePlayInAction = true; });
                         lvl.MyGame.WaitThenDo(zoomout_start, () => pos_t.LerpTo(1f, zoomout_length + 6, style));
 
                         lvl.MyGame.WaitThenDo(KillCapeDelay + InitialDarkness, () => wind_t.LerpTo(1f, 40));
@@ -339,6 +344,27 @@ namespace CloudberryKingdom
 					else
 						data.SetTileSet(FixedTileSet);
 					break;
+			}
+
+			if (Resources.EnvironmentLoaded <= 1)
+			{
+				data.SetTileSet("cave");
+			}
+			else if (Resources.EnvironmentLoaded <= 2 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" ))
+			{
+				data.SetTileSet("castle");
+			}
+			else if (Resources.EnvironmentLoaded <= 3 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest"))
+			{
+				data.SetTileSet("forest");
+			}
+			else if (Resources.EnvironmentLoaded <= 4 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills"))
+			{
+				data.SetTileSet("hills");
+			}
+			else if (Resources.EnvironmentLoaded <= 5 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills" && data.MyTileSet.Name != "clouds"))
+			{
+				data.SetTileSet("cloud");
 			}
 
             //data.SetTileSet(Tools.GlobalRnd.ChooseOne("sea", "forest", "cave", "castle", "cloud", "hills",

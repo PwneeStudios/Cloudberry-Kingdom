@@ -292,7 +292,7 @@ namespace EasyStorage
 #else
 			// we only let the programmer show the selector if the 
 			// SaveDevice isn't busy doing something else.
-			if (state == SaveDevicePromptState.None)
+            if (state == SaveDevicePromptState.None && !ChoseNotToSelectDevice)
 				state = SaveDevicePromptState.ShowSelector;
 #endif
 		}
@@ -341,6 +341,9 @@ namespace EasyStorage
         /// </summary>
         public bool NeedsConnection = false;
 
+        public bool EnsureConnectionUnlessCanceled = false;
+        public bool ChoseNotToSelectDevice = false;
+
 		/// <summary>
 		/// Allows the component to update itself.
 		/// </summary>
@@ -357,6 +360,7 @@ namespace EasyStorage
 
             //bool deviceIsConnected = storageDevice != null && storageDevice.IsConnected;
             bool deviceIsConnected = storageDevice != null && StorageDeviceIsConnected;
+
 			if (!deviceIsConnected && deviceWasConnected)
 			{
 				// if the device was disconnected, fire off the event and handle result
@@ -383,6 +387,7 @@ namespace EasyStorage
 						{
 							// show the normal storage device selector
 							case SaveDevicePromptState.ShowSelector:
+                                EnsureConnectionUnlessCanceled = true;
 								GetStorageDevice(storageDeviceSelectorCallback);
                                 state = SaveDevicePromptState.None;
 								break;
@@ -405,6 +410,12 @@ namespace EasyStorage
 							// the device has been disconnected, and we've decided to ask
 							// the user if they want to choose a new one
 							case SaveDevicePromptState.PromptForDisconnected:
+                                if (storageDevice != null && storageDevice.IsConnected)
+                                {
+                                    state = SaveDevicePromptState.None;
+                                    break;
+                                }
+
 								ShowMessageBox(eventArgs.PlayerToPrompt, deviceOptionalTitle, promptForDisconnectedMessage, deviceOptionalOptions, reselectPromptCallback);
 								break;
 
@@ -416,6 +427,18 @@ namespace EasyStorage
 								break;
 #endif
 							default:
+                                if (EnsureConnectionUnlessCanceled)
+                                {
+                                    if (storageDevice != null && storageDevice.IsConnected)
+                                    {
+                                        EnsureConnectionUnlessCanceled = false;
+                                    }
+                                    else
+                                    {
+                                        state = SaveDevicePromptState.PromptForDisconnected;
+                                    }
+                                }
+
 								break;
 						}
 #if XBOX
@@ -501,7 +524,16 @@ namespace EasyStorage
 			int? choice = Guide.EndShowMessageBox(result);
 
 			// get the device if the user chose the first option
-			state = choice.HasValue && choice.Value == 0 ? SaveDevicePromptState.ShowSelector : SaveDevicePromptState.None;
+			if (choice.HasValue && choice.Value == 0)
+            {
+                state = SaveDevicePromptState.ShowSelector;
+            }
+            else
+            {
+                state = SaveDevicePromptState.None;
+                EnsureConnectionUnlessCanceled = false;
+                ChoseNotToSelectDevice = true;
+            }
 
 			// fire an event for the game to know the result of the prompt
 			promptEventArgs.ShowDeviceSelector = state == SaveDevicePromptState.ShowSelector;

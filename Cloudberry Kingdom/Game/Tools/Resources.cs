@@ -33,6 +33,9 @@ namespace CloudberryKingdom
         public static WrappedBool LoadingResources;
 
 		public static bool FinalLoadDone = false;
+		public static bool FakeFinalLoadDone = false;
+
+		public static int EnvironmentLoaded = 0;
 
         /// <summary>
         /// Tracks how many resources have been loaded.
@@ -431,21 +434,34 @@ namespace CloudberryKingdom
 				// If texture hasn't been loaded yet, load it
 				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
 				{
-					//if (NormalGameData.MakingLevel && !NormalGameData.AlwaysLoad && count > 100)
-					//{
-					//    Thread.Sleep(300);
-					//}
-					//else
+					//Console.WriteLine("GC = " + GC.CollectionCount(0));
+					while ((ScreenSaver.GamePlayInAction   && count > 200 ||
+                            ScreenSaver.ScreenSaverStarted && count > 556)
+                           && Tools.WorldMap is ScreenSaver)
 					{
-						Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
-						count++;
-
-						if (count > 500)
-							FinalLoadDone = true;
-
-						//Thread.Sleep(1);
-						//Thread.Sleep(50);
+						Thread.Sleep(100);
 					}
+                    //while (NormalGameData.MakingLevel && !NormalGameData.AlwaysLoad && EnvironmentLoaded > 0)
+                    //{
+                    //    Thread.Sleep(300);
+                    //}
+
+					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
+					count++;
+
+					if		(count > 565) EnvironmentLoaded = 6;
+					else if (count > 510) EnvironmentLoaded = 5;
+					else if (count > 452) EnvironmentLoaded = 4;
+					else if (count > 391) EnvironmentLoaded = 3;
+					else if (count > 339) EnvironmentLoaded = 2;
+					else if (count > 204) EnvironmentLoaded = 1;
+
+					if (count > 300)
+					{
+						FakeFinalLoadDone = true;
+					}
+
+                    //Thread.Sleep(50); Tools.Warning();
 				}
 			}
 

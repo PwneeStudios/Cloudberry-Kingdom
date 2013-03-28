@@ -900,9 +900,9 @@ namespace CloudberryKingdom
 
 			// Extra push up
 			float MoveUp = 28 * CloudberryKingdomGame.GuiSqueeze;
-			Vector2 MoveUp_Back = new Vector2(0, 10) * CloudberryKingdomGame.GuiSqueeze;
+            Vector2 MoveUp_Back = new Vector2(0, 10) * CloudberryKingdomGame.GuiSqueeze;
 
-			MyPile.Pos = new Vector2(MyPile.Pos.X, MyPile.Pos.Y + MoveUp);
+			MyPile.Pos = new Vector2(MyPile.Pos.X, MyPile.Pos.Y + MoveUp + 16.5f);
 			QuadClass __q;
 			__q = MyPile.FindQuad("Backdrop2"); if (__q != null) { __q.Pos += MoveUp_Back; }
 			__q = MyPile.FindQuad("Backdrop"); if (__q != null) { __q.Pos += MoveUp_Back; }

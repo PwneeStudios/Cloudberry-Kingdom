@@ -277,7 +277,7 @@ namespace CloudberryKingdom
             item.Go = Cast.ToItem(Action_PlayAgain);
             AddItem(item);
 
-            item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
+            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont));
             item.Go = Cast.ToItem(Action_ShowHighScores);
             AddItem(item);
 

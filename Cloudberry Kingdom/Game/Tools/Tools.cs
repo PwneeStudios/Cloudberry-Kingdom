@@ -457,15 +457,14 @@ public static void Break()
 }
 public static void Write(object obj)
 {
-    Console.WriteLine("  -- ck debug -- " + obj);
+    //Console.WriteLine("  -- ck debug -- " + obj);
 #if DEBUG
 	Console.WriteLine("{0}", obj);
 #endif
 }
 public static void Write(string str, params object[] objs)
 {
-    Console.WriteLine("  -- ck debug -- " + str, objs);
-    
+    //Console.WriteLine("  -- ck debug -- " + str, objs);
 #if DEBUG
 #if WINDOWS
     if (objs.Length == 0) Console.WriteLine(str);
@@ -691,8 +690,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static int StyleTypes = 8;
         public static int UpgradeTypes = Tools.GetValues<Upgrade>().Count();//Enum.GetValues(typeof(Upgrade)).Length;
 
-#if WINDOWS
         public static XnaInput.KeyboardState Keyboard, PrevKeyboard;
+
+#if XBOX
+        public static XnaInput.KeyboardState[] PlayerKeyboard, PrevPlayerKeyboard;
+#endif
+
+#if WINDOWS
         public static XnaInput.MouseState Mouse, PrevMouse;
         public static Vector2 DeltaMouse, RawDeltaMouse;
         public static int DeltaScroll;

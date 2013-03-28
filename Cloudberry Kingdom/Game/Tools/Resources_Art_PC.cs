@@ -5,739 +5,739 @@ namespace CloudberryKingdom
 	{
 		public static void PreloadArtFiles()
 		{
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\CopyRightSymbol", 19, 21, "CopyRightSymbol", "copyrightsymbol", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\LoadScreen_Level\\LoadingStrip", 1280, 720, "LoadingStrip", "loadingstrip", "LoadScreen_Level");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0007", 140, 181, "Bob_Run_0007", "bob_run_0007", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0008", 140, 181, "Bob_Run_0008", "bob_run_0008", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0011", 140, 181, "Bob_Run_0011", "bob_run_0011", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0012", 140, 181, "Bob_Run_0012", "bob_run_0012", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0009", 140, 181, "Bob_Run_0009", "bob_run_0009", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0010", 140, 181, "Bob_Run_0010", "bob_run_0010", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0003", 140, 181, "Bob_Run_0003", "bob_run_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0002", 140, 181, "Bob_Run_0002", "bob_run_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0001", 140, 181, "Bob_Run_0001", "bob_run_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0006", 140, 181, "Bob_Run_0006", "bob_run_0006", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0005", 140, 181, "Bob_Run_0005", "bob_run_0005", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0004", 140, 181, "Bob_Run_0004", "bob_run_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0013", 140, 181, "Bob_Run_0013", "bob_run_0013", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0021", 140, 181, "Bob_Run_0021", "bob_run_0021", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0020", 140, 181, "Bob_Run_0020", "bob_run_0020", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0022", 140, 181, "Bob_Run_0022", "bob_run_0022", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0024", 140, 181, "Bob_Run_0024", "bob_run_0024", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0023", 140, 181, "Bob_Run_0023", "bob_run_0023", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0019", 140, 181, "Bob_Run_0019", "bob_run_0019", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0015", 140, 181, "Bob_Run_0015", "bob_run_0015", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0014", 140, 181, "Bob_Run_0014", "bob_run_0014", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0016", 140, 181, "Bob_Run_0016", "bob_run_0016", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0018", 140, 181, "Bob_Run_0018", "bob_run_0018", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0017", 140, 181, "Bob_Run_0017", "bob_run_0017", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Smoke2", 350, 350, "Smoke2", "smoke2", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Sparkle", 100, 122, "Sparkle", "sparkle", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Pop", 80, 80, "Pop", "pop", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Fire", 90, 91, "Fire", "fire", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Fireball", 220, 165, "Fireball", "fireball", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0045", 140, 181, "Bob_Stand_0045", "bob_stand_0045", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0044", 140, 181, "Bob_Stand_0044", "bob_stand_0044", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0046", 140, 181, "Bob_Stand_0046", "bob_stand_0046", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0048", 140, 181, "Bob_Stand_0048", "bob_stand_0048", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0047", 140, 181, "Bob_Stand_0047", "bob_stand_0047", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\CoinCollect", 100, 147, "CoinCollect", "coincollect", "Effects");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00044", 100, 100, "Coin_00044", "coin_00044", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00045", 100, 100, "Coin_00045", "coin_00045", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00043", 100, 100, "Coin_00043", "coin_00043", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00041", 100, 100, "Coin_00041", "coin_00041", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00042", 100, 100, "Coin_00042", "coin_00042", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00049", 100, 100, "Coin_00049", "coin_00049", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\default", 16, 16, "default", "default", "default");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00048", 100, 100, "Coin_00048", "coin_00048", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00046", 100, 100, "Coin_00046", "coin_00046", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00047", 100, 100, "Coin_00047", "coin_00047", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0029", 140, 181, "Bob_Stand_0029", "bob_stand_0029", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0028", 140, 181, "Bob_Stand_0028", "bob_stand_0028", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0030", 140, 181, "Bob_Stand_0030", "bob_stand_0030", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0032", 140, 181, "Bob_Stand_0032", "bob_stand_0032", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0031", 140, 181, "Bob_Stand_0031", "bob_stand_0031", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0007", 140, 181, "Bob_Stand_0007", "bob_stand_0007", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0023", 140, 181, "Bob_Stand_0023", "bob_stand_0023", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0025", 140, 181, "Bob_Stand_0025", "bob_stand_0025", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0027", 140, 181, "Bob_Stand_0027", "bob_stand_0027", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0026", 140, 181, "Bob_Stand_0026", "bob_stand_0026", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0033", 140, 181, "Bob_Stand_0033", "bob_stand_0033", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0040", 140, 181, "Bob_Stand_0040", "bob_stand_0040", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0039", 140, 181, "Bob_Stand_0039", "bob_stand_0039", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0041", 140, 181, "Bob_Stand_0041", "bob_stand_0041", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0043", 140, 181, "Bob_Stand_0043", "bob_stand_0043", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0042", 140, 181, "Bob_Stand_0042", "bob_stand_0042", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0035", 140, 181, "Bob_Stand_0035", "bob_stand_0035", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0034", 140, 181, "Bob_Stand_0034", "bob_stand_0034", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0036", 140, 181, "Bob_Stand_0036", "bob_stand_0036", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0038", 140, 181, "Bob_Stand_0038", "bob_stand_0038", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0037", 140, 181, "Bob_Stand_0037", "bob_stand_0037", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00013", 100, 100, "Coin_00013", "coin_00013", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00014", 100, 100, "Coin_00014", "coin_00014", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00012", 100, 100, "Coin_00012", "coin_00012", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00010", 100, 100, "Coin_00010", "coin_00010", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00011", 100, 100, "Coin_00011", "coin_00011", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00018", 100, 100, "Coin_00018", "coin_00018", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00019", 100, 100, "Coin_00019", "coin_00019", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00017", 100, 100, "Coin_00017", "coin_00017", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00015", 100, 100, "Coin_00015", "coin_00015", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00016", 100, 100, "Coin_00016", "coin_00016", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00009", 100, 100, "Coin_00009", "coin_00009", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00002", 100, 100, "Coin_00002", "coin_00002", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00003", 100, 100, "Coin_00003", "coin_00003", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00001", 100, 100, "Coin_00001", "coin_00001", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\coin_blue", 140, 140, "coin_blue", "coin_blue", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00000", 100, 100, "Coin_00000", "coin_00000", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00007", 100, 100, "Coin_00007", "coin_00007", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00008", 100, 100, "Coin_00008", "coin_00008", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00006", 100, 100, "Coin_00006", "coin_00006", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00004", 100, 100, "Coin_00004", "coin_00004", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00005", 100, 100, "Coin_00005", "coin_00005", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00034", 100, 100, "Coin_00034", "coin_00034", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00035", 100, 100, "Coin_00035", "coin_00035", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00033", 100, 100, "Coin_00033", "coin_00033", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00031", 100, 100, "Coin_00031", "coin_00031", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00032", 100, 100, "Coin_00032", "coin_00032", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00039", 100, 100, "Coin_00039", "coin_00039", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00040", 100, 100, "Coin_00040", "coin_00040", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00038", 100, 100, "Coin_00038", "coin_00038", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00036", 100, 100, "Coin_00036", "coin_00036", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00037", 100, 100, "Coin_00037", "coin_00037", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00030", 100, 100, "Coin_00030", "coin_00030", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00023", 100, 100, "Coin_00023", "coin_00023", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00024", 100, 100, "Coin_00024", "coin_00024", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00022", 100, 100, "Coin_00022", "coin_00022", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00020", 100, 100, "Coin_00020", "coin_00020", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00021", 100, 100, "Coin_00021", "coin_00021", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00028", 100, 100, "Coin_00028", "coin_00028", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00029", 100, 100, "Coin_00029", "coin_00029", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00027", 100, 100, "Coin_00027", "coin_00027", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00025", 100, 100, "Coin_00025", "coin_00025", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00026", 100, 100, "Coin_00026", "coin_00026", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0022", 140, 181, "Bob_Stand_0022", "bob_stand_0022", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0004", 140, 181, "Bob_Stand_0004", "bob_stand_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0003", 140, 181, "Bob_Stand_0003", "bob_stand_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0002", 140, 181, "Bob_Stand_0002", "bob_stand_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0004", 140, 181, "Bob_Jump_0004", "bob_jump_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0006", 140, 181, "Bob_Stand_0006", "bob_stand_0006", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0005", 140, 181, "Bob_Stand_0005", "bob_stand_0005", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0001", 140, 181, "Bob_Stand_0001", "bob_stand_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0024", 140, 181, "Bob_Stand_0024", "bob_stand_0024", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0003", 140, 181, "Bob_Jump_0003", "bob_jump_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0002", 140, 181, "Bob_Jump_0002", "bob_jump_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0001", 140, 181, "Bob_Jump_0001", "bob_jump_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0008", 140, 181, "Bob_Stand_0008", "bob_stand_0008", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0018", 140, 181, "Bob_Stand_0018", "bob_stand_0018", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0017", 140, 181, "Bob_Stand_0017", "bob_stand_0017", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0016", 140, 181, "Bob_Stand_0016", "bob_stand_0016", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0021", 140, 181, "Bob_Stand_0021", "bob_stand_0021", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0020", 140, 181, "Bob_Stand_0020", "bob_stand_0020", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0019", 140, 181, "Bob_Stand_0019", "bob_stand_0019", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0015", 140, 181, "Bob_Stand_0015", "bob_stand_0015", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0011", 140, 181, "Bob_Stand_0011", "bob_stand_0011", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0010", 140, 181, "Bob_Stand_0010", "bob_stand_0010", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0009", 140, 181, "Bob_Stand_0009", "bob_stand_0009", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0014", 140, 181, "Bob_Stand_0014", "bob_stand_0014", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0013", 140, 181, "Bob_Stand_0013", "bob_stand_0013", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0012", 140, 181, "Bob_Stand_0012", "bob_stand_0012", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\TradeMarkSymbol", 28, 21, "TradeMarkSymbol", "trademarksymbol", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Trim", 783, 269, "Title_Trim", "title_trim", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Screen", 1280, 720, "Title_Screen", "title_screen", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\BlackSwipe_Vertical", 2000, 24, "BlackSwipe_Vertical", "blackswipe_vertical", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Blur", 1280, 720, "Title_Blur", "title_blur", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_1", 110, 110, "Bouncy_Cave_1", "bouncy_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_3", 90, 90, "Blob_Cave_3", "blob_cave_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_4", 90, 90, "Blob_Cave_4", "blob_cave_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_2", 90, 90, "Blob_Cave_2", "blob_cave_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_1", 90, 90, "Blob_Cave_1", "blob_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_2_p2", 1179, 500, "cave_top_2_p2", "cave_top_2_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_2", 1179, 500, "cave_top_2", "cave_top_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_1_p2", 1890, 800, "cave_top_1_p2", "cave_top_1_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\door_cave_1", 400, 284, "door_cave_1", "door_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_1", 1890, 800, "cave_top_1", "cave_top_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\Wall_Cave", 700, 1304, "Wall_Cave", "wall_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\door_cave_2", 400, 284, "door_cave_2", "door_cave_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Chain_Cave", 30, 674, "Floater_Chain_Cave", "floater_chain_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Rope_Cave", 30, 700, "Floater_Rope_Cave", "floater_rope_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_2", 85, 85, "Fblock_Cave_2", "fblock_cave_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_3", 85, 85, "Fblock_Cave_3", "fblock_cave_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Laser\\Laser_Cave", 64, 64, "Laser_Cave", "laser_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_135", 150, 150, "Movingblock_Cave_135", "movingblock_cave_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Spikey_Cave", 164, 164, "Floater_Spikey_Cave", "floater_spikey_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Ghost_Block\\Ghostblock_Cave", 77, 90, "Ghostblock_Cave", "ghostblock_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Cloud\\Cloud_Cave", 238, 134, "Cloud_Cave", "cloud_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_135", 135, 38, "Elevator_Cave_135", "elevator_cave_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_2", 110, 110, "Bouncy_Cave_2", "bouncy_cave_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_3", 110, 110, "Bouncy_Cave_3", "bouncy_cave_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_80", 80, 37, "Elevator_Cave_80", "elevator_cave_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_1", 85, 85, "Fblock_Cave_1", "fblock_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_190", 190, 38, "Elevator_Cave_190", "elevator_cave_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_40", 40, 37, "Elevator_Cave_40", "elevator_cave_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Base_Cloud", 70, 67, "Firespinner_Base_Cloud", "firespinner_base_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_1", 27, 45, "Firespinner_Flame_Cloud_1", "firespinner_flame_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_2", 27, 45, "Firespinner_Flame_Cloud_2", "firespinner_flame_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_600", 608, 944, "Pillar_Cave_600", "pillar_cave_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_250", 258, 938, "Pillar_Cave_250", "pillar_cave_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_300", 310, 944, "Pillar_Cave_300", "pillar_cave_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_50", 60, 1129, "Pillar_Cave_50", "pillar_cave_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_backdrop", 944, 400, "cave_backdrop", "cave_backdrop", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_backdrop_p2", 944, 400, "cave_backdrop_p2", "cave_backdrop_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_p2_trim1", 448, 360, "cave_bottom_1_p2_trim1", "cave_bottom_1_p2_trim1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_600", 580, 944, "Pillar_Castle_600", "pillar_castle_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_3", 27, 45, "Firespinner_Flame_Cloud_3", "firespinner_flame_cloud_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_4", 27, 45, "Firespinner_Flame_Cloud_4", "firespinner_flame_cloud_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Boulder_Cloud", 164, 164, "Floater_Boulder_Cloud", "floater_boulder_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_150", 160, 950, "Pillar_Cave_150", "pillar_cave_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_trim2", 468, 224, "cave_bottom_1_trim2", "cave_bottom_1_trim2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_trim1", 288, 384, "cave_bottom_1_trim1", "cave_bottom_1_trim1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_p2_trim2", 1180, 676, "cave_bottom_1_p2_trim2", "cave_bottom_1_p2_trim2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_2_p1", 648, 180, "cave_bottom_2_p1", "cave_bottom_2_p1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_lightshafts_p2", 945, 400, "cave_lightshafts_p2", "cave_lightshafts_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_lightshafts", 945, 400, "cave_lightshafts", "cave_lightshafts", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_2_p2", 1180, 584, "cave_bottom_2_p2", "cave_bottom_2_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Spike\\spike_cave", 27, 56, "spike_cave", "spike_cave", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_100", 110, 950, "Pillar_Cave_100", "pillar_cave_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_1000", 960, 928, "Pillar_Cave_1000", "pillar_cave_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Spike\\Spike_Base_Cave_1", 40, 24, "Spike_Base_Cave_1", "spike_base_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_190", 190, 190, "Movingblock_Cave_190", "movingblock_cave_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_40", 45, 45, "Movingblock_Cave_40", "movingblock_cave_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_80", 85, 85, "Movingblock_Cave_80", "movingblock_cave_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_2", 92, 90, "Blob_Castle_v1_2", "blob_castle_v1_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_3", 92, 90, "Blob_Castle_v1_3", "blob_castle_v1_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_4", 92, 90, "Blob_Castle_v1_4", "blob_castle_v1_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\door_castle_2", 348, 248, "door_castle_2", "door_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\Wall_Castle", 680, 1232, "Wall_Castle", "wall_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_1", 92, 90, "Blob_Castle_v1_1", "blob_castle_v1_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_1", 110, 110, "Bouncy_Castle_1", "bouncy_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_135", 135, 37, "Elevator_Castle_135", "elevator_castle_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_190", 190, 39, "Elevator_Castle_190", "elevator_castle_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_40", 40, 39, "Elevator_Castle_40", "elevator_castle_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_2", 110, 110, "Bouncy_Castle_2", "bouncy_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_3", 110, 110, "Bouncy_Castle_3", "bouncy_castle_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Cloud\\Cloud_Castle", 238, 134, "Cloud_Castle", "cloud_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\door_castle_1", 348, 248, "door_castle_1", "door_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_lava", 2048, 128, "castle_lava", "castle_lava", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_pillar", 418, 1500, "castle_pillar", "castle_pillar", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_wall", 1064, 448, "castle_wall", "castle_wall", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Backdrop_2", 888, 500, "Castle_Backdrop_2", "castle_backdrop_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_chandelier_close", 300, 256, "castle_chandelier_close", "castle_chandelier_close", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_chandelier_far", 260, 709, "castle_chandelier_far", "castle_chandelier_far", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_wall_p2", 1064, 448, "castle_wall_p2", "castle_wall_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Left_Mask", 67, 150, "Castle_Window_Left_Mask", "castle_window_left_mask", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Right_Frame", 170, 361, "Castle_Window_Right_Frame", "castle_window_right_frame", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Right_Mask", 71, 150, "Castle_Window_Right_Mask", "castle_window_right_mask", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Center_Frame", 238, 591, "Castle_Window_Center_Frame", "castle_window_center_frame", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Center_Mask", 80, 199, "Castle_Window_Center_Mask", "castle_window_center_mask", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Left_Frame", 161, 358, "Castle_Window_Left_Frame", "castle_window_left_frame", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_80", 80, 39, "Elevator_Castle_80", "elevator_castle_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_40", 40, 40, "Movingblock_Castle_40", "movingblock_castle_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_80", 80, 80, "Movingblock_Castle_80", "movingblock_castle_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Spike\\spike_base_castle", 155, 91, "spike_base_castle", "spike_base_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle", 194, 171, "Movingblock_Castle", "movingblock_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_135", 135, 135, "Movingblock_Castle_135", "movingblock_castle_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_190", 190, 190, "Movingblock_Castle_190", "movingblock_castle_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Spike\\Spike_Castle", 27, 56, "Spike_Castle", "spike_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_250", 244, 972, "Pillar_Castle_250", "pillar_castle_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_300", 322, 933, "Pillar_Castle_300", "pillar_castle_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_50", 54, 935, "Pillar_Castle_50", "pillar_castle_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_100", 120, 936, "Pillar_Castle_100", "pillar_castle_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_1000", 1016, 908, "Pillar_Castle_1000", "pillar_castle_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_150", 150, 940, "Pillar_Castle_150", "pillar_castle_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Laser\\Laser_Castle", 64, 64, "Laser_Castle", "laser_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Base_Castle_2", 70, 64, "Firespinner_Base_Castle_2", "firespinner_base_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_1", 27, 45, "Firespinner_Flame_Castle_v1_1", "firespinner_flame_castle_v1_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_2", 27, 45, "Firespinner_Flame_Castle_v1_2", "firespinner_flame_castle_v1_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_1", 85, 85, "Fblock_Castle_1", "fblock_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_2", 85, 85, "Fblock_Castle_2", "fblock_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_3", 85, 84, "Fblock_Castle_3", "fblock_castle_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_3", 27, 45, "Firespinner_Flame_Castle_v1_3", "firespinner_flame_castle_v1_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Spikey_Castle_v1", 164, 164, "Floater_Spikey_Castle_v1", "floater_spikey_castle_v1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Spikey_Castle_v2", 164, 164, "Floater_Spikey_Castle_v2", "floater_spikey_castle_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Ghost_Block\\Ghostblock_Castle", 78, 90, "Ghostblock_Castle", "ghostblock_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_4", 27, 45, "Firespinner_Flame_Castle_v1_4", "firespinner_flame_castle_v1_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Buzzsaw_Yellow_Castle", 117, 118, "Floater_Buzzsaw_Yellow_Castle", "floater_buzzsaw_yellow_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Chain_Castle", 30, 674, "Floater_Chain_Castle", "floater_chain_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backhills_trim", 1416, 340, "forest_backhills_trim", "forest_backhills_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backtrees", 1425, 450, "forest_backtrees", "forest_backtrees", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_foretrees_p2", 1700, 720, "forest_foretrees_p2", "forest_foretrees_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backhills_p2_trim", 1416, 348, "forest_backhills_p2_trim", "forest_backhills_p2_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backtrees_p2", 1493, 450, "forest_backtrees_p2", "forest_backtrees_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_40", 40, 32, "Elevator_Forest_40", "elevator_forest_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_80", 79, 33, "Elevator_Forest_80", "elevator_forest_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_190", 180, 32, "Elevator_Forest_190", "elevator_forest_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Cloud\\Cloud_Forest", 238, 134, "Cloud_Forest", "cloud_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_135", 135, 35, "Elevator_Forest_135", "elevator_forest_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Base_Forest_1", 62, 93, "Firespinner_Base_Forest_1", "firespinner_base_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_1", 27, 45, "Firespinner_Flame_Forest_1", "firespinner_flame_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_3", 85, 85, "Fblock_Forest_3", "fblock_forest_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_1", 85, 85, "Fblock_Forest_1", "fblock_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_2", 85, 84, "Fblock_Forest_2", "fblock_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_3", 110, 110, "Bouncy_Forest_3", "bouncy_forest_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\Wall_Forest", 700, 1304, "Wall_Forest", "wall_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_1", 113, 120, "Blob_Forest_1", "blob_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\door_forest_2", 248, 196, "door_forest_2", "door_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_sky", 56, 800, "forest_sky", "forest_sky", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\door_forest_1", 248, 196, "door_forest_1", "door_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_1", 110, 110, "Bouncy_Forest_1", "bouncy_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_2", 110, 110, "Bouncy_Forest_2", "bouncy_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_4", 113, 120, "Blob_Forest_4", "blob_forest_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_2", 113, 120, "Blob_Forest_2", "blob_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_3", 113, 120, "Blob_Forest_3", "blob_forest_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_2", 27, 45, "Firespinner_Flame_Forest_2", "firespinner_flame_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_100", 97, 792, "Pillar_Forest_100", "pillar_forest_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_1000", 836, 748, "Pillar_Forest_1000", "pillar_forest_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Spike\\Spike_Forest", 27, 56, "Spike_Forest", "spike_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_80_v2", 80, 80, "Movingblock_Forest_80_v2", "movingblock_forest_80_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Spike\\Spike_Base_Forest_1", 40, 23, "Spike_Base_Forest_1", "spike_base_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_50", 58, 800, "Pillar_Forest_50", "pillar_forest_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_600", 468, 756, "Pillar_Forest_600", "pillar_forest_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_300", 271, 782, "Pillar_Forest_300", "pillar_forest_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_150", 126, 765, "Pillar_Forest_150", "pillar_forest_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_250", 244, 962, "Pillar_Forest_250", "pillar_forest_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_40_v2", 40, 40, "Movingblock_Forest_40_v2", "movingblock_forest_40_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Chain_Forest", 30, 674, "Floater_Chain_Forest", "floater_chain_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Spikey_Forest", 164, 205, "Floater_Spikey_Forest", "floater_spikey_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Buzzsaw_Forest", 113, 115, "Floater_Buzzsaw_Forest", "floater_buzzsaw_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_3", 27, 45, "Firespinner_Flame_Forest_3", "firespinner_flame_forest_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_4", 27, 45, "Firespinner_Flame_Forest_4", "firespinner_flame_forest_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\movingblock_forest_150", 144, 146, "movingblock_forest_150", "movingblock_forest_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_190_v2", 190, 190, "Movingblock_Forest_190_v2", "movingblock_forest_190_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_135_v2", 130, 130, "Movingblock_Forest_135_v2", "movingblock_forest_135_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Ghost_Block\\Ghostblock_Forest_1", 77, 91, "Ghostblock_Forest_1", "ghostblock_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Laser\\Laser_Forest", 64, 64, "Laser_Forest", "laser_forest", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_clouds", 2048, 256, "forest_clouds", "forest_clouds", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_foretrees", 1888, 800, "forest_foretrees", "forest_foretrees", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_mid_p2_trim", 1416, 292, "forest_mid_p2_trim", "forest_mid_p2_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_mid_trim", 1416, 336, "forest_mid_trim", "forest_mid_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_4", 572, 312, "hills_plants_4", "hills_plants_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_5", 432, 352, "hills_plants_5", "hills_plants_5", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_100", 136, 966, "Pillar_Hills_100", "pillar_hills_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_1", 412, 312, "hills_plants_1", "hills_plants_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_2", 460, 400, "hills_plants_2", "hills_plants_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_3", 464, 420, "hills_plants_3", "hills_plants_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Spike\\Spike_Hills", 27, 56, "Spike_Hills", "spike_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_clouds", 2048, 512, "hills_clouds", "hills_clouds", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hill1", 1704, 424, "hills_hill1", "hills_hill1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hill2", 1568, 572, "hills_hill2", "hills_hill2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills2_trim", 1248, 416, "hills_backhills2_trim", "hills_backhills2_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Spike\\Spike_Base_Hills_1", 40, 24, "Spike_Base_Hills_1", "spike_base_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_80", 80, 80, "Movingblock_Hills_80", "movingblock_hills_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_6", 628, 500, "hills_plants_6", "hills_plants_6", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backcastles_p2_trim", 1208, 348, "hills_backcastles_p2_trim", "hills_backcastles_p2_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills_p2", 1800, 760, "hills_backhills_p2", "hills_backhills_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills2_p2_trim", 1652, 320, "hills_backhills2_p2_trim", "hills_backhills2_p2_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backcastles_trim", 1132, 348, "hills_backcastles_trim", "hills_backcastles_trim", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills", 1800, 760, "hills_backhills", "hills_backhills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backdrop_p2", 1416, 600, "hills_backdrop_p2", "hills_backdrop_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backdrop", 1416, 600, "hills_backdrop", "hills_backdrop", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_600", 580, 920, "Pillar_Hills_600", "pillar_hills_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_1000", 1016, 928, "Pillar_Hills_1000", "pillar_hills_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_40", 40, 35, "Elevator_Hills_40", "elevator_hills_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hillandtree", 1836, 676, "hills_hillandtree", "hills_hillandtree", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_150", 170, 952, "Pillar_Hills_150", "pillar_hills_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_50", 69, 955, "Pillar_Hills_50", "pillar_hills_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_300", 343, 913, "Pillar_Hills_300", "pillar_hills_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_250", 253, 963, "Pillar_Hills_250", "pillar_hills_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_rock", 1980, 400, "hills_rock", "hills_rock", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_3", 27, 45, "Firespinner_Flame_Hills_3", "firespinner_flame_hills_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_4", 27, 45, "Firespinner_Flame_Hills_4", "firespinner_flame_hills_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Boulder_Hills", 164, 164, "Floater_Boulder_Hills", "floater_boulder_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_2", 27, 45, "Firespinner_Flame_Hills_2", "firespinner_flame_hills_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_3", 84, 82, "Fblock_Hills_3", "fblock_hills_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Base_Hills", 70, 67, "Firespinner_Base_Hills", "firespinner_base_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_1", 27, 45, "Firespinner_Flame_Hills_1", "firespinner_flame_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Chain_Hills", 30, 674, "Floater_Chain_Hills", "floater_chain_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_135", 130, 130, "Movingblock_Hills_135", "movingblock_hills_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_190", 190, 190, "Movingblock_Hills_190", "movingblock_hills_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_40", 40, 40, "Movingblock_Hills_40", "movingblock_hills_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Laser\\Laser_Hills", 64, 64, "Laser_Hills", "laser_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Rope_Hills", 30, 700, "Floater_Rope_Hills", "floater_rope_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Spikey_Hills", 164, 164, "Floater_Spikey_Hills", "floater_spikey_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Ghost_Block\\Ghostblock_Hills", 77, 90, "Ghostblock_Hills", "ghostblock_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_2", 85, 85, "Fblock_Hills_2", "fblock_hills_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_2", 90, 90, "Blob_Hills_2", "blob_hills_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_3", 90, 90, "Blob_Hills_3", "blob_hills_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_4", 90, 90, "Blob_Hills_4", "blob_hills_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_1", 90, 90, "Blob_Hills_1", "blob_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\door_hills_1", 248, 184, "door_hills_1", "door_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\door_hills_2", 248, 184, "door_hills_2", "door_hills_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\Wall_Hills", 700, 1304, "Wall_Hills", "wall_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_1", 110, 110, "Bouncy_Hills_1", "bouncy_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_190", 190, 36, "Elevator_Hills_190", "elevator_hills_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_80", 80, 36, "Elevator_Hills_80", "elevator_hills_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_1", 85, 85, "Fblock_Hills_1", "fblock_hills_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_135", 135, 37, "Elevator_Hills_135", "elevator_hills_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_2", 110, 110, "Bouncy_Hills_2", "bouncy_hills_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_3", 110, 110, "Bouncy_Hills_3", "bouncy_hills_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Cloud\\Cloud_Hills", 140, 79, "Cloud_Hills", "cloud_hills", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_4", 192, 114, "cloud_cloud_layer3_4", "cloud_cloud_layer3_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_5", 401, 169, "cloud_cloud_layer3_5", "cloud_cloud_layer3_5", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_6", 170, 119, "cloud_cloud_layer3_6", "cloud_cloud_layer3_6", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_3", 272, 152, "cloud_cloud_layer3_3", "cloud_cloud_layer3_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer2_1", 1694, 421, "cloud_cloud_layer2_1", "cloud_cloud_layer2_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_1", 207, 117, "cloud_cloud_layer3_1", "cloud_cloud_layer3_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_2", 198, 120, "cloud_cloud_layer3_2", "cloud_cloud_layer3_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\door_cloud_1", 248, 208, "door_cloud_1", "door_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_3", 90, 90, "Blob_Cloud_3", "blob_cloud_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_4", 90, 90, "Blob_Cloud_4", "blob_cloud_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_1", 110, 110, "Bouncy_Cloud_1", "bouncy_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_2", 90, 90, "Blob_Cloud_2", "blob_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\door_cloud_2", 248, 208, "door_cloud_2", "door_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\Wall_Cloud", 700, 1304, "Wall_Cloud", "wall_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_1", 90, 90, "Blob_Cloud_1", "blob_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_1", 355, 736, "cloud_castle_layer2_1", "cloud_castle_layer2_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer1", 668, 1211, "cloud_castle_layer1", "cloud_castle_layer1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_3", 411, 863, "cloud_castle_layer3_3", "cloud_castle_layer3_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_2", 522, 866, "cloud_castle_layer2_2", "cloud_castle_layer2_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_2", 548, 782, "cloud_castle_layer3_2", "cloud_castle_layer3_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_1", 498, 484, "cloud_castle_layer3_1", "cloud_castle_layer3_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_3", 671, 1123, "cloud_castle_layer2_3", "cloud_castle_layer2_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer4", 1348, 600, "cloud_castle_layer4", "cloud_castle_layer4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_2", 708, 369, "cloud_cloud_layer1_2", "cloud_cloud_layer1_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_3", 781, 303, "cloud_cloud_layer1_3", "cloud_cloud_layer1_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_4", 681, 448, "cloud_cloud_layer1_4", "cloud_cloud_layer1_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_1", 572, 314, "cloud_cloud_layer1_1", "cloud_cloud_layer1_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer4_p2", 1348, 600, "cloud_castle_layer4_p2", "cloud_castle_layer4_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer5", 1348, 600, "cloud_castle_layer5", "cloud_castle_layer5", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer5_p2", 1348, 600, "cloud_castle_layer5_p2", "cloud_castle_layer5_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Spike\\Spike_Base_Cloud_1", 40, 24, "Spike_Base_Cloud_1", "spike_base_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Spike\\Spike_Cloud", 27, 56, "Spike_Cloud", "spike_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_100", 110, 939, "Pillar_Cloud_100", "pillar_cloud_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_80", 80, 80, "MovingBlock_Cloud_80", "movingblock_cloud_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_135", 135, 135, "MovingBlock_Cloud_135", "movingblock_cloud_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_190", 190, 190, "MovingBlock_Cloud_190", "movingblock_cloud_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_40", 40, 40, "MovingBlock_Cloud_40", "movingblock_cloud_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_50", 66, 951, "Pillar_Cloud_50", "pillar_cloud_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_600", 600, 944, "Pillar_Cloud_600", "pillar_cloud_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_2", 85, 85, "Fblock_Cloud_2", "fblock_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_300", 310, 940, "Pillar_Cloud_300", "pillar_cloud_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_1000", 1000, 948, "Pillar_Cloud_1000", "pillar_cloud_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_150", 150, 938, "Pillar_Cloud_150", "pillar_cloud_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_250", 250, 939, "Pillar_Cloud_250", "pillar_cloud_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Laser\\Laser_Cloud", 64, 64, "Laser_Cloud", "laser_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_190", 190, 38, "Elevator_Cloud_190", "elevator_cloud_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_40", 40, 38, "Elevator_Cloud_40", "elevator_cloud_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_80", 74, 35, "Elevator_Cloud_80", "elevator_cloud_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_135", 135, 38, "Elevator_Cloud_135", "elevator_cloud_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_2", 110, 110, "Bouncy_Cloud_2", "bouncy_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_3", 110, 110, "Bouncy_Cloud_3", "bouncy_cloud_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Cloud\\Cloud_Cloud", 238, 134, "Cloud_Cloud", "cloud_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Rope_Cloud", 30, 700, "Floater_Rope_Cloud", "floater_rope_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Spikey_Cloud", 164, 164, "Floater_Spikey_Cloud", "floater_spikey_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Ghost_Block\\Ghostblock_Cloud", 77, 90, "Ghostblock_Cloud", "ghostblock_cloud", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Cloud_Chain", 30, 674, "Cloud_Chain", "cloud_chain", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_1", 85, 85, "Fblock_Cloud_1", "fblock_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_3", 85, 85, "Fblock_Cloud_3", "fblock_cloud_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\door_sea_1", 248, 216, "door_sea_1", "door_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_1", 485, 532, "sea_rock_1", "sea_rock_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_2", 87, 85, "Blob_Sea_2", "blob_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_3", 87, 85, "Blob_Sea_3", "blob_sea_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_4", 87, 85, "Blob_Sea_4", "blob_sea_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_backdrop", 1560, 660, "sea_backdrop", "sea_backdrop", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\Wall_Sea", 700, 1304, "Wall_Sea", "wall_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_1", 87, 85, "Blob_Sea_1", "blob_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_1", 110, 110, "Bouncy_Sea_1", "bouncy_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_135", 135, 37, "Elevator_Sea_135", "elevator_sea_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_190", 190, 37, "Elevator_Sea_190", "elevator_sea_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_40", 40, 38, "Elevator_Sea_40", "elevator_sea_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_2", 110, 110, "Bouncy_Sea_2", "bouncy_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_3", 110, 110, "Bouncy_Sea_3", "bouncy_sea_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Cloud\\Cloud_Sea", 238, 134, "Cloud_Sea", "cloud_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_5", 1205, 825, "sea_rock_5", "sea_rock_5", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_4", 72, 53, "sea_rock_4", "sea_rock_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_3", 780, 734, "sea_rock_3", "sea_rock_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_water_2", 2048, 148, "sea_water_2", "sea_water_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_water_1", 2048, 148, "sea_water_1", "sea_water_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_seamonster", 486, 276, "sea_seamonster", "sea_seamonster", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_2", 489, 411, "sea_rock_2", "sea_rock_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_2", 367, 537, "sea_behind_water_2", "sea_behind_water_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_1", 292, 652, "sea_behind_water_1", "sea_behind_water_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_backdrop_p2", 1560, 660, "sea_backdrop_p2", "sea_backdrop_p2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\door_sea_2", 248, 216, "door_sea_2", "door_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_clouds", 2048, 512, "sea_clouds", "sea_clouds", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_3", 959, 353, "sea_behind_water_3", "sea_behind_water_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_80", 78, 37, "Elevator_Sea_80", "elevator_sea_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_40", 35, 35, "Movingblock_Sea_40", "movingblock_sea_40", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_190", 190, 190, "Movingblock_Sea_190", "movingblock_sea_190", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Spike\\Spike_Base_Sea_1", 40, 24, "Spike_Base_Sea_1", "spike_base_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_80", 80, 80, "Movingblock_Sea_80", "movingblock_sea_80", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Ghost_Block\\Ghostblock_Sea", 77, 90, "Ghostblock_Sea", "ghostblock_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Spikey_Sea_v2", 164, 164, "Floater_Spikey_Sea_v2", "floater_spikey_sea_v2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_135", 135, 135, "Movingblock_Sea_135", "movingblock_sea_135", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Laser\\Laser_Sea", 64, 64, "Laser_Sea", "laser_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_300", 302, 826, "Pillar_Sea_300", "pillar_sea_300", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_250", 202, 804, "Pillar_Sea_250", "pillar_sea_250", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_600", 516, 824, "Pillar_Sea_600", "pillar_sea_600", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_50", 57, 812, "Pillar_Sea_50", "pillar_sea_50", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_100", 92, 815, "Pillar_Sea_100", "pillar_sea_100", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Spike\\Spike_Sea_2", 27, 56, "Spike_Sea_2", "spike_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_150", 127, 820, "Pillar_Sea_150", "pillar_sea_150", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_1000", 864, 824, "Pillar_Sea_1000", "pillar_sea_1000", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_2", 27, 45, "Firespinner_Flame_Sea_2", "firespinner_flame_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_3", 27, 45, "Firespinner_Flame_Sea_3", "firespinner_flame_sea_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_4", 27, 45, "Firespinner_Flame_Sea_4", "firespinner_flame_sea_4", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_1", 27, 45, "Firespinner_Flame_Sea_1", "firespinner_flame_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_1", 85, 85, "Fblock_Sea_1", "fblock_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_2", 85, 85, "Fblock_Sea_2", "fblock_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_3", 85, 85, "Fblock_Sea_3", "fblock_sea_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\firespinner_gear_dkpurp", 70, 64, "firespinner_gear_dkpurp", "firespinner_gear_dkpurp", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Spikey_Sea", 164, 164, "Floater_Spikey_Sea", "floater_spikey_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Chain_Sea", 30, 674, "Floater_Chain_Sea", "floater_chain_sea", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Custom", 212, 213, "HeroIcon_Custom", "heroicon_custom", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\CeilingIcon", 200, 222, "CeilingIcon", "ceilingicon", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Random", 140, 183, "HeroIcon_Random", "heroicon_random", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Icon_Checkpoint_v2", 155, 162, "Icon_Checkpoint_v2", "icon_checkpoint_v2", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Phase", 200, 221, "HeroIcon_Phase", "heroicon_phase", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Double", 140, 177, "HeroIcon_Double", "heroicon_double", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Jetman", 150, 210, "HeroIcon_Jetman", "heroicon_jetman", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CustomLevel\\Length", 512, 71, "Length", "length", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CustomLevel\\LengthBack", 512, 71, "LengthBack", "lengthback", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\CharSelect", 1280, 720, "CharSelect", "charselect", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\Arrow_Left", 56, 53, "Arrow_Left", "arrow_left", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\Arrow_Right", 62, 45, "Arrow_Right", "arrow_right", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1500x900", 1200, 720, "backplate_1500x900", "backplate_1500x900", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\directionarrow", 250, 204, "directionarrow", "directionarrow", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\ListSelect\\ListRightArrow", 60, 60, "ListRightArrow", "listrightarrow", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\Slider\\menuslider_bar", 342, 22, "menuslider_bar", "menuslider_bar", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Story\\Scene_Princess", 1280, 720, "Scene_Princess", "scene_princess", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Scene_Kobbler_Blur", 1280, 720, "Scene_Kobbler_Blur", "scene_kobbler_blur", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\Slider\\menuslider_slider", 24, 47, "menuslider_slider", "menuslider_slider", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\MessageBoxThin", 720, 136, "MessageBoxThin", "messageboxthin", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Arcade_BoxLeft", 440, 720, "Arcade_BoxLeft", "arcade_boxleft", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Arcade_Box", 588, 640, "Arcade_Box", "arcade_box", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Scene_Kobbler", 1280, 720, "Scene_Kobbler", "scene_kobbler", "Title");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_FireSpinner", 174, 179, "Icon_FireSpinner", "icon_firespinner", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_Laser", 200, 209, "Icon_Laser", "icon_laser", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Dodge", 200, 187, "Dodge", "dodge", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_Fireball", 2000, 2000, "Icon_Fireball", "icon_fireball", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Jump", 200, 127, "Jump", "jump", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\ListSelect\\ListLeftArrow", 60, 60, "ListLeftArrow", "listleftarrow", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_disguise", 157, 157, "hat_disguise", "hat_disguise", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\SpeedIcon", 250, 167, "SpeedIcon", "speedicon", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\SpikeIcon", 155, 259, "SpikeIcon", "spikeicon", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_gosu", 157, 157, "hat_gosu", "hat_gosu", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_halo", 123, 84, "hat_halo", "hat_halo", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_cone", 157, 157, "hat_cone", "hat_cone", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_fedora", 106, 81, "hat_fedora", "hat_fedora", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_knight", 157, 157, "hat_knight", "hat_knight", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pope", 157, 157, "hat_pope", "hat_pope", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pumkin", 157, 157, "hat_pumkin", "hat_pumkin", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_miner", 157, 157, "hat_miner", "hat_miner", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pirate", 157, 157, "hat_pirate", "hat_pirate", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_arrow", 157, 157, "hat_arrow", "hat_arrow", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bag", 157, 157, "hat_bag", "hat_bag", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_afro", 113, 105, "hat_afro", "hat_afro", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_antlers", 157, 157, "hat_antlers", "hat_antlers", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_beard", 157, 157, "hat_beard", "hat_beard", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bubble", 100, 100, "hat_bubble", "hat_bubble", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bunny", 157, 157, "hat_bunny", "hat_bunny", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_brain", 157, 157, "hat_brain", "hat_brain", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\LeftHorn", 100, 100, "LeftHorn", "lefthorn", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\RightHorn", 100, 100, "RightHorn", "righthorn", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_wizard", 157, 157, "hat_wizard", "hat_wizard", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\HatPic_Horns", 200, 200, "HatPic_Horns", "hatpic_horns", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\TestHat", 113, 105, "TestHat", "testhat", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1230x740", 1197, 720, "backplate_1230x740", "backplate_1230x740", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\BackArrow2", 50, 43, "BackArrow2", "backarrow2", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1080x840", 926, 720, "backplate_1080x840", "backplate_1080x840", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_robinhood", 157, 157, "hat_robinhood", "hat_robinhood", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_santa", 157, 157, "hat_santa", "hat_santa", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_rastafari", 157, 157, "hat_rastafari", "hat_rastafari", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_rice", 157, 157, "hat_rice", "hat_rice", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_sombrero", 157, 157, "hat_sombrero", "hat_sombrero", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_tophat", 157, 157, "hat_tophat", "hat_tophat", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_viking", 87, 116, "hat_viking", "hat_viking", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_tiki", 157, 157, "hat_tiki", "hat_tiki", "HeroItems");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_crying", 390, 526, "cb_crying", "cb_crying", "Characters");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_Y", 128, 128, "Xbox_Y", "xbox_y", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_enthusiastic", 390, 526, "cb_enthusiastic", "cb_enthusiastic", "Characters");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Goatee_Black", 85, 107, "Goatee_Black", "goatee_black", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\Checkpoint_v2", 155, 162, "Checkpoint_v2", "checkpoint_v2", "Coins");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_surprised", 390, 526, "cb_surprised", "cb_surprised", "Characters");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\B_Key", 100, 94, "B_Key", "b_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\A_Key", 100, 94, "A_Key", "a_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Moustache_Brown", 89, 32, "Moustache_Brown", "moustache_brown", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Icon_Castle", 166, 150, "Flow_Icon_Castle", "flow_icon_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_Dir", 128, 128, "Xbox_Dir", "xbox_dir", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Pendulum\\Pendulum_Icon_Castle", 113, 111, "Pendulum_Icon_Castle", "pendulum_icon_castle", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_B", 128, 128, "Xbox_B", "xbox_b", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_A", 128, 128, "Xbox_A", "xbox_a", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Beard_Super", 52, 61, "Beard_Super", "beard_super", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_X", 128, 128, "Xbox_X", "xbox_x", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Cursor\\hand_closed", 51, 50, "hand_closed", "hand_closed", "Cursor");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Cursor\\hand_open", 50, 54, "hand_open", "hand_open", "Cursor");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_LB", 128, 128, "Xbox_LB", "xbox_lb", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_RB", 128, 128, "Xbox_RB", "xbox_rb", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\U_Key", 100, 94, "U_Key", "u_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\T_Key", 100, 94, "T_Key", "t_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\V_Key", 100, 94, "V_Key", "v_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Up_Key", 100, 94, "Up_Key", "up_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Space_Key", 196, 94, "Space_Key", "space_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Q_Key", 100, 94, "Q_Key", "q_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\P_Key", 100, 94, "P_Key", "p_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\S_Key", 100, 94, "S_Key", "s_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\R_Key", 100, 94, "R_Key", "r_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\X_Key", 100, 94, "X_Key", "x_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\W_Key", 100, 94, "W_Key", "w_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Z_Key", 100, 94, "Z_Key", "z_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Y_Key", 100, 94, "Y_Key", "y_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Esc_Key", 100, 94, "Esc_Key", "esc_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\F_Key", 100, 94, "F_Key", "f_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Enter_Key", 196, 94, "Enter_Key", "enter_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\C_Key", 100, 94, "C_Key", "c_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Backspace_Key", 196, 94, "Backspace_Key", "backspace_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\E_Key", 100, 94, "E_Key", "e_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\D_Key", 100, 94, "D_Key", "d_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\M_Key", 100, 94, "M_Key", "m_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\LeftRight_Key", 100, 94, "LeftRight_Key", "leftright_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\O_Key", 100, 94, "O_Key", "o_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\N_Key", 100, 94, "N_Key", "n_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\L_Key", 100, 94, "L_Key", "l_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\I_Key", 100, 94, "I_Key", "i_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\H_Key", 100, 94, "H_Key", "h_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\K_Key", 100, 94, "K_Key", "k_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\J_Key", 100, 94, "J_Key", "j_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\G_Key", 100, 94, "G_Key", "g_key", "Buttons");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0000", 200, 200, "Bob_Box_Land_0000", "bob_box_land_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0005", 200, 200, "Bob_Box_Jump_0005", "bob_box_jump_0005", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\Score_Screen_Grey", 1440, 900, "Score_Screen_Grey", "score_screen_grey", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock4Cape", 129, 127, "FallingBlock4Cape", "fallingblock4cape", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\SpikeyGuy", 150, 150, "SpikeyGuy", "spikeyguy", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock2", 124, 120, "FallingBlock2", "fallingblock2", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0001", 200, 200, "Bob_Box_Land_0001", "bob_box_land_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\cart", 150, 118, "cart", "cart", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\Castle_jet_pack", 120, 167, "Castle_jet_pack", "castle_jet_pack", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\SingleWing", 100, 161, "SingleWing", "singlewing", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Dot_Empty", 13, 14, "Dot_Empty", "dot_empty", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo5", 50, 50, "BlobGoo5", "blobgoo5", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\BoxAlone", 200, 200, "BoxAlone", "boxalone", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Dot_Full", 13, 14, "Dot_Full", "dot_full", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0002", 200, 200, "Bob_Box_Jump_0002", "bob_box_jump_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0003", 200, 200, "Bob_Box_Jump_0003", "bob_box_jump_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0004", 200, 200, "Bob_Box_Jump_0004", "bob_box_jump_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0001", 200, 200, "Bob_Box_Jump_0001", "bob_box_jump_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\Spaceship_Paper", 143, 147, "Spaceship_Paper", "spaceship_paper", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Duck_0000", 200, 200, "Bob_Box_Duck_0000", "bob_box_duck_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0000", 200, 200, "Bob_Box_Jump_0000", "bob_box_jump_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock1", 124, 120, "FallingBlock1", "fallingblock1", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\WidePlaque", 800, 204, "WidePlaque", "wideplaque", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Stopwatch_Black", 160, 187, "Stopwatch_Black", "stopwatch_black", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Score_Screen", 960, 600, "Score_Screen", "score_screen", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_body", 87, 85, "blob2_body", "blob2_body", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo", 50, 50, "BlobGoo", "blobgoo", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_rwing", 43, 95, "blob2_rwing", "blob2_rwing", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_lwing", 98, 82, "blob2_lwing", "blob2_lwing", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Slowmo", 180, 215, "Powerup_Slowmo", "powerup_slowmo", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Path", 180, 179, "Powerup_Path", "powerup_path", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Computer", 172, 250, "Powerup_Computer", "powerup_computer", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\End", 200, 101, "End", "end", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Bob_Dead", 180, 132, "Bob_Dead", "bob_dead", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\Paused", 200, 70, "Paused", "paused", "Menu");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blue_small", 107, 106, "blue_small", "blue_small", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo8", 50, 50, "BlobGoo8", "blobgoo8", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo7", 50, 50, "BlobGoo7", "blobgoo7", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\checkpoint3", 409, 409, "checkpoint3", "checkpoint3", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\Fading_Block", 169, 191, "Fading_Block", "fading_block", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\CoinBlue", 112, 184, "CoinBlue", "coinblue", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\cloud1", 633, 259, "cloud1", "cloud1", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0003", 200, 200, "Bob_Box_Land_0003", "bob_box_land_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0002", 200, 200, "Bob_Box_Land_0002", "bob_box_land_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo2", 50, 50, "BlobGoo2", "blobgoo2", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0004", 200, 200, "Bob_Box_Land_0004", "bob_box_land_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo6", 50, 50, "BlobGoo6", "blobgoo6", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo4", 50, 50, "BlobGoo4", "blobgoo4", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo3", 50, 50, "BlobGoo3", "blobgoo3", "Old_Art_Holdover");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_1", 256, 256, "Flow_Cave_1", "flow_cave_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_2", 256, 256, "Flow_Cave_2", "flow_cave_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0020", 200, 200, "Bob_Box_Stand_0020", "bob_box_stand_0020", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0022", 200, 200, "Bob_Box_Stand_0022", "bob_box_stand_0022", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0021", 200, 200, "Bob_Box_Stand_0021", "bob_box_stand_0021", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_3", 256, 256, "Flow_Cave_3", "flow_cave_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0016", 200, 200, "Bob_Box_Stand_0016", "bob_box_stand_0016", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0015", 200, 200, "Bob_Box_Stand_0015", "bob_box_stand_0015", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0017", 200, 200, "Bob_Box_Stand_0017", "bob_box_stand_0017", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0019", 200, 200, "Bob_Box_Stand_0019", "bob_box_stand_0019", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0018", 200, 200, "Bob_Box_Stand_0018", "bob_box_stand_0018", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0023", 200, 200, "Bob_Box_Stand_0023", "bob_box_stand_0023", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0031", 200, 200, "Bob_Box_Stand_0031", "bob_box_stand_0031", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0030", 200, 200, "Bob_Box_Stand_0030", "bob_box_stand_0030", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0032", 200, 200, "Bob_Box_Stand_0032", "bob_box_stand_0032", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0034", 200, 200, "Bob_Box_Stand_0034", "bob_box_stand_0034", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0033", 200, 200, "Bob_Box_Stand_0033", "bob_box_stand_0033", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0029", 200, 200, "Bob_Box_Stand_0029", "bob_box_stand_0029", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0025", 200, 200, "Bob_Box_Stand_0025", "bob_box_stand_0025", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0024", 200, 200, "Bob_Box_Stand_0024", "bob_box_stand_0024", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0026", 200, 200, "Bob_Box_Stand_0026", "bob_box_stand_0026", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0028", 200, 200, "Bob_Box_Stand_0028", "bob_box_stand_0028", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0027", 200, 200, "Bob_Box_Stand_0027", "bob_box_stand_0027", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0005", 200, 200, "Bob_Box_Land_0005", "bob_box_land_0005", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Cloud_1", 164, 1000, "Serpent_Cloud_1", "serpent_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0000", 200, 200, "Bob_Box_Stand_0000", "bob_box_stand_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0002", 200, 200, "Bob_Box_Stand_0002", "bob_box_stand_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0001", 200, 200, "Bob_Box_Stand_0001", "bob_box_stand_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Cloud_2", 164, 1000, "Serpent_Cloud_2", "serpent_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Fish_Forest_2", 73, 82, "Serpent_Fish_Forest_2", "serpent_fish_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Forest_1", 164, 1000, "Serpent_Forest_1", "serpent_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Fish_Forest_1", 73, 82, "Serpent_Fish_Forest_1", "serpent_fish_forest_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Fish_Cloud_1", 73, 82, "Serpent_Fish_Cloud_1", "serpent_fish_cloud_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Fish_Cloud_2", 73, 82, "Serpent_Fish_Cloud_2", "serpent_fish_cloud_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0003", 200, 200, "Bob_Box_Stand_0003", "bob_box_stand_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0011", 200, 200, "Bob_Box_Stand_0011", "bob_box_stand_0011", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0010", 200, 200, "Bob_Box_Stand_0010", "bob_box_stand_0010", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0012", 200, 200, "Bob_Box_Stand_0012", "bob_box_stand_0012", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0014", 200, 200, "Bob_Box_Stand_0014", "bob_box_stand_0014", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0013", 200, 200, "Bob_Box_Stand_0013", "bob_box_stand_0013", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0009", 200, 200, "Bob_Box_Stand_0009", "bob_box_stand_0009", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0005", 200, 200, "Bob_Box_Stand_0005", "bob_box_stand_0005", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0004", 200, 200, "Bob_Box_Stand_0004", "bob_box_stand_0004", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0006", 200, 200, "Bob_Box_Stand_0006", "bob_box_stand_0006", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0008", 200, 200, "Bob_Box_Stand_0008", "bob_box_stand_0008", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0007", 200, 200, "Bob_Box_Stand_0007", "bob_box_stand_0007", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0035", 200, 200, "Bob_Box_Stand_0035", "bob_box_stand_0035", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Duck_0001", 290, 383, "Bob_Cart_Duck_0001", "bob_cart_duck_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_1", 150, 149, "Flow_Castle_1", "flow_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Jump_0001", 290, 383, "Bob_Cart_Jump_0001", "bob_cart_jump_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartAlone", 290, 383, "CartAlone", "cartalone", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Stand_0001", 290, 383, "Bob_Cart_Stand_0001", "bob_cart_stand_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_2", 150, 148, "Flow_Castle_2", "flow_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Fish_Castle_1", 73, 82, "Serpent_Fish_Castle_1", "serpent_fish_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Fish_Castle_2", 73, 82, "Serpent_Fish_Castle_2", "serpent_fish_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Castle_2", 164, 1000, "Serpent_Castle_2", "serpent_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_3", 150, 149, "Flow_Castle_3", "flow_castle_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Castle_1", 164, 1000, "Serpent_Castle_1", "serpent_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartIcon", 150, 170, "CartIcon", "carticon", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_2", 164, 1000, "Serpent_Sea_2", "serpent_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_1", 164, 1000, "Serpent_Sea_1", "serpent_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Wheelie\\Bob_Wheel_0000", 220, 220, "Bob_Wheel_0000", "bob_wheel_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Forest_2", 164, 1000, "Serpent_Forest_2", "serpent_forest_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Snow", 512, 512, "Snow", "snow", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Fish_Sea_2", 73, 82, "Serpent_Fish_Sea_2", "serpent_fish_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_1", 256, 256, "Flow_Sea_1", "flow_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartWheel", 82, 86, "CartWheel", "cartwheel", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_2", 256, 256, "Flow_Sea_2", "flow_sea_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Fish_Sea_1", 73, 82, "Serpent_Fish_Sea_1", "serpent_fish_sea_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_3", 256, 256, "Flow_Sea_3", "flow_sea_3", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0042", 200, 200, "Bob_Box_Stand_0042", "bob_box_stand_0042", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0041", 200, 200, "Bob_Box_Stand_0041", "bob_box_stand_0041", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0043", 200, 200, "Bob_Box_Stand_0043", "bob_box_stand_0043", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0045", 200, 200, "Bob_Box_Stand_0045", "bob_box_stand_0045", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0044", 200, 200, "Bob_Box_Stand_0044", "bob_box_stand_0044", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Rain", 512, 512, "Rain", "rain", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0037", 200, 200, "Bob_Box_Stand_0037", "bob_box_stand_0037", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0036", 200, 200, "Bob_Box_Stand_0036", "bob_box_stand_0036", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0038", 200, 200, "Bob_Box_Stand_0038", "bob_box_stand_0038", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0040", 200, 200, "Bob_Box_Stand_0040", "bob_box_stand_0040", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0039", 200, 200, "Bob_Box_Stand_0039", "bob_box_stand_0039", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0046", 200, 200, "Bob_Box_Stand_0046", "bob_box_stand_0046", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0003", 140, 181, "Bob_StandtoDuck_0003", "bob_standtoduck_0003", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\SerpentHead_Castle_1", 164, 166, "SerpentHead_Castle_1", "serpenthead_castle_1", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\SerpentHead_Castle_2", 164, 166, "SerpentHead_Castle_2", "serpenthead_castle_2", "Environments");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Dead_0001", 78, 168, "Bob_Dead_0001", "bob_dead_0001", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0047", 200, 200, "Bob_Box_Stand_0047", "bob_box_stand_0047", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0000", 200, 271, "Bob_Horse_0000", "bob_horse_0000", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0002", 200, 271, "Bob_Horse_0002", "bob_horse_0002", "Bob");
-Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0001", 200, 271, "Bob_Horse_0001", "bob_horse_0001", "Bob");
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\CopyRightSymbol", 19, 21, "CopyRightSymbol", "copyrightsymbol", "Title"); // 1
+Tools.TextureWad.AddTexture_Fast(null, "Art\\LoadScreen_Level\\LoadingStrip", 1280, 720, "LoadingStrip", "loadingstrip", "LoadScreen_Level"); // 2
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0007", 140, 181, "Bob_Run_0007", "bob_run_0007", "Bob"); // 3
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0008", 140, 181, "Bob_Run_0008", "bob_run_0008", "Bob"); // 4
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0011", 140, 181, "Bob_Run_0011", "bob_run_0011", "Bob"); // 5
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0012", 140, 181, "Bob_Run_0012", "bob_run_0012", "Bob"); // 6
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0009", 140, 181, "Bob_Run_0009", "bob_run_0009", "Bob"); // 7
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0010", 140, 181, "Bob_Run_0010", "bob_run_0010", "Bob"); // 8
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0003", 140, 181, "Bob_Run_0003", "bob_run_0003", "Bob"); // 9
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0002", 140, 181, "Bob_Run_0002", "bob_run_0002", "Bob"); // 10
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0001", 140, 181, "Bob_Run_0001", "bob_run_0001", "Bob"); // 11
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0006", 140, 181, "Bob_Run_0006", "bob_run_0006", "Bob"); // 12
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0005", 140, 181, "Bob_Run_0005", "bob_run_0005", "Bob"); // 13
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0004", 140, 181, "Bob_Run_0004", "bob_run_0004", "Bob"); // 14
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0013", 140, 181, "Bob_Run_0013", "bob_run_0013", "Bob"); // 15
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0021", 140, 181, "Bob_Run_0021", "bob_run_0021", "Bob"); // 16
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0020", 140, 181, "Bob_Run_0020", "bob_run_0020", "Bob"); // 17
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0022", 140, 181, "Bob_Run_0022", "bob_run_0022", "Bob"); // 18
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0024", 140, 181, "Bob_Run_0024", "bob_run_0024", "Bob"); // 19
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0023", 140, 181, "Bob_Run_0023", "bob_run_0023", "Bob"); // 20
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0019", 140, 181, "Bob_Run_0019", "bob_run_0019", "Bob"); // 21
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0015", 140, 181, "Bob_Run_0015", "bob_run_0015", "Bob"); // 22
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0014", 140, 181, "Bob_Run_0014", "bob_run_0014", "Bob"); // 23
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0016", 140, 181, "Bob_Run_0016", "bob_run_0016", "Bob"); // 24
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0018", 140, 181, "Bob_Run_0018", "bob_run_0018", "Bob"); // 25
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Run_0017", 140, 181, "Bob_Run_0017", "bob_run_0017", "Bob"); // 26
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Fireball", 220, 165, "Fireball", "fireball", "Effects"); // 27
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Pop", 80, 80, "Pop", "pop", "Effects"); // 28
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Fire", 90, 91, "Fire", "fire", "Effects"); // 29
+Tools.TextureWad.AddTexture_Fast(null, "Art\\default", 16, 16, "default", "default", "default"); // 30
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\CoinCollect", 100, 147, "CoinCollect", "coincollect", "Effects"); // 31
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0047", 140, 181, "Bob_Stand_0047", "bob_stand_0047", "Bob"); // 32
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0046", 140, 181, "Bob_Stand_0046", "bob_stand_0046", "Bob"); // 33
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0048", 140, 181, "Bob_Stand_0048", "bob_stand_0048", "Bob"); // 34
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Smoke2", 350, 350, "Smoke2", "smoke2", "Effects"); // 35
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Effects\\Sparkle", 100, 122, "Sparkle", "sparkle", "Effects"); // 36
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00049", 100, 100, "Coin_00049", "coin_00049", "Coins"); // 37
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00042", 100, 100, "Coin_00042", "coin_00042", "Coins"); // 38
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00043", 100, 100, "Coin_00043", "coin_00043", "Coins"); // 39
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00041", 100, 100, "Coin_00041", "coin_00041", "Coins"); // 40
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00039", 100, 100, "Coin_00039", "coin_00039", "Coins"); // 41
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00040", 100, 100, "Coin_00040", "coin_00040", "Coins"); // 42
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00047", 100, 100, "Coin_00047", "coin_00047", "Coins"); // 43
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00048", 100, 100, "Coin_00048", "coin_00048", "Coins"); // 44
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00046", 100, 100, "Coin_00046", "coin_00046", "Coins"); // 45
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00044", 100, 100, "Coin_00044", "coin_00044", "Coins"); // 46
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00045", 100, 100, "Coin_00045", "coin_00045", "Coins"); // 47
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0045", 140, 181, "Bob_Stand_0045", "bob_stand_0045", "Bob"); // 48
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0030", 140, 181, "Bob_Stand_0030", "bob_stand_0030", "Bob"); // 49
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0029", 140, 181, "Bob_Stand_0029", "bob_stand_0029", "Bob"); // 50
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0031", 140, 181, "Bob_Stand_0031", "bob_stand_0031", "Bob"); // 51
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0033", 140, 181, "Bob_Stand_0033", "bob_stand_0033", "Bob"); // 52
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0032", 140, 181, "Bob_Stand_0032", "bob_stand_0032", "Bob"); // 53
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0025", 140, 181, "Bob_Stand_0025", "bob_stand_0025", "Bob"); // 54
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0024", 140, 181, "Bob_Stand_0024", "bob_stand_0024", "Bob"); // 55
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0008", 140, 181, "Bob_Stand_0008", "bob_stand_0008", "Bob"); // 56
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0028", 140, 181, "Bob_Stand_0028", "bob_stand_0028", "Bob"); // 57
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0027", 140, 181, "Bob_Stand_0027", "bob_stand_0027", "Bob"); // 58
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0034", 140, 181, "Bob_Stand_0034", "bob_stand_0034", "Bob"); // 59
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0041", 140, 181, "Bob_Stand_0041", "bob_stand_0041", "Bob"); // 60
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0040", 140, 181, "Bob_Stand_0040", "bob_stand_0040", "Bob"); // 61
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0042", 140, 181, "Bob_Stand_0042", "bob_stand_0042", "Bob"); // 62
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0044", 140, 181, "Bob_Stand_0044", "bob_stand_0044", "Bob"); // 63
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0043", 140, 181, "Bob_Stand_0043", "bob_stand_0043", "Bob"); // 64
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0036", 140, 181, "Bob_Stand_0036", "bob_stand_0036", "Bob"); // 65
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0035", 140, 181, "Bob_Stand_0035", "bob_stand_0035", "Bob"); // 66
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0037", 140, 181, "Bob_Stand_0037", "bob_stand_0037", "Bob"); // 67
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0039", 140, 181, "Bob_Stand_0039", "bob_stand_0039", "Bob"); // 68
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0038", 140, 181, "Bob_Stand_0038", "bob_stand_0038", "Bob"); // 69
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00010", 100, 100, "Coin_00010", "coin_00010", "Coins"); // 70
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00011", 100, 100, "Coin_00011", "coin_00011", "Coins"); // 71
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00009", 100, 100, "Coin_00009", "coin_00009", "Coins"); // 72
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00007", 100, 100, "Coin_00007", "coin_00007", "Coins"); // 73
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00008", 100, 100, "Coin_00008", "coin_00008", "Coins"); // 74
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00015", 100, 100, "Coin_00015", "coin_00015", "Coins"); // 75
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00016", 100, 100, "Coin_00016", "coin_00016", "Coins"); // 76
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00014", 100, 100, "Coin_00014", "coin_00014", "Coins"); // 77
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00012", 100, 100, "Coin_00012", "coin_00012", "Coins"); // 78
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00013", 100, 100, "Coin_00013", "coin_00013", "Coins"); // 79
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00006", 100, 100, "Coin_00006", "coin_00006", "Coins"); // 80
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00000", 100, 100, "Coin_00000", "coin_00000", "Coins"); // 81
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00001", 100, 100, "Coin_00001", "coin_00001", "Coins"); // 82
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\coin_blue", 140, 140, "coin_blue", "coin_blue", "Coins"); // 83
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_A", 128, 128, "Xbox_A", "xbox_a", "Buttons"); // 84
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00004", 100, 100, "Coin_00004", "coin_00004", "Coins"); // 85
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00005", 100, 100, "Coin_00005", "coin_00005", "Coins"); // 86
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00002", 100, 100, "Coin_00002", "coin_00002", "Coins"); // 87
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00003", 100, 100, "Coin_00003", "coin_00003", "Coins"); // 88
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00017", 100, 100, "Coin_00017", "coin_00017", "Coins"); // 89
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00032", 100, 100, "Coin_00032", "coin_00032", "Coins"); // 90
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00033", 100, 100, "Coin_00033", "coin_00033", "Coins"); // 91
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00031", 100, 100, "Coin_00031", "coin_00031", "Coins"); // 92
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00029", 100, 100, "Coin_00029", "coin_00029", "Coins"); // 93
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00030", 100, 100, "Coin_00030", "coin_00030", "Coins"); // 94
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00037", 100, 100, "Coin_00037", "coin_00037", "Coins"); // 95
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00038", 100, 100, "Coin_00038", "coin_00038", "Coins"); // 96
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00036", 100, 100, "Coin_00036", "coin_00036", "Coins"); // 97
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00034", 100, 100, "Coin_00034", "coin_00034", "Coins"); // 98
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00035", 100, 100, "Coin_00035", "coin_00035", "Coins"); // 99
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00028", 100, 100, "Coin_00028", "coin_00028", "Coins"); // 100
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00021", 100, 100, "Coin_00021", "coin_00021", "Coins"); // 101
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00022", 100, 100, "Coin_00022", "coin_00022", "Coins"); // 102
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00020", 100, 100, "Coin_00020", "coin_00020", "Coins"); // 103
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00018", 100, 100, "Coin_00018", "coin_00018", "Coins"); // 104
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00019", 100, 100, "Coin_00019", "coin_00019", "Coins"); // 105
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00026", 100, 100, "Coin_00026", "coin_00026", "Coins"); // 106
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00027", 100, 100, "Coin_00027", "coin_00027", "Coins"); // 107
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00025", 100, 100, "Coin_00025", "coin_00025", "Coins"); // 108
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00023", 100, 100, "Coin_00023", "coin_00023", "Coins"); // 109
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\CoinShimmer\\Coin_00024", 100, 100, "Coin_00024", "coin_00024", "Coins"); // 110
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0004", 140, 181, "Bob_Stand_0004", "bob_stand_0004", "Bob"); // 111
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0003", 140, 181, "Bob_Stand_0003", "bob_stand_0003", "Bob"); // 112
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0002", 140, 181, "Bob_Stand_0002", "bob_stand_0002", "Bob"); // 113
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0005", 140, 181, "Bob_Stand_0005", "bob_stand_0005", "Bob"); // 114
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0001", 140, 181, "Bob_Jump_0001", "bob_jump_0001", "Bob"); // 115
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0007", 140, 181, "Bob_Stand_0007", "bob_stand_0007", "Bob"); // 116
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0006", 140, 181, "Bob_Stand_0006", "bob_stand_0006", "Bob"); // 117
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0026", 140, 181, "Bob_Stand_0026", "bob_stand_0026", "Bob"); // 118
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0004", 140, 181, "Bob_Jump_0004", "bob_jump_0004", "Bob"); // 119
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0001", 140, 181, "Bob_Stand_0001", "bob_stand_0001", "Bob"); // 120
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0002", 140, 181, "Bob_Jump_0002", "bob_jump_0002", "Bob"); // 121
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Jump_0003", 140, 181, "Bob_Jump_0003", "bob_jump_0003", "Bob"); // 122
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0009", 140, 181, "Bob_Stand_0009", "bob_stand_0009", "Bob"); // 123
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0019", 140, 181, "Bob_Stand_0019", "bob_stand_0019", "Bob"); // 124
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0018", 140, 181, "Bob_Stand_0018", "bob_stand_0018", "Bob"); // 125
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0017", 140, 181, "Bob_Stand_0017", "bob_stand_0017", "Bob"); // 126
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0020", 140, 181, "Bob_Stand_0020", "bob_stand_0020", "Bob"); // 127
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0023", 140, 181, "Bob_Stand_0023", "bob_stand_0023", "Bob"); // 128
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0022", 140, 181, "Bob_Stand_0022", "bob_stand_0022", "Bob"); // 129
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0021", 140, 181, "Bob_Stand_0021", "bob_stand_0021", "Bob"); // 130
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0012", 140, 181, "Bob_Stand_0012", "bob_stand_0012", "Bob"); // 131
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0011", 140, 181, "Bob_Stand_0011", "bob_stand_0011", "Bob"); // 132
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0010", 140, 181, "Bob_Stand_0010", "bob_stand_0010", "Bob"); // 133
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0013", 140, 181, "Bob_Stand_0013", "bob_stand_0013", "Bob"); // 134
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0016", 140, 181, "Bob_Stand_0016", "bob_stand_0016", "Bob"); // 135
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0015", 140, 181, "Bob_Stand_0015", "bob_stand_0015", "Bob"); // 136
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Stand_0014", 140, 181, "Bob_Stand_0014", "bob_stand_0014", "Bob"); // 137
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\BlackSwipe_Vertical", 2000, 24, "BlackSwipe_Vertical", "blackswipe_vertical", "Title"); // 138
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Trim", 783, 269, "Title_Trim", "title_trim", "Title"); // 139
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\TradeMarkSymbol", 28, 21, "TradeMarkSymbol", "trademarksymbol", "Title"); // 140
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Screen", 1280, 720, "Title_Screen", "title_screen", "Title"); // 141
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Title_Blur", 1280, 720, "Title_Blur", "title_blur", "Title"); // 142
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_4", 90, 90, "Blob_Cave_4", "blob_cave_4", "Environments"); // 143
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_1", 90, 90, "Blob_Cave_1", "blob_cave_1", "Environments"); // 144
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_2", 90, 90, "Blob_Cave_2", "blob_cave_2", "Environments"); // 145
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Blob\\Blob_Cave_3", 90, 90, "Blob_Cave_3", "blob_cave_3", "Environments"); // 146
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_135", 150, 150, "Movingblock_Cave_135", "movingblock_cave_135", "Environments"); // 147
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_2", 1179, 500, "cave_top_2", "cave_top_2", "Environments"); // 148
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_1_p2", 1890, 800, "cave_top_1_p2", "cave_top_1_p2", "Environments"); // 149
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_1", 1890, 800, "cave_top_1", "cave_top_1", "Environments"); // 150
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_top_2_p2", 1179, 500, "cave_top_2_p2", "cave_top_2_p2", "Environments"); // 151
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\Wall_Cave", 700, 1304, "Wall_Cave", "wall_cave", "Environments"); // 152
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\door_cave_2", 400, 284, "door_cave_2", "door_cave_2", "Environments"); // 153
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Door\\door_cave_1", 400, 284, "door_cave_1", "door_cave_1", "Environments"); // 154
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_1", 110, 110, "Bouncy_Cave_1", "bouncy_cave_1", "Environments"); // 155
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Chain_Cave", 30, 674, "Floater_Chain_Cave", "floater_chain_cave", "Environments"); // 156
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_3", 85, 85, "Fblock_Cave_3", "fblock_cave_3", "Environments"); // 157
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_2", 85, 85, "Fblock_Cave_2", "fblock_cave_2", "Environments"); // 158
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Rope_Cave", 30, 700, "Floater_Rope_Cave", "floater_rope_cave", "Environments"); // 159
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Ghost_Block\\Ghostblock_Cave", 77, 90, "Ghostblock_Cave", "ghostblock_cave", "Environments"); // 160
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Laser\\Laser_Cave", 64, 64, "Laser_Cave", "laser_cave", "Environments"); // 161
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Floater\\Floater_Spikey_Cave", 164, 164, "Floater_Spikey_Cave", "floater_spikey_cave", "Environments"); // 162
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Falling_Block\\Fblock_Cave_1", 85, 85, "Fblock_Cave_1", "fblock_cave_1", "Environments"); // 163
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Cloud\\Cloud_Cave", 238, 134, "Cloud_Cave", "cloud_cave", "Environments"); // 164
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_3", 110, 110, "Bouncy_Cave_3", "bouncy_cave_3", "Environments"); // 165
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Bouncy_Block\\Bouncy_Cave_2", 110, 110, "Bouncy_Cave_2", "bouncy_cave_2", "Environments"); // 166
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_135", 135, 38, "Elevator_Cave_135", "elevator_cave_135", "Environments"); // 167
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_80", 80, 37, "Elevator_Cave_80", "elevator_cave_80", "Environments"); // 168
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_40", 40, 37, "Elevator_Cave_40", "elevator_cave_40", "Environments"); // 169
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Elevator\\Elevator_Cave_190", 190, 38, "Elevator_Cave_190", "elevator_cave_190", "Environments"); // 170
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Base_Cloud", 70, 67, "Firespinner_Base_Cloud", "firespinner_base_cloud", "Environments"); // 171
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_1", 27, 45, "Firespinner_Flame_Cloud_1", "firespinner_flame_cloud_1", "Environments"); // 172
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_2", 27, 45, "Firespinner_Flame_Cloud_2", "firespinner_flame_cloud_2", "Environments"); // 173
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_600", 608, 944, "Pillar_Cave_600", "pillar_cave_600", "Environments"); // 174
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_250", 258, 938, "Pillar_Cave_250", "pillar_cave_250", "Environments"); // 175
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_300", 310, 944, "Pillar_Cave_300", "pillar_cave_300", "Environments"); // 176
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_50", 60, 1129, "Pillar_Cave_50", "pillar_cave_50", "Environments"); // 177
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_backdrop", 944, 400, "cave_backdrop", "cave_backdrop", "Environments"); // 178
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_backdrop_p2", 944, 400, "cave_backdrop_p2", "cave_backdrop_p2", "Environments"); // 179
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_p2_trim1", 448, 360, "cave_bottom_1_p2_trim1", "cave_bottom_1_p2_trim1", "Environments"); // 180
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_600", 580, 944, "Pillar_Castle_600", "pillar_castle_600", "Environments"); // 181
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_3", 27, 45, "Firespinner_Flame_Cloud_3", "firespinner_flame_cloud_3", "Environments"); // 182
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Fire_Spinner\\Firespinner_Flame_Cloud_4", 27, 45, "Firespinner_Flame_Cloud_4", "firespinner_flame_cloud_4", "Environments"); // 183
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Boulder_Cloud", 164, 164, "Floater_Boulder_Cloud", "floater_boulder_cloud", "Environments"); // 184
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_150", 160, 950, "Pillar_Cave_150", "pillar_cave_150", "Environments"); // 185
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_trim2", 468, 224, "cave_bottom_1_trim2", "cave_bottom_1_trim2", "Environments"); // 186
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_trim1", 288, 384, "cave_bottom_1_trim1", "cave_bottom_1_trim1", "Environments"); // 187
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_1_p2_trim2", 1180, 676, "cave_bottom_1_p2_trim2", "cave_bottom_1_p2_trim2", "Environments"); // 188
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_2_p1", 648, 180, "cave_bottom_2_p1", "cave_bottom_2_p1", "Environments"); // 189
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_lightshafts_p2", 945, 400, "cave_lightshafts_p2", "cave_lightshafts_p2", "Environments"); // 190
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_lightshafts", 945, 400, "cave_lightshafts", "cave_lightshafts", "Environments"); // 191
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Background\\v3\\cave_bottom_2_p2", 1180, 584, "cave_bottom_2_p2", "cave_bottom_2_p2", "Environments"); // 192
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Spike\\spike_cave", 27, 56, "spike_cave", "spike_cave", "Environments"); // 193
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_100", 110, 950, "Pillar_Cave_100", "pillar_cave_100", "Environments"); // 194
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Pillars\\Pillar_Cave_1000", 960, 928, "Pillar_Cave_1000", "pillar_cave_1000", "Environments"); // 195
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Spike\\Spike_Base_Cave_1", 40, 24, "Spike_Base_Cave_1", "spike_base_cave_1", "Environments"); // 196
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_190", 190, 190, "Movingblock_Cave_190", "movingblock_cave_190", "Environments"); // 197
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_40", 45, 45, "Movingblock_Cave_40", "movingblock_cave_40", "Environments"); // 198
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Moving_Block\\Movingblock_Cave_80", 85, 85, "Movingblock_Cave_80", "movingblock_cave_80", "Environments"); // 199
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_B", 128, 128, "Xbox_B", "xbox_b", "Buttons"); // 200
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1080x840", 926, 720, "backplate_1080x840", "backplate_1080x840", "Menu"); // 201
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\BackArrow2", 50, 43, "BackArrow2", "backarrow2", "Menu"); // 202
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CustomLevel\\LengthBack", 512, 71, "LengthBack", "lengthback", "Menu"); // 203
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1230x740", 1197, 720, "backplate_1230x740", "backplate_1230x740", "Menu"); // 204
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_X", 128, 128, "Xbox_X", "xbox_x", "Buttons"); // 205
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CustomLevel\\Length", 512, 71, "Length", "length", "Menu"); // 206
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\CharSelect", 1280, 720, "CharSelect", "charselect", "Menu"); // 207
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_Y", 128, 128, "Xbox_Y", "xbox_y", "Buttons"); // 208
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Backplates\\backplate_1500x900", 1200, 720, "backplate_1500x900", "backplate_1500x900", "Menu"); // 209
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo", 50, 50, "BlobGoo", "blobgoo", "Old_Art_Holdover"); // 210
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Arcade_Box", 588, 640, "Arcade_Box", "arcade_box", "Title"); // 211
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Arcade_BoxLeft", 440, 720, "Arcade_BoxLeft", "arcade_boxleft", "Title"); // 212
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo7", 50, 50, "BlobGoo7", "blobgoo7", "Old_Art_Holdover"); // 213
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo8", 50, 50, "BlobGoo8", "blobgoo8", "Old_Art_Holdover"); // 214
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Scene_Kobbler_Blur", 1280, 720, "Scene_Kobbler_Blur", "scene_kobbler_blur", "Title"); // 215
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Story\\Scene_Princess", 1280, 720, "Scene_Princess", "scene_princess", "Title"); // 216
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\MessageBoxThin", 720, 136, "MessageBoxThin", "messageboxthin", "Title"); // 217
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Title\\Categories\\Arcade\\Scene_Kobbler", 1280, 720, "Scene_Kobbler", "scene_kobbler", "Title"); // 218
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\directionarrow", 250, 204, "directionarrow", "directionarrow", "Menu"); // 219
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo3", 50, 50, "BlobGoo3", "blobgoo3", "Old_Art_Holdover"); // 220
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo4", 50, 50, "BlobGoo4", "blobgoo4", "Old_Art_Holdover"); // 221
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo6", 50, 50, "BlobGoo6", "blobgoo6", "Old_Art_Holdover"); // 222
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo2", 50, 50, "BlobGoo2", "blobgoo2", "Old_Art_Holdover"); // 223
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\BlobGoo5", 50, 50, "BlobGoo5", "blobgoo5", "Old_Art_Holdover"); // 224
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_viking", 87, 116, "hat_viking", "hat_viking", "HeroItems"); // 225
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_tiki", 157, 157, "hat_tiki", "hat_tiki", "HeroItems"); // 226
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_tophat", 157, 157, "hat_tophat", "hat_tophat", "HeroItems"); // 227
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_robinhood", 157, 157, "hat_robinhood", "hat_robinhood", "HeroItems"); // 228
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_santa", 157, 157, "hat_santa", "hat_santa", "HeroItems"); // 229
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_sombrero", 157, 157, "hat_sombrero", "hat_sombrero", "HeroItems"); // 230
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_rice", 157, 157, "hat_rice", "hat_rice", "HeroItems"); // 231
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_brain", 157, 157, "hat_brain", "hat_brain", "HeroItems"); // 232
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bunny", 157, 157, "hat_bunny", "hat_bunny", "HeroItems"); // 233
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bubble", 100, 100, "hat_bubble", "hat_bubble", "HeroItems"); // 234
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_beard", 157, 157, "hat_beard", "hat_beard", "HeroItems"); // 235
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_antlers", 157, 157, "hat_antlers", "hat_antlers", "HeroItems"); // 236
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_afro", 113, 105, "hat_afro", "hat_afro", "HeroItems"); // 237
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_bag", 157, 157, "hat_bag", "hat_bag", "HeroItems"); // 238
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_arrow", 157, 157, "hat_arrow", "hat_arrow", "HeroItems"); // 239
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_disguise", 157, 157, "hat_disguise", "hat_disguise", "HeroItems"); // 240
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pope", 157, 157, "hat_pope", "hat_pope", "HeroItems"); // 241
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pirate", 157, 157, "hat_pirate", "hat_pirate", "HeroItems"); // 242
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_rastafari", 157, 157, "hat_rastafari", "hat_rastafari", "HeroItems"); // 243
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_pumkin", 157, 157, "hat_pumkin", "hat_pumkin", "HeroItems"); // 244
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_miner", 157, 157, "hat_miner", "hat_miner", "HeroItems"); // 245
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_gosu", 157, 157, "hat_gosu", "hat_gosu", "HeroItems"); // 246
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_fedora", 106, 81, "hat_fedora", "hat_fedora", "HeroItems"); // 247
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_knight", 157, 157, "hat_knight", "hat_knight", "HeroItems"); // 248
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_halo", 123, 84, "hat_halo", "hat_halo", "HeroItems"); // 249
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_FireSpinner", 174, 179, "Icon_FireSpinner", "icon_firespinner", "Menu"); // 250
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_Laser", 200, 209, "Icon_Laser", "icon_laser", "Menu"); // 251
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Jump", 200, 127, "Jump", "jump", "Menu"); // 252
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\CeilingIcon", 200, 222, "CeilingIcon", "ceilingicon", "Menu"); // 253
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Dodge", 200, 187, "Dodge", "dodge", "Menu"); // 254
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\Icon_Fireball", 2000, 2000, "Icon_Fireball", "icon_fireball", "Menu"); // 255
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\SpeedIcon", 250, 167, "SpeedIcon", "speedicon", "Menu"); // 256
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\Slider\\menuslider_bar", 342, 22, "menuslider_bar", "menuslider_bar", "Menu"); // 257
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\Slider\\menuslider_slider", 24, 47, "menuslider_slider", "menuslider_slider", "Menu"); // 258
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_cone", 157, 157, "hat_cone", "hat_cone", "HeroItems"); // 259
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Upgrades\\SpikeIcon", 155, 259, "SpikeIcon", "spikeicon", "Menu"); // 260
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\ListSelect\\ListLeftArrow", 60, 60, "ListLeftArrow", "listleftarrow", "Menu"); // 261
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Widgets\\ListSelect\\ListRightArrow", 60, 60, "ListRightArrow", "listrightarrow", "Menu"); // 262
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Icon_Checkpoint_v2", 155, 162, "Icon_Checkpoint_v2", "icon_checkpoint_v2", "Menu"); // 263
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\TestHat", 113, 105, "TestHat", "testhat", "HeroItems"); // 264
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\Arrow_Left", 56, 53, "Arrow_Left", "arrow_left", "Menu"); // 265
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\CharacterMenu\\Arrow_Right", 62, 45, "Arrow_Right", "arrow_right", "Menu"); // 266
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\RightHorn", 100, 100, "RightHorn", "righthorn", "HeroItems"); // 267
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\hat_wizard", 157, 157, "hat_wizard", "hat_wizard", "HeroItems"); // 268
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\HatPic_Horns", 200, 200, "HatPic_Horns", "hatpic_horns", "HeroItems"); // 269
+Tools.TextureWad.AddTexture_Fast(null, "Art\\HeroItems\\Hats\\LeftHorn", 100, 100, "LeftHorn", "lefthorn", "HeroItems"); // 270
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Double", 140, 177, "HeroIcon_Double", "heroicon_double", "Menu"); // 271
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Jetman", 150, 210, "HeroIcon_Jetman", "heroicon_jetman", "Menu"); // 272
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Phase", 200, 221, "HeroIcon_Phase", "heroicon_phase", "Menu"); // 273
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Custom", 212, 213, "HeroIcon_Custom", "heroicon_custom", "Menu"); // 274
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Icons\\Hero\\HeroIcon_Random", 140, 183, "HeroIcon_Random", "heroicon_random", "Menu"); // 275
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_1", 27, 45, "Firespinner_Flame_Castle_v1_1", "firespinner_flame_castle_v1_1", "Environments"); // 276
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_2", 27, 45, "Firespinner_Flame_Castle_v1_2", "firespinner_flame_castle_v1_2", "Environments"); // 277
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_3", 85, 84, "Fblock_Castle_3", "fblock_castle_3", "Environments"); // 278
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Base_Castle_2", 70, 64, "Firespinner_Base_Castle_2", "firespinner_base_castle_2", "Environments"); // 279
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Chain_Castle", 30, 674, "Floater_Chain_Castle", "floater_chain_castle", "Environments"); // 280
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Buzzsaw_Yellow_Castle", 117, 118, "Floater_Buzzsaw_Yellow_Castle", "floater_buzzsaw_yellow_castle", "Environments"); // 281
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_3", 27, 45, "Firespinner_Flame_Castle_v1_3", "firespinner_flame_castle_v1_3", "Environments"); // 282
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Firespinner\\Firespinner_Flame_Castle_v1_4", 27, 45, "Firespinner_Flame_Castle_v1_4", "firespinner_flame_castle_v1_4", "Environments"); // 283
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_135", 135, 37, "Elevator_Castle_135", "elevator_castle_135", "Environments"); // 284
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_190", 190, 39, "Elevator_Castle_190", "elevator_castle_190", "Environments"); // 285
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_3", 110, 110, "Bouncy_Castle_3", "bouncy_castle_3", "Environments"); // 286
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Cloud\\Cloud_Castle", 238, 134, "Cloud_Castle", "cloud_castle", "Environments"); // 287
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_1", 85, 85, "Fblock_Castle_1", "fblock_castle_1", "Environments"); // 288
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Falling_Block\\Fblock_Castle_2", 85, 85, "Fblock_Castle_2", "fblock_castle_2", "Environments"); // 289
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_40", 40, 39, "Elevator_Castle_40", "elevator_castle_40", "Environments"); // 290
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Elevator\\Elevator_Castle_80", 80, 39, "Elevator_Castle_80", "elevator_castle_80", "Environments"); // 291
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Spikey_Castle_v1", 164, 164, "Floater_Spikey_Castle_v1", "floater_spikey_castle_v1", "Environments"); // 292
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_250", 244, 972, "Pillar_Castle_250", "pillar_castle_250", "Environments"); // 293
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Spike\\spike_base_castle", 155, 91, "spike_base_castle", "spike_base_castle", "Environments"); // 294
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_50", 54, 935, "Pillar_Castle_50", "pillar_castle_50", "Environments"); // 295
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_300", 322, 933, "Pillar_Castle_300", "pillar_castle_300", "Environments"); // 296
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_1000", 1016, 908, "Pillar_Castle_1000", "pillar_castle_1000", "Environments"); // 297
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_150", 150, 940, "Pillar_Castle_150", "pillar_castle_150", "Environments"); // 298
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Spike\\Spike_Castle", 27, 56, "Spike_Castle", "spike_castle", "Environments"); // 299
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Pillars\\Pillar_Castle_100", 120, 936, "Pillar_Castle_100", "pillar_castle_100", "Environments"); // 300
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Laser\\Laser_Castle", 64, 64, "Laser_Castle", "laser_castle", "Environments"); // 301
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle", 194, 171, "Movingblock_Castle", "movingblock_castle", "Environments"); // 302
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Floater\\Floater_Spikey_Castle_v2", 164, 164, "Floater_Spikey_Castle_v2", "floater_spikey_castle_v2", "Environments"); // 303
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Ghost_Block\\Ghostblock_Castle", 78, 90, "Ghostblock_Castle", "ghostblock_castle", "Environments"); // 304
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_40", 40, 40, "Movingblock_Castle_40", "movingblock_castle_40", "Environments"); // 305
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_80", 80, 80, "Movingblock_Castle_80", "movingblock_castle_80", "Environments"); // 306
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_135", 135, 135, "Movingblock_Castle_135", "movingblock_castle_135", "Environments"); // 307
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Moving_Block\\Movingblock_Castle_190", 190, 190, "Movingblock_Castle_190", "movingblock_castle_190", "Environments"); // 308
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_wall_p2", 1064, 448, "castle_wall_p2", "castle_wall_p2", "Environments"); // 309
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_wall", 1064, 448, "castle_wall", "castle_wall", "Environments"); // 310
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Center_Frame", 238, 591, "Castle_Window_Center_Frame", "castle_window_center_frame", "Environments"); // 311
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Left_Frame", 161, 358, "Castle_Window_Left_Frame", "castle_window_left_frame", "Environments"); // 312
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Center_Mask", 80, 199, "Castle_Window_Center_Mask", "castle_window_center_mask", "Environments"); // 313
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_pillar", 418, 1500, "castle_pillar", "castle_pillar", "Environments"); // 314
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_chandelier_close", 300, 256, "castle_chandelier_close", "castle_chandelier_close", "Environments"); // 315
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Backdrop_2", 888, 500, "Castle_Backdrop_2", "castle_backdrop_2", "Environments"); // 316
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_chandelier_far", 260, 709, "castle_chandelier_far", "castle_chandelier_far", "Environments"); // 317
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_3", 92, 90, "Blob_Castle_v1_3", "blob_castle_v1_3", "Environments"); // 318
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\castle_lava", 2048, 128, "castle_lava", "castle_lava", "Environments"); // 319
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Left_Mask", 67, 150, "Castle_Window_Left_Mask", "castle_window_left_mask", "Environments"); // 320
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_2", 92, 90, "Blob_Castle_v1_2", "blob_castle_v1_2", "Environments"); // 321
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_1", 92, 90, "Blob_Castle_v1_1", "blob_castle_v1_1", "Environments"); // 322
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Blob\\Blob_Castle_v1_4", 92, 90, "Blob_Castle_v1_4", "blob_castle_v1_4", "Environments"); // 323
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_2", 110, 110, "Bouncy_Castle_2", "bouncy_castle_2", "Environments"); // 324
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Bouncy_Block\\Bouncy_Castle_1", 110, 110, "Bouncy_Castle_1", "bouncy_castle_1", "Environments"); // 325
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Right_Frame", 170, 361, "Castle_Window_Right_Frame", "castle_window_right_frame", "Environments"); // 326
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\door_castle_1", 348, 248, "door_castle_1", "door_castle_1", "Environments"); // 327
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Background\\v2\\Castle_Window_Right_Mask", 71, 150, "Castle_Window_Right_Mask", "castle_window_right_mask", "Environments"); // 328
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\door_castle_2", 348, 248, "door_castle_2", "door_castle_2", "Environments"); // 329
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Door\\Wall_Castle", 680, 1232, "Wall_Castle", "wall_castle", "Environments"); // 330
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Spikey_Forest", 164, 205, "Floater_Spikey_Forest", "floater_spikey_forest", "Environments"); // 331
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_40", 40, 32, "Elevator_Forest_40", "elevator_forest_40", "Environments"); // 332
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_80", 79, 33, "Elevator_Forest_80", "elevator_forest_80", "Environments"); // 333
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Ghost_Block\\Ghostblock_Forest_1", 77, 91, "Ghostblock_Forest_1", "ghostblock_forest_1", "Environments"); // 334
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Laser\\Laser_Forest", 64, 64, "Laser_Forest", "laser_forest", "Environments"); // 335
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\movingblock_forest_150", 144, 146, "movingblock_forest_150", "movingblock_forest_150", "Environments"); // 336
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_190_v2", 190, 190, "Movingblock_Forest_190_v2", "movingblock_forest_190_v2", "Environments"); // 337
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_40_v2", 40, 40, "Movingblock_Forest_40_v2", "movingblock_forest_40_v2", "Environments"); // 338
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_135_v2", 130, 130, "Movingblock_Forest_135_v2", "movingblock_forest_135_v2", "Environments"); // 339
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Base_Forest_1", 62, 93, "Firespinner_Base_Forest_1", "firespinner_base_forest_1", "Environments"); // 340
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_3", 85, 85, "Fblock_Forest_3", "fblock_forest_3", "Environments"); // 341
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_1", 27, 45, "Firespinner_Flame_Forest_1", "firespinner_flame_forest_1", "Environments"); // 342
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_3", 27, 45, "Firespinner_Flame_Forest_3", "firespinner_flame_forest_3", "Environments"); // 343
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_2", 27, 45, "Firespinner_Flame_Forest_2", "firespinner_flame_forest_2", "Environments"); // 344
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_2", 85, 84, "Fblock_Forest_2", "fblock_forest_2", "Environments"); // 345
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Falling_Block\\Fblock_Forest_1", 85, 85, "Fblock_Forest_1", "fblock_forest_1", "Environments"); // 346
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Chain_Forest", 30, 674, "Floater_Chain_Forest", "floater_chain_forest", "Environments"); // 347
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Firespinner\\Firespinner_Flame_Forest_4", 27, 45, "Firespinner_Flame_Forest_4", "firespinner_flame_forest_4", "Environments"); // 348
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Floater\\Floater_Buzzsaw_Forest", 113, 115, "Floater_Buzzsaw_Forest", "floater_buzzsaw_forest", "Environments"); // 349
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_mid_trim", 1416, 336, "forest_mid_trim", "forest_mid_trim", "Environments"); // 350
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_foretrees_p2", 1700, 720, "forest_foretrees_p2", "forest_foretrees_p2", "Environments"); // 351
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_sky", 56, 800, "forest_sky", "forest_sky", "Environments"); // 352
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\door_forest_2", 248, 196, "door_forest_2", "door_forest_2", "Environments"); // 353
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\door_forest_1", 248, 196, "door_forest_1", "door_forest_1", "Environments"); // 354
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_foretrees", 1888, 800, "forest_foretrees", "forest_foretrees", "Environments"); // 355
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backhills_trim", 1416, 340, "forest_backhills_trim", "forest_backhills_trim", "Environments"); // 356
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backhills_p2_trim", 1416, 348, "forest_backhills_p2_trim", "forest_backhills_p2_trim", "Environments"); // 357
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backtrees", 1425, 450, "forest_backtrees", "forest_backtrees", "Environments"); // 358
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_clouds", 2048, 256, "forest_clouds", "forest_clouds", "Environments"); // 359
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_backtrees_p2", 1493, 450, "forest_backtrees_p2", "forest_backtrees_p2", "Environments"); // 360
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_3", 110, 110, "Bouncy_Forest_3", "bouncy_forest_3", "Environments"); // 361
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_2", 110, 110, "Bouncy_Forest_2", "bouncy_forest_2", "Environments"); // 362
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Cloud\\Cloud_Forest", 238, 134, "Cloud_Forest", "cloud_forest", "Environments"); // 363
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_190", 180, 32, "Elevator_Forest_190", "elevator_forest_190", "Environments"); // 364
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Elevator\\Elevator_Forest_135", 135, 35, "Elevator_Forest_135", "elevator_forest_135", "Environments"); // 365
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Bouncy_Block\\Bouncy_Forest_1", 110, 110, "Bouncy_Forest_1", "bouncy_forest_1", "Environments"); // 366
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_1", 113, 120, "Blob_Forest_1", "blob_forest_1", "Environments"); // 367
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Door\\Wall_Forest", 700, 1304, "Wall_Forest", "wall_forest", "Environments"); // 368
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_2", 113, 120, "Blob_Forest_2", "blob_forest_2", "Environments"); // 369
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_4", 113, 120, "Blob_Forest_4", "blob_forest_4", "Environments"); // 370
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Blob\\Blob_Forest_3", 113, 120, "Blob_Forest_3", "blob_forest_3", "Environments"); // 371
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_250", 244, 962, "Pillar_Forest_250", "pillar_forest_250", "Environments"); // 372
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_150", 126, 765, "Pillar_Forest_150", "pillar_forest_150", "Environments"); // 373
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_1000", 836, 748, "Pillar_Forest_1000", "pillar_forest_1000", "Environments"); // 374
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_300", 271, 782, "Pillar_Forest_300", "pillar_forest_300", "Environments"); // 375
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Background\\v2\\forest_mid_p2_trim", 1416, 292, "forest_mid_p2_trim", "forest_mid_p2_trim", "Environments"); // 376
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_600", 468, 756, "Pillar_Forest_600", "pillar_forest_600", "Environments"); // 377
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_50", 58, 800, "Pillar_Forest_50", "pillar_forest_50", "Environments"); // 378
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Pillars\\Pillar_Forest_100", 97, 792, "Pillar_Forest_100", "pillar_forest_100", "Environments"); // 379
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Moving_Block\\Movingblock_Forest_80_v2", 80, 80, "Movingblock_Forest_80_v2", "movingblock_forest_80_v2", "Environments"); // 380
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Spike\\Spike_Base_Forest_1", 40, 23, "Spike_Base_Forest_1", "spike_base_forest_1", "Environments"); // 381
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Spike\\Spike_Forest", 27, 56, "Spike_Forest", "spike_forest", "Environments"); // 382
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\door_hills_2", 248, 184, "door_hills_2", "door_hills_2", "Environments"); // 383
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_2", 90, 90, "Blob_Hills_2", "blob_hills_2", "Environments"); // 384
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\Wall_Hills", 700, 1304, "Wall_Hills", "wall_hills", "Environments"); // 385
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_3", 90, 90, "Blob_Hills_3", "blob_hills_3", "Environments"); // 386
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_1", 90, 90, "Blob_Hills_1", "blob_hills_1", "Environments"); // 387
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_6", 628, 500, "hills_plants_6", "hills_plants_6", "Environments"); // 388
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_3", 84, 82, "Fblock_Hills_3", "fblock_hills_3", "Environments"); // 389
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_rock", 1980, 400, "hills_rock", "hills_rock", "Environments"); // 390
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Door\\door_hills_1", 248, 184, "door_hills_1", "door_hills_1", "Environments"); // 391
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_190", 190, 36, "Elevator_Hills_190", "elevator_hills_190", "Environments"); // 392
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_4", 27, 45, "Firespinner_Flame_Hills_4", "firespinner_flame_hills_4", "Environments"); // 393
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Base_Hills", 70, 67, "Firespinner_Base_Hills", "firespinner_base_hills", "Environments"); // 394
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_3", 27, 45, "Firespinner_Flame_Hills_3", "firespinner_flame_hills_3", "Environments"); // 395
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_1", 27, 45, "Firespinner_Flame_Hills_1", "firespinner_flame_hills_1", "Environments"); // 396
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Firespinner\\Firespinner_Flame_Hills_2", 27, 45, "Firespinner_Flame_Hills_2", "firespinner_flame_hills_2", "Environments"); // 397
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_40", 40, 35, "Elevator_Hills_40", "elevator_hills_40", "Environments"); // 398
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Blob\\Blob_Hills_4", 90, 90, "Blob_Hills_4", "blob_hills_4", "Environments"); // 399
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_80", 80, 36, "Elevator_Hills_80", "elevator_hills_80", "Environments"); // 400
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_2", 85, 85, "Fblock_Hills_2", "fblock_hills_2", "Environments"); // 401
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Falling_Block\\Fblock_Hills_1", 85, 85, "Fblock_Hills_1", "fblock_hills_1", "Environments"); // 402
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_5", 432, 352, "hills_plants_5", "hills_plants_5", "Environments"); // 403
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backdrop", 1416, 600, "hills_backdrop", "hills_backdrop", "Environments"); // 404
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backcastles_trim", 1132, 348, "hills_backcastles_trim", "hills_backcastles_trim", "Environments"); // 405
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backdrop_p2", 1416, 600, "hills_backdrop_p2", "hills_backdrop_p2", "Environments"); // 406
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills_p2", 1800, 760, "hills_backhills_p2", "hills_backhills_p2", "Environments"); // 407
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills", 1800, 760, "hills_backhills", "hills_backhills", "Environments"); // 408
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Cloud\\Cloud_Hills", 140, 79, "Cloud_Hills", "cloud_hills", "Environments"); // 409
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Elevator\\Elevator_Hills_135", 135, 37, "Elevator_Hills_135", "elevator_hills_135", "Environments"); // 410
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_3", 110, 110, "Bouncy_Hills_3", "bouncy_hills_3", "Environments"); // 411
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backcastles_p2_trim", 1208, 348, "hills_backcastles_p2_trim", "hills_backcastles_p2_trim", "Environments"); // 412
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_2", 110, 110, "Bouncy_Hills_2", "bouncy_hills_2", "Environments"); // 413
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_1", 412, 312, "hills_plants_1", "hills_plants_1", "Environments"); // 414
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hillandtree", 1836, 676, "hills_hillandtree", "hills_hillandtree", "Environments"); // 415
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_2", 460, 400, "hills_plants_2", "hills_plants_2", "Environments"); // 416
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_4", 572, 312, "hills_plants_4", "hills_plants_4", "Environments"); // 417
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_plants_3", 464, 420, "hills_plants_3", "hills_plants_3", "Environments"); // 418
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills2_trim", 1248, 416, "hills_backhills2_trim", "hills_backhills2_trim", "Environments"); // 419
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_backhills2_p2_trim", 1652, 320, "hills_backhills2_p2_trim", "hills_backhills2_p2_trim", "Environments"); // 420
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_clouds", 2048, 512, "hills_clouds", "hills_clouds", "Environments"); // 421
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hill2", 1568, 572, "hills_hill2", "hills_hill2", "Environments"); // 422
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Background\\v3\\hills_hill1", 1704, 424, "hills_hill1", "hills_hill1", "Environments"); // 423
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_135", 130, 130, "Movingblock_Hills_135", "movingblock_hills_135", "Environments"); // 424
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Laser\\Laser_Hills", 64, 64, "Laser_Hills", "laser_hills", "Environments"); // 425
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_190", 190, 190, "Movingblock_Hills_190", "movingblock_hills_190", "Environments"); // 426
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Spike\\Spike_Base_Hills_1", 40, 24, "Spike_Base_Hills_1", "spike_base_hills_1", "Environments"); // 427
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_80", 80, 80, "Movingblock_Hills_80", "movingblock_hills_80", "Environments"); // 428
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Chain_Hills", 30, 674, "Floater_Chain_Hills", "floater_chain_hills", "Environments"); // 429
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Boulder_Hills", 164, 164, "Floater_Boulder_Hills", "floater_boulder_hills", "Environments"); // 430
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Rope_Hills", 30, 700, "Floater_Rope_Hills", "floater_rope_hills", "Environments"); // 431
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Ghost_Block\\Ghostblock_Hills", 77, 90, "Ghostblock_Hills", "ghostblock_hills", "Environments"); // 432
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Floater\\Floater_Spikey_Hills", 164, 164, "Floater_Spikey_Hills", "floater_spikey_hills", "Environments"); // 433
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_50", 69, 955, "Pillar_Hills_50", "pillar_hills_50", "Environments"); // 434
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_300", 343, 913, "Pillar_Hills_300", "pillar_hills_300", "Environments"); // 435
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_600", 580, 920, "Pillar_Hills_600", "pillar_hills_600", "Environments"); // 436
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Moving_Blocks\\Movingblock_Hills_40", 40, 40, "Movingblock_Hills_40", "movingblock_hills_40", "Environments"); // 437
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Bouncy_Block\\Bouncy_Hills_1", 110, 110, "Bouncy_Hills_1", "bouncy_hills_1", "Environments"); // 438
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_250", 253, 963, "Pillar_Hills_250", "pillar_hills_250", "Environments"); // 439
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_100", 136, 966, "Pillar_Hills_100", "pillar_hills_100", "Environments"); // 440
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Obstacles\\Spike\\Spike_Hills", 27, 56, "Spike_Hills", "spike_hills", "Environments"); // 441
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_1000", 1016, 928, "Pillar_Hills_1000", "pillar_hills_1000", "Environments"); // 442
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Hills\\Pillars\\Pillar_Hills_150", 170, 952, "Pillar_Hills_150", "pillar_hills_150", "Environments"); // 443
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_150", 150, 938, "Pillar_Cloud_150", "pillar_cloud_150", "Environments"); // 444
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_1000", 1000, 948, "Pillar_Cloud_1000", "pillar_cloud_1000", "Environments"); // 445
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_300", 310, 940, "Pillar_Cloud_300", "pillar_cloud_300", "Environments"); // 446
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_250", 250, 939, "Pillar_Cloud_250", "pillar_cloud_250", "Environments"); // 447
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_100", 110, 939, "Pillar_Cloud_100", "pillar_cloud_100", "Environments"); // 448
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer4", 1348, 600, "cloud_castle_layer4", "cloud_castle_layer4", "Environments"); // 449
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer4_p2", 1348, 600, "cloud_castle_layer4_p2", "cloud_castle_layer4_p2", "Environments"); // 450
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Spike\\Spike_Cloud", 27, 56, "Spike_Cloud", "spike_cloud", "Environments"); // 451
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Spike\\Spike_Base_Cloud_1", 40, 24, "Spike_Base_Cloud_1", "spike_base_cloud_1", "Environments"); // 452
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_50", 66, 951, "Pillar_Cloud_50", "pillar_cloud_50", "Environments"); // 453
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_1", 355, 736, "cloud_castle_layer2_1", "cloud_castle_layer2_1", "Environments"); // 454
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_2", 522, 866, "cloud_castle_layer2_2", "cloud_castle_layer2_2", "Environments"); // 455
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_2", 198, 120, "cloud_cloud_layer3_2", "cloud_cloud_layer3_2", "Environments"); // 456
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer1", 668, 1211, "cloud_castle_layer1", "cloud_castle_layer1", "Environments"); // 457
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer2_3", 671, 1123, "cloud_castle_layer2_3", "cloud_castle_layer2_3", "Environments"); // 458
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_3", 411, 863, "cloud_castle_layer3_3", "cloud_castle_layer3_3", "Environments"); // 459
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Pillars\\Pillar_Cloud_600", 600, 944, "Pillar_Cloud_600", "pillar_cloud_600", "Environments"); // 460
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_1", 498, 484, "cloud_castle_layer3_1", "cloud_castle_layer3_1", "Environments"); // 461
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer3_2", 548, 782, "cloud_castle_layer3_2", "cloud_castle_layer3_2", "Environments"); // 462
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer5", 1348, 600, "cloud_castle_layer5", "cloud_castle_layer5", "Environments"); // 463
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_2", 110, 110, "Bouncy_Cloud_2", "bouncy_cloud_2", "Environments"); // 464
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_3", 110, 110, "Bouncy_Cloud_3", "bouncy_cloud_3", "Environments"); // 465
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_4", 90, 90, "Blob_Cloud_4", "blob_cloud_4", "Environments"); // 466
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Bouncy_Block\\Bouncy_Cloud_1", 110, 110, "Bouncy_Cloud_1", "bouncy_cloud_1", "Environments"); // 467
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Cloud\\Cloud_Cloud", 238, 134, "Cloud_Cloud", "cloud_cloud", "Environments"); // 468
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_40", 40, 38, "Elevator_Cloud_40", "elevator_cloud_40", "Environments"); // 469
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_80", 74, 35, "Elevator_Cloud_80", "elevator_cloud_80", "Environments"); // 470
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_135", 135, 38, "Elevator_Cloud_135", "elevator_cloud_135", "Environments"); // 471
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Elevator\\Elevator_Cloud_190", 190, 38, "Elevator_Cloud_190", "elevator_cloud_190", "Environments"); // 472
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_3", 90, 90, "Blob_Cloud_3", "blob_cloud_3", "Environments"); // 473
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_5", 401, 169, "cloud_cloud_layer3_5", "cloud_cloud_layer3_5", "Environments"); // 474
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_6", 170, 119, "cloud_cloud_layer3_6", "cloud_cloud_layer3_6", "Environments"); // 475
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_3", 272, 152, "cloud_cloud_layer3_3", "cloud_cloud_layer3_3", "Environments"); // 476
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_4", 192, 114, "cloud_cloud_layer3_4", "cloud_cloud_layer3_4", "Environments"); // 477
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\door_cloud_1", 248, 208, "door_cloud_1", "door_cloud_1", "Environments"); // 478
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_1", 90, 90, "Blob_Cloud_1", "blob_cloud_1", "Environments"); // 479
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Blob\\Blob_Cloud_2", 90, 90, "Blob_Cloud_2", "blob_cloud_2", "Environments"); // 480
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\door_cloud_2", 248, 208, "door_cloud_2", "door_cloud_2", "Environments"); // 481
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Door\\Wall_Cloud", 700, 1304, "Wall_Cloud", "wall_cloud", "Environments"); // 482
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Ghost_Block\\Ghostblock_Cloud", 77, 90, "Ghostblock_Cloud", "ghostblock_cloud", "Environments"); // 483
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Laser\\Laser_Cloud", 64, 64, "Laser_Cloud", "laser_cloud", "Environments"); // 484
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Rope_Cloud", 30, 700, "Floater_Rope_Cloud", "floater_rope_cloud", "Environments"); // 485
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Floater_Spikey_Cloud", 164, 164, "Floater_Spikey_Cloud", "floater_spikey_cloud", "Environments"); // 486
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_135", 135, 135, "MovingBlock_Cloud_135", "movingblock_cloud_135", "Environments"); // 487
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_80", 80, 80, "MovingBlock_Cloud_80", "movingblock_cloud_80", "Environments"); // 488
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_castle_layer5_p2", 1348, 600, "cloud_castle_layer5_p2", "cloud_castle_layer5_p2", "Environments"); // 489
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_190", 190, 190, "MovingBlock_Cloud_190", "movingblock_cloud_190", "Environments"); // 490
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Moving_Block\\MovingBlock_Cloud_40", 40, 40, "MovingBlock_Cloud_40", "movingblock_cloud_40", "Environments"); // 491
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_1", 572, 314, "cloud_cloud_layer1_1", "cloud_cloud_layer1_1", "Environments"); // 492
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_3", 85, 85, "Fblock_Cloud_3", "fblock_cloud_3", "Environments"); // 493
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer3_1", 207, 117, "cloud_cloud_layer3_1", "cloud_cloud_layer3_1", "Environments"); // 494
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_1", 85, 85, "Fblock_Cloud_1", "fblock_cloud_1", "Environments"); // 495
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Falling_Block\\Fblock_Cloud_2", 85, 85, "Fblock_Cloud_2", "fblock_cloud_2", "Environments"); // 496
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer2_1", 1694, 421, "cloud_cloud_layer2_1", "cloud_cloud_layer2_1", "Environments"); // 497
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_2", 708, 369, "cloud_cloud_layer1_2", "cloud_cloud_layer1_2", "Environments"); // 498
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Floater\\Cloud_Chain", 30, 674, "Cloud_Chain", "cloud_chain", "Environments"); // 499
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_4", 681, 448, "cloud_cloud_layer1_4", "cloud_cloud_layer1_4", "Environments"); // 500
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Background\\v2\\cloud_cloud_layer1_3", 781, 303, "cloud_cloud_layer1_3", "cloud_cloud_layer1_3", "Environments"); // 501
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Spikey_Sea", 164, 164, "Floater_Spikey_Sea", "floater_spikey_sea", "Environments"); // 502
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Chain_Sea", 30, 674, "Floater_Chain_Sea", "floater_chain_sea", "Environments"); // 503
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\firespinner_gear_dkpurp", 70, 64, "firespinner_gear_dkpurp", "firespinner_gear_dkpurp", "Environments"); // 504
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Laser\\Laser_Sea", 64, 64, "Laser_Sea", "laser_sea", "Environments"); // 505
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Ghost_Block\\Ghostblock_Sea", 77, 90, "Ghostblock_Sea", "ghostblock_sea", "Environments"); // 506
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Floater\\Floater_Spikey_Sea_v2", 164, 164, "Floater_Spikey_Sea_v2", "floater_spikey_sea_v2", "Environments"); // 507
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_3", 85, 85, "Fblock_Sea_3", "fblock_sea_3", "Environments"); // 508
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_2", 85, 85, "Fblock_Sea_2", "fblock_sea_2", "Environments"); // 509
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Falling_Block\\Fblock_Sea_1", 85, 85, "Fblock_Sea_1", "fblock_sea_1", "Environments"); // 510
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_1", 27, 45, "Firespinner_Flame_Sea_1", "firespinner_flame_sea_1", "Environments"); // 511
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_4", 27, 45, "Firespinner_Flame_Sea_4", "firespinner_flame_sea_4", "Environments"); // 512
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_3", 27, 45, "Firespinner_Flame_Sea_3", "firespinner_flame_sea_3", "Environments"); // 513
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Firespinner\\Firespinner_Flame_Sea_2", 27, 45, "Firespinner_Flame_Sea_2", "firespinner_flame_sea_2", "Environments"); // 514
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_250", 202, 804, "Pillar_Sea_250", "pillar_sea_250", "Environments"); // 515
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_150", 127, 820, "Pillar_Sea_150", "pillar_sea_150", "Environments"); // 516
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_1000", 864, 824, "Pillar_Sea_1000", "pillar_sea_1000", "Environments"); // 517
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_300", 302, 826, "Pillar_Sea_300", "pillar_sea_300", "Environments"); // 518
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\door_sea_2", 248, 216, "door_sea_2", "door_sea_2", "Environments"); // 519
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_600", 516, 824, "Pillar_Sea_600", "pillar_sea_600", "Environments"); // 520
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_50", 57, 812, "Pillar_Sea_50", "pillar_sea_50", "Environments"); // 521
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_40", 35, 35, "Movingblock_Sea_40", "movingblock_sea_40", "Environments"); // 522
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_190", 190, 190, "Movingblock_Sea_190", "movingblock_sea_190", "Environments"); // 523
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_135", 135, 135, "Movingblock_Sea_135", "movingblock_sea_135", "Environments"); // 524
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Moving_Block\\Movingblock_Sea_80", 80, 80, "Movingblock_Sea_80", "movingblock_sea_80", "Environments"); // 525
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Pillars\\Pillar_Sea_100", 92, 815, "Pillar_Sea_100", "pillar_sea_100", "Environments"); // 526
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Spike\\Spike_Sea_2", 27, 56, "Spike_Sea_2", "spike_sea_2", "Environments"); // 527
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Spike\\Spike_Base_Sea_1", 40, 24, "Spike_Base_Sea_1", "spike_base_sea_1", "Environments"); // 528
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_80", 78, 37, "Elevator_Sea_80", "elevator_sea_80", "Environments"); // 529
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_4", 72, 53, "sea_rock_4", "sea_rock_4", "Environments"); // 530
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_3", 780, 734, "sea_rock_3", "sea_rock_3", "Environments"); // 531
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_2", 489, 411, "sea_rock_2", "sea_rock_2", "Environments"); // 532
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_water_1", 2048, 148, "sea_water_1", "sea_water_1", "Environments"); // 533
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_seamonster", 486, 276, "sea_seamonster", "sea_seamonster", "Environments"); // 534
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_5", 1205, 825, "sea_rock_5", "sea_rock_5", "Environments"); // 535
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_rock_1", 485, 532, "sea_rock_1", "sea_rock_1", "Environments"); // 536
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_1", 292, 652, "sea_behind_water_1", "sea_behind_water_1", "Environments"); // 537
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_backdrop_p2", 1560, 660, "sea_backdrop_p2", "sea_backdrop_p2", "Environments"); // 538
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_backdrop", 1560, 660, "sea_backdrop", "sea_backdrop", "Environments"); // 539
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_clouds", 2048, 512, "sea_clouds", "sea_clouds", "Environments"); // 540
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_3", 959, 353, "sea_behind_water_3", "sea_behind_water_3", "Environments"); // 541
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_behind_water_2", 367, 537, "sea_behind_water_2", "sea_behind_water_2", "Environments"); // 542
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Background\\v2\\sea_water_2", 2048, 148, "sea_water_2", "sea_water_2", "Environments"); // 543
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Cloud\\Cloud_Sea", 238, 134, "Cloud_Sea", "cloud_sea", "Environments"); // 544
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_3", 110, 110, "Bouncy_Sea_3", "bouncy_sea_3", "Environments"); // 545
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_2", 110, 110, "Bouncy_Sea_2", "bouncy_sea_2", "Environments"); // 546
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_40", 40, 38, "Elevator_Sea_40", "elevator_sea_40", "Environments"); // 547
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_190", 190, 37, "Elevator_Sea_190", "elevator_sea_190", "Environments"); // 548
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Elevator\\Elevator_Sea_135", 135, 37, "Elevator_Sea_135", "elevator_sea_135", "Environments"); // 549
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Bouncy_Block\\Bouncy_Sea_1", 110, 110, "Bouncy_Sea_1", "bouncy_sea_1", "Environments"); // 550
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_1", 87, 85, "Blob_Sea_1", "blob_sea_1", "Environments"); // 551
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\Wall_Sea", 700, 1304, "Wall_Sea", "wall_sea", "Environments"); // 552
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Door\\door_sea_1", 248, 216, "door_sea_1", "door_sea_1", "Environments"); // 553
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_4", 87, 85, "Blob_Sea_4", "blob_sea_4", "Environments"); // 554
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_3", 87, 85, "Blob_Sea_3", "blob_sea_3", "Environments"); // 555
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Blob\\Blob_Sea_2", 87, 85, "Blob_Sea_2", "blob_sea_2", "Environments"); // 556
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\W_Key", 100, 94, "W_Key", "w_key", "Buttons"); // 557
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\V_Key", 100, 94, "V_Key", "v_key", "Buttons"); // 558
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Up_Key", 100, 94, "Up_Key", "up_key", "Buttons"); // 559
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Icon_Castle", 166, 150, "Flow_Icon_Castle", "flow_icon_castle", "Environments"); // 560
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Y_Key", 100, 94, "Y_Key", "y_key", "Buttons"); // 561
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\X_Key", 100, 94, "X_Key", "x_key", "Buttons"); // 562
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Pendulum\\Pendulum_Icon_Castle", 113, 111, "Pendulum_Icon_Castle", "pendulum_icon_castle", "Environments"); // 563
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\U_Key", 100, 94, "U_Key", "u_key", "Buttons"); // 564
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Q_Key", 100, 94, "Q_Key", "q_key", "Buttons"); // 565
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\P_Key", 100, 94, "P_Key", "p_key", "Buttons"); // 566
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Beard_Super", 52, 61, "Beard_Super", "beard_super", "Bob"); // 567
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\R_Key", 100, 94, "R_Key", "r_key", "Buttons"); // 568
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\T_Key", 100, 94, "T_Key", "t_key", "Buttons"); // 569
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Space_Key", 196, 94, "Space_Key", "space_key", "Buttons"); // 570
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\S_Key", 100, 94, "S_Key", "s_key", "Buttons"); // 571
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_crying", 390, 526, "cb_crying", "cb_crying", "Characters"); // 572
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_enthusiastic", 390, 526, "cb_enthusiastic", "cb_enthusiastic", "Characters"); // 573
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_LB", 128, 128, "Xbox_LB", "xbox_lb", "Buttons"); // 574
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\M_Key", 100, 94, "M_Key", "m_key", "Buttons"); // 575
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_RB", 128, 128, "Xbox_RB", "xbox_rb", "Buttons"); // 576
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Characters\\Berries\\Poses\\cb_surprised", 390, 526, "cb_surprised", "cb_surprised", "Characters"); // 577
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Z_Key", 100, 94, "Z_Key", "z_key", "Buttons"); // 578
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Coins\\Checkpoint_v2", 155, 162, "Checkpoint_v2", "checkpoint_v2", "Coins"); // 579
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Cursor\\hand_open", 50, 54, "hand_open", "hand_open", "Cursor"); // 580
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\E_Key", 100, 94, "E_Key", "e_key", "Buttons"); // 581
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Enter_Key", 196, 94, "Enter_Key", "enter_key", "Buttons"); // 582
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Esc_Key", 100, 94, "Esc_Key", "esc_key", "Buttons"); // 583
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\D_Key", 100, 94, "D_Key", "d_key", "Buttons"); // 584
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\B_Key", 100, 94, "B_Key", "b_key", "Buttons"); // 585
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\Backspace_Key", 196, 94, "Backspace_Key", "backspace_key", "Buttons"); // 586
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\C_Key", 100, 94, "C_Key", "c_key", "Buttons"); // 587
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\F_Key", 100, 94, "F_Key", "f_key", "Buttons"); // 588
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\K_Key", 100, 94, "K_Key", "k_key", "Buttons"); // 589
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\L_Key", 100, 94, "L_Key", "l_key", "Buttons"); // 590
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\LeftRight_Key", 100, 94, "LeftRight_Key", "leftright_key", "Buttons"); // 591
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\J_Key", 100, 94, "J_Key", "j_key", "Buttons"); // 592
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\G_Key", 100, 94, "G_Key", "g_key", "Buttons"); // 593
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\H_Key", 100, 94, "H_Key", "h_key", "Buttons"); // 594
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\I_Key", 100, 94, "I_Key", "i_key", "Buttons"); // 595
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Cursor\\hand_closed", 51, 50, "hand_closed", "hand_closed", "Cursor"); // 596
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\O_Key", 100, 94, "O_Key", "o_key", "Buttons"); // 597
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Goatee_Black", 85, 107, "Goatee_Black", "goatee_black", "Bob"); // 598
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\N_Key", 100, 94, "N_Key", "n_key", "Buttons"); // 599
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Keyboard\\A_Key", 100, 94, "A_Key", "a_key", "Buttons"); // 600
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\FacialHair\\Moustache_Brown", 89, 32, "Moustache_Brown", "moustache_brown", "Bob"); // 601
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Buttons\\Xbox_360\\Xbox_Dir", 128, 128, "Xbox_Dir", "xbox_dir", "Buttons"); // 602
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0004", 200, 200, "Bob_Box_Jump_0004", "bob_box_jump_0004", "Bob"); // 603
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0000", 200, 200, "Bob_Box_Land_0000", "bob_box_land_0000", "Bob"); // 604
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0005", 200, 200, "Bob_Box_Jump_0005", "bob_box_jump_0005", "Bob"); // 605
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\SpikeyGuy", 150, 150, "SpikeyGuy", "spikeyguy", "Old_Art_Holdover"); // 606
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0001", 200, 200, "Bob_Box_Land_0001", "bob_box_land_0001", "Bob"); // 607
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\cart", 150, 118, "cart", "cart", "Bob"); // 608
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\Castle_jet_pack", 120, 167, "Castle_jet_pack", "castle_jet_pack", "Bob"); // 609
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\SingleWing", 100, 161, "SingleWing", "singlewing", "Bob"); // 610
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\BoxAlone", 200, 200, "BoxAlone", "boxalone", "Bob"); // 611
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Dot_Full", 13, 14, "Dot_Full", "dot_full", "Menu"); // 612
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Dot_Empty", 13, 14, "Dot_Empty", "dot_empty", "Menu"); // 613
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0001", 200, 200, "Bob_Box_Jump_0001", "bob_box_jump_0001", "Bob"); // 614
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0002", 200, 200, "Bob_Box_Jump_0002", "bob_box_jump_0002", "Bob"); // 615
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0003", 200, 200, "Bob_Box_Jump_0003", "bob_box_jump_0003", "Bob"); // 616
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Accesories\\Spaceship_Paper", 143, 147, "Spaceship_Paper", "spaceship_paper", "Bob"); // 617
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Duck_0000", 200, 200, "Bob_Box_Duck_0000", "bob_box_duck_0000", "Bob"); // 618
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Jump_0000", 200, 200, "Bob_Box_Jump_0000", "bob_box_jump_0000", "Bob"); // 619
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Stopwatch_Black", 160, 187, "Stopwatch_Black", "stopwatch_black", "Menu"); // 620
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Score_Screen", 960, 600, "Score_Screen", "score_screen", "Menu"); // 621
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_lwing", 98, 82, "blob2_lwing", "blob2_lwing", "Old_Art_Holdover"); // 622
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_body", 87, 85, "blob2_body", "blob2_body", "Old_Art_Holdover"); // 623
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\WidePlaque", 800, 204, "WidePlaque", "wideplaque", "Menu"); // 624
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Slowmo", 180, 215, "Powerup_Slowmo", "powerup_slowmo", "Menu"); // 625
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Path", 180, 179, "Powerup_Path", "powerup_path", "Menu"); // 626
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Powerups\\Powerup_Computer", 172, 250, "Powerup_Computer", "powerup_computer", "Menu"); // 627
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Score\\Bob_Dead", 180, 132, "Bob_Dead", "bob_dead", "Menu"); // 628
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\Paused", 200, 70, "Paused", "paused", "Menu"); // 629
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Menu\\Replay_GUI\\End", 200, 101, "End", "end", "Menu"); // 630
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blob2_rwing", 43, 95, "blob2_rwing", "blob2_rwing", "Old_Art_Holdover"); // 631
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock1", 124, 120, "FallingBlock1", "fallingblock1", "Old_Art_Holdover"); // 632
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\Fading_Block", 169, 191, "Fading_Block", "fading_block", "Old_Art_Holdover"); // 633
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\CoinBlue", 112, 184, "CoinBlue", "coinblue", "Old_Art_Holdover"); // 634
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\Score_Screen_Grey", 1440, 900, "Score_Screen_Grey", "score_screen_grey", "Old_Art_Holdover"); // 635
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock4Cape", 129, 127, "FallingBlock4Cape", "fallingblock4cape", "Old_Art_Holdover"); // 636
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\FallingBlock2", 124, 120, "FallingBlock2", "fallingblock2", "Old_Art_Holdover"); // 637
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0004", 200, 200, "Bob_Box_Land_0004", "bob_box_land_0004", "Bob"); // 638
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0003", 200, 200, "Bob_Box_Land_0003", "bob_box_land_0003", "Bob"); // 639
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0002", 200, 200, "Bob_Box_Land_0002", "bob_box_land_0002", "Bob"); // 640
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\cloud1", 633, 259, "cloud1", "cloud1", "Old_Art_Holdover"); // 641
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\checkpoint3", 409, 409, "checkpoint3", "checkpoint3", "Old_Art_Holdover"); // 642
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Old_Art_Holdover\\blue_small", 107, 106, "blue_small", "blue_small", "Old_Art_Holdover"); // 643
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_2", 256, 256, "Flow_Cave_2", "flow_cave_2", "Environments"); // 644
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_3", 256, 256, "Flow_Cave_3", "flow_cave_3", "Environments"); // 645
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cave\\Obstacles\\Flow\\Flow_Cave_1", 256, 256, "Flow_Cave_1", "flow_cave_1", "Environments"); // 646
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Rain", 512, 512, "Rain", "rain", "Environments"); // 647
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0020", 200, 200, "Bob_Box_Stand_0020", "bob_box_stand_0020", "Bob"); // 648
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0019", 200, 200, "Bob_Box_Stand_0019", "bob_box_stand_0019", "Bob"); // 649
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0015", 200, 200, "Bob_Box_Stand_0015", "bob_box_stand_0015", "Bob"); // 650
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0014", 200, 200, "Bob_Box_Stand_0014", "bob_box_stand_0014", "Bob"); // 651
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0016", 200, 200, "Bob_Box_Stand_0016", "bob_box_stand_0016", "Bob"); // 652
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0018", 200, 200, "Bob_Box_Stand_0018", "bob_box_stand_0018", "Bob"); // 653
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0017", 200, 200, "Bob_Box_Stand_0017", "bob_box_stand_0017", "Bob"); // 654
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0021", 200, 200, "Bob_Box_Stand_0021", "bob_box_stand_0021", "Bob"); // 655
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0029", 200, 200, "Bob_Box_Stand_0029", "bob_box_stand_0029", "Bob"); // 656
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0028", 200, 200, "Bob_Box_Stand_0028", "bob_box_stand_0028", "Bob"); // 657
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0030", 200, 200, "Bob_Box_Stand_0030", "bob_box_stand_0030", "Bob"); // 658
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0032", 200, 200, "Bob_Box_Stand_0032", "bob_box_stand_0032", "Bob"); // 659
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0031", 200, 200, "Bob_Box_Stand_0031", "bob_box_stand_0031", "Bob"); // 660
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0027", 200, 200, "Bob_Box_Stand_0027", "bob_box_stand_0027", "Bob"); // 661
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0023", 200, 200, "Bob_Box_Stand_0023", "bob_box_stand_0023", "Bob"); // 662
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0022", 200, 200, "Bob_Box_Stand_0022", "bob_box_stand_0022", "Bob"); // 663
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0024", 200, 200, "Bob_Box_Stand_0024", "bob_box_stand_0024", "Bob"); // 664
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0026", 200, 200, "Bob_Box_Stand_0026", "bob_box_stand_0026", "Bob"); // 665
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0025", 200, 200, "Bob_Box_Stand_0025", "bob_box_stand_0025", "Bob"); // 666
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Cloud_1", 164, 1000, "Serpent_Cloud_1", "serpent_cloud_1", "Environments"); // 667
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Cloud_2", 164, 1000, "Serpent_Cloud_2", "serpent_cloud_2", "Environments"); // 668
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Land_0005", 200, 200, "Bob_Box_Land_0005", "bob_box_land_0005", "Bob"); // 669
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0001", 200, 200, "Bob_Box_Stand_0001", "bob_box_stand_0001", "Bob"); // 670
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0000", 200, 200, "Bob_Box_Stand_0000", "bob_box_stand_0000", "Bob"); // 671
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Fish_Cloud_1", 73, 82, "Serpent_Fish_Cloud_1", "serpent_fish_cloud_1", "Environments"); // 672
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Forest_1", 164, 1000, "Serpent_Forest_1", "serpent_forest_1", "Environments"); // 673
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Forest_2", 164, 1000, "Serpent_Forest_2", "serpent_forest_2", "Environments"); // 674
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Fish_Forest_2", 73, 82, "Serpent_Fish_Forest_2", "serpent_fish_forest_2", "Environments"); // 675
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Cloud\\Obstacles\\Serpent\\Serpent_Fish_Cloud_2", 73, 82, "Serpent_Fish_Cloud_2", "serpent_fish_cloud_2", "Environments"); // 676
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Forest\\Obstacles\\Serpent\\Serpent_Fish_Forest_1", 73, 82, "Serpent_Fish_Forest_1", "serpent_fish_forest_1", "Environments"); // 677
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0002", 200, 200, "Bob_Box_Stand_0002", "bob_box_stand_0002", "Bob"); // 678
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0010", 200, 200, "Bob_Box_Stand_0010", "bob_box_stand_0010", "Bob"); // 679
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0009", 200, 200, "Bob_Box_Stand_0009", "bob_box_stand_0009", "Bob"); // 680
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0011", 200, 200, "Bob_Box_Stand_0011", "bob_box_stand_0011", "Bob"); // 681
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0013", 200, 200, "Bob_Box_Stand_0013", "bob_box_stand_0013", "Bob"); // 682
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0012", 200, 200, "Bob_Box_Stand_0012", "bob_box_stand_0012", "Bob"); // 683
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0008", 200, 200, "Bob_Box_Stand_0008", "bob_box_stand_0008", "Bob"); // 684
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0004", 200, 200, "Bob_Box_Stand_0004", "bob_box_stand_0004", "Bob"); // 685
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0003", 200, 200, "Bob_Box_Stand_0003", "bob_box_stand_0003", "Bob"); // 686
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0005", 200, 200, "Bob_Box_Stand_0005", "bob_box_stand_0005", "Bob"); // 687
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0007", 200, 200, "Bob_Box_Stand_0007", "bob_box_stand_0007", "Bob"); // 688
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0006", 200, 200, "Bob_Box_Stand_0006", "bob_box_stand_0006", "Bob"); // 689
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0033", 200, 200, "Bob_Box_Stand_0033", "bob_box_stand_0033", "Bob"); // 690
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Castle_1", 164, 1000, "Serpent_Castle_1", "serpent_castle_1", "Environments"); // 691
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_3", 256, 256, "Flow_Sea_3", "flow_sea_3", "Environments"); // 692
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_3", 150, 149, "Flow_Castle_3", "flow_castle_3", "Environments"); // 693
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_1", 150, 149, "Flow_Castle_1", "flow_castle_1", "Environments"); // 694
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Flow\\Flow_Castle_2", 150, 148, "Flow_Castle_2", "flow_castle_2", "Environments"); // 695
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_2", 256, 256, "Flow_Sea_2", "flow_sea_2", "Environments"); // 696
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Fish_Castle_2", 73, 82, "Serpent_Fish_Castle_2", "serpent_fish_castle_2", "Environments"); // 697
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\SerpentHead_Castle_1", 164, 166, "SerpentHead_Castle_1", "serpenthead_castle_1", "Environments"); // 698
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Fish_Castle_1", 73, 82, "Serpent_Fish_Castle_1", "serpent_fish_castle_1", "Environments"); // 699
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Flow\\Flow_Sea_1", 256, 256, "Flow_Sea_1", "flow_sea_1", "Environments"); // 700
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\Serpent_Castle_2", 164, 1000, "Serpent_Castle_2", "serpent_castle_2", "Environments"); // 701
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Fish_Sea_1", 73, 82, "Serpent_Fish_Sea_1", "serpent_fish_sea_1", "Environments"); // 702
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartIcon", 150, 170, "CartIcon", "carticon", "Bob"); // 703
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartAlone", 290, 383, "CartAlone", "cartalone", "Bob"); // 704
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\CartWheel", 82, 86, "CartWheel", "cartwheel", "Bob"); // 705
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Wheelie\\Bob_Wheel_0000", 220, 220, "Bob_Wheel_0000", "bob_wheel_0000", "Bob"); // 706
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Snow", 512, 512, "Snow", "snow", "Environments"); // 707
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Stand_0001", 290, 383, "Bob_Cart_Stand_0001", "bob_cart_stand_0001", "Bob"); // 708
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_1", 164, 1000, "Serpent_Sea_1", "serpent_sea_1", "Environments"); // 709
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Fish_Sea_2", 73, 82, "Serpent_Fish_Sea_2", "serpent_fish_sea_2", "Environments"); // 710
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Sea\\Obstacles\\Serpent\\Serpent_Sea_2", 164, 1000, "Serpent_Sea_2", "serpent_sea_2", "Environments"); // 711
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Jump_0001", 290, 383, "Bob_Cart_Jump_0001", "bob_cart_jump_0001", "Bob"); // 712
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Cart\\Bob_Cart_Duck_0001", 290, 383, "Bob_Cart_Duck_0001", "bob_cart_duck_0001", "Bob"); // 713
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0041", 200, 200, "Bob_Box_Stand_0041", "bob_box_stand_0041", "Bob"); // 714
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0040", 200, 200, "Bob_Box_Stand_0040", "bob_box_stand_0040", "Bob"); // 715
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0042", 200, 200, "Bob_Box_Stand_0042", "bob_box_stand_0042", "Bob"); // 716
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0044", 200, 200, "Bob_Box_Stand_0044", "bob_box_stand_0044", "Bob"); // 717
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0043", 200, 200, "Bob_Box_Stand_0043", "bob_box_stand_0043", "Bob"); // 718
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0039", 200, 200, "Bob_Box_Stand_0039", "bob_box_stand_0039", "Bob"); // 719
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0035", 200, 200, "Bob_Box_Stand_0035", "bob_box_stand_0035", "Bob"); // 720
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0034", 200, 200, "Bob_Box_Stand_0034", "bob_box_stand_0034", "Bob"); // 721
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0036", 200, 200, "Bob_Box_Stand_0036", "bob_box_stand_0036", "Bob"); // 722
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0038", 200, 200, "Bob_Box_Stand_0038", "bob_box_stand_0038", "Bob"); // 723
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0037", 200, 200, "Bob_Box_Stand_0037", "bob_box_stand_0037", "Bob"); // 724
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0045", 200, 200, "Bob_Box_Stand_0045", "bob_box_stand_0045", "Bob"); // 725
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Environments\\Castle\\Obstacles\\Serpent\\SerpentHead_Castle_2", 164, 166, "SerpentHead_Castle_2", "serpenthead_castle_2", "Environments"); // 726
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_StandtoDuck_0003", 140, 181, "Bob_StandtoDuck_0003", "bob_standtoduck_0003", "Bob"); // 727
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0002", 200, 271, "Bob_Horse_0002", "bob_horse_0002", "Bob"); // 728
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0047", 200, 200, "Bob_Box_Stand_0047", "bob_box_stand_0047", "Bob"); // 729
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Box_Stand_0046", 200, 200, "Bob_Box_Stand_0046", "bob_box_stand_0046", "Bob"); // 730
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Dead_0001", 78, 168, "Bob_Dead_0001", "bob_dead_0001", "Bob"); // 731
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0001", 200, 271, "Bob_Horse_0001", "bob_horse_0001", "Bob"); // 732
+Tools.TextureWad.AddTexture_Fast(null, "Art\\Bob\\Bob_Trimmed\\Bob_Horse_0000", 200, 271, "Bob_Horse_0000", "bob_horse_0000", "Bob"); // 733
 
 		}
 	}

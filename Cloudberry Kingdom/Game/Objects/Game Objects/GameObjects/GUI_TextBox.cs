@@ -178,6 +178,9 @@ namespace CloudberryKingdom
             if (OnEscape != null) OnEscape();
         }
 
+        bool EnterPressed = false;
+        bool UsingGamepad = true;
+        bool BackspacePressed = false;
         void GamepadInteract()
         {
             if (Length == 0)
@@ -187,11 +190,22 @@ namespace CloudberryKingdom
             }
 
             char c = Text[Length - 1];
-            if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) { Text += c; Recenter(); }
-            if (ButtonCheck.State(ControllerButtons.X, -1).Pressed) { Backspace(); return; }
+            if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) { UsingGamepad = true; Text += c; Recenter(); }
+            if (ButtonCheck.State(ControllerButtons.X, -1).Pressed || BackspacePressed) { UsingGamepad = true; Backspace(); BackspacePressed = false; return; }
             if (ButtonCheck.State(ControllerButtons.Y, -1).Pressed) { Cancel(); return; }
-            if (ButtonCheck.State(ControllerButtons.Start, -1).Pressed) { Enter(); return; }
+            if (ButtonCheck.State(ControllerButtons.Start, -1).Pressed || EnterPressed) { Enter(); EnterPressed = false; return; }
 			if (ButtonCheck.State(ControllerButtons.B, -1).Pressed) { Cancel(); return; }
+            BackspacePressed = false;
+
+            if (Control >= 0 && Tools.PlayerKeyboard[Control] != null)
+            {
+                ProcessKeyboard(Tools.PlayerKeyboard[Control], Tools.PrevPlayerKeyboard[Control]);
+            }
+
+            if (Tools.Keyboard != null)
+            {
+                ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
+            }
 
             var dir = ButtonCheck.GetDir(-1);
 
@@ -201,6 +215,101 @@ namespace CloudberryKingdom
                 if (dir.Y < 0) Text = Text.Substring(0, Length - 1) + DecrChar(c);
 
                 Recenter();
+            }
+        }
+
+        static Keys[] ValidKeys = new Keys[] {
+            Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9,
+            Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P,
+            Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y, Keys.Z,
+            Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.OemQuotes, Keys.OemBackslash, Keys.OemTilde,
+            Keys.Space, Keys.Enter, Keys.Back, Keys.Delete, Keys.CapsLock };
+
+        string KeyToChar(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.Space: return " ";
+                case Keys.OemOpenBrackets: return "[";
+                case Keys.OemCloseBrackets: return "]";
+                case Keys.OemQuotes: return "\"";
+                case Keys.OemBackslash: return "/";
+                case Keys.OemTilde: return "`";
+
+                case Keys.D0: return "0";
+                case Keys.D1: return "1";
+                case Keys.D2: return "2";
+                case Keys.D3: return "3";
+                case Keys.D4: return "4";
+                case Keys.D5: return "5";
+                case Keys.D6: return "6";
+                case Keys.D7: return "7";
+                case Keys.D8: return "8";
+                case Keys.D9: return "9";
+                default: return key.ToString();
+            }
+        }
+
+        bool CapsOn;
+        void ProcessKeyboard(KeyboardState cur, KeyboardState prev)
+        {
+            //for (Keys key = Keys.A; key <= Keys.Z; key++)
+            foreach (Keys key in ValidKeys)
+            {
+                if (cur.IsKeyDown(key) && !prev.IsKeyDown(key))
+                {
+                    if (cur.IsKeyDown(Keys.Enter))
+                    {
+                        EnterPressed = true;
+                        return;
+                    }
+                    else if (cur.IsKeyDown(Keys.Delete) && !prev.IsKeyDown(Keys.Delete) ||
+                             cur.IsKeyDown(Keys.Back) && !prev.IsKeyDown(Keys.Back))
+                    {
+                        BackspacePressed = true;
+                        return;
+                    }
+                    else if (cur.IsKeyDown(Keys.CapsLock) && !prev.IsKeyDown(Keys.CapsLock))
+                    {
+                        CapsOn = !CapsOn;
+                        return;
+                    }
+
+                    string _c = KeyToChar(key);
+
+                    bool MakeUppercase = CapsOn;
+                    if (cur.IsKeyDown(Keys.CapsLock) || cur.IsKeyDown(Keys.LeftShift) || cur.IsKeyDown(Keys.RightShift))
+                    {
+                        MakeUppercase = !MakeUppercase;
+                    }
+
+                    if (MakeUppercase)
+                    {
+                        _c = _c.ToUpper();
+                    }
+                    else
+                    {
+                        _c = _c.ToLower();
+                    }
+
+                    if (_c.Length == 0) continue;
+                    char c = _c[0];
+
+                    if (Length < MaxLength)
+                    {
+                        if (UsingGamepad && Text.Length == 1)
+                        {
+                            Text = _c;
+                        }
+                        else
+                        {
+                            Text += _c;
+                        }
+                        Recenter();
+                    }
+
+                    UsingGamepad = false;
+                }
             }
         }
 

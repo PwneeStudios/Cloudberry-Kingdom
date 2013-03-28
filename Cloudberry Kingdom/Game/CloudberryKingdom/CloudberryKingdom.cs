@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public const bool FinalRelease = false;
 #else
-		public const bool FinalRelease = false;
+		public const bool FinalRelease = true;
 #endif
 
         public const bool PropTest = false;
@@ -357,6 +357,9 @@ namespace CloudberryKingdom
         {
             get
             {
+                // Always do full version
+                //if (!FinalRelease) { Tools.Warning(); return false; }
+
 #if DEBUG
 				return FakeDemo;
 #endif
@@ -774,15 +777,29 @@ namespace CloudberryKingdom
         void SignedInGamer_SignedOut(object sender, SignedOutEventArgs e)
         {
             int index = (int)e.Gamer.PlayerIndex;
+            //if (SignInCount[index] == -1)
+            //{
+            //    // It appears this is a double sign out, so we can be sure the player is actually signed out.
+            //    SignInStated[index] = false;
+            //    SignedInGamer_SignedOut_ManualEvent(index);
+            //}
             SignInCount[index] = -1;
         }
 
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
             int index = (int)e.Gamer.PlayerIndex;
+            //if (SignInCount[index] == 1)
+            //{
+            //    // It appears this is a double sign in, so we can be sure the player is actually signed out.
+            //    SignInStated[index] = true;
+            //    SignedInGamer_SignedIn_ManualEvent(index);
+            //}
             SignInCount[index] =  1;
         }
 
+        //const int SignInStateChangeBufferLength = 4;
+        const int SignInStateChangeBufferLength = 40;
         void CheckForSignInState()
         {
             for (int i = 0; i < 4; i++)
@@ -790,12 +807,12 @@ namespace CloudberryKingdom
                 if (SignInCount[i] > 0) SignInCount[i]++;
                 else if (SignInCount[i] < 0) SignInCount[i]--;
 
-                if /**/ (SignInStated[i] == true && SignInCount[i] < -2)
+                if /**/ (SignInStated[i] == true && SignInCount[i] < -SignInStateChangeBufferLength)
                 {
                     SignInStated[i] = false;
                     SignedInGamer_SignedOut_ManualEvent(i);
                 }
-                else if (SignInStated[i] == false && SignInCount[i] > 2)
+                else if (SignInStated[i] == false && SignInCount[i] > SignInStateChangeBufferLength)
                 {
                     SignInStated[i] = true;
                     SignedInGamer_SignedIn_ManualEvent(i);
@@ -853,7 +870,10 @@ namespace CloudberryKingdom
 
             // Gamers that signin after the game launches should always be immediately prompted to select a storage device.
             if (EzStorage.Device[index] != null)
+            {
                 EzStorage.Device[index].NeedsConnection = true;
+                EzStorage.Device[index].EnsureConnectionUnlessCanceled = false;
+            }
         }
 #endif
 
@@ -901,6 +921,10 @@ namespace CloudberryKingdom
             // Initialize the Gamepads
             Tools.GamepadState = new GamePadState[4];
             Tools.PrevGamepadState = new GamePadState[4];
+#if XBOX
+            Tools.PlayerKeyboard = new KeyboardState[4];
+            Tools.PrevPlayerKeyboard = new KeyboardState[4];
+#endif
             Tools.Write("Gamepads made");
 
 			Tools.EasyThread(5, "PreLoad", Preload);
@@ -1539,6 +1563,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static void PromptForDeviceIfNoneSelected()
         {
+            return;
+
             if (CloudberryKingdomGame.IsDemo) return;
 
 #if XBOX
@@ -1615,6 +1641,8 @@ namespace CloudberryKingdom
             // Fps
             UpdateFps(gameTime);
 
+            CheckForSignInState();
+
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
 			if (Guide.IsVisible) { DrawNothing(); DrawWatermark(); return; }
@@ -1654,7 +1682,7 @@ namespace CloudberryKingdom
             }
 #endif
 
-            CheckForSignInState();
+            //CheckForSignInState();
 			UpdateCustomMusic();
 
             // What to do

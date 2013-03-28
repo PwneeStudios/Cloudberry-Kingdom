@@ -14,6 +14,7 @@ namespace CloudberryKingdom
 		{
 			Fake = true;
 			FadeAlpha = 1.2f;
+            FadeInAlpha = 1.3f;
 		}
 
         QuadClass BackgroundQuad, BlackQuad;
@@ -24,6 +25,8 @@ namespace CloudberryKingdom
         
         bool Fade;
         float FadeAlpha;
+
+        public float FadeInAlpha = 0;
 
         public void AddHint(string hint, int extra_wait)
         {
@@ -116,7 +119,8 @@ namespace CloudberryKingdom
 		
 		int DrawCount = 0;
         //const int DrawCount_Max = 60 * 60 - 300; // 60 seconds, minus fade time and safety margin
-        const int DrawCount_Max = 60 * 11 - 90; // 11 seconds, minus fade time and safety margin. 11 seconds = 30 seconds (total allowed) - 9 seconds (screen saver)
+        //const int DrawCount_Max = 60 * 11 - 90; // 11 seconds, minus fade time and safety margin. 11 seconds = 30 seconds (total allowed) - 9 seconds (screen saver)
+        const int DrawCount_Max = 60 * 7 - 90; // 7 seconds, minus fade time and safety margin. 11 seconds = 30 seconds (total allowed) - 9 seconds (screen saver)
 
 
         public void Start()
@@ -139,7 +143,7 @@ namespace CloudberryKingdom
         {
             MinLoading--;
 
-            if (Fake && MinLoading <= 0 && (Resources.FinalLoadDone || DrawCount > DrawCount_Max))
+            if (Fake && MinLoading <= 0 && (Resources.FakeFinalLoadDone || DrawCount > DrawCount_Max))
                 End();
 
 			if (Fake && FadeAlpha > -.1f && !Fade)
@@ -147,14 +151,31 @@ namespace CloudberryKingdom
 				FadeAlpha -= .07f;
 			}
 
+			// Once we have been asked to stop showing the loading screen, we must fade out.
             if (Fade && MinLoading <= 0)
             {
-                FadeAlpha += .07f;
-                if ( Fake && FadeAlpha > 1.4f ||
-					!Fake && FadeAlpha > 1.2f)
-                    Tools.ShowLoadingScreen = false;
+				if (!Fake && !Resources.FinalLoadDone && DrawCount < 40 * 60)
+				{
+					// Do nothing. Keep loading.
+				}
+				else
+				{
+					FadeAlpha += .07f;
+					if (Fake && FadeAlpha > 1.4f ||
+						!Fake && FadeAlpha > 1.2f)
+						Tools.ShowLoadingScreen = false;
+				}
             }
-            BlackQuad.Quad.SetColor(new Color(0f, 0f, 0f, FadeAlpha));
+
+            if (FadeInAlpha > 0)
+            {
+                FadeInAlpha -= .1f;
+                BlackQuad.Quad.SetColor(new Color(0f, 0f, 0f, FadeInAlpha));
+            }
+            else
+            {
+                BlackQuad.Quad.SetColor(new Color(0f, 0f, 0f, FadeAlpha));
+            }
 
             if (CenterObject != null)
             {
@@ -168,6 +189,9 @@ namespace CloudberryKingdom
 			DrawCount++;
 
             Tools.Device.Clear(Color.Black);
+
+            if (FadeInAlpha >= 1.0) return;
+
             BackgroundQuad.FullScreen(cam);
 
             BackgroundQuad.Scale(1.25f);
