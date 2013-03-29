@@ -197,15 +197,17 @@ namespace CloudberryKingdom
 			if (ButtonCheck.State(ControllerButtons.B, -1).Pressed) { Cancel(); return; }
             BackspacePressed = false;
 
-            if (Control >= 0 && Tools.PlayerKeyboard[Control] != null)
-            {
-                ProcessKeyboard(Tools.PlayerKeyboard[Control], Tools.PrevPlayerKeyboard[Control]);
-            }
-
-            if (Tools.Keyboard != null)
-            {
-                ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
-            }
+			if (Tools.Keyboard != null)
+			{
+				ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
+			}
+			else
+			{
+				if (Control >= 0 && Tools.PlayerKeyboard[Control] != null)
+				{
+					ProcessKeyboard(Tools.PlayerKeyboard[Control], Tools.PrevPlayerKeyboard[Control]);
+				}
+			}
 
             var dir = ButtonCheck.GetDir(-1);
 
@@ -435,7 +437,7 @@ namespace CloudberryKingdom
 
         void UpdateSelectQuad()
         {
-			float shift = 420;
+			float shift = 650;
             float width = MyText.GetWorldWidth(Text.Substring(SelectIndex_Start, SelectIndex_End - SelectIndex_Start));
 			width += shift;
             float pos = MyText.GetWorldWidth(Text.Substring(0, SelectIndex_Start));

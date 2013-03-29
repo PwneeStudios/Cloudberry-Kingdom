@@ -1692,6 +1692,11 @@ namespace CloudberryKingdom.Levels
 
         void CalcObstaclsSeen()
         {
+			if (!CloudberryKingdomGame.PastPressStart)
+			{
+				return;
+			}
+
             try
             {
                 var players = new List<PlayerData>(PlayerManager.ExistingPlayers);

@@ -13,7 +13,6 @@ namespace CloudberryKingdom
 			if (CloudberryKingdomGame.IsDemo)
 			{
 				Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur_Dark);
-				CallingOptionsMenu = true;
 				Call(new UpSellMenu(Localization.Words.UpSell_Campaign, MenuItem.ActivatingPlayer));
 
 				return;

@@ -234,15 +234,23 @@ namespace CloudberryKingdom
         IAsyncResult kyar;
         static void Save(MenuItem _item, GUI_Panel panel, PlayerData player)
         {
-            SaveSeedAs SaveAs = new SaveSeedAs(panel.Control, player);
-            panel.Call(SaveAs, 0);
+			CkBaseMenu ckpanel = panel as CkBaseMenu;
 
-            CkBaseMenu ckpanel = panel as CkBaseMenu;
-            if (null != ckpanel && ckpanel.UseBounce)
-            {
-                ckpanel.Hid = true;
-                ckpanel.RegularSlideOut(PresetPos.Right, 0);
-            }
+            SaveSeedAs SaveAs = new SaveSeedAs(panel.Control, player);
+            
+			if (null != ckpanel && ckpanel.UseBounce)
+			{
+				panel.Call(SaveAs, 0);
+
+				ckpanel.Hid = true;
+				ckpanel.RegularSlideOut(PresetPos.Right, 0);
+			}
+			else
+			{
+				panel.Call(SaveAs, 17);
+
+				ckpanel.Hide(PresetPos.Left, 20);
+			}
         }
 #else
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)

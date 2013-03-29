@@ -92,6 +92,11 @@ namespace CloudberryKingdom
         {
             this.HighestLevel = HighestLevel;
 
+            if (CloudberryKingdomGame.IsDemo)
+            {
+                HighestLevel = 1;
+            }
+
             // Allow user to choose amongst any start level in the array Levels,
             // assuming they have previously gotten to that level.
             IndexCutoff = 1;

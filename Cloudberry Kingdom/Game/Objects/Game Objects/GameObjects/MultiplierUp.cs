@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
             // Scale to fit
             Vector2 size = text.GetWorldSize();
-            float max = MyGame.Cam.GetWidth() - 400;
+            float max = MyGame.Cam.GetWidth() - 1150;
             if (size.X > max)
                 text.Scale *= max / size.X;
 

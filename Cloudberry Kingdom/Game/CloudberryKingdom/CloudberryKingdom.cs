@@ -127,6 +127,9 @@ namespace CloudberryKingdom
 
         void DrawSavingText()
         {
+			// Use this to test always drawing the save text
+			//ShowSaving();
+
             if (ShowSavingDuration > 0)
             {
                 ShowSavingDuration--;
@@ -277,13 +280,25 @@ namespace CloudberryKingdom
 
                     if (gamer != null)
                     {
-                        if (gamer.Privileges.AllowPurchaseContent)
+						// Check if user can purchase or not
+						//if (gamer.Privileges.AllowPurchaseContent)
+						//{
+						//    GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
+						//}
+						//else
+						//{
+						//    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Xbox_NoPermissionToBuy);
+						//}
+
+                        // If we are simulating a trial, then set the simulated variable to false immediately.
+                        if (GuideIsTrial_Override)
                         {
-                            GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
+                            Fake_GuideIsTrial = false;
                         }
+                        // Otherwise show the marketplace.
                         else
                         {
-                            CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Xbox_NoPermissionToBuy);
+                            GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
                         }
                     }
                 }
@@ -351,6 +366,10 @@ namespace CloudberryKingdom
 		static bool IsTrial = false;
 #endif
 
+        public static bool GuideIsTrial_Override = true && !FinalRelease;
+        public static bool Fake_GuideIsTrial = true && !FinalRelease;
+
+        public static bool DoTrialUnlockEvent = false;
 		public static bool WasNotDemoOnce = false;
         public static bool FakeDemo = false && !FinalRelease;
         public static bool IsDemo
@@ -368,10 +387,24 @@ namespace CloudberryKingdom
 				if (FakeDemo) return true;
 
 #if XBOX
-				IsTrial = Guide.IsTrialMode;
+                bool PrevTrialVal = IsTrial;
+
+                if (GuideIsTrial_Override)
+                {
+                    IsTrial = Fake_GuideIsTrial;
+                }
+                else
+                {
+                    IsTrial = Guide.IsTrialMode;
+                }
 
                 if (!IsTrial)
                     WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
+
+                if (PrevTrialVal && !IsTrial)
+                {
+                    DoTrialUnlockEvent = true;
+                }
 
 				return IsTrial;
 #else
@@ -840,14 +873,19 @@ namespace CloudberryKingdom
 
             if (PlayerManager.NumExistingPlayers() == 0)
             {
-                Tools.SongWad.Stop();
-                CharacterSelectManager.SuddenCleanup();
+                ResetToTitleScreen();
+            }
+        }
 
-                Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
-                if (Tools.CurrentLoadingScreen != null)
-                {
-                    Tools.EndLoadingScreen();
-                }
+        void ResetToTitleScreen()
+        {
+            Tools.SongWad.Stop();
+            CharacterSelectManager.SuddenCleanup();
+
+            Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
+            if (Tools.CurrentLoadingScreen != null)
+            {
+                Tools.EndLoadingScreen();
             }
         }
 
@@ -1642,6 +1680,13 @@ namespace CloudberryKingdom
             UpdateFps(gameTime);
 
             CheckForSignInState();
+
+            // If the full game was just unlocked, return to the title screen
+            if (DoTrialUnlockEvent)
+            {
+                ResetToTitleScreen();
+                DoTrialUnlockEvent = false;
+            }
 
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN

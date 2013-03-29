@@ -145,7 +145,9 @@ namespace CloudberryKingdom
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength_Initial - 120 + InitialDarkness - 3, () =>
+						int _length = MandatoryWatchLength_Initial - 120 + InitialDarkness - 3;
+						if (_length < 0) _length = 0;
+                        Tools.CurGameData.WaitThenDo(_length, () =>
                         {
                             UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
@@ -165,7 +167,9 @@ namespace CloudberryKingdom
                             PressA.FixedToCamera = true;
                         }, true);
 
-                        Tools.CurGameData.WaitThenDo(MandatoryWatchLength - 120 + InitialDarkness - 3, () =>
+						int __length = MandatoryWatchLength - 120 + InitialDarkness - 3;
+						if (__length < 0) __length = 0;
+                        Tools.CurGameData.WaitThenDo(__length, () =>
                         {
                             Listener PressA_Listener = null;
                             PressA_Listener = new Listener(ControllerButtons.Any, () =>

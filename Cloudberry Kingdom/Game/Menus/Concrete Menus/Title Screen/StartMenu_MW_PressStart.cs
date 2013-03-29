@@ -126,7 +126,7 @@ namespace CloudberryKingdom
                         }
 
                         Hide();
-                        MyGame.WaitThenDo(5, CallMenu);
+                        MyGame.WaitThenDo(1, CallMenu);
                         return;
                     }
                 }

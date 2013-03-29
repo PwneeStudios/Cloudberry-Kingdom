@@ -133,7 +133,7 @@ namespace CloudberryKingdom
 
         private void SetPosition()
         {
-			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
+			MyMenu.Pos = new Vector2(-1180.001f, -240);
 
 			EzText _t;
 			_t = MyPile.FindEzText("Header"); if (_t != null)
@@ -153,7 +153,7 @@ namespace CloudberryKingdom
 			_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(2033.333f, 27.77777f); _q.Size = new Vector2(46.08334f, 46.08334f); }
 			_q = MyPile.FindQuad("Button_B"); if (_q != null) { _q.Pos = new Vector2(2033.333f, -83.33337f); _q.Size = new Vector2(45.91659f, 45.91659f); }
 
-			MyPile.Pos = new Vector2(-1125.001f, -319.4444f);
+			MyPile.Pos = new Vector2(-1180.001f, -240);
 		}
 
         public override void OnAdd()
