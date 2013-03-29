@@ -85,6 +85,7 @@ namespace CloudberryKingdom
         }
 
 #if NOT_PC
+        public static bool SkipPlayerDataInit = false;
 		public static void LoadGamers()
 		{
 			for (int i = 0; i < 4; i++)
@@ -97,15 +98,27 @@ namespace CloudberryKingdom
 			{
 				if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
 				{
-					var data = PlayerManager.Players[(int)gamer.PlayerIndex] = new PlayerData();
-                    data.Init((int)gamer.PlayerIndex);
-					LoadGamer(PlayerManager.Players[(int)gamer.PlayerIndex]);
+                    if (SkipPlayerDataInit && PlayerManager.Players[(int)gamer.PlayerIndex] != null)
+                    {
+                        // We just unlocked the demo and should keep this progress.
+                        PlayerManager.Players[(int)gamer.PlayerIndex].SkipLoad = true;
+                        LoadGamer(PlayerManager.Players[(int)gamer.PlayerIndex]);
+                    }
+                    else
+                    {
+                        // Create a new player data.
+                        var data = PlayerManager.Players[(int)gamer.PlayerIndex] = new PlayerData();
+                        data.Init((int)gamer.PlayerIndex);
+                        LoadGamer(PlayerManager.Players[(int)gamer.PlayerIndex]);
+                    }
 				}
 			}
 
 			//for (int i = 0; i < 4; i++)
 			//    if (PlayerManager.Players[i].MyGamer != null)
 			//        LoadGamer(PlayerManager.Players[i]);
+
+            SkipPlayerDataInit = false;
 		}
 
         public static void LoadGamer(PlayerData player)
@@ -217,8 +230,16 @@ namespace CloudberryKingdom
             }
         }
 
+        /// <summary>
+        /// When true the gamer will never load anything.
+        /// This is used to prevent progress from being overwritten after a user unlocks the demo.
+        /// </summary>
+        public bool SkipLoad = false;
+
 		public void Load(PlayerIndex index)
         {
+            if (SkipLoad) { Changed = false; SkipLoad = false; return; }
+
             EzStorage.Load(index, ActualContainerName, FileName,
                 reader =>
                 {

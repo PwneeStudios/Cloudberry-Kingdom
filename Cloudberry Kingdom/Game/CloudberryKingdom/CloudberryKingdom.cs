@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public const bool FinalRelease = false;
 #else
-		public const bool FinalRelease = true;
+		public const bool FinalRelease = false;
 #endif
 
         public const bool PropTest = false;
@@ -404,6 +404,7 @@ namespace CloudberryKingdom
                 if (PrevTrialVal && !IsTrial)
                 {
                     DoTrialUnlockEvent = true;
+                    SaveGroup.SkipPlayerDataInit = true;
                 }
 
 				return IsTrial;
