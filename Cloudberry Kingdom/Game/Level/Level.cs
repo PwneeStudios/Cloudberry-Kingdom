@@ -1328,6 +1328,8 @@ namespace CloudberryKingdom.Levels
             }
 
             // Draw final DrawLayer
+			if (Tools.HidGui) return;
+
             if (ModZoom != Vector2.One) { Tools.EffectWad.ModZoom = Vector2.One; Tools.EffectWad.ResetCameraPos(); }
             Tools.StartGUIDraw();
             if (EndLayer >= Level.AfterParticlesDrawLayer)

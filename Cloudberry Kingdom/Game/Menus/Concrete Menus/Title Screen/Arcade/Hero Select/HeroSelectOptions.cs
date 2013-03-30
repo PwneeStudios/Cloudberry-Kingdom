@@ -136,7 +136,7 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, false, true));
 
             item.Name = "Leaderboard";
-            item.Go = Cast.ToItem(BringLeaderboard);
+            item.Go = _item => BringLeaderboard(0);
             AddItem(item);
             StartMenu_MW_HeroSelect.SetItemProperties_FadedOnUnselect(item);
 

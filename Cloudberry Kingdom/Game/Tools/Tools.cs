@@ -387,6 +387,8 @@ namespace CloudberryKingdom
 
     public class Tools
     {
+		public static bool HidGui = false;
+
         public static void Assert(bool MustBeTrue)
         {
 #if DEBUG

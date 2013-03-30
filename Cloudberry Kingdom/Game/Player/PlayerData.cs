@@ -99,6 +99,7 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 84002, Tools.SoundVolume.Val);
             Chunk.WriteSingle(writer, 84003, (int)Localization.CurrentLanguage.MyLanguage);
 
+#if XBOX
             // Player ID
             if (MyGamer != null)
             {
@@ -120,6 +121,7 @@ namespace CloudberryKingdom
                 // This should never happen
                 Tools.Nothing();
             }
+#endif
 
 #if CAFE
 #else
@@ -160,10 +162,12 @@ namespace CloudberryKingdom
             }
 
             // If this loaded data belongs to another user, silently reset the data to defaults.
+#if XBOX
             if (BelongsToAnotherPlayer())
             {
                 FailLoad();
             }
+#endif
 
             //// Cheat: Give all unlocks to player
             //int[] l = new int[] { 7777, 9999, 10000, 10100, 11500, 10200, 10400, 10500, 11000, 10300, 11100, 10900, 11200, 11300, 11400, 10001, 10101, 11501, 10201, 10401, 10501, 11001, 10301, 11101, 10901, 11201, 11301, 11401, 10002, 10003 };
@@ -180,6 +184,7 @@ namespace CloudberryKingdom
             //Awardments += 102;
         }
 
+#if XBOX
         bool BelongsToAnotherPlayer()
         {
             if (MyGamer == null)
@@ -209,6 +214,7 @@ namespace CloudberryKingdom
                 }
             }
         }
+#endif
 
 		private void ProcessChunk(Chunk chunk)
 		{
