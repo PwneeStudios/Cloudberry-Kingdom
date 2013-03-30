@@ -39,7 +39,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public const bool FinalRelease = false;
 #else
-		public const bool FinalRelease = false;
+		public const bool FinalRelease = true;
 #endif
 
         public const bool PropTest = false;

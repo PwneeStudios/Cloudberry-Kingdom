@@ -169,7 +169,7 @@ namespace CloudberryKingdom
             //int[] l = new int[] { 7777, 9999, 10000, 10100, 11500, 10200, 10400, 10500, 11000, 10300, 11100, 10900, 11200, 11300, 11400, 10001, 10101, 11501, 10201, 10401, 10501, 11001, 10301, 11101, 10901, 11201, 11301, 11401, 10002, 10003 };
             //foreach (int id in l)
             //{
-            //    AddHighScore(new ScoreEntry(MyGamer.Gamertag, id, 100000, 100000, 100000, 100000, 100000, 100000));
+            //    AddHighScore(new ScoreEntry(MyGamer.Gamertag, id, 151, 151, 151, 151, 151, 151));
             //}
 
             //CampaignIndex = 326;
