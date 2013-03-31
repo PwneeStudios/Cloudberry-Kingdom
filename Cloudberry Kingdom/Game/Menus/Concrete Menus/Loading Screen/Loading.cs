@@ -168,7 +168,7 @@ namespace CloudberryKingdom
             MyPile.Add(BlackQuad);
 
 			string text =
-@"{pCopyRightSymbol,78,?} 2013 by Pwnee Studios, Corp. All Rights Reserved.
+@"{pCopyRightSymbol,78,?,4,4} 2013 by Pwnee Studios, Corp. All Rights Reserved.
 Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.
 Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.
 Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.";

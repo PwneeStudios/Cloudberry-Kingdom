@@ -184,18 +184,31 @@ namespace CloudberryKingdom
         bool BackspacePressed = false;
         void GamepadInteract()
         {
+            int control = Control;
+            if (control < 0 || control > 3)
+            {
+                control = -1;
+            }
+            else
+            {
+                if (!PlayerManager.Players[control].Exists)
+                {
+                    control = -1;
+                }
+            }
+
             if (Length == 0)
             {
-                if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) Text += 'A';
+                if (ButtonCheck.State(ControllerButtons.A, control).Pressed) if (Length < MaxLength) Text += 'A';
                 return;
             }
 
             char c = Text[Length - 1];
-            if (ButtonCheck.State(ControllerButtons.A, -1).Pressed) if (Length < MaxLength) { UsingGamepad = true; Text += c; Recenter(); }
-            if (ButtonCheck.State(ControllerButtons.X, -1).Pressed || BackspacePressed) { UsingGamepad = true; Backspace(); BackspacePressed = false; return; }
-            if (ButtonCheck.State(ControllerButtons.Y, -1).Pressed) { Cancel(); return; }
-            if (ButtonCheck.State(ControllerButtons.Start, -1).Pressed || EnterPressed) { Enter(); EnterPressed = false; return; }
-			if (ButtonCheck.State(ControllerButtons.B, -1).Pressed) { Cancel(); return; }
+            if (ButtonCheck.State(ControllerButtons.A, control).Pressed) if (Length < MaxLength) { UsingGamepad = true; Text += c; Recenter(); }
+            if (ButtonCheck.State(ControllerButtons.X, control).Pressed || BackspacePressed) { UsingGamepad = true; Backspace(); BackspacePressed = false; return; }
+            if (ButtonCheck.State(ControllerButtons.Y, control).Pressed) { Cancel(); return; }
+            if (ButtonCheck.State(ControllerButtons.Start, control).Pressed || EnterPressed) { Enter(); EnterPressed = false; return; }
+            if (ButtonCheck.State(ControllerButtons.B, control).Pressed) { Cancel(); return; }
             BackspacePressed = false;
 
             bool PlayerKeyboardUsed = false;
@@ -210,7 +223,7 @@ namespace CloudberryKingdom
 				ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
 			}
 
-            var dir = ButtonCheck.GetDir(-1);
+            var dir = ButtonCheck.GetDir(control);
 
             if (Tools.TheGame.DrawCount % 7 == 0 && Math.Abs(dir.Y) > .5 && !ButtonCheck.State(ControllerButtons.A, -1).Down)
             {
@@ -223,10 +236,10 @@ namespace CloudberryKingdom
 
         static Keys[] ValidKeys = new Keys[] {
             Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9,
-            Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P,
-            Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y, Keys.Z,
             Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.OemQuotes, Keys.OemBackslash, Keys.OemTilde,
-            Keys.Space, Keys.Enter, Keys.Back, Keys.Delete, Keys.CapsLock };
+            Keys.Space, Keys.Enter, Keys.Back, Keys.Delete, Keys.CapsLock,
+            Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y, Keys.Z,
+        };
 
         static List<char> ValidChars = KeysToList();
 
@@ -240,6 +253,8 @@ namespace CloudberryKingdom
                 if (s.Length == 1)
                     l.Add(s[0]);
             }
+
+            l.AddRange(new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' });
 
             return l;
         }

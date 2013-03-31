@@ -145,7 +145,7 @@ namespace CloudberryKingdom
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-						int _length = MandatoryWatchLength_Initial - 120 + InitialDarkness - 3;
+						int _length = MandatoryWatchLength_Initial - 90 + InitialDarkness - 3;
 						if (_length < 0) _length = 0;
                         Tools.CurGameData.WaitThenDo(_length, () =>
                         {
@@ -165,9 +165,21 @@ namespace CloudberryKingdom
                                 Tools.CurGameData.AddGameObject(PressA);
                             PressA.MyText.FixedToCamera = true;
                             PressA.FixedToCamera = true;
+
+                            //PressA.MyText.MyFloatColor = new Color(225, 215, 222).ToVector4();
+                            //PressA.MyText.OutlineColor = new Color(42, 38, 42).ToVector4();
+                            
+                            //StartMenu.SetTextUnselected_Red(PressA.MyText);
+                            
+                            ////PressA.MyText.MyFloatColor = new Color(228, 0, 69).ToVector4();
+                            //PressA.MyText.MyFloatColor = new Color(238, 10, 79).ToVector4();
+                            //PressA.MyText.OutlineColor = Color.White.ToVector4();
+
+                            PressA.MyText.MyFloatColor = new Color(245, 235, 242).ToVector4();
+                            PressA.MyText.OutlineColor = new Color(22, 18, 22).ToVector4();
                         }, true);
 
-						int __length = MandatoryWatchLength - 120 + InitialDarkness - 3;
+						int __length = MandatoryWatchLength - 90 + InitialDarkness - 3;
 						if (__length < 0) __length = 0;
                         Tools.CurGameData.WaitThenDo(__length, () =>
                         {
