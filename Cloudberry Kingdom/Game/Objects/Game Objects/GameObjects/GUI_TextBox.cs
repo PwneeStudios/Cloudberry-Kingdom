@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using System;
+using System.Collections.Generic;
 
 #if WINDOWS
 using KeyboardHandler;
@@ -227,7 +228,23 @@ namespace CloudberryKingdom
             Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.OemQuotes, Keys.OemBackslash, Keys.OemTilde,
             Keys.Space, Keys.Enter, Keys.Back, Keys.Delete, Keys.CapsLock };
 
-        string KeyToChar(Keys key)
+        static List<char> ValidChars = KeysToList();
+
+        static List<char> KeysToList()
+        {
+            var l = new List<char>();
+            for (int i = 0; i < ValidKeys.Length; i++)
+            {
+                string s = KeyToChar(ValidKeys[i]);
+
+                if (s.Length == 1)
+                    l.Add(s[0]);
+            }
+
+            return l;
+        }
+
+        static string KeyToChar(Keys key)
         {
             switch (key)
             {
@@ -336,15 +353,32 @@ namespace CloudberryKingdom
 
         char IncrChar(char c)
         {
-            var _c = (int)c + 1;
-            if (_c > (int)'z') return 'A';
-            return (char)_c;
+            int i = ValidChars.IndexOf(c);
+            if (i < 0) return 'A';
+
+            i++;
+            if (i >= ValidChars.Count)
+                return ValidChars[0];
+
+            return ValidChars[i];
+            //var _c = (int)c + 1;
+            //if (_c > (int)'z') return 'A';
+            //return (char)_c;
         }
         char DecrChar(char c)
         {
-            var _c = (int)c - 1;
-            if (_c < (int)'A') return 'z';
-            return (char)_c;
+            int i = ValidChars.IndexOf(c);
+            if (i < 0) return 'A';
+
+            i--;
+            if (i < 0)
+                return ValidChars[ValidChars.Count - 1];
+
+            return ValidChars[i];
+
+            //var _c = (int)c - 1;
+            //if (_c < (int)'A') return 'z';
+            //return (char)_c;
         }
 
         QuadClass Backdrop, SelectQuad;
@@ -437,14 +471,14 @@ namespace CloudberryKingdom
 
         void UpdateSelectQuad()
         {
-			float shift = 650;
-            float width = MyText.GetWorldWidth(Text.Substring(SelectIndex_Start, SelectIndex_End - SelectIndex_Start));
-			width += shift;
+            float shift = 690;
+            float width = 1820;// MyText.GetWorldWidth(Text.Substring(SelectIndex_Start, SelectIndex_End - SelectIndex_Start));
+            width += shift;
             float pos = MyText.GetWorldWidth(Text.Substring(0, SelectIndex_Start));
 
             SelectQuad.Size = new Vector2(width / 2 + 50, SelectQuad.Size.Y + 30);
             SelectQuad.Left = MyText.Pos.X + pos;
-			SelectQuad.Pos = MyText.Pos + new Vector2(MyText.GetWorldWidth() / 2 + 50 + shift / 2, -MyText.GetWorldHeight() / 4);
+            SelectQuad.Pos = new Vector2(347, -MyText.GetWorldHeight() / 4);
         }
 
         protected override EzText MakeText(string text, bool centered, EzFont font)

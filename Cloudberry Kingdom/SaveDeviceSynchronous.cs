@@ -107,6 +107,10 @@ namespace EasyStorage
                             loadAction(stream);
                         }
                     }
+                    else
+                    {
+                        CloudberryKingdomGame.ShowSaving();
+                    }
 				}
 			}
 		}
