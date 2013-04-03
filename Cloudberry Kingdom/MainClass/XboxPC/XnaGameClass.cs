@@ -119,6 +119,8 @@ namespace CloudberryKingdom
 			}
 			catch (Exception e)
 			{
+                Tools.Write(e.StackTrace);
+                Tools.Write(e.InnerException);
 				Tools.Write(e.Message);
 			}
 #endif

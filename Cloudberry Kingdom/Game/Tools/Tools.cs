@@ -465,6 +465,7 @@ public static void Write(object obj)
 public static void Write(string str, params object[] objs)
 {
     //Console.WriteLine("  -- ck debug -- " + str, objs);
+    //System.Diagnostics.Debug.WriteLine("  -- ck debug -- " + str, objs);
 #if DEBUG
 #if WINDOWS
     if (objs.Length == 0) Console.WriteLine(str);

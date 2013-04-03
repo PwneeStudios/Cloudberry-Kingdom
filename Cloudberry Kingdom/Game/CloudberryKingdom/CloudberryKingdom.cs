@@ -42,6 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
+        public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
 
         /// <summary>
@@ -161,7 +162,7 @@ namespace CloudberryKingdom
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = false;
+        public static bool Unlock_Levels = false || DigitalDayBuild;
 #endif
 
 		public static bool ChoseNotToSave = false;
@@ -210,12 +211,28 @@ namespace CloudberryKingdom
 #if XBOX
         public static SignedInGamer IndexToSignedInGamer(PlayerIndex index)
         {
+            Tools.Write("Getting gamer... ( " + index + " )");
+
             var gamers = Gamer.SignedInGamers;
+
+            Tools.Write("Number of signed in gamers is " + gamers.Count);
 
             if (gamers.Count == 0) return null;
 
+            // Debug info
+            if (!FinalRelease)
+            {
+                foreach (var gamer in gamers)
+                {
+                    Tools.Write(string.Format("{0} sign in status is {1} and index is {2}.", gamer.Gamertag, gamer.IsSignedInToLive, gamer.PlayerIndex));
+                    Tools.Write(gamer.Privileges);
+                }
+            }
+
             foreach (var gamer in gamers)
             {
+                Tools.Write("... this gamer is : signed in? " + (gamer.IsSignedInToLive ? "yes" : "no") + 
+                            "... this gamer index is " + gamer.PlayerIndex);
                 if (gamer.IsSignedInToLive && gamer.PlayerIndex == index) return gamer;
             }
 
@@ -225,10 +242,14 @@ namespace CloudberryKingdom
 
         public static bool OnlineFunctionalityAvailable(PlayerIndex index)
         {
+            Tools.Write("Checking online functionality for player " + index);
+
 #if DEBUG && WINDOWS && XBOX
 			return true;
 #elif XBOX
             var gamer = IndexToSignedInGamer(index);
+
+            Tools.Write("Got gamer? " + (gamer != null ? "yes" : "no"));
 
             if (gamer == null) return false;
 
@@ -377,7 +398,7 @@ namespace CloudberryKingdom
             get
             {
                 // Always do full version
-                //if (!FinalRelease) { Tools.Warning(); return false; }
+                //if (!FinalRelease) { Tools.Warning(); IsTrial = false; return false; }
 
 #if DEBUG
 				return FakeDemo;
