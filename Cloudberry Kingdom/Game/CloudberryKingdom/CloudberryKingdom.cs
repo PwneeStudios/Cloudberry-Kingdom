@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool DigitalDayBuild = true;
+        public const bool DigitalDayBuild = false;
         public const bool PropTest = false;
 
         /// <summary>
@@ -1693,7 +1693,16 @@ namespace CloudberryKingdom
 			if (SetupToRender()) { DrawWatermark(); return; }
 
             // Main Video
-			if (MainVideo.Draw()) { DrawWatermark(); return; }
+            if (MainVideo.Draw())
+            {
+                if (PlayerManager.Players != null)
+                { 
+                    CheckForSignInState();
+                }
+                
+                DrawWatermark();
+                return;
+            }
 
             // Do not proceed if players do not exist yet.
             if (PlayerManager.Players == null) return;

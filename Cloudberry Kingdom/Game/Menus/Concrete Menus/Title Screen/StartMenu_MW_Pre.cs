@@ -133,9 +133,12 @@ namespace CloudberryKingdom
             BackBox.Alpha = .9f;
             MyPile.Add(BackBox, "Back");
 
-            MyPile.FadeIn(.33f);
+            //MyPile.FadeIn(.33f);
 
             SetPos();
+
+            // Burn one
+            //MyPhsxStep();
         }
 
         void MenuGo_Play(MenuItem item)

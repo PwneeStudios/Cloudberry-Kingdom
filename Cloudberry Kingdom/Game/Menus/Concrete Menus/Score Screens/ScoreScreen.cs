@@ -57,6 +57,13 @@ namespace CloudberryKingdom
                     item.Go = MenuGo_Save;
 					item.Selectable = CloudberryKingdomGame.CanSave();
                     AddItem(item);
+
+				    if (PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= InGameStartMenu.MAX_SEED_STRINGS)
+				    {
+					    item.Selectable = false;
+					    item.GrayOutOnUnselectable = true;
+					    item.GrayOut();
+				    }
                 }
 
 				MenuItem back;
@@ -814,6 +821,20 @@ namespace CloudberryKingdom
             {
                 if (!ShouldSkip())
                 {
+                    // Check if we should gray out save level
+                    if ((!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
+                        || (PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= InGameStartMenu.MAX_SEED_STRINGS))
+                    {
+                        var item = MyMenu.FindItemByName("Save");
+                        if (item != null && item.Selectable)
+                        {
+                            item.Selectable = false;
+                            item.GrayOutOnUnselectable = true;
+                            item.GrayOut();
+                            MyMenu.SelectItem(0);
+                        }
+                    }
+
                     if (AsMenu)
                         base.MyPhsxStep();
                     else

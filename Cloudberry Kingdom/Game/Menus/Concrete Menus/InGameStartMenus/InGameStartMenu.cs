@@ -8,6 +8,8 @@ namespace CloudberryKingdom
 {
     public class InGameStartMenu : CkBaseMenu
     {
+        public static int MAX_SEED_STRINGS = 50;
+
         public static bool PreventMenu = false;
 
         bool CenterItems;
@@ -80,6 +82,21 @@ namespace CloudberryKingdom
 
             if (MyMenu.CurItem == RemoveMe && VerifyRemoveMenu.YesChosen)
                 ReturnToCaller(false);
+		    else
+		    {
+			    if ( ( !Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel )
+				    || ( PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS ) )
+			    {
+				    var item = MyMenu.FindItemByName( "SaveLoadSeed" );
+                    if (item != null)
+                    {
+                        item.Selectable = false;
+                        item.GrayOutOnUnselectable = true;
+                        item.GrayOut();
+                        MyMenu.SelectItem(0);
+                    }
+			    }
+		    }
         }
 
         MenuItem RemoveMe;
@@ -166,9 +183,13 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(word, ItemFont, CenterItems));
             item.Name = "SaveLoadSeed";
             item.Go = Cast.ToItem(GoSaveLoad);
-            if (!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
+
+		    if ( ( !Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel )
+			    || ( PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS ) )
+            //if (!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
             {
                 item.Selectable = false;
+                item.GrayOutOnUnselectable = true;
                 item.GrayOut();
             }
             AddItem(item);

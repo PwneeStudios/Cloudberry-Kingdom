@@ -904,7 +904,9 @@ namespace CloudberryKingdom
 
             if (Type == ReplayGUIType.Computer)
             {
-                MoveUp += 16.5f;
+                //MoveUp += 16.5f;
+                MoveUp += 5f;
+                MoveUp_Back.Y += 3f;
             }
 
 			MyPile.Pos = new Vector2(MyPile.Pos.X, MyPile.Pos.Y + MoveUp + 16.5f);
@@ -936,16 +938,33 @@ namespace CloudberryKingdom
                 Toggle.SubstituteText(Localization.Words.Single);
         }
 
+        Localization.Words PlayWord = Localization.Words.None;
+        void SetPlayWord(Localization.Words word)
+        {
+            if (PlayWord == word) return;
+
+            Play.SubstituteText(word);
+            PlayWord = word;
+        }
+
         void SetPlayText()
         {
-            if (StepControl)
-                Play.SubstituteText(Localization.Words.Step);
+            // If the replay is over, play button should say "Play"
+            if (ReplayIsOver() && MyGame != null && MyGame.MyLevel != null && !MyGame.MyLevel.SetToReset)
+            {
+                SetPlayWord(Localization.Words.Play);
+            }
             else
             {
-                if (PauseSelected)
-                    Play.SubstituteText(Localization.Words.Play);
+                if (StepControl)
+                    SetPlayWord(Localization.Words.Step);
                 else
-                    Play.SubstituteText(Localization.Words.Pause);
+                {
+                    if (PauseSelected)
+                        SetPlayWord(Localization.Words.Play);
+                    else
+                        SetPlayWord(Localization.Words.Pause);
+                }
             }
         }
 
@@ -985,13 +1004,14 @@ namespace CloudberryKingdom
                 if (level.ReplayPaused && ReplayIsOver())
                 {
                     PauseSelected = false;
-                    SetPlayText();
 
                     level.ReplayPaused = false;
 
                     // Reset
                     ResetReplay(level);
                     PauseGame = false;
+
+                    SetPlayText();
                 }
             }
 
@@ -1002,6 +1022,8 @@ namespace CloudberryKingdom
                 {
                     ResetReplay(level);
                     PauseGame = false;
+
+                    SetPlayText();
                 }
             }
             else
@@ -1015,12 +1037,16 @@ namespace CloudberryKingdom
                         level.MySwarmBundle.SetSwarm(level, SwarmIndex - 1);
                     ResetReplay(level);
                     PauseGame = false;
+
+                    SetPlayText();
                 }
                 if (SwarmIndex < level.MySwarmBundle.NumSwarms - 1 && ButtonCheck.State(ControllerButtons.RS, -1).Pressed)
                 {
                     level.MySwarmBundle.SetSwarm(level, SwarmIndex + 1);
                     ResetReplay(level);
                     PauseGame = false;
+
+                    SetPlayText();
                 }
             }
 
@@ -1147,6 +1173,8 @@ namespace CloudberryKingdom
                 PauseGame = PauseSelected;
             }
 
+            SetPlayText();
+
             ProcessInput();
         }
 
@@ -1165,7 +1193,10 @@ namespace CloudberryKingdom
             if (level.ReplayPaused)
             {
                 if (ReplayIsOver())
+                {
                     BigEnd.Show = true;
+                    SetPlayText();
+                }
             }
             else
             {

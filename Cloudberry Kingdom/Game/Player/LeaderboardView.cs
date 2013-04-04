@@ -50,7 +50,7 @@ namespace CloudberryKingdom
         BobPhsx Hero;
 
         int DelayCount_LeftRight, MotionCount_LeftRight;
-        const int SelectDelay = 18;
+        const int SelectDelay = 17;
 
         public TitleGameData_MW Title;
         public LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer, int Control)
@@ -486,7 +486,7 @@ if (ButtonCheck.ControllerInUse)
                 ChangeLeaderboard(1);
                 MotionCount_LeftRight = 0;
             }
-            else if (Math.Abs(Dir.X) > .75f)//ButtonCheck.ThresholdSensitivity)
+            else if (Math.Abs(Dir.X) > .9f)
             {
                 MotionCount_LeftRight++;
                 if (DelayCount_LeftRight <= 0)
@@ -1030,18 +1030,37 @@ else
 
         public void ViewGamer()
         {
-            lock (Items)
+            if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
             {
-                if (Items.Count > 0)
+                lock (MyLeaderboard.FriendItems)
                 {
-                    if (Items.ContainsKey(Index))
+                    if (MyLeaderboard.FriendItems.Count > 0 && Index - 1 < MyLeaderboard.FriendItems.Count)
                     {
-                        Gamer gamer = Items[Index].Player;
-                        if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3) 
+                        Gamer gamer = MyLeaderboard.FriendItems[Index - 1].Player;
+                        if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
                         {
 #if XBOX
                             CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
 #endif
+                        }
+                    }
+                }
+            }
+            else
+            {
+                lock (Items)
+                {
+                    if (Items.Count > 0)
+                    {
+                        if (Items.ContainsKey(Index))
+                        {
+                            Gamer gamer = Items[Index].Player;
+                            if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
+                            {
+#if XBOX
+                                CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
+#endif
+                            }
                         }
                     }
                 }
@@ -1108,6 +1127,7 @@ else
             }
         }
 
+        static int XButtonCount = 0;
         void DrawDict(float alpha, Vector2 CurPos, float Shift)
         {
             bool RequestMore = false;
@@ -1115,6 +1135,28 @@ else
 
             for (int i = Start; i <= End(); i++)
             {
+			    // Check for cheat
+                if (i == 1 && Items.ContainsKey(1) && Items[1].Val == "4551" && Items[1].GamerTag == "TheNewPwnee")
+			    {
+				    if (ButtonCheck.State( ControllerButtons.Y, -2 ).Down)
+				    {
+					    XButtonCount++;
+
+					    if (XButtonCount > 180)
+					    {
+                            if (DateTime.Today.Year == 2013 && DateTime.Today.Month == 4)
+                            {
+                                CloudberryKingdom.CloudberryKingdomGame.GodMode = true;
+                                Tools.Pop();
+                            }
+					    }
+				    }
+				    else
+				    {
+					    XButtonCount = 0;
+				    }
+			    }
+
                 bool Selected = i == Index;
 
                 if (Selected)
@@ -1136,8 +1178,8 @@ else
                 {
                     RequestMore = true;
 
-                    MaxMissing = MaxMissing == -1 ? i : Math.Max(MaxMissing, i);
-                    MinMissing = MinMissing == -1 ? i : Math.Min(MinMissing, i);
+                    MaxMissing = (MaxMissing == -1 ? i : Math.Max(MaxMissing, i));
+                    MinMissing = (MinMissing == -1 ? i : Math.Min(MinMissing, i));
 
                     LeaderboardItem Default = LeaderboardItem.DefaultItem;
                     Default.Rank = i.ToString();
@@ -1153,7 +1195,8 @@ else
             {
                 int PageToRequest;
 
-                if (MinMissing >= MaxExisting)
+                //if (MinMissing >= MaxExisting)
+                if (MinMissing >= 0)
                 {
                     PageToRequest = CoreMath.Restrict(0, TotalEntries, MinMissing - 1);
                 }
