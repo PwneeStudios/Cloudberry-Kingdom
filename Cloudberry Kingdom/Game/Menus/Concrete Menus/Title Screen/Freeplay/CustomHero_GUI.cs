@@ -34,7 +34,8 @@ namespace CloudberryKingdom
 
         protected override void ReleaseBody()
         {
-            MyGame.ForceTargetZoom = .0007f;
+			//MyGame.ForceTargetZoom = .0007f;
+			MyGame.ForceTargetZoom = 0;
             base.ReleaseBody();
         }
 

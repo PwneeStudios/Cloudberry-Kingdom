@@ -46,7 +46,8 @@ namespace CloudberryKingdom
 
             // Update level text
             int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;
-			bool ShowLevel = Level > 1 && Level < 321;
+			bool ShowLevel = Level > 1;
+            bool ShowContinue = Level > 1 && Level < 321;
 
 			string template_level = Localization.WordString(Localization.Words.Continue);
 
@@ -54,14 +55,14 @@ namespace CloudberryKingdom
 			MenuItem __item = MyMenu.FindItemByName("Continue");
 			if (__item != null)
 			{
-				if (ShowLevel)
+                if (ShowContinue)
 				{
 					__item.Selectable = true;
 					__item.Show = true;
 				}
 				else
 				{
-					Level = 1;
+					if (Level == 0) Level = 1;
 					__item.Selectable = false;
 					__item.Show = false;
 					MyMenu.SelectItem(1);

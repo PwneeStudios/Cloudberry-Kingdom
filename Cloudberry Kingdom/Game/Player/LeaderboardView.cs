@@ -50,7 +50,7 @@ namespace CloudberryKingdom
         BobPhsx Hero;
 
         int DelayCount_LeftRight, MotionCount_LeftRight;
-        const int SelectDelay = 17;
+        const int SelectDelay = 18;
 
         public TitleGameData_MW Title;
         public LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer, int Control)

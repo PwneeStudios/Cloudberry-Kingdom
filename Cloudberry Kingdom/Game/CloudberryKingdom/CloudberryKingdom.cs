@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool DigitalDayBuild = true;
+        public const bool DigitalDayBuild = false;
         public const bool PropTest = false;
 
         /// <summary>
@@ -137,6 +137,11 @@ namespace CloudberryKingdom
 
                 if (Tools.CurCamera != null)
                 {
+					if (Tools.CurCamera.Zoom.X != .001f)
+					{
+						Tools.CurCamera.SetToDefaultZoom();
+					}
+
                     if (ShowSavingDuration < ShowSaving_FadeOutLength)
 						SavingText.Alpha = 1f - (ShowSaving_FadeOutLength - ShowSavingDuration) / ShowSaving_FadeOutLength;
 					else if (ShowSavingDuration > ShowSavingLength - ShowSaving_FadeInLength)
@@ -195,8 +200,16 @@ namespace CloudberryKingdom
 
         public static void ChangeSaveGoFunc(MenuItem item)
         {
-            item.Selectable = true;
-            item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
+			if (!CloudberryKingdomGame.CanSave())
+			{
+				item.Selectable = false;
+				item.Go = null;
+			}
+			else
+			{
+				item.Selectable = true;
+				item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
+			}
         }
 
         public static void ShowError_CanNotSaveLevel_NoSpace()
@@ -1669,6 +1682,9 @@ namespace CloudberryKingdom
 			Tools.QDrawer.Flush();
 		}
 
+        static bool LastGuideIsUp = false;
+        static int GuidSave_SeedMark = 0;
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -1732,7 +1748,34 @@ namespace CloudberryKingdom
 
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
-			if (Guide.IsVisible) { DrawNothing(); DrawWatermark(); return; }
+            if (Guide.IsVisible)
+            {
+                //if (!LastGuideIsUp)
+                //{
+                //    if (CurrentPresence == Presence.Campaign)
+                //    {
+                //        if (Tools.CurGameData != null && Tools.CurGameData.MyLevel != null && Tools.CurGameData.MyLevel.MyLevelSeed != null && Tools.CurGameData.MyLevel.MyLevelSeed.Rnd != null)
+                //        {
+                //            if (Tools.CurGameData.MyLevel.MyLevelSeed.Seed != GuidSave_SeedMark)
+                //            {
+                //                GuidSave_SeedMark = Tools.CurGameData.MyLevel.MyLevelSeed.Seed;
+                //                SaveGroup.SaveAll();
+                //            }
+                //        }
+                //    }
+                //    LastGuideIsUp = true;
+                //}
+
+                DrawNothing();
+                DrawWatermark();
+
+                Tools.SetVibration(PlayerIndex.One, 0, 0, 0);
+                Tools.SetVibration(PlayerIndex.Two, 0, 0, 0);
+                Tools.SetVibration(PlayerIndex.Three, 0, 0, 0);
+                Tools.SetVibration(PlayerIndex.Four, 0, 0, 0);
+
+                return;
+            }
 			//if (ShowKeyboard)
 			//{
 			//    SaveLoadSeedMenu.BeginShowKeyboard();
@@ -1768,6 +1811,8 @@ namespace CloudberryKingdom
                 }
             }
 #endif
+
+            LastGuideIsUp = false;
 
             //CheckForSignInState();
 			UpdateCustomMusic();

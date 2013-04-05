@@ -828,7 +828,7 @@ namespace CloudberryKingdom
                         || (PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= InGameStartMenu.MAX_SEED_STRINGS))
                     {
                         var item = MyMenu.FindItemByName("Save");
-                        if (item != null && item.Selectable)
+                        if (item != null && !item.GrayOutOnUnselectable)
                         {
                             item.Selectable = false;
                             item.GrayOutOnUnselectable = true;
@@ -845,11 +845,6 @@ namespace CloudberryKingdom
                         GUI_Phsx();
                 }
             }
-        }
-
-        void ShowCanNotSaveError()
-        {
-            CloudberryKingdomGame.ShowError_CanNotSaveLevel_NoSpace();
         }
 
         /// <summary>

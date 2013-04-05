@@ -20,7 +20,17 @@ namespace CloudberryKingdom
     public partial class XnaGameClass : Game
     {
         CloudberryKingdomGame MyGame;
-        
+
+        //protected override void OnExiting(object sender, EventArgs args)
+        //{
+        //    //if (CloudberryKingdomGame.PastPressStart)
+        //    //{
+        //    //    SaveGroup.SaveAll();
+        //    //}
+
+        //    base.OnExiting(sender, args);
+        //}
+
         public XnaGameClass()
         {
             Tools.GameClass = this;
@@ -84,7 +94,12 @@ namespace CloudberryKingdom
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            //base.UnloadContent();
+            //Tools.Write("Unloading");
+            //if (CloudberryKingdomGame.PastPressStart)
+            //{
+            //    SaveGroup.SaveAll();
+            //}
         }
 
         protected override void Update(GameTime gameTime)

@@ -302,7 +302,7 @@ namespace CloudberryKingdom
             string CoinPrefix = "{pCoin_Blue,100,?}";
 
             // Watch the computer
-            item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Watch  * CostMultiplier).ToString(), ItemFont));
+            MenuItem WatchItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Watch  * CostMultiplier).ToString(), ItemFont));
             item.Name = "WatchComputer";
             Item_WatchComputer = item;
             item.SetIcon(ObjectIcon.RobotIcon.Clone());
@@ -360,6 +360,13 @@ namespace CloudberryKingdom
             Item_SlowMo = item;
 
             // Fade if not usable
+			if (WatchItem != null && Bank() < Cost_Watch * CostMultiplier)
+			{
+				WatchItem.Go = null;
+				WatchItem.MyText.Alpha = .6f;
+				WatchItem.MySelectedText.Alpha = .6f;
+			}
+
             if (PathItem != null && PathItem.Go == null)
             {
                 PathItem.MyText.Alpha = .6f;
