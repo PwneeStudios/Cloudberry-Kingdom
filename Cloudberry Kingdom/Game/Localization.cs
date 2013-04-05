@@ -719,6 +719,9 @@ Err_MustBeSignedInToLiveToAccess,
 
 Saving,
 
+Err_CanNotSaveLevel_NoSpace_Header,
+Err_CanNotSaveLevel_NoSpace,
+
 EnumLength
         };
     }

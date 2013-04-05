@@ -302,7 +302,7 @@ namespace CloudberryKingdom
             CharacterSelectManager.ParentPanel = null;
         }
 
-        static bool Active = false;
+        public static bool Active = false;
         public static void PhsxStep()
         {
             if (!Active) return;

@@ -769,6 +769,9 @@ namespace CoreEngine
                 Vector2 d = data.Size;
                 Vector2 l = p + new Vector2(data.Offset.X, -data.Offset.Y) * scale;
 
+
+				if (s[j] != '・')
+				if (s[j] != '　')
                 if (s[j] != ' ')
                 {
                     Vector2 inv_size = Vector2.One / new Vector2(font.MyTexture.Tex.Width, font.MyTexture.Tex.Height);
@@ -792,7 +795,10 @@ namespace CoreEngine
                     TrianglesInBuffer += 2;
                 }
 
-		        p += new Vector2( d.X + font.CharSpacing - 18, 0 ) * scale;
+				if (s[j] != '・')
+				{
+					p += new Vector2(d.X + font.CharSpacing - 18, 0) * scale;
+				}
 
                 //Flush();
 	        }

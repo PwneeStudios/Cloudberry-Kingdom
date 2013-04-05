@@ -148,6 +148,10 @@ namespace CloudberryKingdom
 
         public override void Deserialize(byte[] Data)
         {
+			// Clear everything before loading
+			MySavedSeeds.SeedStrings.Clear();
+			HighScores.Clear();
+
             foreach (Chunk chunk in Chunks.Get(Data))
             {
 				ProcessChunk(chunk);

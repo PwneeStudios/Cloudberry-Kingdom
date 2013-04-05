@@ -207,6 +207,12 @@ namespace CloudberryKingdom
             {
                 GiveAward(UnlockHeroRush2, player);
 
+				// Give "The End of Infinity" award immediately if Hero Rush 2 is unlocked.
+				GiveAward(Award_UnlockAllArcade, player);
+
+
+				// Only give "The End of Infinity" award if player unlocks all heroes as well.
+				/*
 				int id, level;
 
 				// Check we've gotten all Escalation heroes
@@ -246,6 +252,7 @@ namespace CloudberryKingdom
 				// Give award for unlocking everything
 				if (escalation_complete && timecrisis_complete)
 					GiveAward(Award_UnlockAllArcade, player);
+				 */
                 
 				//CheckForAward_UnlockAllArcade();
 				//Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());

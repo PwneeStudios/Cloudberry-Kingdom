@@ -63,6 +63,8 @@ namespace CloudberryKingdom
 					    item.Selectable = false;
 					    item.GrayOutOnUnselectable = true;
 					    item.GrayOut();
+
+                        CloudberryKingdomGame.ChangeSaveGoFunc(item);
 				    }
                 }
 
@@ -832,6 +834,8 @@ namespace CloudberryKingdom
                             item.GrayOutOnUnselectable = true;
                             item.GrayOut();
                             MyMenu.SelectItem(0);
+
+                            CloudberryKingdomGame.ChangeSaveGoFunc(item);
                         }
                     }
 
@@ -841,6 +845,11 @@ namespace CloudberryKingdom
                         GUI_Phsx();
                 }
             }
+        }
+
+        void ShowCanNotSaveError()
+        {
+            CloudberryKingdomGame.ShowError_CanNotSaveLevel_NoSpace();
         }
 
         /// <summary>

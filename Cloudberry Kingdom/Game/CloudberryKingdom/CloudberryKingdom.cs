@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool DigitalDayBuild = false;
+        public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
 
         /// <summary>
@@ -192,6 +192,17 @@ namespace CloudberryKingdom
 
 			return false;
 		}
+
+        public static void ChangeSaveGoFunc(MenuItem item)
+        {
+            item.Selectable = true;
+            item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
+        }
+
+        public static void ShowError_CanNotSaveLevel_NoSpace()
+        {
+            ShowError(Localization.Words.Err_CanNotSaveLevel_NoSpace_Header, Localization.Words.Err_CanNotSaveLevel_NoSpace, Localization.Words.Err_Ok, null);
+        }
 
 		public static void ShowError_CanNotSaveNoDevice()
 		{

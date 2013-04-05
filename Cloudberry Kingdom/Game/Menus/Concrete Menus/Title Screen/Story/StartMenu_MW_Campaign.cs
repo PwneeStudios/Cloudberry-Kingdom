@@ -46,7 +46,7 @@ namespace CloudberryKingdom
 
             // Update level text
             int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;
-			bool ShowLevel = Level > 1;
+			bool ShowLevel = Level > 1 && Level < 321;
 
 			string template_level = Localization.WordString(Localization.Words.Continue);
 

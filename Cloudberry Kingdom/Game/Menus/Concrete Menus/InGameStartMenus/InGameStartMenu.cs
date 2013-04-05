@@ -8,7 +8,8 @@ namespace CloudberryKingdom
 {
     public class InGameStartMenu : CkBaseMenu
     {
-        public static int MAX_SEED_STRINGS = 50;
+        //public static int MAX_SEED_STRINGS = 50;
+        public static int MAX_SEED_STRINGS = 3;
 
         public static bool PreventMenu = false;
 
@@ -94,6 +95,8 @@ namespace CloudberryKingdom
                         item.GrayOutOnUnselectable = true;
                         item.GrayOut();
                         MyMenu.SelectItem(0);
+
+                        CloudberryKingdomGame.ChangeSaveGoFunc(item);
                     }
 			    }
 		    }
@@ -191,6 +194,8 @@ namespace CloudberryKingdom
                 item.Selectable = false;
                 item.GrayOutOnUnselectable = true;
                 item.GrayOut();
+
+                CloudberryKingdomGame.ChangeSaveGoFunc(item);
             }
             AddItem(item);
 
