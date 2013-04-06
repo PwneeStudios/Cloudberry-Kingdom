@@ -140,24 +140,40 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            //MenuItem _item;
-            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, 110f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, -68.33099f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            //_item = MyMenu.FindItemByName(""); if (_item != null) { _item.SetPos = new Vector2(-808f, -246.662f); _item.MyText.Scale = 0.7743f; _item.MySelectedText.Scale = 0.7743f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("PlayAgain"); if (_item != null) { _item.SetPos = new Vector2(-808f, 110f); _item.MyText.Scale = 0.5419669f; _item.MySelectedText.Scale = 0.5419669f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-808f, -48.88657f); _item.MyText.Scale = 0.5419669f; _item.MySelectedText.Scale = 0.5419669f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-808f, -207.7731f); _item.MyText.Scale = 0.5419669f; _item.MySelectedText.Scale = 0.5419669f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(400f, -240f);
+				MyMenu.Pos = new Vector2(552.7777f, -259.4444f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-857.3064f, 384.5554f); _t.Scale = 0.999f; }
-            _t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(-26.75146f, 376.2222f); _t.Scale = 0.999f; }
-            _t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-871.1947f, 159f); _t.Scale = 0.999f; }
-            _t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(-12.86145f, 150.6666f); _t.Scale = 0.999f; }
+				EzText _t;
+				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-882.3064f, 406.7777f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(189.915f, 401.2222f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-885.0834f, 161.7779f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(201.0272f, 153.4444f); _t.Scale = 0.891417f; }
 
-            QuadClass _q;
-            //_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(22.2233f, 10.55567f); _q.Size = new Vector2(1440f, 900f); }
+				QuadClass _q;
+				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(22.2233f, 10.55567f); _q.Size = new Vector2(1440f, 900f); }
 
-            MyPile.Pos = new Vector2(0f, 0f);
+				MyPile.Pos = new Vector2(0f, 0f);
+			}
+			else
+			{
+				MyMenu.Pos = new Vector2(400f, -240f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
+				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-857.3064f, 384.5554f); _t.Scale = 0.999f; }
+				_t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(-26.75146f, 376.2222f); _t.Scale = 0.999f; }
+				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-871.1947f, 159f); _t.Scale = 0.999f; }
+				_t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(-12.86145f, 150.6666f); _t.Scale = 0.999f; }
+
+				MyPile.Pos = new Vector2(0f, 0f);
+			}
         }
 
 #if PC_VERSION
@@ -274,14 +290,17 @@ namespace CloudberryKingdom
             FontScale *= .89f * 1.16f;
 
             item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
+			item.Name = "PlayAgain";
             item.Go = Cast.ToItem(Action_PlayAgain);
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont));
+			item.Name = "Leaderboard";
             item.Go = Cast.ToItem(Action_ShowHighScores);
             AddItem(item);
 
             item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
+			item.Name = "Done";
             item.Go = Cast.ToItem(Action_Done);
             AddItem(item);
         }

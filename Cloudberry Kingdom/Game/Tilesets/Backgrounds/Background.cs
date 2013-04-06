@@ -213,7 +213,10 @@ namespace CloudberryKingdom
             
             b.SetLevel(b.MyLevel);
             b.SetBackground(b);
-            b.Reset();
+            
+			//b.Move(new Vector2(Tools.GlobalRnd.RndFloat(0, -15000), 0));
+			
+			b.Reset();
 
             return b;
         }

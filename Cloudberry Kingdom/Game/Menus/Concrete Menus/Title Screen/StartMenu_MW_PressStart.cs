@@ -131,6 +131,7 @@ namespace CloudberryKingdom
                     }
                 }
 #endif
+				Tools.Write("Forced select avoided");
                 CallMenu();
             }
         }

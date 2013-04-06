@@ -8,8 +8,8 @@ namespace CloudberryKingdom
 {
     public class InGameStartMenu : CkBaseMenu
     {
-		public static int MAX_SEED_STRINGS = 50;
-		//public static int MAX_SEED_STRINGS = 3;
+        //public static int MAX_SEED_STRINGS = 50;
+        public static int MAX_SEED_STRINGS = 3;
 
         public static bool PreventMenu = false;
 
@@ -85,15 +85,13 @@ namespace CloudberryKingdom
                 ReturnToCaller(false);
 		    else
 		    {
+                if (Control >= 0 && Control < 4)
 			    if ( ( !Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel )
-				    || ( PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS ) )
+                    || (PlayerManager.Players[Control] != null && PlayerManager.Players[Control].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS))
 			    {
 				    var item = MyMenu.FindItemByName( "SaveLoadSeed" );
                     if (item != null)
                     {
-                        item.Selectable = false;
-                        item.GrayOutOnUnselectable = true;
-                        item.GrayOut();
                         MyMenu.SelectItem(0);
 
                         CloudberryKingdomGame.ChangeSaveGoFunc(item);
@@ -182,22 +180,21 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // SaveLoadSeed
-            Localization.Words word = Tools.CurLevel.CanLoadLevels ? Localization.Words.SaveLoad : Localization.Words.SaveSeed;
-            item = new MenuItem(new EzText(word, ItemFont, CenterItems));
-            item.Name = "SaveLoadSeed";
-            item.Go = Cast.ToItem(GoSaveLoad);
-
-		    if ( ( !Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel )
-			    || ( PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS ) )
-            //if (!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
+            if (Control >= 0 && Control < 4)
             {
-                item.Selectable = false;
-                item.GrayOutOnUnselectable = true;
-                item.GrayOut();
+                Localization.Words word = Tools.CurLevel.CanLoadLevels ? Localization.Words.SaveLoad : Localization.Words.SaveSeed;
+                item = new MenuItem(new EzText(word, ItemFont, CenterItems));
+                item.Name = "SaveLoadSeed";
+                item.Go = Cast.ToItem(GoSaveLoad);
 
-                CloudberryKingdomGame.ChangeSaveGoFunc(item);
+                AddItem(item);
+
+                if ((!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
+                    || (PlayerManager.Players[Control] != null && PlayerManager.Players[Control].MySavedSeeds.SeedStrings.Count >= MAX_SEED_STRINGS))
+                {
+                    CloudberryKingdomGame.ChangeSaveGoFunc(item);
+                }
             }
-            AddItem(item);
 
             // Options
             item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, CenterItems));

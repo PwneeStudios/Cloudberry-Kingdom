@@ -377,6 +377,8 @@ namespace CloudberryKingdom
         {
 			MarkProgress(level);
 
+			SaveGroup.SaveAll();
+
             // Check for end of chapter
             foreach (KeyValuePair<int, int> key in Instance.ChapterEnd)
                 if (key.Value == level.MyLevelSeed.LevelNum)

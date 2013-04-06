@@ -183,7 +183,7 @@ namespace CloudberryKingdom
             // Use this if statement if you want keyboard to control all characters (For debugging)
             //if (ButtonCheck.State(ControllerButtons.A, -2).Pressed)
 
-            if (ButtonCheck.State(ControllerButtons.A, Control).Pressed)
+			if (CharacterSelectManager.Active && ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
 #if XDK
                 if (MyCharacterSelect.Player.MyGamer == null)

@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+
 namespace CloudberryKingdom
 {
     public class VerifyDeleteSeeds : VerifyBaseMenu
@@ -29,9 +31,9 @@ namespace CloudberryKingdom
                 Text = string.Format(Localization.WordString(Localization.Words.DeleteSeeds), NumSeeds);
             else
                 Text = string.Format(Localization.WordString(Localization.Words.DeleteSeedsPlural), NumSeeds);
-            EzText HeaderText = new EzText(Text, ItemFont, "Header");
+            EzText HeaderText = new EzText(Text, ItemFont, true, true);
             SetHeaderProperties(HeaderText);
-            MyPile.Add(HeaderText);
+			MyPile.Add(HeaderText, "Header");
             HeaderText.Pos = HeaderPos;
 
 
@@ -62,8 +64,21 @@ namespace CloudberryKingdom
                 return true;
             };
 
+			SetPos();
+		}
+
+		void SetPos()
+		{
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
-        }
+
+			EzText _t;
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(0, 350); _t.Scale = 0.96f; }
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
+
+			MyPile.Pos = new Vector2(0f, 0f);
+		}
     }
 }

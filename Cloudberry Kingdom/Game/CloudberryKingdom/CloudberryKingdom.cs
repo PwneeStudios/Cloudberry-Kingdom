@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool DigitalDayBuild = false;
+        public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
 
         /// <summary>
@@ -202,13 +202,19 @@ namespace CloudberryKingdom
         {
 			if (!CloudberryKingdomGame.CanSave())
 			{
-				item.Selectable = false;
+                //item.Selectable = false;
 				item.Go = null;
+
+                item.MyText.MyFloatColor.W = .5f;
+                item.MySelectedText.MyFloatColor.W = .5f;
 			}
 			else
 			{
 				item.Selectable = true;
 				item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
+
+                item.MyText.MyFloatColor.W = .5f;
+                item.MySelectedText.MyFloatColor.W = .5f;
 			}
         }
 

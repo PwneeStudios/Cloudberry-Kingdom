@@ -161,9 +161,12 @@ namespace CloudberryKingdom
 
 			SetPlayText();
 
+			SetPos();
+		}
 
 
-
+		void SetPos()
+		{
 			bool WiiRemote = false;
 			if (WiiRemote)
 			{
@@ -944,6 +947,28 @@ namespace CloudberryKingdom
             if (PlayWord == word) return;
 
             Play.SubstituteText(word);
+
+			Vector2 shift_scale = new Vector2(-.07f, -.11f);
+			float scale = .8f;
+			if (word == Localization.Words.Step &&
+				(PlayWord == Localization.Words.Play || PlayWord == Localization.Words.Pause) &&
+				(Localization.CurrentLanguage.MyLanguage == Localization.Language.German || Localization.CurrentLanguage.MyLanguage == Localization.Language.French ||
+				 Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese || Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish))
+			{
+				SetPos();
+
+				Play.Scale *= scale;
+				Play.Pos += Play.GetWorldSize() * shift_scale;
+			}
+
+			if ((word == Localization.Words.Play || word == Localization.Words.Pause) &&
+				PlayWord == Localization.Words.Step &&
+				(Localization.CurrentLanguage.MyLanguage == Localization.Language.German || Localization.CurrentLanguage.MyLanguage == Localization.Language.French ||
+				 Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese || Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish))
+			{
+				SetPos();
+			}
+
             PlayWord = word;
         }
 

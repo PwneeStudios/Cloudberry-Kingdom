@@ -58,12 +58,20 @@ namespace CloudberryKingdom
 					item.Selectable = CloudberryKingdomGame.CanSave();
                     AddItem(item);
 
-				    if (PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= InGameStartMenu.MAX_SEED_STRINGS)
-				    {
-					    item.Selectable = false;
-					    item.GrayOutOnUnselectable = true;
-					    item.GrayOut();
+                    // Don't gray out if any existing player has free space to save a level
+                    bool GrayOut = true;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (PlayerManager.Players[i] != null &&
+                            PlayerManager.Players[i].Exists &&
+                            PlayerManager.Players[i].MySavedSeeds.SeedStrings.Count < InGameStartMenu.MAX_SEED_STRINGS)
+                        {
+                            GrayOut = false;
+                        }
+                    }
 
+                    if (GrayOut)
+				    {
                         CloudberryKingdomGame.ChangeSaveGoFunc(item);
 				    }
                 }
@@ -823,16 +831,24 @@ namespace CloudberryKingdom
             {
                 if (!ShouldSkip())
                 {
-                    // Check if we should gray out save level
+					// Check if we should gray out save level
+					bool GrayOut = true;
+					for (int i = 0; i < 4; i++)
+					{
+						if (PlayerManager.Players[i] != null &&
+							PlayerManager.Players[i].Exists &&
+							PlayerManager.Players[i].MySavedSeeds.SeedStrings.Count < InGameStartMenu.MAX_SEED_STRINGS)
+						{
+							GrayOut = false;
+						}
+					}
+
                     if ((!Tools.CurLevel.CanLoadLevels && !Tools.CurLevel.CanSaveLevel)
-                        || (PlayerManager.Players[0] != null && PlayerManager.Players[0].MySavedSeeds.SeedStrings.Count >= InGameStartMenu.MAX_SEED_STRINGS))
+                        || GrayOut)
                     {
                         var item = MyMenu.FindItemByName("Save");
-                        if (item != null && !item.GrayOutOnUnselectable)
+                        if (item != null && item.MyText.MyFloatColor.W > .9f)
                         {
-                            item.Selectable = false;
-                            item.GrayOutOnUnselectable = true;
-                            item.GrayOut();
                             MyMenu.SelectItem(0);
 
                             CloudberryKingdomGame.ChangeSaveGoFunc(item);
@@ -976,7 +992,14 @@ namespace CloudberryKingdom
 				PlayerData player = MenuItem.GetActivatingPlayerData();
 				if (CloudberryKingdomGame.CanSave(player.MyPlayerIndex))
 				{
-					SaveLoadSeedMenu.MakeSave(this, player)(item);
+                    if (player != null && player.MySavedSeeds.SeedStrings.Count < InGameStartMenu.MAX_SEED_STRINGS)
+                    {
+                        SaveLoadSeedMenu.MakeSave(this, player)(item);
+                    }
+                    else
+                    {
+                        CloudberryKingdomGame.ShowError_CanNotSaveLevel_NoSpace();
+                    }
 				}
 				else
 				{

@@ -116,7 +116,14 @@ namespace CloudberryKingdom
             SignedInGamer gamer = result.AsyncState as SignedInGamer;
             if (null == gamer) return;
 
-            gamer.EndAwardAchievement(result);
+            try
+            {
+                gamer.EndAwardAchievement(result);
+            }
+            catch (Exception e)
+            {
+                Tools.Write(e.Message);
+            }
         }
 #endif
 

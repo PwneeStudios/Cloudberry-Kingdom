@@ -138,7 +138,7 @@ namespace CloudberryKingdom
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
 			{
 				MenuItem _item;
-				_item = MyMenu.FindItemByName("list"); if (_item != null) { _item.SetPos = new Vector2(-2.77784f, 153.1746f); _item.MyText.Scale = 0.375f; _item.MySelectedText.Scale = 0.375f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+				_item = MyMenu.FindItemByName("list"); if (_item != null) { _item.SetPos = new Vector2(-2.77784f, 153.1746f); _item.SelectIconOffset = new Vector2(0f, 0f); }
 				_item = MyMenu.FindItemByName("Done"); if (_item != null) { _item.SetPos = new Vector2(-324.6669f, 51.66659f); _item.MyText.Scale = 0.5425833f; _item.MySelectedText.Scale = 0.5425833f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 				_item = MyMenu.FindItemByName("Cancel"); if (_item != null) { _item.SetPos = new Vector2(-330.2227f, -90.55334f); _item.MyText.Scale = 0.4997506f; _item.MySelectedText.Scale = 0.4997506f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 

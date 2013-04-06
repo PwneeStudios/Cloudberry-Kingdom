@@ -234,11 +234,20 @@ namespace CloudberryKingdom
 
             Vector2 ShiftSelect = Vector2.Zero;
 
+			bool custom_arrows = false;
 			float item_width = .375f;
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 				item_width = .305f;
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
 				item_width = .305f;
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				if (MyMenu.CurIndex == 2)
+					item_width = .29f;
+				else
+					item_width = .32f;
+				custom_arrows = true;
+			}
 
             // Make the hat select
             if (MyMenu.CurIndex == 2)
@@ -297,6 +306,15 @@ namespace CloudberryKingdom
                     select.MyList.AddItem(_item, clr_index);
                 }
             }
+
+			if (custom_arrows && ClrSelect != null)
+			{
+				ClrSelect.MyList.CustomArrow = custom_arrows;
+				ClrSelect.MyList.RightArrowOffset = Menu.DefaultMenuInfo.MenuRightArrow_Selected_Offset * .7f;
+				ClrSelect.MyList.RightArrowOffset.Y = 0;
+				ClrSelect.MyList.LeftArrowOffset = Menu.DefaultMenuInfo.MenuLeftArrow_Selected_Offset * .7f;
+				ClrSelect.MyList.LeftArrowOffset.Y = 0;
+			}
 
             // Set the index of the list
             ClrSelect.SetIndexViaAssociated(MyCharacterSelect.ItemIndex[MyMenu.CurIndex]);
