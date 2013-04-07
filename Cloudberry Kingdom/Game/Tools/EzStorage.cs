@@ -47,41 +47,59 @@ namespace CloudberryKingdom
         /// </summary>
         public static void SaveAll()
         {
+            Tools.EasyThread(5, "Saving", _SaveAll_Thread);
+        }
+
+        static bool Saving = false;
+        static void _SaveAll_Thread()
+        {
             if (!CloudberryKingdomGame.CanSave()) return;
 
-            foreach (SaveLoad ThingToSave in ThingsToSave)
+            if (Saving) return;
+            Saving = true;
+
+            try
             {
-                ThingToSave.Save(PlayerIndex.One);
-            }
+                foreach (SaveLoad ThingToSave in ThingsToSave)
+                {
+                    ThingToSave.Save(PlayerIndex.One);
+                }
 
 #if PC_VERSION
 			PlayerManager.Player.Save(PlayerIndex.One);
 #else
 
-            // Save each player's info
-			List<PlayerData> player_list;
-			
-			// If we're on the title screen save all players who are signed in
-			if (CloudberryKingdomGame.CurrentPresence == CloudberryKingdomGame.Presence.TitleScreen)
-			{
-				player_list = new List<PlayerData>(PlayerManager.Players);
-			}
-			// otherwise only logged in players
-			else
-			{
-				player_list = PlayerManager.LoggedInPlayers;
-			}
+                // Save each player's info
+                List<PlayerData> player_list;
 
-            foreach (PlayerData player in player_list)
-            {
-                var g = player.MyGamer;
-                if (g == null) continue;
+                // If we're on the title screen save all players who are signed in
+                if (CloudberryKingdomGame.CurrentPresence == CloudberryKingdomGame.Presence.TitleScreen)
+                {
+                    player_list = new List<PlayerData>(PlayerManager.Players);
+                }
+                // otherwise only logged in players
+                else
+                {
+                    player_list = PlayerManager.LoggedInPlayers;
+                }
 
-				player.ContainerName = "SaveData";
-				player.FileName = "SaveData.bam";
-                player.Save(player.MyPlayerIndex);
-            }
+                foreach (PlayerData player in player_list)
+                {
+                    var g = player.MyGamer;
+                    if (g == null) continue;
+
+                    player.ContainerName = "SaveData";
+                    player.FileName = "SaveData.bam";
+                    player.Save(player.MyPlayerIndex);
+                }
 #endif
+            }
+            catch (Exception e)
+            {
+                Tools.Write(e.Message);
+            }
+
+            Saving = false;
         }
 
 #if NOT_PC

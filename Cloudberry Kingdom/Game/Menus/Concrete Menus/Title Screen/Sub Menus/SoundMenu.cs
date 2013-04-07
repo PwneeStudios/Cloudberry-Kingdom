@@ -322,7 +322,8 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-				Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+				//Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+                SaveGroup.SaveAll();
 			}
 		}
 
@@ -351,7 +352,8 @@ namespace CloudberryKingdom
 			CloudberryKingdomGame.ForceSuperPause = false;
             Tools.Write("ForceSuperPause <-- false");
 
-			Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+			//Tools.EasyThread(5, "Saving", SaveGroup.SaveAll);
+            SaveGroup.SaveAll();
 		}
 
 		public override void SlideOut(PresetPos Preset, int Frames)
