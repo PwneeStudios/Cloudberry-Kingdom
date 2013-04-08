@@ -429,6 +429,8 @@ namespace CloudberryKingdom
             {
                 // Always do full version
                 //if (!FinalRelease) { Tools.Warning(); IsTrial = false; return false; }
+                //Tools.Warning(); IsTrial = false; return false;
+
 
 #if DEBUG
 				return FakeDemo;

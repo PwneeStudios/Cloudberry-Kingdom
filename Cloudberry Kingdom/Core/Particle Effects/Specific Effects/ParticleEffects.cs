@@ -482,6 +482,21 @@ namespace CloudberryKingdom
         {
             if (level.NoParticles) return;
 
+            //// Pop in
+            //for (int j = 0; j < 10; j++)
+            //{
+            //    var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DieTemplate);
+
+            //    p.Data.Position = pos;
+            //    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Sparkle");
+            //    p.Data.Velocity = Tools.GlobalRnd.RndDir() * (Tools.GlobalRnd.RndFloat(7, 9));
+            //    p.Size *= 3f;
+            //    p.AngleSpeed = .05f;
+            //    p.SizeSpeed = new Vector2(-1.5f);
+            //    p.Life = (int)(p.Life * 1.25f);
+            //    p.ColorVel.W /= 1.25f;
+            //}
+
             var p = level.MainEmitter.GetNewParticle(PopTemplate);
             p.Data.Position = pos;
             p.SetSize(size);

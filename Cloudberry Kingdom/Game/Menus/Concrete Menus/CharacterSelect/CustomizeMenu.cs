@@ -236,18 +236,26 @@ namespace CloudberryKingdom
 
 			bool custom_arrows = false;
 			float item_width = .375f;
-			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
-				item_width = .305f;
-			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
-				item_width = .305f;
-			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
-			{
-				if (MyMenu.CurIndex == 2)
-					item_width = .29f;
-				else
-					item_width = .32f;
-				custom_arrows = true;
-			}
+            if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
+            {
+                item_width = .305f;
+            }
+            else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
+            {
+                item_width = .305f;
+            }
+            else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+            {
+                if (MyMenu.CurIndex == 2)
+                    item_width = .29f;
+                else
+                    item_width = .32f;
+                custom_arrows = true;
+            }
+            else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
+            {
+                item_width = .34f;
+            }
 
             // Make the hat select
             if (MyMenu.CurIndex == 2)

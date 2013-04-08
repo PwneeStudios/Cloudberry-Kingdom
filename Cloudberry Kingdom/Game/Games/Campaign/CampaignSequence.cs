@@ -377,8 +377,11 @@ namespace CloudberryKingdom
         {
 			MarkProgress(level);
 
-            Tools.AddToDo(SaveGroup.SaveAll);
-            //SaveGroup.SaveAll();
+            if (CampaignProgressMade)
+            {
+                Tools.AddToDo(SaveGroup.SaveAll);
+                //SaveGroup.SaveAll();
+            }
 
             // Check for end of chapter
             foreach (KeyValuePair<int, int> key in Instance.ChapterEnd)
@@ -390,12 +393,19 @@ namespace CloudberryKingdom
                 }
         }
 
+        public static bool CampaignProgressMade = false;
 		public static void MarkProgress(Level level)
 		{
             for (int i = 0; i < 4; i++)
             {
                 var player = PlayerManager.Players[i];
                 if (player == null || !player.Exists) continue;
+
+                if (player.CampaignLevel < level.MyLevelSeed.LevelNum ||
+                    player.CampaignIndex < level.MyLevelSeed.LevelIndex)
+                {
+                    CampaignProgressMade = true;
+                }
 
 				player.CampaignLevel = Math.Max(player.CampaignLevel, level.MyLevelSeed.LevelNum);
 				player.CampaignIndex = Math.Max(player.CampaignIndex, level.MyLevelSeed.LevelIndex);

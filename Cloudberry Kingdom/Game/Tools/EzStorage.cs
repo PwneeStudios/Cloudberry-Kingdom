@@ -47,6 +47,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static void SaveAll()
         {
+            CampaignSequence.CampaignProgressMade = false;
             Tools.EasyThread(5, "Saving", _SaveAll_Thread);
         }
 
