@@ -157,6 +157,16 @@ namespace CloudberryKingdom.Blocks
             MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
+
+            //// 480 flicker fix
+            //if (!Core.BoxesOnly)
+            //{
+            //    MyDraw.MyPieces.Center.v3.Pos.Y -= 20f;
+            //    MyDraw.MyPieces.Center.v2.Pos.Y -= 20f;
+            //    var clr = ColorHelper.Gray(.7f);
+            //    clr.W = .7f;
+            //    MyDraw.SetTint(clr);
+            //}
         }
 
         public override void PhsxStep()
