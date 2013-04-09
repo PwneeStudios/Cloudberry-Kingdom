@@ -261,9 +261,31 @@ namespace CloudberryKingdom
 
             foreach (var gamer in gamers)
             {
-                Tools.Write("... this gamer is : signed in? " + (gamer.IsSignedInToLive ? "yes" : "no") + 
+                Tools.Write("... this gamer is : signed in? " + (gamer.IsSignedInToLive ? "yes" : "no") +
                             "... this gamer index is " + gamer.PlayerIndex);
                 if (gamer.IsSignedInToLive && gamer.PlayerIndex == index) return gamer;
+
+                /* Hack that doesn't work
+                if (gamer.PlayerIndex != index)
+                {
+                    continue;
+                }
+
+                //Tools.Warning();
+                //return gamer; // Just assume they have LIVE!
+
+                //bool HasLIVE = true;
+                //try
+                //{
+                //    gamer.GetFriends();
+                //}
+                //catch
+                //{
+                //    HasLIVE = false;
+                //}
+
+                //if (HasLIVE) return gamer;
+                 */
             }
 
             return null;
@@ -1383,6 +1405,35 @@ namespace CloudberryKingdom
 
                 if (ShortReset && Tools.CurLevel.ResetEnabled())
                     DoQuickSpawn();
+                else
+                {
+                    // Otherwise do individual quickspawns
+                    if (Tools.CurLevel != null)
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
+						if (Tools.GamepadState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.GamepadState[i].Buttons.RightShoulder == ButtonState.Pressed &&
+							(Tools.PrevGamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed
+								|| Tools.PrevGamepadState[i].Buttons.RightShoulder != ButtonState.Pressed))
+                        {
+							foreach (Bob bob in Tools.CurLevel.Bobs)
+							{
+								if (bob.MyPlayerIndex == PlayerManager.Get(i).MyPlayerIndex && bob.ImmortalCountDown <= 0)
+								{
+									ParticleEffects.PopOut(Tools.CurLevel, bob.Pos);
+
+									//bob.Die(Bob.BobDeathType.Other);
+									bob.Die(Bob.BobDeathType.Other, null, false, false);
+#if XBOX
+									Tools.SetVibration(PlayerManager.Get(i).MyPlayerIndex, 0, 0, 0);
+#endif
+
+									break;
+								}
+							}
+                        }
+                    }
+                }
             }
         }
 

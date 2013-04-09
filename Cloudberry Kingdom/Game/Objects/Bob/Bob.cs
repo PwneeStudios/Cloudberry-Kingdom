@@ -850,7 +850,14 @@ namespace CloudberryKingdom.Bobs
             this.KillingObject = KillingObject;
 
 #if XBOX
-            Tools.SetVibration(MyPlayerIndex, .5f, .5f, 45);
+            if (!ForceDeath && !DoAnim)
+            {
+                // No vibration
+            }
+            else
+            {
+                Tools.SetVibration(MyPlayerIndex, .5f, .5f, 45);
+            }
 #endif
 
             // Update stats

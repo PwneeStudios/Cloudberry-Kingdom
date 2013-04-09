@@ -67,7 +67,7 @@ namespace CloudberryKingdom
                 }
 
 #if PC_VERSION
-			PlayerManager.Player.Save(PlayerIndex.One);
+    			PlayerManager.Player.Save(PlayerIndex.One);
 #else
 
                 // Save each player's info

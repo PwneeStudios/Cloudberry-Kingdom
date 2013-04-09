@@ -482,25 +482,45 @@ namespace CloudberryKingdom
         {
             if (level.NoParticles) return;
 
-            //// Pop in
-            //for (int j = 0; j < 10; j++)
-            //{
-            //    var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DieTemplate);
-
-            //    p.Data.Position = pos;
-            //    p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Sparkle");
-            //    p.Data.Velocity = Tools.GlobalRnd.RndDir() * (Tools.GlobalRnd.RndFloat(7, 9));
-            //    p.Size *= 3f;
-            //    p.AngleSpeed = .05f;
-            //    p.SizeSpeed = new Vector2(-1.5f);
-            //    p.Life = (int)(p.Life * 1.25f);
-            //    p.ColorVel.W /= 1.25f;
-            //}
-
             var p = level.MainEmitter.GetNewParticle(PopTemplate);
             p.Data.Position = pos;
             p.SetSize(size);
             p.MyQuad.MyTexture = tex;
+        }
+
+        public static void PopOut(Level level, Vector2 pos)
+        {
+            if (level.NoParticles) return;
+
+            // Pop in
+            for (int j = 0; j < 10; j++)
+            {
+                var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DieTemplate);
+
+                p.Data.Position = pos;
+                p.MyQuad.MyTexture = Tools.TextureWad.FindByName("Sparkle");
+                p.Data.Velocity = Tools.GlobalRnd.RndDir() * (Tools.GlobalRnd.RndFloat(7, 9));
+                p.Size *= 3f;
+                p.AngleSpeed = .05f;
+                p.SizeSpeed = new Vector2(-1.5f);
+                p.Life = (int)(p.Life * 1.25f);
+                p.ColorVel.W /= 1.25f;
+            }
+
+			//for (int i = 0; i < 10; i++)
+			//{
+			//    var p = level.ParticleEmitters[5].GetNewParticle(ParticleEffects.DustCloudTemplate);
+
+			//    p.Data.Velocity = Tools.GlobalRnd.RndDir() * (Tools.GlobalRnd.RndFloat(3, 5)) + new Vector2(0, 7);
+			//    p.Data.Position = pos + p.Data.Velocity * Tools.GlobalRnd.RndFloat(7, 10);
+				
+			//    p.Size *= .5f;
+			//    p.AngleSpeed = .02f;
+			//    p.SizeSpeed = new Vector2(1.5f);
+			//    p.Life = (int)(p.Life * 1.25f);
+			//    p.ColorVel.W /= 1.25f;
+			//    p.MyColor.W = .5f;
+			//}
         }
 
         static void Init_Pop()
