@@ -111,6 +111,8 @@ namespace CloudberryKingdom
 
         public static void ShowSaving()
         {
+			if (Localization.CurrentLanguage == null) return;
+
             //if (PlayerManager.GetNumPlayers() > 2)
             {
                 if (ShowSavingDuration > 0)
@@ -1794,11 +1796,12 @@ namespace CloudberryKingdom
             // Main Video
             if (MainVideo.Draw())
             {
+#if XBOX
                 if (PlayerManager.Players != null)
                 { 
                     CheckForSignInState();
                 }
-                
+#endif        
                 DrawWatermark();
                 return;
             }

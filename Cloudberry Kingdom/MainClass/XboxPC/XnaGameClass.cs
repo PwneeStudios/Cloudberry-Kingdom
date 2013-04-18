@@ -67,7 +67,6 @@ namespace CloudberryKingdom
 
             MyGame.InitialResolution();
             Tools.Write("InitialResolutions created.");
-
         }
 
         protected override void Initialize()
