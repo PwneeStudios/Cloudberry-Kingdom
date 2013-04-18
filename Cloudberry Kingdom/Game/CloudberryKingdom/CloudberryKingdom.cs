@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool DigitalDayBuild = false;
+        public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
 
         /// <summary>
