@@ -211,7 +211,9 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(ControllerButtons.B, control).Pressed) { Cancel(); return; }
             BackspacePressed = false;
 
-            bool PlayerKeyboardUsed = false;
+#if XBOX
+			bool PlayerKeyboardUsed = false;
+
             if (Control >= 0 && Tools.PlayerKeyboard[Control] != null)
             {
                 ProcessKeyboard(Tools.PlayerKeyboard[Control], Tools.PrevPlayerKeyboard[Control]);
@@ -222,6 +224,9 @@ namespace CloudberryKingdom
 			{
 				ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
 			}
+#else
+			ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
+#endif
 
             var dir = ButtonCheck.GetDir(control);
 

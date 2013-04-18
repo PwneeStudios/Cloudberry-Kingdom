@@ -752,25 +752,33 @@ namespace CloudberryKingdom
 
             rez = PlayerManager.LoadRezAndKeys();
 
-            PlayerManager.RezData rez = new PlayerManager.RezData();
-            rez.Custom = true;
+			if (!rez.Custom)
+			{
+				rez.Width = 1280;
+				rez.Height = 720;
+				rez.Fullscreen = true;
+
+	#if DEBUG || INCLUDE_EDITOR
+				rez.Fullscreen = false;
+	#else
+		        rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+	#endif
+			}
+
 	#if DEBUG || INCLUDE_EDITOR
             rez.Fullscreen = false;
-	#else
-            rez.Fullscreen = true;
-
-			// For recording
-            if (ForFrapsRecording)
-            {
-                MyGraphicsDeviceManager.PreferredBackBufferWidth = 1920;
-                MyGraphicsDeviceManager.PreferredBackBufferHeight = 1080;
-                MyGraphicsDeviceManager.IsFullScreen = true;
-            }
-
-            rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-
 	#endif
+
+			Resolution = new ResolutionGroup();
+			Resolution.Backbuffer = new IntVector2(rez.Width, rez.Height);
+			Resolution.Bob = new IntVector2(135, 0);
+			Resolution.TextOrigin = Vector2.Zero;
+			Resolution.LineHeightMod = 1f;
+
+			MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
+			MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
+			MyGraphicsDeviceManager.IsFullScreen = rez.Fullscreen;
 
 #elif XBOX
 			// Some possible resolutions.
@@ -1273,6 +1281,11 @@ namespace CloudberryKingdom
                     bob.Immortal = !bob.Immortal;
                 }
             }
+
+			if (Tools.Keyboard.IsKeyDownCustom(Keys.T) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.T))
+			{
+				Tools.HidGui = !Tools.HidGui;
+			}
 
             // Go to last door
 #if PC
@@ -1796,12 +1809,16 @@ namespace CloudberryKingdom
             // Fps
             UpdateFps(gameTime);
 
+#if XBOX
             CheckForSignInState();
+#endif
 
-            // If the full game was just unlocked, return to the title screen
+			// If the full game was just unlocked, return to the title screen
             if (DoTrialUnlockEvent)
             {
+#if XBOX
                 ResetToTitleScreen();
+#endif
                 DoTrialUnlockEvent = false;
             }
 
