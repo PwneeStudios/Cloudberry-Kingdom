@@ -55,7 +55,7 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = false;
 
-        public const bool DigitalDayBuild = true;
+        public const bool DigitalDayBuild = false;
         public const bool PropTest = false;
 
         /// <summary>
@@ -1783,7 +1783,6 @@ namespace CloudberryKingdom
         static bool LastGuideIsUp = false;
         static int GuidSave_SeedMark = 0;
 
-		bool created = false;
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
