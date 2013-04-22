@@ -169,6 +169,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x86\SlimDX.dll</HintPath>
     </Reference>
+    <Reference Include="SteamWrapper">
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2010\Projects\SteamWrapper\Release\SteamWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -188,6 +191,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Input\SlimInput_Wrapper.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Tools\Set.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />

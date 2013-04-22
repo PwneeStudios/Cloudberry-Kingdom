@@ -171,34 +171,64 @@ namespace CloudberryKingdom
 
         public static Language IsoCodeToLanguage(string code)
         {
-            switch (code)
+            if (CloudberryKingdomGame.AllowAsianLanguages)
             {
-                case "en": return Language.English;
-                case "fr": return Language.French;
-                case "it": return Language.Italian;
-                case "de": return Language.German;
-                case "es": return Language.Spanish;
-                case "pt": return Language.Portuguese;
-                case "ko": return Language.Korean;
-                case "zh": return Language.Chinese;
-                case "ja": return Language.Japanese;
-                case "ru": return Language.Russian;
-                default: return Language.English;
+                switch (code)
+                {
+                    case "en": return Language.English;
+                    case "fr": return Language.French;
+                    case "it": return Language.Italian;
+                    case "de": return Language.German;
+                    case "es": return Language.Spanish;
+                    case "pt": return Language.Portuguese;
+                    case "ko": return Language.Korean;
+                    case "zh": return Language.Chinese;
+                    case "ja": return Language.Japanese;
+                    case "ru": return Language.Russian;
+                    default: return Language.English;
+                }
+            }
+            else
+            {
+                switch (code)
+                {
+                    case "en": return Language.English;
+                    case "fr": return Language.French;
+                    case "it": return Language.Italian;
+                    case "de": return Language.German;
+                    case "es": return Language.Spanish;
+                    case "pt": return Language.Portuguese;
+                    case "ru": return Language.Russian;
+                    default: return Language.English;
+                }
             }
         }
 
         private static void Initialize()
         {
-            Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
-            Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
-            Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
-            Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
-            Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
-            Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese", "Japanese"));
-            Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean", "Korean"));
-            Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
-            Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
-            Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
+            if (CloudberryKingdomGame.AllowAsianLanguages)
+            {
+                Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
+                Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
+                Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
+                Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
+                Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
+                Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese", "Japanese"));
+                Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean", "Korean"));
+                Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
+                Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
+                Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
+            }
+            else
+            {
+                Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
+                Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
+                Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
+                Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
+                Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
+                Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
+                Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
+            }
 
             string path = Path.Combine(Content.RootDirectory, Path.Combine("Localization", "Localization.tsv"));
             ReadTranslationGrid(path);

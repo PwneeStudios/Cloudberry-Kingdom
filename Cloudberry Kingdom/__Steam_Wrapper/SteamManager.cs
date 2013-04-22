@@ -13,6 +13,13 @@ using System.Runtime.InteropServices;
 
 public static class SteamManager
 {
+	[DllImport("steam_api.dll")]
+	public static extern void SteamAPI_Init();
+	
+
+
+
+
     public static bool isInitialized = false;
     public static bool overlayIsUp = false;
     public static bool statsInit = false;

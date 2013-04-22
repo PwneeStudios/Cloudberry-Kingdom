@@ -30,17 +30,30 @@ using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
 
+#if PC_VERSION
+using Joystick;
+using SteamWrapper;
+#endif
+
 namespace CloudberryKingdom
 {
 	public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };
 
     public partial class CloudberryKingdomGame
     {
+#if PC_VERSION
+		// Steam Integration
+		// Set this to true to turn on Steam Integrtaion code
+		public const bool UsingSteam = true;
+#endif
+
 #if DEBUG
         public const bool FinalRelease = false;
 #else
 		public const bool FinalRelease = true;
 #endif
+
+        public const bool AllowAsianLanguages = false;
 
         public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
@@ -703,6 +716,17 @@ namespace CloudberryKingdom
 
         public void Initialize()
         {
+#if PC_VERSION
+			if (CloudberryKingdomGame.UsingSteam)
+			{
+				SteamClass.Initialize();
+				//SteamClass.FindLeaderboard("Leaderboard_Test");
+
+				SteamClass.set_cb(n => Tools.Write("The number is {0}!", n));
+				SteamClass.call_cb(23);
+			}
+#endif
+
 #if WINDOWS
             KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
@@ -1759,6 +1783,7 @@ namespace CloudberryKingdom
         static bool LastGuideIsUp = false;
         static int GuidSave_SeedMark = 0;
 
+		bool created = false;
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -1767,6 +1792,40 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
+#if PC_VERSION
+			if (CloudberryKingdomGame.UsingSteam)
+			{
+				SteamClass.Update();
+			}
+
+			if (!created)
+			{
+				Joystick.Joystick.CreateDevice(Tools.GameClass.Window.Handle);
+				created = true;
+			}
+
+			var j = Joystick.Joystick.GetSticks();
+
+			Joystick.Joystick.ReadImmediateData(j[0]);
+
+			//Tools.Write(j.Length);
+			var d = j[0].GetCurrentState();
+			int x = d.X;
+			Tools.Num_0_to_2 = x;
+			Tools.Write(j[0].GetCurrentState());
+			//var b = d.GetButtons();
+			//foreach (bool _b in b)
+			//{
+			//    if (_b)
+			//    {
+			//        Tools.Write(true);
+			//    }
+			//}
+#endif
+
+
+
+
 			//Tools.Warning();
 			//PlayerManager.Players[0].Exists = true;
 			//PlayerManager.Players[1].Exists = true;

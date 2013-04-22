@@ -252,11 +252,12 @@ namespace CloudberryKingdom
         /// </summary>
         void DrawDebugInfo()
         {
-            if (Tools.ShowNums)
+			//if (Tools.ShowNums)
             {
                 string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
 
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, nums, new Vector2(0, 100), Color.Orange.ToVector4(), new Vector2(.4f));
+				Tools.QDrawer.Flush();
                 return;
             }
 
