@@ -130,6 +130,9 @@ namespace CloudberryKingdom
         public static Texture2D FontTexture;
         public static void SetLanguage(Language SelectedLanguage)
         {
+            bool Reload = true;
+            if (!CloudberryKingdomGame.AllowAsianLanguages) Reload = false;
+
 			var HoldContent = Content;
 
             if (Content == null)
@@ -139,8 +142,10 @@ namespace CloudberryKingdom
             }
             else
             {
-				Content = new ContentManager(Tools.GameClass.Services, "Content");
-				//Content.Unload();
+                if (Reload)
+                {
+                    Content = new ContentManager(Tools.GameClass.Services, "Content");
+                }
             }
 
             CurrentLanguage = Languages[SelectedLanguage];
@@ -156,13 +161,16 @@ namespace CloudberryKingdom
             }
             else
             {
-                lock (Resources.hf)
+                if (Reload)
                 {
-					//LoadFont();
+                    lock (Resources.hf)
+                    {
+                        //LoadFont();
 
-					LoadFont();
-					HoldContent.Unload();
-					HoldContent = null;
+                        LoadFont();
+                        HoldContent.Unload();
+                        HoldContent = null;
+                    }
                 }
             }
 
@@ -206,8 +214,8 @@ namespace CloudberryKingdom
 
         private static void Initialize()
         {
-            if (CloudberryKingdomGame.AllowAsianLanguages)
-            {
+            //if (CloudberryKingdomGame.AllowAsianLanguages)
+            //{
                 Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
                 Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
                 Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
@@ -218,17 +226,17 @@ namespace CloudberryKingdom
                 Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
                 Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
                 Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
-            }
-            else
-            {
-                Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
-                Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
-                Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
-                Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
-                Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
-                Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
-                Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
-            }
+            //}
+            //else
+            //{
+            //    Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
+            //    Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
+            //    Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
+            //    Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
+            //    Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
+            //    Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
+            //    Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
+            //}
 
             string path = Path.Combine(Content.RootDirectory, Path.Combine("Localization", "Localization.tsv"));
             ReadTranslationGrid(path);
