@@ -169,7 +169,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x86\SlimDX.dll</HintPath>
     </Reference>
-    <Reference Include="SteamWrapper">
+    <Reference Include="SteamWrapper, Version=1.0.4859.34249, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2010\Projects\SteamWrapper\Release\SteamWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System">

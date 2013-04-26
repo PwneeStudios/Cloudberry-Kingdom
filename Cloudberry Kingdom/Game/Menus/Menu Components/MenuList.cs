@@ -10,7 +10,7 @@ namespace CloudberryKingdom
     {
         public override string[] GetViewables()
         {
-            return new string[] { "RightArrowOffset", "LeftArrowOffset", "Pos", "SelectedPos", "!MyMenu" };
+            return new string[] { "RightArrowOffset", "LeftArrowOffset", "Pos", "SelectedPos", "!MyMenu", "MyExpandPos" };
         }
 
         public bool ExpandOnGo
@@ -61,9 +61,9 @@ namespace CloudberryKingdom
 
 			AdditionalExpandProcessing = null;
 
-			RightArrow = null; LeftArrow = null;;
-			RightArrow_Selected = null; LeftArrow_Selected = null;;
-			OnIndexSelect = null; OnConfirmedIndexSelect = null;;
+			RightArrow = null; LeftArrow = null;
+			RightArrow_Selected = null; LeftArrow_Selected = null;
+			OnIndexSelect = null; OnConfirmedIndexSelect = null;
 			ObjDict = null;
 			CurMenuItem = null;
         }

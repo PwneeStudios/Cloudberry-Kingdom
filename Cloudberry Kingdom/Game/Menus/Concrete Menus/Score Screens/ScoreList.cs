@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using CoreEngine;
 
+#if XBOX
 using Microsoft.Xna.Framework.Net;
+#endif
 
 namespace CloudberryKingdom
 {

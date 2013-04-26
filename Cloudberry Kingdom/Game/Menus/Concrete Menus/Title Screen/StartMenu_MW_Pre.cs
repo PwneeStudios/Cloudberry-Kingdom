@@ -180,7 +180,7 @@ namespace CloudberryKingdom
                     Call(new LeaderboardGUI(Title, gamer, MenuItem.ActivatingPlayer), 0);
                 }
 #else
-				Call(new LeaderboardGUI(Title, null, MenuItem.ActivatingPlayer), 0);
+				Call(new LeaderboardGUI(Title, MenuItem.ActivatingPlayer), 0);
 #endif
             }
             else

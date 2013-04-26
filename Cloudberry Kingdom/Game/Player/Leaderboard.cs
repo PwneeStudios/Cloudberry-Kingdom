@@ -2,8 +2,10 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+#if XBOX
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 
 using CloudberryKingdom.Bobs;
 
@@ -11,13 +13,14 @@ namespace CloudberryKingdom
 {
     public class Leaderboard
     {
+#if XBOX
         public static SignedInGamer LeaderboardGamer;
         public static List<Gamer> LeaderboardFriends;
+		static NetworkSession WritingNetworkSession;
+#endif
 
-        public const int EntriesPerPage = 20;
-        //public const int EntriesPerPage = 4;
+		public const int EntriesPerPage = 20; // 4
 
-        static NetworkSession WritingNetworkSession;
         static ScoreEntry ScoreToWrite;
         static ScoreEntry[] ScoreToWrite_Separate;
         public static void WriteToLeaderboard(ScoreEntry[] scores)
@@ -35,10 +38,10 @@ namespace CloudberryKingdom
         {
             if (!CloudberryKingdomGame.OnlineFunctionalityAvailable()) return;
 
+#if XDK
             if (WritingNetworkSession != null) return;
             if (WritingInProgress) return;
 
-#if XDK
             if (Gamer.SignedInGamers.Count == 0) return;
 
             ScoreToWrite = score;
@@ -48,10 +51,11 @@ namespace CloudberryKingdom
             WritingInProgress = true;
             NetworkSession.BeginCreate(NetworkSessionType.LocalWithLeaderboards, 4, 4, OnSessionCreate, null);
 #endif
-        }
+		}
 
         static bool WritingInProgress = false;
-        static void OnSessionCreate(IAsyncResult ar)
+#if XDK
+		static void OnSessionCreate(IAsyncResult ar)
         {
             try
             {
@@ -101,7 +105,7 @@ namespace CloudberryKingdom
             WritingNetworkSession = null;
             WritingInProgress = false;
         }
-        
+#endif        
 
         public static int GetLeaderboardId(int game_id)
         {
@@ -184,11 +188,13 @@ namespace CloudberryKingdom
             this.MoreRequested = true;
             this.RequestPage = RequestPage;
 
-            LeaderboardIdentity Identity = GetIdentity(MyId);
-#if XDK
+#if PC_VERSION
+
+#else
+			LeaderboardIdentity Identity = GetIdentity(MyId);
 			result = LeaderboardReader.BeginRead(Identity, RequestPage, EntriesPerPage, OnInfo_TopScores, null);
 #endif
-        }
+		}
 
         public bool Updated = false;
         public int StartIndex = -1;
@@ -266,6 +272,45 @@ namespace CloudberryKingdom
         public Dictionary<int, LeaderboardItem> Items;
         public List<LeaderboardItem> FriendItems;
 
+#if PC_VERSION
+		static string GetIdentity(int id)
+		{
+			switch (id)
+			{
+				case 7777: return "Story Mode";
+				case 9999: return "Player Level";
+				case 10000: return "Escalation, Classic";
+				case 10100: return "Escalation, Fat Bob";
+				case 11500: return "Escalation, Rocketbox";
+				case 10200: return "Escalation, Gravity Bob";
+				case 10400: return "Escalation, Jetman";
+				case 10500: return "Escalation, Bouncy";
+				case 11000: return "Escalation, Spaceship";
+				case 10300: return "Escalation, Double Jump";
+				case 11100: return "Escalation, Wheelie";
+				case 10900: return "Escalation, Tiny Bob";
+				case 11200: return "Escalation, Jetpack Wheelie";
+				case 11300: return "Escalation, Hero";
+				case 11400: return "Escalation, The Masochist";
+				case 10001: return "TimeCrisis, Classic";
+				case 10101: return "TimeCrisis, Fat Bob";
+				case 11501: return "TimeCrisis, Rocketbox";
+				case 10201: return "TimeCrisis, Gravity Bob";
+				case 10401: return "TimeCrisis, Jetman";
+				case 10501: return "TimeCrisis, Bouncy";
+				case 11001: return "TimeCrisis, Spaceship";
+				case 10301: return "TimeCrisis, Double Jump";
+				case 11101: return "TimeCrisis, Wheelie";
+				case 10901: return "TimeCrisis, Tiny Bob";
+				case 11201: return "TimeCrisis, Jetpack Wheelie";
+				case 11301: return "TimeCrisis, Hero";
+				case 11401: return "TimeCrisis, The Masochist";
+				case 10002: return "Hero Rush";
+				case 10003: return "Hybrid Rush";
+				default: return "Player Level";
+			}
+		}
+#elif XDK
         static LeaderboardIdentity GetIdentity(int id)
         {
             string key;
@@ -308,5 +353,6 @@ namespace CloudberryKingdom
 
             return LID;
         }
+#endif
     }
 }

@@ -1,5 +1,7 @@
+#if XBOX
 using System;
 using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 
@@ -34,15 +36,6 @@ namespace EasyStorage
 		/// <param name="callback">The callback to pass to Guide.BeginShowStorageDeviceSelector.</param>
 		protected override void GetStorageDevice(AsyncCallback callback)
 		{
-#if PC_VERSION
-			IAsyncResult result = StorageDevice.BeginShowSelector(null, null);
-			result.AsyncWaitHandle.WaitOne();
-
-			storageDevice = StorageDevice.EndShowSelector(result);
-
-			result.AsyncWaitHandle.Close();
-#else
-	#if XBOX
 			// gamers are required to be signed in to open a container and 
 			// save files. an exception is raised by OpenContainer if a user 
 			// is not signed in, but we want to be more proactive about this 
@@ -54,10 +47,8 @@ namespace EasyStorage
 
 			if (SignedInGamer.SignedInGamers[Player] == null)
 				throw new InvalidOperationException(string.Format(playerException, Player));
-	#endif
 
 			StorageDevice.BeginShowSelector(Player, callback, null);
-#endif
 		}
 
 		/// <summary>
@@ -78,3 +69,4 @@ namespace EasyStorage
 		}
 	}
 }
+#endif

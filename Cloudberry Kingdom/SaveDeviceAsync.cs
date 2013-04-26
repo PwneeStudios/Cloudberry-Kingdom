@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if XBOX
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -498,3 +499,4 @@ namespace EasyStorage
 		}
 	}
 }
+#endif

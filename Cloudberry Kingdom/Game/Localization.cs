@@ -12,7 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 using CoreEngine;
 
+#if XBOX
 using EasyStorage;
+#endif
 
 namespace CloudberryKingdom
 {
@@ -174,7 +176,9 @@ namespace CloudberryKingdom
                 }
             }
 
+#if XBOX
             EasyStorageSettings.ResetSaveDeviceStrings();
+#endif
         }
 
         public static Language IsoCodeToLanguage(string code)

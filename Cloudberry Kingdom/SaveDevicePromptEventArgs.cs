@@ -1,3 +1,4 @@
+#if XBOX
 using System;
 
 namespace EasyStorage
@@ -15,3 +16,4 @@ namespace EasyStorage
 		public bool ShowDeviceSelector { get; internal set; }
 	}
 }
+#endif

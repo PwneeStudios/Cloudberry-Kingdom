@@ -358,11 +358,17 @@ namespace CloudberryKingdom
 				GUI_Panel panel = obj as GUI_Panel;
 				if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
 				{
+#if PC_VERSION
+					if (panel is StartMenu_MW_Simple)
+						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+					else
+						panel.SlideOut(PresetPos.Left, 0);
+#else
 					panel.SlideOut(PresetPos.Left, 0);
 
-					// FIXME on PC the menu is not a StartMenu_MW_Pre
 					if (panel is StartMenu_MW_Pre)
 						((StartMenu_MW_Pre)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+#endif
 				}
 			}
 

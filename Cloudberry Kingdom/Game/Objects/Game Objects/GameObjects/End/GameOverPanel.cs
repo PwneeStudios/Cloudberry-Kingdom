@@ -356,7 +356,7 @@ namespace CloudberryKingdom
                     }
 #else
 					Hide(PresetPos.Bottom);
-					Call(new LeaderboardGUI(null, null, MenuItem.ActivatingPlayer), 0);
+					Call(new LeaderboardGUI(null, MenuItem.ActivatingPlayer), 0);
 					Hide();
 #endif
 				}

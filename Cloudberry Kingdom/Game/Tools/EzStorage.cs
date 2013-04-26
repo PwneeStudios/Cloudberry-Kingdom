@@ -10,9 +10,8 @@ using Microsoft.Xna.Framework.Storage;
 #if PC_VERSION
 #elif XDKX || XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
-#endif
-
 using EasyStorage;
+#endif
 
 namespace CloudberryKingdom
 {
@@ -279,17 +278,14 @@ namespace CloudberryKingdom
     
     public static class EzStorage
     {
+#if XBOX
         static WrappedBool AsyncUpdateLock = new WrappedBool(false);
         public static void AsyncUpdate()
         {
             while (true)
             {
-#if XBOX
-#if WINDOWS
-#else
                 if (Guide.IsVisible) { Thread.Sleep(50); continue; }
-#endif
-#endif
+
                 for (int i = 0; i < 4; i++)
                 {
                     lock (AsyncUpdateLock)
@@ -320,9 +316,11 @@ namespace CloudberryKingdom
         }
 
         public static PlayerSaveDevice[] Device = new PlayerSaveDevice[4];
+#endif
 
 		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
+#if XBOX
             lock (AsyncUpdateLock)
             {
                 if (!Device[(int)index].IsReady) return;
@@ -340,14 +338,40 @@ namespace CloudberryKingdom
                     }
                     catch
                     {
-                        Fail();
+						if (Fail != null)
+						{
+							Fail();
+						}
                     }
                 });
             }
-        }
+#else
+			CloudberryKingdomGame.ShowSaving();
+
+			try
+			{
+				Directory.CreateDirectory("SaveData");
+				using (var stream = File.Create(Path.Combine("SaveData", FileName)))
+				{
+					using (BinaryWriter w = new BinaryWriter(stream))
+					{
+						SaveLogic(w);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				if (Fail != null)
+				{
+					Fail();
+				}
+			}
+#endif
+		}
 
         public static void Load(PlayerIndex index, string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
         {
+#if XBOX
             lock (AsyncUpdateLock)
             {
                 Device[(int)index].Load(ContainerName, FileName, stream =>
@@ -395,11 +419,66 @@ namespace CloudberryKingdom
 
                     if (Failed)
                     {
-                        Fail();
+						if (Fail != null)
+						{
+							Fail();
+						}
+
                         CloudberryKingdomGame.ShowError_LoadError();
                     }
                 });
             }
-        }
+#else
+			bool Failed = false;
+
+			try
+			{
+				// Get all the bytes
+				byte[] RawData = File.ReadAllBytes(Path.Combine("SaveData", FileName));
+
+				if (RawData.Length <= 8)
+				{
+					Failed = true;
+				}
+				else
+				{
+					byte[] Data = RawData.Range(8, RawData.Length);
+
+					// Get the length and checksum (first and second integers encoded in byte stream)
+					int length = BitConverter.ToInt32(RawData, 0);
+					int checksum = BitConverter.ToInt32(RawData, 4);
+
+					int actual_checksum = SaveLoad.Checksum(Data, Data.Length);
+
+					// Check for errors
+					if (length != Data.Length || checksum != actual_checksum)
+					{
+						Failed = true;
+					}
+					else
+					{
+						LoadLogic(Data);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+#if DEBUG
+				Tools.Write(e.Message);
+#endif
+				Failed = true;
+			}
+
+			if (Failed)
+			{
+				if (Failed != null)
+				{
+					Fail();
+				}
+
+				CloudberryKingdomGame.ShowError_LoadError();
+			}
+#endif
+		}
     }
 }

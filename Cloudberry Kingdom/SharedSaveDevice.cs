@@ -1,4 +1,6 @@
+#if XBOX
 using System;
+
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 
@@ -20,3 +22,4 @@ namespace EasyStorage
 		}
 	}
 }
+#endif

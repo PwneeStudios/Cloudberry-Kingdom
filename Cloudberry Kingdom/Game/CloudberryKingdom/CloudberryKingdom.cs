@@ -32,7 +32,7 @@ using Forms = System.Windows.Forms;
 
 #if PC_VERSION
 using Joystick;
-using SteamWrapper;
+using SteamManager;
 #endif
 
 namespace CloudberryKingdom
@@ -53,9 +53,9 @@ namespace CloudberryKingdom
 		public const bool FinalRelease = true;
 #endif
 
-        public const bool AllowAsianLanguages = false;
+        public const bool AllowAsianLanguages = true;
 
-        public const bool DigitalDayBuild = false;
+        public const bool DigitalDayBuild = true;
         public const bool PropTest = false;
 
         /// <summary>
@@ -202,13 +202,12 @@ namespace CloudberryKingdom
 		{
 			if (!CanSave()) return false;
 
-#if WINDOWS
+#if XBOX
+			if (EzStorage.Device[(int)index] == null) return false;
+			if (EzStorage.Device[(int)index].IsReady) return true;
+#else
 			return true;
 #endif
-
-			if (EzStorage.Device[(int)index] == null) return false;
-
-			if (EzStorage.Device[(int)index].IsReady) return true;
 
 			return false;
 		}
@@ -630,6 +629,8 @@ namespace CloudberryKingdom
 
         public void Exit()
         {
+			SteamCore.Shutdown();
+
             Tools.GameClass.Exit();
         }
 
@@ -713,17 +714,35 @@ namespace CloudberryKingdom
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
+#if PC_VERSION
+		void OnDownload(bool failed)
+		{
+			if (!failed)
+			{
+				int score = SteamStats.Results_GetScore(0);
+				Tools.Write(score);
+			}
+		}
+
+		void OnFindLeaderboard(LeaderboardHandle Handle, bool failed)
+		{
+			Tools.Write(failed);
+
+			if (!failed)
+			{
+				SteamStats.UploadScores(Handle, 3125);
+				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 0, 10, OnDownload);
+			}
+		}
+#endif
 
         public void Initialize()
         {
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
-				SteamClass.Initialize();
-				//SteamClass.FindLeaderboard("Leaderboard_Test");
-
-				SteamClass.set_cb(n => Tools.Write("The number is {0}!", n));
-				SteamClass.call_cb(23);
+				bool result = SteamCore.Initialize();
+				SteamStats.FindLeaderboard("TestLeaderboard", OnFindLeaderboard);
 			}
 #endif
 
@@ -750,20 +769,6 @@ namespace CloudberryKingdom
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
             PlayerManager.RezData rez;
-
-            //PlayerManager.SavePlayerData = new _SavePlayerData();
-            //PlayerManager.SavePlayerData.ContainerName = "PlayerData";
-            //PlayerManager.SavePlayerData.FileName = "PlayerData.hsc";
-            //PlayerManager.SaveRezAndKeys();
-            //rez = PlayerManager.LoadRezAndKeys();
-            //Tools.Warning();
-
-			EzStorage.Device[0] = new EasyStorage.PlayerSaveDevice(PlayerIndex.One);
-
-			var d = EzStorage.Device[0];
-			Tools.GameClass.Components.Add(d);
-
-			d.PromptForDevice();
 
 			PlayerManager.Players = new PlayerData[4];
 			PlayerManager.Players[0] = new PlayerData();
@@ -1094,7 +1099,8 @@ namespace CloudberryKingdom
 			PlayerManager.Init();
 
             // Localization
-            Tools.Write("Language ISO code : " + System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Tools.Write("Language ISO code    : " + System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+			Tools.Write("Language ISO code(3) : " + System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName);
             Localization.Language default_language = Localization.IsoCodeToLanguage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Tools.Write("Default language is " + default_language);
             Localization.SetLanguage(default_language);
@@ -1783,6 +1789,10 @@ namespace CloudberryKingdom
         static bool LastGuideIsUp = false;
         static int GuidSave_SeedMark = 0;
 
+#if PC_VERSION
+		bool created = false;
+#endif
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -1794,9 +1804,11 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
-				SteamClass.Update();
+				SteamWrapper.SteamCore.Update();
 			}
 
+			// New joysticks
+			/*
 			if (!created)
 			{
 				Joystick.Joystick.CreateDevice(Tools.GameClass.Window.Handle);
@@ -1804,22 +1816,13 @@ namespace CloudberryKingdom
 			}
 
 			var j = Joystick.Joystick.GetSticks();
-
 			Joystick.Joystick.ReadImmediateData(j[0]);
 
-			//Tools.Write(j.Length);
 			var d = j[0].GetCurrentState();
 			int x = d.X;
 			Tools.Num_0_to_2 = x;
 			Tools.Write(j[0].GetCurrentState());
-			//var b = d.GetButtons();
-			//foreach (bool _b in b)
-			//{
-			//    if (_b)
-			//    {
-			//        Tools.Write(true);
-			//    }
-			//}
+			 * */
 #endif
 
 

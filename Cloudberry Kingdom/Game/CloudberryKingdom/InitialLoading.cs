@@ -61,7 +61,10 @@ namespace CloudberryKingdom
                         return;
                     }
 
+#if XBOX
                     EzStorage.StartAsyncUpdate();
+#endif
+
 #if DEBUG
                     // Start at Title Screen
                     // WARNING

@@ -35,6 +35,8 @@ namespace CloudberryKingdom
 
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
 
+			StartMenu.SetItemProperties_Red(item);
+
             item.Go = null;
             
 #if PC_VERSION
