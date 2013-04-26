@@ -1,3 +1,4 @@
+#if XBOX
 using System;
 
 namespace EasyStorage
@@ -270,3 +271,4 @@ namespace EasyStorage
 	/// <param name="args">The results of the operation.</param>
 	public delegate void GetFilesCompletedEventHandler(object sender, GetFilesCompletedEventArgs args);
 }
+#endif

@@ -1,3 +1,4 @@
+#if XBOX
 using System;
 using Microsoft.Xna.Framework;
 
@@ -22,3 +23,4 @@ namespace EasyStorage
 		public PlayerIndex? PlayerToPrompt { get; set; }
 	}
 }
+#endif

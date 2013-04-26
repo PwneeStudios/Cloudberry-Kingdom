@@ -1,3 +1,4 @@
+#if XBOX
 namespace EasyStorage
 {
 	/// <summary>
@@ -40,3 +41,4 @@ namespace EasyStorage
 		ForceDisconnectedReselection
 	}
 }
+#endif

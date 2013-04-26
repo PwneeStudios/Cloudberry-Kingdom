@@ -1,3 +1,4 @@
+#if XBOX
 namespace EasyStorage
 {
 	/// <summary>
@@ -24,3 +25,4 @@ namespace EasyStorage
 		Force,
 	}
 }
+#endif

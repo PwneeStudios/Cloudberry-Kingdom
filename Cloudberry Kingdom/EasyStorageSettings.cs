@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if XBOX
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,6 @@ using CloudberryKingdom;
 
 namespace EasyStorage
 {
-	/*
-	 * This whole file is basically a big no-op on Windows Phone because none of the strings are used
-	 * on that platform. However it is included so that games can have a cross-platform game using
-	 * these APIs without having to use an #if !WINDOWS_PHONE around it.
-	 */
-
 	/// <summary>
 	/// The languages supported by EasyStorage.
 	/// </summary>
@@ -53,6 +48,4 @@ namespace EasyStorage
 		}
 	}
 }
-
-
-
+#endif

@@ -91,7 +91,7 @@ namespace CloudberryKingdom
                         HeroSelect.MyHeroDoll.Hide();
                     }
 #else
-                    HeroSelect.Call(new LeaderboardGUI(null, null, (int)ActivatingPlayer), 0);
+                    HeroSelect.Call(new LeaderboardGUI(null, (int)ActivatingPlayer), 0);
                     HeroSelect.Hide();
                     HeroSelect.MyHeroDoll.Hide();
 #endif

@@ -76,21 +76,43 @@ namespace CloudberryKingdom
                 LanguageList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
 
                 // Add languages to the language list
+                int StartIndex = 0;
+                int index = 0;
                 for (int j = 0; j < Localization.NumLanguages; j++)
                 {
                     Localization.Language l = (Localization.Language)j;
+
+                    if (l == Localization.CurrentLanguage.MyLanguage)
+                    {
+                        StartIndex = index;
+                    }
+
+                    if (!CloudberryKingdomGame.AllowAsianLanguages &&
+                        (l == Localization.Language.Chinese ||
+                         l == Localization.Language.Japanese ||
+                         l == Localization.Language.Korean))
+                    {
+                        continue;
+                    }
 
                     string str = Localization.LanguageName(l);
                     item = new MenuItem(new EzText(str, ItemFont, false, true));
                     SetItemProperties(item);
                     LanguageList.AddItem(item, l);
+
+                    index++;
                 }
                 AddItem(LanguageList);
 				LanguageList.SelectSound = null; // Don't play a sound (since pushing (A) will cause the back action anyway).
-                LanguageList.SetIndex((int)Localization.CurrentLanguage.MyLanguage);
+                
+                //LanguageList.SetIndex((int)Localization.CurrentLanguage.MyLanguage);
+                LanguageList.SetIndex(StartIndex);
+
                 LanguageList.OnConfirmedIndexSelect = () =>
                 {
-                    ChosenLanguage = (Localization.Language)LanguageList.ListIndex;
+                    //ChosenLanguage = (Localization.Language)LanguageList.ListIndex;
+                    ChosenLanguage = (Localization.Language)LanguageList.CurObj;
+
                     //PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
                     //ResolutionGroup.Use(LanguageList.CurObj as DisplayMode);
                     //SaveGroup.SaveAll();
@@ -336,11 +358,17 @@ namespace CloudberryKingdom
 				GUI_Panel panel = obj as GUI_Panel;
 				if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
 				{
+#if PC_VERSION
+					if (panel is StartMenu_MW_Simple)
+						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+					else
+						panel.SlideOut(PresetPos.Left, 0);
+#else
 					panel.SlideOut(PresetPos.Left, 0);
 
-					// FIXME on PC the menu is not a StartMenu_MW_Pre
 					if (panel is StartMenu_MW_Pre)
 						((StartMenu_MW_Pre)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+#endif
 				}
 			}
 

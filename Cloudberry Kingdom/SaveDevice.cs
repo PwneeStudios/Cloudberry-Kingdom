@@ -1,8 +1,11 @@
-﻿using System;
+﻿#if XBOX
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
+
 using System.Threading;
 
 using CloudberryKingdom;
@@ -287,14 +290,10 @@ namespace EasyStorage
 		/// </summary>
 		public void PromptForDevice()
 		{
-#if PC_VERSION
-			GetStorageDevice(null);
-#else
 			// we only let the programmer show the selector if the 
 			// SaveDevice isn't busy doing something else.
             if (state == SaveDevicePromptState.None && !ChoseNotToSelectDevice)
 				state = SaveDevicePromptState.ShowSelector;
-#endif
 		}
 
 		/// <summary>
@@ -324,11 +323,9 @@ namespace EasyStorage
         bool StorageDeviceIsConnected = false;
         public void AysnchUpdate()
         {
-#if XBOX
             // make sure gamer services are available for all of our Guide methods we use			
             if (!GamerServicesDispatcher.IsInitialized)
                 throw new InvalidOperationException("SaveDevice requries gamer services to operate. Add the GamerServicesComponent to your game.");
-#endif
 
             if (storageDevice == null)
                 StorageDeviceIsConnected = false;
@@ -352,11 +349,9 @@ namespace EasyStorage
 		{
             if (!NeedsConnection) return;
 
-#if XBOX
 			// make sure gamer services are available for all of our Guide methods we use			
 			if (!GamerServicesDispatcher.IsInitialized)
 				throw new InvalidOperationException("SaveDevice requries gamer services to operate. Add the GamerServicesComponent to your game.");
-#endif
 
             //bool deviceIsConnected = storageDevice != null && storageDevice.IsConnected;
             bool deviceIsConnected = storageDevice != null && StorageDeviceIsConnected;
@@ -379,10 +374,8 @@ namespace EasyStorage
 				// methods to throw exceptions.
 				try
 				{
-#if XBOX
 					if (!Guide.IsVisible)
 					{
-#endif
 						switch (state)
 						{
 							// show the normal storage device selector
@@ -393,7 +386,6 @@ namespace EasyStorage
 								break;
 // these actions don't apply anywhere but Xbox so we compile them out for Windows to prevent 
 // issues with gamer services in redistributed games.
-#if XBOX
 							// the user cancelled the device selector, and we've decided to 
 							// see if they want another chance to choose a device
 							case SaveDevicePromptState.PromptForCanceled:
@@ -425,7 +417,6 @@ namespace EasyStorage
 							case SaveDevicePromptState.ForceDisconnectedReselection:
 								ShowMessageBox(eventArgs.PlayerToPrompt, deviceRequiredTitle, forceDisconnectedReselectionMessage, deviceRequiredOptions, forcePromptCallback);
 								break;
-#endif
 							default:
                                 if (EnsureConnectionUnlessCanceled)
                                 {
@@ -441,9 +432,7 @@ namespace EasyStorage
 
 								break;
 						}
-#if XBOX
 					}
-#endif
 				}
 
 				// catch this one type of exception just to be safe
@@ -594,3 +583,4 @@ namespace EasyStorage
 		}
 	}
 }
+#endif

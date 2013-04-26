@@ -2,8 +2,15 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+
+#if XBOX
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
+#endif
+
+#if PC_VERSION
+using SteamManager;
+#endif
 
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Awards;

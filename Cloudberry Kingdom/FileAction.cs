@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if XBOX
+using System.IO;
 
 namespace EasyStorage
 {
@@ -8,3 +9,4 @@ namespace EasyStorage
 	/// <param name="stream">A Stream to use for accessing the file data.</param>
 	public delegate void FileAction(Stream stream);
 }
+#endif

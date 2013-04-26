@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if XBOX
+using System.IO;
 
 namespace EasyStorage
 {
@@ -59,3 +60,4 @@ namespace EasyStorage
 		string[] GetFiles(string containerName, string pattern);
 	}
 }
+#endif

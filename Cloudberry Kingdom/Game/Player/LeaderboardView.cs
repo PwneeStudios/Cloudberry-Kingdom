@@ -5,8 +5,15 @@ using System.Collections.Generic;
 using CoreEngine;
 
 using Microsoft.Xna.Framework;
+
+#if XBOX
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
+#endif
+
+#if PC_VERSION
+using SteamManager;
+#endif
 
 namespace CloudberryKingdom
 {
@@ -53,11 +60,25 @@ namespace CloudberryKingdom
         const int SelectDelay = 18;
 
         public TitleGameData_MW Title;
-        public LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer, int Control)
+		public LeaderboardGUI(TitleGameData_MW Title, int Control)
+		{
+#if XDK
+			_LeaderboardGUI(Title, null, Control);
+#else
+			_LeaderboardGUI(Title, Control);
+#endif
+		}
+
+#if XDK
+        void _LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer, int Control)
+#else
+		void _LeaderboardGUI(TitleGameData_MW Title, int Control)
+#endif
         {
             ToMake_Id = -1;
             DelayToMake = 0;
 
+#if XDK
             Leaderboard.LeaderboardGamer = LeaderboardGamer;
             if (Leaderboard.LeaderboardGamer != null)
             {
@@ -65,6 +86,7 @@ namespace CloudberryKingdom
                 Leaderboard.LeaderboardFriends.Add(LeaderboardGamer);
                 Leaderboard.LeaderboardFriends.AddRange(Leaderboard.LeaderboardGamer.GetFriends());
             }
+#endif
 
             this.Control = Control;
 
@@ -145,8 +167,19 @@ namespace CloudberryKingdom
 			//MyMenu = new Menu();
             MyMenu.OnB = MenuReturnToCaller;
 
-            // Buttons
-            MenuItem item;
+if (ButtonCheck.ControllerInUse)
+{
+			MenuItems_ControllerInUse();
+}
+else
+{
+			MenuItems_KeyboardMouse();
+}
+		}
+
+		void MenuItems_ControllerInUse()
+		{
+			MenuItem item;
 
             // View Gamer
 #if PS3
@@ -157,15 +190,8 @@ namespace CloudberryKingdom
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
             AddItem(item);
-if (ButtonCheck.ControllerInUse)
-{
             MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_ViewGamer"));
             item.Selectable = false;
-}
-else
-{
-            item.Go = Cast.ToItem(ViewGamer);
-}
             MyMenu.OnA = Cast.ToMenu(ViewGamer);
 
             // Switch View
@@ -173,11 +199,8 @@ else
             item.Name = "SwitchView";
             item.JiggleOnGo = false;
             AddItem(item);
-if (ButtonCheck.ControllerInUse)
-{
             MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchView"));
             item.Selectable = false;
-}
             item.Go = Cast.ToItem(SwitchView);
 			//MyMenu.OnY = SwitchView;
 			MyMenu.OnX = Cast.ToMenu(SwitchView);
@@ -188,14 +211,12 @@ if (ButtonCheck.ControllerInUse)
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
-if (ButtonCheck.ControllerInUse)
-{
 			if (ShowSortOption)
 			{
 				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchSort"));
 			}
             item.Selectable = false;
-}
+
             item.Go = Cast.ToItem(ViewGamer);
             //MyMenu.OnX = Cast.ToMenu(SwitchSort);
 			if (!ShowSortOption)
@@ -221,12 +242,10 @@ if (ButtonCheck.ControllerInUse)
 
 
             // Back
-if (ButtonCheck.ControllerInUse)
-{
             MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_Back"));
             MyPile.Add(new QuadClass("BackArrow2", "BackArrow"));
             item.Selectable = false;
-}
+
             item.Go = Cast.ToItem(SwitchSort);
 
             MyMenu.NoneSelected = true;
@@ -236,13 +255,65 @@ if (ButtonCheck.ControllerInUse)
 
             UpdateMessages();
 
-if (ButtonCheck.ControllerInUse)
-{
 			MyMenu.NoneSelected = true;
-}
 
             UpdateView();
         }
+
+		void MenuItems_KeyboardMouse()
+		{
+			MenuItem item;
+
+			MenuList SortList = new MenuList();
+			SetSortListProperties(SortList);
+			for (int i = 0; i < (int)LeaderboardType.Length; i++)
+			{
+				item = new MenuItem(new EzText(LeaderboardType_ToString(Incr((LeaderboardType)i)), ItemFont, false, true));
+				SetItemProperties(item);
+				SortList.AddItem(item, (LeaderboardType)i);
+			}
+			AddItem(SortList);
+			SortList.Pos = new Vector2(200f, 828f);
+			SortList.OnIndexSelect = () =>
+			{
+				SortList_OnSelect(SortList);
+			};
+			SortList.SetIndex(0);
+
+			MyMenu.OnX = Cast.ToMenu(SwitchView);
+
+			// Back
+			MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_Back"));
+			MyPile.Add(new QuadClass("BackArrow2", "BackArrow"));
+
+			MyMenu.NoneSelected = true;
+
+			EnsureFancy();
+			SetPos();
+
+			UpdateMessages();
+
+			MyMenu.NoneSelected = true;
+
+			UpdateView();
+			SortList_OnSelect(SortList);
+		}
+
+		private static void SetSortListProperties(MenuList SortList)
+		{
+			SortList.Name = "SortList";
+			SortList.Center = true;
+			SortList.MyExpandPos = new Vector2(643.516f, 669.4282f);
+		}
+
+		private void SortList_OnSelect(MenuList SortList)
+		{
+			CurrentType = (LeaderboardType)SortList.ListIndex;
+			SortList.CurMenuItem.MyText.Scale =
+			SortList.CurMenuItem.MySelectedText.Scale = .42f;
+
+			UpdateView();
+		}
 
         EzText LoadingText, NotRanked, NotRankedFriends;
         int LoadingCount;
@@ -340,11 +411,18 @@ if (ButtonCheck.ControllerInUse)
 
         void UpdateView()
         {
-			MyMenu.FindItemByName("SwitchView").MyText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
-			MyMenu.FindItemByName("SwitchView").MySelectedText.SubstituteText(LeaderboardType_ToString(Incr(CurrentType)));
+			var ViewItem = MyMenu.FindItemByName("SwitchView");
+			if (ViewItem != null)
+			{
+				string ViewText = LeaderboardType_ToString(Incr(CurrentType));
+				ViewItem.MyText.SubstituteText(ViewText);
+				ViewItem.MySelectedText.SubstituteText(ViewText);
+			}
+
 			MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
-			MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
-			MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
+			
+			//MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
+			//MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
         public void SetIndex(int index)
@@ -534,6 +612,46 @@ if (ButtonCheck.ControllerInUse)
 
         void SetPos()
         {
+			if (ButtonCheck.ControllerInUse)
+			{
+				SetPos_ControllerInUse();
+			}
+			else
+			{
+				SetPos_KeyboardMouse();
+			}
+		}
+
+		void SetPos_KeyboardMouse()
+		{
+			MenuItem _item;
+			_item = MyMenu.FindItemByName("SortList"); if (_item != null) { _item.SetPos = new Vector2(-105.5559f, 41.88885f); _item.MyText.Scale = 0.54f; _item.MySelectedText.Scale = 0.54f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+
+			MyMenu.Pos = new Vector2(1419.444f, 816.6665f);
+
+			EzText _t;
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1369.444f, 1188.889f); _t.Scale = 0.5240005f; }
+			_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 958.3332f); _t.Scale = 0.4890002f; }
+			_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+			_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+			_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3839249f; }
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-275.0002f, 2.777752f); _q.Size = new Vector2(1092.235f, 1136.137f); }
+			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1316.665f, 769.4441f); _q.Size = new Vector2(245.0184f, 459.3027f); }
+			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 643.8893f); _q.Size = new Vector2(1005.093f, 49.08278f); }
+			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
+			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
+			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
+			_q = MyPile.FindQuad("Button_Back"); if (_q != null) { _q.Pos = new Vector2(1594.444f, -866.6668f); _q.Size = new Vector2(67.99999f, 67.99999f); }
+			_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(1427.777f, -877.7778f); _q.Size = new Vector2(77.71317f, 66.83332f); }
+
+			MyPile.Pos = new Vector2(0f, 5.555542f);
+		}
+
+		void SetPos_ControllerInUse()
+		{
 if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 {
 	MenuItem _item;
@@ -804,6 +922,7 @@ else
     public class LeaderboardItem
     {
         public Gamer Player;
+
         public string GamerTag;
         public string Val;
         public string Rank;
@@ -1048,7 +1167,8 @@ else
             }
             else
             {
-                lock (Items)
+				if (Items != null)
+				lock (Items)
                 {
                     if (Items.Count > 0)
                     {

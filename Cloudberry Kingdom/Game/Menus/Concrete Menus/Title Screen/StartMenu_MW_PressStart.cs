@@ -1,5 +1,8 @@
 using Microsoft.Xna.Framework;
+
+#if XBOX
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 
 using CloudberryKingdom.Stats;
 
@@ -48,11 +51,19 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
-            //Text = new EzText("Press any key to start", Resources.Font_Grobold42, true);
-            Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
-            //Text = new EzText(Localization.Words.PressStart, ItemFont);
-
-            Text.MyFloatColor = new Color(226, 10, 83).ToVector4();
+#if PC_VERSION
+			if (ButtonCheck.ControllerInUse)
+			{
+				Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
+			}
+			else
+			{
+				Text = new EzText(Localization.Words.PressAnyKey, Resources.Font_Grobold42, true);
+			}
+#else
+			Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
+#endif
+			Text.MyFloatColor = new Color(226, 10, 83).ToVector4();
             Text.OutlineColor = Color.Black.ToVector4();
             MyPile.Add(Text);
 
