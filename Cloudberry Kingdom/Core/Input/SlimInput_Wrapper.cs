@@ -1,4 +1,4 @@
-﻿#if PC_VERSION
+﻿#if PC_VERSION && !MONO
 
 using System;
 using System.Globalization;

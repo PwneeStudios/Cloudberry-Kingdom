@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;WINDOWS;GAME;NOT_PC;MONO</DefineConstants>
+    <DefineConstants>DEBUG;WINDOWS;GAME;PC_VERSION;MONO</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
-    <DefineConstants>WINDOWS;GAME;NOT_PC;MONO</DefineConstants>
+    <DefineConstants>WINDOWS;GAME;PC_VERSION;MONO</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -246,7 +246,6 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\SavedSeedsGUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Campaign.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Cinematics.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_SubMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\SoundMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
     <Compile Include="Game\Menus\Menu Components\MenuItem.cs" />
@@ -432,46 +431,8 @@
     <Compile Include="Game\Tools\Tools.cs" />
     <Compile Include="Game\Tools\Unset.cs" />
     <Compile Include="Game\Tools\WrappedFloat.cs" />
-    <Compile Include="..\EasyStorage\EasyStorageSettings.cs">
-      <Link>EasyStorageSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\FileAction.cs">
-      <Link>FileAction.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\IAsyncSaveDevice.cs">
-      <Link>IAsyncSaveDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\ISaveDevice.cs">
-      <Link>ISaveDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\PlayerSaveDevice.cs">
-      <Link>PlayerSaveDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDevice.cs">
-      <Link>SaveDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDeviceAsync.cs">
-      <Link>SaveDeviceAsync.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDeviceEventArgs.cs">
-      <Link>SaveDeviceEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDevicePromptEventArgs.cs">
-      <Link>SaveDevicePromptEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDevicePromptEventResponse.cs">
-      <Link>SaveDevicePromptEventResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDevicePromptState.cs">
-      <Link>SaveDevicePromptState.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SaveDeviceSynchronous.cs">
-      <Link>SaveDeviceSynchronous.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyStorage\SharedSaveDevice.cs">
-      <Link>SharedSaveDevice.cs</Link>
-    </Compile>
     <Compile Include="Game\VideoPlayer.cs" />
+    <Compile Include="__Steam_Wrapper\SteamManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BobIcon.png" />
@@ -480,6 +441,7 @@
     <Folder Include="Content\" />
     <Folder Include="Core\" />
     <Folder Include="Game\" />
+    <Folder Include="__Steam_Wrapper\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -403,7 +403,7 @@ namespace CloudberryKingdom
             base.ReturnToCaller();
         }
 
-#if PC_VERSION
+#if PC_VERSION && !MONO
         //private void AddToggle_FixedTimestep()
         //{
         //    // Header
@@ -463,7 +463,7 @@ namespace CloudberryKingdom
 
         public override bool MenuReturnToCaller(Menu menu)
         {
-#if PC_VERSION
+#if PC_VERSION && !MONO
             PlayerManager.SaveRezAndKeys();
 #endif
 

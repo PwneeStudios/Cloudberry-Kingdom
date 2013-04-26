@@ -155,7 +155,7 @@ namespace CloudberryKingdom
 					Caret.Show = Tools.TheGame.DrawCount % 65 > 23;
                 }
 
-#if WINDOWS
+#if WINDOWS && !MONO
                 KeyboardExtension.Freeze = false;
                 if (ButtonCheck.State(Keys.Escape).Down) { Cancel(); return; }
                 if (ButtonCheck.State(Keys.V).Pressed && Tools.CntrlDown()) { Paste(); return; }
@@ -352,7 +352,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS
+#if WINDOWS && !MONO
         void Paste()
         {
             Clear();

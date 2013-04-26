@@ -30,8 +30,10 @@ using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
 
-#if PC_VERSION
+#if PC_VERSION && !MONO
 using Joystick;
+using SteamManager;
+#elif MONO
 using SteamManager;
 #endif
 
@@ -1801,7 +1803,7 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-#if PC_VERSION
+#if PC_VERSION && !MONO
 			if (CloudberryKingdomGame.UsingSteam)
 			{
 				SteamWrapper.SteamCore.Update();
