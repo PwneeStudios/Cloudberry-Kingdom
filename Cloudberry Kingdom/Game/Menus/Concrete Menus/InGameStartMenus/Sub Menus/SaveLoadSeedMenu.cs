@@ -77,7 +77,7 @@ namespace CloudberryKingdom
                 AddItem(item);
             }
 
-#if WINDOWS
+#if WINDOWS && !MONO
             if (CanSave)
             {
                 // Copy seed
@@ -223,7 +223,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-#if PC_VERSION || XBOX
+#if PC_VERSION || XBOX || MONO
         // This shows our custom virtual keyboard, instead of the Xbox keyboard.
 
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
@@ -335,7 +335,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS
+#if WINDOWS && !MONO
         void Copy(MenuItem _item)
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();

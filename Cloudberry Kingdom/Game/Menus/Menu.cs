@@ -137,7 +137,7 @@ namespace CloudberryKingdom
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
-#if WINDOWS && DEBUG
+#if WINDOWS && DEBUG && !MONO
 			// Redistribute distances evenly
 			if (Tools.CntrlDown() && ShiftDown)
 			{

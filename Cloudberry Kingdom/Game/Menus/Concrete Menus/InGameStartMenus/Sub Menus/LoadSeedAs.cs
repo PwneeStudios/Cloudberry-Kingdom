@@ -88,7 +88,7 @@ namespace CloudberryKingdom
 
             string clipboard = null;
 
-#if WINDOWS
+#if WINDOWS && !MONO
             try
             {
                 clipboard = System.Windows.Forms.Clipboard.GetText();

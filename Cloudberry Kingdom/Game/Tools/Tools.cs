@@ -19,7 +19,7 @@ using CoreEngine.Random;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
 
-#if WINDOWS
+#if WINDOWS && !MONO
 using CloudberryKingdom;
 using CloudberryKingdom.Viewer;
 #if INCLUDE_EDITOR
@@ -605,7 +605,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return new SimpleObject(SourceObject);
         }
       
-#if WINDOWS
+#if WINDOWS && !MONO
 #if INCLUDE_EDITOR
         public static bool EditorPause
         {

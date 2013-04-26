@@ -12,6 +12,10 @@ using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
+#if MONO
+using CloudberryKingdomMonoWindows;
+#endif
+
 namespace CloudberryKingdom
 {
     class MainVideo
@@ -94,7 +98,11 @@ namespace CloudberryKingdom
             VPlayer.Volume = CoreMath.Restrict(0, 1, Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val));
 
             Elapsed = 0;
+#if MONO
+			Duration = 0;
+#else
             Duration = CurrentVideo.Duration.TotalSeconds;
+#endif
         }
 
         public static void UpdateElapsedTime()

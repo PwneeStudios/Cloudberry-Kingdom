@@ -36,17 +36,17 @@ namespace CloudberryKingdom
 
             if (s < 1)
             {
-                return (1 - s) * transform_green + s * transform_blue;
+				return transform_green * (1 - s) + transform_blue * s;
             }
             else if (s < 2)
             {
                 s = s - 1;
-                return (1 - s) * transform_blue + s * transform_red;
+				return transform_blue * (1 - s) + transform_red * s;
             }
             else
             {
                 s = s - 2;
-                return (1 - s) * transform_red + s * transform_green;
+				return transform_red * (1 - s) + transform_green * s;
             }
         }
 

@@ -25,7 +25,7 @@ using CloudberryKingdom.Awards;
 using CloudberryKingdom.InGameObjects;
 using CloudberryKingdom.Obstacles;
 
-#if WINDOWS && DEBUG
+#if WINDOWS && DEBUG && !MONO
 using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
@@ -70,7 +70,7 @@ namespace CloudberryKingdom
         public static bool GodMode = !FinalRelease;
 		public static bool AsianButtonSwitch = false;
 
-#if PC_VERSION
+#if PC_VERSION || MONO
         // Steam Beta
 		//public static bool HideLogos = true;
 		//public static bool LockCampaign = true;
@@ -1978,7 +1978,7 @@ namespace CloudberryKingdom
 
             DrawExtra();
 
-#if DEBUG && !XDK
+#if DEBUG && !XDK && !MONO
             SaveScreenshotCode();
 #endif
 
@@ -2053,7 +2053,7 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         private void GameUpdate(GameTime gameTime)
         {
-#if WINDOWS
+#if WINDOWS && !MONO
             // Do nothing if editors are open.
             if (Tools.Dlg != null || Tools.DialogUp) return;
 #endif
