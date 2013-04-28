@@ -1,11 +1,10 @@
+#if XBOX
 using System;
 using System.IO;
 using System.Collections.Generic;
 
-#if XBOX
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
-#endif
 
 using CloudberryKingdom.Bobs;
 
@@ -13,13 +12,11 @@ namespace CloudberryKingdom
 {
     public class Leaderboard
     {
-#if XBOX
         public static SignedInGamer LeaderboardGamer;
         public static List<Gamer> LeaderboardFriends;
 		static NetworkSession WritingNetworkSession;
-#endif
 
-		public const int EntriesPerPage = 20; // 4
+		public const int EntriesPerPage = 20;
 
         static ScoreEntry ScoreToWrite;
         static ScoreEntry[] ScoreToWrite_Separate;
@@ -118,21 +115,21 @@ namespace CloudberryKingdom
         public LeaderboardGUI.LeaderboardType MySortType;
         public Leaderboard(int game_id)
         {
-#if XDK
             Items = new Dictionary<int, LeaderboardItem>();
             FriendItems = new List<LeaderboardItem>();
 
             MyId = GetLeaderboardId(game_id);
-#endif
         }
 
         public void SetType(LeaderboardGUI.LeaderboardType type)
         {
             MySortType = type;
 
-            if (result != null) return;
+			if (LHandle == null) return;
 
 #if XDK
+            if (result != null) return;
+
             LeaderboardIdentity Identity = GetIdentity(MyId);
 
             try
@@ -162,7 +159,7 @@ namespace CloudberryKingdom
                 Tools.Warning();
             }
 #endif
-        }
+		}
 
         void OnInfo_TopScores(IAsyncResult ar)
         {
@@ -188,12 +185,8 @@ namespace CloudberryKingdom
             this.MoreRequested = true;
             this.RequestPage = RequestPage;
 
-#if PC_VERSION
-
-#else
 			LeaderboardIdentity Identity = GetIdentity(MyId);
 			result = LeaderboardReader.BeginRead(Identity, RequestPage, EntriesPerPage, OnInfo_TopScores, null);
-#endif
 		}
 
         public bool Updated = false;
@@ -204,7 +197,6 @@ namespace CloudberryKingdom
 
         void Update(LeaderboardGUI.LeaderboardType Type, IAsyncResult ar)
         {
-#if XDK
             //var reader = LeaderboardReader.EndRead(result);
             LeaderboardReader reader;
             try
@@ -266,51 +258,11 @@ namespace CloudberryKingdom
                     default: break;
                 }
             }
-#endif
         }
 
-        public Dictionary<int, LeaderboardItem> Items;
+		public Dictionary<int, LeaderboardItem> Items;
         public List<LeaderboardItem> FriendItems;
 
-#if PC_VERSION
-		static string GetIdentity(int id)
-		{
-			switch (id)
-			{
-				case 7777: return "Story Mode";
-				case 9999: return "Player Level";
-				case 10000: return "Escalation, Classic";
-				case 10100: return "Escalation, Fat Bob";
-				case 11500: return "Escalation, Rocketbox";
-				case 10200: return "Escalation, Gravity Bob";
-				case 10400: return "Escalation, Jetman";
-				case 10500: return "Escalation, Bouncy";
-				case 11000: return "Escalation, Spaceship";
-				case 10300: return "Escalation, Double Jump";
-				case 11100: return "Escalation, Wheelie";
-				case 10900: return "Escalation, Tiny Bob";
-				case 11200: return "Escalation, Jetpack Wheelie";
-				case 11300: return "Escalation, Hero";
-				case 11400: return "Escalation, The Masochist";
-				case 10001: return "TimeCrisis, Classic";
-				case 10101: return "TimeCrisis, Fat Bob";
-				case 11501: return "TimeCrisis, Rocketbox";
-				case 10201: return "TimeCrisis, Gravity Bob";
-				case 10401: return "TimeCrisis, Jetman";
-				case 10501: return "TimeCrisis, Bouncy";
-				case 11001: return "TimeCrisis, Spaceship";
-				case 10301: return "TimeCrisis, Double Jump";
-				case 11101: return "TimeCrisis, Wheelie";
-				case 10901: return "TimeCrisis, Tiny Bob";
-				case 11201: return "TimeCrisis, Jetpack Wheelie";
-				case 11301: return "TimeCrisis, Hero";
-				case 11401: return "TimeCrisis, The Masochist";
-				case 10002: return "Hero Rush";
-				case 10003: return "Hybrid Rush";
-				default: return "Player Level";
-			}
-		}
-#elif XDK
         static LeaderboardIdentity GetIdentity(int id)
         {
             string key;
@@ -353,6 +305,6 @@ namespace CloudberryKingdom
 
             return LID;
         }
-#endif
     }
 }
+#endif

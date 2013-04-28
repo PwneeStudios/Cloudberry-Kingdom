@@ -45,6 +45,14 @@ namespace CloudberryKingdom
 		// Steam Integration
 		// Set this to true to turn on Steam Integrtaion code
 		public const bool UsingSteam = true;
+		public static bool SteamInitialized = false;
+		public static bool SteamAvailable
+		{
+			get
+			{
+				return UsingSteam && SteamInitialized;
+			}
+		}
 #endif
 
 #if DEBUG
@@ -714,35 +722,12 @@ namespace CloudberryKingdom
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
-#if PC_VERSION
-		void OnDownload(bool failed)
-		{
-			if (!failed)
-			{
-				int score = SteamStats.Results_GetScore(0);
-				Tools.Write(score);
-			}
-		}
-
-		void OnFindLeaderboard(LeaderboardHandle Handle, bool failed)
-		{
-			Tools.Write(failed);
-
-			if (!failed)
-			{
-				SteamStats.UploadScores(Handle, 3125);
-				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 0, 10, OnDownload);
-			}
-		}
-#endif
-
         public void Initialize()
         {
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
-				bool result = SteamCore.Initialize();
-				SteamStats.FindLeaderboard("TestLeaderboard", OnFindLeaderboard);
+				SteamInitialized = SteamCore.Initialize();
 			}
 #endif
 
@@ -1499,11 +1484,16 @@ namespace CloudberryKingdom
             Vector2 Pos = Tools.MouseWorldPos();
 
             // Draw the mouse hand
-            MousePointer.Pos = Pos + new Vector2(.905f * MousePointer.Size.X, -.705f * MousePointer.Size.Y);
-            MousePointer.Draw();
+			//MousePointer.Pos = Pos + new Vector2(.905f * MousePointer.Size.X, -.705f * MousePointer.Size.Y);
+
+			MousePointer.ScaleYToMatchRatio(33.3f);
+
+			MousePointer.Pos = Pos + new Vector2(.91f * MousePointer.Size.X, -.93f * MousePointer.Size.Y);
+
+			MousePointer.Draw();
 
             // Draw the mouse dot
-            Tools.QDrawer.DrawSquareDot(Pos, Color.Black, 8);
+            //Tools.QDrawer.DrawSquareDot(Pos, Color.Black, 8);
 
             // Draw the mouse back icon
             //if (DrawMouseBackIcon)
@@ -1802,7 +1792,7 @@ namespace CloudberryKingdom
         public void Draw(GameTime gameTime)
         {
 #if PC_VERSION
-			if (CloudberryKingdomGame.UsingSteam)
+			if (CloudberryKingdomGame.SteamAvailable)
 			{
 				SteamWrapper.SteamCore.Update();
 			}

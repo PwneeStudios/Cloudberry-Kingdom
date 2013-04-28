@@ -238,7 +238,22 @@ namespace CloudberryKingdom
             ScoreDatabase.Add(HighScoreEntry);
             ScoreDatabase.Add(HighLevelEntry);
 
+#if PC_VERSION
+			var score = HighScoreEntry;
+
+			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, score.Score, score.Score, score.Level, score.Attempts, score.Time, score.Date);
+			copy.GameId += Challenge.LevelMask;
+
+			// Write to Leaderboard if not in trial mode
+			if (!CloudberryKingdomGame.IsDemo)
+			{
+				Leaderboard.WriteToLeaderboard(score);
+			}
+#endif
+
+#if XBOX
             var score = HighScoreEntry;
+
             ScoreEntry[] scores = { null, null, null, null };
             for (int i = 0; i < 4; i++)
             {
@@ -257,6 +272,7 @@ namespace CloudberryKingdom
 			{
 				Leaderboard.WriteToLeaderboard(scores);
 			}
+#endif
 
             ArcadeMenu.CheckForArcadeUnlocks(HighScoreEntry);
 

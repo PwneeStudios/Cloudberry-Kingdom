@@ -145,6 +145,16 @@ namespace CloudberryKingdom
 
             if (award == null) return;
 
+#if PC_VERSION
+			if (CloudberryKingdomGame.SteamAvailable)
+			{
+				if (award.Official)
+				{
+					SteamStats.GiveAchievement(award.Key);
+				}
+			}
+#endif
+
             if (player == null && PlayerManager.NotAllAwarded(award) ||
                 player != null && !player.Awardments[award.Guid])
             {

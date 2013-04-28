@@ -1,0 +1,582 @@
+Script
+
+French
+00:00:03.837	+	Tu prends ton pied King Kobbler?
+00:00:08.208	+	A vrai dire, oui. 
+00:00:10.566	+	Qui aurait pu croire que tuer un héros serait aussi fun ?
+00:00:14.014	-
+00:00:14.514	+	Je ne suis pas t'encore mort !
+00:00:17.250	+	Tu le serrais si tu avais un véritable cou à étrangler. 
+00:00:19.333	+	Tu es difforme !
+00:00:20.620	+	Difforme ? Tu le seras après ça ! 
+00:00:24.257	-
+00:00:26.000	+	T'es sérieux Bob, tu appelles ça un sauvetage ?
+00:00:28.828	+	Mais qui t'as dit que j'étais là pour toi ?
+00:00:31.197	+	Humm, tous les contes de fées le disent non ? 
+00:00:33.767	+	Quelle charmante réunion.
+00:00:36.202	-
+00:00:38.672	+	Puis-je t'offrir quelques tartes ?
+00:00:40.907	+	Noooooon !
+00:00:45.345	-
+00:00:49.683	+	Comment appelle-t-on un homme sans cou qui flotte au milieu de la mer? 
+00:00:54.120	+	BOB!
+00:00:56.322	-
+00:01:00.727	+	J'ai déjà ferrer de plus gros poissons que toi !
+00:01:02.662	-
+00:00:00.100	+	Cet orbe me permettra de régner sur tant de mondes !
+00:00:05.338	-
+00:00:07.607	+	Une fois délivrée, je pourrais enfin prendre ma retraite. 
+00:00:10.677	+	Il est l'heure de créer une forêt entre nous et ton zéro ! Enfin, ton héros !
+00:00:15.115	+	Oh, très drôle. Quel âge as-tu? 2 ans ?
+00:00:17.417	-
+00:00:18.251	+	T'es sérieux ! Il y a tellement d'arbres !
+00:00:22.389	+	Peut-être que tu devrais changer de branche Bob.
+00:00:26.493	+	Tu penses vraiment que cela va le stopper ?
+00:00:28.228	+	Yeah ! Pourquoi pas ? Mouhahaha !
+00:00:29.863	-
+00:00:00.800	+	Une fois que j'aurais placé l'orbe sur l'Altarberry Pedestal, je créerai un nombre infini de mondes dont je serai le maître ! 
+00:00:06.673	+	As-tu encore besoin d'aller aux toilettes!?
+00:00:09.275	-
+00:00:09.909	+	Je resterai hors des toilettes au moins dix minutes si j'étais toi.
+00:00:13.747	-
+00:00:16.216	+	Beurk ! Qu'as-tu mangé ? 
+00:00:18.785	+	On doit reprendre la route.
+00:00:20.920	+	Ugh, mon bras est en train de pourrir.
+00:00:22.489	+	J'aurais pu être un “Paperboy”, mais non, je suis un héros. 
+00:00:27.200	+	être un "Paperboy" est tellement ennuyeux.
+00:00:02.035	+	Sérieusement ?! Encore toi !
+00:00:04.000	+	Rends la moi Kobbler !
+00:00:05.772	+	Je vais te déchiqueter comme une vielle déclaration d'impôts !
+00:00:08.108	-
+00:00:10.909	+	Aller Kobbler, tu n'es rien qu'un tigre en papier ! 
+00:00:13.000	-
+00:00:14.000	+	Le pouvoir est mien ! Entièrement mien ! 
+00:00:17.000	+	Les autres princesses vont être tellement jalouses !
+00:00:19.000	+	Quoi?
+00:00:20.000	+	Huh?
+00:00:21.000	-
+00:00:23.500	+	Désolé Bob, mais un petit homme comme toi ne peut rien faire contre un guerrier comme moi ! 
+00:00:29.229	+	Attends… où est mon orbe ? 
+00:00:31.464	+	Mon orbe ! Elle a pris mon orbe ! Où est mon Orbe !?
+00:00:36.136	-
+00:00:38.000	+	Je deviens trop vieux pour ça.
+00:00:00.633	+	Où est-elle Kobbler ?
+00:00:02.102	+	Pourquoi perds-tu ton temps Bob ? 
+00:00:04.166	+	Elle a brisé ton cœur avant, elle le refera.
+00:00:06.573	+	Je ne parle pas de la princesse, Kobbler. Je suis là pour l'orbe !
+00:00:11.011	+	Bravo Bob ! Tu as finalement utilisé ta tête.  
+00:00:14.300	+	Dommage, tu vas la perdre.
+00:00:15.749	-
+00:00:20.587	+	Ce n'est qu'une petite coupure !
+00:00:23.000	-
+00:00:26.960	+	Regarde comme tu brules Kobbler. 
+00:00:28.500	+	Est-ce que c'est vrai Bob ? Tu ne viens pas pour moi ? Mais pour…ça ?
+00:00:33.600	+	Désolé Princesse.
+00:00:35.301	+	Pas de problème ! Je vais pouvoir te tuer plus facilement comme cela.
+00:00:38.772	+	Vraiment ? C'est n'importe quoi !
+00:00:41.274	+	Au revoir Bob !
+00:00:43.343	+	Et c'est reparti ! 
+00:00:45.000	-	
+00:00:51.500	+	Tout cela me semble bien familier. 
+00:00:54.000	-	
+00:00:00.867	+	A partir de maintenant, les Royaumes infinis seront enfin miens !
+00:00:07.807	+	Princeeeesssssssee !!!!! 
+00:00:11.845	-
+00:00:14.247	+	Princess, ne fait pas ça ! Tu n'as aucune idée de ce que tu fais !
+00:00:16.583	-
+00:00:18.651	+	Les autres princesses vont  être tellement  jalouses. 
+00:00:21.187	-
+00:00:22.589	+	Arrête ça maintenant Princesse, avant que quelqu'un ne soit blessé ! 
+00:00:25.091	-
+00:00:39.000	+	Tu….étais sensé me protéger.
+00:00:43.543	+	Tu as brisé mon cœur en deux Princesse. Regarde qui est brisée en deux maintenant. 
+00:00:47.013	-
+00:00:49.883	+	Merci pour le coup de tête.
+00:00:51.551	-
+00:00:53.553	+	Enfin ! 
+00:00:54.754	+	Ahh, c'est pas vrai !
+00:00:56.500	-	
+
+German
+00:00:03.837	+	Macht's Spaß, König Kobbler?
+00:00:08.208	+	Oh ja.
+00:00:10.566	+	Wer hätte gedacht, dass es so viel Spaß machen würde einen gescheiterten Helden zu töten.
+00:00:14.014	-
+00:00:14.514	+	Noch bin ich nicht tot!
+00:00:17.250	+	Wärst du aber, wenn du einen Hals zum Würgen hättest. 
+00:00:19.333	+	Du hast aber nur einen Kopf! 
+00:00:20.620	+	Ich hab nur einen Kopf? Du willst wohl eine Kopfnuss! 
+00:00:24.257	-
+00:00:26.000	+	Im Ernst Bob, das nennst du eine Rettung? 
+00:00:28.828	+	Wer hat gesagt, ich sei deinetwegen hier, Prinzessin?
+00:00:31.197	+	Ähm, jedes Märchen, das je geschrieben wurde? 
+00:00:33.767	+	Was für ein schönes Wiedersehen.
+00:00:36.202	-
+00:00:38.672	+	Jetzt verpass ich dir eine!  
+00:00:40.907	+	Neeeeeeeeeeeeeeeeeeein! 
+00:00:45.345	-
+00:00:49.683	+	Wie nennt man jemanden ohne Nacken, der auf dem Meer herumtreibt? 
+00:00:54.120	+	BOB! 
+00:00:56.322	-
+00:01:00.727	+	Ich muss mich um wichtigere Dinge kümmern als dich! 
+00:01:02.662	-
+00:00:00.100	+	Diese Sphäre lässt mich unendlich viele Welten regieren! 
+00:00:05.338	-
+00:00:07.607	+	Sobald ich sie sicher abgeliefert habe, kann ich endlich in Ruhestand gehen. 
+00:00:10.677	+	Zeit, ein wenig Wald zwischen uns und diesem Helden zu zaubern!
+00:00:15.115	+	Du bist ja so clever. Wie alt bist du, neun?
+00:00:17.417	-
+00:00:18.251	+	Echt jetzt? Was für ein Schwachsinn! 
+00:00:22.389	+	Vielleicht solltest du über einen neuen Karrierezweig nachdenken, Bob.  
+00:00:26.493	+	Und das soll ihn aufhalten?
+00:00:28.228	+	Ja, irgendwie schon! 
+00:00:29.863	-
+00:00:00.800	+	Sobald ich diese Kugel auf dem Altarberry-Podest platziere, werde ich unendlich viele Königreiche erschaffen und alle regieren!
+00:00:06.673	+	Musstest du wirklich schon wieder auf's Klo?
+00:00:09.275	-
+00:00:09.909	+	Ich würde für mindestens 10 Minuten nicht da rein gehen, wenn ich du wäre. 
+00:00:13.747	-
+00:00:16.216	+	Igitt! Was hast du gegessen!?
+00:00:18.785	+	Wir müssen jetzt los.
+00:00:20.920	+	Bäh, mein Arm wird abfaulen.
+00:00:22.489	+	Ich hätte auch Zeitungsjunge sein können, aber nein, ich musste ja ein Held werden. 
+00:00:27.200	+	… Zeitungsjunge  wäre so viel einfacher gewesen.
+00:00:02.035	+	Wirklich? Du schon wieder? 
+00:00:04.000	+	Gib sie mir zurück, Kobbler!
+00:00:05.772	+	Ich werde dich zerreißen, wie eine zwanzig Jahre alte Steuererklärung!
+00:00:08.108	-
+00:00:10.909	+	Ach bitte Kobbler, du bist doch nur ein Papiertiger!
+00:00:13.000	-
+00:00:14.000	+	Die Macht gehört mir! Mir allein!
+00:00:17.000	+	Die anderen Prinzessinnen werden so eifersüchtig sein!
+00:00:19.000	+	Was? 
+00:00:20.000	+	Häh? 
+00:00:21.000	-
+00:00:23.500	+	Sorry Bob, aber du kleiner Kerl hast keine Chance gegen einen so mächtigen Krieger wie mich! 
+00:00:29.229	+	Warte… wo ist meine Sphäre? 
+00:00:31.464	+	Meine Sphäre! Sie hat meine sie geklaut! Wo ist meine Sphäre?!
+00:00:36.136	-
+00:00:38.000	+	Ich bin eindeutig zu alt dafür.
+00:00:00.633	+	Wo ist sie, Kobbler? 
+00:00:02.102	+	Warum verschwendest du deine Zeit, Bob?  
+00:00:04.166	+	Sie hat dir einmal das Herz gebrochen und sie wird es wieder tun. 
+00:00:06.573	+	Ich red‘ doch nicht von der Prinzessin, Kobbler. Ich bin wegen der Sphäre hier! 
+00:00:11.011	+	Bravo Bob! Endlich benutzt du deinen Kopf.  
+00:00:14.300	+	Schade, dass du ihn verlieren wirst!
+00:00:15.749	-
+00:00:20.587	+	Das ist aber eine üble Wunde.
+00:00:23.000	-
+00:00:26.960	+	Du hast wohl zu viel mit dem Feuer gespielt. 
+00:00:28.500	+	Stimmt das, Bob? Du bist nicht meinetwegen hier? Sondern…deshalb?
+00:00:33.600	+	Es tut mir leid, Prinzessin.
+00:00:35.301	+	Macht nichts! Jetzt ist es viel leichter, dich zu töten!
+00:00:38.772	+	Echt?! Das ist ja voll daneben! 
+00:00:41.274	+	Wiedersehen, Bob! 
+00:00:43.343	+	Und es geht schon wieder los!
+00:00:45.000	-	
+00:00:51.500	+	Na, das kommt mir doch bekannt vor. 
+00:00:54.000	-	
+00:00:00.867	+	Ab heute gehören mir  die unendlichen Königreiche!
+00:00:07.807	+	Prinzessiiiiiiiiiin!!!!
+00:00:11.845	-
+00:00:14.247	+	Prinzessin, nicht! Du weißt nicht, was du da tust!
+00:00:16.583	-
+00:00:18.651	+	Die anderen Prinzessinnen werden so neidisch sein.
+00:00:21.187	-
+00:00:22.589	+	Gib sie her Prinzessin, sonst verletzt sich noch jemand.
+00:00:25.091	-
+00:00:39.000	+	Du … solltest mich beschützen.
+00:00:43.543	+	Du hast mir das Herz gebrochen, Prinzessin. Sieh, wer jetzt zerrissen am Boden liegt. 
+00:00:47.013	-
+00:00:49.883	+	Es geht nichts über ein wenig Auftrieb.
+00:00:51.551	-
+00:00:53.553	+	Endlich!
+00:00:54.754	+	Ach komm schon!
+00:00:56.500	-	
+
+Italian
+00:00:03.837	+	Ti stai divertendo Re Kobbler?
+00:00:08.208	+	A dire il vero, si. 
+00:00:10.566	+	Chi l'avrebbe mai detto che uccidere un odioso eroe sarebbe stato così divertente?
+00:00:14.014	-
+00:00:14.514	+	Ehy, non sono ancora morto!
+00:00:17.250	+	Lo saresti se avessi un collo come si deve da strangolare.
+00:00:19.333	+	Sei tutto testa!
+00:00:20.620	+	Tutto testa? Forse volevi dire testata!
+00:00:24.257	-
+00:00:26.000	+	Seriamente Bob, lo definiresti un salvataggio?
+00:00:28.828	+	Chi ha detto  che sia venuto qui per te Principessa?
+00:00:31.197	+	Tutte le favole medievali che siano mai state scritte, forse?
+00:00:33.767	+	Che bella riunione! 
+00:00:36.202	-
+00:00:38.672	+	Posso offrirti una pizza?
+00:00:40.907	+	Noooooo!
+00:00:45.345	-
+00:00:49.683	+	Come chiameresti l'essere senza collo che galleggia nel bel mezzo del mare? 
+00:00:54.120	+	BOB!
+00:00:56.322	-
+00:01:00.727	+	Ho pescato un pesce più grande di te da friggere!
+00:01:02.662	-
+00:00:00.100	+	Questa sfera mi fornirà mondi infiniti da dominare!
+00:00:05.338	-
+00:00:07.607	+	Una volta messa  in salvo, potrò finalmente ritirarmi!
+00:00:10.677	+	è il momento di far apparire un bosco tra noi e te! L' eroe! 
+00:00:15.115	+	Ma bravo! Quanti anni hai, nove?
+00:00:17.417	-
+00:00:18.251	+	Dai! Questi alberi sono completamente impenetrabili!
+00:00:22.389	+	Forse dovresti pensare ad espanderti in un nuovo ramo, Bob.
+00:00:26.493	+	Credi servirà a fermarlo?
+00:00:28.228	+	Si, per un po'! 
+00:00:29.863	-
+00:00:00.800	+	Una volta collocata questa sfera in cima all'Altarberry Pedestal, creerò regni infiniti e li comanderò uno ad uno!
+00:00:06.673	+	Dovevi veramente andare di nuovo in bagno?!
+00:00:09.275	-
+00:00:09.909	+	Se fossi in te, aspetterei  fuori almeno 10 minuti.
+00:00:13.747	-
+00:00:16.216	+	Umhh, ma cos'hai mangiato?! 
+00:00:18.785	+	Dobbiamo andare.
+00:00:20.920	+	Umh, il mio braccio sta per marcire.
+00:00:22.489	+	Avrei potuto fare il ragazzo che vende i giornali, invece no, dovevo essere un eroe
+00:00:27.200	+	…venditore di giornali, molto più semplice…
+00:00:02.035	+	Proprio tu? Di nuovo?
+00:00:04.000	+	Dammi la principessa, Kobbler!
+00:00:05.772	+	Sto per farti a brandelli come una dichiarazione dei redditi vecchia di vent'anni!
+00:00:08.108	-
+00:00:10.909	+	Ma fammi il favore Kobbler, non sei altro che una tigre di carta.
+00:00:13.000	-
+00:00:14.000	+	Il potere è mio! Tutto mio! 
+00:00:17.000	+	Le altre principesse saranno così invidiose!
+00:00:19.000	+	Cosa?
+00:00:20.000	+	Eh?
+00:00:21.000	-
+00:00:23.500	+	Mi dispiace Bob, ma un esserino come te non ha proprio nessuna possibilità contro un guerriero possente come me!
+00:00:29.229	+	Aspetta…dov'è la mia sfera?
+00:00:31.464	+	La mia sfera! L'ha presa lei! Dov'è la mia sfera?!
+00:00:36.136	-
+00:00:38.000	+	Sto invecchiando troppo per tutto questo.
+00:00:00.633	+	Dov'è, Kobbller?
+00:00:02.102	+	Perché perdere tempo, Bob?
+00:00:04.166	+	Ti ha già spezzato il cuore una volta, lo rifarà di nuovo.
+00:00:06.573	+	Non parlo della Principessa, Kobbler. Sono qui per la sfera!
+00:00:11.011	+	Bravo Bob! Stai finalmente usando la testa. 
+00:00:14.300	+	Peccato che stia per perderla!
+00:00:15.749	-
+00:00:20.587	+	è un terribile taglio da carta! 
+00:00:23.000	-
+00:00:26.960	+	Pare che ti sia bruciato Kobbler.
+00:00:28.500	+	Dunque è vero, Bob? Non sei qui per me? Sei venuto per… questa.
+00:00:33.600	+	Scusami  Principessa.
+00:00:35.301	+	Figurati! Ora ucciderti sarà un gioco da ragazzi!
+00:00:38.772	+	Ah si? Questo complica le cose!
+00:00:41.274	+	Ciao ciao Bob!
+00:00:43.343	+	Ci risiamo! 
+00:00:45.000	-	
+00:00:51.500	+	Bene, mi sembra familiare!
+00:00:54.000	-	
+00:00:00.867	+	Da oggi in poi un numero infinito di Regni sarà tutto mio!
+00:00:07.807	+	Principessaaaaaaa!
+00:00:11.845	-
+00:00:14.247	+	Principessa, no! Non hai idea di cosa stai facendo!
+00:00:16.583	-
+00:00:18.651	+	Le altre Principesse saranno così invidiose.
+00:00:21.187	-
+00:00:22.589	+	Dammela Principessa, prima che qualcuno si faccia male!
+00:00:25.091	-
+00:00:39.000	+	Tu…dovevi proteggermi.
+00:00:43.543	+	Tu, hai strappato il mio cuore in due, Principessa. Guarda come ti distruggo ora.  
+00:00:47.013	-
+00:00:49.883	+	Niente di meglio di una piccola testa per rendere più semplice il lavoro.
+00:00:51.551	-
+00:00:53.553	+	Finalmente!
+00:00:54.754	+	Ahhhh, nooo!
+00:00:56.500	-	
+
+Portuguese
+00:00:03.837	+	Se divertindo, Rei Kobbler?
+00:00:08.208	+	Na verdade, sim.
+00:00:10.566	+	Quem diria que matar um herói fracassado seria tão divertido?
+00:00:14.014	-
+00:00:14.514	+	Eu não morri ainda!
+00:00:17.250	+	Você teria se tivesse um pescoço pra estrangular.
+00:00:19.333	+	Aqui só tem cabeça!
+00:00:20.620	+	Cabeça? Que tal cabeçada!
+00:00:24.257	-
+00:00:26.000	+	Sério Bob? Você chama isso de resgate?
+00:00:28.828	+	Quem disse que eu vim aqui por você, Princesa?
+00:00:31.197	+	Uh, todos os contos de fada medievais já escritos?
+00:00:33.767	+	Que encontro adorável.
+00:00:36.202	-
+00:00:38.672	+	Posso oferecer um drinque?
+00:00:40.907	+	Nãããoooo!
+00:00:45.345	-
+00:00:49.683	+	O quê é o quê é; um ponto sem pescoço boiando no oceano?!
+00:00:54.120	+	BOB!
+00:00:56.322	-
+00:01:00.727	+	Eu tenho peixe maior que você pra fritar.
+00:01:02.662	-
+00:00:00.100	+	Esta Esfera me construirá uma infinidade de reinos para reinar!
+00:00:05.338	-
+00:00:07.607	+	Uma vez que ela estiver entregue, eu posso me aposentar.
+00:00:10.677	+	Hora de botar um carvalho entre nós e o seu zerói! Digo, herói!
+00:00:15.115	+	Tão esperto. quantos anos você tem, nove?
+00:00:17.417	-
+00:00:18.251	+	Ah, qual é! Essas árvores estão próximas demais!
+00:00:22.389	+	Talvez você devesse considerar outras madeiras, Bob!
+00:00:26.493	+	Você acha que isso vai detê-lo?
+00:00:28.228	+	Meio que sim!
+00:00:29.863	-
+00:00:00.800	+	Assim que eu puser a Esfera no Pedestal  Altarberiano, eu criarei reinos Infinitos! E reinarei sobre todos eles!
+00:00:06.673	+	Você tinha mesmo que ir ao banheiro de novo!?
+00:00:09.275	-
+00:00:09.909	+	Eu não entraria lá por uns 10 minutos se eu fosse você.
+00:00:13.747	-
+00:00:16.216	+	Ugh! O que foi que você comeu!?
+00:00:18.785	+	Temos que ir andando...
+00:00:20.920	+	Ugh, meu braço vai apodrecer.
+00:00:22.489	+	… podia ter sido entregador de jornal, mas não... eu tinha de ser un herói...
+00:00:27.200	+	Entregador, tão mais fácil.
+00:00:02.035	+	Sério? Você de novo?
+00:00:04.000	+	Entregue-a, Kobbler!
+00:00:05.772	+	Eu vou rasgar você que nem um Imposto de Renda velho!
+00:00:08.108	-
+00:00:10.909	+	Por favor Kobbler, você é só um leão de papel!
+00:00:13.000	-
+00:00:14.000	+	O poder é meu! Todo meu!
+00:00:17.000	+	As outras princesas vão ficar com tanta inveja.
+00:00:19.000	+	Quê?
+00:00:20.000	+	Huh?
+00:00:21.000	-
+00:00:23.500	+	Desculpa Bob, mas um homenzinho como você não tem chance contra um poderoso guerreiro como eu!
+00:00:29.229	+	Espere.. cadê minha esfera?
+00:00:31.464	+	Minha esfera! Ela levou minha esfera!! Onde ela está!?
+00:00:36.136	-
+00:00:38.000	+	Eu estou ficando velho demais pra isso.
+00:00:00.633	+	Onde ela está Kobbler?
+00:00:02.102	+	Porquê perde o seu tempo, Bob?  
+00:00:04.166	+	Ela partiu seu coração antes, e o fará de novo.
+00:00:06.573	+	Eu não estou falando da princesa, Kobbler. Eu vim pela Esfera!
+00:00:11.011	+	Bravo Bob! Você finalmente usando sua cabeça! 
+00:00:14.300	+	Pena que irá perdê-la!
+00:00:15.749	-
+00:00:20.587	+	Este é um péssimo corte de papel.
+00:00:23.000	-
+00:00:26.960	+	Parece que você queimou sua capa.
+00:00:28.500	+	 É verdade, Bob? Você não veio por mim? Você veio por.. isto?
+00:00:33.600	+	Me desculpe, Princesa.
+00:00:35.301	+	Tudo bem! Agora matar você é bem mais fácil.
+00:00:38.772	+	Sério?! Isso é ridículo.
+00:00:41.274	+	Adeus, Bob!
+00:00:43.343	+	Lá vamos nós de novo...
+00:00:45.000	-	
+00:00:51.500	+	Bem, isso me é familiar.
+00:00:54.000	-	
+00:00:00.867	+	Deste dia em diante, os Reinos infinitos serão todos meus!
+00:00:07.807	+	Priinceeesaaaaaaaa!!!!!
+00:00:11.845	-
+00:00:14.247	+	Princesa, não! Você não faz idéia do que está fazendo!
+00:00:16.583	-
+00:00:18.651	+	As outras princesas vão ficar com tanta inveja.
+00:00:21.187	-
+00:00:22.589	+	Entregue-a Princesa, antes que alguem se machuque!
+00:00:25.091	-
+00:00:39.000	+	Você.. devia ter me protegido...
+00:00:43.543	+	Você rasgou meu coração em dois, Princesa. Agora, olha quem está rasgada.
+00:00:47.013	-
+00:00:49.883	+	Nada como um cabeça para tornar a vida mais fácil.
+00:00:51.551	-
+00:00:53.553	+	Finalmente! 
+00:00:54.754	+	Oh, dá um tempo!!
+00:00:56.500	-	
+
+Russian
+00:00:03.837	+	Ну что, Король Кобблер, развлекаетесь?
+00:00:08.208	+	Знаете, вообще то да,
+00:00:10.566	+	даже не думал что уничтожить забытого героя это так весело!
+00:00:14.014	-
+00:00:14.514	+	А я ещё не помер!
+00:00:17.250	+	Помер бы - была бы у тебя шея,
+00:00:19.333	+	а то ты только башка!
+00:00:20.620	+	Сам ты башка!
+00:00:24.257	-
+00:00:26.000	+	Боб это ты меня так спасаешь?
+00:00:28.828	+	А с чего вы решили что я вас спасаю именно вас, принцесса?
+00:00:31.197	+	Я что, сказок не читала?
+00:00:33.767	+	Какое милое свидание!
+00:00:36.202	-
+00:00:38.672	+	Могу я чем нибудь помочь?
+00:00:40.907	+	Неееееет!
+00:00:45.345	-
+00:00:49.683	+	Как тебе нравится быть главным без-шейным балваном моря?
+00:00:54.120	+	А Боб?
+00:00:56.322	-
+00:01:00.727	+	А у меня улов тебя побольши будет!
+00:01:02.662	-
+00:00:00.100	+	Эта держава сотворит бесконечное множество подвластных мне миров!
+00:00:05.338	-
+00:00:07.607	+	Вот доставлю принцессу и всё - на пенсию.
+00:00:10.677	+	Пора рассаду посадить между нами и твоим ноликом! То есть геройчиком!
+00:00:15.115	+	Тебе сколько лет?
+00:00:17.417	-
+00:00:18.251	+	Что за хрень! Деревья все срослись!
+00:00:22.389	+	Может тебе пора найти новую карьеру, Боб!
+00:00:26.493	+	Ты серьёзно думаешь, что это его остановит?
+00:00:28.228	+	Ну вообще то да!
+00:00:29.863	-
+00:00:00.800	+	Как только я водружу державу на Пьедестал Альтаберри я сотворю множество миров и все их буду править!
+00:00:06.673	+	Тебе что? Опять в туалет?!
+00:00:09.275	-
+00:00:09.909	+	Я б туда не заходила минут десять.
+00:00:13.747	-
+00:00:16.216	+	Ты что жрала?!
+00:00:18.785	+	Нам пора,
+00:00:20.920	+	а то у меня рука отвалится.
+00:00:22.489	+	Я мог бы быть переносчиком
+00:00:27.200	+	сдалось мне стать героем.
+00:00:02.035	+	Что? Не уж то ты опять?
+00:00:04.000	+	Давай её суда, Кобблер!
+00:00:05.772	+	Я тебя разорву как прошлогодния газету!
+00:00:08.108	-
+00:00:10.909	+	Кобблер. ты бумажный тигр!
+00:00:13.000	-
+00:00:14.000	+	Держава моя! Моя!
+00:00:17.000	+	А остальные принцессы упадут от зависти!
+00:00:19.000	+	Чего?
+00:00:20.000	+	Не Понял.
+00:00:21.000	-
+00:00:23.500	+	Боб – у тебя нет ни малейшего шанса в схватки с таким могучим военом как я!
+00:00:29.229	+	Погоди, а где держава?
+00:00:32.136	-
+00:00:38.000	+	Все, мне это надоело.
+00:00:00.633	+	Где она Кобблер?
+00:00:02.102	+	Чего попусту время тратишь, а Боб?
+00:00:04.166	+	Она тебе уже сердце разбила, тебе что, одного раза мало?
+00:00:06.573	+	Я не о принцессе говору Кобблер, а о державе!
+00:00:11.011	+	Браво Боб! Наконец-то башка заработала. 
+00:00:14.300	+	Правда, это не надолго!
+00:00:15.749	-
+00:00:20.587	+	Ой, не уж то порезался!
+00:00:23.000	-
+00:00:26.960	+	Кажется ты Кобблер подпалила.
+00:00:28.500	+	Это правда, Боб? Ты здесь не ради меня, а ради .... этого?
+00:00:33.600	+	Прости Принцесса.
+00:00:35.301	+	Не волнюйся, теперя мне не предётся жалеть о твоей смерти:
+00:00:38.772	+	Ты что серьёзно!? Во ба!
+00:00:41.274	+	Прощай Боб
+00:00:43.343	+	Ну вот – опять поехали.
+00:00:45.000	-	
+00:00:51.500	+	Всё вроде знакомо.
+00:00:54.000	-	
+00:00:00.867	+	Отныне Всемирное Царство принадлежит одной только мне!
+00:00:07.807	+	Принцесса!!!!!
+00:00:11.845	-
+00:00:14.247	+	Принцесса опомнись, ты не смыслишь что делаешь!
+00:00:16.583	-
+00:00:18.651	+	Другие все принцессы упадут от зависти.
+00:00:21.187	-
+00:00:22.589	+	Давай суда Принцесса, а то пожалеем мы оба!
+00:00:25.091	-
+00:00:39.000	+	Ты ....ты же должен был спасти меня.
+00:00:43.543	+	Ты разорвала мне сердце, а теперь разорвана сама.
+00:00:47.013	-
+00:00:49.883	+	Хорошая голова всегда выручит.
+00:00:51.551	-
+00:00:53.553	+	Наконец!
+00:00:54.754	+	Эй! Не честно!
+00:00:56.500	-	
+
+Spanish
+00:00:03.837	+	Lo estas disfrutando Rey Kobbler?
+00:00:08.208	+	Ha decir verdad, si.
+00:00:10.566	+	Quien hubiera pensado que matar a un héroe papanatas seria tan guay?
+00:00:14.014	-
+00:00:14.514	+	Mira que aun no he muerto, tio! 
+00:00:17.250	+	Lo estarías si tuvieras un cuello que pudierase ser estrangulado.
+00:00:19.333	+	No eres nada más que una cabeza!
+00:00:20.620	+	másSolamente una cabeza?  Creo que querías decir cabeZAzo!
+00:00:24.257	-
+00:00:26.000	+	Pero que cosas!? Tío, a esto llamas rescate? 
+00:00:28.828	+	Quien dijo que he venido por ti Princesa? 
+00:00:31.197	+	Aaammm, todas los cuentos de hadas que involucran princesas?
+00:00:33.767	+	Que bella reunión 
+00:00:36.202	-
+00:00:38.672	+	Podría ofrecerte Pa-ella? 
+00:00:40.907	+	Noooooo!
+00:00:45.345	-
+00:00:49.683	+	Como llamas a alguien sin cuello flotando en medio del mar?
+00:00:54.120	+	BOB!
+00:00:56.322	-
+00:01:00.727	+	Que va! Tengo cosas mas importantes que pensar en ti.
+00:01:02.662	-
+00:00:00.100	+	Esta orbe me creara mundos infinitos para gobernar! 
+00:00:05.338	-
+00:00:07.607	+	Una vez que la haya entregado pacíficamente, por fin me podre retirar!
+00:00:10.677	+	Tiempo de crear espacio entre nosotros y tu intento de héroe!
+00:00:15.115	+	Ah muy inteligente. Que, acaso tienes 9? 
+00:00:17.417	-
+00:00:18.251	+	Manda huevos! Pero  si estan super puntiagudas!
+00:00:22.389	+	Tal vez deberías de considerar ramificar a una nueva carrera, Bob
+00:00:26.493	+	Crees que eso lo detendrá?
+00:00:28.228	+	Si, yo creo que si!
+00:00:29.863	-
+00:00:00.800	+	Una vez que la orbe este arriba del Pedestal Altarberry, creare infinitos reinos y los gobernare todos! 
+00:00:06.673	+	Tenias que ir al baño otra vez?  
+00:00:09.275	-
+00:00:09.909	+	Me quedaría aquí afuera al menos por 10 minutos si fuera tu. 
+00:00:13.747	-
+00:00:16.216	+	Ahg! Por Dios que comiste!?
+00:00:18.785	+	Tenemos que irnos,
+00:00:20.920	+	ugh, mi brazo se va a podrir.
+00:00:22.489	+	Pude haber sido repartidor de periódicos, ah no! Tenia que ser héroe…. 
+00:00:27.200	+	Periódicos, muchooo mas fácil. 
+00:00:02.035	+	En serio? Tu de nuevo?
+00:00:04.000	+	Kobbler, dame a la princesa!
+00:00:05.772	+	Te voy a triturar como cebolla para la Paella!
+00:00:08.108	-
+00:00:10.909	+	Kobbler, Por favor, no eres mas que un tigre de papel! 
+00:00:13.000	-
+00:00:14.000	+	El poder es mío! TODO MIO! 
+00:00:17.000	+	Las otras princesas estarán muy celosas!
+00:00:19.000	+	Que?
+00:00:20.000	+	Huh?
+00:00:21.000	-
+00:00:23.500	+	Lo siento Bob, un tío tan pequeño como tu no puede contra una bestia tan cachas como yo! 
+00:00:29.229	+	Espera…donde esta mi orbe?
+00:00:31.464	+	mi orbe! Ella tomo mi orbe! Donde esta mi orbe!?
+00:00:36.136	-
+00:00:38.000	+	Me estoy haciendo viejo para esto.  
+00:00:00.633	+	Donde esta Kobbler?
+00:00:02.102	+	Por que me haces perder mi tiempo, Bob? 
+00:00:04.166	+	Ella quebró tu corazón antes, lo hará de nuevo.
+00:00:06.573	+	No estoy hablando de la princesa Kobbler, hablo de la orbe! 
+00:00:11.011	+	Bravo Bob! Al fin estas usando la cabeza. 
+00:00:14.300	+	Muy mal que la vayas a perder!
+00:00:15.749	-
+00:00:20.587	+	Esa es una horrible cortada de papel!
+00:00:23.000	-
+00:00:26.960	+	Parece que te has quemado Kobbler.
+00:00:28.500	+	Es verdad, Bob? No viniste por mi? Viniste por… esto? 
+00:00:33.600	+	Lo siento princesa.
+00:00:35.301	+	No hay problema! Ahora matarte es mucho más fácil.
+00:00:38.772	+	En serio!? No lo puedo creer!
+00:00:41.274	+	Adiós Bob!
+00:00:43.343	+	Aquí vamos de Nuevo!
+00:00:45.000	-	
+00:00:51.500	+	Mmmm, esto me parece familiar.
+00:00:54.000	-	
+00:00:00.867	+	A partir de hoy, todos los reinos serán míos! 
+00:00:07.807	+	Priiiinceeessssssssssaaaa!!!!! 
+00:00:11.845	-
+00:00:14.247	+	Princesa, No! No sabes lo que estas hacienda!
+00:00:16.583	-
+00:00:18.651	+	Las otras princesas se morirán de celos!
+00:00:21.187	-
+00:00:22.589	+	Dame la orbe Princesa, antes de que alguien salga lastimado! 
+00:00:25.091	-
+00:00:39.000	+	Tu… debiste haberme protegido.
+00:00:43.543	+	Mi churri, destruiste mi corazón en dos. Mira quien te destruyo ahora.
+00:00:47.013	-
+00:00:49.883	+	Nada como usar la cabeza para hacer el trabajo mas sencillo.
+00:00:51.551	-
+00:00:53.553	+	Al fin!
+00:00:54.754	+	Aww, vamos!
+00:00:56.500	-	

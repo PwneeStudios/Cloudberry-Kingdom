@@ -235,6 +235,21 @@ namespace CloudberryKingdom
 
         public static void UploadCampaignLevels()
         {
+#if PC_VERSION
+			int level = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				if (Players[i].Exists)
+				{
+					level = Math.Max(level, Players[i].GetTotalCampaignLevel());
+				}
+			}
+
+			var ScoreToWrite = new ScoreEntry(null, 7777, level, level, level, 0, 0, 0);
+			Leaderboard.WriteToLeaderboard(ScoreToWrite);
+#endif
+
+#if XBOX
             ScoreEntry[] ScoresToWrite = new ScoreEntry[4];
 
             for (int i = 0; i < 4; i++)
@@ -253,10 +268,12 @@ namespace CloudberryKingdom
             {
                 Leaderboard.WriteToLeaderboard(ScoresToWrite);
             }
+#endif
         }
 
         public static void UploadPlayerLevels()
         {
+#if XBOX
             bool ShouldUpdate = false;
             ScoreEntry[] ScoresToWrite = new ScoreEntry[4];
 
@@ -278,6 +295,32 @@ namespace CloudberryKingdom
             {
                 Leaderboard.WriteToLeaderboard(ScoresToWrite);
             }
+#endif
+
+#if PC_VERSION
+            bool ShouldUpdate = false;
+			int Max = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (Players[i].Exists && CloudberryKingdomGame.OnlineFunctionalityAvailable((PlayerIndex)i))
+                {
+                    int level = Players[i].GetTotalLevel();
+                    if (level != Players[i].LastPlayerLevelUpload)
+                    {
+						Max = Math.Max(Max, level);
+                        Players[i].LastPlayerLevelUpload = level;
+                        ShouldUpdate = true;
+                    }
+                }
+            }
+
+            if (ShouldUpdate)
+            {
+				ScoreEntry ScoreToWrite = new ScoreEntry(null, 9999, Max, Max, Max, 0, 0, 0);
+                Leaderboard.WriteToLeaderboard(ScoreToWrite);
+            }
+#endif
         }
 
 

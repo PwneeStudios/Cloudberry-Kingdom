@@ -118,6 +118,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <DebugSymbols>true</DebugSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Editor Release|x86'">
     <OutputPath>bin\x86\Editor Release\</OutputPath>
@@ -169,9 +170,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x86\SlimDX.dll</HintPath>
     </Reference>
-    <Reference Include="SteamWrapper, Version=1.0.4859.34249, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="SteamWrapper, Version=1.0.4864.26561, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2010\Projects\SteamWrapper\Release\SteamWrapper.dll</HintPath>
+      <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -278,6 +279,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\ChapterTitle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
+    <Compile Include="Game\Player\Leaderboard_Steam.cs" />
     <Compile Include="Game\Player\LeaderboardView.cs" />
     <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />

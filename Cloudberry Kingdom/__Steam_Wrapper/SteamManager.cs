@@ -18,13 +18,18 @@ namespace SteamManager
 	public class Gamer
 	{
 		public string Gamertag;
+
+		public Gamer(string Gamertag)
+		{
+			this.Gamertag = Gamertag;
+		}
 	}
 
 	public static class SteamCore
 	{
 		public static bool Initialize()
 		{
-			return SW.SteamCore.Initialize();
+			return SW.SteamCore.Initialize();			
 		}
 
 		public static void Shutdown()
@@ -35,6 +40,14 @@ namespace SteamManager
 		public static void Update()
 		{
 			SW.SteamCore.Update();
+		}
+
+		public static unsafe string PlayerName()
+		{
+			var pchName = SW.SteamCore.PlayerName();
+			var s = new String(pchName);
+
+			return s;
 		}
 	}
 
@@ -57,6 +70,21 @@ namespace SteamManager
 			Friends = 2,
 			Users = 3
 		};
+
+		public static void GiveAchievement(string AchievementApiName)
+		{
+			SW.SteamStats.GiveAchievement(AchievementApiName);
+		}
+
+		public static int NumEntriesFound()
+		{
+			return SW.SteamStats.NumEntriesFound();
+		}
+
+		public static int NumEntries(LeaderboardHandle Handle)
+		{
+			return SW.SteamStats.NumEntries(Handle.Handle);
+		}
 
 		public static void FindLeaderboard(String LeaderboardName, Action<LeaderboardHandle, bool> OnFind)
 		{
@@ -81,6 +109,14 @@ namespace SteamManager
 		public static int Results_GetRank(int Index)
 		{
 			return SW.SteamStats.Results_GetRank(Index);
+		}
+
+		public static unsafe string Results_GetName(int Index)
+		{
+			var pchName = SW.SteamStats.Results_GetPlayer(Index);
+			var s = new String(pchName);
+
+			return s;
 		}
 	}
 }

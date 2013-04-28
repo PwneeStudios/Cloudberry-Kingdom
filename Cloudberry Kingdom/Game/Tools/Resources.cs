@@ -399,7 +399,8 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Mouse pointer
             Ck.MousePointer = new QuadClass();
-            Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
+			//Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
+			Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Mouse");
             Ck.MousePointer.ScaleYToMatchRatio(70);
 
             // Mouse back icon

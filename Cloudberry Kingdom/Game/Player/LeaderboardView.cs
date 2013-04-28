@@ -268,7 +268,7 @@ else
 			SetSortListProperties(SortList);
 			for (int i = 0; i < (int)LeaderboardType.Length; i++)
 			{
-				item = new MenuItem(new EzText(LeaderboardType_ToString(Incr((LeaderboardType)i)), ItemFont, false, true));
+				item = new MenuItem(new EzText(LeaderboardType_ToString((LeaderboardType)i), ItemFont, false, true));
 				SetItemProperties(item);
 				SortList.AddItem(item, (LeaderboardType)i);
 			}
@@ -308,11 +308,20 @@ else
 
 		private void SortList_OnSelect(MenuList SortList)
 		{
+			//return;
+			if (CurrentView == null) return;
+			var PrevType = CurrentView.MyLeaderboard.MySortType;
+
 			CurrentType = (LeaderboardType)SortList.ListIndex;
 			SortList.CurMenuItem.MyText.Scale =
 			SortList.CurMenuItem.MySelectedText.Scale = .42f;
 
 			UpdateView();
+
+			if (CurrentType != PrevType)
+			{
+				CurrentView.SetType(CurrentType);
+			}
 		}
 
         EzText LoadingText, NotRanked, NotRankedFriends;
@@ -566,16 +575,16 @@ else
             }
             else if (Math.Abs(Dir.X) > .9f)
             {
-                MotionCount_LeftRight++;
-                if (DelayCount_LeftRight <= 0)
-                {
-                    DelayCount_LeftRight = SelectDelay - 5;
-                    if (MotionCount_LeftRight > 1 * SelectDelay) DelayCount_LeftRight -= 4;
-                    if (MotionCount_LeftRight > 2 * SelectDelay) DelayCount_LeftRight -= 3;
+				MotionCount_LeftRight++;
+				if (DelayCount_LeftRight <= 0)
+				{
+					DelayCount_LeftRight = SelectDelay - 5;
+					if (MotionCount_LeftRight > 1 * SelectDelay) DelayCount_LeftRight -= 4;
+					if (MotionCount_LeftRight > 2 * SelectDelay) DelayCount_LeftRight -= 3;
 
-                    if (Dir.X > 0) ChangeLeaderboard(1);
-                    else ChangeLeaderboard(-1);
-                }
+					if (Dir.X > 0) ChangeLeaderboard(1);
+					else ChangeLeaderboard(-1);
+				}
             }
             else
                 MotionCount_LeftRight = 0;
