@@ -73,7 +73,8 @@ namespace SteamManager
 
 		public static void GiveAchievement(string AchievementApiName)
 		{
-			SW.SteamStats.GiveAchievement(AchievementApiName);
+			bool r = SW.SteamStats.GiveAchievement(AchievementApiName);
+			Console.Write(r);
 		}
 
 		public static int NumEntriesFound()
