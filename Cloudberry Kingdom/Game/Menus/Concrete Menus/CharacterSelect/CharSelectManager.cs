@@ -328,7 +328,11 @@ namespace CloudberryKingdom
             // Check for ready to exit from character selection
             if (AllExited() && IsShowing)
             {
-                if (ButtonCheck.State(ControllerButtons.B, -2).Pressed)
+                if (ButtonCheck.State(ControllerButtons.B, -2).Pressed
+#if PC_VERSION
+					|| Tools.RightMouseReleased()
+#endif
+					)
                 {
                     Active = false;
                     IsShowing = false;

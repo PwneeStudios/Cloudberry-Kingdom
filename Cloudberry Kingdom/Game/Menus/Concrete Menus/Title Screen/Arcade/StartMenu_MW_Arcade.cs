@@ -72,6 +72,24 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
+		ClickableBack Back;
+
+		protected override void MyPhsxStep()
+		{
+			base.MyPhsxStep();
+
+#if PC_VERSION
+			if (!Active) return;
+
+			// Update the back button and the scroll bar
+			if (Back.UpdateBack(MyCameraZoom))
+			{
+				MenuReturnToCaller(MyMenu);
+				return;
+			}
+#endif
+		}
+
         public override void Init()
         {
  	        base.Init();
@@ -80,6 +98,11 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             SetPos();
+
+#if PC_VERSION
+			// Back button
+			Back = new ClickableBack(MyPile, true, true);
+#endif
         }
 
         void SetPos()

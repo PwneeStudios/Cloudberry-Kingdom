@@ -266,12 +266,7 @@ namespace CloudberryKingdom
 
             #endregion
 
-            /// <summary>
-            /// Back
-            /// </summary>
-            MyPile.Add(new QuadClass(ButtonTexture.Back), "Back");
-            MyPile.Add(new QuadClass("BackArrow2", "BackArrow"));
-
+			// Fade in
             MyPile.FadeIn(.33f);
 
             // Scroll bar
@@ -287,9 +282,11 @@ namespace CloudberryKingdom
             ScrollBottom.Show = false;
 
 			Scroll = new SimpleScroll(ScrollQuad, ScrollTop, ScrollBottom);
-			Back = new ClickableBack(MyPile);
 
             SetPos();
+
+			// Back button
+			Back = new ClickableBack(MyPile, true, true);
         }
 
         EzText Score, Level;
@@ -439,7 +436,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -463,7 +460,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -487,7 +484,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -511,7 +508,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -535,7 +532,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -559,7 +556,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -583,7 +580,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5464f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -434.0609f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }
@@ -607,7 +604,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-972.2227f, -127.7778f); _q.Size = new Vector2(616.5463f, 1004.329f); }
 				_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(666.6641f, -88.88879f); _q.Size = new Vector2(776.5515f, 846.666f); }
 				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1269.443f, -1011.111f); _q.Size = new Vector2(64.49973f, 64.49973f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-1416.666f, -1016.667f); _q.Size = new Vector2(71.89921f, 61.83332f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 				_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1450f, -206.803f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 				_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -100.0001f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1444.444f, -752.2221f); _q.Size = new Vector2(28.7499f, 21.2196f); }

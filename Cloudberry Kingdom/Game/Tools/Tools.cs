@@ -36,19 +36,36 @@ namespace CloudberryKingdom
 		Vector2 scale1, scale2, pos2;
 		DrawPile pile;
 
-		public ClickableBack(DrawPile pile)
+		bool ShowWithMouseOnly;
+		public ClickableBack(DrawPile pile, bool ShowWithMouseOnly, bool MakeButton)
 		{
 #if PC_VERSION
 			this.pile = pile;
 #endif
+
+			this.ShowWithMouseOnly = ShowWithMouseOnly;
+
+			// Make the back button
+			if (MakeButton)
+			{
+				var BackButton = new QuadClass(ButtonTexture.Back);
+				pile.Add(BackButton, "Back");
+				var BackArrow = new QuadClass("BackArrow2", "BackArrow");
+				pile.Add(BackArrow);
+				BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
+			}
+
+			QuadClass _q;
+			Vector2 v = pile.Pos;
+			q1 = _q = pile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1208.332f, -851.1106f) - v; _q.Size = new Vector2(56.24945f, 56.24945f); }
+			q2 = _q = pile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
+
+			HideShow();
 		}
 
 		void GrabBack()
 		{
 #if PC_VERSION
-			q1 = pile.FindQuad("Back");
-			q2 = pile.FindQuad("BackArrow");
-
 			scale1 = q1.Size;
 			scale2 = q2.Size;
 
@@ -63,7 +80,9 @@ namespace CloudberryKingdom
 		public bool UpdateBack(Vector2 MyCameraZoom)
 		{
 #if PC_VERSION
-			if (q1 == null) GrabBack();
+			if (scale1 == Vector2.Zero) GrabBack();
+
+			HideShow();
 
 			bool hit =
 				q1.HitTest(Tools.MouseGUIPos(MyCameraZoom)) ||
@@ -92,6 +111,22 @@ namespace CloudberryKingdom
 
 			return false;
 #endif
+		}
+
+		private void HideShow()
+		{
+			if (ButtonCheck.MouseInUse)
+			{
+				q1.Show = q2.Show = true;
+			}
+			else
+			{
+				if (ShowWithMouseOnly)
+				{
+					q1.Show = q2.Show = false;
+				}
+			}
+
 		}
 	}
 #endif
@@ -122,7 +157,8 @@ namespace CloudberryKingdom
 		{
 			get
 			{
-				float t = (ScrollQuad.PosY - ScrollTop.PosY) / (ScrollBottom.PosY - ScrollTop.PosY);
+				float top = ScrollTop.PosY - ScrollQuad.SizeY;
+				float t = (ScrollQuad.PosY - top) / (ScrollBottom.PosY - top);
 				t = CoreMath.Restrict(0, 1, t);
 
 				return t;

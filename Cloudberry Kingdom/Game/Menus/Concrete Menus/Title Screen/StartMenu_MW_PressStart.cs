@@ -87,7 +87,11 @@ namespace CloudberryKingdom
                 return;
             }
 
-            if (ButtonCheck.AnyKey() && !ButtonCheck.State(ControllerButtons.B, -2).Down)
+            if (ButtonCheck.AnyKey() && !ButtonCheck.State(ControllerButtons.B, -2).Down
+#if PC_VERSION
+				&& !Tools.CurRightMouseDown()
+#endif
+				)
             {
                 DelayToAllowInput = 10;
 

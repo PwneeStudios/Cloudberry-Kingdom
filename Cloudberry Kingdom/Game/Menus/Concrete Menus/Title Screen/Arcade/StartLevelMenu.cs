@@ -174,21 +174,15 @@ namespace CloudberryKingdom
             Backdrop.ScaleYToMatchRatio(587);
             MyPile.Add(Backdrop);
 
-            // Back
-            var BackButton = new QuadClass(ButtonTexture.Back);
-            MyPile.Add(BackButton, "Back");
-            var BackArrow = new QuadClass("BackArrow2", "BackArrow");
-            MyPile.Add(BackArrow);
-            BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
-
             // Header
             var Header = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
             MyPile.Add(Header);
             SetHeaderProperties(Header);
 
-			Back = new ClickableBack(MyPile);
-
             SetPos();
+
+			// Back button
+			Back = new ClickableBack(MyPile, true, true);
         }
 
 #if PC_VERSION
@@ -216,8 +210,6 @@ namespace CloudberryKingdom
 
             QuadClass _q;
             _q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-591.6664f, -63.88891f); _q.Size = new Vector2(884.3204f, 964.1653f); }
-            _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1102.777f, -761.1107f); _q.Size = new Vector2(56.24945f, 56.24945f); }
-            _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
             MyPile.Pos = new Vector2(0f, 0f);
         }
