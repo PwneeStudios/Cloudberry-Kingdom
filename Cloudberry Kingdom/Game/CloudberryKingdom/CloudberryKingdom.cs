@@ -79,18 +79,18 @@ namespace CloudberryKingdom
 		public static bool AsianButtonSwitch = false;
 
 #if PC_VERSION
-        // Steam Beta
-		//public static bool HideLogos = true;
-		//public static bool LockCampaign = true;
+        // Steam
+		//public static bool HideLogos = false;
+		//public static bool LockCampaign = false;
 		//public static bool SimpleMainMenu = true;
-		//public static bool PS3MainMenu = false;
-		//public static bool PS3MainMenu = false;
-		//public static bool SimpleLeaderboards = true;
+		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		//public static bool SimpleLeaderboards = false;
 		//public static bool FakeAwardments = false;
+		//public static float GuiSqueeze = 0;
 
-		// PC Beta
+		// Steam Beta
 		public static bool HideLogos = false;
-		public static bool LockCampaign = false;
+		public static bool LockCampaign = true;
 		public static bool SimpleMainMenu = true;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		public static bool SimpleLeaderboards = false;

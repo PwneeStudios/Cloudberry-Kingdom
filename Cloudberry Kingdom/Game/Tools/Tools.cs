@@ -29,6 +29,143 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
+#if PC_VERSION
+	class ClickableBack
+	{
+		QuadClass q1, q2;
+		Vector2 scale1, scale2, pos2;
+		DrawPile pile;
+
+		public ClickableBack(DrawPile pile)
+		{
+#if PC_VERSION
+			this.pile = pile;
+#endif
+		}
+
+		void GrabBack()
+		{
+#if PC_VERSION
+			q1 = pile.FindQuad("Back");
+			q2 = pile.FindQuad("BackArrow");
+
+			scale1 = q1.Size;
+			scale2 = q2.Size;
+
+			pos2 = q2.Pos;
+#endif
+		}
+
+		/// <summary>
+		/// Updates the back button. Should be called in the owning GUI_Panel's phsx update.
+		/// </summary>
+		/// <returns>true if the back button was activated and the GUI_Panel should abort the remaining phsx.</returns>
+		public bool UpdateBack(Vector2 MyCameraZoom)
+		{
+#if PC_VERSION
+			if (q1 == null) GrabBack();
+
+			bool hit =
+				q1.HitTest(Tools.MouseGUIPos(MyCameraZoom)) ||
+				q2.HitTest(Tools.MouseGUIPos(MyCameraZoom));
+
+			const float scale = 1.05f;
+			if (hit)
+			{
+				q1.Size = scale1 * scale;
+				q2.Size = scale2 * scale;
+
+				q2.Pos = pos2 - .035f * new Vector2(q2.Size.X, 0);
+
+				if (Tools.MousePressed())
+				{
+					return true;
+				}
+			}
+			else
+			{
+				q1.Size = scale1;
+				q2.Size = scale2;
+
+				q2.Pos = pos2;
+			}
+
+			return false;
+#endif
+		}
+	}
+#endif
+
+	class SimpleScroll
+	{
+		QuadClass ScrollQuad, ScrollTop, ScrollBottom;
+
+		public SimpleScroll(QuadClass ScrollQuad, QuadClass ScrollTop, QuadClass ScrollBottom)
+		{
+			this.ScrollQuad = ScrollQuad;
+			this.ScrollTop = ScrollTop;
+			this.ScrollBottom = ScrollBottom;
+		}
+		
+		public void UpdatePosFromIndex(int index, int N)
+		{
+			if (ScrollQuad != null)
+			{
+				index = CoreMath.Restrict(0, N - 1, index);
+
+				float t = (float)index / (float)(N - 1);
+				ScrollQuad.PosY = (1 - t) * (ScrollTop.PosY - ScrollQuad.SizeY) + (t) * ScrollBottom.PosY;
+			}
+		}
+
+		public float t
+		{
+			get
+			{
+				float t = (ScrollQuad.PosY - ScrollTop.PosY) / (ScrollBottom.PosY - ScrollTop.PosY);
+				t = CoreMath.Restrict(0, 1, t);
+
+				return t;
+			}
+		}
+
+		public int tToIndex(int N)
+		{
+			int i = (int)(t * N - .55f);
+			i = CoreMath.Restrict(0, N - 1, i);
+
+			return i;
+		}
+
+		public bool Holding = false;
+		Vector2 HoldOffset;
+		public void PhsxStep(Vector2 mouse_pos)
+		{
+			if (Holding)
+			{
+				if (Tools.MouseDown())
+				{
+					ScrollQuad.PosY = CoreMath.Restrict(ScrollBottom.PosY, ScrollTop.PosY - ScrollQuad.SizeY, mouse_pos.Y + HoldOffset.Y);
+				}
+				else
+				{
+					Holding = false;
+				}
+			}
+			else
+			{
+				bool hit = ScrollQuad.HitTest(mouse_pos);
+				if (hit && Tools.MousePressed())
+				{
+					Holding = true;
+					HoldOffset = ScrollQuad.Pos - mouse_pos;
+				}
+			}
+		}
+	}
+
+
+
     public static class StringExtension
     {
         public static string Capitalize(this string s)

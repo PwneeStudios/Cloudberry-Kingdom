@@ -9,6 +9,7 @@ using System.IO;
 using CoreEngine;
 
 #if PC_VERSION
+using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -392,6 +393,14 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public static string GetGroupGamerTag(int MaxLength)
         {
+#if PC_VERSION
+			if (CloudberryKingdomGame.UsingSteam)
+			{
+				string name = SteamCore.PlayerName();
+				return name;
+			}
+#endif
+
             List<PlayerData> players = LoggedInPlayers;
             if (players.Count == 0)
                 players = new List<PlayerData>(ExistingPlayers);

@@ -559,8 +559,11 @@ namespace CloudberryKingdom
             return HitTest(pos, Vector2.Zero);
         }
 
+		public bool MouseSelectable = true;
         public virtual bool HitTest(Vector2 pos, Vector2 padding)
         {
+			if (!MouseSelectable || !Selectable) return false;
+
             return ColWithIcon && Icon != null && Icon.HitTest(pos) ||
                 MyText.HitTest(pos, Padding + padding);
         }

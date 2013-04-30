@@ -132,7 +132,10 @@ namespace CloudberryKingdom
             MyMenu.Pos = new Vector2(400, -240);
 
 #if PC_VERSION
-            MakeTextBox();
+			if (CloudberryKingdomGame.SimpleLeaderboards)
+			{
+				MakeTextBox();
+			}
 #endif
 
             SetPos();

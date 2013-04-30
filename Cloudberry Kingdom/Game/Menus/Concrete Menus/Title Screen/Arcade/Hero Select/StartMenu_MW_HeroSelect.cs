@@ -41,7 +41,7 @@ namespace CloudberryKingdom
         {
             base.Release();
 
-            Scroll = null;
+            ScrollQuad = null;
 
             if (MyHeroDoll != null) MyHeroDoll.Release();
             if (Options != null) Options.Release();
@@ -168,8 +168,13 @@ namespace CloudberryKingdom
             Update();
         }
 
-        QuadClass Scroll, ScrollTop, ScrollBottom;
+		SimpleScroll Scroll;
+		ClickableBack Back;
+
+        QuadClass ScrollQuad, ScrollTop, ScrollBottom;
+
         public HeroDoll MyHeroDoll;
+
         public override void Init()
         {
  	        base.Init();
@@ -270,8 +275,8 @@ namespace CloudberryKingdom
             MyPile.FadeIn(.33f);
 
             // Scroll bar
-            Scroll = new QuadClass("Arcade_BoxLeft", 100);
-            MyPile.Add(Scroll, "Scroll");
+            ScrollQuad = new QuadClass("Arcade_BoxLeft", 100);
+            MyPile.Add(ScrollQuad, "Scroll");
 
             ScrollTop = new QuadClass("Arcade_BoxLeft", 100);
             MyPile.Add(ScrollTop, "ScrollTop");
@@ -281,6 +286,8 @@ namespace CloudberryKingdom
             MyPile.Add(ScrollBottom, "ScrollBottom");
             ScrollBottom.Show = false;
 
+			Scroll = new SimpleScroll(ScrollQuad, ScrollTop, ScrollBottom);
+			Back = new ClickableBack(MyPile);
 
             SetPos();
         }
@@ -291,11 +298,47 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-            if (Scroll != null)
-            {
-                float t = (float)MyMenu.CurIndex / (float)(NumSelectableItems - 1);
-                Scroll.PosY = (1 - t) * (ScrollTop.PosY - Scroll.SizeY) + (t) * ScrollBottom.PosY;
-            }
+			bool UpdateScrollPosition = true;
+
+#if PC_VERSION
+			if (!Active) return;
+
+			// Update the back button and the scroll bar
+			if (Back.UpdateBack(MyCameraZoom))
+			{
+				MenuReturnToCaller(MyMenu);
+				return;
+			}
+			
+			Scroll.PhsxStep(Tools.MouseGUIPos(MyCameraZoom));
+
+			// Sync the mini menu's scroll position with the scroll bar
+			MiniMenu mini = MyMenu as MiniMenu;
+			mini.Active = true;
+			if (ButtonCheck.MouseInUse)
+			{
+				if (Scroll.Holding)
+				{
+					UpdateScrollPosition = false;
+
+					mini.Active = false;
+					mini.TopItem = Scroll.tToIndex(NumSelectableItems - mini.ItemsToShow + 1);
+				}
+				else
+				{
+					if (Tools.DeltaScroll == 0)
+						UpdateScrollPosition = false;
+					else
+						UpdateScrollPosition = true;
+				}
+			}
+#endif
+
+			if (UpdateScrollPosition)
+			{
+				//Scroll.UpdatePosFromIndex(Math.Max(MyMenu.CurIndex, mini.TopItem), NumSelectableItems - mini.ItemsToShow + 1);
+				Scroll.UpdatePosFromIndex(mini.TopItem, NumSelectableItems - mini.ItemsToShow + 1);
+			}
         }
 
         public override void OnReturnTo()

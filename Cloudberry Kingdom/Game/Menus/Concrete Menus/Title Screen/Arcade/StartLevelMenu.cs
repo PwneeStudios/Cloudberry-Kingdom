@@ -31,6 +31,8 @@ namespace CloudberryKingdom
             text.Shadow = false;
         }
 
+		ClickableBack Back;
+
         public Action<LevelItem> StartFunc;
         public Action ReturnFunc;
 
@@ -184,8 +186,26 @@ namespace CloudberryKingdom
             MyPile.Add(Header);
             SetHeaderProperties(Header);
 
+			Back = new ClickableBack(MyPile);
+
             SetPos();
         }
+
+#if PC_VERSION
+		protected override void MyPhsxStep()
+		{
+			base.MyPhsxStep();
+
+			if (!Active) return;
+
+			// Update the back button and the scroll bar
+			if (Back.UpdateBack(MyCameraZoom))
+			{
+				MenuReturnToCaller(MyMenu);
+				return;
+			}
+		}
+#endif
 
         void SetPos()
         {

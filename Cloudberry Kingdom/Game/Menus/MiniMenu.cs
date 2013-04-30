@@ -5,8 +5,8 @@ namespace CloudberryKingdom
     public class MiniMenu : Menu
     {
         public int ItemsToShow = 5;
-        int TopItem = 0;
-        int BottomItem
+        public int TopItem = 0;
+        public int BottomItem
         {
             get
             {
@@ -35,6 +35,11 @@ namespace CloudberryKingdom
                 SkipPhsx = false;
                 return;
             }
+
+#if PC_VERSION
+			TopItem -= (int)System.Math.Sign(Tools.DeltaScroll);
+			TopItem = CoreMath.Restrict(0, Items.Count - ItemsToShow, TopItem);
+#endif
         }
 
         public Vector2 Shift = new Vector2(0, -80);
@@ -46,8 +51,18 @@ namespace CloudberryKingdom
             CurDrawLayer = Layer;
 
             // Update index bounds
-            if (CurIndex < TopItem) TopItem = CurIndex;
-            if (CurIndex > BottomItem) BottomItem = CurIndex;
+#if PC_VERSION
+			if (!ButtonCheck.MouseInUse)
+#endif
+			{
+				if (CurIndex < TopItem) TopItem = CurIndex;
+				if (CurIndex > BottomItem) BottomItem = CurIndex;
+			}
+
+#if PC_VERSION
+			foreach (var item in Items)
+				item.MouseSelectable = false;
+#endif
 
             // Draw item text
             for (int i = TopItem; i <= BottomItem; i++)
@@ -55,6 +70,10 @@ namespace CloudberryKingdom
                 if (i >= Items.Count) break;
 
                 var item = Items[i];
+
+#if PC_VERSION
+				item.MouseSelectable = true;
+#endif
                 
                 item.SetPos = Vector2.Zero;
                 item.PosOffset = Pos + Shift * (i - TopItem);
