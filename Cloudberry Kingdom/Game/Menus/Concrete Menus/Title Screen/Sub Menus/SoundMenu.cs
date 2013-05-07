@@ -136,7 +136,7 @@ namespace CloudberryKingdom
             MenuList FsRezList = new MenuList();
             FsRezList.Name = "RezList";
             FsRezList.Center = false;
-            FsRezList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
+			FsRezList.MyExpandPos = new Vector2(254.9997f, 748.8885f);
             int i = 0;
             int CurRez = 0;
 

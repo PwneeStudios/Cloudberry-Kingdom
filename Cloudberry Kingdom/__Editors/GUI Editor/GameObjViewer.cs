@@ -224,7 +224,7 @@ namespace CloudberryKingdom.Viewer
 
                 try
                 {
-                    Clipboard.SetText(str);
+					System.Windows.Forms.Clipboard.SetText(str);
                 }
                 catch
                 {

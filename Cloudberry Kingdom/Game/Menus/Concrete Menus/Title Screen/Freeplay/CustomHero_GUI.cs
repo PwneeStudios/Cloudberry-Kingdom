@@ -309,6 +309,7 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
 
             BaseList = MakeList();
+			BaseList.MyExpandPos = new Vector2(-1139.167f, 499.4444f);
             BaseList.Name = "base";
             foreach (Hero_BaseType _hero in Tools.GetValues<Hero_BaseType>())
             {
@@ -329,6 +330,7 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
 
             JumpList = MakeList();
+			JumpList.MyExpandPos = new Vector2(-1130.278f, 152.5f);
             JumpList.Name = "jump";
             foreach (Hero_MoveMod _hero in Tools.GetValues<Hero_MoveMod>())
             {
@@ -347,6 +349,7 @@ namespace CloudberryKingdom
             MyPile.Add(HeroText);
             
             SizeList = MakeList();
+			SizeList.MyExpandPos = new Vector2(-1118.333f, -173.3333f);
             SizeList.Name = "size";
             foreach (Hero_Shape _hero in Tools.GetValues<Hero_Shape>())
             {

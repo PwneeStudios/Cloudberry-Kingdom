@@ -254,9 +254,10 @@ namespace CloudberryKingdom
         {
 			//if (Tools.ShowNums)
             {
-                string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
+				//string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
+				string nums = Tools.Num_Vec.ToString();
 
-                Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, nums, new Vector2(0, 100), Color.Orange.ToVector4(), new Vector2(.4f));
+				//Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, nums, new Vector2(0, 100), Color.Orange.ToVector4(), new Vector2(.4f));
 				Tools.QDrawer.Flush();
                 return;
             }

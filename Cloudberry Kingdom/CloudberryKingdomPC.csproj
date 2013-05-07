@@ -92,6 +92,7 @@
     <ErrorReport>prompt</ErrorReport>
     <XnaCompressContent>True</XnaCompressContent>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug GC|x86'">
     <OutputPath>bin\x86\Debug GC\</OutputPath>

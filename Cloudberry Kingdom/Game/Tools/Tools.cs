@@ -2203,15 +2203,24 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static float Num_0_to_360 = 0;
         public static float Num_0_to_2 = 0;
+		public static Vector2 Num_Vec = Vector2.Zero;
         public static bool ShowNums = false;
 
         public static void ModNums()
         {
 #if WINDOWS
-            if (ButtonCheck.State(XnaInput.Keys.D1).Down)
-                Num_0_to_360 = CoreMath.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
-            if (ButtonCheck.State(XnaInput.Keys.D2).Down)
-                Num_0_to_2 = CoreMath.Restrict(0, 2, Num_0_to_2 + .001f * Tools.DeltaMouse.X);
+			if (ButtonCheck.State(XnaInput.Keys.D1).Down)
+			{
+				Num_Vec += .1f * Tools.DeltaMouse;
+
+				var str = string.Format("new Vector2({0}f, {1}f)", Num_Vec.X, Num_Vec.Y);
+				System.Windows.Forms.Clipboard.SetText(str);
+			}
+
+			//if (ButtonCheck.State(XnaInput.Keys.D1).Down)
+			//    Num_0_to_360 = CoreMath.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
+			//if (ButtonCheck.State(XnaInput.Keys.D2).Down)
+			//    Num_0_to_2 = CoreMath.Restrict(0, 2, Num_0_to_2 + .001f * Tools.DeltaMouse.X);
 
             if (ButtonCheck.State(XnaInput.Keys.D1).Down || ButtonCheck.State(XnaInput.Keys.D2).Down)
                 ShowNums = true;

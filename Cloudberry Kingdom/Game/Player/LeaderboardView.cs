@@ -106,6 +106,15 @@ namespace CloudberryKingdom
                 Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
 
             UpdateView();
+
+#if PC_VERSION
+			if (SortList != null)
+			{
+				MenuList.ProgrammaticalyCalled = true;
+				SortList.SetIndex((int)CurrentType);
+				MenuList.ProgrammaticalyCalled = false;
+			}
+#endif
         }
 
         public override void Init()
@@ -113,6 +122,19 @@ namespace CloudberryKingdom
             base.Init();
 
             MyPile = new DrawPile();
+
+			//MakeDarkBack();
+			// Make the dark back
+			DarkBack = new QuadClass("White");
+			DarkBack.Quad.SetColor(ColorHelper.GrayColor(0.0f));
+			DarkBack.Alpha = 0f;
+			DarkBack.Fade(.135f); DarkBack.MaxAlpha = .7125f;
+			DarkBack.FullScreen(Tools.CurCamera);
+			DarkBack.Pos = Vector2.Zero;
+			DarkBack.Scale(5);
+			MyPile.Add(DarkBack, "Dark");
+
+
 
             var BackBoxLeft = new QuadClass("Arcade_BoxLeft", 100, true);
             BackBoxLeft.Degrees = 90;
@@ -164,7 +186,10 @@ namespace CloudberryKingdom
 
 
 			MyMenu = new Menu(false);
-			//MyMenu = new Menu();
+#if PC_VERSION
+			MyMenu.SkipKeyboardPhsx = true;
+#endif
+
             MyMenu.OnB = MenuReturnToCaller;
 
 if (ButtonCheck.ControllerInUse)
@@ -197,6 +222,7 @@ else
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
             AddItem(item);
+			StartMenu.SetItemProperties_Red(item);
             MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_ViewGamer"));
             item.Selectable = false;
             MyMenu.OnA = Cast.ToMenu(ViewGamer);
@@ -206,6 +232,7 @@ else
             item.Name = "SwitchView";
             item.JiggleOnGo = false;
             AddItem(item);
+			StartMenu.SetItemProperties_Red(item);
             MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchView"));
             item.Selectable = false;
             item.Go = Cast.ToItem(SwitchView);
@@ -218,6 +245,7 @@ else
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
+			StartMenu.SetItemProperties_Red(item);
 			if (ShowSortOption)
 			{
 				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_SwitchSort"));
@@ -266,11 +294,37 @@ else
             UpdateView();
         }
 
+		MenuList BoardList, SortList;
+
 		void MenuItems_KeyboardMouse()
 		{
 			MenuItem item;
 
-			MenuList SortList = new MenuList();
+			// Board list
+			BoardList = new MenuList();
+			SetBoardListProperties(BoardList);
+			for (int i = 0; i < ArcadeMenu.LeaderboardList.Count; i++)
+			{
+				var IdAndName = GetBoardIdAndName(i);
+				int Id = IdAndName.Item1;
+				string Name = IdAndName.Item2;
+
+				item = new MenuItem(new EzText(Name, ItemFont, false, true));
+				SetItemProperties(item);
+				BoardList.AddItem(item, i);
+			}
+			AddItem(BoardList);
+			BoardList.Pos = new Vector2(200f, 828f);
+			BoardList.OnIndexSelect = () =>
+			{
+				BoardList_OnSelect(BoardList);
+			};
+			BoardList.SetIndex(0);
+
+			MyMenu.OnX = Cast.ToMenu(SwitchView);
+
+			// Sort list
+			SortList = new MenuList();
 			SetSortListProperties(SortList);
 			for (int i = 0; i < (int)LeaderboardType.Length; i++)
 			{
@@ -337,22 +391,46 @@ else
 		}
 #endif
 
+		private static void SetBoardListProperties(MenuList BoardList)
+		{
+			BoardList.Name = "BoardList";
+			BoardList.KeyboardSelectable = false;
+			BoardList.Center = false;
+			BoardList.MyExpandPos = new Vector2(-1008.055f, 864.4439f);
+			BoardList.LeftRightControlOn = false;
+		}
+
+		private void BoardList_OnSelect(MenuList BoardList)
+		{
+			BoardList.CurMenuItem.MyText.Scale =
+			BoardList.CurMenuItem.MySelectedText.Scale = 0.4590001f;
+
+			if (MenuList.ProgrammaticalyCalled) return;
+
+			int index = BoardList.ListIndex;
+			SetIndex(index);
+		}
+
+
 		private static void SetSortListProperties(MenuList SortList)
 		{
 			SortList.Name = "SortList";
-			SortList.Center = true;
-			SortList.MyExpandPos = new Vector2(643.516f, 669.4282f);
+			SortList.KeyboardSelectable = false;
+			SortList.Center = false;
+			SortList.MyExpandPos = new Vector2(-1008.055f, 864.4439f);
+			SortList.LeftRightControlOn = false;
 		}
 
 		private void SortList_OnSelect(MenuList SortList)
 		{
-			//return;
 			if (CurrentView == null) return;
 			var PrevType = CurrentView.MyLeaderboard.MySortType;
 
 			CurrentType = (LeaderboardType)SortList.ListIndex;
 			SortList.CurMenuItem.MyText.Scale =
-			SortList.CurMenuItem.MySelectedText.Scale = .42f;
+			SortList.CurMenuItem.MySelectedText.Scale = 0.3818332f;
+
+			if (MenuList.ProgrammaticalyCalled) return;
 
 			UpdateView();
 
@@ -448,6 +526,15 @@ else
             UpdateView();
 
             CurrentView.SetType(CurrentType);
+
+#if PC_VERSION
+			if (SortList != null)
+			{
+				MenuList.ProgrammaticalyCalled = true;
+				SortList.SetIndex((int)CurrentType);
+				MenuList.ProgrammaticalyCalled = false;
+			}
+#endif
         }
 
         void SwitchSort()
@@ -472,33 +559,45 @@ else
 			//MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
+		static Tuple<int, string> GetBoardIdAndName(int index)
+		{
+			var challenge = ArcadeMenu.LeaderboardList[index].Item1;
+			var hero = ArcadeMenu.LeaderboardList[index].Item2;
+
+			string Name;
+			int Id;
+			if (challenge == null)
+			{
+				Name = Localization.WordString(Localization.Words.PlayerLevel) + " (" +
+						Localization.WordString(Localization.Words.TheArcade) + " + " + Localization.WordString(Localization.Words.StoryMode) + ")";
+				Id = 9999;
+			}
+			else
+			{
+				if (hero == null)
+				{
+					Name = Localization.WordString(challenge.Name);
+					Id = challenge.GameId_Level;
+				}
+				else
+				{
+					Name = Localization.WordString(challenge.Name) + ", " + Localization.WordString(hero.Name);
+					Id = challenge.CalcGameId_Level(hero);
+				}
+			}
+
+			return new Tuple<int, string>(Id, Name);
+		}
+
         public void SetIndex(int index)
         {
             LeaderboardInex = index;
             CurrentChallenge = ArcadeMenu.LeaderboardList[index].Item1;
             Hero = ArcadeMenu.LeaderboardList[index].Item2;
 
-            string Name;
-            int Id;
-            if (CurrentChallenge == null)
-            {
-                Name = Localization.WordString(Localization.Words.PlayerLevel) + " (" +
-                        Localization.WordString(Localization.Words.TheArcade) + " + " + Localization.WordString(Localization.Words.StoryMode) + ")";
-                Id = 9999;
-            }
-            else
-            {
-                if (Hero == null)
-                {
-                    Name = Localization.WordString(CurrentChallenge.Name);
-                    Id = CurrentChallenge.GameId_Level;
-                }
-                else
-                {
-                    Name = Localization.WordString(CurrentChallenge.Name) + ", " + Localization.WordString(Hero.Name);
-                    Id = CurrentChallenge.CalcGameId_Level(Hero);
-                }
-            }
+			var IdAndName = GetBoardIdAndName(index);
+			int Id = IdAndName.Item1;
+			string Name = IdAndName.Item2;
 
             MyPile.FindEzText("GameTitle").SubstituteText(Name);
 
@@ -507,6 +606,14 @@ else
             else
                 ToMake_Id = Id;
 
+#if PC_VERSION
+			if (BoardList != null)
+			{
+				MenuList.ProgrammaticalyCalled = true;
+				BoardList.SetIndex(index);
+				MenuList.ProgrammaticalyCalled = false;
+			}
+#endif
         }
 
         public void ChangeLeaderboard(int Direction)
@@ -517,7 +624,16 @@ else
 
         protected override void SetItemProperties(MenuItem item)
         {
-            StartMenu.SetItemProperties_Red(item);
+			if (item == null || item.MyText == null) return;
+
+			item.MyText.MyFloatColor = new Color(235, 235, 235).ToVector4();
+			item.MyText.OutlineColor = new Color(0, 0, 0).ToVector4();
+			item.MySelectedText.MyFloatColor = new Color(210, 210, 210).ToVector4();
+			item.MySelectedText.OutlineColor = new Color(0, 0, 0).ToVector4();
+
+			item.MyOscillateParams.max_addition *= .1f;
+
+            //StartMenu.SetItemProperties_Red(item);
             //base.SetItemProperties(item);
         }
 
@@ -732,29 +848,34 @@ else
 		void SetPos_KeyboardMouse()
 		{
 			MenuItem _item;
-			_item = MyMenu.FindItemByName("SortList"); if (_item != null) { _item.SetPos = new Vector2(-105.5559f, 41.88885f); _item.MyText.Scale = 0.54f; _item.MySelectedText.Scale = 0.54f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("BoardList"); if (_item != null) { _item.SetPos = new Vector2(-2738.891f, -10.88869f); _item.MyText.Scale = 0.4590001f; _item.MySelectedText.Scale = 0.4590001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("SortList"); if (_item != null) { _item.SetPos = new Vector2(-2719.443f, 94.66655f); _item.MyText.Scale = 0.3818332f; _item.MySelectedText.Scale = 0.3818332f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-			MyMenu.Pos = new Vector2(1419.444f, 816.6665f);
+			MyMenu.Pos = new Vector2(1705.555f, 816.6665f);
 
 			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1369.444f, 1188.889f); _t.Scale = 0.5240005f; }
-			_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 958.3332f); _t.Scale = 0.4890002f; }
+			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1422.222f, 1461.111f); _t.Scale = 0.5035005f; }
+			_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1372.223f, 1380.556f); _t.Scale = 0.439f; }
 			_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
 			_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-			_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3839249f; }
+			_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3609182f; }
 
 			QuadClass _q;
+			_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.889f, 5000f); }
 			_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-275.0002f, 2.777752f); _q.Size = new Vector2(1092.235f, 1136.137f); }
-			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(1316.665f, 769.4441f); _q.Size = new Vector2(245.0184f, 459.3027f); }
-			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 643.8893f); _q.Size = new Vector2(1005.093f, 49.08278f); }
-			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-1300.001f, 713.8893f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
+			_q = MyPile.FindQuad("BoxRight"); if (_q != null) { _q.Pos = new Vector2(2583.332f, 736.1108f); _q.Size = new Vector2(245.0184f, 459.3027f); }
+			_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f, 646.6671f); _q.Size = new Vector2(1005.093f, 49.08278f); }
+			_q = MyPile.FindQuad("TL"); if (_q != null) { _q.Pos = new Vector2(-994.4456f, 716.6671f); _q.Size = new Vector2(0.9999986f, 0.9999986f); }
 			_q = MyPile.FindQuad("Offset_GamerTag"); if (_q != null) { _q.Pos = new Vector2(4820f, -363.889f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset_Val"); if (_q != null) { _q.Pos = new Vector2(13808.34f, -116.6667f); _q.Size = new Vector2(1f, 1f); }
 			_q = MyPile.FindQuad("Offset"); if (_q != null) { _q.Pos = new Vector2(-869.4451f, -383.3332f); _q.Size = new Vector2(10.08327f, 10.08327f); }
-			_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1594.444f, -866.6668f); _q.Size = new Vector2(67.99999f, 67.99999f); }
+			_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1325f, -869.4446f); _q.Size = new Vector2(67.99999f, 67.99999f); }
 			_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-166.667f, -11.111f); _q.Size = new Vector2(77.71317f, 66.83332f); }
+			_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1455.556f, 587.5001f); _q.Size = new Vector2(25.9999f, 106.8029f); }
+			_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1449.999f, 694.4442f); _q.Size = new Vector2(27.57401f, 18.96959f); }
+			_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1449.999f, -822.2222f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 
-			MyPile.Pos = new Vector2(0f, 5.555542f);
+			MyPile.Pos = new Vector2(286.1108f, 5.555542f);
 		}
 
 		void SetPos_ControllerInUse()

@@ -370,7 +370,7 @@ namespace CloudberryKingdom
             MenuList LocationList = new MenuList();
             LocationList.Name = "Location";
             LocationList.Center = !LeftJustify;
-            LocationList.MyExpandPos = new Vector2(-498.1506f, 713.873f);
+			LocationList.MyExpandPos = new Vector2(-283.0556f, 634.9995f);
             foreach (TileSet tileset in FreeplayTilesets)
             {
                 item = new MenuItem(new EzText(tileset.NameInGame, ItemFont, false, true));
@@ -403,7 +403,7 @@ namespace CloudberryKingdom
             
             MenuList GameList = new MenuList();
             GameList.Name = "Game";
-            GameList.MyExpandPos = new Vector2(-580, 500.873f);
+			GameList.MyExpandPos = new Vector2(-271.1111f, 447.4991f);
             GameList.Center = !LeftJustify;
             Localization.Words[] GameNames;
             if (PlayerManager.NumPlayers <= 1)
@@ -482,7 +482,7 @@ namespace CloudberryKingdom
             HeroList = new MenuList();
             HeroList.Name = "Hero";
             HeroList.Center = !LeftJustify;
-            HeroList.MyExpandPos = new Vector2(-782.1666f, 293.6826f);
+			HeroList.MyExpandPos = new Vector2(-274.4442f, 243.0551f);
             foreach (BobPhsx hero in FreeplayHeroes)
                 AddHeroItem(hero);
 
@@ -514,7 +514,7 @@ namespace CloudberryKingdom
             DiffList = new MenuList();
             DiffList.Name = "Diff";
             DiffList.Center = !LeftJustify;
-            DiffList.MyExpandPos = new Vector2(-519.6807f, -151.5238f);
+			DiffList.MyExpandPos = new Vector2(-252.2224f, 38.05466f);
             DiffList.DoIndexWrapping = false;
             for (int i = 0; i < 5; i++)
             {

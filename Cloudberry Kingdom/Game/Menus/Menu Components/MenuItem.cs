@@ -560,6 +560,7 @@ namespace CloudberryKingdom
         }
 
 		public bool MouseSelectable = true;
+		public bool KeyboardSelectable = true;
         public virtual bool HitTest(Vector2 pos, Vector2 padding)
         {
 			if (!MouseSelectable || !Selectable) return false;

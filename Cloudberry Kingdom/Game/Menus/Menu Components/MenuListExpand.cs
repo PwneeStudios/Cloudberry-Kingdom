@@ -34,8 +34,13 @@ namespace CloudberryKingdom
             item.MyText.Scale = item.MySelectedText.Scale = FontScale;
 
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();
-
 			StartMenu.SetItemProperties_Red(item);
+
+			item.MyText.MyFloatColor = new Color(235, 235, 235).ToVector4();
+			item.MyText.OutlineColor = new Color(0, 0, 0).ToVector4();
+			item.MySelectedText.MyFloatColor = new Color(210, 210, 210).ToVector4();
+			item.MySelectedText.OutlineColor = new Color(0, 0, 0).ToVector4();
+
 
             item.Go = null;
             
@@ -80,17 +85,19 @@ namespace CloudberryKingdom
 
             MyMenu.OnB = null;
 
-            MyMenu.OnB = menu => { Back(); return true; };
+			MyMenu.OnB = Cast.ToMenu(Back); ;
 
             ItemPos = new Vector2(0, 0);
-            PosAdd = new Vector2(0, -168 - 3);
+            PosAdd = new Vector2(0, -80);
             SelectedItemShift = new Vector2(0, 0);
             FontScale = .78f;
 
-            float Width = 0;
+            float Width = 0, Height = 0;
             int index = 0;
             foreach (MenuItem item in MyMenuList.MyList)
             {
+				if (Height > 0) Height += PosAdd.Y;
+
                 index++;
 
                 if (!item.Selectable) continue;
@@ -99,25 +106,36 @@ namespace CloudberryKingdom
                 clone.MyInt = index - 1;
                 clone.AdditionalOnSelect = OnSelect;
                 AddItem(clone);
-                clone.ScaleText(.85f);
+                clone.ScaleText(.5f);
                 Vector2 size = clone.MyText.GetWorldSize();
-                //clone.Shift(-size / 2);
+
                 Width = Math.Max(size.X, Width);
+				Height += size.Y;
 
                 if (MyMenuList.AdditionalExpandProcessing != null)
                     MyMenuList.AdditionalExpandProcessing(this, clone);
             }
 
             // Backdrop
-            backdrop = new QuadClass("score_screen_grey", 482);
-            //backdrop.Size = backdrop.Size * new Vector2(1f, 2.03f);
+			//backdrop = new QuadClass("score_screen_grey", 482);
+
+			backdrop = new QuadClass("Arcade_BoxLeft", 50);
+			backdrop.Quad.SetColor(ColorHelper.Gray(.2f));
+			
+			//backdrop = new QuadClass("Backplate_1500x900", 482);
+			//backdrop.Quad.SetColor(ColorHelper.Gray(.2f));
+
+
+
             MyMenu.CalcBounds();
-            float Height = (MyMenu.TR.Y - MyMenu.BL.Y) / 2;
-            backdrop.Size = new Vector2(Width / 2 + 88, Height + 70);
+            backdrop.Size = new Vector2(Width / 2 + 21, Height / 2 + 7);
             DefaultBackdropSize = backdrop.Size;
-            backdrop.Quad.RotateUV();
-            MyPile.Add(backdrop);
-            MyPile.Add(backdrop);
+            //backdrop.Quad.RotateUV();
+			MyPile.Add(backdrop);
+			MyPile.Add(backdrop);
+			MyPile.Add(backdrop);
+			MyPile.Add(backdrop);
+			//MyPile.Add(backdrop);
             backdrop.Pos = new Vector2(Width/2, (MyMenu.TR.Y + MyMenu.BL.Y) / 2);
 
             EnsureFancy();

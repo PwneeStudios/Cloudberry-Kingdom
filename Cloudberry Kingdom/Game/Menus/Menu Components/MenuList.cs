@@ -44,6 +44,11 @@ namespace CloudberryKingdom
                     MyMenuListExpand.Pos.RelVal = Pos + PosOffset - MyMenu.FancyPos.AbsVal + new Vector2(-Width, 120);
                 else
                     MyMenuListExpand.Pos.RelVal = MyExpandPos;
+
+
+
+
+				//MyMenuListExpand.Pos.RelVal = Tools.Num_Vec;
             }
         }
 
@@ -219,6 +224,12 @@ namespace CloudberryKingdom
             SetIndex(MyList.IndexOf(item));
         }
 
+		/// <summary>
+		/// Set this to true when you are setting the list index programmatically as a user.
+		/// Check this boolean when you are responding to a SetIndex event, so you don't update something that causes another SetIndex to happen.
+		/// </summary>
+		public static bool ProgrammaticalyCalled = false;
+
         public virtual void SetIndex(int NewIndex)
         {
             if (DoIndexWrapping)
@@ -305,6 +316,8 @@ namespace CloudberryKingdom
         /// </summary>
         public bool ClickForNextItem = true;
 
+		public bool LeftRightControlOn = true; 
+
         bool HoldSelected;
         public override void PhsxStep(bool Selected)
         {
@@ -316,50 +329,53 @@ namespace CloudberryKingdom
             HoldSelected = Selected;
             int CurIndex = ListIndex;
 
-            Vector2 Dir = Vector2.Zero;
-            if (Selected)
-            {
-                Dir = Vector2.Zero;
-                if (Control < 0)
-                    Dir = ButtonCheck.GetMaxDir(Control);
-                else
-                    Dir = ButtonCheck.GetDir(Control);
-            }
+			if (LeftRightControlOn)
+			{
+				Vector2 Dir = Vector2.Zero;
+				if (Selected)
+				{
+					Dir = Vector2.Zero;
+					if (Control < 0)
+						Dir = ButtonCheck.GetMaxDir(Control);
+					else
+						Dir = ButtonCheck.GetDir(Control);
+				}
 
-            if (DelayCount > 0)
-            {
-                DelayCount--;
+				if (DelayCount > 0)
+				{
+					DelayCount--;
 
-                float Sensitivity = ButtonCheck.ThresholdSensitivity;
-                if (Math.Abs(Dir.X) < Sensitivity / 2)
-                    DelayCount -= 3;
-            }
-            else
-            {
-                if (Selected)
-                {
+					float Sensitivity = ButtonCheck.ThresholdSensitivity;
+					if (Math.Abs(Dir.X) < Sensitivity / 2)
+						DelayCount -= 3;
+				}
+				else
+				{
+					if (Selected)
+					{
 #if WINDOWS
-                    if (ButtonCheck.MouseInUse && ClickForNextItem)
-                        if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
-                            !ButtonCheck.KeyboardGo())
-                        {
-                            QuadClass SelectedArrow = GetSelectedArrow();
-                            if (SelectedArrow == RightArrow_Selected)
-                                IncrementIndex(1);
-                            else if (SelectedArrow == LeftArrow_Selected)
-                                IncrementIndex(-1);
-                            else
-                                IncrementIndex(1);
-                        }
+						if (ButtonCheck.MouseInUse && ClickForNextItem)
+							if (ButtonCheck.State(ControllerButtons.A, Control).Pressed &&
+								!ButtonCheck.KeyboardGo())
+							{
+								QuadClass SelectedArrow = GetSelectedArrow();
+								if (SelectedArrow == RightArrow_Selected)
+									IncrementIndex(1);
+								else if (SelectedArrow == LeftArrow_Selected)
+									IncrementIndex(-1);
+								else
+									IncrementIndex(1);
+							}
 #endif
-                    
-                    float Sensitivity = ButtonCheck.ThresholdSensitivity;
-                    if (Math.Abs(Dir.X) > Sensitivity)
-                    {
-                        IncrementIndex(Math.Sign(Dir.X));
-                    }
-                }
-            }
+
+						float Sensitivity = ButtonCheck.ThresholdSensitivity;
+						if (Math.Abs(Dir.X) > Sensitivity)
+						{
+							IncrementIndex(Math.Sign(Dir.X));
+						}
+					}
+				}
+			}
 
             if (CurIndex != ListIndex)
                 if (ListScrollSound != null)
@@ -369,6 +385,14 @@ namespace CloudberryKingdom
         public bool Center = true;
         public override void Draw(bool Text, Camera cam, bool Selected)
         {
+			// Draw a selected nob if the menu is expanded
+			//if (MyMenuListExpand != null)
+			//{
+			//    LeftArrow_Selected.Size = new Vector2(31, 26);
+			//    LeftArrow_Selected.Quad.SetColor(new Vector4(.75f, .75f, .85f, .7f));
+			//    LeftArrow_Selected.Draw();
+			//}
+
             if (MyMenu.CurDrawLayer != MyDrawLayer || !Show || (MyMenuListExpand != null && !MyMenuListExpand.Core.Released))
                 return;
 
@@ -434,23 +458,30 @@ namespace CloudberryKingdom
                         LeftArrow_Selected.Base.Origin = ItemPos - new Vector2(LeftArrow_Selected.Base.e1.X, 0) + LeftArrowOffset;
                     }
 
-#if WINDOWS
-                    // Highlight selected arrow
-                    QuadClass arrow = null;
-                    if (ButtonCheck.MouseInUse)
-                    {
-                        Vector2 mouse = Tools.MouseGUIPos(MyCameraZoom);
-                        arrow = GetSelectedArrow();
-
-                        if (arrow != null) { arrow.Scale(1.25f); }
-                    }
-#endif
-
-                    if (!OnLastIndex) RightArrow_Selected.Draw();
-                    if (!OnFirstIndex) LeftArrow_Selected.Draw();
+					// Draw a nob to show a drop down menu is available
+					//LeftArrow_Selected.Size = new Vector2(30, 30);
+					//LeftArrow_Selected.Quad.MyEffect = Tools.CircleEffect;
+					//LeftArrow_Selected.Quad.SetColor(new Vector4(.75f, .75f, .8f, .6f));
+					//LeftArrow_Selected.Draw();
 
 #if PC_VERSION
-                    if (arrow != null) { arrow.Scale(1f / 1.25f); }
+					if (!ButtonCheck.MouseInUse && KeyboardSelectable)
+					{
+						// Highlight selected arrow
+						QuadClass arrow = null;
+						if (ButtonCheck.MouseInUse)
+						{
+							Vector2 mouse = Tools.MouseGUIPos(MyCameraZoom);
+							arrow = GetSelectedArrow();
+
+							if (arrow != null) { arrow.Scale(1.25f); }
+						}
+
+						if (!OnLastIndex) RightArrow_Selected.Draw();
+						if (!OnFirstIndex) LeftArrow_Selected.Draw();
+
+						if (arrow != null) { arrow.Scale(1f / 1.25f); }
+					}
 #endif
                 }
             }

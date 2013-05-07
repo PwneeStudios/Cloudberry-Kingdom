@@ -338,6 +338,7 @@ namespace CloudberryKingdom
             }
         }
 
+		public bool SkipKeyboardPhsx = false;
         public virtual void SelectItem(int Index)
         {
             HasSelectedThisStep = true;
@@ -363,12 +364,12 @@ namespace CloudberryKingdom
                 Index = Math.Max(0, Math.Min(Items.Count - 1, Index));
 
 
-            if (Items[Index].Selectable && Items[Index].Show)
+            if (Items[Index].Selectable && (Items[Index].KeyboardSelectable || ButtonCheck.MouseInUse) && Items[Index].Show)
                 CurIndex = Index;
             else
             {
                 // Find the next selectable index
-                while (!Items[Index].Selectable || !Items[Index].Show)
+				while (!Items[Index].Selectable || (!Items[Index].KeyboardSelectable && !ButtonCheck.MouseInUse) || !Items[Index].Show)
                 {
                     //if (Index > CurIndex) Index++;
                     //else if (Index < CurIndex) Index--;
@@ -697,6 +698,7 @@ namespace CloudberryKingdom
                 if (Dir.Length() < .2f)
                     DelayCount = 0;
 
+				if (!SkipKeyboardPhsx)
                 if (Math.Abs(Dir.Y) > ButtonCheck.ThresholdSensitivity)
                 {
                     MotionCount++;

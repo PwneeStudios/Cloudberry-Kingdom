@@ -240,10 +240,13 @@ namespace CloudberryKingdom
 )
                 MouseInUse = false;
 
-            if (Tools.DeltaMouse != Vector2.Zero ||
-                Tools.Mouse.LeftButton == ButtonState.Pressed ||
-                Tools.Mouse.RightButton == ButtonState.Pressed)
-                MouseInUse = true;
+			if (Tools.DeltaMouse != Vector2.Zero ||
+				Tools.Mouse.LeftButton == ButtonState.Pressed ||
+				Tools.Mouse.RightButton == ButtonState.Pressed)
+			{
+				MouseInUse = true;
+				ControllerInUse = false;
+			}
 
             PrevMouseInUse = MouseInUse;
         }

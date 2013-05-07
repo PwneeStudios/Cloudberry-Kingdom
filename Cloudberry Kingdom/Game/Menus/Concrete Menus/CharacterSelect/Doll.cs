@@ -114,12 +114,13 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
+		public Vector2 Shift = Vector2.Zero;
         public bool ShowBob = false;
         public void DrawBob()
         {
             if (ShowBob)
             {
-                MyPile.Pos = new Vector2(-10, 260);
+                MyPile.Pos = new Vector2(-10, 260) + Shift;
 
                 Vector2 Pos = CharacterSelect.Centers[Control] + MyPile.Pos;
                 Vector2 CurDollPos = Pos / (CharacterSelectManager.BobZoom / CharacterSelectManager.ZoomMod) + Tools.CurGameData.CamPos;

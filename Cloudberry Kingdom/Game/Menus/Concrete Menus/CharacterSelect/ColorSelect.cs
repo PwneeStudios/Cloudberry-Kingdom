@@ -236,7 +236,8 @@ namespace CloudberryKingdom
             MyCharacterSelect.ItemIndex[ClrSelectIndex] = HoldIndex;
             MyCharacterSelect.Customize_UpdateColors();
 
-            //MyMenu.BackSound.Play();
+			MyCharacterSelect.MyDoll.Shift = Vector2.Zero;
+			CharacterSelectManager.BobZoom = 2.6f;
             ReturnToCaller();
         }
 
@@ -257,6 +258,41 @@ namespace CloudberryKingdom
  	        base.MyPhsxStep();
 
             if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
+
+#if PC_VERSION
+			if (MyList != null && MyList.MyMenuListExpand != null)
+			{
+				switch (Header)
+				{
+					case Localization.Words.Beard:
+						MyList.MyExpandPos = new Vector2(-1547.222f, -333.0556f);
+						break;
+
+					case Localization.Words.Hat:
+						MyList.MyExpandPos = new Vector2(-1624.445f, 924.9999f);
+						MyCharacterSelect.MyDoll.Shift = new Vector2(260, 360);
+						CharacterSelectManager.BobZoom = 1.85f;
+						break;
+
+					case Localization.Words.Color:
+						MyList.MyExpandPos = new Vector2(-1591.944f, 806.6666f);
+						MyCharacterSelect.MyDoll.Shift = new Vector2(260, 360);
+						CharacterSelectManager.BobZoom = 1.85f;
+						break;
+
+					default: break;
+				}
+			}
+			else
+			{
+				if (MyCharacterSelect != null)
+				{
+					MyCharacterSelect.MyDoll.Shift = Vector2.Zero;
+					CharacterSelectManager.BobZoom = 2.6f;
+				}
+			}
+#endif
+
         }
     }
 }

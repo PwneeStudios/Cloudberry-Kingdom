@@ -132,7 +132,18 @@ namespace CloudberryKingdom
 
         public static void ShowSaving()
         {
-			if (Localization.CurrentLanguage == null) return;
+			if (Localization.CurrentLanguage == null ||
+				Tools.TheGame == null || 
+				Resources.Font_Grobold42 == null ||
+				Resources.Font_Grobold42.HFont == null ||
+				Resources.Font_Grobold42.HFont.font == null ||
+				Resources.Font_Grobold42.HFont.font.MyTexture == null ||
+				Resources.Font_Grobold42.HOutlineFont == null ||
+				Resources.Font_Grobold42.HOutlineFont.font == null ||
+				Resources.Font_Grobold42.HOutlineFont.font.MyTexture == null)
+			{
+				return;
+			}
 
             //if (PlayerManager.GetNumPlayers() > 2)
             {
