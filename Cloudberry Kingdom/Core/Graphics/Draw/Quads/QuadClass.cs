@@ -49,9 +49,13 @@ namespace CloudberryKingdom
             base.Draw(Update, DrawQuad, DrawShadow);
         }
     }
-    
+
+	public enum ShowType { AlwaysShow, ShowForGamepadOnly, ShowForMouseOrKeyboardOnly };
+
     public class QuadClass : ViewReadWrite
     {
+		public ShowType MyShowType = ShowType.AlwaysShow;
+
 #if WINDOWS
         public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
 
@@ -617,6 +621,7 @@ namespace CloudberryKingdom
         public virtual void Draw(bool Update, bool DrawQuad, bool DrawShadow)
         {
             if (!Show) return;
+			if (MyShowType == ShowType.ShowForGamepadOnly && !ButtonCheck.ControllerInUse) return;
 
             if (Fading)
             {

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿//#define LONG_LIST
+
+using Microsoft.Xna.Framework;
 using CoreEngine;
 
 namespace CloudberryKingdom
@@ -32,11 +34,41 @@ namespace CloudberryKingdom
 
         public void SetIndexViaAssociated(int index)
         {
+#if LONG_LIST
+			int CorrespondingIndex = MyMenu.Items.FindIndex(item => item.MyObject != null && (int)(item.MyObject) == index);
+			if (CorrespondingIndex < 0) CorrespondingIndex = 0;
+
+			MyMenu.SelectItem(CorrespondingIndex);
+
+			// Arrange list
+			ArrangeMenu();
+#else
             int CorrespondingIndex = MyList.MyList.FindIndex(item => (int)(item.MyObject) == index);
             if (CorrespondingIndex < 0) CorrespondingIndex = 0;
-            MyList.SetIndex(CorrespondingIndex);
-        }
 
+            MyList.SetIndex(CorrespondingIndex);
+#endif
+		}
+
+#if LONG_LIST
+		void ArrangeMenu()
+		{
+			//Vector2 Pos = new Vector2(-230, 1390);
+			//Vector2 Spacing = new Vector2(0, -70);
+
+			Vector2 Pos = new Vector2(-270, 1390);
+			Vector2 Spacing = new Vector2(0, -60);
+			float Scale = .78f;
+
+			for (int i = 0; i < MyMenu.Items.Count; i++)
+			{
+				MyMenu.Items[i].SetPos = Pos;
+				MyMenu.Items[i].ScaleText(Scale);
+
+				Pos += Spacing;
+			}
+		}
+#endif
         public int GetAssociatedIndex()
         {
             return (int)MyList.CurObj;
@@ -65,6 +97,15 @@ namespace CloudberryKingdom
             MyCharacterSelect.Customize_UpdateColors();
         }
 
+		public void AddItem(MenuItem item, object obj)
+		{
+#if LONG_LIST
+			MyMenu.Add(item);
+#else
+			MyList.AddItem(item, obj);
+#endif
+		}
+
         public override void Constructor()
         {
             base.Constructor();
@@ -79,21 +120,26 @@ namespace CloudberryKingdom
             MyMenu.OnB = Cast.ToMenu(Back);
             MyMenu.OnA = Cast.ToMenu(Select);
 
+#if LONG_LIST
+			var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
+			BackButton.Name = "Cancel";
+			BackButton.Go = Cast.ToItem(Back);
+			AddItem(BackButton);
+#else
             MyList = new MenuList();
             MyList.Name = "list";
             MyList.Center = true;
             MyList.OnIndexSelect = OnSelect;
             MyList.Go = Cast.ToItem(Select);
+			MyList.ExpandOnGo = false;
+			MyList.OnClick = Cast.ToItem(MyList.IncrementIndex);
             MyMenu.Add(MyList);
 
-            //var Done = new MenuItem(new EzText("Use", ItemFont));
             var Done = new MenuItem(new EzText(Localization.Words.Use, ItemFont));
             Done.Name = "Done";
             Done.Go = Cast.ToItem(Select);
             AddItem(Done);
 
-            //var BackButton = new MenuItem(new EzText("{pBackArrow2,80,?}", ItemFont));
-            //var BackButton = new MenuItem(new EzText("Cancel", ItemFont));
             var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
             BackButton.Name = "Cancel";
             BackButton.Go = Cast.ToItem(Back);
@@ -101,8 +147,9 @@ namespace CloudberryKingdom
 
             var header = new EzText(Header, Resources.Font_Grobold42, true);
             MyPile.Add(header, "Header");
+#endif
 
-            CharacterSelect.Shift(this);
+			CharacterSelect.Shift(this);
         }
 
         public override void OnAdd()
@@ -243,6 +290,9 @@ namespace CloudberryKingdom
 
         void Select()
         {
+			// If this was from a mouse press, don't register it as a selection.
+			if (Tools.MouseDown() && MyMenu.CurItem.Name != "Done") return;
+
             //MyMenu.SelectSound.Play();
 
             // Save new custom color scheme
@@ -257,9 +307,27 @@ namespace CloudberryKingdom
         {
  	        base.MyPhsxStep();
 
+#if LONG_LIST
+			// Shift Bob
+			if (Active && MyCharacterSelect != null && MyCharacterSelect.MyDoll != null)
+			{
+				MyCharacterSelect.MyDoll.Shift = new Vector2(260, 360);
+				CharacterSelectManager.BobZoom = 1.85f;
+			}
+#endif
+
             if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
+			// Scrolling
 #if PC_VERSION
+			int ScrollDir = (int)System.Math.Sign(Tools.DeltaScroll);
+			if (ScrollDir != 0 && MyList != null)
+			{
+				MyList.IncrementIndex(ScrollDir);
+			}
+#endif
+
+#if LONG_LIST
 			if (MyList != null && MyList.MyMenuListExpand != null)
 			{
 				switch (Header)
@@ -285,14 +353,13 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-				if (MyCharacterSelect != null)
-				{
-					MyCharacterSelect.MyDoll.Shift = Vector2.Zero;
-					CharacterSelectManager.BobZoom = 2.6f;
-				}
+				//if (MyCharacterSelect != null)
+				//{
+				//    MyCharacterSelect.MyDoll.Shift = Vector2.Zero;
+				//    CharacterSelectManager.BobZoom = 2.6f;
+				//}
 			}
 #endif
-
         }
     }
 }

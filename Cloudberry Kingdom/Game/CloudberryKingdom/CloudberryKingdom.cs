@@ -80,22 +80,22 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
         // Steam
-		//public static bool HideLogos = false;
-		//public static bool LockCampaign = false;
-		//public static bool SimpleMainMenu = true;
-		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		//public static bool SimpleLeaderboards = false;
-		//public static bool FakeAwardments = false;
-		//public static float GuiSqueeze = 0;
-
-		// Steam Beta
 		public static bool HideLogos = false;
-		public static bool LockCampaign = true;
+		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 		public static float GuiSqueeze = 0;
+
+		// Steam Beta
+		//public static bool HideLogos = false;
+		//public static bool LockCampaign = true;
+		//public static bool SimpleMainMenu = true;
+		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		//public static bool SimpleLeaderboards = false;
+		//public static bool FakeAwardments = false;
+		//public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;

@@ -41,16 +41,16 @@ namespace CloudberryKingdom
     {
         public static class DefaultMenuInfo
         {
-            public static Vector4 SelectedNextColor = new Color(100, 250, 100, 255).ToVector4();
+            public static Vector4 SelectedNextColor = new Color(60, 200, 60, 255).ToVector4();
 			public static Vector4 UnselectedNextColor = new Color(40, 180, 40, 255).ToVector4();
 
-			public static Vector4 SelectedBackColor = new Color(250, 100, 100, 255).ToVector4();
+			public static Vector4 SelectedBackColor = new Color(200, 60, 60, 255).ToVector4();
             public static Vector4 UnselectedBackColor = new Color(180, 40, 40, 255).ToVector4();
 			
 			public static Vector4 SelectedXColor = new Color(75, 142, 240, 255).ToVector4();
 			public static Vector4 UnselectedXColor = new Color(55, 125, 229, 255).ToVector4();
 			
-			public static Vector4 SelectedYColor = new Color(255, 226, 155, 255).ToVector4();
+			public static Vector4 SelectedYColor = new Color(255, 226, 75, 255).ToVector4();
 			public static Vector4 UnselectedYColor = new Color(255, 198, 55, 255).ToVector4();
 
 			public static void SetNext(MenuItem item)

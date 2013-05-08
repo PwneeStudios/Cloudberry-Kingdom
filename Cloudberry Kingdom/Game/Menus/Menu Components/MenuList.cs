@@ -273,8 +273,14 @@ namespace CloudberryKingdom
             CurMenuItem.OnSelect();
         }
 
+		public void IncrementIndex()
+		{
+			if (Tools.MousePressed())
+				IncrementIndex(1);
+		}
+
         int LastIncrDir = 0;
-        void IncrementIndex(int Increment)
+        public void IncrementIndex(int Increment)
         {
             if (Increment > 0)
             {
@@ -373,6 +379,15 @@ namespace CloudberryKingdom
 						{
 							IncrementIndex(Math.Sign(Dir.X));
 						}
+						
+						// Scrolling
+//#if PC_VERSION
+//                        int ScrollDir = (int)Math.Sign(Tools.DeltaScroll);
+//                        if (ScrollDir != 0)
+//                        {
+//                            IncrementIndex(ScrollDir);
+//                        }
+//#endif
 					}
 				}
 			}

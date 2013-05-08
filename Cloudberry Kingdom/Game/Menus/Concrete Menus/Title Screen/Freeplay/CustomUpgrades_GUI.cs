@@ -267,7 +267,8 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-			if (ButtonCheck.ControllerInUse)
+			if (true)
+			//if (ButtonCheck.ControllerInUse)
 			{
 				MenuItem _item;
 				_item = MyMenu.FindItemByName("Start"); if (_item != null) { _item.SetPos = new Vector2(464.3106f, 22.30127f); _item.MyText.Scale = 0.7698284f; _item.MySelectedText.Scale = 0.7698284f; _item.SelectIconOffset = new Vector2(0f, 0f); }
@@ -342,14 +343,16 @@ namespace CloudberryKingdom
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(425.3959f, -99.92095f);
+
 if (ButtonCheck.ControllerInUse)
 {
-#if PC_VERSION || XBOX
+			item.MyText.Shadow = item.MySelectedText.Shadow = false;
 			Menu.DefaultMenuInfo.SetNext(item);
-#endif
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
-			item.Selectable = false;
 }
+#if XBOX
+			item.Selectable = false;
+#endif
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = Cast.ToMenu(Go);
@@ -363,12 +366,13 @@ if (ButtonCheck.ControllerInUse)
             item.Pos = item.SelectedPos = new Vector2(511.8408f, -302.6506f);
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+			item.MyText.Shadow = item.MySelectedText.Shadow = false;
 			Menu.DefaultMenuInfo.SetX(item);
-#endif
             MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
-            item.Selectable = false;
 }
+#if XBOX
+			item.Selectable = false;
+#endif
 
             // Zero
             item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
@@ -381,13 +385,13 @@ if (ButtonCheck.ControllerInUse)
 			//item.MySelectedText.MyFloatColor = new Color(235, 255, 80).ToVector4();
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+			item.MyText.Shadow = item.MySelectedText.Shadow = false;
 			Menu.DefaultMenuInfo.SetY(item);
-#endif
-
             MyPile.Add(new QuadClass(ButtonTexture.Y, 90, "Button_Y"));
-            item.Selectable = false;
 }
+#if XBOX
+			item.Selectable = false;
+#endif
 
             // Back
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
@@ -399,13 +403,14 @@ if (ButtonCheck.ControllerInUse)
             item.Pos = item.SelectedPos = new Vector2(702.3179f, -689.9683f);
 if (ButtonCheck.ControllerInUse)
 {
-#if PC_VERSION || XBOX
+			item.MyText.Shadow = item.MySelectedText.Shadow = false;
 			Menu.DefaultMenuInfo.SetBack(item);
-#endif
-            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));            
-            item.Selectable = false;
+            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
 }
-        }
+#if XBOX
+			item.Selectable = false;
+#endif
+		}
 
         private void MakeTopText()
         {

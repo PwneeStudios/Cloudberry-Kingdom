@@ -629,16 +629,20 @@ namespace CloudberryKingdom
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-if (ButtonCheck.ControllerInUse)
-{
-#if PC_VERSION || XBOX
-			Menu.DefaultMenuInfo.SetNext(item);
+			item.Go = Cast.ToItem(BringNext);
+			item.ScaleText(.92f);
+
+#if XBOX
+			item.Selectable = false;
 #endif
-            MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
-            item.Selectable = false;
-}
-            item.Go = Cast.ToItem(BringNext);
-            item.ScaleText(.92f);
+
+			if (ButtonCheck.ControllerInUse)
+			{
+				Menu.DefaultMenuInfo.SetNext(item);
+				var button_a = new QuadClass(ButtonTexture.Go, 90, "Button_A");
+				//button_a.MyShowType = ShowType.ShowForGamepadOnly;
+				MyPile.Add(button_a);
+			}
 
             // Select 'Start Level' when the user presses (A)
             MyMenu.OnA = menu => { Start.Go(null); return true; };
@@ -651,16 +655,19 @@ if (ButtonCheck.ControllerInUse)
             item.JiggleOnGo = false;
             AddItem(item);
             item.Pos = item.SelectedPos = new Vector2(682.1445f, -238.8095f);
-if (ButtonCheck.ControllerInUse)
-{
-#if XBOX || PC_VERSION
-			Menu.DefaultMenuInfo.SetX(item);
+			item.ScaleText(.92f);
+
+#if XBOX
+			item.Selectable = false;
 #endif
 
-            MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_Y"));
-            item.Selectable = false;
-}
-            item.ScaleText(.92f);
+			if (ButtonCheck.ControllerInUse)
+			{
+				Menu.DefaultMenuInfo.SetX(item);
+				var button_y = new QuadClass(ButtonTexture.X, 90, "Button_Y");
+				//button_y.MyShowType = ShowType.ShowForGamepadOnly;
+				MyPile.Add(button_y);
+			}
 
             // Back
             item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
@@ -669,15 +676,21 @@ if (ButtonCheck.ControllerInUse)
             item.SelectSound = null;
             item.Go = me => ReturnToCaller();
             item.Pos = item.SelectedPos = new Vector2(922.9375f, -523.8096f);
-if (ButtonCheck.ControllerInUse)
-{
-#if XBOX || PC_VERSION
-			Menu.DefaultMenuInfo.SetBack(item);
+			item.ScaleText(.92f);
+
+#if XBOX
+			item.Selectable = false;
 #endif
-            MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
-            item.Selectable = false;
-}
-            item.ScaleText(.92f);
+
+			if (ButtonCheck.ControllerInUse)
+			{
+				Menu.DefaultMenuInfo.SetBack(item);
+				var button_b = new QuadClass(ButtonTexture.Back, 90, "Button_B");
+				//button_b.MyShowType = ShowType.ShowForGamepadOnly;
+				MyPile.Add(button_b);
+			}
+
+            
 
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
@@ -776,7 +789,8 @@ if (ButtonCheck.ControllerInUse)
 
         public void SetPos()
         {
-			if (ButtonCheck.ControllerInUse)
+			if (true)
+			//if (ButtonCheck.ControllerInUse)
 			{
 				if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
 				{

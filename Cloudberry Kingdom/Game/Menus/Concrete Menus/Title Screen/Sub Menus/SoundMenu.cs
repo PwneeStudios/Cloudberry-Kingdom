@@ -516,6 +516,11 @@ namespace CloudberryKingdom
 
         private void SetPosition_PC()
         {
+			MenuList list;
+
+			list = MyMenu.FindItemByName("LanguageList") as MenuList;	if (list != null) list.MyExpandPos = new Vector2(117.7778f, -183.3333f);
+			list = MyMenu.FindItemByName("RezList") as MenuList;		if (list != null) list.MyExpandPos = new Vector2(254.9997f, 748.8885f);
+
             if (LanguageOption)
             {
 if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)

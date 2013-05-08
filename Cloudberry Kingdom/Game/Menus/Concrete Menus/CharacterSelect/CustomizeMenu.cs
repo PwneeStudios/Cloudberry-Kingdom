@@ -270,7 +270,7 @@ namespace CloudberryKingdom
 					item.ScaleText(item_width);
                     item.MyObject = hat_index;
 
-                    list.MyList.AddItem(item, hat_index);
+                    list.AddItem(item, hat_index);
                 }
                 ClrSelect.MyMenu.Pos = ClrSelect.MyPile.Pos = AmountShifted;
             }
@@ -287,7 +287,7 @@ namespace CloudberryKingdom
 					item.ScaleText(item_width);
                     item.MyObject = beard_index;
                     
-                    list.MyList.AddItem(item, beard_index);
+                    list.AddItem(item, beard_index);
                 }
                 ClrSelect.MyMenu.Pos = ClrSelect.MyPile.Pos = AmountShifted;
             }
@@ -311,7 +311,7 @@ namespace CloudberryKingdom
 					_item.ScaleText(item_width);
                     _item.MyObject = clr_index;
 
-                    select.MyList.AddItem(_item, clr_index);
+                    select.AddItem(_item, clr_index);
                 }
             }
 

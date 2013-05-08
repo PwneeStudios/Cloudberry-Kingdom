@@ -138,6 +138,8 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
+			//Tools.TheGame.ShowMouse = true;
+
 			ScaleTextToFit();
 
 			PosCaret();
@@ -204,11 +206,36 @@ namespace CloudberryKingdom
             }
 
             char c = Text[Length - 1];
-            if (ButtonCheck.State(ControllerButtons.A, control).Pressed) if (Length < MaxLength) { UsingGamepad = true; Text += c; Recenter(); }
+            if (ButtonCheck.State(ControllerButtons.A, control).Pressed) if (Length < MaxLength)
+			{
+				//UsingGamepad = true;
+				if (ButtonCheck.ControllerInUse ||
+					!ButtonCheck.State(Keys.Space).Down)
+				{
+					Text += c;
+					Recenter();
+				}
+			}
             if (ButtonCheck.State(ControllerButtons.X, control).Pressed || BackspacePressed) { UsingGamepad = true; Backspace(); BackspacePressed = false; return; }
             if (ButtonCheck.State(ControllerButtons.Y, control).Pressed) { Cancel(); return; }
-            if (ButtonCheck.State(ControllerButtons.Start, control).Pressed || EnterPressed) { Enter(); EnterPressed = false; return; }
-            if (ButtonCheck.State(ControllerButtons.B, control).Pressed) { Cancel(); return; }
+            if (ButtonCheck.State(ControllerButtons.Start, control).Pressed || EnterPressed)
+			{
+				if (ButtonCheck.ControllerInUse ||
+					!ButtonCheck.State(Keys.Back).Down)
+				{
+					Enter(); EnterPressed = false;
+					return;
+				}
+			}
+            if (ButtonCheck.State(ControllerButtons.B, control).Pressed) 
+			{
+				if (ButtonCheck.ControllerInUse ||
+					!ButtonCheck.State(Keys.Back).Down)
+				{
+					Cancel();
+					return;
+				}
+			}
             BackspacePressed = false;
 
 #if XBOX
@@ -290,9 +317,28 @@ namespace CloudberryKingdom
         }
 
         bool CapsOn;
+		int BackspaceCount = 0;
         void ProcessKeyboard(KeyboardState cur, KeyboardState prev)
         {
-            //for (Keys key = Keys.A; key <= Keys.Z; key++)
+			if (cur.IsKeyDown(Keys.Delete) || cur.IsKeyDown(Keys.Back))
+			{
+				BackspaceCount++;
+
+				int Delay = 4;
+				if (BackspaceCount > 14) Delay = 3;
+				if (BackspaceCount > 18) Delay = 2;
+
+				if (BackspaceCount > 10 && (BackspaceCount - 10) % Delay == 0)
+				{
+					BackspacePressed = true;
+					return;
+				}
+			}
+			else
+			{
+				BackspaceCount = 0;
+			}
+            
             foreach (Keys key in ValidKeys)
             {
                 if (cur.IsKeyDown(key) && !prev.IsKeyDown(key))

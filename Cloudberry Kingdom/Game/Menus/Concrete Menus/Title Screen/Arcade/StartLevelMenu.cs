@@ -182,7 +182,7 @@ namespace CloudberryKingdom
             SetPos();
 
 			// Back button
-			Back = new ClickableBack(MyPile, true, true);
+			Back = new ClickableBack(MyPile, false, true);
         }
 
 #if PC_VERSION

@@ -286,7 +286,7 @@ namespace CloudberryKingdom
             SetPos();
 
 			// Back button
-			Back = new ClickableBack(MyPile, true, true);
+			Back = new ClickableBack(MyPile, false, true);
         }
 
         EzText Score, Level;
