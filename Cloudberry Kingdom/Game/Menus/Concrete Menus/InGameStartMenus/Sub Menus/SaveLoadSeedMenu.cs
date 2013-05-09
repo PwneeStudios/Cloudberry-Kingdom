@@ -225,15 +225,71 @@ namespace CloudberryKingdom
 
 #if PC_VERSION || XBOX
         // This shows our custom virtual keyboard, instead of the Xbox keyboard.
-
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
         {
             return _item => Save(_item, panel, player);
         }
 
+#if PC_VERSION
+		static PlayerData _player;
+		static GUI_Panel _SaveLoadSeedMenu;
+		static bool SteamTextInput = false;
+
+		protected override void MyPhsxStep()
+		{
+			if (SteamTextInput) return;
+
+			base.MyPhsxStep();
+		}
+
+		static void OnOk()
+		{
+			SteamTextInput = false;
+		}
+
+		static void OnGamepadTextInputEnd(bool result)
+		{
+			if (result && _player != null)
+			{
+				// Get the text
+				string s = SteamManager.SteamTextInput.GetText();
+
+				// Save the seed
+				_player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), s);
+
+				// Success!
+				var ok = new AlertBaseMenu(_player.MyIndex, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
+				ok.OnOk = OnOk;
+				_SaveLoadSeedMenu.Call(ok);
+
+				SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
+			}
+			else
+			{
+				SteamTextInput = false;
+			}
+		}
+#endif
+
         IAsyncResult kyar;
         static void Save(MenuItem _item, GUI_Panel panel, PlayerData player)
         {
+#if PC_VERSION
+			if (CloudberryKingdomGame.UsingSteam)
+			{
+				_SaveLoadSeedMenu = panel;
+
+				bool GamepadInputUp = SteamManager.SteamTextInput.ShowGamepadTextInput(
+					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd);
+
+				// If we successfully brought up the gamepad input, then take note so we can deactivate the current GUI until finished.
+				if (GamepadInputUp)
+				{
+					SteamTextInput = true;
+				}
+			}
+#endif
+
 			CkBaseMenu ckpanel = panel as CkBaseMenu;
 
             SaveSeedAs SaveAs = new SaveSeedAs(panel.Control, player);

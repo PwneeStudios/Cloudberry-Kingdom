@@ -75,27 +75,27 @@ namespace CloudberryKingdom
         public static Version GameVersion = new Version(0, 2, 4);
 
 
-        public static bool GodMode = !FinalRelease;
+        public static bool GodMode = true;//!FinalRelease;
 		public static bool AsianButtonSwitch = false;
 
 #if PC_VERSION
-        // Steam
-		public static bool HideLogos = false;
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = true;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		public static bool SimpleLeaderboards = false;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = 0;
-
-		// Steam Beta
+		//// Steam
 		//public static bool HideLogos = false;
-		//public static bool LockCampaign = true;
+		//public static bool LockCampaign = false;
 		//public static bool SimpleMainMenu = true;
 		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		//public static bool SimpleLeaderboards = false;
 		//public static bool FakeAwardments = false;
 		//public static float GuiSqueeze = 0;
+
+		// Steam Beta
+		public static bool HideLogos = false;
+		public static bool LockCampaign = true;
+		public static bool SimpleMainMenu = true;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		public static bool SimpleLeaderboards = false;
+		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;
@@ -648,7 +648,9 @@ namespace CloudberryKingdom
 
         public void Exit()
         {
+#if PC_VERSION
 			SteamCore.Shutdown();
+#endif
 
             Tools.GameClass.Exit();
         }
@@ -1805,7 +1807,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			if (CloudberryKingdomGame.SteamAvailable)
 			{
-				SteamWrapper.SteamCore.Update();
+				SteamCore.Update();
 			}
 
 			// New joysticks

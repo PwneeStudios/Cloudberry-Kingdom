@@ -98,7 +98,7 @@ namespace CloudberryKingdom
         {
 			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, score.Value, score.Score, score.Level, score.Attempts, score.Time, score.Date);
             
-			copy.GameId += Challenge.LevelMask;
+			//copy.GameId += Challenge.LevelMask;
             _WriteToLeaderboard(copy, null);
         }
         static void _WriteToLeaderboard(ScoreEntry score, ScoreEntry[] scores)

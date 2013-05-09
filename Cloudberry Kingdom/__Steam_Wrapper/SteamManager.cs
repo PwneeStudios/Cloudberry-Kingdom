@@ -51,6 +51,30 @@ namespace SteamManager
 		}
 	}
 
+	public static class SteamTextInput
+	{
+		public static unsafe string GetText()
+		{
+			var pchText = SW.SteamTextInput.GetText();
+			string s = new String(pchText);
+			
+			return s;
+		}
+
+		public static bool ShowGamepadTextInput(string Description, uint MaxCharacters, Action<bool> OnGamepadInputEnd)
+		{
+			try
+			{
+				bool result = SW.SteamTextInput.ShowGamepadTextInput(Description, MaxCharacters, OnGamepadInputEnd);
+				return result;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+	}
+
 	public class LeaderboardHandle
 	{
 		public SW.LeaderboardHandle Handle;

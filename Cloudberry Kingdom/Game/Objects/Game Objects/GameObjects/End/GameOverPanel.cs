@@ -54,9 +54,11 @@ namespace CloudberryKingdom
             HighScoreEntry = new ScoreEntry(GamerTag, GameId_Score, Score,  Score, Levels, Attempts, Time, Date);
             HighLevelEntry = new ScoreEntry(GamerTag, GameId_Level, Levels, Score, Levels, Attempts, Time, Date);
 
-#if NOT_PC
-            AddScore();
-#endif
+			if (!CloudberryKingdomGame.SimpleLeaderboards)
+			{
+				AddScore();
+			}
+
             Create();
 
             // Absorb game stats into life time stats
@@ -244,13 +246,15 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			var score = HighScoreEntry;
 
-			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, score.Score, score.Score, score.Level, score.Attempts, score.Time, score.Date);
+			int highscore = Math.Max(score.Score, PlayerManager.MaxPlayerHighScore(score.GameId));
+
+			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, highscore, highscore, score.Level, score.Attempts, score.Time, score.Date);
 			copy.GameId += Challenge.LevelMask;
 
 			// Write to Leaderboard if not in trial mode
 			if (!CloudberryKingdomGame.IsDemo)
 			{
-				Leaderboard.WriteToLeaderboard(score);
+				Leaderboard.WriteToLeaderboard(copy);
 			}
 #endif
 

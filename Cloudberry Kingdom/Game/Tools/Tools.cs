@@ -29,7 +29,6 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-#if PC_VERSION
 	class ClickableBack
 	{
 		QuadClass q1, q2;
@@ -129,7 +128,6 @@ namespace CloudberryKingdom
 
 		}
 	}
-#endif
 
 	class SimpleScroll
 	{
