@@ -221,30 +221,41 @@ namespace CloudberryKingdom
         {
             if (Changed || AlwaysSave)
             {
-                EzStorage.Save(index, ActualContainerName, FileName, writer =>
-                    {
-						var ms = new MemoryStream();
+				EzStorage.SaveWithMetaData(index, ActualContainerName, FileName, writer =>
+				{
+					Serialize(writer);
 
-						using (BinaryWriter buffer_writer = new BinaryWriter(ms))
-						{
-							Serialize(buffer_writer);
+					Changed = false;
+				},
+				() =>
+				{
+					Changed = false;
+				});
 
-							byte[] bytes = ms.GetBuffer();
+				//EzStorage.Save(index, ActualContainerName, FileName, writer =>
+				//    {
+				//        var ms = new MemoryStream();
 
-							int length = (int)ms.Length;
-                            writer.Write(BitConverter.GetBytes(length));
-							writer.Write(BitConverter.GetBytes(Checksum(bytes, length)));
-							writer.Write(bytes, 0, length);
+				//        using (BinaryWriter buffer_writer = new BinaryWriter(ms))
+				//        {
+				//            Serialize(buffer_writer);
 
-							ms.Dispose();
-						}
+				//            byte[] bytes = ms.GetBuffer();
 
-                        Changed = false;
-                    },
-                    () =>
-                    {
-                        Changed = false;
-                    });
+				//            int length = (int)ms.Length;
+				//            writer.Write(BitConverter.GetBytes(length));
+				//            writer.Write(BitConverter.GetBytes(Checksum(bytes, length)));
+				//            writer.Write(bytes, 0, length);
+
+				//            ms.Dispose();
+				//        }
+
+				//        Changed = false;
+				//    },
+				//    () =>
+				//    {
+				//        Changed = false;
+				//    });
             }
         }
 
@@ -317,6 +328,30 @@ namespace CloudberryKingdom
 
         public static PlayerSaveDevice[] Device = new PlayerSaveDevice[4];
 #endif
+
+		static void _SaveWithMetaData(BinaryWriter writer, Action<BinaryWriter> SaveLogic)
+		{
+			var ms = new MemoryStream();
+
+			using (BinaryWriter buffer_writer = new BinaryWriter(ms))
+			{
+				SaveLogic(buffer_writer);
+
+				byte[] bytes = ms.GetBuffer();
+
+				int length = (int)ms.Length;
+				writer.Write(BitConverter.GetBytes(length));
+				writer.Write(BitConverter.GetBytes(SaveLoad.Checksum(bytes, length)));
+				writer.Write(bytes, 0, length);
+				
+				ms.Dispose();
+			}
+		}
+
+		public static void SaveWithMetaData(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
+		{
+			Save(index, ContainerName, FileName, writer => _SaveWithMetaData(writer, SaveLogic), Fail);
+		}
 
 		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {

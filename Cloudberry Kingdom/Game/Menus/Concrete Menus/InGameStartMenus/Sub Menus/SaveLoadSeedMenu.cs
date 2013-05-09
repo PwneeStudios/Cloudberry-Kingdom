@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 
 #if PC_VERSION
+using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -233,18 +234,16 @@ namespace CloudberryKingdom
 #if PC_VERSION
 		static PlayerData _player;
 		static GUI_Panel _SaveLoadSeedMenu;
-		static bool SteamTextInput = false;
 
 		protected override void MyPhsxStep()
 		{
-			if (SteamTextInput) return;
+			if (SteamTextInput.OverlayActive) return;
 
 			base.MyPhsxStep();
 		}
 
 		static void OnOk()
 		{
-			SteamTextInput = false;
 		}
 
 		static void OnGamepadTextInputEnd(bool result)
@@ -264,10 +263,6 @@ namespace CloudberryKingdom
 
 				SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
 			}
-			else
-			{
-				SteamTextInput = false;
-			}
 		}
 #endif
 
@@ -282,11 +277,7 @@ namespace CloudberryKingdom
 				bool GamepadInputUp = SteamManager.SteamTextInput.ShowGamepadTextInput(
 					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd);
 
-				// If we successfully brought up the gamepad input, then take note so we can deactivate the current GUI until finished.
-				if (GamepadInputUp)
-				{
-					SteamTextInput = true;
-				}
+				if (GamepadInputUp) return;
 			}
 #endif
 

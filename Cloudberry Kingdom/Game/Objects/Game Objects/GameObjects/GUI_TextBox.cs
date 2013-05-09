@@ -210,7 +210,7 @@ namespace CloudberryKingdom
 			{
 				//UsingGamepad = true;
 				if (ButtonCheck.ControllerInUse ||
-					!ButtonCheck.State(Keys.Space).Down)
+					(!ButtonCheck.State(Keys.Space).Down && !ButtonCheck.State(Keys.Enter).Down))
 				{
 					Text += c;
 					Recenter();
@@ -255,15 +255,19 @@ namespace CloudberryKingdom
 			ProcessKeyboard(Tools.Keyboard, Tools.PrevKeyboard);
 #endif
 
-            var dir = ButtonCheck.GetDir(control);
+			// Gamepad control
+			if (ButtonCheck.ControllerInUse)
+			{
+				var dir = ButtonCheck.GetDir(control);
 
-            if (Tools.TheGame.DrawCount % 7 == 0 && Math.Abs(dir.Y) > .5 && !ButtonCheck.State(ControllerButtons.A, -1).Down)
-            {
-                if (dir.Y > 0) Text = Text.Substring(0, Length - 1) + IncrChar(c);
-                if (dir.Y < 0) Text = Text.Substring(0, Length - 1) + DecrChar(c);
+				if (Tools.TheGame.DrawCount % 7 == 0 && Math.Abs(dir.Y) > .5 && !ButtonCheck.State(ControllerButtons.A, -1).Down)
+				{
+					if (dir.Y > 0) Text = Text.Substring(0, Length - 1) + IncrChar(c);
+					if (dir.Y < 0) Text = Text.Substring(0, Length - 1) + DecrChar(c);
 
-                Recenter();
-            }
+					Recenter();
+				}
+			}
         }
 
         static Keys[] ValidKeys = new Keys[] {

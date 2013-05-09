@@ -53,6 +53,8 @@ namespace SteamManager
 
 	public static class SteamTextInput
 	{
+		public static bool OverlayActive = false;
+
 		public static unsafe string GetText()
 		{
 			var pchText = SW.SteamTextInput.GetText();
@@ -61,15 +63,32 @@ namespace SteamManager
 			return s;
 		}
 
-		public static bool ShowGamepadTextInput(string Description, uint MaxCharacters, Action<bool> OnGamepadInputEnd)
+		static void OnGamepadInputEnd(bool result)
 		{
+			OverlayActive = false;
+
+			if (GamepadInputEndCallback != null)
+			{
+				GamepadInputEndCallback(result);
+			}
+		}
+
+		static Action<bool> GamepadInputEndCallback;
+		public static bool ShowGamepadTextInput(string Description, uint MaxCharacters, Action<bool> GamepadInputEndCallback)
+		{
+			SteamTextInput.GamepadInputEndCallback = GamepadInputEndCallback;
+
 			try
 			{
 				bool result = SW.SteamTextInput.ShowGamepadTextInput(Description, MaxCharacters, OnGamepadInputEnd);
+
+				OverlayActive = result;
+
 				return result;
 			}
 			catch
 			{
+				OverlayActive = false;
 				return false;
 			}
 		}

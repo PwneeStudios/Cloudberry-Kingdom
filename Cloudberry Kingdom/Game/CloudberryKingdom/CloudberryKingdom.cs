@@ -1889,6 +1889,11 @@ namespace CloudberryKingdom
                 DoTrialUnlockEvent = false;
             }
 
+			// Draw nothing if Steam input overlay is up
+#if PC_VERSION
+			if (SteamTextInput.OverlayActive) return;
+#endif
+
             // Draw nothing if Xbox guide is up
 #if XBOX || XBOX_SIGNIN
             if (Guide.IsVisible)
