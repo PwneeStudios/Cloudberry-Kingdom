@@ -606,13 +606,16 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Mouse interact
             bool SelectThis = false;
-            if (ButtonCheck.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
-                && !MyMenu.HasSelectedThisStep && Selectable)
-                if (HitTest())
-                {
-                    SelectThis = true;
-                    MyMenu.HasSelectedThisStep = true;
-                }
+			if (ButtonCheck.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
+				&& !MyMenu.HasSelectedThisStep && Selectable
+				&& (MyMenu.UseMouseAndKeyboard || Control == 0))
+			{
+				if (HitTest())
+				{
+					SelectThis = true;
+					MyMenu.HasSelectedThisStep = true;
+				}
+			}
 #endif
 
             if (!Selected)
@@ -627,7 +630,7 @@ namespace CloudberryKingdom
 
             bool Activate = false;
 
-            ButtonData data = ButtonCheck.State(ControllerButtons.A, Control);
+			ButtonData data = ButtonCheck.GetState(ControllerButtons.A, Control, false, true, MyMenu.UseMouseAndKeyboard);
             if (data.Pressed)
             {
                 ActivatingPlayer = data.PressingPlayer;

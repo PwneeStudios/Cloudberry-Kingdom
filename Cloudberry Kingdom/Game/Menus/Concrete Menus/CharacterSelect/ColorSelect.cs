@@ -115,6 +115,7 @@ namespace CloudberryKingdom
 
             MyPile = new DrawPile();
             MyMenu = new Menu(false);
+			MyMenu.UseMouseAndKeyboard = false;
             EnsureFancy();
 
             MyMenu.OnB = Cast.ToMenu(Back);

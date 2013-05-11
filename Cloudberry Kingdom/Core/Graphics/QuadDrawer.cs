@@ -48,19 +48,30 @@ namespace CoreEngine
 
         public EzTexture MyTexture;
 
-        public GlyphData GetData(char c)
+		public GlyphData GetData(char c, bool MakeMonospaced)
         {
-            if (Data.ContainsKey(c))
-                return Data[c];
-            else
-            {
-				return Data['#'];
-//#if DEBUG
-//                return Data['#'];
-//#else
-//                return Data[' '];
-//#endif
-            }
+			GlyphData data;
+
+			if (Data.ContainsKey(c))
+			{
+				data = Data[c];
+			}
+			else
+			{
+				data = Data['#'];
+			}
+
+			if (MakeMonospaced)
+			{
+				if (c == ',')
+					data.Size.X = 40;
+				else if (c == '.')
+					data.Size.X = 40;
+				else
+					data.Size.X = 60;
+			}
+
+			return data;
         }
 
         public float CharSpacing;
@@ -725,7 +736,11 @@ namespace CoreEngine
             TrianglesInBuffer += 2;
         }
 
-        public void DrawString(HackSpriteFont spritefont, string s, Vector2 position, Vector4 color, Vector2 scale)
+		public void DrawString(HackSpriteFont spritefont, string s, Vector2 position, Vector4 color, Vector2 scale)
+		{
+			DrawString(spritefont, s, position, color, scale, false);
+		}
+        public void DrawString(HackSpriteFont spritefont, string s, Vector2 position, Vector4 color, Vector2 scale, bool MakeMonospaced)
         {
 			if (CloudberryKingdomGame.ForceSuperPause) return;
 
@@ -751,7 +766,7 @@ namespace CoreEngine
             Vector2 p = position + new Vector2(35, -25) * scale / 2.0533333f;
 	        for (int j = 0; j < s.Length; ++j)
 	        {
-                HackFont.GlyphData data = font.GetData( s[j] );
+                HackFont.GlyphData data = font.GetData(s[j], MakeMonospaced);
 
 				// Correct for initial offset
 				if (j == 0)
@@ -797,14 +812,18 @@ namespace CoreEngine
 
 				if (s[j] != '・')
 				{
-					p += new Vector2(d.X + font.CharSpacing - 18, 0) * scale;
+					p += new Vector2(d.X + font.CharSpacing - 18, 0) * scale;					
 				}
 
                 //Flush();
 	        }
         }
 
-        public void DrawString(HackSpriteFont spritefont, StringBuilder s, Vector2 position, Vector4 color, Vector2 scale)
+		public void DrawString(HackSpriteFont spritefont, StringBuilder s, Vector2 position, Vector4 color, Vector2 scale)
+		{
+			DrawString(spritefont, s, position, color, scale, false);
+		}
+        public void DrawString(HackSpriteFont spritefont, StringBuilder s, Vector2 position, Vector4 color, Vector2 scale, bool MakeMonospaced)
         {
             HackFont font = spritefont.font;
 
@@ -830,7 +849,7 @@ namespace CoreEngine
             {
 				if (i + 10 > N) Flush();
 
-                HackFont.GlyphData data = font.GetData(s[j]);
+                HackFont.GlyphData data = font.GetData(s[j], MakeMonospaced);
 
                 Vector4 tq = data.TextureCoordinates;
                 Vector2 d = data.Size;
@@ -865,7 +884,11 @@ namespace CoreEngine
             }
         }
 
-        public Vector2 MeasureString(HackSpriteFont spritefont, string s)
+		public Vector2 MeasureString(HackSpriteFont spritefont, string s)
+		{
+			return MeasureString(spritefont, s, false);
+		}
+        public Vector2 MeasureString(HackSpriteFont spritefont, string s, bool MakeMonospaced)
         {
             HackFont font = spritefont.font;
 
@@ -875,7 +898,7 @@ namespace CoreEngine
 
 	        for( int j = 0; j < s.Length; ++j )
 	        {
-                HackFont.GlyphData data = font.GetData( s[j] );
+				HackFont.GlyphData data = font.GetData(s[j], MakeMonospaced);
                 Vector2 dim = data.Size;
 
 		        size.X += dim.X + (float)( font.CharSpacing - 18 );
@@ -892,7 +915,11 @@ namespace CoreEngine
             return size;
         }
 
-        public Vector2 MeasureString(HackSpriteFont spritefont, StringBuilder s)
+		public Vector2 MeasureString(HackSpriteFont spritefont, StringBuilder s)
+		{
+			return MeasureString(spritefont, s, false);
+		}
+        public Vector2 MeasureString(HackSpriteFont spritefont, StringBuilder s, bool MakeMonospaced)
         {
             HackFont font = spritefont.font;
 
@@ -902,7 +929,7 @@ namespace CoreEngine
 
 	        for( int j = 0; j < s.Length; ++j )
 	        {
-                HackFont.GlyphData data = font.GetData( s[j] );
+                HackFont.GlyphData data = font.GetData(s[j], MakeMonospaced);
                 Vector2 dim = data.Size;
 
 		        size.X += dim.X + (float)( font.CharSpacing - 18 );

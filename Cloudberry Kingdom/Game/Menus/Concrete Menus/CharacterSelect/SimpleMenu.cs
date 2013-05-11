@@ -201,6 +201,7 @@ namespace CloudberryKingdom
 
             // Make the menu
             MyMenu = new Menu(false);
+			MyMenu.UseMouseAndKeyboard = false;
             MyMenu.Control = Control;
 
             MyMenu.OnB = null;

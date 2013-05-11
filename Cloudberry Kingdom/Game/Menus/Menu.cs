@@ -39,6 +39,8 @@ namespace CloudberryKingdom
     public delegate bool MenuB(Menu menu);
     public class Menu : ViewReadWrite, IViewableList
     {
+		public bool UseMouseAndKeyboard = true;
+
         public static class DefaultMenuInfo
         {
             public static Vector4 SelectedNextColor = new Color(60, 200, 60, 255).ToVector4();
@@ -506,7 +508,7 @@ namespace CloudberryKingdom
             Tools.TheGame.ShowMouse = true;
 
             // If mouse is in use check to see if anything should be selected
-            if (ButtonCheck.MouseInUse)
+            if (ButtonCheck.MouseInUse && (UseMouseAndKeyboard || Control == 0))
             {
                 /*
                 if (Tools.MouseDown())
@@ -537,7 +539,7 @@ namespace CloudberryKingdom
 #endif 
 
             // Start button action
-            if (OnStart != null && ButtonCheck.State(ControllerButtons.Start, Control).Pressed)
+            if (OnStart != null && ButtonCheck.GetState(ControllerButtons.Start, Control, false, true, UseMouseAndKeyboard).Pressed)
             {
                 ButtonCheck.PreventInput();
                 OnStart(this);
@@ -546,7 +548,7 @@ namespace CloudberryKingdom
             // X button action
             if (OnX != null)
             {
-                ButtonData data = ButtonCheck.State(ControllerButtons.X, Control);
+				ButtonData data = ButtonCheck.GetState(ControllerButtons.X, Control, false, true, UseMouseAndKeyboard);
                 if (data.Pressed)
                 {
                     MenuItem.ActivatingPlayer = data.PressingPlayer;
@@ -558,7 +560,7 @@ namespace CloudberryKingdom
             // Y button action
             if (OnY != null)
             {
-                ButtonData data = ButtonCheck.State(ControllerButtons.Y, Control);
+				ButtonData data = ButtonCheck.GetState(ControllerButtons.Y, Control, false, true, UseMouseAndKeyboard);
                 if (data.Pressed)
                 {
                     MenuItem.ActivatingPlayer = data.PressingPlayer;
@@ -568,7 +570,7 @@ namespace CloudberryKingdom
             }
 
             // Allow for a new item to be selected if the user has stopped holding down A (or LeftMouseButton)
-            if (!ButtonCheck.State(ControllerButtons.A, Control).Pressed)
+			if (!ButtonCheck.GetState(ControllerButtons.A, Control, false, true, UseMouseAndKeyboard).Pressed)
                 HasSelectedThisStep = false;
 
             if (OnA_AutoTimerLength > 0 && OnA_AutoTimerCount > 0)
@@ -581,7 +583,7 @@ namespace CloudberryKingdom
             }
 
             bool ActivateOnA = false;
-            ButtonData _data = ButtonCheck.State(ControllerButtons.A, Control);
+			ButtonData _data = ButtonCheck.GetState(ControllerButtons.A, Control, false, true, UseMouseAndKeyboard);
             if (_data.Pressed)
             {
                 MenuItem.ActivatingPlayer = _data.PressingPlayer;
@@ -601,7 +603,7 @@ namespace CloudberryKingdom
             {
                 bool CheckForOverride = true;
 #if PC_VERSION
-                if (ButtonCheck.State(ButtonCheck.Go_Secondary).Pressed)
+				if (ButtonCheck.State(ButtonCheck.Go_Secondary).Pressed)
                     CheckForOverride = false;
 #endif
                 if (OnA != null && !(CheckForOverride && Items[CurIndex].OverrideA))
@@ -636,11 +638,11 @@ namespace CloudberryKingdom
                 }
             }
 
-            if (Tools.RightMouseReleased())
+            if (Tools.RightMouseReleased() && (UseMouseAndKeyboard || Control == 0))
                 ClickBack = true;
 #endif
             // B button
-            if (ButtonCheck.State(ControllerButtons.B, Control).Pressed ||
+			if (ButtonCheck.GetState(ControllerButtons.B, Control, false, true, UseMouseAndKeyboard).Pressed ||
                 ClickBack)
             {
                 if (OnB != null)
@@ -688,12 +690,21 @@ namespace CloudberryKingdom
                     DelayCount--;
 
                 Vector2 Dir = Vector2.Zero;
-                if (Control < 0)
-                {
-                    Dir = ButtonCheck.GetMaxDir(Control == -1);
-                }
-                else
-                    Dir = ButtonCheck.GetDir(Control);
+				if (Control < 0)
+				{
+					Dir = ButtonCheck.GetMaxDir(Control == -1);
+				}
+				else
+				{
+					if (UseMouseAndKeyboard)
+					{
+						Dir = ButtonCheck.GetDir_WithMouseAndKeyboard(Control);
+					}
+					else
+					{
+						Dir = ButtonCheck.GetDir(Control);
+					}
+				}
 
                 if (Dir.Length() < .2f)
                     DelayCount = 0;

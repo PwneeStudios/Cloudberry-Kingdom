@@ -313,15 +313,24 @@ namespace CloudberryKingdom
             return -1;
         }
 
+
+		public static Vector2 GetDir_WithMouseAndKeyboard(int Control) { return GetDir(Control, true, true); }
+        public static Vector2 GetDir(int Control) { return GetDir(Control, true, false); }
         
-        public static Vector2 GetDir(int Control) { return GetDir(Control, true); }
-        public static Vector2 GetDir(int Control, bool Threshold)
+		/// <summary>
+		/// Gets the directional input associated with a player.
+		/// </summary>
+		/// <param name="Control">The player to check.</param>
+		/// <param name="Threshold">Whether to use a threshold that the input must be greather than to be considered non-zero.</param>
+		/// <param name="UseMouseAndKeyboard">Whether to force the inclusion of mouse and keyboard input.</param>
+		/// <returns></returns>
+		public static Vector2 GetDir(int Control, bool Threshold, bool UseMouseAndKeyboard)
         {
             // Get joystick direction
-            Vector2 Dir = ButtonCheck.State(ControllerButtons.DPad, Control).Dir;
+			Vector2 Dir = ButtonCheck.GetState(ControllerButtons.DPad, Control, false, true, UseMouseAndKeyboard).Dir;
 
             // Get d-pad direction
-            Vector2 HoldDir = ButtonCheck.State(ControllerButtons.LJ, Control).Dir;
+			Vector2 HoldDir = ButtonCheck.GetState(ControllerButtons.LJ, Control, false, true, UseMouseAndKeyboard).Dir;
 
             // Take bigger magnitude of the two
             if (Math.Abs(HoldDir.X) > Math.Abs(Dir.X)) Dir.X = HoldDir.X;
@@ -355,11 +364,11 @@ namespace CloudberryKingdom
             {
                 if (PlayerManager.Get(i).Exists || !MustExist)
                 {
-                    Vector2 HoldDir = ButtonCheck.State(ControllerButtons.LJ, i).Dir;
+					Vector2 HoldDir = ButtonCheck.GetState(ControllerButtons.LJ, i, false, true, true).Dir;
                     if (Math.Abs(HoldDir.X) > Math.Abs(Dir.X)) Dir.X = HoldDir.X;
                     if (Math.Abs(HoldDir.Y) > Math.Abs(Dir.Y)) Dir.Y = HoldDir.Y;
 
-                    HoldDir = ButtonCheck.State(ControllerButtons.DPad, i).Dir;
+					HoldDir = ButtonCheck.GetState(ControllerButtons.DPad, i, false, true, true).Dir;
                     if (Math.Abs(HoldDir.X) > Math.Abs(Dir.X)) Dir.X = HoldDir.X;
                     if (Math.Abs(HoldDir.Y) > Math.Abs(Dir.Y)) Dir.Y = HoldDir.Y;
                 }
@@ -392,7 +401,7 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public static bool Back(int Control)
         {
-            if (ButtonCheck.State(ControllerButtons.B, Control, false).Pressed 
+            if (ButtonCheck.GetState(ControllerButtons.B, Control, false, false, false).Pressed 
 #if WINDOWS
                 || ButtonCheck.State(Keys.Escape).Pressed
                 || ButtonCheck.State(Keys.Back).Pressed)
@@ -515,7 +524,7 @@ namespace CloudberryKingdom
 			if (CloudberryKingdomGame.SuperPause) return new ButtonData();
 
             if (Button == null)
-                return State(ControllerButtons.None, iPlayerIndex);
+				return GetState(ControllerButtons.None, iPlayerIndex, false, true, true);
 
             if (Button.IsKeyboard)
                 return GetState(Button.KeyboardKey, false);
@@ -568,10 +577,24 @@ namespace CloudberryKingdom
 
 
 
-        public static ButtonData State(ControllerButtons Button, PlayerIndex Index) { return GetState(Button, (int)Index, false, true); }
-        public static ButtonData State(ControllerButtons Button, int iPlayerIndex) { return GetState(Button, iPlayerIndex, false, true); }
-        public static ButtonData State(ControllerButtons Button, int iPlayerIndex, bool UseKeyboardMapping) { return GetState(Button, iPlayerIndex, false, UseKeyboardMapping); }
-        static ButtonData GetState(ControllerButtons Button, int iPlayerIndex, bool Prev, bool UseKeyboardMapping)
+        public static ButtonData State(ControllerButtons Button, PlayerIndex Index) { return GetState(Button, (int)Index, false, true, false); }
+		public static ButtonData State(ControllerButtons Button, int iPlayerIndex) { return GetState(Button, iPlayerIndex, false, true, false); }
+		public static ButtonData State(ControllerButtons Button, int iPlayerIndex, bool UseKeyboardMapping) { return GetState(Button, iPlayerIndex, false, UseKeyboardMapping, false); }
+        
+
+		/// <summary>
+		/// Gets the state of a button.
+		/// </summary>
+		/// <param name="Button">The button to check.</param>
+		/// <param name="iPlayerIndex">The index of the player to check for if non-negative.
+		/// -1 will check for all existing players.
+		/// -2 will check for all input devices, regardless of if it is associated with an existing player.</param>
+		/// <param name="Prev">Whether to check the previous state of the button (true), or the current state (false).</param>
+		/// <param name="UseKeyboardMapping">Whether to include the keyboard in the button check, with the keyboard treated as player one.</param>
+		/// <param name="UseMouseAndKeyboard">Whether to force the inclusion of mouse and keyboard input in this check.
+		/// By default mouse and keyboard input is associated with player one.</param>
+		/// <returns></returns>
+		public static ButtonData GetState(ControllerButtons Button, int iPlayerIndex, bool Prev, bool UseKeyboardMapping, bool UseMouseAndKeyboard)
         {
 			if (CloudberryKingdomGame.SuperPause) return new ButtonData();
 
@@ -621,7 +644,8 @@ namespace CloudberryKingdom
                     for (int i = 0; i < 4; i++)
                         if (NoneExist || PlayerManager.Get(i).Exists || iPlayerIndex == -2)
                         {
-                            ButtonData data = GetState(Button, i, false, UseKeyboardMapping);
+							ButtonData data = GetState(Button, i, false, UseKeyboardMapping, true);
+							//ButtonData data = GetState(Button, i, false, UseKeyboardMapping, UseMouseAndKeyboard);
 
                             // Track which player is the one pressing the button.
                             if (data.Pressed)
@@ -640,7 +664,7 @@ namespace CloudberryKingdom
                     for (int i = 0; i < 4; i++)
                         if (PlayerManager.Get(i).Exists || iPlayerIndex == -2)
                         {
-                            ButtonData data = GetState(Button, i, true, UseKeyboardMapping);
+							ButtonData data = GetState(Button, i, true, UseKeyboardMapping, UseMouseAndKeyboard);
                             Data.Down = Data.Down || data.Down;
                             Data.Pressed = Data.Pressed || data.Pressed;
                             Data.Released = Data.Released || data.Released;
@@ -769,9 +793,11 @@ namespace CloudberryKingdom
 if (
     (SingleOutPlayer && iPlayerIndex == ThisPlayerOnly)
     ||
-    (UseKeyboardMapping && iPlayerIndex == 0)
+	//(UseKeyboardMapping && (iPlayerIndex == 0 || !PlayerManager.Get(0).Exists))
+	(UseKeyboardMapping && iPlayerIndex == 0)
+	||
+	UseMouseAndKeyboard
     )
-//if (UseKeyboardMapping && iPlayerIndex == 0)
 {
             if (Button == ControllerButtons.A)
             {
@@ -791,9 +817,6 @@ if (
 
             key = Keys.Escape;
     
-            //if (Button == ControllerButtons.A) key = Keys.Z;
-            //if (Button == ControllerButtons.B) key = Keys.X;
-
             if (Button == ControllerButtons.A) key = Go_Secondary;
             if (Button == ControllerButtons.B) key = Back_Secondary;
 
@@ -803,9 +826,6 @@ if (
             if (Button == ControllerButtons.A)
                 Data.Down |= keyboard.IsKeyDownCustom(Keys.Enter)
                           || keyboard.IsKeyDownCustom(Keys.Space);
-//#else
-//    Data.Down |= keyboard.IsKeyDownCustom(key);
-//#endif
 
             if (Button == ControllerButtons.LJ)
             {
@@ -835,7 +855,7 @@ if (
             // Get previous data to calculate Pressed and Released
             if (!Prev)
             {
-                ButtonData prevdata = GetState(Button, iPlayerIndex, true, UseKeyboardMapping);
+				ButtonData prevdata = GetState(Button, iPlayerIndex, true, UseKeyboardMapping, UseMouseAndKeyboard);
 
                 // Pressed == true if the previous state was not pressed but the current is
                 if (Data.Down && !prevdata.Down)

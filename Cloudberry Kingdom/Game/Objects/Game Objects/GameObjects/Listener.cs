@@ -90,12 +90,12 @@ namespace CloudberryKingdom
                         switch (MyType)
                         {
                             case Type.OnPressed:
-                                if (PlayerManager.Get(i).Exists && ButtonCheck.State(MyButton, i).Pressed)
+                                if (PlayerManager.Get(i).Exists && ButtonCheck.GetState(MyButton, i, false, true, true).Pressed)
                                     TriggeringPlayerIndex = i;
                                 break;
 
                             case Type.OnDown:
-                                if (PlayerManager.Get(i).Exists && ButtonCheck.State(MyButton, i).Down)
+                                if (PlayerManager.Get(i).Exists && ButtonCheck.GetState(MyButton, i, false, true, true).Down)
                                     TriggeringPlayerIndex = i;
                                 break;
                         }

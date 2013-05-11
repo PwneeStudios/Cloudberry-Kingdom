@@ -260,6 +260,13 @@ namespace CloudberryKingdom
 				var ok = new AlertBaseMenu(_player.MyIndex, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
 				ok.OnOk = OnOk;
 				_SaveLoadSeedMenu.Call(ok);
+				_SaveLoadSeedMenu.Hid = true;
+
+				CkBaseMenu _ckbasemenu = _SaveLoadSeedMenu as CkBaseMenu;
+				if (null != _ckbasemenu)
+					_ckbasemenu.RegularSlideOut(PresetPos.Right, 0);
+				else
+					_SaveLoadSeedMenu.SlideOut(PresetPos.Right, 0);
 
 				SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
 			}
@@ -273,8 +280,9 @@ namespace CloudberryKingdom
 			if (CloudberryKingdomGame.UsingSteam)
 			{
 				_SaveLoadSeedMenu = panel;
+				_player = player;
 
-				bool GamepadInputUp = SteamManager.SteamTextInput.ShowGamepadTextInput(
+				bool GamepadInputUp = SteamTextInput.ShowGamepadTextInput(
 					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd);
 
 				if (GamepadInputUp) return;

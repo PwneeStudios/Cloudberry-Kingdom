@@ -9,6 +9,7 @@
 //            for help on the cloud storage routines         
 //----------------------------------------------------------------
 using System;
+using System.Text;
 using System.Runtime.InteropServices;
 
 using SW = SteamWrapper;
@@ -51,6 +52,61 @@ namespace SteamManager
 		}
 	}
 
+	public static class HelperClass
+	{
+		public static string Utf8_to_Utf16(int[] s)
+		{
+			string utf16 = "";
+
+			for (int i = 0; i < s.Length; i++)
+			{
+				if ((s[i] & 0x80) == 0x80 /* 1000000 */ )
+				{
+					int BytesToRead = 0;
+					int FirstMask;
+
+					if ((s[i] & 0xF0) == 0xF0 /* 11110000 */ ) { BytesToRead = 4; FirstMask = 0x0F; /* 00001111 */ }
+					else if ((s[i] & 0xE0) == 0xE0 /* 11100000 */ ) { BytesToRead = 3; FirstMask = 0x1F; /* 00011111 */ }
+					else if ((s[i] & 0xC0) == 0xC0 /* 11000000 */ ) { BytesToRead = 2; FirstMask = 0x3F; /* 00111111 */ }
+					else { return ""; /* not a valid UTF-8 string */ }
+
+					int val = s[i] & FirstMask;
+					int shift = 0;
+					for (int j = 0; j < BytesToRead - 1; ++j)
+					{
+						++i;
+
+						val = val << 6;
+						val += (int)(s[i] & 0x3F /* 00111111 */ );
+					}
+					utf16 += (char)val;
+				}
+				else
+				{
+					if (s[i] != 13)
+						utf16 += (char)s[i];
+				}
+			}
+
+			return utf16;
+		}
+
+		public static unsafe string CharArray_To_Utf8String(sbyte* pch)
+		{
+			string raw_string = new String(pch);
+
+			int[] data = new int[raw_string.Length];
+			for (int i = 0; i < raw_string.Length; i++)
+			{
+				data[i] = (int)raw_string[i];
+			}
+
+			string str = Utf8_to_Utf16(data);
+
+			return str;
+		}
+	}
+
 	public static class SteamTextInput
 	{
 		public static bool OverlayActive = false;
@@ -58,9 +114,10 @@ namespace SteamManager
 		public static unsafe string GetText()
 		{
 			var pchText = SW.SteamTextInput.GetText();
-			string s = new String(pchText);
-			
-			return s;
+
+			string str = HelperClass.CharArray_To_Utf8String(pchText);
+
+			return str;
 		}
 
 		static void OnGamepadInputEnd(bool result)
@@ -158,7 +215,9 @@ namespace SteamManager
 		public static unsafe string Results_GetName(int Index)
 		{
 			var pchName = SW.SteamStats.Results_GetPlayer(Index);
-			var s = new String(pchName);
+			
+			//var s = new String(pchName);
+			var s = HelperClass.CharArray_To_Utf8String(pchName);
 
 			return s;
 		}

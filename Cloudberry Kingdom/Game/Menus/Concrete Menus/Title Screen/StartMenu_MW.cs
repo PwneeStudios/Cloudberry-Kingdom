@@ -137,7 +137,7 @@ namespace CloudberryKingdom
 				}
 				else
 				{
-					MyMenu.SelectItem(4);
+					MyMenu.SelectItem(3);
 				}
 				MyMenu.ReadyToPlaySound = true;
 

@@ -47,6 +47,7 @@ namespace CloudberryKingdom
 
             // Make the menu
             MyMenu = new Menu(false);
+			MyMenu.UseMouseAndKeyboard = false;
 
             MyMenu.OnB = MenuReturnToCaller;
 

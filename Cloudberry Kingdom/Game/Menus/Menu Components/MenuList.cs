@@ -344,7 +344,16 @@ namespace CloudberryKingdom
 					if (Control < 0)
 						Dir = ButtonCheck.GetMaxDir(Control);
 					else
-						Dir = ButtonCheck.GetDir(Control);
+					{
+						if (MyMenu.UseMouseAndKeyboard)
+						{
+							Dir = ButtonCheck.GetDir_WithMouseAndKeyboard(Control);
+						}
+						else
+						{
+							Dir = ButtonCheck.GetDir(Control);
+						}
+					}
 				}
 
 				if (DelayCount > 0)

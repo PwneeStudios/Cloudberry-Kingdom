@@ -191,7 +191,7 @@ namespace CloudberryKingdom
 
 			ReadingInProgress = true;
 
-			SteamStats.RequestEntries(LHandle, SteamStats.LeaderboardDataRequestType.Global, RequestPage, EntriesPerPage,
+			SteamStats.RequestEntries(LHandle, SteamStats.LeaderboardDataRequestType.Global, RequestPage, RequestPage + EntriesPerPage,
 				b => OnInfo(LHandle, LeaderboardGUI.LeaderboardType.TopScores, b));
 		}
 
@@ -223,19 +223,19 @@ namespace CloudberryKingdom
 				case 11200: return "Escalation, Jetpack Wheelie";
 				case 11300: return "Escalation, Hero";
 				case 11400: return "Escalation, The Masochist";
-				case 10001: return "TimeCrisis, Classic";
-				case 10101: return "TimeCrisis, Fat Bob";
-				case 11501: return "TimeCrisis, Rocketbox";
-				case 10201: return "TimeCrisis, Gravity Bob";
-				case 10401: return "TimeCrisis, Jetman";
-				case 10501: return "TimeCrisis, Bouncy";
-				case 11001: return "TimeCrisis, Spaceship";
-				case 10301: return "TimeCrisis, Double Jump";
-				case 11101: return "TimeCrisis, Wheelie";
-				case 10901: return "TimeCrisis, Tiny Bob";
-				case 11201: return "TimeCrisis, Jetpack Wheelie";
-				case 11301: return "TimeCrisis, Hero";
-				case 11401: return "TimeCrisis, The Masochist";
+				case 10001: return "Time Crisis, Classic";
+				case 10101: return "Time Crisis, Fat Bob";
+				case 11501: return "Time Crisis, Rocketbox";
+				case 10201: return "Time Crisis, Gravity Bob";
+				case 10401: return "Time Crisis, Jetman";
+				case 10501: return "Time Crisis, Bouncy";
+				case 11001: return "Time Crisis, Spaceship";
+				case 10301: return "Time Crisis, Double Jump";
+				case 11101: return "Time Crisis, Wheelie";
+				case 10901: return "Time Crisis, Tiny Bob";
+				case 11201: return "Time Crisis, Jetpack Wheelie";
+				case 11301: return "Time Crisis, Hero";
+				case 11401: return "Time Crisis, The Masochist";
 				case 10002: return "Hero Rush";
 				case 10003: return "Hybrid Rush";
 				default: return "Player Level";

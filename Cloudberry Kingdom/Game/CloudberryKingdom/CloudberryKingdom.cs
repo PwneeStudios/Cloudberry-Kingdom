@@ -75,7 +75,7 @@ namespace CloudberryKingdom
         public static Version GameVersion = new Version(0, 2, 4);
 
 
-        public static bool GodMode = true;//!FinalRelease;
+        public static bool GodMode = !FinalRelease;
 		public static bool AsianButtonSwitch = false;
 
 #if PC_VERSION

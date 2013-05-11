@@ -877,6 +877,7 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("Button_SwitchView"); if (_q != null) { _q.Pos = new Vector2(-1316.667f, 897.2221f); _q.Size = new Vector2(51.8333f, 51.8333f); }
 
 				MyPile.Pos = new Vector2(286.1108f, 5.555542f);
+				_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f + 76, 646.6671f); _q.Size = new Vector2(1005.093f + 71, 49.08278f); }
 			}
 			else
 			{
@@ -909,7 +910,12 @@ namespace CloudberryKingdom
 				_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1449.999f, -822.2222f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 
 				MyPile.Pos = new Vector2(286.1108f, 5.555542f);
+				_q = MyPile.FindQuad("Highlight"); if (_q != null) { _q.Pos = new Vector2(-413.8886f + 76, 646.6671f); _q.Size = new Vector2(1005.093f + 71, 49.08278f); }
 			}
+
+
+			
+
 		}
 #elif XBOX
 		void SetPos()
@@ -1217,7 +1223,9 @@ namespace CloudberryKingdom
             else
             {
                 this.GamerTag = Player.Gamertag;
-                this.Val = Val.ToString();
+                
+				//this.Val = Val.ToString();
+				this.Val = string.Format("{0:n0}", Val);
 
                 float width = Tools.QDrawer.MeasureString(Resources.Font_Grobold42.HFont, GamerTag).X;
                 if (width > 850)
@@ -1255,16 +1263,20 @@ namespace CloudberryKingdom
             Vector2 Val_Offset = .1f * new Vector2(LeaderboardGUI.Offset_Val.Pos.X, 0);
             Vector2 Size = .1f * new Vector2(LeaderboardGUI.ItemShift.SizeX);
 
+			float x = Tools.QDrawer.MeasureString(Resources.Font_Grobold42.HFont, Val, true).X;
+			Vector2 shift = new Vector2(500 - x, 0);
+
             if (Selected)
             {
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Rank, Pos, ocolor, Size);
 				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, scale * Size);
-                Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Val, Pos + Val_Offset, ocolor, Size);
+				
+				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Val, Pos + Val_Offset + shift, ocolor, Size, true);
             }
 
             Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, Rank, Pos, color, Size);
 			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, GamerTag, Pos + GamerTag_Offset, color, scale * Size);
-            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, Val, Pos + Val_Offset, color, Size);
+            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, Val, Pos + Val_Offset + shift, color, Size, true);
         }
     }
 
@@ -1342,7 +1354,7 @@ namespace CloudberryKingdom
                         Index = MyLeaderboard.StartIndex;
                         Start = Index - EntriesPerPage / 2 + 1;
                         TotalEntries = MyLeaderboard.TotalSize;
-						TotalEntries = 10000; // Use this to debug. Artificially adds 10000 items to the leaderboard.
+						//TotalEntries = 10000; // Use this to debug. Artificially adds 10000 items to the leaderboard.
                         UpdateBounds();
                     }
 

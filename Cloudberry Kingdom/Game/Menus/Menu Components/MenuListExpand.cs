@@ -9,6 +9,8 @@ namespace CloudberryKingdom
     {
         protected override void ReleaseBody()
         {
+			bool IndexSelected = MyMenu != null && !MyMenu.NoneSelected;
+
             base.ReleaseBody();
 
             MyMenuList.MyMenu.Active = true;
@@ -16,14 +18,39 @@ namespace CloudberryKingdom
             MyMenuList.MyMenu.PhsxStep();
             MyMenuList.MyMenu.PhsxStep();
 
-            if (MyMenuList.OnConfirmedIndexSelect != null)
-                MyMenuList.OnConfirmedIndexSelect();
+			// If an item was selected
+			if (IndexSelected)
+			{
+				// and it was different than the item already selected
+				if (MyMenuList.ListIndex != HoldIndex)
+				{
+					// then run the confirmation call back
+					if (MyMenuList.OnConfirmedIndexSelect != null)
+					{
+						MyMenuList.OnConfirmedIndexSelect();
+					}
+				}
+			}
+			else
+			{
+				// otherwise make sure we re-select what was originally selected
+				MyMenuList.SetIndex(HoldIndex);
+			}
         }
 
         MenuList MyMenuList;
-        public MenuListExpand(int Control, MenuList MyMenuList) : base(false)
+		
+		/// <summary>
+		/// The original index that was selected in the menu list before this drop down was created.
+		/// </summary>
+		int HoldIndex;
+        
+		public MenuListExpand(int Control, MenuList MyMenuList) : base(false)
         {
             this.MyMenuList = MyMenuList;
+			
+			HoldIndex = MyMenuList.ListIndex;
+
             Constructor();
         }
 
@@ -107,6 +134,7 @@ namespace CloudberryKingdom
                 clone.AdditionalOnSelect = OnSelect;
                 AddItem(clone);
                 clone.ScaleText(.5f);
+				clone.Padding.Y += 8;
                 Vector2 size = clone.MyText.GetWorldSize();
 
                 Width = Math.Max(size.X, Width);

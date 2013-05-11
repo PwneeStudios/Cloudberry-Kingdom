@@ -139,7 +139,7 @@ namespace CloudberryKingdom
                         Tools.CurLevel.Bobs[0].PlayerObject.EnqueueAnimation(0, 0, true, true, false, 100);
 
                         pos_t = zoom_t = null;
-                        Tools.CurGameData.FadeIn(0);
+						if (DoBackgroundPhsx) Tools.CurGameData.FadeIn(0);
                     }
 
                     // Add 'Press (A) to start' text
@@ -253,8 +253,8 @@ namespace CloudberryKingdom
                     wind_t = new FancyVector2();
                     wind_t.Val = 0f;
 
-                    lvl.MyGame.WaitThenDo(InitialDarkness, ()
-                        => lvl.MyGame.FadeIn(InitialFadeInSpeed));
+					lvl.MyGame.WaitThenDo(InitialDarkness, ()
+						=> { if (DoBackgroundPhsx) lvl.MyGame.FadeIn(InitialFadeInSpeed); } );
 
                     //if (ForTrailer)
                     //{
