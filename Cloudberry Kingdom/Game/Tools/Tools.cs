@@ -22,6 +22,7 @@ using CloudberryKingdom.Blocks;
 #if WINDOWS
 using CloudberryKingdom;
 using CloudberryKingdom.Viewer;
+using System.Runtime.InteropServices;
 #if INCLUDE_EDITOR
 using Forms = System.Windows.Forms;
 #endif
@@ -29,6 +30,12 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
+	class WindowsHelper
+	{
+		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+		public static extern IntPtr GetForegroundWindow();
+	}
+
 	class ClickableBack
 	{
 		QuadClass q1, q2;

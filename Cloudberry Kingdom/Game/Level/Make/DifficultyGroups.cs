@@ -133,6 +133,10 @@ namespace CloudberryKingdom
 				piece.MyUpgrades1[Upgrade.Speed] = CoreMath.Lerp(piece.MyUpgrades1[Upgrade.Speed], 10.0f, s);
 			}
 
+			if (hero is BobPhsxInvert)
+			{
+				piece.MyUpgrades1[Upgrade.BouncyBlock] /= 4.5f;
+			}
 
             piece.StandardClose();
         }

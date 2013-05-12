@@ -67,6 +67,13 @@ namespace CloudberryKingdom
             return clone;
         }
 
+		public MenuItem Clone(string Text)
+		{
+			MenuItem clone = new MenuItem(MyText.Clone(Text), MySelectedText.Clone(Text));
+			if (Icon != null) { clone.Icon = Icon.Clone(); clone.Icon.FancyPos.SetCenter(clone.FancyPos); }
+			return clone;
+		}
+
         public Vector2 PosOffset, SelectIconOffset;
 
         public EzSound SelectSound, SlideSound, ListScrollSound;
@@ -263,6 +270,8 @@ namespace CloudberryKingdom
                 MySelectedText.GetWorldWidth());
         }
 
+
+		public string ExpandString = null;
 
         /// <summary>
         /// Initialize a new MenuItem.

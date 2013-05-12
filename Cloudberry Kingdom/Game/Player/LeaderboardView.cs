@@ -299,14 +299,18 @@ namespace CloudberryKingdom
 
 			// Board list
 			BoardList = new MenuList();
+			BoardList.MyExpandParams.ScaleItems = .8f;
+			BoardList.MyExpandParams.ShiftTopLeftItem = new Vector2(0, -10);
+			BoardList.MyExpandParams.SizePadding = new Vector2(10, 0);
 			SetBoardListProperties(BoardList);
 			for (int i = 0; i < ArcadeMenu.LeaderboardList.Count; i++)
 			{
-				var IdAndName = GetBoardIdAndName(i);
+				var IdAndName = GetBoardIdAndName(i, true);
 				int Id = IdAndName.Item1;
 				string Name = IdAndName.Item2;
 
 				item = new MenuItem(new EzText(Name, ItemFont, false, true));
+				item.ExpandString = GetBoardIdAndName(i, false).Item2;
 				SetItemProperties(item);
 				BoardList.AddItem(item, i);
 			}
@@ -393,6 +397,10 @@ namespace CloudberryKingdom
 
 		private static void SetBoardListProperties(MenuList BoardList)
 		{
+			BoardList.MyExpandParams.ScaleItems = .785f;
+			BoardList.MyExpandParams.ShiftTopLeftItem = new Vector2(0, 30);
+			BoardList.MyExpandParams.SizePadding = new Vector2(40, 0);
+
 			BoardList.Name = "BoardList";
 			BoardList.KeyboardSelectable = false;
 			BoardList.Center = false;
@@ -401,7 +409,7 @@ namespace CloudberryKingdom
 			if (ButtonCheck.ControllerInUse)
 				BoardList.MyExpandPos = new Vector2(-1000.055f, 864.4439f);
 			else
-				BoardList.MyExpandPos = new Vector2(-1058.055f, 864.4439f);
+				BoardList.MyExpandPos = new Vector2(-1008.055f, 864.4439f);
 		}
 
 		private void BoardList_OnSelect(MenuList BoardList)
@@ -568,7 +576,7 @@ namespace CloudberryKingdom
 			//MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
-		static Tuple<int, string> GetBoardIdAndName(int index)
+		static Tuple<int, string> GetBoardIdAndName(int index, bool FullName)
 		{
 			var challenge = ArcadeMenu.LeaderboardList[index].Item1;
 			var hero = ArcadeMenu.LeaderboardList[index].Item2;
@@ -590,8 +598,24 @@ namespace CloudberryKingdom
 				}
 				else
 				{
-					Name = Localization.WordString(challenge.Name) + ", " + Localization.WordString(hero.Name);
-					Id = challenge.CalcGameId_Level(hero);
+					if (FullName)
+					{
+						Name = Localization.WordString(challenge.Name) + ", " + Localization.WordString(hero.Name);
+						Id = challenge.CalcGameId_Level(hero);
+					}
+					else
+					{
+						if (hero == BobPhsxNormal.Instance)
+						{
+							Name = Localization.WordString(challenge.Name);
+							Id = challenge.CalcGameId_Level(hero);
+						}
+						else
+						{
+							Name = "        " + Localization.WordString(hero.Name);
+							Id = challenge.CalcGameId_Level(hero);
+						}
+					}
 				}
 			}
 
@@ -604,7 +628,7 @@ namespace CloudberryKingdom
             CurrentChallenge = ArcadeMenu.LeaderboardList[index].Item1;
             Hero = ArcadeMenu.LeaderboardList[index].Item2;
 
-			var IdAndName = GetBoardIdAndName(index);
+			var IdAndName = GetBoardIdAndName(index, true);
 			int Id = IdAndName.Item1;
 			string Name = IdAndName.Item2;
 
@@ -1198,6 +1222,15 @@ namespace CloudberryKingdom
 		public float scale;
 		public bool Special;
 
+#if PC_VERSION
+		static Dictionary<string, bool> SpecialNames = new Dictionary<string,bool> {
+			{ "Pwnee Studios", true },
+			{ "fearthetj", true },
+			{ "freshmozzarella", true },
+			{ "creon_ghan_buri", true },
+			{ "RootLlama", true }
+		};
+#else
 		static Dictionary<string, bool> SpecialNames = new Dictionary<string,bool> {
 			{ "Tewth Brush", true },
 			{ "TewthDecay", true },
@@ -1205,7 +1238,9 @@ namespace CloudberryKingdom
 			{ "PwneeJordan", true },
 			{ "PwneeTJ", true },
 			{ "Pwnee", true },
-																				   };
+		};
+#endif
+
         public static LeaderboardItem DefaultItem = new LeaderboardItem(null, 0, 0);
 
         public LeaderboardItem(Gamer Player, int Val, int Rank)
@@ -1244,16 +1279,22 @@ namespace CloudberryKingdom
             Vector4 color = ColorHelper.Gray(.9f);
             Vector4 ocolor = Color.Black.ToVector4();
 
-            if (Selected)
-			{
-				color = Color.LimeGreen.ToVector4();
-				ocolor = new Color(0, 0, 0).ToVector4();
-			}
-			else if (Special)
-			{
-				color = Color.Gold.ToVector4();
-				ocolor = new Color(0, 0, 0).ToVector4();
-			}
+			//if (Selected)
+			//{
+			//    color = Color.LimeGreen.ToVector4();
+			//    ocolor = new Color(0, 0, 0).ToVector4();
+			//}
+			//else
+			//    if (Special)
+			//{
+			//    color = Color.LimeGreen.ToVector4();
+				
+			//    //color = (color + Color.PaleVioletRed.ToVector4()) / 2;
+			//    //color = (color + Color.HotPink.ToVector4()) / 2;
+			//    //color = ColorHelper.Gray(.75f);
+
+			//    ocolor = new Color(0, 0, 0).ToVector4();
+			//}
             
 			
 			color *= alpha;
@@ -1266,7 +1307,8 @@ namespace CloudberryKingdom
 			float x = Tools.QDrawer.MeasureString(Resources.Font_Grobold42.HFont, Val, true).X;
 			Vector2 shift = new Vector2(500 - x, 0);
 
-            if (Selected)
+			if (Selected)
+			//if (Special)
             {
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Rank, Pos, ocolor, Size);
 				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, scale * Size);

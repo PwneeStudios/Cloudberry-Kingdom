@@ -21,7 +21,7 @@ namespace CloudberryKingdom
         public static bool Playing = false;
 
         static Video CurrentVideo;
-        static VideoPlayer VPlayer;
+        public static VideoPlayer VPlayer;
         
         static EzTexture VEZTexture = new EzTexture();
 

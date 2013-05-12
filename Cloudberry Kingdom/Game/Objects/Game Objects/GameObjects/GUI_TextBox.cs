@@ -157,18 +157,25 @@ namespace CloudberryKingdom
 					Caret.Show = Tools.TheGame.DrawCount % 65 > 23;
                 }
 
-#if WINDOWS
-                KeyboardExtension.Freeze = false;
+#if PC_VERSION
+				ButtonCheck.DisableSecondaryInput = true;
+
+				KeyboardExtension.Freeze = false;
                 if (ButtonCheck.State(Keys.Escape).Down) { Cancel(); return; }
                 if (ButtonCheck.State(Keys.V).Pressed && Tools.CntrlDown()) { Paste(); return; }
                 //if (ButtonCheck.State(Keys.V).Pressed && Tools.CntrlDown()) { Paste(); return; }
                 if (ButtonCheck.State(Keys.C).Down && Tools.CntrlDown()) { Copy(); return; }
                 if (ButtonCheck.State(Keys.X).Down && Tools.CntrlDown()) { Copy(); Clear(); return; }
-				//KeyboardExtension.Freeze = true;
+
+				GamepadInteract();
+
+				ButtonCheck.DisableSecondaryInput = false;
+#else
+				GamepadInteract();
 #endif
 
-                GamepadInteract();
-            }
+
+			}
             else
                 // Don't draw the caret when we don't have focus
                 Caret.Show = false;

@@ -458,6 +458,14 @@ namespace CloudberryKingdom
             return clone;
         }
 
+		public virtual EzText Clone(string Text)
+		{
+			EzText clone = new EzText(Text, MyFont, TextBoxWidth, Centered, YCentered, LineHeightMod);
+			clone.MyFloatColor = MyFloatColor;
+			clone.OutlineColor = OutlineColor;
+			return clone;
+		}
+
         public enum Style { Normal, FadingOff };
         public bool RightJustify = false;
         public bool Centered, YCentered;

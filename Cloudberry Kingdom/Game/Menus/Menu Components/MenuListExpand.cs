@@ -114,8 +114,9 @@ namespace CloudberryKingdom
 
 			MyMenu.OnB = Cast.ToMenu(Back); ;
 
-            ItemPos = new Vector2(0, 0);
-            PosAdd = new Vector2(0, -80);
+			ItemPos = new Vector2(0, 0);// +MyMenuList.MyExpandParams.ShiftTopLeftItem;
+			//PosAdd = new Vector2(0, -80);
+			PosAdd = new Vector2(0, -80 * MyMenuList.MyExpandParams.ScaleItems);
             SelectedItemShift = new Vector2(0, 0);
             FontScale = .78f;
 
@@ -129,11 +130,17 @@ namespace CloudberryKingdom
 
                 if (!item.Selectable) continue;
 
-                MenuItem clone = item.Clone();
-                clone.MyInt = index - 1;
+                MenuItem clone;
+				if (item.ExpandString == null)
+					clone = item.Clone();
+				else
+					clone = item.Clone(item.ExpandString);
+                
+				clone.MyInt = index - 1;
                 clone.AdditionalOnSelect = OnSelect;
                 AddItem(clone);
-                clone.ScaleText(.5f);
+				//clone.ScaleText(.5f);
+				clone.ScaleText(.5f * MyMenuList.MyExpandParams.ScaleItems);
 				clone.Padding.Y += 8;
                 Vector2 size = clone.MyText.GetWorldSize();
 
@@ -156,8 +163,8 @@ namespace CloudberryKingdom
 
 
             MyMenu.CalcBounds();
-            backdrop.Size = new Vector2(Width / 2 + 21, Height / 2 + 7);
-            DefaultBackdropSize = backdrop.Size;
+			backdrop.Size = new Vector2(Width / 2 + 21, Height / 2 + 7) + MyMenuList.MyExpandParams.SizePadding;
+            DefaultBackdropSize = backdrop.Size + MyMenuList.MyExpandParams.SizePadding;
             //backdrop.Quad.RotateUV();
 			MyPile.Add(backdrop);
 			MyPile.Add(backdrop);
@@ -169,7 +176,7 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             MyPile.Pos = new Vector2(0, 0);
-            MyMenu.FancyPos.RelVal = new Vector2(0, 0);
+            MyMenu.FancyPos.RelVal = new Vector2(0, 0) + MyMenuList.MyExpandParams.ShiftTopLeftItem;
         }
 
         public override void OnAdd()

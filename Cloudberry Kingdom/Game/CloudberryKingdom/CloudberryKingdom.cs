@@ -1108,7 +1108,13 @@ namespace CloudberryKingdom
 			Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 			SaveGroup.Initialize();
 
+#if PC_VERSION
 			StartLogoSalad();
+			//Tools.AddToDo(StartLogoSalad);
+			//PreloadDone = true;
+#else
+			StartLogoSalad();
+#endif
 
             // Pre load. This happens before anything appears.
             Resources.LoadAssets(true);
@@ -1163,7 +1169,8 @@ namespace CloudberryKingdom
                     MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
                 }
 #else
-				MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+				//MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+				MainVideo.StartVideo("LogoSalad", false, 3.45f);
 #endif
 			}
 
@@ -1246,7 +1253,9 @@ namespace CloudberryKingdom
 
         protected void GodModePhxs()
         {
-            // Write to leaderboard
+			//return;
+
+			// Write to leaderboard
             Tools.Warning();
             if (ButtonCheck.State(ControllerButtons.RJ, -2).Down && ButtonCheck.State(ControllerButtons.LS, -2).Pressed)
             {
@@ -1523,6 +1532,11 @@ namespace CloudberryKingdom
         /// Whether a song was playing prior to the game window going inactive
         /// </summary>
         public bool MediaPlaying_HoldState = false;
+
+		/// <summary>
+		/// Whether a video was playing prior to the game window going inactive
+		/// </summary>
+		public bool VideoPlaying_HoldState = false;
 
         /// <summary>
         /// Whether this is the first frame the window has been inactive
@@ -1828,27 +1842,10 @@ namespace CloudberryKingdom
 			 * */
 #endif
 
-
-
-
-			//Tools.Warning();
-			//PlayerManager.Players[0].Exists = true;
-			//PlayerManager.Players[1].Exists = true;
-			//PlayerManager.Players[2].Exists = true;
-
 #if DEBUG_OBJDATA
             ObjectData.UpdateWeak();
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Accelerate asset loading
-            //if (LogoScreenUp)
-            //{
-            //    if (Resources.LoadThread != null)
-            //    {
-            //        Resources.LoadThread.Join(1);
-            //    }
-            //}
 
 			// Stop now if the initial preload (and logosalad) hasn't started yet.
 			if (!PreloadDone) { SetupToRender(); return; }
@@ -2182,28 +2179,72 @@ namespace CloudberryKingdom
             }
         }
 
+#if PC_VERSION
+		public bool IsActive()
+		{
+			bool IsActive = true;
+
 #if WINDOWS
+			// XNA on Windows does not correctly identify that the game window doesn't have focus
+			// in the case where the game window STARTS in the background.
+			// This is an additional check to see if the window is not in focus.
+			IntPtr CkHandle = Tools.GameClass.Window.Handle;
+			IntPtr ActiveHandle = WindowsHelper.GetForegroundWindow();
+
+			if (CkHandle != ActiveHandle)
+			{
+#if DEBUG
+				if (!Tools.ViewerIsUp)
+#endif
+					IsActive = false;
+			}
+
+			if (!Tools.GameClass.IsActive)
+				IsActive = false;
+#else
+			if (!Tools.GameClass.IsActive)
+				IsActive = false;
+#endif
+
+			return IsActive;
+		}
+
         /// <summary>
         /// Decide if the game should be active or not.
         /// </summary>
         /// <returns>Returns true if the game is active.</returns>
         private bool ActiveInactive()
         {
-            if (!Tools.GameClass.IsActive)
+			//if (!Tools.GameClass.IsActive || !IsActive)
+			if (!IsActive())
             {
                 // The window isn't active, so
                 // show the actual mouse (not our custom drawn mouse)
                 Tools.GameClass.IsMouseVisible = true;
 
-                if (FirstInactiveFrame)
+                //if (FirstInactiveFrame)
                 {
                     // If a song is playing, stop it,
                     // and note that we should resume once the window becomes active
                     if (Tools.SongWad != null && Tools.SongWad.IsPlaying())
                     {
-                        MediaPlaying_HoldState = true;
-                        MediaPlayer.Pause();
+						if (!MediaPlaying_HoldState)
+						{
+							MediaPlaying_HoldState = true;
+							MediaPlayer.Pause();
+						}
                     }
+
+					// If a movie is playing, pause it,
+					// and note that we should resume once the window becomes active.
+					if (MainVideo.Playing && MainVideo.VPlayer != null)
+					{
+						if (!VideoPlaying_HoldState)
+						{
+							VideoPlaying_HoldState = true;
+							MainVideo.VPlayer.Pause();
+						}
+					}
 
                     FirstInactiveFrame = false;
                 }
@@ -2223,7 +2264,18 @@ namespace CloudberryKingdom
                     // If a song was playing previously when the window was active before,
                     // resume that song
                     if (MediaPlaying_HoldState)
+					{
+						MediaPlaying_HoldState = false;
                         MediaPlayer.Resume();
+					}
+
+					// If a video was playing previously when the window was active before,
+					// unpause the video.
+					if (VideoPlaying_HoldState && MainVideo.VPlayer != null)
+					{
+						VideoPlaying_HoldState = false;
+						MainVideo.VPlayer.Resume();
+					}
 
                     FirstActiveFrame = false;
                 }

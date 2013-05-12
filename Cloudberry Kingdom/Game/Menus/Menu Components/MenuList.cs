@@ -28,6 +28,22 @@ namespace CloudberryKingdom
         }
         bool _ExpandOnGo = false;
 
+		public struct ExpandParams
+		{
+			public float ScaleItems;
+			public Vector2 ShiftTopLeftItem;
+			public Vector2 SizePadding;
+
+			public void Initialize()
+			{
+				ScaleItems = 1f;
+				ShiftTopLeftItem = Vector2.Zero;
+				SizePadding = Vector2.Zero;
+			}
+		}
+		public ExpandParams MyExpandParams;
+
+
         public MenuListExpand MyMenuListExpand;
         public Vector2 MyExpandPos = Vector2.Zero;
         public Action<MenuListExpand,MenuItem> AdditionalExpandProcessing;
@@ -135,6 +151,8 @@ namespace CloudberryKingdom
         public MenuList()
         {
             MyList = new List<MenuItem>();
+
+			MyExpandParams.Initialize();
 
             base.Init(null, null);
 

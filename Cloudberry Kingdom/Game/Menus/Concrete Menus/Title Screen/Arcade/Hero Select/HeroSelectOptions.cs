@@ -48,6 +48,10 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
+		void BringLeaderboard()
+		{
+			BringLeaderboard(0);
+		}
         void BringLeaderboard(int PressingPlayer)
         {
             if (PressingPlayer < 0 || PressingPlayer > 3) 
@@ -136,9 +140,15 @@ namespace CloudberryKingdom
             item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, false, true));
 
             item.Name = "Leaderboard";
-            item.Go = _item => BringLeaderboard(0);
+            item.Go = Cast.ToItem(BringLeaderboard);
             AddItem(item);
+
+#if PC_VERSION
+			item.MyText.OutlineColor.W = .9f;
+			item.MySelectedText.OutlineColor.W = 1f;
+#else
             StartMenu_MW_HeroSelect.SetItemProperties_FadedOnUnselect(item);
+#endif
 
             MyMenu.MouseOnly = true;
             MyMenu.NoneSelected = true;

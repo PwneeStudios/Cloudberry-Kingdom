@@ -269,7 +269,9 @@ namespace CloudberryKingdom
                     int _language = chunk.ReadInt();
                     Localization.Language language = (Localization.Language)_language;
 					// // This sets the language upon load, which causes a lot of confusion.
-                    //Tools.AddToDo(() => Localization.SetLanguage(language));
+#if PC_VERSION
+                    Tools.AddToDo(() => Localization.SetLanguage(language));
+#endif
                     break;
 
                 case 12001: LoadedId_Xuid = chunk.ReadULong(); break;

@@ -278,6 +278,17 @@ namespace CloudberryKingdom
         {
         }
 
+#if PC_VERSION
+		void BringLeaderboard()
+		{
+			int control = MenuItem.ActivatingPlayer;
+			if (control < 0 || control > 3) control = -1;
+
+			Call(new LeaderboardGUI(null, control), 0);
+			Hide();
+		}
+#endif
+
         EzText RequiredText, RequiredText2;
         QuadClass TextBack;
         public override void  Init()
@@ -360,6 +371,21 @@ namespace CloudberryKingdom
 
             // Bungee Co-op
             //item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
+
+#if PC_VERSION
+			// Leaderboards
+			MyPile.Add(new QuadClass(ButtonTexture.X, 100, "Button_X"));
+			item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, false, true));
+
+			item.Name = "Leaderboard";
+			item.Go = Cast.ToItem(BringLeaderboard);
+			MyMenu.OnX = Cast.ToMenu(BringLeaderboard);
+			AddItem(item);
+			item.MyOscillateParams.base_value = 1.01f;
+			item.MyOscillateParams.max_addition *= .4f;
+			StartMenu.SetText_Green(item.MyText, true);
+			StartMenu.SetText_Green(item.MySelectedText, true);
+#endif
 
             // Backdrop
             QuadClass backdrop;

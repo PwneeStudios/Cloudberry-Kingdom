@@ -137,6 +137,8 @@ namespace CloudberryKingdom
     }
     public class ButtonCheck
     {
+		public static bool DisableSecondaryInput = false;
+
         /// <summary>
         /// Whether the user is using the mouse. False when the mouse hasn't been used since the arrow keys.
         /// </summary>
@@ -809,16 +811,25 @@ if (
             else
                 Data.Down |= keyboard.IsKeyDownCustom(key);
 
-            if (SecondaryKey != Keys.None)
-                Data.Down |= keyboard.IsKeyDownCustom(SecondaryKey);
+			if (!DisableSecondaryInput)
+			{
+				if (SecondaryKey != Keys.None)
+					Data.Down |= keyboard.IsKeyDownCustom(SecondaryKey);
 
-            if (TertiaryKey != Keys.None)
-                Data.Down |= keyboard.IsKeyDownCustom(TertiaryKey);
+				if (TertiaryKey != Keys.None)
+					Data.Down |= keyboard.IsKeyDownCustom(TertiaryKey);
+			}
 
             key = Keys.Escape;
     
             if (Button == ControllerButtons.A) key = Go_Secondary;
             if (Button == ControllerButtons.B) key = Back_Secondary;
+
+			if (DisableSecondaryInput)
+			{
+				if (key != Keys.Escape)
+					key = Keys.None;
+			}
 
             if (key != Keys.Escape)
                 Data.Down |= keyboard.IsKeyDownCustom(key);
