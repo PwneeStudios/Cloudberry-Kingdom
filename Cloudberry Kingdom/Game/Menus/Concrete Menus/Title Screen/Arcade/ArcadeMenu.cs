@@ -441,10 +441,26 @@ namespace CloudberryKingdom
             return item;
         }
 
+		protected virtual void SetPos()
+		{
+#if PC_VERSION
+			EzText _t = MyPile.FindEzText("LevelNum");
+
+			float max_width = _t.GetWorldWidth("1000");
+			float width = _t.GetWorldWidth(_t.FirstString());
+
+			float shift = max_width - width - 50;
+			_t.Pos += new Vector2(shift, 0);
+
+			_t = MyPile.FindEzText("Level");
+			_t.Pos += new Vector2(shift, 0);
+#endif
+		}
+
         void UpdateAfterPlaying()
         {
             int Level = PlayerManager.MaxPlayerTotalLevel();
-            //int Level = PlayerManager.MaxPlayerTotalArcadeLevel();
+
             bool ShowLevel = Level > 0;
 
             if (ShowLevel)
@@ -453,8 +469,14 @@ namespace CloudberryKingdom
                 
                 EzText _t = MyPile.FindEzText("LevelNum");
                 _t.Show = true;
-                _t.SubstituteText(Level.ToString());
-            }
+
+#if PC_VERSION
+				SetPos();
+				_t.SubstituteText(Level.ToString());
+#else
+				_t.SubstituteText(Level.ToString());
+#endif
+			}
             else
             {
                 MyPile.FindEzText("Level").Show = false;
@@ -493,16 +515,11 @@ namespace CloudberryKingdom
 			ArcadeMenu.SelectedChallenge = item.MyChallenge;
 			Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, null);
 
-            if (Lock)
+            if (Lock && item.MyPrereq != null)
             {
                 EzText _t;
                 _t = MyPile.FindEzText("Requirement2");
-                //_t.SubstituteText(Localization.WordString(Localization.Words.Level) + " " + item.MyPrereq.MyInt.ToString());
 				_t.SubstituteText(Localization.WordString(Localization.Words.PlayerLevel) + " " + item.MyPrereq.MyInt.ToString());
-            }
-            else
-            {
-                //MyPile.FindEzText("Requirement").Show = false;
             }
         }
 

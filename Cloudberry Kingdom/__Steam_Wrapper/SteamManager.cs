@@ -19,10 +19,12 @@ namespace SteamManager
 	public class Gamer
 	{
 		public string Gamertag;
+		public int Id;
 
-		public Gamer(string Gamertag)
+		public Gamer(string Gamertag, int Id)
 		{
 			this.Gamertag = Gamertag;
+			this.Id = Id;
 		}
 	}
 
@@ -216,10 +218,15 @@ namespace SteamManager
 		{
 			var pchName = SW.SteamStats.Results_GetPlayer(Index);
 			
-			//var s = new String(pchName);
 			var s = HelperClass.CharArray_To_Utf8String(pchName);
 
 			return s;
+		}
+
+		public static int Results_GetId(int Index)
+		{
+			int id = SW.SteamStats.Results_GetId(Index);
+			return id;
 		}
 	}
 }

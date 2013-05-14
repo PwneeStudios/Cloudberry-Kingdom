@@ -117,6 +117,19 @@ namespace CloudberryKingdom
 #endif
         }
 
+		static QuadClass PwneeSign;
+		public static void DrawPwneeSign(Vector2 pos)
+		{
+			PwneeSign.ScaleYToMatchRatio(66);
+			pos += new Vector2(-330, -62) + new Vector2(286.1108f, 5.555542f);
+
+			PwneeSign.Show = true;
+			PwneeSign.Pos = pos;
+			PwneeSign.Draw();
+			PwneeSign.Show = false;
+		}
+
+
         public override void Init()
         {
             base.Init();
@@ -183,6 +196,10 @@ namespace CloudberryKingdom
 
             LoadingText = new EzText(LoadingStr1, ItemFont, 1000, true, true);
             MyPile.Add(LoadingText, "Loading");
+
+			// Pwnee sign
+			PwneeSign = new QuadClass("MascotSmall", 30);
+			PwneeSign.Show = false;
 
 
 			MyMenu = new Menu(false);
@@ -1223,12 +1240,12 @@ namespace CloudberryKingdom
 		public bool Special;
 
 #if PC_VERSION
-		static Dictionary<string, bool> SpecialNames = new Dictionary<string,bool> {
-			{ "Pwnee Studios", true },
-			{ "fearthetj", true },
-			{ "freshmozzarella", true },
-			{ "creon_ghan_buri", true },
-			{ "RootLlama", true }
+		static Dictionary<int, string> SpecialIDs = new Dictionary<int, string> {
+			{ 100410705, "Pwnee Studios" },
+ 			{ 103083116, "Tewth Brush" },
+			{ 234058, "freshmozzarella" },
+			{ 103651863, "creon_ghan_buri" },
+			{ 5597205, "RootLlama" }
 		};
 #else
 		static Dictionary<string, bool> SpecialNames = new Dictionary<string,bool> {
@@ -1270,8 +1287,10 @@ namespace CloudberryKingdom
             }
 
 			Special = false;
-			if (SpecialNames.ContainsKey(GamerTag))
+			if (Player != null && SpecialIDs.ContainsKey(Player.Id))
+			{
 				Special = true;
+			}
         }
 
         public void Draw(Vector2 Pos, bool Selected, float alpha)
@@ -1307,12 +1326,15 @@ namespace CloudberryKingdom
 			float x = Tools.QDrawer.MeasureString(Resources.Font_Grobold42.HFont, Val, true).X;
 			Vector2 shift = new Vector2(500 - x, 0);
 
+			if (Special)
+			{
+				LeaderboardGUI.DrawPwneeSign(Pos);
+			}
+
 			if (Selected)
-			//if (Special)
             {
                 Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Rank, Pos, ocolor, Size);
 				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, GamerTag, Pos + GamerTag_Offset, ocolor, scale * Size);
-				
 				Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, Val, Pos + Val_Offset + shift, ocolor, Size, true);
             }
 

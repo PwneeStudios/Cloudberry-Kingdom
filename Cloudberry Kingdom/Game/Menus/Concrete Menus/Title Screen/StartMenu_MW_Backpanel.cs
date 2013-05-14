@@ -5,6 +5,12 @@ namespace CloudberryKingdom
 {
     public class StartMenu_MW_Backpanel : CkBaseMenu
     {
+#if PC_VERSION
+		const bool ShowVersion = true;
+#else
+		const bool ShowVersion = true;
+#endif
+
         public override void Hide(PresetPos pos, int frames)
         {
             base.Hide(pos, frames);
@@ -36,6 +42,7 @@ namespace CloudberryKingdom
 
         QuadClass Scene, Title, TM, Title_Trim, Scene_NoBob_Blur, Scene_Blur, Scene_Princess, Scene_NoBob_Brighten,
                     Scene_Kobbler, Scene_Kobbler_Blur;
+		EzText VersionText;
         public override void Init()
         {
  	        base.Init();
@@ -49,6 +56,10 @@ namespace CloudberryKingdom
 
 			TM = new QuadClass("TradeMarkSymbol");
 			MyPile.Add(TM, "TM");
+
+			VersionText = new EzText("0.4.0002", Resources.Font_Grobold42);
+			VersionText.Alpha = 0;
+			MyPile.Add(VersionText, "Version");
 
             Title = new QuadClass("Title", 1778);
 
@@ -86,15 +97,20 @@ namespace CloudberryKingdom
                 quad.ResetFade();
                 quad.Show = false;
             }
-            
+
+			foreach (EzText text in MyPile.MyTextList)
+			{
+				text.Show = false;
+			}
+
             switch (state)
             {
                 case State.None:
-                    TM.Show = Title.Show = Scene.Show = Scene_Princess.Show = Scene_Kobbler.Show = false;
+                    VersionText.Show = TM.Show = Title.Show = Scene.Show = Scene_Princess.Show = Scene_Kobbler.Show = false;
                     break;
 
                 case State.Scene_Title:
-                    TM.Show = Title.Show = Scene.Show = true; break;
+                    VersionText.Show = TM.Show = Title.Show = Scene.Show = true; break;
 
                 case State.Scene:
                     Scene.Show = true; break;
@@ -138,6 +154,9 @@ namespace CloudberryKingdom
                         Scene_Blur.Fade(.25f);
                         Scene_Blur.Show = true;
                     }
+					
+					VersionText.Show = true;
+
                     break;
 
                 case State.Scene_NoBob_Brighten:
@@ -153,6 +172,11 @@ namespace CloudberryKingdom
             MyState = state;
 
             TM.Show = Title_Trim.Show = Title.Show;
+
+			if (!ShowVersion)
+			{
+				VersionText.Show = false;
+			}
         }
         State MyState;
 
@@ -169,12 +193,36 @@ namespace CloudberryKingdom
 			_q = MyPile.FindQuad("Scene_Kobbler"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
 			_q = MyPile.FindQuad("Scene_Kobbler_Blur"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1778f, 1000.125f); }
 
+			EzText _t;
+			_t = MyPile.FindEzText("Version"); if (_t != null) { _t.Pos = new Vector2(1463.889f, -860.8889f); _t.Scale = 0.22f; }
+
 			MyPile.Pos = new Vector2(0f, 0f);
+		}
+
+		protected override void ReleaseBody()
+		{
+			base.ReleaseBody();
 		}
 
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
+
+#if PC_VERSION
+			CloudberryKingdomGame.SuppressSavingTextDuration = 60;
+
+			if (!ShowVersion)
+			{
+				VersionText.Show = false;
+			}
+			else
+			{
+				if (VersionText.Alpha < 1)
+				{
+					VersionText.Alpha += .01f;
+				}
+			}
+#endif
 
             //if (ButtonCheck.AnyKey()) Title_Trim.Show = !Title_Trim.Show;
         }

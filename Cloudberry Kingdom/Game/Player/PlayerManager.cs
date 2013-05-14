@@ -112,8 +112,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
         public static void SaveRezAndKeys()
         {
-			EzStorage.SaveWithMetaData(PlayerIndex.One, "Settings", "Custom", _SaveRezAndKeys, null);
-            //EzStorage.Save(PlayerIndex.One, "Settings", "Custom", _SaveRezAndKeys, null);
+			EzStorage.SaveWithMetaData(PlayerIndex.One, "Settings", "Options", _SaveRezAndKeys, null);
         }
 
         static void _SaveRezAndKeys(BinaryWriter writer)
@@ -162,7 +161,7 @@ namespace CloudberryKingdom
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-            EzStorage.Load(PlayerIndex.One, "Settings", "Custom", _LoadRezAndKeys, _Fail);
+			EzStorage.Load(PlayerIndex.One, "Settings", "Options", _LoadRezAndKeys, _Fail);
 
             return d;
         }

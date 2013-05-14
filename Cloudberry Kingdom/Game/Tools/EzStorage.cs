@@ -26,7 +26,7 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
             PlayerManager.Player.ContainerName = "PlayerData";
-            PlayerManager.Player.FileName = "MainPlayer";
+            PlayerManager.Player.FileName = "Player Data";
             Add(PlayerManager.Player);
 
 			LoadAll();
@@ -353,6 +353,14 @@ namespace CloudberryKingdom
 			Save(index, ContainerName, FileName, writer => _SaveWithMetaData(writer, SaveLogic), Fail);
 		}
 
+		static string SaveDir()
+		{
+			string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			dir = Path.Combine(dir, "Cloudberry Kingdom");
+
+			return dir;
+		}
+
 		public static void Save(PlayerIndex index, string ContainerName, string FileName, Action<BinaryWriter> SaveLogic, Action Fail)
         {
 #if XBOX
@@ -385,8 +393,10 @@ namespace CloudberryKingdom
 
 			try
 			{
-				Directory.CreateDirectory("SaveData");
-				using (var stream = File.Create(Path.Combine("SaveData", FileName)))
+				string dir = SaveDir();
+				Directory.CreateDirectory(dir);
+
+				using (var stream = File.Create(Path.Combine(dir, FileName)))
 				{
 					using (BinaryWriter w = new BinaryWriter(stream))
 					{
@@ -469,7 +479,8 @@ namespace CloudberryKingdom
 			try
 			{
 				// Get all the bytes
-				byte[] RawData = File.ReadAllBytes(Path.Combine("SaveData", FileName));
+				string dir = SaveDir();
+				byte[] RawData = File.ReadAllBytes(Path.Combine(dir, FileName));
 
 				if (RawData.Length <= 8)
 				{

@@ -42,7 +42,7 @@ namespace CloudberryKingdom
 				{
 					int rank = SteamStats.Results_GetRank(i);
 					int val = SteamStats.Results_GetScore(i);
-					Gamer gamer = new Gamer(SteamStats.Results_GetName(i));
+					Gamer gamer = new Gamer(SteamStats.Results_GetName(i), SteamStats.Results_GetId(i));
 					var item = new LeaderboardItem(gamer, val, rank);
 
 					if (Type == LeaderboardGUI.LeaderboardType.FriendsScores)

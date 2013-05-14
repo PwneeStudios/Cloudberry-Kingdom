@@ -291,6 +291,18 @@ namespace CloudberryKingdom
             //return MyFont.Font.MeasureString(text);
         }
 
+		/// <summary>
+		/// Returns the string from the first bit of text
+		/// </summary>
+		/// <returns></returns>
+		public string FirstString()
+		{
+			if (Bits == null || Bits.Count == 0)
+				return "";
+
+			return Bits[0].str;
+		}
+
         /// <summary>
         /// Replaces the first bit of text, with no reformatting
         /// </summary>
@@ -328,18 +340,6 @@ namespace CloudberryKingdom
         public void AppendText(char character)
         {
             SubstituteText(Bits[0].str + character);
-        }
-
-        /// <summary>
-        /// Returns the string from the first bit of text
-        /// </summary>
-        /// <returns></returns>
-        public string FirstString()
-        {
-            if (Bits.Count == 0)
-                return "";
-            else
-                return Bits[0].str;
         }
 
         public bool FixedToCamera;

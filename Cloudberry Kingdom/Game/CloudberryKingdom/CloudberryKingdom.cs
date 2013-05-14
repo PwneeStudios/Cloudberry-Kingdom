@@ -123,6 +123,7 @@ namespace CloudberryKingdom
 #endif
 
 
+		public static int SuppressSavingTextDuration = 0;
         public static EzText SavingText = null;
         public static int ShowSavingDuration = 0;
         const int ShowSavingLength = 80;
@@ -162,6 +163,13 @@ namespace CloudberryKingdom
 
         void DrawSavingText()
         {
+			if (SuppressSavingTextDuration > 0)
+			{
+				SuppressSavingTextDuration--;
+				ShowSavingDuration = 0;
+				return;
+			}
+
 			// Use this to test always drawing the save text
 			//ShowSaving();
 
