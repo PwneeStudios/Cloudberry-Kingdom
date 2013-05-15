@@ -133,6 +133,8 @@ namespace CloudberryKingdom
 			}
 			catch (Exception e)
 			{
+				Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
+
                 Tools.Write(e.StackTrace);
                 Tools.Write(e.InnerException);
 				Tools.Write(e.Message);

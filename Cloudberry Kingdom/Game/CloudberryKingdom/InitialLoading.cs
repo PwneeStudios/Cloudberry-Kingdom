@@ -13,6 +13,10 @@ namespace CloudberryKingdom
         void LogoPhsx()
         {
             LoadingScreen.PhsxStep();
+
+			ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+			ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Tools.TheGame.Resolution);
+
             if (!DoInnerLogoPhsx)
             {
                 if (LoadingScreen.IsDone)

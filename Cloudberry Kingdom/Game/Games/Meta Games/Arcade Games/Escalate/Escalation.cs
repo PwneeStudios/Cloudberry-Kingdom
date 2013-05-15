@@ -54,6 +54,7 @@ namespace CloudberryKingdom
             base.Start(StartLevel);
 
             PlayerManager.CoinsSpent = -100;
+			HelpMenu.SetCostGrowthType(HelpMenu.CostGrowthTypes.DoublePerBuy);
 
             i = StartIndex = StartLevel;
 

@@ -594,6 +594,15 @@ namespace CloudberryKingdom
         /// </summary>
         public void LevelRetryEvent() { if (OnLevelRetry != null) OnLevelRetry(); }
 
+		/// <summary>
+		/// Event handler. Activates when the player chooses to watch the computer.
+		/// </summary>
+		public event Action OnWatchComputer;
+		/// <summary>
+		/// Call this when a coin is grabbed to activate the coin grabbed event handler.
+		/// </summary>
+		public void WatchComputerEvent() { if (OnWatchComputer != null) OnWatchComputer(); }
+
         /// <summary>
         /// Event handler. Activates when this game is returned to from another game.
         /// </summary>
@@ -756,6 +765,7 @@ namespace CloudberryKingdom
             OnCheckpointGrab = null;
 	        OnCoinGrab = null;
             OnLevelRetry = null;
+			OnWatchComputer = null;
             OnReturnTo = null;
 
             CurToDo = null; NextToDo = null;

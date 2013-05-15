@@ -54,6 +54,7 @@ namespace CloudberryKingdom
 			if (MyQuad != null)
 			{
 				MyQuad.Pos = Pos + new Vector2(-150, -115);
+				MyQuad.Draw();	
 			}
 
 			base.Draw(Text, cam, Selected);
@@ -109,7 +110,7 @@ namespace CloudberryKingdom
             ControlItem citem = item as ControlItem;
             if (null == citem) return;
 
-            MyPile.Add(citem.MyQuad);
+            //MyPile.Add(citem.MyQuad);
         }
 
         public CustomControlsMenu() : base(false)

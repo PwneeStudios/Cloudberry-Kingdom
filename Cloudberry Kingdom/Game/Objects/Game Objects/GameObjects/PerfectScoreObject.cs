@@ -53,6 +53,7 @@ namespace CloudberryKingdom
 
             MyGame.OnCoinGrab += OnCoinGrab;
             MyGame.OnLevelRetry += OnLevelRetry;
+			MyGame.OnWatchComputer += OnLevelRetry;
 
             OnAdd_GUI();
         }
@@ -65,6 +66,7 @@ namespace CloudberryKingdom
 
             MyGame.OnCoinGrab -= OnCoinGrab;
             MyGame.OnLevelRetry -= OnLevelRetry;
+			MyGame.OnWatchComputer -= OnLevelRetry;
         }
 
         /// <summary>

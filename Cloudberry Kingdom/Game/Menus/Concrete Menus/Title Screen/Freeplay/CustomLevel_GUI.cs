@@ -102,6 +102,7 @@ namespace CloudberryKingdom
         public void StartLevel(LevelSeedData data)
         {
 			HelpMenu.CostMultiplier = 1;
+			HelpMenu.SetCostGrowthType(HelpMenu.CostGrowthTypes.None);
 
 			Tools.PlayHappyMusic(MyGame);
 

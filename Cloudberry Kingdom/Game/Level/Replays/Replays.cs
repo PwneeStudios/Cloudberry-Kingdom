@@ -108,6 +108,8 @@ namespace CloudberryKingdom.Levels
         {
             if (Watching) return;
 
+			if (MyGame != null) MyGame.WatchComputerEvent();
+
             Tools.PhsxSpeed = 1;
 
             // Consider the reset free if the players are close to the start

@@ -130,6 +130,7 @@ namespace CloudberryKingdom
         protected override bool OnLevelBegin(Level level)
         {
 			HelpMenu.CostMultiplier = 1;
+			HelpMenu.SetCostGrowthType(HelpMenu.CostGrowthTypes.None);
 
 			if (level.MyLevelSeed != null)
 			{

@@ -130,6 +130,7 @@ namespace CloudberryKingdom
             CloudberryKingdomGame.PromptForDeviceIfNoneSelected();
 
 			HelpMenu.CostMultiplier = 1;
+			HelpMenu.SetCostGrowthType(HelpMenu.CostGrowthTypes.None);
 
             CurrentId = this.GameId_Level;
             CurrentScore = 0;

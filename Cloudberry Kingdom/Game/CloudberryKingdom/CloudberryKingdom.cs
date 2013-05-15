@@ -1046,6 +1046,8 @@ namespace CloudberryKingdom
 			AdditiveColor_NormalAlpha = new BlendState();
 			AdditiveColor_NormalAlpha.ColorBlendFunction = BlendFunction.Add;
 			AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.One;
+			// Use this line to be Reach Profile compliant (ColorDestinationBlend must be the same as AlphaDestinationBlend)
+			//AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.InverseSourceAlpha;
 			AdditiveColor_NormalAlpha.ColorSourceBlend = Blend.One;
 			AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
 			AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
@@ -1428,7 +1430,7 @@ namespace CloudberryKingdom
             // Should implement a GameObject that marshalls quickspawns instead.
             Tools.Warning();
 
-            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() &&
+			if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() && !ButtonCheck.PreventNextInput &&
                 Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 DoQuickSpawn();
         }
@@ -1976,8 +1978,10 @@ namespace CloudberryKingdom
                 if (LoadingScreen == null) return;
                 LogoPhsx();
             }
-            else if (LogoScreenPropUp)
-                LoadingScreen.PhsxStep();
+			else if (LogoScreenPropUp)
+			{
+				LoadingScreen.PhsxStep();
+			}
             if (!LogoScreenUp && !Tools.CurGameData.Loading)
                 GameUpdate(gameTime);
 

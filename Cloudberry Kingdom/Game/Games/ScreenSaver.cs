@@ -59,10 +59,10 @@ namespace CloudberryKingdom
 			get
 			{
 #if DEBUG
-				return 0;
+				return 20;
 #elif PC_VERSION
                 if (UserPowers.CanSkipScreensaver)
-                    return 0;
+                    return 20;
                 else
                     return MandatoryWatchLength_Initial;
 #else

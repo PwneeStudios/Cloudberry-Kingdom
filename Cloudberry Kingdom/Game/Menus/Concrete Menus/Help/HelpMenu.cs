@@ -118,18 +118,58 @@ namespace CloudberryKingdom
             return base.MenuReturnToCaller(menu);
         }
 
+		public enum CostGrowthTypes { None, DoublePerBuy };
+		static CostGrowthTypes CostGrowthType = CostGrowthTypes.None;
+		public static int Cost_Multiplier_Watch = 1, Cost_Multiplier_Path = 1, Cost_Multiplier_Slow = 1;
+
+		public static void SetCostGrowthType(CostGrowthTypes type)
+		{
+			CostGrowthType = type;
+
+			Cost_Multiplier_Watch = 1;
+			Cost_Multiplier_Path = 1;
+			Cost_Multiplier_Slow = 1;
+		}
+
+		public static int CurrentCostTo_Watch
+		{
+			get
+			{
+				return Cost_Watch * CostMultiplier * Cost_Multiplier_Watch;
+			}
+		}
+
+		public static int CurrentCostTo_Slow
+		{
+			get
+			{
+				return Cost_Slow * CostMultiplier * Cost_Multiplier_Slow;
+			}
+		}
+
+		public static int CurrentCostTo_Path
+		{
+			get
+			{
+				return Cost_Path * CostMultiplier * Cost_Multiplier_Path;
+			}
+		}
+
 		public static int CostMultiplier = 1;
-        int Cost_Watch = 5, Cost_Path = 40, Cost_Slow = 20;
+        static int Cost_Watch = 5, Cost_Path = 40, Cost_Slow = 20;
         bool Allowed_WatchComputer()
         {
-            return MyGame.MyLevel.WatchComputerEnabled() && Bank() >= Cost_Watch * CostMultiplier;
+            return MyGame.MyLevel.WatchComputerEnabled() && Bank() >= CurrentCostTo_Watch;
         }
         void WatchComputer()
         {
             if (!Allowed_WatchComputer())
                 return;
 
-			Buy(Cost_Watch * CostMultiplier);
+			Buy(CurrentCostTo_Watch);
+			
+			if (CostGrowthType == CostGrowthTypes.DoublePerBuy)
+				Cost_Multiplier_Watch *= 2;
 
             ReturnToCaller();
             MyGame.WaitThenDo(DelayExit - 10, () => MyGame.MyLevel.WatchComputer());
@@ -165,7 +205,10 @@ namespace CloudberryKingdom
             if (!Allowed_ShowPath())
                 return;
 
-			Buy(Cost_Path * CostMultiplier);
+			Buy(CurrentCostTo_Path);
+
+			if (CostGrowthType == CostGrowthTypes.DoublePerBuy)
+				Cost_Multiplier_Path *= 2;
 
             ReturnToCaller();
             MyGame.WaitThenDo(DelayExit - 10, () =>
@@ -181,7 +224,7 @@ namespace CloudberryKingdom
         }
         bool Allowed_SlowMo()
         {
-			return true && Bank() >= Cost_Slow * CostMultiplier;
+			return true && Bank() >= CurrentCostTo_Slow;
         }
         void Toggle_SlowMo(bool state)
         {
@@ -202,7 +245,10 @@ namespace CloudberryKingdom
             if (!Allowed_SlowMo())
                 return;
 
-			Buy(Cost_Slow * CostMultiplier);
+			Buy(CurrentCostTo_Slow);
+
+			if (CostGrowthType == CostGrowthTypes.DoublePerBuy)
+				Cost_Multiplier_Slow *= 2;
 
             Toggle_SlowMo(true);
             ReturnToCaller();
@@ -302,7 +348,7 @@ namespace CloudberryKingdom
             string CoinPrefix = "{pCoin_Blue,100,?}";
 
             // Watch the computer
-            MenuItem WatchItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Watch  * CostMultiplier).ToString(), ItemFont));
+			MenuItem WatchItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Watch).ToString(), ItemFont));
             item.Name = "WatchComputer";
             Item_WatchComputer = item;
             item.SetIcon(ObjectIcon.RobotIcon.Clone());
@@ -323,8 +369,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Path * CostMultiplier).ToString(), ItemFont));
-                if (Bank() >= Cost_Path * CostMultiplier)
+				PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Path).ToString(), ItemFont));
+				if (Bank() >= CurrentCostTo_Path)
                     item.Go = Cast.ToItem(ShowPath);
                 else
                     item.Go = null;
@@ -346,8 +392,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (Cost_Slow * CostMultiplier).ToString(), ItemFont));
-                if (Bank() >= (Cost_Slow * CostMultiplier))
+				SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Slow).ToString(), ItemFont));
+				if (Bank() >= (CurrentCostTo_Slow))
                     item.Go = Cast.ToItem(SlowMo);
                 else
                     item.Go = null;
@@ -360,7 +406,7 @@ namespace CloudberryKingdom
             Item_SlowMo = item;
 
             // Fade if not usable
-			if (WatchItem != null && Bank() < Cost_Watch * CostMultiplier)
+			if (WatchItem != null && Bank() < CurrentCostTo_Watch)
 			{
 				WatchItem.Go = null;
 				WatchItem.MyText.Alpha = .6f;
