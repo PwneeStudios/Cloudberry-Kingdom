@@ -55,6 +55,71 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
+    <Compile Include="Art\Environments\Castle\Door\door_castle_1.dds">
+      <Name>door_castle_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Castle\Door\door_castle_2.dds">
+      <Name>door_castle_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Castle\Door\Wall_Castle.dds">
+      <Name>Wall_Castle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_1000.dds">
+      <Name>Pillar_Castle_1000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_600.dds">
+      <Name>Pillar_Castle_600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cave\Door\door_cave_1.dds">
+      <Name>door_cave_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cave\Door\door_cave_2.dds">
+      <Name>door_cave_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cave\Door\Wall_Cave.dds">
+      <Name>Wall_Cave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Door\door_cloud_1.dds">
+      <Name>door_cloud_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Door\door_cloud_2.dds">
+      <Name>door_cloud_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Door\Wall_Cloud.dds">
+      <Name>Wall_Cloud</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_1000.dds">
+      <Name>Pillar_Cloud_1000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_600.dds">
+      <Name>Pillar_Cloud_600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Art\HeroItems\Hats\hat_fedora.dds">
       <Name>hat_fedora</Name>
       <Importer>TextureImporter</Importer>
@@ -150,14 +215,6 @@
       <Name>Window</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Title\Categories\Arcade\MessageBoxThin.dds">
-      <Name>MessageBoxThin</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
     </Compile>
     <Compile Include="Art\Menu\Dot_Empty.dds">
       <Name>Dot_Empty</Name>
@@ -662,14 +719,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Fonts\Grobold_Chinese.dds">
-      <Name>Grobold_Chinese</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
     <None Include="Fonts\Grobold_Chinese.fnt">
       <Name>Grobold_Chinese</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -678,14 +727,6 @@
       <Name>Grobold_Japanese</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Fonts\Grobold_Korean.dds">
-      <Name>Grobold_Korean</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-    </Compile>
     <None Include="Fonts\Grobold_Korean.fnt">
       <Name>Grobold_Korean</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1493,30 +1534,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Environments\Castle\Door\door_castle_1.dds">
-      <Name>door_castle_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Door\door_castle_2.dds">
-      <Name>door_castle_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Door\Wall_Castle.dds">
-      <Name>Wall_Castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Obstacles\Blob\Blob_Castle_v1_1.dds">
       <Name>Blob_Castle_v1_1</Name>
       <Importer>TextureImporter</Importer>
@@ -1837,14 +1854,6 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
-    <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_1000.dds">
-      <Name>Pillar_Castle_1000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
     <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_150.dds">
       <Name>Pillar_Castle_150</Name>
       <Importer>TextureImporter</Importer>
@@ -1871,38 +1880,6 @@
     </Compile>
     <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_50.dds">
       <Name>Pillar_Castle_50</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Castle\Pillars\Pillar_Castle_600.dds">
-      <Name>Pillar_Castle_600</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Door\door_cave_1.dds">
-      <Name>door_cave_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Door\door_cave_2.dds">
-      <Name>door_cave_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cave\Door\Wall_Cave.dds">
-      <Name>Wall_Cave</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
@@ -2127,30 +2104,6 @@
     </Compile>
     <Compile Include="Art\Environments\Cave\Obstacles\Spike\spike_cave.dds">
       <Name>spike_cave</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Door\door_cloud_1.dds">
-      <Name>door_cloud_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Door\door_cloud_2.dds">
-      <Name>door_cloud_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Door\Wall_Cloud.dds">
-      <Name>Wall_Cloud</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
@@ -2405,14 +2358,6 @@
       <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
-    <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_1000.dds">
-      <Name>Pillar_Cloud_1000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
     <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_150.dds">
       <Name>Pillar_Cloud_150</Name>
       <Importer>TextureImporter</Importer>
@@ -2439,14 +2384,6 @@
     </Compile>
     <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_50.dds">
       <Name>Pillar_Cloud_50</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-    </Compile>
-    <Compile Include="Art\Environments\Cloud\Pillars\Pillar_Cloud_600.dds">
-      <Name>Pillar_Cloud_600</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>

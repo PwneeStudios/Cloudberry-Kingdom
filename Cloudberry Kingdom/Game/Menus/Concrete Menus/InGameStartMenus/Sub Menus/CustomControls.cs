@@ -12,22 +12,52 @@ namespace CloudberryKingdom
         public Action<Keys> SetSecondaryKey;
         public Action<ControlItem> Reset;
 
+		public bool AllowSpecialKeys = false;
+
         public ControlItem(Localization.Words description, Keys key)
             : base(new EzText(description, Resources.Font_Grobold42, 2000, false, false, .65f))
         {
+			Init(description, key);
+		}
+
+		public ControlItem(Localization.Words description, Keys key, bool AllowSpecialKeys)
+			: base(new EzText(description, Resources.Font_Grobold42, 2000, false, false, .65f))
+		{
+			this.AllowSpecialKeys = AllowSpecialKeys;
+
+			Init(description, key);
+		}
+
+		void Init(Localization.Words description, Keys key)
+		{
             MyKey = key;
             MyQuad = new QuadClass("White", 72);
-            //MyQuad.Quad.SetColor(CustomControlsMenu.SecondaryKeyColor);
             MyQuad.Quad.SetColor(new Color(240,240,240));
             SetKey(MyKey);
         }
 
         public void SetKey(Keys key)
         {
+			if (!AllowSpecialKeys &&
+				(key == Keys.Space || key == Keys.Enter || key == Keys.Escape || key == Keys.Back))
+			{
+				return;
+			}
+
             MyKey = key;
             //SetSecondaryKey(key);
             SetQuad();
         }
+
+		public override void Draw(bool Text, Camera cam, bool Selected)
+		{
+			if (MyQuad != null)
+			{
+				MyQuad.Pos = Pos + new Vector2(-150, -115);
+			}
+
+			base.Draw(Text, cam, Selected);
+		}
 
         public void SetQuad()
         {
@@ -80,7 +110,6 @@ namespace CloudberryKingdom
             if (null == citem) return;
 
             MyPile.Add(citem.MyQuad);
-            citem.MyQuad.Pos = item.Pos + new Vector2(-150, -132);
         }
 
         public CustomControlsMenu() : base(false)
@@ -193,13 +222,13 @@ namespace CloudberryKingdom
 
             ControlItem item;
 
-            item = new ControlItem(Localization.Words.QuickSpawn, ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+            item = new ControlItem(Localization.Words.QuickSpawn, ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey, true);
             item.Name = "quickspawn";
             item.SetSecondaryKey = key => ButtonCheck.Quickspawn_KeyboardKey.Set(key);
 			item.Reset = _item => _item.SetKey(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
             AddItem(item);
 
-            item = new ControlItem(Localization.Words.PowerUpMenu, ButtonCheck.Help_KeyboardKey.KeyboardKey);
+            item = new ControlItem(Localization.Words.PowerUpMenu, ButtonCheck.Help_KeyboardKey.KeyboardKey, true);
             item.Name = "powerup";
             item.SetSecondaryKey = key => ButtonCheck.Help_KeyboardKey.Set(key);
             item.Reset = _item => _item.SetKey(ButtonCheck.Help_KeyboardKey.KeyboardKey);
@@ -241,17 +270,17 @@ namespace CloudberryKingdom
 			item.Reset = _item => _item.SetKey(ButtonCheck.ReplayNext_Secondary);
             AddItem(item);
 
-            item = new ControlItem(Localization.Words.ReplayToggle, ButtonCheck.SlowMoToggle_Secondary);
+			item = new ControlItem(Localization.Words.ReplayToggle, ButtonCheck.SlowMoToggle_Secondary);
             item.Name = "replaytoggle";
-            item.SetSecondaryKey = key => ButtonCheck.ReplayToggle_Secondary = key;
+			item.SetSecondaryKey = key => ButtonCheck.SlowMoToggle_Secondary = key;
 			item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
             AddItem(item);
 
-            item = new ControlItem(Localization.Words.ActivateSlowMo, ButtonCheck.SlowMoToggle_Secondary);
-            item.Name = "toggleslowmo";
-            item.SetSecondaryKey = key => ButtonCheck.SlowMoToggle_Secondary = key;
-            item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
-            AddItem(item);
+			//item = new ControlItem(Localization.Words.ActivateSlowMo, ButtonCheck.SlowMoToggle_Secondary);
+			//item.Name = "toggleslowmo";
+			//item.SetSecondaryKey = key => ButtonCheck.SlowMoToggle_Secondary = key;
+			//item.Reset = _item => _item.SetKey(ButtonCheck.SlowMoToggle_Secondary);
+			//AddItem(item);
 
             ButtonCheck.KillSecondary();
             MyMenu.OnX = MyMenu.OnB =
@@ -271,27 +300,22 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(648.9698f, 861.5082f); _item.MyText.Scale = 0.4f; _item.MySelectedText.Scale = 0.4f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(676.7499f, 761.0321f); _item.MyText.Scale = 0.4f; _item.MySelectedText.Scale = 0.4f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("quickspawn"); if (_item != null) { _item.SetPos = new Vector2(-877.7778f, 870.3333f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("powerup"); if (_item != null) { _item.SetPos = new Vector2(-886.1108f, 683.2222f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("left"); if (_item != null) { _item.SetPos = new Vector2(-877.7778f, 498.8889f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("right"); if (_item != null) { _item.SetPos = new Vector2(-874.9998f, 314.5556f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("up"); if (_item != null) { _item.SetPos = new Vector2(-866.6667f, 149.6667f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("down"); if (_item != null) { _item.SetPos = new Vector2(-863.8887f, -34.66666f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("replayprev"); if (_item != null) { _item.SetPos = new Vector2(-861.1111f, -219f); _item.MyText.Scale = 0.539f; _item.MySelectedText.Scale = 0.539f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("replaynext"); if (_item != null) { _item.SetPos = new Vector2(-858.3333f, -395f); _item.MyText.Scale = 0.5430002f; _item.MySelectedText.Scale = 0.5430002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("replaytoggle"); if (_item != null) { _item.SetPos = new Vector2(-847.2224f, -576.5555f); _item.MyText.Scale = 0.4623334f; _item.MySelectedText.Scale = 0.4623334f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-            _item = MyMenu.FindItemByName("toggleslowmo"); if (_item != null) { _item.SetPos = new Vector2(-841.6666f, -760.8889f); _item.MyText.Scale = 0.4046669f; _item.MySelectedText.Scale = 0.4046669f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			MenuItem _item;
+			_item = MyMenu.FindItemByName("Reset"); if (_item != null) { _item.SetPos = new Vector2(648.9698f, 861.5082f); _item.MyText.Scale = 0.4f; _item.MySelectedText.Scale = 0.4f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(676.7499f, 761.0321f); _item.MyText.Scale = 0.4f; _item.MySelectedText.Scale = 0.4f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("quickspawn"); if (_item != null) { _item.SetPos = new Vector2(-886.1108f, 870.3333f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("powerup"); if (_item != null) { _item.SetPos = new Vector2(-886.1108f, 683.2222f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("left"); if (_item != null) { _item.SetPos = new Vector2(-788.8887f, 432.2228f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("right"); if (_item != null) { _item.SetPos = new Vector2(-788.8887f, 253.4447f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("up"); if (_item != null) { _item.SetPos = new Vector2(-788.8887f, 74.66669f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("down"); if (_item != null) { _item.SetPos = new Vector2(-788.8887f, -104.1114f); _item.MyText.Scale = 0.5840001f; _item.MySelectedText.Scale = 0.5840001f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("replayprev"); if (_item != null) { _item.SetPos = new Vector2(-858.3333f, -363.4443f); _item.MyText.Scale = 0.539f; _item.MySelectedText.Scale = 0.539f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("replaynext"); if (_item != null) { _item.SetPos = new Vector2(-858.3333f, -544.9998f); _item.MyText.Scale = 0.5430002f; _item.MySelectedText.Scale = 0.5430002f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			_item = MyMenu.FindItemByName("replaytoggle"); if (_item != null) { _item.SetPos = new Vector2(-858.3333f, -726.5553f); _item.MyText.Scale = 0.4623334f; _item.MySelectedText.Scale = 0.4623334f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(0f, 0f);
-
-            EzText _t;
-            _t = MyPile.FindEzText("instructions"); if (_t != null) { _t.Pos = new Vector2(636.5076f, 215.4761f); _t.Scale = 0.4948333f; }
-
-            MyPile.Pos = new Vector2(0f, 0f);
-        }
+			MyMenu.Pos = new Vector2(2.777832f, 0f);
+			MyPile.Pos = new Vector2(0f, 0f);
+		}
 
         private void ItemSetup()
         {
@@ -300,28 +324,35 @@ namespace CloudberryKingdom
             FontScale *= .73f;// .778f;
         }
 
+		//int ActiveCount = 0;
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
 
             if (!Active || MyMenu == null || MyMenu.Released) return;
 
+			//ActiveCount++;
+			//if (ActiveCount < 
+
             ControlItem item = MyMenu.CurItem as ControlItem;
             if (null != item)
             {
-                foreach (Keys key in ButtonString.KeyToString.Keys)
-                    if (ButtonCheck.State(key).Down)
-                    {
-                        //// Make sure there are no double keys
-                        //foreach (MenuItem other in MyMenu.Items)
-                        //{
-                        //    ControlItem citem = other as ControlItem;
-                        //    if (null != citem && citem.MyKey == key)
-                        //        citem.SetKey(item.MyKey);
-                        //}
+				foreach (Keys key in ButtonString.KeyToString.Keys)
+				{
+					if (key != Keys.Escape && key != Keys.Back &&
+						ButtonCheck.State(key).Pressed)
+					{
+						//// Make sure there are no double keys
+						//foreach (MenuItem other in MyMenu.Items)
+						//{
+						//    ControlItem citem = other as ControlItem;
+						//    if (null != citem && citem.MyKey == key)
+						//        citem.SetKey(item.MyKey);
+						//}
 
-                        item.SetKey(key);
-                    }
+						item.SetKey(key);
+					}
+				}
             }
         }
     }

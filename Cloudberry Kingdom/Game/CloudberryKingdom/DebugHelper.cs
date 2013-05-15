@@ -232,13 +232,13 @@ namespace CloudberryKingdom
             }
 
             // Allow Back to exit the game if we are in test mode
-#if DEBUG
-            if (ButtonCheck.State(ControllerButtons.Back, -1).Down)
-            {
-                Exit();
-                return true;
-            }
-#endif
+//#if DEBUG
+//            if (ButtonCheck.State(ControllerButtons.Back, -1).Down)
+//            {
+//                Exit();
+//                return true;
+//            }
+//#endif
 
             return false;
         }
