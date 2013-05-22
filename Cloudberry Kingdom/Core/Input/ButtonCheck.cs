@@ -152,8 +152,11 @@ namespace CloudberryKingdom
 
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
-            // Update controller/keyboard states
+#if PC_VERSION && CUSTOM_INPUT
+			Joystick.StickInput.ReadData();
+#endif
 
+            // Update controller/keyboard states
             Tools.Keyboard = Keyboard.GetState();
             if (Tools.PrevKeyboard == null) Tools.PrevKeyboard = Tools.Keyboard;
 

@@ -118,6 +118,7 @@
 			// 
 			// Uninstaller
 			// 
+			this.AcceptButton = this.NextButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(538, 299);
@@ -128,7 +129,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.BerryHappy);
 			this.Controls.Add(this.BerrySad);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "Uninstaller";
 			this.Text = "Cloudberry Kingdom Uninstaller";
 			((System.ComponentModel.ISupportInitialize)(this.BerryHappy)).EndInit();

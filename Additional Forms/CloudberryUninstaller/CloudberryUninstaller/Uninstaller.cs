@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,11 +26,47 @@ namespace CloudberryCleanup
 		{
 			if (Yes.Checked)
 			{
+				string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				dir = Path.Combine(dir, "Cloudberry Kingdom");
+
+				try
+				{
+					string file_options = Path.Combine(dir, "Options");
+					File.Delete(file_options);
+				}
+				catch
+				{
+				}
+
+				try
+				{
+					string file_data = Path.Combine(dir, "Player Data");
+					File.Delete(file_data);
+				}
+				catch
+				{
+				}
+
+				try
+				{
+					Directory.Delete(dir);
+				}
+				catch (Exception ex)
+				{
+					if (ex is DirectoryNotFoundException)
+					{
+					}
+					else
+					{
+						MessageBox.Show("Cloudberry Kingdom save directory could not be deleted. This may be because custom files were placed in the folder by the user, or because some files are currently in use.");
+					}
+				}
+
 				Program.ExitApplication(0);
 			}
 			else
 			{
-				Program.ExitApplication(1);
+				Program.ExitApplication(0);
 			}
 		}
 

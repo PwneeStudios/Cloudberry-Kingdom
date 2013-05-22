@@ -108,7 +108,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PC Debug|x86'">
     <OutputPath>bin\x86\PC Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS GAME PC_VERSION PC PC_DEBUG INCLUDE_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;!CUSTOM_INPUT WINDOWS GAME PC_VERSION PC PC_DEBUG INCLUDE_EDITOR</DefineConstants>
     <Optimize>false</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
@@ -194,6 +194,7 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
+    <Compile Include="Core\Input\SlimGamepad.cs" />
     <Compile Include="Core\Input\SlimInput_Wrapper.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Tools\Set.cs" />

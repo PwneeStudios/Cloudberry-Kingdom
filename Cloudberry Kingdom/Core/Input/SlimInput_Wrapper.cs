@@ -1,31 +1,37 @@
-﻿#if PC_VERSION
-
-using System;
-using System.Globalization;
-using System.Windows.Forms;
+﻿#if PC_VERSION && CUSTOM_INPUT
 using SlimDX;
-using SlimDX.XInput;
 using SlimDX.DirectInput;
 using di = SlimDX.DirectInput;
-using SlimDX.RawInput;
-using ri = SlimDX.RawInput;
 using System.Collections.Generic;
+
+using SlimGamepad;
 
 namespace Joystick
 {
-	public class Joystick
+	public class StickInput
 	{
-		public static di.Joystick[] GetSticks()
+		public static GamepadState[] State;
+
+		public static List<di.Joystick> Sticks;
+
+		public static List<di.Joystick> GetSticks()
 		{
+			State = new GamepadState[4];
+			for (int i = 0; i < 4; i++)
+			{
+				State[i] = new GamepadState((SlimDX.XInput.UserIndex)i);
+			}
+
 			DirectInput dinput = new DirectInput();
 
-			var sticks = new List<SlimDX.DirectInput.Joystick>();
-			foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
+			Sticks = new List<di.Joystick>();
+			foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AllDevices))
+			//foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
 			{
 				// create the device
 				try
 				{
-					var stick = new SlimDX.DirectInput.Joystick(dinput, device.InstanceGuid);
+					var stick = new di.Joystick(dinput, device.InstanceGuid);
 					stick.Acquire();
 
 					foreach (DeviceObjectInstance deviceObject in stick.GetObjects())
@@ -34,7 +40,7 @@ namespace Joystick
 							stick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-1000, 1000);
 					}
 
-					sticks.Add(stick);
+					Sticks.Add(stick);
 
 					//Console.WriteLine(stick.Information.InstanceName);
 				}
@@ -42,10 +48,11 @@ namespace Joystick
 				{
 				}
 			}
-			return sticks.ToArray();
+
+			return Sticks;
 		}
 
-		public static void CreateDevice(IntPtr handle)
+		/*public static void CreateDevice(IntPtr handle)
 		{
 			// make sure that DirectInput has been initialized
 			DirectInput dinput = new DirectInput();
@@ -73,12 +80,29 @@ namespace Joystick
 				{
 				}
 			}
+		}*/
+
+		public static void ReadData()
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				State[i].Update();
+
+				System.Console.Write(State[i].A);
+				if (State[i].A)
+				{
+					System.Console.Write("oh hai!");
+				}
+			}
+
+			foreach (var j in Sticks)
+			{
+				ReadImmediateData(j);
+			}
 		}
 
 		public static void ReadImmediateData(di.Joystick joystick)
 		{
-			var js = GetSticks();
-
 			if (joystick.Acquire().IsFailure)
 				return;
 
@@ -86,8 +110,19 @@ namespace Joystick
 				return;
 
 			var state = joystick.GetCurrentState();
+			
 			if (Result.Last.IsFailure)
 				return;
+
+			System.Console.Write(state.AccelerationX);
+		}
+
+		public static void Cleanup()
+		{
+			foreach (var j in Sticks)
+			{
+				ReleaseDevice(j);
+			}
 		}
 
 		public static void ReleaseDevice(di.Joystick joystick)

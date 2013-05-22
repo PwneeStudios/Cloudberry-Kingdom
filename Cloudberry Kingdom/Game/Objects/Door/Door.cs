@@ -416,9 +416,12 @@ namespace CloudberryKingdom.InGameObjects
         }
 
         /// <summary> This length is used only for the first time a player opens a door. </summary>
-        int _DelayToShowNote_First = 60;
-        int _DelayToShowNote_Second = 75;
-        int _DelayToShowNote_Nth = 180;
+		//int _DelayToShowNote_First = 60;
+		//int _DelayToShowNote_Second = 75;
+		//int _DelayToShowNote_Nth = 180;
+		int _DelayToShowNote_First = 30;
+		int _DelayToShowNote_Second = 55;
+		int _DelayToShowNote_Nth = 80;
 
 
         /// <summary>

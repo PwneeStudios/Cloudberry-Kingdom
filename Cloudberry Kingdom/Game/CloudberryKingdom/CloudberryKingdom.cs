@@ -30,8 +30,11 @@ using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
 
-#if PC_VERSION
+#if PC_VERSION && CUSTOM_INPUT
 using Joystick;
+#endif
+
+#if PC_VERSION
 using SteamManager;
 #endif
 
@@ -63,7 +66,7 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = true;
 
-        public const bool DigitalDayBuild = true;
+        public const bool DigitalDayBuild = false;
         public const bool PropTest = false;
 
         /// <summary>
@@ -80,22 +83,22 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
 		//// Steam
-		//public static bool HideLogos = false;
-		//public static bool LockCampaign = false;
-		//public static bool SimpleMainMenu = true;
-		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		//public static bool SimpleLeaderboards = false;
-		//public static bool FakeAwardments = false;
-		//public static float GuiSqueeze = 0;
-
-		// Steam Beta
 		public static bool HideLogos = false;
-		public static bool LockCampaign = true;
+		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 		public static float GuiSqueeze = 0;
+
+		// Steam Beta
+		//public static bool HideLogos = false;
+		//public static bool LockCampaign = true;
+		//public static bool SimpleMainMenu = true;
+		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		//public static bool SimpleLeaderboards = false;
+		//public static bool FakeAwardments = false;
+		//public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;
@@ -752,8 +755,12 @@ namespace CloudberryKingdom
 			}
 #endif
 
+#if PC_VERSION && CUSTOM_INPUT
+			StickInput.GetSticks();
+#endif
+
 #if WINDOWS
-            KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
+			KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
@@ -1833,23 +1840,6 @@ namespace CloudberryKingdom
 			{
 				SteamCore.Update();
 			}
-
-			// New joysticks
-			/*
-			if (!created)
-			{
-				Joystick.Joystick.CreateDevice(Tools.GameClass.Window.Handle);
-				created = true;
-			}
-
-			var j = Joystick.Joystick.GetSticks();
-			Joystick.Joystick.ReadImmediateData(j[0]);
-
-			var d = j[0].GetCurrentState();
-			int x = d.X;
-			Tools.Num_0_to_2 = x;
-			Tools.Write(j[0].GetCurrentState());
-			 * */
 #endif
 
 #if DEBUG_OBJDATA
