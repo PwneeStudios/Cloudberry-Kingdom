@@ -150,6 +150,8 @@ namespace CloudberryKingdom
                     modes.Add(mode);
             }
 
+			modes = RemoveRedundantResolutions(modes);
+
             // Add resolutions to the current list
             bool found = false;
             foreach (var mode in modes)
@@ -248,6 +250,37 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
+		List<DisplayMode> RemoveRedundantResolutions(List<DisplayMode> modes)
+		{
+			var NewList = new List<DisplayMode>();
+
+			foreach (var mode in modes)
+			{
+				if (mode.AspectRatio == 1280.0f / 720.0f)
+					NewList.Add(mode);
+			}
+
+			foreach (var mode in modes)
+			{
+				bool Ignore = false;
+				foreach (var _mode in NewList)
+				{
+					if (_mode.Width == mode.Width)
+					{
+						Ignore = true;
+						break;
+					}
+				}
+
+				if (!Ignore)
+					NewList.Add(mode);
+			}
+
+			NewList.Sort((a, b) => { return a.Width.CompareTo(b.Width); });
+
+			return NewList;
+		}
+
         void Go_CustomControls()
         {
             if (UseBounce)

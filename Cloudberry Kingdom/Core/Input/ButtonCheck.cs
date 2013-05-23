@@ -92,7 +92,9 @@ namespace CloudberryKingdom
             else
                 All.SetCount(ControllerButtons.A, 0);
 
-            ControllerButtons[] buttons = { ControllerButtons.Left, ControllerButtons.Right, ControllerButtons.Up, ControllerButtons.Down };
+            ControllerButtons[] buttons = {
+				ControllerButtons.A,
+				ControllerButtons.Left, ControllerButtons.Right, ControllerButtons.Up, ControllerButtons.Down };
             foreach (ControllerButtons button in buttons)
             {
                 Incr = false;

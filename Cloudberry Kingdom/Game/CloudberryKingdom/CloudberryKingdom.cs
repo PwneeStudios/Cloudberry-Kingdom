@@ -83,22 +83,22 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
 		//// Steam
-		public static bool HideLogos = false;
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = true;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		public static bool SimpleLeaderboards = false;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = 0;
-
-		// Steam Beta
 		//public static bool HideLogos = false;
-		//public static bool LockCampaign = true;
+		//public static bool LockCampaign = false;
 		//public static bool SimpleMainMenu = true;
 		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		//public static bool SimpleLeaderboards = false;
 		//public static bool FakeAwardments = false;
 		//public static float GuiSqueeze = 0;
+
+		// Steam Beta
+		public static bool HideLogos = false;
+		public static bool LockCampaign = true;
+		public static bool SimpleMainMenu = true;
+		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		public static bool SimpleLeaderboards = false;
+		public static bool FakeAwardments = false;
+		public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;
@@ -739,6 +739,10 @@ namespace CloudberryKingdom
 
         void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
+//#if PC_VERSION
+//            MyGraphicsDeviceManager.SynchronizeWithVerticalRetrace = false;
+//#endif
+
             //graphics.PreferMultiSampling = false;
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
 
@@ -1568,13 +1572,22 @@ namespace CloudberryKingdom
         public double DeltaT = 0;
 
         public bool RunningSlowly = false;
+
+		TimeSpan TargetElapsedTime_58fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 58f));
+		TimeSpan TargetElapsedTime_60fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+
         public void Update()
         {
-			//var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
-			//var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 24f));
-            //var TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (int)(1000f / 10f));
-			//Tools.GameClass.TargetElapsedTime = TargetElapsedTime;
-			//Tools.GameClass.IsFixedTimeStep = true;
+			if (MyGraphicsDeviceManager.IsFullScreen)
+			{
+				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
+				Tools.GameClass.IsFixedTimeStep = true;
+			}
+			else
+			{
+				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
+				Tools.GameClass.IsFixedTimeStep = false;
+			}
         }
 
 		public static bool ShowMarketplace = false;
