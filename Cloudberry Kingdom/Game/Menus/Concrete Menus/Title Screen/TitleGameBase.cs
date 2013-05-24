@@ -123,28 +123,6 @@ namespace CloudberryKingdom
 
             cam.FancyPos.RelVal = Vector2.Zero;
 
-            /*
-            // Pan the camera
-            cam.FancyPos.RelVal += cam.Data.Velocity;
-            if (PanCamera)
-            {
-                if (cam.Pos.X > PanMaxDist)
-                    cam.Data.Acceleration.X = -PanAcc;
-                if (cam.Pos.X < PanMinDist)
-                    cam.Data.Acceleration.X = PanAcc;
-                if (cam.Data.Acceleration == Vector2.Zero)
-                    cam.Data.Acceleration = new Vector2(1, 0);
-
-                if (cam.Data.Velocity.X < PanMaxSpeed && cam.Data.Acceleration.X > 0 ||
-                    cam.Data.Velocity.X > -PanMaxSpeed && cam.Data.Acceleration.X < 0)
-                    cam.Data.Velocity += cam.Data.Acceleration;
-
-                cam.Data.UpdatePosition();
-            }
-            else
-                Cam.Data.Velocity *= .98f;
-            */
-
             base.PhsxStep();
         }
 

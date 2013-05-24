@@ -88,12 +88,21 @@ namespace CloudberryKingdom
         /// </summary>
         public bool NoBackIfNoCaller = false;
 
+		/// <summary>
+		/// When true: When the panel is done and returns to its caller, it will prevent input for one frame,
+		/// so that the parent panel does not receive input on this same frame.
+		/// </summary>
+		public bool PreventInputOnReturnToCaller = true;
+
         /// <summary>
         /// Hide the panel and return to its parent.
         /// </summary>
         public virtual void ReturnToCaller()
         {
-			ButtonCheck.PreventInput();
+			if (PreventInputOnReturnToCaller)
+			{
+				ButtonCheck.PreventInput();
+			}
 
             if (NoBackIfNoCaller && Caller == null) return;
 

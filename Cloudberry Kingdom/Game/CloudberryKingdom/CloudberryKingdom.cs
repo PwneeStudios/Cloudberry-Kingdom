@@ -67,6 +67,7 @@ namespace CloudberryKingdom
         public const bool AllowAsianLanguages = true;
 
         public const bool DigitalDayBuild = false;
+
         public const bool PropTest = false;
 
         /// <summary>

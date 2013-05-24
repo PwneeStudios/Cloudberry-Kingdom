@@ -184,7 +184,7 @@ namespace CloudberryKingdom
 #if DEBUG
             return MyGame.MyLevel.WatchComputerEnabled();
 #else
-            return MyGame.MyLevel.CanWatchComputer && Bank() >= Cost_Path;
+			return MyGame.MyLevel.CanWatchComputer && Bank() >= CurrentCostTo_Path;
 #endif
         }
         void Toggle_ShowPath(bool state)

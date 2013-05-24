@@ -275,8 +275,11 @@ namespace CloudberryKingdom
                             Tools.SoundWad.FindByName("Record_Scratch").Play());
 						
 						Tools.SongWad.PlayList = Tools.SongList_Standard;
-						Tools.SongWad.Next(Tools.Song_Ripcurl);
-						//Tools.SongWad.CurIndex = Tools.SongWad.PlayList.IndexOf(Tools.Song_Ripcurl);
+						
+						
+						//Tools.SongWad.Next(Tools.Song_Ripcurl);
+						Tools.SongWad.CurIndex = Tools.SongWad.PlayList.IndexOf(Tools.Song_Ripcurl);
+						
 						Tools.SongWad.PlayNext = true;
 						Tools.SongWad.Restart(true, false);
                         Tools.SongWad.Pause();

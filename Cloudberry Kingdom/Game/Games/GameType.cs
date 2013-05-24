@@ -1186,9 +1186,35 @@ namespace CloudberryKingdom
         public bool SuppressSoundForExtraSteps;
 
         public int PhsxCount = 0;
+		static int XButtonPressCount = 0;
         public virtual void PhsxStep()
         {
             if (Loading || Tools.ShowLoadingScreen) return;
+
+			if (CloudberryKingdomGame.DigitalDayBuild)
+			{
+				//Tools.SongWad.Stop();
+
+				if (ButtonCheck.State(ControllerButtons.X, -2).Down)
+				{
+					XButtonPressCount++;
+
+					if (XButtonPressCount > 150)
+					{
+						if (CharacterSelectManager.IsShowing)
+						{
+							CharacterSelectManager.SuddenCleanup();
+						}
+
+						// Start at Screen Saver
+						ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+					}
+				}
+				else
+				{
+					XButtonPressCount = 0;
+				}
+			}
 
             // Update the socre and coin score multiplier
             CalculateScoreMultiplier();

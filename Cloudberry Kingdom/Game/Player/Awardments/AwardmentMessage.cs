@@ -110,6 +110,7 @@ namespace CloudberryKingdom.Awards
 
             if (ShouldDie())
             {
+				PreventInputOnReturnToCaller = false;
                 ReturnToCaller(false);
                 PauseLevel = false;
             }

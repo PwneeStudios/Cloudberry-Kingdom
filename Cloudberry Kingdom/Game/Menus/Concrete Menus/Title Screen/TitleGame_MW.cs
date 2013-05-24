@@ -134,51 +134,8 @@ namespace CloudberryKingdom
             MyLevel.MainCamera.MyZone = CamZone;            
         }
 
-        int XButtonPressCount = 0;
-        int NotPressedCount = 0;
         public override void PhsxStep()
         {
-            if (CloudberryKingdomGame.DigitalDayBuild)
-            {
-				//if (ButtonCheck.State(ControllerButtons.X, -2).Down)
-				//{
-				//    if (ButtonCheck.State(ControllerButtons.X, -2).Pressed)
-				//    {
-				//        XButtonPressCount++;
-				//        NotPressedCount = 0;
-				//    }
-				//}
-				//else
-				//{
-				//    NotPressedCount++;
-				//    if (NotPressedCount > 60)
-				//    {
-				//        XButtonPressCount = 0;
-				//    }
-				//}
-				//
-				//if (XButtonPressCount > 3)
-				//{
-				//    // Start at Screen Saver
-				//    ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-				//}
-
-				if (ButtonCheck.State(ControllerButtons.X, -2).Down)
-				{
-					XButtonPressCount++;
-
-					if (XButtonPressCount > 50)
-					{
-						// Start at Screen Saver
-						ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-					}
-				}
-				else
-				{
-					XButtonPressCount = 0;
-				}
-            }
-
             base.PhsxStep();
         }
 
