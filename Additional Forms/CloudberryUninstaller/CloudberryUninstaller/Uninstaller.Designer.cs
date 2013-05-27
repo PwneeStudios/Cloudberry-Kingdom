@@ -132,6 +132,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "Uninstaller";
 			this.Text = "Cloudberry Kingdom Uninstaller";
+			this.Load += new System.EventHandler(this.Uninstaller_Load);
 			((System.ComponentModel.ISupportInitialize)(this.BerryHappy)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.BerrySad)).EndInit();
 			this.ResumeLayout(false);

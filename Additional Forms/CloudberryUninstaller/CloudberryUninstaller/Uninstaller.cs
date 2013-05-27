@@ -22,30 +22,32 @@ namespace CloudberryCleanup
 
 		}
 
+		void TryToDeleteFile(string path)
+		{
+			try
+			{
+				File.Delete(path);
+			}
+			catch
+			{
+			}
+		}
+
 		private void button1_Click(object sender, EventArgs e)
 		{
 			if (Yes.Checked)
 			{
-				string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-				dir = Path.Combine(dir, "Cloudberry Kingdom");
+				string dir = SaveDir();
 
-				try
-				{
-					string file_options = Path.Combine(dir, "Options");
-					File.Delete(file_options);
-				}
-				catch
-				{
-				}
+				string file_options = Path.Combine(dir, "Options");
+				TryToDeleteFile(file_options);
 
-				try
-				{
-					string file_data = Path.Combine(dir, "Player Data");
-					File.Delete(file_data);
-				}
-				catch
-				{
-				}
+
+				string file_data = Path.Combine(dir, "Player Data");
+				TryToDeleteFile(file_data);
+
+				string file_stamp = Path.Combine(dir, "Stamp");
+				TryToDeleteFile(file_stamp);
 
 				try
 				{
@@ -66,8 +68,16 @@ namespace CloudberryCleanup
 			}
 			else
 			{
+				MakeStamp();
 				Program.ExitApplication(0);
 			}
+		}
+
+		private static string SaveDir()
+		{
+			string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			dir = Path.Combine(dir, "Cloudberry Kingdom");
+			return dir;
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
@@ -94,6 +104,58 @@ namespace CloudberryCleanup
 
 				BerrySad.Hide();
 				BerryHappy.Show();
+			}
+		}
+
+
+		/// <summary>
+		/// Creates a time stamp file marking this moment in time.
+		/// </summary>
+		void MakeStamp()
+		{
+			var s = DateTime.Now.ToString();
+
+			string dir = SaveDir();
+			string file_stamp = Path.Combine(dir, "Stamp");
+
+			File.WriteAllText(file_stamp, s);
+		}
+
+		/// <summary>
+		/// Total seconds passed since the last time stamp file was created.
+		/// </summary>
+		/// <returns></returns>
+		double SecondsSinceStamp()
+		{
+			string dir = SaveDir();
+
+			string file_stamp = Path.Combine(dir, "Stamp");
+			if (!File.Exists(file_stamp))
+			{
+				return int.MaxValue;
+			}
+
+			var stamp = File.ReadAllText(file_stamp);
+			var date = DateTime.Parse(stamp);
+			var diff = DateTime.Now - date;
+
+			return diff.TotalSeconds;
+		}
+
+		private void Uninstaller_Load(object sender, EventArgs e)
+		{
+			string dir = SaveDir();
+			
+			if (!Directory.Exists(dir))
+			{
+				Program.ExitApplication(0);
+				return;
+			}
+
+			if (SecondsSinceStamp() < 3.0)
+			{
+				Program.ExitApplication(0);
+				return;
 			}
 		}
 	}
