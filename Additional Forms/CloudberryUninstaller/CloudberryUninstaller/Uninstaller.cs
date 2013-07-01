@@ -6,6 +6,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace CloudberryCleanup
@@ -15,6 +17,9 @@ namespace CloudberryCleanup
 		public Uninstaller()
 		{
 			InitializeComponent();
+
+            No.Checked = true;
+            Check_No();
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -89,23 +94,33 @@ namespace CloudberryCleanup
 		{
 			if (Yes.Checked)
 			{
-				No.Checked = false;
-
-				BerryHappy.Hide();
-				BerrySad.Show();
+                Check_Yes();
 			}
 		}
+
+        private void Check_Yes()
+        {
+            No.Checked = false;
+
+            //BerryHappy.Hide();
+            //BerrySad.Show();
+        }
 
 		private void No_CheckedChanged(object sender, EventArgs e)
 		{
 			if (No.Checked)
 			{
-				Yes.Checked = false;
-
-				BerrySad.Hide();
-				BerryHappy.Show();
+                Check_No();
 			}
 		}
+
+        private void Check_No()
+        {
+            Yes.Checked = false;
+
+            //BerrySad.Hide();
+            //BerryHappy.Show();
+        }
 
 
 		/// <summary>
@@ -113,7 +128,10 @@ namespace CloudberryCleanup
 		/// </summary>
 		void MakeStamp()
 		{
-			var s = DateTime.Now.ToString();
+            string s = "";
+
+			//var s = DateTime.Now.ToString();
+            DoWithInvariantCulture(() => s = DateTime.Now.ToString());
 
 			string dir = SaveDir();
 			string file_stamp = Path.Combine(dir, "Stamp");
@@ -136,11 +154,24 @@ namespace CloudberryCleanup
 			}
 
 			var stamp = File.ReadAllText(file_stamp);
-			var date = DateTime.Parse(stamp);
+
+            //var date = DateTime.Parse(stamp);
+            DateTime date = new DateTime();
+            DoWithInvariantCulture(() => date = DateTime.Parse(stamp));
 			var diff = DateTime.Now - date;
 
 			return diff.TotalSeconds;
 		}
+
+        static void DoWithInvariantCulture(Action f)
+        {
+            var HoldCurrentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            f();
+
+            Thread.CurrentThread.CurrentCulture = HoldCurrentCulture;
+        }
 
 		private void Uninstaller_Load(object sender, EventArgs e)
 		{

@@ -1,0 +1,13 @@
+Diff port (newer is higher)
+f3d9e04171fc
+a83e11afc319
+19259aeaddaa
+561097c1d058
+57cf5d59e4cf
+4ae79dfc4e25
+5e2072534cc8
+474ea4baa624
+// Diff tool
+git difftool -dir-diff a83e11afc319 f3d9e04171fc -- '*.cs'
+// Newly added files
+git diff --summary f1f33267a7b6 63cb9cc5222f -- '*.cs'

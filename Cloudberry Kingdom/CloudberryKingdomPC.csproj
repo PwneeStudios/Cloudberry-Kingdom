@@ -19,7 +19,7 @@
     <ManifestCertificateThumbprint>528E677AEC1BCA314EEA5B3336002A83C917FCEA</ManifestCertificateThumbprint>
     <ManifestKeyFile>WindowsGame1_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <XnaUpgrade>
     </XnaUpgrade>
     <XnaOutputType>Game</XnaOutputType>

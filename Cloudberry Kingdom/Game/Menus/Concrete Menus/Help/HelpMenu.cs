@@ -8,8 +8,15 @@ namespace CloudberryKingdom
 {
     public class HelpMenu : CkBaseMenu
     {
+		public static bool PurchasesDisabled()
+		{
+			return (CostMultiplier >= 1000);
+		}
+
         int Bank()
         {
+			if (PurchasesDisabled()) return 0;
+
             switch (MyGame.MyBankType)
             {
                 case GameData.BankType.Infinite:
@@ -23,12 +30,6 @@ namespace CloudberryKingdom
             }
 
             return 0;
-
-            //return
-            //    PlayerManager.PlayerSum(p => p.CampaignStats.Coins) +
-            //    PlayerManager.PlayerSum(p => p.GameStats.Coins) +
-            //    PlayerManager.PlayerSum(p => p.LevelStats.Coins)
-            //    - PlayerManager.CoinsSpent;
         }
 
         void Buy(int Cost)
@@ -61,8 +62,10 @@ namespace CloudberryKingdom
 
         void SetCoins(int Coins)
         {
-            //if (Coins > 99) Coins = 99;
-            CoinsText.SubstituteText("x" + Coins.ToString());			
+			if (PurchasesDisabled())
+				CoinsText.SubstituteText(" =[");
+			else
+				CoinsText.SubstituteText("x" + Coins.ToString());
         }
 
         protected override void SetItemProperties(MenuItem item)
@@ -135,6 +138,7 @@ namespace CloudberryKingdom
 		{
 			get
 			{
+				if (PurchasesDisabled()) return 0;
 				return Cost_Watch * CostMultiplier * Cost_Multiplier_Watch;
 			}
 		}
@@ -143,6 +147,7 @@ namespace CloudberryKingdom
 		{
 			get
 			{
+				if (PurchasesDisabled()) return 99999;
 				return Cost_Slow * CostMultiplier * Cost_Multiplier_Slow;
 			}
 		}
@@ -151,6 +156,7 @@ namespace CloudberryKingdom
 		{
 			get
 			{
+				if (PurchasesDisabled()) return 99999;
 				return Cost_Path * CostMultiplier * Cost_Multiplier_Path;
 			}
 		}

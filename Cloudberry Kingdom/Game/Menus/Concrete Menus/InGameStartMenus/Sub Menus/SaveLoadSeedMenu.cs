@@ -138,11 +138,11 @@ namespace CloudberryKingdom
             if (CanLoad && CanSave)
             {
 				MenuItem _item;
-				_item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(686.1115f, 633.2222f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(694.4447f, 441.5555f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Copy"); if (_item != null) { _item.SetPos = new Vector2(672.2223f, 222.1111f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("LoadString"); if (_item != null) { _item.SetPos = new Vector2(672.2225f, 27.66663f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-				_item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(727.7777f, -163.9999f); _item.MyText.Scale = 0.72f; _item.MySelectedText.Scale = 0.72f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+                _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(661.1118f, 616.5555f); _item.MyText.Scale = 0.5616f; _item.MySelectedText.Scale = 0.5616f; _item.SelectIconOffset = new Vector2(0f, 0f);  }
+                _item = MyMenu.FindItemByName("Load"); if (_item != null) { _item.SetPos = new Vector2(661.1118f, 430.4444f); _item.MyText.Scale = 0.5616f; _item.MySelectedText.Scale = 0.5616f; _item.SelectIconOffset = new Vector2(0f, 0f);  }
+                _item = MyMenu.FindItemByName("Copy"); if (_item != null) { _item.SetPos = new Vector2(661.1118f, 244.3332f); _item.MyText.Scale = 0.5616f; _item.MySelectedText.Scale = 0.5616f; _item.SelectIconOffset = new Vector2(0f, 0f);  }
+                _item = MyMenu.FindItemByName("LoadString"); if (_item != null) { _item.SetPos = new Vector2(661.1118f, 58.22205f); _item.MyText.Scale = 0.5616f; _item.MySelectedText.Scale = 0.5616f; _item.SelectIconOffset = new Vector2(0f, 0f);  }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(661.1118f, -127.8891f); _item.MyText.Scale = 0.5616f; _item.MySelectedText.Scale = 0.5616f; _item.SelectIconOffset = new Vector2(0f, 0f);  }
 
 				MyMenu.Pos = new Vector2(-1177.779f, -222.2221f);
 
@@ -174,9 +174,9 @@ namespace CloudberryKingdom
             else
             {
                 MenuItem _item;
-                _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(686.1115f, 499.889f); }
+                _item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(674.9999f, 499.889f); }
                 _item = MyMenu.FindItemByName("Copy"); if (_item != null) { _item.SetPos = new Vector2(674.9999f, 269.3333f); }
-                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(719.4445f, 47.11124f); }
+                _item = MyMenu.FindItemByName("Back"); if (_item != null) { _item.SetPos = new Vector2(674.9999f, 47.11124f); }
 
                 MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
@@ -188,6 +188,25 @@ namespace CloudberryKingdom
 
                 MyPile.Pos = new Vector2(-1125.001f, -319.4444f);
             }
+
+            // Shrink and shift MenuItems down for some languages.
+            float scale = 1;
+            var shift = Vector2.Zero;
+            switch (Localization.CurrentLanguage.MyLanguage)
+            {
+                case Localization.Language.German:      scale = .88f; shift.X = -200; break;
+                case Localization.Language.Portuguese:  scale = .82f; shift.X = -370; break;
+                case Localization.Language.French:      scale = .88f; shift.X = -100; break;
+                default: break;
+
+            }
+
+            foreach (var _item in MyMenu.Items)
+                _item.ScaleText(scale);
+
+            MyMenu.Pos += shift;
+            foreach (var text in MyPile.MyTextList)
+                text.Pos += shift;
 #else
 			MenuItem _item;
 			_item = MyMenu.FindItemByName("Save"); if (_item != null) { _item.SetPos = new Vector2(741.6669f, 547.111f); _item.MyText.Scale = 0.7334167f; _item.MySelectedText.Scale = 0.7334167f; _item.SelectIconOffset = new Vector2(0f, 0f);  }

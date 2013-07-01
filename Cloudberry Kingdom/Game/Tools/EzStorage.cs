@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Storage;
 
+using CoreEngine;
+
 #if PC_VERSION
 #elif XDKX || XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
@@ -41,6 +43,109 @@ namespace CloudberryKingdom
             ThingsToSave.Add(ThingToSave);
         }
 
+        public static void SynchronizeAll()
+	    {
+		    int _max_CampaignLevel = 0, _max_CampaignCoins = 0, _max_CampaignIndex = 0;
+		    int _max_LastPlayerLevelUpload = 0;
+
+		    // Find the maxes
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+			    _max_CampaignLevel = Math.Max( _max_CampaignLevel, p.CampaignLevel );
+			    _max_CampaignCoins = Math.Max( _max_CampaignCoins, p.CampaignCoins );
+			    _max_CampaignIndex = Math.Max( _max_CampaignIndex, p.CampaignIndex );
+			    _max_LastPlayerLevelUpload = Math.Max( _max_LastPlayerLevelUpload, p.LastPlayerLevelUpload );
+		    }
+
+		    // Push maxes to everyone
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+			    p.CampaignLevel = _max_CampaignLevel;
+			    p.CampaignCoins = _max_CampaignCoins;
+			    p.CampaignIndex = _max_CampaignIndex;
+			    p.LastPlayerLevelUpload = _max_LastPlayerLevelUpload;
+		    }
+
+		    // Make master awardment set
+		    Set<int> awardments = new Set<int>();
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+			    foreach (var guid in p.Awardments)
+				    awardments += guid;
+		    }
+
+		    // Push awardments to everyone
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+			    foreach (var guid in awardments)
+				    p.Awardments += guid;
+		    }
+
+		    // Calculate max highscores
+		    Dictionary<int, ScoreEntry> MaxHighScores = new Dictionary<int,ScoreEntry>();
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+                foreach (var HighScore in p.HighScores)
+			    {
+				    if ( MaxHighScores.ContainsKey( HighScore.Key ) )
+				    {
+					    MaxHighScores.Add( HighScore.Key, new ScoreEntry(
+						    "",
+						    HighScore.Value.GameId,
+						    Math.Max( HighScore.Value.Value, MaxHighScores[ HighScore.Key ].Value ),
+						    Math.Max( HighScore.Value.Score, MaxHighScores[ HighScore.Key ].Score ),
+						    Math.Max( HighScore.Value.Level, MaxHighScores[ HighScore.Key ].Level ),
+						    Math.Min( HighScore.Value.Attempts, MaxHighScores[ HighScore.Key ].Attempts ),
+						    Math.Min( HighScore.Value.Time, MaxHighScores[ HighScore.Key ].Time ),
+						    Math.Max( HighScore.Value.Date, MaxHighScores[ HighScore.Key ].Date ) ) );
+				    }
+				    else
+				    {
+					    MaxHighScores[ HighScore.Key ] = HighScore.Value;
+				    }
+			    }
+		    }
+
+		    // Push highscores to every player
+		    for ( int i = 0; i < 4; ++i )
+		    {
+			    if ( PlayerManager.Players[ i ] == null ) continue;
+			    PlayerData p = PlayerManager.Players[ i ];
+
+			    foreach ( var HighScore in MaxHighScores )
+			    {
+                    p.HighScores.AddOrOverwrite(HighScore.Key, new ScoreEntry(
+					    "",
+					    HighScore.Value.GameId,
+					    HighScore.Value.Value,
+					    HighScore.Value.Score,
+					    HighScore.Value.Level,
+					    HighScore.Value.Attempts,
+					    HighScore.Value.Time,
+					    HighScore.Value.Date));
+			    }
+		    }
+
+		    // Fuck these stats
+		    //boost.shared_ptr<PlayerStats> LifetimeStats, GameStats, LevelStats, TempStats;
+		    //boost.shared_ptr<PlayerStats> CampaignStats;
+	    }
+
         /// <summary>
         /// Save every item that has been changed.
         /// </summary>
@@ -66,6 +171,7 @@ namespace CloudberryKingdom
                 }
 
 #if PC_VERSION
+                SynchronizeAll();
     			PlayerManager.Player.Save(PlayerIndex.One);
 #else
 
@@ -180,6 +286,10 @@ namespace CloudberryKingdom
             {
                 ThingToLoad.Load(PlayerIndex.One);
             }
+
+#if PC_VERSION
+            SynchronizeAll();
+#endif
         }
     }
 

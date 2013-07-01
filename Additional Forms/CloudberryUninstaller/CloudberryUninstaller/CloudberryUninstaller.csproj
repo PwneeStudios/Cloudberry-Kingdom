@@ -54,6 +54,39 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Uninstaller.de.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.en.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.es.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.fr.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.it.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.ja.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.ko.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.mn.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.pt-BR.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.pt-PT.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.pt.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uninstaller.resx">
       <DependentUpon>Uninstaller.cs</DependentUpon>
     </EmbeddedResource>
@@ -67,6 +100,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Uninstaller.ru.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstaller.zh-Hans.resx">
+      <DependentUpon>Uninstaller.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

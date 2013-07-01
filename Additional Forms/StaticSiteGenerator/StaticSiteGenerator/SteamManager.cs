@@ -1,5 +1,4 @@
-﻿#if PC_VERSION
-using System;
+﻿using System;
 using System.Text;
 using System.Runtime.InteropServices;
 
@@ -21,11 +20,6 @@ namespace SteamManager
 
 	public static class SteamCore
 	{
-        public static bool RestartViaSteamIfNecessary(uint SteamId)
-        {
-            return SW.SteamCore.RestartViaSteamIfNecessary(SteamId);
-        }
-
 		public static bool Initialize()
 		{
 			return SW.SteamCore.Initialize();			
@@ -226,5 +220,3 @@ namespace SteamManager
 		}
 	}
 }
-
-#endif

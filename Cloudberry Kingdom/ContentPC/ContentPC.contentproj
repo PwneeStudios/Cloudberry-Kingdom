@@ -468,6 +468,16 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Fonts\Grobold_Chinese.dds">
+      <Name>Grobold_Chinese</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\Grobold_Korean.dds">
+      <Name>Grobold_Korean</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -2263,6 +2263,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
         }
 
+        public static void KillVibrations()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                 SetVibration((PlayerIndex)i, 0, 0, 0);
+            }
+        }
+
         public static Vector2[] FloatArrayToVectorArray_y(float[] v)
         {
             Vector2[] vec = new Vector2[v.Length];

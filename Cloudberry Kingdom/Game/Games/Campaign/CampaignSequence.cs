@@ -134,14 +134,17 @@ namespace CloudberryKingdom
 
 			if (level.MyLevelSeed != null)
 			{
-				int Num = level.MyLevelSeed.LevelNum;
+				//int Num = level.MyLevelSeed.LevelNum;
+				int Num = level.MyLevelSeed.LevelIndex;
 				if (Num >= 0)
 				{
 					foreach (var pair in ChapterStart)
 					{
-						if (pair.Value < Num)
+						if (pair.Value <= Num)
 						{
-							HelpMenu.CostMultiplier = Math.Max(pair.Key + 1, HelpMenu.CostMultiplier);
+							int[] cost_multiplier = new int[] { 1, 4, 10, 20, 30, 50, 10000, 10000 };
+							//HelpMenu.CostMultiplier = Math.Max(pair.Key + 1, HelpMenu.CostMultiplier);
+							HelpMenu.CostMultiplier = Math.Max(cost_multiplier[CoreMath.Restrict(0, 7, pair.Key - 1)], HelpMenu.CostMultiplier);
 						}
 					}
 				}
@@ -152,8 +155,8 @@ namespace CloudberryKingdom
 
             CheckForFinishedChapter();
 
-            //level.MyGame.AddGameObject(InGameStartMenu.MakeListener());
             level.MyGame.AddGameObject(HelpMenu.MakeListener());
+			level.MyGame.AddGameObject(new HintGiver());
             return false;
         }
 

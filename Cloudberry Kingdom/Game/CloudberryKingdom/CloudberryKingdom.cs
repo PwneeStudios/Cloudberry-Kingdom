@@ -84,22 +84,22 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
 		//// Steam
-		//public static bool HideLogos = false;
-		//public static bool LockCampaign = false;
-		//public static bool SimpleMainMenu = true;
-		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		//public static bool SimpleLeaderboards = false;
-		//public static bool FakeAwardments = false;
-		//public static float GuiSqueeze = 0;
-
-		// Steam Beta
 		public static bool HideLogos = false;
-		public static bool LockCampaign = true;
+		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
 		public static bool SimpleLeaderboards = false;
 		public static bool FakeAwardments = false;
 		public static float GuiSqueeze = 0;
+
+		// Steam Beta
+		//public static bool HideLogos = false;
+		//public static bool LockCampaign = true;
+		//public static bool SimpleMainMenu = true;
+		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+		//public static bool SimpleLeaderboards = false;
+		//public static bool FakeAwardments = false;
+		//public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
 		public static bool LockCampaign = false;
@@ -751,11 +751,19 @@ namespace CloudberryKingdom
             //graphics.MyGraphicsDevice.PresentationParameters.MultiSampleCount = 16;
         }
 
+        static bool ExitingEarly = false;
         public void Initialize()
         {
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
+                if (SteamCore.RestartViaSteamIfNecessary(210870))
+                {
+                    ExitingEarly = true;
+                    Tools.GameClass.Exit();
+                    return;
+                }
+
 				SteamInitialized = SteamCore.Initialize();
 			}
 #endif
@@ -1050,6 +1058,9 @@ namespace CloudberryKingdom
 
         public void LoadContent()
         {
+            if (ExitingEarly)
+                return;
+
             Tools.Write("Inside LoadContent");
             
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
@@ -2082,7 +2093,20 @@ namespace CloudberryKingdom
 #endif
 
             // Update controller/keyboard states
-            ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+            if (WindowInFocus)
+                ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+            else
+            {
+                Tools.Keyboard = new KeyboardState();
+                Tools.PrevKeyboard = new KeyboardState();
+                
+                Tools.GamepadState[0] = new GamePadState();
+                Tools.GamepadState[1] = new GamePadState();
+                Tools.GamepadState[2] = new GamePadState();
+                Tools.GamepadState[3] = new GamePadState();
+
+                Tools.KillVibrations();
+            }
 
             // Update sounds
             if (!LogoScreenUp)
@@ -2126,6 +2150,8 @@ namespace CloudberryKingdom
             Tools.t = new_t;
         }
 
+        public static bool WindowInFocus = true;
+
         /// <summary>
         /// Sets up the renderer. Returns true if no additional drawing should be done, because the game does not have focus.
         /// </summary>
@@ -2147,8 +2173,18 @@ namespace CloudberryKingdom
             MyGraphicsDevice.Clear(Color.Black);
 
 #if WINDOWS
-            if (!ActiveInactive())
-                return true;
+            if (OnlyDrawGameWhenInFocus)
+            {
+                if (!ActiveInactive())
+                    return true;
+            }
+            else
+            {
+                if (ActiveInactive())
+                    WindowInFocus = true;
+                else
+                    WindowInFocus = false;
+            }
 #endif
 
             // Make the actual view port we draw to, and clear it
@@ -2225,6 +2261,8 @@ namespace CloudberryKingdom
 			return IsActive;
 		}
 
+        public const bool OnlyDrawGameWhenInFocus = false;
+
         /// <summary>
         /// Decide if the game should be active or not.
         /// </summary>
@@ -2238,7 +2276,7 @@ namespace CloudberryKingdom
                 // show the actual mouse (not our custom drawn mouse)
                 Tools.GameClass.IsMouseVisible = true;
 
-                //if (FirstInactiveFrame)
+                if (OnlyDrawGameWhenInFocus)
                 {
                     // If a song is playing, stop it,
                     // and note that we should resume once the window becomes active
