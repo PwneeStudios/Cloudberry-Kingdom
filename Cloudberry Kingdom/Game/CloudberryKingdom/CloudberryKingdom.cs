@@ -36,6 +36,7 @@ using Joystick;
 
 #if PC_VERSION
 using SteamManager;
+using Nuclex.Input;
 #endif
 
 namespace CloudberryKingdom
@@ -56,6 +57,10 @@ namespace CloudberryKingdom
 				return UsingSteam && SteamInitialized;
 			}
 		}
+
+        // Nuclex Input
+        public const bool UsingNuclexInput = true;
+        public static InputManager NuclexInput;
 #endif
 
 #if DEBUG
@@ -732,6 +737,12 @@ namespace CloudberryKingdom
 
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+
+            if (UsingNuclexInput)
+            {
+                NuclexInput = new InputManager(Tools.GameClass.Services, Tools.GameClass.Window.Handle);
+                Tools.GameClass.Components.Add(NuclexInput);
+            }
 
             Tools.GameClass.Content.RootDirectory = "Content";
 
@@ -1590,6 +1601,14 @@ namespace CloudberryKingdom
 
         public void Update()
         {
+            if (UsingNuclexInput)
+            {
+                if (NuclexInput.GetGamePad(PlayerIndex.One).GetState().Buttons.Start == ButtonState.Pressed)
+                {
+                    Console.WriteLine("!");
+                }
+            }
+
 			if (MyGraphicsDeviceManager.IsFullScreen)
 			{
 				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;

@@ -5,24 +5,90 @@ using System.Linq;
 
 namespace CloudberryKingdom
 {
-    public class SaveSeedAs : VerifyBaseMenu
+    public class SaveSeedAs : EnterTextGui
     {
+        PlayerData Player;
+
         public SaveSeedAs(int Control, PlayerData Player)
             : base(false)
+        {
+            this.Player = Player;
+
+            HeaderWord = Localization.Words.SaveRandomSeedAs;
+            SuggestedString = Tools.CurLevel.MyLevelSeed.SuggestedName();
+
+            Constructor(Control);
+        }
+
+        protected override void OnEnter()
+        {
+            if (TextBox.Text.Length <= 0)
+                return;
+
+            // Save the seed
+            if (TextBox.Text.Length > 0)
+            {
+                OnSuccess();
+            }
+            else
+            {
+                OnFailure();
+            }
+
+            if (UseBounce)
+            {
+                Hid = true;
+                RegularSlideOut(PresetPos.Right, 0);
+            }
+            else
+            {
+                Hide(PresetPos.Left);
+                Active = false;
+            }
+        }
+
+        protected override void OnFailure()
+        {
+            // Failure!
+            var ok = new AlertBaseMenu(Control, Localization.Words.NoNameGiven, Localization.Words.Oh);
+            ok.OnOk = OnOk;
+            Call(ok);
+        }
+
+        protected override void OnSuccess()
+        {
+            Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+
+            // Success!
+            var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
+            ok.OnOk = OnOk;
+            Call(ok);
+
+            SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
+        }
+    }
+
+    public class EnterTextGui : VerifyBaseMenu
+    {
+        public EnterTextGui(bool CallBaseConstructor)
+            : base(CallBaseConstructor)
+        {
+        }
+
+        protected void Constructor(int Control)
         {
             EnableBounce();
 
             this.Control = Control;
-            this.Player = Player;
             FixedToCamera = true;
 
             Constructor();
         }
 
 		ClickableBack Back;
+        protected Localization.Words HeaderWord = Localization.Words.None;
 
-        PlayerData Player;
-        GUI_TextBox TextBox;
+        protected GUI_TextBox TextBox;
         EzText HeaderText;
         public override void Init()
         {
@@ -32,20 +98,12 @@ namespace CloudberryKingdom
             CallDelay = 0;
             ReturnToCallerDelay = 0;
             
-            MenuItem item;
-
             // Header
-            HeaderText = new EzText(Localization.Words.SaveRandomSeedAs, ItemFont, true, false);
+            HeaderText = new EzText(HeaderWord, ItemFont, true, false);
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
 
-            // Save seed
-			//item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
-			//item.Name = "Save";
-			//item.Go = Save;
-			//AddItem(item);
-			
 			// Console version: Start to save
 			if (ButtonCheck.ControllerInUse)
 			{
@@ -63,6 +121,7 @@ namespace CloudberryKingdom
 
 			if (ButtonCheck.ControllerInUse)
 			{
+                // X Button
 				var x = new EzText(Localization.Words.Delete, ItemFont);
 				MyPile.Add(x, "Delete");
 				x.MyFloatColor = Menu.DefaultMenuInfo.UnselectedXColor;
@@ -70,12 +129,13 @@ namespace CloudberryKingdom
 
 				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
 
-				//var back = new EzText(Localization.Words.Back, ItemFont);
-				//MyPile.Add(back, "Back");
-				//back.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
-				//back.OutlineColor = Color.Black.ToVector4();
+                // A Button
+                var a = new EzText(Localization.Words.Next, ItemFont);
+                MyPile.Add(a, "Next");
+                a.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
+                a.OutlineColor = Color.Black.ToVector4();
 
-				//MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
+                MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
 			}
 
 			Back = new ClickableBack(MyPile, false, true);
@@ -87,38 +147,12 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
-        void Save(MenuItem _item)
+        protected virtual void OnFailure()
         {
-            // Save the seed
-            if (TextBox.Text.Length > 0)
-            {
-                Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+        }
 
-                // Success!
-                var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
-                ok.OnOk = OnOk;
-                Call(ok);
-
-				SavedSeedsGUI.LastSeedSave_TimeStamp = Tools.DrawCount;
-            }
-            else
-            {
-                // Failure!
-                var ok = new AlertBaseMenu(Control, Localization.Words.NoNameGiven, Localization.Words.Oh);
-                ok.OnOk = OnOk;
-                Call(ok);
-            }
-
-            if (UseBounce)
-            {
-                Hid = true;
-                RegularSlideOut(PresetPos.Right, 0);
-            }
-            else
-            {
-                Hide(PresetPos.Left);
-                Active = false;
-            }
+        protected virtual void OnSuccess()
+        {
         }
 
         public override void OnReturnTo()
@@ -126,7 +160,7 @@ namespace CloudberryKingdom
             // Do nothing
         }
 
-        void OnOk()
+        protected void OnOk()
         {
             this.SlideOutTo = PresetPos.Left;
             ReturnToCaller(false);
@@ -158,17 +192,19 @@ namespace CloudberryKingdom
 						_t.Scale *= 1900.0f / w;
 				}
 
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1130.555f, 813.5558f); _t.Scale = 0.8019168f; }
-				_t = MyPile.FindEzText("Start"); if (_t != null) { _t.Pos = new Vector2(705.5557f, -125f); _t.Scale = 0.6350001f; }
-				_t = MyPile.FindEzText("Delete"); if (_t != null) { _t.Pos = new Vector2(2094.445f, -13.88877f); _t.Scale = 0.4135835f; }
+                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1130.555f, 813.5558f); _t.Scale = 0.8019168f; }
+                _t = MyPile.FindEzText("Start"); if (_t != null) { _t.Pos = new Vector2(705.5557f, -125f); _t.Scale = 0.6350001f; }
+                _t = MyPile.FindEzText("Delete"); if (_t != null) { _t.Pos = new Vector2(2094.445f, -13.88877f); _t.Scale = 0.4135835f; }
+                _t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(2088.889f, 113.8888f); _t.Scale = 0.4626667f; }
 
-				QuadClass _q;
-				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1175.696f, 233.3334f); _q.Size = new Vector2(1500f, 803.2258f); }
-				_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(2044.444f, -97.22224f); _q.Size = new Vector2(46.08334f, 46.08334f); }
-				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(2327.78f, -212.2218f); _q.Size = new Vector2(56.24945f, 56.24945f); }
-				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
+                QuadClass _q;
+                _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1175.696f, 233.3334f); _q.Size = new Vector2(1500f, 803.2258f); }
+                _q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(2044.444f, -97.22224f); _q.Size = new Vector2(46.08334f, 46.08334f); }
+                _q = MyPile.FindQuad("Button_A"); if (_q != null) { _q.Pos = new Vector2(2044.444f, 25.00002f); _q.Size = new Vector2(46.08331f, 46.08331f); }
+                _q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(2327.78f, -212.2218f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+                _q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
-				MyPile.Pos = new Vector2(-1180.001f, -240f);
+                MyPile.Pos = new Vector2(-1180.001f, -240f);
 			}
 			else
 			{
@@ -196,11 +232,13 @@ namespace CloudberryKingdom
 			}
 		}
 
+        protected string SuggestedString = "Type something!";
+
         public override void OnAdd()
         {
             base.OnAdd();
 
-            TextBox = new GUI_TextBox(Tools.CurLevel.MyLevelSeed.SuggestedName(), Vector2.Zero, new Vector2(1.85f, .65f), .95f);
+            TextBox = new GUI_TextBox(SuggestedString, Vector2.Zero, new Vector2(1.85f, .65f), .95f);
             TextBox.Control = Control;
             TextBox.MaxLength = 36;
             TextBox.FixedToCamera = false;
@@ -211,7 +249,6 @@ namespace CloudberryKingdom
             TextBox.OnEscape += OnEscape;
             MyGame.AddGameObject(TextBox);
 
-			//TextBox.MyText.MyFloatColor = 
 			TextBox.MyText.OutlineColor = ColorHelper.Gray(.1f);
 			StartMenu.SetTextSelected_Red(TextBox.MyText);
 
@@ -226,17 +263,8 @@ namespace CloudberryKingdom
             ReturnToCaller();
         }
 
-        void OnEnter()
+        protected virtual void OnEnter()
         {
-            if (TextBox.Text.Length <= 0)
-                return;
-
-            Save(null);
-            //MyGame.WaitThenDo(35, () =>
-            //{
-            //    float width = MyGame.Cam.GetWidth();
-            //    TextBox.Pos.LerpTo(new Vector2(-width, 0), 20);
-            //});
         }
     }
 }

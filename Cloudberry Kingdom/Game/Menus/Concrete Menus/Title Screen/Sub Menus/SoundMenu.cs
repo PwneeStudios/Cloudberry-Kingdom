@@ -24,6 +24,8 @@ namespace CloudberryKingdom
 
         Localization.Language ChosenLanguage;
 
+        int CurrentResolutionIndex = -1;
+
         EzText HeaderText;
         public override void Init()
         {
@@ -174,13 +176,11 @@ namespace CloudberryKingdom
                 i++;
             }
             AddItem(FsRezList);
+            CurrentResolutionIndex = CurRez;
             FsRezList.SetIndex(CurRez);
             FsRezList.OnConfirmedIndexSelect = () =>
             {
-                PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                ResolutionGroup.Use(FsRezList.CurObj as DisplayMode);
-                SaveGroup.SaveAll();
-                PlayerManager.SaveRezAndKeys();
+                OnResolutionSelect(this, FsRezList);
             };
 
             // Full screen toggle
@@ -249,6 +249,55 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
         }
 
+        private static void OnResolutionSelect(SoundMenu menu, MenuList FsRezList)
+        {
+            DisplayMode rez = FsRezList.CurObj as DisplayMode;
+            if (null == rez) return;
+
+            if (!ButtonCheck.MouseInUse)
+            {
+                UseResolution(FsRezList);
+                return;
+            }
+
+            if (!menu.Active)
+            {
+                return;
+            }
+
+            string Header = Localization.WordString(Localization.Words.Use) + " " + rez.Width + " x " + rez.Height + "?";
+
+            var verify = new VerifyMenu(menu.Control,
+                                        Header,
+                                        Localization.Words.Yes,
+                                        Localization.Words.Cancel,
+                                        Verify =>
+                                        {
+                                            menu.CurrentResolutionIndex = FsRezList.ListIndex;
+                                            UseResolution(FsRezList);
+                                            Verify.ReturnToCaller(false);
+                                            Verify.Hide(PresetPos.Left, 0);
+                                        },
+                                        Verify =>
+                                        {
+                                            Verify.ReturnToCaller(false);
+                                            FsRezList.SetIndex(menu.CurrentResolutionIndex);
+                                        });
+
+            menu.BounceOrSlideOut();
+
+            menu.SkipCallSound = true;
+            menu.Call(verify);
+        }
+
+        private static void UseResolution(MenuList FsRezList)
+        {
+            PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
+            ResolutionGroup.Use(FsRezList.CurObj as DisplayMode);
+            SaveGroup.SaveAll();
+            PlayerManager.SaveRezAndKeys();
+        }
+
 #if PC_VERSION
 		List<DisplayMode> RemoveRedundantResolutions(List<DisplayMode> modes)
 		{
@@ -283,22 +332,12 @@ namespace CloudberryKingdom
 
         void Go_CustomControls()
         {
-            if (UseBounce)
-            {
-                PauseGame = false;
-                Hid = true;
-                RegularSlideOut(PresetPos.Right, 0);
-            }
-            else
-            {
-                Hide();
-            }
+            BounceOrSlideOut();
 
             Call(new CustomControlsMenu(), 0);
         }
-#endif
 
-        void Go_Controls()
+        private void BounceOrSlideOut()
         {
             if (UseBounce)
             {
@@ -310,7 +349,12 @@ namespace CloudberryKingdom
             {
                 Hide();
             }
+        }
+#endif
 
+        void Go_Controls()
+        {
+            BounceOrSlideOut();
             Call(new ControlScreen(Control), 0);
         }
 
@@ -335,7 +379,12 @@ namespace CloudberryKingdom
 		void StartCredits()
 		{
 			MyGame.WaitThenDo(20, AfterCredits);
+			
+#if PC_VERSION
+			MainVideo.StartVideo("Credits_PC", false, 1.0f);
+#else
 			MainVideo.StartVideo("Credits", false, 1.0f);
+#endif
 		}
 
 		void AfterCredits()

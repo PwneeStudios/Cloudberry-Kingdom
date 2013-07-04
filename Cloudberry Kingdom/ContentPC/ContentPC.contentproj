@@ -6701,15 +6701,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Movies\Credits.wmv">
-      <Name>Credits</Name>
+    <Compile Include="Movies\LogoSalad_ESRB.wmv">
+      <Name>LogoSalad_ESRB</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Movies\LogoSalad_ESRB.wmv">
-      <Name>LogoSalad_ESRB</Name>
+    <Compile Include="Movies\Credits_PC.wmv">
+      <Name>Credits_PC</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
     </Compile>

@@ -224,7 +224,7 @@ namespace CloudberryKingdom
 				}
 			}
             if (ButtonCheck.State(ControllerButtons.X, control).Pressed || BackspacePressed) { UsingGamepad = true; Backspace(); BackspacePressed = false; return; }
-            if (ButtonCheck.State(ControllerButtons.Y, control).Pressed) { Cancel(); return; }
+            //if (ButtonCheck.State(ControllerButtons.Y, control).Pressed) { Cancel(); return; }
             if (ButtonCheck.State(ControllerButtons.Start, control).Pressed || EnterPressed)
 			{
 				if (ButtonCheck.ControllerInUse ||
@@ -560,7 +560,7 @@ namespace CloudberryKingdom
 
         protected override EzText MakeText(string text, bool centered, EzFont font)
         {
-            EzText eztext = new EzText(text, font, 1000, centered, true, .575f);
+            EzText eztext = new EzText(text, font, 100000, centered, true, .575f);
             eztext.MyFloatColor = Color.Black.ToVector4();
             eztext.OutlineColor = Color.Transparent.ToVector4();
             

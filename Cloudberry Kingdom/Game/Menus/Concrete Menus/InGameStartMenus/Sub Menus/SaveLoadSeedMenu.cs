@@ -198,7 +198,6 @@ namespace CloudberryKingdom
                 case Localization.Language.Portuguese:  scale = .82f; shift.X = -370; break;
                 case Localization.Language.French:      scale = .88f; shift.X = -100; break;
                 default: break;
-
             }
 
             foreach (var _item in MyMenu.Items)
@@ -265,7 +264,7 @@ namespace CloudberryKingdom
 		{
 		}
 
-		static void OnGamepadTextInputEnd(bool result)
+		static void OnGamepadTextInputEnd_SaveSeed(bool result)
 		{
 			if (result && _player != null)
 			{
@@ -302,7 +301,7 @@ namespace CloudberryKingdom
 				_player = player;
 
 				bool GamepadInputUp = SteamTextInput.ShowGamepadTextInput(
-					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd);
+					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd_SaveSeed);
 
 				if (GamepadInputUp) return;
 			}
@@ -422,7 +421,7 @@ namespace CloudberryKingdom
             LoadSeedAs LoadAs = new LoadSeedAs(Control, player);
             Call(LoadAs, 0);
 
-            if (UseBounce)
+            //if (UseBounce)
             {
                 Hid = true;
                 RegularSlideOut(PresetPos.Right, 0);
