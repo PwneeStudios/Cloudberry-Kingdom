@@ -215,7 +215,7 @@ namespace CloudberryKingdom
             CharacterSelectManager.ParentPanel = null;
         }
 
-        static bool AllExited()
+        public static bool AllExited()
         {
             bool All = true;
             for (int i = 0; i < 4; i++)
@@ -302,6 +302,10 @@ namespace CloudberryKingdom
             CharacterSelectManager.ParentPanel = null;
         }
 
+#if PC_VERSION
+		public static bool NonGamepadJoined = false;
+#endif
+
         public static bool Active = false;
         public static void PhsxStep()
         {
@@ -312,6 +316,20 @@ namespace CloudberryKingdom
 
             if (AllNull())
                 IsShowing = false;
+
+#if PC_VERSION
+			// Check if a player has joined that isn't using a gamepad (via mouse or keyboard)
+			NonGamepadJoined = false;
+			for (int i = 0; i < 4; i++)
+			{
+				// If a player is past the PressToJoin screen and DOESN'T have a controller connected, assume they are using the mouse or keyboard.
+				if (CharSelect[i].MyState != CharacterSelect.SelectState.Beginning && !CoreGamepad.IsConnected(i))
+				{
+					NonGamepadJoined = true;
+					break;
+				}
+			}
+#endif
 
             // Check for finishing from character selection
             if (AllFinished() && IsShowing)
@@ -328,9 +346,11 @@ namespace CloudberryKingdom
             // Check for ready to exit from character selection
             if (AllExited() && IsShowing)
             {
+				
                 if (ButtonCheck.State(ControllerButtons.B, -2).Pressed
 #if PC_VERSION
 					|| Tools.RightMouseReleased()
+					|| (Backdrop != null && Backdrop.BackClicked)
 #endif
 					)
                 {

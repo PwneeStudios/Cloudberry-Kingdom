@@ -79,6 +79,26 @@ namespace CloudberryKingdom
 #endif
 		}
 
+		public void Show()
+		{
+			q1.Show = q2.Show = true;
+
+			if (q1.Alpha < 1)
+			{
+				q1.Alpha += .1f;
+				q2.Alpha += .1f;
+			}
+		}
+
+		public void Hide()
+		{
+			if (q1.Alpha > 0)
+			{
+				q1.Alpha -= .1f;
+				q2.Alpha -= .1f;
+			}
+		}
+
 		/// <summary>
 		/// Updates the back button. Should be called in the owning GUI_Panel's phsx update.
 		/// </summary>
@@ -1018,7 +1038,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return s;
         }
 #endif
-        public static XnaInput.GamePadState[] GamepadState, PrevGamepadState;
 
         /// <summary>
         /// Return just the file name of a path.

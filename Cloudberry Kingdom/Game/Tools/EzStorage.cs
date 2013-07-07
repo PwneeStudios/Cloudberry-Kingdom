@@ -144,6 +144,14 @@ namespace CloudberryKingdom
 		    // Fuck these stats
 		    //boost.shared_ptr<PlayerStats> LifetimeStats, GameStats, LevelStats, TempStats;
 		    //boost.shared_ptr<PlayerStats> CampaignStats;
+
+			// Players 2, 3, 4 copy Player 1's seeds
+			for (int i = 1; i < 4; i++)
+			{
+				if (PlayerManager.Players[i] == null) continue;
+
+				PlayerManager.Players[i].MySavedSeeds.SeedStrings = PlayerManager.Players[0].MySavedSeeds.SeedStrings;
+			}
 	    }
 
         /// <summary>

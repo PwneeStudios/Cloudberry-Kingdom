@@ -30,13 +30,8 @@ using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
 
-#if PC_VERSION && CUSTOM_INPUT
-using Joystick;
-#endif
-
 #if PC_VERSION
 using SteamManager;
-using Nuclex.Input;
 #endif
 
 namespace CloudberryKingdom
@@ -57,10 +52,6 @@ namespace CloudberryKingdom
 				return UsingSteam && SteamInitialized;
 			}
 		}
-
-        // Nuclex Input
-        public const bool UsingNuclexInput = true;
-        public static InputManager NuclexInput;
 #endif
 
 #if DEBUG
@@ -738,11 +729,7 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
-            if (UsingNuclexInput)
-            {
-                NuclexInput = new InputManager(Tools.GameClass.Services, Tools.GameClass.Window.Handle);
-                Tools.GameClass.Components.Add(NuclexInput);
-            }
+			CoreGamepad.Initialize(Tools.GameClass.Services, Tools.GameClass.Components, Tools.GameClass.Window.Handle);
 
             Tools.GameClass.Content.RootDirectory = "Content";
 
@@ -777,10 +764,6 @@ namespace CloudberryKingdom
 
 				SteamInitialized = SteamCore.Initialize();
 			}
-#endif
-
-#if PC_VERSION && CUSTOM_INPUT
-			StickInput.GetSticks();
 #endif
 
 #if WINDOWS
@@ -1113,9 +1096,8 @@ namespace CloudberryKingdom
             MainCamera.Update();
             Tools.Write("Camera updated");
 
-            // Initialize the Gamepads
-            Tools.GamepadState = new GamePadState[4];
-            Tools.PrevGamepadState = new GamePadState[4];
+			CoreGamepad.OnLoad();
+
 #if XBOX
             Tools.PlayerKeyboard = new KeyboardState[4];
             Tools.PrevPlayerKeyboard = new KeyboardState[4];
@@ -1479,9 +1461,8 @@ namespace CloudberryKingdom
             {
                 if (PlayerManager.Get(i).Exists)
                 {
-                    if (Tools.GamepadState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.GamepadState[i].Buttons.RightShoulder == ButtonState.Pressed &&
-                        (Tools.PrevGamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed
-                         || Tools.PrevGamepadState[i].Buttons.RightShoulder != ButtonState.Pressed))
+					if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
+						!(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
                         ShortReset = true;
                 }
             }
@@ -1493,8 +1474,7 @@ namespace CloudberryKingdom
                 {
                     if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
                     {
-                        if (Tools.GamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed &&
-                            Tools.GamepadState[i].Buttons.RightShoulder != ButtonState.Pressed)
+						if (!CoreGamepad.IsPressed(i, ControllerButtons.LS) && !CoreGamepad.IsPressed(i, ControllerButtons.RS))
                             ShortReset = false;
                     }
                 }
@@ -1508,9 +1488,9 @@ namespace CloudberryKingdom
                     for (int i = 0; i < 4; i++)
                     {
                         if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
-						if (Tools.GamepadState[i].Buttons.LeftShoulder == ButtonState.Pressed && Tools.GamepadState[i].Buttons.RightShoulder == ButtonState.Pressed &&
-							(Tools.PrevGamepadState[i].Buttons.LeftShoulder != ButtonState.Pressed
-								|| Tools.PrevGamepadState[i].Buttons.RightShoulder != ButtonState.Pressed))
+
+						if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
+							!(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
                         {
 							foreach (Bob bob in Tools.CurLevel.Bobs)
 							{
@@ -1601,14 +1581,6 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            if (UsingNuclexInput)
-            {
-                if (NuclexInput.GetGamePad(PlayerIndex.One).GetState().Buttons.Start == ButtonState.Pressed)
-                {
-                    Console.WriteLine("!");
-                }
-            }
-
 			if (MyGraphicsDeviceManager.IsFullScreen)
 			{
 				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
@@ -1732,7 +1704,7 @@ namespace CloudberryKingdom
 			// True if an existing player is disconnected.
 			for (int i = 0; i < 4; i++)
 			{
-				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !Tools.GamepadState[i].IsConnected)
+				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !CoreGamepad.IsConnected(i))
 				{
 					return true;
 				}
@@ -2112,20 +2084,19 @@ namespace CloudberryKingdom
 #endif
 
             // Update controller/keyboard states
-            if (WindowInFocus)
-                ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-            else
-            {
-                Tools.Keyboard = new KeyboardState();
-                Tools.PrevKeyboard = new KeyboardState();
-                
-                Tools.GamepadState[0] = new GamePadState();
-                Tools.GamepadState[1] = new GamePadState();
-                Tools.GamepadState[2] = new GamePadState();
-                Tools.GamepadState[3] = new GamePadState();
+			if (WindowInFocus)
+			{
+				ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+			}
+			else
+			{
+				Tools.Keyboard = new KeyboardState();
+				Tools.PrevKeyboard = new KeyboardState();
 
-                Tools.KillVibrations();
-            }
+				CoreGamepad.Clear();
+
+				Tools.KillVibrations();
+			}
 
             // Update sounds
             if (!LogoScreenUp)

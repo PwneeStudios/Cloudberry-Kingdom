@@ -14,6 +14,14 @@ namespace CloudberryKingdom
     public class JoinText : CkBaseMenu
     {
         CharacterSelect MyCharacterSelect;
+		
+#if PC_VERSION
+		QuadClass Overlay;
+		EzText MouseClickText;
+#endif
+		
+		EzText Text;
+
         public JoinText(int Control, CharacterSelect MyCharacterSelect)
             : base(false)
         {
@@ -31,7 +39,6 @@ namespace CloudberryKingdom
             MyCharacterSelect = null;
         }
 
-        EzText Text;
         public override void Init()
 		{
 			base.Init();
@@ -44,8 +51,64 @@ namespace CloudberryKingdom
 			MyPile = new DrawPile();
 			EnsureFancy();
 
+			int ButtonSize = 0;
+			string pressa = null;
+
+#if PC_VERSION
+			Overlay = new QuadClass();
+			Overlay.TextureName = "White";
+			Overlay.Alpha = .13333f;
+
+			Overlay.Pos = new Vector2(-2.777588f, 8.333324f);
+			Overlay.Size = new Vector2(440.6654f, 1008.58f);
+			
+			MyPile.Add(Overlay, "Overlay");
+
+			/* Alternate text for mouse hover */
+			ButtonSize = 90;
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+			{
+				ButtonSize = 70;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				ButtonSize = 70;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
+			{
+				ButtonSize = 95;
+			}
+
+			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.LeftClick(ButtonSize));
+
+			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
+			{
+				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				MouseClickText.Pos = new Vector2(11.11133f, 63.88889f);
+				MouseClickText.Scale = 0.9542501f;
+			}
+			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
+			{
+				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				MouseClickText.Pos = new Vector2(11.11133f, 63.88889f);
+				MouseClickText.Scale = 0.9542501f;
+			}
+			else
+			{
+				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, true, true);
+				MouseClickText.Scale = .7765f;
+			}
+
+			MouseClickText.ShadowOffset = new Vector2(7.5f, 7.5f);
+			MouseClickText.ShadowColor = new Color(30, 30, 30);
+			MouseClickText.ColorizePics = true;
+
+			MouseClickText.Show = false;
+			MyPile.Add(MouseClickText);
+#endif
+
 			// Press A to join
-			int ButtonSize = 89;
+			ButtonSize = 89;
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
 				ButtonSize = 75;
@@ -60,11 +123,11 @@ namespace CloudberryKingdom
 			}
 
 #if PC_VERSION
-			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
+			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
 #elif CAFE
-			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin_WiiU), ButtonString.Go(ButtonSize));
+			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin_WiiU), ButtonString.Go(ButtonSize));
 #else
-			string pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
+			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go(ButtonSize));
 #endif
 
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
@@ -123,6 +186,11 @@ namespace CloudberryKingdom
 				Text.Pos = new Vector2(0f, 0f);
 				Text.Scale = 0.5195001f;
 			}
+
+#if PC_VERSION
+			MouseClickText.Pos = Text.Pos;
+			MouseClickText.Scale = Text.Scale;
+#endif
 		}
 
         public static void ScaleGamerTag(EzText GamerTag)
@@ -180,11 +248,64 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyGamerTag.ShowGamerTag = false;
             MyCharacterSelect.Player.Exists = false;
 
-            // Use this if statement if you want keyboard to control all characters (For debugging)
-            //if (ButtonCheck.State(ControllerButtons.A, -2).Pressed)
+#if PC_VERSION
+			// Mouse hover
+			if (Tools.MouseInWindow && ButtonCheck.MouseInUse && !CharacterSelectManager.NonGamepadJoined)
+			{
+				// Force the quad to show so that we can HitTest against it
+				Overlay.Show = true;
+
+				if (Overlay.HitTest(Tools.MouseWorldPos()))
+				{
+					Overlay.Show = true;
+					MouseClickText.Show = true;
+					Text.Show = false;
+				}
+				else
+				{
+					Overlay.Show = false;
+					MouseClickText.Show = false;
+					Text.Show = true;
+				}
+			}
+			else
+			{
+				Overlay.Show = false;
+				MouseClickText.Show = false;
+				Text.Show = true;
+			}
+#endif
+
+#if PC_VERSION
+			if (Overlay.Show && Tools.MouseDown() && !Tools.PrevMouseDown())
+			{
+				CoreKeyboard.KeyboardPlayerIndex = (PlayerIndex)Control;
+			}
+#endif
 
 			if (CharacterSelectManager.Active && ButtonCheck.State(ControllerButtons.A, Control).Pressed)
             {
+#if PC_VERSION
+				if (!Tools.MouseDown() ||
+					 ButtonCheck.GetState(ControllerButtons.A, Control, false, false, false).Pressed)
+				{
+					// gamepad or keyboard join, so continue
+				}
+				else
+				{
+					// non-gamepad join, make sure player is highlighted by mouse
+					if (Overlay.Show)
+					{
+						// continue
+					}
+					else
+					{
+						// abort
+						return;
+					}
+				}
+#endif
+
 #if XDK
                 if (MyCharacterSelect.Player.MyGamer == null)
                 {

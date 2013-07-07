@@ -40,6 +40,10 @@ namespace CloudberryKingdom
             Update();
         }
 
+#if PC_VERSION
+		ClickableBack Back;
+#endif
+
         void Update()
         {
 			EzText _t;
@@ -222,6 +226,14 @@ namespace CloudberryKingdom
 
             //SetPos_NoCinematic();
             SetPos_WithCinematic();
+
+#if PC_VERSION
+			Back = new ClickableBack(MyPile, false, true);
+
+			QuadClass _q;
+			_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1511.109f, -817.7772f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+			_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
+#endif
         }
 
         protected void MakeHeader()
@@ -235,6 +247,19 @@ namespace CloudberryKingdom
             
             Header.Pos = new Vector2(-800.0029f, 863.8889f);
         }
+
+		protected override void MyPhsxStep()
+		{
+			base.MyPhsxStep();
+
+			if (!Active) return;
+
+			// Update the back button and the scroll bar
+			if (Back.UpdateBack(MyCameraZoom))
+			{
+				MenuReturnToCaller(MyMenu);
+			}
+		}
 
         void Go(MenuItem item)
         {

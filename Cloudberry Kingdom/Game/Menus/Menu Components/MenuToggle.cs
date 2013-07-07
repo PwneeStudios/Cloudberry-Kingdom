@@ -1,5 +1,7 @@
 ﻿using System;
 
+using CoreEngine;
+
 namespace CloudberryKingdom
 {
     public class MenuToggle : MenuItem

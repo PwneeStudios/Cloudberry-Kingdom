@@ -617,7 +617,7 @@ namespace CloudberryKingdom
             bool SelectThis = false;
 			if (ButtonCheck.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
 				&& !MyMenu.HasSelectedThisStep && Selectable
-				&& (MyMenu.UseMouseAndKeyboard || Control == 0))
+				&& (MyMenu.UseMouseAndKeyboard || Control == CoreKeyboard.KeyboardPlayerNumber))
 			{
 				if (HitTest())
 				{

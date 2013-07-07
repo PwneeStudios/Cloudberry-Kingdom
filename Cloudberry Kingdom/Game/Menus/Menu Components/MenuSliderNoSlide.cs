@@ -1,4 +1,6 @@
-﻿namespace CloudberryKingdom
+﻿using CoreEngine;
+
+namespace CloudberryKingdom
 {
     public class MenuSliderNoSlide : MenuSliderBase
     {

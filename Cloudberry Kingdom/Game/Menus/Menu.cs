@@ -508,7 +508,7 @@ namespace CloudberryKingdom
             Tools.TheGame.ShowMouse = true;
 
             // If mouse is in use check to see if anything should be selected
-            if (ButtonCheck.MouseInUse && (UseMouseAndKeyboard || Control == 0))
+			if (ButtonCheck.MouseInUse && (UseMouseAndKeyboard || Control == CoreKeyboard.KeyboardPlayerNumber))
             {
                 /*
                 if (Tools.MouseDown())
@@ -638,7 +638,7 @@ namespace CloudberryKingdom
                 }
             }
 
-            if (Tools.RightMouseReleased() && (UseMouseAndKeyboard || Control == 0))
+			if (Tools.RightMouseReleased() && (UseMouseAndKeyboard || Control == CoreKeyboard.KeyboardPlayerNumber))
                 ClickBack = true;
 #endif
             // B button

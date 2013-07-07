@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using CoreEngine;
+
 namespace CloudberryKingdom
 {
     public delegate void MenuListSelect();

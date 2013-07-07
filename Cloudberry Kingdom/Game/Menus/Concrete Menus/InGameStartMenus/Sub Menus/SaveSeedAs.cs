@@ -57,7 +57,15 @@ namespace CloudberryKingdom
 
         protected override void OnSuccess()
         {
-            Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+			Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+//#if PC_VERSION
+//            for (int i = 0; i < 4; i++)
+//            {
+//                PlayerManager.Players[i].MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+//            }
+//#else
+//            Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
+//#endif
 
             // Success!
             var ok = new AlertBaseMenu(Control, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);

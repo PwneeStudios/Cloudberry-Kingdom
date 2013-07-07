@@ -53,8 +53,9 @@ namespace CloudberryKingdom
 		{
 			if (MyQuad != null)
 			{
-				MyQuad.Pos = Pos + new Vector2(-150, -115);
-				MyQuad.Draw();	
+				MyQuad.Pos = Pos + new Vector2(-150, -115) + cam.Pos;
+				//MyQuad.Pos = Tools.CurCamera.Pos;
+				MyQuad.Draw();
 			}
 
 			base.Draw(Text, cam, Selected);

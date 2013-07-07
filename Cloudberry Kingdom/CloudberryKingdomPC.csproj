@@ -197,8 +197,10 @@
   <ItemGroup>
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\Effects\EzEffectWad.cs" />
-    <Compile Include="Core\Input\SlimGamepad.cs" />
-    <Compile Include="Core\Input\SlimInput_Wrapper.cs" />
+    <Compile Include="Core\Input\BaseInput.cs" />
+    <Compile Include="Core\Input\Implementations\XnaInput.cs" />
+    <Compile Include="Core\Input\Implementations\NuclexInput.cs" />
+    <Compile Include="Core\Input\CoreInput.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Tools\Set.cs" />
     <Compile Include="Core\Graphics\MainRender.cs" />

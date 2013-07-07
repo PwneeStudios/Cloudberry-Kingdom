@@ -27,6 +27,11 @@ namespace CloudberryKingdom
         int CurrentResolutionIndex = -1;
 
         EzText HeaderText;
+
+#if PC_VERSION
+		ClickableBack Back;
+#endif
+
         public override void Init()
         {
             ChosenLanguage = Localization.CurrentLanguage.MyLanguage;
@@ -228,7 +233,8 @@ namespace CloudberryKingdom
 
 
 #if PC_VERSION
-            MakeBackButton();
+            //MakeBackButton();
+			Back = new ClickableBack(MyPile, false, true);
 #else
             MakeBackButton();
             //MakeStaticBackButton();
@@ -628,6 +634,8 @@ if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1055.558f, -889.9993f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
 				MyPile.Pos = new Vector2(29.76172f, 21.82541f);
 }
@@ -654,6 +662,8 @@ else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanis
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1055.558f, -889.9993f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
 				MyPile.Pos = new Vector2(29.76172f, 21.82541f);
 }
@@ -680,6 +690,8 @@ else
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1055.558f, -889.9993f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
 				MyPile.Pos = new Vector2(29.76172f, 21.82541f);
 }
@@ -706,6 +718,8 @@ else
 
                 QuadClass _q;
                 _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-18.6521f, -10.31725f); _q.Size = new Vector2(1376.984f, 1077.035f); }
+				_q = MyPile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(1055.558f, -889.9993f); _q.Size = new Vector2(56.24945f, 56.24945f); }
+				_q = MyPile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
                 MyPile.Pos = new Vector2(29.76172f, 21.82541f);
             }
@@ -727,6 +741,20 @@ else
 					Black.Alpha += .02f;
 				else
 					Black.Alpha -= .02f;
+			}
+		}
+
+		protected override void MyPhsxStep()
+		{
+			base.MyPhsxStep();
+
+			if (!Active) return;
+
+			// Update the back button and the scroll bar
+			if (Back.UpdateBack(MyCameraZoom))
+			{
+				MenuReturnToCaller(MyMenu);
+				return;
 			}
 		}
     }

@@ -153,6 +153,7 @@ namespace CloudberryKingdom
             return string.Format("{{p{0},{1},?}}{{s15,0}}", ButtonString.KeyToTexture(key), size);
         }
 
+		public static string LeftClick(int size)	 { return string.Format("{{pLeftClick_Icon,{0},?}}", size); }
         public static string Go_Controller(int size) { return string.Format("{{pXbox_A,{0},?}}", size); }
 #else
         public static void Init() { }

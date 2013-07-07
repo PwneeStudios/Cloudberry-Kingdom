@@ -3,6 +3,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using CoreEngine;
+
 namespace CloudberryKingdom
 {
     public static class KeyboardExtension
@@ -72,7 +74,7 @@ namespace CloudberryKingdom
             bool Incr = false;
             for (int i = 0; i < 4; i++)
             {
-                if (Tools.GamepadState[i].Buttons.A == ButtonState.Pressed)
+				if (CoreGamepad.IsPressed(i, ControllerButtons.A))
                 {
                     Controller[i].IncrCount(ControllerButtons.A);
                     Incr = true;
@@ -128,15 +130,20 @@ namespace CloudberryKingdom
         }
     }
 
-    public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any };
-
     public enum MashType { Hold, Tap, Alternate, HoldDir };
 
     public struct ButtonData 
     { 
-        public bool Down; public bool Pressed; public bool Released; public Vector2 Dir; public float Squeeze;
-        public int PressingPlayer;
+        public bool Down;
+		public bool Pressed;
+		public bool Released;
+		
+		public Vector2 Dir;
+		public float Squeeze;
+        
+		public int PressingPlayer;
     }
+
     public class ButtonCheck
     {
 		public static bool DisableSecondaryInput = false;
@@ -154,8 +161,25 @@ namespace CloudberryKingdom
 
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
-#if PC_VERSION && CUSTOM_INPUT
-			Joystick.StickInput.ReadData();
+#if PC_VERSION
+			// If keyboard player no longer exists, shift keyboard control to first existing player
+			if (CloudberryKingdomGame.CurrentPresence != CloudberryKingdomGame.Presence.TitleScreen)
+			{
+				if (!PlayerManager.Players[CoreKeyboard.KeyboardPlayerNumber].Exists)
+				{
+					// Set keyboard player to be player one in case we don't find an existing player below
+					CoreKeyboard.KeyboardPlayerIndex = PlayerIndex.One;
+
+					for (int i = 0; i < 4; i++)
+					{
+						if (PlayerManager.Players[i].Exists)
+						{
+							CoreKeyboard.KeyboardPlayerIndex = (PlayerIndex)i;
+							break;
+						}
+					}
+				}
+			}
 #endif
 
             // Update controller/keyboard states
@@ -173,10 +197,7 @@ namespace CloudberryKingdom
             Tools.Mouse = Mouse.GetState();
 #endif
 
-            Tools.GamepadState[0] = GamePad.GetState(PlayerIndex.One);
-            Tools.GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
-            Tools.GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
-            Tools.GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
+			CoreGamepad.Update();
 
             ButtonStats.Update();
 
@@ -220,10 +241,7 @@ namespace CloudberryKingdom
                     Tools.PrevPlayerKeyboard[i] = Tools.PlayerKeyboard[i];
 #endif
 
-            // Store the previous states of the Xbox controllers.
-            for (int i = 0; i < 4; i++)
-                if (Tools.PrevGamepadState[i] != null)
-                    Tools.PrevGamepadState[i] = Tools.GamepadState[i];
+			CoreGamepad.Update_EndOfStep();
         }
 
 #if PC_VERSION
@@ -652,7 +670,6 @@ namespace CloudberryKingdom
                         if (NoneExist || PlayerManager.Get(i).Exists || iPlayerIndex == -2)
                         {
 							ButtonData data = GetState(Button, i, false, UseKeyboardMapping, true);
-							//ButtonData data = GetState(Button, i, false, UseKeyboardMapping, UseMouseAndKeyboard);
 
                             // Track which player is the one pressing the button.
                             if (data.Pressed)
@@ -691,7 +708,6 @@ namespace CloudberryKingdom
                 (UseKeyboardMapping && (iPlayerIndex == 0 || PlayerManager.Get(iPlayerIndex).Exists))
                 )
             {
-//#if PC_VERSION
                 if (Button == ControllerButtons.Enter) key = Keys.Enter;
 
                 if (Button == ControllerButtons.Start)
@@ -710,33 +726,20 @@ namespace CloudberryKingdom
                 }
                 if (Button == ControllerButtons.X)
                     TertiaryKey = SlowMoToggle_Secondary;
-                //if (Button == ControllerButtons.Y)
-                //    TertiaryKey = Help_Secondary;
                 if (Button == ControllerButtons.LS)
                     TertiaryKey = ReplayPrev_Secondary;
                 if (Button == ControllerButtons.RS)
                     TertiaryKey = ReplayNext_Secondary;
 
 
-                if (Button == ControllerButtons.X) key = Keys.None;// Keys.C;
-                if (Button == ControllerButtons.Y) key = Keys.None;// Keys.V;
+                if (Button == ControllerButtons.X) key = Keys.None;
+                if (Button == ControllerButtons.Y) key = Keys.None;
                 if (Button == ControllerButtons.RT) key = Keys.OemPeriod;
                 if (Button == ControllerButtons.LT) key = Keys.OemComma;
                 if (Button == ControllerButtons.LS) key = Keys.A;
                 if (Button == ControllerButtons.RS) key = Keys.D;
-//#else
-//                if (Button == ControllerButtons.Start) key = Keys.S;
-//                if (Button == ControllerButtons.Back) key = Keys.Escape;
-//                if (Button == ControllerButtons.A) key = Keys.Z;
-//                if (Button == ControllerButtons.B) key = Keys.X;
-//                if (Button == ControllerButtons.X) key = Keys.C;
-//                if (Button == ControllerButtons.Y) key = Keys.V;
-//                if (Button == ControllerButtons.RT) key = Keys.OemPeriod;
-//                if (Button == ControllerButtons.LT) key = Keys.OemComma;
-//#endif
 
                 if (Button == ControllerButtons.Start) SecondaryKey = Keys.Back;
-                //if (Button == ControllerButtons.Back) SecondaryKey = Keys.Back;
                 if (Button == ControllerButtons.B) SecondaryKey = Keys.Back;
             }
 
@@ -747,61 +750,25 @@ namespace CloudberryKingdom
                 keyboard = Tools.Keyboard;
 
 #endif
-            //#else
-            GamePadState Pad;
-            if (Prev) Pad = Tools.PrevGamepadState[iPlayerIndex];
-            else Pad = Tools.GamepadState[iPlayerIndex];
+			Data.Down = CoreGamepad.IsPressed(iPlayerIndex, Button, Prev);
 
-            switch (Button)
+			switch (Button)
             {
-                case ControllerButtons.Start: Data.Down = (Pad.Buttons.Start == ButtonState.Pressed); break;
-                case ControllerButtons.Back: Data.Down = (Pad.Buttons.Back == ButtonState.Pressed); break;
-                case ControllerButtons.A: Data.Down = (Pad.Buttons.A == ButtonState.Pressed); break;
-                case ControllerButtons.B: Data.Down = (Pad.Buttons.B == ButtonState.Pressed); break;
-                case ControllerButtons.X: Data.Down = (Pad.Buttons.X == ButtonState.Pressed); break;
-                case ControllerButtons.Y: Data.Down = (Pad.Buttons.Y == ButtonState.Pressed); break;
-                case ControllerButtons.LJButton: Data.Down = (Pad.Buttons.LeftStick == ButtonState.Pressed); break;
-                case ControllerButtons.RJButton: Data.Down = (Pad.Buttons.RightStick == ButtonState.Pressed); break;
-                case ControllerButtons.LS: Data.Down = (Pad.Buttons.LeftShoulder == ButtonState.Pressed); break;
-                case ControllerButtons.RS: Data.Down = (Pad.Buttons.RightShoulder == ButtonState.Pressed); break;
-                case ControllerButtons.LT:
-                    {
-                        Data.Down = (Pad.Triggers.Left > .5f);
-                        Data.Squeeze = Pad.Triggers.Left;
-                        break;
-                    }
-                case ControllerButtons.RT:
-                    {
-                        Data.Down = (Pad.Triggers.Right > .5f);
-                        Data.Squeeze = Pad.Triggers.Right;
-                        break;
-                    }
-                case ControllerButtons.LJ:
-                    Data.Dir = Pad.ThumbSticks.Left;
-                    Data.Down = (Pad.Buttons.LeftStick == ButtonState.Pressed);
-                    break;
-                case ControllerButtons.RJ:
-                    Data.Dir = Pad.ThumbSticks.Right;
-                    Data.Down = (Pad.Buttons.RightStick == ButtonState.Pressed);
-                    break;
-                case ControllerButtons.DPad:
-                    {
-                        Data.Dir = Vector2.Zero;
-                        if (Pad.DPad.Right == ButtonState.Pressed) Data.Dir = new Vector2(1, 0);
-                        if (Pad.DPad.Up == ButtonState.Pressed) Data.Dir = new Vector2(0, 1);
-                        if (Pad.DPad.Left == ButtonState.Pressed) Data.Dir = new Vector2(-1, 0);
-                        if (Pad.DPad.Down == ButtonState.Pressed) Data.Dir = new Vector2(0, -1);
-                    }
-                    break;
+                case ControllerButtons.LT: Data.Squeeze = CoreGamepad.LeftTrigger (iPlayerIndex); break;
+				case ControllerButtons.RT: Data.Squeeze = CoreGamepad.RightTrigger(iPlayerIndex); break;
+
+				case ControllerButtons.LJ: Data.Dir = CoreGamepad.LeftJoystick (iPlayerIndex); break;
+				case ControllerButtons.RJ: Data.Dir = CoreGamepad.RightJoystick(iPlayerIndex); break;
+
+				case ControllerButtons.DPad: Data.Dir = CoreGamepad.DPad(iPlayerIndex); break;
             }
-            //#endif
+
 
 #if WINDOWS
 if (
     (SingleOutPlayer && iPlayerIndex == ThisPlayerOnly)
     ||
-	//(UseKeyboardMapping && (iPlayerIndex == 0 || !PlayerManager.Get(0).Exists))
-	(UseKeyboardMapping && iPlayerIndex == 0)
+	(UseKeyboardMapping && iPlayerIndex == CoreKeyboard.KeyboardPlayerNumber)
 	||
 	UseMouseAndKeyboard
     )

@@ -223,8 +223,8 @@ Exit Level	レベルを中断する	Level Beenden	Sair da Fase	Abbandona Livello
 Save/Load	ランダムシード	Speichern/Laden	Senha da Fase	Seme Casuale	Code Aléatoire	Codigo Random	Наугад	렌덤 시드	保存/读取	
 Save Level	シードを保存	Level Speichern	Salvar Senha	Salva Seme	Sauvegarder le Code	Guardar Codigo	Сохранить	시드 보존	保存关卡	
 Load Level	シードを読み込む	Level Laden	Carregar Senha	Carica Seme	Charger le Code ?	Cargar Codigo	Загрузить	시드로드	读取关卡	
-Copy to Clipboard	クリップボードにコピーする	In Zwischenablage Kopieren	Copiar para Área de Transferência	Copia Sugli Appunti	Copier dans le Presse-Papiers	Copiar al Clipboard	Copy to clipboard	클립보드에 복사	拷贝到剪贴板	
-Load from Clipboard	クリップボードから読み込む	Aus Zwischenablage Laden	Carregar da Área de Transferência	Carica Dagli Appunti	Charger Depuis le Presse-Papier	Cargar del Clipboard	Load from clipboard	클럽보드에서 로드	从剪贴板读取	
+Copy to Clipboard	クリップボードにコピーする	In Zwischenablage Kopieren	Copiar para Área de Transferência	Copia Sugli Appunti	Copier dans le Presse-Papiers	Copiar al Clipboard	Скопировать в буфер обмена	클립보드에 복사	拷贝到剪贴板	
+Load from Clipboard	クリップボードから読み込む	Aus Zwischenablage Laden	Carregar da Área de Transferência	Carica Dagli Appunti	Charger Depuis le Presse-Papier	Cargar del Clipboard	Загрузить из буфера обмена	클럽보드에서 로드	从剪贴板读取	
 Remove Player	を外す	Spieler Entfernen	Remover Jogador	Elimina Giocatore	Enlever le Joueur	Remover Jugador	Исключить игрока	제거	要删除玩家吗	
 Exit Level?	レベルを中断しますか？	Level Verlassen?	Sair da Fase?	Abbandonare il Livello?	Quitter le Niveau ?	Salir del Nivel?	Покинуть уровень?	레벨을중단합니까?	要退出关卡吗?	
 Save Level As	ランダムシードに名前をつけて保存する	Level Speichern als	Salvar Senha de Fase como...	Salva Seme Casuale Come...	Sauvegarder le Code Sous ...	Guardar Código Random Como…	Сохранить как…	렌덤시드에 이름을붙여 보존	另存关卡	

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 
+using CoreEngine;
+
 using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
