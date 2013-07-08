@@ -197,6 +197,13 @@ namespace CloudberryKingdom
                 case Localization.Language.German:      scale = .88f; shift.X = -200; break;
                 case Localization.Language.Portuguese:  scale = .82f; shift.X = -370; break;
                 case Localization.Language.French:      scale = .88f; shift.X = -100; break;
+				case Localization.Language.Russian:
+					if (!CanLoad && CanSave)
+					{
+						scale = .85f;
+						shift.X = -150;
+					}
+					break;
                 default: break;
             }
 

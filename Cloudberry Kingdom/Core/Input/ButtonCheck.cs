@@ -214,8 +214,8 @@ namespace CloudberryKingdom
 #if WINDOWS
             // Determine if the mouse is in the window or not.
             Tools.MouseInWindow =
-                Tools.Mouse.X > 0 && Tools.Mouse.X < Resolution.Backbuffer.X &&
-                Tools.Mouse.Y > 0 && Tools.Mouse.Y < Resolution.Backbuffer.Y;
+				Tools.Mouse.X > 0 && Tools.Mouse.X < Tools.TheGame.MyGraphicsDevice.PresentationParameters.BackBufferWidth &&
+				Tools.Mouse.Y > 0 && Tools.Mouse.Y < Tools.TheGame.MyGraphicsDevice.PresentationParameters.BackBufferHeight;
 
             // Calculate how much user has scrolled the mouse wheel and moved the mouse.
             Tools.DeltaScroll = Tools.Mouse.ScrollWheelValue - Tools.PrevMouse.ScrollWheelValue;

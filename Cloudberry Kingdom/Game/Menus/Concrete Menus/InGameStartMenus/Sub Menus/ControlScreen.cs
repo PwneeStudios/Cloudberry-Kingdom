@@ -158,19 +158,29 @@ else
 
             QuadClass q;
 
-            q = new QuadClass("Enter_Key"); q.ScaleXToMatchRatio(130);
+            q = new QuadClass("Enter_Key");
+			var enter_q = q;
+			q.TextureName = ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey);
+			q.ScaleXToMatchRatio(130);
             MyPile.Add(q, "enter");
 
-            q = new QuadClass("Esc_Key"); q.ScaleXToMatchRatio(130);
-            MyPile.Add(q, "esc");
+            q = new QuadClass("Esc_Key");
+			q.ScaleXToMatchRatio(130);
+			MyPile.Add(q, "esc");
 
             q = new QuadClass("Backspace_Key"); q.ScaleXToMatchRatio(130);
             MyPile.Add(q, "backspace");
 
-            q = new QuadClass("Space_Key"); q.ScaleXToMatchRatio(130);
+            q = new QuadClass("Space_Key");
+			var space_q = q;
+			q.TextureName = ButtonString.KeyToTexture(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey);
+			q.ScaleXToMatchRatio(130);
             MyPile.Add(q, "space");
 
             SetPos();
+
+			enter_q.ScaleXToMatchRatio();
+			space_q.ScaleXToMatchRatio();
 }
         }
 
@@ -215,7 +225,7 @@ else
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
             _q = MyPile.FindQuad("enter"); if (_q != null) { _q.Pos = new Vector2(-771.4287f, -234.9209f); _q.Size = new Vector2(271.0638f, 130f); }
-            _q = MyPile.FindQuad("esc"); if (_q != null) { _q.Pos = new Vector2(-638.8887f, 520.2384f); _q.Size = new Vector2(138.2979f, 130f); }
+			_q = MyPile.FindQuad("esc"); if (_q != null) { _q.Pos = new Vector2(-771.4287f, 520.2384f); _q.Size = new Vector2(138.2979f, 130f); }
             _q = MyPile.FindQuad("backspace"); if (_q != null) { _q.Pos = new Vector2(-773.8103f, -603.5712f); _q.Size = new Vector2(271.0638f, 130f); }
             _q = MyPile.FindQuad("space"); if (_q != null) { _q.Pos = new Vector2(-768.6523f, 205.9521f); _q.Size = new Vector2(271.0638f, 130f); }
 

@@ -17,13 +17,21 @@ bool IsInstalled_Xna4()
 void InstallDotNet()
 {
 	system("\"..\\Support\\dotNetFx40_Full_x86_x64.exe\"");
-	//system("\"Loader\\dotNetFx40_Full_x86_x64.exe\"");
+}
+
+void InstallDotNet_Silent()
+{
+	system("\"..\\Support\\dotNetFx40_Full_x86_x64.exe\" /q /norestart");
 }
 
 void InstallXna()
 {
 	system("\"..\\Support\\xnafx40_redist.msi\"");
-	//system("\"Loader\\xnafx40_redist.msi\"");
+}
+
+void InstallXna_Silent()
+{
+	system("\"..\\Support\\xnafx40_redist.msi\" /quiet /passive /norestart");
 }
 
 void DidNotInstall_DotNet()
@@ -36,7 +44,37 @@ void DidNotInstall_Xna()
 	MessageBox(0, TEXT("Installation of the XNA Framework 4.0 has failed. Please install this dependency in order to play Cloudberry Kingdom."), TEXT("Please install dependency."), MB_OK);
 }
 
-int install_or_run() 
+int InstallDependencies_Silent()
+{
+	//InstallXna_Silent();
+	//InstallXna();
+
+	if (!IsInstalled_DotNet4())
+	{
+		InstallDotNet_Silent();
+	}
+
+    if (!IsInstalled_Xna4()) 
+    { 
+		InstallXna_Silent();
+    }
+
+	if (!IsInstalled_DotNet4())
+	{
+		DidNotInstall_DotNet();
+		return 1;
+	}
+
+	if (!IsInstalled_Xna4())
+	{
+		DidNotInstall_Xna();
+		return 1;
+	}
+
+	return 0;
+}
+
+int InstallDependencies() 
 { 
 	if (!IsInstalled_DotNet4())
 	{
@@ -72,15 +110,13 @@ int install_or_run()
 		return 1;
 	}
 	
-	// Test
-	//InstallXna();
-
     return 0; 
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int result = install_or_run();
+	//int result = InstallDependencies();
+	int result = InstallDependencies_Silent();
 	return result;
 }
 
