@@ -420,6 +420,14 @@ namespace CloudberryKingdom
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();
             System.Windows.Forms.Clipboard.SetText(seed);
+
+			// Show a success window
+			var ok = new AlertBaseMenu(Control, Localization.Words.SeedCopiedSuccessfully, Localization.Words.Hooray);
+			ok.OnOk = ok.ReturnToCaller;
+			Call(ok, 0);
+
+			Hid = true;
+			RegularSlideOut(PresetPos.Right, 0);
         }
 #endif
 
