@@ -11,6 +11,6 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartWorkingDirectory>J:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Additional Forms\StaticSiteGenerator\StaticSiteGenerator\bin\Debug\</StartWorkingDirectory>
+    <StartWorkingDirectory>C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Additional Forms\StaticSiteGenerator\StaticSiteGenerator\bin\Debug\</StartWorkingDirectory>
   </PropertyGroup>
 </Project>

@@ -223,6 +223,7 @@ namespace StaticSiteGenerator
 			{
 				var last_modified = File.GetLastWriteTimeUtc(Path.Combine(SourceFolder, file));
 				if (last_modified > LastUploadSynch && (!s3_dict.ContainsKey(file) || !HashCompare(Path.Combine(SourceFolder, file), s3_dict[file].ETag)))
+				//if (true)
 				{
 					Log("  {1}/{2} : Synching file {0}", file, Count, Total);
 					UploadObject(BucketName, file, Path.Combine(SourceFolder, file));
@@ -443,7 +444,7 @@ namespace StaticSiteGenerator
 
 			Identifiers.Add("FileName", Path.GetFileName(SmuPath));
 			Identifiers.Add("FilePath", SmuPath.Replace(MainBucket, SiteRoot));
-			Identifiers.Add("DirPath", Path.GetDirectoryName(SmuPath).Replace(MainBucket, SiteRoot));
+			Identifiers.Add("DirPath", Path.GetDirectoryName(SmuPath).Replace(MainBucket, SiteRoot).Replace('\\', '/'));
 
 			return Identifiers;
 		}
@@ -459,7 +460,8 @@ namespace StaticSiteGenerator
                 var d = new Dictionary<string, string>();
                 d.Add("Name", HighScores.Entries[i].Name);
                 d.Add("Rank", HighScores.Entries[i].Rank.ToString());
-                d.Add("Score", HighScores.Entries[i].Score.ToString());
+                d.Add("Score", string.Format("{0:n0}", HighScores.Entries[i].Score));
+				d.Add("Link", "http://www.pwnee.com");
 
                 Entries.Add(d);
             }
@@ -579,7 +581,7 @@ namespace StaticSiteGenerator
 		static void _Main(string[] args)
 		{
 			Initialize();
-            
+
 			if (args.Length > 0 && args[0] == "download")
 			{
 				if (SynchFileExists())
@@ -598,13 +600,13 @@ namespace StaticSiteGenerator
 			{
 				Log("Uploading local content to S3.");
 
-                CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
+                //CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
 
 				CompileBlogHome(Path.Combine(LocalPath, "blog"));
 
 				CompileAllSmus(LocalPath);
 
-				//UploadBucket(MainBucket, LocalPath);
+				UploadBucket(MainBucket, LocalPath);
 			}
 
 			LogWithTime("Program done! Terminating.");

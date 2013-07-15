@@ -1195,7 +1195,7 @@ namespace CloudberryKingdom
 			{
 				//Tools.SongWad.Stop();
 
-				if (ButtonCheck.State(ControllerButtons.X, -2).Down)
+				if (ButtonCheck.State(ControllerButtons.Back, -2).Down)
 				{
 					XButtonPressCount++;
 
