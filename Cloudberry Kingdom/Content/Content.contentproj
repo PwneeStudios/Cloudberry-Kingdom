@@ -89,6 +89,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Art\Title\Categories\Arcade\MessageBoxThin.dds">
+      <Name>MessageBoxThin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Shaders\BasicEffect.fx">
       <Name>BasicEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -150,14 +155,6 @@
       <Name>Window</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Title\Categories\Arcade\MessageBoxThin.dds">
-      <Name>MessageBoxThin</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
-      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
-      <ProcessorParameters_TextureFormat>NoChange</ProcessorParameters_TextureFormat>
     </Compile>
     <Compile Include="Art\Menu\Dot_Empty.dds">
       <Name>Dot_Empty</Name>

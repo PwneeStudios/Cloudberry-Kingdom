@@ -647,7 +647,6 @@ namespace CoreEngine
             LineQuad.v2.Vertex.uv = new Vector2(0, 1);
             LineQuad.v3.Vertex.uv = new Vector2(1, 1);
 
-
             DrawQuad(ref LineQuad);
         }
 

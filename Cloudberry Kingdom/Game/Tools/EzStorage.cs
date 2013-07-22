@@ -27,8 +27,9 @@ namespace CloudberryKingdom
             PlayerManager.SavePlayerData = new _SavePlayerData();
 
 #if PC_VERSION
-            PlayerManager.Player.ContainerName = "PlayerData";
-            PlayerManager.Player.FileName = "Player Data";
+            PlayerManager.Player.ContainerName		= "PlayerData";
+			PlayerManager.Player.FileName			= "Player Data " + SteamManager.SteamCore.SteamID();
+			PlayerManager.Player.AlternateFileName	= "Player Data" ;
             Add(PlayerManager.Player);
 
 			LoadAll();
@@ -306,7 +307,7 @@ namespace CloudberryKingdom
         public bool AlwaysSave = false;
 
         public bool Changed = false;
-        public string ContainerName, FileName;
+        public string ContainerName, FileName, AlternateFileName;
 
         string ActualContainerName
         {
@@ -387,7 +388,7 @@ namespace CloudberryKingdom
         {
             if (SkipLoad) { Changed = false; SkipLoad = false; return; }
 
-            EzStorage.Load(index, ActualContainerName, FileName,
+            EzStorage.Load(index, ActualContainerName, FileName, AlternateFileName,
                 reader =>
                 {
                     Deserialize(reader);
@@ -532,7 +533,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-        public static void Load(PlayerIndex index, string ContainerName, string FileName, Action<byte[]> LoadLogic, Action Fail)
+        public static void Load(PlayerIndex index, string ContainerName, string FileName, string AlternateFileName, Action<byte[]> LoadLogic, Action Fail)
         {
 #if XBOX
             lock (AsyncUpdateLock)
@@ -598,7 +599,16 @@ namespace CloudberryKingdom
 			{
 				// Get all the bytes
 				string dir = SaveDir();
-				byte[] RawData = File.ReadAllBytes(Path.Combine(dir, FileName));
+
+				byte[] RawData = null;
+				try
+				{
+					RawData = File.ReadAllBytes(Path.Combine(dir, FileName));
+				}
+				catch
+				{
+					RawData = File.ReadAllBytes(Path.Combine(dir, AlternateFileName));
+				}
 
 				if (RawData.Length <= 8)
 				{

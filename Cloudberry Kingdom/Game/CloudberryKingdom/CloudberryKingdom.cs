@@ -2281,12 +2281,12 @@ namespace CloudberryKingdom
 
 					// If a movie is playing, pause it,
 					// and note that we should resume once the window becomes active.
-					if (MainVideo.Playing && MainVideo.VPlayer != null)
+					if (MainVideo.IsPlaying)
 					{
 						if (!VideoPlaying_HoldState)
 						{
 							VideoPlaying_HoldState = true;
-							MainVideo.VPlayer.Pause();
+							MainVideo.Pause();
 						}
 					}
 
@@ -2315,10 +2315,10 @@ namespace CloudberryKingdom
 
 					// If a video was playing previously when the window was active before,
 					// unpause the video.
-					if (VideoPlaying_HoldState && MainVideo.VPlayer != null)
+					if (VideoPlaying_HoldState)
 					{
 						VideoPlaying_HoldState = false;
-						MainVideo.VPlayer.Resume();
+						MainVideo.Resume();
 					}
 
                     FirstActiveFrame = false;

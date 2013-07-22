@@ -48,6 +48,12 @@ namespace SteamManager
 
 			return s;
 		}
+
+		public static UInt64 SteamID()
+		{
+			UInt64 id = SW.SteamCore.SteamID();
+			return id;
+		}
 	}
 
 	public static class HelperClass

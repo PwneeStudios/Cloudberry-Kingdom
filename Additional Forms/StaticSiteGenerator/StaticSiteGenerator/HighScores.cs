@@ -14,14 +14,51 @@ namespace StaticSiteGenerator
             public int Rank;
             public int Score;
             public string Name;
+			public string Flag = "ca";
 
             public LeaderboardEntry(int Rank, int Score, string Name)
             {
                 this.Rank = Rank;
                 this.Score = Score;
                 this.Name = Name;
+
+				switch ((int)(10 * Math.Sqrt(Score)) % 5)
+				{
+					case 0: this.Flag = "ca"; break;
+					case 1: this.Flag = "eh"; break;
+					case 2: this.Flag = "cn"; break;
+					case 3: this.Flag = "bf"; break;
+					case 4: this.Flag = "au"; break;
+				}
             }
         }
+
+		public static List<LeaderboardEntry> GetCountryBoard()
+		{
+			var l = new List<LeaderboardEntry>();
+
+			Dictionary<string, LeaderboardEntry> BestCountryScore = new Dictionary<string, LeaderboardEntry>();
+
+			foreach (var s in Entries)
+			{
+				if (BestCountryScore.ContainsKey(s.Flag))
+				{
+					if (s.Score > BestCountryScore[s.Flag].Score)
+						BestCountryScore[s.Flag] = s;
+				}
+				else
+				{
+					BestCountryScore.Add(s.Flag, s);
+				}
+			}
+
+			foreach (var s in BestCountryScore.Values)
+			{
+				l.Add(s);
+			}
+
+			return l;
+		}
 
         public static int TotalSize = 0;
         public static List<LeaderboardEntry> Entries = new List<LeaderboardEntry>();

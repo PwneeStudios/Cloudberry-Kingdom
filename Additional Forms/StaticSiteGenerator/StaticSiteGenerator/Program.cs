@@ -452,19 +452,38 @@ namespace StaticSiteGenerator
         static void CompileLeaderboard(string Root)
         {
             HighScores.GetHighScore();
+			var CountryList = HighScores.GetCountryBoard();
 
-            List<Dictionary<string, string>> Entries = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> LeaderboardEntries = new List<Dictionary<string, string>>();
+			List<Dictionary<string, string>> CountryEntries = new List<Dictionary<string, string>>();
 
             for (int i = 0; i < HighScores.Entries.Count; i++)
             {
+				var e = HighScores.Entries[i];
                 var d = new Dictionary<string, string>();
-                d.Add("Name", HighScores.Entries[i].Name);
-                d.Add("Rank", HighScores.Entries[i].Rank.ToString());
-                d.Add("Score", string.Format("{0:n0}", HighScores.Entries[i].Score));
+
+                d.Add("Name", e.Name);
+				d.Add("Flag", e.Flag);
+                d.Add("Rank", e.Rank.ToString());
+                d.Add("Score", string.Format("{0:n0}", e.Score));
 				d.Add("Link", "http://www.pwnee.com");
 
-                Entries.Add(d);
+                LeaderboardEntries.Add(d);
             }
+
+			for (int i = 0; i < CountryList.Count; i++)
+			{
+				var e = CountryList[i];
+				var d = new Dictionary<string, string>();
+
+				d.Add("Name", e.Name);
+				d.Add("Flag", e.Flag);
+				d.Add("Rank", e.Rank.ToString());
+				d.Add("Score", string.Format("{0:n0}", e.Score));
+				d.Add("Link", "http://www.pwnee.com");
+
+				CountryEntries.Add(d);
+			}
 
             var index = File.ReadAllText(Path.Combine(Root, "generate_index.smu"));
 
@@ -476,27 +495,39 @@ namespace StaticSiteGenerator
 
             s += index_pieces[0];
 
-            var repeat_section = index_pieces[1];
-            var index_varpieces = repeat_section.Split('✪');
-            for (int repeat = 0; repeat < HighScores.Entries.Count; repeat++)
-            {
-                for (int i = 0; i < index_varpieces.Length; i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        s += index_varpieces[i];
-                    }
-                    else
-                    {
-                        s += Entries[repeat][index_varpieces[i]];
-                    }
-                }
-            }
+			s += MakeLeaderboardTable(index_pieces[1], HighScores.Entries, LeaderboardEntries);
 
             s += index_pieces[2];
 
+			s += MakeLeaderboardTable(index_pieces[3], CountryList, CountryEntries);
+
+			s += index_pieces[4];
+
             File.WriteAllText(Path.Combine(Root, "index.smu"), s);
         }
+
+		static string MakeLeaderboardTable(string repeat_section, List<HighScores.LeaderboardEntry> entries, List<Dictionary<string, string>> Entries)
+		{
+			string s = "";
+
+			var index_varpieces = repeat_section.Split('✪');
+			for (int repeat = 0; repeat < entries.Count; repeat++)
+			{
+				for (int i = 0; i < index_varpieces.Length; i++)
+				{
+					if (i % 2 == 0)
+					{
+						s += index_varpieces[i];
+					}
+					else
+					{
+						s += Entries[repeat][index_varpieces[i]];
+					}
+				}
+			}
+
+			return s;
+		}
 
 		static void CompileBlogHome(string Root)
 		{
@@ -600,7 +631,7 @@ namespace StaticSiteGenerator
 			{
 				Log("Uploading local content to S3.");
 
-                //CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
+                CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
 
 				CompileBlogHome(Path.Combine(LocalPath, "blog"));
 

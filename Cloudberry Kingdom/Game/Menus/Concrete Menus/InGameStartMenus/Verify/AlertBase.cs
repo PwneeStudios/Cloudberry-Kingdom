@@ -87,7 +87,11 @@ namespace CloudberryKingdom
 
             var message = new EzText(Message, ItemFont, 700, true, true, .75f);
             message.Name = "Message";
-            MyPile.Add(message);
+
+			if (Message != Localization.Words.None)
+			{
+				MyPile.Add(message);
+			}
 
             // Make the menu
             MyMenu = new Menu(false);
@@ -104,18 +108,33 @@ namespace CloudberryKingdom
 
 
             // SetPos
-            MenuItem _item;
-            _item = MyMenu.FindItemByName("Message"); if (_item != null) { _item.SetPos = new Vector2(-2.44482f, -334.4445f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+			if (Message == Localization.Words.None)
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Message"); if (_item != null) { _item.SetPos = new Vector2(25.33301f, -9.444489f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyMenu.Pos = new Vector2(0f, 40f);
+				MyMenu.Pos = new Vector2(0f, 40f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Message"); if (_t != null) { _t.Pos = new Vector2(-13.88892f, 375f); _t.Scale = 1f; }
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(795.296f, 460.0223f); }
 
-            QuadClass _q;
-            _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.439f); }
+				MyPile.Pos = new Vector2(0f, 40f);
+			}
+			else
+			{
+				MenuItem _item;
+				_item = MyMenu.FindItemByName("Message"); if (_item != null) { _item.SetPos = new Vector2(-2.44482f, -334.4445f); _item.MyText.Scale = 0.8f; _item.MySelectedText.Scale = 0.8f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-            MyPile.Pos = new Vector2(0f, 40f);
+				MyMenu.Pos = new Vector2(0f, 40f);
+
+				EzText _t;
+				_t = MyPile.FindEzText("Message"); if (_t != null) { _t.Pos = new Vector2(-13.88892f, 375f); _t.Scale = 1f; }
+
+				QuadClass _q;
+				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.439f); }
+
+				MyPile.Pos = new Vector2(0f, 40f);
+			}
         }
     }
 }

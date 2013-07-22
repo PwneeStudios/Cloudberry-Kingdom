@@ -224,8 +224,16 @@ namespace CloudberryKingdom
             MyPile.Add(LevelNum, "LevelNum");
             LevelNum.Show = false;
 
-            //SetPos_NoCinematic();
-            SetPos_WithCinematic();
+
+            
+
+			//// Reset
+			//item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
+			//item.Name = "Reset";
+			//item.Go = Reset;
+			//AddItem(item);
+
+			SetPos_WithCinematic();
 
 #if PC_VERSION
 			Back = new ClickableBack(MyPile, false, true);
@@ -258,6 +266,21 @@ namespace CloudberryKingdom
 			if (Back.UpdateBack(MyCameraZoom))
 			{
 				MenuReturnToCaller(MyMenu);
+			}
+		}
+
+		void Reset(MenuItem item)
+		{
+			Call(new VerifyStoryReset(Control), 0);
+
+			if (UseBounce)
+			{
+				Hid = true;
+				RegularSlideOut(PresetPos.Right, 0);
+			}
+			else
+			{
+				Hide(PresetPos.Left);
 			}
 		}
 

@@ -161,7 +161,7 @@ namespace CloudberryKingdom
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-			EzStorage.Load(PlayerIndex.One, "Settings", "Options", _LoadRezAndKeys, _Fail);
+			EzStorage.Load(PlayerIndex.One, "Settings", "Options", null, _LoadRezAndKeys, _Fail);
 
             return d;
         }

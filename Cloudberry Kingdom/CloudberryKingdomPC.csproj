@@ -134,6 +134,9 @@
     <XnaCompressContent>True</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>__DirectShowVideoPlayer\DirectShowLib-2005.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
       <Private>False</Private>
     </Reference>
@@ -169,6 +172,9 @@
     </Reference>
     <Reference Include="Nuclex.Input">
       <HintPath>__Nuclex\Nuclex.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharp.Xna.Video">
+      <HintPath>__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll</HintPath>
     </Reference>
     <Reference Include="SteamWrapper, Version=1.0.4864.26561, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -217,6 +223,7 @@
     <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
+    <Compile Include="Game\DirectDrawVideo.cs" />
     <Compile Include="Game\Localization.cs" />
     <Compile Include="Game\Games\Campaign\CampaignSequence.cs" />
     <Compile Include="Game\Games\Campaign\FadeIn.cs" />
@@ -280,6 +287,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\VerifyStoryReset.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\ChapterTitle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
     <Compile Include="Game\Player\Leaderboard_Steam.cs" />
@@ -330,6 +338,7 @@
     <Compile Include="SaveDevicePromptState.cs" />
     <Compile Include="SaveDeviceSynchronous.cs" />
     <Compile Include="SharedSaveDevice.cs" />
+    <Compile Include="__DirectShowVideoPlayer\VideoPlayer.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -758,6 +767,8 @@
   <ItemGroup>
     <Content Include="BobIcon.png" />
     <Content Include="Cloudberry.ico" />
+    <Content Include="__DirectShowVideoPlayer\DirectShowLib-2005.dll" />
+    <Content Include="__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ContentPC\ContentPC.contentproj">

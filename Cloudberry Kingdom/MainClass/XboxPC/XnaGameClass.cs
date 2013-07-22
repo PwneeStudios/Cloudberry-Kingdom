@@ -21,16 +21,6 @@ namespace CloudberryKingdom
     {
         CloudberryKingdomGame MyGame;
 
-        //protected override void OnExiting(object sender, EventArgs args)
-        //{
-        //    //if (CloudberryKingdomGame.PastPressStart)
-        //    //{
-        //    //    SaveGroup.SaveAll();
-        //    //}
-
-        //    base.OnExiting(sender, args);
-        //}
-
         public XnaGameClass()
         {
             Tools.GameClass = this;
@@ -93,24 +83,25 @@ namespace CloudberryKingdom
 
         protected override void UnloadContent()
         {
-            //base.UnloadContent();
-            //Tools.Write("Unloading");
-            //if (CloudberryKingdomGame.PastPressStart)
-            //{
-            //    SaveGroup.SaveAll();
-            //}
+			base.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-			//Tools.Write("Update");
-            this.IsFixedTimeStep = Tools.FixedTimeStep;
+			try
+			{
+				this.IsFixedTimeStep = Tools.FixedTimeStep;
 
-            MyGame.RunningSlowly = gameTime.IsRunningSlowly;
+				MyGame.RunningSlowly = gameTime.IsRunningSlowly;
 
-            MyGame.Update();
+				MyGame.Update();
 
-            base.Update(gameTime);
+				base.Update(gameTime);
+			}
+			catch (Exception e)
+			{
+				Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
+			}
         }
 
         protected override void Draw(GameTime gameTime)

@@ -1,5 +1,4 @@
-﻿#if FALSE
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
+
+using DirectShow = SeeSharp.Xna.Video;
 
 namespace CloudberryKingdom
 {
@@ -21,29 +21,25 @@ namespace CloudberryKingdom
 		{
 			get
 			{
-				return MainVideo.Playing && MainVideo.VPlayer != null;
+				return CurrentVideo != null;
 			}
 		}
 
 		public static void Pause()
 		{
-			VPlayer.Pause();
+			;
 		}
 
 		public static void Resume()
 		{
-			if (VPlayer != null)
-			{
-				VPlayer.Resume();
-			}
+			;
 		}
 
         static ContentManager Content = null;
 
         public static bool Playing = false;
 
-        static Video CurrentVideo;
-        public static VideoPlayer VPlayer;
+		static DirectShow.VideoPlayer CurrentVideo;
         
         static EzTexture VEZTexture = new EzTexture();
 
@@ -107,16 +103,14 @@ namespace CloudberryKingdom
             Playing = true;
             Cleaned = false;
 
-            CurrentVideo = Content.Load<Video>(Path.Combine("Movies", MovieName));
+            CurrentVideo = new DirectShow.VideoPlayer(Path.Combine("Movies", MovieName), Tools.GameClass.GraphicsDevice);
 
-            VPlayer = new VideoPlayer();
-            VPlayer.IsLooped = false;
-            VPlayer.Play(CurrentVideo);
+			CurrentVideo.Play();
 
-            VPlayer.Volume = CoreMath.Restrict(0, 1, Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val));
+            //VPlayer.Volume = CoreMath.Restrict(0, 1, Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val));
 
             Elapsed = 0;
-            Duration = CurrentVideo.Duration.TotalSeconds;
+            Duration = CurrentVideo.Duration;
         }
 
         public static void UpdateElapsedTime()
@@ -128,20 +122,6 @@ namespace CloudberryKingdom
         static void UserInput()
         {
             ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-
-//#if WINDOWS && DEBUG
-//            if (ButtonCheck.State(Keys.P).Pressed)
-//            {
-//                if (Paused)
-//                    VPlayer.Resume();
-//                else
-//                    VPlayer.Pause();
-                
-//                Paused = !Paused;
-//            }
-
-//            if (!(ButtonCheck.State(Keys.P).Down))
-//#endif
 
             // End the video if the user presses a key
             if (CanSkip && PlayerManager.Players != null && Elapsed > .3f ||
@@ -196,9 +176,24 @@ namespace CloudberryKingdom
             }
         }
 
+		public static void Update()
+		{
+			if (CurrentVideo != null)
+			{
+				CurrentVideo.Update();
+			}
+		}
+
         public static bool Draw()
         {
             if (!Playing) { Finish(); return false; }
+
+			for (int i = 0; i < 16; i++)
+			{
+				Tools.GameClass.GraphicsDevice.Textures[i] = null;
+			}
+			
+			Update();
 
 			Tools.EffectWad.SetCameraPosition( new Vector4(0, 0, .001f, .001f) );
 
@@ -213,7 +208,7 @@ namespace CloudberryKingdom
                 return true;
             }
 
-            VEZTexture.Tex = VPlayer.GetTexture();
+			VEZTexture.Tex = CurrentVideo.GetTexture();
             VEZTexture.Width = VEZTexture.Tex.Width;
             VEZTexture.Height = VEZTexture.Tex.Height;
 
@@ -233,11 +228,10 @@ namespace CloudberryKingdom
 
             if (Cleaned) return;
 
-            VPlayer.Dispose();
+			CurrentVideo.Dispose();
             CurrentVideo = null;
 
             Cleaned = true;
         }
     }
 }
-#endif
