@@ -104,10 +104,17 @@ namespace CloudberryKingdom
 		}
     }
 
+	public enum WindowMode { Borderless, Windowed, Fullscreen };
     public struct PlayerManager
     {
 #if PC_VERSION || WINDOWS
-        public struct RezData { public bool Custom, Fullscreen; public int Width, Height; }
+        public struct RezData
+		{
+			
+			public bool Custom;
+			public WindowMode Mode;
+			public int Width, Height;
+		}
 #endif
 #if PC_VERSION
         public static void SaveRezAndKeys()
@@ -120,7 +127,7 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 0, SavePlayerData.ResolutionPreferenceSet);
             
             // Fullscreen
-            Chunk.WriteSingle(writer, 1, Tools.Fullscreen);
+            Chunk.WriteSingle(writer, 1, (int)Tools.Mode);
 
             // Resolution
             if (ResolutionGroup.LastSetMode == null)
@@ -183,7 +190,11 @@ namespace CloudberryKingdom
                     case 0: chunk.ReadSingle(ref d.Custom); break;
                     
                     // Fullscreen
-                    case 1: chunk.ReadSingle(ref d.Fullscreen); break;
+                    case 1:
+						int mode = 0;
+						chunk.ReadSingle(ref mode);
+						d.Mode = (WindowMode)(mode);
+						break;
                     
                     // Resolution
                     case 2: chunk.ReadSingle(ref d.Width); break;

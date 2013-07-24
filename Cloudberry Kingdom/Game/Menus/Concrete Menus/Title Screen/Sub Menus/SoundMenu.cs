@@ -198,12 +198,16 @@ namespace CloudberryKingdom
             toggle.OnToggle = (state) =>
             {
                 PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                Tools.Fullscreen = state;
+                //Tools.Fullscreen = state;
+				Tools.Mode = state ? WindowMode.Borderless : WindowMode.Windowed;
+				XnaGameClass.WindowModeSet = false;
+
                 SaveGroup.SaveAll();
                 PlayerManager.SaveRezAndKeys();
             };
             toggle.Name = "FullscreenToggle";
-            toggle.Toggle(Tools.Fullscreen);
+            //toggle.Toggle(Tools.Fullscreen);
+			toggle.Toggle(Tools.Mode == WindowMode.Borderless);
 
             AddItem(toggle);
 

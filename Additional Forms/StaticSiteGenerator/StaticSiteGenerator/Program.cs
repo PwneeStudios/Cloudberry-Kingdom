@@ -451,22 +451,32 @@ namespace StaticSiteGenerator
 
         static void CompileLeaderboard(string Root)
         {
+			//HighScores.BoardData.GetData();
+			HighScores.BoardData.GetData();
+
             HighScores.GetHighScore();
 			var CountryList = HighScores.GetCountryBoard();
+			var FeatureList = HighScores.BoardData.GetFeatureList();
 
             List<Dictionary<string, string>> LeaderboardEntries = new List<Dictionary<string, string>>();
 			List<Dictionary<string, string>> CountryEntries = new List<Dictionary<string, string>>();
+			List<Dictionary<string, string>> FeatureEntries = new List<Dictionary<string, string>>();
 
             for (int i = 0; i < HighScores.Entries.Count; i++)
             {
 				var e = HighScores.Entries[i];
+				var youtuber = HighScores.BoardData.YouTubeDict[e.Name];
+
                 var d = new Dictionary<string, string>();
 
-                d.Add("Name", e.Name);
-				d.Add("Flag", e.Flag);
-                d.Add("Rank", e.Rank.ToString());
+                //d.Add("Name", e.Name);
+				//d.Add("Rank", e.Rank.ToString());
+
+				d.Add("Name", youtuber.Channel);
+				d.Add("Rank", (i + 1).ToString());
+				d.Add("Flag", youtuber.Flag);
                 d.Add("Score", string.Format("{0:n0}", e.Score));
-				d.Add("Link", "http://www.pwnee.com");
+				d.Add("Link", youtuber.YouTubeLink);
 
                 LeaderboardEntries.Add(d);
             }
@@ -474,15 +484,33 @@ namespace StaticSiteGenerator
 			for (int i = 0; i < CountryList.Count; i++)
 			{
 				var e = CountryList[i];
+				var youtuber = HighScores.BoardData.YouTubeDict[e.Name];
+
 				var d = new Dictionary<string, string>();
 
-				d.Add("Name", e.Name);
-				d.Add("Flag", e.Flag);
-				d.Add("Rank", e.Rank.ToString());
+				//d.Add("Name", e.Name);
+				//d.Add("Rank", e.Rank.ToString());
+
+				d.Add("Name", youtuber.Channel);
+				d.Add("Rank", (i + 1).ToString());
+				d.Add("Country", youtuber.Country);
+				d.Add("Flag", youtuber.Flag);
 				d.Add("Score", string.Format("{0:n0}", e.Score));
-				d.Add("Link", "http://www.pwnee.com");
+				d.Add("Link", youtuber.YouTubeLink);
 
 				CountryEntries.Add(d);
+			}
+
+			for (int i = 0; i < FeatureList.Count; i++)
+			{
+				var e = FeatureList[i];
+
+				var d = new Dictionary<string, string>();
+
+				d.Add("Channel", e.Channel);
+				d.Add("Embed", e.Embed);
+
+				FeatureEntries.Add(d);
 			}
 
             var index = File.ReadAllText(Path.Combine(Root, "generate_index.smu"));
@@ -503,8 +531,36 @@ namespace StaticSiteGenerator
 
 			s += index_pieces[4];
 
+			s += MakeFeatureList(index_pieces[5], FeatureList, FeatureEntries);
+
+			s += index_pieces[6];
+
+
             File.WriteAllText(Path.Combine(Root, "index.smu"), s);
         }
+		
+		static string MakeFeatureList(string repeat_section, List<FeatureItem> entries, List<Dictionary<string, string>> Entries)
+		{
+			string s = "";
+
+			var index_varpieces = repeat_section.Split('✪');
+			for (int repeat = 0; repeat < entries.Count; repeat++)
+			{
+				for (int i = 0; i < index_varpieces.Length; i++)
+				{
+					if (i % 2 == 0)
+					{
+						s += index_varpieces[i];
+					}
+					else
+					{
+						s += Entries[repeat][index_varpieces[i]];
+					}
+				}
+			}
+
+			return s;
+		}
 
 		static string MakeLeaderboardTable(string repeat_section, List<HighScores.LeaderboardEntry> entries, List<Dictionary<string, string>> Entries)
 		{
@@ -611,6 +667,9 @@ namespace StaticSiteGenerator
 
 		static void _Main(string[] args)
 		{
+			//HighScores.BoardData.GetGoogleData();
+			//return;
+
 			Initialize();
 
 			if (args.Length > 0 && args[0] == "download")
@@ -631,13 +690,17 @@ namespace StaticSiteGenerator
 			{
 				Log("Uploading local content to S3.");
 
-                CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
+				while (true)
+				{
+					CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
+					CompileBlogHome(Path.Combine(LocalPath, "blog"));
 
-				CompileBlogHome(Path.Combine(LocalPath, "blog"));
+					CompileAllSmus(LocalPath);
 
-				CompileAllSmus(LocalPath);
+					UploadBucket(MainBucket, LocalPath);
 
-				UploadBucket(MainBucket, LocalPath);
+					System.Threading.Thread.Sleep(1000 * 60 * 2);
+				}
 			}
 
 			LogWithTime("Program done! Terminating.");

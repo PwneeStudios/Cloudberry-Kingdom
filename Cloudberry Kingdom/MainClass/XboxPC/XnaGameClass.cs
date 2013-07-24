@@ -136,6 +136,67 @@ namespace CloudberryKingdom
         }
 
 #if WINDOWS
+		public static bool WindowModeSet = false;
+
+		public void FakeFull()
+		{
+			if (WindowModeSet) return;
+			WindowModeSet = true;
+
+			IntPtr hWnd = Tools.GameClass.Window.Handle;
+			var control = Control.FromHandle(hWnd);
+			var form = control.FindForm();
+
+			switch (Tools.Mode)
+			{
+				case WindowMode.Borderless:
+					control.Show();
+					control.Location = new System.Drawing.Point(0, 0);
+
+					//form.TopLevel = true;
+					form.TopMost = true;
+
+					form.FormBorderStyle = FormBorderStyle.None;
+					form.WindowState = FormWindowState.Maximized;
+					break;
+
+				case WindowMode.Windowed:
+					form.TopMost = false;
+
+					form.FormBorderStyle = FormBorderStyle.FixedSingle;
+					form.WindowState = FormWindowState.Normal;
+
+					break;
+			}
+		}
+
+		public void FakeTab()
+		{
+			if (!WindowModeSet) return;
+			WindowModeSet = false;
+
+			IntPtr hWnd = Tools.GameClass.Window.Handle;
+			var control = Control.FromHandle(hWnd);
+			var form = control.FindForm();
+
+			switch (Tools.Mode)
+			{
+				case WindowMode.Borderless:
+					//control.Hide();
+					//control.Location = new System.Drawing.Point(0, 0);
+
+					//form.TopLevel = true;
+					form.TopMost = false;
+
+					form.FormBorderStyle = FormBorderStyle.None;
+					form.WindowState = FormWindowState.Minimized;
+					break;
+
+				case WindowMode.Windowed:
+					break;
+			}
+		}
+
         public void SetBorder(bool Show)
         {
             IntPtr hWnd = Tools.GameClass.Window.Handle;

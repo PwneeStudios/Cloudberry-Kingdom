@@ -755,12 +755,12 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
-                if (SteamCore.RestartViaSteamIfNecessary(210870))
-                {
-                    ExitingEarly = true;
-                    Tools.GameClass.Exit();
-                    return;
-                }
+				if (SteamCore.RestartViaSteamIfNecessary(210870))
+				{
+					ExitingEarly = true;
+					Tools.GameClass.Exit();
+					return;
+				}
 
 				SteamInitialized = SteamCore.Initialize();
 			}
@@ -807,18 +807,14 @@ namespace CloudberryKingdom
 			{
 				rez.Width = 1280;
 				rez.Height = 720;
-				rez.Fullscreen = true;
+				rez.Mode = WindowMode.Borderless;
 
-	#if DEBUG || INCLUDE_EDITOR
-				rez.Fullscreen = false;
-	#else
 		        rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 				rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-	#endif
 			}
 
 	#if DEBUG || INCLUDE_EDITOR
-            rez.Fullscreen = false;
+			rez.Mode = WindowMode.Borderless;
 	#endif
 
 			Resolution = new ResolutionGroup();
@@ -829,7 +825,12 @@ namespace CloudberryKingdom
 
 			MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
 			MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
-			MyGraphicsDeviceManager.IsFullScreen = rez.Fullscreen;
+			MyGraphicsDeviceManager.IsFullScreen = rez.Mode == WindowMode.Fullscreen;
+
+			if (rez.Mode == WindowMode.Windowed)
+			{
+				MyGraphicsDeviceManager.PreferredBackBufferHeight = (int)((720f / 1280f) * rez.Width);
+			}
 
 #elif XBOX
 			// Some possible resolutions.
@@ -845,6 +846,8 @@ namespace CloudberryKingdom
 			MyGraphicsDeviceManager.IsFullScreen = false;
 	#endif
 #endif
+
+			Tools.Mode = rez.Mode;
 
             fps = 0;
             Tools.Write("BackBuffer set");
@@ -1583,8 +1586,11 @@ namespace CloudberryKingdom
         {
 			if (MyGraphicsDeviceManager.IsFullScreen)
 			{
-				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
-				Tools.GameClass.IsFixedTimeStep = true;
+				//Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
+				//Tools.GameClass.IsFixedTimeStep = true;
+
+				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
+				Tools.GameClass.IsFixedTimeStep = false;
 			}
 			else
 			{
@@ -2265,6 +2271,7 @@ namespace CloudberryKingdom
                 // The window isn't active, so
                 // show the actual mouse (not our custom drawn mouse)
                 Tools.GameClass.IsMouseVisible = true;
+				Tools.GameClass.FakeTab();
 
                 if (OnlyDrawGameWhenInFocus)
                 {
@@ -2302,6 +2309,7 @@ namespace CloudberryKingdom
                 // The window is active, so
                 // hide the actual mouse (we draw our own custom mouse in game)
                 Tools.GameClass.IsMouseVisible = false;
+				Tools.GameClass.FakeFull();
 
                 if (FirstActiveFrame)
                 {

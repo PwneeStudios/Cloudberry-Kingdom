@@ -909,6 +909,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             set { XnaInput.Mouse.SetPosition((int)(value.X * Tools.Render.SpriteScaling), (int)(value.Y * Tools.Render.SpriteScaling)); }
         }
 
+		public static WindowMode Mode = WindowMode.Borderless;
         public static bool Fullscreen
         {
             get { return TheGame.MyGraphicsDeviceManager.IsFullScreen; }
