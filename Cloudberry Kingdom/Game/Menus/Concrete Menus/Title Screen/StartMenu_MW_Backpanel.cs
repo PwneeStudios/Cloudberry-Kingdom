@@ -57,7 +57,7 @@ namespace CloudberryKingdom
 			TM = new QuadClass("TradeMarkSymbol");
 			MyPile.Add(TM, "TM");
 
-			VersionText = new EzText("1.0.0001", Resources.Font_Grobold42);
+			VersionText = new EzText("1.0.0002", Resources.Font_Grobold42);
 			VersionText.Alpha = 0;
 			MyPile.Add(VersionText, "Version");
 

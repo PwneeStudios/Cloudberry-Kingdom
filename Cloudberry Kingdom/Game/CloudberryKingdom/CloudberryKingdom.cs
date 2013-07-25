@@ -1849,6 +1849,8 @@ namespace CloudberryKingdom
 		bool created = false;
 #endif
 
+		static double DelayAmount = 0;
+
         /// <summary>
         /// The main draw loop.
         /// Sets all the rendering up and determines which sub-function to call (game, loading screen, nothing, etc).
@@ -1868,6 +1870,38 @@ namespace CloudberryKingdom
             ObjectData.UpdateWeak();
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
+
+			const double DelayIncr = 1.0 / 1000.0f;
+
+			int TargetFps = 60;
+			double TargetDelay = 1.0 / TargetFps;
+			
+			if (DeltaT < TargetDelay - 2 * DelayIncr)
+			{
+				DelayAmount += DelayIncr;
+			}
+			else
+			{
+				if (DeltaT > TargetDelay + 1 * DelayIncr)
+				{
+					DelayAmount -= DelayIncr;
+				}
+			}
+
+			if (DelayAmount > 1 * DelayIncr)
+			{
+				Thread.Sleep((int)(1000 * DelayAmount));
+				//return;
+			}
+
+			//DelayAmount
+
+			////if (DeltaT < .9f * TargetDelay)
+			//{
+			//    //Thread.Sleep((int)(1000 * (TargetDelay - DeltaT)));
+			//    Thread.Sleep((int)(1000 * TargetDelay));
+			//}
+
 
 			// Stop now if the initial preload (and logosalad) hasn't started yet.
 			if (!PreloadDone) { SetupToRender(); return; }
