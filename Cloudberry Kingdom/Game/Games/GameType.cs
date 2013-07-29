@@ -518,7 +518,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Called at the beginning over every time step to calculate the coin score multiplier
         /// </summary>
-        void CalculateCoinScoreMultiplier()
+        public void CalculateCoinScoreMultiplier()
         {
             CoinScoreMultiplier = 1;
             if (OnCalculateCoinScoreMultiplier != null)

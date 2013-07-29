@@ -1,9 +1,10 @@
-﻿Build started 7/7/2013 8:28:08 PM.
+﻿Build started 7/25/2013 6:53:01 PM.
      1>Project "C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Additional Forms\CloudberryLoader\CloudberryLoader\CloudberryLoader.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\CloudberryLoader.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\CloudberryLoader.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\CloudberryLoader.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CloudberryLoader.cpp
          CloudberryLoader.cpp
        Link:
@@ -21,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.43
+Time Elapsed 00:00:02.51

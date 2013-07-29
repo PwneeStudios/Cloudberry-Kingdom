@@ -11,27 +11,27 @@ bool IsInstalled_DotNet4()
 bool IsInstalled_Xna4()
 {
 	HKEY hKey;
-	return RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\XNA\\Framework\\v4.0"), 0, KEY_READ, &hKey) == ERROR_SUCCESS;
+	return RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("Software\\Microsoft\\XNA\\Framework\\v4.0"), 0, KEY_READ, &hKey) == ERROR_SUCCESS;
 }
 
 void InstallDotNet()
 {
-	system("\"..\\Support\\dotNetFx40_Full_x86_x64.exe\"");
+	system("\"Support\\dotNetFx40_Full_x86_x64.exe\"");
 }
 
 void InstallDotNet_Silent()
 {
-	system("\"..\\Support\\dotNetFx40_Full_x86_x64.exe\" /q /norestart");
+	system("\"Support\\dotNetFx40_Full_x86_x64.exe\" /q /norestart");
 }
 
 void InstallXna()
 {
-	system("\"..\\Support\\xnafx40_redist.msi\"");
+	system("\"Support\\xnafx40_redist.msi\"");
 }
 
 void InstallXna_Silent()
 {
-	system("\"..\\Support\\xnafx40_redist.msi\" /quiet /passive /norestart");
+	system("\"Support\\xnafx40_redist.msi\" /quiet /passive /norestart");
 }
 
 void DidNotInstall_DotNet()
@@ -46,9 +46,6 @@ void DidNotInstall_Xna()
 
 int InstallDependencies_Silent()
 {
-	//InstallXna_Silent();
-	//InstallXna();
-
 	if (!IsInstalled_DotNet4())
 	{
 		InstallDotNet_Silent();
@@ -57,7 +54,7 @@ int InstallDependencies_Silent()
     if (!IsInstalled_Xna4()) 
     { 
 		InstallXna_Silent();
-    }
+	}
 
 	if (!IsInstalled_DotNet4())
 	{

@@ -168,7 +168,7 @@ namespace StaticSiteGenerator
 
 					if (gamer.SteamNickname != null)
 					{
-						YouTubeDict.Add(gamer.SteamNickname, gamer);
+						YouTubeDict.Add(gamer.SteamNickname.ToLowerInvariant(), gamer);
 					}
 				}
 			}
@@ -251,7 +251,7 @@ namespace StaticSiteGenerator
 
 			foreach (var s in Entries)
 			{
-				string flag = BoardData.YouTubeDict[s.Name].Flag;
+				string flag = BoardData.YouTubeDict[s.Name.ToLowerInvariant()].Flag;
 
 				if (BestCountryScore.ContainsKey(flag))
 				{
@@ -274,10 +274,12 @@ namespace StaticSiteGenerator
 
         public static int TotalSize = 0;
         public static List<LeaderboardEntry> Entries = null;
+		public static List<LeaderboardEntry> BetaEntries = null;
 
         public static void GetHighScore()
         {
 			Entries = new List<LeaderboardEntry>();
+			BetaEntries = new List<LeaderboardEntry>();
 
             bool SteamInitialized = SteamCore.Initialize();
             if (!SteamInitialized)
@@ -332,9 +334,16 @@ namespace StaticSiteGenerator
                 int val = SteamStats.Results_GetScore(i);
                 Gamer gamer = new Gamer(SteamStats.Results_GetName(i), SteamStats.Results_GetId(i));
 
-				if (!BoardData.YouTubeDict.ContainsKey(gamer.Gamertag)) continue;
+				if (gamer.Gamertag == "Guunnz") continue;
 
-                Entries.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
+				if (BoardData.YouTubeDict.ContainsKey(gamer.Gamertag.ToLowerInvariant()))
+				{
+					Entries.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
+				}
+				else
+				{
+					BetaEntries.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
+				}
             }
 
             ReadingInProgress = false;

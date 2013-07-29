@@ -1377,6 +1377,12 @@ namespace CloudberryKingdom
 
                         foreach (ObjectBase obj in Tools.CurLevel.Objects)
                         {
+							Coin coin = obj as Coin;
+							if (null != coin)
+							{
+								Tools.MoveTo(coin, door.Pos);
+							}
+
                             CameraZone zone = obj as CameraZone;
                             if (null != zone)
                             {

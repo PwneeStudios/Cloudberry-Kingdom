@@ -44,12 +44,22 @@ namespace CloudberryCleanup
 			{
 				string dir = SaveDir();
 
+				var files = Directory.EnumerateFiles(dir);
+				foreach (var file in files)
+				{
+					if (file.Contains("Player Data"))
+					{
+						TryToDeleteFile(file);
+					}
+				}
+				//string file_data = Path.Combine(dir, "Player Data");
+				//TryToDeleteFile(file_data);
+
+				string file_bam = Path.Combine(dir, "SaveData.bam");
+				TryToDeleteFile(file_bam);
+
 				string file_options = Path.Combine(dir, "Options");
 				TryToDeleteFile(file_options);
-
-
-				string file_data = Path.Combine(dir, "Player Data");
-				TryToDeleteFile(file_data);
 
 				string file_stamp = Path.Combine(dir, "Stamp");
 				TryToDeleteFile(file_stamp);

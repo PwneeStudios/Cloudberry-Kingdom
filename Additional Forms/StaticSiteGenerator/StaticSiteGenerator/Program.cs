@@ -458,14 +458,19 @@ namespace StaticSiteGenerator
 			var CountryList = HighScores.GetCountryBoard();
 			var FeatureList = HighScores.BoardData.GetFeatureList();
 
+			// Pare down
+			HighScores.BetaEntries = HighScores.BetaEntries.GetRange(0, 100);
+			FeatureList = FeatureList.GetRange(0, 5);
+
             List<Dictionary<string, string>> LeaderboardEntries = new List<Dictionary<string, string>>();
 			List<Dictionary<string, string>> CountryEntries = new List<Dictionary<string, string>>();
+			List<Dictionary<string, string>> BetaLeaderboardEntries = new List<Dictionary<string, string>>();
 			List<Dictionary<string, string>> FeatureEntries = new List<Dictionary<string, string>>();
 
             for (int i = 0; i < HighScores.Entries.Count; i++)
             {
 				var e = HighScores.Entries[i];
-				var youtuber = HighScores.BoardData.YouTubeDict[e.Name];
+				var youtuber = HighScores.BoardData.YouTubeDict[e.Name.ToLowerInvariant()];
 
                 var d = new Dictionary<string, string>();
 
@@ -484,7 +489,7 @@ namespace StaticSiteGenerator
 			for (int i = 0; i < CountryList.Count; i++)
 			{
 				var e = CountryList[i];
-				var youtuber = HighScores.BoardData.YouTubeDict[e.Name];
+				var youtuber = HighScores.BoardData.YouTubeDict[e.Name.ToLowerInvariant()];
 
 				var d = new Dictionary<string, string>();
 
@@ -499,6 +504,20 @@ namespace StaticSiteGenerator
 				d.Add("Link", youtuber.YouTubeLink);
 
 				CountryEntries.Add(d);
+			}
+
+			for (int i = 0; i < HighScores.BetaEntries.Count; i++)
+			{
+				var e = HighScores.BetaEntries[i];
+
+				var d = new Dictionary<string, string>();
+
+				d.Add("Name", e.Name);
+				//d.Add("Rank", e.Rank.ToString());
+				d.Add("Rank", (i + 1).ToString());
+				d.Add("Score", string.Format("{0:n0}", e.Score));
+
+				BetaLeaderboardEntries.Add(d);
 			}
 
 			for (int i = 0; i < FeatureList.Count; i++)
@@ -531,9 +550,13 @@ namespace StaticSiteGenerator
 
 			s += index_pieces[4];
 
-			s += MakeFeatureList(index_pieces[5], FeatureList, FeatureEntries);
+			s += MakeLeaderboardTable(index_pieces[5], HighScores.BetaEntries, BetaLeaderboardEntries);
 
 			s += index_pieces[6];
+
+			s += MakeFeatureList(index_pieces[7], FeatureList, FeatureEntries);
+
+			s += index_pieces[8];
 
 
             File.WriteAllText(Path.Combine(Root, "index.smu"), s);

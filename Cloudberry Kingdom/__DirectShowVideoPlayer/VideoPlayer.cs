@@ -576,11 +576,14 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public int BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
         {
-            // Copy raw data into bgrData byte array
-            Marshal.Copy(pBuffer, bgrData, 0, BufferLen);
+			lock (this)
+			{
+				// Copy raw data into bgrData byte array
+				Marshal.Copy(pBuffer, bgrData, 0, BufferLen);
 
-            // Flag the new frame as available
-            frameAvailable = true;
+				// Flag the new frame as available
+				frameAvailable = true;
+			}
 
             // Return S_OK
             return 0;
@@ -597,24 +600,27 @@ namespace SeeSharp.Xna.Video
 
 		private void _UpdateBuffer()
 		{
-			if (frameAvailable)
+			lock (this)
 			{
-				int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
-
-				int samplePosRGBA = 0;
-				int samplePosRGB24 = 0;
-
-				for (int y = 0, y2 = videoHeight - 1; y < videoHeight; y++, y2--)
+				if (frameAvailable)
 				{
-					for (int x = 0; x < videoWidth; x++)
-					{
-						samplePosRGBA = (((y2 * videoWidth) + x) * 4);
-						samplePosRGB24 = ((y * videoWidth) + x) * 3;
+					int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
 
-						videoFrameBytes[samplePosRGBA + 0] = bgrData[samplePosRGB24 + 2];
-						videoFrameBytes[samplePosRGBA + 1] = bgrData[samplePosRGB24 + 1];
-						videoFrameBytes[samplePosRGBA + 2] = bgrData[samplePosRGB24 + 0];
-						videoFrameBytes[samplePosRGBA + 3] = alphaTransparency;
+					int samplePosRGBA = 0;
+					int samplePosRGB24 = 0;
+
+					for (int y = 0, y2 = videoHeight - 1; y < videoHeight; y++, y2--)
+					{
+						for (int x = 0; x < videoWidth; x++)
+						{
+							samplePosRGBA = (((y2 * videoWidth) + x) * 4);
+							samplePosRGB24 = ((y * videoWidth) + x) * 3;
+
+							videoFrameBytes[samplePosRGBA + 0] = bgrData[samplePosRGB24 + 2];
+							videoFrameBytes[samplePosRGBA + 1] = bgrData[samplePosRGB24 + 1];
+							videoFrameBytes[samplePosRGBA + 2] = bgrData[samplePosRGB24 + 0];
+							videoFrameBytes[samplePosRGBA + 3] = alphaTransparency;
+						}
 					}
 				}
 			}
