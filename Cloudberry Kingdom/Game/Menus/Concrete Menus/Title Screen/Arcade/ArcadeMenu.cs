@@ -11,17 +11,21 @@ namespace CloudberryKingdom
     {
         public Challenge MyChallenge;
         public Awardment MyPrereq;
+		int UnlockLevel = 0;
+
         public bool IsLocked()
         {
             if (MyPrereq != null && CloudberryKingdomGame.IsDemo) return true;
 
-            return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels;
+            return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels
+				&& (UnlockLevel != 0 && PlayerManager.MaxPlayerTotalLevel() < UnlockLevel);
         }
 
-        public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq) : base(Text)
+        public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq, int UnlockLevel) : base(Text)
         {
             this.MyChallenge = MyChallenge;
             this.MyPrereq = MyPrereq;
+			this.UnlockLevel = UnlockLevel;
         }
     }
 
@@ -358,16 +362,16 @@ namespace CloudberryKingdom
             ItemPos = new Vector2(-1689.523f, 520.4127f);
 
             // Escalation
-            item = AddChallenge(Challenge_Escalation.Instance, null, "Escalation");
+            item = AddChallenge(Challenge_Escalation.Instance, null, "Escalation", 0);
 
             // Time Crisis
-            item = AddChallenge(Challenge_TimeCrisis.Instance, Awardments.UnlockTimeCrisis, "Time Crisis");
+            item = AddChallenge(Challenge_TimeCrisis.Instance, Awardments.UnlockTimeCrisis, "Time Crisis", Awardments.TimeCrisis_LevelUnlock);
 
             // Hero Rush
-            item = AddChallenge(Challenge_HeroRush.Instance, Awardments.UnlockHeroRush, "Hero Rush");
+			item = AddChallenge(Challenge_HeroRush.Instance, Awardments.UnlockHeroRush, "Hero Rush", Awardments.HeroRush_LevelUnlock);
 
             // Hero Rush 2
-            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2");
+			item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2", Awardments.HeroRush2_LevelUnlock);
 
             // Bungee Co-op
             //item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
@@ -424,12 +428,12 @@ namespace CloudberryKingdom
             return new Vector2(-174.6031f, -603.1746f);
         }
 
-        private MenuItem AddChallenge(Challenge challenge, Awardment prereq, string itemname)
+        private MenuItem AddChallenge(Challenge challenge, Awardment prereq, string itemname, int UnlockLevel)
         {
             ArcadeItem item;
             Localization.Words word = challenge.MenuName;
             
-            item = new ArcadeItem(new EzText(word, ItemFont), challenge, prereq);
+            item = new ArcadeItem(new EzText(word, ItemFont), challenge, prereq, UnlockLevel);
 
             item.AdditionalOnSelect += OnSelect;
 

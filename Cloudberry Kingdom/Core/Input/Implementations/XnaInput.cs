@@ -97,10 +97,10 @@ namespace CoreEngine
 
 			var Pad = GamepadState[PlayerNumber].DPad;
 
-			if (Pad.Right	== ButtonState.Pressed) Dir = new Vector2(1, 0);
-			if (Pad.Up		== ButtonState.Pressed) Dir = new Vector2(0, 1);
-			if (Pad.Left	== ButtonState.Pressed) Dir = new Vector2(-1, 0);
-			if (Pad.Down	== ButtonState.Pressed) Dir = new Vector2(0, -1);
+			if (Pad.Right	== ButtonState.Pressed) Dir.X = 1;
+			if (Pad.Up		== ButtonState.Pressed) Dir.Y = 1;
+			if (Pad.Left	== ButtonState.Pressed) Dir.X = -1;
+			if (Pad.Down	== ButtonState.Pressed) Dir.Y = -1;
 
 			return Dir;
 		}

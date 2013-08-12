@@ -111,7 +111,7 @@ namespace CloudberryKingdom
             CinematicsLevelItem c_item = item as CinematicsLevelItem;
             if (null == c_item) return;
 
-            MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(c_item.Movie, 1);
+			VideoWrapper.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(c_item.Movie, 1);
         }
 
         void SetPos()

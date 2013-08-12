@@ -595,9 +595,16 @@ namespace CloudberryKingdom
 #endif
         }
 
+		public static string ExceptionStr(Exception e)
+		{
+			return string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message);
+		}
+
         public static void Log(string dump)
         {
 #if !XDK && !XBOX && WINDOWS
+			dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
+
             var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
             var writer = new StreamWriter(stream);
             writer.Write(dump);

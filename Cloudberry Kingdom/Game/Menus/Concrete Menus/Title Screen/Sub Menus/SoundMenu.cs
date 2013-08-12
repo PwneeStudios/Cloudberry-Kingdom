@@ -411,7 +411,7 @@ namespace CloudberryKingdom
 			MyGame.WaitThenDo(20, AfterCredits);
 			
 #if PC_VERSION
-			MainVideo.StartVideo("Credits_PC", false, 1.0f);
+			VideoWrapper.StartVideo("Credits_PC", false, 1.0f);
 #else
 			MainVideo.StartVideo("Credits", false, 1.0f);
 #endif

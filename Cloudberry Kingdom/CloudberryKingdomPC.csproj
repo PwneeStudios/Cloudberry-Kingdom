@@ -223,6 +223,7 @@
     <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
+    <Compile Include="Game\VideoWrapper.cs" />
     <Compile Include="Game\DirectDrawVideo.cs" />
     <Compile Include="Game\Localization.cs" />
     <Compile Include="Game\Games\Campaign\CampaignSequence.cs" />

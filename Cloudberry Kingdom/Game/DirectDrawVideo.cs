@@ -15,7 +15,7 @@ using DirectShow = SeeSharp.Xna.Video;
 
 namespace CloudberryKingdom
 {
-    class MainVideo
+    class DirectShowVideo
     {
 		public static bool IsPlaying
 		{
@@ -107,6 +107,19 @@ namespace CloudberryKingdom
 
 			CurrentVideo.Play();
 
+			float VolumeMod = 1;
+			switch (MovieName)
+			{
+				case "LogoSalad":
+					VolumeMod = .8333f;
+					break;
+
+				default:
+					VolumeMod = 1;
+					break;
+			}
+
+			CurrentVideo.SetVolume(CoreMath.Restrict(0, 1, VolumeMod * Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val)));
             //VPlayer.Volume = CoreMath.Restrict(0, 1, Math.Max(Tools.MusicVolume.Val, Tools.SoundVolume.Val));
 
             Elapsed = 0;

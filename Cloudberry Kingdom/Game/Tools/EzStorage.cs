@@ -28,7 +28,32 @@ namespace CloudberryKingdom
 
 #if PC_VERSION
             PlayerManager.Player.ContainerName		= "PlayerData";
-			PlayerManager.Player.FileName			= "Player Data " + SteamManager.SteamCore.SteamID();
+			if (CloudberryKingdomGame.UsingSteam)
+			{
+				UInt64 id = SteamManager.SteamCore.SteamID();
+				id = UInt64.MaxValue;
+				if (id == UInt64.MaxValue)
+				{
+					PlayerManager.Player.FileName = "Player Data";
+
+					// Couldn't find Steam ID, see if there are any Steam ID save files
+					var files = Directory.EnumerateFiles(EzStorage.SaveDir(), "Player Data *", SearchOption.TopDirectoryOnly);
+					foreach (var file in files)
+					{
+						PlayerManager.Player.FileName = file;
+						break;
+					}
+				}
+				else
+				{
+					PlayerManager.Player.FileName		= "Player Data " + id;
+				}
+			}
+			else
+			{
+				PlayerManager.Player.FileName		= "Player Data";
+			}
+
 			PlayerManager.Player.AlternateFileName	= "Player Data" ;
             Add(PlayerManager.Player);
 
@@ -105,7 +130,7 @@ namespace CloudberryKingdom
 			    {
 				    if ( MaxHighScores.ContainsKey( HighScore.Key ) )
 				    {
-					    MaxHighScores.Add( HighScore.Key, new ScoreEntry(
+						MaxHighScores[HighScore.Key] = new ScoreEntry(
 						    "",
 						    HighScore.Value.GameId,
 						    Math.Max( HighScore.Value.Value, MaxHighScores[ HighScore.Key ].Value ),
@@ -113,11 +138,11 @@ namespace CloudberryKingdom
 						    Math.Max( HighScore.Value.Level, MaxHighScores[ HighScore.Key ].Level ),
 						    Math.Min( HighScore.Value.Attempts, MaxHighScores[ HighScore.Key ].Attempts ),
 						    Math.Min( HighScore.Value.Time, MaxHighScores[ HighScore.Key ].Time ),
-						    Math.Max( HighScore.Value.Date, MaxHighScores[ HighScore.Key ].Date ) ) );
+						    Math.Max( HighScore.Value.Date, MaxHighScores[ HighScore.Key ].Date ) );
 				    }
 				    else
 				    {
-					    MaxHighScores[ HighScore.Key ] = HighScore.Value;
+					    MaxHighScores.Add( HighScore.Key, HighScore.Value );
 				    }
 			    }
 		    }
@@ -297,7 +322,13 @@ namespace CloudberryKingdom
             }
 
 #if PC_VERSION
-            SynchronizeAll();
+			try
+			{
+				SynchronizeAll();
+			}
+			catch
+			{
+			}
 #endif
         }
     }
@@ -350,31 +381,6 @@ namespace CloudberryKingdom
 				{
 					Changed = false;
 				});
-
-				//EzStorage.Save(index, ActualContainerName, FileName, writer =>
-				//    {
-				//        var ms = new MemoryStream();
-
-				//        using (BinaryWriter buffer_writer = new BinaryWriter(ms))
-				//        {
-				//            Serialize(buffer_writer);
-
-				//            byte[] bytes = ms.GetBuffer();
-
-				//            int length = (int)ms.Length;
-				//            writer.Write(BitConverter.GetBytes(length));
-				//            writer.Write(BitConverter.GetBytes(Checksum(bytes, length)));
-				//            writer.Write(bytes, 0, length);
-
-				//            ms.Dispose();
-				//        }
-
-				//        Changed = false;
-				//    },
-				//    () =>
-				//    {
-				//        Changed = false;
-				//    });
             }
         }
 
@@ -472,7 +478,7 @@ namespace CloudberryKingdom
 			Save(index, ContainerName, FileName, writer => _SaveWithMetaData(writer, SaveLogic), Fail);
 		}
 
-		static string SaveDir()
+		public static string SaveDir()
 		{
 			string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 			dir = Path.Combine(dir, "Cloudberry Kingdom");

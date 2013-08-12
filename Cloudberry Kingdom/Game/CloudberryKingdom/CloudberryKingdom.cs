@@ -205,7 +205,7 @@ namespace CloudberryKingdom
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
-        public static bool Unlock_Levels = true;
+        public static bool Unlock_Levels = false;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
@@ -814,8 +814,17 @@ namespace CloudberryKingdom
 			}
 
 	#if DEBUG || INCLUDE_EDITOR
-			rez.Mode = WindowMode.Borderless;
+			//rez.Mode = WindowMode.Borderless;
+			
+			rez.Mode = WindowMode.Windowed;
+			rez.Width = 1280;
+			rez.Height = 720;
 	#endif
+
+			//rez.Mode = WindowMode.Windowed;
+			//rez.Width = 1280;
+			//rez.Height = 720;
+
 
 			Resolution = new ResolutionGroup();
 			Resolution.Backbuffer = new IntVector2(rez.Width, rez.Height);
@@ -1199,7 +1208,7 @@ namespace CloudberryKingdom
                 }
 #else
 				//MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
-				MainVideo.StartVideo("LogoSalad", false, 3.45f);
+				VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
 #endif
 			}
 
@@ -1917,7 +1926,7 @@ namespace CloudberryKingdom
 			if (SetupToRender()) { DrawWatermark(); return; }
 
             // Main Video
-            if (MainVideo.Draw())
+			if (VideoWrapper.Draw())
             {
 #if XBOX
                 if (PlayerManager.Players != null)
@@ -2042,7 +2051,7 @@ namespace CloudberryKingdom
                 LoadingScreen.Draw();
             else if (Tools.ShowLoadingScreen)
                 DrawLoading();
-            else if (Tools.CurGameData != null && !MainVideo.Playing)
+			else if (Tools.CurGameData != null && !VideoWrapper.IsPlaying)
                 DrawGame();
             else
                 DrawNothing();
@@ -2328,12 +2337,12 @@ namespace CloudberryKingdom
 
 					// If a movie is playing, pause it,
 					// and note that we should resume once the window becomes active.
-					if (MainVideo.IsPlaying)
+					if (VideoWrapper.IsPlaying)
 					{
 						if (!VideoPlaying_HoldState)
 						{
 							VideoPlaying_HoldState = true;
-							MainVideo.Pause();
+							VideoWrapper.Pause();
 						}
 					}
 
@@ -2366,7 +2375,7 @@ namespace CloudberryKingdom
 					if (VideoPlaying_HoldState)
 					{
 						VideoPlaying_HoldState = false;
-						MainVideo.Resume();
+						VideoWrapper.Resume();
 					}
 
                     FirstActiveFrame = false;

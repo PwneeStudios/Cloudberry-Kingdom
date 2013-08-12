@@ -75,15 +75,20 @@ namespace CloudberryKingdom
             }
             Awardments.GiveAward(award);
 
-			// Clean campaign stats
-            for (int i = 0; i < 4; i++)
-            {
-                var player = PlayerManager.Players[i];
-                if (player == null || !player.Exists) continue;
-
-                player.CampaignStats.Clean();
-            }
+			CleanCampaignStats();
         }
+
+		public static void CleanCampaignStats()
+		{
+			// Clean campaign stats
+			for (int i = 0; i < 4; i++)
+			{
+				var player = PlayerManager.Players[i];
+				if (player == null || !player.Exists) continue;
+
+				player.CampaignStats.Clean();
+			}
+		}
 
         int StartLevel = 0;
         public override void Start(int Chapter)
@@ -91,6 +96,8 @@ namespace CloudberryKingdom
             CloudberryKingdomGame.PromptForDeviceIfNoneSelected();
 
 			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Campaign);
+
+			CleanCampaignStats();
 
 			MusicStarted = false;
 
@@ -421,7 +428,7 @@ namespace CloudberryKingdom
         {
             return level =>
             {
-                MainVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
+				VideoWrapper.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
 
                 ((ActionGameData)level.MyGame).Done = true;
             };

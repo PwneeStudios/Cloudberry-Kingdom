@@ -362,6 +362,8 @@ namespace SeeSharp.Xna.Video
         }
         #endregion
 
+		public bool Broken = false;
+
         #region Constructor
         /// <summary>
         /// Creates a new Video Player. Automatically creates the required Texture2D on the specificied GraphicsDevice.
@@ -428,7 +430,8 @@ namespace SeeSharp.Xna.Video
             }
             catch
             {
-                throw new Exception("Unable to Load or Play the video file");
+				Broken = true;
+                //throw new Exception("Unable to Load or Play the video file");
             }
         }
         #endregion
@@ -446,6 +449,17 @@ namespace SeeSharp.Xna.Video
             ms = (IMediaSeeking)fg;
             mp = (IMediaPosition)fg;
         }
+
+		static int ConvertLinearVolumeToLogScale(float volume)
+		{
+			//double L = 10000.0;
+			//double logval = L * ((Math.Pow(10.0, volume) - 1.0) / 9.0 - 1.0);
+			//return (int)logval;
+
+			volume = CloudberryKingdom.CoreMath.LerpRestrict(0.0f, 1.0f, volume);
+			float val = CloudberryKingdom.CoreMath.LerpRestrict(-10000.0f, 0.0f, (float)Math.Pow(volume, .3f));
+			return (int)val;
+		}
 
         /// <summary>
         /// Closes DirectShow interfaces
@@ -476,6 +490,12 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public void Update()
         {
+			if (Broken)
+			{
+				UpdateCount++;
+				return;
+			}
+
             // Remove the OutputFrame from the GraphicsDevice to prevent an InvalidOperationException on the SetData line.
             if (outputFrame.GraphicsDevice.Textures[0] == outputFrame)
             {
@@ -511,9 +531,21 @@ namespace SeeSharp.Xna.Video
                 //waitThread.Start();
 
                 // Update VideoState
-                currentState = VideoState.Playing;
+                currentState = VideoState.Playing;				
             }
         }
+
+		public void SetVolume(float volume)
+		{
+			try
+			{
+				var mixer = (IBasicAudio)fg;
+				mixer.put_Volume(ConvertLinearVolumeToLogScale(volume));
+			}
+			catch
+			{
+			}
+		}
 
         /// <summary>
         /// Pauses the video
@@ -549,6 +581,12 @@ namespace SeeSharp.Xna.Video
             if (waitThread != null)
                 waitThread.Abort();
             waitThread = null;
+
+			if (Broken)
+			{
+				currentState = VideoState.Stopped;
+				return;
+			}
 
             // Stop the FilterGraph
             DsError.ThrowExceptionForHR(mc.Stop());
@@ -699,6 +737,12 @@ namespace SeeSharp.Xna.Video
 
             Stop();
             CloseInterfaces();
+
+			if (Broken)
+			{
+				outputFrame = null;
+				return;
+			}
 
             outputFrame.Dispose();
             outputFrame = null;

@@ -1,5 +1,4 @@
-﻿#if FALSE
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +14,13 @@ using CoreEngine;
 
 namespace CloudberryKingdom
 {
-    class MainVideo
+    class XnaVideo
     {
 		public static bool IsPlaying
 		{
 			get
 			{
-				return MainVideo.Playing && MainVideo.VPlayer != null;
+				return XnaVideo.Playing && XnaVideo.VPlayer != null;
 			}
 		}
 
@@ -240,4 +239,3 @@ namespace CloudberryKingdom
         }
     }
 }
-#endif

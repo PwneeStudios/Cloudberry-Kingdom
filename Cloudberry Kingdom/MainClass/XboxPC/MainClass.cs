@@ -45,13 +45,17 @@ namespace CloudberryKingdom
 #if DEBUG && WINDOWS
         static void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
         {
-            Tools.Log(e.Exception.ToString());
+			Tools.Log("Exception on MainClass.CurrentDomain_FirstChanceException\n" + Tools.ExceptionStr(e.Exception));
+            //Tools.Log(e.Exception.ToString());
         }
 #endif
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Tools.Log(e.ExceptionObject.ToString());
-        } 
+			Tools.Log(string.Format("{0}\nExceptionObject:\n{1}\nsender:\n{2}", "Exception on MainClass.CurrentDomain_UnhandledException",
+				e.ExceptionObject == null ? "" : e.ExceptionObject.ToString(),
+				sender == null ? "" : sender.ToString()));
+            //Tools.Log(e.ExceptionObject.ToString());
+        }
     }
 }

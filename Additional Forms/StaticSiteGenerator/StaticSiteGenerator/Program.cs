@@ -451,88 +451,24 @@ namespace StaticSiteGenerator
 
         static void CompileLeaderboard(string Root)
         {
-			//HighScores.BoardData.GetData();
-			HighScores.BoardData.GetData();
-
-            HighScores.GetHighScore();
-			var CountryList = HighScores.GetCountryBoard();
-			var FeatureList = HighScores.BoardData.GetFeatureList();
+            var Entries = HighScores.GetHighScores(10000);
 
 			// Pare down
-			HighScores.BetaEntries = HighScores.BetaEntries.GetRange(0, 100);
-			FeatureList = FeatureList.GetRange(0, 5);
-
             List<Dictionary<string, string>> LeaderboardEntries = new List<Dictionary<string, string>>();
-			List<Dictionary<string, string>> CountryEntries = new List<Dictionary<string, string>>();
-			List<Dictionary<string, string>> BetaLeaderboardEntries = new List<Dictionary<string, string>>();
-			List<Dictionary<string, string>> FeatureEntries = new List<Dictionary<string, string>>();
 
-            for (int i = 0; i < HighScores.Entries.Count; i++)
+			for (int i = 0; i < Entries.Count; i++)
             {
-				var e = HighScores.Entries[i];
-				var youtuber = HighScores.BoardData.YouTubeDict[e.Name.ToLowerInvariant()];
-
+				var e = Entries[i];
                 var d = new Dictionary<string, string>();
 
-                //d.Add("Name", e.Name);
-				//d.Add("Rank", e.Rank.ToString());
-
-				d.Add("Name", youtuber.Channel);
-				d.Add("Rank", (i + 1).ToString());
-				d.Add("Flag", youtuber.Flag);
+                d.Add("Name", e.Name);
+				d.Add("Rank", e.Rank.ToString());
                 d.Add("Score", string.Format("{0:n0}", e.Score));
-				d.Add("Link", youtuber.YouTubeLink);
 
                 LeaderboardEntries.Add(d);
             }
 
-			for (int i = 0; i < CountryList.Count; i++)
-			{
-				var e = CountryList[i];
-				var youtuber = HighScores.BoardData.YouTubeDict[e.Name.ToLowerInvariant()];
-
-				var d = new Dictionary<string, string>();
-
-				//d.Add("Name", e.Name);
-				//d.Add("Rank", e.Rank.ToString());
-
-				d.Add("Name", youtuber.Channel);
-				d.Add("Rank", (i + 1).ToString());
-				d.Add("Country", youtuber.Country);
-				d.Add("Flag", youtuber.Flag);
-				d.Add("Score", string.Format("{0:n0}", e.Score));
-				d.Add("Link", youtuber.YouTubeLink);
-
-				CountryEntries.Add(d);
-			}
-
-			for (int i = 0; i < HighScores.BetaEntries.Count; i++)
-			{
-				var e = HighScores.BetaEntries[i];
-
-				var d = new Dictionary<string, string>();
-
-				d.Add("Name", e.Name);
-				//d.Add("Rank", e.Rank.ToString());
-				d.Add("Rank", (i + 1).ToString());
-				d.Add("Score", string.Format("{0:n0}", e.Score));
-
-				BetaLeaderboardEntries.Add(d);
-			}
-
-			for (int i = 0; i < FeatureList.Count; i++)
-			{
-				var e = FeatureList[i];
-
-				var d = new Dictionary<string, string>();
-
-				d.Add("Channel", e.Channel);
-				d.Add("Embed", e.Embed);
-
-				FeatureEntries.Add(d);
-			}
-
-            var index = File.ReadAllText(Path.Combine(Root, "generate_index.smu"));
+			var index = File.ReadAllText(Path.Combine(Root, "generate_index.smu"));
 
             index = ReplaceKeywords(index, Root);
 
@@ -542,49 +478,13 @@ namespace StaticSiteGenerator
 
             s += index_pieces[0];
 
-			s += MakeLeaderboardTable(index_pieces[1], HighScores.Entries, LeaderboardEntries);
+			s += MakeLeaderboardTable(index_pieces[1], Entries, LeaderboardEntries);
 
             s += index_pieces[2];
-
-			s += MakeLeaderboardTable(index_pieces[3], CountryList, CountryEntries);
-
-			s += index_pieces[4];
-
-			s += MakeLeaderboardTable(index_pieces[5], HighScores.BetaEntries, BetaLeaderboardEntries);
-
-			s += index_pieces[6];
-
-			s += MakeFeatureList(index_pieces[7], FeatureList, FeatureEntries);
-
-			s += index_pieces[8];
-
 
             File.WriteAllText(Path.Combine(Root, "index.smu"), s);
         }
 		
-		static string MakeFeatureList(string repeat_section, List<FeatureItem> entries, List<Dictionary<string, string>> Entries)
-		{
-			string s = "";
-
-			var index_varpieces = repeat_section.Split('✪');
-			for (int repeat = 0; repeat < entries.Count; repeat++)
-			{
-				for (int i = 0; i < index_varpieces.Length; i++)
-				{
-					if (i % 2 == 0)
-					{
-						s += index_varpieces[i];
-					}
-					else
-					{
-						s += Entries[repeat][index_varpieces[i]];
-					}
-				}
-			}
-
-			return s;
-		}
-
 		static string MakeLeaderboardTable(string repeat_section, List<HighScores.LeaderboardEntry> entries, List<Dictionary<string, string>> Entries)
 		{
 			string s = "";
@@ -690,10 +590,19 @@ namespace StaticSiteGenerator
 
 		static void _Main(string[] args)
 		{
-			//HighScores.BoardData.GetGoogleData();
-			//return;
-
 			Initialize();
+
+			// Calculate unique entries
+			//var Entries_StoryMode = HighScores.GetHighScores(7777);
+			//var Entries_PlayerLevel = HighScores.GetHighScores(9999);
+
+			//var n =
+			//    (
+			//        from e in Entries_StoryMode
+			//        where !Entries_PlayerLevel.Select(entry => entry.Name).Contains(e.Name)
+			//        select e.Name
+			//    ).Count();
+
 
 			if (args.Length > 0 && args[0] == "download")
 			{
@@ -713,16 +622,16 @@ namespace StaticSiteGenerator
 			{
 				Log("Uploading local content to S3.");
 
-				while (true)
+				//while (true)
 				{
-					CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
+					//CompileLeaderboard(Path.Combine(LocalPath, "infinity_cup"));
 					CompileBlogHome(Path.Combine(LocalPath, "blog"));
 
 					CompileAllSmus(LocalPath);
 
 					UploadBucket(MainBucket, LocalPath);
 
-					System.Threading.Thread.Sleep(1000 * 60 * 2);
+					//System.Threading.Thread.Sleep(1000 * 60 * 2);
 				}
 			}
 

@@ -51,8 +51,15 @@ namespace SteamManager
 
 		public static UInt64 SteamID()
 		{
-			UInt64 id = SW.SteamCore.SteamID();
-			return id;
+			try
+			{
+				UInt64 id = SW.SteamCore.SteamID();
+				return id;
+			}
+			catch
+			{
+				return UInt64.MaxValue;
+			}
 		}
 	}
 

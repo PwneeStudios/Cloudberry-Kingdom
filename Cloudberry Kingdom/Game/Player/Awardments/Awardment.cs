@@ -410,9 +410,9 @@ namespace CloudberryKingdom
             string.Format("Level {0} in Hero Rush 2", HeroRush2_LevelUnlock),
             Awardment.NewGameMode, false);
 
-        const int TimeCrisis_LevelUnlock = 50;
-        const int HeroRush_LevelUnlock = 250;
-        const int HeroRush2_LevelUnlock = 500;
+        public const int TimeCrisis_LevelUnlock = 50;
+        public const int HeroRush_LevelUnlock = 250;
+        public const int HeroRush2_LevelUnlock = 500;
 
         public static void Init()
         {

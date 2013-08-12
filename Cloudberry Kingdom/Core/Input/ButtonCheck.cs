@@ -316,7 +316,7 @@ namespace CloudberryKingdom
             Down_Secondary = Keys.S;
         }
 
-        public static float ThresholdSensitivity = .715f;//.75f;
+        public static float ThresholdSensitivity = .715f;
 
         public ControllerButtons MyButton1, MyButton2;
         public int MyPlayerIndex;

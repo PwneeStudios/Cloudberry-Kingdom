@@ -126,10 +126,6 @@ namespace StaticSiteGenerator
 				return Cells;
 			}
 
-
-
-
-
 			public static void GetData()
 			{
 				var Cells = GetGoogleData("Youtuber Invite List");
@@ -143,8 +139,6 @@ namespace StaticSiteGenerator
 
 					try
 					{
-						//if (Cells[j, 8] == null) continue;
-
 						gamer.Confirmed = (int.Parse(Cells[j, 9]) == 1);
 						if (!gamer.Confirmed) continue;
 
@@ -172,61 +166,6 @@ namespace StaticSiteGenerator
 					}
 				}
 			}
-
-			/*
-			public static Dictionary<string, YouTubeGamer> GetData()
-			{
-				YouTubeDict = new Dictionary<string, YouTubeGamer>();
-
-				// Get texture asset list
-				string proj = @"Youtuber Invite List.xlsx";
-				string connection = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}; Extended Properties=Excel 12.0;", proj);
-
-				var adapter = new OleDbDataAdapter("SELECT * FROM [Sheet1$]", connection);
-				var ds = new DataSet();
-
-				adapter.Fill(ds);
-
-				var table = ds.Tables["Table"];
-				var data = table.AsEnumerable();
-
-				int skip = 5;
-				foreach (var d in data)
-				{
-					skip--;
-					if (skip > 0) continue;
-
-					var gamer = new YouTubeGamer();
-
-					try
-					{
-						gamer.Confirmed = ((int)(double)(d.ItemArray[8]) == 1);
-						if (!gamer.Confirmed) continue;
-
-						gamer.Name = (string)d.ItemArray[0];
-						gamer.Channel = (string)d.ItemArray[1];
-						gamer.Country = (string)d.ItemArray[2];
-						gamer.SteamNickname = (string)d.ItemArray[11];
-						gamer.YouTubeLink = (string)d.ItemArray[12];
-
-						if (!gamer.YouTubeLink.Contains("http"))
-						{
-							gamer.YouTubeLink = "http://" + gamer.YouTubeLink;
-						}
-
-						gamer.Init();
-					}
-					catch (Exception e)
-					{
-						continue;
-					}
-
-					YouTubeDict.Add(gamer.SteamNickname, gamer);
-				}
-
-				return YouTubeDict;
-			}
-			*/
 		}
 
         public class LeaderboardEntry
@@ -243,51 +182,17 @@ namespace StaticSiteGenerator
             }
         }
 
-		public static List<LeaderboardEntry> GetCountryBoard()
+		public static List<LeaderboardEntry> GetHighScores(int BoardId)
 		{
-			var l = new List<LeaderboardEntry>();
-
-			Dictionary<string, LeaderboardEntry> BestCountryScore = new Dictionary<string, LeaderboardEntry>();
-
-			foreach (var s in Entries)
-			{
-				string flag = BoardData.YouTubeDict[s.Name.ToLowerInvariant()].Flag;
-
-				if (BestCountryScore.ContainsKey(flag))
-				{
-					if (s.Score > BestCountryScore[flag].Score)
-						BestCountryScore[flag] = s;
-				}
-				else
-				{
-					BestCountryScore.Add(flag, s);
-				}
-			}
-
-			foreach (var s in BestCountryScore.Values)
-			{
-				l.Add(s);
-			}
-
-			return l;
-		}
-
-        public static int TotalSize = 0;
-        public static List<LeaderboardEntry> Entries = null;
-		public static List<LeaderboardEntry> BetaEntries = null;
-
-        public static void GetHighScore()
-        {
-			Entries = new List<LeaderboardEntry>();
-			BetaEntries = new List<LeaderboardEntry>();
-
             bool SteamInitialized = SteamCore.Initialize();
             if (!SteamInitialized)
             {
-                return;
+                return null;
             }
 
-            var id = GetIdentity(10000);
+			_EntryList = new List<LeaderboardEntry>();
+
+			var id = GetIdentity(BoardId);
             SteamStats.FindLeaderboard(id, OnFindLeaderboard_Read);
             ReadingInProgress = true;
 
@@ -297,10 +202,14 @@ namespace StaticSiteGenerator
             }
 
             SteamCore.Shutdown();
+
+			return _EntryList;
         }
+		private static List<LeaderboardEntry> _EntryList;
+		private static int _TotalSize;
 
         static bool ReadingInProgress = false;
-        static void OnFindLeaderboard_Read(LeaderboardHandle Handle, bool failed)
+		static void OnFindLeaderboard_Read(LeaderboardHandle Handle, bool failed)
         {
             Console.WriteLine("Find Leaderboard to read from. Failed? : {0}", failed);
 
@@ -310,7 +219,7 @@ namespace StaticSiteGenerator
             }
             else
             {
-				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 0, 1000,
+				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 1000, 2000,
 					b => OnInfo(Handle, b));
             }
         }
@@ -324,7 +233,7 @@ namespace StaticSiteGenerator
                 return;
             }
             
-            TotalSize = SteamStats.NumEntries(Handle);
+            _TotalSize = SteamStats.NumEntries(Handle);
 
             int NumEntriesFound = SteamStats.NumEntriesFound();
 
@@ -334,16 +243,7 @@ namespace StaticSiteGenerator
                 int val = SteamStats.Results_GetScore(i);
                 Gamer gamer = new Gamer(SteamStats.Results_GetName(i), SteamStats.Results_GetId(i));
 
-				if (gamer.Gamertag == "Guunnz") continue;
-
-				if (BoardData.YouTubeDict.ContainsKey(gamer.Gamertag.ToLowerInvariant()))
-				{
-					Entries.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
-				}
-				else
-				{
-					BetaEntries.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
-				}
+				_EntryList.Add(new LeaderboardEntry(rank, val, gamer.Gamertag));
             }
 
             ReadingInProgress = false;

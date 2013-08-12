@@ -27,6 +27,31 @@ namespace CloudberryKingdom
 
             Tools.Write("XnaGameClass Constructor");
 
+			// Read load options
+			try
+			{
+				var options = System.IO.File.ReadLines("RunOptions.txt");
+
+				foreach (var option in options)
+				{
+					var lower = option.ToLower();
+
+					if (lower.Contains("xnavideo") &&
+						lower.Contains("on"))
+					{
+						VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.Xna;
+					}
+
+					if (lower.Contains("directshowvideo") &&
+						lower.Contains("on"))
+					{
+						VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.DirectShow;
+					}
+				}
+			}
+			catch
+			{
+			}
 #if XBOX
             Components.Add(new GamerServicesComponent(this));
             Tools.Write("GamerService added");
@@ -100,7 +125,8 @@ namespace CloudberryKingdom
 			}
 			catch (Exception e)
 			{
-				Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
+				Tools.Log("Exception on XnaGameClass.Update\n" + Tools.ExceptionStr(e));
+				//Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
 			}
         }
 
