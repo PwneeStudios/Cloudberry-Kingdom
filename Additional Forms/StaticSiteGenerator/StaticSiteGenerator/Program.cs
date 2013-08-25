@@ -593,15 +593,15 @@ namespace StaticSiteGenerator
 			Initialize();
 
 			// Calculate unique entries
-			//var Entries_StoryMode = HighScores.GetHighScores(7777);
-			//var Entries_PlayerLevel = HighScores.GetHighScores(9999);
+			var Entries_StoryMode = HighScores.GetHighScores(7777);
+			var Entries_PlayerLevel = HighScores.GetHighScores(9999);
 
-			//var n =
-			//    (
-			//        from e in Entries_StoryMode
-			//        where !Entries_PlayerLevel.Select(entry => entry.Name).Contains(e.Name)
-			//        select e.Name
-			//    ).Count();
+			var n =
+				(
+					from e in Entries_StoryMode
+					where !Entries_PlayerLevel.Select(entry => entry.Name).Contains(e.Name)
+					select e.Name
+				).Count();
 
 
 			if (args.Length > 0 && args[0] == "download")

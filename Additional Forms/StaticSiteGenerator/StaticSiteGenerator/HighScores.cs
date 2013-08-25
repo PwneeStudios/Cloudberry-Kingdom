@@ -219,7 +219,7 @@ namespace StaticSiteGenerator
             }
             else
             {
-				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 1000, 2000,
+				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 4000, 5000,
 					b => OnInfo(Handle, b));
             }
         }

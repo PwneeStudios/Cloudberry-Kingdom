@@ -31,17 +31,23 @@ namespace CloudberryKingdom
 			if (CloudberryKingdomGame.UsingSteam)
 			{
 				UInt64 id = SteamManager.SteamCore.SteamID();
-				id = UInt64.MaxValue;
+
 				if (id == UInt64.MaxValue)
 				{
 					PlayerManager.Player.FileName = "Player Data";
 
-					// Couldn't find Steam ID, see if there are any Steam ID save files
-					var files = Directory.EnumerateFiles(EzStorage.SaveDir(), "Player Data *", SearchOption.TopDirectoryOnly);
-					foreach (var file in files)
+					try
 					{
-						PlayerManager.Player.FileName = file;
-						break;
+						// Couldn't find Steam ID, see if there are any Steam ID save files
+						var files = Directory.EnumerateFiles(EzStorage.SaveDir(), "Player Data *", SearchOption.TopDirectoryOnly);
+						foreach (var file in files)
+						{
+							PlayerManager.Player.FileName = file;
+							break;
+						}
+					}
+					catch
+					{
 					}
 				}
 				else

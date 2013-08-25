@@ -43,7 +43,14 @@ namespace CoreEngine
 
         public void Stop()
         {
-            MediaPlayer.Stop();
+			try
+			{
+				MediaPlayer.Stop();
+			}
+			catch
+			{
+			}
+
             PlayNext = false;
         }
 
@@ -51,13 +58,27 @@ namespace CoreEngine
         public void Pause()
         {
             Paused = true;
-            MediaPlayer.Pause();
+
+			try
+			{
+				MediaPlayer.Pause();
+			}
+			catch
+			{
+			}
         }
 
         public void Unpause()
         {
             Paused = false;
-            MediaPlayer.Resume();
+            
+			try
+			{
+				MediaPlayer.Resume();
+			}
+			catch
+			{
+			}
         }
 
         public void DisplaySongInfo(EzSong song)
@@ -109,8 +130,16 @@ namespace CoreEngine
                 if (Fade <= 0)
                 {
                     PlayNext = false;
-                    MediaPlayer.Stop();
-                    Fading = false;
+					
+					try
+					{
+						MediaPlayer.Stop();
+					}
+					catch
+					{
+					}
+                    
+					Fading = false;
                 }
             }
 
@@ -342,7 +371,13 @@ namespace CoreEngine
             Fade = 1;
             Fading = false;
 
-            MediaPlayer.Stop();
+			try
+			{
+				MediaPlayer.Stop();
+			}
+			catch
+			{
+			}
 
             // Suppress next info display
             if (DisplayInfo && SuppressNextInfoDisplay)

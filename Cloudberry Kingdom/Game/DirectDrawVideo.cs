@@ -105,6 +105,11 @@ namespace CloudberryKingdom
 
             CurrentVideo = new DirectShow.VideoPlayer(Path.Combine("Movies", MovieName), Tools.GameClass.GraphicsDevice);
 
+			if (DirectShow.VideoPlayer.Broken)
+			{
+				return;
+			}
+
 			CurrentVideo.Play();
 
 			float VolumeMod = 1;

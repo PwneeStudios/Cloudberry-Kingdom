@@ -362,7 +362,7 @@ namespace SeeSharp.Xna.Video
         }
         #endregion
 
-		public bool Broken = false;
+		public static bool Broken = false;
 
         #region Constructor
         /// <summary>
@@ -442,12 +442,19 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         private void InitInterfaces()
         {
-            fg = new FilterGraph();
-            gb = (IGraphBuilder)fg;
-            mc = (IMediaControl)fg;
-            me = (IMediaEventEx)fg;
-            ms = (IMediaSeeking)fg;
-            mp = (IMediaPosition)fg;
+			try
+			{
+				fg = new FilterGraph();
+				gb = (IGraphBuilder)fg;
+				mc = (IMediaControl)fg;
+				me = (IMediaEventEx)fg;
+				ms = (IMediaSeeking)fg;
+				mp = (IMediaPosition)fg;
+			}
+			catch
+			{
+				Broken = true;
+			}
         }
 
 		static int ConvertLinearVolumeToLogScale(float volume)
@@ -466,20 +473,26 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         private void CloseInterfaces()
         {
-            if (me != null)
-            {
-                DsError.ThrowExceptionForHR(mc.Stop());
-                //0x00008001 = WM_GRAPHNOTIFY
-                DsError.ThrowExceptionForHR(me.SetNotifyWindow(IntPtr.Zero, 0x00008001, IntPtr.Zero));
-            }
-            mc = null;
-            me = null;
-            gb = null;
-            ms = null;
-            mp = null;
-            if (fg != null)
-                Marshal.ReleaseComObject(fg);
-            fg = null;
+			try
+			{
+				if (me != null)
+				{
+					DsError.ThrowExceptionForHR(mc.Stop());
+					//0x00008001 = WM_GRAPHNOTIFY
+					DsError.ThrowExceptionForHR(me.SetNotifyWindow(IntPtr.Zero, 0x00008001, IntPtr.Zero));
+				}
+				mc = null;
+				me = null;
+				gb = null;
+				ms = null;
+				mp = null;
+				if (fg != null)
+					Marshal.ReleaseComObject(fg);
+				fg = null;
+			}
+			catch
+			{
+			}
         }
         #endregion
 
@@ -490,26 +503,33 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public void Update()
         {
-			if (Broken)
+			try
 			{
+				if (Broken)
+				{
+					UpdateCount++;
+					return;
+				}
+
+				// Remove the OutputFrame from the GraphicsDevice to prevent an InvalidOperationException on the SetData line.
+				if (outputFrame.GraphicsDevice.Textures[0] == outputFrame)
+				{
+					outputFrame.GraphicsDevice.Textures[0] = null;
+				}
+
+				_UpdateBuffer();
+
+				// Set video data into the Output Frame
+				outputFrame.SetData<byte>(videoFrameBytes);
 				UpdateCount++;
-				return;
+
+				// Update current position read-out
+				DsError.ThrowExceptionForHR(ms.GetCurrentPosition(out currentPosition));
 			}
-
-            // Remove the OutputFrame from the GraphicsDevice to prevent an InvalidOperationException on the SetData line.
-            if (outputFrame.GraphicsDevice.Textures[0] == outputFrame)
-            {
-                outputFrame.GraphicsDevice.Textures[0] = null;
-            }
-
-			_UpdateBuffer();
-
-            // Set video data into the Output Frame
-			outputFrame.SetData<byte>(videoFrameBytes);
-			UpdateCount++;
-
-            // Update current position read-out
-            DsError.ThrowExceptionForHR(ms.GetCurrentPosition(out currentPosition));
+			catch
+			{
+				Broken = true;
+			}
         }
 
         /// <summary>
@@ -552,20 +572,27 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public void Pause()
         {
-            // End threads
-            if (updateThread != null)
-                updateThread.Abort();
-            updateThread = null;
+			try
+			{
+				// End threads
+				if (updateThread != null)
+					updateThread.Abort();
+				updateThread = null;
 
-            if (waitThread != null)
-                waitThread.Abort();
-            waitThread = null;
+				if (waitThread != null)
+					waitThread.Abort();
+				waitThread = null;
 
-            // Stop the FilterGraph (but remembers the current position)
-            DsError.ThrowExceptionForHR(mc.Stop());
+				// Stop the FilterGraph (but remembers the current position)
+				DsError.ThrowExceptionForHR(mc.Stop());
 
-            // Update VideoState
-            currentState = VideoState.Paused;
+				// Update VideoState
+				currentState = VideoState.Paused;
+			}
+			catch
+			{
+				Broken = true;
+			}
         }
 
         /// <summary>
@@ -573,29 +600,36 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public void Stop()
         {
-            // End Threads
-            if (updateThread != null)
-                updateThread.Abort();
-            updateThread = null;
-
-            if (waitThread != null)
-                waitThread.Abort();
-            waitThread = null;
-
-			if (Broken)
+			try
 			{
+				// End Threads
+				if (updateThread != null)
+					updateThread.Abort();
+				updateThread = null;
+
+				if (waitThread != null)
+					waitThread.Abort();
+				waitThread = null;
+
+				if (Broken)
+				{
+					currentState = VideoState.Stopped;
+					return;
+				}
+
+				// Stop the FilterGraph
+				DsError.ThrowExceptionForHR(mc.Stop());
+
+				// Reset the current position
+				DsError.ThrowExceptionForHR(ms.SetPositions(0, AMSeekingSeekingFlags.AbsolutePositioning, 0, AMSeekingSeekingFlags.NoPositioning));
+
+				// Update VideoState
 				currentState = VideoState.Stopped;
-				return;
 			}
-
-            // Stop the FilterGraph
-            DsError.ThrowExceptionForHR(mc.Stop());
-
-            // Reset the current position
-            DsError.ThrowExceptionForHR(ms.SetPositions(0, AMSeekingSeekingFlags.AbsolutePositioning, 0, AMSeekingSeekingFlags.NoPositioning));
-
-            // Update VideoState
-            currentState = VideoState.Stopped;
+			catch
+			{
+				Broken = true;
+			}
         }
 
         /// <summary>
@@ -614,13 +648,22 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public int BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
         {
-			lock (this)
-			{
-				// Copy raw data into bgrData byte array
-				Marshal.Copy(pBuffer, bgrData, 0, BufferLen);
+			if (Broken) return 0;
 
-				// Flag the new frame as available
-				frameAvailable = true;
+			try
+			{
+				lock (this)
+				{
+					// Copy raw data into bgrData byte array
+					Marshal.Copy(pBuffer, bgrData, 0, BufferLen);
+
+					// Flag the new frame as available
+					frameAvailable = true;
+				}
+			}
+			catch
+			{
+				Broken = true;
 			}
 
             // Return S_OK
@@ -638,76 +681,48 @@ namespace SeeSharp.Xna.Video
 
 		private void _UpdateBuffer()
 		{
-			lock (this)
+			if (Broken) return;
+
+			try
 			{
-				if (frameAvailable)
+				lock (this)
 				{
-					int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
-
-					int samplePosRGBA = 0;
-					int samplePosRGB24 = 0;
-
-					for (int y = 0, y2 = videoHeight - 1; y < videoHeight; y++, y2--)
+					if (frameAvailable)
 					{
-						for (int x = 0; x < videoWidth; x++)
-						{
-							samplePosRGBA = (((y2 * videoWidth) + x) * 4);
-							samplePosRGB24 = ((y * videoWidth) + x) * 3;
+						int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
 
-							videoFrameBytes[samplePosRGBA + 0] = bgrData[samplePosRGB24 + 2];
-							videoFrameBytes[samplePosRGBA + 1] = bgrData[samplePosRGB24 + 1];
-							videoFrameBytes[samplePosRGBA + 2] = bgrData[samplePosRGB24 + 0];
-							videoFrameBytes[samplePosRGBA + 3] = alphaTransparency;
+						int samplePosRGBA = 0;
+						int samplePosRGB24 = 0;
+
+						for (int y = 0, y2 = videoHeight - 1; y < videoHeight; y++, y2--)
+						{
+							for (int x = 0; x < videoWidth; x++)
+							{
+								samplePosRGBA = (((y2 * videoWidth) + x) * 4);
+								samplePosRGB24 = ((y * videoWidth) + x) * 3;
+
+								videoFrameBytes[samplePosRGBA + 0] = bgrData[samplePosRGB24 + 2];
+								videoFrameBytes[samplePosRGBA + 1] = bgrData[samplePosRGB24 + 1];
+								videoFrameBytes[samplePosRGBA + 2] = bgrData[samplePosRGB24 + 0];
+								videoFrameBytes[samplePosRGBA + 3] = alphaTransparency;
+							}
 						}
 					}
 				}
 			}
+			catch
+			{
+				Broken = true;
+			}
 		}
-
-        /// <summary>
-        /// Worker to copy the BGR data from the video stream into the RGBA byte array for the Output Frame.
-        /// </summary>
-        private void UpdateBuffer()
-        {
-			return;
-
-            int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
-
-            int samplePosRGBA = 0;
-            int samplePosRGB24 = 0;
-
-            while (true)
-            {
-				if (CopyCount <= UpdateCount)
-				{
-					for (int y = 0, y2 = videoHeight - 1; y < videoHeight; y++, y2--)
-					{
-						for (int x = 0; x < videoWidth; x++)
-						{
-							samplePosRGBA = (((y2 * videoWidth) + x) * 4);
-							samplePosRGB24 = ((y * videoWidth) + x) * 3;
-
-							videoFrameBytes[samplePosRGBA + 0] = bgrData[samplePosRGB24 + 2];
-							videoFrameBytes[samplePosRGBA + 1] = bgrData[samplePosRGB24 + 1];
-							videoFrameBytes[samplePosRGBA + 2] = bgrData[samplePosRGB24 + 0];
-							videoFrameBytes[samplePosRGBA + 3] = alphaTransparency;
-						}
-					}
-
-					CopyCount++;
-				}
-
-                frameAvailable = false;
-                while (!frameAvailable)
-                { Thread.Sleep(waitTime); }
-            }
-        }
 
         /// <summary>
         /// Waits for the video to finish, then calls the OnVideoComplete event
         /// </summary>
         private void WaitForCompletion()
         {
+			if (Broken) return;
+
             int waitTime = avgTimePerFrame != 0 ? (int)((float)avgTimePerFrame / 10000) : 20;
 
             try
@@ -720,9 +735,8 @@ namespace SeeSharp.Xna.Video
                 if (OnVideoComplete != null)
                     OnVideoComplete.Invoke(this, EventArgs.Empty);
             }
-            catch (Exception e)
+            catch
 			{
-				Console.WriteLine("!");
 			}
         }
         #endregion
@@ -733,20 +747,27 @@ namespace SeeSharp.Xna.Video
         /// </summary>
         public void Dispose()
         {
-            isDisposed = true;
+			if (Broken) return;
 
-            Stop();
-            CloseInterfaces();
-
-			if (Broken)
+			try
 			{
+				isDisposed = true;
+
+				Stop();
+				CloseInterfaces();
+
+				if (Broken)
+				{
+					outputFrame = null;
+					return;
+				}
+
+				outputFrame.Dispose();
 				outputFrame = null;
-				return;
 			}
-
-            outputFrame.Dispose();
-            outputFrame = null;
-
+			catch
+			{
+			}
         }
         #endregion
     }

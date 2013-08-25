@@ -2331,7 +2331,14 @@ namespace CloudberryKingdom
 						if (!MediaPlaying_HoldState)
 						{
 							MediaPlaying_HoldState = true;
-							MediaPlayer.Pause();
+							
+							try
+							{
+								MediaPlayer.Pause();
+							}
+							catch
+							{
+							}
 						}
                     }
 
@@ -2367,7 +2374,14 @@ namespace CloudberryKingdom
                     if (MediaPlaying_HoldState)
 					{
 						MediaPlaying_HoldState = false;
-                        MediaPlayer.Resume();
+                        
+						try
+						{
+							MediaPlayer.Resume();
+						}
+						catch
+						{
+						}
 					}
 
 					// If a video was playing previously when the window was active before,

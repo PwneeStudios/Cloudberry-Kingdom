@@ -713,7 +713,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 {
                     if (ThisThread != null)
                     {
-                        ThisThread.Abort();
+						try
+						{
+							ThisThread.Abort();
+						}
+						catch
+						{
+						}
                     }
                 };
                 Tools.TheGame.Exiting += abort;

@@ -102,12 +102,18 @@ namespace CoreEngine
                 OrigW = int.Parse(data[7]) + additional;
                 OrigH = int.Parse(data[8]) + additional;
 
-                //if (Char == (int)'!') { OrigW -= 20; Xoffset -= 20; }
 
-                Data.Add(Char, new GlyphData(
-                    new Vector4(X, Y, Width, Height),
-                    new Vector2(OrigW, OrigH),
-                    new Vector2(Xoffset, Yoffset)));
+				if (Data.ContainsKey(Char))
+				{
+					Console.WriteLine(Char);
+				}
+				else
+				{
+					Data.Add(Char, new GlyphData(
+						new Vector4(X, Y, Width, Height),
+						new Vector2(OrigW, OrigH),
+						new Vector2(Xoffset, Yoffset)));
+				}
 
                 line = file.ReadLine();
             }

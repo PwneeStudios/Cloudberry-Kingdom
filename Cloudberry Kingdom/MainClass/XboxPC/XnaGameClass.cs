@@ -52,6 +52,8 @@ namespace CloudberryKingdom
 			catch
 			{
 			}
+			
+			//VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.Xna;
 #if XBOX
             Components.Add(new GamerServicesComponent(this));
             Tools.Write("GamerService added");

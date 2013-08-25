@@ -26,8 +26,14 @@ namespace CoreEngine
         {
             Tools.CurSongVolume = Volume;
 
-            MediaPlayer.Stop();
-            MediaPlayer.Play(song);
+			try
+			{
+				MediaPlayer.Stop();
+				MediaPlayer.Play(song);
+			}
+			catch
+			{
+			}
 
 			if (Tools.SongWad.SuppressNextInfoDisplay)
 				Tools.SongWad.SuppressNextInfoDisplay = DisplayInfo = false;

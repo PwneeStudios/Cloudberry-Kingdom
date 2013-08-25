@@ -100,31 +100,6 @@ namespace CloudberryKingdom
             // Press Start
             PressStart = new StartMenu_MW_PressStart(this);
             AddGameObject(PressStart);
-
-            /*
-            // Menu
-            GUI_Panel panel;
-
-            if (CloudberryKingdomGame.StartAsFreeplay)
-                panel = new CustomLevel_GUI();
-            else
-            {
-                panel = new StartMenu_MW(this);
-
-                //panel = new StartMenu();
-
-                //panel = new AdvancedCustomGUI();
-                //panel = new SimpleCustomGUI();
-
-                //panel = new StatsMenu();
-                //panel = new AwardmentMenu();
-                //panel = new CategoryMenu();
-                //panel = new CampaignMenu();
-                //panel = new ArcadeMenu();
-            }
-
-            AddGameObject(panel);
-             */
         }
 
         public override void AdditionalReset()
