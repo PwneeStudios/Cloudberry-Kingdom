@@ -58,7 +58,15 @@ namespace CoreEngine
 			}
 			else
 			{
-				data = Data['#'];
+				switch (c)
+				{ 
+					case 'Ő': data = Data['O']; break;
+					case 'Ű': data = Data['U']; break;
+					case 'ő': data = Data['o']; break;
+					case 'ű': data = Data['u']; break;
+
+					default: data = Data['#']; break;
+				}
 			}
 
 			if (MakeMonospaced)

@@ -322,7 +322,10 @@ namespace CloudberryKingdom.InGameObjects
 
             if (Tools.DrawBoxes)
             {
-                Tools.QDrawer.DrawCircle(Pos, 30, Color.Red);
+				Color color = UsedOnce ? new Color(125, 125, 125, 255) : new Color(255, 255, 255, 125);
+				Tools.QDrawer.DrawFilledBox(Pos + new Vector2(-100, -200), Pos + new Vector2(100, 120), color);
+
+				//Tools.QDrawer.DrawCircle(Pos, 30, Color.Red);
             }
         }
 

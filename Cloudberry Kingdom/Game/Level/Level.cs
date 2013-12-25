@@ -1824,14 +1824,34 @@ namespace CloudberryKingdom.Levels
             float PrevIndependentPhsxStep = IndependentPhsxStep;
             //TimeType = TimeTypes.Regular;
             //TimeType = TimeTypes.xSync;
-            switch (TimeType)
+			//TimeType = TimeTypes.Control;
+
+			switch (TimeType)
             {
                 case TimeTypes.Regular:
-                    //IndependentPhsxStep = CurPhsxStep * 1.5f;
                     IndependentPhsxStep = CurPhsxStep * 1f;
                     if (!IndependentStepSetOnce)
                         PrevIndependentPhsxStep = IndependentPhsxStep - 1;
                     break;
+
+				case TimeTypes.Control:
+					float r = ButtonCheck.State(ControllerButtons.RT, -1).Squeeze;
+					float l = ButtonCheck.State(ControllerButtons.LT, -1).Squeeze;
+
+					if (r > .2f)
+					{
+						IndependentPhsxStep += r;
+					}
+					
+					if (l > .2f)
+					{
+						IndependentPhsxStep -= l;
+					}
+
+					if (!IndependentStepSetOnce)
+						PrevIndependentPhsxStep = IndependentPhsxStep;
+
+					break;
 
                 case TimeTypes.ySync:
                 case TimeTypes.xSync:
@@ -1839,13 +1859,13 @@ namespace CloudberryKingdom.Levels
                     {
                         int NumAlive = 0;
                         Vector2 Pos = Vector2.Zero;
-                        //Pos.X = -1000000;
+
                         foreach (var bob in Bobs)
                         {
                             if (bob.MyPlayerData.IsAlive)
                             {
                                 NumAlive++;
-                                //Pos.X = (float)Math.Max(Pos.X, bob.Pos.X);
+
                                 Pos += bob.Pos;
                             }
                         }
@@ -1879,7 +1899,7 @@ namespace CloudberryKingdom.Levels
         public float IndependentPhsxStep = 0, IndependentDeltaT = 0;
         float Prev = 0;
 
-        public enum TimeTypes { Unset, Regular, xSync, ySync };
+        public enum TimeTypes { Unset, Regular, xSync, ySync, Control };
         public TimeTypes TimeType = TimeTypes.Regular;
 
         public List<ObjectBase> ActiveObjectList;

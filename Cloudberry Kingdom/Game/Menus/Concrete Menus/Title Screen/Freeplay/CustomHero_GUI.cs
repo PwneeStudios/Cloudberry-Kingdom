@@ -94,8 +94,19 @@ namespace CloudberryKingdom
         bool Testing = false;
         void TestingPhsx()
         {
-            if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
-                EndTest();
+			if (CloudberryKingdomGame.AsianButtonSwitch)
+			{
+				if (ButtonCheck.State(ControllerButtons.A, -1).Pressed ||
+					ButtonCheck.State(ControllerButtons.Back, -1).Pressed ||
+					ButtonCheck.State(ControllerButtons.X, -1).Pressed ||
+					ButtonCheck.State(ControllerButtons.Y, -1).Pressed)
+					EndTest();
+			}
+			else
+			{
+				if (ButtonCheck.State(ControllerButtons.B, -1).Pressed)
+					EndTest();
+			}
         }
 
         void EndTest()

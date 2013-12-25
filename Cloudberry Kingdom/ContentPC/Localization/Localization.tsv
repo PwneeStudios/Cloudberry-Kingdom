@@ -1,6 +1,6 @@
 English	日本語	Deutsch	Português	Italiano	Français	Español	Русский	한국의	中文	
 Press START	STARTを押してください	Drücke START	Aperte START	Premi START	Appuie sur START	Presione START	Нажмите START	START를 누르십시오	按 START	
-Press Any Key	ボタンを押してください	Drücke eine beliebige Taste	Aperte em qualquer botão	Premi qualsiasi pulsante	Appuie sur une touche	Presione cualquier botón	Нажмите любую кнопку	아무 단추나 누르세요.	按任意按钮	
+Press Any Key	キーを押してください	Drücke eine beliebige Taste	Aperte em qualquer botão	Premi qualsiasi pulsante	Appuie sur une touche	Presione cualquier botón	Нажмите любую кнопку	아무 단추나 누르세요.	按任意按钮	
 The Arcade	アーケードモード	Minispiele	O Fliperama	Arcade	Arcade	Arcade	Аркада	아케이드 	长廊模式	
 Story Mode	ストーリーモード	Abenteuer	A História	Modalità Storia	Histoire	Modo Historia	Повесть	스토리 모드	故事模式	
 Free Play	フリーモード	Freies Spiel	Free Play	Free Play	Jeu Libre	Modo Libre	Свободная игра	프리 모드	自由模式	
@@ -27,8 +27,8 @@ Up	上	Hoch	Cima	In Alto	Haut	Arriba	Вверх	위	上
 Down	下	Runter	Baixo	In Basso	Bas	Abajo	Вниз	아래	下	
 Replay, previous part	リプレイ−前のパートから	Wiedergabe, Vorheriger Teil	Replay, Parte Anterior	Replay, Parte Precedente	Replay, Partie Précédente	Replay, Parte Previa	Перепросмотр, предыдущая часть	재경기 전 부분부터	播放前一段	
 Replay, next part	リプレイ - 次のパートから　	Wiedergabe, Nächster Teil	Replay, Próxima Parte	Replay, Parte Successiva	Replay, Partie Suivante	Replay, Próxima Parte	Перепросмотр, следующая часть	재경기 다음부분부터	播放后一段	
-Replay, toggle single/multi playback	リプレイ - シングル/マルチプレーヤーでプレイバック	Wiedergabe, Ein Held/Mehrere	Replay, Ativar/Desativar Multi-Replay	Replay, Single/Multi Playback Alternato	Replay, Alterner Lecture Solo/Multi	Replay, Activar Sencillo/Multi Playback	Перепросмотр, начать одиночный/множественный просмотр	재경기-싱글/다수로 재생	选择播放	
-Toggle slow-mo	スローモーション	Zeitlupe	Câmera Lenta	Attiva/Disattiva Rallentatore	Activer le Slow Motion	Camara Lenta	Начать медленный просмотр	슬로모션	慢速播放	
+Replay, toggle single/multi playback	リプレイ - クリア時/全部の切り替え	Wiedergabe, Ein Held/Mehrere	Replay, Ativar/Desativar Multi-Replay	Replay, Single/Multi Playback Alternato	Replay, Alterner Lecture Solo/Multi	Replay, Activar Sencillo/Multi Playback	Перепросмотр, начать одиночный/множественный просмотр	재경기-싱글/다수로 재생	选择播放	
+Toggle slow-mo	スローのON/OFF	Zeitlupe	Câmera Lenta	Attiva/Disattiva Rallentatore	Activer le Slow Motion	Camara Lenta	Начать медленный просмотр	슬로모션	慢速播放	
 Accept	OK	Bestätigen	Aceitar	Accetta	Accepter	Aceptar	Принять	수락	接受	
 Back	戻る	Zurück	Voltar	Indietro	Retour	Atrás	Назад	돌아가기	返回	
 Menu	メニュー	Menü	Menu	Menù	Menu	Menú	Меню	메뉴	菜单	
@@ -113,15 +113,15 @@ Unpleasant	カジュアル	Unangenehm	Desagradável	Spiacevole	Désagréable	Des
 Abusive	ハード	Missbräuchlich	Abusivo	Abusivo	Violente	Abusivo	Издевательство	어려움	困难	
 Hardcore	ハードコア	Hardcore	Barra-Pesada	Hardcore	Hardcore	Grosero	Жестоко	매우 어려움	噩梦	
 Masochistic	マゾヒスチック	Selbstzerstörerisch	Masoquista	Masochista	Maso	Masoquista	Мазохист	강력히 어려움	地狱	
-Length	長さ	Länge	Tamanho	Lunghezza	Longueur	Duración	Длительность	길이	长度	
+Length	レベルの長さ	Länge	Tamanho	Lunghezza	Longueur	Duración	Длительность	길이	长度	
 Checkpoints	チェックポイント	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Checkpoints	Контрольная точка	체크 포인트	标记点	
 Start	スタート	Start	Iniciar	Start	Commencer	Comenzar	Старт	시작	开始	
 Continue	続ける	Weiter	Continuar	Continua	Continuer	Continuar	Продолжить	계속	继续	
-Load Level	シードをロードする	Level Laden 	Carregar	Carica Livello	Charger	Cargar nivel	Загрузить	레벨 입력	负荷水平	
+Load Level	レベルをロード	Level Laden 	Carregar	Carica Livello	Charger	Cargar nivel	Загрузить	레벨 입력	负荷水平	
 Hero Factory	ヒーロー・ファクトリー	Heldenfabrik	Fabricar um Herói	Fabbrica Dell'eroe	Fabrique à Héros	Casa del Héroe	Фабрика Звезд	주인공 공장	英雄工厂	
 Base	ベース	Basis 	Base	Base	Base	Base	Base	베이스	基地	
 Jump	ジャンプ	Sprungstil 	Salto	Salto	Saut	Brincar	Прыжок	점프	跳跃	
-Shape	形を作る	Größe	Forma	Forma	Silhouette	Tamaño:	Размер:	크기정하기	体型	
+Shape	大きさ	Größe	Forma	Forma	Silhouette	Tamaño:	Размер:	크기정하기	体型	
 Play	プレイ	Play	Cont.	Gioca	Jeu	Play	Играть	플레이	玩	
 Test	テスト	Test	Teste	Prova	Test	Test	Проверка	테스트	测试	
 Passive	足場	Passiv	Passivos	Passivo	Inoffensif	Pasivo	Пассивно	소극적	被动	
@@ -139,11 +139,11 @@ Bouncy Blocks	反発ブロック	Springende Blöcke	Blocos Borracha	Blocchi Pall
 Pendulums	振子	Pendel	Pêndulo	Pendoli	Blocs Pendules	Péndulos	Маятники	시계추	钟摆	
 Flying Blobs	フライングブロブ	Fliegende Geschöpfe	Criaturas Voadoras	Esseri Volanti	Créatures Volantes	Bichos	Мухи	날으는 장애물	飞溅污点	
 Firespinners	ファイヤースピナー	Feuerschleuder	Barra de Fogo	Spranghe di Fuoco	Barres de Feu	Círculos de Fuego	Огненные крутуны	화이어 스피너	火钟摆	
-Boulders	バルダー	Brocken	Pedregulhos	Macigni	Boules Hautes	Rocas	Валуны	바위들	吊石	
-Spikey Guys	スパイクガイ	Stachelkopf	Caras Pontiagudos	Esseri Appuntiti	Boules Basses	Chicos Puntiagudos	Колючие ребята	뾰족머리 남자들	狼牙棒脸	
+Boulders	振子トゲトゲ	Brocken	Pedregulhos	Macigni	Boules Hautes	Rocas	Валуны	바위들	吊石	
+Spikey Guys	回転トゲトゲ	Stachelkopf	Caras Pontiagudos	Esseri Appuntiti	Boules Basses	Chicos Puntiagudos	Колючие ребята	뾰족머리 남자들	狼牙棒脸	
 Lasers	レーザー	Laser	Lasers	Laser	Lasers	Lásers	Лазеры	레이져	激光	
 Spikes	トゲトゲ	Stacheln	Espinhos	Spuntoni	Pics	Picos	Колючки	뾰족한	矛	
-Sludge	溶岩	Lavatropfen	Goteira Quente	Lava	Magma	Lodo	Грязь	용암	熔岩	
+Sludge	落下溶岩	Lavatropfen	Goteira Quente	Lava	Magma	Lodo	Грязь	용암	熔岩	
 Serpent	ウミヘビ	Schlange	Serpente	Serpente	Serpent	Serpiente	Змейи	구렁이	大海蛇	
 Spikey Line	落下トゲトゲ	Stachelkette	Barreira de Pontiagudos	Linee Appuntite	Colonne de Pics	Líneas Puntiagudas	Колючая нить	뾰족한 라인	狼牙球线	
 Fireballs	ファイヤーボール	Feuerbälle	Bolas de Fogo	Palle di Fuoco	Boules de Feu	Bolas de Fuego	Огненные шары	화이어 볼	火球	
@@ -158,7 +158,7 @@ Jump Acceleration	ジャンプ力	Sprungbeschleunigung	Salto: Força	Accellerazi
 Number of Jumps	ジャンプ回数	Anzahl Sprünge 	Número de Saltos	Numero dei Salti	Nombre de Sauts	Numero de Brincos	Количество прыжков	점프횟수	跳跃的次数	
 Double Jump Length	ダブルジャンプの長さ	Doppelte Sprunglänge	Salto Aéreo: Duração	Lunghezza del Doppio Salto	Durée du Double Saut	Dist. de Brinco Doble	Удвоить длину прыжков	더블점프 길이	双跳长度	
 Double Jump Acceleration	ダブルジャンプ力	Doppelte Sprungbeschleunigung	Salto Aéreo: Força	Accellerazione del Doppio Salto	Force du Double Saut	Acel. del Brinco Doble	Ускорение двойного прыжка	더블점프힘	双重跳跃力	
-Jetpack Acceleration	ジェットパック力	Jetpackbeschleunigung	Foguete: Aceleração	Accelerazione Jetpack	Vitesse du Jetpack	Acel. del Jetpack	Реактивное ускорение	추진기 힘	喷气机速度	
+Jetpack Acceleration	ジェットの推進力	Jetpackbeschleunigung	Foguete: Aceleração	Accelerazione Jetpack	Vitesse du Jetpack	Acel. del Jetpack	Реактивное ускорение	추진기 힘	喷气机速度	
 Jetpack Fuel	ジェットパック燃料	Jetpacktreibsoff	Foguete: Combustível	Carburante del Jetpack	Réserve du Jetpack	Gasolina para Jetpack	Реактивное топливо	추진기 연료	喷气机燃料	
 Maximum Size	最大サイズ	Maximale Größe	Volátil: Tamanho	Dimensione Graduale	Diamètre	Tamano de Fase	Фазированный размер	최대 사이즈	最大尺寸	
 Phased Gravity	最大重力	Maximale Schwerkraft	Volátil: Gravidade	Gravità Graduale	Rayon de Gravité	Gravedad de Fase	Фазированное притяжение	최대 동력	最大重力	
@@ -183,8 +183,8 @@ Jetpack Hero in a Box	箱入りジェットマン	Held in der Box mit Düsenantr
 Double Jump Wheelie	ダブルジャンプ車輪	Double-Jump-Bob im Rollstuhl	Potro de Salto Duplo	Doppio Salto Wheelie	Double Saut Roue Libre	Wheelie Doble Salto	Двойной прыжок с колесом	더블점프 바퀴	双重跳跃轮子	
 Fat Bouncy	ファットスプリング	Double-Jump Wheelie	Banha Saltitante	Rimbalzo Grasso	Gros Bob Rebondissant	Gordo Saltón	Толстый и прыгучий	뚱뚱하면서 잘 튕기는	胖弹簧	
 Tiny Hero in a Box	箱入り小型ボブ	Winziger Bob in der Box	Mini-Caixote	Scatola Minuscola	P'tit Bob dans une Boîte	Mini Caja	Маленькая коробка	상자안 소형밥	浓缩盒子	
-Phasing Jetpack Hero	変形ジェットパック	Phasen Jetman	Foguete Volátil	Gradi Jetpack 	Jetman Instable	Cohete en Fases	Колеблющийся Джэтман	변형 추진기	变形喷气机	
-Bouncy Jetpack Hero	スプリング・ジェットパック	Springender Jetman	Mola Foguetada	Jetpack Rimbalzante	Jetman Rebondissant	Cohete Saltarín	Прыгучий Джэтман	용수철 추친기	弹簧喷气机	
+Phasing Jetpack Hero	変形ジェットマン	Phasen Jetman	Foguete Volátil	Gradi Jetpack 	Jetman Instable	Cohete en Fases	Колеблющийся Джэтман	변형 추진기	变形喷气机	
+Bouncy Jetpack Hero	スプリング・ジェットマン	Springender Jetman	Mola Foguetada	Jetpack Rimbalzante	Jetman Rebondissant	Cohete Saltarín	Прыгучий Джэтман	용수철 추친기	弹簧喷气机	
 Fat Double Jump Hero	ファット・ダブルジャンプ	Fetter Double-Jump-Bob 	Gordo Salto Duplo	Doppio Salto Ciccione	Gros Bob Double Saut	Doble Salto Gordo	Толстый с двойным прыжком	살찐 더블 점프	胖双重跳跃	
 Sea	海	Meer	Mar	Mare	Mer	Mar	Море	바다	海	
 Hills	丘	Berge	Colinas	Colline	Montagne	Montanas	Холмы	언덕	山丘	
@@ -214,39 +214,39 @@ Coins add seconds to the clock	ダイヤで時間を増やせる	Münzen Verscha
 Get a high score!	ハイスコアを狙え！	Knack den Rekord!	Batalhe pelo Recorde!	Ottieni un punteggio alto!	Fais un gros score!	Vamos por el highscore!	Поставь рекорд!	높은점수를 향해!	拿个高分!	
 Perfect!	パーフェクト！	Super! 	Perfeito!	Ottimo!	Parfait!	Perfecto!	Идиально!	퍼펙트!	完美!	
 +1 Life	1UP	+1 Leben	+1 Vida!	Vita +1	1UP	+1 Vida	+1 Жизнь	1업	+1 生命	
-Press {0}	{0} ボタンを押す	Drücke {0} 	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	{0} 단추누르기	按 {0}	
+Press {0}	{0} を押す	Drücke {0} 	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	{0} 단추누르기	按 {0}	
 Resume	続ける	Fortsetzen	Continuar	Riprendi	Reprendre	Reanudar	Продолжить	계속	继续	
-Statistics	結果	Statistik	Estatísticas	Statistiche	Stats	Estadisticas	Статистика	총계	统计	
+Statistics	成績	Statistik	Estatísticas	Statistiche	Stats	Estadisticas	Статистика	총계	统计	
 Save/Load	セーブ/ロード	Speichern/Laden	Salvar/Carregar	Salva/Carica	Sauvegarder/Charger	Guardar/Cargar	Сохранить/Загрузить	보존/로드	保存/读取	
 Remove Me	外れる	Verlassen	Abandonar	Eliminami	Partir	Salir de Partida	Убрать себя	벗어남	删除我	
 Exit Level	レベルを終了する	Level Beenden	Sair da Fase	Abbandona Livello	Quitter le Niveau	Salir del Nivel	Покинуть уровень	레벨을 중단	退出关卡	
-Save/Load	ランダムシード	Speichern/Laden	Senha da Fase	Seme Casuale	Code Aléatoire	Codigo Random	Наугад	렌덤 시드	保存/读取	
-Save Level	シードをセーブ	Level Speichern	Salvar Senha	Salva Seme	Sauvegarder le Code	Guardar Codigo	Сохранить	시드 보존	保存关卡	
-Load Level	シードをロードする	Level Laden	Carregar Senha	Carica Seme	Charger le Code ?	Cargar Codigo	Загрузить	시드로드	读取关卡	
+Save/Load	ランダムレベル	Speichern/Laden	Senha da Fase	Seme Casuale	Code Aléatoire	Codigo Random	Наугад	렌덤 시드	保存/读取	
+Save Level	レベルをセーブ	Level Speichern	Salvar Senha	Salva Seme	Sauvegarder le Code	Guardar Codigo	Сохранить	시드 보존	保存关卡	
+Load Level	レベルをロード	Level Laden	Carregar Senha	Carica Seme	Charger le Code ?	Cargar Codigo	Загрузить	시드로드	读取关卡	
 Copy to Clipboard	クリップボードにコピーする	In Zwischenablage Kopieren	Copiar para Área de Transferência	Copia Sugli Appunti	Copier dans le Presse-Papiers	Copiar al Clipboard	Скопировать в буфер обмена	클립보드에 복사	拷贝到剪贴板	
 Load from Clipboard	クリップボードからロードする	Aus Zwischenablage Laden	Carregar da Área de Transferência	Carica Dagli Appunti	Charger Depuis le Presse-Papier	Cargar del Clipboard	Загрузить из буфера обмена	클럽보드에서 로드	从剪贴板读取	
-Remove Player	このプレイヤーを外す？	Spieler Entfernen	Remover Jogador	Elimina Giocatore	Enlever le Joueur	Remover Jugador	Исключить игрока	제거	要删除玩家吗	
+Remove Player	このプレイヤーを外す	Spieler Entfernen	Remover Jogador	Elimina Giocatore	Enlever le Joueur	Remover Jugador	Исключить игрока	제거	要删除玩家吗	
 Exit Level?	レベルを終了する	Level Verlassen?	Sair da Fase?	Abbandonare il Livello?	Quitter le Niveau ?	Salir del Nivel?	Покинуть уровень?	레벨을중단합니까?	要退出关卡吗?	
-Save Level As	シードに名前をつけてセーブする	Level Speichern als	Salvar Senha de Fase como...	Salva Seme Casuale Come...	Sauvegarder le Code Sous ...	Guardar Código Random Como…	Сохранить как…	렌덤시드에 이름을붙여 보존	另存关卡	
-Saved Levels	セーブされたシード	Gespeichertes Level	Senhas Salvas	Semi Salvati	Codes Sauvegardés	Códigos Guardados	Сохранённые	보존된 시드	已保存的随机关卡	
-Load this level...?	このシードをロードしますか？	Möchtest du das Level … Laden?	Carregar a Seguinte Senha...?	Caricare il Seme Seguente...?	Charger le Code Suivant…?	Cargar el Siguiente Código…?	Загрузить следующие…?	이시드에 로드합니까?	要读取以下的关卡吗?	
-Level Saved!	シードがセーブされました！	Level Wurde Gespeichert!	Senha Salva com Sucesso!	Seme Salvato con Successo!	Code Sauvegardé Avec Succès!	Codigo Guardado!	Сохранение успешно!	시드가 보존되었습니다!	关卡已成功保存!	
+Save Level As	レベルに名前を付けてセーブ	Level Speichern als	Salvar Senha de Fase como...	Salva Seme Casuale Come...	Sauvegarder le Code Sous ...	Guardar Código Random Como…	Сохранить как…	렌덤시드에 이름을붙여 보존	另存关卡	
+Saved Levels	セーブされたレベル	Gespeichertes Level	Senhas Salvas	Semi Salvati	Codes Sauvegardés	Códigos Guardados	Сохранённые	보존된 시드	已保存的随机关卡	
+Load this level...?	このレベルをロードしますか？	Möchtest du das Level … Laden?	Carregar a Seguinte Senha...?	Caricare il Seme Seguente...?	Charger le Code Suivant…?	Cargar el Siguiente Código…?	Загрузить следующие…?	이시드에 로드합니까?	要读取以下的关卡吗?	
+Level Saved!	レベルがセーブされました！	Level Wurde Gespeichert!	Senha Salva com Sucesso!	Seme Salvato con Successo!	Code Sauvegardé Avec Succès!	Codigo Guardado!	Сохранение успешно!	시드가 보존되었습니다!	关卡已成功保存!	
 Hooray!	やったー！	Hurra! 	Aêêê!	Urrà!	Youpi !	Hooray!	Ура!	해냈다!	耶!	
-No name given, level was not saved.	名前がありません。シードをセーブできませんでした。	Kein Speichername - Level Wurde Nicht Gespeichert.	Nenhum nome dado. Senha não foi salva.	Nessun nome dato, seme non salvato	Aucun nom attribué, le code n'a pas été sauvegardé.	Sin Nombre, Código no Guardado	Имя не дано, уровень не был сохранен.	이름을붙이지 못했습니다. 시드를 보존못했습니다.	由于名称为空, 关卡没法保存.	
+No name given, level was not saved.	名前がありません。レベルをセーブできませんでした。	Kein Speichername - Level Wurde Nicht Gespeichert.	Nenhum nome dado. Senha não foi salva.	Nessun nome dato, seme non salvato	Aucun nom attribué, le code n'a pas été sauvegardé.	Sin Nombre, Código no Guardado	Имя не дано, уровень не был сохранен.	이름을붙이지 못했습니다. 시드를 보존못했습니다.	由于名称为空, 关卡没法保存.	
 Oh.	おぉ	Oh. 	Ah. Ops.	Oh.	oh oh...	Oh.	Хм.	아..아	呃	
 Levels Beat	クリアしたレベル	Bewältigte Levels	Fases Completadas	Livelli Vinti	Niveaux Complétés	Niveles Ganados	Пройденные уровни	클리어한 레벨	已完成关卡	
-Jumps	ジャンプ数	Sprünge	Saltos	Salti	Sauts	Brincos Totales	Прыжки	점프 수	跳跃数	
+Jumps	ジャンプ回数	Sprünge	Saltos	Salti	Sauts	Brincos Totales	Прыжки	점프 수	跳跃数	
 Coins	ダイヤ	Münzen	Moedas:	Gettoni	Piéces	Monedas	Монеты	동전	硬币	
 Grabbed	ダイヤ取得数	Gesammelt	Coletadas	Acchiappato	Collectées	Alcanzadas	Схвачено	동전 획득수	取得的金币数	
 out of	出現ダイヤ	Von 	Avistadas	su 	 sur	de	из	/	/	
-(Percent)	パーセント	In Prozent	(Percentil)	Percento	(Pourcentage)	(Porcentaje) 	процент	%	%	
+(Percent)	取得％	In Prozent	(Percentil)	Percento	(Pourcentage)	(Porcentaje) 	процент	%	%	
 Blobs	ブロブ	Fliegende Geschöpfe	Voadores Esmagados	Esseri Volanti	Créatures Volantes	Bichos	Мухи	브로브	斑点	
 Average Life	平均生存時間	Mittlere Lebensdauer	Tempo de Vida Médio	Vita Media	Durée de vie Moyenne	Promedio de Vida 	Average Life	평균수명	平均生命	
 Deaths	失敗回数	Tode 	Relatório de Óbitos	Morti	Morts	Muertes	смерти	실패횟수	死亡	
 Fireball	ファイヤーボール	Feuerball	por Bola de Fogo	Palla Infuocata	Boules de Feu	Bola de Fuego	огненный шар	화이어 공	火球	
 Firespinner	ファイヤースピナー	Feuerschleuder	por Barra de Fogo	Spranga di Fuoco	Barres de Feu	Circulo de Fuego	огненный круток	화이어 스피너	火转盘	
-Boulder	バルダー	Brocken	por pedrada	Macigno	Boules Hautes	Roca	валун	볼더	巨石	
-Spikey Guy	スパイクガイ	Stachelkopf	por Estocada Pontiaguda	Essere Appuntito	Boules Basses	Chico Puntiagudo	колючий парень	스파이크 맨	狼牙球脸	
+Boulder	振子トゲトゲ	Brocken	por pedrada	Macigno	Boules Hautes	Roca	валун	볼더	巨石	
+Spikey Guy	回転トゲトゲ	Stachelkopf	por Estocada Pontiaguda	Essere Appuntito	Boules Basses	Chico Puntiagudo	колючий парень	스파이크 맨	狼牙球脸	
 Spike	トゲトゲ	Stachel	por Espinho	Spuntone	Pics	Puntas	колючка	까칠남	矛	
 Falling	落下	Fallend	por Queda	Caduta	Chutes	Caída	падая	낙하	掉落	
 Lava	溶岩	Lava	por Lava	Lava	Lave	Lava	лава	용암	熔岩	
@@ -270,12 +270,12 @@ Paused	停止	Pause	Pausa	Pausa	Pause	Pausado	Пауза	정지중	已暂停
 Speed	スピード	Geschwindigkeit	Velocidade do Replay	Velocità	Vitesse	Velocidad	Скорость	스피드	速度	
 Step	次へ	Nächster	Próximo	Passo	Suivant	Siguiente	Шаг	다음	下一个	
 Level Cleared!	レベルクリア！	Level Geschafft 	Nível Completo!	Livello Completato!	Niveau Terminé !	Nivel Terminado!	Уровень пройден!	레벨 크리어	通关!	
-Keep Settings	同じ設定	Einstellungen Übernehmen	Repetir Configuração	Mantieni le Impostazioni	Garder les Paramètres	Mantener Ajustes	Оставить настройки	설정유지	保存设置	
+Keep Settings	レベル作成	Einstellungen Übernehmen	Repetir Configuração	Mantieni le Impostazioni	Garder les Paramètres	Mantener Ajustes	Оставить настройки	설정유지	保存设置	
 Watch Replay	リプレイを見る	Wiedergabe 	Assistir Replay	Guarda il Replay	Regarder le Replay	Mirar Replay	Начать перепросмотр	재생 보기	观看回放	
 Back to Freeplay	フリーモードに戻る	Zurück zum Freien Spiel	Voltar pro Menu	Torna al Freeplay	Retour au Jeu Libre	Regresar a  Freeplay	Обратно к Свободному режиму	재생으로 돌아가기	返回自由模式	
 Pause	ポーズ	Pause 	Pausa	Pausa	Pause	Pausa	Пауза	정지	暂停	
-Single	シングル	Einzel 	Última	Singolo	Seul	Single	Одиночный	싱글	单个	
-Prev	前	Vorheriges 	Voltar	Precedente	Précédent	Previo	Предварительная	전회	前回关卡	
+Single	クリア時	Einzel 	Última	Singolo	Seul	Single	Одиночный	싱글	单个	
+Prev	前へ	Vorheriges 	Voltar	Precedente	Précédent	Previo	Предварительная	전회	前回关卡	
 All	全部	Alle	Todas	Tutto	Tous	Todo	Все	전부	许多	
 End	終わり	Beenden	Sair	Fine	Terminer	Final	Конец	끝	结束	
 Loading	ロード中	Wird Geladen	Carregando	Caricamento	Chargement	Cargando	Грузится	읽는중	读取中	
@@ -286,7 +286,7 @@ Complete Chapter 2	第2章をクリア	Beende Kapitel 2	Complete o Capítulo 2	C
 Clutch	クラッチ	Performer	Mandando Bem	Artiglio	Assure!	Admirable	Классно	클러치	耐抗压	
 Score 500k in an arcade game	アーケードゲームでスコア５０万以上達成	Erreiche mehr als 500k Punkte in einem Minispiel	Marque 500k no Fliperama	Ottieni 500k nella modalità arcade	Fais 500 000 en mode arcade	Logra 500k en Arcade 	Набрал 500 тысяч очков в аркадной игре	아케이드 게임으로 점수 50만이상 달성	在长廊模式中获得50万以上得分	
 Cut the Cord	ロープを切れ	Auf Eigenen Füßen	Corte a Corda	Taglia lo Spago	Coupe la Corde	Corta la Cuerda	Перережь нить	줄 끊기	切断绳索	
-Finish a bungee level with 3 dead allies	失敗した仲間を３人連れてレベルをクリア	Beende ein Bungeelevel mit drei toten Verbündeten	Termine uma fase de corda elástica com 3 aliados mortos	Completa un livello bungee con 3 alleati morti	Termine un niveau en mode lié avec 3 partenaires morts.	Termina un nivel bungee level con 3 aliados muertos	Окончил уровень бандажи, потерявши трёх союзников	실패한 친구3명과 레벨 크리어	带着3个死去的同伴完成蹦极关卡	
+Finish a bungee level with 3 dead allies	失敗した仲間を３人連れてバンジーでレベルをクリア	Beende ein Bungeelevel mit drei toten Verbündeten	Termine uma fase de corda elástica com 3 aliados mortos	Completa un livello bungee con 3 alleati morti	Termine un niveau en mode lié avec 3 partenaires morts.	Termina un nivel bungee level con 3 aliados muertos	Окончил уровень бандажи, потерявши трёх союзников	실패한 친구3명과 레벨 크리어	带着3个死去的同伴完成蹦极关卡	
 Double-Clutch	ダブルクラッチ	Super-Performer	Mandando Melhor	Doppio Artiglio	Assure Encore Plus!	Excepcional	В двойне классно	더블 클러치	超耐抗压	
 Score 1.5 million in an arcade game	アーケードゲームでスコア150万達成	Erreiche mehr als 1.5 Millionen Punkte in einem Minispiel	Marque 1.5 milhões de pontos no Fliperama	Ottieni 1.5 milioni nella modalità arcade	Fais 1.5 millions en mode arcade	Logra 1.5 million en arcade	Набрал 1,5 млн. очков в аркадной игре	아케이드게임으로 점수 150만달성	在长廊模式中获得150万以上得分	
 Noob	初心者	Neuling	Novato	Noob	Novice	Novato	Нуб	초심자	新手	
@@ -304,7 +304,7 @@ Unlock every arcade game	すべてのアーケードゲームを解除	Schalte j
 My Beard is Impenetrable	無敵のひげ	Absolviere ein Kapitel Ohne zu Sterben	Minha Barba é Impenetrável	La Mia Barba è Impenetrabile	Ma Barbe est Impénétrable	Mi Barba es Impenetrable 	Борода моя непроницаема	무적의 수염	无敌胡子	
 Complete a chapter without dying	一度も失敗しないで章をクリア	Absolviere ein Kapitel ohne zu sterben	Complete um capítulo sem morrer	Completa un capitolo senza morire	Complète un niveau sans mourir	Termina un capitulo sin morir 	Окончить главу не погибнув	한번도 실패하지않고 챕터를 클리어	一章一次通关无死亡	
 That Level Was Nuts!	このレベルはすご過ぎる！	Das Level war Total Irre! 	Que Fase Louca!	Quel livello era una Follia!	Ce Niveau Était Complètement Dingue!	Ese Nivel Estuvo!	Этот уровень был убойным!	이레벨은 너무 굉장해!	这关卡太厉害了!	
-Save a level code	レベルのシードをセーブ	Level Code speichern	Salve um código	Salva un codice livello	Sauvegarder un code de niveau	Guardar un Código de Nivel	Сохранить код уровня	레벨 시드를 보존	保存一个关卡代码	
+Save a level code	レベルをセーブ	Level Code speichern	Salve um código	Salva un codice livello	Sauvegarder un code de niveau	Guardar un Código de Nivel	Сохранить код уровня	레벨 시드를 보존	保存一个关卡代码	
 I Bet You Lost Count	もう数え切れてないでしょ?	Ich Wette, du Hast den Überblick Verloren	Aposto como Você Perdeu a Conta	Scommetto hai Perso il Conto	Je Parie que Tu as Perdu le Compte	Apuesto a Que Perdió la Cuenta	Небось просчитался	아직 수를 못셌지?	你肯定已经数不过来了吧	
 This is how many obstacles you have already seen	累計で1000レベルクリア	So viele Hindernisse sind dir schon begegnet	Sim, você viu tantos obstáculos.	Questo è il numero degli ostacoli già visti	C'est combien d'obstacles tu as déjà vu	Así es Como Muchos Obstáculos Ya ha Visto	Вот сколько препятствий ты уже видел	이많은 장해를 뚫고 왔어	你已经见过这么多的障碍了	
 I've Bought the Power!	パワーを買った！	Ich bin Mächtig!	Poder é Comprado	Ho Comprato il Potere!	J'ai Acheté le Pouvoir!	He Comprador el Poder! 	Со мною сила!	파워를 샀어!	我买了实力!	
@@ -321,13 +321,13 @@ Buy	購入	Kaufen	Comprar	Compra	Acheter	Compra	Купить	구입	购买
 Bank	銀行	Bank	Banco	Banca	Banque	Banco	Банк	은행	银行	
 Achievement	実績	Erfolg	Conquista	Obiettivi	Succès	Logro	достижение	도전 과제	成就	
 Achievement Unlocked	実績が解除されました	Erfolg freigeschaltet	Conquista Desbloqueada	Obiettivi Sbloccati	Succès Débloqué	Logro Desbloqueado	Достижение Достигнуто	도전 과제 잠금 해제	成就解锁	
-Delete {0} Level?	シードを{0}つ削除しますか？	Level {0} Löschen?	Apagar {0} senha?	Elimina {0} Seme?	Annuler {0} Code ?	Borrar {0} Código?	Удалить {0} уровень?	{0}시드를 삭제합니까?	要删除 {0} 关卡吗?	
-Delete {0} Levels?	シードを{0}つ削除しますか？	Level {0} Löschen?	Apagar {0} senhas?	Elimina {0} Semi?	Annuler les Codes ?	Borrar {0} Códigos?	Удалить {0} уровньей?	{0}시드를 삭제합니까?	要删除 {0} 关卡吗?	
+Delete {0} Level?	{0}個削除しますか？	Level {0} Löschen?	Apagar {0} senha?	Elimina {0} Seme?	Annuler {0} Code ?	Borrar {0} Código?	Удалить {0} уровень?	{0}시드를 삭제합니까?	要删除 {0} 关卡吗?	
+Delete {0} Levels?	{0}個削除しますか？	Level {0} Löschen?	Apagar {0} senhas?	Elimina {0} Semi?	Annuler les Codes ?	Borrar {0} Códigos?	Удалить {0} уровньей?	{0}시드를 삭제합니까?	要删除 {0} 关卡吗?	
 Multiplier Increased!	ポイント倍増数が増えました	Multiplikator Erhöht!	Multiplicador aumentado!	Moltiplicatore Aumentato!	Multiplicateur Augmenté!	Multiplicador Incrementado	Множитель увеличился!	포인트가 배로 증가했습니다.	得分增加了!	
-Hold {0} to jump higher!	{0}ボタンを長押しで高く飛べ！	Halte {0} gedrückt, um höher zu springen!	Segure {0} para pular alto!	Tieni premuto {0} per saltare più in alto!	Maintiens {0} pour sauter plus haut	Manten {0} para saltar más alto!	Держите {0} чтобы прыгать выше!	{0}보턴을 길게 눌러 높이날기!	按住 {0} 就能跳得更高!	
+Hold {0} to jump higher!	{0}を長押しで高く飛べ！	Halte {0} gedrückt, um höher zu springen!	Segure {0} para pular alto!	Tieni premuto {0} per saltare più in alto!	Maintiens {0} pour sauter plus haut	Manten {0} para saltar más alto!	Держите {0} чтобы прыгать выше!	{0}보턴을 길게 눌러 높이날기!	按住 {0} 就能跳得更高!	
 Hold {0} and {1} to respawn quickly!	{0}　と{1}を長押しですぐに復活！	Halte {0} und {1} gedrückt, um sofort neuzustarten!	Segure {0} e {1} para reiniciar!	Tieni premuto {0} e {1} per riapparire velocemente!	Maintiens {0} et {1} pour ressusciter plus vite	Manten presionado {0} y {1} para aparecer rápidamente!	Держите {0} и {1} чтобы возродится быстрее!	{0}와{1}를 길게눌러 재빨리 부활!	按住 {0} 和 {1} 复活!	
-Press {0} to respawn quickly!	スペースキーを押してすぐに復活！	Drücke {0} um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur {0} pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	{0}를 길게눌러 재빨리 부활!	按{0}复活!	
-Press {0} for powerups!	{0}ボタンを押してパワーアップ！	Drücke {0} für Hilfsmittel	Pressione {0} para uma ajuda!	Premi {0} per potenziamenti!	Appuie sur {0} pour les power-up!	Presiona {0} para powerups	Нажмите {0} для бонусов!	{0}보턴을 눌러 파워업!	按 {0} 来增加力量!	
+Press {0} to respawn quickly!	{0}を押してすぐに復活！	Drücke {0} um sofort neuzustarten	Pressione {0} para reinicar!	Premi {0} per riapparire velocemente!	Appuie sur {0} pour ressusciter rapidement	Manten presionado {0} para aparecer rápidamente!	Нажмите {0} до возродится быстрее!	{0}를 길게눌러 재빨리 부활!	按{0}复活!	
+Press {0} for powerups!	{0}を押してパワーアップ！	Drücke {0} für Hilfsmittel	Pressione {0} para uma ajuda!	Premi {0} per potenziamenti!	Appuie sur {0} pour les power-up!	Presiona {0} para powerups	Нажмите {0} для бонусов!	{0}보턴을 눌러 파워업!	按 {0} 来增加力量!	
 Trophy	トロフィー	Trophäe	Troféu	Trofeo	Trophée	Trofeo	Трофей	트로피	奖杯	
 You Have Earned a Trophy	トロフィーを獲得しました	Du Hast Eine Trophäe Erhalten	Você Mereceu um Troféu.	Hai Ottenuto un Trofeo	Tu as Remporté un Trophée	Has Recibido un Trofeo	Вы заработали трофей	트로피를 획득했습니다	已获得奖杯	
 Awardment	実績	Errungenschaft	prêmio	Premi	Approbation	Logros	Награждение	포상	奖励	
@@ -357,7 +357,7 @@ Delete	削除	Löschen	Apagar	Cancellare	Annuler	Borrar	Удалить	삭제할
 The campaign requires the full game. Would you like to unlock the full Cloudberry Kingdom?	キャンペーンには完全版ゲームが必要です。クラウドベリーキングダムの完全版を購入しますか？	Das vollständige Spiel ist für die Kampagne erforderlich. Möchtest du die Vollversion von Cloudberry Kingdom freischalten?	O Modo Campanha requer o jogo completo. Gostaria de desbloquear a versão completa do Cloudberry Kingdom?	La modalità campagna richiede  la versione completa. Vuoi sbloccare la versione completa di Cloudberry Kingdom?	La campagne nécessite le jeu complet. Voulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	Para jugar a esta campaña necesitas la versión completa. ¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Компания доступна только в полной версии игры. Вы хотите полностью открыть Cloudbarry Kingdom?	캠페인을 진행 하려면 정식 버전이 필요합니다. Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	这个活动需要完整版游戏。你想解锁完整版Cloudberry Kingdom 么？	
 This hero requires the full game. Would you like to unlock the full version of Cloudberry Kingdom?	このヒーローには完全版ゲームが必要です。クラウドベリーキングダムの完全版を購入しますか？	Das vollständige Spiel ist für diesen Helden erforderlich. Möchtest du die Vollversion von Cloudberry Kingdom freischalten?	Este Herói requer o jogo completo. Gostaria de desbloquear a versão completa do Cloudberry Kingdom?	Questo eroe richiede la  versione completa. Vuoi sbloccare la versione completa di Cloudberry Kingdom?	Le jeu complet est requis pour ce héros. Voulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	Para seleccionar a este héroe necesitas la versión completa.  ¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Этот герой доступен только в полной версии игры.  Вы хотите полностью открыть Cloudbarry Kingdom?	이 영웅으로 진행하려면 정식 버전이 필요합니다. Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	这个英雄需要完整版游戏。你想解锁完整版Cloudberry Kingdom 么？	
 Saving and loading is only available in the full game. Would you like to unlock the full Cloudberry Kingdom?	セーブとロードは完全版ゲームでのみ使用できます。クラウドベリーキングダムの完全版を購入しますか？	Speichern und Laden ist nur in der Vollversion möglich. Möchtest du die Vollversion von Cloudberry Kingdom freischalten?	Salvar e carregar só está disponível na versão completa do jogo. Gostaria de desbloquear o Reino Cloudberry completo?	Le funzione di salvataggio e caricamento sono disponibili solo nella versione completa. Vuoi sbloccare la versione completa di Cloudberry Kingdom per continuare a giocare?	Sauvegarder/Charger une partie n'est possible qu'avec le jeu complet. Voulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	Las funciones de guardado y carga solo están disponibles en la versión completa. ¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Сохранение и загрузка доступны только в поной версии игры.  Вы хотите полностью открыть Cloudbarry Kingdom?	저장하기와 불러오기는 정식 버전에서만 가능합니다.  Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	完整版游戏才能存档和载入存档。你想解锁完整版Cloudberry Kingdom 么？	
-Free Play is fun! Woooh!\nWould you like to unlock the full version of Cloudberry Kingdom to keep playing?	無料プレイって楽しい！\nクラウドベリーキングダムの完全版を購入してプレイを続けますか？	Freies Spiel macht Spaß! Yippie!\nMöchtest du die Vollversion von Cloudberry Kingdom freischalten, um weiterspielen zu können?	Free Play é divertido! Woooh! \n Gostaria de desbloquear a versão completa do Cloudberry Unido para continuar jogando?	Giocare gratis è forte! Woooh!\n Vuoi sbloccare la versione completa di Cloudberry Kingdom per continuare a giocare?	Le jeu gratuit est super ! Ouah !\nVoulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	¡La versión gratuita es divertida!\n¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Нравится бесплатная игра?  Вы хотите полностью открыть Cloudbarry Kingdom?	무료 버전은 재미있어요! 야호! 계속 플레이 하기 위해, Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	哇，免费版非常好玩！\n 你想解锁完整版Cloudberry Kingdom 么？	
+Free Play is fun! Woooh!\nWould you like to unlock the full version of Cloudberry Kingdom to keep playing?	クラウドベリーキングダムの完全版を購入してプレイを続けますか？	Freies Spiel macht Spaß! Yippie!\nMöchtest du die Vollversion von Cloudberry Kingdom freischalten, um weiterspielen zu können?	Free Play é divertido! Woooh! \n Gostaria de desbloquear a versão completa do Cloudberry Unido para continuar jogando?	Giocare gratis è forte! Woooh!\n Vuoi sbloccare la versione completa di Cloudberry Kingdom per continuare a giocare?	Le jeu gratuit est super ! Ouah !\nVoulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	¡La versión gratuita es divertida!\n¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Нравится бесплатная игра?  Вы хотите полностью открыть Cloudbarry Kingdom?	무료 버전은 재미있어요! 야호! 계속 플레이 하기 위해, Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	哇，免费版非常好玩！\n 你想解锁完整版Cloudberry Kingdom 么？	
 There are so many levels left to play! Would you like to unlock the full version of Cloudberry Kingdom?	まだまだたくさんのレベルが用意されています！クラウドベリーキングダムの完全版を購入しますか？	Es gibt noch so viele ungespielte Level! Möchtest du die Vollversion von Cloudberry Kingdom freischalten?	Há muitos níveis ainda para jogar! Gostaria de desbloquear a versão completa do Cloudberry Reino?	Ci sono ancora tantissimi livelli da giocare! Vuoi sbloccare la versione completa di Cloudberry Kingdom per continuare a giocare?	Il reste encore tellement de niveaux ! Voulez-vous déverrouiller la version complète de Cloudberry Kingdom ?	¡Todavía quedan muchos niveles por jugar! ¿Quieres desbloquear la versión completa de Cloudberry Kingdom?	Вас ждет множество уровней.  Вы хотите полностью открыть Cloudbarry Kingdom?	즐기실 수 있는 레벨이 아직 많이 남아있습니다! Cloudberry Kingdom 정식 버전을 구매하시겠습니까?	完整版游戏有更多关卡！你想解锁完整版Cloudberry Kingdom 么？	
 Ok	OK	O. K.	Ok	Ok	Ok	Sí	Да	확인	确认	
 Yes. Select new device.	はい。新しいデバイスを選択します。	Ja, neues Speichergerät auswählen.	Sim. Selecione novo dispositivo.	Sì. Seleziona nuovo dispositivo.	Sélectionner un périphérique.	Selecciona un nuevo dispositivo.	Да, выбрать новое устройство.	예. 새로운 장치를 선택합니다.	是。选择新的设备。	
@@ -398,14 +398,14 @@ You cannot access online functionality due to the parental control restrictions 
 Your friends are not yet ranked on this leaderboard.	あなたのフレンドはまだこのランキングにはランクインしていません	Deine Freunde stehen noch nicht auf dieser Bestenliste.	Seus amigos não têm uma pontuação neste Placar de Líderes.	I tuoi amici non sono ancora classificati in questa Classifica.	Tes amis ne sont pas encore au rang de ce classement.	Tus amigos aún no están en este marcador	Счет ваших друзей отсутствует на этом списке лидеров.	친구들이 아직 순위표에 등록되지 않았습니다.	你的朋友还没有进入到排行榜。	
 Friends Scores	フレンドのスコア	Punkte Freunde	Placar dos Amigos	Punteggio amici	Scores des amis	Puntuaciones de amigos	Счет Друзей	친구 점수	朋友成绩	
 Press START	STARTを押してください	Drücke START	Pressione START	Premi START	Appuie sur START	Presione START	Нажмите START	START를 누르십시오	按下 START	
-Press {0}	{0}を押す	Drücke {0}	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажмите {0}	{0}를 누르세요	按{0}	
+Press {0}	{0} を押す	Drücke {0}	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажмите {0}	{0}를 누르세요	按{0}	
 Press\n{0}\nto Join	{0}\nを\n押\nし\nて\n参\n加	Drücke {0}	Aperte\n{0}\npara entrar	Premi\n{0}	Appuie sur\n{0}	Presione {0}	Нажмите\n{0}	{0}\n를 \n눌\n러\n서\n참\n가\n하\n기	按\n{0}\n参加	
 Press {0}	{0} を押す	Drücke {0}	Aperte {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажмите {0}	{0} 를 누르세요	按{0}	
-Press {0}	{0} ボタンを押す	Drücke {0} 	Pressione {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	{0} 단추누르기	按 {0}	
+Press {0}	{0} を押す	Drücke {0} 	Pressione {0}	Premi {0}	Appuie sur {0}	Presione {0}	Нажми {0}	{0} 단추누르기	按 {0}	
 You do not have permission to purchase downloadable content.	ダウンロード コンテンツ購入するための権限がありません。	Du hast keine Berechtigung, um Inhalte zum Herunterladen zu erwerben.	Você não tem permissão para comprar conteúdo para baixar.	Non hai il permesso per acquistare contenuto scaricabile.	Vous n'êtes pas autorisés à acheter du contenu téléchargeable.	No tienes permiso para comprar descarga de contenido.	У вас нет разрешения на покупку загружаемый контент.	다운로드 콘텐츠 구입할 수 있는 권한이 없습니다.	您没有权限来购买可下载内容。	
 This feature requires you to be connected to Xbox LIVE.	この機能を利用するにはXbox LIVE へ接続する必要があります。	Für dieses feature müssen sie bei Xbox LIVE angemeldet sein.	Você precisa estar conectado ao Xbox LIVE para poder acessar as funcionalidades da Xbox LIVE.	Questa funzione richiede la connessione a Xbox LIVE.	Cette fonctionnalité nécessite d'être connecté à Xbox LIVE.	Esta característica requiere que estés conectado a Xbox LIVE.	Эта функция требует подключения к системе Xbox LIVE.	이 기능을 사용하려면 Xbox LIVE에 연결해야 합니다.	你需要登录 Xbox LIVE来访问 Xbox LIVE功能。	
 Saving…	セーブ中…	Speichern ...	Salvando…	Salvataggio…	Sauvegarde…	Guardando…	Сохранение…	저장하는 중...	正在保存...	
-Cannot save level	シードをセーブできません	Level konnte nicht gespeichert werden.	Não pode Salvar a Senha	Non si può salvare il Seme	Impossible de sauvegarder le code	No se pudo Guardar Código	Невозможно сохранить	시드 보존을 할 수 없음	无法保存关卡	
-You have saved the maximum number of levels possible. You may delete levels to make space by viewing your saved levels in Freeplay.	最大数のシードがセーブされています。フリーモードでセーブしたシードを観覧するには、スペースを確保するためシードを削除する必要がありそうです。	Du hast bereits die maximale Anzahl an Leveln gespeichert. Du kannst Level löschen um Platz zu schaffen, indem du dir deine gespeicherten Level im Freien Spiel anschaust.	Você salvou o número máximo de senhas possíveis. Você pode apagar senhas para liberar espaço acessando suas senhas no Free play.	Hai salvato il numero massimo di Semi possibile. Per fare spazio potresti cancellare alcuni Semi controllando i tuoi Semi salvati in Free Play.	Vous avez sauvegardé le nombre maximum de codes possible. Vous pouvez supprimer des codes pour libérer de l'espace en visualisant vos codes sauvegardés dans le Jeu Libre.	Has guardado el mayor número posible de Códigos. Debes borrar Códigos para conseguir espacio viendo tus Códigos guardados en el Modo Libre.	Достигнуто максимальное количество сохранений. Чтобы освободить место, в Свободной игре выберите сохранения, которые хотите удалить.	가능한 만큼의 시드를 이미 보존하고 있습니다. 프리 모드에 보존된 시드를 확인 후 시드를 지우고 공간을 확보하십시오.	你所保存的关卡数量已经达到上限。你可以通过查看并删除一些自由模式下保存的关卡来腾出一些空间。	
-Level Copied!	シードはコピーされた。	Stufe kopiert wurde.	Senha Copiado com Sucesso!	Seme Copiato con Successo!	Code Copié Avec Succès!	Codigo Copiado!	Скопируйте успешным!	성공적으로 복사!	成功了！	
+Cannot save level	レベルをセーブできません	Level konnte nicht gespeichert werden.	Não pode Salvar a Senha	Non si può salvare il Seme	Impossible de sauvegarder le code	No se pudo Guardar Código	Невозможно сохранить	시드 보존을 할 수 없음	无法保存关卡	
+You have saved the maximum number of levels possible. You may delete levels to make space by viewing your saved levels in Freeplay.	最大数のレベルがセーブされています。フリーモードでセーブしたレベルを観覧するには、スペースを確保するためレベルを削除する必要がありそうです。	Du hast bereits die maximale Anzahl an Leveln gespeichert. Du kannst Level löschen um Platz zu schaffen, indem du dir deine gespeicherten Level im Freien Spiel anschaust.	Você salvou o número máximo de senhas possíveis. Você pode apagar senhas para liberar espaço acessando suas senhas no Free play.	Hai salvato il numero massimo di Semi possibile. Per fare spazio potresti cancellare alcuni Semi controllando i tuoi Semi salvati in Free Play.	Vous avez sauvegardé le nombre maximum de codes possible. Vous pouvez supprimer des codes pour libérer de l'espace en visualisant vos codes sauvegardés dans le Jeu Libre.	Has guardado el mayor número posible de Códigos. Debes borrar Códigos para conseguir espacio viendo tus Códigos guardados en el Modo Libre.	Достигнуто максимальное количество сохранений. Чтобы освободить место, в Свободной игре выберите сохранения, которые хотите удалить.	가능한 만큼의 시드를 이미 보존하고 있습니다. 프리 모드에 보존된 시드를 확인 후 시드를 지우고 공간을 확보하십시오.	你所保存的关卡数量已经达到上限。你可以通过查看并删除一些自由模式下保存的关卡来腾出一些空间。	
+Level Copied!	レベルはコピーされました。	Stufe kopiert wurde.	Senha Copiado com Sucesso!	Seme Copiato con Successo!	Code Copié Avec Succès!	Codigo Copiado!	Скопируйте успешным!	성공적으로 복사!	成功了！	
 Any progress will be lost.	進捗はすべて失われます。	Möchtest du wirklich beenden? Ungespeicherter Fortschritt geht verloren.	Qualquer progresso será perdido.	Tutti i progressi verranno persi.	Toute progression sera perdue	Se perderá toda la progresión.	Прогресс будет утрачен.	데이터잃게 됩니다.	所有进度将丢失。	

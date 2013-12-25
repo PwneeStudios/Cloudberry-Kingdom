@@ -175,8 +175,12 @@ namespace CloudberryKingdom.Blocks
 
             if (DrawSelf)
             {
-                if (Tools.DrawBoxes)
-                    MyBox.DrawFilled(Tools.QDrawer, Color.DarkBlue);
+				if (Tools.DrawBoxes)
+				{
+					MyBox.DrawFilled(Tools.QDrawer, new Color(35, 35, 255));
+
+					//MyBox.DrawFilled(Tools.QDrawer, Color.DarkBlue);
+				}
             }
 
             if (Tools.DrawGraphics)

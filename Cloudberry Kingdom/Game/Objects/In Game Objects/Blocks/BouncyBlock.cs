@@ -255,19 +255,17 @@ namespace CloudberryKingdom.Blocks
 
             if (Tools.DrawBoxes)
             {
-                //MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
-                MyBox.DrawFilled(Tools.QDrawer, Color.SpringGreen);
+				Tools.QDrawer.DrawFilledBox(MyBox.Current.BL + Offset, MyBox.Current.TR + Offset, new Color(0, 255, 127, 255));
+				
+				//MyBox.DrawFilled(Tools.QDrawer, Color.SpringGreen);
             }
 
             if (Tools.DrawGraphics)
             {
                 if (!BlockCore.BoxesOnly)
                 {
-                    //MyDraw.MyPieces.Center.MyEffect = Tools.EffectWad.FindByName("Hsl");
                     MyDraw.Update();
                     MyDraw.MyPieces.Base.Origin += Offset;
-                    //MyDraw.MyPieces.Base.Origin += Offset
-                    //    + new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10)); ;
 
                     MyDraw.Draw();
                 }

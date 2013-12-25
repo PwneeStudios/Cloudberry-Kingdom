@@ -25,11 +25,6 @@ namespace CloudberryKingdom
                 normal.ThrustDir1 = new Vector2(-.4f, -.6f);
                 normal.ThrustDir2 = new Vector2(.4f, -.6f);
 
-                //normal.ThrustPos1 = new Vector2(-101f, -70);
-                //normal.ThrustPos2 = new Vector2(127f, -70);
-                //normal.ThrustDir1 = new Vector2(-.4f, -.6f);
-                //normal.ThrustDir2 = new Vector2(.4f, -.6f);
-
                 normal.ThrustType = RocketThrustType.Double;
             }
             else

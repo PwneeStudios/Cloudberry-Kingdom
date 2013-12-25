@@ -332,8 +332,22 @@ namespace CloudberryKingdom.Blocks
             {
                 Update();
 
-                if (Tools.DrawBoxes)
-                    MyBox.DrawFilled(Tools.QDrawer, Color.Green);
+				if (Tools.DrawBoxes)
+				{
+                    Vector4 Full, Half;
+                    Full = new Vector4(.8f, .2f, .8f, 1.0f);
+                    Half = new Vector4(.8f, .2f, .8f, 0.2f);
+                    Color color;
+
+                    if (State == GhostBlockState.PhasedIn)
+                        color = new Color((1 - StateChange) * Half + StateChange * Full);
+                    else
+                        color = new Color((1 - StateChange) * Full + StateChange * Half);
+
+					MyBox.DrawFilled(Tools.QDrawer, color);
+
+					//MyBox.DrawFilled(Tools.QDrawer, Color.Green);
+				}
             }
 
             if (Tools.DrawGraphics)
@@ -354,7 +368,6 @@ namespace CloudberryKingdom.Blocks
                     {
                         MyObject.SetColor(color);
                         MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
-                        //Tools.QDrawer.Flush();
                     }
                     else
                     {

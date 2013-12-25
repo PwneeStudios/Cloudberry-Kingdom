@@ -100,8 +100,28 @@ namespace CloudberryKingdom
         protected int CurJump;
         int JumpDelay = 10;
         int JumpDelayCount;
-        //static int ComputerJumpDelay = 55;
 
+
+		/// <summary>
+		/// Whether the physics should have a "float" behavior, where
+		/// the player floats after a jump while holding the jump button.
+		/// </summary>
+		public bool Float = true;
+		/// <summary></summary>
+		public int FloatLength = 80;
+
+		/// <summary></summary>
+		bool ReadyToFloat = false;
+
+		/// <summary>
+		/// Whether the physics should have a "run" behavior, where
+		/// the player runs faster while holding the run button.
+		/// </summary>
+		public bool Run = true;
+
+		/// <summary>
+		/// Whether the physics should have a jetpack.
+		/// </summary>
         public bool JetPack = false;
         public int JetPackLength = 60;
         public int JetPackCushion = 12;

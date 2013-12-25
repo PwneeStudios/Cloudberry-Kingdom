@@ -41,7 +41,9 @@ namespace CloudberryKingdom
 
         protected override void DrawBoxes()
         {
-            Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, Color.Orange, 20);
+			Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, new Color(255, 165, 35), 30);
+
+			//Tools.QDrawer.DrawLine(MyLine.Target.p1, MyLine.Target.p2, Color.Orange, 20);
         }
 
         public override void Move(Vector2 shift)

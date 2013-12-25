@@ -1395,11 +1395,13 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawBoxes)
             {
-                Box.Draw(Tools.QDrawer, Color.HotPink, 12);
-                Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
+				Box.DrawFilled(Tools.QDrawer, Color.HotPink);
+				//Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
-                Box2.Draw(Tools.QDrawer, Color.HotPink, 12);
-                Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
+				//Box.Draw(Tools.QDrawer, Color.HotPink, 12);
+				//Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
+				//Box2.Draw(Tools.QDrawer, Color.HotPink, 12);
+				//Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
                 if (Boxes != null)
                 {

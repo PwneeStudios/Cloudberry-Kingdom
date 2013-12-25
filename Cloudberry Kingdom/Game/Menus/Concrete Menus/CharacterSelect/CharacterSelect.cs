@@ -47,6 +47,14 @@ namespace CloudberryKingdom
                 .5f * Spacing,
                 1.5f * Spacing
             };
+
+			Centers = new Vector2[]
+			{
+				new Vector2(-960, 0),
+				new Vector2(10000, 0),
+				new Vector2(10000, 0),
+				new Vector2(10000, 0),
+			};
         }
 
         public static void Shift(GUI_Panel panel)

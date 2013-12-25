@@ -261,8 +261,13 @@ namespace CloudberryKingdom.Blocks
 
             Update();
 
-            if (Tools.DrawBoxes)
-                MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+			if (Tools.DrawBoxes)
+			{
+				MyBox.DrawFilled(Tools.QDrawer, new Color(80, 80, 80, 255));
+				//MyBox.Draw(Tools.QDrawer, new Color(150, 150, 150), 10);
+
+				//MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+			}
 
             if (BlockCore.BoxesOnly) return;
 

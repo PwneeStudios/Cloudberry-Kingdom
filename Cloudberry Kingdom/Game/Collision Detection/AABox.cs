@@ -98,7 +98,7 @@ namespace CloudberryKingdom
         public void DrawFilled(QuadDrawer QDrawer, Color color)
         {
             QDrawer.DrawFilledBox(Current.BL, Current.TR, color);
-            QDrawer.Flush();
+			//QDrawer.Flush();
         }
 
         public void Draw(Color color, float Width)
@@ -111,14 +111,16 @@ namespace CloudberryKingdom
         }
         public void Draw(QuadDrawer QDrawer, Color color, float Width, bool DisregardTopOnly)
         {
+			Vector2 shift = new Vector2(0, Width / 2);
+
             Vector2 BR, TL;
             BR = new Vector2(Current.TR.X, Current.BL.Y);
             TL = new Vector2(Current.BL.X, Current.TR.Y);
             if (!TopOnly || DisregardTopOnly)
             {
                 QDrawer.DrawLine(Current.BL, BR, color, Width);
-                QDrawer.DrawLine(Current.TR, BR, color, Width);
-                QDrawer.DrawLine(Current.BL, TL, color, Width);
+				QDrawer.DrawLine(Current.TR + shift, BR - shift, color, Width);
+                QDrawer.DrawLine(Current.BL - shift, TL + shift, color, Width);
             }
             QDrawer.DrawLine(Current.TR, TL, color, Width);
             QDrawer.Flush();

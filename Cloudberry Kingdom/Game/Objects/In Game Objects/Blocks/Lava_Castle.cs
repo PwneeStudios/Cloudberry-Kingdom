@@ -60,7 +60,10 @@ namespace CloudberryKingdom
 
             if (Tools.DrawBoxes)
             {
-                MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+				float y = (int)((System.Math.Cos(Tools.t * 1.0f) + .71f) / .7f) * 13;
+				Tools.QDrawer.DrawFilledBox(MyBox.Current.BL, MyBox.Current.TR + new Vector2(0, y), new Color(255, 10, 30));
+
+				//MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
             }
         }
 

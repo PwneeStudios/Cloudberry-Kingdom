@@ -182,7 +182,7 @@ namespace StaticSiteGenerator
             }
         }
 
-		public static List<LeaderboardEntry> GetHighScores(int BoardId)
+		public static List<LeaderboardEntry> GetHighScores(int BoardId, int Start = 0, int End = 1000)
 		{
             bool SteamInitialized = SteamCore.Initialize();
             if (!SteamInitialized)
@@ -193,13 +193,17 @@ namespace StaticSiteGenerator
 			_EntryList = new List<LeaderboardEntry>();
 
 			var id = GetIdentity(BoardId);
-            SteamStats.FindLeaderboard(id, OnFindLeaderboard_Read);
-            ReadingInProgress = true;
 
-            while (ReadingInProgress)
-            {
-                SteamCore.Update();
-            }
+			for (int i = Start; i <= End; i += 1000)
+			{
+				SteamStats.FindLeaderboard(id, (handle, failed) => OnFindLeaderboard_Read(handle, failed, i, i + 1000));
+				ReadingInProgress = true;
+
+				while (ReadingInProgress)
+				{
+					SteamCore.Update();
+				}
+			}
 
             SteamCore.Shutdown();
 
@@ -209,7 +213,7 @@ namespace StaticSiteGenerator
 		private static int _TotalSize;
 
         static bool ReadingInProgress = false;
-		static void OnFindLeaderboard_Read(LeaderboardHandle Handle, bool failed)
+		static void OnFindLeaderboard_Read(LeaderboardHandle Handle, bool failed, int Start, int End)
         {
             Console.WriteLine("Find Leaderboard to read from. Failed? : {0}", failed);
 
@@ -219,7 +223,7 @@ namespace StaticSiteGenerator
             }
             else
             {
-				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, 4000, 5000,
+				SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.Global, Start, End,
 					b => OnInfo(Handle, b));
             }
         }

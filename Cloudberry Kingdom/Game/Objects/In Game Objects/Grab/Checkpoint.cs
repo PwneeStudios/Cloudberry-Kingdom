@@ -327,8 +327,13 @@ namespace CloudberryKingdom.InGameObjects
                 MyObject.Draw(Tools.QDrawer, Tools.EffectWad);
                 Tools.QDrawer.Flush();
             }
-            if (Tools.DrawBoxes)
-                Box.Draw(Tools.QDrawer, Color.Bisque, 10);
+
+			if (Tools.DrawBoxes)
+			{
+				Tools.QDrawer.DrawCircle(Pos, 100, new Color(255, 134, 26, 235));
+
+				//Box.Draw(Tools.QDrawer, Color.Bisque, 10);
+			}
         }
 
         public override void Clone(ObjectBase A)

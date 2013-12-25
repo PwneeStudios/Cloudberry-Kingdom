@@ -583,10 +583,11 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawBoxes()
         {
-            Box.Draw(Color.Azure, 10);
-            Box2.Draw(Color.Azure, 10);
-            //Box.DrawT(Color.Blue, 10);
-            //Box2.DrawT(Color.Blue, 10);
+			if (Life < 1) return;
+			Box.DrawFilled(Tools.QDrawer, Color.Azure);
+
+			//Box.Draw(Color.Azure, 10);
+			//Box2.Draw(Color.Azure, 10);
         }
 
         public void MoveToBounded(Vector2 shift)

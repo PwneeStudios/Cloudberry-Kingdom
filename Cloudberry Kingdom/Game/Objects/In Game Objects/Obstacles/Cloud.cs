@@ -122,8 +122,20 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawBoxes()
         {
-            Box.Draw(Color.Azure, 10);
-            //Box.DrawT(Color.Blue, 10);
+			Vector2 Offset, Drop;
+			
+			Offset = Vector2.Zero;
+			Drop = new Vector2(0, -30);
+			Tools.QDrawer.DrawFilledBox(Box.Current.BL + Offset + Drop, Box.Current.TR + Offset, new Color(255, 255, 255, 125));
+
+			Offset = new Vector2(20, -10);
+			Tools.QDrawer.DrawFilledBox(Box.Current.BL + Offset + Drop, Box.Current.TR + Offset, new Color(255, 255, 255, 125));
+
+			Offset = new Vector2(-20, -20);
+			Tools.QDrawer.DrawFilledBox(Box.Current.BL + Offset + Drop, Box.Current.TR + Offset, new Color(255, 255, 255, 125));
+
+
+			//Box.Draw(Color.Azure, 10);
         }
 
         public override void Move(Vector2 shift)

@@ -182,13 +182,15 @@ namespace CloudberryKingdom.Obstacles
             }
             else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
             {
-                Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position,
-                            new Color(255, 255, 255, 215),
-                            20);
+				Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(190, 90, 255, 100), 25);
+
+				//Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
             }
             else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
             {
-                Circle.Draw(new Color(50, 50, 255, 220));
+				Circle.Draw(new Color(190, 90, 255, 255));
+
+				//Circle.Draw(new Color(50, 50, 255, 220));
             }
         }
 

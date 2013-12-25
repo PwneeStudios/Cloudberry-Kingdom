@@ -308,7 +308,12 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawBoxes()
         {
-            Box.DrawFilled(Tools.QDrawer, Color.Blue);
+			Vector2 shift;
+			if (Dir == 0 || Dir == 2)	shift = new Vector2(4, -2);
+			else						shift = new Vector2(10, 6);
+			Tools.QDrawer.DrawFilledBox(Box.Current.BL - shift, Box.Current.TR + shift, Color.LightBlue);
+
+			//Box.DrawFilled(Tools.QDrawer, Color.Blue);
         }
 
         public override void Move(Vector2 shift)

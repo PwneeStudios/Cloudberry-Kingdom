@@ -252,9 +252,11 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawBoxes()
         {
-            Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
+			Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(119, 136, 153, 100), 20);
+			Circle.Draw(new Color(119, 136, 153));
 
-            Circle.Draw(Color.LightSlateGray);
+			//Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
+			//Circle.Draw(Color.LightSlateGray);
         }
 
         public void CalculateLength()

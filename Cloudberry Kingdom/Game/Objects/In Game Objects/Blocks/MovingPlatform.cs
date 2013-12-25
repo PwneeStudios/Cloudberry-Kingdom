@@ -236,8 +236,13 @@ namespace CloudberryKingdom.Blocks
             if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
                 return;
 
-            if (Tools.DrawBoxes)
-                MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+			if (Tools.DrawBoxes)
+			{
+				Tools.QDrawer.DrawFilledBox(MyBox.Current.BL + new Vector2(0, 20), MyBox.Current.TR, new Color(80, 80, 80, 255));
+				//MyBox.DrawFilled(Tools.QDrawer, new Color(80, 80, 80, 255));
+
+				//MyBox.Draw(Tools.QDrawer, Color.Olive, 15);
+			}
 
             if (BlockCore.BoxesOnly) return;
 
