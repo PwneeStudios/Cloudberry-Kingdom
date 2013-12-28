@@ -1207,8 +1207,11 @@ namespace CloudberryKingdom
                     MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
                 }
 #else
-				//MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
-				VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
+
+				if (Tools.DrawGraphics)
+				{
+					VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
+				}
 #endif
 			}
 
@@ -1906,17 +1909,7 @@ namespace CloudberryKingdom
 			if (DelayAmount > 1 * DelayIncr)
 			{
 				Thread.Sleep((int)(1000 * DelayAmount));
-				//return;
 			}
-
-			//DelayAmount
-
-			////if (DeltaT < .9f * TargetDelay)
-			//{
-			//    //Thread.Sleep((int)(1000 * (TargetDelay - DeltaT)));
-			//    Thread.Sleep((int)(1000 * TargetDelay));
-			//}
-
 
 			// Stop now if the initial preload (and logosalad) hasn't started yet.
 			if (!PreloadDone) { SetupToRender(); return; }
@@ -1928,12 +1921,6 @@ namespace CloudberryKingdom
             // Main Video
 			if (VideoWrapper.Draw())
             {
-#if XBOX
-                if (PlayerManager.Players != null)
-                { 
-                    CheckForSignInState();
-                }
-#endif        
                 DrawWatermark();
                 return;
             }
@@ -1944,16 +1931,9 @@ namespace CloudberryKingdom
             // Fps
             UpdateFps(gameTime);
 
-#if XBOX
-            CheckForSignInState();
-#endif
-
 			// If the full game was just unlocked, return to the title screen
             if (DoTrialUnlockEvent)
             {
-#if XBOX
-                ResetToTitleScreen();
-#endif
                 DoTrialUnlockEvent = false;
             }
 
@@ -1963,71 +1943,6 @@ namespace CloudberryKingdom
 #endif
 
             // Draw nothing if Xbox guide is up
-#if XBOX || XBOX_SIGNIN
-            if (Guide.IsVisible)
-            {
-                //if (!LastGuideIsUp)
-                //{
-                //    if (CurrentPresence == Presence.Campaign)
-                //    {
-                //        if (Tools.CurGameData != null && Tools.CurGameData.MyLevel != null && Tools.CurGameData.MyLevel.MyLevelSeed != null && Tools.CurGameData.MyLevel.MyLevelSeed.Rnd != null)
-                //        {
-                //            if (Tools.CurGameData.MyLevel.MyLevelSeed.Seed != GuidSave_SeedMark)
-                //            {
-                //                GuidSave_SeedMark = Tools.CurGameData.MyLevel.MyLevelSeed.Seed;
-                //                SaveGroup.SaveAll();
-                //            }
-                //        }
-                //    }
-                //    LastGuideIsUp = true;
-                //}
-
-                DrawNothing();
-                DrawWatermark();
-
-                Tools.SetVibration(PlayerIndex.One, 0, 0, 0);
-                Tools.SetVibration(PlayerIndex.Two, 0, 0, 0);
-                Tools.SetVibration(PlayerIndex.Three, 0, 0, 0);
-                Tools.SetVibration(PlayerIndex.Four, 0, 0, 0);
-
-                return;
-            }
-			//if (ShowKeyboard)
-			//{
-			//    SaveLoadSeedMenu.BeginShowKeyboard();
-			//}
-			else if (ShowAchievements)
-			{
-				BeginShowAchievements();
-			}
-            else if (ShowMarketplace)
-            {
-                BeginShowMarketplace();
-            }
-            else if (ShowErrorMessage)
-            {
-                _ShowError();
-            }
-            else if (ShowGamer)
-            {
-                BeginShowGamer();
-            }
-            else if (DisconnectedController())
-            {
-                ShowSmallError();
-                //ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-                //return;
-            }
-            else
-            {
-                if (SmallErrorMessage != null)
-                {
-                    SmallErrorMessage.ReturnToCaller(true);
-                    SmallErrorMessage = null;
-                }
-            }
-#endif
-
             LastGuideIsUp = false;
 
             //CheckForSignInState();
@@ -2046,24 +1961,24 @@ namespace CloudberryKingdom
             if (!LogoScreenUp && !Tools.CurGameData.Loading)
                 GameUpdate(gameTime);
 
+			Tools.QDrawer.StartSpriteBatch();
+
             // What to draw
-            if (LogoScreenUp || LogoScreenPropUp)
+            if (Tools.CurLevel != null && (LogoScreenUp || LogoScreenPropUp))
                 LoadingScreen.Draw();
-            else if (Tools.ShowLoadingScreen)
+			else if (Tools.CurLevel != null && Tools.ShowLoadingScreen)
                 DrawLoading();
-			else if (Tools.CurGameData != null && !VideoWrapper.IsPlaying)
+			else if (Tools.CurLevel != null && Tools.CurGameData != null && !VideoWrapper.IsPlaying)
                 DrawGame();
             else
                 DrawNothing();
 
             DrawExtra();
 
-#if DEBUG && !XDK
-            SaveScreenshotCode();
-#endif
-
 			DrawWatermark();
 			DrawSavingText();
+
+			Tools.QDrawer.EndSpriteBatch();
         }
 
         /// <summary>

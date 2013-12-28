@@ -138,12 +138,9 @@ namespace CloudberryKingdom
         ProgressBar MyProgressBar;
 
         int LogoCount = 0;
-#if PC_VERSION
-		int LogoCount_Max = 60 * 4 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
-#else
-		int LogoCount_Max = 60 * 5 - 50 - 93; // 5 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
-#endif
-        WrappedFloat ResourceCount;
+		int LogoCount_Max = 2;
+
+		WrappedFloat ResourceCount;
 
         QuadClass BlackQuad, Splash;
 
@@ -151,16 +148,7 @@ namespace CloudberryKingdom
         {
             this.ResourceCount = ResourceCount;
 
-            Whinney = Content.Load<SoundEffect>("Whinney");
-
-			//Tools.TextureWad.FindOrLoad(Content, "LoadOutline", "Art\\LoadScreen_Initial\\LoadOutline");
-			//Tools.TextureWad.FindOrLoad(Content, "LoadFill", "Art\\LoadScreen_Initial\\LoadFill");
-
             MyPile = new DrawPile();
-
-            //Tools.TextureWad.FindOrLoad(Content, "Splash");
-            //Splash = new QuadClass("Splash", 1400);
-            //MyPile.Add(Splash);
 
             MyProgressBar = new ProgressBar();
             MyProgressBar.Pos = new Vector2(900, -400);
@@ -171,12 +159,7 @@ namespace CloudberryKingdom
             BlackQuad.Layer = 1;
             MyPile.Add(BlackQuad);
 
-			string text =
-@"{pCopyRightSymbol,78,?,4,4} 2013 by Pwnee Studios, Corp. All Rights Reserved.
-Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.
-Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.
-Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.";
-			text = text.Replace("\r", "");
+			string text = @"";
             Legal = new EzText(text, Resources.Font_Grobold42, 10000, false, false, .66f);
 
             Legal.MyFloatColor = ColorHelper.Gray(.9f);
@@ -206,26 +189,24 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
             {
                 ResourceCount.MyFloat += .5f;
                 if (Accelerate)
-                    ResourceCount.MyFloat = CoreMath.Restrict(0, TotalResources,
-                        ResourceCount.MyFloat + .033f * (TotalResources));
+                    ResourceCount.MyFloat = CoreMath.Restrict(0, TotalResources, ResourceCount.MyFloat + .033f * (TotalResources));
             }
 
             // Fade
-			//if (LoadingPercent > 97.6f && Accelerate || !Resources.LoadingResources.MyBool || LogoCount > LogoCount_Max)
 			if (Resources.FinalLoadDone || LogoCount > LogoCount_Max)
             {
+				IsDone = true;
+
                 if (ReadyToFade)
                 {
-                    BlackQuad.Alpha += .0223f;
+					BlackQuad.Alpha += .5f;
                     if (BlackQuad.Alpha >= 1)
                         DoneCount++;
                 }
             }
 
-            if (!Resources.LoadingResources.MyBool && ReadyToFade && BlackQuad.Alpha >= 1 && DoneCount > 25)
+            if (!Resources.LoadingResources.MyBool && ReadyToFade && BlackQuad.Alpha >= 1 && DoneCount > 1)
                 IsDone = true;
-
-            //IsDone = false;
         }
 
         int DrawCount = 0;

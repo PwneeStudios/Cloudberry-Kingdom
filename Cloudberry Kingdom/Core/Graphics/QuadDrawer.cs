@@ -130,6 +130,17 @@ namespace CoreEngine
 
     public class QuadDrawer
     {
+		SpriteBatch MySpriteBatch;
+		public void StartSpriteBatch()
+		{
+			MySpriteBatch.Begin();
+		}
+
+		public void EndSpriteBatch()
+		{
+			MySpriteBatch.End();
+		}
+
         GraphicsDevice Device;
 
         public EzEffect DefaultEffect;
@@ -178,6 +189,8 @@ namespace CoreEngine
         public QuadDrawer(GraphicsDevice device, int n)
         {
             Device = device;
+			MySpriteBatch = new SpriteBatch(Device);
+
             N = n;
 
             TrianglesInBuffer = 0;
@@ -256,9 +269,6 @@ namespace CoreEngine
 
         void SetSamplerState()
         {
-            //Device.SamplerStates[1] = ClampClamp;
-            //return;
-            
             if (Current_U_Wrap)
             {
                 if (Current_V_Wrap) Device.SamplerStates[1] = WrapWrap;
@@ -325,60 +335,91 @@ namespace CoreEngine
 
         public void DrawQuad(ref SimpleQuad quad)
         {
+/*
             if (quad.Hide) return;
 
-            if (quad.MyEffect == null || quad.MyTexture == null) { Tools.Break(); return; }
+			//Vector2 pos = (quad.TR + quad.BL) / 2;
+			Vector2 pos = (quad.v0.Vertex.xy + quad.v3.Vertex.xy) / 2;
+			Vector2 campos = Tools.CurCamera.Pos;
+			Vector2 screensize = new Vector2(Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth, Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight);
+			//Vector2 camscale = Tools.CurCamera.Zoom;
+			Vector2 camscale = Tools.CurCamera.TR - Tools.CurCamera.BL;
+			
+			pos = (pos - campos) / camscale * screensize;
+			
+			pos.X =  pos.X + .5f * screensize.X;
+			pos.Y = -pos.Y + .5f * screensize.Y;
 
-            if (Tools.Render.UsingSpriteBatch) Tools.Render.EndSpriteBatch();
+			Vector2 tex_size = new Vector2(Tools.TextureWad.DefaultTexture.Width, Tools.TextureWad.DefaultTexture.Height);
+			//Vector2 scale  = .5f * (quad.TR - quad.BL) / tex_size;
+			Vector2 scale = .5f * (quad.v0.Vertex.xy - quad.v3.Vertex.xy) / tex_size;
+			scale.X = Math.Abs(scale.X);
 
-            // Update anim
-            if (quad.Playing) quad.UpdateTextureAnim();
+			MySpriteBatch.Draw(Tools.TextureWad.DefaultTexture.Tex, pos, null, quad.v0.Vertex.Color, 0, .5f * tex_size, scale, SpriteEffects.None, 0);
+*/
 
-            // Calculate illumination
-            if (quad.UseGlobalIllumination)
-                Illumination = GlobalIllumination * quad.Illumination;
-            else
-                Illumination = quad.Illumination;
 
-            if (i + 6 >= N ||
-                i != 0 &&
-                    (CurrentEffect.effect != quad.MyEffect.effect ||
-                     CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||
-                     CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked ||
-                     Current_U_Wrap != quad.U_Wrap ||
-                     Current_V_Wrap != quad.V_Wrap ||
-                     CurrentEffect.CurrentIllumination != Illumination))
-                Flush();
 
-            if (i == 0)
-            {
-                if (Current_U_Wrap != quad.U_Wrap || Current_V_Wrap != quad.V_Wrap)
-                    SetAddressMode(quad.U_Wrap, quad.V_Wrap);
-        
-                CurrentEffect = quad.MyEffect;
-                CurrentTexture = quad.MyTexture;
 
-                // Set extra textures
-                if (quad.ExtraTexture1 != null) CurrentEffect.SetExtraTexture1(quad.ExtraTexture1);
-                if (quad.ExtraTexture2 != null) CurrentEffect.SetExtraTexture2(quad.ExtraTexture2);
 
-                if (CurrentTexture.FromPacked)
-                    CurrentTexture = CurrentTexture.Packed;
 
-                if (CurrentEffect.CurrentIllumination != Illumination)
-                {
-                    CurrentEffect.CurrentIllumination = Illumination;
-                    CurrentEffect.Illumination.SetValue(Illumination);
-                }
-            }
 
-            Vertices[i] = quad.v0.Vertex;
-            Vertices[i + 5] = Vertices[i + 1] = quad.v1.Vertex;
-            Vertices[i + 4] = Vertices[i + 2] = quad.v2.Vertex;
-            Vertices[i + 3] = quad.v3.Vertex;
 
-            i += 6;
-            TrianglesInBuffer += 2;
+
+			if (quad.Hide) return;
+
+			if (quad.MyEffect == null || quad.MyTexture == null) { Tools.Break(); return; }
+
+			if (Tools.Render.UsingSpriteBatch) Tools.Render.EndSpriteBatch();
+
+			// Update anim
+			if (quad.Playing) quad.UpdateTextureAnim();
+
+			// Calculate illumination
+			if (quad.UseGlobalIllumination)
+				Illumination = GlobalIllumination * quad.Illumination;
+			else
+				Illumination = quad.Illumination;
+
+			if (i + 6 >= N ||
+				i != 0 &&
+					(CurrentEffect.effect != quad.MyEffect.effect ||
+					 CurrentTexture.Tex != quad.MyTexture.Tex && !quad.MyTexture.FromPacked ||
+					 CurrentTexture != quad.MyTexture.Packed && quad.MyTexture.FromPacked ||
+					 Current_U_Wrap != quad.U_Wrap ||
+					 Current_V_Wrap != quad.V_Wrap ||
+					 CurrentEffect.CurrentIllumination != Illumination))
+				Flush();
+
+			if (i == 0)
+			{
+				if (Current_U_Wrap != quad.U_Wrap || Current_V_Wrap != quad.V_Wrap)
+					SetAddressMode(quad.U_Wrap, quad.V_Wrap);
+
+				CurrentEffect = quad.MyEffect;
+				CurrentTexture = quad.MyTexture;
+
+				// Set extra textures
+				if (quad.ExtraTexture1 != null) CurrentEffect.SetExtraTexture1(quad.ExtraTexture1);
+				if (quad.ExtraTexture2 != null) CurrentEffect.SetExtraTexture2(quad.ExtraTexture2);
+
+				if (CurrentTexture.FromPacked)
+					CurrentTexture = CurrentTexture.Packed;
+
+				if (CurrentEffect.CurrentIllumination != Illumination)
+				{
+					CurrentEffect.CurrentIllumination = Illumination;
+					CurrentEffect.Illumination.SetValue(Illumination);
+				}
+			}
+
+			Vertices[i] = quad.v0.Vertex;
+			Vertices[i + 5] = Vertices[i + 1] = quad.v1.Vertex;
+			Vertices[i + 4] = Vertices[i + 2] = quad.v2.Vertex;
+			Vertices[i + 3] = quad.v3.Vertex;
+
+			i += 6;
+			TrianglesInBuffer += 2;
         }
 
         public void DrawFilledBox(Vector2 BL, Vector2 TR, Color color)

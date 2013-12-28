@@ -193,11 +193,11 @@ namespace CloudberryKingdom
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
 											 // Bring up a loading screen if we aren't done loading title screen assets
-											 if (!Resources.FakeFinalLoadDone)
-											 {
-												 Tools.BeginLoadingScreen(false);
-												 Tools.CurrentLoadingScreen.MakeFake();
-											 }
+											 //if (!Resources.FakeFinalLoadDone)
+											 //{
+											 //    Tools.BeginLoadingScreen(false);
+											 //    Tools.CurrentLoadingScreen.MakeFake();
+											 //}
 
                                              Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);

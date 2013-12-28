@@ -292,24 +292,7 @@ namespace CloudberryKingdom
 
         static void PreloadArt()
         {
-            String path = Path.Combine(Globals.ContentDirectory, "Art");
-
-			//string[] files = Tools.GetFiles(path, true);
-			//foreach (String file in files)
-			//{
-			//    if (Tools.GetFileExt(path, file) == "xnb")
-			//    {
-			//        Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-			//    }
-			//}
-
-			//string[] files = ArtList.ArtFiles;
-			//foreach (String file in files)
-			//{
-			//    Tools.TextureWad.AddTexture(null, file);
-			//}
-
-			ArtList.PreloadArtFiles();
+			//ArtList.PreloadArtFiles();
         }
 
         public static void LoadResources()
