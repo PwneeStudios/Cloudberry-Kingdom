@@ -9,7 +9,7 @@ using System.IO;
 using CoreEngine;
 
 #if PC_VERSION
-using SteamManager;
+//using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -258,7 +258,7 @@ namespace CloudberryKingdom
 			}
 
 			var ScoreToWrite = new ScoreEntry(null, 7777, level, level, level, 0, 0, 0);
-			Leaderboard.WriteToLeaderboard(ScoreToWrite);
+			//Leaderboard.WriteToLeaderboard(ScoreToWrite);
 #endif
 
 #if XBOX
@@ -330,7 +330,7 @@ namespace CloudberryKingdom
             if (ShouldUpdate)
             {
 				ScoreEntry ScoreToWrite = new ScoreEntry(null, 9999, Max, Max, Max, 0, 0, 0);
-                Leaderboard.WriteToLeaderboard(ScoreToWrite);
+				//Leaderboard.WriteToLeaderboard(ScoreToWrite);
             }
 #endif
         }
@@ -404,12 +404,14 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public static string GetGroupGamerTag(int MaxLength)
         {
+			return "FixMe_GetGroupGamerTag";
+
 #if PC_VERSION
-			if (CloudberryKingdomGame.UsingSteam)
-			{
-				string name = SteamCore.PlayerName();
-				return name;
-			}
+			//if (CloudberryKingdomGame.UsingSteam)
+			//{
+			//    string name = SteamCore.PlayerName();
+			//    return name;
+			//}
 #endif
 
             List<PlayerData> players = LoggedInPlayers;
@@ -440,7 +442,6 @@ namespace CloudberryKingdom
 
             // Concatenate the names together
             string GroupTag = "";
-            //foreach (StringBuilder str in names)
             for (int i = 0; i < names.Count; i++)
             {
                 StringBuilder str = names[i];
@@ -453,7 +454,6 @@ namespace CloudberryKingdom
                     GroupTag += '/';
 
                 string name = str.ToString();
-                //GroupTag += clr + name;
                 GroupTag += name;
             }
 
@@ -831,7 +831,7 @@ namespace CloudberryKingdom
 
                     Score_Coins += stats.Coins;
                     Score_Blobs += stats.Blobs;
-                    Score_Attempts += stats.DeathsBy[(int)Bob.BobDeathType.Total];
+                    Score_Attempts += stats.DeathsBy[(int)BobDeathType.Total];
                     Score_Time = Math.Max(Score_Time, stats.TimeAlive);
                 }
         }

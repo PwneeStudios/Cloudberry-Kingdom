@@ -30,7 +30,7 @@ namespace CloudberryKingdom.Obstacles
 
             AutoGenSingleton = Firesnake_AutoGen.Instance;
             Core.MyType = ObjectType.Firesnake;
-            DeathType = Bobs.Bob.BobDeathType.Firesnake;
+            DeathType = Bobs.BobDeathType.Firesnake;
 
             PhsxCutoff_Playing = new Vector2(400);
             PhsxCutoff_BoxesOnly = new Vector2(-100, 400);

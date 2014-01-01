@@ -9,7 +9,7 @@ namespace CloudberryKingdom.Levels
     {
         public enum BoxStyle { TopOnly, FullBox, NoSides };
 
-        public enum Style { Full, Separated }
+        public enum Style { Full, Separated, Length }
         public Style MyStyle;
 
         /// <summary>
@@ -24,7 +24,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            MyStyle = (Style)level.Rnd.RndEnum<Style>();
+			//MyStyle = (Style)level.Rnd.RndEnum<Style>();
+			MyStyle = (Style)level.Rnd.RndInt(0, (int)Style.Length - 1);
 
             FillWeight = new Param(PieceSeed, u => .5f * u[Upgrade.Elevator]);
 

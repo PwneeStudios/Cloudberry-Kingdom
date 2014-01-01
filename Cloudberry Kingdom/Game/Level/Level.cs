@@ -107,8 +107,8 @@ namespace CloudberryKingdom.Levels
             {
                 if (!bob.Dead && !bob.Dying)
                 {
-                    bob.MyStats.DeathsBy[(int)Bob.BobDeathType.Other]++;
-                    bob.MyStats.DeathsBy[(int)Bob.BobDeathType.Total]++;
+                    bob.MyStats.DeathsBy[(int)BobDeathType.Other]++;
+                    bob.MyStats.DeathsBy[(int)BobDeathType.Total]++;
                 }
             }
         }

@@ -71,6 +71,8 @@ namespace CloudberryKingdom
 
         public static string WordString(Words Word)
         {
+			if (!CloudberryKingdomGame.Text) return "";
+
             return Text[CurrentLanguage.MyLanguage][Word];
         }
 
@@ -116,7 +118,11 @@ namespace CloudberryKingdom
         static void LoadFont()
         {
             string name = "Grobold_" + Localization.CurrentLanguage.FontSuffix;
-            FontTexture = Content.Load<Texture2D>(Path.Combine("Fonts", name));
+
+			if (CloudberryKingdomGame.Text)
+				FontTexture = Content.Load<Texture2D>(Path.Combine("Fonts", name));
+			else
+				FontTexture = Tools.TextureWad.TextureList[0].Tex;
 
             Resources.hf = new HackFont(name);
             

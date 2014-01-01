@@ -6,7 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 
 #if PC_VERSION
-using SteamManager;
+//using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -262,7 +262,7 @@ namespace CloudberryKingdom
 
 		protected override void MyPhsxStep()
 		{
-			if (SteamTextInput.OverlayActive) return;
+			//if (SteamTextInput.OverlayActive) return;
 
 			base.MyPhsxStep();
 		}
@@ -276,10 +276,10 @@ namespace CloudberryKingdom
 			if (result && _player != null)
 			{
 				// Get the text
-				string s = SteamManager.SteamTextInput.GetText();
+				//string s = SteamManager.SteamTextInput.GetText();
 
 				// Save the seed
-				_player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), s);
+				//_player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), s);
 
 				// Success!
 				var ok = new AlertBaseMenu(_player.MyIndex, Localization.Words.SeedSavedSuccessfully, Localization.Words.Hooray);
@@ -302,16 +302,16 @@ namespace CloudberryKingdom
         static void Save(MenuItem _item, GUI_Panel panel, PlayerData player)
         {
 #if PC_VERSION
-			if (CloudberryKingdomGame.UsingSteam)
-			{
-				_SaveLoadSeedMenu = panel;
-				_player = player;
+			//if (CloudberryKingdomGame.UsingSteam)
+			//{
+			//    _SaveLoadSeedMenu = panel;
+			//    _player = player;
 
-				bool GamepadInputUp = SteamTextInput.ShowGamepadTextInput(
-					Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd_SaveSeed);
+			//    bool GamepadInputUp = SteamTextInput.ShowGamepadTextInput(
+			//        Localization.WordString(Localization.Words.SaveRandomSeedAs), 32, OnGamepadTextInputEnd_SaveSeed);
 
-				if (GamepadInputUp) return;
-			}
+			//    if (GamepadInputUp) return;
+			//}
 #endif
 
 			CkBaseMenu ckpanel = panel as CkBaseMenu;

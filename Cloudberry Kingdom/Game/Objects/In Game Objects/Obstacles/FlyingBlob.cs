@@ -736,7 +736,7 @@ namespace CloudberryKingdom.Obstacles
                     else
                     {
                         if (Life >= 1)
-                            bob.Die(Bob.BobDeathType.Blob, this);
+                            bob.Die(BobDeathType.Blob, this);
                     }
                 }
             }

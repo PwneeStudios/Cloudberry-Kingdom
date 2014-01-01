@@ -23,15 +23,22 @@ namespace CloudberryKingdom.Obstacles
 
         public static void PreInit()
         {
-            FireballTexture = new EzTexture(); FireballTexture.FromCode = true;
-            FlameTexture = new EzTexture(); FlameTexture.FromCode = true;
-            EmitterTexture = new EzTexture(); EmitterTexture.FromCode = true;
+			if (CloudberryKingdomGame.RenderFireball)
+			{
+				FireballTexture = new EzTexture(); FireballTexture.FromCode = true;
+				FlameTexture = new EzTexture(); FlameTexture.FromCode = true;
+				EmitterTexture = new EzTexture(); EmitterTexture.FromCode = true;
 
-            FireballTexture.Name = "FireballTexture";
-            EmitterTexture.Name = "EmitterTexture";
+				FireballTexture.Name = "FireballTexture";
+				EmitterTexture.Name = "EmitterTexture";
 
-            Tools.TextureWad.AddEzTexture(FireballTexture);
-            Tools.TextureWad.AddEzTexture(EmitterTexture);
+				Tools.TextureWad.AddEzTexture(FireballTexture);
+				Tools.TextureWad.AddEzTexture(EmitterTexture);
+			}
+			else
+			{
+				FireballTexture = FlameTexture = EmitterTexture = Tools.TextureWad.FindByName("White");
+			}
         }
 
         public static void InitRenderTargets(GraphicsDevice device, PresentationParameters pp, int Width, int Height)

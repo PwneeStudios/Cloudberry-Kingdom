@@ -31,7 +31,7 @@ using Forms = System.Windows.Forms;
 #endif
 
 #if PC_VERSION
-using SteamManager;
+//using SteamManager;
 #endif
 
 namespace CloudberryKingdom
@@ -40,10 +40,16 @@ namespace CloudberryKingdom
 
     public partial class CloudberryKingdomGame
     {
+		public const bool RenderFireball = false;
+		public const bool Text = false;
+		public const bool Music = false;
+		public const bool Effects = false;
+		public const bool Sound = false;
+
 #if PC_VERSION
 		// Steam Integration
 		// Set this to true to turn on Steam Integrtaion code
-		public const bool UsingSteam = true;
+		public const bool UsingSteam = false;
 		public static bool SteamInitialized = false;
 		public static bool SteamAvailable
 		{
@@ -657,7 +663,7 @@ namespace CloudberryKingdom
         public void Exit()
         {
 #if PC_VERSION
-			SteamCore.Shutdown();
+			//SteamCore.Shutdown();
 #endif
 
             Tools.GameClass.Exit();
@@ -753,17 +759,17 @@ namespace CloudberryKingdom
         public void Initialize()
         {
 #if PC_VERSION
-			if (CloudberryKingdomGame.UsingSteam)
-			{
-				if (SteamCore.RestartViaSteamIfNecessary(210870))
-				{
-					ExitingEarly = true;
-					Tools.GameClass.Exit();
-					return;
-				}
+			//if (CloudberryKingdomGame.UsingSteam)
+			//{
+			//    if (SteamCore.RestartViaSteamIfNecessary(210870))
+			//    {
+			//        ExitingEarly = true;
+			//        Tools.GameClass.Exit();
+			//        return;
+			//    }
 
-				SteamInitialized = SteamCore.Initialize();
-			}
+			//    SteamInitialized = SteamCore.Initialize();
+			//}
 #endif
 
 #if WINDOWS
@@ -1168,7 +1174,7 @@ namespace CloudberryKingdom
             Tools.Write("Sign in and out now hooked.");
 
             // Fireball texture
-            Fireball.PreInit();
+			Fireball.PreInit();
 
             // Set textures to be transparent until loaded.
             Tools.Write("Dump dummy texture into each texture.");
@@ -1182,7 +1188,7 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    tex.Tex = Tools.Transparent.Tex;
+					tex.Tex = Tools.Transparent.Tex;
                 }
 
                 Resources.ResourceLoadedCountRef.Val++;
@@ -1294,14 +1300,12 @@ namespace CloudberryKingdom
 
         protected void GodModePhxs()
         {
-			//return;
-
 			// Write to leaderboard
             Tools.Warning();
             if (ButtonCheck.State(ControllerButtons.RJ, -2).Down && ButtonCheck.State(ControllerButtons.LS, -2).Pressed)
             {
                 var se = new ScoreEntry(null, 0, 100, 200, 300, 400, 500, 600);
-                Leaderboard.WriteToLeaderboard(se);
+                //Leaderboard.WriteToLeaderboard(se);
             }
 
 
@@ -1333,7 +1337,7 @@ namespace CloudberryKingdom
                         //bob.Core.Show = false;
                         //bob.Dead = true;
 
-                        bob.Die(Bob.BobDeathType.Other, true, false);
+                        bob.Die(BobDeathType.Other, true, false);
                     }
                 }
             }
@@ -1458,7 +1462,8 @@ namespace CloudberryKingdom
             ButtonCheck.UpdateControllerAndKeyboard_EndOfStep(Resolution);
 
             // Update the fireball textures.
-            Fireball.TexturePhsx();
+			if (RenderFireball)
+				Fireball.TexturePhsx();
         }
         
 #if WINDOWS
@@ -1519,8 +1524,8 @@ namespace CloudberryKingdom
 								{
 									ParticleEffects.PopOut(Tools.CurLevel, bob.Pos);
 
-									//bob.Die(Bob.BobDeathType.Other);
-									bob.Die(Bob.BobDeathType.Other, null, false, false);
+									//bob.Die(BobDeathType.Other);
+									bob.Die(BobDeathType.Other, null, false, false);
 #if XBOX
 									Tools.SetVibration(PlayerManager.Get(i).MyPlayerIndex, 0, 0, 0);
 #endif
@@ -1880,7 +1885,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			if (CloudberryKingdomGame.SteamAvailable)
 			{
-				SteamCore.Update();
+				//SteamCore.Update();
 			}
 #endif
 
@@ -1939,7 +1944,7 @@ namespace CloudberryKingdom
 
 			// Draw nothing if Steam input overlay is up
 #if PC_VERSION
-			if (SteamTextInput.OverlayActive) return;
+			//if (SteamTextInput.OverlayActive) return;
 #endif
 
             // Draw nothing if Xbox guide is up
@@ -2159,7 +2164,8 @@ namespace CloudberryKingdom
             Tools.Render.SetStandardRenderStates();
 
             Tools.QDrawer.SetInitialState();
-            ComputeFire();
+			if (RenderFireball)
+				ComputeFire();
 
             Tools.EffectWad.SetCameraPosition(cameraPos);
 

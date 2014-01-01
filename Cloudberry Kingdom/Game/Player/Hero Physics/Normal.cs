@@ -1555,7 +1555,7 @@ private void HighThrusts(int CurPhsxStep)
             return DynamicGreaterThan(yVel, 10f) && !OnGround && StartJumpAnim;
         }
 
-        public virtual void SetDeathVel(Bob.BobDeathType DeathType)
+        public virtual void SetDeathVel(BobDeathType DeathType)
         {
             if (MyBob.KillingObject != null)
             {
@@ -1614,7 +1614,7 @@ private void HighThrusts(int CurPhsxStep)
             Tools.SoundWad.FindByName("DustCloud_Explode").Play(.4f);
         }
 
-        public override void Die(Bob.BobDeathType DeathType)
+        public override void Die(BobDeathType DeathType)
         {
             base.Die(DeathType);
 

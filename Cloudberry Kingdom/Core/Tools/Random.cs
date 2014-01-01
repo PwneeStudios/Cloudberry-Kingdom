@@ -122,10 +122,10 @@ namespace CoreEngine.Random
             return RndInt(0, SnapPoints) * (Range / SnapPoints);
         }
 
-        public int RndEnum<T>() where T : struct
-        {
-            return RndInt(0, Tools.Length<T>() - 1);
-        }
+		//public int RndEnum<T>() where T : struct
+		//{
+		//    return RndInt(0, Tools.Length<T>() - 1);
+		//}
 
         /// <summary>
         /// Scrambles the ordering of the given list in place.

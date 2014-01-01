@@ -28,7 +28,7 @@ namespace CloudberryKingdom
             if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
             {
                 if (Core.MyLevel.PlayMode == 0)
-                    bob.Die(Bob.BobDeathType.Laser, this);
+                    bob.Die(BobDeathType.Laser, this);
                 else
                 {
                     bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, Core, bob, AutoGenSingleton);

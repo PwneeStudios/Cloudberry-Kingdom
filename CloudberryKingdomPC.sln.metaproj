@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions;ValidateProjects" DefaultTargets="Build">
+  <PropertyGroup>
+    <VCTargetsPath>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\</VCTargetsPath>
+    <MSBuildToolsRoot>c:\Windows\Microsoft.NET\Framework\</MSBuildToolsRoot>
+    <FrameworkSDKRoot>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\</FrameworkSDKRoot>
+    <MSBuildRuntimeVersion>4.0.30319</MSBuildRuntimeVersion>
+    <SDK40ToolsPath>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\</SDK40ToolsPath>
+    <SDK35ToolsPath>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\</SDK35ToolsPath>
+    <MSBuildToolsPath32>c:\Windows\Microsoft.NET\Framework\v4.0.30319\</MSBuildToolsPath32>
+    <Configuration>PC Release</Configuration>
+    <Platform>Mixed Platforms</Platform>
+    <AspNetConfiguration>PC Release</AspNetConfiguration>
+    <SolutionDir>C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>CloudberryKingdomPC.sln</SolutionFileName>
+    <SolutionName>CloudberryKingdomPC</SolutionName>
+    <SolutionPath>C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\CloudberryKingdomPC.sln</SolutionPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{7534FCCD-467A-4312-B9A9-47351EF6558B}" AbsolutePath="C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj" BuildProjectInSolution="True">PC|x86</ProjectConfiguration>
+  <ProjectConfiguration Project="{CE0C1B81-ECEF-490F-933A-E4E696B5E486}" AbsolutePath="C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\ContentPC\ContentPC.contentproj" BuildProjectInSolution="False">Editor|x86</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj">
+      <ToolsVersion>
+      </ToolsVersion>
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <AdditionalProperties>Configuration=PC; Platform=x86</AdditionalProperties>
+      <Configuration>PC</Configuration>
+      <Platform>x86</Platform>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="Build" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Projects="@(ProjectReference)" BuildInParallel="True" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="ValidateProjects">
+    <Message Condition=" ('$(Configuration)' == 'Debug GC') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;CloudberryKingdomPC&quot; is not selected for building in solution configuration &quot;Debug GC|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug GC') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug GC|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug GC') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug GC|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug GC') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug GC|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Debug|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Editor Release') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Editor Release|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Editor Release') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Editor Release|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Editor Release') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Editor Release|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Object Editor') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Object Editor|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Object Editor') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Object Editor|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Object Editor') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Object Editor|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Debug') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Debug|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Debug') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Debug|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Debug') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Debug|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Release') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Release|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Release') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Release|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'PC Release') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;PC Release|Xbox 360&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Release|Mixed Platforms&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'x86') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Release|x86&quot;." />
+    <Message Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Xbox 360') " Text="The project &quot;ContentPC&quot; is not selected for building in solution configuration &quot;Release|Xbox 360&quot;." />
+  </Target>
+  <Target Name="ValidateToolsVersions">
+    <Error Condition="'$(MSBuildToolsVersion)' == '2.0' and ('$(ProjectToolsVersion)' != '2.0' and '$(ProjectToolsVersion)' != '')" Text="The tools version &quot;$(MSBuildToolsVersion)&quot; of the solution does not support building projects with a different tools version." Code="MSB4149" HelpKeyword="MSBuild.SolutionToolsVersionDoesNotSupportProjectToolsVersion" />
+  </Target>
+  <Target Name="ValidateSolutionConfiguration">
+    <Error Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' != 'true')" Text="The specified solution configuration &quot;$(Configuration)|$(Platform)&quot; is invalid. Please specify a valid solution configuration using the Configuration and Platform properties (e.g. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) or leave those properties blank to use the default solution configuration." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" />
+    <Warning Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' == 'true')" Text="The specified solution configuration &quot;$(Configuration)|$(Platform)&quot; is invalid. Please specify a valid solution configuration using the Configuration and Platform properties (e.g. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) or leave those properties blank to use the default solution configuration." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" />
+    <Message Condition="'$(CurrentSolutionConfigurationContents)' != ''" Text="Building solution configuration &quot;$(Configuration)|$(Platform)&quot;." />
+  </Target>
+  <Target Name="Clean">
+    <MSBuild Projects="@(ProjectReference-&gt;Reverse())" Targets="Clean" BuildInParallel="True" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="Rebuild" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Projects="@(ProjectReference)" Targets="Rebuild" BuildInParallel="True" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Publish">
+    <MSBuild Projects="@(ProjectReference)" Targets="Publish" BuildInParallel="True" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  </Target>
+  <Target Name="CloudberryKingdomPC" Outputs="@(CloudberryKingdomPCBuildOutput)">
+    <MSBuild Condition="'%(ProjectReference.Identity)' == 'C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj'" Projects="@(ProjectReference)" BuildInParallel="True" ToolsVersion="$(ProjectToolsVersion)" Properties="Configuration=PC; Platform=x86;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)">
+      <Output TaskParameter="TargetOutputs" ItemName="CloudberryKingdomPCBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="CloudberryKingdomPC:Clean">
+    <MSBuild Condition="'%(ProjectReference.Identity)' == 'C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj'" Projects="@(ProjectReference)" Targets="Clean" BuildInParallel="True" ToolsVersion="$(ProjectToolsVersion)" Properties="Configuration=PC; Platform=x86;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+  </Target>
+  <Target Name="CloudberryKingdomPC:Rebuild" Outputs="@(CloudberryKingdomPCBuildOutput)">
+    <MSBuild Condition="'%(ProjectReference.Identity)' == 'C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj'" Projects="@(ProjectReference)" Targets="Rebuild" BuildInParallel="True" ToolsVersion="$(ProjectToolsVersion)" Properties="Configuration=PC; Platform=x86;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)">
+      <Output TaskParameter="TargetOutputs" ItemName="CloudberryKingdomPCBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="CloudberryKingdomPC:Publish">
+    <MSBuild Condition="'%(ProjectReference.Identity)' == 'C:\Users\Ezra\Desktop\Dir\Pwnee\CK\Source\Cloudberry Kingdom\Cloudberry Kingdom\CloudberryKingdomPC.csproj'" Projects="@(ProjectReference)" Targets="Publish" BuildInParallel="True" ToolsVersion="$(ProjectToolsVersion)" Properties="Configuration=PC; Platform=x86;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+  </Target>
+</Project>

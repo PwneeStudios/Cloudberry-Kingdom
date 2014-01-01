@@ -16,7 +16,8 @@ namespace CloudberryKingdom
                                 Cloud, BouncyBlock, SpikeyGuy, SpikeyLine,
                                 Pendulum, Serpent, LavaDrip, Firesnake, ConveyorBlock,
                                 Door, Wall,
-                                ZoneTrigger, CameraZone
+                                ZoneTrigger, CameraZone,
+								Length
                            };
 
     public class RecycleBin
@@ -262,8 +263,7 @@ namespace CloudberryKingdom
 
         public void Init()
         {
-            //Bins = new Dictionary<ObjectType, RecycleBin>();
-            int N = Tools.GetValues<ObjectType>().Count();//Enum.GetValues(typeof(ObjectType)).Length;
+			int N = (int)ObjectType.Length;
             Bins = new RecycleBin[N];
         }
 

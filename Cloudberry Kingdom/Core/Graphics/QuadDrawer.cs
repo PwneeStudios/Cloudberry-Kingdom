@@ -50,6 +50,11 @@ namespace CoreEngine
 
 		public GlyphData GetData(char c, bool MakeMonospaced)
         {
+			if (!CloudberryKingdomGame.Text)
+			{
+				return new GlyphData();
+			}
+
 			GlyphData data;
 
 			if (Data.ContainsKey(c))
@@ -88,6 +93,8 @@ namespace CoreEngine
         {
             MyTexture = new EzTexture();
             MyTexture.Tex = Localization.FontTexture;
+
+			if (!CloudberryKingdomGame.Text) return;
 
             var file = new StreamReader(File.OpenRead("Content/Fonts/" + name + ".fnt"));
 
@@ -232,32 +239,7 @@ namespace CoreEngine
 
         public void DrawQuad(Quad quad)
         {
-            if (i + 6 > N ||
-                i != 0 && (CurrentEffect.effect != quad.MyEffect.effect ||
-                           CurrentTexture.Tex != quad.MyTexture.Tex ||
-                           CurrentMatrixSignature != quad.MyMatrixSignature))
-                Flush();
-
-            if (i == 0)
-            {
-                CurrentEffect = quad.MyEffect;
-                CurrentTexture = quad.MyTexture;
-                CurrentMatrix = quad.MyMatrix;
-            }
-            CurrentEffect.CurrentIllumination = 1;
-            CurrentEffect.Illumination.SetValue(1);
-            
-
-            Vertices[i] = quad.Vertices[0];
-            Vertices[i + 1] = quad.Vertices[1];
-            Vertices[i + 2] = quad.Vertices[2];
-
-            Vertices[i + 3] = quad.Vertices[3];
-            Vertices[i + 4] = quad.Vertices[2];
-            Vertices[i + 5] = quad.Vertices[1];
-
-            i += 6;
-            TrianglesInBuffer += 2;
+			return;
         }
 
         public void SetInitialState()
@@ -290,6 +272,10 @@ namespace CoreEngine
 
         public void DrawQuad_Particle(ref SimpleQuad quad)
         {
+			DrawQuad(ref quad);
+			return;
+
+
             // Update anim
             if (quad.Playing) quad.UpdateTextureAnim();
 
@@ -335,7 +321,6 @@ namespace CoreEngine
 
         public void DrawQuad(ref SimpleQuad quad)
         {
-/*
             if (quad.Hide) return;
 
 			//Vector2 pos = (quad.TR + quad.BL) / 2;
@@ -352,20 +337,15 @@ namespace CoreEngine
 
 			Vector2 tex_size = new Vector2(Tools.TextureWad.DefaultTexture.Width, Tools.TextureWad.DefaultTexture.Height);
 			//Vector2 scale  = .5f * (quad.TR - quad.BL) / tex_size;
-			Vector2 scale = .5f * (quad.v0.Vertex.xy - quad.v3.Vertex.xy) / tex_size;
+			Vector2 scale = .36f * (quad.v0.Vertex.xy - quad.v3.Vertex.xy) / tex_size;
 			scale.X = Math.Abs(scale.X);
 
 			MySpriteBatch.Draw(Tools.TextureWad.DefaultTexture.Tex, pos, null, quad.v0.Vertex.Color, 0, .5f * tex_size, scale, SpriteEffects.None, 0);
-*/
 
 
 
 
-
-
-
-
-
+/*
 			if (quad.Hide) return;
 
 			if (quad.MyEffect == null || quad.MyTexture == null) { Tools.Break(); return; }
@@ -420,6 +400,7 @@ namespace CoreEngine
 
 			i += 6;
 			TrianglesInBuffer += 2;
+ */
         }
 
         public void DrawFilledBox(Vector2 BL, Vector2 TR, Color color)
@@ -491,7 +472,7 @@ namespace CoreEngine
 
             LineQuad.MyEffect = DefaultEffect;
             if (fx == null)
-                LineQuad.MyEffect = Tools.EffectWad.EffectList[1];
+                LineQuad.MyEffect = Tools.EffectWad.EffectList[0];
             else
                 LineQuad.MyEffect = fx;
 
@@ -638,7 +619,7 @@ namespace CoreEngine
 
             LineQuad.MyEffect = DefaultEffect;
             if (fx == null)
-                LineQuad.MyEffect = Tools.EffectWad.EffectList[2];
+                LineQuad.MyEffect = Tools.EffectWad.EffectList[0];
             else
                 LineQuad.MyEffect = fx;
 
@@ -677,7 +658,7 @@ namespace CoreEngine
 
             LineQuad.MyEffect = DefaultEffect;
             if (fx == null)
-                LineQuad.MyEffect = Tools.EffectWad.EffectList[2];
+                LineQuad.MyEffect = Tools.EffectWad.EffectList[0];
             else
                 LineQuad.MyEffect = fx;
 
@@ -734,29 +715,17 @@ namespace CoreEngine
 
         public void Flush()
         {
-//#if DEBUG
-//            if (Device.SamplerStates[1] == null) Tools.Write("!");
-//            if (Device.SamplerStates[1] != ClampClamp) Tools.Write("!");
-//#endif
-
-            //if (CurrentTexture != null)
-            if (CurrentTexture != null && i > 0)
+            if (CloudberryKingdomGame.Effects && CurrentTexture != null && i > 0)
             {
                 CurrentEffect.xTexture.SetValue(CurrentTexture.Tex);
                 CurrentEffect.Hsl.SetValue(CurrentMatrix);
 
-                // Test HSV transform
-                //CurrentEffect.Hsl.SetValue(ColorHelper.HsvTransform(Tools.Num_0_to_2, 1f, Tools.Num_0_to_360));
-
                 if (!CurrentEffect.IsUpToDate)
                     CurrentEffect.SetCameraParameters();
 
-                //if (i > 0)
-                {
-                    CurrentEffect.effect.CurrentTechnique.Passes[0].Apply();
+                CurrentEffect.effect.CurrentTechnique.Passes[0].Apply();
 
-                    Device.DrawUserPrimitives<MyOwnVertexFormat>(PrimitiveType.TriangleList, Vertices, 0, TrianglesInBuffer);
-                }
+                Device.DrawUserPrimitives<MyOwnVertexFormat>(PrimitiveType.TriangleList, Vertices, 0, TrianglesInBuffer);
             }
 
             TrianglesInBuffer = 0;

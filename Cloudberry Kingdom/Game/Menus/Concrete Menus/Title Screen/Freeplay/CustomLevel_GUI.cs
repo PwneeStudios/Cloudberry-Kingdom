@@ -75,12 +75,12 @@ namespace CloudberryKingdom
                 else
                     custom = RegularLevel.FixedPieceMod(DiffList.ListIndex - 1, data);
 
-                LevelSeedData.CustomDifficulty modcustom = p =>
-                {
-                    custom(p);
+				//LevelSeedData.CustomDifficulty modcustom = p =>
+				//{
+				//    custom(p);
 
-                    p.StandardClose();
-                };
+				//    p.StandardClose();
+				//};
 
                 data.Initialize(custom);
             }

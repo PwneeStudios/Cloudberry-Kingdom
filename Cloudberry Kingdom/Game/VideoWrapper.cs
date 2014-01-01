@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 				switch (CurrentVideoPlayerType)
 				{
 					case VideoPlayerType.Xna: return XnaVideo.IsPlaying;
-					case VideoPlayerType.DirectShow: return DirectShowVideo.IsPlaying;
+					//case VideoPlayerType.DirectShow: return DirectShowVideo.IsPlaying;
 					default: return false;
 				}
 			}
@@ -36,7 +36,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.Pause(); break;
-				case VideoPlayerType.DirectShow: DirectShowVideo.Pause(); break;
+				//case VideoPlayerType.DirectShow: DirectShowVideo.Pause(); break;
 			}
 		}
 
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.Resume(); break;
-				case VideoPlayerType.DirectShow: DirectShowVideo.Resume(); break;
+				//case VideoPlayerType.DirectShow: DirectShowVideo.Resume(); break;
 			}
 		}
 
@@ -54,16 +54,16 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo_CanSkipIfWatched(MovieName); break;
-				case VideoPlayerType.DirectShow:
-					DirectShowVideo.StartVideo_CanSkipIfWatched(MovieName);
+				//case VideoPlayerType.DirectShow:
+				//    DirectShowVideo.StartVideo_CanSkipIfWatched(MovieName);
 					
-					if (SeeSharp.Xna.Video.VideoPlayer.Broken)
-					{
-						CurrentVideoPlayerType = VideoPlayerType.Xna;
-						StartVideo_CanSkipIfWatched(MovieName);
-					}
+				//    if (SeeSharp.Xna.Video.VideoPlayer.Broken)
+				//    {
+				//        CurrentVideoPlayerType = VideoPlayerType.Xna;
+				//        StartVideo_CanSkipIfWatched(MovieName);
+				//    }
 
-					break;
+				//    break;
 			}
         }
 
@@ -72,16 +72,16 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip); break;
-				case VideoPlayerType.DirectShow:
-					DirectShowVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip);
+				//case VideoPlayerType.DirectShow:
+				//    DirectShowVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip);
 					
-					if (SeeSharp.Xna.Video.VideoPlayer.Broken)
-					{
-						CurrentVideoPlayerType = VideoPlayerType.Xna;
-						StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip);
-					}
+				//    if (SeeSharp.Xna.Video.VideoPlayer.Broken)
+				//    {
+				//        CurrentVideoPlayerType = VideoPlayerType.Xna;
+				//        StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip);
+				//    }
 					
-					break;
+				//    break;
 			}
         }
 
@@ -90,16 +90,16 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip); break;
-				case VideoPlayerType.DirectShow:
-					DirectShowVideo.StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip);
+				//case VideoPlayerType.DirectShow:
+				//    DirectShowVideo.StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip);
 
-					if (SeeSharp.Xna.Video.VideoPlayer.Broken)
-					{
-						CurrentVideoPlayerType = VideoPlayerType.Xna;
-						StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip);
-					}
+				//    if (SeeSharp.Xna.Video.VideoPlayer.Broken)
+				//    {
+				//        CurrentVideoPlayerType = VideoPlayerType.Xna;
+				//        StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip);
+				//    }
 
-					break;
+				//    break;
 			}
         }
 
@@ -108,7 +108,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: return XnaVideo.Draw();
-				case VideoPlayerType.DirectShow: return DirectShowVideo.Draw();
+				//case VideoPlayerType.DirectShow: return DirectShowVideo.Draw();
 				default: return false;
 			}
 

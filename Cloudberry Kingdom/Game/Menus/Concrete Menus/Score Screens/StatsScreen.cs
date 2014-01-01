@@ -228,10 +228,10 @@ namespace CloudberryKingdom.Stats
             Header.Selectable = false;
             ItemPos += HeaderPosAdd;
 
-            int NumDeathTypes = Tools.Length<Bob.BobDeathType>();
+			int NumDeathTypes = (int)BobDeathType.Length;
             for (int i = 1; i < NumDeathTypes; i++)
             {
-                Bob.BobDeathType type = (Bob.BobDeathType)i;
+                BobDeathType type = (BobDeathType)i;
 
                 if (Bob.BobDeathNames.ContainsKey(type))
                 {

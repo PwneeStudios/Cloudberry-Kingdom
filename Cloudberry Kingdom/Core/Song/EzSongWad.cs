@@ -388,6 +388,8 @@ namespace CoreEngine
 
         public void Play(int Index, bool DisplayInfo)
         {
+			if (!CloudberryKingdomGame.Music) return;
+
             if (PlayList[CurIndex].song == null)
                 PlayList[CurIndex].song = Tools.GameClass.Content.Load<Song>("Music\\" + PlayList[CurIndex].FileName);
 

@@ -1,9 +1,9 @@
-#if PC_VERSION
+#if FALSE && PC_VERSION
 using System;
 using System.IO;
 using System.Collections.Generic;
 
-using SteamManager;
+//using SteamManager;
 
 using CloudberryKingdom.Bobs;
 

@@ -51,7 +51,7 @@ namespace CloudberryKingdom.Obstacles
 
             AutoGenSingleton = SpikeyGuy_AutoGen.Instance;
             Core.MyType = ObjectType.SpikeyGuy;
-            DeathType = Bobs.Bob.BobDeathType.SpikeyGuy;
+            DeathType = Bobs.BobDeathType.SpikeyGuy;
 
             Core.ContinuousEnabled = true;
             

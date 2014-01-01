@@ -13,7 +13,7 @@ namespace CloudberryKingdom.Levels
     {
         public Param SpikeMinDist, MinSpikeDensity, MaxSpikeDensity, SpikePeriod;
 
-        public enum OffsetStyles { Rnd, SawTooth, Sine };
+        public enum OffsetStyles { Rnd, SawTooth, Sine, Length };
         public OffsetStyles OffsetStyle;
 
         public override void SetParameters(PieceSeedData PieceSeed, Level level)
@@ -27,7 +27,8 @@ namespace CloudberryKingdom.Levels
             int MaxNumOffsets = 2; if (lvl > 2.5f) MaxNumOffsets = 4; if (lvl > 6.5f) MaxNumOffsets = 8;
             NumOffsets = level.Rnd.RndInt(MinNumOffsets, MaxNumOffsets);
 
-            OffsetStyle = (OffsetStyles)level.Rnd.RndEnum<OffsetStyles>();
+			//OffsetStyle = (OffsetStyles)level.Rnd.RndEnum<OffsetStyles>();
+			OffsetStyle = (OffsetStyles)level.Rnd.RndInt(0, (int)OffsetStyles.Length - 1);
 
             BobWidthLevel = new Param(PieceSeed, u => u[Upgrade.Spike]);
 

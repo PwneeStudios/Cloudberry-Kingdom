@@ -308,7 +308,7 @@ namespace CloudberryKingdom
 
             if (DoBackgroundPhsx &&
                 NextIsReady() &&
-                (Tools.CurLevel.CurPhsxStep > Duration || Tools.CurLevel.CurPhsxStep > Tools.CurLevel.CurPiece.PieceLength - 50))
+				(Tools.CurLevel.CurPhsxStep > Duration || Tools.CurLevel.CurPiece != null && Tools.CurLevel.CurPhsxStep > Tools.CurLevel.CurPiece.PieceLength - 50))
             {
                 SetLevel();
                 Recycler.DumpMetaBin();

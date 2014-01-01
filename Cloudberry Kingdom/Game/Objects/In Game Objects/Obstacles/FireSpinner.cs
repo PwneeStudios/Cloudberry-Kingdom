@@ -58,7 +58,7 @@ namespace CloudberryKingdom.Obstacles
 
             AutoGenSingleton = FireSpinner_AutoGen.Instance;
             Core.MyType = ObjectType.FireSpinner;
-            DeathType = Bobs.Bob.BobDeathType.FireSpinner;
+            DeathType = Bobs.BobDeathType.FireSpinner;
             Core.DrawLayer = 3;
 
             PhsxCutoff_Playing = new Vector2(1000, 1000);
@@ -227,7 +227,7 @@ namespace CloudberryKingdom.Obstacles
             {
                 if (Core.MyLevel.PlayMode == 0)
                 {
-                    bob.Die(Bob.BobDeathType.FireSpinner, this);
+                    bob.Die(BobDeathType.FireSpinner, this);
                 }
 
                 if (Core.MyLevel.PlayMode == 1)

@@ -69,15 +69,10 @@ namespace CloudberryKingdom
                     EzStorage.StartAsyncUpdate();
 #endif
 
-#if DEBUG
                     // Start at Title Screen
                     // WARNING
-                    ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-                    //Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
-#else
-                    // Start at Screen Saver
-                    ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-#endif
+                    //ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                    Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
                 }
             }
         }

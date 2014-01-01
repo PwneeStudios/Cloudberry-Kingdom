@@ -17,11 +17,9 @@ using CoreEngine;
 using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
+
 
 #if WINDOWS
-using CloudberryKingdom;
-using CloudberryKingdom.Viewer;
 using System.Runtime.InteropServices;
 #if INCLUDE_EDITOR
 using Forms = System.Windows.Forms;
@@ -700,6 +698,9 @@ public static string SourceTextureDirectory()
 
 public static Thread EasyThread(int affinity, string name, Action action)
 {
+	action();
+	return null;
+	/*
     Thread NewThread = new Thread(
         new ThreadStart(
             delegate
@@ -739,6 +740,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
     NewThread.Start();
 
     return NewThread;
+	 */
 }
 
         public static AftermathData CurrentAftermath;
@@ -900,9 +902,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static int[] VibrateTimes = { 0, 0, 0, 0 };
 
-        public static int DifficultyTypes = Tools.GetValues<DifficultyParam>().Count();//Enum.GetValues(typeof(DifficultyType)).Length;
+		public static int DifficultyTypes = (int)DifficultyParam.Length;
         public static int StyleTypes = 8;
-        public static int UpgradeTypes = Tools.GetValues<Upgrade>().Count();//Enum.GetValues(typeof(Upgrade)).Length;
+		public static int UpgradeTypes = (int)Upgrade.Length;
 
         public static XnaInput.KeyboardState Keyboard, PrevKeyboard;
 
@@ -1129,17 +1131,29 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TextureWad = new EzTextureWad();
             Tools.Write("TextureWad made");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
-            Tools.Write("White loaded");
+			if (CloudberryKingdomGame.Effects)
+			{
+				TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
+				Tools.Write("White loaded");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
-            Tools.Write("Circle loaded");
+				TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
+				Tools.Write("Circle loaded");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
-            Tools.Write("Smooth loaded");
+				TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
+				Tools.Write("Smooth loaded");
 
-			Transparent = TextureWad.AddTexture(Content.Load<Texture2D>("Transparent"), "Transparent");
-            Tools.Write("Transparent loaded");
+				Transparent = TextureWad.AddTexture(Content.Load<Texture2D>("Transparent"), "Transparent");
+				Tools.Write("Transparent loaded");
+			}
+			else
+			{
+				var white = TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
+				Tools.Write("White loaded");
+
+				TextureWad.AddTexture(white.Tex, "Circle");
+				TextureWad.AddTexture(white.Tex, "Smooth");
+				Transparent = TextureWad.AddTexture(white.Tex, "Transparent");
+			}
 
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
             Tools.Write("LoadBasicArt done");
@@ -1212,8 +1226,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (CreateNewWad)
                 EffectWad = new EzEffectWad();
 
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BasicEffect"), "Basic");
-			EffectWad.AddEffect(Content.Load<Effect>("Shaders\\NoTexture"), "NoTexture");
+			if (CloudberryKingdomGame.Effects)
+			{
+				EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BasicEffect"), "Basic");
+			}
+			else
+			{
+				EffectWad.AddEffect(null, "Basic");
+			}
+			
 			//EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Circle"), "Circle");
 			//EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Shell"), "Shell");
 			//EffectWad.AddEffect(Content.Load<Effect>("Shaders\\FireballEffect"), "Fireball");
@@ -1246,7 +1267,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 			//PaintEffect_SpriteBatch = Content.Load<Effect>("Shaders\\Paint_SpriteBatch");
 
 			BasicEffect = EffectWad.EffectList[0];
-			NoTexture = EffectWad.EffectList[1];
+			NoTexture = BasicEffect;
 			CircleEffect = BasicEffect;
 			LightSourceEffect = BasicEffect;
 			HslEffect = BasicEffect;
@@ -2039,6 +2060,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return Name;
         }
 
+		/*
         /// <summary>
         /// Returns the number of elements in an enumeration.
         /// </summary>
@@ -2054,6 +2076,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return (from x in typeof(T).GetFields(BindingFlags.Static | BindingFlags.Public)
                     select (T)x.GetValue(null));
         }
+		*/
 
         public static byte FloatToByte(float x)
         {
@@ -2215,6 +2238,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void SetDefaultEffectParams(float AspectRatio)
         {
+			if (!CloudberryKingdomGame.Effects) return;
+
             foreach (EzEffect fx in EffectWad.EffectList)
             {
                 fx.xCameraAspect.SetValue(AspectRatio);
@@ -2226,32 +2251,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
             Matrix colorm;
 
-        colorm = ColorHelper.LinearColorTransform(0); // Green
-        //colorm = HsvTransform(1.3f, 1.2f, 100); // Gold
-        //colorm = HsvTransform(1.5f, 1.5f, 100); // Gold 2
-        //colorm = HsvTransform(1.3f, 1.2f, 200); // Hot pink
-        //colorm = HsvTransform(1.3f, 1.2f, 250); // ?
-        //colorm = HsvTransform(.5f, 0f, 0); // Black
-        //colorm = HsvTransform(.15f, 0f, 0); // Dark Black
-        //colorm = HsvTransform(.75f, 0f, 0); // Gray
-        //colorm = HsvTransform(.8f, 1.3f, 225); // Purple
-        //colorm = HsvTransform(.9f, 1.3f, 110); // Orange
-        //colorm = LinearColorTransform(45); // Teal
-        //colorm = LinearColorTransform(120); // Blue
-        //colorm = HsvTransform(.95f, 1.3f, 0) * LinearColorTransform(240); // Red
-        //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
+	        colorm = ColorHelper.LinearColorTransform(0); // Green
 
             HslGreenEffect.effect.Parameters["ColorMatrix"].SetValue(colorm);
             HslEffect.effect.Parameters["ColorMatrix"].SetValue(colorm);
-            
-            //colorm = HsvTransform(1f, 1f, 30) * 
-            //        new Matrix(.6f, .6f, .6f, 0,
-            //                    0, 0, 0, 0,
-            //                    0, 0, 0, 0,
-            //                    0, 0, 0, 1);
-            //colorm = HsvTransform(.7f, 1f, 160);
-            //colorm = HsvTransform(Num_0_to_2, 1f, Num_0_to_360);
-            //colorm = HsvTransform(1f, 1f, 200);
         }
 
         public static float Num_0_to_360 = 0;

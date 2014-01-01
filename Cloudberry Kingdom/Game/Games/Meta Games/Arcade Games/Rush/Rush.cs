@@ -38,7 +38,7 @@ namespace CloudberryKingdom
                     }
 
                     if (!bob.Dead && !bob.Dying)
-                        bob.Die(Bob.BobDeathType.None, true, false);
+                        bob.Die(BobDeathType.None, true, false);
                 }
 
                 // Add the Game Over panel, check for Awardments

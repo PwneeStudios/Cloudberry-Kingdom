@@ -8,7 +8,7 @@ using CoreEngine.Random;
 namespace CloudberryKingdom.Levels
 {
     // Would be nice to get rid of this, and just rely on ...__AutoGen.instances, and have dictionaries with instances as keys
-    public enum Upgrade { Fireball, Firesnake, __Unused__1, Spike, FallingBlock, FlyBlob, FireSpinner, MovingBlock, Elevator, SpikeyGuy, Pinky, SpikeyLine, Laser, GhostBlock, BouncyBlock, Cloud, Conveyor, Pendulum, Serpent, LavaDrip, General, Speed, Jump, Ceiling };
+    public enum Upgrade { Fireball, Firesnake, __Unused__1, Spike, FallingBlock, FlyBlob, FireSpinner, MovingBlock, Elevator, SpikeyGuy, Pinky, SpikeyLine, Laser, GhostBlock, BouncyBlock, Cloud, Conveyor, Pendulum, Serpent, LavaDrip, General, Speed, Jump, Ceiling, Length };
 
     public class AutoGen_Parameters
     {

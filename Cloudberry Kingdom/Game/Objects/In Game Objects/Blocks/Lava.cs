@@ -105,7 +105,7 @@ namespace CloudberryKingdom
             float h = MyBox.TR.Y;
             
             if (bob.Box.BL.Y < h - 40)
-                bob.Die(Bob.BobDeathType.Lava);
+                bob.Die(BobDeathType.Lava);
         }
 
         public override void PhsxStep()

@@ -337,7 +337,7 @@ namespace CloudberryKingdom.Obstacles
                 if (Col)
                 {
                     if (Core.MyLevel.PlayMode == 0)
-                        bob.Die(Bob.BobDeathType.Spike, this);
+                        bob.Die(BobDeathType.Spike, this);
 
                     if (Core.MyLevel.PlayMode != 0)
                     {

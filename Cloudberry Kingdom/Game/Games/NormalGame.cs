@@ -37,9 +37,10 @@ namespace CloudberryKingdom
 
         public virtual void Init(LevelSeedData LevelSeed, bool MakeInBackground)
         {
+			MakeInBackground = false;
+
             base.Init();
 
-            //AllowQuickJoin = true;
             AllowQuickJoin = false;
             DefaultHeroType = LevelSeed.DefaultHeroType;
 
@@ -57,83 +58,69 @@ namespace CloudberryKingdom
             }
 
 			MakingLevel = true;
-            Thread MakeThread = new Thread(
-                new ThreadStart(
-                    delegate
-                    {
-#if XBOX && !WINDOWS
-                        //Thread.CurrentThread.Priority = ThreadPriority.Normal;
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
-#endif
-                        Tools.TheGame.Exiting += KillThread;
-                        
-                        MyLevel = LevelSeed.MakeLevel(this);
-
-                        if (MyLevel.ReturnedEarly)
-                        {
-                            Tools.CurLevel = MyLevel;
-                            Tools.CurGameData = this;
-                        }
-
-                        Tools.LevelIsFinished();
-
-                        if (!MakeInBackground)
-                            Tools.CurLevel = MyLevel;
-                        MyLevel.MyGame = this;
-
-                        if (MyLevel.SetToWatchMake) { Loading = false; Tools.EndLoadingScreen(); return; }
-
-                        MyLevel.CanWatchComputer = MyLevel.CanWatchReplay = true;
-
-                        if (MyLevel.SetToWatchMake) return;
-
-                        MakeBobs(MyLevel);
-                        SetAdditionalBobParameters(MyLevel.Bobs);
-
-                        MyLevel.Name = LevelSeed.Name;
-                        SetAdditionalLevelParameters();
-
-                        // Post process the level
-                        if (LevelSeed.PostMake != null)
-                            LevelSeed.PostMake(MyLevel);
-
-                        // Final level reset
-                        MyLevel.PlayMode = 0;
-                        MyLevel.ResetAll(false, !MakeInBackground);
-
-                        // Mark the level as loaded
-                        lock (LevelSeed.Loaded)
-                        {
-                            Loading = false;
-                            LevelSeed.Loaded.val = true;
-                            LevelSeed.MyGame = this;
-                        }
-
-                        // End the loading screen
-                        if (!MakeInBackground)
-                        {
-                            Tools.EndLoadingScreen();
-                        }
-
-                        Tools.TheGame.Exiting -= KillThread;
-
-                        if (LevelSeed.ReleaseWhenLoaded)
-                        {
-                            Release();
-                            LevelSeed.Release();
-                        }
-
-						MakingLevel = false;
-						AlwaysLoad = true;
-                    }))
+            Thread MakeThread = Tools.EasyThread(0, "MakeLevelThread", () =>
             {
-                Name = "MakeLevelThread",
-#if WINDOWS
-                Priority = ThreadPriority.Normal,
-#endif
-            };
+                Tools.TheGame.Exiting += KillThread;
+                        
+                MyLevel = LevelSeed.MakeLevel(this);
 
-            MakeThread.Start();
+                if (MyLevel.ReturnedEarly)
+                {
+                    Tools.CurLevel = MyLevel;
+                    Tools.CurGameData = this;
+                }
+
+                Tools.LevelIsFinished();
+
+                if (!MakeInBackground)
+                    Tools.CurLevel = MyLevel;
+                MyLevel.MyGame = this;
+
+                if (MyLevel.SetToWatchMake) { Loading = false; Tools.EndLoadingScreen(); return; }
+
+                MyLevel.CanWatchComputer = MyLevel.CanWatchReplay = true;
+
+                if (MyLevel.SetToWatchMake) return;
+
+                MakeBobs(MyLevel);
+                SetAdditionalBobParameters(MyLevel.Bobs);
+
+                MyLevel.Name = LevelSeed.Name;
+                SetAdditionalLevelParameters();
+
+                // Post process the level
+                if (LevelSeed.PostMake != null)
+                    LevelSeed.PostMake(MyLevel);
+
+                // Final level reset
+                MyLevel.PlayMode = 0;
+                MyLevel.ResetAll(false, !MakeInBackground);
+
+                // Mark the level as loaded
+                lock (LevelSeed.Loaded)
+                {
+                    Loading = false;
+                    LevelSeed.Loaded.val = true;
+                    LevelSeed.MyGame = this;
+                }
+
+                // End the loading screen
+                if (!MakeInBackground)
+                {
+                    Tools.EndLoadingScreen();
+                }
+
+                Tools.TheGame.Exiting -= KillThread;
+
+                if (LevelSeed.ReleaseWhenLoaded)
+                {
+                    Release();
+                    LevelSeed.Release();
+                }
+
+				MakingLevel = false;
+				AlwaysLoad = true;
+            });
         }
 
 

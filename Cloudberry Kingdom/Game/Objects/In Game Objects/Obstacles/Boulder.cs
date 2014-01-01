@@ -38,7 +38,7 @@ namespace CloudberryKingdom.Obstacles
 
             AutoGenSingleton = Boulder_AutoGen.Instance;
             Core.MyType = ObjectType.Boulder;
-            DeathType = Bob.BobDeathType.Boulder;
+            DeathType = BobDeathType.Boulder;
 
             Core.ContinuousEnabled = true;
 

@@ -669,7 +669,7 @@ namespace CloudberryKingdom
 
             if (DrawShadow)
             {
-                Quad.MyEffect = Tools.EffectWad.EffectList[1];
+                Quad.MyEffect = Tools.EffectWad.EffectList[0];
                 Vector2 HoldSize = Size;
                 Scale(ShadowScale);
                 Base.Origin -= ShadowOffset;

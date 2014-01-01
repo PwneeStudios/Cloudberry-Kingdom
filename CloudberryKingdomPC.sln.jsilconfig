@@ -1,0 +1,13 @@
+{
+  "SolutionBuilder": {
+    "Configuration": "PC Release"
+  },
+  "OutputDirectory": "%configdirectory%/../Pink_Block/bin",
+  "ProfileSettings": {
+    "OverwriteExistingContent": true,
+    "ContentOutputDirectory": "%configdirectory%/../Pink_Block/bin/Content",
+    "UsePNGQuant": false,
+    "FileSettings": {
+    }
+  }  
+}

@@ -146,7 +146,7 @@ namespace CoreEngine
 
             if (texture.Tex == null)
             {
-                texture.Load();
+				texture.Load();
             }
 
             return texture;

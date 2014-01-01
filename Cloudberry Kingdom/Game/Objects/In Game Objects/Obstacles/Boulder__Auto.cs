@@ -14,8 +14,6 @@ namespace CloudberryKingdom.Levels
     {
         public Param FloaterMinDist, FloaterSparsity, FloaterPeriod, FloaterMaxAngle, FloaterPlaceDelay;
 
-        public TunnelFill Tunnel;
-
         public struct _Special
         {
             /// <summary>
@@ -31,7 +29,6 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            Tunnel = new TunnelFill();
             SetVal(ref HallwaySpacing, u =>
                 new Vector2(
                     300 - 5 * u[Upgrade.SpikeyGuy],
@@ -113,12 +110,13 @@ namespace CloudberryKingdom.Levels
                 return new Vector2(dist, dist);
             }, BL + new Vector2(400, 0), TR - new Vector2(500, 0));
 
-            if (Params.Special.Hallway)
-                Params.Tunnel.CleanupTunnel(level);
+			//if (Params.Special.Hallway)
+			//    Params.Tunnel.CleanupTunnel(level);
         }
 
         void Hallway(Level level, Vector2 BL, Vector2 TR)
         {
+			/*
             Boulder_Parameters Params = (Boulder_Parameters)level.Style.FindParams(Boulder_AutoGen.Instance);
 
             TR.X += 700;
@@ -141,6 +139,7 @@ namespace CloudberryKingdom.Levels
 
                 Params.Tunnel.TunnelGUIDs[i, j] = floater.Core.MyGuid;
             }
+			 * */
         }
 
         public override ObjectBase CreateAt(Level level, Vector2 pos)

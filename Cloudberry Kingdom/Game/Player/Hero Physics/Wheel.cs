@@ -184,7 +184,7 @@ namespace CloudberryKingdom
             AngleSpeed *= .75f;
         }
 
-        public override void Die(Bob.BobDeathType DeathType)
+        public override void Die(BobDeathType DeathType)
         {
             if (Bob.AllExplode)
             {

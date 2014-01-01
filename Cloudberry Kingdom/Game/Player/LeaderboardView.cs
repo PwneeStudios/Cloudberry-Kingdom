@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 #if PC_VERSION
-using SteamManager;
+//using SteamManager;
 #endif
 
 namespace CloudberryKingdom
@@ -458,7 +458,7 @@ namespace CloudberryKingdom
 		private void SortList_OnSelect(MenuList SortList)
 		{
 			if (CurrentView == null) return;
-			var PrevType = CurrentView.MyLeaderboard.MySortType;
+			//var PrevType = CurrentView.MyLeaderboard.MySortType;
 
 			CurrentType = (LeaderboardType)SortList.ListIndex;
 			SortList.CurMenuItem.MyText.Scale =
@@ -468,10 +468,10 @@ namespace CloudberryKingdom
 
 			UpdateView();
 
-			if (CurrentType != PrevType)
-			{
-				CurrentView.SetType(CurrentType);
-			}
+			//if (CurrentType != PrevType)
+			//{
+			//    CurrentView.SetType(CurrentType);
+			//}
 		}
 
         EzText LoadingText, NotRanked, NotRankedFriends;
@@ -524,10 +524,10 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    if (CurrentType == LeaderboardType.MyScores && CurrentView.MyLeaderboard.gamer_rank < 0)
-                        CurrentMessage = Message.NotRanked;
-                    else
-                        CurrentMessage = Message.None;
+					//if (CurrentType == LeaderboardType.MyScores && CurrentView.MyLeaderboard.gamer_rank < 0)
+					//    CurrentMessage = Message.NotRanked;
+					//else
+					//    CurrentMessage = Message.None;
                 }
             }
 
@@ -1229,6 +1229,16 @@ namespace CloudberryKingdom
 #endif
 	}
 
+	public class Gamer
+	{
+		public string Gamertag;
+		public int Id;
+	}
+
+	public class Leaderboard
+	{
+	}
+
     public class LeaderboardItem
     {
         public Gamer Player;
@@ -1359,7 +1369,8 @@ namespace CloudberryKingdom
         {
             get
             {
-                return MyLeaderboard.Items;
+				return null;
+				//return MyLeaderboard.Items;
             }
         }
 
@@ -1376,9 +1387,9 @@ namespace CloudberryKingdom
 
             LeaderboardItem.DefaultItem = new LeaderboardItem(null, 0, 0);
 
-            MyLeaderboard = new Leaderboard(Id);
+			//MyLeaderboard = new Leaderboard(Id);
 
-            MyLeaderboard.SetType(CurrentType);
+			//MyLeaderboard.SetType(CurrentType);
         }
 
         void IncrIndex(int change)
@@ -1403,29 +1414,29 @@ namespace CloudberryKingdom
         public void PhsxStep(int Control)
         {
             // Try reloading board again if we haven't gotten results yet.
-            if (Loading && MyLeaderboard != null && !MyLeaderboard.Updated)
-            {
-                MyLeaderboard.SetType(MyLeaderboard.MySortType);
-            }
+			//if (Loading && MyLeaderboard != null && !MyLeaderboard.Updated)
+			//{
+			//    MyLeaderboard.SetType(MyLeaderboard.MySortType);
+			//}
 
-            // If the board has been updated then take information in
-            if (MyLeaderboard != null && MyLeaderboard.Updated)
-            {
-                lock (Items)
-                {
-                    if (Loading)
-                    {
-                        Index = MyLeaderboard.StartIndex;
-                        Start = Index - EntriesPerPage / 2 + 1;
-                        TotalEntries = MyLeaderboard.TotalSize;
-						//TotalEntries = 10000; // Use this to debug. Artificially adds 10000 items to the leaderboard.
-                        UpdateBounds();
-                    }
+			//// If the board has been updated then take information in
+			//if (MyLeaderboard != null && MyLeaderboard.Updated)
+			//{
+			//    lock (Items)
+			//    {
+			//        if (Loading)
+			//        {
+			//            Index = MyLeaderboard.StartIndex;
+			//            Start = Index - EntriesPerPage / 2 + 1;
+			//            TotalEntries = MyLeaderboard.TotalSize;
+			//            //TotalEntries = 10000; // Use this to debug. Artificially adds 10000 items to the leaderboard.
+			//            UpdateBounds();
+			//        }
 
-                    MyLeaderboard.Updated = false;
-                    Loading = false;
-                }
-            }
+			//        MyLeaderboard.Updated = false;
+			//        Loading = false;
+			//    }
+			//}
 
             // Get direction input
             Vector2 Dir = Vector2.Zero;
@@ -1488,102 +1499,102 @@ namespace CloudberryKingdom
 
         public void ViewGamer()
         {
-            if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
-            {
-                lock (MyLeaderboard.FriendItems)
-                {
-                    if (MyLeaderboard.FriendItems.Count > 0 && Index - 1 < MyLeaderboard.FriendItems.Count)
-                    {
-                        Gamer gamer = MyLeaderboard.FriendItems[Index - 1].Player;
-                        if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
-                        {
-#if XBOX
-                            CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
-#endif
-                        }
-                    }
-                }
-            }
-            else
-            {
-				if (Items != null)
-				lock (Items)
-                {
-                    if (Items.Count > 0)
-                    {
-                        if (Items.ContainsKey(Index))
-                        {
-                            Gamer gamer = Items[Index].Player;
-                            if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
-                            {
-#if XBOX
-                                CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
-#endif
-                            }
-                        }
-                    }
-                }
-            }
+//            if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
+//            {
+//                lock (MyLeaderboard.FriendItems)
+//                {
+//                    if (MyLeaderboard.FriendItems.Count > 0 && Index - 1 < MyLeaderboard.FriendItems.Count)
+//                    {
+//                        Gamer gamer = MyLeaderboard.FriendItems[Index - 1].Player;
+//                        if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
+//                        {
+//#if XBOX
+//                            CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
+//#endif
+//                        }
+//                    }
+//                }
+//            }
+//            else
+//            {
+//                if (Items != null)
+//                lock (Items)
+//                {
+//                    if (Items.Count > 0)
+//                    {
+//                        if (Items.ContainsKey(Index))
+//                        {
+//                            Gamer gamer = Items[Index].Player;
+//                            if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
+//                            {
+//#if XBOX
+//                                CloudberryKingdomGame.ShowGamerCard((PlayerIndex)MenuItem.ActivatingPlayer, gamer);
+//#endif
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
 
         public void SetType(LeaderboardGUI.LeaderboardType type)
         {
-            if (type == LeaderboardGUI.LeaderboardType.FriendsScores && MyLeaderboard.FriendItems.Count > 0)
-            {
-                Loading = false;
-                Start = Index = 1;
-                TotalEntries = MyLeaderboard.FriendItems.Count;
-                UpdateBounds();
-            }
-            else
-            {
-                Loading = true;
-            }
+			//if (type == LeaderboardGUI.LeaderboardType.FriendsScores && MyLeaderboard.FriendItems.Count > 0)
+			//{
+			//    Loading = false;
+			//    Start = Index = 1;
+			//    TotalEntries = MyLeaderboard.FriendItems.Count;
+			//    UpdateBounds();
+			//}
+			//else
+			//{
+			//    Loading = true;
+			//}
 
-            MyLeaderboard.SetType(type);
+			//MyLeaderboard.SetType(type);
         }
 
         public void Draw(Vector2 Pos, float alpha)
         {
-            lock (Items)
-            {
-                Vector2 CurPos = Pos;
-                float Shift = .1f * LeaderboardGUI.ItemShift.X;
+			//lock (Items)
+			//{
+			//    Vector2 CurPos = Pos;
+			//    float Shift = .1f * LeaderboardGUI.ItemShift.X;
 
-                if (MyLeaderboard == null) return;
+			//    if (MyLeaderboard == null) return;
 
-                if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
-                {
-                    DrawList(alpha, CurPos, Shift);
-                }
-                else
-                {
-                    DrawDict(alpha, CurPos, Shift);
-                }
-            }
+			//    if (MyLeaderboard.MySortType == LeaderboardGUI.LeaderboardType.FriendsScores)
+			//    {
+			//        DrawList(alpha, CurPos, Shift);
+			//    }
+			//    else
+			//    {
+			//        DrawDict(alpha, CurPos, Shift);
+			//    }
+			//}
         }
 
         void DrawList(float alpha, Vector2 CurPos, float Shift)
         {
-            for (int i = Start; i <= End(); i++)
-            {
-                bool Selected = i == Index;
+			//for (int i = Start; i <= End(); i++)
+			//{
+			//    bool Selected = i == Index;
 
-                if (Selected)
-                {
-                    LeaderboardGUI.Highlight.PosY = CurPos.Y - 70;
-                    LeaderboardGUI.Highlight.Show = true;
-                    LeaderboardGUI.Highlight.Draw();
-                    LeaderboardGUI.Highlight.Show = false;
-                }
+			//    if (Selected)
+			//    {
+			//        LeaderboardGUI.Highlight.PosY = CurPos.Y - 70;
+			//        LeaderboardGUI.Highlight.Show = true;
+			//        LeaderboardGUI.Highlight.Draw();
+			//        LeaderboardGUI.Highlight.Show = false;
+			//    }
 
-                if (i-1 < MyLeaderboard.FriendItems.Count)
-                {
-                    MyLeaderboard.FriendItems[i-1].Draw(CurPos, Selected, alpha);
-                }
+			//    if (i-1 < MyLeaderboard.FriendItems.Count)
+			//    {
+			//        MyLeaderboard.FriendItems[i-1].Draw(CurPos, Selected, alpha);
+			//    }
 
-                CurPos.Y += Shift;
-            }
+			//    CurPos.Y += Shift;
+			//}
         }
 
         static int XButtonCount = 0;
@@ -1664,7 +1675,7 @@ namespace CloudberryKingdom
                     PageToRequest = CoreMath.Restrict(0, TotalEntries, MaxMissing - 1);
                 }
 
-                MyLeaderboard.RequestMore(PageToRequest);
+				//MyLeaderboard.RequestMore(PageToRequest);
             }
         }
     }

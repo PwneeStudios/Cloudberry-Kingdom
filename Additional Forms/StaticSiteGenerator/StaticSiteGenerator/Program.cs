@@ -221,10 +221,22 @@ namespace StaticSiteGenerator
 			Total = local_files.Length;
 			foreach (var file in local_files)
 			{
-				var last_modified = File.GetLastWriteTimeUtc(Path.Combine(SourceFolder, file));
-				if (last_modified > LastUploadSynch && (!s3_dict.ContainsKey(file) || !HashCompare(Path.Combine(SourceFolder, file), s3_dict[file].ETag)))
-				//if (true)
+				DateTime last_modified;
+				try
 				{
+					last_modified = File.GetLastWriteTimeUtc(Path.Combine(SourceFolder, file));
+				}
+				catch (PathTooLongException)
+				{
+					//continue;
+					last_modified = DateTime.UtcNow;
+					Console.WriteLine("Oh snap, too long:");
+				}
+
+				if (
+					//file.Contains("Pink") ||
+					last_modified > LastUploadSynch && (!s3_dict.ContainsKey(file) || !HashCompare(Path.Combine(SourceFolder, file), s3_dict[file].ETag)))
+			 	{
 					Log("  {1}/{2} : Synching file {0}", file, Count, Total);
 					UploadObject(BucketName, file, Path.Combine(SourceFolder, file));
 				}
@@ -592,16 +604,16 @@ namespace StaticSiteGenerator
 		{
 			Initialize();
 
-			// Calculate unique entries
-			var Entries_StoryMode = HighScores.GetHighScores(7777, 0, 7000);
-			var Entries_PlayerLevel = HighScores.GetHighScores(9999, 0, 7000);
+			//// Calculate unique entries
+			//var Entries_StoryMode = HighScores.GetHighScores(7777, 0, 7000);
+			//var Entries_PlayerLevel = HighScores.GetHighScores(9999, 0, 7000);
 
-			var n =
-				(
-					from e in Entries_StoryMode
-					where !Entries_PlayerLevel.Select(entry => entry.Name).Contains(e.Name)
-					select e.Name
-				).Count();
+			//var n =
+			//    (
+			//        from e in Entries_StoryMode
+			//        where !Entries_PlayerLevel.Select(entry => entry.Name).Contains(e.Name)
+			//        select e.Name
+			//    ).Count();
 
 
 			if (args.Length > 0 && args[0] == "download")

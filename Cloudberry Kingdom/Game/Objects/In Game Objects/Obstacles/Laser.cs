@@ -36,7 +36,7 @@ namespace CloudberryKingdom.Obstacles
 
             AutoGenSingleton = Laser_AutoGen.Instance;
             Core.MyType = ObjectType.Laser;
-            DeathType = Bobs.Bob.BobDeathType.Laser;
+            DeathType = Bobs.BobDeathType.Laser;
 
             PhsxCutoff_Playing = new Vector2(500);
             PhsxCutoff_BoxesOnly = new Vector2(-100);

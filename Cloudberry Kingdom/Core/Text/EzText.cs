@@ -309,6 +309,8 @@ namespace CloudberryKingdom
         /// </summary>
         public void SubstituteText(string text)
         {
+			if (!CloudberryKingdomGame.Text) return;
+
             Bits[0].str = text;
             Bits[0].builder_str = null;
             TextWidth -= Bits[0].size.X;
@@ -317,6 +319,8 @@ namespace CloudberryKingdom
         }
         public void SubstituteText(StringBuilder text)
         {
+			if (!CloudberryKingdomGame.Text) return;
+
             Bits[0].builder_str = text;
             TextWidth -= Bits[0].size.X;
             Bits[0].size = MeasureString(text);
@@ -324,6 +328,8 @@ namespace CloudberryKingdom
         }
         public void SubstituteText(Localization.Words word)
         {
+			if (!CloudberryKingdomGame.Text) return;
+
             SubstituteText(Localization.WordString(word));
         }
 
@@ -332,6 +338,8 @@ namespace CloudberryKingdom
         /// </summary>
         public void AppendText(string text)
         {
+			if (!CloudberryKingdomGame.Text) return;
+
             SubstituteText(Bits[0].str + text);
         }
 
@@ -340,6 +348,8 @@ namespace CloudberryKingdom
         /// </summary>
         public void AppendText(char character)
         {
+			if (!CloudberryKingdomGame.Text) return;
+
             SubstituteText(Bits[0].str + character);
         }
 

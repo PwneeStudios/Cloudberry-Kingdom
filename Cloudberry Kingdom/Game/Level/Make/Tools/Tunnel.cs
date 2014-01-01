@@ -4,6 +4,7 @@ using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom
 {
+	/* This class appears to be causing an infinite loop in JSIL
     public class TunnelFill
     {
         /// <summary>
@@ -160,4 +161,5 @@ namespace CloudberryKingdom
             TunnelObjs = null;
         }
     }
+	 * */
 }

@@ -30,7 +30,7 @@ namespace CloudberryKingdom
             PlayerManager.Player.ContainerName		= "PlayerData";
 			if (CloudberryKingdomGame.UsingSteam)
 			{
-				UInt64 id = SteamManager.SteamCore.SteamID();
+				UInt64 id = 0;// SteamManager.SteamCore.SteamID();
 
 				if (id == UInt64.MaxValue)
 				{

@@ -27,7 +27,7 @@ namespace CloudberryKingdom.Obstacles
 
             Core.MyType = ObjectType.Fireball;
             AutoGenSingleton = Fireball_AutoGen.Instance;
-            DeathType = Bobs.Bob.BobDeathType.Fireball;
+            DeathType = Bobs.BobDeathType.Fireball;
 
             PhsxCutoff_Playing = new Vector2(10000);
             PhsxCutoff_BoxesOnly = new Vector2(10000);
@@ -87,7 +87,10 @@ namespace CloudberryKingdom.Obstacles
                     if (!Core.BoxesOnly)
                     {
                         MyQuad.Size = new Vector2(195);
-                        MyQuad.Quad.MyTexture = FireballTexture;
+						if (CloudberryKingdomGame.RenderFireball)
+							MyQuad.Quad.MyTexture = FireballTexture;
+						else
+							MyQuad.Quad.MyTexture = Tools.TextureWad.TextureList[1];
                         MyQuad.Set(level.Info.Fireballs.Sprite);
                         MyQuad.Show = true;
                     }

@@ -18,6 +18,7 @@ namespace CloudberryKingdom.Levels
         EdgeSafety, // How close to the edge of a block the computer can land on
         ApexWait, // How long after the apex of a jump should we wait before potentially landing on something?
         FillSparsity,
+		Length
     };
 
     public enum BehaviorParam

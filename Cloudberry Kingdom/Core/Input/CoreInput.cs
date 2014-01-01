@@ -3,13 +3,12 @@
 using Microsoft.Xna.Framework;
 
 #if PC_VERSION
-using SteamManager;
-using Nuclex.Input;
+//using SteamManager;
 #endif
 
 namespace CoreEngine
 {
-	public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any };
+	public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any, Length };
 
 	public static class CoreKeyboard
 	{
@@ -23,8 +22,8 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
-			//I = new XnaInput();
-			I = new NuclexGamepadInput();
+			I = new XnaInput();
+			//I = new NuclexGamepadInput();
 
 			I.Initialize(Container, ComponentCollection, WindowHandle);
 		}

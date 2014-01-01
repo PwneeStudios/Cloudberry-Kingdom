@@ -133,6 +133,8 @@ namespace CloudberryKingdom
 
             Tools.SongWad.PlayerControl = Tools.SongWad.DisplayInfo = true;
 
+			if (!CloudberryKingdomGame.Music) return;
+
             string path = Path.Combine(Globals.ContentDirectory, "Music");
             string[] files = Directory.GetFiles(path);
 
@@ -221,6 +223,12 @@ namespace CloudberryKingdom
                 Tools.SoundWad = new EzSoundWad(4);
                 Tools.PrivateSoundWad = new EzSoundWad(4);
             }
+
+			if (!CloudberryKingdomGame.Sound)
+			{
+				Tools.SoundWad.AddSound(null, "nothing");
+				return;
+			}
 
             string path = Path.Combine(Globals.ContentDirectory, "Sound");
             string[] files = Directory.GetFiles(path);
@@ -406,7 +414,7 @@ namespace CloudberryKingdom
 
 			Texture2D transparent = Tools.Transparent.Tex;
 
-            if (CloudberryKingdomGame.PropTest)
+            if (CloudberryKingdomGame.PropTest || !CloudberryKingdomGame.Effects)
             {
                 FinalLoadDone = true;
                 return;
@@ -418,17 +426,12 @@ namespace CloudberryKingdom
 				// If texture hasn't been loaded yet, load it
 				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
 				{
-					//Console.WriteLine("GC = " + GC.CollectionCount(0));
 					while ((ScreenSaver.GamePlayInAction   && count > 200 ||
                             ScreenSaver.ScreenSaverStarted && count > 556)
                            && Tools.WorldMap is ScreenSaver)
 					{
 						Thread.Sleep(100);
 					}
-                    //while (NormalGameData.MakingLevel && !NormalGameData.AlwaysLoad && EnvironmentLoaded > 0)
-                    //{
-                    //    Thread.Sleep(300);
-                    //}
 
 					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
 					count++;
@@ -444,8 +447,6 @@ namespace CloudberryKingdom
 					{
 						FakeFinalLoadDone = true;
 					}
-
-                    //Thread.Sleep(50); Tools.Warning();
 				}
 			}
 

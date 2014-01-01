@@ -8,9 +8,6 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-#if PC_VERSION
-using SteamManager;
-#endif
 
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Awards;
@@ -150,7 +147,7 @@ namespace CloudberryKingdom
 			{
 				if (award.Official)
 				{
-					SteamStats.GiveAchievement(award.Key);
+					//SteamStats.GiveAchievement(award.Key);
 				}
 			}
 #endif

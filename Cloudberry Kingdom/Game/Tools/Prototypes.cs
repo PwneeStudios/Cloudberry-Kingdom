@@ -389,9 +389,14 @@ namespace CloudberryKingdom
 
         public static void LoadObjects()
         {
+			return;
+
+
+
+
             Prototypes.CheckpointObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\FlyingCoin_v2.smo"));
             
-            Prototypes.ArrowObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\Arrow.smo"));
+            //Prototypes.ArrowObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\Arrow.smo"));
 
             Prototypes.GhostBlockObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\GhostBlock.smo"));
 
@@ -504,19 +509,19 @@ namespace CloudberryKingdom
             bob.Add(BobPhsxRocketbox.Instance, NewBob);
 
             // Spaceship 
-            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, false);
-            NewBob.MyObjectType = BobPhsxSpaceship.Instance;
-            NewBob.PlayerObject.ParentQuad.Scale(new Vector2(3.5f, 3.5f));
-            foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
-                quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
-            NewBob.CanHaveCape = false;
-            NewBob.CanHaveHat = false;
-            NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+			//NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, false);
+			//NewBob.MyObjectType = BobPhsxSpaceship.Instance;
+			//NewBob.PlayerObject.ParentQuad.Scale(new Vector2(3.5f, 3.5f));
+			//foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+			//    quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+			//NewBob.CanHaveCape = false;
+			//NewBob.CanHaveHat = false;
+			//NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
 
-            Quad spaceship = (Quad)NewBob.PlayerObject.QuadList[1];
-            spaceship.MyTexture = Tools.Texture("Spaceship_Paper");
-            spaceship.Resize();
-            NewBob.PlayerObject.QuadList[2].Show = false;
+			//Quad spaceship = (Quad)NewBob.PlayerObject.QuadList[1];
+			//spaceship.MyTexture = Tools.Texture("Spaceship_Paper");
+			//spaceship.Resize();
+			//NewBob.PlayerObject.QuadList[2].Show = false;
 
 
             BobPhsxSpaceship.Instance.Prototype = NewBob;
@@ -527,20 +532,20 @@ namespace CloudberryKingdom
 
 
             // Meat
-            NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\MeatBoy.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxMeat.Instance, true);
-            NewBob.IsSpriteBased = false;
-            NewBob.MyObjectType = BobPhsxMeat.Instance;
-            NewBob.PlayerObject.ParentQuad.Scale(new Vector2(2.75f, 2.75f));
-            foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
-                quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
-            NewBob.CanHaveCape = true;
-            NewBob.CanHaveHat = true;
-            NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
-            NewBob.PlayerObject.QuadList[0].SetTexture("FallingBlock1", Tools.TextureWad);
-            NewBob.PlayerObject.QuadList[1].SetTexture("FallingBlock1", Tools.TextureWad);
+			//NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\MeatBoy.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxMeat.Instance, true);
+			//NewBob.IsSpriteBased = false;
+			//NewBob.MyObjectType = BobPhsxMeat.Instance;
+			//NewBob.PlayerObject.ParentQuad.Scale(new Vector2(2.75f, 2.75f));
+			//foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+			//    quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+			//NewBob.CanHaveCape = true;
+			//NewBob.CanHaveHat = true;
+			//NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+			//NewBob.PlayerObject.QuadList[0].SetTexture("FallingBlock1", Tools.TextureWad);
+			//NewBob.PlayerObject.QuadList[1].SetTexture("FallingBlock1", Tools.TextureWad);
 
-            BobPhsxMeat.Instance.Prototype = NewBob;
-            bob.Add(BobPhsxMeat.Instance, NewBob);
+			//BobPhsxMeat.Instance.Prototype = NewBob;
+			//bob.Add(BobPhsxMeat.Instance, NewBob);
 
             
             // Freeplay Heroes

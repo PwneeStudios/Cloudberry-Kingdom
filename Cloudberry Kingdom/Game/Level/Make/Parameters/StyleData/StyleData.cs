@@ -137,41 +137,41 @@ namespace CloudberryKingdom.Levels
 
         public bool AlwaysEdgeJump = false;
 
-        public enum _MoveTypePeriod { Inf, Short, Normal1, Normal2 };
+        public enum _MoveTypePeriod { Inf, Short, Normal1, Normal2, Length };
         public _MoveTypePeriod MoveTypePeriod;
 
-        public enum _MoveTypeInnerPeriod { Long, Short, Normal };
+        public enum _MoveTypeInnerPeriod { Long, Short, Normal, Length };
         public _MoveTypeInnerPeriod MoveTypeInnerPeriod;
 
-        public enum _PauseType { None, Limited, Normal, Normal2 };
+        public enum _PauseType { None, Limited, Normal, Normal2, Length };
         public _PauseType PauseType;
 
-        public enum _ReverseType { None, Normal, Normal2, Normal3 };
+        public enum _ReverseType { None, Normal, Normal2, Normal3, Length };
         public _ReverseType ReverseType;
 
-        public enum _JumpType { Always, Alot, Normal, Normal2 };
+        public enum _JumpType { Always, Alot, Normal, Normal2, Length };
         public _JumpType JumpType;
 
-        public enum _ElevatorSwitchType { Random, Alternate, AllUp, AllDown };
+        public enum _ElevatorSwitchType { Random, Alternate, AllUp, AllDown, Length };
         public _ElevatorSwitchType ElevatorSwitchType;
         float[] ElevatorSwitchTypeRatio = { .35f, .5f, .1f, .05f };
 
-        public enum _OffsetType { Random, AllSame, SpatiallyPeriodic };
+        public enum _OffsetType { Random, AllSame, SpatiallyPeriodic, Length };
         public _OffsetType PendulumOffsetType, FlyingBlobOffsetType;
         float[] OffsetTypeRatio = { .7f, .25f, .05f };
 
-        public enum _FillType { Rnd, HalfnHalf, Pure };
+        public enum _FillType { Rnd, HalfnHalf, Pure, Length };
         float[] FillTypeRatio = { .7f, .25f, .05f };
         public _FillType FillType;
 
-        public enum _SinglePathType { Normal, Low, Mid, High };
+        public enum _SinglePathType { Normal, Low, Mid, High, Length };
         static float[] _SinglePathRatio = { .7f, .1f, .1f, .1f };
-        public enum _DoublePathType { Separated, Gap, Independent };
-        public enum _TriplePathType { Separated, Independent };
+        public enum _DoublePathType { Separated, Gap, Independent, Length };
+        public enum _TriplePathType { Separated, Independent, Length };
         public _SinglePathType SinglePathType;
         public _DoublePathType DoublePathType;
         public _TriplePathType TriplePathType;
-        public enum _StartType { Top, Middle, Bottom };
+        public enum _StartType { Top, Middle, Bottom, Length };
         public _StartType Bob1Start, Bob2Start, Bob3Start;
 
         public float ChanceToKeepUnused;
@@ -198,9 +198,9 @@ namespace CloudberryKingdom.Levels
 
             float[] PauseTypeRatio = { 1f, 1f, 1f, 1f };
             PauseTypeRatio[0] += .3f * JumpLevel;
-            PauseType = (_PauseType)Rnd.Rnd.Next(0, Tools.Length<_PauseType>());            
+            PauseType = (_PauseType)Rnd.Rnd.Next(0, (int)_PauseType.Length);            
             
-            ReverseType = (_ReverseType)Rnd.Rnd.Next(0, Tools.Length<_ReverseType>());
+            ReverseType = (_ReverseType)Rnd.Rnd.Next(0, (int)_ReverseType.Length);
 
             CalculateKeepUnused(JumpLevel);
         }
@@ -257,23 +257,23 @@ namespace CloudberryKingdom.Levels
             FlyingBlobOffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
             PendulumOffsetType = (_OffsetType)Rnd.Choose(OffsetTypeRatio);
 
-            JumpType = (_JumpType)Rnd.Rnd.Next(0, Tools.Length<_JumpType>());
+            JumpType = (_JumpType)Rnd.Rnd.Next(0, (int)_JumpType.Length);
             
 
-            MoveTypePeriod = (_MoveTypePeriod)Rnd.Rnd.Next(0, Tools.Length<_MoveTypePeriod>());
-            MoveTypeInnerPeriod = (_MoveTypeInnerPeriod)Rnd.Rnd.Next(0, Tools.Length<_MoveTypeInnerPeriod>());
+            MoveTypePeriod = (_MoveTypePeriod)Rnd.Rnd.Next(0, (int)_MoveTypePeriod.Length);
+            MoveTypeInnerPeriod = (_MoveTypeInnerPeriod)Rnd.Rnd.Next(0, (int)_MoveTypeInnerPeriod.Length);
 
             FillType = (_FillType)Rnd.Choose(FillTypeRatio);
 
-            PauseType = (_PauseType)Rnd.Rnd.Next(0, Tools.Length<_PauseType>());
+            PauseType = (_PauseType)Rnd.Rnd.Next(0, (int)_PauseType.Length);
 
             // Path types
-            Bob1Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
-            Bob2Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
-            Bob3Start = (_StartType)Rnd.Rnd.Next(0, Tools.Length<_StartType>());
+            Bob1Start = (_StartType)Rnd.Rnd.Next(0, (int)_StartType.Length);
+            Bob2Start = (_StartType)Rnd.Rnd.Next(0, (int)_StartType.Length);
+            Bob3Start = (_StartType)Rnd.Rnd.Next(0, (int)_StartType.Length);
             SinglePathType = (_SinglePathType)Rnd.Choose(_SinglePathRatio);
-            DoublePathType = (_DoublePathType)Rnd.Rnd.Next(0, Tools.Length<_DoublePathType>());
-            TriplePathType = (_TriplePathType)Rnd.Rnd.Next(0, Tools.Length<_TriplePathType>());
+            DoublePathType = (_DoublePathType)Rnd.Rnd.Next(0, (int)_DoublePathType.Length);
+            TriplePathType = (_TriplePathType)Rnd.Rnd.Next(0, (int)_TriplePathType.Length);
 
             TestNumber = Rnd.RndInt(0, 1000);
             Tools.Write(string.Format("Post-style: {0}", TestNumber));

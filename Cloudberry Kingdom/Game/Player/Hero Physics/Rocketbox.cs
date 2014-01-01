@@ -59,7 +59,7 @@ namespace CloudberryKingdom
             base.SideHit(side, block);
 
             if (MyBob.CanDie)
-                MyBob.Die(Bob.BobDeathType.Other);
+                MyBob.Die(BobDeathType.Other);
         }
 
         public override void DefaultValues()

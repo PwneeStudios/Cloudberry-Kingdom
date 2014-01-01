@@ -23,7 +23,7 @@ namespace CloudberryKingdom
 
     public class ButtonStatistics
     {
-        int[] _DownCount = new int[Tools.Length<ControllerButtons>()];
+        int[] _DownCount = new int[(int)ControllerButtons.Length];
 
         public int DownCount(ControllerButtons button)
         {

@@ -134,9 +134,6 @@
     <XnaCompressContent>True</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DirectShowLib-2005">
-      <HintPath>__DirectShowVideoPlayer\DirectShowLib-2005.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
       <Private>False</Private>
     </Reference>
@@ -170,16 +167,6 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Nuclex.Input">
-      <HintPath>__Nuclex\Nuclex.Input.dll</HintPath>
-    </Reference>
-    <Reference Include="SeeSharp.Xna.Video">
-      <HintPath>__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll</HintPath>
-    </Reference>
-    <Reference Include="SteamWrapper, Version=1.0.4864.26561, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -201,7 +188,6 @@
     <Compile Include="Core\Effects\EzEffectWad.cs" />
     <Compile Include="Core\Input\BaseInput.cs" />
     <Compile Include="Core\Input\Implementations\XnaInput.cs" />
-    <Compile Include="Core\Input\Implementations\NuclexInput.cs" />
     <Compile Include="Core\Input\CoreInput.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Tools\Set.cs" />
@@ -224,7 +210,6 @@
     <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
     <Compile Include="Game\VideoWrapper.cs" />
-    <Compile Include="Game\DirectDrawVideo.cs" />
     <Compile Include="Game\Localization.cs" />
     <Compile Include="Game\Games\Campaign\CampaignSequence.cs" />
     <Compile Include="Game\Games\Campaign\FadeIn.cs" />
@@ -339,10 +324,7 @@
     <Compile Include="SaveDevicePromptState.cs" />
     <Compile Include="SaveDeviceSynchronous.cs" />
     <Compile Include="SharedSaveDevice.cs" />
-    <Compile Include="__DirectShowVideoPlayer\VideoPlayer.cs" />
-    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.Designer.cs">
       <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </Compile>
@@ -768,8 +750,6 @@
   <ItemGroup>
     <Content Include="BobIcon.png" />
     <Content Include="Cloudberry.ico" />
-    <Content Include="__DirectShowVideoPlayer\DirectShowLib-2005.dll" />
-    <Content Include="__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ContentPC\ContentPC.contentproj">

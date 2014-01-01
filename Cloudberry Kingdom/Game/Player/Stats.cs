@@ -137,14 +137,14 @@ namespace CloudberryKingdom
         {
             get
             {
-                if (DeathsBy[(int)Bob.BobDeathType.Total] <= 0)
+                if (DeathsBy[(int)BobDeathType.Total] <= 0)
                     return TimeAlive;
                 else
-                    return (int)((float)TimeAlive / (float)(1 + DeathsBy[(int)Bob.BobDeathType.Total]));
+                    return (int)((float)TimeAlive / (float)(1 + DeathsBy[(int)BobDeathType.Total]));
             }
         }
 
-        public int TotalDeaths { get { return DeathsBy[(int)Bob.BobDeathType.Total]; } }
+        public int TotalDeaths { get { return DeathsBy[(int)BobDeathType.Total]; } }
         public int CoinPercentGotten
         {
             get
@@ -158,7 +158,7 @@ namespace CloudberryKingdom
 
         public PlayerStats()
         {
-            DeathsBy = new int[Tools.Length<Bob.BobDeathType>()];
+            DeathsBy = new int[(int)BobDeathType.Length];
             
             Clean();
         }

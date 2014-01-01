@@ -254,7 +254,7 @@ namespace CloudberryKingdom
 			// Write to Leaderboard if not in trial mode
 			if (!CloudberryKingdomGame.IsDemo)
 			{
-				Leaderboard.WriteToLeaderboard(copy);
+				//Leaderboard.WriteToLeaderboard(copy);
 			}
 #endif
 

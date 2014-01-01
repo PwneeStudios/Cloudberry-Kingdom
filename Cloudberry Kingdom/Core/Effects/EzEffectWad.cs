@@ -66,22 +66,25 @@ namespace CoreEngine
                 Neweffect.Name = Name;
                 Neweffect.effect = effect;
 
-                Neweffect.FlipVector = effect.Parameters["FlipVector"];
-                Neweffect.FlipCenter = effect.Parameters["FlipCenter"];
-                Neweffect.xTexture = effect.Parameters["xTexture"];
-                Neweffect.Illumination = effect.Parameters["Illumination"];
-                Neweffect.t = effect.Parameters["t"];
-                Neweffect.xCameraAspect = effect.Parameters["xCameraAspect"];
-                Neweffect.xCameraPos = effect.Parameters["xCameraPos"];
+				if (CloudberryKingdomGame.Effects)
+				{
+					Neweffect.FlipVector = effect.Parameters["FlipVector"];
+					Neweffect.FlipCenter = effect.Parameters["FlipCenter"];
+					Neweffect.xTexture = effect.Parameters["xTexture"];
+					Neweffect.Illumination = effect.Parameters["Illumination"];
+					Neweffect.t = effect.Parameters["t"];
+					Neweffect.xCameraAspect = effect.Parameters["xCameraAspect"];
+					Neweffect.xCameraPos = effect.Parameters["xCameraPos"];
 
-                Neweffect.ExtraTexture1_Param = effect.Parameters["ExtraTexture1"];
-                Neweffect.ExtraTexture2_Param = effect.Parameters["ExtraTexture2"];
+					Neweffect.ExtraTexture1_Param = effect.Parameters["ExtraTexture1"];
+					Neweffect.ExtraTexture2_Param = effect.Parameters["ExtraTexture2"];
 
-                Neweffect.Hsl = effect.Parameters["ColorMatrix"];
+					Neweffect.Hsl = effect.Parameters["ColorMatrix"];
 
-                Neweffect.Simplest = effect.Techniques["Simplest"];
+					Neweffect.Simplest = effect.Techniques["Simplest"];
 
-                Neweffect.MyWad = this;
+					Neweffect.MyWad = this;
+				}
 
                 EffectList.Add(Neweffect);
             }

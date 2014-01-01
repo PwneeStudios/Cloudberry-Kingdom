@@ -54,10 +54,10 @@ namespace CloudberryKingdom
         }
     }
 
-    public enum Hero_BaseType { Classic, Box, Wheel, Bouncy, Spaceship, Meat, RocketBox };
-    public enum Hero_Shape { Classic, Small, Oscillate, Big };
-    public enum Hero_MoveMod { Classic, Double, Jetpack, Invert };
-    public enum Hero_Special { Classic, Time };
+    public enum Hero_BaseType { Classic, Box, Wheel, Bouncy, Spaceship, Meat, RocketBox, Length };
+    public enum Hero_Shape { Classic, Small, Oscillate, Big, Length };
+    public enum Hero_MoveMod { Classic, Double, Jetpack, Invert, Length };
+    public enum Hero_Special { Classic, Time, Length };
 
     public class BobPhsx
     {
@@ -218,10 +218,10 @@ namespace CloudberryKingdom
                 _BaseType = _Shape = _MoveMod = _Special = 0;
             }
 
-            _BaseType = CoreMath.Restrict(0, Tools.Length<Hero_BaseType>() - 1, _BaseType);
-            _Shape = CoreMath.Restrict(0, Tools.Length<Hero_Shape>() - 1, _Shape);
-            _MoveMod = CoreMath.Restrict(0, Tools.Length<Hero_MoveMod>() - 1, _MoveMod);
-            _Special = CoreMath.Restrict(0, Tools.Length<Hero_Special>() - 1, _Special);
+			_BaseType = CoreMath.Restrict(0, (int)Hero_BaseType.Length - 1, _BaseType);
+			_Shape    = CoreMath.Restrict(0, (int)Hero_Shape   .Length - 1, _Shape);
+			_MoveMod  = CoreMath.Restrict(0, (int)Hero_MoveMod .Length - 1, _MoveMod);
+            _Special  = CoreMath.Restrict(0, (int)Hero_Special .Length - 1, _Special);
 
             //return MakeCustom(_BaseType, _Shape, _MoveMod);
             return MakeCustom(_BaseType, _Shape, _MoveMod, _Special);
@@ -845,7 +845,7 @@ namespace CloudberryKingdom
         {
         }
 
-        public virtual void Die(Bob.BobDeathType DeathType)
+        public virtual void Die(BobDeathType DeathType)
         {
             // Check for lots of deaths
             Awardments.CheckForAward_Die(MyBob);

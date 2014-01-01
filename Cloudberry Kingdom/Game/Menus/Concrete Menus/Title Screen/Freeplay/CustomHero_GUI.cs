@@ -140,7 +140,7 @@ namespace CloudberryKingdom
             MyGame.WaitThenDo(20, () =>
             {
                 foreach (Bob bob in MyGame.MyLevel.Bobs)
-                    bob.Die(Bob.BobDeathType.None);
+                    bob.Die(BobDeathType.None);
             }, "RemoveBobs", false, true);
         }
 
@@ -325,8 +325,11 @@ namespace CloudberryKingdom
             BaseList = MakeList();
 			BaseList.MyExpandPos = new Vector2(-1139.167f, 499.4444f);
             BaseList.Name = "base";
-            foreach (Hero_BaseType _hero in Tools.GetValues<Hero_BaseType>())
+            //foreach (Hero_BaseType _hero in Tools.GetValues<Hero_BaseType>())
+			for (int _Hero_BaseType = 0; _Hero_BaseType < (int)Hero_BaseType.Length; _Hero_BaseType++)
             {
+				Hero_BaseType _hero = (Hero_BaseType)_Hero_BaseType;
+
 				if (_hero == Hero_BaseType.Meat) continue;
 
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
@@ -346,8 +349,11 @@ namespace CloudberryKingdom
             JumpList = MakeList();
 			JumpList.MyExpandPos = new Vector2(-1130.278f, 152.5f);
             JumpList.Name = "jump";
-            foreach (Hero_MoveMod _hero in Tools.GetValues<Hero_MoveMod>())
+			//foreach (Hero_MoveMod _hero in Tools.GetValues<Hero_MoveMod>())
+			for (int _Hero_MoveMod = 0; _Hero_MoveMod < (int)Hero_MoveMod.Length; _Hero_MoveMod++)
             {
+				Hero_MoveMod _hero = (Hero_MoveMod)_Hero_MoveMod;
+
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
                 item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
@@ -365,8 +371,11 @@ namespace CloudberryKingdom
             SizeList = MakeList();
 			SizeList.MyExpandPos = new Vector2(-1118.333f, -173.3333f);
             SizeList.Name = "size";
-            foreach (Hero_Shape _hero in Tools.GetValues<Hero_Shape>())
+			//foreach (Hero_Shape _hero in Tools.GetValues<Hero_Shape>())
+			for (int _Hero_Shape = 0; _Hero_Shape < (int)Hero_Shape.Length; _Hero_Shape++)
             {
+				Hero_Shape _hero = (Hero_Shape)_Hero_Shape;
+
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
                 item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));

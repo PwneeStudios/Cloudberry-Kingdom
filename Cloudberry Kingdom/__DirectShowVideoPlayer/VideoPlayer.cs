@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using DirectShowLib;
+//using DirectShowLib;
 
 namespace SeeSharp.Xna.Video
 {

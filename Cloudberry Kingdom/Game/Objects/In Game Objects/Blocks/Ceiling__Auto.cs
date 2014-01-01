@@ -15,7 +15,7 @@ namespace CloudberryKingdom.Levels
         public Param BufferSize;
         public VectorParam HeightRange, WidthRange;
 
-        public enum Style { Normal, SkipOne, Sparse, Random };
+        public enum Style { Normal, SkipOne, Sparse, Random, Length };
         public Style MyStyle;
 
         public struct _Special
@@ -39,7 +39,8 @@ namespace CloudberryKingdom.Levels
         {
             base.SetParameters(PieceSeed, level);
 
-            MyStyle = (Style)level.Rnd.RndEnum<Style>();
+			//MyStyle = (Style)level.Rnd.RndEnum<Style>();
+			MyStyle = (Style)level.Rnd.RndInt(0, (int)Style.Length - 1);
 
             if (PieceSeed.u[Upgrade.Ceiling] <= 0)
                 Make = false;

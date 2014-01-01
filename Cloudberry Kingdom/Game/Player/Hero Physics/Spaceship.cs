@@ -105,7 +105,7 @@ namespace CloudberryKingdom
             base.SideHit(side, block);
 
             if (MyLevel.PlayMode == 0 && !MyBob.Immortal)
-                MyBob.Die(Bob.BobDeathType.Other);
+                MyBob.Die(BobDeathType.Other);
         }
 
         public override void PhsxStep2()
@@ -366,7 +366,7 @@ namespace CloudberryKingdom
             SpriteAnims.Add(0, Obj.AnimToSpriteFrames(0, 1, true, Padding));
         }
 
-        public override void Die(Bob.BobDeathType DeathType)
+        public override void Die(BobDeathType DeathType)
         {
             base.Die(DeathType);
 
@@ -385,7 +385,7 @@ namespace CloudberryKingdom
                 if (!block.Core.MarkedForDeletion && block.Core.Real && block.IsActive && block.Core.Active && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
                 {
                     if (!MyBob.Immortal)
-                        MyBob.Die(Bob.BobDeathType.Other);
+                        MyBob.Die(BobDeathType.Other);
                     else
                         block.Hit(MyBob);
                 }
