@@ -167,7 +167,7 @@ namespace CloudberryKingdom.Levels
                     block.Init(pos + offset, size, level.MyTileSetInfo);
                     block.Extend(Side.Bottom, block.Box.BL.Y - level.CurMakeData.PieceSeed.ExtraBlockLength);
 
-                    block.Core.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveLowerThanMe;
+                    block.CoreData.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveLowerThanMe;
 
                     break;
 
@@ -206,7 +206,7 @@ namespace CloudberryKingdom.Levels
                         block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Bottom, block.Box.BL.Y - level.CurMakeData.PieceSeed.ExtraBlockLength);
                         
-                        block.Core.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveLowerThanMe;
+                        block.CoreData.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveLowerThanMe;
                     }
                     else
                     {
@@ -230,7 +230,7 @@ namespace CloudberryKingdom.Levels
                         block.Invert = true;
                         block.BlockCore.BlobsOnTop = false;
 
-                        block.Core.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveHigherThanMe;
+                        block.CoreData.GenData.MyOverlapPreference = GenerationData.OverlapPreference.RemoveHigherThanMe;
                     }
 
                     break;
@@ -270,7 +270,7 @@ namespace CloudberryKingdom.Levels
                         block.Init(pos + offset, size, level.MyTileSetInfo);
                         block.Extend(Side.Right, block.Box.TR.X + level.CurMakeData.PieceSeed.ExtraBlockLength);
                     }
-                    block.Core.GenData.NoBottomShift = block.Core.GenData.NoMakingTopOnly = true;
+                    block.CoreData.GenData.NoBottomShift = block.CoreData.GenData.NoMakingTopOnly = true;
                     EnsureBoundsAfter = false;
                     break;
 
@@ -287,8 +287,8 @@ namespace CloudberryKingdom.Levels
 
             if (level.CurMakeData.BlocksAsIs)
             {
-                block.Core.GenData.NoMakingTopOnly = true;
-                block.Core.GenData.NoBottomShift = true;
+                block.CoreData.GenData.NoMakingTopOnly = true;
+                block.CoreData.GenData.NoBottomShift = true;
             }
 
             // Ensure bounds

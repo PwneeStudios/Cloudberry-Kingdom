@@ -82,7 +82,7 @@ namespace CloudberryKingdom.Levels
 
             if (level.PieceSeed.GeometryType == LevelGeometry.Right)
             {
-                p.PivotPoint.Y = p.Pos.Y + 2000;
+                p.PivotPoint.Y = p.CoreData.Data.Position.Y + 2000;
                 if (p.PivotPoint.Y < level.MainCamera.TR.Y)
                     p.PivotPoint.Y = level.MainCamera.TR.Y;
             }

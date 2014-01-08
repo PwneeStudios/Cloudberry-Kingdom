@@ -128,8 +128,8 @@ namespace CloudberryKingdom.Levels
             // Get the new Coin
             Coin NewCoin = (Coin)level.Recycle.GetObject(ObjectType.Coin, true);
 
-            NewCoin.Core.GenData.Used = true;
-            NewCoin.Core.GenData.LimitGeneralDensity = false;
+            NewCoin.CoreData.GenData.Used = true;
+            NewCoin.CoreData.GenData.LimitGeneralDensity = false;
 
             level.AddObject(NewCoin);
 
@@ -147,7 +147,7 @@ namespace CloudberryKingdom.Levels
             else
             {
                 NewCoin.SetType(Coin.CoinType.Blue);
-                NewCoin.Move(pos - NewCoin.Core.Data.Position);
+                NewCoin.Move(pos - NewCoin.CoreData.Data.Position);
             }
 
             return NewCoin;
@@ -156,7 +156,7 @@ namespace CloudberryKingdom.Levels
         enum BobPos { Center, High, Low, Regular };
         Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR, BobPos pos)
         {
-            Vector2 center = bob.Core.Data.Position;
+            Vector2 center = bob.CoreData.Data.Position;
             Vector2 top = new Vector2(center.X, bob.Box.TR.Y);
             Vector2 bottom = new Vector2(center.X, bob.Box.BL.Y);
             Vector2 avg = (top + bottom) / 2;
@@ -185,11 +185,11 @@ namespace CloudberryKingdom.Levels
 
             foreach (Bob bob in level.Bobs)
             {
-                if (!level.MainCamera.OnScreen(bob.Core.Data.Position, new Vector2(-200, -240)) ||
+                if (!level.MainCamera.OnScreen(bob.CoreData.Data.Position, new Vector2(-200, -240)) ||
                     level.Style.Masochistic)
                     continue;
 
-                Vector2 pos = bob.Core.Data.Position;
+                Vector2 pos = bob.CoreData.Data.Position;
 
                 Coin coin;
                 switch (Params.FillType)
@@ -206,10 +206,10 @@ namespace CloudberryKingdom.Levels
 
                     case Coin_Parameters.FillTypes.CoinGrab:
                         if (Step % Params.Regular_Period == 0 &&
-                            (bob.Pos.X > bob.LastPlacedCoin.X + 40 || !Params.CoinPlaced))
+                            (bob.CoreData.Data.Position.X > bob.LastPlacedCoin.X + 40 || !Params.CoinPlaced))
                         {
                             Params.CoinPlaced = true;
-                            bob.LastPlacedCoin = bob.Pos;
+                            bob.LastPlacedCoin = bob.CoreData.Data.Position;
 
                             coin = (Coin)CreateAt(level, CalcPos(bob, BL, TR, BobPos.High));
                             coin = (Coin)CreateAt(level, CalcPos(bob, BL, TR, BobPos.Center), false);
@@ -237,13 +237,13 @@ namespace CloudberryKingdom.Levels
             if (PieceSeed.GeometryType == LevelGeometry.Right)
             {
                 foreach (ObjectBase obj in Objects)
-                    if (obj is Coin && obj.Pos.X > TR.X + 160)
+                    if (obj is Coin && obj.CoreData.Data.Position.X > TR.X + 160)
                         Recycle.CollectObject(obj);
             }
             else if (PieceSeed.GeometryType == LevelGeometry.Up)
             {
                 foreach (ObjectBase obj in Objects)
-                    if (obj is Coin && obj.Pos.Y > TR.Y - 280)
+                    if (obj is Coin && obj.CoreData.Data.Position.Y > TR.Y - 280)
                         Recycle.CollectObject(obj);
             }
 

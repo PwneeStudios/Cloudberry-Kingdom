@@ -26,12 +26,12 @@ namespace CloudberryKingdom.Awards
 
         public AwardmentMessage(Awardment award)
         {
-            Core.DrawLayer += 2;
+            CoreData.DrawLayer += 2;
 
             PauseOnPause = false;
             PauseLevel = false;
             FixedToCamera = true;
-            Core.RemoveOnReset = false;
+            CoreData.RemoveOnReset = false;
 
             MyPile = new DrawPile();
 

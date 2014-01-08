@@ -93,7 +93,7 @@ namespace CloudberryKingdom.Levels
 
                         serpent.Offset = (int)(offset + i * period / (float)num);
 
-                        serpent.Core.GenData.LimitGeneralDensity = false;
+                        serpent.CoreData.GenData.LimitGeneralDensity = false;
 
                         // Make sure we stay in bounds
                         //Tools.EnsureBounds_X(serpent, TR, BL);

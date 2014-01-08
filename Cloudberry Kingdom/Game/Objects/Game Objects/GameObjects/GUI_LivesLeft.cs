@@ -151,7 +151,7 @@ namespace CloudberryKingdom
         {
             base.Reset(BoxesOnly);
 
-            if (!Core.MyLevel.Watching && Core.MyLevel.PlayMode == 0)
+            if (!CoreData.MyLevel.Watching && CoreData.MyLevel.PlayMode == 0)
                 Bring(false);
         }
 
@@ -185,7 +185,7 @@ namespace CloudberryKingdom
         {
             MyGame.ToDoOnReset.Add(OnReset);
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
              if (!MyGame.FreeReset)
                 NumLives--;

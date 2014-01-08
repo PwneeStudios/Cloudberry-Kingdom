@@ -110,7 +110,7 @@ namespace CloudberryKingdom
         {
             return;
 
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
             base.MyDraw();
         }
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
             if (MyGame.SoftPause) return;
             if (Hid || !Active) return;
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (CoreData.MyLevel.Watching || CoreData.MyLevel.Finished) return;
 
             UpdateLivesText();
         }

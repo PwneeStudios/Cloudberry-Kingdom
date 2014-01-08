@@ -47,12 +47,12 @@ namespace CloudberryKingdom
             Vector2 shift = new Vector2(0, 470);
 
             Tools.CurGameData.AddGameObject(new DoorIcon(GetHero(levelindex + 1 - StartIndex),
-                        Tools.CurLevel.FinalDoor.Pos + shift, 1));
+                        Tools.CurLevel.FinalDoor.CoreData.Data.Position + shift, 1));
 
             // Delete the exit sign
             foreach (ObjectBase obj in Tools.CurLevel.Objects)
                 if (obj is Sign)
-                    obj.Core.MarkedForDeletion = true;
+                    obj.CoreData.MarkedForDeletion = true;
         }
 
         protected virtual void AdditionalSwap(int levelindex)

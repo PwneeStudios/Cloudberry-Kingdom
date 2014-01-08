@@ -45,7 +45,7 @@ namespace CloudberryKingdom.Levels
         {
             foreach (BlockBase block in A.Blocks)
             {
-                BlockBase DestBlock = (BlockBase)MySourceGame.Recycle.GetObject(block.Core.MyType, false);
+                BlockBase DestBlock = (BlockBase)MySourceGame.Recycle.GetObject(block.CoreData.MyType, false);
                 DestBlock.Clone(block);
 
                 AddBlock(DestBlock);
@@ -53,7 +53,7 @@ namespace CloudberryKingdom.Levels
 
             foreach (ObjectBase obj in A.Objects)
             {
-                ObjectBase DestObj = (ObjectBase)MySourceGame.Recycle.GetObject(obj.Core.MyType, false);
+                ObjectBase DestObj = (ObjectBase)MySourceGame.Recycle.GetObject(obj.CoreData.MyType, false);
                 DestObj.Clone(obj);
 
                 AddObject(DestObj);
@@ -247,12 +247,12 @@ namespace CloudberryKingdom.Levels
                     NormalBlock block;
 
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-                    block.Core.AlwaysBoxesOnly = BoxesOnly;
+                    block.CoreData.AlwaysBoxesOnly = BoxesOnly;
                     block.Init(pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
-                    block.Core.GenData.RemoveIfUnused = true;
+                    block.CoreData.GenData.RemoveIfUnused = true;
                     block.BlockCore.BlobsOnTop = true;
                     //block.Core.GenData.AlwaysLandOn = true;
-                    block.Core.GenData.AlwaysUse = true;
+                    block.CoreData.GenData.AlwaysUse = true;
                     block.BlockCore.NonTopUsed = true;
                     block.Invert = Invert; 
                     block.BlockCore.Virgin = Virgin;
@@ -303,8 +303,8 @@ namespace CloudberryKingdom.Levels
             // If we don't want a backdrop we're done
             if (!AddBackdrop)
             {
-                door.Core.DrawLayer = DesiredDoorLayer;
-                door.Core.DrawLayer2 = DesiredDoorLayer2;
+                door.CoreData.DrawLayer = DesiredDoorLayer;
+                door.CoreData.DrawLayer2 = DesiredDoorLayer2;
                 return door;
             }
 
@@ -320,10 +320,10 @@ namespace CloudberryKingdom.Levels
 
             SetBackblockProperties(backblock);
 
-            backblock.Core.MyTileSet = BackdropTileset;
+            backblock.CoreData.MyTileSet = BackdropTileset;
 
             // Make sure door is just in front of backdrop
-            door.Core.DrawLayer = DesiredDoorLayer;
+            door.CoreData.DrawLayer = DesiredDoorLayer;
 
             return door;
         }
@@ -333,7 +333,7 @@ namespace CloudberryKingdom.Levels
             float shade = .85f;
             backblock.MyDraw.SetTint(new Color(shade, shade, shade));
 
-            backblock.Core.GenData.Used = true;
+            backblock.CoreData.GenData.Used = true;
             backblock.BlockCore.NonTopUsed = true;
             backblock.BlockCore.Virgin = true;
 
@@ -342,7 +342,7 @@ namespace CloudberryKingdom.Levels
 
             backblock.BlockCore.DrawLayer = 0;
 
-            backblock.Core.Real = false;
+            backblock.CoreData.Real = false;
 
             AddBlock(backblock);
         }
@@ -391,13 +391,13 @@ namespace CloudberryKingdom.Levels
                     if (MyTileSet.FixedWidths)
                     {
                         block.BlockCore.StartPiece = true;
-                        block.Core.DrawLayer = 0;
+                        block.CoreData.DrawLayer = 0;
                     }
 
                     block.Init(pos, size, MyTileSetInfo);
                     block.BlockCore.BlobsOnTop = false;
                     block.StampAsUsed(0);
-                    block.Core.GenData.RemoveIfUnused = false;
+                    block.CoreData.GenData.RemoveIfUnused = false;
 
                     if (CurMakeData.PieceSeed.ZoomType == LevelZoom.Big)
                         block.Extend(Side.Left, block.Box.BL.X + 30);
@@ -417,10 +417,10 @@ namespace CloudberryKingdom.Levels
 
                     Door door;
                     door = PlaceDoorOnBlock(pos, block, MyTileSet.CustomStartEnd ? false : true);
-                    door.Core.EditorCode1 = LevelConnector.StartOfLevelCode;
+                    door.CoreData.EditorCode1 = LevelConnector.StartOfLevelCode;
 
                     // Shift start position
-                    SpreadStartPositions(CurPiece, CurMakeData, door.Pos, new Vector2(50, 0));
+                    SpreadStartPositions(CurPiece, CurMakeData, door.CoreData.Data.Position, new Vector2(50, 0));
 
                     return block.Box.TR.X + Rnd.RndFloat(100, 250);
 
@@ -440,18 +440,18 @@ namespace CloudberryKingdom.Levels
             Vector2 Pos = BL;
             size = new Vector2(2200, 200);
             nblock = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
-            nblock.Core.MyTileSet = MyTileSet;
+            nblock.CoreData.MyTileSet = MyTileSet;
             nblock.Init(Pos, size, MyTileSetInfo);
             nblock.Extend(Side.Bottom, MainCamera.BL.Y - 300);
             nblock.Extend(Side.Top, MainCamera.BL.Y + 500);
             //nblock.Extend(Side.Right, Pos.X + MainCamera.GetWidth() + 7500);
             //nblock.Extend(Side.Left, Pos.X + MainCamera.GetWidth() - 230);
 
-            nblock.Core.GenData.RemoveIfUnused = false;
+            nblock.CoreData.GenData.RemoveIfUnused = false;
             nblock.BlockCore.Virgin = true;
-            nblock.Core.GenData.AlwaysLandOn = true;
+            nblock.CoreData.GenData.AlwaysLandOn = true;
 
-            nblock.Core.EditorCode1 = "Landing Platform";
+            nblock.CoreData.EditorCode1 = "Landing Platform";
 
             AddBlock(nblock);
 
@@ -481,9 +481,9 @@ namespace CloudberryKingdom.Levels
                 {
                     block = (NormalBlock)Recycle.GetObject(ObjectType.NormalBlock, true);
                     block.Init(_pos + new Vector2(0, -size.Y), size, MyTileSetInfo);
-                    block.Core.GenData.RemoveIfUnused = true;
+                    block.CoreData.GenData.RemoveIfUnused = true;
                     block.BlockCore.BlobsOnTop = false;
-                    block.Core.GenData.AlwaysLandOn = true;
+                    block.CoreData.GenData.AlwaysLandOn = true;
                     AddBlock(block);
                 });
 
@@ -500,21 +500,21 @@ namespace CloudberryKingdom.Levels
             GenerationData.UsedCallback UsedCallback = delegate()
             {
                 foreach (BouncyBlock block in bouncys)
-                    if (!block.Core.GenData.Used)
-                        block.Core.MarkedForDeletion = true;
+                    if (!block.CoreData.GenData.Used)
+                        block.CoreData.MarkedForDeletion = true;
             };
 
             MakeAt MakeBouncy = delegate(Vector2 Pos)
             {
                 BouncyBlock bouncy = (BouncyBlock)Recycle.GetObject(ObjectType.BouncyBlock, false);
                 bouncy.Init(Pos, new Vector2(170, 170), 90, this);
-                bouncy.Core.DrawLayer = 9;
+                bouncy.CoreData.DrawLayer = 9;
 
-                bouncy.Core.GenData.RemoveIfUnused = true;
+                bouncy.CoreData.GenData.RemoveIfUnused = true;
                 bouncy.BlockCore.BlobsOnTop = false;
-                bouncy.Core.GenData.AlwaysLandOn = true;
+                bouncy.CoreData.GenData.AlwaysLandOn = true;
 
-                bouncy.Core.GenData.OnUsed = UsedCallback;
+                bouncy.CoreData.GenData.OnUsed = UsedCallback;
 
                 AddBlock(bouncy);
                 bouncys.Add(bouncy);
@@ -560,14 +560,14 @@ namespace CloudberryKingdom.Levels
                     block.Init(Pos + new Vector2(width, -200), new Vector2(width, 200), MyTileSetInfo);
                     block.Extend(Side.Bottom, BL.Y - 300 - CurMakeData.PieceSeed.ExtraBlockLength);
 
-                    block.Core.GenData.RemoveIfUnused = true;
+                    block.CoreData.GenData.RemoveIfUnused = true;
                     block.BlockCore.Virgin = true;
-                    block.Core.GenData.AlwaysLandOn = true;
-                    block.Core.GenData.AlwaysUse = true;
+                    block.CoreData.GenData.AlwaysLandOn = true;
+                    block.CoreData.GenData.AlwaysUse = true;
 
                     // Make the last column of blocks EdgeJumpOnly
                     if (Pos.X + step >= TR.X)
-                        block.Core.GenData.EdgeJumpOnly = true;
+                        block.CoreData.GenData.EdgeJumpOnly = true;
 
                     if (PostInit != null)
                         PostInit(block);
@@ -598,13 +598,13 @@ namespace CloudberryKingdom.Levels
                 block.Init(Pos + new Vector2(width, Rnd.RndFloat(200, 1000)), new Vector2(Rnd.RndFloat(width / 2, width), 200), MyTileSetInfo);
                 block.Extend(Side.Bottom, BL.Y - 300);
 
-                block.Core.GenData.RemoveIfUnused = true;
+                block.CoreData.GenData.RemoveIfUnused = true;
                 block.BlockCore.BlobsOnTop = false;
-                block.Core.GenData.AlwaysLandOn = true;
+                block.CoreData.GenData.AlwaysLandOn = true;
 
                 // Make the last column of blocks EdgeJumpOnly
                 if (Pos.X + step >= TR.X)
-                    block.Core.GenData.EdgeJumpOnly = true;
+                    block.CoreData.GenData.EdgeJumpOnly = true;
 
                 block.StampAsUsed(CurPhsxStep);
 
@@ -679,8 +679,8 @@ namespace CloudberryKingdom.Levels
                     if (Rnd.RndFloat(0, 1) < CurMakeData.PieceSeed.Style.ChanceToKeepUnused
                         && pos.Y > BL.Y + 400) // Don't keep unused blocks that are too low
                     {
-                        NewObj.Core.GenData.RemoveIfUnused = false;
-                        NewObj.Core.GenData.RemoveIfOverlap = true;
+                        NewObj.CoreData.GenData.RemoveIfUnused = false;
+                        NewObj.CoreData.GenData.RemoveIfOverlap = true;
                     }
 
                     CheckToSleep();
@@ -1054,9 +1054,9 @@ namespace CloudberryKingdom.Levels
                 */
                 // Do the above without delegates
                 bool Any;
-                Any = false; foreach (Bob bob in Bobs) if (bob.Core.Data.Position.X < MaxRight + EndBuffer) Any = true;
+                Any = false; foreach (Bob bob in Bobs) if (bob.CoreData.Data.Position.X < MaxRight + EndBuffer) Any = true;
                 if (!Any) OneFinishedCount += 8;
-                Any = false; foreach (Bob bob in Bobs) if (bob.Core.Data.Position.X > MaxRight + EndBuffer - 100) Any = true;
+                Any = false; foreach (Bob bob in Bobs) if (bob.CoreData.Data.Position.X > MaxRight + EndBuffer - 100) Any = true;
                 if (Any) OneFinishedCount++;
 
 
@@ -1087,14 +1087,14 @@ namespace CloudberryKingdom.Levels
 
             // Remove unused objects
             foreach (ObjectBase obj in Objects)
-                if (!obj.Core.GenData.Used && obj.Core.GenData.RemoveIfUnused)
+                if (!obj.CoreData.GenData.Used && obj.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(obj);
             CleanObjectList();
             Sleep();
             
             // Remove unused blocks
             foreach (BlockBase _block in Blocks)
-                if (!_block.Core.GenData.Used && _block.Core.GenData.RemoveIfUnused)
+                if (!_block.CoreData.GenData.Used && _block.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(_block);
             CleanBlockList();
             CleanDrawLayers();
@@ -1117,7 +1117,7 @@ namespace CloudberryKingdom.Levels
             Sleep();
 
             // Limit general density of all obstacles.
-            Cleanup(Objects.FindAll(obj => obj.Core.GenData.LimitGeneralDensity), delegate(Vector2 pos)
+            Cleanup(Objects.FindAll(obj => obj.CoreData.GenData.LimitGeneralDensity), delegate(Vector2 pos)
             {
                 float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
                 return new Vector2(dist, dist);
@@ -1128,7 +1128,7 @@ namespace CloudberryKingdom.Levels
             {
                 Coin coin = obj as Coin;
                 if (null != coin)
-                    if (coin.Core.AddedTimeStamp > LastStep)
+                    if (coin.CoreData.AddedTimeStamp > LastStep)
                         Recycle.CollectObject(coin);
             }
 
@@ -1148,11 +1148,11 @@ namespace CloudberryKingdom.Levels
         {
             foreach (ObjectBase obj in Objects)
             {
-                if (obj.Core.GenData.NoBlockOverlap)
+                if (obj.CoreData.GenData.NoBlockOverlap)
                 {
                     foreach (BlockBase block in Blocks)
                     {
-                        if (block.BlockCore.RemoveOverlappingObjects && block != obj.Core.ParentBlock && Phsx.PointAndAABoxCollisionTest(ref obj.Core.Data.Position, block.Box, obj.Core.GenData.OverlapWidth))
+                        if (block.BlockCore.RemoveOverlappingObjects && block != obj.CoreData.ParentBlock && Phsx.PointAndAABoxCollisionTest(ref obj.CoreData.Data.Position, block.Box, obj.CoreData.GenData.OverlapWidth))
                             Recycle.CollectObject(obj);
                     }
                 }
@@ -1171,17 +1171,17 @@ namespace CloudberryKingdom.Levels
         {
             foreach (BlockBase block2 in Blocks)
             {
-                if (block2.Core.MarkedForDeletion) continue;
+                if (block2.CoreData.MarkedForDeletion) continue;
 
                 foreach (BlockBase block in Blocks)
                 {
-                    if (block2.Core.MarkedForDeletion) break;
-                    if (block.Core.GenData.Used || block.Core.MarkedForDeletion) continue;
+                    if (block2.CoreData.MarkedForDeletion) break;
+                    if (block.CoreData.GenData.Used || block.CoreData.MarkedForDeletion) continue;
 
-                    if (block != block2 && block.Core.GenData.RemoveIfOverlap && block2.Core.GenData.RemoveIfOverlap &&
-                         ((block.Core.Data.Position - block2.Core.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
+                    if (block != block2 && block.CoreData.GenData.RemoveIfOverlap && block2.CoreData.GenData.RemoveIfOverlap &&
+                         ((block.CoreData.Data.Position - block2.CoreData.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
                     {
-                        switch (block.Core.GenData.MyOverlapPreference)
+                        switch (block.CoreData.GenData.MyOverlapPreference)
                         {
                             case GenerationData.OverlapPreference.RemoveHigherThanMe:
                                 if (block2.Box.Target.TR.Y > block.Box.Target.TR.Y)
@@ -1213,14 +1213,14 @@ namespace CloudberryKingdom.Levels
         {
             foreach (BlockBase block2 in Blocks)
             {
-                if (block2.Core.MarkedForDeletion) continue;
+                if (block2.CoreData.MarkedForDeletion) continue;
 
                 foreach (BlockBase block in Blocks)
                 {
-                    if (block.Core.GenData.Used || block.Core.MarkedForDeletion) continue;
+                    if (block.CoreData.GenData.Used || block.CoreData.MarkedForDeletion) continue;
 
-                    if (block != block2 && block.Core.GenData.RemoveIfOverlap &&
-                         ((block.Core.Data.Position - block2.Core.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
+                    if (block != block2 && block.CoreData.GenData.RemoveIfOverlap &&
+                         ((block.CoreData.Data.Position - block2.CoreData.Data.Position).Length() < CurMakeData.PieceSeed.Style.MinBlockDist || Phsx.BoxBoxOverlap(block.Box, block2.Box)))
                     {
                         Recycle.CollectObject(block);
                     }

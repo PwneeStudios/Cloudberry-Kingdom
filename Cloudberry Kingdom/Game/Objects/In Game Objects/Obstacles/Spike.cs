@@ -62,15 +62,15 @@ namespace CloudberryKingdom.Obstacles
 
             SetDir(Prototypes.SpikeObj.Dir);
 
-            Core.Init();
-            Core.MyType = ObjectType.Spike;
-            Core.ContinuousEnabled = true;
-            Core.DrawLayer = 2;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.Spike;
+            CoreData.ContinuousEnabled = true;
+            CoreData.DrawLayer = 2;
 
-            Core.GenData.NoBlockOverlap = true;
-            Core.GenData.LimitGeneralDensity = true;
+            CoreData.GenData.NoBlockOverlap = true;
+            CoreData.GenData.LimitGeneralDensity = true;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         float SetHeight;
@@ -82,7 +82,7 @@ namespace CloudberryKingdom.Obstacles
             MyObject.Base.e1 = new Vector2(size.X, 0);
             MyObject.Base.e2 = new Vector2(0, size.Y);
 
-            Box.Initialize(Core.Data.Position, Prototypes.SpikeObj.MyObject.Boxes[0].Size() / 2);
+            Box.Initialize(CoreData.Data.Position, Prototypes.SpikeObj.MyObject.Boxes[0].Size() / 2);
 
             MyObject.Read(0, 0);
             MyObject.Update();
@@ -114,7 +114,7 @@ namespace CloudberryKingdom.Obstacles
                 }
             }
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
             Box.SwapToCurrent();
         }
 
@@ -178,27 +178,27 @@ namespace CloudberryKingdom.Obstacles
             MyObject.Update();
 
 
-            Core.Data.Position = new Vector2(0, 0);
-            Core.Data.Velocity = new Vector2(0, 0);
+            CoreData.Data.Position = new Vector2(0, 0);
+            CoreData.Data.Velocity = new Vector2(0, 0);
 
-            Box = new AABox(Core.Data.Position, MyObject.Boxes[0].Size() / 2);
+            Box = new AABox(CoreData.Data.Position, MyObject.Boxes[0].Size() / 2);
         }
 
         public override void PhsxStep()
         {
-            Core.PosFromParentOffset();
+            CoreData.PosFromParentOffset();
 
             Vector2 PhsxCutoff = new Vector2(200, 200);
-            if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(-150, 200);
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
+            if (CoreData.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(-150, 200);
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, PhsxCutoff))
             {
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 UpdateObject();
             }            
@@ -210,22 +210,22 @@ namespace CloudberryKingdom.Obstacles
             Box.Current.Size = CoreMath.Abs(MyObject.Boxes[0].Size()) / 2;
             Box.SetTarget(Box.Current.Center, Box.Current.Size + new Vector2(.0f, .02f));
             
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Box.SwapToCurrent();
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
         public override void PhsxStep2()
         {
-            if (Core.SkippedPhsx) return;
+            if (CoreData.SkippedPhsx) return;
 
             Box.SetCurrent(Box.Current.Center, Box.Current.Size);
         }
 
 
-        public void AnimStep() { AnimStep(Core.SkippedPhsx); }
+        public void AnimStep() { AnimStep(CoreData.SkippedPhsx); }
         public void AnimStep(bool Skip)
         {
             if (Skip) return;
@@ -238,13 +238,13 @@ namespace CloudberryKingdom.Obstacles
 
             float AnimSpeed = 0;
 
-            float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
+            float t = (float)CoreMath.Modulo(CoreData.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
             if (t < UpT) MyObject.t = PeakHeight + (1 - PeakHeight) * t / (float)UpT;
             else if (t < UpT + WaitT1) MyObject.t = 1;
             else if (t < UpT + WaitT1 + DownT) MyObject.t = 1 + .9f * (t - UpT - WaitT1) / (float)DownT;
             else MyObject.t = 1.9f +.1f * (t - UpT - WaitT1 - DownT) / (float)WaitT2;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 // Peak out before showing
                 if (PeakOut)
@@ -285,7 +285,7 @@ namespace CloudberryKingdom.Obstacles
         {
             if (MyObject != null)
             {
-                MyObject.Base.Origin = Core.Data.Position;
+                MyObject.Base.Origin = CoreData.Data.Position;
                 MyObject.Update();
             }
         }
@@ -295,11 +295,11 @@ namespace CloudberryKingdom.Obstacles
             //if (MyBaseQuad.Quad._MyTexture != null)
             if (MyBaseQuad != null)
             {
-                MyQuad.Pos = Pos;
+                MyQuad.Pos = CoreData.Data.Position;
                 MyQuad.Draw();
 
                 //MyBaseQuad.Quad.MyEffect = Tools.EffectWad.FindByName("Hsl");
-                MyBaseQuad.Pos = Pos;
+                MyBaseQuad.Pos = CoreData.Data.Position;
                 MyBaseQuad.Draw();
             }
             else
@@ -331,20 +331,20 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Interact(Bob bob)
         {
-            if (!Core.SkippedPhsx && Exposed)
+            if (!CoreData.SkippedPhsx && Exposed)
             {
                 bool Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
                 if (Col)
                 {
-                    if (Core.MyLevel.PlayMode == 0)
+                    if (CoreData.MyLevel.PlayMode == 0)
                         bob.Die(BobDeathType.Spike, this);
 
-                    if (Core.MyLevel.PlayMode != 0)
+                    if (CoreData.MyLevel.PlayMode != 0)
                     {
-                        bool col = Phsx.BoxBoxOverlap_Tiered(Box, Core, bob, Spike_AutoGen.Instance);
+                        bool col = Phsx.BoxBoxOverlap_Tiered(Box, CoreData, bob, Spike_AutoGen.Instance);
 
                         if (col)
-                            Core.Recycle.CollectObject(this);
+                            CoreData.Recycle.CollectObject(this);
                     }
                 }
             }
@@ -362,10 +362,10 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
                         
             Spike SpikeA = A as Spike;
-            Init(A.Pos, A.MyLevel);
+            Init(A.CoreData.Data.Position, A.MyLevel);
 
             SetDir(SpikeA.Dir);
 
@@ -376,7 +376,7 @@ namespace CloudberryKingdom.Obstacles
             WaitT1 = SpikeA.WaitT1;
             WaitT2 = SpikeA.WaitT2;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
             UpdateObject();
 
             Exposed = SpikeA.Exposed;

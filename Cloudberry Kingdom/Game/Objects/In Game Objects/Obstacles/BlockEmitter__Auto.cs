@@ -145,12 +145,12 @@ namespace CloudberryKingdom.Levels
 
                         if (Bottom)
                         {
-                            bm.EmitData.Position = bm.Core.Data.Position = new Vector2(Pos.X, level.MainCamera.BL.Y - 200);
+                            bm.EmitData.Position = bm.CoreData.Data.Position = new Vector2(Pos.X, level.MainCamera.BL.Y - 200);
                             bm.EmitData.Velocity = new Vector2(0, Vel);
                         }
                         else
                         {
-                            bm.EmitData.Position = bm.Core.Data.Position = new Vector2(Pos.X, level.MainCamera.TR.Y + 200);
+                            bm.EmitData.Position = bm.CoreData.Data.Position = new Vector2(Pos.X, level.MainCamera.TR.Y + 200);
                             bm.EmitData.Velocity = new Vector2(0, -Vel);
                         }
 
@@ -189,12 +189,12 @@ namespace CloudberryKingdom.Levels
 
                             if (Left)
                             {
-                                bm.EmitData.Position = bm.Core.Data.Position = new Vector2(level.MainCamera.BL.X - 200, Pos.Y);
+                                bm.EmitData.Position = bm.CoreData.Data.Position = new Vector2(level.MainCamera.BL.X - 200, Pos.Y);
                                 bm.EmitData.Velocity = new Vector2(Vel, 0);
                             }
                             else
                             {
-                                bm.EmitData.Position = bm.Core.Data.Position = new Vector2(level.MainCamera.TR.X + 200, Pos.Y);
+                                bm.EmitData.Position = bm.CoreData.Data.Position = new Vector2(level.MainCamera.TR.X + 200, Pos.Y);
                                 bm.EmitData.Velocity = new Vector2(-Vel, 0);
                             }
 
@@ -238,7 +238,7 @@ namespace CloudberryKingdom.Levels
             bm.AlwaysOn = true;
             
             //bm.Core.GenData.RemoveIfUnused = level.DefaultHeroType is BobPhsxSpaceship ? false : true;
-            bm.Core.GenData.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(Pos), level.Rnd);
+            bm.CoreData.GenData.Decide_RemoveIfUnused(Params.KeepUnused.GetVal(Pos), level.Rnd);
 
             // Discrete period offsets
             int NumOffsets = 4; // Params.NumOffsets;
@@ -248,7 +248,7 @@ namespace CloudberryKingdom.Levels
             bm.Amp = Params.Amp.GetVal(Pos);
 
             if (level.Style.RemoveBlockOnOverlap)
-                bm.Core.GenData.RemoveIfOverlap = true;
+                bm.CoreData.GenData.RemoveIfOverlap = true;
 
             level.AddObject(bm);
         }

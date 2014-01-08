@@ -33,17 +33,17 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = Serpent_AutoGen.Instance;
-            Core.MyType = ObjectType.Serpent;
+            CoreData.MyType = ObjectType.Serpent;
             DeathType = Bobs.BobDeathType.Serpent;
-            Core.DrawLayer = 8;
+            CoreData.DrawLayer = 8;
 
             PhsxCutoff_Playing = new Vector2(200, 4000);
             PhsxCutoff_BoxesOnly = new Vector2(-150, 4000);
 
-            Core.GenData.NoBlockOverlap = false;
-            Core.GenData.LimitGeneralDensity = false;
+            CoreData.GenData.NoBlockOverlap = false;
+            CoreData.GenData.LimitGeneralDensity = false;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Init(Vector2 pos, Level level)
@@ -103,19 +103,19 @@ namespace CloudberryKingdom.Obstacles
             AnimStep();
         }
 
-        public void AnimStep() { AnimStep(Core.SkippedPhsx); }
+        public void AnimStep() { AnimStep(CoreData.SkippedPhsx); }
         public void AnimStep(bool Skip)
         {
             if (Skip) return;
 
             Exposed = true;
 
-            float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
+            float t = (float)CoreMath.Modulo(CoreData.GetIndependentPhsxStep() + Offset, UpT + DownT + WaitT1 + WaitT2);
 
             float s = 0, s_fish = 0;
 
             // Fish
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 if (t < WaitT1 + UpT)
                     s_fish = CoreMath.ParabolaInterp(t / (WaitT1), new Vector2(1.2f, 1.00f), 0, 2.5f);
@@ -149,15 +149,15 @@ namespace CloudberryKingdom.Obstacles
             //}
 
 
-            Pos = Vector2.Lerp(Start, End, s) - new Vector2(0, BoxSize.Y);
+            CoreData.Data.Position = Vector2.Lerp(Start, End, s) - new Vector2(0, BoxSize.Y);
         }
 
         protected override void DrawGraphics()
         {
-            if (MyFish.Pos.Y > Pos.Y + BoxSize.Y - 50)
+            if (MyFish.Pos.Y > CoreData.Data.Position.Y + BoxSize.Y - 50)
                 MyFish.Draw();
 
-            MyQuad.Pos = Pos + new Vector2(0, BoxSize.Y);
+            MyQuad.Pos = CoreData.Data.Position + new Vector2(0, BoxSize.Y);
             MyQuad.Draw();
         }
 
@@ -173,8 +173,8 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
-            Init(A.Core.StartData.Position, A.MyLevel);
+            CoreData.Clone(A.CoreData);
+            Init(A.CoreData.StartData.Position, A.MyLevel);
             
             Serpent SerpentA = A as Serpent;
 
@@ -186,7 +186,7 @@ namespace CloudberryKingdom.Obstacles
 
             Exposed = SerpentA.Exposed;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }

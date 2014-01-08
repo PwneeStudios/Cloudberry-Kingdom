@@ -69,14 +69,14 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void MakeNew()
         {
-            Core.Init();
-            Core.MyType = ObjectType.Door;
-            Core.DrawLayer = 1;
-            Core.DrawLayer2 = 1;
-            Core.DrawSubLayer = 1000; Core.FixSubLayer = true;
-            Core.ResetOnlyOnReset = true;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.Door;
+            CoreData.DrawLayer = 1;
+            CoreData.DrawLayer2 = 1;
+            CoreData.DrawSubLayer = 1000; CoreData.FixSubLayer = true;
+            CoreData.ResetOnlyOnReset = true;
 
-            Core.EditHoldable = true;
+            CoreData.EditHoldable = true;
 
             UsedOnce = false;
 
@@ -104,7 +104,7 @@ namespace CloudberryKingdom.InGameObjects
             if (level != null && level.CurMakeData != null && level.CurMakeData.PieceSeed != null)
                 HitBoxPadding = level.Style.DoorHitBoxPadding;
 
-            Core.MyTileSet = TileSetType;
+            CoreData.MyTileSet = TileSetType;
 
             var info = TileSetType.MyTileSetInfo.Doors;
             MyQuad.Quad.Init();
@@ -130,27 +130,27 @@ namespace CloudberryKingdom.InGameObjects
 
         public Door(bool BoxesOnly)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MyQuad = new QuadClass();
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public Vector2 GetBottom()
         {
             MyQuad.Update();
             //return ShiftBottom + new Vector2(Pos.X, MyQuad.BL.Y + 11.5f);
-            return Pos;
+            return CoreData.Data.Position;
         }
 
         public Vector2 GetTop()
         {
             MyQuad.Update();
             //return new Vector2(Pos.X, MyQuad.TR.Y + 11.5f);
-            return Pos + new Vector2(0, 400);
+            return CoreData.Data.Position + new Vector2(0, 400);
         }
 
         /// <summary>
@@ -172,12 +172,12 @@ namespace CloudberryKingdom.InGameObjects
 
         public void HideBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
+            CoreData.MyLevel.Bobs.ForEach(bob => bob.CoreData.Show = false);
         }
 
         public void ShowBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => bob.Core.Show = true);
+            CoreData.MyLevel.Bobs.ForEach(bob => bob.CoreData.Show = true);
         }
 
         public bool SuppressSound = false;
@@ -199,12 +199,12 @@ namespace CloudberryKingdom.InGameObjects
                     {
                         if (ActivatingBob != null)
                         {
-                            ActivatingBob.Core.Show = false;
+                            ActivatingBob.CoreData.Show = false;
                             ActivatingBob.SetLightSourceToFade();
                         }
                         else
                         {
-                            InteractingBob.Core.Show = false;
+                            InteractingBob.CoreData.Show = false;
                             InteractingBob.SetLightSourceToFade();
                         }
                     }
@@ -222,15 +222,15 @@ namespace CloudberryKingdom.InGameObjects
 
         public void Update()
         {
-            if (Core.BoxesOnly) return;
+            if (CoreData.BoxesOnly) return;
             
-            MyQuad.Base.Origin = Pos;
+            MyQuad.Base.Origin = CoreData.Data.Position;
         }
 
 
         public void MakeNote()
         {
-            if (Core.BoxesOnly || Core.MyLevel == null)
+            if (CoreData.BoxesOnly || CoreData.MyLevel == null)
                 return;
 
             // Don't show a note for this door if it has been used before.
@@ -239,7 +239,7 @@ namespace CloudberryKingdom.InGameObjects
             if (MyPressNote == null)
             {
                 MyPressNote = new PressNote(this);
-                Core.MyLevel.MyGame.AddGameObject(MyPressNote);
+                CoreData.MyLevel.MyGame.AddGameObject(MyPressNote);
             }
             else
                 MyPressNote.FadeIn();
@@ -259,7 +259,7 @@ namespace CloudberryKingdom.InGameObjects
         {
             ShakeStep = Length;
             ShakeIntensity = Intensity;
-            save = Pos;
+            save = CoreData.Data.Position;
 
             if (Sound)
                 Tools.SoundWad.FindByName("Bash").Play(1f);
@@ -271,13 +271,13 @@ namespace CloudberryKingdom.InGameObjects
             {
                 if (step % 2 == 0)
                 {
-                    Pos = save;
-                    Pos += new Vector2(MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity), MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity));
+                    CoreData.Data.Position = save;
+                    CoreData.Data.Position += new Vector2(MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity), MyLevel.Rnd.Rnd.Next(-ShakeIntensity, ShakeIntensity));
                 }
 
                 ShakeStep--;
                 if (ShakeStep == 0)
-                    Pos = save;
+                    CoreData.Data.Position = save;
             }
         }
 
@@ -294,14 +294,14 @@ namespace CloudberryKingdom.InGameObjects
 
         bool OnScreen()
         {
-            if (Core.BoxesOnly) return false;
+            if (CoreData.BoxesOnly) return false;
 
             float Grace = 300;
-            if (Core.MyLevel.ModZoom.X < 0) Grace += 500;
+            if (CoreData.MyLevel.ModZoom.X < 0) Grace += 500;
             
-            if (Pos.X > Core.MyLevel.MainCamera.TR.X + Grace + MyQuad.Base.e1.X || Pos.Y > Core.MyLevel.MainCamera.TR.Y + Grace + MyQuad.Base.e2.Y)
+            if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + Grace + MyQuad.Base.e1.X || CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + Grace + MyQuad.Base.e2.Y)
                 return false;
-            if (Pos.X < Core.MyLevel.MainCamera.BL.X - Grace - MyQuad.Base.e1.X || Pos.Y < Core.MyLevel.MainCamera.BL.Y - 500 - MyQuad.Base.e2.Y)
+            if (CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - Grace - MyQuad.Base.e1.X || CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 500 - MyQuad.Base.e2.Y)
                 return false;
 
             return true;
@@ -309,7 +309,7 @@ namespace CloudberryKingdom.InGameObjects
         
         public override void Draw()
         {
-            if (!OnScreen() || !Core.Active) return;
+            if (!OnScreen() || !CoreData.Active) return;
 
             if (Tools.DrawGraphics)
             {
@@ -323,7 +323,7 @@ namespace CloudberryKingdom.InGameObjects
             if (Tools.DrawBoxes)
             {
 				Color color = UsedOnce ? new Color(125, 125, 125, 255) : new Color(255, 255, 255, 125);
-				Tools.QDrawer.DrawFilledBox(Pos + new Vector2(-100, -200), Pos + new Vector2(100, 120), color);
+				Tools.QDrawer.DrawFilledBox(CoreData.Data.Position + new Vector2(-100, -200), CoreData.Data.Position + new Vector2(100, 120), color);
 
 				//Tools.QDrawer.DrawCircle(Pos, 30, Color.Red);
             }
@@ -335,29 +335,29 @@ namespace CloudberryKingdom.InGameObjects
         /// <param name="pos"></param>
         public void PlaceAt(Vector2 pos)
         {
-            Move(pos + ShiftStart - Pos);
+            Move(pos + ShiftStart - CoreData.Data.Position);
             //Move(pos - GetBottom());
             //Move(pos - Pos);
         }
 
         public override void Move(Vector2 shift)
         {
-            Pos += shift;
+            CoreData.Data.Position += shift;
             Update();
         }
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
             
-            SetDoorType(Core.MyTileSet, null);
+            SetDoorType(CoreData.MyTileSet, null);
 
             MyPressNote = null;
         }
 
         public void MoveBobs()
         {
-            Core.MyLevel.Bobs.ForEach(bob => MoveBobToHere(bob));
+            CoreData.MyLevel.Bobs.ForEach(bob => MoveBobToHere(bob));
         }
 
         public bool MoveFeet = false;
@@ -368,9 +368,9 @@ namespace CloudberryKingdom.InGameObjects
                 bob.Move(ShiftStart + GetBottom() - bob.Feet() + new Vector2(0, 1));
             }
             else
-                bob.Move(ShiftStart + Pos - bob.Pos);
+                bob.Move(ShiftStart + CoreData.Data.Position - bob.CoreData.Data.Position);
 
-            bob.Core.Data.Velocity = Vector2.Zero;
+            bob.CoreData.Data.Velocity = Vector2.Zero;
             TemporaryBlock = true;
         }
 
@@ -456,14 +456,14 @@ namespace CloudberryKingdom.InGameObjects
             float scale = bob.GetScale().X;
 
             float x_pad = DoorSize.X + HitBoxPadding.X + Info.Doors.SizePadding.X + 22 + .018f * bob.Box.Current.Size.X + Math.Max(0, 36 * (scale - 1));
-            x_pad = CoreMath.Restrict(Math.Abs(bob.Core.Data.Velocity.X * 1.3f), 500, x_pad);
+            x_pad = CoreMath.Restrict(Math.Abs(bob.CoreData.Data.Velocity.X * 1.3f), 500, x_pad);
             float y_pad = DoorSize.Y + HitBoxPadding.Y + Info.Doors.SizePadding.X + 50 + Math.Max(0, 80 * (scale - 1));
 
             bool InteractedWith = false;
             if ((
-                (Math.Abs(bob.Pos.X - Pos.X) < x_pad &&
-                 Math.Abs(bob.Pos.Y - Pos.Y) < y_pad)) &&
-                (!bob.CompControl || AllowCompControl) && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
+                (Math.Abs(bob.CoreData.Data.Position.X - CoreData.Data.Position.X) < x_pad &&
+                 Math.Abs(bob.CoreData.Data.Position.Y - CoreData.Data.Position.Y) < y_pad)) &&
+                (!bob.CompControl || AllowCompControl) && !CoreData.MyLevel.Watching && !CoreData.MyLevel.Replay)
             {
 				FramesSinceInteractedWith = 0;
 
@@ -514,7 +514,7 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Door DoorA = A as Door;
 
@@ -527,14 +527,14 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Write(BinaryWriter writer)
         {
-            Core.Write(writer);
+            CoreData.Write(writer);
 
             MyQuad.Write(writer);
         }
 
         public override void Read(BinaryReader reader)
         {
-            Core.Read(reader);
+            CoreData.Read(reader);
 
             MyQuad.Read(reader);
         }

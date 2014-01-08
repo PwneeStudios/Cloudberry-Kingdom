@@ -170,7 +170,7 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
             base.MyDraw();
         }
@@ -185,7 +185,7 @@ namespace CloudberryKingdom
         protected override void MyPhsxStep()
         {
             base.MyPhsxStep();
-            if (Core.Released || MyGame == null) return;
+            if (CoreData.Released || MyGame == null) return;
 
             if (MyGame.HasBeenCompleted) return;
 
@@ -200,7 +200,7 @@ namespace CloudberryKingdom
                 return;
             }
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (CoreData.MyLevel.Watching || CoreData.MyLevel.Finished) return;
 
             if (CountDownWhileDead || !PlayerManager.AllDead())
                 Time--;

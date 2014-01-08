@@ -35,13 +35,13 @@ namespace CloudberryKingdom.Obstacles
         {
             base.OnAttachedToBlock();
 
-            if (Core.ParentBlock is NormalBlock)
+            if (CoreData.ParentBlock is NormalBlock)
                 return;
             else
             {
-                Core.DrawLayer = Core.ParentBlock.Core.DrawLayer;
-                Core.DrawLayer2 = Core.ParentBlock.Core.DrawLayer + 1;
-                Core.DrawLayer3 = Core.ParentBlock.Core.DrawLayer + 2;
+                CoreData.DrawLayer = CoreData.ParentBlock.CoreData.DrawLayer;
+                CoreData.DrawLayer2 = CoreData.ParentBlock.CoreData.DrawLayer + 1;
+                CoreData.DrawLayer3 = CoreData.ParentBlock.CoreData.DrawLayer + 2;
             }
         }
 
@@ -50,10 +50,10 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = SpikeyGuy_AutoGen.Instance;
-            Core.MyType = ObjectType.SpikeyGuy;
+            CoreData.MyType = ObjectType.SpikeyGuy;
             DeathType = Bobs.BobDeathType.SpikeyGuy;
 
-            Core.ContinuousEnabled = true;
+            CoreData.ContinuousEnabled = true;
             
             Angle = 0;
             Dir = 1;
@@ -61,9 +61,9 @@ namespace CloudberryKingdom.Obstacles
             Offset = 0;
             PivotPoint = Vector2.Zero;
 
-            Core.DrawLayer = 4;
-            Core.DrawLayer2 = 5;
-            Core.DrawLayer3 = 6;
+            CoreData.DrawLayer = 4;
+            CoreData.DrawLayer2 = 5;
+            CoreData.DrawLayer3 = 6;
         }
 
         public override void Init(Vector2 pos, Level level)
@@ -72,7 +72,7 @@ namespace CloudberryKingdom.Obstacles
 
             PivotPoint = pos;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 Head.Set(level.Info.SpikeyGuys.Ball);
                 Anchor.Set(level.Info.SpikeyGuys.Base);
@@ -83,7 +83,7 @@ namespace CloudberryKingdom.Obstacles
         {
             base.Construct(BoxesOnly);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 Anchor = new QuadClass();
                 Head = new QuadClass();
@@ -112,24 +112,24 @@ namespace CloudberryKingdom.Obstacles
 
         public override void PhsxStep()
         {
-            if (Core.ParentBlock != null)
-                PivotPoint = Core.GetPosFromParentOffset();
+            if (CoreData.ParentBlock != null)
+                PivotPoint = CoreData.GetPosFromParentOffset();
 
             float PhsxCutoff = Length + 1800;
-            if (Core.MyLevel.BoxesOnly) PhsxCutoff = Length + 100;
+            if (CoreData.MyLevel.BoxesOnly) PhsxCutoff = Length + 100;
             
-            if (!Core.MyLevel.MainCamera.OnScreen(PivotPoint, PhsxCutoff))
+            if (!CoreData.MyLevel.MainCamera.OnScreen(PivotPoint, PhsxCutoff))
             {
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
-            float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
+            float Step = CoreMath.Modulo(CoreData.MyLevel.GetIndependentPhsxStep() + Offset, Period);
             float t = Dir * (float)Step / (float)Period;
 
-            Pos = GetPos(t);
+            CoreData.Data.Position = GetPos(t);
             Angle = CorrespondingAngle;
 
             Radius = Info.SpikeyGuys.Radius;
@@ -141,9 +141,9 @@ namespace CloudberryKingdom.Obstacles
         bool OffScreen = false;
         protected override void DrawGraphics()
         {
-            if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+            if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer)
             {
-                if (Core.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Info.SpikeyGuys.Radius + 600))
+                if (CoreData.MyLevel.MainCamera.OnScreen(PivotPoint, Length + Info.SpikeyGuys.Radius + 600))
                     OffScreen = false;
                 else
                 {
@@ -154,39 +154,39 @@ namespace CloudberryKingdom.Obstacles
             else
                 if (OffScreen) return;
 
-            if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+            if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer)
             {
                 Anchor.Pos = PivotPoint;
                 Anchor.Draw();
             }
-            else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
+            else if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer2)
             {
-                Tools.QDrawer.DrawLine(PivotPoint, Pos, Info.SpikeyGuys.Chain);
+                Tools.QDrawer.DrawLine(PivotPoint, CoreData.Data.Position, Info.SpikeyGuys.Chain);
             }
-            else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
+            else if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer3)
             {
                 if (Info.SpikeyGuys.Rotate)
                     Head.PointxAxisTo(CorrespondingAngle + Info.SpikeyGuys.RotateOffset + Info.SpikeyGuys.RotateSpeed * MyLevel.IndependentPhsxStep);
                 else
                     Head.PointxAxisTo(Info.SpikeyGuys.RotateOffset);
 
-                Head.Pos = Pos;
+                Head.Pos = CoreData.Data.Position;
                 Head.Draw();
             }
         }
 
         protected override void DrawBoxes()
         {
-            if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+            if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer)
             {
             }
-            else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer2)
+            else if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer2)
             {
-				Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(190, 90, 255, 100), 25);
+				Tools.QDrawer.DrawLine(PivotPoint, CoreData.Data.Position, new Color(190, 90, 255, 100), 25);
 
 				//Tools.QDrawer.DrawLine(PivotPoint, Core.Data.Position, new Color(255, 255, 255, 215), 20);
             }
-            else if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer3)
+            else if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer3)
             {
 				Circle.Draw(new Color(190, 90, 255, 255));
 
@@ -203,10 +203,10 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             SpikeyGuy FloaterA = A as SpikeyGuy;
-            Init(FloaterA.Pos, FloaterA.MyLevel);
+            Init(FloaterA.CoreData.Data.Position, FloaterA.MyLevel);
 
             Angle = FloaterA.Angle;
             Dir = FloaterA.Dir;
@@ -215,7 +215,7 @@ namespace CloudberryKingdom.Obstacles
             PivotPoint = FloaterA.PivotPoint;
             Length = FloaterA.Length;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }

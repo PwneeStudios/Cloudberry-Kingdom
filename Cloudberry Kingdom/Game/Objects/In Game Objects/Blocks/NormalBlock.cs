@@ -17,7 +17,7 @@ namespace CloudberryKingdom.Blocks
 
         public void BasicConstruction(bool BoxesOnly)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MyBox = new AABox();
             MyDraw = new NormalBlockDraw();
@@ -46,9 +46,9 @@ namespace CloudberryKingdom.Blocks
 
             BlockCore.Init();
             BlockCore.Layer = .3f;
-            Core.DrawLayer = 1;
-            Core.MyType = ObjectType.NormalBlock;
-            Core.EditHoldable = Core.Holdable = true;
+            CoreData.DrawLayer = 1;
+            CoreData.MyType = ObjectType.NormalBlock;
+            CoreData.EditHoldable = CoreData.Holdable = true;
 
             Init(Vector2.Zero, Vector2.Zero, TileSets.DefaultTileSet);
         }
@@ -69,7 +69,7 @@ namespace CloudberryKingdom.Blocks
 
         PieceQuad GetPieceTemplate(float width)
         {
-            var tileset = Core.MyTileSet;
+            var tileset = CoreData.MyTileSet;
             if (tileset.ProvidesTemplates)
             {
                 if (MyLevel == null)
@@ -100,9 +100,9 @@ namespace CloudberryKingdom.Blocks
 
         public void Init(Vector2 center, Vector2 size, TileSet tile)
         {
-            Core.Data.Position = Core.StartData.Position = center;
-            Core.MyTileSet = tile;
-            Tools.Assert(Core.MyTileSet != null);
+            CoreData.Data.Position = CoreData.StartData.Position = center;
+            CoreData.MyTileSet = tile;
+            Tools.Assert(CoreData.MyTileSet != null);
 
             if (tile.FixedWidths)
             {
@@ -129,7 +129,7 @@ namespace CloudberryKingdom.Blocks
 
             MyBox.Initialize(center, size);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 MyDraw.Init(this, GetPieceTemplate(), Invert);
             
             Update();
@@ -141,11 +141,11 @@ namespace CloudberryKingdom.Blocks
 
         public void CheckHeight()
         {
-            Tools.Assert(Core.MyTileSet != null);
+            Tools.Assert(CoreData.MyTileSet != null);
 
-            if (BlockCore.DisableFlexibleHeight || !Core.MyTileSet.FlexibleHeight)
+            if (BlockCore.DisableFlexibleHeight || !CoreData.MyTileSet.FlexibleHeight)
             {
-                if (MyBox.Current.BL.Y > Core.MyLevel.MainCamera.BL.Y - 20)
+                if (MyBox.Current.BL.Y > CoreData.MyLevel.MainCamera.BL.Y - 20)
                     MakeTopOnly();
             }
             else
@@ -157,7 +157,7 @@ namespace CloudberryKingdom.Blocks
 
         public void MakeTopOnly()
         {
-            Tools.Assert(Core.MyTileSet != null);
+            Tools.Assert(CoreData.MyTileSet != null);
 
             Box.TopOnly = true;
             Extend(Side.Bottom, Box.Current.TR.Y - TopOnlyHeight);
@@ -176,12 +176,12 @@ namespace CloudberryKingdom.Blocks
 
         public override void Reset(bool BoxesOnly)
         {
-            if (Core.AlwaysBoxesOnly)
+            if (CoreData.AlwaysBoxesOnly)
                 BoxesOnly = true;
             else
                 BlockCore.BoxesOnly = BoxesOnly;
 
-            if (!Core.BoxesOnly && !Core.VisualResettedOnce)
+            if (!CoreData.BoxesOnly && !CoreData.VisualResettedOnce)
                 ResetPieces();
 
             Active = true;
@@ -193,8 +193,8 @@ namespace CloudberryKingdom.Blocks
 
             Update();
 
-            if (!Core.BoxesOnly)
-                Core.VisualResettedOnce = true;
+            if (!CoreData.BoxesOnly)
+                CoreData.VisualResettedOnce = true;
         }
 
         public override void PhsxStep()
@@ -202,13 +202,13 @@ namespace CloudberryKingdom.Blocks
             int Padding = 250;
             if (MyLevel.PlayMode != 0) Padding = -150;
 
-            Active = Core.Active = true;
+            Active = CoreData.Active = true;
             Vector2 BL = MyBox.Current.BL;
             if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X + Padding || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 500)//+ 1250)
-                Active = Core.Active = false;
+                Active = CoreData.Active = false;
             Vector2 TR = MyBox.Current.TR;
             if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X - Padding || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 250)//- 500)
-                Active = Core.Active = false;
+                Active = CoreData.Active = false;
         }
 
         public override void PhsxStep2()
@@ -227,7 +227,7 @@ namespace CloudberryKingdom.Blocks
 
         public void MoveTo(Vector2 Pos)
         {
-            Core.Data.Position = Pos;
+            CoreData.Data.Position = Pos;
             MyBox.Target.Center = Pos;
 
             Box.SetTarget(Box.Target.Center, Box.Target.Size);
@@ -236,7 +236,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Extend(Side side, float pos)
         {
-            Tools.Assert(Core.MyTileSet != null);
+            Tools.Assert(CoreData.MyTileSet != null);
 
             MyBox.Invalidated = true;
 
@@ -245,19 +245,19 @@ namespace CloudberryKingdom.Blocks
             Update();
             MyBox.Validate();
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 MyDraw.Init(this, GetPieceTemplate(), Invert);
 
             BlockCore.StartData.Position = MyBox.Current.Center;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
         }
 
         public override void Draw()
         {
             if (!Active) return;
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
 
             Update();
 
@@ -271,16 +271,16 @@ namespace CloudberryKingdom.Blocks
 
             if (BlockCore.BoxesOnly) return;
 
-            if (Tools.DrawGraphics && Core.Show)
+            if (Tools.DrawGraphics && CoreData.Show)
             {
-                if (Core.MyTileSet != TileSets.None)
+                if (CoreData.MyTileSet != TileSets.None)
                 {
                     //if (BlockCore.Ceiling)
                         MyDraw.Draw();
                     //Tools.QDrawer.Flush();
                 }
 
-                if (Core.Encased)
+                if (CoreData.Encased)
                 {
                     MyBox.DrawFilled(Tools.QDrawer, new Color(100, 100, 200, 100));
                     MyBox.Draw(Tools.QDrawer, new Color(120, 120, 240, 150), 18, true);
@@ -293,13 +293,13 @@ namespace CloudberryKingdom.Blocks
         public override void Clone(ObjectBase A)
         {
             NormalBlock BlockA = A as NormalBlock;
-            BlockCore.Clone(A.Core);
+            BlockCore.Clone(A.CoreData);
 
             if (BlockA == null) return;
 
             Box.TopOnly = BlockA.Box.TopOnly;
 
-            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, A.Core.MyTileSet);
+            Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, A.CoreData.MyTileSet);
 
             if (MyDraw != null && BlockA.MyDraw != null)
                 MyDraw.Clone(BlockA.MyDraw);
@@ -323,8 +323,8 @@ namespace CloudberryKingdom.Blocks
         {
             if (BlockCore.Ceiling)
             {
-                if (bob.Core.Data.Position.X > Box.Current.BL.X - 100 &&
-                    bob.Core.Data.Position.X < Box.Current.TR.X + 100)
+                if (bob.CoreData.Data.Position.X > Box.Current.BL.X - 100 &&
+                    bob.CoreData.Data.Position.X < Box.Current.TR.X + 100)
                 {
                     float NewBottom = Box.Current.BL.Y;
 
@@ -337,10 +337,10 @@ namespace CloudberryKingdom.Blocks
                     Extend(Side.Bottom,
                         Math.Max(NewBottom,
                                  Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y)
-                                    + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+                                    + bob.CeilingParams.BufferSize.GetVal(bob.CoreData.Data.Position)));
 
                     if (Box.Current.Size.Y < 170 ||
-                        Box.Current.BL.Y > bob.Core.MyLevel.MainCamera.TR.Y - 75)
+                        Box.Current.BL.Y > bob.CoreData.MyLevel.MainCamera.TR.Y - 75)
                     {
                         bob.DeleteObj(this);
                     }
@@ -356,7 +356,7 @@ namespace CloudberryKingdom.Blocks
         {
             if (BlockCore.Ceiling)
             {
-                Extend(Side.Bottom, Math.Max(Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+                Extend(Side.Bottom, Math.Max(Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.CoreData.Data.Position)));
                 return true;
             }
 
@@ -373,7 +373,7 @@ namespace CloudberryKingdom.Blocks
         {
             bool MakeTopOnly = false;
 
-            if (!block.Core.GenData.NoMakingTopOnly)
+            if (!block.CoreData.GenData.NoMakingTopOnly)
             {
                 // If we interact with the block in any way besides landing on top of it, make it top only
                 if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;
@@ -403,7 +403,7 @@ namespace CloudberryKingdom.Blocks
                 // If we are trying to make a block be top only that can't be, delete it
                 if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
                 {
-                    if (block.Core.GenData.Used)
+                    if (block.CoreData.GenData.Used)
                         MakeTopOnly = Delete = false;
                     else
                         Delete = true;
@@ -412,7 +412,7 @@ namespace CloudberryKingdom.Blocks
                 // If we have decided to make the block top only, actually do so
                 if (MakeTopOnly)
                 {
-                    block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.Core.Data.Position)));
+                    block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(bob.Box.Target.TR.Y, bob.Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(bob.CoreData.Data.Position)));
                     ((NormalBlock)block).CheckHeight();
                     if (Col != ColType.Top)
                         Col = ColType.NoCol;
@@ -431,12 +431,12 @@ namespace CloudberryKingdom.Blocks
                 BlockCore.CeilingDraw = true;
 
             // Normal blocks delete surrounding blocks when stamped as used
-            if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
-                foreach (BlockBase nblock in Core.MyLevel.Blocks)
+            if (block.CoreData.GenData.DeleteSurroundingOnUse && block is NormalBlock)
+                foreach (BlockBase nblock in CoreData.MyLevel.Blocks)
                 {
                     NormalBlock Normal = nblock as NormalBlock;
-                    if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
-                        if (!Normal.Core.GenData.Used &&
+                    if (null != Normal && !Normal.CoreData.MarkedForDeletion && !Normal.CoreData.GenData.AlwaysUse)
+                        if (!Normal.CoreData.GenData.Used &&
                             Math.Abs(Normal.Box.Current.TR.Y - block.Box.TR.Y) < 15 &&
                             !(Normal.Box.Current.TR.X < block.Box.Current.BL.X - 350 || Normal.Box.Current.BL.X > block.Box.Current.TR.X + 350))
                         {
@@ -452,13 +452,13 @@ namespace CloudberryKingdom.Blocks
 
             BlockBase block = (NormalBlock)this;
 
-            if (!block.Core.GenData.NoBottomShift)
+            if (!block.CoreData.GenData.NoBottomShift)
             {
                 // Shift bottom of block if necessary
                 if (block is NormalBlock && !block.BlockCore.DeleteIfTopOnly)
                 {
                     float NewBottom = Math.Max(block.Box.Current.BL.Y,
-                                               Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(Core.Data.Position));
+                                               Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + bob.CeilingParams.BufferSize.GetVal(CoreData.Data.Position));
 
                     if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
                         !block.BlockCore.NonTopUsed)

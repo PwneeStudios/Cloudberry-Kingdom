@@ -271,7 +271,7 @@ else
         {
             base.MyPhsxStep();
 
-			if (Core.Released || !Active) return;
+			if (CoreData.Released || !Active) return;
 
 			if (MyInit_TimeStamp + 10 < LastSeedSave_TimeStamp)
 			{

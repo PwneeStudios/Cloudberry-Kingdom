@@ -16,8 +16,8 @@ namespace CloudberryKingdom
         public FloatRectangle Current, Target;
         public bool TopOnly, NoSides;
 
-        public Vector2 RealTR() { return Vector2.Max(TR, BL); }
-        public Vector2 RealBL() { return Vector2.Min(TR, BL); }
+        public Vector2 RealTR() { return Vector2Extension.Max(TR, BL); }
+        public Vector2 RealBL() { return Vector2Extension.Min(TR, BL); }
 
         public void MakeNew()
         {
@@ -168,8 +168,8 @@ namespace CloudberryKingdom
 
         public void CalcBounds()
         {
-            TR = Vector2.Max(Current.TR, Target.TR);
-            BL = Vector2.Min(Current.BL, Target.BL);
+            TR = Vector2Extension.Max(Current.TR, Target.TR);
+            BL = Vector2Extension.Min(Current.BL, Target.BL);
 
             if (TopOnly)
                 BL.Y = TR.Y;
@@ -180,8 +180,8 @@ namespace CloudberryKingdom
             Current.CalcBounds();
             Target.CalcBounds();
 
-            TR = Vector2.Max(Current.TR, Target.TR);
-            BL = Vector2.Min(Current.BL, Target.BL);
+            TR = Vector2Extension.Max(Current.TR, Target.TR);
+            BL = Vector2Extension.Min(Current.BL, Target.BL);
 
             if (TopOnly)
                 BL.Y = TR.Y;

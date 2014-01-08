@@ -37,11 +37,11 @@ namespace CloudberryKingdom.Levels
             // Find a final block that was used by the computer.
             //FinalBlock = MyLevel.Blocks.Find(match => match.Core == "LastRow" && match.Core.GenData.Used);
             if (MyLevel.CurMakeData.PieceSeed.GeometryType == LevelGeometry.Down)
-                FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
+                FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.CoreData.GenData.Used), element => element.CoreData.Data.Position.Y);
             else
-                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
+                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.CoreData.GenData.Used), element => element.CoreData.Data.Position.Y);
 
-            FinalPos = FinalBlock.Core.Data.Position;
+            FinalPos = FinalBlock.CoreData.Data.Position;
 
             // Cut computer run short once the computer reaches the door.
             int Earliest = 100000;
@@ -73,7 +73,7 @@ namespace CloudberryKingdom.Levels
 
             // Add door
             MadeDoor = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, false);
-            MadeDoor.Core.EditorCode1 = LevelConnector.EndOfLevelCode;
+            MadeDoor.CoreData.EditorCode1 = LevelConnector.EndOfLevelCode;
 
             // Attach an action to the door
             MakeFinalDoor.AttachDoorAction(MadeDoor);

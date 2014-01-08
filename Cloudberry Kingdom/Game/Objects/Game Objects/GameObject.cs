@@ -23,9 +23,9 @@ namespace CloudberryKingdom
         public bool AttemptToReAdd()
         {
             if (MyGame == null)
-                if (Core.MyLevel.MyGame != null)
-                    Core.MyLevel.MyGame.WaitThenDo(0, () =>
-                        Core.MyLevel.MyGame.AddGameObject(this));
+                if (CoreData.MyLevel.MyGame != null)
+                    CoreData.MyLevel.MyGame.WaitThenDo(0, () =>
+                        CoreData.MyLevel.MyGame.AddGameObject(this));
 
             return MyGame == null;
         }
@@ -134,7 +134,7 @@ namespace CloudberryKingdom
 
         public override void Release()
         {
-            if (!PreventRelease && !Core.Released)
+            if (!PreventRelease && !CoreData.Released)
                 ReleaseBody();
         }
 
@@ -149,8 +149,8 @@ namespace CloudberryKingdom
 
             MyGame = null;
 
-            Core.Active = false;
-            Core.MarkedForDeletion = true;
+            CoreData.Active = false;
+            CoreData.MarkedForDeletion = true;
         }
 
         /// <summary>
@@ -160,13 +160,13 @@ namespace CloudberryKingdom
 
         public override void MakeNew()
         {
-            Core.Init();
-            Core.DrawLayer = 10;
+            CoreData.Init();
+            CoreData.DrawLayer = 10;
 
-            Core.IsGameObject = true;
+            CoreData.IsGameObject = true;
 
-            Core.RemoveOnReset = false;
-            Core.ResetOnlyOnReset = true;
+            CoreData.RemoveOnReset = false;
+            CoreData.ResetOnlyOnReset = true;
         }
 
         public GameObject()
@@ -200,9 +200,9 @@ namespace CloudberryKingdom
         {
             if (!AutoDraw) return;
 
-            if (HideOnReplay && (Core.MyLevel.Replay || Core.MyLevel.Watching)) return;
+            if (HideOnReplay && (CoreData.MyLevel.Replay || CoreData.MyLevel.Watching)) return;
 
-            if (Core.Released) return;
+            if (CoreData.Released) return;
 
             MyDraw();
         }
@@ -216,7 +216,7 @@ namespace CloudberryKingdom
         {
             if (SkipPhsx > 0) { SkipPhsx--; return; }
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             if (PauseOnReplay && (level.Replay || level.Watching))
                 return;
@@ -235,8 +235,8 @@ namespace CloudberryKingdom
         {
             AffectGamePause();
 
-            if (Core.MyLevel != null)
-                Core.MyLevel.OnCameraChange += this.OnCameraChange;
+            if (CoreData.MyLevel != null)
+                CoreData.MyLevel.OnCameraChange += this.OnCameraChange;
         }
 
         /// <summary>

@@ -279,7 +279,7 @@ namespace CloudberryKingdom
                 
                 string[] terms;
 
-                switch (identifier.ToLower(CultureInfo.InvariantCulture))
+                switch (identifier.CustomLower())
                 {
                     // Seed [This must come first]
                     case "s":

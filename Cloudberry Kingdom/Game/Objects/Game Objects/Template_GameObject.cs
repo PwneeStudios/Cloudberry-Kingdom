@@ -19,7 +19,7 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
         }
     }
 }

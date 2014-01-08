@@ -775,8 +775,8 @@ namespace CloudberryKingdom
             foreach (MenuItem item in Items)
             {
                 Vector2 Size = item.Size();
-                TR = Vector2.Max(TR, item.Pos + Size / 2);
-                BL = Vector2.Min(BL, item.Pos - Size / 2);
+                TR = Vector2Extension.Max(TR, item.Pos + Size / 2);
+                BL = Vector2Extension.Min(BL, item.Pos - Size / 2);
             }
         }
 

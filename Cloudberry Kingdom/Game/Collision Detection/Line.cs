@@ -40,12 +40,12 @@ namespace CloudberryKingdom
         public void CalcBounds()
         {
             // Expensive
-            //TR = Vector2.Max(Vector2.Max(Current.p1, Current.p2), Vector2.Max(Target.p1, Target.p2));
-            //BL = Vector2.Min(Vector2.Min(Current.p1, Current.p2), Vector2.Min(Target.p1, Target.p2));
+            //TR = Vector2Extension.Max(Vector2Extension.Max(Current.p1, Current.p2), Vector2Extension.Max(Target.p1, Target.p2));
+            //BL = Vector2Extension.Min(Vector2Extension.Min(Current.p1, Current.p2), Vector2Extension.Min(Target.p1, Target.p2));
             
             // Cheaper
-            //TR = Vector2.Max(Target.p1, Target.p2);
-            //BL = Vector2.Min(Target.p1, Target.p2);
+            //TR = Vector2Extension.Max(Target.p1, Target.p2);
+            //BL = Vector2Extension.Min(Target.p1, Target.p2);
 
             // Cheapest
             CoreMath.MaxAndMin(ref Target.p1, ref Target.p2, ref TR, ref BL);

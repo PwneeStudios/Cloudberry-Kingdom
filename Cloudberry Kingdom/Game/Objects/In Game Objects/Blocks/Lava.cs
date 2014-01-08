@@ -13,8 +13,8 @@ namespace CloudberryKingdom
         
         public override void MakeNew()
         {
-            Core.Init();
-            Core.DrawLayer = 9;
+            CoreData.Init();
+            CoreData.DrawLayer = 9;
             BlockCore.MyType = ObjectType.LavaBlock;
 
             MyQuad.EffectName = "Lava";
@@ -35,7 +35,7 @@ namespace CloudberryKingdom
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         protected float u_offset = 0;
@@ -110,17 +110,17 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
-            Active = Core.Active = true;
-            if (!Core.Held)
+            Active = CoreData.Active = true;
+            if (!CoreData.Held)
             {
-                if (!Core.MyLevel.MainCamera.OnScreen(MyBox.Current.BL, MyBox.Current.TR, 10))
-                    Active = Core.Active = false;
+                if (!CoreData.MyLevel.MainCamera.OnScreen(MyBox.Current.BL, MyBox.Current.TR, 10))
+                    Active = CoreData.Active = false;
             }
 
-            if (Core.MyLevel.PlayMode == 0)
+            if (CoreData.MyLevel.PlayMode == 0)
             {
-                Active = Core.Active = false;
-                foreach (Bob bob in Core.MyLevel.Bobs)
+                Active = CoreData.Active = false;
+                foreach (Bob bob in CoreData.MyLevel.Bobs)
                     if (bob.CanDie)
                         CollisionCheck(bob);
             }
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
             if (bob.Box.Current.TR.X > Box.Current.BL.X &&
                 bob.Box.Current.BL.X < Box.Current.TR.X)
             {
-                bob.Core.MyLevel.PushLava(bob.Box.Target.BL.Y - 60, this);
+                bob.CoreData.MyLevel.PushLava(bob.Box.Target.BL.Y - 60, this);
             }
 
             return true;
@@ -204,7 +204,7 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             LavaBlock BlockA = A as LavaBlock;
 

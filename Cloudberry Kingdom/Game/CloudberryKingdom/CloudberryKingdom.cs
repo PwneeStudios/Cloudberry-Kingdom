@@ -772,9 +772,10 @@ namespace CloudberryKingdom
 			//}
 #endif
 
-#if WINDOWS
-			KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
-#endif
+//#if WINDOWS
+//            KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
+//#endif
+
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
             Tools.LoadEffects(Tools.GameClass.Content, true);
@@ -791,7 +792,7 @@ namespace CloudberryKingdom
         public void InitialResolution()
         {
             Tools.Write("InitialResolution");
-#if PC_VERSION
+
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
             PlayerManager.RezData rez;
@@ -809,28 +810,9 @@ namespace CloudberryKingdom
 
             rez = PlayerManager.LoadRezAndKeys();
 
-			if (!rez.Custom)
-			{
-				rez.Width = 1280;
-				rez.Height = 720;
-				rez.Mode = WindowMode.Borderless;
-
-		        rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-				rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			}
-
-	#if DEBUG || INCLUDE_EDITOR
-			//rez.Mode = WindowMode.Borderless;
-			
 			rez.Mode = WindowMode.Windowed;
 			rez.Width = 1280;
 			rez.Height = 720;
-	#endif
-
-			//rez.Mode = WindowMode.Windowed;
-			//rez.Width = 1280;
-			//rez.Height = 720;
-
 
 			Resolution = new ResolutionGroup();
 			Resolution.Backbuffer = new IntVector2(rez.Width, rez.Height);
@@ -846,21 +828,6 @@ namespace CloudberryKingdom
 			{
 				MyGraphicsDeviceManager.PreferredBackBufferHeight = (int)((720f / 1280f) * rez.Width);
 			}
-
-#elif XBOX
-			// Some possible resolutions.
-			Resolution = new ResolutionGroup();
-			Resolution.Backbuffer = new IntVector2(1280, 720);
-			Resolution.Bob = new IntVector2(135, 0);
-			Resolution.TextOrigin = Vector2.Zero;
-			Resolution.LineHeightMod = 1f;
-
-			MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-			MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-	#if WINDOWS
-			MyGraphicsDeviceManager.IsFullScreen = false;
-	#endif
-#endif
 
 			Tools.Mode = rez.Mode;
 
@@ -1388,7 +1355,7 @@ namespace CloudberryKingdom
                         foreach (Bob bob in Tools.CurLevel.Bobs)
                         {
                             bob.Immortal = true;
-                            Tools.MoveTo(bob, door.Pos);
+                            Tools.MoveTo(bob, door.CoreData.Data.Position);
                         }
 
                         foreach (ObjectBase obj in Tools.CurLevel.Objects)
@@ -1396,7 +1363,7 @@ namespace CloudberryKingdom
 							Coin coin = obj as Coin;
 							if (null != coin)
 							{
-								Tools.MoveTo(coin, door.Pos);
+								Tools.MoveTo(coin, door.CoreData.Data.Position);
 							}
 
                             CameraZone zone = obj as CameraZone;
@@ -1522,7 +1489,7 @@ namespace CloudberryKingdom
 							{
 								if (bob.MyPlayerIndex == PlayerManager.Get(i).MyPlayerIndex && bob.ImmortalCountDown <= 0)
 								{
-									ParticleEffects.PopOut(Tools.CurLevel, bob.Pos);
+									ParticleEffects.PopOut(Tools.CurLevel, bob.CoreData.Data.Position);
 
 									//bob.Die(BobDeathType.Other);
 									bob.Die(BobDeathType.Other, null, false, false);
@@ -1786,7 +1753,7 @@ namespace CloudberryKingdom
         {
             if (SmallErrorMessage != null)
             {
-                if (SmallErrorMessage.Core.Released)
+                if (SmallErrorMessage.CoreData.Released)
                 {
                     SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
                 }
@@ -2200,31 +2167,33 @@ namespace CloudberryKingdom
 #if PC_VERSION
 		public bool IsActive()
 		{
-			bool IsActive = true;
+			return true;
 
-#if WINDOWS
-			// XNA on Windows does not correctly identify that the game window doesn't have focus
-			// in the case where the game window STARTS in the background.
-			// This is an additional check to see if the window is not in focus.
-			IntPtr CkHandle = Tools.GameClass.Window.Handle;
-			IntPtr ActiveHandle = WindowsHelper.GetForegroundWindow();
+//            bool IsActive = true;
 
-			if (CkHandle != ActiveHandle)
-			{
-#if DEBUG
-				if (!Tools.ViewerIsUp)
-#endif
-					IsActive = false;
-			}
+//#if WINDOWS
+//            // XNA on Windows does not correctly identify that the game window doesn't have focus
+//            // in the case where the game window STARTS in the background.
+//            // This is an additional check to see if the window is not in focus.
+//            IntPtr CkHandle = Tools.GameClass.Window.Handle;
+//            IntPtr ActiveHandle = WindowsHelper.GetForegroundWindow();
 
-			if (!Tools.GameClass.IsActive)
-				IsActive = false;
-#else
-			if (!Tools.GameClass.IsActive)
-				IsActive = false;
-#endif
+//            if (CkHandle != ActiveHandle)
+//            {
+//#if DEBUG
+//                if (!Tools.ViewerIsUp)
+//#endif
+//                    IsActive = false;
+//            }
 
-			return IsActive;
+//            if (!Tools.GameClass.IsActive)
+//                IsActive = false;
+//#else
+//            if (!Tools.GameClass.IsActive)
+//                IsActive = false;
+//#endif
+
+//            return IsActive;
 		}
 
         public const bool OnlyDrawGameWhenInFocus = false;

@@ -144,9 +144,9 @@ namespace CloudberryKingdom.Levels
                 //if (i == 2) gblock.Offset = Offset + (int)((InLength + OutLength) * .666f);
 
                 GhostBlock block = gblock;
-                block.Core.GenData.OnUsed += () =>
+                block.CoreData.GenData.OnUsed += () =>
                 {
-                    if (block.Core.GenData.Used) return;
+                    if (block.CoreData.GenData.Used) return;
 
                     // Ghost was just used, change its Offset so that it is Phased In at this point in time
                     /*if (Params.Masochistic)

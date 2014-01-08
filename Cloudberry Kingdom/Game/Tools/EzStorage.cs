@@ -134,7 +134,7 @@ namespace CloudberryKingdom
 
                 foreach (var HighScore in p.HighScores)
 			    {
-				    if ( MaxHighScores.ContainsKey( HighScore.Key ) )
+				    if ( MaxHighScores.CustomContainsKey( HighScore.Key ) )
 				    {
 						MaxHighScores[HighScore.Key] = new ScoreEntry(
 						    "",

@@ -99,7 +99,7 @@ namespace CloudberryKingdom.Levels
 
                     LavaDrip.Offset = level.Rnd.Rnd.Next(LavaDrip.Period);
 
-                    LavaDrip.Core.GenData.LimitGeneralDensity = false;
+                    LavaDrip.CoreData.GenData.LimitGeneralDensity = false;
 
                     level.AddObject(LavaDrip);
                 }

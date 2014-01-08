@@ -196,7 +196,7 @@ namespace CloudberryKingdom
             foreach (PlayerData player in CopyOfExistingPlayers)
             {
                 // Check for goals
-                //if (ChallengeGoal.ContainsKey(Challenge.CurrentId))
+                //if (ChallengeGoal.CustomContainsKey(Challenge.CurrentId))
                 {
                     int CurHighLevel = player.GetHighScore(Challenge.CurrentId);
                     //if (level + 1 >= Goal && CurHighLevel < Goal)

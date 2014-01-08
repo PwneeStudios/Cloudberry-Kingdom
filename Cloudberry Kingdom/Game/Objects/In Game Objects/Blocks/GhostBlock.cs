@@ -51,8 +51,8 @@ namespace CloudberryKingdom.Blocks
 
             MyBox.TopOnly = true;
 
-            Core.Init();
-            Core.DrawLayer = 3;
+            CoreData.Init();
+            CoreData.DrawLayer = 3;
             BlockCore.MyType = ObjectType.GhostBlock;
 
             SetState(GhostBlockState.PhasedIn);
@@ -100,7 +100,7 @@ namespace CloudberryKingdom.Blocks
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public static float TallScale = 1.45f;
@@ -111,7 +111,7 @@ namespace CloudberryKingdom.Blocks
             Active = true;
 
             BlockCore.Layer = .35f;
-            Core.DrawLayer = 7;
+            CoreData.DrawLayer = 7;
 
             if (TallBox)
                 size.Y *= TallScale;
@@ -124,7 +124,7 @@ namespace CloudberryKingdom.Blocks
             // Otherwise use old SimpleObject
             else
             {
-                Core.StartData.Position = Core.Data.Position = center;
+                CoreData.StartData.Position = CoreData.Data.Position = center;
              
                 MyBox.Initialize(center, size);
             }
@@ -161,7 +161,7 @@ namespace CloudberryKingdom.Blocks
         public void AnimStep()
         {
             if (MyObject.DestinationAnim() == 0 && MyObject.Loop)
-                MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
+                MyObject.PlayUpdate(MyAnimSpeed * CoreData.IndependentDeltaT);
         }
 
         public int Period { get { return InLength + OutLength; } }
@@ -173,7 +173,7 @@ namespace CloudberryKingdom.Blocks
         public float GetStep()
         {
             //return CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
-            return CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
+            return CoreMath.Modulo(CoreData.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace CloudberryKingdom.Blocks
         public void ModOffset(int DesiredStep)
         {
             //int CurPhsxStep = Core.MyLevel.GetPhsxStep();
-            int CurPhsxStep = (int)(Core.MyLevel.GetIndependentPhsxStep() + .49f);
+            int CurPhsxStep = (int)(CoreData.MyLevel.GetIndependentPhsxStep() + .49f);
 
             // Make sure the desired step is positive
             DesiredStep = (DesiredStep + Period) % Period;
@@ -199,43 +199,43 @@ namespace CloudberryKingdom.Blocks
 
         public override void PhsxStep()
         {
-            Active = Core.Active = true;
-            if (!Core.Held)
+            Active = CoreData.Active = true;
+            if (!CoreData.Held)
             {
                 if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X + 40 || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 200)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
                 if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X  - 40|| MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
             }
 
-            if (!Core.BoxesOnly && Active && Core.Active) AnimStep();
+            if (!CoreData.BoxesOnly && Active && CoreData.Active) AnimStep();
 
-            Core.GenData.JumpNow = Core.GenData.TemporaryNoLandZone = false;
+            CoreData.GenData.JumpNow = CoreData.GenData.TemporaryNoLandZone = false;
 
             float Step = GetStep();
             if (Step < InLength)
             {
-                Core.Active = true;
+                CoreData.Active = true;
                 State = GhostBlockState.PhasedIn;
 
                 // As Step approaches InLength the StateChange approaches 0 (faded out)
                 StateChange = (InLength - Step) / (float)LengthOfPhaseChange;
-                if (StateChange < .25f) Core.Active = false;
+                if (StateChange < .25f) CoreData.Active = false;
 
                 // If we're about to fade out don't allow computer to land on this ghost
                 // and jump if the computer is already on it
-                if (StateChange < .25f + TimeSafety) Core.GenData.JumpNow = true;
-                if (StateChange < .25f + .65f)       Core.GenData.JumpNow = true;
+                if (StateChange < .25f + TimeSafety) CoreData.GenData.JumpNow = true;
+                if (StateChange < .25f + .65f)       CoreData.GenData.JumpNow = true;
             }
             else
             {
-                Core.Active = false;
+                CoreData.Active = false;
                 State = GhostBlockState.PhasedOut;
 
                 // As Step approaches InLength + OutLength (the total period),
                 // the StateChange approaches 0 (faded out)
                 StateChange = (InLength + OutLength - Step) / (float)LengthOfPhaseChange;
-                if (StateChange < .75f) Core.Active = true;
+                if (StateChange < .75f) CoreData.Active = true;
             }
 
             // Make sure StateChange lies between 0 and 1
@@ -244,8 +244,8 @@ namespace CloudberryKingdom.Blocks
             // If this is Stage 1 of the level gen and this ghost hasn't been uset yet,
             // then set it to be always active.
             // We can adjust its Offset once it is used.
-            if (Core.MyLevel.PlayMode == 2 && Core.GenData.Used == false)
-                Core.Active = true;
+            if (CoreData.MyLevel.PlayMode == 2 && CoreData.GenData.Used == false)
+                CoreData.Active = true;
 
             Update();
 
@@ -387,12 +387,12 @@ namespace CloudberryKingdom.Blocks
             GhostBlock block = this as GhostBlock;
 
             // Ghost blocks delete surrounding blocks when stamped as used
-            foreach (BlockBase gblock in Core.MyLevel.Blocks)
+            foreach (BlockBase gblock in CoreData.MyLevel.Blocks)
             {
                 GhostBlock ghost = gblock as GhostBlock;
-                if (null != ghost && !ghost.Core.MarkedForDeletion)
-                    if (!ghost.Core.GenData.Used &&
-                        (ghost.Core.Data.Position - block.Core.Data.Position).Length() < 200)
+                if (null != ghost && !ghost.CoreData.MarkedForDeletion)
+                    if (!ghost.CoreData.GenData.Used &&
+                        (ghost.CoreData.Data.Position - block.CoreData.Data.Position).Length() < 200)
                     {
                         bob.DeleteObj(ghost);
                         ghost.IsActive = false;
@@ -402,7 +402,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             GhostBlock BlockA = A as GhostBlock;
 

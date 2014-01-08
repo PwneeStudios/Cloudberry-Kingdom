@@ -547,7 +547,7 @@ namespace CloudberryKingdom
                 return;
             else
             {
-                GameData game = door.Core.MyLevel.MyGame;
+                GameData game = door.CoreData.MyLevel.MyGame;
                 BaseDoorAction(door);
 
                 // Close the door
@@ -571,7 +571,7 @@ namespace CloudberryKingdom
         /// </summary>
         public void EOL_StringWorldDoorEndAction(Door door)
         {
-            GameData game = door.Core.MyLevel.MyGame;
+            GameData game = door.CoreData.MyLevel.MyGame;
 
             // Tell the current Game to perform the following
             TellGameToBringNext(13, game);
@@ -583,7 +583,7 @@ namespace CloudberryKingdom
         /// </summary>
         public void EOL_StringWorldDoorEndAction_WithFade(Door door)
         {
-            GameData game = door.Core.MyLevel.MyGame;
+            GameData game = door.CoreData.MyLevel.MyGame;
 
             Tools.SongWad.FadeOut();
             float fadespeed = door.MyLevel.MyLevelSeed == null ? .02f : door.MyLevel.MyLevelSeed.FadeOutSpeed;
@@ -622,22 +622,22 @@ namespace CloudberryKingdom
 
         public static void BaseDoorAction(Door door)
         {
-            GameData game = door.Core.MyLevel.MyGame;
+            GameData game = door.CoreData.MyLevel.MyGame;
 
             game.CompleteLevelEvent();
 
             // Don't do anything if level has ended
-            if (door.Core.MyLevel.Finished)
+            if (door.CoreData.MyLevel.Finished)
                 return;
 
             // Ensure door isn't reused
             door.OnOpen = null;
 
             // End this level
-            door.Core.MyLevel.EndLevel();
+            door.CoreData.MyLevel.EndLevel();
 
             // Give bonus to completing player
-            door.Core.MyLevel.EndOfLevelBonus(door.InteractingBob.MyPlayerData);
+            door.CoreData.MyLevel.EndOfLevelBonus(door.InteractingBob.MyPlayerData);
         }
 
         public override void PhsxStep()

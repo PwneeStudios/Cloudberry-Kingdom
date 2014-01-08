@@ -142,14 +142,14 @@ namespace CloudberryKingdom
             {
                 if (Oscillate)
                 {
-                    Pos.RelVal = Core.StartData.Position +
+                    Pos.RelVal = CoreData.StartData.Position +
                         new Vector2(0, OscillationHeight *
-                            (float)Math.Sin(OscillationSpeed * (Core.MyLevel.CurPhsxStep) + Core.AddedTimeStamp));
+                            (float)Math.Sin(OscillationSpeed * (CoreData.MyLevel.CurPhsxStep) + CoreData.AddedTimeStamp));
                 }
                 else
                 {
-                    Core.Data.Integrate();
-                    Pos.RelVal = Core.Data.Position;
+                    CoreData.Data.Integrate();
+                    Pos.RelVal = CoreData.Data.Position;
                 }
             }
         }

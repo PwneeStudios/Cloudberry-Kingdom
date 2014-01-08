@@ -12,10 +12,12 @@ namespace CloudberryKingdom
         public static int MostRecentScoreDate = 0;
         public static int CurrentDate()
         {
-            TimeSpan t = (DateTime.Now - new DateTime(2000, 1, 1));
-            int minutes = (int)t.TotalMinutes;
+			return 1000;
+
+			//TimeSpan t = (DateTime.Now - new DateTime(2000, 1, 1));
+			//int minutes = (int)t.TotalMinutes;
             
-            return minutes;
+			//return minutes;
         }
 
         public static int Capacity = 20;
@@ -66,7 +68,7 @@ namespace CloudberryKingdom
 
         public static void EnsureList(int Game)
         {
-            if (Games.ContainsKey(Game)) return;
+            if (Games.CustomContainsKey(Game)) return;
 
             Games[Game] = new List<ScoreEntry>();
         }

@@ -27,7 +27,7 @@ namespace CloudberryKingdom
             if (null != door)
             {
                 foreach (Bob bob in MyGame.MyLevel.Bobs)
-                    bob.Core.Show = false;
+                    bob.CoreData.Show = false;
             }
             
             MyGame.WaitThenDo(1, Ready);

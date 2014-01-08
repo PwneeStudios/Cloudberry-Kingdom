@@ -1297,7 +1297,7 @@ namespace CloudberryKingdom
             }
 
 			Special = false;
-			if (Player != null && SpecialIDs.ContainsKey(Player.Id))
+			if (Player != null && SpecialIDs.CustomContainsKey(Player.Id))
 			{
 				Special = true;
 			}
@@ -1522,7 +1522,7 @@ namespace CloudberryKingdom
 //                {
 //                    if (Items.Count > 0)
 //                    {
-//                        if (Items.ContainsKey(Index))
+//                        if (Items.CustomContainsKey(Index))
 //                        {
 //                            Gamer gamer = Items[Index].Player;
 //                            if (gamer != null && MenuItem.ActivatingPlayer >= 0 && MenuItem.ActivatingPlayer <= 3)
@@ -1606,7 +1606,7 @@ namespace CloudberryKingdom
             for (int i = Start; i <= End(); i++)
             {
 			    // Check for cheat
-                if (i == 1 && Items.ContainsKey(1) && Items[1].Val == "4551" && Items[1].GamerTag == "TheNewPwnee")
+                if (i == 1 && Items.CustomContainsKey(1) && Items[1].Val == "4551" && Items[1].GamerTag == "TheNewPwnee")
 			    {
 				    if (ButtonCheck.State( ControllerButtons.Y, -2 ).Down)
 				    {
@@ -1637,7 +1637,7 @@ namespace CloudberryKingdom
                     LeaderboardGUI.Highlight.Show = false;
                 }
 
-                if (Items.ContainsKey(i))
+                if (Items.CustomContainsKey(i))
                 {
                     Items[i].Draw(CurPos, Selected, alpha);
 

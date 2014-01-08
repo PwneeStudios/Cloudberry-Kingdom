@@ -253,7 +253,7 @@ namespace CoreEngine
         }
         public void SetTextureOrAnim(string name)
         {
-            if (Tools.TextureWad.AnimationDict.ContainsKey(name))
+            if (Tools.TextureWad.AnimationDict.CustomContainsKey(name))
                 SetTextureAnim(Tools.TextureWad.AnimationDict[name]);
             else
                 TextureName = name;

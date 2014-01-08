@@ -30,17 +30,17 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = LavaDrip_AutoGen.Instance;
-            Core.MyType = ObjectType.LavaDrip;
+            CoreData.MyType = ObjectType.LavaDrip;
             DeathType = Bobs.BobDeathType.LavaFlow;
-            Core.DrawLayer = 8;
+            CoreData.DrawLayer = 8;
 
             PhsxCutoff_Playing = new Vector2(200, 4000);
             PhsxCutoff_BoxesOnly = new Vector2(-150, 4000);
 
-            Core.GenData.NoBlockOverlap = false;
-            Core.GenData.LimitGeneralDensity = false;
+            CoreData.GenData.NoBlockOverlap = false;
+            CoreData.GenData.LimitGeneralDensity = false;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Init(Vector2 pos, Level level)
@@ -80,7 +80,7 @@ namespace CloudberryKingdom.Obstacles
             AnimStep();
         }
 
-        public void AnimStep() { AnimStep(Core.SkippedPhsx); }
+        public void AnimStep() { AnimStep(CoreData.SkippedPhsx); }
         public void AnimStep(bool Skip)
         {
             if (Skip) return;
@@ -90,19 +90,19 @@ namespace CloudberryKingdom.Obstacles
 
             Exposed = true;
 
-            float t = (float)CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, DownT + WaitT + PeakT);
+            float t = (float)CoreMath.Modulo(CoreData.GetIndependentPhsxStep() + Offset, DownT + WaitT + PeakT);
             
             float s = 0;
             if (t < PeakT) s = CoreMath.FancyLerp(t / PeakT, KeyFrames_Peak).Y * KeyFrames_Down[0].Y;
             else if (t < PeakT + DownT) s = CoreMath.FancyLerp((t - PeakT) / (float)DownT, KeyFrames_Down).Y;
             else s = 1f;
 
-            Pos = Vector2.Lerp(Start, End, s);
+            CoreData.Data.Position = Vector2.Lerp(Start, End, s);
         }
 
         protected override void DrawGraphics()
         {
-            Tools.QDrawer.DrawLine(new Vector2(Pos.X, Box.Current.BL.Y), new Vector2(Pos.X, Box.Current.TR.Y), Info.LavaDrips.Line);
+            Tools.QDrawer.DrawLine(new Vector2(CoreData.Data.Position.X, Box.Current.BL.Y), new Vector2(CoreData.Data.Position.X, Box.Current.TR.Y), Info.LavaDrips.Line);
         }
 
         public override void Move(Vector2 shift)
@@ -117,11 +117,11 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
             LavaDrip LavaDripA = A as LavaDrip;
 
             BoxSize = LavaDripA.BoxSize;
-            Init(A.Core.StartData.Position, A.MyLevel);
+            Init(A.CoreData.StartData.Position, A.MyLevel);
 
             Offset = LavaDripA.Offset;
             DownT = LavaDripA.DownT;
@@ -131,7 +131,7 @@ namespace CloudberryKingdom.Obstacles
 
             Exposed = LavaDripA.Exposed;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }

@@ -541,21 +541,21 @@ namespace CloudberryKingdom.Bobs
             CanHaveHat = bob.CanHaveHat;
             MyObjectType = bob.MyObjectType;
 
-            Core.DrawLayer = 6;
-            Core.Show = true;
+            CoreData.DrawLayer = 6;
+            CoreData.Show = true;
 
             BoxesOnly = boxesOnly;
 
             SetObject(bob.PlayerObject, BoxesOnly);
 
-            Core.Data.Position = bob.Core.Data.Position;
-            Core.Data.Velocity = bob.Core.Data.Velocity;
+            CoreData.Data.Position = bob.CoreData.Data.Position;
+            CoreData.Data.Velocity = bob.CoreData.Data.Velocity;
             PlayerObject.ParentQuad.Update();
             PlayerObject.Update(null);
             PlayerObject.PlayUpdate(0);
 
-            Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+            Box = new AABox(CoreData.Data.Position, PlayerObject.BoxList[1].Size() / 2);
+            Box2 = new AABox(CoreData.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             SetHeroPhsx(MyHeroType);
 
@@ -604,7 +604,7 @@ namespace CloudberryKingdom.Bobs
             this.MyHeroType = HeroType;
 
             CoreData = new ObjectData();
-            Core.Show = true;
+            CoreData.Show = true;
 
             JumpSound = JumpSound_Default = Tools.SoundWad.FindByName("Jump5");
             JumpSound.DefaultVolume = .1f;
@@ -615,14 +615,14 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.Read(0, 0);
             PlayerObject.Play = true;
 
-            Core.Data.Position = new Vector2(100, 50);
-            Core.Data.Velocity = new Vector2(0, 0);
+            CoreData.Data.Position = new Vector2(100, 50);
+            CoreData.Data.Velocity = new Vector2(0, 0);
             PlayerObject.ParentQuad.Update();
             PlayerObject.Update(null);
             PlayerObject.PlayUpdate(0);
             
-            Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+            Box = new AABox(CoreData.Data.Position, PlayerObject.BoxList[1].Size() / 2);
+            Box2 = new AABox(CoreData.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             MyPhsx = new BobPhsx();
             MyPhsx.Init(this);
@@ -639,7 +639,7 @@ namespace CloudberryKingdom.Bobs
             SetObject(hero.Prototype.PlayerObject, false);
             SetHeroPhsx(hero);
 
-            if (MyCape != null) MyCape.Move(Pos);
+            if (MyCape != null) MyCape.Move(CoreData.Data.Position);
 
             //MakeCape();
 
@@ -679,16 +679,16 @@ namespace CloudberryKingdom.Bobs
 
         public void Init(bool BoxesOnly, PhsxData StartData, GameData game)
         {
-            Core.Show = true;
+            CoreData.Show = true;
 
             HeldObjectIteration = 0;
 
             BobPhsx type = game.DefaultHeroType;
-            if (Core.MyLevel != null)
-                type = Core.MyLevel.DefaultHeroType;
+            if (CoreData.MyLevel != null)
+                type = CoreData.MyLevel.DefaultHeroType;
             MyHeroType = type;
 
-            Core.DrawLayer = 6;
+            CoreData.DrawLayer = 6;
 
             if (CharacterSelect2)
             {
@@ -709,8 +709,8 @@ namespace CloudberryKingdom.Bobs
             Dead = Dying = false;
             DeadCount = 0;
                         
-            Move(StartData.Position - Core.Data.Position);
-            Core.StartData = Core.Data = StartData;
+            Move(StartData.Position - CoreData.Data.Position);
+            CoreData.StartData = CoreData.Data = StartData;
 
 
             if (PlayerObject == null)
@@ -732,10 +732,10 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.Update(null);
             PlayerObject.PlayUpdate(0);
 
-            Move(StartData.Position - Core.Data.Position);
-            Core.Data = StartData;            
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+            Move(StartData.Position - CoreData.Data.Position);
+            CoreData.Data = StartData;            
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
+            Box2.SetTarget(CoreData.Data.Position, Box2.Current.Size);
             Box.SwapToCurrent();
             Box2.SwapToCurrent();
             UpdateObject();
@@ -743,12 +743,12 @@ namespace CloudberryKingdom.Bobs
             Box.CalcBounds();
             Box2.CalcBounds();
 
-            LastCoinPos = Core.Data.Position;
+            LastCoinPos = CoreData.Data.Position;
 
 
             if (MyCape != null)
             {
-                MyCape.AnchorPoint[0] = Core.Data.Position;
+                MyCape.AnchorPoint[0] = CoreData.Data.Position;
                 MyCape.Reset();
             }
 
@@ -774,7 +774,7 @@ namespace CloudberryKingdom.Bobs
 
         public bool GiveStats()
         {
-            return Core.MyLevel.PlayMode == 0 && !CompControl && !Core.MyLevel.Watching && !Dead && !Dying;
+            return CoreData.MyLevel.PlayMode == 0 && !CompControl && !CoreData.MyLevel.Watching && !Dead && !Dying;
         }
 
         public PlayerStats MyStats
@@ -841,7 +841,7 @@ namespace CloudberryKingdom.Bobs
             if (!ForceDeath)
             {
                 if (Immortal ||
-                    (!Core.MyLevel.Watching && Core.MyLevel.PlayMode == 0 && ImmortalCountDown > 0)) return;
+                    (!CoreData.MyLevel.Watching && CoreData.MyLevel.PlayMode == 0 && ImmortalCountDown > 0)) return;
 
                 if (CompControl) return;
             }
@@ -876,7 +876,7 @@ namespace CloudberryKingdom.Bobs
             if (DoAnim)
                 MyPhsx.Die(DeathType);
             
-            Tools.CurGameData.BobDie(Core.MyLevel, this);
+            Tools.CurGameData.BobDie(CoreData.MyLevel, this);
         }
 
         /// <summary>
@@ -887,7 +887,7 @@ namespace CloudberryKingdom.Bobs
         {
             get
             {
-                return !Immortal && !Dead && !Dying && Core.MyLevel.PlayMode == 0 && !Core.MyLevel.Watching;
+                return !Immortal && !Dead && !Dying && CoreData.MyLevel.PlayMode == 0 && !CoreData.MyLevel.Watching;
             }
         }
 
@@ -899,7 +899,7 @@ namespace CloudberryKingdom.Bobs
         {
             get
             {
-                return !Dead && !Dying && Core.MyLevel.PlayMode == 0 && !Core.MyLevel.Watching;
+                return !Dead && !Dying && CoreData.MyLevel.PlayMode == 0 && !CoreData.MyLevel.Watching;
             }
         }
 
@@ -907,10 +907,10 @@ namespace CloudberryKingdom.Bobs
         {
             DeathCount++;
 
-            if (Core.Data.Velocity.Y > -30)
-                Core.Data.Velocity += Core.Data.Acceleration;
+            if (CoreData.Data.Velocity.Y > -30)
+                CoreData.Data.Velocity += CoreData.Data.Acceleration;
             
-            Core.Data.Position += Core.Data.Velocity;
+            CoreData.Data.Position += CoreData.Data.Velocity;
 
             PlayerObject.PlayUpdate(1000f / 60f / 150f);
 
@@ -928,17 +928,17 @@ namespace CloudberryKingdom.Bobs
             // Check to see if we've fallen past the edge of the screen,
             // if so, officially declare the player dead.
             if (!Dead && (
-                (IsVisible() && Core.Show && Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - Game.DoneDyingDistance)
+                (IsVisible() && CoreData.Show && CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - Game.DoneDyingDistance)
                 ||
                 (!IsVisible() && DeathCount > Game.DoneDyingCount)))
             {
-                Tools.CurGameData.BobDoneDying(Core.MyLevel, this);
+                Tools.CurGameData.BobDoneDying(CoreData.MyLevel, this);
                 if (!Dead && !Dying) DeadCount = 0;
                 Dead = true;
             }
 
             Box.Current.Size = PlayerObject.BoxList[1].Size() / 2;
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
         }
 
         public void CheckForScreenWrap()
@@ -948,56 +948,56 @@ namespace CloudberryKingdom.Bobs
                 if (ScreenWrapToCenter)
                 {
                     bool OffScreen = false;
-                    if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 100)
+                    if (CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - 100)
                         OffScreen = true;
-                    if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 100)
+                    if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + 100)
                         OffScreen = true;
-                    if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 600)
+                    if (CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 600)
                         OffScreen = true;
-                    if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 600)
+                    if (CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 600)
                         OffScreen = true;
 
                     if (OffScreen)
                     {
                         // Find highest bob
-                        Vector2 Destination = Core.MyLevel.MainCamera.Data.Position;
-                        if (Core.MyLevel.Bobs.Count > 1)
+                        Vector2 Destination = CoreData.MyLevel.MainCamera.Data.Position;
+                        if (CoreData.MyLevel.Bobs.Count > 1)
                         {
                             Bob HighestBob = null;
-                            foreach (Bob bob in Core.MyLevel.Bobs)
+                            foreach (Bob bob in CoreData.MyLevel.Bobs)
                             {
-                                if (bob != this && bob.AffectsCamera && (HighestBob == null || bob.Core.Data.Position.Y > HighestBob.Core.Data.Position.Y))
+                                if (bob != this && bob.AffectsCamera && (HighestBob == null || bob.CoreData.Data.Position.Y > HighestBob.CoreData.Data.Position.Y))
                                 {
                                     HighestBob = bob;
                                 }
                             }
-                            Destination = HighestBob.Core.Data.Position;
+                            Destination = HighestBob.CoreData.Data.Position;
                         }
-                        Move(Destination - Core.Data.Position);
-                        ParticleEffects.AddPop(Core.MyLevel, Core.Data.Position);
+                        Move(Destination - CoreData.Data.Position);
+                        ParticleEffects.AddPop(CoreData.MyLevel, CoreData.Data.Position);
                     }
                 }
                 else
                 {
                     // Do the screen wrap
                     //bool Moved = false;
-                    Vector2 w = Core.MyLevel.MainCamera.TR - Core.MyLevel.MainCamera.BL + new Vector2(1200, 1600);
-                    if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 100)
+                    Vector2 w = CoreData.MyLevel.MainCamera.TR - CoreData.MyLevel.MainCamera.BL + new Vector2(1200, 1600);
+                    if (CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - 100)
                     {
                         //Moved = true;
                         Move(new Vector2(w.X, 0));
                     }
-                    if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 100)
+                    if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + 100)
                     {
                         //Moved = true;
                         Move(new Vector2(-w.X, 0));
                     }
-                    if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 600)
+                    if (CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 600)
                     {
                         //Moved = true;
                         Move(new Vector2(0, w.Y));
                     }
-                    if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 600)
+                    if (CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 600)
                     {
                         //Moved = true;
                         Move(new Vector2(0, -w.Y));
@@ -1102,13 +1102,13 @@ namespace CloudberryKingdom.Bobs
 #endif        
 
             // Invert left-right for inverted levels
-            if (Core.MyLevel != null && Core.MyLevel.ModZoom.X < 0)
+            if (CoreData.MyLevel != null && CoreData.MyLevel.ModZoom.X < 0)
                 CurInput.xVec.X *= -1;
         }
         
         public void GetRecordedInput(int Step)
         {
-            if (Core.MyLevel.Replay)
+            if (CoreData.MyLevel.Replay)
             {
                 if (Step < MyRecord.Input.Length)
                     CurInput = MyRecord.Input[Step];
@@ -1161,7 +1161,7 @@ namespace CloudberryKingdom.Bobs
         public Vector2 ExtraShift = Vector2.Zero;
         public void UpdateObject()
         {
-            Vector2 NewCenter = Core.Data.Position - (PlayerObject.BoxList[1].TR.Pos - PlayerObject.ParentQuad.Center.Pos - Box.Current.Size);
+            Vector2 NewCenter = CoreData.Data.Position - (PlayerObject.BoxList[1].TR.Pos - PlayerObject.ParentQuad.Center.Pos - Box.Current.Size);
             //Vector2 NewCenter = Core.Data.Position - (PlayerObject.ParentQuad.Center.Pos - PlayerObject.BoxList[1].BL.Pos + new Vector2(69.09941f, 104.1724f));
             //NewCenter += ExtraShift;
 
@@ -1243,7 +1243,7 @@ namespace CloudberryKingdom.Bobs
         {            
             if (MyPiece != null && MyPiece.Recording != null && MyPiece.Recording.Length > MyPieceIndex)
             {
-                int Step = Core.MyLevel.GetPhsxStep();
+                int Step = CoreData.MyLevel.GetPhsxStep();
                 Step = Math.Max(0, Step - 2);
 
                 Vector2[] Loc = MyPiece.Recording[MyPieceIndex].AutoLocs;
@@ -1267,7 +1267,7 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public bool IsVisible()
         {
-            if (!Core.Show) return false;
+            if (!CoreData.Show) return false;
 
             if (Bob.AllExplode)
             {
@@ -1295,13 +1295,13 @@ namespace CloudberryKingdom.Bobs
 
                 Rocket.Degrees = -33;
                 Rocket.ScaleYToMatchRatio(PlayerObject.ParentQuad.Size.X * scale);
-                Rocket.Pos = Pos + new Vector2(-88, 20) * GetScale();
+                Rocket.Pos = CoreData.Data.Position + new Vector2(-88, 20) * GetScale();
                 Rocket.Draw();
 
                 Rocket.Degrees = 33;
                 Rocket.Quad.MirrorUV_Horizontal();
                 Rocket.ScaleYToMatchRatio(PlayerObject.ParentQuad.Size.X * scale);
-                Rocket.Pos = Pos + new Vector2(93, 20) * GetScale();
+                Rocket.Pos = CoreData.Data.Position + new Vector2(93, 20) * GetScale();
                 Rocket.Draw();
                 Rocket.Quad.MirrorUV_Horizontal();
             }
@@ -1317,10 +1317,10 @@ namespace CloudberryKingdom.Bobs
             bool SkipDraw = false;
 
             // Draw guide
-            if (GuideActivated && Core.MyLevel != null && !Core.MyLevel.Watching && !Core.MyLevel.Replay)
+            if (GuideActivated && CoreData.MyLevel != null && !CoreData.MyLevel.Watching && !CoreData.MyLevel.Replay)
                 DrawGuide();
 
-            if (!Core.Show)
+            if (!CoreData.Show)
                 return;
 
             if (Dying || Dead)
@@ -1334,7 +1334,7 @@ namespace CloudberryKingdom.Bobs
             }
 
             if ((Dying || Dead) && FlamingCorpse)                
-                ParticleEffects.Flame(Core.MyLevel, Core.Data.Position + 1.5f * Core.Data.Velocity, Core.MyLevel.GetPhsxStep(), 1f, 10, false);
+                ParticleEffects.Flame(CoreData.MyLevel, CoreData.Data.Position + 1.5f * CoreData.Data.Velocity, CoreData.MyLevel.GetPhsxStep(), 1f, 10, false);
 
             UpdateColors();
 
@@ -1357,14 +1357,14 @@ namespace CloudberryKingdom.Bobs
             }
 
 
-            if (MyCape != null && CanHaveCape && Core.Show && ShowCape && !SkipDraw && Tools.DrawGraphics)
+            if (MyCape != null && CanHaveCape && CoreData.Show && ShowCape && !SkipDraw && Tools.DrawGraphics)
             {                
                 MyCape.Draw();
                 Tools.QDrawer.Flush();
                 //return;
             }
 
-            if (Tools.DrawGraphics && !BoxesOnly && Core.Show)
+            if (Tools.DrawGraphics && !BoxesOnly && CoreData.Show)
             {
                 if (!SkipDraw)
                 {
@@ -1419,7 +1419,7 @@ namespace CloudberryKingdom.Bobs
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
 
             Box.Move(shift);
             Box2.Move(shift);
@@ -1456,7 +1456,7 @@ namespace CloudberryKingdom.Bobs
 
                 NewY = box.Target.TR.Y + Box.Current.Size.Y + .01f;
 
-                if (Core.Data.Position.Y <= NewY)
+                if (CoreData.Data.Position.Y <= NewY)
                 {
                     NewVel = Math.Max(-1000, MyPhsx.ForceDown + box.Target.TR.Y - box.Current.TR.Y);
 
@@ -1472,14 +1472,14 @@ namespace CloudberryKingdom.Bobs
 
                         if (OriginalColType == ColType.Top)
                         {
-                            Core.Data.Position.Y = NewY;
+                            CoreData.Data.Position.Y = NewY;
 
                             if (block == null || block.BlockCore.GivesVelocity)
                             {
                                 if (MyPhsx.Sticky)
-                                    Core.Data.Velocity.Y = NewVel;
+                                    CoreData.Data.Velocity.Y = NewVel;
                                 else
-                                    Core.Data.Velocity.Y = Math.Max(NewVel, Core.Data.Velocity.Y);
+                                    CoreData.Data.Velocity.Y = Math.Max(NewVel, CoreData.Data.Velocity.Y);
                             }
 
                             UpdateGroundSpeed(box, block);
@@ -1488,9 +1488,9 @@ namespace CloudberryKingdom.Bobs
                         {
                             // We hit the block from the side, just at the top edge
                             // Keep bigger Y values
-                            Core.Data.Position.Y = Math.Max(Core.Data.Position.Y, NewY);
+                            CoreData.Data.Position.Y = Math.Max(CoreData.Data.Position.Y, NewY);
                             if (block == null || block.BlockCore.GivesVelocity)
-                                Core.Data.Velocity.Y = Math.Max(Core.Data.Velocity.Y, NewVel);
+                                CoreData.Data.Velocity.Y = Math.Max(CoreData.Data.Velocity.Y, NewVel);
                         }                        
 
                         //MyPhsx.ObjectLandedOn = block;
@@ -1517,7 +1517,7 @@ namespace CloudberryKingdom.Bobs
                         Col = ColType.Bottom;
 
                     NewY = box.Target.BL.Y - Box.Current.Size.Y - .01f;
-                    if (Core.Data.Position.Y > NewY && Col == ColType.Bottom)
+                    if (CoreData.Data.Position.Y > NewY && Col == ColType.Bottom)
                     {
                         if (MyPhsx.OnGround && block.BlockCore.DoNotPushHard)
                         {
@@ -1532,12 +1532,12 @@ namespace CloudberryKingdom.Bobs
 
                         if (OriginalColType == ColType.Bottom)
                         {
-                            Core.Data.Position.Y = NewY;
+                            CoreData.Data.Position.Y = NewY;
 
                             if (block == null || block.BlockCore.GivesVelocity)
                             {
                                 NewVel = Math.Min(Math.Min(0, NewVel), box.Target.BL.Y - box.Current.BL.Y) + 10;
-                                Core.Data.Velocity.Y = Math.Min(NewVel, Core.Data.Velocity.Y);
+                                CoreData.Data.Velocity.Y = Math.Min(NewVel, CoreData.Data.Velocity.Y);
                             }
 
                             // If we are inverted, then we can take on the speed of the block we have landed on upside-down.
@@ -1548,11 +1548,11 @@ namespace CloudberryKingdom.Bobs
                         {
                             // We hit the block from the side, just at the bottom edge
                             // Keep smaller Y values
-                            Core.Data.Position.Y = Math.Min(Core.Data.Position.Y, NewY);
+                            CoreData.Data.Position.Y = Math.Min(CoreData.Data.Position.Y, NewY);
                             if (block == null || block.BlockCore.GivesVelocity)
                             {
                                 NewVel = Math.Min(0, box.Target.BL.Y - box.Current.BL.Y) + 10;
-                                Core.Data.Velocity.Y = Math.Min(NewVel, Core.Data.Velocity.Y);
+                                CoreData.Data.Velocity.Y = Math.Min(NewVel, CoreData.Data.Velocity.Y);
                             }
 
                         }                        
@@ -1568,16 +1568,16 @@ namespace CloudberryKingdom.Bobs
 
                             MyPhsx.SideHit(Col, block);
 
-                            Core.Data.Position.X = box.Target.BL.X - Box.Current.Size.X - .01f;
+                            CoreData.Data.Position.X = box.Target.BL.X - Box.Current.Size.X - .01f;
 
                             SideHitCount += 2;
-                            if (SideHitCount > 5) Core.Data.Velocity.X *= .4f;
+                            if (SideHitCount > 5) CoreData.Data.Velocity.X *= .4f;
 
                             if (block == null || block.BlockCore.GivesVelocity)
-                            if (Xvel < Core.Data.Velocity.X)
+                            if (Xvel < CoreData.Data.Velocity.X)
                                 if (Box.Current.BL.Y < box.Current.TR.Y - 35 &&
                                     Box.Current.TR.Y > box.Current.BL.Y + 35)
-                                    Core.Data.Velocity.X = Xvel;
+                                    CoreData.Data.Velocity.X = Xvel;
                         }
 
                         if (Col == ColType.Right)
@@ -1587,16 +1587,16 @@ namespace CloudberryKingdom.Bobs
 
                             MyPhsx.SideHit(Col, block);
 
-                            Core.Data.Position.X = box.Target.TR.X + Box.Current.Size.X + .01f;
+                            CoreData.Data.Position.X = box.Target.TR.X + Box.Current.Size.X + .01f;
 
                             SideHitCount += 2;
-                            if (SideHitCount > 5) Core.Data.Velocity.X *= .4f;
+                            if (SideHitCount > 5) CoreData.Data.Velocity.X *= .4f;
 
                             if (block == null || block.BlockCore.GivesVelocity)
-                            if (Xvel > Core.Data.Velocity.X)
+                            if (Xvel > CoreData.Data.Velocity.X)
                                 if (Box.Current.BL.Y < box.Current.TR.Y - 35 &&
                                     Box.Current.TR.Y > box.Current.BL.Y + 35)
-                                    Core.Data.Velocity.X = Xvel;
+                                    CoreData.Data.Velocity.X = Xvel;
                         }
                     }
                 }
@@ -1617,7 +1617,7 @@ namespace CloudberryKingdom.Bobs
             Box.Current.Size = PlayerObject.BoxList[1].Size() / 2;
             Box2.Current.Size = PlayerObject.BoxList[2].Size() / 2;
 
-            if (Core.MyLevel.PlayMode != 0 && Core.MyLevel.DefaultHeroType is BobPhsxSpaceship)
+            if (CoreData.MyLevel.PlayMode != 0 && CoreData.MyLevel.DefaultHeroType is BobPhsxSpaceship)
             {
                 Box.Current.Size *= 1.2f;
                 Box2.Current.Size *= 1.2f;
@@ -1625,16 +1625,16 @@ namespace CloudberryKingdom.Bobs
 
             if (MyPhsx.Gravity > 0)
             {
-                Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .02f));
+                Box.SetTarget(CoreData.Data.Position, Box.Current.Size + new Vector2(.0f, .02f));
                 Box.Target.TR.Y += 5;
             }
             else
             {
-                Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, -.02f));
+                Box.SetTarget(CoreData.Data.Position, Box.Current.Size + new Vector2(.0f, -.02f));
                 Box.Target.BL.Y -= 5;
             }
 
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+            Box2.SetTarget(CoreData.Data.Position, Box2.Current.Size);
 
             MyPhsx.OnInitBoxes();
         }
@@ -1646,9 +1646,9 @@ namespace CloudberryKingdom.Bobs
 
             MyCape.Wind = CapeWind;
             Vector2 AdditionalWind = Vector2.Zero;
-            if (Core.MyLevel != null && Core.MyLevel.MyBackground != null)
+            if (CoreData.MyLevel != null && CoreData.MyLevel.MyBackground != null)
             {
-                AdditionalWind += Core.MyLevel.MyBackground.Wind;
+                AdditionalWind += CoreData.MyLevel.MyBackground.Wind;
                 MyCape.Wind += AdditionalWind;
             }
             //MyCape.Wind.X -= .2f * Core.Data.Velocity.X;
@@ -1679,9 +1679,9 @@ namespace CloudberryKingdom.Bobs
 
             //Tools.Write("{0} {1} {2}", Core.Data.Position, MyCape.AnchorPoint[0], MyCape.AnchorPoint[1]);
 
-            if (Core.MyLevel != null)
+            if (CoreData.MyLevel != null)
             {
-                float t = Core.MyLevel.GetPhsxStep() / 2.5f;
+                float t = CoreData.MyLevel.GetPhsxStep() / 2.5f;
                 if (CharacterSelect2)
                     t = Tools.DrawCount / 2.5f;
                 float AmplitudeX = Math.Min(2.5f, Math.Abs(vel.X - AdditionalWind.X) / 20);
@@ -1721,12 +1721,12 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.PhsxStep();
 
             // Integrate velocity
-            Core.Data.Position += Core.Data.Velocity;
+            CoreData.Data.Position += CoreData.Data.Velocity;
             if (MyPhsx.UseGroundSpeed)
-                Core.Data.Position += new Vector2(GroundSpeed, 0);
+                CoreData.Data.Position += new Vector2(GroundSpeed, 0);
 
             // Cape
-            if (Core.MyLevel.PlayMode == 0 && MyCape != null)
+            if (CoreData.MyLevel.PlayMode == 0 && MyCape != null)
                 UpdateCape();
 
             MyPhsx.OnGround = true;
@@ -1749,7 +1749,7 @@ namespace CloudberryKingdom.Bobs
         {
             DoLightSourceFade();
 
-			if (!Core.Show)
+			if (!CoreData.Show)
 			{
 				SetRecordingInfo();
 				return;
@@ -1773,7 +1773,7 @@ namespace CloudberryKingdom.Bobs
             SaveNoBlock = false;
 
 
-            int CurPhsxStep = Core.MyLevel.CurPhsxStep;
+            int CurPhsxStep = CoreData.MyLevel.CurPhsxStep;
 
 
 
@@ -1789,7 +1789,7 @@ namespace CloudberryKingdom.Bobs
                 DyingPhsxStep();
 
                 // Cape
-                if (Core.MyLevel.PlayMode == 0 && MyCape != null)
+                if (CoreData.MyLevel.PlayMode == 0 && MyCape != null)
                     UpdateCape();
 
 				SetRecordingInfo();
@@ -1797,7 +1797,7 @@ namespace CloudberryKingdom.Bobs
             }
 
             // Track Star bonus book keeping
-            if (GiveStats() && Core.MyLevel.CurPhsxStep > 45)
+            if (GiveStats() && CoreData.MyLevel.CurPhsxStep > 45)
             {
                 MyTempStats.FinalTimeSpent++;
 
@@ -1806,7 +1806,7 @@ namespace CloudberryKingdom.Bobs
             }
 
             // Increment life counter
-            if (Core.MyLevel.PlayMode == 0 && !CompControl && !Core.MyLevel.Watching)
+            if (CoreData.MyLevel.PlayMode == 0 && !CompControl && !CoreData.MyLevel.Watching)
                 MyStats.TimeAlive++;
 
             // Screen wrap
@@ -1814,8 +1814,8 @@ namespace CloudberryKingdom.Bobs
 
             if (!CharacterSelect)
             {
-                int Mode = Core.MyLevel.PlayMode;
-                if (Core.MyLevel.NumModes == 1)
+                int Mode = CoreData.MyLevel.PlayMode;
+                if (CoreData.MyLevel.NumModes == 1)
                     if (Mode == 1) Mode = 2;
 
                 switch (Mode)
@@ -1868,12 +1868,12 @@ namespace CloudberryKingdom.Bobs
             if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
             float Windx = Wind.X;
             if (MyPhsx.OnGround) Windx /= 2;
-            Core.Data.Velocity.X -= Windx;
+            CoreData.Data.Velocity.X -= Windx;
             if (Flying)
                 FlyingPhsx();
             else
                 MyPhsx.PhsxStep();
-            Core.Data.Velocity.X += Windx;
+            CoreData.Data.Velocity.X += Windx;
             MyPhsx.CopyPrev();
             if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
 
@@ -1881,22 +1881,22 @@ namespace CloudberryKingdom.Bobs
             if (CollideWithCamera && !Cinematic)
             {
                 Box.CalcBounds();
-                if (Box.TR.X > Core.MyLevel.MainCamera.TR.X - 40 && Core.Data.Velocity.X > 0)
+                if (Box.TR.X > CoreData.MyLevel.MainCamera.TR.X - 40 && CoreData.Data.Velocity.X > 0)
                 {
-                    Core.Data.Velocity.X = 0;
+                    CoreData.Data.Velocity.X = 0;
                     MyPhsx.SideHit(ColType.Right, null);
-                    if (Box.TR.X > Core.MyLevel.MainCamera.TR.X - 20 && Core.Data.Velocity.X > 0)
+                    if (Box.TR.X > CoreData.MyLevel.MainCamera.TR.X - 20 && CoreData.Data.Velocity.X > 0)
                     {
-                        Move(new Vector2(Core.MyLevel.MainCamera.TR.X - 20 - Box.TR.X, 0));
+                        Move(new Vector2(CoreData.MyLevel.MainCamera.TR.X - 20 - Box.TR.X, 0));
                     }
                 }
-                if (Box.BL.X < Core.MyLevel.MainCamera.BL.X + 40 && Core.Data.Velocity.X < 0)
+                if (Box.BL.X < CoreData.MyLevel.MainCamera.BL.X + 40 && CoreData.Data.Velocity.X < 0)
                 {
-                    Core.Data.Velocity.X = 0;
+                    CoreData.Data.Velocity.X = 0;
                     MyPhsx.SideHit(ColType.Left, null);
-                    if (Box.BL.X < Core.MyLevel.MainCamera.BL.X + 20 && Core.Data.Velocity.X < 0)
+                    if (Box.BL.X < CoreData.MyLevel.MainCamera.BL.X + 20 && CoreData.Data.Velocity.X < 0)
                     {
-                        Move(new Vector2(Core.MyLevel.MainCamera.BL.X + 20 - Box.BL.X, 0));
+                        Move(new Vector2(CoreData.MyLevel.MainCamera.BL.X + 20 - Box.BL.X, 0));
                     }
                 }
             }
@@ -1908,7 +1908,7 @@ namespace CloudberryKingdom.Bobs
                 MyPhsx.Integrate();
 
             // Cape
-            if (Core.MyLevel.PlayMode == 0 && MyCape != null)
+            if (CoreData.MyLevel.PlayMode == 0 && MyCape != null)
                 UpdateCape();
             Wind /= 2;
             CapeWind /= 2;
@@ -1925,29 +1925,29 @@ namespace CloudberryKingdom.Bobs
             }
 
             // If too high, knock Bob down a bit
-            if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 900 && Core.Data.Velocity.Y > 0)
-                Core.Data.Velocity.Y = 0;
+            if (CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 900 && CoreData.Data.Velocity.Y > 0)
+                CoreData.Data.Velocity.Y = 0;
 
             // Check for death by falling or by off screen
-            if (Core.MyLevel.PlayMode == 0)
+            if (CoreData.MyLevel.PlayMode == 0)
             {
                 float DeathDist = 650;
-                if (Core.MyLevel.MyGame.MyGameFlags.IsTethered) DeathDist = 900;
-                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DeathDist)
+                if (CoreData.MyLevel.MyGame.MyGameFlags.IsTethered) DeathDist = 900;
+                if (CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - DeathDist)
                     Die(BobDeathType.Fall);
-                else if (MyPhsx.Gravity < 0 && Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + DeathDist)
+                else if (MyPhsx.Gravity < 0 && CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + DeathDist)
                     Die(BobDeathType.Fall);
                 else
-                    if (Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 1500 ||
-                        Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 550 ||
-                        Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 550)
+                    if (CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 1500 ||
+                        CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - 550 ||
+                        CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + 550)
                     {
                         Die(BobDeathType.LeftBehind);
                     }
             }
 
             // Check for death by time out
-            if (Core.MyLevel.PlayMode == 0 && Core.MyLevel.CurPhsxStep > Core.MyLevel.TimeLimit && Core.MyLevel.TimeLimit > 0)
+            if (CoreData.MyLevel.PlayMode == 0 && CoreData.MyLevel.CurPhsxStep > CoreData.MyLevel.TimeLimit && CoreData.MyLevel.TimeLimit > 0)
                 Die(BobDeathType.Time);
 
             // Initialize boxes for collision detection
@@ -1966,8 +1966,8 @@ namespace CloudberryKingdom.Bobs
                 ObjectInteractions();
 
             // Reset boxes to normal
-            Box.SetCurrent(Core.Data.Position, Box.Current.Size);
-            Box2.SetCurrent(Core.Data.Position, Box2.Current.Size);
+            Box.SetCurrent(CoreData.Data.Position, Box.Current.Size);
+            Box2.SetCurrent(CoreData.Data.Position, Box2.Current.Size);
 
 //if (Core.MyLevel.PlayMode != 0)
 //    for (int i = 0; i <= NumBoxes; i++)
@@ -1988,7 +1988,7 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         void ObjectInteractions()
         {
-            if (Core.MyLevel.PlayMode != 0)
+            if (CoreData.MyLevel.PlayMode != 0)
             {
                 // Create list of boxes
                 if (Boxes == null)
@@ -2002,13 +2002,13 @@ namespace CloudberryKingdom.Bobs
                 UpdateBoxList();
             }
             else
-                Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
-            Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .2f));
+                Box2.SetTarget(CoreData.Data.Position, Box2.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size + new Vector2(.0f, .2f));
 
 
-            foreach (ObjectBase obj in Core.MyLevel.ActiveObjectList)
+            foreach (ObjectBase obj in CoreData.MyLevel.ActiveObjectList)
             {
-                if (!obj.Core.MarkedForDeletion && obj.Core.Real && obj.Core.Active && obj.Core.Show)
+                if (!obj.CoreData.MarkedForDeletion && obj.CoreData.Real && obj.CoreData.Active && obj.CoreData.Show)
                     obj.Interact(this);
             }
         }
@@ -2031,19 +2031,19 @@ namespace CloudberryKingdom.Bobs
                 box.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
 
                 box.SetCurrent(Box2.Current.Center, box.Current.Size);
-                box.SetTarget(Core.Data.Position, box.Current.Size);
+                box.SetTarget(CoreData.Data.Position, box.Current.Size);
             }
             RegularBox2 = Boxes[Boxes.Count - 1];
 
             Box2.Current.Size.X += extra + .7f * Upgrades.MaxBobWidth;
             Box2.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth;
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+            Box2.SetTarget(CoreData.Data.Position, Box2.Current.Size);
         }
 
         public void DeleteObj(ObjectBase obj)
         {
-            obj.Core.DeletedByBob = true;
-            Core.Recycle.CollectObject(obj);
+            obj.CoreData.DeletedByBob = true;
+            CoreData.Recycle.CollectObject(obj);
         }
 
         public Ceiling_Parameters CeilingParams;
@@ -2058,7 +2058,7 @@ namespace CloudberryKingdom.Bobs
 
         void OldBlockInteractions()
         {
-            int CurPhsxStep = Core.MyLevel.CurPhsxStep;
+            int CurPhsxStep = CoreData.MyLevel.CurPhsxStep;
 
             GroundSpeed = 0;
 
@@ -2069,13 +2069,13 @@ namespace CloudberryKingdom.Bobs
 
             BottomCol = TopCol = false;
             if (CanInteract)
-                if (Core.MyLevel.PlayMode != 2)
+                if (CoreData.MyLevel.PlayMode != 2)
                 {
-                    if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Core.MyLevel.PlayMode == 0)
+                    if (CoreData.MyLevel.DefaultHeroType is BobPhsxSpaceship && CoreData.MyLevel.PlayMode == 0)
                     {
-                        foreach (BlockBase block in Core.MyLevel.Blocks)
+                        foreach (BlockBase block in CoreData.MyLevel.Blocks)
                         {
-                            if (!block.Core.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(Box2, block.Box))
+                            if (!block.CoreData.MarkedForDeletion && block.IsActive && Phsx.BoxBoxOverlap(Box2, block.Box))
                             {
                                 if (!Immortal)
                                     Die(BobDeathType.Other);
@@ -2086,10 +2086,10 @@ namespace CloudberryKingdom.Bobs
                     }
                     else
                     {
-                        foreach (BlockBase block in Core.MyLevel.Blocks)
+                        foreach (BlockBase block in CoreData.MyLevel.Blocks)
                         {
-                            if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
-                            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                            if (block.CoreData.MarkedForDeletion || !block.IsActive || !block.CoreData.Real) continue;
+                            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.CoreData.DrawLayer <= CoreData.DrawLayer)
                                 continue;
 
                             ColType Col = Phsx.CollisionTest(Box, block.Box);
@@ -2102,18 +2102,18 @@ namespace CloudberryKingdom.Bobs
                 }
                 else
                 {
-                    Ceiling_Parameters CeilingParams = (Ceiling_Parameters)Core.MyLevel.CurPiece.MyData.Style.FindParams(Ceiling_AutoGen.Instance);
+                    Ceiling_Parameters CeilingParams = (Ceiling_Parameters)CoreData.MyLevel.CurPiece.MyData.Style.FindParams(Ceiling_AutoGen.Instance);
 
-                    foreach (BlockBase block in Core.MyLevel.Blocks)
+                    foreach (BlockBase block in CoreData.MyLevel.Blocks)
                     {
-                        if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
-                        if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer)
+                        if (block.CoreData.MarkedForDeletion || !block.IsActive || !block.CoreData.Real) continue;
+                        if (block.BlockCore.OnlyCollidesWithLowerLayers && block.CoreData.DrawLayer <= CoreData.DrawLayer)
                             continue;
 
                         if (block.BlockCore.Ceiling)
                         {
-                            if (Core.Data.Position.X > block.Box.Current.BL.X - 100 &&
-                                Core.Data.Position.X < block.Box.Current.TR.X + 100)
+                            if (CoreData.Data.Position.X > block.Box.Current.BL.X - 100 &&
+                                CoreData.Data.Position.X < block.Box.Current.TR.X + 100)
                             {
                                 float NewBottom = block.Box.Current.BL.Y;
                                 // If ceiling has a left neighbor make sure we aren't too close to it
@@ -2122,9 +2122,9 @@ namespace CloudberryKingdom.Bobs
                                     if (NewBottom > block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y - 100)
                                         NewBottom = Math.Max(NewBottom, block.BlockCore.TopLeftNeighbor.Box.Current.BL.Y + 120);
                                 }
-                                block.Extend(Side.Bottom, Math.Max(NewBottom, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                block.Extend(Side.Bottom, Math.Max(NewBottom, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(CoreData.Data.Position)));
                                 if (block.Box.Current.Size.Y < 170 ||
-                                    block.Box.Current.BL.Y > Core.MyLevel.MainCamera.TR.Y - 75)
+                                    block.Box.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y - 75)
                                 {
                                     DeleteObj(block);
                                 }
@@ -2139,7 +2139,7 @@ namespace CloudberryKingdom.Bobs
                             if (Box.Current.TR.X > block.Box.Current.BL.X &&
                                 Box.Current.BL.X < block.Box.Current.TR.X)
                             {
-                                Core.MyLevel.PushLava(Box.Target.BL.Y - 60, block as LavaBlock);
+                                CoreData.MyLevel.PushLava(Box.Target.BL.Y - 60, block as LavaBlock);
                             }
                             continue;
                         }
@@ -2148,7 +2148,7 @@ namespace CloudberryKingdom.Bobs
 
                         ColType Col = Phsx.CollisionTest(Box, block.Box);
                         bool Overlap;
-                        if (!block.Box.TopOnly || block.Core.GenData.RemoveIfOverlap)
+                        if (!block.Box.TopOnly || block.CoreData.GenData.RemoveIfOverlap)
                             Overlap = Phsx.BoxBoxOverlap(Box, block.Box);
                         else
                             Overlap = false;
@@ -2156,7 +2156,7 @@ namespace CloudberryKingdom.Bobs
                         {
                             if (block.BlockCore.Ceiling)
                             {
-                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(CoreData.Data.Position)));
                                 continue;
                             }
 
@@ -2168,7 +2168,7 @@ namespace CloudberryKingdom.Bobs
                             if (BottomCol && Col == ColType.Top) Delete = true;
                             //if (Col == ColType.Top && Core.Data.Position.Y > TargetPosition.Y) Delete = true;
                             if (Col == ColType.Top && WantsToLand == false) Delete = true;
-                            if (Col == ColType.Bottom && Core.Data.Position.Y < TargetPosition.Y) Delete = true;
+                            if (Col == ColType.Bottom && CoreData.Data.Position.Y < TargetPosition.Y) Delete = true;
                             if (Col == ColType.Left || Col == ColType.Right) MakeTopOnly = true;// Delete = true;
                             if (TopCol && Col == ColType.Bottom) Delete = true;
                             //if (block is MovingBlock2 && Col == ColType.Bottom) Delete = true;
@@ -2200,7 +2200,7 @@ namespace CloudberryKingdom.Bobs
 
                             if (MakeTopOnly && block.BlockCore.DeleteIfTopOnly)
                             {
-                                if (block.Core.GenData.Used)
+                                if (block.CoreData.GenData.Used)
                                     MakeTopOnly = Delete = false;
                                 else
                                     Delete = true;
@@ -2208,7 +2208,7 @@ namespace CloudberryKingdom.Bobs
 
                             if (MakeTopOnly)
                             {
-                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position)));
+                                block.Extend(Side.Bottom, Math.Max(block.Box.Current.BL.Y, Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(CoreData.Data.Position)));
                                 ((NormalBlock)block).CheckHeight();
                                 if (Col != ColType.Top)
                                     Col = ColType.NoCol;
@@ -2228,23 +2228,23 @@ namespace CloudberryKingdom.Bobs
                             // Don't land on a block that says not to
                             bool DesiresDeletion = false;
                             {
-                                if (block.Core.GenData.TemporaryNoLandZone ||
-                                    !block.Core.GenData.Used && !block.PermissionToUse())
+                                if (block.CoreData.GenData.TemporaryNoLandZone ||
+                                    !block.CoreData.GenData.Used && !block.PermissionToUse())
                                     DesiresDeletion = Delete = true;
                             }
 
 
-                            if (block.Core.GenData.Used) Delete = false;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysLandOn_Reluctantly && WantsToLand_Reluctant && !block.Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-                            if (Overlap && block.Core.GenData.RemoveIfOverlap) Delete = true;
-                            if (!DesiresDeletion && block.Core.GenData.AlwaysUse && !block.Core.MarkedForDeletion) Delete = false;
+                            if (block.CoreData.GenData.Used) Delete = false;
+                            if (!DesiresDeletion && block.CoreData.GenData.AlwaysLandOn && !block.CoreData.MarkedForDeletion && Col == ColType.Top) Delete = false;
+                            if (!DesiresDeletion && block.CoreData.GenData.AlwaysLandOn_Reluctantly && WantsToLand_Reluctant && !block.CoreData.MarkedForDeletion && Col == ColType.Top) Delete = false;
+                            if (Overlap && block.CoreData.GenData.RemoveIfOverlap) Delete = true;
+                            if (!DesiresDeletion && block.CoreData.GenData.AlwaysUse && !block.CoreData.MarkedForDeletion) Delete = false;
 
                             // Shift bottom of block if necessary
                             if (!Delete && !block.BlockCore.DeleteIfTopOnly)
                             {
                                 float NewBottom = Math.Max(block.Box.Current.BL.Y,
-                                                           Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(Core.Data.Position));
+                                                           Math.Max(Box.Target.TR.Y, Box.Current.TR.Y) + CeilingParams.BufferSize.GetVal(CoreData.Data.Position));
 
                                 if (block is NormalBlock &&
                                     (Col == ColType.Bottom || Overlap) && Col != ColType.Top &&
@@ -2276,7 +2276,7 @@ namespace CloudberryKingdom.Bobs
                                     // We changed the blocks property, so Bob may no longer be on a collision course with it. Check to see if he is before marking block as used.
                                     if (!block.Box.TopOnly || Col == ColType.Top)
                                     {
-                                        if (block.Core.GenData.RemoveIfUsed)
+                                        if (block.CoreData.GenData.RemoveIfUsed)
                                             Delete = true;
 
                                         if (!Delete)
@@ -2285,12 +2285,12 @@ namespace CloudberryKingdom.Bobs
                                             block.StampAsUsed(CurPhsxStep);
 
                                             // Normal blocks delete surrounding blocks when stamped as used
-                                            if (block.Core.GenData.DeleteSurroundingOnUse && block is NormalBlock)
-                                                foreach (BlockBase nblock in Core.MyLevel.Blocks)
+                                            if (block.CoreData.GenData.DeleteSurroundingOnUse && block is NormalBlock)
+                                                foreach (BlockBase nblock in CoreData.MyLevel.Blocks)
                                                 {
                                                     NormalBlock Normal = nblock as NormalBlock;
-                                                    if (null != Normal && !Normal.Core.MarkedForDeletion && !Normal.Core.GenData.AlwaysUse)
-                                                        if (!Normal.Core.GenData.Used &&
+                                                    if (null != Normal && !Normal.CoreData.MarkedForDeletion && !Normal.CoreData.GenData.AlwaysUse)
+                                                        if (!Normal.CoreData.GenData.Used &&
                                                             Math.Abs(Normal.Box.Current.TR.Y - block.Box.TR.Y) < 15 &&
                                                             !(Normal.Box.Current.TR.X < block.Box.Current.BL.X - 350 || Normal.Box.Current.BL.X > block.Box.Current.TR.X + 350))
                                                         {
@@ -2301,12 +2301,12 @@ namespace CloudberryKingdom.Bobs
 
                                             // Ghost blocks delete surrounding blocks when stamped as used
                                             if (block is GhostBlock)
-                                                foreach (BlockBase gblock in Core.MyLevel.Blocks)
+                                                foreach (BlockBase gblock in CoreData.MyLevel.Blocks)
                                                 {
                                                     GhostBlock ghost = gblock as GhostBlock;
-                                                    if (null != ghost && !ghost.Core.MarkedForDeletion)
-                                                        if (!ghost.Core.GenData.Used &&
-                                                            (ghost.Core.Data.Position - block.Core.Data.Position).Length() < 200)
+                                                    if (null != ghost && !ghost.CoreData.MarkedForDeletion)
+                                                        if (!ghost.CoreData.GenData.Used &&
+                                                            (ghost.CoreData.Data.Position - block.CoreData.Data.Position).Length() < 200)
                                                         {
                                                             DeleteObj(ghost);
                                                             ghost.IsActive = false;
@@ -2317,7 +2317,7 @@ namespace CloudberryKingdom.Bobs
                                 }
 
                                 Delete = false;
-                                if (block.Core.GenData.RemoveIfOverlap)
+                                if (block.CoreData.GenData.RemoveIfOverlap)
                                 {
                                     if (Phsx.BoxBoxOverlap(Box, block.Box))
                                         Delete = true;
@@ -2330,7 +2330,7 @@ namespace CloudberryKingdom.Bobs
 
         void NewBlockInteractions()
         {
-            int CurPhsxStep = Core.MyLevel.CurPhsxStep;
+            int CurPhsxStep = CoreData.MyLevel.CurPhsxStep;
 
             GroundSpeed = 0;
 
@@ -2341,13 +2341,13 @@ namespace CloudberryKingdom.Bobs
 
             BottomCol = TopCol = false;
             if (CanInteract)
-                if (Core.MyLevel.PlayMode != 2)
+                if (CoreData.MyLevel.PlayMode != 2)
                     MyPhsx.BlockInteractions();
                 else
                 {
-                    CeilingParams = (Ceiling_Parameters)Core.GetParams(Ceiling_AutoGen.Instance);
+                    CeilingParams = (Ceiling_Parameters)CoreData.GetParams(Ceiling_AutoGen.Instance);
 
-                    foreach (BlockBase block in Core.MyLevel.Blocks)
+                    foreach (BlockBase block in CoreData.MyLevel.Blocks)
                     {
                         if (MyPhsx.SkipInteraction(block)) continue;
                         //if (block.Core.MarkedForDeletion || !block.IsActive || !block.Core.Real) continue;
@@ -2360,7 +2360,7 @@ namespace CloudberryKingdom.Bobs
                         // Collision check
                         ColType Col = Phsx.CollisionTest(Box, block.Box);
                         bool Overlap = false;
-                        if (!block.Box.TopOnly || block.Core.GenData.RemoveIfOverlap)
+                        if (!block.Box.TopOnly || block.CoreData.GenData.RemoveIfOverlap)
                             Overlap = Phsx.BoxBoxOverlap(Box, block.Box);
 
                         if (Col != ColType.NoCol || Overlap)
@@ -2389,7 +2389,7 @@ namespace CloudberryKingdom.Bobs
                                     // We changed the blocks property, so Bob may no longer be on a collision course with it. Check to see if he is before marking block as used.
                                     if (!block.Box.TopOnly || Col == ColType.Top)
                                     {
-                                        if (block.Core.GenData.RemoveIfUsed)
+                                        if (block.CoreData.GenData.RemoveIfUsed)
                                             Delete = true;
 
                                         if (!Delete)

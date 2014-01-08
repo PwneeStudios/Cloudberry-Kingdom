@@ -15,15 +15,16 @@ namespace CloudberryKingdom
 {
     public class ObjectBase : ViewReadWrite
     {
-        public GameData Game { get { return Core.MyLevel.MyGame; } }
-        public Level MyLevel { get { return Core.MyLevel; } }
-        public Camera Cam { get { return Core.MyLevel.MainCamera; } }
-        public Rand Rnd { get { return Core.MyLevel.Rnd; } }
+        public GameData Game { get { return CoreData.MyLevel.MyGame; } }
+        public Level MyLevel { get { return CoreData.MyLevel; } }
+        public Camera Cam { get { return CoreData.MyLevel.MainCamera; } }
+        public Rand Rnd { get { return CoreData.MyLevel.Rnd; } }
 
-        public Vector2 Pos { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
+		//public Vector2 CoreData.Data.Position { get { return Core.Data.Position; } set { Core.Data.Position = value; } }
 
-        protected ObjectData CoreData;
-        public ObjectData Core { get { return CoreData; } }
+        public ObjectData CoreData;
+		//public ObjectData CoreData { get { return CoreData; } }
+
         public TileSet.TileSetInfo Info
         {
             get
@@ -42,33 +43,33 @@ namespace CloudberryKingdom
 
         public virtual void Init(Vector2 pos, Level level)
         {
-            Core.StartData.Position = Core.Data.Position = pos;
+            CoreData.StartData.Position = CoreData.Data.Position = pos;
 
-            var tile = Core.MyTileSet = level.MyTileSet;
-            Tools.Assert(Core.MyTileSet != null);
+            var tile = CoreData.MyTileSet = level.MyTileSet;
+            Tools.Assert(CoreData.MyTileSet != null);
         }
 
         public virtual void Release()
         {
-            Core.Release();
+            CoreData.Release();
         }
 
         public void SetParentBlock(BlockBase block)
         {
-            Core.SetParentBlock(block);
+            CoreData.SetParentBlock(block);
             OnAttachedToBlock();
         }
 
         public virtual void CollectSelf()
         {
-            if (Core.MarkedForDeletion) return;
+            if (CoreData.MarkedForDeletion) return;
 
-            Core.Recycle.CollectObject(this);
+            CoreData.Recycle.CollectObject(this);
         }
 
         public void StampAsUsed(int CurPhsxStep)
         {
-            Core.GenData.__StampAsUsed(CurPhsxStep);
+            CoreData.GenData.__StampAsUsed(CurPhsxStep);
             OnUsed();
         }
 
@@ -78,14 +79,14 @@ namespace CloudberryKingdom
         public virtual void Draw() { }
         public virtual void TextDraw() { }
         public virtual void Reset(bool BoxesOnly) { }
-        public virtual void Clone(ObjectBase A) { Core.Clone(A.Core); }
-        public virtual void Read(BinaryReader reader) { Core.Read(reader); }
-        public virtual void Write(BinaryWriter writer) { Core.Write(writer); }
+        public virtual void Clone(ObjectBase A) { CoreData.Clone(A.CoreData); }
+        public virtual void Read(BinaryReader reader) { CoreData.Read(reader); }
+        public virtual void Write(BinaryWriter writer) { CoreData.Write(writer); }
         public virtual void Interact(Bob bob) { }
         public virtual void Move(Vector2 shift)
         {
-            Core.StartData.Position += shift;
-            Core.Data.Position += shift;
+            CoreData.StartData.Position += shift;
+            CoreData.Data.Position += shift;
         }
 
         public virtual void OnUsed() { }
@@ -546,7 +547,7 @@ namespace CloudberryKingdom
             foreach (ObjectBase obj in objs)
                 foreach (ObjectBase _obj in objs)
                     if (obj != _obj)
-                        obj.Core.AddAssociate(_obj, DeleteWhenDeleted, UseWhenUsed);
+                        obj.CoreData.AddAssociate(_obj, DeleteWhenDeleted, UseWhenUsed);
         }
 
         public void AddAssociate(ObjectBase obj, bool DeleteWhenDeleted, bool UseWhenUsed)
@@ -562,23 +563,23 @@ namespace CloudberryKingdom
                 while (Associations[FreeIndex].Guid != 0)
                     FreeIndex++;
 
-            Associations[FreeIndex].Guid = obj.Core.MyGuid;
+            Associations[FreeIndex].Guid = obj.CoreData.MyGuid;
             Associations[FreeIndex].DeleteWhenDeleted = DeleteWhenDeleted;
             Associations[FreeIndex].UseWhenUsed = UseWhenUsed;
         }
 
         public bool IsAssociatedWith(ObjectBase obj)
         {
-            if (Associations == null || obj.Core.Associations == null)
+            if (Associations == null || obj.CoreData.Associations == null)
                 return false;
             else
-                return Associations.Any(data => data.Guid == obj.Core.MyGuid);
+                return Associations.Any(data => data.Guid == obj.CoreData.MyGuid);
         }
 
         public int GetAssociatedIndex(ObjectBase obj)
         {
             for (int i = 0; i < Associations.Length; i++)
-                if (Associations[i].Guid == obj.Core.MyGuid)
+                if (Associations[i].Guid == obj.CoreData.MyGuid)
                     return i;
 
             return -1;
@@ -586,7 +587,7 @@ namespace CloudberryKingdom
 
         public AssociatedObjData GetAssociationData(ObjectBase obj)
         {
-            return Associations.First(delegate(AssociatedObjData data) { return data.Guid == obj.Core.MyGuid; });
+            return Associations.First(delegate(AssociatedObjData data) { return data.Guid == obj.CoreData.MyGuid; });
         }
 
         public bool Released = false;
@@ -612,7 +613,7 @@ namespace CloudberryKingdom
         public void SetParentObj(ObjectBase obj)
         {
             ParentObject = obj;
-            ParentObjId = obj.Core.MyGuid;
+            ParentObjId = obj.CoreData.MyGuid;
         }
 
         public void SetParentBlock(BlockBase block)

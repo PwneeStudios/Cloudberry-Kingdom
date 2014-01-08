@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             if (null != door)
             {
                 foreach (Bob bob in MyGame.MyLevel.Bobs)
-                    bob.Core.Show = false;
+                    bob.CoreData.Show = false;
             }
 
             // Start the music
@@ -110,7 +110,7 @@ namespace CloudberryKingdom
             //HeroRush.Timer.Show();
 
             ObjectBase end_door = MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
-            Vector2 endpos = end_door.Core.Data.Position;
+            Vector2 endpos = end_door.CoreData.Data.Position;
 
             Arrow arrow = new Arrow();
             arrow.SetOrientation(Arrow.Orientation.Right);
@@ -118,7 +118,7 @@ namespace CloudberryKingdom
             arrow.PointTo(endpos);
             MyGame.AddGameObject(arrow);
 
-            GUI_Text text = new GUI_Text(Localization.Words.GetToTheExit, arrow.Core.Data.Position + new Vector2(-200, 400));
+            GUI_Text text = new GUI_Text(Localization.Words.GetToTheExit, arrow.CoreData.Data.Position + new Vector2(-200, 400));
             MyGame.AddGameObject(text);
 
             // On (A) go to next part of the tutorial
@@ -150,7 +150,7 @@ namespace CloudberryKingdom
 
             GUI_Text text = new GUI_Text(
                 string.Format(Localization.WordString(Localization.Words.SecondsOnTheClock), HeroRush.Timer.Seconds),
-                arrow.Core.Data.Position +
+                arrow.CoreData.Data.Position +
                     //new Vector2(830, -130));
                     new Vector2(0, -530));
 
@@ -170,7 +170,7 @@ namespace CloudberryKingdom
             List<Arrow> arrows = new List<Arrow>();
             foreach (ObjectBase coin in MyGame.MyLevel.GetObjectList(ObjectType.Coin))
             {
-                Vector2 coinpos = coin.Core.Data.Position;
+                Vector2 coinpos = coin.CoreData.Data.Position;
 
                 Arrow arrow = new Arrow();
                 arrow.SetScale(300);
@@ -208,7 +208,7 @@ namespace CloudberryKingdom
             MyGame.AddGameObject(arrow);
 
             GUI_Text text = new GUI_Text(Localization.Words.GetAHighScore,
-                arrow.Core.Data.Position + new Vector2(-500, -100) + new Vector2(-38.88892f, -150f));
+                arrow.CoreData.Data.Position + new Vector2(-500, -100) + new Vector2(-38.88892f, -150f));
             MyGame.AddGameObject(text);
 
             // On (A) go to next part of the tutorial

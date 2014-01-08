@@ -19,7 +19,7 @@ namespace CloudberryKingdom
         public void Init(Vector2 pos, Vector2 size)
         {
             FixedToCamera = false;
-            Core.DrawLayer = 9;
+            CoreData.DrawLayer = 9;
 
             MyPile = new DrawPile();
 
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
-            foreach (Bob bob in Core.MyLevel.Bobs)
+            foreach (Bob bob in CoreData.MyLevel.Bobs)
                 if (bob.CanDie && Phsx.BoxBoxOverlap(bob.Box, Box))
                     if (AttachedDoor != null)
                     {

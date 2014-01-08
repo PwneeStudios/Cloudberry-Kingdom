@@ -284,7 +284,7 @@ namespace CloudberryKingdom
             MyCharacterSelect.ItemIndex[ClrSelectIndex] = HoldIndex;
             MyCharacterSelect.Customize_UpdateColors();
 
-			MyCharacterSelect.MyDoll.Shift = Vector2.Zero;
+			MyCharacterSelect.MyDoll.DollShift = Vector2.Zero;
 			CharacterSelectManager.BobZoom = 2.6f;
             ReturnToCaller();
         }

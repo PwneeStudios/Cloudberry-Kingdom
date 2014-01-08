@@ -31,7 +31,7 @@ namespace CloudberryKingdom.Blocks
         {
             BlockCore.Init();
             BlockCore.MyType = ObjectType.Pendulum;
-            Core.DrawLayer = 3;
+            CoreData.DrawLayer = 3;
 
             MyBox.TopOnly = true;
 
@@ -45,10 +45,10 @@ namespace CloudberryKingdom.Blocks
 
             BlockCore.Layer = .7f;
 
-            Core.RemoveOnReset = false;
+            CoreData.RemoveOnReset = false;
             BlockCore.HitHead = true;
 
-            Core.EditHoldable = Core.Holdable = true;
+            CoreData.EditHoldable = CoreData.Holdable = true;
         }
 
         public Pendulum(bool BoxesOnly)
@@ -58,24 +58,24 @@ namespace CloudberryKingdom.Blocks
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public Vector2 TR_Bound()
         {
             Vector2 max =
-                Vector2.Max(
-                Vector2.Max(CalcPosition(0), CalcPosition(.5f)),
-                Vector2.Max(CalcPosition(0.25f), CalcPosition(.75f)));
+                Vector2Extension.Max(
+                Vector2Extension.Max(CalcPosition(0), CalcPosition(.5f)),
+                Vector2Extension.Max(CalcPosition(0.25f), CalcPosition(.75f)));
             return max;
         }
 
         public Vector2 BL_Bound()
         {
             Vector2 min =
-                Vector2.Min(
-                Vector2.Min(CalcPosition(0), CalcPosition(.5f)),
-                Vector2.Min(CalcPosition(0.25f), CalcPosition(.75f)));
+                Vector2Extension.Min(
+                Vector2Extension.Min(CalcPosition(0), CalcPosition(.5f)),
+                Vector2Extension.Min(CalcPosition(0.25f), CalcPosition(.75f)));
 
             return min;
         }
@@ -97,7 +97,7 @@ namespace CloudberryKingdom.Blocks
 
             base.Init(ref center, ref size, level, level.Info.Pendulums.Group);
 
-            Core.Data.Position = Core.StartData.Position = PivotPoint = center;
+            CoreData.Data.Position = CoreData.StartData.Position = PivotPoint = center;
         }
 
         public void MoveToBounded(Vector2 shift)
@@ -107,7 +107,7 @@ namespace CloudberryKingdom.Blocks
 
         public void CalculateLength()
         {
-            Length = (Core.StartData.Position - PivotPoint).Length();
+            Length = (CoreData.StartData.Position - PivotPoint).Length();
         }
 
         public override void Move(Vector2 shift)
@@ -121,7 +121,7 @@ namespace CloudberryKingdom.Blocks
         {
             base.Reset(BoxesOnly);
 
-            Core.Data = BlockCore.Data = BlockCore.StartData;
+            CoreData.Data = BlockCore.Data = BlockCore.StartData;
 
             MyBox.Current.Center = BlockCore.StartData.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
@@ -164,24 +164,24 @@ namespace CloudberryKingdom.Blocks
         public float MyTime = 0;
         public override void PhsxStep()
         {
-            if (!Core.Held)
+            if (!CoreData.Held)
             {
-                float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
-                Pos = CalcPosition((float)Step / Period);
+                float Step = CoreMath.Modulo(CoreData.GetIndependentPhsxStep() + Offset, (float)Period);
+                CoreData.Data.Position = CalcPosition((float)Step / Period);
             }
 
             Vector2 PhsxCutoff = new Vector2(900 + Length);
-            if (Core.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, PhsxCutoff))
+            if (CoreData.MyLevel.BoxesOnly) PhsxCutoff = new Vector2(500, 500);
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, PhsxCutoff))
             {
                 Active = false;
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
                         
-            MyBox.Target.Center = Core.Data.Position;
+            MyBox.Target.Center = CoreData.Data.Position;
 
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
             if (!Active)
@@ -201,7 +201,7 @@ namespace CloudberryKingdom.Blocks
         {
             bool DrawSelf = true;
 
-            if (!Core.Held)
+            if (!CoreData.Held)
             {
                 if (!Active) return;
                                 
@@ -210,11 +210,11 @@ namespace CloudberryKingdom.Blocks
                 if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y)
                     DrawSelf = false;
 
-                if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+                if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer)
                 {
                     //if (PivotLocationType == PivotLocationTypes.TopBottom)
                     {
-                        if (PivotPoint.X < Core.MyLevel.MainCamera.TR.X && PivotPoint.X > Core.MyLevel.MainCamera.BL.X)
+                        if (PivotPoint.X < CoreData.MyLevel.MainCamera.TR.X && PivotPoint.X > CoreData.MyLevel.MainCamera.BL.X)
                             DrawSelf = true;
                     }
                     //else
@@ -240,8 +240,8 @@ namespace CloudberryKingdom.Blocks
                     //Tools.QDrawer.DrawLine(Core.Data.Position - add, PivotPoint - add, Info.SpikeyGuys.Chain);
 
 					int RepeatWidth = 1900;
-					if (Core.Data.Position.Y < -1200) RepeatWidth = 2150;
-					Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint + (PivotPoint - Pos), Info.Boulders.Chain, RepeatWidth);
+					if (CoreData.Data.Position.Y < -1200) RepeatWidth = 2150;
+					Tools.QDrawer.DrawLine(CoreData.Data.Position, PivotPoint + (PivotPoint - CoreData.Data.Position), Info.Boulders.Chain, RepeatWidth);
 
                     MyDraw.Update();
                     MyDraw.Draw();
@@ -256,7 +256,7 @@ namespace CloudberryKingdom.Blocks
             if (Info.Pendulums.Group != null)
                 if (MyDraw.MyTemplate != null)
                 {
-                    MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, Rnd, Info.Pendulums.Group);
+                    MyDraw.MyTemplate = CoreData.MyTileSet.GetPieceTemplate(this, Rnd, Info.Pendulums.Group);
                     MyDraw.Init(this, MyDraw.MyTemplate, false);
                 }
         }
@@ -267,7 +267,7 @@ namespace CloudberryKingdom.Blocks
 
             MyBox.Extend(side, pos);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
 
             BlockCore.StartData.Position = MyBox.Current.Center;
@@ -281,7 +281,7 @@ namespace CloudberryKingdom.Blocks
 
             Init(BlockA.Box.Current.Center, BlockA.Box.Current.Size, BlockA.MyLevel, MyBoxStyle);
 
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             MoveType = BlockA.MoveType;
 

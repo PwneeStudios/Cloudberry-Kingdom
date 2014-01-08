@@ -18,7 +18,7 @@ namespace CloudberryKingdom
 
         public override void Construct(bool BoxesOnly)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MakeNew();
         }
@@ -27,14 +27,14 @@ namespace CloudberryKingdom
         {
             if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
             {
-                if (Core.MyLevel.PlayMode == 0)
+                if (CoreData.MyLevel.PlayMode == 0)
                     bob.Die(BobDeathType.Laser, this);
                 else
                 {
-                    bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, Core, bob, AutoGenSingleton);
+                    bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, CoreData, bob, AutoGenSingleton);
 
                     if (col)
-                        Core.Recycle.CollectObject(this);
+                        CoreData.Recycle.CollectObject(this);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace CloudberryKingdom
 
         public override void PhsxStep2()
         {
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
                 MyLine.SwapToCurrent();
         }
     }

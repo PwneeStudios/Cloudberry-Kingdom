@@ -53,13 +53,13 @@ namespace CloudberryKingdom.Levels
             Vector2 pos = new Vector2 (MainPlatform.Box.BL.X + 300, 0);
             Door door = PlaceDoorOnBlock(pos, MainPlatform, true, TileSets.None);
 
-            door.MyBackblock.Core.MyTileSet = "castle";
+            door.MyBackblock.CoreData.MyTileSet = "castle";
             door.MyBackblock.Extend(Side.Right, pos.X + 350);
             door.MyBackblock.Extend(Side.Left, MainPlatform.Box.BL.X + 30);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);
             door.MyBackblock.Extend(Side.Top, MainPlatform.Box.TR.Y + 1000);
 
-            Level.SpreadStartPositions(CurPiece, CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
+            Level.SpreadStartPositions(CurPiece, CurMakeData, door.CoreData.Data.Position, new Vector2(50, 0));
 
             // End door
             pos = new Vector2(MainPlatform.Box.TR.X - 300, 0);
@@ -67,13 +67,13 @@ namespace CloudberryKingdom.Levels
             MakeFinalDoor.SetFinalDoor(door, this, pos);
             door.ExtraPhsx = me =>
                 {
-                    if (me.Core.GetPhsxStep() > Length)
+                    if (me.CoreData.GetPhsxStep() > Length)
                         me.SetLock(false);
                     else
                         me.SetLock(true);
                 };
 
-            door.MyBackblock.Core.MyTileSet = "castle";
+            door.MyBackblock.CoreData.MyTileSet = "castle";
             door.MyBackblock.Extend(Side.Right, MainPlatform.Box.TR.X - 30);
             door.MyBackblock.Extend(Side.Left, pos.X - 350);
             door.MyBackblock.Extend(Side.Bottom, MainPlatform.Box.BL.Y + 30);

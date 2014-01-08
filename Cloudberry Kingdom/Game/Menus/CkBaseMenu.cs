@@ -493,8 +493,8 @@ namespace CloudberryKingdom
         //public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer + 1;
         public static int DefaultMenuLayer = Levels.Level.LastInLevelDrawLayer;
 
-        public CkBaseMenu() { Core.DrawLayer = DefaultMenuLayer; }
-        public CkBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { Core.DrawLayer = DefaultMenuLayer; }
+        public CkBaseMenu() { CoreData.DrawLayer = DefaultMenuLayer; }
+        public CkBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { CoreData.DrawLayer = DefaultMenuLayer; }
 
         public override void Draw()
         {

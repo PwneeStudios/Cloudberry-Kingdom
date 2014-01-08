@@ -22,7 +22,7 @@ namespace CloudberryKingdom
 
         public StartMenu_MW_Black() : base()
         {
-            Core.DrawLayer++;
+            CoreData.DrawLayer++;
         }
 
         QuadClass Black;

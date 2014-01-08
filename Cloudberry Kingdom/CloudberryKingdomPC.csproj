@@ -632,7 +632,6 @@
     <Compile Include="Game\Collision Detection\Line.cs" />
     <Compile Include="Game\Collision Detection\FloatRectangle.cs" />
     <Compile Include="Core\Tools\Random.cs" />
-    <Compile Include="Game\Tools\TextInput.cs" />
     <Compile Include="Game\Tools\EzStorage.cs" />
     <Compile Include="Game\Tools\Oscillate.cs" />
     <Compile Include="Game\Tools\IntVector2.cs" />

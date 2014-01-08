@@ -180,7 +180,7 @@ namespace CloudberryKingdom.Levels
                 snake.Offset = (int)(i * periodstep);
                 snake.Radii = Radii;
 
-                Snake.Add(snake.Core.MyGuid);
+                Snake.Add(snake.CoreData.MyGuid);
             }
 
             Params.Snakes.Add(Snake);
@@ -209,7 +209,7 @@ namespace CloudberryKingdom.Levels
             NewSnake.Period = Period;
             NewSnake.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
-            NewSnake.Core.GenData.RemoveIfUnused = false;
+            NewSnake.CoreData.GenData.RemoveIfUnused = false;
 
             level.AddObject(NewSnake);
 

@@ -41,8 +41,8 @@ namespace CloudberryKingdom
 
             EmittedExplosion = HitGround = false;
 
-            Core.Init();
-            Core.DrawLayer = 3;
+            CoreData.Init();
+            CoreData.DrawLayer = 3;
             BlockCore.MyType = ObjectType.FallingBlock;
 
             SetState(FallingBlockState.Regular);
@@ -57,18 +57,18 @@ namespace CloudberryKingdom
                 {
                     case FallingBlockState.Regular:
                         TouchedOnce = HitGround = false;
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
                         break;
                     case FallingBlockState.Touched:
                         HitGround = false;
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
                         break;
                     case FallingBlockState.Falling:
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 2);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 2);
                         break;
                     case FallingBlockState.Angry:
                         //if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 3);
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 2);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 2);
                         break;
                 }
             }
@@ -83,7 +83,7 @@ namespace CloudberryKingdom
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public void Init(Vector2 center, Vector2 size, int life, Level level)
@@ -107,7 +107,7 @@ namespace CloudberryKingdom
             if (bob.MyPhsx.Gravity > 0) return;
 
             // Don't register as a land if the Bob is moving downward.
-            if (bob.Core.Data.Velocity.Y < -3)
+            if (bob.CoreData.Data.Velocity.Y < -3)
             {
                 BlockCore.StoodOn = false;
                 return;
@@ -117,7 +117,7 @@ namespace CloudberryKingdom
             if (State == FallingBlockState.Regular)
                 SetState(FallingBlockState.Touched);
 
-            if (bob.Core.Data.Velocity.Y > 10)
+            if (bob.CoreData.Data.Velocity.Y > 10)
                 Life -= 8;
              /* */
         }
@@ -125,7 +125,7 @@ namespace CloudberryKingdom
         public override void LandedOn(Bob bob)
         {
             // Don't register as a land if the Bob is moving upward.
-            if (bob.Core.Data.Velocity.Y > 3)
+            if (bob.CoreData.Data.Velocity.Y > 3)
             {
                 BlockCore.StoodOn = false;
                 return;
@@ -134,7 +134,7 @@ namespace CloudberryKingdom
             if (State == FallingBlockState.Regular)
                     SetState(FallingBlockState.Touched);
 
-            if (bob.Core.Data.Velocity.Y < -10)
+            if (bob.CoreData.Data.Velocity.Y < -10)
                 Life -= 8;
         }
 
@@ -164,17 +164,17 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
-            Active = Core.Active = true;
-            if (!Core.Held)
+            Active = CoreData.Active = true;
+            if (!CoreData.Held)
             {
                 if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
                 if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
             }
 
 
-            if (Core.MyLevel.GetPhsxStep() % 2 == 0)
+            if (CoreData.MyLevel.GetPhsxStep() % 2 == 0)
                 Offset = Vector2.Zero;
 
             // Update the block's apparent center according to attached objects
@@ -187,7 +187,7 @@ namespace CloudberryKingdom
 
                 TouchedOnce = true;
 
-                if (Core.MyLevel.GetPhsxStep() % 2 == 0)
+                if (CoreData.MyLevel.GetPhsxStep() % 2 == 0)
                     if (Life > 0)
                     {
                         Offset = new Vector2(MyLevel.Rnd.Rnd.Next(-10, 10), MyLevel.Rnd.Rnd.Next(-10, 10));
@@ -228,16 +228,16 @@ namespace CloudberryKingdom
 
                 // Check for hitting bottom of screen
                 if (State == FallingBlockState.Falling && 
-                    (Core.MyLevel.Geometry != LevelGeometry.Up && Core.MyLevel.Geometry != LevelGeometry.Down))
+                    (CoreData.MyLevel.Geometry != LevelGeometry.Up && CoreData.MyLevel.Geometry != LevelGeometry.Down))
                 {
                     if (MyBox.Current.Center.Y < BlockCore.MyLevel.MainCamera.BL.Y - 200)
                     {
                         // Emit a dust plume if the game is in draw mode and there isn't any lava
-                        if (Core.MyLevel.PlayMode == 0 && !EmittedExplosion &&
+                        if (CoreData.MyLevel.PlayMode == 0 && !EmittedExplosion &&
                             !Tools.CurGameData.HasLava)
                         {
                             EmittedExplosion = true;
-                            ParticleEffects.DustCloudExplosion(Core.MyLevel, MyBox.Current.Center);
+                            ParticleEffects.DustCloudExplosion(CoreData.MyLevel, MyBox.Current.Center);
                         }
                     }
                     if (MyBox.Current.Center.Y < BlockCore.MyLevel.MainCamera.BL.Y - 500) Active = false;
@@ -283,11 +283,11 @@ namespace CloudberryKingdom
         public override void Draw()
         {
             bool DrawSelf = true;
-            if (!Core.Held)
+            if (!CoreData.Held)
             {
                 if (!Active) DrawSelf = false;
 
-                if (!Core.MyLevel.MainCamera.OnScreen(MyBox.Current.Center, 600))
+                if (!CoreData.MyLevel.MainCamera.OnScreen(MyBox.Current.Center, 600))
                     DrawSelf = false;
             }
 
@@ -316,7 +316,7 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             FallingBlock BlockA = A as FallingBlock;
 

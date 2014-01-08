@@ -61,9 +61,11 @@ namespace CoreEngine
             TextureList = new List<EzTexture>(Size);
             TextureListByFolder = new Dictionary<string, List<EzTexture>>(Size);
 
-            AnimationDict = new Dictionary<string, AnimationData_Texture>(Size, StringComparer.CurrentCultureIgnoreCase);
-
-            NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
+			//StringComparer.CurrentCultureIgnoreCase
+			//AnimationDict = new Dictionary<string, AnimationData_Texture>(Size, StringComparer.CurrentCultureIgnoreCase);
+			//NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
+			AnimationDict = new Dictionary<string, AnimationData_Texture>(Size);
+			NameDict = new Dictionary<string, EzTexture>(Size);
         }
 
 //        public void LoadFolder(ContentManager Content, string Folder)
@@ -161,12 +163,12 @@ namespace CoreEngine
 
         public EzTexture Find(string name)
         {
-			//if (name.Contains("\\") && BigNameDict.ContainsKey(name))
+			//if (name.Contains("\\") && BigNameDict.CustomContainsKey(name))
 			//    return BigNameDict[name];
-			//else if (PathDict.ContainsKey(name))
+			//else if (PathDict.CustomContainsKey(name))
 			//    return PathDict[name];
             //else
-			if (NameDict.ContainsKey(name))
+			if (NameDict.CustomContainsKey(name))
                 return NameDict[name];
             
             return DefaultTexture;
@@ -176,8 +178,8 @@ namespace CoreEngine
         {
             TextureList.Add(NewTex);
 
-            string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
-            if (!NameDict.ContainsKey(name))
+            string name = NewTex.Name.CustomLower();
+            if (!NameDict.CustomContainsKey(name))
                 NameDict.AddOrOverwrite(name, NewTex);
         }
 
@@ -216,13 +218,13 @@ namespace CoreEngine
 
                 TextureList.Add(NewTex);
 
-                string name = NewTex.Name.ToLower(CultureInfo.InvariantCulture);
-                if (!NameDict.ContainsKey(name))
+				string name = NewTex.Name.CustomLower();
+                if (!NameDict.CustomContainsKey(name))
                     NameDict.AddOrOverwrite(name, NewTex);
 
                 // Add to folder
                 string folder = Tools.FirstFolder(Name, "Art\\");
-                if (!TextureListByFolder.ContainsKey(folder))
+                if (!TextureListByFolder.CustomContainsKey(folder))
                     TextureListByFolder.Add(folder, new List<EzTexture>());
                 TextureListByFolder[folder].Add(NewTex);
             }
@@ -254,7 +256,7 @@ namespace CoreEngine
             NameDict.Add(LowerName, NewTex);
 
             // Add to folder
-            if (!TextureListByFolder.ContainsKey(Folder))
+            if (!TextureListByFolder.CustomContainsKey(Folder))
                 TextureListByFolder.Add(Folder, new List<EzTexture>());
             TextureListByFolder[Folder].Add(NewTex);
 

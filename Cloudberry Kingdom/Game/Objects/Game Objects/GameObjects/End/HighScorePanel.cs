@@ -80,7 +80,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            Core.DrawLayer = Level.AfterPostDrawLayer;
+            CoreData.DrawLayer = Level.AfterPostDrawLayer;
         }
 
         public override void OnAdd()

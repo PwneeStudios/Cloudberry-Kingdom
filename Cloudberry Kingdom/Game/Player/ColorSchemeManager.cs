@@ -499,71 +499,37 @@ float DefaultShiftX = -.35f;
             for (int i = 0; i < HatInfo.Count; i++)
                 HatList.Add(new MenuListItem(i, Localization.Words.None));
 
-            
-            //hat = new Hat("Hat_Cattails", true, false);
-            //hat.HatPicTexture = Tools.TextureWad.FindByName("HatPic_Horns");
-            //HatInfo.Add(hat);
-
-
-            //colorm = LinearColorTransform(0); // Green
-            //colorm = HsvTransform(1.3f, 1.2f, 100); // Gold
-            //colorm = HsvTransform(1.5f, 1.5f, 100); // Gold 2
-            //colorm = HsvTransform(1.3f, 1.2f, 200); // Hot pink
-            //colorm = HsvTransform(1.3f, 1.2f, 250); // ?
-            //colorm = HsvTransform(.5f, 0f, 0); // Black
-            //colorm = HsvTransform(.15f, 0f, 0); // Dark Black
-            //colorm = HsvTransform(.75f, 0f, 0); // Gray
-            //colorm = HsvTransform(.8f, 1.3f, 225); // Purple
-            //colorm = HsvTransform(.9f, 1.3f, 110); // Orange
-            //colorm = LinearColorTransform(45); // Teal
-            //colorm = LinearColorTransform(120); // Blue
-            //colorm = HsvTransform(.95f, 1.3f, 0) * LinearColorTransform(240); // Red
-            //colorm = HsvTransform(1.25f, 1.3f, 0) * LinearColorTransform(305); // Yellow
-
+           
             // Fill the skin color list
-            ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),    Localization.Words.White));    // 0
-            ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),     Localization.Words.Silver));   // 1
-            ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),    Localization.Words.Gray));     // 2
-            ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
-                                      new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),      Localization.Words.Black));    // 3
+			ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), Matrix.Identity, Localization.Words.White));    // 0
+			//ColorList.Add(_i(3500, 0, new Color(1f, 1f, 1f), ColorHelper.HsvTransform(1.25f, 0f, 0),    Localization.Words.White));    // 0
+			//ColorList.Add(_i(3501, 0, Color.Silver,          ColorHelper.HsvTransform(.85f, 0f, 0),     Localization.Words.Silver));   // 1
+			//ColorList.Add(_i(3502, 0, Color.Gray,            ColorHelper.HsvTransform(.525f, 0f, 0),    Localization.Words.Gray));     // 2
+			//ColorList.Add(_i(3503, 0, new Color(0f, 0f, 0f),
+			//                          new Color(50, 50, 50), ColorHelper.HsvTransform(.3f, 0f, 0),      Localization.Words.Black));    // 3
 
-            ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      Localization.Words.Cyan));     // 4  
-            ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     Localization.Words.Blue));     // 5
-            ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      Localization.Words.Teal));     // 6
-            ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  Localization.Words.Indigo));   // 7
-            ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), Localization.Words.Purple));  // 8
-            ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),      Localization.Words.Brown));        // 9
-            ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
-                                      ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), Localization.Words.Red)); // 10
-            ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), Localization.Words.HotPink));     // 11
-            ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110),  Localization.Words.Orange));        // 12
-            ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), Localization.Words.Gold));         // 13
-            ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), Localization.Words.Yellow));       // 14
-            ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0),       Localization.Words.Green));              // 15
-            ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), Localization.Words.LimeGreen));    // 16
-            ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0),    Localization.Words.ForestGreen));     // 17
+			//ColorList.Add(_i(3504, 0, Color.Cyan,            ColorHelper.LinearColorTransform(45),      Localization.Words.Cyan));     // 4  
+			//ColorList.Add(_i(3505, 0, new Color(0f, 0f, 1f), ColorHelper.LinearColorTransform(120),     Localization.Words.Blue));     // 5
+			//ColorList.Add(_i(3506, 0, Color.DarkBlue,        ColorHelper.LinearColorTransform(80),      Localization.Words.Teal));     // 6
+			//ColorList.Add(_i(3507, 0, Color.Indigo,          ColorHelper.HsvTransform(.8f, 1.3f, 225),  Localization.Words.Indigo));   // 7
+			//ColorList.Add(_i(3508, 0, Color.Purple,          ColorHelper.HsvTransform(.85f, 1.1f, 205), Localization.Words.Purple));  // 8
+			//ColorList.Add(_i(3509, 0, Color.Brown,           ColorHelper.HsvTransform(1f, 1f, 80),      Localization.Words.Brown));        // 9
+			//ColorList.Add(_i(3510, 0, new Color(1f, 0, 0f),
+			//                          ColorHelper.HsvTransform(.95f, 1.3f, 0) * ColorHelper.LinearColorTransform(240), Localization.Words.Red)); // 10
+			//ColorList.Add(_i(3511, 0, Color.HotPink,         ColorHelper.HsvTransform(1.3f, 1.2f, 200), Localization.Words.HotPink));     // 11
+			//ColorList.Add(_i(3512, 0, new Color(1f, .6f, 0f),ColorHelper.HsvTransform(.9f, 1.3f, 110),  Localization.Words.Orange));        // 12
+			//ColorList.Add(_i(3513, 0, Color.Gold,            ColorHelper.HsvTransform(1.3f, 1.2f, 100), Localization.Words.Gold));         // 13
+			//ColorList.Add(_i(3514, 0, Color.Yellow,          ColorHelper.HsvTransform(1.5f, 1.5f, 100), Localization.Words.Yellow));       // 14
+			//ColorList.Add(_i(3515, 0, new Color(0f, 1f, 0f), ColorHelper.LinearColorTransform(0),       Localization.Words.Green));              // 15
+			//ColorList.Add(_i(3516, 0, Color.LimeGreen,       ColorHelper.HsvTransform(1.25f, 1.35f, 0), Localization.Words.LimeGreen));    // 16
+			//ColorList.Add(_i(3517, 0, Color.ForestGreen,     ColorHelper.HsvTransform(.75f, .8f, 0),    Localization.Words.ForestGreen));     // 17
             
-            ColorList.Add(_i(3518, 0, ColorHelper.GrayColor(.2f), ColorHelper.HsvTransform(0, 0, 1),     Localization.Words.Ninja));     // 18
-            ColorList.Add(_i(3519, 0, Color.White,                ColorHelper.HsvTransform(1.75f, 0, 1), Localization.Words.BrightWhite));     // 19
+			//ColorList.Add(_i(3518, 0, ColorHelper.GrayColor(.2f), ColorHelper.HsvTransform(0, 0, 1),     Localization.Words.Ninja));     // 18
+			//ColorList.Add(_i(3519, 0, Color.White,                ColorHelper.HsvTransform(1.75f, 0, 1), Localization.Words.BrightWhite));     // 19
 
-            
-
-            // Fill the textured skin list
-            /*
-            TextureList.Add(new MenuListItem(new ClrTextFx(3518, 1500, Color.White, "pillar_xlarge", Color.Gray), "Stone Skin"));     // 0
-            TextureList.Add(new MenuListItem(new ClrTextFx(3519, 1000, Color.White, "Skins\\Rainbow", Color.Red), "Rainbow Skin"));  // 1
-            TextureList.Add(new MenuListItem(new ClrTextFx(3520, 1000, Color.White, "Skins\\Tiger", Color.Orange), "Tiger Skin"));      // 2
-            TextureList.Add(new MenuListItem(new ClrTextFx(3521, 1000, new Color(1, 1, 1, .66f),
-                                            "Skins\\Water", Color.LightBlue, "WaterBob"), "Aqua Skin"));                     // 3
-            TextureList.Add(new MenuListItem(new ClrTextFx(3522, 1000, Color.White, "Skins\\Stars2", Color.DarkBlue), "Star Skin"));      // 4
-            TextureList.Add(new MenuListItem(new ClrTextFx(3523, 1000, Color.White, "Skins\\Fractal1", Color.Cyan, "WaterBob"),
-                                            "Psychadelic Skin"));                                           // 5
-
-             */
             var m = new Matrix(); m.M11 = m.M12 = m.M13 = m.M14 = m.M21 = m.M22 = m.M23 = m.M24 = m.M31 = m.M32 = m.M33 = m.M34 = m.M41 = m.M42 = m.M43 = m.M44 = 0;
             MenuListItem NoTexture = _i(3524, 0, Color.Transparent, m, Localization.Words.Clear); // 6
             TextureList.Add(NoTexture);
-
 
             // Fill the cape color list
             ClrTextFx cape;
@@ -580,7 +546,7 @@ float DefaultShiftX = -.35f;
             foreach (MenuListItem item in CapeColorList)
             {
                 Color clr = ((ClrTextFx)item.obj).Clr;
-                Color color = new Color(clr.ToVector3() * .8f);
+                Color color = new Color(clr.ToVector4() * .8f);
                 color.A = clr.A;
                 ClrTextFx capeoutline = (ClrTextFx)item.obj;
                 capeoutline.Clr = color;
@@ -595,21 +561,6 @@ float DefaultShiftX = -.35f;
             ClrTextFx fx;
             Vector2 fx_scale = new Vector2(.875f, 1.195f) * .98f;
 
-            //fx = new ClrTextFx(3526, 500, Color.White, "FallingBlock2", false, "FallingBlock2");
-            //fx.Name = "Concern;
-            //fx.PicScale = fx_scale;
-            //CapeColorList.Add(new MenuListItem(fx, "ConcernedCape"));
-
-            //fx = new ClrTextFx(3527, 500, Color.White, "FallingBlock3", false, "FallingBlock3");
-            //fx.Name = "AAAaahhh!;
-            //fx.PicScale = fx_scale;
-            //CapeColorList.Add(new MenuListItem(fx, "ScreamingCape"));
-
-            //fx = new ClrTextFx(3528, 500, Color.White, "Capes\\FallingBlock4Cape", false, "FallingBlock4");
-            //fx.Name = "Anger;
-            //fx.PicScale = fx_scale * new Vector2(1.022f, 1.028f);
-            //CapeColorList.Add(new MenuListItem(fx, "AngryCape"));
-
             // Wings and cape mod functions
             List<MenuListItem> NewCapeList = new List<MenuListItem>();
             foreach (MenuListItem item in CapeColorList)
@@ -620,38 +571,6 @@ float DefaultShiftX = -.35f;
             }
             CapeColorList = NewCapeList;
 
-            //cape = (ClrTextFx)CapeColorList[1].obj;
-            //cape.ModObject = bob =>
-            //{
-            //    Reset(bob);
-            //    bob.PlayerObject.FindQuad("Wing1").Show = true;
-            //    bob.PlayerObject.FindQuad("Wing2").Show = true;
-            //};
-            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_Wings");
-            //cape.Guid = 5000;
-            //cape.Price = 5000;
-            //CapeColorList.Add(new MenuListItem(cape, "Wings"));
-            
-            //cape = (ClrTextFx)CapeColorList[1].obj;
-            //cape.ModObject = bob =>
-            //{
-            //    Reset(bob);
-            //    bob.PlayerObject.FindQuad("DWing1").Show = true;
-            //    bob.PlayerObject.FindQuad("DWing2").Show = true;
-            //};
-            //cape.PicTexture = Tools.TextureWad.FindByName("CapePic_DWings");
-            //cape.Guid = 5001;
-            //cape.Price = 5000;
-            //CapeColorList.Add(new MenuListItem(cape, "DWings"));
-
-
-            //// Add solid colors
-            //ColorList.Add(_i(77001, 0, Color.Red, ColorHelper.PureColor(Color.Red), Tools.HslEffect, "Solid Red"));
-            //ColorList.Add(_i(77002, 0, Color.Green, ColorHelper.PureColor(Color.Green), Tools.HslEffect, "Solid Green"));
-            //ColorList.Add(_i(77003, 0, Color.Blue, ColorHelper.PureColor(Color.Blue), Tools.HslEffect, "Solid Blue"));
-            //ColorList.Add(_i(77004, 0, Color.Purple, ColorHelper.PureColor(Color.Purple), Tools.HslEffect, "Solid Purple"));
-            //ColorList.Add(_i(77005, 0, Color.Orange, ColorHelper.PureColor(Color.Orange), Tools.HslEffect, "Solid Orange"));
-
             // Combine all colors
             List<MenuListItem> temp;
             temp = new List<MenuListItem>();
@@ -661,19 +580,18 @@ float DefaultShiftX = -.35f;
             temp.AddRange(OutlineList);
             ClrList = Tools.MakeUnique(temp, item => ((ClrTextFx)item.obj).Guid);
 
-
             // Create the default color schemes
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
-            AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
-            AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
-            AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
-            AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
-            AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
-            AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
-            AddScheme(new ColorScheme(Localization.Words.Indigo, Localization.Words.Cyan, Localization.Words.Silver, Localization.Words.Wizard, Localization.Words.Vandyke), false);
-            AddScheme(new ColorScheme(Localization.Words.Ninja, Localization.Words.White, Localization.Words.Black, Localization.Words.Pumpkin, Localization.Words.Manhattan), false);
-            AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.RobinHood, Localization.Words.Vandyke), false);
-            AddScheme(new ColorScheme(Localization.Words.Silver, Localization.Words.Gray, Localization.Words.Gray, Localization.Words.KnightHelmet, Localization.Words.Lumberjack), false);
+			AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
+			AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
+			AddScheme(new ColorScheme(Localization.Words.Purple, Localization.Words.Indigo, Localization.Words.HotPink, Localization.Words.None, Localization.Words.Vandyke), false);
+			AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.Yellow, Localization.Words.Gold, Localization.Words.RiceHat, Localization.Words.Rugged), false);
+			AddScheme(new ColorScheme(Localization.Words.Red, Localization.Words.None, Localization.Words.None, Localization.Words.Antlers, Localization.Words.Vandyke), false);
+			AddScheme(new ColorScheme(Localization.Words.Gray, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Hat.Mustache.Name), false);
+			AddScheme(new ColorScheme(Localization.Words.Indigo, Localization.Words.Cyan, Localization.Words.Silver, Localization.Words.Wizard, Localization.Words.Vandyke), false);
+			AddScheme(new ColorScheme(Localization.Words.Ninja, Localization.Words.White, Localization.Words.Black, Localization.Words.Pumpkin, Localization.Words.Manhattan), false);
+			AddScheme(new ColorScheme(Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.ForestGreen, Localization.Words.RobinHood, Localization.Words.Vandyke), false);
+			AddScheme(new ColorScheme(Localization.Words.Silver, Localization.Words.Gray, Localization.Words.Gray, Localization.Words.KnightHelmet, Localization.Words.Lumberjack), false);
         }
     }
 }

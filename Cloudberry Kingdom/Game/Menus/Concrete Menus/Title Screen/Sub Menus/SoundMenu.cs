@@ -431,7 +431,7 @@ namespace CloudberryKingdom
 		GameData HoldGame;
         public override void Release()
         {
-			if (Core.Released) return;
+			if (CoreData.Released) return;
 
 			if (Black != null) Black.Release();
 

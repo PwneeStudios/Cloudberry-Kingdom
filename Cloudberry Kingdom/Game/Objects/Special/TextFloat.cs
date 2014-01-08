@@ -9,10 +9,10 @@ namespace CloudberryKingdom
 
         public TextFloat(Localization.Words Text, Vector2 pos)
         {
-            Core.DrawLayer = Level.LastInLevelDrawLayer - 1;
+            CoreData.DrawLayer = Level.LastInLevelDrawLayer - 1;
 
-            Core.Data.Position = pos;
-            Core.Data.Velocity = new Vector2(0, 8);
+            CoreData.Data.Position = pos;
+            CoreData.Data.Velocity = new Vector2(0, 8);
 
             MyText = new EzText(Text, Resources.Font_Grobold42, 1000, true, true);
             MyText.Scale = .5f;
@@ -24,10 +24,10 @@ namespace CloudberryKingdom
 
         public TextFloat(string Text, Vector2 pos)
         {
-            Core.DrawLayer = Level.LastInLevelDrawLayer - 1;
+            CoreData.DrawLayer = Level.LastInLevelDrawLayer - 1;
 
-            Core.Data.Position = pos;
-            Core.Data.Velocity = new Vector2(0, 8);
+            CoreData.Data.Position = pos;
+            CoreData.Data.Velocity = new Vector2(0, 8);
 
             MyText = new EzText(Text, Resources.Font_Grobold42, 1000, true, true);
             MyText.Scale = .5f;
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
-            Core.Data.Position += Core.Data.Velocity;
+            CoreData.Data.Position += CoreData.Data.Velocity;
             Alpha += AlphaSpeed;
 
             if (Alpha <= 0)
@@ -58,7 +58,7 @@ namespace CloudberryKingdom
 
         void Update()
         {
-            MyText.Pos = Core.Data.Position;
+            MyText.Pos = CoreData.Data.Position;
             MyText.Alpha = Alpha;            
         }
 
@@ -66,20 +66,20 @@ namespace CloudberryKingdom
         {
             base.MyDraw();
 
-            if (Core.MarkedForDeletion || !Core.Active) return;
+            if (CoreData.MarkedForDeletion || !CoreData.Active) return;
 
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 600)) return;
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, 600)) return;
 
             if (Tools.DrawGraphics)
             {
                 Update();
-                MyText.Draw(Core.MyLevel.MainCamera);
+                MyText.Draw(CoreData.MyLevel.MainCamera);
             }
         }
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
         }
     }
 }

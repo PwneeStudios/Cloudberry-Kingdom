@@ -13,8 +13,8 @@ namespace CloudberryKingdom
         
         public override void MakeNew()
         {
-            Core.Init();
-            Core.DrawLayer = 3;
+            CoreData.Init();
+            CoreData.DrawLayer = 3;
             BlockCore.MyType = ObjectType.ConveyorBlock;
         }
 
@@ -44,7 +44,7 @@ namespace CloudberryKingdom
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public float Speed = -.05f;
@@ -103,11 +103,11 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
-            Active = Core.Active = true;
-            if (!Core.Held)
+            Active = CoreData.Active = true;
+            if (!CoreData.Held)
             {
-                if (!Core.MyLevel.MainCamera.OnScreen(MyBox.Current.BL, MyBox.Current.TR, 10))
-                    Active = Core.Active = false;
+                if (!CoreData.MyLevel.MainCamera.OnScreen(MyBox.Current.BL, MyBox.Current.TR, 10))
+                    Active = CoreData.Active = false;
             }
 
             // Update the block's apparent center according to attached objects
@@ -201,7 +201,7 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             ConveyorBlock BlockA = A as ConveyorBlock;
 

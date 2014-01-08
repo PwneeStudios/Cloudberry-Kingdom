@@ -136,8 +136,8 @@ namespace CloudberryKingdom.Levels
 
                 // Initialize the size, make sure to modify it's width, since it's a ceiling block
                 cblock.Init(Pos + offset, size, level.MyTileSetInfo);
-                cblock.Core.GenData.RemoveIfUnused = false;
-                cblock.Core.GenData.KeepIfUnused = true;
+                cblock.CoreData.GenData.RemoveIfUnused = false;
+                cblock.CoreData.GenData.KeepIfUnused = true;
                 cblock.BlockCore.CeilingDraw = cblock.BlockCore.Ceiling = true;
                 cblock.BlockCore.BlobsOnTop = false;
                 cblock.BlockCore.TopLeftNeighbor = lastblock;

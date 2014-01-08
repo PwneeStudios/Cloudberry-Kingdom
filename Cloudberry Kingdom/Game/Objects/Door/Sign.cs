@@ -17,20 +17,20 @@ namespace CloudberryKingdom
 
         public override void MakeNew()
         {
-            Core.Init();
-            Core.DrawLayer = 1;
-            Core.ResetOnlyOnReset = true;
+            CoreData.Init();
+            CoreData.DrawLayer = 1;
+            CoreData.ResetOnlyOnReset = true;
 
-            Core.EditHoldable = true;
+            CoreData.EditHoldable = true;
         }
 
         public Sign(bool BoxesOnly, Level level)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             var info = level.Info.Doors;
             MyQuad = new QuadClass();
@@ -60,11 +60,11 @@ namespace CloudberryKingdom
 
         bool OnScreen()
         {
-            if (Core.BoxesOnly) return false;
+            if (CoreData.BoxesOnly) return false;
 
-            if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 150 + MyQuad.Base.e1.X || Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 150 + MyQuad.Base.e2.Y)
+            if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + 150 + MyQuad.Base.e1.X || CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 150 + MyQuad.Base.e2.Y)
                 return false;
-            if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 150 - MyQuad.Base.e1.X || Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 500 - MyQuad.Base.e2.Y)
+            if (CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - 150 - MyQuad.Base.e1.X || CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 500 - MyQuad.Base.e2.Y)
                 return false;
 
             return true;
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
                 if (!Info.Doors.Show || !Info.Doors.ShowSign) return;
 
                 float x = MyQuad.SizeX;
-                if (Core.MyLevel != null && Core.MyLevel.ModZoom.X < 0)
+                if (CoreData.MyLevel != null && CoreData.MyLevel.ModZoom.X < 0)
                 {
                     if (MyQuad.Base.e1.X > 0)
                         MyQuad.SizeX = -x;
@@ -97,7 +97,7 @@ namespace CloudberryKingdom
         public Vector2 GetBottom()
         {
             MyQuad.Update();
-            return new Vector2(Core.Data.Position.X, MyQuad.BL.Y + 11.5f);
+            return new Vector2(CoreData.Data.Position.X, MyQuad.BL.Y + 11.5f);
         }
 
         /// <summary>
@@ -111,29 +111,29 @@ namespace CloudberryKingdom
 
         public void Update()
         {
-            MyQuad.Base.Origin = Core.Data.Position;
+            MyQuad.Base.Origin = CoreData.Data.Position;
         }
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
             Update();
         }
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
         }
 
         public override void Write(BinaryWriter writer)
         {
-            Core.Write(writer);
+            CoreData.Write(writer);
 
             MyQuad.Write(writer);
         }
         public override void Read(BinaryReader reader)
         {
-            Core.Read(reader);
+            CoreData.Read(reader);
 
             MyQuad.Read(reader);
         }

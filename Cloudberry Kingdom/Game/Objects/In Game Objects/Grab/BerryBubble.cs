@@ -25,9 +25,9 @@ namespace CloudberryKingdom
 
         public override void MakeNew()
         {
-            Core.ResetOnlyOnReset = true;
+            CoreData.ResetOnlyOnReset = true;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
             }
 
@@ -47,7 +47,7 @@ namespace CloudberryKingdom
                 UnpoppedTexture = Tools.TextureWad.FindByName("berrybubble");
             }
 
-            if (Core.BoxesOnly) return;
+            if (CoreData.BoxesOnly) return;
 
             Bubble.Quad.MyTexture = BubbleTexture;
             Bubble.Alpha = 1;
@@ -61,9 +61,9 @@ namespace CloudberryKingdom
 
         public void Die()
         {
-            if (Core.MyLevel.PlayMode != 0) return;
+            if (CoreData.MyLevel.PlayMode != 0) return;
 
-            ParticleEffects.AddPop(Core.MyLevel, Pos);
+            ParticleEffects.AddPop(CoreData.MyLevel, CoreData.Data.Position);
 
             Popped = true;
             SetTexture();
@@ -93,21 +93,21 @@ namespace CloudberryKingdom
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public float Radius = 180, PoppedRadius = 189;
         protected float Gravity = 2.9f;
         public void Initialize(Vector2 pos)
         {
-            Core.Init();
-            Core.MyType = ObjectType.BerryBubble;
-            Core.DrawLayer = 9;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.BerryBubble;
+            CoreData.DrawLayer = 9;
 
-            Core.StartData.Position = Core.Data.Position = pos;
+            CoreData.StartData.Position = CoreData.Data.Position = pos;
 
-            Box.Initialize(Core.Data.Position, Radius);
-            if (!Core.BoxesOnly)
+            Box.Initialize(CoreData.Data.Position, Radius);
+            if (!CoreData.BoxesOnly)
             {
                 SetTexture();
             }
@@ -123,13 +123,13 @@ namespace CloudberryKingdom
             {
                 //Core.RemoveOnReset = true;
 
-                Core.Data.Velocity.Y -= .7f*Gravity;
-                Core.Data.Integrate();
+                CoreData.Data.Velocity.Y -= .7f*Gravity;
+                CoreData.Data.Integrate();
 
                 Bubble.Alpha -= .0375f;
                 Bubble.Size += new Vector2(3.5f);
 
-                if (Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 500)
+                if (CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 500)
                 {
                     //CollectSelf();
                     return;
@@ -137,24 +137,24 @@ namespace CloudberryKingdom
             }
             else
             {
-                Core.Data.Position = Core.StartData.Position;
-                Core.Data.Position += new Vector2(0, 9.65f * (float)Math.Sin(.075f * (Core.MyLevel.CurPhsxStep) + Core.AddedTimeStamp));
+                CoreData.Data.Position = CoreData.StartData.Position;
+                CoreData.Data.Position += new Vector2(0, 9.65f * (float)Math.Sin(.075f * (CoreData.MyLevel.CurPhsxStep) + CoreData.AddedTimeStamp));
             }
         }
 
         public override void Draw()
         {
-            if (Core.MyLevel == null) return;
+            if (CoreData.MyLevel == null) return;
 
             int DrawRange = 360;
-            if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + DrawRange || Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + DrawRange)
+            if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + DrawRange || CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + DrawRange)
                 return;
-            if (Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - DrawRange || Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - DrawRange)
+            if (CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - DrawRange || CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - DrawRange)
                 return;
 
-            if (Tools.DrawGraphics && !Core.BoxesOnly)
+            if (Tools.DrawGraphics && !CoreData.BoxesOnly)
             {
-                MyPile.Pos = Core.Data.Position;
+                MyPile.Pos = CoreData.Data.Position;
                 MyPile.Draw();
                 //MyQuad.Pos = Core.Data.Position;
                 //MyQuad.Draw();
@@ -166,19 +166,19 @@ namespace CloudberryKingdom
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
-            Core.StartData.Position += shift;
+            CoreData.Data.Position += shift;
+            CoreData.StartData.Position += shift;
 
             Box.Move(shift);
         }
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
             Popped = false;
 
-            Core.Data.Position = Core.StartData.Position;
-            Core.Data.Velocity = Vector2.Zero;
+            CoreData.Data.Position = CoreData.StartData.Position;
+            CoreData.Data.Velocity = Vector2.Zero;
 
             SetTexture();
         }
@@ -191,7 +191,7 @@ namespace CloudberryKingdom
             bool hold = Box.BoxOverlap(bob.Box2);
             if (hold)
             {
-                if (Core.MyLevel.PlayMode == 0)
+                if (CoreData.MyLevel.PlayMode == 0)
                 {
                     bob.MyStats.Berries++;
                     Die();
@@ -207,7 +207,7 @@ namespace CloudberryKingdom
                     bob.MyPhsx.ObjectLandedOn = this;
                     bob.MyPhsx.LandOnSomething(true, this);
                     bob.MyPhsx.MaxJumpAccelMultiple = 1 + .8f * bob.MyPhsx.BlobMod;
-                    bob.Core.Data.Velocity.Y = 9.5f * bob.MyPhsx.BlobMod;
+                    bob.CoreData.Data.Velocity.Y = 9.5f * bob.MyPhsx.BlobMod;
                     bob.PopModifier = HoldPopModifier;
                 }
             }
@@ -215,11 +215,11 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             BerryBubble BerryBubbleA = A as BerryBubble;
 
-            Initialize(BerryBubbleA.Core.Data.Position);
+            Initialize(BerryBubbleA.CoreData.Data.Position);
         }
     }
 }

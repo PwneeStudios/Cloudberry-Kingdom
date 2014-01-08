@@ -217,14 +217,17 @@ namespace CloudberryKingdom.Bobs
 
         public ColorScheme(Localization.Words skincolor, Localization.Words capecolor, Localization.Words capeoutlinecolor, Localization.Words hatname, Localization.Words beardname)
         {
-            SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => item.word == skincolor).obj;
-            CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => item.word == capecolor).obj;
-            CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => item.word == capeoutlinecolor).obj;
-            HatData = ColorSchemeManager.HatInfo.Find(hat => hat.Name == hatname);
-            BeardData = ColorSchemeManager.BeardInfo.Find(beard => beard.Name == beardname);
+			SkinColor = CapeColor = CapeOutlineColor = new ClrTextFx();
+			HatData = BeardData = null;
 
-            if (HatData == null) HatData = Hat.None;
-            if (BeardData == null) BeardData = Hat.Vandyke;
+			//SkinColor = (ClrTextFx)ColorSchemeManager.ColorList.Find(item => item.word == skincolor).obj;
+			//CapeColor = (ClrTextFx)ColorSchemeManager.CapeColorList.Find(item => item.word == capecolor).obj;
+			//CapeOutlineColor = (ClrTextFx)ColorSchemeManager.CapeOutlineColorList.Find(item => item.word == capeoutlinecolor).obj;
+			//HatData = ColorSchemeManager.HatInfo.Find(hat => hat.Name == hatname);
+			//BeardData = ColorSchemeManager.BeardInfo.Find(beard => beard.Name == beardname);
+
+			//if (HatData == null) HatData = Hat.None;
+			//if (BeardData == null) BeardData = Hat.Vandyke;
         }
     }
 }

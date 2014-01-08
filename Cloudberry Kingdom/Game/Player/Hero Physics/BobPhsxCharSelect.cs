@@ -24,7 +24,7 @@ namespace CloudberryKingdom
             {
                 float AnimSpeed = 1f;
                 if (MyBob.PlayerObject.DestinationAnim() == 1 && MyBob.PlayerObject.Loop)
-                    AnimSpeed = Math.Max(.35f, .1f * Math.Abs(MyBob.Core.Data.Velocity.X));
+                    AnimSpeed = Math.Max(.35f, .1f * Math.Abs(MyBob.CoreData.Data.Velocity.X));
                 MyBob.PlayerObject.PlayUpdate(AnimSpeed * 1000f / 60f / 150f);
                 //MyBob.PlayerObject.PlayUpdate(1000f * AnimSpeed * Tools.dt / 150f);
                 //Tools.Write("{0},  {1}", 1000f / 60f, Tools.dt);

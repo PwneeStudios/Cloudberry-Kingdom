@@ -222,9 +222,9 @@ namespace CloudberryKingdom
         {
             base.OnCameraChange();
 
-            if (FixedToCamera && Core.MyLevel != null)
+            if (FixedToCamera && CoreData.MyLevel != null)
             {
-                Pos.Center = Core.MyLevel.MainCamera;
+                Pos.Center = CoreData.MyLevel.MainCamera;
                 //Pos.SetCenter(Core.MyLevel.MainCamera, false);
             }
         }
@@ -235,7 +235,7 @@ namespace CloudberryKingdom
             base.OnAdd();
 
             if (FixedToCamera)
-                Pos.SetCenter(Core.MyLevel.MainCamera, true);
+                Pos.SetCenter(CoreData.MyLevel.MainCamera, true);
             Pos.Update();
         }
 
@@ -300,19 +300,19 @@ namespace CloudberryKingdom
             switch (Preset)
             {
                 case PresetPos.Left:
-                    Destination = new Vector2(-Core.MyLevel.MainCamera.GetWidth(), 0);
+                    Destination = new Vector2(-CoreData.MyLevel.MainCamera.GetWidth(), 0);
                     break;
 
                 case PresetPos.Right:
-                    Destination = new Vector2(Core.MyLevel.MainCamera.GetWidth(), 0);
+                    Destination = new Vector2(CoreData.MyLevel.MainCamera.GetWidth(), 0);
                     break;
 
                 case PresetPos.Top:
-                    Destination = new Vector2(0, Core.MyLevel.MainCamera.GetHeight());
+                    Destination = new Vector2(0, CoreData.MyLevel.MainCamera.GetHeight());
                     break;
 
                 case PresetPos.Bottom:
-                    Destination = new Vector2(0, -Core.MyLevel.MainCamera.GetHeight());
+                    Destination = new Vector2(0, -CoreData.MyLevel.MainCamera.GetHeight());
                     break;
             }
 
@@ -355,7 +355,7 @@ namespace CloudberryKingdom
             MyCameraZoom = Tools.CurCamera.Zoom;
 
             if (CloudberryKingdomGame.HideGui) return;
-            if (!Core.Show || Core.Released) return;
+            if (!CoreData.Show || CoreData.Released) return;
 
             // Skip if offscreen
             IsOnScreen = OnScreen();
@@ -459,7 +459,7 @@ namespace CloudberryKingdom
         {
             CheckForBackFromOutsideClick();
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             Pos.Update();
 

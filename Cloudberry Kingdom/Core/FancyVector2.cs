@@ -131,7 +131,7 @@ namespace CoreEngine
             if (this.ObjCenter == ObjCenter) return;
 
             if (!UsePosAsRelPos)
-                RelVal = Update() - ObjCenter.Pos;
+                RelVal = Update() - ObjCenter.CoreData.Data.Position;
             this.ObjCenter = ObjCenter;
         }
 
@@ -340,7 +340,7 @@ namespace CoreEngine
             if (Center != null)
                 AbsVal += Center.Pos;
             else if (ObjCenter != null)
-                AbsVal += ObjCenter.Pos;
+                AbsVal += ObjCenter.CoreData.Data.Position;
  
             return AbsVal;
         }

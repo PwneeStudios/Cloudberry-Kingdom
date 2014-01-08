@@ -511,14 +511,14 @@ namespace CloudberryKingdom
             Vector2 BobsCenter = Vector2.Zero;
             foreach (Bob bob in MyLevel.Bobs)
             {
-                if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.Core.Data.Position)) || MyLevel.PlayMode != 0)
+                if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.CoreData.Data.Position)) || MyLevel.PlayMode != 0)
                 {
-                    Vector2 bpos = bob.Core.Data.Position;
+                    Vector2 bpos = bob.CoreData.Data.Position;
 
                     BobsCenter += bpos;
 
-                    TR = Vector2.Max(TR, bob.Core.Data.Position);
-                    BL = Vector2.Min(BL, bob.Core.Data.Position);
+                    TR = Vector2Extension.Max(TR, bob.CoreData.Data.Position);
+                    BL = Vector2Extension.Min(BL, bob.CoreData.Data.Position);
 
                     Count++;
                     TotalWeight += bob.CameraWeight;
@@ -542,7 +542,7 @@ namespace CloudberryKingdom
             Target.X = CoreMath.Restrict(MyZone.Start.X, MyZone.End.X, Target.X);
             Target.Y = CoreMath.Restrict(MyZone.Start.Y, MyZone.End.Y, Target.Y);
 
-            Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
+            Vector2 CurMaxSpeed = Vector2Extension.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
 
             CurMaxSpeed = new Vector2(60);
             Data.Position.X += Math.Sign(Target.X - Data.Position.X) * Math.Min(.15f * Math.Abs(Target.X - Data.Position.X), CurMaxSpeed.X);
@@ -643,18 +643,18 @@ namespace CloudberryKingdom
             Vector2 BobsCenter = Vector2.Zero;
             foreach (Bob bob in MyLevel.Bobs)
             {
-                if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.Core.Data.Position)) || MyLevel.PlayMode != 0)
+                if (PlayerManager.IsAlive(bob.MyPlayerIndex) && bob.AffectsCamera && (!bob.DoNotTrackOffScreen || OnScreen(bob.CoreData.Data.Position)) || MyLevel.PlayMode != 0)
                 {
                     //MaxPlayerSpeed = Math.Max(MaxPlayerSpeed, bob.Core.Data.Velocity.Length());
-                    MaxPlayerSpeed = Vector2.Max(MaxPlayerSpeed, CoreMath.Abs(bob.Core.Data.Velocity));
+                    MaxPlayerSpeed = Vector2Extension.Max(MaxPlayerSpeed, CoreMath.Abs(bob.CoreData.Data.Velocity));
 
-                    BobsCenter += bob.Core.Data.Position;
+                    BobsCenter += bob.CoreData.Data.Position;
                     
                     //TR.X = Math.Max(TR.X, bob.Core.Data.Position.X);
                     //TR.Y = Math.Max(TR.Y, bob.Core.Data.Position.Y);
 
-                    TR = Vector2.Max(TR, bob.Core.Data.Position);
-                    BL = Vector2.Min(BL, bob.Core.Data.Position);
+                    TR = Vector2Extension.Max(TR, bob.CoreData.Data.Position);
+                    BL = Vector2Extension.Min(BL, bob.CoreData.Data.Position);
 
                     Count++;
                     TotalWeight += bob.CameraWeight;
@@ -823,8 +823,8 @@ namespace CloudberryKingdom
                 }
             }
 
-            Vector2 CurMaxSpeed = Vector2.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
-            CurMaxSpeed = Vector2.Max(CurMaxSpeed, CurVel());
+            Vector2 CurMaxSpeed = Vector2Extension.Max(new Vector2(Speed), 1.05f * MaxPlayerSpeed);
+            CurMaxSpeed = Vector2Extension.Max(CurMaxSpeed, CurVel());
 
             if (MovingCamera)
             {

@@ -140,7 +140,7 @@ namespace CloudberryKingdom.Levels
 
                 blob.Displacement.X = Dir * Math.Abs(blob.Displacement.X);
 
-                blob.Core.GenData.RemoveIfUnused = false;
+                blob.CoreData.GenData.RemoveIfUnused = false;
 
                 level.AddObject(blob);
             }
@@ -171,7 +171,7 @@ namespace CloudberryKingdom.Levels
         {
             blob.SetColor(FlyingBlob.BlobColor.Pink);
 
-            blob.Core.GenData.RemoveIfUnused = false;
+            blob.CoreData.GenData.RemoveIfUnused = false;
 
             SetMoveType(blob, Params.TunnelDisplacement, Params.TunnelMotionType, Rnd);
             blob.Displacement.X = Math.Abs(blob.Displacement.X);
@@ -199,7 +199,7 @@ namespace CloudberryKingdom.Levels
                     FlyingBlob blob = (FlyingBlob)CreateAt(level, BL + new Vector2(i, j) * Step);
                     SetTunnelBlobParameter(blob, Params, level.Rnd);
 
-                    Params.TunnelGUIDs[i, j] = blob.Core.MyGuid;
+                    Params.TunnelGUIDs[i, j] = blob.CoreData.MyGuid;
                 }
             }
         }
@@ -432,7 +432,7 @@ namespace CloudberryKingdom.Levels
             FlyingBlob NewBlob = (FlyingBlob)level.Recycle.GetObject(ObjectType.FlyingBlob, true);
             NewBlob.Init(pos, level);
 
-            NewBlob.Core.Data.Position = NewBlob.Core.StartData.Position = pos;
+            NewBlob.CoreData.Data.Position = NewBlob.CoreData.StartData.Position = pos;
             NewBlob.Period = (int)Params.Period.GetVal(pos);
 
             //NewBlob.Offset = MyLevel.Rnd.Rnd.Next(0, NewBlob.Period);
@@ -444,14 +444,14 @@ namespace CloudberryKingdom.Levels
 
             // Decide if we should keep the blob even if unused
             if (level.Rnd.Rnd.NextDouble() < Params.KeepUnused.GetVal(pos))
-                NewBlob.Core.GenData.RemoveIfUnused = false;
+                NewBlob.CoreData.GenData.RemoveIfUnused = false;
             else
-                NewBlob.Core.GenData.RemoveIfUnused = true;
+                NewBlob.CoreData.GenData.RemoveIfUnused = true;
 
             if (level.Style.RemoveBlockOnOverlap)
-                NewBlob.Core.GenData.RemoveIfOverlap = true;
+                NewBlob.CoreData.GenData.RemoveIfOverlap = true;
 
-            NewBlob.Core.GenData.EdgeSafety = Params.EdgeSafety.GetVal(pos);
+            NewBlob.CoreData.GenData.EdgeSafety = Params.EdgeSafety.GetVal(pos);
 
             return NewBlob;
         }

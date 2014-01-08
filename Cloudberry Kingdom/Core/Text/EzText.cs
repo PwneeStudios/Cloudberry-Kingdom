@@ -1043,8 +1043,8 @@ namespace CloudberryKingdom
                 Vector2 bit_TR = Scale * loc + Loc; bit_TR.X += 1 * Scale * size.X; bit_TR.Y += .25f * Scale * size.Y;
                 Vector2 bit_BL = Scale * loc + Loc; bit_BL.Y += .75f * Scale * size.Y;
 
-                TR = Vector2.Max(TR, bit_TR);
-                BL = Vector2.Min(BL, bit_BL);
+                TR = Vector2Extension.Max(TR, bit_TR);
+                BL = Vector2Extension.Min(BL, bit_BL);
             }
 
             foreach (EzTextPic pic in Pics)
@@ -1056,8 +1056,8 @@ namespace CloudberryKingdom
                 Vector2 bit_TR = Scale * loc + Loc; bit_TR.X += 1 * Scale * size.X; bit_TR.Y += .25f * Scale * size.Y;
                 Vector2 bit_BL = Scale * loc + Loc; bit_BL.Y += .75f * Scale * size.Y;
 
-                TR = Vector2.Max(TR, bit_TR);
-                BL = Vector2.Min(BL, bit_BL);
+                TR = Vector2Extension.Max(TR, bit_TR);
+                BL = Vector2Extension.Min(BL, bit_BL);
             }
         }
     }

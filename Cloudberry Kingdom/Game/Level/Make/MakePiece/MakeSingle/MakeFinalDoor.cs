@@ -50,7 +50,7 @@ namespace CloudberryKingdom.Levels
             block => block.BlockCore.EndPiece = true, ModBlock);
 
             // Make lowest block a safety (we'll place the door here if no other block is used)
-            FinalBlocks[0].Core.GenData.KeepIfUnused = true;
+            FinalBlocks[0].CoreData.GenData.KeepIfUnused = true;
             FinalBlocks[0].BlockCore.NonTopUsed = true;
 
             // New style end blocks
@@ -76,14 +76,14 @@ namespace CloudberryKingdom.Levels
             block.BlockCore.DeleteIfTopOnly = true;
             block.BlockCore.GenData.RemoveIfUnused = true;
             block.BlockCore.GenData.AlwaysUse = false;
-            block.Core.EditorCode1 = "FinalBlock";
+            block.CoreData.EditorCode1 = "FinalBlock";
             FinalBlocks.Add(block);
 
             // New style end blocks
             if (MyLevel.MyTileSet.FixedWidths)
             {
                 block.BlockCore.EndPiece = true;
-                block.Core.DrawLayer = 0;
+                block.CoreData.DrawLayer = 0;
             }
         }
 
@@ -93,7 +93,7 @@ namespace CloudberryKingdom.Levels
 
             // Find the highest final block that was used by the computer.
             FinalBlock = MyLevel.Blocks
-                .FindAll(match => match.Core.GenData.Used && match.Core == "FinalBlock")
+                .FindAll(match => match.CoreData.GenData.Used && match.CoreData == "FinalBlock")
                 .ArgMax(block => block.Box.TR.Y);
 
             // If none exist use the lowest block
@@ -104,7 +104,7 @@ namespace CloudberryKingdom.Levels
             }
             else
             {
-                if (FinalBlocks[0].Core.GenData.KeepIfUnused && !FinalBlocks[0].Core.GenData.Used)
+                if (FinalBlocks[0].CoreData.GenData.KeepIfUnused && !FinalBlocks[0].CoreData.GenData.Used)
                     FinalBlocks[0].CollectSelf();
             }
 
@@ -185,14 +185,14 @@ namespace CloudberryKingdom.Levels
 
         public static void SetFinalDoor(Door door, Level level, Vector2 FinalPos)
         {
-            door.Core.EditorCode1 = LevelConnector.EndOfLevelCode;
+            door.CoreData.EditorCode1 = LevelConnector.EndOfLevelCode;
 
             // Attach an action to the door
             AttachDoorAction(door);
 
             // Mod CameraZone
             CameraZone camzone = (CameraZone)level.Objects.Find(obj =>
-                obj.Core.MyType == ObjectType.CameraZone);
+                obj.CoreData.MyType == ObjectType.CameraZone);
 
             camzone.End.X = FinalPos.X - level.MainCamera.GetWidth() / 2 + 500;
 

@@ -179,7 +179,7 @@ namespace CoreEngine
         {
             Vector2 BL = new Vector2(100000, 100000);
             for (int i = 0; i < NumVertices; i++)
-                BL = Vector2.Min(BL, Vertices[i].xy);
+                BL = Vector2Extension.Min(BL, Vertices[i].xy);
 
             return BL;
         }
@@ -188,7 +188,7 @@ namespace CoreEngine
         {
             Vector2 TR = new Vector2(-100000, -100000);
             for (int i = 0; i < NumVertices; i++)
-                TR = Vector2.Max(TR, Vertices[i].xy);
+                TR = Vector2Extension.Max(TR, Vertices[i].xy);
 
             return TR;
         }

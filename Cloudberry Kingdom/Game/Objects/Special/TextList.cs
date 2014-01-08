@@ -62,7 +62,7 @@ namespace CloudberryKingdom
             {
                 if (i >= 0 && i < Text.Count)
                 {
-                    Text[i]._Pos = Core.Data.Position - (i - ContinuousIndex) * new Vector2(0, 100);
+                    Text[i]._Pos = CoreData.Data.Position - (i - ContinuousIndex) * new Vector2(0, 100);
                     Text[i].MyFloatColor.W = Alpha * .5f * (2 - Math.Abs(i - ContinuousIndex));
                     Text[i].Draw(MyCam, false);
                 }
@@ -81,7 +81,7 @@ namespace CloudberryKingdom
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
         }
     }
 }

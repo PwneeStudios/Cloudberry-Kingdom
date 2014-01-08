@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 
 using CoreEngine.Random;
 
+using CloudberryKingdom;
+
 namespace CoreEngine
 {
     public class Set<T> : IEnumerable, IEnumerable<T>
@@ -18,12 +20,12 @@ namespace CoreEngine
 
         public bool this[T item]
         {
-            get { return dict.ContainsKey(item); }
+            get { return dict.CustomContainsKey(item); }
         }
 
         public static Set<T> operator+(Set<T> set, T item)
         {
-            if (!set.dict.ContainsKey(item))
+            if (!set.dict.CustomContainsKey(item))
                 set.dict.Add(item, true);
 
             return set;
@@ -41,7 +43,7 @@ namespace CoreEngine
         public bool Contains(T item)
         {
             if (item == null) return true;
-            else return dict.ContainsKey(item);
+            else return dict.CustomContainsKey(item);
         }
 
     }

@@ -23,7 +23,7 @@ namespace CloudberryKingdom
             Pos.RelVal = pos;
             icon.SetScale(Scale);
 
-            Core.DrawLayer = 2;
+            CoreData.DrawLayer = 2;
         }
 
         public string s;
@@ -54,7 +54,7 @@ namespace CloudberryKingdom
         public void Init(string text)
         {
             FixedToCamera = false;
-            Core.DrawLayer = 9;
+            CoreData.DrawLayer = 9;
 
             s = text;
             MyPile = new DrawPile();
@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             if (icon != null)
             {
                 // Flip if level is flipped
-                if (Core.MyLevel != null && Core.MyLevel.ModZoom.X < 0)
+                if (CoreData.MyLevel != null && CoreData.MyLevel.ModZoom.X < 0)
                     icon.Flipped = true;
 
                 icon.Pos = MyPile.FancyPos.Update();

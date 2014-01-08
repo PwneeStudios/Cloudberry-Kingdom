@@ -115,7 +115,7 @@ namespace CloudberryKingdom.Blocks
             if (Objects == null) return;
 
             foreach (ObjectBase obj in Objects)
-                if (!obj.Core.MarkedForDeletion)
+                if (!obj.CoreData.MarkedForDeletion)
                     obj.Draw();
         }
 
@@ -257,7 +257,7 @@ namespace CloudberryKingdom.Blocks
 
             BlockCore.BoxesOnly = BoxesOnly;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
         }
 
@@ -268,7 +268,7 @@ namespace CloudberryKingdom.Blocks
             if (level.MyTileSet.FixedWidths)
                 group.SnapWidthUp(ref size);
             MyBox.Initialize(center, size);
-            MyDraw.MyTemplate = Core.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
+            MyDraw.MyTemplate = CoreData.MyTileSet.GetPieceTemplate(this, level.Rnd, group);
 
             bool UseLowerBlockBounds = false;
             if (level != null && level.CurMakeData != null)
@@ -299,9 +299,9 @@ namespace CloudberryKingdom.Blocks
                 MyBox.Initialize(center, size);
             }
 
-            Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
+            CoreData.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            if (!Core.BoxesOnly) Reset(false);
+            if (!CoreData.BoxesOnly) Reset(false);
         }
 
         public NormalBlockDraw MyDraw;
@@ -367,7 +367,7 @@ namespace CloudberryKingdom.Blocks
         {
             if (Col == ColType.Left || Col == ColType.Right)
             {
-                if (Core.GetPhsxStep() < bob.MyPhsx.LastUsedStamp + 7) return true;
+                if (CoreData.GetPhsxStep() < bob.MyPhsx.LastUsedStamp + 7) return true;
 
                 if (Box.BL.Y > bob.Box.TR.Y - 40) return true;
                 if (Box.TR.Y < bob.Box.BL.Y + 40) return true;
@@ -379,10 +379,10 @@ namespace CloudberryKingdom.Blocks
 
                 //BobPhsxMeat meat = (BobPhsxMeat)bob.MyPhsx;
                 float Safety = 860;// 650;
-                if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Left) return false;
-                if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Right) return false;
-                if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Right) return true;
-                if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Left) return true;
+                if (bob.CoreData.Data.Position.X > Cam.Pos.X + Safety && Col == ColType.Left) return false;
+                if (bob.CoreData.Data.Position.X < Cam.Pos.X - Safety && Col == ColType.Right) return false;
+                if (bob.CoreData.Data.Position.X > Cam.Pos.X + Safety && Col == ColType.Right) return true;
+                if (bob.CoreData.Data.Position.X < Cam.Pos.X - Safety && Col == ColType.Left) return true;
 
                 //return false;
                 if (bob.WantsToLand)
@@ -473,16 +473,16 @@ namespace CloudberryKingdom.Blocks
 
             // Don't land on a block that says not to
             bool DesiresDeletion = false;
-            if (Core.GenData.TemporaryNoLandZone ||
-                !Core.GenData.Used && !((BlockBase)this).PermissionToUse())
+            if (CoreData.GenData.TemporaryNoLandZone ||
+                !CoreData.GenData.Used && !((BlockBase)this).PermissionToUse())
                 DesiresDeletion = Delete = true;
 
-            if (Core.GenData.Used) Delete = false;
-            if (!DesiresDeletion && Core.GenData.AlwaysLandOn && !Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
-            if (!DesiresDeletion && Core.GenData.AlwaysLandOn_Reluctantly && bob.WantsToLand_Reluctant && !Core.MarkedForDeletion && Col == ColType.Top) Delete = false;
+            if (CoreData.GenData.Used) Delete = false;
+            if (!DesiresDeletion && CoreData.GenData.AlwaysLandOn && !CoreData.MarkedForDeletion && Col == ColType.Top) Delete = false;
+            if (!DesiresDeletion && CoreData.GenData.AlwaysLandOn_Reluctantly && bob.WantsToLand_Reluctant && !CoreData.MarkedForDeletion && Col == ColType.Top) Delete = false;
 
-            if (Overlap && Core.GenData.RemoveIfOverlap) Delete = true;
-            if (!DesiresDeletion && Core.GenData.AlwaysUse && !Core.MarkedForDeletion) Delete = false;
+            if (Overlap && CoreData.GenData.RemoveIfOverlap) Delete = true;
+            if (!DesiresDeletion && CoreData.GenData.AlwaysUse && !CoreData.MarkedForDeletion) Delete = false;
         }
 
         private void EdgeSafety(Bob bob, ref bool Delete)

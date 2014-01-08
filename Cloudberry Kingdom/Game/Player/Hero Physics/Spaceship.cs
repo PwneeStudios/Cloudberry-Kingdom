@@ -78,8 +78,8 @@ namespace CloudberryKingdom
 
             MyLevel.MyCamera.MovingCamera = true;
 
-            MyBob.Core.Data.Velocity *= .86f;
-            MyBob.Core.Data.Velocity.X += 2.3f;
+            MyBob.CoreData.Data.Velocity *= .86f;
+            MyBob.CoreData.Data.Velocity.X += 2.3f;
 
             if (MyBob.CurInput.xVec.Length() > .2f)
             {
@@ -87,13 +87,13 @@ namespace CloudberryKingdom
                 if (MyBob.CurInput.xVec.X == 1)
                     boost = 1.2f;
 
-                MyBob.Core.Data.Velocity += boost * XAccel * MyBob.CurInput.xVec;
+                MyBob.CoreData.Data.Velocity += boost * XAccel * MyBob.CurInput.xVec;
 
-                float Magnitude = MyBob.Core.Data.Velocity.Length();
+                float Magnitude = MyBob.CoreData.Data.Velocity.Length();
                 if (Magnitude > boost * MaxSpeed)
                 {
-                    MyBob.Core.Data.Velocity.Normalize();
-                    MyBob.Core.Data.Velocity *= MaxSpeed;
+                    MyBob.CoreData.Data.Velocity.Normalize();
+                    MyBob.CoreData.Data.Velocity *= MaxSpeed;
                 }
             }
          
@@ -112,14 +112,14 @@ namespace CloudberryKingdom
         {
             base.PhsxStep2();
 
-            if (MyBob.Core.MyLevel.PlayMode == 0 && MyBob.CurInput.xVec.X > -.3f)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0 && MyBob.CurInput.xVec.X > -.3f)
             {
                 float intensity = Math.Min(.3f + (MyBob.CurInput.xVec.X + .3f), 1f);
                 if (MyBob.CurInput.xVec.X <= .5f)
                     intensity = Math.Min(intensity, .3f + (.1f + .3f));
 
-                int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
-                ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + new Vector2(0, 10), new Vector2(-1, 0), new Vector2(-10, yVel), intensity);
+                int layer = Math.Max(1, MyBob.CoreData.DrawLayer - 1);
+                ParticleEffects.Thrust(MyBob.CoreData.MyLevel, layer, Pos + new Vector2(0, 10), new Vector2(-1, 0), new Vector2(-10, yVel), intensity);
             }
         }
 
@@ -136,7 +136,7 @@ namespace CloudberryKingdom
         {
             base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
 
-            MyBob.Core.Data.Velocity.Y = MyBob.Core.Data.Velocity.Y + 5;
+            MyBob.CoreData.Data.Velocity.Y = MyBob.CoreData.Data.Velocity.Y + 5;
 
             MyBob.BottomCol = true;
 
@@ -173,30 +173,30 @@ namespace CloudberryKingdom
 
             MyBob.CurInput.B_Button = false;
 
-            if (MyBob.Core.MyLevel.GetPhsxStep() % 60 == 0)
+            if (MyBob.CoreData.MyLevel.GetPhsxStep() % 60 == 0)
                 RndMoveType = MyLevel.Rnd.Rnd.Next(0, 3);
 
             if (AutoDirLength == 0)
             {
                 if (AutoDir == 1) AutoDir = -1; else AutoDir = 1;
                 if (AutoDir == 1)
-                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.CoreData.Data.Position);
                 else
-                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.CoreData.Data.Position);
             }
 
             if (AutoMoveLength == 0)
             {
-                int rnd = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.Core.Data.Position));
-                if (rnd < MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position))
+                int rnd = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.CoreData.Data.Position) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.CoreData.Data.Position));
+                if (rnd < MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.CoreData.Data.Position))
                 {
                     AutoMoveType = 1;
-                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.CoreData.Data.Position);
                 }
                 else
                 {
                     AutoMoveType = 0;
-                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.CoreData.Data.Position);
                 }
             }
 
@@ -208,34 +208,34 @@ namespace CloudberryKingdom
                 MyBob.CurInput.xVec.Y = AutoDir;
 
 
-            float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.Core.Data.Position);
-            if (MyBob.Core.Data.Velocity.Y > RetardFactor * MaxSpeed)
+            float RetardFactor = .01f * MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.CoreData.Data.Position);
+            if (MyBob.CoreData.Data.Velocity.Y > RetardFactor * MaxSpeed)
                 MyBob.CurInput.xVec.Y = 0;
 
-            MyBob.CurInput.xVec.Y *= Math.Min(1, (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 65f) + 1.35f);
+            MyBob.CurInput.xVec.Y *= Math.Min(1, (float)Math.Cos(MyBob.CoreData.MyLevel.GetPhsxStep() / 65f) + 1.35f);
 
             float t = 0;
             if (RndMoveType == 0)
-                t = ((float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
+                t = ((float)Math.Cos(MyBob.CoreData.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
             if (RndMoveType == 1)
-                t = ((float)Math.Sin(MyBob.Core.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
+                t = ((float)Math.Sin(MyBob.CoreData.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
             if (RndMoveType == 2)
-                t = Math.Abs((MyBob.Core.MyLevel.GetPhsxStep() % 120) / 120f);
+                t = Math.Abs((MyBob.CoreData.MyLevel.GetPhsxStep() % 120) / 120f);
 
             MyBob.TargetPosition.X = MyBob.MoveData.MinTargetY - 160 + t * (200 + MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
             //+ 200 * (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 20f);
 
-            if (MyBob.Core.Data.Position.X < MyBob.TargetPosition.X)
+            if (MyBob.CoreData.Data.Position.X < MyBob.TargetPosition.X)
                 MyBob.CurInput.xVec.X = 1;
-            if (MyBob.Core.Data.Position.X > MyBob.TargetPosition.X)
+            if (MyBob.CoreData.Data.Position.X > MyBob.TargetPosition.X)
                 MyBob.CurInput.xVec.X = -1;
-            MyBob.CurInput.xVec.X *= Math.Min(1, Math.Abs(MyBob.TargetPosition.X - MyBob.Core.Data.Position.X) / 100);
+            MyBob.CurInput.xVec.X *= Math.Min(1, Math.Abs(MyBob.TargetPosition.X - MyBob.CoreData.Data.Position.X) / 100);
 
             if (Pos.X > MyBob.TargetPosition.X + 400) MyBob.CurInput.xVec.X = 1;
             if (Pos.X < MyBob.TargetPosition.X - 400) MyBob.CurInput.xVec.X = -1;
 
-            if (MyBob.Core.Data.Position.Y > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.Y ||
-                MyBob.Core.Data.Position.X > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.X)
+            if (MyBob.CoreData.Data.Position.Y > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.Y ||
+                MyBob.CoreData.Data.Position.X > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.X)
             {
                 MyBob.CurInput.xVec.Y = 0;
             }
@@ -267,30 +267,30 @@ namespace CloudberryKingdom
         {
             MyBob.CurInput.B_Button = false;
 
-            if (MyBob.Core.MyLevel.GetPhsxStep() % 60 == 0)
+            if (MyBob.CoreData.MyLevel.GetPhsxStep() % 60 == 0)
                 RndMoveType = MyLevel.Rnd.Rnd.Next(0, 3);
 
             if (AutoDirLength == 0)
             {
                 if (AutoDir == 1) AutoDir = -1; else AutoDir = 1;
                 if (AutoDir == 1)
-                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.ForwardLengthBase, MyBob.CoreData.Data.Position);
                 else
-                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.Core.Data.Position);
+                    AutoDirLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.BackLengthBase, MyBob.CoreData.Data.Position);
             }
 
             if (AutoMoveLength == 0)
             {
-                int rnd = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.Core.Data.Position));
-                if (rnd < MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.Core.Data.Position))
+                int rnd = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.CoreData.Data.Position) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitWeight, MyBob.CoreData.Data.Position));
+                if (rnd < MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveWeight, MyBob.CoreData.Data.Position))
                 {
                     AutoMoveType = 1;
-                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.MoveLengthBase, MyBob.CoreData.Data.Position);
                 }
                 else
                 {
                     AutoMoveType = 0;
-                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.Core.Data.Position)) + MyBob.Core.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.Core.Data.Position);
+                    AutoMoveLength = MyLevel.Rnd.Rnd.Next(MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthAdd, MyBob.CoreData.Data.Position)) + MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(BehaviorParam.SitLengthBase, MyBob.CoreData.Data.Position);
                 }
             }
         
@@ -302,28 +302,28 @@ namespace CloudberryKingdom
                 MyBob.CurInput.xVec.X = AutoDir;
 
       
-            float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.Core.Data.Position);
-            if (!OnGround && MyBob.Core.Data.Velocity.X > RetardFactor * MaxSpeed)
+            float RetardFactor = .01f * MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.CoreData.Data.Position);
+            if (!OnGround && MyBob.CoreData.Data.Velocity.X > RetardFactor * MaxSpeed)
                 MyBob.CurInput.xVec.X = 0;
 
-            MyBob.CurInput.xVec.X *= Math.Min(1, (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 65f) + 1.35f);
+            MyBob.CurInput.xVec.X *= Math.Min(1, (float)Math.Cos(MyBob.CoreData.MyLevel.GetPhsxStep() / 65f) + 1.35f);
 
             float t = 0;
             if (RndMoveType == 0)
-                t = ((float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
+                t = ((float)Math.Cos(MyBob.CoreData.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
             if (RndMoveType == 1)
-                t = ((float)Math.Sin(MyBob.Core.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
+                t = ((float)Math.Sin(MyBob.CoreData.MyLevel.GetPhsxStep() / 40f) + 1) / 2;
             if (RndMoveType == 2)
-                t = Math.Abs((MyBob.Core.MyLevel.GetPhsxStep() % 120) / 120f);
+                t = Math.Abs((MyBob.CoreData.MyLevel.GetPhsxStep() % 120) / 120f);
 
             MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY - 200 + t * (-90 + MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
                     //+ 200 * (float)Math.Cos(MyBob.Core.MyLevel.GetPhsxStep() / 20f);
             
-            if (MyBob.Core.Data.Position.Y < MyBob.TargetPosition.Y)
+            if (MyBob.CoreData.Data.Position.Y < MyBob.TargetPosition.Y)
                 MyBob.CurInput.xVec.Y = 1;
-            if (MyBob.Core.Data.Position.Y > MyBob.TargetPosition.Y)
+            if (MyBob.CoreData.Data.Position.Y > MyBob.TargetPosition.Y)
                 MyBob.CurInput.xVec.Y = -1;
-            MyBob.CurInput.xVec.Y *= Math.Min(1, Math.Abs(MyBob.TargetPosition.Y - MyBob.Core.Data.Position.Y) / 100);
+            MyBob.CurInput.xVec.Y *= Math.Min(1, Math.Abs(MyBob.TargetPosition.Y - MyBob.CoreData.Data.Position.Y) / 100);
             
             if (Pos.X > CurPhsxStep * 1.1f * (4000f / 600f))
             {
@@ -348,8 +348,8 @@ namespace CloudberryKingdom
                 if (Pos.Y < MyLevel.MainCamera.BL.Y + 600) MyBob.CurInput.xVec.Y = 1;
             }
 
-            if (MyBob.Core.Data.Position.X > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.X ||
-                MyBob.Core.Data.Position.Y > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.Y)
+            if (MyBob.CoreData.Data.Position.X > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.X ||
+                MyBob.CoreData.Data.Position.Y > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.Y)
             {
                 MyBob.CurInput.xVec.X = 0;
             }
@@ -370,10 +370,10 @@ namespace CloudberryKingdom
         {
             base.Die(DeathType);
 
-            MyBob.Core.Data.Velocity = new Vector2(0, 25);
-            MyBob.Core.Data.Acceleration = new Vector2(0, -1.9f);
+            MyBob.CoreData.Data.Velocity = new Vector2(0, 25);
+            MyBob.CoreData.Data.Acceleration = new Vector2(0, -1.9f);
 
-            Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel);
+            Fireball.Explosion(MyBob.CoreData.Data.Position, MyBob.CoreData.MyLevel);
         }
 
         public override void BlockInteractions()
@@ -382,7 +382,7 @@ namespace CloudberryKingdom
 
             foreach (BlockBase block in Core.MyLevel.Blocks)
             {
-                if (!block.Core.MarkedForDeletion && block.Core.Real && block.IsActive && block.Core.Active && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
+                if (!block.CoreData.MarkedForDeletion && block.CoreData.Real && block.IsActive && block.CoreData.Active && Phsx.BoxBoxOverlap(MyBob.Box2, block.Box))
                 {
                     if (!MyBob.Immortal)
                         MyBob.Die(BobDeathType.Other);

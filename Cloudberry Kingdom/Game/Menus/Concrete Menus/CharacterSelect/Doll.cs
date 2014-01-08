@@ -31,7 +31,7 @@ namespace CloudberryKingdom
 
             if (MyDoll != null)
             {
-                MyDoll.Core.MyLevel.Bobs.Remove(MyDoll);
+                MyDoll.CoreData.MyLevel.Bobs.Remove(MyDoll);
                 MyDoll.Release(); MyDoll = null;
             }
         }
@@ -114,18 +114,18 @@ namespace CloudberryKingdom
             base.MyDraw();
         }
 
-		public Vector2 Shift = Vector2.Zero;
+		public Vector2 DollShift = Vector2.Zero;
         public bool ShowBob = false;
         public void DrawBob()
         {
             if (ShowBob)
             {
-                MyPile.Pos = new Vector2(-10, 260) + Shift;
+                MyPile.Pos = new Vector2(-10, 260) + DollShift;
 
                 Vector2 Pos = CharacterSelect.Centers[Control] + MyPile.Pos;
                 Vector2 CurDollPos = Pos / (CharacterSelectManager.BobZoom / CharacterSelectManager.ZoomMod) + Tools.CurGameData.CamPos;
 
-                MyDoll.Move(CurDollPos - MyDoll.Core.Data.Position);
+                MyDoll.Move(CurDollPos - MyDoll.CoreData.Data.Position);
                 MyDoll.Draw();
             }
         }

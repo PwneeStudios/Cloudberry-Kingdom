@@ -67,16 +67,16 @@ namespace CloudberryKingdom
             // Get all coins
             List<ObjectBase> coins = level.GetObjectList(ObjectType.Coin);
 
-            foreach (ObjectBase coin in coins) coin.Core.MarkedForDeletion = true;
+            foreach (ObjectBase coin in coins) coin.CoreData.MarkedForDeletion = true;
 
             List<ObjectBase> keep = level.Rnd.Choose(coins, N);
 
-            foreach (ObjectBase coin in keep) coin.Core.MarkedForDeletion = false;
+            foreach (ObjectBase coin in keep) coin.CoreData.MarkedForDeletion = false;
 
             int NumCoins = 0;
             foreach (ObjectBase coin in coins)
             {
-                if (coin.Core.MarkedForDeletion)
+                if (coin.CoreData.MarkedForDeletion)
                     coin.CollectSelf();
                 else
                     // Count the number of coins we keep.

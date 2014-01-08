@@ -58,14 +58,14 @@ namespace CloudberryKingdom
         {
             Dictionary<ulong, ObjectBase> ObjDict = new Dictionary<ulong, ObjectBase>();
             foreach (ObjectBase obj in level.Objects)
-                if (!ObjDict.ContainsKey(obj.Core.MyGuid))
+                if (!ObjDict.CustomContainsKey(obj.Core.MyGuid))
                     ObjDict.Add(obj.Core.MyGuid, obj);
 
             // Convert GUIDs to IObjects
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < M; j++)
                 {
-                    if (ObjDict.ContainsKey(TunnelGUIDs[i, j]))
+                    if (ObjDict.CustomContainsKey(TunnelGUIDs[i, j]))
                         TunnelObjs[i, j] = ObjDict[TunnelGUIDs[i, j]];
                     else
                         TunnelObjs[i, j] = null;

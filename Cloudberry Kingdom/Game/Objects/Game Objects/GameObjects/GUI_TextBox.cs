@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
-#if WINDOWS
-using KeyboardHandler;
-#endif
+//#if WINDOWS
+//using KeyboardHandler;
+//#endif
 
 namespace CloudberryKingdom
 {
@@ -573,18 +573,18 @@ namespace CloudberryKingdom
         public bool LimitLength = true;
 
 #if WINDOWS
-        void CharEntered(object o, CharacterEventArgs e)
-        {
-            if (!Active) return;
+		//void CharEntered(object o, CharacterEventArgs e)
+		//{
+		//    if (!Active) return;
 
-            DeleteSelected();
+		//    DeleteSelected();
 
-            if (IsAcceptableChar(e.Character) && (!LimitLength || MyText.FirstString().Length < MaxLength))
-            {
-                MyText.AppendText(e.Character);
-                Recenter();
-            }
-        }
+		//    if (IsAcceptableChar(e.Character) && (!LimitLength || MyText.FirstString().Length < MaxLength))
+		//    {
+		//        MyText.AppendText(e.Character);
+		//        Recenter();
+		//    }
+		//}
 
         bool IsAcceptableChar(char c)
         {
@@ -619,13 +619,13 @@ namespace CloudberryKingdom
         }
 
 #if WINDOWS
-        void KeyDown(object o, KeyEventArgs e)
-        {
-            if (!Active) return;
+		//void KeyDown(object o, KeyEventArgs e)
+		//{
+		//    if (!Active) return;
 
-            if (e.KeyCode == Keys.Back) Backspace();
-            if (e.KeyCode == Keys.Enter) Enter();
-        }
+		//    if (e.KeyCode == Keys.Back) Backspace();
+		//    if (e.KeyCode == Keys.Enter) Enter();
+		//}
 #endif
 
         void Backspace()

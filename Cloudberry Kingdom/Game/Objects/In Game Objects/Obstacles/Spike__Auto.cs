@@ -71,7 +71,7 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public void SetPeriod(Spike spike, Rand Rnd)
         {
-            Vector2 pos = spike.Core.Data.Position;
+            Vector2 pos = spike.CoreData.Data.Position;
             int period = (int)SpikePeriod.GetVal(pos);
 
             spike.SetPeriod(period);
@@ -127,7 +127,7 @@ namespace CloudberryKingdom.Levels
 
             foreach (BlockBase block in level.Blocks)
             {
-                if (block.Core.Placed) continue;
+                if (block.CoreData.Placed) continue;
 
                 if (!(block.BlockCore.BlobsOnTop || block.BlockCore.Ceiling)) continue;
 
@@ -139,8 +139,8 @@ namespace CloudberryKingdom.Levels
 
                 // Add spikes
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 110;
-                float density = level.Rnd.RndFloat(Params.MinSpikeDensity.GetVal(block.Core.Data.Position),
-                                               Params.MaxSpikeDensity.GetVal(block.Core.Data.Position));
+                float density = level.Rnd.RndFloat(Params.MinSpikeDensity.GetVal(block.CoreData.Data.Position),
+                                               Params.MaxSpikeDensity.GetVal(block.CoreData.Data.Position));
                 float average = (int)(xdif * (float)density / 2000f);
                 int n = (int)average;
                 //if (average < 1) if (Rnd.Rnd.NextDouble() < average) n = 1;

@@ -69,7 +69,7 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             LavaBlock BlockA = A as LavaBlock;
 

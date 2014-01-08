@@ -25,7 +25,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            Core.DrawLayer = Level.AfterPostDrawLayer;
+            CoreData.DrawLayer = Level.AfterPostDrawLayer;
 
             Fast();
         }

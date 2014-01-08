@@ -309,22 +309,22 @@ namespace CloudberryKingdom
             base.PhsxStep2();            
 
             // Rocketman thrust
-            if (MyBob.Core.MyLevel.PlayMode == 0 && JetPack && Thrusting)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0 && JetPack && Thrusting)
             {
                 Vector2 Mod = new Vector2(MyBob.PlayerObject.xFlip ? -1 : 1, 1) *
                     MyBob.PlayerObject.ParentQuad.Size / new Vector2(260);
 
-                int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
+                int layer = Math.Max(1, MyBob.CoreData.DrawLayer - 1);
 
                 float scale = .5f * (Math.Abs(Mod.X) - 1) + 1;
 
                 if (Ducking)
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos_Duck, Mod * ThrustDir_Duck, Vel / 1.5f, scale);
+                    ParticleEffects.Thrust(MyBob.CoreData.MyLevel, layer, Pos + Mod * ThrustPos_Duck, Mod * ThrustDir_Duck, Vel / 1.5f, scale);
                 else
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos1, Mod * ThrustDir1, Vel / 1.5f, scale);
+                    ParticleEffects.Thrust(MyBob.CoreData.MyLevel, layer, Pos + Mod * ThrustPos1, Mod * ThrustDir1, Vel / 1.5f, scale);
 
                 if (ThrustType == RocketThrustType.Double)
-                    ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + Mod * ThrustPos2, Mod * ThrustDir2, Vel / 1.5f, scale);
+                    ParticleEffects.Thrust(MyBob.CoreData.MyLevel, layer, Pos + Mod * ThrustPos2, Mod * ThrustDir2, Vel / 1.5f, scale);
             }
         }
 
@@ -337,7 +337,7 @@ namespace CloudberryKingdom
                 if ((MustHitGroundToReadyJump && OnGround || !MustHitGroundToReadyJump && true) &&
                     !MyBob.CurInput.A_Button &&
                     (DynamicLessThan(yVel, 0) || OnGround || CurJump < NumJumps) ||
-                    (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl))
+                    (MyBob.CoreData.MyLevel.PlayMode != 0 || MyBob.CompControl))
                     ReadyToJump = true;
             }
             else
@@ -448,7 +448,7 @@ namespace CloudberryKingdom
             NoStickPeriod = 3;
             JumpCount = (int)(JumpCount * JumpLengthModifier);
 
-            if (MyBob.Core.MyLevel.PlayMode == 0 && !MyBob.CharacterSelect)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0 && !MyBob.CharacterSelect)
             {
                 PlayJumpSound();
             }
@@ -554,7 +554,7 @@ namespace CloudberryKingdom
             if (CurJump >= NumJumps && JumpDelayCount <= 0 || !OnGround && CurJump == 0 && FallingCount >= BobFallDelay)
                 if (MyBob.CurInput.A_Button && JetPackCount < JetPackLength + JetPackCushion)
                 {
-                    if (MyBob.Core.MyLevel.PlayMode == 0)
+                    if (MyBob.CoreData.MyLevel.PlayMode == 0)
                     {
                         if (ThrustSoundCount <= 0 && ThrustSound != null)
                         {
@@ -621,7 +621,7 @@ namespace CloudberryKingdom
         {
             base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
 
-            if (LandSound != null && MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
+            if (LandSound != null && MyBob.CoreData.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 PlayLandSound();
 
             ReadyToJump = ReadyToJump || MakeReadyToJump;
@@ -653,7 +653,7 @@ namespace CloudberryKingdom
 
         public virtual float RetardxVec()
         {
-            float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, Pos);
+            float RetardFactor = .01f * MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, Pos);
             if (!OnGround && xVel > RetardFactor * MaxSpeed)
                 return 0;
             else
@@ -738,7 +738,7 @@ namespace CloudberryKingdom
             else
                 TurnCountdown--;
 
-            Camera cam = MyBob.Core.MyLevel.MainCamera;
+            Camera cam = MyBob.CoreData.MyLevel.MainCamera;
             float HardBound = 1000; float SoftBound = 1500;
             if (Pos.X > cam.TR.X - HardBound) Dir = -1;
             if (Pos.X < cam.BL.X + HardBound) Dir = 1;
@@ -773,8 +773,8 @@ namespace CloudberryKingdom
 
         void GenerateInput_Right(int CurPhsxStep)
         {
-            Vector2 TR = MyBob.Core.MyLevel.MainCamera.TR;
-            Vector2 BL = MyBob.Core.MyLevel.MainCamera.BL;
+            Vector2 TR = MyBob.CoreData.MyLevel.MainCamera.TR;
+            Vector2 BL = MyBob.CoreData.MyLevel.MainCamera.BL;
 
             SetTarget(GenData);
 
@@ -842,7 +842,7 @@ namespace CloudberryKingdom
                 //        AutoDirLength_SetTo = AutoDirLength = 10;
             }
 
-            if ((MyBob.Core.MyLevel.GetPhsxStep() + Offset) % 400 == 0)
+            if ((MyBob.CoreData.MyLevel.GetPhsxStep() + Offset) % 400 == 0)
             {
                 AutoMoveType = 0;
                 AutoMoveLength = MyLevel.Rnd.Rnd.Next(GenData.Get(BehaviorParam.SitLengthAdd, Pos)) + GenData.Get(BehaviorParam.SitLengthBase, Pos);
@@ -934,8 +934,8 @@ namespace CloudberryKingdom
                     MyBob.CurInput.A_Button = true;
             }
 
-            if (Pos.X > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.X ||
-                Pos.Y > MyBob.Core.MyLevel.CurMakeData.TRBobMoveZone.Y)
+            if (Pos.X > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.X ||
+                Pos.Y > MyBob.CoreData.MyLevel.CurMakeData.TRBobMoveZone.Y)
             {
                 MyBob.CurInput.A_Button = false;
                 MyBob.CurInput.xVec.X = 0;
@@ -970,7 +970,7 @@ namespace CloudberryKingdom
                     MyBob.CurInput.A_Button = true;
             }
             BlockBase block = ObjectLandedOn as BlockBase;
-            if (null != block && (OnGround || FallingCount < BobFallDelay) && (BobEdgeJump == 1 || block.Core.GenData.EdgeJumpOnly))
+            if (null != block && (OnGround || FallingCount < BobFallDelay) && (BobEdgeJump == 1 || block.CoreData.GenData.EdgeJumpOnly))
             {
                 MyBob.Box.CalcBounds();
                 float bobx = MyBob.Box.BL.X;
@@ -981,7 +981,7 @@ namespace CloudberryKingdom
                     MyBob.CurInput.A_Button = true;
                 else if (bobx > blockx - DistancePast_NoJump)
                     MyBob.CurInput.A_Button = false;
-                else if (block.Core.GenData.EdgeJumpOnly)
+                else if (block.CoreData.GenData.EdgeJumpOnly)
                     MyBob.CurInput.A_Button = false;
             }
 
@@ -1144,7 +1144,7 @@ private void HighThrusts(int CurPhsxStep)
             float MaxTargetY = MyBob.MoveData.MaxTargetY;
 
             float t = 0;
-            int Step = MyBob.Core.MyLevel.GetPhsxStep() + Offset;
+            int Step = MyBob.CoreData.MyLevel.GetPhsxStep() + Offset;
 
             // If this is the first phsx step choose a move type
             if (FirstPhsxStep)
@@ -1200,13 +1200,13 @@ private void HighThrusts(int CurPhsxStep)
                     if (Up)
                     {
                         MyBob.TargetPosition.Y = MaxTargetY;
-                        if (MyBob.Pos.Y > MyBob.TargetPosition.Y - 200)
+                        if (MyBob.CoreData.Data.Position.Y > MyBob.TargetPosition.Y - 200)
                             Up = false;
                     }
                     else
                     {
                         MyBob.TargetPosition.Y = MinTargetY;
-                        if (MyBob.Pos.Y < MyBob.TargetPosition.Y + 200)
+                        if (MyBob.CoreData.Data.Position.Y < MyBob.TargetPosition.Y + 200)
                             Up = true;
                     }
                     break;
@@ -1217,7 +1217,7 @@ private void HighThrusts(int CurPhsxStep)
             if (RndMoveType < 6)
                 MyBob.TargetPosition.Y = MyBob.MoveData.MinTargetY + t * (MyBob.MoveData.MaxTargetY - MyBob.MoveData.MinTargetY);
 
-            if (AllowTypeSwitching && MyBob.Core.MyLevel.GetPhsxStep() % Period == 0)
+            if (AllowTypeSwitching && MyBob.CoreData.MyLevel.GetPhsxStep() % Period == 0)
                 RndMoveType = MyLevel.Rnd.Rnd.Next(0, 7);
 
         }
@@ -1559,7 +1559,7 @@ private void HighThrusts(int CurPhsxStep)
         {
             if (MyBob.KillingObject != null)
             {
-                switch(MyBob.KillingObject.Core.MyType)
+                switch(MyBob.KillingObject.CoreData.MyType)
                 {
                     case ObjectType.Laser:
                         break;
@@ -1584,7 +1584,7 @@ private void HighThrusts(int CurPhsxStep)
                         //Dir.Y = Math.Abs(Dir.Y);
                         //if (Dir.Y < .1f) Dir.Y = .1f;
 
-                        Vector2 Dir = new Vector2(Math.Sign(Pos.X - MyBob.KillingObject.Core.Data.Position.X), 1);
+                        Vector2 Dir = new Vector2(Math.Sign(Pos.X - MyBob.KillingObject.CoreData.Data.Position.X), 1);
 
                         Vel = Dir * 40;
                         Acc = new Vector2(0, -1.9f);
@@ -1609,8 +1609,8 @@ private void HighThrusts(int CurPhsxStep)
         
         protected void Explode()
         {
-            Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
-            Fireball.Explosion(MyBob.Core.Data.Position, MyBob.Core.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
+            Fireball.Explosion(MyBob.CoreData.Data.Position, MyBob.CoreData.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
+            Fireball.Explosion(MyBob.CoreData.Data.Position, MyBob.CoreData.MyLevel, .1f * Vel, ExplosionScale, ExplosionScale / 1.4f);
             Tools.SoundWad.FindByName("DustCloud_Explode").Play(.4f);
         }
 

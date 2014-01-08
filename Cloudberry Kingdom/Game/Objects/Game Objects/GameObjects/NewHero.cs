@@ -80,8 +80,8 @@ namespace CloudberryKingdom
             Count++;
 
             // Make sure we're on top
-            if (!Core.Released && Core.MyLevel != null)
-                Core.MyLevel.MoveToTopOfDrawLayer(this);
+            if (!CoreData.Released && CoreData.MyLevel != null)
+                CoreData.MyLevel.MoveToTopOfDrawLayer(this);
 
             // Do nothing if this is permanent
             if (Perma) return;

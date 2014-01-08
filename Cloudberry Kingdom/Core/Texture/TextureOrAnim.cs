@@ -30,7 +30,7 @@ namespace CoreEngine
 
         public void Set(string name)
         {
-            if (Tools.TextureWad.AnimationDict.ContainsKey(name))
+            if (Tools.TextureWad.AnimationDict.CustomContainsKey(name))
             {
                 MyAnim = Tools.TextureWad.AnimationDict[name];
                 IsAnim = true;

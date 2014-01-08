@@ -34,10 +34,10 @@ namespace CloudberryKingdom
 
             CameraType = Camera.PhsxType.SideLevel_Right;
 
-            Core.MyType = ObjectType.CameraZone;
-            Core.GenData.Used = true;
+            CoreData.MyType = ObjectType.CameraZone;
+            CoreData.GenData.Used = true;
 
-            Core.ResetOnlyOnReset = true;
+            CoreData.ResetOnlyOnReset = true;
 
             Activated = false;
 
@@ -57,7 +57,7 @@ namespace CloudberryKingdom
             {
                 CameraZone CamZone = trig as CameraZone;
 
-                Camera cam = CamZone.Core.MyLevel.MainCamera;
+                Camera cam = CamZone.CoreData.MyLevel.MainCamera;
                 if (cam.ZoneLocked ||
                     cam.MyPhsxType == Camera.PhsxType.Fixed) return;
 
@@ -69,7 +69,7 @@ namespace CloudberryKingdom
                     {
                         case Camera.PhsxType.Center:
                             if (cam.MyPhsxType != CameraType)
-                                cam.Target = Core.Data.Position;
+                                cam.Target = CoreData.Data.Position;
                             break;
                     }
 

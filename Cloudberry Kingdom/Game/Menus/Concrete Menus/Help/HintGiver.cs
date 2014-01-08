@@ -47,7 +47,7 @@ namespace CloudberryKingdom
 
         public void Check_QuickSpawn()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             // "Quickspawn"
             //int FirstHint = 12, SecondHint = 36, ThirdHint = 70;
@@ -114,7 +114,7 @@ namespace CloudberryKingdom
 
         public void Check_YForHelp()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             // "Press (Y) for help"
             //int FirstHint = 24, SecondHint = 50, ThirdHint = 90;

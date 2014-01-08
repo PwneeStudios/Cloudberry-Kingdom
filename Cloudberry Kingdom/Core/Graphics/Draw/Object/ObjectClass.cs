@@ -240,7 +240,7 @@ namespace CoreEngine
 
             foreach (BaseQuad quad in QuadList)
             {
-                BL = Vector2.Min(BL, quad.BL());
+                BL = Vector2Extension.Min(BL, quad.BL());
             }
 
             return BL;
@@ -252,7 +252,7 @@ namespace CoreEngine
 
             foreach (BaseQuad quad in QuadList)
             {
-                TR = Vector2.Max(TR, quad.TR());
+                TR = Vector2Extension.Max(TR, quad.TR());
             }
 
             return TR;

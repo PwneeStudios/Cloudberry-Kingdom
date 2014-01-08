@@ -26,7 +26,7 @@ namespace CloudberryKingdom
 
             if (MyDoll != null)
             {
-                MyDoll.Core.MyLevel.Bobs.Remove(MyDoll);
+                MyDoll.CoreData.MyLevel.Bobs.Remove(MyDoll);
                 MyDoll.Release(); MyDoll = null;
             }
         }
@@ -36,7 +36,7 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            Core.DrawLayer++;
+            CoreData.DrawLayer++;
 
             SlideInLength = 0;
             SlideOutLength = 0;
@@ -58,7 +58,7 @@ namespace CloudberryKingdom
         public void MakeHeroDoll(BobPhsx hero)
         {
             var current_bob = MyGame.MyLevel.Bobs.Count == 0 ? null : MyGame.MyLevel.Bobs[0];
-            var current_pos = current_bob == null ? Vector2.Zero : current_bob.Pos;
+            var current_pos = current_bob == null ? Vector2.Zero : current_bob.CoreData.Data.Position;
 
             // Grab cape
             Cape PrevCape = null;
@@ -93,7 +93,7 @@ namespace CloudberryKingdom
             MyDoll.SetHeroPhsx(hero);
             MyDoll.MyPhsx.DollInitialize();
 
-            MyDoll.Move(current_pos - MyDoll.Pos);
+            MyDoll.Move(current_pos - MyDoll.CoreData.Data.Position);
             MyGame.MyLevel.AddBob(MyDoll);
 
             for (int i = 0; i < 20; i++)
@@ -101,7 +101,7 @@ namespace CloudberryKingdom
                 float Zoom = 2f * MyDoll.MyPhsx.DollCamZoomMod;
                 Vector2 Pos = MyPile.Pos;
                 Vector2 CurHeroDollPos = Pos / Zoom + Tools.CurGameData.CamPos;
-                MyDoll.Move(CurHeroDollPos - MyDoll.Pos);
+                MyDoll.Move(CurHeroDollPos - MyDoll.CoreData.Data.Position);
 
                 MyDoll.AnimAndUpdate();
                 MyDoll.PhsxStep();
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
             Vector2 Pos = MyPile.Pos + MyDoll.MyPhsx.HeroDollShift;
             Vector2 CurHeroDollPos = Pos / Zoom + Tools.CurGameData.CamPos;
 
-            MyDoll.Move(CurHeroDollPos - MyDoll.Pos);
+            MyDoll.Move(CurHeroDollPos - MyDoll.CoreData.Data.Position);
             MyDoll.Draw();
 
             Tools.QDrawer.Flush();
@@ -180,7 +180,7 @@ namespace CloudberryKingdom
         {
             base.MyDraw();
 
-            if (!Core.Show || Core.Released || Hid) return;
+            if (!CoreData.Show || CoreData.Released || Hid) return;
 
             DrawBob();
         }

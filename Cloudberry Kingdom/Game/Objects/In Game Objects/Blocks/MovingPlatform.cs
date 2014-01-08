@@ -25,7 +25,7 @@ namespace CloudberryKingdom.Blocks
 
         BlockEmitter_Parameters MyParams
         {
-            get { return (BlockEmitter_Parameters)Core.MyLevel.Style.FindParams(BlockEmitter_AutoGen.Instance); }
+            get { return (BlockEmitter_Parameters)CoreData.MyLevel.Style.FindParams(BlockEmitter_AutoGen.Instance); }
         }
 
         public override bool PermissionToUse()
@@ -33,7 +33,7 @@ namespace CloudberryKingdom.Blocks
             if (MyParams.MyStyle == BlockEmitter_Parameters.Style.Separated)
             {
                 // Don't let the computer use another elevator too soon after using another one.
-                if (Core.MyLevel.CurPhsxStep - MyParams.LastUsedTimeStamp > 5)
+                if (CoreData.MyLevel.CurPhsxStep - MyParams.LastUsedTimeStamp > 5)
                     return true;
                 else
                     return false;
@@ -46,18 +46,18 @@ namespace CloudberryKingdom.Blocks
 
         public override void LandedOn(Bob bob)
         {
-            if (Core.MyLevel.PlayMode == 2)
+            if (CoreData.MyLevel.PlayMode == 2)
             {
-                MyParams.LastUsedTimeStamp = Core.MyLevel.CurPhsxStep;
+                MyParams.LastUsedTimeStamp = CoreData.MyLevel.CurPhsxStep;
 
                 if (MyParams.MyStyle == BlockEmitter_Parameters.Style.Separated)
-                    Core.GenData.EdgeJumpOnly = true;
+                    CoreData.GenData.EdgeJumpOnly = true;
             }
         }
         public override void OnUsed()
         {
-            MyParams.LastUsedTimeStamp = Core.MyLevel.CurPhsxStep;
-            Parent.StampAsUsed(Core.MyLevel.CurPhsxStep);
+            MyParams.LastUsedTimeStamp = CoreData.MyLevel.CurPhsxStep;
+            Parent.StampAsUsed(CoreData.MyLevel.CurPhsxStep);
         }
 
         public override void OnMarkedForDeletion()
@@ -65,11 +65,11 @@ namespace CloudberryKingdom.Blocks
             if (Parent != null)
                 Parent.RemovePlatform(this);
 
-            if (!Core.DeletedByBob) return;
+            if (!CoreData.DeletedByBob) return;
 
             if (Parent != null)
             {
-                Parent.Core.DeletedByBob = true;
+                Parent.CoreData.DeletedByBob = true;
                 Parent.CollectSelf();
             }
         }
@@ -78,9 +78,9 @@ namespace CloudberryKingdom.Blocks
         {
             MyMoveType = MoveType.Normal;
 
-            Core.Init();
+            CoreData.Init();
             BlockCore.MyType = ObjectType.MovingPlatform;
-            Core.DrawLayer = 4;
+            CoreData.DrawLayer = 4;
 
             MyBox.TopOnly = true;
         }
@@ -97,7 +97,7 @@ namespace CloudberryKingdom.Blocks
             MyBox = new AABox();
             MyDraw = new NormalBlockDraw();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
             MakeNew();
         }
 
@@ -133,7 +133,7 @@ namespace CloudberryKingdom.Blocks
 
             Reset(level.BoxesOnly);
 
-            Core.RemoveOnReset = true;
+            CoreData.RemoveOnReset = true;
             BlockCore.HitHead = true;
         }
 
@@ -189,17 +189,17 @@ namespace CloudberryKingdom.Blocks
             int Step = (Core.GetPhsxStep() + Offset) % Period;
             float t = (float)Step / Period;*/
 
-            int Step = Core.GetPhsxStep() - Offset;
+            int Step = CoreData.GetPhsxStep() - Offset;
             int Period = 180;
             float t = (float)Step / Period;
 
             //MyBox.Target.Center = MyBox.Current.Center + CoreData.Data.Velocity;
-            MyBox.Target.Center = Core.StartData.Position + Step * BlockCore.Data.Velocity;
+            MyBox.Target.Center = CoreData.StartData.Position + Step * BlockCore.Data.Velocity;
 
             switch (MyMoveType)
             {
                 case MoveType.Sine:
-                    MyBox.Target.Center.X = Core.StartData.Position.X + Amp * (float)Math.Cos(2 * Math.PI * t);
+                    MyBox.Target.Center.X = CoreData.StartData.Position.X + Amp * (float)Math.Cos(2 * Math.PI * t);
                     break;
 
                 case MoveType.Normal:
@@ -211,10 +211,10 @@ namespace CloudberryKingdom.Blocks
 
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 MyBox.SwapToCurrent();
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
@@ -256,7 +256,7 @@ namespace CloudberryKingdom.Blocks
         public override void Clone(ObjectBase A)
         {
             MovingPlatform BlockA = A as MovingPlatform;
-            BlockCore.Clone(A.Core);
+            BlockCore.Clone(A.CoreData);
 
             Parent = BlockA.Parent;
 

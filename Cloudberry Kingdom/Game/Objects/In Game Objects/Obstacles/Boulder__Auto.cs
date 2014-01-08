@@ -173,7 +173,7 @@ namespace CloudberryKingdom.Levels
             NewFloater.Period = Period;
             NewFloater.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
-            NewFloater.Core.GenData.RemoveIfUnused = false;
+            NewFloater.CoreData.GenData.RemoveIfUnused = false;
 
             level.AddObject(NewFloater);
 
@@ -182,16 +182,16 @@ namespace CloudberryKingdom.Levels
 
         Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR, Rand Rnd)
         {
-            Vector2 pos = bob.Core.Data.Position + new Vector2(Rnd.RndFloat(-600, 600), Rnd.RndFloat(-300, 400));
+            Vector2 pos = bob.CoreData.Data.Position + new Vector2(Rnd.RndFloat(-600, 600), Rnd.RndFloat(-300, 400));
             pos.Y = Math.Min(pos.Y, TR.Y - 400);
             pos.Y = Math.Max(pos.Y, BL.Y + 220);
             return pos;
             pos.X = Math.Max(BL.X + 380, Math.Min(pos.X, TR.X - 350));
-            if ((bob.MyPhsx.OnGround || bob.Core.Data.Velocity.Y < 0))
-                pos.Y = bob.Core.Data.Position.Y + 200;
-            pos.Y = Math.Max(bob.Core.MyLevel.MainCamera.BL.Y + 270, Math.Min(pos.Y, bob.Core.MyLevel.MainCamera.TR.Y - 550));
-            if (Math.Abs(bob.Core.Data.Position.Y - pos.Y) < 100)
-                pos.X += .4f * (pos.X - bob.Core.Data.Position.X);
+            if ((bob.MyPhsx.OnGround || bob.CoreData.Data.Velocity.Y < 0))
+                pos.Y = bob.CoreData.Data.Position.Y + 200;
+            pos.Y = Math.Max(bob.CoreData.MyLevel.MainCamera.BL.Y + 270, Math.Min(pos.Y, bob.CoreData.MyLevel.MainCamera.TR.Y - 550));
+            if (Math.Abs(bob.CoreData.Data.Position.Y - pos.Y) < 100)
+                pos.X += .4f * (pos.X - bob.CoreData.Data.Position.X);
 
             return pos;
         }
@@ -209,10 +209,10 @@ namespace CloudberryKingdom.Levels
 
             foreach (Bob bob in level.Bobs)
             {
-                if (!level.MainCamera.OnScreen(bob.Core.Data.Position, new Vector2(-200, -240)))
+                if (!level.MainCamera.OnScreen(bob.CoreData.Data.Position, new Vector2(-200, -240)))
                     continue;
 
-                Vector2 pos = bob.Core.Data.Position;
+                Vector2 pos = bob.CoreData.Data.Position;
                 int Delay = (int)Params.FloaterPlaceDelay.GetVal(pos);
                 if (Step > 90 && Step % Delay == 0)
                 {

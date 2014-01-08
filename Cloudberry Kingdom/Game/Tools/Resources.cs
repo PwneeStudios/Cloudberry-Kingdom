@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using System.Reflection;
+//using System.Reflection;
 using System.Threading;
 using System.IO;
 using System.Text;
@@ -369,7 +369,7 @@ namespace CloudberryKingdom
             var Ck = Tools.TheGame;
 
             Thread.CurrentThread.Priority = ThreadPriority.Lowest;
-            Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
+			//Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
 
             Tools.Write("Start");
             
@@ -410,7 +410,7 @@ namespace CloudberryKingdom
             LoadingResources.MyBool = false;
             Tools.Write("Loading done!");
 
-            Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
+			//Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
 
 			Texture2D transparent = Tools.Transparent.Tex;
 

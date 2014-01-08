@@ -73,7 +73,7 @@ namespace CloudberryKingdom.Blocks
             }
 
             // Tint
-            SetTint(MyBlock.Core.MyTileSet.Tint);
+            SetTint(MyBlock.CoreData.MyTileSet.Tint);
 
             SetTint(Tint);
         }

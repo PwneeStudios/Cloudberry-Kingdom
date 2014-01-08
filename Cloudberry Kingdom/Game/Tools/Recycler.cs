@@ -28,11 +28,11 @@ namespace CloudberryKingdom
         public void Release()
         {
             foreach (ObjectBase obj in FullObject)
-                if (obj.Core.MyLevel == null)
+                if (obj.CoreData.MyLevel == null)
                     obj.Release();
 
             foreach (ObjectBase obj in BoxObject)
-                if (obj.Core.MyLevel == null)
+                if (obj.CoreData.MyLevel == null)
                     obj.Release();
         }
 
@@ -80,25 +80,25 @@ namespace CloudberryKingdom
 
         public void CollectObject(ObjectBase obj)
         {
-            if (obj.Core.MarkedForDeletion)
+            if (obj.CoreData.MarkedForDeletion)
                 return;
             
-            obj.Core.MarkedForDeletion = true;
-            obj.Core.Active = false;
-            obj.Core.Show = false;
+            obj.CoreData.MarkedForDeletion = true;
+            obj.CoreData.Active = false;
+            obj.CoreData.Show = false;
 
             // If the object belongs to a level, add this object to the level's
             // pre-recycle bin, to be actually recycled when the level cleans its
             // object lists.
-            if (obj.Core.MyLevel != null)
+            if (obj.CoreData.MyLevel != null)
             {
-                obj.Core.MyLevel.PreRecycleBin.Add(obj);
+                obj.CoreData.MyLevel.PreRecycleBin.Add(obj);
                 return;
             }
 
             //lock (this)
             {
-                if (obj.Core.BoxesOnly) BoxObject.Push(obj);
+                if (obj.CoreData.BoxesOnly) BoxObject.Push(obj);
                 else
                 {
 //                    if (FullObject.Contains(obj))
@@ -294,7 +294,7 @@ namespace CloudberryKingdom
                 //throw (new System.Exception("No type found for desired object"));
                 return null;
 
-            //if (!Bins.ContainsKey(type))
+            //if (!Bins.CustomContainsKey(type))
               //  Bins.Add(type, new RecycleBin(type));
 
             if (Bins[(int)type] == null)
@@ -309,28 +309,28 @@ namespace CloudberryKingdom
         public void CollectObject(ObjectBase obj) { CollectObject(obj, true); }
         public void CollectObject(ObjectBase obj, bool CollectAssociates)
         {
-            if (obj == null || obj.Core.MarkedForDeletion)
+            if (obj == null || obj.CoreData.MarkedForDeletion)
                 return;
 
             //if (obj is Serpent) Tools.Write("!");
 
             // Actions to be taken when the object is deleted
-            if (!obj.Core.OnDeletionCodeRan)
+            if (!obj.CoreData.OnDeletionCodeRan)
             {
-                if (obj.Core.GenData.OnMarkedForDeletion != null)
-                    obj.Core.GenData.OnMarkedForDeletion();
+                if (obj.CoreData.GenData.OnMarkedForDeletion != null)
+                    obj.CoreData.GenData.OnMarkedForDeletion();
                 obj.OnMarkedForDeletion();
 
-                obj.Core.OnDeletionCodeRan = true;
+                obj.CoreData.OnDeletionCodeRan = true;
             }
 
             // Get the object type
-            ObjectType type = obj.Core.MyType;
+            ObjectType type = obj.CoreData.MyType;
             if (type == ObjectType.Undefined)
             {
-                obj.Core.MarkedForDeletion = true;
-                obj.Core.Active = false;
-                obj.Core.Show = false;
+                obj.CoreData.MarkedForDeletion = true;
+                obj.CoreData.Active = false;
+                obj.CoreData.Show = false;
                 return;
             }
 
@@ -340,24 +340,24 @@ namespace CloudberryKingdom
             Bins[(int)type].CollectObject(obj);
 
             // Collect associate objects
-            if (CollectAssociates && obj.Core.Associations != null)
-                for (int i = 0; i < obj.Core.Associations.Length; i++)
-                    if (obj.Core.Associations[i].Guid > 0)
+            if (CollectAssociates && obj.CoreData.Associations != null)
+                for (int i = 0; i < obj.CoreData.Associations.Length; i++)
+                    if (obj.CoreData.Associations[i].Guid > 0)
                     {
-                        ObjectBase _obj = obj.Core.MyLevel.LookupGUID(obj.Core.Associations[i].Guid);
+                        ObjectBase _obj = obj.CoreData.MyLevel.LookupGUID(obj.CoreData.Associations[i].Guid);
                         if (_obj == null) continue;
 
                         // Delete the associated object if DeleteWhenDeleted flag is set
-                        if (obj.Core.Associations[i].DeleteWhenDeleted)
+                        if (obj.CoreData.Associations[i].DeleteWhenDeleted)
                             CollectObject(_obj);
                         // Otherwise remove the association
                         else
                         {
-                            if (_obj.Core.Associations != null)
+                            if (_obj.CoreData.Associations != null)
                             {
-                                for (int j = 0; j < _obj.Core.Associations.Length; j++)
-                                    if (_obj.Core.Associations[j].Guid == obj.Core.MyGuid)
-                                        _obj.Core.Associations[j].Guid = 0;
+                                for (int j = 0; j < _obj.CoreData.Associations.Length; j++)
+                                    if (_obj.CoreData.Associations[j].Guid == obj.CoreData.MyGuid)
+                                        _obj.CoreData.Associations[j].Guid = 0;
                             }
                         }
                     }

@@ -787,7 +787,7 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            if (Core.MyLevel.Replay || Core.MyLevel.Watching) return;
+            if (CoreData.MyLevel.Replay || CoreData.MyLevel.Watching) return;
 
             Vector2 SaveZoom = MyGame.Cam.Zoom;
             Vector2 SaveHoldZoom = MyGame.Cam.HoldZoom;
@@ -800,7 +800,7 @@ namespace CloudberryKingdom
                 EzText.ZoomWithCamera_Override = true;
             }
 
-            Pos.SetCenter(Core.MyLevel.MainCamera, true);
+            Pos.SetCenter(CoreData.MyLevel.MainCamera, true);
             Pos.Update();
 
             base.MyDraw();
@@ -819,7 +819,7 @@ namespace CloudberryKingdom
 
         protected override void MyPhsxStep()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             if (level != null)
                 level.PreventReset = true;
@@ -966,12 +966,12 @@ namespace CloudberryKingdom
                 MyGame.WaitThenDo(35, () =>
                     {
                         OnReturnTo(); // Re-activate the Score Screen object
-                        Core.MyLevel.WatchReplay(true); // Start the replay
+                        CoreData.MyLevel.WatchReplay(true); // Start the replay
                     });
             }
             else
             {
-                Core.MyLevel.WatchReplay(true);
+                CoreData.MyLevel.WatchReplay(true);
             }
         }
 
@@ -1029,7 +1029,7 @@ namespace CloudberryKingdom
 
         public void GUI_Phsx()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             if (MyGame.MyLevel.ReplayAvailable)
             {

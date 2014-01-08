@@ -16,7 +16,7 @@ namespace CloudberryKingdom
         public static string GetName(int difficulty)
         {
             return EzText.ColorToMarkup(DifficultyColor[difficulty]) +
-                Localization.WordString(DifficultyNames[difficulty]).ToLower(CultureInfo.InvariantCulture) + 
+				Localization.WordString(DifficultyNames[difficulty]).CustomLower() + 
                 EzText.ColorToMarkup(Color.White);
         }
         public static Color[] DifficultyColor = { new Color(44, 44, 44), new Color(144, 200, 225), new Color(44, 203, 48), new Color(248, 136, 8), new Color(90, 90, 90), new Color(0, 255, 255) };

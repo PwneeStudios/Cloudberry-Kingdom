@@ -38,7 +38,7 @@ namespace CloudberryKingdom
 
             // Special explode
             foreach (Bob bob in level.Bobs)
-                ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
+                ParticleEffects.PiecePopFart(level, bob.CoreData.Data.Position);
 
             // Add the Game Over panel, check for Awardments
             game.WaitThenDo(50, ShowEndScreen);

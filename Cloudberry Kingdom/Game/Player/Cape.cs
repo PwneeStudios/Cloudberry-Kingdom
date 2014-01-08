@@ -113,7 +113,10 @@ namespace CloudberryKingdom
 
             _MyColor = clr;
             Color PremultipliedColor = ColorHelper.PremultiplyAlpha(clr);
-            Color PremultipliedColor_Darker = ColorHelper.PremultiplyAlpha(new Color(clr.ToVector3() * .5f));
+			
+			Color c = new Color(clr.ToVector4() * .5f);
+			c.A = clr.A;
+            Color PremultipliedColor_Darker = ColorHelper.PremultiplyAlpha(c);
 
             int count = 0;
             // Triangles
@@ -403,9 +406,9 @@ namespace CloudberryKingdom
             int CurStep;
 
             if (MyBob == null) return;
-            if (MyBob.Core.MyLevel == null) return;
-            if (MyBob.Core.MyLevel != Tools.CurLevel) return;
-            CurStep = MyBob.Core.MyLevel.GetPhsxStep();
+            if (MyBob.CoreData.MyLevel == null) return;
+            if (MyBob.CoreData.MyLevel != Tools.CurLevel) return;
+            CurStep = MyBob.CoreData.MyLevel.GetPhsxStep();
             if (!MyBob.CharacterSelect2 && LastPhsxUpdate == CurStep)
                 return;
 

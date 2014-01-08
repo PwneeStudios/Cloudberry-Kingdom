@@ -53,13 +53,13 @@ namespace CloudberryKingdom
             // Add text
             TextFloat text = new TextFloat(Localization.Words.ExtraLife, Coin.PosOfLastCoinGrabbed + new Vector2(21, 22.5f));
             text.MyText.Scale *= 1.33f;
-            text.Core.DrawLayer = 8;
+            text.CoreData.DrawLayer = 8;
 			//text.MyText.MyFloatColor = new Color(0, 195, 17).ToVector4();
 			//text.MyText.OutlineColor = new Color(0, 80, 8).ToVector4();
 			text.MyText.MyFloatColor = new Color(84, 232, 79).ToVector4();
             text.MyText.OutlineColor = new Color(0, 0, 0).ToVector4();
 			CkColorHelper._x_x_HappyBlueColor(text.MyText);
-            Core.MyLevel.MyGame.AddGameObject(text);
+            CoreData.MyLevel.MyGame.AddGameObject(text);
 
             ParticleEffects.CoinDie_ExtraLife(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
 
@@ -179,14 +179,14 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
             MyPile.Draw();
         }
 
         protected override void MyPhsxStep()
         {
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
             MyPile.FancyPos.SetCenter(level.MainCamera, true);
             MyPile.FancyPos.Update();
         }

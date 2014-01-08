@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 			// Continue at last level reached.
 			if (Chapter < 0)
 			{
-				//int NextChapterStart = ChapterStart.ContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
+				//int NextChapterStart = ChapterStart.CustomContainsKey(Chapter + 1) ? ChapterStart[Chapter + 1] : StartLevel + 100000;
 				//int MaxLevelAttained = PlayerManager.MaxPlayerTotalCampaignIndex() + 1;
 
 				//if (MaxLevelAttained > StartLevel && MaxLevelAttained < NextChapterStart)
@@ -285,7 +285,7 @@ namespace CloudberryKingdom
 
         public override LevelSeedData GetSeed(int Index)
         {
-            if (SpecialLevel.ContainsKey(Index))
+            if (SpecialLevel.CustomContainsKey(Index))
             {
                 var data = SpecialLevel[Index];
                 switch (data.Item1)

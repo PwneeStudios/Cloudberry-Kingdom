@@ -124,7 +124,7 @@ namespace CloudberryKingdom
             // Skip completely
             //return;
 
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
             base.MyDraw();
         }
@@ -137,7 +137,7 @@ namespace CloudberryKingdom
 
             if (Hid || !Active) return;
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (CoreData.MyLevel.Watching || CoreData.MyLevel.Finished) return;
 
             SetMultiplier((int)(MyGame.ScoreMultiplier + .1f));
         }

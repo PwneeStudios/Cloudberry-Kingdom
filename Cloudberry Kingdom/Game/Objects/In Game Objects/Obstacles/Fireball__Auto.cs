@@ -118,7 +118,7 @@ namespace CloudberryKingdom.Levels
 
             if (Params.Arc)
             {
-                emitter.Core.StartData.Acceleration.Y = -Math.Abs(Speed) / 100f;
+                emitter.CoreData.StartData.Acceleration.Y = -Math.Abs(Speed) / 100f;
             }
 
             float MaxAngle = Params.FireballMaxAngle.GetVal(pos);
@@ -126,20 +126,20 @@ namespace CloudberryKingdom.Levels
 
             double Angle = Fireball_AutoGen.GetAngle(MaxAngle, Params.NumAngles, level.Rnd);
             if (Geometry == LevelGeometry.Right) Angle += Math.PI / 2;
-            emitter.Core.StartData.Velocity = CoreMath.AngleToDir(Angle);
+            emitter.CoreData.StartData.Velocity = CoreMath.AngleToDir(Angle);
 
             if (level.Style.Masochistic) emitter.Period = (int)(.9f * emitter.Period);
 
-            float v = Math.Abs(2 * emitter.Core.StartData.Position.Y / (.785f * emitter.Period));
-            emitter.Core.StartData.Velocity *= Speed * v / emitter.Core.StartData.Velocity.Y;
-            float actual_v = emitter.Core.StartData.Velocity.Length();
+            float v = Math.Abs(2 * emitter.CoreData.StartData.Position.Y / (.785f * emitter.Period));
+            emitter.CoreData.StartData.Velocity *= Speed * v / emitter.CoreData.StartData.Velocity.Y;
+            float actual_v = emitter.CoreData.StartData.Velocity.Length();
             
             //emitter.Period = (int)(emitter.Period * actual_v / v);
-            emitter.Core.StartData.Velocity *= v / actual_v;
+            emitter.CoreData.StartData.Velocity *= v / actual_v;
 
             level.AddObject(emitter);
 
-            emitter.Core.GenData.EnforceBounds = false;
+            emitter.CoreData.GenData.EnforceBounds = false;
         }
 
         void BorderFill(Level level, Vector2 BL, Vector2 TR)
@@ -192,8 +192,8 @@ namespace CloudberryKingdom.Levels
 
             emitter.Init(new PhsxData(), level);
 
-            emitter.Core.Data.Position = pos;
-            emitter.Core.StartData.Position = pos;
+            emitter.CoreData.Data.Position = pos;
+            emitter.CoreData.StartData.Position = pos;
 
             emitter.Period = (level.Rnd.Rnd.Next(Params.NumPeriods - 1) + 1) * (int)Params.Period.GetVal(pos);
             

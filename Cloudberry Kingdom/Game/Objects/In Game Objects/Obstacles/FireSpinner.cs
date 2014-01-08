@@ -57,24 +57,24 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = FireSpinner_AutoGen.Instance;
-            Core.MyType = ObjectType.FireSpinner;
+            CoreData.MyType = ObjectType.FireSpinner;
             DeathType = Bobs.BobDeathType.FireSpinner;
-            Core.DrawLayer = 3;
+            CoreData.DrawLayer = 3;
 
             PhsxCutoff_Playing = new Vector2(1000, 1000);
             PhsxCutoff_BoxesOnly = new Vector2(-100, 400);
 
-            Core.GenData.NoBlockOverlap = true;
-            Core.GenData.LimitGeneralDensity = true;
+            CoreData.GenData.NoBlockOverlap = true;
+            CoreData.GenData.LimitGeneralDensity = true;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Init(Vector2 pos, Level level)
         {
             base.Init(pos, level);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 MyQuad.Set(Info.Spinners.Flame);
                 MyQuad.Quad.UseGlobalIllumination = false;
@@ -89,8 +89,8 @@ namespace CloudberryKingdom.Obstacles
                 MiniAngle_Offset = MyLevel.Rnd.RndFloat(0, 100);
 
             dir = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
-            MyLine.Target.p2 = dir * Radius + Core.Data.Position;
-            MyLine.Target.p1 = Core.Data.Position;
+            MyLine.Target.p2 = dir * Radius + CoreData.Data.Position;
+            MyLine.Target.p1 = CoreData.Data.Position;
 
             MyLine.Current = MyLine.Target;
 
@@ -110,14 +110,14 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void ActivePhsxStep()
         {
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
-                SetTarget(Core.GetIndependentPhsxStep() - 1);
-                Core.WakeUpRequirements = false;
+                SetTarget(CoreData.GetIndependentPhsxStep() - 1);
+                CoreData.WakeUpRequirements = false;
             }
 
-            MiniAngle = Orientation * (Core.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * Info.Spinners.RotateStep;
-            SetTarget(Core.GetIndependentPhsxStep());
+            MiniAngle = Orientation * (CoreData.MyLevel.IndependentPhsxStep + MiniAngle_Offset) * Info.Spinners.RotateStep;
+            SetTarget(CoreData.GetIndependentPhsxStep());
         }
 
         void SetCurrent(float Step)
@@ -137,8 +137,8 @@ namespace CloudberryKingdom.Obstacles
             Angle = Orientation * 2 * (float)Math.PI * (Step + Offset) / (float)Period;
             dir = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
-            p1 = Core.Data.Position;
-            p2 = Core.Data.Position + dir * Radius;
+            p1 = CoreData.Data.Position;
+            p2 = CoreData.Data.Position + dir * Radius;
         }
 
         protected override void DrawGraphics()
@@ -146,7 +146,7 @@ namespace CloudberryKingdom.Obstacles
             // Draw base
             if (MyBaseQuad.Quad._MyTexture != null)
             {
-                MyBaseQuad.Pos = Pos;
+                MyBaseQuad.Pos = CoreData.Data.Position;
                 MyBaseQuad.Draw();
             }
 
@@ -222,31 +222,31 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Interact(Bob bob)
         {
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
             if (Phsx.AABoxAndLineCollisionTest(bob.Box2, ref MyLine))
             {
-                if (Core.MyLevel.PlayMode == 0)
+                if (CoreData.MyLevel.PlayMode == 0)
                 {
                     bob.Die(BobDeathType.FireSpinner, this);
                 }
 
-                if (Core.MyLevel.PlayMode == 1)
+                if (CoreData.MyLevel.PlayMode == 1)
                 {
-                    bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, Core, bob, FireSpinner_AutoGen.Instance);
+                    bool col = Phsx.AABoxAndLineCollisionTest_Tiered(ref MyLine, CoreData, bob, FireSpinner_AutoGen.Instance);
 
                     if (col)
-                        Core.Recycle.CollectObject(this);
+                        CoreData.Recycle.CollectObject(this);
                 }
             }
         }
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
-            Core.WakeUpRequirements = true;
+            CoreData.Clone(A.CoreData);
+            CoreData.WakeUpRequirements = true;
 
             FireSpinner SpinnerA = A as FireSpinner;
-            Init(SpinnerA.Pos, SpinnerA.MyLevel);
+            Init(SpinnerA.CoreData.Data.Position, SpinnerA.MyLevel);
 
             Radius = SpinnerA.Radius;
 

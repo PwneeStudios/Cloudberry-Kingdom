@@ -13,7 +13,7 @@ namespace CloudberryKingdom
             PauseOnPause = false;
             PauseLevel = false;
             FixedToCamera = true;
-            Core.RemoveOnReset = false;
+            CoreData.RemoveOnReset = false;
 
             MyPile = new DrawPile();
 

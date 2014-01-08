@@ -32,12 +32,12 @@ namespace CloudberryKingdom
 
         public override void OnUsed()
         {
-            Platforms.ForEach(platform => platform.Core.GenData.Used = true);
+            Platforms.ForEach(platform => platform.CoreData.GenData.Used = true);
         }
 
         public override void OnMarkedForDeletion()
         {
-            if (!Core.DeletedByBob) return;
+            if (!CoreData.DeletedByBob) return;
 
             // Delete all children platforms
             foreach (MovingPlatform platform in Platforms)
@@ -58,9 +58,9 @@ namespace CloudberryKingdom
 
             Active = true;
 
-            Core.Init();
-            Core.MyType = ObjectType.BlockEmitter;
-            Core.DrawLayer = 1;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.BlockEmitter;
+            CoreData.DrawLayer = 1;
             GiveLayer = false;
 
             Range = new Vector2(8000, 3000);
@@ -72,7 +72,7 @@ namespace CloudberryKingdom
 
         public BlockEmitter(bool BoxesOnly)
         {            
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MakeNew();
         }
@@ -108,18 +108,18 @@ namespace CloudberryKingdom
         public bool GiveLayer = false;
         void Emit(int offset)
         {
-            MovingPlatform block = (MovingPlatform)Core.Recycle.GetObject(ObjectType.MovingPlatform, Core.BoxesOnly);
+            MovingPlatform block = (MovingPlatform)CoreData.Recycle.GetObject(ObjectType.MovingPlatform, CoreData.BoxesOnly);
 
             block.Parent = this;
             block.Init(EmitData.Position, Size, MyLevel, MyBoxStyle);
 
-            if (GiveLayer) block.Core.DrawLayer = Core.DrawLayer;
+            if (GiveLayer) block.CoreData.DrawLayer = CoreData.DrawLayer;
 
-            block.Core.Tag = Core.Tag;
+            block.CoreData.Tag = CoreData.Tag;
 
-            block.Core.Active = true;
+            block.CoreData.Active = true;
             block.Range = Range;
-            if (Core.MyLevel.Geometry == LevelGeometry.Up || Core.MyLevel.Geometry == LevelGeometry.Down)
+            if (CoreData.MyLevel.Geometry == LevelGeometry.Up || CoreData.MyLevel.Geometry == LevelGeometry.Down)
                 block.Range.X = 300;
             else
                 block.Range.Y = 300;
@@ -127,24 +127,24 @@ namespace CloudberryKingdom
                 block.Range = Range;
 
             EmitData.Acceleration.Y = EmitData.Velocity.Y;
-            block.Core.StartData = block.BlockCore.Data = EmitData;
+            block.CoreData.StartData = block.BlockCore.Data = EmitData;
 
             block.MyMoveType = MyMoveType;
             block.Amp = Amp;
             block.Offset = offset;
 
             // Set Gen data
-            if (Core.BoxesOnly)
+            if (CoreData.BoxesOnly)
             {
-                block.Core.GenData.RemoveIfOverlap = Core.GenData.RemoveIfOverlap;
+                block.CoreData.GenData.RemoveIfOverlap = CoreData.GenData.RemoveIfOverlap;
                 block.BlockCore.Virgin = true;
                 block.BlockCore.Finalized = true;
-                block.Core.GenData.AlwaysLandOn_Reluctantly = true;
+                block.CoreData.GenData.AlwaysLandOn_Reluctantly = true;
             }
 
-            Core.MyLevel.AddBlock(block);
+            CoreData.MyLevel.AddBlock(block);
             AddPlatform(block);
-            block.Core.WakeUpRequirements = true;
+            block.CoreData.WakeUpRequirements = true;
         }
 
         public void AddPlatform(MovingPlatform platform)
@@ -164,19 +164,19 @@ namespace CloudberryKingdom
             if (!Active) return;
 
             if (!AlwaysOn)
-                if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + Range.X ||
-                    Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - Range.X ||
-                    Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + Range.Y ||
-                    Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - Range.Y)
+                if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + Range.X ||
+                    CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - Range.X ||
+                    CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + Range.Y ||
+                    CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - Range.Y)
                 {
-                    Core.SkippedPhsx = true;
+                    CoreData.SkippedPhsx = true;
                     return;
                 }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
-            if (CoreMath.Modulo(Core.GetPhsxStep(), Delay) == Offset)
+            if (CoreMath.Modulo(CoreData.GetPhsxStep(), Delay) == Offset)
             {
-                Emit(Core.MyLevel.CurPhsxStep);
+                Emit(CoreData.MyLevel.CurPhsxStep);
             }
         }
 
@@ -197,10 +197,10 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             BlockEmitter EmitterA = A as BlockEmitter;
-            Init(A.Pos, A.MyLevel, EmitterA.MyBoxStyle);
+            Init(A.CoreData.Data.Position, A.MyLevel, EmitterA.MyBoxStyle);
 
             EmitData = EmitterA.EmitData;
             Delay = EmitterA.Delay;

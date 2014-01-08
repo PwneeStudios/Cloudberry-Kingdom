@@ -280,14 +280,14 @@ namespace CloudberryKingdom
         {
             if (MyLevel.Geometry == LevelGeometry.Right)
             {
-                AlwaysForward = Vector2.Max(AlwaysForward, Pos) + new Vector2(300);
+                AlwaysForward = Vector2Extension.Max(AlwaysForward, Pos) + new Vector2(300);
                 Target = new Vector2(.5f * (Pos.X + MyLevel.Rnd.RndFloat(-400, 3000) + AlwaysForward.X),
                     MyLevel.Rnd.RndFloat(Cam.BL.Y + 400, Cam.TR.Y - 300));
             }
 
             if (MyLevel.Geometry == LevelGeometry.Up)
             {
-                AlwaysForward = Vector2.Max(AlwaysForward, Pos) + new Vector2(300);
+                AlwaysForward = Vector2Extension.Max(AlwaysForward, Pos) + new Vector2(300);
                 Target = new Vector2(
                     MyLevel.Rnd.RndFloat(Cam.BL.X + 600, Cam.TR.X - 600),
                     .5f * (Pos.Y + MyLevel.Rnd.RndFloat(-400, 3000) + AlwaysForward.Y));
@@ -406,7 +406,7 @@ namespace CloudberryKingdom
             // Better jump control: don't use full extent of jump
             if (StepsSinceSide >= 5)
             {
-                float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, Pos);
+                float RetardFactor = .01f * MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, Pos);
                 MyBob.CurInput.xVec.X *= RetardFactor;
 
                 int RetardJumpLength = GenData.Get(DifficultyParam.RetardJumpLength, Pos);

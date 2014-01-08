@@ -11,6 +11,8 @@ using System.IO;
 
 using CoreEngine;
 
+using CloudberryKingdom;
+
 namespace CoreEngine
 {
     /// <summary>
@@ -52,7 +54,7 @@ namespace CoreEngine
 
         public Texture2D Get(int anim, float t, ref Vector2 padding)
         {
-            if (!SpriteAnims.ContainsKey(anim))
+            if (!SpriteAnims.CustomContainsKey(anim))
                 t = anim = 0;
 
             float dt = SpriteAnims[anim].dt;

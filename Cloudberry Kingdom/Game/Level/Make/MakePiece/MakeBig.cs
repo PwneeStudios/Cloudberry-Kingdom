@@ -114,14 +114,14 @@ namespace CloudberryKingdom.Levels
 
             // Remove unused objects
             foreach (ObjectBase obj in Objects)
-                if (!obj.Core.GenData.Used && obj.Core.GenData.RemoveIfUnused)
+                if (!obj.CoreData.GenData.Used && obj.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(obj);
             CleanObjectList();
             Sleep();
 
             // Remove unused blocks
             foreach (BlockBase _block in Blocks)
-                if (!_block.Core.GenData.Used && _block.Core.GenData.RemoveIfUnused)
+                if (!_block.CoreData.GenData.Used && _block.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(_block);
             CleanBlockList();
             CleanDrawLayers();
@@ -161,7 +161,7 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
             Sleep();
 
-            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
+            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.CoreData.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
             {
                 float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
                 return new Vector2(dist, dist);

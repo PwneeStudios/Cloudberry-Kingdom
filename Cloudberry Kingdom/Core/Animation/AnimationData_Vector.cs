@@ -240,7 +240,8 @@ namespace CoreEngine
                     else v4 = Get(anim, i + 2 - Length - 1);
                 }
 
-                return Vector2.CatmullRom(v1, v2, v3, v4, t - i);
+				return v4;
+                //return Vector2.CatmullRom(v1, v2, v3, v4, t - i);
             }
         }
 

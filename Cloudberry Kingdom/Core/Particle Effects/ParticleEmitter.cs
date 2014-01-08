@@ -24,7 +24,7 @@ namespace CloudberryKingdom.Particles
 
         public Particle ParticleTemplate;
 
-        public LinkedList<Particle> Particles;
+        public List<Particle> Particles;
 
         public int DisplacementRange;
         public float VelRange;
@@ -64,7 +64,7 @@ namespace CloudberryKingdom.Particles
 
             Count = Index = 0;
 
-            Particles = new LinkedList<Particle>();
+            Particles = new List<Particle>();
 
             MyTexture = Tools.TextureWad.TextureList[0];
 
@@ -94,19 +94,13 @@ namespace CloudberryKingdom.Particles
         public void Absorb(ParticleEmitter emitter)
         {
             foreach (Particle p in emitter.Particles)
-                Particles.AddLast(p);
+                Particles.Add(p);
             emitter.Particles.Clear();
-        }
-
-        public void KillParticle(LinkedListNode<Particle> node)
-        {
-            Particles.Remove(node);
-            node.Value.Recycle();
         }
 
         public void EmitParticle(Particle p)
         {
-            Particles.AddLast(p);
+            Particles.Add(p);
         }
 
         public Particle GetNewParticle(Particle template)
@@ -114,13 +108,18 @@ namespace CloudberryKingdom.Particles
             var p = Particle.Pool.Get();
             p.Copy(template);
 
-            Particles.AddLast(p);
+            Particles.Add(p);
 
-            if (Particles.Count > TotalCapacity)
-                KillParticle(Particles.First);
+			if (Particles.Count > TotalCapacity)
+				RemoveExcess();
 
             return p;
         }
+
+		public void RemoveExcess()
+		{
+			Particles.RemoveRange(TotalCapacity, Particles.Count - TotalCapacity);
+		}
 
         public void Draw()
         {
@@ -149,18 +148,12 @@ namespace CloudberryKingdom.Particles
         {
             UpdateStep();
 
-            var node = Particles.First;
-            while (node != null)
+			Particles.RemoveAll(p => p.Life <= 0);
+
+			foreach (var p in Particles)
             {
-                var p = node.Value;
-                var next = node.Next;
-
-                if (p.Life > 0)// && p.MyColor.W > 0)
+                if (p.Life > 0)
                     p.Phsx(Tools.CurLevel.MainCamera);
-                else
-                    KillParticle(node);
-
-                node = next;
             }
         }
     }

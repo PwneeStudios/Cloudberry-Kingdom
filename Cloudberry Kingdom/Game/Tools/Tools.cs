@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿//using System.Reflection;
 using System;
 using System.Threading;
 using System.IO;
@@ -227,6 +227,13 @@ namespace CloudberryKingdom
 
     public static class StringExtension
     {
+		public static string CustomLower(this string s)
+		{
+			//CultureInfo
+			// FIXME: re-implement s.ToLower(CultureInfo.InvariantCulture), which JSIL does not support.
+			return s;
+		}
+
         public static string Capitalize(this string s)
         {
             return char.ToUpper(s[0], CultureInfo.InvariantCulture) + s.Substring(1);
@@ -235,6 +242,16 @@ namespace CloudberryKingdom
 
     public static class Vector2Extension
     {
+		public static Vector2 Max(Vector2 v1, Vector2 v2)
+		{
+			return new Vector2(Math.Max(v1.X, v2.X), Math.Max(v1.Y, v2.Y));
+		}
+
+		public static Vector2 Min(Vector2 v1, Vector2 v2)
+		{
+			return new Vector2(Math.Min(v1.X, v2.X), Math.Min(v1.Y, v2.Y));
+		}
+
         public static int IndexMax<T>(this T[] list) where T : IComparable
         {
             T max = list[0];
@@ -563,6 +580,19 @@ namespace CloudberryKingdom
 
     public static class DictionaryExtension
     {
+		public static bool CustomContainsKey<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key)
+		{
+			try
+			{
+				bool result = dict.ContainsKey(key);
+				return result;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
         public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict,
                                              Func<KeyValuePair<TKey, TValue>, bool> condition)
         {
@@ -574,7 +604,7 @@ namespace CloudberryKingdom
 
         public static void AddOrOverwrite<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
         {
-            if (dict.ContainsKey(key))
+            if (dict.CustomContainsKey(key))
                 dict[key] = value;
             else
                 dict.Add(key, value);
@@ -601,7 +631,7 @@ namespace CloudberryKingdom
         public static void Log(string dump)
         {
 #if !XDK && !XBOX && WINDOWS
-			dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
+			//dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
 
             var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
             var writer = new StreamWriter(stream);
@@ -1441,6 +1471,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         private static void ReadList(StreamReader reader, System.Collections.IList list, Type itemType)
         {
+			return;
+			/*
             var line = reader.ReadLine();
             bool ReadingList = true;
 
@@ -1455,7 +1487,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         ConstructorInfo constructor;
                         if (bits.Count > 1)
                         {
-                            //var type = Type.GetType("CloudberryKingdom." + bits[1]);
                             var type = Type.GetType(bits[1]);
                             constructor = type.GetConstructor(Type.EmptyTypes);
                         }
@@ -1463,7 +1494,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                             constructor = itemType.GetConstructor(Type.EmptyTypes);
 
                         var newobj = constructor.Invoke(Type.EmptyTypes);
-                        //ReadFields(newobj, reader);
                         if (newobj is IReadWrite) ((IReadWrite)newobj).Read(reader);
                         else ReadFields(newobj, reader);
                         list.Add(newobj);
@@ -1478,11 +1508,14 @@ public static Thread EasyThread(int affinity, string name, Action action)
                         break;
                 }
             }
+			 */
         }
         static int WriteRecursiveDepth = 0;
         static int WriteObjId = 0;
         public static void WriteFields(object obj, StreamWriter writer, params string[] VariableNames)
         {
+			return;
+			/*
             WriteRecursiveDepth++;
             string WhiteSpace = "";
             for (int i = 1; i < WriteRecursiveDepth; i++)
@@ -1603,6 +1636,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
 
             WriteRecursiveDepth--;
+			 * */
         }
 
         static void ResetWrite()
@@ -1637,6 +1671,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         static bool LastLineWasBlank = false;
         public static void WriteFieldsToCode(object obj, string prefix, StreamWriter writer, params string[] VariableNames)
         {
+			return;
+			/*
             string _prefix = prefix;
             if (prefix.Length > 0)
                 _prefix += ".";
@@ -1791,6 +1827,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             }
 
             WriteRecursiveDepth--;
+			 * */
         }
         static int GetObjId()
         {
@@ -2102,7 +2139,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         /// <param name="pos"></param>
         public static void MoveTo(ObjectBase obj, Vector2 pos)
         {
-            obj.Move(pos - obj.Core.Data.Position);
+            obj.Move(pos - obj.CoreData.Data.Position);
         }
 
         /// <summary>

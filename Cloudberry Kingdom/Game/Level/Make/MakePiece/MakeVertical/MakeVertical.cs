@@ -20,7 +20,7 @@ namespace CloudberryKingdom.Levels
         {
             Vector2 Size = CoreMath.Abs(CurMakeData.PieceSeed.End - CurMakeData.PieceSeed.Start) / 2;
             Size.Y += 900;
-            Size = Vector2.Max(Size, MainCamera.GetSize());
+            Size = Vector2Extension.Max(Size, MainCamera.GetSize());
 
             CameraZone CamZone = (CameraZone)MySourceGame.Recycle.GetObject(ObjectType.CameraZone, false);
             CamZone.Init((CurMakeData.PieceSeed.Start + CurMakeData.PieceSeed.End) / 2, Size);
@@ -59,8 +59,8 @@ namespace CloudberryKingdom.Levels
 
             // Find the closest block to pos on first row
             startblock = (NormalBlock)Tools.ArgMin(
-                Blocks.FindAll(match => match.Core == "FirstRow"),
-                element => (element.Core.Data.Position - pos).LengthSquared());
+                Blocks.FindAll(match => match.CoreData == "FirstRow"),
+                element => (element.CoreData.Data.Position - pos).LengthSquared());
 
             switch (Style.MyInitialPlatsType)
             {
@@ -71,32 +71,32 @@ namespace CloudberryKingdom.Levels
                     // Tiled bottom
                     if (Style.MyInitialPlatsType == StyleData.InitialPlatsType.Up_TiledFloor)
                     {
-                            Blocks.FindAll(match => match.Core == "FirstRow").ForEach(
+                            Blocks.FindAll(match => match.CoreData == "FirstRow").ForEach(
                                 element => element.CollectSelf());
                             FinalCamZone.End.Y += 400;
                             FinalCamZone.Start.Y -= 100;
 
-                        block.Core.DrawLayer = 2;
-                        block.Init(startblock.Pos, Vector2.One, MyTileSetInfo);
+                        block.CoreData.DrawLayer = 2;
+                        block.Init(startblock.CoreData.Data.Position, Vector2.One, MyTileSetInfo);
                         block.Stretch(Side.Right, 2000);
                         block.Stretch(Side.Left, -2000);
                         block.Stretch(Side.Bottom, -800);
                         block.Extend(Side.Top, startblock.Box.Current.TR.Y + 1);
-                        block.Core.EditorCode1 = "Tiled bottom";
+                        block.CoreData.EditorCode1 = "Tiled bottom";
                     }
                     else
                         block.Clone(startblock);
 
                     block.BlockCore.BlobsOnTop = false;
                     block.StampAsUsed(0);
-                    block.Core.GenData.RemoveIfUnused = false;
+                    block.CoreData.GenData.RemoveIfUnused = false;
 
                     AddBlock(block);
 
                     Door door = PlaceDoorOnBlock(pos, block, false);
-                    door.Core.EditorCode1 = LevelConnector.StartOfLevelCode;
+                    door.CoreData.EditorCode1 = LevelConnector.StartOfLevelCode;
 
-                    Level.SpreadStartPositions(CurPiece, CurMakeData, door.Core.Data.Position, new Vector2(50, 0));
+                    Level.SpreadStartPositions(CurPiece, CurMakeData, door.CoreData.Data.Position, new Vector2(50, 0));
 
                     // Make sure block is used
                     block.StampAsUsed(0);
@@ -224,12 +224,12 @@ namespace CloudberryKingdom.Levels
                     if (Geometry == LevelGeometry.Up ||
                         Geometry == LevelGeometry.Down && IsBottom)
                     {
-                        block.Core.GenData.DeleteSurroundingOnUse = false;
-                        block.Core.GenData.AlwaysLandOn = true;
+                        block.CoreData.GenData.DeleteSurroundingOnUse = false;
+                        block.CoreData.GenData.AlwaysLandOn = true;
                     }
 
-                    if (IsBottom) block.Core.EditorCode1 = BottomRowTag;
-                    if (IsTop) block.Core.EditorCode1 = TopRowTag;
+                    if (IsBottom) block.CoreData.EditorCode1 = BottomRowTag;
+                    if (IsTop) block.CoreData.EditorCode1 = TopRowTag;
                     if (IsTop && Geometry == LevelGeometry.Up)
                     {
                         block.BlockCore.Virgin = true;
@@ -250,8 +250,8 @@ namespace CloudberryKingdom.Levels
 
             // Set flag when a block on the last row is used.
             bool EndReached = false;
-            foreach (BlockBase block in Blocks.FindAll(match => match.Core == "LastRow"))
-                block.Core.GenData.OnUsed = () => EndReached = true;
+            foreach (BlockBase block in Blocks.FindAll(match => match.CoreData == "LastRow"))
+                block.CoreData.GenData.OnUsed = () => EndReached = true;
 
             // Initial platform
             if (CurMakeData.InitialPlats && VStyle.MakeInitialPlats)
@@ -358,14 +358,14 @@ namespace CloudberryKingdom.Levels
 
             // Remove unused objects
             foreach (ObjectBase obj in Objects)
-                if (!obj.Core.GenData.Used && obj.Core.GenData.RemoveIfUnused)
+                if (!obj.CoreData.GenData.Used && obj.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(obj);
             CleanObjectList();
             Sleep();
 
             // Remove unused blocks
             foreach (BlockBase _block in Blocks)
-                if (!_block.Core.GenData.Used && _block.Core.GenData.RemoveIfUnused)
+                if (!_block.CoreData.GenData.Used && _block.CoreData.GenData.RemoveIfUnused)
                     Recycle.CollectObject(_block);
             CleanBlockList();
             CleanDrawLayers();
@@ -408,7 +408,7 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
             Sleep();
 
-            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.Core.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
+            Cleanup(Objects.FindAll(delegate(ObjectBase obj) { return obj.CoreData.GenData.LimitGeneralDensity; }), delegate(Vector2 pos)
             {
                 float dist = CurMakeData.GenData.Get(DifficultyParam.GeneralMinDist, pos);
                 return new Vector2(dist, dist);
@@ -432,15 +432,15 @@ namespace CloudberryKingdom.Levels
 
             if (Geometry == LevelGeometry.Up)
             {
-                var back = MakePillarBack(FinalDoor.Pos + new Vector2(0, -400), FinalDoor.Pos + new Vector2(0, 2000));
+                var back = MakePillarBack(FinalDoor.CoreData.Data.Position + new Vector2(0, -400), FinalDoor.CoreData.Data.Position + new Vector2(0, 2000));
                 back.BlockCore.CeilingDraw = true;
-                MakePillarBack(StartDoor.Pos + new Vector2(0, 400), StartDoor.Pos - new Vector2(0, 2000));
+                MakePillarBack(StartDoor.CoreData.Data.Position + new Vector2(0, 400), StartDoor.CoreData.Data.Position - new Vector2(0, 2000));
             }
             else
             {
-                var back = MakePillarBack(StartDoor.Pos + new Vector2(0, -400), StartDoor.Pos + new Vector2(0, 2000));
+                var back = MakePillarBack(StartDoor.CoreData.Data.Position + new Vector2(0, -400), StartDoor.CoreData.Data.Position + new Vector2(0, 2000));
                 back.BlockCore.CeilingDraw = true;
-                MakePillarBack(FinalDoor.Pos + new Vector2(0, 400), FinalDoor.Pos - new Vector2(0, 2000));
+                MakePillarBack(FinalDoor.CoreData.Data.Position + new Vector2(0, 400), FinalDoor.CoreData.Data.Position - new Vector2(0, 2000));
             }
 
             return false;

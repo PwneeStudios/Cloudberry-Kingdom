@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
         public void Add(int width, PieceQuad piece)
         {
-            if (!Dict.ContainsKey(width))
+            if (!Dict.CustomContainsKey(width))
                 Dict.Add(width, new List<PieceQuad>());
 
             Dict[width].Add(piece);

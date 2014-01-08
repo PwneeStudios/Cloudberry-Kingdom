@@ -29,7 +29,7 @@ namespace CloudberryKingdom
         }
         public static ObjectIcon CreateIcon(Upgrade upgrade, bool big)
         {
-            if (UpgradeIcons.ContainsKey(upgrade))
+            if (UpgradeIcons.CustomContainsKey(upgrade))
                 return UpgradeIcons[upgrade].Clone();
             else
             {

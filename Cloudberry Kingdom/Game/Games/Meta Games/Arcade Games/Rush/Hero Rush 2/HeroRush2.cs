@@ -36,12 +36,12 @@ namespace CloudberryKingdom
 
             HeroSpec spec = HeroList[(levelindex + 1 - StartIndex) % HeroList.Count];
             GameData game = Tools.CurGameData;
-            Vector2 pos = Tools.CurLevel.FinalDoor.Pos;
+            Vector2 pos = Tools.CurLevel.FinalDoor.CoreData.Data.Position;
 
             // Delete the exit sign
             foreach (ObjectBase obj in Tools.CurLevel.Objects)
                 if (obj is Sign)
-                    obj.Core.MarkedForDeletion = true;
+                    obj.CoreData.MarkedForDeletion = true;
 
             // Count number of icons needed
             int Total = 0;

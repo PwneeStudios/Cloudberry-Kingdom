@@ -70,7 +70,7 @@ namespace CloudberryKingdom
 					_t.Scale *= 2100 / w;
 			}
 
-            Core.DrawLayer = Level.AfterPostDrawLayer;
+            CoreData.DrawLayer = Level.AfterPostDrawLayer;
 		}
 
 		protected override void MyPhsxStep()
@@ -108,7 +108,7 @@ namespace CloudberryKingdom
 
             this.Control = Control;
 
-			Core.DrawLayer = Level.AfterPostDrawLayer;
+			CoreData.DrawLayer = Level.AfterPostDrawLayer;
 
             Constructor();
         }

@@ -36,16 +36,16 @@ namespace CloudberryKingdom.Obstacles
             PhsxCutoff_Playing = new Vector2(1000);
             PhsxCutoff_BoxesOnly = new Vector2(-100);
 
-            Core.Init();
-            Core.DrawLayer = 9;
-            Core.MyType = ObjectType.Cloud;
-            Core.Holdable = true;
+            CoreData.Init();
+            CoreData.DrawLayer = 9;
+            CoreData.MyType = ObjectType.Cloud;
+            CoreData.Holdable = true;
 
-            Core.EditHoldable = true;
+            CoreData.EditHoldable = true;
 
             Displacement = Vector2.Zero;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Init(Vector2 pos, Levels.Level level)
@@ -56,10 +56,10 @@ namespace CloudberryKingdom.Obstacles
 
             PeriodOffset = level.Rnd.RndInt(0, 1000);
 
-            Core.MyTileSet = level.MyTileSet;
+            CoreData.MyTileSet = level.MyTileSet;
 
             Size = level.Info.Clouds.BoxSize;
-            Box.Initialize(Pos, Size);
+            Box.Initialize(CoreData.Data.Position, Size);
 
             if (!level.BoxesOnly)
             {
@@ -74,14 +74,14 @@ namespace CloudberryKingdom.Obstacles
             if (!BoxesOnly)
                 MyQuad = new QuadClass();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             MakeNew();            
         }
 
         protected override void ActivePhsxStep()
         {
-            int CurPhsxStep = Core.GetPhsxStep();
+            int CurPhsxStep = CoreData.GetPhsxStep();
 
             Displacement *= .9f;
 
@@ -93,30 +93,30 @@ namespace CloudberryKingdom.Obstacles
             else
                 Displacement *= .9f;
 
-            Box.Current.Center = Pos;
+            Box.Current.Center = CoreData.Data.Position;
             Box.SetTarget(Box.Current.Center + Displacement, Box.Current.Size);
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Box.SwapToCurrent();
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
         public override void PhsxStep2()
         {
-            if (!Core.Active) return;
-            if (Core.SkippedPhsx) return;
+            if (!CoreData.Active) return;
+            if (CoreData.SkippedPhsx) return;
 
             Box.SwapToCurrent();
         }
 
         protected override void DrawGraphics()
         {
-            double t = 2 * System.Math.PI * (Core.GetPhsxStep() + PeriodOffset) / (float)220;
+            double t = 2 * System.Math.PI * (CoreData.GetPhsxStep() + PeriodOffset) / (float)220;
             Vector2 dis = new Vector2(0, (float)System.Math.Cos(t)) * 10;
 
-            MyQuad.Pos = Pos + Displacement + dis;
+            MyQuad.Pos = CoreData.Data.Position + Displacement + dis;
             MyQuad.Draw();
         }
 
@@ -147,44 +147,44 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Interact(Bob bob)
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
 
             bool Overlap = false;
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
             {
                 Overlap = Phsx.BoxBoxOverlap(bob.Box, Box);
 
-                if (Overlap && Core.MyLevel.PlayMode == 2)
+                if (Overlap && CoreData.MyLevel.PlayMode == 2)
                 {
                     Overlap = Phsx.BoxBoxOverlap(bob.Box, Box);
 
                     bool Delete = false;
 
                     if (bob.WantsToLand == false) Delete = true;
-                    if (bob.MyPhsx.DynamicGreaterThan(bob.Core.Data.Velocity.Y, 10))
+                    if (bob.MyPhsx.DynamicGreaterThan(bob.CoreData.Data.Velocity.Y, 10))
                         Delete = true;
-                    if (Core.GenData.Used) Delete = false;
+                    if (CoreData.GenData.Used) Delete = false;
                     if (Delete)
                     {
                         CollectSelf();
 
-                        Core.Active = false;
+                        CoreData.Active = false;
                         return;
                     }
                     else
                     {
-                        StampAsUsed(Core.MyLevel.CurPhsxStep);
+                        StampAsUsed(CoreData.MyLevel.CurPhsxStep);
 
                         // Remove surrounding clouds
-                        foreach (ObjectBase cloud in Core.MyLevel.Objects)
+                        foreach (ObjectBase cloud in CoreData.MyLevel.Objects)
                         {
                             Cloud Cloud = cloud as Cloud;
                             if (null != Cloud)
-                                if (!Cloud.Core.GenData.Used &&
-                                    (Cloud.Core.Data.Position - Core.Data.Position).Length() < 2.35f * Box.Current.Size.X)
+                                if (!Cloud.CoreData.GenData.Used &&
+                                    (Cloud.CoreData.Data.Position - CoreData.Data.Position).Length() < 2.35f * Box.Current.Size.X)
                                 {
-                                    Core.Recycle.CollectObject(Cloud);
-                                    cloud.Core.Active = false;
+                                    CoreData.Recycle.CollectObject(Cloud);
+                                    cloud.CoreData.Active = false;
                                 }
                         }
                     }
@@ -196,20 +196,20 @@ namespace CloudberryKingdom.Obstacles
                         bob.MyPhsx.Gravity < 0 && bob.Box.TR.Y > Box.BL.Y + 75)
                     {
                         //if (bob.Core.Data.Velocity.Y < -3.5f)
-                        if (bob.MyPhsx.DynamicLessThan(bob.Core.Data.Velocity.Y, -3.5f))
-                            bob.Core.Data.Velocity.Y *= .9f;
+                        if (bob.MyPhsx.DynamicLessThan(bob.CoreData.Data.Velocity.Y, -3.5f))
+                            bob.CoreData.Data.Velocity.Y *= .9f;
                     }
 
                     //if (bob.Core.Data.Velocity.Y <= 0)
                     //if (bob.Core.Data.Velocity.Y >= 0)
-                    if (bob.MyPhsx.DynamicLessThan(bob.Core.Data.Velocity.Y, 0))
+                    if (bob.MyPhsx.DynamicLessThan(bob.CoreData.Data.Velocity.Y, 0))
                     {
                         if (bob.MyPhsx.Gravity > 0)
                             bob.MyPhsx.LandOnSomething(false, this);
                         else
                             bob.MyPhsx.HitHeadOnSomething(this);
 
-                        Displacement += Shiftiness * bob.Core.Data.Velocity / 2;
+                        Displacement += Shiftiness * bob.CoreData.Data.Velocity / 2;
                     }
                 }
             }
@@ -219,27 +219,27 @@ namespace CloudberryKingdom.Obstacles
         {
             base.Reset(BoxesOnly);
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Cloud CloudA = A as Cloud;
 
             Shiftiness = CloudA.Shiftiness;
             Size = CloudA.Size;
-            Init(CloudA.Pos, CloudA.MyLevel);
+            Init(CloudA.CoreData.Data.Position, CloudA.MyLevel);
 
             Displacement = CloudA.Displacement;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public override void Write(BinaryWriter writer)
         {
-            Core.Write(writer);
+            CoreData.Write(writer);
 
             MyQuad.Write(writer);
 
@@ -247,7 +247,7 @@ namespace CloudberryKingdom.Obstacles
         }
         public override void Read(BinaryReader reader)
         {
-            Core.Read(reader);
+            CoreData.Read(reader);
 
             MyQuad.Read(reader);
 

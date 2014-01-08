@@ -51,7 +51,7 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (CoreData.MyLevel.Watching || CoreData.MyLevel.Finished) return;
 
             // Is time running out?
             if (MyTimer.Time < Threshhold)

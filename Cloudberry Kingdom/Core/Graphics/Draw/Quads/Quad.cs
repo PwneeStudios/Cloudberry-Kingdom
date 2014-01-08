@@ -660,7 +660,7 @@ namespace CoreEngine
         {
             Vector2 BL = Center.Pos;
             for (int i = 0; i < NumVertices; i++)
-                BL = Vector2.Min(BL, Vertices[i].xy);
+                BL = Vector2Extension.Min(BL, Vertices[i].xy);
 
             return BL;
         }
@@ -669,7 +669,7 @@ namespace CoreEngine
         {
             Vector2 TR = Center.Pos;
             for (int i = 0; i < NumVertices; i++)
-                TR = Vector2.Max(TR, Vertices[i].xy);
+                TR = Vector2Extension.Max(TR, Vertices[i].xy);
 
             return TR;
         }

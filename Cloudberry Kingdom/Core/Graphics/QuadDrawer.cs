@@ -57,7 +57,7 @@ namespace CoreEngine
 
 			GlyphData data;
 
-			if (Data.ContainsKey(c))
+			if (Data.CustomContainsKey(c))
 			{
 				data = Data[c];
 			}
@@ -118,7 +118,7 @@ namespace CoreEngine
                 OrigH = int.Parse(data[8]) + additional;
 
 
-				if (Data.ContainsKey(Char))
+				if (Data.CustomContainsKey(Char))
 				{
 					Console.WriteLine(Char);
 				}

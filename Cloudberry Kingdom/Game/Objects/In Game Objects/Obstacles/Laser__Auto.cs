@@ -93,7 +93,7 @@ namespace CloudberryKingdom.Levels
                     Laser laser = (Laser)level.Recycle.GetObject(ObjectType.Laser, true);
                     laser.Init(Vector2.Zero, level);
 
-                    laser.Core.Data.Position = loc;
+                    laser.CoreData.Data.Position = loc;
                     float shift = level.Rnd.RndFloat(-800, 800);
 
                     Vector2 p1, p2;
@@ -114,7 +114,7 @@ namespace CloudberryKingdom.Levels
                     laser.WarnDuration = (int)(laser.Period * .35f);
                     laser.Duration = (int)(laser.Period * .2f);
 
-                    laser.Core.GenData.LimitGeneralDensity = false;
+                    laser.CoreData.GenData.LimitGeneralDensity = false;
 
                     // Make sure we stay in bounds
                     Tools.EnsureBounds_X(laser, TR, BL);

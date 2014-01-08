@@ -869,7 +869,7 @@ namespace CloudberryKingdom
         {
             bool All = true;
             foreach (Bob bob in Tools.CurLevel.Bobs)
-                All = All && !Tools.CurLevel.MainCamera.OnScreen(bob.Core.Data.Position);
+                All = All && !Tools.CurLevel.MainCamera.OnScreen(bob.CoreData.Data.Position);
 
             return All;
         }

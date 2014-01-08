@@ -50,8 +50,8 @@ namespace CloudberryKingdom
             Count++;
 
             // Make sure we're on top
-            if (!Core.Released && Core.MyLevel != null)
-                Core.MyLevel.MoveToTopOfDrawLayer(this);
+            if (!CoreData.Released && CoreData.MyLevel != null)
+                CoreData.MyLevel.MoveToTopOfDrawLayer(this);
 
             // Otherwise show and hide
 			if (Count == 50)

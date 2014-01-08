@@ -65,20 +65,20 @@ namespace CloudberryKingdom
         public void PointTo(Vector2 pos)
         {
             PointToPos = pos;
-            CoreMath.PointxAxisTo(ref MyObject.Base, Core.Data.Position - PointToPos);
+            CoreMath.PointxAxisTo(ref MyObject.Base, CoreData.Data.Position - PointToPos);
             MyObject.Base.e2 *= MyOrientation;
         }
 
         public void Update()
         {
-            MyObject.Base.Origin = Core.Data.Position;
+            MyObject.Base.Origin = CoreData.Data.Position;
 
             MyObject.Update();
         }
 
         protected override void MyDraw()
         {
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 600)) return;
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, 600)) return;
 
             if (Tools.DrawGraphics)
             {
@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 
         public override void Move(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
         }
     }
 }

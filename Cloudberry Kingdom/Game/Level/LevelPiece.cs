@@ -57,7 +57,7 @@ namespace CloudberryKingdom.Levels
 
             if (Computer != null)
             for (int i = 0; i < Computer.Length; i++)
-                Computer[i].Core.MyLevel = null;
+                Computer[i].CoreData.MyLevel = null;
             Computer = null;
 
             /*

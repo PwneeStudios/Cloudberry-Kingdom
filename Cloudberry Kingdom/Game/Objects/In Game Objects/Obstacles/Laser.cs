@@ -35,7 +35,7 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = Laser_AutoGen.Instance;
-            Core.MyType = ObjectType.Laser;
+            CoreData.MyType = ObjectType.Laser;
             DeathType = Bobs.BobDeathType.Laser;
 
             PhsxCutoff_Playing = new Vector2(500);
@@ -47,19 +47,19 @@ namespace CloudberryKingdom.Obstacles
             AlwaysOff = false;
             StateChange = 0;
 
-            Core.Init();
-            Core.MyType = ObjectType.Laser;
-            Core.DrawLayer = 9;
-            Core.ContinuousEnabled = true;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.Laser;
+            CoreData.DrawLayer = 9;
+            CoreData.ContinuousEnabled = true;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public Laser(bool BoxesOnly)
         {
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public void SetLine(Vector2 p, float degrees)
@@ -75,7 +75,7 @@ namespace CloudberryKingdom.Obstacles
             this.p1 = p1;
             this.p2 = p2;
 
-            Core.Data.Position = (p1 + p2) / 2;
+            CoreData.Data.Position = (p1 + p2) / 2;
 
             MyLine.Target.p2 = p2;
             MyLine.Target.p1 = p1;
@@ -91,25 +91,25 @@ namespace CloudberryKingdom.Obstacles
         Vector2 BL, TR;
         public Vector2 TR_Bound()
         {
-            return Vector2.Max(p1, p2);
+            return Vector2Extension.Max(p1, p2);
         }
         public Vector2 BL_Bound()
         {
-            return Vector2.Min(p1, p2);
+            return Vector2Extension.Min(p1, p2);
         }
 
         protected override void ActivePhsxStep()
         {
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 MyLine.SetCurrent(p1, p2);
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
 
             if (AlwaysOn)
             {
                 MyState = LaserState.On;
-                float TargetState = CoreMath.PeriodicCentered(.86f, 1f, 70, Core.MyLevel.CurPhsxStep);
+                float TargetState = CoreMath.PeriodicCentered(.86f, 1f, 70, CoreData.MyLevel.CurPhsxStep);
                 StateChange += .02f * Math.Sign(TargetState - StateChange);
                 if (StateChange > 1) StateChange = 1;
             }
@@ -123,7 +123,7 @@ namespace CloudberryKingdom.Obstacles
             else
             {
                 //int Step = CoreMath.Modulo(Core.MyLevel.GetPhsxStep() + Offset, Period);
-                float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, Period);
+                float Step = CoreMath.Modulo(CoreData.MyLevel.GetIndependentPhsxStep() + Offset, Period);
                 if (Step < WarnDuration)
                 {
                     MyState = LaserState.Warn;
@@ -232,17 +232,17 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Interact(Bob bob)
         {
-            if (MyState == LaserState.On && !Core.SkippedPhsx)
+            if (MyState == LaserState.On && !CoreData.SkippedPhsx)
                 base.Interact(bob);
         }
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
-            Core.WakeUpRequirements = true;
+            CoreData.Clone(A.CoreData);
+            CoreData.WakeUpRequirements = true;
 
             Laser LaserA = A as Laser;
-            Init(A.Pos, A.MyLevel);
+            Init(A.CoreData.Data.Position, A.MyLevel);
 
             SetLine(LaserA.p1, LaserA.p2);
 

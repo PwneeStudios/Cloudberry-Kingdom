@@ -127,7 +127,7 @@ namespace CloudberryKingdom
                 Obtained = true;
                 BonusCount++;
 
-                PlayerData player = obj.Core.InteractingPlayer;
+                PlayerData player = obj.CoreData.InteractingPlayer;
 
 				if (player != null)
 				{
@@ -145,7 +145,7 @@ namespace CloudberryKingdom
                 MyGame.RemoveLastCoinText();
 
                 // Add the visual effect
-                Effect(obj.Core.Data.Position);
+                Effect(obj.CoreData.Data.Position);
 
                 // Increase the bonus
                 MyGame.WaitThenDo(2, TextEffect);
@@ -464,7 +464,7 @@ namespace CloudberryKingdom
             //Text.Scale = 1.285f; // Jordan likes
             //Text.Scale = 0.8f; // TJ is a faggot
 
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints || !ShowMultiplier) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints || !ShowMultiplier) return;
 
             base.MyDraw();
         }

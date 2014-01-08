@@ -119,7 +119,7 @@ namespace CloudberryKingdom
 
             foreach (Bob bob in MyGame.MyLevel.Bobs)
             {
-                ParticleEffects.AddPop(MyGame.MyLevel, bob.Pos);
+                ParticleEffects.AddPop(MyGame.MyLevel, bob.CoreData.Data.Position);
                 bob.CollectSelf();
             }
 

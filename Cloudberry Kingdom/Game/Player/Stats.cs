@@ -1,7 +1,8 @@
 using CloudberryKingdom.Bobs;
 using System;
 using System.IO;
-using System.Reflection;
+
+//using System.Reflection;
 
 using CoreEngine;
 
@@ -91,11 +92,31 @@ namespace CloudberryKingdom
         // Add all fields and elements of arrays to the corresponding field in this instance.
         public PlayerStats Absorb(PlayerStats stats)
         {
-            foreach (FieldInfo info in GetType().GetFields())
-            {
-                if (info.FieldType == typeof(int))
-                    info.SetValue(this, (int)info.GetValue(this) + (int)info.GetValue(stats));
-            }
+			//foreach (FieldInfo info in GetType().GetFields())
+			//{
+			//    if (info.FieldType == typeof(int))
+			//        info.SetValue(this, (int)info.GetValue(this) + (int)info.GetValue(stats));
+			//}
+
+			Score += stats.Score;
+			Coins += stats.Coins;
+			Blobs += stats.Blobs;
+			CoinsSpentAtShop += stats.CoinsSpentAtShop;
+
+			TotalCoins += stats.TotalCoins;
+			TotalBlobs += stats.TotalBlobs;
+
+			Levels += stats.Levels;
+			Checkpoints += stats.Checkpoints;
+			Jumps += stats.Jumps;
+			Berries += stats.Berries;
+
+			TimeAlive += stats.TimeAlive;
+
+			FinalTimeSpentNotMoving += stats.FinalTimeSpentNotMoving;
+			FinalTimeSpent += stats.FinalTimeSpent;
+
+			ObstaclesSeen += stats.ObstaclesSeen;
 
             for (int i = 0; i < DeathsBy.Length; i++)
                 DeathsBy[i] += stats.DeathsBy[i];
@@ -106,10 +127,31 @@ namespace CloudberryKingdom
         // Set all fields and all elements of arrays to 0.
         public void Clean()
         {
-            foreach (FieldInfo info in GetType().GetFields())
-            {
-                if (info.FieldType == typeof(int)) info.SetValue(this, 0);
-            }
+			//foreach (FieldInfo info in GetType().GetFields())
+			//{
+			//    if (info.FieldType == typeof(int)) info.SetValue(this, 0);
+			//}
+
+			Score = 0;
+			Coins = 0;
+			Blobs = 0;
+			CoinsSpentAtShop = 0;
+
+			TotalCoins = 0;
+			TotalBlobs = 0;
+
+			Levels = 0;
+			Checkpoints = 0;
+			Jumps = 0;
+			Berries = 0;
+
+			TimeAlive = 0;
+			ObstaclesSeen = 0;
+
+			FinalTimeSpentNotMoving = 0;
+			FinalTimeSpent = 0;
+
+			ObstaclesSeen = 0;
 
             for (int i = 0; i < DeathsBy.Length; i++)
                 DeathsBy[i] = 0;

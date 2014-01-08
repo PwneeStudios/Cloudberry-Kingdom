@@ -109,10 +109,10 @@ namespace CloudberryKingdom
         public static bool PointAndAABoxCollisionTest(ref Vector2 p, AABox Box, float Padding)
         {
             Box.Validate();
-            Vector2 A_BL = Vector2.Min(Box.Current.BL, Box.Target.BL);
+            Vector2 A_BL = Vector2Extension.Min(Box.Current.BL, Box.Target.BL);
             if (A_BL.X > p.X + Padding || A_BL.Y > p.Y + Padding) return false;
 
-            Vector2 A_TR = Vector2.Max(Box.Current.TR, Box.Target.TR);
+            Vector2 A_TR = Vector2Extension.Max(Box.Current.TR, Box.Target.TR);
             if (A_TR.X < p.X - Padding || A_TR.Y < p.Y - Padding) return false;
 
             return true;

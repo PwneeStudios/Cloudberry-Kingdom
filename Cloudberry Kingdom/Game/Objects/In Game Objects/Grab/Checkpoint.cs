@@ -65,11 +65,11 @@ namespace CloudberryKingdom.InGameObjects
         {
             Taken = TakenAnimFinished = false;
 
-            Core.Init();
-            Core.MyType = ObjectType.Checkpoint;
-            Core.DrawLayer = 8;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.Checkpoint;
+            CoreData.DrawLayer = 8;
 
-            Core.ResetOnlyOnReset = true;
+            CoreData.ResetOnlyOnReset = true;
 
             MyPiece = null;
             MyPieceIndex = -1;
@@ -86,7 +86,7 @@ namespace CloudberryKingdom.InGameObjects
 
             MakeNew();
 
-            Core.BoxesOnly = false;
+            CoreData.BoxesOnly = false;
         }
 
         void SetAnimation()
@@ -120,7 +120,7 @@ namespace CloudberryKingdom.InGameObjects
             Taken = true;
             ResetTakenAnim();
 
-            if (Core.MyLevel.PlayMode != 0) return;
+            if (CoreData.MyLevel.PlayMode != 0) return;
 
             Game.CheckpointGrabEvent(this);
 
@@ -131,9 +131,9 @@ namespace CloudberryKingdom.InGameObjects
         {
             base.Init(Vector2.Zero, level);
 
-            Box.Initialize(Core.Data.Position, level.Info.Checkpoints.Size);
+            Box.Initialize(CoreData.Data.Position, level.Info.Checkpoints.Size);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 MyQuad.MyEffect = Tools.BasicEffect;
                 MyQuad.Set(level.Info.Checkpoints.Sprite);
@@ -154,12 +154,12 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void PhsxStep()
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
 
-            if (Core.Data.Position.X > Core.MyLevel.MainCamera.TR.X + 350 ||
-                Core.Data.Position.X < Core.MyLevel.MainCamera.BL.X - 400 ||
-                Core.Data.Position.Y > Core.MyLevel.MainCamera.TR.Y + 350 ||
-                Core.Data.Position.Y < Core.MyLevel.MainCamera.BL.Y - 350)
+            if (CoreData.Data.Position.X > CoreData.MyLevel.MainCamera.TR.X + 350 ||
+                CoreData.Data.Position.X < CoreData.MyLevel.MainCamera.BL.X - 400 ||
+                CoreData.Data.Position.Y > CoreData.MyLevel.MainCamera.TR.Y + 350 ||
+                CoreData.Data.Position.Y < CoreData.MyLevel.MainCamera.BL.Y - 350)
             {
                 SkipPhsx = true;
                 return;
@@ -178,7 +178,7 @@ namespace CloudberryKingdom.InGameObjects
 
             AnimStep();
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
             if (SkipPhsx) Box.SwapToCurrent();
 
             SkipPhsx = false;
@@ -186,7 +186,7 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void PhsxStep2()
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
             if (SkipPhsx) return;
 
             Box.SwapToCurrent();
@@ -214,11 +214,11 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
 
-            Core.Data.Position = Core.StartData.Position;
+            CoreData.Data.Position = CoreData.StartData.Position;
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
             Box.SwapToCurrent();
 
             Update();
@@ -226,33 +226,33 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Move(Vector2 shift)
         {
-            Core.StartData.Position += shift;
-            Core.Data.Position += shift;
+            CoreData.StartData.Position += shift;
+            CoreData.Data.Position += shift;
             Box.Move(shift);
         }
 
         public override void Interact(Bob bob)
         {
             if (Taken) return;
-            if (!Core.Active) return;
-            if (Core.MyLevel.SuppressCheckpoints || Core.MyLevel.GhostCheckpoints) return;
+            if (!CoreData.Active) return;
+            if (CoreData.MyLevel.SuppressCheckpoints || CoreData.MyLevel.GhostCheckpoints) return;
 
             ColType Col = Phsx.CollisionTest(bob.Box2, Box);
             if (Col != ColType.NoCol)
             {
                 Die();
 
-                if (Core.MyLevel.PlayMode == 0 && MyPiece != null)
+                if (CoreData.MyLevel.PlayMode == 0 && MyPiece != null)
                 {
                     // Track stats
                     bob.MyStats.Checkpoints++;
                     bob.MyStats.Score += 250;
 
                     // Erase taken coins
-                    Core.MyLevel.KeepCoinsDead();                    
+                    CoreData.MyLevel.KeepCoinsDead();                    
 
                     // Set current level piece
-                    Core.MyLevel.SetCurrentPiece(MyPiece);
+                    CoreData.MyLevel.SetCurrentPiece(MyPiece);
 
                     //////Core.MyLevel.CurPiece = MyPiece;
 
@@ -267,10 +267,10 @@ namespace CloudberryKingdom.InGameObjects
                     //////}
 
                     // Game's checkpoint action
-                    Core.MyLevel.MyGame.GotCheckpoint(bob);
+                    CoreData.MyLevel.MyGame.GotCheckpoint(bob);
 
                     // Kill other checkpoints
-                    foreach (ObjectBase obj in Core.MyLevel.Objects)
+                    foreach (ObjectBase obj in CoreData.MyLevel.Objects)
                     {
                         Checkpoint checkpoint = obj as Checkpoint;
                         if (null != checkpoint)
@@ -283,7 +283,7 @@ namespace CloudberryKingdom.InGameObjects
 
         public void SetAlpha()
         {
-            if (Core.MyLevel.GhostCheckpoints)
+            if (CoreData.MyLevel.GhostCheckpoints)
             {
                 if (!GhostFaded)
                 {
@@ -310,16 +310,16 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Draw()
         {
-            if (TakenAnimFinished && !Core.MyLevel.GhostCheckpoints) return;
-            if (!Core.Active) return;
-            if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.GhostCheckpoints) return;
+            if (TakenAnimFinished && !CoreData.MyLevel.GhostCheckpoints) return;
+            if (!CoreData.Active) return;
+            if (CoreData.MyLevel.SuppressCheckpoints && !CoreData.MyLevel.GhostCheckpoints) return;
 
-            if (Box.Current.BL.X > Core.MyLevel.MainCamera.TR.X + 150 || Box.Current.BL.Y > Core.MyLevel.MainCamera.TR.Y + 150)
+            if (Box.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X + 150 || Box.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y + 150)
                 return;
-            if (Box.Current.TR.X < Core.MyLevel.MainCamera.BL.X - 200 || Box.Current.TR.Y < Core.MyLevel.MainCamera.BL.Y - 150)
+            if (Box.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X - 200 || Box.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - 150)
                 return;
 
-            if (Tools.DrawGraphics && !Core.BoxesOnly)
+            if (Tools.DrawGraphics && !CoreData.BoxesOnly)
             {
                 SetAlpha();
                 //Tools.QDrawer.DrawQuad(ref MyQuad);
@@ -330,7 +330,7 @@ namespace CloudberryKingdom.InGameObjects
 
 			if (Tools.DrawBoxes)
 			{
-				Tools.QDrawer.DrawCircle(Pos, 100, new Color(255, 134, 26, 235));
+				Tools.QDrawer.DrawCircle(CoreData.Data.Position, 100, new Color(255, 134, 26, 235));
 
 				//Box.Draw(Tools.QDrawer, Color.Bisque, 10);
 			}
@@ -338,7 +338,7 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Checkpoint CheckpointA = A as Checkpoint;
 

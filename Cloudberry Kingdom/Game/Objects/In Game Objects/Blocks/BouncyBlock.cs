@@ -26,9 +26,9 @@ namespace CloudberryKingdom.Blocks
 
         public override void MakeNew()
         {
-            Core.Init();
+            CoreData.Init();
             //BlockCore.GivesVelocity = false;
-            Core.DrawLayer = 3;
+            CoreData.DrawLayer = 3;
             BlockCore.MyType = ObjectType.BouncyBlock;
 
             SideDampening = 1f;
@@ -44,10 +44,10 @@ namespace CloudberryKingdom.Blocks
                 switch (NewState)
                 {
                     case BouncyBlockState.Regular:
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 0);
                         break;
                     case BouncyBlockState.SuperStiff:
-                        if (!Core.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
+                        if (!CoreData.BoxesOnly) MyDraw.MyPieces.CalcTexture(0, 1);
                         break;
                 }
             }
@@ -62,7 +62,7 @@ namespace CloudberryKingdom.Blocks
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public void Init(Vector2 center, Vector2 size, float speed, Level level)
@@ -86,7 +86,7 @@ namespace CloudberryKingdom.Blocks
             TouchedCountdown = 3;
 
             if (Offset.X != 0)
-                bob.Core.Data.Velocity.X = 1.1f * speed * Offset.X * SideDampening;
+                bob.CoreData.Data.Velocity.X = 1.1f * speed * Offset.X * SideDampening;
             if (Offset.Y != 0)
             {
                 bob.NewVel = speed * Offset.Y;
@@ -110,7 +110,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void SideHit(Bob bob)
         {            
-            Offset = new Vector2(Math.Sign(bob.Core.Data.Position.X - Core.Data.Position.X), 0);
+            Offset = new Vector2(Math.Sign(bob.CoreData.Data.Position.X - CoreData.Data.Position.X), 0);
             bob.MyPhsx.Forced(Offset);
 
             Snap(bob);
@@ -160,13 +160,13 @@ namespace CloudberryKingdom.Blocks
 
         public override void PhsxStep()
         {
-            Active = Core.Active = true;
-            if (!Core.Held)
+            Active = CoreData.Active = true;
+            if (!CoreData.Held)
             {
                 if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 50)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
                 if (MyBox.Current.TR.X < BlockCore.MyLevel.MainCamera.BL.X || MyBox.Current.TR.Y < BlockCore.MyLevel.MainCamera.BL.Y - 150)
-                    Active = Core.Active = false;
+                    Active = CoreData.Active = false;
             }
 
             Update();
@@ -196,7 +196,7 @@ namespace CloudberryKingdom.Blocks
             if (SizeOffset.X < .1f && State == BouncyBlockState.SuperStiff)
                 SetState(BouncyBlockState.Regular);
 
-            MyBox.SetTarget(Core.Data.Position, MyBox.Current.Size);
+            MyBox.SetTarget(CoreData.Data.Position, MyBox.Current.Size);
 
             BlockCore.StoodOn = false;
         }
@@ -276,7 +276,7 @@ namespace CloudberryKingdom.Blocks
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             BouncyBlock BlockA = A as BouncyBlock;
 

@@ -76,7 +76,7 @@ namespace CloudberryKingdom
             public static int BobJetpack_SoundDelay = 5;
         }
 
-        protected LevelGeometry Geometry { get { return MyBob.Core.MyLevel.CurMakeData.PieceSeed.GeometryType; } }
+        protected LevelGeometry Geometry { get { return MyBob.CoreData.MyLevel.CurMakeData.PieceSeed.GeometryType; } }
 
         public static BobPhsx GetPhsx(Hero_BaseType BaseType)
         {
@@ -482,17 +482,17 @@ namespace CloudberryKingdom
         public Bob MyBob;
         public ObjectClass Obj { get { return MyBob.PlayerObject; } }
 
-        public Camera Cam { get { return MyBob.Core.MyLevel.MainCamera; } }
+        public Camera Cam { get { return MyBob.CoreData.MyLevel.MainCamera; } }
 
-        public Level MyLevel { get { return MyBob.Core.MyLevel; } }
-        public ObjectData Core { get { return MyBob.Core; } }
+        public Level MyLevel { get { return MyBob.CoreData.MyLevel; } }
+        public ObjectData Core { get { return MyBob.CoreData; } }
 
-        public RichLevelGenData GenData { get { return MyBob.Core.MyLevel.CurMakeData.GenData; } }
+        public RichLevelGenData GenData { get { return MyBob.CoreData.MyLevel.CurMakeData.GenData; } }
 
         public Vector2 Pos
         {
-            get { return MyBob.Core.Data.Position; }
-            set { MyBob.Core.Data.Position = value; }
+            get { return MyBob.CoreData.Data.Position; }
+            set { MyBob.CoreData.Data.Position = value; }
         }
         public Vector2 ApparentVelocity
         {
@@ -500,23 +500,23 @@ namespace CloudberryKingdom
         }
         public Vector2 Vel
         {
-            get { return MyBob.Core.Data.Velocity; }
-            set { MyBob.Core.Data.Velocity = value; }
+            get { return MyBob.CoreData.Data.Velocity; }
+            set { MyBob.CoreData.Data.Velocity = value; }
         }
         public float xVel
         {
-            get { return MyBob.Core.Data.Velocity.X; }
-            set { MyBob.Core.Data.Velocity.X = value; }
+            get { return MyBob.CoreData.Data.Velocity.X; }
+            set { MyBob.CoreData.Data.Velocity.X = value; }
         }
         public float yVel
         {
-            get { return MyBob.Core.Data.Velocity.Y; }
-            set { MyBob.Core.Data.Velocity.Y = value; }
+            get { return MyBob.CoreData.Data.Velocity.Y; }
+            set { MyBob.CoreData.Data.Velocity.Y = value; }
         }
         public Vector2 Acc
         {
-            get { return MyBob.Core.Data.Acceleration; }
-            set { MyBob.Core.Data.Acceleration = value; }
+            get { return MyBob.CoreData.Data.Acceleration; }
+            set { MyBob.CoreData.Data.Acceleration = value; }
         }
 
         public virtual void DefaultValues() { }
@@ -655,7 +655,7 @@ namespace CloudberryKingdom
         public float OscillateGravity1 = 2.534208f, OscillateGravity2 = 2.91155f;
         void OscillatePhsx()
         {
-            float t = MyBob.Core.GetPhsxStep();
+            float t = MyBob.CoreData.GetPhsxStep();
             float scale = CoreMath.Periodic(OscillateSize1, OscillateSize2, 30 * OscillatePeriod, t, 90);
             ScaledFactor = scale;
 
@@ -767,14 +767,14 @@ namespace CloudberryKingdom
             }
 
             // Jump if the current block we're on says to jump
-            if (ObjectLandedOn != null && OnGround && ObjectLandedOn.Core.GenData.JumpNow)
+            if (ObjectLandedOn != null && OnGround && ObjectLandedOn.CoreData.GenData.JumpNow)
                 MyBob.CurInput.A_Button = true;
 
             // Copy another bob's input
             //if (MyBob.MyPieceIndex > 0 && MyBob.MoveData.Copy >= 0)
             if (MyBob.MoveData.Copy >= 0)
             {
-                MyBob.CurInput = MyBob.Core.MyLevel.Bobs[MyBob.MoveData.Copy].CurInput;
+                MyBob.CurInput = MyBob.CoreData.MyLevel.Bobs[MyBob.MoveData.Copy].CurInput;
             }
 
             // Stay left of lowest bob
@@ -834,7 +834,7 @@ namespace CloudberryKingdom
 
         public virtual void IncrementJumpCounter()
         {
-            if (!MyBob.CompControl && !MyBob.Core.MyLevel.Watching && MyBob.Core.MyLevel.PlayMode == 0)
+            if (!MyBob.CompControl && !MyBob.CoreData.MyLevel.Watching && MyBob.CoreData.MyLevel.PlayMode == 0)
             {
                 MyBob.MyStats.Jumps++;
             }
@@ -853,8 +853,8 @@ namespace CloudberryKingdom
 
         public bool SkipInteraction(BlockBase block)
         {
-            if (block.Core.MarkedForDeletion || !block.Core.Active || !block.IsActive || !block.Core.Real) return true;
-            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.Core.DrawLayer <= Core.DrawLayer) return true;
+            if (block.CoreData.MarkedForDeletion || !block.CoreData.Active || !block.IsActive || !block.CoreData.Real) return true;
+            if (block.BlockCore.OnlyCollidesWithLowerLayers && block.CoreData.DrawLayer <= Core.DrawLayer) return true;
             return false;
         }
 

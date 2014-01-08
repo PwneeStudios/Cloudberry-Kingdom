@@ -25,7 +25,7 @@ namespace CloudberryKingdom
 
         public override void Construct(bool BoxesOnly)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             Box = new AABox();
 
@@ -34,7 +34,7 @@ namespace CloudberryKingdom
 
         public virtual Vector2 GetBoxPos()
         {
-            return Pos;
+            return CoreData.Data.Position;
         }
 
         public override void Init(Vector2 pos, Levels.Level level)
@@ -58,18 +58,18 @@ namespace CloudberryKingdom
 
         protected override void ActivePhsxStep()
         {
-            Box.SetTarget(Pos, BoxSize);
+            Box.SetTarget(CoreData.Data.Position, BoxSize);
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Box.SwapToCurrent();
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
         public override void PhsxStep2()
         {
-            if (Core.SkippedPhsx) return;
+            if (CoreData.SkippedPhsx) return;
 
             Box.SwapToCurrent();
         }
@@ -93,23 +93,23 @@ namespace CloudberryKingdom
 
         public override void Interact(Bob bob)
         {
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
             {
                 bool Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
 
                 if (Col)
                 {
-                    if (Core.MyLevel.PlayMode == 0)
+                    if (CoreData.MyLevel.PlayMode == 0)
                         bob.Die(DeathType, this);
 
-                    if (Core.MyLevel.PlayMode != 0)
+                    if (CoreData.MyLevel.PlayMode != 0)
                     {
-                        bool col = Phsx.BoxBoxOverlap_Tiered(Box, Core, bob, AutoGenSingleton);
+                        bool col = Phsx.BoxBoxOverlap_Tiered(Box, CoreData, bob, AutoGenSingleton);
 
                         if (col)
                         {
                             //if ((Pos - bob.Pos).Length() > 2000) Tools.Write(0);
-                            Core.Recycle.CollectObject(this);
+                            CoreData.Recycle.CollectObject(this);
                         }
                     }
                 }
@@ -118,9 +118,9 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }

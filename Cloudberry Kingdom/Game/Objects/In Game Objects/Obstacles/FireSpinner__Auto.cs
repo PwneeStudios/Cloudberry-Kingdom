@@ -138,7 +138,7 @@ namespace CloudberryKingdom.Levels
 
             foreach (BlockBase block in level.Blocks)
             {
-                if (block.Core.Placed) continue;
+                if (block.CoreData.Placed) continue;
 
                 if (block.BlockCore.Virgin) continue;
                 if (block.BlockCore.Finalized) continue;
@@ -146,8 +146,8 @@ namespace CloudberryKingdom.Levels
 
                 // Add fire spinners
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 30;
-                float density = level.Rnd.RndFloat(Params.MinDensity.GetVal(block.Core.Data.Position),
-                                                  Params.MaxDensity.GetVal(block.Core.Data.Position));
+                float density = level.Rnd.RndFloat(Params.MinDensity.GetVal(block.CoreData.Data.Position),
+                                                  Params.MaxDensity.GetVal(block.CoreData.Data.Position));
                 float average = (int)(xdif * density / 2000f);
                 int n = (int)average;
                 if (average < 1) if (level.Rnd.Rnd.NextDouble() < average) n = 1;
@@ -172,12 +172,12 @@ namespace CloudberryKingdom.Levels
                         FireSpinner spinner;
 
                         spinner = (FireSpinner)level.Recycle.GetObject(ObjectType.FireSpinner, true);
-                        spinner.Core.StartData.Position = spinner.Core.Data.Position = new Vector2(x, y);
+                        spinner.CoreData.StartData.Position = spinner.CoreData.Data.Position = new Vector2(x, y);
 
                         spinner.Orientation = 1;
-                        spinner.Radius = Params.Length.GetVal(block.Core.Data.Position);
+                        spinner.Radius = Params.Length.GetVal(block.CoreData.Data.Position);
 
-                        int Period = (int)Params.Period.GetVal(block.Core.Data.Position);
+                        int Period = (int)Params.Period.GetVal(block.CoreData.Data.Position);
 
                         int NumOffsets = Params.NumOffsets;
                         Period = (int)(Period / NumOffsets) * NumOffsets;

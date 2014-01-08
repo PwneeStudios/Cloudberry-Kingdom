@@ -51,7 +51,7 @@ namespace CloudberryKingdom
         public Action<MenuListExpand,MenuItem> AdditionalExpandProcessing;
         public void Expand()
         {
-            if (MyMenuListExpand == null || MyMenuListExpand.Core.Released)
+            if (MyMenuListExpand == null || MyMenuListExpand.CoreData.Released)
             {
                 MyMenuListExpand = new MenuListExpand(this.Control, this);
                 Tools.CurGameData.AddGameObject(MyMenuListExpand);
@@ -349,7 +349,7 @@ namespace CloudberryKingdom
         {
             base.PhsxStep(Selected);
 
-            if (MyMenuListExpand != null && MyMenuListExpand.Core.Released)
+            if (MyMenuListExpand != null && MyMenuListExpand.CoreData.Released)
                 MyMenuListExpand = null;
 
             HoldSelected = Selected;
@@ -437,7 +437,7 @@ namespace CloudberryKingdom
 			//    LeftArrow_Selected.Draw();
 			//}
 
-            if (MyMenu.CurDrawLayer != MyDrawLayer || !Show || (MyMenuListExpand != null && !MyMenuListExpand.Core.Released))
+            if (MyMenu.CurDrawLayer != MyDrawLayer || !Show || (MyMenuListExpand != null && !MyMenuListExpand.CoreData.Released))
                 return;
 
             base.Draw(false, cam, Selected);

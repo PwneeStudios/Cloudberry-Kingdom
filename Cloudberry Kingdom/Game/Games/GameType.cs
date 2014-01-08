@@ -108,12 +108,12 @@ namespace CloudberryKingdom
         public static void EOL_DoorAction(Door door)
         {
             StatGroup group = door.Game.MyStatGroup;
-            GameData game = door.Core.MyLevel.MyGame;
+            GameData game = door.CoreData.MyLevel.MyGame;
 
             game.HasBeenCompleted = true;
 
             // Give bonus to completing player
-            door.Core.MyLevel.EndOfLevelBonus(door.InteractingBob.MyPlayerData);
+            door.CoreData.MyLevel.EndOfLevelBonus(door.InteractingBob.MyPlayerData);
                       
             // Close the door
             door.SetLock(true, false, true);
@@ -126,7 +126,7 @@ namespace CloudberryKingdom
             door.OnOpen = null;
 
             // End this level
-            door.Core.MyLevel.EndLevel();
+            door.CoreData.MyLevel.EndLevel();
 
             // Calculate level stats
             PlayerManager.AbsorbTempStats();
@@ -134,18 +134,18 @@ namespace CloudberryKingdom
                 PlayerManager.AbsorbLevelStats();
 
             // Hide the player
-            door.InteractingBob.Core.Show = false;
+            door.InteractingBob.CoreData.Show = false;
 
             // Add the score
             ExplodeBobs explode = new ExplodeBobs(ExplodeBobs.Speed.Regular);
-            door.Core.MyLevel.MyGame.AddGameObject(explode);
+            door.CoreData.MyLevel.MyGame.AddGameObject(explode);
             explode.OnDone = () =>
             {
                 if (game.MakeScore == null) return;
 
                 GameObject ScoreObj = game.MakeScore();
                 if (ScoreObj == null) return;
-                door.Core.MyLevel.MyGame.AddGameObject(ScoreObj);
+                door.CoreData.MyLevel.MyGame.AddGameObject(ScoreObj);
 
                 // Absorb game stats
                 PlayerManager.AbsorbLevelStats();
@@ -970,9 +970,9 @@ namespace CloudberryKingdom
                     bob.DeadCount = 0;
 
                     bob.Init(false, bob.MyPiece.StartData[bob.MyPieceIndex], this);
-                    bob.Move(CheckpointBob.Core.Data.Position - bob.Core.Data.Position);
+                    bob.Move(CheckpointBob.CoreData.Data.Position - bob.CoreData.Data.Position);
 
-                    ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position, 155);
+                    ParticleEffects.AddPop(MyLevel, bob.CoreData.Data.Position, 155);
                 }
             }
 
@@ -1018,7 +1018,7 @@ namespace CloudberryKingdom
                 {
                     if (!PlayerManager.Get((int)bob.MyPlayerIndex).Exists)
                     {
-                        ParticleEffects.AddPop(MyLevel, bob.Core.Data.Position);
+                        ParticleEffects.AddPop(MyLevel, bob.CoreData.Data.Position);
                         Tools.SoundWad.FindByName("Pop_2").Play();
 
                         return true;
@@ -1074,13 +1074,13 @@ namespace CloudberryKingdom
             Player.Init(false, MyLevel.CurPiece.StartData[0], this);
             Bob TargetBob = MyLevel.Bobs.Find(delegate(Bob bob) { return bob != Player && !bob.Dying; });
             if (TargetBob != null)
-                Player.Move(new Vector2(20, 450) + TargetBob.Core.Data.Position - Player.Core.Data.Position);
+                Player.Move(new Vector2(20, 450) + TargetBob.CoreData.Data.Position - Player.CoreData.Data.Position);
             else
-                Player.Move(new Vector2(0, 750) + MyLevel.MainCamera.Data.Position - Player.Core.Data.Position);
+                Player.Move(new Vector2(0, 750) + MyLevel.MainCamera.Data.Position - Player.CoreData.Data.Position);
 
             if (Pop)
             {
-                ParticleEffects.AddPop(MyLevel, Player.Core.Data.Position);
+                ParticleEffects.AddPop(MyLevel, Player.CoreData.Data.Position);
                 Tools.SoundWad.FindByName("Pop_2").Play();
             }
         }
@@ -1228,13 +1228,13 @@ namespace CloudberryKingdom
                 Tools.StartGUIDraw();
                 foreach (GameObject obj in MyGameObjects)
                 {
-                    if (obj.Core.Released || obj.Core.MarkedForDeletion) { obj.Core.MarkedForDeletion = true; continue; }
+                    if (obj.CoreData.Released || obj.CoreData.MarkedForDeletion) { obj.CoreData.MarkedForDeletion = true; continue; }
 
                     // Update object if game is not paused,
                     // or if object updates regardless.
-                    if (obj.Core.Active && !(PauseGame && obj.PauseOnPause))
+                    if (obj.CoreData.Active && !(PauseGame && obj.PauseOnPause))
                     {
-                        if (obj.Core.MyLevel == null)
+                        if (obj.CoreData.MyLevel == null)
                             MyLevel.AddObject(obj);
                         obj.PhsxStep();
                     }
@@ -1247,7 +1247,7 @@ namespace CloudberryKingdom
             // Clean GameObjects
             foreach (GameObject obj in MyGameObjects)
             {
-                if (obj.Core.MarkedForDeletion)
+                if (obj.CoreData.MarkedForDeletion)
                     obj.Release();
             }
             CleanGameObjects();
@@ -1355,7 +1355,7 @@ namespace CloudberryKingdom
 
         private void CleanGameObjects()
         {
-            MyGameObjects.RemoveAll(match => match.Core.MarkedForDeletion);
+            MyGameObjects.RemoveAll(match => match.CoreData.MarkedForDeletion);
         }
 
         public virtual void Move(Vector2 shift)
@@ -1559,7 +1559,7 @@ namespace CloudberryKingdom
             if (MyLevel.Bobs.Count > 0)
             {
                 foreach (Bob bob in MyLevel.Bobs)
-                    if (bob.Core.Data.Position.X > x)
+                    if (bob.CoreData.Data.Position.X > x)
                         OnePast = true;
 
                 return OnePast;
@@ -1574,7 +1574,7 @@ namespace CloudberryKingdom
             if (MyLevel.Bobs.Count > 0)
             {
                 foreach (Bob bob in MyLevel.Bobs)
-                    if (bob.Core.Data.Position.X < x)
+                    if (bob.CoreData.Data.Position.X < x)
                         AllPast = false;
 
                 return AllPast;
@@ -1744,7 +1744,7 @@ namespace CloudberryKingdom
         public void RemoveLastCoinText()
         {
             foreach (GameObject gameobj in MyGameObjects)
-                if (gameobj.Core.AddedTimeStamp == MyLevel.CurPhsxStep)
+                if (gameobj.CoreData.AddedTimeStamp == MyLevel.CurPhsxStep)
                     gameobj.Release();
         }
 
@@ -1802,7 +1802,7 @@ namespace CloudberryKingdom
             // Open the door and show the bobs
             CinematicToDo(Wait, () =>
             {
-                MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
+                MyLevel.Bobs.ForEach(bob => bob.CoreData.Show = false);
                 door.SetLock(false, false, true);
                 door.MoveBobs();
                 door.ShowBobs();
@@ -1827,10 +1827,10 @@ namespace CloudberryKingdom
                 CinematicToDo(DramaticEntryWait[3] + Wait, () =>
                 {
                     door.Shake(19, 11, true);
-                    foreach (Bob bob in door.Core.MyLevel.Bobs)
+                    foreach (Bob bob in door.CoreData.MyLevel.Bobs)
                     {
                         bob.PlayerObject.EnqueueAnimation(2, 0, false, true, false, 10);
-                        bob.Core.Data.Velocity += DramaticEntryVel;
+                        bob.CoreData.Data.Velocity += DramaticEntryVel;
                     }
                 });
             });
@@ -1842,26 +1842,26 @@ namespace CloudberryKingdom
         {
             foreach (Bob bob in MyLevel.Bobs)
             {
-                bob.Core.Data.Velocity = Vector2.Zero;
-                bob.Core.Data.Acceleration = Vector2.Zero;
+                bob.CoreData.Data.Velocity = Vector2.Zero;
+                bob.CoreData.Data.Acceleration = Vector2.Zero;
 
-                bool HoldShow = bob.Core.Show;
-                bob.Core.Show = true;
+                bool HoldShow = bob.CoreData.Show;
+                bob.CoreData.Show = true;
                 //bob.PhsxStep();
                 bob.AnimAndUpdate();
                 //bob.PhsxStep2();
-                bob.Core.Show = HoldShow;
+                bob.CoreData.Show = HoldShow;
             }
         }
 
         public void HideBobs()
         {
-            MyLevel.Bobs.ForEach(bob => bob.Core.Show = false);
+            MyLevel.Bobs.ForEach(bob => bob.CoreData.Show = false);
         }
 
         public void ShowBobs()
         {
-            MyLevel.Bobs.ForEach(bob => bob.Core.Show = true);
+            MyLevel.Bobs.ForEach(bob => bob.CoreData.Show = true);
         }
         #endregion
 

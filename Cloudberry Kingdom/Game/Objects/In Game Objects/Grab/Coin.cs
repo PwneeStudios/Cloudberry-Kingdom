@@ -31,13 +31,13 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void MakeNew()
         {
-            Core.Init();
+            CoreData.Init();
 
             MyValue = 1;
             MyScoreValue = 50;
 
-            Core.MyType = ObjectType.Coin;
-            Core.DrawLayer = 5;
+            CoreData.MyType = ObjectType.Coin;
+            CoreData.DrawLayer = 5;
 
             Box.Initialize(Vector2.Zero, Vector2.One);
 
@@ -66,43 +66,43 @@ namespace CloudberryKingdom.InGameObjects
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public static Vector2 PosOfLastCoinGrabbed;
         public void Die()
         {
-            if (Core.MyLevel.PlayMode != 0) return;
+            if (CoreData.MyLevel.PlayMode != 0) return;
 
-            PosOfLastCoinGrabbed = Pos;
+            PosOfLastCoinGrabbed = CoreData.Data.Position;
 
-            Core.Active = false;
+            CoreData.Active = false;
 
             Info.Coins.MySound.Play(.4f, .1f, 0);
 
             // Effect
             if (Info.Coins.ShowEffect)
             {
-                ParticleEffects.CoinDie_New(MyLevel, Pos);
-                ParticleEffects.CoinDie_Old(MyLevel, Pos);
+                ParticleEffects.CoinDie_New(MyLevel, CoreData.Data.Position);
+                ParticleEffects.CoinDie_Old(MyLevel, CoreData.Data.Position);
             }
 
             // Text float
-            if (Info.Coins.ShowText && Core.MyLevel.MyGame.MyBankType != GameData.BankType.Campaign)
+            if (Info.Coins.ShowText && CoreData.MyLevel.MyGame.MyBankType != GameData.BankType.Campaign)
             {
 				MyGame.CalculateCoinScoreMultiplier();
                 int val = CalcScoreValue();
-                TextFloat text = new TextFloat("+" + val.ToString(), Core.Data.Position + new Vector2(21, 22.5f));
-                text.Core.DrawLayer = 8;
-                Core.MyLevel.MyGame.AddGameObject(text);
+                TextFloat text = new TextFloat("+" + val.ToString(), CoreData.Data.Position + new Vector2(21, 22.5f));
+                text.CoreData.DrawLayer = 8;
+                CoreData.MyLevel.MyGame.AddGameObject(text);
             }
-			else if (Core.MyLevel.MyGame.MyBankType == GameData.BankType.Campaign)
+			else if (CoreData.MyLevel.MyGame.MyBankType == GameData.BankType.Campaign)
 			{
 				ParticleEffects.CoinDie_Campaign(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
 			}
         }
 
-        GameData MyGame { get { return Core.MyLevel.MyGame; } }
+        GameData MyGame { get { return CoreData.MyLevel.MyGame; } }
 
         public int CalcScoreValue()
         {
@@ -116,9 +116,9 @@ namespace CloudberryKingdom.InGameObjects
         {
             MyType = type;
 
-            Box.Initialize(Core.Data.Position, Info.Coins.BoxSize);
+            Box.Initialize(CoreData.Data.Position, Info.Coins.BoxSize);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             switch (MyType)
             {
                 case CoinType.Blue:
@@ -139,16 +139,16 @@ namespace CloudberryKingdom.InGameObjects
         Vector2 Radii = new Vector2(0, 120);
         public Vector2 GetPos()
         {
-            double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / (float)Period;
-            return new Vector2((float)Math.Cos(t)) * Radii + Core.StartData.Position;
+            double t = 2 * Math.PI * (CoreData.GetPhsxStep() + Offset) / (float)Period;
+            return new Vector2((float)Math.Cos(t)) * Radii + CoreData.StartData.Position;
         }
 
         public override void PhsxStep()
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
 
             if (!AlwaysActive)
-            if (!Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 200))
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, 200))
             {
                 if (!MyLevel.BoxesOnly)
                 {
@@ -157,11 +157,11 @@ namespace CloudberryKingdom.InGameObjects
                     MyQuad.Quad.t = 0;
                 }
 
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
             // Shimmer
             if (!MyLevel.BoxesOnly)
@@ -172,58 +172,58 @@ namespace CloudberryKingdom.InGameObjects
             }
 
             if (MyType == CoinType.Red)
-                Core.Data.Position = GetPos();
+                CoreData.Data.Position = GetPos();
             else
-                Core.Data.Position = Core.StartData.Position;
-            Core.Data.Position += new Vector2(0, 4.65f * (float)Math.Sin(.075f * (Core.MyLevel.CurPhsxStep) + Core.AddedTimeStamp));
+                CoreData.Data.Position = CoreData.StartData.Position;
+            CoreData.Data.Position += new Vector2(0, 4.65f * (float)Math.Sin(.075f * (CoreData.MyLevel.CurPhsxStep) + CoreData.AddedTimeStamp));
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Box.SwapToCurrent();
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
         public override void PhsxStep2()
         {
-            if (!Core.Active) return;
-            if (Core.SkippedPhsx) return;
+            if (!CoreData.Active) return;
+            if (CoreData.SkippedPhsx) return;
 
             Box.SwapToCurrent();
         }
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
 
-            Pos = Core.StartData.Position;
+            CoreData.Data.Position = CoreData.StartData.Position;
         }
 
         public override void Move(Vector2 shift)
         {
-            Core.StartData.Position += shift;
-            Pos += shift;
+            CoreData.StartData.Position += shift;
+            CoreData.Data.Position += shift;
 
             Box.Move(shift);
         }
 
         public override void Interact(Bob bob)
         {
-            if (!Core.Active) return;
-            if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
+            if (!CoreData.Active) return;
+            if (CoreData.MyLevel.SuppressCheckpoints && !CoreData.MyLevel.ShowCoinsInReplay) return;
 
             bool Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
             if (Col)
             {
                 Die();
 
-                if (Core.MyLevel.PlayMode == 0 && !Core.MyLevel.Watching)
+                if (CoreData.MyLevel.PlayMode == 0 && !CoreData.MyLevel.Watching)
                 {
-                    Core.InteractingBob = bob;
+                    CoreData.InteractingBob = bob;
 
-                    GameData game = Core.MyLevel.MyGame;
+                    GameData game = CoreData.MyLevel.MyGame;
 
                     // Add the value to the player's stats
                     int CurScoreValue = CalcScoreValue();
@@ -243,7 +243,7 @@ namespace CloudberryKingdom.InGameObjects
 
                     // Remove the coin permanently if it can only be grabbed once
                     if (game.TakeOnce)
-                        Core.Recycle.CollectObject(this);
+                        CoreData.Recycle.CollectObject(this);
                 }
             }
         }
@@ -251,23 +251,23 @@ namespace CloudberryKingdom.InGameObjects
         static Vector2 DrawGrace = new Vector2(50, 50);
         public override void Draw()
         {
-            if (!Core.Active) return;
-            if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
+            if (!CoreData.Active) return;
+            if (CoreData.MyLevel.SuppressCheckpoints && !CoreData.MyLevel.ShowCoinsInReplay) return;
 
-            if (Box.Current.BL.X > Core.MyLevel.MainCamera.TR.X + DrawGrace.X || Box.Current.BL.Y > Core.MyLevel.MainCamera.TR.Y + DrawGrace.Y)
+            if (Box.Current.BL.X > CoreData.MyLevel.MainCamera.TR.X + DrawGrace.X || Box.Current.BL.Y > CoreData.MyLevel.MainCamera.TR.Y + DrawGrace.Y)
                 return;
-            if (Box.Current.TR.X < Core.MyLevel.MainCamera.BL.X - DrawGrace.X || Box.Current.TR.Y < Core.MyLevel.MainCamera.BL.Y - DrawGrace.Y)
+            if (Box.Current.TR.X < CoreData.MyLevel.MainCamera.BL.X - DrawGrace.X || Box.Current.TR.Y < CoreData.MyLevel.MainCamera.BL.Y - DrawGrace.Y)
                 return;
 
-            if (Tools.DrawGraphics && Info.Coins.ShowCoin && !Core.BoxesOnly)
+            if (Tools.DrawGraphics && Info.Coins.ShowCoin && !CoreData.BoxesOnly)
             {
-                MyQuad.Pos = Pos;
+                MyQuad.Pos = CoreData.Data.Position;
                 MyQuad.Draw();
             }
 
 			if (Tools.DrawBoxes)
 			{
-				Tools.QDrawer.DrawCircle(Pos, 38, new Color(255, 134, 26, 235));
+				Tools.QDrawer.DrawCircle(CoreData.Data.Position, 38, new Color(255, 134, 26, 235));
 
 				//Box.DrawFilled(Tools.QDrawer, new Color(255, 134, 26, 220));
 				//Box.Draw(Tools.QDrawer, Color.Bisque, 10);
@@ -276,7 +276,7 @@ namespace CloudberryKingdom.InGameObjects
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Coin CoinA = A as Coin;
 

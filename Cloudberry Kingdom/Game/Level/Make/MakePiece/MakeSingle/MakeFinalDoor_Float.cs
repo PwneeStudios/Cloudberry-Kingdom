@@ -67,8 +67,8 @@ namespace CloudberryKingdom.Levels
                 block.BlockCore.EndPiece = true;
                 ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(-130, -600), new Vector2(400, 400), MyLevel.MyTileSetInfo);
                 
-                block.Core.DrawLayer = 0;
-                block.Core.Real = false;
+                block.CoreData.DrawLayer = 0;
+                block.CoreData.Real = false;
             }
             // Old style end blocks
             else
@@ -77,7 +77,7 @@ namespace CloudberryKingdom.Levels
                 int width = 400;
                 FinalBlock = (NormalBlock)MyLevel.Recycle.GetObject(ObjectType.NormalBlock, true);
                 ((NormalBlock)FinalBlock).Init(FinalPos + new Vector2(130, 0), new Vector2(width), MyLevel.MyTileSetInfo);
-                FinalBlock.Core.MyTileSet = MyLevel.MyTileSet;
+                FinalBlock.CoreData.MyTileSet = MyLevel.MyTileSet;
             }
         }
 
@@ -140,14 +140,14 @@ namespace CloudberryKingdom.Levels
 
         public static void SetFinalDoor(Door door, Level level, Vector2 FinalPos)
         {
-            door.Core.EditorCode1 = LevelConnector.EndOfLevelCode;
+            door.CoreData.EditorCode1 = LevelConnector.EndOfLevelCode;
 
             // Attach an action to the door
             AttachDoorAction(door);
 
             // Mod CameraZone
             CameraZone camzone = (CameraZone)level.Objects.Find(obj =>
-                obj.Core.MyType == ObjectType.CameraZone);
+                obj.CoreData.MyType == ObjectType.CameraZone);
 
             camzone.End.X = FinalPos.X - level.MainCamera.GetWidth() / 2 + 420;
 

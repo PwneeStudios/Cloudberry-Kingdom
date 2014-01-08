@@ -289,7 +289,7 @@ namespace CloudberryKingdom
                             var file = bits[dict["file"] + 1];
 
                             AnimationData_Texture sprite_anim = null;
-                            if (dict.ContainsKey("frames"))
+                            if (dict.CustomContainsKey("frames"))
                             {
                                 int start_frame = int.Parse(bits[dict["frames"] + 1]);
                                 int end_frame;
@@ -300,7 +300,7 @@ namespace CloudberryKingdom
                                 sprite_anim = new AnimationData_Texture(file, start_frame, end_frame);
                             }
 
-                            if (dict.ContainsKey("frame_length"))
+                            if (dict.CustomContainsKey("frame_length"))
                             {
                                 var frame_length = int.Parse(bits[dict["frame_length"] + 1]);
                                 sprite_anim.Anims[0].Speed = 1f / frame_length;
@@ -613,7 +613,7 @@ namespace CloudberryKingdom
         static TileSet GetOrMakeTileset(string path)
         {
             TileSet tileset;
-            if (PathLookup.ContainsKey(path))
+            if (PathLookup.CustomContainsKey(path))
             {
                 tileset = PathLookup[path];
                 tileset.MakeNew();

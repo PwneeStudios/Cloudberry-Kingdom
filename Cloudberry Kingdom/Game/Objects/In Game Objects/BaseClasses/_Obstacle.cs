@@ -30,7 +30,7 @@ namespace CloudberryKingdom
         {
             get
             {
-                return Core.BoxesOnly ? PhsxCutoff_BoxesOnly : PhsxCutoff_Playing;
+                return CoreData.BoxesOnly ? PhsxCutoff_BoxesOnly : PhsxCutoff_Playing;
             }
         }
 
@@ -40,11 +40,11 @@ namespace CloudberryKingdom
         {
             base.MakeNew();
 
-            Core.Init();
-            Core.GenData.OverlapWidth = 60;
+            CoreData.Init();
+            CoreData.GenData.OverlapWidth = 60;
 
-            Core.SkippedPhsx = true;
-            Core.ContinuousEnabled = true;
+            CoreData.SkippedPhsx = true;
+            CoreData.ContinuousEnabled = true;
         }
 
         public virtual void Die()
@@ -53,33 +53,33 @@ namespace CloudberryKingdom
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
 
-            Core.Data = Core.StartData;
+            CoreData.Data = CoreData.StartData;
         }
 
         public override void PhsxStep()
         {
             base.PhsxStep();
 
-            Core.PosFromParentOffset();
+            CoreData.PosFromParentOffset();
 
-            if (!Core.MyLevel.MainCamera.OnScreen(Pos, PhsxCutoff))
+            if (!CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, PhsxCutoff))
             {
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
             ActivePhsxStep();
         }
 
         public override void Draw()
         {
-            if (Core.SkippedPhsx) return;
+            if (CoreData.SkippedPhsx) return;
 
-            if (Tools.DrawGraphics && Core.MyLevel.PlayMode == 0)
+            if (Tools.DrawGraphics && CoreData.MyLevel.PlayMode == 0)
             {
                 DrawGraphics();
             }

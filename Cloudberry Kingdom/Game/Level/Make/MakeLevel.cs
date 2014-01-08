@@ -175,7 +175,7 @@ namespace CloudberryKingdom
                         data.Position.X = level.LevelPieces[0].StartData[0].Position.X;
                         data.Position += level.LevelPieces[0].CheckpointShift[i];
 
-                        checkpoint.Core.StartData = checkpoint.Core.Data = data;
+                        checkpoint.CoreData.StartData = checkpoint.CoreData.Data = data;
 
                         checkpoint.MyPiece = level.LevelPieces[0];
                         checkpoint.MyPieceIndex = i;
@@ -209,7 +209,7 @@ namespace CloudberryKingdom
             }
 
             // Cleanup lava
-            List<BlockBase> Lavas = NewLevel.Blocks.FindAll(block => block.Core.MyType == ObjectType.LavaBlock);
+            List<BlockBase> Lavas = NewLevel.Blocks.FindAll(block => block.CoreData.MyType == ObjectType.LavaBlock);
             if (Lavas.Count > 0)
             {
                 // Find the lowest watermark

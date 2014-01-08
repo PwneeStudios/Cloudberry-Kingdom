@@ -29,25 +29,25 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = Boulder_AutoGen.Instance;
-            Core.MyType = ObjectType.SpikeyLine;
+            CoreData.MyType = ObjectType.SpikeyLine;
             DeathType = Bobs.BobDeathType.FallingSpike;
 
-            Core.ContinuousEnabled = true;
+            CoreData.ContinuousEnabled = true;
 
             Period = 150;
             Offset = 0;
             p1 = new Vector2(0, 1300);
             p2 = new Vector2(0, -1300);
 
-            Core.DrawLayer = 2;
-            Core.DrawLayer2 = 6;
+            CoreData.DrawLayer = 2;
+            CoreData.DrawLayer2 = 6;
         }
 
         public override void Init(Vector2 pos, Level level)
         {
             base.Init(pos, level);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 Head.Set(level.Info.SpikeyLines.Ball);
             }
@@ -57,7 +57,7 @@ namespace CloudberryKingdom.Obstacles
         {
             base.Construct(BoxesOnly);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 Head = new QuadClass();
             }
@@ -77,20 +77,20 @@ namespace CloudberryKingdom.Obstacles
         public override void PhsxStep()
         {
             float PhsxCutoff = 360;
-            if (!Core.MyLevel.MainCamera.OnScreen(p1, PhsxCutoff) && !Core.MyLevel.MainCamera.OnScreen(p2, PhsxCutoff))
+            if (!CoreData.MyLevel.MainCamera.OnScreen(p1, PhsxCutoff) && !CoreData.MyLevel.MainCamera.OnScreen(p2, PhsxCutoff))
             {
-                Core.SkippedPhsx = true;
-                Core.WakeUpRequirements = true;
+                CoreData.SkippedPhsx = true;
+                CoreData.WakeUpRequirements = true;
                 return;
             }
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
 
-            float Step = CoreMath.Modulo(Core.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
+            float Step = CoreMath.Modulo(CoreData.MyLevel.GetIndependentPhsxStep() + Offset, (float)Period);
             float t = (float)Step / (float)Period;
 
             Vector2 v = GetPos(t);
 
-            Core.Data.Position = v;
+            CoreData.Data.Position = v;
             //CoreMath.PointxAxisToAngle(ref MyObject.Base, Core.MyLevel.CurPhsxStep / 20f);
 
             Radius = Info.SpikeyLines.Radius;
@@ -102,11 +102,11 @@ namespace CloudberryKingdom.Obstacles
         bool OffScreen = false;
         protected override void DrawGraphics()
         {
-            if (Core.SkippedPhsx) return;
+            if (CoreData.SkippedPhsx) return;
 
-            if (Core.MyLevel.CurrentDrawLayer == Core.DrawLayer)
+            if (CoreData.MyLevel.CurrentDrawLayer == CoreData.DrawLayer)
             {
-                if (Core.MyLevel.MainCamera.OnScreen(Core.Data.Position, 200))
+                if (CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, 200))
                     OffScreen = false;
                 else
                 {
@@ -122,7 +122,7 @@ namespace CloudberryKingdom.Obstacles
             else
                 Head.PointxAxisTo(Info.SpikeyLines.RotateOffset);
 
-            Head.Pos = Pos;
+            Head.Pos = CoreData.Data.Position;
             Head.Draw();
         }
 
@@ -141,7 +141,7 @@ namespace CloudberryKingdom.Obstacles
             float t = step;
             while (t <= 1)
             {
-                TR = Vector2.Max(TR, GetPos(t));
+                TR = Vector2Extension.Max(TR, GetPos(t));
                 t += step;
             }
 
@@ -155,7 +155,7 @@ namespace CloudberryKingdom.Obstacles
             float t = step;
             while (t <= 1)
             {
-                BL = Vector2.Min(BL, GetPos(t));
+                BL = Vector2Extension.Min(BL, GetPos(t));
                 t += step;
             }
 
@@ -169,17 +169,17 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             SpikeyLine FloaterA = A as SpikeyLine;
-            Init(FloaterA.Pos, FloaterA.MyLevel);
+            Init(FloaterA.CoreData.Data.Position, FloaterA.MyLevel);
 
             Period = FloaterA.Period;
             Offset = FloaterA.Offset;
             p1 = FloaterA.p1;
             p2 = FloaterA.p2;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }

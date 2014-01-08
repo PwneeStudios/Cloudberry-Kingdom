@@ -25,7 +25,7 @@ namespace CloudberryKingdom
             if (!CloudberryKingdomGame.Unlock_Levels)
             {
 				int level = PlayerManager.MinPlayerTotalCampaignLevel();
-				if (CampaignSequence.Instance.ChapterEnd.ContainsKey(Chapter - 1))
+				if (CampaignSequence.Instance.ChapterEnd.CustomContainsKey(Chapter - 1))
 					Locked = level < CampaignSequence.Instance.ChapterEnd[Chapter - 1];
             }
         }

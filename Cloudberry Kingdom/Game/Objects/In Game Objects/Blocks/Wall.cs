@@ -76,7 +76,7 @@ namespace CloudberryKingdom.Blocks
 
         private void MakeSpike(int count, float pos)
         {
-            Spike spike = (Spike)Core.MyLevel.Recycle.GetObject(ObjectType.Spike, false);
+            Spike spike = (Spike)CoreData.MyLevel.Recycle.GetObject(ObjectType.Spike, false);
             spike.Init(Vector2.Zero, MyLevel);
 
             if (Horizontal)
@@ -84,14 +84,14 @@ namespace CloudberryKingdom.Blocks
                 float SpikeSideOffset = Info.Spikes.SideOffset;
                 float x = Box.Target.TR.X + SpikeSideOffset;
                 spike.SetDir(3);
-                spike.Core.StartData.Position = spike.Pos = new Vector2(x, pos);
+                spike.CoreData.StartData.Position = spike.CoreData.Data.Position = new Vector2(x, pos);
             }
             else
             {
                 float SpikeTopOffset = Info.Spikes.TopOffset;
                 float y = Box.Target.TR.Y + SpikeTopOffset;
                 spike.SetDir(0);
-                spike.Core.StartData.Position = spike.Pos = new Vector2(pos, y);
+                spike.CoreData.StartData.Position = spike.CoreData.Data.Position = new Vector2(pos, y);
             }
 
             
@@ -101,7 +101,7 @@ namespace CloudberryKingdom.Blocks
             spike.Offset = count % 2 == 0 ? 0 : 50 / 2;
 
             spike.SetParentBlock(this);
-            Core.MyLevel.AddObject(spike);
+            CoreData.MyLevel.AddObject(spike);
         }
 
         public float Speed = 16.5f;
@@ -112,16 +112,16 @@ namespace CloudberryKingdom.Blocks
         {
             BlockCore.Init();
             BlockCore.MyType = ObjectType.Wall;
-            Core.DrawLayer = 9;
+            CoreData.DrawLayer = 9;
 
             Active = false;
 
             BlockCore.Layer = .7f;
 
-            Core.RemoveOnReset = false;
+            CoreData.RemoveOnReset = false;
             BlockCore.HitHead = true;
 
-            Core.EditHoldable = Core.Holdable = true;
+            CoreData.EditHoldable = CoreData.Holdable = true;
         }
 
         QuadClass MyQuad;
@@ -132,12 +132,12 @@ namespace CloudberryKingdom.Blocks
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public override void ResetPieces()
         {
-            if (Core.MyLevel == null) return;
+            if (CoreData.MyLevel == null) return;
 
             MyQuad.Set(Info.Walls.Sprite);
         }
@@ -159,9 +159,9 @@ namespace CloudberryKingdom.Blocks
             }
 
             MyBox.Initialize(center, size);
-            Core.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
+            CoreData.Data.Position = BlockCore.Data.Position = BlockCore.StartData.Position = center;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
 
             Update();
@@ -169,7 +169,7 @@ namespace CloudberryKingdom.Blocks
 
         public void MoveBack(Vector2 shift)
         {
-            Core.Data.Position += shift;
+            CoreData.Data.Position += shift;
             if (Horizontal)
                 StartOffset += shift.X;
             else
@@ -195,16 +195,16 @@ namespace CloudberryKingdom.Blocks
         {
             BlockCore.BoxesOnly = BoxesOnly;
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
 
-            Core.Data = BlockCore.Data = BlockCore.StartData;
+            CoreData.Data = BlockCore.Data = BlockCore.StartData;
             if (Horizontal)
-                Core.Data.Position += new Vector2(StartOffset, 0);
+                CoreData.Data.Position += new Vector2(StartOffset, 0);
             else
-                Core.Data.Position += new Vector2(0, StartOffset);
+                CoreData.Data.Position += new Vector2(0, StartOffset);
 
-            MyBox.Current.Center = Core.Data.Position;
+            MyBox.Current.Center = CoreData.Data.Position;
             MyBox.SetTarget(MyBox.Current.Center, MyBox.Current.Size);
             MyBox.SwapToCurrent();
 
@@ -219,7 +219,7 @@ namespace CloudberryKingdom.Blocks
         Vector2 Offset;
         void Shake()
         {
-            int Step = Core.MyLevel.CurPhsxStep;
+            int Step = CoreData.MyLevel.CurPhsxStep;
             if (Step < ShakeLength)
                 CurShakeIntensity = ShakeIntensity;
             else
@@ -237,22 +237,22 @@ namespace CloudberryKingdom.Blocks
 
         Vector2 CalcPosition(float t)
         {
-            if (t < InitialDelay) return Core.Data.Position;
+            if (t < InitialDelay) return CoreData.Data.Position;
 
             if (Horizontal)
-                Core.Data.Velocity.X =
-                    CoreMath.Restrict(0, Speed, Core.Data.Velocity.X + Accel);
+                CoreData.Data.Velocity.X =
+                    CoreMath.Restrict(0, Speed, CoreData.Data.Velocity.X + Accel);
             else
-                Core.Data.Velocity.Y =
-                    CoreMath.Restrict(0, Speed, Core.Data.Velocity.Y + Accel);
+                CoreData.Data.Velocity.Y =
+                    CoreMath.Restrict(0, Speed, CoreData.Data.Velocity.Y + Accel);
 
-            if (Pos.X > Cam.Pos.X - 5350)
+            if (CoreData.Data.Position.X > Cam.Pos.X - 5350)
             {
-                Core.Data.Velocity.X *= .825f;
-                if (Core.Data.Velocity.X < 1f) Core.Data.Velocity.X = 0;
+                CoreData.Data.Velocity.X *= .825f;
+                if (CoreData.Data.Velocity.X < 1f) CoreData.Data.Velocity.X = 0;
             }
 
-            return Core.Data.Position + Core.Data.Velocity;
+            return CoreData.Data.Position + CoreData.Data.Velocity;
         }
 
         public enum BufferType { Push, Space };
@@ -283,7 +283,7 @@ namespace CloudberryKingdom.Blocks
                     if (dif > 0) bob.Move(difvec); break;
 
                 case BufferType.Space:
-                    if (Core.MyLevel.PlayMode != 2)
+                    if (CoreData.MyLevel.PlayMode != 2)
                     {
                         if (dif > 0) bob.Move(difvec);
                     }
@@ -298,26 +298,26 @@ namespace CloudberryKingdom.Blocks
 
         public override void PhsxStep()
         {
-            if (Core.MyLevel.PlayMode == 0)
+            if (CoreData.MyLevel.PlayMode == 0)
             {
                 if (!Spiked) Spikify();
                 Shake();
             }
 
-            Core.SkippedPhsx = false;
+            CoreData.SkippedPhsx = false;
             Active = true;
             
-            if (!Core.Held)
-                Core.Data.Position = CalcPosition(Core.GetPhsxStep());
+            if (!CoreData.Held)
+                CoreData.Data.Position = CalcPosition(CoreData.GetPhsxStep());
 
-            MyBox.Target.Center = Core.Data.Position + Offset;
+            MyBox.Target.Center = CoreData.Data.Position + Offset;
 
             Update();
 
             MyBox.SetTarget(MyBox.Target.Center, MyBox.Current.Size);
 
             MyBox.CalcBounds();
-            foreach (Bob bob in Core.MyLevel.Bobs)
+            foreach (Bob bob in CoreData.MyLevel.Bobs)
                 DoInteraction(bob);
         }
 
@@ -344,7 +344,7 @@ namespace CloudberryKingdom.Blocks
             {
                 if (!BlockCore.BoxesOnly)
                 {
-                    MyQuad.Pos = Pos + Offset;
+                    MyQuad.Pos = CoreData.Data.Position + Offset;
                     MyQuad.Draw();
                     Tools.QDrawer.Flush();
                 }
@@ -361,7 +361,7 @@ namespace CloudberryKingdom.Blocks
 
             Update();
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
                 ResetPieces();
 
             BlockCore.StartData.Position = MyBox.Current.Center;
@@ -375,7 +375,7 @@ namespace CloudberryKingdom.Blocks
 
             Init();
 
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Speed = BlockA.Speed;
         }

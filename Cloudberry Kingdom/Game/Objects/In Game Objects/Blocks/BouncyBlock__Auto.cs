@@ -82,9 +82,9 @@ namespace CloudberryKingdom.Levels
 
         void SetHallwaysBlockProperties(BouncyBlock block, Level level)
         {
-            block.Core.GenData.Used = true;
+            block.CoreData.GenData.Used = true;
 
-            block.Init(block.Core.Data.Position, new Vector2(150, 150), 80, level);
+            block.Init(block.CoreData.Data.Position, new Vector2(150, 150), 80, level);
         }
         void Hallway(Level level, Vector2 BL, Vector2 TR)
         {

@@ -133,7 +133,7 @@ namespace CloudberryKingdom.Levels
             NewFloater.Period = Period;
             NewFloater.Offset = Params.ChooseOffset(Period, level.Rnd);
 
-            NewFloater.Core.GenData.RemoveIfUnused = false;
+            NewFloater.CoreData.GenData.RemoveIfUnused = false;
 
             level.AddObject(NewFloater);
 
@@ -152,7 +152,7 @@ namespace CloudberryKingdom.Levels
 
                 floater.Dir = Dir;
 
-                floater.Core.GenData.KeepIfUnused = true;
+                floater.CoreData.GenData.KeepIfUnused = true;
 
                 level.AddObject(floater);
             }
@@ -204,7 +204,7 @@ namespace CloudberryKingdom.Levels
 
             foreach (BlockBase block in level.Blocks)
             {
-                if (block.Core.Placed) continue;
+                if (block.CoreData.Placed) continue;
 
                 if (block.BlockCore.Virgin) continue;
                 if (block.BlockCore.Finalized) continue;
@@ -212,8 +212,8 @@ namespace CloudberryKingdom.Levels
 
                 // Add spinners
                 float xdif = block.Box.Current.TR.X - block.Box.Current.BL.X - 30;
-                float density = level.Rnd.RndFloat(Params.Density.GetVal(block.Core.Data.Position),
-                                               Params.Density.GetVal(block.Core.Data.Position));
+                float density = level.Rnd.RndFloat(Params.Density.GetVal(block.CoreData.Data.Position),
+                                               Params.Density.GetVal(block.CoreData.Data.Position));
                 float average = (int)(xdif * density / 2000f);
                 int n = (int)average;
                 if (average < 1) if (level.Rnd.Rnd.NextDouble() < average) n = 1;

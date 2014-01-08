@@ -29,7 +29,7 @@ namespace CloudberryKingdom.Obstacles
             base.MakeNew();
 
             AutoGenSingleton = Firesnake_AutoGen.Instance;
-            Core.MyType = ObjectType.Firesnake;
+            CoreData.MyType = ObjectType.Firesnake;
             DeathType = Bobs.BobDeathType.Firesnake;
 
             PhsxCutoff_Playing = new Vector2(400);
@@ -37,9 +37,9 @@ namespace CloudberryKingdom.Obstacles
 
             Size = new Vector2(140);
 
-            Core.Init();
-            Core.MyType = ObjectType.Firesnake;
-            Core.DrawLayer = 7;
+            CoreData.Init();
+            CoreData.MyType = ObjectType.Firesnake;
+            CoreData.DrawLayer = 7;
 
             Orbit = Vector2.Zero;
         }
@@ -70,8 +70,8 @@ namespace CloudberryKingdom.Obstacles
 
         public override void PhsxStep()
         {
-            double t = 2 * Math.PI * (Core.GetIndependentPhsxStep() + Offset) / (float)Period;
-            Pos = CoreMath.AngleToDir(t) * Radii + Orbit;
+            double t = 2 * Math.PI * (CoreData.GetIndependentPhsxStep() + Offset) / (float)Period;
+            CoreData.Data.Position = CoreMath.AngleToDir(t) * Radii + Orbit;
 
             base.PhsxStep();
         }
@@ -85,7 +85,7 @@ namespace CloudberryKingdom.Obstacles
             //            Info.Orbs.ChainSprite.MyTexture, Tools.BasicEffect, Info.Orbs.ChainRepeatWidth, 0, 0f);
 
             // Draw the Firesnake
-            MyQuad.Pos = Pos;
+            MyQuad.Pos = CoreData.Data.Position;
             MyQuad.Draw();
         }
 
@@ -98,15 +98,15 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Reset(bool BoxesOnly)
         {
-            Core.Active = true;
+            CoreData.Active = true;
         }
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Firesnake FiresnakeA = A as Firesnake;
-            Init(A.Pos, A.MyLevel);
+            Init(A.CoreData.Data.Position, A.MyLevel);
 
             Size = FiresnakeA.Size;
 

@@ -16,7 +16,7 @@ namespace CloudberryKingdom.Levels
             float MoveAll = 1450;
 
             // Add dark bottom region
-            Region region = new Region(MadeDoor.Pos + new Vector2(0, 100 - MoveAll), new Vector2(5000, 2000));
+            Region region = new Region(MadeDoor.CoreData.Data.Position + new Vector2(0, 100 - MoveAll), new Vector2(5000, 2000));
             region.AttachedDoor = MadeDoor;
             MyLevel.AddObject(region);
 

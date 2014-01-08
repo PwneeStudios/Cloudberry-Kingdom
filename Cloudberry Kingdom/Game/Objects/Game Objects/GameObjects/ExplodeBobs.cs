@@ -58,7 +58,7 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             Count++;
 
@@ -75,10 +75,10 @@ namespace CloudberryKingdom
             // Afterward blow up a bob periodicially
             if ((Count - InitialDelay) % Delay == 0)
             {
-                List<Bob> bobs = Core.MyLevel.Bobs.FindAll(bob => bob.Core.Show && bob.GetPlayerData().IsAlive);
+                List<Bob> bobs = CoreData.MyLevel.Bobs.FindAll(bob => bob.CoreData.Show && bob.GetPlayerData().IsAlive);
                 bobs.Sort(delegate(Bob A, Bob B)
                 {
-                    return A.Core.Data.Position.X.CompareTo(B.Core.Data.Position.X);
+                    return A.CoreData.Data.Position.X.CompareTo(B.CoreData.Data.Position.X);
                 });
 
                 if (bobs.Count == 0)
@@ -88,10 +88,10 @@ namespace CloudberryKingdom
                     // Kill the first bob in the list
                     Bob targetbob = bobs[0];
                     
-                    Fireball.Explosion(targetbob.Core.Data.Position, targetbob.Core.MyLevel);
+                    Fireball.Explosion(targetbob.CoreData.Data.Position, targetbob.CoreData.MyLevel);
                     Fireball.ExplodeSound.Play();
 
-                    targetbob.Core.Show = false;
+                    targetbob.CoreData.Show = false;
                     targetbob.Dead = true;
                     if (!targetbob.Dead && !targetbob.Dying) targetbob.DeadCount = 0;
                 }

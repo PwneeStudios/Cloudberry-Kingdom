@@ -125,7 +125,7 @@ namespace CloudberryKingdom.Levels
             NewFloater.Period = Period;
             NewFloater.Offset = level.Rnd.Rnd.Next(0, NumOffsets) * Period / NumOffsets;
 
-            NewFloater.Core.GenData.RemoveIfUnused = false;
+            NewFloater.CoreData.GenData.RemoveIfUnused = false;
 
             // Bigger range for bigger levels
             //if (level.PieceSeed.ZoomType == LevelZoom.Big)

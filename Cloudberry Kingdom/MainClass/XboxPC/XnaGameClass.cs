@@ -1,7 +1,7 @@
 using System;
 
 #if WINDOWS
-using System.Windows.Forms;
+//using System.Windows.Forms;
 #endif
 
 using Microsoft.Xna.Framework;
@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-#if XBOX
-#else
-using CloudberryKingdom.Viewer;
-#endif
+//#if XBOX
+//#else
+//using CloudberryKingdom.Viewer;
+//#endif
 
 namespace CloudberryKingdom
 {
@@ -146,18 +146,18 @@ namespace CloudberryKingdom
 			//    Tools.Write(e.Message);
 			//}
 #else
-			try
+			//try
 			{
 				MyGame.Draw(gameTime);
 			}
-			catch (Exception e)
-			{
-				Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
+			//catch (Exception e)
+			//{
+			//    Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
 
-                Tools.Write(e.StackTrace);
-                Tools.Write(e.InnerException);
-				Tools.Write(e.Message);
-			}
+			//    Tools.Write(e.StackTrace);
+			//    Tools.Write(e.InnerException);
+			//    Tools.Write(e.Message);
+			//}
 #endif
 
             base.Draw(gameTime);
@@ -168,69 +168,75 @@ namespace CloudberryKingdom
 
 		public void FakeFull()
 		{
-			if (WindowModeSet) return;
-			WindowModeSet = true;
+			return;
 
-			IntPtr hWnd = Tools.GameClass.Window.Handle;
-			var control = Control.FromHandle(hWnd);
-			var form = control.FindForm();
+			//if (WindowModeSet) return;
+			//WindowModeSet = true;
 
-			switch (Tools.Mode)
-			{
-				case WindowMode.Borderless:
-					control.Show();
-					control.Location = new System.Drawing.Point(0, 0);
+			//IntPtr hWnd = Tools.GameClass.Window.Handle;
+			//var control = Control.FromHandle(hWnd);
+			//var form = control.FindForm();
 
-					//form.TopLevel = true;
-					form.TopMost = true;
+			//switch (Tools.Mode)
+			//{
+			//    case WindowMode.Borderless:
+			//        control.Show();
+			//        control.Location = new System.Drawing.Point(0, 0);
 
-					form.FormBorderStyle = FormBorderStyle.None;
-					form.WindowState = FormWindowState.Maximized;
-					break;
+			//        //form.TopLevel = true;
+			//        form.TopMost = true;
 
-				case WindowMode.Windowed:
-					form.TopMost = false;
+			//        form.FormBorderStyle = FormBorderStyle.None;
+			//        form.WindowState = FormWindowState.Maximized;
+			//        break;
 
-					form.FormBorderStyle = FormBorderStyle.FixedSingle;
-					form.WindowState = FormWindowState.Normal;
+			//    case WindowMode.Windowed:
+			//        form.TopMost = false;
 
-					break;
-			}
+			//        form.FormBorderStyle = FormBorderStyle.FixedSingle;
+			//        form.WindowState = FormWindowState.Normal;
+
+			//        break;
+			//}
 		}
 
 		public void FakeTab()
 		{
-			if (!WindowModeSet) return;
-			WindowModeSet = false;
+			return;
 
-			IntPtr hWnd = Tools.GameClass.Window.Handle;
-			var control = Control.FromHandle(hWnd);
-			var form = control.FindForm();
+			//if (!WindowModeSet) return;
+			//WindowModeSet = false;
 
-			switch (Tools.Mode)
-			{
-				case WindowMode.Borderless:
-					//control.Hide();
-					//control.Location = new System.Drawing.Point(0, 0);
+			//IntPtr hWnd = Tools.GameClass.Window.Handle;
+			//var control = Control.FromHandle(hWnd);
+			//var form = control.FindForm();
 
-					//form.TopLevel = true;
-					form.TopMost = false;
+			//switch (Tools.Mode)
+			//{
+			//    case WindowMode.Borderless:
+			//        //control.Hide();
+			//        //control.Location = new System.Drawing.Point(0, 0);
 
-					form.FormBorderStyle = FormBorderStyle.None;
-					form.WindowState = FormWindowState.Minimized;
-					break;
+			//        //form.TopLevel = true;
+			//        form.TopMost = false;
 
-				case WindowMode.Windowed:
-					break;
-			}
+			//        form.FormBorderStyle = FormBorderStyle.None;
+			//        form.WindowState = FormWindowState.Minimized;
+			//        break;
+
+			//    case WindowMode.Windowed:
+			//        break;
+			//}
 		}
 
         public void SetBorder(bool Show)
         {
-            IntPtr hWnd = Tools.GameClass.Window.Handle;
-            var control = Control.FromHandle(hWnd);
-            var form = control.FindForm();
-            form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+			return;
+
+			//IntPtr hWnd = Tools.GameClass.Window.Handle;
+			//var control = Control.FromHandle(hWnd);
+			//var form = control.FindForm();
+			//form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         }
 #endif
     }

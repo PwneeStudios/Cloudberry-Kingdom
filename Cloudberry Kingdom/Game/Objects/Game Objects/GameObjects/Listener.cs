@@ -12,7 +12,7 @@ namespace CloudberryKingdom
         {
             Active = true;
             PauseOnPause = true;
-            Core.Show = false;
+            CoreData.Show = false;
         }
 
         public Listener(ControllerButtons button, Action action)
@@ -70,7 +70,7 @@ namespace CloudberryKingdom
 
             if (!Active) return;
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
 
             // Listen
              //WARNING

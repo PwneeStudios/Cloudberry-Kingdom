@@ -85,7 +85,7 @@ namespace CloudberryKingdom
         {
             base.AnimStep();
 
-            if (MyBob.Core.MyLevel.PlayMode == 0)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0)
             {
                 WheelAngle -= xVel * 1f / 60f;
 
@@ -110,7 +110,7 @@ namespace CloudberryKingdom
             base.PhsxStep2();
 
             // Rocketman thrust
-            if (MyBob.Core.MyLevel.PlayMode == 0)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0)
             {
                 //Vector2 pos = new Vector2(-45f, -30);
                 //pos.Y -= 40;
@@ -126,9 +126,9 @@ namespace CloudberryKingdom
                 //int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
                 //ParticleEffects.CartThrust(MyBob.Core.MyLevel, layer, pos, dir, Vector2.Zero);
 
-                int layer = Math.Max(1, MyBob.Core.DrawLayer - 1);
+                int layer = Math.Max(1, MyBob.CoreData.DrawLayer - 1);
                 float intensity = 1.3f * Math.Min(.3f + (MyBob.CurInput.xVec.X + .3f), 1f);
-                ParticleEffects.Thrust(MyBob.Core.MyLevel, layer, Pos + new Vector2(0, -20), new Vector2(-1, 0), new Vector2(-4, yVel), intensity);
+                ParticleEffects.Thrust(MyBob.CoreData.MyLevel, layer, Pos + new Vector2(0, -20), new Vector2(-1, 0), new Vector2(-4, yVel), intensity);
             }
         }
     }

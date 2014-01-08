@@ -309,19 +309,19 @@ namespace CloudberryKingdom
             foreach (var game in ArcadeMenu.HeroArcadeList)
             {
                 id = Challenge_Escalation.Instance.CalcGameId_Level(game.Item1);
-                if (HighScores.ContainsKey(id))
+                if (HighScores.CustomContainsKey(id))
                     level += HighScores[id].Value;
 
                 id = Challenge_TimeCrisis.Instance.CalcGameId_Level(game.Item1);
-                if (HighScores.ContainsKey(id))
+                if (HighScores.CustomContainsKey(id))
                     level += HighScores[id].Value;
 
                 id = Challenge_HeroRush.Instance.CalcGameId_Level(game.Item1);
-                if (HighScores.ContainsKey(id))
+                if (HighScores.CustomContainsKey(id))
                     level += HighScores[id].Value;
 
                 id = Challenge_HeroRush2.Instance.CalcGameId_Level(game.Item1);
-                if (HighScores.ContainsKey(id))
+                if (HighScores.CustomContainsKey(id))
                     level += HighScores[id].Value;
             }
 
@@ -330,7 +330,7 @@ namespace CloudberryKingdom
 
         public int GetHighScore(int GameId)
         {
-            if (HighScores.ContainsKey(GameId))
+            if (HighScores.CustomContainsKey(GameId))
                 return HighScores[GameId].Value;
             else
                 return 0;
@@ -338,7 +338,7 @@ namespace CloudberryKingdom
 
         public void AddHighScore(ScoreEntry score)
         {
-            if (HighScores.ContainsKey(score.GameId) && score.Value < HighScores[score.GameId].Value)
+            if (HighScores.CustomContainsKey(score.GameId) && score.Value < HighScores[score.GameId].Value)
                 return;
 
             HighScores.AddOrOverwrite(score.GameId, score);

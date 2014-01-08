@@ -49,11 +49,11 @@ namespace CloudberryKingdom.Levels
                         BouncyBlock bouncy;
                         bouncy = (BouncyBlock)MySourceGame.Recycle.GetObject(ObjectType.BouncyBlock, false);
                         bouncy.Init(new Vector2(LeftCenter.X, y), new Vector2(220, 220), 70, this);
-                        bouncy.Core.DrawLayer = 9;
+                        bouncy.CoreData.DrawLayer = 9;
 
-                        bouncy.Core.GenData.RemoveIfUnused = true;
+                        bouncy.CoreData.GenData.RemoveIfUnused = true;
                         bouncy.BlockCore.BlobsOnTop = false;
-                        bouncy.Core.GenData.AlwaysLandOn = true;
+                        bouncy.CoreData.GenData.AlwaysLandOn = true;
 
                         AddBlock(bouncy);
 
@@ -107,9 +107,9 @@ namespace CloudberryKingdom.Levels
                         block.Box.TopOnly = true;
                         block.Init(pos, Size, MyTileSetInfo);
 
-                        block.Core.GenData.RemoveIfUnused = false;
+                        block.CoreData.GenData.RemoveIfUnused = false;
                         block.BlockCore.BlobsOnTop = false;
-                        block.Core.GenData.AlwaysUse = true;
+                        block.CoreData.GenData.AlwaysUse = true;
                         block.BlockCore.Virgin = true;
 
                         AddBlock(block);
@@ -135,9 +135,9 @@ namespace CloudberryKingdom.Levels
                         else
                             block.Init(pos - offset, Size, MyTileSetInfo);
 
-                        block.Core.GenData.RemoveIfUnused = false;
+                        block.CoreData.GenData.RemoveIfUnused = false;
                         block.BlockCore.BlobsOnTop = false;
-                        block.Core.GenData.AlwaysUse = true;
+                        block.CoreData.GenData.AlwaysUse = true;
                         block.BlockCore.Virgin = true;
 
                         AddBlock(block);
@@ -153,7 +153,7 @@ namespace CloudberryKingdom.Levels
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
                     bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
-                    bm.EmitData.Position = bm.Core.Data.Position = Center;
+                    bm.EmitData.Position = bm.CoreData.Data.Position = Center;
                     bm.EmitData.Velocity = new Vector2(0, 6);
                     bm.Delay = 100;
                     bm.Offset = 5;
@@ -161,8 +161,8 @@ namespace CloudberryKingdom.Levels
                     bm.AlwaysOn = true;
                     bm.Range.Y = MainCamera.GetHeight() / 2;
 
-                    bm.Core.GenData.RemoveIfUnused = false;
-                    bm.Core.GenData.AlwaysUse = true;
+                    bm.CoreData.GenData.RemoveIfUnused = false;
+                    bm.CoreData.GenData.AlwaysUse = true;
 
                     AddObject(bm);
 
@@ -174,7 +174,7 @@ namespace CloudberryKingdom.Levels
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
                     bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
-                    bm.EmitData.Position = bm.Core.Data.Position = Center + new Vector2(-175, 0);
+                    bm.EmitData.Position = bm.CoreData.Data.Position = Center + new Vector2(-175, 0);
                     bm.EmitData.Velocity = new Vector2(0, 6);
                     bm.Delay = 100;
                     bm.Offset = 5;
@@ -182,8 +182,8 @@ namespace CloudberryKingdom.Levels
                     bm.AlwaysOn = true;
                     bm.Range.Y = MainCamera.GetHeight() / 2;
 
-                    bm.Core.GenData.RemoveIfUnused = false;
-                    bm.Core.GenData.AlwaysUse = true;
+                    bm.CoreData.GenData.RemoveIfUnused = false;
+                    bm.CoreData.GenData.AlwaysUse = true;
 
                     AddObject(bm);
 
@@ -192,7 +192,7 @@ namespace CloudberryKingdom.Levels
 
                     bm = (BlockEmitter)Recycle.GetObject(ObjectType.BlockEmitter, false);
                     bm.Init(Vector2.Zero, this, Piece.ElevatorBoxStyle);
-                    bm.EmitData.Position = bm.Core.Data.Position = Center + new Vector2(175, 0);
+                    bm.EmitData.Position = bm.CoreData.Data.Position = Center + new Vector2(175, 0);
                     bm.EmitData.Velocity = new Vector2(0, -6);
                     bm.Delay = 100;
                     bm.Offset = 5;
@@ -200,8 +200,8 @@ namespace CloudberryKingdom.Levels
                     bm.AlwaysOn = true;
                     bm.Range.Y = MainCamera.GetHeight() / 2;
 
-                    bm.Core.GenData.RemoveIfUnused = false;
-                    bm.Core.GenData.AlwaysUse = true;
+                    bm.CoreData.GenData.RemoveIfUnused = false;
+                    bm.CoreData.GenData.AlwaysUse = true;
 
                     AddObject(bm);
 

@@ -41,7 +41,7 @@ namespace CloudberryKingdom
         public static void Load(string path)
         {
             BackgroundTemplate template;
-            if (PathLookup.ContainsKey(path))
+            if (PathLookup.CustomContainsKey(path))
             {
                 template = PathLookup[path];
             }

@@ -230,7 +230,9 @@ namespace CoreEngine
 
             if (Anims[anim].Data == null)
             {
-                Anims[anim].Data = new EzTexture[] { null };
+                //Anims[anim].Data = new EzTexture[] { null };
+				var new_array = new EzTexture[] { null };
+				Anims[anim].Data = new_array;
             }
             else
                 if (frame > 0)

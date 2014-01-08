@@ -113,7 +113,7 @@ namespace CloudberryKingdom
                 //base.XAccel();
 
                 float DesiredSpeed = AngleToDist(AngleSpeed);
-                MyBob.Core.Data.Velocity.X += 1f * (DesiredSpeed - MyBob.Core.Data.Velocity.X);
+                MyBob.CoreData.Data.Velocity.X += 1f * (DesiredSpeed - MyBob.CoreData.Data.Velocity.X);
             }
 
             //Tools.Write("angle speed {0}, max {1}", AngleSpeed, MaxAngleSpeed);
@@ -127,7 +127,7 @@ namespace CloudberryKingdom
 
         public override float RetardxVec()
         {
-            float RetardFactor = .01f * MyBob.Core.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.Core.Data.Position);
+            float RetardFactor = .01f * MyBob.CoreData.MyLevel.CurMakeData.GenData.Get(DifficultyParam.JumpingSpeedRetardFactor, MyBob.CoreData.Data.Position);
             if (!OnGround && AngleSpeed > RetardFactor * MaxAngleSpeed)
                 return 0;
             else
@@ -136,7 +136,7 @@ namespace CloudberryKingdom
 
         public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
-            if (MyBob.Core.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
+            if (MyBob.CoreData.MyLevel.PlayMode == 0 && ObjectLandedOn is BlockBase && !PrevOnGround)
                 LandSound.Play(.47f);
             base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
         }
@@ -177,8 +177,8 @@ namespace CloudberryKingdom
 
             if (Math.Abs(AngleSpeed) > .5f * MaxAngleSpeed)
             {
-                if (side == ColType.Left) MyBob.Core.Data.Velocity.Y += .15f * (AngleToDist(AngleSpeed) - MyBob.Core.Data.Velocity.Y);
-                if (side == ColType.Right) MyBob.Core.Data.Velocity.Y -= .15f * (AngleToDist(AngleSpeed) - MyBob.Core.Data.Velocity.Y);
+                if (side == ColType.Left) MyBob.CoreData.Data.Velocity.Y += .15f * (AngleToDist(AngleSpeed) - MyBob.CoreData.Data.Velocity.Y);
+                if (side == ColType.Right) MyBob.CoreData.Data.Velocity.Y -= .15f * (AngleToDist(AngleSpeed) - MyBob.CoreData.Data.Velocity.Y);
             }
 
             AngleSpeed *= .75f;

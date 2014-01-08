@@ -33,8 +33,8 @@ namespace CloudberryKingdom
                 {
                     if (bob.IsVisible())
                     {
-                        ParticleEffects.PiecePopFart(level, bob.Core.Data.Position);
-                        bob.Core.Show = false;
+                        ParticleEffects.PiecePopFart(level, bob.CoreData.Data.Position);
+                        bob.CoreData.Show = false;
                     }
 
                     if (!bob.Dead && !bob.Dying)

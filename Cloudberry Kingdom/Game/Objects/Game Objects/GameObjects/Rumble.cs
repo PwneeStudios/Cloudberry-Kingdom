@@ -22,7 +22,7 @@ namespace CloudberryKingdom
             if (!Active) return;
 
             int Period = 105;// 96;
-            if (Core.GetPhsxStep() % Period == 0 && Core.GetPhsxStep() > 60)
+            if (CoreData.GetPhsxStep() % Period == 0 && CoreData.GetPhsxStep() > 60)
                 Tools.CurCamera.StartShake(.5f, 36);
         }
     }

@@ -76,10 +76,10 @@ namespace CloudberryKingdom.Levels
             NewCloud.Shiftiness = Params.Shiftiness.GetVal(pos);
             NewCloud.Init(pos, level);
 
-            NewCloud.Core.GenData.RemoveIfUnused = true;
+            NewCloud.CoreData.GenData.RemoveIfUnused = true;
 
             if (level.Style.RemoveBlockOnOverlap)
-                NewCloud.Core.GenData.RemoveIfOverlap = true;
+                NewCloud.CoreData.GenData.RemoveIfOverlap = true;
 
             level.AddObject(NewCloud);
 

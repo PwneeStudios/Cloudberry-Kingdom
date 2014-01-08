@@ -20,7 +20,7 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			base(string.Format(Localization.WordString(Localization.Words.Press),
 				ButtonCheck.ControllerInUse ? ButtonString.X(ButtonScale) : ButtonString.Up(ButtonScale)
-				), Parent.Pos, true)
+				), Parent.CoreData.Data.Position, true)
 #else
             base(string.Format(Localization.WordString(Localization.Words.Press), ButtonString.X(ButtonScale)), Parent.Pos, true)
 #endif
@@ -39,16 +39,16 @@ namespace CloudberryKingdom
             MyText.Scale = TextScale;
             MyText.ZoomWithCam = true;
 
-            Core.DrawLayer = Level.LastInLevelDrawLayer;
-            Core.RemoveOnReset = true;
+            CoreData.DrawLayer = Level.LastInLevelDrawLayer;
+            CoreData.RemoveOnReset = true;
 
-            Core.ParentObject = Parent;
+            CoreData.ParentObject = Parent;
 
             QuadClass backdrop;
 			backdrop = new QuadClass("WidePlaque", 300, true);
             MyPile.Add(backdrop);
 
-            Pos.RelVal = Parent.Pos;
+            Pos.RelVal = Parent.CoreData.Data.Position;
 
             Active = true;
 

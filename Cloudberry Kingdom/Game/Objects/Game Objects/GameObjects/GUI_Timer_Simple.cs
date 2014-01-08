@@ -13,7 +13,7 @@ namespace CloudberryKingdom
         public GUI_Timer_Simple(int Time)
         {
             PreventRelease = false;
-            Core.RemoveOnReset = true;
+            CoreData.RemoveOnReset = true;
 
             this.Time = Time;
 

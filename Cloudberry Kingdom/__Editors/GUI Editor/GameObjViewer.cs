@@ -1,4 +1,4 @@
-﻿#if WINDOWS
+﻿#if FALSE
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 using CloudberryKingdom;
 
-using System.Reflection;
+//using System.Reflection;
 
 namespace CloudberryKingdom.Viewer
 {

@@ -203,11 +203,11 @@ namespace CloudberryKingdom.Levels
 					Recordings[i].Box_Size[level.CurPhsxStep] = level.Bobs[i].StoredRecord_QuadSize;
 				}
 
-                Recordings[i].AutoLocs[level.CurPhsxStep] = level.Bobs[i].Core.Data.Position;
-                Recordings[i].AutoVel[level.CurPhsxStep] = level.Bobs[i].Core.Data.Velocity;
+                Recordings[i].AutoLocs[level.CurPhsxStep] = level.Bobs[i].CoreData.Data.Position;
+                Recordings[i].AutoVel[level.CurPhsxStep] = level.Bobs[i].CoreData.Data.Velocity;
                 Recordings[i].Input[level.CurPhsxStep] = level.Bobs[i].CurInput;
 
-                if (!level.Bobs[i].Core.Show)
+                if (!level.Bobs[i].CoreData.Show)
                 {
 					Recordings[i].t[level.CurPhsxStep] = 0;
 					Recordings[i].Box_BL[level.CurPhsxStep] = 0;

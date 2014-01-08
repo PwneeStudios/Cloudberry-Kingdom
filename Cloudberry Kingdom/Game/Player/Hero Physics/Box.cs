@@ -163,7 +163,7 @@ namespace CloudberryKingdom
             }
 
             if (!Ducking)
-            if (MyBob.Core.Data.Velocity.Y < -.1f && !OnGround && MyBob.PlayerObject.anim == JumpAnim && MyBob.PlayerObject.LastAnimEntry.AnimSpeed > 0)
+            if (MyBob.CoreData.Data.Velocity.Y < -.1f && !OnGround && MyBob.PlayerObject.anim == JumpAnim && MyBob.PlayerObject.LastAnimEntry.AnimSpeed > 0)
             {
                 MyBob.PlayerObject.AnimQueue.Clear();
                 MyBob.PlayerObject.EnqueueAnimation(JumpAnim, .9f, false);

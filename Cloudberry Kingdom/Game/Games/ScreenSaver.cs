@@ -297,10 +297,10 @@ namespace CloudberryKingdom
 
                 Camera cam = lvl.MainCamera;
                 cam.UseEffective = true;
-                cam.EffectivePos = lvl.Bobs[0].Pos;
+                cam.EffectivePos = lvl.Bobs[0].CoreData.Data.Position;
                 cam.EffectiveZoom = new Vector2(.0025f);
 
-                cam.EffectivePos = CoreMath.LerpRestrict(lvl.Bobs[0].Pos, cam.Data.Position, pos_t.Val);
+                cam.EffectivePos = CoreMath.LerpRestrict(lvl.Bobs[0].CoreData.Data.Position, cam.Data.Position, pos_t.Val);
                 cam.EffectivePos.Y = cam.Data.Position.Y;
                 cam.EffectiveZoom = new Vector2(CoreMath.LerpRestrict(.0025f, .001f, zoom_t.Val));
             }

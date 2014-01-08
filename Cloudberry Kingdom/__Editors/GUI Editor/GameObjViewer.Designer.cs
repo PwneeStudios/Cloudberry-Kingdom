@@ -1,4 +1,4 @@
-﻿#if WINDOWS
+﻿#if FALSE
 namespace CloudberryKingdom.Viewer
 {
     public partial class GameObjViewer

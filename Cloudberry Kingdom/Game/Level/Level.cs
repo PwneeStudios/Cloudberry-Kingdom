@@ -121,7 +121,7 @@ namespace CloudberryKingdom.Levels
             if (Bobs == null)
                 return true;
 
-            return Bobs.All(bob => (bob.Core.Data.Position - bob.Core.StartData.Position).Length() < 500 && !bob.Dead);
+            return Bobs.All(bob => (bob.CoreData.Data.Position - bob.CoreData.StartData.Position).Length() < 500 && !bob.Dead);
         }
 
         public bool CanWatchReplay;
@@ -397,7 +397,7 @@ namespace CloudberryKingdom.Levels
             if (Objects != null)
                 foreach (ObjectBase obj in Objects)
                 {
-                    obj.Core.MyLevel = null;
+                    obj.CoreData.MyLevel = null;
                     obj.Release();
                 }
             ActiveObjectList = Objects = null;
@@ -444,7 +444,7 @@ namespace CloudberryKingdom.Levels
         public ObjectBase FindIObject(string Code1)
         {
             foreach (ObjectBase obj in Objects)
-                if (string.Compare(obj.Core.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0)
+                if (string.Compare(obj.CoreData.EditorCode1, Code1, StringComparison.OrdinalIgnoreCase) == 0)
                     return obj;
 
             return null;
@@ -497,7 +497,7 @@ namespace CloudberryKingdom.Levels
         void SortDrawLayers()
         {
             for (int i = 0; i < NumDrawLayers; i++)
-                DrawLayer[i].Sort((A, B) => A.Core.DrawSubLayer.CompareTo(B.Core.DrawSubLayer));
+                DrawLayer[i].Sort((A, B) => A.CoreData.DrawSubLayer.CompareTo(B.CoreData.DrawSubLayer));
         }
 
         public void Write(BinaryWriter writer)
@@ -506,13 +506,13 @@ namespace CloudberryKingdom.Levels
             for (int i = 0; i < NumDrawLayers; i++)
             {
                 for (int j = 0; j < DrawLayer[i].Count; j++)
-                    DrawLayer[i][j].Core.DrawSubLayer = j;
+                    DrawLayer[i][j].CoreData.DrawSubLayer = j;
             }
 
             // count number of blocks to save
             int Num = 0;
             foreach (BlockBase block in Blocks)
-                if (block.Core.EditHoldable)
+                if (block.CoreData.EditHoldable)
                     Num++;
 
             // record the number
@@ -520,9 +520,9 @@ namespace CloudberryKingdom.Levels
 
             foreach (BlockBase block in Blocks)
             {
-                if (block.Core.EditHoldable)
+                if (block.CoreData.EditHoldable)
                 {
-                    writer.Write((int)block.Core.MyType);
+                    writer.Write((int)block.CoreData.MyType);
                     block.Write(writer);
                 }
             }
@@ -530,7 +530,7 @@ namespace CloudberryKingdom.Levels
             // count number of objects to save
             Num = 0;
             foreach (ObjectBase obj in Objects)
-                if (obj.Core.EditHoldable)
+                if (obj.CoreData.EditHoldable)
                     Num++;
 
             // record the number
@@ -538,9 +538,9 @@ namespace CloudberryKingdom.Levels
 
             foreach (ObjectBase obj in Objects)
             {
-                if (obj.Core.EditHoldable)
+                if (obj.CoreData.EditHoldable)
                 {
-                    writer.Write((int)obj.Core.MyType);
+                    writer.Write((int)obj.CoreData.MyType);
                     obj.Write(writer);
                 }
             }
@@ -587,7 +587,7 @@ namespace CloudberryKingdom.Levels
                 Coin coin = obj as Coin;
                 if (null != coin)
                 {
-                    if (!coin.Core.Active)
+                    if (!coin.CoreData.Active)
                         Recycle.CollectObject(coin);
                 }
             }
@@ -669,7 +669,7 @@ namespace CloudberryKingdom.Levels
         public ObjectBase GuidToObj(UInt64 guid)
         {
             ObjectBase obj = LookupGUID(guid);
-            if (obj != null && obj.Core.MarkedForDeletion)
+            if (obj != null && obj.CoreData.MarkedForDeletion)
                 return null;
             else
                 return obj;
@@ -692,7 +692,7 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public ObjectBase LookupGUID(UInt64 guid)
         {
-            ObjectBase FoundObj = Objects.Find(obj => obj.Core.MyGuid == guid);
+            ObjectBase FoundObj = Objects.Find(obj => obj.CoreData.MyGuid == guid);
             if (FoundObj != null)
                 return FoundObj;
 
@@ -773,7 +773,7 @@ namespace CloudberryKingdom.Levels
             {
                 for (int j = 0; j < DrawLayer[i].Count; j++)
                 {
-                    var Core = DrawLayer[i][j].Core;
+                    var Core = DrawLayer[i][j].CoreData;
                     if (!Core.FixSubLayer)
                         Core.DrawSubLayer = j;
                 }
@@ -807,7 +807,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Clean blocks
-            foreach (BlockBase block in Blocks) if (block.Core.RemoveOnReset) Recycle.CollectObject(block);
+            foreach (BlockBase block in Blocks) if (block.CoreData.RemoveOnReset) Recycle.CollectObject(block);
             CleanBlockList();
             
             // Reset blocks
@@ -819,7 +819,7 @@ namespace CloudberryKingdom.Levels
             }
             
             // Clean objects
-            foreach (ObjectBase obj in Objects) if (obj.Core.RemoveOnReset) Recycle.CollectObject(obj);
+            foreach (ObjectBase obj in Objects) if (obj.CoreData.RemoveOnReset) Recycle.CollectObject(obj);
             CleanAllObjectLists();
             List<ObjectBase> NewObjects = new List<ObjectBase>();
 
@@ -828,15 +828,15 @@ namespace CloudberryKingdom.Levels
             {
                 obj.Reset(BoxesOnly);         
                 ObjectBase NewObj;
-                if (obj.Core.ResetOnlyOnReset)
+                if (obj.CoreData.ResetOnlyOnReset)
                     NewObj = obj;
                 else
                 {
-                    NewObj = Recycle.GetObject(obj.Core.MyType, BoxesOnly);
+                    NewObj = Recycle.GetObject(obj.CoreData.MyType, BoxesOnly);
                     NewObj.Clone(obj);
-                    NewObj.Core.BoxesOnly = BoxesOnly;
+                    NewObj.CoreData.BoxesOnly = BoxesOnly;
 
-                    obj.Core.GenData.OnMarkedForDeletion = null;
+                    obj.CoreData.GenData.OnMarkedForDeletion = null;
                     Recycle.CollectObject(obj, false);
                 }
                 NewObjects.Add(NewObj);                
@@ -845,11 +845,11 @@ namespace CloudberryKingdom.Levels
             // Recover correct object pointers from GUIDs
             foreach (ObjectBase obj in NewObjects)
             {
-                if (obj.Core.ParentObject != null)
+                if (obj.CoreData.ParentObject != null)
                 {
                     ObjectBase parent = FindParentObjectById(NewObjects, obj);
 
-                    obj.Core.ParentObject = parent;
+                    obj.CoreData.ParentObject = parent;
                 }
             }
 
@@ -889,67 +889,67 @@ namespace CloudberryKingdom.Levels
         private static ObjectBase FindParentObjectById(List<ObjectBase> ObjectList, ObjectBase obj)
         {
             ObjectBase FoundObj = ObjectList.Find(_obj =>
-                _obj.Core.MyGuid == obj.Core.ParentObjId);
+                _obj.CoreData.MyGuid == obj.CoreData.ParentObjId);
 
             return FoundObj;
         }
 
         public void SynchObject(ObjectBase obj)
         {
-            if (obj.Core.MyLevel == null)
-                obj.Core.StepOffset = 0;
+            if (obj.CoreData.MyLevel == null)
+                obj.CoreData.StepOffset = 0;
             else
-                obj.Core.StepOffset = obj.Core.MyLevel.GetPhsxStep() - GetPhsxStep();
+                obj.CoreData.StepOffset = obj.CoreData.MyLevel.GetPhsxStep() - GetPhsxStep();
         }
 
         public void MoveUpOneSublayer(ObjectBase obj)
         {
-            int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj) + 1;
-            int N = DrawLayer[obj.Core.DrawLayer].Count;
+            int i = DrawLayer[obj.CoreData.DrawLayer].IndexOf(obj) + 1;
+            int N = DrawLayer[obj.CoreData.DrawLayer].Count;
             if (i >= N) i = N - 1;
-            DrawLayer[obj.Core.DrawLayer].Remove(obj);
-            DrawLayer[obj.Core.DrawLayer].Insert(i, obj);
+            DrawLayer[obj.CoreData.DrawLayer].Remove(obj);
+            DrawLayer[obj.CoreData.DrawLayer].Insert(i, obj);
         }
 
         public void MoveToTopOfDrawLayer(ObjectBase obj)
         {
-            int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj);
-            int N = DrawLayer[obj.Core.DrawLayer].Count;
+            int i = DrawLayer[obj.CoreData.DrawLayer].IndexOf(obj);
+            int N = DrawLayer[obj.CoreData.DrawLayer].Count;
             if (i == N - 1) return;
 
-            DrawLayer[obj.Core.DrawLayer].Remove(obj);
-            DrawLayer[obj.Core.DrawLayer].Insert(N - 1, obj);
+            DrawLayer[obj.CoreData.DrawLayer].Remove(obj);
+            DrawLayer[obj.CoreData.DrawLayer].Insert(N - 1, obj);
         }
 
         public void MoveDownOneSublayer(ObjectBase obj)
         {
-            int i = DrawLayer[obj.Core.DrawLayer].IndexOf(obj) - 1;
-            int N = DrawLayer[obj.Core.DrawLayer].Count;
+            int i = DrawLayer[obj.CoreData.DrawLayer].IndexOf(obj) - 1;
+            int N = DrawLayer[obj.CoreData.DrawLayer].Count;
             if (i < 0) i = 0;
-            DrawLayer[obj.Core.DrawLayer].Remove(obj);
-            DrawLayer[obj.Core.DrawLayer].Insert(i, obj);
+            DrawLayer[obj.CoreData.DrawLayer].Remove(obj);
+            DrawLayer[obj.CoreData.DrawLayer].Insert(i, obj);
         }
 
         public void ChangeObjectDrawLayer(ObjectBase obj, int DestinationLayer)
         {
-            if (obj.Core.DrawLayer == DestinationLayer)
+            if (obj.CoreData.DrawLayer == DestinationLayer)
                 return;
 
-            DrawLayer[obj.Core.DrawLayer].Remove(obj);
+            DrawLayer[obj.CoreData.DrawLayer].Remove(obj);
             DrawLayer[DestinationLayer].Add(obj);
-            obj.Core.DrawLayer = DestinationLayer;
+            obj.CoreData.DrawLayer = DestinationLayer;
         }
 
         public void RelayerObject(ObjectBase Obj, int NewLayer, bool Front)
         {
-            DrawLayer[Obj.Core.DrawLayer].Remove(Obj);
+            DrawLayer[Obj.CoreData.DrawLayer].Remove(Obj);
 
             if (Front)
                 DrawLayer[NewLayer].Insert(DrawLayer[NewLayer].Count, Obj);
             else
                 DrawLayer[NewLayer].Insert(0, Obj);
 
-            Obj.Core.DrawLayer = NewLayer;
+            Obj.CoreData.DrawLayer = NewLayer;
         }
 
         //Dictionary<IObject, bool> AllObjects = new Dictionary<IObject, bool>();
@@ -960,26 +960,26 @@ namespace CloudberryKingdom.Levels
         public void AddObject(ObjectBase NewObject, bool AddTimeStamp)
         {
             if (AddTimeStamp)
-                NewObject.Core.AddedTimeStamp = CurPhsxStep;
+                NewObject.CoreData.AddedTimeStamp = CurPhsxStep;
 
             SynchObject(NewObject);
-            NewObject.Core.MyLevel = this;
+            NewObject.CoreData.MyLevel = this;
 
-            if (NewObject.Core.DrawLayer >= 0)
+            if (NewObject.CoreData.DrawLayer >= 0)
             {
-                if (NewObject.Core.ParentBlock == null || NewObject.Core.ParentBlock is NormalBlock || NewObject.Core.DoNotDrawWithParent)
+                if (NewObject.CoreData.ParentBlock == null || NewObject.CoreData.ParentBlock is NormalBlock || NewObject.CoreData.DoNotDrawWithParent)
                 {
-                    DrawLayer[NewObject.Core.DrawLayer].Add(NewObject);                    
+                    DrawLayer[NewObject.CoreData.DrawLayer].Add(NewObject);                    
                 }
                 else
-                    NewObject.Core.ParentBlock.BlockCore.Objects.Add(NewObject);
+                    NewObject.CoreData.ParentBlock.BlockCore.Objects.Add(NewObject);
             }
 
             // Add object a second time if it needs to be drawn twice (two different draw layers, for instance)
-            if (NewObject.Core.DrawLayer2 > 0)
-                DrawLayer[NewObject.Core.DrawLayer2].Add(NewObject);
-            if (NewObject.Core.DrawLayer3 > 0)
-                DrawLayer[NewObject.Core.DrawLayer3].Add(NewObject);
+            if (NewObject.CoreData.DrawLayer2 > 0)
+                DrawLayer[NewObject.CoreData.DrawLayer2].Add(NewObject);
+            if (NewObject.CoreData.DrawLayer3 > 0)
+                DrawLayer[NewObject.CoreData.DrawLayer3].Add(NewObject);
 
             if (ObjectsLocked)
             {
@@ -1002,12 +1002,12 @@ namespace CloudberryKingdom.Levels
         public void ReAddObject(ObjectBase NewObject)
         {
             //AllObjects.Add(NewObject, true);
-            DrawLayer[NewObject.Core.DrawLayer].Add(NewObject);
+            DrawLayer[NewObject.CoreData.DrawLayer].Add(NewObject);
 
-            if (NewObject.Core.DrawLayer2 > 0)
-                DrawLayer[NewObject.Core.DrawLayer2].Add(NewObject);
-            if (NewObject.Core.DrawLayer3 > 0)
-                DrawLayer[NewObject.Core.DrawLayer3].Add(NewObject);
+            if (NewObject.CoreData.DrawLayer2 > 0)
+                DrawLayer[NewObject.CoreData.DrawLayer2].Add(NewObject);
+            if (NewObject.CoreData.DrawLayer3 > 0)
+                DrawLayer[NewObject.CoreData.DrawLayer3].Add(NewObject);
         }
 
         public List<ObjectBase> PreRecycleBin = new List<ObjectBase>(1000);
@@ -1017,8 +1017,8 @@ namespace CloudberryKingdom.Levels
             foreach (ObjectBase obj in PreRecycleBin)
             {
                 //if (obj is MovingPlatform && ((MovingPlatform)obj).Parent != null) Tools.Write("!");
-                obj.Core.MarkedForDeletion = false;
-                obj.Core.MyLevel = null;
+                obj.CoreData.MarkedForDeletion = false;
+                obj.CoreData.MyLevel = null;
                 Recycle.CollectObject(obj);
             }
 
@@ -1046,7 +1046,7 @@ namespace CloudberryKingdom.Levels
 
         public void CleanObjectList()
         {
-            Tools.RemoveAll(Objects, obj => obj.Core.MarkedForDeletion);
+            Tools.RemoveAll(Objects, obj => obj.CoreData.MarkedForDeletion);
         }
 
         public void CleanDrawLayers()
@@ -1055,14 +1055,14 @@ namespace CloudberryKingdom.Levels
             {
                 Tools.RemoveAll(DrawLayer[i],
                     (obj, index) =>
-                        obj.Core.MarkedForDeletion ||
-                        (obj.Core.DrawLayer != i && obj.Core.DrawLayer2 != i && obj.Core.DrawLayer3 != i));
+                        obj.CoreData.MarkedForDeletion ||
+                        (obj.CoreData.DrawLayer != i && obj.CoreData.DrawLayer2 != i && obj.CoreData.DrawLayer3 != i));
             }
         }
 
         public void CleanBlockList()
         {
-            Tools.RemoveAll(Blocks, block => block.Core.MarkedForDeletion);
+            Tools.RemoveAll(Blocks, block => block.CoreData.MarkedForDeletion);
         }
 
 
@@ -1075,18 +1075,18 @@ namespace CloudberryKingdom.Levels
         {
             // Add a time stamp
             if (AddTimeStamp)
-                block.Core.AddedTimeStamp = CurPhsxStep;
+                block.CoreData.AddedTimeStamp = CurPhsxStep;
 
             // Set a default tile set if none is specified
-            if (block.Core.MyTileSet == TileSets.None)
-                block.Core.MyTileSet = MyTileSet;
+            if (block.CoreData.MyTileSet == TileSets.None)
+                block.CoreData.MyTileSet = MyTileSet;
 
             // Add the block to the block list
             SynchObject(block);
             Blocks.Add(block);
             block.BlockCore.MyLevel = this;
-            TR = Vector2.Max(TR, block.Box.Current.TR);
-            BL = Vector2.Min(BL, block.Box.Current.BL);
+            TR = Vector2Extension.Max(TR, block.Box.Current.TR);
+            BL = Vector2Extension.Min(BL, block.Box.Current.BL);
 
             // Add block to the draw lists
             ReAddObject(block);
@@ -1095,7 +1095,7 @@ namespace CloudberryKingdom.Levels
 
         public void AddBob(Bob bob)
         {
-            bob.Core.MyLevel = this;
+            bob.CoreData.MyLevel = this;
             Bobs.Add(bob);
         }
 
@@ -1123,7 +1123,7 @@ namespace CloudberryKingdom.Levels
 
 
             foreach (ObjectBase obj in DrawLayer[i])
-                if (obj.Core.Show)
+                if (obj.CoreData.Show)
                     obj.Draw();
 
             Tools.QDrawer.Flush();
@@ -1140,14 +1140,14 @@ namespace CloudberryKingdom.Levels
                 if (MyGame != null && MyGame.MyGameFlags.IsTethered)
                 foreach (Bob Player in Bobs)
                 {
-                    if (Player.Core.DrawLayer == i && Player.MyBobLinks != null)
+                    if (Player.CoreData.DrawLayer == i && Player.MyBobLinks != null)
                         foreach (BobLink link in Player.MyBobLinks)
                             link.Draw();
                 }
 
                 foreach (Bob Bob in Bobs)
                 {
-                    if (Bob.DrawWithLevel && Bob.Core.DrawLayer == i)
+                    if (Bob.DrawWithLevel && Bob.CoreData.DrawLayer == i)
                         Bob.Draw();
                 }
                 Tools.QDrawer.Flush();
@@ -1257,7 +1257,7 @@ namespace CloudberryKingdom.Levels
                     float fade = CoreMath.Restrict(0f, 1f, bob.LightSourceFade - DeadCount * .0175f);
                     Color c = new Color(1f, 1f, 1f, fade);
                     int radius = (int)CoreMath.Restrict(0.0f, 1000.0f, 860.0f + DeadCount * 27.0f + CoreMath.Periodic(-30, 30, 40, CurPhsxStep));
-                    Tools.QDrawer.DrawLightSource(bob.Pos, radius, 5f, c);//new Color(.75f, .75f, .75f, .75f));
+                    Tools.QDrawer.DrawLightSource(bob.CoreData.Data.Position, radius, 5f, c);//new Color(.75f, .75f, .75f, .75f));
                 }
                 Tools.QDrawer.Flush();
             }
@@ -1358,8 +1358,8 @@ namespace CloudberryKingdom.Levels
 
         public void TagAll(int Tag)
         {
-            foreach (ObjectBase obj in Objects) obj.Core.Tag = Tag;
-            foreach (BlockBase block in Blocks) block.Core.Tag = Tag;
+            foreach (ObjectBase obj in Objects) obj.CoreData.Tag = Tag;
+            foreach (BlockBase block in Blocks) block.CoreData.Tag = Tag;
         }
 
         // Take all objects in a different level and add them
@@ -1369,7 +1369,7 @@ namespace CloudberryKingdom.Levels
         }
         public void AddLevelBlocks(Level level, int Tag)
         {
-            foreach (BlockBase block in level.Blocks) if (block.Core.Tag == Tag && !block.Core.DoNotScrollOut) AddBlock(block);
+            foreach (BlockBase block in level.Blocks) if (block.CoreData.Tag == Tag && !block.CoreData.DoNotScrollOut) AddBlock(block);
             level.RemoveForeignObjects();
         }
         public void AddLevelObjects(Level level)
@@ -1378,11 +1378,11 @@ namespace CloudberryKingdom.Levels
         }
         public void AddLevelObjects(Level level, Vector2 p1, Vector2 p2)
         {
-            foreach (ObjectBase obj in level.Objects) if (IsBetween(obj.Core.Data.Position, p1, p2) && !obj.Core.DoNotScrollOut) AddObject(obj, false);
+            foreach (ObjectBase obj in level.Objects) if (IsBetween(obj.CoreData.Data.Position, p1, p2) && !obj.CoreData.DoNotScrollOut) AddObject(obj, false);
         }
         public void AddLevelObjects(Level level, int Tag)
         {
-            foreach (ObjectBase obj in level.Objects) if (obj.Core.Tag == Tag && !obj.Core.DoNotScrollOut) AddObject(obj, false);
+            foreach (ObjectBase obj in level.Objects) if (obj.CoreData.Tag == Tag && !obj.CoreData.DoNotScrollOut) AddObject(obj, false);
             level.RemoveForeignObjects();
         }
 
@@ -1425,10 +1425,10 @@ namespace CloudberryKingdom.Levels
         // Remove all objects that belong to a different level
         public void RemoveForeignObjects()
         {
-            Objects.RemoveAll(obj => obj.Core.MyLevel != this);
+            Objects.RemoveAll(obj => obj.CoreData.MyLevel != this);
             for (int i = 0; i < NumDrawLayers; i++)
-                DrawLayer[i].RemoveAll(obj => obj.Core.MyLevel != this);
-            Blocks.RemoveAll(obj => obj.Core.MyLevel != this);
+                DrawLayer[i].RemoveAll(obj => obj.CoreData.MyLevel != this);
+            Blocks.RemoveAll(obj => obj.CoreData.MyLevel != this);
         }
 
         /// <summary>
@@ -1439,7 +1439,7 @@ namespace CloudberryKingdom.Levels
             List<ObjectBase> list = new List<ObjectBase>();
 
             foreach (ObjectBase obj in Objects)
-                if (obj.Core.MyType == type && !obj.Core.MarkedForDeletion)
+                if (obj.CoreData.MyType == type && !obj.CoreData.MarkedForDeletion)
                     list.Add(obj);
 
             return list;
@@ -1449,8 +1449,8 @@ namespace CloudberryKingdom.Levels
         static Vector2 DefaultMetric(ObjectBase A, ObjectBase B)
         {
             return new Vector2(
-                Math.Abs(A.Core.Data.Position.X - B.Core.Data.Position.X),
-                Math.Abs(A.Core.Data.Position.Y - B.Core.Data.Position.Y));
+                Math.Abs(A.CoreData.Data.Position.X - B.CoreData.Data.Position.X),
+                Math.Abs(A.CoreData.Data.Position.Y - B.CoreData.Data.Position.Y));
         }
         public delegate Vector2 CleanupCallback(Vector2 pos);
         public void Cleanup(ObjectType type, CleanupCallback MinDistFunc)
@@ -1483,15 +1483,15 @@ namespace CloudberryKingdom.Levels
 
             foreach (ObjectBase obj in ObjList)
             {
-                if (obj.Core.GenData.EnforceBounds)
-                if (obj.Core.Data.Position.X > TR.X || obj.Core.Data.Position.X < BL.X ||
-                    obj.Core.Data.Position.Y > TR.Y || obj.Core.Data.Position.Y < BL.Y)
+                if (obj.CoreData.GenData.EnforceBounds)
+                if (obj.CoreData.Data.Position.X > TR.X || obj.CoreData.Data.Position.X < BL.X ||
+                    obj.CoreData.Data.Position.Y > TR.Y || obj.CoreData.Data.Position.Y < BL.Y)
                     Recycle.CollectObject(obj);
 
-                if (obj.Core.MarkedForDeletion)
+                if (obj.CoreData.MarkedForDeletion)
                     continue;
 
-                if (!obj.Core.GenData.LimitDensity) continue;
+                if (!obj.CoreData.GenData.LimitDensity) continue;
 
                 CheckAgainst(obj, ObjList, MinDistFunc, metric, MustBeDifferent);
             }
@@ -1504,7 +1504,7 @@ namespace CloudberryKingdom.Levels
 
             foreach (ObjectBase obj in ObjList)
             {
-                if (obj.Core.MarkedForDeletion)
+                if (obj.CoreData.MarkedForDeletion)
                     continue;
 
                 CheckAgainst_xCoord(obj, ObjList, MinDist);
@@ -1516,20 +1516,20 @@ namespace CloudberryKingdom.Levels
         {
             foreach (ObjectBase obj2 in ObjList)
             {
-                if (!obj2.Core.GenData.LimitDensity) return;
+                if (!obj2.CoreData.GenData.LimitDensity) return;
 
-                if (obj.Core.IsAssociatedWith(obj2))
+                if (obj.CoreData.IsAssociatedWith(obj2))
                 {
-                    if (obj.Core.GetAssociationData(obj2).UseWhenUsed)
+                    if (obj.CoreData.GetAssociationData(obj2).UseWhenUsed)
                         return;
                 }
 
-                if (!obj.Core.MarkedForDeletion &&
-                    !obj2.Core.MarkedForDeletion &&
+                if (!obj.CoreData.MarkedForDeletion &&
+                    !obj2.CoreData.MarkedForDeletion &&
                     obj != obj2 &&
-                    !(MustBeDifferent && obj.Core.MyType == obj2.Core.MyType))
+                    !(MustBeDifferent && obj.CoreData.MyType == obj2.CoreData.MyType))
                 {
-                    Vector2 MinDist = (MinDistFunc(obj.Core.Data.Position) + MinDistFunc(obj2.Core.Data.Position)) / 2;
+                    Vector2 MinDist = (MinDistFunc(obj.CoreData.Data.Position) + MinDistFunc(obj2.CoreData.Data.Position)) / 2;
 
                     Vector2 d = metric(obj, obj2);
 
@@ -1537,9 +1537,9 @@ namespace CloudberryKingdom.Levels
                     {
                         int Choice = 0; // 0 -> Remove first object, 1 -> Remove second object
 
-                        if (obj.Core.GenData.KeepIfUnused && obj2.Core.GenData.KeepIfUnused) return;
-                        else if (obj.Core.GenData.KeepIfUnused) Choice = 1;
-                        else if (obj2.Core.GenData.KeepIfUnused) Choice = 0;
+                        if (obj.CoreData.GenData.KeepIfUnused && obj2.CoreData.GenData.KeepIfUnused) return;
+                        else if (obj.CoreData.GenData.KeepIfUnused) Choice = 1;
+                        else if (obj2.CoreData.GenData.KeepIfUnused) Choice = 0;
                         else if (Rnd.Rnd.NextDouble() > .5) Choice = 1;
 
                         if (Choice == 0)
@@ -1555,19 +1555,19 @@ namespace CloudberryKingdom.Levels
         {
             foreach (ObjectBase obj2 in ObjList)
             {
-                if (!obj.Core.MarkedForDeletion &&
-                    !obj2.Core.MarkedForDeletion &&
+                if (!obj.CoreData.MarkedForDeletion &&
+                    !obj2.CoreData.MarkedForDeletion &&
                     obj != obj2)
                 {
-                    float d = (float)Math.Abs(obj.Pos.X - obj2.Pos.X);
+                    float d = (float)Math.Abs(obj.CoreData.Data.Position.X - obj2.CoreData.Data.Position.X);
 
                     if (d < MinDist)
                     {
                         int Choice = 0; // 0 -> Remove first object, 1 -> Remove second object
 
-                        if (obj.Core.GenData.KeepIfUnused && obj2.Core.GenData.KeepIfUnused) return;
-                        else if (obj.Core.GenData.KeepIfUnused) Choice = 1;
-                        else if (obj2.Core.GenData.KeepIfUnused) Choice = 0;
+                        if (obj.CoreData.GenData.KeepIfUnused && obj2.CoreData.GenData.KeepIfUnused) return;
+                        else if (obj.CoreData.GenData.KeepIfUnused) Choice = 1;
+                        else if (obj2.CoreData.GenData.KeepIfUnused) Choice = 0;
                         else if (Rnd.Rnd.NextDouble() > .5) Choice = 1;
 
                         if (Choice == 0)
@@ -1608,7 +1608,7 @@ namespace CloudberryKingdom.Levels
         void UpdateBlocks()
         {
             foreach (BlockBase block in Blocks)
-                if (!block.Core.MarkedForDeletion)
+                if (!block.CoreData.MarkedForDeletion)
                     block.PhsxStep();
         }
 
@@ -1616,7 +1616,7 @@ namespace CloudberryKingdom.Levels
         {
             foreach (ObjectBase Object in ActiveObjectList)
             {
-                if (!Object.Core.IsGameObject && !Object.Core.MarkedForDeletion)
+                if (!Object.CoreData.IsGameObject && !Object.CoreData.MarkedForDeletion)
                     Object.PhsxStep();
             }
         }
@@ -1624,7 +1624,7 @@ namespace CloudberryKingdom.Levels
         void UpdateBlocks2()
         {
             foreach (BlockBase block in Blocks)
-                if (!block.Core.MarkedForDeletion)
+                if (!block.CoreData.MarkedForDeletion)
                     block.PhsxStep2();
         }
 
@@ -1632,7 +1632,7 @@ namespace CloudberryKingdom.Levels
         {
             foreach (ObjectBase Object in ActiveObjectList)
             {
-                if (!Object.Core.MarkedForDeletion)
+                if (!Object.CoreData.MarkedForDeletion)
                     Object.PhsxStep2();
             }
         }
@@ -1648,8 +1648,8 @@ namespace CloudberryKingdom.Levels
                 int i = bob.MyPieceIndex;
                 if (RecordPosition)
                 {
-                    CurPiece.Recording[i].AutoLocs[CurPhsxStep - bob.IndexOffset] = bob.Core.Data.Position;
-                    CurPiece.Recording[i].AutoVel[CurPhsxStep - bob.IndexOffset] = bob.Core.Data.Velocity;
+                    CurPiece.Recording[i].AutoLocs[CurPhsxStep - bob.IndexOffset] = bob.CoreData.Data.Position;
+                    CurPiece.Recording[i].AutoVel[CurPhsxStep - bob.IndexOffset] = bob.CoreData.Data.Velocity;
                     CurPiece.Recording[i].AutoOnGround[CurPhsxStep - bob.IndexOffset] = bob.MyPhsx.OnGround;
                 }
                 else
@@ -1658,8 +1658,8 @@ namespace CloudberryKingdom.Levels
                     {
                         Vector2 IntendedLoc = MySwarmBundle.CurrentSwarm.MainRecord.Recordings[Bobs.IndexOf(bob)].AutoLocs[CurPhsxStep];
                         Vector2 IntendedVel = MySwarmBundle.CurrentSwarm.MainRecord.Recordings[Bobs.IndexOf(bob)].AutoVel[CurPhsxStep];
-                        bob.Move(IntendedLoc - bob.Core.Data.Position);
-                        bob.Core.Data.Velocity = IntendedVel;
+                        bob.Move(IntendedLoc - bob.CoreData.Data.Position);
+                        bob.CoreData.Data.Velocity = IntendedVel;
                     }
 
                     if (bob.MyPiece != null && bob.MyPiece.Recording != null && !bob.CharacterSelect && !bob.CharacterSelect2)
@@ -1669,7 +1669,7 @@ namespace CloudberryKingdom.Levels
                             Vector2 a, b;
                             bool A, B;
                             a = bob.MyPiece.Recording[i].AutoLocs[index];
-                            b = bob.Core.Data.Position;
+                            b = bob.CoreData.Data.Position;
                             A = bob.MyPiece.Recording[i].AutoOnGround[index];
                             B = bob.MyPhsx.OnGround;
                             Vector2 dif = a - b;
@@ -1682,8 +1682,8 @@ namespace CloudberryKingdom.Levels
                                 if (a != Vector2.Zero)
                                 {
                                     //bob.Core.Data.Position = a;
-                                    bob.Move(a - bob.Core.Data.Position);
-                                    bob.Core.Data.Velocity = bob.MyPiece.Recording[i].AutoVel[index];
+                                    bob.Move(a - bob.CoreData.Data.Position);
+                                    bob.CoreData.Data.Velocity = bob.MyPiece.Recording[i].AutoVel[index];
                                     //Tools.Write("Bob[{0}]---> {1}/{2}:  {3}, {4}, {5}, {6}", Bobs.IndexOf(bob), GetPhsxStep(), bob.MyPiece.PieceLength, a, b, A, B);
                                 }
                             }
@@ -1866,7 +1866,7 @@ namespace CloudberryKingdom.Levels
                             {
                                 NumAlive++;
 
-                                Pos += bob.Pos;
+                                Pos += bob.CoreData.Data.Position;
                             }
                         }
 
@@ -1924,7 +1924,7 @@ namespace CloudberryKingdom.Levels
             // Keep active all objects that didn't skip their phsx the previous step.
             foreach (ObjectBase obj in Objects)
             {
-                if (!obj.Core.SkippedPhsx && !obj.Core.MarkedForDeletion)
+                if (!obj.CoreData.SkippedPhsx && !obj.CoreData.MarkedForDeletion)
                 {
                     ActiveObjectList.Add(obj);
                 }
@@ -1961,7 +1961,7 @@ namespace CloudberryKingdom.Levels
             foreach (ObjectBase obj in Objects)
             {
                 Coin coin = obj as Coin;
-                if (null != coin && !coin.Core.MarkedForDeletion)
+                if (null != coin && !coin.CoreData.MarkedForDeletion)
                 {
                     NumCoins++;
                     TotalCoinScore += coin.MyScoreValue;

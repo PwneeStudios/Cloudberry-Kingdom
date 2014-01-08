@@ -81,7 +81,7 @@ namespace CloudberryKingdom.Obstacles
         public void SetColor(BlobColor color)
         {
             MyColor = color;
-            if (Core.BoxesOnly || MyLevel == null) return;
+            if (CoreData.BoxesOnly || MyLevel == null) return;
 
             if (MyObject.Quads != null && MyObject.Quads.Length >= 2)
             {
@@ -136,7 +136,7 @@ namespace CloudberryKingdom.Obstacles
             CopySource = null;
 
             Target = TargetVel = Vector2.Zero;
-            Core.Data = new PhsxData();
+            CoreData.Data = new PhsxData();
 
             MyAnimSpeed = .1666f;
 
@@ -153,15 +153,15 @@ namespace CloudberryKingdom.Obstacles
             
             SetColor(BlobColor.Green);
 
-            Core.DrawLayer = 4;
-            Core.MyType = ObjectType.FlyingBlob;
-            Core.Holdable = true;
+            CoreData.DrawLayer = 4;
+            CoreData.MyType = ObjectType.FlyingBlob;
+            CoreData.Holdable = true;
 
             Displacement = Vector2.Zero;
             Offset = 0;
             Period = 1;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
             NeverSkip = false;
 
             StartLife = Life = 1;
@@ -186,13 +186,13 @@ namespace CloudberryKingdom.Obstacles
             MyObject.Boxes[0].Animated = false;
             MyObject.Boxes[1].Animated = false;
 
-            Box.Initialize(Core.Data.Position, Prototypes.FlyingBlobObj.MyObject.Boxes[0].Size() / 2);
-            Box2.Initialize(Core.Data.Position, Prototypes.FlyingBlobObj.MyObject.Boxes[1].Size() / 2);
+            Box.Initialize(CoreData.Data.Position, Prototypes.FlyingBlobObj.MyObject.Boxes[0].Size() / 2);
+            Box2.Initialize(CoreData.Data.Position, Prototypes.FlyingBlobObj.MyObject.Boxes[1].Size() / 2);
 
             MyObject.Read(0, 0);
             MyObject.Update();
 
-            Box.SetTarget(Core.Data.Position, Box.Current.Size);
+            Box.SetTarget(CoreData.Data.Position, Box.Current.Size);
             Box.SwapToCurrent();
 
             UpdateObject();
@@ -214,7 +214,7 @@ namespace CloudberryKingdom.Obstacles
 
             MakeNew();
 
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
         }
 
         public void SetAnimation()
@@ -232,7 +232,7 @@ namespace CloudberryKingdom.Obstacles
         public FlyingBlob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
         {
             CoreData = new ObjectData();
-            Core.Active = true;
+            CoreData.Active = true;
 
             // Initialize statics
             SquishSound = Tools.SoundWad.FindByName("Blob_Squish");
@@ -271,11 +271,11 @@ namespace CloudberryKingdom.Obstacles
             MyObject.Update();
 
 
-            Core.Data.Position = new Vector2(100, 50);
-            Core.Data.Velocity = new Vector2(0, 0);
+            CoreData.Data.Position = new Vector2(100, 50);
+            CoreData.Data.Velocity = new Vector2(0, 0);
 
-            Box = new AABox(Core.Data.Position, MyObject.Boxes[0].Size() / 2);
-            Box2 = new AABox(Core.Data.Position, MyObject.Boxes[1].Size() / 2);
+            Box = new AABox(CoreData.Data.Position, MyObject.Boxes[0].Size() / 2);
+            Box2 = new AABox(CoreData.Data.Position, MyObject.Boxes[1].Size() / 2);
 
             StartLife = Life = 1;
             Direction = -1;
@@ -289,9 +289,9 @@ namespace CloudberryKingdom.Obstacles
                 return;
             }
 
-            Core.Active = false;
-            if (DeleteOnDeath) Core.Recycle.CollectObject(this);
-            if (Core.MyLevel.PlayMode != 0) return;
+            CoreData.Active = false;
+            if (DeleteOnDeath) CoreData.Recycle.CollectObject(this);
+            if (CoreData.MyLevel.PlayMode != 0) return;
 
             // Change player's kill stats
             if (KillingBob != null && KillingBob.GiveStats())
@@ -303,7 +303,7 @@ namespace CloudberryKingdom.Obstacles
 
         public void Squish(Vector2 vel)
         {
-            var emitter = Core.MyLevel.MainEmitter;
+            var emitter = CoreData.MyLevel.MainEmitter;
 
             for (int k = 0; k < 9; k++)
             {
@@ -314,7 +314,7 @@ namespace CloudberryKingdom.Obstacles
                     p.MyQuad.MyTexture = Info.Blobs.GooSprite.MyTexture;
 
                 Vector2 Dir = MyLevel.Rnd.RndDir();
-                p.Data.Position = Core.Data.Position + 50 * Dir;
+                p.Data.Position = CoreData.Data.Position + 50 * Dir;
                 p.Data.Velocity = 20 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
 
                 p.Data.Velocity.Y = .5f * Math.Abs(p.Data.Velocity.Y);
@@ -328,37 +328,37 @@ namespace CloudberryKingdom.Obstacles
 
         public void XAccel(bool Left, bool Right, bool Run)
         {
-            if (Left && Core.Data.Velocity.X > -BobMaxSpeed[(int)MyMoveType])
+            if (Left && CoreData.Data.Velocity.X > -BobMaxSpeed[(int)MyMoveType])
             {
-                if (Core.Data.Velocity.X <= 0)
-                    Core.Data.Velocity.X -= BobXAccel;
+                if (CoreData.Data.Velocity.X <= 0)
+                    CoreData.Data.Velocity.X -= BobXAccel;
                 else
-                    Core.Data.Velocity.X -= 2.7f * BobXAccel;
+                    CoreData.Data.Velocity.X -= 2.7f * BobXAccel;
 
-                if (Core.Data.Velocity.X < 0 && Core.Data.Velocity.X > -BobMaxSpeed[(int)MyMoveType] / 10)
-                    Core.Data.Velocity.X = -BobMaxSpeed[(int)MyMoveType] / 10;
+                if (CoreData.Data.Velocity.X < 0 && CoreData.Data.Velocity.X > -BobMaxSpeed[(int)MyMoveType] / 10)
+                    CoreData.Data.Velocity.X = -BobMaxSpeed[(int)MyMoveType] / 10;
             }
-            if (Right && Core.Data.Velocity.X < BobMaxSpeed[(int)MyMoveType])
+            if (Right && CoreData.Data.Velocity.X < BobMaxSpeed[(int)MyMoveType])
             {
-                if (Core.Data.Velocity.X >= 0)
-                    Core.Data.Velocity.X += BobXAccel;
+                if (CoreData.Data.Velocity.X >= 0)
+                    CoreData.Data.Velocity.X += BobXAccel;
                 else
-                    Core.Data.Velocity.X += 2.7f * BobXAccel;
+                    CoreData.Data.Velocity.X += 2.7f * BobXAccel;
 
-                if (Core.Data.Velocity.X > 0 && Core.Data.Velocity.X < BobMaxSpeed[(int)MyMoveType] / 10)
-                    Core.Data.Velocity.X = BobMaxSpeed[(int)MyMoveType] / 10;
+                if (CoreData.Data.Velocity.X > 0 && CoreData.Data.Velocity.X < BobMaxSpeed[(int)MyMoveType] / 10)
+                    CoreData.Data.Velocity.X = BobMaxSpeed[(int)MyMoveType] / 10;
             }
 
-            if (!(Left || Right) || !Run && Math.Abs(Core.Data.Velocity.X) > BobMaxSpeed[(int)MyMoveType])
+            if (!(Left || Right) || !Run && Math.Abs(CoreData.Data.Velocity.X) > BobMaxSpeed[(int)MyMoveType])
             {
-                if (Math.Abs(Core.Data.Velocity.X) < 2)
-                    Core.Data.Velocity.X /= 2f;
+                if (Math.Abs(CoreData.Data.Velocity.X) < 2)
+                    CoreData.Data.Velocity.X /= 2f;
                 else
                 {
-                    if (Math.Abs(Core.Data.Velocity.X) > BobMaxSpeed[(int)MyMoveType])
-                        Core.Data.Velocity.X -= Math.Sign(Core.Data.Velocity.X) * BobXFriction;
+                    if (Math.Abs(CoreData.Data.Velocity.X) > BobMaxSpeed[(int)MyMoveType])
+                        CoreData.Data.Velocity.X -= Math.Sign(CoreData.Data.Velocity.X) * BobXFriction;
                     else
-                        Core.Data.Velocity.X -= Math.Sign(Core.Data.Velocity.X) * 7f / 4f * BobXFriction;
+                        CoreData.Data.Velocity.X -= Math.Sign(CoreData.Data.Velocity.X) * 7f / 4f * BobXFriction;
                 }
             }
         }
@@ -366,18 +366,18 @@ namespace CloudberryKingdom.Obstacles
         public Vector2 TR_Bound()
         {
             Vector2 max =
-                Vector2.Max(
-                Vector2.Max(CalcPosition(0), CalcPosition(.5f)),
-                Vector2.Max(CalcPosition(0.25f), CalcPosition(.75f)));
+                Vector2Extension.Max(
+                Vector2Extension.Max(CalcPosition(0), CalcPosition(.5f)),
+                Vector2Extension.Max(CalcPosition(0.25f), CalcPosition(.75f)));
             return max;
         }
 
         public Vector2 BL_Bound()
         {
             Vector2 min =
-                Vector2.Min(
-                Vector2.Min(CalcPosition(0), CalcPosition(.5f)),
-                Vector2.Min(CalcPosition(0.25f), CalcPosition(.75f)));
+                Vector2Extension.Min(
+                Vector2Extension.Min(CalcPosition(0), CalcPosition(.5f)),
+                Vector2Extension.Min(CalcPosition(0.25f), CalcPosition(.75f)));
 
             return min;
         }
@@ -387,22 +387,22 @@ namespace CloudberryKingdom.Obstacles
             switch (MyMoveType)
             {
                 case PrescribedMoveType.Line:
-                    return Core.StartData.Position + Displacement * (float)Math.Cos(2 * Math.PI * t);                    
+                    return CoreData.StartData.Position + Displacement * (float)Math.Cos(2 * Math.PI * t);                    
 
                 case PrescribedMoveType.Circle:
-                    return Core.StartData.Position +
+                    return CoreData.StartData.Position +
                         new Vector2(Displacement.X * (float)Math.Cos(2 * Math.PI * t),
                                     Displacement.Y * (float)Math.Sin(2 * Math.PI * t));                    
 
                 case PrescribedMoveType.Star:
-                    return Core.StartData.Position +
+                    return CoreData.StartData.Position +
                         new Vector2(Displacement.X * (float)Math.Cos(2 * Math.PI * t)
                                                    * (1 + (float)Math.Cos(2 * Math.PI * t)),
                                     Displacement.Y * (float)Math.Sin(2 * Math.PI * t)
                                                    * (1 + (float)Math.Cos(2 * Math.PI * t)));                    
             }
 
-            return Core.StartData.Position;
+            return CoreData.StartData.Position;
         }
 
 
@@ -410,7 +410,7 @@ namespace CloudberryKingdom.Obstacles
         {
             if (MyLevel.PlayMode == 0 && KillingBob != null && !MyLevel.Watching && !MyLevel.Replay)
             {
-                Core.Data.Position = KilledLocation;
+                CoreData.Data.Position = KilledLocation;
                 return;
             }
 
@@ -418,18 +418,18 @@ namespace CloudberryKingdom.Obstacles
             {
                 case PhsxType.Prescribed:
                     //int Step = CoreMath.Modulo(Core.GetPhsxStep() + Offset, Period);
-                    float Step = CoreMath.Modulo(Core.GetIndependentPhsxStep() + Offset, (float)Period);
+                    float Step = CoreMath.Modulo(CoreData.GetIndependentPhsxStep() + Offset, (float)Period);
 
-                    if (!Core.Held)
-                        Core.Data.Position = CalcPosition((float)Step / Period);
+                    if (!CoreData.Held)
+                        CoreData.Data.Position = CalcPosition((float)Step / Period);
 
                     break;
 
                 case PhsxType.ToTarget:
                     Target += TargetVel;
-                    TargetVel += Core.Data.Acceleration;
+                    TargetVel += CoreData.Data.Acceleration;
 
-                    Vector2 dif = Target - Core.Data.Position;
+                    Vector2 dif = Target - CoreData.Data.Position;
                     float dist = dif.Length();
 
                     if (dist < ArrivedRadius)
@@ -440,16 +440,16 @@ namespace CloudberryKingdom.Obstacles
                     if (dist < DampRange)
                         acc = 0;
                     else
-                        Core.Data.Velocity *= Damp;
+                        CoreData.Data.Velocity *= Damp;
                     if (dist > 1)
                     {
                         dif.Normalize();
-                        Core.Data.Velocity += acc * dif;
+                        CoreData.Data.Velocity += acc * dif;
                     }
-                    float vel = Core.Data.Velocity.Length();
-                    if (vel > MaxVel) Core.Data.Velocity *= MaxVel / vel;
+                    float vel = CoreData.Data.Velocity.Length();
+                    if (vel > MaxVel) CoreData.Data.Velocity *= MaxVel / vel;
 
-                    Core.Data.Position += Core.Data.Velocity;
+                    CoreData.Data.Position += CoreData.Data.Velocity;
 
                     break;
             }
@@ -457,7 +457,7 @@ namespace CloudberryKingdom.Obstacles
 
         public override void PhsxStep()
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
 
             UpdatePos();
 
@@ -467,7 +467,7 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void ActivePhsxStep()
         {
-            if (!Core.BoxesOnly) AnimStep();
+            if (!CoreData.BoxesOnly) AnimStep();
 
             bool Right, Left;
             Right = Left = false;
@@ -484,12 +484,12 @@ namespace CloudberryKingdom.Obstacles
 
             Box2.SetTarget(Box2.Current.Center, Box2.Current.Size + new Vector2(.0f, .02f));
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Box.SwapToCurrent();
                 Box2.SwapToCurrent();
 
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }           
 
             if (Right) MyObject.xFlip = true;
@@ -501,8 +501,8 @@ namespace CloudberryKingdom.Obstacles
 
         public override void PhsxStep2()
         {
-            if (!Core.Active) return;
-            if (Core.SkippedPhsx) return;
+            if (!CoreData.Active) return;
+            if (CoreData.SkippedPhsx) return;
 
             if (Life < 1) Death();
 
@@ -514,19 +514,19 @@ namespace CloudberryKingdom.Obstacles
         {
             MyObject.Linear = false;
 
-            if (!Core.Active) return;
-            if (Core.SkippedPhsx) return;
+            if (!CoreData.Active) return;
+            if (CoreData.SkippedPhsx) return;
 
             if (CopySource == null)
             if (MyObject.DestinationAnim() == 0 && MyObject.Loop)
-                MyObject.PlayUpdate(MyAnimSpeed * Core.IndependentDeltaT);
+                MyObject.PlayUpdate(MyAnimSpeed * CoreData.IndependentDeltaT);
         }
 
         public void UpdateObject()
         {
             if (MyObject != null)
             {
-                MyObject.Base.Origin = Core.Data.Position;
+                MyObject.Base.Origin = CoreData.Data.Position;
 
                 if (CopySource != null)
                     MyObject.CopyUpdate(CopySource.MyObject);
@@ -539,15 +539,15 @@ namespace CloudberryKingdom.Obstacles
         {
             if (Life < 1) return;
 
-            if (!Core.Held)
+            if (!CoreData.Held)
             {
-                if (!Core.Active || Core.SkippedPhsx) return;
+                if (!CoreData.Active || CoreData.SkippedPhsx) return;
 
                 Vector2 BL = Box.Current.BL - new Vector2(225, 225);
-                if (BL.X > Core.MyLevel.MainCamera.TR.X || BL.Y > Core.MyLevel.MainCamera.TR.Y)
+                if (BL.X > CoreData.MyLevel.MainCamera.TR.X || BL.Y > CoreData.MyLevel.MainCamera.TR.Y)
                     return;
                 Vector2 TR = Box.Current.TR + new Vector2(260, 225);
-                if (TR.X < Core.MyLevel.MainCamera.BL.X || TR.Y < Core.MyLevel.MainCamera.BL.Y)
+                if (TR.X < CoreData.MyLevel.MainCamera.BL.X || TR.Y < CoreData.MyLevel.MainCamera.BL.Y)
                     return;
             }
 
@@ -564,11 +564,11 @@ namespace CloudberryKingdom.Obstacles
                 // Not hectic
                 if (Displacement.Y == 0)
                 {
-                    double t = 2 * Math.PI * (Core.GetPhsxStep() + Offset) / 120;
+                    double t = 2 * Math.PI * (CoreData.GetPhsxStep() + Offset) / 120;
                     shift = new Vector2(0, (float)Math.Cos(t)) * 9.5f;
                 }
 
-                MyQuad.Pos = Pos + shift;
+                MyQuad.Pos = CoreData.Data.Position + shift;
                 MyQuad.Draw();
 
                 // Extra tweening draw
@@ -610,12 +610,12 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Interact(Bob bob)
         {
-            if (!Core.Active) return;
+            if (!CoreData.Active) return;
             if (Life <= 0) return;
 
             bool UnderFoot, SideHit, Overlap;
             bool Delete = false; // Used for Stage 1 Level Generation
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
             {
                 float VelY = Box.Target.TR.Y - Box.Current.TR.Y;
 
@@ -641,11 +641,11 @@ namespace CloudberryKingdom.Obstacles
                             UnderFoot = true;
 
                         // If this is a computer and it might successfully jump off this blob, then
-                        if (UnderFoot && Core.MyLevel.PlayMode == 2)
+                        if (UnderFoot && CoreData.MyLevel.PlayMode == 2)
                         {
                             // check to make sure we aren't just barely hitting the blob.
                             // We want a solid hit.
-                            float ComputerGraceY =  GraceY - Core.GenData.EdgeSafety;
+                            float ComputerGraceY =  GraceY - CoreData.GenData.EdgeSafety;
                             Delete = true;
                             if (bob.Box.Current.BL.Y > Box2.Current.BL.Y - ComputerGraceY ||
                                 bob.Box.Target.BL.Y > Box2.Target.BL.Y - ComputerGraceY)
@@ -657,7 +657,7 @@ namespace CloudberryKingdom.Obstacles
                 }
 
                 if (UnderFoot && !SideHit)
-                    if (bob.Core.Data.Velocity.Y > 4 && bob.Core.Data.Velocity.Y > VelY)
+                    if (bob.CoreData.Data.Velocity.Y > 4 && bob.CoreData.Data.Velocity.Y > VelY)
                         UnderFoot = false;
 
                 if (UnderFoot && SideHit) SideHit = false;
@@ -665,7 +665,7 @@ namespace CloudberryKingdom.Obstacles
 
                 bool DoInteraction = true;
 
-                if (Core.MyLevel.PlayMode == 2)
+                if (CoreData.MyLevel.PlayMode == 2)
                 {
                     Overlap = Phsx.BoxBoxOverlap(bob.Box, Box);
 
@@ -673,18 +673,18 @@ namespace CloudberryKingdom.Obstacles
                     if (UnderFoot && bob.BottomCol) Delete = true;
                     if (SideHit) Delete = true;
                     if (Overlap && Col2 == ColType.NoCol) Delete = true;
-                    if (Core.GenData.RemoveIfOverlap) Delete = true;
-                    if (Core.GenData.Used) Delete = false;
+                    if (CoreData.GenData.RemoveIfOverlap) Delete = true;
+                    if (CoreData.GenData.Used) Delete = false;
                     if (Delete)
                     {
-                        Core.Recycle.CollectObject(this);
+                        CoreData.Recycle.CollectObject(this);
 
-                        Core.Active = false;
+                        CoreData.Active = false;
                         DoInteraction = false;
                     }
                     else
                     {
-                        StampAsUsed(Core.MyLevel.CurPhsxStep);
+                        StampAsUsed(CoreData.MyLevel.CurPhsxStep);
                     }
                 }
 
@@ -693,7 +693,7 @@ namespace CloudberryKingdom.Obstacles
                     if (bob == KillingBob || bob == KillingBob2 || bob == KillingBob3)
                         return;
 
-                    if (Core.MyLevel.DefaultHeroType is BobPhsxSpaceship)
+                    if (CoreData.MyLevel.DefaultHeroType is BobPhsxSpaceship)
                         UnderFoot = false;
 
                     if (UnderFoot)
@@ -708,7 +708,7 @@ namespace CloudberryKingdom.Obstacles
                         else
                             Life--;
 
-                        if (KillingBob == null) { KillingBob = bob; KilledLocation = Pos; }
+                        if (KillingBob == null) { KillingBob = bob; KilledLocation = CoreData.Data.Position; }
                         else if (KillingBob2 == null) KillingBob2 = bob;
                         else if (KillingBob3 == null) KillingBob3 = bob;
 
@@ -716,16 +716,16 @@ namespace CloudberryKingdom.Obstacles
                             bob.MyTempStats.Score += 50;
 
                         float NewY = Box.Target.TR.Y + bob.Box.Current.Size.Y + .01f;
-                        if (NewY > bob.Core.Data.Position.Y && Col2 == ColType.Top)
-                            bob.Core.Data.Position.Y = NewY;
+                        if (NewY > bob.CoreData.Data.Position.Y && Col2 == ColType.Top)
+                            bob.CoreData.Data.Position.Y = NewY;
 
                         // If the player had a reasonable Y-velocity, override it
-                        if (bob.Core.Data.Velocity.Y <= 30)
+                        if (bob.CoreData.Data.Velocity.Y <= 30)
                         {
-                            bob.Core.Data.Velocity.Y = 9.5f * bob.MyPhsx.BlobMod;
+                            bob.CoreData.Data.Velocity.Y = 9.5f * bob.MyPhsx.BlobMod;
 
                             if (GiveVelocity && VelY > 0)
-                                bob.Core.Data.Velocity.Y += VelY * bob.MyPhsx.BlobMod;
+                                bob.CoreData.Data.Velocity.Y += VelY * bob.MyPhsx.BlobMod;
 
                             // The player landed on something
                             bob.MyPhsx.LandOnSomething(true, this);
@@ -747,7 +747,7 @@ namespace CloudberryKingdom.Obstacles
             base.Reset(BoxesOnly);
 
             Life = StartLife;
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
 
             MyObject.Read(0, 0);
             MyObject.Play = true;
@@ -760,10 +760,10 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             FlyingBlob GoombaA = A as FlyingBlob;
-            Init(A.Core.StartData.Position, A.MyLevel);
+            Init(A.CoreData.StartData.Position, A.MyLevel);
 
             MyMoveType = GoombaA.MyMoveType;
 
@@ -789,7 +789,7 @@ namespace CloudberryKingdom.Obstacles
 
             GiveVelocity = GoombaA.GiveVelocity;
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
 
         public void SetStandardTargetParams()
@@ -798,7 +798,7 @@ namespace CloudberryKingdom.Obstacles
             MaxAcc = 4.9f;
 
             MyPhsxType = FlyingBlob.PhsxType.ToTarget;
-            Core.DrawLayer = 9;
+            CoreData.DrawLayer = 9;
         }
     }
 }

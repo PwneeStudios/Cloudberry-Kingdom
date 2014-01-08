@@ -233,7 +233,7 @@ namespace CloudberryKingdom.Stats
             {
                 BobDeathType type = (BobDeathType)i;
 
-                if (Bob.BobDeathNames.ContainsKey(type))
+                if (Bob.BobDeathNames.CustomContainsKey(type))
                 {
                     Localization.Words word = Bob.BobDeathNames[type];
 

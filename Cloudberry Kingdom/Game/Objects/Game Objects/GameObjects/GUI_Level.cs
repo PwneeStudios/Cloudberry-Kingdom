@@ -154,7 +154,7 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
             base.MyDraw();
         }
@@ -165,7 +165,7 @@ namespace CloudberryKingdom
 
             if (Hid || !Active) return;
 
-            if (Core.MyLevel.Watching || Core.MyLevel.Finished) return;
+            if (CoreData.MyLevel.Watching || CoreData.MyLevel.Finished) return;
         }
     }
 }

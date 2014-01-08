@@ -25,16 +25,16 @@ namespace CloudberryKingdom.Obstacles
         {
             base.MakeNew();
 
-            Core.MyType = ObjectType.Fireball;
+            CoreData.MyType = ObjectType.Fireball;
             AutoGenSingleton = Fireball_AutoGen.Instance;
             DeathType = Bobs.BobDeathType.Fireball;
 
             PhsxCutoff_Playing = new Vector2(10000);
             PhsxCutoff_BoxesOnly = new Vector2(10000);
 
-            Core.ContinuousEnabled = true;
+            CoreData.ContinuousEnabled = true;
 
-            Core.DrawLayer = 8;
+            CoreData.DrawLayer = 8;
 
             Radius = 40;
 
@@ -48,10 +48,10 @@ namespace CloudberryKingdom.Obstacles
 
             Alive = false;
 
-            if (Core.MyLevel.PlayMode == 0)
+            if (CoreData.MyLevel.PlayMode == 0)
             {
                 ExplodeSound.Play(1);
-                Explosion(Core.Data.Position, Core.MyLevel, .33f * Core.Data.Velocity, 1, 1);
+                Explosion(CoreData.Data.Position, CoreData.MyLevel, .33f * CoreData.Data.Velocity, 1, 1);
             }
         }
 
@@ -59,7 +59,7 @@ namespace CloudberryKingdom.Obstacles
         {
             base.Construct(BoxesOnly);
 
-            if (!Core.BoxesOnly)
+            if (!CoreData.BoxesOnly)
             {
                 MyQuad = new HsvQuad();
             }
@@ -71,7 +71,7 @@ namespace CloudberryKingdom.Obstacles
 
             Alive = true;
 
-            Core.Data = data;
+            CoreData.Data = data;
 
             if (!level.BoxesOnly)
             {
@@ -84,7 +84,7 @@ namespace CloudberryKingdom.Obstacles
                 {
                     if (MyQuad == null) MyQuad = new HsvQuad();
 
-                    if (!Core.BoxesOnly)
+                    if (!CoreData.BoxesOnly)
                     {
                         MyQuad.Size = new Vector2(195);
 						if (CloudberryKingdomGame.RenderFireball)
@@ -103,28 +103,28 @@ namespace CloudberryKingdom.Obstacles
         {
             //if (!Alive) Tools.Write("!");
 
-            float Step = (Core.MyLevel.IndependentPhsxStep - Offset + Period) % Period;
+            float Step = (CoreData.MyLevel.IndependentPhsxStep - Offset + Period) % Period;
 
             if (PrevStep > Step) Alive = true;
 
             PrevStep = Step;
 
             //Tools.Write(Core.StartData.Velocity.Length());
-            return Core.StartData.Position + Step * Core.StartData.Velocity;
+            return CoreData.StartData.Position + Step * CoreData.StartData.Velocity;
         }
 
         protected override void ActivePhsxStep()
         {
             if (!Alive)
             {
-                Core.Active = false;
-                Pos = GetPos();
+                CoreData.Active = false;
+                CoreData.Data.Position = GetPos();
                 return;
             }
             else
-                Core.Active = true;
+                CoreData.Active = true;
             
-            Pos = GetPos();
+            CoreData.Data.Position = GetPos();
             
             base.ActivePhsxStep();
         }
@@ -138,18 +138,18 @@ namespace CloudberryKingdom.Obstacles
 
         protected override void DrawGraphics()
         {
-            if (!Alive || !Core.MyLevel.MainCamera.OnScreen(Pos, 300)) return;
+            if (!Alive || !CoreData.MyLevel.MainCamera.OnScreen(CoreData.Data.Position, 300)) return;
 
             // Point forward
-            MyQuad.PointxAxisTo(-Core.Data.Velocity);
+            MyQuad.PointxAxisTo(-CoreData.Data.Velocity);
 
             MyQuad.Quad.MyEffect = Tools.HslEffect;
 
             // Shift forward
-            Vector2 dir = Core.Data.Velocity;
+            Vector2 dir = CoreData.Data.Velocity;
             dir.Normalize();
 
-            MyQuad.Pos = Core.Data.Position - 30 * dir;
+            MyQuad.Pos = CoreData.Data.Position - 30 * dir;
 
             // Draw the fireball
             MyQuad.Draw();
@@ -162,7 +162,7 @@ namespace CloudberryKingdom.Obstacles
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
             Fireball FireballA = A as Fireball;
 
@@ -170,8 +170,8 @@ namespace CloudberryKingdom.Obstacles
             Period = FireballA.Period;
             Offset = FireballA.Offset;
 
-            Init(FireballA.Core.Data, FireballA.MyLevel);
-            Core.StartData = FireballA.Core.StartData;
+            Init(FireballA.CoreData.Data, FireballA.MyLevel);
+            CoreData.StartData = FireballA.CoreData.StartData;
         }
     }
 }

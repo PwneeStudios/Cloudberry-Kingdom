@@ -38,9 +38,9 @@ namespace CloudberryKingdom
             // No cheers =(
             return;
 
-            if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
+            if (!CoreData.Show || CoreData.MyLevel.SuppressCheckpoints) return;
 
-            Level level = Core.MyLevel;
+            Level level = CoreData.MyLevel;
             MyPile.FancyPos.SetCenter(level.MainCamera, true);
             MyPile.FancyPos.Update();
 

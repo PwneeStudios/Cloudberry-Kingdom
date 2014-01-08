@@ -38,11 +38,11 @@ namespace CloudberryKingdom.Bobs
             get
             {
                 // Don't draw the bungee if we are a dead spaceship or if we explode on death and are dead
-                if ((Bob.AllExplode && !Bob.ShowCorpseAfterExplode) || j.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && (j.Dead || j.Dying || k.Dead || k.Dying))
+                if ((Bob.AllExplode && !Bob.ShowCorpseAfterExplode) || j.CoreData.MyLevel.DefaultHeroType is BobPhsxSpaceship && (j.Dead || j.Dying || k.Dead || k.Dying))
                     return true;
 
                 // Don't draw the bungee if one of the players isn't being drawn.
-                if (!j.Core.Show || !k.Core.Show)
+                if (!j.CoreData.Show || !k.CoreData.Show)
                     return true;
 
                 return false;
@@ -53,7 +53,7 @@ namespace CloudberryKingdom.Bobs
         {
             if (Inactive) return;
 
-            Draw(j.Core.Data.Position, k.Core.Data.Position);
+            Draw(j.CoreData.Data.Position, k.CoreData.Data.Position);
         }
 
         public void Draw(Vector2 p1, Vector2 p2)
@@ -65,9 +65,9 @@ namespace CloudberryKingdom.Bobs
         {
             if (Inactive) return;
 
-            float Length = (j.Core.Data.Position - k.Core.Data.Position).Length();
+            float Length = (j.CoreData.Data.Position - k.CoreData.Data.Position).Length();
             
-            Vector2 Tangent = (j.Core.Data.Position - k.Core.Data.Position);
+            Vector2 Tangent = (j.CoreData.Data.Position - k.CoreData.Data.Position);
             
             if (Length < 1) Tangent = Vector2.Zero;
             else Tangent /= Length;
@@ -78,8 +78,8 @@ namespace CloudberryKingdom.Bobs
             if (Math.Abs(Force) > MaxForce)
                 Force = Math.Sign(Force) * MaxForce;
 
-            Vector2 Bottom = Vector2.Min(j.Core.Data.Position, k.Core.Data.Position);
-            if (bob.Core.Data.Position.Y > Bottom.Y)
+            Vector2 Bottom = Vector2Extension.Min(j.CoreData.Data.Position, k.CoreData.Data.Position);
+            if (bob.CoreData.Data.Position.Y > Bottom.Y)
                 Force /= 5;
 
             Vector2 VectorForce = Force * Tangent;
@@ -87,9 +87,9 @@ namespace CloudberryKingdom.Bobs
 
             Tangent = VectorForce;
             Tangent.Normalize();
-            float v = Vector2.Dot(bob.Core.Data.Velocity, Tangent);
+            float v = Vector2.Dot(bob.CoreData.Data.Velocity, Tangent);
             if (v < 25)
-                bob.Core.Data.Velocity += VectorForce;
+                bob.CoreData.Data.Velocity += VectorForce;
         }
 
         public void Connect(Bob bob1, Bob bob2)

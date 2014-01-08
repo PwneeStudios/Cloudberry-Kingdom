@@ -17,11 +17,11 @@ namespace CloudberryKingdom
         {
             Circle.Initialize(Vector2.Zero, 1);
 
-            Core.Init();
-            Core.GenData.OverlapWidth = 60;
+            CoreData.Init();
+            CoreData.GenData.OverlapWidth = 60;
 
-            Core.SkippedPhsx = true;
-            Core.ContinuousEnabled = true;
+            CoreData.SkippedPhsx = true;
+            CoreData.ContinuousEnabled = true;
         }
 
         public _CircleDeath() { }
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
 
         public override void Construct(bool BoxesOnly)
         {
-            Core.BoxesOnly = BoxesOnly;
+            CoreData.BoxesOnly = BoxesOnly;
 
             Circle = new CircleBox();
 
@@ -43,14 +43,14 @@ namespace CloudberryKingdom
 
         protected override void ActivePhsxStep()
         {
-            Circle.Center = Pos;
+            Circle.Center = CoreData.Data.Position;
             Circle.Radius = Radius;
 
-            if (Core.WakeUpRequirements)
+            if (CoreData.WakeUpRequirements)
             {
                 Circle.Invalidate();
 
-                Core.WakeUpRequirements = false;
+                CoreData.WakeUpRequirements = false;
             }
         }
 
@@ -68,21 +68,21 @@ namespace CloudberryKingdom
 
         public override void Interact(Bob bob)
         {
-            if (!Core.SkippedPhsx)
+            if (!CoreData.SkippedPhsx)
             {
                 bool Col = Circle.BoxOverlap(bob.Box2);
                 
                 if (Col)
                 {
-                    if (Core.MyLevel.PlayMode == 0)
+                    if (CoreData.MyLevel.PlayMode == 0)
                     {
                         bob.Die(DeathType, this);
                         Die();
                     }
 
-                    if (Core.MyLevel.PlayMode != 0)
+                    if (CoreData.MyLevel.PlayMode != 0)
                     {
-                        bool col = Circle.BoxOverlap_Tiered(Core, bob, AutoGenSingleton);
+                        bool col = Circle.BoxOverlap_Tiered(CoreData, bob, AutoGenSingleton);
 
                         if (col) CollectSelf();
                     }
@@ -92,9 +92,9 @@ namespace CloudberryKingdom
 
         public override void Clone(ObjectBase A)
         {
-            Core.Clone(A.Core);
+            CoreData.Clone(A.CoreData);
 
-            Core.WakeUpRequirements = true;
+            CoreData.WakeUpRequirements = true;
         }
     }
 }
