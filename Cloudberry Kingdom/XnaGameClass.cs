@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
-#if WINDOWS
+#if WINDOWS && !MONO
 using System.Windows.Forms;
 #endif
 
@@ -25,12 +25,12 @@ using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Awards;
 
-#if XBOX
+#if XBOX || MONO
 #else
 using CloudberryKingdom.Viewer;
 #endif
 
-#if WINDOWS
+#if WINDOWS && !MONO
 using Forms = System.Windows.Forms;
 #endif
 
@@ -91,7 +91,7 @@ namespace CloudberryKingdom
             base.Draw(gameTime);
         }
 
-#if WINDOWS
+#if WINDOWS && !MONO
         public void SetBorder(bool Show)
         {
             IntPtr hWnd = Tools.GameClass.Window.Handle;

@@ -64,7 +64,7 @@ namespace EasyStorage
 		/// <param name="supportedLanguages">The set of supported languages.</param>
 		public static void SetSupportedLanguages(params Language[] supportedLanguages)
 		{
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !MONO
 			// make sure we didn't get null
 			if (supportedLanguages == null)
 				throw new ArgumentNullException("supportedLanguages");
@@ -115,7 +115,7 @@ namespace EasyStorage
 		/// </summary>
 		public static void ResetSaveDeviceStrings()
 		{
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !MONO
 			SaveDevice.OkOption = Strings.Ok;
 			SaveDevice.YesOption = Strings.Yes_Select_new_device;
 			SaveDevice.NoOption = Strings.No_Continue_without_device;

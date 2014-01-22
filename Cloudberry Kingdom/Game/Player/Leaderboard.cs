@@ -10,6 +10,12 @@ using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {
+#if MONO
+	public class LeaderboardIdentity
+	{
+	}
+#endif
+
     public class Leaderboard
     {
         public static SignedInGamer LeaderboardGamer;

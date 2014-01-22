@@ -26,7 +26,7 @@ namespace CloudberryKingdom
         {
 			//return false;
 
-#if WINDOWS
+#if WINDOWS && !MONO
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
             {
                 // Test title screen

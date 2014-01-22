@@ -1,4 +1,4 @@
-﻿#if DEBUG && !XDK
+﻿#if DEBUG && !XDK && !MONO
 using System;
 using System.IO;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿#if PC_VERSION
+#if PC_VERSION && !MONO
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -236,6 +236,77 @@ namespace SteamManager
 		{
 			int id = SW.SteamStats.Results_GetId(Index);
 			return id;
+		}
+	}
+}
+
+#elif MONO
+
+using System;
+
+namespace SteamManager
+{
+	public class Gamer
+	{
+		public string Gamertag;
+	}
+	
+	public static class SteamCore
+	{
+		public static bool Initialize()
+		{
+			return false;
+		}
+		
+		public static void Shutdown()
+		{
+		}
+		
+		public static void Update()
+		{
+		}
+	}
+	
+	public class LeaderboardHandle
+	{
+		public object Handle;
+		
+		public LeaderboardHandle(object Handle)
+		{
+			this.Handle = Handle;
+		}
+	}
+	
+	public static class SteamStats
+	{
+		public enum LeaderboardDataRequestType
+		{
+			Global = 0,
+			GlobalAroundUser = 1,
+			Friends = 2,
+			Users = 3
+		};
+		
+		public static void FindLeaderboard(String LeaderboardName, Action<LeaderboardHandle, bool> OnFind)
+		{
+		}
+		
+		public static void UploadScores(LeaderboardHandle Handle, int Value)
+		{
+		}
+		
+		public static void RequestEntries(LeaderboardHandle Handle, LeaderboardDataRequestType RequestType, int Start, int End, Action<bool> OnDownload)
+		{
+		}
+		
+		public static int Results_GetScore(int Index)
+		{
+			return 0;
+		}
+		
+		public static int Results_GetRank(int Index)
+		{
+			return 0;
 		}
 	}
 }
