@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework;
 
 #if PC_VERSION
 using SteamManager;
-using Nuclex.Input;
+	#if !MONO
+	using Nuclex.Input;
+	#endif
 #endif
 
 namespace CoreEngine
@@ -23,8 +25,8 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
-			//I = new XnaInput();
-			I = new NuclexGamepadInput();
+			I = new XnaInput();
+			//I = new NuclexGamepadInput();
 
 			I.Initialize(Container, ComponentCollection, WindowHandle);
 		}

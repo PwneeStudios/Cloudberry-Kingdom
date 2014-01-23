@@ -1,13 +1,14 @@
+/*
 using System;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CloudberryKingdomMonoWindows
 {
-	/*public class Video
-	{
-		public TimeSpan Duration;
-	}*/
+	//public class Video
+	//{
+	//	public TimeSpan Duration;
+	//}
 
 	public class VideoPlayer : IDisposable
 	{
@@ -23,6 +24,8 @@ namespace CloudberryKingdomMonoWindows
 		{
 		}
 
+
+
 		public Texture2D GetTexture()
 		{
 			return null;
@@ -37,4 +40,4 @@ namespace CloudberryKingdomMonoWindows
 		#endregion
 	}
 }
-
+*/

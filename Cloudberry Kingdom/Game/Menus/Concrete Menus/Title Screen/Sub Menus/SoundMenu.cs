@@ -200,6 +200,7 @@ namespace CloudberryKingdom
                 PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
                 //Tools.Fullscreen = state;
 				Tools.Mode = state ? WindowMode.Borderless : WindowMode.Windowed;
+
 				XnaGameClass.WindowModeSet = false;
 
                 SaveGroup.SaveAll();

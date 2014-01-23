@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !MONO
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,6 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
-
-#if MONO
-using CloudberryKingdomMonoWindows;
-#endif
 
 namespace CloudberryKingdom
 {
@@ -247,3 +244,4 @@ namespace CloudberryKingdom
         }
     }
 }
+#endif

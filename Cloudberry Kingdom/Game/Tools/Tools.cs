@@ -30,11 +30,13 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
+	#if !MONO
 	class WindowsHelper
 	{
 		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
 		public static extern IntPtr GetForegroundWindow();
 	}
+	#endif
 
 	class ClickableBack
 	{
@@ -2246,7 +2248,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ModNums()
         {
-#if WINDOWS
+			#if WINDOWS && !MONO
 			if (ButtonCheck.State(XnaInput.Keys.D1).Down)
 			{
 				Num_Vec += .1f * Tools.DeltaMouse;

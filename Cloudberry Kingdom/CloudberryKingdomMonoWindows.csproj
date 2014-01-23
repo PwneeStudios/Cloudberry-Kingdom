@@ -45,8 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainClass.cs" />
-    <Compile Include="XnaGameClass.cs" />
     <Compile Include="Core\Chunk.cs" />
     <Compile Include="Core\FancyColor.cs" />
     <Compile Include="Core\FancyVector2.cs" />
@@ -433,6 +431,14 @@
     <Compile Include="Game\Tools\WrappedFloat.cs" />
     <Compile Include="Game\VideoPlayer.cs" />
     <Compile Include="__Steam_Wrapper\SteamManager.cs" />
+    <Compile Include="Core\Input\BaseInput.cs" />
+    <Compile Include="Core\Input\CoreInput.cs" />
+    <Compile Include="Core\Input\Implementations\XnaInput.cs" />
+    <Compile Include="Game\Player\Leaderboard_Steam.cs" />
+    <Compile Include="Game\VideoWrapper.cs" />
+    <Compile Include="MainClass\XboxPC\MainClass.cs" />
+    <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\VerifyStoryReset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BobIcon.png" />
@@ -2954,10 +2960,10 @@
       <Link>Content\Music\House^Blind_Digital.xnb</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Music\Nero%27s_Law^Peacemaker.wma">
-      <Link>Content\Music\Nero%27s_Law^Peacemaker.wma</Link>
+      <Link>Content\Music\Nero%2527s_Law^Peacemaker.wma</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Music\Nero%27s_Law^Peacemaker.xnb">
-      <Link>Content\Music\Nero%27s_Law^Peacemaker.xnb</Link>
+      <Link>Content\Music\Nero%2527s_Law^Peacemaker.xnb</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Music\Ripcurl^Blind_Digital.wma">
       <Link>Content\Music\Ripcurl^Blind_Digital.wma</Link>
@@ -2984,10 +2990,10 @@
       <Link>Content\Music\Tidy_Up^Peacemaker.xnb</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Music\Writer%27s_Block^Peacemaker.wma">
-      <Link>Content\Music\Writer%27s_Block^Peacemaker.wma</Link>
+      <Link>Content\Music\Writer%2527s_Block^Peacemaker.wma</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Music\Writer%27s_Block^Peacemaker.xnb">
-      <Link>Content\Music\Writer%27s_Block^Peacemaker.xnb</Link>
+      <Link>Content\Music\Writer%2527s_Block^Peacemaker.xnb</Link>
     </None>
     <None Include="bin\x86\Debug\Content\Objects\Arrow.smo">
       <Link>Content\Objects\Arrow.smo</Link>

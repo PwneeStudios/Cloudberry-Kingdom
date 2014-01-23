@@ -2290,7 +2290,7 @@ namespace CloudberryKingdom
 		{
 			bool IsActive = true;
 
-#if WINDOWS
+#if WINDOWS && !MONO
 			// XNA on Windows does not correctly identify that the game window doesn't have focus
 			// in the case where the game window STARTS in the background.
 			// This is an additional check to see if the window is not in focus.

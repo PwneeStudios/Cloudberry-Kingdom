@@ -1,6 +1,6 @@
 using System;
 
-#if WINDOWS
+#if WINDOWS && !MONO
 using System.Windows.Forms;
 #endif
 
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 #if XBOX
-#else
+#elif !MONO
 using CloudberryKingdom.Viewer;
 #endif
 
@@ -166,6 +166,19 @@ namespace CloudberryKingdom
 #if WINDOWS
 		public static bool WindowModeSet = false;
 
+		#if MONO
+		public void FakeFull()
+		{
+		}
+
+		public void FakeTab()
+		{
+		}
+
+		public void SetBorder(bool Show)
+		{
+		}
+		#else
 		public void FakeFull()
 		{
 			if (WindowModeSet) return;
@@ -232,6 +245,7 @@ namespace CloudberryKingdom
             var form = control.FindForm();
             form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         }
+		#endif
 #endif
     }
 }
