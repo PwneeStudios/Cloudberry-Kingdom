@@ -2206,7 +2206,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             {
                 fx.xCameraAspect.SetValue(AspectRatio);
                 fx.effect.CurrentTechnique = fx.Simplest;
-                fx.t.SetValue(Tools.t);
+				//fx.t.SetValue(Tools.t);
                 fx.Illumination.SetValue(1f);
                 fx.FlipVector.SetValue(new Vector2(-1, -1));
             }

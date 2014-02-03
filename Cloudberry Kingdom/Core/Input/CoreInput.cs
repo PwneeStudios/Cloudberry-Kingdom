@@ -25,10 +25,22 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
-			I = new XnaInput();
-			//I = new NuclexGamepadInput();
+			try
+			{
+				I = new NuclexGamepadInput();
+				I.Initialize(Container, ComponentCollection, WindowHandle);
+			}
+			catch (Exception e)
+			{
+				CloudberryKingdom.Tools.Log("NuclexGamepadInput initialization failed. Exception is:");
+				CloudberryKingdom.Tools.Log(e.ToString());
+				CloudberryKingdom.Tools.Log("Trying standard XnaInput instead.");
 
-			I.Initialize(Container, ComponentCollection, WindowHandle);
+				// We don't wrap the following in a try-catch. If this fails the game is not playable,
+				// so let the top level exception-catcher-logger handle any failure.
+				I = new XnaInput();
+				I.Initialize(Container, ComponentCollection, WindowHandle);
+			}
 		}
 		
 		public static void OnLoad() { I.OnLoad(); }

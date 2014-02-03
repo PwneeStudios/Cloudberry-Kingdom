@@ -151,16 +151,7 @@ namespace CloudberryKingdom
         {
             this.ResourceCount = ResourceCount;
 
-            Whinney = Content.Load<SoundEffect>("Whinney");
-
-			//Tools.TextureWad.FindOrLoad(Content, "LoadOutline", "Art\\LoadScreen_Initial\\LoadOutline");
-			//Tools.TextureWad.FindOrLoad(Content, "LoadFill", "Art\\LoadScreen_Initial\\LoadFill");
-
             MyPile = new DrawPile();
-
-            //Tools.TextureWad.FindOrLoad(Content, "Splash");
-            //Splash = new QuadClass("Splash", 1400);
-            //MyPile.Add(Splash);
 
             MyProgressBar = new ProgressBar();
             MyProgressBar.Pos = new Vector2(900, -400);

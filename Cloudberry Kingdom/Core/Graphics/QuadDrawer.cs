@@ -702,7 +702,7 @@ namespace CoreEngine
             if (CurrentTexture != null && i > 0)
             {
                 CurrentEffect.xTexture.SetValue(CurrentTexture.Tex);
-                CurrentEffect.Hsl.SetValue(CurrentMatrix);
+                if (CurrentEffect.Hsl != null) CurrentEffect.Hsl.SetValue(CurrentMatrix);
 
                 // Test HSV transform
                 //CurrentEffect.Hsl.SetValue(ColorHelper.HsvTransform(Tools.Num_0_to_2, 1f, Tools.Num_0_to_360));

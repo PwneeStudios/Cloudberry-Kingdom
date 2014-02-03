@@ -1,8 +1,11 @@
+CloudberryKingdomMonoContent/CloudberryKingdomMonoContent/CloudberryKingdomMonoContent/obj
+CloudberryKingdomMonoContent/CloudberryKingdomMonoContent/CloudberryKingdomMonoContent/bin
 obj/
 bin/
 *.cachefile
 *.suo
 *.spa
 *.spa.h
+*.userprefs
 *WiiU*
 *LocalizationCpp*

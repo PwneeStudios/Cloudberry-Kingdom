@@ -157,9 +157,11 @@ namespace CloudberryKingdom
                 if (extension == "xnb")
                 {
                     if (CreateNewWad)
-                        Tools.SongWad.AddSong(Tools.GameClass.Content.Load<Song>("Music\\" + name), name);
+						Tools.SongWad.AddSong(EzSongWad.LoadSong(name), name);
+						//Tools.SongWad.AddSong(Tools.GameClass.Content.Load<Song>("Music\\" + name), name);
                     else
-                        Tools.SongWad.FindByName(name).song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
+						Tools.SongWad.FindByName(name).song = EzSongWad.LoadSong(name);
+						//Tools.SongWad.FindByName(name).song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
@@ -373,6 +375,26 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
         }
 #else
+		#if MONO
+		static T LoadTillSuccess<T>(string Path)
+		{
+			T resource = default(T);
+
+			while (true) {
+				try {
+					resource = Tools.GameClass.Content.Load<T> (Path);
+					return resource;
+				} catch (Exception e) {
+					Console.WriteLine ("Loading {0} failed", Path);
+					Console.WriteLine (e.Message);
+					Console.WriteLine ("Trying again.");
+				}
+
+				Thread.Sleep (10);
+			}
+		}
+		#endif
+
         static void _LoadThread()
         {
             var Ck = Tools.TheGame;
@@ -447,7 +469,15 @@ namespace CloudberryKingdom
                     //    Thread.Sleep(300);
                     //}
 
+					#if MONO
+					// Mono can't always load a texture from a background thread.
+					// Occasionally the load will fail. We catch the error and try again after a small delay.
+					// This is possibly the worst way to solve this problem.
+					Tex.Tex = LoadTillSuccess<Texture2D>(Tex.Path);
+					#else
 					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
+					#endif
+
 					count++;
 
 					if		(count > 565) EnvironmentLoaded = 6;

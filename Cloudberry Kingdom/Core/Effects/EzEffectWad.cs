@@ -77,7 +77,8 @@ namespace CoreEngine
                 Neweffect.ExtraTexture1_Param = effect.Parameters["ExtraTexture1"];
                 Neweffect.ExtraTexture2_Param = effect.Parameters["ExtraTexture2"];
 
-                Neweffect.Hsl = effect.Parameters["ColorMatrix"];
+                //Neweffect.Hsl = effect.Parameters["ColorMatrix"];
+				Neweffect.Hsl = GetParameterOrNull(effect, "ColorMatrix");
 
                 Neweffect.Simplest = effect.Techniques["Simplest"];
 
@@ -86,5 +87,21 @@ namespace CoreEngine
                 EffectList.Add(Neweffect);
             }
         }
+
+		static EffectParameter GetParameterOrNull(Effect effect, string name)
+		{
+			try
+			{
+				var param = effect.Parameters[name];
+				if (param.Name == null)
+					return null;
+				else
+					return param;
+			}
+			catch
+			{
+				return null;
+			}
+		}
     }
 }

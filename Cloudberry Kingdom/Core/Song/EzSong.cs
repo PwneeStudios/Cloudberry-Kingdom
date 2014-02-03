@@ -33,6 +33,8 @@ namespace CoreEngine
 			}
 			catch
 			{
+				Tools.SongWad.Stop();
+				return 1000000;
 			}
 
 			if (Tools.SongWad.SuppressNextInfoDisplay)

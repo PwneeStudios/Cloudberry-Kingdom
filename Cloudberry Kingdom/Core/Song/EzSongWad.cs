@@ -386,10 +386,20 @@ namespace CoreEngine
             Play(Index, DisplayInfo);
         }
 
+		public static Song LoadSong(string name)
+		{
+#if MONO
+			return null;
+#else
+			var song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
+			return song;
+#endif
+		}
+
         public void Play(int Index, bool DisplayInfo)
         {
             if (PlayList[CurIndex].song == null)
-                PlayList[CurIndex].song = Tools.GameClass.Content.Load<Song>("Music\\" + PlayList[CurIndex].FileName);
+				PlayList[CurIndex].song = EzSongWad.LoadSong(PlayList[CurIndex].FileName);
 
             Elapsed = 0;
             Duration = PlayList[CurIndex].Play(DisplayInfo);
