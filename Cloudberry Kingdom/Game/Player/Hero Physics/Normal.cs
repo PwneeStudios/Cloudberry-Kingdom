@@ -98,8 +98,8 @@ namespace CloudberryKingdom
 
         public int NumJumps = 1;
         protected int CurJump;
-        int JumpDelay = 10;
-        int JumpDelayCount;
+        protected int JumpDelay = 10;
+        protected int JumpDelayCount;
 
 
 		/// <summary>
@@ -348,10 +348,6 @@ namespace CloudberryKingdom
                     ReadyToJump = true;
             }
 
-            //if (MyBob.Core.MyLevel.PlayMode != 0 || MyBob.CompControl)
-            //    if (NumJumps > 1 && !OnGround && CurJump > 0 && JumpDelayCount > -25)
-            //        ReadyToJump = false;
-
             // Update ReadyToThrust
             if (JetPack && !OnGround && (!MyBob.CurInput.A_Button || !StartedJump))
                 ReadyToThrust = true;
@@ -396,7 +392,7 @@ namespace CloudberryKingdom
         /// For this many frames Bob will not stick to blocks
         /// (so that he can successfully jump off of fast upward moving blocks)
         /// </summary>
-        int NoStickPeriod;
+        protected int NoStickPeriod;
         protected virtual void DoJump()
         {
             // Track whether this jump is immediately from a placed object
@@ -558,7 +554,7 @@ namespace CloudberryKingdom
                     {
                         if (ThrustSoundCount <= 0 && ThrustSound != null)
                         {
-							ThrustSoundCount = ThrustSoundDelay + 3;// Tools.GlobalRnd.RndInt(-1, 2);
+							ThrustSoundCount = ThrustSoundDelay + 3;
                             ThrustSound.PlayModulated(.02f);
                         }
                         ThrustSoundCount--;
@@ -591,10 +587,6 @@ namespace CloudberryKingdom
                 // Only apply gravity if we haven't reached terminal velocity
                 if (DynamicGreaterThan(yVel, BobMaxFallSpeed))
                     yVel -= Gravity;
-                //if (yVel > BobMaxFallSpeed && Gravity > 0)
-                //    yVel -= Gravity;
-                //if (yVel < -BobMaxFallSpeed && Gravity < 0)
-                //    yVel -= Gravity;
 
                 if (Math.Sign(HoldVel) != Math.Sign(yVel))
                 {
@@ -605,8 +597,6 @@ namespace CloudberryKingdom
                     CountSinceApex = 0;
                 }
             }
-
-            //yVel = Math.Max(yVel, BobMaxFallSpeed);
 
             if (!Thrusting)
                 ThrustSoundCount = 0;

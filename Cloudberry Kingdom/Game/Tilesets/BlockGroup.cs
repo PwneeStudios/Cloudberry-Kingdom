@@ -61,6 +61,15 @@ namespace CloudberryKingdom
             size.X = SnapWidthUp(size.X, Widths);
         }
 
+		public int SnapHeightUp(float Height)
+		{
+			return SnapWidthUp(Height, Widths);
+		}
+		public void SnapHeightUp(ref Vector2 size)
+		{
+			size.Y = SnapWidthUp(size.Y, Widths);
+		}
+
         public static int SnapWidthUp(float width, int[] Widths)
         {
             if (Widths.Length == 0) return (int)width;

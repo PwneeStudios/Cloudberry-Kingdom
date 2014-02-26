@@ -1678,7 +1678,13 @@ namespace CloudberryKingdom
             // Set Doppleganger
             if (MyGameFlags.IsDoppleganger)
             {
-                Bobs.ForEach(bob => bob.Dopple = true);
+				int count = 0;
+				foreach (Bob bob in Bobs)
+				{
+					if (count > 0)
+						bob.Dopple = true;
+					count++;
+				}
             }
 
             if (MyGameFlags.IsTethered)

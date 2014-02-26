@@ -58,6 +58,21 @@ namespace CloudberryKingdom
                 list.SetBackground(b);
         }
 
+		public void RotateLeft()
+		{
+			foreach (BackgroundFloaterList list in Lists)
+				list.RotateLeft();
+		}
+
+		public Vector2 GetBL()
+		{
+			Vector2 BL = new Vector2(float.MaxValue);
+			foreach (BackgroundFloaterList list in Lists)
+				BL = Vector2.Min(BL, list.GetBL());
+
+			return BL;
+		}
+
         public void Move(Vector2 shift)
         {
             foreach (BackgroundFloaterList list in Lists)

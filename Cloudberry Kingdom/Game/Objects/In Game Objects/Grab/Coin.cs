@@ -214,7 +214,12 @@ namespace CloudberryKingdom.InGameObjects
             if (!Core.Active) return;
             if (Core.MyLevel.SuppressCheckpoints && !Core.MyLevel.ShowCoinsInReplay) return;
 
-            bool Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
+			bool Col = false;
+			if (bob.MyPhsx.Transcendent)
+				Col = Phsx.BoxBoxOverlap(bob.Box, Box);
+			else
+				Col = Phsx.BoxBoxOverlap(bob.Box2, Box);
+
             if (Col)
             {
                 Die();

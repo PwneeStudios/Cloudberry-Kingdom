@@ -625,6 +625,39 @@ namespace CoreEngine
             DrawQuad(ref LineQuad);
         }
 
+		public void DrawQuad(Vector2 BL, Vector2 TR, Color color, EzTexture Tex, EzEffect fx)
+		{
+			color = ColorHelper.PremultiplyAlpha(color);
+
+			LineQuad.MyEffect = DefaultEffect;
+			if (fx == null)
+				LineQuad.MyEffect = Tools.EffectWad.EffectList[2];
+			else
+				LineQuad.MyEffect = fx;
+
+			if (Tex == null)
+			{
+				LineQuad.MyTexture = DefaultTexture;
+			}
+			else
+			{
+				LineQuad.MyTexture = Tex;
+			}
+
+			LineQuad.v0.Vertex.xy = new Vector2(BL.X, TR.Y); LineQuad.v0.Vertex.Color = color;
+			LineQuad.v1.Vertex.xy = new Vector2(TR.X, TR.Y); LineQuad.v1.Vertex.Color = color;
+			LineQuad.v2.Vertex.xy = new Vector2(BL.X, BL.Y); LineQuad.v2.Vertex.Color = color;
+			LineQuad.v3.Vertex.xy = new Vector2(TR.X, BL.Y); LineQuad.v3.Vertex.Color = color;
+
+			LineQuad.v0.Vertex.uv = new Vector2(0, 0);
+			LineQuad.v1.Vertex.uv = new Vector2(1, 0);
+			LineQuad.v2.Vertex.uv = new Vector2(0, 1);
+			LineQuad.v3.Vertex.uv = new Vector2(1, 1);
+
+			LineQuad.U_Wrap = LineQuad.V_Wrap = false;
+
+			DrawQuad(ref LineQuad);
+		}
 
         public void DrawToScaleQuad(Vector2 x, Color color, float width)
         {

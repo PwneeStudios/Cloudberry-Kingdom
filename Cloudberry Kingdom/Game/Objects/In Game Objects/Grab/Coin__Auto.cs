@@ -157,6 +157,7 @@ namespace CloudberryKingdom.Levels
         Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR, BobPos pos)
         {
             Vector2 center = bob.Core.Data.Position;
+
             Vector2 top = new Vector2(center.X, bob.Box.TR.Y);
             Vector2 bottom = new Vector2(center.X, bob.Box.BL.Y);
             Vector2 avg = (top + bottom) / 2;

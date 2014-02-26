@@ -5,6 +5,744 @@ namespace CloudberryKingdom
 {
     public partial class Background : ViewReadWrite
     {
+		public static void _code_Castle_Vertical(Background b)
+		{
+			b.GuidCounter = 0;
+			b.MyGlobalIllumination = 1f;
+			b.AllowLava = true;
+			CloudberryKingdom.BackgroundFloaterList __1 = new CloudberryKingdom.BackgroundFloaterList();
+			__1.Name = "Wall";
+			__1.Foreground = false;
+			__1.Fixed = false;
+			CloudberryKingdom.BackgroundFloater __2 = new CloudberryKingdom.BackgroundFloater();
+			__2.Name = "castle_wall";
+			__2.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-6237.486f, 17023.94f), new Vector2(1f, 0f), new Color(255, 255, 255, 255));
+			__2.MyQuad.Quad.v0.Pos = new Vector2(-1f, 1f);
+
+			__2.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(6237.488f, 17023.94f), new Vector2(0f, 0f), new Color(255, 255, 255, 255));
+			__2.MyQuad.Quad.v1.Pos = new Vector2(1f, 1f);
+
+			__2.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-6237.486f, 3528.3f), new Vector2(1f, 1f), new Color(255, 255, 255, 255));
+			__2.MyQuad.Quad.v2.Pos = new Vector2(-1f, -1f);
+
+			__2.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(6237.488f, 3528.3f), new Vector2(0f, 1f), new Color(255, 255, 255, 255));
+			__2.MyQuad.Quad.v3.Pos = new Vector2(1f, -1f);
+
+			__2.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__2.MyQuad.Quad.ExtraTexture1 = null;
+			__2.MyQuad.Quad.ExtraTexture2 = null;
+			__2.MyQuad.Quad._MyTexture = Tools.Texture("castle_wall");
+			__2.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__2.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__2.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__2.MyQuad.Base = new CoreEngine.BasePoint(6237.487f, 0f, 0f, 6747.822f, 0.0008239746f, 10276.12f);
+
+			__2.uv_speed = new Vector2(0f, 0f);
+			__2.uv_offset = new Vector2(1f, 0f);
+			__2.Data = new PhsxData(0.0008239746f, 10276.12f, 0f, 0f, 0f, 0f);
+			__2.StartData = new PhsxData(0.0008239746f, 10276.12f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__2);
+
+			CloudberryKingdom.BackgroundFloater __3 = new CloudberryKingdom.BackgroundFloater();
+			__3.Name = "castle_wall_p2";
+			__3.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-6246.681f, 29676.9f), new Vector2(1f, 0f), new Color(255, 255, 255, 255));
+			__3.MyQuad.Quad.v0.Pos = new Vector2(-1f, 1f);
+
+			__3.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(6228.292f, 29676.9f), new Vector2(2f, 0f), new Color(255, 255, 255, 255));
+			__3.MyQuad.Quad.v1.Pos = new Vector2(1f, 1f);
+
+			__3.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-6246.681f, 16181.26f), new Vector2(1f, -1f), new Color(255, 255, 255, 255));
+			__3.MyQuad.Quad.v2.Pos = new Vector2(-1f, -1f);
+
+			__3.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(6228.292f, 16181.26f), new Vector2(2f, -1f), new Color(255, 255, 255, 255));
+			__3.MyQuad.Quad.v3.Pos = new Vector2(1f, -1f);
+
+			__3.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__3.MyQuad.Quad.ExtraTexture1 = null;
+			__3.MyQuad.Quad.ExtraTexture2 = null;
+			__3.MyQuad.Quad._MyTexture = Tools.Texture("castle_wall_p2");
+			__3.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__3.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__3.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__3.MyQuad.Base = new CoreEngine.BasePoint(6237.487f, 0f, 0f, 6747.822f, -9.194574f, 22929.08f);
+
+			__3.uv_speed = new Vector2(0f, 0f);
+			__3.uv_offset = new Vector2(1f, 0f);
+			__3.Data = new PhsxData(-9.194574f, 22929.08f, 0f, 0f, 0f, 0f);
+			__3.StartData = new PhsxData(-9.194574f, 22929.08f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__3);
+
+			CloudberryKingdom.BackgroundFloater __4 = new CloudberryKingdom.BackgroundFloater();
+			__4.Name = "castle_wall";
+			__4.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-6228.265f, 43163.22f), new Vector2(0f, 0f), new Color(255, 255, 255, 255));
+			__4.MyQuad.Quad.v0.Pos = new Vector2(-1f, 1f);
+
+			__4.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(6246.708f, 43163.22f), new Vector2(-1f, 0f), new Color(255, 255, 255, 255));
+			__4.MyQuad.Quad.v1.Pos = new Vector2(1f, 1f);
+
+			__4.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-6228.265f, 29667.58f), new Vector2(0f, -1f), new Color(255, 255, 255, 255));
+			__4.MyQuad.Quad.v2.Pos = new Vector2(-1f, -1f);
+
+			__4.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(6246.708f, 29667.58f), new Vector2(-1f, -1f), new Color(255, 255, 255, 255));
+			__4.MyQuad.Quad.v3.Pos = new Vector2(1f, -1f);
+
+			__4.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__4.MyQuad.Quad.ExtraTexture1 = null;
+			__4.MyQuad.Quad.ExtraTexture2 = null;
+			__4.MyQuad.Quad._MyTexture = Tools.Texture("castle_wall");
+			__4.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__4.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__4.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__4.MyQuad.Base = new CoreEngine.BasePoint(6237.487f, 0f, 0f, 6747.822f, 9.221573f, 36415.4f);
+
+			__4.uv_speed = new Vector2(0f, 0f);
+			__4.uv_offset = new Vector2(0f, 0f);
+			__4.Data = new PhsxData(9.221573f, 36415.4f, 0f, 0f, 0f, 0f);
+			__4.StartData = new PhsxData(9.221573f, 36415.4f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__4);
+
+			CloudberryKingdom.BackgroundFloater __5 = new CloudberryKingdom.BackgroundFloater();
+			__5.Name = "castle_wall_p2";
+			__5.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__5.MyQuad.Quad.ExtraTexture1 = null;
+			__5.MyQuad.Quad.ExtraTexture2 = null;
+			__5.MyQuad.Quad._MyTexture = Tools.Texture("castle_wall_p2");
+			__5.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__5.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__5.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__5.MyQuad.Base = new CoreEngine.BasePoint(8090.417f, 0f, 0f, 3422.704f, 0.08364868f, 57142.2f);
+
+			__5.uv_speed = new Vector2(0f, 0f);
+			__5.uv_offset = new Vector2(0f, 0f);
+			__5.Data = new PhsxData(0.08364868f, 57142.2f, 0f, 0f, 0f, 0f);
+			__5.StartData = new PhsxData(0.08364868f, 57142.2f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__5);
+
+			CloudberryKingdom.BackgroundFloater __6 = new CloudberryKingdom.BackgroundFloater();
+			__6.Name = "Castle_Window_Left_Frame";
+			__6.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__6.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__6.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Left_Mask");
+			__6.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Left_Frame");
+			__6.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__6.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__6.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__6.MyQuad.Base = new CoreEngine.BasePoint(821.9902f, 0f, 0f, 1827.779f, -2017.514f, 9283.536f);
+
+			__6.uv_speed = new Vector2(0f, 0f);
+			__6.uv_offset = new Vector2(0f, 0f);
+			__6.Data = new PhsxData(-2017.514f, 9283.536f, 0f, 0f, 0f, 0f);
+			__6.StartData = new PhsxData(-2017.514f, 9283.536f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__6);
+
+			CloudberryKingdom.BackgroundFloater __7 = new CloudberryKingdom.BackgroundFloater();
+			__7.Name = "Castle_Window_Center_Frame";
+			__7.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__7.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__7.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Center_Mask");
+			__7.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Center_Frame");
+			__7.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__7.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__7.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__7.MyQuad.Base = new CoreEngine.BasePoint(1069.899f, 0f, 0f, 2648.902f, -5.434942f, 10678.45f);
+
+			__7.uv_speed = new Vector2(0f, 0f);
+			__7.uv_offset = new Vector2(0f, 0f);
+			__7.Data = new PhsxData(-5.434942f, 10678.45f, 0f, 0f, 0f, 0f);
+			__7.StartData = new PhsxData(-5.434942f, 10678.45f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__7);
+
+			CloudberryKingdom.BackgroundFloater __8 = new CloudberryKingdom.BackgroundFloater();
+			__8.Name = "Castle_Window_Right_Frame";
+			__8.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__8.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__8.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Right_Mask");
+			__8.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Right_Frame");
+			__8.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__8.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__8.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__8.MyQuad.Base = new CoreEngine.BasePoint(868.2858f, 0f, 0f, 1839.897f, 4260.499f, 11967.52f);
+
+			__8.uv_speed = new Vector2(0f, 0f);
+			__8.uv_offset = new Vector2(0f, 0f);
+			__8.Data = new PhsxData(4260.499f, 11967.52f, 0f, 0f, 0f, 0f);
+			__8.StartData = new PhsxData(4260.499f, 11967.52f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__8);
+
+			CloudberryKingdom.BackgroundFloater __9 = new CloudberryKingdom.BackgroundFloater();
+			__9.Name = "Castle_Window_Left_Frame";
+			__9.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__9.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__9.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Left_Mask");
+			__9.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Left_Frame");
+			__9.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__9.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__9.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__9.MyQuad.Base = new CoreEngine.BasePoint(821.9902f, 0f, 0f, 1827.779f, 1525.925f, 19396.48f);
+
+			__9.uv_speed = new Vector2(0f, 0f);
+			__9.uv_offset = new Vector2(0f, 0f);
+			__9.Data = new PhsxData(1525.925f, 19396.48f, 0f, 0f, 0f, 0f);
+			__9.StartData = new PhsxData(1525.925f, 19396.48f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__9);
+
+			CloudberryKingdom.BackgroundFloater __10 = new CloudberryKingdom.BackgroundFloater();
+			__10.Name = "Castle_Window_Center_Frame";
+			__10.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__10.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__10.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Center_Mask");
+			__10.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Center_Frame");
+			__10.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__10.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__10.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__10.MyQuad.Base = new CoreEngine.BasePoint(1069.899f, 0f, 0f, 2648.902f, -946.2972f, 18359.45f);
+
+			__10.uv_speed = new Vector2(0f, 0f);
+			__10.uv_offset = new Vector2(0f, 0f);
+			__10.Data = new PhsxData(-946.2972f, 18359.45f, 0f, 0f, 0f, 0f);
+			__10.StartData = new PhsxData(-946.2972f, 18359.45f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__10);
+
+			CloudberryKingdom.BackgroundFloater __11 = new CloudberryKingdom.BackgroundFloater();
+			__11.Name = "Castle_Window_Right_Frame";
+			__11.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__11.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__11.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Right_Mask");
+			__11.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Right_Frame");
+			__11.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__11.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__11.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__11.MyQuad.Base = new CoreEngine.BasePoint(868.2858f, 0f, 0f, 1839.897f, 4275.926f, 23757.59f);
+
+			__11.uv_speed = new Vector2(0f, 0f);
+			__11.uv_offset = new Vector2(0f, 0f);
+			__11.Data = new PhsxData(4275.926f, 23757.59f, 0f, 0f, 0f, 0f);
+			__11.StartData = new PhsxData(4275.926f, 23757.59f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__11);
+
+			CloudberryKingdom.BackgroundFloater __12 = new CloudberryKingdom.BackgroundFloater();
+			__12.Name = "Castle_Window_Left_Frame";
+			__12.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__12.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__12.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Left_Mask");
+			__12.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Left_Frame");
+			__12.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__12.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__12.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__12.MyQuad.Base = new CoreEngine.BasePoint(821.9902f, 0f, 0f, 1827.779f, 4564.813f, 6455.815f);
+
+			__12.uv_speed = new Vector2(0f, 0f);
+			__12.uv_offset = new Vector2(0f, 0f);
+			__12.Data = new PhsxData(4564.813f, 6455.815f, 0f, 0f, 0f, 0f);
+			__12.StartData = new PhsxData(4564.813f, 6455.815f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__12);
+
+			CloudberryKingdom.BackgroundFloater __13 = new CloudberryKingdom.BackgroundFloater();
+			__13.Name = "Castle_Window_Left_Frame";
+			__13.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__13.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__13.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Left_Mask");
+			__13.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Left_Frame");
+			__13.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__13.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__13.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__13.MyQuad.Base = new CoreEngine.BasePoint(821.9902f, 0f, 0f, 1827.779f, -5074.075f, 10816.93f);
+
+			__13.uv_speed = new Vector2(0f, 0f);
+			__13.uv_offset = new Vector2(0f, 0f);
+			__13.Data = new PhsxData(-5074.075f, 10816.93f, 0f, 0f, 0f, 0f);
+			__13.StartData = new PhsxData(-5074.075f, 10816.93f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__13);
+
+			CloudberryKingdom.BackgroundFloater __14 = new CloudberryKingdom.BackgroundFloater();
+			__14.Name = "Castle_Window_Right_Frame";
+			__14.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__14.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__14.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Right_Mask");
+			__14.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Right_Frame");
+			__14.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__14.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__14.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__14.MyQuad.Base = new CoreEngine.BasePoint(868.2858f, 0f, 0f, 1839.897f, -3527.777f, 16624.33f);
+
+			__14.uv_speed = new Vector2(0f, 0f);
+			__14.uv_offset = new Vector2(0f, 0f);
+			__14.Data = new PhsxData(-3527.777f, 16624.33f, 0f, 0f, 0f, 0f);
+			__14.StartData = new PhsxData(-3527.777f, 16624.33f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__14);
+
+			CloudberryKingdom.BackgroundFloater __15 = new CloudberryKingdom.BackgroundFloater();
+			__15.Name = "Castle_Window_Left_Frame";
+			__15.MyQuad.Quad.MyEffect = Tools.WindowEffect;
+			__15.MyQuad.Quad.ExtraTexture1 = Tools.Texture("Castle_Backdrop_2");
+			__15.MyQuad.Quad.ExtraTexture2 = Tools.Texture("Castle_Window_Left_Mask");
+			__15.MyQuad.Quad._MyTexture = Tools.Texture("Castle_Window_Left_Frame");
+			__15.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__15.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__15.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__15.MyQuad.Base = new CoreEngine.BasePoint(821.9902f, 0f, 0f, 1827.779f, -4685.183f, 4468.421f);
+
+			__15.uv_speed = new Vector2(0f, 0f);
+			__15.uv_offset = new Vector2(0f, 0f);
+			__15.Data = new PhsxData(-4685.183f, 4468.421f, 0f, 0f, 0f, 0f);
+			__15.StartData = new PhsxData(-4685.183f, 4468.421f, 0f, 0f, 0f, 0f);
+			__1.Floaters.Add(__15);
+
+			__1.Parallax = 0.3f;
+			__1.DoPreDraw = false;
+			b.MyCollection.Lists.Add(__1);
+
+			CloudberryKingdom.BackgroundFloaterList __16 = new CloudberryKingdom.BackgroundFloaterList();
+			__16.Name = "Pillars";
+			__16.Foreground = false;
+			__16.Fixed = false;
+			CloudberryKingdom.BackgroundFloater __17 = new CloudberryKingdom.BackgroundFloater();
+			__17.Name = "castle_pillar";
+			__17.MyQuad.Quad.v0.Vertex = new MyOwnVertexFormat(new Vector2(-4857.283f, 32551.64f), new Vector2(0f, 0f), new Color(255, 255, 255, 255));
+			__17.MyQuad.Quad.v0.Pos = new Vector2(-1f, 1f);
+
+			__17.MyQuad.Quad.v1.Vertex = new MyOwnVertexFormat(new Vector2(503.0251f, 32551.64f), new Vector2(-1f, 0f), new Color(255, 255, 255, 255));
+			__17.MyQuad.Quad.v1.Pos = new Vector2(1f, 1f);
+
+			__17.MyQuad.Quad.v2.Vertex = new MyOwnVertexFormat(new Vector2(-4857.283f, 30716.02f), new Vector2(0f, 1f), new Color(255, 255, 255, 255));
+			__17.MyQuad.Quad.v2.Pos = new Vector2(-1f, -1f);
+
+			__17.MyQuad.Quad.v3.Vertex = new MyOwnVertexFormat(new Vector2(503.0251f, 30716.02f), new Vector2(-1f, 1f), new Color(255, 255, 255, 255));
+			__17.MyQuad.Quad.v3.Pos = new Vector2(1f, -1f);
+
+			__17.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__17.MyQuad.Quad.ExtraTexture1 = null;
+			__17.MyQuad.Quad.ExtraTexture2 = null;
+			__17.MyQuad.Quad._MyTexture = Tools.Texture("castle_pillar");
+			__17.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__17.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__17.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__17.MyQuad.Base = new CoreEngine.BasePoint(2680.154f, 0f, 0f, 917.8134f, -2177.129f, 31633.83f);
+
+			__17.uv_speed = new Vector2(0f, 0f);
+			__17.uv_offset = new Vector2(0f, 0f);
+			__17.Data = new PhsxData(-2177.129f, 31633.83f, 0f, 0f, 0f, 0f);
+			__17.StartData = new PhsxData(-2177.129f, 31633.83f, 0f, 0f, 0f, 0f);
+			__16.Floaters.Add(__17);
+
+			__16.Parallax = 0.36f;
+			__16.DoPreDraw = false;
+			b.MyCollection.Lists.Add(__16);
+
+			CloudberryKingdom.BackgroundFloaterList __18 = new CloudberryKingdom.BackgroundFloaterList();
+			__18.Name = "Chandeliers_Far";
+			__18.Foreground = false;
+			__18.Fixed = false;
+			CloudberryKingdom.BackgroundFloater __19 = new CloudberryKingdom.BackgroundFloater();
+			__19.Name = "castle_chandelier_far";
+			__19.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__19.MyQuad.Quad.ExtraTexture1 = null;
+			__19.MyQuad.Quad.ExtraTexture2 = null;
+			__19.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__19.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__19.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__19.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__19.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 1414.139f, 7127.947f);
+
+			__19.uv_speed = new Vector2(0f, 0f);
+			__19.uv_offset = new Vector2(0f, 0f);
+			__19.Data = new PhsxData(1414.139f, 7127.947f, 0f, 0f, 0f, 0f);
+			__19.StartData = new PhsxData(1414.139f, 7127.947f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__19);
+
+			CloudberryKingdom.BackgroundFloater __20 = new CloudberryKingdom.BackgroundFloater();
+			__20.Name = "castle_chandelier_far";
+			__20.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__20.MyQuad.Quad.ExtraTexture1 = null;
+			__20.MyQuad.Quad.ExtraTexture2 = null;
+			__20.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__20.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__20.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__20.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__20.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, -2437.223f, 7916.1f);
+
+			__20.uv_speed = new Vector2(0f, 0f);
+			__20.uv_offset = new Vector2(0f, 0f);
+			__20.Data = new PhsxData(-2437.223f, 7916.1f, 0f, 0f, 0f, 0f);
+			__20.StartData = new PhsxData(-2437.223f, 7916.1f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__20);
+
+			CloudberryKingdom.BackgroundFloater __21 = new CloudberryKingdom.BackgroundFloater();
+			__21.Name = "castle_chandelier_far";
+			__21.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__21.MyQuad.Quad.ExtraTexture1 = null;
+			__21.MyQuad.Quad.ExtraTexture2 = null;
+			__21.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__21.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__21.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__21.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__21.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 3066.711f, 10236.22f);
+
+			__21.uv_speed = new Vector2(0f, 0f);
+			__21.uv_offset = new Vector2(0f, 0f);
+			__21.Data = new PhsxData(3066.711f, 10236.22f, 0f, 0f, 0f, 0f);
+			__21.StartData = new PhsxData(3066.711f, 10236.22f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__21);
+
+			CloudberryKingdom.BackgroundFloater __22 = new CloudberryKingdom.BackgroundFloater();
+			__22.Name = "castle_chandelier_far";
+			__22.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__22.MyQuad.Quad.ExtraTexture1 = null;
+			__22.MyQuad.Quad.ExtraTexture2 = null;
+			__22.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__22.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__22.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__22.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__22.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 1787.61f, 12334.67f);
+
+			__22.uv_speed = new Vector2(0f, 0f);
+			__22.uv_offset = new Vector2(0f, 0f);
+			__22.Data = new PhsxData(1787.61f, 12334.67f, 0f, 0f, 0f, 0f);
+			__22.StartData = new PhsxData(1787.61f, 12334.67f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__22);
+
+			CloudberryKingdom.BackgroundFloater __23 = new CloudberryKingdom.BackgroundFloater();
+			__23.Name = "castle_chandelier_far";
+			__23.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__23.MyQuad.Quad.ExtraTexture1 = null;
+			__23.MyQuad.Quad.ExtraTexture2 = null;
+			__23.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__23.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__23.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__23.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__23.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 2589.682f, 17063.48f);
+
+			__23.uv_speed = new Vector2(0f, 0f);
+			__23.uv_offset = new Vector2(0f, 0f);
+			__23.Data = new PhsxData(2589.682f, 17063.48f, 0f, 0f, 0f, 0f);
+			__23.StartData = new PhsxData(2589.682f, 17063.48f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__23);
+
+			CloudberryKingdom.BackgroundFloater __24 = new CloudberryKingdom.BackgroundFloater();
+			__24.Name = "castle_chandelier_far";
+			__24.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__24.MyQuad.Quad.ExtraTexture1 = null;
+			__24.MyQuad.Quad.ExtraTexture2 = null;
+			__24.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__24.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__24.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__24.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__24.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, -522.6998f, 16879.92f);
+
+			__24.uv_speed = new Vector2(0f, 0f);
+			__24.uv_offset = new Vector2(0f, 0f);
+			__24.Data = new PhsxData(-522.6998f, 16879.92f, 0f, 0f, 0f, 0f);
+			__24.StartData = new PhsxData(-522.6998f, 16879.92f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__24);
+
+			CloudberryKingdom.BackgroundFloater __25 = new CloudberryKingdom.BackgroundFloater();
+			__25.Name = "castle_chandelier_far";
+			__25.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__25.MyQuad.Quad.ExtraTexture1 = null;
+			__25.MyQuad.Quad.ExtraTexture2 = null;
+			__25.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__25.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__25.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__25.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__25.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 3511.804f, 19180.1f);
+
+			__25.uv_speed = new Vector2(0f, 0f);
+			__25.uv_offset = new Vector2(0f, 0f);
+			__25.Data = new PhsxData(3511.804f, 19180.1f, 0f, 0f, 0f, 0f);
+			__25.StartData = new PhsxData(3511.804f, 19180.1f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__25);
+
+			CloudberryKingdom.BackgroundFloater __26 = new CloudberryKingdom.BackgroundFloater();
+			__26.Name = "castle_chandelier_far";
+			__26.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__26.MyQuad.Quad.ExtraTexture1 = null;
+			__26.MyQuad.Quad.ExtraTexture2 = null;
+			__26.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__26.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__26.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__26.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__26.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, -116.0301f, 21275.04f);
+
+			__26.uv_speed = new Vector2(0f, 0f);
+			__26.uv_offset = new Vector2(0f, 0f);
+			__26.Data = new PhsxData(-116.0301f, 21275.04f, 0f, 0f, 0f, 0f);
+			__26.StartData = new PhsxData(-116.0301f, 21275.04f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__26);
+
+			CloudberryKingdom.BackgroundFloater __27 = new CloudberryKingdom.BackgroundFloater();
+			__27.Name = "castle_chandelier_far";
+			__27.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__27.MyQuad.Quad.ExtraTexture1 = null;
+			__27.MyQuad.Quad.ExtraTexture2 = null;
+			__27.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__27.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__27.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__27.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__27.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 2277.576f, 23488.06f);
+
+			__27.uv_speed = new Vector2(0f, 0f);
+			__27.uv_offset = new Vector2(0f, 0f);
+			__27.Data = new PhsxData(2277.576f, 23488.06f, 0f, 0f, 0f, 0f);
+			__27.StartData = new PhsxData(2277.576f, 23488.06f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__27);
+
+			CloudberryKingdom.BackgroundFloater __28 = new CloudberryKingdom.BackgroundFloater();
+			__28.Name = "castle_chandelier_far";
+			__28.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__28.MyQuad.Quad.ExtraTexture1 = null;
+			__28.MyQuad.Quad.ExtraTexture2 = null;
+			__28.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__28.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__28.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__28.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__28.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 1941.349f, 25550.53f);
+
+			__28.uv_speed = new Vector2(0f, 0f);
+			__28.uv_offset = new Vector2(0f, 0f);
+			__28.Data = new PhsxData(1941.349f, 25550.53f, 0f, 0f, 0f, 0f);
+			__28.StartData = new PhsxData(1941.349f, 25550.53f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__28);
+
+			CloudberryKingdom.BackgroundFloater __29 = new CloudberryKingdom.BackgroundFloater();
+			__29.Name = "castle_chandelier_far";
+			__29.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__29.MyQuad.Quad.ExtraTexture1 = null;
+			__29.MyQuad.Quad.ExtraTexture2 = null;
+			__29.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__29.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__29.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__29.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__29.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, -2171.381f, 27689.12f);
+
+			__29.uv_speed = new Vector2(0f, 0f);
+			__29.uv_offset = new Vector2(0f, 0f);
+			__29.Data = new PhsxData(-2171.381f, 27689.12f, 0f, 0f, 0f, 0f);
+			__29.StartData = new PhsxData(-2171.381f, 27689.12f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__29);
+
+			CloudberryKingdom.BackgroundFloater __30 = new CloudberryKingdom.BackgroundFloater();
+			__30.Name = "castle_chandelier_far";
+			__30.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__30.MyQuad.Quad.ExtraTexture1 = null;
+			__30.MyQuad.Quad.ExtraTexture2 = null;
+			__30.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__30.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__30.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__30.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__30.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, -1104.528f, 29541.03f);
+
+			__30.uv_speed = new Vector2(0f, 0f);
+			__30.uv_offset = new Vector2(0f, 0f);
+			__30.Data = new PhsxData(-1104.528f, 29541.03f, 0f, 0f, 0f, 0f);
+			__30.StartData = new PhsxData(-1104.528f, 29541.03f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__30);
+
+			CloudberryKingdom.BackgroundFloater __31 = new CloudberryKingdom.BackgroundFloater();
+			__31.Name = "castle_chandelier_far";
+			__31.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__31.MyQuad.Quad.ExtraTexture1 = null;
+			__31.MyQuad.Quad.ExtraTexture2 = null;
+			__31.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_far");
+			__31.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__31.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__31.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__31.MyQuad.Base = new CoreEngine.BasePoint(619.2842f, 0f, 0f, 2095.021f, 1994.823f, 32897.03f);
+
+			__31.uv_speed = new Vector2(0f, 0f);
+			__31.uv_offset = new Vector2(0f, 0f);
+			__31.Data = new PhsxData(1994.823f, 32897.03f, 0f, 0f, 0f, 0f);
+			__31.StartData = new PhsxData(1994.823f, 32897.03f, 0f, 0f, 0f, 0f);
+			__18.Floaters.Add(__31);
+
+			__18.Parallax = 0.42f;
+			__18.DoPreDraw = false;
+			b.MyCollection.Lists.Add(__18);
+
+			CloudberryKingdom.BackgroundFloaterList __32 = new CloudberryKingdom.BackgroundFloaterList();
+			__32.Name = "Chandeliers_Close";
+			__32.Foreground = false;
+			__32.Fixed = false;
+			CloudberryKingdom.BackgroundFloater __33 = new CloudberryKingdom.BackgroundFloater();
+			__33.Name = "castle_chandelier_close";
+			__33.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__33.MyQuad.Quad.ExtraTexture1 = null;
+			__33.MyQuad.Quad.ExtraTexture2 = null;
+			__33.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__33.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__33.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__33.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__33.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, -1520.449f, 11919.1f);
+
+			__33.uv_speed = new Vector2(0f, 0f);
+			__33.uv_offset = new Vector2(0f, 0f);
+			__33.Data = new PhsxData(-1520.449f, 11919.1f, 0f, 0f, 0f, 0f);
+			__33.StartData = new PhsxData(-1520.449f, 11919.1f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__33);
+
+			CloudberryKingdom.BackgroundFloater __34 = new CloudberryKingdom.BackgroundFloater();
+			__34.Name = "castle_chandelier_close";
+			__34.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__34.MyQuad.Quad.ExtraTexture1 = null;
+			__34.MyQuad.Quad.ExtraTexture2 = null;
+			__34.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__34.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__34.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__34.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__34.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, 1969.673f, 7947.855f);
+
+			__34.uv_speed = new Vector2(0f, 0f);
+			__34.uv_offset = new Vector2(0f, 0f);
+			__34.Data = new PhsxData(1969.673f, 7947.855f, 0f, 0f, 0f, 0f);
+			__34.StartData = new PhsxData(1969.673f, 7947.855f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__34);
+
+			CloudberryKingdom.BackgroundFloater __35 = new CloudberryKingdom.BackgroundFloater();
+			__35.Name = "castle_chandelier_close";
+			__35.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__35.MyQuad.Quad.ExtraTexture1 = null;
+			__35.MyQuad.Quad.ExtraTexture2 = null;
+			__35.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__35.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__35.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__35.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__35.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, -1479.033f, 16440.67f);
+
+			__35.uv_speed = new Vector2(0f, 0f);
+			__35.uv_offset = new Vector2(0f, 0f);
+			__35.Data = new PhsxData(-1479.033f, 16440.67f, 0f, 0f, 0f, 0f);
+			__35.StartData = new PhsxData(-1479.033f, 16440.67f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__35);
+
+			CloudberryKingdom.BackgroundFloater __36 = new CloudberryKingdom.BackgroundFloater();
+			__36.Name = "castle_chandelier_close";
+			__36.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__36.MyQuad.Quad.ExtraTexture1 = null;
+			__36.MyQuad.Quad.ExtraTexture2 = null;
+			__36.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__36.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__36.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__36.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__36.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, 2568.68f, 20753.9f);
+
+			__36.uv_speed = new Vector2(0f, 0f);
+			__36.uv_offset = new Vector2(0f, 0f);
+			__36.Data = new PhsxData(2568.68f, 20753.9f, 0f, 0f, 0f, 0f);
+			__36.StartData = new PhsxData(2568.68f, 20753.9f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__36);
+
+			CloudberryKingdom.BackgroundFloater __37 = new CloudberryKingdom.BackgroundFloater();
+			__37.Name = "castle_chandelier_close";
+			__37.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__37.MyQuad.Quad.ExtraTexture1 = null;
+			__37.MyQuad.Quad.ExtraTexture2 = null;
+			__37.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__37.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__37.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__37.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__37.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, -2626.822f, 7098.899f);
+
+			__37.uv_speed = new Vector2(0f, 0f);
+			__37.uv_offset = new Vector2(0f, 0f);
+			__37.Data = new PhsxData(-2626.822f, 7098.899f, 0f, 0f, 0f, 0f);
+			__37.StartData = new PhsxData(-2626.822f, 7098.899f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__37);
+
+			CloudberryKingdom.BackgroundFloater __38 = new CloudberryKingdom.BackgroundFloater();
+			__38.Name = "castle_chandelier_close";
+			__38.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__38.MyQuad.Quad.ExtraTexture1 = null;
+			__38.MyQuad.Quad.ExtraTexture2 = null;
+			__38.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__38.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__38.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__38.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__38.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, 1337.078f, 25353.03f);
+
+			__38.uv_speed = new Vector2(0f, 0f);
+			__38.uv_offset = new Vector2(0f, 0f);
+			__38.Data = new PhsxData(1337.078f, 25353.03f, 0f, 0f, 0f, 0f);
+			__38.StartData = new PhsxData(1337.078f, 25353.03f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__38);
+
+			CloudberryKingdom.BackgroundFloater __39 = new CloudberryKingdom.BackgroundFloater();
+			__39.Name = "castle_chandelier_close";
+			__39.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__39.MyQuad.Quad.ExtraTexture1 = null;
+			__39.MyQuad.Quad.ExtraTexture2 = null;
+			__39.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__39.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__39.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__39.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__39.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, 1004.161f, 28812.74f);
+
+			__39.uv_speed = new Vector2(0f, 0f);
+			__39.uv_offset = new Vector2(0f, 0f);
+			__39.Data = new PhsxData(1004.161f, 28812.74f, 0f, 0f, 0f, 0f);
+			__39.StartData = new PhsxData(1004.161f, 28812.74f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__39);
+
+			CloudberryKingdom.BackgroundFloater __40 = new CloudberryKingdom.BackgroundFloater();
+			__40.Name = "castle_chandelier_close";
+			__40.MyQuad.Quad.MyEffect = Tools.BasicEffect;
+			__40.MyQuad.Quad.ExtraTexture1 = null;
+			__40.MyQuad.Quad.ExtraTexture2 = null;
+			__40.MyQuad.Quad._MyTexture = Tools.Texture("castle_chandelier_close");
+			__40.MyQuad.Quad.MySetColor = new Color(255, 255, 255, 255);
+			__40.MyQuad.Quad.PremultipliedColor = new Color(255, 255, 255, 255);
+			__40.MyQuad.Quad.BlendAddRatio = 0f;
+
+			__40.MyQuad.Base = new CoreEngine.BasePoint(928.205f, 0f, 0f, 790.1899f, 1307.482f, 32063.66f);
+
+			__40.uv_speed = new Vector2(0f, 0f);
+			__40.uv_offset = new Vector2(0f, 0f);
+			__40.Data = new PhsxData(1307.482f, 32063.66f, 0f, 0f, 0f, 0f);
+			__40.StartData = new PhsxData(1307.482f, 32063.66f, 0f, 0f, 0f, 0f);
+			__32.Floaters.Add(__40);
+
+			__32.Parallax = 0.52f;
+			__32.DoPreDraw = false;
+			b.MyCollection.Lists.Add(__32);
+
+			b.Light = 1f;
+			b.BL = new Vector2(-100000f, -1399.816f);
+			b.TR = new Vector2(100000f, 18600.18f);
+		}
+
         public static void _code_Castle(Background b)
         {
             b.GuidCounter = 0;

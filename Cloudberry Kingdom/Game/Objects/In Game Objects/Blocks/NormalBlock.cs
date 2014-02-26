@@ -106,16 +106,33 @@ namespace CloudberryKingdom.Blocks
 
             if (tile.FixedWidths)
             {
-                if (BlockCore.Ceiling)
-                    tile.Ceilings.SnapWidthUp(ref size);
-                else if (Box.TopOnly)
-                    tile.Platforms.SnapWidthUp(ref size);
-                else if (BlockCore.EndPiece && tile.EndBlock.Dict.Count > 0)
-                    tile.EndBlock.SnapWidthUp(ref size);
-                else if (BlockCore.StartPiece && tile.StartBlock.Dict.Count > 0)
-                    tile.StartBlock.SnapWidthUp(ref size);
-                else
-                    tile.Pillars.SnapWidthUp(ref size);
+				if (BlockCore.MyOrientation == PieceQuad.Orientation.RotateRight ||
+					BlockCore.MyOrientation == PieceQuad.Orientation.RotateLeft)
+				{
+					if (BlockCore.Ceiling)
+						tile.Ceilings.SnapHeightUp(ref size);
+					else if (Box.TopOnly)
+						tile.Platforms.SnapHeightUp(ref size);
+					else if (BlockCore.EndPiece && tile.EndBlock.Dict.Count > 0)
+						tile.EndBlock.SnapHeightUp(ref size);
+					else if (BlockCore.StartPiece && tile.StartBlock.Dict.Count > 0)
+						tile.StartBlock.SnapHeightUp(ref size);
+					else
+						tile.Pillars.SnapHeightUp(ref size);
+				}
+				else
+				{
+					if (BlockCore.Ceiling)
+						tile.Ceilings.SnapWidthUp(ref size);
+					else if (Box.TopOnly)
+						tile.Platforms.SnapWidthUp(ref size);
+					else if (BlockCore.EndPiece && tile.EndBlock.Dict.Count > 0)
+						tile.EndBlock.SnapWidthUp(ref size);
+					else if (BlockCore.StartPiece && tile.StartBlock.Dict.Count > 0)
+						tile.StartBlock.SnapWidthUp(ref size);
+					else
+						tile.Pillars.SnapWidthUp(ref size);
+				}
             }
 
             if (BlockCore.StartPiece)
@@ -197,12 +214,18 @@ namespace CloudberryKingdom.Blocks
                 Core.VisualResettedOnce = true;
         }
 
+		public int ExtraPadding = 0;
         public override void PhsxStep()
         {
             int Padding = 250;
             if (MyLevel.PlayMode != 0) Padding = -150;
 
             Active = Core.Active = true;
+
+			Padding += ExtraPadding;
+			//return;
+			//Padding = 250;
+
             Vector2 BL = MyBox.Current.BL;
             if (MyBox.Current.BL.X > BlockCore.MyLevel.MainCamera.TR.X + Padding || MyBox.Current.BL.Y > BlockCore.MyLevel.MainCamera.TR.Y + 500)//+ 1250)
                 Active = Core.Active = false;
@@ -218,7 +241,6 @@ namespace CloudberryKingdom.Blocks
 
             if (!Active) return;
         }
-
 
         public void Update()
         {
@@ -373,7 +395,7 @@ namespace CloudberryKingdom.Blocks
         {
             bool MakeTopOnly = false;
 
-            if (!block.Core.GenData.NoMakingTopOnly)
+            if (!block.Core.GenData.NoMakingTopOnly && !block.MyLevel.Style.NoTopOnly)
             {
                 // If we interact with the block in any way besides landing on top of it, make it top only
                 if ((Col == ColType.Bottom || Overlap) && Col != ColType.Top) MakeTopOnly = true;

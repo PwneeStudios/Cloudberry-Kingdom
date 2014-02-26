@@ -334,10 +334,10 @@ namespace CoreEngine
 
         public void RotateLeft()
         {
-            v0.RotateLeft();
-            v1.RotateLeft();
-            v2.RotateLeft();
-            v3.RotateLeft();
+			v0.RotateLeft();
+			v1.RotateLeft();
+			v2.RotateLeft();
+			v3.RotateLeft();
         }
 
         public void RotateUV()

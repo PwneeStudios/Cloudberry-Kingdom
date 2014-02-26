@@ -82,6 +82,21 @@ namespace CloudberryKingdom
                 floater.SetBackground(Background);
         }
 
+		public void RotateLeft()
+		{
+			foreach (BackgroundFloater floater in Floaters)
+				floater.RotateLeft();
+		}
+
+		public Vector2 GetBL()
+		{
+			Vector2 BL = new Vector2(float.MaxValue);
+			foreach (BackgroundFloater floater in Floaters)
+				BL = Vector2.Min(BL, floater.GetBL());
+
+			return BL;
+		}
+
         public void Move(Vector2 shift)
         {
             foreach (BackgroundFloater floater in Floaters)

@@ -216,13 +216,17 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
             if (!Resources.LoadingResources.MyBool && ReadyToFade && BlackQuad.Alpha >= 1 && DoneCount > 25)
                 IsDone = true;
 
-            //IsDone = false;
+			if (CloudberryKingdomGame.QuickStart)
+				IsDone = true;
         }
 
         int DrawCount = 0;
         bool ReadyToFade = false;
         public void Draw()
         {
+			if (CloudberryKingdomGame.QuickStart)
+				ReadyToFade = true;
+
             Legal.Scale = .25f;
             Legal.Pos = new Vector2(-1500, -500);
 

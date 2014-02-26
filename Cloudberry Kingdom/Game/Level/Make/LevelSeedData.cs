@@ -1036,6 +1036,14 @@ namespace CloudberryKingdom
                     DefaultHeroType = BobPhsxJetman.Instance;
             }
 
+			// Meatboy is always single piece up level
+			if (DefaultHeroType is BobPhsxMeat)
+			{
+				MyGeometry = LevelGeometry.Up;
+				NumPieces = 1;
+				SetTileSet("castle");
+			}
+
             TestNumber = Rnd.RndInt(0, 1000);
             Tools.Write(string.Format("Post-sanitize: {0}", TestNumber));
         }

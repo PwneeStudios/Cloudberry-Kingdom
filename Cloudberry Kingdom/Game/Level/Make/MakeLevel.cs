@@ -78,8 +78,8 @@ namespace CloudberryKingdom
                 if (NoDoublePaths)
                     Piece.Paths = 1;
 
-                // Ensure that bungee levels have at least two paths!
-                if (MyGameFlags.IsTethered && Piece.Paths == 1)
+                // Ensure that bungee and dopple levels have at least two paths!
+                if ((MyGameFlags.IsTethered || MyGameFlags.IsDoppleganger) && Piece.Paths == 1)
                 {
                     Piece.Paths = 2;
                 }
@@ -242,6 +242,15 @@ namespace CloudberryKingdom
         private void MakeTheBackground(Level NewLevel, float Height)
         {
             NewLevel.MyBackground.Init(NewLevel);
+
+			if (NewLevel.Geometry == LevelGeometry.Up)
+			{
+				//NewLevel.MyBackground.RotateLeft();
+				//NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y));
+
+				float y = NewLevel.MyBackground.GetBL().Y;
+				NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y - y - 4000));
+			}
         }
 
         public static int ForcedReturnEarly = 0;

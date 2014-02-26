@@ -89,7 +89,13 @@ namespace CloudberryKingdom
 		//public static bool FakeAwardments = false;
 
 		// PC Beta
+#if DEBUG
+		public static bool HideLogos = true;
+		public static bool QuickStart = true;
+#else
 		public static bool HideLogos = false;
+		public static bool QuickStart = false;
+#endif
 		public static bool LockCampaign = false;
 		public static bool SimpleMainMenu = true;
 		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
@@ -589,7 +595,7 @@ namespace CloudberryKingdom
         public static string[] args;
 
         public static bool StartAsBackgroundEditor = false;
-        public static bool StartAsTestLevel = false;
+        public static bool StartAsTestLevel = true;
         public static bool StartAsBobAnimationTest = false;
         public static bool StartAsFreeplay = false;
 #if INCLUDE_EDITOR

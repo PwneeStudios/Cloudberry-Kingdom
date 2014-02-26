@@ -121,6 +121,8 @@ namespace CloudberryKingdom.Bobs
 				{
 					if (MyPhsx is BobPhsxSpaceship)
 						MainQuad = PlayerObject.QuadList[1] as Quad;
+					else if (MyPhsx is BobPhsxMeat)
+						MainQuad = PlayerObject.QuadList[0] as Quad;
 					else
 						MainQuad = PlayerObject.FindQuad("MainQuad") as Quad;
 				}
@@ -517,7 +519,8 @@ namespace CloudberryKingdom.Bobs
 
         public static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
             { BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
-                BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance });
+                BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
+				BobPhsxBlobby.Instance, BobPhsxMeat.Instance });
 
         /// <summary>
         /// How many time the bob has popped something without hitting the ground.
@@ -547,7 +550,7 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.PlayUpdate(0);
 
             Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+			Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             SetHeroPhsx(MyHeroType);
 
@@ -614,7 +617,7 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.PlayUpdate(0);
             
             Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+			Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             MyPhsx = new BobPhsx();
             MyPhsx.Init(this);
@@ -727,7 +730,7 @@ namespace CloudberryKingdom.Bobs
             Move(StartData.Position - Core.Data.Position);
             Core.Data = StartData;            
             Box.SetTarget(Core.Data.Position, Box.Current.Size);
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
             Box.SwapToCurrent();
             Box2.SwapToCurrent();
             UpdateObject();
@@ -1169,7 +1172,16 @@ namespace CloudberryKingdom.Bobs
 
         public void UpdateColors()
         {
-            if (MyObjectType is BobPhsxSpaceship && PlayerObject.QuadList != null)
+			if (MyObjectType is BobPhsxBlobby && PlayerObject.QuadList != null)
+			{
+				var ql = PlayerObject.QuadList;
+				if (ql.Count >= 1) PlayerObject.QuadList[1].SetColor(Color.White);
+				if (ql.Count >= 1) PlayerObject.QuadList[1].MyMatrix = ColorHelper.HsvTransform(1, 1, 170) * MyColorScheme.SkinColor.M;
+				if (ql.Count >= 1) PlayerObject.QuadList[1].MyEffect = Tools.HslEffect;
+				if (ql.Count >= 0) PlayerObject.QuadList[0].Show = false;
+				if (ql.Count >= 2) PlayerObject.QuadList[2].Show = false;
+			}
+            else if (MyObjectType is BobPhsxSpaceship && PlayerObject.QuadList != null)
             {
                 var ql = PlayerObject.QuadList;
                 if (ql.Count >= 1) PlayerObject.QuadList[1].SetColor(Color.White);
@@ -1369,6 +1381,7 @@ namespace CloudberryKingdom.Bobs
                     Tools.QDrawer.SetAddressMode(false, false);
                     if (PlayerObject.ContainedQuadAngle == 0)
                     {
+						if (MyPhsx != null) MyPhsx.PreObjectDraw();
                         PlayerObject.Draw(true);
                     }
                     else
@@ -1395,8 +1408,8 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawBoxes)
             {
-				Box.DrawFilled(Tools.QDrawer, Color.HotPink);
-				//Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
+				//Box.DrawFilled(Tools.QDrawer, Color.HotPink);
+				Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
 				//Box.Draw(Tools.QDrawer, Color.HotPink, 12);
 				//Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
@@ -1629,11 +1642,13 @@ namespace CloudberryKingdom.Bobs
                 Box.Target.BL.Y -= 5;
             }
 
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
 
             MyPhsx.OnInitBoxes();
         }
 
+		public bool UseCustomCapePos = false;
+		public Vector2 CustomCapePos;
         public void UpdateCape()
         {
             if (!CanHaveCape) // || !ShowCape)
@@ -1655,14 +1670,18 @@ namespace CloudberryKingdom.Bobs
 
             // Set the anchor point
             if (temp == null) temp = new ObjectVector();            
-
             if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
-            temp.Pos = Head.Center.Pos;
+
+			if (UseCustomCapePos)
+				temp.Pos = Pos + CustomCapePos;
+			else
+				temp.Pos = Head.Center.Pos;
 
             if (Dead)
                 temp.Pos += new Vector2(60, -50) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else if (MyPhsx.Ducking)
-                temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+                temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize * new Vector2(PlayerObject.xFlip ? -1 : 1, 1) +
+					new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else
                 temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;
 
@@ -1740,6 +1759,7 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.Vel += CurInput.xVec;
         }
 
+		static BobInput FirstBobInput;
         public override void PhsxStep()
         {
             DoLightSourceFade();
@@ -1859,8 +1879,23 @@ namespace CloudberryKingdom.Bobs
                 CurInput.xVec = Vector2.Zero;
             }
 
+			if (Dopple)
+			{
+				CurInput = FirstBobInput;
+			}
+			else
+			{
+				FirstBobInput = CurInput;
+			}
+
             // Phsyics update
-            if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
+			if (Dopple)
+			{
+				if (MoveData.InvertDirX || MyLevel.MySourceGame != null && MyLevel.MySourceGame.MyGameFlags.IsDopplegangerInvert)
+				{
+					CurInput.xVec.X *= -1;
+				}
+			}
             float Windx = Wind.X;
             if (MyPhsx.OnGround) Windx /= 2;
             Core.Data.Velocity.X -= Windx;
@@ -1870,7 +1905,7 @@ namespace CloudberryKingdom.Bobs
                 MyPhsx.PhsxStep();
             Core.Data.Velocity.X += Windx;
             MyPhsx.CopyPrev();
-            if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
+            //if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
 
             // Collision with screen boundary
             if (CollideWithCamera && !Cinematic)
@@ -1962,7 +1997,7 @@ namespace CloudberryKingdom.Bobs
 
             // Reset boxes to normal
             Box.SetCurrent(Core.Data.Position, Box.Current.Size);
-            Box2.SetCurrent(Core.Data.Position, Box2.Current.Size);
+			Box2.SetCurrent(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
 
 //if (Core.MyLevel.PlayMode != 0)
 //    for (int i = 0; i <= NumBoxes; i++)
@@ -1997,7 +2032,7 @@ namespace CloudberryKingdom.Bobs
                 UpdateBoxList();
             }
             else
-                Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+				Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
             Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .2f));
 
 
@@ -2013,26 +2048,24 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         void UpdateBoxList()
         {
-            float extra = 0;// 5;
+            float extra = 0;
             for (int i = 0; i <= NumBoxes; i++)
             {
                 AABox box = Boxes[i];
 
                 box.Current.Size = Box2.Current.Size;
                 
-                //box.Current.Size.X += Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
-
                 box.Current.Size.X += extra + .7f * Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
                 box.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
 
-                box.SetCurrent(Box2.Current.Center, box.Current.Size);
-                box.SetTarget(Core.Data.Position, box.Current.Size);
+				box.SetCurrent(Box2.Current.Center, box.Current.Size);
+                box.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, box.Current.Size);
             }
             RegularBox2 = Boxes[Boxes.Count - 1];
 
             Box2.Current.Size.X += extra + .7f * Upgrades.MaxBobWidth;
             Box2.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth;
-            Box2.SetTarget(Core.Data.Position, Box2.Current.Size);
+			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
         }
 
         public void DeleteObj(ObjectBase obj)

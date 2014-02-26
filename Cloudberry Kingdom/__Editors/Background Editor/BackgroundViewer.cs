@@ -788,6 +788,15 @@ namespace CloudberryKingdom.Viewer
                 }
             }
 
+			// Rotate
+			if (ButtonCheck.State(XnaInput.Keys.Z).Released)
+			{
+				foreach (var floater in SelectedFloaters)
+				{
+					floater.MyQuad.Quad.RotateUV();
+				}
+			}
+
             // Copy
             if (Tools.CntrlDown() && ButtonCheck.State(XnaInput.Keys.C).Released)
                 CopyFloater();

@@ -28,7 +28,7 @@ namespace CloudberryKingdom.Levels
             //CamZone.End = CurMakeData.PieceSeed.End;
             if (Geometry == LevelGeometry.Up)
             {
-                CamZone.End = CamZone.Start + new Vector2(0, Height);
+                CamZone.End = CamZone.Start + new Vector2(0, Height + 150);
                 CamZone.CameraType = Camera.PhsxType.SideLevel_Up;
             }
             else if (Geometry == LevelGeometry.Down)
@@ -197,22 +197,37 @@ namespace CloudberryKingdom.Levels
             }
 
             // Vary the spacing depending on how high the hero can jump
-            float StepMultiplier = SetStepMultiplier(ref Size, ref Step);
+			float StepMultiplier = GetStepMultiplier(ref Size, ref Step);
 
             BL_Bound.Y += 200;
             TR_Bound.Y -= 200;
             Vector2 _pos = BL_Bound;
             // Make sure the net is centered
-            _pos.X = MainCamera.Data.Position.X - Step.X * (int)(.5f * (TR_Bound.X - BL_Bound.X) / Step.X);
+            _pos.X = MainCamera.Data.Position.X - Step.X * (int)(2 + .5f * (TR_Bound.X - BL_Bound.X) / Step.X);
             for (; _pos.X < TR_Bound.X + 400; _pos.X += Step.X)
             {
                 bool ShouldBreak = false;
                 for (_pos.Y = BL_Bound.Y; ; )
                 {
                     NormalBlock block = (NormalBlock)NormalBlock_AutoGen.Instance.CreateAt(this, _pos);
+					block.ExtraPadding = 300;
 
-                    block.Init(_pos, Size, MyTileSetInfo);
-                    block.MakeTopOnly();
+					block.Init(_pos + new Vector2(0, 0), Size, MyTileSetInfo);
+					block.MyDraw.MyTemplate = block.Core.MyTileSet.GetPieceTemplate(block, Rnd,
+						block.Core.MyLevel.MyTileSet.MyTileSetInfo.Pendulums.Group);
+
+					if (VStyle.NoTopOnly)
+					{
+						if (CurMakeData.BlocksAsIs)
+						{
+							block.Core.GenData.NoMakingTopOnly = true;
+							block.Core.GenData.NoBottomShift = true;
+						}
+					}
+					else
+					{
+						block.MakeTopOnly();
+					}
 
                     // Door catwalks need to be moved forward
                     if (_pos.Y == BL_Bound.Y || _pos.Y + Step.Y >= TR_Bound.Y)
@@ -293,20 +308,12 @@ namespace CloudberryKingdom.Levels
                 
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Bound, .35f * CurMakeData.SparsityMultiplier);
             }
-            //foreach (BlockBase block in Blocks)
-            //{
-            //    NormalBlock nblock = block as NormalBlock;
-            //    if (null != nblock)
-            //        nblock.MakeTopOnly();
-            //}
 
             DEBUG("Pre stage 1, about to reset");
 
             PlayMode = 2;
             RecordPosition = true;
             ResetAll(true);
-
-            //int t1 = System.Environment.TickCount;
 
             // Set special Bob parameters
             MySourceGame.SetAdditionalBobParameters(Computers);
@@ -320,18 +327,8 @@ namespace CloudberryKingdom.Levels
             while (CurPhsxStep - Bobs[0].IndexOffset < CurPiece.PieceLength)
             {
                 if (EndReached) OneFinishedCount += 15;
-                /*
-                // End if all bobs have arrived
-                if (Geometry == LevelGeometry.Up   && !Bobs.Any(bob => bob.Core.Data.Position.Y < TR_Bound.Y) ||
-                    Geometry == LevelGeometry.Down && !Bobs.Any(bob => bob.Core.Data.Position.Y > BL_Bound.Y + 300))
-                    OneFinishedCount += 8;
 
-                // End after first computer arrives at end
-                if (Geometry == LevelGeometry.Up   && Bobs.Any(bob => bob.Core.Data.Position.Y > TR_Bound.Y - 100) ||
-                    Geometry == LevelGeometry.Down && Bobs.Any(bob => bob.Core.Data.Position.Y < BL_Bound.Y + 280))
-                    OneFinishedCount++;
-                */
-                if (OneFinishedCount > 200)
+				if (OneFinishedCount > 200)
                     break;
 
                 PhsxStep(true);
@@ -428,23 +425,39 @@ namespace CloudberryKingdom.Levels
             CleanAllObjectLists();
 
             // Finish making Final Platform
-            if (MakeFinalPlat != null) { MakeFinalPlat.Phase3(); MakeFinalPlat.Cleanup(); }
-
-            if (Geometry == LevelGeometry.Up)
-            {
-                var back = MakePillarBack(FinalDoor.Pos + new Vector2(0, -400), FinalDoor.Pos + new Vector2(0, 2000));
-                back.BlockCore.CeilingDraw = true;
-                MakePillarBack(StartDoor.Pos + new Vector2(0, 400), StartDoor.Pos - new Vector2(0, 2000));
-            }
-            else
-            {
-                var back = MakePillarBack(StartDoor.Pos + new Vector2(0, -400), StartDoor.Pos + new Vector2(0, 2000));
-                back.BlockCore.CeilingDraw = true;
-                MakePillarBack(FinalDoor.Pos + new Vector2(0, 400), FinalDoor.Pos - new Vector2(0, 2000));
-            }
+			FinishFinalPlat(Geometry, MakeFinalPlat);
 
             return false;
         }
+
+		private float GetStepMultiplier(ref Vector2 Size, ref Vector2 Step)
+		{
+			return 1;
+
+			float StepMultiplier = SetStepMultiplier(ref Size, ref Step);
+			return StepMultiplier;
+		}
+
+		private void FinishFinalPlat(LevelGeometry Geometry, MakeThing MakeFinalPlat)
+		{
+			if (MakeFinalPlat != null) { MakeFinalPlat.Phase3(); MakeFinalPlat.Cleanup(); }
+
+			if (Geometry == LevelGeometry.Up)
+			{
+				var back = MakePillarBack(FinalDoor.Pos + new Vector2(0, -400), FinalDoor.Pos + new Vector2(0, 2000));
+				back.BlockCore.MyOrientation = PieceQuad.Orientation.UpsideDown;
+				back.Move(new Vector2(0, -500));
+				//back.BlockCore.CeilingDraw = true;
+				
+				MakePillarBack(StartDoor.Pos + new Vector2(0, 400), StartDoor.Pos - new Vector2(0, 2000));
+			}
+			else
+			{
+				var back = MakePillarBack(StartDoor.Pos + new Vector2(0, -400), StartDoor.Pos + new Vector2(0, 2000));
+				back.BlockCore.CeilingDraw = true;
+				MakePillarBack(FinalDoor.Pos + new Vector2(0, 400), FinalDoor.Pos - new Vector2(0, 2000));
+			}
+		}
 
         private float SetStepMultiplier(ref Vector2 Size, ref Vector2 Step)
         {

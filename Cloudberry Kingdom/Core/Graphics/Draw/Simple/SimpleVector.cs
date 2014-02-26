@@ -22,7 +22,6 @@ namespace CoreEngine
         {
             RotateRight();
             Pos.X *= -1;
-            Vertex.uv.X *= -1;
         }
 
         public void Release()

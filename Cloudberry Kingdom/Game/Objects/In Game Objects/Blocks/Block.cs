@@ -334,6 +334,21 @@ namespace CloudberryKingdom.Blocks
             return false;
         }
 
+		public virtual bool PostCollideDecision_Bottom_FourWay(Bob bob, ref ColType Col, ref bool Overlap)
+		{
+			BobPhsxFourWay fourway = bob.MyPhsx as BobPhsxFourWay;
+			if (fourway == null) return PostCollideDecision_Bottom_Normal(bob, ref Col, ref Overlap);
+
+			if (Col == ColType.Bottom)
+			{
+				if (fourway.AirTime > 40)
+					return false;
+				else
+					return true;
+			}
+			return false;
+		}
+		
         public virtual bool PostCollideDecision_Bottom_Meat(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (Col == ColType.Bottom) return true;
@@ -343,14 +358,11 @@ namespace CloudberryKingdom.Blocks
         {
             if (bob.MyPhsx.Gravity > 0)
             {
-                //if (Col == ColType.Bottom && bob.Core.Data.Position.Y < bob.TargetPosition.Y) return true;
                 if (Col == ColType.Bottom) return true;
                 return false;
             }
             else
             {
-                //if (bob.TopCol && Col == ColType.Bottom) return true;
-                //if (Col == ColType.Bottom && bob.WantsToLand != false) return true;
                 if (Col == ColType.Top) return true;
                 return false;
             }
@@ -359,6 +371,8 @@ namespace CloudberryKingdom.Blocks
         {
             if (bob.MyPhsx is BobPhsxMeat)
                 return PostCollideDecision_Bottom_Meat(bob, ref Col, ref Overlap);
+			//else if (bob.MyPhsx is BobPhsxFourWay)
+				//return PostCollideDecision_Bottom_FourWay(bob, ref Col, ref Overlap);
             else
                 return PostCollideDecision_Bottom_Normal(bob, ref Col, ref Overlap);
         }
@@ -371,20 +385,15 @@ namespace CloudberryKingdom.Blocks
 
                 if (Box.BL.Y > bob.Box.TR.Y - 40) return true;
                 if (Box.TR.Y < bob.Box.BL.Y + 40) return true;
-                //if (Box.BL.Y > bob.Box.TR.Y - 20) return true;
-                //if (Box.TR.Y < bob.Box.BL.Y + 20) return true;
-
 
                 if (this is BouncyBlock) return true;
 
-                //BobPhsxMeat meat = (BobPhsxMeat)bob.MyPhsx;
-                float Safety = 860;// 650;
+                float Safety = 860;
                 if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Left) return false;
                 if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Right) return false;
                 if (bob.Pos.X > Cam.Pos.X + Safety && Col == ColType.Right) return true;
                 if (bob.Pos.X < Cam.Pos.X - Safety && Col == ColType.Left) return true;
 
-                //return false;
                 if (bob.WantsToLand)
                     return false;
                 else
@@ -441,10 +450,17 @@ namespace CloudberryKingdom.Blocks
 
             return false;
         }
+		public virtual bool PostCollideDecision_Land_FourWay(Bob bob, ref ColType Col, ref bool Overlap)
+		{
+			if (Col == ColType.Top && bob.WantsToLand == false) return true;
+			return false;
+		}
         public virtual bool PostCollideDecision_Land(Bob bob, ref ColType Col, ref bool Overlap)
         {
             if (bob.MyPhsx is BobPhsxMeat)
                 return PostCollideDecision_Land_Meat(bob, ref Col, ref Overlap);
+			//else if (bob.MyPhsx is BobPhsxFourWay)
+				//return PostCollideDecision_Land_FourWay(bob, ref Col, ref Overlap);
             else
                 return PostCollideDecision_Land_Normal(bob, ref Col, ref Overlap);
         }

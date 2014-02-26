@@ -477,6 +477,16 @@ namespace CloudberryKingdom
             BobPhsxWheel.Instance.Prototype = NewBob;
             bob.Add(BobPhsxWheel.Instance, NewBob);
 
+			// Four-Way
+			NewBob = new Bob(BobPhsxNormal.Instance, false);
+			NewBob.MyObjectType = BobPhsxFourWay.Instance;
+			NewBob.CanHaveCape = false;
+			if (!NewBob.IsSpriteBased)
+				NewBob.PlayerObject.FindQuad("Wheel").Show = true;
+
+			BobPhsxFourWay.Instance.Prototype = NewBob;
+			bob.Add(BobPhsxFourWay.Instance, NewBob);
+
             // Hero in a Box
             NewBob = new Bob(BobPhsxNormal.Instance, false);
             NewBob.MyObjectType = BobPhsxBox.Instance;
@@ -526,6 +536,29 @@ namespace CloudberryKingdom
             bob.Add(BobPhsxTimeship.Instance, NewBob);
 
 
+	
+			// Blobby
+			NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\Spaceship.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxSpaceship.Instance, false);
+			NewBob.MyObjectType = BobPhsxBlobby.Instance;
+			NewBob.PlayerObject.ParentQuad.Scale(new Vector2(3.5f, 3.5f));
+			foreach (BaseQuad quad in NewBob.PlayerObject.QuadList)
+				quad.MyDrawOrder = ObjectDrawOrder.AfterOutline;
+			NewBob.CanHaveCape = false;
+			NewBob.CanHaveHat = false;
+			NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
+
+			spaceship = (Quad)NewBob.PlayerObject.QuadList[1];
+			spaceship.MyTexture = Tools.Texture("blob_cave");
+			spaceship.Resize();
+			spaceship.MirrorUV_Horizontal();
+			spaceship.Scale(new Vector2(1.25f));
+			NewBob.PlayerObject.QuadList[2].Show = false;
+
+			BobPhsxBlobby.Instance.Prototype = NewBob;
+			bob.Add(BobPhsxBlobby.Instance, NewBob);
+
+
+
             // Meat
             NewBob = new Bob(Path.Combine(Globals.ContentDirectory, "Objects\\MeatBoy.smo"), Tools.EffectWad, Tools.TextureWad, BobPhsxMeat.Instance, true);
             NewBob.IsSpriteBased = false;
@@ -536,16 +569,13 @@ namespace CloudberryKingdom
             NewBob.CanHaveCape = true;
             NewBob.CanHaveHat = true;
             NewBob.PlayerObject.ParentQuad.MyEffect = Tools.BasicEffect;
-            NewBob.PlayerObject.QuadList[0].SetTexture("FallingBlock1", Tools.TextureWad);
-            NewBob.PlayerObject.QuadList[1].SetTexture("FallingBlock1", Tools.TextureWad);
 
             BobPhsxMeat.Instance.Prototype = NewBob;
             bob.Add(BobPhsxMeat.Instance, NewBob);
 
             
             // Freeplay Heroes
-            //if (!(CloudberryKingdomGame.StartAsFreeplay && CloudberryKingdomGame.UseNewBob))
-                CustomLevel_GUI.FreeplayHeroes = new List<BobPhsx>(Bob.HeroTypes);
+            CustomLevel_GUI.FreeplayHeroes = new List<BobPhsx>(Bob.HeroTypes);
 
             // Associate the BobPhsx with each prototype
             foreach (BobPhsx HeroType in Bob.HeroTypes)

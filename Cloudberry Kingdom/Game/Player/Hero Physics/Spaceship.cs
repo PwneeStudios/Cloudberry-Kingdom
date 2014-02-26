@@ -33,10 +33,10 @@ namespace CloudberryKingdom
         public static BobPhsxSpaceship Instance { get { return instance; } }
 
         // Instancable class
-        int AutoMoveLength, AutoMoveType, AutoStrafeLength;
-        int AutoDirLength, AutoDir;
+		protected int AutoMoveLength, AutoMoveType, AutoStrafeLength;
+		protected int AutoDirLength, AutoDir;
 
-        int RndMoveType;
+        protected int RndMoveType;
 
         public BobPhsxSpaceship()
         {
@@ -263,7 +263,7 @@ namespace CloudberryKingdom
             AdditionalGenerateInputChecks(CurPhsxStep);
         }
 
-        void GenerateInput_Right(int CurPhsxStep)
+        protected virtual void GenerateInput_Right(int CurPhsxStep)
         {
             MyBob.CurInput.B_Button = false;
 

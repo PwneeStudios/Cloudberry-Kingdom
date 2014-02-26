@@ -593,8 +593,8 @@ namespace StaticSiteGenerator
 			Initialize();
 
 			// Calculate unique entries
-			var Entries_StoryMode = HighScores.GetHighScores(7777, 0, 7000);
-			var Entries_PlayerLevel = HighScores.GetHighScores(9999, 0, 7000);
+			var Entries_StoryMode = HighScores.GetHighScores(7777, 0, 10000);
+			var Entries_PlayerLevel = HighScores.GetHighScores(9999, 0, 10000);
 
 			var n =
 				(

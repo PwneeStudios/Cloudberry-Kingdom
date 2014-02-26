@@ -154,7 +154,7 @@ namespace CloudberryKingdom
 			// Once we have been asked to stop showing the loading screen, we must fade out.
             if (Fade && MinLoading <= 0)
             {
-				if (!Fake && !Resources.FinalLoadDone && DrawCount < 40 * 60)
+				if (!Fake && !Resources.FinalLoadDone && DrawCount < 40 * 60 && !CloudberryKingdomGame.QuickStart)
 				{
 					// Do nothing. Keep loading.
 				}

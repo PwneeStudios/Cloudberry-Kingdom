@@ -16,12 +16,15 @@ namespace CloudberryKingdom
         public Hero_MoveMod move;
         public Hero_Special special;
 
+		public bool Transcendent;
+
         public HeroSpec(int basetype, int shape, int move, int special)
         {
             this.basetype = (Hero_BaseType)basetype;
             this.shape = (Hero_Shape)shape;
             this.move = (Hero_MoveMod)move;
             this.special = (Hero_Special)special;
+			this.Transcendent = false;
         }
 
         public HeroSpec(Hero_BaseType basetype, Hero_Shape shape, Hero_MoveMod move)
@@ -30,6 +33,7 @@ namespace CloudberryKingdom
             this.shape = shape;
             this.move = move;
             this.special = Hero_Special.Classic;
+			this.Transcendent = false;
         }
 
         public HeroSpec(Hero_BaseType basetype, Hero_Shape shape, Hero_MoveMod move, Hero_Special special)
@@ -38,6 +42,7 @@ namespace CloudberryKingdom
             this.shape = shape;
             this.move = move;
             this.special = special;
+			this.Transcendent = false;
         }
 
         public static HeroSpec operator +(HeroSpec A, HeroSpec B)
@@ -184,16 +189,6 @@ namespace CloudberryKingdom
 
 				if (BaseType == BobPhsxWheel.Instance && MoveMod == BobPhsxJetman.Instance)
 					custom.Name = Localization.Words.JetpackWheelie;
-
-                //string template = BaseType.Name;
-                //string adjective = Shape.Adjective;
-                //string adjective2 = MoveMod.Adjective;
-
-                //if (adjective.Length > 0) adjective += " ";
-                //if (adjective2.Length > 0) adjective2 += " ";
-
-                //custom.Name = adjective + adjective2 + template;
-                //custom.Name = custom.Name.Capitalize();
             }
 
             // Set the specificaiton for this hero.
@@ -471,6 +466,18 @@ namespace CloudberryKingdom
         public Vector2 ModCapeSize = Vector2.One;
         public float DollCamZoomMod = 1f;
 
+		public Vector2 TranscendentOffset
+		{
+			get
+			{
+				if (Transcendent)
+					return new Vector2(400, 400);
+				else
+					return Vector2.Zero;
+			}
+		}
+		public bool Transcendent = false;
+
         public Vector2 HeroDollShift = Vector2.Zero;
 
         bool SingletonInitialized = false;
@@ -653,7 +660,7 @@ namespace CloudberryKingdom
 
         public float OscillateSize1 = .32f, OscillateSize2 = 2.08f, OscillatePeriod = 2 * 3.14159f;
         public float OscillateGravity1 = 2.534208f, OscillateGravity2 = 2.91155f;
-        void OscillatePhsx()
+        protected void OscillatePhsx()
         {
             float t = MyBob.Core.GetPhsxStep();
             float scale = CoreMath.Periodic(OscillateSize1, OscillateSize2, 30 * OscillatePeriod, t, 90);
@@ -795,7 +802,7 @@ namespace CloudberryKingdom
             if (MyBob.CurInput.xVec.X > 0) MyBob.PlayerObject.xFlip = false;
             if (MyBob.CurInput.xVec.X < 0) MyBob.PlayerObject.xFlip = true;
 
-            if (MyBob.MoveData.InvertDirX && MyBob.CurInput.xVec.X != 0) MyBob.PlayerObject.xFlip = !MyBob.PlayerObject.xFlip;
+            //if (MyBob.MoveData.InvertDirX && MyBob.CurInput.xVec.X != 0) MyBob.PlayerObject.xFlip = !MyBob.PlayerObject.xFlip;
 
             return HoldFlip != MyBob.PlayerObject.xFlip;
         }
@@ -907,5 +914,29 @@ namespace CloudberryKingdom
         public virtual void DollInitialize()
         {
         }
+
+		public virtual void PreObjectDraw()
+		{
+			if (Transcendent)
+			{
+				Vector2 hold = MyBob.PlayerObject.ParentQuad.Center.Pos;
+				MyBob.PlayerObject.ParentQuad.Center.Move(hold + TranscendentOffset);
+				MyBob.PlayerObject.ParentQuad.Update();
+				MyBob.PlayerObject.Update(null);
+				
+				MyBob.PlayerObject.Draw(true);
+
+				MyBob.PlayerObject.ParentQuad.Center.Move(hold);
+				MyBob.PlayerObject.ParentQuad.Update();
+				MyBob.PlayerObject.Update(null);
+
+				//Tools.QDrawer.DrawCircle(MyBob.Box2.Current.Center, 100, Color.White);
+				Tools.QDrawer.Flush();
+			}
+		}
+
+		public virtual void PostObjectDraw()
+		{
+		}
     }
 }

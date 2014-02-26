@@ -71,6 +71,10 @@ namespace CloudberryKingdom.Levels
         {
             base.Phase3();
 
+			// Mod final block
+			//FinalBlock.MyDraw.MyTemplate = FinalBlock.Core.MyTileSet.GetPieceTemplate(FinalBlock, MyLevel.Rnd,
+			//    FinalBlock.Core.MyLevel.MyTileSet.MyTileSetInfo.Pendulums.Group);
+
             // Add door
             MadeDoor = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, false);
             MadeDoor.Core.EditorCode1 = LevelConnector.EndOfLevelCode;

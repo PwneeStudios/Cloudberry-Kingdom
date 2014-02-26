@@ -126,6 +126,19 @@ namespace CloudberryKingdom
             InitialUpdate();
         }
 
+		public void RotateLeft()
+		{
+			//MyQuad.Quad.RotateLeft();
+			StartData.Position = Data.Position = new Vector2(Pos.Y, Pos.X);
+
+			InitialUpdate();
+		}
+
+		public Vector2 GetBL()
+		{
+			return MyQuad.Quad.BL;
+		}
+
         public void Move(Vector2 shift)
         {
             Data.Position += shift;

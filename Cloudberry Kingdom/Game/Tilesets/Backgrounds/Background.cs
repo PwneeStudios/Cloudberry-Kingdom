@@ -30,7 +30,9 @@ namespace CloudberryKingdom
             _Cloud = new BackgroundTemplate("cloud", Background._code_Cloud),
             _Cloud_Rain = new BackgroundTemplate("cloud_rain", Background._code_Cloud, Background.AddRainLayer),
             _Cave = new BackgroundTemplate("cave", Background._code_Cave),
-            _Castle = new BackgroundTemplate("castle", Background._code_Castle);
+            _Castle = new BackgroundTemplate("castle", Background._code_Castle),
+			_Castle_Vertical = new BackgroundTemplate("castle_vertical", Background._code_Castle_Vertical);
+
         
         public static void AddTemplate(BackgroundTemplate template)
         {
@@ -114,10 +116,15 @@ namespace CloudberryKingdom
 
             if (MyTemplate != null)
             {
-                if (MyTemplate.MadeOfCode)
-                    UseCode(MyTemplate, this);
-                else if (MyTemplate.MadeOfText)
-                    Load(MyTemplate.File);
+				if (MyTemplate.MadeOfCode)
+				{
+					if (level.Geometry == LevelGeometry.Up || level.Geometry == LevelGeometry.Down)
+						MyTemplate = BackgroundType._Castle_Vertical;
+
+					UseCode(MyTemplate, this);
+				}
+				else if (MyTemplate.MadeOfText)
+					Load(MyTemplate.File);
             }
         }
 
@@ -239,6 +246,20 @@ namespace CloudberryKingdom
         public virtual void Init(Level level)
         {
         }
+
+		public virtual void RotateLeft()
+		{
+			if (MyCollection != null)
+				MyCollection.RotateLeft();
+		}
+
+		public Vector2 GetBL()
+		{
+			if (MyCollection != null)
+				return MyCollection.GetBL();
+			else
+				return Vector2.Zero;
+		}
 
         public virtual void Move(Vector2 shift)
         {

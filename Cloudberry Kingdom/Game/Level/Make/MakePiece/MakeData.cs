@@ -137,6 +137,12 @@ namespace CloudberryKingdom.Levels
                     //Computers[i] = new Bob(Prototypes.bob[level.DefaultHeroType], true);
                     Computers[i] = new Bob(level.DefaultHeroType, true);
 
+					if (level.MySourceGame.MyGameFlags.IsDoppleganger && i > 0)
+						Computers[i].Dopple = true;
+
+					if (level.MySourceGame.MyGameFlags.IsDoppleganger && i == 0)
+						Computers[i].MoveData.InvertDirX = true;
+
                     level.AddBob(Computers[i]);
                     Sleep();
                 }
