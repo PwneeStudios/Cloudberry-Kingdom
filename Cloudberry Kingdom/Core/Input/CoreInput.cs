@@ -25,20 +25,40 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
+			//try
+			//{
+			//    I = new NuclexGamepadInput();
+			//    I.Initialize(Container, ComponentCollection, WindowHandle);
+			//}
+			//catch (Exception e)
+			//{
+			//    CloudberryKingdom.Tools.Log("NuclexGamepadInput initialization failed. Exception is:");
+			//    CloudberryKingdom.Tools.Log(e.ToString());
+			//    CloudberryKingdom.Tools.Log("Trying standard XnaInput instead.");
+
+			//    // We don't wrap the following in a try-catch. If this fails the game is not playable,
+			//    // so let the top level exception-catcher-logger handle any failure.
+			//    I = new XnaInput();
+			//    I.Initialize(Container, ComponentCollection, WindowHandle);
+			//}
+
+			// Normally we try out Nuclex input first, then fall back to Xna if needed.
+			// Some people are experiencing unresponsive input though, suggesting Nuclex is broken without crashing.
+			// Why did we need Nuclex to begin with? ARRRGH, where is the documentation.
 			try
 			{
-				I = new NuclexGamepadInput();
+				I = new XnaInput();
 				I.Initialize(Container, ComponentCollection, WindowHandle);
 			}
 			catch (Exception e)
 			{
-				CloudberryKingdom.Tools.Log("NuclexGamepadInput initialization failed. Exception is:");
+				CloudberryKingdom.Tools.Log("XnaInput initialization failed. Exception is:");
 				CloudberryKingdom.Tools.Log(e.ToString());
-				CloudberryKingdom.Tools.Log("Trying standard XnaInput instead.");
+				CloudberryKingdom.Tools.Log("Trying standard NuclexGamepadInput instead.");
 
 				// We don't wrap the following in a try-catch. If this fails the game is not playable,
 				// so let the top level exception-catcher-logger handle any failure.
-				I = new XnaInput();
+				I = new NuclexGamepadInput();
 				I.Initialize(Container, ComponentCollection, WindowHandle);
 			}
 		}
@@ -46,7 +66,19 @@ namespace CoreEngine
 		public static void OnLoad() { I.OnLoad(); }
 		
 		public static void Update_EndOfStep()	{ I.Update_EndOfStep(); }
-		public static void Update()				{ I.Update(); }
+		public static void Update()			
+		{
+			try
+			{
+				I.Update();
+			}
+			catch (Exception e)
+			{
+				CloudberryKingdom.Tools.Log("XnaInput initialization failed. Exception is:");
+				CloudberryKingdom.Tools.Log(e.ToString());
+				CloudberryKingdom.Tools.Log("Trying standard NuclexGamepadInput instead.");
+			}
+		}
 		
 		public static void Clear()				{ I.Clear(); }
 

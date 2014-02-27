@@ -62,6 +62,8 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = true;
 
+		public const string VersionString = "1.0.0005";
+		public const bool CodersEdition = false;
         public const bool DigitalDayBuild = false;
 
         public const bool PropTest = false;

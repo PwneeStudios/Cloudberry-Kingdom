@@ -517,10 +517,26 @@ namespace CloudberryKingdom.Bobs
         /// </summary>
         public AABox RegularBox2;
 
-        public static List<BobPhsx> HeroTypes = new List<BobPhsx>(new BobPhsx[]
-            { BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
-                BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
-				BobPhsxBlobby.Instance, BobPhsxMeat.Instance });
+        public static List<BobPhsx> HeroTypes = GetPlayableHeroTypes();
+
+		static List<BobPhsx> GetPlayableHeroTypes()
+		{
+			if (CloudberryKingdomGame.CodersEdition)
+			{
+				return new List<BobPhsx>(new BobPhsx[] {
+					BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
+					BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
+					BobPhsxBlobby.Instance, BobPhsxMeat.Instance, BobPhsxTimeship.Instance
+				});
+			}
+			else
+			{
+				return new List<BobPhsx>(new BobPhsx[] {
+					BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
+					BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
+				});
+			}
+		}
 
         /// <summary>
         /// How many time the bob has popped something without hitting the ground.

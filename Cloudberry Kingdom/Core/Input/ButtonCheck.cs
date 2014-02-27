@@ -197,7 +197,15 @@ namespace CloudberryKingdom
             Tools.Mouse = Mouse.GetState();
 #endif
 
-			CoreGamepad.Update();
+			try
+			{
+				CoreGamepad.Update();
+			}
+			catch (Exception e)
+			{
+				CloudberryKingdom.Tools.Log("Input update failed:");
+				CloudberryKingdom.Tools.Log(e.ToString());
+			}
 
             ButtonStats.Update();
 

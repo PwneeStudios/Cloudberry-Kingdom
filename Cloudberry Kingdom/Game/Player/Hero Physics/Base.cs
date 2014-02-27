@@ -140,12 +140,12 @@ namespace CloudberryKingdom
         {
         }
 
-        public static BobPhsx MakeCustom(HeroSpec spec)
+		public static BobPhsx MakeCustom(HeroSpec spec)
         {
-            return MakeCustom(spec.basetype, spec.shape, spec.move);
+			return MakeCustom(spec.basetype, spec.shape, spec.move);
         }
 
-        public static BobPhsx MakeCustom(BobPhsx BaseType, BobPhsx Shape, BobPhsx MoveMod, BobPhsx Special)
+        public static BobPhsx MakeCustom(BobPhsx BaseType, BobPhsx Shape, BobPhsx MoveMod, BobPhsx Special, bool Transcendent)
         {
             // Error catch. Spaceship can't be rocketman or double jump
             if (BaseType is BobPhsxSpaceship)
@@ -170,6 +170,8 @@ namespace CloudberryKingdom
             Shape.Set(custom);
             MoveMod.Set(custom);
             Special.Set(custom);
+
+			custom.Transcendent = Transcendent;
 
             // Set the name
             if (BaseType == BobPhsxNormal.Instance && Shape == BobPhsxNormal.Instance && MoveMod == BobPhsxNormal.Instance)
@@ -234,13 +236,18 @@ namespace CloudberryKingdom
 
         public static BobPhsx MakeCustom(Hero_BaseType BaseType, Hero_Shape Shape, Hero_MoveMod MoveMod)
         {
-            return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), BobPhsxNormal.Instance);
+            return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), BobPhsxNormal.Instance, false);
         }
 
         public static BobPhsx MakeCustom(Hero_BaseType BaseType, Hero_Shape Shape, Hero_MoveMod MoveMod, Hero_Special Special)
         {
-            return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), GetPhsx(Special));
+            return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), GetPhsx(Special), false);
         }
+
+		public static BobPhsx MakeCustom(Hero_BaseType BaseType, Hero_Shape Shape, Hero_MoveMod MoveMod, Hero_Special Special, bool Transcend)
+		{
+			return MakeCustom(GetPhsx(BaseType), GetPhsx(Shape), GetPhsx(MoveMod), GetPhsx(Special), Transcend);
+		}
         
         public enum CustomData
         {
