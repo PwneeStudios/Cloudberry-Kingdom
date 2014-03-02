@@ -25,6 +25,10 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
+			#if MONO
+			I = new XnaInput();
+			I.Initialize(Container, ComponentCollection, WindowHandle);
+			#else
 			//try
 			//{
 			//    I = new NuclexGamepadInput();
@@ -61,6 +65,7 @@ namespace CoreEngine
 				I = new NuclexGamepadInput();
 				I.Initialize(Container, ComponentCollection, WindowHandle);
 			}
+			#endif
 		}
 		
 		public static void OnLoad() { I.OnLoad(); }

@@ -808,6 +808,7 @@ namespace CoreEngine
             DrawWidth = Width;
             DrawHeight = Height;
 
+			/*
             ObjectRenderTarget = new RenderTarget2D(device,
                 DrawWidth, DrawHeight, false,
                 pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
@@ -815,6 +816,7 @@ namespace CoreEngine
             ToTextureRenderTarget = new RenderTarget2D(device,
                 DrawWidth, DrawHeight, false,
                 pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
+            */
         }
 
         //public List<BaseQuad> FindQuads(params string[] names)

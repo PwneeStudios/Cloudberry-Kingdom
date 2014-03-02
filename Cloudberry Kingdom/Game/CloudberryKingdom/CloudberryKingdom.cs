@@ -34,8 +34,54 @@ using Forms = System.Windows.Forms;
 using SteamManager;
 #endif
 
+#if MONO && WINDOWS
+using OTK = OpenTK;
+using OpenTK.Audio;
+using OpenTK.Audio.OpenAL;
+#endif
+
+using DragonOgg;
+using DragonOgg.Interactive;
+using DragonOgg.MediaPlayer;
+
 namespace CloudberryKingdom
 {
+	class MusicTest
+	{
+		static bool Playing = false;
+		public static void Test()
+		{
+			if (Playing)
+				return;
+
+			AudioClip clip= new AudioClip("Blue_Chair^Blind_Digital.ogg");
+			clip.Play();
+
+			Playing = true;
+		}
+	}
+
+	#if MONO && WINDOWS
+	public static class GameWindowExtensions {
+		public static void SetPosition(this GameWindow window, Point position) {
+			OpenTK.GameWindow OTKWindow = GetForm(window);
+			if (OTKWindow != null) {
+				OTKWindow.X = position.X;
+				OTKWindow.Y = position.Y;
+			}
+		}
+
+		public static OpenTK.GameWindow GetForm(this GameWindow gameWindow) {
+			Type type = typeof(OpenTKGameWindow);
+			System.Reflection.FieldInfo field = type.GetField("window", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+			if (field != null)
+				return field.GetValue(gameWindow) as OTK.GameWindow;
+			return null;
+		}
+	}
+	#endif
+
+
 	public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };
 
     public partial class CloudberryKingdomGame
@@ -597,7 +643,7 @@ namespace CloudberryKingdom
         public static string[] args;
 
         public static bool StartAsBackgroundEditor = false;
-        public static bool StartAsTestLevel = true;
+		public static bool StartAsTestLevel = false;
         public static bool StartAsBobAnimationTest = false;
         public static bool StartAsFreeplay = false;
 #if INCLUDE_EDITOR
@@ -772,14 +818,20 @@ namespace CloudberryKingdom
 #if PC_VERSION
 			if (CloudberryKingdomGame.UsingSteam)
 			{
+				//Console.WriteLine("Using Steam, checking if restart is needed.");
+
 				if (SteamCore.RestartViaSteamIfNecessary(210870))
 				{
+					//Console.WriteLine("Restart is needed.");
+
 					ExitingEarly = true;
 					Tools.GameClass.Exit();
 					return;
 				}
 
+				//Console.WriteLine("Initializing Steam.");
 				SteamInitialized = SteamCore.Initialize();
+				//Console.WriteLine("Steam initialization: {0}", SteamInitialized ? "Success" : "Failed");
 			}
 #endif
 
@@ -872,6 +924,9 @@ namespace CloudberryKingdom
 			MyGraphicsDeviceManager.IsFullScreen = false;
 	#endif
 #endif
+
+			Tools.GameClass.Window.SetPosition (new Point (0, 0));
+
 
 			Tools.Mode = rez.Mode;
 
@@ -1891,7 +1946,11 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-#if PC_VERSION && !MONO
+			if (DrawCount > 300) {
+				MusicTest.Test ();
+			}
+
+#if PC_VERSION
 			if (CloudberryKingdomGame.SteamAvailable)
 			{
 				SteamCore.Update();

@@ -391,7 +391,7 @@ namespace CoreEngine
 #if MONO
 			return null;
 #else
-			var song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
+			var song = Tools.GameClass.Content.LoadTillSuccess<Song>("Music\\" + name);
 			return song;
 #endif
 		}

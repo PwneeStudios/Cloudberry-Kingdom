@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
@@ -34,6 +35,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
     <DefineConstants>WINDOWS;GAME;PC_VERSION;MONO</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,6 +43,16 @@
     <Reference Include="System.Core" />
     <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="SteamWrapper">
+      <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DragonOgg">
+      <HintPath>..\..\..\..\Tools\DragonOgg\DragonOgg.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +451,8 @@
     <Compile Include="MainClass\XboxPC\MainClass.cs" />
     <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\VerifyStoryReset.cs" />
+    <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
+    <Compile Include="Game\Player\Hero Physics\FourWay.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BobIcon.png" />
@@ -2818,86 +2832,6 @@
       <Link>Content\Music\Blue_Chair^Blind_Digital.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Evidence^Blind_Digital.wma">
-      <Link>Content\Music\Evidence^Blind_Digital.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Evidence^Blind_Digital.xnb">
-      <Link>Content\Music\Evidence^Blind_Digital.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Get_a_Grip^Peacemaker.wma">
-      <Link>Content\Music\Get_a_Grip^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Get_a_Grip^Peacemaker.xnb">
-      <Link>Content\Music\Get_a_Grip^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Happy^James_Stant.wma">
-      <Link>Content\Music\Happy^James_Stant.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Happy^James_Stant.xnb">
-      <Link>Content\Music\Happy^James_Stant.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\House^Blind_Digital.wma">
-      <Link>Content\Music\House^Blind_Digital.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\House^Blind_Digital.xnb">
-      <Link>Content\Music\House^Blind_Digital.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Nero%27s_Law^Peacemaker.wma">
-      <Link>Content\Music\Nero%25252527s_Law^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Nero%27s_Law^Peacemaker.xnb">
-      <Link>Content\Music\Nero%25252527s_Law^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Ripcurl^Blind_Digital.wma">
-      <Link>Content\Music\Ripcurl^Blind_Digital.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Ripcurl^Blind_Digital.xnb">
-      <Link>Content\Music\Ripcurl^Blind_Digital.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\The_Fat_is_in_the_Fire^Peacemaker.wma">
-      <Link>Content\Music\The_Fat_is_in_the_Fire^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\The_Fat_is_in_the_Fire^Peacemaker.xnb">
-      <Link>Content\Music\The_Fat_is_in_the_Fire^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\The_Heavens_Opened^Peacemaker.wma">
-      <Link>Content\Music\The_Heavens_Opened^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\The_Heavens_Opened^Peacemaker.xnb">
-      <Link>Content\Music\The_Heavens_Opened^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Tidy_Up^Peacemaker.wma">
-      <Link>Content\Music\Tidy_Up^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Tidy_Up^Peacemaker.xnb">
-      <Link>Content\Music\Tidy_Up^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Writer%27s_Block^Peacemaker.wma">
-      <Link>Content\Music\Writer%25252527s_Block^Peacemaker.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Writer%27s_Block^Peacemaker.xnb">
-      <Link>Content\Music\Writer%25252527s_Block^Peacemaker.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Fonts\Grobold_Chinese.fnt">
       <Link>Content\Fonts\Grobold_Chinese.fnt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3920,6 +3854,18 @@
     </None>
     <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Campaign\CampaignList_3.txt">
       <Link>Content\Campaign\CampaignList_3.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="steam_api.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="steam_appid.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SteamWrapper.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Blue_Chair^Blind_Digital.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

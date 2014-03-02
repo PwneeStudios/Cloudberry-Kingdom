@@ -110,7 +110,7 @@ namespace CoreEngine
 
             if (texture != Tools.TextureWad.DefaultTexture) return texture;
 
-            return Tools.TextureWad.AddTexture(Content.Load<Texture2D>(path), name);
+			return Tools.TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>(path), name);
         }
 
         /// <summary>

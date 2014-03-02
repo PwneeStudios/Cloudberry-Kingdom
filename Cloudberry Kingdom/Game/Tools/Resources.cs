@@ -248,10 +248,10 @@ namespace CloudberryKingdom
                 if (extension == "xnb")
                 {
                     if (CreateNewWad)
-                        Tools.SoundWad.AddSound(manager.Load<SoundEffect>("Sound\\" + name), name);
+						Tools.SoundWad.AddSound(manager.LoadTillSuccess<SoundEffect>("Sound\\" + name), name);
                     else
                     {
-                        SoundEffect NewSound = manager.Load<SoundEffect>("Sound\\" + name);
+						SoundEffect NewSound = manager.LoadTillSuccess<SoundEffect>("Sound\\" + name);
 
                         EzSound CurSound = Tools.SoundWad.FindByName(name);
                         foreach (EzSound ezsound in Tools.PrivateSoundWad.SoundList)
@@ -376,13 +376,17 @@ namespace CloudberryKingdom
         }
 #else
 		#if MONO
-		static T LoadTillSuccess<T>(string Path)
+		public static T LoadTillSuccess<T>(this ContentManager Content, string Path)
 		{
+			#if MONO
+			// Mono can't always load a texture from a background thread.
+			// Occasionally the load will fail. We catch the error and try again after a small delay.
+			// This is possibly the worst way to solve this problem.
 			T resource = default(T);
 
 			while (true) {
 				try {
-					resource = Tools.GameClass.Content.Load<T> (Path);
+					resource = Content.Load<T> (Path);
 					return resource;
 				} catch (Exception e) {
 					Console.WriteLine ("Loading {0} failed", Path);
@@ -392,6 +396,9 @@ namespace CloudberryKingdom
 
 				Thread.Sleep (10);
 			}
+			#else
+			return Content.Load<T>(Path);
+			#endif
 		}
 		#endif
 
@@ -469,14 +476,7 @@ namespace CloudberryKingdom
                     //    Thread.Sleep(300);
                     //}
 
-					#if MONO
-					// Mono can't always load a texture from a background thread.
-					// Occasionally the load will fail. We catch the error and try again after a small delay.
-					// This is possibly the worst way to solve this problem.
-					Tex.Tex = LoadTillSuccess<Texture2D>(Tex.Path);
-					#else
-					Tex.Tex = Tools.GameClass.Content.Load<Texture2D>(Tex.Path);
-					#endif
+					Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
 
 					count++;
 

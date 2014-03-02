@@ -116,7 +116,7 @@ namespace CloudberryKingdom
         static void LoadFont()
         {
             string name = "Grobold_" + Localization.CurrentLanguage.FontSuffix;
-            FontTexture = Content.Load<Texture2D>(Path.Combine("Fonts", name));
+			FontTexture = Content.LoadTillSuccess<Texture2D>(Path.Combine("Fonts", name));
 
             Resources.hf = new HackFont(name);
             

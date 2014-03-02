@@ -1,4 +1,4 @@
-#if PC_VERSION && !MONO
+#if PC_VERSION
 using System;
 using System.Text;
 using System.Runtime.InteropServices;

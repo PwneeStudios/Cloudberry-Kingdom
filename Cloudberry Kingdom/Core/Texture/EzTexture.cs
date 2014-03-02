@@ -65,7 +65,7 @@ namespace CoreEngine
         {
             if (_Tex == null && Path != null)
             {
-                _Tex = Tools.GameClass.Content.Load<Texture2D>(Path);
+				_Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Path);
                 Width = _Tex.Width;
                 Height = _Tex.Height;
             }

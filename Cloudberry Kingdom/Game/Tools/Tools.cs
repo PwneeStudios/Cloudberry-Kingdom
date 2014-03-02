@@ -1129,16 +1129,16 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TextureWad = new EzTextureWad();
             Tools.Write("TextureWad made");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("White"), "White");
+			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("White"), "White");
             Tools.Write("White loaded");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("Circle"), "Circle");
+			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Circle"), "Circle");
             Tools.Write("Circle loaded");
 
-            TextureWad.AddTexture(Content.Load<Texture2D>("Smooth"), "Smooth");
+			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Smooth"), "Smooth");
             Tools.Write("Smooth loaded");
 
-			Transparent = TextureWad.AddTexture(Content.Load<Texture2D>("Transparent"), "Transparent");
+			Transparent = TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Transparent"), "Transparent");
             Tools.Write("Transparent loaded");
 
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
@@ -1212,27 +1212,27 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (CreateNewWad)
                 EffectWad = new EzEffectWad();
 
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BasicEffect"), "Basic");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\NoTexture"), "NoTexture");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Circle"), "Circle");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Shell"), "Shell");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\FireballEffect"), "Fireball");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Paint"), "Paint");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Lava"), "Lava");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\LightMap"), "LightMap");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\LightSource"), "LightSource");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\BwEffect"), "BW");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Hsl_Green"), "Hsl_Green");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Hsl"), "Hsl");
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Window"), "Window");
+			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\BasicEffect"), "Basic");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\NoTexture"), "NoTexture");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Circle"), "Circle");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Shell"), "Shell");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\FireballEffect"), "Fireball");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Paint"), "Paint");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Lava"), "Lava");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\LightMap"), "LightMap");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\LightSource"), "LightSource");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\BwEffect"), "BW");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Hsl_Green"), "Hsl_Green");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Hsl"), "Hsl");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Window"), "Window");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_NoOutline"), "Text_NoOutline");
+			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_NoOutline"), "Text_NoOutline");
             Text_NoOutline = EffectWad.FindByName("Text_NoOutline");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_ThinOutline"), "Text_ThinOutline");
+			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThinOutline"), "Text_ThinOutline");
             Text_ThinOutline = EffectWad.FindByName("Text_ThinOutline");
 
-            EffectWad.AddEffect(Content.Load<Effect>("Shaders\\Text_ThickOutline"), "Text_ThickOutline");
+			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThickOutline"), "Text_ThickOutline");
             Text_ThickOutline = EffectWad.FindByName("Text_ThickOutline");
 
             BasicEffect = EffectWad.EffectList[0];
@@ -1243,7 +1243,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             HslGreenEffect = EffectWad.FindByName("Hsl_Green");
             WindowEffect = EffectWad.FindByName("Window");
 
-            PaintEffect_SpriteBatch = Content.Load<Effect>("Shaders\\Paint_SpriteBatch");
+			PaintEffect_SpriteBatch = Content.LoadTillSuccess<Effect>("Shaders\\Paint_SpriteBatch");
         }
 
         public static float BoxSize(Vector2 TR, Vector2 BL)
