@@ -10,16 +10,16 @@ namespace CloudberryKingdom
 		/// Probably not needed, but there is not time to test removing it.
 		/// </summary>
 		static float dummy_t;
-
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+		
 #if WINDOWS
 #if PC
 #endif
         [STAThread]
 #endif
-        static void Main(string[] args)
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		static void Main(string[] args)
         {
             dummy_t = Tools.t;
             Tools.Write("Main Constructor");

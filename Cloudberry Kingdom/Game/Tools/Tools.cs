@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using XnaInput = Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using XnaMedia = Microsoft.Xna.Framework.Media;
 
 using CoreEngine;
 using CoreEngine.Random;
@@ -731,10 +731,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 Tools.TheGame.Exiting -= abort;
             }))
     {
-        Name = name,
+        		Name = name,
 #if WINDOWS
-        //Priority = ThreadPriority.Highest,
-        Priority = ThreadPriority.Lowest,
+        		Priority = ThreadPriority.Highest,
+				//Priority = ThreadPriority.Lowest,
 #endif
     };
 
@@ -1013,15 +1013,15 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool ShiftDown()
         {
             return
-                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) ||
-                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+                Tools.Keyboard.IsKeyDown(XnaInput.Keys.LeftShift) ||
+                Tools.Keyboard.IsKeyDown(XnaInput.Keys.RightShift);
         }
 
         public static bool CntrlDown()
         {
             return
-                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) ||
-                Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl);
+                Tools.Keyboard.IsKeyDown(XnaInput.Keys.LeftControl) ||
+                Tools.Keyboard.IsKeyDown(XnaInput.Keys.RightControl);
         }
 
         public static string RemoveAfter(string s, string occurence)
@@ -1108,8 +1108,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static int DrawCount, PhsxCount;
 
-        public static EzSong Song_140mph, Song_Happy, Song_BlueChair, Song_Ripcurl, Song_Evidence, Song_GetaGrip, Song_House, Song_Nero, Song_FatInFire, Song_Heavens, Song_TidyUp, Song_WritersBlock;
-        public static List<EzSong> SongList_Standard = new List<EzSong>();
+        public static BaseSong Song_140mph, Song_Happy, Song_BlueChair, Song_Ripcurl, Song_Evidence, Song_GetaGrip, Song_House, Song_Nero, Song_FatInFire, Song_Heavens, Song_TidyUp, Song_WritersBlock;
+        public static List<BaseSong> SongList_Standard = new List<BaseSong>();
 
         public static bool FreeCam = false;
         public static bool DrawBoxes = false;
@@ -1258,7 +1258,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (Tools.SongWad != null && Tools.SongWad.Paused) NewVolume = 0;
             if (NewVolume != CurVolume)
             {
-                CurVolume = MediaPlayer.Volume = NewVolume;
+				CurVolume = MediaPlayer.Instance.Volume = NewVolume;
             }
         }
 

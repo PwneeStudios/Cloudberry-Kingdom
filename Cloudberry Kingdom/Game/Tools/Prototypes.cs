@@ -396,7 +396,7 @@ namespace CloudberryKingdom
             Prototypes.GhostBlockObj = Prototypes.LoadSimple(Path.Combine(Globals.ContentDirectory, "Objects\\GhostBlock.smo"));
 
             Prototypes.FlyingBlobObj = new FlyingBlob(Path.Combine(Globals.ContentDirectory, "Objects\\Blob.smo"), Tools.EffectWad, Tools.TextureWad);
-            Prototypes.FlyingBlobObj.Core.MyType = ObjectType.FlyingBlob;
+			Prototypes.FlyingBlobObj.Core.MyType = ObjectType.FlyingBlob;
             Vector2 BlobSize = new Vector2(1.11f, 1.11f);
             Prototypes.FlyingBlobObj.MyObject.Base.e1 *= BlobSize.X;
             Prototypes.FlyingBlobObj.MyObject.Base.e2 *= BlobSize.Y;

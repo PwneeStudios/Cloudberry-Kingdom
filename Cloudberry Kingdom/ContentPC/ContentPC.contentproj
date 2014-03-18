@@ -483,6 +483,346 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Door\Door_Terrace_1.dds">
+      <Name>Door_Terrace_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Door\Door_Terrace_2.dds">
+      <Name>Door_Terrace_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Door\wall_terrace.dds">
+      <Name>wall_terrace</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Blob\Blob_Anders_1.dds">
+      <Name>Blob_Anders_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Blob\Blob_Anders_2.dds">
+      <Name>Blob_Anders_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Bouncy_Block\Bouncy_Anders_1.dds">
+      <Name>Bouncy_Anders_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Bouncy_Block\Bouncy_Anders_2.dds">
+      <Name>Bouncy_Anders_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Cloud\Cloud_Anders.dds">
+      <Name>Cloud_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Elevator\Elevator_Anders.dds">
+      <Name>Elevator_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Falling_Block\Fblock_Anders_1.dds">
+      <Name>Fblock_Anders_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Falling_Block\Fblock_Anders_2.dds">
+      <Name>Fblock_Anders_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Falling_Block\Fblock_Anders_3.dds">
+      <Name>Fblock_Anders_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Falling_Block\Fblock_Anders_4.dds">
+      <Name>Fblock_Anders_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Firespinner\Firespinner_Flame_Anders.dds">
+      <Name>Firespinner_Flame_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Floater\Floater_Chain_Anders.dds">
+      <Name>Floater_Chain_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Floater\Floater_Spikey_Anders_v1.dds">
+      <Name>Floater_Spikey_Anders_v1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Floater\Floater_Spikey_Anders_v2.dds">
+      <Name>Floater_Spikey_Anders_v2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Ghost_Block\Ghostblock_Anders.dds">
+      <Name>Ghostblock_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Laser\Laser_Anders.dds">
+      <Name>Laser_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Moving_Block\Movingblock_Anders_135.dds">
+      <Name>Movingblock_Anders_135</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Moving_Block\MovingBlock_Anders_190.dds">
+      <Name>MovingBlock_Anders_190</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Moving_Block\MovingBlock_Anders_40.dds">
+      <Name>MovingBlock_Anders_40</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Moving_Block\MovingBlock_Anders_80.dds">
+      <Name>MovingBlock_Anders_80</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Spike\Spike_Anders.dds">
+      <Name>Spike_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Obstacles\Spike\Spike_Base_Anders.dds">
+      <Name>Spike_Base_Anders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Pillars\pillar_terrace_200.dds">
+      <Name>pillar_terrace_200</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Pillars\pillar_terrace_70.dds">
+      <Name>pillar_terrace_70</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Background.dds">
+      <Name>Terrace_Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud1.dds">
+      <Name>Terrace_Cloud1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud2.dds">
+      <Name>Terrace_Cloud2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud3.dds">
+      <Name>Terrace_Cloud3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud4.dds">
+      <Name>Terrace_Cloud4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud5.dds">
+      <Name>Terrace_Cloud5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Cloud6.dds">
+      <Name>Terrace_Cloud6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Hill_Large.dds">
+      <Name>Terrace_Hill_Large</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Hill_Medium.dds">
+      <Name>Terrace_Hill_Medium</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Terrace\Background\Terrace_Hill_Small.dds">
+      <Name>Terrace_Hill_Small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Background.dds">
+      <Name>Dungeon_Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Halberd.dds">
+      <Name>Dungeon_Halberd</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Smoke.dds">
+      <Name>Dungeon_Smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Smoke_Thick.dds">
+      <Name>Dungeon_Smoke_Thick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Window1.dds">
+      <Name>Dungeon_Window1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Background\Dungeon_Window2.dds">
+      <Name>Dungeon_Window2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Door\Door_Dungeon_1.dds">
+      <Name>Door_Dungeon_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Door\Door_Dungeon_2.dds">
+      <Name>Door_Dungeon_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Door\wall_dungeon.dds">
+      <Name>wall_dungeon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Pillars\pillar_dungeon_100.dds">
+      <Name>pillar_dungeon_100</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Pillars\pillar_dungeon_150.dds">
+      <Name>pillar_dungeon_150</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Pillars\pillar_dungeon_250.dds">
+      <Name>pillar_dungeon_250</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Pillars\pillar_dungeon_300.dds">
+      <Name>pillar_dungeon_300</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Dungeon\Pillars\pillar_dungeon_60.dds">
+      <Name>pillar_dungeon_60</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Palace_Background.dds">
+      <Name>Palace_Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Palace_BPillar.dds">
+      <Name>Palace_BPillar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Palace_ChandalierNoChain_Blurred.dds">
+      <Name>Palace_ChandalierNoChain_Blurred</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Palace_Chandelier_Blurred.dds">
+      <Name>Palace_Chandelier_Blurred</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Palace_Window.dds">
+      <Name>Palace_Window</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait1.dds">
+      <Name>Palace_Portrait1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait2.dds">
+      <Name>Palace_Portrait2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait3.dds">
+      <Name>Palace_Portrait3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait4.dds">
+      <Name>Palace_Portrait4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait5.dds">
+      <Name>Palace_Portrait5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Background\Portraits\Palace_Portrait6.dds">
+      <Name>Palace_Portrait6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Door\Door_Palace_1.dds">
+      <Name>Door_Palace_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Door\Door_Palace_2.dds">
+      <Name>Door_Palace_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Door\wall_palace.dds">
+      <Name>wall_palace</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Pillars\pillar_palace_100.dds">
+      <Name>pillar_palace_100</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Pillars\pillar_palace_150.dds">
+      <Name>pillar_palace_150</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Environments\Anders__Palace\Pillars\pillar_palace_50.dds">
+      <Name>pillar_palace_50</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

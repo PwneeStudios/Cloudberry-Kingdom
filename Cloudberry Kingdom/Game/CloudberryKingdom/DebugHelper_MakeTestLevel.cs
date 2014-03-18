@@ -55,7 +55,10 @@ namespace CloudberryKingdom
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            TileSetToTest = "castle";
+            //TileSetToTest = "castle";
+			TileSetToTest = "anders__terrace";
+			//TileSetToTest = "anders__dungeon";
+			//TileSetToTest = "anders__palace";
 
             if (TileSetToTest == null)
                 data.SetTileSet("castle");
@@ -70,9 +73,9 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-			data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double, Hero_Special.Classic, true);
+			//data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double, Hero_Special.Classic, true);
 
-			//data.DefaultHeroType = BobPhsxNormal.Instance;
+			data.DefaultHeroType = BobPhsxNormal.Instance;
 			//data.DefaultHeroType = BobPhsxBlobby.Instance;
 			//data.DefaultHeroType = BobPhsxMeat.Instance;
 			//data.DefaultHeroType = BobPhsxFourWay.Instance;
@@ -108,9 +111,9 @@ namespace CloudberryKingdom
 
 			data.MyGeometry = LevelGeometry.Right;
 			//data.MyGeometry = LevelGeometry.Up;
-			data.PieceLength = 90000;
+			//data.PieceLength = 90000;
             //data.PieceLength = 15000;
-			//data.PieceLength = 5600;
+			data.PieceLength = 20000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
@@ -133,8 +136,8 @@ namespace CloudberryKingdom
             //level.MyGame.AddGameObject(new Rumble());
             //};
 
-            //data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
-            data.LavaMake = LevelSeedData.LavaMakeTypes.AlwaysMake;
+            data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
+            //data.LavaMake = LevelSeedData.LavaMakeTypes.AlwaysMake;
 
             GameData.StartLevel(data);
         }
@@ -184,29 +187,26 @@ namespace CloudberryKingdom
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
 
-			//piece.MyUpgrades1[Upgrade.FlyBlob] = 9f;
-			//piece.MyUpgrades1[Upgrade.SpikeyLine] = 9f;
-			//piece.MyUpgrades1[Upgrade.Ceiling] = 10;
-			//piece.MyUpgrades1[Upgrade.SpikeyGuy] = 9;
-			//piece.MyUpgrades1[Upgrade.FireSpinner] = 9;
-			//piece.MyUpgrades1[Upgrade.GhostBlock] = 8;
-			//piece.MyUpgrades1[Upgrade.Pendulum] = 8;
-			//piece.MyUpgrades1[Upgrade.Elevator] = 4;
-			//piece.MyUpgrades1[Upgrade.Fireball] = 9f;
-			//piece.MyUpgrades1[Upgrade.Pinky] = 9f;
+			piece.MyUpgrades1[Upgrade.FlyBlob] = 2f;
+			piece.MyUpgrades1[Upgrade.SpikeyLine] = 2f;
+			piece.MyUpgrades1[Upgrade.Ceiling] = 5;
+			piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
+			piece.MyUpgrades1[Upgrade.FireSpinner] = 5;
+			piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
+			piece.MyUpgrades1[Upgrade.Pendulum] = 2;
+			//piece.MyUpgrades1[Upgrade.Elevator] = 2;
+			piece.MyUpgrades1[Upgrade.Fireball] = 2f;
+			piece.MyUpgrades1[Upgrade.Pinky] = 2f;
+			piece.MyUpgrades1[Upgrade.FallingBlock] = 2f;
+			piece.MyUpgrades1[Upgrade.BouncyBlock] = 2f;
+			piece.MyUpgrades1[Upgrade.Laser] = 2f;
+			piece.MyUpgrades1[Upgrade.MovingBlock] = 5f;
+			piece.MyUpgrades1[Upgrade.Spike] = 5f;
+			piece.MyUpgrades1[Upgrade.Cloud] = 2f;
 
-			//piece.MyUpgrades1[Upgrade.FlyBlob] = 0f;
-			//piece.MyUpgrades1[Upgrade.SpikeyLine] = 4f;
-			//piece.MyUpgrades1[Upgrade.Ceiling] = 5;
-			//piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
-			//piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-			//piece.MyUpgrades1[Upgrade.GhostBlock] = 5;
-			//piece.MyUpgrades1[Upgrade.Pendulum] = 5;
-			//piece.MyUpgrades1[Upgrade.Pinky] = 2f;
-
-			__Roughly_Abusive(piece);
-            //__Roughly_Maso(piece);
-			piece.Style.Masochistic = true;
+			//__Roughly_Abusive(piece);
+			//__Roughly_Maso(piece);
+			//piece.Style.Masochistic = true;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 

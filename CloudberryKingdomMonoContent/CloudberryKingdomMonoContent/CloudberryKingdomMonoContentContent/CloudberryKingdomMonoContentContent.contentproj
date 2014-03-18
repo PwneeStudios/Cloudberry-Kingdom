@@ -44,7 +44,7 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.AudioImporters" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters" />
     <Reference Include="MonoGameContentProcessors">
-      <HintPath>$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGameContentProcessors.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Tools\MonoGame-SDL\MonoGame.ContentPipeline\ContentProcessors\bin\Release\MonoGameContentProcessors.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -2247,6 +2247,66 @@
     <Compile Include="Art\Title\TradeMarkSymbol.dds">
       <Name>TradeMarkSymbol</Name>
     </Compile>
+    <Compile Include="Music\140_Mph_in_the_Fog^Blind_Digital.wma">
+      <Name>140_Mph_in_the_Fog^Blind_Digital</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Blue_Chair^Blind_Digital.wma">
+      <Name>Blue_Chair^Blind_Digital</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Evidence^Blind_Digital.wma">
+      <Name>Evidence^Blind_Digital</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Get_a_Grip^Peacemaker.wma">
+      <Name>Get_a_Grip^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Happy^James_Stant.wma">
+      <Name>Happy^James_Stant</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\House^Blind_Digital.wma">
+      <Name>House^Blind_Digital</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Nero%24s_Law^Peacemaker.wma">
+      <Name>Nero%24s_Law^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Ripcurl^Blind_Digital.wma">
+      <Name>Ripcurl^Blind_Digital</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\The_Fat_is_in_the_Fire^Peacemaker.wma">
+      <Name>The_Fat_is_in_the_Fire^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\The_Heavens_Opened^Peacemaker.wma">
+      <Name>The_Heavens_Opened^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Tidy_Up^Peacemaker.wma">
+      <Name>Tidy_Up^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\Writer%24s_Block^Peacemaker.wma">
+      <Name>Writer%24s_Block^Peacemaker</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>MGSongProcessor</Processor>
+    </Compile>
     <Compile Include="Shaders\BasicEffect.fx">
       <Name>BasicEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -2678,18 +2738,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\140_Mph_in_the_Fog^Blind_Digital.wma">
-      <Name>140_Mph_in_the_Fog^Blind_Digital</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>MGSongProcessor</Processor>
-    </Compile>
-    <Compile Include="Music\Blue_Chair^Blind_Digital.wma">
-      <Name>Blue_Chair^Blind_Digital</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>MGSongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sound\Bash.wav">
       <Name>Bash</Name>
       <Importer>WavImporter</Importer>
@@ -2845,6 +2893,48 @@
       <Name>CampaignList_3</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Movies\Credits_PC.wmv">
+      <Name>Credits_PC</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_1.wmv">
+      <Name>Cutscene_1</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_2.wmv">
+      <Name>Cutscene_2</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_3.wmv">
+      <Name>Cutscene_3</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_4.wmv">
+      <Name>Cutscene_4</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_5.wmv">
+      <Name>Cutscene_5</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\Cutscene_6.wmv">
+      <Name>Cutscene_6</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+    <Compile Include="Movies\LogoSalad.wmv">
+      <Name>LogoSalad</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--

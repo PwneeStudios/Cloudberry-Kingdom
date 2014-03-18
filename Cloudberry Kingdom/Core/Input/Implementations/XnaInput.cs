@@ -3,13 +3,13 @@
 using CloudberryKingdom;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using input = Microsoft.Xna.Framework.Input;
 
 namespace CoreEngine
 {
 	public class XnaInput : GamepadBase
 	{
-		protected GamePadState[] GamepadState, PrevGamepadState;
+        protected input.GamePadState[] GamepadState, PrevGamepadState;
 
 		public override void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
@@ -18,32 +18,32 @@ namespace CoreEngine
 
 		public override void OnLoad()
 		{
-			GamepadState = new GamePadState[4];
-			PrevGamepadState = new GamePadState[4];
+            GamepadState = new input.GamePadState[4];
+            PrevGamepadState = new input.GamePadState[4];
 		}
 
 		public override void Update_EndOfStep()
 		{
 			// Store the previous states of the Xbox controllers.
 			for (int i = 0; i < 4; i++)
-				if (PrevGamepadState[i] != null)
+                if (PrevGamepadState[i] != null)
 					PrevGamepadState[i] = GamepadState[i];
 		}
 
 		public override void Update()
 		{
-			GamepadState[0] = GamePad.GetState(PlayerIndex.One);
-			GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
-			GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
-			GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
+            GamepadState[0] = input.GamePad.GetState(PlayerIndex.One);
+            GamepadState[1] = input.GamePad.GetState(PlayerIndex.Two);
+            GamepadState[2] = input.GamePad.GetState(PlayerIndex.Three);
+            GamepadState[3] = input.GamePad.GetState(PlayerIndex.Four);
 		}
 
 		public override void Clear()
 		{
-			GamepadState[0] = new GamePadState();
-			GamepadState[1] = new GamePadState();
-			GamepadState[2] = new GamePadState();
-			GamepadState[3] = new GamePadState();
+			GamepadState[0] = new input.GamePadState();
+            GamepadState[1] = new input.GamePadState();
+            GamepadState[2] = new input.GamePadState();
+            GamepadState[3] = new input.GamePadState();
 		}
 
 		public override bool IsConnected(int PlayerNumber)
@@ -53,7 +53,7 @@ namespace CoreEngine
 
 		public override bool IsPressed(int PlayerNumber, ControllerButtons Button, bool Previous)
 		{
-			GamePadState Pad;
+            input.GamePadState Pad;
 			
 			if (Previous)
 				Pad = PrevGamepadState[PlayerNumber];
@@ -62,25 +62,25 @@ namespace CoreEngine
 
 			switch (Button)
 			{
-				case ControllerButtons.Start:		return (Pad.Buttons.Start == ButtonState.Pressed); break;
-				case ControllerButtons.Back:		return (Pad.Buttons.Back == ButtonState.Pressed); break;
+				case ControllerButtons.Start:		return (Pad.Buttons.Start == input.ButtonState.Pressed); break;
+				case ControllerButtons.Back:		return (Pad.Buttons.Back == input.ButtonState.Pressed); break;
 				
-				case ControllerButtons.A:			return (Pad.Buttons.A == ButtonState.Pressed); break;
-				case ControllerButtons.B:			return (Pad.Buttons.B == ButtonState.Pressed); break;
-				case ControllerButtons.X:			return (Pad.Buttons.X == ButtonState.Pressed); break;
-				case ControllerButtons.Y:			return (Pad.Buttons.Y == ButtonState.Pressed); break;
+				case ControllerButtons.A:			return (Pad.Buttons.A == input.ButtonState.Pressed); break;
+				case ControllerButtons.B:			return (Pad.Buttons.B == input.ButtonState.Pressed); break;
+				case ControllerButtons.X:			return (Pad.Buttons.X == input.ButtonState.Pressed); break;
+				case ControllerButtons.Y:			return (Pad.Buttons.Y == input.ButtonState.Pressed); break;
 				
-				case ControllerButtons.LJButton:	return (Pad.Buttons.LeftStick == ButtonState.Pressed); break;
-				case ControllerButtons.RJButton:	return (Pad.Buttons.RightStick == ButtonState.Pressed); break;
+				case ControllerButtons.LJButton:	return (Pad.Buttons.LeftStick == input.ButtonState.Pressed); break;
+				case ControllerButtons.RJButton:	return (Pad.Buttons.RightStick == input.ButtonState.Pressed); break;
 				
-				case ControllerButtons.LS:			return (Pad.Buttons.LeftShoulder == ButtonState.Pressed); break;
-				case ControllerButtons.RS:			return (Pad.Buttons.RightShoulder == ButtonState.Pressed); break;
+				case ControllerButtons.LS:			return (Pad.Buttons.LeftShoulder == input.ButtonState.Pressed); break;
+				case ControllerButtons.RS:			return (Pad.Buttons.RightShoulder == input.ButtonState.Pressed); break;
 				
 				case ControllerButtons.LT:			return (Pad.Triggers.Left > .5f);
 				case ControllerButtons.RT:			return (Pad.Triggers.Right > .5f);
 				
-				case ControllerButtons.LJ:			return (Pad.Buttons.LeftStick == ButtonState.Pressed);
-				case ControllerButtons.RJ:			return (Pad.Buttons.RightStick == ButtonState.Pressed);
+				case ControllerButtons.LJ:			return (Pad.Buttons.LeftStick == input.ButtonState.Pressed);
+				case ControllerButtons.RJ:			return (Pad.Buttons.RightStick == input.ButtonState.Pressed);
 				
 				case ControllerButtons.DPad:		return false;
 
@@ -88,8 +88,16 @@ namespace CoreEngine
 			}
 		}
 
-		public override Vector2 LeftJoystick(int PlayerNumber)  { return GamepadState[PlayerNumber].ThumbSticks.Left; }
-		public override Vector2 RightJoystick(int PlayerNumber) { return GamepadState[PlayerNumber].ThumbSticks.Right; }
+		public override Vector2 LeftJoystick(int PlayerNumber) 
+        {
+            Vector2 vec = GamepadState[PlayerNumber].ThumbSticks.Left;
+            return new Vector2(vec.X, vec.Y);
+        }
+		public override Vector2 RightJoystick(int PlayerNumber)
+        {
+            Vector2 vec = GamepadState[PlayerNumber].ThumbSticks.Right;
+            return new Vector2(vec.X, vec.Y);
+        }
 
 		public override Vector2 DPad(int PlayerNumber)
 		{
@@ -97,10 +105,10 @@ namespace CoreEngine
 
 			var Pad = GamepadState[PlayerNumber].DPad;
 
-			if (Pad.Right	== ButtonState.Pressed) Dir.X = 1;
-			if (Pad.Up		== ButtonState.Pressed) Dir.Y = 1;
-			if (Pad.Left	== ButtonState.Pressed) Dir.X = -1;
-			if (Pad.Down	== ButtonState.Pressed) Dir.Y = -1;
+			if (Pad.Right	== input.ButtonState.Pressed) Dir.X = 1;
+			if (Pad.Up		== input.ButtonState.Pressed) Dir.Y = 1;
+			if (Pad.Left	== input.ButtonState.Pressed) Dir.X = -1;
+			if (Pad.Down	== input.ButtonState.Pressed) Dir.Y = -1;
 
 			return Dir;
 		}

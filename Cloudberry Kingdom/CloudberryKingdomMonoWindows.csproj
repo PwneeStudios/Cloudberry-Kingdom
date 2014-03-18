@@ -41,18 +41,33 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="SteamWrapper">
       <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
     </Reference>
-    <Reference Include="DragonOgg">
-      <HintPath>..\..\..\..\Tools\DragonOgg\DragonOgg.dll</HintPath>
+    <Reference Include="NAudio">
+      <HintPath>..\..\..\..\..\..\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\TestApp\bin\Release\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis">
+      <HintPath>..\..\..\..\..\..\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\TestApp\bin\Release\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis.NAudioSupport">
+      <HintPath>..\..\..\..\..\..\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\nvorbis-a85499d6ba8fcbc32cb01cfcf4c1dfe0da2f15c5\TestApp\bin\Release\NVorbis.NAudioSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.Sdl">
+      <HintPath>..\..\..\..\Tools\MonoGame\MonoGame.Framework\bin\WindowsGL\Release\Tao.Sdl.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\..\..\Tools\MonoGame-SDL\MonoGame.Framework\bin\SDL2\Debug\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\..\..\Tools\MonoGame-SDL\MonoGame.Framework\bin\SDL2\Debug\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="SDL2-CS">
+      <HintPath>..\..\..\..\Tools\MonoGame-SDL\MonoGame.Framework\bin\SDL2\Debug\SDL2-CS.dll</HintPath>
+    </Reference>
+    <Reference Include="TheoraPlay-CS">
+      <HintPath>..\..\..\..\Tools\MonoGame-SDL\ThirdParty\TheoraPlay#\bin\Release\TheoraPlay-CS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +109,6 @@
     <Compile Include="Core\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\CoinExplosion.cs" />
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />
-    <Compile Include="Core\Song\EzSong.cs" />
     <Compile Include="Core\Song\EzSongWad.cs" />
     <Compile Include="Core\Sound\EzSound.cs" />
     <Compile Include="Core\Sound\EzSoundWad.cs" />
@@ -453,6 +467,186 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\VerifyStoryReset.cs" />
     <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
     <Compile Include="Game\Player\Hero Physics\FourWay.cs" />
+    <Compile Include="DragonOgg\csogg\Buffer.cs" />
+    <Compile Include="DragonOgg\csogg\Packet.cs" />
+    <Compile Include="DragonOgg\csogg\Page.cs" />
+    <Compile Include="DragonOgg\csogg\StreamState.cs" />
+    <Compile Include="DragonOgg\csogg\SyncState.cs" />
+    <Compile Include="DragonOgg\csvorbis\AllocChain.cs" />
+    <Compile Include="DragonOgg\csvorbis\Block.cs" />
+    <Compile Include="DragonOgg\csvorbis\CodeBook.cs" />
+    <Compile Include="DragonOgg\csvorbis\Comment.cs" />
+    <Compile Include="DragonOgg\csvorbis\csorbisException.cs" />
+    <Compile Include="DragonOgg\csvorbis\Drft.cs" />
+    <Compile Include="DragonOgg\csvorbis\DspState.cs" />
+    <Compile Include="DragonOgg\csvorbis\EncodeAuxNearestMatch.cs" />
+    <Compile Include="DragonOgg\csvorbis\EncodeAuxThreshMatch.cs" />
+    <Compile Include="DragonOgg\csvorbis\Floor0.cs" />
+    <Compile Include="DragonOgg\csvorbis\Floor1.cs" />
+    <Compile Include="DragonOgg\csvorbis\FuncFloor.cs" />
+    <Compile Include="DragonOgg\csvorbis\FuncMapping.cs" />
+    <Compile Include="DragonOgg\csvorbis\FuncResidue.cs" />
+    <Compile Include="DragonOgg\csvorbis\FuncTime.cs" />
+    <Compile Include="DragonOgg\csvorbis\Info.cs" />
+    <Compile Include="DragonOgg\csvorbis\InfoMode.cs" />
+    <Compile Include="DragonOgg\csvorbis\Lookup.cs" />
+    <Compile Include="DragonOgg\csvorbis\Lpc.cs" />
+    <Compile Include="DragonOgg\csvorbis\Lsp.cs" />
+    <Compile Include="DragonOgg\csvorbis\Mapping0.cs" />
+    <Compile Include="DragonOgg\csvorbis\Mdct.cs" />
+    <Compile Include="DragonOgg\csvorbis\PsyInfo.cs" />
+    <Compile Include="DragonOgg\csvorbis\PsyLook.cs" />
+    <Compile Include="DragonOgg\csvorbis\Residue0.cs" />
+    <Compile Include="DragonOgg\csvorbis\Residue1.cs" />
+    <Compile Include="DragonOgg\csvorbis\Residue2.cs" />
+    <Compile Include="DragonOgg\csvorbis\StaticCodeBook.cs" />
+    <Compile Include="DragonOgg\csvorbis\Time0.cs" />
+    <Compile Include="DragonOgg\csvorbis\VorbisFile.cs" />
+    <Compile Include="DragonOgg\csvorbis\VorbisFileInstance.cs" />
+    <Compile Include="DragonOgg\Interactive\AudioChannel.cs" />
+    <Compile Include="DragonOgg\Interactive\AudioClip.cs" />
+    <Compile Include="DragonOgg\Interactive\AudioManager.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\MiscStuff.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggFile.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggPlayer.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggPlayerFBN.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggPlayerVBN.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggPlaylist.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\OggPlaylistWriter.cs" />
+    <Compile Include="DragonOgg\MediaPlayer\Queues.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\ByteVector.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\ByteVectorList.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\CombinedTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\CorruptFileException.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\FileTypes.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Genres.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\ICodec.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\ListBase.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Picture.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Properties.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\ReadOnlyByteVector.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\StringList.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\SupportedMimeType.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\UnsupportedFormatException.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Aac\AudioHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Aac\BitStream.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Aac\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Aiff\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Aiff\StreamHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ape\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ape\Footer.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ape\Item.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ape\StreamHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ape\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\ContentDescriptionObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\ContentDescriptor.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\DescriptionRecord.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\ExtendedContentDescriptionObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\FilePropertiesObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\Guid.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\HeaderExtensionObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\HeaderObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\MetadataLibraryObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\Object.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\PaddingObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\StreamPropertiesObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Asf\UnknownObject.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Flac\Block.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Flac\BlockHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Flac\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Flac\Picture.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Flac\StreamHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v1\StringHandler.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v1\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\ExtendedHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Footer.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\FrameFactory.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\FrameHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\FrameTypes.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Header.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\SynchData.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\AttachedPictureFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\CommentsFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\GeneralEncapsulatedObjectFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\MusicCdIdentifierFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\PlayCountFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\PopularimeterFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\PrivateFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\RelativeVolumeFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\SynchronizedLyricsFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\TermsOfUseFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\TextIdentificationFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\UniqueFileIdentifierFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\UnknownFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Id3v2\Frames\UnsynchronisedLyricsFrame.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpc\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpc\StreamHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\AudioFile.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\AudioHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\VBRIHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\VideoHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg\XingHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\AppleTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Box.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\BoxFactory.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\BoxHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\BoxTypes.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\FileParser.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\AppleAdditionalInfoBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\AppleAnnotationBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\AppleDataBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\AppleElementaryStreamDescriptor.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\AppleItemListBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\FullBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoAudioSampleEntry.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoChunkLargeOffsetBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoChunkOffsetBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoFreeSpaceBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoHandlerBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoMetaBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoMovieHeaderBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoSampleDescriptionBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoSampleEntry.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoSampleTableBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoUserDataBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\IsoVisualSampleEntry.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Mpeg4\Boxes\UnknownBox.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\NonContainer\EndTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\NonContainer\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\NonContainer\StartTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\NonContainer\Tag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Bitstream.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Codec.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\GroupedComment.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Page.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\PageHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Paginator.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\XiphComment.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Codecs\Theora.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Ogg\Codecs\Vorbis.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\AviHeaderList.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\AviStream.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\BitmapInfoHeader.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\DivXTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\InfoTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\List.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\ListTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\MovieIdTag.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\Riff\WaveFormatEx.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\WavPack\File.cs" />
+    <Compile Include="DragonOgg\TagLibSharp\WavPack\StreamHeader.cs" />
+    <Compile Include="Game\DirectDrawVideo.cs" />
+    <Compile Include="Core\Song\EzSong.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BobIcon.png" />
@@ -2816,22 +3010,6 @@
       <Link>Content\Art\Title\Categories\Story\Scene_Princess.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\140_Mph_in_the_Fog^Blind_Digital.wma">
-      <Link>Content\Music\140_Mph_in_the_Fog^Blind_Digital.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\140_Mph_in_the_Fog^Blind_Digital.xnb">
-      <Link>Content\Music\140_Mph_in_the_Fog^Blind_Digital.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Blue_Chair^Blind_Digital.wma">
-      <Link>Content\Music\Blue_Chair^Blind_Digital.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Music\Blue_Chair^Blind_Digital.xnb">
-      <Link>Content\Music\Blue_Chair^Blind_Digital.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Fonts\Grobold_Chinese.fnt">
       <Link>Content\Fonts\Grobold_Chinese.fnt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3868,6 +4046,202 @@
     <None Include="Blue_Chair^Blind_Digital.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="1test.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Evidence^Blind_Digital.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GamepadBridge.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GamepadConfigControls.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL_mixer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Tao.Sdl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libFLAC-8.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libmikmod-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libmodplug-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libogg-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libvorbis-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libvorbisfile-3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL2_mixer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="smpeg2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Credits_PC.wmv">
+      <Link>Content\Movies\Credits_PC.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Credits_PC.xnb">
+      <Link>Content\Movies\Credits_PC.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_1.wmv">
+      <Link>Content\Movies\Cutscene_1.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_1.xnb">
+      <Link>Content\Movies\Cutscene_1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_2.wmv">
+      <Link>Content\Movies\Cutscene_2.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_2.xnb">
+      <Link>Content\Movies\Cutscene_2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_3.wmv">
+      <Link>Content\Movies\Cutscene_3.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_3.xnb">
+      <Link>Content\Movies\Cutscene_3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_4.wmv">
+      <Link>Content\Movies\Cutscene_4.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_4.xnb">
+      <Link>Content\Movies\Cutscene_4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_5.wmv">
+      <Link>Content\Movies\Cutscene_5.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_5.xnb">
+      <Link>Content\Movies\Cutscene_5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_6.wmv">
+      <Link>Content\Movies\Cutscene_6.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\Cutscene_6.xnb">
+      <Link>Content\Movies\Cutscene_6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\LogoSalad.wmv">
+      <Link>Content\Movies\LogoSalad.wmv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\CloudberryKingdomMonoContent\bin\Windows\Content\Movies\LogoSalad.xnb">
+      <Link>Content\Movies\LogoSalad.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libtheora_static.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="theoraplay.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="theoraplay.exp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="theoraplay.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\140_Mph_in_the_Fog^Blind_Digital.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\140_Mph_in_the_Fog^Blind_Digital.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Blue_Chair^Blind_Digital.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Blue_Chair^Blind_Digital.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Evidence^Blind_Digital.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Evidence^Blind_Digital.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Get_a_Grip^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Get_a_Grip^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Happy^James_Stant.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Happy^James_Stant.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\House^Blind_Digital.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\House^Blind_Digital.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Ripcurl^Blind_Digital.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Ripcurl^Blind_Digital.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\The_Fat_is_in_the_Fire^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\The_Fat_is_in_the_Fire^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\The_Heavens_Opened^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\The_Heavens_Opened^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Tidy_Up^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Tidy_Up^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Nero%24s_Law^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Nero%24s_Law^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Writer%24s_Block^Peacemaker.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Music\Writer%24s_Block^Peacemaker.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
@@ -3880,6 +4254,8 @@
     <Folder Include="Content\Objects\" />
     <Folder Include="Content\Localization\" />
     <Folder Include="Content\Campaign\" />
+    <Folder Include="DragonOgg\" />
+    <Folder Include="Content\Movies\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

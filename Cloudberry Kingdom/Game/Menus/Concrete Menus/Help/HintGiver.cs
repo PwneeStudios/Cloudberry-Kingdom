@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CloudberryKingdom.Levels;
 
@@ -85,7 +86,7 @@ namespace CloudberryKingdom
 				}
 				else
 				{
-					return string.Format(Localization.WordString(Localization.Words.RespawnNoteKeyboard), ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Space, 85));
+					return string.Format(Localization.WordString(Localization.Words.RespawnNoteKeyboard), ButtonString.KeyStr(input.Keys.Space, 85));
 				}
 #else
                 return string.Format(Localization.WordString(Localization.Words.RespawnNoteGamepad), ButtonString.LeftBumper(150), ButtonString.RightBumper(150));
@@ -104,7 +105,7 @@ namespace CloudberryKingdom
 				}
 				else
 				{
-					return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.KeyStr(Microsoft.Xna.Framework.Input.Keys.Enter, 85));
+					return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.KeyStr(input.Keys.Enter, 85));
 				}
 #else
                 return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.Y(85));

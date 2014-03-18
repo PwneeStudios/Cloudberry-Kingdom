@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
@@ -62,7 +63,7 @@ namespace CloudberryKingdom
 
 						for (int i = 1; i < qitems.Count; i++)
 						{
-							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+							if (Tools.Keyboard.IsKeyDown(input.Keys.RightControl))
 								qitems[i].Pos = new Vector2(qitems[i - 1].Pos.X + Distance, qitems[0].Pos.Y);
 							else
 								//qitems[i].Pos = new Vector2(qitems[i - 1].Pos.X + Distance, qitems[i].Pos.Y);
@@ -78,7 +79,7 @@ namespace CloudberryKingdom
 
 						for (int i = 1; i < titems.Count; i++)
 						{
-							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+							if (Tools.Keyboard.IsKeyDown(input.Keys.RightControl))
 								titems[i].Pos = new Vector2(titems[i - 1].Pos.X + Distance, titems[0].Pos.Y);
 							else
 								//titems[i].Pos = new Vector2(titems[i - 1].Pos.X + Distance, titems[i].Pos.Y);
@@ -96,7 +97,7 @@ namespace CloudberryKingdom
 
 						for (int i = 1; i < qitems.Count; i++)
 						{
-							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+							if (Tools.Keyboard.IsKeyDown(input.Keys.RightControl))
 								qitems[i].Pos = new Vector2(qitems[0].Pos.X, qitems[i - 1].Pos.Y + Distance);
 							else
 								qitems[i].Pos = new Vector2(qitems[i].Pos.X, qitems[i - 1].Pos.Y + Distance);
@@ -111,7 +112,7 @@ namespace CloudberryKingdom
 
 						for (int i = 1; i < titems.Count; i++)
 						{
-							if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+							if (Tools.Keyboard.IsKeyDown(input.Keys.RightControl))
 								titems[i].Pos = new Vector2(titems[0].Pos.X, titems[i - 1].Pos.Y + Distance);
 							else
 								titems[i].Pos = new Vector2(titems[i].Pos.X, titems[i - 1].Pos.Y + Distance);

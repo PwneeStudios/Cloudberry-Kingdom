@@ -138,7 +138,10 @@ namespace CloudberryKingdom
         ProgressBar MyProgressBar;
 
         int LogoCount = 0;
-#if PC_VERSION
+#if MONO
+		int LogoCount_Max = 60 * 4 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
+		//int LogoCount_Max = 60 * 7 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
+#elif PC_VERSION
 		int LogoCount_Max = 60 * 4 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
 #else
 		int LogoCount_Max = 60 * 5 - 50 - 93; // 5 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
@@ -172,12 +175,20 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
 
             Legal.MyFloatColor = ColorHelper.Gray(.9f);
 
+			Loading = new EzText (Localization.Words.Loading, Resources.Font_Grobold42);
+			Loading.Scale = .7f;
+			Loading.Pos = new Vector2 (300, -600);
+			Loading.MyFloatColor = ColorHelper.Gray(.9f);
+			Loading.Alpha = 0;
+
             BlackQuad.Alpha = 1;
 
-            if (!CloudberryKingdomGame.HideLogos)
-                MyPile.Add(Legal);
+			if (!CloudberryKingdomGame.HideLogos) {
+				MyPile.Add (Legal);
+				MyPile.Add (Loading);
+			}
         }
-        EzText Legal;
+		EzText Legal, Loading;
 
         public static int TotalResources = 805;
 
@@ -207,9 +218,23 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
             {
                 if (ReadyToFade)
                 {
-                    BlackQuad.Alpha += .0223f;
+					#if LONG_LOAD
+					Legal.Alpha -= .0233f;
+					if (LogoCount > LogoCount_Max + 60)
+					{
+						Loading.Alpha += .03f;
+						if (LogoCount > LogoCount_Max + 40 + 5 * 60)
+						{
+							BlackQuad.Alpha += .0223f;
+							if (BlackQuad.Alpha >= 1)
+								DoneCount++;
+						}
+					}
+					#else
+					BlackQuad.Alpha += .0223f;
                     if (BlackQuad.Alpha >= 1)
                         DoneCount++;
+					#endif
                 }
             }
 

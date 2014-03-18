@@ -61,6 +61,12 @@ namespace CoreEngine
 
         public void UpdateTextureAnim()
         {
+			if (TextureAnim == null)
+			{
+				Playing = false;
+				return;
+			}
+
             float dt = Tools.CurLevel.IndependentDeltaT;
             t += dt * TextureAnim.Anims[anim].Speed * speed;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
@@ -151,7 +152,7 @@ namespace CloudberryKingdom
 
 					for (int i = 1; i < items.Count; i++)
 					{
-						if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightControl))
+						if (Tools.Keyboard.IsKeyDown(input.Keys.RightControl))
 							items[i].Pos = new Vector2(items[0].Pos.X, items[i - 1].Pos.Y + Distance);
 						else
 							items[i].Pos = new Vector2(items[i].Pos.X, items[i - 1].Pos.Y + Distance);

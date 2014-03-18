@@ -126,10 +126,9 @@ namespace CloudberryKingdom
             Tools.Write("Total seconds: {0}", t.Elapsed.TotalSeconds);
         }
 
-        static void LoadMusic(bool CreateNewWad)
+        static void LoadMusic()
         {
-            if (CreateNewWad)
-                Tools.SongWad = new EzSongWad();
+            Tools.SongWad = new EzSongWad();
 
             Tools.SongWad.PlayerControl = Tools.SongWad.DisplayInfo = true;
 
@@ -156,12 +155,7 @@ namespace CloudberryKingdom
 
                 if (extension == "xnb")
                 {
-                    if (CreateNewWad)
-						Tools.SongWad.AddSong(EzSongWad.LoadSong(name), name);
-						//Tools.SongWad.AddSong(Tools.GameClass.Content.Load<Song>("Music\\" + name), name);
-                    else
-						Tools.SongWad.FindByName(name).song = EzSongWad.LoadSong(name);
-						//Tools.SongWad.FindByName(name).song = Tools.GameClass.Content.Load<Song>("Music\\" + name);
+					Tools.SongWad.AddSong(name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
@@ -214,15 +208,12 @@ namespace CloudberryKingdom
 			Tools.SongList_Standard.Remove(Tools.Song_Heavens);
         }
 
-        static void LoadSound(bool CreateNewWad)
+        static void LoadSound()
         {
             ContentManager manager = new ContentManager(Tools.GameClass.Content.ServiceProvider, Tools.GameClass.Content.RootDirectory);
 
-            if (CreateNewWad)
-            {
-                Tools.SoundWad = new EzSoundWad(4);
-                Tools.PrivateSoundWad = new EzSoundWad(4);
-            }
+            Tools.SoundWad = new EzSoundWad(4);
+            Tools.PrivateSoundWad = new EzSoundWad(4);
 
             string path = Path.Combine(Globals.ContentDirectory, "Sound");
             string[] files = Directory.GetFiles(path);
@@ -247,18 +238,7 @@ namespace CloudberryKingdom
 
                 if (extension == "xnb")
                 {
-                    if (CreateNewWad)
-						Tools.SoundWad.AddSound(manager.LoadTillSuccess<SoundEffect>("Sound\\" + name), name);
-                    else
-                    {
-						SoundEffect NewSound = manager.LoadTillSuccess<SoundEffect>("Sound\\" + name);
-
-                        EzSound CurSound = Tools.SoundWad.FindByName(name);
-                        foreach (EzSound ezsound in Tools.PrivateSoundWad.SoundList)
-                            if (ezsound.sound == CurSound.sound)
-                                ezsound.sound = NewSound;
-                        CurSound.sound = NewSound;
-                    }
+					Tools.SoundWad.AddSound(manager.LoadTillSuccess<SoundEffect>("Sound\\" + name), name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
@@ -273,7 +253,7 @@ namespace CloudberryKingdom
             Tools.SoundContentManager = manager;
         }
 
-        public static void LoadAssets(bool CreateNewWads)
+        public static void LoadAssets()
         {
             ResourceLoadedCountRef = new WrappedFloat();
             LoadingResources = new WrappedBool(false);
@@ -286,10 +266,10 @@ namespace CloudberryKingdom
             PreloadArt();
 
             // Load the music!
-            LoadMusic(CreateNewWads);
+            LoadMusic();
 
             // Load the sound!
-            LoadSound(CreateNewWads);
+            LoadSound();
         }
 
         static void PreloadArt()
@@ -316,7 +296,9 @@ namespace CloudberryKingdom
 
         public static void LoadResources()
         {
-            LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
+			_LoadThread ();
+			//LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
+			//LoadThread.Priority = ThreadPriority.Highest;
         }
 
         public static void LoadResources_ImmediateForeground()
@@ -375,7 +357,7 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
         }
 #else
-		#if MONO
+
 		public static T LoadTillSuccess<T>(this ContentManager Content, string Path)
 		{
 			#if MONO
@@ -400,7 +382,7 @@ namespace CloudberryKingdom
 			return Content.Load<T>(Path);
 			#endif
 		}
-		#endif
+
 
         static void _LoadThread()
         {
@@ -464,21 +446,17 @@ namespace CloudberryKingdom
 				// If texture hasn't been loaded yet, load it
 				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
 				{
-					//Console.WriteLine("GC = " + GC.CollectionCount(0));
 					while ((ScreenSaver.GamePlayInAction   && count > 200 ||
                             ScreenSaver.ScreenSaverStarted && count > 556)
                            && Tools.WorldMap is ScreenSaver)
 					{
 						Thread.Sleep(100);
 					}
-                    //while (NormalGameData.MakingLevel && !NormalGameData.AlwaysLoad && EnvironmentLoaded > 0)
-                    //{
-                    //    Thread.Sleep(300);
-                    //}
 
 					Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
 
 					count++;
+					Tools.Write ("# loaded = {0}", count);
 
 					if		(count > 565) EnvironmentLoaded = 6;
 					else if (count > 510) EnvironmentLoaded = 5;
@@ -491,8 +469,6 @@ namespace CloudberryKingdom
 					{
 						FakeFinalLoadDone = true;
 					}
-
-                    //Thread.Sleep(50); Tools.Warning();
 				}
 			}
 

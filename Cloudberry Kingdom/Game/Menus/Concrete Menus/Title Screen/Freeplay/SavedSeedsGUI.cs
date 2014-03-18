@@ -1,6 +1,9 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
+
 
 namespace CloudberryKingdom
 {
@@ -299,7 +302,7 @@ else
 			}
 
 #if WINDOWS
-            if (ButtonCheck.State(Microsoft.Xna.Framework.Input.Keys.Delete).Pressed)
+            if (ButtonCheck.State(input.Keys.Delete).Pressed)
                 Delete(MyMenu);
 #endif
         }

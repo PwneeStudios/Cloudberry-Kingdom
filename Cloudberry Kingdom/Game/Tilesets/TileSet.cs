@@ -601,6 +601,10 @@ namespace CloudberryKingdom
             AddTileSet(Load_Cloud().SetBackground("cloud_rain").SetName("cloud_rain").SetNameInGame(Localization.Words.Cloud));
             AddTileSet(Load_Cave().SetBackground("cave").SetNameInGame(Localization.Words.Cave)); 
             AddTileSet(Load_Castle().SetBackground("castle").SetNameInGame(Localization.Words.Castle));
+
+			AddTileSet(Load_Anders__Terrace().SetBackground("terrace").SetNameInGame(Localization.Words.Sea));
+			AddTileSet(Load_Anders__Dungeon().SetBackground("dungeon").SetNameInGame(Localization.Words.Forest));
+			AddTileSet(Load_Anders__Palace() .SetBackground("palace" ).SetNameInGame(Localization.Words.Castle));
         }
 
         public static void LoadTileSet(string path)

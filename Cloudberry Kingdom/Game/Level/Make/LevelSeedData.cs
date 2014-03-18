@@ -62,7 +62,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Song to play when this level starts. Regular sound track will resume on completion.
         /// </summary>
-        public EzSong MySong = null; const string SongString = "song";
+        public BaseSong MySong = null; const string SongString = "song";
 
         MetaGameType MyMetaGameType = MetaGameType.None;
 
@@ -95,7 +95,7 @@ namespace CloudberryKingdom
             if (MySong != null) PostMake += _StartSong;
         }
 
-		public static void WaitThenPlay(GameData game, int wait, EzSong song)
+		public static void WaitThenPlay(GameData game, int wait, BaseSong song)
 		{
 			game.WaitThenDo(wait, () =>
 				{
@@ -756,8 +756,8 @@ namespace CloudberryKingdom
         /// <summary>
         /// The created level will loop the given song, starting once the level loads.
         /// </summary>
-        public void SetToStartSong(EzSong song) { SetToStartSong(song, 5); }
-        public void SetToStartSong(EzSong song, int delay)
+        public void SetToStartSong(BaseSong song) { SetToStartSong(song, 5); }
+        public void SetToStartSong(BaseSong song, int delay)
         {
             NoMusicStart = true;
             PostMake += lvl => lvl.MyGame.WaitThenDo(delay, () => Tools.SongWad.LoopSong(song));
@@ -890,6 +890,23 @@ namespace CloudberryKingdom
 
         public void SetTileSet(TileSet tileset)
         {
+			//if (Switch)
+			if (tileset != null)
+			switch (tileset.Name)
+			{
+				case "cave":
+					SetTileSet("anders__palace"); return;
+
+				case "castle":
+				case "cloud":
+				case "forest":
+					SetTileSet("anders__dungeon"); return;
+
+				case "hills":
+				case "sea":
+					SetTileSet("anders__terrace"); return;
+			}
+
             MyTileSet = tileset;
             MyBackgroundType = MyTileSet == null ? null : MyTileSet.MyBackgroundType;
         }

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using XnaMedia = Microsoft.Xna.Framework.Media;
 
 #if XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
@@ -36,41 +36,21 @@ using SteamManager;
 
 #if MONO && WINDOWS
 using OTK = OpenTK;
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
 #endif
-
-using DragonOgg;
-using DragonOgg.Interactive;
-using DragonOgg.MediaPlayer;
 
 namespace CloudberryKingdom
 {
-	class MusicTest
-	{
-		static bool Playing = false;
-		public static void Test()
-		{
-			if (Playing)
-				return;
-
-			AudioClip clip= new AudioClip("Blue_Chair^Blind_Digital.ogg");
-			clip.Play();
-
-			Playing = true;
-		}
-	}
-
 	#if MONO && WINDOWS
 	public static class GameWindowExtensions {
 		public static void SetPosition(this GameWindow window, Point position) {
-			OpenTK.GameWindow OTKWindow = GetForm(window);
-			if (OTKWindow != null) {
-				OTKWindow.X = position.X;
-				OTKWindow.Y = position.Y;
-			}
+			//OpenTK.GameWindow OTKWindow = GetForm(window);
+			//if (OTKWindow != null) {
+			//	OTKWindow.X = position.X;
+			//	OTKWindow.Y = position.Y;
+			//}
 		}
 
+	/*
 		public static OpenTK.GameWindow GetForm(this GameWindow gameWindow) {
 			Type type = typeof(OpenTKGameWindow);
 			System.Reflection.FieldInfo field = type.GetField("window", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -78,6 +58,7 @@ namespace CloudberryKingdom
 				return field.GetValue(gameWindow) as OTK.GameWindow;
 			return null;
 		}
+		*/
 	}
 	#endif
 
@@ -108,7 +89,7 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = true;
 
-		public const string VersionString = "1.0.0005";
+		public const string VersionString = "1.0.0006";
 		public const bool CodersEdition = false;
         public const bool DigitalDayBuild = false;
 
@@ -925,8 +906,9 @@ namespace CloudberryKingdom
 	#endif
 #endif
 
-			Tools.GameClass.Window.SetPosition (new Point (0, 0));
-
+#if MONO
+			//Tools.GameClass.Window.SetPosition (new Point (0, 0));
+#endif
 
 			Tools.Mode = rez.Mode;
 
@@ -1188,7 +1170,8 @@ namespace CloudberryKingdom
 #endif
             Tools.Write("Gamepads made");
 
-			Tools.EasyThread(5, "PreLoad", Preload);
+			Preload ();
+			//Tools.EasyThread(5, "PreLoad", Preload);
 		}
 
 		void Preload()
@@ -1227,7 +1210,7 @@ namespace CloudberryKingdom
 #endif
 
             // Pre load. This happens before anything appears.
-            Resources.LoadAssets(true);
+            Resources.LoadAssets();
             Tools.Write("Asset preload complete.");
 
 			// Create the initial loading screen
@@ -1424,11 +1407,14 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.A, -2).Pressed)
 #endif
             {
-                foreach (Bob bob in Tools.CurLevel.Bobs)
-                {
-                    bob.Flying = !bob.Flying;
-                    bob.Immortal = !bob.Immortal;
-                }
+				if (!Tools.ViewerIsUp)
+				{
+					foreach (Bob bob in Tools.CurLevel.Bobs)
+					{
+						bob.Flying = !bob.Flying;
+						bob.Immortal = !bob.Immortal;
+					}
+				}
             }
 
 			if (Tools.Keyboard.IsKeyDownCustom(Keys.T) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.T))
@@ -1444,7 +1430,7 @@ namespace CloudberryKingdom
 #endif
             {
                 // Find last door
-                if (Tools.CurLevel != null)
+                if (Tools.CurLevel != null && !Tools.ViewerIsUp)
                 {
                     Door door = Tools.CurLevel.FindIObject(LevelConnector.EndOfLevelCode) as Door;
 
@@ -1946,9 +1932,8 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-			if (DrawCount > 300) {
-				MusicTest.Test ();
-			}
+		//if (Resources.LoadThread != null)
+		//Resources.LoadThread.Join ();
 
 #if PC_VERSION
 			if (CloudberryKingdomGame.SteamAvailable)
@@ -2256,10 +2241,10 @@ namespace CloudberryKingdom
 
         private void UpdateFps(GameTime gameTime)
         {
-            if (!MediaPlayer.GameHasControl)
-            {
-                CustomMusicPlaying = true;
-            }
+		//if (!MediaPlayer.Instance.GameHasControl)
+		//{
+		//CustomMusicPlaying = true;
+		//}
 
             // Track time, changes in time, and FPS
             Tools.gameTime = gameTime;
@@ -2410,7 +2395,7 @@ namespace CloudberryKingdom
 							
 							try
 							{
-								MediaPlayer.Pause();
+								MediaPlayer.Instance.Pause();
 							}
 							catch
 							{
@@ -2453,7 +2438,7 @@ namespace CloudberryKingdom
                         
 						try
 						{
-							MediaPlayer.Resume();
+							MediaPlayer.Instance.Resume();
 						}
 						catch
 						{

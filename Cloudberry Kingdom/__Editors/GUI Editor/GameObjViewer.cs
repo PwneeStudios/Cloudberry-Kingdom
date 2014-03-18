@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CloudberryKingdom;
 
@@ -139,11 +140,11 @@ namespace CloudberryKingdom.Viewer
             if (null != node)
             {
                 float sensitivity = 0;
-                if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                if (Tools.Keyboard.IsKeyDown(input.Keys.LeftShift))
                     sensitivity = 1;
-                if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
+                if (Tools.Keyboard.IsKeyDown(input.Keys.Z))
                     sensitivity = .003f * .001f;
-                else if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.X))
+                else if (Tools.Keyboard.IsKeyDown(input.Keys.X))
                     sensitivity = .001f;
 
                 if (sensitivity > 0)
@@ -153,7 +154,7 @@ namespace CloudberryKingdom.Viewer
                     if (node.field.FieldType == typeof(Vector2))
                     {
                         Vector2 val = sensitivity * Tools.DeltaMouse;
-                        if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                        if (Tools.Keyboard.IsKeyDown(input.Keys.LeftControl))
                             val.Y = val.X;
 
                         node.Set(node.GetVector2() + val);

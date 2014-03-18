@@ -14,6 +14,7 @@ namespace CloudberryKingdom.Blocks
         public class PendulumTileInfo : TileInfoBase
         {
             public BlockGroup Group = PieceQuad.ElevatorGroup;
+			public bool UseModifiedChain = true;
         }
 
         public PendulumMoveType MoveType;
@@ -235,13 +236,16 @@ namespace CloudberryKingdom.Blocks
             {
                 if (DrawSelf && !BlockCore.BoxesOnly)
                 {
-                    //Vector2 add = new Vector2(Box.Current.Size.X, 0);
-                    //Tools.QDrawer.DrawLine(Core.Data.Position + add, PivotPoint + add, Info.SpikeyGuys.Chain);
-                    //Tools.QDrawer.DrawLine(Core.Data.Position - add, PivotPoint - add, Info.SpikeyGuys.Chain);
-
-					int RepeatWidth = 1900;
-					if (Core.Data.Position.Y < -1200) RepeatWidth = 2150;
-					Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint + (PivotPoint - Pos), Info.Boulders.Chain, RepeatWidth);
+					if (Info.Pendulums.UseModifiedChain)
+					{
+						int RepeatWidth = 1900;
+						if (Core.Data.Position.Y < -1200) RepeatWidth = 2150;
+						Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint + (PivotPoint - Pos), Info.Boulders.Chain, RepeatWidth);
+					}
+					else
+					{
+						Tools.QDrawer.DrawLine(Core.Data.Position, PivotPoint, Info.SpikeyGuys.Chain);
+					}
 
                     MyDraw.Update();
                     MyDraw.Draw();
@@ -293,7 +297,6 @@ namespace CloudberryKingdom.Blocks
             Length = BlockA.Length;
 
             AddAngle = BlockA.AddAngle;
-            //PivotLocationType = BlockA.PivotLocationType;
         }
     }
 }

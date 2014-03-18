@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
@@ -74,7 +75,7 @@ namespace CloudberryKingdom
                 else
                 {
                     // Only rescale the quad to the proper aspect ratio if we are using Left Shift.
-                    if (Tools.Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                    if (Tools.Keyboard.IsKeyDown(input.Keys.LeftShift))
                     {
                         Size += new Vector2((shift.X + shift.Y) * .03f);
                         ScaleXToMatchRatio(Size.Y);

@@ -168,7 +168,7 @@ namespace CloudberryKingdom.Obstacles
                 if (Info.SpikeyGuys.Rotate)
                     Head.PointxAxisTo(CorrespondingAngle + Info.SpikeyGuys.RotateOffset + Info.SpikeyGuys.RotateSpeed * MyLevel.IndependentPhsxStep);
                 else
-                    Head.PointxAxisTo(Info.SpikeyGuys.RotateOffset);
+					Head.PointxAxisTo(CorrespondingAngle + Info.SpikeyGuys.RotateOffset);
 
                 Head.Pos = Pos;
                 Head.Draw();

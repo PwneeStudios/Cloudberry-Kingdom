@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 using CloudberryKingdom.Levels;
@@ -1037,8 +1038,8 @@ namespace CloudberryKingdom
                 if (level.CanWatchReplay && ButtonCheck.State(ControllerButtons.X, -1).Pressed)
                     WatchReplay = true;
 #if PC_VERSION
-            if (Tools.Keyboard.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.Escape) ||
-                Tools.PrevKeyboard.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.Escape))
+            if (Tools.Keyboard.IsKeyDownCustom(input.Keys.Escape) ||
+                Tools.PrevKeyboard.IsKeyDownCustom(input.Keys.Escape))
                 WatchReplay = false;
 #endif
 

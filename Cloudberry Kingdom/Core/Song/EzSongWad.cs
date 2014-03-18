@@ -1,19 +1,136 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Media;
+using XnaMedia = Microsoft.Xna.Framework.Media;
 using CloudberryKingdom;
 
 namespace CoreEngine
 {
+	public abstract class MediaPlayer
+	{
+		//public static MediaPlayer Instance = new EmptyMediaPlayer();
+		public static MediaPlayer Instance = new XnaMediaPlayer();
+
+		public static XnaMedia.MediaState State = XnaMedia.MediaState.Stopped;
+
+		public static BaseSong CurrentSong;
+
+		public abstract void Stop ();
+		public abstract bool IsRepeating { get; set; }
+		public abstract float Volume { get; set; }
+		public abstract void Pause ();
+		public abstract void Resume ();
+
+		public abstract BaseSong NewSong();
+	}
+
+	public class XnaMediaPlayer : MediaPlayer
+	{
+		public override BaseSong NewSong ()
+		{
+			return new XnaSong();
+		}
+
+		public override void Stop()
+		{
+			XnaMedia.MediaPlayer.Stop ();
+		}
+
+		public override bool IsRepeating
+		{
+			get {
+				return XnaMedia.MediaPlayer.IsRepeating;
+			}
+
+			set {
+				XnaMedia.MediaPlayer.IsRepeating = value;
+			}
+		}
+
+		public override float Volume {
+			get {
+				return XnaMedia.MediaPlayer.Volume;
+			}
+			set {
+				XnaMedia.MediaPlayer.Volume = value;
+			}
+		}
+
+		public override void Pause ()
+		{
+			XnaMedia.MediaPlayer.Pause ();
+		}
+
+		public override void Resume ()
+		{
+			XnaMedia.MediaPlayer.Resume ();
+		}
+	}
+
+	public class EmptyMediaPlayer : MediaPlayer
+	{
+		class EmptySong : BaseSong
+		{
+			protected override void LoadSong (string name)
+			{
+				base.LoadSong (name);
+			}
+
+			public override double Play (bool DisplayInfo)
+			{
+				return base.Play (DisplayInfo);
+			}
+		}
+
+		public override BaseSong NewSong ()
+		{
+			return new EmptySong ();
+		}
+
+		public override void Stop()
+		{
+
+		}
+
+		public override bool IsRepeating
+		{
+			get {
+				return false;
+			}
+
+			set {
+
+			}
+		}
+
+		public override float Volume {
+			get {
+				return 0;
+			}
+			set {
+
+			}
+		}
+
+		public override void Pause ()
+		{
+
+		}
+
+		public override void Resume ()
+		{
+
+		}
+	}
+
     public class EzSongWad
     {
         public bool PlayNext = false, PlayerControl, DisplayInfo;
         public bool Fading;
         public float Fade;
 
-        public List<EzSong> SongList;
-        public List<EzSong> PlayList;
+        public List<BaseSong> SongList;
+        public List<BaseSong> PlayList;
 
         public int CurIndex;
 
@@ -25,7 +142,7 @@ namespace CoreEngine
 
         public EzSongWad()
         {
-            SongList = new List<EzSong>();
+            SongList = new List<BaseSong>();
 
             CurIndex = 0;
 
@@ -33,7 +150,7 @@ namespace CoreEngine
 
             DefaultCam = new Camera();
 
-            MediaPlayer.IsRepeating = false;
+			MediaPlayer.Instance.IsRepeating = false;
         }
         
         public void FadeOut()
@@ -45,7 +162,7 @@ namespace CoreEngine
         {
 			try
 			{
-				MediaPlayer.Stop();
+				MediaPlayer.Instance.Stop();
 			}
 			catch
 			{
@@ -61,7 +178,7 @@ namespace CoreEngine
 
 			try
 			{
-				MediaPlayer.Pause();
+				MediaPlayer.Instance.Pause();
 			}
 			catch
 			{
@@ -74,14 +191,14 @@ namespace CoreEngine
             
 			try
 			{
-				MediaPlayer.Resume();
+				MediaPlayer.Instance.Resume();
 			}
 			catch
 			{
 			}
         }
 
-        public void DisplaySongInfo(EzSong song)
+        public void DisplaySongInfo(BaseSong song)
         {
             if (!DisplayInfo) return;
             if (!song.DisplayInfo) return;
@@ -112,7 +229,7 @@ namespace CoreEngine
 
         public void PhsxStep()
         {
-            if (Paused && MediaPlayer.State != MediaState.Paused)
+			if (Paused && MediaPlayer.State != XnaMedia.MediaState.Paused)
                 Pause();
 
             FadePhsx();
@@ -133,7 +250,7 @@ namespace CoreEngine
 					
 					try
 					{
-						MediaPlayer.Stop();
+						MediaPlayer.Instance.Stop();
 					}
 					catch
 					{
@@ -172,7 +289,7 @@ namespace CoreEngine
         {
             if (StartingSong)
             {
-                if (MediaPlayer.State == MediaState.Playing)
+				if (MediaPlayer.State == XnaMedia.MediaState.Playing)
                     StartingSong = false;
                 else
                     return;
@@ -206,13 +323,13 @@ namespace CoreEngine
 
         public bool IsPlaying()
         {
-            if (MediaPlayer.State == MediaState.Playing)
+			if (MediaPlayer.State == XnaMedia.MediaState.Playing)
                 return true;
             else
                 return false;
         }
 
-        public void Next(EzSong song)
+        public void Next(BaseSong song)
         {
 			bool HoldSuppress = SuppressNextInfoDisplay;
 
@@ -246,16 +363,6 @@ namespace CoreEngine
             SetSong(CurIndex);
         }
 
-        public void DisposeAllUnused()
-        {
-            foreach (EzSong song in SongList)
-                if (song.song != null && SongList[CurIndex] != song && !SongList[CurIndex].AlwaysLoaded)
-                {
-                    song.song.Dispose();
-                    song.song = null;
-                }
-        }
-
         /// <summary>
         /// Shuffles the current play list
         /// </summary>
@@ -267,9 +374,9 @@ namespace CoreEngine
         /// <summary>
         /// Set the play list and start playing it.
         /// </summary>
-        public void SetPlayList(List<EzSong> songs)
+        public void SetPlayList(List<BaseSong> songs)
         {
-            PlayList = new List<EzSong>(songs);
+            PlayList = new List<BaseSong>(songs);
         }
         public void SetPlayList(string name)
         {
@@ -279,9 +386,9 @@ namespace CoreEngine
         /// <summary>
         /// Set the play list to a single song and start playing it.
         /// </summary>
-        public void SetPlayList(EzSong song)
+        public void SetPlayList(BaseSong song)
         {
-            List<EzSong> list = new List<EzSong>();
+            List<BaseSong> list = new List<BaseSong>();
             list.Add(song);
 
             SetPlayList(list);
@@ -292,9 +399,9 @@ namespace CoreEngine
         /// The play list currently playing
         /// (possibly different than the set play list, if it hasn't been started yet).
         /// </summary>
-        List<EzSong> CurrentPlayingList = null;
+        List<BaseSong> CurrentPlayingList = null;
 
-        bool SamePlayList(List<EzSong> list1, List<EzSong> list2)
+        bool SamePlayList(List<BaseSong> list1, List<BaseSong> list2)
         {
             if (list1 == list2) return true;
 
@@ -348,7 +455,7 @@ namespace CoreEngine
             SetSong(PlayList.IndexOf(FindByName(name)));
         }
 
-        public void SetSong(EzSong song)
+        public void SetSong(BaseSong song)
         {
             SetSong(PlayList.IndexOf(song));
         }
@@ -373,7 +480,7 @@ namespace CoreEngine
 
 			try
 			{
-				MediaPlayer.Stop();
+				MediaPlayer.Instance.Stop();
 			}
 			catch
 			{
@@ -386,28 +493,17 @@ namespace CoreEngine
             Play(Index, DisplayInfo);
         }
 
-		public static Song LoadSong(string name)
-		{
-#if MONO
-			return null;
-#else
-			var song = Tools.GameClass.Content.LoadTillSuccess<Song>("Music\\" + name);
-			return song;
-#endif
-		}
-
         public void Play(int Index, bool DisplayInfo)
         {
-            if (PlayList[CurIndex].song == null)
-				PlayList[CurIndex].song = EzSongWad.LoadSong(PlayList[CurIndex].FileName);
+            PlayList[CurIndex].LoadSong_IfNotLoaded(PlayList[CurIndex].FileName);
 
             Elapsed = 0;
             Duration = PlayList[CurIndex].Play(DisplayInfo);
         }
 
-        public EzSong FindByName(string name)
+        public BaseSong FindByName(string name)
         {
-            foreach (EzSong Sng in SongList)
+            foreach (BaseSong Sng in SongList)
                 if (String.Compare(Sng.Name, name, StringComparison.OrdinalIgnoreCase) == 0)
                     return Sng;
 
@@ -420,7 +516,7 @@ namespace CoreEngine
 
         public void AddSong(string Name)
         {
-            EzSong NewSong = new EzSong();
+			BaseSong NewSong = MediaPlayer.Instance.NewSong ();
 
             int Index = Name.IndexOf("^");
 
@@ -435,45 +531,21 @@ namespace CoreEngine
                 SongName = Name;
                 AristName = "Unknown artist";
             }
+
+			SongName = SongName.Replace ('$', '\'');
 
             NewSong.FileName = Name;
             NewSong.Name = Name;
             NewSong.SongName = SongName;
             NewSong.ArtistName = AristName;
-            NewSong.song = null;
             NewSong.AlwaysLoaded = false;
 
-            SongList.Add(NewSong);
-        }
-
-        public void AddSong(Song song, string Name)
-        {
-            EzSong NewSong = new EzSong();
-
-            int Index = Name.IndexOf("^");
-
-            String SongName, AristName;
-            if (Index > 0)
-            {
-                SongName = Name.Substring(0, Index);
-                AristName = Name.Substring(Index + 1, Name.Length - Index - 1);
-            }
-            else
-            {
-                SongName = Name;
-                AristName = "Unknown artist";
-            }
-
-            NewSong.Name = Name;
-            NewSong.SongName = SongName;
-            NewSong.ArtistName = AristName;
-            NewSong.song = song;
-            NewSong.AlwaysLoaded = true;
+            NewSong.LoadSong_IfNotLoaded(NewSong.FileName);
 
             SongList.Add(NewSong);
         }
 
-        public void LoopSong(EzSong song)
+        public void LoopSong(BaseSong song)
         {
             Stop();
             SetPlayList(song);

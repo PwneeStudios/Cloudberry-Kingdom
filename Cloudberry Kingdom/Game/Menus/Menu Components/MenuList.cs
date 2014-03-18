@@ -207,7 +207,7 @@ namespace CloudberryKingdom
             return 0;
         }
 
-        Dictionary<MenuItem, object> ObjDict = new Dictionary<MenuItem, object>();
+		public Dictionary<MenuItem, object> ObjDict = new Dictionary<MenuItem, object>();
         public void AddItem(MenuItem item, object obj)
         {
             MyList.Add(item);

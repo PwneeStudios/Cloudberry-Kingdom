@@ -31,7 +31,12 @@ namespace CloudberryKingdom
             _Cloud_Rain = new BackgroundTemplate("cloud_rain", Background._code_Cloud, Background.AddRainLayer),
             _Cave = new BackgroundTemplate("cave", Background._code_Cave),
             _Castle = new BackgroundTemplate("castle", Background._code_Castle),
-			_Castle_Vertical = new BackgroundTemplate("castle_vertical", Background._code_Castle_Vertical);
+			_Castle_Vertical = new BackgroundTemplate("castle_vertical", Background._code_Castle_Vertical),
+			
+			_Terrace = new BackgroundTemplate("terrace", Background._code_Terrace),
+			_Dungeon = new BackgroundTemplate("dungeon", Background._code_Dungeon),
+			_Palace  = new BackgroundTemplate("palace" , Background._code_Palace)
+			;
 
         
         public static void AddTemplate(BackgroundTemplate template)

@@ -165,7 +165,7 @@ namespace CloudberryKingdom.Obstacles
 
             ShadeQuad.MyEffect.effect.CurrentTechnique = ShadeQuad.MyEffect.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));
-            ShadeQuad.MyEffect.xCameraAspect.SetValue(1);
+			ShadeQuad.MyEffect.xCameraAspect.SetValue(1f);
 
 
             float TimeScale = 4f;
@@ -211,7 +211,7 @@ namespace CloudberryKingdom.Obstacles
 
             fx.effect.CurrentTechnique = fx.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));
-            fx.xCameraAspect.SetValue(1);
+			fx.xCameraAspect.SetValue(1f);
 
             Flame_Emitter.Draw();
 

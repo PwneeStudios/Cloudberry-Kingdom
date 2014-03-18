@@ -11,7 +11,27 @@ using Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
+#if !MONO
 using DirectShow = SeeSharp.Xna.Video;
+#else
+namespace DirectShow
+{
+	public class VideoPlayer
+	{
+		public static bool Broken = false;
+
+		public VideoPlayer(string path, GraphicsDevice device) { }
+		public void Play() { }
+		public void SetVolume(double volume) { }
+		public void Update() { }
+		public Texture2D GetTexture() { return null; }
+		public void Dispose() { }
+
+		public double Duration;
+
+	}
+}
+#endif
 
 namespace CloudberryKingdom
 {

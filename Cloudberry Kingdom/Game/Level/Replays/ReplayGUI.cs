@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using input = Microsoft.Xna.Framework.Input;
 
 using CoreEngine;
 
@@ -1131,7 +1132,7 @@ namespace CloudberryKingdom
             // End the replay
             bool EndReplay = false;
 #if PC_VERSION
-            if (Tools.Keyboard.IsKeyDownCustom(Microsoft.Xna.Framework.Input.Keys.Escape))
+            if (Tools.Keyboard.IsKeyDownCustom(input.Keys.Escape))
                 EndReplay = true;
 #endif
 

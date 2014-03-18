@@ -20,10 +20,10 @@ namespace CoreEngine
 
 		public override void Update()
 		{
-			GamepadState[0] = NuclexInput.GetGamePad(PlayerIndex.One).GetState();
-			GamepadState[1] = NuclexInput.GetGamePad(PlayerIndex.Two).GetState();
-			GamepadState[2] = NuclexInput.GetGamePad(PlayerIndex.Three).GetState();
-			GamepadState[3] = NuclexInput.GetGamePad(PlayerIndex.Four).GetState();
+            //GamepadState[0] = NuclexInput.GetGamePad(PlayerIndex.One).GetState();
+            //GamepadState[1] = NuclexInput.GetGamePad(PlayerIndex.Two).GetState();
+            //GamepadState[2] = NuclexInput.GetGamePad(PlayerIndex.Three).GetState();
+            //GamepadState[3] = NuclexInput.GetGamePad(PlayerIndex.Four).GetState();
 		}
 	}
 }

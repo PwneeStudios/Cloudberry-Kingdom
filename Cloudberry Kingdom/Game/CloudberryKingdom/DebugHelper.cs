@@ -83,6 +83,9 @@ namespace CloudberryKingdom
                     Tools.background_viewer.Input();
             }
 
+			if (Tools.background_viewer != null)
+				return false;
+
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.Keyboard.IsKeyDownCustom(Keys.F) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.F))
                 ShowFPS = !ShowFPS;
 #endif

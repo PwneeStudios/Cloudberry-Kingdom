@@ -231,8 +231,8 @@ namespace CoreEngine
                 CurrentTexture = quad.MyTexture;
                 CurrentMatrix = quad.MyMatrix;
             }
-            CurrentEffect.CurrentIllumination = 1;
-            CurrentEffect.Illumination.SetValue(1);
+			CurrentEffect.CurrentIllumination = 1f;
+			CurrentEffect.Illumination.SetValue(1f);
             
 
             Vertices[i] = quad.Vertices[0];

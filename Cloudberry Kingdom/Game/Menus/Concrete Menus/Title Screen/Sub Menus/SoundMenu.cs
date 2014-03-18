@@ -32,6 +32,8 @@ namespace CloudberryKingdom
 		ClickableBack Back;
 #endif
 
+		static MenuToggle FullScreenToggle;
+
         public override void Init()
         {
             ChosenLanguage = Localization.CurrentLanguage.MyLanguage;
@@ -161,17 +163,19 @@ namespace CloudberryKingdom
 
             // Add resolutions to the current list
             bool found = false;
+			DisplayMode CurrentMode = null;
             foreach (var mode in modes)
             {
                 string str = mode.Width + " x " + mode.Height;
                 Tools.Write(str);
                 item = new MenuItem(new EzText(str, ItemFont, false, true));
                 SetItemProperties(item);
-                FsRezList.AddItem(item, mode);
+				FsRezList.AddItem(item, mode);
 
                 if (mode.Width == Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferWidth &&
                     mode.Height == Tools.TheGame.MyGraphicsDeviceManager.PreferredBackBufferHeight)
                 {
+					CurrentMode = mode;
                     CurRez = i;
                     found = true;
                 }
@@ -194,21 +198,40 @@ namespace CloudberryKingdom
             FullScreenText.Name = "Fullscreen";
             MyPile.Add(FullScreenText);
 
-            var toggle = new MenuToggle(ItemFont);
+			var toggle = FullScreenToggle = new MenuToggle(ItemFont);
             toggle.OnToggle = (state) =>
             {
                 PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-                //Tools.Fullscreen = state;
-				Tools.Mode = state ? WindowMode.Borderless : WindowMode.Windowed;
+                
+				#if MONO
+				foreach (var r in FsRezList.MyList)
+				{
+					var mode = FsRezList.ObjDict[r] as DisplayMode;
+					if (null == mode) continue;
 
+					if (IsFullDesktopSize (mode))
+					{
+						FsRezList.SetSelectedItem(r);
+						toggle.Toggle(true);
+						break;
+					}
+				}
+				#else
+				Tools.Mode = state ? WindowMode.Borderless : WindowMode.Windowed;
 				XnaGameClass.WindowModeSet = false;
+				#endif
 
                 SaveGroup.SaveAll();
                 PlayerManager.SaveRezAndKeys();
             };
             toggle.Name = "FullscreenToggle";
             //toggle.Toggle(Tools.Fullscreen);
+
+			#if MONO
+			toggle.Toggle(IsFullDesktopSize(CurrentMode));
+			#else
 			toggle.Toggle(Tools.Mode == WindowMode.Borderless);
+			#endif
 
             AddItem(toggle);
 
@@ -264,6 +287,17 @@ namespace CloudberryKingdom
             // Select the first item in the menu to start
             MyMenu.SelectItem(0);
         }
+
+		#if MONO
+		static bool IsFullDesktopSize (DisplayMode mode)
+		{
+			if (mode == null)
+				return false;
+
+			return mode.Width  == GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width &&
+				   mode.Height == GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+		}
+		#endif
 
 		void ResetStory(MenuItem item)
 		{
@@ -323,8 +357,17 @@ namespace CloudberryKingdom
 
         private static void UseResolution(MenuList FsRezList)
         {
+			DisplayMode mode = FsRezList.CurObj as DisplayMode;
+
+			#if MONO
+			if (!IsFullDesktopSize (mode))
+			{
+				FullScreenToggle.Toggle(false);
+			}
+			#endif
+
             PlayerManager.SavePlayerData.ResolutionPreferenceSet = true;
-            ResolutionGroup.Use(FsRezList.CurObj as DisplayMode);
+			ResolutionGroup.Use(mode);
             SaveGroup.SaveAll();
             PlayerManager.SaveRezAndKeys();
         }

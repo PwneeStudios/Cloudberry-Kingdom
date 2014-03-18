@@ -176,8 +176,7 @@
     <Reference Include="SeeSharp.Xna.Video">
       <HintPath>__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll</HintPath>
     </Reference>
-    <Reference Include="SteamWrapper, Version=1.0.4864.26561, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SteamWrapper">
       <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System">
@@ -225,6 +224,12 @@
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
     <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
     <Compile Include="Game\Player\Hero Physics\FourWay.cs" />
+    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Palace.cs" />
+    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Dungeon.cs" />
+    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Terrace.cs" />
+    <Compile Include="Game\Tilesets\Tilesets\Anders__Terrace.cs" />
+    <Compile Include="Game\Tilesets\Tilesets\Anders__Dungeon.cs" />
+    <Compile Include="Game\Tilesets\Tilesets\Anders__Palace.cs" />
     <Compile Include="Game\VideoWrapper.cs" />
     <Compile Include="Game\DirectDrawVideo.cs" />
     <Compile Include="Game\Localization.cs" />
