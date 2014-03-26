@@ -32,31 +32,30 @@ namespace CloudberryKingdom
         void MakeTestLevel()
         {
             PlayerManager.Players[0].Exists = true;
-            //PlayerManager.Players[1].Exists = true;
-            //PlayerManager.Players[2].Exists = true;
-            //PlayerManager.Players[3].Exists = true;
+            PlayerManager.Players[1].Exists = false;
+            PlayerManager.Players[2].Exists = true;
+            PlayerManager.Players[3].Exists = false;
 
             LevelSeedData data = new LevelSeedData();
 
 
-            //data.ReadString("0;s:230413531;h:2,0,2,0;t:castle;l:6000;n:2;u:2,0,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,3,8;");
-            //data.ReadString("seed 0;s:305632318;h:0,0,0,0;t:hills_rain;n:2;l:5110;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;u:0,0,0,0,2.319968,0,0,1.375736,0,0,3.318264,0,0,0,0,0,0,0,0,0,0,1.659075,2.474871,0;fadein;opendoor:30;opendoorsound;song:Writer's_Block^Peacemaker;weather:1;");
+            //data.ReadString("0;s:2130347488;geo:1;h:5,0,0,0;t:castle;n:1;l:6000;u:0,0,0,0,8.03125,0,4.81875,8.03125,0,0,0,0,0,0,10,0,0,0,0,0,0,7.425,7.60625,0;m:1;");
             //GameData.StartLevel(data);
             //return;
+
 
             data.Seed = Tools.GlobalRnd.Rnd.Next();
             //data.Seed = 110040853;
             Tools.Write("Seed chosen = {0}", data.Seed);
 
-            //data.MyBackgroundType = BackgroundType.Dungeon;
 
             //TileSetToTest = "sea";
             //TileSetToTest = "hills";
             //TileSetToTest = "forest";
             //TileSetToTest = "cloud";
             //TileSetToTest = "cave";
-            //TileSetToTest = "castle";
-			TileSetToTest = "anders__terrace";
+            TileSetToTest = "castle";
+            //TileSetToTest = "anders__terrace";
 			//TileSetToTest = "anders__dungeon";
 			//TileSetToTest = "anders__palace";
 
@@ -65,7 +64,6 @@ namespace CloudberryKingdom
             else
                 data.SetTileSet(TileSetToTest);
 
-            //data.SetTileSet(TileSets.Dungeon);
 
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Jetpack);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
@@ -73,71 +71,47 @@ namespace CloudberryKingdom
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double);
             //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Small, Hero_MoveMod.Double);
 
-			//data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double, Hero_Special.Classic, true);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Small, Hero_MoveMod.Double, Hero_Special.Classic, true);
+            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true);
 
-			data.DefaultHeroType = BobPhsxNormal.Instance;
-			//data.DefaultHeroType = BobPhsxBlobby.Instance;
-			//data.DefaultHeroType = BobPhsxMeat.Instance;
+            //data.DefaultHeroType2 = null;
+            data.DefaultHeroType2 = BobPhsxUpsideDown.Instance;
+            //data.DefaultHeroType2 = BobPhsxBlobby.Instance;
+
+            data.DefaultHeroType = BobPhsxNormal.Instance;
+            //data.DefaultHeroType = BobPhsxBlobby.Instance;
+            //data.DefaultHeroType = BobPhsxMeat.Instance;
 			//data.DefaultHeroType = BobPhsxFourWay.Instance;
             //data.DefaultHeroType = BobPhsxBouncy.Instance;
             //data.DefaultHeroType = BobPhsxWheel.Instance;
             //data.DefaultHeroType = BobPhsxTime.Instance;
             //data.DefaultHeroType = BobPhsxInvert.Instance;
-			//data.DefaultHeroType = BobPhsxDouble.Instance;
+            //data.DefaultHeroType = BobPhsxDouble.Instance;
             //data.DefaultHeroType = BobPhsxSpaceship.Instance;
             //data.DefaultHeroType = BobPhsxTimeship.Instance;
             //data.DefaultHeroType = BobPhsxRocketbox.Instance;
-			//data.DefaultHeroType = BobPhsxSmall.Instance;
+            //data.DefaultHeroType = BobPhsxSmall.Instance;
             //data.DefaultHeroType = BobPhsxBig.Instance;
             //data.DefaultHeroType = BobPhsxScale.Instance;
-			//data.DefaultHeroType = BobPhsxJetman.Instance;
+            //data.DefaultHeroType = BobPhsxJetman.Instance;
             //data.DefaultHeroType = BobPhsxBox.Instance;
-
-            // 8-jumps
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Double);
-            //var d = new BobPhsx.CustomPhsxData();
-            //d.Init();
-            //d[BobPhsx.CustomData.numjumps] = 2;
-            //data.DefaultHeroType.SetCustomPhsx(d);
-
-            // Long jetpack
-            //data.DefaultHeroType = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Jetpack);
-            //var d = new BobPhsx.CustomPhsxData();
-            //d.Init();
-            //d[BobPhsx.CustomData.jetpackfuel] *= 2;
-            //d[BobPhsx.CustomData.jetpackaccel] *= 2;
-            //data.DefaultHeroType.SetCustomPhsx(d);
 
 
 			data.MyGeometry = LevelGeometry.Right;
-			//data.MyGeometry = LevelGeometry.Up;
-			//data.PieceLength = 90000;
-            //data.PieceLength = 15000;
-			data.PieceLength = 20000;
+			data.PieceLength = 6000;
             data.NumPieces = 1;
 
             data.MyGameType = NormalGameData.Factory;
-            //data.MyGameType = PlaceGameData.Factory;
 
             //data.MyGameFlags.IsTethered = true;
-			//data.MyGameFlags.IsDoppleganger = true;
-			//data.MyGameFlags.IsDopplegangerInvert = true;
+            //data.MyGameFlags.IsDoppleganger = true;
+            //data.MyGameFlags.IsDopplegangerInvert = true;
 
             data.Initialize(TestLevelInit);
 
-            // Add Landing Zone
-            //data.PieceSeeds[0].Style.MyInitialPlatsType = StyleData.InitialPlatsType.LandingZone;
-
             data.PostMake = TestLevelPostMake;
 
-            //Campaign.CarryPrinces(data);
-
-            // Rumble
-            //level.MyGame.AddGameObject(new Rumble());
-            //};
-
             data.LavaMake = LevelSeedData.LavaMakeTypes.NeverMake;
-            //data.LavaMake = LevelSeedData.LavaMakeTypes.AlwaysMake;
 
             GameData.StartLevel(data);
         }
@@ -166,51 +140,16 @@ namespace CloudberryKingdom
 
         void TestLevelInit(PieceSeedData piece)
         {
-            //writelist();
-            //Tools.Write("!");
-
-            //piece.ZoomType = LevelZoom.Big;
-            //piece.ExtraBlockLength = 1000;
-
-            //piece.PreStage2 = level =>
-            //{
-            //    foreach (Bob bob in level.Bobs)
-            //    {
-            //        PrincessBubble princess = new PrincessBubble(Vector2.Zero);
-            //        level.AddObject(princess);
-            //        princess.PickUp(bob);
-            //    }
-            //};
-
-            //piece.Paths = RndDifficulty.ChoosePaths(piece);
-            //piece.Style.AlwaysCurvyMove = true;
             RndDifficulty.ZeroUpgrades(piece.MyUpgrades1);
 
-
-			piece.MyUpgrades1[Upgrade.FlyBlob] = 2f;
-			piece.MyUpgrades1[Upgrade.SpikeyLine] = 2f;
-			piece.MyUpgrades1[Upgrade.Ceiling] = 5;
-			piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
-			piece.MyUpgrades1[Upgrade.FireSpinner] = 5;
-			piece.MyUpgrades1[Upgrade.GhostBlock] = 2;
-			piece.MyUpgrades1[Upgrade.Pendulum] = 2;
-			//piece.MyUpgrades1[Upgrade.Elevator] = 2;
-			piece.MyUpgrades1[Upgrade.Fireball] = 2f;
-			piece.MyUpgrades1[Upgrade.Pinky] = 2f;
-			piece.MyUpgrades1[Upgrade.FallingBlock] = 2f;
-			piece.MyUpgrades1[Upgrade.BouncyBlock] = 2f;
-			piece.MyUpgrades1[Upgrade.Laser] = 2f;
-			piece.MyUpgrades1[Upgrade.MovingBlock] = 5f;
-			piece.MyUpgrades1[Upgrade.Spike] = 5f;
-			piece.MyUpgrades1[Upgrade.Cloud] = 2f;
+            piece.MyUpgrades1[Upgrade.FallingBlock] = 5;
 
 			//__Roughly_Abusive(piece);
 			//__Roughly_Maso(piece);
-			//piece.Style.Masochistic = true;
+            //piece.Style.Masochistic = true;
 
             piece.MyUpgrades1.CalcGenData(piece.MyGenData.gen1, piece.Style);
 
-			//piece.Paths = 2; piece.LockNumOfPaths = true;
 			piece.Paths = 1; piece.LockNumOfPaths = true;
 
             piece.Style.MyModParams = TestLevelModParams;
@@ -227,47 +166,29 @@ namespace CloudberryKingdom
         {
             piece.MyUpgrades1[Upgrade.Jump] = 1;
             piece.MyUpgrades1[Upgrade.Speed] = 10;
-
             piece.MyUpgrades1[Upgrade.Serpent] = 7;
-            //piece.MyUpgrades1[Upgrade.LavaDrip] = 10;
             piece.MyUpgrades1[Upgrade.Laser] = 5;
-
             piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
             piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
-            ////piece.MyUpgrades1[Upgrade.FallingBlock] = 4;
-            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 4;
             piece.MyUpgrades1[Upgrade.MovingBlock] = 4;
-            //piece.MyUpgrades1[Upgrade.Elevator] = 1;
             piece.MyUpgrades1[Upgrade.SpikeyGuy] = 10;
-            ////piece.MyUpgrades1[Upgrade.Firesnake] = 6;
             piece.MyUpgrades1[Upgrade.Spike] = 9;
             piece.MyUpgrades1[Upgrade.FireSpinner] = 10;
-
             piece.MyUpgrades1[Upgrade.Pinky] = 4;
-            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
-            //piece.MyUpgrades1[Upgrade.Conveyor] = 8;
         }
 
         private static void __Roughly_Abusive(PieceSeedData piece)
         {
             piece.MyUpgrades1[Upgrade.Jump] = 1;
             piece.MyUpgrades1[Upgrade.Speed] = 3;
-            ////piece.MyUpgrades1[Upgrade.Serpent] = 0;
-            ////piece.MyUpgrades1[Upgrade.LavaDrip] = 4;
             piece.MyUpgrades1[Upgrade.FlyBlob] = 3;
             piece.MyUpgrades1[Upgrade.GhostBlock] = 4;
             piece.MyUpgrades1[Upgrade.FallingBlock] = 4;
-            ////piece.MyUpgrades1[Upgrade.BouncyBlock] = 4;
             piece.MyUpgrades1[Upgrade.MovingBlock] = 4;
-            //piece.MyUpgrades1[Upgrade.Elevator] = 1;
             piece.MyUpgrades1[Upgrade.SpikeyGuy] = 2;
-            ////piece.MyUpgrades1[Upgrade.Firesnake] = 6;
             piece.MyUpgrades1[Upgrade.Spike] = 2;
             piece.MyUpgrades1[Upgrade.FireSpinner] = 2;
-            //piece.MyUpgrades1[Upgrade.Laser] = 2;
             piece.MyUpgrades1[Upgrade.Pinky] = 1;
-            //piece.MyUpgrades1[Upgrade.SpikeyLine] = 2;
-            //piece.MyUpgrades1[Upgrade.Conveyor] = 8;
         }
 
         void TestLevelModParams(Level level, PieceSeedData p)

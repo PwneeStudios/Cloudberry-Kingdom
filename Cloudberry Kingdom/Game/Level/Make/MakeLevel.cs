@@ -26,20 +26,14 @@ namespace CloudberryKingdom
 
             game.EndMusicOnFinish = !NoMusicStart;
 
-            game.DefaultHeroType = this.DefaultHeroType;// = BobPhsxMario.Instance;
+            game.DefaultHeroType  = this.DefaultHeroType;
+            game.DefaultHeroType2 = this.DefaultHeroType2;
 
             Level NewLevel = MakeNewLevel(game);
             NewLevel.Geometry = MyGeometry;
             Camera cam = NewLevel.MainCamera;
 
             // Set lava
-            //if (NewLevel.Info.AllowLava)
-            //switch (LavaMake)
-            //{
-            //    case LavaMakeTypes.AlwaysMake: game.HasLava = true; break;
-            //    case LavaMakeTypes.Random: game.HasLava = Rnd.RndBool(.38f); break;
-            //    default: game.HasLava = false; break;
-            //}
             if (NewLevel.Info.AllowLava)
                 game.HasLava = true;
 
@@ -94,6 +88,7 @@ namespace CloudberryKingdom
                 level.MyLevelSeed = this;
                 level.MyTileSet = NewLevel.MyTileSet;
                 level.DefaultHeroType = NewLevel.DefaultHeroType;
+                level.DefaultHeroType2 = NewLevel.DefaultHeroType2;
                 level.MainCamera = new Camera();
 
                 cam.Data.Position = Piece.Start + new Vector2(1000, 0);
@@ -256,6 +251,7 @@ namespace CloudberryKingdom
         public static int ForcedReturnEarly = 0;
         private int SetReturnEarly(PieceSeedData Piece)
         {
+            //LevelSeedData.ForcedReturnEarly = 1;
             int ReturnEarly = ForcedReturnEarly;
 
             return ReturnEarly;

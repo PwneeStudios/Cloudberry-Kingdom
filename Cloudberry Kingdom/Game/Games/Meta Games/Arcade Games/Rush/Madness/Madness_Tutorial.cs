@@ -1,0 +1,266 @@
+using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+
+using CoreEngine;
+
+using CloudberryKingdom.Levels;
+using CloudberryKingdom.Bobs;
+using CloudberryKingdom.InGameObjects;
+
+namespace CloudberryKingdom
+{
+    public class Madness_Tutorial : GameObject
+    {
+        /// <summary>
+        /// Whether the Hero Rush introduction has been watched before.
+        /// </summary>
+        public static bool HasWatchedOnce = false;
+        public static void WatchedOnce() { HasWatchedOnce = true; PlayerManager.SavePlayerData.Changed = true; }
+
+        /// <summary>
+        /// When true the tutorial will skip the long version.
+        /// The bool is then set to false.
+        /// </summary>
+        public static bool TemporarySkip = false;
+
+        static public bool ShowTitle = true;
+
+        /// <summary>
+        /// Whether text makes a popping sound when we kill it
+        /// </summary>
+        protected bool SoundOnKill = false;
+
+        Challenge_Madness Madness;
+        public Madness_Tutorial(Challenge_Madness Madness)
+        {
+            this.Madness = Madness;
+
+            Madness.Timer.Hide();
+        }
+
+        public override void OnAdd()
+        {
+            base.OnAdd();
+
+            PauseGame = true;
+
+            // Find the initial door
+            Door door = MyGame.MyLevel.FindIObject(LevelConnector.StartOfLevelCode) as Door;
+            if (null != door)
+            {
+                foreach (Bob bob in MyGame.MyLevel.Bobs)
+                    bob.Core.Show = false;
+            }
+
+            // Start the music
+            MyGame.WaitThenDo(20, () =>
+                {
+                    Tools.SongWad.SuppressNextInfoDisplay = true;
+                    Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+					Tools.SongWad.Shuffle();
+                    Tools.SongWad.Restart(true);
+                });
+
+            if (ShowTitle || !HasWatchedOnce || CloudberryKingdomGame.AlwaysGiveTutorials)
+                MyGame.WaitThenDo(27, () => Title());
+            else
+                MyGame.WaitThenDo(20, () => Ready());
+        }
+
+        protected void TutorialOrSkip()
+        {
+            if (!CloudberryKingdomGame.AlwaysGiveTutorials && (HasWatchedOnce || TemporarySkip))
+                Ready();
+            else
+            {
+                StartTutorial();
+
+                WatchedOnce();
+            }
+
+            TemporarySkip = false;
+        }
+
+        void StartTutorial()
+        {
+            PointAtDoor();
+        }
+
+        protected virtual void Title()
+        {
+            ShowTitle = false;
+
+            GUI_Text text = GUI_Text.SimpleTitle(Localization.Words.TimeCrisis);
+
+            MyGame.AddGameObject(text);
+
+            // On (A) go to next part of the tutorial
+            MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
+            {
+                //MyGame.WaitThenDo(18, () => PointAtDoor());
+                MyGame.WaitThenDo(12, () => TutorialOrSkip());
+                text.Kill(SoundOnKill);
+            }));
+        }
+
+        void PointAtDoor()
+        {
+            //Madness.Timer.Show();
+
+            ObjectBase end_door = MyGame.MyLevel.FindIObject(LevelConnector.EndOfLevelCode);
+            Vector2 endpos = end_door.Core.Data.Position;
+
+            Arrow arrow = new Arrow();
+            arrow.SetOrientation(Arrow.Orientation.Right);
+            arrow.Move(endpos + new Vector2(-673, 0));
+            arrow.PointTo(endpos);
+            MyGame.AddGameObject(arrow);
+
+            GUI_Text text = new GUI_Text(Localization.Words.GetToTheExit, arrow.Core.Data.Position + new Vector2(-200, 400));
+            MyGame.AddGameObject(text);
+
+            // On (A) go to next part of the tutorial
+            MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
+            {
+                arrow.Release();
+                text.Kill(SoundOnKill);
+
+                MyGame.WaitThenDo(7, () => Madness.Timer.Show());
+                MyGame.WaitThenDo(0, () =>
+                    {
+                        PointAtTimer();
+                        //arrow.Release();
+                        //text.Kill();
+                    });
+            }));
+        }
+
+        void PointAtTimer()
+        {
+            //Vector2 timerpos = Madness.Timer.ApparentPos;
+            Vector2 timerpos = MyGame.CamPos + new Vector2(-60, 1000);
+
+            Arrow arrow = new Arrow();
+            arrow.SetOrientation(Arrow.Orientation.Right);
+            arrow.Move(timerpos + new Vector2(30, -655));
+            arrow.PointTo(timerpos);
+            MyGame.AddGameObject(arrow);
+
+            GUI_Text text = new GUI_Text(
+                string.Format(Localization.WordString(Localization.Words.SecondsOnTheClock), Madness.Timer.Seconds),
+                arrow.Core.Data.Position +
+                    //new Vector2(830, -130));
+                    new Vector2(0, -530));
+
+            MyGame.AddGameObject(text);
+            
+            // On (A) go to next part of the tutorial
+            MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
+            {
+                PointAtCoins();
+                arrow.Release();
+                text.Kill(SoundOnKill);
+            }));
+        }
+
+        void PointAtCoins()
+        {
+            List<Arrow> arrows = new List<Arrow>();
+            foreach (ObjectBase coin in MyGame.MyLevel.GetObjectList(ObjectType.Coin))
+            {
+                Vector2 coinpos = coin.Core.Data.Position;
+
+                Arrow arrow = new Arrow();
+                arrow.SetScale(300);
+                arrow.SetOrientation(Arrow.Orientation.Left);
+                arrow.Move(coinpos + new Vector2(120, 200) * 1.04f);
+                arrow.PointTo(coinpos);
+                MyGame.AddGameObject(arrow);
+                arrows.Add(arrow);
+            }
+
+            GUI_Text text = new GUI_Text(Localization.Words.CoinsAddSeconds,
+                Tools.CurLevel.MainCamera.Data.Position + new Vector2(0, -750));
+            MyGame.AddGameObject(text);
+
+            // On (A) go to next part of the tutorial
+            MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
+            {
+                PointAtScore();
+                arrows.ForEach(arrow => arrow.Release());
+                text.Kill(SoundOnKill);
+            }));
+        }
+
+        void PointAtScore()
+        {
+            GUI_Score score = MyGame.MyGameObjects.Find(obj => obj is GUI_Score) as GUI_Score;
+            if (null == score) { End(); return; }
+
+            Vector2 scorepos = score.MyPile.FancyPos.AbsVal + new Vector2(-60, 40);
+
+            Arrow arrow = new Arrow();
+            arrow.SetOrientation(Arrow.Orientation.Right);
+            arrow.Move(scorepos + new Vector2(-510, -430));
+            arrow.PointTo(scorepos);
+            MyGame.AddGameObject(arrow);
+
+            GUI_Text text = new GUI_Text(Localization.Words.GetAHighScore,
+                arrow.Core.Data.Position + new Vector2(-500, -100) + new Vector2(-38.88892f, -150f));
+            MyGame.AddGameObject(text);
+
+            // On (A) go to next part of the tutorial
+            MyGame.AddGameObject(new Listener(ControllerButtons.A, () =>
+            {
+                MyGame.WaitThenDo(0, () => Ready());
+                //Ready();
+                arrow.Release();
+                text.Kill(false);
+            }));
+        }
+
+        void Ready()
+        {
+            int Wait = 5 + 22;
+            if (Madness.Timer.Hid) Wait = 28 + 12;
+
+            Madness.Timer.Show();
+			//Madness.Timer.PauseOnPause = false; // Start the timer
+
+            MyGame.WaitThenDo(Wait, () =>
+                TutorialHelper.ReadyGo(MyGame, End));
+
+            //MyGame.WaitThenDo(Wait, () =>
+            //{
+            //    GUI_Text text = new GUI_Text("Ready?", MyGame.CamPos + ReadyGoPos);
+            //    MyGame.AddGameObject(text);
+
+            //    MyGame.WaitThenDo(36, () => text.Kill(false));
+            //    MyGame.WaitThenDo(40, () => LetsGo());
+            //});
+        }
+
+        //void LetsGo()
+        //{
+        //    GUI_Text text = new GUI_Text("Go!", MyGame.CamPos + ReadyGoPos);
+        //    MyGame.AddGameObject(text);
+
+        //    MyGame.WaitThenDo(20, () => End());
+        //    MyGame.WaitThenDo(30, () => text.Kill(false));
+        //}
+
+        void End()
+        {
+            PauseGame = false;
+            MyGame.WaitThenDo(25, () => Madness.Timer.PauseOnPause = true);
+
+            Release();
+        }
+
+        protected override void MyPhsxStep()
+        {
+        }
+    }
+}

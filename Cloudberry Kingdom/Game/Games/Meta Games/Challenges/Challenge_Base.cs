@@ -52,8 +52,6 @@ namespace CloudberryKingdom
         {
             int HeroId = hero == null ? 0 : hero.Id;
 
-			//GameId_Level = 100 * HeroId + GameTypeId + LevelMask;
-			//return GameId_Level;
 			return 100 * HeroId + GameTypeId + LevelMask;
         }
 

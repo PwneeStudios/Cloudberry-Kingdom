@@ -183,8 +183,89 @@ namespace CloudberryKingdom
                 u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
 
                 u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
-                u[Upgrade.Speed] = D(0, 3, 5, 8.5, 15);
+                u[Upgrade.Speed] = D(0, 3, 5, 8.5, 11);
             });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.Spike] = D(1, 2, 3, 4.5, 6);
+                u[Upgrade.FireSpinner] = D(1, 2, 3, 4.5, 6);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 9);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.Cloud] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.FlyBlob] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.SpikeyLine] = D(1, 3, 5, 7, 9);
+                u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 2, 3, 5, 7);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.Laser] = D(1, 2, 3, 4.5, 6);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.Pinky] = D(1, 2, 3, 4.5, 6);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 9);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.SpikeyLine] = D(1, 2, 3, 4.5, 6);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 9);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.Spike] = D(1, 2, 3, 4.5, 6);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.Elevator] = D(3, 6, 8, 10, 10);
+                u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 9);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.FireSpinner] = D(1, 2, 3, 4.5, 6);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.BouncyBlock] = D(3, 6, 8, 10, 10);
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 8);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 9);
+            });
+
+            f.Add((u, D) =>
+            {
+                u[Upgrade.FlyBlob] = D(1, 3, 5, 7, 9);
+                u[Upgrade.MovingBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.Elevator] = D(3, 6, 8, 10, 10);
+                u[Upgrade.GhostBlock] = D(1, 3.5, 5, 7.5, 10);
+                u[Upgrade.FallingBlock] = D(1, 3.5, 5, 7.5, 10);
+
+                u[Upgrade.Jump] = D(0, 3, 5, 7.5, 10);
+                u[Upgrade.Speed] = D(0, 3, 5, 7, 11);
+            });
+
         }
 
         static List<Action<Upgrades, DifficultyFunc>> DownUpgrades = new List<Action<Upgrades, DifficultyFunc>>();

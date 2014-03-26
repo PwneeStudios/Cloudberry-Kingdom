@@ -23,31 +23,31 @@ namespace CloudberryKingdom.Viewer
 
             var path = "EditorToolPics";
             
-            NewFloaterButton.Image = Image.FromFile(path + "\\rectangle_blue.png");
+            //NewFloaterButton.Image = Image.FromFile(path + "\\rectangle_blue.png");
             SetButtonParams(NewFloaterButton);
 
-            NewLayerButton.Image = Image.FromFile(path + "\\layers.png");
+            //NewLayerButton.Image = Image.FromFile(path + "\\layers.png");
             SetButtonParams(NewLayerButton);
 
-            TextureButton.Image = Image.FromFile(path + "\\Quad_24.png");
+            //TextureButton.Image = Image.FromFile(path + "\\Quad_24.png");
             SetButtonParams(TextureButton);
 
-            LayerLockCheckbox.Image = Image.FromFile(path + "\\lock.png");
-            LayerShowCheckbox.Image = Image.FromFile(path + "\\eye.png");
+            //LayerLockCheckbox.Image = Image.FromFile(path + "\\lock.png");
+            //LayerShowCheckbox.Image = Image.FromFile(path + "\\eye.png");
 
-            PlayCheckbox.Image = Image.FromFile(path + "\\Play.png");
+            //PlayCheckbox.Image = Image.FromFile(path + "\\Play.png");
             SetButtonParams(PlayCheckbox);
             PlayCheckbox.Checked = false;
 
-            CameraMoveCheckbox.Image = Image.FromFile(path + "\\MoveCam.png");
+            //CameraMoveCheckbox.Image = Image.FromFile(path + "\\MoveCam.png");
             SetButtonParams(CameraMoveCheckbox);
             CameraMoveCheckbox.Checked = true; CameraMoveCheckbox.Checked = false;
 
-            MoveBoundsCheckbox.Image = Image.FromFile(path + "\\MoveBounds.png");
+            //MoveBoundsCheckbox.Image = Image.FromFile(path + "\\MoveBounds.png");
             SetButtonParams(MoveBoundsCheckbox);
             MoveBoundsCheckbox.Checked = true; MoveBoundsCheckbox.Checked = false;
 
-            MoveQuadsCheckbox.Image = Image.FromFile(path + "\\MoveQuad.png");
+            //MoveQuadsCheckbox.Image = Image.FromFile(path + "\\MoveQuad.png");
             SetButtonParams(MoveQuadsCheckbox);
             MoveQuadsCheckbox.Checked = true;
 

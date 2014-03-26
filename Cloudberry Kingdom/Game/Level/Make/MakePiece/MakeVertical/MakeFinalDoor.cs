@@ -30,16 +30,31 @@ namespace CloudberryKingdom.Levels
             base.Phase1();
         }
 
+        Vector2 BobAvgPos(Level level)
+        {
+            Vector2 avg = Vector2.Zero;
+            foreach (var bob in level.Bobs)
+                avg += bob.Pos;
+
+            return avg / level.Bobs.Count;
+        }
+
         public override void Phase2()
         {
             base.Phase2();
 
             // Find a final block that was used by the computer.
-            //FinalBlock = MyLevel.Blocks.Find(match => match.Core == "LastRow" && match.Core.GenData.Used);
             if (MyLevel.CurMakeData.PieceSeed.GeometryType == LevelGeometry.Down)
                 FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
             else
-                FinalBlock = Tools.ArgMax(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
+            {
+                var ValidBlocks = MyLevel.Blocks.FindAll(ValidFinalBlock);
+                FinalBlock = Tools.ArgMax(ValidBlocks, element => element.Pos.Y);
+                
+                var avgpos = BobAvgPos(MyLevel);
+                ValidBlocks = ValidBlocks.FindAll(match => match.Pos.Y > FinalBlock.Pos.Y - 5);
+                FinalBlock = Tools.ArgMin(ValidBlocks, element => Math.Abs(element.Pos.X - avgpos.X));
+            }
 
             FinalPos = FinalBlock.Core.Data.Position;
 
@@ -66,14 +81,15 @@ namespace CloudberryKingdom.Levels
             MyLevel.LastStep = Math.Min(Earliest, MyLevel.LastStep);
         }
 
+        private static bool ValidFinalBlock(BlockBase block)
+        {
+            return block.Core.GenData.Used && block.Core.MyType == ObjectType.NormalBlock;
+        }
+
         protected Door MadeDoor;
         public override void Phase3()
         {
             base.Phase3();
-
-			// Mod final block
-			//FinalBlock.MyDraw.MyTemplate = FinalBlock.Core.MyTileSet.GetPieceTemplate(FinalBlock, MyLevel.Rnd,
-			//    FinalBlock.Core.MyLevel.MyTileSet.MyTileSetInfo.Pendulums.Group);
 
             // Add door
             MadeDoor = MyLevel.PlaceDoorOnBlock(FinalPos, FinalBlock, false);
@@ -81,7 +97,6 @@ namespace CloudberryKingdom.Levels
 
             // Attach an action to the door
             MakeFinalDoor.AttachDoorAction(MadeDoor);
-            //door.OnOpen = ((StringWorldGameData)Tools.WorldMap).EOL_StringWorldDoorAction;
         }
 
         public override void Cleanup()

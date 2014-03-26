@@ -39,17 +39,18 @@ namespace CloudberryKingdom.Levels
         {
             int NumBobs = Bobs.Count;
             Bobs.Clear();
-            //for (int i = 0; i < CurrentRecording.NumBobs; i++)
             for (int i = 0; i < NumBobs; i++)
             {
                 if (MySwarmBundle.CurrentSwarm.MainRecord.Recordings.Length <= i)
                     break;
 
-                //Bob Comp = new Bob(Prototypes.bob[DefaultHeroType], false);
-                Bob Comp = new Bob(DefaultHeroType, false);
+                var hero = DefaultHeroType;
+                if (DefaultHeroType2 != null && i == 1)
+                    hero = DefaultHeroType2;
+
+                Bob Comp = new Bob(hero, false);
                 Comp.SetColorScheme(PlayerManager.Get(NumBobs - i - 1).ColorScheme);
 
-                //Comp.MyRecord = CurrentRecording.Recordings[i];
                 Comp.MyRecord = MySwarmBundle.CurrentSwarm.MainRecord.Recordings[i];
                 Comp.CompControl = true;
                 Comp.Immortal = true;
@@ -140,8 +141,11 @@ namespace CloudberryKingdom.Levels
             Bobs.Clear();
             for (int i = 0; i < CurPiece.NumBobs; i++)
             {
-                //Bob Comp = new Bob(Prototypes.bob[DefaultHeroType], false);
-                Bob Comp = new Bob(DefaultHeroType, false);
+                var hero = DefaultHeroType;
+                if (DefaultHeroType2 != null && i == 1)
+                    hero = DefaultHeroType2;
+
+                Bob Comp = new Bob(hero, false);
 
                 Comp.MyPiece = CurPiece;
                 Comp.MyPieceIndex = i;
@@ -149,16 +153,6 @@ namespace CloudberryKingdom.Levels
                 Comp.CompControl = true;
                 Comp.Immortal = true;
                 AddBob(Comp);
-
-                /*
-                if (CloudberryKingdomGame.SimpleAiColors)
-                {
-                    int index = (new int[] { 0, 3, 5, 1 })[i];
-                    Comp.SetColorScheme(ColorSchemeManager.ComputerColorSchemes[index]);
-                }
-                else
-                    Comp.SetColorScheme(Tools.GlobalRnd.RandomItem<ColorScheme>(ColorSchemeManager.ComputerColorSchemes));
-                */
                 
 #if DEBUG
 				Comp.SetColorScheme(PlayerManager.Player.ColorScheme);

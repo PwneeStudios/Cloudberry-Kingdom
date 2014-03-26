@@ -59,8 +59,8 @@ namespace CloudberryKingdom
         int DelayCount_LeftRight, MotionCount_LeftRight;
         const int SelectDelay = 18;
 
-        public TitleGameData_MW Title;
-		public LeaderboardGUI(TitleGameData_MW Title, int Control)
+        public TitleGameData Title;
+		public LeaderboardGUI(TitleGameData Title, int Control)
 		{
 #if XDK
 			_LeaderboardGUI(Title, null, Control);
@@ -70,9 +70,9 @@ namespace CloudberryKingdom
 		}
 
 #if XDK
-        void _LeaderboardGUI(TitleGameData_MW Title, SignedInGamer LeaderboardGamer, int Control)
+        void _LeaderboardGUI(TitleGameData Title, SignedInGamer LeaderboardGamer, int Control)
 #else
-		void _LeaderboardGUI(TitleGameData_MW Title, int Control)
+		void _LeaderboardGUI(TitleGameData Title, int Control)
 #endif
         {
             ToMake_Id = -1;
@@ -97,13 +97,12 @@ namespace CloudberryKingdom
             CurrentMessage = Message.None;
 
 			SetIndex(Challenge.LeaderboardIndex);
-            //SetIndex(0);
 
             DelayCount_LeftRight = MotionCount_LeftRight = 0;
 
             this.Title = Title;
             if (Title != null)
-                Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Blur);
+                Title.SetBackgroundState(TitleBackgroundState.Scene_Blur);
 
             UpdateView();
 

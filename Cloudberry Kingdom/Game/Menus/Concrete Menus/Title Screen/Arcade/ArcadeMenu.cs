@@ -77,6 +77,7 @@ namespace CloudberryKingdom
         public static BobPhsx JetpackWheelie;
         public static BobPhsx BigBouncy;
         public static BobPhsx Ultimate;
+        public static BobPhsx Transcendent;
 
         public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
         public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
@@ -128,6 +129,13 @@ namespace CloudberryKingdom
             ArcadeMenu.Ultimate.SetCustomPhsx(UltimatePhsx);
             ArcadeMenu.Ultimate.Id = 14;
 
+            // New Coder's Edition heroes
+            BobPhsxMeat.Instance.Id = 16;
+            BobPhsxBlobby.Instance.Id = 17;
+            BobPhsxTimeship.Instance.Id = 18;
+            Transcendent = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true);
+            Transcendent.Id = 19;
+
             HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
             {
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxNormal.Instance,    new Tuple<BobPhsx, int>(null, 0) ),
@@ -141,6 +149,13 @@ namespace CloudberryKingdom
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxWheel.Instance,     new Tuple<BobPhsx, int>(BobPhsxDouble.Instance, 75) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxRocketbox.Instance,	new Tuple<BobPhsx, int>(HighestHero, HighestLevelNeeded) ),
                          
+                // New Coder's Edition heroes
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxBlobby.Instance,	new Tuple<BobPhsx, int>(BobPhsxNormal.Instance,	  25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( Transcendent,          	new Tuple<BobPhsx, int>(BobPhsxBlobby.Instance,   25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxMeat.Instance,		new Tuple<BobPhsx, int>(Transcendent,       	  25) ),
+                new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BobPhsxTimeship.Instance,	new Tuple<BobPhsx, int>(BobPhsxMeat.Instance,     25) ),
+
+                // Secret unlockable heroes
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( JetpackWheelie,            new Tuple<BobPhsx, int>(BobPhsxNormal.Instance, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( BigBouncy,                 new Tuple<BobPhsx, int>(JetpackWheelie, 100) ),
                 new Tuple<BobPhsx, Tuple<BobPhsx, int>>( Ultimate,                  new Tuple<BobPhsx, int>(BigBouncy, 100) ),
@@ -373,8 +388,11 @@ namespace CloudberryKingdom
             // Hero Rush 2
 			item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2", Awardments.HeroRush2_LevelUnlock);
 
-            // Bungee Co-op
-            //item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, null, "Bungee");
+            // Madness
+            item = AddChallenge(Challenge_Madness.Instance, Awardments.UnlockHeroRush, "Bungee", Awardments.HeroRush_LevelUnlock);
+
+            // Freeplay
+            item = AddChallenge(Challenge_Freeplay.Instance, null, "Freeplay", 0);
 
 #if PC_VERSION
 			// Leaderboards

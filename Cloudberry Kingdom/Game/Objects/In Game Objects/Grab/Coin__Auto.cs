@@ -156,7 +156,8 @@ namespace CloudberryKingdom.Levels
         enum BobPos { Center, High, Low, Regular };
         Vector2 CalcPos(Bob bob, Vector2 BL, Vector2 TR, BobPos pos)
         {
-            Vector2 center = bob.Core.Data.Position;
+            Vector2 center = bob.Pos;
+            //Vector2 center = bob.Pos + bob.MyPhsx.TranscendentOffset;
 
             Vector2 top = new Vector2(center.X, bob.Box.TR.Y);
             Vector2 bottom = new Vector2(center.X, bob.Box.BL.Y);

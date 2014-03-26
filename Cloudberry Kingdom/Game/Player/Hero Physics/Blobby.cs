@@ -20,7 +20,7 @@ namespace CloudberryKingdom
 			base.InitSingleton();
 
 			Specification = new HeroSpec(7, 0, 0, 0);
-			Name = Localization.Words.Blob;
+            Name = Localization.Words.FlappyBlob;
 			NameTemplate = "blob ";
 			Icon = new PictureIcon(Tools.Texture("Blob_Cave_1"), Color.White, 1.15f * DefaultIconWidth);
 		}
@@ -38,11 +38,14 @@ namespace CloudberryKingdom
 			XAccel = 2.3f;
 		}
 
+        public override void PreObjectDraw()
+        {
+            base.PreObjectDraw();
+        }
+
 		float Downward = 0;
 		public override void PhsxStep()
 		{
-			if (MyBob.CharacterSelect2) return;
-
 			MyBob.CurInput.xVec.X = 1;
 			
 			xVel = MaxSpeed;
@@ -204,6 +207,8 @@ namespace CloudberryKingdom
 			// Let go of A for 1 frame
 			if (MyBob.PrevInput.A_Button && yVel < -5)
 				MyBob.CurInput.A_Button = false;
+
+            MyBob.CurInput.xVec.X = 1;
 		}
 	}
 }

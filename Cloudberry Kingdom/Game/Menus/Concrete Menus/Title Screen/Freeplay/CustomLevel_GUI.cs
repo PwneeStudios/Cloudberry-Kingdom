@@ -8,6 +8,25 @@ using CloudberryKingdom.Blocks;
 
 namespace CloudberryKingdom
 {
+    public class Challenge_Freeplay : Challenge
+    {
+        static readonly Challenge_Freeplay instance = new Challenge_Freeplay();
+        public static new Challenge_Freeplay Instance { get { return instance; } }
+
+        protected Challenge_Freeplay()
+        {
+            GameTypeId = -1;
+            MenuName = Name = Localization.Words.FreePlay;
+
+			SetGameId();
+        }
+        
+        public override LevelSeedData GetSeed(int Index)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class CustomLevel_GUI : CkBaseMenu
     {
         public static List<TileSet> FreeplayTilesets = new List<TileSet>();

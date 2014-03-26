@@ -178,9 +178,32 @@ namespace CloudberryKingdom
             return tilesets[(i / LevelsPerTileset) % tilesets.Length];
         }
 
+        static List<BobPhsx> TranscendentHeroes;
+
+        static void MakeTranscendentHeroList()
+        {
+            if (TranscendentHeroes == null)
+            {
+                TranscendentHeroes = new List<BobPhsx>();
+                TranscendentHeroes.Add(BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true));
+                TranscendentHeroes.Add(BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Double, Hero_Special.Classic, true));
+                TranscendentHeroes.Add(BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Jetpack, Hero_Special.Classic, true));
+                TranscendentHeroes.Add(BobPhsx.MakeCustom(Hero_BaseType.Wheel, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true));
+                TranscendentHeroes.Add(BobPhsx.MakeCustom(Hero_BaseType.Bouncy, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true));
+            }
+        }
+
         protected virtual BobPhsx GetHero(int i)
         {
-            return Challenge.ChosenHero;
+            if (Challenge.ChosenHero.Transcendent)
+            {
+                MakeTranscendentHeroList();
+                return TranscendentHeroes[i % TranscendentHeroes.Count];
+            }
+            else
+            {
+                return Challenge.ChosenHero;
+            }
         }
 
         protected virtual LevelSeedData Make(int Index, float Difficulty)

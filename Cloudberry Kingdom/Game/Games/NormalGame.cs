@@ -39,9 +39,9 @@ namespace CloudberryKingdom
         {
             base.Init();
 
-            //AllowQuickJoin = true;
             AllowQuickJoin = false;
             DefaultHeroType = LevelSeed.DefaultHeroType;
+            DefaultHeroType2 = LevelSeed.DefaultHeroType2;
 
             if (!MakeInBackground)
                 Tools.CurGameData = this;

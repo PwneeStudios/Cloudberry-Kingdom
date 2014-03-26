@@ -24,14 +24,12 @@ namespace CloudberryKingdom
         {
             MyNextMenu = Next.Arcade;
             BringCharacterSelect();
-            //DoneWithCharSelect();StartMenu_MW_HeroSelect
         }
 
         protected virtual void MenuGo_Freeplay(MenuItem item)
         {
             MyNextMenu = Next.Freeplay;
             BringCharacterSelect();
-            //DoneWithCharSelect();
         }
 
         /// <summary>
@@ -161,10 +159,6 @@ namespace CloudberryKingdom
         public static void SetItemProperties_Red(MenuItem item)
         {
             if (item.MyText == null) return;
-			//item.MyText.OutlineColor = new Color(191, 191, 191).ToVector4();
-			//item.MyText.MyFloatColor = new Color(175, 8, 64).ToVector4();
-			//item.MySelectedText.OutlineColor = new Color(205, 205, 205).ToVector4();
-			//item.MySelectedText.MyFloatColor = new Color(242, 12, 85).ToVector4(); 
 
 			SetTextUnselected_Red(item.MyText);
 			SetTextSelected_Red(item.MySelectedText);
@@ -184,6 +178,30 @@ namespace CloudberryKingdom
 			text.OutlineColor.W = 1.0f;
 			text.MyFloatColor = new Color(175, 8, 64).ToVector4();
 		}
+
+        public static void SetItemProperties_White(MenuItem item)
+        {
+            if (item.MyText == null) return;
+
+            SetTextUnselected_White(item.MyText);
+            SetTextSelected_White(item.MySelectedText);
+        }
+
+        public static void SetTextSelected_White(EzText text)
+        {
+            text.OutlineColor = ColorHelper.Gray(0);
+            text.OutlineColor.W = 1.0f;
+            text.MyFloatColor = ColorHelper.Gray(.98f);
+            text.MyFloatColor.W = 1.0f;
+        }
+
+        public static void SetTextUnselected_White(EzText text)
+        {
+            text.OutlineColor = ColorHelper.Gray(0);
+            text.OutlineColor.W = 1.0f;
+            text.MyFloatColor = ColorHelper.Gray(.88f);
+            text.MyFloatColor.W = 1.0f;
+        }
 
         public override void OnAdd()
         {

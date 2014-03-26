@@ -31,7 +31,6 @@ namespace CloudberryKingdom
                 normal.BobJumpLength = (int)(normal.BobJumpLength * 1.5f);
                 normal.BobJumpAccel *= .5f;
 
-                //normal.Gravity *= .85f;
                 normal.Gravity *= .7f;
                 normal.SetAccels();
 
@@ -56,7 +55,7 @@ namespace CloudberryKingdom
             base.InitSingleton();
 
             Specification = new HeroSpec(5, 0, 0, 0);
-            Name = Localization.Words.Meatboy;
+            Name = Localization.Words.Porkchop;
             Adjective = "Meat";
 			Icon = new PictureIcon(Tools.TextureWad.FindByName("Fblock_Cave_3"), Color.White, 1.2f * DefaultIconWidth);
         }
@@ -101,22 +100,8 @@ namespace CloudberryKingdom
 			{
 				IsStuck = false;
 			}
-            //float Factor;
-            //if (yVel < 0)
-            //    Factor = CoreMath.LerpRestrict(.3f, 1f, (float)StepsOnSide / StickyDuration);
-            //else
-            //    Factor = .765f;
-            //float BlockSpeed = block.Box.Target.TR.Y - block.Box.Current.TR.Y;
-            //yVel = Factor * (yVel - BlockSpeed) + BlockSpeed;
-
 
             StepsSinceSide = 0;
-
-            //OnGround = true;
-            //CurJump = 1;
-            //JetPackCount = 0;
-            //if (StepsOnSide < StickyDuration)
-            //    base.LandOnSomething(false);
         }
 
         public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
@@ -148,13 +133,11 @@ namespace CloudberryKingdom
 
             if (yVel < Max_yVel_ForWallJump && StickySide != ColType.NoCol && CanWallJump && (StepsSinceSide < StickyGracePeriod && yVel <= 0 || StepsSinceSide < 2) && !CanJump && MyBob.CurInput.A_Button)
             {
-                //StickySide = ColType.NoCol;
                 IsStuck = false;
 
                 StepsSinceSide = StickyGracePeriod;
 
                 xVel += -19.5f * StickyDir;
-                    //(StickySide == ColType.Right ? -1 : 1);
 
                 DoJump();
 
@@ -195,13 +178,11 @@ namespace CloudberryKingdom
             StepsSinceSide++;
 
             // Additional sticky phsx
-            //if (IsStuck)
-            {
-                if (StepsSinceSide < 2)
-                    StepsOnSide++;
-                else
-                    StepsOnSide = 0;
-            }
+            if (StepsSinceSide < 2)
+                StepsOnSide++;
+            else
+                StepsOnSide = 0;
+
             if (IsStuck && LastStickyBlock != null)
             {
                 if (LastStickyBlock.Box.TR.Y > MyBob.Box.BL.Y &&
@@ -243,18 +224,6 @@ namespace CloudberryKingdom
 
         public override float GetXAccel()
         {
-            //// For a few frames after jumping off a wall, force the player to move in the opposite direction
-            //if (LastJumpWasSticky && StepsSinceSide > StickyGracePeriod)
-            //{
-            //    if (StepsSinceSide < StickyGracePeriod + 8)
-            //    {
-            //        MyBob.CurInput.xVec.X = -StickyDir;
-            //        return base.GetXAccel() * .6f;
-            //    }
-            //    else if (StepsSinceSide < StickyGracePeriod + 20)
-            //        return base.GetXAccel() * 1.35f;
-            //}
-
             return base.GetXAccel();
         }
 
@@ -274,9 +243,6 @@ namespace CloudberryKingdom
         protected override void SetTarget(Levels.RichLevelGenData GenData)
         {
             base.SetTarget(GenData);
-
-            //if (MyBob.TargetPosition.Y > Cam.Pos.Y)
-            //    MyBob.TargetPosition.Y -= 900;
         }
 
         Vector2 PrefferedDir;
@@ -298,10 +264,6 @@ namespace CloudberryKingdom
             }
 
             PrefferedDir.X = Math.Sign(Target.X - Pos.X);
-            //if (MyLevel.Rnd.RndBool())
-            //    Target = new Vector2(Cam.TR.X, 100000);
-            //else
-            //    Target = new Vector2(Cam.BL.X, 100000);
         }
 
         public bool WantToLandOnTop = false;
@@ -373,10 +335,6 @@ namespace CloudberryKingdom
                         // Make these higher to make the AI use blocks more often (and attempt less epically long jumps)
                         yVelCutoff = MyLevel.Rnd.RndFloat(-2, 12);
 
-                        //yVelCutoff = MyLevel.Rnd.RndFloat(-15, 12);
-                        //yVelCutoff = MyLevel.Rnd.RndFloat(-25, 12);
-                    //}
-                    //{
                         NewTarget();
                         for (int i = 0; i < 2; i++)
                         {
@@ -415,9 +373,6 @@ namespace CloudberryKingdom
             }
 
             // Don't wall jump if we are going up fast
-            //if (yVel > 14) MyBob.WantsToLand = false;
-            //if (yVel > -5) MyBob.WantsToLand = false;
-            //if (yVel > -15) MyBob.WantsToLand = false;
             if (yVel > yVelCutoff) MyBob.WantsToLand = false;
             else MyBob.WantsToLand = true;
 
@@ -429,7 +384,6 @@ namespace CloudberryKingdom
             {
                 if (yVel < 5)
                     WantToLandOnTop = true;
-                //MyBob.WantsToLand = false;
             }
 
             // Better jump control: don't use full extent of jump
@@ -475,20 +429,12 @@ namespace CloudberryKingdom
             // Square mblocks, vertical motion
             var MParams = (MovingBlock_Parameters)Style.FindParams(MovingBlock_AutoGen.Instance);
             MParams.Aspect = MovingBlock_Parameters.AspectType.Square;
-            //MParams.Motion = MovingBlock_Parameters.MotionType.Vertical;
-            //MParams.Motion = MovingBlock_Parameters.MotionType.Horizontal;
-            //MParams.Size = size;
 
             var GhParams = (GhostBlock_Parameters)Style.FindParams(GhostBlock_AutoGen.Instance);
             GhParams.BoxType = GhostBlock_Parameters.BoxTypes.Long;
             var FParams = (FallingBlock_Parameters)Style.FindParams(FallingBlock_AutoGen.Instance);
             var BParams = (BouncyBlock_Parameters)Style.FindParams(BouncyBlock_AutoGen.Instance);
-            //var GParams = (Goomba_Parameters)Style.FindParams(Goomba_AutoGen.Instance);
             var NParams = (NormalBlock_Parameters)Style.FindParams(NormalBlock_AutoGen.Instance);
-            //NParams.CustomWeight = true;
-            //NParams.FillWeight.Val = 1;
-
-            Style.ModNormalBlockWeight = 1f;
 
             if (ModSize)
             {
@@ -498,10 +444,22 @@ namespace CloudberryKingdom
             }
         }
 
+        public override void ModLadderPiece(PieceSeedData piece)
+        {
+            base.ModLadderPiece(piece);
+
+            piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.Meatboy;
+        }
+
 		static EzTexture standing, jumping, falling;
-		public override void PreObjectDraw()
+		protected override void DrawObject()
 		{
-			base.PreObjectDraw();
+            base.DrawObject();
+
+            var quad = Obj.FindQuad("Rocket");
+            quad.Show = false;
+
+            Vector2 shift = TranscendentOffset;
 
 			if (standing == null)
 			{
@@ -521,13 +479,15 @@ namespace CloudberryKingdom
 			if (yVel > 2) texture = jumping;
 			else if (yVel < -5) texture = falling;
 
-			//var clr = ColorHelper.LinearColorTransform(160) * MyBob.MyColorScheme.SkinColor.M;
 			var clr = ColorHelper.HsvTransform(1, 1, 170) * MyBob.MyColorScheme.SkinColor.M;
 			Tools.QDrawer.SetColorMatrix(clr, -232425 /* intentionally invalid signature */);
-			
-			Tools.QDrawer.DrawQuad(.5f * (MyBob.Box.Current.BL + MyBob.Box.BL) + new Vector2(-5, -2),
-								   .5f * (MyBob.Box.Current.TR + MyBob.Box.TR) + new Vector2(5, 3),
+
+            Tools.QDrawer.DrawQuad(.5f * (MyBob.Box.Current.BL + MyBob.Box.BL) + new Vector2(-5, -2) + shift,
+                                   .5f * (MyBob.Box.Current.TR + MyBob.Box.TR) + new Vector2(5, 3) + shift,
 								   Color.White, texture, Tools.HslEffect);
+
+            if (Obj != null)
+                Obj.Draw(true);
 		}
     }
 }

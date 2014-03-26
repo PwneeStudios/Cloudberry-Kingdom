@@ -89,8 +89,17 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = true;
 
-		public const string VersionString = "1.0.0006";
-		public const bool CodersEdition = false;
+		public const string VersionString = "1.0.0007";
+		public const bool CodersEdition = true;
+        public static bool AndersSwitch = false;
+        public static bool BungeeSwitch = true;
+        public static bool AlwaysBungee
+        {
+            get
+            {
+                return BungeeSwitch && PlayerManager.GetNumPlayers() > 1;
+            }
+        }
         public const bool DigitalDayBuild = false;
 
         public const bool PropTest = false;
@@ -474,7 +483,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade };
+		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade, Madness };
 		public static Presence CurrentPresence = Presence.TitleScreen;
 		public static void SetPresence(Presence presence)
 		{
@@ -647,7 +656,8 @@ namespace CloudberryKingdom
 #endif
 
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Intense.Factory;
-        public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
+        //public static SimpleGameFactory TitleGameFactory = TitleGameData_MW.Factory;
+        public static SimpleGameFactory TitleGameFactory = TitleGameData_Clouds.Factory;
         //public static SimpleGameFactory TitleGameFactory = TitleGameData_Forest.Factory;
 
         public static float fps;

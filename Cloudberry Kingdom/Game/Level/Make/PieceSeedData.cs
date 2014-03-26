@@ -41,7 +41,7 @@ namespace CloudberryKingdom
                     Style.ComputerWaitLengthRange = new Vector2(4, 23);
 
                     // Only one path
-                    Paths = 1; LockNumOfPaths = true;
+                    //Paths = 1; LockNumOfPaths = true;
 
                     Style.MyModParams = (level, p) =>
                     {
@@ -97,7 +97,19 @@ namespace CloudberryKingdom
         public Vector2 Start, End;
         public Vector2 CamZoneStartAdd, CamZoneEndAdd;
 
-        public int Paths = -1;
+        int _Paths = -1;
+        public int Paths
+        {
+            get
+            {
+                return _Paths;
+            }
+            set
+            {
+                _Paths = value;
+            }
+        }
+
         public bool LockNumOfPaths = false;
 
         public Level.LadderType Ladder;
@@ -154,6 +166,9 @@ namespace CloudberryKingdom
 
             Style.MyInitialPlatsType = StyleData.InitialPlatsType.Door;
             Style.MyFinalPlatsType = StyleData.FinalPlatsType.Door;
+
+            
+            //Paths = 1; LockNumOfPaths = true;
         }
 
         LevelSeedData MyLevelSeed;

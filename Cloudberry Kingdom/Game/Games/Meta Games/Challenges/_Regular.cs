@@ -18,12 +18,19 @@ namespace CloudberryKingdom
             data.SetTileSet(null);
 
             data.DefaultHeroType = BobPhsxNormal.Instance;
+            data.DefaultHeroType2 = null;
         }
+
 
         // -------------------------
         // Fixed upgrade lists
         // -------------------------
         public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, int Length, bool ScreenSaver)
+        {
+            return HeroLevel(Difficulty, Hero, null, LevelGeometry.Right, Length, ScreenSaver);
+        }
+
+        public static LevelSeedData HeroLevel(float Difficulty, BobPhsx Hero, BobPhsx Hero2, LevelGeometry Geometry, int Length, bool ScreenSaver)
         {
             if (Hero == ArcadeMenu.Ultimate)
             {
@@ -31,15 +38,28 @@ namespace CloudberryKingdom
                 Difficulty *= 2;
             }
 
+            if (Hero == BobPhsxMeat.Instance || Hero == BobPhsxBlobby.Instance || Hero == BobPhsxTimeship.Instance)
+            {
+                Difficulty *= 1.55f;
+                Difficulty += .5f;
+            }
+
             LevelSeedData data = new LevelSeedData();
 
             StandardInit(data);
 
             data.DefaultHeroType = Hero;
+            data.DefaultHeroType2 = Hero2;
+
+            if (Hero2 != null)
+            {
+                data.MyGameFlags.IsDoppleganger = true;
+                data.MyGameFlags.IsDopplegangerInvert = true;
+            }
 
             LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data, ScreenSaver);
 
-            data.Initialize(NormalGameData.Factory, LevelGeometry.Right, 1, Length, custom);
+            data.Initialize(NormalGameData.Factory, Geometry, 1, Length, custom);
 
             return data;
         }

@@ -65,7 +65,7 @@ namespace CloudberryKingdom.Levels
 
         public int NumAttempts, PieceAttempts;
 
-        public BobPhsx DefaultHeroType;
+        public BobPhsx DefaultHeroType, DefaultHeroType2;
 
         /// <summary>
         /// True if the level generation algorithm returned early.
@@ -407,6 +407,7 @@ namespace CloudberryKingdom.Levels
                     bob.Release();
             Bobs = null;
             DefaultHeroType = null;
+            DefaultHeroType2 = null;
 
             DrawLayer = null;
 

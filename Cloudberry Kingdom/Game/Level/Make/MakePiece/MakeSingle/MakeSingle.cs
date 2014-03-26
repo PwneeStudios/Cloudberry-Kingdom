@@ -18,6 +18,25 @@ namespace CloudberryKingdom.Levels
         public PieceSeedData PieceSeed { get { return CurMakeData.PieceSeed; } }
         public LevelGeometry Geometry;
 
+        public bool IsHorizontal()
+        {
+            switch (Geometry)
+            {
+                case LevelGeometry.Right: return true;
+                default: return false;
+            }
+        }
+
+        public bool IsVertical()
+        {
+            switch (Geometry)
+            {
+                case LevelGeometry.Up: return true;
+                case LevelGeometry.Down: return true;
+                default: return false;
+            }
+        }
+
         public bool CreationError;
 
         /// <summary>

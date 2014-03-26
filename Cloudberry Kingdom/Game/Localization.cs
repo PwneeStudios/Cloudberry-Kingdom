@@ -767,6 +767,15 @@ Err_CanNotSaveLevel_NoSpace,
 SeedCopiedSuccessfully,
 ProgressWillBeLost,
 
+Porkchop,
+FlappyBlob,
+TimeShip,
+AstralMan,
+UpsideDownMan,
+Madness,
+Anders,
+Dopple,
+
 EnumLength
         };
     }

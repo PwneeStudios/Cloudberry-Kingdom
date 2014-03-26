@@ -9,14 +9,12 @@ namespace CloudberryKingdom
             EnableBounce();
         }
 
-        //public static int Version = 0;
         public static int Version = 1;
 
         QuadClass Berry;
         public override void MakeBackdrop()
         {
             QuadClass backdrop = new QuadClass(null, true, false);
-            //backdrop.TextureName = "Backplate_1230x740";
             backdrop.TextureName = "Arcade_BoxLeft";
             backdrop.ScaleYToMatchRatio(1000);
             MyPile.Add(backdrop, "Backdrop");
@@ -29,10 +27,6 @@ namespace CloudberryKingdom
         protected override void SetItemProperties(MenuItem item)
         {
             base.SetItemProperties(item);
-
-            //item.MyText.Scale *= 1.15f;
-            //item.MySelectedText.Scale *= 1.3f;
-            //CkColorHelper.GreenItem(item);
 
             StartMenu.SetItemProperties_Red(item);
             item.MyText.Shadow = item.MySelectedText.Shadow = false;
@@ -89,10 +83,10 @@ namespace CloudberryKingdom
             MyMenu.SelectItem(0);
 
             EnsureFancy();
-            SetPosition();
+            SetPos();
         }
 
-        void SetPosition()
+        protected virtual void SetPos()
         {
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
 			{

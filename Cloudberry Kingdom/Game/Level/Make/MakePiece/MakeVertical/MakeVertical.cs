@@ -302,9 +302,9 @@ namespace CloudberryKingdom.Levels
             NormalBlock_Parameters BlockParams = (NormalBlock_Parameters)VStyle.FindParams(NormalBlock_AutoGen.Instance);
             if (BlockParams.DoStage1Fill)
             {
-                //Fill_BL = BL_Bound + new Vector2(400, 0);
                 Fill_BL = BL_Bound + new Vector2(400, 650);
-                Fill_TR = TR_Bound + new Vector2(-400, -450);
+                //Fill_TR = TR_Bound + new Vector2(-400, -450);
+                Fill_TR = TR_Bound + new Vector2(-400, -850);
                 
                 Stage1RndFill(Fill_BL, Fill_TR, BL_Bound, .35f * CurMakeData.SparsityMultiplier);
             }

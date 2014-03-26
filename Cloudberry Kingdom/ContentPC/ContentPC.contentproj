@@ -823,6 +823,41 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Art\Menu\TitleScreen\CloudberryKingdomTitle.dds">
+      <Name>CloudberryKingdomTitle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\TitleScreen\TitleScreen_Background.dds">
+      <Name>TitleScreen_Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\TitleScreen\TitleScreen_Left.dds">
+      <Name>TitleScreen_Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\TitleScreen\TitleScreen_Right.dds">
+      <Name>TitleScreen_Right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\Backplates\BigBox.dds">
+      <Name>BigBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\Backplates\CharSelectPanels.dds">
+      <Name>CharSelectPanels</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Menu\Backplates\MediumBox.dds">
+      <Name>MediumBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

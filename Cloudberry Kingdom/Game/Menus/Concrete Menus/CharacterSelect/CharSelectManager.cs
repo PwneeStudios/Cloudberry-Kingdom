@@ -78,14 +78,7 @@ namespace CloudberryKingdom
             // Determine which hats are availabe
             AvailableHats = new Set<Hat>();
             foreach (Hat hat in ColorSchemeManager.HatInfo)
-                //if (hat == Hat.None
-                //    ||
-                //    hat.AssociatedAward == null && PlayerManager.Bought(hat)
-                //    ||
-                //    hat.AssociatedAward != null && PlayerManager.Awarded(hat.AssociatedAward)
-                //    ||
-                //    CloudberryKingdomGame.UnlockAll)
-                    AvailableHats += hat;
+                AvailableHats += hat;
         }
 
         public static Set<Hat> AvailableBeards;
@@ -94,18 +87,12 @@ namespace CloudberryKingdom
             // Determine which Beards are availabe
             AvailableBeards = new Set<Hat>();
             foreach (Hat Beard in ColorSchemeManager.BeardInfo)
-                //if (Beard == Hat.None
-                //    ||
-                //    Beard.AssociatedAward == null && PlayerManager.Bought(Beard)
-                //    ||
-                //    Beard.AssociatedAward != null && PlayerManager.Awarded(Beard.AssociatedAward)
-                //    ||
-                //    CloudberryKingdomGame.UnlockAll)
-                    AvailableBeards += Beard;
+                AvailableBeards += Beard;
         }
 
         static CharSelectBackdrop Backdrop;
         static bool QuickJoin = false;
+        static BungeeSwitch Switch;
         public static void Start(GUI_Panel Parent, bool QuickJoin)
         {
             if (!QuickJoin)
@@ -130,6 +117,14 @@ namespace CloudberryKingdom
 
             // Start the selects for each player
             game.WaitThenDo(0, _StartAll, "StartCharSelect");
+
+            // Add the bungee switch
+            if (Switch != null)
+            {
+                Switch.Release();
+            }
+            Switch = new BungeeSwitch(-1);
+            game.AddGameObject(Switch);
         }
         static void _StartAll()
         {
@@ -269,8 +264,40 @@ namespace CloudberryKingdom
 
             CamPos.AbsVal = CamPos.RelVal = cam.Data.Position;
             
-            // Draw the stickmen
             float setzoom = 0;
+
+            // Draw the bungees
+            if (CloudberryKingdomGame.BungeeSwitch)
+            {
+                Doll LastDrawnDoll = null;
+
+                for (int i = 0; i < 4; i++)
+                    if (CharSelect[i] != null)
+                    {
+                        float _zoom = BobZoom;
+
+                        if (setzoom != _zoom)
+                        {
+                            Tools.QDrawer.Flush();
+                            cam.SetVertexZoom(new Vector2(_zoom));
+                            setzoom = BobZoom;
+                        }
+
+                        var doll = CharSelect[i].MyDoll;
+                        if (doll.ShowBob)
+                        {
+                            // Draw a bungee from this doll to the last doll drawn.
+                            if (LastDrawnDoll != null)
+                            {
+                                BobLink.Draw(LastDrawnDoll.MyDoll.Pos, doll.MyDoll.Pos);
+                            }
+
+                            LastDrawnDoll = doll;
+                        }
+                    }
+            }
+
+            // Draw the stickmen
             for (int i = 0; i < 4; i++)
                 if (CharSelect[i] != null)
                 {
@@ -282,13 +309,17 @@ namespace CloudberryKingdom
                         cam.SetVertexZoom(new Vector2(_zoom));
                         setzoom = BobZoom;
                     }
-                    CharSelect[i].MyDoll.DrawBob();
+
+                    var doll = CharSelect[i].MyDoll;
+                    doll.DrawBob();
                 }
             Tools.QDrawer.Flush();
             cam.SetVertexCamera();
 
             cam.Zoom = HoldZoom;
             cam.SetVertexCamera();
+
+            Switch.ManualDraw();
         }
 
         public static bool FakeHide = false;

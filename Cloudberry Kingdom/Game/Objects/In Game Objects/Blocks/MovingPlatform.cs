@@ -104,6 +104,13 @@ namespace CloudberryKingdom.Blocks
         BlockEmitter_Parameters.BoxStyle MyBoxStyle;
         public void Init(Vector2 center, Vector2 size, Level level, BlockEmitter_Parameters.BoxStyle boxstyle)
         {
+            if (boxstyle == BlockEmitter_Parameters.BoxStyle.Meatboy)
+            {
+                size = new Vector2(size.Y / 2, size.X);
+                boxstyle = BlockEmitter_Parameters.BoxStyle.FullBox;
+                BlockCore.MyOrientation = PieceQuad.Orientation.RotateLeft;
+            }
+
             MyBoxStyle = boxstyle;
 
             if (boxstyle == BlockEmitter_Parameters.BoxStyle.FullBox)
@@ -113,12 +120,6 @@ namespace CloudberryKingdom.Blocks
                 Box.TopOnly = false;
                 Box.NoSides = true;
             }
-
-            //// Not TopOnly if hero is a spaceship.
-            //if (Parent != null && Parent.Core.MyLevel.DefaultHeroType is BobPhsxSpaceship && Box.TopOnly)
-            //{
-            //    Box.TopOnly = false;
-            //}
 
             Range = new Vector2(1800, 1800);
                         

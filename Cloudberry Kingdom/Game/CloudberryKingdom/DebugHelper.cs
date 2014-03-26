@@ -33,7 +33,8 @@ namespace CloudberryKingdom
                 if (Tools.Keyboard.IsKeyDown(Keys.G) && !Tools.PrevKeyboard.IsKeyDown(Keys.G))
                 {
                     //TitleGameFactory = TitleGameData_Intense.Factory;
-                    TitleGameFactory = TitleGameData_MW.Factory;
+                    //TitleGameFactory = TitleGameData_MW.Factory;
+                    TitleGameFactory = TitleGameData_Clouds.Factory;
                     //TitleGameFactory = TitleGameData_Forest.Factory;
 
                     Tools.SongWad.Stop();

@@ -120,7 +120,13 @@ namespace CloudberryKingdom
         {
             if (ShowBob)
             {
-                MyPile.Pos = new Vector2(-10, 260) + Shift;
+                Vector2 BungeeOffset = Vector2.Zero;
+                if (CloudberryKingdomGame.AlwaysBungee)
+                {
+                    BungeeOffset = CoreMath.Periodic(new Vector2(0, -30), new Vector2(0, 30), 120, Tools.PhsxCount + 23 * Control);
+                }
+
+                MyPile.Pos = new Vector2(-10, 260) + Shift + BungeeOffset;
 
                 Vector2 Pos = CharacterSelect.Centers[Control] + MyPile.Pos;
                 Vector2 CurDollPos = Pos / (CharacterSelectManager.BobZoom / CharacterSelectManager.ZoomMod) + Tools.CurGameData.CamPos;

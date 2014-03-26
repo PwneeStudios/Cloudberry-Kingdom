@@ -477,10 +477,13 @@ namespace CloudberryKingdom
 		{
 			get
 			{
-				if (Transcendent)
-					return new Vector2(400, 400);
-				else
-					return Vector2.Zero;
+                if (Transcendent)
+                {
+                    //return new Vector2(400, 400);
+                    return 450 * CoreMath.AngleToDir(MyLevel.GetIndependentPhsxStep() / 80);
+                }
+                else
+                    return Vector2.Zero;
 			}
 		}
 		public bool Transcendent = false;
@@ -728,9 +731,28 @@ namespace CloudberryKingdom
         }
 
 
+        void TranscendentColorUpdate()
+        {
+            if (Transcendent && MainQuad != null)
+            {
+                float vary_alpha = CoreMath.Periodic(.4f, .9f, 62, Tools.PhsxCount);
+                float vary_brightness = CoreMath.Periodic(.8f, 2.1f, 62, Tools.PhsxCount);
+
+                var clr = HoldColor;
+                clr.A = (byte)(vary_alpha * (float)clr.A);
+                MainQuad.SetColor(clr);
+                MainQuad.MyMatrix = HoldMatrix * ColorHelper.HsvTransform(vary_brightness, 1, 1);
+            }
+        }
+
         public Vector2 PrevVel, PrevPos;
         public virtual void PhsxStep()
         {
+            if (Transcendent && MyLevel.PlayMode == 0)
+            {
+                TranscendentColorUpdate();
+            }
+
             SetIceParams();
 
             if (OnGround) AirTime = 0;
@@ -922,28 +944,103 @@ namespace CloudberryKingdom
         {
         }
 
+        public virtual void ObjectDraw()
+        {
+            if (Transcendent)
+            {
+
+            }
+            else
+            {
+                DrawObject();
+            }
+        }
+
+        protected virtual void DrawObject()
+        {
+            if (Obj != null)
+            {
+                if (Obj.ContainedQuadAngle == 0)
+                {
+                    Obj.Draw(true);
+                }
+                else
+                {
+                    Obj.Update(null);
+                    var w = (Quad)Obj.FindQuad("Wheel");
+                    var p = Obj.ParentQuad;
+                    Vector2 hold = p.Center.Pos;
+
+                    float D = 116.6666f * p.Size.Y / 260;
+                    var d = D * CoreMath.AngleToDir(Obj.ContainedQuadAngle + 1.57);
+                    var move = new Vector2(0, D) - d;
+                    Obj.ParentQuad.Center.Move(move + p.Center.Pos);
+
+                    Obj.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(Obj.ContainedQuadAngle));
+                    Obj.Draw(true);
+                    Obj.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(0));
+
+                    Obj.ParentQuad.Center.Move(hold);
+                    Obj.Update(null);
+                }
+            }
+        }
+
 		public virtual void PreObjectDraw()
 		{
 			if (Transcendent)
 			{
+                // Draw block
+                float Width = MyBob.Box.TR.X - MyBob.Box.BL.X;
+                Tools.QDrawer.DrawQuad(MyBob.Box.BL - new Vector2(0, 5), new Vector2(MyBob.Box.TR.X, MyBob.Box.BL.Y + Width), Color.White, Tools.Texture("Movingblock_Castle_80"), Tools.BasicEffect);
+
+                // Draw chain
+                Tools.QDrawer.DrawLine(MyBob.Box.BL + new Vector2(Width) / 2, Pos + TranscendentOffset, Color.White, 20, "Floater_Chain_Castle", Tools.BasicEffect, 1000, 0, false);
+                Tools.QDrawer.Flush();
+
+                // Draw transcendent Bob
 				Vector2 hold = MyBob.PlayerObject.ParentQuad.Center.Pos;
 				MyBob.PlayerObject.ParentQuad.Center.Move(hold + TranscendentOffset);
 				MyBob.PlayerObject.ParentQuad.Update();
 				MyBob.PlayerObject.Update(null);
-				
-				MyBob.PlayerObject.Draw(true);
+
+                DrawObject();
 
 				MyBob.PlayerObject.ParentQuad.Center.Move(hold);
 				MyBob.PlayerObject.ParentQuad.Update();
 				MyBob.PlayerObject.Update(null);
 
-				//Tools.QDrawer.DrawCircle(MyBob.Box2.Current.Center, 100, Color.White);
 				Tools.QDrawer.Flush();
 			}
 		}
 
+        Color HoldColor;
+        Matrix HoldMatrix;
+        BaseQuad MainQuad;
+        public virtual void ModColorScheme(BaseQuad mainquad)
+        {
+            MainQuad = mainquad;
+            HoldColor = mainquad.MyColor;
+            HoldMatrix = mainquad.MyMatrix;
+        }
+
 		public virtual void PostObjectDraw()
 		{
 		}
+
+        public virtual Vector2 ExplosionPos
+        {
+            get
+            {
+                if (Transcendent)
+                {
+                    return Pos + TranscendentOffset;
+                }
+                else
+                {
+                    return Pos;
+                }
+            }
+        }
     }
 }

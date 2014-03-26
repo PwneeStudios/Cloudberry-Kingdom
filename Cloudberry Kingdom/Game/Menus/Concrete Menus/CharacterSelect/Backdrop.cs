@@ -8,7 +8,6 @@ namespace CloudberryKingdom
         public CharSelectBackdrop()
             : base()
         {
-            //Core.DrawLayer += 1;
         }
 
 #if PC_VERSION
@@ -48,7 +47,8 @@ namespace CloudberryKingdom
             MyPile = new DrawPile();
             EnsureFancy();
 
-            var Backdrop = new QuadClass("CharSelect", 1778);
+            //var Backdrop = new QuadClass("CharSelect", 1778);
+            var Backdrop = new QuadClass("CharSelectPanels", 1778);
             MyPile.Add(Backdrop, "Backdrop");
 
 #if PC_VERSION

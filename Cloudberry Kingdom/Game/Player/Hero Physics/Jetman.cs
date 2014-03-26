@@ -44,7 +44,10 @@ namespace CloudberryKingdom
         {
             if (obj.QuadList != null)
             {
-                obj.FindQuad("Rocket").Show = true;
+                var quad = obj.FindQuad("Rocket");
+                
+                quad.Show = true;
+                quad.SetTexture("Castle_jet_pack", Tools.TextureWad);
             }
         }
 

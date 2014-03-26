@@ -301,7 +301,6 @@ namespace CloudberryKingdom
         /// </summary>
         protected virtual void Init(EzText Text, EzText SelectedText)
         {
-            //MyOscillateParams.Set(2f, 1.03f, .05f);
             MyOscillateParams.Set(2.05f, 1.0295f, .045f);
 
             Selectable = true;

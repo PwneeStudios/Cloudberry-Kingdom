@@ -7,7 +7,7 @@ namespace CloudberryKingdom.Levels
 {
     public class BlockEmitter_Parameters : AutoGen_Parameters
     {
-        public enum BoxStyle { TopOnly, FullBox, NoSides };
+        public enum BoxStyle { TopOnly, FullBox, NoSides, Meatboy };
 
         public enum Style { Full, Separated }
         public Style MyStyle;
@@ -26,7 +26,20 @@ namespace CloudberryKingdom.Levels
 
             MyStyle = (Style)level.Rnd.RndEnum<Style>();
 
-            FillWeight = new Param(PieceSeed, u => .5f * u[Upgrade.Elevator]);
+            if (level.Geometry == LevelGeometry.Up && level.DefaultHeroType is BobPhsxMeat)
+            {
+                FillWeight = new Param(PieceSeed, u => Math.Min(8, .95f * u[Upgrade.Elevator]));
+                Width = new Param(PieceSeed, u => DifficultyHelper.Interp159(180, 140, 95, u[Upgrade.Elevator]));
+                DistAdd = new Param(PieceSeed, u => .35f * DifficultyHelper.Interp19(.135f * 2400, .385f * 250, u[Upgrade.Elevator]));
+                Delay = new Param(PieceSeed, u => .4f * Math.Max(60, 120 - 6 * u[Upgrade.Speed]));
+            }
+            else
+            {
+                FillWeight = new Param(PieceSeed, u => .5f * u[Upgrade.Elevator]);
+                Width = new Param(PieceSeed, u => DifficultyHelper.Interp159(150, 120, 75, u[Upgrade.Elevator]));
+                DistAdd = new Param(PieceSeed, u => DifficultyHelper.Interp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
+                Delay = new Param(PieceSeed, u => Math.Max(60, 120 - 6 * u[Upgrade.Speed]));
+            }
 
             KeepUnused = new Param(PieceSeed);
             if (level.DefaultHeroType is BobPhsxSpaceship)
@@ -34,44 +47,19 @@ namespace CloudberryKingdom.Levels
                 KeepUnused.SetVal(u => BobPhsxSpaceship.KeepUnused(u[Upgrade.GhostBlock]));
             }
 
-            Dist = new Param(PieceSeed);
-            Dist.SetVal(u =>
+            Dist = new Param(PieceSeed, u =>
             {
                 if (u[Upgrade.Elevator] > 0)
-                    //return .105f * DifficultyHelper.Interp19(3000, 500, u[Upgrade.Elevator]);
                     return .105f * DifficultyHelper.Interp19(5000, 500, u[Upgrade.Elevator]);
                 else
                     return 1400;
             });
 
-            DistAdd = new Param(PieceSeed);
-            //DistAdd.SetVal(u => .105f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
-            //DistAdd.SetVal(u => .385f * DifficultyHelper.Interp19(2800, 500, u[Upgrade.Elevator]));
-            DistAdd.SetVal(u => DifficultyHelper.Interp19(.135f * 2800, .385f * 500, u[Upgrade.Elevator]));
+            Amp = new Param(PieceSeed, u => Math.Min(450, 0 + 30 * u[Upgrade.Elevator]));
 
-            Amp = new Param(PieceSeed);
-            Amp.SetVal(u =>
-            {
-                return Math.Min(450, 0 + 30 * u[Upgrade.Elevator]);
-            });
+            Types = new Param(PieceSeed, u => Math.Min(2, u[Upgrade.Elevator] / 4));
 
-            Types = new Param(PieceSeed);
-            Types.SetVal(u =>
-            {
-                return Math.Min(2, u[Upgrade.Elevator] / 4);
-            });
-
-            Delay = new Param(PieceSeed);
-            Delay.SetVal(u =>
-            {
-                return Math.Max(60, 120 - 6 * u[Upgrade.Speed]);
-            });
-
-            Speed = new Param(PieceSeed);
-            Speed.SetVal(u => DifficultyHelper.Interp19(5.6f, 16f, u[Upgrade.Speed]));
-
-            //Width = new Param(PieceSeed, u => 150);
-            Width = new Param(PieceSeed, u => DifficultyHelper.Interp159(150, 120, 75, u[Upgrade.Elevator]));
+            Speed = new Param(PieceSeed, u => DifficultyHelper.Interp19(5.6f, 16f, u[Upgrade.Speed]));
 
             SpeedAdd = new Param(PieceSeed);
             SpeedAdd.SetVal(u => DifficultyHelper.Interp19(5.6f, 13f, u[Upgrade.Speed])
@@ -174,6 +162,7 @@ namespace CloudberryKingdom.Levels
                         if (DistAdd < Params.StepCutoff)
                         {
                             BlockEmitter bm = (BlockEmitter)level.Recycle.GetObject(ObjectType.BlockEmitter, true);
+                            bm.Init(Pos, level, level.CurMakeData.PieceSeed.ElevatorBoxStyle);
 
                             float Vel = GetVel(Params, ref Pos);
 

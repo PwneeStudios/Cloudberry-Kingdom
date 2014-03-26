@@ -35,9 +35,6 @@ namespace CloudberryKingdom
 
         protected override void MyDraw()
         {
-            // No cheers =(
-            return;
-
             if (!Core.Show || Core.MyLevel.SuppressCheckpoints) return;
 
             Level level = Core.MyLevel;

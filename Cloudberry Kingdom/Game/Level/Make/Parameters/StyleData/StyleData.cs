@@ -49,6 +49,12 @@ namespace CloudberryKingdom.Levels
             level.DefaultHeroType.ModData(ref level.CurMakeData, this);
             level.DefaultHeroType.ModLadderPiece(SeedData);
 
+            if (level.DefaultHeroType2 != null)
+            {
+                level.DefaultHeroType2.ModData(ref level.CurMakeData, this);
+                level.DefaultHeroType2.ModLadderPiece(SeedData);
+            }
+
             // Set time type
             level.TimeType = TimeType;
         }
@@ -357,47 +363,55 @@ namespace CloudberryKingdom.Levels
                 DoublePathType = _DoublePathType.Gap;
 
             // Make sure double paths are always well separated
-            if (Rnd.RndBool())
-            {
-                Bob1Start = _StartType.Bottom;
-                Bob2Start = _StartType.Top;
-            }
-            else
-            {
-                Bob1Start = _StartType.Top;
-                Bob2Start = _StartType.Bottom;
-            }
+            //if (Rnd.RndBool())
+            //{
+            //    Bob1Start = _StartType.Bottom;
+            //    Bob2Start = _StartType.Top;
+            //}
+            //else
+            //{
+            //    Bob1Start = _StartType.Top;
+            //    Bob2Start = _StartType.Bottom;
+            //}
+
+            Bob1Start = Bob2Start = _StartType.Bottom;
 
             SetStartType(ref makeData.Start[0], ref makeData.CheckpointShift[0], Bob1Start, Piece);
             SetStartType(ref makeData.Start[1], ref makeData.CheckpointShift[1], Bob2Start, Piece);
             makeData.Start[1].Position.X += 100;
 
-            switch (DoublePathType)
-            {
-                case _DoublePathType.Independent:
-                    for (int i = 0; i < 2; i++)
-                    {
-                        makeData.MoveData[i].MaxTargetY = 900;
-                        makeData.MoveData[i].MinTargetY = -600;
-                    }
-                    break;
 
-                case _DoublePathType.Separated:
-                    makeData.MoveData[0].MaxTargetY = 900;
-                    makeData.MoveData[0].MinTargetY = 120;
+            makeData.MoveData[0].MaxTargetY = 200;
+            makeData.MoveData[0].MinTargetY = -650;
+            makeData.MoveData[1].MaxTargetY = 900;
+            makeData.MoveData[1].MinTargetY = 200;
 
-                    makeData.MoveData[1].MaxTargetY = 100;
-                    makeData.MoveData[1].MinTargetY = -600;
-                    break;
+            //switch (DoublePathType)
+            //{
+            //    case _DoublePathType.Independent:
+            //        for (int i = 0; i < 2; i++)
+            //        {
+            //            makeData.MoveData[i].MaxTargetY = 900;
+            //            makeData.MoveData[i].MinTargetY = -600;
+            //        }
+            //        break;
 
-                case _DoublePathType.Gap:
-                    makeData.MoveData[0].MaxTargetY = 1000;
-                    makeData.MoveData[0].MinTargetY = 700;
+            //    case _DoublePathType.Separated:
+            //        makeData.MoveData[0].MaxTargetY = 900;
+            //        makeData.MoveData[0].MinTargetY = 120;
 
-                    makeData.MoveData[1].MaxTargetY = -300;
-                    makeData.MoveData[1].MinTargetY = -700;
-                    break;
-            }
+            //        makeData.MoveData[1].MaxTargetY = 100;
+            //        makeData.MoveData[1].MinTargetY = -600;
+            //        break;
+
+            //    case _DoublePathType.Gap:
+            //        makeData.MoveData[0].MaxTargetY = 1000;
+            //        makeData.MoveData[0].MinTargetY = 700;
+
+            //        makeData.MoveData[1].MaxTargetY = -300;
+            //        makeData.MoveData[1].MinTargetY = -700;
+            //        break;
+            //}
         }
 
         public void SetTriplePathType(Level.MakeData makeData, Level level, PieceSeedData Piece)

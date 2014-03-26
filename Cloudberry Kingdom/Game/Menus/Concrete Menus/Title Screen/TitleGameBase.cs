@@ -6,12 +6,18 @@ using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
-    public class TitleGameData : GameData
+    public enum TitleBackgroundState { None, CharSelect,
+                        Scene_Title, Scene, Scene_Blur, Scene_StoryMode, Scene_Blur_Dark,
+                        Scene_Arcade, Scene_Arcade_Blur };
+
+    public abstract class TitleGameData : GameData
     {
         public new static GameData Factory(LevelSeedData data, bool MakeInBackground)
         {
             return null;
         }
+
+        public abstract void SetBackgroundState(TitleBackgroundState state);
 
         public override void Release()
         {

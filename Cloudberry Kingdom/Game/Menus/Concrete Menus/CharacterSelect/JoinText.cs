@@ -283,7 +283,7 @@ namespace CloudberryKingdom
 			}
 #endif
 
-			if (CharacterSelectManager.Active && ButtonCheck.State(ControllerButtons.A, Control).Pressed)
+			if (CharacterSelectManager.Active && (ButtonCheck.State(ControllerButtons.A, Control).Pressed))//|| Control == 3 || Control == 1 || Control == 0))
             {
 #if PC_VERSION
 				if (!Tools.MouseDown() ||

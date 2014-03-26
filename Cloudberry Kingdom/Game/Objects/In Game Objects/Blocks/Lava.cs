@@ -104,7 +104,7 @@ namespace CloudberryKingdom
         {
             float h = MyBox.TR.Y;
             
-            if (bob.Box.BL.Y < h - 40)
+            if (bob.Box.BL.Y + bob.MyPhsx.TranscendentOffset.Y < h - 40)
                 bob.Die(Bob.BobDeathType.Lava);
         }
 
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
             if (bob.Box.Current.TR.X > Box.Current.BL.X &&
                 bob.Box.Current.BL.X < Box.Current.TR.X)
             {
-                bob.Core.MyLevel.PushLava(bob.Box.Target.BL.Y - 60, this);
+                bob.Core.MyLevel.PushLava(bob.Box.Target.BL.Y + bob.MyPhsx.TranscendentOffset.Y - 60, this);
             }
 
             return true;

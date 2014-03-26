@@ -29,7 +29,20 @@ namespace CloudberryKingdom
         /// <summary>
         /// Whether the game has the players tethered
         /// </summary>
-        public bool IsTethered;
+        public bool IsTethered
+        {
+            get
+            {
+                //return _IsTethered;
+                return _IsTethered || CloudberryKingdomGame.AlwaysBungee;
+            }
+            set
+            {
+                _IsTethered = value;
+            }
+        }
+    
+        bool _IsTethered;
 
         /// <summary>
         /// Whether the game is a Doppleganger Game
@@ -730,6 +743,7 @@ namespace CloudberryKingdom
         List<ToDoItem> CurToDo;
 
         public BobPhsx DefaultHeroType = BobPhsxNormal.Instance;
+        public BobPhsx DefaultHeroType2 = null;
 
         public bool Released = false;
 
@@ -1048,7 +1062,6 @@ namespace CloudberryKingdom
 
             PlayerManager.Get(i).IsAlive = PlayerManager.Get(i).Exists = true;
 
-            //Bob Player = new Bob(Prototypes.bob[MyLevel.DefaultHeroType], false);
             Bob Player = new Bob(MyLevel.DefaultHeroType, false);
 
             Player.MyPlayerIndex = PlayerManager.Get(i).MyPlayerIndex;
@@ -1635,7 +1648,11 @@ namespace CloudberryKingdom
 
         private int CreateBob(Level level, int NumStarts, int Count, int i, int j)
         {
-            Bob Player = new Bob(level.DefaultHeroType, false);
+            var hero = level.DefaultHeroType;
+            if (level.DefaultHeroType2 != null && j == 1)
+                hero = level.DefaultHeroType2;
+
+            Bob Player = new Bob(hero, false);
 
             Player.MyPlayerIndex = PlayerManager.Get(i).MyPlayerIndex;
             MyLevel.AddBob(Player);
@@ -1646,7 +1663,10 @@ namespace CloudberryKingdom
             Player.MyPieceIndex = Count % NumStarts;
             Player.MyPieceIndexOffset = Count / NumStarts;
 
-            if (MyGameFlags.IsDopplegangerInvert)
+            if (MyGameFlags.IsDoppleganger && j > 0)
+                Player.Dopple = true;
+
+            if (MyGameFlags.IsDopplegangerInvert && !level.IsHorizontal())
                 Player.MoveData.InvertDirX = j == 0;
 
             Count++;
@@ -1681,8 +1701,8 @@ namespace CloudberryKingdom
 				int count = 0;
 				foreach (Bob bob in Bobs)
 				{
-					if (count > 0)
-						bob.Dopple = true;
+                    //if (count > 0)
+                    //    bob.Dopple = true;
 					count++;
 				}
             }
@@ -1722,7 +1742,8 @@ namespace CloudberryKingdom
                 Tools.CurGameType = LevelSeed.MyGameType;
                 if (Tools.CurGameData != null)
                 {
-                    Tools.CurGameData.DefaultHeroType = LevelSeed.DefaultHeroType;
+                    Tools.CurGameData.DefaultHeroType  = LevelSeed.DefaultHeroType;
+                    Tools.CurGameData.DefaultHeroType2 = LevelSeed.DefaultHeroType2;
                 }
             }
 

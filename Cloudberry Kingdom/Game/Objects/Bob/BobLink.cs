@@ -56,7 +56,7 @@ namespace CloudberryKingdom.Bobs
             Draw(j.Core.Data.Position, k.Core.Data.Position);
         }
 
-        public void Draw(Vector2 p1, Vector2 p2)
+        public static void Draw(Vector2 p1, Vector2 p2)
         {
             Tools.QDrawer.DrawLine(p1, p2, Color.WhiteSmoke, 15);
         }

@@ -124,22 +124,19 @@ namespace CloudberryKingdom
         public override void LandOnSomething(bool MakeReadyToJump, ObjectBase ThingLandedOn)
         {
 			if (Gravity < 0)
-				base.HitHeadOnSomething(ThingLandedOn);
+				_HitHeadOnSomething(ThingLandedOn);
 			else
 			{
 				if (ThingLandedOn is Obstacles.FlyingBlob)
 					MyBob.Count_ButtonA = 0;
 
-				base.LandOnSomething(MakeReadyToJump, ThingLandedOn);
+				_LandOnSomething(MakeReadyToJump, ThingLandedOn);
 			}
         }
 
         public override void HitHeadOnSomething(ObjectBase ThingHit)
         {
-            if (Gravity < 0)
-                base.LandOnSomething(false, ThingHit);
-            else
-                base.HitHeadOnSomething(ThingHit);
+            base.HitHeadOnSomething(ThingHit);
         }
 
         public override bool ShouldStartJumpAnim()

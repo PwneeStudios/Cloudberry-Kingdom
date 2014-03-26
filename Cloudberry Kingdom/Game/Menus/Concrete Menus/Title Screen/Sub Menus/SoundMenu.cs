@@ -136,6 +136,22 @@ namespace CloudberryKingdom
             mitem.Name = "Custom";
             AddItem(mitem);
 
+            // Anders art
+            var AndersText = new EzText(Localization.Words.Anders, ItemFont, CenterItems);
+            SetHeaderProperties(AndersText);
+            AndersText.Name = "Anders";
+            MyPile.Add(AndersText);
+
+            var AndersToggle = new MenuToggle(ItemFont);
+            AndersToggle.OnToggle = (state) =>
+            {
+                CloudberryKingdomGame.AndersSwitch = !CloudberryKingdomGame.AndersSwitch;
+            };
+            AndersToggle.Name = "AndersToggle";
+
+            AndersToggle.Toggle(CloudberryKingdomGame.AndersSwitch);
+            AddItem(AndersToggle);
+
             // Full screen resolutions
             var RezText = new EzText(Localization.Words.Resolution, ItemFont, CenterItems);
             SetHeaderProperties(RezText);
@@ -234,9 +250,6 @@ namespace CloudberryKingdom
 			#endif
 
             AddItem(toggle);
-
-            //AddToggle_FixedTimestep();
-            //AddToggle_Borderless();
 #endif
 
 			// Credits
@@ -516,7 +529,7 @@ namespace CloudberryKingdom
 				{
 #if PC_VERSION
 					if (panel is StartMenu_MW_Simple)
-						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(TitleBackgroundState.Scene_Title);
 					else
 						panel.SlideOut(PresetPos.Left, 0);
 #else
@@ -670,7 +683,7 @@ namespace CloudberryKingdom
             }
         }
 
-        private void SetPosition_PC()
+        protected virtual void SetPosition_PC()
         {
 			MenuList list;
 

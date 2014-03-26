@@ -433,6 +433,10 @@ namespace CloudberryKingdom
             BobPhsxInvert.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
             bob.Add(BobPhsxInvert.Instance, NewBob);
 
+            // Upside Down
+            BobPhsxUpsideDown.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
+            bob.Add(BobPhsxUpsideDown.Instance, NewBob);
+
             // Time
             BobPhsxTime.Instance.Prototype = BobPhsxNormal.Instance.Prototype;
             bob.Add(BobPhsxTime.Instance, NewBob);

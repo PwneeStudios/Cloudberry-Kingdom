@@ -153,7 +153,6 @@ namespace CloudberryKingdom
 
         private static void _NewHero(Level level)
         {
-            //level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(Localization.Words.NewHeroUnlocked) + "\n" + Localization.WordString(level.DefaultHeroType.Name)));
 			level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(level.DefaultHeroType.Name)));
             level.MyLevelSeed.WaitLengthToOpenDoor = 150;
             level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
@@ -856,7 +855,7 @@ namespace CloudberryKingdom
 
         public int PieceLength = 3000;
 
-        public BobPhsx DefaultHeroType;
+        public BobPhsx DefaultHeroType, DefaultHeroType2;
 
         public GameFlags MyGameFlags;
 
@@ -890,22 +889,33 @@ namespace CloudberryKingdom
 
         public void SetTileSet(TileSet tileset)
         {
-			//if (Switch)
-			if (tileset != null)
-			switch (tileset.Name)
-			{
-				case "cave":
-					SetTileSet("anders__palace"); return;
+            if (CloudberryKingdomGame.CodersEdition && CloudberryKingdomGame.AndersSwitch && tileset != null)
+            {
+                // Convert all tilesets to some Anders tileset
+                switch (tileset.Name)
+                {
+                    case "cave":
+                        SetTileSet("anders__palace"); return;
 
-				case "castle":
-				case "cloud":
-				case "forest":
-					SetTileSet("anders__dungeon"); return;
+                    case "castle":
+                    case "cloud":
+                    case "forest":
+                        SetTileSet("anders__dungeon"); return;
 
-				case "hills":
-				case "sea":
-					SetTileSet("anders__terrace"); return;
-			}
+                    case "hills":
+                    case "sea":
+                        SetTileSet("anders__terrace"); return;
+                }
+            }
+            else
+            {
+                // Make sure we always use the caslte tileset for up levels
+                if ((MyGeometry == LevelGeometry.Up || MyGeometry == LevelGeometry.Down) && tileset != null && tileset.Name != "castle")
+                {
+                    SetTileSet("castle");
+                    return;
+                }
+            }
 
             MyTileSet = tileset;
             MyBackgroundType = MyTileSet == null ? null : MyTileSet.MyBackgroundType;
@@ -930,6 +940,7 @@ namespace CloudberryKingdom
 			OnBeginLoad = null;
 			Loaded = null;
 			DefaultHeroType = null;
+            DefaultHeroType2 = null;
 			Rnd = null;
 			MyBackgroundType = null;
 			MyTileSet = null;
@@ -960,6 +971,7 @@ namespace CloudberryKingdom
             MyTileSet = data.MyTileSet;
             
             DefaultHeroType = data.DefaultHeroType;
+            DefaultHeroType2 = data.DefaultHeroType2;
             MyGameFlags = data.MyGameFlags;
 
             Length = data.Length;
@@ -1180,6 +1192,8 @@ namespace CloudberryKingdom
                     Piece.Ladder = RndDifficulty.ChooseLadder(Difficulty);
                     Pos += Level.GetLadderSize(Piece.Ladder);
                     DefaultHeroType.ModLadderPiece(Piece);
+                    if (DefaultHeroType2 != null)
+                        DefaultHeroType2.ModLadderPiece(Piece);
                     PieceSeeds.Add(Piece);
                 }
             }          
@@ -1194,24 +1208,16 @@ namespace CloudberryKingdom
         {
             game.MyGameFlags = MyGameFlags;
             
-            //// Get a new random seed
-            //if (!LockedSeed)
-            //    Seed = game.Rnd.Rnd.Next();
-
-
-            //// Initialize the random number generator
-            //game.Rnd.Rnd = new Random(Seed);
-
             // Create the level object
             Level NewLevel = new Level();
             NewLevel.MySourceGame = game;
             NewLevel.DefaultHeroType = DefaultHeroType;
+            NewLevel.DefaultHeroType2 = DefaultHeroType2;
             Camera cam = NewLevel.MainCamera = new Camera();
             cam.Update();
 
             // Set background and tileset
             NewLevel.MyBackground = Background.Get(MyBackgroundType);
-            //NewLevel.MyTileSet = NewLevel.MyBackground.MyTileSet;
             NewLevel.MyTileSet = MyTileSet;
 
             return NewLevel;

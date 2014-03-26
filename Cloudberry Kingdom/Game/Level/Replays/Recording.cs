@@ -107,7 +107,7 @@ namespace CloudberryKingdom.Levels
                     if (level.DefaultHeroType is BobPhsxSpaceship &&
                         (Recordings[link._j].Gett(Step) == 0 || Recordings[link._k].Gett(Step) == 0))
                         continue;
-                    link.Draw(Recordings[link._j].GetBoxCenter(Step), Recordings[link._k].GetBoxCenter(Step));
+                    BobLink.Draw(Recordings[link._j].GetBoxCenter(Step), Recordings[link._k].GetBoxCenter(Step));
                 }
             }
 

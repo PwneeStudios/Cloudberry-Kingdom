@@ -222,7 +222,31 @@
     <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
+    <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Madness\Madness_Tutorial.cs" />
+    <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Madness\Madness.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\BungeeSwitch.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\HeroItem.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Backpanel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Black.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_CustomLevel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Exit.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Options.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Pre.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_PressStart.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Simple.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Campaign.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Cinematics.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Arcade.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_HeroSelect.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\TitleGame_Clouds.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\CinematicsLevelItem.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\CampaignChapterItem.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\HeroSelectOptions_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Arcade.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_HeroSelect.cs" />
     <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
+    <Compile Include="Game\Player\Hero Physics\UpsideDown.cs" />
     <Compile Include="Game\Player\Hero Physics\FourWay.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Palace.cs" />
     <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Dungeon.cs" />
@@ -271,8 +295,8 @@
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Waiting.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Simple.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Pre.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Simple.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Pre.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\CustomHero_GUI.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Freeplay\PhsxSlider.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\Backdrop.cs" />
@@ -281,20 +305,18 @@
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreDatabase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreEntry.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\StartLevelMenu.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\HeroSelectOptions.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\HeroSelectOptions_Clouds.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\Doll.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\StartMenu_MW_HeroSelect.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_CustomLevel.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\StartMenu_MW_Arcade.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Exit.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Options.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Black.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Cinematics.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Story\StartMenu_MW_Campaign.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_PressStart.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW_Backpanel.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\TitleGame_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_CustomLevel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Exit.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Options.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Black.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Cinematics.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Campaign.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_PressStart.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Backpanel.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\TitleGame_MW.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\VerifyStoryReset.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\ChapterTitle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\NewHero.cs" />
@@ -785,6 +807,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>

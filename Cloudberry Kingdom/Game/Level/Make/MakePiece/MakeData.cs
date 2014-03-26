@@ -115,27 +115,16 @@ namespace CloudberryKingdom.Levels
 
             public Bob[] MakeBobs(Level level)
             {
-                /*
-                if (level.MySourceGame.MyGameFlags.IsDoppleganger)
-                {
-                    for (int i = 0; i < NumInitialBobs; i += 2)
-                    {
-                        MoveData[i + 1].Copy = i;
-
-                        if (level.MySourceGame.MyGameFlags.IsDopplegangerInvert)
-                            MoveData[i + 1].InvertDirX = true;
-                    }
-                }
-                */
-
-
                 Bob[] Computers = new Bob[NumInitialBobs];
 
                 level.Bobs.Clear();
                 for (int i = 0; i < NumInitialBobs; i++)
                 {
-                    //Computers[i] = new Bob(Prototypes.bob[level.DefaultHeroType], true);
-                    Computers[i] = new Bob(level.DefaultHeroType, true);
+                    var hero = level.DefaultHeroType;
+                    if (level.DefaultHeroType2 != null && i > 0)
+                        hero = level.DefaultHeroType2;
+
+                    Computers[i] = new Bob(hero, true);
 
 					if (level.MySourceGame.MyGameFlags.IsDoppleganger && i > 0)
 						Computers[i].Dopple = true;

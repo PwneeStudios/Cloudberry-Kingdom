@@ -318,6 +318,8 @@ namespace CloudberryKingdom.Bobs
                     q.SetColor(Color.White);
                 }
 
+                MyPhsx.ModColorScheme(q);
+
                 var wf = PlayerObject.FindQuad("Wings_Front"); if (wf != null) wf.MyMatrix = scheme.SkinColor.M;
                 var wb = PlayerObject.FindQuad("Wings_Back"); if (wb != null) wb.MyMatrix = scheme.SkinColor.M;
             }
@@ -673,7 +675,6 @@ namespace CloudberryKingdom.Bobs
             MyCapeType = Cape.CapeType.Normal;
 
             MyPhsx = type.Clone();
-            //MyPhsx = new BobPhsxNormal();
 
             MyPhsx.Init(this);
             MakeCape(MyCapeType);
@@ -695,8 +696,14 @@ namespace CloudberryKingdom.Bobs
             HeldObjectIteration = 0;
 
             BobPhsx type = game.DefaultHeroType;
-            if (Core.MyLevel != null)
-                type = Core.MyLevel.DefaultHeroType;
+            if (Core.MyLevel != null) type = Core.MyLevel.DefaultHeroType;
+
+            if (Dopple)
+            {
+                if (game.DefaultHeroType2 != null) type = game.DefaultHeroType2;
+                if (Core.MyLevel != null && Core.MyLevel.DefaultHeroType2 != null) type = Core.MyLevel.DefaultHeroType2;
+            }
+
             MyHeroType = type;
 
             Core.DrawLayer = 6;
@@ -1395,29 +1402,10 @@ namespace CloudberryKingdom.Bobs
                         DrawTheRocket();
 
                     Tools.QDrawer.SetAddressMode(false, false);
-                    if (PlayerObject.ContainedQuadAngle == 0)
+                    if (MyPhsx != null)
                     {
-						if (MyPhsx != null) MyPhsx.PreObjectDraw();
-                        PlayerObject.Draw(true);
-                    }
-                    else
-                    {
-                        PlayerObject.Update(null);
-                        var w = (Quad)PlayerObject.FindQuad("Wheel");
-                        var p = PlayerObject.ParentQuad;
-                        Vector2 hold = p.Center.Pos;
-
-                        float D = 116.6666f * p.Size.Y / 260;
-                        var d = D * CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle + 1.57);
-                        var move = new Vector2(0, D) - d;
-                        PlayerObject.ParentQuad.Center.Move(move + p.Center.Pos);
-
-                        PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(PlayerObject.ContainedQuadAngle));
-                        PlayerObject.Draw(true);
-                        PlayerObject.ParentQuad.PointxAxisTo(CoreMath.AngleToDir(0));
-
-                        PlayerObject.ParentQuad.Center.Move(hold);
-                        PlayerObject.Update(null);
+                        MyPhsx.PreObjectDraw();
+                        MyPhsx.ObjectDraw();
                     }
                 }
             }
@@ -1637,7 +1625,6 @@ namespace CloudberryKingdom.Bobs
 
         public void InitBoxesForCollisionDetect()
         {
-            //PlayerObject.Update(null);
             Box.Current.Size = PlayerObject.BoxList[1].Size() / 2;
             Box2.Current.Size = PlayerObject.BoxList[2].Size() / 2;
 
@@ -1692,6 +1679,7 @@ namespace CloudberryKingdom.Bobs
 				temp.Pos = Pos + CustomCapePos;
 			else
 				temp.Pos = Head.Center.Pos;
+            temp.Pos += MyPhsx.TranscendentOffset;
 
             if (Dead)
                 temp.Pos += new Vector2(60, -50) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
@@ -1907,7 +1895,7 @@ namespace CloudberryKingdom.Bobs
             // Phsyics update
 			if (Dopple)
 			{
-				if (MoveData.InvertDirX || MyLevel.MySourceGame != null && MyLevel.MySourceGame.MyGameFlags.IsDopplegangerInvert)
+				if (MoveData.InvertDirX || MyLevel.MySourceGame != null && MyLevel.MySourceGame.MyGameFlags.IsDopplegangerInvert && !MyLevel.IsHorizontal())
 				{
 					CurInput.xVec.X *= -1;
 				}
@@ -1921,7 +1909,6 @@ namespace CloudberryKingdom.Bobs
                 MyPhsx.PhsxStep();
             Core.Data.Velocity.X += Windx;
             MyPhsx.CopyPrev();
-            //if (MoveData.InvertDirX) CurInput.xVec.X *= -1;
 
             // Collision with screen boundary
             if (CollideWithCamera && !Cinematic)
