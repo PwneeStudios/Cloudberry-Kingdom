@@ -258,30 +258,15 @@ namespace CloudberryKingdom
 
         void SetPos_PC()
         {
-			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
-			{
-				MenuItem _item;
-				_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-658.0005f, 112.7778f); _item.MyText.Scale = 0.6180833f; _item.MySelectedText.Scale = 0.6180833f; _item.SelectIconOffset = new Vector2(0f, 0f); }
+            MenuItem _item;
+            _item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-2521.89f, -220.5555f); _item.MyText.Scale = 0.6497502f; _item.MySelectedText.Scale = 0.6497502f; _item.SelectIconOffset = new Vector2(0f, 0f); }
 
-				MyMenu.Pos = new Vector2(947.2223f, -608.3333f);
+            MyMenu.Pos = new Vector2(947.2223f, -608.3333f);
 
-				QuadClass _q;
-				_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(130.5556f, -627.7776f); _q.Size = new Vector2(80f, 75.2f); }
+            QuadClass _q;
+            _q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(-655.5551f, -952.7773f); _q.Size = new Vector2(63.86522f, 60.03331f); }
 
-				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
-			}
-			else
-			{
-				MenuItem _item;
-				_item = MyMenu.FindItemByName("Leaderboard"); if (_item != null) { _item.SetPos = new Vector2(-638.5557f, 110f); _item.MyText.Scale = 0.75f; _item.MySelectedText.Scale = 0.75f; _item.SelectIconOffset = new Vector2(0f, 0f); }
-
-				MyMenu.Pos = new Vector2(947.2223f, -608.3333f);
-
-				QuadClass _q;
-				_q = MyPile.FindQuad("Button_X"); if (_q != null) { _q.Pos = new Vector2(113.8889f, -624.9999f); _q.Size = new Vector2(80f, 75.2f); }
-
-				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
-			}
+            MyPile.Pos = new Vector2(83.33417f, 130.9524f);
         }
 
         protected virtual void Go(MenuItem item)
@@ -290,9 +275,9 @@ namespace CloudberryKingdom
             if (null == _item) return;
             int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
             
-            StartLevelMenu levelmenu = new StartLevelMenu(TopLevelForHero);
+            StartLevelMenu_Clouds levelmenu = new StartLevelMenu_Clouds(TopLevelForHero);
 
-            levelmenu.MyMenu.SelectItem(StartLevelMenu.PreviousMenuIndex);
+            levelmenu.MyMenu.SelectItem(ArcadeBaseMenu.PreviousMenuIndex);
             levelmenu.StartFunc = StartFunc;
             levelmenu.ReturnFunc = null;
 

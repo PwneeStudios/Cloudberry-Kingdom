@@ -104,28 +104,9 @@ namespace CloudberryKingdom
                 Tools.TheGame.LoadingScreen.IsDone = true;
         }
 
-        ///// <summary>
-        ///// When true the menu slides in, rather than bubbles in, when a child menu returns control to it
-        ///// </summary>
-        //bool SlideOnReturn = false;
-
         public override void SlideIn(int Frames)
         {
             base.SlideIn(Frames);
-            //base.SlideIn(0);
-            //return;
-
-            //if (SlideOnReturn)
-            //    base.SlideIn(Frames);
-            //else
-            //{
-            //    base.SlideIn(0);
-
-            //    MyPile.BubbleUp(true, 8, 1);
-            //    MyMenu.FancyPos.LerpTo(MenuPos_Down, MenuPos, 40);
-            //}
-
-            //SlideOnReturn = false;
         }
 
         protected override void SetItemProperties(MenuItem item)
@@ -154,6 +135,28 @@ namespace CloudberryKingdom
         {
             SetText_Green(item.MyText, outline);
             SetText_Green(item.MySelectedText, outline);
+        }
+
+        public static void SetItemProperties_ArcadeText(MenuItem item)
+        {
+            SetText_ArcadeText(item.MyText);
+            SetSelectedText_ArcadeText(item.MySelectedText);
+        }
+
+        public static void SetText_ArcadeText(EzText text)
+        {
+            if (text == null) return;
+
+            text.OutlineColor = new Color(0, 0, 0, 255).ToVector4();
+            text.MyFloatColor = new Color(34, 214, 47).ToVector4();
+        }
+
+        public static void SetSelectedText_ArcadeText(EzText text)
+        {
+            if (text == null) return;
+
+            text.OutlineColor = new Color(0, 0, 0, 255).ToVector4();
+            text.MyFloatColor = new Color(65, 255, 100).ToVector4();
         }
 
         public static void SetItemProperties_Red(MenuItem item)

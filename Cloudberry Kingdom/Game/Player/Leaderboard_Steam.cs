@@ -98,7 +98,6 @@ namespace CloudberryKingdom
         {
 			ScoreEntry copy = new ScoreEntry(score.GamerTag, score.GameId, score.Value, score.Score, score.Level, score.Attempts, score.Time, score.Date);
             
-			//copy.GameId += Challenge.LevelMask;
             _WriteToLeaderboard(copy, null);
         }
         static void _WriteToLeaderboard(ScoreEntry score, ScoreEntry[] scores)
@@ -204,13 +203,30 @@ namespace CloudberryKingdom
 		public Dictionary<int, LeaderboardItem> Items;
         public List<LeaderboardItem> FriendItems;
 
-		static string GetIdentity(int id)
+        static string GetIdentity(int id)
+        {
+            string steam_id = GetIdentity_NoBungee(id);
+
+            if (CloudberryKingdomGame.AlwaysBungee || Challenge.GetBungeeModifer(id) > 0)
+            {
+                //steam_id += string.Format(", Bungee x {0}", bungee);
+                steam_id += ", Bungee";
+            }
+
+            return steam_id;
+        }
+
+		static string GetIdentity_NoBungee(int id)
 		{
+            int bungee = 100000 * Challenge.GetBungeeModifer(id);
+            id -= bungee;
+
 			switch (id)
 			{
 				case 7777: return "Story Mode";
 				case 9999: return "Player Level";
-				case 10000: return "Escalation, Classic";
+
+                case 10000: return "Escalation, Classic";
 				case 10100: return "Escalation, Fat Bob";
 				case 11500: return "Escalation, Rocketbox";
 				case 10200: return "Escalation, Gravity Bob";
@@ -223,6 +239,11 @@ namespace CloudberryKingdom
 				case 11200: return "Escalation, Jetpack Wheelie";
 				case 11300: return "Escalation, Hero";
 				case 11400: return "Escalation, The Masochist";
+                case 11700: return "Escalation, Flappy Blob";
+                case 11600: return "Escalation, Porkchop Girl";
+                case 11800: return "Escalation, Time Ship";
+                case 11900: return "Escalation, Transcend";
+
 				case 10001: return "Time Crisis, Classic";
 				case 10101: return "Time Crisis, Fat Bob";
 				case 11501: return "Time Crisis, Rocketbox";
@@ -236,8 +257,15 @@ namespace CloudberryKingdom
 				case 11201: return "Time Crisis, Jetpack Wheelie";
 				case 11301: return "Time Crisis, Hero";
 				case 11401: return "Time Crisis, The Masochist";
-				case 10002: return "Hero Rush";
+                case 11701: return "Time Crisis, Flappy Blob";
+                case 11601: return "Time Crisis, Porkchop Girl";
+                case 11801: return "Time Crisis, Time Ship";
+                case 11901: return "Time Crisis, Transcend";
+				
+                case 10002: return "Hero Rush";
+                case 10004: return "Madness";
 				case 10003: return "Hybrid Rush";
+
 				default: return "Player Level";
 			}
 		}

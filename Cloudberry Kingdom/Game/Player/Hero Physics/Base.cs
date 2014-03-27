@@ -479,8 +479,10 @@ namespace CloudberryKingdom
 			{
                 if (Transcendent)
                 {
-                    //return new Vector2(400, 400);
-                    return 450 * CoreMath.AngleToDir(MyLevel.GetIndependentPhsxStep() / 80);
+                    if (MyBob.CharacterSelect2)
+                        return 150 * CoreMath.AngleToDir(MyLevel.GetIndependentPhsxStep() / 80);
+                    else
+                        return 450 * CoreMath.AngleToDir(MyLevel.GetIndependentPhsxStep() / 80);
                 }
                 else
                     return Vector2.Zero;

@@ -71,14 +71,16 @@ namespace CloudberryKingdom
 
         protected void TutorialOrSkip()
         {
-            if (!CloudberryKingdomGame.AlwaysGiveTutorials && (HasWatchedOnce || TemporarySkip))
-                Ready();
-            else
-            {
-                StartTutorial();
+            Ready();
 
-                WatchedOnce();
-            }
+            //if (!CloudberryKingdomGame.AlwaysGiveTutorials && (HasWatchedOnce || TemporarySkip))
+            //    Ready();
+            //else
+            //{
+            //    StartTutorial();
+
+            //    WatchedOnce();
+            //}
 
             TemporarySkip = false;
         }
@@ -92,7 +94,7 @@ namespace CloudberryKingdom
         {
             ShowTitle = false;
 
-            GUI_Text text = GUI_Text.SimpleTitle(Localization.Words.TimeCrisis);
+            GUI_Text text = GUI_Text.SimpleTitle(Localization.Words.Madness);
 
             MyGame.AddGameObject(text);
 

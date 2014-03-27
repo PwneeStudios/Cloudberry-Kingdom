@@ -41,12 +41,17 @@ namespace CloudberryKingdom
             MyGame.ClearPreviousLoadFunction();
         }
 
+        /// <summary>
+        /// The last difficulty selected via the difficulty select menu
+        /// </summary>
+        public static int PreviousMenuIndex = -1;
+
         protected virtual void StartFunc(LevelItem item)
         {
             SelectedItem = item;
 
             // Save the menu item index
-            StartLevelMenu.PreviousMenuIndex = item.MenuIndex;
+            PreviousMenuIndex = item.MenuIndex;
 
             // Start the game
             MyGame.PlayGame(PlayGame);
@@ -56,7 +61,6 @@ namespace CloudberryKingdom
         {
             // Show title again if we're selecting from the menu
             if (!MyGame.ExecutingPreviousLoadFunction)
-                //Escalation_Tutorial.ShowTitle = true;
                 HeroRush_Tutorial.ShowTitle = true;
 
             MyArcadeItem.MyChallenge.Start(SelectedItem.StartLevel);
@@ -134,6 +138,7 @@ namespace CloudberryKingdom
             BobPhsxBlobby.Instance.Id = 17;
             BobPhsxTimeship.Instance.Id = 18;
             Transcendent = BobPhsx.MakeCustom(Hero_BaseType.Classic, Hero_Shape.Classic, Hero_MoveMod.Classic, Hero_Special.Classic, true);
+            Transcendent.Name = Localization.Words.Local;
             Transcendent.Id = 19;
 
             HeroArcadeList = new List<Tuple<BobPhsx, Tuple<BobPhsx, int>>>()
@@ -170,6 +175,7 @@ namespace CloudberryKingdom
             foreach (Tuple<BobPhsx, Tuple<BobPhsx, int>> hero in HeroArcadeList)
                 LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_TimeCrisis.Instance, hero.Item1));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush.Instance, null));
+            LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_Madness.Instance, null));
             LeaderboardList.Add(new Tuple<Challenge, BobPhsx>(Challenge_HeroRush2.Instance, null));
 
             // Goals

@@ -107,16 +107,19 @@ namespace CloudberryKingdom
                 case TitleBackgroundState.Scene_StoryMode:
                     Scene.Show = true;
                     Title.Show = false;
+                    Left.Show = true;
                     break;
 
                 case TitleBackgroundState.Scene_Arcade:
                     Scene.Show = true;
                     Title.Show = false;
+                    Right.Show = true;
                     break;
 
                 case TitleBackgroundState.Scene_Arcade_Blur:
                     Scene.Show = true;
                     Title.Show = false;
+                    Right.Show = true;
                     break;
 
                 case TitleBackgroundState.Scene_Blur:

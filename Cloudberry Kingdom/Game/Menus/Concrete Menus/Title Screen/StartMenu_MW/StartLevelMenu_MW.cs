@@ -3,25 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {
-    public class LevelItem : MenuItem
+    public class StartLevelMenu_MW : CkBaseMenu
     {
-        public int StartLevel, MenuIndex;
-
-        public LevelItem(EzText Text, int StartLevel, int MenuIndex, bool Locked)
-            : base(Text)
-        {
-            this.StartLevel = StartLevel - 1;
-            this.MenuIndex = MenuIndex;
-        }
-    }
-
-    public class StartLevelMenu : CkBaseMenu
-    {
-        /// <summary>
-        /// The last difficulty selected via the difficulty select menu
-        /// </summary>
-        public static int PreviousMenuIndex = 0;
-
         protected override void SetHeaderProperties(EzText text)
         {
             base.SetHeaderProperties(text);
@@ -76,21 +59,19 @@ namespace CloudberryKingdom
         }
 
         int[] Levels = { 1, 50, 100, 150 };
-        //string[] LevelStr = { "Normal", "Advanced", "Expert", "Master" };
         public virtual string[] GetNames()
         {
             string[] names = new string[Levels.Length];
 
             for (int i = 0; i < Levels.Length; i++)
                 names[i] = string.Format("{0:00}", Levels[i]);
-            //names[i] = string.Format("Level {0}", Levels[i]);
 
             return names;
         }
 
         public int HighestLevel;
-        public StartLevelMenu() { }
-        public StartLevelMenu(int HighestLevel)
+        public StartLevelMenu_MW() { }
+        public StartLevelMenu_MW(int HighestLevel)
         {
             this.HighestLevel = HighestLevel;
 
@@ -150,20 +131,9 @@ namespace CloudberryKingdom
                 {
                     item.MyText.Alpha = .4f;
                     item.MySelectedText.Alpha = .4f;
-
-                    //item.MyText.MyFloatColor.X *= .8f;
-                    //item.MySelectedText.MyFloatColor.X *= .8f;
-                    //item.MyText.MyFloatColor *= .8f;
-                    //item.MySelectedText.MyFloatColor *= .8f;
-
-                    //item.MyText.MyFloatColor =         new Color(255, 100, 100).ToVector4();
-                    //item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
                 }
             }
             ItemPos += PosAdd * .3f;
-
-            //item = MakeBackButton();
-            //item.MyText.Scale = item.MySelectedText.Scale *= 1.06f;
 
             this.EnsureFancy();
 

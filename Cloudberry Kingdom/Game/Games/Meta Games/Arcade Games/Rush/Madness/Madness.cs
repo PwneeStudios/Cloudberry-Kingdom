@@ -20,7 +20,7 @@ namespace CloudberryKingdom
 			SetGameId();
         }
 
-        const int TimePerLevel = 60 * 60;
+        const int TimePerLevel = 60 * 62 - 1;
         void SetTimerProperties(int Difficulty)
         {
             Timer.CoinTimeValue = 0;

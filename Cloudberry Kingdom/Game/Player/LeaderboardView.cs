@@ -314,29 +314,7 @@ namespace CloudberryKingdom
 			MenuItem item;
 
 			// Board list
-			BoardList = new MenuList();
-			BoardList.MyExpandParams.ScaleItems = .8f;
-			BoardList.MyExpandParams.ShiftTopLeftItem = new Vector2(0, -10);
-			BoardList.MyExpandParams.SizePadding = new Vector2(10, 0);
-			SetBoardListProperties(BoardList);
-			for (int i = 0; i < ArcadeMenu.LeaderboardList.Count; i++)
-			{
-				var IdAndName = GetBoardIdAndName(i, true);
-				int Id = IdAndName.Item1;
-				string Name = IdAndName.Item2;
-
-				item = new MenuItem(new EzText(Name, ItemFont, false, true));
-				item.ExpandString = GetBoardIdAndName(i, false).Item2;
-				SetItemProperties(item);
-				BoardList.AddItem(item, i);
-			}
-			AddItem(BoardList);
-			BoardList.Pos = new Vector2(200f, 828f);
-			BoardList.OnIndexSelect = () =>
-			{
-				BoardList_OnSelect(BoardList);
-			};
-			BoardList.SetIndex(0);
+            MakeBoardList();
 
 			MyMenu.OnX = Cast.ToMenu(SwitchView);
 
@@ -382,6 +360,29 @@ namespace CloudberryKingdom
 			SortList_OnSelect(SortList);
 		}
 
+        private void MakeBoardList()
+        {
+            MenuItem item;
+
+            BoardList = new MenuList();
+            SetBoardListProperties(BoardList);
+            for (int i = 0; i < ArcadeMenu.LeaderboardList.Count; i++)
+            {
+                var IdAndName = GetBoardIdAndName(i, true);
+                int Id = IdAndName.Item1;
+                string Name = IdAndName.Item2;
+
+                item = new MenuItem(new EzText(Name, ItemFont, false, true));
+                item.ExpandString = GetBoardIdAndName(i, false).Item2;
+                SetItemProperties(item);
+                BoardList.AddItem(item, i);
+            }
+            AddItem(BoardList);
+            BoardList.Pos = new Vector2(200f, 828f);
+            BoardList.OnIndexSelect = _BoardList_OnSelect;
+            BoardList.SetIndex(0);
+        }
+
 #if PC_VERSION
 		private void MakeScrollBar()
 		{
@@ -403,17 +404,12 @@ namespace CloudberryKingdom
 			_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(-1455.556f, 587.6412f); _q.Size = new Vector2(25.9999f, 106.8029f); }
 			_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(-1449.999f, 694.4442f); _q.Size = new Vector2(27.57401f, 18.96959f); }
 			_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(-1449.999f, -822.22223f); _q.Size = new Vector2(28.7499f, 21.2196f); }
-
-			//QuadClass _q;
-			//_q = MyPile.FindQuad("Scroll"); if (_q != null) { _q.Pos = new Vector2(791.6666f, 587.6413f); _q.Size = new Vector2(25.9999f, 106.8029f); }
-			//_q = MyPile.FindQuad("ScrollTop"); if (_q != null) { _q.Pos = new Vector2(797.2228f, 694.4443f); _q.Size = new Vector2(27.57401f, 18.96959f); }
-			//_q = MyPile.FindQuad("ScrollBottom"); if (_q != null) { _q.Pos = new Vector2(797.2228f, -822.22228f); _q.Size = new Vector2(28.7499f, 21.2196f); }
 		}
 #endif
 
 		private static void SetBoardListProperties(MenuList BoardList)
 		{
-			BoardList.MyExpandParams.ScaleItems = .785f;
+			BoardList.MyExpandParams.ScaleItems = .6f;
 			BoardList.MyExpandParams.ShiftTopLeftItem = new Vector2(0, 30);
 			BoardList.MyExpandParams.SizePadding = new Vector2(40, 0);
 
@@ -422,11 +418,13 @@ namespace CloudberryKingdom
 			BoardList.Center = false;
 			BoardList.LeftRightControlOn = false;
 
-			if (ButtonCheck.ControllerInUse)
-				BoardList.MyExpandPos = new Vector2(-1000.055f, 864.4439f);
-			else
-				BoardList.MyExpandPos = new Vector2(-1008.055f, 864.4439f);
+			BoardList.MyExpandPos = new Vector2(-1000.055f, 894.4439f);
 		}
+
+        private void _BoardList_OnSelect()
+        {
+            BoardList_OnSelect(BoardList);
+        }
 
 		private void BoardList_OnSelect(MenuList BoardList)
 		{
@@ -587,9 +585,6 @@ namespace CloudberryKingdom
 			}
 
 			MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
-			
-			//MyMenu.FindItemByName("SwitchSort").MyText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
-			//MyMenu.FindItemByName("SwitchSort").MySelectedText.SubstituteText(LeaderboardSortType_ToString(Incr(CurrentSort)));
         }
 
 		static Tuple<int, string> GetBoardIdAndName(int index, bool FullName)
@@ -634,6 +629,12 @@ namespace CloudberryKingdom
 					}
 				}
 			}
+
+            if (CloudberryKingdomGame.AlwaysBungee)
+            {
+                //Name += string.Format(", {0} x {1}", Localization.WordString(Localization.Words.Bungee), PlayerManager.GetNumPlayers());
+                Name += string.Format(", {0}", Localization.WordString(Localization.Words.Bungee));
+            }
 
 			return new Tuple<int, string>(Id, Name);
 		}

@@ -44,6 +44,12 @@ namespace CloudberryKingdom
 		Vector2 scale1, scale2, pos2;
 		DrawPile pile;
 
+        public void SetPos_BR(DrawPile pile)
+        {
+            q1.Pos = new Vector2(1577.778f, -1020.952f) + new Vector2(83.33417f, 130.9524f) - pile.Pos;
+            q1.Size = new Vector2(56.24945f, 56.24945f);
+        }
+
 		bool ShowWithMouseOnly;
 		public ClickableBack(DrawPile pile, bool ShowWithMouseOnly, bool MakeButton)
 		{

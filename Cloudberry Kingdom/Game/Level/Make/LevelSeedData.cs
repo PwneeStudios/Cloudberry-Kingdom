@@ -898,12 +898,13 @@ namespace CloudberryKingdom
                         SetTileSet("anders__palace"); return;
 
                     case "castle":
-                    case "cloud":
-                    case "forest":
+                    case "cloud": case "cloud_rain":
+                    case "forest": case "forest_snow":
                         SetTileSet("anders__dungeon"); return;
 
-                    case "hills":
-                    case "sea":
+
+                    case "sea": case "sea_rain":
+                    case "hills": case "hills_rain":
                         SetTileSet("anders__terrace"); return;
                 }
             }

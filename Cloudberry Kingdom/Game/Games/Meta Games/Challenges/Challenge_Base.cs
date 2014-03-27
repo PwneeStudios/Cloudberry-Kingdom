@@ -39,28 +39,40 @@ namespace CloudberryKingdom
             return PlayerManager.MaxPlayerHighScore(id);
         }
 
-        public int CalcGameId_Score(BobPhsx hero)
+        public static int GetBungeeModifer(int id)
+        {
+            //id = (int)(id / 100000);
+            //return id;
+            return id >= 100000 ? 1 : 0;
+        }
+
+        public int BungeeModifier()
+        {
+            //int BungeeId = CloudberryKingdomGame.AlwaysBungee ? PlayerManager.GetNumPlayers() : 0;
+            int BungeeId = CloudberryKingdomGame.AlwaysBungee ? 1 : 0;
+            return 100000 * BungeeId;
+        }
+
+        public int HeroModifier(BobPhsx hero)
         {
             int HeroId = hero == null ? 0 : hero.Id;
+            return 100 * HeroId;
+        }
 
-			//GameId_Level = 100 * HeroId + GameTypeId;
-			//return GameId_Level;
-			return 100 * HeroId + GameTypeId;
+        public int CalcGameId_Score(BobPhsx hero)
+        {
+            return BungeeModifier() + HeroModifier(hero) + GameTypeId;
         }
 
         public int CalcGameId_Level(BobPhsx hero)
         {
-            int HeroId = hero == null ? 0 : hero.Id;
-
-			return 100 * HeroId + GameTypeId + LevelMask;
+            return BungeeModifier() + HeroModifier(hero) + GameTypeId + LevelMask;
         }
 
         public int SetGameId()
         {
-            int HeroId = Challenge.ChosenHero == null ? 0 : Challenge.ChosenHero.Id;
-
-            GameId_Score = 100 * HeroId + GameTypeId;
-            GameId_Level = 100 * HeroId + GameTypeId + LevelMask;
+            GameId_Score = BungeeModifier() + HeroModifier(Challenge.ChosenHero) + GameTypeId;
+            GameId_Level = BungeeModifier() + HeroModifier(Challenge.ChosenHero) + GameTypeId + LevelMask;
             return GameId_Score;
         }
 

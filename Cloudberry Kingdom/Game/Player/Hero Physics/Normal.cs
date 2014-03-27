@@ -21,7 +21,6 @@ namespace CloudberryKingdom
             Name = Localization.Words.ClassicHero;
             NameTemplate = "hero";
             
-            //Icon = new PictureIcon(Tools.TextureWad.FindByName("HeroIcon_Classic"), Color.White, DefaultIconWidth * 1.1f);
             Icon = new PictureIcon(Tools.TextureWad.FindByName("Bob_Run_0024"), Color.White, DefaultIconWidth * 1.2f);
         }
         static readonly BobPhsxNormal instance = new BobPhsxNormal();

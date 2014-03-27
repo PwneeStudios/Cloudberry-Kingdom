@@ -226,6 +226,7 @@
     <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Madness\Madness.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\BungeeSwitch.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\HeroItem.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartLevelMenu_Clouds.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Backpanel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Black.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\CinematicsLevelItem.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\CampaignChapterItem.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\HeroSelectOptions_MW.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartLevelMenu_MW.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_Arcade.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_HeroSelect.cs" />
     <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
@@ -304,7 +306,7 @@
     <Compile Include="Game\Menus\Concrete Menus\InGameStartMenus\Verify\AlertBase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreDatabase.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Score Screens\ScoreEntry.cs" />
-    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\StartLevelMenu.cs" />
+    <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\LevelItem.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_Clouds\HeroSelectOptions_Clouds.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Arcade\Hero Select\Doll.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\StartMenu_MW\StartMenu_MW_CustomLevel.cs" />

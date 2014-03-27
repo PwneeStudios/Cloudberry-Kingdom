@@ -344,6 +344,8 @@ namespace CloudberryKingdom
 		public bool SkipKeyboardPhsx = false;
         public virtual void SelectItem(int Index)
         {
+            if (Index < 0) Index = Items.Count + Index;
+
             HasSelectedThisStep = true;
 
             // If no items are selectable, return

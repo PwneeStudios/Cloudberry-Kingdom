@@ -112,10 +112,9 @@ namespace CloudberryKingdom
 
             MyMenu.OnB = null;
 
-			MyMenu.OnB = Cast.ToMenu(Back); ;
+			MyMenu.OnB = Cast.ToMenu(Back);
 
-			ItemPos = new Vector2(0, 0);// +MyMenuList.MyExpandParams.ShiftTopLeftItem;
-			//PosAdd = new Vector2(0, -80);
+			ItemPos = new Vector2(0, 0);
 			PosAdd = new Vector2(0, -80 * MyMenuList.MyExpandParams.ScaleItems);
             SelectedItemShift = new Vector2(0, 0);
             FontScale = .78f;
@@ -152,25 +151,14 @@ namespace CloudberryKingdom
             }
 
             // Backdrop
-			//backdrop = new QuadClass("score_screen_grey", 482);
-
-			backdrop = new QuadClass("Arcade_BoxLeft", 50);
+            backdrop = new QuadClass("White", 50);
 			backdrop.Quad.SetColor(ColorHelper.Gray(.2f));
-			
-			//backdrop = new QuadClass("Backplate_1500x900", 482);
-			//backdrop.Quad.SetColor(ColorHelper.Gray(.2f));
-
-
+            backdrop.Alpha = .8f;
 
             MyMenu.CalcBounds();
 			backdrop.Size = new Vector2(Width / 2 + 21, Height / 2 + 7) + MyMenuList.MyExpandParams.SizePadding;
             DefaultBackdropSize = backdrop.Size + MyMenuList.MyExpandParams.SizePadding;
-            //backdrop.Quad.RotateUV();
 			MyPile.Add(backdrop);
-			MyPile.Add(backdrop);
-			MyPile.Add(backdrop);
-			MyPile.Add(backdrop);
-			//MyPile.Add(backdrop);
             backdrop.Pos = new Vector2(Width/2, (MyMenu.TR.Y + MyMenu.BL.Y) / 2);
 
             EnsureFancy();
