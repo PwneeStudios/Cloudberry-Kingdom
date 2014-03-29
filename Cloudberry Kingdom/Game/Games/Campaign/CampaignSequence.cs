@@ -358,10 +358,6 @@ namespace CloudberryKingdom
                 Background.AddDarkLayer(level.MyBackground);
             }
 
-			//var CScore = new GUI_CampaignScore();
-			//CScore.PreventRelease = false;
-			//level.MyGame.AddGameObject(CScore);
-			//var CLevel = new GUI_Level(level.MyLevelSeed.LevelNum);
 			var CLevel = new GUI_Level(level.MyLevelSeed.LevelNum);
 			EzText _t;
 			_t = CLevel.MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }

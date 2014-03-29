@@ -88,7 +88,7 @@ namespace CloudberryKingdom.InGameObjects
             }
 
             // Text float
-            if (Info.Coins.ShowText && Core.MyLevel.MyGame.MyBankType != GameData.BankType.Campaign)
+            if (Info.Coins.ShowText && Core.MyLevel.MyGame.MyBankType != GameData.BankType.Campaign && !Game.SuppresCoinText)
             {
 				MyGame.CalculateCoinScoreMultiplier();
                 int val = CalcScoreValue();
@@ -96,7 +96,7 @@ namespace CloudberryKingdom.InGameObjects
                 text.Core.DrawLayer = 8;
                 Core.MyLevel.MyGame.AddGameObject(text);
             }
-			else if (Core.MyLevel.MyGame.MyBankType == GameData.BankType.Campaign)
+            else if (Core.MyLevel.MyGame.MyBankType == GameData.BankType.Campaign || Game.SuppresCoinText)
 			{
 				ParticleEffects.CoinDie_Campaign(MyGame.MyLevel, Coin.PosOfLastCoinGrabbed);
 			}

@@ -17,7 +17,7 @@ namespace CloudberryKingdom
         Vector2 MenuPos;
 
         public ScoreEntry HighScoreEntry, HighLevelEntry;
-        public int Score, Levels, Attempts, Time, Date;
+        public int Score = -1, Levels, Attempts, Time, Date;
 
         public int DelayPhsx = 42;
 
@@ -44,7 +44,7 @@ namespace CloudberryKingdom
 
             // Update HighScore list
             PlayerManager.CalcScore(StatGroup.Game);
-            Score = PlayerManager.GetGameScore();
+            if (Score == -1) Score = PlayerManager.GetGameScore();
             Attempts = PlayerManager.Score_Attempts;
             Time = PlayerManager.Score_Time;
             Date = ScoreDatabase.CurrentDate();

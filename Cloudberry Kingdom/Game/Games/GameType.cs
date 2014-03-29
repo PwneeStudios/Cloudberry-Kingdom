@@ -510,6 +510,11 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
+        /// If true then coins do not create a score text floating effect.
+        /// </summary>
+        public bool SuppresCoinText = false;
+
+        /// <summary>
         /// If true coins can be taken only once and are not respawned on a level reset.
         /// </summary>
         public bool TakeOnce = false;

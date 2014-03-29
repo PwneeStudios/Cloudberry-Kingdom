@@ -23,8 +23,8 @@ namespace CloudberryKingdom
             Warning = new TimerWarning();
             Warning.MyTimer = Timer;
 
-            Timer.OnTimeExpired += (timer) => MyGUI_Score.SlideOut(GUI_Panel.PresetPos.Top);
-            Timer.OnTimeExpired += (timer) => MyGUI_Level.SlideOut(GUI_Panel.PresetPos.Top);
+            Timer.OnTimeExpired += (timer) => { if (MyGUI_Score != null && !MyGUI_Score.MyLevel.LevelReleased) MyGUI_Score.SlideOut(GUI_Panel.PresetPos.Top); };
+            Timer.OnTimeExpired += (timer) => { if (MyGUI_Level != null && !MyGUI_Level.MyLevel.LevelReleased) MyGUI_Level.SlideOut(GUI_Panel.PresetPos.Top); };
 
             MyGUI_Score = new GUI_Score(true);
             MyGUI_Level = new GUI_Level(true);

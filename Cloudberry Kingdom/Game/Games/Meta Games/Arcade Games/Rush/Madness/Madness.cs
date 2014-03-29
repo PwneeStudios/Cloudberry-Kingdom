@@ -20,6 +20,14 @@ namespace CloudberryKingdom
 			SetGameId();
         }
 
+        protected override void ShowEndScreen()
+        {
+            var MyGameOverPanel = new GameOverPanel(GameId_Score, GameId_Level);
+            MyGameOverPanel.Score = MyGameOverPanel.Levels = StringWorld.CurLevelIndex + 1;
+
+            Tools.CurGameData.AddGameObject(MyGameOverPanel);
+        }
+
         const int TimePerLevel = 60 * 62 - 1;
         void SetTimerProperties(int Difficulty)
         {
@@ -70,12 +78,12 @@ namespace CloudberryKingdom
                 ArcadeMenu.CheckForArcadeUnlocks_OnSwapIn(levelindex);
 
                 // Add hero icon to exit door
-                MakeExitDoorIcon(levelindex);
+                //MakeExitDoorIcon(levelindex);
 
                 // Score multiplier, x1, x1.5, x2, ... for levels 0, 20, 40, ...
-                float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
-                Tools.CurGameData.OnCalculateScoreMultiplier +=
-                    game => game.ScoreMultiplier *= multiplier;
+                //float multiplier = 1 + ((levelindex + 1) / LevelsPerDifficulty) * .5f;
+                //Tools.CurGameData.OnCalculateScoreMultiplier +=
+                //    game => game.ScoreMultiplier *= multiplier;
 
                 // Mod number of coins
                 CoinMod mod = new CoinMod(Timer);
@@ -90,6 +98,23 @@ namespace CloudberryKingdom
                 // Modify the timer
                 SetTimerProperties(levelindex / LevelsPerDifficulty);
 
+                // Get rid of score/level GUI and perfects.
+                foreach (var obj in Tools.CurGameData.MyGameObjects)
+                {
+                    if (obj is GUI_Score || obj is PerfectScoreObject || obj is GUI_Level)
+                        obj.CollectSelf();
+                }
+
+                // Campaign style Level GUI
+                var CLevel = new GUI_Level(levelindex + 1);
+                EzText _t;
+                _t = CLevel.MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
+                CLevel.MyPile.Pos = new Vector2(1590.556f, 856.0002f);
+                CLevel.PreventRelease = false;
+                Tools.CurGameData.AddGameObject(CLevel);
+
+                Tools.CurGameData.SuppresCoinText = true;
+
                 OnSwapTo_GUI(levelindex);
             };
         }
@@ -97,8 +122,8 @@ namespace CloudberryKingdom
         private void OnSwapTo_GUI(int levelindex)
         {
             // Multiplier increase text
-            if ((levelindex + 1) % LevelsPerDifficulty == 0)
-                Tools.CurGameData.AddGameObject(new MultiplierUp());
+            //if ((levelindex + 1) % LevelsPerDifficulty == 0)
+            //    Tools.CurGameData.AddGameObject(new MultiplierUp());
 
             // Cheering berries (20, 40, 60, ...)
             if ((levelindex + 1) % LevelsPerDifficulty == 0 && levelindex != StartIndex)
