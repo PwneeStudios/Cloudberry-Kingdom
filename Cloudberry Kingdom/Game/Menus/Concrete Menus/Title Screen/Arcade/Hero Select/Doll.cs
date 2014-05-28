@@ -108,7 +108,6 @@ namespace CloudberryKingdom
                 MyDoll.PhsxStep2();
                 MyPhsxStep();
             }
-            
 
             // Swap out old cape for the new one.
             //if (MyDoll.MyCape != null && PrevCape != null && MyDoll.MyCape.MyType == PrevCape.MyType)

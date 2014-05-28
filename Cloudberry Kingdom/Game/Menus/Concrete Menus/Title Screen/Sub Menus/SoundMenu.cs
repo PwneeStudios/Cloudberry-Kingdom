@@ -136,21 +136,24 @@ namespace CloudberryKingdom
             mitem.Name = "Custom";
             AddItem(mitem);
 
-            // Anders art
-            var AndersText = new EzText(Localization.Words.Anders, ItemFont, CenterItems);
-            SetHeaderProperties(AndersText);
-            AndersText.Name = "Anders";
-            MyPile.Add(AndersText);
-
-            var AndersToggle = new MenuToggle(ItemFont);
-            AndersToggle.OnToggle = (state) =>
+            if (LanguageOption)
             {
-                CloudberryKingdomGame.AndersSwitch = !CloudberryKingdomGame.AndersSwitch;
-            };
-            AndersToggle.Name = "AndersToggle";
+                // Anders art
+                var AndersText = new EzText(Localization.Words.Anders, ItemFont, CenterItems);
+                SetHeaderProperties(AndersText);
+                AndersText.Name = "Anders";
+                MyPile.Add(AndersText);
 
-            AndersToggle.Toggle(CloudberryKingdomGame.AndersSwitch);
-            AddItem(AndersToggle);
+                var AndersToggle = new MenuToggle(ItemFont);
+                AndersToggle.OnToggle = (state) =>
+                {
+                    CloudberryKingdomGame.AndersSwitch = !CloudberryKingdomGame.AndersSwitch;
+                };
+                AndersToggle.Name = "AndersToggle";
+
+                AndersToggle.Toggle(CloudberryKingdomGame.AndersSwitch);
+                AddItem(AndersToggle);
+            }
 
             // Full screen resolutions
             var RezText = new EzText(Localization.Words.Resolution, ItemFont, CenterItems);

@@ -162,6 +162,8 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
+            MyBob.UseCustomCapePos = true;
+
             // Additional wall jumping phsx
             if (WallJumpCount > 0)
             {

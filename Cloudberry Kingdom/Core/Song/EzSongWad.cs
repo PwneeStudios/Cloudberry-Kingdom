@@ -11,7 +11,14 @@ namespace CoreEngine
 		//public static MediaPlayer Instance = new EmptyMediaPlayer();
 		public static MediaPlayer Instance = new XnaMediaPlayer();
 
-		public static XnaMedia.MediaState State = XnaMedia.MediaState.Stopped;
+		//public static XnaMedia.MediaState State = XnaMedia.MediaState.Stopped;
+        public static XnaMedia.MediaState State
+        {
+            get
+            {
+                return XnaMedia.MediaPlayer.State;
+            }
+        }
 
 		public static BaseSong CurrentSong;
 
@@ -33,7 +40,7 @@ namespace CoreEngine
 
 		public override void Stop()
 		{
-			XnaMedia.MediaPlayer.Stop ();
+			XnaMedia.MediaPlayer.Stop();
 		}
 
 		public override bool IsRepeating
