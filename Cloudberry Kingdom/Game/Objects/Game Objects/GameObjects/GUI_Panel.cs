@@ -88,21 +88,21 @@ namespace CloudberryKingdom
         /// </summary>
         public bool NoBackIfNoCaller = false;
 
-		/// <summary>
-		/// When true: When the panel is done and returns to its caller, it will prevent input for one frame,
-		/// so that the parent panel does not receive input on this same frame.
-		/// </summary>
-		public bool PreventInputOnReturnToCaller = true;
+        /// <summary>
+        /// When true: When the panel is done and returns to its caller, it will prevent input for one frame,
+        /// so that the parent panel does not receive input on this same frame.
+        /// </summary>
+        public bool PreventInputOnReturnToCaller = true;
 
         /// <summary>
         /// Hide the panel and return to its parent.
         /// </summary>
         public virtual void ReturnToCaller()
         {
-			if (PreventInputOnReturnToCaller)
-			{
-				ButtonCheck.PreventInput();
-			}
+            if (PreventInputOnReturnToCaller)
+            {
+                ButtonCheck.PreventInput();
+            }
 
             if (NoBackIfNoCaller && Caller == null) return;
 
@@ -441,16 +441,16 @@ namespace CloudberryKingdom
 
         protected override void ReleaseBody()
         {
-			base.ReleaseBody();
+            base.ReleaseBody();
 
-			if (MyMenu != null) MyMenu.Release(); MyMenu = null;
-			if (MyPile != null) MyPile.Release(); MyPile = null;
+            if (MyMenu != null) MyMenu.Release(); MyMenu = null;
+            if (MyPile != null) MyPile.Release(); MyPile = null;
 
-			Caller = null;
+            Caller = null;
 
-			if (Pos != null) Pos.Release(); Pos = null;
-			OnOutsideClick = null;
-		}
+            if (Pos != null) Pos.Release(); Pos = null;
+            OnOutsideClick = null;
+        }
 
         public void PauseAnimation() { Pos.Playing = false; }
         public void UnpauseAnimation() { Pos.Playing = true; }

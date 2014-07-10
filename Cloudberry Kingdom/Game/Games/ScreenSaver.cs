@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using CloudberryKingdom.Levels;
-using System.Threading;
+﻿using CloudberryKingdom.Levels;
 using Microsoft.Xna.Framework;
-using CloudberryKingdom.Blocks;
 using CoreEngine;
 
 namespace CloudberryKingdom
@@ -56,20 +53,20 @@ namespace CloudberryKingdom
 
         public static int MandatoryWatchLength
         {
-			get
-			{
+            get
+            {
 #if DEBUG
-				return 20;
+                return 20;
 #elif PC_VERSION
                 if (UserPowers.CanSkipScreensaver)
                     return 20;
                 else
                     return MandatoryWatchLength_Initial;
 #else
-				return MandatoryWatchLength_Initial;
+                return MandatoryWatchLength_Initial;
 #endif
-			}
-		}
+            }
+        }
         const int MandatoryWatchLength_Initial = 400;
 
         float InitialFadeInSpeed = .01f;
@@ -139,14 +136,14 @@ namespace CloudberryKingdom
                         Tools.CurLevel.Bobs[0].PlayerObject.EnqueueAnimation(0, 0, true, true, false, 100);
 
                         pos_t = zoom_t = null;
-						if (DoBackgroundPhsx) Tools.CurGameData.FadeIn(0);
+                        if (DoBackgroundPhsx) Tools.CurGameData.FadeIn(0);
                     }
 
                     // Add 'Press (A) to start' text
                     if (index == 0)
                     {
-						int _length = MandatoryWatchLength_Initial - 90 + InitialDarkness - 3;
-						if (_length < 0) _length = 0;
+                        int _length = MandatoryWatchLength_Initial - 90 + InitialDarkness - 3;
+                        if (_length < 0) _length = 0;
                         Tools.CurGameData.WaitThenDo(_length, () =>
                         {
                             UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
@@ -179,8 +176,8 @@ namespace CloudberryKingdom
                             PressA.MyText.OutlineColor = new Color(22, 18, 22).ToVector4();
                         }, true);
 
-						int __length = MandatoryWatchLength - 90 + InitialDarkness - 3;
-						if (__length < 0) __length = 0;
+                        int __length = MandatoryWatchLength - 90 + InitialDarkness - 3;
+                        if (__length < 0) __length = 0;
                         Tools.CurGameData.WaitThenDo(__length, () =>
                         {
                             Listener PressA_Listener = null;
@@ -192,12 +189,12 @@ namespace CloudberryKingdom
 
                                      Tools.CurGameData.WaitThenDo(55, () =>
                                          {
-											 // Bring up a loading screen if we aren't done loading title screen assets
-											 if (!Resources.FakeFinalLoadDone)
-											 {
-												 Tools.BeginLoadingScreen(false);
-												 Tools.CurrentLoadingScreen.MakeFake();
-											 }
+                                             // Bring up a loading screen if we aren't done loading title screen assets
+                                             if (!Resources.FakeFinalLoadDone)
+                                             {
+                                                 Tools.BeginLoadingScreen(false);
+                                                 Tools.CurrentLoadingScreen.MakeFake();
+                                             }
 
                                              Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory();
                                              Tools.CurGameData.FadeIn(.0275f);
@@ -205,7 +202,7 @@ namespace CloudberryKingdom
                                          });
 
                                      PressA_Listener.Release();
-									 PressA_Listener.MyAction = null;
+                                     PressA_Listener.MyAction = null;
                                      if (PressA != null) PressA.Kill(true);
                                  });
                             PressA_Listener.PreventRelease = true;
@@ -231,7 +228,7 @@ namespace CloudberryKingdom
         bool DoBackgroundPhsx = true;
         public override void BackgroundPhsx()
         {
- 	        base.BackgroundPhsx();
+            base.BackgroundPhsx();
 
             if (Tools.TheGame.LoadingScreen != null && !Tools.TheGame.LoadingScreen.IsDone)
             {
@@ -253,8 +250,8 @@ namespace CloudberryKingdom
                     wind_t = new FancyVector2();
                     wind_t.Val = 0f;
 
-					lvl.MyGame.WaitThenDo(InitialDarkness, ()
-						=> { if (DoBackgroundPhsx) lvl.MyGame.FadeIn(InitialFadeInSpeed); } );
+                    lvl.MyGame.WaitThenDo(InitialDarkness, ()
+                        => { if (DoBackgroundPhsx) lvl.MyGame.FadeIn(InitialFadeInSpeed); } );
 
                     //if (ForTrailer)
                     //{
@@ -273,17 +270,17 @@ namespace CloudberryKingdom
 
                         lvl.MyGame.WaitThenDo(zoomout_start - 3 - 3, () =>
                             Tools.SoundWad.FindByName("Record_Scratch").Play());
-						
-						Tools.SongWad.PlayList = Tools.SongList_Standard;
-						
-						
-						//Tools.SongWad.Next(Tools.Song_Ripcurl);
-						Tools.SongWad.CurIndex = Tools.SongWad.PlayList.IndexOf(Tools.Song_Ripcurl);
-						
-						Tools.SongWad.PlayNext = true;
-						Tools.SongWad.Restart(true, false);
+                        
+                        Tools.SongWad.PlayList = Tools.SongList_Standard;
+                        
+                        
+                        //Tools.SongWad.Next(Tools.Song_Ripcurl);
+                        Tools.SongWad.CurIndex = Tools.SongWad.PlayList.IndexOf(Tools.Song_Ripcurl);
+                        
+                        Tools.SongWad.PlayNext = true;
+                        Tools.SongWad.Restart(true, false);
                         Tools.SongWad.Pause();
-						//lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>
+                        //lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 28, () =>
                         lvl.MyGame.WaitThenDo(zoomout_start + zoomout_length + 26, () =>
                         {
                             // Start the music
@@ -349,42 +346,42 @@ namespace CloudberryKingdom
                 data.MyGameFlags.IsTethered = true;
             }
 
-			switch (index)
-			{
-				case 0: data.SetTileSet("cave"); break;
-				case 1: data.SetTileSet("castle"); break;
-				case 2: data.SetTileSet("forest"); break;
-				case 3: data.SetTileSet("hills"); break;
-				case 4: data.SetTileSet("cloud"); break;
-				
-				default:
-					if (FixedTileSet == null)
-						data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "cloud", "hills", "sea"));
-					else
-						data.SetTileSet(FixedTileSet);
-					break;
-			}
+            switch (index)
+            {
+                case 0: data.SetTileSet("cave"); break;
+                case 1: data.SetTileSet("castle"); break;
+                case 2: data.SetTileSet("forest"); break;
+                case 3: data.SetTileSet("hills"); break;
+                case 4: data.SetTileSet("cloud"); break;
+                
+                default:
+                    if (FixedTileSet == null)
+                        data.SetTileSet(Tools.GlobalRnd.ChooseOne("forest", "cave", "castle", "cloud", "hills", "sea"));
+                    else
+                        data.SetTileSet(FixedTileSet);
+                    break;
+            }
 
-			if (Resources.EnvironmentLoaded <= 1)
-			{
-				data.SetTileSet("cave");
-			}
-			else if (Resources.EnvironmentLoaded <= 2 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" ))
-			{
-				data.SetTileSet("castle");
-			}
-			else if (Resources.EnvironmentLoaded <= 3 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest"))
-			{
-				data.SetTileSet("forest");
-			}
-			else if (Resources.EnvironmentLoaded <= 4 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills"))
-			{
-				data.SetTileSet("hills");
-			}
-			else if (Resources.EnvironmentLoaded <= 5 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills" && data.MyTileSet.Name != "clouds"))
-			{
-				data.SetTileSet("cloud");
-			}
+            if (Resources.EnvironmentLoaded <= 1)
+            {
+                data.SetTileSet("cave");
+            }
+            else if (Resources.EnvironmentLoaded <= 2 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" ))
+            {
+                data.SetTileSet("castle");
+            }
+            else if (Resources.EnvironmentLoaded <= 3 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest"))
+            {
+                data.SetTileSet("forest");
+            }
+            else if (Resources.EnvironmentLoaded <= 4 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills"))
+            {
+                data.SetTileSet("hills");
+            }
+            else if (Resources.EnvironmentLoaded <= 5 && (data.MyTileSet.Name != "cave" && data.MyTileSet.Name != "castle" && data.MyTileSet.Name != "forest" && data.MyTileSet.Name != "hills" && data.MyTileSet.Name != "clouds"))
+            {
+                data.SetTileSet("cloud");
+            }
 
             //data.SetTileSet(Tools.GlobalRnd.ChooseOne("sea", "forest", "cave", "castle", "cloud", "hills",
             //                                          "sea_rain", "forest_snow", "hills_rain"));

@@ -20,9 +20,9 @@ namespace CloudberryKingdom
         public InGameStartMenu(int Control) : base(false)
         {
 			// Test Remove Me menu
-			//PlayerManager.Players[1].Exists = true;
-			//PlayerManager.Players[2].Exists = true;
-			//PlayerManager.Players[3].Exists = true;
+            PlayerManager.Players[1].Exists = true;
+            PlayerManager.Players[2].Exists = true;
+            PlayerManager.Players[3].Exists = true;
 
             CenterItems = false;
 

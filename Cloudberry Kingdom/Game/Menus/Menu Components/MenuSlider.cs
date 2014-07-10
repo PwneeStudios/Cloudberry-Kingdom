@@ -149,6 +149,20 @@ namespace CloudberryKingdom
                                     + TabOffset;
 
             if (Text)
+            {
+                if (Selected || !CustomSelectedPos)
+                {
+                    MyText._Pos = Pos + PosOffset;
+                    MySelectedText._Pos = SelectedPos + PosOffset;
+                }
+                else
+                {
+                    MyText._Pos = SelectedPos + PosOffset;
+                    MySelectedText._Pos = SelectedPos + PosOffset;
+                }
+            }
+
+            if (Text)
                 DrawText(cam, Selected);
 
             if (!Text)
