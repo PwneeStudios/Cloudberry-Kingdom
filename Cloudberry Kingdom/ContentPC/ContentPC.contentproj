@@ -858,6 +858,51 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_1.dds">
+      <Name>Hats_Ah_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_2.dds">
+      <Name>Hats_Ah_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_3.dds">
+      <Name>Hats_Ah_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_4.dds">
+      <Name>Hats_Ah_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_5.dds">
+      <Name>Hats_Ah_5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_6.dds">
+      <Name>Hats_Ah_6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_7.dds">
+      <Name>Hats_Ah_7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_8.dds">
+      <Name>Hats_Ah_8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\HeroItems\Hats\Hats_Ah_9.dds">
+      <Name>Hats_Ah_9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="Localization\Subtitles\Chinese\Cutscene_1.tsv">
       <Name>Cutscene_1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

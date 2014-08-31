@@ -32,10 +32,10 @@ namespace CloudberryKingdom
         /// </summary>
         public static WrappedBool LoadingResources;
 
-		public static bool FinalLoadDone = false;
-		public static bool FakeFinalLoadDone = false;
+        public static bool FinalLoadDone = false;
+        public static bool FakeFinalLoadDone = false;
 
-		public static int EnvironmentLoaded = 0;
+        public static int EnvironmentLoaded = 0;
 
         /// <summary>
         /// Tracks how many resources have been loaded.
@@ -155,57 +155,57 @@ namespace CloudberryKingdom
 
                 if (extension == "xnb")
                 {
-					Tools.SongWad.AddSong(name);
+                    Tools.SongWad.AddSong(name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
             }
 
 
-			float ReduceAll = .8f;
+            float ReduceAll = .8f;
 
             Tools.Song_Happy = Tools.SongWad.FindByName("Happy^James_Stant");
-			Tools.Song_Happy.Volume = .9f * ReduceAll;
+            Tools.Song_Happy.Volume = .9f * ReduceAll;
 
             Tools.Song_140mph = Tools.SongWad.FindByName("140_Mph_in_the_Fog^Blind_Digital");
-			Tools.Song_140mph.Volume = .5f * ReduceAll;
+            Tools.Song_140mph.Volume = .5f * ReduceAll;
 
             Tools.Song_BlueChair = Tools.SongWad.FindByName("Blue_Chair^Blind_Digital");
-			Tools.Song_BlueChair.Volume = .7f * ReduceAll;
+            Tools.Song_BlueChair.Volume = .7f * ReduceAll;
 
             Tools.Song_Evidence = Tools.SongWad.FindByName("Evidence^Blind_Digital");
-			Tools.Song_Evidence.Volume = .7f * ReduceAll;
+            Tools.Song_Evidence.Volume = .7f * ReduceAll;
 
             Tools.Song_GetaGrip = Tools.SongWad.FindByName("Get_a_Grip^Peacemaker");
-			Tools.Song_GetaGrip.Volume = 1f * ReduceAll;
+            Tools.Song_GetaGrip.Volume = 1f * ReduceAll;
 
             Tools.Song_House = Tools.SongWad.FindByName("House^Blind_Digital");
-			Tools.Song_House.Volume = .7f * ReduceAll;
+            Tools.Song_House.Volume = .7f * ReduceAll;
 
             Tools.Song_Nero = Tools.SongWad.FindByName("Nero's_Law^Peacemaker");
-			Tools.Song_Nero.Volume = 1f * ReduceAll;
+            Tools.Song_Nero.Volume = 1f * ReduceAll;
 
             Tools.Song_Ripcurl = Tools.SongWad.FindByName("Ripcurl^Blind_Digital");
-			Tools.Song_Ripcurl.Volume = .7f * ReduceAll;
+            Tools.Song_Ripcurl.Volume = .7f * ReduceAll;
 
             Tools.Song_FatInFire = Tools.SongWad.FindByName("The_Fat_is_in_the_Fire^Peacemaker");
-			Tools.Song_FatInFire.Volume = .9f * ReduceAll;
+            Tools.Song_FatInFire.Volume = .9f * ReduceAll;
 
             Tools.Song_Heavens = Tools.SongWad.FindByName("The_Heavens_Opened^Peacemaker");
-			Tools.Song_Heavens.Volume = 1f * ReduceAll;
-			Tools.Song_Heavens.DisplayInfo = false;
+            Tools.Song_Heavens.Volume = 1f * ReduceAll;
+            Tools.Song_Heavens.DisplayInfo = false;
 
             Tools.Song_TidyUp = Tools.SongWad.FindByName("Tidy_Up^Peacemaker");
-			Tools.Song_TidyUp.Volume = 1f * ReduceAll;
+            Tools.Song_TidyUp.Volume = 1f * ReduceAll;
 
             Tools.Song_WritersBlock = Tools.SongWad.FindByName("Writer's_Block^Peacemaker");
-			Tools.Song_WritersBlock.Volume = 1f * ReduceAll;
+            Tools.Song_WritersBlock.Volume = 1f * ReduceAll;
 
             // Create the standard playlist
             Tools.SongList_Standard.AddRange(Tools.SongWad.SongList);
             Tools.SongList_Standard.Remove(Tools.Song_Happy);
-			Tools.SongList_Standard.Remove(Tools.Song_140mph); Tools.SongList_Standard.Add(Tools.Song_140mph);
-			Tools.SongList_Standard.Remove(Tools.Song_Heavens);
+            Tools.SongList_Standard.Remove(Tools.Song_140mph); Tools.SongList_Standard.Add(Tools.Song_140mph);
+            Tools.SongList_Standard.Remove(Tools.Song_Heavens);
         }
 
         static void LoadSound()
@@ -238,7 +238,7 @@ namespace CloudberryKingdom
 
                 if (extension == "xnb")
                 {
-					Tools.SoundWad.AddSound(manager.LoadTillSuccess<SoundEffect>("Sound\\" + name), name);
+                    Tools.SoundWad.AddSound(manager.LoadTillSuccess<SoundEffect>("Sound\\" + name), name);
                 }
 
                 ResourceLoadedCountRef.MyFloat++;
@@ -276,29 +276,29 @@ namespace CloudberryKingdom
         {
             String path = Path.Combine(Globals.ContentDirectory, "Art");
 
-			//string[] files = Tools.GetFiles(path, true);
-			//foreach (String file in files)
-			//{
-			//    if (Tools.GetFileExt(path, file) == "xnb")
-			//    {
-			//        Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-			//    }
-			//}
+            //string[] files = Tools.GetFiles(path, true);
+            //foreach (String file in files)
+            //{
+            //    if (Tools.GetFileExt(path, file) == "xnb")
+            //    {
+            //        Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
+            //    }
+            //}
 
-			//string[] files = ArtList.ArtFiles;
-			//foreach (String file in files)
-			//{
-			//    Tools.TextureWad.AddTexture(null, file);
-			//}
+            //string[] files = ArtList.ArtFiles;
+            //foreach (String file in files)
+            //{
+            //    Tools.TextureWad.AddTexture(null, file);
+            //}
 
-			ArtList.PreloadArtFiles();
+            ArtList.PreloadArtFiles();
         }
 
         public static void LoadResources()
         {
-			_LoadThread ();
-			//LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
-			//LoadThread.Priority = ThreadPriority.Highest;
+            _LoadThread ();
+            //LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
+            //LoadThread.Priority = ThreadPriority.Highest;
         }
 
         public static void LoadResources_ImmediateForeground()
@@ -358,30 +358,30 @@ namespace CloudberryKingdom
         }
 #else
 
-		public static T LoadTillSuccess<T>(this ContentManager Content, string Path)
-		{
-			#if MONO
-			// Mono can't always load a texture from a background thread.
-			// Occasionally the load will fail. We catch the error and try again after a small delay.
-			// This is possibly the worst way to solve this problem.
-			T resource = default(T);
+        public static T LoadTillSuccess<T>(this ContentManager Content, string Path)
+        {
+            #if MONO
+            // Mono can't always load a texture from a background thread.
+            // Occasionally the load will fail. We catch the error and try again after a small delay.
+            // This is possibly the worst way to solve this problem.
+            T resource = default(T);
 
-			while (true) {
-				try {
-					resource = Content.Load<T> (Path);
-					return resource;
-				} catch (Exception e) {
-					Console.WriteLine ("Loading {0} failed", Path);
-					Console.WriteLine (e.Message);
-					Console.WriteLine ("Trying again.");
-				}
+            while (true) {
+                try {
+                    resource = Content.Load<T> (Path);
+                    return resource;
+                } catch (Exception e) {
+                    Console.WriteLine ("Loading {0} failed", Path);
+                    Console.WriteLine (e.Message);
+                    Console.WriteLine ("Trying again.");
+                }
 
-				Thread.Sleep (10);
-			}
-			#else
-			return Content.Load<T>(Path);
-			#endif
-		}
+                Thread.Sleep (10);
+            }
+            #else
+            return Content.Load<T>(Path);
+            #endif
+        }
 
 
         static void _LoadThread()
@@ -400,7 +400,7 @@ namespace CloudberryKingdom
             TileSets.Init();
 
 #if !EDITOR
-			Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 360, 260);
+            Fireball.InitRenderTargets(Ck.MyGraphicsDevice, Ck.MyGraphicsDevice.PresentationParameters, 360, 260);
 #endif
 
             ParticleEffects.Init();
@@ -410,8 +410,8 @@ namespace CloudberryKingdom
 #if PC_VERSION
             // Mouse pointer
             Ck.MousePointer = new QuadClass();
-			//Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
-			Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Mouse");
+            //Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
+            Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Mouse");
             Ck.MousePointer.ScaleYToMatchRatio(70);
 
             // Mouse back icon
@@ -432,7 +432,7 @@ namespace CloudberryKingdom
 
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
 
-			Texture2D transparent = Tools.Transparent.Tex;
+            Texture2D transparent = Tools.Transparent.Tex;
 
             if (CloudberryKingdomGame.PropTest)
             {
@@ -441,38 +441,38 @@ namespace CloudberryKingdom
             }
 
             int count = 0;
-			foreach (EzTexture Tex in Tools.TextureWad.TextureList)
-			{
-				// If texture hasn't been loaded yet, load it
-				if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
-				{
-					while ((ScreenSaver.GamePlayInAction   && count > 200 ||
+            foreach (EzTexture Tex in Tools.TextureWad.TextureList)
+            {
+                // If texture hasn't been loaded yet, load it
+                if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
+                {
+                    while ((ScreenSaver.GamePlayInAction   && count > 200 ||
                             ScreenSaver.ScreenSaverStarted && count > 556)
                            && Tools.WorldMap is ScreenSaver)
-					{
-						Thread.Sleep(100);
-					}
+                    {
+                        Thread.Sleep(100);
+                    }
 
-					Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
+                    Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
 
-					count++;
-					Tools.Write ("# loaded = {0}", count);
+                    count++;
+                    Tools.Write ("# loaded = {0}", count);
 
-					if		(count > 565) EnvironmentLoaded = 6;
-					else if (count > 510) EnvironmentLoaded = 5;
-					else if (count > 452) EnvironmentLoaded = 4;
-					else if (count > 391) EnvironmentLoaded = 3;
-					else if (count > 339) EnvironmentLoaded = 2;
-					else if (count > 204) EnvironmentLoaded = 1;
+                    if		(count > 565) EnvironmentLoaded = 6;
+                    else if (count > 510) EnvironmentLoaded = 5;
+                    else if (count > 452) EnvironmentLoaded = 4;
+                    else if (count > 391) EnvironmentLoaded = 3;
+                    else if (count > 339) EnvironmentLoaded = 2;
+                    else if (count > 204) EnvironmentLoaded = 1;
 
-					if (count > 300)
-					{
-						FakeFinalLoadDone = true;
-					}
-				}
-			}
+                    if (count > 300)
+                    {
+                        FakeFinalLoadDone = true;
+                    }
+                }
+            }
 
-			FinalLoadDone = true;
+            FinalLoadDone = true;
         }
 #endif
     }

@@ -136,6 +136,14 @@ namespace CloudberryKingdom
             beard.HatPicShift = Vector2.Zero;
             BeardInfo.Add(beard);
 
+            Hat.AhBeard =
+            beard = new Hat("Facial_Ah_9");
+            beard.Name = Localization.Words.Lumberjack;
+            beard.Price = Hat.Expensive;
+            beard.Guid = 5259006;
+            beard.HatPicShift = Vector2.Zero;
+            BeardInfo.Add(beard);
+
 
             // Fill the hat list
             Hat hat;
@@ -151,15 +159,15 @@ namespace CloudberryKingdom
             hat.Price = Hat.Expensive;
             hat.Guid = 20;
                 hat.HatPicShift = new Vector2(-.02f, .075f);
-				HatInfo.Add(hat);
-				Hat.Viking = hat;
+                HatInfo.Add(hat);
+                Hat.Viking = hat;
             hat = new Hat("Hat_Fedora");
             hat.Name = Localization.Words.Fedora;
             hat.Price = Hat.Cheap;
             hat.Guid = 21;
                 hat.HatPicScale *= 1.075f;
-				HatInfo.Add(hat);                
-				Hat.Fedora = hat;
+                HatInfo.Add(hat);                
+                Hat.Fedora = hat;
             hat = new Hat("Hat_Afro");
             hat.Name = Localization.Words.Afro;
             hat.Price = Hat.Mid;
@@ -258,8 +266,8 @@ namespace CloudberryKingdom
             hat.DrawHead = false;
             hat.Price = Hat.Mid;
             hat.Guid = 36;
-				HatInfo.Add(hat);
-				Hat.Bubble = hat;
+                HatInfo.Add(hat);
+                Hat.Bubble = hat;
 
 
 float ScaleNew = 1.35f;
@@ -271,16 +279,16 @@ float DefaultShiftX = -.35f;
             hat.Guid = 37;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.35f;
-				HatInfo.Add(hat);
-				Hat.TopHat = hat;
+                HatInfo.Add(hat);
+                Hat.TopHat = hat;
             hat = new Hat("Hat_Knight", false);
             hat.Name = Localization.Words.KnightHelmet;
             hat.Price = Hat.Expensive;
             hat.Guid = 38;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .105f);
                 hat.HatPicScale *= ScaleNew * 1.145f;
-				HatInfo.Add(hat);
-				Hat.Knight = hat;
+                HatInfo.Add(hat);
+                Hat.Knight = hat;
             
             // Removed due to infringement issues.
             /*
@@ -290,8 +298,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 39;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.115f;
-				HatInfo.Add(hat);
-				Hat.Toad = hat;
+                HatInfo.Add(hat);
+                Hat.Toad = hat;
 
             hat = new Hat("Hat_BubbleBobble");
             hat.Name = Localization.Words.OmNomNom;
@@ -299,8 +307,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 40;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.105f;
-				HatInfo.Add(hat);
-				Hat.BubbleBobble = hat;
+                HatInfo.Add(hat);
+                Hat.BubbleBobble = hat;
             */
 
             hat = new Hat("Hat_Brain");
@@ -311,16 +319,16 @@ float DefaultShiftX = -.35f;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.095f;
                 hat.AllowsFacialHair = false;
-				HatInfo.Add(hat);
-				Hat.Brain = hat;
+                HatInfo.Add(hat);
+                Hat.Brain = hat;
             hat = new Hat("Hat_Gosu");
             hat.Name = Localization.Words.Gosu;
             hat.Price = Hat.Expensive;
             hat.Guid = 42;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				Hat.Gosu = hat;
+                HatInfo.Add(hat);
+                Hat.Gosu = hat;
 
 
 
@@ -332,7 +340,7 @@ float DefaultShiftX = -.35f;
             hat.Guid = 1;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
+                HatInfo.Add(hat);
 
             Hat.Rasta = 
             hat = new Hat("Hat_Rasta");
@@ -341,8 +349,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 2;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Pumpkin = 
             hat = new Hat("Hat_Pumpkin");
             hat.DrawHead = false;
@@ -352,8 +360,8 @@ float DefaultShiftX = -.35f;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
                 hat.AllowsFacialHair = false;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Pirate = 
             hat = new Hat("Hat_Pirate");
             hat.Name = Localization.Words.PirateHat;
@@ -361,8 +369,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 4;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Miner = 
             hat = new Hat("Hat_Miner");
             hat.Name = Localization.Words.HardHat;
@@ -370,8 +378,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 5;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Glasses = 
             hat = new Hat("Hat_Glasses");
             hat.Name = Localization.Words.FourEyes;
@@ -379,8 +387,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 6;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .1f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-			
+                HatInfo.Add(hat);
+            
             Hat.BunnyEars = 
             hat = new Hat("Hat_BunnyEars");
             hat.Name = Localization.Words.BunnyEars;
@@ -388,15 +396,15 @@ float DefaultShiftX = -.35f;
             hat.Guid = 7;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             //hat = new Hat("Hat_Beard");
             //hat.Price = Hat.Mid;
             //hat.Guid = 8;
             //    hat.HatPicShift = new Vector2(DefaultShiftX, .435f);
             //    hat.HatPicScale *= ScaleNew * 1.165f;
             //    HatInfo.Add(hat);
-				
+                
             Hat.Antlers = 
             hat = new Hat("Hat_Antlers");
             hat.Name = Localization.Words.Antlers;
@@ -404,8 +412,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 9;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.135f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Arrow = 
             hat = new Hat("Hat_Arrow");
             hat.Name = Localization.Words.ArrowThroughHead;
@@ -413,8 +421,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 10;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Bag = 
             hat = new Hat("Hat_Bag");
             hat.Name = Localization.Words.BrownBag;
@@ -424,8 +432,8 @@ float DefaultShiftX = -.35f;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
                 hat.AllowsFacialHair = false;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Cone = 
             hat = new Hat("Hat_Cone");
             hat.Name = Localization.Words.TrafficCone;
@@ -433,8 +441,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 12;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Pope = 
             hat = new Hat("Hat_Pope");
             hat.Name = Localization.Words.PopeHat;
@@ -442,8 +450,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 13;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Rice = 
             hat = new Hat("Hat_Rice");
             hat.Name = Localization.Words.RiceHat;
@@ -451,8 +459,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 14;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Santa = 
             hat = new Hat("Hat_Santa");
             hat.Name = Localization.Words.SantaClaus;
@@ -460,8 +468,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 15;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Sombrero = 
             hat = new Hat("Hat_Sombrero");
             hat.Name = Localization.Words.Sombrero;
@@ -469,8 +477,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 16;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Tiki = 
             hat = new Hat("Hat_Tiki");
             hat.DrawHead = false;
@@ -479,8 +487,8 @@ float DefaultShiftX = -.35f;
             hat.Guid = 17;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
                 hat.HatPicScale *= ScaleNew * 1.165f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+                
             Hat.Wizard = 
             hat = new Hat("Hat_Wizard");
             hat.Name = Localization.Words.Wizard;
@@ -488,8 +496,85 @@ float DefaultShiftX = -.35f;
             hat.Guid = 18;
                 hat.HatPicShift = new Vector2(DefaultShiftX, -.015f);
                 hat.HatPicScale *= ScaleNew * 1.145f;
-				HatInfo.Add(hat);
-				
+                HatInfo.Add(hat);
+
+            Hat.Ah_1 = 
+            hat = new Hat("Hat_Ah_1");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12301;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_2 = 
+            hat = new Hat("Hat_Ah_2");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12302;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_3 = 
+            hat = new Hat("Hat_Ah_3");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12303;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_4 = 
+            hat = new Hat("Hat_Ah_4");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12304;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_5 = 
+            hat = new Hat("Hat_Ah_5");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12305;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_6 = 
+            hat = new Hat("Hat_Ah_6");
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12306;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_7 = 
+            hat = new Hat("Hat_Ah_7");
+            hat.DrawHead = false;
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12307;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            Hat.Ah_8 = 
+            hat = new Hat("Hat_Ah_8");
+            hat.DrawHead = false;
+            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Price = Hat.Expensive;
+            hat.Guid = 12308;
+                hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+                hat.HatPicScale *= ScaleNew * 1.165f;
+                HatInfo.Add(hat);
+            //Hat.Ah_9 = 
+            //hat = new Hat("Hat_Ah_9");
+            //hat.AllowsFacialHair = false;
+            //hat.Name = Localization.Words.ArrowThroughHead;
+            //hat.Price = Hat.Expensive;
+            //hat.Guid = 12301;
+            //    hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
+            //    hat.HatPicScale *= ScaleNew * 1.165f;
+            //    HatInfo.Add(hat);
+
+                
 #if DEBUG
             // Check GUID uniqueness
             if (!Tools.AllUnique(HatInfo, h => h.GetGuid()))
@@ -663,6 +748,7 @@ float DefaultShiftX = -.35f;
 
 
             // Create the default color schemes
+            //"Black", "Red", "Red", "TopHat", "Lumberjack"
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
             AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
             AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);

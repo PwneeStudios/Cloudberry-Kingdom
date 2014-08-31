@@ -69,7 +69,7 @@ namespace CloudberryKingdom.Bobs
 
         public override void Release()
         {
-			base.Release();
+            base.Release();
 
             ControlFunc = null;
             OnLand = null;
@@ -109,148 +109,148 @@ namespace CloudberryKingdom.Bobs
         }
 
 
-		public uint StoredRecord_BL, StoredRecord_QuadSize;
-		public int StoredRecordTexture = 0;
+        public uint StoredRecord_BL, StoredRecord_QuadSize;
+        public int StoredRecordTexture = 0;
 
-		Quad MainQuad;
-		public void SetRecordingInfo()
-		{
-			if (MainQuad == null)
-			{
-				if (PlayerObject != null && PlayerObject.QuadList != null)
-				{
-					if (MyPhsx is BobPhsxSpaceship)
-						MainQuad = PlayerObject.QuadList[1] as Quad;
-					else if (MyPhsx is BobPhsxMeat)
-						MainQuad = PlayerObject.QuadList[0] as Quad;
-					else
-						MainQuad = PlayerObject.FindQuad("MainQuad") as Quad;
-				}
-				else
-					MainQuad = null;
-			}
+        Quad MainQuad;
+        public void SetRecordingInfo()
+        {
+            if (MainQuad == null)
+            {
+                if (PlayerObject != null && PlayerObject.QuadList != null)
+                {
+                    if (MyPhsx is BobPhsxSpaceship)
+                        MainQuad = PlayerObject.QuadList[1] as Quad;
+                    else if (MyPhsx is BobPhsxMeat)
+                        MainQuad = PlayerObject.QuadList[0] as Quad;
+                    else
+                        MainQuad = PlayerObject.FindQuad("MainQuad") as Quad;
+                }
+                else
+                    MainQuad = null;
+            }
 
-			if (MainQuad == null)
-			{
-				StoredRecord_BL = 0;
-				StoredRecord_QuadSize = 0;
-				StoredRecordTexture = 0;
-			}
-			else
-			{
-				Vector2 _BL = MainQuad.BL();
-				Vector2 _Size = MainQuad.TR() - _BL;
+            if (MainQuad == null)
+            {
+                StoredRecord_BL = 0;
+                StoredRecord_QuadSize = 0;
+                StoredRecordTexture = 0;
+            }
+            else
+            {
+                Vector2 _BL = MainQuad.BL();
+                Vector2 _Size = MainQuad.TR() - _BL;
 
-				if (PlayerObject.xFlip)
-				{
-					_BL.X += _Size.X;
-					_Size.X *= -1;
-				}
+                if (PlayerObject.xFlip)
+                {
+                    _BL.X += _Size.X;
+                    _Size.X *= -1;
+                }
 
-				StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
-				StoredRecord_QuadSize = PackVectorIntoInt_SizeAngle(_Size, PlayerObject.ContainedQuadAngle);
+                StoredRecord_BL = PackVectorIntoInt_Pos(_BL);
+                StoredRecord_QuadSize = PackVectorIntoInt_SizeAngle(_Size, PlayerObject.ContainedQuadAngle);
 
-				//Vector2 BL = MainQuad.Corner[2].Pos;
-				//Vector2 TR = MainQuad.Corner[1].Pos;
-				//StoredRecord_BL = PackVectorIntoInt_Pos(BL);
-				//StoredRecord_QuadSize = PackVectorIntoInt_Size(TR - BL);
+                //Vector2 BL = MainQuad.Corner[2].Pos;
+                //Vector2 TR = MainQuad.Corner[1].Pos;
+                //StoredRecord_BL = PackVectorIntoInt_Pos(BL);
+                //StoredRecord_QuadSize = PackVectorIntoInt_Size(TR - BL);
 
 
-				if (Game != null)
-				{
-					if ((Dead || Dying) && !Game.MyGameFlags.IsTethered)
-					{
-						StoredRecordTexture = 0;
-					}
-					else
-					{
-						StoredRecordTexture = CoreMath.Restrict(0, Tools.TextureWad.TextureList.Count - 1,
-															   Tools.TextureWad.TextureList.IndexOf(MainQuad.MyTexture));						
-					}
-				}
-			}
-		}
+                if (Game != null)
+                {
+                    if ((Dead || Dying) && !Game.MyGameFlags.IsTethered)
+                    {
+                        StoredRecordTexture = 0;
+                    }
+                    else
+                    {
+                        StoredRecordTexture = CoreMath.Restrict(0, Tools.TextureWad.TextureList.Count - 1,
+                                                               Tools.TextureWad.TextureList.IndexOf(MainQuad.MyTexture));						
+                    }
+                }
+            }
+        }
 
-		public static uint PackVectorIntoInt_Pos(Vector2 v)
-		{
-			v.X += 600;
-			v.Y += 1000;
+        public static uint PackVectorIntoInt_Pos(Vector2 v)
+        {
+            v.X += 600;
+            v.Y += 1000;
 
-			uint x = (uint)(v.X * 4.0f) << 14;
-			uint y = (uint)(v.Y * 4.0f);
-			uint i = x + y;
+            uint x = (uint)(v.X * 4.0f) << 14;
+            uint y = (uint)(v.Y * 4.0f);
+            uint i = x + y;
 
-			//Vector2 _v = UnpackIntIntoVector_Pos(i);
+            //Vector2 _v = UnpackIntIntoVector_Pos(i);
 
-			return i;
-		}
+            return i;
+        }
 
-		public static Vector2 UnpackIntIntoVector_Pos(uint i)
-		{
-			uint _x = i >> 14;
-			uint _y = i - (_x << 14);
+        public static Vector2 UnpackIntIntoVector_Pos(uint i)
+        {
+            uint _x = i >> 14;
+            uint _y = i - (_x << 14);
 
-			float x = (float)(_x) / 4.0f;
-			float y = (float)(_y) / 4.0f;
+            float x = (float)(_x) / 4.0f;
+            float y = (float)(_y) / 4.0f;
 
-			x -= 600;
-			y -= 1000;
-			
-			return new Vector2(x, y);
-		}
+            x -= 600;
+            y -= 1000;
+            
+            return new Vector2(x, y);
+        }
 
-		public static uint PackVectorIntoInt_SizeAngle(Vector2 v, float angle)
-		{
-			float tau = (float)(2 * Math.PI);
-			float revs = angle / tau;
-			angle -= (int)revs * tau;
-			if (angle < 0)
-				angle += tau;
+        public static uint PackVectorIntoInt_SizeAngle(Vector2 v, float angle)
+        {
+            float tau = (float)(2 * Math.PI);
+            float revs = angle / tau;
+            angle -= (int)revs * tau;
+            if (angle < 0)
+                angle += tau;
 
-			uint x = (uint)(Math.Abs(v.X) * 0.7f) << 20;
-			x += v.X > (uint)0 ? (uint)0 : (((uint)1) << 31);
-			uint y = ((uint)(v.Y * 1.0f) << 20) >> 12;
-			uint a = ((uint)(angle * 32.0f) << 24) >> 24;
-			uint i = x + y + a;
+            uint x = (uint)(Math.Abs(v.X) * 0.7f) << 20;
+            x += v.X > (uint)0 ? (uint)0 : (((uint)1) << 31);
+            uint y = ((uint)(v.Y * 1.0f) << 20) >> 12;
+            uint a = ((uint)(angle * 32.0f) << 24) >> 24;
+            uint i = x + y + a;
 
-			//Vector2 _v = UnpackIntIntoVector_Size(i);
-			//float _a  = UnpackIntIntoVector_Angle(i);
+            //Vector2 _v = UnpackIntIntoVector_Size(i);
+            //float _a  = UnpackIntIntoVector_Angle(i);
 
-			return i;
-		}
+            return i;
+        }
 
-		public static Vector2 UnpackIntIntoVector_Size(uint i)
-		{
-			bool sign = (i & (((uint)1) << 31)) == (((uint)1) << 31);
-			if (sign)
-				i -= (((uint)1) << 31);
+        public static Vector2 UnpackIntIntoVector_Size(uint i)
+        {
+            bool sign = (i & (((uint)1) << 31)) == (((uint)1) << 31);
+            if (sign)
+                i -= (((uint)1) << 31);
 
-			uint _x = i >> 20;
-			uint _y = (i - (_x << 20)) >> 8;
-			
-			float x = (float)(_x) / 0.7f;
-			float y = (float)(_y) / 1.0f;
+            uint _x = i >> 20;
+            uint _y = (i - (_x << 20)) >> 8;
+            
+            float x = (float)(_x) / 0.7f;
+            float y = (float)(_y) / 1.0f;
 
-			if (sign) x = -x;
+            if (sign) x = -x;
 
-			return new Vector2(x, y);
-		}
+            return new Vector2(x, y);
+        }
 
-		public static float UnpackIntIntoVector_Angle(uint i)
-		{
-			uint _x = i >> 20;
-			uint _y = (i - (_x << 20)) >> 8;
-			uint _a = (i - (_x << 20) - (_y << 8));
+        public static float UnpackIntIntoVector_Angle(uint i)
+        {
+            uint _x = i >> 20;
+            uint _y = (i - (_x << 20)) >> 8;
+            uint _a = (i - (_x << 20) - (_y << 8));
 
-			float a = (float)(_a) / 32.0f;
+            float a = (float)(_a) / 32.0f;
 
-			return a;
-		}
+            return a;
+        }
 
         public void SetColorScheme(ColorScheme scheme)
         {
             //scheme = ColorSchemeManager.ColorSchemes[2];
-            //Tools.Write(scheme.ToString());
+            Tools.Write(scheme.ToString());
 
             if (BoxesOnly || PlayerObject.QuadList == null) return;
 
@@ -521,24 +521,24 @@ namespace CloudberryKingdom.Bobs
 
         public static List<BobPhsx> HeroTypes = GetPlayableHeroTypes();
 
-		static List<BobPhsx> GetPlayableHeroTypes()
-		{
-			if (CloudberryKingdomGame.CodersEdition)
-			{
-				return new List<BobPhsx>(new BobPhsx[] {
-					BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
-					BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
-					BobPhsxBlobby.Instance, BobPhsxMeat.Instance, BobPhsxTimeship.Instance
-				});
-			}
-			else
-			{
-				return new List<BobPhsx>(new BobPhsx[] {
-					BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
-					BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
-				});
-			}
-		}
+        static List<BobPhsx> GetPlayableHeroTypes()
+        {
+            if (CloudberryKingdomGame.CodersEdition)
+            {
+                return new List<BobPhsx>(new BobPhsx[] {
+                    BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
+                    BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
+                    BobPhsxBlobby.Instance, BobPhsxMeat.Instance, BobPhsxTimeship.Instance
+                });
+            }
+            else
+            {
+                return new List<BobPhsx>(new BobPhsx[] {
+                    BobPhsxNormal.Instance, BobPhsxJetman.Instance, BobPhsxDouble.Instance, BobPhsxSmall.Instance, BobPhsxWheel.Instance, BobPhsxSpaceship.Instance, BobPhsxBox.Instance,
+                    BobPhsxBouncy.Instance, BobPhsxRocketbox.Instance, BobPhsxBig.Instance, BobPhsxScale.Instance, BobPhsxInvert.Instance,
+                });
+            }
+        }
 
         /// <summary>
         /// How many time the bob has popped something without hitting the ground.
@@ -568,7 +568,7 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.PlayUpdate(0);
 
             Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-			Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             SetHeroPhsx(MyHeroType);
 
@@ -635,7 +635,7 @@ namespace CloudberryKingdom.Bobs
             PlayerObject.PlayUpdate(0);
             
             Box = new AABox(Core.Data.Position, PlayerObject.BoxList[1].Size() / 2);
-			Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
+            Box2 = new AABox(Core.Data.Position, PlayerObject.BoxList[2].Size() / 2);
 
             MyPhsx = new BobPhsx();
             MyPhsx.Init(this);
@@ -753,7 +753,7 @@ namespace CloudberryKingdom.Bobs
             Move(StartData.Position - Core.Data.Position);
             Core.Data = StartData;            
             Box.SetTarget(Core.Data.Position, Box.Current.Size);
-			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
+            Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
             Box.SwapToCurrent();
             Box2.SwapToCurrent();
             UpdateObject();
@@ -1035,7 +1035,7 @@ namespace CloudberryKingdom.Bobs
         }
         public float CameraWeight = 1, CameraWeightSpeed;
 
-		public bool Prevent_A_Button = false;
+        public bool Prevent_A_Button = false;
         public void GetPlayerInput()
         {
             CurInput.Clean();
@@ -1048,31 +1048,31 @@ namespace CloudberryKingdom.Bobs
 
             if (CoreGamepad.IsConnected(MyPlayerIndex))
             {
-				if (CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.A))
-				{
-					CurInput.A_Button = true;
-				}
-				else
-				{
-					CurInput.A_Button = false;
-				}
+                if (CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.A))
+                {
+                    CurInput.A_Button = true;
+                }
+                else
+                {
+                    CurInput.A_Button = false;
+                }
 
                 CurInput.xVec.X = CurInput.xVec.Y = 0;
-				
-				Vector2 LDir = CoreGamepad.LeftJoystick(MyPlayerIndex);
-				if (Math.Abs(LDir.X) > .15f)
-					CurInput.xVec.X = LDir.X;
-				if (Math.Abs(LDir.Y) > .15f)
-					CurInput.xVec.Y = LDir.Y;
+                
+                Vector2 LDir = CoreGamepad.LeftJoystick(MyPlayerIndex);
+                if (Math.Abs(LDir.X) > .15f)
+                    CurInput.xVec.X = LDir.X;
+                if (Math.Abs(LDir.Y) > .15f)
+                    CurInput.xVec.Y = LDir.Y;
 
-				Vector2 DPad = CoreGamepad.DPad(MyPlayerIndex);
-				if (Math.Abs(DPad.X) > .15f)
-					CurInput.xVec.X = DPad.X;
-				if (Math.Abs(DPad.Y) > .15f)
-					CurInput.xVec.Y = DPad.Y;
+                Vector2 DPad = CoreGamepad.DPad(MyPlayerIndex);
+                if (Math.Abs(DPad.X) > .15f)
+                    CurInput.xVec.X = DPad.X;
+                if (Math.Abs(DPad.Y) > .15f)
+                    CurInput.xVec.Y = DPad.Y;
 
-				CurInput.B_Button = (CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.LS) ||
-									 CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.RS));
+                CurInput.B_Button = (CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.LS) ||
+                                     CoreGamepad.IsPressed(MyPlayerIndex, ControllerButtons.RS));
 
 #if WINDOWS
                 if (CurInput.xVec != Vector2.Zero || CurInput.A_Button || CurInput.B_Button)
@@ -1082,37 +1082,37 @@ namespace CloudberryKingdom.Bobs
                 }
 #endif
 
-				if (Prevent_A_Button)
-				{
-					if (CurInput.A_Button)
-						CurInput.A_Button = false;
-					else
-						Prevent_A_Button = false;
-				}
+                if (Prevent_A_Button)
+                {
+                    if (CurInput.A_Button)
+                        CurInput.A_Button = false;
+                    else
+                        Prevent_A_Button = false;
+                }
             }
 
 #if WINDOWS
-			if (CoreKeyboard.KeyboardPlayerIndex == MyPlayerIndex)
-			{
-				Vector2 KeyboardDir = Vector2.Zero;
+            if (CoreKeyboard.KeyboardPlayerIndex == MyPlayerIndex)
+            {
+                Vector2 KeyboardDir = Vector2.Zero;
 
-				CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(Keys.Up);
-				CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary);
-				KeyboardDir.X = KeyboardDir.Y = 0;
-				if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
-				if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
-				if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
-				if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
-				if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
-				if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
-				if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
-				if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
+                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(Keys.Up);
+                CurInput.A_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary);
+                KeyboardDir.X = KeyboardDir.Y = 0;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) KeyboardDir.Y = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) KeyboardDir.Y = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) KeyboardDir.X = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) KeyboardDir.X = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Left_Secondary)) KeyboardDir.X = -1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Right_Secondary)) KeyboardDir.X = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Up_Secondary)) KeyboardDir.Y = 1;
+                if (Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Down_Secondary)) KeyboardDir.Y = -1;
 
-				CurInput.B_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Back_Secondary);
+                CurInput.B_Button |= Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Back_Secondary);
 
-				if (KeyboardDir.LengthSquared() > CurInput.xVec.LengthSquared())
-					CurInput.xVec = KeyboardDir;
-			}
+                if (KeyboardDir.LengthSquared() > CurInput.xVec.LengthSquared())
+                    CurInput.xVec = KeyboardDir;
+            }
 #if WINDOWS
             if (!GamepadUsed && (CurInput.xVec != Vector2.Zero || CurInput.A_Button || CurInput.B_Button))
             {
@@ -1195,15 +1195,15 @@ namespace CloudberryKingdom.Bobs
 
         public void UpdateColors()
         {
-			if (MyObjectType is BobPhsxBlobby && PlayerObject.QuadList != null)
-			{
-				var ql = PlayerObject.QuadList;
-				if (ql.Count >= 1) PlayerObject.QuadList[1].SetColor(Color.White);
-				if (ql.Count >= 1) PlayerObject.QuadList[1].MyMatrix = ColorHelper.HsvTransform(1, 1, 170) * MyColorScheme.SkinColor.M;
-				if (ql.Count >= 1) PlayerObject.QuadList[1].MyEffect = Tools.HslEffect;
-				if (ql.Count >= 0) PlayerObject.QuadList[0].Show = false;
-				if (ql.Count >= 2) PlayerObject.QuadList[2].Show = false;
-			}
+            if (MyObjectType is BobPhsxBlobby && PlayerObject.QuadList != null)
+            {
+                var ql = PlayerObject.QuadList;
+                if (ql.Count >= 1) PlayerObject.QuadList[1].SetColor(Color.White);
+                if (ql.Count >= 1) PlayerObject.QuadList[1].MyMatrix = ColorHelper.HsvTransform(1, 1, 170) * MyColorScheme.SkinColor.M;
+                if (ql.Count >= 1) PlayerObject.QuadList[1].MyEffect = Tools.HslEffect;
+                if (ql.Count >= 0) PlayerObject.QuadList[0].Show = false;
+                if (ql.Count >= 2) PlayerObject.QuadList[2].Show = false;
+            }
             else if (MyObjectType is BobPhsxSpaceship && PlayerObject.QuadList != null)
             {
                 var ql = PlayerObject.QuadList;
@@ -1412,13 +1412,13 @@ namespace CloudberryKingdom.Bobs
 
             if (Tools.DrawBoxes)
             {
-				//Box.DrawFilled(Tools.QDrawer, Color.HotPink);
-				Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
+                //Box.DrawFilled(Tools.QDrawer, Color.HotPink);
+                Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
-				//Box.Draw(Tools.QDrawer, Color.HotPink, 12);
-				//Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
-				//Box2.Draw(Tools.QDrawer, Color.HotPink, 12);
-				//Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
+                //Box.Draw(Tools.QDrawer, Color.HotPink, 12);
+                //Box.DrawT(Tools.QDrawer, Color.HotPink, 6);
+                //Box2.Draw(Tools.QDrawer, Color.HotPink, 12);
+                //Box2.DrawT(Tools.QDrawer, Color.HotPink, 12);
 
                 if (Boxes != null)
                 {
@@ -1645,13 +1645,13 @@ namespace CloudberryKingdom.Bobs
                 Box.Target.BL.Y -= 5;
             }
 
-			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
+            Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
 
             MyPhsx.OnInitBoxes();
         }
 
-		public bool UseCustomCapePos = false;
-		public Vector2 CustomCapePos;
+        public bool UseCustomCapePos = false;
+        public Vector2 CustomCapePos;
         public void UpdateCape()
         {
             if (!CanHaveCape) // || !ShowCape)
@@ -1675,17 +1675,17 @@ namespace CloudberryKingdom.Bobs
             if (temp == null) temp = new ObjectVector();            
             if (Head == null) Head = (Quad)PlayerObject.FindQuad("Head");
 
-			if (UseCustomCapePos)
-				temp.Pos = Pos + CustomCapePos;
-			else
-				temp.Pos = Head.Center.Pos;
+            if (UseCustomCapePos)
+                temp.Pos = Pos + CustomCapePos;
+            else
+                temp.Pos = Head.Center.Pos;
             temp.Pos += MyPhsx.TranscendentOffset;
 
             if (Dead)
                 temp.Pos += new Vector2(60, -50) * MyPhsx.ModCapeSize + new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else if (MyPhsx.Ducking)
                 temp.Pos += MyPhsx.CapeOffset_Ducking * MyPhsx.ModCapeSize * new Vector2(PlayerObject.xFlip ? -1 : 1, 1) +
-					new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
+                    new Vector2(0, 3 * (1 / MyPhsx.ModCapeSize.Y - 1));
             else
                 temp.Pos += MyPhsx.CapeOffset * MyPhsx.ModCapeSize;
 
@@ -1763,21 +1763,21 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.Vel += CurInput.xVec;
         }
 
-		static BobInput FirstBobInput;
+        static BobInput FirstBobInput;
         public override void PhsxStep()
         {
             DoLightSourceFade();
 
-			if (!Core.Show)
-			{
-				SetRecordingInfo();
-				return;
-			}
+            if (!Core.Show)
+            {
+                SetRecordingInfo();
+                return;
+            }
 
             if (CharacterSelect2)
             {
                 DollPhsxStep();
-				SetRecordingInfo();
+                SetRecordingInfo();
                 return;
             }
 
@@ -1811,7 +1811,7 @@ namespace CloudberryKingdom.Bobs
                 if (Core.MyLevel.PlayMode == 0 && MyCape != null)
                     UpdateCape();
 
-				SetRecordingInfo();
+                SetRecordingInfo();
                 return;
             }
 
@@ -1883,23 +1883,23 @@ namespace CloudberryKingdom.Bobs
                 CurInput.xVec = Vector2.Zero;
             }
 
-			if (Dopple)
-			{
-				CurInput = FirstBobInput;
-			}
-			else
-			{
-				FirstBobInput = CurInput;
-			}
+            if (Dopple)
+            {
+                CurInput = FirstBobInput;
+            }
+            else
+            {
+                FirstBobInput = CurInput;
+            }
 
             // Phsyics update
-			if (Dopple)
-			{
-				if (MoveData.InvertDirX || MyLevel.MySourceGame != null && MyLevel.MySourceGame.MyGameFlags.IsDopplegangerInvert && !MyLevel.IsHorizontal())
-				{
-					CurInput.xVec.X *= -1;
-				}
-			}
+            if (Dopple)
+            {
+                if (MoveData.InvertDirX || MyLevel.MySourceGame != null && MyLevel.MySourceGame.MyGameFlags.IsDopplegangerInvert && !MyLevel.IsHorizontal())
+                {
+                    CurInput.xVec.X *= -1;
+                }
+            }
             float Windx = Wind.X;
             if (MyPhsx.OnGround) Windx /= 2;
             Core.Data.Velocity.X -= Windx;
@@ -1953,7 +1953,7 @@ namespace CloudberryKingdom.Bobs
                 ControlCount++;
                 if (CinematicFunc != null) CinematicFunc(ControlCount);
 
-				SetRecordingInfo();
+                SetRecordingInfo();
                 return;
             }
 
@@ -2000,7 +2000,7 @@ namespace CloudberryKingdom.Bobs
 
             // Reset boxes to normal
             Box.SetCurrent(Core.Data.Position, Box.Current.Size);
-			Box2.SetCurrent(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
+            Box2.SetCurrent(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
 
 //if (Core.MyLevel.PlayMode != 0)
 //    for (int i = 0; i <= NumBoxes; i++)
@@ -2013,7 +2013,7 @@ namespace CloudberryKingdom.Bobs
             MyPhsx.PhsxStep2();
 
             PrevInput = CurInput;
-			SetRecordingInfo();
+            SetRecordingInfo();
         }
 
         /// <summary>
@@ -2035,7 +2035,7 @@ namespace CloudberryKingdom.Bobs
                 UpdateBoxList();
             }
             else
-				Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
+                Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
             Box.SetTarget(Core.Data.Position, Box.Current.Size + new Vector2(.0f, .2f));
 
 
@@ -2061,14 +2061,14 @@ namespace CloudberryKingdom.Bobs
                 box.Current.Size.X += extra + .7f * Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
                 box.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth * ((NumBoxes - i) * .1f);
 
-				box.SetCurrent(Box2.Current.Center, box.Current.Size);
+                box.SetCurrent(Box2.Current.Center, box.Current.Size);
                 box.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, box.Current.Size);
             }
             RegularBox2 = Boxes[Boxes.Count - 1];
 
             Box2.Current.Size.X += extra + .7f * Upgrades.MaxBobWidth;
             Box2.Current.Size.Y += extra + .23f * Upgrades.MaxBobWidth;
-			Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
+            Box2.SetTarget(Core.Data.Position + MyPhsx.TranscendentOffset, Box2.Current.Size);
         }
 
         public void DeleteObj(ObjectBase obj)

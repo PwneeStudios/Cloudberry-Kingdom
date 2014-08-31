@@ -33,9 +33,10 @@ namespace CloudberryKingdom.Bobs
         public static Hat None, Viking, Fedora, Afro, Halo, Ghost, CheckpointHead, FallingBlockHead, BlobHead,
             MovingBlockHead, SpikeyHead, FallingBlock3Head, Pink, Bubble, FireHead, Horns, Cloud, NoHead,
             TopHat, Knight, Toad, BubbleBobble, Brain, Gosu,
-            RobinHood, Rasta, Pumpkin, BunnyEars, Pirate, Miner, Glasses, Antlers, Arrow, Bag, Cone, Pope, Rice, Santa, Sombrero, Tiki, Wizard;
+            RobinHood, Rasta, Pumpkin, BunnyEars, Pirate, Miner, Glasses, Antlers, Arrow, Bag, Cone, Pope, Rice, Santa, Sombrero, Tiki, Wizard,
+            Ah_1, Ah_2, Ah_3, Ah_4, Ah_5, Ah_6, Ah_7, Ah_8, Ah_9;
 
-        public static Hat Vandyke, Beard, BigBeard, Goatee, Mustache;
+        public static Hat Vandyke, Beard, BigBeard, Goatee, Mustache, AhBeard;
 
         public int Price;
 
