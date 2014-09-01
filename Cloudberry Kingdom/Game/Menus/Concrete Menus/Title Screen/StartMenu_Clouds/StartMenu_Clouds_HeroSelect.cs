@@ -49,7 +49,7 @@ namespace CloudberryKingdom
             if (item.RequiredHero == null) return false;
 
             int level = MyArcadeItem.MyChallenge.CalcTopGameLevel(item.RequiredHero);
-            return level < item.RequiredHeroLevel && !CloudberryKingdomGame.Unlock_Levels;
+            return level < item.RequiredHeroLevel && !CloudberryKingdomGame.Unlock_Levels && !CloudberryKingdomGame.UnlockHeroesAndGames;
         }
 
         public bool Invisible(HeroItem item)
@@ -97,8 +97,8 @@ namespace CloudberryKingdom
             }
 
             Challenge.ChosenHero = item.Hero;
-			if (ArcadeMenu.SelectedChallenge != null) ArcadeMenu.SelectedChallenge.SetGameId();
-			Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, Challenge.ChosenHero);
+            if (ArcadeMenu.SelectedChallenge != null) ArcadeMenu.SelectedChallenge.SetGameId();
+            Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, Challenge.ChosenHero);
             MyHeroDoll.MakeHeroDoll(item.Hero);
 
             UpdateScore();
@@ -153,8 +153,8 @@ namespace CloudberryKingdom
             Update();
         }
 
-		SimpleScroll Scroll;
-		ClickableBack Back;
+        SimpleScroll Scroll;
+        ClickableBack Back;
 
         QuadClass ScrollQuad, ScrollTop, ScrollBottom;
 
@@ -162,22 +162,22 @@ namespace CloudberryKingdom
 
         public override void Init()
         {
- 	        base.Init();
+            base.Init();
 
             MyPile = new DrawPile();
 
             CallDelay = ReturnToCallerDelay = 0;
 
-			Score = new EzText("0", Resources.Font_Grobold42_2);
-			Level = new EzText("0", Resources.Font_Grobold42_2);
+            Score = new EzText("0", Resources.Font_Grobold42_2);
+            Level = new EzText("0", Resources.Font_Grobold42_2);
           
 #if PS3
-			float Brightness = .945f;
-			Score.MyFloatColor = ColorHelper.Gray(Brightness);
-			Level.MyFloatColor = ColorHelper.Gray(Brightness);
+            float Brightness = .945f;
+            Score.MyFloatColor = ColorHelper.Gray(Brightness);
+            Level.MyFloatColor = ColorHelper.Gray(Brightness);
 #endif
 
-			// Menu
+            // Menu
             MyMenu = new Menu();
 
             MyMenu.OnSelect = UpdateScore;
@@ -254,13 +254,13 @@ namespace CloudberryKingdom
 
             #endregion
 
-			// Fade in
+            // Fade in
             MyPile.FadeIn(.33f);
 
             SetPos();
 
-			// Back button
-			Back = new ClickableBack(MyPile, true, true);
+            // Back button
+            Back = new ClickableBack(MyPile, true, true);
             Back.SetPos_BR(MyPile);
         }
 
@@ -271,13 +271,13 @@ namespace CloudberryKingdom
             base.MyPhsxStep();
 
 #if PC_VERSION
-			if (!Active) return;
+            if (!Active) return;
 
-			if (Back.UpdateBack(MyCameraZoom))
-			{
-				MenuReturnToCaller(MyMenu);
-				return;
-			}			
+            if (Back.UpdateBack(MyCameraZoom))
+            {
+                MenuReturnToCaller(MyMenu);
+                return;
+            }			
 #endif
         }
 
@@ -285,8 +285,8 @@ namespace CloudberryKingdom
         {
             base.OnReturnTo();
 
-			if (MyHeroDoll != null)
-				MyHeroDoll.AutoDraw = true;
+            if (MyHeroDoll != null)
+                MyHeroDoll.AutoDraw = true;
 
             UpdateScore();
             Update();
@@ -297,7 +297,7 @@ namespace CloudberryKingdom
             var item = MyMenu.CurItem as HeroItem;
             if (null == item) return;
 
-			Challenge.ChosenHero = item.Hero;
+            Challenge.ChosenHero = item.Hero;
 
             var TopScore = PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Score(item.Hero));
             var TopLevel = PlayerManager.MaxPlayerHighScore(MyArcadeItem.MyChallenge.CalcGameId_Level(item.Hero));
@@ -331,7 +331,7 @@ namespace CloudberryKingdom
                     }
                     else
                     {
-						item.Selectable = true;
+                        item.Selectable = true;
                         item.MyText.Alpha = 1f;
                         item.MySelectedText.Alpha = 1f;
                         NumSelectableItems++;
@@ -341,7 +341,7 @@ namespace CloudberryKingdom
         }
 
         void SetPos()
-		{
+        {
             MyMenu.Pos = new Vector2(932.0002f, -789.9999f);
 
             EzText _t;
@@ -369,19 +369,19 @@ namespace CloudberryKingdom
             var _item = MyMenu.CurItem as HeroItem;
             if (null == _item) return;
 
-			// Upsell
-			if (CloudberryKingdomGame.IsDemo && _item.Hero != BobPhsxNormal.Instance)
-			{
-				Call(new UpSellMenu(Localization.Words.UpSell_Hero, MenuItem.ActivatingPlayer));
-				Hide();
-				
-				if (MyHeroDoll != null)
-					MyHeroDoll.AutoDraw = false;
-				
-				return;
-			}
+            // Upsell
+            if (CloudberryKingdomGame.IsDemo && _item.Hero != BobPhsxNormal.Instance)
+            {
+                Call(new UpSellMenu(Localization.Words.UpSell_Hero, MenuItem.ActivatingPlayer));
+                Hide();
+                
+                if (MyHeroDoll != null)
+                    MyHeroDoll.AutoDraw = false;
+                
+                return;
+            }
 
-			int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
+            int TopLevelForHero = MyArcadeItem.MyChallenge.CalcTopGameLevel(_item.Hero);
 
             StartLevelMenu_Clouds levelmenu = new StartLevelMenu_Clouds(TopLevelForHero);
 

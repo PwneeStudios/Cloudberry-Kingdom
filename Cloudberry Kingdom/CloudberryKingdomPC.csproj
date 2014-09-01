@@ -371,9 +371,7 @@
     <Compile Include="SaveDeviceSynchronous.cs" />
     <Compile Include="SharedSaveDevice.cs" />
     <Compile Include="__DirectShowVideoPlayer\VideoPlayer.cs" />
-    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="__Editors\Background Editor\BackgroundViewer.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.Designer.cs">
       <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </Compile>

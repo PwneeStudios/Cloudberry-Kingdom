@@ -114,7 +114,10 @@ namespace CloudberryKingdom
 
                     case LevelGeometry.Down:
                     case LevelGeometry.Up:
-                        level.MakeVertical(3000, Math.Abs(Piece.End.Y - Piece.Start.Y), 0, ReturnEarly, makeData);
+                        bool failed = level.MakeVertical(3000, Math.Abs(Piece.End.Y - Piece.Start.Y), 0, ReturnEarly, makeData);
+
+                        if (failed) return null;
+
                         Height += Math.Abs(Piece.End.Y - Piece.Start.Y);
                         break;
 
@@ -186,7 +189,7 @@ namespace CloudberryKingdom
                 // Add initial start data
                 if (Piece.InitialCheckpointsHere)
                 {
-					level.LevelPieces[0].MyLevel = NewLevel;
+                    level.LevelPieces[0].MyLevel = NewLevel;
                     NewLevel.CurPiece = level.LevelPieces[0];
                 }
 
@@ -238,14 +241,14 @@ namespace CloudberryKingdom
         {
             NewLevel.MyBackground.Init(NewLevel);
 
-			if (NewLevel.Geometry == LevelGeometry.Up)
-			{
-				//NewLevel.MyBackground.RotateLeft();
-				//NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y));
+            if (NewLevel.Geometry == LevelGeometry.Up)
+            {
+                //NewLevel.MyBackground.RotateLeft();
+                //NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y));
 
-				float y = NewLevel.MyBackground.GetBL().Y;
-				NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y - y - 4000));
-			}
+                float y = NewLevel.MyBackground.GetBL().Y;
+                NewLevel.MyBackground.Move(new Vector2(0, NewLevel.StartDoor.Pos.Y - y - 4000));
+            }
         }
 
         public static int ForcedReturnEarly = 0;

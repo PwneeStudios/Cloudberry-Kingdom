@@ -46,9 +46,9 @@ namespace CloudberryKingdom
         public int LevelNum = -1; const string LevelFlag = "level";
         public int LevelIndex = -1; const string IndexFlag = "index";
         public bool NewHero = false; const string NewHeroFlag = "newhero";
-			public bool RepeatHero = false; const string RepeatHeroFlag = "repeathero";
-			public int ChapterNameIndex = -1; public bool ShowChapterName = false; const string ChapterNameFlag = "chapter";
-			public bool GiveScoreScreen = false; const string ScoreScreenFlag = "scorescreen";
+            public bool RepeatHero = false; const string RepeatHeroFlag = "repeathero";
+            public int ChapterNameIndex = -1; public bool ShowChapterName = false; const string ChapterNameFlag = "chapter";
+            public bool GiveScoreScreen = false; const string ScoreScreenFlag = "scorescreen";
         public bool Darkness = false; const string DarknessFlag = "darkness";
         public bool Masochistic = false; const string MasochistFlag = "masochist";
 
@@ -78,11 +78,11 @@ namespace CloudberryKingdom
 
             if (NewHero) PostMake += _NewHero;
 
-			if (RepeatHero) PostMake += _RepeatHero;
+            if (RepeatHero) PostMake += _RepeatHero;
 
-			if (ShowChapterName) PostMake += _ShowChapterName;
+            if (ShowChapterName) PostMake += _ShowChapterName;
 
-			if (GiveScoreScreen) PostMake += _ScoreScreen;
+            if (GiveScoreScreen) PostMake += _ScoreScreen;
 
             if (NoStartDoor) PostMake += _NoStartDoor;
 
@@ -95,38 +95,38 @@ namespace CloudberryKingdom
             if (MySong != null) PostMake += _StartSong;
         }
 
-		public static void WaitThenPlay(GameData game, int wait, BaseSong song)
-		{
-			game.WaitThenDo(wait, () =>
-				{
-					if (song == null)
-					{
-						//Tools.SongWad.Start(true);
-						Tools.SongWad.Shuffle();
-						Tools.SongWad.PlayNext = true;
-						Tools.SongWad.Next();
-					}
-					else
-					{
-						Tools.SongWad.Next(song);
-					}
-					Tools.SongWad.PlayNext = true;
-				});
-		}
+        public static void WaitThenPlay(GameData game, int wait, BaseSong song)
+        {
+            game.WaitThenDo(wait, () =>
+                {
+                    if (song == null)
+                    {
+                        //Tools.SongWad.Start(true);
+                        Tools.SongWad.Shuffle();
+                        Tools.SongWad.PlayNext = true;
+                        Tools.SongWad.Next();
+                    }
+                    else
+                    {
+                        Tools.SongWad.Next(song);
+                    }
+                    Tools.SongWad.PlayNext = true;
+                });
+        }
 
         private void _StartSong(Level level)
         {
-			if (MySong == Tools.Song_Happy)
-			{
-				Tools.SongWad.SetPlayList(MySong);
-				WaitThenPlay(level.MyGame, 40, MySong);
-			}
-			else
-			{
-				Tools.SongWad.SetPlayList(Tools.SongList_Standard);
-				Tools.SongWad.Shuffle();
-				WaitThenPlay(level.MyGame, 40, MySong);
-			}
+            if (MySong == Tools.Song_Happy)
+            {
+                Tools.SongWad.SetPlayList(MySong);
+                WaitThenPlay(level.MyGame, 40, MySong);
+            }
+            else
+            {
+                Tools.SongWad.SetPlayList(Tools.SongList_Standard);
+                Tools.SongWad.Shuffle();
+                WaitThenPlay(level.MyGame, 40, MySong);
+            }
         }
 
         private static void _HasWall_Process(Level level, PieceSeedData piece)
@@ -153,43 +153,43 @@ namespace CloudberryKingdom
 
         private static void _NewHero(Level level)
         {
-			level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(level.DefaultHeroType.Name)));
+            level.MyGame.AddGameObject(new NewHero_GUI(Localization.WordString(level.DefaultHeroType.Name)));
             level.MyLevelSeed.WaitLengthToOpenDoor = 150;
             level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
         }
 
-		private static void _RepeatHero(Level level)
-		{
-			level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.DefaultHeroType.Name), new Vector2(0, 200), 1, false));
-		}
+        private static void _RepeatHero(Level level)
+        {
+            level.MyGame.AddGameObject(new LevelTitle(Localization.WordString(level.DefaultHeroType.Name), new Vector2(0, 200), 1, false));
+        }
 
-		private static void _ShowChapterName(Level level)
-		{
-			if (level.MyLevelSeed.ChapterNameIndex < 0 || level.MyLevelSeed.ChapterNameIndex >= CampaignSequence.ChapterName.Length) return;
+        private static void _ShowChapterName(Level level)
+        {
+            if (level.MyLevelSeed.ChapterNameIndex < 0 || level.MyLevelSeed.ChapterNameIndex >= CampaignSequence.ChapterName.Length) return;
 
-			level.SetBack(27);
+            level.SetBack(27);
 
-			Tools.SongWad.SuppressNextInfoDisplay = true;
-			Tools.SongWad.DisplayingInfo = false;
+            Tools.SongWad.SuppressNextInfoDisplay = true;
+            Tools.SongWad.DisplayingInfo = false;
 
-			level.MyGame.AddGameObject(new ChapterTitle(CampaignSequence.ChapterName[level.MyLevelSeed.ChapterNameIndex]));
-			level.MyLevelSeed.WaitLengthToOpenDoor = 150;
-			level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
-		}
+            level.MyGame.AddGameObject(new ChapterTitle(CampaignSequence.ChapterName[level.MyLevelSeed.ChapterNameIndex]));
+            level.MyLevelSeed.WaitLengthToOpenDoor = 150;
+            level.MyLevelSeed.AlwaysOverrideWaitDoorLength = true;
+        }
 
-		private static void _ScoreScreen(Level level)
-		{
-			level.MyGame.MakeScore = () =>
-				{
-					CampaignSequence.MarkProgress(level);
-					return new ScoreScreen(StatGroup.Level, level.MyGame, true);
-				};
+        private static void _ScoreScreen(Level level)
+        {
+            level.MyGame.MakeScore = () =>
+                {
+                    CampaignSequence.MarkProgress(level);
+                    return new ScoreScreen(StatGroup.Level, level.MyGame, true);
+                };
 
-			ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
-			door.OnOpen = d => GameData.EOL_DoorAction(d);
+            ILevelConnector door = (ILevelConnector)level.FindIObject(LevelConnector.EndOfLevelCode);
+            door.OnOpen = d => GameData.EOL_DoorAction(d);
 
-			level.StartRecording();
-		}
+            level.StartRecording();
+        }
 
         private static void _FadeIn_Process(Level level)
         {
@@ -429,14 +429,14 @@ namespace CloudberryKingdom
                     // NewHero
                     case NewHeroFlag: NewHero = true; break;
 
-					// RepeatHero
-					case RepeatHeroFlag: RepeatHero = true; break;
+                    // RepeatHero
+                    case RepeatHeroFlag: RepeatHero = true; break;
 
-					// Chapter Name
-					case ChapterNameFlag: ShowChapterName = true; ChapterNameIndex = int.Parse(data) - 1; break;
+                    // Chapter Name
+                    case ChapterNameFlag: ShowChapterName = true; ChapterNameIndex = int.Parse(data) - 1; break;
 
-					// Score Screen
-					case ScoreScreenFlag: GiveScoreScreen = true; break;
+                    // Score Screen
+                    case ScoreScreenFlag: GiveScoreScreen = true; break;
 
                     // Darkness
                     case DarknessFlag: Darkness = true; break;
@@ -804,7 +804,7 @@ namespace CloudberryKingdom
         public void PostMake_EnableLoad(Level level)
         {
 #if XBOX
-			level.CanLoadLevels = false;
+            level.CanLoadLevels = false;
 #else
             level.CanLoadLevels = true;
 #endif
@@ -845,7 +845,7 @@ namespace CloudberryKingdom
         }
         
         public bool ReleaseWhenLoaded = false;
-	
+    
 
         public LockableBool Loaded;
         public bool LoadingBegun = false;
@@ -937,15 +937,15 @@ namespace CloudberryKingdom
 
         public void Release()
         {
-			MySong = null;
-			OnBeginLoad = null;
-			Loaded = null;
-			DefaultHeroType = null;
+            MySong = null;
+            OnBeginLoad = null;
+            Loaded = null;
+            DefaultHeroType = null;
             DefaultHeroType2 = null;
-			Rnd = null;
-			MyBackgroundType = null;
-			MyTileSet = null;
-			MyCustomDifficulty = null;
+            Rnd = null;
+            MyBackgroundType = null;
+            MyTileSet = null;
+            MyCustomDifficulty = null;
 
 
             ReleasePieces();
@@ -1066,13 +1066,13 @@ namespace CloudberryKingdom
                     DefaultHeroType = BobPhsxJetman.Instance;
             }
 
-			// Meatboy is always single piece up level
-			if (DefaultHeroType is BobPhsxMeat)
-			{
-				MyGeometry = LevelGeometry.Up;
-				NumPieces = 1;
-				SetTileSet("castle");
-			}
+            // Meatboy is always single piece up level
+            if (DefaultHeroType is BobPhsxMeat)
+            {
+                MyGeometry = LevelGeometry.Up;
+                NumPieces = 1;
+                SetTileSet("castle");
+            }
 
             TestNumber = Rnd.RndInt(0, 1000);
             Tools.Write(string.Format("Post-sanitize: {0}", TestNumber));

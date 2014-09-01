@@ -51,13 +51,14 @@ namespace CloudberryKingdom
             data.DefaultHeroType = Hero;
             data.DefaultHeroType2 = Hero2;
 
-            if (Hero2 != null)
+            bool madness = Hero2 != null;
+            if (madness)
             {
                 data.MyGameFlags.IsDoppleganger = true;
                 data.MyGameFlags.IsDopplegangerInvert = true;
             }
 
-            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data, ScreenSaver);
+            LevelSeedData.CustomDifficulty custom = DifficultyGroups.FixedPieceMod(Difficulty, data, ScreenSaver, madness);
 
             data.Initialize(NormalGameData.Factory, Geometry, 1, Length, custom);
 

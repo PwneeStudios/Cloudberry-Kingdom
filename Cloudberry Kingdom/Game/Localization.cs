@@ -776,6 +776,16 @@ Madness,
 Anders,
 Dopple,
 
+Hat_Ah_1,
+Hat_Ah_2,
+Hat_Ah_3,
+Hat_Ah_4,
+Hat_Ah_5,
+Hat_Ah_6,
+Hat_Ah_7,
+Hat_Ah_8,
+Hat_Ah_9,
+
 EnumLength
         };
     }

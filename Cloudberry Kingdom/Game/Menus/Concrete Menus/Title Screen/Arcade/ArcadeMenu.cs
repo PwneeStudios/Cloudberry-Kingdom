@@ -11,21 +11,21 @@ namespace CloudberryKingdom
     {
         public Challenge MyChallenge;
         public Awardment MyPrereq;
-		int UnlockLevel = 0;
+        int UnlockLevel = 0;
 
         public bool IsLocked()
         {
             if (MyPrereq != null && CloudberryKingdomGame.IsDemo) return true;
 
-            return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels
-				&& (UnlockLevel != 0 && PlayerManager.MaxPlayerTotalLevel() < UnlockLevel);
+            return MyPrereq != null && !PlayerManager.Awarded(MyPrereq) && !CloudberryKingdomGame.Unlock_Levels && !CloudberryKingdomGame.UnlockHeroesAndGames
+                && (UnlockLevel != 0 && PlayerManager.MaxPlayerTotalLevel() < UnlockLevel);
         }
 
         public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq, int UnlockLevel) : base(Text)
         {
             this.MyChallenge = MyChallenge;
             this.MyPrereq = MyPrereq;
-			this.UnlockLevel = UnlockLevel;
+            this.UnlockLevel = UnlockLevel;
         }
     }
 
@@ -85,10 +85,10 @@ namespace CloudberryKingdom
 
         public static List<Tuple<BobPhsx, Tuple<BobPhsx, int>>> HeroArcadeList;
         public static List<Tuple<Challenge, BobPhsx>> LeaderboardList;
-		public static List<Tuple<int, int>> ChallengeGoal;
+        public static List<Tuple<int, int>> ChallengeGoal;
 
-		public const int HighestLevelNeeded = 75;
-		public static BobPhsx HighestHero = BobPhsxWheel.Instance;
+        public const int HighestLevelNeeded = 75;
+        public static BobPhsx HighestHero = BobPhsxWheel.Instance;
 
         public static void StaticInit()
         {
@@ -221,26 +221,26 @@ namespace CloudberryKingdom
                 {
                     int CurHighLevel = player.GetHighScore(Challenge.CurrentId);
                     //if (level + 1 >= Goal && CurHighLevel < Goal)
-					if (level >= CurHighLevel)
+                    if (level >= CurHighLevel)
                     {
-						//DoSave = true;
+                        //DoSave = true;
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId,                       level + 1,              Challenge.CurrentScore, level + 1, 0, 0, 0));
                         player.AddHighScore(new ScoreEntry(player.GetName(), Challenge.CurrentId - Challenge.LevelMask, Challenge.CurrentScore, Challenge.CurrentScore, level + 1, 0, 0, 0));
                     }
 
-					int Goal = 0;
-					for (int i = 0; i < ChallengeGoal.Count; i++)
-					{
-						if (ChallengeGoal[i].Item1 == Challenge.CurrentId)
-						{
-							Goal = ChallengeGoal[i].Item2;
+                    int Goal = 0;
+                    for (int i = 0; i < ChallengeGoal.Count; i++)
+                    {
+                        if (ChallengeGoal[i].Item1 == Challenge.CurrentId)
+                        {
+                            Goal = ChallengeGoal[i].Item2;
 
-							if (level + 1 >= Goal && CurHighLevel < Goal)
-							{
-								DoSave = true;
-							}
-						}
-					}
+                            if (level + 1 >= Goal && CurHighLevel < Goal)
+                            {
+                                DoSave = true;
+                            }
+                        }
+                    }
                 }
 
                 // Check for awards
@@ -254,7 +254,9 @@ namespace CloudberryKingdom
             if (DoSave)
             {
                 SaveGroup.SaveAll();
-                Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
+
+                if (!CloudberryKingdomGame.UnlockHeroesAndGames)
+                    Tools.CurGameData.AddGameObject(new HeroUnlockedMessage());
             }
         }
 
@@ -286,7 +288,7 @@ namespace CloudberryKingdom
             foreach (MenuItem item in MyMenu.Items)
             {
                 Awardment award = item.MyObject as Awardment;
-                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.Unlock_Levels)
+                if (null != award && !PlayerManager.Awarded(award) && !CloudberryKingdomGame.Unlock_Levels && !CloudberryKingdomGame.UnlockHeroesAndGames)
                 {
                     item.MyText.MyFloatColor = new Color(255, 100, 100).ToVector4();
                     item.MySelectedText.MyFloatColor = new Color(255, 160, 160).ToVector4();
@@ -304,21 +306,21 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-		void BringLeaderboard()
-		{
-			int control = MenuItem.ActivatingPlayer;
-			if (control < 0 || control > 3) control = -1;
+        void BringLeaderboard()
+        {
+            int control = MenuItem.ActivatingPlayer;
+            if (control < 0 || control > 3) control = -1;
 
-			Call(new LeaderboardGUI(null, control), 0);
-			Hide();
-		}
+            Call(new LeaderboardGUI(null, control), 0);
+            Hide();
+        }
 #endif
 
         EzText RequiredText, RequiredText2;
         QuadClass TextBack;
         public override void  Init()
         {
- 	        base.Init();
+            base.Init();
 
             SetParams();
 
@@ -339,7 +341,7 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             // Level
-			var LevelText = new EzText(Localization.Words.PlayerLevel, Resources.Font_Grobold42);
+            var LevelText = new EzText(Localization.Words.PlayerLevel, Resources.Font_Grobold42);
             LevelText.Scale *= .72f;
             StartMenu.SetText_Green(LevelText, true);
             MyPile.Add(LevelText, "Level");
@@ -389,10 +391,10 @@ namespace CloudberryKingdom
             item = AddChallenge(Challenge_TimeCrisis.Instance, Awardments.UnlockTimeCrisis, "Time Crisis", Awardments.TimeCrisis_LevelUnlock);
 
             // Hero Rush
-			item = AddChallenge(Challenge_HeroRush.Instance, Awardments.UnlockHeroRush, "Hero Rush", Awardments.HeroRush_LevelUnlock);
+            item = AddChallenge(Challenge_HeroRush.Instance, Awardments.UnlockHeroRush, "Hero Rush", Awardments.HeroRush_LevelUnlock);
 
             // Hero Rush 2
-			item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2", Awardments.HeroRush2_LevelUnlock);
+            item = AddChallenge(Challenge_HeroRush2.Instance, Awardments.UnlockHeroRush2, "Hero Rush 2", Awardments.HeroRush2_LevelUnlock);
 
             // Madness
             item = AddChallenge(Challenge_Madness.Instance, Awardments.UnlockHeroRush, "Bungee", Awardments.HeroRush_LevelUnlock);
@@ -401,18 +403,18 @@ namespace CloudberryKingdom
             item = AddChallenge(Challenge_Freeplay.Instance, null, "Freeplay", 0);
 
 #if PC_VERSION
-			// Leaderboards
-			MyPile.Add(new QuadClass(ButtonTexture.X, 100, "Button_X"));
-			item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, false, true));
+            // Leaderboards
+            MyPile.Add(new QuadClass(ButtonTexture.X, 100, "Button_X"));
+            item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, false, true));
 
-			item.Name = "Leaderboard";
-			item.Go = Cast.ToItem(BringLeaderboard);
-			MyMenu.OnX = Cast.ToMenu(BringLeaderboard);
-			AddItem(item);
-			item.MyOscillateParams.base_value = 1.01f;
-			item.MyOscillateParams.max_addition *= .4f;
-			StartMenu.SetText_Green(item.MyText, true);
-			StartMenu.SetText_Green(item.MySelectedText, true);
+            item.Name = "Leaderboard";
+            item.Go = Cast.ToItem(BringLeaderboard);
+            MyMenu.OnX = Cast.ToMenu(BringLeaderboard);
+            AddItem(item);
+            item.MyOscillateParams.base_value = 1.01f;
+            item.MyOscillateParams.max_addition *= .4f;
+            StartMenu.SetText_Green(item.MyText, true);
+            StartMenu.SetText_Green(item.MySelectedText, true);
 #endif
 
             // Backdrop
@@ -469,21 +471,21 @@ namespace CloudberryKingdom
             return item;
         }
 
-		protected virtual void SetPos()
-		{
+        protected virtual void SetPos()
+        {
 #if PC_VERSION
-			EzText _t = MyPile.FindEzText("LevelNum");
+            EzText _t = MyPile.FindEzText("LevelNum");
 
-			float max_width = _t.GetWorldWidth("1000");
-			float width = _t.GetWorldWidth(_t.FirstString());
+            float max_width = _t.GetWorldWidth("1000");
+            float width = _t.GetWorldWidth(_t.FirstString());
 
-			float shift = max_width - width - 50;
-			_t.Pos += new Vector2(shift, 0);
+            float shift = max_width - width - 50;
+            _t.Pos += new Vector2(shift, 0);
 
-			_t = MyPile.FindEzText("Level");
-			_t.Pos += new Vector2(shift, 0);
+            _t = MyPile.FindEzText("Level");
+            _t.Pos += new Vector2(shift, 0);
 #endif
-		}
+        }
 
         void UpdateAfterPlaying()
         {
@@ -499,12 +501,12 @@ namespace CloudberryKingdom
                 _t.Show = true;
 
 #if PC_VERSION
-				SetPos();
-				_t.SubstituteText(Level.ToString());
+                SetPos();
+                _t.SubstituteText(Level.ToString());
 #else
-				_t.SubstituteText(Level.ToString());
+                _t.SubstituteText(Level.ToString());
 #endif
-			}
+            }
             else
             {
                 MyPile.FindEzText("Level").Show = false;
@@ -529,7 +531,7 @@ namespace CloudberryKingdom
             }
         }
 
-		public static Challenge SelectedChallenge = null;
+        public static Challenge SelectedChallenge = null;
 
         bool Lock = false;
         void OnSelect()
@@ -539,15 +541,15 @@ namespace CloudberryKingdom
 
             Lock = item.IsLocked();
 
-			// Store the selected challenge
-			ArcadeMenu.SelectedChallenge = item.MyChallenge;
-			Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, null);
+            // Store the selected challenge
+            ArcadeMenu.SelectedChallenge = item.MyChallenge;
+            Challenge.LeaderboardIndex = ArcadeMenu.LeaderboardIndex(ArcadeMenu.SelectedChallenge, null);
 
             if (Lock && item.MyPrereq != null)
             {
                 EzText _t;
                 _t = MyPile.FindEzText("Requirement2");
-				_t.SubstituteText(Localization.WordString(Localization.Words.PlayerLevel) + " " + item.MyPrereq.MyInt.ToString());
+                _t.SubstituteText(Localization.WordString(Localization.Words.PlayerLevel) + " " + item.MyPrereq.MyInt.ToString());
             }
         }
 

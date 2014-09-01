@@ -35,23 +35,23 @@ namespace CloudberryKingdom
         {
             if (Released) return;
 
-			if (CurLevelSeed != null)
-			{
-				if (CurLevelSeed.MyGame != null)
-				{
-					CurLevelSeed.MyGame.Release();
-					CurLevelSeed.Release();
-				}
-			}
+            if (CurLevelSeed != null)
+            {
+                if (CurLevelSeed.MyGame != null)
+                {
+                    CurLevelSeed.MyGame.Release();
+                    CurLevelSeed.Release();
+                }
+            }
 
             if (NextLevelSeed != null && NextLevelSeed.Loaded != null)
             {
                 if (LevelIsLoaded(NextLevelSeed))
                 {
-					if (NextLevelSeed.MyGame != null)
-					{
-						NextLevelSeed.MyGame.Release();
-					}
+                    if (NextLevelSeed.MyGame != null)
+                    {
+                        NextLevelSeed.MyGame.Release();
+                    }
                     NextLevelSeed.Release();
                 }
                 else
@@ -169,7 +169,7 @@ namespace CloudberryKingdom
         static void DefaultStartLevelMusic(StringWorldGameData stringworld)
         {
             Tools.SongWad.SetPlayList(Tools.SongList_Standard);
-			Tools.SongWad.Shuffle();
+            Tools.SongWad.Shuffle();
 
             if (!stringworld.FirstLevelHasLoaded)
                 Tools.SongWad.Next();
@@ -211,7 +211,7 @@ namespace CloudberryKingdom
 
             if (CurLevelIndex > 0 || CurLevelSeed.AlwaysOverrideWaitDoorLength)
                 Wait = CurLevelSeed.WaitLengthToOpenDoor;
-			game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
+            game.WaitThenDo(Wait, () => _StartOfLevelDoorAction__OpenAndShow(level, door, CurLevelSeed.OpenDoorSound));
         }
 
         private void _StartOfLevelDoorAction__OpenAndShow(Level level, Door door, bool OpenDoorSound)
@@ -237,9 +237,9 @@ namespace CloudberryKingdom
             }                
         }
 
-		protected virtual void AdditionalSetLevel()
-		{
-		}
+        protected virtual void AdditionalSetLevel()
+        {
+        }
 
         /// <summary>
         /// Assuming a level is loaded, set that level as current.
@@ -260,7 +260,7 @@ namespace CloudberryKingdom
                 }
 
                 // Replace all Bobs with new Bobs (to handle newly joined players)
-				AdditionalSetLevel();
+                AdditionalSetLevel();
                 NextLevelSeed.MyGame.UpdateBobs();
                 NextLevelSeed.MyGame.Reset();
             }
@@ -401,6 +401,11 @@ namespace CloudberryKingdom
         public override void BackgroundPhsx()
         {
             if (SkipBackgroundPhsx) return;
+
+            // If the level was poorly built, we should autoskip it
+            if (CurLevelSeed.MyGame != null && CurLevelSeed.MyGame.MyLevel != null &&
+                CurLevelSeed.MyGame.MyLevel.AutoSkip)
+                TellGameToBringNext(0, CurLevelSeed.MyGame);
 
             // ActionGames immediately switch to next game when they are done.
             var ActionGame = Tools.CurGameData as ActionGameData;

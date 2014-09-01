@@ -8,5 +8,7 @@
         public virtual void Phase2() { }
         public virtual void Phase3() { }
         public virtual void Cleanup() { }
+
+        public bool Failed = false;
     }
 }

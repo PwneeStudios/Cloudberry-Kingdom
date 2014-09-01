@@ -228,7 +228,7 @@ namespace CloudberryKingdom
 
             // Calculate how much user has scrolled the mouse wheel and moved the mouse.
             Tools.DeltaScroll = Tools.Mouse.ScrollWheelValue - Tools.PrevMouse.ScrollWheelValue;
-            if (Tools.CurLevel != null)
+            if (Tools.CurLevel != null && !Tools.CurLevel.AutoSkip)
             {
                 Tools.DeltaMouse = Tools.ToWorldCoordinates(new Vector2(Tools.Mouse.X, Tools.Mouse.Y), Tools.CurLevel.MainCamera) -
                                    Tools.ToWorldCoordinates(new Vector2(Tools.PrevMouse.X, Tools.PrevMouse.Y), Tools.CurLevel.MainCamera);

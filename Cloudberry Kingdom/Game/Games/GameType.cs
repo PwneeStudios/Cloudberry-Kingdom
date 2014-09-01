@@ -195,8 +195,8 @@ namespace CloudberryKingdom
             StandardFinish(Replay);
 
             // Start the world map music
-			//Tools.PlayHappyMusic(ParentGame, 50);
-		}
+            //Tools.PlayHappyMusic(ParentGame, 50);
+        }
 
         public bool SetToRepaly = false;
         public bool EndMusicOnFinish = true;
@@ -466,12 +466,12 @@ namespace CloudberryKingdom
         {
             Tools.StartGUIDraw_Fake();
 
-			foreach (GameObject obj in MyGameObjects)
-			{
-				if (obj is SoundMenu) continue;
+            foreach (GameObject obj in MyGameObjects)
+            {
+                if (obj is SoundMenu) continue;
 
-				obj.Init();
-			}
+                obj.Init();
+            }
 
             Tools.EndGUIDraw_Fake();
         }
@@ -561,14 +561,14 @@ namespace CloudberryKingdom
             if (OnCalculateScoreMultiplier != null)
                 OnCalculateScoreMultiplier(this);
 
-			foreach (GameObject obj in MyGameObjects)
-			{
-				PerfectScoreObject pso = obj as PerfectScoreObject;
-				if (null != pso)
-				{
-					pso.UpdateScoreText();
-				}
-			}
+            foreach (GameObject obj in MyGameObjects)
+            {
+                PerfectScoreObject pso = obj as PerfectScoreObject;
+                if (null != pso)
+                {
+                    pso.UpdateScoreText();
+                }
+            }
         }
 
         /// <summary>
@@ -612,14 +612,14 @@ namespace CloudberryKingdom
         /// </summary>
         public void LevelRetryEvent() { if (OnLevelRetry != null) OnLevelRetry(); }
 
-		/// <summary>
-		/// Event handler. Activates when the player chooses to watch the computer.
-		/// </summary>
-		public event Action OnWatchComputer;
-		/// <summary>
-		/// Call this when a coin is grabbed to activate the coin grabbed event handler.
-		/// </summary>
-		public void WatchComputerEvent() { if (OnWatchComputer != null) OnWatchComputer(); }
+        /// <summary>
+        /// Event handler. Activates when the player chooses to watch the computer.
+        /// </summary>
+        public event Action OnWatchComputer;
+        /// <summary>
+        /// Call this when a coin is grabbed to activate the coin grabbed event handler.
+        /// </summary>
+        public void WatchComputerEvent() { if (OnWatchComputer != null) OnWatchComputer(); }
 
         /// <summary>
         /// Event handler. Activates when this game is returned to from another game.
@@ -780,11 +780,11 @@ namespace CloudberryKingdom
 
             PreviousLoadFunction = null;
             OnCalculateCoinScoreMultiplier = null;
-	        OnCalculateScoreMultiplier = null;
+            OnCalculateScoreMultiplier = null;
             OnCheckpointGrab = null;
-	        OnCoinGrab = null;
+            OnCoinGrab = null;
             OnLevelRetry = null;
-			OnWatchComputer = null;
+            OnWatchComputer = null;
             OnReturnTo = null;
 
             CurToDo = null; NextToDo = null;
@@ -845,6 +845,8 @@ namespace CloudberryKingdom
 
         public void AddGameObject(GameObject obj)
         {
+            //if (MyLevel.AutoSkip) return;
+
             if (GameObjectsAreLocked)
                 NewGameObjects.Add(obj);
             else
@@ -927,16 +929,16 @@ namespace CloudberryKingdom
 
             IsSetToReturnTo = false;
 
-			if (PrevLevel != null)
-			{
-				if (PrevLevel.MyLevelSeed != null)
-				{
-					PrevLevel.MyLevelSeed.Release();
-					PrevLevel.MyLevelSeed = null;
-				}
-				PrevLevel.Release();
-			}
-			else Tools.Nothing();
+            if (PrevLevel != null)
+            {
+                if (PrevLevel.MyLevelSeed != null)
+                {
+                    PrevLevel.MyLevelSeed.Release();
+                    PrevLevel.MyLevelSeed = null;
+                }
+                PrevLevel.Release();
+            }
+            else Tools.Nothing();
 
             Tools.PhsxSpeed = 1;
             LockLevelStart = false;
@@ -969,14 +971,14 @@ namespace CloudberryKingdom
 
         public virtual void GotCheckpoint(Bob CheckpointBob)
         {
-			// Don't let this last recording be sparse (since it is the 'real' bob)
-			if (MyLevel.Recording)
-			{
-				for (int i = 0; i < MyLevel.CurrentRecording.Recordings.Length; i++)
-				{
-					MyLevel.CurrentRecording.Recordings[i].CanBeSparse = false;
-				}
-			}
+            // Don't let this last recording be sparse (since it is the 'real' bob)
+            if (MyLevel.Recording)
+            {
+                for (int i = 0; i < MyLevel.CurrentRecording.Recordings.Length; i++)
+                {
+                    MyLevel.CurrentRecording.Recordings[i].CanBeSparse = false;
+                }
+            }
 
             MyLevel.PieceAttempts = 0;
 
@@ -1046,7 +1048,7 @@ namespace CloudberryKingdom
                         return false;
                 });
 
-			SetAdditionalBobParameters(MyLevel.Bobs);
+            SetAdditionalBobParameters(MyLevel.Bobs);
 
             if (PlayerManager.AllDead() && !MyLevel.PreventReset)
                 MyLevel.ResetAll(false);
@@ -1204,35 +1206,35 @@ namespace CloudberryKingdom
         public bool SuppressSoundForExtraSteps;
 
         public int PhsxCount = 0;
-		static int XButtonPressCount = 0;
+        static int XButtonPressCount = 0;
         public virtual void PhsxStep()
         {
             if (Loading || Tools.ShowLoadingScreen) return;
 
-			if (CloudberryKingdomGame.DigitalDayBuild)
-			{
-				//Tools.SongWad.Stop();
+            if (CloudberryKingdomGame.DigitalDayBuild)
+            {
+                //Tools.SongWad.Stop();
 
-				if (ButtonCheck.State(ControllerButtons.Back, -2).Down)
-				{
-					XButtonPressCount++;
+                if (ButtonCheck.State(ControllerButtons.Back, -2).Down)
+                {
+                    XButtonPressCount++;
 
-					if (XButtonPressCount > 150)
-					{
-						if (CharacterSelectManager.IsShowing)
-						{
-							CharacterSelectManager.SuddenCleanup();
-						}
+                    if (XButtonPressCount > 150)
+                    {
+                        if (CharacterSelectManager.IsShowing)
+                        {
+                            CharacterSelectManager.SuddenCleanup();
+                        }
 
-						// Start at Screen Saver
-						ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
-					}
-				}
-				else
-				{
-					XButtonPressCount = 0;
-				}
-			}
+                        // Start at Screen Saver
+                        ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
+                    }
+                }
+                else
+                {
+                    XButtonPressCount = 0;
+                }
+            }
 
             // Update the socre and coin score multiplier
             CalculateScoreMultiplier();
@@ -1623,6 +1625,8 @@ namespace CloudberryKingdom
         protected bool MvpOnly = false;
         public virtual void MakeBobs(Level level)
         {
+            if (level.AutoSkip) return;
+
             MyLevel.Bobs.Clear();
 
             int NumStarts = Math.Max(1, level.CurPiece.NumBobs);
@@ -1703,13 +1707,13 @@ namespace CloudberryKingdom
             // Set Doppleganger
             if (MyGameFlags.IsDoppleganger)
             {
-				int count = 0;
-				foreach (Bob bob in Bobs)
-				{
+                int count = 0;
+                foreach (Bob bob in Bobs)
+                {
                     //if (count > 0)
                     //    bob.Dopple = true;
-					count++;
-				}
+                    count++;
+                }
             }
 
             if (MyGameFlags.IsTethered)

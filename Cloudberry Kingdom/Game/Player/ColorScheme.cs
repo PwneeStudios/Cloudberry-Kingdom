@@ -126,7 +126,10 @@ namespace CloudberryKingdom.Bobs
     {
         public override string ToString()
         {
-            return string.Format("\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\"", SkinColor.Name, CapeColor.Name, CapeOutlineColor.Name, HatData.Name, BeardData.Name);
+            if (HatData == null)
+                return "";
+            else
+                return string.Format("\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\"", SkinColor.Name, CapeColor.Name, CapeOutlineColor.Name, HatData.Name, BeardData.Name);
         }
 
         public void WriteChunk_0(BinaryWriter writer)

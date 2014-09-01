@@ -44,6 +44,8 @@ namespace CloudberryKingdom
 
         protected virtual void MakeExitDoorIcon(int levelindex)
         {
+            if (Tools.CurLevel.AutoSkip) return;
+
             Vector2 shift = new Vector2(0, 470);
 
             Tools.CurGameData.AddGameObject(new DoorIcon(GetHero(levelindex + 1 - StartIndex),

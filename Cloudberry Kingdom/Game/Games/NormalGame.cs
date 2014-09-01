@@ -32,8 +32,8 @@ namespace CloudberryKingdom
             Init(LevelSeed, MakeInBackground);
         }
 
-		public static bool MakingLevel = false;
-		public static bool AlwaysLoad = false;
+        public static bool MakingLevel = false;
+        public static bool AlwaysLoad = false;
 
         public virtual void Init(LevelSeedData LevelSeed, bool MakeInBackground)
         {
@@ -56,7 +56,7 @@ namespace CloudberryKingdom
                     LevelSeed.OnBeginLoad();
             }
 
-			MakingLevel = true;
+            MakingLevel = true;
             Thread MakeThread = new Thread(
                 new ThreadStart(
                     delegate
@@ -68,6 +68,13 @@ namespace CloudberryKingdom
                         Tools.TheGame.Exiting += KillThread;
                         
                         MyLevel = LevelSeed.MakeLevel(this);
+
+                        if (MyLevel == null)
+                        {
+                            MyLevel = new Level();
+                            MyLevel.MainCamera = new Camera();
+                            MyLevel.AutoSkip = true;
+                        }
 
                         if (MyLevel.ReturnedEarly)
                         {
@@ -123,8 +130,8 @@ namespace CloudberryKingdom
                             LevelSeed.Release();
                         }
 
-						MakingLevel = false;
-						AlwaysLoad = true;
+                        MakingLevel = false;
+                        AlwaysLoad = true;
                     }))
             {
                 Name = "MakeLevelThread",

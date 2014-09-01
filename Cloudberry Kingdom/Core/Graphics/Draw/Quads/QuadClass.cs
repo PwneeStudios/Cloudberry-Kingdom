@@ -51,19 +51,19 @@ namespace CloudberryKingdom
         }
     }
 
-	public enum ShowType { AlwaysShow, ShowForGamepadOnly, ShowForMouseOrKeyboardOnly };
+    public enum ShowType { AlwaysShow, ShowForGamepadOnly, ShowForMouseOrKeyboardOnly };
 
     public class QuadClass : ViewReadWrite
     {
-		public ShowType MyShowType = ShowType.AlwaysShow;
+        public ShowType MyShowType = ShowType.AlwaysShow;
 
 #if WINDOWS
         public override string[] GetViewables() { return new string[] { "Quad", "Base" }; }
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
         {
-			if (Tools.CntrlDown() && ShiftDown)
-				return;
+            if (Tools.CntrlDown() && ShiftDown)
+                return;
 
             if (ShiftDown)
             {
@@ -477,6 +477,8 @@ namespace CloudberryKingdom
 
         public void FullScreen(Camera cam)
         {
+            if (cam == null) return;
+
             Size = new Vector2((cam.EffectiveTR.X - cam.EffectiveBL.X) / 2, (cam.EffectiveTR.Y - cam.EffectiveBL.Y) / 2);
             Pos = (cam.EffectiveTR + cam.EffectiveBL) / 2;
         }
@@ -622,7 +624,7 @@ namespace CloudberryKingdom
         public virtual void Draw(bool Update, bool DrawQuad, bool DrawShadow)
         {
             if (!Show) return;
-			if (MyShowType == ShowType.ShowForGamepadOnly && !ButtonCheck.ControllerInUse) return;
+            if (MyShowType == ShowType.ShowForGamepadOnly && !ButtonCheck.ControllerInUse) return;
 
             if (Fading)
             {

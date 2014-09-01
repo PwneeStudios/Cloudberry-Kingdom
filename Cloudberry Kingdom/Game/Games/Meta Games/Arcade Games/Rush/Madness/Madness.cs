@@ -17,7 +17,7 @@ namespace CloudberryKingdom
             GameTypeId = 4;
             MenuName = Name = Localization.Words.Madness;
 
-			SetGameId();
+            SetGameId();
         }
 
         protected override void ShowEndScreen()
@@ -132,7 +132,7 @@ namespace CloudberryKingdom
 
         public override LevelSeedData GetSeed(int Index)
         {
-            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, -.5f, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 5.0f, 6.0f);
+            float difficulty = CoreMath.MultiLerpRestrict(Index / (float)LevelsPerDifficulty, 0f, 1f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 5.0f, 6.0f, 6.0f);
             var seed = Make(Index, difficulty);
 
             return seed;
@@ -140,7 +140,7 @@ namespace CloudberryKingdom
 
         public override void Start(int StartLevel)
         {
-			CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Madness);
+            CloudberryKingdomGame.SetPresence(CloudberryKingdomGame.Presence.Madness);
 
             base.Start(StartLevel);
         }
@@ -153,10 +153,11 @@ namespace CloudberryKingdom
             return tilesets[Tools.GlobalRnd.RndInt(0, tilesets.Length - 1)];
         }
 
-		protected virtual int GetLength(int Index, float Difficulty)
-		{
-            return 3000;
-		}
+        protected virtual int GetLength(int Index, float Difficulty)
+        {
+            return 4250;
+            //return 3000;
+        }
 
 
         protected virtual LevelSeedData Make(int Index, float Difficulty)
@@ -199,6 +200,8 @@ namespace CloudberryKingdom
             foreach (PieceSeedData piece in data.PieceSeeds)
             {
                 piece.MyMetaGameType = MetaGameType.TimeCrisis;
+                if (piece.MyUpgrades1 != null) piece.MyUpgrades1[Upgrade.BouncyBlock] /= 2;
+                if (piece.MyUpgrades2 != null) piece.MyUpgrades2[Upgrade.BouncyBlock] /= 2;
             }
 
             return data;

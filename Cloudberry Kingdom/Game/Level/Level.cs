@@ -207,7 +207,7 @@ namespace CloudberryKingdom.Levels
         public CameraZone FinalCamZone;
 
         public List<LevelPiece> LevelPieces;
-		public LevelPiece CurPiece;
+        public LevelPiece CurPiece;
 
         public ParticleEmitter MainEmitter;
 
@@ -292,6 +292,8 @@ namespace CloudberryKingdom.Levels
         /// </summary>
         public bool NoParticles;
 
+        public bool AutoSkip = false;
+
         public Level()
         {
             Init(false);
@@ -365,7 +367,7 @@ namespace CloudberryKingdom.Levels
             LevelPieces = null;
             CurPiece = null;
 
-			if (MyBackground != null) MyBackground.Release(); MyBackground = null;
+            if (MyBackground != null) MyBackground.Release(); MyBackground = null;
 
             if (MainEmitter != null)
             {
@@ -647,11 +649,11 @@ namespace CloudberryKingdom.Levels
 
             PrepareBundleToAddRecording();
 
-			if (CurrentRecording != null)
-			{
-				CurrentRecording.ConvertToSuperSparse(CurPhsxStep);
-				MySwarmBundle.CurrentSwarm.AddRecord(CurrentRecording, CurPhsxStep);
-			}
+            if (CurrentRecording != null)
+            {
+                CurrentRecording.ConvertToSuperSparse(CurPhsxStep);
+                MySwarmBundle.CurrentSwarm.AddRecord(CurrentRecording, CurPhsxStep);
+            }
 
             if (MySwarmBundle.CurrentSwarm.MyLevelPiece != CurPiece)
             {
@@ -760,7 +762,9 @@ namespace CloudberryKingdom.Levels
                 if (MyGame != null) MyGame.LevelRetryEvent();
             }
 
-            MainCamera.MyZone = null;
+            if (AutoSkip) return;
+
+            if (MainCamera != null) MainCamera.MyZone = null;
             if (MainCamera.Shaking) MainCamera.EndShake();
             MainCamera.Data.Position = CurPiece.CamStartPos;
             MainCamera.ZoneLocked = false;
@@ -1185,26 +1189,26 @@ namespace CloudberryKingdom.Levels
             }
             set
             {
-				_UseLighting = false;
+                _UseLighting = false;
 
-				//_UseLighting = value;
+                //_UseLighting = value;
 
-				//if (_UseLighting)
-				//{
-				//    if (LightRenderTarget == null)
-				//        InitializeLighting();
-				//}
-				//else
-				//{
-				//    LightRenderTarget = null;
-				//    LightTexture = null;
-				//}
+                //if (_UseLighting)
+                //{
+                //    if (LightRenderTarget == null)
+                //        InitializeLighting();
+                //}
+                //else
+                //{
+                //    LightRenderTarget = null;
+                //    LightTexture = null;
+                //}
             }
         }
 
         public void InitializeLighting()
         {
-			return;
+            return;
 
             LightTexture = new EzTexture(); LightTexture.Name = "LightTexture";
 
@@ -1284,6 +1288,7 @@ namespace CloudberryKingdom.Levels
         public void Draw(bool DrawAll, int StartLayer, int EndLayer)
         {
             if (LevelReleased) return;
+            if (AutoSkip) return;
 
             if (ModZoom != Vector2.One) { Tools.EffectWad.ModZoom = ModZoom; Tools.EffectWad.ResetCameraPos(); }
 
@@ -1329,7 +1334,7 @@ namespace CloudberryKingdom.Levels
             }
 
             // Draw final DrawLayer
-			if (Tools.HidGui) return;
+            if (Tools.HidGui) return;
 
             if (ModZoom != Vector2.One) { Tools.EffectWad.ModZoom = Vector2.One; Tools.EffectWad.ResetCameraPos(); }
             Tools.StartGUIDraw();
@@ -1695,10 +1700,10 @@ namespace CloudberryKingdom.Levels
 
         void CalcObstaclsSeen()
         {
-			if (!CloudberryKingdomGame.PastPressStart)
-			{
-				return;
-			}
+            if (!CloudberryKingdomGame.PastPressStart)
+            {
+                return;
+            }
 
             try
             {
@@ -1804,11 +1809,14 @@ namespace CloudberryKingdom.Levels
                 UpdateActiveObjectList();
 
             // Update the camera
-            if (!FreezeCamera)
-                MainCamera.PhsxStep();
-            else
-                MainCamera.Update();
-        
+            if (MainCamera != null)
+            {
+                if (!FreezeCamera)
+                    MainCamera.PhsxStep();
+                else
+                    MainCamera.Update();
+            }        
+
             // Increase number of steps taken
             CurPhsxStep++;
 
@@ -1825,9 +1833,9 @@ namespace CloudberryKingdom.Levels
             float PrevIndependentPhsxStep = IndependentPhsxStep;
             //TimeType = TimeTypes.Regular;
             //TimeType = TimeTypes.xSync;
-			//TimeType = TimeTypes.Control;
+            //TimeType = TimeTypes.Control;
 
-			switch (TimeType)
+            switch (TimeType)
             {
                 case TimeTypes.Regular:
                     IndependentPhsxStep = CurPhsxStep * 1f;
@@ -1835,24 +1843,24 @@ namespace CloudberryKingdom.Levels
                         PrevIndependentPhsxStep = IndependentPhsxStep - 1;
                     break;
 
-				case TimeTypes.Control:
-					float r = ButtonCheck.State(ControllerButtons.RT, -1).Squeeze;
-					float l = ButtonCheck.State(ControllerButtons.LT, -1).Squeeze;
+                case TimeTypes.Control:
+                    float r = ButtonCheck.State(ControllerButtons.RT, -1).Squeeze;
+                    float l = ButtonCheck.State(ControllerButtons.LT, -1).Squeeze;
 
-					if (r > .2f)
-					{
-						IndependentPhsxStep += r;
-					}
-					
-					if (l > .2f)
-					{
-						IndependentPhsxStep -= l;
-					}
+                    if (r > .2f)
+                    {
+                        IndependentPhsxStep += r;
+                    }
+                    
+                    if (l > .2f)
+                    {
+                        IndependentPhsxStep -= l;
+                    }
 
-					if (!IndependentStepSetOnce)
-						PrevIndependentPhsxStep = IndependentPhsxStep;
+                    if (!IndependentStepSetOnce)
+                        PrevIndependentPhsxStep = IndependentPhsxStep;
 
-					break;
+                    break;
 
                 case TimeTypes.ySync:
                 case TimeTypes.xSync:
@@ -1981,8 +1989,11 @@ namespace CloudberryKingdom.Levels
 
         public void SetBack(int Steps)
         {
-            CurPiece.StartPhsxStep -= Steps;
-            MyGame.WaitThenDo(2, () => CurPiece.StartPhsxStep += Steps);
+            if (CurPiece != null)
+            {
+                CurPiece.StartPhsxStep -= Steps;
+                MyGame.WaitThenDo(2, () => CurPiece.StartPhsxStep += Steps);
+            }
         }
     }
 }

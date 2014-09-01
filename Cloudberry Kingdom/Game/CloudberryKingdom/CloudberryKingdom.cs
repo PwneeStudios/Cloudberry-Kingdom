@@ -40,57 +40,57 @@ using OTK = OpenTK;
 
 namespace CloudberryKingdom
 {
-	#if MONO && WINDOWS
-	public static class GameWindowExtensions {
-		public static void SetPosition(this GameWindow window, Point position) {
-			//OpenTK.GameWindow OTKWindow = GetForm(window);
-			//if (OTKWindow != null) {
-			//	OTKWindow.X = position.X;
-			//	OTKWindow.Y = position.Y;
-			//}
-		}
+    #if MONO && WINDOWS
+    public static class GameWindowExtensions {
+        public static void SetPosition(this GameWindow window, Point position) {
+            //OpenTK.GameWindow OTKWindow = GetForm(window);
+            //if (OTKWindow != null) {
+            //	OTKWindow.X = position.X;
+            //	OTKWindow.Y = position.Y;
+            //}
+        }
 
-	/*
-		public static OpenTK.GameWindow GetForm(this GameWindow gameWindow) {
-			Type type = typeof(OpenTKGameWindow);
-			System.Reflection.FieldInfo field = type.GetField("window", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-			if (field != null)
-				return field.GetValue(gameWindow) as OTK.GameWindow;
-			return null;
-		}
-		*/
-	}
-	#endif
+    /*
+        public static OpenTK.GameWindow GetForm(this GameWindow gameWindow) {
+            Type type = typeof(OpenTKGameWindow);
+            System.Reflection.FieldInfo field = type.GetField("window", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (field != null)
+                return field.GetValue(gameWindow) as OTK.GameWindow;
+            return null;
+        }
+        */
+    }
+    #endif
 
 
-	public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };
+    public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };
 
     public partial class CloudberryKingdomGame
     {
 #if PC_VERSION
-		// Steam Integration
-		// Set this to true to turn on Steam Integrtaion code
-		public const bool UsingSteam = true;
-		public static bool SteamInitialized = false;
-		public static bool SteamAvailable
-		{
-			get
-			{
-				return UsingSteam && SteamInitialized;
-			}
-		}
+        // Steam Integration
+        // Set this to true to turn on Steam Integrtaion code
+        public const bool UsingSteam = true;
+        public static bool SteamInitialized = false;
+        public static bool SteamAvailable
+        {
+            get
+            {
+                return UsingSteam && SteamInitialized;
+            }
+        }
 #endif
 
 #if DEBUG
         public const bool FinalRelease = false;
 #else
-		public const bool FinalRelease = true;
+        public const bool FinalRelease = true;
 #endif
 
         public const bool AllowAsianLanguages = true;
 
-		public const string VersionString = "1.0.0007";
-		public const bool CodersEdition = true;
+        public const string VersionString = "1.0.0007";
+        public const bool CodersEdition = true;
         public static bool AndersSwitch = false;
         public static bool BungeeSwitch = true;
         public static bool AlwaysBungee
@@ -114,69 +114,69 @@ namespace CloudberryKingdom
 
 
         public static bool GodMode = !FinalRelease;
-		public static bool AsianButtonSwitch = false;
+        public static bool AsianButtonSwitch = false;
 
 #if PC_VERSION || MONO
         // Steam Beta
-		//public static bool HideLogos = true;
-		//public static bool LockCampaign = true;
-		//public static bool SimpleMainMenu = true;
-		//public static bool PS3MainMenu = false;
-		//public static bool PS3MainMenu = false;
-		//public static bool SimpleLeaderboards = true;
-		//public static bool FakeAwardments = false;
+        //public static bool HideLogos = true;
+        //public static bool LockCampaign = true;
+        //public static bool SimpleMainMenu = true;
+        //public static bool PS3MainMenu = false;
+        //public static bool PS3MainMenu = false;
+        //public static bool SimpleLeaderboards = true;
+        //public static bool FakeAwardments = false;
 
-		// PC Beta
+        // PC Beta
 #if DEBUG
-		public static bool HideLogos = true;
-		public static bool QuickStart = true;
+        public static bool HideLogos = true;
+        public static bool QuickStart = true;
 #else
-		public static bool HideLogos = false;
-		public static bool QuickStart = false;
+        public static bool HideLogos = false;
+        public static bool QuickStart = false;
 #endif
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = true;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		public static bool SimpleLeaderboards = false;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = 0;
+        public static bool LockCampaign = false;
+        public static bool SimpleMainMenu = true;
+        public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+        public static bool SimpleLeaderboards = false;
+        public static bool FakeAwardments = false;
+        public static float GuiSqueeze = 0;
 
-		// Steam Beta
-		//public static bool HideLogos = false;
-		//public static bool LockCampaign = true;
-		//public static bool SimpleMainMenu = true;
-		//public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
-		//public static bool SimpleLeaderboards = false;
-		//public static bool FakeAwardments = false;
-		//public static float GuiSqueeze = 0;
+        // Steam Beta
+        //public static bool HideLogos = false;
+        //public static bool LockCampaign = true;
+        //public static bool SimpleMainMenu = true;
+        //public static MainMenuTypes MainMenuType = MainMenuTypes.PC;
+        //public static bool SimpleLeaderboards = false;
+        //public static bool FakeAwardments = false;
+        //public static float GuiSqueeze = 0;
 #elif XBOX
         public static bool HideLogos = false || PropTest;
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = false;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
-		public static bool SimpleLeaderboards = false;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = .3f;
+        public static bool LockCampaign = false;
+        public static bool SimpleMainMenu = false;
+        public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
+        public static bool SimpleLeaderboards = false;
+        public static bool FakeAwardments = false;
+        public static float GuiSqueeze = .3f;
 #elif CAFE
-		public static bool HideLogos = false;
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = true;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
-		public static bool SimpleLeaderboards = true;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = 1f;
+        public static bool HideLogos = false;
+        public static bool LockCampaign = false;
+        public static bool SimpleMainMenu = true;
+        public static MainMenuTypes MainMenuType = MainMenuTypes.WiiU;
+        public static bool SimpleLeaderboards = true;
+        public static bool FakeAwardments = false;
+        public static float GuiSqueeze = 1f;
 #elif PS3
-		public static bool HideLogos = false;
-		public static bool LockCampaign = false;
-		public static bool SimpleMainMenu = false;
-		public static MainMenuTypes MainMenuType = MainMenuTypes.PS3;
-		public static bool SimpleLeaderboards = false;
-		public static bool FakeAwardments = false;
-		public static float GuiSqueeze = 1f;
+        public static bool HideLogos = false;
+        public static bool LockCampaign = false;
+        public static bool SimpleMainMenu = false;
+        public static MainMenuTypes MainMenuType = MainMenuTypes.PS3;
+        public static bool SimpleLeaderboards = false;
+        public static bool FakeAwardments = false;
+        public static float GuiSqueeze = 1f;
 #endif
 
 
-		public static int SuppressSavingTextDuration = 0;
+        public static int SuppressSavingTextDuration = 0;
         public static EzText SavingText = null;
         public static int ShowSavingDuration = 0;
         const int ShowSavingLength = 80;
@@ -186,18 +186,18 @@ namespace CloudberryKingdom
 
         public static void ShowSaving()
         {
-			if (Localization.CurrentLanguage == null ||
-				Tools.TheGame == null || 
-				Resources.Font_Grobold42 == null ||
-				Resources.Font_Grobold42.HFont == null ||
-				Resources.Font_Grobold42.HFont.font == null ||
-				Resources.Font_Grobold42.HFont.font.MyTexture == null ||
-				Resources.Font_Grobold42.HOutlineFont == null ||
-				Resources.Font_Grobold42.HOutlineFont.font == null ||
-				Resources.Font_Grobold42.HOutlineFont.font.MyTexture == null)
-			{
-				return;
-			}
+            if (Localization.CurrentLanguage == null ||
+                Tools.TheGame == null || 
+                Resources.Font_Grobold42 == null ||
+                Resources.Font_Grobold42.HFont == null ||
+                Resources.Font_Grobold42.HFont.font == null ||
+                Resources.Font_Grobold42.HFont.font.MyTexture == null ||
+                Resources.Font_Grobold42.HOutlineFont == null ||
+                Resources.Font_Grobold42.HOutlineFont.font == null ||
+                Resources.Font_Grobold42.HOutlineFont.font.MyTexture == null)
+            {
+                return;
+            }
 
             //if (PlayerManager.GetNumPlayers() > 2)
             {
@@ -206,25 +206,25 @@ namespace CloudberryKingdom
                 else
                     ShowSavingDuration = ShowSavingLength;
 
-				SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
-				SavingText.FixedToCamera = true;
-				SavingText.Pos = new Vector2(1110, -750);
-				SavingText.Scale = .37f;
-				StartMenu.SetTextSelected_Red(SavingText);
+                SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
+                SavingText.FixedToCamera = true;
+                SavingText.Pos = new Vector2(1110, -750);
+                SavingText.Scale = .37f;
+                StartMenu.SetTextSelected_Red(SavingText);
             }
         }
 
         void DrawSavingText()
         {
-			if (SuppressSavingTextDuration > 0)
-			{
-				SuppressSavingTextDuration--;
-				ShowSavingDuration = 0;
-				return;
-			}
+            if (SuppressSavingTextDuration > 0)
+            {
+                SuppressSavingTextDuration--;
+                ShowSavingDuration = 0;
+                return;
+            }
 
-			// Use this to test always drawing the save text
-			//ShowSaving();
+            // Use this to test always drawing the save text
+            //ShowSaving();
 
             if (ShowSavingDuration > 0)
             {
@@ -232,18 +232,18 @@ namespace CloudberryKingdom
 
                 if (Tools.CurCamera != null)
                 {
-					if (Tools.CurCamera.Zoom.X != .001f)
-					{
-						Tools.CurCamera.SetToDefaultZoom();
-					}
+                    if (Tools.CurCamera.Zoom.X != .001f)
+                    {
+                        Tools.CurCamera.SetToDefaultZoom();
+                    }
 
                     if (ShowSavingDuration < ShowSaving_FadeOutLength)
-						SavingText.Alpha = 1f - (ShowSaving_FadeOutLength - ShowSavingDuration) / ShowSaving_FadeOutLength;
-					else if (ShowSavingDuration > ShowSavingLength - ShowSaving_FadeInLength)
-						SavingText.Alpha = 1f - (ShowSaving_FadeInLength - (ShowSavingLength - ShowSavingDuration)) / ShowSaving_FadeInLength;
+                        SavingText.Alpha = 1f - (ShowSaving_FadeOutLength - ShowSavingDuration) / ShowSaving_FadeOutLength;
+                    else if (ShowSavingDuration > ShowSavingLength - ShowSaving_FadeInLength)
+                        SavingText.Alpha = 1f - (ShowSaving_FadeInLength - (ShowSavingLength - ShowSavingDuration)) / ShowSaving_FadeInLength;
 
                     SavingText.Draw(Tools.CurCamera);
-					Tools.QDrawer.Flush();
+                    Tools.QDrawer.Flush();
                 }
             }
         }
@@ -253,63 +253,65 @@ namespace CloudberryKingdom
 
 
 
-		public static bool ForFrapsRecording = false;
+        public static bool ForFrapsRecording = false;
 
 #if DEBUG
         public static bool AlwaysGiveTutorials = true;
         public static bool Unlock_Customization = true;
         public static bool Unlock_Levels = false;
+        public static bool UnlockHeroesAndGames = true;
 #else
         public static bool AlwaysGiveTutorials = false;
         public static bool Unlock_Customization = true;
         public static bool Unlock_Levels = false || DigitalDayBuild;
+        public static bool UnlockHeroesAndGames = true;
 #endif
 
-		public static bool ChoseNotToSave = false;
-		public static bool PastPressStart = false;
-		public static bool CanSave()
-		{
-			if (IsDemo) return false;
+        public static bool ChoseNotToSave = false;
+        public static bool PastPressStart = false;
+        public static bool CanSave()
+        {
+            if (IsDemo) return false;
 
-			if (ChoseNotToSave) return false;
+            if (ChoseNotToSave) return false;
 
-			if (!PastPressStart) return false;
+            if (!PastPressStart) return false;
 
-			return true;
-		}
+            return true;
+        }
 
-		public static bool CanSave(PlayerIndex index)
-		{
-			if (!CanSave()) return false;
+        public static bool CanSave(PlayerIndex index)
+        {
+            if (!CanSave()) return false;
 
 #if XBOX
-			if (EzStorage.Device[(int)index] == null) return false;
-			if (EzStorage.Device[(int)index].IsReady) return true;
+            if (EzStorage.Device[(int)index] == null) return false;
+            if (EzStorage.Device[(int)index].IsReady) return true;
 #else
-			return true;
+            return true;
 #endif
 
-			return false;
-		}
+            return false;
+        }
 
         public static void ChangeSaveGoFunc(MenuItem item)
         {
-			if (!CloudberryKingdomGame.CanSave())
-			{
+            if (!CloudberryKingdomGame.CanSave())
+            {
                 //item.Selectable = false;
-				item.Go = null;
+                item.Go = null;
 
                 item.MyText.MyFloatColor.W = .5f;
                 item.MySelectedText.MyFloatColor.W = .5f;
-			}
-			else
-			{
-				item.Selectable = true;
-				item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
+            }
+            else
+            {
+                item.Selectable = true;
+                item.Go = Cast.ToItem(ShowError_CanNotSaveLevel_NoSpace);
 
                 item.MyText.MyFloatColor.W = .5f;
                 item.MySelectedText.MyFloatColor.W = .5f;
-			}
+            }
         }
 
         public static void ShowError_CanNotSaveLevel_NoSpace()
@@ -317,20 +319,20 @@ namespace CloudberryKingdom
             ShowError(Localization.Words.Err_CanNotSaveLevel_NoSpace_Header, Localization.Words.Err_CanNotSaveLevel_NoSpace, Localization.Words.Err_Ok, null);
         }
 
-		public static void ShowError_CanNotSaveNoDevice()
-		{
-			ShowError(Localization.Words.Err_StorageDeviceRequired, Localization.Words.Err_NoSaveDevice, Localization.Words.Err_Ok, null);
-		}
+        public static void ShowError_CanNotSaveNoDevice()
+        {
+            ShowError(Localization.Words.Err_StorageDeviceRequired, Localization.Words.Err_NoSaveDevice, Localization.Words.Err_Ok, null);
+        }
 
 
-		public static bool ProfilesAvailable()
-		{
+        public static bool ProfilesAvailable()
+        {
 #if XBOX
-			return Gamer.SignedInGamers.Count > 0;
+            return Gamer.SignedInGamers.Count > 0;
 #else
-			return true;
+            return true;
 #endif
-		}
+        }
 
 #if XBOX
         public static SignedInGamer IndexToSignedInGamer(PlayerIndex index)
@@ -391,7 +393,7 @@ namespace CloudberryKingdom
             Tools.Write("Checking online functionality for player " + index);
 
 #if DEBUG && WINDOWS && XBOX
-			return true;
+            return true;
 #elif XBOX
             var gamer = IndexToSignedInGamer(index);
 
@@ -401,11 +403,11 @@ namespace CloudberryKingdom
 
             return true;
 #else
-			return true;
+            return true;
 #endif
         }
 
-		public static bool OnlineFunctionalityAvailable()
+        public static bool OnlineFunctionalityAvailable()
         {
 #if XDK
             var gamers = Gamer.SignedInGamers;
@@ -419,14 +421,14 @@ namespace CloudberryKingdom
                 if (gamer.IsSignedInToLive) return true;
             }
 
-			return false;
+            return false;
 #else
-			return true;
+            return true;
 #endif
-		}
+        }
 
-		public static void BeginShowMarketplace()
-		{
+        public static void BeginShowMarketplace()
+        {
 #if XDK
             ShowMarketplace = false;
 
@@ -447,15 +449,15 @@ namespace CloudberryKingdom
 
                     if (gamer != null)
                     {
-						// Check if user can purchase or not
-						//if (gamer.Privileges.AllowPurchaseContent)
-						//{
-						//    GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
-						//}
-						//else
-						//{
-						//    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Xbox_NoPermissionToBuy);
-						//}
+                        // Check if user can purchase or not
+                        //if (gamer.Privileges.AllowPurchaseContent)
+                        //{
+                        //    GuideExtensions.ShowMarketplace(ShowFor, 0x584113C800000001);
+                        //}
+                        //else
+                        //{
+                        //    CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Xbox_NoPermissionToBuy);
+                        //}
 
                         // If we are simulating a trial, then set the simulated variable to false immediately.
                         if (GuideIsTrial_Override)
@@ -481,39 +483,39 @@ namespace CloudberryKingdom
                 CloudberryKingdomGame.ShowError_MustBeSignedIn(Localization.Words.Err_MustBeSignedInToLiveToAccess);
             }
 #endif
-		}
+        }
 
-		public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade, Madness };
-		public static Presence CurrentPresence = Presence.TitleScreen;
-		public static void SetPresence(Presence presence)
-		{
-			CurrentPresence = presence;
+        public enum Presence { TitleScreen, Escalation, TimeCrisis, HeroRush, HeroRush2, Freeplay, Campaign, Arcade, Madness };
+        public static Presence CurrentPresence = Presence.TitleScreen;
+        public static void SetPresence(Presence presence)
+        {
+            CurrentPresence = presence;
 
 #if XDK
-			string Mode;
+            string Mode;
 
-			switch (CurrentPresence)
-			{
-				case Presence.TitleScreen: Mode = "TitleScreen"; break;
-				case Presence.Escalation: Mode = "Escalation"; break;
-				case Presence.TimeCrisis: Mode = "TimeCrisis"; break;
-				case Presence.HeroRush: Mode = "HeroRush"; break;
-				case Presence.HeroRush2: Mode = "HeroRush2"; break;
-				case Presence.Campaign: Mode = "Campaign"; break;
-				case Presence.Freeplay: Mode = "Freeplay"; break;
+            switch (CurrentPresence)
+            {
+                case Presence.TitleScreen: Mode = "TitleScreen"; break;
+                case Presence.Escalation: Mode = "Escalation"; break;
+                case Presence.TimeCrisis: Mode = "TimeCrisis"; break;
+                case Presence.HeroRush: Mode = "HeroRush"; break;
+                case Presence.HeroRush2: Mode = "HeroRush2"; break;
+                case Presence.Campaign: Mode = "Campaign"; break;
+                case Presence.Freeplay: Mode = "Freeplay"; break;
                 case Presence.Arcade: Mode = "Arcade"; break;
-				default: Mode = "TitleScreen"; break;
-			}
+                default: Mode = "TitleScreen"; break;
+            }
 
-			List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
-			foreach (PlayerData player in CopyOfExistingPlayers)
-			{
-				SignedInGamer sig = player.MyGamer;
-				if (sig != null && player.MyGamer.IsSignedInToLive)
-				{
+            List<PlayerData> CopyOfExistingPlayers = new List<PlayerData>(PlayerManager.ExistingPlayers);
+            foreach (PlayerData player in CopyOfExistingPlayers)
+            {
+                SignedInGamer sig = player.MyGamer;
+                if (sig != null && player.MyGamer.IsSignedInToLive)
+                {
                     player.MyGamer.Presence.SetPresenceModeString(Mode);
-				}
-			}
+                }
+            }
 
             foreach (SignedInGamer gamer in Gamer.SignedInGamers)
             {
@@ -527,17 +529,17 @@ namespace CloudberryKingdom
             Tools.Warning();
             return;
 #endif
-		}
+        }
 
 #if XBOX
-		static bool IsTrial = false;
+        static bool IsTrial = false;
 #endif
 
         public static bool GuideIsTrial_Override = true && !FinalRelease;
         public static bool Fake_GuideIsTrial = true && !FinalRelease;
 
         public static bool DoTrialUnlockEvent = false;
-		public static bool WasNotDemoOnce = false;
+        public static bool WasNotDemoOnce = false;
         public static bool FakeDemo = false && !FinalRelease;
         public static bool IsDemo
         {
@@ -549,11 +551,11 @@ namespace CloudberryKingdom
 
 
 #if DEBUG
-				return FakeDemo;
+                return FakeDemo;
 #endif
 
-				if (WasNotDemoOnce) return false;
-				if (FakeDemo) return true;
+                if (WasNotDemoOnce) return false;
+                if (FakeDemo) return true;
 
 #if XBOX
                 bool PrevTrialVal = IsTrial;
@@ -576,15 +578,15 @@ namespace CloudberryKingdom
                     SaveGroup.SkipPlayerDataInit = true;
                 }
 
-				return IsTrial;
+                return IsTrial;
 #else
-				WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
+                WasNotDemoOnce = true; // Once this is set to true the game will always think it is a full version until restarted.
                 return false;
 #endif
             }
         }
-		public static int Freeplay_Count = 0;
-		public static int Freeplay_Max = 3;
+        public static int Freeplay_Count = 0;
+        public static int Freeplay_Max = 3;
 
 #if XBOX
         public static void OfferToBuy(SignedInGamer gamer)
@@ -617,9 +619,9 @@ namespace CloudberryKingdom
             }
         }
 #else
-		public static void OfferToBuy()
-		{
-		}
+        public static void OfferToBuy()
+        {
+        }
 #endif
 
 
@@ -627,13 +629,13 @@ namespace CloudberryKingdom
 
 
 
-		/// <summary>
+        /// <summary>
         /// The command line arguments.
         /// </summary>
         public static string[] args;
 
         public static bool StartAsBackgroundEditor = false;
-		public static bool StartAsTestLevel = false;
+        public static bool StartAsTestLevel = false;
         public static bool StartAsBobAnimationTest = false;
         public static bool StartAsFreeplay = false;
 #if INCLUDE_EDITOR
@@ -711,7 +713,7 @@ namespace CloudberryKingdom
         public void Exit()
         {
 #if PC_VERSION
-			SteamCore.Shutdown();
+            SteamCore.Shutdown();
 #endif
 
             Tools.GameClass.Exit();
@@ -783,7 +785,7 @@ namespace CloudberryKingdom
             MyGraphicsDeviceManager = new GraphicsDeviceManager(Tools.GameClass);
             MyGraphicsDeviceManager.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 
-			CoreGamepad.Initialize(Tools.GameClass.Services, Tools.GameClass.Components, Tools.GameClass.Window.Handle);
+            CoreGamepad.Initialize(Tools.GameClass.Services, Tools.GameClass.Components, Tools.GameClass.Window.Handle);
 
             Tools.GameClass.Content.RootDirectory = "Content";
 
@@ -807,27 +809,27 @@ namespace CloudberryKingdom
         public void Initialize()
         {
 #if PC_VERSION
-			if (CloudberryKingdomGame.UsingSteam)
-			{
-				//Console.WriteLine("Using Steam, checking if restart is needed.");
+            if (CloudberryKingdomGame.UsingSteam)
+            {
+                //Console.WriteLine("Using Steam, checking if restart is needed.");
 
-				if (SteamCore.RestartViaSteamIfNecessary(210870))
-				{
-					//Console.WriteLine("Restart is needed.");
+                if (SteamCore.RestartViaSteamIfNecessary(210870))
+                {
+                    //Console.WriteLine("Restart is needed.");
 
-					ExitingEarly = true;
-					Tools.GameClass.Exit();
-					return;
-				}
+                    ExitingEarly = true;
+                    Tools.GameClass.Exit();
+                    return;
+                }
 
-				//Console.WriteLine("Initializing Steam.");
-				SteamInitialized = SteamCore.Initialize();
-				//Console.WriteLine("Steam initialization: {0}", SteamInitialized ? "Success" : "Failed");
-			}
+                //Console.WriteLine("Initializing Steam.");
+                SteamInitialized = SteamCore.Initialize();
+                //Console.WriteLine("Steam initialization: {0}", SteamInitialized ? "Success" : "Failed");
+            }
 #endif
 
 #if WINDOWS
-			KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
+            KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
 
@@ -850,77 +852,77 @@ namespace CloudberryKingdom
             // Try to load these now.
             PlayerManager.RezData rez;
 
-			PlayerManager.Players = new PlayerData[4];
-			PlayerManager.Players[0] = new PlayerData();
-			PlayerManager.Players[0].Init();
+            PlayerManager.Players = new PlayerData[4];
+            PlayerManager.Players[0] = new PlayerData();
+            PlayerManager.Players[0].Init();
 
-			PlayerManager.Player.ContainerName = "SaveData";
-			PlayerManager.Player.FileName = "SaveData.bam";
-			PlayerManager.Player.Load(PlayerManager.Player.MyPlayerIndex);
+            PlayerManager.Player.ContainerName = "SaveData";
+            PlayerManager.Player.FileName = "SaveData.bam";
+            PlayerManager.Player.Load(PlayerManager.Player.MyPlayerIndex);
 
-			SaveGroup.LoadAll();
-			PlayerManager.Player.Load(PlayerIndex.One);
+            SaveGroup.LoadAll();
+            PlayerManager.Player.Load(PlayerIndex.One);
 
             rez = PlayerManager.LoadRezAndKeys();
 
-			if (!rez.Custom)
-			{
-				rez.Width = 1280;
-				rez.Height = 720;
-				rez.Mode = WindowMode.Borderless;
+            if (!rez.Custom)
+            {
+                rez.Width = 1280;
+                rez.Height = 720;
+                rez.Mode = WindowMode.Borderless;
 
-		        rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-				rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			}
+                rez.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                rez.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            }
 
-	#if DEBUG || INCLUDE_EDITOR
-			//rez.Mode = WindowMode.Borderless;
-			
-			rez.Mode = WindowMode.Windowed;
-			rez.Width = 1280;
-			rez.Height = 720;
-	#endif
+    #if DEBUG || INCLUDE_EDITOR
+            //rez.Mode = WindowMode.Borderless;
+            
+            rez.Mode = WindowMode.Windowed;
+            rez.Width = 1280;
+            rez.Height = 720;
+    #endif
 
-			//rez.Mode = WindowMode.Windowed;
-			//rez.Width = 1280;
-			//rez.Height = 720;
+            //rez.Mode = WindowMode.Windowed;
+            //rez.Width = 1280;
+            //rez.Height = 720;
 
 
-			Resolution = new ResolutionGroup();
-			Resolution.Backbuffer = new IntVector2(rez.Width, rez.Height);
-			Resolution.Bob = new IntVector2(135, 0);
-			Resolution.TextOrigin = Vector2.Zero;
-			Resolution.LineHeightMod = 1f;
+            Resolution = new ResolutionGroup();
+            Resolution.Backbuffer = new IntVector2(rez.Width, rez.Height);
+            Resolution.Bob = new IntVector2(135, 0);
+            Resolution.TextOrigin = Vector2.Zero;
+            Resolution.LineHeightMod = 1f;
 
-			MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
-			MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
-			MyGraphicsDeviceManager.IsFullScreen = rez.Mode == WindowMode.Fullscreen;
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = rez.Width;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = rez.Height;
+            MyGraphicsDeviceManager.IsFullScreen = rez.Mode == WindowMode.Fullscreen;
 
-			if (rez.Mode == WindowMode.Windowed)
-			{
-				MyGraphicsDeviceManager.PreferredBackBufferHeight = (int)((720f / 1280f) * rez.Width);
-			}
+            if (rez.Mode == WindowMode.Windowed)
+            {
+                MyGraphicsDeviceManager.PreferredBackBufferHeight = (int)((720f / 1280f) * rez.Width);
+            }
 
 #elif XBOX
-			// Some possible resolutions.
-			Resolution = new ResolutionGroup();
-			Resolution.Backbuffer = new IntVector2(1280, 720);
-			Resolution.Bob = new IntVector2(135, 0);
-			Resolution.TextOrigin = Vector2.Zero;
-			Resolution.LineHeightMod = 1f;
+            // Some possible resolutions.
+            Resolution = new ResolutionGroup();
+            Resolution.Backbuffer = new IntVector2(1280, 720);
+            Resolution.Bob = new IntVector2(135, 0);
+            Resolution.TextOrigin = Vector2.Zero;
+            Resolution.LineHeightMod = 1f;
 
-			MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
-			MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
-	#if WINDOWS
-			MyGraphicsDeviceManager.IsFullScreen = false;
-	#endif
+            MyGraphicsDeviceManager.PreferredBackBufferWidth = 1280;
+            MyGraphicsDeviceManager.PreferredBackBufferHeight = 720;
+    #if WINDOWS
+            MyGraphicsDeviceManager.IsFullScreen = false;
+    #endif
 #endif
 
 #if MONO
-			//Tools.GameClass.Window.SetPosition (new Point (0, 0));
+            //Tools.GameClass.Window.SetPosition (new Point (0, 0));
 #endif
 
-			Tools.Mode = rez.Mode;
+            Tools.Mode = rez.Mode;
 
             fps = 0;
             Tools.Write("BackBuffer set");
@@ -1136,15 +1138,15 @@ namespace CloudberryKingdom
             MyGraphicsDevice = MyGraphicsDeviceManager.GraphicsDevice;
             Tools.Write("MyGraphicsDevice set");
 
-			AdditiveColor_NormalAlpha = new BlendState();
-			AdditiveColor_NormalAlpha.ColorBlendFunction = BlendFunction.Add;
-			AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.One;
-			// Use this line to be Reach Profile compliant (ColorDestinationBlend must be the same as AlphaDestinationBlend)
-			//AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.InverseSourceAlpha;
-			AdditiveColor_NormalAlpha.ColorSourceBlend = Blend.One;
-			AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
-			AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
-			AdditiveColor_NormalAlpha.AlphaSourceBlend = Blend.One;
+            AdditiveColor_NormalAlpha = new BlendState();
+            AdditiveColor_NormalAlpha.ColorBlendFunction = BlendFunction.Add;
+            AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.One;
+            // Use this line to be Reach Profile compliant (ColorDestinationBlend must be the same as AlphaDestinationBlend)
+            //AdditiveColor_NormalAlpha.ColorDestinationBlend = Blend.InverseSourceAlpha;
+            AdditiveColor_NormalAlpha.ColorSourceBlend = Blend.One;
+            AdditiveColor_NormalAlpha.AlphaBlendFunction = BlendFunction.Add;
+            AdditiveColor_NormalAlpha.AlphaDestinationBlend = Blend.InverseSourceAlpha;
+            AdditiveColor_NormalAlpha.AlphaSourceBlend = Blend.One;
             Tools.Write("BlendState made");
 
             Tools.LoadBasicArt(Tools.GameClass.Content);
@@ -1172,7 +1174,7 @@ namespace CloudberryKingdom
             MainCamera.Update();
             Tools.Write("Camera updated");
 
-			CoreGamepad.OnLoad();
+            CoreGamepad.OnLoad();
 
 #if XBOX
             Tools.PlayerKeyboard = new KeyboardState[4];
@@ -1180,12 +1182,12 @@ namespace CloudberryKingdom
 #endif
             Tools.Write("Gamepads made");
 
-			Preload ();
-			//Tools.EasyThread(5, "PreLoad", Preload);
-		}
+            Preload ();
+            //Tools.EasyThread(5, "PreLoad", Preload);
+        }
 
-		void Preload()
-		{
+        void Preload()
+        {
             Tools.Write("Preload");
 
             //Tools.LoadEffects(Tools.GameClass.Content, true);
@@ -1196,35 +1198,35 @@ namespace CloudberryKingdom
             // Fill the pools
             ComputerRecording.InitPool();
 
-			// Initialize players
-			PlayerManager.Init();
+            // Initialize players
+            PlayerManager.Init();
 
             // Localization
             Tools.Write("Language ISO code    : " + System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-			Tools.Write("Language ISO code(3) : " + System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName);
+            Tools.Write("Language ISO code(3) : " + System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName);
             Localization.Language default_language = Localization.IsoCodeToLanguage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Tools.Write("Default language is " + default_language);
             Localization.SetLanguage(default_language);
             Tools.Write("Language loaded");
 
-			// Load saved files
-			Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-			SaveGroup.Initialize();
+            // Load saved files
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            SaveGroup.Initialize();
 
 #if PC_VERSION
-			StartLogoSalad();
-			//Tools.AddToDo(StartLogoSalad);
-			//PreloadDone = true;
+            StartLogoSalad();
+            //Tools.AddToDo(StartLogoSalad);
+            //PreloadDone = true;
 #else
-			StartLogoSalad();
+            StartLogoSalad();
 #endif
 
             // Pre load. This happens before anything appears.
             Resources.LoadAssets();
             Tools.Write("Asset preload complete.");
 
-			// Create the initial loading screen
-			LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
+            // Create the initial loading screen
+            LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);
 
             // Initialize heroes
             BobPhsx.CustomPhsxData.InitStatic();
@@ -1258,10 +1260,10 @@ namespace CloudberryKingdom
             Resources.LoadResources();
         }
 
-		private void StartLogoSalad()
-		{
-			if (!HideLogos)
-			{
+        private void StartLogoSalad()
+        {
+            if (!HideLogos)
+            {
 #if XDK
                 if (IsDemo && GuideExtensions.ConsoleRegion == ConsoleRegion.NorthAmerica)
                 {
@@ -1272,15 +1274,15 @@ namespace CloudberryKingdom
                     MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
                 }
 #else
-				//MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
-				VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
+                //MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
+                VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
 #endif
-			}
+            }
 
-			PreloadDone = true;
-		}
+            PreloadDone = true;
+        }
 
-		public static bool PreloadDone = false;
+        public static bool PreloadDone = false;
 
         void HookSignInAndOut()
         {
@@ -1356,9 +1358,9 @@ namespace CloudberryKingdom
 
         protected void GodModePhxs()
         {
-			//return;
+            //return;
 
-			// Write to leaderboard
+            // Write to leaderboard
             Tools.Warning();
             if (ButtonCheck.State(ControllerButtons.RJ, -2).Down && ButtonCheck.State(ControllerButtons.LS, -2).Pressed)
             {
@@ -1417,20 +1419,20 @@ namespace CloudberryKingdom
             if (ButtonCheck.State(ControllerButtons.LJ, -2).Down && ButtonCheck.State(ControllerButtons.A, -2).Pressed)
 #endif
             {
-				if (!Tools.ViewerIsUp)
-				{
-					foreach (Bob bob in Tools.CurLevel.Bobs)
-					{
-						bob.Flying = !bob.Flying;
-						bob.Immortal = !bob.Immortal;
-					}
-				}
+                if (!Tools.ViewerIsUp)
+                {
+                    foreach (Bob bob in Tools.CurLevel.Bobs)
+                    {
+                        bob.Flying = !bob.Flying;
+                        bob.Immortal = !bob.Immortal;
+                    }
+                }
             }
 
-			if (Tools.Keyboard.IsKeyDownCustom(Keys.T) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.T))
-			{
-				Tools.HidGui = !Tools.HidGui;
-			}
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.T) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.T))
+            {
+                Tools.HidGui = !Tools.HidGui;
+            }
 
             // Go to last door
 #if PC
@@ -1454,11 +1456,11 @@ namespace CloudberryKingdom
 
                         foreach (ObjectBase obj in Tools.CurLevel.Objects)
                         {
-							Coin coin = obj as Coin;
-							if (null != coin)
-							{
-								Tools.MoveTo(coin, door.Pos);
-							}
+                            Coin coin = obj as Coin;
+                            if (null != coin)
+                            {
+                                Tools.MoveTo(coin, door.Pos);
+                            }
 
                             CameraZone zone = obj as CameraZone;
                             if (null != zone)
@@ -1480,18 +1482,18 @@ namespace CloudberryKingdom
         {
             DoToDoList();
 #if WINDOWS
-	#if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
+    #if PC_DEBUG || (WINDOWS && DEBUG) || INCLUDE_EDITOR
             // Debug tools
             if (DebugModePhsx())
                 return;
-	#endif
+    #endif
 
-	#if DEBUG
+    #if DEBUG
             GodModePhxs();
-	#else
+    #else
             if (GodMode)
                 GodModePhxs();
-	#endif
+    #endif
 
             // Do game update.
             if (!Tools.StepControl || (Tools.Keyboard.IsKeyDownCustom(Keys.Enter) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Enter)))
@@ -1501,22 +1503,22 @@ namespace CloudberryKingdom
             else if (Tools.CurLevel != null)
                 Tools.CurLevel.IndependentDeltaT = 0;
 
-	#if WINDOWS
+    #if WINDOWS
             // Quick Spawn
             CheckForQuickSpawn_PC();
-	#endif
+    #endif
 #else
-	#if DEBUG
+    #if DEBUG
             GodModePhxs();
-	#else
+    #else
             if (GodMode)
                 GodModePhxs();
-	#endif
+    #endif
 
             DoGameDataPhsx();
 #endif
 
-			// Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
+            // Quick Spawn: Note, we must check this for PC version too, since PC players may use game pads.
             CheckForQuickSpawn_Xbox();
 
             // Finish updating the controlls; swap current to previous.
@@ -1532,7 +1534,7 @@ namespace CloudberryKingdom
             // Should implement a GameObject that marshalls quickspawns instead.
             Tools.Warning();
 
-			if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() && !ButtonCheck.PreventNextInput &&
+            if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze && Tools.CurLevel.ResetEnabled() && !ButtonCheck.PreventNextInput &&
                 Tools.Keyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey) && !Tools.PrevKeyboard.IsKeyDownCustom(ButtonCheck.Quickspawn_KeyboardKey.KeyboardKey))
                 DoQuickSpawn();
         }
@@ -1547,8 +1549,8 @@ namespace CloudberryKingdom
             {
                 if (PlayerManager.Get(i).Exists)
                 {
-					if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
-						!(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
+                    if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
+                        !(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
                         ShortReset = true;
                 }
             }
@@ -1560,7 +1562,7 @@ namespace CloudberryKingdom
                 {
                     if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
                     {
-						if (!CoreGamepad.IsPressed(i, ControllerButtons.LS) && !CoreGamepad.IsPressed(i, ControllerButtons.RS))
+                        if (!CoreGamepad.IsPressed(i, ControllerButtons.LS) && !CoreGamepad.IsPressed(i, ControllerButtons.RS))
                             ShortReset = false;
                     }
                 }
@@ -1575,24 +1577,24 @@ namespace CloudberryKingdom
                     {
                         if (PlayerManager.Get(i).Exists && PlayerManager.Get(i).IsAlive)
 
-						if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
-							!(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
+                        if (CoreGamepad.IsPressed(i, ControllerButtons.LS) && CoreGamepad.IsPressed(i, ControllerButtons.RS) &&
+                            !(CoreGamepad.IsPreviousPressed(i, ControllerButtons.LS) && CoreGamepad.IsPreviousPressed(i, ControllerButtons.RS)))
                         {
-							foreach (Bob bob in Tools.CurLevel.Bobs)
-							{
-								if (bob.MyPlayerIndex == PlayerManager.Get(i).MyPlayerIndex && bob.ImmortalCountDown <= 0)
-								{
-									ParticleEffects.PopOut(Tools.CurLevel, bob.Pos);
+                            foreach (Bob bob in Tools.CurLevel.Bobs)
+                            {
+                                if (bob.MyPlayerIndex == PlayerManager.Get(i).MyPlayerIndex && bob.ImmortalCountDown <= 0)
+                                {
+                                    ParticleEffects.PopOut(Tools.CurLevel, bob.Pos);
 
-									//bob.Die(Bob.BobDeathType.Other);
-									bob.Die(Bob.BobDeathType.Other, null, false, false);
+                                    //bob.Die(Bob.BobDeathType.Other);
+                                    bob.Die(Bob.BobDeathType.Other, null, false, false);
 #if XBOX
-									Tools.SetVibration(PlayerManager.Get(i).MyPlayerIndex, 0, 0, 0);
+                                    Tools.SetVibration(PlayerManager.Get(i).MyPlayerIndex, 0, 0, 0);
 #endif
 
-									break;
-								}
-							}
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -1616,13 +1618,13 @@ namespace CloudberryKingdom
             Vector2 Pos = Tools.MouseWorldPos();
 
             // Draw the mouse hand
-			//MousePointer.Pos = Pos + new Vector2(.905f * MousePointer.Size.X, -.705f * MousePointer.Size.Y);
+            //MousePointer.Pos = Pos + new Vector2(.905f * MousePointer.Size.X, -.705f * MousePointer.Size.Y);
 
-			MousePointer.ScaleYToMatchRatio(33.3f);
+            MousePointer.ScaleYToMatchRatio(33.3f);
 
-			MousePointer.Pos = Pos + new Vector2(.91f * MousePointer.Size.X, -.93f * MousePointer.Size.Y);
+            MousePointer.Pos = Pos + new Vector2(.91f * MousePointer.Size.X, -.93f * MousePointer.Size.Y);
 
-			MousePointer.Draw();
+            MousePointer.Draw();
 
             // Draw the mouse dot
             //Tools.QDrawer.DrawSquareDot(Pos, Color.Black, 8);
@@ -1643,10 +1645,10 @@ namespace CloudberryKingdom
         /// </summary>
         public bool MediaPlaying_HoldState = false;
 
-		/// <summary>
-		/// Whether a video was playing prior to the game window going inactive
-		/// </summary>
-		public bool VideoPlaying_HoldState = false;
+        /// <summary>
+        /// Whether a video was playing prior to the game window going inactive
+        /// </summary>
+        public bool VideoPlaying_HoldState = false;
 
         /// <summary>
         /// Whether this is the first frame the window has been inactive
@@ -1662,37 +1664,37 @@ namespace CloudberryKingdom
 
         public bool RunningSlowly = false;
 
-		TimeSpan TargetElapsedTime_58fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 58f));
-		TimeSpan TargetElapsedTime_60fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
+        TimeSpan TargetElapsedTime_58fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 58f));
+        TimeSpan TargetElapsedTime_60fps = new TimeSpan(0, 0, 0, 0, (int)(1000f / 60f));
 
         public void Update()
         {
-			if (MyGraphicsDeviceManager.IsFullScreen)
-			{
-				//Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
-				//Tools.GameClass.IsFixedTimeStep = true;
+            if (MyGraphicsDeviceManager.IsFullScreen)
+            {
+                //Tools.GameClass.TargetElapsedTime = TargetElapsedTime_58fps;
+                //Tools.GameClass.IsFixedTimeStep = true;
 
-				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
-				Tools.GameClass.IsFixedTimeStep = false;
-			}
-			else
-			{
-				Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
-				Tools.GameClass.IsFixedTimeStep = false;
-			}
+                Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
+                Tools.GameClass.IsFixedTimeStep = false;
+            }
+            else
+            {
+                Tools.GameClass.TargetElapsedTime = TargetElapsedTime_60fps;
+                Tools.GameClass.IsFixedTimeStep = false;
+            }
         }
 
-		public static bool ShowMarketplace = false;
+        public static bool ShowMarketplace = false;
 
 #if XBOX
         public static bool ShowKeyboard = false;
         public static bool KeyboardIsDone = false;
-		public static bool ShowAchievements = false;
+        public static bool ShowAchievements = false;
         public static PlayerIndex ShowFor = PlayerIndex.One;
 
-		static void BeginShowAchievements()
-		{
-			ShowAchievements = false;
+        static void BeginShowAchievements()
+        {
+            ShowAchievements = false;
 #if XDK
             try
             {
@@ -1702,26 +1704,26 @@ namespace CloudberryKingdom
             {
             }
 #endif
-		}
+        }
 #endif
 
         static bool ShowErrorMessage;
 
-		public static void ShowError_LoadError()
-		{
+        public static void ShowError_LoadError()
+        {
 #if PC_VERSION
 #else
-			ShowError(Localization.Words.Err_CorruptLoadHeader, Localization.Words.Err_CorruptLoad, Localization.Words.Err_Ok, null);
+            ShowError(Localization.Words.Err_CorruptLoadHeader, Localization.Words.Err_CorruptLoad, Localization.Words.Err_Ok, null);
 #endif
-		}
+        }
 
-		public static void ShowError_MustBeSignedIn(Localization.Words word)
-		{
+        public static void ShowError_MustBeSignedIn(Localization.Words word)
+        {
 #if PC_VERSION
 #else
-			ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
+            ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
 #endif
-		}
+        }
 
         public static void ShowError_MustBeSignedInToLive(Localization.Words word)
         {
@@ -1735,8 +1737,8 @@ namespace CloudberryKingdom
         {
 #if PC_VERSION
 #else
-			if (CloudberryKingdomGame.IsDemo) return;
-			
+            if (CloudberryKingdomGame.IsDemo) return;
+            
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, Localization.Words.Err_MustBeSignedInToLiveForLeaderboards, Localization.Words.Err_Ok, null);
 #endif
         }
@@ -1784,20 +1786,20 @@ namespace CloudberryKingdom
 #endif
         }
 
-		bool DisconnectedController()
-		{
+        bool DisconnectedController()
+        {
 #if PC_VERSION || DEBUG && WINDOWS
-			//return false;
-			if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
+            //return false;
+            if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
 #endif
-			// True if an existing player is disconnected.
-			for (int i = 0; i < 4; i++)
-			{
-				if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !CoreGamepad.IsConnected(i))
-				{
-					return true;
-				}
-			}
+            // True if an existing player is disconnected.
+            for (int i = 0; i < 4; i++)
+            {
+                if (PlayerManager.Players[i] != null && PlayerManager.Players[i].Exists && !CoreGamepad.IsConnected(i))
+                {
+                    return true;
+                }
+            }
 
             //// True if no one is connected
             //for (int i = 0; i < 4; i++)
@@ -1811,7 +1813,7 @@ namespace CloudberryKingdom
             //return true;
 
             return false;
-		}
+        }
 
 #if XBOX
         static bool ShowGamer;
@@ -1833,14 +1835,14 @@ namespace CloudberryKingdom
         }
 #endif
 
-		public static bool ForceSuperPause = false;
-		public static bool SuperPause
-		{
-			get
-			{
-				return SmallErrorMessage != null || ForceSuperPause;
-			}
-		}
+        public static bool ForceSuperPause = false;
+        public static bool SuperPause
+        {
+            get
+            {
+                return SmallErrorMessage != null || ForceSuperPause;
+            }
+        }
         static SmallErrorMenu SmallErrorMessage;
         static void ShowSmallError()
         {
@@ -1858,10 +1860,10 @@ namespace CloudberryKingdom
 
                 return;
             }
-			if (Tools.CurGameData == null) return;
+            if (Tools.CurGameData == null) return;
 
-			SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
-			Tools.CurGameData.AddGameObject(SmallErrorMessage);
+            SmallErrorMessage = new SmallErrorMenu(Localization.Words.Err_ControllerNotConnected);
+            Tools.CurGameData.AddGameObject(SmallErrorMessage);
         }
 
         public static bool CustomMusicPlaying = false;
@@ -1907,32 +1909,32 @@ namespace CloudberryKingdom
 #endif
         }
 
-		void DrawWatermark()
-		{
+        void DrawWatermark()
+        {
             return;
 
             if (FinalRelease) return;
-			if (Tools.QDrawer == null) return;
-			if (Resources.Font_Grobold42 == null) return;
-			if (Resources.Font_Grobold42.HFont == null) return;
-			if (Resources.Font_Grobold42.HOutlineFont == null) return;
-			if (Tools.CurCamera == null) return;
+            if (Tools.QDrawer == null) return;
+            if (Resources.Font_Grobold42 == null) return;
+            if (Resources.Font_Grobold42.HFont == null) return;
+            if (Resources.Font_Grobold42.HOutlineFont == null) return;
+            if (Tools.CurCamera == null) return;
 
-			Camera cam = new Camera();
-			cam.SetVertexCamera();
-			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, "Version 0.9.9", new Vector2(1200, 870), Color.Black.ToVector4(),   new Vector2(.8f));
-			Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, "Version 0.9.9", new Vector2(1200, 870), Color.SkyBlue.ToVector4(), new Vector2(.8f));
-			Tools.QDrawer.Flush();
-		}
+            Camera cam = new Camera();
+            cam.SetVertexCamera();
+            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HOutlineFont, "Version 0.9.9", new Vector2(1200, 870), Color.Black.ToVector4(),   new Vector2(.8f));
+            Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, "Version 0.9.9", new Vector2(1200, 870), Color.SkyBlue.ToVector4(), new Vector2(.8f));
+            Tools.QDrawer.Flush();
+        }
 
         static bool LastGuideIsUp = false;
         static int GuidSave_SeedMark = 0;
 
 #if PC_VERSION
-		bool created = false;
+        bool created = false;
 #endif
 
-		static double DelayAmount = 0;
+        static double DelayAmount = 0;
 
         /// <summary>
         /// The main draw loop.
@@ -1942,14 +1944,14 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-		//if (Resources.LoadThread != null)
-		//Resources.LoadThread.Join ();
+        //if (Resources.LoadThread != null)
+        //Resources.LoadThread.Join ();
 
 #if PC_VERSION
-			if (CloudberryKingdomGame.SteamAvailable)
-			{
-				SteamCore.Update();
-			}
+            if (CloudberryKingdomGame.SteamAvailable)
+            {
+                SteamCore.Update();
+            }
 #endif
 
 #if DEBUG_OBJDATA
@@ -1957,47 +1959,47 @@ namespace CloudberryKingdom
 #endif
             DeltaT = gameTime.ElapsedGameTime.TotalSeconds;
 
-			const double DelayIncr = 1.0 / 1000.0f;
+            const double DelayIncr = 1.0 / 1000.0f;
 
-			int TargetFps = 60;
-			double TargetDelay = 1.0 / TargetFps;
-			
-			if (DeltaT < TargetDelay - 2 * DelayIncr)
-			{
-				DelayAmount += DelayIncr;
-			}
-			else
-			{
-				if (DeltaT > TargetDelay + 1 * DelayIncr)
-				{
-					DelayAmount -= DelayIncr;
-				}
-			}
+            int TargetFps = 60;
+            double TargetDelay = 1.0 / TargetFps;
+            
+            if (DeltaT < TargetDelay - 2 * DelayIncr)
+            {
+                DelayAmount += DelayIncr;
+            }
+            else
+            {
+                if (DeltaT > TargetDelay + 1 * DelayIncr)
+                {
+                    DelayAmount -= DelayIncr;
+                }
+            }
 
-			if (DelayAmount > 1 * DelayIncr)
-			{
-				Thread.Sleep((int)(1000 * DelayAmount));
-				//return;
-			}
+            if (DelayAmount > 1 * DelayIncr)
+            {
+                Thread.Sleep((int)(1000 * DelayAmount));
+                //return;
+            }
 
-			//DelayAmount
+            //DelayAmount
 
-			////if (DeltaT < .9f * TargetDelay)
-			//{
-			//    //Thread.Sleep((int)(1000 * (TargetDelay - DeltaT)));
-			//    Thread.Sleep((int)(1000 * TargetDelay));
-			//}
+            ////if (DeltaT < .9f * TargetDelay)
+            //{
+            //    //Thread.Sleep((int)(1000 * (TargetDelay - DeltaT)));
+            //    Thread.Sleep((int)(1000 * TargetDelay));
+            //}
 
 
-			// Stop now if the initial preload (and logosalad) hasn't started yet.
-			if (!PreloadDone) { SetupToRender(); return; }
+            // Stop now if the initial preload (and logosalad) hasn't started yet.
+            if (!PreloadDone) { SetupToRender(); return; }
 
             // Prepare to draw
             Tools.DrawCount++;
-			if (SetupToRender()) { DrawWatermark(); return; }
+            if (SetupToRender()) { DrawWatermark(); return; }
 
             // Main Video
-			if (VideoWrapper.Draw())
+            if (VideoWrapper.Draw())
             {
 #if XBOX
                 if (PlayerManager.Players != null)
@@ -2019,7 +2021,7 @@ namespace CloudberryKingdom
             CheckForSignInState();
 #endif
 
-			// If the full game was just unlocked, return to the title screen
+            // If the full game was just unlocked, return to the title screen
             if (DoTrialUnlockEvent)
             {
 #if XBOX
@@ -2028,9 +2030,9 @@ namespace CloudberryKingdom
                 DoTrialUnlockEvent = false;
             }
 
-			// Draw nothing if Steam input overlay is up
+            // Draw nothing if Steam input overlay is up
 #if PC_VERSION
-			if (SteamTextInput.OverlayActive) return;
+            if (SteamTextInput.OverlayActive) return;
 #endif
 
             // Draw nothing if Xbox guide is up
@@ -2063,14 +2065,14 @@ namespace CloudberryKingdom
 
                 return;
             }
-			//if (ShowKeyboard)
-			//{
-			//    SaveLoadSeedMenu.BeginShowKeyboard();
-			//}
-			else if (ShowAchievements)
-			{
-				BeginShowAchievements();
-			}
+            //if (ShowKeyboard)
+            //{
+            //    SaveLoadSeedMenu.BeginShowKeyboard();
+            //}
+            else if (ShowAchievements)
+            {
+                BeginShowAchievements();
+            }
             else if (ShowMarketplace)
             {
                 BeginShowMarketplace();
@@ -2102,7 +2104,7 @@ namespace CloudberryKingdom
             LastGuideIsUp = false;
 
             //CheckForSignInState();
-			UpdateCustomMusic();
+            UpdateCustomMusic();
 
             // What to do
             if (LogoScreenUp)
@@ -2110,10 +2112,10 @@ namespace CloudberryKingdom
                 if (LoadingScreen == null) return;
                 LogoPhsx();
             }
-			else if (LogoScreenPropUp)
-			{
-				LoadingScreen.PhsxStep();
-			}
+            else if (LogoScreenPropUp)
+            {
+                LoadingScreen.PhsxStep();
+            }
             if (!LogoScreenUp && !Tools.CurGameData.Loading)
                 GameUpdate(gameTime);
 
@@ -2122,7 +2124,7 @@ namespace CloudberryKingdom
                 LoadingScreen.Draw();
             else if (Tools.ShowLoadingScreen)
                 DrawLoading();
-			else if (Tools.CurGameData != null && !VideoWrapper.IsPlaying)
+            else if (Tools.CurGameData != null && !VideoWrapper.IsPlaying)
                 DrawGame();
             else
                 DrawNothing();
@@ -2133,8 +2135,8 @@ namespace CloudberryKingdom
             SaveScreenshotCode();
 #endif
 
-			DrawWatermark();
-			DrawSavingText();
+            DrawWatermark();
+            DrawSavingText();
         }
 
         /// <summary>
@@ -2210,19 +2212,19 @@ namespace CloudberryKingdom
 #endif
 
             // Update controller/keyboard states
-			if (WindowInFocus)
-			{
-				ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-			}
-			else
-			{
-				Tools.Keyboard = new KeyboardState();
-				Tools.PrevKeyboard = new KeyboardState();
+            if (WindowInFocus)
+            {
+                ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
+            }
+            else
+            {
+                Tools.Keyboard = new KeyboardState();
+                Tools.PrevKeyboard = new KeyboardState();
 
-				CoreGamepad.Clear();
+                CoreGamepad.Clear();
 
-				Tools.KillVibrations();
-			}
+                Tools.KillVibrations();
+            }
 
             // Update sounds
             if (!LogoScreenUp)
@@ -2251,10 +2253,10 @@ namespace CloudberryKingdom
 
         private void UpdateFps(GameTime gameTime)
         {
-		//if (!MediaPlayer.Instance.GameHasControl)
-		//{
-		//CustomMusicPlaying = true;
-		//}
+        //if (!MediaPlayer.Instance.GameHasControl)
+        //{
+        //CustomMusicPlaying = true;
+        //}
 
             // Track time, changes in time, and FPS
             Tools.gameTime = gameTime;
@@ -2326,7 +2328,7 @@ namespace CloudberryKingdom
             return false;
         }
 
-		BlendState AdditiveColor_NormalAlpha;
+        BlendState AdditiveColor_NormalAlpha;
         /// <summary>
         /// Draw the fireball textures to memory.
         /// </summary>
@@ -2337,7 +2339,7 @@ namespace CloudberryKingdom
                 if (!Tools.CurGameData.Loading && Tools.CurLevel.PlayMode == 0 && Tools.CurGameData != null && !Tools.CurGameData.Loading && (!Tools.CurGameData.PauseGame || CharacterSelectManager.IsShowing))
                 {
                     // Compute fireballs textures
-					MyGraphicsDevice.BlendState = AdditiveColor_NormalAlpha;
+                    MyGraphicsDevice.BlendState = AdditiveColor_NormalAlpha;
 
                     Fireball.DrawFireballTexture(MyGraphicsDevice, Tools.EffectWad);
                     Fireball.DrawEmitterTexture(MyGraphicsDevice, Tools.EffectWad);
@@ -2348,34 +2350,34 @@ namespace CloudberryKingdom
         }
 
 #if PC_VERSION
-		public bool IsActive()
-		{
-			bool IsActive = true;
+        public bool IsActive()
+        {
+            bool IsActive = true;
 
 #if WINDOWS && !MONO
-			// XNA on Windows does not correctly identify that the game window doesn't have focus
-			// in the case where the game window STARTS in the background.
-			// This is an additional check to see if the window is not in focus.
-			IntPtr CkHandle = Tools.GameClass.Window.Handle;
-			IntPtr ActiveHandle = WindowsHelper.GetForegroundWindow();
+            // XNA on Windows does not correctly identify that the game window doesn't have focus
+            // in the case where the game window STARTS in the background.
+            // This is an additional check to see if the window is not in focus.
+            IntPtr CkHandle = Tools.GameClass.Window.Handle;
+            IntPtr ActiveHandle = WindowsHelper.GetForegroundWindow();
 
-			if (CkHandle != ActiveHandle)
-			{
+            if (CkHandle != ActiveHandle)
+            {
 #if DEBUG
-				if (!Tools.ViewerIsUp)
+                if (!Tools.ViewerIsUp)
 #endif
-					IsActive = false;
-			}
+                    IsActive = false;
+            }
 
-			if (!Tools.GameClass.IsActive)
-				IsActive = false;
+            if (!Tools.GameClass.IsActive)
+                IsActive = false;
 #else
-			if (!Tools.GameClass.IsActive)
-				IsActive = false;
+            if (!Tools.GameClass.IsActive)
+                IsActive = false;
 #endif
 
-			return IsActive;
-		}
+            return IsActive;
+        }
 
         public const bool OnlyDrawGameWhenInFocus = false;
 
@@ -2385,13 +2387,13 @@ namespace CloudberryKingdom
         /// <returns>Returns true if the game is active.</returns>
         private bool ActiveInactive()
         {
-			//if (!Tools.GameClass.IsActive || !IsActive)
-			if (!IsActive())
+            //if (!Tools.GameClass.IsActive || !IsActive)
+            if (!IsActive())
             {
                 // The window isn't active, so
                 // show the actual mouse (not our custom drawn mouse)
                 Tools.GameClass.IsMouseVisible = true;
-				Tools.GameClass.FakeTab();
+                Tools.GameClass.FakeTab();
 
                 if (OnlyDrawGameWhenInFocus)
                 {
@@ -2399,30 +2401,30 @@ namespace CloudberryKingdom
                     // and note that we should resume once the window becomes active
                     if (Tools.SongWad != null && Tools.SongWad.IsPlaying())
                     {
-						if (!MediaPlaying_HoldState)
-						{
-							MediaPlaying_HoldState = true;
-							
-							try
-							{
-								MediaPlayer.Instance.Pause();
-							}
-							catch
-							{
-							}
-						}
+                        if (!MediaPlaying_HoldState)
+                        {
+                            MediaPlaying_HoldState = true;
+                            
+                            try
+                            {
+                                MediaPlayer.Instance.Pause();
+                            }
+                            catch
+                            {
+                            }
+                        }
                     }
 
-					// If a movie is playing, pause it,
-					// and note that we should resume once the window becomes active.
-					if (VideoWrapper.IsPlaying)
-					{
-						if (!VideoPlaying_HoldState)
-						{
-							VideoPlaying_HoldState = true;
-							VideoWrapper.Pause();
-						}
-					}
+                    // If a movie is playing, pause it,
+                    // and note that we should resume once the window becomes active.
+                    if (VideoWrapper.IsPlaying)
+                    {
+                        if (!VideoPlaying_HoldState)
+                        {
+                            VideoPlaying_HoldState = true;
+                            VideoWrapper.Pause();
+                        }
+                    }
 
                     FirstInactiveFrame = false;
                 }
@@ -2436,32 +2438,32 @@ namespace CloudberryKingdom
                 // The window is active, so
                 // hide the actual mouse (we draw our own custom mouse in game)
                 Tools.GameClass.IsMouseVisible = false;
-				Tools.GameClass.FakeFull();
+                Tools.GameClass.FakeFull();
 
                 if (FirstActiveFrame)
                 {
                     // If a song was playing previously when the window was active before,
                     // resume that song
                     if (MediaPlaying_HoldState)
-					{
-						MediaPlaying_HoldState = false;
+                    {
+                        MediaPlaying_HoldState = false;
                         
-						try
-						{
-							MediaPlayer.Instance.Resume();
-						}
-						catch
-						{
-						}
-					}
+                        try
+                        {
+                            MediaPlayer.Instance.Resume();
+                        }
+                        catch
+                        {
+                        }
+                    }
 
-					// If a video was playing previously when the window was active before,
-					// unpause the video.
-					if (VideoPlaying_HoldState)
-					{
-						VideoPlaying_HoldState = false;
-						VideoWrapper.Resume();
-					}
+                    // If a video was playing previously when the window was active before,
+                    // unpause the video.
+                    if (VideoPlaying_HoldState)
+                    {
+                        VideoPlaying_HoldState = false;
+                        VideoWrapper.Resume();
+                    }
 
                     FirstActiveFrame = false;
                 }

@@ -30,19 +30,19 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-	#if !MONO
-	class WindowsHelper
-	{
-		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-		public static extern IntPtr GetForegroundWindow();
-	}
-	#endif
+    #if !MONO
+    class WindowsHelper
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetForegroundWindow();
+    }
+    #endif
 
-	class ClickableBack
-	{
-		QuadClass q1, q2;
-		Vector2 scale1, scale2, pos2;
-		DrawPile pile;
+    class ClickableBack
+    {
+        QuadClass q1, q2;
+        Vector2 scale1, scale2, pos2;
+        DrawPile pile;
 
         public void SetPos_BR(DrawPile pile)
         {
@@ -50,188 +50,188 @@ namespace CloudberryKingdom
             q1.Size = new Vector2(56.24945f, 56.24945f);
         }
 
-		bool ShowWithMouseOnly;
-		public ClickableBack(DrawPile pile, bool ShowWithMouseOnly, bool MakeButton)
-		{
+        bool ShowWithMouseOnly;
+        public ClickableBack(DrawPile pile, bool ShowWithMouseOnly, bool MakeButton)
+        {
 #if PC_VERSION
-			this.pile = pile;
+            this.pile = pile;
 #endif
 
-			this.ShowWithMouseOnly = ShowWithMouseOnly;
+            this.ShowWithMouseOnly = ShowWithMouseOnly;
 
-			// Make the back button
-			if (MakeButton)
-			{
-				var BackButton = new QuadClass(ButtonTexture.Back);
-				pile.Add(BackButton, "Back");
-				var BackArrow = new QuadClass("BackArrow2", "BackArrow");
-				pile.Add(BackArrow);
-				BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
-			}
+            // Make the back button
+            if (MakeButton)
+            {
+                var BackButton = new QuadClass(ButtonTexture.Back);
+                pile.Add(BackButton, "Back");
+                var BackArrow = new QuadClass("BackArrow2", "BackArrow");
+                pile.Add(BackArrow);
+                BackArrow.FancyPos.SetCenter(BackButton.FancyPos);
+            }
 
-			QuadClass _q;
-			Vector2 v = pile.Pos;
-			q1 = _q = pile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1208.332f, -851.1106f) - v; _q.Size = new Vector2(56.24945f, 56.24945f); }
-			q2 = _q = pile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
+            QuadClass _q;
+            Vector2 v = pile.Pos;
+            q1 = _q = pile.FindQuad("Back"); if (_q != null) { _q.Pos = new Vector2(-1208.332f, -851.1106f) - v; _q.Size = new Vector2(56.24945f, 56.24945f); }
+            q2 = _q = pile.FindQuad("BackArrow"); if (_q != null) { _q.Pos = new Vector2(-136.1112f, -11.11111f); _q.Size = new Vector2(74.61235f, 64.16662f); }
 
-			HideShow();
-		}
+            HideShow();
+        }
 
-		void GrabBack()
-		{
+        void GrabBack()
+        {
 #if PC_VERSION
-			scale1 = q1.Size;
-			scale2 = q2.Size;
+            scale1 = q1.Size;
+            scale2 = q2.Size;
 
-			pos2 = q2.Pos;
+            pos2 = q2.Pos;
 #endif
-		}
+        }
 
-		public void Show()
-		{
-			q1.Show = q2.Show = true;
+        public void Show()
+        {
+            q1.Show = q2.Show = true;
 
-			if (q1.Alpha < 1)
-			{
-				q1.Alpha += .1f;
-				q2.Alpha += .1f;
-			}
-		}
+            if (q1.Alpha < 1)
+            {
+                q1.Alpha += .1f;
+                q2.Alpha += .1f;
+            }
+        }
 
-		public void Hide()
-		{
-			if (q1.Alpha > 0)
-			{
-				q1.Alpha -= .1f;
-				q2.Alpha -= .1f;
-			}
-		}
+        public void Hide()
+        {
+            if (q1.Alpha > 0)
+            {
+                q1.Alpha -= .1f;
+                q2.Alpha -= .1f;
+            }
+        }
 
-		/// <summary>
-		/// Updates the back button. Should be called in the owning GUI_Panel's phsx update.
-		/// </summary>
-		/// <returns>true if the back button was activated and the GUI_Panel should abort the remaining phsx.</returns>
-		public bool UpdateBack(Vector2 MyCameraZoom)
-		{
+        /// <summary>
+        /// Updates the back button. Should be called in the owning GUI_Panel's phsx update.
+        /// </summary>
+        /// <returns>true if the back button was activated and the GUI_Panel should abort the remaining phsx.</returns>
+        public bool UpdateBack(Vector2 MyCameraZoom)
+        {
 #if PC_VERSION
-			if (scale1 == Vector2.Zero) GrabBack();
+            if (scale1 == Vector2.Zero) GrabBack();
 
-			HideShow();
+            HideShow();
 
-			bool hit =
-				q1.HitTest(Tools.MouseGUIPos(MyCameraZoom)) ||
-				q2.HitTest(Tools.MouseGUIPos(MyCameraZoom));
+            bool hit =
+                q1.HitTest(Tools.MouseGUIPos(MyCameraZoom)) ||
+                q2.HitTest(Tools.MouseGUIPos(MyCameraZoom));
 
-			const float scale = 1.05f;
-			if (hit)
-			{
-				q1.Size = scale1 * scale;
-				q2.Size = scale2 * scale;
+            const float scale = 1.05f;
+            if (hit)
+            {
+                q1.Size = scale1 * scale;
+                q2.Size = scale2 * scale;
 
-				q2.Pos = pos2 - .035f * new Vector2(q2.Size.X, 0);
+                q2.Pos = pos2 - .035f * new Vector2(q2.Size.X, 0);
 
-				if (Tools.MousePressed())
-				{
-					return true;
-				}
-			}
-			else
-			{
-				q1.Size = scale1;
-				q2.Size = scale2;
+                if (Tools.MousePressed())
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                q1.Size = scale1;
+                q2.Size = scale2;
 
-				q2.Pos = pos2;
-			}
+                q2.Pos = pos2;
+            }
 
-			return false;
+            return false;
 #endif
-		}
+        }
 
-		private void HideShow()
-		{
-			if (ButtonCheck.MouseInUse)
-			{
-				q1.Show = q2.Show = true;
-			}
-			else
-			{
-				if (ShowWithMouseOnly)
-				{
-					q1.Show = q2.Show = false;
-				}
-			}
+        private void HideShow()
+        {
+            if (ButtonCheck.MouseInUse)
+            {
+                q1.Show = q2.Show = true;
+            }
+            else
+            {
+                if (ShowWithMouseOnly)
+                {
+                    q1.Show = q2.Show = false;
+                }
+            }
 
-		}
-	}
+        }
+    }
 
-	class SimpleScroll
-	{
-		QuadClass ScrollQuad, ScrollTop, ScrollBottom;
+    class SimpleScroll
+    {
+        QuadClass ScrollQuad, ScrollTop, ScrollBottom;
 
-		public SimpleScroll(QuadClass ScrollQuad, QuadClass ScrollTop, QuadClass ScrollBottom)
-		{
-			this.ScrollQuad = ScrollQuad;
-			this.ScrollTop = ScrollTop;
-			this.ScrollBottom = ScrollBottom;
-		}
-		
-		public void UpdatePosFromIndex(int index, int N)
-		{
-			if (ScrollQuad != null)
-			{
-				index = CoreMath.Restrict(0, N - 1, index);
+        public SimpleScroll(QuadClass ScrollQuad, QuadClass ScrollTop, QuadClass ScrollBottom)
+        {
+            this.ScrollQuad = ScrollQuad;
+            this.ScrollTop = ScrollTop;
+            this.ScrollBottom = ScrollBottom;
+        }
+        
+        public void UpdatePosFromIndex(int index, int N)
+        {
+            if (ScrollQuad != null)
+            {
+                index = CoreMath.Restrict(0, N - 1, index);
 
-				float t = (float)index / (float)(N - 1);
-				ScrollQuad.PosY = (1 - t) * (ScrollTop.PosY - ScrollQuad.SizeY) + (t) * ScrollBottom.PosY;
-			}
-		}
+                float t = (float)index / (float)(N - 1);
+                ScrollQuad.PosY = (1 - t) * (ScrollTop.PosY - ScrollQuad.SizeY) + (t) * ScrollBottom.PosY;
+            }
+        }
 
-		public float t
-		{
-			get
-			{
-				float top = ScrollTop.PosY - ScrollQuad.SizeY;
-				float t = (ScrollQuad.PosY - top) / (ScrollBottom.PosY - top);
-				t = CoreMath.Restrict(0, 1, t);
+        public float t
+        {
+            get
+            {
+                float top = ScrollTop.PosY - ScrollQuad.SizeY;
+                float t = (ScrollQuad.PosY - top) / (ScrollBottom.PosY - top);
+                t = CoreMath.Restrict(0, 1, t);
 
-				return t;
-			}
-		}
+                return t;
+            }
+        }
 
-		public int tToIndex(int N)
-		{
-			int i = (int)(t * N - .55f);
-			i = CoreMath.Restrict(0, N - 1, i);
+        public int tToIndex(int N)
+        {
+            int i = (int)(t * N - .55f);
+            i = CoreMath.Restrict(0, N - 1, i);
 
-			return i;
-		}
+            return i;
+        }
 
-		public bool Holding = false;
-		Vector2 HoldOffset;
-		public void PhsxStep(Vector2 mouse_pos)
-		{
-			if (Holding)
-			{
-				if (Tools.MouseDown())
-				{
-					ScrollQuad.PosY = CoreMath.Restrict(ScrollBottom.PosY, ScrollTop.PosY - ScrollQuad.SizeY, mouse_pos.Y + HoldOffset.Y);
-				}
-				else
-				{
-					Holding = false;
-				}
-			}
-			else
-			{
-				bool hit = ScrollQuad.HitTest(mouse_pos);
-				if (hit && Tools.MousePressed())
-				{
-					Holding = true;
-					HoldOffset = ScrollQuad.Pos - mouse_pos;
-				}
-			}
-		}
-	}
+        public bool Holding = false;
+        Vector2 HoldOffset;
+        public void PhsxStep(Vector2 mouse_pos)
+        {
+            if (Holding)
+            {
+                if (Tools.MouseDown())
+                {
+                    ScrollQuad.PosY = CoreMath.Restrict(ScrollBottom.PosY, ScrollTop.PosY - ScrollQuad.SizeY, mouse_pos.Y + HoldOffset.Y);
+                }
+                else
+                {
+                    Holding = false;
+                }
+            }
+            else
+            {
+                bool hit = ScrollQuad.HitTest(mouse_pos);
+                if (hit && Tools.MousePressed())
+                {
+                    Holding = true;
+                    HoldOffset = ScrollQuad.Pos - mouse_pos;
+                }
+            }
+        }
+    }
 
 
 
@@ -593,7 +593,7 @@ namespace CloudberryKingdom
 
     public class Tools
     {
-		public static bool HidGui = false;
+        public static bool HidGui = false;
 
         public static void Assert(bool MustBeTrue)
         {
@@ -603,15 +603,15 @@ namespace CloudberryKingdom
 #endif
         }
 
-		public static string ExceptionStr(Exception e)
-		{
-			return string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message);
-		}
+        public static string ExceptionStr(Exception e)
+        {
+            return string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message);
+        }
 
         public static void Log(string dump)
         {
 #if !XDK && !XBOX && WINDOWS
-			dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
+            dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
 
             var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
             var writer = new StreamWriter(stream);
@@ -667,14 +667,14 @@ namespace CloudberryKingdom
 public static void Break()
 {
 #if DEBUG
-	Console.WriteLine("!");
+    Console.WriteLine("!");
 #endif
 }
 public static void Write(object obj)
 {
     //Console.WriteLine("  -- ck debug -- " + obj);
 #if DEBUG
-	Console.WriteLine("{0}", obj);
+    Console.WriteLine("{0}", obj);
 #endif
 }
 public static void Write(string str, params object[] objs)
@@ -684,7 +684,7 @@ public static void Write(string str, params object[] objs)
 #if DEBUG
 #if WINDOWS
     if (objs.Length == 0) Console.WriteLine(str);
-	else Console.WriteLine(str, objs);
+    else Console.WriteLine(str, objs);
 #else
     if (objs.Length == 0) System.Diagnostics.Debug.WriteLine(str);
     else System.Diagnostics.Debug.WriteLine(str, objs);
@@ -721,13 +721,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 {
                     if (ThisThread != null)
                     {
-						try
-						{
-							ThisThread.Abort();
-						}
-						catch
-						{
-						}
+                        try
+                        {
+                            ThisThread.Abort();
+                        }
+                        catch
+                        {
+                        }
                     }
                 };
                 Tools.TheGame.Exiting += abort;
@@ -737,10 +737,10 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 Tools.TheGame.Exiting -= abort;
             }))
     {
-        		Name = name,
+                Name = name,
 #if WINDOWS
-        		Priority = ThreadPriority.Highest,
-				//Priority = ThreadPriority.Lowest,
+                Priority = ThreadPriority.Highest,
+                //Priority = ThreadPriority.Lowest,
 #endif
     };
 
@@ -930,7 +930,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             set { XnaInput.Mouse.SetPosition((int)(value.X * Tools.Render.SpriteScaling), (int)(value.Y * Tools.Render.SpriteScaling)); }
         }
 
-		public static WindowMode Mode = WindowMode.Borderless;
+        public static WindowMode Mode = WindowMode.Borderless;
         public static bool Fullscreen
         {
             get { return TheGame.MyGraphicsDeviceManager.IsFullScreen; }
@@ -1127,7 +1127,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool ShowLoadingScreen;
         public static ILoadingScreen CurrentLoadingScreen;
 
-		public static EzTexture Transparent;
+        public static EzTexture Transparent;
         public static void LoadBasicArt(ContentManager Content)
         {
             Tools.Write("LoadBasicArt");
@@ -1135,16 +1135,16 @@ public static Thread EasyThread(int affinity, string name, Action action)
             TextureWad = new EzTextureWad();
             Tools.Write("TextureWad made");
 
-			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("White"), "White");
+            TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("White"), "White");
             Tools.Write("White loaded");
 
-			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Circle"), "Circle");
+            TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Circle"), "Circle");
             Tools.Write("Circle loaded");
 
-			TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Smooth"), "Smooth");
+            TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Smooth"), "Smooth");
             Tools.Write("Smooth loaded");
 
-			Transparent = TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Transparent"), "Transparent");
+            Transparent = TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("Transparent"), "Transparent");
             Tools.Write("Transparent loaded");
 
             TextureWad.DefaultTexture = TextureWad.TextureList[0];
@@ -1218,7 +1218,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (CreateNewWad)
                 EffectWad = new EzEffectWad();
 
-			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\BasicEffect"), "Basic");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\BasicEffect"), "Basic");
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\NoTexture"), "NoTexture");
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Circle"), "Circle");
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Shell"), "Shell");
@@ -1232,13 +1232,13 @@ public static Thread EasyThread(int affinity, string name, Action action)
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Hsl"), "Hsl");
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Window"), "Window");
 
-			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_NoOutline"), "Text_NoOutline");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_NoOutline"), "Text_NoOutline");
             Text_NoOutline = EffectWad.FindByName("Text_NoOutline");
 
-			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThinOutline"), "Text_ThinOutline");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThinOutline"), "Text_ThinOutline");
             Text_ThinOutline = EffectWad.FindByName("Text_ThinOutline");
 
-			EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThickOutline"), "Text_ThickOutline");
+            EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\Text_ThickOutline"), "Text_ThickOutline");
             Text_ThickOutline = EffectWad.FindByName("Text_ThickOutline");
 
             BasicEffect = EffectWad.EffectList[0];
@@ -1249,7 +1249,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             HslGreenEffect = EffectWad.FindByName("Hsl_Green");
             WindowEffect = EffectWad.FindByName("Window");
 
-			PaintEffect_SpriteBatch = Content.LoadTillSuccess<Effect>("Shaders\\Paint_SpriteBatch");
+            PaintEffect_SpriteBatch = Content.LoadTillSuccess<Effect>("Shaders\\Paint_SpriteBatch");
         }
 
         public static float BoxSize(Vector2 TR, Vector2 BL)
@@ -1264,7 +1264,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (Tools.SongWad != null && Tools.SongWad.Paused) NewVolume = 0;
             if (NewVolume != CurVolume)
             {
-				CurVolume = MediaPlayer.Instance.Volume = NewVolume;
+                CurVolume = MediaPlayer.Instance.Volume = NewVolume;
             }
         }
 
@@ -1291,26 +1291,26 @@ public static Thread EasyThread(int affinity, string name, Action action)
             CurrentLoadingScreen.Start();
         }
 
-		public static void PlayHappyMusic(GameData game)
-		{
-			PlayHappyMusic(game, 85);
-		}
+        public static void PlayHappyMusic(GameData game)
+        {
+            PlayHappyMusic(game, 85);
+        }
 
-		public static void PlayHappyMusic(GameData game, int Delay)
-		{
-			game.KillToDo("StartMusic");
-			game.WaitThenDo(Delay, () =>
-			{
-				Tools.PlayHappyMusic();
-			}, "StartMusic");
-		}
+        public static void PlayHappyMusic(GameData game, int Delay)
+        {
+            game.KillToDo("StartMusic");
+            game.WaitThenDo(Delay, () =>
+            {
+                Tools.PlayHappyMusic();
+            }, "StartMusic");
+        }
 
         public static void PlayHappyMusic()
         {
             Tools.SongWad.SuppressNextInfoDisplay = true;
             Tools.SongWad.SetPlayList(Tools.Song_Heavens);
-			//Tools.SongWad.Start(true);
-			Tools.SongWad.Restart(true);
+            //Tools.SongWad.Start(true);
+            Tools.SongWad.Restart(true);
         }
         
         public static void EndLoadingScreen()
@@ -2147,6 +2147,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
             GUIDraws++;
             if (GUIDraws > 1) return;
 
+            if (Tools.CurLevel.MainCamera == null) return;
+
             // Start the GUI drawing if this is the first call to GUIDraw
             Tools.CurLevel.MainCamera.SetToDefaultZoom();
 
@@ -2163,6 +2165,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
             GUIDraws--;
             if (GUIDraws > 0) return;
 
+            if (Tools.CurLevel.MainCamera == null) return;
+
             // End the GUI drawing if this is the last call to GUIDraw
             Tools.CurLevel.MainCamera.RevertZoom();
 
@@ -2178,6 +2182,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         {
             GUIDraws++;
             if (GUIDraws > 1) return;
+
+            if (Tools.CurLevel.MainCamera == null) return;
 
             // Start the GUI drawing if this is the first call to GUIDraw
             Tools.CurLevel.MainCamera.HoldZoom = Tools.CurLevel.MainCamera.Zoom;
@@ -2198,6 +2204,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
             GUIDraws--;
             if (GUIDraws > 0) return;
 
+            if (Tools.CurLevel.MainCamera == null) return;
+
             // End the GUI drawing if this is the last call to GUIDraw
             Tools.CurLevel.MainCamera.Zoom = Tools.CurLevel.MainCamera.HoldZoom;
             Tools.CurLevel.MainCamera.Update();
@@ -2212,7 +2220,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             {
                 fx.xCameraAspect.SetValue(AspectRatio);
                 fx.effect.CurrentTechnique = fx.Simplest;
-				//fx.t.SetValue(Tools.t);
+                //fx.t.SetValue(Tools.t);
                 fx.Illumination.SetValue(1f);
                 fx.FlipVector.SetValue(new Vector2(-1, -1));
             }
@@ -2249,24 +2257,24 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static float Num_0_to_360 = 0;
         public static float Num_0_to_2 = 0;
-		public static Vector2 Num_Vec = Vector2.Zero;
+        public static Vector2 Num_Vec = Vector2.Zero;
         public static bool ShowNums = false;
 
         public static void ModNums()
         {
-			#if WINDOWS && !MONO
-			if (ButtonCheck.State(XnaInput.Keys.D1).Down)
-			{
-				Num_Vec += .1f * Tools.DeltaMouse;
+            #if WINDOWS && !MONO
+            if (ButtonCheck.State(XnaInput.Keys.D1).Down)
+            {
+                Num_Vec += .1f * Tools.DeltaMouse;
 
-				var str = string.Format("new Vector2({0}f, {1}f)", Num_Vec.X, Num_Vec.Y);
-				System.Windows.Forms.Clipboard.SetText(str);
-			}
+                var str = string.Format("new Vector2({0}f, {1}f)", Num_Vec.X, Num_Vec.Y);
+                System.Windows.Forms.Clipboard.SetText(str);
+            }
 
-			//if (ButtonCheck.State(XnaInput.Keys.D1).Down)
-			//    Num_0_to_360 = CoreMath.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
-			//if (ButtonCheck.State(XnaInput.Keys.D2).Down)
-			//    Num_0_to_2 = CoreMath.Restrict(0, 2, Num_0_to_2 + .001f * Tools.DeltaMouse.X);
+            //if (ButtonCheck.State(XnaInput.Keys.D1).Down)
+            //    Num_0_to_360 = CoreMath.Restrict(0, 360, Num_0_to_360 + .1f * Tools.DeltaMouse.X);
+            //if (ButtonCheck.State(XnaInput.Keys.D2).Down)
+            //    Num_0_to_2 = CoreMath.Restrict(0, 2, Num_0_to_2 + .001f * Tools.DeltaMouse.X);
 
             if (ButtonCheck.State(XnaInput.Keys.D1).Down || ButtonCheck.State(XnaInput.Keys.D2).Down)
                 ShowNums = true;

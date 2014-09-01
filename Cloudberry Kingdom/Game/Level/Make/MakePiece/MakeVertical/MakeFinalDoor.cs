@@ -48,12 +48,29 @@ namespace CloudberryKingdom.Levels
                 FinalBlock = Tools.ArgMin(MyLevel.Blocks.FindAll(match => match.Core.GenData.Used), element => element.Core.Data.Position.Y);
             else
             {
-                var ValidBlocks = MyLevel.Blocks.FindAll(ValidFinalBlock);
-                FinalBlock = Tools.ArgMax(ValidBlocks, element => element.Pos.Y);
-                
-                var avgpos = BobAvgPos(MyLevel);
-                ValidBlocks = ValidBlocks.FindAll(match => match.Pos.Y > FinalBlock.Pos.Y - 5);
-                FinalBlock = Tools.ArgMin(ValidBlocks, element => Math.Abs(element.Pos.X - avgpos.X));
+                try
+                {
+                    var ValidBlocks = MyLevel.Blocks.FindAll(ValidFinalBlock);
+                    FinalBlock = Tools.ArgMax(ValidBlocks, element => element.Pos.Y);
+
+                    var avgpos = BobAvgPos(MyLevel);
+                    ValidBlocks = ValidBlocks.FindAll(match => match.Pos.Y > FinalBlock.Pos.Y - 5);
+                    FinalBlock = Tools.ArgMin(ValidBlocks, element => Math.Abs(element.Pos.X - avgpos.X));
+                }
+                catch (Exception e)
+                {
+                    Failed = true;
+                    FinalBlock = null;
+                    return;
+                }
+
+                // Test bad door placement: abort and report failure
+                //if (Tools.GlobalRnd.RndFloat() > .8f)
+                //{
+                //    Failed = true;
+                //    FinalBlock = null;
+                //    return;
+                //}
             }
 
             FinalPos = FinalBlock.Core.Data.Position;

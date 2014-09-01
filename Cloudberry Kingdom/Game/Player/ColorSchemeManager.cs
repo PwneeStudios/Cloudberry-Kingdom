@@ -138,7 +138,7 @@ namespace CloudberryKingdom
 
             Hat.AhBeard =
             beard = new Hat("Facial_Ah_9");
-            beard.Name = Localization.Words.Lumberjack;
+            beard.Name = Localization.Words.Hat_Ah_9;
             beard.Price = Hat.Expensive;
             beard.Guid = 5259006;
             beard.HatPicShift = Vector2.Zero;
@@ -500,7 +500,7 @@ float DefaultShiftX = -.35f;
 
             Hat.Ah_1 = 
             hat = new Hat("Hat_Ah_1");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_1;
             hat.Price = Hat.Expensive;
             hat.Guid = 12301;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -508,7 +508,7 @@ float DefaultShiftX = -.35f;
                 HatInfo.Add(hat);
             Hat.Ah_2 = 
             hat = new Hat("Hat_Ah_2");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_2;
             hat.Price = Hat.Expensive;
             hat.Guid = 12302;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -516,7 +516,7 @@ float DefaultShiftX = -.35f;
                 HatInfo.Add(hat);
             Hat.Ah_3 = 
             hat = new Hat("Hat_Ah_3");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_3;
             hat.Price = Hat.Expensive;
             hat.Guid = 12303;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -524,7 +524,7 @@ float DefaultShiftX = -.35f;
                 HatInfo.Add(hat);
             Hat.Ah_4 = 
             hat = new Hat("Hat_Ah_4");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_4;
             hat.Price = Hat.Expensive;
             hat.Guid = 12304;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -532,7 +532,7 @@ float DefaultShiftX = -.35f;
                 HatInfo.Add(hat);
             Hat.Ah_5 = 
             hat = new Hat("Hat_Ah_5");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_5;
             hat.Price = Hat.Expensive;
             hat.Guid = 12305;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -540,7 +540,7 @@ float DefaultShiftX = -.35f;
                 HatInfo.Add(hat);
             Hat.Ah_6 = 
             hat = new Hat("Hat_Ah_6");
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_6;
             hat.Price = Hat.Expensive;
             hat.Guid = 12306;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -549,7 +549,7 @@ float DefaultShiftX = -.35f;
             Hat.Ah_7 = 
             hat = new Hat("Hat_Ah_7");
             hat.DrawHead = false;
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_7;
             hat.Price = Hat.Expensive;
             hat.Guid = 12307;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -558,7 +558,7 @@ float DefaultShiftX = -.35f;
             Hat.Ah_8 = 
             hat = new Hat("Hat_Ah_8");
             hat.DrawHead = false;
-            hat.Name = Localization.Words.ArrowThroughHead;
+            hat.Name = Localization.Words.Hat_Ah_8;
             hat.Price = Hat.Expensive;
             hat.Guid = 12308;
                 hat.HatPicShift = new Vector2(DefaultShiftX, .075f);
@@ -748,7 +748,13 @@ float DefaultShiftX = -.35f;
 
 
             // Create the default color schemes
-            //"Black", "Red", "Red", "TopHat", "Lumberjack"
+            AddScheme(new ColorScheme(Localization.Words.Black, Localization.Words.Red, Localization.Words.Red, Localization.Words.Hat_Ah_6, Localization.Words.Hat_Ah_9), true);
+            AddScheme(new ColorScheme(Localization.Words.White, Localization.Words.BrightWhite, Localization.Words.BrightWhite, Localization.Words.Hat_Ah_4, Localization.Words.Hat_Ah_9), true);
+            AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.LimeGreen, Localization.Words.Green, Localization.Words.Hat_Ah_3, Localization.Words.Vandyke), true);
+            AddScheme(new ColorScheme(Localization.Words.Blue, Localization.Words.Red, Localization.Words.Brown, Localization.Words.Hat_Ah_5, Localization.Words.Vandyke), true);
+            AddScheme(new ColorScheme(Localization.Words.White, Localization.Words.BrightWhite, Localization.Words.BrightWhite, Localization.Words.Hat_Ah_8, Localization.Words.Vandyke), true);
+            
+
             AddScheme(new ColorScheme(Localization.Words.Green, Localization.Words.Red, Localization.Words.Black, Localization.Words.None, Localization.Words.None), true);
             AddScheme(new ColorScheme(Localization.Words.HotPink, Localization.Words.HotPink, Localization.Words.HotPink, Hat.BunnyEars.Name, Hat.Beard.Name), false);
             AddScheme(new ColorScheme(Localization.Words.Gold, Localization.Words.Gold, Localization.Words.Gold, Localization.Words.None, Localization.Words.None), false);
