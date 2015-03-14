@@ -1186,6 +1186,79 @@ namespace CloudberryKingdom
             //Tools.EasyThread(5, "PreLoad", Preload);
         }
 
+        public static void MaxCampaign()
+        {
+            if (!SteamInitialized)
+            {
+                return;
+            }
+
+            SteamStats.FindLeaderboard("Story Mode", (handle, failed) => OnFindLeaderboard_Read(handle, failed));
+        }
+
+        static bool ReadingInProgress = false;
+        static void OnFindLeaderboard_Read(LeaderboardHandle Handle, bool failed)
+        {
+            Console.WriteLine("Find Leaderboard to read from. Failed? : {0}", failed);
+
+            if (failed)
+            {
+                ReadingInProgress = false;
+            }
+            else
+            {
+                SteamStats.RequestEntries(Handle, SteamStats.LeaderboardDataRequestType.GlobalAroundUser, 0, 10000,
+                    b => OnInfo(Handle, b));
+            }
+        }
+
+        static void OnInfo(LeaderboardHandle Handle, bool failed)
+        {
+            if (failed)
+            {
+                ReadingInProgress = false;
+
+                return;
+            }
+
+            int NumEntriesFound = SteamStats.NumEntriesFound();
+
+            int max_campaign = 0;
+            for (int i = 0; i < NumEntriesFound; i++)
+            {
+                int rank = SteamStats.Results_GetRank(i);
+                int val = SteamStats.Results_GetScore(i);
+                Gamer gamer = new Gamer(SteamStats.Results_GetName(i), SteamStats.Results_GetId(i));
+
+                if (gamer.Gamertag == SteamCore.PlayerName())
+                {
+                    max_campaign = Math.Max(max_campaign, val);
+                }
+            }
+
+            int max_index = 0;
+            if (max_campaign > 0)
+            {
+                foreach (var pair in CampaignSequence.Instance.LevelIndexPairs)
+                {
+                    if (max_campaign > pair.Item1)
+                        max_index = Math.Max(max_index, pair.Item2);
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                var player = PlayerManager.Players[i];
+                if (player == null) continue;
+
+                player.CampaignLevel = Math.Max(player.CampaignLevel, max_campaign);
+                player.CampaignIndex = Math.Max(player.CampaignIndex, max_index);
+                player.Changed = true;
+            }
+
+            ReadingInProgress = false;
+        }
+
         void Preload()
         {
             Tools.Write("Preload");
@@ -1224,6 +1297,8 @@ namespace CloudberryKingdom
             // Pre load. This happens before anything appears.
             Resources.LoadAssets();
             Tools.Write("Asset preload complete.");
+
+            MaxCampaign();
 
             // Create the initial loading screen
             LoadingScreen = new InitialLoadingScreen(Tools.GameClass.Content, Resources.ResourceLoadedCountRef);

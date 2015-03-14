@@ -178,6 +178,7 @@ namespace CloudberryKingdom
             data.MyGame.AddGameObject(MyPerfectScoreObject);
         }
 
+        public List<Tuple<int, int>> LevelIndexPairs = new List<Tuple<int, int>>();
         protected override void MakeSeedList()
         {
             int LastRealLevelIndex = -1;
@@ -249,6 +250,8 @@ namespace CloudberryKingdom
                         break;
 
                     case "seed":
+                        LevelIndexPairs.Add(new Tuple<int, int>(level, count));
+
                         var seed = data;
                         seed += string.Format("level:{0};index:{1};", level, count);
                         LastRealLevelIndex = level;
