@@ -153,7 +153,11 @@ namespace CloudberryKingdom
                 String name = file.Substring(i, j - i);
                 String extension = file.Substring(j + 1);
 
+#if SDL2
+                if (extension == "ogg")
+#else
                 if (extension == "xnb")
+#endif
                 {
                     Tools.SongWad.AddSong(name);
                 }

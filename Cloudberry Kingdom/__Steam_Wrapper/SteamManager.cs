@@ -1,4 +1,4 @@
-#if PC_VERSION
+#if PC_VERSION && !SDL2
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -240,7 +240,7 @@ namespace SteamManager
 	}
 }
 
-#elif MONO
+#elif MONO || SDL2
 
 using System;
 

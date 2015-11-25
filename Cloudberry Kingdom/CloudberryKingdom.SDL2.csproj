@@ -488,8 +488,5 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="SteamWrapper">
-      <HintPath>SteamWrapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
