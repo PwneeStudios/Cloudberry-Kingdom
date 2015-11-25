@@ -8,10 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using System.IO;
+using System.Runtime.InteropServices;
 using CloudberryKingdom;
 
 namespace CoreEngine
 {    
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct MyOwnVertexFormat : IVertexType //, IReadWrite
     {
         public Vector2 xy;

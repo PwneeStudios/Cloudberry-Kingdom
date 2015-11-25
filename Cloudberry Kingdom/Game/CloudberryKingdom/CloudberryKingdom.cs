@@ -828,7 +828,7 @@ namespace CloudberryKingdom
             }
 #endif
 
-#if WINDOWS
+#if WINDOWS && !SDL2
             KeyboardHandler.EventInput.Initialize(Tools.GameClass.Window);
 #endif
             Globals.ContentDirectory = Tools.GameClass.Content.RootDirectory;
