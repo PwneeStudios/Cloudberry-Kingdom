@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 #if PC_VERSION
 using SteamManager;
-	#if !MONO
+	#if !MONO && !SDL2
 	using Nuclex.Input;
 	#endif
 #endif
@@ -25,7 +25,7 @@ namespace CoreEngine
 
 		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
-			#if MONO
+			#if MONO || SDL2
 			I = new XnaInput();
 			I.Initialize(Container, ComponentCollection, WindowHandle);
 			#else

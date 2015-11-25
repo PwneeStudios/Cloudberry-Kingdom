@@ -28,7 +28,7 @@ namespace CloudberryKingdom
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-#if DEBUG && WINDOWS
+#if DEBUG && WINDOWS && !SDL2
             AppDomain.CurrentDomain.FirstChanceException += new EventHandler<System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs>(CurrentDomain_FirstChanceException);
 #endif
 

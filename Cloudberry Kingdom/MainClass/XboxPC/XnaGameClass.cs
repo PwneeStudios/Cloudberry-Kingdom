@@ -1,6 +1,6 @@
 using System;
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2
 using System.Windows.Forms;
 #endif
 
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 #if XBOX
-#elif !MONO
+#elif !MONO && !SDL2
 using CloudberryKingdom.Viewer;
 #endif
 
@@ -166,7 +166,7 @@ namespace CloudberryKingdom
 #if WINDOWS
 		public static bool WindowModeSet = false;
 
-		#if MONO
+		#if MONO || SDL2 // FIXME: SDL2 can do this... -flibit
 		public void FakeFull()
 		{
 		}

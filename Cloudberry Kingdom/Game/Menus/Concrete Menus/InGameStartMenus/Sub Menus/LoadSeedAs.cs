@@ -24,7 +24,7 @@ namespace CloudberryKingdom
         {
             string clipboard = null;
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
             try
             {
                 clipboard = System.Windows.Forms.Clipboard.GetText();

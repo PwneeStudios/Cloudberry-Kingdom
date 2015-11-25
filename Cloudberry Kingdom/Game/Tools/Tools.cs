@@ -19,7 +19,7 @@ using CoreEngine.Random;
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Blocks;
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2
 using CloudberryKingdom;
 using CloudberryKingdom.Viewer;
 using System.Runtime.InteropServices;
@@ -30,7 +30,7 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    #if !MONO
+    #if !MONO && !SDL2
     class WindowsHelper
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
@@ -824,7 +824,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return new SimpleObject(SourceObject);
         }
       
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2
 #if INCLUDE_EDITOR
         public static bool EditorPause
         {
@@ -2262,7 +2262,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void ModNums()
         {
-            #if WINDOWS && !MONO
+            #if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
             if (ButtonCheck.State(XnaInput.Keys.D1).Down)
             {
                 Num_Vec += .1f * Tools.DeltaMouse;

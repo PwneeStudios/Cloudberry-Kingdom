@@ -25,7 +25,7 @@ using CloudberryKingdom.Awards;
 using CloudberryKingdom.InGameObjects;
 using CloudberryKingdom.Obstacles;
 
-#if WINDOWS && DEBUG && !MONO
+#if WINDOWS && DEBUG && !MONO && !SDL2
 using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
@@ -2206,7 +2206,7 @@ namespace CloudberryKingdom
 
             DrawExtra();
 
-#if DEBUG && !XDK && !MONO
+#if DEBUG && !XDK && !MONO && !SDL2
             SaveScreenshotCode();
 #endif
 
@@ -2281,7 +2281,7 @@ namespace CloudberryKingdom
         /// <param name="gameTime"></param>
         private void GameUpdate(GameTime gameTime)
         {
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2
             // Do nothing if editors are open.
             if (Tools.Dlg != null || Tools.DialogUp) return;
 #endif
@@ -2429,7 +2429,7 @@ namespace CloudberryKingdom
         {
             bool IsActive = true;
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2
             // XNA on Windows does not correctly identify that the game window doesn't have focus
             // in the case where the game window STARTS in the background.
             // This is an additional check to see if the window is not in focus.

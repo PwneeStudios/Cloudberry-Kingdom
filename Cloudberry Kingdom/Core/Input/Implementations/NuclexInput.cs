@@ -1,4 +1,4 @@
-﻿#if PC_VERSION
+﻿#if PC_VERSION && !SDL2
 using System;
 
 using Microsoft.Xna.Framework;

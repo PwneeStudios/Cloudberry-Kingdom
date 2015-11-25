@@ -159,7 +159,7 @@ namespace CloudberryKingdom
 					Caret.Show = Tools.TheGame.DrawCount % 65 > 23;
                 }
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
 				ButtonCheck.DisableSecondaryInput = true;
                 KeyboardExtension.Freeze = false;
 
@@ -411,7 +411,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
         void Paste()
         {
             Clear();

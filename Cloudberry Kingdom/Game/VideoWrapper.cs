@@ -20,6 +20,8 @@ namespace CloudberryKingdom
 		#if MONO
 		//public static VideoPlayerType CurrentVideoPlayerType = VideoPlayerType.Xna;
 		public static VideoPlayerType CurrentVideoPlayerType = VideoPlayerType.None;
+		#elif SDL2
+		public static VideoPlayerType CurrentVideoPlayerType = VideoPlayerType.Xna;
 		#else
 		public static VideoPlayerType CurrentVideoPlayerType = VideoPlayerType.DirectShow;
 		#endif
@@ -31,7 +33,9 @@ namespace CloudberryKingdom
 				switch (CurrentVideoPlayerType)
 				{
 					case VideoPlayerType.Xna: return XnaVideo.IsPlaying;
+#if !SDL2
 					case VideoPlayerType.DirectShow: return DirectShowVideo.IsPlaying;
+#endif
 
 					default: return false;
 				}
@@ -43,7 +47,9 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.Pause(); break;
+#if !SDL2
 				case VideoPlayerType.DirectShow: DirectShowVideo.Pause(); break;
+#endif
 			}
 		}
 
@@ -52,7 +58,9 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.Resume(); break;
+#if !SDL2
 				case VideoPlayerType.DirectShow: DirectShowVideo.Resume(); break;
+#endif
 			}
 		}
 
@@ -61,6 +69,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo_CanSkipIfWatched(MovieName); break;
+#if !SDL2
 				case VideoPlayerType.DirectShow:
 					DirectShowVideo.StartVideo_CanSkipIfWatched(MovieName);
 					#if !MONO
@@ -71,6 +80,7 @@ namespace CloudberryKingdom
 					}
 					#endif
 					break;
+#endif
 			}
         }
 
@@ -79,6 +89,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip); break;
+#if !SDL2
 				case VideoPlayerType.DirectShow:
 					DirectShowVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(MovieName, LengthUntilCanSkip);
 					#if !MONO
@@ -89,6 +100,7 @@ namespace CloudberryKingdom
 					}
 					#endif
 					break;
+#endif
 			}
         }
 
@@ -97,6 +109,7 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: XnaVideo.StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip); break;
+#if !SDL2
 				case VideoPlayerType.DirectShow:
 					DirectShowVideo.StartVideo(MovieName, CanSkipVideo, LengthUntilCanSkip);
 					#if !MONO
@@ -107,6 +120,7 @@ namespace CloudberryKingdom
 					}
 					#endif
 					break;
+#endif
 			}
         }
 
@@ -115,7 +129,9 @@ namespace CloudberryKingdom
 			switch (CurrentVideoPlayerType)
 			{
 				case VideoPlayerType.Xna: return XnaVideo.Draw();
+#if !SDL2
 				case VideoPlayerType.DirectShow: return DirectShowVideo.Draw();
+#endif
 
 				default: return false;
 			}

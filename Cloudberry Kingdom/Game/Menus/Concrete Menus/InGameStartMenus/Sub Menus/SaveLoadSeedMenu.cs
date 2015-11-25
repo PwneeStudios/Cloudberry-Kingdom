@@ -78,7 +78,7 @@ namespace CloudberryKingdom
                 AddItem(item);
             }
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
             if (CanSave)
             {
                 // Copy seed
@@ -415,7 +415,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS && !MONO
+#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
         void Copy(MenuItem _item)
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();
