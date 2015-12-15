@@ -160,7 +160,7 @@ namespace CloudberryKingdom
 
             OverrideA = false;
 
-#if PC_VERSION
+#if PC
             Padding.Y = 7;
             ExpandOnGo = true;
 #endif
@@ -410,7 +410,7 @@ namespace CloudberryKingdom
 						}
 						
 						// Scrolling
-//#if PC_VERSION
+//#if PC
 //                        int ScrollDir = (int)Math.Sign(Tools.DeltaScroll);
 //                        if (ScrollDir != 0)
 //                        {
@@ -508,7 +508,7 @@ namespace CloudberryKingdom
 					//LeftArrow_Selected.Quad.SetColor(new Vector4(.75f, .75f, .8f, .6f));
 					//LeftArrow_Selected.Draw();
 
-#if PC_VERSION
+#if PC
 					if (!ButtonCheck.MouseInUse && KeyboardSelectable)
 					{
 						// Highlight selected arrow

@@ -30,7 +30,7 @@ using CloudberryKingdom.Viewer;
 using Forms = System.Windows.Forms;
 #endif
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 #endif
 
@@ -67,7 +67,7 @@ namespace CloudberryKingdom
 
     public partial class CloudberryKingdomGame
     {
-#if PC_VERSION
+#if PC
         // Steam Integration
         // Set this to true to turn on Steam Integrtaion code
         public const bool UsingSteam = true;
@@ -116,7 +116,7 @@ namespace CloudberryKingdom
         public static bool GodMode = !FinalRelease;
         public static bool AsianButtonSwitch = false;
 
-#if PC_VERSION || MONO
+#if PC || MONO
         // Steam Beta
         //public static bool HideLogos = true;
         //public static bool LockCampaign = true;
@@ -712,7 +712,7 @@ namespace CloudberryKingdom
 
         public void Exit()
         {
-#if PC_VERSION
+#if PC
             SteamCore.Shutdown();
 #endif
 
@@ -794,7 +794,7 @@ namespace CloudberryKingdom
 
         void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
-//#if PC_VERSION
+//#if PC
 //            MyGraphicsDeviceManager.SynchronizeWithVerticalRetrace = false;
 //#endif
 
@@ -808,7 +808,7 @@ namespace CloudberryKingdom
         static bool ExitingEarly = false;
         public void Initialize()
         {
-#if PC_VERSION
+#if PC
             if (CloudberryKingdomGame.UsingSteam)
             {
                 //Console.WriteLine("Using Steam, checking if restart is needed.");
@@ -847,7 +847,7 @@ namespace CloudberryKingdom
         public void InitialResolution()
         {
             Tools.Write("InitialResolution");
-#if PC_VERSION
+#if PC
             // The PC version let's the player specify resolution, key mapping, and so on.
             // Try to load these now.
             PlayerManager.RezData rez;
@@ -1286,7 +1286,7 @@ namespace CloudberryKingdom
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             SaveGroup.Initialize();
 
-#if PC_VERSION
+#if PC
             StartLogoSalad();
             //Tools.AddToDo(StartLogoSalad);
             //PreloadDone = true;
@@ -1786,7 +1786,7 @@ namespace CloudberryKingdom
 
         public static void ShowError_LoadError()
         {
-#if PC_VERSION
+#if PC
 #else
             ShowError(Localization.Words.Err_CorruptLoadHeader, Localization.Words.Err_CorruptLoad, Localization.Words.Err_Ok, null);
 #endif
@@ -1794,7 +1794,7 @@ namespace CloudberryKingdom
 
         public static void ShowError_MustBeSignedIn(Localization.Words word)
         {
-#if PC_VERSION
+#if PC
 #else
             ShowError(Localization.Words.Err_MustBeSignedIn_Header, word, Localization.Words.Err_Ok, null);
 #endif
@@ -1802,7 +1802,7 @@ namespace CloudberryKingdom
 
         public static void ShowError_MustBeSignedInToLive(Localization.Words word)
         {
-#if PC_VERSION
+#if PC
 #else
             ShowError(Localization.Words.Err_MustBeSignedInToLive_Header, word, Localization.Words.Err_Ok, null);
 #endif
@@ -1810,7 +1810,7 @@ namespace CloudberryKingdom
 
         public static void ShowError_MustBeSignedInToLiveForLeaderboard()
         {
-#if PC_VERSION
+#if PC
 #else
             if (CloudberryKingdomGame.IsDemo) return;
             
@@ -1863,7 +1863,7 @@ namespace CloudberryKingdom
 
         bool DisconnectedController()
         {
-#if PC_VERSION || DEBUG && WINDOWS
+#if PC || DEBUG && WINDOWS
             //return false;
             if (ButtonCheck.MouseInUse || !ButtonCheck.ControllerInUse) return false;
 #endif
@@ -2005,7 +2005,7 @@ namespace CloudberryKingdom
         static bool LastGuideIsUp = false;
         static int GuidSave_SeedMark = 0;
 
-#if PC_VERSION
+#if PC
         bool created = false;
 #endif
 
@@ -2022,7 +2022,7 @@ namespace CloudberryKingdom
         //if (Resources.LoadThread != null)
         //Resources.LoadThread.Join ();
 
-#if PC_VERSION
+#if PC
             if (CloudberryKingdomGame.SteamAvailable)
             {
                 SteamCore.Update();
@@ -2106,7 +2106,7 @@ namespace CloudberryKingdom
             }
 
             // Draw nothing if Steam input overlay is up
-#if PC_VERSION
+#if PC
             if (SteamTextInput.OverlayActive) return;
 #endif
 
@@ -2261,7 +2261,7 @@ namespace CloudberryKingdom
                 Tools.QDrawer.Flush();
                 Tools.StartGUIDraw();
 
-#if PC_VERSION
+#if PC
                 if (!Tools.ShowLoadingScreen && ShowMouse)
                     MouseDraw();
                 ShowMouse = false;
@@ -2424,7 +2424,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if PC_VERSION
+#if PC
         public bool IsActive()
         {
             bool IsActive = true;

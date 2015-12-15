@@ -1,4 +1,4 @@
-#if PC_VERSION
+#if PC
 using System;
 using System.IO;
 using System.Collections.Generic;

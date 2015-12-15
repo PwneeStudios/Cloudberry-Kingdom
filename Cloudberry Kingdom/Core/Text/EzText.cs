@@ -16,7 +16,7 @@ namespace CloudberryKingdom
         public static EzTexture Go { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Back : _Go; } }
         public static EzTexture Back { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Go : _Back; } }
 
-#if PC_VERSION
+#if PC
         public static EzTexture _Go { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_A" : "Enter_Key" ); } }
         public static EzTexture _Back { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_B" : "Esc_Key" ); } }
         public static EzTexture X { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
@@ -54,7 +54,7 @@ namespace CloudberryKingdom
 
     public class ButtonString
     {
-#if PC_VERSION
+#if PC
         public static Dictionary<Keys, string> KeyToString;
         public static void Init()
         {

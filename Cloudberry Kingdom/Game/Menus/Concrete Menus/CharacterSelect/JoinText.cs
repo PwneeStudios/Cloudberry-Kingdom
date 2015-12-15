@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-#if PC_VERSION
+#if PC
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -15,7 +15,7 @@ namespace CloudberryKingdom
     {
         CharacterSelect MyCharacterSelect;
 		
-#if PC_VERSION
+#if PC
 		QuadClass Overlay;
 		EzText MouseClickText;
 #endif
@@ -54,7 +54,7 @@ namespace CloudberryKingdom
 			int ButtonSize = 0;
 			string pressa = null;
 
-#if PC_VERSION
+#if PC
 			Overlay = new QuadClass();
 			Overlay.TextureName = "White";
 			Overlay.Alpha = .13333f;
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
 				ButtonSize = 94;
 			}
 
-#if PC_VERSION
+#if PC
 			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin), ButtonString.Go_Controller(ButtonSize));
 #elif CAFE
 			pressa = string.Format(Localization.WordString(Localization.Words.PressToJoin_WiiU), ButtonString.Go(ButtonSize));
@@ -187,7 +187,7 @@ namespace CloudberryKingdom
 				Text.Scale = 0.5195001f;
 			}
 
-#if PC_VERSION
+#if PC
 			MouseClickText.Pos = Text.Pos;
 			MouseClickText.Scale = Text.Scale;
 #endif
@@ -248,7 +248,7 @@ namespace CloudberryKingdom
             MyCharacterSelect.MyGamerTag.ShowGamerTag = false;
             MyCharacterSelect.Player.Exists = false;
 
-#if PC_VERSION
+#if PC
 			// Mouse hover
 			if (Tools.MouseInWindow && ButtonCheck.MouseInUse && !CharacterSelectManager.NonGamepadJoined)
 			{
@@ -276,7 +276,7 @@ namespace CloudberryKingdom
 			}
 #endif
 
-#if PC_VERSION
+#if PC
 			if (Overlay.Show && Tools.MouseDown() && !Tools.PrevMouseDown())
 			{
 				CoreKeyboard.KeyboardPlayerIndex = (PlayerIndex)Control;
@@ -285,7 +285,7 @@ namespace CloudberryKingdom
 
 			if (CharacterSelectManager.Active && (ButtonCheck.State(ControllerButtons.A, Control).Pressed))//|| Control == 3 || Control == 1 || Control == 0))
             {
-#if PC_VERSION
+#if PC
 				if (!Tools.MouseDown() ||
 					 ButtonCheck.GetState(ControllerButtons.A, Control, false, false, false).Pressed)
 				{

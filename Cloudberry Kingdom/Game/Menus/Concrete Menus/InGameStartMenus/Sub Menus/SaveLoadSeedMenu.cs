@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
             }
 #endif
 
-#if PC_VERSION
+#if PC
             MakeBackButton();
 #else
             MakeBackButton();
@@ -134,7 +134,7 @@ namespace CloudberryKingdom
 
         private void SetPosition()
         {
-#if PC_VERSION
+#if PC
             if (CanLoad && CanSave)
             {
 				MenuItem _item;
@@ -249,14 +249,14 @@ namespace CloudberryKingdom
 #endif
 		}
 
-#if PC_VERSION || XBOX || MONO
+#if PC || XBOX || MONO
         // This shows our custom virtual keyboard, instead of the Xbox keyboard.
         public static MenuItemGo MakeSave(GUI_Panel panel, PlayerData player)
         {
             return _item => Save(_item, panel, player);
         }
 
-#if PC_VERSION
+#if PC
 		static PlayerData _player;
 		static GUI_Panel _SaveLoadSeedMenu;
 
@@ -301,7 +301,7 @@ namespace CloudberryKingdom
         IAsyncResult kyar;
         static void Save(MenuItem _item, GUI_Panel panel, PlayerData player)
         {
-#if PC_VERSION
+#if PC
 			if (CloudberryKingdomGame.UsingSteam)
 			{
 				_SaveLoadSeedMenu = panel;

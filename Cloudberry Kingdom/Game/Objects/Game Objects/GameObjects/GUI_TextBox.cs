@@ -12,7 +12,7 @@ using KeyboardHandler;
 
 namespace CloudberryKingdom
 {
-#if PC_VERSION
+#if PC
     public class GUI_EnterName : GUI_TextBox
     {
         public GUI_EnterName() : base(PlayerManager.DefaultName, Vector2.Zero)

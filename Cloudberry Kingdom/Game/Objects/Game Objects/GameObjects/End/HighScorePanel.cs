@@ -167,7 +167,7 @@ namespace CloudberryKingdom
         EzText SwapText;
         void MakeSwapText()
         {
-#if PC_VERSION
+#if PC
             //SwapText = new EzText(ButtonString.Enter(200), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             //SwapText.Pos = new Vector2(-1169.281f, 602.9366f);
 #else

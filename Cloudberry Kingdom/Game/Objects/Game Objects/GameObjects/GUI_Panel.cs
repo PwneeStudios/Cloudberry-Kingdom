@@ -498,7 +498,7 @@ namespace CloudberryKingdom
             if (!CheckForOutsideClick) return;
             if (OnOutsideClick == null) return;
 
-#if PC_VERSION
+#if PC
             // Show the mouse so we can see when we are outside the panel
             Tools.TheGame.ShowMouse = true;
 
@@ -521,7 +521,7 @@ namespace CloudberryKingdom
 
         bool IsOutside()
         {
-#if PC_VERSION
+#if PC
             if (Tools.ViewerIsUp) return false;
 
             Vector2 MousePos = Tools.MouseGUIPos(MyCameraZoom);

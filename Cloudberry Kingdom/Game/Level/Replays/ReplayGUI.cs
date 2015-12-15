@@ -75,7 +75,7 @@ namespace CloudberryKingdom
 			MyPile.Add(backdrop, "Backdrop");
 
 			Vector2 AdditionalAdd = Vector2.Zero;
-#if PC_VERSION
+#if PC
             AdditionalAdd = new Vector2(-2, 0);
             MyPile.Add(new QuadClass(ButtonTexture.Go, 140, "Button_Go"));
             Play = new EzText(Localization.Words.Play, ItemFont, true);
@@ -89,7 +89,7 @@ namespace CloudberryKingdom
 			SetHeaderProperties(Play);
 #endif
 
-#if PC_VERSION
+#if PC
             AdditionalAdd = new Vector2(-2, 0);
             MyPile.Add(new QuadClass(ButtonTexture.Back, 140, "Button_Back"));
             End = new EzText(Localization.Words.Done, ItemFont, true);
@@ -111,7 +111,7 @@ namespace CloudberryKingdom
 				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
 				Toggle = new EzText(Localization.Words.Single, ItemFont, true);
 				Toggle.Name = "Toggle";
-#if PC_VERSION
+#if PC
                 SetGrayHeaderProperties(Toggle);
 #else
 				SetHeaderProperties(Toggle);
@@ -1131,7 +1131,7 @@ namespace CloudberryKingdom
 
             // End the replay
             bool EndReplay = false;
-#if PC_VERSION
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(input.Keys.Escape))
                 EndReplay = true;
 #endif

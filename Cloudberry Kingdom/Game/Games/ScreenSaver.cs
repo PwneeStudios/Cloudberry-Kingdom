@@ -57,7 +57,7 @@ namespace CloudberryKingdom
             {
 #if DEBUG
                 return 20;
-#elif PC_VERSION
+#elif PC
                 if (UserPowers.CanSkipScreensaver)
                     return 20;
                 else
@@ -148,7 +148,7 @@ namespace CloudberryKingdom
                         {
                             UserPowers.Set(ref UserPowers.CanSkipScreensaver, true);
 
-#if PC_VERSION
+#if PC
                             PressA = new GUI_Text(Localization.Words.PressAnyKey,
                                                            new Vector2(0, -865), true);
 #else

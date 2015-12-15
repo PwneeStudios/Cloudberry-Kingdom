@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CloudberryKingdom
 {
-#if PC_VERSION
+#if PC
     public class ControlItem : MenuItem
     {
         public QuadClass MyQuad;

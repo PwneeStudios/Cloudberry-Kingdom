@@ -5,7 +5,7 @@ namespace CloudberryKingdom
 {
     public class StartMenu_MW_Backpanel : CkBaseMenu
     {
-#if PC_VERSION
+#if PC
 		const bool ShowVersion = true;
 #else
 		const bool ShowVersion = true;
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-#if PC_VERSION
+#if PC
 			CloudberryKingdomGame.SuppressSavingTextDuration = 60;
 
 			if (!ShowVersion)

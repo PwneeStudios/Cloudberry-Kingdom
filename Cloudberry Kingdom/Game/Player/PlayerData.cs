@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-#if PC_VERSION
+#if PC
 #elif XDKX || XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
         public PlayerStats LifetimeStats, GameStats, LevelStats, TempStats;
         public PlayerStats CampaignStats;
 
-#if PC_VERSION
+#if PC
 #elif XBOX || XBOX_SIGNIN
         public SignedInGamer _MyGamer;
         public SignedInGamer MyGamer { get { return CheckForMatchingGamer(); } }
@@ -269,7 +269,7 @@ namespace CloudberryKingdom
                     int _language = chunk.ReadInt();
                     Localization.Language language = (Localization.Language)_language;
 					// // This sets the language upon load, which causes a lot of confusion.
-#if PC_VERSION
+#if PC
                     Tools.AddToDo(() => Localization.SetLanguage(language));
 #endif
                     break;

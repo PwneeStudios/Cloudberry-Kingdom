@@ -8,7 +8,7 @@ using CloudberryKingdom.Awards;
 using System.IO;
 using CoreEngine;
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
     {
         public _SavePlayerData()
         {
-#if PC_VERSION
+#if PC
             AlwaysSave = true;
 #endif
         }
@@ -107,7 +107,7 @@ namespace CloudberryKingdom
 	public enum WindowMode { Borderless, Windowed, Fullscreen };
     public struct PlayerManager
     {
-#if PC_VERSION || WINDOWS
+#if PC || WINDOWS
         public struct RezData
 		{
 			
@@ -116,7 +116,7 @@ namespace CloudberryKingdom
 			public int Width, Height;
 		}
 #endif
-#if PC_VERSION
+#if PC
         public static void SaveRezAndKeys()
         {
 			EzStorage.SaveWithMetaData(PlayerIndex.One, "Settings", "Options", _SaveRezAndKeys, null);
@@ -232,7 +232,7 @@ namespace CloudberryKingdom
         public static int CoinsSpent { get { return _CoinsSpent; } set { _CoinsSpent = value; } }
 
         public static _SavePlayerData SavePlayerData;
-#if PC_VERSION
+#if PC
         static string _DefaultName;
         public static string DefaultName
         {
@@ -247,7 +247,7 @@ namespace CloudberryKingdom
 
         public static void UploadCampaignLevels()
         {
-#if PC_VERSION
+#if PC
 			int level = 0;
 			for (int i = 0; i < 4; i++)
 			{
@@ -309,7 +309,7 @@ namespace CloudberryKingdom
             }
 #endif
 
-#if PC_VERSION
+#if PC
             bool ShouldUpdate = false;
 			int Max = 0;
 
@@ -404,7 +404,7 @@ namespace CloudberryKingdom
         /// <returns></returns>
         public static string GetGroupGamerTag(int MaxLength)
         {
-#if PC_VERSION
+#if PC
 			if (CloudberryKingdomGame.UsingSteam)
 			{
 				string name = SteamCore.PlayerName();
@@ -727,7 +727,7 @@ namespace CloudberryKingdom
         {
             get
             {
-#if PC_VERSION
+#if PC
                 return ExistingPlayers;
 #elif XBOX || XBOX_SIGNIN
                 List<PlayerData> list = new List<PlayerData>();
@@ -803,7 +803,7 @@ namespace CloudberryKingdom
             return Num;
         }
 
-#if PC_VERSION
+#if PC
         public static PlayerData Player { get { return Players[0]; } }
 #endif
 
@@ -914,7 +914,7 @@ namespace CloudberryKingdom
 
         public static void Init()
         {
-#if PC_VERSION
+#if PC
             _DefaultName = PlayerManager.RandomNames.Choose(Tools.GlobalRnd);
 #else
             Players = new PlayerData[4];
@@ -925,7 +925,7 @@ namespace CloudberryKingdom
             // Player templates
             for (int i = 0; i < 4; i++)
             {
-#if PC_VERSION
+#if PC
 				if (Players[i] != null) continue;
 #endif
                 Players[i] = new PlayerData();

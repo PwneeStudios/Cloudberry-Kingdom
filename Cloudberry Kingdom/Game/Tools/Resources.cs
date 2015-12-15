@@ -411,7 +411,7 @@ namespace CloudberryKingdom
 
             Awardments.Init();
 
-#if PC_VERSION
+#if PC
             // Mouse pointer
             Ck.MousePointer = new QuadClass();
             //Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");

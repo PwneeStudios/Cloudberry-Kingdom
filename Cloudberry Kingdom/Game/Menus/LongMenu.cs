@@ -27,7 +27,7 @@ namespace CloudberryKingdom
                 return;
             }
 
-#if PC_VERSION
+#if PC
             if (!ButtonCheck.MouseInUse) Scroll();
 #else
             Scroll();

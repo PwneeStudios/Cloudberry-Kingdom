@@ -79,7 +79,7 @@ namespace CloudberryKingdom
         {
             get
             {
-#if PC_VERSION
+#if PC
 				if (ButtonCheck.ControllerInUse)
 				{
 					return string.Format(Localization.WordString(Localization.Words.RespawnNoteGamepad), ButtonString.LeftBumper(150), ButtonString.RightBumper(150));
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
         {
             get
             {
-#if PC_VERSION
+#if PC
 				if (ButtonCheck.ControllerInUse)
 				{
 					return string.Format(Localization.WordString(Localization.Words.PowerupNote), ButtonString.Y(85));

@@ -85,7 +85,7 @@ namespace CloudberryKingdom
 		{
 			base.MyPhsxStep();
 
-#if PC_VERSION
+#if PC
 			if (!Active) return;
 
 			// Update the back button and the scroll bar
@@ -108,7 +108,7 @@ namespace CloudberryKingdom
 
             MyMenu.SelectItem(MyMenu.Items.Count - 2);
 
-#if PC_VERSION
+#if PC
 			// Back button
 			Back = new ClickableBack(MyPile, true, true);
             Back.SetPos_BR(MyPile);

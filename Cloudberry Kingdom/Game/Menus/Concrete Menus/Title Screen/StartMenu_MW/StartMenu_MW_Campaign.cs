@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             Update();
         }
 
-#if PC_VERSION
+#if PC
 		ClickableBack Back;
 #endif
 
@@ -210,7 +210,7 @@ namespace CloudberryKingdom
 
 			SetPos_WithCinematic();
 
-#if PC_VERSION
+#if PC
 			Back = new ClickableBack(MyPile, false, true);
 
 			QuadClass _q;

@@ -154,7 +154,7 @@ namespace CloudberryKingdom
         /// </summary>
         public static bool MouseInUse = false;
         public static bool PrevMouseInUse = false;
-#if PC_VERSION
+#if PC
         public static bool ControllerInUse = false;
 #else
 		public static bool ControllerInUse = true;
@@ -162,7 +162,7 @@ namespace CloudberryKingdom
 
         public static void UpdateControllerAndKeyboard_StartOfStep()
         {
-#if PC_VERSION
+#if PC
 			// If keyboard player no longer exists, shift keyboard control to first existing player
 			if (CloudberryKingdomGame.CurrentPresence != CloudberryKingdomGame.Presence.TitleScreen)
 			{
@@ -212,7 +212,7 @@ namespace CloudberryKingdom
 
             Tools.UpdateVibrations();
 
-#if PC_VERSION
+#if PC
             UpdateMouseUse();
 #endif
         }
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
 			CoreGamepad.Update_EndOfStep();
         }
 
-#if PC_VERSION
+#if PC
         /// <summary>
         /// Update the boolean flag MouseInUse
         /// </summary>
@@ -266,7 +266,7 @@ namespace CloudberryKingdom
                 ButtonCheck.ControllerInUse = false;
 
             if (AnyKey ||
-#if PC_VERSION
+#if PC
                 (PlayerManager.Players != null && PlayerManager.Player != null && ButtonCheck.GetMaxDir(false).Length() > .3f)
 #else
                 (PlayerManager.Players != null && ButtonCheck.GetMaxDir(true).Length() > .3f)

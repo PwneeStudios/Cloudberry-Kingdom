@@ -113,7 +113,7 @@ namespace CloudberryKingdom
             MyFloat.Release();
         }
 
-#if PC_VERSION
+#if PC
         public Vector2 BL_HitPadding = Vector2.Zero, TR_HitPadding = Vector2.Zero;
         public override bool HitTest(Vector2 pos, Vector2 padding)
         {
@@ -152,7 +152,7 @@ namespace CloudberryKingdom
         }
 
         public bool Inverted = false;
-#if PC_VERSION
+#if PC
         protected virtual void PC_OnLeftMouseDown()
         {
             if (!ButtonCheck.MouseInUse) return;
@@ -198,7 +198,7 @@ namespace CloudberryKingdom
 
             float CurVal = MyFloat.Val;
 
-#if PC_VERSION
+#if PC
             if (ButtonCheck.State(ControllerButtons.A, Control).Down &&
                 !ButtonCheck.KeyboardGo())
             {

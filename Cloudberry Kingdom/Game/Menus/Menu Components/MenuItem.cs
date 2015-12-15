@@ -380,7 +380,7 @@ namespace CloudberryKingdom
             GrayOut();
 
             if (Selected
-#if PC_VERSION
+#if PC
                 && (ButtonCheck.MouseInUse || !MyMenu.MouseOnly)
 #endif
                 || AlwaysDrawAsSelected && MyOscillateParams.MyType != OscillateParams.Type.Oscillate)
@@ -611,7 +611,7 @@ namespace CloudberryKingdom
 
             if (MyMenu != null) { Control = MyMenu.Control; FixedToCamera = MyMenu.FixedToCamera; }
 
-#if PC_VERSION
+#if PC
             // Mouse interact
             bool SelectThis = false;
 			if (ButtonCheck.MouseInUse && (Tools.MouseNotDown() || MyMenu.SlipSelect)
@@ -628,7 +628,7 @@ namespace CloudberryKingdom
 
             if (!Selected)
             {
-#if PC_VERSION
+#if PC
                 // Mouse interact
                 if (SelectThis)
                     MyMenu.SelectItem(this);
@@ -649,7 +649,7 @@ namespace CloudberryKingdom
             if (MyMenu.NoneSelected)
                 Activate = false;
 
-#if PC_VERSION
+#if PC
             // Don't activate the item if the menu is mouse only and the mouse isn't in use
             if (MyMenu.MouseOnly && !ButtonCheck.MouseInUse)
                 Activate = false;
@@ -663,7 +663,7 @@ namespace CloudberryKingdom
 #endif
 
             // Mouse down over the item
-#if PC_VERSION
+#if PC
             if (OnClick != null && ButtonCheck.MouseInUse && Tools.CurMouseDown() && HitTest())
                 OnClick(this);
 #endif

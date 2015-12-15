@@ -154,7 +154,7 @@ namespace CloudberryKingdom
             Back.SetPos_BR(MyPile);
         }
 
-#if PC_VERSION
+#if PC
 		protected override void MyPhsxStep()
 		{
 			base.MyPhsxStep();

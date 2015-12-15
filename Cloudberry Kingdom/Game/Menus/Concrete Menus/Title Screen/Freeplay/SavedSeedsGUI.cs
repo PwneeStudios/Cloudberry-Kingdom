@@ -174,7 +174,7 @@ namespace CloudberryKingdom
 				bar = new ScrollBar((LongMenu)MyMenu, this);
 				bar.BarPos = new Vector2(-1860f, 102.7778f);
 				MyGame.AddGameObject(bar);
-#if PC_VERSION
+#if PC
 				MyMenu.AdditionalCheckForOutsideClick += bar.MyMenu.HitTest;
 #endif
 			}
@@ -254,7 +254,7 @@ namespace CloudberryKingdom
 
             MakeList();
 
-#if !PC_VERSION
+#if !PC
             OptionalBackButton();
 #endif
 
@@ -496,13 +496,13 @@ else
 
             // Scroll bar
 #if WINDOWS
-//#if PC_VERSION
+//#if PC
             //if (false)
             {
                 bar = new ScrollBar((LongMenu)MyMenu, this);
                 bar.BarPos = new Vector2(-1860f, 102.7778f);
                 MyGame.AddGameObject(bar);
-#if PC_VERSION
+#if PC
                 MyMenu.AdditionalCheckForOutsideClick += bar.MyMenu.HitTest;
 #endif
             }

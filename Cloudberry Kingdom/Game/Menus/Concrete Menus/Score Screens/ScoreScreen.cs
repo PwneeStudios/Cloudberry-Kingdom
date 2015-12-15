@@ -177,7 +177,7 @@ namespace CloudberryKingdom
         }
 
 // Whether to make a menu, or a static text with key bindings
-#if PC_VERSION
+#if PC
         static bool AsMenu = true;
 #else
         static bool AsMenu = true;
@@ -985,7 +985,7 @@ namespace CloudberryKingdom
             }
             else
             {
-#if PC_VERSION
+#if PC
                 PlayerData player = MenuItem.GetActivatingPlayerData();
                 SaveLoadSeedMenu.MakeSave(this, player)(item);
                 Hide(PresetPos.Left);
@@ -1037,7 +1037,7 @@ namespace CloudberryKingdom
                 bool WatchReplay = false;
                 if (level.CanWatchReplay && ButtonCheck.State(ControllerButtons.X, -1).Pressed)
                     WatchReplay = true;
-#if PC_VERSION
+#if PC
             if (Tools.Keyboard.IsKeyDownCustom(input.Keys.Escape) ||
                 Tools.PrevKeyboard.IsKeyDownCustom(input.Keys.Escape))
                 WatchReplay = false;

@@ -58,7 +58,7 @@ namespace CloudberryKingdom
         protected override void OnSuccess()
         {
 			Player.MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);
-//#if PC_VERSION
+//#if PC
 //            for (int i = 0; i < 4; i++)
 //            {
 //                PlayerManager.Players[i].MySavedSeeds.SaveSeed(Tools.CurLevel.MyLevelSeed.ToString(), TextBox.Text);

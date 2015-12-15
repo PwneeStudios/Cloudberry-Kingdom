@@ -139,7 +139,7 @@ namespace CloudberryKingdom
 
             if (PlayerManager.GetNumPlayers() > 1)
             {
-#if PC_VERSION
+#if PC
                 Text.MyFloatColor = ColorHelper.GrayColor(.8f).ToVector4();
 
                 // Mouse hover

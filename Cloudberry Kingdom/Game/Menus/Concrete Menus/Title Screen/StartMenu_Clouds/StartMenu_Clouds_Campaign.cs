@@ -15,7 +15,7 @@ namespace CloudberryKingdom
             Update();
         }
 
-#if PC_VERSION
+#if PC
 		ClickableBack Back;
 #endif
 
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
 
             MyMenu.SortByHeight();
 
-#if PC_VERSION
+#if PC
 			Back = new ClickableBack(MyPile, true, true);
             Back.SetPos_BR(MyPile);
 #endif

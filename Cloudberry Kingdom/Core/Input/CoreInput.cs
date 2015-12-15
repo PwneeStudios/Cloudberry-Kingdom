@@ -2,7 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 	#if !MONO && !SDL2
 	using Nuclex.Input;

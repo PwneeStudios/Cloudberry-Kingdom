@@ -18,7 +18,7 @@ namespace CloudberryKingdom
             Constructor();
         }
 
-#if PC_VERSION
+#if PC
         QuadClass MakeQuad(Keys key)
         {
             var quad = new QuadClass(ButtonString.KeyToTexture(key), 90);
@@ -241,7 +241,7 @@ else
 
             if (ButtonCheck.State(ControllerButtons.A, -1).Pressed ||
                 ButtonCheck.State(ControllerButtons.B, -1).Pressed
-#if PC_VERSION
+#if PC
 				//|| Tools.CurRightMouseDown() && !Tools.PrevRightMouseDown()
 				|| Tools.RightMouseReleased()
 #endif

@@ -606,7 +606,7 @@ else
 			item.Go = Cast.ToItem(Next);
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+#if XBOX || PC
 			Menu.DefaultMenuInfo.SetNext(item);
 #endif
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_A"));
@@ -625,7 +625,7 @@ if (ButtonCheck.ControllerInUse)
             item.Go = Cast.ToItem(ReturnToCaller);
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+#if XBOX || PC
 			Menu.DefaultMenuInfo.SetBack(item);
 #endif
 			MyPile.Add(new QuadClass(ButtonTexture.Back, 90, "Button_B"));
@@ -640,7 +640,7 @@ if (ButtonCheck.ControllerInUse)
 			item.Go = Cast.ToItem(StartTest);
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+#if XBOX || PC
 			Menu.DefaultMenuInfo.SetX(item);
 #endif
 			MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
@@ -655,7 +655,7 @@ if (ButtonCheck.ControllerInUse)
 			item.Go = Cast.ToItem(ResetSliders);
 if (ButtonCheck.ControllerInUse)
 {
-#if XBOX || PC_VERSION
+#if XBOX || PC
 			Menu.DefaultMenuInfo.SetY(item);
 #endif
 			MyPile.Add(new QuadClass(ButtonTexture.Y, 90, "Button_Y"));

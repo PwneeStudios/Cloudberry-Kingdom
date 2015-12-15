@@ -63,7 +63,7 @@ namespace CloudberryKingdom
             slider.CustomEndPoints = true;
             slider.CustomStart = new Vector2(0, -800);
             slider.CustomEnd = new Vector2(0, 800);
-#if PC_VERSION
+#if PC
             slider.BL_HitPadding.X += 50;
             slider.TR_HitPadding.X += 50;
 #endif

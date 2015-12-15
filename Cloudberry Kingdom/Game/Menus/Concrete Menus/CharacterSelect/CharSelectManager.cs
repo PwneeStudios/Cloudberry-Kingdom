@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
-#if PC_VERSION
+#if PC
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -333,7 +333,7 @@ namespace CloudberryKingdom
             CharacterSelectManager.ParentPanel = null;
         }
 
-#if PC_VERSION
+#if PC
 		public static bool NonGamepadJoined = false;
 #endif
 
@@ -348,7 +348,7 @@ namespace CloudberryKingdom
             if (AllNull())
                 IsShowing = false;
 
-#if PC_VERSION
+#if PC
 			// Check if a player has joined that isn't using a gamepad (via mouse or keyboard)
 			NonGamepadJoined = false;
 			for (int i = 0; i < 4; i++)
@@ -379,7 +379,7 @@ namespace CloudberryKingdom
             {
 				
                 if (ButtonCheck.State(ControllerButtons.B, -2).Pressed
-#if PC_VERSION
+#if PC
 					|| Tools.RightMouseReleased()
 					|| (Backdrop != null && Backdrop.BackClicked)
 #endif

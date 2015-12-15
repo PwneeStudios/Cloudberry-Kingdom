@@ -33,7 +33,7 @@ namespace CloudberryKingdom
         {
             base.InitializeSlider();
 
-#if PC_VERSION
+#if PC
             BL_HitPadding = new Vector2(200, 30);
 #endif
             LengthBar = new ProgressBar("Length", "LengthBack", 850);

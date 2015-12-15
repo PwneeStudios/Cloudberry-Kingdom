@@ -341,7 +341,7 @@ namespace CloudberryKingdom
 #endif
 
                 // If this isn't a PC, and we can't load seeds right now, then go directly to the SaveAs menu.
-#if !PC_VERSION && !MONO
+#if !PC && !MONO
                 if (!MyLevel.CanLoadLevels)
                 {
                     SaveLoadSeedMenu.MakeSave(this, player)(null);
@@ -351,7 +351,7 @@ namespace CloudberryKingdom
                 else
 #endif
                 {
-#if PC_VERSION
+#if PC
                     Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);
 #else
                     Call(new SaveLoadSeedMenu(Control, MyLevel.CanLoadLevels, MyLevel.CanSaveLevel), 0);

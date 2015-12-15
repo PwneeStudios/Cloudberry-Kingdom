@@ -78,7 +78,7 @@ namespace CloudberryKingdom
                     MyMenu.Active = false;
                     MyGame.WaitThenDo(DelayPhsx, () => MyMenu.Active = true);
 
-#if PC_VERSION
+#if PC
                     if (MyTextBox != null)
                         MyGame.WaitThenDo(DelayPhsx, () => MyTextBox.Active = true);
                         //MyMenu.Show = MyMenu.Active = false;
@@ -133,7 +133,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyMenu.Pos = new Vector2(400, -240);
 
-#if PC_VERSION
+#if PC
 			if (CloudberryKingdomGame.SimpleLeaderboards)
 			{
 				MakeTextBox();
@@ -181,7 +181,7 @@ namespace CloudberryKingdom
 			}
         }
 
-#if PC_VERSION
+#if PC
         protected override void ReleaseBody()
         {
             base.ReleaseBody();
@@ -243,7 +243,7 @@ namespace CloudberryKingdom
             ScoreDatabase.Add(HighScoreEntry);
             ScoreDatabase.Add(HighLevelEntry);
 
-#if PC_VERSION
+#if PC
 			var score = HighScoreEntry;
 
 			int highscore = Math.Max(score.Score, PlayerManager.MaxPlayerHighScore(score.GameId));
@@ -407,7 +407,7 @@ namespace CloudberryKingdom
         {
  	         base.MyDraw();
 
-#if PC_VERSION
+#if PC
             if (MyTextBox != null)
                 MyTextBox.ManualDraw();
 #endif

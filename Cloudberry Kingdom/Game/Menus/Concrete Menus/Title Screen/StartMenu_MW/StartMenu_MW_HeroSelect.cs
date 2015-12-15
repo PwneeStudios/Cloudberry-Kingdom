@@ -282,7 +282,7 @@ namespace CloudberryKingdom
 
             bool UpdateScrollPosition = true;
 
-#if PC_VERSION
+#if PC
             if (!Active) return;
 
             // Update the back button and the scroll bar

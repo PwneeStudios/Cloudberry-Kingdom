@@ -155,7 +155,7 @@ namespace CloudberryKingdom
 			Back = new ClickableBack(MyPile, false, true);
         }
 
-#if PC_VERSION
+#if PC
 		protected override void MyPhsxStep()
 		{
 			base.MyPhsxStep();

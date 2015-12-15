@@ -320,7 +320,7 @@ namespace CloudberryKingdom
             if (Active && !MyCharacterSelect.Player.Exists) { ReturnToCaller(false); return; }
 
 			// Scrolling
-#if PC_VERSION
+#if PC
 			int ScrollDir = (int)System.Math.Sign(Tools.DeltaScroll);
 			if (ScrollDir != 0 && MyList != null)
 			{

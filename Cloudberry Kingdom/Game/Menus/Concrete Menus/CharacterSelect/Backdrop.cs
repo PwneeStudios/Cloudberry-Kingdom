@@ -10,7 +10,7 @@ namespace CloudberryKingdom
         {
         }
 
-#if PC_VERSION
+#if PC
 		ClickableBack Back;
 		public bool BackClicked = false;
 #endif
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             var Backdrop = new QuadClass("CharSelectPanels", 1778);
             MyPile.Add(Backdrop, "Backdrop");
 
-#if PC_VERSION
+#if PC
 			Back = new ClickableBack(MyPile, false, true);
 
 			QuadClass _q;

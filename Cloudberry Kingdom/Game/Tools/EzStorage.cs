@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using CoreEngine;
 
-#if PC_VERSION
+#if PC
 #elif XDKX || XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 using EasyStorage;
@@ -26,7 +26,7 @@ namespace CloudberryKingdom
             ScoreDatabase.Initialize();
             PlayerManager.SavePlayerData = new _SavePlayerData();
 
-#if PC_VERSION
+#if PC
             PlayerManager.Player.ContainerName		= "PlayerData";
 			if (CloudberryKingdomGame.UsingSteam)
 			{
@@ -210,7 +210,7 @@ namespace CloudberryKingdom
                     ThingToSave.Save(PlayerIndex.One);
                 }
 
-#if PC_VERSION
+#if PC
                 SynchronizeAll();
     			PlayerManager.Player.Save(PlayerIndex.One);
 #else
@@ -327,7 +327,7 @@ namespace CloudberryKingdom
                 ThingToLoad.Load(PlayerIndex.One);
             }
 
-#if PC_VERSION
+#if PC
 			try
 			{
 				SynchronizeAll();
@@ -350,7 +350,7 @@ namespace CloudberryKingdom
         {
             get
             {
-#if PC_VERSION
+#if PC
                 return ContainerName;
 #else
 #if WINDOWS

@@ -28,7 +28,7 @@ namespace CloudberryKingdom
 
         EzText HeaderText;
 
-#if PC_VERSION
+#if PC
 		ClickableBack Back;
 #endif
 
@@ -129,7 +129,7 @@ namespace CloudberryKingdom
                 };
             }
 
-#if PC_VERSION
+#if PC
             // Custom controls
             var mitem = new MenuItem(new EzText(Localization.Words.EditControls, ItemFont, CenterItems));
             mitem.Go = Cast.ToItem(Go_CustomControls);
@@ -281,7 +281,7 @@ namespace CloudberryKingdom
 			AddItem(item);
 
 
-#if PC_VERSION
+#if PC
             //MakeBackButton();
 			Back = new ClickableBack(MyPile, false, true);
 #else
@@ -289,7 +289,7 @@ namespace CloudberryKingdom
             //MakeStaticBackButton();
 #endif
 
-#if PC_VERSION
+#if PC
 			SetPosition_PC();
 #else
 			SetPosition_Console();
@@ -388,7 +388,7 @@ namespace CloudberryKingdom
             PlayerManager.SaveRezAndKeys();
         }
 
-#if PC_VERSION
+#if PC
 		List<DisplayMode> RemoveRedundantResolutions(List<DisplayMode> modes)
 		{
 			var NewList = new List<DisplayMode>();
@@ -470,7 +470,7 @@ namespace CloudberryKingdom
 		{
 			MyGame.WaitThenDo(20, AfterCredits);
 			
-#if PC_VERSION
+#if PC
 			VideoWrapper.StartVideo("Credits_PC", false, 1.0f);
 #else
 			MainVideo.StartVideo("Credits", false, 1.0f);
@@ -530,7 +530,7 @@ namespace CloudberryKingdom
 				GUI_Panel panel = obj as GUI_Panel;
 				if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
 				{
-#if PC_VERSION
+#if PC
 					if (panel is StartMenu_MW_Simple)
 						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(TitleBackgroundState.Scene_Title);
 					else
@@ -575,7 +575,7 @@ namespace CloudberryKingdom
             base.ReturnToCaller();
         }
 
-#if PC_VERSION && !MONO
+#if PC && !MONO
         //private void AddToggle_FixedTimestep()
         //{
         //    // Header
@@ -635,7 +635,7 @@ namespace CloudberryKingdom
 
         public override bool MenuReturnToCaller(Menu menu)
         {
-#if PC_VERSION && !MONO
+#if PC && !MONO
             PlayerManager.SaveRezAndKeys();
 #endif
 

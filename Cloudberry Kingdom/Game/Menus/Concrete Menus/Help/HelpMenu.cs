@@ -478,7 +478,7 @@ namespace CloudberryKingdom
         {
             base.AddItem(item);
 
-#if PC_VERSION
+#if PC
             item.Padding += new Vector2(20, 40);
 #endif
         }

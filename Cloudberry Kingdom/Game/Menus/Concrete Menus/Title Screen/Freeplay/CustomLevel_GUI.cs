@@ -1182,7 +1182,7 @@ namespace CloudberryKingdom
 
             // Create the load menu
 			CkBaseMenu seed_panel;
-#if PC_VERSION
+#if PC
             seed_panel = new SaveLoadSeedMenu(MenuItem.ActivatingPlayer, true, false);
             Call(seed_panel, 0);
 #else

@@ -270,7 +270,7 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-#if PC_VERSION
+#if PC
             if (!Active) return;
 
             if (Back.UpdateBack(MyCameraZoom))

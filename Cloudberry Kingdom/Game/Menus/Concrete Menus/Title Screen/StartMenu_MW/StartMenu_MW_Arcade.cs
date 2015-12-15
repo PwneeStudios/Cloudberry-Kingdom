@@ -85,7 +85,7 @@ namespace CloudberryKingdom
 		{
 			base.MyPhsxStep();
 
-#if PC_VERSION
+#if PC
 			if (!Active) return;
 
 			// Update the back button and the scroll bar
@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 
             SetPos();
 
-#if PC_VERSION
+#if PC
 			// Back button
 			Back = new ClickableBack(MyPile, true, true);
 #endif

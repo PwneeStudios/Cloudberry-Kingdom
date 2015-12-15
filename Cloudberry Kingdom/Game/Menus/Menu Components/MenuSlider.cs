@@ -57,7 +57,7 @@ namespace CloudberryKingdom
 
             SelectionOscillate = true;
 
-#if PC_VERSION
+#if PC
             BL_HitPadding.X += 40;
             TR_HitPadding.X += 40;
 #endif

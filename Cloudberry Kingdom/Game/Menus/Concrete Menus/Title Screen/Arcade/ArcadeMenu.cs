@@ -305,7 +305,7 @@ namespace CloudberryKingdom
         {
         }
 
-#if PC_VERSION
+#if PC
         void BringLeaderboard()
         {
             int control = MenuItem.ActivatingPlayer;
@@ -402,7 +402,7 @@ namespace CloudberryKingdom
             // Freeplay
             item = AddChallenge(Challenge_Freeplay.Instance, null, "Freeplay", 0);
 
-#if PC_VERSION
+#if PC
             // Leaderboards
             MyPile.Add(new QuadClass(ButtonTexture.X, 100, "Button_X"));
             item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, false, true));
@@ -473,7 +473,7 @@ namespace CloudberryKingdom
 
         protected virtual void SetPos()
         {
-#if PC_VERSION
+#if PC
             EzText _t = MyPile.FindEzText("LevelNum");
 
             float max_width = _t.GetWorldWidth("1000");
@@ -500,7 +500,7 @@ namespace CloudberryKingdom
                 EzText _t = MyPile.FindEzText("LevelNum");
                 _t.Show = true;
 
-#if PC_VERSION
+#if PC
                 SetPos();
                 _t.SubstituteText(Level.ToString());
 #else

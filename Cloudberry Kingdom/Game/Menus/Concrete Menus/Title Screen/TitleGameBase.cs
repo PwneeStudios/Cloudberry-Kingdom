@@ -121,7 +121,7 @@ namespace CloudberryKingdom
 
         public override void PhsxStep()
         {
-#if PC_VERSION
+#if PC
             Tools.TheGame.ShowMouse = true;
 #endif
             Camera cam = MyLevel.MainCamera;

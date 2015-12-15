@@ -1,4 +1,4 @@
-#if PC_VERSION && !SDL2
+#if PC && !SDL2
 using System;
 using System.Text;
 using System.Runtime.InteropServices;

@@ -51,7 +51,7 @@ namespace CloudberryKingdom
 
             EnsureFancy();
 
-#if PC_VERSION
+#if PC
 			if (ButtonCheck.ControllerInUse)
 			{
 				Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
@@ -87,7 +87,7 @@ namespace CloudberryKingdom
             }
 
             if (ButtonCheck.AnyKey() && !ButtonCheck.State(ControllerButtons.B, -2).Down
-#if PC_VERSION
+#if PC
 				&& !Tools.CurRightMouseDown()
 #endif
 				)

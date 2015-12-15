@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 #endif
 
@@ -145,7 +145,7 @@ namespace CloudberryKingdom
 
             if (award == null) return;
 
-#if PC_VERSION
+#if PC
 			if (CloudberryKingdomGame.SteamAvailable)
 			{
 				if (award.Official)

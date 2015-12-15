@@ -143,7 +143,7 @@ namespace CloudberryKingdom
 
         void MenuGo_Play(MenuItem item)
         {
-#if PC_VERSION || WINDOWS
+#if PC || WINDOWS
 			Call(new StartMenu_MW(Title), 0);
 #else
 			if (CloudberryKingdomGame.ProfilesAvailable())
@@ -209,7 +209,7 @@ namespace CloudberryKingdom
         void MenuGo_BuyGame(MenuItem item)
         {
             CloudberryKingdomGame.ShowMarketplace = true;
-#if PC_VERSION
+#if PC
 #else
             CloudberryKingdomGame.ShowFor = (PlayerIndex)MenuItem.ActivatingPlayer;
 #endif

@@ -35,7 +35,7 @@ namespace CloudberryKingdom
 
             if (!Text)
             {
-#if PC_VERSION
+#if PC
                 if (Selected && Tools.Mouse.LeftButton == ButtonState.Pressed)
                     Slider.Quad.MyTexture = Held;
                 else

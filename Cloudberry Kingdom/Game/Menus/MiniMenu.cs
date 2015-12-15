@@ -36,7 +36,7 @@ namespace CloudberryKingdom
                 return;
             }
 
-#if PC_VERSION
+#if PC
 			TopItem -= (int)System.Math.Sign(Tools.DeltaScroll);
 			TopItem = CoreMath.Restrict(0, Items.Count - ItemsToShow, TopItem);
 #endif
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             CurDrawLayer = Layer;
 
             // Update index bounds
-#if PC_VERSION
+#if PC
 			if (!ButtonCheck.MouseInUse)
 #endif
 			{
@@ -59,7 +59,7 @@ namespace CloudberryKingdom
 				if (CurIndex > BottomItem) BottomItem = CurIndex;
 			}
 
-#if PC_VERSION
+#if PC
 			foreach (var item in Items)
 				item.MouseSelectable = false;
 #endif
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
 
                 var item = Items[i];
 
-#if PC_VERSION
+#if PC
 				item.MouseSelectable = true;
 #endif
                 

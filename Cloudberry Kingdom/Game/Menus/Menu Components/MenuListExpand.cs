@@ -71,7 +71,7 @@ namespace CloudberryKingdom
 
             item.Go = null;
             
-#if PC_VERSION
+#if PC
                 item.Padding += new Vector2(0, 35);
 #endif
 
@@ -82,7 +82,7 @@ namespace CloudberryKingdom
         {
             base.AddItem(item);
 
-#if PC_VERSION
+#if PC
             item.Padding.Y -= 37;
 #endif
         }
@@ -198,7 +198,7 @@ namespace CloudberryKingdom
             if (Count > 4) MyMenu.Active = true;
             else { MyMenu.NoneSelected = true; MyMenu.Active = false; }
 
-#if PC_VERSION
+#if PC
             if (!Tools.CurMouseDown())
                 Back();
 #endif

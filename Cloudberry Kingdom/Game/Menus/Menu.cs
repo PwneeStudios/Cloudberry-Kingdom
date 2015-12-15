@@ -455,7 +455,7 @@ namespace CloudberryKingdom
 
         bool CheckForBackFromOutsideClick()
         {
-#if PC_VERSION
+#if PC
             if (Tools.ViewerIsUp) return false;
 
             bool Hit = HitTest();
@@ -473,7 +473,7 @@ namespace CloudberryKingdom
 #endif
         }
 
-#if PC_VERSION
+#if PC
         public bool HitTest() { return HitTest(new Vector2(100, 100)); }
         public bool HitTest(Vector2 HitPadding)
         {
@@ -506,7 +506,7 @@ namespace CloudberryKingdom
             }
             ActiveTimeStamp = Tools.TheGame.DrawCount;
 
-#if PC_VERSION
+#if PC
             // Show the mouse 
             Tools.TheGame.ShowMouse = true;
 
@@ -605,7 +605,7 @@ namespace CloudberryKingdom
             if (ActivateOnA)
             {
                 bool CheckForOverride = true;
-#if PC_VERSION
+#if PC
 				if (ButtonCheck.State(ButtonCheck.Go_Secondary).Pressed)
                     CheckForOverride = false;
 #endif
@@ -625,7 +625,7 @@ namespace CloudberryKingdom
             // Click outside the menu to go back
             bool ClickBack = false;
             
-#if PC_VERSION
+#if PC
             if (CheckForOutsideClick && NoneSelected && ButtonCheck.MouseInUse && Tools.MouseReleased())
                 if (outside)
                     ClickBack = true;
@@ -672,7 +672,7 @@ namespace CloudberryKingdom
                     return;
             }
 
-#if PC_VERSION
+#if PC
             // If the mouse is in use and nothing is selected, then hitting a key on the keyboard
             // should only hide the mouse, it shouldn't immediately change what is selected
             if (ButtonCheck.MouseInUse)
@@ -683,7 +683,7 @@ namespace CloudberryKingdom
 #endif
 
             // If the menu can use the keyboard then check for index changes by the arrow keys
-#if PC_VERSION
+#if PC
             if (!MouseOnly && !ButtonCheck.PrevMouseInUse)
 #else
             if (!MouseOnly)
@@ -896,7 +896,7 @@ namespace CloudberryKingdom
         /// </summary>
         protected bool DrawItemAsSelected(MenuItem item)
         {
-#if PC_VERSION
+#if PC
 #else
             // Never draw anything as selected if the menu is mouse only and there is no mouse
             if (MouseOnly) return false;

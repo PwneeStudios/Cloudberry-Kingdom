@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 
         public Listener(ControllerButtons button, Action action)
         {
-#if PC_VERSION
+#if PC
             if (button == ControllerButtons.A || button == ControllerButtons.Any)
             {
                 if (MyButton2 == null) MyButton2 = new ButtonClass();

@@ -1550,7 +1550,7 @@ namespace CloudberryKingdom
             list.Clear();
         }
 
-#if PC_VERSION
+#if PC
 #elif XBOX || XBOX_SIGNIN
         /*
         public virtual void OnSignIn(SignedInEventArgs e)

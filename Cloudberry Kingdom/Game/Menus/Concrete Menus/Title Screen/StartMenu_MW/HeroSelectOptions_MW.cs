@@ -131,7 +131,7 @@ namespace CloudberryKingdom
             CallDelay = ReturnToCallerDelay = 0;
 
             // Options. Menu for PC, graphics only for consoles.
-#if PC_VERSION
+#if PC
             // Menu
             MyMenu = new Menu();
             MyMenu.OnB = null;
@@ -147,7 +147,7 @@ namespace CloudberryKingdom
             item.Go = Cast.ToItem(BringLeaderboard);
             AddItem(item);
 
-#if PC_VERSION
+#if PC
 			item.MyText.OutlineColor.W = .9f;
 			item.MySelectedText.OutlineColor.W = 1f;
 #else
@@ -172,7 +172,7 @@ namespace CloudberryKingdom
 
 #endif
 
-#if PC_VERSION
+#if PC
             SetPos_PC();
 #else
 			SetPos_Console();

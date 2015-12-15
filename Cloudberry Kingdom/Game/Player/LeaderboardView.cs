@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-#if PC_VERSION
+#if PC
 using SteamManager;
 #endif
 
@@ -106,7 +106,7 @@ namespace CloudberryKingdom
 
             UpdateView();
 
-#if PC_VERSION
+#if PC
 			if (SortList != null)
 			{
 				MenuList.ProgrammaticalyCalled = true;
@@ -202,13 +202,13 @@ namespace CloudberryKingdom
 
 
 			MyMenu = new Menu(false);
-#if PC_VERSION
+#if PC
 			MyMenu.SkipKeyboardPhsx = true;
 #endif
 
             MyMenu.OnB = MenuReturnToCaller;
 
-#if PC_VERSION
+#if PC
 			MenuItems_KeyboardMouse();
 #else
 			MenuItems_ControllerInUse();
@@ -217,7 +217,7 @@ namespace CloudberryKingdom
 
 		ClickableBack Back;
 		
-#if PC_VERSION
+#if PC
 		SimpleScroll Scroll;
 		QuadClass ScrollQuad, ScrollTop, ScrollBottom;
 #endif
@@ -383,7 +383,7 @@ namespace CloudberryKingdom
             BoardList.SetIndex(0);
         }
 
-#if PC_VERSION
+#if PC
 		private void MakeScrollBar()
 		{
 			// Scroll bar
@@ -558,7 +558,7 @@ namespace CloudberryKingdom
 
             CurrentView.SetType(CurrentType);
 
-#if PC_VERSION
+#if PC
 			if (SortList != null)
 			{
 				MenuList.ProgrammaticalyCalled = true;
@@ -656,7 +656,7 @@ namespace CloudberryKingdom
             else
                 ToMake_Id = Id;
 
-#if PC_VERSION
+#if PC
 			if (BoardList != null)
 			{
 				MenuList.ProgrammaticalyCalled = true;
@@ -729,7 +729,7 @@ namespace CloudberryKingdom
 
             if (!Active || BubblingOut) return;
 
-#if PC_VERSION
+#if PC
 			// Update the back button and the scroll bar
 			if (Back.UpdateBack(MyCameraZoom))
 			{
@@ -883,7 +883,7 @@ namespace CloudberryKingdom
             }
         }
 
-#if PC_VERSION
+#if PC
 		void SetPos()
 		{
 			if (ButtonCheck.ControllerInUse)
@@ -1239,7 +1239,7 @@ namespace CloudberryKingdom
 		public float scale;
 		public bool Special;
 
-#if PC_VERSION
+#if PC
 		static Dictionary<int, string> SpecialIDs = new Dictionary<int, string> {
 			{ 100410705, "Pwnee Studios" },
  			{ 103083116, "Tewth Brush" },

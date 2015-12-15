@@ -159,7 +159,7 @@ namespace CloudberryKingdom
         {
             base.MyPhsxStep();
 
-#if PC_VERSION
+#if PC
 			CloudberryKingdomGame.SuppressSavingTextDuration = 60;
 #endif
         }

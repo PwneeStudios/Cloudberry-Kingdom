@@ -17,7 +17,7 @@ namespace CloudberryKingdom
         Door Parent;
 
         public PressNote(Door Parent) :
-#if PC_VERSION
+#if PC
 			base(string.Format(Localization.WordString(Localization.Words.Press),
 				ButtonCheck.ControllerInUse ? ButtonString.X(ButtonScale) : ButtonString.Up(ButtonScale)
 				), Parent.Pos, true)

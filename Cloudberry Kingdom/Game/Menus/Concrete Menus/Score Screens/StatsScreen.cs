@@ -96,7 +96,7 @@ namespace CloudberryKingdom.Stats
             CategoryDelays();
         }
 
-#if PC_VERSION
+#if PC
         ScrollBar bar;
 #endif
 
@@ -334,7 +334,7 @@ namespace CloudberryKingdom.Stats
             base.OnAdd();
 
             // Scroll bar
-#if PC_VERSION
+#if PC
             bar = new ScrollBar((LongMenu)MyMenu, this);
             bar.BarPos = BarPos;
             MyGame.AddGameObject(bar);
@@ -348,7 +348,7 @@ namespace CloudberryKingdom.Stats
 
             ItemPos = new Vector2(1230.718f, 975.2383f);
             
-#if PC_VERSION
+#if PC
             item = MakeBackButton();
             item.UnaffectedByScroll = true;
             item.ScaleText(.5f);

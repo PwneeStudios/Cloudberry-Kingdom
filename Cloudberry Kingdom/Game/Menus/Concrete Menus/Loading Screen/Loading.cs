@@ -141,7 +141,7 @@ namespace CloudberryKingdom
 #if MONO
 		int LogoCount_Max = 60 * 4 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
 		//int LogoCount_Max = 60 * 7 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
-#elif PC_VERSION
+#elif PC
 		int LogoCount_Max = 60 * 4 - 50 - 93; // 4 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)
 #else
 		int LogoCount_Max = 60 * 5 - 50 - 93; // 5 seconds, minus 50 frames to fade out, minus 1.5 seconds extra (Ubisoft compliance request)

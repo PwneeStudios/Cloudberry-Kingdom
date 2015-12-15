@@ -173,7 +173,7 @@ namespace CloudberryKingdom
         }
     }
 
-#if PC_VERSION
+#if PC
     public class SimpleMenu : SimpleMenuBase
     {
         public SimpleMenu(int Control, CharacterSelect Parent) : base(Control, Parent)

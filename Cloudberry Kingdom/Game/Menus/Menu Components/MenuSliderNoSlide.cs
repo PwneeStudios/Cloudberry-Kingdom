@@ -16,7 +16,7 @@ namespace CloudberryKingdom
             InitializeSlider();
         }
 
-#if PC_VERSION
+#if PC
         protected override void PC_OnLeftMouseDown()
         {
             if (!ButtonCheck.State(ControllerButtons.A, Control).Pressed)

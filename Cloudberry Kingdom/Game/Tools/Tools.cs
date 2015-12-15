@@ -53,7 +53,7 @@ namespace CloudberryKingdom
         bool ShowWithMouseOnly;
         public ClickableBack(DrawPile pile, bool ShowWithMouseOnly, bool MakeButton)
         {
-#if PC_VERSION
+#if PC
             this.pile = pile;
 #endif
 
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 
         void GrabBack()
         {
-#if PC_VERSION
+#if PC
             scale1 = q1.Size;
             scale2 = q2.Size;
 
@@ -113,7 +113,7 @@ namespace CloudberryKingdom
         /// <returns>true if the back button was activated and the GUI_Panel should abort the remaining phsx.</returns>
         public bool UpdateBack(Vector2 MyCameraZoom)
         {
-#if PC_VERSION
+#if PC
             if (scale1 == Vector2.Zero) GrabBack();
 
             HideShow();
