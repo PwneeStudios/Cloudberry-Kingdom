@@ -176,6 +176,9 @@
     <Reference Include="SeeSharp.Xna.Video">
       <HintPath>__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll</HintPath>
     </Reference>
+    <Reference Include="Steamworks.NET">
+      <HintPath>..\References\Steam\Steamworks.NET.dll</HintPath>
+    </Reference>
     <Reference Include="SteamWrapper">
       <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
     </Reference>
