@@ -86,20 +86,6 @@ namespace CloudberryKingdom
                 ShowFPS = !ShowFPS;
 #endif
 
-#if PC_DEBUG
-            if (Tools.FreeCam)
-            {
-                Vector2 pos = Tools.CurLevel.MainCamera.Data.Position;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Right)) pos.X += 130;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Left)) pos.X -= 130;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Up)) pos.Y += 130;
-                if (Tools.Keyboard.IsKeyDownCustom(Keys.Down)) pos.Y -= 130;
-                Tools.CurLevel.MainCamera.EffectivePos += pos - Tools.CurLevel.MainCamera.Data.Position;
-                Tools.CurLevel.MainCamera.Data.Position = Tools.CurLevel.MainCamera.Target = pos;
-                Tools.CurLevel.MainCamera.Update();
-            }
-#endif
-
             // Reload some dynamic data (tileset info, animation specifications).
             if (Tools.Keyboard.IsKeyDownCustom(Keys.X) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.X))
             {
@@ -132,26 +118,11 @@ namespace CloudberryKingdom
             {
                 foreach (var hero in Bob.HeroTypes)
                     hero.ResetInfo();
-
-                //Tools.TextureWad.LoadAllDynamic(Tools.GameClass.Content, CoreEngine.EzTextureWad.WhatToLoad.Animations);
-
-                //LoadInfo();
-
-                //// Reset blocks
-                //foreach (BlockBase block in Tools.CurLevel.Blocks)
-                //{
-                //    NormalBlock nblock = block as NormalBlock;
-                //    if (null != nblock) nblock.ResetPieces();
-
-                //    MovingBlock mblock = block as MovingBlock;
-                //    if (null != mblock) mblock.ResetPieces();
-                //}
             }
 #endif
 
             // Turn on a simple green screen background.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D9))
-                Background.GreenScreen = !Background.GreenScreen;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.D9) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.D9)) Background.GreenScreen = !Background.GreenScreen;
 
             Tools.ModNums();
 
@@ -180,19 +151,16 @@ namespace CloudberryKingdom
             }
 
             // Turn on/off graphics.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Q))
-                Tools.DrawGraphics = !Tools.DrawGraphics;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Q)) Tools.DrawGraphics = !Tools.DrawGraphics;
+            
             // Turn on/off drawing of collision detection boxes.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.W))
-                Tools.DrawBoxes = !Tools.DrawBoxes;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.W)) Tools.DrawBoxes = !Tools.DrawBoxes;
+            
             // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.E))
-                Tools.StepControl = !Tools.StepControl;
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.E)) Tools.StepControl = !Tools.StepControl;
+            
             // Modify the speed of the game.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.R))
-            {
-                Tools.IncrPhsxSpeed();
-            }
+            if (Tools.Keyboard.IsKeyDownCustom(Keys.R) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.R)) Tools.IncrPhsxSpeed();
 
             // Don't do any of the following if a control box is up.
             if (!Tools.ViewerIsUp && !KeyboardExtension.Freeze)
@@ -224,20 +192,7 @@ namespace CloudberryKingdom
                     Tools.CurLevel.MainCamera.Zoom /= .99f;
                     Tools.CurLevel.MainCamera.EffectiveZoom /= .99f;
                 }
-
-                //// Turn on/off FreeCam, which allows the user to pan the camera through the level freely.
-                //if (Tools.Keyboard.IsKeyDownCustom(Keys.P) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.P))
-                //    Tools.FreeCam = !Tools.FreeCam;
             }
-
-            // Allow Back to exit the game if we are in test mode
-//#if DEBUG
-//            if (ButtonCheck.State(ControllerButtons.Back, -1).Down)
-//            {
-//                Exit();
-//                return true;
-//            }
-//#endif
 
             return false;
         }
@@ -251,77 +206,10 @@ namespace CloudberryKingdom
         /// </summary>
         void DrawDebugInfo()
         {
-			//if (Tools.ShowNums)
-            {
-				//string nums = Tools.Num_0_to_2 + "\n\n" + Tools.Num_0_to_360;
-				string nums = Tools.Num_Vec.ToString();
-
-				//Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, nums, new Vector2(0, 100), Color.Orange.ToVector4(), new Vector2(.4f));
-				Tools.QDrawer.Flush();
-                return;
-            }
-
-#if WINDOWS
-            // Grace period for falling
-            //string str = "";
-            //if (Tools.CurLevel != null && Tools.CurLevel.Bobs.Count > 0)
-            //{
-            //    //var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxNormal;
-            //    //if (null != phsx) str = phsx.FallingCount.ToString();
-
-            //    var phsx = Tools.CurLevel.Bobs[0].MyPhsx as BobPhsxMeat;
-            //    //if (null != phsx) str = phsx.WallJumpCount.ToString();
-            //    if (null != phsx) str = phsx.StepsSinceSide.ToString();
-            //}
-
-            // Mouse
-            //string str = string.Format("Mouse delta: {0}", Tools.DeltaMouse);
-            //string str = string.Format("Mouse in window: {0}", Tools.MouseInWindow);
-
-            // VPlayer
-            //string str = "";
-            //if (VPlayer1 != null)
-            //{
-            //    str = VPlayer1.PlayPosition.Ticks.ToString();
-            //    //Tools.Write(str);
-            //}
-
-
-            // GC
-            //string str = GC.CollectionCount(0).ToString() + " " + fps.ToString() + "\n"
-            //    + (RunningSlowly ? "SLOW" : "____ FAST") + "\n"
-            //    + debugstring;
-			//string str = debugstring;
-			//string str = PlayerManager.MaxPlayerTotalLevel().ToString();
-			string str = Localization.WordString( Localization.Words.AwardTitle_Buy );
-
-            // Phsx count
-            //string str  = string.Format("CurLevel PhsxStep: {0}\n", Tools.CurLevel.CurPhsxStep);
-
-            // Score
-            //PlayerData p = PlayerManager.Get(0);
-            //string str = string.Format("Death {0}, {1}, {2}, {3}, {4}", p.TempStats.TotalDeaths, p.LevelStats.TotalDeaths, p.GameStats.TotalDeaths, p.CampaignStats.TotalDeaths, Campaign.Attempts);
-            //Campaign.CalcScore();
-            //string str2 = string.Format("Coins {0}, {1}, {2}, {3}, {4}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.CampaignStats.Coins, Campaign.Coins);
-            //str += "\n\n" + str2;
-            //string str3 = string.Format("Total {0}, {1}, {2}, {3}, {4}", p.TempStats.TotalCoins, p.LevelStats.TotalCoins, p.GameStats.TotalCoins, p.CampaignStats.TotalCoins, Campaign.TotalCoins);
-            //str += "\n\n" + str3;
-            //string str4 = string.Format("Total {0}, {1}, {2}, {3}", p.TempStats.TotalBlobs, p.LevelStats.TotalBlobs, p.GameStats.TotalBlobs, p.CampaignStats.TotalBlobs);
-            //str += "\n" + str4;
-            //string str5 = string.Format(" {0}, {1}, {2}, {3}", p.TempStats.Blobs, p.LevelStats.Blobs, p.GameStats.Blobs, p.CampaignStats.Blobs);
-            //str += "\n" + str5;
-
-            // Coins
-            //string str = string.Format("{0}, {1}, {2}, {3}", p.TempStats.Coins, p.LevelStats.Coins, p.GameStats.Coins, p.CampaignStats.Coins);
-            //string str2 = string.Format("{0}, {1}, {2}, {3}", p.TempStats.TotalCoins, p.LevelStats.TotalCoins, p.GameStats.TotalCoins, p.CampaignStats.TotalCoins);
-            //str += "\n" + str2;
-#else
-            string str = debugstring;
-#endif
-
-            //str = string.Format("{0,-5} {1,-5} {2,-5} {3,-5} {4,-5}", Level.Pre1, Level.Step1, Level.Pre2, Level.Step2, Level.Post);
-
 			if (Tools.CurCamera == null) return;
+
+            var str = "Debug info test";
+
             Tools.QDrawer.DrawString(Resources.Font_Grobold42.HFont, str, Tools.CurCamera.Pos + new Vector2(-1300, 800), Color.Orange.ToVector4(), new Vector2(2));
 			Tools.QDrawer.Flush();
         }

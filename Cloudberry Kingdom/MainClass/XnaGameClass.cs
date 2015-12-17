@@ -25,34 +25,7 @@ namespace CloudberryKingdom
             Tools.GameClass = this;
 
             Tools.Write("XnaGameClass Constructor");
-
-			// Read load options
-			try
-			{
-				var options = System.IO.File.ReadLines("RunOptions.txt");
-
-				foreach (var option in options)
-				{
-					var lower = option.ToLower();
-
-					if (lower.Contains("xnavideo") &&
-						lower.Contains("on"))
-					{
-						VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.Xna;
-					}
-
-					if (lower.Contains("directshowvideo") &&
-						lower.Contains("on"))
-					{
-						VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.DirectShow;
-					}
-				}
-			}
-			catch
-			{
-			}
 			
-			//VideoWrapper.CurrentVideoPlayerType = VideoWrapper.VideoPlayerType.Xna;
 #if XBOX
             Components.Add(new GamerServicesComponent(this));
             Tools.Write("GamerService added");
@@ -127,7 +100,6 @@ namespace CloudberryKingdom
 			catch (Exception e)
 			{
 				Tools.Log("Exception on XnaGameClass.Update\n" + Tools.ExceptionStr(e));
-				//Tools.Log(string.Format("Stack trace\n\n{0}\n\n\nInner Exception\n\n{1}\n\n\nMessage\n\n{2}", e.StackTrace, e.InnerException, e.Message));
 			}
         }
 
@@ -135,15 +107,6 @@ namespace CloudberryKingdom
         {
 #if DEBUG
 			MyGame.Draw(gameTime);
-
-			//try
-			//{
-			//    MyGame.Draw(gameTime);
-			//}
-			//catch (Exception e)
-			//{
-			//    Tools.Write(e.Message);
-			//}
 #else
 			try
 			{
@@ -165,19 +128,6 @@ namespace CloudberryKingdom
 #if WINDOWS
 		public static bool WindowModeSet = false;
 
-		#if MONO || SDL2 // FIXME: SDL2 can do this... -flibit
-		public void FakeFull()
-		{
-		}
-
-		public void FakeTab()
-		{
-		}
-
-		public void SetBorder(bool Show)
-		{
-		}
-		#else
 		public void FakeFull()
 		{
 			if (WindowModeSet) return;
@@ -193,7 +143,6 @@ namespace CloudberryKingdom
 					control.Show();
 					control.Location = new System.Drawing.Point(0, 0);
 
-					//form.TopLevel = true;
 					form.TopMost = true;
 
 					form.FormBorderStyle = FormBorderStyle.None;
@@ -222,10 +171,6 @@ namespace CloudberryKingdom
 			switch (Tools.Mode)
 			{
 				case WindowMode.Borderless:
-					//control.Hide();
-					//control.Location = new System.Drawing.Point(0, 0);
-
-					//form.TopLevel = true;
 					form.TopMost = false;
 
 					form.FormBorderStyle = FormBorderStyle.None;
@@ -244,7 +189,6 @@ namespace CloudberryKingdom
             var form = control.FindForm();
             form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         }
-		#endif
 #endif
     }
 }

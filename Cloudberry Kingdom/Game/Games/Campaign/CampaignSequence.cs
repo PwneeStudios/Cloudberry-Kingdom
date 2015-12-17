@@ -424,7 +424,7 @@ namespace CloudberryKingdom
         {
             return level =>
             {
-				VideoWrapper.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
+				XnaVideo.StartVideo_CanSkipIfWatched_OrCanSkipAfterXseconds(movie, 1.5f);
 
                 ((ActionGameData)level.MyGame).Done = true;
             };

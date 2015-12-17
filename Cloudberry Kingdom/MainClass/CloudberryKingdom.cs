@@ -80,10 +80,12 @@ namespace CloudberryKingdom
 
         public const bool AllowAsianLanguages = true;
 
-        public const string VersionString = "1.0.0007";
+        public const string VersionString = "2.0.0000";
         public const bool CodersEdition = true;
         public static bool AndersSwitch = false;
         public static bool BungeeSwitch = true;
+        public const bool AllowReturnToAttractScreen = false;
+
         public static bool AlwaysBungee
         {
             get
@@ -91,9 +93,6 @@ namespace CloudberryKingdom
                 return BungeeSwitch && PlayerManager.GetNumPlayers() > 1;
             }
         }
-        public const bool DigitalDayBuild = false;
-
-        public const bool PropTest = false;
 
         /// <summary>
         /// The version of the game we are working on now (+1 over the last version uploaded to Steam).
@@ -141,7 +140,7 @@ namespace CloudberryKingdom
         //public static bool FakeAwardments = false;
         //public static float GuiSqueeze = 0;
 #elif XBOX
-        public static bool HideLogos = false || PropTest;
+        public static bool HideLogos = false;
         public static bool LockCampaign = false;
         public static bool SimpleMainMenu = false;
         public static MainMenuTypes MainMenuType = MainMenuTypes.Xbox;
@@ -1308,15 +1307,7 @@ namespace CloudberryKingdom
             for (int i = 0; i < Tools.TextureWad.TextureList.Count; i++)
             {
                 var tex = Tools.TextureWad.TextureList[i];
-
-                if (CloudberryKingdomGame.PropTest)
-                {
-                    tex.Tex = Tools.TextureWad.DefaultTexture.Tex;
-                }
-                else
-                {
-                    tex.Tex = Tools.Transparent.Tex;
-                }
+                tex.Tex = Tools.Transparent.Tex;
 
                 Resources.ResourceLoadedCountRef.Val++;
             }
@@ -1341,7 +1332,7 @@ namespace CloudberryKingdom
                 }
 #else
                 //MainVideo.StartVideo_CanSkipIfWatched("LogoSalad");
-                VideoWrapper.StartVideo("LogoSalad", false, 3.45f);
+                XnaVideo.StartVideo("LogoSalad", false, 3.45f);
 #endif
             }
 
@@ -2065,7 +2056,7 @@ namespace CloudberryKingdom
             if (SetupToRender()) { DrawWatermark(); return; }
 
             // Main Video
-            if (VideoWrapper.Draw())
+            if (XnaVideo.Draw())
             {
 #if XBOX
                 if (PlayerManager.Players != null)
@@ -2190,16 +2181,12 @@ namespace CloudberryKingdom
                 LoadingScreen.Draw();
             else if (Tools.ShowLoadingScreen)
                 DrawLoading();
-            else if (Tools.CurGameData != null && !VideoWrapper.IsPlaying)
+            else if (Tools.CurGameData != null && !XnaVideo.IsPlaying)
                 DrawGame();
             else
                 DrawNothing();
 
             DrawExtra();
-
-#if DEBUG && !XDK && !MONO && !SDL2
-            SaveScreenshotCode();
-#endif
 
             DrawWatermark();
             DrawSavingText();
@@ -2483,12 +2470,12 @@ namespace CloudberryKingdom
 
                     // If a movie is playing, pause it,
                     // and note that we should resume once the window becomes active.
-                    if (VideoWrapper.IsPlaying)
+                    if (XnaVideo.IsPlaying)
                     {
                         if (!VideoPlaying_HoldState)
                         {
                             VideoPlaying_HoldState = true;
-                            VideoWrapper.Pause();
+                            XnaVideo.Pause();
                         }
                     }
 
@@ -2528,7 +2515,7 @@ namespace CloudberryKingdom
                     if (VideoPlaying_HoldState)
                     {
                         VideoPlaying_HoldState = false;
-                        VideoWrapper.Resume();
+                        XnaVideo.Resume();
                     }
 
                     FirstActiveFrame = false;

@@ -213,29 +213,16 @@ namespace CloudberryKingdom
 
         private static void Initialize()
         {
-            //if (CloudberryKingdomGame.AllowAsianLanguages)
-            //{
-                Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
-                Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
-                Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
-                Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
-                Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
-                Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese", "Japanese"));
-                Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean", "Korean"));
-                Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
-                Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
-                Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
-            //}
-            //else
-            //{
-            //    Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
-            //    Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
-            //    Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
-            //    Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
-            //    Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
-            //    Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
-            //    Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
-            //}
+            Languages.Add(Language.Chinese, new LanguageInfo(Language.Chinese, "Chinese", "Chinese"));
+            Languages.Add(Language.English, new LanguageInfo(Language.English, "English", "Western"));
+            Languages.Add(Language.French, new LanguageInfo(Language.French, "French", "Western"));
+            Languages.Add(Language.German, new LanguageInfo(Language.German, "German", "Western"));
+            Languages.Add(Language.Italian, new LanguageInfo(Language.Italian, "Italian", "Western"));
+            Languages.Add(Language.Japanese, new LanguageInfo(Language.Japanese, "Japanese", "Japanese"));
+            Languages.Add(Language.Korean, new LanguageInfo(Language.Korean, "Korean", "Korean"));
+            Languages.Add(Language.Portuguese, new LanguageInfo(Language.Portuguese, "Portuguese", "Western"));
+            Languages.Add(Language.Russian, new LanguageInfo(Language.Russian, "Russian", "Western"));
+            Languages.Add(Language.Spanish, new LanguageInfo(Language.Spanish, "Spanish", "Western"));
 
             string path = Path.Combine(Content.RootDirectory, Path.Combine("Localization", "Localization.tsv"));
             ReadTranslationGrid(path);

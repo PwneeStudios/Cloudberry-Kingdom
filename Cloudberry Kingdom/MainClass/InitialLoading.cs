@@ -28,17 +28,13 @@
 
                     DrawCount = PhsxCount = 0;
 
-
-					// Warning, should not exist, but need to test without.
-					// PlayerManager.Get(0).IsAlive = PlayerManager.Get(0).Exists = true;
-
-
                     // Now that everything is loaded, start the real game, dependent on the command line arguments.
                     if (StartAsBackgroundEditor)
                     {
 #if DEBUG
                         MakeEmptyLevel();
 #endif
+
 #if INCLUDE_EDITOR
                         Tools.background_viewer = new Viewer.BackgroundViewer();
                         Tools.background_viewer.Show();
@@ -64,7 +60,6 @@
 
 #if DEBUG
                     // Start at Title Screen
-                    // WARNING
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;
                     //Tools.CurGameData = CloudberryKingdomGame.TitleGameFactory(); return;
 #else

@@ -97,18 +97,6 @@ namespace CloudberryKingdom
             PieceQuad.ElevatorGroup.Add(100, PieceQuad.Elevator);
             PieceQuad.ElevatorGroup.SortWidths();
 
-
-            //#if INCLUDE_EDITOR
-            //if (LoadDynamic)
-            {
-                //if (!AlwaysSkipDynamicArt)
-                //    Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Art);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Backgrounds);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Animations);
-                //Tools.TextureWad.LoadAllDynamic(Content, EzTextureWad.WhatToLoad.Tilesets);
-            }
-            //#endif
-
             t.Stop();
             Tools.Write("... done loading info!");
             Tools.Write("Total seconds: {0}", t.Elapsed.TotalSeconds);
@@ -255,7 +243,7 @@ namespace CloudberryKingdom
             FontLoad();
 
             // Load the art!
-            PreloadArt();
+            ArtList.PreloadArtFiles();
 
             // Load the music!
             LoadMusic();
@@ -264,33 +252,9 @@ namespace CloudberryKingdom
             LoadSound();
         }
 
-        static void PreloadArt()
-        {
-            String path = Path.Combine(Globals.ContentDirectory, "Art");
-
-            //string[] files = Tools.GetFiles(path, true);
-            //foreach (String file in files)
-            //{
-            //    if (Tools.GetFileExt(path, file) == "xnb")
-            //    {
-            //        Tools.TextureWad.AddTexture(null, "Art\\" + Tools.GetFileName(path, file));
-            //    }
-            //}
-
-            //string[] files = ArtList.ArtFiles;
-            //foreach (String file in files)
-            //{
-            //    Tools.TextureWad.AddTexture(null, file);
-            //}
-
-            ArtList.PreloadArtFiles();
-        }
-
         public static void LoadResources()
         {
-            _LoadThread ();
-            //LoadThread = Tools.EasyThread(5, "LoadThread", _LoadThread);
-            //LoadThread.Priority = ThreadPriority.Highest;
+            _LoadThread();
         }
 
         public static void LoadResources_ImmediateForeground()
@@ -314,12 +278,6 @@ namespace CloudberryKingdom
             Tools.t = 0;
 
             Tools.Render.MySpriteBatch = new SpriteBatch(Ck.GraphicsDevice);
-
-
-
-
-
-
             Tools.Write(string.Format("Load thread starts at {0}", System.DateTime.Now));
 
             Tools.Write("Start");
@@ -349,7 +307,6 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
         }
 #else
-
         public static T LoadTillSuccess<T>(this ContentManager Content, string Path)
         {
             #if MONO
@@ -402,7 +359,6 @@ namespace CloudberryKingdom
 #if PC
             // Mouse pointer
             Ck.MousePointer = new QuadClass();
-            //Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Hand_Open");
             Ck.MousePointer.Quad.MyTexture = Tools.TextureWad.FindByName("Mouse");
             Ck.MousePointer.ScaleYToMatchRatio(70);
 
@@ -425,12 +381,6 @@ namespace CloudberryKingdom
             Tools.Write(string.Format("Load thread done at {0}", System.DateTime.Now));
 
             Texture2D transparent = Tools.Transparent.Tex;
-
-            if (CloudberryKingdomGame.PropTest)
-            {
-                FinalLoadDone = true;
-                return;
-            }
 
             int count = 0;
             foreach (EzTexture Tex in Tools.TextureWad.TextureList)

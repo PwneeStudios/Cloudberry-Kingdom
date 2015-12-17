@@ -123,24 +123,9 @@ namespace CloudberryKingdom
             Elapsed += Tools.TheGame.DeltaT;
         }
 
-        static bool Paused = false;
         static void UserInput()
         {
             ButtonCheck.UpdateControllerAndKeyboard_StartOfStep();
-
-//#if WINDOWS && DEBUG
-//            if (ButtonCheck.State(Keys.P).Pressed)
-//            {
-//                if (Paused)
-//                    VPlayer.Resume();
-//                else
-//                    VPlayer.Pause();
-                
-//                Paused = !Paused;
-//            }
-
-//            if (!(ButtonCheck.State(Keys.P).Down))
-//#endif
 
             // End the video if the user presses a key
             if (CanSkip && PlayerManager.Players != null && Elapsed > .3f ||

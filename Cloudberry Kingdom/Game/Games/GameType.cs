@@ -1210,10 +1210,8 @@ namespace CloudberryKingdom
         {
             if (Loading || Tools.ShowLoadingScreen) return;
 
-            if (CloudberryKingdomGame.DigitalDayBuild)
+            if (CloudberryKingdomGame.AllowReturnToAttractScreen)
             {
-                //Tools.SongWad.Stop();
-
                 if (ButtonCheck.State(ControllerButtons.Back, -2).Down)
                 {
                     XButtonPressCount++;

@@ -216,13 +216,10 @@
     <Compile Include="Core\Tools\ColorHelper.cs" />
     <Compile Include="Core\Tools\CoreMath.cs" />
     <Compile Include="Core\Version.cs" />
-    <Compile Include="Game\CloudberryKingdom\CloudberryKingdom.cs" />
-    <Compile Include="Game\CloudberryKingdom\BenchmarkHelper.cs" />
-    <Compile Include="Game\CloudberryKingdom\Assets.cs" />
-    <Compile Include="Game\CloudberryKingdom\DebugHelper_Screenshots.cs" />
-    <Compile Include="Game\CloudberryKingdom\DebugHelper.cs" />
-    <Compile Include="Game\CloudberryKingdom\DebugHelper_MakeTestLevel.cs" />
-    <Compile Include="Game\CloudberryKingdom\InitialLoading.cs" />
+    <Compile Include="MainClass\CloudberryKingdom.cs" />
+    <Compile Include="MainClass\DebugHelper.cs" />
+    <Compile Include="MainClass\DebugHelper_MakeTestLevel.cs" />
+    <Compile Include="MainClass\InitialLoading.cs" />
     <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Madness\Madness_Tutorial.cs" />
     <Compile Include="Game\Games\Meta Games\Arcade Games\Rush\Madness\Madness.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\BungeeSwitch.cs" />
@@ -251,15 +248,13 @@
     <Compile Include="Game\Player\Hero Physics\Blobby.cs" />
     <Compile Include="Game\Player\Hero Physics\UpsideDown.cs" />
     <Compile Include="Game\Player\Hero Physics\FourWay.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Palace.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Dungeon.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Anders_Terrace.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Anders__Terrace.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Anders__Dungeon.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Anders__Palace.cs" />
-    <Compile Include="Game\VideoWrapper.cs" />
-    <Compile Include="Game\DirectDrawVideo.cs" />
-    <Compile Include="Game\Localization.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Palace.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Dungeon.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Terrace.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Anders__Terrace.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Anders__Dungeon.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Anders__Palace.cs" />
+    <Compile Include="Config\Localization.cs" />
     <Compile Include="Game\Games\Campaign\CampaignSequence.cs" />
     <Compile Include="Game\Games\Campaign\FadeIn.cs" />
     <Compile Include="Game\Games\Campaign\LevelSequence.cs" />
@@ -327,27 +322,27 @@
     <Compile Include="Game\Player\LeaderboardView.cs" />
     <Compile Include="Game\Player\Leaderboard.cs" />
     <Compile Include="Game\Player\Hero Physics\TimeShip.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_Dark.cs" />
-    <Compile Include="Game\Tools\CkColorHelper.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_Dark.cs" />
+    <Compile Include="Config\CkColorHelper.cs" />
     <Compile Include="Game\Menus\MiniMenu.cs" />
     <Compile Include="Game\Objects\In Game Objects\Blocks\Lava_Castle.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\MultiplierUp.cs" />
     <Compile Include="Game\Objects\Game Objects\GameObjects\GUI_Multiplier.cs" />
     <Compile Include="Game\Player\Awardments\AwardmentMessage.cs" />
     <Compile Include="Game\Menus\Concrete Menus\ShopMenu.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_Rain.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Forest.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Cloud.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Cave.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Hills.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Castle.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\_Code\_code_Sea.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Clouds.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Castle.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Sea.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Hills.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Forest.cs" />
-    <Compile Include="Game\Tilesets\Tilesets\Cave.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_Rain.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Forest.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Cloud.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Cave.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Hills.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Castle.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Sea.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Clouds.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Castle.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Sea.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Hills.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Forest.cs" />
+    <Compile Include="Config\Tilesets\Tilesets\Cave.cs" />
     <Compile Include="Core\Sound\EzSoundWad.cs" />
     <Compile Include="Core\Song\EzSongWad.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\BasePoint.cs" />
@@ -355,12 +350,11 @@
     <Compile Include="Core\Graphics\Draw\Simple\SimpleQuad.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleBox.cs" />
     <Compile Include="Core\Graphics\Draw\Simple\SimpleVector.cs" />
-    <Compile Include="Game\Tools\Resources.cs" />
-    <Compile Include="Game\Tools\Resources_Art_PC.cs" />
-    <Compile Include="Game\Video.cs" />
-    <Compile Include="MainClass\XboxPC\MainClass.cs" />
-    <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
-    <Compile Include="__DirectShowVideoPlayer\VideoPlayer.cs" />
+    <Compile Include="Core\GameTools\Resources.cs" />
+    <Compile Include="Config\Resources_Art_PC.cs" />
+    <Compile Include="Core\Video.cs" />
+    <Compile Include="MainClass\MainClass.cs" />
+    <Compile Include="MainClass\XnaGameClass.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -537,8 +531,8 @@
     <Compile Include="Game\Level\Make\Parameters\StyleData\UpData.cs" />
     <Compile Include="Game\Menus\LongMenu.cs" />
     <Compile Include="Game\Menus\Concrete Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
-    <Compile Include="__Steam_Wrapper\SteamManager.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\BackgroundCollection.cs" />
+    <Compile Include="Core\SteamManager.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\BackgroundCollection.cs" />
     <Compile Include="Game\Player\Hero Physics\BobPhsxCharSelect.cs" />
     <Compile Include="Game\Player\Hero Physics\Wheel.cs" />
     <Compile Include="Game\Menus\Concrete Menus\CharacterSelect\CharSelectManager.cs" />
@@ -628,21 +622,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloaterList.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
-    <Compile Include="Game\Tilesets\BlockGroup.cs" />
-    <Compile Include="Game\Tilesets\SpriteInfo.cs" />
-    <Compile Include="Game\Tilesets\TileSet.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\BackgroundFloaterList.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\BackgroundFloater.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\BackgroundFloater_Stationary.cs" />
+    <Compile Include="Config\Tilesets\BlockGroup.cs" />
+    <Compile Include="Config\Tilesets\SpriteInfo.cs" />
+    <Compile Include="Config\Tilesets\TileSet.cs" />
     <Compile Include="Game\Player\ClrTextFx.cs" />
     <Compile Include="Core\Animation\AnimationData_Vector.cs" />
-    <Compile Include="Game\Tilesets\Backgrounds\Background.cs" />
+    <Compile Include="Config\Tilesets\Backgrounds\Background.cs" />
     <Compile Include="Game\Player\Hero Physics\Base.cs" />
     <Compile Include="Game\Player\Hero Physics\Box.cs" />
     <Compile Include="Game\Player\Hero Physics\Normal.cs" />
     <Compile Include="Game\Player\Hero Physics\Spaceship.cs" />
     <Compile Include="Core\Input\ButtonCheck.cs" />
-    <Compile Include="Game\Tools\Camera.cs" />
+    <Compile Include="Core\GameTools\Camera.cs" />
     <Compile Include="Game\Objects\Special\CameraZone.cs" />
     <Compile Include="Game\Player\Cape.cs" />
     <Compile Include="Game\Objects\In Game Objects\Grab\Checkpoint.cs" />
@@ -671,12 +665,12 @@
     <Compile Include="Game\Collision Detection\Line.cs" />
     <Compile Include="Game\Collision Detection\FloatRectangle.cs" />
     <Compile Include="Core\Tools\Random.cs" />
-    <Compile Include="Game\Tools\TextInput.cs" />
-    <Compile Include="Game\Tools\EzStorage.cs" />
-    <Compile Include="Game\Tools\Oscillate.cs" />
-    <Compile Include="Game\Tools\IntVector2.cs" />
-    <Compile Include="Game\Tools\EzReader.cs" />
-    <Compile Include="Game\Tools\Globals.cs" />
+    <Compile Include="Core\GameTools\TextInput.cs" />
+    <Compile Include="Core\GameTools\EzStorage.cs" />
+    <Compile Include="Core\GameTools\Oscillate.cs" />
+    <Compile Include="Core\GameTools\IntVector2.cs" />
+    <Compile Include="Core\GameTools\EzReader.cs" />
+    <Compile Include="Core\GameTools\Globals.cs" />
     <Compile Include="Game\Objects\ObjectBase.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Laser.cs" />
     <Compile Include="Game\Level\Level.cs" />
@@ -689,15 +683,15 @@
     <Compile Include="Core\Particle Effects\Specific Effects\ParticleEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Particle Effects\Particle.cs" />
-    <Compile Include="Game\Tools\Prototypes.cs" />
-    <Compile Include="Game\Tools\Recycler.cs" />
+    <Compile Include="Core\GameTools\Prototypes.cs" />
+    <Compile Include="Core\GameTools\Recycler.cs" />
     <Compile Include="Game\Objects\In Game Objects\Obstacles\Spike.cs" />
     <Compile Include="Game\Objects\Special\TextList.cs" />
     <Compile Include="Core\Texture\EzTexture.cs" />
     <Compile Include="Game\Objects\Door\Door.cs" />
-    <Compile Include="Game\Tools\Tools.cs" />
-    <Compile Include="Game\Tools\Unset.cs" />
-    <Compile Include="Game\Tools\WrappedFloat.cs" />
+    <Compile Include="Core\GameTools\Tools.cs" />
+    <Compile Include="Core\GameTools\Unset.cs" />
+    <Compile Include="Core\GameTools\WrappedFloat.cs" />
     <Compile Include="Game\Games\Meta Games\StringWorlds\StringWorld.cs" />
     <Compile Include="Game\Objects\Special\ZoneTrigger.cs" />
     <Compile Include="Core\IViewable.cs" />
@@ -789,8 +783,6 @@
   <ItemGroup>
     <Content Include="BobIcon.png" />
     <Content Include="Cloudberry.ico" />
-    <Content Include="__DirectShowVideoPlayer\DirectShowLib-2005.dll" />
-    <Content Include="__DirectShowVideoPlayer\SeeSharp.Xna.Video.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ContentPC\Content.contentproj">
@@ -799,7 +791,9 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\CloudberryKingdom\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
