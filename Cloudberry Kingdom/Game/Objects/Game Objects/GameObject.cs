@@ -1,16 +1,8 @@
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.IO;
 using System;
 
-using Microsoft.Xna.Framework;
-
 using CoreEngine;
-using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {

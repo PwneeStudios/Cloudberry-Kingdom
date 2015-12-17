@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-
-using CloudberryKingdom;
-using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Stats;
 using CloudberryKingdom.Levels;
-
-using CoreEngine;
 
 namespace CloudberryKingdom
 {
-	public class SmallErrorMenu : VerifyBaseMenu
+    public class SmallErrorMenu : VerifyBaseMenu
 	{
 		Localization.Words Word;
 		public SmallErrorMenu(Localization.Words Word)

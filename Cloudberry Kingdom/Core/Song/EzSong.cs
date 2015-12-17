@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using XnaAudio = Microsoft.Xna.Framework.Audio;
 using XnaMedia = Microsoft.Xna.Framework.Media;
 using CloudberryKingdom;
 
 namespace CoreEngine
 {
-	public class XnaSong : BaseSong
+    public class XnaSong : BaseSong
 	{
 		public XnaMedia.Song song;
 

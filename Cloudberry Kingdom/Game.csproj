@@ -216,8 +216,6 @@
     <Compile Include="Core\Tools\ColorHelper.cs" />
     <Compile Include="Core\Tools\CoreMath.cs" />
     <Compile Include="Core\Version.cs" />
-    <Compile Include="EasyStorageSettings.cs" />
-    <Compile Include="FileAction.cs" />
     <Compile Include="Game\CloudberryKingdom\CloudberryKingdom.cs" />
     <Compile Include="Game\CloudberryKingdom\BenchmarkHelper.cs" />
     <Compile Include="Game\CloudberryKingdom\Assets.cs" />
@@ -360,19 +358,8 @@
     <Compile Include="Game\Tools\Resources.cs" />
     <Compile Include="Game\Tools\Resources_Art_PC.cs" />
     <Compile Include="Game\Video.cs" />
-    <Compile Include="IAsyncSaveDevice.cs" />
-    <Compile Include="ISaveDevice.cs" />
     <Compile Include="MainClass\XboxPC\MainClass.cs" />
     <Compile Include="MainClass\XboxPC\XnaGameClass.cs" />
-    <Compile Include="PlayerSaveDevice.cs" />
-    <Compile Include="SaveDevice.cs" />
-    <Compile Include="SaveDeviceAsync.cs" />
-    <Compile Include="SaveDeviceEventArgs.cs" />
-    <Compile Include="SaveDevicePromptEventArgs.cs" />
-    <Compile Include="SaveDevicePromptEventResponse.cs" />
-    <Compile Include="SaveDevicePromptState.cs" />
-    <Compile Include="SaveDeviceSynchronous.cs" />
-    <Compile Include="SharedSaveDevice.cs" />
     <Compile Include="__DirectShowVideoPlayer\VideoPlayer.cs" />
     <Compile Include="__Editors\Background Editor\BackgroundViewer.cs">
       <SubType>Form</SubType>

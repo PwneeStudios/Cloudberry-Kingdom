@@ -3,8 +3,6 @@ using System.IO;
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
-
-using CloudberryKingdom.Awards;
 using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Bobs

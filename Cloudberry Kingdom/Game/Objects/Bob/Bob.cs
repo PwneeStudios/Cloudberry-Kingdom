@@ -8,9 +8,7 @@ using Microsoft.Xna.Framework;
 using CoreEngine;
 
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom.Bobs
 {

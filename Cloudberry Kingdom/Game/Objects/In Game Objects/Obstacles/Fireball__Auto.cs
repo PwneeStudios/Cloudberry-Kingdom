@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 
 using Microsoft.Xna.Framework;
 
 using CoreEngine.Random;
-
-using CloudberryKingdom.Blocks;
 using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom.Levels

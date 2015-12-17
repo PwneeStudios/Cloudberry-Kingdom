@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Bobs;
-
 namespace CloudberryKingdom
 {
     public class BobPhsxSmall : BobPhsxNormal

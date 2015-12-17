@@ -1,15 +1,10 @@
 using System;
-using System.IO;
 using System.Threading;
-using System.Text;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using XnaMedia = Microsoft.Xna.Framework.Media;
 
 #if XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
@@ -20,14 +15,10 @@ using CoreEngine;
 
 using CloudberryKingdom.Bobs;
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Awards;
 using CloudberryKingdom.InGameObjects;
 using CloudberryKingdom.Obstacles;
 
 #if WINDOWS && DEBUG && !MONO && !SDL2
-using CloudberryKingdom.Viewer;
-using Forms = System.Windows.Forms;
 #endif
 
 #if PC
@@ -40,7 +31,7 @@ using OTK = OpenTK;
 
 namespace CloudberryKingdom
 {
-    #if MONO && WINDOWS
+#if MONO && WINDOWS
     public static class GameWindowExtensions {
         public static void SetPosition(this GameWindow window, Point position) {
             //OpenTK.GameWindow OTKWindow = GetForm(window);
@@ -60,7 +51,7 @@ namespace CloudberryKingdom
         }
         */
     }
-    #endif
+#endif
 
 
     public enum MainMenuTypes { PC, Xbox, PS3, WiiU, Vita };

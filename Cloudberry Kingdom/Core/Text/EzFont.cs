@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using CoreEngine;
+﻿using CoreEngine;
 
 namespace CloudberryKingdom
 {

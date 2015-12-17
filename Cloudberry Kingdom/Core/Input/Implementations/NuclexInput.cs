@@ -2,13 +2,12 @@
 using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 using Nuclex.Input;
 
 namespace CoreEngine
 {
-	public class NuclexGamepadInput : XnaInput
+    public class NuclexGamepadInput : XnaInput
 	{
 		InputManager NuclexInput;
 		

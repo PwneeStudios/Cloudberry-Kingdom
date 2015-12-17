@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 #if XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif

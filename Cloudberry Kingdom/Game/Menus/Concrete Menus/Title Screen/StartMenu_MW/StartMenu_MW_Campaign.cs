@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-
-using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {

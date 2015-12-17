@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.GamerServices;
 
 #if XBOX
 #elif !MONO && !SDL2
-using CloudberryKingdom.Viewer;
 #endif
 
 namespace CloudberryKingdom

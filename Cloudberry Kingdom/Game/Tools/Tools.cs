@@ -11,17 +11,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using XnaInput = Microsoft.Xna.Framework.Input;
-using XnaMedia = Microsoft.Xna.Framework.Media;
 
 using CoreEngine;
 using CoreEngine.Random;
 
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Blocks;
 
 #if WINDOWS && !MONO && !SDL2
-using CloudberryKingdom;
-using CloudberryKingdom.Viewer;
 using System.Runtime.InteropServices;
 #if INCLUDE_EDITOR
 using Forms = System.Windows.Forms;
@@ -30,7 +26,7 @@ using Forms = System.Windows.Forms;
 
 namespace CloudberryKingdom
 {
-    #if !MONO && !SDL2
+#if !MONO && !SDL2
     class WindowsHelper
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]

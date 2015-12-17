@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using CloudberryKingdom.Levels;
-using CloudberryKingdom.Awards;
-using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {

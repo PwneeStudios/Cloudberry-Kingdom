@@ -1,11 +1,8 @@
 #if PC
 using System;
-using System.IO;
 using System.Collections.Generic;
 
 using SteamManager;
-
-using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {

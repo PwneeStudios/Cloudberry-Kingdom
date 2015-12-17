@@ -1,8 +1,5 @@
-﻿using System;
-
+﻿
 using Microsoft.Xna.Framework;
-
-using CloudberryKingdom.Obstacles;
 
 namespace CloudberryKingdom
 {

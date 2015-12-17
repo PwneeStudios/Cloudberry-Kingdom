@@ -1,5 +1,4 @@
-﻿using CoreEngine;
-using CoreEngine.Random;
+﻿using CoreEngine.Random;
 
 namespace CloudberryKingdom.Levels
 {

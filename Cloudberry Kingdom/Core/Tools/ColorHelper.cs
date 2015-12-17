@@ -1,9 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 using Microsoft.Xna.Framework;
-
-using CoreEngine;
 
 namespace CloudberryKingdom
 {

@@ -3,15 +3,13 @@
 using Microsoft.Xna.Framework;
 
 #if PC
-using SteamManager;
-	#if !MONO && !SDL2
-	using Nuclex.Input;
-	#endif
+#if !MONO && !SDL2
+#endif
 #endif
 
 namespace CoreEngine
 {
-	public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any };
+    public enum ControllerButtons { A, B, X, Y, RS, LS, RT, LT, RJ, RJButton, LJ, LJButton, DPad, Start, Back, Left, Right, Up, Down, Enter, None, Any };
 
 	public static class CoreKeyboard
 	{

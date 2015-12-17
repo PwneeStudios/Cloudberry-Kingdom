@@ -2,8 +2,6 @@
 
 using CloudberryKingdom.Levels;
 
-using System.Threading;
-
 namespace CloudberryKingdom
 {
     public class CoinMod

@@ -4,8 +4,6 @@ using System.Linq;
 
 using Microsoft.Xna.Framework;
 
-using CoreEngine.Random;
-
 using CloudberryKingdom;
 
 namespace CoreEngine.Random

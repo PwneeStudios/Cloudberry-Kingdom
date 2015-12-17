@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 
 using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;

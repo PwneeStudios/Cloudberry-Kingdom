@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using CoreEngine;
-
-namespace CloudberryKingdom
+﻿namespace CloudberryKingdom
 {
     public interface ILoadingScreen
     {

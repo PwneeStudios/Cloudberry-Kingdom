@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom
 {

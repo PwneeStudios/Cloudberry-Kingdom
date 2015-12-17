@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Threading;
-using System.Collections.Generic;
 
 #if PC
 using SteamManager;

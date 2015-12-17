@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 #if PC
 #elif XBOX || XBOX_SIGNIN
 using Microsoft.Xna.Framework.GamerServices;
 #endif
-using CoreEngine;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom

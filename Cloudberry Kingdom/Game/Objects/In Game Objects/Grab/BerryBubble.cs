@@ -1,9 +1,7 @@
-﻿using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using CoreEngine;
 using System;
-using CloudberryKingdom.Levels;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom

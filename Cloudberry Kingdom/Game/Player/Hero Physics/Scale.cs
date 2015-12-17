@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {

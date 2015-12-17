@@ -1,6 +1,3 @@
-using Microsoft.Xna.Framework;
-using CloudberryKingdom.Stats;
-
 namespace CloudberryKingdom
 {
     public class StartMenu_Clouds_CustomLevel : CustomLevel_GUI

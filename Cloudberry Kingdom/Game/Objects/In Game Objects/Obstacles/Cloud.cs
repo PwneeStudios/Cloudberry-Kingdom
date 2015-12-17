@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework;
-
-using CoreEngine;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.Obstacles

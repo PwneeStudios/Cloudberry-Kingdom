@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using CloudberryKingdom.Levels;
-
 namespace CloudberryKingdom
 {
     public class GUI_CampaignLevel : GUI_Level

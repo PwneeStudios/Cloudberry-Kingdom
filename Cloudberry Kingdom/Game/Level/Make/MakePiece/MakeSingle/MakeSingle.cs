@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Bobs;
-using CloudberryKingdom.Obstacles;
 using CloudberryKingdom.Blocks;
 using CloudberryKingdom.InGameObjects;
 

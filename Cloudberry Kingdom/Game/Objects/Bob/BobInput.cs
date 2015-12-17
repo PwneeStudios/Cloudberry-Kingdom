@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
+﻿using System.IO;
 using Microsoft.Xna.Framework;
 
 using CoreEngine;

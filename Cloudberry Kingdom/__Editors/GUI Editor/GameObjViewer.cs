@@ -1,13 +1,10 @@
 ﻿#if WINDOWS
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 using Microsoft.Xna.Framework;
 using input = Microsoft.Xna.Framework.Input;
-
-using CloudberryKingdom;
 
 using System.Reflection;
 

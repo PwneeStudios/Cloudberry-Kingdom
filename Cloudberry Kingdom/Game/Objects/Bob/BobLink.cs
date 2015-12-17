@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom.Bobs

@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.GamerServices;
 
 using CoreEngine;
 
-using CloudberryKingdom.Stats;
-
 namespace CloudberryKingdom
 {
     public class StartMenu_Clouds_PressStart : CkBaseMenu

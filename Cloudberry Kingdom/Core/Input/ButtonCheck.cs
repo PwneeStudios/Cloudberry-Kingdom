@@ -416,10 +416,6 @@ namespace CloudberryKingdom
         public static int PreventTimeStamp;
         public static void PreventInput()
         {
-#if MIRROR_ALL
-            return;
-#endif
-
             PreventNextInput = true;
             PreventTimeStamp = Tools.TheGame.DrawCount;
 
@@ -638,9 +634,6 @@ namespace CloudberryKingdom
 
             if (PreLogIn && iPlayerIndex == -1) iPlayerIndex = -2;
 
-#if MIRROR_ALL
-            iPlayerIndex = 0;
-#endif
             ButtonData Data = new ButtonData();
             Data.PressingPlayer = iPlayerIndex;
             if (Button == ControllerButtons.None) return Data;

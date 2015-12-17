@@ -1,8 +1,3 @@
-using System;
-using System.Text;
-
-using Microsoft.Xna.Framework;
-
 namespace CloudberryKingdom
 {
     public class GUI_Timer : GUI_Timer_Base

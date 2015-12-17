@@ -1,13 +1,11 @@
 ﻿using System;
 
-using CloudberryKingdom;
-
 using Microsoft.Xna.Framework;
 using input = Microsoft.Xna.Framework.Input;
 
 namespace CoreEngine
 {
-	public class XnaInput : GamepadBase
+    public class XnaInput : GamepadBase
 	{
         protected input.GamePadState[] GamepadState, PrevGamepadState;
 

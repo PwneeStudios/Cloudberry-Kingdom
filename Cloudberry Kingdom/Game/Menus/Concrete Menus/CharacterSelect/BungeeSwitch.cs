@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using CoreEngine;
-using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
 {

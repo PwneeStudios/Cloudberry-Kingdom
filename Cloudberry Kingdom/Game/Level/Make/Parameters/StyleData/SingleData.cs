@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-
-using CoreEngine;
 using CoreEngine.Random;
 
 namespace CloudberryKingdom.Levels

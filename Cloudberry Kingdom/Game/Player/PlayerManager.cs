@@ -3,8 +3,6 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using CloudberryKingdom.Awards;
 using System.IO;
 using CoreEngine;
 

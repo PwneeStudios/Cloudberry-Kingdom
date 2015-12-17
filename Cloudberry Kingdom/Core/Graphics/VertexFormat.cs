@@ -1,18 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-using System.IO;
 using System.Runtime.InteropServices;
-using CloudberryKingdom;
 
 namespace CoreEngine
-{    
+{
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct MyOwnVertexFormat : IVertexType //, IReadWrite
     {

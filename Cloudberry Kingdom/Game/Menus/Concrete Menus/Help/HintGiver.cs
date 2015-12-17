@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using input = Microsoft.Xna.Framework.Input;
 
 using CloudberryKingdom.Levels;

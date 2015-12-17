@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using CloudberryKingdom.Blocks;
-using CloudberryKingdom.InGameObjects;
 
 namespace CloudberryKingdom.Levels
 {

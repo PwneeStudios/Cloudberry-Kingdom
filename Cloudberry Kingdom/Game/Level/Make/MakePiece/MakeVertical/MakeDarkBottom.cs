@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-
-using CloudberryKingdom.Blocks;
+﻿using Microsoft.Xna.Framework;
 
 namespace CloudberryKingdom.Levels
 {

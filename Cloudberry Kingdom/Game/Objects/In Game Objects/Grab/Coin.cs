@@ -1,10 +1,7 @@
 ﻿using System;
-using System.IO;
 using Microsoft.Xna.Framework;
 
 using CoreEngine;
-
-using CloudberryKingdom.Particles;
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom.InGameObjects

@@ -1,9 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using CoreEngine;
-
-using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Particles
 {

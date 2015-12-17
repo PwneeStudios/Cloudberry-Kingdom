@@ -1,13 +1,6 @@
-using System.Linq;
 using System.Globalization;
-using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-
-using CloudberryKingdom.Blocks;
-using CloudberryKingdom.Levels;
-
-using CoreEngine;
 
 namespace CloudberryKingdom
 {

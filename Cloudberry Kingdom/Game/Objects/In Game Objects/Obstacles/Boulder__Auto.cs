@@ -1,8 +1,6 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
-
-using CoreEngine;
 using CoreEngine.Random;
 
 using CloudberryKingdom.Bobs;

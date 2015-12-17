@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 
-using CloudberryKingdom.Stats;
 
 namespace CloudberryKingdom
 {
