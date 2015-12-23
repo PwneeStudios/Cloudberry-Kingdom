@@ -13,8 +13,8 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaCrossPlatformGroupID>de5e9eb9-8936-4d51-947e-032e8faf63fd</XnaCrossPlatformGroupID>
-    <ApplicationIcon>Cloudberry.ico</ApplicationIcon>
-    <Thumbnail>BobIcon.png</Thumbnail>
+    <ApplicationIcon>CloudberryIcon.ico</ApplicationIcon>
+    <Thumbnail>CloudberryIcon.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>528E677AEC1BCA314EEA5B3336002A83C917FCEA</ManifestCertificateThumbprint>
     <ManifestKeyFile>WindowsGame1_TemporaryKey.pfx</ManifestKeyFile>
@@ -179,9 +179,6 @@
     <Reference Include="Steamworks.NET">
       <HintPath>..\References\Steam\Steamworks.NET.dll</HintPath>
     </Reference>
-    <Reference Include="SteamWrapper">
-      <HintPath>..\..\..\..\Tools\SteamWrapper\Release\SteamWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -203,7 +200,7 @@
     <Compile Include="Engine\Chunk.cs" />
     <Compile Include="Engine\Effects\EzEffectWad.cs" />
     <Compile Include="Engine\Input\CoreInput.cs" />
-    <Compile Include="Engine\Particle Effects\Specific Effects\CoinDie.cs" />
+    <Compile Include="Engine\ParticleEffects\Specific Effects\CoinDie.cs" />
     <Compile Include="Engine\Tools\Set.cs" />
     <Compile Include="Engine\Graphics\MainRender.cs" />
     <Compile Include="Engine\ResolutionGroup.cs" />
@@ -219,30 +216,30 @@
     <Compile Include="MainClass\DebugHelper.cs" />
     <Compile Include="MainClass\DebugHelper_MakeTestLevel.cs" />
     <Compile Include="MainClass\InitialLoading.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Madness\Madness_Tutorial.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Madness\Madness.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Madness\Madness_Tutorial.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Madness\Madness.cs" />
     <Compile Include="Menus\CharacterSelect\BungeeSwitch.cs" />
-    <Compile Include="Menus\Title Screen\Arcade\Hero Select\HeroItem.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartLevelMenu_Clouds.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Backpanel.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Black.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_CustomLevel.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Exit.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Options.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Pre.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_PressStart.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Simple.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Campaign.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Cinematics.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_Arcade.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\StartMenu_Clouds_HeroSelect.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\TitleGame_Clouds.cs" />
-    <Compile Include="Menus\Title Screen\CinematicsLevelItem.cs" />
-    <Compile Include="Menus\Title Screen\CampaignChapterItem.cs" />
-    <Compile Include="Player\Hero Physics\Blobby.cs" />
-    <Compile Include="Player\Hero Physics\UpsideDown.cs" />
-    <Compile Include="Player\Hero Physics\FourWay.cs" />
+    <Compile Include="Menus\TitleScreen\Arcade\Hero Select\HeroItem.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartLevelMenu_Clouds.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Backpanel.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Black.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_CustomLevel.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Exit.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Options.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Pre.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_PressStart.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Simple.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Campaign.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Cinematics.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_Arcade.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\StartMenu_Clouds_HeroSelect.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\TitleGame_Clouds.cs" />
+    <Compile Include="Menus\TitleScreen\CinematicsLevelItem.cs" />
+    <Compile Include="Menus\TitleScreen\CampaignChapterItem.cs" />
+    <Compile Include="Player\HeroPhysics\Blobby.cs" />
+    <Compile Include="Player\HeroPhysics\UpsideDown.cs" />
+    <Compile Include="Player\HeroPhysics\FourWay.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Palace.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Dungeon.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\_Code\_code_Anders_Terrace.cs" />
@@ -254,7 +251,7 @@
     <Compile Include="Games\Campaign\FadeIn.cs" />
     <Compile Include="Games\Campaign\LevelSequence.cs" />
     <Compile Include="Games\ActionGame.cs" />
-    <Compile Include="Games\Meta Games\Challenges\_Spaceship.cs" />
+    <Compile Include="Games\MetaGames\Challenges\_Spaceship.cs" />
     <Compile Include="Games\ToDoItem.cs" />
     <Compile Include="Level\Make\DifficultyHelper.cs" />
     <Compile Include="Menus\CharacterSelect\ArrowMenu.cs">
@@ -288,17 +285,17 @@
     <Compile Include="Menus\CharacterSelect\Waiting.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Menus\Title Screen\Freeplay\CustomHero_GUI.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\PhsxSlider.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\CustomHero_GUI.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\PhsxSlider.cs" />
     <Compile Include="Menus\CharacterSelect\Backdrop.cs" />
     <Compile Include="Menus\Help\HelpBlurb.cs" />
     <Compile Include="Menus\InGameStartMenus\Verify\AlertBase.cs" />
-    <Compile Include="Menus\Score Screens\ScoreDatabase.cs" />
-    <Compile Include="Menus\Score Screens\ScoreEntry.cs" />
-    <Compile Include="Menus\Title Screen\Arcade\LevelItem.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu_Clouds\HeroSelectOptions_Clouds.cs" />
-    <Compile Include="Menus\Title Screen\Arcade\Hero Select\Doll.cs" />
-    <Compile Include="Menus\Title Screen\VerifyStoryReset.cs" />
+    <Compile Include="Menus\ScoreScreens\ScoreDatabase.cs" />
+    <Compile Include="Menus\ScoreScreens\ScoreEntry.cs" />
+    <Compile Include="Menus\TitleScreen\Arcade\LevelItem.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu_Clouds\HeroSelectOptions_Clouds.cs" />
+    <Compile Include="Menus\TitleScreen\Arcade\Hero Select\Doll.cs" />
+    <Compile Include="Menus\TitleScreen\VerifyStoryReset.cs" />
     <Compile Include="Objects\AutoGen.cs" />
     <Compile Include="Objects\BaseClasses\_BoxDeath.cs" />
     <Compile Include="Objects\BaseClasses\_CircleDeath.cs" />
@@ -337,7 +334,7 @@
     <Compile Include="Objects\Grab\Coin.cs" />
     <Compile Include="Objects\Grab\Coin__Auto.cs" />
     <Compile Include="Objects\BaseClasses\IBounded.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\Icon.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\Icon.cs" />
     <Compile Include="Objects\BaseClasses\IPrepareToDraw.cs" />
     <Compile Include="Objects\BaseClasses\ObjectBase.cs" />
     <Compile Include="Objects\Obstacles\BlockEmitter.cs" />
@@ -376,10 +373,10 @@
     <Compile Include="Player\Leaderboard_Steam.cs" />
     <Compile Include="Player\LeaderboardView.cs" />
     <Compile Include="Player\Leaderboard.cs" />
-    <Compile Include="Player\Hero Physics\TimeShip.cs" />
+    <Compile Include="Player\HeroPhysics\TimeShip.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\_Code\_Dark.cs" />
     <Compile Include="Config\CkColorHelper.cs" />
-    <Compile Include="Engine\Menu Components\MiniMenu.cs" />
+    <Compile Include="Engine\MenuComponents\MiniMenu.cs" />
     <Compile Include="UI\GameObjects\MultiplierUp.cs" />
     <Compile Include="UI\GameObjects\GUI_Multiplier.cs" />
     <Compile Include="Player\Awardments\AwardmentMessage.cs" />
@@ -415,17 +412,17 @@
     <Compile Include="__Editors\Background Editor\BackgroundViewer.Designer.cs">
       <DependentUpon>BackgroundViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player\Hero Physics\Jetman.cs" />
-    <Compile Include="Player\Hero Physics\Double.cs" />
-    <Compile Include="Player\Hero Physics\Bouncy.cs" />
-    <Compile Include="Player\Hero Physics\Small.cs" />
-    <Compile Include="Player\Hero Physics\Big.cs" />
-    <Compile Include="Player\Hero Physics\Random.cs" />
-    <Compile Include="Player\Hero Physics\Scale.cs" />
-    <Compile Include="Player\Hero Physics\Rocketbox.cs" />
-    <Compile Include="Player\Hero Physics\Invert.cs" />
-    <Compile Include="Player\Hero Physics\Meat.cs" />
-    <Compile Include="Player\Hero Physics\Time.cs" />
+    <Compile Include="Player\HeroPhysics\Jetman.cs" />
+    <Compile Include="Player\HeroPhysics\Double.cs" />
+    <Compile Include="Player\HeroPhysics\Bouncy.cs" />
+    <Compile Include="Player\HeroPhysics\Small.cs" />
+    <Compile Include="Player\HeroPhysics\Big.cs" />
+    <Compile Include="Player\HeroPhysics\Random.cs" />
+    <Compile Include="Player\HeroPhysics\Scale.cs" />
+    <Compile Include="Player\HeroPhysics\Rocketbox.cs" />
+    <Compile Include="Player\HeroPhysics\Invert.cs" />
+    <Compile Include="Player\HeroPhysics\Meat.cs" />
+    <Compile Include="Player\HeroPhysics\Time.cs" />
     <Compile Include="Engine\Animation\AnimationData_Integer.cs" />
     <Compile Include="Engine\Animation\AnimQueue.cs" />
     <Compile Include="Engine\PhsxData.cs" />
@@ -433,22 +430,22 @@
     <Compile Include="Engine\Effects\EzEffect.cs" />
     <Compile Include="Engine\Song\EzSong.cs" />
     <Compile Include="Games\TutorialHelper.cs" />
-    <Compile Include="Games\Meta Games\Challenges\_Regular.cs">
+    <Compile Include="Games\MetaGames\Challenges\_Regular.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Games\Meta Games\Arcade Games\HeroFactory_Escalation.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Time Crisis\TimeCrisis_Tutorial.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Time Crisis\TimeCrisis.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Escalate\Escalation_Tutorial.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Hero Rush 2\HeroRush2_Tutorial.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Rush.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Hero Rush 2\HeroRush2.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Escalate\Escalation.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\HeroFactory_Escalation.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Time Crisis\TimeCrisis_Tutorial.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Time Crisis\TimeCrisis.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Escalate\Escalation_Tutorial.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Hero Rush 2\HeroRush2_Tutorial.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Rush.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Hero Rush 2\HeroRush2.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Escalate\Escalation.cs" />
     <Compile Include="Games\ScreenSaver.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\CoinMod.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Hero Rush\HeroRush_Tutorial.cs" />
-    <Compile Include="Games\Meta Games\Arcade Games\Rush\Hero Rush\HeroRush.cs" />
-    <Compile Include="Games\Meta Games\StringWorlds\StringWorld_Timed.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\CoinMod.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Hero Rush\HeroRush_Tutorial.cs" />
+    <Compile Include="Games\MetaGames\Arcade Games\Rush\Hero Rush\HeroRush.cs" />
+    <Compile Include="Games\MetaGames\StringWorlds\StringWorld_Timed.cs" />
     <Compile Include="Menus\Help\HintBlurb.cs" />
     <Compile Include="Menus\Help\HelpMenu.cs" />
     <Compile Include="Menus\Help\HintGiver.cs" />
@@ -490,46 +487,46 @@
     <Compile Include="Level\Make\Parameters\StyleData\DownData.cs" />
     <Compile Include="Level\Make\MakeLevel.cs" />
     <Compile Include="Level\Make\DifficultyGroups.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuListAll.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuListExpand.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuScrollBar.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuSliderNoSlide.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuToggle.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuSliderBase.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuList.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuSlider.cs" />
-    <Compile Include="Engine\Menu Components\Components\MenuItem.cs" />
-    <Compile Include="Engine\Menu Components\Components\ScrollBar.cs" />
-    <Compile Include="Engine\Particle Effects\Specific Effects\CoinExplosion.cs" />
-    <Compile Include="Engine\Particle Effects\ParticleEmitter.cs" />
-    <Compile Include="Engine\Collision Detection\Circle.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuListAll.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuListExpand.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuScrollBar.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuSliderNoSlide.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuToggle.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuSliderBase.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuList.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuSlider.cs" />
+    <Compile Include="Engine\MenuComponents\Components\MenuItem.cs" />
+    <Compile Include="Engine\MenuComponents\Components\ScrollBar.cs" />
+    <Compile Include="Engine\ParticleEffects\Specific Effects\CoinExplosion.cs" />
+    <Compile Include="Engine\ParticleEffects\ParticleEmitter.cs" />
+    <Compile Include="Engine\CollisionDetection\Circle.cs" />
     <Compile Include="Player\ColorScheme.cs" />
     <Compile Include="Player\ColorSchemeManager.cs" />
     <Compile Include="Player\SavedSeeds.cs" />
     <Compile Include="Player\Stats.cs" />
     <Compile Include="Player\PlayerManager.cs" />
     <Compile Include="Player\PlayerData.cs" />
-    <Compile Include="Menus\Score Screens\StatsScreen.cs" />
-    <Compile Include="Menus\Score Screens\ScoreList.cs" />
-    <Compile Include="Menus\Score Screens\ScoreScreen.cs" />
+    <Compile Include="Menus\ScoreScreens\StatsScreen.cs" />
+    <Compile Include="Menus\ScoreScreens\ScoreList.cs" />
+    <Compile Include="Menus\ScoreScreens\ScoreScreen.cs" />
     <Compile Include="Player\Awardments\Awardment.cs" />
     <Compile Include="Games\CampaignHelper.cs" />
-    <Compile Include="Menus\Title Screen\Arcade\ArcadeMenu.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\SavedSeedsGUI.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\LengthSlider.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\CustomLevel_GUI.cs" />
-    <Compile Include="Menus\Title Screen\Freeplay\CustomUpgrades_GUI.cs" />
-    <Compile Include="Menus\Loading Screen\LoadingScreen.cs" />
-    <Compile Include="Menus\Title Screen\Sub Menus\SoundMenu.cs" />
+    <Compile Include="Menus\TitleScreen\Arcade\ArcadeMenu.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\SavedSeedsGUI.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\LengthSlider.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\CustomLevel_GUI.cs" />
+    <Compile Include="Menus\TitleScreen\Freeplay\CustomUpgrades_GUI.cs" />
+    <Compile Include="Menus\LoadingScreen\LoadingScreen.cs" />
+    <Compile Include="Menus\TitleScreen\Sub Menus\SoundMenu.cs" />
     <Compile Include="Menus\CkBaseMenu.cs" />
-    <Compile Include="Games\Meta Games\Challenges\Challenge_Base.cs" />
-    <Compile Include="Games\Meta Games\StringWorlds\StringWorld_Endurance.cs" />
+    <Compile Include="Games\MetaGames\Challenges\Challenge_Base.cs" />
+    <Compile Include="Games\MetaGames\StringWorlds\StringWorld_Endurance.cs" />
     <Compile Include="UI\GameObjects\End\GameOverPanel.cs" />
-    <Compile Include="Menus\Loading Screen\Loading.cs" />
+    <Compile Include="Menus\LoadingScreen\Loading.cs" />
     <Compile Include="Engine\Graphics\Draw\DrawPile.cs" />
-    <Compile Include="Menus\Title Screen\TitleGameBase.cs" />
-    <Compile Include="Menus\Title Screen\StartMenu.cs" />
-    <Compile Include="Games\Meta Games\StringWorlds\LevelConnector.cs" />
+    <Compile Include="Menus\TitleScreen\TitleGameBase.cs" />
+    <Compile Include="Menus\TitleScreen\StartMenu.cs" />
+    <Compile Include="Games\MetaGames\StringWorlds\LevelConnector.cs" />
     <Compile Include="UI\GameObjects\GUI_Timer.cs" />
     <Compile Include="UI\GameObjects\GUI_Panel.cs" />
     <Compile Include="UI\GameObject.cs" />
@@ -547,12 +544,12 @@
     <Compile Include="Level\Make\Parameters\StyleData\SingleData.cs" />
     <Compile Include="Level\Make\Parameters\StyleData\OneScreenData.cs" />
     <Compile Include="Level\Make\Parameters\StyleData\UpData.cs" />
-    <Compile Include="Engine\Menu Components\LongMenu.cs" />
-    <Compile Include="Menus\Title Screen\Sub Menus\VerifyQuitGame.cs" />
+    <Compile Include="Engine\MenuComponents\LongMenu.cs" />
+    <Compile Include="Menus\TitleScreen\Sub Menus\VerifyQuitGame.cs" />
     <Compile Include="Engine\SteamManager.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\BackgroundCollection.cs" />
-    <Compile Include="Player\Hero Physics\BobPhsxCharSelect.cs" />
-    <Compile Include="Player\Hero Physics\Wheel.cs" />
+    <Compile Include="Player\HeroPhysics\BobPhsxCharSelect.cs" />
+    <Compile Include="Player\HeroPhysics\Wheel.cs" />
     <Compile Include="Menus\CharacterSelect\CharSelectManager.cs" />
     <Compile Include="Engine\Text\EzFont.cs" />
     <Compile Include="Engine\FancyColor.cs" />
@@ -633,10 +630,10 @@
     <Compile Include="Player\ClrTextFx.cs" />
     <Compile Include="Engine\Animation\AnimationData_Vector.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\Background.cs" />
-    <Compile Include="Player\Hero Physics\Base.cs" />
-    <Compile Include="Player\Hero Physics\Box.cs" />
-    <Compile Include="Player\Hero Physics\Normal.cs" />
-    <Compile Include="Player\Hero Physics\Spaceship.cs" />
+    <Compile Include="Player\HeroPhysics\Base.cs" />
+    <Compile Include="Player\HeroPhysics\Box.cs" />
+    <Compile Include="Player\HeroPhysics\Normal.cs" />
+    <Compile Include="Player\HeroPhysics\Spaceship.cs" />
     <Compile Include="Engine\Input\ButtonCheck.cs" />
     <Compile Include="Engine\GameTools\Camera.cs" />
     <Compile Include="Player\Cape.cs" />
@@ -648,10 +645,10 @@
     <Compile Include="Engine\Graphics\Draw\Quads\Quad.cs" />
     <Compile Include="Engine\Text\EzText.cs" />
     <Compile Include="Games\GameType.cs" />
-    <Compile Include="Engine\Collision Detection\Phsx.cs" />
-    <Compile Include="Engine\Collision Detection\AABox.cs" />
-    <Compile Include="Engine\Collision Detection\Line.cs" />
-    <Compile Include="Engine\Collision Detection\FloatRectangle.cs" />
+    <Compile Include="Engine\CollisionDetection\Phsx.cs" />
+    <Compile Include="Engine\CollisionDetection\AABox.cs" />
+    <Compile Include="Engine\CollisionDetection\Line.cs" />
+    <Compile Include="Engine\CollisionDetection\FloatRectangle.cs" />
     <Compile Include="Engine\Tools\Random.cs" />
     <Compile Include="Engine\GameTools\TextInput.cs" />
     <Compile Include="Engine\GameTools\CoreStorage.cs" />
@@ -660,20 +657,20 @@
     <Compile Include="Engine\GameTools\CoreReader.cs" />
     <Compile Include="Engine\GameTools\Globals.cs" />
     <Compile Include="Level\Level.cs" />
-    <Compile Include="Menus\Loading Screen\ILoadingScreen.cs" />
-    <Compile Include="Engine\Menu Components\Menu.cs" />
+    <Compile Include="Menus\LoadingScreen\ILoadingScreen.cs" />
+    <Compile Include="Engine\MenuComponents\Menu.cs" />
     <Compile Include="Games\NormalGame.cs" />
     <Compile Include="Engine\Graphics\VertexFormat.cs" />
-    <Compile Include="Engine\Particle Effects\Specific Effects\ParticleEffects.cs" />
+    <Compile Include="Engine\ParticleEffects\Specific Effects\ParticleEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Engine\Particle Effects\Particle.cs" />
+    <Compile Include="Engine\ParticleEffects\Particle.cs" />
     <Compile Include="Engine\GameTools\Prototypes.cs" />
     <Compile Include="Engine\GameTools\Recycler.cs" />
     <Compile Include="Engine\Texture\EzTexture.cs" />
     <Compile Include="Engine\GameTools\Tools.cs" />
     <Compile Include="Engine\GameTools\Unset.cs" />
     <Compile Include="Engine\GameTools\WrappedFloat.cs" />
-    <Compile Include="Games\Meta Games\StringWorlds\StringWorld.cs" />
+    <Compile Include="Games\MetaGames\StringWorlds\StringWorld.cs" />
     <Compile Include="Engine\IViewable.cs" />
     <Compile Include="__Editors\GUI Editor\GameObjViewer.cs">
       <SubType>Form</SubType>
@@ -761,8 +758,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BobIcon.png" />
-    <Content Include="Cloudberry.ico" />
+    <Content Include="CloudberryIcon.png" />
+    <Content Include="CloudberryIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ContentPC\Content.contentproj">

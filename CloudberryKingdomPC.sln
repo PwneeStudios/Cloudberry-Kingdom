@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Cloudberry Kingdom\Game.csproj", "{7534FCCD-467A-4312-B9A9-47351EF6558B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{7534FCCD-467A-4312-B9A9-47351EF6558B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Cloudberry Kingdom\ContentPC\Content.contentproj", "{CE0C1B81-ECEF-490F-933A-E4E696B5E486}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Game\ContentPC\Content.contentproj", "{CE0C1B81-ECEF-490F-933A-E4E696B5E486}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
