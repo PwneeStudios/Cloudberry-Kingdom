@@ -528,18 +528,18 @@ namespace CloudberryKingdom
 			foreach (GameObject obj in HoldGame.MyGameObjects)
 			{
 				GUI_Panel panel = obj as GUI_Panel;
-				if (null != panel && (panel is StartMenu_MW_Pre || panel is StartMenu_MW_PressStart || panel is StartMenu_MW_Simple))
+				if (null != panel && (panel is StartMenu_Clouds_Pre || panel is StartMenu_Clouds_PressStart || panel is StartMenu_Clouds_Simple))
 				{
 #if PC
-					if (panel is StartMenu_MW_Simple)
-						((StartMenu_MW_Simple)panel).Title.BackPanel.SetState(TitleBackgroundState.Scene_Title);
+					if (panel is StartMenu_Clouds_Simple)
+						((StartMenu_Clouds_Simple)panel).Title.BackPanel.SetState(TitleBackgroundState.Scene_Title);
 					else
 						panel.SlideOut(PresetPos.Left, 0);
 #else
 					panel.SlideOut(PresetPos.Left, 0);
 
-					if (panel is StartMenu_MW_Pre)
-						((StartMenu_MW_Pre)panel).Title.BackPanel.SetState(StartMenu_MW_Backpanel.State.Scene_Title);
+					if (panel is StartMenu_Clouds_Pre)
+						((StartMenu_Clouds_Pre)panel).Title.BackPanel.SetState(StartMenu_Clouds_Backpanel.State.Scene_Title);
 #endif
 				}
 			}

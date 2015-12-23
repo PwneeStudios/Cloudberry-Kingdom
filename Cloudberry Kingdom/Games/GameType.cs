@@ -435,7 +435,7 @@ namespace CloudberryKingdom
         /// </summary>
         public void SlideOut_FadeIn(int Delay, Action OnBlack)
         {
-            var black = new StartMenu_MW_Black();
+            var black = new StartMenu_Clouds_Black();
             AddGameObject(black);
 
             // Wait then screen swipe to black.

@@ -18,7 +18,6 @@ namespace CloudberryKingdom
 
         public static ObjectIcon RobotIcon, PathIcon, SlowMoIcon;
         public static ObjectIcon CheckpointIcon, RandomIcon, CustomIcon, CustomHoverIcon;
-        //public static ObjectIcon UncheckedIcon, CheckIcon
 
         public static Dictionary<Upgrade, ObjectIcon> UpgradeIcons;
         public static Dictionary<ObjectType, ObjectIcon> ObjIcons;

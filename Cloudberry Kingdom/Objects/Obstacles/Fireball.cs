@@ -95,15 +95,12 @@ namespace CloudberryKingdom.Obstacles
         float PrevStep;
         Vector2 GetPos()
         {
-            //if (!Alive) Tools.Write("!");
-
             float Step = (Core.MyLevel.IndependentPhsxStep - Offset + Period) % Period;
 
             if (PrevStep > Step) Alive = true;
 
             PrevStep = Step;
-
-            //Tools.Write(Core.StartData.Velocity.Length());
+            
             return Core.StartData.Position + Step * Core.StartData.Velocity;
         }
 
@@ -116,8 +113,10 @@ namespace CloudberryKingdom.Obstacles
                 return;
             }
             else
+            {
                 Core.Active = true;
-            
+            }
+
             Pos = GetPos();
             
             base.ActivePhsxStep();

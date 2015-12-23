@@ -85,7 +85,7 @@ namespace CloudberryKingdom
 
             Testing = true;
 
-            var custom = CustomLevel as StartMenu_MW_CustomLevel;
+            var custom = CustomLevel as StartMenu_Clouds_CustomLevel;
             custom.Title.BackPanel.SetState(TitleBackgroundState.None);
         }
 
@@ -109,7 +109,7 @@ namespace CloudberryKingdom
 
         void EndTest()
         {
-            var custom = CustomLevel as StartMenu_MW_CustomLevel;
+            var custom = CustomLevel as StartMenu_Clouds_CustomLevel;
             custom.Title.BackPanel.SetState(TitleBackgroundState.Scene_Blur_Dark);
 
             Testing = false;

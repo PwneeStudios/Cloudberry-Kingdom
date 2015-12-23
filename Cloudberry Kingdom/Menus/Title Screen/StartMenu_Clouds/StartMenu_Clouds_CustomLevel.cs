@@ -13,13 +13,11 @@ namespace CloudberryKingdom
         {
             Title.BackPanel.SetState(TitleBackgroundState.Scene_Blur_Dark);
             
-            //base.SlideIn(0);
             base.SlideIn(Frames);
         }
 
         public override void SlideOut(PresetPos Preset, int Frames)
         {
-            //base.SlideOut(Preset, 0);
             base.SlideOut(Preset, Frames);
         }
 
@@ -39,17 +37,11 @@ namespace CloudberryKingdom
 
             CallDelay = 0;
             ReturnToCallerDelay = 0;
-            //ReturnToCallerDelay = 10;
             MyMenu.OnB = MenuReturnToCaller;
         }
 
         public override void ReturnToCaller()
         {
-            //Active = false;
-            //SlideOutLength = 0;
-            //Hide();
-            //MyGame.PartialFade_InAndOut(0, .5f, 2, 2, base.ReturnToCaller);
-
             SlideOutLength = 0;
             base.ReturnToCaller();
         }
