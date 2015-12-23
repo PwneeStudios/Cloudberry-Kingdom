@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using CoreEngine;
 using CoreEngine.Random;
 
-using CloudberryKingdom.Levels;
 using CloudberryKingdom.Particles;
+using CloudberryKingdom.Levels;
 
 namespace CloudberryKingdom.Obstacles
 {
@@ -38,23 +38,19 @@ namespace CloudberryKingdom.Obstacles
         {
             DrawWidth = Width;
             DrawHeight = Height;
-            FireballRenderTarget = new RenderTarget2D(device,
-                DrawWidth, DrawHeight, false,
-                                   pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
-                                   RenderTargetUsage.DiscardContents);
+            FireballRenderTarget = new RenderTarget2D(
+                device, DrawWidth, DrawHeight, false,
+                pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
+                RenderTargetUsage.DiscardContents);
 
+            FlameRenderTarget = new RenderTarget2D(
+                device, 300, 300, false,
+                pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
+                RenderTargetUsage.DiscardContents);
 
-
-            FlameRenderTarget = new RenderTarget2D(device,
-                300, 300, false,
-                                   pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
-                                   RenderTargetUsage.DiscardContents);
-
-            EmitterRenderTarget = new RenderTarget2D(device,
-                300, 300, false,
-                                   pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
-                                   RenderTargetUsage.DiscardContents);
-
+            EmitterRenderTarget = new RenderTarget2D(device, 300, 300, false,
+                pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount,
+                RenderTargetUsage.DiscardContents);
 
             ShadeQuad = new Quad();
             ShadeQuad.MyEffect = Tools.EffectWad.FindByName("Fireball");
@@ -107,8 +103,6 @@ namespace CloudberryKingdom.Obstacles
             ExplodeTemplate.SizeSpeed = new Vector2(5, 5);// new Vector2(5, 5);
             ExplodeTemplate.AngleSpeed = .035f;
             ExplodeTemplate.Life = 35;
-            //ExplodeTemplate.MyColor = new Vector4(.96f, .94f, .94f, 1f);
-            //ExplodeTemplate.ColorVel = new Vector4(0.00f, -0.007f, -0.007f, -.03f);
             ExplodeTemplate.MyColor = new Vector4(1f, 1f, 1f, 1f);
             ExplodeTemplate.ColorVel = new Vector4(0.00f, -0.003f, -0.003f, -.03f);
             ExplodeTemplate.MyQuad.BlendAddRatio = 0f;
@@ -140,8 +134,7 @@ namespace CloudberryKingdom.Obstacles
             {
                 var p = Flame_Emitter.GetNewParticle(EmitterTemplate);
                 Vector2 Dir = Rnd.RndDir();
-                p.Data.Position = 20 * Dir; //+ Tools.CurLevel.MainCamera.Data.Position;
-                //p.Data.Velocity = 4 * (float)MyLevel.Rnd.Rnd.NextDouble() * Dir;
+                p.Data.Position = 20 * Dir;
                 p.Data.Velocity = 8.5f * (float)Rnd.Rnd.NextDouble() * Dir;
                 p.Data.Acceleration -= .07f * p.Data.Velocity;
                 p.AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
@@ -251,7 +244,6 @@ namespace CloudberryKingdom.Obstacles
                 p.Size *= ScaleQuad;
 
                 p.AngleSpeed *= 2 * (float)(Rnd.Rnd.NextDouble() - .5f);
-                //p.ColorVel.W *= (float)(.3f * Rnd.Rnd.NextDouble() + .7f);
             }
         }
     }

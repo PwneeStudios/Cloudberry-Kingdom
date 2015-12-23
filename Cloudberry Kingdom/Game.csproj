@@ -215,6 +215,7 @@
     <Compile Include="Engine\Texture\EzTextureWad.cs" />
     <Compile Include="Engine\Tools\ColorHelper.cs" />
     <Compile Include="Engine\Tools\CoreMath.cs" />
+    <Compile Include="Engine\Tools\XboxHelper.cs" />
     <Compile Include="Engine\Version.cs" />
     <Compile Include="MainClass\CloudberryKingdom.cs" />
     <Compile Include="MainClass\DebugHelper.cs" />

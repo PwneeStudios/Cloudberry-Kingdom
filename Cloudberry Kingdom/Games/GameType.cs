@@ -439,19 +439,17 @@ namespace CloudberryKingdom
             AddGameObject(black);
 
             // Wait then screen swipe to black.
-            WaitThenDo(Delay, black.SlideFromRight, "SlideOut_FadeIn");
+            WaitThenDo(Delay, black.SlideIn, "SlideOut_FadeIn");
 
             // Wait for screen to be completely black, then fade in.
-            WaitThenDo(Delay + 17,
-                () =>
-                {
-                    // Get rid of black screen swipe.
-                    black.MyPile.Alpha = 0; black.CollectSelf();
+            WaitThenDo(Delay + 17, () => {
+                // Get rid of black screen swipe.
+                black.MyPile.Alpha = 0; black.CollectSelf();
 
-                    // Fade in and do action.
-                    FadeIn(.025f);
-                    if (OnBlack != null) OnBlack();
-                }, "SlideOut_FadeIn");
+                // Fade in and do action.
+                FadeIn(.025f);
+                if (OnBlack != null) OnBlack();
+            }, "SlideOut_FadeIn");
         }
 
         public Door CurDoor;
